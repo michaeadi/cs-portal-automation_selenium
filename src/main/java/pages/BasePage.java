@@ -1,0 +1,107 @@
+package pages;
+
+import lombok.extern.log4j.Log4j2;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
+
+@Log4j2
+public class BasePage {
+    public WebDriver driver;
+    public WebDriverWait wait;
+
+    //Constructor
+    public BasePage(WebDriver driver) {
+        this.driver = driver;
+        wait = new WebDriverWait(driver, Duration.ofSeconds(40));
+        driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
+
+    }
+
+    //Click Method
+    void click(By elementLocation) {
+        waitVisibility(elementLocation);
+        highLighterMethod(elementLocation);
+        driver.findElement(elementLocation).click();
+        log.info("Clicking on element" + elementLocation.toString());
+    }
+
+    //Write Text
+    void writeText(By elementLocation, String text) {
+        waitVisibility(elementLocation);
+        highLighterMethod(elementLocation);
+        driver.findElement(elementLocation).sendKeys(text);
+        log.info("Writing " + text + "to  " + elementLocation.toString());
+
+    }
+
+    //Read Text
+    String readText(By elementLocation) {
+        waitVisibility(elementLocation);
+//        highLighterMethod(elementLocation);
+        return driver.findElement(elementLocation).getText();
+    }
+
+    //HighlightElement
+    void highLighterMethod(By element) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].setAttribute('style', 'border: 2px solid black;');", driver.findElement(element));
+    }
+
+    //Check the state of element
+    boolean checkState(By elementLocation) {
+        waitVisibility(elementLocation);
+        highLighterMethod(elementLocation);
+        return driver.findElement(elementLocation).isEnabled();
+    }
+
+    //Wait For Element
+    void waitVisibility(By by) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+    }
+
+    void waitAndSwitchWindow(int windownumber) {
+        wait.until(ExpectedConditions.numberOfWindowsToBe(windownumber));
+        ArrayList<String> tabs2 = new ArrayList<>(driver.getWindowHandles());
+        driver.switchTo().window(tabs2.get(windownumber - 1));
+    }
+
+    //Hover and click on Element Using ACTIONS class
+    void hoverAndClick(By elementLocation) {
+        Actions actions = new Actions(driver);
+        waitVisibility(elementLocation);
+        WebElement target = driver.findElement(elementLocation);
+        actions.moveToElement(target).build().perform();
+    }
+
+    //Asserting Current URL
+    void AssertCurrentURL(String URL) {
+        String currentUrl = driver.getCurrentUrl();
+        Assert.assertEquals(currentUrl, URL);
+    }
+
+    //Wait and Switch to Frame
+    void waitAndSwitchFrame(String Frame) {
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(Frame));
+
+    }
+
+    //Switch to parent frame
+    void switchToParentFrme() {
+        driver.switchTo().parentFrame();
+    }
+
+    // Validate element is visible
+    void assertElementVisible(By Element) {
+        Assert.assertTrue(driver.findElement(Element).isDisplayed());
+    }
+}

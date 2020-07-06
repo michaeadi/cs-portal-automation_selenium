@@ -1,0 +1,7 @@
+2020-07-01 14:06:48.551 [INFO /main/openBaseURL]: HomePage(27): Opening URL:-http://172.23.36.206:30050/#/login
+2020-07-01 14:06:48.563 [INFO /main/enterAUUID]: HomePage(32): Entering AUUID :2388192In username
+2020-07-01 14:06:48.732 [INFO /main/writeText]: BasePage(43): Writing 2388192to  By.xpath: //input[@autocomplete="new-password"]
+2020-07-01 14:06:48.732 [INFO /main/clickOnSubmitBtn]: HomePage(38): Clicking on Submit button
+2020-07-01 14:06:48.828 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath:  //*[@type='submit']
+2020-07-01 14:06:48.828 [INFO /main/getEnteredAUUID]: HomePage(43): reading AUUID from Pre filled field
+2020-07-01 14:06:48.886 [INFO /main/enterPassword]: HomePage(48): Send password to Password field

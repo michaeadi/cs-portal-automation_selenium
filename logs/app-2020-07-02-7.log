@@ -1,0 +1,21 @@
+2020-07-02 16:45:41.726 [INFO /main/openBaseURL]: loginPagePOM(27): Opening URL:-http://172.23.36.206:30050/#/login
+2020-07-02 16:45:41.736 [INFO /main/enterAUUID]: loginPagePOM(32): Entering AUUID :2388006In username
+2020-07-02 16:45:41.915 [INFO /main/writeText]: BasePage(43): Writing 2388006to  By.xpath: //input[@autocomplete="new-password"]
+2020-07-02 16:45:41.916 [INFO /main/clickOnSubmitBtn]: loginPagePOM(38): Clicking on Submit button
+2020-07-02 16:45:42.013 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath:  //*[@type='submit']
+2020-07-02 16:45:42.014 [INFO /main/enterPassword]: loginPagePOM(48): Send password to Password field
+2020-07-02 16:45:42.557 [INFO /main/writeText]: BasePage(43): Writing Secure@2021to  By.name: password
+2020-07-02 16:45:42.558 [INFO /main/checkLoginButton]: loginPagePOM(53): checking login button is enabled or not
+2020-07-02 16:45:42.619 [INFO /main/clickOnVisibleButton]: loginPagePOM(63): Clicking on Visible Password Button
+2020-07-02 16:45:43.662 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath:  //*[@class='visibility-icon c-pointer abs visible-status mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted']
+2020-07-02 16:45:43.663 [INFO /main/clickOnVisibleButton]: loginPagePOM(63): Clicking on Visible Password Button
+2020-07-02 16:45:43.770 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath:  //*[@class='visibility-icon c-pointer abs visible-status mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted']
+2020-07-02 16:45:43.770 [INFO /main/clickOnLogin]: loginPagePOM(58): Clicking on Login button
+2020-07-02 16:45:43.866 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath:  //*[@type='submit']
+2020-07-02 16:46:34.036 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //mat-toolbar//button
+2020-07-02 16:46:34.706 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //*[@class="ellipsis"]
+2020-07-02 16:47:25.188 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //mat-toolbar//button
+2020-07-02 16:48:15.338 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //mat-toolbar//button
+2020-07-02 16:48:38.416 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //a[contains(text(),'Customer Interaction')]
+2020-07-02 16:48:38.575 [INFO /main/writeText]: BasePage(43): Writing 731508274to  By.xpath: //input[@name="search"]
+2020-07-02 16:48:38.659 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //button[@class="search-icon-btn"]
