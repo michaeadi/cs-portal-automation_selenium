@@ -104,4 +104,18 @@ public class BasePage {
     void assertElementVisible(By Element) {
         Assert.assertTrue(driver.findElement(Element).isDisplayed());
     }
+
+    void scrollToViewElement(By Element) throws InterruptedException {
+        WebElement element = driver.findElement(Element);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+        Thread.sleep(500);
+    }
+
+    void selectByText(String text) throws InterruptedException {
+        WebElement elementby= driver.findElement(By.xpath("//span[contains(text(),'" + text + "')]"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", elementby);
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("//span[contains(text(),'" + text + "')]")).click();
+        Thread.sleep(2000);
+    }
 }
