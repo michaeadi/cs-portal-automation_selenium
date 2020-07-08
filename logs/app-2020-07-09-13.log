@@ -1,0 +1,23 @@
+2020-07-09 02:53:08.829 [INFO /main/openBaseURL]: loginPagePOM(27): Opening URL:-http://172.23.36.206:30050/#/login
+2020-07-09 02:53:08.861 [INFO /main/enterAUUID]: loginPagePOM(32): Entering AUUID :2390495In username
+2020-07-09 02:53:09.129 [INFO /main/writeText]: BasePage(43): Writing 2390495to  By.xpath: //input[@autocomplete="new-password"]
+2020-07-09 02:53:09.129 [INFO /main/clickOnSubmitBtn]: loginPagePOM(38): Clicking on Submit button
+2020-07-09 02:53:09.374 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath:  //*[@type='submit']
+2020-07-09 02:53:09.376 [INFO /main/enterPassword]: loginPagePOM(48): Send password to Password field
+2020-07-09 02:53:10.013 [INFO /main/writeText]: BasePage(43): Writing June@123$to  By.name: password
+2020-07-09 02:53:10.014 [INFO /main/checkLoginButton]: loginPagePOM(53): checking login button is enabled or not
+2020-07-09 02:53:10.127 [INFO /main/clickOnVisibleButton]: loginPagePOM(63): Clicking on Visible Password Button
+2020-07-09 02:53:10.907 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath:  //*[@class='visibility-icon c-pointer abs visible-status mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted']
+2020-07-09 02:53:10.908 [INFO /main/clickOnVisibleButton]: loginPagePOM(63): Clicking on Visible Password Button
+2020-07-09 02:53:11.084 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath:  //*[@class='visibility-icon c-pointer abs visible-status mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted']
+2020-07-09 02:53:11.084 [INFO /main/clickOnLogin]: loginPagePOM(58): Clicking on Login button
+2020-07-09 02:53:11.181 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath:  //*[@type='submit']
+2020-07-09 02:53:41.223 [INFO /main/isQueueLoginPage]: agentLoginPagePOM(31): Supervisor Login Page
+2020-07-09 02:53:41.441 [INFO /main/checkSkipButton]: agentLoginPagePOM(20): Checking Skip Button
+2020-07-09 02:53:41.593 [INFO /main/checkSubmitButton]: agentLoginPagePOM(25): Checking Submit Button
+2020-07-09 02:53:41.743 [INFO /main/clickSelectQueue]: agentLoginPagePOM(36): Select Login Queue
+2020-07-09 02:53:42.134 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //span[contains(text(),'Select Sub Workgroup (Queue)')]
+2020-07-09 02:53:42.134 [INFO /main/selectAllQueue]: agentLoginPagePOM(57): Selecting ALL Queue
+2020-07-09 02:53:42.515 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //body/div/div/div/div/div/app-select-all/mat-checkbox/label/span[1]
+2020-07-09 02:53:42.515 [INFO /main/clickSubmitBtn]: agentLoginPagePOM(46): Clicking on Submit Button
+2020-07-09 02:53:43.053 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //span[contains(text(),'Submit')]

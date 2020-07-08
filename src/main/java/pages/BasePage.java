@@ -118,4 +118,9 @@ public class BasePage {
         driver.findElement(By.xpath("//span[contains(text(),'" + text + "')]")).click();
         Thread.sleep(2000);
     }
+
+    void clickOutside() {
+        Actions action = new Actions(driver);
+        action.moveByOffset(0, 0).click().build().perform();
+    }
 }

@@ -1,0 +1,21 @@
+2020-07-09 02:56:34.613 [INFO /main/openBaseURL]: loginPagePOM(27): Opening URL:-http://172.23.36.206:30050/#/login
+2020-07-09 02:56:34.630 [INFO /main/enterAUUID]: loginPagePOM(32): Entering AUUID :2390495In username
+2020-07-09 02:56:34.847 [INFO /main/writeText]: BasePage(43): Writing 2390495to  By.xpath: //input[@autocomplete="new-password"]
+2020-07-09 02:56:34.847 [INFO /main/clickOnSubmitBtn]: loginPagePOM(38): Clicking on Submit button
+2020-07-09 02:56:35.089 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath:  //*[@type='submit']
+2020-07-09 02:56:35.090 [INFO /main/enterPassword]: loginPagePOM(48): Send password to Password field
+2020-07-09 02:56:35.853 [INFO /main/writeText]: BasePage(43): Writing June@123$to  By.name: password
+2020-07-09 02:56:35.854 [INFO /main/checkLoginButton]: loginPagePOM(53): checking login button is enabled or not
+2020-07-09 02:56:35.985 [INFO /main/clickOnVisibleButton]: loginPagePOM(63): Clicking on Visible Password Button
+2020-07-09 02:56:36.684 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath:  //*[@class='visibility-icon c-pointer abs visible-status mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted']
+2020-07-09 02:56:36.685 [INFO /main/clickOnVisibleButton]: loginPagePOM(63): Clicking on Visible Password Button
+2020-07-09 02:56:36.868 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath:  //*[@class='visibility-icon c-pointer abs visible-status mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted']
+2020-07-09 02:56:36.869 [INFO /main/clickOnLogin]: loginPagePOM(58): Clicking on Login button
+2020-07-09 02:56:37.038 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath:  //*[@type='submit']
+2020-07-09 02:57:07.111 [INFO /main/isQueueLoginPage]: agentLoginPagePOM(31): Supervisor Login Page
+2020-07-09 02:57:07.332 [INFO /main/clickSkipBtn]: agentLoginPagePOM(41): Clicking on SKIP Button
+2020-07-09 02:57:07.737 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //span[contains(text(),'Skip > >')]
+2020-07-09 02:57:57.863 [INFO /main/writeTicketId]: supervisorTicketListPagePOM(43): Search Ticket Id: 80720000457
+2020-07-09 02:57:58.543 [INFO /main/writeText]: BasePage(43): Writing 80720000457to  By.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
+2020-07-09 02:57:58.543 [INFO /main/clickedSearchBtn]: supervisorTicketListPagePOM(48): Clicking on Search Button
+2020-07-09 02:57:58.766 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button

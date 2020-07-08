@@ -9,6 +9,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import pages.sideMenuPOM;
+import utils.ReadData;
 import utils.TestDatabean;
 
 import java.io.File;
@@ -73,5 +74,15 @@ public class BaseTest {
         }
         return hashMapObj;
     }
+
+
+    @DataProvider(name = "ticketId")
+    public Object[][] providerTicketId() throws IOException {
+        File Exceldir = new File("Excels");
+        File Excel = new File(Exceldir, "test.xlsx");
+        Object[][] data = ReadData.getData(Excel.getAbsolutePath(), config.getProperty("ticketId"));
+        return data;
+    }
+
 
 }
