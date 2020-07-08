@@ -1,4 +1,4 @@
-package utils.ExtentReports;
+package Utils.ExtentReports;
 
 import com.relevantcodes.extentreports.ExtentReports;
 
@@ -17,9 +17,9 @@ public class ExtentManager {
             //Set HTML reporting file location
             String workingDir = System.getProperty ("user.dir");
             if (System.getProperty ("os.name").toLowerCase ().contains ("win")) {
-                extent = new ExtentReports (workingDir + "\\ExtentReports\\ExtentReportResults" + date + ".html", true);
-                extent.addSystemInfo ("user", "asdad");
-                extent.loadConfig (new File (workingDir + "\\reportextent-config.xml"));
+                extent = new ExtentReports(workingDir + "\\ExtentReports\\ExtentReportResults" + date + ".html", true);
+                extent.addSystemInfo("user", "asdad");
+                extent.loadConfig(new File(workingDir + "\\src\\main\\resources\\reportextent-config.xml"));
 
             } else  {
                 extent = new ExtentReports (workingDir + "/ExtentReports/ExtentReportResults" + date + ".html", true);

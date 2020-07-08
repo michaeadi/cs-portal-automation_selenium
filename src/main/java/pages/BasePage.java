@@ -95,13 +95,21 @@ public class BasePage {
 
     }
 
+    void selectByText(String text) throws InterruptedException {
+        WebElement elementby = driver.findElement(By.xpath("//span[contains(text(),'" + text + "')]"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", elementby);
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("//span[contains(text(),'" + text + "')]")).click();
+        Thread.sleep(2000);
+    }
+
     //Switch to parent frame
     void switchToParentFrme() {
         driver.switchTo().parentFrame();
     }
 
-    // Validate element is visible
-    void assertElementVisible(By Element) {
-        Assert.assertTrue(driver.findElement(Element).isDisplayed());
+    // is element  visible
+    boolean isElementVisible(By Element) {
+        return driver.findElement(Element).isDisplayed();
     }
 }
