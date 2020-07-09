@@ -1,16 +1,17 @@
 package tests;
 
+import Utils.TestDatabean;
+import Utils.ftrDataBeans;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.DataProvider;
-import pages.sideMenuPOM;
-import utils.ReadData;
-import utils.TestDatabean;
+import Utils.ReadData;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -21,14 +22,14 @@ public class BaseTest {
 
 
     public static WebDriver driver;
-    public Properties config;
+    public static Properties config;
     public String opco;
 
     public WebDriver getDriver() {
         return driver;
     }
 
-    @BeforeClass
+    @BeforeSuite
     public void classLevelSetup() throws IOException {
         opco = "KE";
         config = new Properties();
@@ -50,22 +51,34 @@ public class BaseTest {
     @BeforeMethod
     public void methodLevelSetup() {
 
-//        sideMenuPOM sideMenuPOM = new sideMenuPOM(driver);
     }
 
-    @AfterClass
+    @AfterSuite
     public void teardown() {
-//        driver.quit ();
+        driver.quit();
     }
 
     @DataProvider
     public Object[][] getTestData() {
-//        config = settingEnviroment (Env);
         Utils.TestDataExcelToBeanDao credsExcelToBeanDao = new Utils.TestDataExcelToBeanDao();
         File Exceldir = new File("Excels");
         File Excel = new File(Exceldir, "test.xlsx");
         List<TestDatabean> list =
                 credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("Sheet"));
+        Object[][] hashMapObj = new Object[list.size()][1];
+        for (int i = 0; i < list.size(); i++) {
+            hashMapObj[i][0] = list.get(i);
+        }
+        return hashMapObj;
+    }
+
+    @DataProvider
+    public Object[][] getTestData1() {
+        Utils.ftrDataExcelToBeanDao credsExcelToBeanDao = new Utils.ftrDataExcelToBeanDao();
+        File Exceldir = new File("Excels");
+        File Excel = new File(Exceldir, "test.xlsx");
+        List<ftrDataBeans> list =
+                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("FtrSheet"));
 
         Object[][] hashMapObj = new Object[list.size()][1];
         for (int i = 0; i < list.size(); i++) {

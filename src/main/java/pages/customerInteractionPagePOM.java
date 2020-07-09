@@ -15,7 +15,7 @@ public class customerInteractionPagePOM extends BasePage {
     By PUK2 = By.xpath("/html[1]/body[1]/app-root[1]/app-dashboard[1]/div[2]/app-admin-panel[1]/div[1]/div[1]/app-sidenav-bar[1]/mat-sidenav-container[1]/mat-sidenav-content[1]/div[1]/app-service-request[1]/div[1]/app-sr-dashboard[1]/div[1]/div[1]/app-sr-customer-details[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/ul[1]/li[1]/li[1]/div[1]/div[2]/p[1]/span[2]");
     By idType = By.xpath("/html[1]/body[1]/app-root[1]/app-dashboard[1]/div[2]/app-admin-panel[1]/div[1]/div[1]/app-sidenav-bar[1]/mat-sidenav-container[1]/mat-sidenav-content[1]/div[1]/app-service-request[1]/div[1]/app-sr-dashboard[1]/div[1]/div[1]/app-sr-customer-details[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[4]/div[1]/ul[1]/li[1]/p[1]");
     By idNumber = By.xpath("/html[1]/body[1]/app-root[1]/app-dashboard[1]/div[2]/app-admin-panel[1]/div[1]/div[1]/app-sidenav-bar[1]/mat-sidenav-container[1]/mat-sidenav-content[1]/div[1]/app-service-request[1]/div[1]/app-sr-dashboard[1]/div[1]/div[1]/app-sr-customer-details[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[4]/div[1]/ul[1]/li[2]/li[1]/p[1]/span[1]");
-
+    By interactionIcon = By.xpath("//div[@class='sub-header__divide--control--tab']");
     public customerInteractionPagePOM(WebDriver driver) {
         super(driver);
     }
@@ -43,6 +43,11 @@ public class customerInteractionPagePOM extends BasePage {
 
     public String getSimNumber() {
         return readText(simNumber);
+    }
+
+    public InteractionsPOM clickOnInteractionIcon() {
+        click(interactionIcon);
+        return new InteractionsPOM(driver);
     }
 
     public String getSimType() {

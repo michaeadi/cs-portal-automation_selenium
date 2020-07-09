@@ -6,9 +6,8 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.agentLoginPagePOM;
 import pages.loginPagePOM;
-import pages.sideMenuPOM;
-import utils.ExtentReports.ExtentTestManager;
-import utils.TestDatabean;
+import Utils.ExtentReports.ExtentTestManager;
+import Utils.TestDatabean;
 import java.lang.reflect.Method;
 
 public class SupervisorLoginTest extends BaseTest {

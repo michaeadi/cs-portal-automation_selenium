@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 2020-07-09 03:02:23.994 [INFO /main/openBaseURL]: loginPagePOM(27): Opening URL:-http://172.23.36.206:30050/#/login
 2020-07-09 03:02:24.011 [INFO /main/enterAUUID]: loginPagePOM(32): Entering AUUID :2390495In username
 2020-07-09 03:02:24.248 [INFO /main/writeText]: BasePage(43): Writing 2390495to  By.xpath: //input[@autocomplete="new-password"]
@@ -31,3 +32,81 @@
 2020-07-09 03:04:08.449 [INFO /main/isSubTypeLabel]: supervisorTicketListPagePOM(94): Is Issue Sub Type field Available :true
 2020-07-09 03:04:08.558 [INFO /main/isSubSubTypeLabel]: supervisorTicketListPagePOM(98): Is Issue Sub Sub Type field Available :true
 2020-07-09 03:04:08.673 [INFO /main/isCodeLabel]: supervisorTicketListPagePOM(103): Is Code field Available :true
+=======
+2020-07-09 02:04:55.485 [INFO /main/openBaseURL]: loginPagePOM(27): Opening URL:-http://172.23.36.206:30050/#/login
+2020-07-09 02:04:55.500 [INFO /main/enterAUUID]: loginPagePOM(32): Entering AUUID :2388006In username
+2020-07-09 02:04:55.681 [INFO /main/writeText]: BasePage(43): Writing 2388006to  By.xpath: //input[@autocomplete="new-password"]
+2020-07-09 02:04:55.681 [INFO /main/clickOnSubmitBtn]: loginPagePOM(38): Clicking on Submit button
+2020-07-09 02:04:55.777 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath:  //*[@type='submit']
+2020-07-09 02:04:55.779 [INFO /main/enterPassword]: loginPagePOM(48): Send password to Password field
+2020-07-09 02:04:56.320 [INFO /main/writeText]: BasePage(43): Writing Secure@2023to  By.name: password
+2020-07-09 02:04:56.320 [INFO /main/checkLoginButton]: loginPagePOM(53): checking login button is enabled or not
+2020-07-09 02:04:56.382 [INFO /main/clickOnVisibleButton]: loginPagePOM(63): Clicking on Visible Password Button
+2020-07-09 02:04:57.337 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath:  //*[@class='visibility-icon c-pointer abs visible-status mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted']
+2020-07-09 02:04:57.338 [INFO /main/clickOnVisibleButton]: loginPagePOM(63): Clicking on Visible Password Button
+2020-07-09 02:04:57.414 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath:  //*[@class='visibility-icon c-pointer abs visible-status mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted']
+2020-07-09 02:04:57.415 [INFO /main/clickOnLogin]: loginPagePOM(58): Clicking on Login button
+2020-07-09 02:04:57.494 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath:  //*[@type='submit']
+2020-07-09 02:05:04.814 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //mat-toolbar//button
+2020-07-09 02:05:04.925 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //*[@class="ellipsis"]
+2020-07-09 02:05:05.276 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //a[contains(text(),'Customer Interaction')]
+2020-07-09 02:05:05.472 [INFO /main/writeText]: BasePage(43): Writing 735873718to  By.xpath: //input[@name="search"]
+2020-07-09 02:05:05.626 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //button[@class="search-icon-btn"]
+2020-07-09 02:05:34.345 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //div[@class='sub-header__divide--control--tab']
+2020-07-09 02:05:36.368 [INFO /main/clickOnCode]: InteractionsPOM(34): clicking on issue code
+2020-07-09 02:05:36.666 [INFO /main/writeText]: BasePage(43): Writing ENQ001to  By.xpath: //input[@placeholder='Search' and @class='search-box mat-input-element mat-form-field-autofill-control cdk-text-field-autofill-monitored ng-star-inserted']
+2020-07-09 02:05:36.667 [INFO /main/searchCode]: InteractionsPOM(39): searching issue code ENQ001
+2020-07-09 02:05:40.785 [INFO /main/selectCode]: InteractionsPOM(46): selecting issue code ENQ001
+2020-07-09 02:05:40.795 [INFO /main/getIssue]: InteractionsPOM(52): Getting issue 
+2020-07-09 02:05:40.811 [INFO /main/getIssue]: InteractionsPOM(52): Getting issue 
+2020-07-09 02:05:40.823 [INFO /main/getIssueSubSubType]: InteractionsPOM(73): Getting issue sub sub type 
+2020-07-09 02:05:40.838 [INFO /main/getIssueSubSubType]: InteractionsPOM(73): Getting issue sub sub type 
+2020-07-09 02:05:40.852 [INFO /main/getIssueType]: InteractionsPOM(60): Getting issue type 
+2020-07-09 02:05:40.864 [INFO /main/getIssueType]: InteractionsPOM(60): Getting issue type 
+2020-07-09 02:05:40.876 [INFO /main/getIssueSubType]: InteractionsPOM(67): Getting issue sub type 
+2020-07-09 02:05:40.891 [INFO /main/getIssueSubType]: InteractionsPOM(67): Getting issue sub type 
+2020-07-09 02:05:41.006 [INFO /main/writeText]: BasePage(43): Writing JMDto  By.xpath: //textarea[@id='interactionComment']
+2020-07-09 02:05:41.006 [INFO /main/sendComment]: InteractionsPOM(79): Adding comment -JMD
+2020-07-09 02:05:41.127 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //button[@class='btn btn-save ng-star-inserted']
+2020-07-09 02:05:41.128 [INFO /main/clickOnSave]: InteractionsPOM(84): Clicking on save to create Ticket
+2020-07-09 02:05:44.944 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //mat-icon[@class='tab-close mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted']
+2020-07-09 02:05:44.945 [INFO /main/closeInteractions]: InteractionsPOM(94): Closing Interaction Screen
+2020-07-09 02:05:45.779 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //div[@class='sub-header__divide--control--tab']
+2020-07-09 02:05:47.843 [INFO /main/clickOnCode]: InteractionsPOM(34): clicking on issue code
+2020-07-09 02:05:48.168 [INFO /main/writeText]: BasePage(43): Writing ENQ002to  By.xpath: //input[@placeholder='Search' and @class='search-box mat-input-element mat-form-field-autofill-control cdk-text-field-autofill-monitored ng-star-inserted']
+2020-07-09 02:05:48.168 [INFO /main/searchCode]: InteractionsPOM(39): searching issue code ENQ002
+2020-07-09 02:05:52.286 [INFO /main/selectCode]: InteractionsPOM(46): selecting issue code ENQ002
+2020-07-09 02:05:52.293 [INFO /main/getIssue]: InteractionsPOM(52): Getting issue 
+2020-07-09 02:05:52.313 [INFO /main/getIssue]: InteractionsPOM(52): Getting issue 
+2020-07-09 02:05:52.326 [INFO /main/getIssueSubSubType]: InteractionsPOM(73): Getting issue sub sub type 
+2020-07-09 02:05:52.342 [INFO /main/getIssueSubSubType]: InteractionsPOM(73): Getting issue sub sub type 
+2020-07-09 02:05:52.353 [INFO /main/getIssueType]: InteractionsPOM(60): Getting issue type 
+2020-07-09 02:05:52.364 [INFO /main/getIssueType]: InteractionsPOM(60): Getting issue type 
+2020-07-09 02:05:52.375 [INFO /main/getIssueSubType]: InteractionsPOM(67): Getting issue sub type 
+2020-07-09 02:05:52.390 [INFO /main/getIssueSubType]: InteractionsPOM(67): Getting issue sub type 
+2020-07-09 02:05:52.520 [INFO /main/writeText]: BasePage(43): Writing JMDto  By.xpath: //textarea[@id='interactionComment']
+2020-07-09 02:05:52.521 [INFO /main/sendComment]: InteractionsPOM(79): Adding comment -JMD
+2020-07-09 02:05:52.645 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //button[@class='btn btn-save ng-star-inserted']
+2020-07-09 02:05:52.645 [INFO /main/clickOnSave]: InteractionsPOM(84): Clicking on save to create Ticket
+2020-07-09 02:05:56.302 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //mat-icon[@class='tab-close mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted']
+2020-07-09 02:05:56.303 [INFO /main/closeInteractions]: InteractionsPOM(94): Closing Interaction Screen
+2020-07-09 02:05:57.116 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //div[@class='sub-header__divide--control--tab']
+2020-07-09 02:05:59.164 [INFO /main/clickOnCode]: InteractionsPOM(34): clicking on issue code
+2020-07-09 02:05:59.436 [INFO /main/writeText]: BasePage(43): Writing REQ002to  By.xpath: //input[@placeholder='Search' and @class='search-box mat-input-element mat-form-field-autofill-control cdk-text-field-autofill-monitored ng-star-inserted']
+2020-07-09 02:05:59.436 [INFO /main/searchCode]: InteractionsPOM(39): searching issue code REQ002
+2020-07-09 02:06:03.529 [INFO /main/selectCode]: InteractionsPOM(46): selecting issue code REQ002
+2020-07-09 02:06:03.536 [INFO /main/getIssue]: InteractionsPOM(52): Getting issue 
+2020-07-09 02:06:03.554 [INFO /main/getIssue]: InteractionsPOM(52): Getting issue 
+2020-07-09 02:06:03.569 [INFO /main/getIssueSubSubType]: InteractionsPOM(73): Getting issue sub sub type 
+2020-07-09 02:06:03.585 [INFO /main/getIssueSubSubType]: InteractionsPOM(73): Getting issue sub sub type 
+2020-07-09 02:06:03.597 [INFO /main/getIssueType]: InteractionsPOM(60): Getting issue type 
+2020-07-09 02:06:03.608 [INFO /main/getIssueType]: InteractionsPOM(60): Getting issue type 
+2020-07-09 02:06:03.619 [INFO /main/getIssueSubType]: InteractionsPOM(67): Getting issue sub type 
+2020-07-09 02:06:03.634 [INFO /main/getIssueSubType]: InteractionsPOM(67): Getting issue sub type 
+2020-07-09 02:06:03.747 [INFO /main/writeText]: BasePage(43): Writing JMDto  By.xpath: //textarea[@id='interactionComment']
+2020-07-09 02:06:03.747 [INFO /main/sendComment]: InteractionsPOM(79): Adding comment -JMD
+2020-07-09 02:06:03.847 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //button[@class='btn btn-save ng-star-inserted']
+2020-07-09 02:06:03.847 [INFO /main/clickOnSave]: InteractionsPOM(84): Clicking on save to create Ticket
+2020-07-09 02:06:07.505 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //mat-icon[@class='tab-close mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted']
+2020-07-09 02:06:07.506 [INFO /main/closeInteractions]: InteractionsPOM(94): Closing Interaction Screen
+>>>>>>> 4b577f9a92af80cd12fcc7dc40d4e0a2582a5877

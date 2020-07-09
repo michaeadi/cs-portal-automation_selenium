@@ -5,7 +5,6 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import utils.TestDatabean;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -64,6 +63,39 @@ public class TestDataExcelToBeanDao {
                                 break;
                             case 2:
                                 testDatabean.setUserType(cellValue);
+                                break;
+                            case 3:
+                                testDatabean.setCustomerNumber(cellValue);
+                                break;
+                            case 4:
+                                testDatabean.setCustomerName(cellValue);
+                                break;
+                            case 5:
+                                testDatabean.setCustomerDOB(cellValue);
+                                break;
+                            case 6:
+                                testDatabean.setActivationDate(cellValue);
+                                break;
+                            case 7:
+                                testDatabean.setActivationTime(cellValue);
+                                break;
+                            case 8:
+                                testDatabean.setSimNumber(cellValue);
+                                break;
+                            case 9:
+                                testDatabean.setSimType(cellValue);
+                                break;
+                            case 10:
+                                testDatabean.setPUK1(cellValue);
+                                break;
+                            case 11:
+                                testDatabean.setPUK2(cellValue);
+                                break;
+                            case 12:
+                                testDatabean.setIdType(cellValue);
+                                break;
+                            case 13:
+                                testDatabean.setIdNumber(cellValue);
                                 break;
                         }
                     }

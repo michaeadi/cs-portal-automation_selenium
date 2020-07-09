@@ -2,6 +2,7 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class sideMenuPOM extends BasePage {
 
@@ -17,6 +18,7 @@ public class sideMenuPOM extends BasePage {
     By customerInteraction = By.xpath("//a[contains(text(),'Customer Interaction')]");
     By supervisorDashboard = By.xpath("//a[contains(text(),'Supervisor Dashboard')]");
     By logout = By.xpath("//*[@class=\"color-name text-center left-sidenav-link ng-tns-c16-21\"]");
+    By loader = By.xpath("/html/body/app-root/ngx-ui-loader/div[2]");
 
 
     public sideMenuPOM(WebDriver driver) {
@@ -27,7 +29,9 @@ public class sideMenuPOM extends BasePage {
         return readText(userName);
     }
 
-    public void clickOnSideMenu()  {
+    public void clickOnSideMenu() {
+
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
         click(sideMenuOption);
     }
 

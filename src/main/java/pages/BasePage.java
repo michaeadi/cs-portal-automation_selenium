@@ -100,9 +100,9 @@ public class BasePage {
         driver.switchTo().parentFrame();
     }
 
-    // Validate element is visible
-    void assertElementVisible(By Element) {
-        Assert.assertTrue(driver.findElement(Element).isDisplayed());
+    // is element  visible
+    boolean isElementVisible(By Element) {
+        return driver.findElement(Element).isDisplayed();
     }
 
     void scrollToViewElement(By Element) throws InterruptedException {

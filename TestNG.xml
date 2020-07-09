@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Automation Framework CS PORTAl Test Suite">
+    <listeners>
+        <listener class-name="Utils.Listeners.TestListener"/>
+        <listener class-name="Utils.Listeners.AnnotationTransformer"/>
+    </listeners>
+
+    <test name="FTR Tickets">
+        <classes>
+            <class name="tests.LoginTests"/>
+            <class name="tests.sideMenuTests"/>
+            <class name="tests.customerInteractionTest"/>
+            <class name="tests.createInteractionTest"/>
+        </classes>
+    </test>
+</suite>

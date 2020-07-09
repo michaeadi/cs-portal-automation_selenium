@@ -7,8 +7,8 @@ import org.testng.asserts.SoftAssert;
 import pages.agentLoginPagePOM;
 import pages.loginPagePOM;
 import pages.supervisorTicketListPagePOM;
-import utils.ExtentReports.ExtentTestManager;
-import utils.TestDatabean;
+import Utils.ExtentReports.ExtentTestManager;
+import Utils.TestDatabean;
 import java.lang.reflect.Method;
 
 public class SupervisorSearchTicket extends BaseTest {
