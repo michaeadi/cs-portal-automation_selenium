@@ -11,7 +11,6 @@ import org.testng.annotations.DataProvider;
 import pages.sideMenuPOM;
 import utils.ReadData;
 import utils.TestDatabean;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
