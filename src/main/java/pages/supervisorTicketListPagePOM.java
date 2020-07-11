@@ -22,7 +22,7 @@ public class supervisorTicketListPagePOM extends BasePage {
     By createdbyLabel=By.xpath("//li[6]//span[1]");
     By createdbyvalue=By.xpath("//li[6]//span[2]");
     By queueLabel=By.xpath("//li[7]//span[1]");
-    By queueValue=By.xpath("//li[7]//span[1]");
+    By queueValue=By.xpath("//li[7]//span[2]");
     By issueLabel=By.xpath("//ul[2]//li[1]//span[1]");
     By issueValue=By.xpath("//ul[2]//li[1]//span[2]");
     By issueTypeLabel=By.xpath("//ul[2]//li[2]//span[1]");
@@ -34,6 +34,14 @@ public class supervisorTicketListPagePOM extends BasePage {
     By codeLabel=By.xpath("//ul[2]//li[5]//span[1]");
     By codeValue=By.xpath("//ul[2]//li[5]//span[2]");
     By assignedto=By.xpath("//body//p//span[1]");
+    By checkBox = By.xpath("//*[@id=\"style-3\"]/app-sidenav-bar/mat-sidenav-container/mat-sidenav-content/div/app-service-request/div/app-backend-supervisor/mat-sidenav-container/mat-sidenav-content/section/div[2]/div[1]/div/div[1]/input");
+    By assignToagentBtn = By.xpath("//li[1]//button[1]");
+    By transfertoQueueBtn = By.xpath("//li[2]//button[1]");
+    By loggedInQueue= By.xpath("//span[contains(text(),'Login with Ticket Pool')]");
+    By openTicketType= By.xpath("//span[contains(text(),'Open')]");
+    By closedTicketType= By.xpath("//span[contains(text(),' Closed ')]");
+    By selectFilterBtn= By.xpath("//span[contains(text(),'Select Filter')]");
+    By pageRefreshBtn= By.xpath("//span[contains(text(),'Refresh ')]");
 
     public supervisorTicketListPagePOM(WebDriver driver) {
         super(driver);
@@ -105,6 +113,7 @@ public class supervisorTicketListPagePOM extends BasePage {
     }
 
     public String getTicketIdvalue(){
+        log.info("Ticket Id: " + readText(ticketIdvalue));
         return readText(ticketIdvalue);
     }
 
@@ -151,5 +160,59 @@ public class supervisorTicketListPagePOM extends BasePage {
     public String getAssignedto(){
         return readText(assignedto);
     }
+
+    public void clickCheckbox(){
+        log.info("Selecting Ticket");
+        click(checkBox);
+    }
+
+    public void clickAssigntoAgent(){
+        log.info("Clicking on Assign to Agent");
+        click(assignToagentBtn);
+    }
+
+    public boolean isAssignToAgent(){
+        log.info("Is Assign to agent button: "+checkState(assignToagentBtn));
+        return checkState(assignToagentBtn);
+    }
+
+    public void clickTransfertoQueue(){
+        log.info("Clicking on Transfer to Queue");
+        click(transfertoQueueBtn);
+    }
+
+    public boolean isTransferToQueue(){
+        log.info("Is Transfer to Queue button: "+checkState(transfertoQueueBtn));
+        return checkState(transfertoQueueBtn);
+    }
+
+    public boolean checkOpenTicketStateType(){
+        log.info("Checking Open Ticket State Type Select");
+        return checkState(openTicketType);
+    }
+
+    private boolean checkClosedTicketstateType(){
+        log.info("Checking Closed Ticket State Type Select");
+        return checkState(closedTicketType);
+    }
+
+    public boolean changeTicketTypeToClosed(){
+        log.info("Switch Ticket State Type to closed");
+        if(checkOpenTicketStateType()){
+        click(openTicketType);
+        click(closedTicketType);
+        }
+        return checkState(closedTicketType);
+    }
+
+    public boolean changeTicketTypeToOpen(){
+        log.info("Switch Ticket State Type to Open");
+        if(checkClosedTicketstateType()){
+            click(closedTicketType);
+            click(openTicketType);
+        }
+        return checkState(openTicketType);
+    }
+
 
 }

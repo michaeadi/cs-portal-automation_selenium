@@ -1,17 +1,19 @@
 package tests;
 
+import Utils.ExtentReports.ExtentTestManager;
+import Utils.TestDatabean;
 import com.relevantcodes.extentreports.LogStatus;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.agentLoginPagePOM;
+import pages.assignToAgentPOM;
 import pages.loginPagePOM;
 import pages.supervisorTicketListPagePOM;
-import Utils.ExtentReports.ExtentTestManager;
-import Utils.TestDatabean;
+
 import java.lang.reflect.Method;
 
-public class SupervisorSearchTicket extends BaseTest {
+public class AssignToAgentTicketTest extends BaseTest {
 
     @Test(priority = 1, description = "Logging IN ", dataProvider = "getTestData")
     public void LoggingIN(Method method, TestDatabean Data) {
@@ -31,7 +33,7 @@ public class SupervisorSearchTicket extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 2, description = "Supervisor Login ", dataProvider = "getTestData",enabled = true)
+    @Test(priority = 2,dependsOnMethods = "LoggingIN", description = "Supervisor Login ", dataProvider = "getTestData",enabled = true)
     public void agentSkipQueueLogin(Method method, TestDatabean Data) throws InterruptedException {
         agentLoginPagePOM AgentLoginPagePOM = new agentLoginPagePOM(driver);
         ExtentTestManager.startTest(method.getName(), "Supervisor Login");
@@ -45,17 +47,14 @@ public class SupervisorSearchTicket extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 3,dependsOnMethods = "agentSkipQueueLogin", description = "Ticket Search ", dataProvider = "ticketId",enabled = true)
-    public void SearchTicket(Method method, String ticketId) throws InterruptedException {
-        supervisorTicketListPagePOM ticketListPage= new supervisorTicketListPagePOM(driver);
-        ExtentTestManager.startTest(method.getName(), "Opening Base URL");
+    @Test(priority = 3,dependsOnMethods = "agentSkipQueueLogin",description = "Assign Ticket to Agent",enabled = true)
+    public void assignTicketToAgent(Method method) throws InterruptedException{
+        supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
+        assignToAgentPOM assignTicket = new assignToAgentPOM(driver);
+        ExtentTestManager.startTest(method.getName(), "Assign Ticket to Agent");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SoftAssert softAssert = new SoftAssert();
-        Thread.sleep(30000);
-        ticketListPage.writeTicketId(ticketId);
-        ticketListPage.clickedSearchBtn();
-        Thread.sleep(20000);
-        Assert.assertEquals(ticketListPage.getTicketIdvalue(),ticketId);
+        ticketListPage.getTicketIdvalue();
         softAssert.assertTrue(ticketListPage.isTicketIdLabel());
         softAssert.assertTrue(ticketListPage.isWorkGroupName());
         softAssert.assertTrue(ticketListPage.isPrioritylabel());
@@ -68,21 +67,19 @@ public class SupervisorSearchTicket extends BaseTest {
         softAssert.assertTrue(ticketListPage.isSubTypeLabel());
         softAssert.assertTrue(ticketListPage.isSubSubTypeLabel());
         softAssert.assertTrue(ticketListPage.isCodeLabel());
-        softAssert.assertAll();
-    }
-
-    @Test(priority = 4,dependsOnMethods = "SearchTicket", description = "Validate Assign to Agent and Transfer to Queue Option",enabled = true)
-    public void validateCheckBox(Method method) throws InterruptedException {
-        supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
-        ExtentTestManager.startTest(method.getName(), "Validate Assign to Agent and Transfer to Queue Option om Open Ticket");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
-        SoftAssert softAssert = new SoftAssert();
+        String ticketQueue = ticketListPage.getqueueValue();
         softAssert.assertTrue(ticketListPage.checkOpenTicketStateType());
         ticketListPage.clickCheckbox();
         softAssert.assertTrue(ticketListPage.isAssignToAgent());
         softAssert.assertTrue(ticketListPage.isTransferToQueue());
+        ticketListPage.clickAssigntoAgent();
+        softAssert.assertTrue(assignTicket.validatePageTitle());
+        softAssert.assertEquals(assignTicket.getQueueName(),ticketQueue);
+        assignTicket.ClickedAssignBtn();
+        //Thread.sleep(2000);
+        assignTicket.getInfoMessage();
+        Thread.sleep(20000);
         softAssert.assertAll();
+
     }
-
-
 }
