@@ -6,14 +6,11 @@ import com.relevantcodes.extentreports.LogStatus;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pages.agentLoginPagePOM;
-import pages.assignToAgentPOM;
-import pages.loginPagePOM;
-import pages.supervisorTicketListPagePOM;
+import pages.*;
 
 import java.lang.reflect.Method;
 
-public class AssignToAgentTicketTest extends BaseTest {
+public class TransferToQueueTest extends BaseTest {
 
     @Test(priority = 1, description = "Logging IN ", dataProvider = "getTestData")
     public void LoggingIN(Method method, TestDatabean Data) {
@@ -47,37 +44,31 @@ public class AssignToAgentTicketTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 3,dependsOnMethods = "agentSkipQueueLogin",description = "Assign Ticket to Agent",enabled = true)
-    public void assignTicketToAgent(Method method) throws InterruptedException{
+    @Test(priority = 3,dependsOnMethods = "agentSkipQueueLogin",description = "Transfer to queue",dataProvider = "ticketId",enabled = true)
+    public void trasferToQueue(Method method,String ticketId) throws InterruptedException{
+        String transferQueueName="Corporate With CRM";
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
-        assignToAgentPOM assignTicket = new assignToAgentPOM(driver);
-        ExtentTestManager.startTest(method.getName(), "Assign Ticket to Agent");
+        transferToQueuePOM transferQueue= new transferToQueuePOM(driver);
+        ExtentTestManager.startTest(method.getName(), "Transfer to queue");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SoftAssert softAssert = new SoftAssert();
-        ticketListPage.getTicketIdvalue();
-        softAssert.assertTrue(ticketListPage.isTicketIdLabel());
-        softAssert.assertTrue(ticketListPage.isWorkGroupName());
-        softAssert.assertTrue(ticketListPage.isPrioritylabel());
-        softAssert.assertTrue(ticketListPage.isStateLabel());
-        softAssert.assertTrue(ticketListPage.isCreationdateLabel());
-        softAssert.assertTrue(ticketListPage.isCreatedbyLabel());
-        softAssert.assertTrue(ticketListPage.isQueueLabel());
-        softAssert.assertTrue(ticketListPage.isIssueLabel());
-        softAssert.assertTrue(ticketListPage.isIssueTypeLabel());
-        softAssert.assertTrue(ticketListPage.isSubTypeLabel());
-        softAssert.assertTrue(ticketListPage.isSubSubTypeLabel());
-        softAssert.assertTrue(ticketListPage.isCodeLabel());
+        ticketListPage.writeTicketId(ticketId);
+        ticketListPage.clickedSearchBtn();
+        Thread.sleep(20000);
+        Assert.assertEquals(ticketListPage.getTicketIdvalue(),ticketId);
         String ticketQueue = ticketListPage.getqueueValue();
         softAssert.assertTrue(ticketListPage.checkOpenTicketStateType());
         ticketListPage.clickCheckbox();
         softAssert.assertTrue(ticketListPage.isAssignToAgent());
         softAssert.assertTrue(ticketListPage.isTransferToQueue());
-        ticketListPage.clickAssigntoAgent();
-        softAssert.assertTrue(assignTicket.validatePageTitle());
-        softAssert.assertEquals(assignTicket.getQueueName(),ticketQueue);
-        assignTicket.ClickedAssignBtn();
-        assignTicket.getInfoMessage();
+        ticketListPage.clickTransfertoQueue();
+        softAssert.assertTrue(transferQueue.validatePageTitle());
+        transferQueue.clickTransferQueue();
         Thread.sleep(20000);
+        ticketListPage.writeTicketId(ticketId); //need Method Improvement
+        ticketListPage.clickedSearchBtn();
+        Thread.sleep(2000);
+        Assert.assertEquals(ticketListPage.getqueueValue(),transferQueueName);
         softAssert.assertAll();
 
     }

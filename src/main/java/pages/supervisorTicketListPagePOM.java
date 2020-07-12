@@ -42,6 +42,7 @@ public class supervisorTicketListPagePOM extends BasePage {
     By closedTicketType= By.xpath("//span[contains(text(),' Closed ')]");
     By selectFilterBtn= By.xpath("//span[contains(text(),'Select Filter')]");
     By pageRefreshBtn= By.xpath("//span[contains(text(),'Refresh ')]");
+    By noResultFound= By.xpath("//*[@id=\"mat-error-25\"]/p/img");
 
     public supervisorTicketListPagePOM(WebDriver driver) {
         super(driver);
@@ -212,6 +213,16 @@ public class supervisorTicketListPagePOM extends BasePage {
             click(openTicketType);
         }
         return checkState(openTicketType);
+    }
+
+    public void viewTicket(){
+        log.info("View Ticket: "+ getTicketIdvalue());
+        click(stateLabel);
+    }
+
+    public boolean noTicketFound(){
+        log.info("No ticket found");
+        return checkState(noResultFound);
     }
 
 

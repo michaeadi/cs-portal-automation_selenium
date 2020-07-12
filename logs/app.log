@@ -1,43 +1,36 @@
-2020-07-12 03:16:08.769 [INFO /main/openBaseURL]: loginPagePOM(27): Opening URL:-http://172.23.36.206:30050/#/login
-2020-07-12 03:16:08.783 [INFO /main/enterAUUID]: loginPagePOM(32): Entering AUUID :2390495In username
-2020-07-12 03:16:09.194 [INFO /main/writeText]: BasePage(43): Writing 2390495to  By.xpath: //input[@autocomplete="new-password"]
-2020-07-12 03:16:09.194 [INFO /main/clickOnSubmitBtn]: loginPagePOM(38): Clicking on Submit button
-2020-07-12 03:16:09.374 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath:  //*[@type='submit']
-2020-07-12 03:16:09.375 [INFO /main/enterPassword]: loginPagePOM(48): Send password to Password field
-2020-07-12 03:16:09.998 [INFO /main/writeText]: BasePage(43): Writing June@123$to  By.name: password
-2020-07-12 03:16:10.035 [INFO /main/checkLoginButton]: loginPagePOM(53): checking login button is enabled or not
-2020-07-12 03:16:10.148 [INFO /main/clickOnVisibleButton]: loginPagePOM(63): Clicking on Visible Password Button
-2020-07-12 03:16:10.927 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath:  //*[@class='visibility-icon c-pointer abs visible-status mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted']
-2020-07-12 03:16:10.928 [INFO /main/clickOnVisibleButton]: loginPagePOM(63): Clicking on Visible Password Button
-2020-07-12 03:16:11.097 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath:  //*[@class='visibility-icon c-pointer abs visible-status mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted']
-2020-07-12 03:16:11.098 [INFO /main/clickOnLogin]: loginPagePOM(58): Clicking on Login button
-2020-07-12 03:16:11.241 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath:  //*[@type='submit']
-2020-07-12 03:16:41.352 [INFO /main/isQueueLoginPage]: agentLoginPagePOM(31): Supervisor Login Page
-2020-07-12 03:16:41.576 [INFO /main/clickSkipBtn]: agentLoginPagePOM(41): Clicking on SKIP Button
-2020-07-12 03:16:41.839 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //span[contains(text(),'Skip > >')]
-2020-07-12 03:17:02.070 [INFO /main/getTicketIdvalue]: supervisorTicketListPagePOM(116): Ticket Id: 110720000617
-2020-07-12 03:17:02.495 [INFO /main/isTicketIdLabel]: supervisorTicketListPagePOM(61): Is Ticket Id field Available :true
-2020-07-12 03:17:02.854 [INFO /main/isWorkGroupName]: supervisorTicketListPagePOM(66): Ticket lie in WorkGroup :CS Operations
-2020-07-12 03:17:03.233 [INFO /main/isPrioritylabel]: supervisorTicketListPagePOM(71): Is Priority field Available :true
-2020-07-12 03:17:03.568 [INFO /main/isStateLabel]: supervisorTicketListPagePOM(76): Is Priority field Available :true
-2020-07-12 03:17:03.898 [INFO /main/isCreationdateLabel]: supervisorTicketListPagePOM(81): Is Priority field Available :true
-2020-07-12 03:17:04.229 [INFO /main/isCreatedbyLabel]: supervisorTicketListPagePOM(86): Is Priority field Available :true
-2020-07-12 03:17:04.577 [INFO /main/isQueueLabel]: supervisorTicketListPagePOM(90): Is Priority field Available :true
-2020-07-12 03:17:04.902 [INFO /main/isIssueLabel]: supervisorTicketListPagePOM(94): Is Issue field Available :true
-2020-07-12 03:17:05.217 [INFO /main/isIssueTypeLabel]: supervisorTicketListPagePOM(98): Is Issue Type field Available :true
-2020-07-12 03:17:05.537 [INFO /main/isSubTypeLabel]: supervisorTicketListPagePOM(102): Is Issue Sub Type field Available :true
-2020-07-12 03:17:05.838 [INFO /main/isSubSubTypeLabel]: supervisorTicketListPagePOM(106): Is Issue Sub Sub Type field Available :true
-2020-07-12 03:17:06.128 [INFO /main/isCodeLabel]: supervisorTicketListPagePOM(111): Is Code field Available :true
-2020-07-12 03:17:06.399 [INFO /main/checkOpenTicketStateType]: supervisorTicketListPagePOM(190): Checking Open Ticket State Type Select
-2020-07-12 03:17:06.559 [INFO /main/clickCheckbox]: supervisorTicketListPagePOM(165): Selecting Ticket
-2020-07-12 03:17:06.847 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //*[@id="style-3"]/app-sidenav-bar/mat-sidenav-container/mat-sidenav-content/div/app-service-request/div/app-backend-supervisor/mat-sidenav-container/mat-sidenav-content/section/div[2]/div[1]/div/div[1]/input
-2020-07-12 03:17:06.992 [INFO /main/isAssignToAgent]: supervisorTicketListPagePOM(175): Is Assign to agent button: true
-2020-07-12 03:17:07.184 [INFO /main/isTransferToQueue]: supervisorTicketListPagePOM(185): Is Transfer to Queue button: true
-2020-07-12 03:17:07.309 [INFO /main/clickAssigntoAgent]: supervisorTicketListPagePOM(170): Clicking on Assign to Agent
-2020-07-12 03:17:07.602 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //li[1]//button[1]
-2020-07-12 03:17:07.603 [INFO /main/validatePageTitle]: assignToAgentPOM(26): Validating Assign to agent Page
-2020-07-12 03:17:07.846 [INFO /main/getQueueName]: assignToAgentPOM(31): Queue Name: Outbound
-2020-07-12 03:17:07.932 [INFO /main/ClickedAssignBtn]: assignToAgentPOM(56): Clicking on Assign Button
-2020-07-12 03:17:09.484 [INFO /main/getAvailableSlot]: assignToAgentPOM(46): Agent Available Slot: 8
-2020-07-12 03:17:11.552 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //*[@id="assignTicket"]/app-assign-to-agents/section/div/div[2]/div[1]/div[4]/img
-2020-07-12 03:17:11.690 [INFO /main/getInfoMessage]: assignToAgentPOM(63): Reading Info Message: 
+2020-07-13 02:13:48.455 [INFO /main/openBaseURL]: loginPagePOM(27): Opening URL:-http://172.23.36.206:30050/#/login
+2020-07-13 02:13:48.505 [INFO /main/enterAUUID]: loginPagePOM(32): Entering AUUID :2390495In username
+2020-07-13 02:13:48.854 [INFO /main/writeText]: BasePage(43): Writing 2390495to  By.xpath: //input[@autocomplete="new-password"]
+2020-07-13 02:13:48.854 [INFO /main/clickOnSubmitBtn]: loginPagePOM(38): Clicking on Submit button
+2020-07-13 02:13:49.065 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath:  //*[@type='submit']
+2020-07-13 02:13:49.065 [INFO /main/enterPassword]: loginPagePOM(48): Send password to Password field
+2020-07-13 02:13:49.738 [INFO /main/writeText]: BasePage(43): Writing June@123$to  By.name: password
+2020-07-13 02:13:49.739 [INFO /main/checkLoginButton]: loginPagePOM(53): checking login button is enabled or not
+2020-07-13 02:13:49.837 [INFO /main/clickOnVisibleButton]: loginPagePOM(63): Clicking on Visible Password Button
+2020-07-13 02:13:50.627 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath:  //*[@class='visibility-icon c-pointer abs visible-status mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted']
+2020-07-13 02:13:50.628 [INFO /main/clickOnVisibleButton]: loginPagePOM(63): Clicking on Visible Password Button
+2020-07-13 02:13:50.777 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath:  //*[@class='visibility-icon c-pointer abs visible-status mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted']
+2020-07-13 02:13:50.777 [INFO /main/clickOnLogin]: loginPagePOM(58): Clicking on Login button
+2020-07-13 02:13:50.917 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath:  //*[@type='submit']
+2020-07-13 02:14:20.974 [INFO /main/isQueueLoginPage]: agentLoginPagePOM(31): Supervisor Login Page
+2020-07-13 02:14:21.177 [INFO /main/clickSkipBtn]: agentLoginPagePOM(41): Clicking on SKIP Button
+2020-07-13 02:14:21.635 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //span[contains(text(),'Skip > >')]
+2020-07-13 02:14:41.777 [INFO /main/writeTicketId]: supervisorTicketListPagePOM(51): Search Ticket Id: 080720000457
+2020-07-13 02:14:42.427 [INFO /main/writeText]: BasePage(43): Writing 080720000457to  By.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
+2020-07-13 02:14:42.427 [INFO /main/clickedSearchBtn]: supervisorTicketListPagePOM(56): Clicking on Search Button
+2020-07-13 02:14:42.771 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button
+2020-07-13 02:15:02.943 [INFO /main/getTicketIdvalue]: supervisorTicketListPagePOM(116): Ticket Id: 080720000457
+2020-07-13 02:15:03.218 [INFO /main/checkOpenTicketStateType]: supervisorTicketListPagePOM(190): Checking Open Ticket State Type Select
+2020-07-13 02:15:03.430 [INFO /main/clickCheckbox]: supervisorTicketListPagePOM(165): Selecting Ticket
+2020-07-13 02:15:03.785 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //*[@id="style-3"]/app-sidenav-bar/mat-sidenav-container/mat-sidenav-content/div/app-service-request/div/app-backend-supervisor/mat-sidenav-container/mat-sidenav-content/section/div[2]/div[1]/div/div[1]/input
+2020-07-13 02:15:03.935 [INFO /main/isAssignToAgent]: supervisorTicketListPagePOM(175): Is Assign to agent button: true
+2020-07-13 02:15:04.141 [INFO /main/isTransferToQueue]: supervisorTicketListPagePOM(185): Is Transfer to Queue button: true
+2020-07-13 02:15:04.233 [INFO /main/clickTransfertoQueue]: supervisorTicketListPagePOM(180): Clicking on Transfer to Queue
+2020-07-13 02:15:04.430 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //li[2]//button[1]
+2020-07-13 02:15:04.431 [INFO /main/validatePageTitle]: transferToQueuePOM(18): Validating Transfer to Queue Title
+2020-07-13 02:15:04.598 [INFO /main/clickTransferQueue]: transferToQueuePOM(23): Clicking on Transfer to Button
+2020-07-13 02:15:06.047 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //*[@id="assignQueue"]/app-assign-to-queue/section/div/div[2]/div[1]/div[2]/img
+2020-07-13 02:15:26.048 [INFO /main/writeTicketId]: supervisorTicketListPagePOM(51): Search Ticket Id: 080720000457
+2020-07-13 02:15:26.380 [INFO /main/writeText]: BasePage(43): Writing 080720000457to  By.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
+2020-07-13 02:15:26.381 [INFO /main/clickedSearchBtn]: supervisorTicketListPagePOM(56): Clicking on Search Button
+2020-07-13 02:15:26.569 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button
