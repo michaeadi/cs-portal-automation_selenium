@@ -1,17 +1,19 @@
 package tests;
 
+import Utils.DataProviders.DataProvider;
+import Utils.DataProviders.TestDatabean;
 import Utils.ExtentReports.ExtentTestManager;
-import Utils.TestDatabean;
 import com.relevantcodes.extentreports.LogStatus;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import pages.SideMenuPOM;
 import pages.loginPagePOM;
 
 import java.lang.reflect.Method;
 
 public class LoginTests extends BaseTest {
-
-    @Test(priority = 1, description = "Logging IN", dataProvider = "getTestData")
+    @DataProvider.User(UserType = "ALL")
+    @Test(priority = 1, description = "Logging IN", dataProvider = "loginData", dataProviderClass = DataProvider.class)
     public void LoggingIN(Method method, TestDatabean Data) {
         loginPagePOM loginPagePOM = new loginPagePOM(driver);
         ExtentTestManager.startTest(method.getName(), "Opening Base URL");
@@ -26,6 +28,9 @@ public class LoginTests extends BaseTest {
         loginPagePOM.clickOnVisibleButton();
         loginPagePOM.clickOnVisibleButton();
         loginPagePOM.clickOnLogin();
+        SideMenuPOM sideMenuPOM = new SideMenuPOM(driver);
+        sideMenuPOM.waitForHomePage();
+        softAssert.assertTrue(sideMenuPOM.isSideMenuVisible());
         softAssert.assertAll();
     }
 }

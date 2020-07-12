@@ -12,12 +12,14 @@ import org.testng.Assert;
 
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Log4j2
 public class BasePage {
     public WebDriver driver;
     public WebDriverWait wait;
+    By loader = By.xpath("/html/body/app-root/ngx-ui-loader/div[2]");
 
     //Constructor
     public BasePage(WebDriver driver) {
@@ -27,12 +29,22 @@ public class BasePage {
 
     }
 
+    public void waitTillLoaderGetsRemoved() {
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
+    }
+
     //Click Method
     void click(By elementLocation) {
         waitVisibility(elementLocation);
         highLighterMethod(elementLocation);
         driver.findElement(elementLocation).click();
         log.info("Clicking on element" + elementLocation.toString());
+    }
+
+    void scrollToViewElement(By Element) throws InterruptedException {
+        WebElement element = driver.findElement(Element);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+        Thread.sleep(500);
     }
 
     //Write Text
@@ -111,5 +123,28 @@ public class BasePage {
     // is element  visible
     boolean isElementVisible(By Element) {
         return driver.findElement(Element).isDisplayed();
+    }
+
+    void clickOutside() {
+        Actions action = new Actions(driver);
+        action.moveByOffset(0, 0).click().build().perform();
+    }
+
+
+    public void clearInputTag(By element) {
+        log.info("Clear Search Box");
+        driver.findElement(element).clear();
+    }
+
+    public boolean validateFilter(By element, String text) {
+        List<WebElement> list = driver.findElements(element);
+        log.info("Validating Filter");
+        for (WebElement x : list) {
+            log.info("Element Text : " + x.getText());
+            if (!x.getText().equalsIgnoreCase(text)) {
+                return false;
+            }
+        }
+        return true;
     }
 }

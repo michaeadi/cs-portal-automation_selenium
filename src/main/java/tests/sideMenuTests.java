@@ -1,23 +1,22 @@
 package tests;
 
 import Utils.ExtentReports.ExtentTestManager;
-import Utils.TestDatabean;
 import com.relevantcodes.extentreports.LogStatus;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pages.sideMenuPOM;
+import pages.SideMenuPOM;
 
 import java.lang.reflect.Method;
 
 public class sideMenuTests extends BaseTest {
-
-    @Test(priority = 1, description = "SideMenu ", dataProvider = "getTestData")
-    public void sideMenuAssert(Method method, TestDatabean Data) throws InterruptedException {
-        sideMenuPOM SideMenuPOM = new sideMenuPOM(driver);
+    //Pending as per users
+    @Test(priority = 1, description = "SideMenu ")
+    public void sideMenuAssert(Method method) throws InterruptedException {
+        SideMenuPOM SideMenuPOM = new SideMenuPOM(driver);
         ExtentTestManager.startTest(method.getName(), "SideMenu Assert");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Asserting Side Menu Options");
         SoftAssert softAssert = new SoftAssert();
-//        Thread.sleep(30000);
+//        Thread.sleep(10000);
         SideMenuPOM.clickOnSideMenu();
         softAssert.assertTrue(SideMenuPOM.isAdminSettingVisible());
         softAssert.assertTrue(SideMenuPOM.isCustomerServicesVisible());

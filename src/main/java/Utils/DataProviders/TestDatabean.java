@@ -1,4 +1,4 @@
-package Utils;
+package Utils.DataProviders;
 
 import lombok.Getter;
 import lombok.Setter;

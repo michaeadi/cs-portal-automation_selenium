@@ -1,4 +1,4 @@
-package Utils;
+package Utils.DataProviders;
 
 import org.apache.poi.hssf.usermodel.HSSFFormulaEvaluator;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -13,9 +13,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-
-public class TestDataExcelToBeanDao {
-
+public class TicketStateToBean {
     static DataFormatter dataFormatter;
     static FormulaEvaluator evaluator;
 
@@ -24,9 +22,9 @@ public class TestDataExcelToBeanDao {
         return dataFormatter.formatCellValue(cell, evaluator);
     }
 
-    public List<TestDatabean> getData(String path, String SheetName) {
+    public List<TicketStateDataBean> getData(String path, String SheetName) {
 
-        List<TestDatabean> userCredsBeanList = new ArrayList<>();
+        List<TicketStateDataBean> ticketStateList = new ArrayList<>();
         FileInputStream file;
         try {
             file = new FileInputStream(new File(path));
@@ -44,7 +42,7 @@ public class TestDataExcelToBeanDao {
             Sheet sheet = workbook.getSheet(SheetName);
 
             for (Row cells : sheet) {
-                TestDatabean testDatabean = new TestDatabean();
+                TicketStateDataBean ticketStateDataBean = new TicketStateDataBean();
                 Iterator<Cell> cellIterator = cells.cellIterator();
                 while (cellIterator.hasNext()) {
                     Cell cell = cellIterator.next();
@@ -56,54 +54,22 @@ public class TestDataExcelToBeanDao {
 
                         switch (columnIndex) {
                             case 0:
-                                testDatabean.setLoginAUUID(cellValue);
+                                ticketStateDataBean.setTicketStateName(cellValue);
                                 break;
                             case 1:
-                                testDatabean.setPassword(cellValue);
+                                ticketStateDataBean.setInternalState(cellValue);
                                 break;
                             case 2:
-                                testDatabean.setUserType(cellValue);
+                                ticketStateDataBean.setIsReopenState(cellValue);
                                 break;
-                            case 3:
-                                testDatabean.setCustomerNumber(cellValue);
-                                break;
-                            case 4:
-                                testDatabean.setCustomerName(cellValue);
-                                break;
-                            case 5:
-                                testDatabean.setCustomerDOB(cellValue);
-                                break;
-                            case 6:
-                                testDatabean.setActivationDate(cellValue);
-                                break;
-                            case 7:
-                                testDatabean.setActivationTime(cellValue);
-                                break;
-                            case 8:
-                                testDatabean.setSimNumber(cellValue);
-                                break;
-                            case 9:
-                                testDatabean.setSimType(cellValue);
-                                break;
-                            case 10:
-                                testDatabean.setPUK1(cellValue);
-                                break;
-                            case 11:
-                                testDatabean.setPUK2(cellValue);
-                                break;
-                            case 12:
-                                testDatabean.setIdType(cellValue);
-                                break;
-                            case 13:
-                                testDatabean.setIdNumber(cellValue);
-                                break;
+
                         }
                     }
                 }
 
 
                 if (cells.getRowNum() != 0) {
-                    userCredsBeanList.add(testDatabean);
+                    ticketStateList.add(ticketStateDataBean);
                 }
             }
         } catch (
@@ -111,6 +77,6 @@ public class TestDataExcelToBeanDao {
                 IOException e) {
             e.printStackTrace();
         }
-        return userCredsBeanList;
+        return ticketStateList;
     }
 }

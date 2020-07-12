@@ -21,6 +21,10 @@ public class loginPagePOM extends BasePage {
         super(driver);
     }
 
+    public boolean isEnterAUUIDFieldVisible() {
+//        waitTillLoaderGetsRemoved();
+        return isElementVisible(enterAUUID);
+    }
 
     public void openBaseURL(String baseURL) {
         driver.get(baseURL);
@@ -31,7 +35,7 @@ public class loginPagePOM extends BasePage {
     public void enterAUUID(String AUUID) {
         log.info("Entering AUUID :" + AUUID + "In username");
         writeText(enterAUUID, AUUID);
-//        return new sideMenuPOM (driver);
+//        return new SideMenuPOM (driver);
     }
 
     public void clickOnSubmitBtn() {

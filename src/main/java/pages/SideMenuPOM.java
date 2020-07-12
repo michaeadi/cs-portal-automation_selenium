@@ -1,10 +1,12 @@
 package pages;
 
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class sideMenuPOM extends BasePage {
+@Log4j2
+public class SideMenuPOM extends BasePage {
 
 
     By sideMenuOption = By.xpath("//mat-toolbar//button");
@@ -17,11 +19,11 @@ public class sideMenuPOM extends BasePage {
     By profileManagement = By.xpath("//a[contains(text(),'Profile Management')]");
     By customerInteraction = By.xpath("//a[contains(text(),'Customer Interaction')]");
     By supervisorDashboard = By.xpath("//a[contains(text(),'Supervisor Dashboard')]");
-    By logout = By.xpath("//*[@class=\"color-name text-center left-sidenav-link ng-tns-c16-21\"]");
+    By logout = By.xpath("//span[@class=\"logout-icon\"]");
     By loader = By.xpath("/html/body/app-root/ngx-ui-loader/div[2]");
 
 
-    public sideMenuPOM(WebDriver driver) {
+    public SideMenuPOM(WebDriver driver) {
         super(driver);
     }
 
@@ -30,10 +32,21 @@ public class sideMenuPOM extends BasePage {
     }
 
     public void clickOnSideMenu() {
-
+        wait.until(ExpectedConditions.visibilityOfElementLocated(sideMenuOption));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
         click(sideMenuOption);
     }
+
+    public void waitForHomePage() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(sideMenuOption));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
+    }
+
+    public boolean isSideMenuVisible() {
+        waitTillLoaderGetsRemoved();
+        return isElementVisible(sideMenuOption);
+    }
+
 
     public void clickOnName() {
         click(userName);
@@ -75,5 +88,29 @@ public class sideMenuPOM extends BasePage {
         hoverAndClick(customerServices);
         click(customerInteraction);
         return new customerInteractionsSearchPOM(driver);
+    }
+
+    public userManagementPOM openUserManagementPage() {
+        hoverAndClick(adminSettings);
+        click(userManagement);
+        return new userManagementPOM(driver);
+    }
+
+    public profileManagementPOM openProfileManagementPage() {
+        hoverAndClick(adminSettings);
+        click(profileManagement);
+        return new profileManagementPOM(driver);
+    }
+
+    public agentLoginPagePOM openSupervisorDashboard() {
+        hoverAndClick(customerServices);
+        click(supervisorDashboard);
+        return new agentLoginPagePOM(driver);
+    }
+
+    public loginPagePOM logout() {
+        click(logout);
+        waitTillLoaderGetsRemoved();
+        return new loginPagePOM(driver);
     }
 }

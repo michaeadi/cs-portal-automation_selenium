@@ -2,6 +2,9 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 public class customerInteractionPagePOM extends BasePage {
     By searchNumber = By.xpath("//input[@placeholder=\"Search\"]");
@@ -16,8 +19,22 @@ public class customerInteractionPagePOM extends BasePage {
     By idType = By.xpath("/html[1]/body[1]/app-root[1]/app-dashboard[1]/div[2]/app-admin-panel[1]/div[1]/div[1]/app-sidenav-bar[1]/mat-sidenav-container[1]/mat-sidenav-content[1]/div[1]/app-service-request[1]/div[1]/app-sr-dashboard[1]/div[1]/div[1]/app-sr-customer-details[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[4]/div[1]/ul[1]/li[1]/p[1]");
     By idNumber = By.xpath("/html[1]/body[1]/app-root[1]/app-dashboard[1]/div[2]/app-admin-panel[1]/div[1]/div[1]/app-sidenav-bar[1]/mat-sidenav-container[1]/mat-sidenav-content[1]/div[1]/app-service-request[1]/div[1]/app-sr-dashboard[1]/div[1]/div[1]/app-sr-customer-details[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[4]/div[1]/ul[1]/li[2]/li[1]/p[1]/span[1]");
     By interactionIcon = By.xpath("//div[@class='sub-header__divide--control--tab']");
+    By actions = By.xpath("//span[@class=\"action-placeholder\"]");
+    By simBar = By.xpath("//button[@class=\"db-action-menu-item mat-menu-item ng-star-inserted\"]");
+    By pinTags = By.xpath("//div[@class=\"sub-header__divide--control--tab ng-star-inserted\"]");
+    By viewHistory = By.xpath("//div[@class=\"mat-tab-label-content\" and contains(text(),\"VIEW HISTORY\")]");
+
     public customerInteractionPagePOM(WebDriver driver) {
         super(driver);
+    }
+
+    public String[] getPinnedTagTexts() {
+        String[] strings = null;
+        List<WebElement> webElements = driver.findElements(pinTags);
+        for (int i = 0; i < webElements.size(); i++) {
+            strings[i] = webElements.get(i).getText();
+        }
+        return strings;
     }
 
     public boolean isPageLoaded() {
@@ -46,8 +63,14 @@ public class customerInteractionPagePOM extends BasePage {
     }
 
     public InteractionsPOM clickOnInteractionIcon() {
+        waitTillLoaderGetsRemoved();
         click(interactionIcon);
         return new InteractionsPOM(driver);
+    }
+
+    public viewHistoryPOM clickOnViewHistory() {
+        click(viewHistory);
+        return new viewHistoryPOM(driver);
     }
 
     public String getSimType() {
