@@ -123,4 +123,14 @@ public class BasePage {
         Actions action = new Actions(driver);
         action.moveByOffset(0, 0).click().build().perform();
     }
+
+    public void waitTillLoaderGetsRemoved() {
+        By loader = By.xpath("/html/body/app-root/ngx-ui-loader/div[2]");
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
+    }
+
+    public void clearInputTag(By element){
+        log.info("Clear Search Box");
+        driver.findElement(element).clear();
+    }
 }

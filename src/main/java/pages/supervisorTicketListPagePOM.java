@@ -14,7 +14,7 @@ public class supervisorTicketListPagePOM extends BasePage {
     By workGroupName=By.xpath("//body/app-root/app-dashboard/div/app-admin-panel/div/div/app-sidenav-bar/mat-sidenav-container/mat-sidenav-content/div/app-service-request/div/app-backend-supervisor/mat-sidenav-container/mat-sidenav-content/section/div/div/div/div/div/ul[1]/li[2]/span[1]");
     By workgroupSLA=By.xpath("//ul[1]//li[2]//span[2]");
     By prioritylabel=By.xpath("//div//div//div//div//div//div//div//div//div//ul[1]//li[3]//span[1]");
-    By priorityValue=By.xpath("//div//div//div//div//div//div//div//div//div//ul[1]//li[3]//span[1]");
+    By priorityValue=By.xpath("//div//div//div//div//div//div//div//div//div//ul[1]//li[3]//span[2]");
     By stateLabel=By.xpath("//div//div//div//div//div//div//div//div//div//ul[1]//li[4]//span[1]");
     By statevalue=By.xpath("//ul[1]//li[4]//span[2]");
     By creationdateLabel=By.xpath("//ul[1]//li[5]//span[1]");
@@ -43,6 +43,7 @@ public class supervisorTicketListPagePOM extends BasePage {
     By selectFilterBtn= By.xpath("//span[contains(text(),'Select Filter')]");
     By pageRefreshBtn= By.xpath("//span[contains(text(),'Refresh ')]");
     By noResultFound= By.xpath("//*[@id=\"mat-error-25\"]/p/img");
+    By resetFilterButton=By.xpath("//body/app-root/app-dashboard/div/app-admin-panel/div/div/app-sidenav-bar/mat-sidenav-container/mat-sidenav-content/div/app-service-request/div/app-backend-supervisor/mat-sidenav-container/mat-sidenav-content/section/div/div/button[1]");
 
     public supervisorTicketListPagePOM(WebDriver driver) {
         super(driver);
@@ -50,7 +51,14 @@ public class supervisorTicketListPagePOM extends BasePage {
 
     public void writeTicketId(String ticketId){
         log.info("Search Ticket Id: "+ticketId);
+        click(searchTicketBox);
         writeText(searchTicketBox,ticketId);
+    }
+
+    public void clearInputBox(){
+        log.info("Clear Search Box");
+        click(searchTicketBox);
+        clearInputTag(searchTicketBox);
     }
 
     public void clickedSearchBtn(){
@@ -66,6 +74,10 @@ public class supervisorTicketListPagePOM extends BasePage {
     public boolean isWorkGroupName(){
         log.info("Ticket lie in WorkGroup :" + readText(workGroupName));
         return checkState(workGroupName);
+    }
+
+    public String getWorkGroupName(){
+        return readText(workGroupName);
     }
 
     public boolean isPrioritylabel(){
@@ -197,13 +209,12 @@ public class supervisorTicketListPagePOM extends BasePage {
         return checkState(closedTicketType);
     }
 
-    public boolean changeTicketTypeToClosed(){
+    public void changeTicketTypeToClosed(){
         log.info("Switch Ticket State Type to closed");
         if(checkOpenTicketStateType()){
         click(openTicketType);
         click(closedTicketType);
         }
-        return checkState(closedTicketType);
     }
 
     public boolean changeTicketTypeToOpen(){
@@ -225,5 +236,14 @@ public class supervisorTicketListPagePOM extends BasePage {
         return checkState(noResultFound);
     }
 
+    public void clickFilter(){
+        log.info("Selecting Filter");
+        click(selectFilterBtn);
+    }
+
+    public void resetFilter(){
+        log.info("Removing Filter");
+        click(resetFilterButton);
+    }
 
 }

@@ -8,7 +8,7 @@ import org.openqa.selenium.WebDriver;
 public class transferToQueuePOM extends BasePage {
 
     By pageTitle= By.xpath("//*[@id=\"assignQueue\"]/app-assign-to-queue/section/div/div[1]/h4");
-    By transferQueue=By.xpath("//*[@id=\"assignQueue\"]/app-assign-to-queue/section/div/div[2]/div[1]/div[2]/img");
+    By transferQueue;
 
     public transferToQueuePOM(WebDriver driver) {
         super(driver);
@@ -19,8 +19,9 @@ public class transferToQueuePOM extends BasePage {
         return checkState(pageTitle);
     }
 
-    public void clickTransferQueue(){
+    public void clickTransferQueue(String queueName){
         log.info("Clicking on Transfer to Button");
+        transferQueue= By.xpath("//span[contains(text(),'"+queueName+"')]//ancestor::div[1]//following-sibling::div/img");
         click(transferQueue);
     }
 }
