@@ -3,11 +3,16 @@ package pages;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import java.util.List;
 
 @Log4j2
 public class supervisorTicketListPagePOM extends BasePage {
 
-    By searchTicketBox= By.xpath("//html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input");
+    By searchTicketBox= By.xpath("//input[@type=\"search\"]");
     By searchTicketBtn=By.xpath("//html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button");
     By ticketIdLabel=By.xpath("//div//div//div//div//div//div//div//div//div//ul[1]//li[1]//span[1]");
     By ticketIdvalue=By.xpath("//ul[1]//li[1]//span[2]");
@@ -23,6 +28,7 @@ public class supervisorTicketListPagePOM extends BasePage {
     By createdbyvalue=By.xpath("//li[6]//span[2]");
     By queueLabel=By.xpath("//li[7]//span[1]");
     By queueValue=By.xpath("//li[7]//span[2]");
+    By listQueueValue=By.xpath("//ul/li[7]/span[2]");
     By issueLabel=By.xpath("//ul[2]//li[1]//span[1]");
     By issueValue=By.xpath("//ul[2]//li[1]//span[2]");
     By issueTypeLabel=By.xpath("//ul[2]//li[2]//span[1]");
@@ -38,7 +44,8 @@ public class supervisorTicketListPagePOM extends BasePage {
     By assignToagentBtn = By.xpath("//li[1]//button[1]");
     By transfertoQueueBtn = By.xpath("//li[2]//button[1]");
     By loggedInQueue= By.xpath("//span[contains(text(),'Login with Ticket Pool')]");
-    By openTicketType= By.xpath("//span[contains(text(),'Open')]");
+    By selectTicketType=By.xpath("//*[@name=\"state\"]");
+    By openTicketType= By.xpath("//span[contains(text(),' Open ')]");
     By closedTicketType= By.xpath("//span[contains(text(),' Closed ')]");
     By selectFilterBtn= By.xpath("//span[contains(text(),'Select Filter')]");
     By pageRefreshBtn= By.xpath("//span[contains(text(),'Refresh ')]");
@@ -51,7 +58,6 @@ public class supervisorTicketListPagePOM extends BasePage {
 
     public void writeTicketId(String ticketId){
         log.info("Search Ticket Id: "+ticketId);
-        click(searchTicketBox);
         writeText(searchTicketBox,ticketId);
     }
 
@@ -63,6 +69,7 @@ public class supervisorTicketListPagePOM extends BasePage {
 
     public void clickedSearchBtn(){
         log.info("Clicking on Search Button");
+        wait.until(ExpectedConditions.elementToBeClickable(searchTicketBtn));
         click(searchTicketBtn);
     }
 
@@ -211,19 +218,14 @@ public class supervisorTicketListPagePOM extends BasePage {
 
     public void changeTicketTypeToClosed(){
         log.info("Switch Ticket State Type to closed");
-        if(checkOpenTicketStateType()){
-        click(openTicketType);
-        click(closedTicketType);
-        }
+       click(selectTicketType);
+       click(closedTicketType);
     }
 
-    public boolean changeTicketTypeToOpen(){
+    public void changeTicketTypeToOpen(){
         log.info("Switch Ticket State Type to Open");
-        if(checkClosedTicketstateType()){
-            click(closedTicketType);
-            click(openTicketType);
-        }
-        return checkState(openTicketType);
+        click(selectTicketType);
+        click(openTicketType);
     }
 
     public void viewTicket(){
@@ -244,6 +246,10 @@ public class supervisorTicketListPagePOM extends BasePage {
     public void resetFilter(){
         log.info("Removing Filter");
         click(resetFilterButton);
+    }
+
+    public boolean validateQueueFilter(String text){
+        return validateFilter(listQueueValue,text);
     }
 
 }

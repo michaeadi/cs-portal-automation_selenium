@@ -39,10 +39,10 @@ public class SupervisorUpdateTicket extends BaseTest{
         ExtentTestManager.startTest(method.getName(), "Supervisor Login");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SoftAssert softAssert = new SoftAssert();
-        Thread.sleep(30000);
+        AgentLoginPagePOM.waitTillLoaderGetsRemoved();
         softAssert.assertTrue(AgentLoginPagePOM.isQueueLoginPage());
         AgentLoginPagePOM.clickSkipBtn();
-        Thread.sleep(20000);
+        AgentLoginPagePOM.waitTillLoaderGetsRemoved();
         Assert.assertEquals(driver.getTitle(),config.getProperty("supervisorTicketListPage"));
         softAssert.assertAll();
     }
@@ -70,6 +70,7 @@ public class SupervisorUpdateTicket extends BaseTest{
         softAssert.assertEquals(ticketId,ticketListPage.getTicketIdvalue());
         //softAssert.assertEquals(ticketState.getTicketStateName(),ticketListPage.getStatevalue());
         softAssert.assertEquals(selectedState,ticketListPage.getStatevalue());
+        ticketListPage.changeTicketTypeToOpen();
         softAssert.assertAll();
     }
 }

@@ -36,38 +36,39 @@ public class TransferToQueueTest extends BaseTest {
         ExtentTestManager.startTest(method.getName(), "Supervisor Login");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SoftAssert softAssert = new SoftAssert();
-        Thread.sleep(30000);
+        AgentLoginPagePOM.waitTillLoaderGetsRemoved();
         softAssert.assertTrue(AgentLoginPagePOM.isQueueLoginPage());
         AgentLoginPagePOM.clickSkipBtn();
-        Thread.sleep(20000);
+        AgentLoginPagePOM.waitTillLoaderGetsRemoved();
         Assert.assertEquals(driver.getTitle(),config.getProperty("supervisorTicketListPage"));
         softAssert.assertAll();
     }
 
     @Test(priority = 3,dependsOnMethods = "agentSkipQueueLogin",description = "Transfer to queue",enabled = true)
     public void transferToQueue(Method method) throws InterruptedException{
+        ExtentTestManager.startTest(method.getName(), "Transfer to queue");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         transferToQueuePOM transferQueue= new transferToQueuePOM(driver);
         FilterTabPOM filterTab= new FilterTabPOM(driver);
-        ExtentTestManager.startTest(method.getName(), "Transfer to queue");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SoftAssert softAssert = new SoftAssert();
         ticketListPage.clickFilter();
-        Thread.sleep(2000);
+        ticketListPage.waitTillLoaderGetsRemoved();
         filterTab.scrollToQueueFilter();
-        Thread.sleep(2000);
+        ticketListPage.waitTillLoaderGetsRemoved();
         filterTab.clickQueueFilter();
         filterTab.selectQueueByName(config.getProperty("ticketQueue"));
         filterTab.clickOutsideFilter();
         filterTab.clickApplyFilter();
-        Thread.sleep(20000);
+        ticketListPage.waitTillLoaderGetsRemoved();
+        softAssert.assertTrue(ticketListPage.validateQueueFilter(config.getProperty("ticketQueue")),"Queue Filter Successfully");
         Assert.assertEquals(ticketListPage.getqueueValue(),config.getProperty("ticketQueue"));
         String ticketId = ticketListPage.getTicketIdvalue();
         ticketListPage.resetFilter();
-        Thread.sleep(2000);
+        ticketListPage.waitTillLoaderGetsRemoved();
         ticketListPage.writeTicketId(ticketId);
         ticketListPage.clickedSearchBtn();
-        Thread.sleep(20000);
+        ticketListPage.waitTillLoaderGetsRemoved();
         //softAssert.assertTrue(ticketListPage.checkOpenTicketStateType());
         ticketListPage.clickCheckbox();
         softAssert.assertTrue(ticketListPage.isAssignToAgent());
@@ -75,12 +76,11 @@ public class TransferToQueueTest extends BaseTest {
         ticketListPage.clickTransfertoQueue();
         softAssert.assertTrue(transferQueue.validatePageTitle());
         transferQueue.clickTransferQueue(config.getProperty("transferQueue"));
-        Thread.sleep(20000);
-        ticketListPage.writeTicketId(ticketId); //need Method Improvement
+        ticketListPage.waitTillLoaderGetsRemoved();
+        ticketListPage.writeTicketId(ticketId);
         ticketListPage.clickedSearchBtn();
-        Thread.sleep(2000);
-        Assert.assertEquals(ticketListPage.getqueueValue(),config.getProperty("transferQueue"));
+        ticketListPage.waitTillLoaderGetsRemoved();
+        Assert.assertEquals(ticketListPage.getqueueValue().toLowerCase().trim(),config.getProperty("transferQueue").toLowerCase().trim());
         softAssert.assertAll();
-
     }
 }

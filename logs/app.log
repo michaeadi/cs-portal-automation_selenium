@@ -1,199 +1,35 @@
-2020-07-16 02:28:13.488 [INFO /main/openBaseURL]: loginPagePOM(27): Opening URL:-http://172.23.36.206:30050/#/login
-2020-07-16 02:28:13.518 [INFO /main/enterAUUID]: loginPagePOM(32): Entering AUUID :2390495In username
-2020-07-16 02:28:13.940 [INFO /main/writeText]: BasePage(43): Writing 2390495to  By.xpath: //input[@autocomplete="new-password"]
-2020-07-16 02:28:13.941 [INFO /main/clickOnSubmitBtn]: loginPagePOM(38): Clicking on Submit button
-2020-07-16 02:28:14.263 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath:  //*[@type='submit']
-2020-07-16 02:28:14.264 [INFO /main/enterPassword]: loginPagePOM(48): Send password to Password field
-2020-07-16 02:28:14.926 [INFO /main/writeText]: BasePage(43): Writing June@123$to  By.name: password
-2020-07-16 02:28:14.928 [INFO /main/checkLoginButton]: loginPagePOM(53): checking login button is enabled or not
-2020-07-16 02:28:15.056 [INFO /main/clickOnVisibleButton]: loginPagePOM(63): Clicking on Visible Password Button
-2020-07-16 02:28:15.851 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath:  //*[@class='visibility-icon c-pointer abs visible-status mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted']
-2020-07-16 02:28:15.851 [INFO /main/clickOnVisibleButton]: loginPagePOM(63): Clicking on Visible Password Button
-2020-07-16 02:28:16.070 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath:  //*[@class='visibility-icon c-pointer abs visible-status mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted']
-2020-07-16 02:28:16.070 [INFO /main/clickOnLogin]: loginPagePOM(58): Clicking on Login button
-2020-07-16 02:28:16.346 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath:  //*[@type='submit']
-2020-07-16 02:28:19.033 [INFO /main/isQueueLoginPage]: agentLoginPagePOM(31): Supervisor Login Page
-2020-07-16 02:28:21.705 [INFO /main/clickSkipBtn]: agentLoginPagePOM(41): Clicking on SKIP Button
-2020-07-16 02:28:22.152 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //span[contains(text(),'Skip > >')]
-2020-07-16 02:28:24.248 [INFO /main/clearInputBox]: supervisorTicketListPagePOM(59): Clear Search Box
-2020-07-16 02:28:24.418 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:28:24.418 [INFO /main/clearInputTag]: BasePage(133): Clear Search Box
-2020-07-16 02:28:24.544 [INFO /main/writeTicketId]: supervisorTicketListPagePOM(53): Search Ticket Id: 140720000650
-2020-07-16 02:28:24.859 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:28:25.512 [INFO /main/writeText]: BasePage(43): Writing 140720000650to  By.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:28:25.513 [INFO /main/clickedSearchBtn]: supervisorTicketListPagePOM(65): Clicking on Search Button
-2020-07-16 02:28:25.841 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button
-2020-07-16 02:28:27.815 [INFO /main/getTicketIdvalue]: supervisorTicketListPagePOM(129): Ticket Id: 140720000650
-2020-07-16 02:28:28.125 [INFO /main/isTicketIdLabel]: supervisorTicketListPagePOM(70): Is Ticket Id field Available :true
-2020-07-16 02:28:28.470 [INFO /main/isWorkGroupName]: supervisorTicketListPagePOM(75): Ticket lie in WorkGroup :Airtel Money
-2020-07-16 02:28:28.809 [INFO /main/isPrioritylabel]: supervisorTicketListPagePOM(84): Is Priority field Available :true
-2020-07-16 02:28:29.143 [INFO /main/isStateLabel]: supervisorTicketListPagePOM(89): Is Priority field Available :true
-2020-07-16 02:28:29.468 [INFO /main/isCreationdateLabel]: supervisorTicketListPagePOM(94): Is Priority field Available :true
-2020-07-16 02:28:29.800 [INFO /main/isCreatedbyLabel]: supervisorTicketListPagePOM(99): Is Priority field Available :true
-2020-07-16 02:28:30.086 [INFO /main/isQueueLabel]: supervisorTicketListPagePOM(103): Is Priority field Available :true
-2020-07-16 02:28:30.282 [INFO /main/isIssueLabel]: supervisorTicketListPagePOM(107): Is Issue field Available :true
-2020-07-16 02:28:30.450 [INFO /main/isIssueTypeLabel]: supervisorTicketListPagePOM(111): Is Issue Type field Available :true
-2020-07-16 02:28:30.635 [INFO /main/isSubTypeLabel]: supervisorTicketListPagePOM(115): Is Issue Sub Type field Available :true
-2020-07-16 02:28:30.893 [INFO /main/isSubSubTypeLabel]: supervisorTicketListPagePOM(119): Is Issue Sub Sub Type field Available :true
-2020-07-16 02:28:31.198 [INFO /main/isCodeLabel]: supervisorTicketListPagePOM(124): Is Code field Available :true
-2020-07-16 02:29:02.535 [INFO /main/clearInputBox]: supervisorTicketListPagePOM(59): Clear Search Box
-2020-07-16 02:29:02.756 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:02.756 [INFO /main/clearInputTag]: BasePage(133): Clear Search Box
-2020-07-16 02:29:02.873 [INFO /main/writeTicketId]: supervisorTicketListPagePOM(53): Search Ticket Id: 140720000651
-2020-07-16 02:29:03.087 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:03.376 [INFO /main/writeText]: BasePage(43): Writing 140720000651to  By.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:03.376 [INFO /main/clickedSearchBtn]: supervisorTicketListPagePOM(65): Clicking on Search Button
-2020-07-16 02:29:03.621 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button
-2020-07-16 02:29:05.565 [INFO /main/getTicketIdvalue]: supervisorTicketListPagePOM(129): Ticket Id: 140720000650
-2020-07-16 02:29:05.704 [INFO /main/clearInputBox]: supervisorTicketListPagePOM(59): Clear Search Box
-2020-07-16 02:29:05.918 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:05.918 [INFO /main/clearInputTag]: BasePage(133): Clear Search Box
-2020-07-16 02:29:06.001 [INFO /main/writeTicketId]: supervisorTicketListPagePOM(53): Search Ticket Id: 140720000652
-2020-07-16 02:29:06.137 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:06.521 [INFO /main/writeText]: BasePage(43): Writing 140720000652to  By.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:06.521 [INFO /main/clickedSearchBtn]: supervisorTicketListPagePOM(65): Clicking on Search Button
-2020-07-16 02:29:06.717 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button
-2020-07-16 02:29:08.706 [INFO /main/getTicketIdvalue]: supervisorTicketListPagePOM(129): Ticket Id: 140720000650
-2020-07-16 02:29:08.803 [INFO /main/clearInputBox]: supervisorTicketListPagePOM(59): Clear Search Box
-2020-07-16 02:29:08.956 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:08.957 [INFO /main/clearInputTag]: BasePage(133): Clear Search Box
-2020-07-16 02:29:09.128 [INFO /main/writeTicketId]: supervisorTicketListPagePOM(53): Search Ticket Id: 140720000653
-2020-07-16 02:29:09.392 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:09.682 [INFO /main/writeText]: BasePage(43): Writing 140720000653to  By.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:09.682 [INFO /main/clickedSearchBtn]: supervisorTicketListPagePOM(65): Clicking on Search Button
-2020-07-16 02:29:09.893 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button
-2020-07-16 02:29:11.713 [INFO /main/getTicketIdvalue]: supervisorTicketListPagePOM(129): Ticket Id: 140720000650
-2020-07-16 02:29:11.778 [INFO /main/clearInputBox]: supervisorTicketListPagePOM(59): Clear Search Box
-2020-07-16 02:29:11.933 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:11.933 [INFO /main/clearInputTag]: BasePage(133): Clear Search Box
-2020-07-16 02:29:12.026 [INFO /main/writeTicketId]: supervisorTicketListPagePOM(53): Search Ticket Id: 140720000654
-2020-07-16 02:29:12.158 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:12.408 [INFO /main/writeText]: BasePage(43): Writing 140720000654to  By.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:12.409 [INFO /main/clickedSearchBtn]: supervisorTicketListPagePOM(65): Clicking on Search Button
-2020-07-16 02:29:12.531 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button
-2020-07-16 02:29:14.353 [INFO /main/getTicketIdvalue]: supervisorTicketListPagePOM(129): Ticket Id: 140720000650
-2020-07-16 02:29:14.442 [INFO /main/clearInputBox]: supervisorTicketListPagePOM(59): Clear Search Box
-2020-07-16 02:29:14.654 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:14.654 [INFO /main/clearInputTag]: BasePage(133): Clear Search Box
-2020-07-16 02:29:14.750 [INFO /main/writeTicketId]: supervisorTicketListPagePOM(53): Search Ticket Id: 140720000655
-2020-07-16 02:29:14.980 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:15.215 [INFO /main/writeText]: BasePage(43): Writing 140720000655to  By.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:15.216 [INFO /main/clickedSearchBtn]: supervisorTicketListPagePOM(65): Clicking on Search Button
-2020-07-16 02:29:15.306 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button
-2020-07-16 02:29:17.146 [INFO /main/getTicketIdvalue]: supervisorTicketListPagePOM(129): Ticket Id: 140720000650
-2020-07-16 02:29:17.273 [INFO /main/clearInputBox]: supervisorTicketListPagePOM(59): Clear Search Box
-2020-07-16 02:29:17.505 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:17.505 [INFO /main/clearInputTag]: BasePage(133): Clear Search Box
-2020-07-16 02:29:17.631 [INFO /main/writeTicketId]: supervisorTicketListPagePOM(53): Search Ticket Id: 140720000656
-2020-07-16 02:29:17.730 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:17.908 [INFO /main/writeText]: BasePage(43): Writing 140720000656to  By.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:17.909 [INFO /main/clickedSearchBtn]: supervisorTicketListPagePOM(65): Clicking on Search Button
-2020-07-16 02:29:18.102 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button
-2020-07-16 02:29:19.967 [INFO /main/getTicketIdvalue]: supervisorTicketListPagePOM(129): Ticket Id: 140720000650
-2020-07-16 02:29:20.053 [INFO /main/clearInputBox]: supervisorTicketListPagePOM(59): Clear Search Box
-2020-07-16 02:29:20.266 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:20.267 [INFO /main/clearInputTag]: BasePage(133): Clear Search Box
-2020-07-16 02:29:20.417 [INFO /main/writeTicketId]: supervisorTicketListPagePOM(53): Search Ticket Id: 140720000657
-2020-07-16 02:29:20.619 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:20.809 [INFO /main/writeText]: BasePage(43): Writing 140720000657to  By.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:20.809 [INFO /main/clickedSearchBtn]: supervisorTicketListPagePOM(65): Clicking on Search Button
-2020-07-16 02:29:21.053 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button
-2020-07-16 02:29:22.832 [INFO /main/getTicketIdvalue]: supervisorTicketListPagePOM(129): Ticket Id: 140720000650
-2020-07-16 02:29:22.906 [INFO /main/clearInputBox]: supervisorTicketListPagePOM(59): Clear Search Box
-2020-07-16 02:29:23.035 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:23.036 [INFO /main/clearInputTag]: BasePage(133): Clear Search Box
-2020-07-16 02:29:23.138 [INFO /main/writeTicketId]: supervisorTicketListPagePOM(53): Search Ticket Id: 140720000658
-2020-07-16 02:29:23.301 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:23.495 [INFO /main/writeText]: BasePage(43): Writing 140720000658to  By.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:23.495 [INFO /main/clickedSearchBtn]: supervisorTicketListPagePOM(65): Clicking on Search Button
-2020-07-16 02:29:23.623 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button
-2020-07-16 02:29:25.408 [INFO /main/getTicketIdvalue]: supervisorTicketListPagePOM(129): Ticket Id: 140720000650
-2020-07-16 02:29:25.484 [INFO /main/clearInputBox]: supervisorTicketListPagePOM(59): Clear Search Box
-2020-07-16 02:29:25.573 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:25.574 [INFO /main/clearInputTag]: BasePage(133): Clear Search Box
-2020-07-16 02:29:25.645 [INFO /main/writeTicketId]: supervisorTicketListPagePOM(53): Search Ticket Id: 140720000659
-2020-07-16 02:29:25.843 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:26.141 [INFO /main/writeText]: BasePage(43): Writing 140720000659to  By.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:26.142 [INFO /main/clickedSearchBtn]: supervisorTicketListPagePOM(65): Clicking on Search Button
-2020-07-16 02:29:26.341 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button
-2020-07-16 02:29:28.279 [INFO /main/getTicketIdvalue]: supervisorTicketListPagePOM(129): Ticket Id: 140720000650
-2020-07-16 02:29:28.408 [INFO /main/clearInputBox]: supervisorTicketListPagePOM(59): Clear Search Box
-2020-07-16 02:29:28.622 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:28.622 [INFO /main/clearInputTag]: BasePage(133): Clear Search Box
-2020-07-16 02:29:28.763 [INFO /main/writeTicketId]: supervisorTicketListPagePOM(53): Search Ticket Id: 140720000660
-2020-07-16 02:29:28.959 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:29.255 [INFO /main/writeText]: BasePage(43): Writing 140720000660to  By.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:29.255 [INFO /main/clickedSearchBtn]: supervisorTicketListPagePOM(65): Clicking on Search Button
-2020-07-16 02:29:29.494 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button
-2020-07-16 02:29:32.503 [INFO /main/getTicketIdvalue]: supervisorTicketListPagePOM(129): Ticket Id: 140720000650
-2020-07-16 02:29:32.633 [INFO /main/clearInputBox]: supervisorTicketListPagePOM(59): Clear Search Box
-2020-07-16 02:29:32.793 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:32.793 [INFO /main/clearInputTag]: BasePage(133): Clear Search Box
-2020-07-16 02:29:32.872 [INFO /main/writeTicketId]: supervisorTicketListPagePOM(53): Search Ticket Id: 140720000661
-2020-07-16 02:29:32.985 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:33.148 [INFO /main/writeText]: BasePage(43): Writing 140720000661to  By.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:33.148 [INFO /main/clickedSearchBtn]: supervisorTicketListPagePOM(65): Clicking on Search Button
-2020-07-16 02:29:33.256 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button
-2020-07-16 02:29:36.340 [INFO /main/getTicketIdvalue]: supervisorTicketListPagePOM(129): Ticket Id: 140720000650
-2020-07-16 02:29:36.461 [INFO /main/clearInputBox]: supervisorTicketListPagePOM(59): Clear Search Box
-2020-07-16 02:29:36.698 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:36.699 [INFO /main/clearInputTag]: BasePage(133): Clear Search Box
-2020-07-16 02:29:36.843 [INFO /main/writeTicketId]: supervisorTicketListPagePOM(53): Search Ticket Id: 140720000662
-2020-07-16 02:29:37.071 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:37.364 [INFO /main/writeText]: BasePage(43): Writing 140720000662to  By.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:37.364 [INFO /main/clickedSearchBtn]: supervisorTicketListPagePOM(65): Clicking on Search Button
-2020-07-16 02:29:37.573 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button
-2020-07-16 02:29:41.200 [INFO /main/getTicketIdvalue]: supervisorTicketListPagePOM(129): Ticket Id: 140720000650
-2020-07-16 02:29:41.332 [INFO /main/clearInputBox]: supervisorTicketListPagePOM(59): Clear Search Box
-2020-07-16 02:29:41.467 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:41.467 [INFO /main/clearInputTag]: BasePage(133): Clear Search Box
-2020-07-16 02:29:41.565 [INFO /main/writeTicketId]: supervisorTicketListPagePOM(53): Search Ticket Id: 140720000663
-2020-07-16 02:29:41.683 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:41.924 [INFO /main/writeText]: BasePage(43): Writing 140720000663to  By.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:41.924 [INFO /main/clickedSearchBtn]: supervisorTicketListPagePOM(65): Clicking on Search Button
-2020-07-16 02:29:42.063 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button
-2020-07-16 02:29:43.865 [INFO /main/getTicketIdvalue]: supervisorTicketListPagePOM(129): Ticket Id: 140720000650
-2020-07-16 02:29:43.937 [INFO /main/clearInputBox]: supervisorTicketListPagePOM(59): Clear Search Box
-2020-07-16 02:29:44.055 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:44.055 [INFO /main/clearInputTag]: BasePage(133): Clear Search Box
-2020-07-16 02:29:44.145 [INFO /main/writeTicketId]: supervisorTicketListPagePOM(53): Search Ticket Id: 140720000664
-2020-07-16 02:29:44.273 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:44.434 [INFO /main/writeText]: BasePage(43): Writing 140720000664to  By.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:44.434 [INFO /main/clickedSearchBtn]: supervisorTicketListPagePOM(65): Clicking on Search Button
-2020-07-16 02:29:44.552 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button
-2020-07-16 02:29:46.258 [INFO /main/getTicketIdvalue]: supervisorTicketListPagePOM(129): Ticket Id: 140720000650
-2020-07-16 02:29:46.362 [INFO /main/clearInputBox]: supervisorTicketListPagePOM(59): Clear Search Box
-2020-07-16 02:29:46.495 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:46.496 [INFO /main/clearInputTag]: BasePage(133): Clear Search Box
-2020-07-16 02:29:46.621 [INFO /main/writeTicketId]: supervisorTicketListPagePOM(53): Search Ticket Id: 140720000665
-2020-07-16 02:29:46.802 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:47.040 [INFO /main/writeText]: BasePage(43): Writing 140720000665to  By.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:47.041 [INFO /main/clickedSearchBtn]: supervisorTicketListPagePOM(65): Clicking on Search Button
-2020-07-16 02:29:47.250 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button
-2020-07-16 02:29:49.074 [INFO /main/getTicketIdvalue]: supervisorTicketListPagePOM(129): Ticket Id: 140720000650
-2020-07-16 02:29:49.191 [INFO /main/clearInputBox]: supervisorTicketListPagePOM(59): Clear Search Box
-2020-07-16 02:29:49.409 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:49.410 [INFO /main/clearInputTag]: BasePage(133): Clear Search Box
-2020-07-16 02:29:49.495 [INFO /main/writeTicketId]: supervisorTicketListPagePOM(53): Search Ticket Id: 140720000666
-2020-07-16 02:29:49.701 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:49.993 [INFO /main/writeText]: BasePage(43): Writing 140720000666to  By.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:49.993 [INFO /main/clickedSearchBtn]: supervisorTicketListPagePOM(65): Clicking on Search Button
-2020-07-16 02:29:50.232 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button
-2020-07-16 02:29:52.002 [INFO /main/getTicketIdvalue]: supervisorTicketListPagePOM(129): Ticket Id: 140720000650
-2020-07-16 02:29:52.057 [INFO /main/clearInputBox]: supervisorTicketListPagePOM(59): Clear Search Box
-2020-07-16 02:29:52.179 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:52.179 [INFO /main/clearInputTag]: BasePage(133): Clear Search Box
-2020-07-16 02:29:52.265 [INFO /main/writeTicketId]: supervisorTicketListPagePOM(53): Search Ticket Id: 140720000667
-2020-07-16 02:29:52.430 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:52.568 [INFO /main/writeText]: BasePage(43): Writing 140720000667to  By.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:52.568 [INFO /main/clickedSearchBtn]: supervisorTicketListPagePOM(65): Clicking on Search Button
-2020-07-16 02:29:52.705 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button
-2020-07-16 02:29:54.479 [INFO /main/getTicketIdvalue]: supervisorTicketListPagePOM(129): Ticket Id: 140720000650
-2020-07-16 02:29:54.556 [INFO /main/clearInputBox]: supervisorTicketListPagePOM(59): Clear Search Box
-2020-07-16 02:29:54.718 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:54.718 [INFO /main/clearInputTag]: BasePage(133): Clear Search Box
-2020-07-16 02:29:54.816 [INFO /main/writeTicketId]: supervisorTicketListPagePOM(53): Search Ticket Id: 140720000668
-2020-07-16 02:29:55.030 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:55.215 [INFO /main/writeText]: BasePage(43): Writing 140720000668to  By.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//input
-2020-07-16 02:29:55.216 [INFO /main/clickedSearchBtn]: supervisorTicketListPagePOM(65): Clicking on Search Button
-2020-07-16 02:29:55.351 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button
+2020-07-17 03:04:34.126 [INFO /main/openBaseURL]: loginPagePOM(27): Opening URL:-http://172.23.36.206:30050/#/login
+2020-07-17 03:04:34.169 [INFO /main/enterAUUID]: loginPagePOM(32): Entering AUUID :2390495In username
+2020-07-17 03:04:34.629 [INFO /main/writeText]: BasePage(44): Writing 2390495to  By.xpath: //input[@autocomplete="new-password"]
+2020-07-17 03:04:34.630 [INFO /main/clickOnSubmitBtn]: loginPagePOM(38): Clicking on Submit button
+2020-07-17 03:04:34.930 [INFO /main/click]: BasePage(36): Clicking on elementBy.xpath:  //*[@type='submit']
+2020-07-17 03:04:34.931 [INFO /main/enterPassword]: loginPagePOM(48): Send password to Password field
+2020-07-17 03:04:35.602 [INFO /main/writeText]: BasePage(44): Writing June@123$to  By.name: password
+2020-07-17 03:04:35.603 [INFO /main/checkLoginButton]: loginPagePOM(53): checking login button is enabled or not
+2020-07-17 03:04:35.720 [INFO /main/clickOnVisibleButton]: loginPagePOM(63): Clicking on Visible Password Button
+2020-07-17 03:04:36.515 [INFO /main/click]: BasePage(36): Clicking on elementBy.xpath:  //*[@class='visibility-icon c-pointer abs visible-status mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted']
+2020-07-17 03:04:36.516 [INFO /main/clickOnVisibleButton]: loginPagePOM(63): Clicking on Visible Password Button
+2020-07-17 03:04:36.643 [INFO /main/click]: BasePage(36): Clicking on elementBy.xpath:  //*[@class='visibility-icon c-pointer abs visible-status mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted']
+2020-07-17 03:04:36.644 [INFO /main/clickOnLogin]: loginPagePOM(58): Clicking on Login button
+2020-07-17 03:04:36.805 [INFO /main/click]: BasePage(36): Clicking on elementBy.xpath:  //*[@type='submit']
+2020-07-17 03:04:40.030 [INFO /main/isQueueLoginPage]: agentLoginPagePOM(31): Supervisor Login Page
+2020-07-17 03:04:41.617 [INFO /main/clickSkipBtn]: agentLoginPagePOM(41): Clicking on SKIP Button
+2020-07-17 03:04:41.925 [INFO /main/click]: BasePage(36): Clicking on elementBy.xpath: //span[contains(text(),'Skip > >')]
+2020-07-17 03:04:44.039 [INFO /main/getTicketIdvalue]: supervisorTicketListPagePOM(136): Ticket Id: 160720000953
+2020-07-17 03:04:44.316 [INFO /main/getTicketIdvalue]: supervisorTicketListPagePOM(136): Ticket Id: 160720000953
+2020-07-17 03:04:44.418 [INFO /main/viewTicket]: supervisorTicketListPagePOM(232): View Ticket: 160720000953
+2020-07-17 03:04:44.943 [INFO /main/click]: BasePage(36): Clicking on elementBy.xpath: //div//div//div//div//div//div//div//div//div//ul[1]//li[4]//span[1]
+2020-07-17 03:04:46.200 [INFO /main/getTicketId]: ViewTicketPagePOM(21): View Ticket: 160720000953
+2020-07-17 03:04:46.347 [INFO /main/selectState]: ViewTicketPagePOM(26): Selecting State: Cancelled
+2020-07-17 03:04:47.363 [INFO /main/click]: BasePage(36): Clicking on elementBy.className: submit-btn
+2020-07-17 03:05:07.365 [INFO /main/changeTicketTypeToClosed]: supervisorTicketListPagePOM(220): Switch Ticket State Type to closed
+2020-07-17 03:05:07.731 [INFO /main/click]: BasePage(36): Clicking on elementBy.xpath: //*[@name="state"]
+2020-07-17 03:05:07.924 [INFO /main/click]: BasePage(36): Clicking on elementBy.xpath: //span[contains(text(),' Closed ')]
+2020-07-17 03:05:27.925 [INFO /main/writeTicketId]: supervisorTicketListPagePOM(60): Search Ticket Id: 160720000953
+2020-07-17 03:05:28.429 [INFO /main/writeText]: BasePage(44): Writing 160720000953to  By.xpath: //input[@type="search"]
+2020-07-17 03:05:28.430 [INFO /main/clickedSearchBtn]: supervisorTicketListPagePOM(71): Clicking on Search Button
+2020-07-17 03:05:28.862 [INFO /main/click]: BasePage(36): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button
+2020-07-17 03:05:49.021 [INFO /main/getTicketIdvalue]: supervisorTicketListPagePOM(136): Ticket Id: 160720000953
+2020-07-17 03:05:49.245 [INFO /main/changeTicketTypeToOpen]: supervisorTicketListPagePOM(226): Switch Ticket State Type to Open
+2020-07-17 03:05:49.528 [INFO /main/click]: BasePage(36): Clicking on elementBy.xpath: //*[@name="state"]
+2020-07-17 03:05:49.678 [INFO /main/click]: BasePage(36): Clicking on elementBy.xpath: //span[contains(text(),' Open ')]

@@ -12,6 +12,7 @@ import org.testng.Assert;
 
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Log4j2
@@ -132,5 +133,17 @@ public class BasePage {
     public void clearInputTag(By element){
         log.info("Clear Search Box");
         driver.findElement(element).clear();
+    }
+
+    public boolean validateFilter(By element,String text){
+        List<WebElement> list=  driver.findElements(element);
+        log.info("Validating Filter");
+        for(WebElement x : list){
+            log.info("Element Text : "+x.getText());
+            if(!x.getText().equalsIgnoreCase(text)){
+                return false;
+            }
+        }
+        return true;
     }
 }

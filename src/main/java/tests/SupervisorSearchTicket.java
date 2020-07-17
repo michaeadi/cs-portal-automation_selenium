@@ -70,15 +70,24 @@ public class SupervisorSearchTicket extends BaseTest {
         softAssert.assertTrue(ticketListPage.isSubTypeLabel());
         softAssert.assertTrue(ticketListPage.isSubSubTypeLabel());
         softAssert.assertTrue(ticketListPage.isCodeLabel());
-        softAssert.assertEquals(ticketListPage.getIssueValue(),Data.getIssue());
-        softAssert.assertEquals(ticketListPage.getIssueTypeValue(),Data.getIssueType());
-        softAssert.assertEquals(ticketListPage.getSubTypeValue(),Data.getIssueSubType());
-        softAssert.assertEquals(ticketListPage.getsubSubTypeValue(),Data.getIssueSubSubType());
-        softAssert.assertEquals(ticketListPage.getCodeValue(),Data.getIssueCode());
-        softAssert.assertEquals(ticketListPage.getWorkGroupName(),Data.getWorkgroup());
-        softAssert.assertEquals(ticketListPage.getqueueValue(),Data.getAssignmentQueue());
-        softAssert.assertEquals(ticketListPage.getPriorityValue(),Data.getPriority());
-        softAssert.assertEquals(ticketListPage.getPriorityValue(),Data.getPriority());
+        softAssert.assertEquals(ticketListPage.getIssueValue().toLowerCase().trim(),Data.getIssue().toLowerCase().trim(),
+                "Issue Validated");
+        softAssert.assertEquals(ticketListPage.getIssueTypeValue().toLowerCase().trim(),Data.getIssueType().toLowerCase().trim(),
+                "Issue Type Validated");
+        softAssert.assertEquals(ticketListPage.getSubTypeValue().toLowerCase().trim(),Data.getIssueSubType().toLowerCase().trim(),
+                "Issue Sub Type Validated");
+        softAssert.assertEquals(ticketListPage.getsubSubTypeValue().toLowerCase().trim(),Data.getIssueSubSubType().toLowerCase().trim(),
+                "Issue Sub Sub Type Validated");
+        softAssert.assertEquals(ticketListPage.getCodeValue().toLowerCase().trim(),Data.getIssueCode().toLowerCase().trim(),
+                "Issue Code Validated");
+        softAssert.assertEquals(ticketListPage.getWorkGroupName().toLowerCase().trim(),Data.getWorkgroup().toLowerCase().trim(),
+                "Ticket WorkGroup Validated");
+        softAssert.assertEquals(ticketListPage.getqueueValue().toLowerCase().trim(),Data.getAssignmentQueue().toLowerCase().trim(),
+                "Ticket Queue Validated");
+        softAssert.assertEquals(ticketListPage.getPriorityValue().toLowerCase().trim(),Data.getPriority().toLowerCase().trim(),
+                "Ticket Priority Validated");
+        softAssert.assertEquals(ticketListPage.getPriorityValue().toLowerCase().trim(),Data.getPriority().toLowerCase().trim(),
+                "Issue Type Validated");
         softAssert.assertAll();
         Thread.sleep(30000);
     }
