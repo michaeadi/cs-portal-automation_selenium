@@ -9,6 +9,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import tests.BaseTest;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -23,10 +24,10 @@ public class BasePage {
 
     //Constructor
     public BasePage(WebDriver driver) {
-        this.driver = driver;
-        wait = new WebDriverWait(driver, Duration.ofSeconds(40));
-        driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
 
+        this.driver = driver;
+        wait = new WebDriverWait(driver, Duration.ofSeconds(Integer.parseInt(BaseTest.config.getProperty("GeneralWaitInSeconds"))));
+        driver.manage().timeouts().implicitlyWait(Integer.parseInt(BaseTest.config.getProperty("ImplicitWaitInSeconds")), TimeUnit.SECONDS);
     }
 
     public void waitTillLoaderGetsRemoved() {

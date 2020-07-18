@@ -15,11 +15,15 @@ public class viewHistoryPOM extends BasePage {
 
     public void clickOnInteractionsTab() {
         log.info("Clicking on Interactions Tab under view history ");
+        waitTillLoaderGetsRemoved();
         click(interactionsTab);
     }
 
     public String getLastCreatedIssueCode() {
         log.info("Getting the issue code of last created FTR interaction ");
+        waitTillLoaderGetsRemoved();
         return readText(firstIssueCode);
     }
+
+
 }

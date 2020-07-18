@@ -3,7 +3,6 @@ package tests;
 import Utils.DataProviders.DataProvider;
 import Utils.DataProviders.TestDatabean;
 import Utils.ExtentReports.ExtentTestManager;
-import com.relevantcodes.extentreports.LogStatus;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.SideMenuPOM;
@@ -15,12 +14,11 @@ public class LoginTests extends BaseTest {
     @DataProvider.User(UserType = "ALL")
     @Test(priority = 1, description = "Logging IN", dataProvider = "loginData", dataProviderClass = DataProvider.class)
     public void LoggingIN(Method method, TestDatabean Data) {
-        loginPagePOM loginPagePOM = new loginPagePOM(driver);
-        ExtentTestManager.startTest(method.getName(), "Opening Base URL");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
+        ExtentTestManager.startTest("Logging Into Portal", "Logging Into Portal with AUUID :  " + Data.getLoginAUUID());
         SoftAssert softAssert = new SoftAssert();
-        loginPagePOM.openBaseURL(config.getProperty("baseurl"));
-        softAssert.assertEquals(driver.getCurrentUrl(), config.getProperty("baseurl"), "URl isn't as expected");
+        loginPagePOM loginPagePOM = new loginPagePOM(driver);
+        loginPagePOM.openBaseURL(config.getProperty(tests.BaseTest.Env + "-baseurl"));
+        softAssert.assertEquals(driver.getCurrentUrl(), config.getProperty(tests.BaseTest.Env + "-baseurl"), "URl isn't as expected");
         loginPagePOM.enterAUUID(Data.getLoginAUUID());//*[@id="mat-input-7"]
         loginPagePOM.clickOnSubmitBtn();
         loginPagePOM.enterPassword(Data.getPassword());

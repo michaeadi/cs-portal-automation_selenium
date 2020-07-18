@@ -85,7 +85,7 @@ public class SupervisorSearchTicket extends BaseTest {
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(ticketListPage.checkOpenTicketStateType());
+//        softAssert.assertTrue(ticketListPage.checkOpenTicketStateType());
         ticketListPage.clickCheckbox();
         softAssert.assertTrue(ticketListPage.isAssignToAgent());
         softAssert.assertTrue(ticketListPage.isTransferToQueue());

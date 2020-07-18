@@ -25,9 +25,9 @@ public class createInteractionTest extends BaseTest {
 
 //    Map<String, String> map = new HashMap<>();
 
-    @Test(priority = 1, description = "Create Interaction ", dataProvider = "getTestData1", enabled = true, dataProviderClass = DataProvider.class)
+    @Test(priority = 1, description = "Create FTR Interaction ", dataProvider = "getTestData1", enabled = true, dataProviderClass = DataProvider.class)
     public void CreateInteraction(Method method, ftrDataBeans Data) throws InterruptedException {
-        ExtentTestManager.startTest(method.getName(), "Creating Tickets");
+        ExtentTestManager.startTest(" Validating FTR Ticket" + Data.getIssueCode(), "Creating FTR Tickets and Configurations of Issue Code " + Data.getIssueCode());
         customerInteractionPagePOM customerInteractionPagePOM = new customerInteractionPagePOM(driver);
         InteractionsPOM interactionsPOM = customerInteractionPagePOM.clickOnInteractionIcon();
         SoftAssert softAssert = new SoftAssert();
@@ -43,7 +43,7 @@ public class createInteractionTest extends BaseTest {
         softAssert.assertEquals(interactionsPOM.getIssueType().trim().toLowerCase().replace(" ", ""), Data.getIssueType().trim().toLowerCase().replace(" ", ""), "Issue type is not as expected ");
         System.out.println(interactionsPOM.getIssueSubType());
         softAssert.assertEquals(interactionsPOM.getIssueSubType().trim().toLowerCase().replace(" ", ""), Data.getIssueSubType().trim().toLowerCase().replace(" ", ""), "Issue sub type is not as expected ");
-        interactionsPOM.sendComment("JMD");
+        interactionsPOM.sendComment("Automation Suite");
         interactionsPOM.clickOnSave();
         softAssert.assertTrue(interactionsPOM.isResolvedFTRDisplayed());
         String base64Screenshot = "data:image/png;base64," + ((TakesScreenshot) driver).
@@ -57,7 +57,7 @@ public class createInteractionTest extends BaseTest {
 
     @Test(priority = 2, description = "Create Interaction ", dataProvider = "getTestData2", dataProviderClass = DataProvider.class)
     public void CreateNFTRInteraction(Method method, nftrDataBeans Data) throws InterruptedException, IOException {
-        ExtentTestManager.startTest(method.getName(), "Creating Tickets");
+        ExtentTestManager.startTest(" Validating NFTR Ticket" + Data.getIssueCode(), "Creating NFTR Tickets and Configurations of Issue Code " + Data.getIssueCode());
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         LocalDateTime now = LocalDateTime.now();
         System.out.println(dtf.format(now));
@@ -93,7 +93,7 @@ public class createInteractionTest extends BaseTest {
                 if (Data.getIssueFieldMandatory1().equalsIgnoreCase("Yes")) {
                     softAssert.assertTrue(interactionsPOM.getIssueDetailLabel("1").contains("*"), Data.getIssueFieldLabel1() + "Label is mandatory but doesn't contain '*' ");
                 }
-                interactionsPOM.setIssueDetailInput("1", "123");
+                interactionsPOM.setIssueDetailInput("1", "012345");
             } else if (Data.getIssueFieldType1().equalsIgnoreCase("Date")) {
                 System.out.println(interactionsPOM.isDateFieldAvailable());
                 softAssert.assertEquals(interactionsPOM.isDateFieldAvailable(), (Data.getIssueFieldLabel1()));
@@ -110,7 +110,7 @@ public class createInteractionTest extends BaseTest {
                 if (Data.getIssueFieldMandatory2().equalsIgnoreCase("Yes")) {
                     softAssert.assertTrue(interactionsPOM.getIssueDetailLabel("2").contains("*"), Data.getIssueFieldLabel2() + "Label is mandatory but doesn't contain '*' ");
                 }
-                interactionsPOM.setIssueDetailInput("2", "123");
+                interactionsPOM.setIssueDetailInput("2", "012345");
             } else if (Data.getIssueFieldType2().equalsIgnoreCase("Date")) {
                 System.out.println(interactionsPOM.isDateFieldAvailable());
                 softAssert.assertEquals(interactionsPOM.isDateFieldAvailable(), (Data.getIssueFieldLabel2()));
@@ -126,7 +126,7 @@ public class createInteractionTest extends BaseTest {
                 if (Data.getIssueFieldMandatory3().equalsIgnoreCase("Yes")) {
                     softAssert.assertTrue(interactionsPOM.getIssueDetailLabel("3").contains("*"), Data.getIssueFieldLabel3() + "Label is mandatory but doesn't contain '*' ");
                 }
-                interactionsPOM.setIssueDetailInput("3", "123");
+                interactionsPOM.setIssueDetailInput("3", "012345");
             } else if (Data.getIssueFieldType3().equalsIgnoreCase("Date")) {
                 System.out.println(interactionsPOM.isDateFieldAvailable());
                 softAssert.assertEquals(interactionsPOM.isDateFieldAvailable(), (Data.getIssueFieldLabel3()));
@@ -144,7 +144,7 @@ public class createInteractionTest extends BaseTest {
                 if (Data.getIssueFieldMandatory4().equalsIgnoreCase("Yes")) {
                     softAssert.assertTrue(interactionsPOM.getIssueDetailLabel("4").contains("*"), Data.getIssueFieldLabel4() + "Label is mandatory but doesn't contain '*' ");
                 }
-                interactionsPOM.setIssueDetailInput("4", "123");
+                interactionsPOM.setIssueDetailInput("4", "012345");
             } else if (Data.getIssueFieldType4().equalsIgnoreCase("Date")) {
                 System.out.println(interactionsPOM.isDateFieldAvailable());
                 softAssert.assertEquals(interactionsPOM.isDateFieldAvailable(), (Data.getIssueFieldLabel4()));
@@ -160,7 +160,7 @@ public class createInteractionTest extends BaseTest {
                 if (Data.getIssueFieldMandatory5().equalsIgnoreCase("Yes")) {
                     softAssert.assertTrue(interactionsPOM.getIssueDetailLabel("5").contains("*"), Data.getIssueFieldLabel5() + "Label is mandatory but doesn't contain '*' ");
                 }
-                interactionsPOM.setIssueDetailInput("5", "123");
+                interactionsPOM.setIssueDetailInput("5", "012345");
             } else if (Data.getIssueFieldType5().equalsIgnoreCase("Date")) {
                 System.out.println(interactionsPOM.isDateFieldAvailable());
                 softAssert.assertEquals(interactionsPOM.isDateFieldAvailable(), (Data.getIssueFieldLabel5()));

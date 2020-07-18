@@ -19,6 +19,9 @@ public class supervisorTicketListPagePOM extends BasePage {
     By priorityValue = By.xpath("//div//div//div//div//div//div//div//div//div//ul[1]//li[3]//span[2]");
     By stateLabel = By.xpath("//div//div//div//div//div//div//div//div//div//ul[1]//li[4]//span[1]");
     By statevalue = By.xpath("//ul[1]//li[4]//span[2]");
+    By selectTicketType = By.xpath("//*[@name=\"state\"]");
+    By openTicketType = By.xpath("//span[contains(text(),' Open ')]");
+    By closedTicketType = By.xpath("//span[contains(text(),' Closed ')]");
     By creationdateLabel = By.xpath("//ul[1]//li[5]//span[1]");
     By creationdatevalue = By.xpath("//ul[1]//li[5]//span[2]");
     By createdbyLabel = By.xpath("//li[6]//span[1]");
@@ -41,8 +44,7 @@ public class supervisorTicketListPagePOM extends BasePage {
     By assignToagentBtn = By.xpath("//li[1]//button[1]");
     By transfertoQueueBtn = By.xpath("//li[2]//button[1]");
     By loggedInQueue = By.xpath("//span[contains(text(),'Login with Ticket Pool')]");
-    By openTicketType = By.xpath("//span[contains(text(),'Open')]");
-    By closedTicketType = By.xpath("//span[contains(text(),' Closed ')]");
+
     By selectFilterBtn = By.xpath("//span[contains(text(),'Select Filter')]");
     By pageRefreshBtn = By.xpath("//span[contains(text(),'Refresh ')]");
     By noResultFound = By.xpath("//*[@id=\"mat-error-25\"]/p/img");
@@ -64,6 +66,18 @@ public class supervisorTicketListPagePOM extends BasePage {
         for (int i = 0; i < 12; i++) {
             driver.findElement(searchTicketBox).sendKeys(Keys.BACK_SPACE);
         }
+    }
+
+    public void changeTicketTypeToClosed() {
+        log.info("Switch Ticket State Type to closed");
+        click(selectTicketType);
+        click(closedTicketType);
+    }
+
+    public void changeTicketTypeToOpen() {
+        log.info("Switch Ticket State Type to Open");
+        click(selectTicketType);
+        click(openTicketType);
     }
 
     public void clickSearchBtn() {
@@ -219,23 +233,6 @@ public class supervisorTicketListPagePOM extends BasePage {
     private boolean checkClosedTicketstateType() {
         log.info("Checking Closed Ticket State Type Select");
         return checkState(closedTicketType);
-    }
-
-    public void changeTicketTypeToClosed() {
-        log.info("Switch Ticket State Type to closed");
-        if (checkOpenTicketStateType()) {
-            click(openTicketType);
-            click(closedTicketType);
-        }
-    }
-
-    public boolean changeTicketTypeToOpen() {
-        log.info("Switch Ticket State Type to Open");
-        if (checkClosedTicketstateType()) {
-            click(closedTicketType);
-            click(openTicketType);
-        }
-        return checkState(openTicketType);
     }
 
     public void viewTicket() {

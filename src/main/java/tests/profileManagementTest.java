@@ -1,7 +1,6 @@
 package tests;
 
 import Utils.ExtentReports.ExtentTestManager;
-import com.relevantcodes.extentreports.LogStatus;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.SideMenuPOM;
@@ -11,11 +10,10 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 
 public class profileManagementTest extends BaseTest {
-    @Test(priority = 1, description = "SideMenu ")
+    @Test(priority = 1, description = "Validating Profile Management")
     public void openProfileManagementPage(Method method) throws IOException {
         SideMenuPOM SideMenuPOM = new SideMenuPOM(driver);
-        ExtentTestManager.startTest(method.getName(), "Opening User Management Page");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening User Management Page");
+        ExtentTestManager.startTest("Validating Profile Management", "Validating Profile Management with Validating Filter and Columns Present ");
         SoftAssert softAssert = new SoftAssert();
         SideMenuPOM.clickOnSideMenu();
         SideMenuPOM.clickOnName();

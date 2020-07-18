@@ -80,11 +80,25 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version>
+                <version>3.0.0-M5</version>
                 <configuration>
                     <suiteXmlFiles>
                         <suiteXmlFile>TestNG.xml</suiteXmlFile>
                     </suiteXmlFiles>
+                    <systemProperties>
+                        <property>
+                            <!-- refer Opco.properties file for getting Env specific URL and port.
+                                 Make sure to provide the Env in capitals like- "UAT"   -->
+                            <name>Env</name>
+                            <value>${Env}</value>
+                        </property>
+                        <property>
+                            <!-- refer api.properties file for getting OpCo.
+                                    Make sure to provide the Opco in capitals like- "MG" -->
+                            <name>Opco</name>
+                            <value>${Opco}</value>
+                        </property>
+                    </systemProperties>
                 </configuration>
             </plugin>
         </plugins>

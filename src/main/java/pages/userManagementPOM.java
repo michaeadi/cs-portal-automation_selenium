@@ -1,5 +1,7 @@
 package pages;
 
+import Utils.ExtentReports.ExtentTestManager;
+import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -59,6 +61,8 @@ public class userManagementPOM extends BasePage {
     public void openWorkgroupList() throws InterruptedException {
         List<WebElement> webElements = driver.findElements(By.xpath("//mat-select[starts-with(@class,'mat-select ng-tns') and @aria-multiselectable=\"true\"]"));
         webElements.get(0).click();
+        log.info("Opening Work Group Flow List");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening Work Group Flow List");
         Thread.sleep(1000);
 
     }
@@ -66,6 +70,8 @@ public class userManagementPOM extends BasePage {
     public void openLoginQueueList() throws InterruptedException {
         List<WebElement> webElements = driver.findElements(By.xpath("//mat-select[starts-with(@class,'mat-select ng-tns') and @aria-multiselectable=\"true\"]"));
         webElements.get(1).click();
+        log.info("Opening Login QueueFlow List");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening Login Queue Flow List");
         Thread.sleep(1000);
     }
 
@@ -100,46 +106,63 @@ public class userManagementPOM extends BasePage {
     }
 
     public void clickViewEditButton() {
+        log.info("Clicking View/Edit button");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking View/Edit button");
         click(viewEditButton);
     }
 
     public void waitUntilEditPageIsOpen() {
+        log.info("Waiting Until Edit Profile Page is Loaded");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Waiting Until Edit Profile Page is Loaded");
         waitTillLoaderGetsRemoved();
         wait.until(ExpectedConditions.elementToBeClickable(cancelButton));
     }
 
     public void waitTillUMPageLoaded() {
-        log.info("waiting for page to load");
+        log.info("Waiting Until Profile Management Page is Loaded");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Waiting Until Profile Management Page is Loaded");
         wait.until(ExpectedConditions.visibilityOfElementLocated(totalUsersHeading));
     }
 
     public boolean isSearchVisible() {
+        log.info("Checking is Search Auuid Text box is Visible : " + checkState(searchAuuid));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is Search Auuid Text box is Visible : " + checkState(searchAuuid));
         return checkState(searchAuuid);
     }
 
     public void searchAuuid(String Auuid) {
-
+        log.info("Writing AUUID to Search Auuid Text box : " + Auuid);
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Writing AUUID to Search Auuid Text box : " + Auuid);
         writeText(searchAuuid, Auuid);
     }
 
     public void clickSearchButton() {
+        log.info("Clicking on Search Button");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Search Button");
         click(searchButton);
     }
 
     public void waitUntilResultPageIsVisible() {
         waitTillLoaderGetsRemoved();
+        log.info("Waiting Untill Result Page is Loaded");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Waiting Untill Result Page is Loaded");
         wait.until(ExpectedConditions.visibilityOfElementLocated(searchButton));
     }
 
     public String resultIsVisible(String AUUID) {
 
         By title = By.xpath("//div[@title='" + AUUID + "']");
+        log.info("Checking is Search Auuid Text box is Visible : " + isElementVisible(title));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is Search Auuid Text box is Visible : " + isElementVisible(title));
+        log.info("Getting AUUID from result : " + readText(title));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting AUUID from result : " + readText(title));
         isElementVisible(title);
         return readText(title);
     }
 
     public void openListInteractionChannels() throws InterruptedException {
-        log.info("opening Interaction Channel");
+        log.info("Opening Interaction Channel List");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening Interaction Channel List");
         click(interactionChannel);
         Thread.sleep(1000);
     }

@@ -1,5 +1,7 @@
 package pages;
 
+import Utils.ExtentReports.ExtentTestManager;
+import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -22,6 +24,7 @@ public class InteractionsPOM extends BasePage {
     By loader = By.xpath("/html/body/app-root/ngx-ui-loader/div[2]");
     By issueDetailHeading = By.xpath("//h3[text()=\"Issue Detail\"]");
     By continueButton = By.xpath("//button[@class=\"yes-btn mat-button\"]");
+    By issueDetails = By.xpath("//input[@aria-haspopup=\"true\"]//following-sibling::span/label//mat-label");
 
 
     public InteractionsPOM(WebDriver driver) {
@@ -30,50 +33,56 @@ public class InteractionsPOM extends BasePage {
 
     public void clickOnContinueButton() {
         log.info("clicking on continue button");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "clicking on continue button");
         click(continueButton);
     }
 
-    public void waitForIssueDetails() {
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(issueDetailHeading)));
-    }
-
     public String isDateFieldAvailable() {
-        By issueDetails = By.xpath("//input[@aria-haspopup=\"true\"]//following-sibling::span/label//mat-label");
+        log.info("Checking is Date Field is available at expected place ");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is Date Field is available at expected place ");
         return readText(issueDetails);
     }
 
     public void setDateFieldAvailable(String Date) {
+        log.info("Writing Date to Date Field : " + Date);
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Writing Date to Date Field : " + Date);
         By issueDetails = By.xpath("//input[@aria-haspopup=\"true\"]");
         writeText(issueDetails, Date);
     }
 
     public String getIssueDetailLabel(String Num) {
+        log.info("Getting the label for issue detail field situated at Position : " + Num);
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting the label for issue detail field situated at Position : " + Num);
         By issueDetails = By.xpath(" //input[@name=" + "'q" + Num + "']//following-sibling::span/label");
         return readText(issueDetails);
     }
 
     public void setIssueDetailInput(String Num, String Input) {
+        log.info("Writing " + Input + " in label for issue detail field situated at Position : " + Num);
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Writing " + Input + " in label for issue detail field situated at Position : " + Num);
         By issueDetails = By.xpath(" //input[@name=" + "'q" + Num + "']");
         writeText(issueDetails, Input);
     }
 
     public void clickOnCode() {
-//        wait.until(ExpectedConditions.elementToBeClickable(listOfElements.get(0)));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
         List<WebElement> listOfElements = driver.findElements(By.xpath("//div[@class=\"mat-select-value\"]"));
-
         listOfElements.get(0).click();
-        log.info("clicking on issue code");
+        log.info("clicking on issue code field");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "clicking on issue code field");
     }
 
     public boolean isSearchVisible() {
         log.info("Checking is search Visible");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is search Visible");
         return isElementVisible(search);
     }
 
     public void searchCode(String code) {
-        writeText(search, code);
         log.info("searching issue code " + code);
+        ExtentTestManager.getTest().log(LogStatus.INFO, "searching issue code " + code);
+        writeText(search, code);
+
 
     }
 
@@ -81,12 +90,14 @@ public class InteractionsPOM extends BasePage {
         selectByText(code);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
         log.info("selecting issue code " + code);
+        ExtentTestManager.getTest().log(LogStatus.INFO, "selecting issue code " + code);
     }
 
     public String getIssue() {
         List<WebElement> listOfElements1 = driver.findElements(issues);
 //        System.out.println(listOfElements1.size());
         log.info("Getting issue ");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting issue ");
         return listOfElements1.get(1).getText();
 
     }
@@ -94,6 +105,7 @@ public class InteractionsPOM extends BasePage {
     public String getIssueType() {
         List<WebElement> listOfElements1 = driver.findElements(issues);
         log.info("Getting issue type ");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Issue Type ");
         return listOfElements1.get(2).getText();
 
     }
@@ -101,37 +113,48 @@ public class InteractionsPOM extends BasePage {
     public String getIssueSubType() {
         List<WebElement> listOfElements1 = driver.findElements(issues);
         log.info("Getting issue sub type ");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Issue Sub Type ");
         return listOfElements1.get(3).getText();
     }
 
     public String getIssueSubSubType() {
         List<WebElement> listOfElements1 = driver.findElements(issues);
         log.info("Getting issue sub sub type ");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting issue sub sub type ");
         return listOfElements1.get(4).getText();
     }
 
     public void sendComment(String Comment) {
         writeText(interactionComment, Comment);
         log.info("Adding comment -" + Comment);
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Adding comment -" + Comment);
+
     }
 
     public void clickOnSave() {
         click(saveButton);
         log.info("Clicking on save to create Ticket");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on save to create Ticket");
+
     }
 
     public boolean isSaveEnable() {
         log.info("Checking is Save button Enabled");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is Save button Enabled");
         return checkState(saveButton);
     }
 
     public boolean isResolvedFTRDisplayed() {
         waitVisibility(resolvedFTR);
+        log.info("Checking is Ticket Number or Ticket Status is Displayed : " + isElementVisible(resolvedFTR));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is Ticket Number or Ticket Status is Displayed : " + isElementVisible(resolvedFTR));
         return isElementVisible(resolvedFTR);
     }
 
     public String getResolvedFTRDisplayed() {
         waitVisibility(resolvedFTR);
+        log.info("Getting the Ticket Number or Ticket Status  Displayed : " + readText(resolvedFTR));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting the Ticket Number or Ticket Status  Displayed : " + readText(resolvedFTR));
         return readText(resolvedFTR);
     }
 
@@ -139,6 +162,7 @@ public class InteractionsPOM extends BasePage {
         wait.until(ExpectedConditions.elementToBeClickable(closeInteractions));
         click(closeInteractions);
         log.info("Closing Interaction Screen");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Closing Interaction Screen");
         return new customerInteractionPagePOM(driver);
     }
 
