@@ -241,6 +241,7 @@ public class supervisorTicketListPagePOM extends BasePage {
         return checkState(openTicketType);
     }
 
+
     private boolean checkClosedTicketstateType() {
         log.info("Checking Closed Ticket State Type Select");
         return checkState(closedTicketType);
@@ -259,6 +260,7 @@ public class supervisorTicketListPagePOM extends BasePage {
         click(openTicketType);
     }
 
+
     public void viewTicket() {
         log.info("View Ticket: " + getTicketIdvalue());
         click(stateLabel);
@@ -268,6 +270,7 @@ public class supervisorTicketListPagePOM extends BasePage {
         log.info("No ticket found");
         return checkState(noResultFound);
     }
+
 
     public void clickFilter() {
         log.info("Selecting Filter");

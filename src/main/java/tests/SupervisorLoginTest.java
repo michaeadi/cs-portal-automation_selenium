@@ -16,7 +16,7 @@ import java.lang.reflect.Method;
 public class SupervisorLoginTest extends BaseTest {
 
     @DataProvider.User(UserType = "ALL")
-    @Test(priority = 1, description = "Logging IN ", dataProvider = "loginData", dataProviderClass = DataProvider.class)
+    @Test(priority = 1, description = "Logging IN", dataProvider = "loginData", dataProviderClass = DataProvider.class)
     public void LoggingIN(Method method, TestDatabean Data) {
         ExtentTestManager.startTest("Logging Into Portal", "Logging Into Portal with AUUID :  " + Data.getLoginAUUID());
         SoftAssert softAssert = new SoftAssert();
@@ -30,9 +30,6 @@ public class SupervisorLoginTest extends BaseTest {
         loginPagePOM.clickOnVisibleButton();
         loginPagePOM.clickOnVisibleButton();
         loginPagePOM.clickOnLogin();
-        SideMenuPOM sideMenuPOM = new SideMenuPOM(driver);
-        sideMenuPOM.waitForHomePage();
-        softAssert.assertTrue(sideMenuPOM.isSideMenuVisible());
         softAssert.assertAll();
     }
 
@@ -46,9 +43,9 @@ public class SupervisorLoginTest extends BaseTest {
         agentLoginPagePOM AgentLoginPagePOM = sideMenu.openSupervisorDashboard();
         SoftAssert softAssert = new SoftAssert();
         AgentLoginPagePOM.waitTillLoaderGetsRemoved();
-        softAssert.assertTrue(AgentLoginPagePOM.isQueueLoginPage(), "Agent redirect to Queue Login Page");
-        softAssert.assertTrue(AgentLoginPagePOM.checkSkipButton(), "Checking Queue Login Page have SKIP button");
-        softAssert.assertTrue(AgentLoginPagePOM.checkSubmitButton(), "Checking Queue Login Page have Submit button");
+        softAssert.assertTrue(AgentLoginPagePOM.isQueueLoginPage(),"Agent redirect to Queue Login Page");
+        softAssert.assertTrue(AgentLoginPagePOM.checkSkipButton(),"Checking Queue Login Page have SKIP button");
+        softAssert.assertTrue(AgentLoginPagePOM.checkSubmitButton(),"Checking Queue Login Page have Submit button");
         AgentLoginPagePOM.clickSkipBtn();
         AgentLoginPagePOM.waitTillLoaderGetsRemoved();
         Assert.assertEquals(driver.getTitle(), config.getProperty("supervisorTicketListPage"));
@@ -65,14 +62,14 @@ public class SupervisorLoginTest extends BaseTest {
         agentLoginPagePOM AgentLoginPagePOM = sideMenu.openSupervisorDashboard();
         SoftAssert softAssert = new SoftAssert();
         AgentLoginPagePOM.waitTillLoaderGetsRemoved();
-        softAssert.assertTrue(AgentLoginPagePOM.isQueueLoginPage(), "Agent redirect to Queue Login Page");
-        softAssert.assertTrue(AgentLoginPagePOM.checkSkipButton(), "Checking Queue Login Page have SKIP button");
-        softAssert.assertTrue(AgentLoginPagePOM.checkSubmitButton(), "Checking Queue Login Page have Submit button");
+        softAssert.assertTrue(AgentLoginPagePOM.isQueueLoginPage(),"Agent redirect to Queue Login Page");
+        softAssert.assertTrue(AgentLoginPagePOM.checkSkipButton(),"Checking Queue Login Page have SKIP button");
+        softAssert.assertTrue(AgentLoginPagePOM.checkSubmitButton(),"Checking Queue Login Page have Submit button");
         AgentLoginPagePOM.clickSelectQueue();
         AgentLoginPagePOM.selectAllQueue();
         AgentLoginPagePOM.clickSubmitBtn();
         AgentLoginPagePOM.waitTillLoaderGetsRemoved();
-        Assert.assertEquals(driver.getTitle(), config.getProperty("supervisorTicketListPage"), "User Redirect to Supervisor ticket List Page");
+        Assert.assertEquals(driver.getTitle(), config.getProperty("supervisorTicketListPage"),"User Redirect to Supervisor ticket List Page");
         softAssert.assertAll();
     }
 

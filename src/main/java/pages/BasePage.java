@@ -108,14 +108,6 @@ public class BasePage {
 
     }
 
-    void selectByText(String text) throws InterruptedException {
-        WebElement elementby = driver.findElement(By.xpath("//span[contains(text(),'" + text + "')]"));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", elementby);
-        Thread.sleep(2000);
-        driver.findElement(By.xpath("//span[contains(text(),'" + text + "')]")).click();
-        Thread.sleep(2000);
-    }
-
     //Switch to parent frame
     void switchToParentFrme() {
         driver.switchTo().parentFrame();
@@ -126,26 +118,35 @@ public class BasePage {
         return driver.findElement(Element).isDisplayed();
     }
 
+
+    void selectByText(String text) throws InterruptedException {
+        WebElement elementby= driver.findElement(By.xpath("//span[contains(text(),'" + text + "')]"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", elementby);
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("//span[contains(text(),'" + text + "')]")).click();
+        Thread.sleep(2000);
+    }
+
     void clickOutside() {
         Actions action = new Actions(driver);
         action.moveByOffset(0, 0).click().build().perform();
     }
 
-
-    public void clearInputTag(By element) {
+    public void clearInputTag(By element){
         log.info("Clear Search Box");
         driver.findElement(element).clear();
     }
 
-    public boolean validateFilter(By element, String text) {
-        List<WebElement> list = driver.findElements(element);
+    public boolean validateFilter(By element,String text){
+        List<WebElement> list=  driver.findElements(element);
         log.info("Validating Filter");
-        for (WebElement x : list) {
-            log.info("Element Text : " + x.getText());
-            if (!x.getText().equalsIgnoreCase(text)) {
+        for(WebElement x : list){
+            log.info("Element Text : "+x.getText());
+            if(!x.getText().equalsIgnoreCase(text)){
                 return false;
             }
         }
         return true;
     }
+
 }

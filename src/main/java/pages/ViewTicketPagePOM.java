@@ -37,6 +37,7 @@ public class ViewTicketPagePOM extends BasePage {
         return selectedState;
     }
 
+
     public String getStatename() {
         log.info("State: " + readText(stateName));
         return readText(stateName);

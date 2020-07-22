@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 @Log4j2
 public class transferToQueuePOM extends BasePage {
 
+
     By pageTitle = By.xpath("//*[@id=\"assignQueue\"]/app-assign-to-queue/section/div/div[1]/h4");
     By transferQueue;
 

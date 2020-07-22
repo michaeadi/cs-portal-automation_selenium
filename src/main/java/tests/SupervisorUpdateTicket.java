@@ -27,9 +27,9 @@ public class SupervisorUpdateTicket extends BaseTest {
         agentLoginPagePOM AgentLoginPagePOM = sideMenu.openSupervisorDashboard();
         SoftAssert softAssert = new SoftAssert();
         AgentLoginPagePOM.waitTillLoaderGetsRemoved();
-        softAssert.assertTrue(AgentLoginPagePOM.isQueueLoginPage(), "Agent redirect to Queue Login Page");
-        softAssert.assertTrue(AgentLoginPagePOM.checkSkipButton(), "Checking Queue Login Page have SKIP button");
-        softAssert.assertTrue(AgentLoginPagePOM.checkSubmitButton(), "Checking Queue Login Page have Submit button");
+        softAssert.assertTrue(AgentLoginPagePOM.isQueueLoginPage(),"Agent redirect to Queue Login Page");
+        softAssert.assertTrue(AgentLoginPagePOM.checkSkipButton(),"Checking Queue Login Page have SKIP button");
+        softAssert.assertTrue(AgentLoginPagePOM.checkSubmitButton(),"Checking Queue Login Page have Submit button");
         AgentLoginPagePOM.clickSkipBtn();
         AgentLoginPagePOM.waitTillLoaderGetsRemoved();
         Assert.assertEquals(driver.getTitle(), config.getProperty("supervisorTicketListPage"));
@@ -48,7 +48,7 @@ public class SupervisorUpdateTicket extends BaseTest {
 //        Thread.sleep(20000); // Update Particular Ticket
         String ticketId = ticketListPage.getTicketIdvalue();
         ticketListPage.viewTicket();
-        Assert.assertEquals(ticketId, viewTicket.getTicketId(), "Verify the searched Ticket fetched Successfully");
+        Assert.assertEquals(ticketId, viewTicket.getTicketId(),"Verify the searched Ticket fetched Successfully");
         String selectedState = viewTicket.selectState(ticketState.getTicketStateName());
         ticketListPage.waitTillLoaderGetsRemoved();
         ticketListPage.changeTicketTypeToClosed();
@@ -56,9 +56,9 @@ public class SupervisorUpdateTicket extends BaseTest {
         ticketListPage.writeTicketId(ticketId);
         ticketListPage.clickSearchBtn();
         ticketListPage.waitTillLoaderGetsRemoved();
-        softAssert.assertEquals(ticketId, ticketListPage.getTicketIdvalue(), "Verify the searched Ticket fetched Successfully");
+        softAssert.assertEquals(ticketId, ticketListPage.getTicketIdvalue(),"Verify the searched Ticket fetched Successfully");
         //softAssert.assertEquals(ticketState.getTicketStateName(),ticketListPage.getStatevalue());
-        softAssert.assertEquals(selectedState, ticketListPage.getStatevalue(), "Verify the Update Ticket Successfully");
+        softAssert.assertEquals(selectedState, ticketListPage.getStatevalue(),"Verify the Update Ticket Successfully");
         softAssert.assertAll();
     }
 }

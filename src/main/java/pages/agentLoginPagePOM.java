@@ -15,9 +15,11 @@ public class agentLoginPagePOM extends BasePage {
     By submitBtn = By.xpath("//span[contains(text(),'Submit')]");
     By allQueueOption = By.xpath("//body/div/div/div/div/div/app-select-all/mat-checkbox/label/span[1]");
 
+
     public agentLoginPagePOM(WebDriver driver) {
         super(driver);
     }
+
 
     public boolean checkSkipButton() {
         log.info("Checking Skip Button");
@@ -30,7 +32,6 @@ public class agentLoginPagePOM extends BasePage {
         ExtentTestManager.getTest().log(LogStatus.INFO, "Checking Agent Login Page Submit Button");
         return checkState(submitBtn);
     }
-
 
     public boolean isQueueLoginPage() {
         log.info("Supervisor Login Page");
@@ -58,8 +59,7 @@ public class agentLoginPagePOM extends BasePage {
     }
 
     public void byQueueName(String queueName) throws InterruptedException {
-        log.info("Selecting Queue : " + queueName);
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Selecting Queue : " + queueName);
+        log.info("Selecting Queue : "+queueName);
         selectByText(queueName);
     }
 
