@@ -1,5 +1,7 @@
 package pages;
 
+import Utils.ExtentReports.ExtentTestManager;
+import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -24,6 +26,7 @@ public class assignToAgentPOM extends BasePage {
 
     public boolean validatePageTitle() {
         log.info("Validating Assign to agent Page");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Validating Assign to agent Page");
         return checkState(pageTitle);
     }
 
@@ -34,11 +37,13 @@ public class assignToAgentPOM extends BasePage {
 
     public String getAgentName() {
         log.info("Agent Name: " + readText(agentName));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Assigning Ticket to Agent Name: " + readText(agentName));
         return readText(agentName);
     }
 
     public String getAgentAuuid() {
         log.info("Agent AUUID: " + readText(agentAuuid));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Assigning Ticket to Agent AUUID: " + readText(agentAuuid));
         return readText(agentAuuid);
     }
 
@@ -55,6 +60,7 @@ public class assignToAgentPOM extends BasePage {
     public void ClickedAssignBtn() {
         log.info("Clicking on Assign Button");
         if (getAvailableSlot() > 0) {
+            ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Assign Button");
             click(assignBtn);
         }
     }

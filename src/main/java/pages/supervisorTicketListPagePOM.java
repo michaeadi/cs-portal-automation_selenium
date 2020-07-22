@@ -1,5 +1,7 @@
 package pages;
 
+import Utils.ExtentReports.ExtentTestManager;
+import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -19,9 +21,6 @@ public class supervisorTicketListPagePOM extends BasePage {
     By priorityValue = By.xpath("//div//div//div//div//div//div//div//div//div//ul[1]//li[3]//span[2]");
     By stateLabel = By.xpath("//div//div//div//div//div//div//div//div//div//ul[1]//li[4]//span[1]");
     By statevalue = By.xpath("//ul[1]//li[4]//span[2]");
-    By selectTicketType = By.xpath("//*[@name=\"state\"]");
-    By openTicketType = By.xpath("//span[contains(text(),' Open ')]");
-    By closedTicketType = By.xpath("//span[contains(text(),' Closed ')]");
     By creationdateLabel = By.xpath("//ul[1]//li[5]//span[1]");
     By creationdatevalue = By.xpath("//ul[1]//li[5]//span[2]");
     By createdbyLabel = By.xpath("//li[6]//span[1]");
@@ -44,11 +43,16 @@ public class supervisorTicketListPagePOM extends BasePage {
     By assignToagentBtn = By.xpath("//li[1]//button[1]");
     By transfertoQueueBtn = By.xpath("//li[2]//button[1]");
     By loggedInQueue = By.xpath("//span[contains(text(),'Login with Ticket Pool')]");
-
+    By selectTicketType = By.xpath("//*[@name=\"state\"]");
+    By openTicketType = By.xpath("//span[contains(text(),' Open ')]");
+    By closedTicketType = By.xpath("//span[contains(text(),' Closed ')]");
     By selectFilterBtn = By.xpath("//span[contains(text(),'Select Filter')]");
     By pageRefreshBtn = By.xpath("//span[contains(text(),'Refresh ')]");
     By noResultFound = By.xpath("//*[@id=\"mat-error-25\"]/p/img");
     By resetFilterButton = By.xpath("//body/app-root/app-dashboard/div/app-admin-panel/div/div/app-sidenav-bar/mat-sidenav-container/mat-sidenav-content/div/app-service-request/div/app-backend-supervisor/mat-sidenav-container/mat-sidenav-content/section/div/div/button[1]");
+    By reOpenBtn = By.xpath("//li[1]//button[1]");
+    By reOpenBox = By.xpath("//*[@placeholder=\"Leave a comment\"]");
+    By submitReopenComment = By.className("sbt-btn");
 
     public supervisorTicketListPagePOM(WebDriver driver) {
         super(driver);
@@ -56,6 +60,7 @@ public class supervisorTicketListPagePOM extends BasePage {
 
     public void writeTicketId(String ticketId) {
         log.info("Search Ticket Id: " + ticketId);
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Search Ticket Id: " + ticketId);
         writeText(searchTicketBox, ticketId);
     }
 
@@ -68,32 +73,23 @@ public class supervisorTicketListPagePOM extends BasePage {
         }
     }
 
-    public void changeTicketTypeToClosed() {
-        log.info("Switch Ticket State Type to closed");
-        click(selectTicketType);
-        click(closedTicketType);
-    }
-
-    public void changeTicketTypeToOpen() {
-        log.info("Switch Ticket State Type to Open");
-        click(selectTicketType);
-        click(openTicketType);
-    }
-
     public void clickSearchBtn() {
         log.info("Clicking on Search Button");
         waitTillLoaderGetsRemoved();
         wait.until(ExpectedConditions.elementToBeClickable(searchTicketBtn));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Search Button");
         click(searchTicketBtn);
     }
 
     public boolean isTicketIdLabel() {
         log.info("Is Ticket Id field Available :" + checkState(ticketIdLabel));
+        ExtentTestManager.getTest().log(LogStatus.PASS, "Is Ticket Id field Available :" + checkState(ticketIdLabel));
         return checkState(ticketIdLabel);
     }
 
     public boolean isWorkGroupName() {
         log.info("Ticket lie in WorkGroup :" + readText(workGroupName));
+        ExtentTestManager.getTest().log(LogStatus.PASS, "Ticket lie in WorkGroup :" + readText(workGroupName));
         return checkState(workGroupName);
     }
 
@@ -103,56 +99,67 @@ public class supervisorTicketListPagePOM extends BasePage {
 
     public boolean isPrioritylabel() {
         log.info("Is Priority field Available :" + checkState(prioritylabel));
+        ExtentTestManager.getTest().log(LogStatus.PASS, "Is Priority field Available :" + checkState(prioritylabel));
         return checkState(prioritylabel);
     }
 
     public boolean isStateLabel() {
-        log.info("Is Priority field Available :" + checkState(stateLabel));
+        log.info("Is State field Available :" + checkState(stateLabel));
+        ExtentTestManager.getTest().log(LogStatus.PASS, "Is State field Available :" + checkState(stateLabel));
         return checkState(stateLabel);
     }
 
     public boolean isCreationdateLabel() {
-        log.info("Is Priority field Available :" + checkState(creationdateLabel));
+        log.info("Is Creation Date field Available :" + checkState(creationdateLabel));
+        ExtentTestManager.getTest().log(LogStatus.PASS, "Is Creation Date field Available :" + checkState(creationdateLabel));
         return checkState(creationdateLabel);
     }
 
     public boolean isCreatedbyLabel() {
-        log.info("Is Priority field Available :" + checkState(createdbyLabel));
+        log.info("Is Created By field Available :" + checkState(createdbyLabel));
+        ExtentTestManager.getTest().log(LogStatus.PASS, "Is Created By field Available :" + checkState(createdbyLabel));
         return checkState(createdbyLabel);
     }
 
     public boolean isQueueLabel() {
-        log.info("Is Priority field Available :" + checkState(queueLabel));
+        log.info("Is Queue field Available :" + checkState(queueLabel));
+        ExtentTestManager.getTest().log(LogStatus.PASS, "Is Queue field Available :" + checkState(queueLabel));
         return checkState(queueLabel);
     }
 
     public boolean isIssueLabel() {
-        log.info("Is Issue field Available :" + checkState(issueLabel));
+        log.info("Is Issue label Field Available :" + checkState(issueLabel));
+        ExtentTestManager.getTest().log(LogStatus.PASS, "Is Issue Label field Available :" + checkState(prioritylabel));
         return checkState(issueLabel);
     }
 
     public boolean isIssueTypeLabel() {
         log.info("Is Issue Type field Available :" + checkState(issueTypeLabel));
+        ExtentTestManager.getTest().log(LogStatus.PASS, "Is Priority field Available :" + checkState(prioritylabel));
         return checkState(issueTypeLabel);
     }
 
     public boolean isSubTypeLabel() {
         log.info("Is Issue Sub Type field Available :" + checkState(subTypeLabel));
+        ExtentTestManager.getTest().log(LogStatus.PASS, "Is Issue Type field Available :" + checkState(issueTypeLabel));
         return checkState(subTypeLabel);
     }
 
     public boolean isSubSubTypeLabel() {
         log.info("Is Issue Sub Sub Type field Available :" + checkState(subSubTypeLabel));
+        ExtentTestManager.getTest().log(LogStatus.PASS, "Is Issue Sub Sub Type field Available :" + checkState(subSubTypeLabel));
         return checkState(subSubTypeLabel);
     }
 
     public boolean isCodeLabel() {
         log.info("Is Code field Available :" + checkState(codeLabel));
+        ExtentTestManager.getTest().log(LogStatus.PASS, "Is Code field Available :" + checkState(codeLabel));
         return checkState(codeLabel);
     }
 
     public String getTicketIdvalue() {
         log.info("Ticket Id: " + readText(ticketIdvalue));
+        ExtentTestManager.getTest().log(LogStatus.PASS, "Ticket Id: " + readText(ticketIdvalue));
         return readText(ticketIdvalue);
     }
 
@@ -207,21 +214,25 @@ public class supervisorTicketListPagePOM extends BasePage {
 
     public void clickAssigntoAgent() {
         log.info("Clicking on Assign to Agent");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Assign to Agent Button");
         click(assignToagentBtn);
     }
 
     public boolean isAssignToAgent() {
         log.info("Is Assign to agent button: " + checkState(assignToagentBtn));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Validate Assign to Agent Button Available");
         return checkState(assignToagentBtn);
     }
 
     public void clickTransfertoQueue() {
         log.info("Clicking on Transfer to Queue");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Transfer to Queue Button");
         click(transfertoQueueBtn);
     }
 
     public boolean isTransferToQueue() {
         log.info("Is Transfer to Queue button: " + checkState(transfertoQueueBtn));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Validate Transfer to Queue Button Available");
         return checkState(transfertoQueueBtn);
     }
 
@@ -233,6 +244,19 @@ public class supervisorTicketListPagePOM extends BasePage {
     private boolean checkClosedTicketstateType() {
         log.info("Checking Closed Ticket State Type Select");
         return checkState(closedTicketType);
+    }
+
+
+    public void changeTicketTypeToClosed() {
+        log.info("Switch Ticket State Type to closed");
+        click(selectTicketType);
+        click(closedTicketType);
+    }
+
+    public void changeTicketTypeToOpen() {
+        log.info("Switch Ticket State Type to Open");
+        click(selectTicketType);
+        click(openTicketType);
     }
 
     public void viewTicket() {
@@ -247,16 +271,46 @@ public class supervisorTicketListPagePOM extends BasePage {
 
     public void clickFilter() {
         log.info("Selecting Filter");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Selecting Filter");
         click(selectFilterBtn);
     }
 
     public void resetFilter() {
         log.info("Removing Filter");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Removing Filter");
         click(resetFilterButton);
     }
 
     public boolean validateQueueFilter(String text) {
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Validating Queue Filter");
         return validateFilter(listQueueValue, text);
+    }
+
+    public void ClickReopenButton() {
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking Reopen Button");
+        click(reOpenBtn);
+    }
+
+    public void addReopenComment(String comment) {
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Add Reopen Comment: " + comment);
+        writeText(reOpenBox, comment);
+        clickOutside();
+    }
+
+    public void submitReopenReq() {
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Submit Button");
+        click(submitReopenComment);
+    }
+
+    public boolean isReopenBtn() {
+        log.info("Is Reopen Button Available: " + checkState(reOpenBtn));
+        return checkState(reOpenBtn);
+    }
+
+    public boolean CheckAssignedAUUID(String auuid) {
+        log.info("Ticket Validated and Assigned to Agent AUUID: " + auuid);
+        By agentAUUID = By.xpath("//span[contains(text(),'" + auuid + "')]");
+        return checkState(agentAUUID);
     }
 
 }

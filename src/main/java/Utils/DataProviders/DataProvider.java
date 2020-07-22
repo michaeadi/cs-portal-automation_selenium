@@ -1,5 +1,7 @@
 package Utils.DataProviders;
 
+import lombok.extern.log4j.Log4j2;
+
 import java.io.File;
 import java.lang.annotation.*;
 import java.lang.reflect.Method;
@@ -7,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+@Log4j2
 public class DataProvider {
     public static Properties config = tests.BaseTest.config;
 
@@ -190,6 +193,28 @@ public class DataProvider {
         return hashMapObj;
     }
 
+    @org.testng.annotations.DataProvider(name = "ReOpenState")
+    public Object[][] isReOpenState() {
+        TicketStateToBean ticketStateToBean = new TicketStateToBean();
+        File Exceldir = new File("Excels");
+        File Excel = new File(Exceldir, tests.BaseTest.Opco + ".xlsx");
+        List<TicketStateDataBean> list =
+                ticketStateToBean.getData(Excel.getAbsolutePath(), config.getProperty("ticketState"));
+        List<TicketStateDataBean> reOpen = new ArrayList<TicketStateDataBean>();
+        for (TicketStateDataBean state : list) {
+            System.out.println(state.getIsReopenState());
+            if (state.getIsReopenState() == null) {
+                System.out.println("SKIP");
+            } else if (state.getIsReopenState().equalsIgnoreCase("true")) {
+                reOpen.add(state);
+            }
+        }
+        Object[][] hashMapObj = new Object[1][1];
+
+        hashMapObj[0][0] = reOpen.get(0);
+
+        return hashMapObj;
+    }
 
     @Documented
     @Retention(RetentionPolicy.RUNTIME)

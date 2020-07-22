@@ -18,8 +18,7 @@ public class SupervisorLoginTest extends BaseTest {
     @DataProvider.User(UserType = "ALL")
     @Test(priority = 1, description = "Logging IN ", dataProvider = "loginData", dataProviderClass = DataProvider.class)
     public void LoggingIN(Method method, TestDatabean Data) {
-        ExtentTestManager.startTest(method.getName(), "Opening Base URL");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
+        ExtentTestManager.startTest("Logging Into Portal", "Logging Into Portal with AUUID :  " + Data.getLoginAUUID());
         SoftAssert softAssert = new SoftAssert();
         loginPagePOM loginPagePOM = new loginPagePOM(driver);
         loginPagePOM.openBaseURL(config.getProperty(tests.BaseTest.Env + "-baseurl"));
@@ -31,12 +30,15 @@ public class SupervisorLoginTest extends BaseTest {
         loginPagePOM.clickOnVisibleButton();
         loginPagePOM.clickOnVisibleButton();
         loginPagePOM.clickOnLogin();
+        SideMenuPOM sideMenuPOM = new SideMenuPOM(driver);
+        sideMenuPOM.waitForHomePage();
+        softAssert.assertTrue(sideMenuPOM.isSideMenuVisible());
         softAssert.assertAll();
     }
 
-    @Test(priority = 2, description = "SideMenu ")
+    @Test(priority = 2, description = "Supervisor SKIP Login ")
     public void agentSkipQueueLogin(Method method) throws InterruptedException {
-        ExtentTestManager.startTest(method.getName(), "Opening Base URL");
+        ExtentTestManager.startTest(method.getName(), "Supervisor SKIP Queue Login");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SideMenuPOM sideMenu = new SideMenuPOM(driver);
         sideMenu.clickOnSideMenu();
@@ -44,18 +46,18 @@ public class SupervisorLoginTest extends BaseTest {
         agentLoginPagePOM AgentLoginPagePOM = sideMenu.openSupervisorDashboard();
         SoftAssert softAssert = new SoftAssert();
         AgentLoginPagePOM.waitTillLoaderGetsRemoved();
-        softAssert.assertTrue(AgentLoginPagePOM.isQueueLoginPage());
-        softAssert.assertTrue(AgentLoginPagePOM.checkSkipButton());
-        softAssert.assertTrue(AgentLoginPagePOM.checkSubmitButton());
+        softAssert.assertTrue(AgentLoginPagePOM.isQueueLoginPage(), "Agent redirect to Queue Login Page");
+        softAssert.assertTrue(AgentLoginPagePOM.checkSkipButton(), "Checking Queue Login Page have SKIP button");
+        softAssert.assertTrue(AgentLoginPagePOM.checkSubmitButton(), "Checking Queue Login Page have Submit button");
         AgentLoginPagePOM.clickSkipBtn();
         AgentLoginPagePOM.waitTillLoaderGetsRemoved();
         Assert.assertEquals(driver.getTitle(), config.getProperty("supervisorTicketListPage"));
         softAssert.assertAll();
     }
 
-    @Test(priority = 3, description = "SideMenu ")
+    @Test(priority = 3, description = "Supervisor Logging into Queue ")
     public void agentQueueLogin(Method method) throws InterruptedException {
-        ExtentTestManager.startTest(method.getName(), "Opening Base URL");
+        ExtentTestManager.startTest(method.getName(), "Supervisor Logging into Queue");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SideMenuPOM sideMenu = new SideMenuPOM(driver);
         sideMenu.clickOnSideMenu();
@@ -63,14 +65,14 @@ public class SupervisorLoginTest extends BaseTest {
         agentLoginPagePOM AgentLoginPagePOM = sideMenu.openSupervisorDashboard();
         SoftAssert softAssert = new SoftAssert();
         AgentLoginPagePOM.waitTillLoaderGetsRemoved();
-        softAssert.assertTrue(AgentLoginPagePOM.isQueueLoginPage());
-        softAssert.assertTrue(AgentLoginPagePOM.checkSkipButton());
-        softAssert.assertTrue(AgentLoginPagePOM.checkSubmitButton());
+        softAssert.assertTrue(AgentLoginPagePOM.isQueueLoginPage(), "Agent redirect to Queue Login Page");
+        softAssert.assertTrue(AgentLoginPagePOM.checkSkipButton(), "Checking Queue Login Page have SKIP button");
+        softAssert.assertTrue(AgentLoginPagePOM.checkSubmitButton(), "Checking Queue Login Page have Submit button");
         AgentLoginPagePOM.clickSelectQueue();
         AgentLoginPagePOM.selectAllQueue();
         AgentLoginPagePOM.clickSubmitBtn();
         AgentLoginPagePOM.waitTillLoaderGetsRemoved();
-        Assert.assertEquals(driver.getTitle(), config.getProperty("supervisorTicketListPage"));
+        Assert.assertEquals(driver.getTitle(), config.getProperty("supervisorTicketListPage"), "User Redirect to Supervisor ticket List Page");
         softAssert.assertAll();
     }
 

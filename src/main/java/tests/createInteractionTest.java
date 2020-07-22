@@ -15,8 +15,8 @@ import org.testng.asserts.SoftAssert;
 import pages.InteractionsPOM;
 import pages.customerInteractionPagePOM;
 
+import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -26,13 +26,19 @@ public class createInteractionTest extends BaseTest {
 //    Map<String, String> map = new HashMap<>();
 
     @Test(priority = 1, description = "Create FTR Interaction ", dataProvider = "getTestData1", enabled = true, dataProviderClass = DataProvider.class)
-    public void CreateInteraction(Method method, ftrDataBeans Data) throws InterruptedException {
+    public void CreateInteraction(ftrDataBeans Data) throws InterruptedException {
         ExtentTestManager.startTest(" Validating FTR Ticket" + Data.getIssueCode(), "Creating FTR Tickets and Configurations of Issue Code " + Data.getIssueCode());
         customerInteractionPagePOM customerInteractionPagePOM = new customerInteractionPagePOM(driver);
         InteractionsPOM interactionsPOM = customerInteractionPagePOM.clickOnInteractionIcon();
         SoftAssert softAssert = new SoftAssert();
         interactionsPOM.clickOnCode();
-        interactionsPOM.searchCode(Data.getIssueCode());
+        try {
+            interactionsPOM.searchCode(Data.getIssueCode());
+        } catch (NoSuchElementException e) {
+            interactionsPOM.clickOnCode();
+            interactionsPOM.searchCode(Data.getIssueCode());
+
+        }
         interactionsPOM.selectCode(Data.getIssueCode());
         ExtentTestManager.getTest().log(LogStatus.INFO, "Creating ticket with issue code -" + Data.getIssueCode());
         System.out.println(interactionsPOM.getIssue());
@@ -56,7 +62,7 @@ public class createInteractionTest extends BaseTest {
     }
 
     @Test(priority = 2, description = "Create Interaction ", dataProvider = "getTestData2", dataProviderClass = DataProvider.class)
-    public void CreateNFTRInteraction(Method method, nftrDataBeans Data) throws InterruptedException, IOException {
+    public void CreateNFTRInteraction(nftrDataBeans Data) throws InterruptedException, IOException {
         ExtentTestManager.startTest(" Validating NFTR Ticket" + Data.getIssueCode(), "Creating NFTR Tickets and Configurations of Issue Code " + Data.getIssueCode());
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         LocalDateTime now = LocalDateTime.now();
@@ -177,14 +183,16 @@ public class createInteractionTest extends BaseTest {
             String[] valueToWrite = {""};
             if (!interactionsPOM.getResolvedFTRDisplayed().contains("Resolved FTR")) {
                 ticket_number = interactionsPOM.getResolvedFTRDisplayed();
-                System.out.println("+++++++========");
+                System.out.println(ticket_number);
             } else {
                 softAssert.fail("It's FTR not NFTR");
             }
             valueToWrite = new String[]{ticket_number};
             writeToExcel objExcelFile = new writeToExcel();
-            objExcelFile.writeTicketNumber("/Users/a2388006/git/CS_PORTAL/Excels/test.xlsx", "NFTRTickets", valueToWrite, Data.getRownum());
-            System.out.println("===========value is " + valueToWrite[0]);
+            File Exceldir = new File("Excels");
+            File Excel = new File(Exceldir, tests.BaseTest.Opco + ".xlsx");
+            objExcelFile.writeTicketNumber(Excel.getAbsolutePath(), "NFTRTickets", valueToWrite, Data.getRownum());
+            System.out.println("Ticket Number Written to Excel " + valueToWrite[0]);
         } catch (NoSuchElementException e) {
             System.out.println("in catch");
             interactionsPOM.closeInteractions();

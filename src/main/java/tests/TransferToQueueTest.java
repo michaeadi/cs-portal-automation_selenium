@@ -1,7 +1,5 @@
 package tests;
 
-import Utils.DataProviders.DataProvider;
-import Utils.DataProviders.TestDatabean;
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 import org.testng.Assert;
@@ -14,9 +12,9 @@ import java.lang.reflect.Method;
 public class TransferToQueueTest extends BaseTest {
 
 
-    @Test(priority = 2, description = "SideMenu ", dataProvider = "getTestData", enabled = true, dataProviderClass = DataProvider.class)
-    public void agentSkipQueueLogin(Method method, TestDatabean Data) throws InterruptedException {
-        ExtentTestManager.startTest(method.getName(), "Opening Base URL");
+    @Test(priority = 2, description = "Supervisor SKIP Login ", enabled = true)
+    public void agentSkipQueueLogin(Method method) throws InterruptedException {
+        ExtentTestManager.startTest(method.getName(), "Supervisor SKIP Queue Login Test");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SideMenuPOM sideMenu = new SideMenuPOM(driver);
         sideMenu.clickOnSideMenu();
@@ -24,9 +22,9 @@ public class TransferToQueueTest extends BaseTest {
         agentLoginPagePOM AgentLoginPagePOM = sideMenu.openSupervisorDashboard();
         SoftAssert softAssert = new SoftAssert();
         AgentLoginPagePOM.waitTillLoaderGetsRemoved();
-        softAssert.assertTrue(AgentLoginPagePOM.isQueueLoginPage());
-        softAssert.assertTrue(AgentLoginPagePOM.checkSkipButton());
-        softAssert.assertTrue(AgentLoginPagePOM.checkSubmitButton());
+        softAssert.assertTrue(AgentLoginPagePOM.isQueueLoginPage(), "Agent redirect to Queue Login Page");
+        softAssert.assertTrue(AgentLoginPagePOM.checkSkipButton(), "Checking Queue Login Page have SKIP button");
+        softAssert.assertTrue(AgentLoginPagePOM.checkSubmitButton(), "Checking Queue Login Page have Submit button");
         AgentLoginPagePOM.clickSkipBtn();
         AgentLoginPagePOM.waitTillLoaderGetsRemoved();
         Assert.assertEquals(driver.getTitle(), config.getProperty("supervisorTicketListPage"));
@@ -50,8 +48,8 @@ public class TransferToQueueTest extends BaseTest {
         filterTab.clickOutsideFilter();
         filterTab.clickApplyFilter();
         ticketListPage.waitTillLoaderGetsRemoved();
-        softAssert.assertTrue(ticketListPage.validateQueueFilter(config.getProperty("ticketQueue")), "Queue Filter Successfully");
-        Assert.assertEquals(ticketListPage.getqueueValue(), config.getProperty("ticketQueue"));
+        softAssert.assertTrue(ticketListPage.validateQueueFilter(config.getProperty("ticketQueue")), "Queue Filter Applied Successfully");
+        Assert.assertEquals(ticketListPage.getqueueValue(), config.getProperty("ticketQueue"), "Validate Queue Same as Filter Applied");
         String ticketId = ticketListPage.getTicketIdvalue();
         ticketListPage.resetFilter();
         ticketListPage.waitTillLoaderGetsRemoved();
@@ -60,16 +58,17 @@ public class TransferToQueueTest extends BaseTest {
         ticketListPage.waitTillLoaderGetsRemoved();
         //softAssert.assertTrue(ticketListPage.checkOpenTicketStateType());
         ticketListPage.clickCheckbox();
-        softAssert.assertTrue(ticketListPage.isAssignToAgent());
-        softAssert.assertTrue(ticketListPage.isTransferToQueue());
+        softAssert.assertTrue(ticketListPage.isAssignToAgent(), "Assign to Agent Button Available");
+        softAssert.assertTrue(ticketListPage.isTransferToQueue(), "Transfer to Queue Button Available");
         ticketListPage.clickTransfertoQueue();
         softAssert.assertTrue(transferQueue.validatePageTitle());
         transferQueue.clickTransferQueue(config.getProperty("transferQueue"));
         ticketListPage.waitTillLoaderGetsRemoved();
+        Thread.sleep(1000);
         ticketListPage.writeTicketId(ticketId);
         ticketListPage.clickSearchBtn();
         ticketListPage.waitTillLoaderGetsRemoved();
-        Assert.assertEquals(ticketListPage.getqueueValue().toLowerCase().trim(), config.getProperty("transferQueue").toLowerCase().trim());
+        Assert.assertEquals(ticketListPage.getqueueValue().toLowerCase().trim(), config.getProperty("transferQueue").toLowerCase().trim(), "Transfer Queue of Ticket Successfully");
         softAssert.assertAll();
         //Pick data onlyThrough EXCEL
     }

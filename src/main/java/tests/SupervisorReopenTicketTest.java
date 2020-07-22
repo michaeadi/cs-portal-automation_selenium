@@ -1,7 +1,6 @@
 package tests;
 
 import Utils.DataProviders.DataProvider;
-import Utils.DataProviders.TestDatabean;
 import Utils.DataProviders.TicketStateDataBean;
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
@@ -9,17 +8,16 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.SideMenuPOM;
-import pages.ViewTicketPagePOM;
 import pages.agentLoginPagePOM;
 import pages.supervisorTicketListPagePOM;
 
 import java.lang.reflect.Method;
 
-public class SupervisorUpdateTicket extends BaseTest {
+public class SupervisorReopenTicketTest extends BaseTest {
 
-    @Test(priority = 1, description = "Supervisor SKIP Login ", dataProvider = "getTestData", dataProviderClass = DataProvider.class)
-    public void agentSkipQueueLogin(Method method, TestDatabean Data) throws InterruptedException {
-        ExtentTestManager.startTest(method.getName(), "Supervisor SKIP Queue Login");
+    @Test(priority = 1, description = "Supervisor SKIP Login ", enabled = true)
+    public void agentSkipQueueLogin(Method method) throws InterruptedException {
+        ExtentTestManager.startTest(method.getName(), "Supervisor SKIP Queue Login Test");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SideMenuPOM sideMenu = new SideMenuPOM(driver);
         sideMenu.clickOnSideMenu();
@@ -36,29 +34,28 @@ public class SupervisorUpdateTicket extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 2, dependsOnMethods = "agentSkipQueueLogin", description = "Update Ticket", dataProvider = "ticketState", dataProviderClass = DataProvider.class)
-    public void updateTicket(Method method, TicketStateDataBean ticketState) throws InterruptedException {
-        supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
-        ViewTicketPagePOM viewTicket = new ViewTicketPagePOM(driver);
-        ExtentTestManager.startTest(method.getName(), "Update Ticket");
+    @Test(priority = 2, dependsOnMethods = "agentSkipQueueLogin", dataProvider = "ReOpenState", description = "Supervisor Reopen Ticket", dataProviderClass = DataProvider.class)
+    public void ReopenTicket(Method method, TicketStateDataBean reopen) throws InterruptedException {
+        ExtentTestManager.startTest("Supervisor Reopen Ticket", "Reopen Ticket as Supervisor");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
+        supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         SoftAssert softAssert = new SoftAssert();
-//        ticketListPage.writeTicketId(ticketId);
-//        ticketListPage.clickedSearchBtn();
-//        Thread.sleep(20000); // Update Particular Ticket
-        String ticketId = ticketListPage.getTicketIdvalue();
-        ticketListPage.viewTicket();
-        Assert.assertEquals(ticketId, viewTicket.getTicketId(), "Verify the searched Ticket fetched Successfully");
-        String selectedState = viewTicket.selectState(ticketState.getTicketStateName());
-        ticketListPage.waitTillLoaderGetsRemoved();
         ticketListPage.changeTicketTypeToClosed();
+        ticketListPage.waitTillLoaderGetsRemoved();
+        String ticketId = ticketListPage.getTicketIdvalue();
+        ticketListPage.clickCheckbox();
+        softAssert.assertTrue(ticketListPage.isReopenBtn(), "Reopen Button Available");
+        ticketListPage.ClickReopenButton();
+        ticketListPage.addReopenComment("Reopen Comment Using Automation");
+        ticketListPage.submitReopenReq();
+        Thread.sleep(3000);
+        ticketListPage.waitTillLoaderGetsRemoved();
+        ticketListPage.changeTicketTypeToOpen();
         ticketListPage.waitTillLoaderGetsRemoved();
         ticketListPage.writeTicketId(ticketId);
         ticketListPage.clickSearchBtn();
         ticketListPage.waitTillLoaderGetsRemoved();
-        softAssert.assertEquals(ticketId, ticketListPage.getTicketIdvalue(), "Verify the searched Ticket fetched Successfully");
-        //softAssert.assertEquals(ticketState.getTicketStateName(),ticketListPage.getStatevalue());
-        softAssert.assertEquals(selectedState, ticketListPage.getStatevalue(), "Verify the Update Ticket Successfully");
+        Assert.assertEquals(reopen.getTicketStateName().toLowerCase().trim(), ticketListPage.getStatevalue().toLowerCase().trim(), "Validate Ticket Reopen in Correct state");
         softAssert.assertAll();
     }
 }

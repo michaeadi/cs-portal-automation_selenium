@@ -8,6 +8,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.BackendAgentTicketListPOM;
+import pages.SideMenuPOM;
 import pages.agentLoginPagePOM;
 import pages.loginPagePOM;
 
@@ -17,10 +18,9 @@ public class BackendAgentLoginTest extends BaseTest {
     @DataProvider.User(UserType = "BA")
     @Test(priority = 1, description = "Logging IN ", dataProvider = "loginData", dataProviderClass = DataProvider.class)
     public void LoggingIN(Method method, TestDatabean Data) {
-        ExtentTestManager.startTest(method.getName(), "Opening Base URL");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
-        loginPagePOM loginPagePOM = new loginPagePOM(driver);
+        ExtentTestManager.startTest("Logging Into Portal", "Logging Into Portal with AUUID :  " + Data.getLoginAUUID());
         SoftAssert softAssert = new SoftAssert();
+        loginPagePOM loginPagePOM = new loginPagePOM(driver);
         loginPagePOM.openBaseURL(config.getProperty(tests.BaseTest.Env + "-baseurl"));
         softAssert.assertEquals(driver.getCurrentUrl(), config.getProperty(tests.BaseTest.Env + "-baseurl"), "URl isn't as expected");
         loginPagePOM.enterAUUID(Data.getLoginAUUID());//*[@id="mat-input-7"]
@@ -30,10 +30,13 @@ public class BackendAgentLoginTest extends BaseTest {
         loginPagePOM.clickOnVisibleButton();
         loginPagePOM.clickOnVisibleButton();
         loginPagePOM.clickOnLogin();
+        SideMenuPOM sideMenuPOM = new SideMenuPOM(driver);
+        sideMenuPOM.waitForHomePage();
+        softAssert.assertTrue(sideMenuPOM.isSideMenuVisible());
         softAssert.assertAll();
     }
 
-    @Test(priority = 2, description = "SideMenu ")
+    @Test(priority = 2)
     public void agentQueueLogin(Method method) throws InterruptedException {
         ExtentTestManager.startTest(method.getName(), "Opening Base URL");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");

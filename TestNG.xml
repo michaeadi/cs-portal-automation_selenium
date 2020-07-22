@@ -56,6 +56,11 @@
             <class name="tests.TransferToQueueTest"/>
         </classes>
     </test>
+    <test name="Supervisor Re-Open Ticket">
+        <classes>
+            <class name="tests.SupervisorReopenTicketTest"/>
+        </classes>
+    </test>
     <test name="Logout Supervisor Test">
         <classes>
             <class name="tests.LogoutTest"/>
@@ -66,11 +71,11 @@
             <class name="tests.LoginTests"/>
         </classes>
     </test>
-    <test name="UserManagement Test">
-        <classes>
-            <class name="tests.userManagementTest"/>
-        </classes>
-    </test>
+    <!--    <test name="UserManagement Test">-->
+    <!--        <classes>-->
+    <!--            <class name="tests.userManagementTest"/>-->
+    <!--        </classes>-->
+    <!--    </test>-->
     <test name="Profile Management Test">
         <classes>
             <class name="tests.profileManagementTest"/>

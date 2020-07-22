@@ -41,12 +41,13 @@ public class BaseTest {
         if (browser.equals("chrome")) {
             WebDriverManager.chromedriver().setup();
             ChromeOptions options = new ChromeOptions();
-            options.addArguments("--headless");
-            options.addArguments("--disable-gpu");
+//            options.addArguments("--headless");
+//            options.addArguments("--disable-gpu");
+            options.addArguments("--window-size=1792,1120");
+            options.setHeadless(true);
             //Using with Options will start in Headless Browser
             driver = new ChromeDriver(options);
             driver.manage().window().maximize();
-
         } else if (browser.equals("firefox")) {
             WebDriverManager.firefoxdriver().setup();
             driver = new FirefoxDriver();

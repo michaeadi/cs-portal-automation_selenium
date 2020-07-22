@@ -1,5 +1,7 @@
 package pages;
 
+import Utils.ExtentReports.ExtentTestManager;
+import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -24,10 +26,12 @@ public class FilterTabPOM extends BasePage {
 
 
     public void selectQueueByName(String queueName) throws InterruptedException {
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Select Queue Filter Name: " + queueName);
         click(By.xpath("//span[contains(text(),' " + queueName + " ')]"));
     }
 
     public void clickApplyFilter() {
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on APPLY Filter Button");
         click(applyFilter);
     }
 

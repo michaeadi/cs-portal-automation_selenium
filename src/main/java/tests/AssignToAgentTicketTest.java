@@ -16,9 +16,9 @@ import java.lang.reflect.Method;
 public class AssignToAgentTicketTest extends BaseTest {
 
 
-    @Test(priority = 1, description = "SideMenu ")
+    @Test(priority = 1, description = "Supervisor SKIP Login ")
     public void agentSkipQueueLogin(Method method) throws InterruptedException {
-        ExtentTestManager.startTest(method.getName(), "Opening Base URL");
+        ExtentTestManager.startTest(method.getName(), "Supervisor SKIP Queue Login Test");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SideMenuPOM sideMenu = new SideMenuPOM(driver);
         sideMenu.clickOnSideMenu();
@@ -26,9 +26,9 @@ public class AssignToAgentTicketTest extends BaseTest {
         agentLoginPagePOM AgentLoginPagePOM = sideMenu.openSupervisorDashboard();
         SoftAssert softAssert = new SoftAssert();
         AgentLoginPagePOM.waitTillLoaderGetsRemoved();
-        softAssert.assertTrue(AgentLoginPagePOM.isQueueLoginPage());
-        softAssert.assertTrue(AgentLoginPagePOM.checkSkipButton());
-        softAssert.assertTrue(AgentLoginPagePOM.checkSubmitButton());
+        softAssert.assertTrue(AgentLoginPagePOM.isQueueLoginPage(), "Agent redirect to Queue Login Page");
+        softAssert.assertTrue(AgentLoginPagePOM.checkSkipButton(), "Checking Queue Login Page have SKIP button");
+        softAssert.assertTrue(AgentLoginPagePOM.checkSubmitButton(), "Checking Queue Login Page have Submit button");
         AgentLoginPagePOM.clickSkipBtn();
         AgentLoginPagePOM.waitTillLoaderGetsRemoved();
         Assert.assertEquals(driver.getTitle(), config.getProperty("supervisorTicketListPage"));
@@ -43,31 +43,32 @@ public class AssignToAgentTicketTest extends BaseTest {
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SoftAssert softAssert = new SoftAssert();
         ticketListPage.changeTicketTypeToOpen();
-        ticketListPage.getTicketIdvalue();
-        softAssert.assertTrue(ticketListPage.isTicketIdLabel());
-        softAssert.assertTrue(ticketListPage.isWorkGroupName());
-        softAssert.assertTrue(ticketListPage.isPrioritylabel());
-        softAssert.assertTrue(ticketListPage.isStateLabel());
-        softAssert.assertTrue(ticketListPage.isCreationdateLabel());
-        softAssert.assertTrue(ticketListPage.isCreatedbyLabel());
-        softAssert.assertTrue(ticketListPage.isQueueLabel());
-        softAssert.assertTrue(ticketListPage.isIssueLabel());
-        softAssert.assertTrue(ticketListPage.isIssueTypeLabel());
-        softAssert.assertTrue(ticketListPage.isSubTypeLabel());
-        softAssert.assertTrue(ticketListPage.isSubSubTypeLabel());
-        softAssert.assertTrue(ticketListPage.isCodeLabel());
+        String ticketId = ticketListPage.getTicketIdvalue();
+        softAssert.assertTrue(ticketListPage.isTicketIdLabel(), "Ticket Meta Data Have Ticket Id");
+        softAssert.assertTrue(ticketListPage.isWorkGroupName(), "Ticket Meta Data Have Workgroup");
+        softAssert.assertTrue(ticketListPage.isPrioritylabel(), "Ticket Meta Data Have Priority");
+        softAssert.assertTrue(ticketListPage.isStateLabel(), "Ticket Meta Data Have State");
+        softAssert.assertTrue(ticketListPage.isCreationdateLabel(), "Ticket Meta Data Have Creation Date");
+        softAssert.assertTrue(ticketListPage.isCreatedbyLabel(), "Ticket Meta Data Have Created By");
+        softAssert.assertTrue(ticketListPage.isQueueLabel(), "Ticket Meta Data Have Queue");
+        softAssert.assertTrue(ticketListPage.isIssueLabel(), "Ticket Meta Data Have Issue");
+        softAssert.assertTrue(ticketListPage.isIssueTypeLabel(), "Ticket Meta Data Have Issue Type");
+        softAssert.assertTrue(ticketListPage.isSubTypeLabel(), "Ticket Meta Data Have Issue Sub Type");
+        softAssert.assertTrue(ticketListPage.isSubSubTypeLabel(), "Ticket Meta Data Have Issue Sub Sub Type");
+        softAssert.assertTrue(ticketListPage.isCodeLabel(), "Ticket Meta Data Have Code");
         String ticketQueue = ticketListPage.getqueueValue();
-//        softAssert.assertTrue(ticketListPage.checkOpenTicketStateType());
         ticketListPage.clickCheckbox();
-        softAssert.assertTrue(ticketListPage.isAssignToAgent());
-        softAssert.assertTrue(ticketListPage.isTransferToQueue());
+        softAssert.assertTrue(ticketListPage.isAssignToAgent(), "Assign to Agent Button Available");
+        softAssert.assertTrue(ticketListPage.isTransferToQueue(), "Transfer to Queue Button Available");
         ticketListPage.clickAssigntoAgent();
-        softAssert.assertTrue(assignTicket.validatePageTitle());
-        softAssert.assertEquals(assignTicket.getQueueName(), ticketQueue);
+        softAssert.assertTrue(assignTicket.validatePageTitle(), "Assign to Agent tab Open");
+        softAssert.assertEquals(assignTicket.getQueueName(), ticketQueue, "Verify Assign to Agent tab Queue");
+        int availableCount = assignTicket.getAvailableSlot(); //Before Assignment
+        String agentAUUID = assignTicket.getAgentAuuid();
         assignTicket.ClickedAssignBtn();
         assignTicket.getInfoMessage();
         assignTicket.waitTillLoaderGetsRemoved();
+        softAssert.assertEquals(assignTicket.getAvailableSlot(), availableCount - 1, "Check Available Slot Decrease");
         softAssert.assertAll();
-//Assertion on slots PENDING---IMP
     }
 }

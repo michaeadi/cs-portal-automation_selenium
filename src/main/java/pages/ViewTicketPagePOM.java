@@ -1,5 +1,7 @@
 package pages;
 
+import Utils.ExtentReports.ExtentTestManager;
+import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -19,11 +21,13 @@ public class ViewTicketPagePOM extends BasePage {
 
     public String getTicketId() {
         log.info("View Ticket: " + readText(ticketIdValue));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "View Ticket: " + readText(ticketIdValue));
         return readText(ticketIdValue);
     }
 
     public String selectState(String state) throws InterruptedException {
         log.info("Selecting State: " + state);
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Selecting State: " + state);
         //By stateName= By.xpath("//div[@class=\"ng-tns-c9-325 ng-trigger ng-trigger-transformPanel mat-select-panel mat-primary\"]//span[contains(text(),' "+state+"')]");
         //By stateName=By.xpath("//span[contains(text(),' "+state+"')]");
         scrollToViewElement(submitAs);

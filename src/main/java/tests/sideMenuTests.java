@@ -5,12 +5,10 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.SideMenuPOM;
 
-import java.lang.reflect.Method;
-
 public class sideMenuTests extends BaseTest {
     //Pending as per users
     @Test(priority = 1, description = "Validating Side Menu ")
-    public void sideMenuAssert(Method method) throws InterruptedException {
+    public void sideMenuAssert() throws InterruptedException {
         SideMenuPOM SideMenuPOM = new SideMenuPOM(driver);
         ExtentTestManager.startTest("Validating Side Menu", "Validating Side Menu and It's Options");
         SoftAssert softAssert = new SoftAssert();
