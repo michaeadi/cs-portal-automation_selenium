@@ -41,6 +41,7 @@ public class AssignToAgentTicketTest extends BaseTest {
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SoftAssert softAssert = new SoftAssert();
         ticketListPage.changeTicketTypeToOpen();
+        ticketListPage.waitTillLoaderGetsRemoved();
         ticketListPage.clickFilter();
         ticketListPage.waitTillLoaderGetsRemoved();
         filterTab.clickUnAssignedFilter();

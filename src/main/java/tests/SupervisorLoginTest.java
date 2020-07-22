@@ -16,14 +16,13 @@ import java.lang.reflect.Method;
 public class SupervisorLoginTest extends BaseTest {
 
     @DataProvider.User(UserType = "ALL")
-    @Test(priority = 1, description = "Logging IN ", dataProvider = "loginData", dataProviderClass = DataProvider.class)
+    @Test(priority = 1, description = "Logging IN", dataProvider = "loginData", dataProviderClass = DataProvider.class)
     public void LoggingIN(Method method, TestDatabean Data) {
-        ExtentTestManager.startTest(method.getName(), "User Login");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
+        ExtentTestManager.startTest("Logging Into Portal", "Logging Into Portal with AUUID :  " + Data.getLoginAUUID());
         SoftAssert softAssert = new SoftAssert();
         loginPagePOM loginPagePOM = new loginPagePOM(driver);
-        loginPagePOM.openBaseURL(config.getProperty("baseurl"));
-        softAssert.assertEquals(driver.getCurrentUrl(), config.getProperty("baseurl"), "URl isn't as expected");
+        loginPagePOM.openBaseURL(config.getProperty(tests.BaseTest.Env + "-baseurl"));
+        softAssert.assertEquals(driver.getCurrentUrl(), config.getProperty(tests.BaseTest.Env + "-baseurl"), "URl isn't as expected");
         loginPagePOM.enterAUUID(Data.getLoginAUUID());//*[@id="mat-input-7"]
         loginPagePOM.clickOnSubmitBtn();
         loginPagePOM.enterPassword(Data.getPassword());
