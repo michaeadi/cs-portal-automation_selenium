@@ -2,18 +2,16 @@ package tests;
 
 import Utils.DataProviders.nftrDataBeans;
 import Utils.DataProviders.nftrDataExcelToBeanDao;
-import Utils.TestDatabean;
 import Utils.TicketStateDataBean;
-import Utils.ftrDataBeans;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.DataProvider;
-import Utils.ReadData;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,13 +19,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-
 public class BaseTest {
 
 
     public static WebDriver driver;
     public static Properties config;
-    public String opco;
+    public static String Opco;
+    public static String Env;
 
     public WebDriver getDriver() {
         return driver;
@@ -35,15 +33,27 @@ public class BaseTest {
 
     @BeforeSuite
     public void classLevelSetup() throws IOException {
-        opco = "KE";
+//        Opco = "KE";
+//        Env = "UAT";
+        Opco = System.getProperty("Opco").toUpperCase();
+        Env = System.getProperty("Env").toUpperCase();
         config = new Properties();
+
+        System.out.println("OPCO Chosen :" + Opco);
+        System.out.println("Environment Chosen : " + Env);
         FileInputStream fis = null;
-        fis = new FileInputStream(System.getProperty("user.dir") + "/src/main/resources/" + opco + "-config.properties");
+        fis = new FileInputStream(System.getProperty("user.dir") + "/src/main/resources/" + Opco + "-config.properties");
         config.load(fis);
         String browser = config.getProperty("browser");
         if (browser.equals("chrome")) {
             WebDriverManager.chromedriver().setup();
-            driver = new ChromeDriver();
+            ChromeOptions options = new ChromeOptions();
+//            options.addArguments("--headless");
+//            options.addArguments("--disable-gpu");
+            options.addArguments("--window-size=1792,1120");
+            options.setHeadless(true);
+            //Using with Options will start in Headless Browser
+            driver = new ChromeDriver(options);
             driver.manage().window().maximize();
         } else if (browser.equals("firefox")) {
             WebDriverManager.firefoxdriver().setup();
@@ -56,40 +66,11 @@ public class BaseTest {
     public void methodLevelSetup() {
 
     }
-
     @AfterSuite
     public void teardown() {
-        driver.quit();
+//        driver.quit();
     }
 
-    @DataProvider
-    public Object[][] getTestData() {
-        Utils.TestDataExcelToBeanDao credsExcelToBeanDao = new Utils.TestDataExcelToBeanDao();
-        File Exceldir = new File("Excels");
-        File Excel = new File(Exceldir, "test.xlsx");
-        List<TestDatabean> list =
-                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("Sheet"));
-        Object[][] hashMapObj = new Object[list.size()][1];
-        for (int i = 0; i < list.size(); i++) {
-            hashMapObj[i][0] = list.get(i);
-        }
-        return hashMapObj;
-    }
-
-    @DataProvider
-    public Object[][] getTestData1() {
-        Utils.ftrDataExcelToBeanDao credsExcelToBeanDao = new Utils.ftrDataExcelToBeanDao();
-        File Exceldir = new File("Excels");
-        File Excel = new File(Exceldir, "test.xlsx");
-        List<ftrDataBeans> list =
-                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("FtrSheet"));
-
-        Object[][] hashMapObj = new Object[list.size()][1];
-        for (int i = 0; i < list.size(); i++) {
-            hashMapObj[i][0] = list.get(i);
-        }
-        return hashMapObj;
-    }
 
 
 //    @DataProvider(name = "ticketId")

@@ -38,6 +38,7 @@ public class BackendAgentTicketListPOM extends BasePage {
     By noResultFound= By.xpath("//html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-ticket//mat-sidenav-container//mat-sidenav-content//div//app-ticket-details//div//div//mat-error//img");
 
 
+
     public BackendAgentTicketListPOM(WebDriver driver) {
         super(driver);
     }
@@ -47,32 +48,37 @@ public class BackendAgentTicketListPOM extends BasePage {
         writeText(searchTicketBox,ticketId);
     }
 
-    public void clickedSearchBtn(){
+    public void clickedSearchBtn() {
         log.info("Clicking on Search Button");
         click(searchTicketBtn);
     }
 
-    public boolean isTicketIdLabel(){
+
+    public boolean isTicketIdLabel() {
         log.info("Is Ticket Id field Available :" + checkState(ticketIdLabel));
         return checkState(ticketIdLabel);
     }
 
-    public boolean isWorkGroupName(){
+
+    public boolean isWorkGroupName() {
         log.info("Ticket lie in WorkGroup :" + readText(workGroupName));
         return checkState(workGroupName);
     }
 
-    public boolean isPrioritylabel(){
+
+    public boolean isPrioritylabel() {
         log.info("Is Priority field Available :" + checkState(prioritylabel));
         return checkState(prioritylabel);
     }
 
-    public boolean isStateLabel(){
+
+    public boolean isStateLabel() {
         log.info("Is Priority field Available :" + checkState(stateLabel));
         return checkState(stateLabel);
     }
 
-    public boolean isCreationdateLabel(){
+
+    public boolean isCreationdateLabel() {
         log.info("Is Priority field Available :" + checkState(creationdateLabel));
         return checkState(creationdateLabel);
     }
@@ -102,63 +108,66 @@ public class BackendAgentTicketListPOM extends BasePage {
         return checkState(subSubTypeLabel);
     }
 
-    public boolean isCodeLabel(){
+
+    public boolean isCodeLabel() {
         log.info("Is Code field Available :" + checkState(codeLabel));
         return checkState(codeLabel);
     }
 
-    public String getTicketIdvalue(){
+
+    public String getTicketIdvalue() {
         log.info("Ticket Id: " + readText(ticketIdvalue));
         return readText(ticketIdvalue);
     }
 
-    public String getWorkgroupSLA(){
+    public String getWorkgroupSLA() {
         return readText(workgroupSLA);
     }
 
-    public String getPriorityValue(){
+    public String getPriorityValue() {
         return readText(priorityValue);
     }
 
-    public String getStatevalue(){
+    public String getStatevalue() {
         return readText(statevalue);
     }
 
-    public String getCreationdatevalue(){
+    public String getCreationdatevalue() {
         return readText(creationdatevalue);
     }
 
-    public String getqueueValue(){
+    public String getqueueValue() {
         return readText(queueValue);
     }
 
-    public String getIssueValue(){
+    public String getIssueValue() {
         return readText(issueValue);
     }
 
-    public String getIssueTypeValue(){
+    public String getIssueTypeValue() {
         return readText(issueTypeValue);
     }
 
-    public String getSubTypeValue(){
+    public String getSubTypeValue() {
         return readText(subTypeValue);
     }
 
-    public String getsubSubTypeValue(){
+    public String getsubSubTypeValue() {
         return readText(subSubTypeValue);
     }
 
-    public String getCodeValue(){
+    public String getCodeValue() {
         return readText(codeValue);
     }
 
 
-    public void viewTicket(){
-        log.info("View Ticket: "+ getTicketIdvalue());
+
+    public void viewTicket() {
+        log.info("View Ticket: " + getTicketIdvalue());
         click(stateLabel);
     }
 
-    public boolean noTicketFound(){
+    public boolean noTicketFound() {
         log.info("No ticket found");
         return checkState(noResultFound);
     }

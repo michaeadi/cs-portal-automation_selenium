@@ -9,6 +9,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import tests.BaseTest;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -19,13 +20,18 @@ import java.util.concurrent.TimeUnit;
 public class BasePage {
     public WebDriver driver;
     public WebDriverWait wait;
+    By loader = By.xpath("/html/body/app-root/ngx-ui-loader/div[2]");
 
     //Constructor
     public BasePage(WebDriver driver) {
-        this.driver = driver;
-        wait = new WebDriverWait(driver, Duration.ofSeconds(40));
-        driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
 
+        this.driver = driver;
+        wait = new WebDriverWait(driver, Duration.ofSeconds(Integer.parseInt(BaseTest.config.getProperty("GeneralWaitInSeconds"))));
+        driver.manage().timeouts().implicitlyWait(Integer.parseInt(BaseTest.config.getProperty("ImplicitWaitInSeconds")), TimeUnit.SECONDS);
+    }
+
+    public void waitTillLoaderGetsRemoved() {
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
     }
 
     //Click Method
@@ -34,6 +40,12 @@ public class BasePage {
         highLighterMethod(elementLocation);
         driver.findElement(elementLocation).click();
         log.info("Clicking on element" + elementLocation.toString());
+    }
+
+    void scrollToViewElement(By Element) throws InterruptedException {
+        WebElement element = driver.findElement(Element);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+        Thread.sleep(500);
     }
 
     //Write Text
@@ -106,11 +118,6 @@ public class BasePage {
         return driver.findElement(Element).isDisplayed();
     }
 
-    void scrollToViewElement(By Element) throws InterruptedException {
-        WebElement element = driver.findElement(Element);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
-        Thread.sleep(500);
-    }
 
     void selectByText(String text) throws InterruptedException {
         WebElement elementby= driver.findElement(By.xpath("//span[contains(text(),'" + text + "')]"));
@@ -123,11 +130,6 @@ public class BasePage {
     void clickOutside() {
         Actions action = new Actions(driver);
         action.moveByOffset(0, 0).click().build().perform();
-    }
-
-    public void waitTillLoaderGetsRemoved() {
-        By loader = By.xpath("/html/body/app-root/ngx-ui-loader/div[2]");
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
     }
 
     public void clearInputTag(By element){
@@ -146,4 +148,5 @@ public class BasePage {
         }
         return true;
     }
+
 }

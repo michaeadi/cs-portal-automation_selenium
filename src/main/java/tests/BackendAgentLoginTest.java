@@ -1,7 +1,8 @@
 package tests;
 
+import Utils.DataProviders.DataProvider;
+import Utils.DataProviders.TestDatabean;
 import Utils.ExtentReports.ExtentTestManager;
-import Utils.TestDatabean;
 import com.relevantcodes.extentreports.LogStatus;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -9,17 +10,16 @@ import org.testng.asserts.SoftAssert;
 import pages.BackendAgentTicketListPOM;
 import pages.agentLoginPagePOM;
 import pages.loginPagePOM;
-import pages.supervisorTicketListPagePOM;
 
 import java.lang.reflect.Method;
 
 public class BackendAgentLoginTest extends BaseTest {
-
-    @Test(priority = 1, description = "Logging IN ", dataProvider = "getTestData")
+    @DataProvider.User(UserType = "BA")
+    @Test(priority = 1, description = "Logging IN ", dataProvider = "loginData", dataProviderClass = DataProvider.class)
     public void LoggingIN(Method method, TestDatabean Data) {
-        loginPagePOM loginPagePOM = new loginPagePOM(driver);
         ExtentTestManager.startTest(method.getName(), "Opening Base URL");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
+        loginPagePOM loginPagePOM = new loginPagePOM(driver);
         SoftAssert softAssert = new SoftAssert();
         loginPagePOM.openBaseURL(config.getProperty("baseurl"));
         softAssert.assertEquals(driver.getCurrentUrl(), config.getProperty("baseurl"), "URl isn't as expected");
@@ -33,30 +33,30 @@ public class BackendAgentLoginTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 2, description = "SideMenu ", dataProvider = "getTestData", enabled = true)
-    public void agentQueueLogin(Method method, TestDatabean Data) throws InterruptedException {
-        agentLoginPagePOM AgentLoginPagePOM = new agentLoginPagePOM(driver);
+    @Test(priority = 2, description = "SideMenu ")
+    public void agentQueueLogin(Method method) throws InterruptedException {
         ExtentTestManager.startTest(method.getName(), "Opening Base URL");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SoftAssert softAssert = new SoftAssert();
-        Thread.sleep(30000);
+        agentLoginPagePOM AgentLoginPagePOM = new agentLoginPagePOM(driver);
+        AgentLoginPagePOM.waitTillLoaderGetsRemoved();
         softAssert.assertTrue(AgentLoginPagePOM.isQueueLoginPage());
         softAssert.assertTrue(AgentLoginPagePOM.checkSubmitButton());
         AgentLoginPagePOM.clickSelectQueue();
         AgentLoginPagePOM.selectAllQueue();
         AgentLoginPagePOM.clickSubmitBtn();
-        Thread.sleep(20000);
-        Assert.assertEquals(driver.getTitle(),config.getProperty("backendAgentTicketListPage"));
+        AgentLoginPagePOM.waitTillLoaderGetsRemoved();
+        Assert.assertEquals(driver.getTitle(), config.getProperty("backendAgentTicketListPage"));
         softAssert.assertAll();
     }
 
-    @Test(priority = 3,dependsOnMethods = "agentQueueLogin", description = "Ticket Search ", dataProvider = "ticketId",enabled = true)
-    public void ValidateTicket(Method method, String ticketId) throws InterruptedException {
-        BackendAgentTicketListPOM ticketListPage= new BackendAgentTicketListPOM(driver);
+    @Test(priority = 3, dependsOnMethods = "agentQueueLogin", description = "Ticket Search ")
+    public void ValidateTicket(Method method) throws InterruptedException {
         ExtentTestManager.startTest(method.getName(), "Validate the Backend Agent View Ticket List page");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SoftAssert softAssert = new SoftAssert();
-        Thread.sleep(30000);
+        BackendAgentTicketListPOM ticketListPage = new BackendAgentTicketListPOM(driver);
+        ticketListPage.waitTillLoaderGetsRemoved();
         /*ticketListPage.writeTicketId(ticketId);
         ticketListPage.clickedSearchBtn();
         Thread.sleep(20000);

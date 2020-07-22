@@ -14,10 +14,10 @@
         <protocol>https</protocol>
 
         <!-- title of the document -->
-        <documentTitle>Reports for Automation Reports</documentTitle>
+        <documentTitle>Automation Test Reports For CS PORTAL</documentTitle>
 
         <!-- report name - displayed at top-nav -->
-        <reportName>Report for task 2 || Ravtej Singh</reportName>
+        <reportName>CS Portal || QA Team</reportName>
 
         <!-- location of charts in the test view -->
         <!-- top, bottom -->

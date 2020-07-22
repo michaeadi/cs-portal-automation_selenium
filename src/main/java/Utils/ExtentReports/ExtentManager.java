@@ -1,6 +1,7 @@
 package Utils.ExtentReports;
 
 import com.relevantcodes.extentreports.ExtentReports;
+import tests.BaseTest;
 
 import java.io.File;
 import java.time.LocalDateTime;
@@ -16,15 +17,21 @@ public class ExtentManager {
         if (extent == null) {
             //Set HTML reporting file location
             String workingDir = System.getProperty ("user.dir");
-            if (System.getProperty ("os.name").toLowerCase ().contains ("win")) {
-                extent = new ExtentReports(workingDir + "\\ExtentReports\\ExtentReportResults" + date + ".html", true);
-                extent.addSystemInfo("user", "asdad");
+            if (System.getProperty("os.name").toLowerCase().contains("win")) {
+                extent = new ExtentReports(workingDir + "\\ExtentReports\\CS_Portal-Automation-Report-" + date + ".html", true);
+                extent.addSystemInfo("user", "Ravtej Singh");
+                extent.assignProject("CS Portal");
+                extent.addSystemInfo("OPCO", BaseTest.Opco);
+                extent.addSystemInfo("Environment", BaseTest.Env);
                 extent.loadConfig(new File(workingDir + "\\src\\main\\resources\\reportextent-config.xml"));
 
-            } else  {
-                extent = new ExtentReports (workingDir + "/ExtentReports/ExtentReportResults" + date + ".html", true);
-                extent.addSystemInfo ("user", "Ravtej Singh");
-                extent.loadConfig (new File (workingDir + "/src/main/resources/reportextent-config.xml"));
+            } else {
+                extent = new ExtentReports(workingDir + "/ExtentReports/CS_Portal-Automation-Report-" + date + ".html", true);
+                extent.addSystemInfo("user", "Ravtej Singh");
+                extent.assignProject("CS Portal");
+                extent.addSystemInfo("OPCO", BaseTest.Opco);
+                extent.addSystemInfo("Environment", BaseTest.Env);
+                extent.loadConfig(new File(workingDir + "/src/main/resources/reportextent-config.xml"));
 
             }
         }
