@@ -1,598 +1,802 @@
-2020-07-23 15:26:04.774 [INFO /main/openBaseURL]: loginPagePOM(34): Opening URL:-http://172.23.36.206:30050/#/login
-2020-07-23 15:26:04.786 [INFO /main/enterAUUID]: loginPagePOM(38): Entering AUUID :2388006In username
-2020-07-23 15:26:04.959 [INFO /main/writeText]: BasePage(56): Writing 2388006to  By.xpath: //input[@autocomplete="new-password"]
-2020-07-23 15:26:04.959 [INFO /main/clickOnSubmitBtn]: loginPagePOM(45): Clicking on Submit button
-2020-07-23 15:26:05.093 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath:  //*[@type='submit']
-2020-07-23 15:26:05.094 [INFO /main/enterPassword]: loginPagePOM(57): Send password to Password field
-2020-07-23 15:26:07.782 [INFO /main/writeText]: BasePage(56): Writing Secure@2024to  By.name: password
-2020-07-23 15:26:07.783 [INFO /main/checkLoginButton]: loginPagePOM(63): checking login button is enabled or not
-2020-07-23 15:26:07.921 [INFO /main/clickOnVisibleButton]: loginPagePOM(75): Clicking on Visible Password Button
-2020-07-23 15:26:08.569 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath:  //*[@class='visibility-icon c-pointer abs visible-status mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted']
-2020-07-23 15:26:08.570 [INFO /main/clickOnVisibleButton]: loginPagePOM(75): Clicking on Visible Password Button
-2020-07-23 15:26:08.780 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath:  //*[@class='visibility-icon c-pointer abs visible-status mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted']
-2020-07-23 15:26:08.781 [INFO /main/clickOnLogin]: loginPagePOM(69): Clicking on Login button
-2020-07-23 15:26:09.067 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath:  //*[@type='submit']
-2020-07-23 15:26:23.694 [INFO /main/waitForHomePage]: SideMenuPOM(47): Wait for Side menu and Home Page to be loaded
-2020-07-23 15:26:23.782 [INFO /main/isSideMenuVisible]: SideMenuPOM(54): Checking that  Side Menu options are Visible or Not
-2020-07-23 15:26:24.999 [INFO /main/clickOnSideMenu]: SideMenuPOM(39): Clicking on Side Menu
-2020-07-23 15:26:25.214 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //mat-toolbar//button
-2020-07-23 15:26:25.215 [INFO /main/isAdminSettingVisible]: SideMenuPOM(67): Checking is Admin Setting Visible or not
-2020-07-23 15:26:25.291 [INFO /main/isCustomerServicesVisible]: SideMenuPOM(73): Checking that is Customer Service Visible or Not
-2020-07-23 15:26:25.374 [INFO /main/isCaseManagementVisible]: SideMenuPOM(80): Checking that is Customer Service Visible or Not
-2020-07-23 15:26:25.459 [INFO /main/isUserManagementVisible]: SideMenuPOM(86): Checking that is User Management Option Visible or Not
-2020-07-23 15:26:25.840 [INFO /main/isProfileManagementVisible]: SideMenuPOM(93): Checking that is Profile Management Option Visible or Not
-2020-07-23 15:26:26.340 [INFO /main/clickOnName]: SideMenuPOM(62): Clicking on User Name
-2020-07-23 15:26:26.603 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //*[@class="ellipsis"]
-2020-07-23 15:26:26.604 [INFO /main/isCustomerInteractionVisible]: SideMenuPOM(100): Checking that is Customer Interaction Option Visible or Not
-2020-07-23 15:26:27.028 [INFO /main/isSupervisorDashboardVisible]: SideMenuPOM(107): Checking that is Supervisor DashBoard Option Visible or Not
-2020-07-23 15:26:27.661 [INFO /main/clickOnSideMenu]: SideMenuPOM(39): Clicking on Side Menu
-2020-07-23 15:26:27.867 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //mat-toolbar//button
-2020-07-23 15:26:28.549 [INFO /main/clickOnSideMenu]: SideMenuPOM(39): Clicking on Side Menu
-2020-07-23 15:26:28.641 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //mat-toolbar//button
-2020-07-23 15:26:28.641 [INFO /main/clickOnName]: SideMenuPOM(62): Clicking on User Name
-2020-07-23 15:26:28.755 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //*[@class="ellipsis"]
-2020-07-23 15:26:28.755 [INFO /main/openCustomerInteractionPage]: SideMenuPOM(114): Opening Customer Interaction Page
-2020-07-23 15:26:29.320 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //a[contains(text(),'Customer Interaction')]
-2020-07-23 15:26:29.326 [INFO /main/enterNumber]: customerInteractionsSearchPOM(20): Entering Number in search box :735873718
-2020-07-23 15:26:29.467 [INFO /main/writeText]: BasePage(56): Writing 735873718to  By.xpath: //input[@name="search"]
-2020-07-23 15:26:29.468 [INFO /main/clickOnSearch]: customerInteractionsSearchPOM(26): Clicking on Search Button
-2020-07-23 15:26:29.657 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //button[@class="search-icon-btn"]
-2020-07-23 15:26:56.351 [INFO /main/isPageLoaded]: customerInteractionPagePOM(89): Checking that is Customer Interaction Page is loaded : true
-2020-07-23 15:26:57.570 [INFO /main/getCustomerName]: customerInteractionPagePOM(96): Getting Customer Name Hussein Maalim
-2020-07-23 15:26:57.902 [INFO /main/getCustomerName]: customerInteractionPagePOM(96): Getting Customer Name Hussein Maalim
-2020-07-23 15:26:58.254 [INFO /main/getCustomerDOB]: customerInteractionPagePOM(103): Getting Customer DOB 16-Nov-1989
-2020-07-23 15:26:58.486 [INFO /main/getCustomerDOB]: customerInteractionPagePOM(103): Getting Customer DOB 16-Nov-1989
-2020-07-23 15:26:59.287 [INFO /main/getActivationDate]: customerInteractionPagePOM(109): Getting Activation Date 20 May 2020
-2020-07-23 15:26:59.524 [INFO /main/getActivationDate]: customerInteractionPagePOM(109): Getting Activation Date 20 May 2020
-2020-07-23 15:26:59.926 [INFO /main/getActivationTime]: customerInteractionPagePOM(115): Getting Activation Time 01: 21 AM
-2020-07-23 15:27:00.294 [INFO /main/getActivationTime]: customerInteractionPagePOM(115): Getting Activation Time 01: 21 AM
-2020-07-23 15:27:00.684 [INFO /main/getSimNumber]: customerInteractionPagePOM(121): Getting Sim Number 8925403532007591753
-2020-07-23 15:27:00.989 [INFO /main/getSimNumber]: customerInteractionPagePOM(121): Getting Sim Number 8925403532007591753
-2020-07-23 15:27:01.407 [INFO /main/getSimType]: customerInteractionPagePOM(142): Getting Sim Type 4G 
-2020-07-23 15:27:01.605 [INFO /main/getSimType]: customerInteractionPagePOM(142): Getting Sim Type 4G 
-2020-07-23 15:27:01.836 [INFO /main/getPUK1]: customerInteractionPagePOM(149): Getting PUK1 20772248
-2020-07-23 15:27:02.030 [INFO /main/getPUK1]: customerInteractionPagePOM(149): Getting PUK1 20772248
-2020-07-23 15:27:02.381 [INFO /main/getPUK2]: customerInteractionPagePOM(155): Getting PUK2 10441790
-2020-07-23 15:27:02.603 [INFO /main/getPUK2]: customerInteractionPagePOM(155): Getting PUK2 10441790
-2020-07-23 15:27:02.908 [INFO /main/getIdType]: customerInteractionPagePOM(161): Getting ID Type Passport
-2020-07-23 15:27:03.214 [INFO /main/getIdType]: customerInteractionPagePOM(161): Getting ID Type Passport
-2020-07-23 15:27:03.445 [INFO /main/getIdNumber]: customerInteractionPagePOM(167): Getting masked ID Number ***15893
-2020-07-23 15:27:03.689 [INFO /main/getIdNumber]: customerInteractionPagePOM(167): Getting masked ID Number ***15893
-2020-07-23 15:27:04.371 [INFO /main/clickOnBlankCall]: customerInteractionPagePOM(81): Clicking on Blank Call Pinned Tag
-2020-07-23 15:27:04.537 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //div[@class="sub-header__divide--control--tab ng-star-inserted" and contains(text(),"lank")]
-2020-07-23 15:27:04.584 [INFO /main/waitUntilPageIsLoaded]: customerInteractionsSearchPOM(34): Waiting till the Search Page is Loaded
-2020-07-23 15:27:04.663 [INFO /main/enterNumber]: customerInteractionsSearchPOM(20): Entering Number in search box :735873718
-2020-07-23 15:27:11.981 [INFO /main/writeText]: BasePage(56): Writing 735873718to  By.xpath: //input[@name="search"]
-2020-07-23 15:27:11.981 [INFO /main/clickOnSearch]: customerInteractionsSearchPOM(26): Clicking on Search Button
-2020-07-23 15:27:12.061 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //button[@class="search-icon-btn"]
-2020-07-23 15:27:16.231 [INFO /main/isPageLoaded]: customerInteractionPagePOM(89): Checking that is Customer Interaction Page is loaded : true
-2020-07-23 15:27:16.916 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //div[@class="mat-tab-label-content" and contains(text(),"VIEW HISTORY")]
-2020-07-23 15:27:16.916 [INFO /main/clickOnViewHistory]: customerInteractionPagePOM(136): Clicking on View History
-2020-07-23 15:27:16.920 [INFO /main/clickOnInteractionsTab]: viewHistoryPOM(17): Clicking on Interactions Tab under view history 
-2020-07-23 15:27:20.642 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //div[@class="mat-tab-label-content" and contains(text(),"Interaction")]
-2020-07-23 15:27:20.643 [INFO /main/getLastCreatedIssueCode]: viewHistoryPOM(23): Getting the issue code of last created FTR interaction 
-2020-07-23 15:27:23.717 [INFO /main/clickOnCallDrop]: customerInteractionPagePOM(67): Clicking on Call Drop Pinned Tag
-2020-07-23 15:27:23.820 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //div[@class="sub-header__divide--control--tab ng-star-inserted" and contains(text(),"rop")]
-2020-07-23 15:27:23.843 [INFO /main/waitUntilPageIsLoaded]: customerInteractionsSearchPOM(34): Waiting till the Search Page is Loaded
-2020-07-23 15:27:23.890 [INFO /main/enterNumber]: customerInteractionsSearchPOM(20): Entering Number in search box :735873718
-2020-07-23 15:27:35.910 [INFO /main/writeText]: BasePage(56): Writing 735873718to  By.xpath: //input[@name="search"]
-2020-07-23 15:27:35.910 [INFO /main/clickOnSearch]: customerInteractionsSearchPOM(26): Clicking on Search Button
-2020-07-23 15:27:36.138 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //button[@class="search-icon-btn"]
-2020-07-23 15:27:47.112 [INFO /main/isPageLoaded]: customerInteractionPagePOM(89): Checking that is Customer Interaction Page is loaded : true
-2020-07-23 15:27:47.457 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //div[@class="mat-tab-label-content" and contains(text(),"VIEW HISTORY")]
-2020-07-23 15:27:47.458 [INFO /main/clickOnViewHistory]: customerInteractionPagePOM(136): Clicking on View History
-2020-07-23 15:27:47.463 [INFO /main/clickOnInteractionsTab]: viewHistoryPOM(17): Clicking on Interactions Tab under view history 
-2020-07-23 15:27:55.182 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //div[@class="mat-tab-label-content" and contains(text(),"Interaction")]
-2020-07-23 15:27:55.182 [INFO /main/getLastCreatedIssueCode]: viewHistoryPOM(23): Getting the issue code of last created FTR interaction 
-2020-07-23 15:28:01.402 [INFO /main/clickOnNoiseCall]: customerInteractionPagePOM(74): Clicking on Noise on Call Pinned Tag
-2020-07-23 15:28:01.520 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //div[@class="sub-header__divide--control--tab ng-star-inserted" and contains(text(),"on")]
-2020-07-23 15:28:01.545 [INFO /main/waitUntilPageIsLoaded]: customerInteractionsSearchPOM(34): Waiting till the Search Page is Loaded
-2020-07-23 15:28:01.589 [INFO /main/enterNumber]: customerInteractionsSearchPOM(20): Entering Number in search box :735873718
-2020-07-23 15:28:08.294 [INFO /main/writeText]: BasePage(56): Writing 735873718to  By.xpath: //input[@name="search"]
-2020-07-23 15:28:08.295 [INFO /main/clickOnSearch]: customerInteractionsSearchPOM(26): Clicking on Search Button
-2020-07-23 15:28:08.454 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //button[@class="search-icon-btn"]
-2020-07-23 15:28:11.275 [INFO /main/isPageLoaded]: customerInteractionPagePOM(89): Checking that is Customer Interaction Page is loaded : true
-2020-07-23 15:28:12.189 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //div[@class="mat-tab-label-content" and contains(text(),"VIEW HISTORY")]
-2020-07-23 15:28:12.189 [INFO /main/clickOnViewHistory]: customerInteractionPagePOM(136): Clicking on View History
-2020-07-23 15:28:12.193 [INFO /main/clickOnInteractionsTab]: viewHistoryPOM(17): Clicking on Interactions Tab under view history 
-2020-07-23 15:28:14.827 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //div[@class="mat-tab-label-content" and contains(text(),"Interaction")]
-2020-07-23 15:28:14.828 [INFO /main/getLastCreatedIssueCode]: viewHistoryPOM(23): Getting the issue code of last created FTR interaction 
-2020-07-23 15:28:18.129 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //div[@class='sub-header__divide--control--tab']
-2020-07-23 15:28:18.129 [INFO /main/clickOnInteractionIcon]: customerInteractionPagePOM(129): Clicking on Interactions Icon
-2020-07-23 15:28:21.232 [INFO /main/clickOnCode]: InteractionsPOM(71): clicking on issue code field
-2020-07-23 15:28:21.232 [INFO /main/searchCode]: InteractionsPOM(82): searching issue code ENQ001
-2020-07-23 15:28:21.565 [INFO /main/writeText]: BasePage(56): Writing ENQ001to  By.xpath: //input[@placeholder='Search' and @class='search-box mat-input-element mat-form-field-autofill-control cdk-text-field-autofill-monitored ng-star-inserted']
-2020-07-23 15:28:28.100 [INFO /main/selectCode]: InteractionsPOM(92): selecting issue code ENQ001
-2020-07-23 15:28:28.137 [INFO /main/getIssue]: InteractionsPOM(99): Getting issue 
-2020-07-23 15:28:28.204 [INFO /main/getIssue]: InteractionsPOM(99): Getting issue 
-2020-07-23 15:28:28.255 [INFO /main/getIssueSubSubType]: InteractionsPOM(122): Getting issue sub sub type 
-2020-07-23 15:28:28.318 [INFO /main/getIssueSubSubType]: InteractionsPOM(122): Getting issue sub sub type 
-2020-07-23 15:28:28.364 [INFO /main/getIssueType]: InteractionsPOM(107): Getting issue type 
-2020-07-23 15:28:28.428 [INFO /main/getIssueType]: InteractionsPOM(107): Getting issue type 
-2020-07-23 15:28:28.464 [INFO /main/getIssueSubType]: InteractionsPOM(115): Getting issue sub type 
-2020-07-23 15:28:28.528 [INFO /main/getIssueSubType]: InteractionsPOM(115): Getting issue sub type 
-2020-07-23 15:28:28.955 [INFO /main/writeText]: BasePage(56): Writing Automation Suiteto  By.xpath: //textarea[@id='interactionComment']
-2020-07-23 15:28:28.956 [INFO /main/sendComment]: InteractionsPOM(129): Adding comment -Automation Suite
-2020-07-23 15:28:29.257 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //button[@class='btn btn-save ng-star-inserted']
-2020-07-23 15:28:29.258 [INFO /main/clickOnSave]: InteractionsPOM(136): Clicking on save to create Ticket
-2020-07-23 15:28:33.281 [INFO /main/isResolvedFTRDisplayed]: InteractionsPOM(149): Checking is Ticket Number or Ticket Status is Displayed : true
-2020-07-23 15:28:34.345 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //mat-icon[@class="tab-close mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted"]
-2020-07-23 15:28:34.345 [INFO /main/closeInteractions]: InteractionsPOM(164): Closing Interaction Screen
-2020-07-23 15:28:35.122 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //div[@class='sub-header__divide--control--tab']
-2020-07-23 15:28:35.122 [INFO /main/clickOnInteractionIcon]: customerInteractionPagePOM(129): Clicking on Interactions Icon
-2020-07-23 15:28:38.213 [INFO /main/clickOnCode]: InteractionsPOM(71): clicking on issue code field
-2020-07-23 15:28:38.214 [INFO /main/searchCode]: InteractionsPOM(82): searching issue code ENQ002
-2020-07-23 15:28:38.595 [INFO /main/writeText]: BasePage(56): Writing ENQ002to  By.xpath: //input[@placeholder='Search' and @class='search-box mat-input-element mat-form-field-autofill-control cdk-text-field-autofill-monitored ng-star-inserted']
-2020-07-23 15:28:44.506 [INFO /main/selectCode]: InteractionsPOM(92): selecting issue code ENQ002
-2020-07-23 15:28:44.541 [INFO /main/getIssue]: InteractionsPOM(99): Getting issue 
-2020-07-23 15:28:44.612 [INFO /main/getIssue]: InteractionsPOM(99): Getting issue 
-2020-07-23 15:28:44.670 [INFO /main/getIssueSubSubType]: InteractionsPOM(122): Getting issue sub sub type 
-2020-07-23 15:28:44.735 [INFO /main/getIssueSubSubType]: InteractionsPOM(122): Getting issue sub sub type 
-2020-07-23 15:28:44.785 [INFO /main/getIssueType]: InteractionsPOM(107): Getting issue type 
-2020-07-23 15:28:44.851 [INFO /main/getIssueType]: InteractionsPOM(107): Getting issue type 
-2020-07-23 15:28:44.900 [INFO /main/getIssueSubType]: InteractionsPOM(115): Getting issue sub type 
-2020-07-23 15:28:44.967 [INFO /main/getIssueSubType]: InteractionsPOM(115): Getting issue sub type 
-2020-07-23 15:28:45.450 [INFO /main/writeText]: BasePage(56): Writing Automation Suiteto  By.xpath: //textarea[@id='interactionComment']
-2020-07-23 15:28:45.450 [INFO /main/sendComment]: InteractionsPOM(129): Adding comment -Automation Suite
-2020-07-23 15:28:45.752 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //button[@class='btn btn-save ng-star-inserted']
-2020-07-23 15:28:45.753 [INFO /main/clickOnSave]: InteractionsPOM(136): Clicking on save to create Ticket
-2020-07-23 15:28:52.176 [INFO /main/isResolvedFTRDisplayed]: InteractionsPOM(149): Checking is Ticket Number or Ticket Status is Displayed : true
-2020-07-23 15:28:53.340 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //mat-icon[@class="tab-close mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted"]
-2020-07-23 15:28:53.341 [INFO /main/closeInteractions]: InteractionsPOM(164): Closing Interaction Screen
-2020-07-23 15:28:54.382 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //div[@class='sub-header__divide--control--tab']
-2020-07-23 15:28:54.382 [INFO /main/clickOnInteractionIcon]: customerInteractionPagePOM(129): Clicking on Interactions Icon
-2020-07-23 15:28:59.191 [INFO /main/clickOnCode]: InteractionsPOM(71): clicking on issue code field
-2020-07-23 15:28:59.191 [INFO /main/searchCode]: InteractionsPOM(82): searching issue code REQ002
-2020-07-23 15:28:59.705 [INFO /main/writeText]: BasePage(56): Writing REQ002to  By.xpath: //input[@placeholder='Search' and @class='search-box mat-input-element mat-form-field-autofill-control cdk-text-field-autofill-monitored ng-star-inserted']
-2020-07-23 15:29:06.108 [INFO /main/selectCode]: InteractionsPOM(92): selecting issue code REQ002
-2020-07-23 15:29:06.122 [INFO /main/getIssue]: InteractionsPOM(99): Getting issue 
-2020-07-23 15:29:06.161 [INFO /main/getIssue]: InteractionsPOM(99): Getting issue 
-2020-07-23 15:29:06.197 [INFO /main/getIssueSubSubType]: InteractionsPOM(122): Getting issue sub sub type 
-2020-07-23 15:29:06.255 [INFO /main/getIssueSubSubType]: InteractionsPOM(122): Getting issue sub sub type 
-2020-07-23 15:29:06.301 [INFO /main/getIssueType]: InteractionsPOM(107): Getting issue type 
-2020-07-23 15:29:06.362 [INFO /main/getIssueType]: InteractionsPOM(107): Getting issue type 
-2020-07-23 15:29:06.407 [INFO /main/getIssueSubType]: InteractionsPOM(115): Getting issue sub type 
-2020-07-23 15:29:06.474 [INFO /main/getIssueSubType]: InteractionsPOM(115): Getting issue sub type 
-2020-07-23 15:29:06.888 [INFO /main/writeText]: BasePage(56): Writing Automation Suiteto  By.xpath: //textarea[@id='interactionComment']
-2020-07-23 15:29:06.889 [INFO /main/sendComment]: InteractionsPOM(129): Adding comment -Automation Suite
-2020-07-23 15:29:07.099 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //button[@class='btn btn-save ng-star-inserted']
-2020-07-23 15:29:07.100 [INFO /main/clickOnSave]: InteractionsPOM(136): Clicking on save to create Ticket
-2020-07-23 15:29:11.255 [INFO /main/isResolvedFTRDisplayed]: InteractionsPOM(149): Checking is Ticket Number or Ticket Status is Displayed : true
-2020-07-23 15:29:12.105 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //mat-icon[@class="tab-close mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted"]
-2020-07-23 15:29:12.105 [INFO /main/closeInteractions]: InteractionsPOM(164): Closing Interaction Screen
-2020-07-23 15:29:12.675 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //div[@class='sub-header__divide--control--tab']
-2020-07-23 15:29:12.676 [INFO /main/clickOnInteractionIcon]: customerInteractionPagePOM(129): Clicking on Interactions Icon
-2020-07-23 15:29:16.770 [INFO /main/clickOnCode]: InteractionsPOM(71): clicking on issue code field
-2020-07-23 15:29:16.770 [INFO /main/searchCode]: InteractionsPOM(82): searching issue code ENQ003
-2020-07-23 15:29:57.446 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //div[@class='sub-header__divide--control--tab']
-2020-07-23 15:29:57.447 [INFO /main/clickOnInteractionIcon]: customerInteractionPagePOM(129): Clicking on Interactions Icon
-2020-07-23 15:29:57.637 [INFO /main/clickOnCode]: InteractionsPOM(71): clicking on issue code field
-2020-07-23 15:29:57.637 [INFO /main/searchCode]: InteractionsPOM(82): searching issue code REQ003
-2020-07-23 15:29:58.041 [INFO /main/writeText]: BasePage(56): Writing REQ003to  By.xpath: //input[@placeholder='Search' and @class='search-box mat-input-element mat-form-field-autofill-control cdk-text-field-autofill-monitored ng-star-inserted']
-2020-07-23 15:30:05.716 [INFO /main/selectCode]: InteractionsPOM(92): selecting issue code REQ003
-2020-07-23 15:30:05.751 [INFO /main/getIssue]: InteractionsPOM(99): Getting issue 
-2020-07-23 15:30:05.820 [INFO /main/getIssue]: InteractionsPOM(99): Getting issue 
-2020-07-23 15:30:05.874 [INFO /main/getIssueSubSubType]: InteractionsPOM(122): Getting issue sub sub type 
-2020-07-23 15:30:05.938 [INFO /main/getIssueSubSubType]: InteractionsPOM(122): Getting issue sub sub type 
-2020-07-23 15:30:05.987 [INFO /main/getIssueType]: InteractionsPOM(107): Getting issue type 
-2020-07-23 15:30:06.052 [INFO /main/getIssueType]: InteractionsPOM(107): Getting issue type 
-2020-07-23 15:30:06.109 [INFO /main/getIssueSubType]: InteractionsPOM(115): Getting issue sub type 
-2020-07-23 15:30:06.187 [INFO /main/getIssueSubType]: InteractionsPOM(115): Getting issue sub type 
-2020-07-23 15:30:06.613 [INFO /main/writeText]: BasePage(56): Writing Automation Suiteto  By.xpath: //textarea[@id='interactionComment']
-2020-07-23 15:30:06.613 [INFO /main/sendComment]: InteractionsPOM(129): Adding comment -Automation Suite
-2020-07-23 15:30:06.782 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //button[@class='btn btn-save ng-star-inserted']
-2020-07-23 15:30:06.783 [INFO /main/clickOnSave]: InteractionsPOM(136): Clicking on save to create Ticket
-2020-07-23 15:30:17.090 [INFO /main/isResolvedFTRDisplayed]: InteractionsPOM(149): Checking is Ticket Number or Ticket Status is Displayed : true
-2020-07-23 15:30:18.133 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //mat-icon[@class="tab-close mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted"]
-2020-07-23 15:30:18.133 [INFO /main/closeInteractions]: InteractionsPOM(164): Closing Interaction Screen
-2020-07-23 15:30:18.824 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //div[@class='sub-header__divide--control--tab']
-2020-07-23 15:30:18.825 [INFO /main/clickOnInteractionIcon]: customerInteractionPagePOM(129): Clicking on Interactions Icon
-2020-07-23 15:30:24.060 [INFO /main/clickOnCode]: InteractionsPOM(71): clicking on issue code field
-2020-07-23 15:30:24.061 [INFO /main/searchCode]: InteractionsPOM(82): searching issue code COM001
-2020-07-23 15:31:04.703 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //div[@class='sub-header__divide--control--tab']
-2020-07-23 15:31:04.703 [INFO /main/clickOnInteractionIcon]: customerInteractionPagePOM(129): Clicking on Interactions Icon
-2020-07-23 15:31:04.882 [INFO /main/clickOnCode]: InteractionsPOM(71): clicking on issue code field
-2020-07-23 15:31:04.883 [INFO /main/searchCode]: InteractionsPOM(82): searching issue code COM002
-2020-07-23 15:31:05.157 [INFO /main/writeText]: BasePage(56): Writing COM002to  By.xpath: //input[@placeholder='Search' and @class='search-box mat-input-element mat-form-field-autofill-control cdk-text-field-autofill-monitored ng-star-inserted']
-2020-07-23 15:31:09.379 [INFO /main/selectCode]: InteractionsPOM(92): selecting issue code COM002
-2020-07-23 15:31:09.406 [INFO /main/getIssue]: InteractionsPOM(99): Getting issue 
-2020-07-23 15:31:09.458 [INFO /main/getIssue]: InteractionsPOM(99): Getting issue 
-2020-07-23 15:31:09.500 [INFO /main/getIssueSubSubType]: InteractionsPOM(122): Getting issue sub sub type 
-2020-07-23 15:31:09.556 [INFO /main/getIssueSubSubType]: InteractionsPOM(122): Getting issue sub sub type 
-2020-07-23 15:31:09.607 [INFO /main/getIssueType]: InteractionsPOM(107): Getting issue type 
-2020-07-23 15:31:09.666 [INFO /main/getIssueType]: InteractionsPOM(107): Getting issue type 
-2020-07-23 15:31:09.709 [INFO /main/getIssueSubType]: InteractionsPOM(115): Getting issue sub type 
-2020-07-23 15:31:09.765 [INFO /main/getIssueSubType]: InteractionsPOM(115): Getting issue sub type 
-2020-07-23 15:31:10.169 [INFO /main/writeText]: BasePage(56): Writing Automation Suiteto  By.xpath: //textarea[@id='interactionComment']
-2020-07-23 15:31:10.169 [INFO /main/sendComment]: InteractionsPOM(129): Adding comment -Automation Suite
-2020-07-23 15:31:10.169 [INFO /main/isSaveEnable]: InteractionsPOM(142): Checking is Save button Enabled
-2020-07-23 15:31:10.471 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //button[@class='btn btn-save ng-star-inserted']
-2020-07-23 15:31:10.472 [INFO /main/clickOnSave]: InteractionsPOM(136): Clicking on save to create Ticket
-2020-07-23 15:31:14.570 [INFO /main/isResolvedFTRDisplayed]: InteractionsPOM(149): Checking is Ticket Number or Ticket Status is Displayed : true
-2020-07-23 15:31:14.794 [INFO /main/getResolvedFTRDisplayed]: InteractionsPOM(156): Getting the Ticket Number or Ticket Status  Displayed : 230720001055
-2020-07-23 15:31:15.138 [INFO /main/getResolvedFTRDisplayed]: InteractionsPOM(156): Getting the Ticket Number or Ticket Status  Displayed : 230720001055
-2020-07-23 15:31:15.400 [INFO /main/getResolvedFTRDisplayed]: InteractionsPOM(156): Getting the Ticket Number or Ticket Status  Displayed : 230720001055
-2020-07-23 15:31:16.027 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //mat-icon[@class="tab-close mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted"]
-2020-07-23 15:31:16.028 [INFO /main/closeInteractions]: InteractionsPOM(164): Closing Interaction Screen
-2020-07-23 15:31:17.210 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //div[@class='sub-header__divide--control--tab']
-2020-07-23 15:31:17.211 [INFO /main/clickOnInteractionIcon]: customerInteractionPagePOM(129): Clicking on Interactions Icon
-2020-07-23 15:31:19.015 [INFO /main/clickOnCode]: InteractionsPOM(71): clicking on issue code field
-2020-07-23 15:31:19.016 [INFO /main/searchCode]: InteractionsPOM(82): searching issue code COM003
-2020-07-23 15:31:59.731 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //div[@class='sub-header__divide--control--tab']
-2020-07-23 15:31:59.731 [INFO /main/clickOnInteractionIcon]: customerInteractionPagePOM(129): Clicking on Interactions Icon
-2020-07-23 15:31:59.999 [INFO /main/clickOnCode]: InteractionsPOM(71): clicking on issue code field
-2020-07-23 15:32:00.000 [INFO /main/searchCode]: InteractionsPOM(82): searching issue code COM004
-2020-07-23 15:32:00.525 [INFO /main/writeText]: BasePage(56): Writing COM004to  By.xpath: //input[@placeholder='Search' and @class='search-box mat-input-element mat-form-field-autofill-control cdk-text-field-autofill-monitored ng-star-inserted']
-2020-07-23 15:32:04.807 [INFO /main/selectCode]: InteractionsPOM(92): selecting issue code COM004
-2020-07-23 15:32:04.821 [INFO /main/getIssue]: InteractionsPOM(99): Getting issue 
-2020-07-23 15:32:04.892 [INFO /main/getIssue]: InteractionsPOM(99): Getting issue 
-2020-07-23 15:32:04.948 [INFO /main/getIssueSubSubType]: InteractionsPOM(122): Getting issue sub sub type 
-2020-07-23 15:32:04.987 [INFO /main/getIssueSubSubType]: InteractionsPOM(122): Getting issue sub sub type 
-2020-07-23 15:32:05.012 [INFO /main/getIssueType]: InteractionsPOM(107): Getting issue type 
-2020-07-23 15:32:05.042 [INFO /main/getIssueType]: InteractionsPOM(107): Getting issue type 
-2020-07-23 15:32:05.067 [INFO /main/getIssueSubType]: InteractionsPOM(115): Getting issue sub type 
-2020-07-23 15:32:05.094 [INFO /main/getIssueSubType]: InteractionsPOM(115): Getting issue sub type 
-2020-07-23 15:32:05.370 [INFO /main/writeText]: BasePage(56): Writing Automation Suiteto  By.xpath: //textarea[@id='interactionComment']
-2020-07-23 15:32:05.371 [INFO /main/sendComment]: InteractionsPOM(129): Adding comment -Automation Suite
-2020-07-23 15:32:05.371 [INFO /main/isSaveEnable]: InteractionsPOM(142): Checking is Save button Enabled
-2020-07-23 15:32:05.782 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //button[@class='btn btn-save ng-star-inserted']
-2020-07-23 15:32:05.783 [INFO /main/clickOnSave]: InteractionsPOM(136): Clicking on save to create Ticket
-2020-07-23 15:32:09.884 [INFO /main/isResolvedFTRDisplayed]: InteractionsPOM(149): Checking is Ticket Number or Ticket Status is Displayed : true
-2020-07-23 15:32:10.208 [INFO /main/getResolvedFTRDisplayed]: InteractionsPOM(156): Getting the Ticket Number or Ticket Status  Displayed : 230720001056
-2020-07-23 15:32:10.570 [INFO /main/getResolvedFTRDisplayed]: InteractionsPOM(156): Getting the Ticket Number or Ticket Status  Displayed : 230720001056
-2020-07-23 15:32:10.971 [INFO /main/getResolvedFTRDisplayed]: InteractionsPOM(156): Getting the Ticket Number or Ticket Status  Displayed : 230720001056
-2020-07-23 15:32:11.667 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //mat-icon[@class="tab-close mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted"]
-2020-07-23 15:32:11.668 [INFO /main/closeInteractions]: InteractionsPOM(164): Closing Interaction Screen
-2020-07-23 15:32:13.218 [INFO /main/isSideMenuVisible]: SideMenuPOM(54): Checking that  Side Menu options are Visible or Not
-2020-07-23 15:32:13.356 [INFO /main/clickOnSideMenu]: SideMenuPOM(39): Clicking on Side Menu
-2020-07-23 15:32:13.622 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //mat-toolbar//button
-2020-07-23 15:32:13.623 [INFO /main/logout]: SideMenuPOM(146): Logging Out
-2020-07-23 15:32:13.819 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //span[@class="logout-icon"]
-2020-07-23 15:32:16.031 [INFO /main/isEnterAUUIDFieldVisible]: loginPagePOM(26): Checking is Enter AUUID field is Visible
-2020-07-23 15:32:16.851 [INFO /main/openBaseURL]: loginPagePOM(34): Opening URL:-http://172.23.36.206:30050/#/login
-2020-07-23 15:32:16.858 [INFO /main/enterAUUID]: loginPagePOM(38): Entering AUUID :2388006In username
-2020-07-23 15:32:17.022 [INFO /main/writeText]: BasePage(56): Writing 2388006to  By.xpath: //input[@autocomplete="new-password"]
-2020-07-23 15:32:17.022 [INFO /main/clickOnSubmitBtn]: loginPagePOM(45): Clicking on Submit button
-2020-07-23 15:32:17.161 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath:  //*[@type='submit']
-2020-07-23 15:32:17.161 [INFO /main/enterPassword]: loginPagePOM(57): Send password to Password field
-2020-07-23 15:32:17.791 [INFO /main/writeText]: BasePage(56): Writing Secure@2024to  By.name: password
-2020-07-23 15:32:17.791 [INFO /main/checkLoginButton]: loginPagePOM(63): checking login button is enabled or not
-2020-07-23 15:32:17.885 [INFO /main/clickOnVisibleButton]: loginPagePOM(75): Clicking on Visible Password Button
-2020-07-23 15:32:18.721 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath:  //*[@class='visibility-icon c-pointer abs visible-status mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted']
-2020-07-23 15:32:18.721 [INFO /main/clickOnVisibleButton]: loginPagePOM(75): Clicking on Visible Password Button
-2020-07-23 15:32:18.876 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath:  //*[@class='visibility-icon c-pointer abs visible-status mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted']
-2020-07-23 15:32:18.877 [INFO /main/clickOnLogin]: loginPagePOM(69): Clicking on Login button
-2020-07-23 15:32:19.108 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath:  //*[@type='submit']
-2020-07-23 15:32:22.006 [INFO /main/clickOnSideMenu]: SideMenuPOM(39): Clicking on Side Menu
-2020-07-23 15:32:22.272 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //mat-toolbar//button
-2020-07-23 15:32:22.272 [INFO /main/clickOnName]: SideMenuPOM(62): Clicking on User Name
-2020-07-23 15:32:22.484 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //*[@class="ellipsis"]
-2020-07-23 15:32:22.484 [INFO /main/openSupervisorDashboard]: SideMenuPOM(138): Opening Supervisor Dashboard Page
-2020-07-23 15:32:23.105 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //a[contains(text(),'Supervisor Dashboard')]
-2020-07-23 15:32:23.191 [INFO /main/isQueueLoginPage]: agentLoginPagePOM(37): Supervisor Login Page
-2020-07-23 15:32:23.316 [INFO /main/checkSkipButton]: agentLoginPagePOM(25): Checking Skip Button
-2020-07-23 15:32:23.488 [INFO /main/checkSubmitButton]: agentLoginPagePOM(31): Checking Submit Button
-2020-07-23 15:32:23.670 [INFO /main/clickSkipBtn]: agentLoginPagePOM(49): Clicking on SKIP Button
-2020-07-23 15:32:23.956 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //span[contains(text(),'Skip > >')]
-2020-07-23 15:32:26.281 [INFO /main/clickOnSideMenu]: SideMenuPOM(39): Clicking on Side Menu
-2020-07-23 15:32:26.410 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //mat-toolbar//button
-2020-07-23 15:32:26.410 [INFO /main/clickOnName]: SideMenuPOM(62): Clicking on User Name
-2020-07-23 15:32:26.571 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //*[@class="ellipsis"]
-2020-07-23 15:32:26.572 [INFO /main/openSupervisorDashboard]: SideMenuPOM(138): Opening Supervisor Dashboard Page
-2020-07-23 15:32:26.980 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //a[contains(text(),'Supervisor Dashboard')]
-2020-07-23 15:32:27.024 [INFO /main/isQueueLoginPage]: agentLoginPagePOM(37): Supervisor Login Page
-2020-07-23 15:32:27.127 [INFO /main/checkSkipButton]: agentLoginPagePOM(25): Checking Skip Button
-2020-07-23 15:32:27.285 [INFO /main/checkSubmitButton]: agentLoginPagePOM(31): Checking Submit Button
-2020-07-23 15:32:27.457 [INFO /main/clickSelectQueue]: agentLoginPagePOM(43): Select Login Queue
-2020-07-23 15:32:27.800 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //span[contains(text(),'Select Sub Workgroup (Queue)')]
-2020-07-23 15:32:27.801 [INFO /main/selectAllQueue]: agentLoginPagePOM(67): Selecting ALL Queue
-2020-07-23 15:32:27.968 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //body/div/div/div/div/div/app-select-all/mat-checkbox/label/span[1]
-2020-07-23 15:32:27.968 [INFO /main/clickSubmitBtn]: agentLoginPagePOM(55): Clicking on Submit Button
-2020-07-23 15:32:28.489 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //span[contains(text(),'Submit')]
-2020-07-23 15:32:31.522 [INFO /main/clickOnSideMenu]: SideMenuPOM(39): Clicking on Side Menu
-2020-07-23 15:32:31.729 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //mat-toolbar//button
-2020-07-23 15:32:31.730 [INFO /main/clickOnName]: SideMenuPOM(62): Clicking on User Name
-2020-07-23 15:32:31.958 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //*[@class="ellipsis"]
-2020-07-23 15:32:31.958 [INFO /main/openSupervisorDashboard]: SideMenuPOM(138): Opening Supervisor Dashboard Page
-2020-07-23 15:32:32.406 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //a[contains(text(),'Supervisor Dashboard')]
-2020-07-23 15:32:32.411 [INFO /main/isQueueLoginPage]: agentLoginPagePOM(37): Supervisor Login Page
-2020-07-23 15:32:32.517 [INFO /main/checkSkipButton]: agentLoginPagePOM(25): Checking Skip Button
-2020-07-23 15:32:32.613 [INFO /main/checkSubmitButton]: agentLoginPagePOM(31): Checking Submit Button
-2020-07-23 15:32:32.704 [INFO /main/clickSkipBtn]: agentLoginPagePOM(49): Clicking on SKIP Button
-2020-07-23 15:32:32.904 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //span[contains(text(),'Skip > >')]
-2020-07-23 15:32:43.459 [INFO /main/writeTicketId]: supervisorTicketListPagePOM(62): Search Ticket Id: 230720001051
-2020-07-23 15:32:43.701 [INFO /main/writeText]: BasePage(56): Writing 230720001051to  By.xpath: //input[@type="search"]
-2020-07-23 15:32:43.701 [INFO /main/clickSearchBtn]: supervisorTicketListPagePOM(77): Clicking on Search Button
-2020-07-23 15:32:43.957 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button
-2020-07-23 15:32:45.717 [INFO /main/getTicketIdvalue]: supervisorTicketListPagePOM(161): Ticket Id: 230720001051
-2020-07-23 15:32:45.975 [INFO /main/isTicketIdLabel]: supervisorTicketListPagePOM(85): Is Ticket Id field Available :true
-2020-07-23 15:32:46.188 [INFO /main/isWorkGroupName]: supervisorTicketListPagePOM(91): Ticket lie in WorkGroup :CS Operations
-2020-07-23 15:32:46.382 [INFO /main/isPrioritylabel]: supervisorTicketListPagePOM(101): Is Priority field Available :true
-2020-07-23 15:32:46.684 [INFO /main/isStateLabel]: supervisorTicketListPagePOM(107): Is State field Available :true
-2020-07-23 15:32:47.007 [INFO /main/isCreationdateLabel]: supervisorTicketListPagePOM(113): Is Creation Date field Available :true
-2020-07-23 15:32:47.352 [INFO /main/isCreatedbyLabel]: supervisorTicketListPagePOM(119): Is Created By field Available :true
-2020-07-23 15:32:47.691 [INFO /main/isQueueLabel]: supervisorTicketListPagePOM(125): Is Queue field Available :true
-2020-07-23 15:32:48.054 [INFO /main/isIssueLabel]: supervisorTicketListPagePOM(131): Is Issue label Field Available :true
-2020-07-23 15:32:48.475 [INFO /main/isIssueTypeLabel]: supervisorTicketListPagePOM(137): Is Issue Type field Available :true
-2020-07-23 15:32:48.882 [INFO /main/isSubTypeLabel]: supervisorTicketListPagePOM(143): Is Issue Sub Type field Available :true
-2020-07-23 15:32:49.258 [INFO /main/isSubSubTypeLabel]: supervisorTicketListPagePOM(149): Is Issue Sub Sub Type field Available :true
-2020-07-23 15:32:49.614 [INFO /main/isCodeLabel]: supervisorTicketListPagePOM(155): Is Code field Available :true
-2020-07-23 15:32:50.658 [INFO /main/clearInputBox]: supervisorTicketListPagePOM(68): Clear Search Box
-2020-07-23 15:32:53.726 [INFO /main/writeTicketId]: supervisorTicketListPagePOM(62): Search Ticket Id: 230720001055
-2020-07-23 15:32:54.050 [INFO /main/writeText]: BasePage(56): Writing 230720001055to  By.xpath: //input[@type="search"]
-2020-07-23 15:32:54.051 [INFO /main/clickSearchBtn]: supervisorTicketListPagePOM(77): Clicking on Search Button
-2020-07-23 15:32:54.421 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button
-2020-07-23 15:32:57.398 [INFO /main/getTicketIdvalue]: supervisorTicketListPagePOM(161): Ticket Id: 230720001055
-2020-07-23 15:32:57.805 [INFO /main/isTicketIdLabel]: supervisorTicketListPagePOM(85): Is Ticket Id field Available :true
-2020-07-23 15:32:58.064 [INFO /main/isWorkGroupName]: supervisorTicketListPagePOM(91): Ticket lie in WorkGroup :Technical Support
-2020-07-23 15:32:58.306 [INFO /main/isPrioritylabel]: supervisorTicketListPagePOM(101): Is Priority field Available :true
-2020-07-23 15:32:58.681 [INFO /main/isStateLabel]: supervisorTicketListPagePOM(107): Is State field Available :true
-2020-07-23 15:32:59.121 [INFO /main/isCreationdateLabel]: supervisorTicketListPagePOM(113): Is Creation Date field Available :true
-2020-07-23 15:32:59.514 [INFO /main/isCreatedbyLabel]: supervisorTicketListPagePOM(119): Is Created By field Available :true
-2020-07-23 15:32:59.997 [INFO /main/isQueueLabel]: supervisorTicketListPagePOM(125): Is Queue field Available :true
-2020-07-23 15:33:00.344 [INFO /main/isIssueLabel]: supervisorTicketListPagePOM(131): Is Issue label Field Available :true
-2020-07-23 15:33:00.607 [INFO /main/isIssueTypeLabel]: supervisorTicketListPagePOM(137): Is Issue Type field Available :true
-2020-07-23 15:33:00.886 [INFO /main/isSubTypeLabel]: supervisorTicketListPagePOM(143): Is Issue Sub Type field Available :true
-2020-07-23 15:33:01.106 [INFO /main/isSubSubTypeLabel]: supervisorTicketListPagePOM(149): Is Issue Sub Sub Type field Available :true
-2020-07-23 15:33:01.305 [INFO /main/isCodeLabel]: supervisorTicketListPagePOM(155): Is Code field Available :true
-2020-07-23 15:33:02.019 [INFO /main/clearInputBox]: supervisorTicketListPagePOM(68): Clear Search Box
-2020-07-23 15:33:07.232 [INFO /main/writeTicketId]: supervisorTicketListPagePOM(62): Search Ticket Id: 230720001053
-2020-07-23 15:33:07.415 [INFO /main/writeText]: BasePage(56): Writing 230720001053to  By.xpath: //input[@type="search"]
-2020-07-23 15:33:07.415 [INFO /main/clickSearchBtn]: supervisorTicketListPagePOM(77): Clicking on Search Button
-2020-07-23 15:33:07.743 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button
-2020-07-23 15:33:09.438 [INFO /main/getTicketIdvalue]: supervisorTicketListPagePOM(161): Ticket Id: 230720001053
-2020-07-23 15:33:09.583 [INFO /main/isTicketIdLabel]: supervisorTicketListPagePOM(85): Is Ticket Id field Available :true
-2020-07-23 15:33:09.776 [INFO /main/isWorkGroupName]: supervisorTicketListPagePOM(91): Ticket lie in WorkGroup :Technical Support
-2020-07-23 15:33:10.037 [INFO /main/isPrioritylabel]: supervisorTicketListPagePOM(101): Is Priority field Available :true
-2020-07-23 15:33:10.272 [INFO /main/isStateLabel]: supervisorTicketListPagePOM(107): Is State field Available :true
-2020-07-23 15:33:10.475 [INFO /main/isCreationdateLabel]: supervisorTicketListPagePOM(113): Is Creation Date field Available :true
-2020-07-23 15:33:10.650 [INFO /main/isCreatedbyLabel]: supervisorTicketListPagePOM(119): Is Created By field Available :true
-2020-07-23 15:33:10.888 [INFO /main/isQueueLabel]: supervisorTicketListPagePOM(125): Is Queue field Available :true
-2020-07-23 15:33:11.216 [INFO /main/isIssueLabel]: supervisorTicketListPagePOM(131): Is Issue label Field Available :true
-2020-07-23 15:33:11.389 [INFO /main/isIssueTypeLabel]: supervisorTicketListPagePOM(137): Is Issue Type field Available :true
-2020-07-23 15:33:11.601 [INFO /main/isSubTypeLabel]: supervisorTicketListPagePOM(143): Is Issue Sub Type field Available :true
-2020-07-23 15:33:11.781 [INFO /main/isSubSubTypeLabel]: supervisorTicketListPagePOM(149): Is Issue Sub Sub Type field Available :true
-2020-07-23 15:33:11.948 [INFO /main/isCodeLabel]: supervisorTicketListPagePOM(155): Is Code field Available :true
-2020-07-23 15:33:12.562 [INFO /main/clearInputBox]: supervisorTicketListPagePOM(68): Clear Search Box
-2020-07-23 15:33:16.207 [INFO /main/writeTicketId]: supervisorTicketListPagePOM(62): Search Ticket Id: 230720001056
-2020-07-23 15:33:16.501 [INFO /main/writeText]: BasePage(56): Writing 230720001056to  By.xpath: //input[@type="search"]
-2020-07-23 15:33:16.501 [INFO /main/clickSearchBtn]: supervisorTicketListPagePOM(77): Clicking on Search Button
-2020-07-23 15:33:16.631 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button
-2020-07-23 15:33:18.441 [INFO /main/getTicketIdvalue]: supervisorTicketListPagePOM(161): Ticket Id: 230720001056
-2020-07-23 15:33:18.787 [INFO /main/isTicketIdLabel]: supervisorTicketListPagePOM(85): Is Ticket Id field Available :true
-2020-07-23 15:33:19.121 [INFO /main/isWorkGroupName]: supervisorTicketListPagePOM(91): Ticket lie in WorkGroup :Technical Support
-2020-07-23 15:33:19.370 [INFO /main/isPrioritylabel]: supervisorTicketListPagePOM(101): Is Priority field Available :true
-2020-07-23 15:33:19.629 [INFO /main/isStateLabel]: supervisorTicketListPagePOM(107): Is State field Available :true
-2020-07-23 15:33:19.794 [INFO /main/isCreationdateLabel]: supervisorTicketListPagePOM(113): Is Creation Date field Available :true
-2020-07-23 15:33:19.959 [INFO /main/isCreatedbyLabel]: supervisorTicketListPagePOM(119): Is Created By field Available :true
-2020-07-23 15:33:20.160 [INFO /main/isQueueLabel]: supervisorTicketListPagePOM(125): Is Queue field Available :true
-2020-07-23 15:33:20.392 [INFO /main/isIssueLabel]: supervisorTicketListPagePOM(131): Is Issue label Field Available :true
-2020-07-23 15:33:20.563 [INFO /main/isIssueTypeLabel]: supervisorTicketListPagePOM(137): Is Issue Type field Available :true
-2020-07-23 15:33:20.735 [INFO /main/isSubTypeLabel]: supervisorTicketListPagePOM(143): Is Issue Sub Type field Available :true
-2020-07-23 15:33:21.008 [INFO /main/isSubSubTypeLabel]: supervisorTicketListPagePOM(149): Is Issue Sub Sub Type field Available :true
-2020-07-23 15:33:21.411 [INFO /main/isCodeLabel]: supervisorTicketListPagePOM(155): Is Code field Available :true
-2020-07-23 15:33:22.592 [INFO /main/clearInputBox]: supervisorTicketListPagePOM(68): Clear Search Box
-2020-07-23 15:33:25.959 [INFO /main/clickCheckbox]: supervisorTicketListPagePOM(211): Selecting Ticket
-2020-07-23 15:33:26.162 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //*[@id="style-3"]/app-sidenav-bar/mat-sidenav-container/mat-sidenav-content/div/app-service-request/div/app-backend-supervisor/mat-sidenav-container/mat-sidenav-content/section/div[2]/div[1]/div/div[1]/input
-2020-07-23 15:33:26.363 [INFO /main/isAssignToAgent]: supervisorTicketListPagePOM(222): Is Assign to agent button: true
-2020-07-23 15:33:26.677 [INFO /main/isTransferToQueue]: supervisorTicketListPagePOM(234): Is Transfer to Queue button: true
-2020-07-23 15:33:27.513 [INFO /main/clickOnSideMenu]: SideMenuPOM(39): Clicking on Side Menu
-2020-07-23 15:33:27.645 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //mat-toolbar//button
-2020-07-23 15:33:27.645 [INFO /main/clickOnName]: SideMenuPOM(62): Clicking on User Name
-2020-07-23 15:33:27.754 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //*[@class="ellipsis"]
-2020-07-23 15:33:27.755 [INFO /main/openSupervisorDashboard]: SideMenuPOM(138): Opening Supervisor Dashboard Page
-2020-07-23 15:33:28.246 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //a[contains(text(),'Supervisor Dashboard')]
-2020-07-23 15:33:28.314 [INFO /main/isQueueLoginPage]: agentLoginPagePOM(37): Supervisor Login Page
-2020-07-23 15:33:28.391 [INFO /main/checkSkipButton]: agentLoginPagePOM(25): Checking Skip Button
-2020-07-23 15:33:28.490 [INFO /main/checkSubmitButton]: agentLoginPagePOM(31): Checking Submit Button
-2020-07-23 15:33:28.636 [INFO /main/clickSkipBtn]: agentLoginPagePOM(49): Clicking on SKIP Button
-2020-07-23 15:33:28.944 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //span[contains(text(),'Skip > >')]
-2020-07-23 15:33:31.812 [INFO /main/clickOnSideMenu]: SideMenuPOM(39): Clicking on Side Menu
-2020-07-23 15:33:32.038 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //mat-toolbar//button
-2020-07-23 15:33:32.039 [INFO /main/clickOnName]: SideMenuPOM(62): Clicking on User Name
-2020-07-23 15:33:32.279 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //*[@class="ellipsis"]
-2020-07-23 15:33:32.280 [INFO /main/openSupervisorDashboard]: SideMenuPOM(138): Opening Supervisor Dashboard Page
-2020-07-23 15:33:32.749 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //a[contains(text(),'Supervisor Dashboard')]
-2020-07-23 15:33:32.789 [INFO /main/isQueueLoginPage]: agentLoginPagePOM(37): Supervisor Login Page
-2020-07-23 15:33:32.837 [INFO /main/checkSkipButton]: agentLoginPagePOM(25): Checking Skip Button
-2020-07-23 15:33:32.887 [INFO /main/checkSubmitButton]: agentLoginPagePOM(31): Checking Submit Button
-2020-07-23 15:33:32.989 [INFO /main/clickSkipBtn]: agentLoginPagePOM(49): Clicking on SKIP Button
-2020-07-23 15:33:33.252 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //span[contains(text(),'Skip > >')]
-2020-07-23 15:33:36.133 [INFO /main/getTicketIdvalue]: supervisorTicketListPagePOM(161): Ticket Id: 230720001056
-2020-07-23 15:33:36.356 [INFO /main/getTicketIdvalue]: supervisorTicketListPagePOM(161): Ticket Id: 230720001056
-2020-07-23 15:33:36.558 [INFO /main/viewTicket]: supervisorTicketListPagePOM(265): View Ticket: 230720001056
-2020-07-23 15:33:36.843 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //div//div//div//div//div//div//div//div//div//ul[1]//li[4]//span[1]
-2020-07-23 15:33:38.008 [INFO /main/getTicketId]: ViewTicketPagePOM(23): View Ticket: 230720001056
-2020-07-23 15:33:38.113 [INFO /main/selectState]: ViewTicketPagePOM(29): Selecting State: Cancelled
-2020-07-23 15:33:38.833 [INFO /main/click]: BasePage(42): Clicking on elementBy.className: submit-btn
-2020-07-23 15:33:42.681 [INFO /main/changeTicketTypeToClosed]: supervisorTicketListPagePOM(252): Switch Ticket State Type to closed
-2020-07-23 15:33:43.004 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //*[@name="state"]
-2020-07-23 15:33:43.200 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //span[contains(text(),' Closed ')]
-2020-07-23 15:33:44.949 [INFO /main/writeTicketId]: supervisorTicketListPagePOM(62): Search Ticket Id: 230720001056
-2020-07-23 15:33:45.314 [INFO /main/writeText]: BasePage(56): Writing 230720001056to  By.xpath: //input[@type="search"]
-2020-07-23 15:33:45.314 [INFO /main/clickSearchBtn]: supervisorTicketListPagePOM(77): Clicking on Search Button
-2020-07-23 15:33:45.517 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button
-2020-07-23 15:33:47.274 [INFO /main/getTicketIdvalue]: supervisorTicketListPagePOM(161): Ticket Id: 230720001056
-2020-07-23 15:33:48.298 [INFO /main/clickOnSideMenu]: SideMenuPOM(39): Clicking on Side Menu
-2020-07-23 15:33:48.440 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //mat-toolbar//button
-2020-07-23 15:33:48.441 [INFO /main/clickOnName]: SideMenuPOM(62): Clicking on User Name
-2020-07-23 15:33:48.639 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //*[@class="ellipsis"]
-2020-07-23 15:33:48.639 [INFO /main/openSupervisorDashboard]: SideMenuPOM(138): Opening Supervisor Dashboard Page
-2020-07-23 15:33:49.138 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //a[contains(text(),'Supervisor Dashboard')]
-2020-07-23 15:33:49.232 [INFO /main/isQueueLoginPage]: agentLoginPagePOM(37): Supervisor Login Page
-2020-07-23 15:33:49.377 [INFO /main/checkSkipButton]: agentLoginPagePOM(25): Checking Skip Button
-2020-07-23 15:33:49.515 [INFO /main/checkSubmitButton]: agentLoginPagePOM(31): Checking Submit Button
-2020-07-23 15:33:49.653 [INFO /main/clickSkipBtn]: agentLoginPagePOM(49): Clicking on SKIP Button
-2020-07-23 15:33:49.957 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //span[contains(text(),'Skip > >')]
-2020-07-23 15:33:52.091 [INFO /main/changeTicketTypeToOpen]: supervisorTicketListPagePOM(258): Switch Ticket State Type to Open
-2020-07-23 15:33:52.335 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //*[@name="state"]
-2020-07-23 15:33:52.482 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //span[contains(text(),' Open ')]
-2020-07-23 15:33:54.708 [INFO /main/isTicketIdLabel]: supervisorTicketListPagePOM(85): Is Ticket Id field Available :true
-2020-07-23 15:33:54.965 [INFO /main/isWorkGroupName]: supervisorTicketListPagePOM(91): Ticket lie in WorkGroup :Technical Support
-2020-07-23 15:33:55.341 [INFO /main/isPrioritylabel]: supervisorTicketListPagePOM(101): Is Priority field Available :true
-2020-07-23 15:33:55.735 [INFO /main/isStateLabel]: supervisorTicketListPagePOM(107): Is State field Available :true
-2020-07-23 15:33:56.064 [INFO /main/isCreationdateLabel]: supervisorTicketListPagePOM(113): Is Creation Date field Available :true
-2020-07-23 15:33:56.460 [INFO /main/isCreatedbyLabel]: supervisorTicketListPagePOM(119): Is Created By field Available :true
-2020-07-23 15:33:56.734 [INFO /main/isQueueLabel]: supervisorTicketListPagePOM(125): Is Queue field Available :true
-2020-07-23 15:33:56.917 [INFO /main/isIssueLabel]: supervisorTicketListPagePOM(131): Is Issue label Field Available :true
-2020-07-23 15:33:57.088 [INFO /main/isIssueTypeLabel]: supervisorTicketListPagePOM(137): Is Issue Type field Available :true
-2020-07-23 15:33:57.260 [INFO /main/isSubTypeLabel]: supervisorTicketListPagePOM(143): Is Issue Sub Type field Available :true
-2020-07-23 15:33:57.542 [INFO /main/isSubSubTypeLabel]: supervisorTicketListPagePOM(149): Is Issue Sub Sub Type field Available :true
-2020-07-23 15:33:57.961 [INFO /main/isCodeLabel]: supervisorTicketListPagePOM(155): Is Code field Available :true
-2020-07-23 15:33:58.250 [INFO /main/clickCheckbox]: supervisorTicketListPagePOM(211): Selecting Ticket
-2020-07-23 15:33:58.350 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //*[@id="style-3"]/app-sidenav-bar/mat-sidenav-container/mat-sidenav-content/div/app-service-request/div/app-backend-supervisor/mat-sidenav-container/mat-sidenav-content/section/div[2]/div[1]/div/div[1]/input
-2020-07-23 15:33:58.450 [INFO /main/isAssignToAgent]: supervisorTicketListPagePOM(222): Is Assign to agent button: true
-2020-07-23 15:33:58.569 [INFO /main/isTransferToQueue]: supervisorTicketListPagePOM(234): Is Transfer to Queue button: true
-2020-07-23 15:33:58.635 [INFO /main/clickAssigntoAgent]: supervisorTicketListPagePOM(216): Clicking on Assign to Agent
-2020-07-23 15:33:58.759 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //li[1]//button[1]
-2020-07-23 15:33:58.759 [INFO /main/validatePageTitle]: assignToAgentPOM(31): Validating Assign to agent Page
-2020-07-23 15:33:58.946 [INFO /main/getQueueName]: assignToAgentPOM(37): Queue Name: Activations
-2020-07-23 15:34:00.284 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //div[@class="pannel-content-area ng-star-inserted"]/div[1]/div[4]/img[1]
-2020-07-23 15:34:02.616 [INFO /main/getAvailableSlot]: assignToAgentPOM(54): Agent Available Slot: 9
-2020-07-23 15:34:05.090 [INFO /main/clickOnSideMenu]: SideMenuPOM(39): Clicking on Side Menu
-2020-07-23 15:34:05.371 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //mat-toolbar//button
-2020-07-23 15:34:05.371 [INFO /main/clickOnName]: SideMenuPOM(62): Clicking on User Name
-2020-07-23 15:34:05.646 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //*[@class="ellipsis"]
-2020-07-23 15:34:05.646 [INFO /main/openSupervisorDashboard]: SideMenuPOM(138): Opening Supervisor Dashboard Page
-2020-07-23 15:34:06.219 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //a[contains(text(),'Supervisor Dashboard')]
-2020-07-23 15:34:06.246 [INFO /main/isQueueLoginPage]: agentLoginPagePOM(37): Supervisor Login Page
-2020-07-23 15:34:06.306 [INFO /main/checkSkipButton]: agentLoginPagePOM(25): Checking Skip Button
-2020-07-23 15:34:06.418 [INFO /main/checkSubmitButton]: agentLoginPagePOM(31): Checking Submit Button
-2020-07-23 15:34:06.481 [INFO /main/clickSkipBtn]: agentLoginPagePOM(49): Clicking on SKIP Button
-2020-07-23 15:34:06.643 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //span[contains(text(),'Skip > >')]
-2020-07-23 15:34:09.363 [INFO /main/clickFilter]: supervisorTicketListPagePOM(276): Selecting Filter
-2020-07-23 15:34:09.784 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //span[contains(text(),'Select Filter')]
-2020-07-23 15:34:12.358 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //div[5]//div[2]//div[1]//mat-form-field[1]//div[1]//div[1]//div[1]//mat-select[1]//div[1]//div[2]//div[1]
-2020-07-23 15:34:12.673 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //span[contains(text(),' Outbound ')]
-2020-07-23 15:34:13.346 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //button[@class="filter-button mat-button"]
-2020-07-23 15:34:15.174 [INFO /main/validateFilter]: BasePage(142): Validating Filter
-2020-07-23 15:34:15.220 [INFO /main/validateFilter]: BasePage(144): Element Text : Outbound
-2020-07-23 15:34:15.290 [INFO /main/validateFilter]: BasePage(144): Element Text : Outbound
-2020-07-23 15:34:15.348 [INFO /main/validateFilter]: BasePage(144): Element Text : Outbound
-2020-07-23 15:34:15.408 [INFO /main/validateFilter]: BasePage(144): Element Text : Outbound
-2020-07-23 15:34:15.471 [INFO /main/validateFilter]: BasePage(144): Element Text : Outbound
-2020-07-23 15:34:15.732 [INFO /main/getTicketIdvalue]: supervisorTicketListPagePOM(161): Ticket Id: 230720001051
-2020-07-23 15:34:15.923 [INFO /main/resetFilter]: supervisorTicketListPagePOM(282): Removing Filter
-2020-07-23 15:34:16.042 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //body/app-root/app-dashboard/div/app-admin-panel/div/div/app-sidenav-bar/mat-sidenav-container/mat-sidenav-content/div/app-service-request/div/app-backend-supervisor/mat-sidenav-container/mat-sidenav-content/section/div/div/button[1]
-2020-07-23 15:34:18.897 [INFO /main/writeTicketId]: supervisorTicketListPagePOM(62): Search Ticket Id: 230720001051
-2020-07-23 15:34:19.327 [INFO /main/writeText]: BasePage(56): Writing 230720001051to  By.xpath: //input[@type="search"]
-2020-07-23 15:34:19.327 [INFO /main/clickSearchBtn]: supervisorTicketListPagePOM(77): Clicking on Search Button
-2020-07-23 15:34:19.713 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button
-2020-07-23 15:34:21.380 [INFO /main/clickCheckbox]: supervisorTicketListPagePOM(211): Selecting Ticket
-2020-07-23 15:34:21.655 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //*[@id="style-3"]/app-sidenav-bar/mat-sidenav-container/mat-sidenav-content/div/app-service-request/div/app-backend-supervisor/mat-sidenav-container/mat-sidenav-content/section/div[2]/div[1]/div/div[1]/input
-2020-07-23 15:34:21.801 [INFO /main/isAssignToAgent]: supervisorTicketListPagePOM(222): Is Assign to agent button: true
-2020-07-23 15:34:22.094 [INFO /main/isTransferToQueue]: supervisorTicketListPagePOM(234): Is Transfer to Queue button: true
-2020-07-23 15:34:22.226 [INFO /main/clickTransfertoQueue]: supervisorTicketListPagePOM(228): Clicking on Transfer to Queue
-2020-07-23 15:34:22.497 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //li[2]//button[1]
-2020-07-23 15:34:22.498 [INFO /main/validatePageTitle]: transferToQueuePOM(21): Validating Transfer to Queue Title
-2020-07-23 15:34:22.676 [INFO /main/clickTransferQueue]: transferToQueuePOM(27): Clicking on Transfer to Button
-2020-07-23 15:34:24.061 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //span[contains(text(),'Corporate with CRM')]//ancestor::div[1]//following-sibling::div/img
-2020-07-23 15:34:27.297 [INFO /main/writeTicketId]: supervisorTicketListPagePOM(62): Search Ticket Id: 230720001051
-2020-07-23 15:34:27.565 [INFO /main/writeText]: BasePage(56): Writing 230720001051to  By.xpath: //input[@type="search"]
-2020-07-23 15:34:27.565 [INFO /main/clickSearchBtn]: supervisorTicketListPagePOM(77): Clicking on Search Button
-2020-07-23 15:34:28.959 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button
-2020-07-23 15:34:31.397 [INFO /main/clickOnSideMenu]: SideMenuPOM(39): Clicking on Side Menu
-2020-07-23 15:34:31.622 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //mat-toolbar//button
-2020-07-23 15:34:31.623 [INFO /main/clickOnName]: SideMenuPOM(62): Clicking on User Name
-2020-07-23 15:34:31.756 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //*[@class="ellipsis"]
-2020-07-23 15:34:31.756 [INFO /main/openSupervisorDashboard]: SideMenuPOM(138): Opening Supervisor Dashboard Page
-2020-07-23 15:34:32.267 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //a[contains(text(),'Supervisor Dashboard')]
-2020-07-23 15:34:32.295 [INFO /main/isQueueLoginPage]: agentLoginPagePOM(37): Supervisor Login Page
-2020-07-23 15:34:32.365 [INFO /main/checkSkipButton]: agentLoginPagePOM(25): Checking Skip Button
-2020-07-23 15:34:32.468 [INFO /main/checkSubmitButton]: agentLoginPagePOM(31): Checking Submit Button
-2020-07-23 15:34:32.565 [INFO /main/clickSkipBtn]: agentLoginPagePOM(49): Clicking on SKIP Button
-2020-07-23 15:34:32.754 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //span[contains(text(),'Skip > >')]
-2020-07-23 15:34:35.496 [INFO /main/changeTicketTypeToClosed]: supervisorTicketListPagePOM(252): Switch Ticket State Type to closed
-2020-07-23 15:34:35.636 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //*[@name="state"]
-2020-07-23 15:34:35.793 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //span[contains(text(),' Closed ')]
-2020-07-23 15:34:37.573 [INFO /main/getTicketIdvalue]: supervisorTicketListPagePOM(161): Ticket Id: 230720001056
-2020-07-23 15:34:37.737 [INFO /main/clickCheckbox]: supervisorTicketListPagePOM(211): Selecting Ticket
-2020-07-23 15:34:37.831 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //*[@id="style-3"]/app-sidenav-bar/mat-sidenav-container/mat-sidenav-content/div/app-service-request/div/app-backend-supervisor/mat-sidenav-container/mat-sidenav-content/section/div[2]/div[1]/div/div[1]/input
-2020-07-23 15:34:37.894 [INFO /main/isReopenBtn]: supervisorTicketListPagePOM(309): Is Reopen Button Available: true
-2020-07-23 15:34:38.152 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //li[1]//button[1]
-2020-07-23 15:34:38.543 [INFO /main/writeText]: BasePage(56): Writing Reopen Comment Using Automationto  By.xpath: //*[@placeholder="Leave a comment"]
-2020-07-23 15:34:39.058 [INFO /main/click]: BasePage(42): Clicking on elementBy.className: sbt-btn
-2020-07-23 15:34:43.781 [INFO /main/changeTicketTypeToOpen]: supervisorTicketListPagePOM(258): Switch Ticket State Type to Open
-2020-07-23 15:34:44.026 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //*[@name="state"]
-2020-07-23 15:34:44.344 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //span[contains(text(),' Open ')]
-2020-07-23 15:34:46.648 [INFO /main/writeTicketId]: supervisorTicketListPagePOM(62): Search Ticket Id: 230720001056
-2020-07-23 15:34:46.925 [INFO /main/writeText]: BasePage(56): Writing 230720001056to  By.xpath: //input[@type="search"]
-2020-07-23 15:34:46.925 [INFO /main/clickSearchBtn]: supervisorTicketListPagePOM(77): Clicking on Search Button
-2020-07-23 15:34:47.247 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button
-2020-07-23 15:34:49.695 [INFO /main/isSideMenuVisible]: SideMenuPOM(54): Checking that  Side Menu options are Visible or Not
-2020-07-23 15:34:49.796 [INFO /main/clickOnSideMenu]: SideMenuPOM(39): Clicking on Side Menu
-2020-07-23 15:34:50.045 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //mat-toolbar//button
-2020-07-23 15:34:50.046 [INFO /main/logout]: SideMenuPOM(146): Logging Out
-2020-07-23 15:34:50.369 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //span[@class="logout-icon"]
-2020-07-23 15:34:52.731 [INFO /main/isEnterAUUIDFieldVisible]: loginPagePOM(26): Checking is Enter AUUID field is Visible
-2020-07-23 15:34:53.454 [INFO /main/openBaseURL]: loginPagePOM(34): Opening URL:-http://172.23.36.206:30050/#/login
-2020-07-23 15:34:53.460 [INFO /main/enterAUUID]: loginPagePOM(38): Entering AUUID :2388006In username
-2020-07-23 15:34:53.628 [INFO /main/writeText]: BasePage(56): Writing 2388006to  By.xpath: //input[@autocomplete="new-password"]
-2020-07-23 15:34:53.628 [INFO /main/clickOnSubmitBtn]: loginPagePOM(45): Clicking on Submit button
-2020-07-23 15:34:53.882 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath:  //*[@type='submit']
-2020-07-23 15:34:53.882 [INFO /main/enterPassword]: loginPagePOM(57): Send password to Password field
-2020-07-23 15:34:54.412 [INFO /main/writeText]: BasePage(56): Writing Secure@2024to  By.name: password
-2020-07-23 15:34:54.412 [INFO /main/checkLoginButton]: loginPagePOM(63): checking login button is enabled or not
-2020-07-23 15:34:54.477 [INFO /main/clickOnVisibleButton]: loginPagePOM(75): Clicking on Visible Password Button
-2020-07-23 15:34:55.365 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath:  //*[@class='visibility-icon c-pointer abs visible-status mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted']
-2020-07-23 15:34:55.365 [INFO /main/clickOnVisibleButton]: loginPagePOM(75): Clicking on Visible Password Button
-2020-07-23 15:34:55.469 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath:  //*[@class='visibility-icon c-pointer abs visible-status mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted']
-2020-07-23 15:34:55.469 [INFO /main/clickOnLogin]: loginPagePOM(69): Clicking on Login button
-2020-07-23 15:34:55.556 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath:  //*[@type='submit']
-2020-07-23 15:34:58.557 [INFO /main/waitForHomePage]: SideMenuPOM(47): Wait for Side menu and Home Page to be loaded
-2020-07-23 15:34:58.607 [INFO /main/isSideMenuVisible]: SideMenuPOM(54): Checking that  Side Menu options are Visible or Not
-2020-07-23 15:34:59.437 [INFO /main/clickOnSideMenu]: SideMenuPOM(39): Clicking on Side Menu
-2020-07-23 15:34:59.675 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //mat-toolbar//button
-2020-07-23 15:34:59.675 [INFO /main/clickOnName]: SideMenuPOM(62): Clicking on User Name
-2020-07-23 15:34:59.842 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //*[@class="ellipsis"]
-2020-07-23 15:34:59.843 [INFO /main/openUserManagementPage]: SideMenuPOM(122): Opening User Management Page
-2020-07-23 15:35:00.349 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //a[contains(text(),'User management')]
-2020-07-23 15:35:00.358 [INFO /main/waitTillUMPageLoaded]: userManagementPOM(122): Waiting Until Profile Management Page is Loaded
-2020-07-23 15:35:00.557 [INFO /main/isSearchVisible]: userManagementPOM(128): Checking is Search Auuid Text box is Visible : true
-2020-07-23 15:35:01.305 [INFO /main/searchAuuid]: userManagementPOM(134): Writing AUUID to Search Auuid Text box : 2388006
-2020-07-23 15:35:01.529 [INFO /main/writeText]: BasePage(56): Writing 2388006to  By.xpath: //input[@placeholder="UserId/name"]
-2020-07-23 15:35:01.529 [INFO /main/clickSearchButton]: userManagementPOM(140): Clicking on Search Button
-2020-07-23 15:35:01.624 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //img[@class="filter-container__filter--form--section--search-icon"]
-2020-07-23 15:35:03.832 [INFO /main/waitUntilResultPageIsVisible]: userManagementPOM(147): Waiting Untill Result Page is Loaded
-2020-07-23 15:35:44.375 [INFO /main/openListInteractionChannels]: userManagementPOM(164): Opening Interaction Channel List
-2020-07-23 15:35:44.534 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //mat-select[starts-with(@class,'mat-select ng-tns') and @aria-multiselectable="false"]
-2020-07-23 15:35:46.230 [INFO /main/openListInteractionChannels]: userManagementPOM(164): Opening Interaction Channel List
-2020-07-23 15:35:47.902 [INFO /main/openListInteractionChannels]: userManagementPOM(164): Opening Interaction Channel List
-2020-07-23 15:35:49.512 [INFO /main/openListInteractionChannels]: userManagementPOM(164): Opening Interaction Channel List
-2020-07-23 15:36:16.368 [INFO /main/clickOnSideMenu]: SideMenuPOM(39): Clicking on Side Menu
-2020-07-23 15:36:18.392 [INFO /main/isSideMenuVisible]: SideMenuPOM(54): Checking that  Side Menu options are Visible or Not
-2020-07-23 15:36:18.459 [INFO /main/clickOnSideMenu]: SideMenuPOM(39): Clicking on Side Menu
-2020-07-23 15:36:20.354 [INFO /main/openBaseURL]: loginPagePOM(34): Opening URL:-http://172.23.36.206:30050/#/login
-2020-07-23 15:36:20.362 [INFO /main/enterAUUID]: loginPagePOM(38): Entering AUUID :2394650In username
-2020-07-23 15:36:20.482 [INFO /main/writeText]: BasePage(56): Writing 2394650to  By.xpath: //input[@autocomplete="new-password"]
-2020-07-23 15:36:20.482 [INFO /main/clickOnSubmitBtn]: loginPagePOM(45): Clicking on Submit button
-2020-07-23 15:36:20.582 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath:  //*[@type='submit']
-2020-07-23 15:36:20.582 [INFO /main/enterPassword]: loginPagePOM(57): Send password to Password field
-2020-07-23 15:36:21.266 [INFO /main/writeText]: BasePage(56): Writing July@123to  By.name: password
-2020-07-23 15:36:21.267 [INFO /main/checkLoginButton]: loginPagePOM(63): checking login button is enabled or not
-2020-07-23 15:36:21.369 [INFO /main/clickOnVisibleButton]: loginPagePOM(75): Clicking on Visible Password Button
-2020-07-23 15:36:22.128 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath:  //*[@class='visibility-icon c-pointer abs visible-status mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted']
-2020-07-23 15:36:22.129 [INFO /main/clickOnVisibleButton]: loginPagePOM(75): Clicking on Visible Password Button
-2020-07-23 15:36:22.262 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath:  //*[@class='visibility-icon c-pointer abs visible-status mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted']
-2020-07-23 15:36:22.262 [INFO /main/clickOnLogin]: loginPagePOM(69): Clicking on Login button
-2020-07-23 15:36:22.473 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath:  //*[@type='submit']
-2020-07-23 15:36:26.313 [INFO /main/isQueueLoginPage]: agentLoginPagePOM(37): Supervisor Login Page
-2020-07-23 15:36:26.484 [INFO /main/checkSubmitButton]: agentLoginPagePOM(31): Checking Submit Button
-2020-07-23 15:36:26.646 [INFO /main/clickSelectQueue]: agentLoginPagePOM(43): Select Login Queue
-2020-07-23 15:36:26.939 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //span[contains(text(),'Select Sub Workgroup (Queue)')]
-2020-07-23 15:36:26.940 [INFO /main/selectAllQueue]: agentLoginPagePOM(67): Selecting ALL Queue
-2020-07-23 15:36:27.279 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //body/div/div/div/div/div/app-select-all/mat-checkbox/label/span[1]
-2020-07-23 15:36:27.279 [INFO /main/clickSubmitBtn]: agentLoginPagePOM(55): Clicking on Submit Button
-2020-07-23 15:36:27.722 [INFO /main/click]: BasePage(42): Clicking on elementBy.xpath: //span[contains(text(),'Submit')]
-2020-07-23 15:36:32.325 [INFO /main/isTicketIdLabel]: BackendAgentTicketListPOM(58): Is Ticket Id field Available :true
-2020-07-23 15:36:32.481 [INFO /main/isWorkGroupName]: BackendAgentTicketListPOM(64): Ticket lie in WorkGroup :CS Operations
-2020-07-23 15:36:32.794 [INFO /main/isPrioritylabel]: BackendAgentTicketListPOM(70): Is Priority field Available :true
-2020-07-23 15:36:33.129 [INFO /main/isStateLabel]: BackendAgentTicketListPOM(76): Is Priority field Available :true
-2020-07-23 15:36:33.459 [INFO /main/isCreationdateLabel]: BackendAgentTicketListPOM(82): Is Priority field Available :true
-2020-07-23 15:36:33.602 [INFO /main/isCreatedbyLabel]: BackendAgentTicketListPOM(87): Is Priority field Available :true
-2020-07-23 15:36:33.758 [INFO /main/isQueueLabel]: BackendAgentTicketListPOM(91): Is Priority field Available :true
-2020-07-23 15:36:34.067 [INFO /main/isIssueLabel]: BackendAgentTicketListPOM(95): Is Issue field Available :true
-2020-07-23 15:36:34.360 [INFO /main/isIssueTypeLabel]: BackendAgentTicketListPOM(99): Is Issue Type field Available :true
-2020-07-23 15:36:34.524 [INFO /main/isSubTypeLabel]: BackendAgentTicketListPOM(103): Is Issue Sub Type field Available :true
-2020-07-23 15:36:34.807 [INFO /main/isSubSubTypeLabel]: BackendAgentTicketListPOM(107): Is Issue Sub Sub Type field Available :true
-2020-07-23 15:36:35.153 [INFO /main/isCodeLabel]: BackendAgentTicketListPOM(113): Is Code field Available :true
+2020-07-25 01:35:38.406 [INFO /main/openBaseURL]: loginPagePOM(34): Opening URL:-http://172.23.36.206:30050/#/login
+2020-07-25 01:35:38.430 [INFO /main/enterAUUID]: loginPagePOM(38): Entering AUUID :2388006In username
+2020-07-25 01:35:38.707 [INFO /main/writeText]: BasePage(57): Writing 2388006to  By.xpath: //input[@autocomplete="new-password"]
+2020-07-25 01:35:38.708 [INFO /main/clickOnSubmitBtn]: loginPagePOM(45): Clicking on Submit button
+2020-07-25 01:35:38.867 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath:  //*[@type='submit']
+2020-07-25 01:35:38.867 [INFO /main/enterPassword]: loginPagePOM(57): Send password to Password field
+2020-07-25 01:35:39.533 [INFO /main/writeText]: BasePage(57): Writing Secure@2024to  By.name: password
+2020-07-25 01:35:39.534 [INFO /main/checkLoginButton]: loginPagePOM(63): checking login button is enabled or not
+2020-07-25 01:35:39.627 [INFO /main/clickOnVisibleButton]: loginPagePOM(75): Clicking on Visible Password Button
+2020-07-25 01:35:40.429 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath:  //*[@class='visibility-icon c-pointer abs visible-status mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted']
+2020-07-25 01:35:40.430 [INFO /main/clickOnVisibleButton]: loginPagePOM(75): Clicking on Visible Password Button
+2020-07-25 01:35:40.659 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath:  //*[@class='visibility-icon c-pointer abs visible-status mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted']
+2020-07-25 01:35:40.660 [INFO /main/clickOnLogin]: loginPagePOM(69): Clicking on Login button
+2020-07-25 01:35:40.853 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath:  //*[@type='submit']
+2020-07-25 01:35:47.820 [INFO /main/waitForHomePage]: SideMenuPOM(47): Wait for Side menu and Home Page to be loaded
+2020-07-25 01:35:47.858 [INFO /main/isSideMenuVisible]: SideMenuPOM(54): Checking that  Side Menu options are Visible or Not
+2020-07-25 01:35:48.846 [INFO /main/clickOnSideMenu]: SideMenuPOM(39): Clicking on Side Menu
+2020-07-25 01:35:48.994 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //mat-toolbar//button
+2020-07-25 01:35:48.994 [INFO /main/isAdminSettingVisible]: SideMenuPOM(67): Checking is Admin Setting Visible or not
+2020-07-25 01:35:49.096 [INFO /main/isCustomerServicesVisible]: SideMenuPOM(73): Checking that is Customer Service Visible or Not
+2020-07-25 01:35:49.188 [INFO /main/isCaseManagementVisible]: SideMenuPOM(80): Checking that is Customer Service Visible or Not
+2020-07-25 01:35:49.272 [INFO /main/isUserManagementVisible]: SideMenuPOM(86): Checking that is User Management Option Visible or Not
+2020-07-25 01:35:49.681 [INFO /main/isProfileManagementVisible]: SideMenuPOM(93): Checking that is Profile Management Option Visible or Not
+2020-07-25 01:35:49.967 [INFO /main/clickOnName]: SideMenuPOM(62): Clicking on User Name
+2020-07-25 01:35:50.260 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //*[@class="ellipsis"]
+2020-07-25 01:35:50.261 [INFO /main/isCustomerInteractionVisible]: SideMenuPOM(100): Checking that is Customer Interaction Option Visible or Not
+2020-07-25 01:35:50.682 [INFO /main/isSupervisorDashboardVisible]: SideMenuPOM(107): Checking that is Supervisor DashBoard Option Visible or Not
+2020-07-25 01:35:51.188 [INFO /main/clickOnSideMenu]: SideMenuPOM(39): Clicking on Side Menu
+2020-07-25 01:35:51.429 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //mat-toolbar//button
+2020-07-25 01:35:52.346 [INFO /main/clickOnSideMenu]: SideMenuPOM(39): Clicking on Side Menu
+2020-07-25 01:35:52.468 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //mat-toolbar//button
+2020-07-25 01:35:52.468 [INFO /main/clickOnName]: SideMenuPOM(62): Clicking on User Name
+2020-07-25 01:35:52.651 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //*[@class="ellipsis"]
+2020-07-25 01:35:52.651 [INFO /main/openCustomerInteractionPage]: SideMenuPOM(114): Opening Customer Interaction Page
+2020-07-25 01:35:53.009 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //a[contains(text(),'Customer Interaction')]
+2020-07-25 01:35:53.014 [INFO /main/enterNumber]: customerInteractionsSearchPOM(20): Entering Number in search box :735873718
+2020-07-25 01:35:53.204 [INFO /main/writeText]: BasePage(57): Writing 735873718to  By.xpath: //input[@name="search"]
+2020-07-25 01:35:53.205 [INFO /main/clickOnSearch]: customerInteractionsSearchPOM(26): Clicking on Search Button
+2020-07-25 01:35:53.357 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //button[@class="search-icon-btn"]
+2020-07-25 01:35:59.573 [INFO /main/isPageLoaded]: customerInteractionPagePOM(89): Checking that is Customer Interaction Page is loaded : true
+2020-07-25 01:36:25.543 [INFO /main/getCustomerName]: customerInteractionPagePOM(96): Getting Customer Name Hussein Maalim
+2020-07-25 01:36:25.689 [INFO /main/getCustomerName]: customerInteractionPagePOM(96): Getting Customer Name Hussein Maalim
+2020-07-25 01:36:25.861 [INFO /main/getCustomerDOB]: customerInteractionPagePOM(103): Getting Customer DOB 16-Nov-1989
+2020-07-25 01:36:26.048 [INFO /main/getCustomerDOB]: customerInteractionPagePOM(103): Getting Customer DOB 16-Nov-1989
+2020-07-25 01:36:26.271 [INFO /main/getActivationDate]: customerInteractionPagePOM(109): Getting Activation Date 20 May 2020
+2020-07-25 01:36:26.487 [INFO /main/getActivationDate]: customerInteractionPagePOM(109): Getting Activation Date 20 May 2020
+2020-07-25 01:36:26.675 [INFO /main/getActivationTime]: customerInteractionPagePOM(115): Getting Activation Time 01: 21 AM
+2020-07-25 01:36:26.818 [INFO /main/getActivationTime]: customerInteractionPagePOM(115): Getting Activation Time 01: 21 AM
+2020-07-25 01:36:26.998 [INFO /main/getSimNumber]: customerInteractionPagePOM(121): Getting Sim Number 8925403532007591753
+2020-07-25 01:36:27.144 [INFO /main/getSimNumber]: customerInteractionPagePOM(121): Getting Sim Number 8925403532007591753
+2020-07-25 01:36:27.329 [INFO /main/getSimType]: customerInteractionPagePOM(142): Getting Sim Type 4G 
+2020-07-25 01:36:27.486 [INFO /main/getSimType]: customerInteractionPagePOM(142): Getting Sim Type 4G 
+2020-07-25 01:36:27.678 [INFO /main/getPUK1]: customerInteractionPagePOM(149): Getting PUK1 20772248
+2020-07-25 01:36:27.947 [INFO /main/getPUK1]: customerInteractionPagePOM(149): Getting PUK1 20772248
+2020-07-25 01:36:28.177 [INFO /main/getPUK2]: customerInteractionPagePOM(155): Getting PUK2 10441790
+2020-07-25 01:36:28.426 [INFO /main/getPUK2]: customerInteractionPagePOM(155): Getting PUK2 10441790
+2020-07-25 01:36:28.661 [INFO /main/getIdType]: customerInteractionPagePOM(161): Getting ID Type Passport
+2020-07-25 01:36:28.893 [INFO /main/getIdType]: customerInteractionPagePOM(161): Getting ID Type Passport
+2020-07-25 01:36:29.219 [INFO /main/getIdNumber]: customerInteractionPagePOM(167): Getting masked ID Number ***15893
+2020-07-25 01:36:29.442 [INFO /main/getIdNumber]: customerInteractionPagePOM(167): Getting masked ID Number ***15893
+2020-07-25 01:36:30.314 [INFO /main/clickOnBlankCall]: customerInteractionPagePOM(81): Clicking on Blank Call Pinned Tag
+2020-07-25 01:36:30.482 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //div[@class="sub-header__divide--control--tab ng-star-inserted" and contains(text(),"lank")]
+2020-07-25 01:36:30.536 [INFO /main/waitUntilPageIsLoaded]: customerInteractionsSearchPOM(34): Waiting till the Search Page is Loaded
+2020-07-25 01:36:30.591 [INFO /main/enterNumber]: customerInteractionsSearchPOM(20): Entering Number in search box :735873718
+2020-07-25 01:36:34.236 [INFO /main/writeText]: BasePage(57): Writing 735873718to  By.xpath: //input[@name="search"]
+2020-07-25 01:36:34.237 [INFO /main/clickOnSearch]: customerInteractionsSearchPOM(26): Clicking on Search Button
+2020-07-25 01:36:34.361 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //button[@class="search-icon-btn"]
+2020-07-25 01:36:38.750 [INFO /main/isPageLoaded]: customerInteractionPagePOM(89): Checking that is Customer Interaction Page is loaded : true
+2020-07-25 01:36:39.560 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //div[@class="mat-tab-label-content" and contains(text(),"VIEW HISTORY")]
+2020-07-25 01:36:39.561 [INFO /main/clickOnViewHistory]: customerInteractionPagePOM(136): Clicking on View History
+2020-07-25 01:36:39.566 [INFO /main/clickOnInteractionsTab]: viewHistoryPOM(17): Clicking on Interactions Tab under view history 
+2020-07-25 01:36:43.544 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //div[@class="mat-tab-label-content" and contains(text(),"Interaction")]
+2020-07-25 01:36:43.544 [INFO /main/getLastCreatedIssueCode]: viewHistoryPOM(23): Getting the issue code of last created FTR interaction 
+2020-07-25 01:36:48.050 [INFO /main/clickOnCallDrop]: customerInteractionPagePOM(67): Clicking on Call Drop Pinned Tag
+2020-07-25 01:36:48.184 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //div[@class="sub-header__divide--control--tab ng-star-inserted" and contains(text(),"rop")]
+2020-07-25 01:36:48.218 [INFO /main/waitUntilPageIsLoaded]: customerInteractionsSearchPOM(34): Waiting till the Search Page is Loaded
+2020-07-25 01:36:48.266 [INFO /main/enterNumber]: customerInteractionsSearchPOM(20): Entering Number in search box :735873718
+2020-07-25 01:36:51.958 [INFO /main/writeText]: BasePage(57): Writing 735873718to  By.xpath: //input[@name="search"]
+2020-07-25 01:36:51.958 [INFO /main/clickOnSearch]: customerInteractionsSearchPOM(26): Clicking on Search Button
+2020-07-25 01:36:52.105 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //button[@class="search-icon-btn"]
+2020-07-25 01:36:56.304 [INFO /main/isPageLoaded]: customerInteractionPagePOM(89): Checking that is Customer Interaction Page is loaded : true
+2020-07-25 01:36:57.146 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //div[@class="mat-tab-label-content" and contains(text(),"VIEW HISTORY")]
+2020-07-25 01:36:57.147 [INFO /main/clickOnViewHistory]: customerInteractionPagePOM(136): Clicking on View History
+2020-07-25 01:36:57.152 [INFO /main/clickOnInteractionsTab]: viewHistoryPOM(17): Clicking on Interactions Tab under view history 
+2020-07-25 01:37:02.595 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //div[@class="mat-tab-label-content" and contains(text(),"Interaction")]
+2020-07-25 01:37:02.595 [INFO /main/getLastCreatedIssueCode]: viewHistoryPOM(23): Getting the issue code of last created FTR interaction 
+2020-07-25 01:37:07.096 [INFO /main/clickOnNoiseCall]: customerInteractionPagePOM(74): Clicking on Noise on Call Pinned Tag
+2020-07-25 01:37:07.228 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //div[@class="sub-header__divide--control--tab ng-star-inserted" and contains(text(),"on")]
+2020-07-25 01:37:07.258 [INFO /main/waitUntilPageIsLoaded]: customerInteractionsSearchPOM(34): Waiting till the Search Page is Loaded
+2020-07-25 01:37:07.311 [INFO /main/enterNumber]: customerInteractionsSearchPOM(20): Entering Number in search box :735873718
+2020-07-25 01:37:11.105 [INFO /main/writeText]: BasePage(57): Writing 735873718to  By.xpath: //input[@name="search"]
+2020-07-25 01:37:11.105 [INFO /main/clickOnSearch]: customerInteractionsSearchPOM(26): Clicking on Search Button
+2020-07-25 01:37:11.281 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //button[@class="search-icon-btn"]
+2020-07-25 01:37:14.997 [INFO /main/isPageLoaded]: customerInteractionPagePOM(89): Checking that is Customer Interaction Page is loaded : true
+2020-07-25 01:37:16.062 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //div[@class="mat-tab-label-content" and contains(text(),"VIEW HISTORY")]
+2020-07-25 01:37:16.063 [INFO /main/clickOnViewHistory]: customerInteractionPagePOM(136): Clicking on View History
+2020-07-25 01:37:16.067 [INFO /main/clickOnInteractionsTab]: viewHistoryPOM(17): Clicking on Interactions Tab under view history 
+2020-07-25 01:37:20.079 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //div[@class="mat-tab-label-content" and contains(text(),"Interaction")]
+2020-07-25 01:37:20.079 [INFO /main/getLastCreatedIssueCode]: viewHistoryPOM(23): Getting the issue code of last created FTR interaction 
+2020-07-25 01:37:25.241 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //div[@class='sub-header__divide--control--tab']
+2020-07-25 01:37:25.242 [INFO /main/clickOnInteractionIcon]: customerInteractionPagePOM(129): Clicking on Interactions Icon
+2020-07-25 01:37:27.299 [INFO /main/clickOnCode]: InteractionsPOM(71): clicking on issue code field
+2020-07-25 01:37:27.300 [INFO /main/searchCode]: InteractionsPOM(82): searching issue code ENQ001
+2020-07-25 01:37:27.827 [INFO /main/writeText]: BasePage(57): Writing ENQ001to  By.xpath: //input[@placeholder='Search' and @class='search-box mat-input-element mat-form-field-autofill-control cdk-text-field-autofill-monitored ng-star-inserted']
+2020-07-25 01:37:32.112 [INFO /main/selectCode]: InteractionsPOM(92): selecting issue code ENQ001
+2020-07-25 01:37:32.153 [INFO /main/getIssue]: InteractionsPOM(99): Getting issue 
+2020-07-25 01:37:32.231 [INFO /main/getIssue]: InteractionsPOM(99): Getting issue 
+2020-07-25 01:37:32.290 [INFO /main/getIssueSubSubType]: InteractionsPOM(122): Getting issue sub sub type 
+2020-07-25 01:37:32.366 [INFO /main/getIssueSubSubType]: InteractionsPOM(122): Getting issue sub sub type 
+2020-07-25 01:37:32.420 [INFO /main/getIssueType]: InteractionsPOM(107): Getting issue type 
+2020-07-25 01:37:32.480 [INFO /main/getIssueType]: InteractionsPOM(107): Getting issue type 
+2020-07-25 01:37:32.512 [INFO /main/getIssueSubType]: InteractionsPOM(115): Getting issue sub type 
+2020-07-25 01:37:32.558 [INFO /main/getIssueSubType]: InteractionsPOM(115): Getting issue sub type 
+2020-07-25 01:37:32.942 [INFO /main/writeText]: BasePage(57): Writing Automation Suiteto  By.xpath: //textarea[@id='interactionComment']
+2020-07-25 01:37:32.943 [INFO /main/sendComment]: InteractionsPOM(129): Adding comment -Automation Suite
+2020-07-25 01:37:33.121 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //button[@class='btn btn-save ng-star-inserted']
+2020-07-25 01:37:33.122 [INFO /main/clickOnSave]: InteractionsPOM(136): Clicking on save to create Ticket
+2020-07-25 01:37:36.260 [INFO /main/isResolvedFTRDisplayed]: InteractionsPOM(149): Checking is Ticket Number or Ticket Status is Displayed : true
+2020-07-25 01:37:37.394 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //mat-icon[@class="tab-close mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted"]
+2020-07-25 01:37:37.395 [INFO /main/closeInteractions]: InteractionsPOM(164): Closing Interaction Screen
+2020-07-25 01:37:38.174 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //div[@class='sub-header__divide--control--tab']
+2020-07-25 01:37:38.175 [INFO /main/clickOnInteractionIcon]: customerInteractionPagePOM(129): Clicking on Interactions Icon
+2020-07-25 01:37:40.087 [INFO /main/clickOnCode]: InteractionsPOM(71): clicking on issue code field
+2020-07-25 01:37:40.087 [INFO /main/searchCode]: InteractionsPOM(82): searching issue code ENQ002
+2020-07-25 01:37:40.472 [INFO /main/writeText]: BasePage(57): Writing ENQ002to  By.xpath: //input[@placeholder='Search' and @class='search-box mat-input-element mat-form-field-autofill-control cdk-text-field-autofill-monitored ng-star-inserted']
+2020-07-25 01:37:44.782 [INFO /main/selectCode]: InteractionsPOM(92): selecting issue code ENQ002
+2020-07-25 01:37:44.809 [INFO /main/getIssue]: InteractionsPOM(99): Getting issue 
+2020-07-25 01:37:44.841 [INFO /main/getIssue]: InteractionsPOM(99): Getting issue 
+2020-07-25 01:37:44.867 [INFO /main/getIssueSubSubType]: InteractionsPOM(122): Getting issue sub sub type 
+2020-07-25 01:37:44.926 [INFO /main/getIssueSubSubType]: InteractionsPOM(122): Getting issue sub sub type 
+2020-07-25 01:37:44.970 [INFO /main/getIssueType]: InteractionsPOM(107): Getting issue type 
+2020-07-25 01:37:45.020 [INFO /main/getIssueType]: InteractionsPOM(107): Getting issue type 
+2020-07-25 01:37:45.043 [INFO /main/getIssueSubType]: InteractionsPOM(115): Getting issue sub type 
+2020-07-25 01:37:45.067 [INFO /main/getIssueSubType]: InteractionsPOM(115): Getting issue sub type 
+2020-07-25 01:37:45.342 [INFO /main/writeText]: BasePage(57): Writing Automation Suiteto  By.xpath: //textarea[@id='interactionComment']
+2020-07-25 01:37:45.342 [INFO /main/sendComment]: InteractionsPOM(129): Adding comment -Automation Suite
+2020-07-25 01:37:45.590 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //button[@class='btn btn-save ng-star-inserted']
+2020-07-25 01:37:45.591 [INFO /main/clickOnSave]: InteractionsPOM(136): Clicking on save to create Ticket
+2020-07-25 01:37:48.990 [INFO /main/isResolvedFTRDisplayed]: InteractionsPOM(149): Checking is Ticket Number or Ticket Status is Displayed : true
+2020-07-25 01:37:50.139 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //mat-icon[@class="tab-close mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted"]
+2020-07-25 01:37:50.140 [INFO /main/closeInteractions]: InteractionsPOM(164): Closing Interaction Screen
+2020-07-25 01:37:50.884 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //div[@class='sub-header__divide--control--tab']
+2020-07-25 01:37:50.884 [INFO /main/clickOnInteractionIcon]: customerInteractionPagePOM(129): Clicking on Interactions Icon
+2020-07-25 01:37:53.018 [INFO /main/clickOnCode]: InteractionsPOM(71): clicking on issue code field
+2020-07-25 01:37:53.018 [INFO /main/searchCode]: InteractionsPOM(82): searching issue code REQ002
+2020-07-25 01:37:53.559 [INFO /main/writeText]: BasePage(57): Writing REQ002to  By.xpath: //input[@placeholder='Search' and @class='search-box mat-input-element mat-form-field-autofill-control cdk-text-field-autofill-monitored ng-star-inserted']
+2020-07-25 01:37:57.823 [INFO /main/selectCode]: InteractionsPOM(92): selecting issue code REQ002
+2020-07-25 01:37:57.847 [INFO /main/getIssue]: InteractionsPOM(99): Getting issue 
+2020-07-25 01:37:57.921 [INFO /main/getIssue]: InteractionsPOM(99): Getting issue 
+2020-07-25 01:37:57.981 [INFO /main/getIssueSubSubType]: InteractionsPOM(122): Getting issue sub sub type 
+2020-07-25 01:37:58.050 [INFO /main/getIssueSubSubType]: InteractionsPOM(122): Getting issue sub sub type 
+2020-07-25 01:37:58.099 [INFO /main/getIssueType]: InteractionsPOM(107): Getting issue type 
+2020-07-25 01:37:58.165 [INFO /main/getIssueType]: InteractionsPOM(107): Getting issue type 
+2020-07-25 01:37:58.213 [INFO /main/getIssueSubType]: InteractionsPOM(115): Getting issue sub type 
+2020-07-25 01:37:58.285 [INFO /main/getIssueSubType]: InteractionsPOM(115): Getting issue sub type 
+2020-07-25 01:37:58.682 [INFO /main/writeText]: BasePage(57): Writing Automation Suiteto  By.xpath: //textarea[@id='interactionComment']
+2020-07-25 01:37:58.683 [INFO /main/sendComment]: InteractionsPOM(129): Adding comment -Automation Suite
+2020-07-25 01:37:58.857 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //button[@class='btn btn-save ng-star-inserted']
+2020-07-25 01:37:58.857 [INFO /main/clickOnSave]: InteractionsPOM(136): Clicking on save to create Ticket
+2020-07-25 01:38:01.997 [INFO /main/isResolvedFTRDisplayed]: InteractionsPOM(149): Checking is Ticket Number or Ticket Status is Displayed : true
+2020-07-25 01:38:02.975 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //mat-icon[@class="tab-close mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted"]
+2020-07-25 01:38:02.976 [INFO /main/closeInteractions]: InteractionsPOM(164): Closing Interaction Screen
+2020-07-25 01:38:03.721 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //div[@class='sub-header__divide--control--tab']
+2020-07-25 01:38:03.722 [INFO /main/clickOnInteractionIcon]: customerInteractionPagePOM(129): Clicking on Interactions Icon
+2020-07-25 01:38:05.702 [INFO /main/clickOnCode]: InteractionsPOM(71): clicking on issue code field
+2020-07-25 01:38:05.702 [INFO /main/searchCode]: InteractionsPOM(82): searching issue code ENQ003
+2020-07-25 01:38:06.353 [INFO /main/writeText]: BasePage(57): Writing ENQ003to  By.xpath: //input[@placeholder='Search' and @class='search-box mat-input-element mat-form-field-autofill-control cdk-text-field-autofill-monitored ng-star-inserted']
+2020-07-25 01:38:10.612 [INFO /main/selectCode]: InteractionsPOM(92): selecting issue code ENQ003
+2020-07-25 01:38:10.637 [INFO /main/getIssue]: InteractionsPOM(99): Getting issue 
+2020-07-25 01:38:10.705 [INFO /main/getIssue]: InteractionsPOM(99): Getting issue 
+2020-07-25 01:38:10.759 [INFO /main/getIssueSubSubType]: InteractionsPOM(122): Getting issue sub sub type 
+2020-07-25 01:38:10.798 [INFO /main/getIssueSubSubType]: InteractionsPOM(122): Getting issue sub sub type 
+2020-07-25 01:38:10.823 [INFO /main/getIssueType]: InteractionsPOM(107): Getting issue type 
+2020-07-25 01:38:10.876 [INFO /main/getIssueType]: InteractionsPOM(107): Getting issue type 
+2020-07-25 01:38:10.929 [INFO /main/getIssueSubType]: InteractionsPOM(115): Getting issue sub type 
+2020-07-25 01:38:11.003 [INFO /main/getIssueSubType]: InteractionsPOM(115): Getting issue sub type 
+2020-07-25 01:38:11.485 [INFO /main/writeText]: BasePage(57): Writing Automation Suiteto  By.xpath: //textarea[@id='interactionComment']
+2020-07-25 01:38:11.486 [INFO /main/sendComment]: InteractionsPOM(129): Adding comment -Automation Suite
+2020-07-25 01:38:11.722 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //button[@class='btn btn-save ng-star-inserted']
+2020-07-25 01:38:11.722 [INFO /main/clickOnSave]: InteractionsPOM(136): Clicking on save to create Ticket
+2020-07-25 01:38:14.906 [INFO /main/isResolvedFTRDisplayed]: InteractionsPOM(149): Checking is Ticket Number or Ticket Status is Displayed : true
+2020-07-25 01:38:16.133 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //mat-icon[@class="tab-close mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted"]
+2020-07-25 01:38:16.134 [INFO /main/closeInteractions]: InteractionsPOM(164): Closing Interaction Screen
+2020-07-25 01:38:16.900 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //div[@class='sub-header__divide--control--tab']
+2020-07-25 01:38:16.901 [INFO /main/clickOnInteractionIcon]: customerInteractionPagePOM(129): Clicking on Interactions Icon
+2020-07-25 01:38:18.924 [INFO /main/clickOnCode]: InteractionsPOM(71): clicking on issue code field
+2020-07-25 01:38:18.924 [INFO /main/searchCode]: InteractionsPOM(82): searching issue code REQ003
+2020-07-25 01:38:19.516 [INFO /main/writeText]: BasePage(57): Writing REQ003to  By.xpath: //input[@placeholder='Search' and @class='search-box mat-input-element mat-form-field-autofill-control cdk-text-field-autofill-monitored ng-star-inserted']
+2020-07-25 01:38:23.802 [INFO /main/selectCode]: InteractionsPOM(92): selecting issue code REQ003
+2020-07-25 01:38:23.828 [INFO /main/getIssue]: InteractionsPOM(99): Getting issue 
+2020-07-25 01:38:23.865 [INFO /main/getIssue]: InteractionsPOM(99): Getting issue 
+2020-07-25 01:38:23.902 [INFO /main/getIssueSubSubType]: InteractionsPOM(122): Getting issue sub sub type 
+2020-07-25 01:38:23.974 [INFO /main/getIssueSubSubType]: InteractionsPOM(122): Getting issue sub sub type 
+2020-07-25 01:38:24.026 [INFO /main/getIssueType]: InteractionsPOM(107): Getting issue type 
+2020-07-25 01:38:24.099 [INFO /main/getIssueType]: InteractionsPOM(107): Getting issue type 
+2020-07-25 01:38:24.148 [INFO /main/getIssueSubType]: InteractionsPOM(115): Getting issue sub type 
+2020-07-25 01:38:24.211 [INFO /main/getIssueSubType]: InteractionsPOM(115): Getting issue sub type 
+2020-07-25 01:38:24.498 [INFO /main/writeText]: BasePage(57): Writing Automation Suiteto  By.xpath: //textarea[@id='interactionComment']
+2020-07-25 01:38:24.499 [INFO /main/sendComment]: InteractionsPOM(129): Adding comment -Automation Suite
+2020-07-25 01:38:24.681 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //button[@class='btn btn-save ng-star-inserted']
+2020-07-25 01:38:24.681 [INFO /main/clickOnSave]: InteractionsPOM(136): Clicking on save to create Ticket
+2020-07-25 01:38:27.916 [INFO /main/isResolvedFTRDisplayed]: InteractionsPOM(149): Checking is Ticket Number or Ticket Status is Displayed : true
+2020-07-25 01:38:29.211 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //mat-icon[@class="tab-close mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted"]
+2020-07-25 01:38:29.212 [INFO /main/closeInteractions]: InteractionsPOM(164): Closing Interaction Screen
+2020-07-25 01:38:29.998 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //div[@class='sub-header__divide--control--tab']
+2020-07-25 01:38:29.998 [INFO /main/clickOnInteractionIcon]: customerInteractionPagePOM(129): Clicking on Interactions Icon
+2020-07-25 01:38:32.003 [INFO /main/clickOnCode]: InteractionsPOM(71): clicking on issue code field
+2020-07-25 01:38:32.004 [INFO /main/searchCode]: InteractionsPOM(82): searching issue code COM001
+2020-07-25 01:38:32.551 [INFO /main/writeText]: BasePage(57): Writing COM001to  By.xpath: //input[@placeholder='Search' and @class='search-box mat-input-element mat-form-field-autofill-control cdk-text-field-autofill-monitored ng-star-inserted']
+2020-07-25 01:38:36.747 [INFO /main/selectCode]: InteractionsPOM(92): selecting issue code COM001
+2020-07-25 01:38:36.772 [INFO /main/getIssue]: InteractionsPOM(99): Getting issue 
+2020-07-25 01:38:36.847 [INFO /main/getIssue]: InteractionsPOM(99): Getting issue 
+2020-07-25 01:38:36.903 [INFO /main/getIssueSubSubType]: InteractionsPOM(122): Getting issue sub sub type 
+2020-07-25 01:38:36.970 [INFO /main/getIssueSubSubType]: InteractionsPOM(122): Getting issue sub sub type 
+2020-07-25 01:38:37.025 [INFO /main/getIssueType]: InteractionsPOM(107): Getting issue type 
+2020-07-25 01:38:37.082 [INFO /main/getIssueType]: InteractionsPOM(107): Getting issue type 
+2020-07-25 01:38:37.132 [INFO /main/getIssueSubType]: InteractionsPOM(115): Getting issue sub type 
+2020-07-25 01:38:37.202 [INFO /main/getIssueSubType]: InteractionsPOM(115): Getting issue sub type 
+2020-07-25 01:38:37.229 [INFO /main/getIssueDetailLabel]: InteractionsPOM(54): Getting the label for issue detail field situated at Position : 1
+2020-07-25 01:38:37.381 [INFO /main/getIssueDetailLabel]: InteractionsPOM(54): Getting the label for issue detail field situated at Position : 1
+2020-07-25 01:38:37.490 [INFO /main/getIssueDetailLabel]: InteractionsPOM(54): Getting the label for issue detail field situated at Position : 1
+2020-07-25 01:38:37.603 [INFO /main/setIssueDetailInput]: InteractionsPOM(61): Writing 012345 in label for issue detail field situated at Position : 1
+2020-07-25 01:38:37.956 [INFO /main/writeText]: BasePage(57): Writing 012345to  By.xpath:  //input[@name='q1']
+2020-07-25 01:38:37.957 [INFO /main/getIssueDetailLabel]: InteractionsPOM(54): Getting the label for issue detail field situated at Position : 2
+2020-07-25 01:38:38.077 [INFO /main/getIssueDetailLabel]: InteractionsPOM(54): Getting the label for issue detail field situated at Position : 2
+2020-07-25 01:38:38.237 [INFO /main/setIssueDetailInput]: InteractionsPOM(61): Writing 012345 in label for issue detail field situated at Position : 2
+2020-07-25 01:38:38.594 [INFO /main/writeText]: BasePage(57): Writing 012345to  By.xpath:  //input[@name='q2']
+2020-07-25 01:38:38.594 [INFO /main/getIssueDetailLabel]: InteractionsPOM(54): Getting the label for issue detail field situated at Position : 3
+2020-07-25 01:38:38.686 [INFO /main/getIssueDetailLabel]: InteractionsPOM(54): Getting the label for issue detail field situated at Position : 3
+2020-07-25 01:38:38.766 [INFO /main/getIssueDetailLabel]: InteractionsPOM(54): Getting the label for issue detail field situated at Position : 3
+2020-07-25 01:38:38.840 [INFO /main/setIssueDetailInput]: InteractionsPOM(61): Writing 012345 in label for issue detail field situated at Position : 3
+2020-07-25 01:38:39.056 [INFO /main/writeText]: BasePage(57): Writing 012345to  By.xpath:  //input[@name='q3']
+2020-07-25 01:38:39.057 [INFO /main/getIssueDetailLabel]: InteractionsPOM(54): Getting the label for issue detail field situated at Position : 4
+2020-07-25 01:38:39.136 [INFO /main/getIssueDetailLabel]: InteractionsPOM(54): Getting the label for issue detail field situated at Position : 4
+2020-07-25 01:38:39.208 [INFO /main/getIssueDetailLabel]: InteractionsPOM(54): Getting the label for issue detail field situated at Position : 4
+2020-07-25 01:38:39.282 [INFO /main/setIssueDetailInput]: InteractionsPOM(61): Writing 012345 in label for issue detail field situated at Position : 4
+2020-07-25 01:38:39.539 [INFO /main/writeText]: BasePage(57): Writing 012345to  By.xpath:  //input[@name='q4']
+2020-07-25 01:38:39.539 [INFO /main/getIssueDetailLabel]: InteractionsPOM(54): Getting the label for issue detail field situated at Position : 5
+2020-07-25 01:38:39.642 [INFO /main/getIssueDetailLabel]: InteractionsPOM(54): Getting the label for issue detail field situated at Position : 5
+2020-07-25 01:38:39.714 [INFO /main/getIssueDetailLabel]: InteractionsPOM(54): Getting the label for issue detail field situated at Position : 5
+2020-07-25 01:38:39.773 [INFO /main/setIssueDetailInput]: InteractionsPOM(61): Writing 012345 in label for issue detail field situated at Position : 5
+2020-07-25 01:38:39.979 [INFO /main/writeText]: BasePage(57): Writing 012345to  By.xpath:  //input[@name='q5']
+2020-07-25 01:38:40.216 [INFO /main/writeText]: BasePage(57): Writing Automation Suiteto  By.xpath: //textarea[@id='interactionComment']
+2020-07-25 01:38:40.217 [INFO /main/sendComment]: InteractionsPOM(129): Adding comment -Automation Suite
+2020-07-25 01:38:40.217 [INFO /main/isSaveEnable]: InteractionsPOM(142): Checking is Save button Enabled
+2020-07-25 01:38:40.645 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //button[@class='btn btn-save ng-star-inserted']
+2020-07-25 01:38:40.646 [INFO /main/clickOnSave]: InteractionsPOM(136): Clicking on save to create Ticket
+2020-07-25 01:38:44.209 [INFO /main/isResolvedFTRDisplayed]: InteractionsPOM(149): Checking is Ticket Number or Ticket Status is Displayed : true
+2020-07-25 01:38:44.420 [INFO /main/getResolvedFTRDisplayed]: InteractionsPOM(156): Getting the Ticket Number or Ticket Status  Displayed : 240720001008
+2020-07-25 01:38:44.761 [INFO /main/getResolvedFTRDisplayed]: InteractionsPOM(156): Getting the Ticket Number or Ticket Status  Displayed : 240720001008
+2020-07-25 01:38:45.146 [INFO /main/getResolvedFTRDisplayed]: InteractionsPOM(156): Getting the Ticket Number or Ticket Status  Displayed : 240720001008
+2020-07-25 01:38:45.905 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //mat-icon[@class="tab-close mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted"]
+2020-07-25 01:38:45.905 [INFO /main/closeInteractions]: InteractionsPOM(164): Closing Interaction Screen
+2020-07-25 01:38:47.174 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //div[@class='sub-header__divide--control--tab']
+2020-07-25 01:38:47.175 [INFO /main/clickOnInteractionIcon]: customerInteractionPagePOM(129): Clicking on Interactions Icon
+2020-07-25 01:38:49.122 [INFO /main/clickOnCode]: InteractionsPOM(71): clicking on issue code field
+2020-07-25 01:38:49.124 [INFO /main/searchCode]: InteractionsPOM(82): searching issue code COM002
+2020-07-25 01:38:49.587 [INFO /main/writeText]: BasePage(57): Writing COM002to  By.xpath: //input[@placeholder='Search' and @class='search-box mat-input-element mat-form-field-autofill-control cdk-text-field-autofill-monitored ng-star-inserted']
+2020-07-25 01:38:53.857 [INFO /main/selectCode]: InteractionsPOM(92): selecting issue code COM002
+2020-07-25 01:38:53.879 [INFO /main/getIssue]: InteractionsPOM(99): Getting issue 
+2020-07-25 01:38:53.939 [INFO /main/getIssue]: InteractionsPOM(99): Getting issue 
+2020-07-25 01:38:53.986 [INFO /main/getIssueSubSubType]: InteractionsPOM(122): Getting issue sub sub type 
+2020-07-25 01:38:54.060 [INFO /main/getIssueSubSubType]: InteractionsPOM(122): Getting issue sub sub type 
+2020-07-25 01:38:54.101 [INFO /main/getIssueType]: InteractionsPOM(107): Getting issue type 
+2020-07-25 01:38:54.159 [INFO /main/getIssueType]: InteractionsPOM(107): Getting issue type 
+2020-07-25 01:38:54.205 [INFO /main/getIssueSubType]: InteractionsPOM(115): Getting issue sub type 
+2020-07-25 01:38:54.267 [INFO /main/getIssueSubType]: InteractionsPOM(115): Getting issue sub type 
+2020-07-25 01:38:54.684 [INFO /main/writeText]: BasePage(57): Writing Automation Suiteto  By.xpath: //textarea[@id='interactionComment']
+2020-07-25 01:38:54.684 [INFO /main/sendComment]: InteractionsPOM(129): Adding comment -Automation Suite
+2020-07-25 01:38:54.684 [INFO /main/isSaveEnable]: InteractionsPOM(142): Checking is Save button Enabled
+2020-07-25 01:38:54.983 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //button[@class='btn btn-save ng-star-inserted']
+2020-07-25 01:38:54.983 [INFO /main/clickOnSave]: InteractionsPOM(136): Clicking on save to create Ticket
+2020-07-25 01:38:58.537 [INFO /main/isResolvedFTRDisplayed]: InteractionsPOM(149): Checking is Ticket Number or Ticket Status is Displayed : true
+2020-07-25 01:38:58.754 [INFO /main/getResolvedFTRDisplayed]: InteractionsPOM(156): Getting the Ticket Number or Ticket Status  Displayed : 240720001009
+2020-07-25 01:38:59.078 [INFO /main/getResolvedFTRDisplayed]: InteractionsPOM(156): Getting the Ticket Number or Ticket Status  Displayed : 240720001009
+2020-07-25 01:38:59.535 [INFO /main/getResolvedFTRDisplayed]: InteractionsPOM(156): Getting the Ticket Number or Ticket Status  Displayed : 240720001009
+2020-07-25 01:39:00.108 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //mat-icon[@class="tab-close mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted"]
+2020-07-25 01:39:00.109 [INFO /main/closeInteractions]: InteractionsPOM(164): Closing Interaction Screen
+2020-07-25 01:39:01.286 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //div[@class='sub-header__divide--control--tab']
+2020-07-25 01:39:01.286 [INFO /main/clickOnInteractionIcon]: customerInteractionPagePOM(129): Clicking on Interactions Icon
+2020-07-25 01:39:03.375 [INFO /main/clickOnCode]: InteractionsPOM(71): clicking on issue code field
+2020-07-25 01:39:03.375 [INFO /main/searchCode]: InteractionsPOM(82): searching issue code COM003
+2020-07-25 01:39:03.875 [INFO /main/writeText]: BasePage(57): Writing COM003to  By.xpath: //input[@placeholder='Search' and @class='search-box mat-input-element mat-form-field-autofill-control cdk-text-field-autofill-monitored ng-star-inserted']
+2020-07-25 01:39:08.144 [INFO /main/selectCode]: InteractionsPOM(92): selecting issue code COM003
+2020-07-25 01:39:08.170 [INFO /main/getIssue]: InteractionsPOM(99): Getting issue 
+2020-07-25 01:39:08.250 [INFO /main/getIssue]: InteractionsPOM(99): Getting issue 
+2020-07-25 01:39:08.313 [INFO /main/getIssueSubSubType]: InteractionsPOM(122): Getting issue sub sub type 
+2020-07-25 01:39:08.370 [INFO /main/getIssueSubSubType]: InteractionsPOM(122): Getting issue sub sub type 
+2020-07-25 01:39:08.402 [INFO /main/getIssueType]: InteractionsPOM(107): Getting issue type 
+2020-07-25 01:39:08.448 [INFO /main/getIssueType]: InteractionsPOM(107): Getting issue type 
+2020-07-25 01:39:08.498 [INFO /main/getIssueSubType]: InteractionsPOM(115): Getting issue sub type 
+2020-07-25 01:39:08.547 [INFO /main/getIssueSubType]: InteractionsPOM(115): Getting issue sub type 
+2020-07-25 01:39:08.863 [INFO /main/writeText]: BasePage(57): Writing Automation Suiteto  By.xpath: //textarea[@id='interactionComment']
+2020-07-25 01:39:08.864 [INFO /main/sendComment]: InteractionsPOM(129): Adding comment -Automation Suite
+2020-07-25 01:39:08.864 [INFO /main/isSaveEnable]: InteractionsPOM(142): Checking is Save button Enabled
+2020-07-25 01:39:09.284 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //button[@class='btn btn-save ng-star-inserted']
+2020-07-25 01:39:09.285 [INFO /main/clickOnSave]: InteractionsPOM(136): Clicking on save to create Ticket
+2020-07-25 01:39:12.976 [INFO /main/isResolvedFTRDisplayed]: InteractionsPOM(149): Checking is Ticket Number or Ticket Status is Displayed : true
+2020-07-25 01:39:13.116 [INFO /main/getResolvedFTRDisplayed]: InteractionsPOM(156): Getting the Ticket Number or Ticket Status  Displayed : 240720001010
+2020-07-25 01:39:13.306 [INFO /main/getResolvedFTRDisplayed]: InteractionsPOM(156): Getting the Ticket Number or Ticket Status  Displayed : 240720001010
+2020-07-25 01:39:13.478 [INFO /main/getResolvedFTRDisplayed]: InteractionsPOM(156): Getting the Ticket Number or Ticket Status  Displayed : 240720001010
+2020-07-25 01:39:14.140 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //mat-icon[@class="tab-close mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted"]
+2020-07-25 01:39:14.141 [INFO /main/closeInteractions]: InteractionsPOM(164): Closing Interaction Screen
+2020-07-25 01:39:15.550 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //div[@class='sub-header__divide--control--tab']
+2020-07-25 01:39:15.551 [INFO /main/clickOnInteractionIcon]: customerInteractionPagePOM(129): Clicking on Interactions Icon
+2020-07-25 01:39:17.574 [INFO /main/clickOnCode]: InteractionsPOM(71): clicking on issue code field
+2020-07-25 01:39:17.575 [INFO /main/searchCode]: InteractionsPOM(82): searching issue code COM004
+2020-07-25 01:39:18.004 [INFO /main/writeText]: BasePage(57): Writing COM004to  By.xpath: //input[@placeholder='Search' and @class='search-box mat-input-element mat-form-field-autofill-control cdk-text-field-autofill-monitored ng-star-inserted']
+2020-07-25 01:39:22.271 [INFO /main/selectCode]: InteractionsPOM(92): selecting issue code COM004
+2020-07-25 01:39:22.289 [INFO /main/getIssue]: InteractionsPOM(99): Getting issue 
+2020-07-25 01:39:22.319 [INFO /main/getIssue]: InteractionsPOM(99): Getting issue 
+2020-07-25 01:39:22.342 [INFO /main/getIssueSubSubType]: InteractionsPOM(122): Getting issue sub sub type 
+2020-07-25 01:39:22.373 [INFO /main/getIssueSubSubType]: InteractionsPOM(122): Getting issue sub sub type 
+2020-07-25 01:39:22.404 [INFO /main/getIssueType]: InteractionsPOM(107): Getting issue type 
+2020-07-25 01:39:22.443 [INFO /main/getIssueType]: InteractionsPOM(107): Getting issue type 
+2020-07-25 01:39:22.468 [INFO /main/getIssueSubType]: InteractionsPOM(115): Getting issue sub type 
+2020-07-25 01:39:22.506 [INFO /main/getIssueSubType]: InteractionsPOM(115): Getting issue sub type 
+2020-07-25 01:39:22.861 [INFO /main/writeText]: BasePage(57): Writing Automation Suiteto  By.xpath: //textarea[@id='interactionComment']
+2020-07-25 01:39:22.861 [INFO /main/sendComment]: InteractionsPOM(129): Adding comment -Automation Suite
+2020-07-25 01:39:22.861 [INFO /main/isSaveEnable]: InteractionsPOM(142): Checking is Save button Enabled
+2020-07-25 01:39:23.063 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //button[@class='btn btn-save ng-star-inserted']
+2020-07-25 01:39:23.063 [INFO /main/clickOnSave]: InteractionsPOM(136): Clicking on save to create Ticket
+2020-07-25 01:39:26.603 [INFO /main/isResolvedFTRDisplayed]: InteractionsPOM(149): Checking is Ticket Number or Ticket Status is Displayed : true
+2020-07-25 01:39:26.919 [INFO /main/getResolvedFTRDisplayed]: InteractionsPOM(156): Getting the Ticket Number or Ticket Status  Displayed : 240720001011
+2020-07-25 01:39:27.234 [INFO /main/getResolvedFTRDisplayed]: InteractionsPOM(156): Getting the Ticket Number or Ticket Status  Displayed : 240720001011
+2020-07-25 01:39:27.586 [INFO /main/getResolvedFTRDisplayed]: InteractionsPOM(156): Getting the Ticket Number or Ticket Status  Displayed : 240720001011
+2020-07-25 01:39:28.296 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //mat-icon[@class="tab-close mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted"]
+2020-07-25 01:39:28.296 [INFO /main/closeInteractions]: InteractionsPOM(164): Closing Interaction Screen
+2020-07-25 01:39:29.634 [INFO /main/isSideMenuVisible]: SideMenuPOM(54): Checking that  Side Menu options are Visible or Not
+2020-07-25 01:39:29.820 [INFO /main/clickOnSideMenu]: SideMenuPOM(39): Clicking on Side Menu
+2020-07-25 01:39:30.099 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //mat-toolbar//button
+2020-07-25 01:39:30.100 [INFO /main/logout]: SideMenuPOM(146): Logging Out
+2020-07-25 01:39:30.349 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //span[@class="logout-icon"]
+2020-07-25 01:39:32.560 [INFO /main/isEnterAUUIDFieldVisible]: loginPagePOM(26): Checking is Enter AUUID field is Visible
+2020-07-25 01:39:33.360 [INFO /main/openBaseURL]: loginPagePOM(34): Opening URL:-http://172.23.36.206:30050/#/login
+2020-07-25 01:39:33.368 [INFO /main/enterAUUID]: loginPagePOM(38): Entering AUUID :2388006In username
+2020-07-25 01:39:33.516 [INFO /main/writeText]: BasePage(57): Writing 2388006to  By.xpath: //input[@autocomplete="new-password"]
+2020-07-25 01:39:33.516 [INFO /main/clickOnSubmitBtn]: loginPagePOM(45): Clicking on Submit button
+2020-07-25 01:39:33.718 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath:  //*[@type='submit']
+2020-07-25 01:39:33.719 [INFO /main/enterPassword]: loginPagePOM(57): Send password to Password field
+2020-07-25 01:39:34.358 [INFO /main/writeText]: BasePage(57): Writing Secure@2024to  By.name: password
+2020-07-25 01:39:34.359 [INFO /main/checkLoginButton]: loginPagePOM(63): checking login button is enabled or not
+2020-07-25 01:39:34.457 [INFO /main/clickOnVisibleButton]: loginPagePOM(75): Clicking on Visible Password Button
+2020-07-25 01:39:35.275 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath:  //*[@class='visibility-icon c-pointer abs visible-status mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted']
+2020-07-25 01:39:35.275 [INFO /main/clickOnVisibleButton]: loginPagePOM(75): Clicking on Visible Password Button
+2020-07-25 01:39:35.424 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath:  //*[@class='visibility-icon c-pointer abs visible-status mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted']
+2020-07-25 01:39:35.425 [INFO /main/clickOnLogin]: loginPagePOM(69): Clicking on Login button
+2020-07-25 01:39:35.562 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath:  //*[@type='submit']
+2020-07-25 01:39:39.026 [INFO /main/clickOnSideMenu]: SideMenuPOM(39): Clicking on Side Menu
+2020-07-25 01:39:39.314 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //mat-toolbar//button
+2020-07-25 01:39:39.315 [INFO /main/clickOnName]: SideMenuPOM(62): Clicking on User Name
+2020-07-25 01:39:39.558 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //*[@class="ellipsis"]
+2020-07-25 01:39:39.558 [INFO /main/openSupervisorDashboard]: SideMenuPOM(138): Opening Supervisor Dashboard Page
+2020-07-25 01:39:40.074 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //a[contains(text(),'Supervisor Dashboard')]
+2020-07-25 01:39:40.151 [INFO /main/isQueueLoginPage]: agentLoginPagePOM(37): Supervisor Login Page
+2020-07-25 01:39:40.320 [INFO /main/checkSkipButton]: agentLoginPagePOM(25): Checking Skip Button
+2020-07-25 01:39:40.482 [INFO /main/checkSubmitButton]: agentLoginPagePOM(31): Checking Submit Button
+2020-07-25 01:39:40.584 [INFO /main/clickSkipBtn]: agentLoginPagePOM(49): Clicking on SKIP Button
+2020-07-25 01:39:40.828 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //span[contains(text(),'Skip > >')]
+2020-07-25 01:39:43.183 [INFO /main/clickOnSideMenu]: SideMenuPOM(39): Clicking on Side Menu
+2020-07-25 01:39:43.357 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //mat-toolbar//button
+2020-07-25 01:39:43.357 [INFO /main/clickOnName]: SideMenuPOM(62): Clicking on User Name
+2020-07-25 01:39:43.540 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //*[@class="ellipsis"]
+2020-07-25 01:39:43.540 [INFO /main/openSupervisorDashboard]: SideMenuPOM(138): Opening Supervisor Dashboard Page
+2020-07-25 01:39:43.949 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //a[contains(text(),'Supervisor Dashboard')]
+2020-07-25 01:39:43.983 [INFO /main/isQueueLoginPage]: agentLoginPagePOM(37): Supervisor Login Page
+2020-07-25 01:39:44.075 [INFO /main/checkSkipButton]: agentLoginPagePOM(25): Checking Skip Button
+2020-07-25 01:39:44.174 [INFO /main/checkSubmitButton]: agentLoginPagePOM(31): Checking Submit Button
+2020-07-25 01:39:44.271 [INFO /main/clickSelectQueue]: agentLoginPagePOM(43): Select Login Queue
+2020-07-25 01:39:44.439 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //span[contains(text(),'Select Sub Workgroup (Queue)')]
+2020-07-25 01:39:44.440 [INFO /main/selectAllQueue]: agentLoginPagePOM(67): Selecting ALL Queue
+2020-07-25 01:39:44.684 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //body/div/div/div/div/div/app-select-all/mat-checkbox/label/span[1]
+2020-07-25 01:39:44.684 [INFO /main/clickSubmitBtn]: agentLoginPagePOM(55): Clicking on Submit Button
+2020-07-25 01:39:45.172 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //span[contains(text(),'Submit')]
+2020-07-25 01:39:48.191 [INFO /main/clickOnSideMenu]: SideMenuPOM(39): Clicking on Side Menu
+2020-07-25 01:39:48.339 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //mat-toolbar//button
+2020-07-25 01:39:48.339 [INFO /main/clickOnName]: SideMenuPOM(62): Clicking on User Name
+2020-07-25 01:39:48.490 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //*[@class="ellipsis"]
+2020-07-25 01:39:48.490 [INFO /main/openSupervisorDashboard]: SideMenuPOM(138): Opening Supervisor Dashboard Page
+2020-07-25 01:39:48.899 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //a[contains(text(),'Supervisor Dashboard')]
+2020-07-25 01:39:48.903 [INFO /main/isQueueLoginPage]: agentLoginPagePOM(37): Supervisor Login Page
+2020-07-25 01:39:49.068 [INFO /main/checkSkipButton]: agentLoginPagePOM(25): Checking Skip Button
+2020-07-25 01:39:49.237 [INFO /main/checkSubmitButton]: agentLoginPagePOM(31): Checking Submit Button
+2020-07-25 01:39:49.403 [INFO /main/clickSkipBtn]: agentLoginPagePOM(49): Clicking on SKIP Button
+2020-07-25 01:39:49.638 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //span[contains(text(),'Skip > >')]
+2020-07-25 01:40:00.312 [INFO /main/writeTicketId]: supervisorTicketListPagePOM(62): Search Ticket Id: 240720001008
+2020-07-25 01:40:00.740 [INFO /main/writeText]: BasePage(57): Writing 240720001008to  By.xpath: //input[@type="search"]
+2020-07-25 01:40:00.741 [INFO /main/clickSearchBtn]: supervisorTicketListPagePOM(77): Clicking on Search Button
+2020-07-25 01:40:01.118 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button
+2020-07-25 01:40:04.068 [INFO /main/getTicketIdvalue]: supervisorTicketListPagePOM(161): Ticket Id: 240720001008
+2020-07-25 01:40:04.458 [INFO /main/isTicketIdLabel]: supervisorTicketListPagePOM(85): Is Ticket Id field Available :true
+2020-07-25 01:40:04.716 [INFO /main/isWorkGroupName]: supervisorTicketListPagePOM(91): Ticket lie in WorkGroup :CS Operations
+2020-07-25 01:40:05.048 [INFO /main/isPrioritylabel]: supervisorTicketListPagePOM(101): Is Priority field Available :true
+2020-07-25 01:40:05.337 [INFO /main/isStateLabel]: supervisorTicketListPagePOM(107): Is State field Available :true
+2020-07-25 01:40:05.772 [INFO /main/isCreationdateLabel]: supervisorTicketListPagePOM(113): Is Creation Date field Available :true
+2020-07-25 01:40:06.219 [INFO /main/isCreatedbyLabel]: supervisorTicketListPagePOM(119): Is Created By field Available :true
+2020-07-25 01:40:06.547 [INFO /main/isQueueLabel]: supervisorTicketListPagePOM(125): Is Queue field Available :true
+2020-07-25 01:40:06.971 [INFO /main/isIssueLabel]: supervisorTicketListPagePOM(131): Is Issue label Field Available :true
+2020-07-25 01:40:07.440 [INFO /main/isIssueTypeLabel]: supervisorTicketListPagePOM(137): Is Issue Type field Available :true
+2020-07-25 01:40:07.718 [INFO /main/isSubTypeLabel]: supervisorTicketListPagePOM(143): Is Issue Sub Type field Available :true
+2020-07-25 01:40:08.096 [INFO /main/isSubSubTypeLabel]: supervisorTicketListPagePOM(149): Is Issue Sub Sub Type field Available :true
+2020-07-25 01:40:08.493 [INFO /main/isCodeLabel]: supervisorTicketListPagePOM(155): Is Code field Available :true
+2020-07-25 01:40:09.387 [INFO /main/clearInputBox]: supervisorTicketListPagePOM(68): Clear Search Box
+2020-07-25 01:40:12.894 [INFO /main/writeTicketId]: supervisorTicketListPagePOM(62): Search Ticket Id: 240720001009
+2020-07-25 01:40:13.155 [INFO /main/writeText]: BasePage(57): Writing 240720001009to  By.xpath: //input[@type="search"]
+2020-07-25 01:40:13.155 [INFO /main/clickSearchBtn]: supervisorTicketListPagePOM(77): Clicking on Search Button
+2020-07-25 01:40:13.534 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button
+2020-07-25 01:40:15.297 [INFO /main/getTicketIdvalue]: supervisorTicketListPagePOM(161): Ticket Id: 240720001009
+2020-07-25 01:40:15.557 [INFO /main/isTicketIdLabel]: supervisorTicketListPagePOM(85): Is Ticket Id field Available :true
+2020-07-25 01:40:15.911 [INFO /main/isWorkGroupName]: supervisorTicketListPagePOM(91): Ticket lie in WorkGroup :Technical Support
+2020-07-25 01:40:16.374 [INFO /main/isPrioritylabel]: supervisorTicketListPagePOM(101): Is Priority field Available :true
+2020-07-25 01:40:16.817 [INFO /main/isStateLabel]: supervisorTicketListPagePOM(107): Is State field Available :true
+2020-07-25 01:40:17.205 [INFO /main/isCreationdateLabel]: supervisorTicketListPagePOM(113): Is Creation Date field Available :true
+2020-07-25 01:40:17.489 [INFO /main/isCreatedbyLabel]: supervisorTicketListPagePOM(119): Is Created By field Available :true
+2020-07-25 01:40:17.800 [INFO /main/isQueueLabel]: supervisorTicketListPagePOM(125): Is Queue field Available :true
+2020-07-25 01:40:18.116 [INFO /main/isIssueLabel]: supervisorTicketListPagePOM(131): Is Issue label Field Available :true
+2020-07-25 01:40:18.526 [INFO /main/isIssueTypeLabel]: supervisorTicketListPagePOM(137): Is Issue Type field Available :true
+2020-07-25 01:40:18.885 [INFO /main/isSubTypeLabel]: supervisorTicketListPagePOM(143): Is Issue Sub Type field Available :true
+2020-07-25 01:40:19.264 [INFO /main/isSubSubTypeLabel]: supervisorTicketListPagePOM(149): Is Issue Sub Sub Type field Available :true
+2020-07-25 01:40:19.649 [INFO /main/isCodeLabel]: supervisorTicketListPagePOM(155): Is Code field Available :true
+2020-07-25 01:40:20.761 [INFO /main/clearInputBox]: supervisorTicketListPagePOM(68): Clear Search Box
+2020-07-25 01:40:24.328 [INFO /main/writeTicketId]: supervisorTicketListPagePOM(62): Search Ticket Id: 240720001010
+2020-07-25 01:40:24.627 [INFO /main/writeText]: BasePage(57): Writing 240720001010to  By.xpath: //input[@type="search"]
+2020-07-25 01:40:24.627 [INFO /main/clickSearchBtn]: supervisorTicketListPagePOM(77): Clicking on Search Button
+2020-07-25 01:40:24.965 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button
+2020-07-25 01:40:28.423 [INFO /main/getTicketIdvalue]: supervisorTicketListPagePOM(161): Ticket Id: 240720001010
+2020-07-25 01:40:28.841 [INFO /main/isTicketIdLabel]: supervisorTicketListPagePOM(85): Is Ticket Id field Available :true
+2020-07-25 01:40:29.239 [INFO /main/isWorkGroupName]: supervisorTicketListPagePOM(91): Ticket lie in WorkGroup :Technical Support
+2020-07-25 01:40:29.483 [INFO /main/isPrioritylabel]: supervisorTicketListPagePOM(101): Is Priority field Available :true
+2020-07-25 01:40:29.899 [INFO /main/isStateLabel]: supervisorTicketListPagePOM(107): Is State field Available :true
+2020-07-25 01:40:30.296 [INFO /main/isCreationdateLabel]: supervisorTicketListPagePOM(113): Is Creation Date field Available :true
+2020-07-25 01:40:30.619 [INFO /main/isCreatedbyLabel]: supervisorTicketListPagePOM(119): Is Created By field Available :true
+2020-07-25 01:40:30.970 [INFO /main/isQueueLabel]: supervisorTicketListPagePOM(125): Is Queue field Available :true
+2020-07-25 01:40:31.360 [INFO /main/isIssueLabel]: supervisorTicketListPagePOM(131): Is Issue label Field Available :true
+2020-07-25 01:40:31.647 [INFO /main/isIssueTypeLabel]: supervisorTicketListPagePOM(137): Is Issue Type field Available :true
+2020-07-25 01:40:31.961 [INFO /main/isSubTypeLabel]: supervisorTicketListPagePOM(143): Is Issue Sub Type field Available :true
+2020-07-25 01:40:32.305 [INFO /main/isSubSubTypeLabel]: supervisorTicketListPagePOM(149): Is Issue Sub Sub Type field Available :true
+2020-07-25 01:40:32.591 [INFO /main/isCodeLabel]: supervisorTicketListPagePOM(155): Is Code field Available :true
+2020-07-25 01:40:33.541 [INFO /main/clearInputBox]: supervisorTicketListPagePOM(68): Clear Search Box
+2020-07-25 01:40:37.047 [INFO /main/writeTicketId]: supervisorTicketListPagePOM(62): Search Ticket Id: 240720001011
+2020-07-25 01:40:37.261 [INFO /main/writeText]: BasePage(57): Writing 240720001011to  By.xpath: //input[@type="search"]
+2020-07-25 01:40:37.262 [INFO /main/clickSearchBtn]: supervisorTicketListPagePOM(77): Clicking on Search Button
+2020-07-25 01:40:37.597 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button
+2020-07-25 01:40:39.954 [INFO /main/getTicketIdvalue]: supervisorTicketListPagePOM(161): Ticket Id: 240720001011
+2020-07-25 01:40:40.210 [INFO /main/isTicketIdLabel]: supervisorTicketListPagePOM(85): Is Ticket Id field Available :true
+2020-07-25 01:40:40.436 [INFO /main/isWorkGroupName]: supervisorTicketListPagePOM(91): Ticket lie in WorkGroup :Technical Support
+2020-07-25 01:40:40.596 [INFO /main/isPrioritylabel]: supervisorTicketListPagePOM(101): Is Priority field Available :true
+2020-07-25 01:40:40.881 [INFO /main/isStateLabel]: supervisorTicketListPagePOM(107): Is State field Available :true
+2020-07-25 01:40:41.314 [INFO /main/isCreationdateLabel]: supervisorTicketListPagePOM(113): Is Creation Date field Available :true
+2020-07-25 01:40:41.602 [INFO /main/isCreatedbyLabel]: supervisorTicketListPagePOM(119): Is Created By field Available :true
+2020-07-25 01:40:41.821 [INFO /main/isQueueLabel]: supervisorTicketListPagePOM(125): Is Queue field Available :true
+2020-07-25 01:40:42.050 [INFO /main/isIssueLabel]: supervisorTicketListPagePOM(131): Is Issue label Field Available :true
+2020-07-25 01:40:42.360 [INFO /main/isIssueTypeLabel]: supervisorTicketListPagePOM(137): Is Issue Type field Available :true
+2020-07-25 01:40:42.725 [INFO /main/isSubTypeLabel]: supervisorTicketListPagePOM(143): Is Issue Sub Type field Available :true
+2020-07-25 01:40:43.161 [INFO /main/isSubSubTypeLabel]: supervisorTicketListPagePOM(149): Is Issue Sub Sub Type field Available :true
+2020-07-25 01:40:43.541 [INFO /main/isCodeLabel]: supervisorTicketListPagePOM(155): Is Code field Available :true
+2020-07-25 01:40:44.646 [INFO /main/clearInputBox]: supervisorTicketListPagePOM(68): Clear Search Box
+2020-07-25 01:40:48.261 [INFO /main/clickCheckbox]: supervisorTicketListPagePOM(211): Selecting Ticket
+2020-07-25 01:40:48.508 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //*[@id="style-3"]/app-sidenav-bar/mat-sidenav-container/mat-sidenav-content/div/app-service-request/div/app-backend-supervisor/mat-sidenav-container/mat-sidenav-content/section/div[2]/div[1]/div/div[1]/input
+2020-07-25 01:40:48.704 [INFO /main/isAssignToAgent]: supervisorTicketListPagePOM(222): Is Assign to agent button: true
+2020-07-25 01:40:48.884 [INFO /main/isTransferToQueue]: supervisorTicketListPagePOM(234): Is Transfer to Queue button: true
+2020-07-25 01:40:50.159 [INFO /main/clickOnSideMenu]: SideMenuPOM(39): Clicking on Side Menu
+2020-07-25 01:40:50.324 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //mat-toolbar//button
+2020-07-25 01:40:50.324 [INFO /main/clickOnName]: SideMenuPOM(62): Clicking on User Name
+2020-07-25 01:40:50.506 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //*[@class="ellipsis"]
+2020-07-25 01:40:50.507 [INFO /main/openSupervisorDashboard]: SideMenuPOM(138): Opening Supervisor Dashboard Page
+2020-07-25 01:40:50.949 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //a[contains(text(),'Supervisor Dashboard')]
+2020-07-25 01:40:50.994 [INFO /main/isQueueLoginPage]: agentLoginPagePOM(37): Supervisor Login Page
+2020-07-25 01:40:51.142 [INFO /main/checkSkipButton]: agentLoginPagePOM(25): Checking Skip Button
+2020-07-25 01:40:51.283 [INFO /main/checkSubmitButton]: agentLoginPagePOM(31): Checking Submit Button
+2020-07-25 01:40:51.400 [INFO /main/clickSkipBtn]: agentLoginPagePOM(49): Clicking on SKIP Button
+2020-07-25 01:40:51.614 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //span[contains(text(),'Skip > >')]
+2020-07-25 01:40:53.785 [INFO /main/clickOnSideMenu]: SideMenuPOM(39): Clicking on Side Menu
+2020-07-25 01:40:53.885 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //mat-toolbar//button
+2020-07-25 01:40:53.885 [INFO /main/clickOnName]: SideMenuPOM(62): Clicking on User Name
+2020-07-25 01:40:54.020 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //*[@class="ellipsis"]
+2020-07-25 01:40:54.020 [INFO /main/openSupervisorDashboard]: SideMenuPOM(138): Opening Supervisor Dashboard Page
+2020-07-25 01:40:54.443 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //a[contains(text(),'Supervisor Dashboard')]
+2020-07-25 01:40:54.482 [INFO /main/isQueueLoginPage]: agentLoginPagePOM(37): Supervisor Login Page
+2020-07-25 01:40:54.584 [INFO /main/checkSkipButton]: agentLoginPagePOM(25): Checking Skip Button
+2020-07-25 01:40:54.677 [INFO /main/checkSubmitButton]: agentLoginPagePOM(31): Checking Submit Button
+2020-07-25 01:40:54.773 [INFO /main/clickSkipBtn]: agentLoginPagePOM(49): Clicking on SKIP Button
+2020-07-25 01:40:55.018 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //span[contains(text(),'Skip > >')]
+2020-07-25 01:40:57.370 [INFO /main/getTicketIdvalue]: supervisorTicketListPagePOM(161): Ticket Id: 240720001011
+2020-07-25 01:40:57.621 [INFO /main/getTicketIdvalue]: supervisorTicketListPagePOM(161): Ticket Id: 240720001011
+2020-07-25 01:40:57.780 [INFO /main/viewTicket]: supervisorTicketListPagePOM(265): View Ticket: 240720001011
+2020-07-25 01:40:58.205 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //div//div//div//div//div//div//div//div//div//ul[1]//li[4]//span[1]
+2020-07-25 01:40:58.854 [INFO /main/getTicketId]: ViewTicketPagePOM(23): View Ticket: 240720001011
+2020-07-25 01:40:58.977 [INFO /main/selectState]: ViewTicketPagePOM(29): Selecting State: Cancelled
+2020-07-25 01:40:59.787 [INFO /main/click]: BasePage(43): Clicking on elementBy.className: submit-btn
+2020-07-25 01:41:03.738 [INFO /main/changeTicketTypeToClosed]: supervisorTicketListPagePOM(252): Switch Ticket State Type to closed
+2020-07-25 01:41:03.990 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //*[@name="state"]
+2020-07-25 01:41:04.148 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //span[contains(text(),' Closed ')]
+2020-07-25 01:41:06.355 [INFO /main/writeTicketId]: supervisorTicketListPagePOM(62): Search Ticket Id: 240720001011
+2020-07-25 01:41:06.620 [INFO /main/writeText]: BasePage(57): Writing 240720001011to  By.xpath: //input[@type="search"]
+2020-07-25 01:41:06.620 [INFO /main/clickSearchBtn]: supervisorTicketListPagePOM(77): Clicking on Search Button
+2020-07-25 01:41:06.931 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button
+2020-07-25 01:41:08.705 [INFO /main/getTicketIdvalue]: supervisorTicketListPagePOM(161): Ticket Id: 240720001011
+2020-07-25 01:41:09.783 [INFO /main/clickOnSideMenu]: SideMenuPOM(39): Clicking on Side Menu
+2020-07-25 01:41:09.931 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //mat-toolbar//button
+2020-07-25 01:41:09.931 [INFO /main/clickOnName]: SideMenuPOM(62): Clicking on User Name
+2020-07-25 01:41:10.179 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //*[@class="ellipsis"]
+2020-07-25 01:41:10.180 [INFO /main/openSupervisorDashboard]: SideMenuPOM(138): Opening Supervisor Dashboard Page
+2020-07-25 01:41:10.683 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //a[contains(text(),'Supervisor Dashboard')]
+2020-07-25 01:41:10.798 [INFO /main/isQueueLoginPage]: agentLoginPagePOM(37): Supervisor Login Page
+2020-07-25 01:41:10.955 [INFO /main/checkSkipButton]: agentLoginPagePOM(25): Checking Skip Button
+2020-07-25 01:41:11.092 [INFO /main/checkSubmitButton]: agentLoginPagePOM(31): Checking Submit Button
+2020-07-25 01:41:11.241 [INFO /main/clickSkipBtn]: agentLoginPagePOM(49): Clicking on SKIP Button
+2020-07-25 01:41:11.488 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //span[contains(text(),'Skip > >')]
+2020-07-25 01:41:13.711 [INFO /main/changeTicketTypeToOpen]: supervisorTicketListPagePOM(258): Switch Ticket State Type to Open
+2020-07-25 01:41:13.914 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //*[@name="state"]
+2020-07-25 01:41:14.097 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //span[contains(text(),' Open ')]
+2020-07-25 01:41:15.937 [INFO /main/isTicketIdLabel]: supervisorTicketListPagePOM(85): Is Ticket Id field Available :true
+2020-07-25 01:41:16.349 [INFO /main/isWorkGroupName]: supervisorTicketListPagePOM(91): Ticket lie in WorkGroup :Technical Support
+2020-07-25 01:41:16.782 [INFO /main/isPrioritylabel]: supervisorTicketListPagePOM(101): Is Priority field Available :true
+2020-07-25 01:41:17.047 [INFO /main/isStateLabel]: supervisorTicketListPagePOM(107): Is State field Available :true
+2020-07-25 01:41:17.358 [INFO /main/isCreationdateLabel]: supervisorTicketListPagePOM(113): Is Creation Date field Available :true
+2020-07-25 01:41:17.726 [INFO /main/isCreatedbyLabel]: supervisorTicketListPagePOM(119): Is Created By field Available :true
+2020-07-25 01:41:17.991 [INFO /main/isQueueLabel]: supervisorTicketListPagePOM(125): Is Queue field Available :true
+2020-07-25 01:41:18.235 [INFO /main/isIssueLabel]: supervisorTicketListPagePOM(131): Is Issue label Field Available :true
+2020-07-25 01:41:18.503 [INFO /main/isIssueTypeLabel]: supervisorTicketListPagePOM(137): Is Issue Type field Available :true
+2020-07-25 01:41:18.763 [INFO /main/isSubTypeLabel]: supervisorTicketListPagePOM(143): Is Issue Sub Type field Available :true
+2020-07-25 01:41:19.138 [INFO /main/isSubSubTypeLabel]: supervisorTicketListPagePOM(149): Is Issue Sub Sub Type field Available :true
+2020-07-25 01:41:19.411 [INFO /main/isCodeLabel]: supervisorTicketListPagePOM(155): Is Code field Available :true
+2020-07-25 01:41:19.658 [INFO /main/clickCheckbox]: supervisorTicketListPagePOM(211): Selecting Ticket
+2020-07-25 01:41:19.808 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //*[@id="style-3"]/app-sidenav-bar/mat-sidenav-container/mat-sidenav-content/div/app-service-request/div/app-backend-supervisor/mat-sidenav-container/mat-sidenav-content/section/div[2]/div[1]/div/div[1]/input
+2020-07-25 01:41:19.902 [INFO /main/isAssignToAgent]: supervisorTicketListPagePOM(222): Is Assign to agent button: true
+2020-07-25 01:41:20.126 [INFO /main/isTransferToQueue]: supervisorTicketListPagePOM(234): Is Transfer to Queue button: true
+2020-07-25 01:41:20.257 [INFO /main/clickAssigntoAgent]: supervisorTicketListPagePOM(216): Clicking on Assign to Agent
+2020-07-25 01:41:20.586 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //li[1]//button[1]
+2020-07-25 01:41:20.587 [INFO /main/validatePageTitle]: assignToAgentPOM(31): Validating Assign to agent Page
+2020-07-25 01:41:20.809 [INFO /main/getQueueName]: assignToAgentPOM(37): Queue Name: Activations
+2020-07-25 01:41:22.128 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //div[@class="pannel-content-area ng-star-inserted"]/div[2]/div[4]/img[1]
+2020-07-25 01:41:24.074 [INFO /main/getAvailableSlot]: assignToAgentPOM(54): Agent Available Slot: 3
+2020-07-25 01:41:26.751 [INFO /main/clickOnSideMenu]: SideMenuPOM(39): Clicking on Side Menu
+2020-07-25 01:41:27.009 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //mat-toolbar//button
+2020-07-25 01:41:27.011 [INFO /main/clickOnName]: SideMenuPOM(62): Clicking on User Name
+2020-07-25 01:41:27.206 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //*[@class="ellipsis"]
+2020-07-25 01:41:27.206 [INFO /main/openSupervisorDashboard]: SideMenuPOM(138): Opening Supervisor Dashboard Page
+2020-07-25 01:41:27.795 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //a[contains(text(),'Supervisor Dashboard')]
+2020-07-25 01:41:27.835 [INFO /main/isQueueLoginPage]: agentLoginPagePOM(37): Supervisor Login Page
+2020-07-25 01:41:27.925 [INFO /main/checkSkipButton]: agentLoginPagePOM(25): Checking Skip Button
+2020-07-25 01:41:28.065 [INFO /main/checkSubmitButton]: agentLoginPagePOM(31): Checking Submit Button
+2020-07-25 01:41:28.223 [INFO /main/clickSkipBtn]: agentLoginPagePOM(49): Clicking on SKIP Button
+2020-07-25 01:41:28.473 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //span[contains(text(),'Skip > >')]
+2020-07-25 01:41:30.850 [INFO /main/clickFilter]: supervisorTicketListPagePOM(276): Selecting Filter
+2020-07-25 01:41:31.331 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //span[contains(text(),'Select Filter')]
+2020-07-25 01:41:34.215 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //div[5]//div[2]//div[1]//mat-form-field[1]//div[1]//div[1]//div[1]//mat-select[1]//div[1]//div[2]//div[1]
+2020-07-25 01:41:34.502 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //span[contains(text(),' Outbound ')]
+2020-07-25 01:41:35.081 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //button[@class="filter-button mat-button"]
+2020-07-25 01:41:36.840 [INFO /main/validateFilter]: BasePage(143): Validating Filter
+2020-07-25 01:41:36.871 [INFO /main/validateFilter]: BasePage(145): Element Text : Outbound
+2020-07-25 01:41:36.904 [INFO /main/validateFilter]: BasePage(145): Element Text : Outbound
+2020-07-25 01:41:36.942 [INFO /main/validateFilter]: BasePage(145): Element Text : Outbound
+2020-07-25 01:41:36.980 [INFO /main/validateFilter]: BasePage(145): Element Text : Outbound
+2020-07-25 01:41:37.016 [INFO /main/validateFilter]: BasePage(145): Element Text : Outbound
+2020-07-25 01:41:37.179 [INFO /main/getTicketIdvalue]: supervisorTicketListPagePOM(161): Ticket Id: 240720001008
+2020-07-25 01:41:37.363 [INFO /main/resetFilter]: supervisorTicketListPagePOM(282): Removing Filter
+2020-07-25 01:41:37.599 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //body/app-root/app-dashboard/div/app-admin-panel/div/div/app-sidenav-bar/mat-sidenav-container/mat-sidenav-content/div/app-service-request/div/app-backend-supervisor/mat-sidenav-container/mat-sidenav-content/section/div/div/button[1]
+2020-07-25 01:41:39.248 [INFO /main/writeTicketId]: supervisorTicketListPagePOM(62): Search Ticket Id: 240720001008
+2020-07-25 01:41:39.530 [INFO /main/writeText]: BasePage(57): Writing 240720001008to  By.xpath: //input[@type="search"]
+2020-07-25 01:41:39.530 [INFO /main/clickSearchBtn]: supervisorTicketListPagePOM(77): Clicking on Search Button
+2020-07-25 01:41:39.800 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button
+2020-07-25 01:41:41.463 [INFO /main/clickCheckbox]: supervisorTicketListPagePOM(211): Selecting Ticket
+2020-07-25 01:41:41.712 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //*[@id="style-3"]/app-sidenav-bar/mat-sidenav-container/mat-sidenav-content/div/app-service-request/div/app-backend-supervisor/mat-sidenav-container/mat-sidenav-content/section/div[2]/div[1]/div/div[1]/input
+2020-07-25 01:41:41.873 [INFO /main/isAssignToAgent]: supervisorTicketListPagePOM(222): Is Assign to agent button: true
+2020-07-25 01:41:42.115 [INFO /main/isTransferToQueue]: supervisorTicketListPagePOM(234): Is Transfer to Queue button: true
+2020-07-25 01:41:42.188 [INFO /main/clickTransfertoQueue]: supervisorTicketListPagePOM(228): Clicking on Transfer to Queue
+2020-07-25 01:41:42.353 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //li[2]//button[1]
+2020-07-25 01:41:42.354 [INFO /main/validatePageTitle]: transferToQueuePOM(21): Validating Transfer to Queue Title
+2020-07-25 01:41:42.448 [INFO /main/clickTransferQueue]: transferToQueuePOM(27): Clicking on Transfer to Button
+2020-07-25 01:41:43.858 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //span[contains(text(),'Corporate with CRM')]//ancestor::div[1]//following-sibling::div/img
+2020-07-25 01:41:47.085 [INFO /main/writeTicketId]: supervisorTicketListPagePOM(62): Search Ticket Id: 240720001008
+2020-07-25 01:41:47.368 [INFO /main/writeText]: BasePage(57): Writing 240720001008to  By.xpath: //input[@type="search"]
+2020-07-25 01:41:47.368 [INFO /main/clickSearchBtn]: supervisorTicketListPagePOM(77): Clicking on Search Button
+2020-07-25 01:41:48.758 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button
+2020-07-25 01:41:51.569 [INFO /main/clickOnSideMenu]: SideMenuPOM(39): Clicking on Side Menu
+2020-07-25 01:41:51.866 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //mat-toolbar//button
+2020-07-25 01:41:51.866 [INFO /main/clickOnName]: SideMenuPOM(62): Clicking on User Name
+2020-07-25 01:41:52.046 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //*[@class="ellipsis"]
+2020-07-25 01:41:52.046 [INFO /main/openSupervisorDashboard]: SideMenuPOM(138): Opening Supervisor Dashboard Page
+2020-07-25 01:41:52.598 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //a[contains(text(),'Supervisor Dashboard')]
+2020-07-25 01:41:52.662 [INFO /main/isQueueLoginPage]: agentLoginPagePOM(37): Supervisor Login Page
+2020-07-25 01:41:52.749 [INFO /main/checkSkipButton]: agentLoginPagePOM(25): Checking Skip Button
+2020-07-25 01:41:52.845 [INFO /main/checkSubmitButton]: agentLoginPagePOM(31): Checking Submit Button
+2020-07-25 01:41:52.921 [INFO /main/clickSkipBtn]: agentLoginPagePOM(49): Clicking on SKIP Button
+2020-07-25 01:41:53.088 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //span[contains(text(),'Skip > >')]
+2020-07-25 01:41:55.355 [INFO /main/changeTicketTypeToClosed]: supervisorTicketListPagePOM(252): Switch Ticket State Type to closed
+2020-07-25 01:41:55.654 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //*[@name="state"]
+2020-07-25 01:41:55.904 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //span[contains(text(),' Closed ')]
+2020-07-25 01:41:57.657 [INFO /main/getTicketIdvalue]: supervisorTicketListPagePOM(161): Ticket Id: 240720001011
+2020-07-25 01:41:57.849 [INFO /main/clickCheckbox]: supervisorTicketListPagePOM(211): Selecting Ticket
+2020-07-25 01:41:58.087 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //*[@id="style-3"]/app-sidenav-bar/mat-sidenav-container/mat-sidenav-content/div/app-service-request/div/app-backend-supervisor/mat-sidenav-container/mat-sidenav-content/section/div[2]/div[1]/div/div[1]/input
+2020-07-25 01:41:58.185 [INFO /main/isReopenBtn]: supervisorTicketListPagePOM(309): Is Reopen Button Available: true
+2020-07-25 01:41:58.345 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //li[1]//button[1]
+2020-07-25 01:41:58.591 [INFO /main/writeText]: BasePage(57): Writing Reopen Comment Using Automationto  By.xpath: //*[@placeholder="Leave a comment"]
+2020-07-25 01:41:59.022 [INFO /main/click]: BasePage(43): Clicking on elementBy.className: sbt-btn
+2020-07-25 01:42:02.620 [INFO /main/changeTicketTypeToOpen]: supervisorTicketListPagePOM(258): Switch Ticket State Type to Open
+2020-07-25 01:42:02.806 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //*[@name="state"]
+2020-07-25 01:42:03.000 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //span[contains(text(),' Open ')]
+2020-07-25 01:42:04.715 [INFO /main/writeTicketId]: supervisorTicketListPagePOM(62): Search Ticket Id: 240720001011
+2020-07-25 01:42:05.145 [INFO /main/writeText]: BasePage(57): Writing 240720001011to  By.xpath: //input[@type="search"]
+2020-07-25 01:42:05.146 [INFO /main/clickSearchBtn]: supervisorTicketListPagePOM(77): Clicking on Search Button
+2020-07-25 01:42:05.515 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button
+2020-07-25 01:42:08.189 [INFO /main/isSideMenuVisible]: SideMenuPOM(54): Checking that  Side Menu options are Visible or Not
+2020-07-25 01:42:08.375 [INFO /main/clickOnSideMenu]: SideMenuPOM(39): Clicking on Side Menu
+2020-07-25 01:42:08.617 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //mat-toolbar//button
+2020-07-25 01:42:08.617 [INFO /main/logout]: SideMenuPOM(146): Logging Out
+2020-07-25 01:42:08.821 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //span[@class="logout-icon"]
+2020-07-25 01:42:11.027 [INFO /main/isEnterAUUIDFieldVisible]: loginPagePOM(26): Checking is Enter AUUID field is Visible
+2020-07-25 01:42:11.799 [INFO /main/openBaseURL]: loginPagePOM(34): Opening URL:-http://172.23.36.206:30050/#/login
+2020-07-25 01:42:11.806 [INFO /main/enterAUUID]: loginPagePOM(38): Entering AUUID :2388006In username
+2020-07-25 01:42:11.952 [INFO /main/writeText]: BasePage(57): Writing 2388006to  By.xpath: //input[@autocomplete="new-password"]
+2020-07-25 01:42:11.952 [INFO /main/clickOnSubmitBtn]: loginPagePOM(45): Clicking on Submit button
+2020-07-25 01:42:12.097 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath:  //*[@type='submit']
+2020-07-25 01:42:12.097 [INFO /main/enterPassword]: loginPagePOM(57): Send password to Password field
+2020-07-25 01:42:12.723 [INFO /main/writeText]: BasePage(57): Writing Secure@2024to  By.name: password
+2020-07-25 01:42:12.723 [INFO /main/checkLoginButton]: loginPagePOM(63): checking login button is enabled or not
+2020-07-25 01:42:12.815 [INFO /main/clickOnVisibleButton]: loginPagePOM(75): Clicking on Visible Password Button
+2020-07-25 01:42:13.621 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath:  //*[@class='visibility-icon c-pointer abs visible-status mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted']
+2020-07-25 01:42:13.622 [INFO /main/clickOnVisibleButton]: loginPagePOM(75): Clicking on Visible Password Button
+2020-07-25 01:42:13.729 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath:  //*[@class='visibility-icon c-pointer abs visible-status mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted']
+2020-07-25 01:42:13.729 [INFO /main/clickOnLogin]: loginPagePOM(69): Clicking on Login button
+2020-07-25 01:42:13.933 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath:  //*[@type='submit']
+2020-07-25 01:42:16.674 [INFO /main/waitForHomePage]: SideMenuPOM(47): Wait for Side menu and Home Page to be loaded
+2020-07-25 01:42:16.725 [INFO /main/isSideMenuVisible]: SideMenuPOM(54): Checking that  Side Menu options are Visible or Not
+2020-07-25 01:42:17.559 [INFO /main/clickOnSideMenu]: SideMenuPOM(39): Clicking on Side Menu
+2020-07-25 01:42:17.792 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //mat-toolbar//button
+2020-07-25 01:42:17.792 [INFO /main/clickOnName]: SideMenuPOM(62): Clicking on User Name
+2020-07-25 01:42:17.965 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //*[@class="ellipsis"]
+2020-07-25 01:42:17.965 [INFO /main/openUserManagementPage]: SideMenuPOM(122): Opening User Management Page
+2020-07-25 01:42:18.349 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //a[contains(text(),'User management')]
+2020-07-25 01:42:18.359 [INFO /main/waitTillUMPageLoaded]: userManagementPOM(122): Waiting Until Profile Management Page is Loaded
+2020-07-25 01:42:18.625 [INFO /main/isSearchVisible]: userManagementPOM(128): Checking is Search Auuid Text box is Visible : true
+2020-07-25 01:42:19.370 [INFO /main/searchAuuid]: userManagementPOM(134): Writing AUUID to Search Auuid Text box : 2388006
+2020-07-25 01:42:19.546 [INFO /main/writeText]: BasePage(57): Writing 2388006to  By.xpath: //input[@placeholder="UserId/name"]
+2020-07-25 01:42:19.546 [INFO /main/clickSearchButton]: userManagementPOM(140): Clicking on Search Button
+2020-07-25 01:42:19.706 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //img[@class="filter-container__filter--form--section--search-icon"]
+2020-07-25 01:42:21.926 [INFO /main/waitUntilResultPageIsVisible]: userManagementPOM(147): Waiting Untill Result Page is Loaded
+2020-07-25 01:42:22.054 [INFO /main/resultIsVisible]: userManagementPOM(155): Checking is Search Auuid Text box is Visible : true
+2020-07-25 01:42:22.165 [INFO /main/resultIsVisible]: userManagementPOM(157): Getting AUUID from result : 2388006
+2020-07-25 01:42:22.332 [INFO /main/clickViewEditButton]: userManagementPOM(109): Clicking View/Edit button
+2020-07-25 01:42:22.633 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //div[@class="agent-list-container__agent-list--list-row--value--cta--action-button--action-label"]
+2020-07-25 01:42:22.633 [INFO /main/waitUntilEditPageIsOpen]: userManagementPOM(115): Waiting Until Edit Profile Page is Loaded
+2020-07-25 01:42:24.903 [INFO /main/openListInteractionChannels]: userManagementPOM(164): Opening Interaction Channel List
+2020-07-25 01:42:25.055 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //mat-select[starts-with(@class,'mat-select ng-tns') and @aria-multiselectable="false"]
+2020-07-25 01:42:26.224 [INFO /main/isInteractionChannelPresent]: userManagementPOM(195): finding Voice in Interaction List
+2020-07-25 01:42:26.225 [INFO /main/isInteractionChannelPresent]: userManagementPOM(199): Voice is present in interaction Channel List
+2020-07-25 01:42:28.835 [INFO /main/openListInteractionChannels]: userManagementPOM(164): Opening Interaction Channel List
+2020-07-25 01:42:29.031 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //mat-select[starts-with(@class,'mat-select ng-tns') and @aria-multiselectable="false"]
+2020-07-25 01:42:30.220 [INFO /main/isInteractionChannelPresent]: userManagementPOM(195): finding Walkin in Interaction List
+2020-07-25 01:42:30.220 [INFO /main/isInteractionChannelPresent]: userManagementPOM(199): Walkin is present in interaction Channel List
+2020-07-25 01:42:32.840 [INFO /main/openListInteractionChannels]: userManagementPOM(164): Opening Interaction Channel List
+2020-07-25 01:42:33.018 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //mat-select[starts-with(@class,'mat-select ng-tns') and @aria-multiselectable="false"]
+2020-07-25 01:42:34.199 [INFO /main/isInteractionChannelPresent]: userManagementPOM(195): finding Email in Interaction List
+2020-07-25 01:42:34.199 [INFO /main/isInteractionChannelPresent]: userManagementPOM(199): Email is present in interaction Channel List
+2020-07-25 01:42:36.907 [INFO /main/openListInteractionChannels]: userManagementPOM(164): Opening Interaction Channel List
+2020-07-25 01:42:37.081 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //mat-select[starts-with(@class,'mat-select ng-tns') and @aria-multiselectable="false"]
+2020-07-25 01:42:38.182 [INFO /main/isInteractionChannelPresent]: userManagementPOM(195): finding Social media in Interaction List
+2020-07-25 01:42:38.182 [INFO /main/isInteractionChannelPresent]: userManagementPOM(199): Social media is present in interaction Channel List
+2020-07-25 01:42:40.990 [INFO /main/openWorkgroupList]: userManagementPOM(64): Opening Work Group Flow List
+2020-07-25 01:42:42.479 [INFO /main/isWorkFlowPresent]: userManagementPOM(50): finding TSG in workflow List
+2020-07-25 01:42:42.480 [INFO /main/isWorkFlowPresent]: userManagementPOM(54): TSG is present in work flow List
+2020-07-25 01:42:45.319 [INFO /main/openWorkgroupList]: userManagementPOM(64): Opening Work Group Flow List
+2020-07-25 01:42:46.747 [INFO /main/isWorkFlowPresent]: userManagementPOM(50): finding Customer Care/ IT in workflow List
+2020-07-25 01:42:46.748 [INFO /main/isWorkFlowPresent]: userManagementPOM(54): Customer Care/ IT is present in work flow List
+2020-07-25 01:42:49.459 [INFO /main/openWorkgroupList]: userManagementPOM(64): Opening Work Group Flow List
+2020-07-25 01:42:50.883 [INFO /main/isWorkFlowPresent]: userManagementPOM(50): finding Ericsson in workflow List
+2020-07-25 01:42:50.884 [INFO /main/isWorkFlowPresent]: userManagementPOM(54): Ericsson is present in work flow List
+2020-07-25 01:42:53.645 [INFO /main/openWorkgroupList]: userManagementPOM(64): Opening Work Group Flow List
+2020-07-25 01:42:55.002 [INFO /main/isWorkFlowPresent]: userManagementPOM(50): finding Finance in workflow List
+2020-07-25 01:42:55.002 [INFO /main/isWorkFlowPresent]: userManagementPOM(54): Finance is present in work flow List
+2020-07-25 01:42:57.725 [INFO /main/openWorkgroupList]: userManagementPOM(64): Opening Work Group Flow List
+2020-07-25 01:42:59.193 [INFO /main/isWorkFlowPresent]: userManagementPOM(50): finding Shop Agent in workflow List
+2020-07-25 01:42:59.193 [INFO /main/isWorkFlowPresent]: userManagementPOM(54): Shop Agent is present in work flow List
+2020-07-25 01:43:01.839 [INFO /main/openWorkgroupList]: userManagementPOM(64): Opening Work Group Flow List
+2020-07-25 01:43:03.215 [INFO /main/isWorkFlowPresent]: userManagementPOM(50): finding Airtel Money in workflow List
+2020-07-25 01:43:03.215 [INFO /main/isWorkFlowPresent]: userManagementPOM(54): Airtel Money is present in work flow List
+2020-07-25 01:43:05.897 [INFO /main/openWorkgroupList]: userManagementPOM(64): Opening Work Group Flow List
+2020-07-25 01:43:07.336 [INFO /main/isWorkFlowPresent]: userManagementPOM(50): finding IT in workflow List
+2020-07-25 01:43:07.336 [INFO /main/isWorkFlowPresent]: userManagementPOM(54): IT is present in work flow List
+2020-07-25 01:43:10.037 [INFO /main/openWorkgroupList]: userManagementPOM(64): Opening Work Group Flow List
+2020-07-25 01:43:11.506 [INFO /main/isWorkFlowPresent]: userManagementPOM(50): finding CS Operations in workflow List
+2020-07-25 01:43:11.506 [INFO /main/isWorkFlowPresent]: userManagementPOM(54): CS Operations is present in work flow List
+2020-07-25 01:43:14.228 [INFO /main/openWorkgroupList]: userManagementPOM(64): Opening Work Group Flow List
+2020-07-25 01:43:15.715 [INFO /main/isWorkFlowPresent]: userManagementPOM(50): finding Technical Support in workflow List
+2020-07-25 01:43:15.715 [INFO /main/isWorkFlowPresent]: userManagementPOM(54): Technical Support is present in work flow List
+2020-07-25 01:43:18.471 [INFO /main/openWorkgroupList]: userManagementPOM(64): Opening Work Group Flow List
+2020-07-25 01:43:19.946 [INFO /main/isWorkFlowPresent]: userManagementPOM(50): finding Airtel Money_Operations in workflow List
+2020-07-25 01:43:19.946 [INFO /main/isWorkFlowPresent]: userManagementPOM(54): Airtel Money_Operations is present in work flow List
+2020-07-25 01:43:22.819 [INFO /main/openWorkgroupList]: userManagementPOM(64): Opening Work Group Flow List
+2020-07-25 01:43:24.152 [INFO /main/isWorkFlowPresent]: userManagementPOM(50): finding Marketing in workflow List
+2020-07-25 01:43:24.153 [INFO /main/isWorkFlowPresent]: userManagementPOM(54): Marketing is present in work flow List
+2020-07-25 01:43:26.919 [INFO /main/openLoginQueueList]: userManagementPOM(73): Opening Login QueueFlow List
+2020-07-25 01:43:28.424 [INFO /main/isLoginQueuePresent]: userManagementPOM(98): finding Corporate with CRM in Login Queue List
+2020-07-25 01:43:28.424 [INFO /main/isLoginQueuePresent]: userManagementPOM(102): Corporate with CRM is present in Login Queue List
+2020-07-25 01:43:31.136 [INFO /main/openLoginQueueList]: userManagementPOM(73): Opening Login QueueFlow List
+2020-07-25 01:43:32.659 [INFO /main/isLoginQueuePresent]: userManagementPOM(98): finding Retention in Login Queue List
+2020-07-25 01:43:32.659 [INFO /main/isLoginQueuePresent]: userManagementPOM(102): Retention is present in Login Queue List
+2020-07-25 01:43:35.447 [INFO /main/openLoginQueueList]: userManagementPOM(73): Opening Login QueueFlow List
+2020-07-25 01:43:37.232 [INFO /main/isLoginQueuePresent]: userManagementPOM(98): finding DND in Login Queue List
+2020-07-25 01:43:37.232 [INFO /main/isLoginQueuePresent]: userManagementPOM(102): DND is present in Login Queue List
+2020-07-25 01:43:39.905 [INFO /main/openLoginQueueList]: userManagementPOM(73): Opening Login QueueFlow List
+2020-07-25 01:43:41.569 [INFO /main/isLoginQueuePresent]: userManagementPOM(98): finding TSG in Login Queue List
+2020-07-25 01:43:41.570 [INFO /main/isLoginQueuePresent]: userManagementPOM(102): TSG is present in Login Queue List
+2020-07-25 01:43:44.261 [INFO /main/openLoginQueueList]: userManagementPOM(73): Opening Login QueueFlow List
+2020-07-25 01:43:46.001 [INFO /main/isLoginQueuePresent]: userManagementPOM(98): finding Social Media in Login Queue List
+2020-07-25 01:43:46.001 [INFO /main/isLoginQueuePresent]: userManagementPOM(102): Social Media is present in Login Queue List
+2020-07-25 01:43:48.759 [INFO /main/openLoginQueueList]: userManagementPOM(73): Opening Login QueueFlow List
+2020-07-25 01:43:50.477 [INFO /main/isLoginQueuePresent]: userManagementPOM(98): finding Ericsson in Login Queue List
+2020-07-25 01:43:50.477 [INFO /main/isLoginQueuePresent]: userManagementPOM(102): Ericsson is present in Login Queue List
+2020-07-25 01:43:53.282 [INFO /main/openLoginQueueList]: userManagementPOM(73): Opening Login QueueFlow List
+2020-07-25 01:43:55.009 [INFO /main/isLoginQueuePresent]: userManagementPOM(98): finding Credit Control in Login Queue List
+2020-07-25 01:43:55.009 [INFO /main/isLoginQueuePresent]: userManagementPOM(102): Credit Control is present in Login Queue List
+2020-07-25 01:43:57.757 [INFO /main/openLoginQueueList]: userManagementPOM(73): Opening Login QueueFlow List
+2020-07-25 01:43:59.239 [INFO /main/isLoginQueuePresent]: userManagementPOM(98): finding Sales in Login Queue List
+2020-07-25 01:43:59.240 [INFO /main/isLoginQueuePresent]: userManagementPOM(102): Sales is present in Login Queue List
+2020-07-25 01:44:02.013 [INFO /main/openLoginQueueList]: userManagementPOM(73): Opening Login QueueFlow List
+2020-07-25 01:44:03.821 [INFO /main/isLoginQueuePresent]: userManagementPOM(98): finding Airtel Money_CS in Login Queue List
+2020-07-25 01:44:03.821 [INFO /main/isLoginQueuePresent]: userManagementPOM(102): Airtel Money_CS is present in Login Queue List
+2020-07-25 01:44:06.565 [INFO /main/openLoginQueueList]: userManagementPOM(73): Opening Login QueueFlow List
+2020-07-25 01:44:08.196 [INFO /main/isLoginQueuePresent]: userManagementPOM(98): finding IT in Login Queue List
+2020-07-25 01:44:08.196 [INFO /main/isLoginQueuePresent]: userManagementPOM(102): IT is present in Login Queue List
+2020-07-25 01:44:10.952 [INFO /main/openLoginQueueList]: userManagementPOM(73): Opening Login QueueFlow List
+2020-07-25 01:44:12.645 [INFO /main/isLoginQueuePresent]: userManagementPOM(98): finding KYC in Login Queue List
+2020-07-25 01:44:12.645 [INFO /main/isLoginQueuePresent]: userManagementPOM(102): KYC is present in Login Queue List
+2020-07-25 01:44:15.340 [INFO /main/openLoginQueueList]: userManagementPOM(73): Opening Login QueueFlow List
+2020-07-25 01:44:16.825 [INFO /main/isLoginQueuePresent]: userManagementPOM(98): finding Billing in Login Queue List
+2020-07-25 01:44:16.825 [INFO /main/isLoginQueuePresent]: userManagementPOM(102): Billing is present in Login Queue List
+2020-07-25 01:44:19.530 [INFO /main/openLoginQueueList]: userManagementPOM(73): Opening Login QueueFlow List
+2020-07-25 01:44:21.272 [INFO /main/isLoginQueuePresent]: userManagementPOM(98): finding MNP in Login Queue List
+2020-07-25 01:44:21.272 [INFO /main/isLoginQueuePresent]: userManagementPOM(102): MNP is present in Login Queue List
+2020-07-25 01:44:24.000 [INFO /main/openLoginQueueList]: userManagementPOM(73): Opening Login QueueFlow List
+2020-07-25 01:44:25.482 [INFO /main/isLoginQueuePresent]: userManagementPOM(98): finding Corporate in Login Queue List
+2020-07-25 01:44:25.482 [INFO /main/isLoginQueuePresent]: userManagementPOM(102): Corporate is present in Login Queue List
+2020-07-25 01:44:28.216 [INFO /main/openLoginQueueList]: userManagementPOM(73): Opening Login QueueFlow List
+2020-07-25 01:44:29.865 [INFO /main/isLoginQueuePresent]: userManagementPOM(98): finding Outbound in Login Queue List
+2020-07-25 01:44:29.865 [INFO /main/isLoginQueuePresent]: userManagementPOM(102): Outbound is present in Login Queue List
+2020-07-25 01:44:32.662 [INFO /main/openLoginQueueList]: userManagementPOM(73): Opening Login QueueFlow List
+2020-07-25 01:44:34.379 [INFO /main/isLoginQueuePresent]: userManagementPOM(98): finding Activations in Login Queue List
+2020-07-25 01:44:34.380 [INFO /main/isLoginQueuePresent]: userManagementPOM(102): Activations is present in Login Queue List
+2020-07-25 01:44:37.038 [INFO /main/openLoginQueueList]: userManagementPOM(73): Opening Login QueueFlow List
+2020-07-25 01:44:38.700 [INFO /main/isLoginQueuePresent]: userManagementPOM(98): finding Airtel Money_Operations in Login Queue List
+2020-07-25 01:44:38.701 [INFO /main/isLoginQueuePresent]: userManagementPOM(102): Airtel Money_Operations is present in Login Queue List
+2020-07-25 01:44:41.367 [INFO /main/openLoginQueueList]: userManagementPOM(73): Opening Login QueueFlow List
+2020-07-25 01:44:42.986 [INFO /main/isLoginQueuePresent]: userManagementPOM(98): finding Marketing in Login Queue List
+2020-07-25 01:44:42.986 [INFO /main/isLoginQueuePresent]: userManagementPOM(102): Marketing is present in Login Queue List
+2020-07-25 01:44:45.912 [INFO /main/clickOnSideMenu]: SideMenuPOM(39): Clicking on Side Menu
+2020-07-25 01:44:46.077 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //mat-toolbar//button
+2020-07-25 01:44:46.077 [INFO /main/clickOnName]: SideMenuPOM(62): Clicking on User Name
+2020-07-25 01:44:46.255 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //*[@class="ellipsis"]
+2020-07-25 01:44:46.255 [INFO /main/openProfileManagementPage]: SideMenuPOM(130): Opening Profile Management Page
+2020-07-25 01:44:46.756 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //a[contains(text(),'Profile Management')]
+2020-07-25 01:44:46.863 [INFO /main/waitTillPMPageLoads]: profileManagementPOM(33): Waiting till the profile management page is loaded
+2020-07-25 01:44:47.571 [INFO /main/isProfileConfigFilterPresent]: profileManagementPOM(40): Checking is Config Filter is Visible on Profile Management Page : true
+2020-07-25 01:44:47.645 [INFO /main/isRoleStatusFilterPresent]: profileManagementPOM(46): Checking is Role Status Filter is Visible on Profile Management Page : true
+2020-07-25 01:44:48.230 [INFO /main/getNumberOfColumns]: profileManagementPOM(53): Getting total number of Columns available on Profile Management Page : 5
+2020-07-25 01:44:48.277 [INFO /main/getNameOfCol]: profileManagementPOM(61): Getting Name of Columns available on Profile Management Page : Role Name
+2020-07-25 01:44:48.339 [INFO /main/getNameOfCol]: profileManagementPOM(61): Getting Name of Columns available on Profile Management Page : Profile Configuration Status
+2020-07-25 01:44:48.408 [INFO /main/getNameOfCol]: profileManagementPOM(61): Getting Name of Columns available on Profile Management Page : Role Status
+2020-07-25 01:44:48.477 [INFO /main/getNameOfCol]: profileManagementPOM(61): Getting Name of Columns available on Profile Management Page : Role Description
+2020-07-25 01:44:48.542 [INFO /main/getNameOfCol]: profileManagementPOM(61): Getting Name of Columns available on Profile Management Page : Action
+2020-07-25 01:44:49.453 [INFO /main/isSideMenuVisible]: SideMenuPOM(54): Checking that  Side Menu options are Visible or Not
+2020-07-25 01:44:49.588 [INFO /main/clickOnSideMenu]: SideMenuPOM(39): Clicking on Side Menu
+2020-07-25 01:44:49.775 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //mat-toolbar//button
+2020-07-25 01:44:49.775 [INFO /main/logout]: SideMenuPOM(146): Logging Out
+2020-07-25 01:44:50.077 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //span[@class="logout-icon"]
+2020-07-25 01:44:52.278 [INFO /main/isEnterAUUIDFieldVisible]: loginPagePOM(26): Checking is Enter AUUID field is Visible
+2020-07-25 01:44:53.148 [INFO /main/openBaseURL]: loginPagePOM(34): Opening URL:-http://172.23.36.206:30050/#/login
+2020-07-25 01:44:53.155 [INFO /main/enterAUUID]: loginPagePOM(38): Entering AUUID :2394650In username
+2020-07-25 01:44:53.342 [INFO /main/writeText]: BasePage(57): Writing 2394650to  By.xpath: //input[@autocomplete="new-password"]
+2020-07-25 01:44:53.342 [INFO /main/clickOnSubmitBtn]: loginPagePOM(45): Clicking on Submit button
+2020-07-25 01:44:53.532 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath:  //*[@type='submit']
+2020-07-25 01:44:53.533 [INFO /main/enterPassword]: loginPagePOM(57): Send password to Password field
+2020-07-25 01:44:54.204 [INFO /main/writeText]: BasePage(57): Writing July@123to  By.name: password
+2020-07-25 01:44:54.205 [INFO /main/checkLoginButton]: loginPagePOM(63): checking login button is enabled or not
+2020-07-25 01:44:54.279 [INFO /main/clickOnVisibleButton]: loginPagePOM(75): Clicking on Visible Password Button
+2020-07-25 01:44:55.058 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath:  //*[@class='visibility-icon c-pointer abs visible-status mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted']
+2020-07-25 01:44:55.058 [INFO /main/clickOnVisibleButton]: loginPagePOM(75): Clicking on Visible Password Button
+2020-07-25 01:44:55.254 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath:  //*[@class='visibility-icon c-pointer abs visible-status mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted']
+2020-07-25 01:44:55.254 [INFO /main/clickOnLogin]: loginPagePOM(69): Clicking on Login button
+2020-07-25 01:44:55.484 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath:  //*[@type='submit']
+2020-07-25 01:44:58.351 [INFO /main/isQueueLoginPage]: agentLoginPagePOM(37): Supervisor Login Page
+2020-07-25 01:44:58.519 [INFO /main/checkSubmitButton]: agentLoginPagePOM(31): Checking Submit Button
+2020-07-25 01:44:58.676 [INFO /main/clickSelectQueue]: agentLoginPagePOM(43): Select Login Queue
+2020-07-25 01:44:58.974 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //span[contains(text(),'Select Sub Workgroup (Queue)')]
+2020-07-25 01:44:58.975 [INFO /main/selectAllQueue]: agentLoginPagePOM(67): Selecting ALL Queue
+2020-07-25 01:44:59.238 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //body/div/div/div/div/div/app-select-all/mat-checkbox/label/span[1]
+2020-07-25 01:44:59.239 [INFO /main/clickSubmitBtn]: agentLoginPagePOM(55): Clicking on Submit Button
+2020-07-25 01:44:59.785 [INFO /main/click]: BasePage(43): Clicking on elementBy.xpath: //span[contains(text(),'Submit')]
+2020-07-25 01:45:04.481 [INFO /main/isTicketIdLabel]: BackendAgentTicketListPOM(58): Is Ticket Id field Available :true
+2020-07-25 01:45:04.761 [INFO /main/isWorkGroupName]: BackendAgentTicketListPOM(64): Ticket lie in WorkGroup :Technical Support
+2020-07-25 01:45:05.098 [INFO /main/isPrioritylabel]: BackendAgentTicketListPOM(70): Is Priority field Available :true
+2020-07-25 01:45:05.338 [INFO /main/isStateLabel]: BackendAgentTicketListPOM(76): Is Priority field Available :true
+2020-07-25 01:45:05.614 [INFO /main/isCreationdateLabel]: BackendAgentTicketListPOM(82): Is Priority field Available :true
+2020-07-25 01:45:05.851 [INFO /main/isCreatedbyLabel]: BackendAgentTicketListPOM(87): Is Priority field Available :true
+2020-07-25 01:45:06.092 [INFO /main/isQueueLabel]: BackendAgentTicketListPOM(91): Is Priority field Available :true
+2020-07-25 01:45:06.396 [INFO /main/isIssueLabel]: BackendAgentTicketListPOM(95): Is Issue field Available :true
+2020-07-25 01:45:06.678 [INFO /main/isIssueTypeLabel]: BackendAgentTicketListPOM(99): Is Issue Type field Available :true
+2020-07-25 01:45:06.989 [INFO /main/isSubTypeLabel]: BackendAgentTicketListPOM(103): Is Issue Sub Type field Available :true
+2020-07-25 01:45:07.396 [INFO /main/isSubSubTypeLabel]: BackendAgentTicketListPOM(107): Is Issue Sub Sub Type field Available :true
+2020-07-25 01:45:07.588 [INFO /main/isCodeLabel]: BackendAgentTicketListPOM(113): Is Code field Available :true

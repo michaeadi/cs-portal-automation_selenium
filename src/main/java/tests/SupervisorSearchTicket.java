@@ -18,7 +18,7 @@ public class SupervisorSearchTicket extends BaseTest {
 
     @Test(priority = 1, description = "Supervisor SKIP Login ")
     public void agentSkipQueueLogin(Method method) throws InterruptedException {
-        ExtentTestManager.startTest(method.getName(), "Supervisor SKIP Queue Login");
+        ExtentTestManager.startTest("Supervisor SKIP Queue Login", "Supervisor SKIP Queue Login");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SideMenuPOM sideMenu = new SideMenuPOM(driver);
         sideMenu.clickOnSideMenu();
@@ -35,8 +35,8 @@ public class SupervisorSearchTicket extends BaseTest {
     }
 
     @Test(priority = 3, dependsOnMethods = "agentSkipQueueLogin", description = "Ticket Search ", dataProvider = "ticketId", dataProviderClass = DataProvider.class)
-    public void SearchTicket(Method method, nftrDataBeans Data) throws InterruptedException {
-        ExtentTestManager.startTest(method.getName(), "Search Ticket & Validate Ticket Meta Data");
+    public void SearchTicket(Method method, nftrDataBeans Data) {
+        ExtentTestManager.startTest("Search Ticket & Validate Ticket Meta Data", "Search Ticket & Validate Ticket Meta Data");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         SoftAssert softAssert = new SoftAssert();
@@ -80,8 +80,8 @@ public class SupervisorSearchTicket extends BaseTest {
     }
 
     @Test(priority = 4, description = "Validate Assign to Agent and Transfer to Queue Option", dataProviderClass = DataProvider.class)
-    public void validateCheckBox(Method method) throws InterruptedException {
-        ExtentTestManager.startTest(method.getName(), "Validate Assign to Agent and Transfer to Queue Option om Open Ticket");
+    public void validateCheckBox(Method method) {
+        ExtentTestManager.startTest("Validate Check Box", "Validate Assign to Agent and Transfer to Queue Option om Open Ticket");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         SoftAssert softAssert = new SoftAssert();

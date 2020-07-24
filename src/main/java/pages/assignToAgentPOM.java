@@ -92,8 +92,8 @@ public class assignToAgentPOM extends BasePage {
                 click(clickAssignBtn);
                 ExtentTestManager.getTest().log(LogStatus.INFO, "Click on Assign to Agent Button");
                 waitTillLoaderGetsRemoved();
-                Assert.assertEquals(getAvailableSlot(allSlot),slot-1,"Check Available Slot Decrease");
-                ExtentTestManager.getTest().log(LogStatus.INFO, "Validate Ticket is Assigned to User Successfully");
+                Assert.assertEquals(getAvailableSlot(allSlot),slot-1,"Agent Available Slot does not Decrease");
+                ExtentTestManager.getTest().log(LogStatus.INFO, "Validated Ticket is Assigned to User Successfully");
                 return;
             }
         }
