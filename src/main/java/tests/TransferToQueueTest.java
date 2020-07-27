@@ -64,7 +64,7 @@ public class TransferToQueueTest extends BaseTest {
         softAssert.assertTrue(transferQueue.validatePageTitle());
         transferQueue.clickTransferQueue(config.getProperty("transferQueue"));
         ticketListPage.waitTillLoaderGetsRemoved();
-        Thread.sleep(1000);
+        Thread.sleep(5000);
         ticketListPage.writeTicketId(ticketId);
         ticketListPage.clickSearchBtn();
         ticketListPage.waitTillLoaderGetsRemoved();

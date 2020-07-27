@@ -25,7 +25,11 @@ public class InteractionsPOM extends BasePage {
     By issueDetailHeading = By.xpath("//h3[text()=\"Issue Detail\"]");
     By continueButton = By.xpath("//button[@class=\"yes-btn mat-button\"]");
     By issueDetails = By.xpath("//input[@aria-haspopup=\"true\"]//following-sibling::span/label//mat-label");
-
+    By ticketCommentIcon=By.className("comment-text");
+    By commentBox=By.xpath("//textarea[@placeholder='Add Comment...']");
+    By addCommentBtn=By.xpath("//div[@class='footer']/button");
+    By addedComment=By.xpath("//div[@class='comment-detail ng-star-inserted']");
+    By closeCommentTab=By.xpath("//div[@class='header-close']");
 
     public InteractionsPOM(WebDriver driver) {
         super(driver);
@@ -164,6 +168,44 @@ public class InteractionsPOM extends BasePage {
         log.info("Closing Interaction Screen");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Closing Interaction Screen");
         return new customerInteractionPagePOM(driver);
+    }
+
+    public void clickCommentIcon(){
+        log.info("Waiting for Comment Ticket Icon");
+        waitVisibility(resolvedFTR);
+        log.info("Clicking Comment Icon on Ticket");
+        ExtentTestManager.getTest().log(LogStatus.INFO,"Click On Ticket Comment Icon");
+        click(ticketCommentIcon);
+    }
+
+    public void openAddedComment(){
+        waitVisibility(ticketCommentIcon);
+        log.info("Clicking Comment Icon on Ticket");
+        ExtentTestManager.getTest().log(LogStatus.INFO,"Click On Ticket Comment Icon");
+        click(ticketCommentIcon);
+    }
+
+
+    public void addInteractionComment(String text){
+        log.info("Add Interaction Ticket Comment: "+text);
+        ExtentTestManager.getTest().log(LogStatus.INFO,"Adding Interaction Ticket Comment: "+text);
+        writeText(commentBox,text);
+    }
+
+    public String getAddedComment(){
+        log.info("Validate Added comment displayed on Ticket: "+readText(addedComment));
+        ExtentTestManager.getTest().log(LogStatus.INFO,"Added Comment Validate Successfully");
+        return readText(addedComment);
+    }
+
+    public void saveInteractionComment(){
+        log.info("Clicking Save Comment Button");
+        click(addCommentBtn);
+    }
+
+    public void closeTicketCommentBox(){
+        log.info("Closing Ticket Comment Pop up");
+        click(closeCommentTab);
     }
 
 }

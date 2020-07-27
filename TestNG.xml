@@ -26,6 +26,11 @@
             <class name="tests.createInteractionTest"/>
         </classes>
     </test>
+    <test name="Add Interaction Ticket Comment">
+        <classes>
+            <class name="tests.InteractionCommentTest"/>
+        </classes>
+    </test>
     <test name="Logout Test">
         <classes>
             <class name="tests.LogoutTest"/>
