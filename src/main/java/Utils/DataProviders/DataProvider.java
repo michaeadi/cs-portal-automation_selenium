@@ -1,6 +1,7 @@
 package Utils.DataProviders;
 
 import lombok.extern.log4j.Log4j2;
+import tests.BaseTest;
 
 import java.io.File;
 import java.lang.annotation.*;
@@ -17,7 +18,7 @@ public class DataProvider {
     public Object[][] getTestData() {
         TestDataExcelToBeanDao credsExcelToBeanDao = new TestDataExcelToBeanDao();
         File Exceldir = new File("Excels");
-        File Excel = new File(Exceldir, tests.BaseTest.Opco + ".xlsx");
+        File Excel = new File(Exceldir, BaseTest.ExcelPath);
         List<TestDatabean> list =
                 credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("LoginSheet"));
         Object[][] hashMapObj = new Object[list.size()][1];
@@ -31,7 +32,7 @@ public class DataProvider {
     public Object[][] getTestData1() {
         ftrDataExcelToBeanDao credsExcelToBeanDao = new ftrDataExcelToBeanDao();
         File Exceldir = new File("Excels");
-        File Excel = new File(Exceldir, tests.BaseTest.Opco + ".xlsx");
+        File Excel = new File(Exceldir, BaseTest.ExcelPath);
         List<ftrDataBeans> list =
                 credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("FtrSheet"));
 
@@ -46,7 +47,7 @@ public class DataProvider {
     public Object[][] getTestData2() {
         nftrDataExcelToBeanDao credsExcelToBeanDao = new nftrDataExcelToBeanDao();
         File Exceldir = new File("Excels");
-        File Excel = new File(Exceldir, tests.BaseTest.Opco + ".xlsx");
+        File Excel = new File(Exceldir, BaseTest.ExcelPath);
         List<nftrDataBeans> list =
                 credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("NftrSheet"));
 
@@ -61,7 +62,7 @@ public class DataProvider {
     public Object[][] getInteractionChannelData() {
         UMDataExcelToBeanDao credsExcelToBeanDao = new UMDataExcelToBeanDao();
         File Exceldir = new File("Excels");
-        File Excel = new File(Exceldir, tests.BaseTest.Opco + ".xlsx");
+        File Excel = new File(Exceldir, BaseTest.ExcelPath);
         List<UMDataBeans> list =
                 credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("InteractionChannelSheet"));
         Object[][] hashMapObj = new Object[list.size()][1];
@@ -75,7 +76,7 @@ public class DataProvider {
     public Object[][] getLoginQueueData() {
         UMDataExcelToBeanDao credsExcelToBeanDao = new UMDataExcelToBeanDao();
         File Exceldir = new File("Excels");
-        File Excel = new File(Exceldir, tests.BaseTest.Opco + ".xlsx");
+        File Excel = new File(Exceldir, BaseTest.ExcelPath);
         List<UMDataBeans> list =
                 credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("LoginQueueSheet"));
         Object[][] hashMapObj = new Object[list.size()][1];
@@ -89,7 +90,7 @@ public class DataProvider {
     public Object[][] getWorkFlowData() {
         UMDataExcelToBeanDao credsExcelToBeanDao = new UMDataExcelToBeanDao();
         File Exceldir = new File("Excels");
-        File Excel = new File(Exceldir, tests.BaseTest.Opco + ".xlsx");
+        File Excel = new File(Exceldir, BaseTest.ExcelPath);
         List<UMDataBeans> list =
                 credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("WorkFlowsSheet"));
         Object[][] hashMapObj = new Object[list.size()][1];
@@ -103,7 +104,7 @@ public class DataProvider {
     public Object[][] getSingleRow(Method method) {
         PinnedTagDataExcelToBeanDao credsExcelToBeanDao = new PinnedTagDataExcelToBeanDao();
         File Exceldir = new File("Excels");
-        File Excel = new File(Exceldir, tests.BaseTest.Opco + ".xlsx");
+        File Excel = new File(Exceldir, BaseTest.ExcelPath);
         RowNumber rows = method.getAnnotation(RowNumber.class);
         List<PinnedtagsDataBeans> list =
                 credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("PinnedTagSheet"));
@@ -124,7 +125,7 @@ public class DataProvider {
     public Object[][] ticketStateList() {
         TicketStateToBean ticketStateToBean = new TicketStateToBean();
         File Exceldir = new File("Excels");
-        File Excel = new File(Exceldir, tests.BaseTest.Opco + ".xlsx");
+        File Excel = new File(Exceldir, BaseTest.ExcelPath);
         List<TicketStateDataBean> list =
                 ticketStateToBean.getData(Excel.getAbsolutePath(), config.getProperty("ticketState"));
         List<TicketStateDataBean> closeState = new ArrayList<TicketStateDataBean>();
@@ -147,7 +148,7 @@ public class DataProvider {
     public Object[][] getTestData5() {
         nftrDataExcelToBeanDao credsExcelToBeanDao = new nftrDataExcelToBeanDao();
         File Exceldir = new File("Excels");
-        File Excel = new File(Exceldir, tests.BaseTest.Opco + ".xlsx");
+        File Excel = new File(Exceldir, BaseTest.ExcelPath);
         List<nftrDataBeans> list =
                 credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("NftrSheet"));
         List<nftrDataBeans> finalTicketList = new ArrayList<nftrDataBeans>();
@@ -171,7 +172,7 @@ public class DataProvider {
     public Object[][] getLoginData(Method method) {
         TestDataExcelToBeanDao credsExcelToBeanDao = new TestDataExcelToBeanDao();
         File Exceldir = new File("Excels");
-        File Excel = new File(Exceldir, tests.BaseTest.Opco + ".xlsx");
+        File Excel = new File(Exceldir, BaseTest.ExcelPath);
         User rows = method.getAnnotation(User.class);
         List<TestDatabean> list =
                 credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("LoginSheet"));
@@ -197,7 +198,7 @@ public class DataProvider {
     public Object[][] isReOpenState() {
         TicketStateToBean ticketStateToBean = new TicketStateToBean();
         File Exceldir = new File("Excels");
-        File Excel = new File(Exceldir, tests.BaseTest.Opco + ".xlsx");
+        File Excel = new File(Exceldir, BaseTest.ExcelPath);
         List<TicketStateDataBean> list =
                 ticketStateToBean.getData(Excel.getAbsolutePath(), config.getProperty("ticketState"));
         List<TicketStateDataBean> reOpen = new ArrayList<TicketStateDataBean>();

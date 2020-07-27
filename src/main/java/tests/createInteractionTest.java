@@ -190,7 +190,7 @@ public class createInteractionTest extends BaseTest {
             valueToWrite = new String[]{ticket_number};
             writeToExcel objExcelFile = new writeToExcel();
             File Exceldir = new File("Excels");
-            File Excel = new File(Exceldir, tests.BaseTest.Opco + ".xlsx");
+            File Excel = new File(Exceldir, BaseTest.ExcelPath);
             objExcelFile.writeTicketNumber(Excel.getAbsolutePath(), "NFTRTickets", valueToWrite, Data.getRownum());
             System.out.println("Ticket Number Written to Excel " + valueToWrite[0]);
         } catch (NoSuchElementException e) {

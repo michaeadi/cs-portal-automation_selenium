@@ -4,6 +4,7 @@ import Utils.DataProviders.nftrDataBeans;
 import Utils.DataProviders.nftrDataExcelToBeanDao;
 import Utils.TicketStateDataBean;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.restassured.http.Header;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -19,6 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+
 public class BaseTest {
 
 
@@ -26,6 +28,9 @@ public class BaseTest {
     public static Properties config;
     public static String Opco;
     public static String Env;
+    public static String ExcelPath;
+    public static List<Header> map = new ArrayList<Header>();
+    public static String Token;
 
     public WebDriver getDriver() {
         return driver;
@@ -33,10 +38,11 @@ public class BaseTest {
 
     @BeforeSuite
     public void classLevelSetup() throws IOException {
-//        Opco = "KE";
-//        Env = "UAT";
-        Opco = System.getProperty("Opco").toUpperCase();
-        Env = System.getProperty("Env").toUpperCase();
+        Opco = "KE";
+        Env = "UAT";
+//        Opco = System.getProperty("Opco").toUpperCase();
+//        Env = System.getProperty("Env").toUpperCase();
+        ExcelPath = Opco + ".xlsx";
         config = new Properties();
 
         System.out.println("OPCO Chosen :" + Opco);
@@ -53,7 +59,7 @@ public class BaseTest {
             options.addArguments("--window-size=1792,1120");
             options.setHeadless(true);
             //Using with Options will start in Headless Browser
-            driver = new ChromeDriver(options);
+            driver = new ChromeDriver();
             driver.manage().window().maximize();
         } else if (browser.equals("firefox")) {
             WebDriverManager.firefoxdriver().setup();
