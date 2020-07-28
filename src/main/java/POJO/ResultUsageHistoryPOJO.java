@@ -2,9 +2,12 @@ package POJO;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
+//@JsonIgnoreProperties(ignoreUnknown = true)
 public class ResultUsageHistoryPOJO {
     String txnNumber;
     String dateTime;
@@ -16,22 +19,9 @@ public class ResultUsageHistoryPOJO {
     String txnAmount;
     String startBalance;
     String endBalance;
-
-    @Override
-    public String toString() {
-        return "ResultUsageHistoryPOJO{" +
-                "txnNumber='" + txnNumber + '\'' +
-                ", dateTime='" + dateTime + '\'' +
-                ", bundleName='" + bundleName + '\'' +
-                ", usedData='" + usedData + '\'' +
-                ", type='" + type + '\'' +
-                ", typeInfo='" + typeInfo + '\'' +
-                ", charges='" + charges + '\'' +
-                ", txnAmount='" + txnAmount + '\'' +
-                ", startBalance='" + startBalance + '\'' +
-                ", endBalance='" + endBalance + '\'' +
-                '}';
-    }
+    String callTo;
+    String callDuration;
+    String smsTo;
 }
 //"txnNumber": "306701202007241016311000000417789510200000000000000000000CCNnkuocc3b-0000000",
 //      "dateTime": "1595605591000",

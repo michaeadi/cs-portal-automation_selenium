@@ -7,7 +7,9 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class apiErrors {
-    String lastRecharge;
-    String mainAccountBalance;
+public class Accounts {
+String balanceDescription;
+String balance;
+long expireTime;
+
 }

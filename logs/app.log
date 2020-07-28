@@ -1,0 +1,59 @@
+2020-07-28 23:55:44.717 [INFO /main/openBaseURL]: loginPagePOM(34): Opening URL:-http://172.23.36.206:30050/#/login
+2020-07-28 23:55:44.728 [INFO /main/enterAUUID]: loginPagePOM(38): Entering AUUID :2388006In username
+2020-07-28 23:55:44.903 [INFO /main/writeText]: BasePage(61): Writing 2388006to  By.xpath: //input[@autocomplete="new-password"]
+2020-07-28 23:55:44.903 [INFO /main/clickOnSubmitBtn]: loginPagePOM(45): Clicking on Submit button
+2020-07-28 23:55:44.984 [INFO /main/click]: BasePage(47): Clicking on elementBy.xpath:  //*[@type='submit']
+2020-07-28 23:55:44.984 [INFO /main/enterPassword]: loginPagePOM(57): Send password to Password field
+2020-07-28 23:55:45.476 [INFO /main/writeText]: BasePage(61): Writing Secure@2024to  By.name: password
+2020-07-28 23:55:45.476 [INFO /main/checkLoginButton]: loginPagePOM(63): checking login button is enabled or not
+2020-07-28 23:55:45.522 [INFO /main/clickOnVisibleButton]: loginPagePOM(75): Clicking on Visible Password Button
+2020-07-28 23:55:46.517 [INFO /main/click]: BasePage(47): Clicking on elementBy.xpath:  //*[@class='visibility-icon c-pointer abs visible-status mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted']
+2020-07-28 23:55:46.517 [INFO /main/clickOnVisibleButton]: loginPagePOM(75): Clicking on Visible Password Button
+2020-07-28 23:55:46.584 [INFO /main/click]: BasePage(47): Clicking on elementBy.xpath:  //*[@class='visibility-icon c-pointer abs visible-status mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted']
+2020-07-28 23:55:46.584 [INFO /main/clickOnLogin]: loginPagePOM(69): Clicking on Login button
+2020-07-28 23:55:46.667 [INFO /main/click]: BasePage(47): Clicking on elementBy.xpath:  //*[@type='submit']
+2020-07-28 23:55:53.473 [INFO /main/waitForHomePage]: SideMenuPOM(47): Wait for Side menu and Home Page to be loaded
+2020-07-28 23:55:53.492 [INFO /main/isSideMenuVisible]: SideMenuPOM(54): Checking that  Side Menu options are Visible or Not
+2020-07-28 23:55:54.084 [INFO /main/clickOnSideMenu]: SideMenuPOM(39): Clicking on Side Menu
+2020-07-28 23:55:54.151 [INFO /main/click]: BasePage(47): Clicking on elementBy.xpath: //mat-toolbar//button
+2020-07-28 23:55:54.151 [INFO /main/isAdminSettingVisible]: SideMenuPOM(67): Checking is Admin Setting Visible or not
+2020-07-28 23:55:54.200 [INFO /main/isCustomerServicesVisible]: SideMenuPOM(73): Checking that is Customer Service Visible or Not
+2020-07-28 23:55:54.249 [INFO /main/isCaseManagementVisible]: SideMenuPOM(80): Checking that is Customer Service Visible or Not
+2020-07-28 23:55:54.297 [INFO /main/isUserManagementVisible]: SideMenuPOM(86): Checking that is User Management Option Visible or Not
+2020-07-28 23:55:54.507 [INFO /main/isProfileManagementVisible]: SideMenuPOM(93): Checking that is Profile Management Option Visible or Not
+2020-07-28 23:55:54.690 [INFO /main/clickOnName]: SideMenuPOM(62): Clicking on User Name
+2020-07-28 23:55:54.757 [INFO /main/click]: BasePage(47): Clicking on elementBy.xpath: //*[@class="ellipsis"]
+2020-07-28 23:55:54.757 [INFO /main/isCustomerInteractionVisible]: SideMenuPOM(100): Checking that is Customer Interaction Option Visible or Not
+2020-07-28 23:55:54.939 [INFO /main/isSupervisorDashboardVisible]: SideMenuPOM(107): Checking that is Supervisor DashBoard Option Visible or Not
+2020-07-28 23:55:55.156 [INFO /main/clickOnSideMenu]: SideMenuPOM(39): Clicking on Side Menu
+2020-07-28 23:55:55.216 [INFO /main/click]: BasePage(47): Clicking on elementBy.xpath: //mat-toolbar//button
+2020-07-28 23:55:55.838 [INFO /main/clickOnSideMenu]: SideMenuPOM(39): Clicking on Side Menu
+2020-07-28 23:55:55.895 [INFO /main/click]: BasePage(47): Clicking on elementBy.xpath: //mat-toolbar//button
+2020-07-28 23:55:55.896 [INFO /main/clickOnName]: SideMenuPOM(62): Clicking on User Name
+2020-07-28 23:55:55.963 [INFO /main/click]: BasePage(47): Clicking on elementBy.xpath: //*[@class="ellipsis"]
+2020-07-28 23:55:55.963 [INFO /main/openCustomerInteractionPage]: SideMenuPOM(114): Opening Customer Interaction Page
+2020-07-28 23:55:56.195 [INFO /main/click]: BasePage(47): Clicking on elementBy.xpath: //a[contains(text(),'Customer Interaction')]
+2020-07-28 23:55:56.198 [INFO /main/enterNumber]: customerInteractionsSearchPOM(20): Entering Number in search box :782945113
+2020-07-28 23:55:56.307 [INFO /main/writeText]: BasePage(61): Writing 782945113to  By.xpath: //input[@name="search"]
+2020-07-28 23:55:56.308 [INFO /main/clickOnSearch]: customerInteractionsSearchPOM(26): Clicking on Search Button
+2020-07-28 23:55:56.380 [INFO /main/click]: BasePage(47): Clicking on elementBy.xpath: //button[@class="search-icon-btn"]
+2020-07-28 23:55:59.852 [INFO /main/isPageLoaded]: customerInteractionPagePOM(95): Checking that is Customer Interaction Page is loaded : true
+2020-07-28 23:56:00.461 [INFO /main/isAirtelMoneyTransactionWidgetIsVisible]: AMTransactionsWidgetPOM(21): Checking is Airtel Money Widget Visible
+2020-07-28 23:56:00.485 [INFO /main/isAirtelMoneyWidgetDatePickerVisible]: AMTransactionsWidgetPOM(27): Checking Airtel Money Widget Date Picker Visibility 
+2020-07-28 23:56:02.078 [INFO /main/gettingAirtelMoneyBalance]: AMTransactionsWidgetPOM(39): Getting Airtel Money Balance from Widget
+2020-07-28 23:56:02.120 [INFO /main/gettingAirtelMoneyCurrency]: AMTransactionsWidgetPOM(33): Getting Airtel Money Currency  from Widget
+2020-07-28 23:56:02.768 [INFO /main/isCurrentBalanceWidgetVisible]: CurrentBalanceWidgetPOM(34): Checking is Your Current Balance Widget Visible
+2020-07-28 23:56:06.209 [INFO /main/gettingMainAccountBalance]: CurrentBalanceWidgetPOM(46): Getting Main Account Balance from Your Current Balance Widget
+2020-07-28 23:56:06.254 [INFO /main/gettingCurrentBalanceCurrency]: CurrentBalanceWidgetPOM(40): Getting Currency from Your Current Balance Widget
+2020-07-28 23:56:06.292 [INFO /main/gettingLastRechargeAmount]: CurrentBalanceWidgetPOM(28): Getting Main Account Balance from Your Current Balance Widget
+2020-07-28 23:56:06.331 [INFO /main/getLastRechargeDateTime]: CurrentBalanceWidgetPOM(88): Getting Last Recharge Date from Your Current Balance Widget
+2020-07-28 23:56:06.370 [INFO /main/getVoiceExpiryDate]: CurrentBalanceWidgetPOM(52): Getting Remaining Voice Expiry Date from Your Current Balance Widget
+2020-07-28 23:56:06.409 [INFO /main/getDataExpiryDate]: CurrentBalanceWidgetPOM(58): Getting Remaining Data Expiry Date from Your Current Balance Widget
+2020-07-28 23:56:06.448 [INFO /main/getSmsExpiryDate]: CurrentBalanceWidgetPOM(64): Getting Remaining SMS Expiry Date from Your Current Balance Widget
+2020-07-28 23:56:06.487 [INFO /main/getVoiceBalance]: CurrentBalanceWidgetPOM(70): Getting Remaining Voice Balance from Your Current Balance Widget
+2020-07-28 23:56:06.525 [INFO /main/getDataBalance]: CurrentBalanceWidgetPOM(76): Getting Remaining Data Balance from Your Current Balance Widget
+2020-07-28 23:56:06.564 [INFO /main/getSmsBalance]: CurrentBalanceWidgetPOM(82): Getting Remaining SMS Balance from Your Current Balance Widget
+2020-07-28 23:56:07.178 [INFO /main/isUsageHistoryWidgetIsVisible]: UsageHistoryWidgetPOM(60): Checking is Usage History Widget Visible
+2020-07-28 23:56:07.199 [INFO /main/isUsageHistoryDatePickerVisible]: UsageHistoryWidgetPOM(66): Checking Usage History Widget Date Picker Visibility 
+2020-07-28 23:56:09.408 [INFO /main/isUsageHistoryWidgetIsVisible]: RechargeHistoryWidgetPOM(60): Checking is Usage History Widget Visible
+2020-07-28 23:56:09.428 [INFO /main/isUsageHistoryDatePickerVisible]: RechargeHistoryWidgetPOM(66): Checking Recharge History Widget Date Picker Visibility 

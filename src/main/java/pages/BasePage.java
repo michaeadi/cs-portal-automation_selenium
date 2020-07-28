@@ -1,6 +1,7 @@
 package pages;
 
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.time.DateUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -11,8 +12,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import tests.BaseTest;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -106,6 +111,19 @@ public class BasePage {
     void waitAndSwitchFrame(String Frame) {
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(Frame));
 
+    }
+
+    public String getDateFromEpoch(long Epoch, String pattern) {
+        Date date = new Date(Epoch);
+        DateFormat format = new SimpleDateFormat(pattern);
+        return format.format(date);
+    }
+
+    public String getTimeFromEpoch(long Epoch, String pattern) {
+        Date date = new Date(Epoch);
+        Date nearestMinute = DateUtils.round(date, Calendar.MINUTE);
+        DateFormat format1 = new SimpleDateFormat(pattern);
+        return format1.format(nearestMinute);
     }
 
     //Switch to parent frame

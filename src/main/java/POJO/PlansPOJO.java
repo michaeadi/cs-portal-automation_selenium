@@ -9,6 +9,6 @@ public class PlansPOJO {
 
     String status;
     int statusCode;
-    resultPOJO result;
+    PlansResultPOJO result;
     apiErrors apiErrors;
 }
