@@ -66,6 +66,11 @@
             <class name="tests.SupervisorReopenTicketTest"/>
         </classes>
     </test>
+    <test name="Ticket Escalation">
+        <classes>
+            <class name="tests.TicketEscalationTest"/>
+        </classes>
+    </test>
     <test name="Logout Supervisor Test">
         <classes>
             <class name="tests.LogoutTest"/>
@@ -94,6 +99,11 @@
     <test name="LOGIN TO BACKEND AGENT">
         <classes>
             <class name="tests.BackendAgentLoginTest"/>
+        </classes>
+    </test>
+    <test name="Logout Test from Backend agent">
+        <classes>
+            <class name="tests.LogoutTest"/>
         </classes>
     </test>
 </suite>
