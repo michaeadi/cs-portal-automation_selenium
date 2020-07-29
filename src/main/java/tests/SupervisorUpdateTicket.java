@@ -18,8 +18,8 @@ import java.lang.reflect.Method;
 public class SupervisorUpdateTicket extends BaseTest {
 
     @Test(priority = 1, description = "Supervisor SKIP Login ", dataProvider = "getTestData", dataProviderClass = DataProvider.class)
-    public void agentSkipQueueLogin(Method method, TestDatabean Data) throws InterruptedException {
-        ExtentTestManager.startTest(method.getName(), "Supervisor SKIP Queue Login");
+    public void agentSkipQueueLogin(Method method, TestDatabean Data) {
+        ExtentTestManager.startTest("Supervisor SKIP Queue Login", "Supervisor SKIP Queue Login");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SideMenuPOM sideMenu = new SideMenuPOM(driver);
         sideMenu.clickOnSideMenu();
@@ -40,7 +40,7 @@ public class SupervisorUpdateTicket extends BaseTest {
     public void updateTicket(Method method, TicketStateDataBean ticketState) throws InterruptedException {
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         ViewTicketPagePOM viewTicket = new ViewTicketPagePOM(driver);
-        ExtentTestManager.startTest(method.getName(), "Update Ticket");
+        ExtentTestManager.startTest("Update Ticket", "Update Ticket");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SoftAssert softAssert = new SoftAssert();
 //        ticketListPage.writeTicketId(ticketId);
@@ -56,9 +56,9 @@ public class SupervisorUpdateTicket extends BaseTest {
         ticketListPage.writeTicketId(ticketId);
         ticketListPage.clickSearchBtn();
         ticketListPage.waitTillLoaderGetsRemoved();
-        softAssert.assertEquals(ticketId, ticketListPage.getTicketIdvalue(),"Verify the searched Ticket fetched Successfully");
+        softAssert.assertEquals(ticketListPage.getTicketIdvalue(),ticketId,"Search Ticket Does not Fetched Correctly");
         //softAssert.assertEquals(ticketState.getTicketStateName(),ticketListPage.getStatevalue());
-        softAssert.assertEquals(selectedState, ticketListPage.getStatevalue(),"Verify the Update Ticket Successfully");
+        softAssert.assertEquals(ticketListPage.getStatevalue(),selectedState,"Ticket Does not Updated to Selected State");
         softAssert.assertAll();
     }
 }
