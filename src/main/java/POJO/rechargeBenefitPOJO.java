@@ -1,16 +1,19 @@
 package POJO;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 public class rechargeBenefitPOJO {
+    //    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonProperty("SMS")
     String SMS;
+    @JsonProperty("DATA")
     String DATA;
+    @JsonProperty("VOICE")
     String VOICE;
 }

@@ -30,14 +30,14 @@ public class AMTransactionsWidgetPOM extends BasePage {
     }
 
     public String gettingAirtelMoneyCurrency() {
-        log.info("Getting Airtel Money Currency  from Widget");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Airtel Money Currency from Widget");
+        log.info("Getting Airtel Money Currency  from Widget : " + readText(airtelMoneyCurrency));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Airtel Money Currency from Widget : " + readText(airtelMoneyCurrency));
         return readText(airtelMoneyCurrency);
     }
 
     public int gettingAirtelMoneyBalance() {
-        log.info("Getting Airtel Money Balance from Widget");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Airtel Money Balance from Widget");
+        log.info("Getting Airtel Money Balance from Widget : " + readText(airtelMoneyBalance));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Airtel Money Balance from Widget : " + readText(airtelMoneyBalance));
         return Integer.parseInt(readText(airtelMoneyBalance));
     }
 }

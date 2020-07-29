@@ -5,6 +5,7 @@ import Utils.DataProviders.nftrDataExcelToBeanDao;
 import Utils.TicketStateDataBean;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import io.restassured.http.Header;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+@Log4j2
 public class BaseTest {
 
 
@@ -31,6 +33,7 @@ public class BaseTest {
     public static String ExcelPath;
     public static List<Header> map = new ArrayList<Header>();
     public static String Token;
+    public static String baseUrl;
 
     public WebDriver getDriver() {
         return driver;
@@ -44,13 +47,25 @@ public class BaseTest {
 //        Env = System.getProperty("Env").toUpperCase();
         ExcelPath = Opco + ".xlsx";
         config = new Properties();
-
         System.out.println("OPCO Chosen :" + Opco);
         System.out.println("Environment Chosen : " + Env);
         FileInputStream fis = null;
         fis = new FileInputStream(System.getProperty("user.dir") + "/src/main/resources/" + Opco + "-config.properties");
         config.load(fis);
+        baseUrl = config.getProperty(Env + "-APIBase");
         String browser = config.getProperty("browser");
+        System.out.println(baseUrl);
+//        PrintStream lo = new PrintStream();
+//        RestAssured.filters(new RequestLoggingFilter(lo), new ResponseLoggingFilter(lo));
+//        PrintStream logStream = IoBuilder.forLogger(LogManager.getLogger("system.out"))
+//                .setLevel(Level.INFO)
+//                .buildPrintStream()
+//                .forLogger(log).buildPrintStream();
+//        RestAssuredConfig restAssuredConfig = new RestAssuredConfig();
+//        LogConfig logConfig = restAssuredConfig.getLogConfig();
+//        logConfig
+//                .defaultStream(Log4j2)
+//                .enablePrettyPrinting(true);
         if (browser.equals("chrome")) {
             WebDriverManager.chromedriver().setup();
             ChromeOptions options = new ChromeOptions();
@@ -72,11 +87,11 @@ public class BaseTest {
     public void methodLevelSetup() {
 
     }
+
     @AfterSuite
     public void teardown() {
 //        driver.quit();
     }
-
 
 
 //    @DataProvider(name = "ticketId")
@@ -105,7 +120,7 @@ public class BaseTest {
         }
         Object[][] hashMapObj = new Object[1][1];
 
-            hashMapObj[0][0] = closeState.get(0);
+        hashMapObj[0][0] = closeState.get(0);
 
         return hashMapObj;
     }
@@ -133,7 +148,6 @@ public class BaseTest {
         }
         return hashMapObj;
     }
-
 
 
 }

@@ -33,36 +33,46 @@ public class RechargeHistoryWidgetPOM extends BasePage {
 
     public String getRechargeHistoryCharges(int RowNumber) {
         WebElement rowElement = as.get(RowNumber);
+        log.info("Getting Recharge History Charges from Row Number " + RowNumber + " : " + rowElement.findElement(charges).getText());
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Recharge History Charges from Row Number " + RowNumber + " : " + rowElement.findElement(charges).getText());
         return rowElement.findElement(charges).getText();
     }
 
     public String getRechargeHistoryDateTime(int RowNumber) {
         WebElement rowElement = as.get(RowNumber);
+        log.info("Getting Recharge History Date Time from Row Number " + RowNumber + " : " + rowElement.findElement(dateTime).getText());
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Recharge History Date Time from Row Number " + RowNumber + " : " + rowElement.findElement(dateTime).getText());
         return rowElement.findElement(dateTime).getText();
     }
 
     public String getRechargeHistoryBundleName(int RowNumber) {
         WebElement rowElement = as.get(RowNumber);
+        log.info("Getting Recharge History Bundle Name from Row Number " + RowNumber + " : " + rowElement.findElement(bundleName).getText());
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Recharge History Bundle Name from Row Number " + RowNumber + " : " + rowElement.findElement(bundleName).getText());
         return rowElement.findElement(bundleName).getText();
     }
 
     public String getRechargeHistoryBenefits(int RowNumber) {
         WebElement rowElement = as.get(RowNumber);
+        log.info("Getting Recharge History Benefits from Row Number " + RowNumber + " : " + rowElement.findElement(benefit).getText());
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Recharge History Benefits from Row Number " + RowNumber + " : " + rowElement.findElement(benefit).getText());
         return rowElement.findElement(benefit).getText();
     }
 
     public String getRechargeHistoryStatus(int RowNumber) {
         WebElement rowElement = as.get(RowNumber);
+        log.info("Getting Recharge History Status from Row Number " + RowNumber + " : " + rowElement.findElement(status).getText());
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Recharge History Status from Row Number " + RowNumber + " : " + rowElement.findElement(status).getText());
         return rowElement.findElement(status).getText();
     }
 
-    public boolean isUsageHistoryWidgetIsVisible() {
-        log.info("Checking is Usage History Widget Visible");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is Usage History Widget Visible");
+    public boolean isRechargeHistoryWidgetIsVisible() {
+        log.info("Checking is Recharge History Widget Visible");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is Recharge History Widget Visible");
         return isElementVisible(rechargeHistoryHeader);
     }
 
-    public boolean isUsageHistoryDatePickerVisible() {
+    public boolean isRechargeHistoryDatePickerVisible() {
         log.info("Checking Recharge History Widget Date Picker Visibility ");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Checking Recharge HistoryWidget Date Picker Visibility ");
         return checkState(rechargeHistoryDatePicker);

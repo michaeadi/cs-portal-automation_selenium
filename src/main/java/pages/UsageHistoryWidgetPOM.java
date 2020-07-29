@@ -33,26 +33,36 @@ public class UsageHistoryWidgetPOM extends BasePage {
 
     public String getHistoryEndBalance(int RowNumber) {
         WebElement rowElement = as.get(RowNumber);
+        log.info("Getting Usage History End Balacne  from Row Number " +  RowNumber + " : " + rowElement.findElement(endBalance).getText());
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Usage History End Balance from Row Number " +  RowNumber + " : " + rowElement.findElement(endBalance).getText());
         return rowElement.findElement(endBalance).getText();
     }
 
     public String getHistoryStartBalance(int RowNumber) {
         WebElement rowElement = as.get(RowNumber);
+        log.info("Getting Usage History Start Balance from Row Number " +  RowNumber + " : " + rowElement.findElement(startBalance).getText());
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Usage History Start Balance from Row Number " +  RowNumber + " : " + rowElement.findElement(startBalance).getText());
         return rowElement.findElement(startBalance).getText();
     }
 
     public String getHistoryDateTime(int RowNumber) {
         WebElement rowElement = as.get(RowNumber);
+        log.info("Getting Usage History Date Time from Row Number " +  RowNumber + " : " + rowElement.findElement(dateTime).getText());
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Usage History Date Time from Row Number " +  RowNumber + " : " + rowElement.findElement(dateTime).getText());
         return rowElement.findElement(dateTime).getText();
     }
 
     public String getHistoryCharge(int RowNumber) {
         WebElement rowElement = as.get(RowNumber);
+        log.info("Getting Usage History Charge from Row Number " +  RowNumber + " : " + rowElement.findElement(charge).getText());
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Usage History Charge from Row Number " +  RowNumber + " : " + rowElement.findElement(charge).getText());
         return rowElement.findElement(charge).getText();
     }
 
     public String getHistoryType(int RowNumber) {
         WebElement rowElement = as.get(RowNumber);
+        log.info("Getting Usage History Type from Row Number " +  RowNumber + " : " + rowElement.findElement(type).getText());
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Usage History Type from Row Number " +  RowNumber + " : " + rowElement.findElement(type).getText());
         return rowElement.findElement(type).getText();
     }
 

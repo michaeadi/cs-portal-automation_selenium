@@ -19,14 +19,41 @@ public class CurrentBalanceWidgetPOM extends BasePage {
     By voiceExpiryDate = By.xpath("//span[@class=\"card__content--bottom--plan ng-star-inserted\"][1]/p[@class=\"ng-star-inserted\"][2]");
     By dataExpiryDate = By.xpath("//span[@class=\"card__content--bottom--plan ng-star-inserted\"][2]/p[@class=\"ng-star-inserted\"][2]");
     By smsExpiryDate = By.xpath("//span[@class=\"card__content--bottom--plan ng-star-inserted\"][3]/p[@class=\"ng-star-inserted\"][2]");
+    By menu = By.xpath("//span[contains(text(),\"Your Current Plan \")]//parent::div/span[@class=\"card__card-header--menu ng-star-inserted\"]/img");
+    By daDetails = By.xpath("//button[text()=\"DA Details\"]");
 
     public CurrentBalanceWidgetPOM(WebDriver driver) {
         super(driver);
     }
 
+    public boolean isCurrentBalanceWidgetMenuVisible() {
+        log.info("Checking is Your Current Balance Widget's Menu Visible");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is Your Current Balance Widget'Menu Visible");
+        return isElementVisible(menu);
+    }
+
+    public boolean isDADetailsMenuVisible() {
+        log.info("Checking is DA Details Visible");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is DA Details Visible");
+        return checkState(daDetails);
+    }
+
+    public DADetailsPOM openingDADetails() {
+        log.info("Clicking Current Balance Widget's Menu Visible");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking Current Balance Widget'Menu Visible");
+        click(daDetails);
+        return new DADetailsPOM(driver);
+    }
+
+    public void clickingCurrentBalanceWidgetMenu() {
+        log.info("Clicking Current Balance Widget's Menu Visible");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking Current Balance Widget'Menu Visible");
+        click(menu);
+    }
+
     public String gettingLastRechargeAmount() {
-        log.info("Getting Main Account Balance from Your Current Balance Widget");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Main Account Balance from Your Current Balance Widget");
+        log.info("Getting Main Account Balance from Your Current Balance Widget : " + readText(currentBalanceLastRecharge).replaceAll("\\s", "").replaceAll("[A-Z,a-z]", ""));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Main Account Balance from Your Current Balance Widget : " + readText(currentBalanceLastRecharge).replaceAll("\\s", "").replaceAll("[A-Z,a-z]", ""));
         return readText(currentBalanceLastRecharge).replaceAll("\\s", "").replaceAll("[A-Z,a-z]", "");
     }
 
@@ -37,56 +64,58 @@ public class CurrentBalanceWidgetPOM extends BasePage {
     }
 
     public String gettingCurrentBalanceCurrency() {
-        log.info("Getting Currency from Your Current Balance Widget");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Currency from Your Current Balance Widget");
+        log.info("Getting Currency from Your Current Balance Widget : " + readText(currentBalanceCurrency).trim());
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Currency from Your Current Balance Widget : " + readText(currentBalanceCurrency).trim());
         return readText(currentBalanceCurrency);
     }
 
     public String gettingMainAccountBalance() {
-        log.info("Getting Main Account Balance from Your Current Balance Widget");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Main Account Balance from Your Current Balance Widget");
+        log.info("Getting Main Account Balance from Your Current Balance Widget : " + readText(mainAccountBalance).replaceAll("\\s", "").replaceAll("[A-Z,a-z]", ""))
+        ;
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Main Account Balance from Your Current Balance Widget : " + readText(mainAccountBalance).replaceAll("\\s", "").replaceAll("[A-Z,a-z]", ""))
+        ;
         return readText(mainAccountBalance).replaceAll("\\s", "").replaceAll("[A-Z,a-z]", "");
     }
 
     public String getVoiceExpiryDate() {
-        log.info("Getting Remaining Voice Expiry Date from Your Current Balance Widget");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Remaining Voice Expiry Date from Your Current Balance Widget");
+        log.info("Getting Remaining Voice Expiry Date from Your Current Balance Widget : " + readText(voiceExpiryDate).trim());
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Remaining Voice Expiry Date from Your Current Balance Widget : " + readText(voiceExpiryDate).trim());
         return readText(voiceExpiryDate).trim();
     }
 
     public String getDataExpiryDate() {
-        log.info("Getting Remaining Data Expiry Date from Your Current Balance Widget");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Remaining Data Expiry Date from Your Current Balance Widget");
+        log.info("Getting Remaining Data Expiry Date from Your Current Balance Widget : " + readText(dataExpiryDate).trim());
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Remaining Data Expiry Date from Your Current Balance Widget : " + readText(dataExpiryDate).trim());
         return readText(dataExpiryDate).trim();
     }
 
     public String getSmsExpiryDate() {
-        log.info("Getting Remaining SMS Expiry Date from Your Current Balance Widget");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Remaining SMS Expiry Date from Your Current Balance Widget");
+        log.info("Getting Remaining SMS Expiry Date from Your Current Balance Widget : " + readText(smsExpiryDate).trim());
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Remaining SMS Expiry Date from Your Current Balance Widget : " + readText(smsExpiryDate).trim());
         return readText(smsExpiryDate).trim();
     }
 
     public String getVoiceBalance() {
-        log.info("Getting Remaining Voice Balance from Your Current Balance Widget");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Remaining Voice Balance from Your Current Balance Widget");
+        log.info("Getting Remaining Voice Balance from Your Current Balance Widget : " + readText(voiceBalance).trim());
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Remaining Voice Balance from Your Current Balance Widget : " + readText(voiceBalance).trim());
         return readText(voiceBalance).trim();
     }
 
     public String getDataBalance() {
-        log.info("Getting Remaining Data Balance from Your Current Balance Widget");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Remaining Data Balance from Your Current Balance Widget");
+        log.info("Getting Remaining Data Balance from Your Current Balance Widget : " + readText(dataBalance).trim());
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Remaining Data Balance from Your Current Balance Widget : " + readText(dataBalance).trim());
         return readText(dataBalance).trim();
     }
 
     public String getSmsBalance() {
-        log.info("Getting Remaining SMS Balance from Your Current Balance Widget");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Remaining SMS Balance from Your Current Balance Widget");
+        log.info("Getting Remaining SMS Balance from Your Current Balance Widget : " + readText(smsBalance).trim());
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Remaining SMS Balance from Your Current Balance Widget : " + readText(smsBalance).trim());
         return readText(smsBalance).trim();
     }
 
     public String getLastRechargeDateTime() {
-        log.info("Getting Last Recharge Date from Your Current Balance Widget");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Last Recharge Date from Your Current Balance Widget");
+        log.info("Getting Last Recharge Date from Your Current Balance Widget : " + readText(lastRechargeDateTime).trim());
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Last Recharge Date from Your Current Balance Widget : " + readText(lastRechargeDateTime).trim());
         return readText(lastRechargeDateTime).trim();
     }
 }

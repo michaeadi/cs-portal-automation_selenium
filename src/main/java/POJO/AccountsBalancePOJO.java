@@ -4,13 +4,16 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@ToString
-@Getter
-@Setter
-public class PlansPOJO {
+import java.util.ArrayList;
 
+@Getter
+@ToString
+@Setter
+public class AccountsBalancePOJO {
+    String message;
     String status;
     int statusCode;
-    PlansResultPOJO result;
+    int totalCount;
+    ArrayList<balanceResult> result;
     apiErrors apiErrors;
 }

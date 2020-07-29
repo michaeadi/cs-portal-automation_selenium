@@ -114,7 +114,7 @@ public class BasePage {
     }
 
     public String getDateFromEpoch(long Epoch, String pattern) {
-        Date date = new Date(Epoch);
+            Date date = new Date(Epoch);
         DateFormat format = new SimpleDateFormat(pattern);
         return format.format(date);
     }
