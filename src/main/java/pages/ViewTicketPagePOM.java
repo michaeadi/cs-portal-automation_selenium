@@ -5,21 +5,28 @@ import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 @Log4j2
 public class ViewTicketPagePOM extends BasePage {
 
-    By ticketIdValue = By.xpath("//*[@id=\"style-3\"]/app-sidenav-bar/mat-sidenav-container/mat-sidenav-content/div/app-service-request/div/app-supervisor-ticket-details/mat-sidenav-container/mat-sidenav-content/div[2]/div/div/table/tbody/tr[1]/td[1]/span[2]");
+    By ticketIdValue = By.xpath("//span[@class='blueColor ellipsis']");
     By selectState = By.xpath("//body//div//div//div//div//div//div//div//div//div//div//div//div//div//div//div//div//div[2]");
     By submitAs = By.className("submit-btn");
-    By submitBtn = By.xpath("//*[@id=\"cdk-accordion-child-0\"]/div/div/div/div[2]/div[2]/div/form[1]/button/span/span[2]");
-    By stateName = By.xpath("/html/body/app-root/app-dashboard/div[2]/app-admin-panel/div/div/app-sidenav-bar/mat-sidenav-container/mat-sidenav-content/div/app-service-request/div/app-supervisor-ticket-details/mat-sidenav-container/mat-sidenav-content/div[2]/div/mat-accordion[2]/mat-expansion-panel/div/div/div/div/div[2]/div[2]/div/form[1]/button/span/span[2]");
+    By submitBtn = By.xpath("//button[@class='sbmit-colse-btn']");
+    By stateName = By.xpath("//button[@class='sbmit-colse-btn']//span[2]");
+    By addCommentBox=By.xpath("//textarea[@name='commentEntered']");
+    By addBtn=By.xpath("//span[contains(text(),'ADD')]");
+    By allComment=By.xpath("//table[@class='ng-star-inserted']");
 
     public ViewTicketPagePOM(WebDriver driver) {
         super(driver);
     }
 
     public String getTicketId() {
+
         log.info("View Ticket: " + readText(ticketIdValue));
         ExtentTestManager.getTest().log(LogStatus.INFO, "View Ticket: " + readText(ticketIdValue));
         return readText(ticketIdValue);
@@ -33,6 +40,8 @@ public class ViewTicketPagePOM extends BasePage {
         scrollToViewElement(submitAs);
         String selectedState = readText(stateName);
         //click(selectState);
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Selecting State: " + selectedState);
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Submit as " + selectedState);
         click(submitAs);
         return selectedState;
     }
@@ -42,4 +51,35 @@ public class ViewTicketPagePOM extends BasePage {
         log.info("State: " + readText(stateName));
         return readText(stateName);
     }
+
+    public void validateAddedComment(String text){
+        try{
+        List<WebElement> list=driver.findElements(allComment);
+        for(int i=1;i<=list.size();i++){
+            By comment=By.xpath("//table[@class='ng-star-inserted']//tbody//tr["+i+"]//p");
+            if(readText(comment).trim().equalsIgnoreCase(text)) {
+                log.info("Latest comment found on ticket: " + comment);
+                ExtentTestManager.getTest().log(LogStatus.PASS,"Newly added comment found on ticket");
+                return ;
+            }
+        }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addComment(String comment) throws InterruptedException {
+        log.info("Adding comment on ticket:"+comment);
+        scrollToViewElement(addCommentBox);
+        writeText(addCommentBox,comment);
+        ExtentTestManager.getTest().log(LogStatus.INFO,"Adding comment on ticket:"+comment);
+    }
+
+    public void clickAddButton() throws InterruptedException {
+        log.info("Clicking on Add comment button");
+        scrollToViewElement(addBtn);
+        click(addBtn);
+        ExtentTestManager.getTest().log(LogStatus.INFO,"Clicking on Add comment button");
+    }
+
 }

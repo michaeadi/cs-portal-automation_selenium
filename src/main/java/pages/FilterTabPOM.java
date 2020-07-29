@@ -1,17 +1,24 @@
 package pages;
 
+import Utils.DataProviders.DataProvider;
+import Utils.DataProviders.PriorityDataBean;
+import Utils.DataProviders.TicketStateDataBean;
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
+@Log4j2
 public class FilterTabPOM extends BasePage {
 
     By applyFilter = By.xpath("//button[@class=\"filter-button mat-button\"]");
+    By closeFilter=By.xpath("//span[@class='close-button']");
 
     //Filter By Created date
     By filterCreatedByLabel=By.xpath("//div[@class=\"mat-drawer-inner-container\"]//span[contains(text(),'Filter By Created Date')]");
@@ -144,5 +151,111 @@ public class FilterTabPOM extends BasePage {
             e.printStackTrace();
         }
     }
+
+    public boolean isCreatedByFilter(){
+        log.info("Is filter by created date available :"+checkState(filterCreatedByLabel));
+        ExtentTestManager.getTest().log(LogStatus.PASS,"Is filter by created date available :"+checkState(filterCreatedByLabel));
+        return checkState(filterCreatedByLabel);
+    }
+
+    public boolean isSlaDueDateFilter(){
+        log.info("Is filter by SLA due date available :"+checkState(sLADueDateLabel));
+        ExtentTestManager.getTest().log(LogStatus.PASS,"Is filter by SLA due date available :"+checkState(sLADueDateLabel));
+        return checkState(sLADueDateLabel);
+    }
+
+    public boolean isCategoryFilter(){
+        log.info("Is filter by issue category available :"+checkState(categoryLabel));
+        ExtentTestManager.getTest().log(LogStatus.PASS,"Is filter by issue category available :"+checkState(categoryLabel));
+        return checkState(categoryLabel);
+    }
+
+    public boolean isQueueFilter(){
+        try {
+            log.info("Is filter by Queue available :" + checkState(queueLabel));
+            ExtentTestManager.getTest().log(LogStatus.PASS, "Is filter by Queue available :" + checkState(queueLabel));
+            return checkState(queueLabel);
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+
+    public boolean isTicketByAssigneeFilter(){
+        try {
+            log.info("Is filter by ticket assignee name available :"+checkState(ticketAssigneeLabel));
+            ExtentTestManager.getTest().log(LogStatus.PASS,"Is filter by ticket assignee name available :"+checkState(ticketAssigneeLabel));
+            return checkState(ticketAssigneeLabel);
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+
+    public boolean isEscalatedLevelFilter(){
+        try {
+            log.info("Is filter by ticket escalation level available :"+checkState(escalatedLevelLabel));
+            ExtentTestManager.getTest().log(LogStatus.PASS,"Is filter by ticket escalation level available :"+checkState(escalatedLevelLabel));
+            return checkState(escalatedLevelLabel);
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+
+    public boolean isStateFilter(){
+        try {
+            log.info("Is filter by ticket state available :"+checkState(stateLabel));
+            ExtentTestManager.getTest().log(LogStatus.PASS,"Is filter by ticket state available :"+checkState(stateLabel));
+            return checkState(stateLabel);
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+
+    public boolean isPriorityFilter(){
+        try {
+            log.info("Is filter by ticket priority available :"+checkState(priorityLabel));
+            ExtentTestManager.getTest().log(LogStatus.PASS,"Is filter by ticket priority available :"+checkState(priorityLabel));
+            return checkState(priorityLabel);
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+
+    public boolean validateOpenStateFilter(){
+        DataProvider d=new DataProvider();
+        List<TicketStateDataBean> open=d.getState("open");
+        try{
+        for(TicketStateDataBean state:open){
+            By check=By.xpath("//span[@class='mat-checkbox-label'][contains(text(),'"+state.getTicketStateName()+"')]");
+            log.info("Filter by state name "+state.getTicketStateName()+" is: "+checkState(check));
+            ExtentTestManager.getTest().log(LogStatus.PASS,"Is filter by state name "+state.getTicketStateName()+" available: "+checkState(check));
+        }
+        return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean validatePriorityFilter(){
+        DataProvider d=new DataProvider();
+        List<PriorityDataBean> priorityList=d.getPriority();
+        try{
+            for(PriorityDataBean state:priorityList){
+                By check=By.xpath("//span[@class='mat-checkbox-label'][contains(text(),'"+state.getTicketPriority()+"')]");
+                log.info("Filter by state name "+state.getTicketPriority()+" is: "+checkState(check));
+                ExtentTestManager.getTest().log(LogStatus.PASS,"Is filter by state name "+state.getTicketPriority()+" available: "+checkState(check));
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public void clickCloseFilter(){
+        log.info("Closing Filter Tab");
+        click(closeFilter);
+    }
+
 
 }

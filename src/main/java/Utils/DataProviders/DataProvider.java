@@ -246,5 +246,36 @@ public class DataProvider {
         return hashMapObj;
     }
 
+    //helper method
+    public List<TicketStateDataBean> getState(String stateName) {
+        TicketStateToBean ticketStateToBean = new TicketStateToBean();
+        File Exceldir = new File("Excels");
+        File Excel = new File(Exceldir, tests.BaseTest.Opco + ".xlsx");
+        List<TicketStateDataBean> list =
+                ticketStateToBean.getData(Excel.getAbsolutePath(), config.getProperty("ticketState"));
+        List<TicketStateDataBean> closeState = new ArrayList<TicketStateDataBean>();
+        List<TicketStateDataBean> openState = new ArrayList<TicketStateDataBean>();
+        for (TicketStateDataBean state : list) {
+            if (state.getInternalState().equals(config.getProperty("closeState"))) {
+                closeState.add(state);
+            } else {
+                openState.add(state);
+            }
+        }
+       if(stateName.equalsIgnoreCase("open")){
+           return openState;
+       }else {
+           return closeState;
+       }
+    }
 
+    //helper method
+    public List<PriorityDataBean> getPriority(){
+        PriorityDataExcelToBeanDao priorityDataBean = new PriorityDataExcelToBeanDao();
+        File Exceldir = new File("Excels");
+        File Excel = new File(Exceldir, tests.BaseTest.Opco + ".xlsx");
+        List<PriorityDataBean> list =
+                priorityDataBean.getData(Excel.getAbsolutePath(), config.getProperty("priority"));
+        return list;
+    }
 }
