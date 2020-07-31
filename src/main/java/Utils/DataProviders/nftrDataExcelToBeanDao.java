@@ -117,18 +117,27 @@ public class nftrDataExcelToBeanDao {
                                 nftrDataBeans.setIssueFieldMandatory5(cellValue);
                                 break;
                             case 20:
-                                nftrDataBeans.setWorkgroup(cellValue);
+                                nftrDataBeans.setIssueFieldLabel6(cellValue);
                                 break;
                             case 21:
-                                nftrDataBeans.setSLA(cellValue);
+                                nftrDataBeans.setIssueFieldType6(cellValue);
                                 break;
                             case 22:
-                                nftrDataBeans.setAssignmentQueue(cellValue);
+                                nftrDataBeans.setIssueFieldMandatory6(cellValue);
                                 break;
                             case 23:
-                                nftrDataBeans.setPriority(cellValue);
+                                nftrDataBeans.setWorkgroup(cellValue);
                                 break;
                             case 24:
+                                nftrDataBeans.setSLA(cellValue);
+                                break;
+                            case 25:
+                                nftrDataBeans.setAssignmentQueue(cellValue);
+                                break;
+                            case 26:
+                                nftrDataBeans.setPriority(cellValue);
+                                break;
+                            case 27:
                                 nftrDataBeans.setTicketNumber(cellValue);
                                 break;
 
