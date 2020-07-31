@@ -175,6 +175,21 @@ public class createInteractionTest extends BaseTest {
                 }
                 interactionsPOM.setDateFieldAvailable(dtf.format(now));
             }
+            if (Data.getIssueFieldType6().equalsIgnoreCase("Text Box")) {
+                System.out.println(interactionsPOM.getIssueDetailLabel("6"));
+                softAssert.assertEquals(interactionsPOM.getIssueDetailLabel("6").replace("*", "").trim(), (Data.getIssueFieldLabel6().replace("*", "").trim()));
+                if (Data.getIssueFieldMandatory6().equalsIgnoreCase("Yes")) {
+                    softAssert.assertTrue(interactionsPOM.getIssueDetailLabel("6").contains("*"), Data.getIssueFieldLabel6() + "Label is mandatory but doesn't contain '*' ");
+                }
+                interactionsPOM.setIssueDetailInput("6", "012345");
+            } else if (Data.getIssueFieldType6().equalsIgnoreCase("Date")) {
+                System.out.println(interactionsPOM.isDateFieldAvailable());
+                softAssert.assertEquals(interactionsPOM.isDateFieldAvailable(), (Data.getIssueFieldLabel6()));
+                if (Data.getIssueFieldMandatory6().equalsIgnoreCase("Yes")) {
+                    softAssert.assertTrue(interactionsPOM.isDateFieldAvailable().contains("*"), Data.getIssueFieldLabel6() + "Label is mandatory but doesn't contain '*' ");
+                }
+                interactionsPOM.setDateFieldAvailable(dtf.format(now));
+            }
             interactionsPOM.sendComment("Automation Suite");
             Assert.assertTrue(interactionsPOM.isSaveEnable());
             interactionsPOM.clickOnSave();
@@ -206,6 +221,8 @@ public class createInteractionTest extends BaseTest {
                 getScreenshotAs(OutputType.BASE64);
         ExtentTestManager.getTest().log(LogStatus.INFO, ExtentTestManager.getTest().addBase64ScreenShot(base64Screenshot));
         softAssert.assertAll();
+
+
     }
 
 
