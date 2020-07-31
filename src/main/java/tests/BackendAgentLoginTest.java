@@ -32,9 +32,9 @@ public class BackendAgentLoginTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 2, description = "SideMenu ")
-    public void agentQueueLogin(Method method) throws InterruptedException {
-        ExtentTestManager.startTest(method.getName(), "Opening Base URL");
+    @Test(priority = 2, description = "Backend Agent Queue Login Page")
+    public void agentQueueLogin(Method method) {
+        ExtentTestManager.startTest("Backend Agent Login into Queue", "Backend Agent Login into Queue");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SoftAssert softAssert = new SoftAssert();
         agentLoginPagePOM AgentLoginPagePOM = new agentLoginPagePOM(driver);
@@ -45,13 +45,13 @@ public class BackendAgentLoginTest extends BaseTest {
         AgentLoginPagePOM.selectAllQueue();
         AgentLoginPagePOM.clickSubmitBtn();
         AgentLoginPagePOM.waitTillLoaderGetsRemoved();
-        Assert.assertEquals(driver.getTitle(), config.getProperty("backendAgentTicketListPage"));
+        Assert.assertEquals(driver.getTitle(), config.getProperty("backendAgentTicketListPage"),"Backend Agent Does not Redirect to Ticket List Page");
         softAssert.assertAll();
     }
 
     @Test(priority = 3, dependsOnMethods = "agentQueueLogin", description = "Ticket Search ")
-    public void ValidateTicket(Method method) throws InterruptedException {
-        ExtentTestManager.startTest(method.getName(), "Validate the Backend Agent View Ticket List page");
+    public void ValidateTicket(Method method) {
+        ExtentTestManager.startTest("Backend Agent Validate Ticket List Page", "Validate the Backend Agent View Ticket List page");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SoftAssert softAssert = new SoftAssert();
         BackendAgentTicketListPOM ticketListPage = new BackendAgentTicketListPOM(driver);
@@ -60,18 +60,18 @@ public class BackendAgentLoginTest extends BaseTest {
         ticketListPage.clickedSearchBtn();
         Thread.sleep(20000);
         Assert.assertEquals(ticketListPage.getTicketIdvalue(),ticketId);*/
-        softAssert.assertTrue(ticketListPage.isTicketIdLabel());
-        softAssert.assertTrue(ticketListPage.isWorkGroupName());
-        softAssert.assertTrue(ticketListPage.isPrioritylabel());
-        softAssert.assertTrue(ticketListPage.isStateLabel());
-        softAssert.assertTrue(ticketListPage.isCreationdateLabel());
-        softAssert.assertTrue(ticketListPage.isCreatedbyLabel());
-        softAssert.assertTrue(ticketListPage.isQueueLabel());
-        softAssert.assertTrue(ticketListPage.isIssueLabel());
-        softAssert.assertTrue(ticketListPage.isIssueTypeLabel());
-        softAssert.assertTrue(ticketListPage.isSubTypeLabel());
-        softAssert.assertTrue(ticketListPage.isSubSubTypeLabel());
-        softAssert.assertTrue(ticketListPage.isCodeLabel());
+        softAssert.assertTrue(ticketListPage.isTicketIdLabel(),"Ticket Meta Data Does Not Have Ticket Id");
+        softAssert.assertTrue(ticketListPage.isWorkGroupName(),"Ticket Meta Data Does Not  Have Workgroup");
+        softAssert.assertTrue(ticketListPage.isPrioritylabel(),"Ticket Meta Data  Does Not  Have Priority");
+        softAssert.assertTrue(ticketListPage.isStateLabel(),"Ticket Meta Data Does Not  Have State");
+        softAssert.assertTrue(ticketListPage.isCreationdateLabel(),"Ticket Meta Data Does Not Have Creation Date");
+        softAssert.assertTrue(ticketListPage.isCreatedbyLabel(),"Ticket Meta Data Does Not Have Created By");
+        softAssert.assertTrue(ticketListPage.isQueueLabel(),"Ticket Meta Data Have Does Not Queue");
+        softAssert.assertTrue(ticketListPage.isIssueLabel(),"Ticket Meta Data Have Does Not Issue");
+        softAssert.assertTrue(ticketListPage.isIssueTypeLabel(),"Ticket Meta Data Does Not Have Issue Type");
+        softAssert.assertTrue(ticketListPage.isSubTypeLabel(),"Ticket Meta Data Does Not Have Issue Sub Type");
+        softAssert.assertTrue(ticketListPage.isSubSubTypeLabel(),"Ticket Meta Data Does Not Have Issue Sub Sub Type");
+        softAssert.assertTrue(ticketListPage.isCodeLabel(),"Ticket Meta Data Does Not Have Code");
         softAssert.assertAll();
     }
 }

@@ -36,6 +36,7 @@ public class BasePage {
     }
 
     public void waitTillLoaderGetsRemoved() {
+        //waitVisibility(loader);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
     }
 

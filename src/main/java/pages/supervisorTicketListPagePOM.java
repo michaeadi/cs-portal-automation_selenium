@@ -5,6 +5,7 @@ import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
@@ -48,11 +49,12 @@ public class supervisorTicketListPagePOM extends BasePage {
     By closedTicketType = By.xpath("//span[contains(text(),' Closed ')]");
     By selectFilterBtn = By.xpath("//span[contains(text(),'Select Filter')]");
     By pageRefreshBtn = By.xpath("//span[contains(text(),'Refresh ')]");
-    By noResultFound = By.xpath("//*[@id=\"mat-error-25\"]/p/img");
+    By noResultFound = By.xpath("//body//mat-error//p[1]");
     By resetFilterButton = By.xpath("//body/app-root/app-dashboard/div/app-admin-panel/div/div/app-sidenav-bar/mat-sidenav-container/mat-sidenav-content/div/app-service-request/div/app-backend-supervisor/mat-sidenav-container/mat-sidenav-content/section/div/div/button[1]");
     By reOpenBtn = By.xpath("//li[1]//button[1]");
     By reOpenBox = By.xpath("//*[@placeholder=\"Leave a comment\"]");
     By submitReopenComment = By.className("sbt-btn");
+    By escalationSymbol=By.className("//span[@class='escalation']");
 
     public supervisorTicketListPagePOM(WebDriver driver) {
         super(driver);
@@ -268,7 +270,14 @@ public class supervisorTicketListPagePOM extends BasePage {
 
     public boolean noTicketFound() {
         log.info("No ticket found");
-        return checkState(noResultFound);
+        try{
+           boolean status= checkState(noResultFound);
+           ExtentTestManager.getTest().log(LogStatus.ERROR,"No Ticket Found");
+           return status;
+        } catch (NoSuchElementException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 
@@ -315,5 +324,11 @@ public class supervisorTicketListPagePOM extends BasePage {
         By agentAUUID = By.xpath("//span[contains(text(),'" + auuid + "')]");
         return checkState(agentAUUID);
     }
+
+    public By getEscalationSymbol(){
+        return escalationSymbol;
+    }
+
+
 
 }

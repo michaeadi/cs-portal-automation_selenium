@@ -231,4 +231,21 @@ public class DataProvider {
     public @interface User {
         String UserType() default "";
     }
+
+    @org.testng.annotations.DataProvider
+    public Object[][] interactionComment() {
+        nftrDataExcelToBeanDao credsExcelToBeanDao = new nftrDataExcelToBeanDao();
+        File Exceldir = new File("Excels");
+        File Excel = new File(Exceldir, tests.BaseTest.Opco + ".xlsx");
+        List<nftrDataBeans> list =
+                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("NftrSheet"));
+
+        Object[][] hashMapObj = new Object[1][1];
+
+            hashMapObj[0][0] = list.get(0);
+
+        return hashMapObj;
+    }
+
+
 }

@@ -16,8 +16,8 @@ import java.lang.reflect.Method;
 public class SupervisorReopenTicketTest extends BaseTest {
 
     @Test(priority = 1, description = "Supervisor SKIP Login ", enabled = true)
-    public void agentSkipQueueLogin(Method method) throws InterruptedException {
-        ExtentTestManager.startTest(method.getName(), "Supervisor SKIP Queue Login Test");
+    public void agentSkipQueueLogin(Method method) {
+        ExtentTestManager.startTest("Supervisor SKIP Queue Login Test", "Supervisor SKIP Queue Login Test");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SideMenuPOM sideMenu = new SideMenuPOM(driver);
         sideMenu.clickOnSideMenu();
@@ -25,9 +25,9 @@ public class SupervisorReopenTicketTest extends BaseTest {
         agentLoginPagePOM AgentLoginPagePOM = sideMenu.openSupervisorDashboard();
         SoftAssert softAssert = new SoftAssert();
         AgentLoginPagePOM.waitTillLoaderGetsRemoved();
-        softAssert.assertTrue(AgentLoginPagePOM.isQueueLoginPage(), "Agent redirect to Queue Login Page");
-        softAssert.assertTrue(AgentLoginPagePOM.checkSkipButton(), "Checking Queue Login Page have SKIP button");
-        softAssert.assertTrue(AgentLoginPagePOM.checkSubmitButton(), "Checking Queue Login Page have Submit button");
+        softAssert.assertTrue(AgentLoginPagePOM.isQueueLoginPage(),"Agent Does not redirect to Queue Login Page");
+        softAssert.assertTrue(AgentLoginPagePOM.checkSkipButton(),"Queue Login Page Does Not have SKIP button");
+        softAssert.assertTrue(AgentLoginPagePOM.checkSubmitButton(),"Queue Login Page have Does Not Submit button");
         AgentLoginPagePOM.clickSkipBtn();
         AgentLoginPagePOM.waitTillLoaderGetsRemoved();
         Assert.assertEquals(driver.getTitle(), config.getProperty("supervisorTicketListPage"));
@@ -55,7 +55,7 @@ public class SupervisorReopenTicketTest extends BaseTest {
         ticketListPage.writeTicketId(ticketId);
         ticketListPage.clickSearchBtn();
         ticketListPage.waitTillLoaderGetsRemoved();
-        Assert.assertEquals(reopen.getTicketStateName().toLowerCase().trim(), ticketListPage.getStatevalue().toLowerCase().trim(), "Validate Ticket Reopen in Correct state");
+        Assert.assertEquals(ticketListPage.getStatevalue().toLowerCase().trim(),reopen.getTicketStateName().toLowerCase().trim(), "Ticket Does Not Reopen in Correct state");
         softAssert.assertAll();
     }
 }
