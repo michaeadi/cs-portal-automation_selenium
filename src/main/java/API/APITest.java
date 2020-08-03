@@ -14,7 +14,6 @@ import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.SpecificationQuerier;
 import lombok.extern.log4j.Log4j2;
 import org.testng.annotations.Test;
-import tests.BaseTest;
 
 import static Utils.ExtentReports.ExtentTestManager.getTest;
 import static Utils.ExtentReports.ExtentTestManager.startTest;
@@ -22,7 +21,7 @@ import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 
 @Log4j2
-public class APITest extends BaseTest {
+public class APITest extends tests.BaseTest {
     @DataProvider.User(UserType = "API")
     @Test(dataProvider = "loginData", dataProviderClass = DataProvider.class, priority = 1)
     public void loginAPI(TestDatabean Data) throws JsonProcessingException {
@@ -193,6 +192,26 @@ public class APITest extends BaseTest {
         return response.as(RechargeHistoryPOJO.class);
     }
 
+    public BundleRechargeHistoryPOJO bundleRechargeHistoryAPITest(String msisdn) {
+        getTest().log(LogStatus.INFO, "Using Recharge History API for Getting expected data for UI");
+        baseURI = baseUrl;
+        Headers headers = new Headers(map);
+        RequestSpecification request = given()
+                .headers(headers)
+                .body("{\"msisdn\":\"" + msisdn + "\",\"pageSize\":5,\"pageNumber\":1,\"startDate\":null,\"endDate\":null}")
+                .contentType("application/json");
+        QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
+        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
+        log.info("Request Headers are  : " + queryable.getHeaders());
+        getTest().log(LogStatus.INFO, "Request Body is  : " + queryable.getBody().toString());
+        log.info("Request Body is  : " + queryable.getBody().toString());
+        Response response = request.post("/cs-gsm-service/v1/bundle/recharge/history");
+        System.out.println(response.asString());
+        log.info("Response : " + response.asString());
+
+        return response.as(BundleRechargeHistoryPOJO.class);
+    }
+
     public void transactionHistoryAPITest(String msisdn) {
         getTest().log(LogStatus.INFO, "Using Transaction History API for Getting expected data for UI");
         baseURI = baseUrl;
@@ -230,4 +249,24 @@ public class APITest extends BaseTest {
         return response.as(AccountsBalancePOJO.class);
 
     }
+
+    public UsageHistoryPOJO usageHistoryTest(String msisdn, String Type) {
+        getTest().log(LogStatus.INFO, "Using Usage History API for Getting expected data for UI");
+        baseURI = baseUrl;
+        Headers headers = new Headers(map);
+        RequestSpecification request = given()
+                .headers(headers)
+                .body("{\"msisdn\":\"" + msisdn + "\",\"pageSize\":5,\"pageNumber\":1,\"startDate\":null,\"endDate\":null,\"type\":\"" + Type + "\"}")
+                .contentType("application/json");
+        QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
+        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
+        log.info("Request Headers are  : " + queryable.getHeaders());
+        getTest().log(LogStatus.INFO, "Request Body is  : " + queryable.getBody().toString());
+        log.info("Request Body is  : " + queryable.getBody().toString());
+        Response response = request.post("/cs-gsm-service/v1/usage/history");
+        System.out.println(response.asString());
+        log.info("Response : " + response.asString());
+        return response.as(UsageHistoryPOJO.class);
+    }
+
 }

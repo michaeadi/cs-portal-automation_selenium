@@ -161,11 +161,11 @@ public class customerInteractionTest extends BaseTest {
         UsageHistoryPOJO usageHistoryAPI = api.usageHistoryTest(Data.getCustomerNumber());
         int size = usageHistoryWidget.getNumberOfRows();
         for (int i = 0; i < size; i++) {
-            softAssert.assertEquals(usageHistoryWidget.getHistoryType(i), usageHistoryAPI.getResult().get(i).getType(), "Usage History Type is not As received in API for row number " + i + 1);
-            softAssert.assertEquals(usageHistoryWidget.getHistoryCharge(i), usageHistoryAPI.getResult().get(i).getCharges(), "Usage History Charge is not As received in API for row number " + i + 1);
-            softAssert.assertEquals(usageHistoryWidget.getHistoryDateTime(i), usageHistoryWidget.getDateFromEpoch(Long.parseLong(usageHistoryAPI.getResult().get(i).getDateTime()), "dd-MMM-yyy HH:mm"), "Usage History Date Time is not As received in API for row number " + i + 1);
-            softAssert.assertEquals(usageHistoryWidget.getHistoryStartBalance(i), usageHistoryAPI.getResult().get(i).getStartBalance(), "Usage History Start Balance  is not As received in API for row number " + i + 1);
-            softAssert.assertEquals(usageHistoryWidget.getHistoryEndBalance(i), usageHistoryAPI.getResult().get(i).getEndBalance(), "Usage History End Balance is not As received in API for row number " + i + 1);
+            softAssert.assertEquals(usageHistoryWidget.getHistoryType(i), usageHistoryAPI.getResult().get(i).getType(), "Usage History Type is not As received in API for row number " +i);
+            softAssert.assertEquals(usageHistoryWidget.getHistoryCharge(i), usageHistoryAPI.getResult().get(i).getCharges(), "Usage History Charge is not As received in API for row number " +i);
+            softAssert.assertEquals(usageHistoryWidget.getHistoryDateTime(i), usageHistoryWidget.getDateFromEpoch(Long.parseLong(usageHistoryAPI.getResult().get(i).getDateTime()), "dd-MMM-yyy HH:mm"), "Usage History Date Time is not As received in API for row number " +i);
+            softAssert.assertEquals(usageHistoryWidget.getHistoryStartBalance(i), usageHistoryAPI.getResult().get(i).getStartBalance(), "Usage History Start Balance  is not As received in API for row number " +i);
+            softAssert.assertEquals(usageHistoryWidget.getHistoryEndBalance(i), usageHistoryAPI.getResult().get(i).getEndBalance(), "Usage History End Balance is not As received in API for row number " +i);
         }
         softAssert.assertAll();
     }
@@ -182,11 +182,11 @@ public class customerInteractionTest extends BaseTest {
         RechargeHistoryPOJO rechargeHistoryAPI = api.rechargeHistoryAPITest(Data.getCustomerNumber());
         int size = rechargeHistoryWidget.getNumberOfRows();
         for (int i = 0; i < size; i++) {
-            softAssert.assertEquals(rechargeHistoryWidget.getRechargeHistoryCharges(i), rechargeHistoryAPI.getResult().get(i).getCharges(), "Recharge History Charge is not As received in API for row number " + i + 1);
-            softAssert.assertEquals(rechargeHistoryWidget.getRechargeHistoryDateTime(i), rechargeHistoryWidget.getDateFromEpoch(Long.parseLong(rechargeHistoryAPI.getResult().get(i).getDateTime()), "dd-MMM-yyyy HH:mm"), "Recharge History Date Time is not As received in API for row number " + i + 1);
-            softAssert.assertEquals(rechargeHistoryWidget.getRechargeHistoryBundleName(i), rechargeHistoryAPI.getResult().get(i).getBundleName(), "Recharge History Bundle Name is not As received in API for row number " + i + 1);
-            softAssert.assertEquals(rechargeHistoryWidget.getRechargeHistoryBenefits(i).replace("-", "null"), rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getVOICE() + " | " + rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getDATA() + " | " + rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getSMS(), "Recharge History Benefits is not As received in API for row number " + i + 1);
-            softAssert.assertEquals(rechargeHistoryWidget.getRechargeHistoryStatus(i), rechargeHistoryAPI.getResult().get(i).getStatus(), "Recharge History Status is not As received in API for row number " + i + 1);
+            softAssert.assertEquals(rechargeHistoryWidget.getRechargeHistoryCharges(i), rechargeHistoryAPI.getResult().get(i).getCharges(), "Recharge History Charge is not As received in API for row number " +i);
+            softAssert.assertEquals(rechargeHistoryWidget.getRechargeHistoryDateTime(i), rechargeHistoryWidget.getDateFromEpoch(Long.parseLong(rechargeHistoryAPI.getResult().get(i).getDateTime()), "dd-MMM-yyyy HH:mm"), "Recharge History Date Time is not As received in API for row number " +i);
+            softAssert.assertEquals(rechargeHistoryWidget.getRechargeHistoryBundleName(i), rechargeHistoryAPI.getResult().get(i).getBundleName(), "Recharge History Bundle Name is not As received in API for row number " +i);
+            softAssert.assertEquals(rechargeHistoryWidget.getRechargeHistoryBenefits(i).replace("-", "null"), rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getVOICE() + " | " + rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getDATA() + " | " + rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getSMS(), "Recharge History Benefits is not As received in API for row number " +i);
+            softAssert.assertEquals(rechargeHistoryWidget.getRechargeHistoryStatus(i), rechargeHistoryAPI.getResult().get(i).getStatus(), "Recharge History Status is not As received in API for row number " +i);
         }
         softAssert.assertAll();
     }
@@ -207,13 +207,81 @@ public class customerInteractionTest extends BaseTest {
         AccountsBalancePOJO accountsBalanceAPI = api.balanceAPITest(Data.getCustomerNumber());
         int size = daDetails.getNumbersOfRows();
         for (int i = 0; i < size; i++) {
-            softAssert.assertEquals(daDetails.getDAId(i), accountsBalanceAPI.getResult().get(i).getDaId(), "DA ID is not as received in API");
-            softAssert.assertEquals(daDetails.getDADescription(i), accountsBalanceAPI.getResult().get(i).getDaDesc(), "DA Description is not as received in API");
-            softAssert.assertEquals(daDetails.getBundleType(i).replace("-", "null") + " ", accountsBalanceAPI.getResult().get(i).getBundleType() + " ", "DA Bundle Type is not as received in API");
-            softAssert.assertEquals(daDetails.getDADateTime(i), daDetails.getTimeFromEpoch(accountsBalanceAPI.getResult().get(i).getExpiryDate(), "dd-MMM-yyyy HH:mm"), "DA Date Time is not as received in API");
-            softAssert.assertEquals(daDetails.getDABalance(i), accountsBalanceAPI.getResult().get(i).getCurrentDaBalance(), "DA Current Balance is not as received in API");
+            softAssert.assertEquals(daDetails.getDAId(i), accountsBalanceAPI.getResult().get(i).getDaId(), "DA ID is not as received in API on row " +i);
+            softAssert.assertEquals(daDetails.getDADescription(i), accountsBalanceAPI.getResult().get(i).getDaDesc(), "DA Description is not as received in API on row " +i);
+            softAssert.assertEquals(daDetails.getBundleType(i).replace("-", "null") + " ", accountsBalanceAPI.getResult().get(i).getBundleType() + " ", "DA Bundle Type is not as received in API on row " +i);
+            softAssert.assertEquals(daDetails.getDADateTime(i), daDetails.getTimeFromEpoch(accountsBalanceAPI.getResult().get(i).getExpiryDate(), "dd-MMM-yyyy HH:mm"), "DA Date Time is not as received in API on row " +i);
+            softAssert.assertEquals(daDetails.getDABalance(i), accountsBalanceAPI.getResult().get(i).getCurrentDaBalance(), "DA Current Balance is not as received in API on row " +i);
         }
         daDetails.openingCustomerInteractionDashboard();
+        softAssert.assertAll();
+    }
+
+    @DataProvider.User(UserType = "ALL")
+    @Test(priority = 8, description = "Validating Usage History's more Menu", dataProvider = "loginData", dataProviderClass = DataProvider.class)
+    public void usageHistoryMenuTest(TestDatabean Data) {
+        ExtentTestManager.startTest("Validating Usage History's more Menu", "Validating Usage History's more Menu of User :" + Data.getCustomerNumber());
+        UsageHistoryWidgetPOM usageHistory = new UsageHistoryWidgetPOM(driver);
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(usageHistory.isUsageHistoryWidgetMenuVisible(), "Usage History's MENU is not visible ");
+        usageHistory.clickingUsageHistoryWidgetMenu();
+        softAssert.assertTrue(usageHistory.isMoreMenuVisible(), "More Option in  MENU is not visible ");
+        MoreUsageHistoryPOM moreUsageHistory = usageHistory.openingMoreDetails();
+        moreUsageHistory.waitTillLoaderGetsRemoved();
+        softAssert.assertTrue(moreUsageHistory.isSMSDatePickerVisible(), "SMS History Date picker is not visible ");
+        softAssert.assertTrue(moreUsageHistory.isDataDatePickerVisible(), "Data History Date picker is not visible ");
+        softAssert.assertTrue(moreUsageHistory.isCallDatePickerVisible(), "Call History Date picker is not visible ");
+
+        APITest api = new APITest();
+        UsageHistoryPOJO smsUsageHistoryAPI = api.usageHistoryTest(Data.getCustomerNumber(), "SMS_HISTORY");
+        int size = moreUsageHistory.getNumbersOfSMSRows();
+        for (int i = 0; i < size; i++) {
+            softAssert.assertEquals(moreUsageHistory.getSmsBundleName(i), smsUsageHistoryAPI.getResult().get(i).getBundleName(), "SMS Bundle received is not as expected on row " +i);
+            softAssert.assertEquals(moreUsageHistory.getSMSCharges(i), smsUsageHistoryAPI.getResult().get(i).getCharges(), "SMS Charges received is not as expected on row " +i);
+            softAssert.assertEquals(moreUsageHistory.getSMSDateTime(i), (moreUsageHistory.getDateFromEpoch(Long.parseLong(smsUsageHistoryAPI.getResult().get(i).getDateTime()), "dd-MMM-yyyy HH:mm")), "SMS Date & Time received is not as expected on row " +i);
+            softAssert.assertEquals(moreUsageHistory.getSMSTo(i), smsUsageHistoryAPI.getResult().get(i).getSmsTo(), "SMS To received is not as expected on row " +i);
+            softAssert.assertEquals(moreUsageHistory.getSMSTransactionNumber(i), smsUsageHistoryAPI.getResult().get(i).getTxnNumber(), "SMS Transaction Number received is not as expected on row " +i);
+        }
+        UsageHistoryPOJO callUsageHistoryAPI = api.usageHistoryTest(Data.getCustomerNumber(), "CALL_HISTORY");
+        for (int i = 0; i < size; i++) {
+            softAssert.assertEquals(moreUsageHistory.getCallBundleName(i), callUsageHistoryAPI.getResult().get(i).getBundleName(), "Call Bundle received is not as expected on row " +i);
+            softAssert.assertEquals(moreUsageHistory.getCallCharges(i), callUsageHistoryAPI.getResult().get(i).getCharges(), "Call Charges received is not as expected on row " +i);
+            softAssert.assertEquals(moreUsageHistory.getCallDateTime(i), (moreUsageHistory.getDateFromEpoch(Long.parseLong(callUsageHistoryAPI.getResult().get(i).getDateTime()), "dd-MMM-yyyy HH:mm")), "Call Date & Time received is not as expected on row " +i);
+            softAssert.assertEquals(moreUsageHistory.getCallTo(i), callUsageHistoryAPI.getResult().get(i).getCallTo(), "Call To received is not as expected on row " +i);
+            softAssert.assertEquals(moreUsageHistory.getCallTransactionNumber(i), callUsageHistoryAPI.getResult().get(i).getTxnNumber(), "Call Transaction Number received is not as expected on row " +i);
+            softAssert.assertEquals(moreUsageHistory.getCallDuration(i), callUsageHistoryAPI.getResult().get(i).getCallDuration(), "Call Duration  received is not as expected on row " +i);
+        }
+        moreUsageHistory.openingCustomerInteractionDashboard();
+        softAssert.assertAll();
+    }
+
+    @DataProvider.User(UserType = "ALL")
+    @Test(priority = 9, description = "Validating Recharge History's  Menu", dataProvider = "loginData", dataProviderClass = DataProvider.class)
+    public void rechargeHistoryMenuTest(TestDatabean Data) {
+        ExtentTestManager.startTest("Validating Recharge History's  Menu", "Validating Recharge History's  Menu of User :" + Data.getCustomerNumber());
+        RechargeHistoryWidgetPOM rechargeHistory = new RechargeHistoryWidgetPOM(driver);
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(rechargeHistory.isRechargeHistoryWidgetMenuVisible(), "Usage History's MENU is not visible ");
+        rechargeHistory.clickingRechargeHistoryWidgetMenu();
+        softAssert.assertTrue(rechargeHistory.isRechargeHistoryMenuVisible(), "More Option in  MENU is not visible ");
+        MoreRechargeHistoryPOM moreRechargeHistory = rechargeHistory.openingRechargeHistoryDetails();
+        moreRechargeHistory.waitTillLoaderGetsRemoved();
+        softAssert.assertTrue(moreRechargeHistory.isDatePickerVisible(), "Date picker is not visible ");
+
+        APITest api = new APITest();
+        BundleRechargeHistoryPOJO bundleRechargeHistoryAPI = api.bundleRechargeHistoryAPITest(Data.getCustomerNumber());
+        int size = moreRechargeHistory.getNumbersOfRows();
+        for (int i = 0; i < size; i++) {
+            softAssert.assertEquals(moreRechargeHistory.getBundleName(i), bundleRechargeHistoryAPI.getResult().get(i).getBundleName(), " Bundle Name received is not as expected on row " +i);
+            softAssert.assertEquals(moreRechargeHistory.getPackageCategory(i), bundleRechargeHistoryAPI.getResult().get(i).getPackageCategory(), "Package Category received is not as expected on row " +i);
+            softAssert.assertEquals(moreRechargeHistory.getTransactionNumber(i), bundleRechargeHistoryAPI.getResult().get(i).getTxnNumber(), "Bundle Transaction number received is not as expected on row " +i);
+            softAssert.assertEquals(moreRechargeHistory.getStatus(i).toLowerCase(), bundleRechargeHistoryAPI.getResult().get(i).getStatus().toLowerCase(), "Bundle Status received is not as expected on row " +i);
+            softAssert.assertEquals(moreRechargeHistory.getSubscriptionDateTime(i), (moreRechargeHistory.getDateFromEpoch(Long.parseLong(bundleRechargeHistoryAPI.getResult().get(i).getSubscriptionDateTime()), "dd-MMM-yyyy HH:mm")), "Bundle Subscription Date & Time received is not as expected on row " +i);
+            softAssert.assertEquals(moreRechargeHistory.getExpiresOn(i), (moreRechargeHistory.getDateFromEpoch(Long.parseLong(bundleRechargeHistoryAPI.getResult().get(i).getExpiresOn()), "dd-MMM-yyyy HH:mm")), "Bundle Expiry Date & Time received is not as expected on row " +i);
+            softAssert.assertEquals(moreRechargeHistory.getValidity(i), bundleRechargeHistoryAPI.getResult().get(i).getValidity(), "Bundle Validity received is not as expected on row " +i);
+            softAssert.assertEquals(moreRechargeHistory.getBundlePrice(i), bundleRechargeHistoryAPI.getResult().get(i).getBundlePrice(), "Bundle Price received is not as expected on row " +i);
+        }
+        moreRechargeHistory.openingCustomerInteractionDashboard();
         softAssert.assertAll();
     }
 

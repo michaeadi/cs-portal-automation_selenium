@@ -1,9 +1,0 @@
-2020-07-01 19:52:28.772 [INFO /main/openBaseURL]: loginPagePOM(27): Opening URL:-http://172.23.36.206:30050/#/login
-2020-07-01 19:52:28.782 [INFO /main/enterAUUID]: loginPagePOM(32): Entering AUUID :2388192In username
-2020-07-01 19:52:28.944 [INFO /main/writeText]: BasePage(43): Writing 2388192to  By.xpath: //input[@autocomplete="new-password"]
-2020-07-01 19:52:28.944 [INFO /main/clickOnSubmitBtn]: loginPagePOM(38): Clicking on Submit button
-2020-07-01 19:52:29.044 [INFO /main/click]: BasePage(35): Clicking on elementBy.xpath:  //*[@type='submit']
-2020-07-01 19:52:29.044 [INFO /main/enterPassword]: loginPagePOM(48): Send password to Password field
-2020-07-01 19:52:29.573 [INFO /main/writeText]: BasePage(43): Writing secure#321to  By.name: password
-2020-07-01 19:52:29.573 [INFO /main/checkLoginButton]: loginPagePOM(53): checking login button is enabled or not
-2020-07-01 19:52:29.621 [INFO /main/clickOnVisibleButton]: loginPagePOM(63): Clicking on Visible Password Button

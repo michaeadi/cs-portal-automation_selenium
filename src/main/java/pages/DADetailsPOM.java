@@ -18,7 +18,6 @@ DADetailsPOM extends BasePage {
     By bundleType = By.xpath("div[@class=\"ng-star-inserted\"][3]/span");
     By daBalance = By.xpath("div[@class=\"ng-star-inserted\"][4]/span");
     By dateTime = By.xpath("div[@class=\"ng-star-inserted\"][5]/span");
-    By home = By.xpath("//div[text()=\"HOME\"]");
     List<WebElement> Rows = driver.findElements(rows);
 
     public DADetailsPOM(WebDriver driver) {
@@ -60,13 +59,6 @@ DADetailsPOM extends BasePage {
         return rowElement.findElement(dateTime).getText();
     }
 
-    public customerInteractionPagePOM openingCustomerInteractionDashboard() {
-        log.info("Opening Customer Interactions Dashboard");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening Customer Interactions Dashboard");
-        click(home);
-        waitTillLoaderGetsRemoved();
-        return new customerInteractionPagePOM(driver);
-    }
 
     public int getNumbersOfRows() {
         return Rows.size();
