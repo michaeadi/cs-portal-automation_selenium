@@ -21,7 +21,8 @@ public class RechargeHistoryWidgetPOM extends BasePage {
     By bundleName = By.xpath("div[3]/span[@class=\"ng-star-inserted\"]");
     By benefit = By.xpath("div[4]/span[@class=\"ng-star-inserted\"]");
     By status = By.xpath("div[5]/span[@class=\"ng-star-inserted\"]");
-
+    By menu = By.xpath("//span[contains(text(),\"Recharge History\")]//parent::div/span[@class=\"card__card-header--menu ng-star-inserted\"]/img");
+    By more = By.xpath("//button[text()=\"Recharge History\"]");
 
     public RechargeHistoryWidgetPOM(WebDriver driver) {
         super(driver);
@@ -29,6 +30,31 @@ public class RechargeHistoryWidgetPOM extends BasePage {
 
     public int getNumberOfRows() {
         return as.size();
+    }
+
+    public boolean isRechargeHistoryWidgetMenuVisible() {
+        log.info("Checking is Recharge History's Menu Visible");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is Recharge History's Menu Visible");
+        return isElementVisible(menu);
+    }
+
+    public boolean isRechargeHistoryMenuVisible() {
+        log.info("Checking is More Option Visible");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is More Option Visible");
+        return checkState(more);
+    }
+
+    public MoreRechargeHistoryPOM openingRechargeHistoryDetails() {
+        log.info("Opening Recharge History Details under Recharge History Widget");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening RechargeHistory under Recharge History Widget");
+        click(more);
+        return new MoreRechargeHistoryPOM(driver);
+    }
+
+    public void clickingRechargeHistoryWidgetMenu() {
+        log.info("Clicking Current Balance Widget's Menu Visible");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking Current Balance Widget'Menu Visible");
+        click(menu);
     }
 
     public String getRechargeHistoryCharges(int RowNumber) {

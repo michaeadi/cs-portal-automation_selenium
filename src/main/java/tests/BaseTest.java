@@ -26,7 +26,7 @@ public class BaseTest {
     public static String Opco;
     public static String Env;
     public static String ExcelPath;
-    public static List<Header> map = new ArrayList<Header>();
+    public static List<Header> map = new ArrayList<>();
     public static String Token;
     public static String baseUrl;
 
@@ -36,31 +36,20 @@ public class BaseTest {
 
     @BeforeSuite
     public void classLevelSetup() throws IOException {
-        Opco = "KE";
-        Env = "UAT";
-//        Opco = System.getProperty("Opco").toUpperCase();
-//        Env = System.getProperty("Env").toUpperCase();
+//        Opco = "KE";
+//        Env = "SIT";
+        Opco = System.getProperty("Opco").toUpperCase();
+        Env = System.getProperty("Env").toUpperCase();
         ExcelPath = Opco + ".xlsx";
         config = new Properties();
         System.out.println("OPCO Chosen :" + Opco);
         System.out.println("Environment Chosen : " + Env);
-        FileInputStream fis = null;
+        FileInputStream fis;
         fis = new FileInputStream(System.getProperty("user.dir") + "/src/main/resources/" + Opco + "-config.properties");
         config.load(fis);
         baseUrl = config.getProperty(Env + "-APIBase");
         String browser = config.getProperty("browser");
         System.out.println(baseUrl);
-//        PrintStream lo = new PrintStream();
-//        RestAssured.filters(new RequestLoggingFilter(lo), new ResponseLoggingFilter(lo));
-//        PrintStream logStream = IoBuilder.forLogger(LogManager.getLogger("system.out"))
-//                .setLevel(Level.INFO)
-//                .buildPrintStream()
-//                .forLogger(log).buildPrintStream();
-//        RestAssuredConfig restAssuredConfig = new RestAssuredConfig();
-//        LogConfig logConfig = restAssuredConfig.getLogConfig();
-//        logConfig
-//                .defaultStream(Log4j2)
-//                .enablePrettyPrinting(true);
         if (browser.equals("chrome")) {
             WebDriverManager.chromedriver().setup();
             ChromeOptions options = new ChromeOptions();
@@ -69,7 +58,7 @@ public class BaseTest {
             options.addArguments("--window-size=1792,1120");
             options.setHeadless(true);
             //Using with Options will start in Headless Browser
-            driver = new ChromeDriver();
+            driver = new ChromeDriver(options);
             driver.manage().window().maximize();
         } else if (browser.equals("firefox")) {
             WebDriverManager.firefoxdriver().setup();

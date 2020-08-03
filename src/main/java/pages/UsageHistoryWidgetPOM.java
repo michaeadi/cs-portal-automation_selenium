@@ -21,6 +21,8 @@ public class UsageHistoryWidgetPOM extends BasePage {
     By dateTime = By.xpath("div[3]/span[@class=\"date_time ng-star-inserted\"]");
     By startBalance = By.xpath("div[4]/span[@class=\"ng-star-inserted\"]");
     By endBalance = By.xpath("div[5]/span[@class=\"ng-star-inserted\"]");
+    By menu = By.xpath("//span[contains(text(),\"Usage History \")]//parent::div/span[@class=\"card__card-header--menu ng-star-inserted\"]/img");
+    By more = By.xpath("//button[text()=\"More\"]");
 
 
     public UsageHistoryWidgetPOM(WebDriver driver) {
@@ -31,17 +33,42 @@ public class UsageHistoryWidgetPOM extends BasePage {
         return as.size();
     }
 
+    public boolean isUsageHistoryWidgetMenuVisible() {
+        log.info("Checking is Usage History's Menu Visible");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is Usage History's Menu Visible");
+        return isElementVisible(menu);
+    }
+
+    public boolean isMoreMenuVisible() {
+        log.info("Checking is More Option Visible");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is More Option Visible");
+        return checkState(more);
+    }
+
+    public MoreUsageHistoryPOM openingMoreDetails() {
+        log.info("Opening More under Usage History Widget");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening More under Usage History Widget");
+        click(more);
+        return new MoreUsageHistoryPOM(driver);
+    }
+
+    public void clickingUsageHistoryWidgetMenu() {
+        log.info("Clicking Current Balance Widget's Menu Visible");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking Current Balance Widget'Menu Visible");
+        click(menu);
+    }
+
     public String getHistoryEndBalance(int RowNumber) {
         WebElement rowElement = as.get(RowNumber);
-        log.info("Getting Usage History End Balacne  from Row Number " +  RowNumber + " : " + rowElement.findElement(endBalance).getText());
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Usage History End Balance from Row Number " +  RowNumber + " : " + rowElement.findElement(endBalance).getText());
+        log.info("Getting Usage History End Balacne  from Row Number " + RowNumber + " : " + rowElement.findElement(endBalance).getText());
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Usage History End Balance from Row Number " + RowNumber + " : " + rowElement.findElement(endBalance).getText());
         return rowElement.findElement(endBalance).getText();
     }
 
     public String getHistoryStartBalance(int RowNumber) {
         WebElement rowElement = as.get(RowNumber);
-        log.info("Getting Usage History Start Balance from Row Number " +  RowNumber + " : " + rowElement.findElement(startBalance).getText());
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Usage History Start Balance from Row Number " +  RowNumber + " : " + rowElement.findElement(startBalance).getText());
+        log.info("Getting Usage History Start Balance from Row Number " + RowNumber + " : " + rowElement.findElement(startBalance).getText());
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Usage History Start Balance from Row Number " + RowNumber + " : " + rowElement.findElement(startBalance).getText());
         return rowElement.findElement(startBalance).getText();
     }
 

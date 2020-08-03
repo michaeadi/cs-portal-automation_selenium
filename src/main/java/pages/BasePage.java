@@ -1,5 +1,7 @@
 package pages;
 
+import Utils.ExtentReports.ExtentTestManager;
+import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.time.DateUtils;
 import org.openqa.selenium.By;
@@ -26,6 +28,7 @@ public class BasePage {
     public WebDriver driver;
     public WebDriverWait wait;
     By loader = By.xpath("/html/body/app-root/ngx-ui-loader/div[2]");
+    By home = By.xpath("//div[text()=\"HOME\"]");
 
     //Constructor
     public BasePage(WebDriver driver) {
@@ -78,9 +81,12 @@ public class BasePage {
 
     //Check the state of element
     boolean checkState(By elementLocation) {
-        waitVisibility(elementLocation);
-        highLighterMethod(elementLocation);
-        return driver.findElement(elementLocation).isEnabled();
+        try {
+            waitVisibility(elementLocation);
+        } finally {
+            highLighterMethod(elementLocation);
+            return driver.findElement(elementLocation).isEnabled();
+        }
     }
 
     //Wait For Element
@@ -114,8 +120,16 @@ public class BasePage {
 
     }
 
+    public customerInteractionPagePOM openingCustomerInteractionDashboard() {
+        log.info("Opening Customer Interactions Dashboard");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening Customer Interactions Dashboard");
+        click(home);
+        waitTillLoaderGetsRemoved();
+        return new customerInteractionPagePOM(driver);
+    }
+
     public String getDateFromEpoch(long Epoch, String pattern) {
-            Date date = new Date(Epoch);
+        Date date = new Date(Epoch);
         DateFormat format = new SimpleDateFormat(pattern);
         return format.format(date);
     }

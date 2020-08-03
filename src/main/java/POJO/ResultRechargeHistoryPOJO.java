@@ -16,5 +16,6 @@ public class ResultRechargeHistoryPOJO {
     String bundleName;
     String transactionId;
     String status;
+    String packageCategory;
     rechargeBenefitPOJO rechargeBenefit;
 }
