@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 public class viewHistoryPOM extends BasePage {
     By firstIssueCode = By.xpath("//tbody/tr[1]/td[7]/p");
     By interactionsTab = By.xpath("//div[@class=\"mat-tab-label-content\" and contains(text(),\"Interaction\")]");
+    By ticketHistory= By.xpath("//div[contains(text(),'Ticket')]");
 
     public viewHistoryPOM(WebDriver driver) {
         super(driver);
@@ -17,6 +18,13 @@ public class viewHistoryPOM extends BasePage {
         log.info("Clicking on Interactions Tab under view history ");
         waitTillLoaderGetsRemoved();
         click(interactionsTab);
+    }
+
+    public FrontendTicketHistory clickOnTicketHistory() {
+        log.info("Clicking on Ticket History Tab under view history ");
+        waitTillLoaderGetsRemoved();
+        click(ticketHistory);
+        return new FrontendTicketHistory(driver);
     }
 
     public String getLastCreatedIssueCode() {

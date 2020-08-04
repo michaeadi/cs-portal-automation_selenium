@@ -232,8 +232,9 @@ public class FilterTabPOM extends BasePage {
         return true;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
-        return false;
+
     }
 
     public boolean validatePriorityFilter(){

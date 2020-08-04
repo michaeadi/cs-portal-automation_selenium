@@ -278,4 +278,28 @@ public class DataProvider {
                 priorityDataBean.getData(Excel.getAbsolutePath(), config.getProperty("priority"));
         return list;
     }
+
+    @org.testng.annotations.DataProvider(name = "singleTicketId")
+    public Object[][] getSingleTicketId() {
+        nftrDataExcelToBeanDao credsExcelToBeanDao = new nftrDataExcelToBeanDao();
+        File Exceldir = new File("Excels");
+        File Excel = new File(Exceldir, tests.BaseTest.Opco + ".xlsx");
+        List<nftrDataBeans> list =
+                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("NftrSheet"));
+        List<nftrDataBeans> finalTicketList = new ArrayList<nftrDataBeans>();
+        for (nftrDataBeans nftrTicket : list) {
+            System.out.println("Ticket Id: " + nftrTicket.getTicketNumber());
+            if (nftrTicket.getTicketNumber() == null) {
+                System.out.println("No Ticket ID Found");
+            } else {
+                finalTicketList.add(nftrTicket);
+            }
+        }
+
+        Object[][] hashMapObj = new Object[1][1];
+
+        hashMapObj[0][0] = finalTicketList.get(0);
+
+        return hashMapObj;
+    }
 }

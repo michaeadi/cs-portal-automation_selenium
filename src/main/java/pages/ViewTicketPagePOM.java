@@ -19,7 +19,7 @@ public class ViewTicketPagePOM extends BasePage {
     By stateName = By.xpath("//button[@class='sbmit-colse-btn']//span[2]");
     By addCommentBox=By.xpath("//textarea[@name='commentEntered']");
     By addBtn=By.xpath("//span[contains(text(),'ADD')]");
-    By allComment=By.xpath("//table[@class='ng-star-inserted']");
+    By allComment=By.xpath("//table[@class='ng-star-inserted']/tbody/tr");
 
     public ViewTicketPagePOM(WebDriver driver) {
         super(driver);
@@ -57,14 +57,36 @@ public class ViewTicketPagePOM extends BasePage {
         List<WebElement> list=driver.findElements(allComment);
         for(int i=1;i<=list.size();i++){
             By comment=By.xpath("//table[@class='ng-star-inserted']//tbody//tr["+i+"]//p");
+            System.out.println("Reading Comment:"+readText(comment)+" Is:"+readText(comment).trim().equalsIgnoreCase(text));
             if(readText(comment).trim().equalsIgnoreCase(text)) {
                 log.info("Latest comment found on ticket: " + comment);
                 ExtentTestManager.getTest().log(LogStatus.PASS,"Newly added comment found on ticket");
                 return ;
             }
         }
+        ExtentTestManager.getTest().log(LogStatus.PASS,"Newly added comment does not found on ticket");
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public boolean validateCommentType(String text){
+        try{
+            List<WebElement> list=driver.findElements(allComment);
+            for(int i=1;i<=list.size();i++){
+                By commentType=By.xpath("//table[@class='ng-star-inserted']//tbody//tr["+i+"]/td/span/span[1]");
+                System.out.println("Reading Comment:"+readText(commentType)+" Is:"+readText(commentType).trim().equalsIgnoreCase(text));
+                if(readText(commentType).trim().equalsIgnoreCase(text)) {
+                    log.info("Comment type found on ticket: " + readText(commentType));
+                    ExtentTestManager.getTest().log(LogStatus.PASS,"Comment type found on ticket: " + readText(commentType));
+                    return true;
+                }
+            }
+            ExtentTestManager.getTest().log(LogStatus.WARNING,"No Issue Comment type found on ticket: " +text);
+            return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
     }
 

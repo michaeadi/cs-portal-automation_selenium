@@ -14,7 +14,7 @@ import pages.supervisorTicketListPagePOM;
 
 import java.lang.reflect.Method;
 
-public class SupervisorAddCommentTest extends BaseTest {
+public class IssueCommentTest extends BaseTest{
 
     @Test(priority = 1, description = "Supervisor SKIP Login ", dataProvider = "getTestData", dataProviderClass = DataProvider.class)
     public void agentSkipQueueLogin(Method method, TestDatabean Data) {
@@ -35,36 +35,18 @@ public class SupervisorAddCommentTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 2, dependsOnMethods = "agentSkipQueueLogin", description = "Supervisor Add Comment on Ticket")
-    public void addCommentOnTicket(Method method) throws InterruptedException {
-        supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
-        ViewTicketPagePOM viewTicket = new ViewTicketPagePOM(driver);
-        ExtentTestManager.startTest("Supervisor Add Comment on Ticket", "Add new Comment[Backend Supervisor]");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
-        SoftAssert softAssert = new SoftAssert();
-        ticketListPage.changeTicketTypeToOpen();
-//        ticketListPage.writeTicketId(ticketId);
-//        ticketListPage.clickedSearchBtn();
-//        Thread.sleep(20000); // Add comment on Particular Ticket
-        String ticketId = ticketListPage.getTicketIdvalue();
-        String comment="Supervisor added comment on ticket using automation";
-        ticketListPage.viewTicket();
-        Assert.assertEquals(ticketId, viewTicket.getTicketId(),"Verify the searched Ticket fetched Successfully");
-        viewTicket.addComment(comment);
-        viewTicket.clickAddButton();
-        viewTicket.waitTillLoaderGetsRemoved();
-        viewTicket.validateAddedComment(comment);
-        softAssert.assertAll();
-    }
-
-    @Test(priority = 3, dependsOnMethods = "agentSkipQueueLogin", description = "Validate issue comment as supervisor")
+    @Test(priority = 2, dependsOnMethods = "agentSkipQueueLogin", description = "Validate issue comment as supervisor")
     public void validateIssueCommentBS(Method method) throws InterruptedException {
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         ViewTicketPagePOM viewTicket = new ViewTicketPagePOM(driver);
         ExtentTestManager.startTest("Validate issue comment as supervisor", "Validate issue comment [Backend Supervisor]");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(viewTicket.validateCommentType(config.getProperty("issueComment")),"Issue Comment does not found on ticket");
+        ticketListPage.changeTicketTypeToOpen();
+        String ticketId = ticketListPage.getTicketIdvalue();
+        String comment="Supervisor added comment on ticket using automation";
+        ticketListPage.viewTicket();
+        softAssert.assertTrue(viewTicket.validateCommentType(config.getProperty("issueComment")));
         softAssert.assertAll();
     }
 }
