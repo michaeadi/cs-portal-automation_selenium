@@ -1,7 +1,7 @@
 package API;
 
 import POJO.*;
-import Utils.DataProviders.DataProvider;
+import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.TestDatabean;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,6 +15,8 @@ import io.restassured.specification.SpecificationQuerier;
 import lombok.extern.log4j.Log4j2;
 import org.testng.annotations.Test;
 
+import java.util.concurrent.TimeUnit;
+
 import static Utils.ExtentReports.ExtentTestManager.getTest;
 import static Utils.ExtentReports.ExtentTestManager.startTest;
 import static io.restassured.RestAssured.baseURI;
@@ -22,8 +24,8 @@ import static io.restassured.RestAssured.given;
 
 @Log4j2
 public class APITest extends tests.BaseTest {
-    @DataProvider.User(UserType = "API")
-    @Test(dataProvider = "loginData", dataProviderClass = DataProvider.class, priority = 1)
+    @DataProviders.User(UserType = "API")
+    @Test(dataProvider = "loginData", dataProviderClass = DataProviders.class, priority = 1)
     public void loginAPI(TestDatabean Data) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         LoginPOJO Req = LoginPOJO.loginBody(Data.getPassword(), Data.getLoginAUUID());
@@ -36,6 +38,9 @@ public class APITest extends tests.BaseTest {
         map.add(new Header("x-api-key", config.getProperty(Env + "-x-api-key")));
         map.add(new Header("x-login-module", config.getProperty(Env + "-x-login-module")));
         map.add(new Header("x-channel", config.getProperty(Env + "-x-channel")));
+        map.add(new Header("x-app-version", config.getProperty(Env + "-x-app-version")));
+        map.add(new Header("Opco", Opco));
+
         String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(Req);
         startTest("LOGIN API TEST ", "Logging in Using Login API for getting TOKEN with user : " + Data.getLoginAUUID());
         getTest().log(LogStatus.INFO, "Logging in Using Login API for getting TOKEN with user : " + Data.getLoginAUUID());
@@ -53,6 +58,10 @@ public class APITest extends tests.BaseTest {
         map.add(new Header("Authorization", Token));
         getTest().log(LogStatus.INFO, "Response : " + response.asString());
         log.info("Response : " + response.asString());
+        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
+        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+
     }
 
     public PlansPOJO accountPlansTest(String msisdn) {
@@ -71,7 +80,9 @@ public class APITest extends tests.BaseTest {
         Response response = request.post("/cs-gsm-service/v1/account/plans");
         getTest().log(LogStatus.INFO, "Response : " + response.asString());
         log.info("Response : " + response.asString());
-        System.out.println(response.asString());
+        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
+        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
         return response.as(PlansPOJO.class);
     }
 
@@ -89,12 +100,14 @@ public class APITest extends tests.BaseTest {
         getTest().log(LogStatus.INFO, "Request Body is  : " + queryable.getBody().toString());
         log.info("Request Body is  : " + queryable.getBody().toString());
         Response response = request.post("/cs-gsm-service/v1/usage/history");
-        System.out.println(response.asString());
         log.info("Response : " + response.asString());
+        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
+        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
         return response.as(UsageHistoryPOJO.class);
     }
 
-    public void amProfileTest(String msisdn) {
+    public AMHandSetProfilePOJO amProfileTest(String msisdn) {
         getTest().log(LogStatus.INFO, "Using AM Profile API for Getting expected data for UI");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
@@ -108,16 +121,22 @@ public class APITest extends tests.BaseTest {
         getTest().log(LogStatus.INFO, "Request Body is  : " + queryable.getBody().toString());
         log.info("Request Body is  : " + queryable.getBody().toString());
         Response response = request.post("/cs-gsm-service/v1/am/profile");
-        System.out.println(response.asString());
         log.info("Response : " + response.asString());
+        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
+        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        return response.as(AMHandSetProfilePOJO.class);
+
     }
 
-    public void gsmKYCAPITest(String msisdn) {
+    public GsmKycPOJO gsmKYCAPITest(String msisdn) {
         getTest().log(LogStatus.INFO, "Using GSM KYC API for Getting expected data for UI");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
                 .headers(headers)
+//                .header("Opco", Opco)
+//                .header("Host", "172.23.36.206:30050")
                 .body("{\"msisdn\":\"" + msisdn + "\"}")
                 .contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
@@ -126,8 +145,11 @@ public class APITest extends tests.BaseTest {
         getTest().log(LogStatus.INFO, "Request Body is  : " + queryable.getBody().toString());
         log.info("Request Body is  : " + queryable.getBody().toString());
         Response response = request.post("/cs-gsm-service/v1/gsm/kyc");
-        System.out.println(response.asString());
         log.info("Response : " + response.asString());
+        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
+        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        return response.as(GsmKycPOJO.class);
 
     }
 
@@ -145,9 +167,10 @@ public class APITest extends tests.BaseTest {
         getTest().log(LogStatus.INFO, "Request Body is  : " + queryable.getBody().toString());
         log.info("Request Body is  : " + queryable.getBody().toString());
         Response response = request.post("/cs-gsm-service/v1/profile");
-        System.out.println(response.asString());
         log.info("Response : " + response.asString());
-
+        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
+        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
         return response.as(ProfilePOJO.class);
     }
 
@@ -166,9 +189,10 @@ public class APITest extends tests.BaseTest {
         getTest().log(LogStatus.INFO, "Request Body is  : " + queryable.getQueryParams().toString());
         log.info("Request Body is  : " + queryable.getQueryParams().toString());
         Response response = request.get("/cs-am-service/v1/profile");
-        System.out.println(response.asString());
         log.info("Response : " + response.asString());
-
+        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
+        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
         return response.as(AMProfilePOJO.class);
     }
 
@@ -186,9 +210,10 @@ public class APITest extends tests.BaseTest {
         getTest().log(LogStatus.INFO, "Request Body is  : " + queryable.getBody().toString());
         log.info("Request Body is  : " + queryable.getBody().toString());
         Response response = request.post("/cs-gsm-service/v1/recharge/history");
-        System.out.println(response.asString());
         log.info("Response : " + response.asString());
-
+        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
+        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
         return response.as(RechargeHistoryPOJO.class);
     }
 
@@ -206,13 +231,14 @@ public class APITest extends tests.BaseTest {
         getTest().log(LogStatus.INFO, "Request Body is  : " + queryable.getBody().toString());
         log.info("Request Body is  : " + queryable.getBody().toString());
         Response response = request.post("/cs-gsm-service/v1/bundle/recharge/history");
-        System.out.println(response.asString());
         log.info("Response : " + response.asString());
-
+        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
+        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
         return response.as(BundleRechargeHistoryPOJO.class);
     }
 
-    public void transactionHistoryAPITest(String msisdn) {
+    public AMTransactionHistoryPOJO transactionHistoryAPITest(String msisdn) {
         getTest().log(LogStatus.INFO, "Using Transaction History API for Getting expected data for UI");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
@@ -227,7 +253,10 @@ public class APITest extends tests.BaseTest {
         log.info("Request Body is  : " + queryable.getBody().toString());
         Response response = request.post("/cs-am-service/v1/transaction/history");
         log.info("Response : " + response.asString());
-        System.out.println(response.asString());
+        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
+        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        return response.as(AMTransactionHistoryPOJO.class);
     }
 
     public AccountsBalancePOJO balanceAPITest(String msisdn) {
@@ -245,7 +274,10 @@ public class APITest extends tests.BaseTest {
         log.info("Request Body is  : " + queryable.getBody().toString());
         Response response = request.post("/cs-gsm-service/v1/accounts/balance");
         log.info("Response : " + response.asString());
-        System.out.println(response.asString());
+        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+
+        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
+        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
         return response.as(AccountsBalancePOJO.class);
 
     }
@@ -264,8 +296,10 @@ public class APITest extends tests.BaseTest {
         getTest().log(LogStatus.INFO, "Request Body is  : " + queryable.getBody().toString());
         log.info("Request Body is  : " + queryable.getBody().toString());
         Response response = request.post("/cs-gsm-service/v1/usage/history");
-        System.out.println(response.asString());
         log.info("Response : " + response.asString());
+        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
+        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
         return response.as(UsageHistoryPOJO.class);
     }
 

@@ -22,7 +22,28 @@ public class MoreRechargeHistoryPOM extends BasePage {
     By validity = By.xpath("div[7]/span[@class=\"ng-star-inserted\"]");
     By bundlePrice = By.xpath("div[8]/span[@class=\"ng-star-inserted\"]");
     By DatePicker = By.xpath("//span[contains(text(),\"BUNDLE SUBSCRIPTION HISTORY \")]//following-sibling::form/span[@class=\"datepicker-transaction ng-star-inserted\"]");
+    By bundleHistoryNoResultFound = By.xpath("//span[contains(text(),\"BUNDLE SUBSCRIPTION HISTORY \")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]");
+    By bundleHistoryNoResultFoundMessage = By.xpath("//span[contains(text(),\"BUNDLE SUBSCRIPTION HISTORY \")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]/span/span");
 
+
+    public String getHeaders(int row) {
+        String header = readText(By.xpath("//span[contains(text(),\"BUNDLE SUBSCRIPTION HISTORY\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"card__card-header--card-body--table--list-heading\"]/div[" + row + "]"));
+        log.info("Getting header Number " + row + " : " + header);
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting header Number " + row + " : " + header);
+        return header;
+    }
+
+    public String gettingBundleHistoryNoResultFoundMessage() {
+        log.info("Validating error message when there is no data from API : " + readText(bundleHistoryNoResultFoundMessage));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Validating error message when there is no data from API : " + readText(bundleHistoryNoResultFoundMessage));
+        return readText(bundleHistoryNoResultFoundMessage);
+    }
+
+    public boolean isBundleHistoryNoResultFoundVisible() {
+        log.info("Validating error is visible when there is no data from API : " + isElementVisible(bundleHistoryNoResultFound));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Validating error is visible when there is no data from API : " + isElementVisible(bundleHistoryNoResultFound));
+        return isElementVisible(bundleHistoryNoResultFound);
+    }
 
     public MoreRechargeHistoryPOM(WebDriver driver) {
         super(driver);

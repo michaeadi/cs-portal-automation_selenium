@@ -15,6 +15,7 @@ public class customerInteractionPagePOM extends BasePage {
     By customerName = By.xpath("//p[@class=\"fw-bold name ng-star-inserted\"]");
     By customerDOB = By.xpath("//span[@class=\"fw-normal dob ng-star-inserted\"]/span[@class=\"ng-star-inserted\"]");
     By activationDate = By.xpath("//div[@class=\"col-md-4 border-right1 ng-star-inserted\"][1]//child::span[1]");
+    //    By activationDate = By.xpath("//div[@class=\"col-md-4 border-right1 ng-star-inserted\"][1]//child::span");
     By activationTime = By.xpath("//span[@class='sp-block ng-star-inserted']");
     By simNumber = By.xpath("//div[@class=\"col-md-4 border-right1 ng-star-inserted\"][2]//child::p[1]/span");
     By simType = By.xpath("//p[@class=\"user-sim-device ng-star-inserted\"]/span[@class=\"ng-star-inserted\"]");

@@ -24,6 +24,13 @@ DADetailsPOM extends BasePage {
         super(driver);
     }
 
+    public String getHeaders(int row) {
+        String header = readText(By.xpath("//span[contains(text(),\"DA Details\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"card__card-header--card-body--table--list-heading\"]/div[" + row + "]"));
+        log.info("Getting header Number " + row + " : " + header);
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting header Number " + row + " : " + header);
+        return header;
+    }
+
     public String getDAId(int RowNumber) {
         WebElement rowElement = Rows.get(RowNumber);
         log.info("Getting DA ID from Row Number " + RowNumber + " : " + rowElement.findElement(daID).getText());

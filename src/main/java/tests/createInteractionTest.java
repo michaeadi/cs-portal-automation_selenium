@@ -1,6 +1,6 @@
 package tests;
 
-import Utils.DataProviders.DataProvider;
+import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.ftrDataBeans;
 import Utils.DataProviders.nftrDataBeans;
 import Utils.ExtentReports.ExtentTestManager;
@@ -25,7 +25,7 @@ public class createInteractionTest extends BaseTest {
 
 //    Map<String, String> map = new HashMap<>();
 
-    @Test(priority = 1, description = "Create FTR Interaction ", dataProvider = "getTestData1", enabled = true, dataProviderClass = DataProvider.class)
+    @Test(priority = 1, description = "Create FTR Interaction ", dataProvider = "getTestData1", enabled = true, dataProviderClass = DataProviders.class)
     public void CreateInteraction(ftrDataBeans Data) throws InterruptedException {
         ExtentTestManager.startTest(" Validating FTR Ticket" + Data.getIssueCode(), "Creating FTR Tickets and Configurations of Issue Code " + Data.getIssueCode());
         customerInteractionPagePOM customerInteractionPagePOM = new customerInteractionPagePOM(driver);
@@ -61,7 +61,7 @@ public class createInteractionTest extends BaseTest {
 
     }
 
-    @Test(priority = 2, description = "Create Interaction ", dataProvider = "getTestData2", dataProviderClass = DataProvider.class)
+    @Test(priority = 2, description = "Create Interaction ", dataProvider = "getTestData2", dataProviderClass = DataProviders.class)
     public void CreateNFTRInteraction(nftrDataBeans Data) throws InterruptedException, IOException {
         ExtentTestManager.startTest(" Validating NFTR Ticket" + Data.getIssueCode(), "Creating NFTR Tickets and Configurations of Issue Code " + Data.getIssueCode());
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");

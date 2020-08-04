@@ -13,7 +13,7 @@ import java.util.List;
 public class UsageHistoryWidgetPOM extends BasePage {
 
     By usageHistoryDatePicker = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Usage History\")]//following-sibling::form//child::input[@name=\"dateRange\"]");
-    By usageHistoryHeader = By.xpath("//span[@class=\"card__card-header--label\" and text()=\"Usage History \"]");
+    By usageHistoryHeader = By.xpath("//span[@class=\"card__card-header--label\" and text()=\"Usage History\"]");
     By rows = By.xpath("//div[@class=\"card__card-header\"]/span[contains(text(),\"Usage\")]//parent::div//following-sibling::div[@class=\"card__content restricted ng-star-inserted\"]//div[@class=\"card__card-header--card-body--table--data-list ng-star-inserted\"]");
     List<WebElement> as = driver.findElements(rows);
     By type = By.xpath("div[1]/span[@class=\"ng-star-inserted\"]");
@@ -23,7 +23,27 @@ public class UsageHistoryWidgetPOM extends BasePage {
     By endBalance = By.xpath("div[5]/span[@class=\"ng-star-inserted\"]");
     By menu = By.xpath("//span[contains(text(),\"Usage History \")]//parent::div/span[@class=\"card__card-header--menu ng-star-inserted\"]/img");
     By more = By.xpath("//button[text()=\"More\"]");
+    By usageHistoryNoResultFound = By.xpath("//span[contains(text(),\"Usage History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]");
+    By usageHistoryNoResultFoundMessage = By.xpath("//span[contains(text(),\"Usage History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]/span/span");
 
+    public String getHeaders(int row) {
+        String header = readText(By.xpath("//span[contains(text(),\"Usage History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"card__card-header--card-body--table--list-heading\"]/div[" + row + "]"));
+        log.info("Getting header Number " + row + " : " + header);
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting header Number " + row + " : " + header);
+        return header;
+    }
+
+    public String gettingUsageHistoryNoResultFoundMessage() {
+        log.info("Validating error message when there is no data from API : " + readText(usageHistoryNoResultFoundMessage));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Validating error message when there is no data from API : " + readText(usageHistoryNoResultFoundMessage));
+        return readText(usageHistoryNoResultFoundMessage);
+    }
+
+    public boolean isUsageHistoryNoResultFoundVisible() {
+        log.info("Validating error is visible when there is no data from API : " + isElementVisible(usageHistoryNoResultFound));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Validating error is visible when there is no data from API : " + isElementVisible(usageHistoryNoResultFound));
+        return isElementVisible(usageHistoryNoResultFound);
+    }
 
     public UsageHistoryWidgetPOM(WebDriver driver) {
         super(driver);

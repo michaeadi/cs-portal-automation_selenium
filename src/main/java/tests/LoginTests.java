@@ -1,6 +1,6 @@
 package tests;
 
-import Utils.DataProviders.DataProvider;
+import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.TestDatabean;
 import Utils.ExtentReports.ExtentTestManager;
 import org.testng.annotations.Test;
@@ -11,8 +11,8 @@ import pages.loginPagePOM;
 import java.lang.reflect.Method;
 
 public class LoginTests extends BaseTest {
-    @DataProvider.User(UserType = "ALL")
-    @Test(priority = 1, description = "Logging IN", dataProvider = "loginData", dataProviderClass = DataProvider.class)
+    @DataProviders.User(UserType = "ALL")
+    @Test(priority = 1, description = "Logging IN", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void LoggingIN(Method method, TestDatabean Data) {
         ExtentTestManager.startTest("Logging Into Portal", "Logging Into Portal with AUUID :  " + Data.getLoginAUUID());
         SoftAssert softAssert = new SoftAssert();
