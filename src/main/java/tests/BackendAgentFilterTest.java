@@ -1,6 +1,6 @@
 package tests;
 
-import Utils.DataProviders.DataProvider;
+import Utils.DataProviders.DataProviders;
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 import org.testng.Assert;
@@ -32,7 +32,7 @@ public class BackendAgentFilterTest extends BaseTest{
         softAssert.assertAll();
     }
 
-    @Test(priority = 2, dependsOnMethods = "agentQueueLogin", description = "Validate Filter Tab for Backend Agent", dataProviderClass = DataProvider.class)
+    @Test(priority = 2, dependsOnMethods = "agentQueueLogin", description = "Validate Filter Tab for Backend Agent", dataProviderClass = DataProviders.class)
     public void validateFilter(Method method) throws InterruptedException {
         ExtentTestManager.startTest("Validate Filter Tab for Backend Agent", "Validate Filter Tab for Backend Agent");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");

@@ -5,12 +5,19 @@ import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
+import java.util.NoSuchElementException;
 
 @Log4j2
 public class FrontendTicketHistory extends BasePage {
 
     By searchBox=By.xpath("//input[@class='search-ticket-id ng-untouched ng-pristine ng-valid']");
     By searchBtn=By.xpath("//a[@class='search-btn']");
+    By allTicket=By.xpath("//table[@id='fetchTicketByCustomer']//tbody//tr");
+    By noTicketFound=By.xpath("//div[@class=\"no-result-found ng-star-inserted\"]");
+    By clearTicketId=By.xpath("//a[@class='search-close ng-star-inserted']//img");
 
     public FrontendTicketHistory(WebDriver driver) {
         super(driver);
@@ -87,6 +94,21 @@ public class FrontendTicketHistory extends BasePage {
         click(addToInteractionBtn);
     }
 
+    public boolean checkAddToInteraction(int index){
+        By addToInteractionBtn=By.xpath("//table[@id='fetchTicketByCustomer']//tbody//tr["+index+"]//td[7]//span[1]//a[1]//img");
+        String ticketId=getTicketId(index);
+        log.info("Check Add to interaction on ticket id: "+ticketId);
+        ExtentTestManager.getTest().log(LogStatus.INFO,"Checking Add to interaction on ticket id: "+ticketId);
+        return checkState(addToInteractionBtn);
+    }
+
+    public boolean checkReopen(int index){
+        By reopenBtn=By.xpath("//table[@id='fetchTicketByCustomer']//tbody//tr["+index+"]//td[7]//span[1]//a[2]//img");
+        log.info("Checking Reopen button on ticket");
+        ExtentTestManager.getTest().log(LogStatus.INFO,"Checking reopen button on ticket");
+        return checkState(reopenBtn);
+    }
+
     public void clickReopen(int index){
         By reopenBtn=By.xpath("//table[@id='fetchTicketByCustomer']//tbody//tr["+index+"]//td[7]//span[1]//a[2]//img");
         log.info("Clicking on Reopen button");
@@ -104,6 +126,44 @@ public class FrontendTicketHistory extends BasePage {
         log.info("Clicking Search button");
         ExtentTestManager.getTest().log(LogStatus.INFO,"Clicking Search button");
         click(searchBtn);
+    }
+
+    public boolean checkNoTicketFound(){
+        log.info("Checking Ticket Found or not");
+        try{
+            return checkState(noTicketFound);
+        } catch (Exception e) {
+            log.info("No Ticket Found: "+false);
+            System.out.println("No Ticket Found: "+false);
+            return false;
+        }
+    }
+
+    public void clickClearSearchBox(){
+        log.info("Clearing search box");
+        ExtentTestManager.getTest().log(LogStatus.INFO,"Click on clear search box button");
+        click(clearTicketId);
+    }
+
+    public boolean validateAddToInteractionIcon(){
+        try{
+            if(!checkNoTicketFound()){
+                log.info("Ticket found");
+               List<WebElement> list=driver.findElements(allTicket);
+               for(int i=1;i<=list.size();i++){
+                   if(!checkAddToInteraction(i)){
+                       return false;
+                   }
+               }
+               ExtentTestManager.getTest().log(LogStatus.PASS,"Add to interaction icon present on tickets");
+               return true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        ExtentTestManager.getTest().log(LogStatus.ERROR,"Add to interaction icon does not present on tickets");
+        return false;
     }
 
 }

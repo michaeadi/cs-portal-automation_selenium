@@ -1,6 +1,6 @@
 package pages;
 
-import Utils.DataProviders.DataProvider;
+import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.PriorityDataBean;
 import Utils.DataProviders.TicketStateDataBean;
 import Utils.ExtentReports.ExtentTestManager;
@@ -221,7 +221,7 @@ public class FilterTabPOM extends BasePage {
     }
 
     public boolean validateOpenStateFilter(){
-        DataProvider d=new DataProvider();
+        DataProviders d=new DataProviders();
         List<TicketStateDataBean> open=d.getState("open");
         try{
         for(TicketStateDataBean state:open){
@@ -238,7 +238,7 @@ public class FilterTabPOM extends BasePage {
     }
 
     public boolean validatePriorityFilter(){
-        DataProvider d=new DataProvider();
+        DataProviders d=new DataProviders();
         List<PriorityDataBean> priorityList=d.getPriority();
         try{
             for(PriorityDataBean state:priorityList){

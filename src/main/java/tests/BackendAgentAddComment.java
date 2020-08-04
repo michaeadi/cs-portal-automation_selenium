@@ -1,6 +1,6 @@
 package tests;
 
-import Utils.DataProviders.DataProvider;
+import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.TicketStateDataBean;
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
@@ -33,7 +33,7 @@ public class BackendAgentAddComment extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 2, description = "Backend agent add new comment on Ticket", dataProvider = "ticketState", dataProviderClass = DataProvider.class)
+    @Test(priority = 2, description = "Backend agent add new comment on Ticket", dataProvider = "ticketState", dataProviderClass = DataProviders.class)
     public void addNewComment(Method method, TicketStateDataBean ticketState) throws InterruptedException {
         BackendAgentTicketListPOM ticketListPage = new BackendAgentTicketListPOM(driver);
         ViewTicketPagePOM viewTicket = new ViewTicketPagePOM(driver);

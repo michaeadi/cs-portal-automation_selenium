@@ -1,6 +1,6 @@
 package tests;
 
-import Utils.DataProviders.DataProvider;
+import Utils.DataProviders.DataProviders;
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.WebElement;
@@ -33,7 +33,7 @@ public class TicketEscalationTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 2, dependsOnMethods = "agentSkipQueueLogin", description = "Validate Ticket Escalation Symbol", dataProviderClass = DataProvider.class)
+    @Test(priority = 2, dependsOnMethods = "agentSkipQueueLogin", description = "Validate Ticket Escalation Symbol", dataProviderClass = DataProviders.class)
     public void ticketEscalation(Method method) throws InterruptedException {
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         assignToAgentPOM assignTicket = new assignToAgentPOM(driver);

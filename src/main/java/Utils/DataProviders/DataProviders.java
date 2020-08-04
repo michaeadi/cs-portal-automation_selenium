@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Properties;
 
 @Log4j2
-public class DataProvider {
+public class DataProviders {
     public static Properties config = tests.BaseTest.config;
 
     @org.testng.annotations.DataProvider

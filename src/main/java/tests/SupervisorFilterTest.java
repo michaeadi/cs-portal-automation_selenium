@@ -1,7 +1,6 @@
 package tests;
 
-import Utils.DataProviders.DataProvider;
-import Utils.DataProviders.TicketStateDataBean;
+import Utils.DataProviders.DataProviders;
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 import org.testng.Assert;
@@ -35,7 +34,7 @@ public class SupervisorFilterTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 2, dependsOnMethods = "agentSkipQueueLogin", description = "Validate Filter Tab for Supervisor", dataProviderClass = DataProvider.class)
+    @Test(priority = 2, dependsOnMethods = "agentSkipQueueLogin", description = "Validate Filter Tab for Supervisor", dataProviderClass = DataProviders.class)
     public void validateFilter(Method method) throws InterruptedException {
         ExtentTestManager.startTest("Validate Filter Tab for Supervisor", "Validate Filter Tab for Supervisor");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");

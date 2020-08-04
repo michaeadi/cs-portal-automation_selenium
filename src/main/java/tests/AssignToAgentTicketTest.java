@@ -1,6 +1,6 @@
 package tests;
 
-import Utils.DataProviders.DataProvider;
+import Utils.DataProviders.DataProviders;
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 import org.testng.Assert;
@@ -32,7 +32,7 @@ public class AssignToAgentTicketTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 2, dependsOnMethods = "agentSkipQueueLogin", description = "Assign Ticket to Agent", dataProviderClass = DataProvider.class)
+    @Test(priority = 2, dependsOnMethods = "agentSkipQueueLogin", description = "Assign Ticket to Agent", dataProviderClass = DataProviders.class)
     public void assignTicketToAgent(Method method) throws InterruptedException {
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         assignToAgentPOM assignTicket = new assignToAgentPOM(driver);

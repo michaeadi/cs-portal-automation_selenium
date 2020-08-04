@@ -1,6 +1,6 @@
 package tests;
 
-import Utils.DataProviders.DataProvider;
+import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.TicketStateDataBean;
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
@@ -9,13 +9,12 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.BackendAgentTicketListPOM;
 import pages.ViewTicketPagePOM;
-import pages.supervisorTicketListPagePOM;
 
 import java.lang.reflect.Method;
 
 public class BackendAgentUpdateTicket extends BaseTest{
 
-    @Test(priority = 1, description = "Backend Agent Update Ticket", dataProvider = "ticketState", dataProviderClass = DataProvider.class)
+    @Test(priority = 1, description = "Backend Agent Update Ticket", dataProvider = "ticketState", dataProviderClass = DataProviders.class)
     public void updateTicket(Method method, TicketStateDataBean ticketState) throws InterruptedException {
         BackendAgentTicketListPOM ticketListPage = new BackendAgentTicketListPOM(driver);
         ViewTicketPagePOM viewTicket = new ViewTicketPagePOM(driver);
