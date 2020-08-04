@@ -200,12 +200,12 @@ public class createInteractionTest extends BaseTest {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
-        interactionsPOM.closeInteractions();
-
         String base64Screenshot = "data:image/png;base64," + ((TakesScreenshot) driver).
                 getScreenshotAs(OutputType.BASE64);
         ExtentTestManager.getTest().log(LogStatus.INFO, ExtentTestManager.getTest().addBase64ScreenShot(base64Screenshot));
         softAssert.assertAll();
+
+        interactionsPOM.closeInteractions();
     }
 
 

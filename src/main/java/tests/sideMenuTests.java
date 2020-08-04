@@ -16,7 +16,7 @@ public class sideMenuTests extends BaseTest {
         SideMenuPOM.clickOnSideMenu();
         softAssert.assertTrue(SideMenuPOM.isAdminSettingVisible());
         softAssert.assertTrue(SideMenuPOM.isCustomerServicesVisible());
-        softAssert.assertTrue(SideMenuPOM.isCaseManagementVisible());
+//        softAssert.assertTrue(SideMenuPOM.isCaseManagementVisible());
         softAssert.assertTrue(SideMenuPOM.isUserManagementVisible());
         softAssert.assertTrue(SideMenuPOM.isProfileManagementVisible());
         SideMenuPOM.clickOnName();

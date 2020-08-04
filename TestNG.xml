@@ -31,6 +31,11 @@
             <class name="tests.InteractionCommentTest"/>
         </classes>
     </test>
+    <test name="Validate Frontend Agent Ticket Page">
+        <classes>
+            <class name="tests.FrontendAgentTicketTest"/>
+        </classes>
+    </test>
     <test name="Logout Test">
         <classes>
             <class name="tests.LogoutTest"/>
@@ -81,6 +86,11 @@
             <class name="tests.SupervisorAddCommentTest"/>
         </classes>
     </test>
+         <test name="Supervisors Issue Comment Test">
+            <classes>
+                <class name="tests.IssueCommentTest"/>
+            </classes>
+         </test>
     <test name="Logout Supervisor Test">
         <classes>
             <class name="tests.LogoutTest"/>
@@ -119,6 +129,11 @@
     <test name="BACKEND AGENT Update Ticket">
         <classes>
             <class name="tests.BackendAgentUpdateTicket"/>
+        </classes>
+    </test>
+    <test name="BACKEND AGENT Add Comment on Ticket">
+        <classes>
+            <class name="tests.BackendAgentAddComment"/>
         </classes>
     </test>
     <test name="Logout Test from Backend agent">

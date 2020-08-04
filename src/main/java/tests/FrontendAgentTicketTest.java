@@ -39,6 +39,7 @@ public class FrontendAgentTicketTest extends BaseTest {
         ticketHistory.writeTicketId(Data.getTicketNumber());
         ticketHistory.clickSearchBtn();
         ticketHistory.waitTillLoaderGetsRemoved();
+        Thread.sleep(3000);
         softAssert.assertEquals(ticketHistory.getTicketId(1),Data.getTicketNumber(),"Ticket Id does not same as search ticket id.");
         softAssert.assertEquals(ticketHistory.getTicketPriority(1),Data.getPriority(),"Ticket priority not same as rule defined");
         softAssert.assertEquals(ticketHistory.getTicketQueue(1),Data.getAssignmentQueue(),"Ticket Queue not same as rule defined");
