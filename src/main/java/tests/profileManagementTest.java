@@ -34,8 +34,9 @@ public class profileManagementTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 2, description = "Validating Profile Management")
+    @Test(priority = 2)
     public void configurationFilterTest() {
+        ExtentTestManager.startTest("Validating Profile Management's Configuration Filter", "Validating Profile Management's Configuration Filter");
         SoftAssert softAssert = new SoftAssert();
         profileManagementPOM profileManagement = new profileManagementPOM(driver);
         profileManagement.getConfigFilterElement().click();
@@ -61,6 +62,7 @@ public class profileManagementTest extends BaseTest {
 
     @Test(priority = 3, description = "Validating Profile Management")
     public void roleStatusFilterTest() {
+        ExtentTestManager.startTest("Validating Profile Management's Role Status Filter", "Validating Profile Management's Role Status Filter");
         SoftAssert softAssert = new SoftAssert();
         profileManagementPOM profileManagement = new profileManagementPOM(driver);
         profileManagement.getRoleStatusFilterElement().click();

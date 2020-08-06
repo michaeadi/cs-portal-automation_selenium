@@ -32,7 +32,6 @@ public class BasePage {
 
     //Constructor
     public BasePage(WebDriver driver) {
-
         this.driver = driver;
         wait = new WebDriverWait(driver, Duration.ofSeconds(Integer.parseInt(BaseTest.config.getProperty("GeneralWaitInSeconds"))));
         driver.manage().timeouts().implicitlyWait(Integer.parseInt(BaseTest.config.getProperty("ImplicitWaitInSeconds")), TimeUnit.SECONDS);

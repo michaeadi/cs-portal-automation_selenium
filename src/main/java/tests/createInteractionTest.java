@@ -1,6 +1,7 @@
 package tests;
 
 import Utils.DataProviders.DataProviders;
+import Utils.DataProviders.TestDatabean;
 import Utils.DataProviders.ftrDataBeans;
 import Utils.DataProviders.nftrDataBeans;
 import Utils.ExtentReports.ExtentTestManager;
@@ -13,19 +14,36 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.InteractionsPOM;
+import pages.SideMenuPOM;
 import pages.customerInteractionPagePOM;
+import pages.customerInteractionsSearchPOM;
 
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import static Utils.DataProviders.DataProviders.User;
+
 public class createInteractionTest extends BaseTest {
 
 
-//    Map<String, String> map = new HashMap<>();
+    @User(UserType = "NFTR")
+    @Test(priority = 0, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
+    public void openCustomerInteraction(TestDatabean Data) {
+        ExtentTestManager.startTest("Validating the Search forCustomer Interactions :" + Data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + Data.getCustomerNumber());
+        SoftAssert softAssert = new SoftAssert();
+        SideMenuPOM SideMenuPOM = new SideMenuPOM(driver);
+        SideMenuPOM.clickOnSideMenu();
+        SideMenuPOM.clickOnName();
+        customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
+        customerInteractionsSearchPOM.enterNumber(Data.getCustomerNumber());
+        customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
+        softAssert.assertTrue(customerInteractionPagePOM.isPageLoaded());
+        softAssert.assertAll();
+    }
 
-    @Test(priority = 1, description = "Create FTR Interaction ", dataProvider = "getTestData1", enabled = true, dataProviderClass = DataProviders.class)
+    @Test(priority = 1, description = "Create FTR Interaction ", dataProvider = "getTestData1", dataProviderClass = DataProviders.class)
     public void CreateInteraction(ftrDataBeans Data) throws InterruptedException {
         ExtentTestManager.startTest(" Validating FTR Ticket" + Data.getIssueCode(), "Creating FTR Tickets and Configurations of Issue Code " + Data.getIssueCode());
         customerInteractionPagePOM customerInteractionPagePOM = new customerInteractionPagePOM(driver);

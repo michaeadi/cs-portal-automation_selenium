@@ -11,6 +11,11 @@ import java.util.List;
 
 @Log4j2
 public class MoreUsageHistoryPOM extends BasePage {
+
+    public MoreUsageHistoryPOM(WebDriver driver) {
+        super(driver);
+    }
+
     By bundleName = By.xpath("div[@class=\"ng-star-inserted\"][1]/span");
     By transactionNumber = By.xpath("div[@class=\"ng-star-inserted\"][2]/span");
     By dateTime = By.xpath("div[@class=\"ng-star-inserted\"][3]/span");
@@ -101,9 +106,6 @@ public class MoreUsageHistoryPOM extends BasePage {
         return isElementVisible(dataHistoryNoResultFound);
     }
 
-    public MoreUsageHistoryPOM(WebDriver driver) {
-        super(driver);
-    }
 
     public String getSmsBundleName(int RowNumber) {
         WebElement rowElement = smsHistoryRowsElements.get(RowNumber);

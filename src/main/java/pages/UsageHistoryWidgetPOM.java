@@ -12,6 +12,10 @@ import java.util.List;
 @Log4j2
 public class UsageHistoryWidgetPOM extends BasePage {
 
+    public UsageHistoryWidgetPOM(WebDriver driver) {
+        super(driver);
+    }
+
     By usageHistoryDatePicker = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Usage History\")]//following-sibling::form//child::input[@name=\"dateRange\"]");
     By usageHistoryHeader = By.xpath("//span[@class=\"card__card-header--label\" and text()=\"Usage History \"]");
     By rows = By.xpath("//div[@class=\"card__card-header\"]/span[contains(text(),\"Usage\")]//parent::div//following-sibling::div[@class=\"card__content restricted ng-star-inserted\"]//div[@class=\"card__card-header--card-body--table--data-list ng-star-inserted\"]");
@@ -52,9 +56,6 @@ public class UsageHistoryWidgetPOM extends BasePage {
         return isElementVisible(usageHistoryNoResultFound);
     }
 
-    public UsageHistoryWidgetPOM(WebDriver driver) {
-        super(driver);
-    }
 
     public int getNumberOfRows() {
         return as.size();

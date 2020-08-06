@@ -27,6 +27,10 @@ public class RechargeHistoryWidgetPOM extends BasePage {
     By rechargeHistoryNoResultFoundMessage = By.xpath("//span[contains(text(),\"Recharge History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]/span/span");
     By rechargeHistoryError = By.xpath("//span[contains(text(),\"Recharge History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"widget-error apiMsgBlock ng-star-inserted\"][1]");
 
+    public RechargeHistoryWidgetPOM(WebDriver driver) {
+        super(driver);
+    }
+
     public boolean isRechargeHistoryErrorVisible() {
         log.info("Validating error is visible when there is Error inAPI : " + isElementVisible(rechargeHistoryError));
         ExtentTestManager.getTest().log(LogStatus.INFO, "Validating error is visible when there is Error in API : " + isElementVisible(rechargeHistoryError));
@@ -52,9 +56,6 @@ public class RechargeHistoryWidgetPOM extends BasePage {
         return isElementVisible(rechargeHistoryNoResultFound);
     }
 
-    public RechargeHistoryWidgetPOM(WebDriver driver) {
-        super(driver);
-    }
 
     public int getNumberOfRows() {
         return as.size();
