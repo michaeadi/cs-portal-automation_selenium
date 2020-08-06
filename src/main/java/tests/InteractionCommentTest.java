@@ -1,6 +1,6 @@
 package tests;
 
-import Utils.DataProviders.DataProvider;
+import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.TestDatabean;
 import Utils.DataProviders.nftrDataBeans;
 import Utils.ExtentReports.ExtentTestManager;
@@ -23,8 +23,8 @@ import java.time.format.DateTimeFormatter;
 
 public class InteractionCommentTest extends BaseTest {
 
-    @DataProvider.User(UserType = "ALL")
-    @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProvider.class)
+    @DataProviders.User(UserType = "ALL")
+    @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteraction(Method method, TestDatabean Data) throws IOException {
         ExtentTestManager.startTest("Validating the Search forCustomer Interactions :" + Data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + Data.getCustomerNumber());
         SoftAssert softAssert = new SoftAssert();
@@ -38,7 +38,7 @@ public class InteractionCommentTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 2, description = "Create Interaction ", dataProvider = "interactionComment", dataProviderClass = DataProvider.class)
+    @Test(priority = 2, description = "Create Interaction ", dataProvider = "interactionComment", dataProviderClass = DataProviders.class)
     public void addInteractionComment(nftrDataBeans Data) throws InterruptedException, IOException {
         ExtentTestManager.startTest("Add Interaction Ticket Comment", "Add Interaction Ticket Comment on Ticket" + Data.getIssueCode());
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");

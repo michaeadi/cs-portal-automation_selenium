@@ -1,6 +1,6 @@
 package tests;
 
-import Utils.DataProviders.DataProvider;
+import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.TestDatabean;
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
@@ -14,8 +14,8 @@ import pages.loginPagePOM;
 import java.lang.reflect.Method;
 
 public class BackendAgentLoginTest extends BaseTest {
-    @DataProvider.User(UserType = "BA")
-    @Test(priority = 1, description = "Logging IN ", dataProvider = "loginData", dataProviderClass = DataProvider.class)
+    @DataProviders.User(UserType = "BA")
+    @Test(priority = 1, description = "Logging IN ", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void LoggingIN(Method method, TestDatabean Data) {
         ExtentTestManager.startTest("Logging Into Portal", "Logging Into Portal with AUUID :  " + Data.getLoginAUUID());
         SoftAssert softAssert = new SoftAssert();

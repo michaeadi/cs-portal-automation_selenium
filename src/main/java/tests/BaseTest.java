@@ -36,10 +36,10 @@ public class BaseTest {
 
     @BeforeSuite
     public void classLevelSetup() throws IOException {
-//        Opco = "KE";
-//        Env = "SIT";
-        Opco = System.getProperty("Opco").toUpperCase();
-        Env = System.getProperty("Env").toUpperCase();
+        Opco = "KE";
+        Env = "UAT";
+//        Opco = System.getProperty("Opco").toUpperCase();
+//        Env = System.getProperty("Env").toUpperCase();
         ExcelPath = Opco + ".xlsx";
         config = new Properties();
         System.out.println("OPCO Chosen :" + Opco);
@@ -58,7 +58,7 @@ public class BaseTest {
             options.addArguments("--window-size=1792,1120");
             options.setHeadless(true);
             //Using with Options will start in Headless Browser
-            driver = new ChromeDriver(options);
+            driver = new ChromeDriver();
             driver.manage().window().maximize();
         } else if (browser.equals("firefox")) {
             WebDriverManager.firefoxdriver().setup();

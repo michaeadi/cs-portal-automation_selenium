@@ -15,6 +15,7 @@ public class customerInteractionPagePOM extends BasePage {
     By customerName = By.xpath("//p[@class=\"fw-bold name ng-star-inserted\"]");
     By customerDOB = By.xpath("//span[@class=\"fw-normal dob ng-star-inserted\"]/span[@class=\"ng-star-inserted\"]");
     By activationDate = By.xpath("//div[@class=\"col-md-4 border-right1 ng-star-inserted\"][1]//child::span[1]");
+    //    By activationDate = By.xpath("//div[@class=\"col-md-4 border-right1 ng-star-inserted\"][1]//child::span");
     By activationTime = By.xpath("//span[@class='sp-block ng-star-inserted']");
     By simNumber = By.xpath("//div[@class=\"col-md-4 border-right1 ng-star-inserted\"][2]//child::p[1]/span");
     By simType = By.xpath("//p[@class=\"user-sim-device ng-star-inserted\"]/span[@class=\"ng-star-inserted\"]");
@@ -30,11 +31,39 @@ public class customerInteractionPagePOM extends BasePage {
     By blankCallBtn = By.xpath("//div[@class=\"sub-header__divide--control--tab ng-star-inserted\" and contains(text(),\"lank\")]");
     By callDropBtn = By.xpath("//div[@class=\"sub-header__divide--control--tab ng-star-inserted\" and contains(text(),\"rop\")]");
     By noiseCallBtn = By.xpath("//div[@class=\"sub-header__divide--control--tab ng-star-inserted\" and contains(text(),\"on\")]");
+    By firstWidgetHeader = By.xpath("//div[@class=\"home-tab-container__left-widgets--widgets ng-star-inserted\"][1]//child::span[@class=\"card__card-header--label\"]");
+    By thirdWidgetHeader = By.xpath("//div[@class=\"home-tab-container__left-widgets--widgets ng-star-inserted\"][2]//child::span[@class=\"card__card-header--label\"]");
+    By secondWidgetHeader = By.xpath("//div[@class=\"home-tab-container__right-widgets--widgets ng-star-inserted\"][1]//child::span[@class=\"card__card-header--label\"]");
+    By fourthWidgetHeader = By.xpath("//div[@class=\"home-tab-container__right-widgets--widgets ng-star-inserted\"][2]//child::span[@class=\"card__card-header--label\"]");
+
 
     public customerInteractionPagePOM(WebDriver driver) {
         super(driver);
     }
 
+    public String getFirstWidgetHeader() {
+        log.info("Getting header of 1st Widget : " + readText(firstWidgetHeader));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting header of 1st Widget : " + readText(firstWidgetHeader));
+        return readText(firstWidgetHeader);
+    }
+
+    public String getSecondWidgetHeader() {
+        log.info("Getting header of 2nd Widget : " + readText(secondWidgetHeader));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting header of 2nd Widget : " + readText(secondWidgetHeader));
+        return readText(secondWidgetHeader);
+    }
+
+    public String getThirdWidgetHeader() {
+        log.info("Getting header of 3rd Widget : " + readText(thirdWidgetHeader));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting header of 3rd Widget : " + readText(thirdWidgetHeader));
+        return readText(thirdWidgetHeader);
+    }
+
+    public String getFourthWidgetHeader() {
+        log.info("Getting header of 4th Widget : " + readText(fourthWidgetHeader));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting header of 4th Widget : " + readText(fourthWidgetHeader));
+        return readText(fourthWidgetHeader);
+    }
 
     public String[] getPinnedTagTexts() {
         String[] strings = null;

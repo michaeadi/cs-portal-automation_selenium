@@ -1,6 +1,6 @@
 package tests;
 
-import Utils.DataProviders.DataProvider;
+import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.PinnedtagsDataBeans;
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
@@ -10,13 +10,11 @@ import pages.customerInteractionPagePOM;
 import pages.customerInteractionsSearchPOM;
 import pages.viewHistoryPOM;
 
-import java.lang.reflect.Method;
-
 public class PinnedTagTest extends BaseTest {
 
-    @DataProvider.RowNumber(rowNumber = "1")
-    @Test(priority = 1, description = "Validating Blank Call ", dataProvider = "getSingleRow", dataProviderClass = DataProvider.class)
-    public void blankCallTest(Method method, PinnedtagsDataBeans Data) {
+    @DataProviders.RowNumber(rowNumber = "1")
+    @Test(priority = 1, description = "Validating Blank Call ", dataProvider = "getSingleRow", dataProviderClass = DataProviders.class)
+    public void blankCallTest(PinnedtagsDataBeans Data) {
         ExtentTestManager.startTest("Validating Pinned Tag : Blank call", "Validating Pinned Tag : Blank call Tag and Ticket creation by tag");
         SoftAssert softAssert = new SoftAssert();
         customerInteractionPagePOM customerInteractionPage = new customerInteractionPagePOM(driver);
@@ -43,9 +41,9 @@ public class PinnedTagTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @DataProvider.RowNumber(rowNumber = "2")
-    @Test(priority = 2, description = "Validating Call Drop ", dataProvider = "getSingleRow", dataProviderClass = DataProvider.class)
-    public void callDropTest(Method method, PinnedtagsDataBeans Data) {
+    @DataProviders.RowNumber(rowNumber = "2")
+    @Test(priority = 2, description = "Validating Call Drop ", dataProvider = "getSingleRow", dataProviderClass = DataProviders.class)
+    public void callDropTest(PinnedtagsDataBeans Data) {
         ExtentTestManager.startTest("Validating Pinned Tag : Call Drop", "Validating Pinned Tag : Call Drop Tag and Ticket creation by tag");
         SoftAssert softAssert = new SoftAssert();
         customerInteractionPagePOM customerInteractionPage = new customerInteractionPagePOM(driver);
@@ -72,9 +70,9 @@ public class PinnedTagTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @DataProvider.RowNumber(rowNumber = "3")
-    @Test(priority = 3, description = "SideMenu ", dataProvider = "getSingleRow", dataProviderClass = DataProvider.class)
-    public void noiseOnCallTest(Method method, PinnedtagsDataBeans Data) {
+    @DataProviders.RowNumber(rowNumber = "3")
+    @Test(priority = 3, description = "SideMenu ", dataProvider = "getSingleRow", dataProviderClass = DataProviders.class)
+    public void noiseOnCallTest(PinnedtagsDataBeans Data) {
         ExtentTestManager.startTest("Validating Pinned Tag : Noise On Call ", "Validating Pinned Tag : Noise On Call  Tag and Ticket creation by tag");
         SoftAssert softAssert = new SoftAssert();
         customerInteractionPagePOM customerInteractionPage = new customerInteractionPagePOM(driver);

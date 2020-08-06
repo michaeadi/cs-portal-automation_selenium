@@ -20,11 +20,38 @@ public class CurrentBalanceWidgetPOM extends BasePage {
     By dataExpiryDate = By.xpath("//span[@class=\"card__content--bottom--plan ng-star-inserted\"][2]/p[@class=\"ng-star-inserted\"][2]");
     By smsExpiryDate = By.xpath("//span[@class=\"card__content--bottom--plan ng-star-inserted\"][3]/p[@class=\"ng-star-inserted\"][2]");
     By menu = By.xpath("//span[contains(text(),\"Your Current Plan \")]//parent::div/span[@class=\"card__card-header--menu ng-star-inserted\"]/img");
+    By currentBalanceLastRechargeUnableToFetch = By.xpath("//span[@class=\"label-color\"]/span[@class=\"api-failed-error ng-star-inserted\"]");
+    By lastRechargeDateTImeUnableTOFetch = By.xpath("//div[@class=\"api-failed-error ng-star-inserted\"]");
     By daDetails = By.xpath("//button[text()=\"DA Details\"]");
 
     public CurrentBalanceWidgetPOM(WebDriver driver) {
         super(driver);
     }
+
+    public boolean isLastRechargeUnableToFetchVisible() {
+        log.info("Validating is error visible for last recharge balance : " + isElementVisible(currentBalanceLastRechargeUnableToFetch));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Validating is error visible for last recharge balance : " + isElementVisible(currentBalanceLastRechargeUnableToFetch));
+        return isElementVisible(currentBalanceLastRechargeUnableToFetch);
+    }
+
+    public boolean isLastRechargeDateTImeUnableTOFetch() {
+        log.info("Validating is error visible for last recharge Date & Time : " + isElementVisible(lastRechargeDateTImeUnableTOFetch));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Validating is error visible for last recharge Date & Time : " + isElementVisible(lastRechargeDateTImeUnableTOFetch));
+        return isElementVisible(lastRechargeDateTImeUnableTOFetch);
+    }
+
+    public String gettingLastRechargeUnableToFetchVisible() {
+        log.info("Validating  error message for last recharge balance : " + readText(currentBalanceLastRechargeUnableToFetch));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Validating  error message for last recharge balance : " + readText(currentBalanceLastRechargeUnableToFetch));
+        return readText(currentBalanceLastRechargeUnableToFetch);
+    }
+
+    public String gettingLastRechargeDateTImeUnableTOFetch() {
+        log.info("Validating  error message for last recharge Date & Time : " + readText(lastRechargeDateTImeUnableTOFetch));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Validating  error message for last recharge Date & Time : " + readText(lastRechargeDateTImeUnableTOFetch));
+        return readText(lastRechargeDateTImeUnableTOFetch);
+    }
+
 
     public boolean isCurrentBalanceWidgetMenuVisible() {
         log.info("Checking is Your Current Balance Widget's Menu Visible");

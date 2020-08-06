@@ -21,6 +21,7 @@ public class TestDatabean {
     String PUK2;
     String idType;
     String idNumber;
+    String roleType;
 
 
 }

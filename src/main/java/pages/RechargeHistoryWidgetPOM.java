@@ -23,10 +23,39 @@ public class RechargeHistoryWidgetPOM extends BasePage {
     By status = By.xpath("div[5]/span[@class=\"ng-star-inserted\"]");
     By menu = By.xpath("//span[contains(text(),\"Recharge History\")]//parent::div/span[@class=\"card__card-header--menu ng-star-inserted\"]/img");
     By more = By.xpath("//button[text()=\"Recharge History\"]");
+    By rechargeHistoryNoResultFound = By.xpath("//span[contains(text(),\"Recharge History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]");
+    By rechargeHistoryNoResultFoundMessage = By.xpath("//span[contains(text(),\"Recharge History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]/span/span");
+    By rechargeHistoryError = By.xpath("//span[contains(text(),\"Recharge History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"widget-error apiMsgBlock ng-star-inserted\"][1]");
 
     public RechargeHistoryWidgetPOM(WebDriver driver) {
         super(driver);
     }
+
+    public boolean isRechargeHistoryErrorVisible() {
+        log.info("Validating error is visible when there is Error inAPI : " + isElementVisible(rechargeHistoryError));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Validating error is visible when there is Error in API : " + isElementVisible(rechargeHistoryError));
+        return isElementVisible(rechargeHistoryError);
+    }
+
+    public String getHeaders(int row) {
+        String header = readText(By.xpath("//span[contains(text(),\"Recharge History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"card__card-header--card-body--table--list-heading\"]/div[" + row + "]"));
+        log.info("Getting header Number " + row + " : " + header);
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting header Number " + row + " : " + header);
+        return header;
+    }
+
+    public String gettingRechargeHistoryNoResultFoundMessage() {
+        log.info("Validating error message when there is no data from API : " + readText(rechargeHistoryNoResultFoundMessage));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Validating error message when there is no data from API : " + readText(rechargeHistoryNoResultFoundMessage));
+        return readText(rechargeHistoryNoResultFoundMessage);
+    }
+
+    public boolean isRechargeHistoryNoResultFoundVisible() {
+        log.info("Validating error is visible when there is no data from API : " + isElementVisible(rechargeHistoryNoResultFound));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Validating error is visible when there is no data from API : " + isElementVisible(rechargeHistoryNoResultFound));
+        return isElementVisible(rechargeHistoryNoResultFound);
+    }
+
 
     public int getNumberOfRows() {
         return as.size();

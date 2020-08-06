@@ -14,7 +14,7 @@ import java.util.Iterator;
 import java.util.List;
 
 
-public class TestDataExcelToBeanDao {
+public class HeaderDataExcelToBeanDao {
 
     static DataFormatter dataFormatter;
     static FormulaEvaluator evaluator;
@@ -24,9 +24,9 @@ public class TestDataExcelToBeanDao {
         return dataFormatter.formatCellValue(cell, evaluator);
     }
 
-    public List<TestDatabean> getData(String path, String SheetName) {
+    public List<HeaderDataBean> getData(String path, String SheetName) {
 
-        List<TestDatabean> userCredsBeanList = new ArrayList<>();
+        List<HeaderDataBean> userCredsBeanList = new ArrayList<>();
         FileInputStream file;
         try {
             file = new FileInputStream(new File(path));
@@ -44,7 +44,7 @@ public class TestDataExcelToBeanDao {
             Sheet sheet = workbook.getSheet(SheetName);
 
             for (Row cells : sheet) {
-                TestDatabean testDatabean = new TestDatabean();
+                HeaderDataBean HeaderDataBean = new HeaderDataBean();
                 Iterator<Cell> cellIterator = cells.cellIterator();
                 while (cellIterator.hasNext()) {
                     Cell cell = cellIterator.next();
@@ -56,57 +56,40 @@ public class TestDataExcelToBeanDao {
 
                         switch (columnIndex) {
                             case 0:
-                                testDatabean.setLoginAUUID(cellValue);
+                                HeaderDataBean.setTableName(cellValue);
                                 break;
                             case 1:
-                                testDatabean.setPassword(cellValue);
+                                HeaderDataBean.setRow1(cellValue);
                                 break;
                             case 2:
-                                testDatabean.setUserType(cellValue);
+                                HeaderDataBean.setRow2(cellValue);
                                 break;
                             case 3:
-                                testDatabean.setCustomerNumber(cellValue);
+                                HeaderDataBean.setRow3(cellValue);
                                 break;
                             case 4:
-                                testDatabean.setCustomerName(cellValue);
+                                HeaderDataBean.setRow4(cellValue);
                                 break;
                             case 5:
-                                testDatabean.setCustomerDOB(cellValue);
+                                HeaderDataBean.setRow5(cellValue);
                                 break;
                             case 6:
-                                testDatabean.setActivationDate(cellValue);
+                                HeaderDataBean.setRow6(cellValue);
                                 break;
                             case 7:
-                                testDatabean.setActivationTime(cellValue);
+                                HeaderDataBean.setRow7(cellValue);
                                 break;
                             case 8:
-                                testDatabean.setSimNumber(cellValue);
+                                HeaderDataBean.setRow8(cellValue);
                                 break;
-                            case 9:
-                                testDatabean.setSimType(cellValue);
-                                break;
-                            case 10:
-                                testDatabean.setPUK1(cellValue);
-                                break;
-                            case 11:
-                                testDatabean.setPUK2(cellValue);
-                                break;
-                            case 12:
-                                testDatabean.setIdType(cellValue);
-                                break;
-                            case 13:
-                                testDatabean.setIdNumber(cellValue);
-                                break;
-                            case 14:
-                                testDatabean.setRoleType(cellValue);
-                                break;
+
                         }
                     }
                 }
 
 
                 if (cells.getRowNum() != 0) {
-                    userCredsBeanList.add(testDatabean);
+                    userCredsBeanList.add(HeaderDataBean);
                 }
             }
         } catch (

@@ -11,6 +11,11 @@ import java.util.List;
 
 @Log4j2
 public class MoreUsageHistoryPOM extends BasePage {
+
+    public MoreUsageHistoryPOM(WebDriver driver) {
+        super(driver);
+    }
+
     By bundleName = By.xpath("div[@class=\"ng-star-inserted\"][1]/span");
     By transactionNumber = By.xpath("div[@class=\"ng-star-inserted\"][2]/span");
     By dateTime = By.xpath("div[@class=\"ng-star-inserted\"][3]/span");
@@ -30,10 +35,77 @@ public class MoreUsageHistoryPOM extends BasePage {
     By smsDatePicker = By.xpath("//span[contains(text(),\"SMS History \")]//following-sibling::form/span[@class=\"datepicker-transaction ng-star-inserted\"]");
     By dataDatePicker = By.xpath("//span[contains(text(),\"Data History \")]//following-sibling::form/span[@class=\"datepicker-transaction ng-star-inserted\"]");
     By callDatePicker = By.xpath("//span[contains(text(),\"Call History \")]//following-sibling::form/span[@class=\"datepicker-transaction ng-star-inserted\"]");
+    By callHistoryNoResultFound = By.xpath("//span[contains(text(),\"Call History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]");
+    By callHistoryNoResultFoundMessage = By.xpath("//span[contains(text(),\"Call History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]/span/span");
+    By smsHistoryNoResultFound = By.xpath("//span[contains(text(),\"SMS History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]");
+    By smsHistoryNoResultFoundMessage = By.xpath("//span[contains(text(),\"SMS History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]/span/span");
+    By dataHistoryNoResultFound = By.xpath("//span[contains(text(),\"Data History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]");
+    By dataHistoryNoResultFoundMessage = By.xpath("//span[contains(text(),\"Data History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]/span/span");
 
-    public MoreUsageHistoryPOM(WebDriver driver) {
-        super(driver);
+    public String gettingCallHistoryNoResultFoundMessage() {
+        log.info("Validating error message when there is no data from API : " + readText(callHistoryNoResultFoundMessage));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Validating error message when there is no data from API : " + readText(callHistoryNoResultFoundMessage));
+        return readText(callHistoryNoResultFoundMessage);
     }
+
+    public boolean isCallHistoryNoResultFoundVisible() {
+        log.info("Validating error is visible when there is no data from API : " + isElementVisible(callHistoryNoResultFound));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Validating error is visible when there is no data from API : " + isElementVisible(callHistoryNoResultFound));
+        return isElementVisible(callHistoryNoResultFound);
+    }
+
+    public String getCallHistoryHeader(int row) {
+        String header = readText(By.xpath("//span[contains(text(),\"Call History \")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"card__card-header--card-body--table--list-heading\"]/div[" + row + "]"));
+        log.info("Getting header Number " + row + " : " + header);
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting header Number " + row + " : " + header);
+        return header;
+    }
+
+    public String getDataHistoryHeader(int row) {
+        String header = readText(By.xpath("//span[contains(text(),\"Data History \")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"card__card-header--card-body--table--list-heading\"]/div[" + row + "]"));
+        log.info("Getting header Number " + row + " : " + header);
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting header Number " + row + " : " + header);
+        return header;
+    }
+
+    public String getHeaders(int row) {
+        String header = readText(By.xpath("//span[contains(text(),\"Usage History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"card__card-header--card-body--table--list-heading\"]/div[" + row + "]"));
+        log.info("Getting header Number " + row + " : " + header);
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting header Number " + row + " : " + header);
+        return header;
+    }
+
+    public String getSMSHistoryHeader(int row) {
+        String header = readText(By.xpath("//span[contains(text(),\"SMS History \")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"card__card-header--card-body--table--list-heading\"]/div[" + row + "]"));
+        log.info("Getting header Number " + row + " : " + header);
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting header Number " + row + " : " + header);
+        return header;
+    }
+
+    public String gettingSMSHistoryNoResultFoundMessage() {
+        log.info("Validating error message when there is no data from API : " + readText(smsHistoryNoResultFoundMessage));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Validating error message when there is no data from API : " + readText(smsHistoryNoResultFoundMessage));
+        return readText(smsHistoryNoResultFoundMessage);
+    }
+
+    public boolean isSMSHistoryNoResultFoundVisible() {
+        log.info("Validating error is visible when there is no data from API : " + isElementVisible(smsHistoryNoResultFound));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Validating error is visible when there is no data from API : " + isElementVisible(smsHistoryNoResultFound));
+        return isElementVisible(smsHistoryNoResultFound);
+    }
+
+    public String gettingDataHistoryNoResultFoundMessage() {
+        log.info("Validating error message when there is no data from API : " + readText(dataHistoryNoResultFoundMessage));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Validating error message when there is no data from API : " + readText(dataHistoryNoResultFoundMessage));
+        return readText(dataHistoryNoResultFoundMessage);
+    }
+
+    public boolean isDataHistoryNoResultFoundVisible() {
+        log.info("Validating error is visible when there is no data from API : " + isElementVisible(dataHistoryNoResultFound));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Validating error is visible when there is no data from API : " + isElementVisible(dataHistoryNoResultFound));
+        return isElementVisible(dataHistoryNoResultFound);
+    }
+
 
     public String getSmsBundleName(int RowNumber) {
         WebElement rowElement = smsHistoryRowsElements.get(RowNumber);
