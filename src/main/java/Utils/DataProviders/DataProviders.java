@@ -195,6 +195,7 @@ public class DataProviders {
         return hashMapObj;
     }
 
+
     @DataProvider(name = "HeaderData")
     public Object[][] getHeaderData(Method method) {
         HeaderDataExcelToBeanDao ExcelToBeanDao = new HeaderDataExcelToBeanDao();
@@ -220,6 +221,14 @@ public class DataProviders {
         }
         return hashMapObj;
     }
+
+    @Documented
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.METHOD)
+    public @interface Table {
+        String Name() default "";
+    }
+
 
     @DataProvider(name = "ReOpenState")
     public Object[][] isReOpenState() {
@@ -256,7 +265,7 @@ public class DataProviders {
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.METHOD)
     public @interface User {
-        String UserType() default "";
+        String UserType() default "ALL";
     }
 
     @DataProvider
@@ -272,13 +281,6 @@ public class DataProviders {
         hashMapObj[0][0] = list.get(0);
 
         return hashMapObj;
-    }
-
-    @Documented
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.METHOD)
-    public @interface Table {
-        String Name() default "";
     }
 
 

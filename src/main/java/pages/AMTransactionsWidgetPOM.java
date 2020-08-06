@@ -15,7 +15,14 @@ public class AMTransactionsWidgetPOM extends BasePage {
     By airtelMoneyBalanceUnableToFetch = By.xpath("//div[@class=\"card__content--money-balance ng-star-inserted\"]/span[@class=\"api-failed-error ng-star-inserted\"]");
     By airtelMoneyNoResultFound = By.xpath("//span[contains(text(),\"Airtel Money Transactions \")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]");
     By airtelMoneyNoResultFoundMessage = By.xpath("//span[contains(text(),\"Airtel Money Transactions \")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]/span/span");
-    By airtelMoneyError = By.xpath("//span[contains(text(),\"Airtel Money Transactions \")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"widget-error apiMsgBlock ng-star-inserted\"]");
+    By airtelMoneyError = By.xpath("//span[contains(text(),\"Airtel Money Transactions \")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"widget-error apiMsgBlock ng-star-inserted\"][1]");
+
+
+    public boolean isAirtelMoneyErrorVisible() {
+        log.info("Validating error is visible when there is Error inAPI : " + isElementVisible(airtelMoneyError));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Validating error is visible when there is Error inAPI : " + isElementVisible(airtelMoneyError));
+        return isElementVisible(airtelMoneyError);
+    }
 
     public String gettingAirtelMoneyNoResultFoundMessage() {
         log.info("Validating error message when there is no data from API : " + readText(airtelMoneyNoResultFoundMessage));
@@ -29,11 +36,6 @@ public class AMTransactionsWidgetPOM extends BasePage {
         return isElementVisible(airtelMoneyNoResultFound);
     }
 
-    public boolean isAirtelMoneyErrorVisible() {
-        log.info("Validating error is visible when there is Error inAPI : " + isElementVisible(airtelMoneyError));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Validating error is visible when there is Error inAPI : " + isElementVisible(airtelMoneyError));
-        return isElementVisible(airtelMoneyError);
-    }
 
     public String getHeaders(int row) {
         String header = readText(By.xpath("//span[contains(text(),\"Airtel Money Transactions\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"card__card-header--card-body--table--list-heading\"]/div[" + row + "]"));

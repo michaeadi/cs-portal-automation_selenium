@@ -97,6 +97,9 @@ public class TestDataExcelToBeanDao {
                             case 13:
                                 testDatabean.setIdNumber(cellValue);
                                 break;
+                            case 14:
+                                testDatabean.setRoleType(cellValue);
+                                break;
                         }
                     }
                 }

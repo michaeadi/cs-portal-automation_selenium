@@ -36,10 +36,10 @@ public class BaseTest {
 
     @BeforeSuite
     public void classLevelSetup() throws IOException {
-//        Opco = "KE";
-//        Env = "UAT";
-        Opco = System.getProperty("Opco").toUpperCase();
-        Env = System.getProperty("Env").toUpperCase();
+        Opco = "KE";
+        Env = "UAT";
+//        Opco = System.getProperty("Opco").toUpperCase();
+//        Env = System.getProperty("Env").toUpperCase();
         ExcelPath = Opco + ".xlsx";
         config = new Properties();
         System.out.println("OPCO Chosen :" + Opco);
@@ -74,7 +74,7 @@ public class BaseTest {
 
     @AfterSuite
     public void teardown() {
-        driver.quit();
+//        driver.quit();
     }
 
 

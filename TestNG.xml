@@ -29,89 +29,89 @@
             <class name="tests.customerInteractionTest"/>
         </classes>
     </test>
-    <!--    <test name="Create NFTR FTR Tickets TEST">-->
-    <!--        <classes>-->
-    <!--            <class name="tests.createInteractionTest"/>-->
-    <!--        </classes>-->
-    <!--    </test>-->
-    <!--    <test name="Add Interaction Ticket Comment">-->
-    <!--        <classes>-->
-    <!--            <class name="tests.InteractionCommentTest"/>-->
-    <!--        </classes>-->
-    <!--    </test>-->
-    <!--    <test name="Logout Test">-->
-    <!--        <classes>-->
-    <!--            <class name="tests.LogoutTest"/>-->
-    <!--        </classes>-->
-    <!--    </test>-->
-    <!--    <test name="Supervisors Login Test">-->
-    <!--        <classes>-->
-    <!--            <class name="tests.SupervisorLoginTest"/>-->
-    <!--        </classes>-->
-    <!--    </test>-->
-    <!--    <test name="Supervisors Search Ticket Test ">-->
-    <!--        <classes>-->
-    <!--            <class name="tests.SupervisorSearchTicket"/>-->
-    <!--        </classes>-->
-    <!--    </test>-->
-    <!--    <test name="Supervisors Update Ticket Test">-->
-    <!--        <classes>-->
-    <!--            <class name="tests.SupervisorUpdateTicket"/>-->
-    <!--        </classes>-->
-    <!--    </test>-->
-    <!--    <test name="Supervisors Assign To Agent Test">-->
-    <!--        <classes>-->
-    <!--            <class name="tests.AssignToAgentTicketTest"/>-->
-    <!--        </classes>-->
-    <!--    </test>-->
-    <!--    <test name="Supervisors Ticket Transfer To Queue Test">-->
-    <!--        <classes>-->
-    <!--            <class name="tests.TransferToQueueTest"/>-->
-    <!--        </classes>-->
-    <!--    </test>-->
-    <!--    <test name="Supervisor Re-Open Ticket">-->
-    <!--        <classes>-->
-    <!--            <class name="tests.SupervisorReopenTicketTest"/>-->
-    <!--        </classes>-->
-    <!--    </test>-->
-    <!--    <test name="Ticket Escalation">-->
-    <!--        <classes>-->
-    <!--            <class name="tests.TicketEscalationTest"/>-->
-    <!--        </classes>-->
-    <!--    </test>-->
-    <!--    <test name="Logout Supervisor Test">-->
-    <!--        <classes>-->
-    <!--            <class name="tests.LogoutTest"/>-->
-    <!--        </classes>-->
-    <!--    </test>-->
-    <!--    <test name="Login Admin Test">-->
-    <!--        <classes>-->
-    <!--            <class name="tests.LoginTests"/>-->
-    <!--        </classes>-->
-    <!--    </test>-->
-    <!--    <test name="UserManagement Test">-->
-    <!--        <classes>-->
-    <!--            <class name="tests.userManagementTest"/>-->
-    <!--        </classes>-->
-    <!--    </test>-->
-    <!--    <test name="Profile Management Test">-->
-    <!--        <classes>-->
-    <!--            <class name="tests.profileManagementTest"/>-->
-    <!--        </classes>-->
-    <!--    </test>-->
-    <!--    <test name="Logout Test from ADMIN/SUPERVISOR">-->
-    <!--        <classes>-->
-    <!--            <class name="tests.LogoutTest"/>-->
-    <!--        </classes>-->
-    <!--    </test>-->
-    <!--    <test name="LOGIN TO BACKEND AGENT">-->
-    <!--        <classes>-->
-    <!--            <class name="tests.BackendAgentLoginTest"/>-->
-    <!--        </classes>-->
-    <!--    </test>-->
-    <!--    <test name="Logout Test from Backend agent">-->
-    <!--        <classes>-->
-    <!--            <class name="tests.LogoutTest"/>-->
-    <!--        </classes>-->
-    <!--    </test>-->
+    <test name="Create NFTR FTR Tickets TEST">
+        <classes>
+            <class name="tests.createInteractionTest"/>
+        </classes>
+    </test>
+    <test name="Add Interaction Ticket Comment">
+        <classes>
+            <class name="tests.InteractionCommentTest"/>
+        </classes>
+    </test>
+    <test name="Logout Test">
+        <classes>
+            <class name="tests.LogoutTest"/>
+        </classes>
+    </test>
+    <test name="Supervisors Login Test">
+        <classes>
+            <class name="tests.SupervisorLoginTest"/>
+        </classes>
+    </test>
+    <test name="Supervisors Search Ticket Test ">
+        <classes>
+            <class name="tests.SupervisorSearchTicket"/>
+        </classes>
+    </test>
+    <test name="Supervisors Update Ticket Test">
+        <classes>
+            <class name="tests.SupervisorUpdateTicket"/>
+        </classes>
+    </test>
+    <test name="Supervisors Assign To Agent Test">
+        <classes>
+            <class name="tests.AssignToAgentTicketTest"/>
+        </classes>
+    </test>
+    <test name="Supervisors Ticket Transfer To Queue Test">
+        <classes>
+            <class name="tests.TransferToQueueTest"/>
+        </classes>
+    </test>
+    <test name="Supervisor Re-Open Ticket">
+        <classes>
+            <class name="tests.SupervisorReopenTicketTest"/>
+        </classes>
+    </test>
+    <test name="Ticket Escalation">
+        <classes>
+            <class name="tests.TicketEscalationTest"/>
+        </classes>
+    </test>
+    <test name="Logout Supervisor Test">
+        <classes>
+            <class name="tests.LogoutTest"/>
+        </classes>
+    </test>
+    <test name="Login Admin Test">
+        <classes>
+            <class name="tests.LoginTests"/>
+        </classes>
+    </test>
+    <test name="UserManagement Test">
+        <classes>
+            <class name="tests.userManagementTest"/>
+        </classes>
+    </test>
+    <test name="Profile Management Test">
+        <classes>
+            <class name="tests.profileManagementTest"/>
+        </classes>
+    </test>
+    <test name="Logout Test from ADMIN/SUPERVISOR">
+        <classes>
+            <class name="tests.LogoutTest"/>
+        </classes>
+    </test>
+    <test name="LOGIN TO BACKEND AGENT">
+        <classes>
+            <class name="tests.BackendAgentLoginTest"/>
+        </classes>
+    </test>
+    <test name="Logout Test from Backend agent">
+        <classes>
+            <class name="tests.LogoutTest"/>
+        </classes>
+    </test>
 </suite>
