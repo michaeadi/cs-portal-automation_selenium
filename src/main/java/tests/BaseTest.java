@@ -58,7 +58,7 @@ public class BaseTest {
             options.addArguments("--window-size=1792,1120");
             options.setHeadless(true);
             //Using with Options will start in Headless Browser
-            driver = new ChromeDriver();
+            driver = new ChromeDriver(options);
             driver.manage().window().maximize();
         } else if (browser.equals("firefox")) {
             WebDriverManager.firefoxdriver().setup();
