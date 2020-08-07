@@ -57,7 +57,7 @@ public class SupervisorAddCommentTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 3, dependsOnMethods = "agentSkipQueueLogin", description = "Validate issue comment as supervisor")
+    @Test(priority = 3, dependsOnMethods = "addCommentOnTicket", description = "Validate issue comment as supervisor")
     public void validateIssueCommentBS(Method method) throws InterruptedException {
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         ViewTicketPagePOM viewTicket = new ViewTicketPagePOM(driver);

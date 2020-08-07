@@ -13,13 +13,13 @@ import java.util.List;
 public class ViewTicketPagePOM extends BasePage {
 
     By ticketIdValue = By.xpath("//span[@class='blueColor ellipsis']");
-    By selectState = By.xpath("//body//div//div//div//div//div//div//div//div//div//div//div//div//div//div//div//div//div[2]");
+    By arrowIcon = By.xpath("//div[@class='mat-form-field-infix']//div[@class='mat-select-arrow-wrapper']");
     By submitAs = By.className("submit-btn");
-    By submitBtn = By.xpath("//button[@class='sbmit-colse-btn']");
     By stateName = By.xpath("//button[@class='sbmit-colse-btn']//span[2]");
     By addCommentBox=By.xpath("//textarea[@name='commentEntered']");
     By addBtn=By.xpath("//span[contains(text(),'ADD')]");
     By allComment=By.xpath("//table[@class='ng-star-inserted']/tbody/tr");
+    By allTicketState=By.xpath("//div[@class='cdk-overlay-pane']//mat-option");
 
     public ViewTicketPagePOM(WebDriver driver) {
         super(driver);
@@ -32,18 +32,49 @@ public class ViewTicketPagePOM extends BasePage {
         return readText(ticketIdValue);
     }
 
+//    public String selectState(String state) throws InterruptedException {
+//        log.info("Selecting State: " + state);
+//        ExtentTestManager.getTest().log(LogStatus.INFO, "Selecting State: " + state);
+//        //By stateName= By.xpath("//div[@class=\"ng-tns-c9-325 ng-trigger ng-trigger-transformPanel mat-select-panel mat-primary\"]//span[contains(text(),' "+state+"')]");
+//        //By stateName=By.xpath("//span[contains(text(),' "+state+"')]");
+//        scrollToViewElement(submitAs);
+//        String selectedState = readText(stateName);
+//        //click(selectState);
+//        ExtentTestManager.getTest().log(LogStatus.INFO, "Selecting State: " + selectedState);
+//        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Submit as " + selectedState);
+//        click(submitAs);
+//        return selectedState;
+//    }
+
     public String selectState(String state) throws InterruptedException {
-        log.info("Selecting State: " + state);
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Selecting State: " + state);
-        //By stateName= By.xpath("//div[@class=\"ng-tns-c9-325 ng-trigger ng-trigger-transformPanel mat-select-panel mat-primary\"]//span[contains(text(),' "+state+"')]");
-        //By stateName=By.xpath("//span[contains(text(),' "+state+"')]");
+        log.info("Finding State: " + state);
         scrollToViewElement(submitAs);
-        String selectedState = readText(stateName);
-        //click(selectState);
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Selecting State: " + selectedState);
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Submit as " + selectedState);
-        click(submitAs);
-        return selectedState;
+        click(arrowIcon);
+        try{
+            List<WebElement> list= driver.findElements(allTicketState);
+            System.out.println("List Size: "+list.size());
+            for(int i=1;i<=list.size();i++){
+                By chooseState=By.xpath("//div[@class='cdk-overlay-pane']//mat-option["+i+"]//span");
+                System.out.println("State Read: "+readText(chooseState));
+                if(state.equalsIgnoreCase(readText(chooseState).trim())){
+                    log.info("Clicking State: " + state);
+                    ExtentTestManager.getTest().log(LogStatus.INFO, "Selecting State: " + state);
+                    click(chooseState);
+                    String selectedState = readText(stateName);
+                    ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Submit as " + selectedState);
+                    click(submitAs);
+                    return selectedState;
+                }
+            }
+            log.info(state+" State does not mapped to ticket");
+            ExtentTestManager.getTest().log(LogStatus.WARNING, state+" State does not mapped to ticket");
+            return "Required State not found";
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.info("No State does not mapped to ticket");
+            ExtentTestManager.getTest().log(LogStatus.FAIL, "No State does not mapped to ticket");
+        }
+        return "Required State not found";
     }
 
 

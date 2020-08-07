@@ -1,6 +1,7 @@
 package Utils.DataProviders;
 
 import lombok.extern.log4j.Log4j2;
+import org.testng.annotations.DataProvider;
 
 import java.io.File;
 import java.lang.annotation.*;
@@ -13,7 +14,7 @@ import java.util.Properties;
 public class DataProviders {
     public static Properties config = tests.BaseTest.config;
 
-    @org.testng.annotations.DataProvider
+    @DataProvider
     public Object[][] getTestData() {
         TestDataExcelToBeanDao credsExcelToBeanDao = new TestDataExcelToBeanDao();
         File Exceldir = new File("Excels");
@@ -27,7 +28,7 @@ public class DataProviders {
         return hashMapObj;
     }
 
-    @org.testng.annotations.DataProvider
+    @DataProvider
     public Object[][] getTestData1() {
         ftrDataExcelToBeanDao credsExcelToBeanDao = new ftrDataExcelToBeanDao();
         File Exceldir = new File("Excels");
@@ -42,7 +43,7 @@ public class DataProviders {
         return hashMapObj;
     }
 
-    @org.testng.annotations.DataProvider
+    @DataProvider
     public Object[][] getTestData2() {
         nftrDataExcelToBeanDao credsExcelToBeanDao = new nftrDataExcelToBeanDao();
         File Exceldir = new File("Excels");
@@ -57,7 +58,7 @@ public class DataProviders {
         return hashMapObj;
     }
 
-    @org.testng.annotations.DataProvider
+    @DataProvider
     public Object[][] getInteractionChannelData() {
         UMDataExcelToBeanDao credsExcelToBeanDao = new UMDataExcelToBeanDao();
         File Exceldir = new File("Excels");
@@ -71,7 +72,7 @@ public class DataProviders {
         return hashMapObj;
     }
 
-    @org.testng.annotations.DataProvider
+    @DataProvider
     public Object[][] getLoginQueueData() {
         UMDataExcelToBeanDao credsExcelToBeanDao = new UMDataExcelToBeanDao();
         File Exceldir = new File("Excels");
@@ -85,7 +86,7 @@ public class DataProviders {
         return hashMapObj;
     }
 
-    @org.testng.annotations.DataProvider
+    @DataProvider
     public Object[][] getWorkFlowData() {
         UMDataExcelToBeanDao credsExcelToBeanDao = new UMDataExcelToBeanDao();
         File Exceldir = new File("Excels");
@@ -99,7 +100,7 @@ public class DataProviders {
         return hashMapObj;
     }
 
-    @org.testng.annotations.DataProvider
+    @DataProvider
     public Object[][] getSingleRow(Method method) {
         PinnedTagDataExcelToBeanDao credsExcelToBeanDao = new PinnedTagDataExcelToBeanDao();
         File Exceldir = new File("Excels");
@@ -120,7 +121,7 @@ public class DataProviders {
 
     }
 
-    @org.testng.annotations.DataProvider(name = "ticketState")
+    @DataProvider(name = "ticketState")
     public Object[][] ticketStateList() {
         TicketStateToBean ticketStateToBean = new TicketStateToBean();
         File Exceldir = new File("Excels");
@@ -143,7 +144,7 @@ public class DataProviders {
         return hashMapObj;
     }
 
-    @org.testng.annotations.DataProvider(name = "ticketId")
+    @DataProvider(name = "ticketId")
     public Object[][] getTestData5() {
         nftrDataExcelToBeanDao credsExcelToBeanDao = new nftrDataExcelToBeanDao();
         File Exceldir = new File("Excels");
@@ -167,7 +168,7 @@ public class DataProviders {
         return hashMapObj;
     }
 
-    @org.testng.annotations.DataProvider(name = "loginData")
+    @DataProvider(name = "loginData")
     public Object[][] getLoginData(Method method) {
         TestDataExcelToBeanDao credsExcelToBeanDao = new TestDataExcelToBeanDao();
         File Exceldir = new File("Excels");
@@ -193,7 +194,7 @@ public class DataProviders {
         return hashMapObj;
     }
 
-    @org.testng.annotations.DataProvider(name = "ReOpenState")
+    @DataProvider(name = "ReOpenState")
     public Object[][] isReOpenState() {
         TicketStateToBean ticketStateToBean = new TicketStateToBean();
         File Exceldir = new File("Excels");
@@ -231,7 +232,7 @@ public class DataProviders {
         String UserType() default "";
     }
 
-    @org.testng.annotations.DataProvider
+    @DataProvider
     public Object[][] interactionComment() {
         nftrDataExcelToBeanDao credsExcelToBeanDao = new nftrDataExcelToBeanDao();
         File Exceldir = new File("Excels");
@@ -279,7 +280,7 @@ public class DataProviders {
         return list;
     }
 
-    @org.testng.annotations.DataProvider(name = "singleTicketId")
+    @DataProvider(name = "singleTicketId")
     public Object[][] getSingleTicketId() {
         nftrDataExcelToBeanDao credsExcelToBeanDao = new nftrDataExcelToBeanDao();
         File Exceldir = new File("Excels");
