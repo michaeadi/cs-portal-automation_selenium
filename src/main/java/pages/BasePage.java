@@ -37,6 +37,7 @@ public class BasePage {
         driver.manage().timeouts().implicitlyWait(Integer.parseInt(BaseTest.config.getProperty("ImplicitWaitInSeconds")), TimeUnit.SECONDS);
     }
 
+
     public void waitTillLoaderGetsRemoved() {
         //waitVisibility(loader);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));

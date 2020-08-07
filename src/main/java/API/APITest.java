@@ -3,6 +3,7 @@ package API;
 import POJO.*;
 import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.TestDatabean;
+import Utils.PassUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.relevantcodes.extentreports.LogStatus;
@@ -28,8 +29,7 @@ public class APITest extends tests.BaseTest {
     @Test(dataProvider = "loginData", dataProviderClass = DataProviders.class, priority = 1)
     public void loginAPI(TestDatabean Data) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
-        LoginPOJO Req = LoginPOJO.loginBody(Data.getPassword(), Data.getLoginAUUID());
-        System.out.println(config.getProperty(Env + "-x-app-name"));
+        LoginPOJO Req = LoginPOJO.loginBody(PassUtils.decodePassword(Data.getPassword()), Data.getLoginAUUID());
         map.add(new Header("x-app-name", config.getProperty(Env + "-x-app-name")));
         map.add(new Header("x-service-id", config.getProperty(Env + "-x-service-id")));
         map.add(new Header("x-bsy-bn", config.getProperty(Env + "-x-bsy-bn")));

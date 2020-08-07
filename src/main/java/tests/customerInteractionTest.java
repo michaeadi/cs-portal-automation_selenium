@@ -216,7 +216,7 @@ public class customerInteractionTest extends BaseTest {
             softAssert.assertEquals(currentBalanceWidget.getSmsBalance().replace("-", "null"), plansAPI.getResult().getSms().getBalance(), "SMS Balance is not as Received in API ");
         }
         if (plansAPI.getStatusCode() != 200) {
-            softAssert.fail("API unable to get Last recharge and main Balance ");
+            softAssert.fail("API unable to get Last recharge and MAINSSS Balance ");
         }
         softAssert.assertAll();
     }

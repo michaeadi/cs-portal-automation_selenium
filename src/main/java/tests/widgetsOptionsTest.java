@@ -15,12 +15,13 @@ import pages.*;
 import static Utils.DataProviders.DataProviders.Table;
 
 public class widgetsOptionsTest extends BaseTest {
-    String customerNumber = customerInteractionTest.customerNumber;
+    String customerNumber;
     APITest api = new APITest();
 
     @Table(Name = "Da Details")
     @Test(priority = 1, description = "Validating DA Details", dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
     public void daDetailsTest(HeaderDataBean Data) {
+        customerNumber = customerInteractionTest.customerNumber;
         ExtentTestManager.startTest("Validating DA Details", "Validating DA Details of User :" + customerNumber);
         CurrentBalanceWidgetPOM currentBalanceWidget = new CurrentBalanceWidgetPOM(driver);
         SoftAssert softAssert = new SoftAssert();
