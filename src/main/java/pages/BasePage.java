@@ -1,6 +1,9 @@
 package pages;
 
+import Utils.ExtentReports.ExtentTestManager;
+import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.time.DateUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -11,8 +14,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import tests.BaseTest;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -21,10 +28,10 @@ public class BasePage {
     public WebDriver driver;
     public WebDriverWait wait;
     By loader = By.xpath("/html/body/app-root/ngx-ui-loader/div[2]");
+    By home = By.xpath("//div[text()=\"HOME\"]");
 
     //Constructor
     public BasePage(WebDriver driver) {
-
         this.driver = driver;
         wait = new WebDriverWait(driver, Duration.ofSeconds(Integer.parseInt(BaseTest.config.getProperty("GeneralWaitInSeconds"))));
         driver.manage().timeouts().implicitlyWait(Integer.parseInt(BaseTest.config.getProperty("ImplicitWaitInSeconds")), TimeUnit.SECONDS);
@@ -73,9 +80,12 @@ public class BasePage {
 
     //Check the state of element
     boolean checkState(By elementLocation) {
-        waitVisibility(elementLocation);
-        highLighterMethod(elementLocation);
-        return driver.findElement(elementLocation).isEnabled();
+        try {
+            waitVisibility(elementLocation);
+        } finally {
+            highLighterMethod(elementLocation);
+            return driver.findElement(elementLocation).isEnabled();
+        }
     }
 
     //Wait For Element
@@ -107,6 +117,27 @@ public class BasePage {
     void waitAndSwitchFrame(String Frame) {
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(Frame));
 
+    }
+
+    public customerInteractionPagePOM openingCustomerInteractionDashboard() {
+        log.info("Opening Customer Interactions Dashboard");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening Customer Interactions Dashboard");
+        click(home);
+        waitTillLoaderGetsRemoved();
+        return new customerInteractionPagePOM(driver);
+    }
+
+    public String getDateFromEpoch(long Epoch, String pattern) {
+        Date date = new Date(Epoch);
+        DateFormat format = new SimpleDateFormat(pattern);
+        return format.format(date);
+    }
+
+    public String getTimeFromEpoch(long Epoch, String pattern) {
+        Date date = new Date(Epoch);
+        Date nearestMinute = DateUtils.round(date, Calendar.MINUTE);
+        DateFormat format1 = new SimpleDateFormat(pattern);
+        return format1.format(nearestMinute);
     }
 
     //Switch to parent frame

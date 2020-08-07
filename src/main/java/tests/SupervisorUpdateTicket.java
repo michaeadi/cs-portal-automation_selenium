@@ -17,6 +17,7 @@ public class SupervisorUpdateTicket extends BaseTest {
 
     String ticketId;
 
+
     @Test(priority = 1, description = "Supervisor SKIP Login ", dataProvider = "getTestData", dataProviderClass = DataProviders.class)
     public void agentSkipQueueLogin(Method method, TestDatabean Data) {
         ExtentTestManager.startTest("Supervisor SKIP Queue Login", "Supervisor SKIP Queue Login");

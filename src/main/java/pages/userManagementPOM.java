@@ -22,9 +22,30 @@ public class userManagementPOM extends BasePage {
     By cancelButton = By.xpath("//button[@class=\"new-user-CTA__cancel mat-button\"]");
     By channelsOptions = By.xpath("//mat-option[@role=\"option\"]/span");
     By workflowsOptions = By.xpath("//span[@class='mat-option-text']");
+    By ticketBucketSize = By.xpath("//tr[@class=\"agent-list-container__agent-list--list-row ng-star-inserted\"]/td[7]/div");
+    By bucketSize = By.xpath("//input[@formcontrolname=\"bucketSize\"]");
 
     public userManagementPOM(WebDriver driver) {
         super(driver);
+    }
+
+    public void clickUpdateButton() {
+        log.info("Clicking on Update Button");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Update Button");
+        click(updateButton);
+    }
+
+    public void setTicketBucketSize(int Size) {
+        log.info("Setting Current Ticket Size : " + Size);
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Setting Current Ticket Size : " + Size);
+        clearInputTag(bucketSize);
+        writeText(bucketSize, String.valueOf(Size));
+    }
+
+    public String getCurrentTicketBucketSize() {
+        log.info("Getting Current Ticket Size : " + readText(ticketBucketSize));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Current Ticket Size : " + readText(ticketBucketSize));
+        return readText(ticketBucketSize);
     }
 
     public String[] getWorkflows() {
@@ -95,11 +116,14 @@ public class userManagementPOM extends BasePage {
 
     public boolean isLoginQueuePresent(String[] strings, String workflow) {
         boolean isThere = false;
+        ExtentTestManager.getTest().log(LogStatus.INFO, "finding " + workflow + " in Login Queue List");
         log.info("finding " + workflow + " in Login Queue List");
         for (String a : strings) {
             if (a.equals(workflow)) {
                 isThere = true;
                 log.info(workflow + " is present in Login Queue List");
+                ExtentTestManager.getTest().log(LogStatus.INFO, workflow + " is present in Login Queue List");
+
             }
         }
         return isThere;
@@ -193,10 +217,12 @@ public class userManagementPOM extends BasePage {
     public boolean isInteractionChannelPresent(String[] strings, String channel) {
         boolean isThere = false;
         log.info("finding " + channel + " in Interaction List");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "finding " + channel + " in Interaction List");
         for (String a : strings) {
             if (a.equals(channel)) {
                 isThere = true;
                 log.info(channel + " is present in interaction Channel List");
+                ExtentTestManager.getTest().log(LogStatus.INFO, channel + " is present in interaction Channel List");
             }
         }
         return isThere;

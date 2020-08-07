@@ -1,6 +1,0 @@
-2020-07-01 00:26:46.039 [INFO /main/openBaseURL]: HomePage(24): Opening URL:-http://172.23.36.206:30050/#/login
-2020-07-01 00:26:46.250 [INFO /main/writeText]: BasePage(40): Writing 2388192to  By.id: mat-input-0
-2020-07-01 00:26:46.371 [INFO /main/click]: BasePage(32): Clicking on elementBy.xpath:  //*[@type='submit']
-2020-07-01 00:26:47.049 [INFO /main/writeText]: BasePage(40): Writing airtel@123to  By.id: mat-input-2
-2020-07-01 00:26:47.918 [INFO /main/click]: BasePage(32): Clicking on elementBy.xpath:  //*[@class='visibility-icon c-pointer abs visible-status mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted']
-2020-07-01 00:26:48.054 [INFO /main/click]: BasePage(32): Clicking on elementBy.xpath:  //*[@type='submit']

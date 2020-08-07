@@ -1,6 +1,7 @@
 package tests;
 
 import Utils.DataProviders.DataProviders;
+import Utils.DataProviders.TestDatabean;
 import Utils.DataProviders.ftrDataBeans;
 import Utils.DataProviders.nftrDataBeans;
 import Utils.ExtentReports.ExtentTestManager;
@@ -13,19 +14,37 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.InteractionsPOM;
+import pages.SideMenuPOM;
 import pages.customerInteractionPagePOM;
+import pages.customerInteractionsSearchPOM;
 
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import static Utils.DataProviders.DataProviders.User;
+
 public class createInteractionTest extends BaseTest {
 
 
-//    Map<String, String> map = new HashMap<>();
+    @User(UserType = "NFTR")
+    @Test(priority = 0, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
+    public void openCustomerInteraction(TestDatabean Data) {
+        ExtentTestManager.startTest("Validating the Search forCustomer Interactions :" + Data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + Data.getCustomerNumber());
+        SoftAssert softAssert = new SoftAssert();
+        SideMenuPOM SideMenuPOM = new SideMenuPOM(driver);
+        SideMenuPOM.clickOnSideMenu();
+        SideMenuPOM.clickOnName();
+        customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
+        customerInteractionsSearchPOM.enterNumber(Data.getCustomerNumber());
+        customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
+        softAssert.assertTrue(customerInteractionPagePOM.isPageLoaded());
+        softAssert.assertAll();
+    }
 
-    @Test(priority = 1, description = "Create FTR Interaction ", dataProvider = "getTestData1", enabled = true, dataProviderClass = DataProviders.class)
+
+    @Test(priority = 1, description = "Create FTR Interaction ", dataProvider = "getTestData1", dataProviderClass = DataProviders.class)
     public void CreateInteraction(ftrDataBeans Data) throws InterruptedException {
         ExtentTestManager.startTest(" Validating FTR Ticket" + Data.getIssueCode(), "Creating FTR Tickets and Configurations of Issue Code " + Data.getIssueCode());
         customerInteractionPagePOM customerInteractionPagePOM = new customerInteractionPagePOM(driver);
@@ -175,6 +194,21 @@ public class createInteractionTest extends BaseTest {
                 }
                 interactionsPOM.setDateFieldAvailable(dtf.format(now));
             }
+            if (Data.getIssueFieldType6().equalsIgnoreCase("Text Box")) {
+                System.out.println(interactionsPOM.getIssueDetailLabel("6"));
+                softAssert.assertEquals(interactionsPOM.getIssueDetailLabel("6").replace("*", "").trim(), (Data.getIssueFieldLabel6().replace("*", "").trim()));
+                if (Data.getIssueFieldMandatory6().equalsIgnoreCase("Yes")) {
+                    softAssert.assertTrue(interactionsPOM.getIssueDetailLabel("6").contains("*"), Data.getIssueFieldLabel6() + "Label is mandatory but doesn't contain '*' ");
+                }
+                interactionsPOM.setIssueDetailInput("6", "012345");
+            } else if (Data.getIssueFieldType6().equalsIgnoreCase("Date")) {
+                System.out.println(interactionsPOM.isDateFieldAvailable());
+                softAssert.assertEquals(interactionsPOM.isDateFieldAvailable(), (Data.getIssueFieldLabel6()));
+                if (Data.getIssueFieldMandatory6().equalsIgnoreCase("Yes")) {
+                    softAssert.assertTrue(interactionsPOM.isDateFieldAvailable().contains("*"), Data.getIssueFieldLabel6() + "Label is mandatory but doesn't contain '*' ");
+                }
+                interactionsPOM.setDateFieldAvailable(dtf.format(now));
+            }
             interactionsPOM.sendComment("Automation Suite");
             Assert.assertTrue(interactionsPOM.isSaveEnable());
             interactionsPOM.clickOnSave();
@@ -190,7 +224,7 @@ public class createInteractionTest extends BaseTest {
             valueToWrite = new String[]{ticket_number};
             writeToExcel objExcelFile = new writeToExcel();
             File Exceldir = new File("Excels");
-            File Excel = new File(Exceldir, tests.BaseTest.Opco + ".xlsx");
+            File Excel = new File(Exceldir, BaseTest.ExcelPath);
             objExcelFile.writeTicketNumber(Excel.getAbsolutePath(), "NFTRTickets", valueToWrite, Data.getRownum());
             System.out.println("Ticket Number Written to Excel " + valueToWrite[0]);
         } catch (NoSuchElementException e) {
@@ -204,8 +238,8 @@ public class createInteractionTest extends BaseTest {
                 getScreenshotAs(OutputType.BASE64);
         ExtentTestManager.getTest().log(LogStatus.INFO, ExtentTestManager.getTest().addBase64ScreenShot(base64Screenshot));
         softAssert.assertAll();
-
         interactionsPOM.closeInteractions();
+
     }
 
 

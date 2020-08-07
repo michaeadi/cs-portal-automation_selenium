@@ -13,15 +13,16 @@ import java.util.List;
 public class customerInteractionPagePOM extends BasePage {
     By searchNumber = By.xpath("//input[@placeholder=\"Search\"]");
     By customerName = By.xpath("//p[@class=\"fw-bold name ng-star-inserted\"]");
-    By customerDOB = By.xpath("//*[@id=\"style-3\"]/app-sidenav-bar/mat-sidenav-container/mat-sidenav-content/div/app-service-request/div/app-sr-dashboard/div/div[1]/app-sr-customer-details/div/div/div/div[1]/div/div/div[1]/div[2]/ul/li[2]/span/span[2]");
-    By activationDate = By.xpath("/html[1]/body[1]/app-root[1]/app-dashboard[1]/div[2]/app-admin-panel[1]/div[1]/div[1]/app-sidenav-bar[1]/mat-sidenav-container[1]/mat-sidenav-content[1]/div[1]/app-service-request[1]/div[1]/app-sr-dashboard[1]/div[1]/div[1]/app-sr-customer-details[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/ul[1]/li[2]/p[1]/span[1]");
+    By customerDOB = By.xpath("//span[@class=\"fw-normal dob ng-star-inserted\"]/span[@class=\"ng-star-inserted\"]");
+    By activationDate = By.xpath("//div[@class=\"col-md-4 border-right1 ng-star-inserted\"][1]//child::span[1]");
+    //    By activationDate = By.xpath("//div[@class=\"col-md-4 border-right1 ng-star-inserted\"][1]//child::span");
     By activationTime = By.xpath("//span[@class='sp-block ng-star-inserted']");
-    By simNumber = By.xpath("/html[1]/body[1]/app-root[1]/app-dashboard[1]/div[2]/app-admin-panel[1]/div[1]/div[1]/app-sidenav-bar[1]/mat-sidenav-container[1]/mat-sidenav-content[1]/div[1]/app-service-request[1]/div[1]/app-sr-dashboard[1]/div[1]/div[1]/app-sr-customer-details[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[3]/div[1]/ul[1]/li[2]/p[1]/span[1]");
-    By simType = By.xpath("/html[1]/body[1]/app-root[1]/app-dashboard[1]/div[2]/app-admin-panel[1]/div[1]/div[1]/app-sidenav-bar[1]/mat-sidenav-container[1]/mat-sidenav-content[1]/div[1]/app-service-request[1]/div[1]/app-sr-dashboard[1]/div[1]/div[1]/app-sr-customer-details[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[3]/div[1]/ul[1]/li[2]/p[2]/span[1]");
-    By PUK1 = By.xpath("/html[1]/body[1]/app-root[1]/app-dashboard[1]/div[2]/app-admin-panel[1]/div[1]/div[1]/app-sidenav-bar[1]/mat-sidenav-container[1]/mat-sidenav-content[1]/div[1]/app-service-request[1]/div[1]/app-sr-dashboard[1]/div[1]/div[1]/app-sr-customer-details[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/ul[1]/li[1]/li[1]/div[1]/div[1]/p[1]/span[2]");
-    By PUK2 = By.xpath("/html[1]/body[1]/app-root[1]/app-dashboard[1]/div[2]/app-admin-panel[1]/div[1]/div[1]/app-sidenav-bar[1]/mat-sidenav-container[1]/mat-sidenav-content[1]/div[1]/app-service-request[1]/div[1]/app-sr-dashboard[1]/div[1]/div[1]/app-sr-customer-details[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/ul[1]/li[1]/li[1]/div[1]/div[2]/p[1]/span[2]");
-    By idType = By.xpath("/html[1]/body[1]/app-root[1]/app-dashboard[1]/div[2]/app-admin-panel[1]/div[1]/div[1]/app-sidenav-bar[1]/mat-sidenav-container[1]/mat-sidenav-content[1]/div[1]/app-service-request[1]/div[1]/app-sr-dashboard[1]/div[1]/div[1]/app-sr-customer-details[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[4]/div[1]/ul[1]/li[1]/p[1]");
-    By idNumber = By.xpath("/html[1]/body[1]/app-root[1]/app-dashboard[1]/div[2]/app-admin-panel[1]/div[1]/div[1]/app-sidenav-bar[1]/mat-sidenav-container[1]/mat-sidenav-content[1]/div[1]/app-service-request[1]/div[1]/app-sr-dashboard[1]/div[1]/div[1]/app-sr-customer-details[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[4]/div[1]/ul[1]/li[2]/li[1]/p[1]/span[1]");
+    By simNumber = By.xpath("//div[@class=\"col-md-4 border-right1 ng-star-inserted\"][2]//child::p[1]/span");
+    By simType = By.xpath("//p[@class=\"user-sim-device ng-star-inserted\"]/span[@class=\"ng-star-inserted\"]");
+    By PUK1 = By.xpath("//p[@class=\"puk-show\"][1]/span[contains(text(),\"PUK1\")]//following-sibling::span");
+    By PUK2 = By.xpath("//p[@class=\"puk-show\"][1]/span[contains(text(),\"PUK2\")]//following-sibling::span");
+    By idType = By.xpath("//div[@class=\"col-md-3 border-right1 ng-star-inserted\"][4]//child::p[@class=\"user-title\"]");
+    By idNumber = By.xpath("//div[@class=\"col-md-3 border-right1 ng-star-inserted\"][4]//child::p[@class=\"user-details-para\"]/span");
     By interactionIcon = By.xpath("//div[@class='sub-header__divide--control--tab']");
     By actions = By.xpath("//span[@class=\"action-placeholder\"]");
     By simBar = By.xpath("//button[@class=\"db-action-menu-item mat-menu-item ng-star-inserted\"]");
@@ -30,9 +31,38 @@ public class customerInteractionPagePOM extends BasePage {
     By blankCallBtn = By.xpath("//div[@class=\"sub-header__divide--control--tab ng-star-inserted\" and contains(text(),\"lank\")]");
     By callDropBtn = By.xpath("//div[@class=\"sub-header__divide--control--tab ng-star-inserted\" and contains(text(),\"rop\")]");
     By noiseCallBtn = By.xpath("//div[@class=\"sub-header__divide--control--tab ng-star-inserted\" and contains(text(),\"on\")]");
+    By firstWidgetHeader = By.xpath("//div[@class=\"home-tab-container__left-widgets--widgets ng-star-inserted\"][1]//child::span[@class=\"card__card-header--label\"]");
+    By thirdWidgetHeader = By.xpath("//div[@class=\"home-tab-container__left-widgets--widgets ng-star-inserted\"][2]//child::span[@class=\"card__card-header--label\"]");
+    By secondWidgetHeader = By.xpath("//div[@class=\"home-tab-container__right-widgets--widgets ng-star-inserted\"][1]//child::span[@class=\"card__card-header--label\"]");
+    By fourthWidgetHeader = By.xpath("//div[@class=\"home-tab-container__right-widgets--widgets ng-star-inserted\"][2]//child::span[@class=\"card__card-header--label\"]");
+
 
     public customerInteractionPagePOM(WebDriver driver) {
         super(driver);
+    }
+
+    public String getFirstWidgetHeader() {
+        log.info("Getting header of 1st Widget : " + readText(firstWidgetHeader));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting header of 1st Widget : " + readText(firstWidgetHeader));
+        return readText(firstWidgetHeader);
+    }
+
+    public String getSecondWidgetHeader() {
+        log.info("Getting header of 2nd Widget : " + readText(secondWidgetHeader));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting header of 2nd Widget : " + readText(secondWidgetHeader));
+        return readText(secondWidgetHeader);
+    }
+
+    public String getThirdWidgetHeader() {
+        log.info("Getting header of 3rd Widget : " + readText(thirdWidgetHeader));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting header of 3rd Widget : " + readText(thirdWidgetHeader));
+        return readText(thirdWidgetHeader);
+    }
+
+    public String getFourthWidgetHeader() {
+        log.info("Getting header of 4th Widget : " + readText(fourthWidgetHeader));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting header of 4th Widget : " + readText(fourthWidgetHeader));
+        return readText(fourthWidgetHeader);
     }
 
     public String[] getPinnedTagTexts() {

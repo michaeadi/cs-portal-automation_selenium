@@ -1,4 +1,21 @@
 # Created by .ignore support plugin (hsz.mobi)
+/target/classes
 /target
 /ExtentReports
 /logs
+/Excels
+Excels/Copy of CS Automation Test Case 080720.xlsx
+Excels/KE copy.xlsx
+Excels/test copy.xlsx
+Excels/~$KE.xlsx
+Excels/~$test.xlsx
+src/test/
+.idea/.gitignore
+.idea/compiler.xml
+.idea/dictionaries/
+.idea/inspectionProfiles/
+.idea/jarRepositories.xml
+.idea/misc.xml
+.idea/qaplug_profiles.xml
+.idea/uiDesigner.xml
+.idea/vcs.xml
