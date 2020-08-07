@@ -3,7 +3,6 @@ package Utils.DataProviders;
 import lombok.extern.log4j.Log4j2;
 import org.testng.annotations.DataProvider;
 import tests.BaseTest;
-
 import java.io.File;
 import java.lang.annotation.*;
 import java.lang.reflect.Method;
@@ -13,6 +12,7 @@ import java.util.Properties;
 
 @Log4j2
 public class DataProviders {
+
     public static Properties config = BaseTest.config;
 
     @DataProvider
@@ -230,6 +230,7 @@ public class DataProviders {
     }
 
 
+
     @DataProvider(name = "ReOpenState")
     public Object[][] isReOpenState() {
         TicketStateToBean ticketStateToBean = new TicketStateToBean();
@@ -283,5 +284,60 @@ public class DataProviders {
         return hashMapObj;
     }
 
+    //helper method
+    public List<TicketStateDataBean> getState(String stateName) {
+        TicketStateToBean ticketStateToBean = new TicketStateToBean();
+        File Exceldir = new File("Excels");
+        File Excel = new File(Exceldir, tests.BaseTest.Opco + ".xlsx");
+        List<TicketStateDataBean> list =
+                ticketStateToBean.getData(Excel.getAbsolutePath(), config.getProperty("ticketState"));
+        List<TicketStateDataBean> closeState = new ArrayList<TicketStateDataBean>();
+        List<TicketStateDataBean> openState = new ArrayList<TicketStateDataBean>();
+        for (TicketStateDataBean state : list) {
+            if (state.getInternalState().equals(config.getProperty("closeState"))) {
+                closeState.add(state);
+            } else {
+                openState.add(state);
+            }
+        }
+       if(stateName.equalsIgnoreCase("open")){
+           return openState;
+       }else {
+           return closeState;
+       }
+    }
 
+    //helper method
+    public List<PriorityDataBean> getPriority(){
+        PriorityDataExcelToBeanDao priorityDataBean = new PriorityDataExcelToBeanDao();
+        File Exceldir = new File("Excels");
+        File Excel = new File(Exceldir, tests.BaseTest.Opco + ".xlsx");
+        List<PriorityDataBean> list =
+                priorityDataBean.getData(Excel.getAbsolutePath(), config.getProperty("priority"));
+        return list;
+    }
+
+    @DataProvider(name = "singleTicketId")
+    public Object[][] getSingleTicketId() {
+        nftrDataExcelToBeanDao credsExcelToBeanDao = new nftrDataExcelToBeanDao();
+        File Exceldir = new File("Excels");
+        File Excel = new File(Exceldir, tests.BaseTest.Opco + ".xlsx");
+        List<nftrDataBeans> list =
+                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("NftrSheet"));
+        List<nftrDataBeans> finalTicketList = new ArrayList<nftrDataBeans>();
+        for (nftrDataBeans nftrTicket : list) {
+            System.out.println("Ticket Id: " + nftrTicket.getTicketNumber());
+            if (nftrTicket.getTicketNumber() == null) {
+                System.out.println("No Ticket ID Found");
+            } else {
+                finalTicketList.add(nftrTicket);
+            }
+        }
+
+        Object[][] hashMapObj = new Object[1][1];
+
+        hashMapObj[0][0] = finalTicketList.get(0);
+
+        return hashMapObj;
+    }
 }

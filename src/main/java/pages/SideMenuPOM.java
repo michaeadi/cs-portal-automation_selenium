@@ -21,6 +21,7 @@ public class SideMenuPOM extends BasePage {
     By profileManagement = By.xpath("//a[contains(text(),'Profile Management')]");
     By customerInteraction = By.xpath("//a[contains(text(),'Customer Interaction')]");
     By supervisorDashboard = By.xpath("//a[contains(text(),'Supervisor Dashboard')]");
+    By agentDashboard = By.xpath("//a[contains(text(),'Ticket Dashboard')]");
     By logout = By.xpath("//span[@class=\"logout-icon\"]");
     By loader = By.xpath("/html/body/app-root/ngx-ui-loader/div[2]");
 
@@ -139,6 +140,14 @@ public class SideMenuPOM extends BasePage {
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening Supervisor Dashboard Page");
         hoverAndClick(customerServices);
         click(supervisorDashboard);
+        return new agentLoginPagePOM(driver);
+    }
+
+    public agentLoginPagePOM openBackendAgentDashboard() {
+        log.info("Opening Backend Agent Dashboard Page");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening Backend Agent Dashboard Page");
+        hoverAndClick(customerServices);
+        click(agentDashboard);
         return new agentLoginPagePOM(driver);
     }
 

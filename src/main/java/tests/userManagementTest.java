@@ -43,6 +43,7 @@ int currentBucketSize;
 
     }
 
+
     @Test(priority = 3, description = "Validating User Management Edit User : Interaction Channel", dataProvider = "getInteractionChannelData", dataProviderClass = DataProviders.class)
     public void getInteractionChannel(UMDataBeans Data) throws InterruptedException {
         ExtentTestManager.startTest("Validating User Management Edit User : Interaction Channel", "Validating User Management Edit User : Interaction Channel");
@@ -58,6 +59,7 @@ int currentBucketSize;
         softAssert.assertAll();
 
     }
+
 
     @Test(priority = 4, description = "Validating User Management Edit User : Work Flows", dataProvider = "getWorkFlowData", dataProviderClass = DataProviders.class)
     public void getWorkflows(UMDataBeans Data) throws InterruptedException {

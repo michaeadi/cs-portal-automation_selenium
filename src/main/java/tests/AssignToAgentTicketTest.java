@@ -66,13 +66,14 @@ public class AssignToAgentTicketTest extends BaseTest {
         softAssert.assertTrue(ticketListPage.isSubSubTypeLabel(),"Ticket Meta Data Does Not Have Issue Sub Sub Type");
         softAssert.assertTrue(ticketListPage.isCodeLabel(),"Ticket Meta Data Does Not Have Code");
         String ticketQueue = ticketListPage.getqueueValue();
+        String assigneeAUUID=ticketListPage.getAssigneeAUUID();
         ticketListPage.clickCheckbox();
         softAssert.assertTrue(ticketListPage.isAssignToAgent(),"Assign to Agent Button  Does Not Available");
         softAssert.assertTrue(ticketListPage.isTransferToQueue(),"Transfer to Queue Button  Does Not Available");
         ticketListPage.clickAssigntoAgent();
         softAssert.assertTrue(assignTicket.validatePageTitle(),"Assign to Agent tab Does Not Open");
         softAssert.assertEquals(assignTicket.getQueueName(), ticketQueue,"Assign to Agent tab Queue does not Open Correctly");
-        assignTicket.getAvailableSlotAll();
+        assignTicket.getAvailableSlotAll(assigneeAUUID);
         softAssert.assertAll();
     }
 }

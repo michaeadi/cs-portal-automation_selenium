@@ -40,6 +40,11 @@
             <class name="tests.InteractionCommentTest"/>
         </classes>
     </test>
+    <test name="Validate Frontend Agent Ticket Page">
+        <classes>
+            <class name="tests.FrontendAgentTicketTest"/>
+        </classes>
+    </test>
     <test name="Logout Test">
         <classes>
             <class name="tests.LogoutTest"/>
@@ -53,6 +58,11 @@
     <test name="Supervisors Search Ticket Test ">
         <classes>
             <class name="tests.SupervisorSearchTicket"/>
+        </classes>
+    </test>
+    <test name="Supervisors Validate Filter Option ">
+        <classes>
+            <class name="tests.SupervisorFilterTest"/>
         </classes>
     </test>
     <test name="Supervisors Update Ticket Test">
@@ -80,6 +90,16 @@
             <class name="tests.TicketEscalationTest"/>
         </classes>
     </test>
+    <test name="Supervisors Add Comment on Ticket">
+        <classes>
+            <class name="tests.SupervisorAddCommentTest"/>
+        </classes>
+    </test>
+         <test name="Supervisors Issue Comment Test">
+            <classes>
+                <class name="tests.IssueCommentTest"/>
+            </classes>
+         </test>
     <test name="Logout Supervisor Test">
         <classes>
             <class name="tests.LogoutTest"/>
@@ -108,6 +128,21 @@
     <test name="LOGIN TO BACKEND AGENT">
         <classes>
             <class name="tests.BackendAgentLoginTest"/>
+        </classes>
+    </test>
+    <test name="Validate BACKEND AGENT Filter Options">
+        <classes>
+            <class name="tests.BackendAgentFilterTest"/>
+        </classes>
+    </test>
+    <test name="BACKEND AGENT Update Ticket">
+        <classes>
+            <class name="tests.BackendAgentUpdateTicket"/>
+        </classes>
+    </test>
+    <test name="BACKEND AGENT Add Comment on Ticket">
+        <classes>
+            <class name="tests.BackendAgentAddComment"/>
         </classes>
     </test>
     <test name="Logout Test from Backend agent">

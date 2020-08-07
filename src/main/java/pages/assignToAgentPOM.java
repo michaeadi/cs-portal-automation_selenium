@@ -73,28 +73,37 @@ public class assignToAgentPOM extends BasePage {
         return readText(infoMessage);
     }
 
-    public void getAvailableSlotAll() throws InterruptedException {
+    public void getAvailableSlotAll(String assigneeAUUID) throws InterruptedException {
         int slot;
         By list=By.xpath("//div[@class=\"pannel-content-area ng-star-inserted\"]/div");
         List<WebElement> agentList=driver.findElements(list);
-        for(int i=1;i<=agentList.size();i++){
-            By allSlot=By.xpath("//div[@class=\"pannel-content-area ng-star-inserted\"]/div["+i+"]//span[@class=\"slot-count orange\"]");
-            try{
-                slot=Integer.parseInt(readText(allSlot));
-            }catch (NumberFormatException e){
-                e.printStackTrace();
-                slot=0;
-            }
-            if(slot>0){
-                ExtentTestManager.getTest().log(LogStatus.INFO, "Found Agent with Available Slot");
-                By clickAssignBtn=By.xpath("//div[@class=\"pannel-content-area ng-star-inserted\"]/div["+i+"]/div[4]/img[1]");
-                scrollToViewElement(clickAssignBtn);
-                click(clickAssignBtn);
-                ExtentTestManager.getTest().log(LogStatus.INFO, "Click on Assign to Agent Button");
-                waitTillLoaderGetsRemoved();
-                Assert.assertEquals(getAvailableSlot(allSlot),slot-1,"Agent Available Slot does not Decrease");
-                ExtentTestManager.getTest().log(LogStatus.INFO, "Validated Ticket is Assigned to User Successfully");
-                return;
+        for(int i=1;i<=agentList.size();i++) {
+            By agentAUUID = By.xpath("//div[@class=\"pannel-content-area ng-star-inserted\"]/div[" + i + "]//span[@class=\"auuid yellow\"]");
+            String auuid=readText(agentAUUID);
+            System.out.println("Agent AUUID: "+readText(agentAUUID));
+            System.out.println("Check state: "+readText(agentAUUID).contains(assigneeAUUID));
+            if (!readText(agentAUUID).contains(assigneeAUUID)) {
+                By allSlot = By.xpath("//div[@class=\"pannel-content-area ng-star-inserted\"]/div[" + i + "]//span[@class=\"slot-count orange\"]");
+                System.out.println(readText(allSlot));
+                try {
+                    slot = Integer.parseInt(readText(allSlot));
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                    slot = 0;
+                }
+                if (slot > 0) {
+                    ExtentTestManager.getTest().log(LogStatus.INFO, "Found Agent with Available Slot");
+                    By clickAssignBtn = By.xpath("//div[@class=\"pannel-content-area ng-star-inserted\"]/div[" + i + "]/div[4]/img[1]");
+                    scrollToViewElement(clickAssignBtn);
+                    click(clickAssignBtn);
+                    ExtentTestManager.getTest().log(LogStatus.INFO, "Click on Assign to Agent Button");
+                    waitTillLoaderGetsRemoved();
+                    Assert.assertEquals( slot - 1, getAvailableSlot(allSlot),"Agent Available Slot does not Decrease");
+                    ExtentTestManager.getTest().log(LogStatus.INFO,"Ticket unassigned from <"+assigneeAUUID+">");
+                    ExtentTestManager.getTest().log(LogStatus.INFO,"Ticket Assigned to <"+auuid+">");
+                    ExtentTestManager.getTest().log(LogStatus.INFO, "Validated Ticket is Assigned to User Successfully");
+                    return;
+                }
             }
         }
         ExtentTestManager.getTest().log(LogStatus.WARNING, "No User have Available Slot");

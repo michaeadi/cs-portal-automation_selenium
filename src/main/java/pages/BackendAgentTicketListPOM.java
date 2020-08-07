@@ -1,8 +1,12 @@
 package pages;
 
+import Utils.ExtentReports.ExtentTestManager;
+import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 @Log4j2
 public class BackendAgentTicketListPOM extends BasePage {
@@ -167,8 +171,29 @@ public class BackendAgentTicketListPOM extends BasePage {
         click(stateLabel);
     }
 
+    public void clickFilter() {
+        log.info("Selecting Filter");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Selecting Filter");
+        click(selectFilterBtn);
+    }
+
+    public void clickSearchBtn() {
+        log.info("Clicking on Search Button");
+        waitTillLoaderGetsRemoved();
+        wait.until(ExpectedConditions.elementToBeClickable(searchTicketBtn));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Search Button");
+        click(searchTicketBtn);
+    }
+
     public boolean noTicketFound() {
         log.info("No ticket found");
-        return checkState(noResultFound);
+        try{
+            boolean status= checkState(noResultFound);
+            ExtentTestManager.getTest().log(LogStatus.PASS,"No Ticket Found");
+            return status;
+        } catch (NoSuchElementException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

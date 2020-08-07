@@ -55,6 +55,7 @@ public class supervisorTicketListPagePOM extends BasePage {
     By reOpenBox = By.xpath("//*[@placeholder=\"Leave a comment\"]");
     By submitReopenComment = By.className("sbt-btn");
     By escalationSymbol=By.className("//span[@class='escalation']");
+    By assigneeAUUID=By.xpath("//div[@class='service-request']//div[1]//div[1]//div[2]//div[2]//p[1]//span[3]");
 
     public supervisorTicketListPagePOM(WebDriver driver) {
         super(driver);
@@ -327,6 +328,16 @@ public class supervisorTicketListPagePOM extends BasePage {
 
     public By getEscalationSymbol(){
         return escalationSymbol;
+    }
+
+    public String getAssigneeAUUID(){
+        try{
+            log.info("Ticket Assignee to :"+ readText(assigneeAUUID));
+            return readText(assigneeAUUID);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 

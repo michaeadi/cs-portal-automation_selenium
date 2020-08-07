@@ -8,14 +8,15 @@ import com.relevantcodes.extentreports.LogStatus;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pages.SideMenuPOM;
-import pages.ViewTicketPagePOM;
-import pages.agentLoginPagePOM;
-import pages.supervisorTicketListPagePOM;
+import pages.*;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
 
 public class SupervisorUpdateTicket extends BaseTest {
+
+    String ticketId;
+
 
     @Test(priority = 1, description = "Supervisor SKIP Login ", dataProvider = "getTestData", dataProviderClass = DataProviders.class)
     public void agentSkipQueueLogin(Method method, TestDatabean Data) {
@@ -46,7 +47,7 @@ public class SupervisorUpdateTicket extends BaseTest {
 //        ticketListPage.writeTicketId(ticketId);
 //        ticketListPage.clickedSearchBtn();
 //        Thread.sleep(20000); // Update Particular Ticket
-        String ticketId = ticketListPage.getTicketIdvalue();
+        ticketId = ticketListPage.getTicketIdvalue();
         ticketListPage.viewTicket();
         Assert.assertEquals(ticketId, viewTicket.getTicketId(),"Verify the searched Ticket fetched Successfully");
         String selectedState = viewTicket.selectState(ticketState.getTicketStateName());
@@ -59,6 +60,39 @@ public class SupervisorUpdateTicket extends BaseTest {
         softAssert.assertEquals(ticketListPage.getTicketIdvalue(),ticketId,"Search Ticket Does not Fetched Correctly");
         //softAssert.assertEquals(ticketState.getTicketStateName(),ticketListPage.getStatevalue());
         softAssert.assertEquals(ticketListPage.getStatevalue(),selectedState,"Ticket Does not Updated to Selected State");
+        softAssert.assertAll();
+    }
+
+    @DataProviders.User(UserType = "ALL")
+    @Test(priority = 3,dependsOnMethods = "updateTicket", description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
+    public void openCustomerInteraction(Method method, TestDatabean Data) throws IOException {
+        ExtentTestManager.startTest("Validating the Search forCustomer Interactions :" + Data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + Data.getCustomerNumber());
+        SoftAssert softAssert = new SoftAssert();
+        SideMenuPOM SideMenuPOM = new SideMenuPOM(driver);
+        SideMenuPOM.clickOnSideMenu();
+        SideMenuPOM.clickOnName();
+        customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
+        customerInteractionsSearchPOM.enterNumber(Data.getCustomerNumber());
+        customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
+        softAssert.assertTrue(customerInteractionPagePOM.isPageLoaded());
+        softAssert.assertAll();
+    }
+
+    @Test(priority = 4,dependsOnMethods = "openCustomerInteraction", description = "Validate Re-open Icon on Closed Ticket")
+    public void validateReopenIcon() throws InterruptedException, IOException {
+        ExtentTestManager.startTest("Validate Re-open Icon on Closed Ticket: " + ticketId, "Validate Re-open Icon on Closed Ticket: " + ticketId);
+        SoftAssert softAssert = new SoftAssert();
+        customerInteractionPagePOM customerInteractionPage = new customerInteractionPagePOM(driver);
+        viewHistoryPOM viewHistory = customerInteractionPage.clickOnViewHistory();
+        FrontendTicketHistory ticketHistory=viewHistory.clickOnTicketHistory();
+        ticketHistory.waitTillLoaderGetsRemoved();
+        ticketHistory.writeTicketId(ticketId);
+        ticketHistory.clickSearchBtn();
+        ticketHistory.waitTillLoaderGetsRemoved();
+        Thread.sleep(3000);
+        softAssert.assertEquals(ticketHistory.getTicketId(1),ticketId,"Ticket Id does not same as search ticket id.");
+        ticketHistory.getTicketState(1);
+        softAssert.assertTrue(ticketHistory.checkReopen(1),"Reopen icon does not found on ticket");
         softAssert.assertAll();
     }
 }
