@@ -3,6 +3,7 @@ package tests;
 import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.TestDatabean;
 import Utils.ExtentReports.ExtentTestManager;
+import Utils.PassUtils;
 import com.relevantcodes.extentreports.LogStatus;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -24,7 +25,7 @@ public class BackendAgentLoginTest extends BaseTest {
         softAssert.assertEquals(driver.getCurrentUrl(), config.getProperty(tests.BaseTest.Env + "-baseurl"), "URl isn't as expected");
         loginPagePOM.enterAUUID(Data.getLoginAUUID());//*[@id="mat-input-7"]
         loginPagePOM.clickOnSubmitBtn();
-        loginPagePOM.enterPassword(Data.getPassword());
+        loginPagePOM.enterPassword(PassUtils.decodePassword(Data.getPassword()));
         softAssert.assertTrue(loginPagePOM.checkLoginButton(), "Login Button is not enabled even after entering Passowrd");
         loginPagePOM.clickOnVisibleButton();
         loginPagePOM.clickOnVisibleButton();

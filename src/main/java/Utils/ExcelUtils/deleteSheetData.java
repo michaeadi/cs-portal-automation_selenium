@@ -1,4 +1,4 @@
-package Utils;
+package Utils.ExcelUtils;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -112,7 +112,7 @@ public class deleteSheetData {
         Row newRow = sheet.createRow(rowCount + 1);
 
         //Create a loop over the cell of newly created Row
-        Boolean isRowEmpty = Boolean.FALSE;
+        boolean isRowEmpty = false;
         for (int i = 0; i <= sheet.getLastRowNum(); i++) {
             if (sheet.getRow(i) == null) {
                 isRowEmpty = true;
