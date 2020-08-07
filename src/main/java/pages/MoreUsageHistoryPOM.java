@@ -12,9 +12,7 @@ import java.util.List;
 @Log4j2
 public class MoreUsageHistoryPOM extends BasePage {
 
-    public MoreUsageHistoryPOM(WebDriver driver) {
-        super(driver);
-    }
+
 
     By bundleName = By.xpath("div[@class=\"ng-star-inserted\"][1]/span");
     By transactionNumber = By.xpath("div[@class=\"ng-star-inserted\"][2]/span");
@@ -41,6 +39,10 @@ public class MoreUsageHistoryPOM extends BasePage {
     By smsHistoryNoResultFoundMessage = By.xpath("//span[contains(text(),\"SMS History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]/span/span");
     By dataHistoryNoResultFound = By.xpath("//span[contains(text(),\"Data History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]");
     By dataHistoryNoResultFoundMessage = By.xpath("//span[contains(text(),\"Data History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]/span/span");
+
+    public MoreUsageHistoryPOM(WebDriver driver) {
+        super(driver);
+    }
 
     public String gettingCallHistoryNoResultFoundMessage() {
         log.info("Validating error message when there is no data from API : " + readText(callHistoryNoResultFoundMessage));

@@ -39,7 +39,6 @@ public class BasePage {
 
 
     public void waitTillLoaderGetsRemoved() {
-        //waitVisibility(loader);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
     }
 
@@ -81,12 +80,10 @@ public class BasePage {
 
     //Check the state of element
     boolean checkState(By elementLocation) {
-        try {
-            waitVisibility(elementLocation);
-        } finally {
-            highLighterMethod(elementLocation);
-            return driver.findElement(elementLocation).isEnabled();
-        }
+        waitVisibility(elementLocation);
+        highLighterMethod(elementLocation);
+        return driver.findElement(elementLocation).isEnabled();
+
     }
 
     //Wait For Element
