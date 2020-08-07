@@ -1,14 +1,11 @@
 package tests;
 
-<<<<<<< HEAD
-import Utils.DataProviders.DataProviders;
+
 import Utils.DataProviders.PinnedtagsDataBeans;
-=======
 import API.APITest;
 import POJO.*;
 import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.HeaderDataBean;
->>>>>>> 15fc3c30132f0c6274951a3186706d5cdee3c3c0
 import Utils.DataProviders.TestDatabean;
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
@@ -21,12 +18,6 @@ import static Utils.DataProviders.DataProviders.Table;
 import static Utils.DataProviders.DataProviders.User;
 
 public class customerInteractionTest extends BaseTest {
-<<<<<<< HEAD
-    @DataProviders.User(UserType = "ALL")
-    @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
-    public void openCustomerInteraction(Method method, TestDatabean Data) throws IOException {
-        ExtentTestManager.startTest("Validating the Search for Customer Interactions :" + Data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + Data.getCustomerNumber());
-=======
 
     static String customerNumber;
     APITest api = new APITest();
@@ -35,7 +26,6 @@ public class customerInteractionTest extends BaseTest {
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteraction(TestDatabean Data) {
         ExtentTestManager.startTest("Validating the Search forCustomer Interactions :" + Data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + Data.getCustomerNumber());
->>>>>>> 15fc3c30132f0c6274951a3186706d5cdee3c3c0
         SoftAssert softAssert = new SoftAssert();
         SideMenuPOM SideMenuPOM = new SideMenuPOM(driver);
         SideMenuPOM.clickOnSideMenu();
@@ -48,15 +38,10 @@ public class customerInteractionTest extends BaseTest {
         softAssert.assertAll();
     }
 
-<<<<<<< HEAD
-    @DataProviders.User(UserType = "ALL")
-    @Test(priority = 2, description = "Validating Demographic Info", dataProvider = "loginData", dataProviderClass = DataProviders.class)
-    public void validateDemographicInformation(Method method, TestDatabean Data) throws IOException {
-=======
+
     @User(UserType = "ALL")
     @Test(priority = 2, description = "Validating Demographic Info", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void validateDemographicInformation(TestDatabean Data) {
->>>>>>> 15fc3c30132f0c6274951a3186706d5cdee3c3c0
         ExtentTestManager.startTest("Validating the Demographic Information of User :" + Data.getCustomerNumber(), "Validating the Demographic Information of User :" + Data.getCustomerNumber());
         customerInteractionPagePOM customerInteractionPagePOM = new customerInteractionPagePOM(driver);
         SoftAssert softAssert = new SoftAssert();
@@ -129,18 +114,12 @@ public class customerInteractionTest extends BaseTest {
         softAssert.assertAll();
     }
 
-<<<<<<< HEAD
-    @DataProviders.RowNumber(rowNumber = "1")
-    @Test(priority = 3, description = "Validating Blank Call ", dataProvider = "getSingleRow", dataProviderClass = DataProviders.class)
-    public void blankCallTest(Method method, PinnedtagsDataBeans Data) {
-        ExtentTestManager.startTest("Validating Pinned Tag : Blank call", "Validating Pinned Tag : Blank call Tag and Ticket creation by tag");
-=======
+
     @Table(Name = "Airtel Money")
     @Test(priority = 3, description = "Validating AM Transaction Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
     public void airtelMoneyTransactionWidgetTest(HeaderDataBean Data) {
         ExtentTestManager.startTest("Validating AM Transaction Widget", "Validating AM Transaction Widget of User :" + customerNumber);
         AMTransactionsWidgetPOM amTransactionsWidget = new AMTransactionsWidgetPOM(driver);
->>>>>>> 15fc3c30132f0c6274951a3186706d5cdee3c3c0
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(amTransactionsWidget.isAirtelMoneyTransactionWidgetIsVisible(), "Airtel Money Transaction Widget is not visible");
         softAssert.assertTrue(amTransactionsWidget.isAirtelMoneyWidgetDatePickerVisible(), "Airtel Money Transaction Widget's Date Picker is not visible");
@@ -221,18 +200,12 @@ public class customerInteractionTest extends BaseTest {
         softAssert.assertAll();
     }
 
-<<<<<<< HEAD
-    @DataProviders.RowNumber(rowNumber = "2")
-    @Test(priority = 4, description = "Validating Call Drop ", dataProvider = "getSingleRow", dataProviderClass = DataProviders.class)
-    public void callDropTest(Method method, PinnedtagsDataBeans Data) {
-        ExtentTestManager.startTest("Validating Pinned Tag : Call Drop", "Validating Pinned Tag : Call Drop Tag and Ticket creation by tag");
-=======
+
     @Table(Name = "Usage History")
     @Test(priority = 5, description = "Validating Usage History Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
     public void usageHistoryWidgetTest(HeaderDataBean Data) {
         ExtentTestManager.startTest("Validating Usage History Widget", "Validating Usage History Widget of User :" + customerNumber);
         UsageHistoryWidgetPOM usageHistoryWidget = new UsageHistoryWidgetPOM(driver);
->>>>>>> 15fc3c30132f0c6274951a3186706d5cdee3c3c0
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(usageHistoryWidget.isUsageHistoryWidgetIsVisible(), "Usage History Widget is not visible");
         softAssert.assertTrue(usageHistoryWidget.isUsageHistoryDatePickerVisible(), "Usage History Widget's Date Picker is not visible");
@@ -264,18 +237,12 @@ public class customerInteractionTest extends BaseTest {
         softAssert.assertAll();
     }
 
-<<<<<<< HEAD
-    @DataProviders.RowNumber(rowNumber = "3")
-    @Test(priority = 5, description = "SideMenu ", dataProvider = "getSingleRow", dataProviderClass = DataProviders.class)
-    public void noiseOnCallTest(Method method, PinnedtagsDataBeans Data) {
-        ExtentTestManager.startTest("Validating Pinned Tag : Noise On Call ", "Validating Pinned Tag : Noise On Call  Tag and Ticket creation by tag");
-=======
+
     @Table(Name = "Recharge History")
     @Test(priority = 6, description = "Validating Recharge History Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
     public void rechargeHistoryWidgetTest(HeaderDataBean Data) {
         ExtentTestManager.startTest("Validating Recharge History Widget", "Validating Recharge History Widget of User :" + customerNumber);
         RechargeHistoryWidgetPOM rechargeHistoryWidget = new RechargeHistoryWidgetPOM(driver);
->>>>>>> 15fc3c30132f0c6274951a3186706d5cdee3c3c0
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(rechargeHistoryWidget.isRechargeHistoryWidgetIsVisible(), "Recharge History Widget is not visible");
         softAssert.assertTrue(rechargeHistoryWidget.isRechargeHistoryDatePickerVisible(), "Recharge History Widget's Date Picker is not visible");
