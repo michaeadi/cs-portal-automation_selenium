@@ -1,4 +1,4 @@
-package Utils;
+package Utils.ExcelUtils;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -31,7 +31,7 @@ public class writeToExcel {
         //Fill data in row
 //        System.out.println(row.getRowNum());
 
-        Cell cell = null;
+        Cell cell;
         int ticketRow = 27;
         try {
             cell = row.getCell(ticketRow);

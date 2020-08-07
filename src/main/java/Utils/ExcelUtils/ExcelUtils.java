@@ -1,4 +1,4 @@
-package Utils;
+package Utils.ExcelUtils;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
@@ -16,7 +16,7 @@ public class ExcelUtils {
             Sheet = workbook.getSheet(sheetname);
         } catch (Exception exp) {
             System.out.println(exp.getMessage());
-            System.out.println(exp.getCause());
+            exp.getCause();
             exp.printStackTrace();
         }
     }
@@ -30,10 +30,10 @@ public class ExcelUtils {
     }
 
     public static int getrowcount() {
-        int rowcount = 0;
-        rowcount = Sheet.getPhysicalNumberOfRows();
-        System.out.println("rows in excel :" + rowcount);
-        return rowcount;
+        int rowCount;
+        rowCount = Sheet.getPhysicalNumberOfRows();
+        System.out.println("rows in excel :" + rowCount);
+        return rowCount;
 
     }
 
@@ -50,11 +50,11 @@ public class ExcelUtils {
     }
 
     public static int getcolcount() {
-        int colcount = 0;
+        int colCount;
 
-        colcount = Sheet.getRow(0).getPhysicalNumberOfCells();
-        System.out.println("Columns in excel :" + colcount);
-        return colcount;
+        colCount = Sheet.getRow(0).getPhysicalNumberOfCells();
+        System.out.println("Columns in excel :" + colCount);
+        return colCount;
 
 
     }
