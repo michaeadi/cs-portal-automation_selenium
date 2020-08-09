@@ -69,7 +69,7 @@ public class InteractionsPOM extends BasePage {
     }
 
     public void clickOnCode() {
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
+        waitTillLoaderGetsRemoved();
         List<WebElement> listOfElements = driver.findElements(By.xpath("//div[@class=\"mat-select-value\"]"));
         listOfElements.get(0).click();
         log.info("clicking on issue code field");
