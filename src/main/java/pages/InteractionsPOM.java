@@ -149,10 +149,15 @@ public class InteractionsPOM extends BasePage {
     }
 
     public boolean isResolvedFTRDisplayed() {
-        waitVisibility(resolvedFTR);
-        log.info("Checking is Ticket Number or Ticket Status is Displayed : " + isElementVisible(resolvedFTR));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is Ticket Number or Ticket Status is Displayed : " + isElementVisible(resolvedFTR));
-        return isElementVisible(resolvedFTR);
+        try {
+            waitVisibility(resolvedFTR);
+            log.info("Checking is Ticket Number or Ticket Status is Displayed : " + isElementVisible(resolvedFTR));
+            ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is Ticket Number or Ticket Status is Displayed : " + isElementVisible(resolvedFTR));
+            return isElementVisible(resolvedFTR);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public String getResolvedFTRDisplayed() {
