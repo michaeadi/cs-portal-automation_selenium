@@ -52,26 +52,34 @@ public class createInteractionTest extends BaseTest {
         SoftAssert softAssert = new SoftAssert();
         interactionsPOM.clickOnCode();
         try {
-            interactionsPOM.searchCode(Data.getIssueCode());
-        } catch (NoSuchElementException e) {
-            Thread.sleep(2000);
-            interactionsPOM.clickOnCode();
-            interactionsPOM.searchCode(Data.getIssueCode());
+            try {
+                interactionsPOM.searchCode(Data.getIssueCode());
+            } catch (NoSuchElementException e) {
+                Thread.sleep(2000);
+                interactionsPOM.clickOnCode();
+                interactionsPOM.searchCode(Data.getIssueCode());
 
+            }
+            interactionsPOM.selectCode(Data.getIssueCode());
+            ExtentTestManager.getTest().log(LogStatus.INFO, "Creating ticket with issue code -" + Data.getIssueCode());
+            System.out.println(interactionsPOM.getIssue());
+            softAssert.assertEquals(interactionsPOM.getIssue().trim().toLowerCase().replace(" ", ""), Data.getIssue().trim().toLowerCase().replace(" ", ""), "Issue is not as expected ");
+            System.out.println(interactionsPOM.getIssueSubSubType());
+            softAssert.assertEquals(interactionsPOM.getIssueSubSubType().trim().toLowerCase().replace(" ", ""), Data.getIssueSubSubType().trim().toLowerCase().replace(" ", ""), "Issue sub sub type is not as expected ");
+            System.out.println(interactionsPOM.getIssueType());
+            softAssert.assertEquals(interactionsPOM.getIssueType().trim().toLowerCase().replace(" ", ""), Data.getIssueType().trim().toLowerCase().replace(" ", ""), "Issue type is not as expected ");
+            System.out.println(interactionsPOM.getIssueSubType());
+            softAssert.assertEquals(interactionsPOM.getIssueSubType().trim().toLowerCase().replace(" ", ""), Data.getIssueSubType().trim().toLowerCase().replace(" ", ""), "Issue sub type is not as expected ");
+            interactionsPOM.sendComment("Automation Suite");
+            interactionsPOM.clickOnSave();
+            softAssert.assertTrue(interactionsPOM.isResolvedFTRDisplayed());
+        }catch (NoSuchElementException e) {
+            System.out.println("in catch");
+            interactionsPOM.closeInteractions();
+            interactionsPOM.clickOnContinueButton();
+            e.printStackTrace();
+            Assert.fail(e.getMessage());
         }
-        interactionsPOM.selectCode(Data.getIssueCode());
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Creating ticket with issue code -" + Data.getIssueCode());
-        System.out.println(interactionsPOM.getIssue());
-        softAssert.assertEquals(interactionsPOM.getIssue().trim().toLowerCase().replace(" ", ""), Data.getIssue().trim().toLowerCase().replace(" ", ""), "Issue is not as expected ");
-        System.out.println(interactionsPOM.getIssueSubSubType());
-        softAssert.assertEquals(interactionsPOM.getIssueSubSubType().trim().toLowerCase().replace(" ", ""), Data.getIssueSubSubType().trim().toLowerCase().replace(" ", ""), "Issue sub sub type is not as expected ");
-        System.out.println(interactionsPOM.getIssueType());
-        softAssert.assertEquals(interactionsPOM.getIssueType().trim().toLowerCase().replace(" ", ""), Data.getIssueType().trim().toLowerCase().replace(" ", ""), "Issue type is not as expected ");
-        System.out.println(interactionsPOM.getIssueSubType());
-        softAssert.assertEquals(interactionsPOM.getIssueSubType().trim().toLowerCase().replace(" ", ""), Data.getIssueSubType().trim().toLowerCase().replace(" ", ""), "Issue sub type is not as expected ");
-        interactionsPOM.sendComment("Automation Suite");
-        interactionsPOM.clickOnSave();
-        softAssert.assertTrue(interactionsPOM.isResolvedFTRDisplayed());
         String base64Screenshot = "data:image/png;base64," + ((TakesScreenshot) driver).
                 getScreenshotAs(OutputType.BASE64);
         interactionsPOM.closeInteractions();
@@ -240,7 +248,6 @@ public class createInteractionTest extends BaseTest {
         ExtentTestManager.getTest().log(LogStatus.INFO, ExtentTestManager.getTest().addBase64ScreenShot(base64Screenshot));
         interactionsPOM.closeInteractions();
         softAssert.assertAll();
-
 
     }
 
