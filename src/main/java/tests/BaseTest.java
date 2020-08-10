@@ -74,7 +74,7 @@ public class BaseTest {
 
     @AfterSuite
     public void teardown() {
-//        driver.quit();
+        driver.quit();
     }
 
 
