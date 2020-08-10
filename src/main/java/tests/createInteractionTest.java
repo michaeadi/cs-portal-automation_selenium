@@ -44,7 +44,7 @@ public class createInteractionTest extends BaseTest {
     }
 
 
-    @Test(priority = 1, description = "Create FTR Interaction ", dataProvider = "getTestData1", dataProviderClass = DataProviders.class)
+    @Test(priority = 1,dependsOnMethods = "openCustomerInteraction", description = "Create FTR Interaction ", dataProvider = "getTestData1", dataProviderClass = DataProviders.class)
     public void CreateInteraction(ftrDataBeans Data) throws InterruptedException {
         ExtentTestManager.startTest(" Validating FTR Ticket" + Data.getIssueCode(), "Creating FTR Tickets and Configurations of Issue Code " + Data.getIssueCode());
         customerInteractionPagePOM customerInteractionPagePOM = new customerInteractionPagePOM(driver);
@@ -54,6 +54,7 @@ public class createInteractionTest extends BaseTest {
         try {
             interactionsPOM.searchCode(Data.getIssueCode());
         } catch (NoSuchElementException e) {
+            Thread.sleep(2000);
             interactionsPOM.clickOnCode();
             interactionsPOM.searchCode(Data.getIssueCode());
 
@@ -80,7 +81,7 @@ public class createInteractionTest extends BaseTest {
 
     }
 
-    @Test(priority = 2, description = "Create Interaction ", dataProvider = "getTestData2", dataProviderClass = DataProviders.class)
+    @Test(priority = 2,dependsOnMethods = "openCustomerInteraction", description = "Create Interaction ", dataProvider = "getTestData2", dataProviderClass = DataProviders.class)
     public void CreateNFTRInteraction(nftrDataBeans Data) throws InterruptedException, IOException {
         ExtentTestManager.startTest(" Validating NFTR Ticket" + Data.getIssueCode(), "Creating NFTR Tickets and Configurations of Issue Code " + Data.getIssueCode());
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
