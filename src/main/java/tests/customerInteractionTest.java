@@ -1,7 +1,6 @@
 package tests;
 
 
-import Utils.DataProviders.PinnedtagsDataBeans;
 import API.APITest;
 import POJO.*;
 import Utils.DataProviders.DataProviders;
@@ -22,7 +21,7 @@ public class customerInteractionTest extends BaseTest {
     static String customerNumber;
     APITest api = new APITest();
 
-    @User(UserType = "ALL")
+    @User()
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteraction(TestDatabean Data) {
         ExtentTestManager.startTest("Validating the Search forCustomer Interactions :" + Data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + Data.getCustomerNumber());
@@ -39,7 +38,7 @@ public class customerInteractionTest extends BaseTest {
     }
 
 
-    @User(UserType = "ALL")
+    @User()
     @Test(priority = 2, description = "Validating Demographic Info", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void validateDemographicInformation(TestDatabean Data) {
         ExtentTestManager.startTest("Validating the Demographic Information of User :" + Data.getCustomerNumber(), "Validating the Demographic Information of User :" + Data.getCustomerNumber());
@@ -195,7 +194,7 @@ public class customerInteractionTest extends BaseTest {
             softAssert.assertEquals(currentBalanceWidget.getSmsBalance().replace("-", "null"), plansAPI.getResult().getSms().getBalance(), "SMS Balance is not as Received in API ");
         }
         if (plansAPI.getStatusCode() != 200) {
-            softAssert.fail("API unable to get Last recharge and main Balance ");
+            softAssert.fail("API unable to get Last recharge and MAINSSS Balance ");
         }
         softAssert.assertAll();
     }
