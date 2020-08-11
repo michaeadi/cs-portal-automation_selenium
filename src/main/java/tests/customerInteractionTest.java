@@ -50,7 +50,7 @@ public class customerInteractionTest extends BaseTest {
 
 
         try {
-            softAssert.assertEquals(customerInteractionPagePOM.getCustomerName().trim(), gsmKycAPI.getResult().getName(), "Customer Name is not as Expected");
+            softAssert.assertEquals(customerInteractionPagePOM.getCustomerName().trim(), gsmKycAPI.getResult().getName().trim(), "Customer Name is not as Expected");
         } catch (NoSuchElementException e) {
             softAssert.fail("Customer Name is not visible", e.getCause());
             e.printStackTrace();
@@ -113,9 +113,24 @@ public class customerInteractionTest extends BaseTest {
         softAssert.assertAll();
     }
 
+    @User(UserType = "API")
+    @Test(priority = 3, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
+    public void openCustomerInteractionAPI(TestDatabean Data) {
+        ExtentTestManager.startTest("Validating the Search forCustomer Interactions :" + Data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + Data.getCustomerNumber());
+        SoftAssert softAssert = new SoftAssert();
+        SideMenuPOM SideMenuPOM = new SideMenuPOM(driver);
+        SideMenuPOM.clickOnSideMenu();
+        SideMenuPOM.clickOnName();
+        customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
+        customerInteractionsSearchPOM.enterNumber(Data.getCustomerNumber());
+        customerNumber = Data.getCustomerNumber();
+        customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
+        softAssert.assertTrue(customerInteractionPagePOM.isPageLoaded());
+        softAssert.assertAll();
+    }
 
     @Table(Name = "Airtel Money")
-    @Test(priority = 3, description = "Validating AM Transaction Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
+    @Test(priority = 4, description = "Validating AM Transaction Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
     public void airtelMoneyTransactionWidgetTest(HeaderDataBean Data) {
         ExtentTestManager.startTest("Validating AM Transaction Widget", "Validating AM Transaction Widget of User :" + customerNumber);
         AMTransactionsWidgetPOM amTransactionsWidget = new AMTransactionsWidgetPOM(driver);
@@ -131,7 +146,7 @@ public class customerInteractionTest extends BaseTest {
         AMProfilePOJO amServiceProfileAPI = api.amServiceProfileAPITest(customerNumber);
         AMTransactionHistoryPOJO amTransactionHistoryAPI = api.transactionHistoryAPITest(customerNumber);
         if (amServiceProfileAPI.getResult() != null) {
-            softAssert.assertEquals(amTransactionsWidget.gettingAirtelMoneyBalance(), Integer.parseInt(amServiceProfileAPI.getResult().getWallet().get(0).getBalance())
+            softAssert.assertEquals(amTransactionsWidget.gettingAirtelMoneyBalance(), Double.parseDouble(amServiceProfileAPI.getResult().getWallet().get(0).getBalance())
                     , "Customer's Airtel Money Balance is not as Expected");
             softAssert.assertEquals(amTransactionsWidget.gettingAirtelMoneyCurrency(), amServiceProfileAPI.getResult().getWallet().get(0).getCurrency(),
                     "Customer's Airtel Money Balance Currency  is not as Expected");
@@ -149,7 +164,7 @@ public class customerInteractionTest extends BaseTest {
     }
 
     //Needs Discussion
-    @Test(priority = 4, description = "Validating Current Balance Widget")
+    @Test(priority = 5, description = "Validating Current Balance Widget")
     public void yourCurrentBalanceWidgetTest() {
         ExtentTestManager.startTest("Validating Current Balance Transaction Widget", "Validating Current Balance Transaction Widget of User :" + customerNumber);
         CurrentBalanceWidgetPOM currentBalanceWidget = new CurrentBalanceWidgetPOM(driver);
@@ -165,8 +180,13 @@ public class customerInteractionTest extends BaseTest {
 
         }
         if (plansAPI.getResult().getLastRecharge() != null) {
-            softAssert.assertEquals(Integer.parseInt(currentBalanceWidget.gettingLastRechargeAmount()), Integer.parseInt(plansAPI.getResult().getLastRecharge().getAmount()), "Last Recharge is not as Received in API ");
-            String Time = currentBalanceWidget.getTimeFromEpoch(plansAPI.getResult().getLastRecharge().getRechargeOn(), config.getProperty("LastRechargeTimePattern"));
+            try {
+                softAssert.assertEquals(Integer.parseInt(currentBalanceWidget.gettingLastRechargeAmount()), Integer.parseInt(plansAPI.getResult().getLastRecharge().getAmount()), "Last Recharge is not as Received in API ");
+            }catch (NumberFormatException e){
+                e.printStackTrace();
+                ExtentTestManager.getTest().log(LogStatus.FAIL,e.fillInStackTrace());
+            }
+            String Time = currentBalanceWidget.getDateFromEpoch(plansAPI.getResult().getLastRecharge().getRechargeOn(), config.getProperty("LastRechargeTimePattern"));
             String Date = currentBalanceWidget.getDateFromEpoch(plansAPI.getResult().getLastRecharge().getRechargeOn(), config.getProperty("LastRechargeDatePattern"));
             softAssert.assertEquals(currentBalanceWidget.getLastRechargeDateTime(), Date + " " + Time, "Last Recharge Date and Time is not as Received in API");
         } else {
@@ -201,7 +221,7 @@ public class customerInteractionTest extends BaseTest {
 
 
     @Table(Name = "Usage History")
-    @Test(priority = 5, description = "Validating Usage History Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
+    @Test(priority = 6, description = "Validating Usage History Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
     public void usageHistoryWidgetTest(HeaderDataBean Data) {
         ExtentTestManager.startTest("Validating Usage History Widget", "Validating Usage History Widget of User :" + customerNumber);
         UsageHistoryWidgetPOM usageHistoryWidget = new UsageHistoryWidgetPOM(driver);
@@ -238,7 +258,7 @@ public class customerInteractionTest extends BaseTest {
 
 
     @Table(Name = "Recharge History")
-    @Test(priority = 6, description = "Validating Recharge History Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
+    @Test(priority = 7, description = "Validating Recharge History Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
     public void rechargeHistoryWidgetTest(HeaderDataBean Data) {
         ExtentTestManager.startTest("Validating Recharge History Widget", "Validating Recharge History Widget of User :" + customerNumber);
         RechargeHistoryWidgetPOM rechargeHistoryWidget = new RechargeHistoryWidgetPOM(driver);

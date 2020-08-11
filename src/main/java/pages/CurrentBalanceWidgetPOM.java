@@ -4,6 +4,7 @@ import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 
 @Log4j2
@@ -54,9 +55,13 @@ public class CurrentBalanceWidgetPOM extends BasePage {
 
 
     public boolean isCurrentBalanceWidgetMenuVisible() {
+        try{
         log.info("Checking is Your Current Balance Widget's Menu Visible");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is Your Current Balance Widget'Menu Visible");
         return isElementVisible(menu);
+        } catch (Exception e) {
+            throw new NoSuchElementException("Current Plan widget menu option does not display");
+        }
     }
 
     public boolean isDADetailsMenuVisible() {

@@ -54,8 +54,8 @@ public class createInteractionTest extends BaseTest {
         try {
             try {
                 interactionsPOM.searchCode(Data.getIssueCode());
-            } catch (NoSuchElementException e) {
-                Thread.sleep(2000);
+            } catch (Exception e) {
+                Thread.sleep(1000);
                 interactionsPOM.clickOnCode();
                 interactionsPOM.searchCode(Data.getIssueCode());
 
@@ -105,7 +105,9 @@ public class createInteractionTest extends BaseTest {
 //        }
         try {
             interactionsPOM.searchCode(Data.getIssueCode());
-        } catch (NoSuchElementException e) {
+        } catch (Exception e) {
+            System.out.println("Try Again:");
+            Thread.sleep(1000);
             interactionsPOM.clickOnCode();
             interactionsPOM.searchCode(Data.getIssueCode());
 

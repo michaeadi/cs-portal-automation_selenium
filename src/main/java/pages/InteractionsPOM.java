@@ -86,8 +86,6 @@ public class InteractionsPOM extends BasePage {
         log.info("searching issue code " + code);
         ExtentTestManager.getTest().log(LogStatus.INFO, "searching issue code " + code);
         writeText(search, code);
-
-
     }
 
     public void selectCode(String code) throws InterruptedException {
