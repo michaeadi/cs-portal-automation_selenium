@@ -30,14 +30,14 @@
             <class name="tests.widgetsOptionsTest"/>
         </classes>
     </test>
-    <test name="Customer Pinned Tag TEST" >
-        <classes>
-            <class name="tests.PinnedTagTest"/>
-        </classes>
-    </test>
     <test name="Create NFTR FTR Tickets TEST">
         <classes>
             <class name="tests.createInteractionTest"/>
+        </classes>
+    </test>
+    <test name="Customer Pinned Tag TEST" >
+        <classes>
+            <class name="tests.PinnedTagTest"/>
         </classes>
     </test>
     <test name="Add Interaction Ticket Comment">
