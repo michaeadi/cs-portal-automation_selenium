@@ -35,6 +35,11 @@
             <class name="tests.createInteractionTest"/>
         </classes>
     </test>
+    <test name="Customer Pinned Tag TEST" >
+        <classes>
+            <class name="tests.PinnedTagTest"/>
+        </classes>
+    </test>
     <test name="Add Interaction Ticket Comment">
         <classes>
             <class name="tests.InteractionCommentTest"/>

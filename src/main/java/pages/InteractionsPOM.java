@@ -86,8 +86,6 @@ public class InteractionsPOM extends BasePage {
         log.info("searching issue code " + code);
         ExtentTestManager.getTest().log(LogStatus.INFO, "searching issue code " + code);
         writeText(search, code);
-
-
     }
 
     public void selectCode(String code) throws InterruptedException {
@@ -149,10 +147,10 @@ public class InteractionsPOM extends BasePage {
     }
 
     public boolean isResolvedFTRDisplayed() {
-        waitVisibility(resolvedFTR);
-        log.info("Checking is Ticket Number or Ticket Status is Displayed : " + isElementVisible(resolvedFTR));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is Ticket Number or Ticket Status is Displayed : " + isElementVisible(resolvedFTR));
-        return isElementVisible(resolvedFTR);
+            waitVisibility(resolvedFTR);
+            log.info("Checking is Ticket Number or Ticket Status is Displayed : " + isElementVisible(resolvedFTR));
+            ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is Ticket Number or Ticket Status is Displayed : " + isElementVisible(resolvedFTR));
+            return isElementVisible(resolvedFTR);
     }
 
     public String getResolvedFTRDisplayed() {

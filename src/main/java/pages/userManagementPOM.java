@@ -1,5 +1,7 @@
 package pages;
 
+import Utils.DataProviders.UMDataBeans;
+import Utils.DataProviders.UMDataExcelToBeanDao;
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;

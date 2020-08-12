@@ -15,15 +15,15 @@ public class MoreUsageHistoryPOM extends BasePage {
 
 
     By bundleName = By.xpath("div[@class=\"ng-star-inserted\"][1]/span");
-    By transactionNumber = By.xpath("div[@class=\"ng-star-inserted\"][2]/span");
-    By dateTime = By.xpath("div[@class=\"ng-star-inserted\"][3]/span");
-    By smsTo = By.xpath("div[@class=\"ng-star-inserted\"][4]/span");
-    By usedData = By.xpath("div[@class=\"ng-star-inserted\"][4]/span");
-    By dataCharges = By.xpath("div[@class=\"ng-star-inserted\"][5]/span");
-    By callDuration = By.xpath("div[@class=\"ng-star-inserted\"][4]/span");
-    By callCharges = By.xpath("div[@class=\"ng-star-inserted\"][6]/span");
-    By callTo = By.xpath("div[@class=\"ng-star-inserted\"][5]/span");
-    By smsCharges = By.xpath("div[@class=\"ng-star-inserted\"][5]/span");
+    By transactionNumber = By.xpath("div[@class=\"ng-star-inserted\"][2]/span"); //Transaction number does not display yet
+    By dateTime = By.xpath("div[@class=\"ng-star-inserted\"][2]/span");
+    By smsTo = By.xpath("div[@class=\"ng-star-inserted\"][3]/span");
+    By usedData = By.xpath("div[@class=\"ng-star-inserted\"][3]/span");
+    By dataCharges = By.xpath("div[@class=\"ng-star-inserted\"][4]/span");
+    By callDuration = By.xpath("div[@class=\"ng-star-inserted\"][3]/span");
+    By callCharges = By.xpath("div[@class=\"ng-star-inserted\"][5]/span");
+    By callTo = By.xpath("div[@class=\"ng-star-inserted\"][4]/span");
+    By smsCharges = By.xpath("div[@class=\"ng-star-inserted\"][4]/span");
     By smsHistoryRows = By.xpath("//span[contains(text(),\"SMS History \")]//parent::div//following-sibling::div[@class=\"card__content restricted ng-star-inserted\"]//div[@class=\"card__card-header--card-body--table--data-list ng-star-inserted\"]");
     By callHistoryRows = By.xpath("//span[contains(text(),\"Call History \")]//parent::div//following-sibling::div[@class=\"card__content restricted ng-star-inserted\"]//div[@class=\"card__card-header--card-body--table--data-list ng-star-inserted\"]");
     By dataHistoryRows = By.xpath("//span[contains(text(),\"Data History \")]//parent::div//following-sibling::div[@class=\"card__content restricted ng-star-inserted\"]//div[@class=\"card__card-header--card-body--table--data-list ng-star-inserted\"]");

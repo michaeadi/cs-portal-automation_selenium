@@ -24,6 +24,7 @@ public class BackendAgentUpdateTicket extends BaseTest{
 //        ticketListPage.writeTicketId(ticketId);
 //        ticketListPage.clickedSearchBtn();
 //        Thread.sleep(20000); // Update Particular Ticket
+        ticketListPage.waitTillLoaderGetsRemoved();
         String ticketId = ticketListPage.getTicketIdvalue();
         ticketListPage.viewTicket();
         Assert.assertEquals(ticketId, viewTicket.getTicketId(),"Verify the searched Ticket fetched Successfully");

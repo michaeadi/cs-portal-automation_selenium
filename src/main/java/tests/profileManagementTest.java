@@ -65,6 +65,7 @@ public class profileManagementTest extends BaseTest {
         ExtentTestManager.startTest("Validating Profile Management's Role Status Filter", "Validating Profile Management's Role Status Filter");
         SoftAssert softAssert = new SoftAssert();
         profileManagementPOM profileManagement = new profileManagementPOM(driver);
+        profileManagement.waitTillLoaderGetsRemoved();
         profileManagement.getRoleStatusFilterElement().click();
         profileManagement.clickOnOption("Inactive");
         profileManagement.waitTillLoaderGetsRemoved();
