@@ -73,7 +73,7 @@ public class createInteractionTest extends BaseTest {
             interactionsPOM.sendComment("Automation Suite");
             interactionsPOM.clickOnSave();
             softAssert.assertTrue(interactionsPOM.isResolvedFTRDisplayed());
-        }catch (NoSuchElementException e) {
+        }catch (Exception e) {
             System.out.println("in catch");
             interactionsPOM.closeInteractions();
             interactionsPOM.clickOnContinueButton();
@@ -239,7 +239,7 @@ public class createInteractionTest extends BaseTest {
             File Excel = new File(Exceldir, BaseTest.ExcelPath);
             objExcelFile.writeTicketNumber(Excel.getAbsolutePath(), "NFTRTickets", valueToWrite, Data.getRownum());
             System.out.println("Ticket Number Written to Excel " + valueToWrite[0]);
-        } catch (NoSuchElementException e) {
+        } catch (Exception e) {
             System.out.println("in catch");
             interactionsPOM.closeInteractions();
             interactionsPOM.clickOnContinueButton();
