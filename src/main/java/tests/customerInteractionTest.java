@@ -185,6 +185,7 @@ public class customerInteractionTest extends BaseTest {
             }catch (NumberFormatException e){
                 e.printStackTrace();
                 ExtentTestManager.getTest().log(LogStatus.FAIL,e.fillInStackTrace());
+                softAssert.fail("Last Recharge is not in expected format");
             }
             String Time = currentBalanceWidget.getDateFromEpoch(plansAPI.getResult().getLastRecharge().getRechargeOn(), config.getProperty("LastRechargeTimePattern"));
             String Date = currentBalanceWidget.getDateFromEpoch(plansAPI.getResult().getLastRecharge().getRechargeOn(), config.getProperty("LastRechargeDatePattern"));
@@ -214,7 +215,7 @@ public class customerInteractionTest extends BaseTest {
             softAssert.assertEquals(currentBalanceWidget.getSmsBalance().replace("-", "null"), plansAPI.getResult().getSms().getBalance(), "SMS Balance is not as Received in API ");
         }
         if (plansAPI.getStatusCode() != 200) {
-            softAssert.fail("API unable to get Last recharge and MAINSSS Balance ");
+            softAssert.fail("API unable to get Last recharge and MAIN Balance ");
         }
         softAssert.assertAll();
     }
