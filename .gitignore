@@ -10,6 +10,7 @@ Excels/test copy.xlsx
 Excels/~$KE.xlsx
 Excels/~$test.xlsx
 src/test/
+CS_PORTAL.iml
 .idea/.gitignore
 .idea/compiler.xml
 .idea/dictionaries/
@@ -19,3 +20,8 @@ src/test/
 .idea/qaplug_profiles.xml
 .idea/uiDesigner.xml
 .idea/vcs.xml
+.idea/libraries/
+.idea/modules.xml
+.idea/shelf/
+.idea/workspace.xml
+.idea
