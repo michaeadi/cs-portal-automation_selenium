@@ -7,7 +7,6 @@ import Utils.DataProviders.nftrDataBeans;
 import Utils.ExcelUtils.writeToExcel;
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.testng.Assert;
@@ -44,7 +43,7 @@ public class createInteractionTest extends BaseTest {
     }
 
 
-    @Test(priority = 2,dependsOnMethods = "openCustomerInteraction", description = "Create FTR Interaction ", dataProvider = "getTestData1", dataProviderClass = DataProviders.class)
+    @Test(priority = 2, dependsOnMethods = "openCustomerInteraction", description = "Create FTR Interaction ", dataProvider = "getTestData1", dataProviderClass = DataProviders.class, enabled = false)
     public void CreateInteraction(ftrDataBeans Data) throws InterruptedException {
         ExtentTestManager.startTest(" Validating FTR Ticket" + Data.getIssueCode(), "Creating FTR Tickets and Configurations of Issue Code " + Data.getIssueCode());
         customerInteractionPagePOM customerInteractionPagePOM = new customerInteractionPagePOM(driver);
@@ -100,9 +99,6 @@ public class createInteractionTest extends BaseTest {
         InteractionsPOM interactionsPOM = customerInteractionPagePOM.clickOnInteractionIcon();
         SoftAssert softAssert = new SoftAssert();
         interactionsPOM.clickOnCode();
-//        if (!interactionsPOM.isSearchVisible()) {
-//            interactionsPOM.clickOnCode();
-//        }
         try {
             interactionsPOM.searchCode(Data.getIssueCode());
         } catch (Exception e) {
@@ -114,16 +110,13 @@ public class createInteractionTest extends BaseTest {
         }
         interactionsPOM.selectCode(Data.getIssueCode());
         ExtentTestManager.getTest().log(LogStatus.INFO, "Creating ticket with issue code -" + Data.getIssueCode());
-        System.out.println(interactionsPOM.getIssue());
         softAssert.assertEquals(interactionsPOM.getIssue().trim().toLowerCase().replace(" ", ""), Data.getIssue().trim().toLowerCase().replace(" ", ""), "Issue is not as expected ");
-        System.out.println(interactionsPOM.getIssueSubSubType());
         softAssert.assertEquals(interactionsPOM.getIssueSubSubType().trim().toLowerCase().replace(" ", ""), Data.getIssueSubSubType().trim().toLowerCase().replace(" ", ""), "Issue sub sub type is not as expected ");
-        System.out.println(interactionsPOM.getIssueType());
         softAssert.assertEquals(interactionsPOM.getIssueType().trim().toLowerCase().replace(" ", ""), Data.getIssueType().trim().toLowerCase().replace(" ", ""), "Issue type is not as expected ");
-        System.out.println(interactionsPOM.getIssueSubType());
         softAssert.assertEquals(interactionsPOM.getIssueSubType().trim().toLowerCase().replace(" ", ""), Data.getIssueSubType().trim().toLowerCase().replace(" ", ""), "Issue sub type is not as expected ");
         String ticket_number = null;
         try {
+
             if (Data.getIssueFieldType1().equalsIgnoreCase("Text Box")) {
                 System.out.println(interactionsPOM.getIssueDetailLabel("1"));
                 softAssert.assertEquals(interactionsPOM.getIssueDetailLabel("1").replace("*", "").trim(), (Data.getIssueFieldLabel1().replace("*", "").trim()));
@@ -206,6 +199,7 @@ public class createInteractionTest extends BaseTest {
                 }
                 interactionsPOM.setDateFieldAvailable(dtf.format(now));
             }
+
             if (Data.getIssueFieldType6().equalsIgnoreCase("Text Box")) {
                 System.out.println(interactionsPOM.getIssueDetailLabel("6"));
                 softAssert.assertEquals(interactionsPOM.getIssueDetailLabel("6").replace("*", "").trim(), (Data.getIssueFieldLabel6().replace("*", "").trim()));
@@ -244,7 +238,7 @@ public class createInteractionTest extends BaseTest {
             interactionsPOM.closeInteractions();
             interactionsPOM.clickOnContinueButton();
             e.printStackTrace();
-            Assert.fail(e.getMessage());
+            Assert.fail(e.getCause().getMessage());
         }
         String base64Screenshot = "data:image/png;base64," + ((TakesScreenshot) driver).
                 getScreenshotAs(OutputType.BASE64);
