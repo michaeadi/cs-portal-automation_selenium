@@ -1,14 +1,14 @@
 package Utils.DataProviders;
 
 import lombok.extern.log4j.Log4j2;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.testng.annotations.DataProvider;
 import tests.BaseTest;
 import java.io.File;
 import java.lang.annotation.*;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 @Log4j2
 public class DataProviders {
@@ -120,6 +120,21 @@ public class DataProviders {
         hashMapObj[0][0] = list.get(whichRow - 1);
         return hashMapObj;
 
+    }
+
+    @DataProvider(name="pinTag")
+    public Object[][] getPinTags(Method method) {
+        PinnedTagDataExcelToBeanDao credsExcelToBeanDao = new PinnedTagDataExcelToBeanDao();
+        File Exceldir = new File("Excels");
+        File Excel = new File(Exceldir, BaseTest.ExcelPath);
+        RowNumber rows = method.getAnnotation(RowNumber.class);
+        List<PinnedtagsDataBeans> list =
+                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("PinnedTagSheet"));
+        Object[][] hashMapObj = new Object[list.size()][1];
+            for (int i = 0; i < list.size(); i++) {
+                hashMapObj[i][0] = list.get(i);
+            }
+            return hashMapObj;
     }
 
     @DataProvider(name = "ticketState")
@@ -315,6 +330,20 @@ public class DataProviders {
         List<PriorityDataBean> list =
                 priorityDataBean.getData(Excel.getAbsolutePath(), config.getProperty("priority"));
         return list;
+    }
+
+    //helper method
+    public Map<String,Boolean> getALLPinnedTags(){
+        PinnedTagDataExcelToBeanDao pinnedTag=new PinnedTagDataExcelToBeanDao();
+        File Exceldir = new File("Excels");
+        File Excel = new File(Exceldir, tests.BaseTest.Opco + ".xlsx");
+        List<PinnedtagsDataBeans> list =
+                pinnedTag.getData(Excel.getAbsolutePath(), config.getProperty("PinnedTagSheet"));
+        Map<String,Boolean> finalList=new HashMap<String,Boolean>();
+        for(PinnedtagsDataBeans l:list){
+            finalList.put(l.getTagName().toLowerCase().trim(),false);
+        }
+        return finalList;
     }
 
     @DataProvider(name = "singleTicketId")

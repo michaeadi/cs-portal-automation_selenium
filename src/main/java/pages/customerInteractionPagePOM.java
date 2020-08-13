@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Log4j2
@@ -65,11 +66,16 @@ public class customerInteractionPagePOM extends BasePage {
         return readText(fourthWidgetHeader);
     }
 
-    public String[] getPinnedTagTexts() {
-        String[] strings = null;
+    public List<String> getPinnedTagTexts() {
+        List<String> strings=new ArrayList<String>();
         List<WebElement> webElements = driver.findElements(pinTags);
-        for (int i = 0; i < webElements.size(); i++) {
-            strings[i] = webElements.get(i).getText();
+        System.out.println("Size: "+webElements.size());
+        for (int i = 1; i <= webElements.size(); i++) {
+            By tagName=By.xpath("//div[@class='sub-header__divide--control']//div[@class=\"sub-header__divide--control--tab ng-star-inserted\"]["+i+"]");
+            System.out.println("Text: "+readText(tagName).toLowerCase().trim());
+            log.info("Reading pinned tag name: "+readText(tagName));
+            ExtentTestManager.getTest().log(LogStatus.INFO,"Reading pinned tag name: "+readText(tagName));
+            strings.add(readText(tagName).toLowerCase().trim());
         }
         return strings;
     }
@@ -104,6 +110,14 @@ public class customerInteractionPagePOM extends BasePage {
         log.info("Clicking on Noise on Call Pinned Tag");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking Noise on Call Pinned Tag");
         click(noiseCallBtn);
+        return new customerInteractionsSearchPOM(driver);
+    }
+
+    public customerInteractionsSearchPOM clickPinTag(String text) {
+        log.info("Clicking on "+text+" Pinned Tag");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking "+text+" Pinned Tag");
+        By tagName = By.xpath("//div[@class=\"sub-header__divide--control--tab ng-star-inserted\" and contains(text(),\""+text+"\")]");
+        click(tagName);
         return new customerInteractionsSearchPOM(driver);
     }
 
@@ -197,5 +211,12 @@ public class customerInteractionPagePOM extends BasePage {
         log.info("Getting masked ID Number " + readText(idNumber));
         ExtentTestManager.getTest().log(LogStatus.INFO, "Getting masked ID Number " + readText(idNumber));
         return readText(idNumber);
+    }
+
+    public boolean isPinTagVisible(String text) {
+        By tagName = By.xpath("//div[@class=\"sub-header__divide--control--tab ng-star-inserted\" and contains(text(),\""+text+"\")]");
+        log.info("Checking is "+text+" Pinned Tag Visible");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is "+text+" Pinned Tag Visible");
+        return isElementVisible(tagName);
     }
 }

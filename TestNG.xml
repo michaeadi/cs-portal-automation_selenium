@@ -37,7 +37,7 @@
     </test>
     <test name="Customer Pinned Tag TEST" >
         <classes>
-            <class name="tests.PinnedTagTest"/>
+            <class name="tests.PinTagTest"/>
         </classes>
     </test>
     <test name="Add Interaction Ticket Comment">
