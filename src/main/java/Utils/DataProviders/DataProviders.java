@@ -101,26 +101,6 @@ public class DataProviders {
         return hashMapObj;
     }
 
-    @DataProvider
-    public Object[][] getSingleRow(Method method) {
-        PinnedTagDataExcelToBeanDao credsExcelToBeanDao = new PinnedTagDataExcelToBeanDao();
-        File Exceldir = new File("Excels");
-        File Excel = new File(Exceldir, BaseTest.ExcelPath);
-        RowNumber rows = method.getAnnotation(RowNumber.class);
-        List<PinnedtagsDataBeans> list =
-                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("PinnedTagSheet"));
-        Object[][] hashMapObj = new Object[1][1];
-        if (rows == null) {
-            for (int i = 0; i < list.size(); i++) {
-                hashMapObj[i][0] = list.get(i);
-            }
-            return hashMapObj;
-        }
-        int whichRow = Integer.parseInt(rows.rowNumber());
-        hashMapObj[0][0] = list.get(whichRow - 1);
-        return hashMapObj;
-
-    }
 
     @DataProvider(name="pinTag")
     public Object[][] getPinTags(Method method) {

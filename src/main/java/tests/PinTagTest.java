@@ -11,7 +11,6 @@ import pages.SideMenuPOM;
 import pages.customerInteractionPagePOM;
 import pages.customerInteractionsSearchPOM;
 import pages.viewHistoryPOM;
-
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;

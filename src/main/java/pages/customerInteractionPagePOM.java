@@ -29,9 +29,6 @@ public class customerInteractionPagePOM extends BasePage {
     By simBar = By.xpath("//button[@class=\"db-action-menu-item mat-menu-item ng-star-inserted\"]");
     By pinTags = By.xpath("//div[@class=\"sub-header__divide--control--tab ng-star-inserted\"]");
     By viewHistory = By.xpath("//div[@class=\"mat-tab-label-content\" and contains(text(),\"VIEW HISTORY\")]");
-    By blankCallBtn = By.xpath("//div[@class=\"sub-header__divide--control--tab ng-star-inserted\" and contains(text(),\"lank\")]");
-    By callDropBtn = By.xpath("//div[@class=\"sub-header__divide--control--tab ng-star-inserted\" and contains(text(),\"rop\")]");
-    By noiseCallBtn = By.xpath("//div[@class=\"sub-header__divide--control--tab ng-star-inserted\" and contains(text(),\"on\")]");
     By firstWidgetHeader = By.xpath("//div[@class=\"home-tab-container__left-widgets--widgets ng-star-inserted\"][1]//child::span[@class=\"card__card-header--label\"]");
     By thirdWidgetHeader = By.xpath("//div[@class=\"home-tab-container__left-widgets--widgets ng-star-inserted\"][2]//child::span[@class=\"card__card-header--label\"]");
     By secondWidgetHeader = By.xpath("//div[@class=\"home-tab-container__right-widgets--widgets ng-star-inserted\"][1]//child::span[@class=\"card__card-header--label\"]");
@@ -80,39 +77,6 @@ public class customerInteractionPagePOM extends BasePage {
         return strings;
     }
 
-
-    public boolean isBlankCallTagVisible() {
-        log.info("Checking is Blank Call Pinned Tag Visible");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is Blank Call Pinned Tag Visible");
-        return isElementVisible(blankCallBtn);
-    }
-
-    public boolean isCallDropTagVisible() {
-        log.info("Checking is Call Drop Pinned Tag Visible");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is Call Drop Pinned Tag Visible");
-
-        return isElementVisible(callDropBtn);
-    }
-
-    public boolean isNoiseCallTagVisible() {
-        log.info("Checking is Blank Call Pinned Tag Visible");
-        return isElementVisible(noiseCallBtn);
-    }
-
-    public customerInteractionsSearchPOM clickOnCallDrop() {
-        log.info("Clicking on Call Drop Pinned Tag");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Call Drop Pinned Tag");
-        click(callDropBtn);
-        return new customerInteractionsSearchPOM(driver);
-    }
-
-    public customerInteractionsSearchPOM clickOnNoiseCall() {
-        log.info("Clicking on Noise on Call Pinned Tag");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking Noise on Call Pinned Tag");
-        click(noiseCallBtn);
-        return new customerInteractionsSearchPOM(driver);
-    }
-
     public customerInteractionsSearchPOM clickPinTag(String text) {
         log.info("Clicking on "+text+" Pinned Tag");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking "+text+" Pinned Tag");
@@ -121,12 +85,6 @@ public class customerInteractionPagePOM extends BasePage {
         return new customerInteractionsSearchPOM(driver);
     }
 
-    public customerInteractionsSearchPOM clickOnBlankCall() {
-        log.info("Clicking on Blank Call Pinned Tag");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Blank Call Pinned Tag");
-        click(blankCallBtn);
-        return new customerInteractionsSearchPOM(driver);
-    }
 
     public boolean isPageLoaded() {
         waitVisibility(searchNumber);
