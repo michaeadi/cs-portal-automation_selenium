@@ -15,7 +15,7 @@ public class AMTransactionsWidgetPOM extends BasePage {
     By airtelMoneyBalanceUnableToFetch = By.xpath("//div[@class=\"card__content--money-balance ng-star-inserted\"]/span[@class=\"api-failed-error ng-star-inserted\"]");
     By airtelMoneyNoResultFound = By.xpath("//span[contains(text(),\"Airtel Money Transactions \")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]");
     By airtelMoneyNoResultFoundMessage = By.xpath("//span[contains(text(),\"Airtel Money Transactions \")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]/span/span");
-    By airtelMoneyError = By.xpath("//span[contains(text(),\"Airtel Money Transactions \")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"widget-error apiMsgBlock ng-star-inserted\"][1]");
+    By airtelMoneyError = By.xpath("//span[contains(text(),\"Airtel Money Transactions \")]/ancestor::div[@class=\"card ng-star-inserted\"]//div[@class='image-container']");
 
 
     public boolean isAirtelMoneyErrorVisible() {
@@ -67,7 +67,7 @@ public class AMTransactionsWidgetPOM extends BasePage {
     }
 
     public String gettingAMBalanceUnableToFetchMessage() {
-        log.info("Getting error Message for unable to fetch AM Money Balance : " + readText(airtelMoneyCurrency));
+        log.info("Getting error Message for unable to fetch AM Money Balance : " + readText(airtelMoneyBalanceUnableToFetch));
         ExtentTestManager.getTest().log(LogStatus.INFO, "Getting error Message for unable to fetch AM Money Balance : " + readText(airtelMoneyCurrency));
         return readText(airtelMoneyBalanceUnableToFetch);
     }
@@ -78,9 +78,9 @@ public class AMTransactionsWidgetPOM extends BasePage {
         return isElementVisible(airtelMoneyBalanceUnableToFetch);
     }
 
-    public int gettingAirtelMoneyBalance() {
+    public double gettingAirtelMoneyBalance() {
         log.info("Getting Airtel Money Balance from Widget : " + readText(airtelMoneyBalance));
         ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Airtel Money Balance from Widget : " + readText(airtelMoneyBalance));
-        return Integer.parseInt(readText(airtelMoneyBalance));
+        return Double.parseDouble(readText(airtelMoneyBalance));
     }
 }

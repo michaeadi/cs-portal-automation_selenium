@@ -23,7 +23,7 @@ import java.time.format.DateTimeFormatter;
 
 public class InteractionCommentTest extends BaseTest {
 
-    @DataProviders.User(UserType = "ALL")
+    @DataProviders.User(UserType = "NFTR")
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteraction(Method method, TestDatabean Data) throws IOException {
         ExtentTestManager.startTest("Validating the Search forCustomer Interactions :" + Data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + Data.getCustomerNumber());
@@ -53,7 +53,8 @@ public class InteractionCommentTest extends BaseTest {
 //        }
         try {
             interactionsPOM.searchCode(Data.getIssueCode());
-        } catch (NoSuchElementException e) {
+        } catch (Exception e) {
+            Thread.sleep(1000);
             interactionsPOM.clickOnCode();
             interactionsPOM.searchCode(Data.getIssueCode());
 
