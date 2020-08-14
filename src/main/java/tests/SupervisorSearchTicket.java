@@ -1,5 +1,7 @@
 package tests;
 
+import API.APITest;
+import POJO.TicketList.TicketPOJO;
 import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.nftrDataBeans;
 import Utils.ExtentReports.ExtentTestManager;
@@ -12,9 +14,12 @@ import pages.agentLoginPagePOM;
 import pages.supervisorTicketListPagePOM;
 
 import java.lang.reflect.Method;
+import java.util.Map;
 
 public class SupervisorSearchTicket extends BaseTest {
 
+
+    APITest api = new APITest();
 
     @Test(priority = 1, description = "Supervisor SKIP Login ")
     public void agentSkipQueueLogin(Method method) throws InterruptedException {
@@ -44,6 +49,7 @@ public class SupervisorSearchTicket extends BaseTest {
         ticketListPage.clickSearchBtn();
         ticketListPage.waitTillLoaderGetsRemoved();
         Assert.assertEquals(ticketListPage.getTicketIdvalue(), Data.getTicketNumber());
+        TicketPOJO ticketPOJO=api.ticketMetaDataTest(Data.getTicketNumber());
         softAssert.assertTrue(ticketListPage.isTicketIdLabel(),"Ticket Meta Data Have Ticket Id");
         softAssert.assertTrue(ticketListPage.isWorkGroupName(),"Ticket Meta Data Have Workgroup");
         softAssert.assertTrue(ticketListPage.isPrioritylabel(),"Ticket Meta Data Have Priority");
@@ -74,6 +80,18 @@ public class SupervisorSearchTicket extends BaseTest {
                 "Ticket Priority Validated");
         softAssert.assertEquals(ticketListPage.getPriorityValue().toLowerCase().trim(), Data.getPriority().toLowerCase().trim(),
                 "Issue Type Validated");
+        softAssert.assertEquals(ticketListPage.convertToHR(ticketPOJO.getResult().getCommittedSla()),Data.getSLA(),"SLA does not configured Correctly");
+        Map<String,Object> sla=ticketPOJO.getResult().getSla();
+        for (Map.Entry mapElement : sla.entrySet()) {
+            String key = (String) mapElement.getKey();
+            String value= mapElement.getValue().toString();
+            System.out.println(key+" = "+value);
+            if(value.charAt(0)=='-'){
+                softAssert.assertTrue(ticketListPage.isNegativeSLA(),"For negative SLA red symbol does not display");
+            }else{
+                softAssert.assertTrue(ticketListPage.isPositiveSLA(),"For positive SLA green symbol does not display");
+            }
+        }
         ticketListPage.clearInputBox();
         ticketListPage.waitTillLoaderGetsRemoved();
         softAssert.assertAll();

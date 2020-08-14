@@ -3,10 +3,7 @@ package pages;
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 @Log4j2
@@ -55,6 +52,8 @@ public class supervisorTicketListPagePOM extends BasePage {
     By reOpenBox = By.xpath("//*[@placeholder=\"Leave a comment\"]");
     By submitReopenComment = By.className("sbt-btn");
     By escalationSymbol=By.className("//span[@class='escalation']");
+    By redDot=By.xpath("//span[@class='reddot ng-star-inserted']");
+    By greenDot=By.xpath("//span[@class='greendot ng-star-inserted']");
     By assigneeAUUID=By.xpath("//div[@class='service-request']//div[1]//div[1]//div[2]//div[2]//p[1]//span[3]");
 
     public supervisorTicketListPagePOM(WebDriver driver) {
@@ -334,9 +333,31 @@ public class supervisorTicketListPagePOM extends BasePage {
         try{
             log.info("Ticket Assignee to :"+ readText(assigneeAUUID));
             return readText(assigneeAUUID);
-        } catch (Exception e) {
+        } catch (NoSuchElementException e) {
             e.printStackTrace();
-            return null;
+            return "Not Assigned";
+        }
+    }
+
+    public boolean isNegativeSLA(){
+        try {
+            log.info("Checking red dot symbol for negative SLA: " + checkState(redDot));
+            ExtentTestManager.getTest().log(LogStatus.INFO, "Checking red dot symbol for negative SLA: " + checkState(redDot));
+            return checkState(redDot);
+        } catch (TimeoutException e) {
+            log.info(e.fillInStackTrace());
+            return false;
+        }
+    }
+
+    public boolean isPositiveSLA(){
+        try {
+            log.info("Checking green dot symbol for positive SLA: " + checkState(greenDot));
+            ExtentTestManager.getTest().log(LogStatus.INFO, "Checking green dot symbol for positive SLA: " + checkState(greenDot));
+            return checkState(greenDot);
+        } catch (TimeoutException e) {
+            log.info(e.fillInStackTrace());
+            return false;
         }
     }
 

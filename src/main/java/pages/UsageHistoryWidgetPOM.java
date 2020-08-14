@@ -30,7 +30,8 @@ public class UsageHistoryWidgetPOM extends BasePage {
     By usageHistoryNoResultFound = By.xpath("//span[contains(text(),\"Usage History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]");
     By usageHistoryNoResultFoundMessage = By.xpath("//span[contains(text(),\"Usage History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]/span/span");
     By usageHistoryError = By.xpath("//span[contains(text(),\"Usage History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"widget-error apiMsgBlock ng-star-inserted\"][1]");
-
+    By ticketIcon=By.xpath("//span[contains(text(),'Usage History')]//span[@class=\"card__card-header--icon ng-star-inserted\"]");
+    By getTitle=By.xpath("//span[contains(text(),'Usage History')]");
     public boolean isUsageHistoryErrorVisible() {
         log.info("Validating error is visible when there is Error in API : " + isElementVisible(usageHistoryError));
         ExtentTestManager.getTest().log(LogStatus.INFO, "Validating error is visible when there is Error in API : " + isElementVisible(usageHistoryError));
@@ -132,4 +133,17 @@ public class UsageHistoryWidgetPOM extends BasePage {
         ExtentTestManager.getTest().log(LogStatus.INFO, "Checking Usage HistoryWidget Date Picker Visibility ");
         return checkState(usageHistoryDatePicker);
     }
+
+    public WidgetInteractionPOM clickTicketIcon(){
+        log.info("Clicking on Ticket Icon");
+        ExtentTestManager.getTest().log(LogStatus.INFO,"Clicking on Ticket Icon");
+        click(ticketIcon);
+        return new WidgetInteractionPOM(driver);
+    }
+
+    public String getWidgetTitle(){
+        log.info("Getting Widget title: "+readText(getTitle));
+        return readText(getTitle).toLowerCase();
+    }
+
 }

@@ -24,6 +24,8 @@ public class CurrentBalanceWidgetPOM extends BasePage {
     By currentBalanceLastRechargeUnableToFetch = By.xpath("//span[@class=\"label-color\"]/span[@class=\"api-failed-error ng-star-inserted\"]");
     By lastRechargeDateTImeUnableTOFetch = By.xpath("//div[@class=\"api-failed-error ng-star-inserted\"]");
     By daDetails = By.xpath("//button[text()=\"DA Details\"]");
+    By ticketIcon=By.xpath("//span[contains(text(),'Your Current Plan')]//span[@class=\"card__card-header--icon ng-star-inserted\"]");
+    By getTitle=By.xpath("//span[contains(text(),'Your Current Plan')]");
 
     public CurrentBalanceWidgetPOM(WebDriver driver) {
         super(driver);
@@ -149,5 +151,17 @@ public class CurrentBalanceWidgetPOM extends BasePage {
         log.info("Getting Last Recharge Date from Your Current Balance Widget : " + readText(lastRechargeDateTime).trim());
         ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Last Recharge Date from Your Current Balance Widget : " + readText(lastRechargeDateTime).trim());
         return readText(lastRechargeDateTime).trim();
+    }
+
+    public WidgetInteractionPOM clickTicketIcon(){
+        log.info("Clicking on Ticket Icon");
+        ExtentTestManager.getTest().log(LogStatus.INFO,"Clicking on Ticket Icon");
+        click(ticketIcon);
+        return new WidgetInteractionPOM(driver);
+    }
+
+    public String getWidgetTitle(){
+        log.info("Getting Widget title: "+readText(getTitle));
+        return readText(getTitle).toLowerCase();
     }
 }

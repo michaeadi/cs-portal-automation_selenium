@@ -70,6 +70,8 @@ public class ftrDataExcelToBeanDao {
                             case 4:
                                 ftrDataBeans.setIssueCode(cellValue);
                                 break;
+                            case 5:
+                                ftrDataBeans.setWidgetName(cellValue);
 
                         }
                     }
