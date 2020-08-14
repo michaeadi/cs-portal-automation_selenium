@@ -8,6 +8,8 @@ import org.testng.asserts.SoftAssert;
 import pages.SideMenuPOM;
 import pages.userManagementPOM;
 
+import java.util.ArrayList;
+
 public class userManagementTest extends BaseTest {
 
 int currentBucketSize;
@@ -49,15 +51,22 @@ int currentBucketSize;
         userManagementPOM userManagement = new userManagementPOM(driver);
         SoftAssert softAssert = new SoftAssert();
         userManagement.openListInteractionChannels();
-        String[] strings = userManagement.getInteractionChannels();
+        ArrayList<String> strings = userManagement.getInteractionChannels();
         DataProviders data = new DataProviders();
         for (int i = 0; i < data.getInteractionChannelData().size(); i++) {
-            if (!data.getInteractionChannelData().contains(strings[i].toLowerCase().trim())) {
-                softAssert.fail(strings[i] + "  Interaction Channel is not expected");
+            if (!data.getInteractionChannelData().contains(strings.get(i).toLowerCase().trim())) {
+                softAssert.fail(strings.get(i) + " Interaction Channels was expected ,but wasn't found on UI");
+            }
+        }
+        strings.removeAll(data.getInteractionChannelData());
+        if (strings.size() > 0) {
+            for (String string : strings) {
+                softAssert.fail(string + " is not expected in Interaction Channels ,as it is not in excel");
             }
         }
         userManagement.pressESC();
         softAssert.assertAll();
+
     }
 
 
@@ -67,28 +76,40 @@ int currentBucketSize;
         userManagementPOM userManagement = new userManagementPOM(driver);
         SoftAssert softAssert = new SoftAssert();
         userManagement.openWorkgroupList();
-        String[] strings = userManagement.getWorkflows();
+        ArrayList<String> strings = userManagement.getWorkflows();
         DataProviders data = new DataProviders();
         for (int i = 0; i < data.getWorkFlowData().size(); i++) {
-            if (!data.getWorkFlowData().contains(strings[i].toLowerCase().trim())) {
-                softAssert.fail(strings[i] + "  WorkFlow is not expected");
+            if (!data.getWorkFlowData().contains(strings.get(i).toLowerCase().trim())) {
+                softAssert.fail(strings.get(i) + " Work Flow was expected ,but wasn't found on UI");
+            }
+        }
+        strings.removeAll(data.getWorkFlowData());
+        if (strings.size() > 0) {
+            for (String string : strings) {
+                softAssert.fail(string + " is not expected in Work Flow ,as it is not in excel");
             }
         }
         userManagement.pressESC();
         softAssert.assertAll();
-    }
 
+    }
     @Test(priority = 5, description = "Validating User Management Edit User : Login Queue")
     public void getLoginQueue() throws InterruptedException {
         ExtentTestManager.startTest("Validating User Management Edit User : Login Queue", "Validating User Management Edit User :  Login Queue");
         userManagementPOM userManagement = new userManagementPOM(driver);
         SoftAssert softAssert = new SoftAssert();
         userManagement.openLoginQueueList();
-        String[] strings = userManagement.getLoginQueues();
+        ArrayList<String> strings = userManagement.getLoginQueues();
         DataProviders data = new DataProviders();
         for (int i = 0; i < data.getLoginQueueData().size(); i++) {
-            if (!data.getLoginQueueData().contains(strings[i].toLowerCase().trim())) {
-                softAssert.fail(strings[i] + " Login Queue is not expected");
+            if (!data.getLoginQueueData().contains(strings.get(i).toLowerCase().trim())) {
+                softAssert.fail(strings.get(i) + " Login Queue was expected ,but wasn't found on UI");
+            }
+        }
+        strings.removeAll(data.getLoginQueueData());
+        if (strings.size() > 0) {
+            for (String string : strings) {
+                softAssert.fail(string + " is not expected in Login Queue ,as it is not in excel");
             }
         }
         userManagement.pressESC();
@@ -97,9 +118,9 @@ int currentBucketSize;
     }
 
     @DataProviders.User(UserType = "ALL")
-    @Test(priority = 6, description = "Validating User Management Edit User : Login Queue", dataProvider = "loginData", dataProviderClass = DataProviders.class)
+    @Test(priority = 6, description = "Validating Bucket Size", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void changeBucketSize(TestDatabean Data) {
-        ExtentTestManager.startTest("Bucket Size", "Validating User Management Edit User :  Login Queue");
+        ExtentTestManager.startTest("Validating Bucket Size", "Validating Bucket Size");
         userManagementPOM userManagement = new userManagementPOM(driver);
         SoftAssert softAssert = new SoftAssert();
         userManagement.setTicketBucketSize(currentBucketSize + 1);
