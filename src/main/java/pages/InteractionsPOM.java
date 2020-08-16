@@ -68,8 +68,9 @@ public class InteractionsPOM extends BasePage {
         writeText(issueDetails, Input);
     }
 
-    public void clickOnCode() {
+    public void clickOnCode() throws InterruptedException {
         waitTillLoaderGetsRemoved();
+        Thread.sleep(1000);
         List<WebElement> listOfElements = driver.findElements(By.xpath("//div[@class=\"mat-select-value\"]"));
         listOfElements.get(0).click();
         log.info("clicking on issue code field");
@@ -98,31 +99,31 @@ public class InteractionsPOM extends BasePage {
     public String getIssue() {
         List<WebElement> listOfElements1 = driver.findElements(issues);
 //        System.out.println(listOfElements1.size());
-        log.info("Getting issue ");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting issue ");
+        log.info("Getting issue " + listOfElements1.get(1).getText());
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting issue " + listOfElements1.get(1).getText());
         return listOfElements1.get(1).getText();
 
     }
 
     public String getIssueType() {
         List<WebElement> listOfElements1 = driver.findElements(issues);
-        log.info("Getting issue type ");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Issue Type ");
+        log.info("Getting issue type " + listOfElements1.get(2).getText());
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Issue Type " + listOfElements1.get(2).getText());
         return listOfElements1.get(2).getText();
 
     }
 
     public String getIssueSubType() {
         List<WebElement> listOfElements1 = driver.findElements(issues);
-        log.info("Getting issue sub type ");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Issue Sub Type ");
+        log.info("Getting issue sub type " + listOfElements1.get(3).getText());
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Issue Sub Type " + listOfElements1.get(3).getText());
         return listOfElements1.get(3).getText();
     }
 
     public String getIssueSubSubType() {
         List<WebElement> listOfElements1 = driver.findElements(issues);
-        log.info("Getting issue sub sub type ");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting issue sub sub type ");
+        log.info("Getting issue sub sub type " + listOfElements1.get(4).getText());
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting issue sub sub type " + listOfElements1.get(4).getText());
         return listOfElements1.get(4).getText();
     }
 
