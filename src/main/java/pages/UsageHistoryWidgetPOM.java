@@ -82,8 +82,8 @@ public class UsageHistoryWidgetPOM extends BasePage {
     }
 
     public void clickingUsageHistoryWidgetMenu() {
-        log.info("Clicking Current Balance Widget's Menu Visible");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking Current Balance Widget'Menu Visible");
+        log.info("Clicking Usage History Widget's Menu Visible");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking Usage History Widget'Menu Visible");
         click(menu);
     }
 

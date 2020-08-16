@@ -6,6 +6,9 @@ import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Log4j2
 public class supervisorTicketListPagePOM extends BasePage {
 
@@ -51,10 +54,12 @@ public class supervisorTicketListPagePOM extends BasePage {
     By reOpenBtn = By.xpath("//li[1]//button[1]");
     By reOpenBox = By.xpath("//*[@placeholder=\"Leave a comment\"]");
     By submitReopenComment = By.className("sbt-btn");
-    By escalationSymbol=By.className("//span[@class='escalation']");
-    By redDot=By.xpath("//span[@class='reddot ng-star-inserted']");
-    By greenDot=By.xpath("//span[@class='greendot ng-star-inserted']");
-    By assigneeAUUID=By.xpath("//div[@class='service-request']//div[1]//div[1]//div[2]//div[2]//p[1]//span[3]");
+    By redDot = By.xpath("//span[@class='reddot ng-star-inserted']");
+    By greenDot = By.xpath("//span[@class='greendot ng-star-inserted']");
+    By assigneeAUUID = By.xpath("//div[@class='service-request']//div[1]//div[1]//div[2]//div[2]//p[1]//span[3]");
+    By allTicket = By.xpath("//div[@class=\"table-card ng-star-inserted\"]");
+    By searchOptionBtn=By.xpath("//div[@class='options']");
+    By allSearchOption=By.xpath("//ul[@class='ng-star-inserted']//li");
 
     public supervisorTicketListPagePOM(WebDriver driver) {
         super(driver);
@@ -270,14 +275,8 @@ public class supervisorTicketListPagePOM extends BasePage {
 
     public boolean noTicketFound() {
         log.info("No ticket found");
-        try{
-           boolean status= checkState(noResultFound);
-           ExtentTestManager.getTest().log(LogStatus.ERROR,"No Ticket Found");
-           return status;
-        } catch (NoSuchElementException e) {
-            e.printStackTrace();
-        }
-        return false;
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Is No Ticket Found :" + isElementVisible(noResultFound));
+        return isElementVisible(noResultFound);
     }
 
 
@@ -295,7 +294,12 @@ public class supervisorTicketListPagePOM extends BasePage {
 
     public boolean validateQueueFilter(String text) {
         ExtentTestManager.getTest().log(LogStatus.INFO, "Validating Queue Filter");
-        return validateFilter(listQueueValue, text);
+        boolean answer=false;
+        for(int i=1;i<getListSize();i++){
+            By queue=By.xpath("//div[@class=\"table-card ng-star-inserted\"]["+i+"]//ul/li[7]/span[2]");
+            answer=readText(queue).trim().equalsIgnoreCase(text);
+        }
+        return answer;
     }
 
     public void ClickReopenButton() {
@@ -325,13 +329,14 @@ public class supervisorTicketListPagePOM extends BasePage {
         return checkState(agentAUUID);
     }
 
-    public By getEscalationSymbol(){
-        return escalationSymbol;
+    public By getEscalationSymbol() {
+        log.info("Getting Escalation level");
+        return allTicket;
     }
 
-    public String getAssigneeAUUID(){
-        try{
-            log.info("Ticket Assignee to :"+ readText(assigneeAUUID));
+    public String getAssigneeAUUID() {
+        try {
+            log.info("Ticket Assignee to :" + readText(assigneeAUUID));
             return readText(assigneeAUUID);
         } catch (NoSuchElementException e) {
             e.printStackTrace();
@@ -339,7 +344,7 @@ public class supervisorTicketListPagePOM extends BasePage {
         }
     }
 
-    public boolean isNegativeSLA(){
+    public boolean isNegativeSLA() {
         try {
             log.info("Checking red dot symbol for negative SLA: " + checkState(redDot));
             ExtentTestManager.getTest().log(LogStatus.INFO, "Checking red dot symbol for negative SLA: " + checkState(redDot));
@@ -350,7 +355,7 @@ public class supervisorTicketListPagePOM extends BasePage {
         }
     }
 
-    public boolean isPositiveSLA(){
+    public boolean isPositiveSLA() {
         try {
             log.info("Checking green dot symbol for positive SLA: " + checkState(greenDot));
             ExtentTestManager.getTest().log(LogStatus.INFO, "Checking green dot symbol for positive SLA: " + checkState(greenDot));
@@ -361,6 +366,47 @@ public class supervisorTicketListPagePOM extends BasePage {
         }
     }
 
+    public List<String> getALLTicketId() {
+        List<WebElement> list = driver.findElements(allTicket);
+        List<String> ticketList = new ArrayList<>();
+        for (int i = 1; i <= list.size(); i++) {
+            By ticket = By.xpath("//div[@class=\"table-card ng-star-inserted\"][" + i + "]//ul[1]//li[1]//span[2]");
+            ticketList.add(readText(ticket).trim());
+            ExtentTestManager.getTest().log(LogStatus.INFO, "Ticket Id: " + readText(ticket).trim());
+        }
+        return ticketList;
+    }
+
+    public int getListSize(){
+        List<WebElement> list = driver.findElements(allTicket);
+        log.info("Size: "+list.size());
+        return list.size();
+    }
+
+    public String getSymbol(int i) {
+            By ticket = By.xpath("//div[@class=\"table-card ng-star-inserted\"][" + i + "]//ul[1]//li[1]//span[2]");
+            By symbol = By.xpath("//div[@class=\"table-card ng-star-inserted\"][" + i + "]//span[@class=\"escalation\"]");
+            log.info(readText(symbol)+": Escalation symbol found on ticket Id: " + readText(ticket).trim());
+            ExtentTestManager.getTest().log(LogStatus.INFO, readText(symbol)+": Escalation symbol found on ticket Id: " + readText(ticket).trim());
+            return readText(symbol).trim();
+    }
+
+    public void clickTicketOption(){
+        log.info("Click on Ticket Icon to get list of option");
+        click(searchOptionBtn);
+    }
+
+    public List<String> getListOfSearchOption(){
+        log.info("Getting Search Option");
+        List<WebElement> list=driver.findElements(allSearchOption);
+        List<String> searchOption=new ArrayList<>();
+        for(int i=1;i<=list.size();i++){
+            By search=By.xpath("//ul[@class='ng-star-inserted']//li["+i+"]");
+            log.info("Options Available : "+readText(search));
+            searchOption.add(readText(search).trim());
+        }
+        return searchOption;
+    }
 
 
 }

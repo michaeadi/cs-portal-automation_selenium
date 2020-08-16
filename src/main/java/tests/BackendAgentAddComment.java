@@ -64,4 +64,42 @@ public class BackendAgentAddComment extends BaseTest {
         softAssert.assertTrue(viewTicket.validateCommentType(config.getProperty("issueComment")),"Issue Comment does not found on ticket");
         softAssert.assertAll();
     }
+
+    @Test(priority = 4, dependsOnMethods = "addNewComment", description = "Validate Edit comment as Backend Agent")
+    public void editComment() throws InterruptedException {
+        supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
+        ViewTicketPagePOM viewTicket = new ViewTicketPagePOM(driver);
+        ExtentTestManager.startTest("Validate Edit comment as Backend Agent", "Validate Edit comment [Backend Agent]");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
+        SoftAssert softAssert = new SoftAssert();
+        String comment="Adding updated comment using automation";
+        viewTicket.openEditCommentBox();
+        viewTicket.clearCommentBox();
+        viewTicket.addComment(comment);
+        viewTicket.clickAddButton();
+        viewTicket.waitTillLoaderGetsRemoved();
+        viewTicket.validateAddedComment(comment);
+        softAssert.assertAll();
+    }
+
+    @Test(priority = 5, description = "Validate Delete comment as Backend Agent")
+    public void deleteLastAddedComment() throws InterruptedException {
+        supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
+        ViewTicketPagePOM viewTicket = new ViewTicketPagePOM(driver);
+        ExtentTestManager.startTest("Validate Delete comment as Backend Agent", "Validate Delete comment [Backend Agent]");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
+        SoftAssert softAssert = new SoftAssert();
+        String comment="Adding Comment to test Delete comment Flow";
+        viewTicket.addComment(comment);
+        viewTicket.clickAddButton();
+        viewTicket.waitTillLoaderGetsRemoved();
+        viewTicket.validateAddedComment(comment);
+        viewTicket.openDeleteComment();
+        viewTicket.clickContinueButton();
+        viewTicket.waitTillLoaderGetsRemoved();
+        softAssert.assertTrue(viewTicket.isCommentDelete(comment),"Deleted comment found on ticket");
+        softAssert.assertAll();
+    }
+
+
 }

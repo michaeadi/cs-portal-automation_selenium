@@ -349,7 +349,8 @@ public class DataProviders {
     }
 
     //helper
-    public Map<String, String> getWidgetTaggedIssue() {
+    public static final Map<String, String> getWidgetTaggedIssue() {
+        System.out.println("Calling instance");
         ftrDataExcelToBeanDao credsExcelToBeanDao = new ftrDataExcelToBeanDao();
         File Exceldir = new File("Excels");
         File Excel = new File(Exceldir, BaseTest.ExcelPath);
@@ -375,5 +376,21 @@ public class DataProviders {
             }
         }
         return finalList;
+    }
+
+
+    public String getCode(String text) {
+        ftrDataExcelToBeanDao credsExcelToBeanDao = new ftrDataExcelToBeanDao();
+        File Exceldir = new File("Excels");
+        File Excel = new File(Exceldir, BaseTest.ExcelPath);
+        List<ftrDataBeans> list =
+                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("FtrSheet"));
+        for(int i=0;i<list.size();i++) {
+            if(list.get(i).getIssueSubSubType().equalsIgnoreCase(text)) {
+                System.out.println("Found Single Row: "+list.get(i).getIssueSubSubType());
+                return list.get(i).getIssueCode();
+            }
+        }
+        return "not found";
     }
 }

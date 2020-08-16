@@ -11,8 +11,10 @@ import org.testng.asserts.SoftAssert;
 import pages.SideMenuPOM;
 import pages.agentLoginPagePOM;
 import pages.loginPagePOM;
+import pages.supervisorTicketListPagePOM;
 
 import java.lang.reflect.Method;
+import java.util.List;
 
 public class SupervisorLoginTest extends BaseTest {
 
@@ -71,6 +73,19 @@ public class SupervisorLoginTest extends BaseTest {
         AgentLoginPagePOM.clickSubmitBtn();
         AgentLoginPagePOM.waitTillLoaderGetsRemoved();
         Assert.assertEquals(driver.getTitle(), config.getProperty("supervisorTicketListPage"),"User Does Not Redirect to Supervisor ticket List Page");
+        softAssert.assertAll();
+    }
+
+    @Test(priority = 4, description = "Verify there are 2 options displayed to select from in the Search Dropdown : 1) Ticket Id & 2) MSISDN", dataProviderClass = DataProviders.class)
+    public void validateCheckBox(Method method) {
+        ExtentTestManager.startTest("Validate Search Ticket Option", "Verify there are 2 options displayed to select from in the Search Dropdown : 1) Ticket Id & 2) MSISDN");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
+        supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
+        SoftAssert softAssert = new SoftAssert();
+        ticketListPage.clickTicketOption();
+        List<String> list=ticketListPage.getListOfSearchOption();
+        softAssert.assertTrue(list.contains(config.getProperty("ticketOption")),config.getProperty("ticketOption")+" option does not found in list.");
+        softAssert.assertTrue(list.contains(config.getProperty("msisdnOption")),config.getProperty("msisdnOption")+" option does not found in list.");
         softAssert.assertAll();
     }
 
