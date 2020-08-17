@@ -7,4 +7,7 @@ import lombok.Setter;
 @Setter
 public class UMDataBeans {
    String Value;
+   String interaction;
+   String workflow;
+   String loginQueue;
 }

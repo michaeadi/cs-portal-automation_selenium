@@ -1,7 +1,5 @@
 package pages;
 
-import Utils.DataProviders.UMDataBeans;
-import Utils.DataProviders.UMDataExcelToBeanDao;
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
@@ -11,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Log4j2
@@ -50,16 +49,44 @@ public class userManagementPOM extends BasePage {
         return readText(ticketBucketSize);
     }
 
-    public String[] getWorkflows() {
+    public ArrayList<String> getWorkflows() {
         List<WebElement> listOfElements = driver.findElements(workflowsOptions);
         System.out.println("total elements " + listOfElements.size());
-        String[] strings = new String[11];
-        for (int i = 0; i < 11; i++) {
+        ArrayList<String> strings = new ArrayList<>();
+        for (int i = 0; i < listOfElements.size(); i++) {
             try {
-                strings[i] = listOfElements.get(i).getText();
-                System.out.println(i);
-                System.out.println(strings[i]);
+                strings.add(listOfElements.get(i).getText().toLowerCase().trim());
 
+            } catch (IndexOutOfBoundsException e) {
+                e.printStackTrace();
+                break;
+            }
+        }
+        return strings;
+    }
+
+    public ArrayList<String> getLoginQueues() {
+        List<WebElement> listOfElements = driver.findElements(workflowsOptions);
+        System.out.println("total elements " + listOfElements.size());
+        ArrayList<String> strings = new ArrayList<>();
+        for (int i = 0; i < listOfElements.size(); i++) {
+            try {
+                strings.add(listOfElements.get(i).getText().toLowerCase().trim());
+            } catch (IndexOutOfBoundsException e) {
+                e.printStackTrace();
+                break;
+            }
+        }
+        return strings;
+    }
+
+    public ArrayList<String> getInteractionChannels() {
+        List<WebElement> listOfElements = driver.findElements(channelsOptions);
+        System.out.println(listOfElements.size());
+        ArrayList<String> strings = new ArrayList<>();
+        for (int i = 0; i < listOfElements.size(); i++) {
+            try {
+                strings.add(listOfElements.get(i).getText().toLowerCase().trim());
             } catch (IndexOutOfBoundsException e) {
                 e.printStackTrace();
                 break;
@@ -98,23 +125,6 @@ public class userManagementPOM extends BasePage {
         Thread.sleep(1000);
     }
 
-    public String[] getLoginQueues() {
-        List<WebElement> listOfElements = driver.findElements(workflowsOptions);
-        System.out.println("total elements " + listOfElements.size());
-        String[] strings = new String[18];
-        for (int i = 0; i < 18; i++) {
-            try {
-                strings[i] = listOfElements.get(i).getText();
-                System.out.println(i);
-                System.out.println(strings[i]);
-
-            } catch (IndexOutOfBoundsException e) {
-                e.printStackTrace();
-                break;
-            }
-        }
-        return strings;
-    }
 
     public boolean isLoginQueuePresent(String[] strings, String workflow) {
         boolean isThere = false;
@@ -204,17 +214,6 @@ public class userManagementPOM extends BasePage {
         Thread.sleep(2000);
     }
 
-    public String[] getInteractionChannels() {
-        //*[@id="mat-option-0"]/span
-        List<WebElement> listOfElements = driver.findElements(channelsOptions);
-        System.out.println(listOfElements.size());
-        String[] strings = new String[4];
-        for (int i = 0; i < 4; i++) {
-            strings[i] = listOfElements.get(i).getText();
-            System.out.println(strings[i]);
-        }
-        return strings;
-    }
 
     public boolean isInteractionChannelPresent(String[] strings, String channel) {
         boolean isThere = false;
