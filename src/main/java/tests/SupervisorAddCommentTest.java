@@ -13,6 +13,7 @@ import pages.agentLoginPagePOM;
 import pages.supervisorTicketListPagePOM;
 
 import java.lang.reflect.Method;
+import java.time.LocalDateTime;
 
 public class SupervisorAddCommentTest extends BaseTest {
 
@@ -68,11 +69,11 @@ public class SupervisorAddCommentTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 4, dependsOnMethods = "addCommentOnTicket", description = "Validate Edit comment as Backend Agent")
+    @Test(priority = 4, dependsOnMethods = "addCommentOnTicket", description = "Validate Edit comment as Backend Supervisor")
     public void editComment() throws InterruptedException {
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         ViewTicketPagePOM viewTicket = new ViewTicketPagePOM(driver);
-        ExtentTestManager.startTest("Validate Edit comment as Backend Agent", "Validate Edit comment [Backend Agent]");
+        ExtentTestManager.startTest("Validate Edit comment as Backend Supervisor", "Validate Edit comment [Backend Supervisor]");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SoftAssert softAssert = new SoftAssert();
         String comment="Adding updated comment using automation";
@@ -85,14 +86,14 @@ public class SupervisorAddCommentTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 5, description = "Validate Delete comment as Backend Agent")
+    @Test(priority = 5, description = "Validate Delete comment as Backend Supervisor")
     public void deleteLastAddedComment() throws InterruptedException {
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         ViewTicketPagePOM viewTicket = new ViewTicketPagePOM(driver);
-        ExtentTestManager.startTest("Validate Delete comment as Backend Agent", "Validate Delete comment [Backend Agent]");
+        ExtentTestManager.startTest("Validate Delete comment as Backend Supervisor", "Validate Delete comment [Backend Supervisor]");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SoftAssert softAssert = new SoftAssert();
-        String comment="Adding Comment to test Delete comment Flow";
+        String comment="Adding Comment to test Delete comment Flow "+ LocalDateTime.now ();
         viewTicket.addComment(comment);
         viewTicket.clickAddButton();
         viewTicket.waitTillLoaderGetsRemoved();

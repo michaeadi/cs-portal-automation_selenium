@@ -40,5 +40,5 @@ public class TicketListDetails {
     private String expectedClosureDate;
     private String comment;
     private String assignee;
-    private Map<String ,Object> sla;
+    private Map<String ,Long> sla;
 }

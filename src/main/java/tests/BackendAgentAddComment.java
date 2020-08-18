@@ -10,6 +10,7 @@ import org.testng.asserts.SoftAssert;
 import pages.*;
 
 import java.lang.reflect.Method;
+import java.time.LocalDateTime;
 
 public class BackendAgentAddComment extends BaseTest {
 
@@ -89,7 +90,7 @@ public class BackendAgentAddComment extends BaseTest {
         ExtentTestManager.startTest("Validate Delete comment as Backend Agent", "Validate Delete comment [Backend Agent]");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SoftAssert softAssert = new SoftAssert();
-        String comment="Adding Comment to test Delete comment Flow";
+        String comment="Adding Comment to test Delete comment Flow "+ LocalDateTime.now ();
         viewTicket.addComment(comment);
         viewTicket.clickAddButton();
         viewTicket.waitTillLoaderGetsRemoved();

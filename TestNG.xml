@@ -65,6 +65,15 @@
             <class name="tests.SupervisorLoginTest"/>
         </classes>
     </test>
+    <test name="api-Regenerate">
+        <classes>
+            <class name="API.APITest">
+                <methods>
+                    <include name="loginAPI"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
     <test name="Supervisors Search Ticket Test ">
         <classes>
             <class name="tests.SupervisorSearchTicket"/>

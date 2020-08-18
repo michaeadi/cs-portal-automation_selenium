@@ -12,7 +12,7 @@ import java.util.List;
 @Log4j2
 public class supervisorTicketListPagePOM extends BasePage {
 
-    By searchTicketBox = By.xpath("//input[@type=\"search\"]");
+    By searchTicketBox = By.xpath("//span[@class='search-box small-search']//input");
     By searchTicketBtn = By.xpath("//html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button");
     By ticketIdLabel = By.xpath("//div//div//div//div//div//div//div//div//div//ul[1]//li[1]//span[1]");
     By ticketIdvalue = By.xpath("//ul[1]//li[1]//span[2]");
@@ -297,6 +297,7 @@ public class supervisorTicketListPagePOM extends BasePage {
         boolean answer=false;
         for(int i=1;i<getListSize();i++){
             By queue=By.xpath("//div[@class=\"table-card ng-star-inserted\"]["+i+"]//ul/li[7]/span[2]");
+            log.info(readText(queue).trim()+" : "+text+" :"+readText(queue).trim().equalsIgnoreCase(text));
             answer=readText(queue).trim().equalsIgnoreCase(text);
         }
         return answer;
@@ -338,7 +339,7 @@ public class supervisorTicketListPagePOM extends BasePage {
         try {
             log.info("Ticket Assignee to :" + readText(assigneeAUUID));
             return readText(assigneeAUUID);
-        } catch (NoSuchElementException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return "Not Assigned";
         }

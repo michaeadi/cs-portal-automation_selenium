@@ -31,6 +31,7 @@ public class APITest extends tests.BaseTest {
     public void loginAPI(TestDatabean Data) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         LoginPOJO Req = LoginPOJO.loginBody(PassUtils.decodePassword(Data.getPassword()), Data.getLoginAUUID());
+        map.clear();
         map.add(new Header("x-app-name", config.getProperty(Env + "-x-app-name")));
         map.add(new Header("x-service-id", config.getProperty(Env + "-x-service-id")));
         map.add(new Header("x-bsy-bn", config.getProperty(Env + "-x-bsy-bn")));

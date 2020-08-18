@@ -67,13 +67,27 @@ public class AssignToAgentTicketTest extends BaseTest {
         softAssert.assertTrue(ticketListPage.isCodeLabel(),"Ticket Meta Data Does Not Have Code");
         String ticketQueue = ticketListPage.getqueueValue();
         String assigneeAUUID=ticketListPage.getAssigneeAUUID();
+        String ticketId=ticketListPage.getTicketIdvalue();
         ticketListPage.clickCheckbox();
         softAssert.assertTrue(ticketListPage.isAssignToAgent(),"Assign to Agent Button  Does Not Available");
         softAssert.assertTrue(ticketListPage.isTransferToQueue(),"Transfer to Queue Button  Does Not Available");
         ticketListPage.clickAssigntoAgent();
         softAssert.assertTrue(assignTicket.validatePageTitle(),"Assign to Agent tab Does Not Open");
         softAssert.assertEquals(assignTicket.getQueueName(), ticketQueue,"Assign to Agent tab Queue does not Open Correctly");
-        assignTicket.getAvailableSlotAll(assigneeAUUID);
+        String auuid=assignTicket.ticketAssignedToAgent(assigneeAUUID).trim();
+        ticketListPage.waitTillLoaderGetsRemoved();
+        Thread.sleep(3000);
+        ticketListPage.writeTicketId(ticketId);
+        ticketListPage.clickSearchBtn();
+        ticketListPage.waitTillLoaderGetsRemoved();
+        softAssert.assertEquals(ticketListPage.getAssigneeAUUID().trim(),auuid,"Ticket does not assigned to agent");
+        if(ticketListPage.getAssigneeAUUID().trim().equalsIgnoreCase(auuid)) {
+            ExtentTestManager.getTest().log(LogStatus.INFO, "Ticket unassigned from <" + assigneeAUUID + "> and Ticket Assigned to <" + auuid + ">");
+            ExtentTestManager.getTest().log(LogStatus.INFO, "Validated Ticket is Assigned to User Successfully");
+        }else{
+            ExtentTestManager.getTest().log(LogStatus.INFO, "Ticket unassigned from <" + assigneeAUUID + "> and Ticket Assigned to <" + auuid + ">");
+            ExtentTestManager.getTest().log(LogStatus.FAIL, "Ticket does not Assigned to User Correctly");
+        }
         softAssert.assertAll();
     }
 }

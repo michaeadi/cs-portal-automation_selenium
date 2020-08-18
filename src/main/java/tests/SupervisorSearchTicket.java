@@ -81,7 +81,7 @@ public class SupervisorSearchTicket extends BaseTest {
         softAssert.assertEquals(ticketListPage.getPriorityValue().toLowerCase().trim(), Data.getPriority().toLowerCase().trim(),
                 "Issue Type Validated");
         softAssert.assertEquals(ticketListPage.convertToHR(ticketPOJO.getResult().getCommittedSla()),Data.getSLA(),"SLA does not configured Correctly");
-        Map<String,Object> sla=ticketPOJO.getResult().getSla();
+        Map<String,Long> sla=ticketPOJO.getResult().getSla();
         for (Map.Entry mapElement : sla.entrySet()) {
             String key = (String) mapElement.getKey();
             String value= mapElement.getValue().toString();

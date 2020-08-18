@@ -88,7 +88,7 @@ public class BasePage {
     }
 
     //Wait For Element
-    void waitVisibility(By by) {
+   public void waitVisibility(By by) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(by));
     }
 
