@@ -3,12 +3,14 @@ package tests;
 import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.TestDatabean;
 import Utils.ExtentReports.ExtentTestManager;
+import com.relevantcodes.extentreports.LogStatus;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.SideMenuPOM;
 import pages.userManagementPOM;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class userManagementTest extends BaseTest {
 
@@ -52,20 +54,26 @@ public class userManagementTest extends BaseTest {
         SoftAssert softAssert = new SoftAssert();
         userManagement.openListInteractionChannels();
         ArrayList<String> strings = userManagement.getInteractionChannels();
+        userManagement.pressESC();
         DataProviders data = new DataProviders();
         ArrayList<String> interactionChannel=data.getInteractionChannelData();
-        for (int i = 0; i < interactionChannel.size(); i++) {
-            if (!interactionChannel.contains(strings.get(i).toLowerCase().trim())) {
-                softAssert.fail(strings.get(i) + " Interaction Channels was expected ,but wasn't found on UI");
+        for (String s : strings) {
+            if (interactionChannel.contains(s)) {
+                ExtentTestManager.getTest().log(LogStatus.INFO, "Validate " + s + " interaction channel is display correctly");
+                interactionChannel.remove(s);
+            } else {
+                ExtentTestManager.getTest().log(LogStatus.FAIL, s + " interaction channel must not display on frontend as tag not mention in config sheet.");
+                softAssert.fail(s + " interaction channel should not display on UI as interaction channel not mention in config sheet.");
             }
         }
-        strings.removeAll(interactionChannel);
-        if (strings.size() > 0) {
-            for (String string : strings) {
-                softAssert.fail(string + " is not expected in Interaction Channels ,as it is not in excel");
+        if (interactionChannel.isEmpty()) {
+            ExtentTestManager.getTest().log(LogStatus.PASS, "All interaction channel correctly configured and display on UI.");
+        } else {
+            for (String element : interactionChannel) {
+                ExtentTestManager.getTest().log(LogStatus.FAIL, element + " interaction channel does not display on UI but present in config sheet.");
+                softAssert.fail(element + " interaction channel does not display on UI but present in config sheet.");
             }
         }
-        userManagement.pressESC();
         softAssert.assertAll();
 
     }
@@ -78,20 +86,26 @@ public class userManagementTest extends BaseTest {
         SoftAssert softAssert = new SoftAssert();
         userManagement.openWorkgroupList();
         ArrayList<String> strings = userManagement.getWorkflows();
+        userManagement.pressESC();
         DataProviders data = new DataProviders();
         ArrayList<String> workFlow=data.getWorkFlowData();
-        for (int i = 0; i < workFlow.size(); i++) {
-            if (!workFlow.contains(strings.get(i).toLowerCase().trim())) {
-                softAssert.fail(strings.get(i) + " Work Group was expected ,but wasn't found on UI");
+        for (String s : strings) {
+            if (workFlow.contains(s)) {
+                ExtentTestManager.getTest().log(LogStatus.INFO, "Validate " + s + " workgroup is display correctly");
+                workFlow.remove(s);
+            } else {
+                ExtentTestManager.getTest().log(LogStatus.FAIL, s + " workgroup must not display on frontend as tag not mention in config sheet.");
+                softAssert.fail(s + " workgroup should not display on UI as interaction channel not mention in config sheet.");
             }
         }
-        strings.removeAll(workFlow);
-        if (strings.size() > 0) {
-            for (String string : strings) {
-                softAssert.fail(string + " is not expected in Work Group ,as it is not in excel");
+        if (workFlow.isEmpty()) {
+            ExtentTestManager.getTest().log(LogStatus.PASS, "All workgroup correctly configured and display on UI.");
+        } else {
+            for (String element : workFlow) {
+                ExtentTestManager.getTest().log(LogStatus.FAIL, element + " workgroup does not display on UI but present in config sheet.");
+                softAssert.fail(element + " workgroup does not display on UI but present in config sheet.");
             }
         }
-        userManagement.pressESC();
         softAssert.assertAll();
 
     }
@@ -102,20 +116,26 @@ public class userManagementTest extends BaseTest {
         SoftAssert softAssert = new SoftAssert();
         userManagement.openLoginQueueList();
         ArrayList<String> strings = userManagement.getLoginQueues();
+        userManagement.pressESC();
         DataProviders data = new DataProviders();
         ArrayList<String> loginQueue=data.getLoginQueueData();
-        for (int i = 0; i < loginQueue.size(); i++) {
-            if (!loginQueue.contains(strings.get(i).toLowerCase().trim())) {
-                softAssert.fail(strings.get(i) + " Login Queue was expected ,but wasn't found on UI");
+        for (String s : strings) {
+            if (loginQueue.contains(s)) {
+                ExtentTestManager.getTest().log(LogStatus.INFO, "Validate " + s + " ticketPool is display correctly");
+                loginQueue.remove(s);
+            } else {
+                ExtentTestManager.getTest().log(LogStatus.FAIL, s + " ticketPool must not display on frontend as tag not mention in config sheet.");
+                softAssert.fail(s + " ticketPool should not display on UI as interaction channel not mention in config sheet.");
             }
         }
-        strings.removeAll(loginQueue);
-        if (strings.size() > 0) {
-            for (String string : strings) {
-                softAssert.fail(string + " is not expected in Login Queue ,as it is not in excel");
+        if (loginQueue.isEmpty()) {
+            ExtentTestManager.getTest().log(LogStatus.PASS, "All ticketPool correctly configured and display on UI.");
+        } else {
+            for (String element : loginQueue) {
+                ExtentTestManager.getTest().log(LogStatus.FAIL, element + " ticketPool does not display on UI but present in config sheet.");
+                softAssert.fail(element + " ticketPool does not display on UI but present in config sheet.");
             }
         }
-        userManagement.pressESC();
         softAssert.assertAll();
 
     }

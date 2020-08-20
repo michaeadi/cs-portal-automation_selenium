@@ -67,6 +67,7 @@ public class DataProviders {
         ArrayList<String> finalList = new ArrayList<>();
         for (UMDataBeans l : list) {
             if (l.getInteraction()!=null) {
+                if(!l.getInteraction().isEmpty())
                 finalList.add(l.getInteraction().toLowerCase().trim());
             }
         }
@@ -83,6 +84,7 @@ public class DataProviders {
         ArrayList<String> finalList = new ArrayList<>();
         for (UMDataBeans l : list) {
             if (l.getWorkflow()!=null) {
+                if(!l.getWorkflow().isEmpty())
                 finalList.add(l.getWorkflow().toLowerCase().trim());
             }
         }
@@ -98,6 +100,7 @@ public class DataProviders {
         ArrayList<String> finalList = new ArrayList<>();
         for (UMDataBeans l : list) {
             if (l.getLoginQueue()!=null) {
+                if(!l.getLoginQueue().isEmpty())
                 finalList.add(l.getLoginQueue().toLowerCase().trim());
             }
         }
