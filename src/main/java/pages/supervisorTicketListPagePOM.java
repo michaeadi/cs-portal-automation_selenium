@@ -15,6 +15,7 @@ public class supervisorTicketListPagePOM extends BasePage {
 
     @CacheLookup
     By searchTicketBox = By.xpath("//input[@type='search'][1]");
+    By searchTicketBox2=By.xpath("//span[@class='search-box small-search']//input");
     By searchTicketBtn = By.xpath("//html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button");
     By ticketIdLabel = By.xpath("//div//div//div//div//div//div//div//div//div//ul[1]//li[1]//span[1]");
     By ticketIdvalue = By.xpath("//ul[1]//li[1]//span[2]");
@@ -71,6 +72,12 @@ public class supervisorTicketListPagePOM extends BasePage {
         log.info("Search Ticket Id: " + ticketId);
         ExtentTestManager.getTest().log(LogStatus.INFO, "Search Ticket Id: " + ticketId);
         writeText(searchTicketBox, ticketId);
+    }
+
+    public void writeTicketIdSecond(String ticketId) {
+        log.info("Search Ticket Id: " + ticketId);
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Search Ticket Id: " + ticketId);
+        writeText(searchTicketBox2, ticketId);
     }
 
     public void clearInputBox() {

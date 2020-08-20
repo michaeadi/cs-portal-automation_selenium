@@ -77,7 +77,7 @@ public class AssignToAgentTicketTest extends BaseTest {
         String auuid=assignTicket.ticketAssignedToAgent(assigneeAUUID).trim();
         ticketListPage.waitTillLoaderGetsRemoved();
         Thread.sleep(3000);
-        ticketListPage.writeTicketId(ticketId);
+        ticketListPage.writeTicketIdSecond(ticketId);
         ticketListPage.clickSearchBtn();
         ticketListPage.waitTillLoaderGetsRemoved();
         softAssert.assertEquals(ticketListPage.getAssigneeAUUID().trim(),auuid,"Ticket does not assigned to agent");
