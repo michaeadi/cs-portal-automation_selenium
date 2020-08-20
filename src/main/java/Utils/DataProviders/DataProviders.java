@@ -66,7 +66,8 @@ public class DataProviders {
                 credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("UserManagementSheet"));
         ArrayList<String> finalList = new ArrayList<>();
         for (UMDataBeans l : list) {
-            if (!l.getInteraction().isEmpty()) {
+            if (l.getInteraction()!=null) {
+                if(!l.getInteraction().isEmpty())
                 finalList.add(l.getInteraction().toLowerCase().trim());
             }
         }
@@ -82,7 +83,8 @@ public class DataProviders {
                 credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("UserManagementSheet"));
         ArrayList<String> finalList = new ArrayList<>();
         for (UMDataBeans l : list) {
-            if (!l.getWorkflow().isEmpty()) {
+            if (l.getWorkflow()!=null) {
+                if(!l.getWorkflow().isEmpty())
                 finalList.add(l.getWorkflow().toLowerCase().trim());
             }
         }
@@ -97,14 +99,15 @@ public class DataProviders {
                 credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("UserManagementSheet"));
         ArrayList<String> finalList = new ArrayList<>();
         for (UMDataBeans l : list) {
-            if (!l.getLoginQueue().isEmpty()) {
+            if (l.getLoginQueue()!=null) {
+                if(!l.getLoginQueue().isEmpty())
                 finalList.add(l.getLoginQueue().toLowerCase().trim());
             }
         }
         return finalList;
     }
 
-    @DataProvider(name="pinTag")
+    @DataProvider(name = "pinTag")
     public Object[][] getPinTags(Method method) {
         PinnedTagDataExcelToBeanDao credsExcelToBeanDao = new PinnedTagDataExcelToBeanDao();
         File Exceldir = new File("Excels");
@@ -113,10 +116,10 @@ public class DataProviders {
         List<PinnedtagsDataBeans> list =
                 credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("PinnedTagSheet"));
         Object[][] hashMapObj = new Object[list.size()][1];
-            for (int i = 0; i < list.size(); i++) {
-                hashMapObj[i][0] = list.get(i);
-            }
-            return hashMapObj;
+        for (int i = 0; i < list.size(); i++) {
+            hashMapObj[i][0] = list.get(i);
+        }
+        return hashMapObj;
     }
 
     @DataProvider(name = "ticketState")
@@ -227,7 +230,6 @@ public class DataProviders {
     }
 
 
-
     @DataProvider(name = "ReOpenState")
     public Object[][] isReOpenState() {
         TicketStateToBean ticketStateToBean = new TicketStateToBean();
@@ -297,15 +299,15 @@ public class DataProviders {
                 openState.add(state);
             }
         }
-       if(stateName.equalsIgnoreCase("open")){
-           return openState;
-       }else {
-           return closeState;
-       }
+        if (stateName.equalsIgnoreCase("open")) {
+            return openState;
+        } else {
+            return closeState;
+        }
     }
 
     //helper method
-    public List<PriorityDataBean> getPriority(){
+    public List<PriorityDataBean> getPriority() {
         PriorityDataExcelToBeanDao priorityDataBean = new PriorityDataExcelToBeanDao();
         File Exceldir = new File("Excels");
         File Excel = new File(Exceldir, tests.BaseTest.Opco + ".xlsx");
@@ -315,15 +317,15 @@ public class DataProviders {
     }
 
     //helper method
-    public Map<String,Boolean> getALLPinnedTags(){
-        PinnedTagDataExcelToBeanDao pinnedTag=new PinnedTagDataExcelToBeanDao();
+    public Map<String, Boolean> getALLPinnedTags() {
+        PinnedTagDataExcelToBeanDao pinnedTag = new PinnedTagDataExcelToBeanDao();
         File Exceldir = new File("Excels");
         File Excel = new File(Exceldir, tests.BaseTest.Opco + ".xlsx");
         List<PinnedtagsDataBeans> list =
                 pinnedTag.getData(Excel.getAbsolutePath(), config.getProperty("PinnedTagSheet"));
-        Map<String,Boolean> finalList=new HashMap<String,Boolean>();
-        for(PinnedtagsDataBeans l:list){
-            finalList.put(l.getTagName().toLowerCase().trim(),false);
+        Map<String, Boolean> finalList = new HashMap<String, Boolean>();
+        for (PinnedtagsDataBeans l : list) {
+            finalList.put(l.getTagName().toLowerCase().trim(), false);
         }
         return finalList;
     }
@@ -350,5 +352,51 @@ public class DataProviders {
         hashMapObj[0][0] = finalTicketList.get(0);
 
         return hashMapObj;
+    }
+
+    //helper
+    public static final Map<String, String> getWidgetTaggedIssue() {
+        System.out.println("Calling instance");
+        ftrDataExcelToBeanDao credsExcelToBeanDao = new ftrDataExcelToBeanDao();
+        File Exceldir = new File("Excels");
+        File Excel = new File(Exceldir, BaseTest.ExcelPath);
+        List<ftrDataBeans> list =
+                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("FtrSheet"));
+        Map<String, String> finalList = new HashMap<>();
+        for (ftrDataBeans ftr : list) {
+            if (ftr.getWidgetName() != null) {
+                System.out.println("Adding in Map<" + ftr.getIssueSubSubType().trim() + "," + ftr.getWidgetName() + ">");
+                finalList.put(ftr.getIssueSubSubType().trim(), ftr.getWidgetName().toLowerCase().trim());
+            }
+        }
+        return finalList;
+    }
+
+    //helper
+    public Map<String, String> getListOfIssue(String widgetName) {
+        Map<String, String> list = getWidgetTaggedIssue();
+        Map<String, String> finalList = new HashMap<>();
+        for (Map.Entry<String,String> mapElement : list.entrySet()) {
+            if(mapElement.getValue().equalsIgnoreCase(widgetName)){
+                finalList.put(mapElement.getKey(),mapElement.getValue());
+            }
+        }
+        return finalList;
+    }
+
+
+    public String getCode(String text) {
+        ftrDataExcelToBeanDao credsExcelToBeanDao = new ftrDataExcelToBeanDao();
+        File Exceldir = new File("Excels");
+        File Excel = new File(Exceldir, BaseTest.ExcelPath);
+        List<ftrDataBeans> list =
+                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("FtrSheet"));
+        for(int i=0;i<list.size();i++) {
+            if(list.get(i).getIssueSubSubType().equalsIgnoreCase(text)) {
+                System.out.println("Found Single Row: "+list.get(i).getIssueSubSubType());
+                return list.get(i).getIssueCode();
+            }
+        }
+        return "not found";
     }
 }

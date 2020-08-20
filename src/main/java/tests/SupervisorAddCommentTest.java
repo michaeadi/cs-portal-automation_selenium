@@ -13,6 +13,7 @@ import pages.agentLoginPagePOM;
 import pages.supervisorTicketListPagePOM;
 
 import java.lang.reflect.Method;
+import java.time.LocalDateTime;
 
 public class SupervisorAddCommentTest extends BaseTest {
 
@@ -58,13 +59,49 @@ public class SupervisorAddCommentTest extends BaseTest {
     }
 
     @Test(priority = 3, dependsOnMethods = "addCommentOnTicket", description = "Validate issue comment as supervisor")
-    public void validateIssueCommentBS(Method method) throws InterruptedException {
+    public void validateIssueComment(Method method) throws InterruptedException {
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         ViewTicketPagePOM viewTicket = new ViewTicketPagePOM(driver);
         ExtentTestManager.startTest("Validate issue comment as supervisor", "Validate issue comment [Backend Supervisor]");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(viewTicket.validateCommentType(config.getProperty("issueComment")),"Issue Comment does not found on ticket");
+        softAssert.assertAll();
+    }
+
+    @Test(priority = 4, dependsOnMethods = "addCommentOnTicket", description = "Validate Edit comment as Backend Supervisor")
+    public void editComment() throws InterruptedException {
+        supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
+        ViewTicketPagePOM viewTicket = new ViewTicketPagePOM(driver);
+        ExtentTestManager.startTest("Validate Edit comment as Backend Supervisor", "Validate Edit comment [Backend Supervisor]");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
+        SoftAssert softAssert = new SoftAssert();
+        String comment="Adding updated comment using automation";
+        viewTicket.openEditCommentBox();
+        viewTicket.clearCommentBox();
+        viewTicket.addComment(comment);
+        viewTicket.clickAddButton();
+        viewTicket.waitTillLoaderGetsRemoved();
+        viewTicket.validateAddedComment(comment);
+        softAssert.assertAll();
+    }
+
+    @Test(priority = 5, description = "Validate Delete comment as Backend Supervisor")
+    public void deleteLastAddedComment() throws InterruptedException {
+        supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
+        ViewTicketPagePOM viewTicket = new ViewTicketPagePOM(driver);
+        ExtentTestManager.startTest("Validate Delete comment as Backend Supervisor", "Validate Delete comment [Backend Supervisor]");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
+        SoftAssert softAssert = new SoftAssert();
+        String comment="Adding Comment to test Delete comment Flow "+ LocalDateTime.now ();
+        viewTicket.addComment(comment);
+        viewTicket.clickAddButton();
+        viewTicket.waitTillLoaderGetsRemoved();
+        viewTicket.validateAddedComment(comment);
+        viewTicket.openDeleteComment();
+        viewTicket.clickContinueButton();
+        viewTicket.waitTillLoaderGetsRemoved();
+        softAssert.assertTrue(viewTicket.isCommentDelete(comment),"Deleted comment found on ticket");
         softAssert.assertAll();
     }
 }

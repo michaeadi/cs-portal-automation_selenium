@@ -15,6 +15,7 @@ import org.testng.Assert;
 import tests.BaseTest;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -87,7 +88,7 @@ public class BasePage {
     }
 
     //Wait For Element
-    void waitVisibility(By by) {
+   public void waitVisibility(By by) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(by));
     }
 
@@ -131,6 +132,7 @@ public class BasePage {
         return format.format(date);
     }
 
+
     public String getTimeFromEpoch(long Epoch, String pattern) {
         Date date = new Date(Epoch);
         Date nearestMinute = DateUtils.round(date, Calendar.MINUTE);
@@ -145,7 +147,12 @@ public class BasePage {
 
     // is element  visible
     boolean isElementVisible(By Element) {
-        return driver.findElement(Element).isDisplayed();
+        try {
+            return driver.findElement(Element).isDisplayed();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
 
@@ -179,4 +186,27 @@ public class BasePage {
         return true;
     }
 
+    public boolean isSortOrderDisplay(String historyDateTime, String historyDateTime1, String pattern) {
+        DateFormat format = new SimpleDateFormat(pattern);
+        try {
+            Date date1 = format.parse(historyDateTime);
+            Date date2 = format.parse(historyDateTime1);
+            if (date1.compareTo(date2) <= 0) {
+                log.info(date1 + " come before " + date2);
+                return true;
+            } else {
+                log.info(date1 + " come after " + date2);
+                return false;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public String convertToHR(String committedSla) {
+        Long ms=Long.parseLong(committedSla);
+        log.info("Converting SLA: "+committedSla+" to "+String.valueOf(TimeUnit.MILLISECONDS.toHours(ms)));
+        return String.valueOf(TimeUnit.MILLISECONDS.toHours(ms));
+    }
 }

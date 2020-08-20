@@ -73,7 +73,7 @@ public class assignToAgentPOM extends BasePage {
         return readText(infoMessage);
     }
 
-    public void getAvailableSlotAll(String assigneeAUUID) throws InterruptedException {
+    public String ticketAssignedToAgent(String assigneeAUUID) throws InterruptedException {
         int slot;
         By list=By.xpath("//div[@class=\"pannel-content-area ng-star-inserted\"]/div");
         List<WebElement> agentList=driver.findElements(list);
@@ -97,16 +97,12 @@ public class assignToAgentPOM extends BasePage {
                     scrollToViewElement(clickAssignBtn);
                     click(clickAssignBtn);
                     ExtentTestManager.getTest().log(LogStatus.INFO, "Click on Assign to Agent Button");
-                    waitTillLoaderGetsRemoved();
-                    Assert.assertEquals( slot - 1, getAvailableSlot(allSlot),"Agent Available Slot does not Decrease");
-                    ExtentTestManager.getTest().log(LogStatus.INFO,"Ticket unassigned from <"+assigneeAUUID+">");
-                    ExtentTestManager.getTest().log(LogStatus.INFO,"Ticket Assigned to <"+auuid+">");
-                    ExtentTestManager.getTest().log(LogStatus.INFO, "Validated Ticket is Assigned to User Successfully");
-                    return;
+                    return auuid.split("-")[1];
                 }
             }
         }
         ExtentTestManager.getTest().log(LogStatus.WARNING, "No User have Available Slot");
+        return "No Agent Available";
     }
 
 }

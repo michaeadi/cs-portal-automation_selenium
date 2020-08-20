@@ -26,7 +26,8 @@ public class RechargeHistoryWidgetPOM extends BasePage {
     By rechargeHistoryNoResultFound = By.xpath("//span[contains(text(),\"Recharge History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]");
     By rechargeHistoryNoResultFoundMessage = By.xpath("//span[contains(text(),\"Recharge History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]/span/span");
     By rechargeHistoryError = By.xpath("//span[contains(text(),\"Recharge History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"widget-error apiMsgBlock ng-star-inserted\"][1]");
-
+    By ticketIcon=By.xpath("//span[contains(text(),'Recharge History')]//span[@class=\"card__card-header--icon ng-star-inserted\"]");
+    By getTitle=By.xpath("//span[contains(text(),'Recharge History')]");
     public RechargeHistoryWidgetPOM(WebDriver driver) {
         super(driver);
     }
@@ -131,5 +132,17 @@ public class RechargeHistoryWidgetPOM extends BasePage {
         log.info("Checking Recharge History Widget Date Picker Visibility ");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Checking Recharge HistoryWidget Date Picker Visibility ");
         return checkState(rechargeHistoryDatePicker);
+    }
+
+    public WidgetInteractionPOM clickTicketIcon(){
+        log.info("Clicking on Ticket Icon");
+        ExtentTestManager.getTest().log(LogStatus.INFO,"Clicking on Ticket Icon");
+        click(ticketIcon);
+        return new WidgetInteractionPOM(driver);
+    }
+
+    public String getWidgetTitle(){
+        log.info("Getting Widget title: "+readText(getTitle));
+        return readText(getTitle).toLowerCase();
     }
 }

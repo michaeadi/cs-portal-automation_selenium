@@ -33,7 +33,9 @@ public class customerInteractionPagePOM extends BasePage {
     By thirdWidgetHeader = By.xpath("//div[@class=\"home-tab-container__left-widgets--widgets ng-star-inserted\"][2]//child::span[@class=\"card__card-header--label\"]");
     By secondWidgetHeader = By.xpath("//div[@class=\"home-tab-container__right-widgets--widgets ng-star-inserted\"][1]//child::span[@class=\"card__card-header--label\"]");
     By fourthWidgetHeader = By.xpath("//div[@class=\"home-tab-container__right-widgets--widgets ng-star-inserted\"][2]//child::span[@class=\"card__card-header--label\"]");
-
+    By daDetailsTab=By.xpath("//div[contains(text(),'DA DETAILS')]");
+    By usageHistoryTab=By.xpath("//div[contains(text(),'USAGE HISTORY')]");
+    By rechargeHistoryTab=By.xpath("//div[contains(text(),'RECHARGE HISTORY')]");
 
     public customerInteractionPagePOM(WebDriver driver) {
         super(driver);
@@ -176,5 +178,26 @@ public class customerInteractionPagePOM extends BasePage {
         log.info("Checking is "+text+" Pinned Tag Visible");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is "+text+" Pinned Tag Visible");
         return isElementVisible(tagName);
+    }
+
+    public DADetailsPOM clickOnDADetailsTab() {
+        click(daDetailsTab);
+        log.info("Clicking on DA Details Tab");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on DA Details Tab");
+        return new DADetailsPOM(driver);
+    }
+
+    public MoreRechargeHistoryPOM clickOnRechargeHistoryTab() {
+        click(rechargeHistoryTab);
+        log.info("Clicking on Recharge History Tab");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Recharge History Tab");
+        return new MoreRechargeHistoryPOM(driver);
+    }
+
+    public MoreUsageHistoryPOM clickOnUsageHistoryTab() {
+        click(usageHistoryTab);
+        log.info("Clicking on Usage History Tab");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Usage History Tab");
+        return new MoreUsageHistoryPOM(driver);
     }
 }

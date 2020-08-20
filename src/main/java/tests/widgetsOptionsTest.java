@@ -83,6 +83,9 @@ public class widgetsOptionsTest extends BaseTest {
                 softAssert.assertEquals(moreUsageHistory.getSMSDateTime(i), (moreUsageHistory.getDateFromEpoch(Long.parseLong(smsUsageHistoryAPI.getResult().get(i).getDateTime()), "dd-MMM-yyyy HH:mm")), "SMS Date & Time received is not as expected on row " + i);
                 softAssert.assertEquals(moreUsageHistory.getSMSTo(i), smsUsageHistoryAPI.getResult().get(i).getSmsTo(), "SMS To received is not as expected on row " + i);
 //                softAssert.assertEquals(moreUsageHistory.getSMSTransactionNumber(i), smsUsageHistoryAPI.getResult().get(i).getTxnNumber(), "SMS Transaction Number received is not as expected on row " + i);
+                if(i!=0){
+                    softAssert.assertTrue(moreUsageHistory.isSortOrderDisplay(moreUsageHistory.getSMSDateTime(i),moreUsageHistory.getSMSDateTime(i-1),"dd-MMM-yyy HH:mm"),moreUsageHistory.getSMSDateTime(i)+"should not display before "+moreUsageHistory.getSMSDateTime(i-1));
+                }
             }
         }
         softAssert.assertAll();
@@ -114,6 +117,9 @@ public class widgetsOptionsTest extends BaseTest {
                 softAssert.assertEquals(moreUsageHistory.getCallTo(i), callUsageHistoryAPI.getResult().get(i).getCallTo(), "Call To received is not as expected on row " + i);
 //                softAssert.assertEquals(moreUsageHistory.getCallTransactionNumber(i), callUsageHistoryAPI.getResult().get(i).getTxnNumber(), "Call Transaction Number received is not as expected on row " + i);
                 softAssert.assertEquals(moreUsageHistory.getCallDuration(i), callUsageHistoryAPI.getResult().get(i).getCallDuration(), "Call Duration  received is not as expected on row " + i);
+                if(i!=0){
+                    softAssert.assertTrue(moreUsageHistory.isSortOrderDisplay(moreUsageHistory.getCallDuration(i),moreUsageHistory.getCallDuration(i-1),"dd-MMM-yyy HH:mm"),moreUsageHistory.getCallDuration(i)+"should not display before "+moreUsageHistory.getCallDuration(i-1));
+                }
             }
         }
         softAssert.assertAll();
@@ -144,6 +150,9 @@ public class widgetsOptionsTest extends BaseTest {
                 softAssert.assertEquals(moreUsageHistory.getDataDateTime(i), (moreUsageHistory.getDateFromEpoch(Long.parseLong(dataUsageHistoryAPI.getResult().get(i).getDateTime()), "dd-MMM-yyyy HH:mm")), "Data Date & Time received is not as expected on row " + i);
                 softAssert.assertEquals(moreUsageHistory.getUsedData(i), dataUsageHistoryAPI.getResult().get(i).getUsedData(), "Data Used is not as expected on row " + i);
 //                softAssert.assertEquals(moreUsageHistory.getDataTransactionNumber(i), dataUsageHistoryAPI.getResult().get(i).getTxnNumber(), "Data Transaction Number received is not as expected on row " + i);
+                if(i!=0){
+                    softAssert.assertTrue(moreUsageHistory.isSortOrderDisplay(moreUsageHistory.getDataDateTime(i),moreUsageHistory.getDataDateTime(i-1),"dd-MMM-yyy HH:mm"),moreUsageHistory.getDataDateTime(i)+"should not display before "+moreUsageHistory.getDataDateTime(i-1));
+                }
             }
         }
         moreUsageHistory.openingCustomerInteractionDashboard();
@@ -187,6 +196,9 @@ public class widgetsOptionsTest extends BaseTest {
                 softAssert.assertEquals(moreRechargeHistory.getExpiresOn(i), (moreRechargeHistory.getDateFromEpoch(Long.parseLong(bundleRechargeHistoryAPI.getResult().get(i).getExpiresOn()), "dd-MMM-yyyy HH:mm")), "Bundle Expiry Date & Time received is not as expected on row " + i);
                 softAssert.assertEquals(moreRechargeHistory.getValidity(i), bundleRechargeHistoryAPI.getResult().get(i).getValidity(), "Bundle Validity received is not as expected on row " + i);
                 softAssert.assertEquals(moreRechargeHistory.getBundlePrice(i), bundleRechargeHistoryAPI.getResult().get(i).getBundlePrice(), "Bundle Price received is not as expected on row " + i);
+                if(i!=0){
+                    softAssert.assertTrue(moreRechargeHistory.isSortOrderDisplay(moreRechargeHistory.getSubscriptionDateTime(i),moreRechargeHistory.getSubscriptionDateTime(i-1),"dd-MMM-yyy HH:mm"),moreRechargeHistory.getSubscriptionDateTime(i)+"should not display before "+moreRechargeHistory.getSubscriptionDateTime(i-1));
+                }
             }
         }
         moreRechargeHistory.openingCustomerInteractionDashboard();

@@ -38,6 +38,7 @@ public class viewHistoryPOM extends BasePage {
 
     public String getLastCreatedIssueCode() {
         log.info("Getting the issue code of last created FTR interaction ");
+        ExtentTestManager.getTest().log(LogStatus.INFO,"Getting the issue code of last created FTR interaction ");
         waitTillLoaderGetsRemoved();
         return readText(firstIssueCode);
     }
@@ -83,6 +84,5 @@ public class viewHistoryPOM extends BasePage {
         log.info("closing ticket tab");
        click(closeTicketTab);
     }
-
 
 }

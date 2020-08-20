@@ -1,6 +1,7 @@
 package API;
 
 import POJO.*;
+import POJO.TicketList.TicketPOJO;
 import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.TestDatabean;
 import Utils.PassUtils;
@@ -30,6 +31,7 @@ public class APITest extends tests.BaseTest {
     public void loginAPI(TestDatabean Data) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         LoginPOJO Req = LoginPOJO.loginBody(PassUtils.decodePassword(Data.getPassword()), Data.getLoginAUUID());
+        map.clear();
         map.add(new Header("x-app-name", config.getProperty(Env + "-x-app-name")));
         map.add(new Header("x-service-id", config.getProperty(Env + "-x-service-id")));
         map.add(new Header("x-bsy-bn", config.getProperty(Env + "-x-bsy-bn")));
@@ -301,6 +303,23 @@ public class APITest extends tests.BaseTest {
         getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
         getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
         return response.as(UsageHistoryPOJO.class);
+    }
+
+    public TicketPOJO ticketMetaDataTest(String ticketId){
+        getTest().log(LogStatus.INFO, "Using fetch ticket details using ticket Id to validate ticket meta data");
+        baseURI = baseUrl;
+        Headers headers = new Headers(map);
+        RequestSpecification request = given()
+                .headers(headers).param("id",ticketId).contentType("application/json");
+        QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
+        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
+        log.info("Request Headers are  : " + queryable.getHeaders());
+        Response response = request.get("/cs-service/api/cs-service/v1/fetch/ticket");
+        log.info("Response : " + response.asString());
+        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
+        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        return response.as(TicketPOJO.class);
     }
 
 }

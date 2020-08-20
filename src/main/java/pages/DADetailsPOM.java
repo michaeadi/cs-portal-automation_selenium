@@ -19,6 +19,9 @@ DADetailsPOM extends BasePage {
     By daBalance = By.xpath("div[@class=\"ng-star-inserted\"][4]/span");
     By dateTime = By.xpath("div[@class=\"ng-star-inserted\"][5]/span");
     List<WebElement> Rows = driver.findElements(rows);
+    By ticketIcon = By.xpath("//span[contains(text(),'DA Details')]//span[@class=\"card__card-header--icon ng-star-inserted\"]");
+    By getTitle = By.xpath("//span[contains(text(),'DA Details')]");
+
 
     public DADetailsPOM(WebDriver driver) {
         super(driver);
@@ -69,5 +72,23 @@ DADetailsPOM extends BasePage {
 
     public int getNumbersOfRows() {
         return Rows.size();
+    }
+
+    public WidgetInteractionPOM clickTicketIcon(){
+        log.info("Clicking on Ticket Icon");
+        ExtentTestManager.getTest().log(LogStatus.INFO,"Clicking on Ticket Icon");
+        click(ticketIcon);
+        return new WidgetInteractionPOM(driver);
+    }
+
+    public String getWidgetTitle(){
+        log.info("Getting Widget title: "+readText(getTitle));
+        return readText(getTitle).toLowerCase();
+    }
+
+    public boolean isDAWidgetIsVisible() {
+        log.info("Checking is DA Widget Visible");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is DA Widget Visible");
+        return isElementVisible(getTitle);
     }
 }
