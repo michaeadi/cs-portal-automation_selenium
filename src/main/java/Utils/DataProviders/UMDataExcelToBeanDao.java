@@ -56,7 +56,13 @@ public class UMDataExcelToBeanDao {
 
                         switch (columnIndex) {
                             case 0:
-                                UMDataBeans.setValue(cellValue);
+                                UMDataBeans.setInteraction(cellValue);
+                                break;
+                            case 1:
+                                UMDataBeans.setWorkflow(cellValue);
+                                break;
+                            case 2:
+                                UMDataBeans.setLoginQueue(cellValue);
                                 break;
                         }
                     }

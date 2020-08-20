@@ -52,7 +52,7 @@ public class userManagementPOM extends BasePage {
     public ArrayList<String> getWorkflows() {
         List<WebElement> listOfElements = driver.findElements(workflowsOptions);
         System.out.println("total elements " + listOfElements.size());
-        String[] strings = new String[11];
+        ArrayList<String> strings = new ArrayList<>();
         for (int i = 0; i < 11; i++) {
             try {
                 strings.add(listOfElements.get(i).getText().toLowerCase().trim());

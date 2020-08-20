@@ -191,6 +191,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M5</version>
                 <configuration>
+                    <testFailureIgnore>true</testFailureIgnore>
                     <suiteXmlFiles>
                         <suiteXmlFile>TestNG.xml</suiteXmlFile>
                     </suiteXmlFiles>
@@ -208,6 +209,13 @@
                             <name>Opco</name>
                             <!--suppress UnresolvedMavenProperty -->
                             <value>${Opco}</value>
+                        </property>
+                        <property>
+                            <!-- refer api.properties file for getting OpCo.
+                                    Make sure to provide the Opco in capitals like- "MG" -->
+                            <name>suiteType</name>
+                            <!--suppress UnresolvedMavenProperty -->
+                            <value>${suiteType}</value>
                         </property>
                     </systemProperties>
                 </configuration>

@@ -1,10 +1,9 @@
 package Utils.DataProviders;
 
 import lombok.extern.log4j.Log4j2;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.testng.annotations.DataProvider;
 import tests.BaseTest;
+
 import java.io.File;
 import java.lang.annotation.*;
 import java.lang.reflect.Method;
@@ -35,7 +34,7 @@ public class DataProviders {
         File Exceldir = new File("Excels");
         File Excel = new File(Exceldir, BaseTest.ExcelPath);
         List<ftrDataBeans> list =
-                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("FtrSheet"));
+                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty(BaseTest.suiteType + "-FtrSheet"));
 
         Object[][] hashMapObj = new Object[list.size()][1];
         for (int i = 0; i < list.size(); i++) {
@@ -50,7 +49,7 @@ public class DataProviders {
         File Exceldir = new File("Excels");
         File Excel = new File(Exceldir, BaseTest.ExcelPath);
         List<nftrDataBeans> list =
-                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("NftrSheet"));
+                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty(BaseTest.suiteType + "-NftrSheet"));
 
         Object[][] hashMapObj = new Object[list.size()][1];
         for (int i = 0; i < list.size(); i++) {
@@ -59,48 +58,51 @@ public class DataProviders {
         return hashMapObj;
     }
 
-    @DataProvider
-    public Object[][] getInteractionChannelData() {
+    public ArrayList<String> getInteractionChannelData() {
         UMDataExcelToBeanDao credsExcelToBeanDao = new UMDataExcelToBeanDao();
         File Exceldir = new File("Excels");
         File Excel = new File(Exceldir, BaseTest.ExcelPath);
         List<UMDataBeans> list =
-                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("InteractionChannelSheet"));
-        Object[][] hashMapObj = new Object[list.size()][1];
-        for (int i = 0; i < list.size(); i++) {
-            hashMapObj[i][0] = list.get(i);
+                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("UserManagementSheet"));
+        ArrayList<String> finalList = new ArrayList<>();
+        for (UMDataBeans l : list) {
+            if (!l.getInteraction().isEmpty()) {
+                finalList.add(l.getInteraction().toLowerCase().trim());
+            }
         }
-        return hashMapObj;
+        return finalList;
     }
 
-    @DataProvider
-    public Object[][] getLoginQueueData() {
+
+    public ArrayList<String> getWorkFlowData() {
         UMDataExcelToBeanDao credsExcelToBeanDao = new UMDataExcelToBeanDao();
         File Exceldir = new File("Excels");
         File Excel = new File(Exceldir, BaseTest.ExcelPath);
         List<UMDataBeans> list =
-                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("LoginQueueSheet"));
-        Object[][] hashMapObj = new Object[list.size()][1];
-        for (int i = 0; i < list.size(); i++) {
-            hashMapObj[i][0] = list.get(i);
+                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("UserManagementSheet"));
+        ArrayList<String> finalList = new ArrayList<>();
+        for (UMDataBeans l : list) {
+            if (!l.getWorkflow().isEmpty()) {
+                finalList.add(l.getWorkflow().toLowerCase().trim());
+            }
         }
-        return hashMapObj;
+        return finalList;
     }
 
-    @DataProvider
-    public Object[][] getWorkFlowData() {
+    public ArrayList<String> getLoginQueueData() {
         UMDataExcelToBeanDao credsExcelToBeanDao = new UMDataExcelToBeanDao();
         File Exceldir = new File("Excels");
         File Excel = new File(Exceldir, BaseTest.ExcelPath);
         List<UMDataBeans> list =
-                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("WorkFlowsSheet"));
-        Object[][] hashMapObj = new Object[list.size()][1];
-        for (int i = 0; i < list.size(); i++) {
-            hashMapObj[i][0] = list.get(i);
+                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("UserManagementSheet"));
+        ArrayList<String> finalList = new ArrayList<>();
+        for (UMDataBeans l : list) {
+            if (!l.getLoginQueue().isEmpty()) {
+                finalList.add(l.getLoginQueue().toLowerCase().trim());
+            }
         }
-        return hashMapObj;
+        return finalList;
     }
-
 
     @DataProvider(name="pinTag")
     public Object[][] getPinTags(Method method) {
@@ -146,7 +148,7 @@ public class DataProviders {
         File Exceldir = new File("Excels");
         File Excel = new File(Exceldir, BaseTest.ExcelPath);
         List<nftrDataBeans> list =
-                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("NftrSheet"));
+                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty(BaseTest.suiteType + "NftrSheet"));
         List<nftrDataBeans> finalTicketList = new ArrayList<nftrDataBeans>();
         for (nftrDataBeans nftrTicket : list) {
             System.out.println("Ticket Id: " + nftrTicket.getTicketNumber());
