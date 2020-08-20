@@ -55,6 +55,7 @@ public class userManagementPOM extends BasePage {
         ArrayList<String> strings = new ArrayList<>();
         for (int i = 0; i < listOfElements.size(); i++) {
             try {
+                ExtentTestManager.getTest().log(LogStatus.INFO,"Reading Work Group: "+listOfElements.get(i).getText().toLowerCase().trim());
                 strings.add(listOfElements.get(i).getText().toLowerCase().trim());
 
             } catch (IndexOutOfBoundsException e) {
@@ -71,6 +72,7 @@ public class userManagementPOM extends BasePage {
         ArrayList<String> strings = new ArrayList<>();
         for (int i = 0; i < listOfElements.size(); i++) {
             try {
+                ExtentTestManager.getTest().log(LogStatus.INFO,"Reading Login Queue: "+listOfElements.get(i).getText().toLowerCase().trim());
                 strings.add(listOfElements.get(i).getText().toLowerCase().trim());
             } catch (IndexOutOfBoundsException e) {
                 e.printStackTrace();
@@ -82,10 +84,11 @@ public class userManagementPOM extends BasePage {
 
     public ArrayList<String> getInteractionChannels() {
         List<WebElement> listOfElements = driver.findElements(channelsOptions);
-        System.out.println(listOfElements.size());
+        System.out.println("List Size: "+listOfElements.size());
         ArrayList<String> strings = new ArrayList<>();
         for (int i = 0; i < listOfElements.size(); i++) {
             try {
+                ExtentTestManager.getTest().log(LogStatus.INFO,"Reading Login Channel: "+listOfElements.get(i).getText().toLowerCase().trim());
                 strings.add(listOfElements.get(i).getText().toLowerCase().trim());
             } catch (IndexOutOfBoundsException e) {
                 e.printStackTrace();

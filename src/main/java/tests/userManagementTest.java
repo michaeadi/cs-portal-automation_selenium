@@ -53,12 +53,13 @@ public class userManagementTest extends BaseTest {
         userManagement.openListInteractionChannels();
         ArrayList<String> strings = userManagement.getInteractionChannels();
         DataProviders data = new DataProviders();
-        for (int i = 0; i < data.getInteractionChannelData().size(); i++) {
-            if (!data.getInteractionChannelData().contains(strings.get(i).toLowerCase().trim())) {
+        ArrayList<String> interactionChannel=data.getInteractionChannelData();
+        for (int i = 0; i < interactionChannel.size(); i++) {
+            if (!interactionChannel.contains(strings.get(i).toLowerCase().trim())) {
                 softAssert.fail(strings.get(i) + " Interaction Channels was expected ,but wasn't found on UI");
             }
         }
-        strings.removeAll(data.getInteractionChannelData());
+        strings.removeAll(interactionChannel);
         if (strings.size() > 0) {
             for (String string : strings) {
                 softAssert.fail(string + " is not expected in Interaction Channels ,as it is not in excel");
@@ -78,15 +79,16 @@ public class userManagementTest extends BaseTest {
         userManagement.openWorkgroupList();
         ArrayList<String> strings = userManagement.getWorkflows();
         DataProviders data = new DataProviders();
-        for (int i = 0; i < data.getWorkFlowData().size(); i++) {
-            if (!data.getWorkFlowData().contains(strings.get(i).toLowerCase().trim())) {
-                softAssert.fail(strings.get(i) + " Work Flow was expected ,but wasn't found on UI");
+        ArrayList<String> workFlow=data.getWorkFlowData();
+        for (int i = 0; i < workFlow.size(); i++) {
+            if (!workFlow.contains(strings.get(i).toLowerCase().trim())) {
+                softAssert.fail(strings.get(i) + " Work Group was expected ,but wasn't found on UI");
             }
         }
-        strings.removeAll(data.getWorkFlowData());
+        strings.removeAll(workFlow);
         if (strings.size() > 0) {
             for (String string : strings) {
-                softAssert.fail(string + " is not expected in Work Flow ,as it is not in excel");
+                softAssert.fail(string + " is not expected in Work Group ,as it is not in excel");
             }
         }
         userManagement.pressESC();
@@ -101,12 +103,13 @@ public class userManagementTest extends BaseTest {
         userManagement.openLoginQueueList();
         ArrayList<String> strings = userManagement.getLoginQueues();
         DataProviders data = new DataProviders();
-        for (int i = 0; i < data.getLoginQueueData().size(); i++) {
-            if (!data.getLoginQueueData().contains(strings.get(i).toLowerCase().trim())) {
+        ArrayList<String> loginQueue=data.getLoginQueueData();
+        for (int i = 0; i < loginQueue.size(); i++) {
+            if (!loginQueue.contains(strings.get(i).toLowerCase().trim())) {
                 softAssert.fail(strings.get(i) + " Login Queue was expected ,but wasn't found on UI");
             }
         }
-        strings.removeAll(data.getLoginQueueData());
+        strings.removeAll(loginQueue);
         if (strings.size() > 0) {
             for (String string : strings) {
                 softAssert.fail(string + " is not expected in Login Queue ,as it is not in excel");

@@ -66,7 +66,7 @@ public class DataProviders {
                 credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("UserManagementSheet"));
         ArrayList<String> finalList = new ArrayList<>();
         for (UMDataBeans l : list) {
-            if (!l.getInteraction().isEmpty()) {
+            if (l.getInteraction()!=null) {
                 finalList.add(l.getInteraction().toLowerCase().trim());
             }
         }
@@ -82,7 +82,7 @@ public class DataProviders {
                 credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("UserManagementSheet"));
         ArrayList<String> finalList = new ArrayList<>();
         for (UMDataBeans l : list) {
-            if (!l.getWorkflow().isEmpty()) {
+            if (l.getWorkflow()!=null) {
                 finalList.add(l.getWorkflow().toLowerCase().trim());
             }
         }
@@ -97,7 +97,7 @@ public class DataProviders {
                 credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("UserManagementSheet"));
         ArrayList<String> finalList = new ArrayList<>();
         for (UMDataBeans l : list) {
-            if (!l.getLoginQueue().isEmpty()) {
+            if (l.getLoginQueue()!=null) {
                 finalList.add(l.getLoginQueue().toLowerCase().trim());
             }
         }

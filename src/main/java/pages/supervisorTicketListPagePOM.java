@@ -385,11 +385,11 @@ public class supervisorTicketListPagePOM extends BasePage {
     }
 
     public String getSymbol(int i) {
-            By ticket = By.xpath("//div[@class=\"table-card ng-star-inserted\"][" + i + "]//ul[1]//li[1]//span[2]");
-            By symbol = By.xpath("//div[@class=\"table-card ng-star-inserted\"][" + i + "]//span[@class=\"escalation\"]");
-            log.info(readText(symbol)+": Escalation symbol found on ticket Id: " + readText(ticket).trim());
-            ExtentTestManager.getTest().log(LogStatus.INFO, readText(symbol)+": Escalation symbol found on ticket Id: " + readText(ticket).trim());
-            return readText(symbol).trim();
+        By ticket = By.xpath("//div[@class=\"table-card ng-star-inserted\"][" + i + "]//ul[1]//li[1]//span[2]");
+        By symbol = By.xpath("//div[@class=\"table-card ng-star-inserted\"][" + i + "]//span[@class=\"escalation\"]");
+        log.info(readText(symbol)+": Escalation symbol found on ticket Id: " + readText(ticket).trim());
+        ExtentTestManager.getTest().log(LogStatus.INFO, readText(symbol)+": Escalation symbol found on ticket Id: " + readText(ticket).trim());
+        return readText(symbol).trim();
     }
 
     public void clickTicketOption(){

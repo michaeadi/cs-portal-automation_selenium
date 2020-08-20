@@ -88,17 +88,17 @@ public class ViewTicketPagePOM extends BasePage {
 
     public void validateAddedComment(String text){
         try{
-        List<WebElement> list=driver.findElements(allComment);
-        for(int i=1;i<=list.size();i++){
-            By comment=By.xpath("//table[@class='ng-star-inserted']//tbody//tr["+i+"]//p");
-            System.out.println("Reading Comment:"+readText(comment)+" Is:"+readText(comment).trim().equalsIgnoreCase(text));
-            if(readText(comment).trim().equalsIgnoreCase(text)) {
-                log.info("Latest comment found on ticket: " + comment);
-                ExtentTestManager.getTest().log(LogStatus.PASS,"Newly added comment found on ticket");
-                return ;
+            List<WebElement> list=driver.findElements(allComment);
+            for(int i=1;i<=list.size();i++){
+                By comment=By.xpath("//table[@class='ng-star-inserted']//tbody//tr["+i+"]//p");
+                System.out.println("Reading Comment:"+readText(comment)+" Is:"+readText(comment).trim().equalsIgnoreCase(text));
+                if(readText(comment).trim().equalsIgnoreCase(text)) {
+                    log.info("Latest comment found on ticket: " + comment);
+                    ExtentTestManager.getTest().log(LogStatus.PASS,"Newly added comment found on ticket");
+                    return ;
+                }
             }
-        }
-        ExtentTestManager.getTest().log(LogStatus.WARNING,"Newly added comment does not found on ticket");
+            ExtentTestManager.getTest().log(LogStatus.WARNING,"Newly added comment does not found on ticket");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -167,18 +167,18 @@ public class ViewTicketPagePOM extends BasePage {
     }
 
     public boolean isCommentDelete(String text){
-            List<WebElement> list=driver.findElements(allComment);
-            for(int i=1;i<=list.size()-1;i++){
-                By comment=By.xpath("//table[@class='ng-star-inserted']//tbody//tr["+i+"]//p");
-                System.out.println("Reading Comment:"+readText(comment)+" Is:"+readText(comment).trim().equalsIgnoreCase(text));
-                if(readText(comment).trim().equalsIgnoreCase(text)) {
-                    log.info("Latest comment found on ticket: " + comment);
-                    ExtentTestManager.getTest().log(LogStatus.FAIL,"Deleted comment found on ticket");
-                    return false;
-                }
+        List<WebElement> list=driver.findElements(allComment);
+        for(int i=1;i<=list.size()-1;i++){
+            By comment=By.xpath("//table[@class='ng-star-inserted']//tbody//tr["+i+"]//p");
+            System.out.println("Reading Comment:"+readText(comment)+" Is:"+readText(comment).trim().equalsIgnoreCase(text));
+            if(readText(comment).trim().equalsIgnoreCase(text)) {
+                log.info("Latest comment found on ticket: " + comment);
+                ExtentTestManager.getTest().log(LogStatus.FAIL,"Deleted comment found on ticket");
+                return false;
             }
-            ExtentTestManager.getTest().log(LogStatus.PASS,"Deleted comment not found on ticket");
-            return true;
+        }
+        ExtentTestManager.getTest().log(LogStatus.PASS,"Deleted comment not found on ticket");
+        return true;
     }
 
 
