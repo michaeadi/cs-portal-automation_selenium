@@ -4,6 +4,7 @@ import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.ArrayList;
@@ -12,7 +13,8 @@ import java.util.List;
 @Log4j2
 public class supervisorTicketListPagePOM extends BasePage {
 
-    By searchTicketBox = By.xpath("//span[@class='search-box small-search']//input");
+    @CacheLookup
+    By searchTicketBox = By.xpath("//input[@type='search'][1]");
     By searchTicketBtn = By.xpath("//html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button");
     By ticketIdLabel = By.xpath("//div//div//div//div//div//div//div//div//div//ul[1]//li[1]//span[1]");
     By ticketIdvalue = By.xpath("//ul[1]//li[1]//span[2]");
