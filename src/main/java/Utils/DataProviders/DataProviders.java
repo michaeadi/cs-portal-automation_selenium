@@ -34,7 +34,7 @@ public class DataProviders {
         File Exceldir = new File("Excels");
         File Excel = new File(Exceldir, BaseTest.ExcelPath);
         List<ftrDataBeans> list =
-                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("FtrSheet"));
+                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty(BaseTest.suiteType + "-FtrSheet"));
 
         Object[][] hashMapObj = new Object[list.size()][1];
         for (int i = 0; i < list.size(); i++) {
@@ -49,7 +49,7 @@ public class DataProviders {
         File Exceldir = new File("Excels");
         File Excel = new File(Exceldir, BaseTest.ExcelPath);
         List<nftrDataBeans> list =
-                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("NftrSheet"));
+                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty(BaseTest.suiteType + "-NftrSheet"));
 
         Object[][] hashMapObj = new Object[list.size()][1];
         for (int i = 0; i < list.size(); i++) {
@@ -148,7 +148,7 @@ public class DataProviders {
         File Exceldir = new File("Excels");
         File Excel = new File(Exceldir, BaseTest.ExcelPath);
         List<nftrDataBeans> list =
-                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("NftrSheet"));
+                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty(BaseTest.suiteType + "NftrSheet"));
         List<nftrDataBeans> finalTicketList = new ArrayList<nftrDataBeans>();
         for (nftrDataBeans nftrTicket : list) {
             System.out.println("Ticket Id: " + nftrTicket.getTicketNumber());
