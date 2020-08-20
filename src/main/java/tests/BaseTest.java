@@ -29,6 +29,7 @@ public class BaseTest {
     public static List<Header> map = new ArrayList<>();
     public static String Token;
     public static String baseUrl;
+    public static String suiteType;
 
     public WebDriver getDriver() {
         return driver;
@@ -36,17 +37,30 @@ public class BaseTest {
 
     @BeforeSuite
     public void classLevelSetup() throws IOException {
-//        Opco = "KE";
+//        Opco = "MW";
 //        Env = "UAT";
+//        suiteType = "Sanity";
+
+
+        if (System.getProperty("suiteType").equalsIgnoreCase("Regression")) {
+            suiteType = "Regression";
+        } else if (System.getProperty("suiteType").equalsIgnoreCase("Sanity")) {
+            suiteType = "Sanity";
+        }
+
+
         Opco = System.getProperty("Opco").toUpperCase();
         Env = System.getProperty("Env").toUpperCase();
         ExcelPath = Opco + ".xlsx";
         config = new Properties();
-        System.out.println("OPCO Chosen :" + Opco);
-        System.out.println("Environment Chosen : " + Env);
         FileInputStream fis;
         fis = new FileInputStream(System.getProperty("user.dir") + "/src/main/resources/" + Opco + "-config.properties");
         config.load(fis);
+        System.out.println(config.getProperty(suiteType + "-NftrSheet"));
+        System.out.println("OPCO Chosen :" + Opco);
+        System.out.println("Environment Chosen : " + Env);
+        System.out.println("Suite Type : " + suiteType);
+
         baseUrl = config.getProperty(Env + "-APIBase");
         String browser = config.getProperty("browser");
         System.out.println(baseUrl);
