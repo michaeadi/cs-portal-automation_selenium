@@ -235,6 +235,7 @@ public class createInteractionTest extends BaseTest {
             System.out.println("Ticket Number Written to Excel " + valueToWrite[0]);
         } catch (Exception e) {
             System.out.println("in catch");
+            ExtentTestManager.getTest().log(LogStatus.ERROR,e.fillInStackTrace());
             interactionsPOM.closeInteractions();
             interactionsPOM.clickOnContinueButton();
             e.printStackTrace();

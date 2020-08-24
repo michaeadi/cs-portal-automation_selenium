@@ -83,12 +83,14 @@ public class PinTagTest extends BaseTest {
                 viewHistory.clickOnInteractionsTab();
                 String issueCode = viewHistory.getLastCreatedIssueCode();
                 softAssert.assertEquals(issueCode.toLowerCase().trim(), Data.getIssueCode().trim().toLowerCase());
-                softAssert.assertAll();
+            }else{
+                softAssert.fail(Data.getTagName()+" Does not display on UI");
             }
         } catch (NoSuchElementException e) {
             ExtentTestManager.getTest().log(LogStatus.FAIL, Data.getTagName() + " tag does not display on UI but present in config sheet.");
             softAssert.fail(Data.getTagName() + " tag does not display on UI but present in config sheet.\n"+e.fillInStackTrace());
             e.printStackTrace();
         }
+        softAssert.assertAll();
     }
 }
