@@ -122,7 +122,7 @@ public class WidgetTaggedIssueTest extends BaseTest {
                             viewHistoryPOM viewHistory = customerInteractionPage.clickOnViewHistory();
                             viewHistory.clickOnInteractionsTab();
                             String issueCode = viewHistory.getLastCreatedIssueCode();
-                            softAssert.assertEquals(issueCode.toLowerCase().trim(), data.getCode(s).trim().toLowerCase());
+                            softAssert.assertEquals(issueCode.toLowerCase().trim(), data.getCode(s).trim().toLowerCase(),"Issue code for category label "+s+" does not configured correctly.");
                             customerInteractionPage= viewHistory.openingCustomerInteractionDashboard();
                             softAssert.assertTrue(customerInteractionPage.isPageLoaded());
                             rechargeHistory = new RechargeHistoryWidgetPOM(driver);

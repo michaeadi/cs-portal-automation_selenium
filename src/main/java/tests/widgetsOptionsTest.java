@@ -118,7 +118,7 @@ public class widgetsOptionsTest extends BaseTest {
 //                softAssert.assertEquals(moreUsageHistory.getCallTransactionNumber(i), callUsageHistoryAPI.getResult().get(i).getTxnNumber(), "Call Transaction Number received is not as expected on row " + i);
                 softAssert.assertEquals(moreUsageHistory.getCallDuration(i), callUsageHistoryAPI.getResult().get(i).getCallDuration(), "Call Duration  received is not as expected on row " + i);
                 if(i!=0){
-                    softAssert.assertTrue(moreUsageHistory.isSortOrderDisplay(moreUsageHistory.getCallDuration(i),moreUsageHistory.getCallDuration(i-1),"dd-MMM-yyy HH:mm"),moreUsageHistory.getCallDuration(i)+"should not display before "+moreUsageHistory.getCallDuration(i-1));
+                    softAssert.assertTrue(moreUsageHistory.isSortOrderDisplay(moreUsageHistory.getCallDateTime(i),moreUsageHistory.getCallDateTime(i-1),"dd-MMM-yyy HH:mm"),moreUsageHistory.getCallDuration(i)+"should not display before "+moreUsageHistory.getCallDuration(i-1));
                 }
             }
         }

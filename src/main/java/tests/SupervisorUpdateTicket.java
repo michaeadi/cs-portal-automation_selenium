@@ -18,8 +18,8 @@ public class SupervisorUpdateTicket extends BaseTest {
     String ticketId;
 
 
-    @Test(priority = 1, description = "Supervisor SKIP Login ", dataProvider = "getTestData", dataProviderClass = DataProviders.class)
-    public void agentSkipQueueLogin(Method method, TestDatabean Data) {
+    @Test(priority = 1, description = "Supervisor SKIP Login ", dataProviderClass = DataProviders.class)
+    public void agentSkipQueueLogin() {
         ExtentTestManager.startTest("Supervisor SKIP Queue Login", "Supervisor SKIP Queue Login");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SideMenuPOM sideMenu = new SideMenuPOM(driver);

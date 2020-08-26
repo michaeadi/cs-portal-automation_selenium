@@ -43,7 +43,7 @@ public class createInteractionTest extends BaseTest {
     }
 
 
-    @Test(priority = 2, dependsOnMethods = "openCustomerInteraction", description = "Create FTR Interaction ", dataProvider = "getTestData1", dataProviderClass = DataProviders.class, enabled = false)
+    @Test(priority = 2, dependsOnMethods = "openCustomerInteraction", description = "Create FTR Interaction ", dataProvider = "getTestData1", dataProviderClass = DataProviders.class)
     public void CreateInteraction(ftrDataBeans Data) throws InterruptedException {
         ExtentTestManager.startTest(" Validating FTR Ticket" + Data.getIssueCode(), "Creating FTR Tickets and Configurations of Issue Code " + Data.getIssueCode());
         customerInteractionPagePOM customerInteractionPagePOM = new customerInteractionPagePOM(driver);
@@ -231,10 +231,11 @@ public class createInteractionTest extends BaseTest {
             writeToExcel objExcelFile = new writeToExcel();
             File Exceldir = new File("Excels");
             File Excel = new File(Exceldir, BaseTest.ExcelPath);
-            objExcelFile.writeTicketNumber(Excel.getAbsolutePath(), "NFTRTickets", valueToWrite, Data.getRownum());
+            objExcelFile.writeTicketNumber(Excel.getAbsolutePath(), config.getProperty(BaseTest.suiteType + "-NftrSheet"), valueToWrite, Data.getRownum());
             System.out.println("Ticket Number Written to Excel " + valueToWrite[0]);
         } catch (Exception e) {
             System.out.println("in catch");
+            ExtentTestManager.getTest().log(LogStatus.ERROR,e.fillInStackTrace());
             interactionsPOM.closeInteractions();
             interactionsPOM.clickOnContinueButton();
             e.printStackTrace();

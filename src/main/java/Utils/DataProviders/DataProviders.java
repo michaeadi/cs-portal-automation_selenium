@@ -151,7 +151,7 @@ public class DataProviders {
         File Exceldir = new File("Excels");
         File Excel = new File(Exceldir, BaseTest.ExcelPath);
         List<nftrDataBeans> list =
-                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty(BaseTest.suiteType + "NftrSheet"));
+                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty(BaseTest.suiteType + "-NftrSheet"));
         List<nftrDataBeans> finalTicketList = new ArrayList<nftrDataBeans>();
         for (nftrDataBeans nftrTicket : list) {
             System.out.println("Ticket Id: " + nftrTicket.getTicketNumber());
@@ -274,7 +274,7 @@ public class DataProviders {
         File Exceldir = new File("Excels");
         File Excel = new File(Exceldir, BaseTest.Opco + ".xlsx");
         List<nftrDataBeans> list =
-                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("NftrSheet"));
+                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty(BaseTest.suiteType + "-NftrSheet"));
 
         Object[][] hashMapObj = new Object[1][1];
 
@@ -336,7 +336,7 @@ public class DataProviders {
         File Exceldir = new File("Excels");
         File Excel = new File(Exceldir, tests.BaseTest.Opco + ".xlsx");
         List<nftrDataBeans> list =
-                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("NftrSheet"));
+                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty(BaseTest.suiteType + "-NftrSheet"));
         List<nftrDataBeans> finalTicketList = new ArrayList<nftrDataBeans>();
         for (nftrDataBeans nftrTicket : list) {
             System.out.println("Ticket Id: " + nftrTicket.getTicketNumber());
@@ -361,7 +361,7 @@ public class DataProviders {
         File Exceldir = new File("Excels");
         File Excel = new File(Exceldir, BaseTest.ExcelPath);
         List<ftrDataBeans> list =
-                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("FtrSheet"));
+                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty(BaseTest.suiteType + "-FtrSheet"));
         Map<String, String> finalList = new HashMap<>();
         for (ftrDataBeans ftr : list) {
             if (ftr.getWidgetName() != null) {
@@ -390,7 +390,7 @@ public class DataProviders {
         File Exceldir = new File("Excels");
         File Excel = new File(Exceldir, BaseTest.ExcelPath);
         List<ftrDataBeans> list =
-                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("FtrSheet"));
+                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty(BaseTest.suiteType + "-FtrSheet"));
         for(int i=0;i<list.size();i++) {
             if(list.get(i).getIssueSubSubType().equalsIgnoreCase(text)) {
                 System.out.println("Found Single Row: "+list.get(i).getIssueSubSubType());
