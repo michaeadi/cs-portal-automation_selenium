@@ -25,6 +25,7 @@ public class customerInteractionsSearchPOM extends BasePage {
     public customerInteractionPagePOM clickOnSearch() {
         log.info("Clicking on Search Button");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Search Button");
+        waitTillLoaderGetsRemoved();
         click(searchButton);
         return new customerInteractionPagePOM(driver);
     }
