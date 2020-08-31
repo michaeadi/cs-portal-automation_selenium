@@ -93,7 +93,6 @@ public class customerInteractionPagePOM extends BasePage {
         log.info("Checking that is Customer Interaction Page is loaded : " + checkState(searchNumber));
         ExtentTestManager.getTest().log(LogStatus.INFO, "Checking that is Customer Interaction Page is loaded : " + checkState(searchNumber));
         return checkState(searchNumber);
-
     }
 
     public String getCustomerName() {

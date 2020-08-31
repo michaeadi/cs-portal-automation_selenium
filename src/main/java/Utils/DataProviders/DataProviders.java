@@ -107,6 +107,38 @@ public class DataProviders {
         return finalList;
     }
 
+    public ArrayList<String> getRoles() {
+        TemplateDataExcelToBeanDao templateExcelToBeanDao = new TemplateDataExcelToBeanDao();
+        File Exceldir = new File("Excels");
+        File Excel = new File(Exceldir, BaseTest.ExcelPath);
+        List<TemplateDataBeans> list =
+                templateExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("TemplateManagement"));
+        ArrayList<String> finalList = new ArrayList<>();
+        for (TemplateDataBeans l : list) {
+            if (l.getRoles()!=null) {
+                if(!l.getRoles().isEmpty())
+                    finalList.add(l.getRoles().toLowerCase().trim());
+            }
+        }
+        return finalList;
+    }
+
+    public ArrayList<String> getLanguage() {
+        TemplateDataExcelToBeanDao templateExcelToBeanDao = new TemplateDataExcelToBeanDao();
+        File Exceldir = new File("Excels");
+        File Excel = new File(Exceldir, BaseTest.ExcelPath);
+        List<TemplateDataBeans> list =
+                templateExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("TemplateManagement"));
+        ArrayList<String> finalList = new ArrayList<>();
+        for (TemplateDataBeans l : list) {
+            if (l.getLanguage()!=null) {
+                if(!l.getLanguage().isEmpty())
+                    finalList.add(l.getLanguage().toLowerCase().trim());
+            }
+        }
+        return finalList;
+    }
+
     @DataProvider(name = "pinTag")
     public Object[][] getPinTags(Method method) {
         PinnedTagDataExcelToBeanDao credsExcelToBeanDao = new PinnedTagDataExcelToBeanDao();

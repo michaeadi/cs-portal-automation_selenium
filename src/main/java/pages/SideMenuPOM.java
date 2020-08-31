@@ -20,6 +20,8 @@ public class SideMenuPOM extends BasePage {
     By userManagement = By.xpath("//a[contains(text(),'User management')]");
     By profileManagement = By.xpath("//a[contains(text(),'Profile Management')]");
     By customerInteraction = By.xpath("//a[contains(text(),'Customer Interaction')]");
+    By templateManagement=By.xpath("//a[contains(text(),'Template Management')]");
+    By ticketBulkUpdate=By.xpath("//a[contains(text(),'Bulk')]");
     By supervisorDashboard = By.xpath("//a[contains(text(),'Supervisor Dashboard')]");
     By agentDashboard = By.xpath("//a[contains(text(),'Ticket Dashboard')]");
     By logout = By.xpath("//span[@class=\"logout-icon\"]");
@@ -111,12 +113,34 @@ public class SideMenuPOM extends BasePage {
         return checkState(supervisorDashboard);
     }
 
+    public boolean isTicketBulkUpdateVisible() {
+        log.info("Checking that is Supervisor Ticket Bulk Update Option Visible or Not");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking that is Supervisor Ticket Bulk Update Option Visible or Not");
+        hoverAndClick(customerServices);
+        return checkState(ticketBulkUpdate);
+    }
+
+    public boolean isTemplateManagementVisible() {
+        log.info("Checking that is Admin Template Management Option Visible or Not");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking that is Admin Template Management Option Visible or Not");
+        hoverAndClick(customerServices);
+        return checkState(templateManagement);
+    }
+
     public customerInteractionsSearchPOM openCustomerInteractionPage() {
         log.info("Opening Customer Interaction Page");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening Customer Interaction Page");
         hoverAndClick(customerServices);
         click(customerInteraction);
         return new customerInteractionsSearchPOM(driver);
+    }
+
+    public TemplateManagementPOM openTemplateManagementPage() {
+        log.info("Opening Template Management Page");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening Template Management Page");
+        hoverAndClick(adminSettings);
+        click(templateManagement);
+        return new TemplateManagementPOM(driver);
     }
 
     public userManagementPOM openUserManagementPage() {

@@ -129,6 +129,11 @@
                 <class name="tests.LoginTests"/>
             </classes>
         </test>
+        <test name="View Template Test">
+            <classes>
+                <class name="tests.ViewTemplateTest"/>
+            </classes>
+        </test>
         <test name="UserManagement Test">
             <classes>
                 <class name="tests.userManagementTest"/>

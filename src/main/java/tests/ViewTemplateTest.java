@@ -1,0 +1,128 @@
+package tests;
+
+import Utils.DataProviders.DataProviders;
+import Utils.ExtentReports.ExtentTestManager;
+import com.relevantcodes.extentreports.LogStatus;
+import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
+import pages.*;
+
+import java.util.ArrayList;
+
+public class ViewTemplateTest extends BaseTest {
+
+    @Test(priority = 1,description = "Open Template Management")
+    public void openTemplateManagement(){
+        ExtentTestManager.startTest("Open Template Management", "Open Template Management");
+        SoftAssert softAssert = new SoftAssert();
+        SideMenuPOM SideMenuPOM = new SideMenuPOM(driver);
+        SideMenuPOM.clickOnSideMenu();
+        SideMenuPOM.clickOnName();
+        TemplateManagementPOM templateManagement = SideMenuPOM.openTemplateManagementPage();
+        softAssert.assertTrue(templateManagement.isPageLoaded());
+        templateManagement.waitTillLoaderGetsRemoved();
+        softAssert.assertAll();
+    }
+
+    @Test(priority = 2,description = "View Created Template Page Loaded",dependsOnMethods = "openTemplateManagement")
+    public void openViewCreatedTemplate(){
+        ExtentTestManager.startTest("View Created Template Page Loaded", "View Created Template Page Loaded");
+        SoftAssert softAssert = new SoftAssert();
+        TemplateManagementPOM templateManagement=new TemplateManagementPOM(driver);
+        templateManagement.waitTillLoaderGetsRemoved();
+        ViewCreatedTemplatePOM viewCreatedTemplate=templateManagement.clickViewCreatedTemplateTab();
+        softAssert.assertTrue(viewCreatedTemplate.isViewCreatedTemplate());
+        softAssert.assertAll();
+    }
+
+    @Test(priority = 3,description = "Validating All Agent Channel displayed",dependsOnMethods = "openTemplateManagement")
+    public void validateAgentChannel(){
+        ExtentTestManager.startTest("Validating All Agent Channel displayed", "Validating All Agent Channel displayed");
+        ViewCreatedTemplatePOM viewCreatedTemplate = new ViewCreatedTemplatePOM(driver);
+        SoftAssert softAssert = new SoftAssert();
+        viewCreatedTemplate.clickAgentChannel();
+        ArrayList<String> strings = viewCreatedTemplate.getAllOptions();
+        viewCreatedTemplate.clickOutside();
+        DataProviders data = new DataProviders();
+        ArrayList<String> interactionChannel=data.getInteractionChannelData();
+        for (String s : strings) {
+            if (interactionChannel.contains(s)) {
+                ExtentTestManager.getTest().log(LogStatus.INFO, "Validate " + s + " Agent channel is display correctly");
+                interactionChannel.remove(s);
+            } else {
+                ExtentTestManager.getTest().log(LogStatus.FAIL, s + " Agent channel must not display on frontend as tag not mention in config sheet.");
+                softAssert.fail(s + " Agent channel should not display on UI as Agent channel not mention in config sheet.");
+            }
+        }
+        if (interactionChannel.isEmpty()) {
+            ExtentTestManager.getTest().log(LogStatus.PASS, "All Agent channel correctly configured and display on UI.");
+        } else {
+            for (String element : interactionChannel) {
+                ExtentTestManager.getTest().log(LogStatus.FAIL, element + " Agent channel does not display on UI but present in config sheet.");
+                softAssert.fail(element + " Agent channel does not display on UI but present in config sheet.");
+            }
+        }
+        softAssert.assertAll();
+    }
+
+    @Test(priority = 4,description = "Validating All Agent Roles displayed",dependsOnMethods = "openTemplateManagement")
+    public void validateRoles(){
+        ExtentTestManager.startTest("Validating All Agent Roles displayed", "Validating All Agent Roles displayed");
+        ViewCreatedTemplatePOM viewCreatedTemplate = new ViewCreatedTemplatePOM(driver);
+        SoftAssert softAssert = new SoftAssert();
+        viewCreatedTemplate.clickRoles();
+        ArrayList<String> strings = viewCreatedTemplate.getAllOptions();
+        viewCreatedTemplate.clickOutside();
+        DataProviders data = new DataProviders();
+        ArrayList<String> agentRoles=data.getRoles();
+        for (String s : strings) {
+            if (agentRoles.contains(s)) {
+                ExtentTestManager.getTest().log(LogStatus.INFO, "Validate " + s + " Agent Roles is display correctly");
+                agentRoles.remove(s);
+            } else {
+                ExtentTestManager.getTest().log(LogStatus.FAIL, s + " Agent Roles must not display on frontend as tag not mention in config sheet.");
+                softAssert.fail(s + " Agent Roles should not display on UI as Agent channel not mention in config sheet.");
+            }
+        }
+        if (agentRoles.isEmpty()) {
+            ExtentTestManager.getTest().log(LogStatus.PASS, "All Agent Roles correctly configured and display on UI.");
+        } else {
+            for (String element : agentRoles) {
+                ExtentTestManager.getTest().log(LogStatus.FAIL, element + " Agent Roles does not display on UI but present in config sheet.");
+                softAssert.fail(element + " Agent Roles does not display on UI but present in config sheet.");
+            }
+        }
+        softAssert.assertAll();
+    }
+
+    @Test(priority = 5,description = "Validating All Language displayed",dependsOnMethods = "openTemplateManagement")
+    public void validateLanguage(){
+        ExtentTestManager.startTest("Validating All Language displayed", "Validating All Language displayed");
+        ViewCreatedTemplatePOM viewCreatedTemplate = new ViewCreatedTemplatePOM(driver);
+        SoftAssert softAssert = new SoftAssert();
+        viewCreatedTemplate.clickLanguage();
+        ArrayList<String> strings = viewCreatedTemplate.getAllOptions();
+        viewCreatedTemplate.clickOutside();
+        DataProviders data = new DataProviders();
+        ArrayList<String> language=data.getLanguage();
+        for (String s : strings) {
+            if (language.contains(s)) {
+                ExtentTestManager.getTest().log(LogStatus.INFO, "Validate " + s + " Language is display correctly");
+                language.remove(s);
+            } else {
+                ExtentTestManager.getTest().log(LogStatus.FAIL, s + " Language must not display on frontend as tag not mention in config sheet.");
+                softAssert.fail(s + " Language should not display on UI as Agent channel not mention in config sheet.");
+            }
+        }
+        if (language.isEmpty()) {
+            ExtentTestManager.getTest().log(LogStatus.PASS, "All Language correctly configured and display on UI.");
+        } else {
+            for (String element : language) {
+                ExtentTestManager.getTest().log(LogStatus.FAIL, element + " Language does not display on UI but present in config sheet.");
+                softAssert.fail(element + " Language does not display on UI but present in config sheet.");
+            }
+        }
+        softAssert.assertAll();
+    }
+
+}
