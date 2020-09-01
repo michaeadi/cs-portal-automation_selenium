@@ -29,6 +29,8 @@ public class BasePage {
     public WebDriver driver;
     public WebDriverWait wait;
     By loader = By.xpath("/html/body/app-root/ngx-ui-loader/div[2]");
+    By overlay=By.xpath("//mat-dialog-container[@role='dialog']");
+    By timeLine=By.xpath("//app-new-loader[@class=\"ng-star-inserted\"]//div[1]");
     By home = By.xpath("//div[text()=\"HOME\"]");
 
     //Constructor
@@ -41,6 +43,14 @@ public class BasePage {
 
     public void waitTillLoaderGetsRemoved() {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
+    }
+
+    public void waitTillOverlayGetsRemoved() {
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(overlay));
+    }
+
+    public void waitTillTimeLineGetsRemoved(){
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(timeLine));
     }
 
     //Click Method
@@ -156,12 +166,10 @@ public class BasePage {
     }
 
 
-    void selectByText(String text) throws InterruptedException {
+    void selectByText(String text) {
         WebElement elementby= driver.findElement(By.xpath("//span[contains(text(),'" + text + "')]"));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", elementby);
-        Thread.sleep(2000);
         driver.findElement(By.xpath("//span[contains(text(),'" + text + "')]")).click();
-        Thread.sleep(2000);
     }
 
     public void clickOutside() {

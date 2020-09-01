@@ -23,7 +23,7 @@ public class ExtentManager {
                 extent.assignProject("CS Portal");
                 extent.addSystemInfo("OPCO", BaseTest.Opco);
                 extent.addSystemInfo("Environment", BaseTest.Env);
-                extent.loadConfig(new File(workingDir + "\\src\\MAINSSS\\resources\\reportextent-config.xml"));
+                extent.loadConfig(new File(workingDir + "\\src\\main\\resources\\reportextent-config.xml"));
 
             } else {
                 extent = new ExtentReports(workingDir + "/ExtentReports/CS_Portal-Automation-Report-" + date + ".html", true);
@@ -31,7 +31,7 @@ public class ExtentManager {
                 extent.assignProject("CS Portal");
                 extent.addSystemInfo("OPCO", BaseTest.Opco);
                 extent.addSystemInfo("Environment", BaseTest.Env);
-                extent.loadConfig(new File(workingDir + "/src/MAINSSS/resources/reportextent-config.xml"));
+                extent.loadConfig(new File(workingDir + "/src/main/resources/reportextent-config.xml"));
 
             }
         }

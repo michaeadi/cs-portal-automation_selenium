@@ -15,9 +15,9 @@ public class ViewCreatedTemplatePOM extends BasePage{
 
     By template= By.xpath("//label[contains(text(),'Templates')]");
     By searchKeyWord=By.xpath("//input[@placeholder='Search By Name']");
-    By agentChannel=By.xpath("//mat-label[contains(text(),'Agents Channel')]//ancestor::div");
-    By roles=By.xpath("//mat-label[contains(text(),'Roles')]//ancestor::div");
-    By language=By.xpath("//mat-label[contains(text(),'Language')]//ancestor::div");
+    By agentChannel=By.xpath("//mat-label[contains(text(),'Agents Channel')]//ancestor::div[1]");
+    By roles=By.xpath("//mat-label[contains(text(),'Roles')]//ancestor::div[1]");
+    By language=By.xpath("//mat-label[contains(text(),'Language')]//ancestor::div[1]");
     By allTemplate=By.xpath("//div[@class=\"sms-managment__card-list--card--sms-template--content--sms-card ng-star-inserted\"]");
     By searchIcon=By.xpath("//img[@class='search-icn']");
     By allOption=By.xpath("//span[contains(text(),'Select All')]");
@@ -50,6 +50,11 @@ public class ViewCreatedTemplatePOM extends BasePage{
     public void WriteSearchKeyword(String text){
         ExtentTestManager.getTest().log(LogStatus.INFO,"Search By Agent Name: "+text);
         writeText(searchKeyWord,text);
+    }
+
+    public boolean isSearchByNameAvailable(){
+        log.info("Checking Search by template name field Load or Not");
+        return isElementVisible(searchKeyWord);
     }
 
     public boolean isTemplatePresent(String text){

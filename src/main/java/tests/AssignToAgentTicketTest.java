@@ -82,10 +82,10 @@ public class AssignToAgentTicketTest extends BaseTest {
         ticketListPage.waitTillLoaderGetsRemoved();
         softAssert.assertEquals(ticketListPage.getAssigneeAUUID().trim(),auuid,"Ticket does not assigned to agent");
         if(ticketListPage.getAssigneeAUUID().trim().equalsIgnoreCase(auuid)) {
-            ExtentTestManager.getTest().log(LogStatus.INFO, "Ticket unassigned from <" + assigneeAUUID + "> and Ticket Assigned to <" + auuid + ">");
+            ExtentTestManager.getTest().log(LogStatus.INFO, "Ticket unassigned from '" + assigneeAUUID + "' and Ticket Assigned to '" + auuid + "'");
             ExtentTestManager.getTest().log(LogStatus.INFO, "Validated Ticket is Assigned to User Successfully");
         }else{
-            ExtentTestManager.getTest().log(LogStatus.INFO, "Ticket unassigned from <" + assigneeAUUID + "> and Ticket Assigned to <" + auuid + ">");
+            ExtentTestManager.getTest().log(LogStatus.INFO, "Ticket unassigned from '" + assigneeAUUID + "' and Ticket Assigned to '" + auuid + "'");
             ExtentTestManager.getTest().log(LogStatus.FAIL, "Ticket does not Assigned to User Correctly");
         }
         softAssert.assertAll();
