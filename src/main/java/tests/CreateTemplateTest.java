@@ -13,7 +13,7 @@ import java.time.format.DateTimeFormatter;
 public class CreateTemplateTest extends BaseTest {
 
 
-    static String templateCategory="Category010602Sep";
+    static String templateCategory;
     static String templateName;
 
     @Test(priority = 1,description = "Open Template Management")
@@ -45,22 +45,22 @@ public class CreateTemplateTest extends BaseTest {
         softAssert.assertAll();
     }
 
-//    @Test(priority = 3,description = "Create Template Category")
-//    public void addTemplateCategory(){
-//        DateTimeFormatter formating = DateTimeFormatter.ofPattern ("hhmmddMMM");
-//        templateCategory="Category"+ LocalDateTime.now ().format(formating);
-//        ExtentTestManager.startTest("Create Template Category with name :"+templateCategory, "Create Template Category with name :"+templateCategory);
-//        SoftAssert softAssert = new SoftAssert();
-//        TemplateManagementPOM templateManagement = new TemplateManagementPOM(driver);
-//        templateManagement.switchTabToAddTemplateCategory();
-//        templateManagement.writeTemplateCategoryName(templateCategory);
-//        templateManagement.clickAddCategoryBtn();
-//        templateManagement.waitTillLoaderGetsRemoved();
-//        templateManagement.readResponseMessage();
-//        softAssert.assertTrue(templateManagement.validateAddedCategoryDisplay(templateCategory),"Added Category does not display in list");
-//        templateManagement.waitTillOverlayGetsRemoved();
-//        softAssert.assertAll();
-//    }
+    @Test(priority = 3,description = "Create Template Category")
+    public void addTemplateCategory(){
+        DateTimeFormatter formating = DateTimeFormatter.ofPattern ("hhmmddMMM");
+        templateCategory="Category"+ LocalDateTime.now ().format(formating);
+        ExtentTestManager.startTest("Create Template Category with name :"+templateCategory, "Create Template Category with name :"+templateCategory);
+        SoftAssert softAssert = new SoftAssert();
+        TemplateManagementPOM templateManagement = new TemplateManagementPOM(driver);
+        templateManagement.switchTabToAddTemplateCategory();
+        templateManagement.writeTemplateCategoryName(templateCategory);
+        templateManagement.clickAddCategoryBtn();
+        templateManagement.waitTillLoaderGetsRemoved();
+        templateManagement.readResponseMessage();
+        softAssert.assertTrue(templateManagement.validateAddedCategoryDisplay(templateCategory),"Added Category does not display in list");
+        templateManagement.waitTillOverlayGetsRemoved();
+        softAssert.assertAll();
+    }
 
     @Test(priority = 4,description = "Create Template")
     public void createTemplate(){
