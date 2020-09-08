@@ -125,4 +125,37 @@ public class ViewTemplateTest extends BaseTest {
         softAssert.assertAll();
     }
 
+    @Test(priority = 6,description = "Validate template layout")
+    public void validateTemplateLayout(){
+        ExtentTestManager.startTest("Validating template layout", "Validating All Language displayed");
+        ViewCreatedTemplatePOM viewCreatedTemplate = new ViewCreatedTemplatePOM(driver);
+        SoftAssert softAssert = new SoftAssert();
+        int i=1;
+        viewCreatedTemplate.templateName(i);
+        viewCreatedTemplate.templateCategory(i);
+        softAssert.assertTrue(viewCreatedTemplate.isDeleteIcon(i),"Delete Icon Does not present");
+        softAssert.assertTrue(viewCreatedTemplate.isCommentIcon(i),"Comment Icon does not present");
+        softAssert.assertTrue(viewCreatedTemplate.isEditIcon(i),"Edit Icon does not present");
+        viewCreatedTemplate.validateActiveStatus(i);
+        viewCreatedTemplate.templateLanguage(i);
+        viewCreatedTemplate.validateDeActiveStatus(i);
+        softAssert.assertTrue(viewCreatedTemplate.checkPaginationDisplayed(),"Pagination does not displayed");
+        softAssert.assertAll();
+    }
+
+    @Test(priority = 7,description = "Validate admin able to deactivate/Activate Template")
+    public void deactivateTemplate(){
+        ExtentTestManager.startTest("Validate admin able to deactivate/Activate Template", "Validate admin able to deactivate/Activate Template");
+        ViewCreatedTemplatePOM viewCreatedTemplate = new ViewCreatedTemplatePOM(driver);
+        SoftAssert softAssert = new SoftAssert();
+        int i=1;
+        viewCreatedTemplate.clickDeleteIcon(i);
+        viewCreatedTemplate.popUpTitleDeActive();
+        viewCreatedTemplate.popUpMessage();
+        softAssert.assertTrue(viewCreatedTemplate.isNoButtonAvailable(),"Admin does not have 'No' button available");
+        softAssert.assertTrue(viewCreatedTemplate.isYesButtonAvailable(),"Admin does not have 'YES' button available");
+        viewCreatedTemplate.clickNoBtn();
+        softAssert.assertAll();
+    }
+
 }
