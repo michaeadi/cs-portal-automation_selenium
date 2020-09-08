@@ -23,6 +23,13 @@ public class ViewCreatedTemplatePOM extends BasePage{
     By allOption=By.xpath("//span[contains(text(),'Select All')]");
     By options=By.xpath("//mat-option[@role=\"option\"]");
     By allDeActiveTemplate=By.xpath("//div[@class=\"sms-managment__card-list--card--sms-template--content--sms-card deactivate-card ng-star-inserted\"]");
+    By pagination=By.xpath("//div[@class='pagination-details']");
+
+    //DeActive Pop up
+    By deActivePopUpTitle=By.xpath("//h1[@class='deactivate-popup__heading red mat-dialog-title']");
+    By popUpMessage=By.xpath("//p[@class='error']");
+    By noBtn=By.xpath("//div[@class='cdk-overlay-container']//button[1]");
+    By yesBtn=By.xpath("//div[@class='cdk-overlay-container']//button[2]");
 
     public ViewCreatedTemplatePOM(WebDriver driver) {
         super(driver);
@@ -141,6 +148,13 @@ public class ViewCreatedTemplatePOM extends BasePage{
         return status;
     }
 
+    public void clickDeleteIcon(int i){
+        By icon=By.xpath("//div[@class=\"sms-managment__card-list--card--sms-template--content--sms-card ng-star-inserted\"]["+i+"]//div//img[@title=\"delete\"]");
+        log.info("clicking delete icon");
+        ExtentTestManager.getTest().log(LogStatus.INFO,"clicking delete icon");
+        click(icon);
+    }
+
     public boolean isEditIcon(int i){
         By icon=By.xpath("//div[@class=\"sms-managment__card-list--card--sms-template--content--sms-card ng-star-inserted\"]["+i+"]//div//img[@title=\"EDIT\"]");
         boolean status=checkState(icon);
@@ -167,5 +181,47 @@ public class ViewCreatedTemplatePOM extends BasePage{
         log.info("Clicking toggle button");
         click(status);
     }
+
+    public boolean checkPaginationDisplayed(){
+        boolean check=checkState(pagination);
+        log.info("Is Pagination Available: "+check);
+        return check;
+    }
+
+    public String popUpTitleDeActive(){
+        String text=readText(deActivePopUpTitle);
+        log.info("Pop up title: "+text);
+        ExtentTestManager.getTest().log(LogStatus.INFO,"Pop up title: "+text);
+        return text;
+    }
+
+    public String popUpMessage(){
+        String text=readText(popUpMessage);
+        log.info("Pop up message: "+text);
+        ExtentTestManager.getTest().log(LogStatus.INFO,"Pop up message: "+text);
+        return text;
+    }
+
+    public boolean isNoButtonAvailable(){
+        boolean check=checkState(noBtn);
+        log.info("Pop up 'No' button available: "+check);
+        ExtentTestManager.getTest().log(LogStatus.INFO,"Pop up 'No' button available: "+check);
+        return check;
+    }
+
+    public boolean isYesButtonAvailable(){
+        boolean check=checkState(yesBtn);
+        log.info("Pop up 'YES' button available: "+check);
+        ExtentTestManager.getTest().log(LogStatus.INFO,"Pop up 'YES' button available: "+check);
+        return check;
+    }
+
+    public void clickNoBtn(){
+        log.info("Clicking 'No' Button");
+        ExtentTestManager.getTest().log(LogStatus.INFO,"Clicking 'No' Button");
+        click(noBtn);
+    }
+
+
 
 }
