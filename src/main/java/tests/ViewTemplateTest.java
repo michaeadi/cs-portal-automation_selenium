@@ -125,4 +125,20 @@ public class ViewTemplateTest extends BaseTest {
         softAssert.assertAll();
     }
 
+    @Test(priority = 6,description = "Validate template layout")
+    public void validateTemplateLayout(){
+        ExtentTestManager.startTest("Validating template layout", "Validating All Language displayed");
+        ViewCreatedTemplatePOM viewCreatedTemplate = new ViewCreatedTemplatePOM(driver);
+        SoftAssert softAssert = new SoftAssert();
+        int i=1;
+        viewCreatedTemplate.templateName(i);
+        viewCreatedTemplate.templateCategory(i);
+        softAssert.assertTrue(viewCreatedTemplate.isDeleteIcon(i));
+        softAssert.assertTrue(viewCreatedTemplate.isCommentIcon(i));
+        softAssert.assertTrue(viewCreatedTemplate.isEditIcon(i));
+        viewCreatedTemplate.validateActiveStatus(i);
+        viewCreatedTemplate.validateDeActiveStatus(i);
+        softAssert.assertAll();
+    }
+
 }
