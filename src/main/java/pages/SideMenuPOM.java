@@ -123,7 +123,7 @@ public class SideMenuPOM extends BasePage {
     public boolean isTemplateManagementVisible() {
         log.info("Checking that is Admin Template Management Option Visible or Not");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Checking that is Admin Template Management Option Visible or Not");
-        hoverAndClick(customerServices);
+        hoverAndClick(adminSettings);
         return checkState(templateManagement);
     }
 

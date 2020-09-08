@@ -20,7 +20,7 @@ public class PinTagTest extends BaseTest {
 
     @DataProviders.User(UserType = "NFTR")
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
-    public void openCustomerInteraction(TestDatabean Data) {
+    public void openCustomerInteraction(TestDatabean Data) throws InterruptedException {
         ExtentTestManager.startTest("Validating the Search forCustomer Interactions :" + Data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + Data.getCustomerNumber());
         SoftAssert softAssert = new SoftAssert();
         SideMenuPOM SideMenuPOM = new SideMenuPOM(driver);
@@ -28,6 +28,7 @@ public class PinTagTest extends BaseTest {
         SideMenuPOM.clickOnName();
         customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
         customerInteractionsSearchPOM.enterNumber(Data.getCustomerNumber());
+        Thread.sleep(2000);
         customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
         softAssert.assertTrue(customerInteractionPagePOM.isPageLoaded());
         softAssert.assertAll();

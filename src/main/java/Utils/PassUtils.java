@@ -11,4 +11,8 @@ public class PassUtils {
         byte[] decodedBytes = Base64.getDecoder().decode(encodedString);
         return new String(decodedBytes);
     }
+
+    public static void main(String[] args) {
+        System.out.println(encodePassword("riya@0983"));
+    }
 }

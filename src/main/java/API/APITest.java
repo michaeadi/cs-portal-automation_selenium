@@ -34,7 +34,7 @@ public class APITest extends tests.BaseTest {
         map.clear();
         map.add(new Header("x-app-name", config.getProperty(Env + "-x-app-name")));
         map.add(new Header("x-service-id", config.getProperty(Env + "-x-service-id")));
-        map.add(new Header("x-bsy-bn", config.getProperty(Env + "-x-bsy-bn")));
+        //map.add(new Header("x-bsy-bn", config.getProperty(Env + "-x-bsy-bn"))); //Comment this line this header removed from MG Opco.
         map.add(new Header("x-app-type", config.getProperty(Env + "-x-app-type")));
         map.add(new Header("x-client-id", config.getProperty(Env + "-x-client-id")));
         map.add(new Header("x-api-key", config.getProperty(Env + "-x-api-key")));
