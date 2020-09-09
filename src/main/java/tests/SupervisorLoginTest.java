@@ -41,6 +41,7 @@ public class SupervisorLoginTest extends BaseTest {
         ExtentTestManager.startTest("Supervisor SKIP Queue Login Test", "Supervisor SKIP Queue Login");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SideMenuPOM sideMenu = new SideMenuPOM(driver);
+        sideMenu.waitTillLoaderGetsRemoved();
         sideMenu.clickOnSideMenu();
         sideMenu.clickOnName();
         agentLoginPagePOM AgentLoginPagePOM = sideMenu.openSupervisorDashboard();
@@ -60,6 +61,7 @@ public class SupervisorLoginTest extends BaseTest {
         ExtentTestManager.startTest("Supervisor Logging into Queue", "Supervisor Logging into Queue");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SideMenuPOM sideMenu = new SideMenuPOM(driver);
+        sideMenu.waitTillLoaderGetsRemoved();
         sideMenu.clickOnSideMenu();
         sideMenu.clickOnName();
         agentLoginPagePOM AgentLoginPagePOM = sideMenu.openSupervisorDashboard();
