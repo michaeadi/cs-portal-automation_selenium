@@ -36,6 +36,8 @@ public class customerInteractionPagePOM extends BasePage {
     By daDetailsTab=By.xpath("//div[contains(text(),'DA DETAILS')]");
     By usageHistoryTab=By.xpath("//div[contains(text(),'USAGE HISTORY')]");
     By rechargeHistoryTab=By.xpath("//div[contains(text(),'RECHARGE HISTORY')]");
+    By homeActionBtn=By.xpath("//span[@class='action-placeholder']");
+    By sendSMSAction=By.xpath("//div[@class=\"mat-menu-content\"]//button[contains(text(),'Send SMS')]");
 
     public customerInteractionPagePOM(WebDriver driver) {
         super(driver);
@@ -199,4 +201,18 @@ public class customerInteractionPagePOM extends BasePage {
         ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Usage History Tab");
         return new MoreUsageHistoryPOM(driver);
     }
+
+    public void clickOnAction() {
+        log.info("Clicking on Home Action button");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Home Action button");
+        click(homeActionBtn);
+    }
+
+    public SendSMSPOM openSendSMSTab(){
+        log.info("Clicking on Send SMS");
+        ExtentTestManager.getTest().log(LogStatus.INFO,"Clicking on Send SMS");
+        click(sendSMSAction);
+        return new SendSMSPOM(driver);
+    }
+
 }
