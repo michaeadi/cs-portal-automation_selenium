@@ -29,6 +29,7 @@ public class BasePage {
     public WebDriver driver;
     public WebDriverWait wait;
     By loader = By.xpath("/html/body/app-root/ngx-ui-loader/div[2]");
+    By loader1=By.xpath("//div[@class=\"ngx-overlay foreground-closing\"]");
     By overlay=By.xpath("//mat-dialog-container[@role='dialog']");
     By timeLine=By.xpath("//app-new-loader[@class=\"ng-star-inserted\"]//div[1]");
     By home = By.xpath("//div[text()=\"HOME\"]");
@@ -43,6 +44,7 @@ public class BasePage {
 
     public void waitTillLoaderGetsRemoved() {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(loader1));
     }
 
     public void waitTillOverlayGetsRemoved() {
