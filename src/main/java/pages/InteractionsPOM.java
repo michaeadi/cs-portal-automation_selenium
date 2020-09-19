@@ -4,6 +4,7 @@ import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -144,7 +145,11 @@ public class InteractionsPOM extends BasePage {
     public boolean isSaveEnable() {
         log.info("Checking is Save button Enabled");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is Save button Enabled");
-        return checkState(saveButton);
+        if(checkState(saveButton)){
+            return true;
+        }else{
+            throw new ElementClickInterceptedException("Save Button does not enabled");
+        }
     }
 
     public boolean isResolvedFTRDisplayed() {
