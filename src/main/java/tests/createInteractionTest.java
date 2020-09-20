@@ -43,7 +43,7 @@ public class createInteractionTest extends BaseTest {
     }
 
 
-    @Test(priority = 2, dependsOnMethods = "openCustomerInteraction", description = "Create FTR Interaction ", dataProvider = "getTestData1", dataProviderClass = DataProviders.class,enabled = false)
+    @Test(priority = 2, dependsOnMethods = "openCustomerInteraction", description = "Create FTR Interaction ", dataProvider = "getTestData1", dataProviderClass = DataProviders.class)
     public void CreateInteraction(ftrDataBeans Data) throws InterruptedException {
         ExtentTestManager.startTest(" Validating FTR Ticket" + Data.getIssueCode(), "Creating FTR Tickets and Configurations of Issue Code " + Data.getIssueCode());
         customerInteractionPagePOM customerInteractionPagePOM = new customerInteractionPagePOM(driver);
