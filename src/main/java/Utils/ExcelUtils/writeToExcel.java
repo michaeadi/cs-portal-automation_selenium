@@ -32,7 +32,7 @@ public class writeToExcel {
 //        System.out.println(row.getRowNum());
 
         Cell cell;
-        int ticketRow = 27;
+        int ticketRow = 30;
         try {
             cell = row.getCell(ticketRow);
             cell.setCellValue(dataToWrite[0]);

@@ -43,7 +43,7 @@ public class createInteractionTest extends BaseTest {
     }
 
 
-    @Test(priority = 2, dependsOnMethods = "openCustomerInteraction", description = "Create FTR Interaction ", dataProvider = "getTestData1", dataProviderClass = DataProviders.class)
+    @Test(priority = 2, dependsOnMethods = "openCustomerInteraction", description = "Create FTR Interaction ", dataProvider = "getTestData1", dataProviderClass = DataProviders.class,enabled = false)
     public void CreateInteraction(ftrDataBeans Data) throws InterruptedException {
         ExtentTestManager.startTest(" Validating FTR Ticket" + Data.getIssueCode(), "Creating FTR Tickets and Configurations of Issue Code " + Data.getIssueCode());
         customerInteractionPagePOM customerInteractionPagePOM = new customerInteractionPagePOM(driver);
@@ -74,8 +74,7 @@ public class createInteractionTest extends BaseTest {
             softAssert.assertTrue(interactionsPOM.isResolvedFTRDisplayed());
         }catch (Exception e) {
             System.out.println("in catch");
-            interactionsPOM.closeInteractions();
-            interactionsPOM.clickOnContinueButton();
+            interactionsPOM.resetInteractionIssue();
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
@@ -215,6 +214,22 @@ public class createInteractionTest extends BaseTest {
                 }
                 interactionsPOM.setDateFieldAvailable(dtf.format(now));
             }
+
+            if (Data.getIssueFieldType7().equalsIgnoreCase("Text Box") && !Data.getIssueFieldLabel7().isEmpty()) {
+                System.out.println(interactionsPOM.getIssueDetailLabel("7"));
+                softAssert.assertEquals(interactionsPOM.getIssueDetailLabel("7").replace("*", "").trim(), (Data.getIssueFieldLabel7().replace("*", "").trim()));
+                if (Data.getIssueFieldMandatory7().equalsIgnoreCase("Yes")) {
+                    softAssert.assertTrue(interactionsPOM.getIssueDetailLabel("7").contains("*"), Data.getIssueFieldLabel7() + "Label is mandatory but doesn't contain '*' ");
+                }
+                interactionsPOM.setIssueDetailInput("7", "012345");
+            } else if (Data.getIssueFieldType7().equalsIgnoreCase("Date") && !Data.getIssueFieldLabel7().isEmpty()) {
+                System.out.println(interactionsPOM.isDateFieldAvailable());
+                softAssert.assertEquals(interactionsPOM.isDateFieldAvailable(), (Data.getIssueFieldLabel7()));
+                if (Data.getIssueFieldMandatory7().equalsIgnoreCase("Yes")) {
+                    softAssert.assertTrue(interactionsPOM.isDateFieldAvailable().contains("*"), Data.getIssueFieldLabel7() + "Label is mandatory but doesn't contain '*' ");
+                }
+                interactionsPOM.setDateFieldAvailable(dtf.format(now));
+            }
             interactionsPOM.sendComment("Automation Suite");
             Assert.assertTrue(interactionsPOM.isSaveEnable());
             interactionsPOM.clickOnSave();
@@ -236,8 +251,10 @@ public class createInteractionTest extends BaseTest {
         } catch (Exception e) {
             System.out.println("in catch");
             ExtentTestManager.getTest().log(LogStatus.ERROR,e.fillInStackTrace());
-            interactionsPOM.closeInteractions();
-            interactionsPOM.clickOnContinueButton();
+            String base64Screenshot = "data:image/png;base64," + ((TakesScreenshot) driver).
+                    getScreenshotAs(OutputType.BASE64);
+            ExtentTestManager.getTest().log(LogStatus.INFO, ExtentTestManager.getTest().addBase64ScreenShot(base64Screenshot));
+            interactionsPOM.resetInteractionIssue();
             e.printStackTrace();
             Assert.fail(e.getCause().getMessage());
         }

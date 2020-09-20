@@ -37,6 +37,10 @@ public class nftrDataBeans {
     String issueFieldType6;
     String issueFieldMandatory6;
 
+    String issueFieldLabel7;
+    String issueFieldType7;
+    String issueFieldMandatory7;
+
     String workgroup;
     String SLA;
     String assignmentQueue;

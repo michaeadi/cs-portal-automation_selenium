@@ -31,6 +31,7 @@ public class InteractionsPOM extends BasePage {
     By addCommentBtn=By.xpath("//div[@class='footer']/button");
     By addedComment=By.xpath("//div[@class='comment-detail ng-star-inserted']");
     By closeCommentTab=By.xpath("//div[@class='header-close']");
+    By resetBtn=By.xpath("//button[@class='btn btn-reset ng-star-inserted']");
 
     public InteractionsPOM(WebDriver driver) {
         super(driver);
@@ -210,6 +211,12 @@ public class InteractionsPOM extends BasePage {
     public void closeTicketCommentBox(){
         log.info("Closing Ticket Comment Pop up");
         click(closeCommentTab);
+    }
+
+    public void resetInteractionIssue(){
+        log.info("Clicking reset issue details Button");
+        click(resetBtn);
+        waitTillLoaderGetsRemoved();
     }
 
 }

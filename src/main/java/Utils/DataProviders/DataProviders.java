@@ -50,10 +50,16 @@ public class DataProviders {
         File Excel = new File(Exceldir, BaseTest.ExcelPath);
         List<nftrDataBeans> list =
                 credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty(BaseTest.suiteType + "-NftrSheet"));
-
-        Object[][] hashMapObj = new Object[list.size()][1];
-        for (int i = 0; i < list.size(); i++) {
-            hashMapObj[i][0] = list.get(i);
+        List<nftrDataBeans> finalList=new ArrayList<>();
+        for (nftrDataBeans l : list) {
+            if (l.getIssueCode()!=null) {
+                if(!l.getIssueCode().isEmpty())
+                    finalList.add(l);
+            }
+        }
+        Object[][] hashMapObj = new Object[finalList.size()][1];
+        for (int i = 0; i < finalList.size(); i++) {
+            hashMapObj[i][0] = finalList.get(i);
         }
         return hashMapObj;
     }
