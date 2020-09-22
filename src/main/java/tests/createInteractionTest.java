@@ -71,7 +71,7 @@ public class createInteractionTest extends BaseTest {
             softAssert.assertEquals(interactionsPOM.getIssueSubType().trim().toLowerCase().replace(" ", ""), Data.getIssueSubType().trim().toLowerCase().replace(" ", ""), "Issue sub type is not as expected ");
             interactionsPOM.sendComment("Automation Suite");
             interactionsPOM.clickOnSave();
-            softAssert.assertTrue(interactionsPOM.isResolvedFTRDisplayed());
+            softAssert.assertTrue(interactionsPOM.isResolvedFTRDisplayed(),"Resolved FTR does not display");
         }catch (Exception e) {
             System.out.println("in catch");
             interactionsPOM.resetInteractionIssue();

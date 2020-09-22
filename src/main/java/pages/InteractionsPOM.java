@@ -157,7 +157,11 @@ public class InteractionsPOM extends BasePage {
             waitVisibility(resolvedFTR);
             log.info("Checking is Ticket Number or Ticket Status is Displayed : " + isElementVisible(resolvedFTR));
             ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is Ticket Number or Ticket Status is Displayed : " + isElementVisible(resolvedFTR));
-            return isElementVisible(resolvedFTR);
+            if(readText(resolvedFTR).contains("Resolved FTR")){
+                return true;
+            }else{
+                return false;
+            }
     }
 
     public String getResolvedFTRDisplayed() {
