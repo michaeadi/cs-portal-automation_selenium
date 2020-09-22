@@ -157,11 +157,7 @@ public class InteractionsPOM extends BasePage {
             waitVisibility(resolvedFTR);
             log.info("Checking is Ticket Number or Ticket Status is Displayed : " + isElementVisible(resolvedFTR));
             ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is Ticket Number or Ticket Status is Displayed : " + isElementVisible(resolvedFTR));
-            if(readText(resolvedFTR).contains("Resolved FTR")){
-                return true;
-            }else{
-                return false;
-            }
+            return isElementVisible(resolvedFTR);
     }
 
     public String getResolvedFTRDisplayed() {
@@ -219,6 +215,7 @@ public class InteractionsPOM extends BasePage {
 
     public void resetInteractionIssue(){
         log.info("Clicking reset issue details Button");
+        ExtentTestManager.getTest().log(LogStatus.INFO,"Clicking reset issue details Button");
         click(resetBtn);
         waitTillLoaderGetsRemoved();
     }

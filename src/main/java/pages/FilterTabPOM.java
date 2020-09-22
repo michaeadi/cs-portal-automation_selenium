@@ -258,5 +258,11 @@ public class FilterTabPOM extends BasePage {
         click(closeFilter);
     }
 
+    public void applyFilterByCategoryCode(String code){
+        ExtentTestManager.getTest().log(LogStatus.INFO,"Clicking Code Filed");
+        click(byCode);
+    }
+
+
 
 }

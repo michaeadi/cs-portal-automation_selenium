@@ -437,4 +437,25 @@ public class DataProviders {
         }
         return "not found";
     }
+
+    @DataProvider(name = "ticketTransferRule")
+    public Object[][] ticketTransferRule() {
+        TicketTransferRuleDateToExcel credsExcelToBeanDao = new TicketTransferRuleDateToExcel();
+        File Exceldir = new File("Excels");
+        File Excel = new File(Exceldir, BaseTest.ExcelPath);
+        List<TicketTransferRuleDataBean> list =
+                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("ticketTransferRule"));
+        List<TicketTransferRuleDataBean> finalList=new ArrayList<>();
+        for (TicketTransferRuleDataBean l : list) {
+            if (l.getIssueCode()!=null) {
+                if(!l.getIssueCode().isEmpty())
+                    finalList.add(l);
+            }
+        }
+        Object[][] hashMapObj = new Object[finalList.size()][1];
+        for (int i = 0; i < finalList.size(); i++) {
+            hashMapObj[i][0] = finalList.get(i);
+        }
+        return hashMapObj;
+    }
 }

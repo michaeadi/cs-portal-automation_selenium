@@ -7,8 +7,10 @@ import Utils.DataProviders.nftrDataBeans;
 import Utils.ExcelUtils.writeToExcel;
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -72,6 +74,7 @@ public class createInteractionTest extends BaseTest {
             interactionsPOM.sendComment("Automation Suite");
             interactionsPOM.clickOnSave();
             softAssert.assertTrue(interactionsPOM.isResolvedFTRDisplayed(),"Resolved FTR does not display");
+            softAssert.assertEquals(interactionsPOM.getResolvedFTRDisplayed(),"Resolved FTR","Resolved FTR does not display");
         }catch (Exception e) {
             System.out.println("in catch");
             interactionsPOM.resetInteractionIssue();
@@ -254,7 +257,13 @@ public class createInteractionTest extends BaseTest {
             String base64Screenshot = "data:image/png;base64," + ((TakesScreenshot) driver).
                     getScreenshotAs(OutputType.BASE64);
             ExtentTestManager.getTest().log(LogStatus.INFO, ExtentTestManager.getTest().addBase64ScreenShot(base64Screenshot));
-            interactionsPOM.resetInteractionIssue();
+            try{
+                interactionsPOM.closeInteractions();
+                interactionsPOM.clickOnContinueButton();
+            }catch (NoSuchElementException | TimeoutException ex){
+                softAssert.fail("Unable to close interaction",ex.getCause());
+                interactionsPOM.resetInteractionIssue();
+            }
             e.printStackTrace();
             Assert.fail(e.getCause().getMessage());
         }
