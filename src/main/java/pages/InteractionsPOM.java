@@ -32,7 +32,7 @@ public class InteractionsPOM extends BasePage {
     By addedComment=By.xpath("//div[@class='comment-detail ng-star-inserted']");
     By closeCommentTab=By.xpath("//div[@class='header-close']");
     By resetBtn=By.xpath("//button[@class='btn btn-reset ng-star-inserted']");
-
+    By option1st=By.xpath("//mat-option[1]");
     public InteractionsPOM(WebDriver driver) {
         super(driver);
     }
@@ -63,11 +63,26 @@ public class InteractionsPOM extends BasePage {
         return readText(issueDetails);
     }
 
+    public String getIssueDetailLabelDropDown(String Num) {
+        log.info("Getting the label for issue detail field situated at Position : " + Num);
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting the label for issue detail field situated at Position : " + Num);
+        By issueDetails = By.xpath("//div[@formarrayname=\"issueDetails\"]//li["+Num+"]//mat-label");
+        return readText(issueDetails);
+    }
+
     public void setIssueDetailInput(String Num, String Input) {
         log.info("Writing " + Input + " in label for issue detail field situated at Position : " + Num);
         ExtentTestManager.getTest().log(LogStatus.INFO, "Writing " + Input + " in label for issue detail field situated at Position : " + Num);
         By issueDetails = By.xpath(" //input[@name=" + "'q" + Num + "']");
         writeText(issueDetails, Input);
+    }
+
+    public void selectIssueDetailInput(String Num) {
+        log.info("Selecting label for issue detail field situated at Position : " + Num);
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Selecting label for issue detail field situated at Position : " + Num);
+        By issueDetails = By.xpath("//div[@formarrayname=\"issueDetails\"]//li["+Num+"]//mat-select");
+        click(issueDetails);
+        click(option1st);
     }
 
     public void clickOnCode() throws InterruptedException {

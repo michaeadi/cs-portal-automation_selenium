@@ -45,7 +45,7 @@ public class createInteractionTest extends BaseTest {
     }
 
 
-    @Test(priority = 2, dependsOnMethods = "openCustomerInteraction", description = "Create FTR Interaction ", dataProvider = "getTestData1", dataProviderClass = DataProviders.class)
+    @Test(priority = 2, dependsOnMethods = "openCustomerInteraction", description = "Create FTR Interaction ", dataProvider = "getTestData1", dataProviderClass = DataProviders.class,enabled = false)
     public void CreateInteraction(ftrDataBeans Data) throws InterruptedException {
         ExtentTestManager.startTest(" Validating FTR Ticket" + Data.getIssueCode(), "Creating FTR Tickets and Configurations of Issue Code " + Data.getIssueCode());
         customerInteractionPagePOM customerInteractionPagePOM = new customerInteractionPagePOM(driver);
@@ -169,6 +169,7 @@ public class createInteractionTest extends BaseTest {
 
             }
 
+            System.out.println("Field Type-4"+Data.getIssueFieldType4());
 
             if (Data.getIssueFieldType4().equalsIgnoreCase("Text Box") && !Data.getIssueFieldLabel4().isEmpty()) {
                 System.out.println(interactionsPOM.getIssueDetailLabel("4"));
@@ -184,6 +185,13 @@ public class createInteractionTest extends BaseTest {
                     softAssert.assertTrue(interactionsPOM.isDateFieldAvailable().contains("*"), Data.getIssueFieldLabel4() + "Label is mandatory but doesn't contain '*' ");
                 }
                 interactionsPOM.setDateFieldAvailable(dtf.format(now));
+             } else if(Data.getIssueFieldType4().equalsIgnoreCase("Drop Down") && !Data.getIssueFieldLabel4().isEmpty()){
+                System.out.println(interactionsPOM.getIssueDetailLabelDropDown("4"));
+                softAssert.assertEquals(interactionsPOM.getIssueDetailLabelDropDown("4").replace("*", "").trim(), (Data.getIssueFieldLabel4().replace("*", "").trim()));
+                if (Data.getIssueFieldMandatory4().equalsIgnoreCase("Yes")) {
+                    softAssert.assertTrue(interactionsPOM.getIssueDetailLabelDropDown("4").contains("*"), Data.getIssueFieldLabel4() + "Label is mandatory but doesn't contain '*' ");
+                }
+                interactionsPOM.selectIssueDetailInput("4");
             }
 
             if (Data.getIssueFieldType5().equalsIgnoreCase("Text Box") && !Data.getIssueFieldLabel5().isEmpty()) {
@@ -200,6 +208,13 @@ public class createInteractionTest extends BaseTest {
                     softAssert.assertTrue(interactionsPOM.isDateFieldAvailable().contains("*"), Data.getIssueFieldLabel5() + "Label is mandatory but doesn't contain '*' ");
                 }
                 interactionsPOM.setDateFieldAvailable(dtf.format(now));
+            }else if(Data.getIssueFieldType5().equalsIgnoreCase("Drop Down") && !Data.getIssueFieldLabel5().isEmpty()){
+                System.out.println(interactionsPOM.getIssueDetailLabelDropDown("5"));
+                softAssert.assertEquals(interactionsPOM.getIssueDetailLabelDropDown("5").replace("*", "").trim(), (Data.getIssueFieldLabel5().replace("*", "").trim()));
+                if (Data.getIssueFieldMandatory5().equalsIgnoreCase("Yes")) {
+                    softAssert.assertTrue(interactionsPOM.getIssueDetailLabelDropDown("5").contains("*"), Data.getIssueFieldLabel5() + "Label is mandatory but doesn't contain '*' ");
+                }
+                interactionsPOM.selectIssueDetailInput("5");
             }
 
             if (Data.getIssueFieldType6().equalsIgnoreCase("Text Box") && !Data.getIssueFieldLabel6().isEmpty()) {
@@ -241,16 +256,15 @@ public class createInteractionTest extends BaseTest {
             String[] valueToWrite;
             if (!interactionsPOM.getResolvedFTRDisplayed().contains("Resolved FTR")) {
                 ticket_number = interactionsPOM.getResolvedFTRDisplayed();
-                System.out.println(ticket_number);
+                valueToWrite = new String[]{ticket_number};
+                writeToExcel objExcelFile = new writeToExcel();
+                File Exceldir = new File("Excels");
+                File Excel = new File(Exceldir, BaseTest.ExcelPath);
+                objExcelFile.writeTicketNumber(Excel.getAbsolutePath(), config.getProperty(BaseTest.suiteType + "-NftrSheet"), valueToWrite, Data.getRownum());
+                System.out.println("Ticket Number Written to Excel " + valueToWrite[0]);
             } else {
                 softAssert.fail("It's FTR not NFTR");
             }
-            valueToWrite = new String[]{ticket_number};
-            writeToExcel objExcelFile = new writeToExcel();
-            File Exceldir = new File("Excels");
-            File Excel = new File(Exceldir, BaseTest.ExcelPath);
-            objExcelFile.writeTicketNumber(Excel.getAbsolutePath(), config.getProperty(BaseTest.suiteType + "-NftrSheet"), valueToWrite, Data.getRownum());
-            System.out.println("Ticket Number Written to Excel " + valueToWrite[0]);
         } catch (Exception e) {
             System.out.println("in catch");
             ExtentTestManager.getTest().log(LogStatus.ERROR,e.fillInStackTrace());

@@ -14,11 +14,11 @@
 <!--            </class>-->
 <!--        </classes>-->
 <!--    </test>-->
-<!--        <test name="Login Admin 1 Test">-->
-<!--            <classes>-->
-<!--                <class name="tests.LoginTests"/>-->
-<!--            </classes>-->
-<!--        </test>-->
+        <test name="Login Admin 1 Test">
+            <classes>
+                <class name="tests.LoginTests"/>
+            </classes>
+        </test>
 <!--        <test name="Side Menu">-->
 <!--            <classes>-->
 <!--                <class name="tests.sideMenuTests"/>-->
@@ -30,11 +30,11 @@
 <!--                <class name="tests.widgetsOptionsTest"/>-->
 <!--            </classes>-->
 <!--        </test>-->
-<!--        <test name="Create NFTR FTR Tickets TEST">-->
-<!--            <classes>-->
-<!--                <class name="tests.createInteractionTest"/>-->
-<!--            </classes>-->
-<!--        </test>-->
+        <test name="Create NFTR FTR Tickets TEST">
+            <classes>
+                <class name="tests.createInteractionTest"/>
+            </classes>
+        </test>
 <!--        <test name="Widget Tagged Interaction TEST" >-->
 <!--            <classes>-->
 <!--                <class name="tests.WidgetTaggedIssueTest"/>-->
@@ -60,11 +60,11 @@
 <!--                <class name="tests.LogoutTest"/>-->
 <!--            </classes>-->
 <!--        </test>-->
-    <test name="Supervisors Login Test">
-        <classes>
-            <class name="tests.SupervisorLoginTest"/>
-        </classes>
-    </test>
+<!--    <test name="Supervisors Login Test">-->
+<!--        <classes>-->
+<!--            <class name="tests.SupervisorLoginTest"/>-->
+<!--        </classes>-->
+<!--    </test>-->
 <!--    <test name="api-Regenerate">-->
 <!--        <classes>-->
 <!--            <class name="API.APITest">-->
@@ -79,11 +79,11 @@
 <!--            <class name="tests.SupervisorSearchTicket"/>-->
 <!--        </classes>-->
 <!--    </test>-->
-    <test name="Ticket Transfer Rule Test ">
-        <classes>
-            <class name="tests.TicketTransferRuleTest"/>
-        </classes>
-    </test>
+<!--    <test name="Ticket Transfer Rule Test ">-->
+<!--        <classes>-->
+<!--            <class name="tests.TicketTransferRuleTest"/>-->
+<!--        </classes>-->
+<!--    </test>-->
 <!--        <test name="Supervisors Validate Filter Option ">-->
 <!--            <classes>-->
 <!--                <class name="tests.SupervisorFilterTest"/>-->
