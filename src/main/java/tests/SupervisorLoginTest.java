@@ -56,7 +56,7 @@ public class SupervisorLoginTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 3, description = "Supervisor Logging into Queue ",enabled = false)
+    @Test(priority = 3, description = "Supervisor Logging into Queue ")
     public void agentQueueLogin(Method method) {
         ExtentTestManager.startTest("Supervisor Logging into Queue", "Supervisor Logging into Queue");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
