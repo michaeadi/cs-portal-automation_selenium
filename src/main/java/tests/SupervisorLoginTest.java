@@ -56,7 +56,7 @@ public class SupervisorLoginTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 3, description = "Supervisor Logging into Queue ")
+    @Test(priority = 3, description = "Supervisor Logging into Queue ",enabled = false)
     public void agentQueueLogin(Method method) {
         ExtentTestManager.startTest("Supervisor Logging into Queue", "Supervisor Logging into Queue");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
@@ -79,7 +79,7 @@ public class SupervisorLoginTest extends BaseTest {
     }
 
     @Test(priority = 4, description = "Verify there are 2 options displayed to select from in the Search Dropdown : 1) Ticket Id & 2) MSISDN", dataProviderClass = DataProviders.class)
-    public void validateCheckBox(Method method) {
+    public void validateTicketSearchOptions(Method method) {
         ExtentTestManager.startTest("Validate Search Ticket Option", "Verify there are 2 options displayed to select from in the Search Dropdown : 1) Ticket Id & 2) MSISDN");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);

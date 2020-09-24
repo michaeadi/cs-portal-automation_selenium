@@ -38,16 +38,17 @@ public class FilterTabPOM extends BasePage {
 
     //Filter By Category
     By categoryLabel=By.xpath("//div[@class=\"mat-drawer-inner-container\"]//span[contains(text(),'Filter By Category')]");
-    By byCode=By.xpath("//mat-label[contains(text(),'Code')]");
+    By byCode=By.xpath("//div[@formarrayname=\"category\"]//div[2]//div[@class=\"mat-select-value\"]");
     By byIssue=By.xpath("//label[@class='mat-form-field-label ng-tns-c6-98 mat-empty mat-form-field-empty ng-star-inserted']//mat-label[@class='ng-star-inserted'][contains(text(),'Issue')]");
     By byIssueType=By.xpath("//mat-label[contains(text(),'Issue Type')]");
     By byIssueSubType=By.xpath("//mat-label[contains(text(),'Issue sub type')]");
     By byIssueSubSubType=By.xpath("//mat-label[contains(text(),'Issue sub sub type')]");
+    By searchBox=By.xpath("//input[@placeholder=\"Search\"]");
 
     //Filter By Queue
     By queueLabel=By.xpath("//span[contains(text(),'Filter By Queue')]");
     By showQueueFilter = By.xpath("//mat-label[contains(text(),'Select Queue')]");
-    By openQueueList = By.xpath("//div[5]//div[2]//div[1]//mat-form-field[1]//div[1]//div[1]//div[1]//mat-select[1]//div[1]//div[2]//div[1]");
+    By openQueueList = By.xpath("//app-custom-mat-select[@formcontrolname=\"selectedFilterQueue\"]");
 
     //Filter By Ticket Assignee
     By ticketAssigneeLabel=By.xpath("//span[contains(text(),'Filter By Ticket Assignee')]");
@@ -85,7 +86,7 @@ public class FilterTabPOM extends BasePage {
 
     public void selectQueueByName(String queueName) throws InterruptedException {
         ExtentTestManager.getTest().log(LogStatus.INFO, "Select Queue Filter Name: "+queueName);
-        click(By.xpath("//span[contains(text(),' " + queueName + " ')]"));
+        selectByText(queueName);
     }
 
     public void clickApplyFilter() {
@@ -258,9 +259,16 @@ public class FilterTabPOM extends BasePage {
         click(closeFilter);
     }
 
-    public void applyFilterByCategoryCode(String code){
-        ExtentTestManager.getTest().log(LogStatus.INFO,"Clicking Code Filed");
+    public void applyFilterByCategoryCode(String code) throws InterruptedException {
+        ExtentTestManager.getTest().log(LogStatus.INFO,"Clicking Code Field");
+        scrollToViewElement(byCode);
         click(byCode);
+        ExtentTestManager.getTest().log(LogStatus.INFO,"Searching category code: "+code);
+        writeText(searchBox,code);
+        waitTillLoaderGetsRemoved();
+        selectByText(code);
+        ExtentTestManager.getTest().log(LogStatus.INFO,"Category Code Selected");
+        waitTillLoaderGetsRemoved();
     }
 
 
