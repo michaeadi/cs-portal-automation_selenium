@@ -192,11 +192,13 @@ public class DataProviders {
                 credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty(BaseTest.suiteType + "-NftrSheet"));
         List<nftrDataBeans> finalTicketList = new ArrayList<nftrDataBeans>();
         for (nftrDataBeans nftrTicket : list) {
-            System.out.println("Ticket Id: " + nftrTicket.getTicketNumber());
-            if (nftrTicket.getTicketNumber() == null) {
-                System.out.println("No Ticket ID Found");
-            } else {
+            if (nftrTicket.getTicketNumber() != null) {
+                if(!nftrTicket.getTicketNumber().isEmpty()){
+                    System.out.println("Ticket Id: " + nftrTicket.getTicketNumber());
                 finalTicketList.add(nftrTicket);
+                }
+            } else {
+                System.out.println("No Ticket Found");
             }
         }
 

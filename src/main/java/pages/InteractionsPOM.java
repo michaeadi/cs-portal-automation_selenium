@@ -26,6 +26,7 @@ public class InteractionsPOM extends BasePage {
     By issueDetailHeading = By.xpath("//h3[text()=\"Issue Detail\"]");
     By continueButton = By.xpath("//button[@class=\"yes-btn mat-button\"]");
     By issueDetails = By.xpath("//input[@aria-haspopup=\"true\"]//following-sibling::span/label//mat-label");
+    By issueDetailsMandatory=By.xpath("//input[@aria-haspopup=\"true\"]//following-sibling::span/label//span");
     By ticketCommentIcon=By.className("comment-text");
     By commentBox=By.xpath("//textarea[@placeholder='Add Comment...']");
     By addCommentBtn=By.xpath("//div[@class='footer']/button");
@@ -49,6 +50,13 @@ public class InteractionsPOM extends BasePage {
         return readText(issueDetails);
     }
 
+    public String isDateFieldAvailableMandatory() {
+        log.info("Is Date Field mandatory: ");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Is Date Field mandatory: ");
+        return readText(issueDetails)+readText(issueDetailsMandatory);
+    }
+
+
     public void setDateFieldAvailable(String Date) {
         log.info("Writing Date to Date Field : " + Date);
         ExtentTestManager.getTest().log(LogStatus.INFO, "Writing Date to Date Field : " + Date);
@@ -67,7 +75,8 @@ public class InteractionsPOM extends BasePage {
         log.info("Getting the label for issue detail field situated at Position : " + Num);
         ExtentTestManager.getTest().log(LogStatus.INFO, "Getting the label for issue detail field situated at Position : " + Num);
         By issueDetails = By.xpath("//div[@formarrayname=\"issueDetails\"]//li["+Num+"]//mat-label");
-        return readText(issueDetails);
+        By mandatory = By.xpath("//div[@formarrayname=\"issueDetails\"]//li["+Num+"]//span");
+        return readText(issueDetails)+readText(mandatory);
     }
 
     public void setIssueDetailInput(String Num, String Input) {

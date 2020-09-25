@@ -266,7 +266,8 @@ public class FilterTabPOM extends BasePage {
         ExtentTestManager.getTest().log(LogStatus.INFO,"Searching category code: "+code);
         writeText(searchBox,code);
         waitTillLoaderGetsRemoved();
-        selectByText(code);
+        By selectCode=By.xpath("//span[@class='mat-option-text'][contains(text(),'"+code+"')]");
+        click(selectCode);
         ExtentTestManager.getTest().log(LogStatus.INFO,"Category Code Selected");
         waitTillLoaderGetsRemoved();
     }
