@@ -42,7 +42,7 @@ public class createInteractionTest extends BaseTest {
     }
 
 
-    @Test(priority = 2, dependsOnMethods = "openCustomerInteraction", description = "Create FTR Interaction ", dataProvider = "getTestData1", dataProviderClass = DataProviders.class)
+    @Test(priority = 2, dependsOnMethods = "openCustomerInteraction", description = "Create FTR Interaction ", dataProvider = "getTestData1", dataProviderClass = DataProviders.class,enabled = true)
     public void CreateInteraction(ftrDataBeans Data) throws InterruptedException {
         ExtentTestManager.startTest(" Validating FTR Ticket" + Data.getIssueCode(), "Creating FTR Tickets and Configurations of Issue Code " + Data.getIssueCode());
         customerInteractionPagePOM customerInteractionPagePOM = new customerInteractionPagePOM(driver);
@@ -116,6 +116,7 @@ public class createInteractionTest extends BaseTest {
         String ticket_number = null;
         try {
 
+            if(Data.getIssueFieldLabel1()!=null)
             if (Data.getIssueFieldType1().equalsIgnoreCase("Text Box") && !Data.getIssueFieldLabel1().isEmpty()) {
                 System.out.println(interactionsPOM.getIssueDetailLabel("1"));
                 softAssert.assertEquals(interactionsPOM.getIssueDetailLabel("1").replace("*", "").trim(), (Data.getIssueFieldLabel1().replace("*", "").trim()),Data.getIssueFieldLabel1()+" Label does not match");
@@ -140,6 +141,7 @@ public class createInteractionTest extends BaseTest {
                 interactionsPOM.selectIssueDetailInput("1");
             }
 
+            if(Data.getIssueFieldLabel2()!=null)
             if (Data.getIssueFieldType2().equalsIgnoreCase("Text Box") && !Data.getIssueFieldLabel2().isEmpty()) {
                 System.out.println(interactionsPOM.getIssueDetailLabel("2"));
                 softAssert.assertEquals(interactionsPOM.getIssueDetailLabel("2").replace("*", "").trim(), (Data.getIssueFieldLabel2().replace("*", "").trim()));
@@ -163,6 +165,7 @@ public class createInteractionTest extends BaseTest {
                 interactionsPOM.selectIssueDetailInput("2");
             }
 
+            if(Data.getIssueFieldLabel3()!=null)
             if (Data.getIssueFieldType3().equalsIgnoreCase("Text Box") && !Data.getIssueFieldLabel3().isEmpty()) {
                 System.out.println(interactionsPOM.getIssueDetailLabel("3"));
                 softAssert.assertEquals(interactionsPOM.getIssueDetailLabel("3").replace("*", "").trim(), (Data.getIssueFieldLabel3().replace("*", "").trim()));
@@ -189,6 +192,7 @@ public class createInteractionTest extends BaseTest {
 
             System.out.println("Field Type-4"+Data.getIssueFieldType4());
 
+            if(Data.getIssueFieldLabel4()!=null)
             if (Data.getIssueFieldType4().equalsIgnoreCase("Text Box") && !Data.getIssueFieldLabel4().isEmpty()) {
                 System.out.println(interactionsPOM.getIssueDetailLabel("4"));
                 softAssert.assertEquals(interactionsPOM.getIssueDetailLabel("4").replace("*", "").trim(), (Data.getIssueFieldLabel4().replace("*", "").trim()));
@@ -212,6 +216,7 @@ public class createInteractionTest extends BaseTest {
                 interactionsPOM.selectIssueDetailInput("4");
             }
 
+            if(Data.getIssueFieldLabel5()!=null)
             if (Data.getIssueFieldType5().equalsIgnoreCase("Text Box") && !Data.getIssueFieldLabel5().isEmpty()) {
                 System.out.println(interactionsPOM.getIssueDetailLabel("5"));
                 softAssert.assertEquals(interactionsPOM.getIssueDetailLabel("5").replace("*", "").trim(), (Data.getIssueFieldLabel5().replace("*", "").trim()));
@@ -235,6 +240,7 @@ public class createInteractionTest extends BaseTest {
                 interactionsPOM.selectIssueDetailInput("5");
             }
 
+            if(Data.getIssueFieldLabel6()!=null)
             if (Data.getIssueFieldType6().equalsIgnoreCase("Text Box") && !Data.getIssueFieldLabel6().isEmpty()) {
                 System.out.println(interactionsPOM.getIssueDetailLabel("6"));
                 softAssert.assertEquals(interactionsPOM.getIssueDetailLabel("6").replace("*", "").trim(), (Data.getIssueFieldLabel6().replace("*", "").trim()));
@@ -258,6 +264,7 @@ public class createInteractionTest extends BaseTest {
                 interactionsPOM.selectIssueDetailInput("6");
             }
 
+            if(Data.getIssueFieldLabel7()!=null)
             if (Data.getIssueFieldType7().equalsIgnoreCase("Text Box") && !Data.getIssueFieldLabel7().isEmpty()) {
                 System.out.println(interactionsPOM.getIssueDetailLabel("7"));
                 softAssert.assertEquals(interactionsPOM.getIssueDetailLabel("7").replace("*", "").trim(), (Data.getIssueFieldLabel7().replace("*", "").trim()));
