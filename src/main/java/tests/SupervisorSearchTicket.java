@@ -14,6 +14,7 @@ import pages.agentLoginPagePOM;
 import pages.supervisorTicketListPagePOM;
 
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.Map;
 
 public class SupervisorSearchTicket extends BaseTest {
@@ -45,6 +46,7 @@ public class SupervisorSearchTicket extends BaseTest {
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         SoftAssert softAssert = new SoftAssert();
+        Map<String,String> workGroups=new HashMap<>();
         ticketListPage.writeTicketId(Data.getTicketNumber());
         ticketListPage.clickSearchBtn();
         ticketListPage.waitTillLoaderGetsRemoved();
@@ -72,7 +74,7 @@ public class SupervisorSearchTicket extends BaseTest {
                 "Issue Sub Sub Type Validated");
         softAssert.assertEquals(ticketListPage.getCodeValue().toLowerCase().trim(), Data.getIssueCode().toLowerCase().trim(),
                 "Issue Code Validated");
-        softAssert.assertEquals(ticketListPage.getWorkGroupName().toLowerCase().trim(), Data.getWorkgroup().toLowerCase().trim(),
+        softAssert.assertEquals(ticketListPage.getWorkGroupName().toLowerCase().trim(), Data.getWorkgroup1().toLowerCase().trim(),
                 "Ticket WorkGroup Validated");
         softAssert.assertEquals(ticketListPage.getqueueValue().toLowerCase().trim(), Data.getAssignmentQueue().toLowerCase().trim(),
                 "Ticket Queue Validated");
@@ -80,17 +82,38 @@ public class SupervisorSearchTicket extends BaseTest {
                 "Ticket Priority Validated");
         softAssert.assertEquals(ticketListPage.getPriorityValue().toLowerCase().trim(), Data.getPriority().toLowerCase().trim(),
                 "Issue Type Validated");
-        softAssert.assertEquals(ticketListPage.convertToHR(ticketPOJO.getResult().getCommittedSla()),Data.getSLA(),"SLA does not configured Correctly");
+        softAssert.assertEquals(ticketListPage.convertToHR(ticketPOJO.getResult().getCommittedSla()),Data.getCommittedSLA(),"Committed SLA does not configured Correctly");
         Map<String,Long> sla=ticketPOJO.getResult().getSla();
+        if(Data.getWorkgroup1() !=null)
+        workGroups.put(Data.getWorkgroup1(),Data.getSLA1());
+        if(Data.getWorkgroup2() !=null)
+        workGroups.put(Data.getWorkgroup2(),Data.getSLA2());
+        if(Data.getWorkgroup3() !=null)
+        workGroups.put(Data.getWorkgroup3(),Data.getSLA3());
+        if(Data.getWorkgroup4() !=null)
+        workGroups.put(Data.getWorkgroup4(),Data.getSLA4());
         for (Map.Entry mapElement : sla.entrySet()) {
             String key = (String) mapElement.getKey();
             String value= mapElement.getValue().toString();
             System.out.println(key+" = "+value);
+            if(workGroups.containsKey(key)){
+                workGroups.remove(key);
+                ExtentTestManager.getTest().log(LogStatus.INFO,key+" : workgroup is configured correctly in DB as mentioned in configuration");
+            }else{
+                ExtentTestManager.getTest().log(LogStatus.FAIL,key+" workgroup is not configured correctly in DB as not mentioned in configuration");
+            }
             if(value.charAt(0)=='-'){
                 softAssert.assertTrue(ticketListPage.isNegativeSLA(),"For negative SLA red symbol does not display");
             }else{
                 softAssert.assertTrue(ticketListPage.isPositiveSLA(),"For positive SLA green symbol does not display");
             }
+        }
+        for (Map.Entry mapElement : workGroups.entrySet()) {
+            String key = (String) mapElement.getKey();
+            String value= mapElement.getValue().toString();
+            if (key!=null)
+                if(!key.isEmpty())
+                    ExtentTestManager.getTest().log(LogStatus.FAIL,key+" workgroup is not configured correctly in DB as mentioned in configuration");
         }
         ticketListPage.clearInputBox();
         ticketListPage.waitTillLoaderGetsRemoved();

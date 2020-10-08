@@ -79,6 +79,11 @@
             <class name="tests.SupervisorSearchTicket"/>
         </classes>
     </test>
+    <test name="Ticket Transfer Rule Test ">
+        <classes>
+            <class name="tests.TicketTransferRuleTest"/>
+        </classes>
+    </test>
         <test name="Supervisors Validate Filter Option ">
             <classes>
                 <class name="tests.SupervisorFilterTest"/>

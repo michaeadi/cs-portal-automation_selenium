@@ -41,7 +41,7 @@ public class CreateTemplateTest extends BaseTest {
         softAssert.assertTrue(templateManagement.isTemplateNameAvailable(),"Template Name Label does not display on Template Management Page.");
         softAssert.assertTrue(templateManagement.isRoleAvailable(),"Role Label does not display on Template Management Page.");
         softAssert.assertTrue(templateManagement.isAgentChannelAvailable(),"Agent channel Label does not display on Template Management Page.");
-        softAssert.assertTrue(templateManagement.isSMSLanguageAvailable(),"SMS Langugae Label does not display on Template Management Page.");
+        softAssert.assertTrue(templateManagement.isSMSLanguageAvailable(),"SMS Language Label does not display on Template Management Page.");
         softAssert.assertAll();
     }
 

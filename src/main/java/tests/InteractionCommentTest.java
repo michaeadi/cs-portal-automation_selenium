@@ -153,6 +153,38 @@ public class InteractionCommentTest extends BaseTest {
                 }
                 interactionsPOM.setDateFieldAvailable(dtf.format(now));
             }
+
+            if (Data.getIssueFieldType6().equalsIgnoreCase("Text Box") && !Data.getIssueFieldLabel6().isEmpty()) {
+                System.out.println(interactionsPOM.getIssueDetailLabel("6"));
+                softAssert.assertEquals(interactionsPOM.getIssueDetailLabel("6").replace("*", "").trim(), (Data.getIssueFieldLabel6().replace("*", "").trim()));
+                if (Data.getIssueFieldMandatory6().equalsIgnoreCase("Yes")) {
+                    softAssert.assertTrue(interactionsPOM.getIssueDetailLabel("6").contains("*"), Data.getIssueFieldLabel6() + "Label is mandatory but doesn't contain '*' ");
+                }
+                interactionsPOM.setIssueDetailInput("6", "012345");
+            } else if (Data.getIssueFieldType6().equalsIgnoreCase("Date") && !Data.getIssueFieldLabel6().isEmpty()) {
+                System.out.println(interactionsPOM.isDateFieldAvailable());
+                softAssert.assertEquals(interactionsPOM.isDateFieldAvailable(), (Data.getIssueFieldLabel6()));
+                if (Data.getIssueFieldMandatory6().equalsIgnoreCase("Yes")) {
+                    softAssert.assertTrue(interactionsPOM.isDateFieldAvailable().contains("*"), Data.getIssueFieldLabel6() + "Label is mandatory but doesn't contain '*' ");
+                }
+                interactionsPOM.setDateFieldAvailable(dtf.format(now));
+            }
+
+            if (Data.getIssueFieldType7().equalsIgnoreCase("Text Box") && !Data.getIssueFieldLabel7().isEmpty()) {
+                System.out.println(interactionsPOM.getIssueDetailLabel("7"));
+                softAssert.assertEquals(interactionsPOM.getIssueDetailLabel("7").replace("*", "").trim(), (Data.getIssueFieldLabel7().replace("*", "").trim()));
+                if (Data.getIssueFieldMandatory7().equalsIgnoreCase("Yes")) {
+                    softAssert.assertTrue(interactionsPOM.getIssueDetailLabel("7").contains("*"), Data.getIssueFieldLabel7() + "Label is mandatory but doesn't contain '*' ");
+                }
+                interactionsPOM.setIssueDetailInput("7", "012345");
+            } else if (Data.getIssueFieldType7().equalsIgnoreCase("Date") && !Data.getIssueFieldLabel7().isEmpty()) {
+                System.out.println(interactionsPOM.isDateFieldAvailable());
+                softAssert.assertEquals(interactionsPOM.isDateFieldAvailable(), (Data.getIssueFieldLabel7()));
+                if (Data.getIssueFieldMandatory7().equalsIgnoreCase("Yes")) {
+                    softAssert.assertTrue(interactionsPOM.isDateFieldAvailable().contains("*"), Data.getIssueFieldLabel7() + "Label is mandatory but doesn't contain '*' ");
+                }
+                interactionsPOM.setDateFieldAvailable(dtf.format(now));
+            }
             interactionsPOM.sendComment("Automation Suite");
             Assert.assertTrue(interactionsPOM.isSaveEnable());
             interactionsPOM.clickOnSave();

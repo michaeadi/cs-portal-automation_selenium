@@ -126,18 +126,48 @@ public class nftrDataExcelToBeanDao {
                                 nftrDataBeans.setIssueFieldMandatory6(cellValue);
                                 break;
                             case 23:
-                                nftrDataBeans.setWorkgroup(cellValue);
+                                nftrDataBeans.setIssueFieldLabel7(cellValue);
                                 break;
                             case 24:
-                                nftrDataBeans.setSLA(cellValue);
+                                nftrDataBeans.setIssueFieldType7(cellValue);
                                 break;
                             case 25:
-                                nftrDataBeans.setAssignmentQueue(cellValue);
+                                nftrDataBeans.setIssueFieldMandatory7(cellValue);
                                 break;
                             case 26:
-                                nftrDataBeans.setPriority(cellValue);
+                                nftrDataBeans.setWorkgroup1(cellValue);
                                 break;
                             case 27:
+                                nftrDataBeans.setSLA1(cellValue);
+                                break;
+                            case 28:
+                                nftrDataBeans.setWorkgroup2(cellValue);
+                                break;
+                            case 29:
+                                nftrDataBeans.setSLA2(cellValue);
+                                break;
+                            case 30:
+                                nftrDataBeans.setWorkgroup3(cellValue);
+                                break;
+                            case 31:
+                                nftrDataBeans.setSLA3(cellValue);
+                                break;
+                            case 32:
+                                nftrDataBeans.setWorkgroup4(cellValue);
+                                break;
+                            case 33:
+                                nftrDataBeans.setSLA4(cellValue);
+                                break;
+                            case 34:
+                                nftrDataBeans.setCommittedSLA(cellValue);
+                                break;
+                            case 35:
+                                nftrDataBeans.setAssignmentQueue(cellValue);
+                                break;
+                            case 36:
+                                nftrDataBeans.setPriority(cellValue);
+                                break;
+                            case 37:
                                 nftrDataBeans.setTicketNumber(cellValue);
                                 break;
 
