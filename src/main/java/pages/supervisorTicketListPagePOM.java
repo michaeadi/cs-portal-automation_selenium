@@ -16,11 +16,11 @@ public class supervisorTicketListPagePOM extends BasePage {
     @CacheLookup
     By searchTicketBox = By.xpath("//input[@type='search'][1]");
     By searchTicketBox2=By.xpath("//span[@class='search-box small-search']//input");
-    By searchTicketBtn = By.xpath("//html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button");
-    By ticketIdLabel = By.xpath("//div//div//div//div//div//div//div//div//div//ul[1]//li[1]//span[1]");
     @CacheLookup
+    By searchTicketBtn = By.xpath("//app-ticket-search-box//button");
+    By ticketIdLabel = By.xpath("//app-ticket-list//div[1]//div//div[2]//ul[1]//li[1]//span[@class=\"data-title\"]");
     By ticketIdvalue = By.xpath("//ul[1]//li[1]//span[2]");
-    By workGroupName = By.xpath("//body/app-root/app-dashboard/div/app-admin-panel/div/div/app-sidenav-bar/mat-sidenav-container/mat-sidenav-content/div/app-service-request/div/app-backend-supervisor/mat-sidenav-container/mat-sidenav-content/section/div/div/div/div/div/ul[1]/li[2]/span[1]");
+    By workGroupName = By.xpath("//app-ticket-list//div[@class=\"row\"]//div[2]//ul[1]//li[2]//span[@class=\"data-title value-clr\"]");
     By workgroupSLA = By.xpath("//ul[1]//li[2]//span[2]");
     By prioritylabel = By.xpath("//div//div//div//div//div//div//div//div//div//ul[1]//li[3]//span[1]");
     By priorityValue = By.xpath("//div//div//div//div//div//div//div//div//div//ul[1]//li[3]//span[2]");
@@ -44,7 +44,7 @@ public class supervisorTicketListPagePOM extends BasePage {
     By codeLabel = By.xpath("//ul[2]//li[5]//span[1]");
     By codeValue = By.xpath("//ul[2]//li[5]//span[2]");
     By assignedto = By.xpath("//body//p//span[1]");
-    By checkBox = By.xpath("//*[@id=\"style-3\"]/app-sidenav-bar/mat-sidenav-container/mat-sidenav-content/div/app-service-request/div/app-backend-supervisor/mat-sidenav-container/mat-sidenav-content/section/div[2]/div[1]/div/div[1]/input");
+    By checkBox = By.xpath("//app-ticket-list//div[1]//div[1]//div[1]//input[@class=\"supercheck\"]");
     By assignToagentBtn = By.xpath("//li[1]//button[1]");
     By transfertoQueueBtn = By.xpath("//li[2]//button[1]");
     By loggedInQueue = By.xpath("//span[contains(text(),'Login with Ticket Pool')]");

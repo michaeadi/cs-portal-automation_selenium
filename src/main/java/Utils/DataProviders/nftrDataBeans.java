@@ -41,8 +41,15 @@ public class nftrDataBeans {
     String issueFieldType7;
     String issueFieldMandatory7;
 
-    String workgroup;
-    String SLA;
+    String workgroup1;
+    String SLA1;
+    String workgroup2;
+    String SLA2;
+    String workgroup3;
+    String SLA3;
+    String workgroup4;
+    String SLA4;
+    String committedSLA;
     String assignmentQueue;
     String priority;
     String ticketNumber;
