@@ -16,6 +16,7 @@ public class supervisorTicketListPagePOM extends BasePage {
     @CacheLookup
     By searchTicketBox = By.xpath("//input[@type='search'][1]");
     By searchTicketBox2=By.xpath("//span[@class='search-box small-search']//input");
+    @CacheLookup
     By searchTicketBtn = By.xpath("//app-ticket-search-box//button");
     By ticketIdLabel = By.xpath("//app-ticket-list//div[1]//div//div[2]//ul[1]//li[1]//span[@class=\"data-title\"]");
     By ticketIdvalue = By.xpath("//ul[1]//li[1]//span[2]");
@@ -53,7 +54,7 @@ public class supervisorTicketListPagePOM extends BasePage {
     By selectFilterBtn = By.xpath("//span[contains(text(),'Select Filter')]");
     By pageRefreshBtn = By.xpath("//span[contains(text(),'Refresh ')]");
     By noResultFound = By.xpath("//body//mat-error//p[1]");
-    By resetFilterButton = By.xpath("//div[@class=\"clear-filter-btn\"]//button");
+    By resetFilterButton = By.xpath("//div[@class='clear-filter-btn']//button");
     By reOpenBtn = By.xpath("//li[1]//button[1]");
     By reOpenBox = By.xpath("//*[@placeholder=\"Leave a comment\"]");
     By submitReopenComment = By.className("sbt-btn");
@@ -289,16 +290,18 @@ public class supervisorTicketListPagePOM extends BasePage {
     }
 
 
-    public void clickFilter() {
+    public FilterTabPOM clickFilter() {
         log.info("Selecting Filter");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Selecting Filter");
         click(selectFilterBtn);
+       return new FilterTabPOM(driver);
     }
 
     public void resetFilter() {
         log.info("Removing Filter");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Removing Filter");
         click(resetFilterButton);
+        waitTillLoaderGetsRemoved();
     }
 
     public boolean validateQueueFilter(String text) {
@@ -413,6 +416,7 @@ public class supervisorTicketListPagePOM extends BasePage {
         for(int i=1;i<=list.size();i++){
             By search=By.xpath("//ul[@class='ng-star-inserted']//li["+i+"]");
             log.info("Options Available : "+readText(search));
+            ExtentTestManager.getTest().log(LogStatus.INFO,"Options Available : "+readText(search));
             searchOption.add(readText(search).trim());
         }
         return searchOption;

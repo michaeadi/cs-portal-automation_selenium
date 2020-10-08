@@ -1,5 +1,10 @@
 package Utils;
 
+import Utils.ExcelUtils.writeToExcel;
+import tests.BaseTest;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.Base64;
 
 public class PassUtils {
@@ -12,7 +17,4 @@ public class PassUtils {
         return new String(decodedBytes);
     }
 
-    public static void main(String[] args) {
-        System.out.println(encodePassword("riya@0983"));
-    }
 }

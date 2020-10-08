@@ -18,7 +18,7 @@ public class ExtentManager {
             //Set HTML reporting file location
             String workingDir = System.getProperty ("user.dir");
             if (System.getProperty("os.name").toLowerCase().contains("win")) {
-                extent = new ExtentReports(workingDir + "\\ExtentReports\\CS_Portal-Automation-Report-" + date + ".html", true);
+                extent = new ExtentReports(workingDir + "\\ExtentReports\\CS_Portal-"+BaseTest.Opco+"-"+BaseTest.Env+"-"+ date + ".html", true);
                 extent.addSystemInfo("user", "Ravtej Singh");
                 extent.assignProject("CS Portal");
                 extent.addSystemInfo("OPCO", BaseTest.Opco);
