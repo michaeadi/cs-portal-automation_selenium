@@ -17,7 +17,7 @@ public class supervisorTicketListPagePOM extends BasePage {
     By searchTicketBox = By.xpath("//input[@type='search'][1]");
     By searchTicketBox2=By.xpath("//span[@class='search-box small-search']//input");
     By searchTicketBtn = By.xpath("//app-ticket-search-box//button");
-    By ticketIdLabel = By.xpath("//div//div//div//div//div//div//div//div//div//ul[1]//li[1]//span[1]");
+    By ticketIdLabel = By.xpath("//app-ticket-list//div[1]//div//div[2]//ul[1]//li[1]//span[@class=\"data-title\"]");
     By ticketIdvalue = By.xpath("//ul[1]//li[1]//span[2]");
     By workGroupName = By.xpath("//app-ticket-list//div[@class=\"row\"]//div[2]//ul[1]//li[2]//span[@class=\"data-title value-clr\"]");
     By workgroupSLA = By.xpath("//ul[1]//li[2]//span[2]");
@@ -53,7 +53,7 @@ public class supervisorTicketListPagePOM extends BasePage {
     By selectFilterBtn = By.xpath("//span[contains(text(),'Select Filter')]");
     By pageRefreshBtn = By.xpath("//span[contains(text(),'Refresh ')]");
     By noResultFound = By.xpath("//body//mat-error//p[1]");
-    By resetFilterButton = By.xpath("//body/app-root/app-dashboard/div/app-admin-panel/div/div/app-sidenav-bar/mat-sidenav-container/mat-sidenav-content/div/app-service-request/div/app-backend-supervisor/mat-sidenav-container/mat-sidenav-content/section/div/div/button[1]");
+    By resetFilterButton = By.xpath("//div[@class=\"clear-filter-btn\"]//button");
     By reOpenBtn = By.xpath("//li[1]//button[1]");
     By reOpenBox = By.xpath("//*[@placeholder=\"Leave a comment\"]");
     By submitReopenComment = By.className("sbt-btn");
