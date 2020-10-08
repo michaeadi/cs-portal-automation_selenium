@@ -96,12 +96,24 @@ public class SupervisorSearchTicket extends BaseTest {
             String key = (String) mapElement.getKey();
             String value= mapElement.getValue().toString();
             System.out.println(key+" = "+value);
-            softAssert.assertTrue(workGroups.containsKey(key),key+" workgroup must not be configured correctly.");
+            if(workGroups.containsKey(key)){
+                workGroups.remove(key);
+                ExtentTestManager.getTest().log(LogStatus.INFO,key+" : workgroup is configured correctly in DB as mentioned in configuration");
+            }else{
+                ExtentTestManager.getTest().log(LogStatus.FAIL,key+" workgroup is not configured correctly in DB as not mentioned in configuration");
+            }
             if(value.charAt(0)=='-'){
                 softAssert.assertTrue(ticketListPage.isNegativeSLA(),"For negative SLA red symbol does not display");
             }else{
                 softAssert.assertTrue(ticketListPage.isPositiveSLA(),"For positive SLA green symbol does not display");
             }
+        }
+        for (Map.Entry mapElement : workGroups.entrySet()) {
+            String key = (String) mapElement.getKey();
+            String value= mapElement.getValue().toString();
+            if (key!=null)
+                if(!key.isEmpty())
+                    ExtentTestManager.getTest().log(LogStatus.FAIL,key+" workgroup is not configured correctly in DB as mentioned in configuration");
         }
         ticketListPage.clearInputBox();
         ticketListPage.waitTillLoaderGetsRemoved();
