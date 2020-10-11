@@ -183,6 +183,24 @@ public class DataProviders {
         return hashMapObj;
     }
 
+    public String ticketStateClosed() {
+        TicketStateToBean ticketStateToBean = new TicketStateToBean();
+        File Exceldir = new File("Excels");
+        File Excel = new File(Exceldir, BaseTest.ExcelPath);
+        List<TicketStateDataBean> list =
+                ticketStateToBean.getData(Excel.getAbsolutePath(), config.getProperty("ticketState"));
+        List<TicketStateDataBean> closeState = new ArrayList<TicketStateDataBean>();
+        List<TicketStateDataBean> openState = new ArrayList<TicketStateDataBean>();
+        for (TicketStateDataBean state : list) {
+            if (state.getInternalState().equals(config.getProperty("closeState"))) {
+                closeState.add(state);
+            } else {
+                openState.add(state);
+            }
+        }
+       return closeState.get(0).getTicketStateName();
+    }
+
     @DataProvider(name = "ticketId")
     public Object[][] getTestData5() {
         nftrDataExcelToBeanDao credsExcelToBeanDao = new nftrDataExcelToBeanDao();

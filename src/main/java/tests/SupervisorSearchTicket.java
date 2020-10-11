@@ -40,7 +40,7 @@ public class SupervisorSearchTicket extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 3, dependsOnMethods = "agentSkipQueueLogin", description = "Ticket Search ", dataProvider = "ticketId", dataProviderClass = DataProviders.class)
+    @Test(priority = 2, dependsOnMethods = "agentSkipQueueLogin", description = "Ticket Search ", dataProvider = "ticketId", dataProviderClass = DataProviders.class)
     public void SearchTicket(Method method, nftrDataBeans Data) {
         ExtentTestManager.startTest("Search Ticket & Validate Ticket Meta Data", "Search Ticket & Validate Ticket Meta Data");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
@@ -120,7 +120,7 @@ public class SupervisorSearchTicket extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 4, description = "Validate Assign to Agent and Transfer to Queue Option", dataProviderClass = DataProviders.class)
+    @Test(priority = 3, description = "Validate Assign to Agent and Transfer to Queue Option", dataProviderClass = DataProviders.class)
     public void validateCheckBox(Method method) {
         ExtentTestManager.startTest("Validate Check Box", "Validate Assign to Agent and Transfer to Queue Option om Open Ticket");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");

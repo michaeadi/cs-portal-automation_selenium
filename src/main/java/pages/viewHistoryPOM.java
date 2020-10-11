@@ -39,6 +39,7 @@ public class viewHistoryPOM extends BasePage {
 
     public MessageHistoryTabPOM clickOnMessageHistory() {
         log.info("Clicking on Message History Tab under view history ");
+        ExtentTestManager.getTest().log(LogStatus.INFO,"Clicking on Message History Tab under view history ");
         waitTillLoaderGetsRemoved();
         click(messageHistory);
         return new MessageHistoryTabPOM(driver);

@@ -1,10 +1,16 @@
 package tests;
 
+import API.APITest;
+import POJO.SMSHistory.SMSHistoryList;
+import POJO.SMSHistory.SMSHistoryPOJO;
 import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.TestDatabean;
 import Utils.DataProviders.TicketStateDataBean;
+import Utils.DataProviders.nftrDataBeans;
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -16,7 +22,14 @@ import java.lang.reflect.Method;
 public class SupervisorUpdateTicket extends BaseTest {
 
     String ticketId;
+    String customerNumber=null;
+    APITest api = new APITest();
 
+    @DataProviders.User(UserType = "NFTR")
+    @Test(priority = 0, dataProvider = "loginData", dataProviderClass = DataProviders.class)
+    public void setCustomerNumber(Method method, TestDatabean Data){
+       customerNumber=Data.getCustomerNumber();
+    }
 
     @Test(priority = 1, description = "Supervisor SKIP Login ", dataProviderClass = DataProviders.class)
     public void agentSkipQueueLogin() {
@@ -37,29 +50,42 @@ public class SupervisorUpdateTicket extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 2, dependsOnMethods = "agentSkipQueueLogin", description = "Update Ticket", dataProvider = "ticketState", dataProviderClass = DataProviders.class)
-    public void updateTicket(Method method, TicketStateDataBean ticketState) throws InterruptedException {
+    @Test(priority = 2, dependsOnMethods = "agentSkipQueueLogin", description = "Update Ticket", dataProvider = "ticketId", dataProviderClass = DataProviders.class)
+    public void updateTicket(Method method, nftrDataBeans Data) throws InterruptedException {
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         ViewTicketPagePOM viewTicket = new ViewTicketPagePOM(driver);
         ExtentTestManager.startTest("Update Ticket", "Update Ticket");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SoftAssert softAssert = new SoftAssert();
-//        ticketListPage.writeTicketId(ticketId);
-//        ticketListPage.clickedSearchBtn();
-//        Thread.sleep(20000); // Update Particular Ticket
-        ticketId = ticketListPage.getTicketIdvalue();
-        ticketListPage.viewTicket();
-        Assert.assertEquals(ticketId, viewTicket.getTicketId(),"Verify the searched Ticket fetched Successfully");
-        String selectedState = viewTicket.selectState(ticketState.getTicketStateName());
-        ticketListPage.waitTillLoaderGetsRemoved();
-        ticketListPage.changeTicketTypeToClosed();
-        ticketListPage.waitTillLoaderGetsRemoved();
-        ticketListPage.writeTicketId(ticketId);
+        ticketListPage.writeTicketId(Data.getTicketNumber());
         ticketListPage.clickSearchBtn();
         ticketListPage.waitTillLoaderGetsRemoved();
-        softAssert.assertEquals(ticketListPage.getTicketIdvalue(),ticketId,"Search Ticket Does not Fetched Correctly");
-        //softAssert.assertEquals(ticketState.getTicketStateName(),ticketListPage.getStatevalue());
-        softAssert.assertEquals(ticketListPage.getStatevalue(),selectedState,"Ticket Does not Updated to Selected State");
+        DataProviders data=new DataProviders();
+        ticketListPage.viewTicket();
+        Assert.assertEquals(Data.getTicketNumber(), viewTicket.getTicketId(),"Verify the searched Ticket fetched Successfully");
+        String selectedState = viewTicket.selectState(data.ticketStateClosed());
+        if(selectedState.equalsIgnoreCase(data.ticketStateClosed())){
+            ticketListPage.waitTillLoaderGetsRemoved();
+            ticketListPage.changeTicketTypeToClosed();
+            ticketListPage.waitTillLoaderGetsRemoved();
+            ticketListPage.writeTicketId(Data.getTicketNumber());
+            ticketListPage.clickSearchBtn();
+            ticketListPage.waitTillLoaderGetsRemoved();
+            softAssert.assertEquals(ticketListPage.getTicketIdvalue(),Data.getTicketNumber(),"Search Ticket Does not Fetched Correctly");
+            Assert.assertEquals(ticketListPage.getStatevalue(),selectedState,"Ticket Does not Updated to Selected State");
+            SMSHistoryPOJO smsHistory=api.smsHistoryTest(customerNumber);
+            SMSHistoryList list=smsHistory.getResult().get(0);
+            ExtentTestManager.getTest().log(LogStatus.INFO,"Message Sent after closure: "+list.getMessageText());
+            softAssert.assertTrue(list.getMessageText().contains(Data.getTicketNumber()),"Message Sent does not send for same ticket id which has been closed");
+            softAssert.assertEquals(list.getSmsType().toLowerCase().trim(),config.getProperty("systemSMSType"),"Message type is not system");
+            softAssert.assertFalse(list.isAction(),"Action button is not disabled");
+            softAssert.assertEquals(list.getTemplateName().toLowerCase().trim(),config.getProperty("ticketCreateEvent").toLowerCase().trim(),"Template event not same as defined.");
+        }else{
+            viewTicket.clickBackButton();
+        }
+        ticketListPage.clearInputBox();
+        ticketListPage.changeTicketTypeToOpen();
+        ticketListPage.waitTillLoaderGetsRemoved();
         softAssert.assertAll();
     }
 

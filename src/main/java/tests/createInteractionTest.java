@@ -11,10 +11,7 @@ import org.openqa.selenium.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pages.InteractionsPOM;
-import pages.SideMenuPOM;
-import pages.customerInteractionPagePOM;
-import pages.customerInteractionsSearchPOM;
+import pages.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -328,8 +325,19 @@ public class createInteractionTest extends BaseTest {
                 getScreenshotAs(OutputType.BASE64);
         ExtentTestManager.getTest().log(LogStatus.INFO, ExtentTestManager.getTest().addBase64ScreenShot(base64Screenshot));
         interactionsPOM.closeInteractions();
+        customerInteractionPagePOM customerInteractionPage = new customerInteractionPagePOM(driver);
+        viewHistoryPOM viewHistory = customerInteractionPage.clickOnViewHistory();
+        viewHistory.waitTillLoaderGetsRemoved();
+        MessageHistoryTabPOM messageHistory=viewHistory.clickOnMessageHistory();
+        messageHistory.waitTillLoaderGetsRemoved();
+        softAssert.assertTrue(messageHistory.isMessageTypeColumn(),"Message Type Column does not display on UI");
+        softAssert.assertEquals(messageHistory.messageType(1).toLowerCase().trim(),config.getProperty("systemSMSType").toLowerCase().trim(),"Message Type is not system");
+        softAssert.assertEquals(messageHistory.templateEvent(1).toLowerCase().trim(),config.getProperty("ticketCreateEvent").toLowerCase().trim(),"Template event not same as defined.");
+        softAssert.assertTrue(messageHistory.messageText(1).contains(ticket_number),"Message content not same as set message content.");
+        softAssert.assertTrue(messageHistory.isActionBtnDisable(1),"Resend SMS icon does not disable");
+        softAssert.assertTrue(messageHistory.agentId(1).trim().equalsIgnoreCase("-")," :Agent id does not empty");
+        softAssert.assertTrue(messageHistory.agentName(1).trim().equalsIgnoreCase("-")," :Agent name does not empty");
         softAssert.assertAll();
-
     }
 
 
