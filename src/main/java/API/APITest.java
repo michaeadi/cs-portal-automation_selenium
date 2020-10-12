@@ -1,6 +1,7 @@
 package API;
 
 import POJO.*;
+import POJO.SMSHistory.SMSHistoryPOJO;
 import POJO.TicketList.TicketPOJO;
 import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.TestDatabean;
@@ -320,6 +321,23 @@ public class APITest extends tests.BaseTest {
         getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
         getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
         return response.as(TicketPOJO.class);
+    }
+
+    public SMSHistoryPOJO smsHistoryTest(String msisdn){
+        getTest().log(LogStatus.INFO, "Using fetch ticket details using ticket Id to validate ticket meta data");
+        baseURI = baseUrl;
+        Headers headers = new Headers(map);
+        RequestSpecification request = given()
+                .headers(headers).body("{\"receiverId\":"+msisdn+",\"pageNumber\":0,\"pageSize\":10}").contentType("application/json");
+        QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
+        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
+        log.info("Request Headers are  : " + queryable.getHeaders());
+        Response response = request.post("/cs-notification-service/v1/fetch/history");
+        log.info("Response : " + response.asString());
+        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
+        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        return response.as(SMSHistoryPOJO.class);
     }
 
 }

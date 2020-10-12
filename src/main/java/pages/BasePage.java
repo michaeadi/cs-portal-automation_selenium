@@ -29,6 +29,7 @@ public class BasePage {
     public WebDriver driver;
     public WebDriverWait wait;
     By loader = By.xpath("/html/body/app-root/ngx-ui-loader/div[2]");
+    By loader1=By.xpath("//div[@class=\"ngx-overlay foreground-closing\"]");
     By overlay=By.xpath("//mat-dialog-container[@role='dialog']");
     By timeLine=By.xpath("//app-new-loader[@class=\"ng-star-inserted\"]//div[1]");
     By home = By.xpath("//div[text()=\"HOME\"]");
@@ -43,6 +44,7 @@ public class BasePage {
 
     public void waitTillLoaderGetsRemoved() {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(loader1));
     }
 
     public void waitTillOverlayGetsRemoved() {
@@ -216,5 +218,25 @@ public class BasePage {
         Long ms=Long.parseLong(committedSla);
         log.info("Converting SLA: "+committedSla+" to "+String.valueOf(TimeUnit.MILLISECONDS.toHours(ms)));
         return String.valueOf(TimeUnit.MILLISECONDS.toHours(ms));
+    }
+
+    public void printInfoLog(String message){
+        log.info(message);
+        ExtentTestManager.getTest().log(LogStatus.INFO,message);
+    }
+
+    public void printFailLog(String message){
+        log.info(message);
+        ExtentTestManager.getTest().log(LogStatus.FAIL,message);
+    }
+
+    public void printPassLog(String message){
+        log.info(message);
+        ExtentTestManager.getTest().log(LogStatus.PASS,message);
+    }
+
+    public void printWarningLog(String message){
+        log.info(message);
+        ExtentTestManager.getTest().log(LogStatus.WARNING,message);
     }
 }

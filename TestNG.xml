@@ -144,6 +144,11 @@
                 <class name="tests.ViewTemplateTest"/>
             </classes>
         </test>
+        <test name="Send SMS Test">
+            <classes>
+                <class name="tests.SendSMSTest"/>
+            </classes>
+        </test>
         <test name="UserManagement Test">
             <classes>
                 <class name="tests.userManagementTest"/>

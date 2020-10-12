@@ -23,6 +23,7 @@ public class ViewTicketPagePOM extends BasePage {
     By allTicketState=By.xpath("//div[@class='cdk-overlay-pane']//mat-option");
     By continueBtn=By.xpath("//span[contains(text(),'continue')]");
     By cancelBtn=By.xpath("//button[@class='no-btn mat-button']");
+    By backButton=By.xpath("//button[@class=\"back mat-button\"]");
 
     public ViewTicketPagePOM(WebDriver driver) {
         super(driver);
@@ -181,5 +182,10 @@ public class ViewTicketPagePOM extends BasePage {
         return true;
     }
 
+    public void clickBackButton() throws InterruptedException {
+        log.info("Clicking Back button");
+        scrollToViewElement(backButton);
+        click(backButton);
+    }
 
 }
