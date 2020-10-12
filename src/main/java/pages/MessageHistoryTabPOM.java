@@ -24,6 +24,10 @@ public class MessageHistoryTabPOM extends BasePage {
     By actionLabel=By.xpath("//table[@id=\"fetchTicketByCustomer\"]//thead/tr[1]/th[8]//b");
     By listOfMessage=By.xpath("//table[@id=\"fetchTicketByCustomer\"]//tbody/tr");
     List<WebElement> list=driver.findElements(listOfMessage);
+    By popUpTitle=By.xpath("//h1[@id='mat-dialog-title-1']");
+    By popUpMessage=By.xpath("//p[@class=\"error\"]");
+    By yesBtn=By.xpath("//div[@class=\"deactivate-popup__content mat-dialog-content\"]//button[2]");
+    By noBtn=By.xpath("//div[@class=\"deactivate-popup__content mat-dialog-content\"]//button[1]");
 
     public boolean isMessageTypeColumn(){
         boolean state=checkState(messageTypeLabel);
@@ -159,5 +163,34 @@ public class MessageHistoryTabPOM extends BasePage {
         }
         return false;
     }
+
+    public void clickActionBtn(int i){
+        if(i<=list.size()){
+            By actionEnable=By.xpath("//table[@id=\"fetchTicketByCustomer\"]//tbody/tr["+i+"]//td[8]//img");
+            click(actionEnable);
+        }
+    }
+
+    public String getPopUpTitle(){
+        printInfoLog("Reading pop title: "+readText(popUpTitle));
+        return readText(popUpTitle);
+    }
+
+    public String getPopUpMessage(){
+        printInfoLog("Reading pop message: "+readText(popUpMessage));
+        return readText(popUpMessage);
+    }
+
+    public void clickYesBtn(){
+        printInfoLog("Clicking on 'Yes' Button");
+        click(yesBtn);
+    }
+
+    public void clickNoBtn(){
+        printInfoLog("Clicking on 'NO' Button");
+        click(noBtn);
+    }
+
+
 }
 

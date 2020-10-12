@@ -89,6 +89,27 @@ public class SendSMSTest extends BaseTest {
         softAssert.assertEquals(messageHistory.templateEvent(1).toLowerCase().trim(),templateName.toLowerCase().trim(),"Template name not same as sent template.");
         softAssert.assertEquals(messageHistory.messageText(1).toLowerCase().trim(),messageContent.toLowerCase().trim(),"Message content not same as set message content.");
         softAssert.assertTrue(messageHistory.isActionBtnEnable(1),"Resend SMS icon does not enable");
+        softAssert.assertTrue(!messageHistory.agentId(1).trim().equalsIgnoreCase("-"),"Agent id must not be empty");
+        softAssert.assertTrue(!messageHistory.agentName(1).trim().equalsIgnoreCase("-"),"Agent name must not be empty");
+        softAssert.assertAll();
+    }
+
+    @Test(priority = 5,description = "Re Send SMS using action button in message history")
+    public void ReSendMessageLog(){
+        ExtentTestManager.startTest("Re Send SMS using action button in message history", "Re Send SMS using action button in message history");
+        SoftAssert softAssert = new SoftAssert();
+        MessageHistoryTabPOM messageHistory=new MessageHistoryTabPOM(driver);
+        messageHistory.waitTillLoaderGetsRemoved();
+        messageHistory.clickActionBtn(1);
+        messageHistory.getPopUpTitle();
+        Assert.assertTrue(messageHistory.getPopUpMessage().contains(customerNumber),"Pop up Message tab does not contain customer number");
+        messageHistory.clickYesBtn();
+        messageHistory.waitTillLoaderGetsRemoved();
+        softAssert.assertTrue(messageHistory.isMessageTypeColumn(),"Message Type Column does not display on UI");
+        softAssert.assertEquals(messageHistory.messageType(1).toLowerCase().trim(),config.getProperty("manualSMSType").toLowerCase().trim(),"Message Type is not manual");
+        softAssert.assertEquals(messageHistory.templateEvent(1).toLowerCase().trim(),templateName.toLowerCase().trim(),"Template name not same as sent template.");
+        softAssert.assertEquals(messageHistory.messageText(1).toLowerCase().trim(),messageContent.toLowerCase().trim(),"Message content not same as set message content.");
+        softAssert.assertTrue(messageHistory.isActionBtnEnable(1),"Resend SMS icon does not enable");
         softAssert.assertTrue(!messageHistory.agentId(1).trim().equalsIgnoreCase("-"),messageHistory.agentId(1)+" :Agent id must not be empty");
         softAssert.assertTrue(!messageHistory.agentName(1).trim().equalsIgnoreCase("-"),messageHistory.agentName(1)+" :Agent name must not be empty");
         softAssert.assertAll();
