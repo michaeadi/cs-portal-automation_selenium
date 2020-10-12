@@ -77,7 +77,7 @@ public class SupervisorUpdateTicket extends BaseTest {
             SMSHistoryList list=smsHistory.getResult().get(0);
             ExtentTestManager.getTest().log(LogStatus.INFO,"Message Sent after closure: "+list.getMessageText());
             softAssert.assertTrue(list.getMessageText().contains(Data.getTicketNumber()),"Message Sent does not send for same ticket id which has been closed");
-            softAssert.assertEquals(list.getSmsType().toLowerCase().trim(),config.getProperty("systemSMSType"),"Message type is not system");
+            softAssert.assertEquals(list.getSmsType().toLowerCase().trim(),config.getProperty("systemSMSType").toLowerCase().trim(),"Message type is not system");
             softAssert.assertFalse(list.isAction(),"Action button is not disabled");
             softAssert.assertEquals(list.getTemplateName().toLowerCase().trim(),config.getProperty("ticketCreateEvent").toLowerCase().trim(),"Template event not same as defined.");
         }else{
