@@ -38,6 +38,7 @@ public class customerInteractionPagePOM extends BasePage {
     By rechargeHistoryTab=By.xpath("//div[contains(text(),'RECHARGE HISTORY')]");
     By homeActionBtn=By.xpath("//span[@class='action-placeholder']");
     By sendSMSAction=By.xpath("//div[@class=\"mat-menu-content\"]//button[contains(text(),'Send SMS')]");
+    By simBarUnBar=By.xpath("//div[@class=\"mat-menu-content\"]//button[1]");
 
     public customerInteractionPagePOM(WebDriver driver) {
         super(driver);
@@ -214,5 +215,12 @@ public class customerInteractionPagePOM extends BasePage {
         click(sendSMSAction);
         return new SendSMSPOM(driver);
     }
+
+    public AuthenticationTabPOM openAuthTab(){
+        printInfoLog("Opening Authentication tab for : "+readText(simBarUnBar));
+        click(simBarUnBar);
+        return new AuthenticationTabPOM(driver);
+    }
+
 
 }
