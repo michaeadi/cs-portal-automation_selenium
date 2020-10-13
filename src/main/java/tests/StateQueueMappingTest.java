@@ -1,5 +1,10 @@
 package tests;
 
+import API.APITest;
+import POJO.TicketList.QueueStates;
+import POJO.TicketList.TicketPOJO;
+import Utils.DataProviders.DataProviders;
+import Utils.DataProviders.QueueStateDataBeans;
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 import org.testng.Assert;
@@ -8,9 +13,12 @@ import org.testng.asserts.SoftAssert;
 import pages.*;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
-public class TransferToQueueTest extends BaseTest {
+public class StateQueueMappingTest extends BaseTest {
 
+    APITest api = new APITest();
 
     @Test(priority = 1, description = "Supervisor SKIP Login ", enabled = true)
     public void agentSkipQueueLogin(Method method){
@@ -31,45 +39,46 @@ public class TransferToQueueTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 2, dependsOnMethods = "agentSkipQueueLogin", description = "Transfer to queue", enabled = true)
-    public void transferToQueue(Method method) throws InterruptedException {
-        ExtentTestManager.startTest("Transfer to queue", "Transfer to queue");
+    @Test(priority = 2, dependsOnMethods = "agentSkipQueueLogin",dataProvider = "queueState", description = "State Queue Mapping Test", enabled = true,dataProviderClass = DataProviders.class)
+    public void transferToQueue(Method method, QueueStateDataBeans data) throws InterruptedException {
+        ExtentTestManager.startTest("State Queue Mapping Test", "State Queue Mapping Test");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
-        transferToQueuePOM transferQueue = new transferToQueuePOM(driver);
         FilterTabPOM filterTab = new FilterTabPOM(driver);
         SoftAssert softAssert = new SoftAssert();
         ticketListPage.clickFilter();
+        DataProviders dataProviders=new DataProviders();
         ticketListPage.waitTillLoaderGetsRemoved();
         filterTab.scrollToQueueFilter();
         ticketListPage.waitTillLoaderGetsRemoved();
         filterTab.clickQueueFilter();
-        filterTab.selectQueueByName(config.getProperty("ticketQueue"));
+        filterTab.selectQueueByName(data.getQueue());
         filterTab.clickOutsideFilter();
         filterTab.clickApplyFilter();
         ticketListPage.waitTillLoaderGetsRemoved();
-        softAssert.assertTrue(ticketListPage.validateQueueFilter(config.getProperty("ticketQueue")), "Queue Filter Does Applied Correctly");
-        Assert.assertEquals(ticketListPage.getqueueValue(), config.getProperty("ticketQueue"),"Ticket Does not found with Selected State");
+        softAssert.assertTrue(ticketListPage.validateQueueFilter(data.getQueue()), "Queue Filter Does Applied Correctly");
+        Assert.assertEquals(ticketListPage.getqueueValue(), data.getQueue(), "Ticket Does not found with Selected Queue");
         String ticketId = ticketListPage.getTicketIdvalue();
-        ticketListPage.resetFilter();
-        ticketListPage.waitTillLoaderGetsRemoved();
-        ticketListPage.writeTicketId(ticketId);
-        ticketListPage.clickSearchBtn();
-        ticketListPage.waitTillLoaderGetsRemoved();
-        //softAssert.assertTrue(ticketListPage.checkOpenTicketStateType());
-        ticketListPage.clickCheckbox();
-        softAssert.assertTrue(ticketListPage.isAssignToAgent(),"Assign to Agent Button Does Not Available");
-        softAssert.assertTrue(ticketListPage.isTransferToQueue(),"Transfer to Queue Button Does Not Available");
-        ticketListPage.clickTransfertoQueue();
-        softAssert.assertTrue(transferQueue.validatePageTitle());
-        transferQueue.clickTransferQueue(config.getProperty("transferQueue"));
-        ticketListPage.waitTillLoaderGetsRemoved();
-        Thread.sleep(5000);
-        ticketListPage.writeTicketId(ticketId);
-        ticketListPage.clickSearchBtn();
-        ticketListPage.waitTillLoaderGetsRemoved();
-        Assert.assertEquals(ticketListPage.getqueueValue().toLowerCase().trim(), config.getProperty("transferQueue").toLowerCase().trim(),"Ticket Does not Transfer to Selected Queue");
+        TicketPOJO ticketPOJO=api.ticketMetaDataTest(ticketId);
+        ArrayList<QueueStates> assignState=ticketPOJO.getResult().getQueueStates();
+        List<String> state=new ArrayList<>();
+        List<String> configState=dataProviders.getQueueState(data.getQueue());
+        if(assignState.isEmpty()){
+            for(QueueStates s:assignState){
+                state.add(s.getExternalStateName());
+            }
+        }
+
+        for(String s:state){
+            if(!configState.contains(s)){
+                ExtentTestManager.getTest().log(LogStatus.INFO,s+" :State must not mapped to '"+data.getQueue()+"' as its not mention in config.");
+            }
+            configState.remove(s);
+        }
+
+        for(String s:configState){
+            ExtentTestManager.getTest().log(LogStatus.INFO,s+" :State must be mapped to '"+data.getQueue()+"' as its mention in config.");
+        }
         softAssert.assertAll();
-        //Pick data onlyThrough EXCEL
     }
 }

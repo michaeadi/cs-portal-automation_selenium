@@ -593,4 +593,77 @@ public class DataProviders {
         }
         return reasons;
     }
+
+    @DataProvider(name = "queueState")
+    public Object[][] getQueueState() {
+        QueueStateBeanToExcel queueStateBeanToExcel = new QueueStateBeanToExcel();
+        File Exceldir = new File("Excels");
+        File Excel = new File(Exceldir, BaseTest.ExcelPath);
+        List<QueueStateDataBeans> list =
+                queueStateBeanToExcel.getData(Excel.getAbsolutePath(), config.getProperty("stateQueue"));
+        List<QueueStateDataBeans> finalTicketList = new ArrayList<QueueStateDataBeans>();
+        for (QueueStateDataBeans states : list) {
+            if (states.getQueue() != null) {
+                if(!states.getQueue().isEmpty()){
+                    finalTicketList.add(states);
+                }
+            }
+        }
+        Object[][] hashMapObj = new Object[finalTicketList.size()][1];
+        for (int i = 0; i < finalTicketList.size(); i++) {
+            hashMapObj[i][0] = finalTicketList.get(i);
+        }
+        return hashMapObj;
+    }
+
+    public List<String> getQueueState(String queue) {
+        QueueStateBeanToExcel queueStateBeanToExcel = new QueueStateBeanToExcel();
+        File ExcelDir = new File("Excels");
+        File Excel = new File(ExcelDir, BaseTest.ExcelPath);
+        List<QueueStateDataBeans> list =
+                queueStateBeanToExcel.getData(Excel.getAbsolutePath(), config.getProperty("stateQueue"));
+        List<String> allStates = new ArrayList<String>();
+        for (QueueStateDataBeans states : list) {
+            if(states.getQueue().equalsIgnoreCase(queue)){
+                if (isNull(states.getState1())) {
+                    allStates.add(states.getState1());
+                }
+                if (isNull(states.getState2())) {
+                    allStates.add(states.getState2());
+                }
+                if (isNull(states.getState3())) {
+                    allStates.add(states.getState3());
+                }
+                if (isNull(states.getState4())) {
+                    allStates.add(states.getState4());
+                }
+                if (isNull(states.getState5())) {
+                    allStates.add(states.getState5());
+                }
+                if (isNull(states.getState6())) {
+                    allStates.add(states.getState6());
+                }
+                if (isNull(states.getState7())) {
+                    allStates.add(states.getState7());
+                }
+                if (isNull(states.getState8())) {
+                    allStates.add(states.getState8());
+                }
+                if (isNull(states.getState9())) {
+                    allStates.add(states.getState9());
+                }
+                if (isNull(states.getState10())) {
+                    allStates.add(states.getState10());
+                }
+            }
+        }
+        return allStates;
+    }
+
+    public boolean isNull(String text){
+        return text != null && !text.isEmpty();
+    }
+
+
+
 }
