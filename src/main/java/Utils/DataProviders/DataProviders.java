@@ -626,34 +626,34 @@ public class DataProviders {
         for (QueueStateDataBeans states : list) {
             if(states.getQueue().equalsIgnoreCase(queue)){
                 if (isNull(states.getState1())) {
-                    allStates.add(states.getState1());
+                    allStates.add(states.getState1().toLowerCase().trim());
                 }
                 if (isNull(states.getState2())) {
-                    allStates.add(states.getState2());
+                    allStates.add(states.getState2().toLowerCase().trim());
                 }
                 if (isNull(states.getState3())) {
-                    allStates.add(states.getState3());
+                    allStates.add(states.getState3().toLowerCase().trim());
                 }
                 if (isNull(states.getState4())) {
-                    allStates.add(states.getState4());
+                    allStates.add(states.getState4().toLowerCase().trim());
                 }
                 if (isNull(states.getState5())) {
-                    allStates.add(states.getState5());
+                    allStates.add(states.getState5().toLowerCase().trim());
                 }
                 if (isNull(states.getState6())) {
-                    allStates.add(states.getState6());
+                    allStates.add(states.getState6().toLowerCase().trim());
                 }
                 if (isNull(states.getState7())) {
-                    allStates.add(states.getState7());
+                    allStates.add(states.getState7().toLowerCase().trim());
                 }
                 if (isNull(states.getState8())) {
-                    allStates.add(states.getState8());
+                    allStates.add(states.getState8().toLowerCase().trim());
                 }
                 if (isNull(states.getState9())) {
-                    allStates.add(states.getState9());
+                    allStates.add(states.getState9().toLowerCase().trim());
                 }
                 if (isNull(states.getState10())) {
-                    allStates.add(states.getState10());
+                    allStates.add(states.getState10().toLowerCase().trim());
                 }
             }
         }

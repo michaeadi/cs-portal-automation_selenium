@@ -307,7 +307,7 @@ public class supervisorTicketListPagePOM extends BasePage {
     public boolean validateQueueFilter(String text) {
         ExtentTestManager.getTest().log(LogStatus.INFO, "Validating Queue Filter");
         boolean answer=false;
-        for(int i=1;i<getListSize();i++){
+        for(int i=1;i<=getListSize();i++){
             By queue=By.xpath("//div[@class=\"table-card ng-star-inserted\"]["+i+"]//ul/li[7]/span[2]");
             log.info(readText(queue).trim()+" : "+text+" :"+readText(queue).trim().equalsIgnoreCase(text));
             answer=readText(queue).trim().equalsIgnoreCase(text);

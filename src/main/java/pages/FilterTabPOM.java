@@ -48,7 +48,7 @@ public class FilterTabPOM extends BasePage {
     //Filter By Queue
     By queueLabel=By.xpath("//span[contains(text(),'Filter By Queue')]");
     By showQueueFilter = By.xpath("//mat-label[contains(text(),'Select Queue')]");
-    By openQueueList = By.xpath("//app-custom-mat-select[@formcontrolname=\"selectedFilterQueue\"]");
+    By openQueueList = By.xpath("//mat-select[@formcontrolname=\"selectedFilterQueue\"]");
 
     //Filter By Ticket Assignee
     By ticketAssigneeLabel=By.xpath("//span[contains(text(),'Filter By Ticket Assignee')]");
@@ -86,7 +86,9 @@ public class FilterTabPOM extends BasePage {
 
     public void selectQueueByName(String queueName) throws InterruptedException {
         ExtentTestManager.getTest().log(LogStatus.INFO, "Select Queue Filter Name: "+queueName);
-        selectByText(queueName);
+        By queue=By.xpath("//mat-option//span[contains(text(),'"+queueName+"')]");
+        scrollToViewElement(queue);
+        click(queue);
     }
 
     public void clickApplyFilter() {

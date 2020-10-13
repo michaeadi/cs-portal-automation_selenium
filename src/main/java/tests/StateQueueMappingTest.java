@@ -40,7 +40,7 @@ public class StateQueueMappingTest extends BaseTest {
     }
 
     @Test(priority = 2, dependsOnMethods = "agentSkipQueueLogin",dataProvider = "queueState", description = "State Queue Mapping Test", enabled = true,dataProviderClass = DataProviders.class)
-    public void transferToQueue(Method method, QueueStateDataBeans data) throws InterruptedException {
+    public void stateQueueTest(Method method, QueueStateDataBeans data) throws InterruptedException {
         ExtentTestManager.startTest("State Queue Mapping Test", "State Queue Mapping Test");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
@@ -57,28 +57,33 @@ public class StateQueueMappingTest extends BaseTest {
         filterTab.clickApplyFilter();
         ticketListPage.waitTillLoaderGetsRemoved();
         softAssert.assertTrue(ticketListPage.validateQueueFilter(data.getQueue()), "Queue Filter Does Applied Correctly");
-        Assert.assertEquals(ticketListPage.getqueueValue(), data.getQueue(), "Ticket Does not found with Selected Queue");
+        Assert.assertEquals(ticketListPage.getqueueValue().toLowerCase().trim(), data.getQueue().toLowerCase().trim(), "Ticket Does not found with Selected Queue");
         String ticketId = ticketListPage.getTicketIdvalue();
         TicketPOJO ticketPOJO=api.ticketMetaDataTest(ticketId);
         ArrayList<QueueStates> assignState=ticketPOJO.getResult().getQueueStates();
         List<String> state=new ArrayList<>();
         List<String> configState=dataProviders.getQueueState(data.getQueue());
-        if(assignState.isEmpty()){
+        System.out.println(assignState.isEmpty()+" :Assign State Size:"+assignState.size());
+        if(!assignState.isEmpty()){
             for(QueueStates s:assignState){
+                System.out.println("State Mapped: "+s.getExternalStateName());
                 state.add(s.getExternalStateName());
             }
         }
 
         for(String s:state){
-            if(!configState.contains(s)){
-                ExtentTestManager.getTest().log(LogStatus.INFO,s+" :State must not mapped to '"+data.getQueue()+"' as its not mention in config.");
+            System.out.println("State:"+s);
+            if(!configState.contains(s.toLowerCase().trim())){
+                ExtentTestManager.getTest().log(LogStatus.FAIL,s+" :State must not mapped to '"+data.getQueue()+"' as its not mention in config.");
             }
-            configState.remove(s);
+            configState.remove(s.toLowerCase().trim());
         }
 
         for(String s:configState){
-            ExtentTestManager.getTest().log(LogStatus.INFO,s+" :State must be mapped to '"+data.getQueue()+"' as its mention in config.");
+            ExtentTestManager.getTest().log(LogStatus.FAIL,s+" :State must be mapped to '"+data.getQueue()+"' as its mention in config.");
         }
+        ticketListPage.waitTillLoaderGetsRemoved();
+        ticketListPage.resetFilter();
         softAssert.assertAll();
     }
 }
