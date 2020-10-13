@@ -50,11 +50,16 @@
                 <class name="tests.InteractionCommentTest"/>
             </classes>
         </test>
-        <test name="Validate Frontend Agent Ticket Page">
-            <classes>
-                <class name="tests.FrontendAgentTicketTest"/>
-            </classes>
-        </test>
+    <test name="Validate Frontend Agent Ticket Page">
+         <classes>
+             <class name="tests.FrontendAgentTicketTest"/>
+         </classes>
+    </test>
+    <test name="Validate Authentication tab">
+        <classes>
+            <class name="tests.AuthTabTest"/>
+        </classes>
+    </test>
         <test name="Logout Test">
             <classes>
                 <class name="tests.LogoutTest"/>
