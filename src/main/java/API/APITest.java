@@ -3,6 +3,7 @@ package API;
 import POJO.*;
 import POJO.SMSHistory.SMSHistoryPOJO;
 import POJO.TicketList.TicketPOJO;
+import POJO.Voucher.VoucherSearchPOJO;
 import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.TestDatabean;
 import Utils.PassUtils;
@@ -338,6 +339,23 @@ public class APITest extends tests.BaseTest {
         getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
         getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
         return response.as(SMSHistoryPOJO.class);
+    }
+
+    public VoucherSearchPOJO voucherSearchTest(String voucherId){
+        getTest().log(LogStatus.INFO, "Using fetch ticket details using ticket Id to validate ticket meta data");
+        baseURI = baseUrl;
+        Headers headers = new Headers(map);
+        RequestSpecification request = given()
+                .headers(headers).body("{\"voucherId\":"+voucherId+"}").contentType("application/json");
+        QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
+        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
+        log.info("Request Headers are  : " + queryable.getHeaders());
+        Response response = request.post("/cs-gsm-service/v1/voucher/detail");
+        log.info("Response : " + response.asString());
+        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
+        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        return response.as(VoucherSearchPOJO.class);
     }
 
 }

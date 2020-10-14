@@ -28,6 +28,7 @@ public class RechargeHistoryWidgetPOM extends BasePage {
     By rechargeHistoryError = By.xpath("//span[contains(text(),\"Recharge History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"widget-error apiMsgBlock ng-star-inserted\"][1]");
     By ticketIcon=By.xpath("//span[contains(text(),'Recharge History')]//span[@class=\"card__card-header--icon ng-star-inserted\"]");
     By getTitle=By.xpath("//span[contains(text(),'Recharge History')]");
+
     public RechargeHistoryWidgetPOM(WebDriver driver) {
         super(driver);
     }
