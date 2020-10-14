@@ -12,7 +12,7 @@ import java.lang.reflect.Method;
 public class TransferToQueueTest extends BaseTest {
 
 
-    @Test(priority = 2, description = "Supervisor SKIP Login ", enabled = true)
+    @Test(priority = 1, description = "Supervisor SKIP Login ", enabled = true)
     public void agentSkipQueueLogin(Method method){
         ExtentTestManager.startTest("Supervisor SKIP Queue Login Test", "Supervisor SKIP Queue Login Test");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
@@ -31,7 +31,7 @@ public class TransferToQueueTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 3, dependsOnMethods = "agentSkipQueueLogin", description = "Transfer to queue", enabled = true)
+    @Test(priority = 2, dependsOnMethods = "agentSkipQueueLogin", description = "Transfer to queue", enabled = true)
     public void transferToQueue(Method method) throws InterruptedException {
         ExtentTestManager.startTest("Transfer to queue", "Transfer to queue");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
