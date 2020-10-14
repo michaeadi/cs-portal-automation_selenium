@@ -55,6 +55,11 @@
              <class name="tests.FrontendAgentTicketTest"/>
          </classes>
     </test>
+    <test name="Validate Voucher Tab">
+        <classes>
+            <class name="tests.VoucherTabTest"/>
+        </classes>
+    </test>
     <test name="Validate Authentication tab">
         <classes>
             <class name="tests.AuthTabTest"/>

@@ -8,9 +8,6 @@ import lombok.Setter;
 public class VoucherSearchPOJO {
     private String status;
     private int statusCode;
-    private int pageSize;
-    private int pageNumber;
-    private int totalCount;
     private VoucherDetail result;
     private String message;
 }

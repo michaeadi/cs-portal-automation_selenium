@@ -1,5 +1,12 @@
 package POJO.Voucher;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class VoucherDetail {
     private String voucherId;
     private String status;
@@ -10,4 +17,5 @@ public class VoucherDetail {
     private String agent;
     private String voucherGroup;
     private String timestamp;
+    private String subscriberId;
 }

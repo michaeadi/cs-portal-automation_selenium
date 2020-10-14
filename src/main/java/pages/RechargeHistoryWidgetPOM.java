@@ -28,6 +28,8 @@ public class RechargeHistoryWidgetPOM extends BasePage {
     By rechargeHistoryError = By.xpath("//span[contains(text(),\"Recharge History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"widget-error apiMsgBlock ng-star-inserted\"][1]");
     By ticketIcon=By.xpath("//span[contains(text(),'Recharge History')]//span[@class=\"card__card-header--icon ng-star-inserted\"]");
     By getTitle=By.xpath("//span[contains(text(),'Recharge History')]");
+    By voucherBox=By.xpath("//input[@placeholder=\"Voucher ID\"]");
+    By voucherBtn=By.xpath("//input[@placeholder=\"Voucher ID\"]//parent::span//button");
 
     public RechargeHistoryWidgetPOM(WebDriver driver) {
         super(driver);
@@ -145,5 +147,17 @@ public class RechargeHistoryWidgetPOM extends BasePage {
     public String getWidgetTitle(){
         log.info("Getting Widget title: "+readText(getTitle));
         return readText(getTitle).toLowerCase();
+    }
+
+    public void writeVoucherId(String id) throws InterruptedException {
+        printInfoLog("Writing voucher id in search box: "+id);
+        scrollToViewElement(voucherBox);
+        writeText(voucherBox,id);
+    }
+
+    public VoucherTabPOM clickSearchBtn(){
+        printInfoLog("Clicking Search Button");
+        click(voucherBtn);
+        return new VoucherTabPOM(driver);
     }
 }

@@ -342,14 +342,15 @@ public class APITest extends tests.BaseTest {
     }
 
     public VoucherSearchPOJO voucherSearchTest(String voucherId){
-        getTest().log(LogStatus.INFO, "Using fetch ticket details using ticket Id to validate ticket meta data");
+        getTest().log(LogStatus.INFO, "Using fetch Voucher details using voucher Id to validate Voucher meta data");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
-                .headers(headers).body("{\"voucherId\":"+voucherId+"}").contentType("application/json");
+                .headers(headers).body("{\"voucherId\":\""+voucherId+"\"}").contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
         getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
         log.info("Request Headers are  : " + queryable.getHeaders());
+        log.info("Request Body are  : " + queryable.getBody());
         Response response = request.post("/cs-gsm-service/v1/voucher/detail");
         log.info("Response : " + response.asString());
         log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
