@@ -84,11 +84,11 @@
 <!--            </class>-->
 <!--        </classes>-->
 <!--    </test>-->
-    <test name="Supervisors Search Ticket Test ">
-        <classes>
-            <class name="tests.SupervisorSearchTicket"/>
-        </classes>
-    </test>
+<!--    <test name="Supervisors Search Ticket Test ">-->
+<!--        <classes>-->
+<!--            <class name="tests.SupervisorSearchTicket"/>-->
+<!--        </classes>-->
+<!--    </test>-->
 <!--    <test name="Ticket Transfer Rule Test ">-->
 <!--        <classes>-->
 <!--            <class name="tests.TicketTransferRuleTest"/>-->
