@@ -25,29 +25,29 @@ public class widgetsOptionsTest extends BaseTest {
         ExtentTestManager.startTest("Validating DA Details", "Validating DA Details of User :" + customerNumber);
         CurrentBalanceWidgetPOM currentBalanceWidget = new CurrentBalanceWidgetPOM(driver);
         SoftAssert softAssert = new SoftAssert();
-        try{
-        softAssert.assertTrue(currentBalanceWidget.isCurrentBalanceWidgetMenuVisible(), "Current Balance Widget MENU is not visible ");
-        currentBalanceWidget.clickingCurrentBalanceWidgetMenu();
-        softAssert.assertTrue(currentBalanceWidget.isDADetailsMenuVisible(), "DA Details Option in  MENU is not visible ");
-        DADetailsPOM daDetails = currentBalanceWidget.openingDADetails();
-        softAssert.assertEquals(daDetails.getHeaders(1).toLowerCase().trim(), Data.getRow1().toLowerCase().trim(), "Header Name for Row 1 is not as expected");
-        softAssert.assertEquals(daDetails.getHeaders(2).toLowerCase().trim(), Data.getRow2().toLowerCase().trim(), "Header Name for Row 2 is not as expected");
-        softAssert.assertEquals(daDetails.getHeaders(3).toLowerCase().trim(), Data.getRow3().toLowerCase().trim(), "Header Name for Row 3 is not as expected");
-        softAssert.assertEquals(daDetails.getHeaders(4).toLowerCase().trim(), Data.getRow4().toLowerCase().trim(), "Header Name for Row 4 is not as expected");
-        softAssert.assertEquals(daDetails.getHeaders(5).toLowerCase().trim(), Data.getRow5().toLowerCase().trim(), "Header Name for Row 5 is not as expected");
-        AccountsBalancePOJO accountsBalanceAPI = api.balanceAPITest(customerNumber);
-        int size = daDetails.getNumbersOfRows();
-        for (int i = 0; i < size; i++) {
-            softAssert.assertEquals(daDetails.getDAId(i), accountsBalanceAPI.getResult().get(i).getDaId(), "DA ID is not as received in API on row " + i);
-            softAssert.assertEquals(daDetails.getDADescription(i), accountsBalanceAPI.getResult().get(i).getDaDesc(), "DA Description is not as received in API on row " + i);
-            softAssert.assertEquals(daDetails.getBundleType(i).replace("-", "null") + " ", accountsBalanceAPI.getResult().get(i).getBundleType() + " ", "DA Bundle Type is not as received in API on row " + i);
-            softAssert.assertEquals(daDetails.getDADateTime(i), daDetails.getTimeFromEpoch(accountsBalanceAPI.getResult().get(i).getExpiryDate(), "dd-MMM-yyyy HH:mm"), "DA Date Time is not as received in API on row " + i);
-            softAssert.assertEquals(daDetails.getDABalance(i), accountsBalanceAPI.getResult().get(i).getCurrentDaBalance(), "DA Current Balance is not as received in API on row " + i);
-        }
-        daDetails.openingCustomerInteractionDashboard();
+        try {
+            softAssert.assertTrue(currentBalanceWidget.isCurrentBalanceWidgetMenuVisible(), "Current Balance Widget MENU is not visible ");
+            currentBalanceWidget.clickingCurrentBalanceWidgetMenu();
+            softAssert.assertTrue(currentBalanceWidget.isDADetailsMenuVisible(), "DA Details Option in  MENU is not visible ");
+            DADetailsPOM daDetails = currentBalanceWidget.openingDADetails();
+            softAssert.assertEquals(daDetails.getHeaders(1).toLowerCase().trim(), Data.getRow1().toLowerCase().trim(), "Header Name for Row 1 is not as expected");
+            softAssert.assertEquals(daDetails.getHeaders(2).toLowerCase().trim(), Data.getRow2().toLowerCase().trim(), "Header Name for Row 2 is not as expected");
+            softAssert.assertEquals(daDetails.getHeaders(3).toLowerCase().trim(), Data.getRow3().toLowerCase().trim(), "Header Name for Row 3 is not as expected");
+            softAssert.assertEquals(daDetails.getHeaders(4).toLowerCase().trim(), Data.getRow4().toLowerCase().trim(), "Header Name for Row 4 is not as expected");
+            softAssert.assertEquals(daDetails.getHeaders(5).toLowerCase().trim(), Data.getRow5().toLowerCase().trim(), "Header Name for Row 5 is not as expected");
+            AccountsBalancePOJO accountsBalanceAPI = api.balanceAPITest(customerNumber);
+            int size = daDetails.getNumbersOfRows();
+            for (int i = 0; i < size; i++) {
+                softAssert.assertEquals(daDetails.getDAId(i), accountsBalanceAPI.getResult().get(i).getDaId(), "DA ID is not as received in API on row " + i);
+                softAssert.assertEquals(daDetails.getDADescription(i), accountsBalanceAPI.getResult().get(i).getDaDesc(), "DA Description is not as received in API on row " + i);
+                softAssert.assertEquals(daDetails.getBundleType(i).replace("-", "null") + " ", accountsBalanceAPI.getResult().get(i).getBundleType() + " ", "DA Bundle Type is not as received in API on row " + i);
+                softAssert.assertEquals(daDetails.getDADateTime(i), daDetails.getTimeFromEpoch(accountsBalanceAPI.getResult().get(i).getExpiryDate(), "dd-MMM-yyyy HH:mm"), "DA Date Time is not as received in API on row " + i);
+                softAssert.assertEquals(daDetails.getDABalance(i), accountsBalanceAPI.getResult().get(i).getCurrentDaBalance(), "DA Current Balance is not as received in API on row " + i);
+            }
+            daDetails.openingCustomerInteractionDashboard();
         } catch (Exception e) {
             e.printStackTrace();
-            ExtentTestManager.getTest().log(LogStatus.FAIL,e.fillInStackTrace());
+            ExtentTestManager.getTest().log(LogStatus.FAIL, e.fillInStackTrace());
             softAssert.fail("DA details does not display correctly");
         }
         softAssert.assertAll();
@@ -83,8 +83,8 @@ public class widgetsOptionsTest extends BaseTest {
                 softAssert.assertEquals(moreUsageHistory.getSMSDateTime(i), (moreUsageHistory.getDateFromEpoch(Long.parseLong(smsUsageHistoryAPI.getResult().get(i).getDateTime()), "dd-MMM-yyyy HH:mm")), "SMS Date & Time received is not as expected on row " + i);
                 softAssert.assertEquals(moreUsageHistory.getSMSTo(i), smsUsageHistoryAPI.getResult().get(i).getSmsTo(), "SMS To received is not as expected on row " + i);
 //                softAssert.assertEquals(moreUsageHistory.getSMSTransactionNumber(i), smsUsageHistoryAPI.getResult().get(i).getTxnNumber(), "SMS Transaction Number received is not as expected on row " + i);
-                if(i!=0){
-                    softAssert.assertTrue(moreUsageHistory.isSortOrderDisplay(moreUsageHistory.getSMSDateTime(i),moreUsageHistory.getSMSDateTime(i-1),"dd-MMM-yyy HH:mm"),moreUsageHistory.getSMSDateTime(i)+"should not display before "+moreUsageHistory.getSMSDateTime(i-1));
+                if (i != 0) {
+                    softAssert.assertTrue(moreUsageHistory.isSortOrderDisplay(moreUsageHistory.getSMSDateTime(i), moreUsageHistory.getSMSDateTime(i - 1), "dd-MMM-yyy HH:mm"), moreUsageHistory.getSMSDateTime(i) + "should not display before " + moreUsageHistory.getSMSDateTime(i - 1));
                 }
             }
         }
@@ -117,8 +117,8 @@ public class widgetsOptionsTest extends BaseTest {
                 softAssert.assertEquals(moreUsageHistory.getCallTo(i), callUsageHistoryAPI.getResult().get(i).getCallTo(), "Call To received is not as expected on row " + i);
 //                softAssert.assertEquals(moreUsageHistory.getCallTransactionNumber(i), callUsageHistoryAPI.getResult().get(i).getTxnNumber(), "Call Transaction Number received is not as expected on row " + i);
                 softAssert.assertEquals(moreUsageHistory.getCallDuration(i), callUsageHistoryAPI.getResult().get(i).getCallDuration(), "Call Duration  received is not as expected on row " + i);
-                if(i!=0){
-                    softAssert.assertTrue(moreUsageHistory.isSortOrderDisplay(moreUsageHistory.getCallDateTime(i),moreUsageHistory.getCallDateTime(i-1),"dd-MMM-yyy HH:mm"),moreUsageHistory.getCallDuration(i)+"should not display before "+moreUsageHistory.getCallDuration(i-1));
+                if (i != 0) {
+                    softAssert.assertTrue(moreUsageHistory.isSortOrderDisplay(moreUsageHistory.getCallDateTime(i), moreUsageHistory.getCallDateTime(i - 1), "dd-MMM-yyy HH:mm"), moreUsageHistory.getCallDuration(i) + "should not display before " + moreUsageHistory.getCallDuration(i - 1));
                 }
             }
         }
@@ -150,8 +150,8 @@ public class widgetsOptionsTest extends BaseTest {
                 softAssert.assertEquals(moreUsageHistory.getDataDateTime(i), (moreUsageHistory.getDateFromEpoch(Long.parseLong(dataUsageHistoryAPI.getResult().get(i).getDateTime()), "dd-MMM-yyyy HH:mm")), "Data Date & Time received is not as expected on row " + i);
                 softAssert.assertEquals(moreUsageHistory.getUsedData(i), dataUsageHistoryAPI.getResult().get(i).getUsedData(), "Data Used is not as expected on row " + i);
 //                softAssert.assertEquals(moreUsageHistory.getDataTransactionNumber(i), dataUsageHistoryAPI.getResult().get(i).getTxnNumber(), "Data Transaction Number received is not as expected on row " + i);
-                if(i!=0){
-                    softAssert.assertTrue(moreUsageHistory.isSortOrderDisplay(moreUsageHistory.getDataDateTime(i),moreUsageHistory.getDataDateTime(i-1),"dd-MMM-yyy HH:mm"),moreUsageHistory.getDataDateTime(i)+"should not display before "+moreUsageHistory.getDataDateTime(i-1));
+                if (i != 0) {
+                    softAssert.assertTrue(moreUsageHistory.isSortOrderDisplay(moreUsageHistory.getDataDateTime(i), moreUsageHistory.getDataDateTime(i - 1), "dd-MMM-yyy HH:mm"), moreUsageHistory.getDataDateTime(i) + "should not display before " + moreUsageHistory.getDataDateTime(i - 1));
                 }
             }
         }
@@ -196,8 +196,8 @@ public class widgetsOptionsTest extends BaseTest {
                 softAssert.assertEquals(moreRechargeHistory.getExpiresOn(i), (moreRechargeHistory.getDateFromEpoch(Long.parseLong(bundleRechargeHistoryAPI.getResult().get(i).getExpiresOn()), "dd-MMM-yyyy HH:mm")), "Bundle Expiry Date & Time received is not as expected on row " + i);
                 softAssert.assertEquals(moreRechargeHistory.getValidity(i), bundleRechargeHistoryAPI.getResult().get(i).getValidity(), "Bundle Validity received is not as expected on row " + i);
                 softAssert.assertEquals(moreRechargeHistory.getBundlePrice(i), bundleRechargeHistoryAPI.getResult().get(i).getBundlePrice(), "Bundle Price received is not as expected on row " + i);
-                if(i!=0){
-                    softAssert.assertTrue(moreRechargeHistory.isSortOrderDisplay(moreRechargeHistory.getSubscriptionDateTime(i),moreRechargeHistory.getSubscriptionDateTime(i-1),"dd-MMM-yyy HH:mm"),moreRechargeHistory.getSubscriptionDateTime(i)+"should not display before "+moreRechargeHistory.getSubscriptionDateTime(i-1));
+                if (i != 0) {
+                    softAssert.assertTrue(moreRechargeHistory.isSortOrderDisplay(moreRechargeHistory.getSubscriptionDateTime(i), moreRechargeHistory.getSubscriptionDateTime(i - 1), "dd-MMM-yyy HH:mm"), moreRechargeHistory.getSubscriptionDateTime(i) + "should not display before " + moreRechargeHistory.getSubscriptionDateTime(i - 1));
                 }
             }
         }

@@ -20,7 +20,7 @@ import java.time.format.DateTimeFormatter;
 
 public class InteractionCommentTest extends BaseTest {
 
-    String ticket_number=null;
+    String ticket_number = null;
 
     @DataProviders.User(UserType = "NFTR")
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
@@ -70,10 +70,10 @@ public class InteractionCommentTest extends BaseTest {
         softAssert.assertEquals(interactionsPOM.getIssueSubType().trim().toLowerCase().replace(" ", ""), Data.getIssueSubType().trim().toLowerCase().replace(" ", ""), "Issue sub type is not as expected ");
         try {
 
-            if(Data.getIssueFieldLabel1()!=null)
+            if (Data.getIssueFieldLabel1() != null)
                 if (Data.getIssueFieldType1().equalsIgnoreCase("Text Box") && !Data.getIssueFieldLabel1().isEmpty()) {
                     System.out.println(interactionsPOM.getIssueDetailLabel("1"));
-                    softAssert.assertEquals(interactionsPOM.getIssueDetailLabel("1").replace("*", "").trim(), (Data.getIssueFieldLabel1().replace("*", "").trim()),Data.getIssueFieldLabel1()+" Label does not match");
+                    softAssert.assertEquals(interactionsPOM.getIssueDetailLabel("1").replace("*", "").trim(), (Data.getIssueFieldLabel1().replace("*", "").trim()), Data.getIssueFieldLabel1() + " Label does not match");
                     if (Data.getIssueFieldMandatory1().equalsIgnoreCase("Yes")) {
                         softAssert.assertTrue(interactionsPOM.getIssueDetailLabel("1").contains("*"), Data.getIssueFieldLabel1() + "Label is mandatory but doesn't contain '*' ");
                     }
@@ -86,16 +86,16 @@ public class InteractionCommentTest extends BaseTest {
                     }
                     interactionsPOM.setDateFieldAvailable(dtf.format(now));
 
-                }else if(Data.getIssueFieldType1().equalsIgnoreCase("Drop Down") && !Data.getIssueFieldLabel1().isEmpty()){
+                } else if (Data.getIssueFieldType1().equalsIgnoreCase("Drop Down") && !Data.getIssueFieldLabel1().isEmpty()) {
                     System.out.println(interactionsPOM.getIssueDetailLabelDropDown("1"));
-                    softAssert.assertEquals(interactionsPOM.getIssueDetailLabelDropDown("1").replace("*", "").trim(), (Data.getIssueFieldLabel1().replace("*", "").trim()),Data.getIssueFieldLabel1()+"Label does not match");
+                    softAssert.assertEquals(interactionsPOM.getIssueDetailLabelDropDown("1").replace("*", "").trim(), (Data.getIssueFieldLabel1().replace("*", "").trim()), Data.getIssueFieldLabel1() + "Label does not match");
                     if (Data.getIssueFieldMandatory1().equalsIgnoreCase("Yes")) {
                         softAssert.assertTrue(interactionsPOM.getIssueDetailLabelDropDown("1").contains("*"), Data.getIssueFieldLabel1() + "Label is mandatory but doesn't contain '*' ");
                     }
                     interactionsPOM.selectIssueDetailInput("1");
                 }
 
-            if(Data.getIssueFieldLabel2()!=null)
+            if (Data.getIssueFieldLabel2() != null)
                 if (Data.getIssueFieldType2().equalsIgnoreCase("Text Box") && !Data.getIssueFieldLabel2().isEmpty()) {
                     System.out.println(interactionsPOM.getIssueDetailLabel("2"));
                     softAssert.assertEquals(interactionsPOM.getIssueDetailLabel("2").replace("*", "").trim(), (Data.getIssueFieldLabel2().replace("*", "").trim()));
@@ -110,7 +110,7 @@ public class InteractionCommentTest extends BaseTest {
                         softAssert.assertTrue(interactionsPOM.isDateFieldAvailableMandatory().contains("*"), Data.getIssueFieldLabel2() + "Label is mandatory but doesn't contain '*' ");
                     }
                     interactionsPOM.setDateFieldAvailable(dtf.format(now));
-                }else if(Data.getIssueFieldType2().equalsIgnoreCase("Drop Down") && !Data.getIssueFieldLabel2().isEmpty()){
+                } else if (Data.getIssueFieldType2().equalsIgnoreCase("Drop Down") && !Data.getIssueFieldLabel2().isEmpty()) {
                     System.out.println(interactionsPOM.getIssueDetailLabelDropDown("2"));
                     softAssert.assertEquals(interactionsPOM.getIssueDetailLabelDropDown("2").replace("*", "").trim(), (Data.getIssueFieldLabel2().replace("*", "").trim()));
                     if (Data.getIssueFieldMandatory2().equalsIgnoreCase("Yes")) {
@@ -119,7 +119,7 @@ public class InteractionCommentTest extends BaseTest {
                     interactionsPOM.selectIssueDetailInput("2");
                 }
 
-            if(Data.getIssueFieldLabel3()!=null)
+            if (Data.getIssueFieldLabel3() != null)
                 if (Data.getIssueFieldType3().equalsIgnoreCase("Text Box") && !Data.getIssueFieldLabel3().isEmpty()) {
                     System.out.println(interactionsPOM.getIssueDetailLabel("3"));
                     softAssert.assertEquals(interactionsPOM.getIssueDetailLabel("3").replace("*", "").trim(), (Data.getIssueFieldLabel3().replace("*", "").trim()));
@@ -135,7 +135,7 @@ public class InteractionCommentTest extends BaseTest {
                     }
                     interactionsPOM.setDateFieldAvailable(dtf.format(now));
 
-                }else if(Data.getIssueFieldType3().equalsIgnoreCase("Drop Down") && !Data.getIssueFieldLabel3().isEmpty()){
+                } else if (Data.getIssueFieldType3().equalsIgnoreCase("Drop Down") && !Data.getIssueFieldLabel3().isEmpty()) {
                     System.out.println(interactionsPOM.getIssueDetailLabelDropDown("3"));
                     softAssert.assertEquals(interactionsPOM.getIssueDetailLabelDropDown("3").replace("*", "").trim(), (Data.getIssueFieldLabel3().replace("*", "").trim()));
                     if (Data.getIssueFieldMandatory3().equalsIgnoreCase("Yes")) {
@@ -144,9 +144,9 @@ public class InteractionCommentTest extends BaseTest {
                     interactionsPOM.selectIssueDetailInput("3");
                 }
 
-            System.out.println("Field Type-4"+Data.getIssueFieldType4());
+            System.out.println("Field Type-4" + Data.getIssueFieldType4());
 
-            if(Data.getIssueFieldLabel4()!=null)
+            if (Data.getIssueFieldLabel4() != null)
                 if (Data.getIssueFieldType4().equalsIgnoreCase("Text Box") && !Data.getIssueFieldLabel4().isEmpty()) {
                     System.out.println(interactionsPOM.getIssueDetailLabel("4"));
                     softAssert.assertEquals(interactionsPOM.getIssueDetailLabel("4").replace("*", "").trim(), (Data.getIssueFieldLabel4().replace("*", "").trim()));
@@ -161,7 +161,7 @@ public class InteractionCommentTest extends BaseTest {
                         softAssert.assertTrue(interactionsPOM.isDateFieldAvailableMandatory().contains("*"), Data.getIssueFieldLabel4() + "Label is mandatory but doesn't contain '*' ");
                     }
                     interactionsPOM.setDateFieldAvailable(dtf.format(now));
-                } else if(Data.getIssueFieldType4().equalsIgnoreCase("Drop Down") && !Data.getIssueFieldLabel4().isEmpty()){
+                } else if (Data.getIssueFieldType4().equalsIgnoreCase("Drop Down") && !Data.getIssueFieldLabel4().isEmpty()) {
                     System.out.println(interactionsPOM.getIssueDetailLabelDropDown("4"));
                     softAssert.assertEquals(interactionsPOM.getIssueDetailLabelDropDown("4").replace("*", "").trim(), (Data.getIssueFieldLabel4().replace("*", "").trim()));
                     if (Data.getIssueFieldMandatory4().equalsIgnoreCase("Yes")) {
@@ -170,7 +170,7 @@ public class InteractionCommentTest extends BaseTest {
                     interactionsPOM.selectIssueDetailInput("4");
                 }
 
-            if(Data.getIssueFieldLabel5()!=null)
+            if (Data.getIssueFieldLabel5() != null)
                 if (Data.getIssueFieldType5().equalsIgnoreCase("Text Box") && !Data.getIssueFieldLabel5().isEmpty()) {
                     System.out.println(interactionsPOM.getIssueDetailLabel("5"));
                     softAssert.assertEquals(interactionsPOM.getIssueDetailLabel("5").replace("*", "").trim(), (Data.getIssueFieldLabel5().replace("*", "").trim()));
@@ -185,7 +185,7 @@ public class InteractionCommentTest extends BaseTest {
                         softAssert.assertTrue(interactionsPOM.isDateFieldAvailableMandatory().contains("*"), Data.getIssueFieldLabel5() + "Label is mandatory but doesn't contain '*' ");
                     }
                     interactionsPOM.setDateFieldAvailable(dtf.format(now));
-                }else if(Data.getIssueFieldType5().equalsIgnoreCase("Drop Down") && !Data.getIssueFieldLabel5().isEmpty()){
+                } else if (Data.getIssueFieldType5().equalsIgnoreCase("Drop Down") && !Data.getIssueFieldLabel5().isEmpty()) {
                     System.out.println(interactionsPOM.getIssueDetailLabelDropDown("5"));
                     softAssert.assertEquals(interactionsPOM.getIssueDetailLabelDropDown("5").replace("*", "").trim(), (Data.getIssueFieldLabel5().replace("*", "").trim()));
                     if (Data.getIssueFieldMandatory5().equalsIgnoreCase("Yes")) {
@@ -194,7 +194,7 @@ public class InteractionCommentTest extends BaseTest {
                     interactionsPOM.selectIssueDetailInput("5");
                 }
 
-            if(Data.getIssueFieldLabel6()!=null)
+            if (Data.getIssueFieldLabel6() != null)
                 if (Data.getIssueFieldType6().equalsIgnoreCase("Text Box") && !Data.getIssueFieldLabel6().isEmpty()) {
                     System.out.println(interactionsPOM.getIssueDetailLabel("6"));
                     softAssert.assertEquals(interactionsPOM.getIssueDetailLabel("6").replace("*", "").trim(), (Data.getIssueFieldLabel6().replace("*", "").trim()));
@@ -209,7 +209,7 @@ public class InteractionCommentTest extends BaseTest {
                         softAssert.assertTrue(interactionsPOM.isDateFieldAvailableMandatory().contains("*"), Data.getIssueFieldLabel6() + "Label is mandatory but doesn't contain '*' ");
                     }
                     interactionsPOM.setDateFieldAvailable(dtf.format(now));
-                }else if(Data.getIssueFieldType6().equalsIgnoreCase("Drop Down") && !Data.getIssueFieldLabel6().isEmpty()){
+                } else if (Data.getIssueFieldType6().equalsIgnoreCase("Drop Down") && !Data.getIssueFieldLabel6().isEmpty()) {
                     System.out.println(interactionsPOM.getIssueDetailLabelDropDown("6"));
                     softAssert.assertEquals(interactionsPOM.getIssueDetailLabelDropDown("6").replace("*", "").trim(), (Data.getIssueFieldLabel6().replace("*", "").trim()));
                     if (Data.getIssueFieldMandatory6().equalsIgnoreCase("Yes")) {
@@ -218,7 +218,7 @@ public class InteractionCommentTest extends BaseTest {
                     interactionsPOM.selectIssueDetailInput("6");
                 }
 
-            if(Data.getIssueFieldLabel7()!=null)
+            if (Data.getIssueFieldLabel7() != null)
                 if (Data.getIssueFieldType7().equalsIgnoreCase("Text Box") && !Data.getIssueFieldLabel7().isEmpty()) {
                     System.out.println(interactionsPOM.getIssueDetailLabel("7"));
                     softAssert.assertEquals(interactionsPOM.getIssueDetailLabel("7").replace("*", "").trim(), (Data.getIssueFieldLabel7().replace("*", "").trim()));
@@ -233,7 +233,7 @@ public class InteractionCommentTest extends BaseTest {
                         softAssert.assertTrue(interactionsPOM.isDateFieldAvailableMandatory().contains("*"), Data.getIssueFieldLabel7() + "Label is mandatory but doesn't contain '*' ");
                     }
                     interactionsPOM.setDateFieldAvailable(dtf.format(now));
-                }else if(Data.getIssueFieldType7().equalsIgnoreCase("Drop Down") && !Data.getIssueFieldLabel7().isEmpty()){
+                } else if (Data.getIssueFieldType7().equalsIgnoreCase("Drop Down") && !Data.getIssueFieldLabel7().isEmpty()) {
                     System.out.println(interactionsPOM.getIssueDetailLabelDropDown("7"));
                     softAssert.assertEquals(interactionsPOM.getIssueDetailLabelDropDown("7").replace("*", "").trim(), (Data.getIssueFieldLabel7().replace("*", "").trim()));
                     if (Data.getIssueFieldMandatory7().equalsIgnoreCase("Yes")) {
@@ -250,13 +250,13 @@ public class InteractionCommentTest extends BaseTest {
             if (!interactionsPOM.getResolvedFTRDisplayed().contains("Resolved FTR")) {
                 ticket_number = interactionsPOM.getResolvedFTRDisplayed();
                 System.out.println(ticket_number);
-                String comment="Adding Interaction Comment Using Automation";
+                String comment = "Adding Interaction Comment Using Automation";
                 interactionsPOM.clickCommentIcon();
                 interactionsPOM.addInteractionComment(comment);
                 interactionsPOM.saveInteractionComment();
                 interactionsPOM.waitTillLoaderGetsRemoved();
                 interactionsPOM.openAddedComment();
-                softAssert.assertEquals(interactionsPOM.getAddedComment().toLowerCase().trim(),comment.toLowerCase().trim(),"Agent Added Interaction Ticket comment does not match");
+                softAssert.assertEquals(interactionsPOM.getAddedComment().toLowerCase().trim(), comment.toLowerCase().trim(), "Agent Added Interaction Ticket comment does not match");
             } else {
                 softAssert.fail("It's FTR not NFTR");
             }
@@ -275,27 +275,27 @@ public class InteractionCommentTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 3,description = "Check Sent SMS display in message history",dependsOnMethods = "addInteractionComment")
-    public void checkSendMessageLog(){
+    @Test(priority = 3, description = "Check Sent SMS display in message history", dependsOnMethods = "addInteractionComment")
+    public void checkSendMessageLog() {
         ExtentTestManager.startTest("Check Sent SMS display in message history for System Type", "Check Sent SMS display in message history");
         SoftAssert softAssert = new SoftAssert();
         customerInteractionPagePOM customerInteractionPage = new customerInteractionPagePOM(driver);
         viewHistoryPOM viewHistory = customerInteractionPage.clickOnViewHistory();
         viewHistory.waitTillLoaderGetsRemoved();
-        MessageHistoryTabPOM messageHistory=viewHistory.clickOnMessageHistory();
+        MessageHistoryTabPOM messageHistory = viewHistory.clickOnMessageHistory();
         messageHistory.waitTillLoaderGetsRemoved();
-        softAssert.assertTrue(messageHistory.isMessageTypeColumn(),"Message Type Column does not display on UI");
-        softAssert.assertTrue(messageHistory.isDateSentColumn(),"Date Sent Column does not display on UI");
-        softAssert.assertTrue(messageHistory.isTemplateColumn(),"Template/Event Column does not display on UI");
-        softAssert.assertTrue(messageHistory.isMessageLanguageColumn(),"Message Language Column does not display on UI");
-        softAssert.assertTrue(messageHistory.isMessageTextColumn(),"Message Text Column does not display on UI");
-        softAssert.assertTrue(messageHistory.isMessageTypeColumn(),"Message Type Column does not display on UI");
-        softAssert.assertEquals(messageHistory.messageType(1).toLowerCase().trim(),config.getProperty("systemSMSType").toLowerCase().trim(),"Message Type is not system");
-        softAssert.assertEquals(messageHistory.templateEvent(1).toLowerCase().trim(),config.getProperty("ticketCreateEvent").toLowerCase().trim(),"Template event not same as defined.");
-        softAssert.assertTrue(messageHistory.messageText(1).contains(ticket_number),"Message content not same as set message content.");
-        softAssert.assertTrue(messageHistory.isActionBtnDisable(1),"Resend SMS icon does not disable");
-        softAssert.assertTrue(messageHistory.agentId(1).trim().equalsIgnoreCase("-")," :Agent id does not empty");
-        softAssert.assertTrue(messageHistory.agentName(1).trim().equalsIgnoreCase("-")," :Agent name does not empty");
+        softAssert.assertTrue(messageHistory.isMessageTypeColumn(), "Message Type Column does not display on UI");
+        softAssert.assertTrue(messageHistory.isDateSentColumn(), "Date Sent Column does not display on UI");
+        softAssert.assertTrue(messageHistory.isTemplateColumn(), "Template/Event Column does not display on UI");
+        softAssert.assertTrue(messageHistory.isMessageLanguageColumn(), "Message Language Column does not display on UI");
+        softAssert.assertTrue(messageHistory.isMessageTextColumn(), "Message Text Column does not display on UI");
+        softAssert.assertTrue(messageHistory.isMessageTypeColumn(), "Message Type Column does not display on UI");
+        softAssert.assertEquals(messageHistory.messageType(1).toLowerCase().trim(), config.getProperty("systemSMSType").toLowerCase().trim(), "Message Type is not system");
+        softAssert.assertEquals(messageHistory.templateEvent(1).toLowerCase().trim(), config.getProperty("ticketCreateEvent").toLowerCase().trim(), "Template event not same as defined.");
+        softAssert.assertTrue(messageHistory.messageText(1).contains(ticket_number), "Message content not same as set message content.");
+        softAssert.assertTrue(messageHistory.isActionBtnDisable(1), "Resend SMS icon does not disable");
+        softAssert.assertTrue(messageHistory.agentId(1).trim().equalsIgnoreCase("-"), " :Agent id does not empty");
+        softAssert.assertTrue(messageHistory.agentName(1).trim().equalsIgnoreCase("-"), " :Agent name does not empty");
         softAssert.assertAll();
     }
 }

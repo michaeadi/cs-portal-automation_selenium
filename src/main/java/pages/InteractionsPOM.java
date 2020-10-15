@@ -26,14 +26,15 @@ public class InteractionsPOM extends BasePage {
     By issueDetailHeading = By.xpath("//h3[text()=\"Issue Detail\"]");
     By continueButton = By.xpath("//button[@class=\"yes-btn mat-button\"]");
     By issueDetails = By.xpath("//input[@aria-haspopup=\"true\"]//following-sibling::span/label//mat-label");
-    By issueDetailsMandatory=By.xpath("//input[@aria-haspopup=\"true\"]//following-sibling::span/label//span");
-    By ticketCommentIcon=By.className("comment-text");
-    By commentBox=By.xpath("//textarea[@placeholder='Add Comment...']");
-    By addCommentBtn=By.xpath("//div[@class='footer']/button");
-    By addedComment=By.xpath("//div[@class='comment-detail ng-star-inserted']");
-    By closeCommentTab=By.xpath("//div[@class='header-close']");
-    By resetBtn=By.xpath("//button[@class='btn btn-reset ng-star-inserted']");
-    By option1st=By.xpath("//mat-option[1]");
+    By issueDetailsMandatory = By.xpath("//input[@aria-haspopup=\"true\"]//following-sibling::span/label//span");
+    By ticketCommentIcon = By.className("comment-text");
+    By commentBox = By.xpath("//textarea[@placeholder='Add Comment...']");
+    By addCommentBtn = By.xpath("//div[@class='footer']/button");
+    By addedComment = By.xpath("//div[@class='comment-detail ng-star-inserted']");
+    By closeCommentTab = By.xpath("//div[@class='header-close']");
+    By resetBtn = By.xpath("//button[@class='btn btn-reset ng-star-inserted']");
+    By option1st = By.xpath("//mat-option[1]");
+
     public InteractionsPOM(WebDriver driver) {
         super(driver);
     }
@@ -53,7 +54,7 @@ public class InteractionsPOM extends BasePage {
     public String isDateFieldAvailableMandatory() {
         log.info("Is Date Field mandatory: ");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Is Date Field mandatory: ");
-        return readText(issueDetails)+readText(issueDetailsMandatory);
+        return readText(issueDetails) + readText(issueDetailsMandatory);
     }
 
 
@@ -74,9 +75,9 @@ public class InteractionsPOM extends BasePage {
     public String getIssueDetailLabelDropDown(String Num) {
         log.info("Getting the label for issue detail field situated at Position : " + Num);
         ExtentTestManager.getTest().log(LogStatus.INFO, "Getting the label for issue detail field situated at Position : " + Num);
-        By issueDetails = By.xpath("//div[@formarrayname=\"issueDetails\"]//li["+Num+"]//mat-label");
-        By mandatory = By.xpath("//div[@formarrayname=\"issueDetails\"]//li["+Num+"]//span");
-        return readText(issueDetails)+readText(mandatory);
+        By issueDetails = By.xpath("//div[@formarrayname=\"issueDetails\"]//li[" + Num + "]//mat-label");
+        By mandatory = By.xpath("//div[@formarrayname=\"issueDetails\"]//li[" + Num + "]//span");
+        return readText(issueDetails) + readText(mandatory);
     }
 
     public void setIssueDetailInput(String Num, String Input) {
@@ -89,7 +90,7 @@ public class InteractionsPOM extends BasePage {
     public void selectIssueDetailInput(String Num) {
         log.info("Selecting label for issue detail field situated at Position : " + Num);
         ExtentTestManager.getTest().log(LogStatus.INFO, "Selecting label for issue detail field situated at Position : " + Num);
-        By issueDetails = By.xpath("//div[@formarrayname=\"issueDetails\"]//li["+Num+"]//mat-select");
+        By issueDetails = By.xpath("//div[@formarrayname=\"issueDetails\"]//li[" + Num + "]//mat-select");
         click(issueDetails);
         click(option1st);
     }
@@ -170,18 +171,18 @@ public class InteractionsPOM extends BasePage {
     public boolean isSaveEnable() {
         log.info("Checking is Save button Enabled");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is Save button Enabled");
-        if(checkState(saveButton)){
+        if (checkState(saveButton)) {
             return true;
-        }else{
+        } else {
             throw new ElementClickInterceptedException("Save Button does not enabled");
         }
     }
 
     public boolean isResolvedFTRDisplayed() {
-            waitVisibility(resolvedFTR);
-            log.info("Checking is Ticket Number or Ticket Status is Displayed : " + isElementVisible(resolvedFTR));
-            ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is Ticket Number or Ticket Status is Displayed : " + isElementVisible(resolvedFTR));
-            return isElementVisible(resolvedFTR);
+        waitVisibility(resolvedFTR);
+        log.info("Checking is Ticket Number or Ticket Status is Displayed : " + isElementVisible(resolvedFTR));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is Ticket Number or Ticket Status is Displayed : " + isElementVisible(resolvedFTR));
+        return isElementVisible(resolvedFTR);
     }
 
     public String getResolvedFTRDisplayed() {
@@ -199,47 +200,47 @@ public class InteractionsPOM extends BasePage {
         return new customerInteractionPagePOM(driver);
     }
 
-    public void clickCommentIcon(){
+    public void clickCommentIcon() {
         log.info("Waiting for Comment Ticket Icon");
         waitVisibility(resolvedFTR);
         log.info("Clicking Comment Icon on Ticket");
-        ExtentTestManager.getTest().log(LogStatus.INFO,"Click On Ticket Comment Icon");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Click On Ticket Comment Icon");
         click(ticketCommentIcon);
     }
 
-    public void openAddedComment(){
+    public void openAddedComment() {
         waitVisibility(ticketCommentIcon);
         log.info("Clicking Comment Icon on Ticket");
-        ExtentTestManager.getTest().log(LogStatus.INFO,"Click On Ticket Comment Icon");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Click On Ticket Comment Icon");
         click(ticketCommentIcon);
     }
 
 
-    public void addInteractionComment(String text){
-        log.info("Add Interaction Ticket Comment: "+text);
-        ExtentTestManager.getTest().log(LogStatus.INFO,"Adding Interaction Ticket Comment: "+text);
-        writeText(commentBox,text);
+    public void addInteractionComment(String text) {
+        log.info("Add Interaction Ticket Comment: " + text);
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Adding Interaction Ticket Comment: " + text);
+        writeText(commentBox, text);
     }
 
-    public String getAddedComment(){
-        log.info("Validate Added comment displayed on Ticket: "+readText(addedComment));
-        ExtentTestManager.getTest().log(LogStatus.INFO,"Added Comment Validate Successfully");
+    public String getAddedComment() {
+        log.info("Validate Added comment displayed on Ticket: " + readText(addedComment));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Added Comment Validate Successfully");
         return readText(addedComment);
     }
 
-    public void saveInteractionComment(){
+    public void saveInteractionComment() {
         log.info("Clicking Save Comment Button");
         click(addCommentBtn);
     }
 
-    public void closeTicketCommentBox(){
+    public void closeTicketCommentBox() {
         log.info("Closing Ticket Comment Pop up");
         click(closeCommentTab);
     }
 
-    public void resetInteractionIssue(){
+    public void resetInteractionIssue() {
         log.info("Clicking reset issue details Button");
-        ExtentTestManager.getTest().log(LogStatus.INFO,"Clicking reset issue details Button");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking reset issue details Button");
         click(resetBtn);
         waitTillLoaderGetsRemoved();
     }

@@ -1,10 +1,5 @@
 package Utils;
 
-import Utils.ExcelUtils.writeToExcel;
-import tests.BaseTest;
-
-import java.io.File;
-import java.io.IOException;
 import java.util.Base64;
 
 public class PassUtils {

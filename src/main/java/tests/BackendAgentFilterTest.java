@@ -6,11 +6,14 @@ import com.relevantcodes.extentreports.LogStatus;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pages.*;
+import pages.BackendAgentTicketListPOM;
+import pages.FilterTabPOM;
+import pages.SideMenuPOM;
+import pages.agentLoginPagePOM;
 
 import java.lang.reflect.Method;
 
-public class BackendAgentFilterTest extends BaseTest{
+public class BackendAgentFilterTest extends BaseTest {
 
     @Test(priority = 1, description = "Backend Agent Queue Login Page")
     public void agentQueueLogin(Method method) {
@@ -28,7 +31,7 @@ public class BackendAgentFilterTest extends BaseTest{
         AgentLoginPagePOM.selectAllQueue();
         AgentLoginPagePOM.clickSubmitBtn();
         AgentLoginPagePOM.waitTillLoaderGetsRemoved();
-        Assert.assertEquals(driver.getTitle(), config.getProperty("backendAgentTicketListPage"),"Backend Agent Does not Redirect to Ticket List Page");
+        Assert.assertEquals(driver.getTitle(), config.getProperty("backendAgentTicketListPage"), "Backend Agent Does not Redirect to Ticket List Page");
         softAssert.assertAll();
     }
 
@@ -37,20 +40,20 @@ public class BackendAgentFilterTest extends BaseTest{
         ExtentTestManager.startTest("Validate Filter Tab for Backend Agent", "Validate Filter Tab for Backend Agent");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         BackendAgentTicketListPOM ticketListPage = new BackendAgentTicketListPOM(driver);
-        FilterTabPOM filterTab=new FilterTabPOM(driver);
+        FilterTabPOM filterTab = new FilterTabPOM(driver);
         SoftAssert softAssert = new SoftAssert();
         ticketListPage.clickFilter();
         ticketListPage.waitTillLoaderGetsRemoved();
-        softAssert.assertTrue(filterTab.isCreatedByFilter(),"Filter by created date does not available");
-        softAssert.assertTrue(filterTab.isSlaDueDateFilter(),"Filter by SLA due date does not available");
-        softAssert.assertTrue(filterTab.isCategoryFilter(),"Filter by category does not available");
-        softAssert.assertTrue(filterTab.isQueueFilter(),"Filter by Queue does not available");
+        softAssert.assertTrue(filterTab.isCreatedByFilter(), "Filter by created date does not available");
+        softAssert.assertTrue(filterTab.isSlaDueDateFilter(), "Filter by SLA due date does not available");
+        softAssert.assertTrue(filterTab.isCategoryFilter(), "Filter by category does not available");
+        softAssert.assertTrue(filterTab.isQueueFilter(), "Filter by Queue does not available");
         //softAssert.assertTrue(filterTab.isTicketByAssigneeFilter(),"Filter by Ticket assignee name does not available");
-        softAssert.assertTrue(filterTab.isEscalatedLevelFilter(),"Filter by ticket escalation level does not available");
-        softAssert.assertTrue(filterTab.isStateFilter(),"Filter by State Filter does not available");
-        softAssert.assertTrue(filterTab.validateOpenStateFilter(),"Filter by state name does not display all open state correctly");
-        softAssert.assertTrue(filterTab.isPriorityFilter(),"Filter by ticket priority does not available");
-        softAssert.assertTrue(filterTab.validatePriorityFilter(),"Filter by priority does not display all priority correctly");
+        softAssert.assertTrue(filterTab.isEscalatedLevelFilter(), "Filter by ticket escalation level does not available");
+        softAssert.assertTrue(filterTab.isStateFilter(), "Filter by State Filter does not available");
+        softAssert.assertTrue(filterTab.validateOpenStateFilter(), "Filter by state name does not display all open state correctly");
+        softAssert.assertTrue(filterTab.isPriorityFilter(), "Filter by ticket priority does not available");
+        softAssert.assertTrue(filterTab.validatePriorityFilter(), "Filter by priority does not display all priority correctly");
         filterTab.clickCloseFilter();
         softAssert.assertAll();
     }

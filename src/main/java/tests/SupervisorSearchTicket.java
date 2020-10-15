@@ -31,9 +31,9 @@ public class SupervisorSearchTicket extends BaseTest {
         sideMenu.clickOnName();
         agentLoginPagePOM AgentLoginPagePOM = sideMenu.openSupervisorDashboard();
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(AgentLoginPagePOM.isQueueLoginPage(),"Agent redirect to Queue Login Page");
-        softAssert.assertTrue(AgentLoginPagePOM.checkSkipButton(),"Checking Queue Login Page have SKIP button");
-        softAssert.assertTrue(AgentLoginPagePOM.checkSubmitButton(),"Checking Queue Login Page have Submit button");
+        softAssert.assertTrue(AgentLoginPagePOM.isQueueLoginPage(), "Agent redirect to Queue Login Page");
+        softAssert.assertTrue(AgentLoginPagePOM.checkSkipButton(), "Checking Queue Login Page have SKIP button");
+        softAssert.assertTrue(AgentLoginPagePOM.checkSubmitButton(), "Checking Queue Login Page have Submit button");
         AgentLoginPagePOM.clickSkipBtn();
         Thread.sleep(10000);
         Assert.assertEquals(driver.getTitle(), config.getProperty("supervisorTicketListPage"));
@@ -46,24 +46,24 @@ public class SupervisorSearchTicket extends BaseTest {
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         SoftAssert softAssert = new SoftAssert();
-        Map<String,String> workGroups=new HashMap<>();
+        Map<String, String> workGroups = new HashMap<>();
         ticketListPage.writeTicketId(Data.getTicketNumber());
         ticketListPage.clickSearchBtn();
         ticketListPage.waitTillLoaderGetsRemoved();
         Assert.assertEquals(ticketListPage.getTicketIdvalue(), Data.getTicketNumber());
-        TicketPOJO ticketPOJO=api.ticketMetaDataTest(Data.getTicketNumber());
-        softAssert.assertTrue(ticketListPage.isTicketIdLabel(),"Ticket Meta Data Have Ticket Id");
-        softAssert.assertTrue(ticketListPage.isWorkGroupName(),"Ticket Meta Data Have Workgroup");
-        softAssert.assertTrue(ticketListPage.isPrioritylabel(),"Ticket Meta Data Have Priority");
-        softAssert.assertTrue(ticketListPage.isStateLabel(),"Ticket Meta Data Have State");
-        softAssert.assertTrue(ticketListPage.isCreationdateLabel(),"Ticket Meta Data Have Creation Date");
-        softAssert.assertTrue(ticketListPage.isCreatedbyLabel(),"Ticket Meta Data Have Created By");
-        softAssert.assertTrue(ticketListPage.isQueueLabel(),"Ticket Meta Data Have Queue");
-        softAssert.assertTrue(ticketListPage.isIssueLabel(),"Ticket Meta Data Have Issue");
-        softAssert.assertTrue(ticketListPage.isIssueTypeLabel(),"Ticket Meta Data Have Issue Type");
-        softAssert.assertTrue(ticketListPage.isSubTypeLabel(),"Ticket Meta Data Have Issue Sub Type");
-        softAssert.assertTrue(ticketListPage.isSubSubTypeLabel(),"Ticket Meta Data Have Issue Sub Sub Type");
-        softAssert.assertTrue(ticketListPage.isCodeLabel(),"Ticket Meta Data Have Code");
+        TicketPOJO ticketPOJO = api.ticketMetaDataTest(Data.getTicketNumber());
+        softAssert.assertTrue(ticketListPage.isTicketIdLabel(), "Ticket Meta Data Have Ticket Id");
+        softAssert.assertTrue(ticketListPage.isWorkGroupName(), "Ticket Meta Data Have Workgroup");
+        softAssert.assertTrue(ticketListPage.isPrioritylabel(), "Ticket Meta Data Have Priority");
+        softAssert.assertTrue(ticketListPage.isStateLabel(), "Ticket Meta Data Have State");
+        softAssert.assertTrue(ticketListPage.isCreationdateLabel(), "Ticket Meta Data Have Creation Date");
+        softAssert.assertTrue(ticketListPage.isCreatedbyLabel(), "Ticket Meta Data Have Created By");
+        softAssert.assertTrue(ticketListPage.isQueueLabel(), "Ticket Meta Data Have Queue");
+        softAssert.assertTrue(ticketListPage.isIssueLabel(), "Ticket Meta Data Have Issue");
+        softAssert.assertTrue(ticketListPage.isIssueTypeLabel(), "Ticket Meta Data Have Issue Type");
+        softAssert.assertTrue(ticketListPage.isSubTypeLabel(), "Ticket Meta Data Have Issue Sub Type");
+        softAssert.assertTrue(ticketListPage.isSubSubTypeLabel(), "Ticket Meta Data Have Issue Sub Sub Type");
+        softAssert.assertTrue(ticketListPage.isCodeLabel(), "Ticket Meta Data Have Code");
         softAssert.assertEquals(ticketListPage.getIssueValue().toLowerCase().trim(), Data.getIssue().toLowerCase().trim(),
                 "Issue Validated");
         softAssert.assertEquals(ticketListPage.getIssueTypeValue().toLowerCase().trim(), Data.getIssueType().toLowerCase().trim(),
@@ -82,38 +82,38 @@ public class SupervisorSearchTicket extends BaseTest {
                 "Ticket Priority Validated");
         softAssert.assertEquals(ticketListPage.getPriorityValue().toLowerCase().trim(), Data.getPriority().toLowerCase().trim(),
                 "Issue Type Validated");
-        softAssert.assertEquals(ticketListPage.convertToHR(ticketPOJO.getResult().getCommittedSla()),Data.getCommittedSLA(),"Committed SLA does not configured Correctly");
-        Map<String,Long> sla=ticketPOJO.getResult().getSla();
-        if(Data.getWorkgroup1() !=null)
-        workGroups.put(Data.getWorkgroup1(),Data.getSLA1());
-        if(Data.getWorkgroup2() !=null)
-        workGroups.put(Data.getWorkgroup2(),Data.getSLA2());
-        if(Data.getWorkgroup3() !=null)
-        workGroups.put(Data.getWorkgroup3(),Data.getSLA3());
-        if(Data.getWorkgroup4() !=null)
-        workGroups.put(Data.getWorkgroup4(),Data.getSLA4());
+        softAssert.assertEquals(ticketListPage.convertToHR(ticketPOJO.getResult().getCommittedSla()), Data.getCommittedSLA(), "Committed SLA does not configured Correctly");
+        Map<String, Long> sla = ticketPOJO.getResult().getSla();
+        if (Data.getWorkgroup1() != null)
+            workGroups.put(Data.getWorkgroup1(), Data.getSLA1());
+        if (Data.getWorkgroup2() != null)
+            workGroups.put(Data.getWorkgroup2(), Data.getSLA2());
+        if (Data.getWorkgroup3() != null)
+            workGroups.put(Data.getWorkgroup3(), Data.getSLA3());
+        if (Data.getWorkgroup4() != null)
+            workGroups.put(Data.getWorkgroup4(), Data.getSLA4());
         for (Map.Entry mapElement : sla.entrySet()) {
             String key = (String) mapElement.getKey();
-            String value= mapElement.getValue().toString();
-            System.out.println(key+" = "+value);
-            if(workGroups.containsKey(key)){
+            String value = mapElement.getValue().toString();
+            System.out.println(key + " = " + value);
+            if (workGroups.containsKey(key)) {
                 workGroups.remove(key);
-                ExtentTestManager.getTest().log(LogStatus.INFO,key+" : workgroup is configured correctly in DB as mentioned in configuration");
-            }else{
-                ExtentTestManager.getTest().log(LogStatus.FAIL,key+" workgroup is not configured correctly in DB as not mentioned in configuration");
+                ExtentTestManager.getTest().log(LogStatus.INFO, key + " : workgroup is configured correctly in DB as mentioned in configuration");
+            } else {
+                ExtentTestManager.getTest().log(LogStatus.FAIL, key + " workgroup is not configured correctly in DB as not mentioned in configuration");
             }
-            if(value.charAt(0)=='-'){
-                softAssert.assertTrue(ticketListPage.isNegativeSLA(),"For negative SLA red symbol does not display");
-            }else{
-                softAssert.assertTrue(ticketListPage.isPositiveSLA(),"For positive SLA green symbol does not display");
+            if (value.charAt(0) == '-') {
+                softAssert.assertTrue(ticketListPage.isNegativeSLA(), "For negative SLA red symbol does not display");
+            } else {
+                softAssert.assertTrue(ticketListPage.isPositiveSLA(), "For positive SLA green symbol does not display");
             }
         }
         for (Map.Entry mapElement : workGroups.entrySet()) {
             String key = (String) mapElement.getKey();
-            String value= mapElement.getValue().toString();
-            if (key!=null)
-                if(!key.isEmpty())
-                    ExtentTestManager.getTest().log(LogStatus.FAIL,key+" workgroup is not configured correctly in DB as mentioned in configuration");
+            String value = mapElement.getValue().toString();
+            if (key != null)
+                if (!key.isEmpty())
+                    ExtentTestManager.getTest().log(LogStatus.FAIL, key + " workgroup is not configured correctly in DB as mentioned in configuration");
         }
         ticketListPage.clearInputBox();
         ticketListPage.waitTillLoaderGetsRemoved();
@@ -127,8 +127,8 @@ public class SupervisorSearchTicket extends BaseTest {
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         SoftAssert softAssert = new SoftAssert();
         ticketListPage.clickCheckbox();
-        softAssert.assertTrue(ticketListPage.isAssignToAgent(),"Check User have Option to Assign to Agent");
-        softAssert.assertTrue(ticketListPage.isTransferToQueue(),"Check User have Option to Transfer to Queue");
+        softAssert.assertTrue(ticketListPage.isAssignToAgent(), "Check User have Option to Assign to Agent");
+        softAssert.assertTrue(ticketListPage.isTransferToQueue(), "Check User have Option to Transfer to Queue");
         softAssert.assertAll();
     }
 

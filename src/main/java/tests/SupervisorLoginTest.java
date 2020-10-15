@@ -4,17 +4,11 @@ import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.TestDatabean;
 import Utils.ExtentReports.ExtentTestManager;
 import Utils.PassUtils;
-import com.relevantcodes.extentreports.LogStatus;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pages.SideMenuPOM;
-import pages.agentLoginPagePOM;
 import pages.loginPagePOM;
-import pages.supervisorTicketListPagePOM;
 
 import java.lang.reflect.Method;
-import java.util.List;
 
 public class SupervisorLoginTest extends BaseTest {
 

@@ -5,14 +5,16 @@ import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pages.*;
+import pages.SideMenuPOM;
+import pages.TemplateManagementPOM;
+import pages.ViewCreatedTemplatePOM;
 
 import java.util.ArrayList;
 
 public class ViewTemplateTest extends BaseTest {
 
-    @Test(priority = 1,description = "Open Template Management")
-    public void openTemplateManagement(){
+    @Test(priority = 1, description = "Open Template Management")
+    public void openTemplateManagement() {
         ExtentTestManager.startTest("Open Template Management", "Open Template Management");
         SoftAssert softAssert = new SoftAssert();
         SideMenuPOM SideMenuPOM = new SideMenuPOM(driver);
@@ -24,19 +26,19 @@ public class ViewTemplateTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 2,description = "View Created Template Page Loaded",dependsOnMethods = "openTemplateManagement")
-    public void openViewCreatedTemplate(){
+    @Test(priority = 2, description = "View Created Template Page Loaded", dependsOnMethods = "openTemplateManagement")
+    public void openViewCreatedTemplate() {
         ExtentTestManager.startTest("View Created Template Page Loaded", "View Created Template Page Loaded");
         SoftAssert softAssert = new SoftAssert();
-        TemplateManagementPOM templateManagement=new TemplateManagementPOM(driver);
+        TemplateManagementPOM templateManagement = new TemplateManagementPOM(driver);
         templateManagement.waitTillLoaderGetsRemoved();
-        ViewCreatedTemplatePOM viewCreatedTemplate=templateManagement.clickViewCreatedTemplateTab();
+        ViewCreatedTemplatePOM viewCreatedTemplate = templateManagement.clickViewCreatedTemplateTab();
         softAssert.assertTrue(viewCreatedTemplate.isViewCreatedTemplate());
         softAssert.assertAll();
     }
 
-    @Test(priority = 3,description = "Validating All Agent Channel displayed",dependsOnMethods = "openTemplateManagement")
-    public void validateAgentChannel(){
+    @Test(priority = 3, description = "Validating All Agent Channel displayed", dependsOnMethods = "openTemplateManagement")
+    public void validateAgentChannel() {
         ExtentTestManager.startTest("Validating All Agent Channel displayed", "Validating All Agent Channel displayed");
         ViewCreatedTemplatePOM viewCreatedTemplate = new ViewCreatedTemplatePOM(driver);
         SoftAssert softAssert = new SoftAssert();
@@ -44,7 +46,7 @@ public class ViewTemplateTest extends BaseTest {
         ArrayList<String> strings = viewCreatedTemplate.getAllOptions();
         viewCreatedTemplate.clickOutside();
         DataProviders data = new DataProviders();
-        ArrayList<String> interactionChannel=data.getInteractionChannelData();
+        ArrayList<String> interactionChannel = data.getInteractionChannelData();
         for (String s : strings) {
             if (interactionChannel.contains(s)) {
                 ExtentTestManager.getTest().log(LogStatus.INFO, "Validate " + s + " Agent channel is display correctly");
@@ -65,8 +67,8 @@ public class ViewTemplateTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 4,description = "Validating All Agent Roles displayed",dependsOnMethods = "openTemplateManagement")
-    public void validateRoles(){
+    @Test(priority = 4, description = "Validating All Agent Roles displayed", dependsOnMethods = "openTemplateManagement")
+    public void validateRoles() {
         ExtentTestManager.startTest("Validating All Agent Roles displayed", "Validating All Agent Roles displayed");
         ViewCreatedTemplatePOM viewCreatedTemplate = new ViewCreatedTemplatePOM(driver);
         SoftAssert softAssert = new SoftAssert();
@@ -74,7 +76,7 @@ public class ViewTemplateTest extends BaseTest {
         ArrayList<String> strings = viewCreatedTemplate.getAllOptions();
         viewCreatedTemplate.clickOutside();
         DataProviders data = new DataProviders();
-        ArrayList<String> agentRoles=data.getRoles();
+        ArrayList<String> agentRoles = data.getRoles();
         for (String s : strings) {
             if (agentRoles.contains(s)) {
                 ExtentTestManager.getTest().log(LogStatus.INFO, "Validate " + s + " Agent Roles is display correctly");
@@ -95,8 +97,8 @@ public class ViewTemplateTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 5,description = "Validating All Language displayed",dependsOnMethods = "openTemplateManagement")
-    public void validateLanguage(){
+    @Test(priority = 5, description = "Validating All Language displayed", dependsOnMethods = "openTemplateManagement")
+    public void validateLanguage() {
         ExtentTestManager.startTest("Validating All Language displayed", "Validating All Language displayed");
         ViewCreatedTemplatePOM viewCreatedTemplate = new ViewCreatedTemplatePOM(driver);
         SoftAssert softAssert = new SoftAssert();
@@ -104,7 +106,7 @@ public class ViewTemplateTest extends BaseTest {
         ArrayList<String> strings = viewCreatedTemplate.getAllOptions();
         viewCreatedTemplate.clickOutside();
         DataProviders data = new DataProviders();
-        ArrayList<String> language=data.getLanguage();
+        ArrayList<String> language = data.getLanguage();
         for (String s : strings) {
             if (language.contains(s)) {
                 ExtentTestManager.getTest().log(LogStatus.INFO, "Validate " + s + " Language is display correctly");
@@ -125,35 +127,35 @@ public class ViewTemplateTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 6,description = "Validate template layout")
-    public void validateTemplateLayout(){
+    @Test(priority = 6, description = "Validate template layout")
+    public void validateTemplateLayout() {
         ExtentTestManager.startTest("Validating template layout", "Validating All Language displayed");
         ViewCreatedTemplatePOM viewCreatedTemplate = new ViewCreatedTemplatePOM(driver);
         SoftAssert softAssert = new SoftAssert();
-        int i=1;
+        int i = 1;
         viewCreatedTemplate.templateName(i);
         viewCreatedTemplate.templateCategory(i);
-        softAssert.assertTrue(viewCreatedTemplate.isDeleteIcon(i),"Delete Icon Does not present");
-        softAssert.assertTrue(viewCreatedTemplate.isCommentIcon(i),"Comment Icon does not present");
-        softAssert.assertTrue(viewCreatedTemplate.isEditIcon(i),"Edit Icon does not present");
+        softAssert.assertTrue(viewCreatedTemplate.isDeleteIcon(i), "Delete Icon Does not present");
+        softAssert.assertTrue(viewCreatedTemplate.isCommentIcon(i), "Comment Icon does not present");
+        softAssert.assertTrue(viewCreatedTemplate.isEditIcon(i), "Edit Icon does not present");
         viewCreatedTemplate.validateActiveStatus(i);
         viewCreatedTemplate.templateLanguage(i);
         viewCreatedTemplate.validateDeActiveStatus(i);
-        softAssert.assertTrue(viewCreatedTemplate.checkPaginationDisplayed(),"Pagination does not displayed");
+        softAssert.assertTrue(viewCreatedTemplate.checkPaginationDisplayed(), "Pagination does not displayed");
         softAssert.assertAll();
     }
 
-    @Test(priority = 7,description = "Validate admin able to deactivate/Activate Template")
-    public void deactivateTemplate(){
+    @Test(priority = 7, description = "Validate admin able to deactivate/Activate Template")
+    public void deactivateTemplate() {
         ExtentTestManager.startTest("Validate admin able to deactivate/Activate Template", "Validate admin able to deactivate/Activate Template");
         ViewCreatedTemplatePOM viewCreatedTemplate = new ViewCreatedTemplatePOM(driver);
         SoftAssert softAssert = new SoftAssert();
-        int i=1;
+        int i = 1;
         viewCreatedTemplate.clickDeleteIcon(i);
         viewCreatedTemplate.popUpTitleDeActive();
         viewCreatedTemplate.popUpMessage();
-        softAssert.assertTrue(viewCreatedTemplate.isNoButtonAvailable(),"Admin does not have 'No' button available");
-        softAssert.assertTrue(viewCreatedTemplate.isYesButtonAvailable(),"Admin does not have 'YES' button available");
+        softAssert.assertTrue(viewCreatedTemplate.isNoButtonAvailable(), "Admin does not have 'No' button available");
+        softAssert.assertTrue(viewCreatedTemplate.isYesButtonAvailable(), "Admin does not have 'YES' button available");
         viewCreatedTemplate.clickNoBtn();
         softAssert.assertAll();
     }

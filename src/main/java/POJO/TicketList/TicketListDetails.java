@@ -1,9 +1,6 @@
 package POJO.TicketList;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -40,5 +37,5 @@ public class TicketListDetails {
     private String expectedClosureDate;
     private String comment;
     private String assignee;
-    private Map<String ,Long> sla;
+    private Map<String, Long> sla;
 }

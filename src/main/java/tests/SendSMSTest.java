@@ -10,9 +10,9 @@ import pages.*;
 
 public class SendSMSTest extends BaseTest {
 
-    String templateName=null;
-    String messageContent=null;
-    String customerNumber=null;
+    String templateName = null;
+    String messageContent = null;
+    String customerNumber = null;
 
     @DataProviders.User(UserType = "NFTR")
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
@@ -22,7 +22,7 @@ public class SendSMSTest extends BaseTest {
         SideMenuPOM SideMenuPOM = new SideMenuPOM(driver);
         SideMenuPOM.clickOnSideMenu();
         SideMenuPOM.clickOnName();
-        customerNumber=Data.getCustomerNumber();
+        customerNumber = Data.getCustomerNumber();
         customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
         customerInteractionsSearchPOM.enterNumber(Data.getCustomerNumber());
         customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
@@ -30,88 +30,88 @@ public class SendSMSTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 2,description = "Verify the fields displayed for SMS channel.")
-    public void validateSendSMSTab(){
+    @Test(priority = 2, description = "Verify the fields displayed for SMS channel.")
+    public void validateSendSMSTab() {
         ExtentTestManager.startTest("Validating the Send SMS Tab ", "Validating the send sms tab");
         SoftAssert softAssert = new SoftAssert();
-        customerInteractionPagePOM homepage=new customerInteractionPagePOM(driver);
+        customerInteractionPagePOM homepage = new customerInteractionPagePOM(driver);
         homepage.waitTillLoaderGetsRemoved();
         homepage.clickOnAction();
-        SendSMSPOM smsTab=homepage.openSendSMSTab();
+        SendSMSPOM smsTab = homepage.openSendSMSTab();
         smsTab.waitTillLoaderGetsRemoved();
-        softAssert.assertTrue(smsTab.isPageLoaded(),"Send SMS tab does not open correctly");
-        softAssert.assertTrue(smsTab.isCategory(),"Category field does not displayed");
-        softAssert.assertTrue(smsTab.isCustomerNumber(),"Customer number does not displayed");
-        softAssert.assertTrue(smsTab.isLanguage(),"Language field does not displayed");
-        softAssert.assertTrue(smsTab.isTemplateName(),"Template name field does not display");
-        softAssert.assertTrue(smsTab.isMessageContentEditable(),"Message Content Editable");
-        softAssert.assertTrue(smsTab.isSendBtnDisabled(),"Send SMS button is clickable");
+        softAssert.assertTrue(smsTab.isPageLoaded(), "Send SMS tab does not open correctly");
+        softAssert.assertTrue(smsTab.isCategory(), "Category field does not displayed");
+        softAssert.assertTrue(smsTab.isCustomerNumber(), "Customer number does not displayed");
+        softAssert.assertTrue(smsTab.isLanguage(), "Language field does not displayed");
+        softAssert.assertTrue(smsTab.isTemplateName(), "Template name field does not display");
+        softAssert.assertTrue(smsTab.isMessageContentEditable(), "Message Content Editable");
+        softAssert.assertTrue(smsTab.isSendBtnDisabled(), "Send SMS button is clickable");
         softAssert.assertAll();
     }
 
 
-    @Test(priority = 3,description = "Verify the frontend agent able to send SMS")
-    public void sendSMS(){
+    @Test(priority = 3, description = "Verify the frontend agent able to send SMS")
+    public void sendSMS() {
         ExtentTestManager.startTest("Validating the Send SMS Tab ", "Validating the send sms tab");
         SoftAssert softAssert = new SoftAssert();
-        SendSMSPOM smsTab=new SendSMSPOM(driver);
-        softAssert.assertTrue(smsTab.isPageLoaded(),"Send SMS tab does not open correctly");
-        Assert.assertEquals(smsTab.getCustomerNumber(),customerNumber,"Customer Number as not same as whose profile opened");
+        SendSMSPOM smsTab = new SendSMSPOM(driver);
+        softAssert.assertTrue(smsTab.isPageLoaded(), "Send SMS tab does not open correctly");
+        Assert.assertEquals(smsTab.getCustomerNumber(), customerNumber, "Customer Number as not same as whose profile opened");
         smsTab.selectCategory();
         smsTab.waitTillLoaderGetsRemoved();
-        templateName=smsTab.selectTemplateName();
+        templateName = smsTab.selectTemplateName();
         smsTab.waitTillLoaderGetsRemoved();
         smsTab.selectLanguage();
         smsTab.waitTillLoaderGetsRemoved();
-        messageContent=smsTab.getMessageContent();
-        softAssert.assertTrue(smsTab.clickSendSMSBtn(),"Send SMS does not enabled");
+        messageContent = smsTab.getMessageContent();
+        softAssert.assertTrue(smsTab.clickSendSMSBtn(), "Send SMS does not enabled");
         smsTab.waitTillSuccessMessage();
         smsTab.waitTillLoaderGetsRemoved();
         softAssert.assertAll();
     }
 
-    @Test(priority = 4,description = "Check Sent SMS display in message history")
-    public void checkSendMessageLog(){
+    @Test(priority = 4, description = "Check Sent SMS display in message history")
+    public void checkSendMessageLog() {
         ExtentTestManager.startTest("Check Sent SMS display in message history ", "Check Sent SMS display in message history");
         SoftAssert softAssert = new SoftAssert();
         customerInteractionPagePOM customerInteractionPage = new customerInteractionPagePOM(driver);
         viewHistoryPOM viewHistory = customerInteractionPage.clickOnViewHistory();
         viewHistory.waitTillLoaderGetsRemoved();
-        MessageHistoryTabPOM messageHistory=viewHistory.clickOnMessageHistory();
+        MessageHistoryTabPOM messageHistory = viewHistory.clickOnMessageHistory();
         messageHistory.waitTillLoaderGetsRemoved();
-        softAssert.assertTrue(messageHistory.isMessageTypeColumn(),"Message Type Column does not display on UI");
-        softAssert.assertTrue(messageHistory.isDateSentColumn(),"Date Sent Column does not display on UI");
-        softAssert.assertTrue(messageHistory.isTemplateColumn(),"Template/Event Column does not display on UI");
-        softAssert.assertTrue(messageHistory.isMessageLanguageColumn(),"Message Language Column does not display on UI");
-        softAssert.assertTrue(messageHistory.isMessageTextColumn(),"Message Text Column does not display on UI");
-        softAssert.assertTrue(messageHistory.isMessageTypeColumn(),"Message Type Column does not display on UI");
-        softAssert.assertEquals(messageHistory.messageType(1).toLowerCase().trim(),config.getProperty("manualSMSType").toLowerCase().trim(),"Message Type is not manual");
-        softAssert.assertEquals(messageHistory.templateEvent(1).toLowerCase().trim(),templateName.toLowerCase().trim(),"Template name not same as sent template.");
-        softAssert.assertEquals(messageHistory.messageText(1).toLowerCase().trim(),messageContent.toLowerCase().trim(),"Message content not same as set message content.");
-        softAssert.assertTrue(messageHistory.isActionBtnEnable(1),"Resend SMS icon does not enable");
-        softAssert.assertTrue(!messageHistory.agentId(1).trim().equalsIgnoreCase("-"),"Agent id must not be empty");
-        softAssert.assertTrue(!messageHistory.agentName(1).trim().equalsIgnoreCase("-"),"Agent name must not be empty");
+        softAssert.assertTrue(messageHistory.isMessageTypeColumn(), "Message Type Column does not display on UI");
+        softAssert.assertTrue(messageHistory.isDateSentColumn(), "Date Sent Column does not display on UI");
+        softAssert.assertTrue(messageHistory.isTemplateColumn(), "Template/Event Column does not display on UI");
+        softAssert.assertTrue(messageHistory.isMessageLanguageColumn(), "Message Language Column does not display on UI");
+        softAssert.assertTrue(messageHistory.isMessageTextColumn(), "Message Text Column does not display on UI");
+        softAssert.assertTrue(messageHistory.isMessageTypeColumn(), "Message Type Column does not display on UI");
+        softAssert.assertEquals(messageHistory.messageType(1).toLowerCase().trim(), config.getProperty("manualSMSType").toLowerCase().trim(), "Message Type is not manual");
+        softAssert.assertEquals(messageHistory.templateEvent(1).toLowerCase().trim(), templateName.toLowerCase().trim(), "Template name not same as sent template.");
+        softAssert.assertEquals(messageHistory.messageText(1).toLowerCase().trim(), messageContent.toLowerCase().trim(), "Message content not same as set message content.");
+        softAssert.assertTrue(messageHistory.isActionBtnEnable(1), "Resend SMS icon does not enable");
+        softAssert.assertTrue(!messageHistory.agentId(1).trim().equalsIgnoreCase("-"), "Agent id must not be empty");
+        softAssert.assertTrue(!messageHistory.agentName(1).trim().equalsIgnoreCase("-"), "Agent name must not be empty");
         softAssert.assertAll();
     }
 
-    @Test(priority = 5,description = "Re Send SMS using action button in message history")
-    public void ReSendMessageLog(){
+    @Test(priority = 5, description = "Re Send SMS using action button in message history")
+    public void ReSendMessageLog() {
         ExtentTestManager.startTest("Re Send SMS using action button in message history", "Re Send SMS using action button in message history");
         SoftAssert softAssert = new SoftAssert();
-        MessageHistoryTabPOM messageHistory=new MessageHistoryTabPOM(driver);
+        MessageHistoryTabPOM messageHistory = new MessageHistoryTabPOM(driver);
         messageHistory.waitTillLoaderGetsRemoved();
         messageHistory.clickActionBtn(1);
         messageHistory.getPopUpTitle();
-        Assert.assertTrue(messageHistory.getPopUpMessage().contains(customerNumber),"Pop up Message tab does not contain customer number");
+        Assert.assertTrue(messageHistory.getPopUpMessage().contains(customerNumber), "Pop up Message tab does not contain customer number");
         messageHistory.clickYesBtn();
         messageHistory.waitTillLoaderGetsRemoved();
-        softAssert.assertTrue(messageHistory.isMessageTypeColumn(),"Message Type Column does not display on UI");
-        softAssert.assertEquals(messageHistory.messageType(1).toLowerCase().trim(),config.getProperty("manualSMSType").toLowerCase().trim(),"Message Type is not manual");
-        softAssert.assertEquals(messageHistory.templateEvent(1).toLowerCase().trim(),templateName.toLowerCase().trim(),"Template name not same as sent template.");
-        softAssert.assertEquals(messageHistory.messageText(1).toLowerCase().trim(),messageContent.toLowerCase().trim(),"Message content not same as set message content.");
-        softAssert.assertTrue(messageHistory.isActionBtnEnable(1),"Resend SMS icon does not enable");
-        softAssert.assertTrue(!messageHistory.agentId(1).trim().equalsIgnoreCase("-"),messageHistory.agentId(1)+" :Agent id must not be empty");
-        softAssert.assertTrue(!messageHistory.agentName(1).trim().equalsIgnoreCase("-"),messageHistory.agentName(1)+" :Agent name must not be empty");
+        softAssert.assertTrue(messageHistory.isMessageTypeColumn(), "Message Type Column does not display on UI");
+        softAssert.assertEquals(messageHistory.messageType(1).toLowerCase().trim(), config.getProperty("manualSMSType").toLowerCase().trim(), "Message Type is not manual");
+        softAssert.assertEquals(messageHistory.templateEvent(1).toLowerCase().trim(), templateName.toLowerCase().trim(), "Template name not same as sent template.");
+        softAssert.assertEquals(messageHistory.messageText(1).toLowerCase().trim(), messageContent.toLowerCase().trim(), "Message content not same as set message content.");
+        softAssert.assertTrue(messageHistory.isActionBtnEnable(1), "Resend SMS icon does not enable");
+        softAssert.assertTrue(!messageHistory.agentId(1).trim().equalsIgnoreCase("-"), messageHistory.agentId(1) + " :Agent id must not be empty");
+        softAssert.assertTrue(!messageHistory.agentName(1).trim().equalsIgnoreCase("-"), messageHistory.agentName(1) + " :Agent name must not be empty");
         softAssert.assertAll();
     }
 

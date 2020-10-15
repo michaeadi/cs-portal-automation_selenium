@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class InternalState{
+public class InternalState {
 
     private int id;
     private String internalStateName;

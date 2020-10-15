@@ -15,7 +15,7 @@ public class supervisorTicketListPagePOM extends BasePage {
 
     @CacheLookup
     By searchTicketBox = By.xpath("//input[@type='search'][1]");
-    By searchTicketBox2=By.xpath("//span[@class='search-box small-search']//input");
+    By searchTicketBox2 = By.xpath("//span[@class='search-box small-search']//input");
     @CacheLookup
     By searchTicketBtn = By.xpath("//app-ticket-search-box//button");
     By ticketIdLabel = By.xpath("//app-ticket-list//div[1]//div//div[2]//ul[1]//li[1]//span[@class=\"data-title\"]");
@@ -62,8 +62,8 @@ public class supervisorTicketListPagePOM extends BasePage {
     By greenDot = By.xpath("//span[@class='greendot ng-star-inserted']");
     By assigneeAUUID = By.xpath("//div[@class='service-request']//div[1]//div[1]//div[2]//div[2]//p[1]//span[3]");
     By allTicket = By.xpath("//div[@class=\"table-card ng-star-inserted\"]");
-    By searchOptionBtn=By.xpath("//div[@class='options']");
-    By allSearchOption=By.xpath("//ul[@class='ng-star-inserted']//li");
+    By searchOptionBtn = By.xpath("//div[@class='options']");
+    By allSearchOption = By.xpath("//ul[@class='ng-star-inserted']//li");
 
     public supervisorTicketListPagePOM(WebDriver driver) {
         super(driver);
@@ -294,7 +294,7 @@ public class supervisorTicketListPagePOM extends BasePage {
         log.info("Selecting Filter");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Selecting Filter");
         click(selectFilterBtn);
-       return new FilterTabPOM(driver);
+        return new FilterTabPOM(driver);
     }
 
     public void resetFilter() {
@@ -306,11 +306,11 @@ public class supervisorTicketListPagePOM extends BasePage {
 
     public boolean validateQueueFilter(String text) {
         ExtentTestManager.getTest().log(LogStatus.INFO, "Validating Queue Filter");
-        boolean answer=false;
-        for(int i=1;i<=getListSize();i++){
-            By queue=By.xpath("//div[@class=\"table-card ng-star-inserted\"]["+i+"]//ul/li[7]/span[2]");
-            log.info(readText(queue).trim()+" : "+text+" :"+readText(queue).trim().equalsIgnoreCase(text));
-            answer=readText(queue).trim().equalsIgnoreCase(text);
+        boolean answer = false;
+        for (int i = 1; i <= getListSize(); i++) {
+            By queue = By.xpath("//div[@class=\"table-card ng-star-inserted\"][" + i + "]//ul/li[7]/span[2]");
+            log.info(readText(queue).trim() + " : " + text + " :" + readText(queue).trim().equalsIgnoreCase(text));
+            answer = readText(queue).trim().equalsIgnoreCase(text);
         }
         return answer;
     }
@@ -390,33 +390,33 @@ public class supervisorTicketListPagePOM extends BasePage {
         return ticketList;
     }
 
-    public int getListSize(){
+    public int getListSize() {
         List<WebElement> list = driver.findElements(allTicket);
-        log.info("Size: "+list.size());
+        log.info("Size: " + list.size());
         return list.size();
     }
 
     public String getSymbol(int i) {
         By ticket = By.xpath("//div[@class=\"table-card ng-star-inserted\"][" + i + "]//ul[1]//li[1]//span[2]");
         By symbol = By.xpath("//div[@class=\"table-card ng-star-inserted\"][" + i + "]//span[@class=\"escalation\"]");
-        log.info(readText(symbol)+": Escalation symbol found on ticket Id: " + readText(ticket).trim());
-        ExtentTestManager.getTest().log(LogStatus.INFO, readText(symbol)+": Escalation symbol found on ticket Id: " + readText(ticket).trim());
+        log.info(readText(symbol) + ": Escalation symbol found on ticket Id: " + readText(ticket).trim());
+        ExtentTestManager.getTest().log(LogStatus.INFO, readText(symbol) + ": Escalation symbol found on ticket Id: " + readText(ticket).trim());
         return readText(symbol).trim();
     }
 
-    public void clickTicketOption(){
+    public void clickTicketOption() {
         log.info("Click on Ticket Icon to get list of option");
         click(searchOptionBtn);
     }
 
-    public List<String> getListOfSearchOption(){
+    public List<String> getListOfSearchOption() {
         log.info("Getting Search Option");
-        List<WebElement> list=driver.findElements(allSearchOption);
-        List<String> searchOption=new ArrayList<>();
-        for(int i=1;i<=list.size();i++){
-            By search=By.xpath("//ul[@class='ng-star-inserted']//li["+i+"]");
-            log.info("Options Available : "+readText(search));
-            ExtentTestManager.getTest().log(LogStatus.INFO,"Options Available : "+readText(search));
+        List<WebElement> list = driver.findElements(allSearchOption);
+        List<String> searchOption = new ArrayList<>();
+        for (int i = 1; i <= list.size(); i++) {
+            By search = By.xpath("//ul[@class='ng-star-inserted']//li[" + i + "]");
+            log.info("Options Available : " + readText(search));
+            ExtentTestManager.getTest().log(LogStatus.INFO, "Options Available : " + readText(search));
             searchOption.add(readText(search).trim());
         }
         return searchOption;

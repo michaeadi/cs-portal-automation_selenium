@@ -33,12 +33,12 @@ public class customerInteractionPagePOM extends BasePage {
     By thirdWidgetHeader = By.xpath("//div[@class=\"home-tab-container__left-widgets--widgets ng-star-inserted\"][2]//child::span[@class=\"card__card-header--label\"]");
     By secondWidgetHeader = By.xpath("//div[@class=\"home-tab-container__right-widgets--widgets ng-star-inserted\"][1]//child::span[@class=\"card__card-header--label\"]");
     By fourthWidgetHeader = By.xpath("//div[@class=\"home-tab-container__right-widgets--widgets ng-star-inserted\"][2]//child::span[@class=\"card__card-header--label\"]");
-    By daDetailsTab=By.xpath("//div[contains(text(),'DA DETAILS')]");
-    By usageHistoryTab=By.xpath("//div[contains(text(),'USAGE HISTORY')]");
-    By rechargeHistoryTab=By.xpath("//div[contains(text(),'RECHARGE HISTORY')]");
-    By homeActionBtn=By.xpath("//span[@class='action-placeholder']");
-    By sendSMSAction=By.xpath("//div[@class=\"mat-menu-content\"]//button[contains(text(),'Send SMS')]");
-    By simBarUnBar=By.xpath("//div[@class=\"mat-menu-content\"]//button[1]");
+    By daDetailsTab = By.xpath("//div[contains(text(),'DA DETAILS')]");
+    By usageHistoryTab = By.xpath("//div[contains(text(),'USAGE HISTORY')]");
+    By rechargeHistoryTab = By.xpath("//div[contains(text(),'RECHARGE HISTORY')]");
+    By homeActionBtn = By.xpath("//span[@class='action-placeholder']");
+    By sendSMSAction = By.xpath("//div[@class=\"mat-menu-content\"]//button[contains(text(),'Send SMS')]");
+    By simBarUnBar = By.xpath("//div[@class=\"mat-menu-content\"]//button[1]");
 
     public customerInteractionPagePOM(WebDriver driver) {
         super(driver);
@@ -69,23 +69,23 @@ public class customerInteractionPagePOM extends BasePage {
     }
 
     public List<String> getPinnedTagTexts() {
-        List<String> strings=new ArrayList<String>();
+        List<String> strings = new ArrayList<String>();
         List<WebElement> webElements = driver.findElements(pinTags);
-        System.out.println("Size: "+webElements.size());
+        System.out.println("Size: " + webElements.size());
         for (int i = 1; i <= webElements.size(); i++) {
-            By tagName=By.xpath("//div[@class='sub-header__divide--control']//div[@class=\"sub-header__divide--control--tab ng-star-inserted\"]["+i+"]");
-            System.out.println("Text: "+readText(tagName).toLowerCase().trim());
-            log.info("Reading pinned tag name: "+readText(tagName));
-            ExtentTestManager.getTest().log(LogStatus.INFO,"Reading pinned tag name: "+readText(tagName));
+            By tagName = By.xpath("//div[@class='sub-header__divide--control']//div[@class=\"sub-header__divide--control--tab ng-star-inserted\"][" + i + "]");
+            System.out.println("Text: " + readText(tagName).toLowerCase().trim());
+            log.info("Reading pinned tag name: " + readText(tagName));
+            ExtentTestManager.getTest().log(LogStatus.INFO, "Reading pinned tag name: " + readText(tagName));
             strings.add(readText(tagName).toLowerCase().trim());
         }
         return strings;
     }
 
     public customerInteractionsSearchPOM clickPinTag(String text) {
-        log.info("Clicking on "+text+" Pinned Tag");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking "+text+" Pinned Tag");
-        By tagName = By.xpath("//div[@class=\"sub-header__divide--control--tab ng-star-inserted\" and contains(text(),\""+text+"\")]");
+        log.info("Clicking on " + text + " Pinned Tag");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking " + text + " Pinned Tag");
+        By tagName = By.xpath("//div[@class=\"sub-header__divide--control--tab ng-star-inserted\" and contains(text(),\"" + text + "\")]");
         click(tagName);
         return new customerInteractionsSearchPOM(driver);
     }
@@ -176,9 +176,9 @@ public class customerInteractionPagePOM extends BasePage {
     }
 
     public boolean isPinTagVisible(String text) {
-        By tagName = By.xpath("//div[@class=\"sub-header__divide--control--tab ng-star-inserted\" and contains(text(),\""+text+"\")]");
-        log.info("Checking is "+text+" Pinned Tag Visible");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is "+text+" Pinned Tag Visible");
+        By tagName = By.xpath("//div[@class=\"sub-header__divide--control--tab ng-star-inserted\" and contains(text(),\"" + text + "\")]");
+        log.info("Checking is " + text + " Pinned Tag Visible");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is " + text + " Pinned Tag Visible");
         return isElementVisible(tagName);
     }
 
@@ -209,15 +209,15 @@ public class customerInteractionPagePOM extends BasePage {
         click(homeActionBtn);
     }
 
-    public SendSMSPOM openSendSMSTab(){
+    public SendSMSPOM openSendSMSTab() {
         log.info("Clicking on Send SMS");
-        ExtentTestManager.getTest().log(LogStatus.INFO,"Clicking on Send SMS");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Send SMS");
         click(sendSMSAction);
         return new SendSMSPOM(driver);
     }
 
-    public AuthenticationTabPOM openAuthTab(){
-        printInfoLog("Opening Authentication tab for : "+readText(simBarUnBar));
+    public AuthenticationTabPOM openAuthTab() {
+        printInfoLog("Opening Authentication tab for : " + readText(simBarUnBar));
         click(simBarUnBar);
         return new AuthenticationTabPOM(driver);
     }

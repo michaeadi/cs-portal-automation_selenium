@@ -59,7 +59,7 @@ public class agentLoginPagePOM extends BasePage {
     }
 
     public void byQueueName(String queueName) throws InterruptedException {
-        log.info("Selecting Queue : "+queueName);
+        log.info("Selecting Queue : " + queueName);
         selectByText(queueName);
     }
 

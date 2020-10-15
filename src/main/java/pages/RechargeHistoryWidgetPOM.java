@@ -26,10 +26,10 @@ public class RechargeHistoryWidgetPOM extends BasePage {
     By rechargeHistoryNoResultFound = By.xpath("//span[contains(text(),\"Recharge History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]");
     By rechargeHistoryNoResultFoundMessage = By.xpath("//span[contains(text(),\"Recharge History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]/span/span");
     By rechargeHistoryError = By.xpath("//span[contains(text(),\"Recharge History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"widget-error apiMsgBlock ng-star-inserted\"][1]");
-    By ticketIcon=By.xpath("//span[contains(text(),'Recharge History')]//span[@class=\"card__card-header--icon ng-star-inserted\"]");
-    By getTitle=By.xpath("//span[contains(text(),'Recharge History')]");
-    By voucherBox=By.xpath("//input[@placeholder=\"Voucher ID\"]");
-    By voucherBtn=By.xpath("//input[@placeholder=\"Voucher ID\"]//parent::span//button");
+    By ticketIcon = By.xpath("//span[contains(text(),'Recharge History')]//span[@class=\"card__card-header--icon ng-star-inserted\"]");
+    By getTitle = By.xpath("//span[contains(text(),'Recharge History')]");
+    By voucherBox = By.xpath("//input[@placeholder=\"Voucher ID\"]");
+    By voucherBtn = By.xpath("//input[@placeholder=\"Voucher ID\"]//parent::span//button");
 
     public RechargeHistoryWidgetPOM(WebDriver driver) {
         super(driver);
@@ -137,25 +137,25 @@ public class RechargeHistoryWidgetPOM extends BasePage {
         return checkState(rechargeHistoryDatePicker);
     }
 
-    public WidgetInteractionPOM clickTicketIcon(){
+    public WidgetInteractionPOM clickTicketIcon() {
         log.info("Clicking on Ticket Icon");
-        ExtentTestManager.getTest().log(LogStatus.INFO,"Clicking on Ticket Icon");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Ticket Icon");
         click(ticketIcon);
         return new WidgetInteractionPOM(driver);
     }
 
-    public String getWidgetTitle(){
-        log.info("Getting Widget title: "+readText(getTitle));
+    public String getWidgetTitle() {
+        log.info("Getting Widget title: " + readText(getTitle));
         return readText(getTitle).toLowerCase();
     }
 
     public void writeVoucherId(String id) throws InterruptedException {
-        printInfoLog("Writing voucher id in search box: "+id);
+        printInfoLog("Writing voucher id in search box: " + id);
         scrollToViewElement(voucherBox);
-        writeText(voucherBox,id);
+        writeText(voucherBox, id);
     }
 
-    public VoucherTabPOM clickSearchBtn(){
+    public VoucherTabPOM clickSearchBtn() {
         printInfoLog("Clicking Search Button");
         click(voucherBtn);
         return new VoucherTabPOM(driver);

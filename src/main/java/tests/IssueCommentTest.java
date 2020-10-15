@@ -14,7 +14,7 @@ import pages.supervisorTicketListPagePOM;
 
 import java.lang.reflect.Method;
 
-public class IssueCommentTest extends BaseTest{
+public class IssueCommentTest extends BaseTest {
 
     @Test(priority = 1, description = "Supervisor SKIP Login ", dataProvider = "getTestData", dataProviderClass = DataProviders.class)
     public void agentSkipQueueLogin(Method method, TestDatabean Data) {
@@ -26,9 +26,9 @@ public class IssueCommentTest extends BaseTest{
         agentLoginPagePOM AgentLoginPagePOM = sideMenu.openSupervisorDashboard();
         SoftAssert softAssert = new SoftAssert();
         AgentLoginPagePOM.waitTillLoaderGetsRemoved();
-        softAssert.assertTrue(AgentLoginPagePOM.isQueueLoginPage(),"Agent redirect to Queue Login Page");
-        softAssert.assertTrue(AgentLoginPagePOM.checkSkipButton(),"Checking Queue Login Page have SKIP button");
-        softAssert.assertTrue(AgentLoginPagePOM.checkSubmitButton(),"Checking Queue Login Page have Submit button");
+        softAssert.assertTrue(AgentLoginPagePOM.isQueueLoginPage(), "Agent redirect to Queue Login Page");
+        softAssert.assertTrue(AgentLoginPagePOM.checkSkipButton(), "Checking Queue Login Page have SKIP button");
+        softAssert.assertTrue(AgentLoginPagePOM.checkSubmitButton(), "Checking Queue Login Page have Submit button");
         AgentLoginPagePOM.clickSkipBtn();
         AgentLoginPagePOM.waitTillLoaderGetsRemoved();
         Assert.assertEquals(driver.getTitle(), config.getProperty("supervisorTicketListPage"));
@@ -44,7 +44,7 @@ public class IssueCommentTest extends BaseTest{
         SoftAssert softAssert = new SoftAssert();
         ticketListPage.changeTicketTypeToOpen();
         String ticketId = ticketListPage.getTicketIdvalue();
-        String comment="Supervisor added comment on ticket using automation";
+        String comment = "Supervisor added comment on ticket using automation";
         ticketListPage.viewTicket();
         softAssert.assertTrue(viewTicket.validateCommentType(config.getProperty("issueComment")));
         softAssert.assertAll();

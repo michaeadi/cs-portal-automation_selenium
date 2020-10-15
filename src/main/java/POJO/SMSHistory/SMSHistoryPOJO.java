@@ -1,6 +1,5 @@
 package POJO.SMSHistory;
 
-import POJO.TicketList.TicketListDetails;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

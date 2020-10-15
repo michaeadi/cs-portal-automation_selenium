@@ -74,15 +74,15 @@ DADetailsPOM extends BasePage {
         return Rows.size();
     }
 
-    public WidgetInteractionPOM clickTicketIcon(){
+    public WidgetInteractionPOM clickTicketIcon() {
         log.info("Clicking on Ticket Icon");
-        ExtentTestManager.getTest().log(LogStatus.INFO,"Clicking on Ticket Icon");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Ticket Icon");
         click(ticketIcon);
         return new WidgetInteractionPOM(driver);
     }
 
-    public String getWidgetTitle(){
-        log.info("Getting Widget title: "+readText(getTitle));
+    public String getWidgetTitle() {
+        log.info("Getting Widget title: " + readText(getTitle));
         return readText(getTitle).toLowerCase();
     }
 

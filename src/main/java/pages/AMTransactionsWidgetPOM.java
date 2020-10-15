@@ -16,8 +16,8 @@ public class AMTransactionsWidgetPOM extends BasePage {
     By airtelMoneyNoResultFound = By.xpath("//span[contains(text(),\"Airtel Money Transactions \")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]");
     By airtelMoneyNoResultFoundMessage = By.xpath("//span[contains(text(),\"Airtel Money Transactions \")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]/span/span");
     By airtelMoneyError = By.xpath("//span[contains(text(),\"Airtel Money Transactions \")]/ancestor::div[@class=\"card ng-star-inserted\"]//div[@class='image-container']");
-    By ticketIcon=By.xpath("//span[contains(text(),\"Airtel Money Transactions \")]//span[@class=\"card__card-header--icon ng-star-inserted\"]");
-    By getTitle=By.xpath("//span[contains(text(),\"Airtel Money Transactions \")]");
+    By ticketIcon = By.xpath("//span[contains(text(),\"Airtel Money Transactions \")]//span[@class=\"card__card-header--icon ng-star-inserted\"]");
+    By getTitle = By.xpath("//span[contains(text(),\"Airtel Money Transactions \")]");
 
     public boolean isAirtelMoneyErrorVisible() {
         log.info("Validating error is visible when there is Error inAPI : " + isElementVisible(airtelMoneyError));
@@ -85,15 +85,15 @@ public class AMTransactionsWidgetPOM extends BasePage {
         return Double.parseDouble(readText(airtelMoneyBalance));
     }
 
-    public WidgetInteractionPOM clickTicketIcon(){
+    public WidgetInteractionPOM clickTicketIcon() {
         log.info("Clicking on Ticket Icon");
-        ExtentTestManager.getTest().log(LogStatus.INFO,"Clicking on Ticket Icon");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Ticket Icon");
         click(ticketIcon);
         return new WidgetInteractionPOM(driver);
     }
 
-    public String getWidgetTitle(){
-        log.info("Getting Widget title: "+readText(getTitle));
+    public String getWidgetTitle() {
+        log.info("Getting Widget title: " + readText(getTitle));
         return readText(getTitle).toLowerCase();
     }
 }

@@ -10,11 +10,11 @@ import pages.SideMenuPOM;
 import pages.userManagementPOM;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public class userManagementTest extends BaseTest {
 
     int currentBucketSize;
+
     @Test(priority = 1)
     public void openUserManagementPage() {
         SideMenuPOM SideMenuPOM = new SideMenuPOM(driver);
@@ -56,7 +56,7 @@ public class userManagementTest extends BaseTest {
         ArrayList<String> strings = userManagement.getInteractionChannels();
         userManagement.pressESC();
         DataProviders data = new DataProviders();
-        ArrayList<String> interactionChannel=data.getInteractionChannelData();
+        ArrayList<String> interactionChannel = data.getInteractionChannelData();
         for (String s : strings) {
             if (interactionChannel.contains(s)) {
                 ExtentTestManager.getTest().log(LogStatus.INFO, "Validate " + s + " interaction channel is display correctly");
@@ -88,7 +88,7 @@ public class userManagementTest extends BaseTest {
         ArrayList<String> strings = userManagement.getWorkflows();
         userManagement.pressESC();
         DataProviders data = new DataProviders();
-        ArrayList<String> workFlow=data.getWorkFlowData();
+        ArrayList<String> workFlow = data.getWorkFlowData();
         for (String s : strings) {
             if (workFlow.contains(s)) {
                 ExtentTestManager.getTest().log(LogStatus.INFO, "Validate " + s + " workgroup is display correctly");
@@ -109,6 +109,7 @@ public class userManagementTest extends BaseTest {
         softAssert.assertAll();
 
     }
+
     @Test(priority = 5, description = "Validating User Management Edit User : Login Queue")
     public void getLoginQueue() throws InterruptedException {
         ExtentTestManager.startTest("Validating User Management Edit User : Login Queue", "Validating User Management Edit User :  Login Queue");
@@ -118,7 +119,7 @@ public class userManagementTest extends BaseTest {
         ArrayList<String> strings = userManagement.getLoginQueues();
         userManagement.pressESC();
         DataProviders data = new DataProviders();
-        ArrayList<String> loginQueue=data.getLoginQueueData();
+        ArrayList<String> loginQueue = data.getLoginQueueData();
         for (String s : strings) {
             if (loginQueue.contains(s)) {
                 ExtentTestManager.getTest().log(LogStatus.INFO, "Validate " + s + " ticketPool is display correctly");

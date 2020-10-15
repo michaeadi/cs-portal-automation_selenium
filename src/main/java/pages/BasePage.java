@@ -29,9 +29,9 @@ public class BasePage {
     public WebDriver driver;
     public WebDriverWait wait;
     By loader = By.xpath("/html/body/app-root/ngx-ui-loader/div[2]");
-    By loader1=By.xpath("//div[@class=\"ngx-overlay foreground-closing\"]");
-    By overlay=By.xpath("//mat-dialog-container[@role='dialog']");
-    By timeLine=By.xpath("//app-new-loader[@class=\"ng-star-inserted\"]//div[1]");
+    By loader1 = By.xpath("//div[@class=\"ngx-overlay foreground-closing\"]");
+    By overlay = By.xpath("//mat-dialog-container[@role='dialog']");
+    By timeLine = By.xpath("//app-new-loader[@class=\"ng-star-inserted\"]//div[1]");
     By home = By.xpath("//div[text()=\"HOME\"]");
 
     //Constructor
@@ -51,7 +51,7 @@ public class BasePage {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(overlay));
     }
 
-    public void waitTillTimeLineGetsRemoved(){
+    public void waitTillTimeLineGetsRemoved() {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(timeLine));
     }
 
@@ -100,7 +100,7 @@ public class BasePage {
     }
 
     //Wait For Element
-   public void waitVisibility(By by) {
+    public void waitVisibility(By by) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(by));
     }
 
@@ -169,7 +169,7 @@ public class BasePage {
 
 
     void selectByText(String text) {
-        WebElement elementby= driver.findElement(By.xpath("//span[contains(text(),'" + text + "')]"));
+        WebElement elementby = driver.findElement(By.xpath("//span[contains(text(),'" + text + "')]"));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", elementby);
         driver.findElement(By.xpath("//span[contains(text(),'" + text + "')]")).click();
     }
@@ -179,17 +179,17 @@ public class BasePage {
         action.moveByOffset(0, 0).click().build().perform();
     }
 
-    public void clearInputTag(By element){
+    public void clearInputTag(By element) {
         log.info("Clear Search Box");
         driver.findElement(element).clear();
     }
 
-    public boolean validateFilter(By element,String text){
-        List<WebElement> list=  driver.findElements(element);
+    public boolean validateFilter(By element, String text) {
+        List<WebElement> list = driver.findElements(element);
         log.info("Validating Filter");
-        for(WebElement x : list){
-            log.info("Element Text : "+x.getText());
-            if(!x.getText().equalsIgnoreCase(text)){
+        for (WebElement x : list) {
+            log.info("Element Text : " + x.getText());
+            if (!x.getText().equalsIgnoreCase(text)) {
                 return false;
             }
         }
@@ -215,28 +215,28 @@ public class BasePage {
     }
 
     public String convertToHR(String committedSla) {
-        Long ms=Long.parseLong(committedSla);
-        log.info("Converting SLA: "+committedSla+" to "+String.valueOf(TimeUnit.MILLISECONDS.toHours(ms)));
+        Long ms = Long.parseLong(committedSla);
+        log.info("Converting SLA: " + committedSla + " to " + String.valueOf(TimeUnit.MILLISECONDS.toHours(ms)));
         return String.valueOf(TimeUnit.MILLISECONDS.toHours(ms));
     }
 
-    public void printInfoLog(String message){
+    public void printInfoLog(String message) {
         log.info(message);
-        ExtentTestManager.getTest().log(LogStatus.INFO,message);
+        ExtentTestManager.getTest().log(LogStatus.INFO, message);
     }
 
-    public void printFailLog(String message){
+    public void printFailLog(String message) {
         log.info(message);
-        ExtentTestManager.getTest().log(LogStatus.FAIL,message);
+        ExtentTestManager.getTest().log(LogStatus.FAIL, message);
     }
 
-    public void printPassLog(String message){
+    public void printPassLog(String message) {
         log.info(message);
-        ExtentTestManager.getTest().log(LogStatus.PASS,message);
+        ExtentTestManager.getTest().log(LogStatus.PASS, message);
     }
 
-    public void printWarningLog(String message){
+    public void printWarningLog(String message) {
         log.info(message);
-        ExtentTestManager.getTest().log(LogStatus.WARNING,message);
+        ExtentTestManager.getTest().log(LogStatus.WARNING, message);
     }
 }

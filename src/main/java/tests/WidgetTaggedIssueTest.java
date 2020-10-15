@@ -1,7 +1,7 @@
 package tests;
+
 import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.TestDatabean;
-import Utils.DataProviders.ftrDataBeans;
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 import org.testng.annotations.Test;
@@ -52,14 +52,14 @@ public class WidgetTaggedIssueTest extends BaseTest {
                             tagIssue.remove(s);
                             tagIssueTab.clickIssueLabel(s);
                             tagIssueTab.writeComment("Comment added using test automation");
-                            customerInteractionPagePOM customerInteractionPage=tagIssueTab.clickSubmitBtn();
+                            customerInteractionPagePOM customerInteractionPage = tagIssueTab.clickSubmitBtn();
                             tagIssueTab.interactionTabClosed();
                             softAssert.assertTrue(customerInteractionPage.isPageLoaded());
                             viewHistoryPOM viewHistory = customerInteractionPage.clickOnViewHistory();
                             viewHistory.clickOnInteractionsTab();
                             String issueCode = viewHistory.getLastCreatedIssueCode();
                             softAssert.assertEquals(issueCode.toLowerCase().trim(), data.getCode(s).trim().toLowerCase());
-                            customerInteractionPage= viewHistory.openingCustomerInteractionDashboard();
+                            customerInteractionPage = viewHistory.openingCustomerInteractionDashboard();
                             softAssert.assertTrue(customerInteractionPage.isPageLoaded());
                             currentBalanceWidget = new CurrentBalanceWidgetPOM(driver);
                             currentBalanceWidget.clickTicketIcon();
@@ -71,7 +71,7 @@ public class WidgetTaggedIssueTest extends BaseTest {
                         }
                     }
                 } catch (NoSuchElementException e) {
-                    ExtentTestManager.getTest().log(LogStatus.INFO,e.fillInStackTrace());
+                    ExtentTestManager.getTest().log(LogStatus.INFO, e.fillInStackTrace());
                     e.printStackTrace();
                     softAssert.fail("Issue Creation Failed");
                 }
@@ -116,14 +116,14 @@ public class WidgetTaggedIssueTest extends BaseTest {
                             tagIssue.remove(s);
                             tagIssueTab.clickIssueLabel(s);
                             tagIssueTab.writeComment("Comment added using test automation");
-                            customerInteractionPagePOM customerInteractionPage=tagIssueTab.clickSubmitBtn();
+                            customerInteractionPagePOM customerInteractionPage = tagIssueTab.clickSubmitBtn();
                             tagIssueTab.interactionTabClosed();
                             softAssert.assertTrue(customerInteractionPage.isPageLoaded());
                             viewHistoryPOM viewHistory = customerInteractionPage.clickOnViewHistory();
                             viewHistory.clickOnInteractionsTab();
                             String issueCode = viewHistory.getLastCreatedIssueCode();
-                            softAssert.assertEquals(issueCode.toLowerCase().trim(), data.getCode(s).trim().toLowerCase(),"Issue code for category label "+s+" does not configured correctly.");
-                            customerInteractionPage= viewHistory.openingCustomerInteractionDashboard();
+                            softAssert.assertEquals(issueCode.toLowerCase().trim(), data.getCode(s).trim().toLowerCase(), "Issue code for category label " + s + " does not configured correctly.");
+                            customerInteractionPage = viewHistory.openingCustomerInteractionDashboard();
                             softAssert.assertTrue(customerInteractionPage.isPageLoaded());
                             rechargeHistory = new RechargeHistoryWidgetPOM(driver);
                             rechargeHistory.clickTicketIcon();
@@ -135,7 +135,7 @@ public class WidgetTaggedIssueTest extends BaseTest {
                         }
                     }
                 } catch (NoSuchElementException e) {
-                    ExtentTestManager.getTest().log(LogStatus.INFO,e.fillInStackTrace());
+                    ExtentTestManager.getTest().log(LogStatus.INFO, e.fillInStackTrace());
                     e.printStackTrace();
                     softAssert.fail("Issue Creation Failed");
                 }
@@ -180,14 +180,14 @@ public class WidgetTaggedIssueTest extends BaseTest {
                             tagIssue.remove(s);
                             tagIssueTab.clickIssueLabel(s);
                             tagIssueTab.writeComment("Comment added using test automation");
-                            customerInteractionPagePOM customerInteractionPage=tagIssueTab.clickSubmitBtn();
+                            customerInteractionPagePOM customerInteractionPage = tagIssueTab.clickSubmitBtn();
                             tagIssueTab.interactionTabClosed();
                             softAssert.assertTrue(customerInteractionPage.isPageLoaded());
                             viewHistoryPOM viewHistory = customerInteractionPage.clickOnViewHistory();
                             viewHistory.clickOnInteractionsTab();
                             String issueCode = viewHistory.getLastCreatedIssueCode();
                             softAssert.assertEquals(issueCode.toLowerCase().trim(), data.getCode(s).trim().toLowerCase());
-                            customerInteractionPage= viewHistory.openingCustomerInteractionDashboard();
+                            customerInteractionPage = viewHistory.openingCustomerInteractionDashboard();
                             softAssert.assertTrue(customerInteractionPage.isPageLoaded());
                             usageHistory = new UsageHistoryWidgetPOM(driver);
                             usageHistory.clickTicketIcon();
@@ -244,14 +244,14 @@ public class WidgetTaggedIssueTest extends BaseTest {
                             tagIssue.remove(s);
                             tagIssueTab.clickIssueLabel(s);
                             tagIssueTab.writeComment("Comment added using test automation");
-                            customerInteractionPagePOM customerInteractionPage=tagIssueTab.clickSubmitBtn();
+                            customerInteractionPagePOM customerInteractionPage = tagIssueTab.clickSubmitBtn();
                             tagIssueTab.interactionTabClosed();
                             softAssert.assertTrue(customerInteractionPage.isPageLoaded());
                             viewHistoryPOM viewHistory = customerInteractionPage.clickOnViewHistory();
                             viewHistory.clickOnInteractionsTab();
                             String issueCode = viewHistory.getLastCreatedIssueCode();
                             softAssert.assertEquals(issueCode.toLowerCase().trim(), data.getCode(s).trim().toLowerCase());
-                            customerInteractionPage= viewHistory.openingCustomerInteractionDashboard();
+                            customerInteractionPage = viewHistory.openingCustomerInteractionDashboard();
                             softAssert.assertTrue(customerInteractionPage.isPageLoaded());
                             airtelMoney = new AMTransactionsWidgetPOM(driver);
                             airtelMoney.clickTicketIcon();
@@ -313,7 +313,7 @@ public class WidgetTaggedIssueTest extends BaseTest {
                                 tagIssue.remove(s);
                                 tagIssueTab.clickIssueLabel(s);
                                 tagIssueTab.writeComment("Comment added using test automation");
-                                customerInteractionPagePOM customerInteractionPage=tagIssueTab.clickSubmitBtn();
+                                customerInteractionPagePOM customerInteractionPage = tagIssueTab.clickSubmitBtn();
                                 tagIssueTab.interactionTabClosed();
                                 softAssert.assertTrue(customerInteractionPage.isPageLoaded());
                                 viewHistoryPOM viewHistory = customerInteractionPage.clickOnViewHistory();
@@ -388,7 +388,7 @@ public class WidgetTaggedIssueTest extends BaseTest {
                                 tagIssue.remove(s);
                                 tagIssueTab.clickIssueLabel(s);
                                 tagIssueTab.writeComment("Comment added using test automation");
-                                customerInteractionPagePOM customerInteractionPage=tagIssueTab.clickSubmitBtn();
+                                customerInteractionPagePOM customerInteractionPage = tagIssueTab.clickSubmitBtn();
                                 tagIssueTab.interactionTabClosed();
                                 softAssert.assertTrue(customerInteractionPage.isPageLoaded());
                                 viewHistoryPOM viewHistory = customerInteractionPage.clickOnViewHistory();
@@ -458,7 +458,7 @@ public class WidgetTaggedIssueTest extends BaseTest {
                                 tagIssue.remove(s);
                                 tagIssueTab.clickIssueLabel(s);
                                 tagIssueTab.writeComment("Comment added using test automation");
-                                customerInteractionPagePOM customerInteractionPage=tagIssueTab.clickSubmitBtn();
+                                customerInteractionPagePOM customerInteractionPage = tagIssueTab.clickSubmitBtn();
                                 tagIssueTab.interactionTabClosed();
                                 softAssert.assertTrue(customerInteractionPage.isPageLoaded());
                                 viewHistoryPOM viewHistory = customerInteractionPage.clickOnViewHistory();
@@ -528,7 +528,7 @@ public class WidgetTaggedIssueTest extends BaseTest {
                                 tagIssue.remove(s);
                                 tagIssueTab.clickIssueLabel(s);
                                 tagIssueTab.writeComment("Comment added using test automation");
-                                customerInteractionPagePOM customerInteractionPage=tagIssueTab.clickSubmitBtn();
+                                customerInteractionPagePOM customerInteractionPage = tagIssueTab.clickSubmitBtn();
                                 tagIssueTab.interactionTabClosed();
                                 softAssert.assertTrue(customerInteractionPage.isPageLoaded());
                                 viewHistoryPOM viewHistory = customerInteractionPage.clickOnViewHistory();

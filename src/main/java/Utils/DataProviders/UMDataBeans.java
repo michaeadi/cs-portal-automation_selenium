@@ -6,8 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UMDataBeans {
-   String Value;
-   String interaction;
-   String workflow;
-   String loginQueue;
+    String Value;
+    String interaction;
+    String workflow;
+    String loginQueue;
 }

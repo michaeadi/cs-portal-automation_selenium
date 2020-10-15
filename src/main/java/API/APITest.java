@@ -307,12 +307,12 @@ public class APITest extends tests.BaseTest {
         return response.as(UsageHistoryPOJO.class);
     }
 
-    public TicketPOJO ticketMetaDataTest(String ticketId){
+    public TicketPOJO ticketMetaDataTest(String ticketId) {
         getTest().log(LogStatus.INFO, "Using fetch ticket details using ticket Id to validate ticket meta data");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
-                .headers(headers).param("id",ticketId).contentType("application/json");
+                .headers(headers).param("id", ticketId).contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
         getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
         log.info("Request Headers are  : " + queryable.getHeaders());
@@ -324,12 +324,12 @@ public class APITest extends tests.BaseTest {
         return response.as(TicketPOJO.class);
     }
 
-    public SMSHistoryPOJO smsHistoryTest(String msisdn){
+    public SMSHistoryPOJO smsHistoryTest(String msisdn) {
         getTest().log(LogStatus.INFO, "Using fetch ticket details using ticket Id to validate ticket meta data");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
-                .headers(headers).body("{\"receiverId\":"+msisdn+",\"pageNumber\":0,\"pageSize\":10}").contentType("application/json");
+                .headers(headers).body("{\"receiverId\":" + msisdn + ",\"pageNumber\":0,\"pageSize\":10}").contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
         getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
         log.info("Request Headers are  : " + queryable.getHeaders());
@@ -341,12 +341,12 @@ public class APITest extends tests.BaseTest {
         return response.as(SMSHistoryPOJO.class);
     }
 
-    public VoucherSearchPOJO voucherSearchTest(String voucherId){
+    public VoucherSearchPOJO voucherSearchTest(String voucherId) {
         getTest().log(LogStatus.INFO, "Using fetch Voucher details using voucher Id to validate Voucher meta data");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
-                .headers(headers).body("{\"voucherId\":\""+voucherId+"\"}").contentType("application/json");
+                .headers(headers).body("{\"voucherId\":\"" + voucherId + "\"}").contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
         getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
         log.info("Request Headers are  : " + queryable.getHeaders());
