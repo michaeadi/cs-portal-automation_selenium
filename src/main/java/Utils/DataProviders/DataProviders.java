@@ -664,5 +664,41 @@ public class DataProviders {
         return text != null && !text.isEmpty();
     }
 
+    //Get ticket layout using issue code
+    public List<String> getTicketLayout(String code) {
+        nftrDataExcelToBeanDao credsExcelToBeanDao = new nftrDataExcelToBeanDao();
+        File Exceldir = new File("Excels");
+        File Excel = new File(Exceldir, BaseTest.ExcelPath);
+        List<nftrDataBeans> list =
+                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty(BaseTest.suiteType + "-NftrSheet"));
+        List<String> finalTicketList = new ArrayList<String>();
+        for (nftrDataBeans nftrTicket : list) {
+            if (nftrTicket.getIssueCode().equalsIgnoreCase(code)) {
+                if (isNull(nftrTicket.getTicketFieldLabel1())) {
+                    finalTicketList.add(nftrTicket.getTicketFieldLabel1().toLowerCase().trim());
+                }
+                if (isNull(nftrTicket.getTicketFieldLabel2())) {
+                    finalTicketList.add(nftrTicket.getTicketFieldLabel2().toLowerCase().trim());
+                }
+                if (isNull(nftrTicket.getTicketFieldLabel3())) {
+                    finalTicketList.add(nftrTicket.getTicketFieldLabel3().toLowerCase().trim());
+                }
+                if (isNull(nftrTicket.getTicketFieldLabel4())) {
+                    finalTicketList.add(nftrTicket.getTicketFieldLabel4().toLowerCase().trim());
+                }
+                if (isNull(nftrTicket.getTicketFieldLabel5())) {
+                    finalTicketList.add(nftrTicket.getTicketFieldLabel5().toLowerCase().trim());
+                }
+                if (isNull(nftrTicket.getTicketFieldLabel6())) {
+                    finalTicketList.add(nftrTicket.getTicketFieldLabel6().toLowerCase().trim());
+                }
+                if (isNull(nftrTicket.getTicketFieldLabel7())) {
+                    finalTicketList.add(nftrTicket.getTicketFieldLabel7().toLowerCase().trim());
+                }
+            }
+        }
+        return finalTicketList;
+    }
+
 
 }

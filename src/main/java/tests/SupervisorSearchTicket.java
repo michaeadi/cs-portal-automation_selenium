@@ -1,11 +1,13 @@
 package tests;
 
 import API.APITest;
+import POJO.TicketList.IssueDetails;
 import POJO.TicketList.TicketPOJO;
 import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.nftrDataBeans;
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -14,7 +16,9 @@ import pages.agentLoginPagePOM;
 import pages.supervisorTicketListPagePOM;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class SupervisorSearchTicket extends BaseTest {
@@ -47,6 +51,7 @@ public class SupervisorSearchTicket extends BaseTest {
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         SoftAssert softAssert = new SoftAssert();
         Map<String, String> workGroups = new HashMap<>();
+        DataProviders dataProviders=new DataProviders();
         ticketListPage.writeTicketId(Data.getTicketNumber());
         ticketListPage.clickSearchBtn();
         ticketListPage.waitTillLoaderGetsRemoved();
@@ -114,6 +119,18 @@ public class SupervisorSearchTicket extends BaseTest {
             if (key != null)
                 if (!key.isEmpty())
                     ExtentTestManager.getTest().log(LogStatus.FAIL, key + " workgroup is not configured correctly in DB as mentioned in configuration");
+        }
+        ArrayList<IssueDetails> ticketLayout= ticketPOJO.getResult().getTicketDetails();
+        List<String> configTicketLayout=dataProviders.getTicketLayout(Data.getIssueCode());
+        for(IssueDetails layout:ticketLayout){
+            if(!configTicketLayout.contains(layout.getPlaceHolder().toLowerCase().trim())){
+                ExtentTestManager.getTest().log(LogStatus.FAIL,layout.getPlaceHolder()+" : Ticket Layout must not configure in database as does not mention in Config sheet.");
+            }
+            configTicketLayout.remove(layout.getPlaceHolder().toLowerCase().trim());
+        }
+
+        for(String name:configTicketLayout){
+            ExtentTestManager.getTest().log(LogStatus.FAIL,name+" : Ticket Layout must be configure in database as mention in Config sheet.");
         }
         ticketListPage.clearInputBox();
         ticketListPage.waitTillLoaderGetsRemoved();

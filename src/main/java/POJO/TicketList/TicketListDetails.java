@@ -32,6 +32,7 @@ public class TicketListDetails {
     private ArrayList<QueueStates> queueStates;
     private ArrayList<IssueDetails> issueDetails;
     private ArrayList<Interactions> interactions;
+    private ArrayList<IssueDetails> ticketDetails;
     private String committedSla;
     private String actionPerformed;
     private String expectedClosureDate;
