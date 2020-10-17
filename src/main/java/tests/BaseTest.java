@@ -13,9 +13,7 @@ import org.testng.annotations.BeforeSuite;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 @Log4j2
 public class BaseTest {
@@ -69,6 +67,12 @@ public class BaseTest {
             ChromeOptions options = new ChromeOptions();
             options.addArguments("--window-size=1792,1120");
             options.setHeadless(true);
+            Map<String, Object> prefs = new HashMap<String, Object>();
+            //prefs.put("download.prompt_for_download", false);
+            prefs.put("download.default_directory", System.getProperty("user.dir")+"\\Excels");
+            prefs.put("intl.accept_languages", "nl");
+            prefs.put("disable-popup-blocking", "true");
+            options.setExperimentalOption("prefs", prefs);
             //Using with Options will start in Headless Browser
             driver = new ChromeDriver(options);
             driver.manage().window().maximize();

@@ -175,6 +175,14 @@ public class SideMenuPOM extends BasePage {
         return new agentLoginPagePOM(driver);
     }
 
+    public TicketBulkUpdatePOM openTicketBulkUpdateDashboard() {
+        log.info("Opening Ticket Bulk Update Dashboard Page");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening Ticket Bulk Update Dashboard Page");
+        hoverAndClick(customerServices);
+        click(ticketBulkUpdate);
+        return new TicketBulkUpdatePOM(driver);
+    }
+
     public loginPagePOM logout() {
         log.info("Logging Out");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Logging Out");
