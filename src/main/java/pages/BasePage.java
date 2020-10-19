@@ -18,14 +18,12 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Log4j2
 public class BasePage {
+    public static Properties config = BaseTest.config;
     public WebDriver driver;
     public WebDriverWait wait;
     By loader = By.xpath("/html/body/app-root/ngx-ui-loader/div[2]");

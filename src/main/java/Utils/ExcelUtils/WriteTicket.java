@@ -25,9 +25,12 @@ public class WriteTicket {
 //Read excel sheet by sheet name
 
         Sheet sheet = book.getSheet(sheetName);
-
-
-        Row row = sheet.getRow(rowNum);
+        Row row;
+        try {
+            row = sheet.getRow(rowNum);
+        }catch (NullPointerException e){
+            row=sheet.createRow(rowNum);
+        }
 //        System.out.println("-----------------------" + row.getLastCellNum());
         //Fill data in row
 //        System.out.println(row.getRowNum());

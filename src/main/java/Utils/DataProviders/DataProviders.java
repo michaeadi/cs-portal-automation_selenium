@@ -1,10 +1,13 @@
 package Utils.DataProviders;
 
+import Utils.ExcelUtils.WriteTicket;
+import Utils.ExcelUtils.writeToExcel;
 import lombok.extern.log4j.Log4j2;
 import org.testng.annotations.DataProvider;
 import tests.BaseTest;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.annotation.*;
 import java.lang.reflect.Method;
 import java.util.*;
@@ -13,6 +16,7 @@ import java.util.*;
 public class DataProviders {
 
     public static Properties config = BaseTest.config;
+    public static List<String> ticketNumbers;
 
     @DataProvider
     public Object[][] getTestData() {
@@ -700,5 +704,30 @@ public class DataProviders {
         return finalTicketList;
     }
 
+    public boolean writeTicketNumberToExcel() throws IOException {
+        WriteTicket objExcelFile = new WriteTicket();
+        File Exceldir = new File("Excels");
+        File Excel = new File(Exceldir, config.getProperty("ticketBulkUpdate"));
+        Object[][] list=getTestData5();
+        boolean flag=false;
+        int size=list.length;
+        if(size>=5){
+            size=5;
+        }
+        for(int i=0;i<list.length;i++) {
+            nftrDataBeans n = (nftrDataBeans) list[i][0];
+            System.out.println("No:"+n.getTicketNumber());
+            String[] valueToWrite = new String[]{n.getTicketNumber()};
+            objExcelFile.writeTicketNumber(Excel.getAbsolutePath(), "Sheet1", valueToWrite, i+1);
+            flag=true;
+            ticketNumbers.add(n.getTicketNumber());
+        }
+        System.out.println("Flag"+flag);
+        return flag;
+    }
+
+    public List<String> getTicketNumbers(){
+        return ticketNumbers;
+    }
 
 }
