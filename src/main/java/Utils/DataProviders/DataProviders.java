@@ -16,7 +16,7 @@ import java.util.*;
 public class DataProviders {
 
     public static Properties config = BaseTest.config;
-    public static List<String> ticketNumbers;
+    public static List<String> ticketNumbers=new ArrayList<>();
 
     @DataProvider
     public Object[][] getTestData() {
@@ -722,7 +722,7 @@ public class DataProviders {
             flag=true;
             ticketNumbers.add(n.getTicketNumber());
         }
-        System.out.println("Flag"+flag);
+        System.out.println("Flag"+flag+ticketNumbers.size());
         return flag;
     }
 

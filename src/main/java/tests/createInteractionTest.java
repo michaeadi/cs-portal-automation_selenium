@@ -80,8 +80,6 @@ public class createInteractionTest extends BaseTest {
         interactionsPOM.closeInteractions();
         ExtentTestManager.getTest().log(LogStatus.INFO, "Test Failed", ExtentTestManager.getTest().addBase64ScreenShot(base64Screenshot));
         softAssert.assertAll();
-
-
     }
 
 

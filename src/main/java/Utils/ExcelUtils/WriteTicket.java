@@ -15,7 +15,6 @@ public class WriteTicket {
 
     public void writeTicketNumber(String filePath, String sheetName, String[] dataToWrite, int rowNum) throws IOException {
 
-        System.out.println("");
         File file = new File(filePath);
 
         FileInputStream inputStream = new FileInputStream(file);
@@ -26,15 +25,15 @@ public class WriteTicket {
 
         Sheet sheet = book.getSheet(sheetName);
         Row row;
-        try {
             row = sheet.getRow(rowNum);
-        }catch (NullPointerException e){
-            row=sheet.createRow(rowNum);
-        }
+
 //        System.out.println("-----------------------" + row.getLastCellNum());
         //Fill data in row
 //        System.out.println(row.getRowNum());
 
+        if(row==null){
+           row=sheet.createRow(rowNum);
+        }
         Cell cell;
         int ticketRow = 0;
         try {

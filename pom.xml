@@ -194,7 +194,8 @@
                 <configuration>
                     <testFailureIgnore>true</testFailureIgnore>
                     <suiteXmlFiles>
-                        <suiteXmlFile>TestNG.xml</suiteXmlFile>
+                        <!--suppress UnresolvedMavenProperty -->
+                        <suiteXmlFile>${suiteType}.xml</suiteXmlFile>
                     </suiteXmlFiles>
                     <systemProperties>
                         <property>

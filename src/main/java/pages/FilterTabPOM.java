@@ -82,6 +82,16 @@ public class FilterTabPOM extends BasePage {
         scrollToViewElement(showQueueFilter);
     }
 
+    public void clickLast7DaysFilter() {
+        printInfoLog("Clicking on filter by created date - Last 7 days");
+        click(last7DaysCD);
+    }
+
+    public void clickLast30DaysFilter() {
+        printInfoLog("Clicking on filter by created date - Last 30 days");
+        click(last30DaysCD);
+    }
+
 
     public void selectQueueByName(String queueName) throws InterruptedException {
         ExtentTestManager.getTest().log(LogStatus.INFO, "Select Queue Filter Name: " + queueName);
