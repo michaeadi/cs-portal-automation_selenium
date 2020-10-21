@@ -37,6 +37,7 @@ public class customerInteractionPagePOM extends BasePage {
     By usageHistoryTab = By.xpath("//div[contains(text(),'USAGE HISTORY')]");
     By rechargeHistoryTab = By.xpath("//div[contains(text(),'RECHARGE HISTORY')]");
     By homeActionBtn = By.xpath("//span[@class='action-placeholder']");
+    By loanWidget = By.xpath("//span[contains(text(),'LOAN SERVICES')]");
     By sendSMSAction = By.xpath("//div[@class=\"mat-menu-content\"]//button[contains(text(),'Send SMS')]");
     By simBarUnBar = By.xpath("//div[@class=\"mat-menu-content\"]//button[1]");
 

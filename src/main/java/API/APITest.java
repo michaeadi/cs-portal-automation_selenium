@@ -1,8 +1,11 @@
 package API;
 
 import POJO.*;
+import POJO.LoanDetails.Loan;
+import POJO.LoanSummary.Summary;
 import POJO.SMSHistory.SMSHistoryPOJO;
 import POJO.TicketList.TicketPOJO;
+import POJO.Vendors.VendorNames;
 import POJO.Voucher.VoucherSearchPOJO;
 import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.TestDatabean;
@@ -357,6 +360,59 @@ public class APITest extends tests.BaseTest {
         getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
         getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
         return response.as(VoucherSearchPOJO.class);
+    }
+
+    public VendorNames  vendorsNamesTest() {
+        getTest().log(LogStatus.INFO, "Using fetch Voucher details using voucher Id to validate Voucher meta data");
+        baseURI = baseUrl;
+        Headers headers = new Headers(map);
+        RequestSpecification request = given()
+                .headers(headers);
+        QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
+        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
+        log.info("Request Headers are  : " + queryable.getHeaders());
+        Response response = request.get("/cs-vas-service/v1/vendors");
+        log.info("Response : " + response.asString());
+        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
+        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        return response.as(VendorNames.class);
+    }
+
+    public Summary loanSummaryTest(String msisdn, String vendorName) {
+        getTest().log(LogStatus.INFO, "Using fetch Voucher details using voucher Id to validate Voucher meta data");
+        baseURI = baseUrl;
+        Headers headers = new Headers(map);
+        RequestSpecification request = given()
+                .headers(headers).body("{\"msisdn\":\""+msisdn+"\",\"vendorName\":\""+vendorName+"\"}").contentType("application/json");
+        QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
+        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
+        log.info("Request Headers are  : " + queryable.getHeaders());
+        log.info("Request Body are  : " + queryable.getBody());
+        Response response = request.post("/cs-vas-service/v1/loan/summary");
+        log.info("Response : " + response.asString());
+        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
+        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        return response.as(Summary.class);
+    }
+
+    public Loan loanDetailsTest(String msisdn, String vendorName) {
+        getTest().log(LogStatus.INFO, "Using fetch Voucher details using voucher Id to validate Voucher meta data");
+        baseURI = baseUrl;
+        Headers headers = new Headers(map);
+        RequestSpecification request = given()
+                .headers(headers).body("{\"msisdn\":\""+msisdn+"\",\"vendorName\":\""+vendorName+"\"}").contentType("application/json");
+        QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
+        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
+        log.info("Request Headers are  : " + queryable.getHeaders());
+        log.info("Request Body are  : " + queryable.getBody());
+        Response response = request.post("/cs-vas-service/v1/loan/details");
+        log.info("Response : " + response.asString());
+        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
+        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        return response.as(Loan.class);
     }
 
 }
