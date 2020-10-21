@@ -12,6 +12,6 @@ import lombok.ToString;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Details {
     private String vendorName;
-    private String loanAmount;
+    private Double loanAmount;
     private OutStanding currentOutstanding;
 }

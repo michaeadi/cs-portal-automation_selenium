@@ -37,7 +37,7 @@ public class customerInteractionPagePOM extends BasePage {
     By usageHistoryTab = By.xpath("//div[contains(text(),'USAGE HISTORY')]");
     By rechargeHistoryTab = By.xpath("//div[contains(text(),'RECHARGE HISTORY')]");
     By homeActionBtn = By.xpath("//span[@class='action-placeholder']");
-    By loanWidget = By.xpath("//span[contains(text(),'LOAN SERVICES')]");
+    By loanWidget = By.xpath("//span[contains(text(),'LOAN SERVICES')]//ancestor::div[@class=\"card widget ng-star-inserted\"]");
     By sendSMSAction = By.xpath("//div[@class=\"mat-menu-content\"]//button[contains(text(),'Send SMS')]");
     By simBarUnBar = By.xpath("//div[@class=\"mat-menu-content\"]//button[1]");
 
@@ -221,6 +221,11 @@ public class customerInteractionPagePOM extends BasePage {
         printInfoLog("Opening Authentication tab for : " + readText(simBarUnBar));
         click(simBarUnBar);
         return new AuthenticationTabPOM(driver);
+    }
+
+    public boolean isLoanWidgetDisplay(){
+        printInfoLog("Checking Loan Widget Displayed");
+        return checkState(loanWidget);
     }
 
 
