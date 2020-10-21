@@ -30,6 +30,13 @@ public class TicketBulkUpdatePOM extends BasePage {
     By options=By.xpath("//span[@class=\"mat-option-text\"]");
     By popUpCancelBtn=By.xpath("//div[@class=\"deactivate-popup__button-section mat-dialog-actions\"]//button[1]");
     By popUpContinueBtn=By.xpath("//div[@class=\"deactivate-popup__button-section mat-dialog-actions\"]//button[2]");
+    By commentBox=By.xpath("//input[@type=\"textarea\"]");
+    By confirmAction=By.xpath("//div[@class=\"tnc customer-checkbox ng-star-inserted\"]//input");
+    By statueBar=By.xpath("//span[@class=\"bar-fill-stripes\"]");
+    By updateMessage=By.xpath("//div[@class=\"bar-status\"]");
+    By successTicketId=By.xpath("class=\"id-section successful\"");
+    By errorTicketId=By.xpath("//li[@class=\"id-section error-bg\"]//span[2]");
+    By errorTicketMessage=By.xpath("//div[@class=\"bar-status\"]//span");
 
     public TicketBulkUpdatePOM(WebDriver driver) {
         super(driver);
@@ -100,12 +107,14 @@ public class TicketBulkUpdatePOM extends BasePage {
     }
 
     public boolean fileDownload() throws AWTException, InterruptedException {
-        WebElement btnDownload = driver.findElement(downloadFile);
-        btnDownload.click();
-        Thread.sleep(7000);
         File Exceldir = new File("Excels");
         File Excel = new File(Exceldir, config.getProperty("ticketBulkUpdate"));
-        printInfoLog("Downloading Template File");
+        if(!Excel.exists()) {
+            printInfoLog("Downloading Template File");
+            WebElement btnDownload = driver.findElement(downloadFile);
+            btnDownload.click();
+            Thread.sleep(7000);
+        }
         return Excel.canRead();
     }
 
@@ -159,9 +168,10 @@ public class TicketBulkUpdatePOM extends BasePage {
         List<WebElement> list=driver.findElements(options);
         for(int i=1;i<=list.size();i++){
             By queue=By.xpath("//mat-option["+i+"]//span");
-            queues.add(readText(queue).trim());
+            queues.add(readText(queue).trim().toLowerCase());
         }
         clickOutside();
+        clickTransferToQueueOption();
         return queues;
     }
 
@@ -172,9 +182,64 @@ public class TicketBulkUpdatePOM extends BasePage {
         List<WebElement> list=driver.findElements(options);
         for(int i=1;i<=list.size();i++){
             By state=By.xpath("//mat-option["+i+"]//span");
-            states.add(readText(state).trim());
+            states.add(readText(state).trim().toLowerCase());
         }
         clickOutside();
+        clickTicketStateOption();
         return states;
     }
+
+    public void clickAddCommentOption(){
+        printInfoLog("Clicking Add Ticket Comment Option");
+        click(ticketComment);
+    }
+
+    public void clickTransferToQueueOption(){
+        printInfoLog("Clicking Transfer to Queue Option");
+        click(transferToQueue);
+    }
+
+    public void clickTicketStateOption(){
+        printInfoLog("Clicking Ticket State Option");
+        click(changeState);
+    }
+
+    public void addComment(String comment){
+        printInfoLog("Adding comment: "+comment);
+        writeText(commentBox,comment);
+    }
+
+    public void clickConfirmAction(){
+        printInfoLog("Clicking Confirm option");
+        click(confirmAction);
+    }
+
+    public boolean isStatusBarComplete(){
+        printInfoLog("Waiting for Status to be complete");
+        return checkState(statueBar);
+    }
+
+    public String getUpdatedMessage(){
+        printInfoLog("Message After Ticket Action Performed: "+readText(updateMessage));
+        return readText(updateMessage);
+    }
+
+    public String getSuccessCount(){
+        List<WebElement> list=driver.findElements(successTicketId);
+        return String.valueOf(list.size());
+    }
+
+    public String getErrorCount(){
+        List<WebElement> list=driver.findElements(errorTicketId);
+        return String.valueOf(list.size());
+    }
+
+    public int getErrorTicketCount(){
+        if(Integer.parseInt(getErrorCount())>0){
+            String text=readText(errorTicketMessage).trim().replaceAll("^[0-9]","");
+            return Integer.parseInt(text);
+        }
+        return 0;
+    }
+
 }

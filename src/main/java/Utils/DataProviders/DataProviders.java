@@ -714,7 +714,7 @@ public class DataProviders {
         if(size>=5){
             size=5;
         }
-        for(int i=0;i<list.length;i++) {
+        for(int i=0;i<size;i++) {
             nftrDataBeans n = (nftrDataBeans) list[i][0];
             System.out.println("No:"+n.getTicketNumber());
             String[] valueToWrite = new String[]{n.getTicketNumber()};

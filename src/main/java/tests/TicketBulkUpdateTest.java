@@ -28,6 +28,7 @@ public class TicketBulkUpdateTest extends BaseTest {
         sideMenu.clickOnName();
         TicketBulkUpdatePOM ticketBulkUpdatePOM = sideMenu.openTicketBulkUpdateDashboard();
         SoftAssert softAssert = new SoftAssert();
+        Thread.sleep(10000);
         ticketBulkUpdatePOM.waitTillLoaderGetsRemoved();
         ticketBulkUpdatePOM.isTicketBulkUpdate();
         softAssert.assertAll();
@@ -62,19 +63,20 @@ public class TicketBulkUpdateTest extends BaseTest {
         Assert.assertTrue(ticketBulkUpdatePOM.fileDownload(),"Ticket Upload Template does not download.Please check Excels/BulkUploadTemplate.xlsx downloaded");
         Assert.assertTrue(data.writeTicketNumberToExcel(),"No Ticket Found to write in Excel");
         ticketBulkUpdatePOM.addFile();
+        ticketBulkUpdatePOM.waitTillLoaderGetsRemoved();
         List<String> uploadTickets=data.getTicketNumbers();
         List<String> addedTicket=ticketBulkUpdatePOM.getTicketList();
         int uploadedSize=uploadTickets.size();
         uploadTickets.removeAll(addedTicket);
         int size=uploadedSize-uploadTickets.size();
-        String newString=ticketBulkUpdatePOM.getErrorMessage().replaceAll("[^a-zA-Z0-9]+", "");
-        softAssert.assertEquals(String.valueOf(newString.charAt(0)),String.valueOf(size),"Uploaded ticket miscount");
-        softAssert.assertEquals(String.valueOf(newString.charAt(newString.length()-1)),String.valueOf(uploadedSize),"Total number of ticket is not same as expected");
+        String[] newString=ticketBulkUpdatePOM.getErrorMessage().replaceAll("[^a-zA-Z0-9\\s]+", "").split(" ");
+        softAssert.assertEquals(newString[0],String.valueOf(size),"Uploaded ticket miscount");
+        softAssert.assertEquals(newString[newString.length-1],String.valueOf(uploadedSize),"Total number of ticket is not same as expected");
         softAssert.assertTrue(ticketBulkUpdatePOM.deleteFile(),"File not deleted");
         softAssert.assertAll();
     }
 
-    @Test(priority = 4, description = "Validate Bulk option test",dependsOnMethods = "openTicketBulkUpdate")
+    @Test(priority = 4, description = "Validate Bulk option test",dependsOnMethods = "uploadTicketFromExcelTest")
     public void bulkOptionTest(Method method) throws IOException, InterruptedException, AWTException {
         ExtentTestManager.startTest("Validate Bulk option test", "Validate Bulk option test");
         TicketBulkUpdatePOM ticketBulkUpdatePOM = new TicketBulkUpdatePOM(driver);
@@ -98,7 +100,7 @@ public class TicketBulkUpdateTest extends BaseTest {
                 loginQueue.remove(s);
             } else {
                 ExtentTestManager.getTest().log(LogStatus.FAIL, s + " ticketPool must not display on frontend as tag not mention in config sheet.");
-                softAssert.fail(s + " ticketPool should not display on UI as interaction channel not mention in config sheet.");
+                softAssert.fail(s + " ticketPool should not display on UI as ticket pool not mention in config sheet.");
             }
         }
         if (loginQueue.isEmpty()) {
@@ -111,22 +113,42 @@ public class TicketBulkUpdateTest extends BaseTest {
         }
 
         for(TicketStateDataBean s:openState){
-            if(!states.contains(s.getTicketStateName().trim()))
+            if(!states.contains(s.getTicketStateName().trim().toLowerCase()))
             ExtentTestManager.getTest().log(LogStatus.FAIL,s.getTicketStateName()+" :Ticket State does not display on UI but config in excel");
-            states.remove(s.getTicketStateName().trim());
+            states.remove(s.getTicketStateName().trim().toLowerCase());
         }
         for(TicketStateDataBean s:closeState){
-            if(!states.contains(s.getTicketStateName().trim()))
+            if(!states.contains(s.getTicketStateName().trim().toLowerCase()))
                 ExtentTestManager.getTest().log(LogStatus.FAIL,s.getTicketStateName()+" :Ticket State does not display on UI but config in excel");
-            states.remove(s.getTicketStateName().trim());
+            states.remove(s.getTicketStateName().trim().toLowerCase());
         }
         for(String s:states){
             ExtentTestManager.getTest().log(LogStatus.FAIL,s+" :Ticket State does not config in excel but display on UI");
         }
         ticketBulkUpdatePOM.clickCancelBtn();
-        ticketBulkUpdatePOM.clickPopUpContinueBtn();
+        ticketBulkUpdatePOM.clickPopUpCancelBtn();
         ticketBulkUpdatePOM.waitTillLoaderGetsRemoved();
-        softAssert.assertTrue(ticketBulkUpdatePOM.isSelectFilter(),"Filter option does not available");
+//        softAssert.assertTrue(ticketBulkUpdatePOM.isSelectFilter(),"Filter option does not available");
+        softAssert.assertAll();
+    }
+
+    @Test(priority = 5, description = "Add comment on ticket using bulk update feature")
+    public void bulkAddCommentTest(Method method) {
+        ExtentTestManager.startTest("Add comment on ticket using bulk update feature", "Add comment on ticket using bulk update feature");
+        TicketBulkUpdatePOM ticketBulkUpdatePOM = new TicketBulkUpdatePOM(driver);
+        DataProviders data = new DataProviders();
+        SoftAssert softAssert = new SoftAssert();
+        ticketBulkUpdatePOM.waitTillLoaderGetsRemoved();
+        ticketBulkUpdatePOM.clickAddCommentOption();
+        ticketBulkUpdatePOM.addComment("Adding Comment using Automation for Bulk Update option test. Please Ignore this comment");
+        ticketBulkUpdatePOM.clickConfirmAction();
+        ticketBulkUpdatePOM.clickNextBtn();
+        softAssert.assertTrue(ticketBulkUpdatePOM.isStatusBarComplete(),"Status not update for all ticket");
+        ticketBulkUpdatePOM.waitTillLoaderGetsRemoved();
+        softAssert.assertEquals(ticketBulkUpdatePOM.getErrorTicketCount(),ticketBulkUpdatePOM.getErrorCount(),"Error Ticket count does not displayed correctly");
+        softAssert.assertEquals(ticketBulkUpdatePOM.getErrorTicketCount(),ticketBulkUpdatePOM.getErrorCount(),"Error Ticket count does not displayed correctly");
+        int size=Integer.parseInt(String.valueOf(ticketBulkUpdatePOM.getUpdatedMessage().trim().charAt(0))) - ticketBulkUpdatePOM.getErrorTicketCount();
+        softAssert.assertEquals(ticketBulkUpdatePOM.getSuccessCount(),String.valueOf(size),"Action Performed does not on ticket");
         softAssert.assertAll();
     }
 }
