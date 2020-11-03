@@ -1,6 +1,7 @@
 package POJO.LoanDetails;
 
 import POJO.LoanSummary.Details;
+import POJO.Vendors.ApiErrors;
 import POJO.Vendors.VendorNames;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
@@ -14,7 +15,7 @@ import lombok.ToString;
 public class Loan {
     private String status;
     private String statusCode;
-    private VendorNames result;
-    private String apiErrors;
+    private VendorDetails result;
+    private ApiErrors apiErrors;
     private String message;
 }

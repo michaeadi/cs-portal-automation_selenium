@@ -398,7 +398,7 @@ public class APITest extends tests.BaseTest {
     }
 
     public Loan loanDetailsTest(String msisdn, String vendorName) {
-        getTest().log(LogStatus.INFO, "Using fetch Voucher details using voucher Id to validate Voucher meta data");
+        getTest().log(LogStatus.INFO, "Using Loan details API to validate Loan Detail and Loan history widget");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()

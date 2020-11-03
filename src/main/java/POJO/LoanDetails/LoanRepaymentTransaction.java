@@ -15,5 +15,5 @@ public class LoanRepaymentTransaction {
     private int repaymentTransactionCount;
     private String widgetHeader;
     private ArrayList<HeaderList> headerList;
-    private LoanRepaymentDetailList loanRepaymentDetailList;
+    private ArrayList<LoanRepaymentDetailList> loanRepaymentDetailList;
 }

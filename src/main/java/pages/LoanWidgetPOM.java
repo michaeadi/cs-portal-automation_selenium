@@ -114,10 +114,11 @@ public class LoanWidgetPOM extends BasePage {
         return checkState(vendor);
     }
 
-    public void clickVendorName(int i){
+    public LoanDetailPOM clickVendorName(int i){
         By name=By.xpath("//span[contains(text(),'LOAN SERVICES')]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"card__card-header--card-body--table\"]//div[@class=\"card__card-header--card-body--table--data-list ng-star-inserted\"]["+i+"]//div[@class=\"show-error-message ng-star-inserted\"][1]//span[1]");
         printInfoLog("Clicking Vendor Name");
         click(name);
+        return new LoanDetailPOM(driver);
     }
 
     public int getSize(){
