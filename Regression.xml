@@ -65,11 +65,16 @@
 <!--            <class name="tests.AuthTabTest"/>-->
 <!--        </classes>-->
 <!--    </test>-->
-    <test name="Supervisors Ticket Bulk Update Test">
+    <test name="Loan Widget Test">
         <classes>
-            <class name="tests.TicketBulkUpdateTest"/>
+            <class name="tests.LoanWidgetTest"/>
         </classes>
     </test>
+<!--    <test name="Supervisors Ticket Bulk Update Test">-->
+<!--        <classes>-->
+<!--            <class name="tests.TicketBulkUpdateTest"/>-->
+<!--        </classes>-->
+<!--    </test>-->
 <!--    <test name="Logout Test">-->
 <!--        <classes>-->
 <!--            <class name="tests.LogoutTest"/>-->

@@ -119,4 +119,9 @@ public class LoanWidgetPOM extends BasePage {
         printInfoLog("Clicking Vendor Name");
         click(name);
     }
+
+    public int getSize(){
+        return vendors.size();
+    }
+
 }

@@ -363,7 +363,7 @@ public class APITest extends tests.BaseTest {
     }
 
     public VendorNames  vendorsNamesTest() {
-        getTest().log(LogStatus.INFO, "Using fetch Voucher details using voucher Id to validate Voucher meta data");
+        getTest().log(LogStatus.INFO, "Using fetch vendor name");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()

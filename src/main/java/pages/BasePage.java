@@ -41,8 +41,10 @@ public class BasePage {
 
 
     public void waitTillLoaderGetsRemoved() {
+        printInfoLog("Waiting for loader to be removed");
         wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(loader1));
+        printInfoLog("Loader Removed");
     }
 
     public void waitTillOverlayGetsRemoved() {
