@@ -44,7 +44,7 @@ public class StateQueueMappingTest extends BaseTest {
 
     @Test(priority = 2, dependsOnMethods = "agentSkipQueueLogin", dataProvider = "queueState", description = "State Queue Mapping Test", enabled = true, dataProviderClass = DataProviders.class)
     public void stateQueueTest(Method method, QueueStateDataBeans data) throws InterruptedException {
-        ExtentTestManager.startTest("State Queue Mapping Test", "State Queue Mapping Test");
+        ExtentTestManager.startTest("State Queue Mapping Test: "+data.getQueue(), "State Queue Mapping Test");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         FilterTabPOM filterTab = new FilterTabPOM(driver);

@@ -26,7 +26,7 @@ public class createInteractionTest extends BaseTest {
     @User(UserType = "NFTR")
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteraction(TestDatabean Data) {
-        ExtentTestManager.startTest("Validating the Search for Customer Interactions :" + Data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + Data.getCustomerNumber());
+        ExtentTestManager.startTest("Validating the Search for Customer Interactions: " + Data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + Data.getCustomerNumber());
         SoftAssert softAssert = new SoftAssert();
         SideMenuPOM SideMenuPOM = new SideMenuPOM(driver);
         SideMenuPOM.clickOnSideMenu();
@@ -41,7 +41,7 @@ public class createInteractionTest extends BaseTest {
 
     @Test(priority = 2, dependsOnMethods = "openCustomerInteraction", description = "Create FTR Interaction ", dataProvider = "getTestData1", dataProviderClass = DataProviders.class, enabled = true)
     public void CreateInteraction(ftrDataBeans Data) throws InterruptedException {
-        ExtentTestManager.startTest(" Validating FTR Ticket" + Data.getIssueCode(), "Creating FTR Tickets and Configurations of Issue Code " + Data.getIssueCode());
+        ExtentTestManager.startTest(" Validating FTR Ticket: " + Data.getIssueCode(), "Creating FTR Tickets and Configurations of Issue Code " + Data.getIssueCode());
         customerInteractionPagePOM customerInteractionPagePOM = new customerInteractionPagePOM(driver);
         InteractionsPOM interactionsPOM = customerInteractionPagePOM.clickOnInteractionIcon();
         SoftAssert softAssert = new SoftAssert();
@@ -85,7 +85,7 @@ public class createInteractionTest extends BaseTest {
 
     @Test(priority = 3, dependsOnMethods = "openCustomerInteraction", description = "Create Interaction ", dataProvider = "getTestData2", dataProviderClass = DataProviders.class)
     public void CreateNFTRInteraction(nftrDataBeans Data) throws InterruptedException, IOException {
-        ExtentTestManager.startTest(" Validating NFTR Ticket" + Data.getIssueCode(), "Creating NFTR Tickets and Configurations of Issue Code " + Data.getIssueCode());
+        ExtentTestManager.startTest(" Validating NFTR Ticket: " + Data.getIssueCode(), "Creating NFTR Tickets and Configurations of Issue Code " + Data.getIssueCode());
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         LocalDateTime now = LocalDateTime.now();
         System.out.println(dtf.format(now));

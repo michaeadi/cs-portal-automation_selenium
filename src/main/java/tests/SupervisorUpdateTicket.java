@@ -51,7 +51,7 @@ public class SupervisorUpdateTicket extends BaseTest {
     public void updateTicket(Method method, nftrDataBeans Data) throws InterruptedException {
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         ViewTicketPagePOM viewTicket = new ViewTicketPagePOM(driver);
-        ExtentTestManager.startTest("Update Ticket", "Update Ticket");
+        ExtentTestManager.startTest("Update Ticket: "+Data.getIssueCode(), "Update Ticket");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SoftAssert softAssert = new SoftAssert();
         ticketListPage.writeTicketId(Data.getTicketNumber());

@@ -46,7 +46,7 @@ public class SupervisorSearchTicket extends BaseTest {
 
     @Test(priority = 2, dependsOnMethods = "agentSkipQueueLogin", description = "Ticket Search ", dataProvider = "ticketId", dataProviderClass = DataProviders.class)
     public void SearchTicket(Method method, nftrDataBeans Data) {
-        ExtentTestManager.startTest("Search Ticket & Validate Ticket Meta Data", "Search Ticket & Validate Ticket Meta Data");
+        ExtentTestManager.startTest("Search Ticket & Validate Ticket Meta Data: "+Data.getTicketNumber(), "Search Ticket & Validate Ticket Meta Data");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         SoftAssert softAssert = new SoftAssert();
