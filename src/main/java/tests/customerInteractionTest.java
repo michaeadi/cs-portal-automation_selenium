@@ -85,7 +85,7 @@ public class customerInteractionTest extends BaseTest {
 
         } catch (NoSuchElementException | TimeoutException | InterruptedException | AssertionError e) {
             e.printStackTrace();
-            softAssert.fail(e.getMessage());
+            softAssert.fail("Not able to View PUK Details"+e.getMessage());
         }
 
         try {
@@ -106,7 +106,7 @@ public class customerInteractionTest extends BaseTest {
 
         } catch (NoSuchElementException | TimeoutException | InterruptedException | AssertionError e) {
             e.printStackTrace();
-            softAssert.fail(e.getMessage());
+            softAssert.fail("Airtel Money Status does not unlock"+e.getMessage());
         }
 
         try {
