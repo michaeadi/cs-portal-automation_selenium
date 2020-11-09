@@ -33,7 +33,7 @@ public class AuthTabTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 2, description = "Verify the Authentication tab")
+    @Test(priority = 2, description = "Verify the Authentication tab",dependsOnMethods = "openCustomerInteraction")
     public void validateAuthTab() {
         ExtentTestManager.startTest("Verify the Authentication tab", "Verify the Authentication tab");
         SoftAssert softAssert = new SoftAssert();
@@ -66,7 +66,7 @@ public class AuthTabTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 3, description = "Verify the Authentication tab Minimum question Configured correctly")
+    @Test(priority = 3, description = "Verify the Authentication tab Minimum question Configured correctly",dependsOnMethods = "validateAuthTab")
     public void validateAuthTabMinQuestion() throws InterruptedException {
         ExtentTestManager.startTest("Verify the Authentication tab Minimum question Configured correctly", "Verify the Authentication tab Minimum question Configured correctly");
         SoftAssert softAssert = new SoftAssert();
@@ -82,7 +82,7 @@ public class AuthTabTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 4, description = "Authenticate User")
+    @Test(priority = 4, description = "Authenticate User",dependsOnMethods = "validateAuthTabMinQuestion")
     public void authCustomer() throws InterruptedException {
         ExtentTestManager.startTest("Authenticate User", "Authenticate User");
         SoftAssert softAssert = new SoftAssert();
