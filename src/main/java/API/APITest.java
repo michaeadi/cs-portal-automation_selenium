@@ -1,6 +1,7 @@
 package API;
 
 import POJO.*;
+import POJO.KYCProfile.KYCProfile;
 import POJO.LoanDetails.Loan;
 import POJO.LoanSummary.Summary;
 import POJO.SMSHistory.SMSHistoryPOJO;
@@ -114,6 +115,27 @@ public class APITest extends tests.BaseTest {
         return response.as(UsageHistoryPOJO.class);
     }
 
+    public UsageHistoryPOJO usageHistoryMenuTest(String msisdn) {
+        getTest().log(LogStatus.INFO, "Using Usage History API for Getting expected data for UI");
+        baseURI = baseUrl;
+        Headers headers = new Headers(map);
+        RequestSpecification request = given()
+                .headers(headers)
+                .body("{\"msisdn\":\"" + msisdn + "\",\"pageSize\":5,\"pageNumber\":1,\"type\":null,\"startDate\":null,\"endDate\":null,\"action\":\"More\"}")
+                .contentType("application/json");
+        QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
+        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
+        log.info("Request Headers are  : " + queryable.getHeaders());
+        getTest().log(LogStatus.INFO, "Request Body is  : " + queryable.getBody().toString());
+        log.info("Request Body is  : " + queryable.getBody().toString());
+        Response response = request.post("/cs-gsm-service/v1/usage/history");
+        log.info("Response : " + response.asString());
+        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
+        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        return response.as(UsageHistoryPOJO.class);
+    }
+
     public AMHandSetProfilePOJO amProfileTest(String msisdn) {
         getTest().log(LogStatus.INFO, "Using AM Profile API for Getting expected data for UI");
         baseURI = baseUrl;
@@ -161,7 +183,7 @@ public class APITest extends tests.BaseTest {
     }
 
     public ProfilePOJO profileAPITest(String msisdn) {
-        getTest().log(LogStatus.INFO, "Using KYC Profile API for Getting expected data for UI");
+        getTest().log(LogStatus.INFO, "Using /cs-gsm-service/v1/profile api for Getting expected data for UI");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
@@ -179,6 +201,27 @@ public class APITest extends tests.BaseTest {
         getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
         getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
         return response.as(ProfilePOJO.class);
+    }
+
+    public KYCProfile KYCProfileAPITest(String msisdn) {
+        getTest().log(LogStatus.INFO, "Using /cs-gsm-service/v1/profile api for Getting expected data for UI");
+        baseURI = baseUrl;
+        Headers headers = new Headers(map);
+        RequestSpecification request = given()
+                .headers(headers)
+                .body("{\"msisdn\":\"" + msisdn + "\"}")
+                .contentType("application/json");
+        QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
+        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
+        log.info("Request Headers are  : " + queryable.getHeaders());
+        getTest().log(LogStatus.INFO, "Request Body is  : " + queryable.getBody().toString());
+        log.info("Request Body is  : " + queryable.getBody().toString());
+        Response response = request.post("/cs-gsm-service/v1/kyc/profile");
+        log.info("Response : " + response.asString());
+        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
+        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        return response.as(KYCProfile.class);
     }
 
     public AMProfilePOJO amServiceProfileAPITest(String Msisdn) {

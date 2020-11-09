@@ -6,10 +6,7 @@ import com.relevantcodes.extentreports.LogStatus;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pages.BackendAgentTicketListPOM;
-import pages.FilterTabPOM;
-import pages.SideMenuPOM;
-import pages.agentLoginPagePOM;
+import pages.*;
 
 import java.lang.reflect.Method;
 
@@ -39,7 +36,7 @@ public class BackendAgentFilterTest extends BaseTest {
     public void validateFilter(Method method) throws InterruptedException {
         ExtentTestManager.startTest("Validate Filter Tab for Backend Agent", "Validate Filter Tab for Backend Agent");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
-        BackendAgentTicketListPOM ticketListPage = new BackendAgentTicketListPOM(driver);
+        supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         FilterTabPOM filterTab = new FilterTabPOM(driver);
         SoftAssert softAssert = new SoftAssert();
         ticketListPage.clickFilter();

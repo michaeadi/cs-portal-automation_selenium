@@ -34,7 +34,7 @@ public class agentLoginPagePOM extends BasePage {
     }
 
     public boolean isQueueLoginPage() {
-        log.info("Supervisor Login Page");
+        log.info("Login Page");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Supervisor Login Page");
         return checkState(loginQueueTitle);
     }

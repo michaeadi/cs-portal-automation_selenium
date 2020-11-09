@@ -1,7 +1,12 @@
 package tests;
 
+import Utils.DataProviders.DataProviders;
+import Utils.DataProviders.TransferQueueDataBean;
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
+import org.openqa.selenium.ElementClickInterceptedException;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -31,45 +36,59 @@ public class TransferToQueueTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 2, dependsOnMethods = "agentSkipQueueLogin", description = "Transfer to queue", enabled = true)
-    public void transferToQueue(Method method) throws InterruptedException {
+    @Test(priority = 2, dataProvider = "TransferQueue", dependsOnMethods = "agentSkipQueueLogin", description = "Transfer to queue", enabled = true, dataProviderClass = DataProviders.class)
+    public void transferToQueue(Method method, TransferQueueDataBean data) throws InterruptedException {
         ExtentTestManager.startTest("Transfer to queue", "Transfer to queue");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         transferToQueuePOM transferQueue = new transferToQueuePOM(driver);
         FilterTabPOM filterTab = new FilterTabPOM(driver);
         SoftAssert softAssert = new SoftAssert();
-        ticketListPage.clickFilter();
-        ticketListPage.waitTillLoaderGetsRemoved();
-        filterTab.scrollToQueueFilter();
-        ticketListPage.waitTillLoaderGetsRemoved();
-        filterTab.clickQueueFilter();
-        filterTab.selectQueueByName(config.getProperty("ticketQueue"));
-        filterTab.clickOutsideFilter();
-        filterTab.clickApplyFilter();
-        ticketListPage.waitTillLoaderGetsRemoved();
-        softAssert.assertTrue(ticketListPage.validateQueueFilter(config.getProperty("ticketQueue")), "Queue Filter Does Applied Correctly");
-        Assert.assertEquals(ticketListPage.getqueueValue(), config.getProperty("ticketQueue"), "Ticket Does not found with Selected State");
-        String ticketId = ticketListPage.getTicketIdvalue();
-        ticketListPage.resetFilter();
-        ticketListPage.waitTillLoaderGetsRemoved();
-        ticketListPage.writeTicketId(ticketId);
-        ticketListPage.clickSearchBtn();
-        ticketListPage.waitTillLoaderGetsRemoved();
-        //softAssert.assertTrue(ticketListPage.checkOpenTicketStateType());
-        ticketListPage.clickCheckbox();
-        softAssert.assertTrue(ticketListPage.isAssignToAgent(), "Assign to Agent Button Does Not Available");
-        softAssert.assertTrue(ticketListPage.isTransferToQueue(), "Transfer to Queue Button Does Not Available");
-        ticketListPage.clickTransfertoQueue();
-        softAssert.assertTrue(transferQueue.validatePageTitle());
-        transferQueue.clickTransferQueue(config.getProperty("transferQueue"));
-        ticketListPage.waitTillLoaderGetsRemoved();
-        Thread.sleep(5000);
-        ticketListPage.writeTicketId(ticketId);
-        ticketListPage.clickSearchBtn();
-        ticketListPage.waitTillLoaderGetsRemoved();
-        Assert.assertEquals(ticketListPage.getqueueValue().toLowerCase().trim(), config.getProperty("transferQueue").toLowerCase().trim(), "Ticket Does not Transfer to Selected Queue");
+        String ticketId = null;
+        try {
+            ticketListPage.clickFilter();
+            ticketListPage.waitTillLoaderGetsRemoved();
+            filterTab.scrollToQueueFilter();
+            ticketListPage.waitTillLoaderGetsRemoved();
+            filterTab.clickQueueFilter();
+            filterTab.selectQueueByName(data.getFromQueue());
+            filterTab.clickOutsideFilter();
+            filterTab.clickApplyFilter();
+            ticketListPage.waitTillLoaderGetsRemoved();
+            softAssert.assertTrue(ticketListPage.validateQueueFilter(data.getFromQueue()), "Queue Filter Does Applied Correctly");
+            Assert.assertEquals(ticketListPage.getqueueValue(), data.getFromQueue(), "Ticket Does not found with Selected State");
+            try {
+                ticketId = ticketListPage.getTicketIdvalue();
+                ticketListPage.resetFilter();
+                ticketListPage.waitTillLoaderGetsRemoved();
+                ticketListPage.writeTicketId(ticketId);
+                ticketListPage.clickSearchBtn();
+                ticketListPage.waitTillLoaderGetsRemoved();
+                ticketListPage.clickCheckbox();
+                try {
+                    softAssert.assertTrue(ticketListPage.isAssignToAgent(), "Assign to Agent Button Does Not Available");
+                    softAssert.assertTrue(ticketListPage.isTransferToQueue(), "Transfer to Queue Button Does Not Available");
+                    ticketListPage.clickTransfertoQueue();
+                    softAssert.assertTrue(transferQueue.validatePageTitle());
+                    transferQueue.clickTransferQueue(data.getToQueue());
+                } catch (NoSuchElementException | TimeoutException e) {
+                    softAssert.fail("Not able to perform Transfer to Queue: " + e.fillInStackTrace());
+                    transferQueue.clickCloseTab();
+                }
+            } catch (NoSuchElementException | TimeoutException e) {
+                softAssert.fail("No Ticket Found in Selected Queue to perform transfer to queue action" + e.fillInStackTrace());
+            }
+            ticketListPage.waitTillLoaderGetsRemoved();
+            ticketListPage.writeTicketId(ticketId);
+            ticketListPage.clickSearchBtn();
+            ticketListPage.waitTillLoaderGetsRemoved();
+            Assert.assertEquals(ticketListPage.getqueueValue().toLowerCase().trim(), data.getToQueue().toLowerCase().trim(), "Ticket Does not Transfer to Selected Queue");
+        } catch (InterruptedException | NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
+            e.printStackTrace();
+            filterTab.clickOutsideFilter();
+            filterTab.clickCloseFilter();
+            softAssert.fail("Not able to apply filter " + e.getMessage());
+        }
         softAssert.assertAll();
-        //Pick data onlyThrough EXCEL
     }
 }

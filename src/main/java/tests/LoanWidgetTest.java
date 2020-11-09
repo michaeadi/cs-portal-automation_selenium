@@ -1,9 +1,7 @@
 package tests;
 
 import API.APITest;
-import POJO.LoanDetails.Loan;
-import POJO.LoanDetails.LoanDetailList;
-import POJO.LoanDetails.LoanDetails;
+import POJO.LoanDetails.*;
 import POJO.LoanSummary.Summary;
 import POJO.Vendors.HeaderList;
 import POJO.Vendors.VendorNames;
@@ -21,6 +19,7 @@ import pages.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class LoanWidgetTest extends BaseTest {
 
@@ -50,101 +49,200 @@ public class LoanWidgetTest extends BaseTest {
     public void validateLoanWidgetLayout(HeaderDataBean Data) throws InterruptedException, IOException {
         ExtentTestManager.startTest("Validating Loan Service Widget layout", "Validating Loan Service Widget");
         SoftAssert softAssert = new SoftAssert();
-        VendorNames vendorNames=api.vendorsNamesTest();
-        LoanWidgetPOM loanWidget=new LoanWidgetPOM(driver);
-        vendors=vendorNames.getResult().getVendors();
-        for(Vendors v:vendors){
-            loanWidget.printInfoLog("Loan Services: "+v.getVendorName());
+        VendorNames vendorNames = api.vendorsNamesTest();
+        LoanWidgetPOM loanWidget = new LoanWidgetPOM(driver);
+        vendors = vendorNames.getResult().getVendors();
+        for (Vendors v : vendors) {
+            loanWidget.printInfoLog("Loan Services: " + v.getVendorName());
         }
         /*
-        * Checking API Giving valid Response
-        * */
-        ArrayList<HeaderList> headers=vendorNames.getResult().getHeaderList();
-        softAssert.assertEquals(headers.get(0).getHeader().toLowerCase().trim(),Data.getRow1().toLowerCase().trim(),"Header not same as expected in API(API Response Assert with Excel)");
-        softAssert.assertEquals(headers.get(1).getHeader().toLowerCase().trim()+" ("+headers.get(1).getSubHeader().toLowerCase().trim()+")",Data.getRow2().toLowerCase().trim(),"Header not same as expected in API(API Response Assert with Excel)");
-        softAssert.assertEquals(headers.get(2).getHeader().toLowerCase().trim(),Data.getRow3().toLowerCase().trim(),"Header not same as expected in API(API Response Assert with Excel)");
-        softAssert.assertEquals(headers.get(3).getHeader().toLowerCase().trim(),Data.getRow4().toLowerCase().trim(),"Header not same as expected in API(API Response Assert with Excel)");
-        softAssert.assertEquals(headers.get(4).getHeader().toLowerCase().trim(),Data.getRow5().toLowerCase().trim(),"Header not same as expected in API(API Response Assert with Excel)");
+         * Checking API Giving valid Response
+         * */
+        ArrayList<HeaderList> headers = vendorNames.getResult().getHeaderList();
+        softAssert.assertEquals(headers.get(0).getHeader().toLowerCase().trim(), Data.getRow1().toLowerCase().trim(), "Header not same as expected in API(API Response Assert with Excel)");
+        softAssert.assertEquals(headers.get(1).getHeader().toLowerCase().trim() + " (" + headers.get(1).getSubHeader().toLowerCase().trim() + ")", Data.getRow2().toLowerCase().trim(), "Header not same as expected in API(API Response Assert with Excel)");
+        softAssert.assertEquals(headers.get(2).getHeader().toLowerCase().trim(), Data.getRow3().toLowerCase().trim(), "Header not same as expected in API(API Response Assert with Excel)");
+        softAssert.assertEquals(headers.get(3).getHeader().toLowerCase().trim(), Data.getRow4().toLowerCase().trim(), "Header not same as expected in API(API Response Assert with Excel)");
+        softAssert.assertEquals(headers.get(4).getHeader().toLowerCase().trim(), Data.getRow5().toLowerCase().trim(), "Header not same as expected in API(API Response Assert with Excel)");
         /*
          * Checking header displayed on UI
          * */
-        softAssert.assertEquals(headers.get(0).getHeader().toLowerCase().trim(),loanWidget.getVendor().toLowerCase().trim(),"Header not same as expected on UI(API Response Assert with UI)");
-        softAssert.assertEquals(headers.get(1).getHeader().toLowerCase().trim()+" ("+headers.get(1).getSubHeader().toLowerCase().trim()+")",loanWidget.getLoanAmount().toLowerCase().trim()+" ("+loanWidget.getCurrencyType().toLowerCase().trim()+")","Header not same as expected on UI(API Response Assert with UI)");
-        softAssert.assertEquals(headers.get(2).getHeader().toLowerCase().trim(),loanWidget.getCreatedON().toLowerCase().trim(),"Header not same as expected on UI(API Response Assert with UI)");
-        softAssert.assertEquals(headers.get(3).getHeader().toLowerCase().trim(),loanWidget.getCurrentOutstanding().toLowerCase().trim(),"Header not same as expected on UI(API Response Assert with UI)");
-        softAssert.assertEquals(headers.get(4).getHeader().toLowerCase().trim(),loanWidget.getDueDate().toLowerCase().trim(),"Header not same as expected on UI(API Response Assert with UI)");
+        softAssert.assertEquals(headers.get(0).getHeader().toLowerCase().trim(), loanWidget.getVendor().toLowerCase().trim(), "Header not same as expected on UI(API Response Assert with UI)");
+        softAssert.assertEquals(headers.get(1).getHeader().toLowerCase().trim() + " (" + headers.get(1).getSubHeader().toLowerCase().trim() + ")", loanWidget.getLoanAmount().toLowerCase().trim() + " (" + loanWidget.getCurrencyType().toLowerCase().trim() + ")", "Header not same as expected on UI(API Response Assert with UI)");
+        softAssert.assertEquals(headers.get(2).getHeader().toLowerCase().trim(), loanWidget.getCreatedON().toLowerCase().trim(), "Header not same as expected on UI(API Response Assert with UI)");
+        softAssert.assertEquals(headers.get(3).getHeader().toLowerCase().trim(), loanWidget.getCurrentOutstanding().toLowerCase().trim(), "Header not same as expected on UI(API Response Assert with UI)");
+        softAssert.assertEquals(headers.get(4).getHeader().toLowerCase().trim(), loanWidget.getDueDate().toLowerCase().trim(), "Header not same as expected on UI(API Response Assert with UI)");
         softAssert.assertAll();
     }
 
 
     @Test(priority = 3, description = "Validate Loan Widget")
     public void validateLoanWidget() throws InterruptedException, IOException {
-        ExtentTestManager.startTest("Validating Loan Service Widget:"+customerNumber, "Validating Loan Service Widget");
+        ExtentTestManager.startTest("Validating Loan Service Widget:" + customerNumber, "Validating Loan Service Widget");
         SoftAssert softAssert = new SoftAssert();
         LoanWidgetPOM loanWidget = new LoanWidgetPOM(driver);
-        for(int i=1;i<=loanWidget.getSize();i++) {
-            Summary summary=api.loanSummaryTest(customerNumber,loanWidget.getVendorName(i).trim());
-            if(!summary.getStatusCode().equalsIgnoreCase("200") | summary.getStatus().equalsIgnoreCase("Failure")){
-                softAssert.assertTrue(loanWidget.checkMessageDisplay(summary.getMessage()),summary.getMessage()+" :Message does not display");
-            }else{
-                softAssert.assertEquals(loanWidget.getLoanAmount(i),summary.getResult().getLoanAmount(),"Loan amount not same as API Response");
-                softAssert.assertEquals(loanWidget.getOutstandingAmount(i),summary.getResult().getCurrentOutstanding().getValue(),"Current Outstanding amount not same as API Response");
+        for (int i = 1; i <= loanWidget.getSize(); i++) {
+            Summary summary = api.loanSummaryTest(customerNumber, loanWidget.getVendorName(i).trim());
+            if (!summary.getStatusCode().equalsIgnoreCase("200") | summary.getStatus().equalsIgnoreCase("Failure")) {
+                softAssert.assertTrue(loanWidget.checkMessageDisplay(summary.getMessage()), summary.getMessage() + " :Message does not display");
+            } else {
+                softAssert.assertEquals(loanWidget.getLoanAmount(i), loanWidget.ValueRoundOff(summary.getResult().getLoanAmount()), "Loan amount not same as API Response");
+                softAssert.assertEquals(loanWidget.getOutstandingAmount(i), loanWidget.ValueRoundOff(summary.getResult().getCurrentOutstanding().getValue()), "Current Outstanding amount not same as API Response");
                 /*
-                * Due Date and Created on assertion pending as API not working as expected
-                * */
+                 * Due Date and Created on assertion pending as API not working as expected
+                 * */
             }
         }
         softAssert.assertAll();
     }
 
     @DataProviders.Table(Name = "Loan Details")
-    @Test(priority = 4, description = "Validate Loan Detail Widget",dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
+    @Test(priority = 4, description = "Validate Loan Detail Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
     public void validateLoanDetailWidget(HeaderDataBean data) throws InterruptedException, IOException {
         ExtentTestManager.startTest("Validate Loan Detail Widget", "Validate Loan Detail Widget");
         SoftAssert softAssert = new SoftAssert();
-        VendorNames vendorNames = api.vendorsNamesTest();
         LoanWidgetPOM loanWidget = new LoanWidgetPOM(driver);
-        LoanDetailPOM loanDetailPOM=null;
-        for(int i=1;i<=loanWidget.getSize();i++) {
-            String vendorName=loanWidget.getVendorName(i).trim();
-            Summary summary=api.loanSummaryTest(customerNumber,vendorName);
-            if(summary.getStatusCode().equalsIgnoreCase("200")){
+        LoanDetailPOM loanDetailPOM = null;
+        List<String> vendorNameList=loanWidget.getVendorNamesList();
+        for (int i = 1; i <= vendorNameList.size(); i++) {
+            String vendorName = vendorNameList.get(i-1).trim();
+            Summary summary = api.loanSummaryTest(customerNumber, vendorName);
+            if (summary.getStatusCode().equalsIgnoreCase("200")) {
                 try {
                     loanDetailPOM = loanWidget.clickVendorName(i);
-                }catch (TimeoutException | ElementClickInterceptedException e){
+                } catch (TimeoutException | ElementClickInterceptedException e) {
                     softAssert.fail(e.getMessage());
                 }
                 loanDetailPOM.waitTillLoaderGetsRemoved();
-                Assert.assertTrue(loanDetailPOM.IsLoanDetailWidgetDisplay(),"Loan Detail Widget not display");
-                Loan loanDetails=api.loanDetailsTest(customerNumber,vendorName);
+                try {
+                    Assert.assertTrue(loanDetailPOM.IsLoanDetailWidgetDisplay(), "Loan Detail Widget not display");
+                } catch (AssertionError e) {
+                    loanDetailPOM.clickCloseTab();
+                    softAssert.fail(e.getMessage());
+                }
+                Loan loanDetails = api.loanDetailsTest(customerNumber, vendorName);
                 /*
-                * Validating Header name displayed on UI with Config present in Excel
-                * */
-                softAssert.assertEquals(loanDetailPOM.getHeaderName(1).toLowerCase().trim(),data.getRow1().toLowerCase().trim(),"Header name not same as defined in excel at pos(1)");
-                softAssert.assertEquals(loanDetailPOM.getHeaderName(2).toLowerCase().trim(),data.getRow2().toLowerCase().trim(),"Header name not same as defined in excel pos(2)");
-                softAssert.assertEquals(loanDetailPOM.getHeaderName(3).toLowerCase().trim(),data.getRow3().toLowerCase().trim(),"Header name not same as defined in excel pos(3)");
-                softAssert.assertEquals(loanDetailPOM.getHeaderName(4).toLowerCase().trim(),data.getRow4().toLowerCase().trim(),"Header name not same as defined in excel pos(4)");
-                softAssert.assertEquals(loanDetailPOM.getHeaderName(5).toLowerCase().trim(),data.getRow5().toLowerCase().trim(),"Header name not same as defined in excel pos(5)");
+                 * Validating Header name displayed on UI with Config present in Excel
+                 * */
+                softAssert.assertEquals(loanDetailPOM.getHeaderName(1).toLowerCase().trim(), data.getRow1().toLowerCase().trim(), "Header name not same as defined in excel at pos(1)");
+                softAssert.assertEquals(loanDetailPOM.getHeaderName(2).toLowerCase().trim(), data.getRow2().toLowerCase().trim(), "Header name not same as defined in excel pos(2)");
+                softAssert.assertEquals(loanDetailPOM.getHeaderName(3).toLowerCase().trim(), data.getRow3().toLowerCase().trim(), "Header name not same as defined in excel pos(3)");
+                softAssert.assertEquals(loanDetailPOM.getHeaderName(4).toLowerCase().trim(), data.getRow4().toLowerCase().trim(), "Header name not same as defined in excel pos(4)");
+                softAssert.assertEquals(loanDetailPOM.getHeaderName(5).toLowerCase().trim(), data.getRow5().toLowerCase().trim(), "Header name not same as defined in excel pos(5)");
                 /*
                  * Validating Header name & value displayed on UI with API Response
                  * */
-                ArrayList<HeaderList> headerList=loanDetails.getResult().getLoanDetails().getHeaderList();
-                LoanDetailList loanDetailValue=loanDetails.getResult().getLoanDetails().getLoanDetailList().get(0);
-                for(int j=0;j<headerList.size();j++){
-                    softAssert.assertEquals(loanDetailPOM.getHeaderName(i+1).toLowerCase().trim(),headerList.get(i).getHeader().toLowerCase().trim(),"Header name not same as in API Response");
+                ArrayList<HeaderList> headerList = loanDetails.getResult().getLoanDetails().getHeaderList();
+                LoanDetailList loanDetailValue = loanDetails.getResult().getLoanDetails().getLoanDetailList().get(0);
+                for (int j = 0; j < headerList.size(); j++) {
+                    softAssert.assertEquals(loanDetailPOM.getHeaderName(i + 1).toLowerCase().trim(), headerList.get(i).getHeader().toLowerCase().trim(), "Loan Detail Widget Header name at POS("+(i+1)+") not same as in API Response");
                 }
 
-                softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToHeader(1).trim(),loanDetailValue.getTotalLoanEligibility(),"Total Loan Eligibility Value not same as API Response");
-                softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToHeader(2).trim(),loanDetailValue.getCountOfEvents(),"Number of Loan Taken Value not same as API Response");
-                softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToHeader(3).trim(),loanDetailValue.getTotalLoanAmount(),"Total Loan amount Value not same as API Response");
-                softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToHeader(4).trim(),loanDetailValue.getLoanPaid(),"Total Loan Paid value not same as API Response");
-                softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToHeader(5).trim(),loanDetailValue.getRemainingBalance(),"Total Current Outstanding value not same as API Response");
+                softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToHeader(1).trim(), loanDetailPOM.ValueRoundOff(loanDetailValue.getTotalLoanEligibility()), "Total Loan Eligibility Value not same as API Response");
+                softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToHeader(2).trim(), String.valueOf(loanDetailValue.getCountOfEvents()), "Number of Loan Taken Value not same as API Response");
+                softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToHeader(3).trim(), loanDetailPOM.ValueRoundOff(loanDetailValue.getTotalLoanAmount()), "Total Loan amount Value not same as API Response");
+                softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToHeader(4).trim(), loanDetailPOM.ValueRoundOff(loanDetailValue.getLoanPaid()), "Total Loan Paid value not same as API Response");
+                softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToHeader(5).trim(), loanDetailPOM.ValueRoundOff(loanDetailValue.getRemainingBalance()), "Total Current Outstanding value not same as API Response");
 
             }
         }
-
+        loanDetailPOM.clickCloseTab();
         softAssert.assertAll();
     }
 
 
+    @DataProviders.Table(Name = "Loan History")
+    @Test(priority = 5, description = "Validate Loan History Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
+    public void validateLoanHistoryWidget(HeaderDataBean data) throws InterruptedException, IOException {
+        ExtentTestManager.startTest("Validate Loan History Widget", "Validate Loan History Widget");
+        SoftAssert softAssert = new SoftAssert();
+        LoanWidgetPOM loanWidget = new LoanWidgetPOM(driver);
+        LoanDetailPOM loanDetailPOM = null;
+        loanWidget.waitTillLoaderGetsRemoved();
+        for (int i = 1; i <= loanWidget.getSize(); i++) {
+            String vendorName = loanWidget.getVendorName(i).trim();
+            Summary summary = api.loanSummaryTest(customerNumber, vendorName);
+            if (summary.getStatusCode().equalsIgnoreCase("200")) {
+                try {
+                    loanDetailPOM = loanWidget.clickVendorName(i);
+                } catch (TimeoutException | ElementClickInterceptedException e) {
+                    softAssert.fail(e.getMessage());
+                }
+                loanDetailPOM.waitTillLoaderGetsRemoved();
+                try {
+                    Assert.assertTrue(loanDetailPOM.IsLoanHistoryWidgetDisplay(), "Loan History Widget not display");
+                } catch (AssertionError e) {
+                    loanDetailPOM.clickCloseTab();
+                    softAssert.fail(e.getMessage());
+                }
+                Loan loanDetails = api.loanDetailsTest(customerNumber, vendorName);
+                try {
+                    softAssert.assertEquals(loanDetailPOM.getLoanHistoryHeaderName(1).toLowerCase().trim(), data.getRow1().toLowerCase().trim(), "Loan History Widget Header Name at POS(1) not same as mentioned in excel");
+                    softAssert.assertEquals(loanDetailPOM.getLoanHistoryHeaderName(2).toLowerCase().trim(), data.getRow2().toLowerCase().trim(), "Loan History Widget Header Name at POS(2) not same as mentioned in excel");
+                    softAssert.assertEquals(loanDetailPOM.getLoanHistoryHeaderName(3).toLowerCase().trim(), data.getRow3().toLowerCase().trim(), "Loan History Widget Header Name at POS(3) not same as mentioned in excel");
+                    softAssert.assertEquals(loanDetailPOM.getLoanHistoryHeaderName(4).toLowerCase().trim(), data.getRow4().toLowerCase().trim(), "Loan History Widget Header Name at POS(4) not same as mentioned in excel");
+                    softAssert.assertEquals(loanDetailPOM.getLoanHistoryHeaderName(5).toLowerCase().trim(), data.getRow5().toLowerCase().trim(), "Loan History Widget Header Name at POS(5) not same as mentioned in excel");
+                    softAssert.assertEquals(loanDetailPOM.getLoanHistoryHeaderName(6).toLowerCase().trim(), data.getRow6().toLowerCase().trim(), "Loan History Widget Header Name at POS(6) not same as mentioned in excel");
+                    softAssert.assertEquals(loanDetailPOM.getLoanHistoryHeaderName(7).toLowerCase().trim(), data.getRow7().toLowerCase().trim(), "Loan History Widget Header Name at POS(7) not same as mentioned in excel");
+                    LoanHistory loanHistory = loanDetails.getResult().getLoanHistory();
+                    ArrayList<HeaderList> headerList = loanDetails.getResult().getLoanHistory().getHeaderList();
+                    ArrayList<LoanRepaymentList> loanRepaymentList = loanDetails.getResult().getLoanHistory().getLoanRepaymentList();
+                    for (int j = 0; j < headerList.size(); j++) {
+                        softAssert.assertEquals(loanDetailPOM.getLoanHistoryHeaderName(j + 1).toLowerCase().trim(), headerList.get(j).getHeader().toLowerCase().trim(), "Loam History widget Header name at POS("+(j+1)+") not same as in API Response");
+                    }
+                    int count=0;
+                    if(loanRepaymentList.size()>5){
+                        count=5;
+                    }else{
+                        count=loanRepaymentList.size();
+                    }
+                    for(int m=0;m<count;m++){
+                        softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToLoanHistoryHeader(m+1,1).trim(),loanRepaymentList.get(m).getId(),"Loan Transaction id not same as API response in Row"+(m+1));
+                        softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToLoanHistoryHeader(m+1,2).trim(),loanDetailPOM.ValueRoundOff(loanRepaymentList.get(m).getAmountCredited()),"Loan Amount Credited not same as API response in Row"+(m+1));
+                        softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToLoanHistoryHeader(m+1,3).trim(),loanDetailPOM.ValueRoundOff(loanRepaymentList.get(m).getServiceCharge()),"Loan Service charge not same as API response in Row"+(m+1));
+                        softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToLoanHistoryHeader(m+1,4).trim(),loanDetailPOM.ValueRoundOff(loanRepaymentList.get(m).getRecovered()),"Loan Recovered Amount not same as API response in Row"+(m+1));
+                        softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToLoanHistoryHeader(m+1,5).trim().toLowerCase(),loanRepaymentList.get(m).getLoanChannel().toLowerCase().trim(),"Loan channel not same as API response in Row"+(m+1));
+                        softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToLoanHistoryHeader(m+1,6).trim().toLowerCase(),loanRepaymentList.get(m).getLoanType().toLowerCase().trim(),"Loan Type not same as API response in Row"+(m+1));
+                        softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToLoanHistoryHeader(m+1,7).trim(),loanDetailPOM.getDateFromEpochInUTC(Long.valueOf(loanRepaymentList.get(m).getDateCreated()),headerList.get(6).getDateFormat()+" "+headerList.get(6).getTimeFormat()),"Loan Date Created not same as API response in Row"+(m+1));
+                   /*
+                   * Loan Recovery Widget Opened
+                   * */
+                        try {
+                            int repaymentCount = loanRepaymentList.get(m).getLoanRepaymentTransaction().getRepaymentTransactionCount();
+                            System.out.println("COUNT:" + repaymentCount);
+                            if (repaymentCount > 0) {
+                                try {
+                                    loanDetailPOM.clickTransactionId(m + 1);
+                                } catch (InterruptedException | TimeoutException e) {
+                                    e.printStackTrace();
+                                    softAssert.fail("Not Able to click Transaction id " + e.getMessage());
+                                }
+                                ArrayList<HeaderList> recoveryWidgetHeader = loanRepaymentList.get(i).getLoanRepaymentTransaction().getHeaderList();
+                                for (int k = 0; k < recoveryWidgetHeader.size(); k++) {
+                                    softAssert.assertEquals(loanDetailPOM.getLoanRecoveryHeaderName(m+1,k + 1).toLowerCase().trim(), recoveryWidgetHeader.get(k).getHeader().toLowerCase().trim(), "Loan Recovery widget header does not same as API response at Pos(" + (m + 1) + ")");
+                                }
+                                ArrayList<LoanRepaymentDetailList> repaymentList = loanRepaymentList.get(m).getLoanRepaymentTransaction().getLoanRepaymentDetailList();
+                                for (int l = 0; l < repaymentCount; l++) {
+                                    softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToLoanRecoveryHeader(m + 1, l + 1, 1).trim(), repaymentList.get(l).getTransactionId(), "Loan Recovery Transaction id column value does not same as API Response for Transaction No.(" + (m + 1) + ") in row POS(" + (l + 1) + ")");
+                                    softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToLoanRecoveryHeader(m + 1, l + 1, 2).trim(), loanDetailPOM.ValueRoundOff(repaymentList.get(l).getAmountRecovered()), "Loan Recovery Amount Recovered column value does not same as API Response for Transaction No.(" + (m + 1) + ") in row POS(" + (l + 1) + ")");
+                                    softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToLoanRecoveryHeader(m + 1, l + 1, 3).toLowerCase().trim(), repaymentList.get(l).getRecoveryMethod().toLowerCase().trim(), "Loan Recovery method column value does not same as API Response for Transaction No.(" + (m + 1) + ") in row POS(" + (l + 1) + ")");
+                                    softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToLoanRecoveryHeader(m + 1, l + 1, 4), loanDetailPOM.getDateFromEpochInUTC(Long.valueOf(repaymentList.get(l).getDateRecovered()), recoveryWidgetHeader.get(3).getDateFormat() + " " + recoveryWidgetHeader.get(3).getTimeFormat()), "Loan Recovery Date Recovered column value does not same as API Response for Transaction No.(" + (m + 1) + ") in row POS(" + (l + 1) + ")");
+                                }
+
+                            }
+                        }catch (NullPointerException | TimeoutException e) {
+                            e.printStackTrace();
+                            softAssert.fail(e.getMessage());
+                        }
+
+                    }
+                } catch (NullPointerException | TimeoutException e) {
+                    e.printStackTrace();
+                    softAssert.fail(e.getMessage());
+                }
+                loanDetailPOM.clickCloseTab();
+            }
+        }
+        softAssert.assertAll();
+    }
 }

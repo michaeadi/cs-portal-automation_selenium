@@ -16,7 +16,7 @@ public class UsageHistoryWidgetPOM extends BasePage {
         super(driver);
     }
 
-    By usageHistoryDatePicker = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Usage History\")]//following-sibling::form//child::input[@name=\"dateRange\"]");
+    By usageHistoryDatePicker = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Usage History\")]//parent::div//form//input");
     By usageHistoryHeader = By.xpath("//span[@class=\"card__card-header--label\" and text()=\"Usage History \"]");
     By rows = By.xpath("//div[@class=\"card__card-header\"]/span[contains(text(),\"Usage\")]//parent::div//following-sibling::div[@class=\"card__content restricted ng-star-inserted\"]//div[@class=\"card__card-header--card-body--table--data-list ng-star-inserted\"]");
     List<WebElement> as = driver.findElements(rows);
@@ -25,36 +25,31 @@ public class UsageHistoryWidgetPOM extends BasePage {
     By dateTime = By.xpath("div[3]/span[@class=\"date_time ng-star-inserted\"]");
     By startBalance = By.xpath("div[4]/span[@class=\"ng-star-inserted\"]");
     By endBalance = By.xpath("div[5]/span[@class=\"ng-star-inserted\"]");
-    By menu = By.xpath("//span[contains(text(),\"Usage History \")]//parent::div/span[@class=\"card__card-header--menu ng-star-inserted\"]/img");
-    By more = By.xpath("//button[text()=\"More\"]");
-    By usageHistoryNoResultFound = By.xpath("//span[contains(text(),\"Usage History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]");
-    By usageHistoryNoResultFoundMessage = By.xpath("//span[contains(text(),\"Usage History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]/span/span");
+    By menu = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Usage History\")]//parent::div//span[@class=\"filter-object\"]/img");
+    By usageHistoryNoResultFound = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Usage History\")]//ancestor::div[2]//div[@class=\"no-result-found ng-star-inserted\"]//img");
+    By usageHistoryNoResultFoundMessage = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Usage History\")]//ancestor::div[2]//span[contains(text(),'No Result found')]");
     By usageHistoryError = By.xpath("//span[contains(text(),\"Usage History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"widget-error apiMsgBlock ng-star-inserted\"][1]");
     By ticketIcon = By.xpath("//span[contains(text(),'Usage History')]//span[@class=\"card__card-header--icon ng-star-inserted\"]");
     By getTitle = By.xpath("//span[contains(text(),'Usage History')]");
 
     public boolean isUsageHistoryErrorVisible() {
-        log.info("Validating error is visible when there is Error in API : " + isElementVisible(usageHistoryError));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Validating error is visible when there is Error in API : " + isElementVisible(usageHistoryError));
+        printInfoLog("Validating error is visible when there is Error in API : " + isElementVisible(usageHistoryError));
         return isElementVisible(usageHistoryError);
     }
 
     public String getHeaders(int row) {
-        String header = readText(By.xpath("//span[contains(text(),\"Usage History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"card__card-header--card-body--table--list-heading\"]/div[" + row + "]"));
-        log.info("Getting header Number " + row + " : " + header);
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting header Number " + row + " : " + header);
+        String header = readText(By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Usage History\")]//ancestor::div[2]//div[@class=\"card__card-header--card-body--table--list-heading ng-star-inserted\"]/div["+row+"]/span"));
+        printInfoLog("Getting header Number " + row + " : " + header);
         return header;
     }
 
     public String gettingUsageHistoryNoResultFoundMessage() {
-        log.info("Validating error message when there is no data from API : " + readText(usageHistoryNoResultFoundMessage));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Validating error message when there is no data from API : " + readText(usageHistoryNoResultFoundMessage));
+        printInfoLog("Validating error message when there is no data from API : " + readText(usageHistoryNoResultFoundMessage));
         return readText(usageHistoryNoResultFoundMessage);
     }
 
     public boolean isUsageHistoryNoResultFoundVisible() {
-        log.info("Validating error is visible when there is no data from API : " + isElementVisible(usageHistoryNoResultFound));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Validating error is visible when there is no data from API : " + isElementVisible(usageHistoryNoResultFound));
+        printInfoLog("Validating error is visible when there is no data from API : " + isElementVisible(usageHistoryNoResultFound));
         return isElementVisible(usageHistoryNoResultFound);
     }
 
@@ -64,29 +59,16 @@ public class UsageHistoryWidgetPOM extends BasePage {
     }
 
     public boolean isUsageHistoryWidgetMenuVisible() {
-        log.info("Checking is Usage History's Menu Visible");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is Usage History's Menu Visible");
+        printInfoLog("Checking is Usage History's Menu Visible");
         return isElementVisible(menu);
     }
 
-    public boolean isMoreMenuVisible() {
-        log.info("Checking is More Option Visible");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is More Option Visible");
-        return checkState(more);
-    }
-
     public MoreUsageHistoryPOM openingMoreDetails() {
-        log.info("Opening More under Usage History Widget");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening More under Usage History Widget");
-        click(more);
+        printInfoLog("Opening More under Usage History Widget");
+        click(menu);
         return new MoreUsageHistoryPOM(driver);
     }
 
-    public void clickingUsageHistoryWidgetMenu() {
-        log.info("Clicking Usage History Widget's Menu Visible");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking Usage History Widget'Menu Visible");
-        click(menu);
-    }
 
     public String getHistoryEndBalance(int RowNumber) {
         WebElement rowElement = as.get(RowNumber);

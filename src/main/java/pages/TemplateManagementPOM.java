@@ -4,6 +4,7 @@ import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -206,7 +207,9 @@ public class TemplateManagementPOM extends BasePage {
     }
 
     public String readResponseMessage() {
-        String text = readText(message);
+//        String text = readText(message);
+        JavascriptExecutor js= (JavascriptExecutor)driver;
+        String text= (String) js.executeScript("return arguments[0].innerHTML", driver.findElement(message));
         ExtentTestManager.getTest().log(LogStatus.INFO, "Response: " + text);
         return text;
     }

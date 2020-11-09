@@ -16,4 +16,6 @@ public class RechargeHistoryPOJO {
     int totalCount;
     ArrayList<ResultRechargeHistoryPOJO> result;
     apiErrors apiErrors;
+    String startDate;
+    String endDate;
 }

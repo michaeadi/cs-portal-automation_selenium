@@ -370,8 +370,6 @@ public class WidgetTaggedIssueTest extends BaseTest {
         Map<String, String> tagIssue = data.getListOfIssue(config.getProperty("smsHistory"));
         try {
             softAssert.assertTrue(usageHistory.isUsageHistoryWidgetMenuVisible(), "Usage History's MENU is not visible ");
-            usageHistory.clickingUsageHistoryWidgetMenu();
-            softAssert.assertTrue(usageHistory.isMoreMenuVisible(), "More Option in  MENU is not visible ");
             MoreUsageHistoryPOM moreUsageHistory = usageHistory.openingMoreDetails();
             String widgetName = moreUsageHistory.getSMSWidgetTitle();
             WidgetInteractionPOM tagIssueTab = moreUsageHistory.clickSMSTicketIcon();

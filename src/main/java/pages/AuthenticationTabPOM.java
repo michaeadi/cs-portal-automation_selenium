@@ -55,7 +55,7 @@ public class AuthenticationTabPOM extends BasePage {
     }
 
     public void clickAuthBtn() {
-        printInfoLog("Clicking on Non-Authenticate button");
+        printInfoLog("Clicking on Authenticate button");
         if (driver.findElement(authBtn).isEnabled())
             click(authBtn);
     }

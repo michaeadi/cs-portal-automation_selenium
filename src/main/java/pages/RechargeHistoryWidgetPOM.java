@@ -12,7 +12,7 @@ import java.util.List;
 @Log4j2
 public class RechargeHistoryWidgetPOM extends BasePage {
 
-    By rechargeHistoryDatePicker = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Recharge History\")]//following-sibling::form//child::input[@name=\"dateRange\"]");
+    By rechargeHistoryDatePicker = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Recharge History\")]//parent::div//form/span/input");
     By rechargeHistoryHeader = By.xpath("//span[@class=\"card__card-header--label\" and text()=\"Recharge History \"]");
     By rows = By.xpath("//div[@class=\"card__card-header\"]/span[contains(text(),\"Recharge\")]//parent::div//following-sibling::div[@class=\"card__content restricted ng-star-inserted\"]//div[@class=\"card__card-header--card-body--table--data-list ng-star-inserted\"]");
     List<WebElement> as = driver.findElements(rows);
@@ -42,9 +42,16 @@ public class RechargeHistoryWidgetPOM extends BasePage {
     }
 
     public String getHeaders(int row) {
-        String header = readText(By.xpath("//span[contains(text(),\"Recharge History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"card__card-header--card-body--table--list-heading\"]/div[" + row + "]"));
+        String header = readText(By.xpath("//span[contains(text(),\"Recharge History\")]//ancestor::div[2]//div[@class=\"card__card-header--card-body--table--list-heading ng-star-inserted\"]/div["+row+"]/span[1]"));
         log.info("Getting header Number " + row + " : " + header);
         ExtentTestManager.getTest().log(LogStatus.INFO, "Getting header Number " + row + " : " + header);
+        return header;
+    }
+
+    public String getSubHeaders(int row) {
+        String header = readText(By.xpath("//span[contains(text(),\"Recharge History\")]//ancestor::div[2]//div[@class=\"card__card-header--card-body--table--list-heading ng-star-inserted\"]/div["+row+"]/span[2]"));
+        log.info("Getting Sub header Number " + row + " : " + header);
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Sub Header Number " + row + " : " + header);
         return header;
     }
 

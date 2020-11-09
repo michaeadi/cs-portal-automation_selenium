@@ -5,20 +5,19 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
 @ToString
 public class ResultProfilePOJO {
-    String activationDate;
-    String sim;
-    String simType;
-    String status;
-    String lineType;
-    String serviceCategory;
-    String segment;
-    String subSegment;
-    String serviceClass;
-    ArrayList<PUKPOJO> puk;
 
+    private String deviceType;
+    private String imeiNumber;
+    private String type;
+    private String brand;
+    private String model;
+    private String os;
+    private String airtelMoneyStatus;
+    private String serviceStatus;
 }

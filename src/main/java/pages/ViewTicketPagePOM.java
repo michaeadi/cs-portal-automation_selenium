@@ -3,9 +3,7 @@ package pages;
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 
 import java.util.List;
 
@@ -64,18 +62,16 @@ public class ViewTicketPagePOM extends BasePage {
                     ExtentTestManager.getTest().log(LogStatus.INFO, "Selecting State: " + state);
                     click(chooseState);
                     String selectedState = readText(stateName);
-                    ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Submit as " + selectedState);
+                    printInfoLog("Clicking on Submit as " + selectedState);
                     click(submitAs);
                     return selectedState;
                 }
             }
-            log.info(state + " State does not mapped to ticket");
-            ExtentTestManager.getTest().log(LogStatus.WARNING, state + " State does not mapped to ticket");
+            printFailLog(state + " State does not mapped to ticket");
             return "Required State not found";
-        } catch (Exception e) {
+        } catch (TimeoutException | NoSuchElementException e) {
             e.printStackTrace();
-            log.info("No State does not mapped to ticket");
-            ExtentTestManager.getTest().log(LogStatus.FAIL, "No State does not mapped to ticket");
+            printFailLog("No State does not mapped to ticket "+e.fillInStackTrace());
         }
         return "Required State not found";
     }

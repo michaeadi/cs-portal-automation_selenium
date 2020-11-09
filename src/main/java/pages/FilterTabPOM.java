@@ -6,11 +6,7 @@ import Utils.DataProviders.TicketStateDataBean;
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-
+import org.openqa.selenium.*;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -22,6 +18,7 @@ public class FilterTabPOM extends BasePage {
 
     //Filter By Created date
     By filterCreatedByLabel = By.xpath("//div[@class=\"mat-drawer-inner-container\"]//span[contains(text(),'Filter By Created Date')]");
+    By filterClosureByLabel = By.xpath("//div[@class=\"mat-drawer-inner-container\"]//span[contains(text(),'Filter by Closure Date')]");
     By last7DaysCD = By.xpath("//mat-radio-group[@formcontrolname='days']/mat-radio-button[1]/label/div[2]/span[2]");
     By last30DaysCD = By.xpath("//mat-radio-group[@formcontrolname='days']/mat-radio-button[2]/label/div[2]/span[2]");
     By dateDurationCD = By.xpath("//mat-radio-group[@formcontrolname='days']/mat-radio-button[3]/label/div[2]/span[2]");
@@ -48,7 +45,7 @@ public class FilterTabPOM extends BasePage {
     //Filter By Queue
     By queueLabel = By.xpath("//span[contains(text(),'Filter By Queue')]");
     By showQueueFilter = By.xpath("//mat-label[contains(text(),'Select Queue')]");
-    By openQueueList = By.xpath("//mat-select[@formcontrolname=\"selectedFilterQueue\"]");
+    By openQueueList = By.xpath("//app-custom-mat-select[@formcontrolname=\"selectedFilterQueue\"]");
 
     //Filter By Ticket Assignee
     By ticketAssigneeLabel = By.xpath("//span[contains(text(),'Filter By Ticket Assignee')]");
@@ -170,6 +167,11 @@ public class FilterTabPOM extends BasePage {
         return checkState(filterCreatedByLabel);
     }
 
+    public boolean isClosureByFilter() {
+        printInfoLog("Is filter by Closure date available :" + checkState(filterClosureByLabel));
+        return checkState(filterClosureByLabel);
+    }
+
     public boolean isSlaDueDateFilter() {
         log.info("Is filter by SLA due date available :" + checkState(sLADueDateLabel));
         ExtentTestManager.getTest().log(LogStatus.PASS, "Is filter by SLA due date available :" + checkState(sLADueDateLabel));
@@ -235,38 +237,58 @@ public class FilterTabPOM extends BasePage {
     public boolean validateOpenStateFilter() {
         DataProviders d = new DataProviders();
         List<TicketStateDataBean> open = d.getState("open");
-        try {
-            for (TicketStateDataBean state : open) {
-                By check = By.xpath("//span[@class='mat-checkbox-label'][contains(text(),'" + state.getTicketStateName() + "')]");
+        Boolean flag = true;
+        for (TicketStateDataBean state : open) {
+            By check = By.xpath("//span[@class='mat-checkbox-label'][contains(text(),'" + state.getTicketStateName() + "')]");
+            try {
                 log.info("Filter by state name " + state.getTicketStateName() + " is: " + checkState(check));
                 ExtentTestManager.getTest().log(LogStatus.PASS, "Is filter by state name " + state.getTicketStateName() + " available: " + checkState(check));
+            } catch (NoSuchElementException | TimeoutException e) {
+                printFailLog("State does not mapped Correctly(Check Config): " + state.getTicketStateName() + " " + e.fillInStackTrace());
+                flag = false;
             }
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+        }
+        return flag;
+    }
+
+
+    public boolean validateCloseStateFilter() {
+        DataProviders d = new DataProviders();
+        List<TicketStateDataBean> open = d.getState("Close");
+        Boolean flag=true;
+            for (TicketStateDataBean state : open) {
+                By check = By.xpath("//span[@class='mat-checkbox-label'][contains(text(),'" + state.getTicketStateName() + "')]");
+                try {
+                    log.info("Filter by state name " + state.getTicketStateName() + " is: " + checkState(check));
+                    printInfoLog("Is filter by state name " + state.getTicketStateName() + " available: " + checkState(check));
+                }catch (NoSuchElementException | TimeoutException e) {
+                    printFailLog("State does not mapped Correctly(Check Config): '"+state.getTicketStateName()+"' "+e.fillInStackTrace());
+                    flag=false;
+                }
+            }
+            return flag;
         }
 
-    }
 
     public boolean validatePriorityFilter() {
         DataProviders d = new DataProviders();
         List<PriorityDataBean> priorityList = d.getPriority();
-        try {
+        Boolean flag=true;
             for (PriorityDataBean state : priorityList) {
                 By check = By.xpath("//span[@class='mat-checkbox-label'][contains(text(),'" + state.getTicketPriority() + "')]");
+                try{
                 log.info("Filter by state name " + state.getTicketPriority() + " is: " + checkState(check));
                 ExtentTestManager.getTest().log(LogStatus.PASS, "Is filter by state name " + state.getTicketPriority() + " available: " + checkState(check));
-            }
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
+            }catch (TimeoutException | NoSuchElementException e) {
+                    printFailLog("Priority does not mapped Correctly(Check Config): '"+state.getTicketPriority()+"' "+e.fillInStackTrace());
+                    flag=false;
+                }
         }
-        return false;
+        return flag;
     }
 
     public void clickCloseFilter() {
-        log.info("Closing Filter Tab");
+        printInfoLog("Closing Filter Tab");
         click(closeFilter);
     }
 

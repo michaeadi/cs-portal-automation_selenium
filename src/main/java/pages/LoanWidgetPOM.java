@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LoanWidgetPOM extends BasePage {
@@ -66,10 +67,10 @@ public class LoanWidgetPOM extends BasePage {
         return readText(name).trim();
     }
 
-    public Double getLoanAmount(int i){
+    public String getLoanAmount(int i){
         By amount=By.xpath("//span[contains(text(),'LOAN SERVICES')]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"card__card-header--card-body--table\"]//div[@class=\"card__card-header--card-body--table--data-list ng-star-inserted\"]["+i+"]//div[@class=\"show-error-message ng-star-inserted\"][2]//span");
         printInfoLog("Reading Loan Amount: "+readText(amount));
-        return Double.parseDouble(readText(amount).trim());
+        return readText(amount).trim();
     }
 
     public String getDateCreatedOn(int i){
@@ -125,4 +126,11 @@ public class LoanWidgetPOM extends BasePage {
         return vendors.size();
     }
 
+    public List<String> getVendorNamesList(){
+        List<String> vendors=new ArrayList();
+        for(int i=0;i<getSize();i++){
+            vendors.add(getVendorName(i+1).trim());
+        }
+        return vendors;
+    }
 }

@@ -8,9 +8,9 @@ import com.relevantcodes.extentreports.LogStatus;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pages.BackendAgentTicketListPOM;
 import pages.agentLoginPagePOM;
 import pages.loginPagePOM;
+import pages.supervisorTicketListPagePOM;
 
 import java.lang.reflect.Method;
 
@@ -55,12 +55,8 @@ public class BackendAgentLoginTest extends BaseTest {
         ExtentTestManager.startTest("Backend Agent Validate Ticket List Page", "Validate the Backend Agent View Ticket List page");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SoftAssert softAssert = new SoftAssert();
-        BackendAgentTicketListPOM ticketListPage = new BackendAgentTicketListPOM(driver);
+        supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         ticketListPage.waitTillLoaderGetsRemoved();
-        /*ticketListPage.writeTicketId(ticketId);
-        ticketListPage.clickedSearchBtn();
-        Thread.sleep(20000);
-        Assert.assertEquals(ticketListPage.getTicketIdvalue(),ticketId);*/
         softAssert.assertTrue(ticketListPage.isTicketIdLabel(), "Ticket Meta Data Does Not Have Ticket Id");
         softAssert.assertTrue(ticketListPage.isWorkGroupName(), "Ticket Meta Data Does Not  Have Workgroup");
         softAssert.assertTrue(ticketListPage.isPrioritylabel(), "Ticket Meta Data  Does Not  Have Priority");
@@ -73,6 +69,7 @@ public class BackendAgentLoginTest extends BaseTest {
         softAssert.assertTrue(ticketListPage.isSubTypeLabel(), "Ticket Meta Data Does Not Have Issue Sub Type");
         softAssert.assertTrue(ticketListPage.isSubSubTypeLabel(), "Ticket Meta Data Does Not Have Issue Sub Sub Type");
         softAssert.assertTrue(ticketListPage.isCodeLabel(), "Ticket Meta Data Does Not Have Code");
+        softAssert.assertFalse(ticketListPage.getMSISDN().isEmpty(),"MSISDN Can not be empty");
         softAssert.assertAll();
     }
 }

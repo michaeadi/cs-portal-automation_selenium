@@ -3,6 +3,8 @@ package tests;
 import Utils.DataProviders.DataProviders;
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.SideMenuPOM;
@@ -33,7 +35,7 @@ public class ViewTemplateTest extends BaseTest {
         TemplateManagementPOM templateManagement = new TemplateManagementPOM(driver);
         templateManagement.waitTillLoaderGetsRemoved();
         ViewCreatedTemplatePOM viewCreatedTemplate = templateManagement.clickViewCreatedTemplateTab();
-        softAssert.assertTrue(viewCreatedTemplate.isViewCreatedTemplate());
+        softAssert.assertTrue(viewCreatedTemplate.isViewCreatedTemplate(),"View Created Template Page does not load properly.");
         softAssert.assertAll();
     }
 
@@ -72,6 +74,7 @@ public class ViewTemplateTest extends BaseTest {
         ExtentTestManager.startTest("Validating All Agent Roles displayed", "Validating All Agent Roles displayed");
         ViewCreatedTemplatePOM viewCreatedTemplate = new ViewCreatedTemplatePOM(driver);
         SoftAssert softAssert = new SoftAssert();
+        try{
         viewCreatedTemplate.clickRoles();
         ArrayList<String> strings = viewCreatedTemplate.getAllOptions();
         viewCreatedTemplate.clickOutside();
@@ -94,6 +97,10 @@ public class ViewTemplateTest extends BaseTest {
                 softAssert.fail(element + " Agent Roles does not display on UI but present in config sheet.");
             }
         }
+        }catch (NoSuchElementException | TimeoutException | NullPointerException e){
+            softAssert.fail("Validate Agent Role does not complete due to error :"+e.fillInStackTrace());
+        }
+        viewCreatedTemplate.clickOutside();
         softAssert.assertAll();
     }
 
@@ -102,28 +109,33 @@ public class ViewTemplateTest extends BaseTest {
         ExtentTestManager.startTest("Validating All Language displayed", "Validating All Language displayed");
         ViewCreatedTemplatePOM viewCreatedTemplate = new ViewCreatedTemplatePOM(driver);
         SoftAssert softAssert = new SoftAssert();
-        viewCreatedTemplate.clickLanguage();
-        ArrayList<String> strings = viewCreatedTemplate.getAllOptions();
-        viewCreatedTemplate.clickOutside();
-        DataProviders data = new DataProviders();
-        ArrayList<String> language = data.getLanguage();
-        for (String s : strings) {
-            if (language.contains(s)) {
-                ExtentTestManager.getTest().log(LogStatus.INFO, "Validate " + s + " Language is display correctly");
-                language.remove(s);
+        try {
+            viewCreatedTemplate.clickLanguage();
+            ArrayList<String> strings = viewCreatedTemplate.getAllOptions();
+            viewCreatedTemplate.clickOutside();
+            DataProviders data = new DataProviders();
+            ArrayList<String> language = data.getLanguage();
+            for (String s : strings) {
+                if (language.contains(s)) {
+                    ExtentTestManager.getTest().log(LogStatus.INFO, "Validate " + s + " Language is display correctly");
+                    language.remove(s);
+                } else {
+                    ExtentTestManager.getTest().log(LogStatus.FAIL, s + " Language must not display on frontend as tag not mention in config sheet.");
+                    softAssert.fail(s + " Language should not display on UI as Agent channel not mention in config sheet.");
+                }
+            }
+            if (language.isEmpty()) {
+                ExtentTestManager.getTest().log(LogStatus.PASS, "All Language correctly configured and display on UI.");
             } else {
-                ExtentTestManager.getTest().log(LogStatus.FAIL, s + " Language must not display on frontend as tag not mention in config sheet.");
-                softAssert.fail(s + " Language should not display on UI as Agent channel not mention in config sheet.");
+                for (String element : language) {
+                    ExtentTestManager.getTest().log(LogStatus.FAIL, element + " Language does not display on UI but present in config sheet.");
+                    softAssert.fail(element + " Language does not display on UI but present in config sheet.");
+                }
             }
+        }catch (NoSuchElementException | TimeoutException | NullPointerException e){
+            softAssert.fail("Validate Language does not able to complete due to following error: "+e.fillInStackTrace());
         }
-        if (language.isEmpty()) {
-            ExtentTestManager.getTest().log(LogStatus.PASS, "All Language correctly configured and display on UI.");
-        } else {
-            for (String element : language) {
-                ExtentTestManager.getTest().log(LogStatus.FAIL, element + " Language does not display on UI but present in config sheet.");
-                softAssert.fail(element + " Language does not display on UI but present in config sheet.");
-            }
-        }
+        viewCreatedTemplate.clickOutside();
         softAssert.assertAll();
     }
 

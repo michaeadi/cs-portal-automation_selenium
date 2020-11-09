@@ -36,7 +36,7 @@ public class BackendAgentAddComment extends BaseTest {
 
     @Test(priority = 2, description = "Backend agent add new comment on Ticket", dataProvider = "ticketState", dataProviderClass = DataProviders.class)
     public void addNewComment(Method method, TicketStateDataBean ticketState) throws InterruptedException {
-        BackendAgentTicketListPOM ticketListPage = new BackendAgentTicketListPOM(driver);
+        supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         ViewTicketPagePOM viewTicket = new ViewTicketPagePOM(driver);
         ExtentTestManager.startTest("Backend Agent add new comment on ticket", "Backend Agent add new comment on ticket");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");

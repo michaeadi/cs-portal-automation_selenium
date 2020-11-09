@@ -4,17 +4,18 @@ import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.time.DateUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.CacheLookup;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import tests.BaseTest;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -27,6 +28,7 @@ public class BasePage {
     public WebDriver driver;
     public WebDriverWait wait;
     By loader = By.xpath("/html/body/app-root/ngx-ui-loader/div[2]");
+    @CacheLookup
     By loader1 = By.xpath("//div[@class=\"ngx-overlay foreground-closing\"]");
     By overlay = By.xpath("//mat-dialog-container[@role='dialog']");
     By timeLine = By.xpath("//app-new-loader[@class=\"ng-star-inserted\"]//div[1]");
@@ -34,6 +36,7 @@ public class BasePage {
 
     //Constructor
     public BasePage(WebDriver driver) {
+        PageFactory.initElements(new AjaxElementLocatorFactory(driver, 10), this);
         this.driver = driver;
         wait = new WebDriverWait(driver, Duration.ofSeconds(Integer.parseInt(BaseTest.config.getProperty("GeneralWaitInSeconds"))));
         driver.manage().timeouts().implicitlyWait(Integer.parseInt(BaseTest.config.getProperty("ImplicitWaitInSeconds")), TimeUnit.SECONDS);
@@ -42,7 +45,7 @@ public class BasePage {
 
     public void waitTillLoaderGetsRemoved() {
         printInfoLog("Waiting for loader to be removed");
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
+//        wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(loader1));
         printInfoLog("Loader Removed");
     }
@@ -118,6 +121,13 @@ public class BasePage {
         actions.moveToElement(target).build().perform();
     }
 
+    void hover(By elementLocation) {
+        Actions actions = new Actions(driver);
+        waitVisibility(elementLocation);
+        WebElement target = driver.findElement(elementLocation);
+        actions.moveToElement(target).build().perform();
+    }
+
     //Asserting Current URL
     void AssertCurrentURL(String URL) {
         String currentUrl = driver.getCurrentUrl();
@@ -141,6 +151,13 @@ public class BasePage {
     public String getDateFromEpoch(long Epoch, String pattern) {
         Date date = new Date(Epoch);
         DateFormat format = new SimpleDateFormat(pattern);
+        return format.format(date);
+    }
+
+    public String getDateFromEpochInUTC(long Epoch, String pattern) {
+        Date date = new Date(Epoch);
+        DateFormat format = new SimpleDateFormat(pattern);
+        format.setTimeZone(TimeZone.getTimeZone("Etc/UTC"));
         return format.format(date);
     }
 
@@ -238,5 +255,10 @@ public class BasePage {
     public void printWarningLog(String message) {
         log.info(message);
         ExtentTestManager.getTest().log(LogStatus.WARNING, message);
+    }
+
+    public String ValueRoundOff(Double value){
+        DecimalFormat df = new DecimalFormat("###.##");
+        return df.format(value);
     }
 }

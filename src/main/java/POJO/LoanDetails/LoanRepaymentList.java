@@ -16,5 +16,6 @@ public class LoanRepaymentList {
     private Double recovered;
     private String loanType;
     private String dateCreated;
+    private String loanChannel;
     private LoanRepaymentTransaction loanRepaymentTransaction;
 }

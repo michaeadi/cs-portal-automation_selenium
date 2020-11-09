@@ -1,4 +1,4 @@
-package POJO;
+package POJO.KYCProfile;
 
 import lombok.Getter;
 import lombok.Setter;

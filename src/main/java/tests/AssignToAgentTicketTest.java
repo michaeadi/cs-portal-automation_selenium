@@ -3,6 +3,8 @@ package tests;
 import Utils.DataProviders.DataProviders;
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -40,19 +42,9 @@ public class AssignToAgentTicketTest extends BaseTest {
         ExtentTestManager.startTest("Assign Ticket to Agent", "Supervisor Perform Assign Ticket to Agent");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SoftAssert softAssert = new SoftAssert();
+        String auuid=null;
         ticketListPage.changeTicketTypeToOpen();
         ticketListPage.waitTillLoaderGetsRemoved();
-//        ticketListPage.clickFilter();
-//        ticketListPage.waitTillLoaderGetsRemoved();
-//        filterTab.clickUnAssignedFilter();
-//        filterTab.clickApplyFilter();
-//        ticketListPage.waitTillLoaderGetsRemoved();
-//        String ticketId= ticketListPage.getTicketIdvalue();
-//        ticketListPage.resetFilter();
-//        ticketListPage.waitTillLoaderGetsRemoved();
-//        ticketListPage.writeTicketId(ticketId);
-//        ticketListPage.clickSearchBtn();
-//        ticketListPage.waitTillLoaderGetsRemoved();
         softAssert.assertTrue(ticketListPage.isTicketIdLabel(), "Ticket Meta Data Does Not Have Ticket Id");
         softAssert.assertTrue(ticketListPage.isWorkGroupName(), "Ticket Meta Data Does Not  Have Workgroup");
         softAssert.assertTrue(ticketListPage.isPrioritylabel(), "Ticket Meta Data  Does Not  Have Priority");
@@ -74,7 +66,13 @@ public class AssignToAgentTicketTest extends BaseTest {
         ticketListPage.clickAssigntoAgent();
         softAssert.assertTrue(assignTicket.validatePageTitle(), "Assign to Agent tab Does Not Open");
         softAssert.assertEquals(assignTicket.getQueueName(), ticketQueue, "Assign to Agent tab Queue does not Open Correctly");
-        String auuid = assignTicket.ticketAssignedToAgent(assigneeAUUID).trim();
+        try {
+            auuid = assignTicket.ticketAssignedToAgent(assigneeAUUID).trim();
+        } catch (InterruptedException | NoSuchElementException | TimeoutException e) {
+            softAssert.fail("Not able to assign ticket to agent "+e.fillInStackTrace());
+            assignTicket.closeAssignTab();
+            ticketListPage.clickCheckbox();
+        }
         ticketListPage.waitTillLoaderGetsRemoved();
         Thread.sleep(3000);
         ticketListPage.writeTicketIdSecond(ticketId);

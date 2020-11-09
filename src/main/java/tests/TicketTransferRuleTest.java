@@ -42,32 +42,47 @@ public class TicketTransferRuleTest extends BaseTest {
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SoftAssert softAssert = new SoftAssert();
         String ticketId = null;
+        FilterTabPOM filterTab = null;
         ticketListPage.waitTillLoaderGetsRemoved();
-        FilterTabPOM filterTab = ticketListPage.clickFilter();
-        filterTab.waitTillLoaderGetsRemoved();
-        filterTab.applyFilterByCategoryCode(ruleData.getIssueCode());
-        filterTab.clickQueueFilter();
-        filterTab.selectQueueByName(ruleData.getFromQueue());
-        filterTab.clickOutsideFilter();
-        filterTab.clickApplyFilter();
-        filterTab.waitTillLoaderGetsRemoved();
+        try {
+            filterTab = ticketListPage.clickFilter();
+            filterTab.waitTillLoaderGetsRemoved();
+            filterTab.applyFilterByCategoryCode(ruleData.getIssueCode());
+            filterTab.clickQueueFilter();
+            filterTab.selectQueueByName(ruleData.getFromQueue());
+            filterTab.clickOutsideFilter();
+            filterTab.clickApplyFilter();
+            filterTab.waitTillLoaderGetsRemoved();
+        } catch (InterruptedException | NoSuchElementException | TimeoutException e) {
+            e.printStackTrace();
+            filterTab.clickCloseFilter();
+            softAssert.fail("Not able to apply filter " + e.getMessage());
+        }
         try {
             ticketId = ticketListPage.getTicketIdvalue();
         } catch (NoSuchElementException | TimeoutException e) {
             ticketListPage.resetFilter();
-            Thread.sleep(1000);
-            Assert.fail("No Ticket Found with Selected Filter", e.getCause());
+            Assert.fail("No Ticket Found with Selected Filter :" + ticketId, e.getCause());
         }
         ticketListPage.viewTicket();
         Assert.assertEquals(ticketId, viewTicket.getTicketId(), "Verify the searched Ticket fetched Successfully");
         String selectedState = viewTicket.selectState(ruleData.getTicketToState());
-        ticketListPage.waitTillLoaderGetsRemoved();
-        ticketListPage.writeTicketId(ticketId);
-        ticketListPage.clickSearchBtn();
-        ticketListPage.waitTillLoaderGetsRemoved();
-        softAssert.assertEquals(ticketListPage.getTicketIdvalue(), ticketId, "Search Ticket Does not Fetched Correctly");
-        softAssert.assertEquals(ticketListPage.getStatevalue().toLowerCase().trim(), selectedState.toLowerCase().trim(), "Ticket Does not Updated to Selected State");
-        softAssert.assertEquals(ticketListPage.getqueueValue().toLowerCase().trim(), ruleData.getToQueue().toLowerCase().trim(), "Ticket does not updated to correct ticket pool");
+        if (!selectedState.equalsIgnoreCase("Required State not found")) {
+            try {
+                ticketListPage.waitTillLoaderGetsRemoved();
+                ticketListPage.writeTicketId(ticketId);
+                ticketListPage.clickSearchBtn();
+                ticketListPage.waitTillLoaderGetsRemoved();
+                softAssert.assertEquals(ticketListPage.getTicketIdvalue(), ticketId, "Search Ticket Does not Fetched Correctly");
+                softAssert.assertEquals(ticketListPage.getStatevalue().toLowerCase().trim(), selectedState.toLowerCase().trim(), "Ticket Does not Updated to Selected State");
+                softAssert.assertEquals(ticketListPage.getqueueValue().toLowerCase().trim(), ruleData.getToQueue().toLowerCase().trim(), "Ticket does not updated to correct ticket pool");
+            } catch (TimeoutException | NoSuchElementException e) {
+                softAssert.fail("Ticket has been transferred to Selected but not able search ticket.");
+            }
+        } else {
+            viewTicket.clickBackButton();
+            softAssert.fail("Required State not found");
+        }
         softAssert.assertAll();
     }
 }

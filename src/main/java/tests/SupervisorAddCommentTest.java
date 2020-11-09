@@ -4,6 +4,7 @@ import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.TestDatabean;
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
+import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -14,11 +15,12 @@ import pages.supervisorTicketListPagePOM;
 
 import java.lang.reflect.Method;
 import java.time.LocalDateTime;
+import java.util.NoSuchElementException;
 
 public class SupervisorAddCommentTest extends BaseTest {
 
-    @Test(priority = 1, description = "Supervisor SKIP Login ", dataProvider = "getTestData", dataProviderClass = DataProviders.class)
-    public void agentSkipQueueLogin(Method method, TestDatabean Data) {
+    @Test(priority = 1, description = "Supervisor SKIP Login ", dataProviderClass = DataProviders.class)
+    public void agentSkipQueueLogin(Method method) {
         ExtentTestManager.startTest("Supervisor SKIP Queue Login", "Supervisor SKIP Queue Login");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SideMenuPOM sideMenu = new SideMenuPOM(driver);
@@ -44,17 +46,28 @@ public class SupervisorAddCommentTest extends BaseTest {
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SoftAssert softAssert = new SoftAssert();
         ticketListPage.changeTicketTypeToOpen();
-//        ticketListPage.writeTicketId(ticketId);
-//        ticketListPage.clickedSearchBtn();
-//        Thread.sleep(20000); // Add comment on Particular Ticket
-        String ticketId = ticketListPage.getTicketIdvalue();
-        String comment = "Supervisor added comment on ticket using automation";
-        ticketListPage.viewTicket();
-        Assert.assertEquals(ticketId, viewTicket.getTicketId(), "Verify the searched Ticket fetched Successfully");
-        viewTicket.addComment(comment);
-        viewTicket.clickAddButton();
-        viewTicket.waitTillLoaderGetsRemoved();
-        viewTicket.validateAddedComment(comment);
+        try {
+            String ticketId = ticketListPage.getTicketIdvalue();
+            String comment = "Supervisor added comment on ticket using automation";
+            try {
+                ticketListPage.viewTicket();
+                viewTicket.waitTillLoaderGetsRemoved();
+                Assert.assertEquals(ticketId, viewTicket.getTicketId(), "Verify the searched Ticket fetched Successfully");
+                try {
+                    viewTicket.addComment(comment);
+                    viewTicket.clickAddButton();
+                    viewTicket.waitTillLoaderGetsRemoved();
+                    viewTicket.validateAddedComment(comment);
+                } catch (NoSuchElementException | TimeoutException e) {
+                    softAssert.fail("Not able to add comment on ticket :" + e.fillInStackTrace());
+                }
+            } catch (NoSuchElementException | TimeoutException e) {
+                softAssert.fail("Not able to view ticket properly: " + e.fillInStackTrace());
+                viewTicket.clickBackButton();
+            }
+        } catch (NoSuchElementException | TimeoutException e) {
+            softAssert.fail("No Ticket Found in open state " + e.fillInStackTrace());
+        }
         softAssert.assertAll();
     }
 
@@ -86,7 +99,7 @@ public class SupervisorAddCommentTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 5, description = "Validate Delete comment as Backend Supervisor")
+    @Test(priority = 5,dependsOnMethods = "addCommentOnTicket", description = "Validate Delete comment as Backend Supervisor")
     public void deleteLastAddedComment() throws InterruptedException {
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         ViewTicketPagePOM viewTicket = new ViewTicketPagePOM(driver);

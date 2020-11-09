@@ -22,6 +22,7 @@ public class assignToAgentPOM extends BasePage {
     By availableSlot = By.xpath("//*[@id=\"assignTicket\"]/app-assign-to-agents/section/div/div[2]/div[1]/div[3]/p/span");
     By assignedSlot = By.xpath("//*[@id=\"assignTicket\"]/app-assign-to-agents/section/div/div[2]/div[1]/div[3]/p/text()");
     By infoMessage = By.xpath("//*[@id=\"assignTicket\"]/app-assign-to-agents/section/div/div[1]/hr");
+    By closeTab= By.xpath("//button[@class=\"mat-button\"]//span[contains(text(),'X')]");
 
     public assignToAgentPOM(WebDriver driver) {
         super(driver);
@@ -60,13 +61,10 @@ public class assignToAgentPOM extends BasePage {
         return readText(assignedSlot);
     }
 
-//    public void ClickedAssignBtn() {
-//        log.info("Clicking on Assign Button");
-//        if (getAvailableSlot() > 0) {
-//            ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Assign Button");
-//            click(assignBtn);
-//        }
-//    }
+    public void closeAssignTab() {
+        printInfoLog("Clicking on Close Assign Button");
+        click(closeTab);
+    }
 
     public String getInfoMessage() {
         log.info("Reading Info Message: " + readText(infoMessage));

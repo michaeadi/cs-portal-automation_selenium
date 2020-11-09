@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.ArrayList;
+
 @Getter
 @Setter
 @ToString
@@ -22,6 +24,9 @@ public class ResultUsageHistoryPOJO {
     String callTo;
     String callDuration;
     String smsTo;
+    String transactionAmountDetails;
+    String time;
+    ArrayList<ExpendDataPOJO> expandedData;
 }
 //"txnNumber": "306701202007241016311000000417789510200000000000000000000CCNnkuocc3b-0000000",
 //      "dateTime": "1595605591000",

@@ -98,11 +98,6 @@
             <class name="tests.SupervisorAddCommentTest"/>
         </classes>
     </test>
-    <test name="Supervisors Issue Comment Test">
-        <classes>
-            <class name="tests.IssueCommentTest"/>
-        </classes>
-    </test>
     <test name="Logout Supervisor Test">
         <classes>
             <class name="tests.LogoutTest"/>

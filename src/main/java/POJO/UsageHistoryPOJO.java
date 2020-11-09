@@ -18,4 +18,6 @@ public class UsageHistoryPOJO {
     int totalCount;
     ArrayList<ResultUsageHistoryPOJO> result;
     apiErrors apiErrors;
+    String startDate;
+    String endDate;
 }

@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 public class SendSMSPOM extends BasePage {
 
     By sendSMSTitle = By.xpath("//label[contains(text(),'Send Message')]");
-    By customerNumber = By.xpath("//div[@class='send-managment__card-list--card--content-area--option-section']//span[@class='ng-tns-c9-24 ng-star-inserted']");
+    By customerNumber = By.xpath("//div[@class=\"send-managment__card-list--card--content-area--option-section--form\"][1]//div[@class=\"mat-select-value\"]");
     By openCategory = By.xpath("//app-custom-mat-select[@formcontrolname=\"categorySelect\"]//mat-select");
     By openTemplates = By.xpath("//div[@class=\"send-managment__card-list--card--content-area--option-section--form--options\"][2]//mat-select");
     By openLanguage = By.xpath("//div[@class=\"send-managment__card-list--card--content-area--option-section--form--options\"][3]//mat-select");
@@ -24,6 +24,7 @@ public class SendSMSPOM extends BasePage {
     By searchCategory = By.xpath("//div[@class='input-search ng-star-inserted']//input[@placeholder='Search']");
     By messageReadOnly = By.xpath("//textarea[@readonly=\"true\"]");
     By sendBtnDisabled = By.xpath("//button[@class='disabled-send-button']");
+    By customerNumberText=By.xpath("//span[contains(text(),'- Primary Number')]");
 
     public SendSMSPOM(WebDriver driver) {
         super(driver);
@@ -36,7 +37,7 @@ public class SendSMSPOM extends BasePage {
     }
 
     public String getCustomerNumber() {
-        String text = readText(customerNumber);
+        String text = readText(customerNumberText);
         log.info("Reading Customer Number: " + text);
         ExtentTestManager.getTest().log(LogStatus.INFO, "Reading Customer Number: " + text);
         return text.split("-")[0].trim();

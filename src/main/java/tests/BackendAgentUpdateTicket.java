@@ -7,8 +7,8 @@ import com.relevantcodes.extentreports.LogStatus;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pages.BackendAgentTicketListPOM;
 import pages.ViewTicketPagePOM;
+import pages.supervisorTicketListPagePOM;
 
 import java.lang.reflect.Method;
 
@@ -16,7 +16,7 @@ public class BackendAgentUpdateTicket extends BaseTest {
 
     @Test(priority = 1, description = "Backend Agent Update Ticket", dataProvider = "ticketState", dataProviderClass = DataProviders.class)
     public void updateTicket(Method method, TicketStateDataBean ticketState) throws InterruptedException {
-        BackendAgentTicketListPOM ticketListPage = new BackendAgentTicketListPOM(driver);
+        supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         ViewTicketPagePOM viewTicket = new ViewTicketPagePOM(driver);
         ExtentTestManager.startTest("Backend Agent Update Ticket", "Backend Agent Update Ticket");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");

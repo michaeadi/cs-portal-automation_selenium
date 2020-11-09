@@ -730,4 +730,18 @@ public class DataProviders {
         return ticketNumbers;
     }
 
+    @DataProvider(name="TransferQueue")
+    public Object[][] getTransferToQueueData() {
+        TransferQueueDataToExcel transferQueue = new TransferQueueDataToExcel();
+        File Exceldir = new File("Excels");
+        File Excel = new File(Exceldir, BaseTest.ExcelPath);
+        List<TransferQueueDataBean> list =
+                transferQueue.getData(Excel.getAbsolutePath(), config.getProperty("transferToQueue"));
+        Object[][] hashMapObj = new Object[list.size()][1];
+        for (int i = 0; i < list.size(); i++) {
+            hashMapObj[i][0] = list.get(i);
+        }
+        return hashMapObj;
+    }
+
 }

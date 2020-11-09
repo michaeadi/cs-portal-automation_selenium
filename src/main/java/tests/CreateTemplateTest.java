@@ -1,6 +1,9 @@
 package tests;
 
 import Utils.ExtentReports.ExtentTestManager;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.TimeoutException;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.SideMenuPOM;
@@ -34,14 +37,46 @@ public class CreateTemplateTest extends BaseTest {
         ExtentTestManager.startTest("Validate Template Management Page", "Validate Template Management Page");
         SoftAssert softAssert = new SoftAssert();
         TemplateManagementPOM templateManagement = new TemplateManagementPOM(driver);
-        softAssert.assertTrue(templateManagement.isAddTemplateAvailable(), "Add Template button does not available.");
-        softAssert.assertTrue(templateManagement.isAddTemplateCategoryAvailable(), "Add template Category button does not available.");
-        softAssert.assertTrue(templateManagement.isCategoryAvailable(), "Category Label does not display on Template Management Page.");
-        softAssert.assertTrue(templateManagement.isMessageChannelAvailable(), "Message Channel Label does not display on Template Management Page.");
-        softAssert.assertTrue(templateManagement.isTemplateNameAvailable(), "Template Name Label does not display on Template Management Page.");
-        softAssert.assertTrue(templateManagement.isRoleAvailable(), "Role Label does not display on Template Management Page.");
-        softAssert.assertTrue(templateManagement.isAgentChannelAvailable(), "Agent channel Label does not display on Template Management Page.");
-        softAssert.assertTrue(templateManagement.isSMSLanguageAvailable(), "SMS Language Label does not display on Template Management Page.");
+        try {
+            softAssert.assertTrue(templateManagement.isAddTemplateAvailable(), "Add Template button does not available.");
+        } catch (NoSuchElementException | TimeoutException e) {
+            softAssert.fail("Add Template button does not available." + e.fillInStackTrace());
+        }
+        try {
+            softAssert.assertTrue(templateManagement.isAddTemplateCategoryAvailable(), "Add template Category button does not available.");
+        } catch (NoSuchElementException | TimeoutException e) {
+            softAssert.fail("Add template Category button does not available." + e.fillInStackTrace());
+        }
+        try {
+            softAssert.assertTrue(templateManagement.isCategoryAvailable(), "Category Label does not display on Template Management Page.");
+        } catch (NoSuchElementException | TimeoutException e) {
+            softAssert.fail("Category Label does not display on Template Management Page." + e.fillInStackTrace());
+        }
+        try {
+            softAssert.assertTrue(templateManagement.isMessageChannelAvailable(), "Message Channel Label does not display on Template Management Page.");
+        } catch (NoSuchElementException | TimeoutException e) {
+            softAssert.fail("Message Channel Label does not display on Template Management Page." + e.fillInStackTrace());
+        }
+        try {
+            softAssert.assertTrue(templateManagement.isTemplateNameAvailable(), "Template Name Label does not display on Template Management Page.");
+        } catch (NoSuchElementException | TimeoutException e) {
+            softAssert.fail("Template Name Label does not display on Template Management Page." + e.fillInStackTrace());
+        }
+        try {
+            softAssert.assertTrue(templateManagement.isRoleAvailable(), "Role Label does not display on Template Management Page.");
+        } catch (NoSuchElementException | TimeoutException e) {
+            softAssert.fail("Role Label does not display on Template Management Page." + e.fillInStackTrace());
+        }
+        try {
+            softAssert.assertTrue(templateManagement.isAgentChannelAvailable(), "Agent channel Label does not display on Template Management Page.");
+        } catch (NoSuchElementException | TimeoutException e) {
+            softAssert.fail("Agent channel Label does not display on Template Management Page." + e.fillInStackTrace());
+        }
+        try {
+            softAssert.assertTrue(templateManagement.isSMSLanguageAvailable(), "SMS Language Label does not display on Template Management Page.");
+        } catch (NoSuchElementException | TimeoutException e) {
+            softAssert.fail("SMS Language Label does not display on Template Management Page." + e.fillInStackTrace());
+        }
         softAssert.assertAll();
     }
 
@@ -56,13 +91,17 @@ public class CreateTemplateTest extends BaseTest {
         templateManagement.writeTemplateCategoryName(templateCategory);
         templateManagement.clickAddCategoryBtn();
         templateManagement.waitTillLoaderGetsRemoved();
-        templateManagement.readResponseMessage();
+        try {
+            templateManagement.readResponseMessage();
+        } catch (NoSuchElementException | TimeoutException e) {
+            templateManagement.printInfoLog("Not able to read Message Pop up: " + e.fillInStackTrace());
+        }
         softAssert.assertTrue(templateManagement.validateAddedCategoryDisplay(templateCategory), "Added Category does not display in list");
         templateManagement.waitTillOverlayGetsRemoved();
         softAssert.assertAll();
     }
 
-    @Test(priority = 4, description = "Create Template")
+    @Test(priority = 4, description = "Create Template", dependsOnMethods = "addTemplateCategory")
     public void createTemplate() {
         DateTimeFormatter formating = DateTimeFormatter.ofPattern("MMMM hh0mm");
         templateName = "Template " + LocalDateTime.now().format(formating);
@@ -70,23 +109,47 @@ public class CreateTemplateTest extends BaseTest {
         SoftAssert softAssert = new SoftAssert();
         TemplateManagementPOM templateManagement = new TemplateManagementPOM(driver);
         templateManagement.switchTabToAddTemplate();
-        templateManagement.clickTemplateCategory();
-        templateManagement.selectOptionFromList(templateCategory);
-        templateManagement.writeTemplateName(templateName);
-        templateManagement.clickAgentRole();
-        templateManagement.selectOptionFromList(config.getProperty("selectALL"));
+        try {
+            templateManagement.clickTemplateCategory();
+            try {
+                templateManagement.selectOptionFromList(templateCategory);
+            } catch (StaleElementReferenceException e) {
+                templateManagement.printInfoLog("Trying Again to select Agent Channels");
+                templateManagement.selectOptionFromList(config.getProperty("selectALL"));
+            }
+            templateManagement.writeTemplateName(templateName);
+            templateManagement.clickAgentRole();
+            try {
+                templateManagement.selectOptionFromList(config.getProperty("selectALL"));
+            } catch (StaleElementReferenceException e) {
+                templateManagement.printInfoLog("Trying Again to select Agent Channels");
+                templateManagement.selectOptionFromList(config.getProperty("selectALL"));
+            }
+            templateManagement.clickOutside();
+            templateManagement.clickAgentChannels();
+            try {
+                templateManagement.selectOptionFromList(config.getProperty("selectALL"));
+            } catch (StaleElementReferenceException e) {
+                templateManagement.printInfoLog("Trying Again to select Agent Channels");
+                templateManagement.selectOptionFromList(config.getProperty("selectALL"));
+            }
+            templateManagement.clickOutside();
+            templateManagement.clickSMSLanguage();
+            templateManagement.selectOptionFromList("English");
+            templateManagement.clickOutside();
+            templateManagement.writeSMSContent("Dear Customer Thank you for choosing Airtel.");
+            softAssert.assertTrue(templateManagement.clickCreateTemplateBtn(), "Create Template button does not enabled");
+            templateManagement.waitTillLoaderGetsRemoved();
+            try {
+                templateManagement.readResponseMessage();
+            } catch (NoSuchElementException | TimeoutException e) {
+                templateManagement.printInfoLog("Not able to read Message Pop up: " + e.fillInStackTrace());
+            }
+            templateManagement.waitTillOverlayGetsRemoved();
+        } catch (NoSuchElementException | TimeoutException | StaleElementReferenceException e) {
+            softAssert.fail(" Create Template does not complete due to error :" + e.fillInStackTrace());
+        }
         templateManagement.clickOutside();
-        templateManagement.clickAgentChannels();
-        templateManagement.selectOptionFromList(config.getProperty("selectALL"));
-        templateManagement.clickOutside();
-        templateManagement.clickSMSLanguage();
-        templateManagement.selectOptionFromList("English");
-        templateManagement.clickOutside();
-        templateManagement.writeSMSContent("Dear Customer Thank you for choosing Airtel.");
-        softAssert.assertTrue(templateManagement.clickCreateTemplateBtn(), "Create Template button does not enabled");
-        templateManagement.waitTillLoaderGetsRemoved();
-        templateManagement.readResponseMessage();
-        templateManagement.waitTillOverlayGetsRemoved();
         softAssert.assertAll();
     }
 
