@@ -1,10 +1,13 @@
 package Utils.DataProviders;
 
+import Utils.ExcelUtils.WriteTicket;
+import Utils.ExcelUtils.writeToExcel;
 import lombok.extern.log4j.Log4j2;
 import org.testng.annotations.DataProvider;
 import tests.BaseTest;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.annotation.*;
 import java.lang.reflect.Method;
 import java.util.*;
@@ -13,6 +16,7 @@ import java.util.*;
 public class DataProviders {
 
     public static Properties config = BaseTest.config;
+    public static List<String> ticketNumbers=new ArrayList<>();
 
     @DataProvider
     public Object[][] getTestData() {
@@ -50,10 +54,10 @@ public class DataProviders {
         File Excel = new File(Exceldir, BaseTest.ExcelPath);
         List<nftrDataBeans> list =
                 credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty(BaseTest.suiteType + "-NftrSheet"));
-        List<nftrDataBeans> finalList=new ArrayList<>();
+        List<nftrDataBeans> finalList = new ArrayList<>();
         for (nftrDataBeans l : list) {
-            if (l.getIssueCode()!=null) {
-                if(!l.getIssueCode().isEmpty())
+            if (l.getIssueCode() != null) {
+                if (!l.getIssueCode().isEmpty())
                     finalList.add(l);
             }
         }
@@ -72,9 +76,9 @@ public class DataProviders {
                 credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("UserManagementSheet"));
         ArrayList<String> finalList = new ArrayList<>();
         for (UMDataBeans l : list) {
-            if (l.getInteraction()!=null) {
-                if(!l.getInteraction().isEmpty())
-                finalList.add(l.getInteraction().toLowerCase().trim());
+            if (l.getInteraction() != null) {
+                if (!l.getInteraction().isEmpty())
+                    finalList.add(l.getInteraction().toLowerCase().trim());
             }
         }
         return finalList;
@@ -89,9 +93,9 @@ public class DataProviders {
                 credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("UserManagementSheet"));
         ArrayList<String> finalList = new ArrayList<>();
         for (UMDataBeans l : list) {
-            if (l.getWorkflow()!=null) {
-                if(!l.getWorkflow().isEmpty())
-                finalList.add(l.getWorkflow().toLowerCase().trim());
+            if (l.getWorkflow() != null) {
+                if (!l.getWorkflow().isEmpty())
+                    finalList.add(l.getWorkflow().toLowerCase().trim());
             }
         }
         return finalList;
@@ -105,9 +109,9 @@ public class DataProviders {
                 credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("UserManagementSheet"));
         ArrayList<String> finalList = new ArrayList<>();
         for (UMDataBeans l : list) {
-            if (l.getLoginQueue()!=null) {
-                if(!l.getLoginQueue().isEmpty())
-                finalList.add(l.getLoginQueue().toLowerCase().trim());
+            if (l.getLoginQueue() != null) {
+                if (!l.getLoginQueue().isEmpty())
+                    finalList.add(l.getLoginQueue().toLowerCase().trim());
             }
         }
         return finalList;
@@ -121,8 +125,8 @@ public class DataProviders {
                 templateExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("TemplateManagement"));
         ArrayList<String> finalList = new ArrayList<>();
         for (TemplateDataBeans l : list) {
-            if (l.getRoles()!=null) {
-                if(!l.getRoles().isEmpty())
+            if (l.getRoles() != null) {
+                if (!l.getRoles().isEmpty())
                     finalList.add(l.getRoles().toLowerCase().trim());
             }
         }
@@ -137,8 +141,8 @@ public class DataProviders {
                 templateExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("TemplateManagement"));
         ArrayList<String> finalList = new ArrayList<>();
         for (TemplateDataBeans l : list) {
-            if (l.getLanguage()!=null) {
-                if(!l.getLanguage().isEmpty())
+            if (l.getLanguage() != null) {
+                if (!l.getLanguage().isEmpty())
                     finalList.add(l.getLanguage().toLowerCase().trim());
             }
         }
@@ -198,7 +202,7 @@ public class DataProviders {
                 openState.add(state);
             }
         }
-       return closeState.get(0).getTicketStateName();
+        return closeState.get(0).getTicketStateName();
     }
 
     @DataProvider(name = "ticketId")
@@ -211,9 +215,9 @@ public class DataProviders {
         List<nftrDataBeans> finalTicketList = new ArrayList<nftrDataBeans>();
         for (nftrDataBeans nftrTicket : list) {
             if (nftrTicket.getTicketNumber() != null) {
-                if(!nftrTicket.getTicketNumber().isEmpty()){
+                if (!nftrTicket.getTicketNumber().isEmpty()) {
                     System.out.println("Ticket Id: " + nftrTicket.getTicketNumber());
-                finalTicketList.add(nftrTicket);
+                    finalTicketList.add(nftrTicket);
                 }
             } else {
                 System.out.println("No Ticket Found");
@@ -434,9 +438,9 @@ public class DataProviders {
     public Map<String, String> getListOfIssue(String widgetName) {
         Map<String, String> list = getWidgetTaggedIssue();
         Map<String, String> finalList = new HashMap<>();
-        for (Map.Entry<String,String> mapElement : list.entrySet()) {
-            if(mapElement.getValue().equalsIgnoreCase(widgetName)){
-                finalList.put(mapElement.getKey(),mapElement.getValue());
+        for (Map.Entry<String, String> mapElement : list.entrySet()) {
+            if (mapElement.getValue().equalsIgnoreCase(widgetName)) {
+                finalList.put(mapElement.getKey(), mapElement.getValue());
             }
         }
         return finalList;
@@ -449,9 +453,9 @@ public class DataProviders {
         File Excel = new File(Exceldir, BaseTest.ExcelPath);
         List<ftrDataBeans> list =
                 credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty(BaseTest.suiteType + "-FtrSheet"));
-        for(int i=0;i<list.size();i++) {
-            if(list.get(i).getIssueSubSubType().equalsIgnoreCase(text)) {
-                System.out.println("Found Single Row: "+list.get(i).getIssueSubSubType());
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getIssueSubSubType().equalsIgnoreCase(text)) {
+                System.out.println("Found Single Row: " + list.get(i).getIssueSubSubType());
                 return list.get(i).getIssueCode();
             }
         }
@@ -465,10 +469,10 @@ public class DataProviders {
         File Excel = new File(Exceldir, BaseTest.ExcelPath);
         List<TicketTransferRuleDataBean> list =
                 credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("ticketTransferRule"));
-        List<TicketTransferRuleDataBean> finalList=new ArrayList<>();
+        List<TicketTransferRuleDataBean> finalList = new ArrayList<>();
         for (TicketTransferRuleDataBean l : list) {
-            if (l.getIssueCode()!=null) {
-                if(!l.getIssueCode().isEmpty())
+            if (l.getIssueCode() != null) {
+                if (!l.getIssueCode().isEmpty())
                     finalList.add(l);
             }
         }
@@ -480,7 +484,7 @@ public class DataProviders {
     }
 
     //Get Auth Policy
-    public List<AuthTabDataBeans> getPolicy(){
+    public List<AuthTabDataBeans> getPolicy() {
         AuthTabBeanToExcel authTabBeanToExcel = new AuthTabBeanToExcel();
         File Exceldir = new File("Excels");
         File Excel = new File(Exceldir, tests.BaseTest.Opco + ".xlsx");
@@ -489,68 +493,68 @@ public class DataProviders {
         return list;
     }
 
-    public List<String> getPolicyQuestion(){
+    public List<String> getPolicyQuestion() {
         AuthTabBeanToExcel authTabBeanToExcel = new AuthTabBeanToExcel();
         File Exceldir = new File("Excels");
         File Excel = new File(Exceldir, tests.BaseTest.Opco + ".xlsx");
         List<AuthTabDataBeans> list =
                 authTabBeanToExcel.getData(Excel.getAbsolutePath(), config.getProperty("authPolicy"));
-        List<String> question=new ArrayList<>();
-        String q1=list.get(0).getQ1();
-        String q2=list.get(0).getQ2();
-        String q3=list.get(0).getQ3();
-        String q4=list.get(0).getQ4();
-        String q5=list.get(0).getQ5();
-        String q6=list.get(0).getQ6();
-        String q7=list.get(0).getQ7();
-        String q8=list.get(0).getQ8();
-        String q9=list.get(0).getQ9();
-        String q10=list.get(0).getQ10();
-        if(q1!=null)
-            if(!q1.isEmpty())
+        List<String> question = new ArrayList<>();
+        String q1 = list.get(0).getQ1();
+        String q2 = list.get(0).getQ2();
+        String q3 = list.get(0).getQ3();
+        String q4 = list.get(0).getQ4();
+        String q5 = list.get(0).getQ5();
+        String q6 = list.get(0).getQ6();
+        String q7 = list.get(0).getQ7();
+        String q8 = list.get(0).getQ8();
+        String q9 = list.get(0).getQ9();
+        String q10 = list.get(0).getQ10();
+        if (q1 != null)
+            if (!q1.isEmpty())
                 question.add(q1);
 
-        if(q2!=null)
-            if(!q2.isEmpty())
+        if (q2 != null)
+            if (!q2.isEmpty())
                 question.add(q2);
 
-        if(q3!=null)
-            if(!q3.isEmpty())
+        if (q3 != null)
+            if (!q3.isEmpty())
                 question.add(q3);
 
-        if(q4!=null)
-            if(!q4.isEmpty())
+        if (q4 != null)
+            if (!q4.isEmpty())
                 question.add(q4);
 
-        if(q5!=null)
-            if(!q5.isEmpty())
+        if (q5 != null)
+            if (!q5.isEmpty())
                 question.add(q5);
 
-        if(q6!=null)
-            if(!q6.isEmpty())
+        if (q6 != null)
+            if (!q6.isEmpty())
                 question.add(q6);
 
-        if(q7!=null)
-            if(!q7.isEmpty())
+        if (q7 != null)
+            if (!q7.isEmpty())
                 question.add(q7);
 
-        if(q8!=null)
-            if(!q8.isEmpty())
+        if (q8 != null)
+            if (!q8.isEmpty())
                 question.add(q8);
 
-        if(q9!=null)
-            if(!q9.isEmpty())
+        if (q9 != null)
+            if (!q9.isEmpty())
                 question.add(q9);
 
-        if(q10!=null)
-            if(!q10.isEmpty())
+        if (q10 != null)
+            if (!q10.isEmpty())
                 question.add(q10);
 
         return question;
     }
 
     //Get Action Tagging
-    public List<ActionTagDataBeans> getActionTag(){
+    public List<ActionTagDataBeans> getActionTag() {
         ActionTagBeanToExcel actionTagDataBeans = new ActionTagBeanToExcel();
         File Exceldir = new File("Excels");
         File Excel = new File(Exceldir, tests.BaseTest.Opco + ".xlsx");
@@ -559,35 +563,35 @@ public class DataProviders {
         return list;
     }
 
-    public List<String> issueDetailReason(String actionTagName){
+    public List<String> issueDetailReason(String actionTagName) {
         ActionTagBeanToExcel actionTagDataBeans = new ActionTagBeanToExcel();
         File Exceldir = new File("Excels");
         File Excel = new File(Exceldir, tests.BaseTest.Opco + ".xlsx");
         List<ActionTagDataBeans> list =
                 actionTagDataBeans.getData(Excel.getAbsolutePath(), config.getProperty("actionTagged"));
-        List<String> reasons=new ArrayList<>();
-        for(ActionTagDataBeans s:list){
-            if(s.getActionTagName().trim().equalsIgnoreCase(actionTagName)){
-                String r1=s.getOption1();
-                String r2=s.getOption2();
-                String r3=s.getOption3();
-                String r4=s.getOption4();
-                String r5=s.getOption5();
+        List<String> reasons = new ArrayList<>();
+        for (ActionTagDataBeans s : list) {
+            if (s.getActionTagName().trim().equalsIgnoreCase(actionTagName)) {
+                String r1 = s.getOption1();
+                String r2 = s.getOption2();
+                String r3 = s.getOption3();
+                String r4 = s.getOption4();
+                String r5 = s.getOption5();
 
-                if(r1!=null)
-                    if(r1.isEmpty())
+                if (r1 != null)
+                    if (r1.isEmpty())
                         reasons.add(r1);
-                if(r2!=null)
-                    if(r2.isEmpty())
+                if (r2 != null)
+                    if (r2.isEmpty())
                         reasons.add(r2);
-                if(r3!=null)
-                    if(r3.isEmpty())
+                if (r3 != null)
+                    if (r3.isEmpty())
                         reasons.add(r3);
-                if(r4!=null)
-                    if(r4.isEmpty())
+                if (r4 != null)
+                    if (r4.isEmpty())
                         reasons.add(r4);
-                if(r5!=null)
-                    if(r5.isEmpty())
+                if (r5 != null)
+                    if (r5.isEmpty())
                         reasons.add(r5);
             }
         }
@@ -604,7 +608,7 @@ public class DataProviders {
         List<QueueStateDataBeans> finalTicketList = new ArrayList<QueueStateDataBeans>();
         for (QueueStateDataBeans states : list) {
             if (states.getQueue() != null) {
-                if(!states.getQueue().isEmpty()){
+                if (!states.getQueue().isEmpty()) {
                     finalTicketList.add(states);
                 }
             }
@@ -624,7 +628,7 @@ public class DataProviders {
                 queueStateBeanToExcel.getData(Excel.getAbsolutePath(), config.getProperty("stateQueue"));
         List<String> allStates = new ArrayList<String>();
         for (QueueStateDataBeans states : list) {
-            if(states.getQueue().equalsIgnoreCase(queue)){
+            if (states.getQueue().equalsIgnoreCase(queue)) {
                 if (isNull(states.getState1())) {
                     allStates.add(states.getState1().toLowerCase().trim());
                 }
@@ -660,10 +664,84 @@ public class DataProviders {
         return allStates;
     }
 
-    public boolean isNull(String text){
+    public boolean isNull(String text) {
         return text != null && !text.isEmpty();
     }
 
+    //Get ticket layout using issue code
+    public List<String> getTicketLayout(String code) {
+        nftrDataExcelToBeanDao credsExcelToBeanDao = new nftrDataExcelToBeanDao();
+        File Exceldir = new File("Excels");
+        File Excel = new File(Exceldir, BaseTest.ExcelPath);
+        List<nftrDataBeans> list =
+                credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty(BaseTest.suiteType + "-NftrSheet"));
+        List<String> finalTicketList = new ArrayList<String>();
+        for (nftrDataBeans nftrTicket : list) {
+            if (nftrTicket.getIssueCode().equalsIgnoreCase(code)) {
+                if (isNull(nftrTicket.getTicketFieldLabel1())) {
+                    finalTicketList.add(nftrTicket.getTicketFieldLabel1().toLowerCase().trim());
+                }
+                if (isNull(nftrTicket.getTicketFieldLabel2())) {
+                    finalTicketList.add(nftrTicket.getTicketFieldLabel2().toLowerCase().trim());
+                }
+                if (isNull(nftrTicket.getTicketFieldLabel3())) {
+                    finalTicketList.add(nftrTicket.getTicketFieldLabel3().toLowerCase().trim());
+                }
+                if (isNull(nftrTicket.getTicketFieldLabel4())) {
+                    finalTicketList.add(nftrTicket.getTicketFieldLabel4().toLowerCase().trim());
+                }
+                if (isNull(nftrTicket.getTicketFieldLabel5())) {
+                    finalTicketList.add(nftrTicket.getTicketFieldLabel5().toLowerCase().trim());
+                }
+                if (isNull(nftrTicket.getTicketFieldLabel6())) {
+                    finalTicketList.add(nftrTicket.getTicketFieldLabel6().toLowerCase().trim());
+                }
+                if (isNull(nftrTicket.getTicketFieldLabel7())) {
+                    finalTicketList.add(nftrTicket.getTicketFieldLabel7().toLowerCase().trim());
+                }
+            }
+        }
+        return finalTicketList;
+    }
 
+    public boolean writeTicketNumberToExcel() throws IOException {
+        WriteTicket objExcelFile = new WriteTicket();
+        File Exceldir = new File("Excels");
+        File Excel = new File(Exceldir, config.getProperty("ticketBulkUpdate"));
+        Object[][] list=getTestData5();
+        boolean flag=false;
+        int size=list.length;
+        if(size>=5){
+            size=5;
+        }
+        for(int i=0;i<size;i++) {
+            nftrDataBeans n = (nftrDataBeans) list[i][0];
+            System.out.println("No:"+n.getTicketNumber());
+            String[] valueToWrite = new String[]{n.getTicketNumber()};
+            objExcelFile.writeTicketNumber(Excel.getAbsolutePath(), "Sheet1", valueToWrite, i+1);
+            flag=true;
+            ticketNumbers.add(n.getTicketNumber());
+        }
+        System.out.println("Flag"+flag+ticketNumbers.size());
+        return flag;
+    }
+
+    public List<String> getTicketNumbers(){
+        return ticketNumbers;
+    }
+
+    @DataProvider(name="TransferQueue")
+    public Object[][] getTransferToQueueData() {
+        TransferQueueDataToExcel transferQueue = new TransferQueueDataToExcel();
+        File Exceldir = new File("Excels");
+        File Excel = new File(Exceldir, BaseTest.ExcelPath);
+        List<TransferQueueDataBean> list =
+                transferQueue.getData(Excel.getAbsolutePath(), config.getProperty("transferToQueue"));
+        Object[][] hashMapObj = new Object[list.size()][1];
+        for (int i = 0; i < list.size(); i++) {
+            hashMapObj[i][0] = list.get(i);
+        }
+        return hashMapObj;
+    }
 
 }

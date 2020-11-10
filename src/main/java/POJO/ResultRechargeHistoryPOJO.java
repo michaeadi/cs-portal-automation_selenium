@@ -18,4 +18,7 @@ public class ResultRechargeHistoryPOJO {
     String status;
     String packageCategory;
     rechargeBenefitPOJO rechargeBenefit;
+    String mode;
+    String validity;
+    String expiryDate;
 }

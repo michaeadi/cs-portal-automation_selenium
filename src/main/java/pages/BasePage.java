@@ -4,38 +4,39 @@ import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.time.DateUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.CacheLookup;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import tests.BaseTest;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Log4j2
 public class BasePage {
+    public static Properties config = BaseTest.config;
     public WebDriver driver;
     public WebDriverWait wait;
     By loader = By.xpath("/html/body/app-root/ngx-ui-loader/div[2]");
-    By loader1=By.xpath("//div[@class=\"ngx-overlay foreground-closing\"]");
-    By overlay=By.xpath("//mat-dialog-container[@role='dialog']");
-    By timeLine=By.xpath("//app-new-loader[@class=\"ng-star-inserted\"]//div[1]");
+    @CacheLookup
+    By loader1 = By.xpath("//div[@class=\"ngx-overlay foreground-closing\"]");
+    By overlay = By.xpath("//mat-dialog-container[@role='dialog']");
+    By timeLine = By.xpath("//app-new-loader[@class=\"ng-star-inserted\"]//div[1]");
     By home = By.xpath("//div[text()=\"HOME\"]");
 
     //Constructor
     public BasePage(WebDriver driver) {
+        PageFactory.initElements(new AjaxElementLocatorFactory(driver, 10), this);
         this.driver = driver;
         wait = new WebDriverWait(driver, Duration.ofSeconds(Integer.parseInt(BaseTest.config.getProperty("GeneralWaitInSeconds"))));
         driver.manage().timeouts().implicitlyWait(Integer.parseInt(BaseTest.config.getProperty("ImplicitWaitInSeconds")), TimeUnit.SECONDS);
@@ -43,15 +44,17 @@ public class BasePage {
 
 
     public void waitTillLoaderGetsRemoved() {
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
+        printInfoLog("Waiting for loader to be removed");
+//        wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(loader1));
+        printInfoLog("Loader Removed");
     }
 
     public void waitTillOverlayGetsRemoved() {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(overlay));
     }
 
-    public void waitTillTimeLineGetsRemoved(){
+    public void waitTillTimeLineGetsRemoved() {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(timeLine));
     }
 
@@ -100,7 +103,7 @@ public class BasePage {
     }
 
     //Wait For Element
-   public void waitVisibility(By by) {
+    public void waitVisibility(By by) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(by));
     }
 
@@ -112,6 +115,13 @@ public class BasePage {
 
     //Hover and click on Element Using ACTIONS class
     void hoverAndClick(By elementLocation) {
+        Actions actions = new Actions(driver);
+        waitVisibility(elementLocation);
+        WebElement target = driver.findElement(elementLocation);
+        actions.moveToElement(target).build().perform();
+    }
+
+    void hover(By elementLocation) {
         Actions actions = new Actions(driver);
         waitVisibility(elementLocation);
         WebElement target = driver.findElement(elementLocation);
@@ -144,6 +154,13 @@ public class BasePage {
         return format.format(date);
     }
 
+    public String getDateFromEpochInUTC(long Epoch, String pattern) {
+        Date date = new Date(Epoch);
+        DateFormat format = new SimpleDateFormat(pattern);
+        format.setTimeZone(TimeZone.getTimeZone("Etc/UTC"));
+        return format.format(date);
+    }
+
 
     public String getTimeFromEpoch(long Epoch, String pattern) {
         Date date = new Date(Epoch);
@@ -168,8 +185,8 @@ public class BasePage {
     }
 
 
-    void selectByText(String text) {
-        WebElement elementby= driver.findElement(By.xpath("//span[contains(text(),'" + text + "')]"));
+    public void selectByText(String text) {
+        WebElement elementby = driver.findElement(By.xpath("//span[contains(text(),'" + text + "')]"));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", elementby);
         driver.findElement(By.xpath("//span[contains(text(),'" + text + "')]")).click();
     }
@@ -179,17 +196,17 @@ public class BasePage {
         action.moveByOffset(0, 0).click().build().perform();
     }
 
-    public void clearInputTag(By element){
+    public void clearInputTag(By element) {
         log.info("Clear Search Box");
         driver.findElement(element).clear();
     }
 
-    public boolean validateFilter(By element,String text){
-        List<WebElement> list=  driver.findElements(element);
+    public boolean validateFilter(By element, String text) {
+        List<WebElement> list = driver.findElements(element);
         log.info("Validating Filter");
-        for(WebElement x : list){
-            log.info("Element Text : "+x.getText());
-            if(!x.getText().equalsIgnoreCase(text)){
+        for (WebElement x : list) {
+            log.info("Element Text : " + x.getText());
+            if (!x.getText().equalsIgnoreCase(text)) {
                 return false;
             }
         }
@@ -215,28 +232,33 @@ public class BasePage {
     }
 
     public String convertToHR(String committedSla) {
-        Long ms=Long.parseLong(committedSla);
-        log.info("Converting SLA: "+committedSla+" to "+String.valueOf(TimeUnit.MILLISECONDS.toHours(ms)));
+        Long ms = Long.parseLong(committedSla);
+        log.info("Converting SLA: " + committedSla + " to " + String.valueOf(TimeUnit.MILLISECONDS.toHours(ms)));
         return String.valueOf(TimeUnit.MILLISECONDS.toHours(ms));
     }
 
-    public void printInfoLog(String message){
+    public void printInfoLog(String message) {
         log.info(message);
-        ExtentTestManager.getTest().log(LogStatus.INFO,message);
+        ExtentTestManager.getTest().log(LogStatus.INFO, message);
     }
 
-    public void printFailLog(String message){
+    public void printFailLog(String message) {
         log.info(message);
-        ExtentTestManager.getTest().log(LogStatus.FAIL,message);
+        ExtentTestManager.getTest().log(LogStatus.FAIL, message);
     }
 
-    public void printPassLog(String message){
+    public void printPassLog(String message) {
         log.info(message);
-        ExtentTestManager.getTest().log(LogStatus.PASS,message);
+        ExtentTestManager.getTest().log(LogStatus.PASS, message);
     }
 
-    public void printWarningLog(String message){
+    public void printWarningLog(String message) {
         log.info(message);
-        ExtentTestManager.getTest().log(LogStatus.WARNING,message);
+        ExtentTestManager.getTest().log(LogStatus.WARNING, message);
+    }
+
+    public String ValueRoundOff(Double value){
+        DecimalFormat df = new DecimalFormat("###.##");
+        return df.format(value);
     }
 }

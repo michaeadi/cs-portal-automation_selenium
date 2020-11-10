@@ -3,19 +3,20 @@ package tests;
 import Utils.DataProviders.DataProviders;
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.ElementClickInterceptedException;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.*;
 
 import java.lang.reflect.Method;
-import java.util.List;
 
 public class TicketEscalationTest extends BaseTest {
 
     @Test(priority = 1, description = "Supervisor SKIP Login ")
-    public void agentSkipQueueLogin(Method method){
+    public void agentSkipQueueLogin(Method method) {
         ExtentTestManager.startTest("Supervisor SKIP Queue Login Test", "Supervisor SKIP Queue Login Test");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SideMenuPOM sideMenu = new SideMenuPOM(driver);
@@ -24,9 +25,9 @@ public class TicketEscalationTest extends BaseTest {
         agentLoginPagePOM AgentLoginPagePOM = sideMenu.openSupervisorDashboard();
         SoftAssert softAssert = new SoftAssert();
         AgentLoginPagePOM.waitTillLoaderGetsRemoved();
-        softAssert.assertTrue(AgentLoginPagePOM.isQueueLoginPage(),"Agent redirect to Queue Login Page");
-        softAssert.assertTrue(AgentLoginPagePOM.checkSkipButton(),"Checking Queue Login Page have SKIP button");
-        softAssert.assertTrue(AgentLoginPagePOM.checkSubmitButton(),"Checking Queue Login Page have Submit button");
+        softAssert.assertTrue(AgentLoginPagePOM.isQueueLoginPage(), "Agent redirect to Queue Login Page");
+        softAssert.assertTrue(AgentLoginPagePOM.checkSkipButton(), "Checking Queue Login Page have SKIP button");
+        softAssert.assertTrue(AgentLoginPagePOM.checkSubmitButton(), "Checking Queue Login Page have Submit button");
         AgentLoginPagePOM.clickSkipBtn();
         AgentLoginPagePOM.waitTillLoaderGetsRemoved();
         Assert.assertEquals(driver.getTitle(), config.getProperty("supervisorTicketListPage"));
@@ -43,33 +44,36 @@ public class TicketEscalationTest extends BaseTest {
         SoftAssert softAssert = new SoftAssert();
         ticketListPage.changeTicketTypeToOpen();
         ticketListPage.waitTillLoaderGetsRemoved();
-        ticketListPage.clickFilter();
-        ticketListPage.waitTillLoaderGetsRemoved();
-        filterTab.OpenEscalationFilter();
-        filterTab.selectAllLevel1();
-        filterTab.selectAllLevel2();
-        filterTab.selectAllLevel3();
-        filterTab.clickOutsideFilter();
-        filterTab.clickApplyFilter();
-        ticketListPage.waitTillLoaderGetsRemoved();
-        try{
-            if(!ticketListPage.noTicketFound()){
-                for(int i=1;i<=ticketListPage.getListSize();i++){
-                    String symbol=ticketListPage.getSymbol(i);
-                    softAssert.assertTrue(symbol.equalsIgnoreCase("!") || symbol.equalsIgnoreCase("!!") || symbol.equalsIgnoreCase("!!!"),"Ticket Symbol not displayed correctly");
+        try {
+            ticketListPage.clickFilter();
+            ticketListPage.waitTillLoaderGetsRemoved();
+            filterTab.OpenEscalationFilter();
+            filterTab.selectAllLevel1();
+            filterTab.selectAllLevel2();
+            filterTab.selectAllLevel3();
+            filterTab.clickOutsideFilter();
+            filterTab.clickApplyFilter();
+            ticketListPage.waitTillLoaderGetsRemoved();
+            try {
+                if (!ticketListPage.noTicketFound()) {
+                    for (int i = 1; i <= ticketListPage.getListSize(); i++) {
+                        String symbol = ticketListPage.getSymbol(i);
+                        softAssert.assertTrue(symbol.equalsIgnoreCase("!") || symbol.equalsIgnoreCase("!!") || symbol.equalsIgnoreCase("!!!"), "Ticket Symbol not displayed correctly");
+                    }
+                } else {
+                    System.out.println("No Ticket Found for Selected Filter");
+                    ExtentTestManager.getTest().log(LogStatus.WARNING, "No Ticket Found for Selected Filter");
                 }
-            }else{
-                System.out.println("No Ticket Found for Selected Filter");
-                ExtentTestManager.getTest().log(LogStatus.WARNING,"No Ticket Found for Selected Filter");
-            }
 
-        } catch (Exception e) {
-            softAssert.fail("Ticket Escalation Symbol on ticket not displayed correctly");
-            ExtentTestManager.getTest().log(LogStatus.ERROR,e.fillInStackTrace());
-            e.printStackTrace();
+            } catch (NoSuchElementException | TimeoutException e) {
+                softAssert.fail("Ticket Escalation Symbol on ticket not displayed correctly");
+                ExtentTestManager.getTest().log(LogStatus.ERROR, e.fillInStackTrace());
+            }
+            ticketListPage.resetFilter();
+            ticketListPage.waitTillLoaderGetsRemoved();
+        } catch (NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
+            softAssert.fail("Not able to apply filter with escalation level :" + e.fillInStackTrace());
         }
-        ticketListPage.resetFilter();
-        ticketListPage.waitTillLoaderGetsRemoved();
         softAssert.assertAll();
     }
 
@@ -81,30 +85,34 @@ public class TicketEscalationTest extends BaseTest {
         ExtentTestManager.startTest("Validate the Escalation of Ticket Before the SLA Expiry", "Validate the Escalation of Ticket Before the SLA Expiry");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SoftAssert softAssert = new SoftAssert();
-        ticketListPage.clickFilter();
-        ticketListPage.waitTillLoaderGetsRemoved();
-        filterTab.OpenEscalationFilter();
-        filterTab.selectAllLevel1();
-        filterTab.clickOutsideFilter();
-        filterTab.clickApplyFilter();
-        ticketListPage.waitTillLoaderGetsRemoved();
-        try{
-            if(!ticketListPage.noTicketFound()){
-                for(int i=1;i<=ticketListPage.getListSize();i++){
-                    String symbol=ticketListPage.getSymbol(i);
-                    softAssert.assertTrue(symbol.equalsIgnoreCase("!") ,"Ticket Symbol not displayed correctly");
+        try {
+            ticketListPage.clickFilter();
+            ticketListPage.waitTillLoaderGetsRemoved();
+            filterTab.OpenEscalationFilter();
+            filterTab.selectAllLevel1();
+            filterTab.clickOutsideFilter();
+            filterTab.clickApplyFilter();
+            ticketListPage.waitTillLoaderGetsRemoved();
+            try {
+                if (!ticketListPage.noTicketFound()) {
+                    for (int i = 1; i <= ticketListPage.getListSize(); i++) {
+                        String symbol = ticketListPage.getSymbol(i);
+                        softAssert.assertTrue(symbol.equalsIgnoreCase("!"), "Ticket Symbol not displayed correctly");
+                    }
+                } else {
+                    ExtentTestManager.getTest().log(LogStatus.WARNING, "No Ticket Found for Selected Filter");
                 }
-            }else{
-                ExtentTestManager.getTest().log(LogStatus.WARNING,"No Ticket Found for Selected Filter");
-            }
 
-        } catch (Exception e) {
-            softAssert.fail("Ticket Escalation Symbol on ticket not displayed correctly");
-            ExtentTestManager.getTest().log(LogStatus.ERROR,e.fillInStackTrace());
-            e.printStackTrace();
+            } catch (NoSuchElementException | TimeoutException e) {
+                softAssert.fail("Ticket Escalation Symbol on ticket not displayed correctly");
+                ExtentTestManager.getTest().log(LogStatus.ERROR, e.fillInStackTrace());
+                e.printStackTrace();
+            }
+            ticketListPage.resetFilter();
+            ticketListPage.waitTillLoaderGetsRemoved();
+        } catch (NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
+            softAssert.fail("Not able to apply filter with escalation level :" + e.fillInStackTrace());
         }
-        ticketListPage.resetFilter();
-        ticketListPage.waitTillLoaderGetsRemoved();
         softAssert.assertAll();
     }
 
@@ -116,30 +124,34 @@ public class TicketEscalationTest extends BaseTest {
         ExtentTestManager.startTest("Validate the Escalation of Ticket after SLA Expiry", "Validate the Escalation of Ticket after SLA Expiry");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SoftAssert softAssert = new SoftAssert();
-        ticketListPage.clickFilter();
-        ticketListPage.waitTillLoaderGetsRemoved();
-        filterTab.OpenEscalationFilter();
-        filterTab.selectAllLevel3();
-        filterTab.clickOutsideFilter();
-        filterTab.clickApplyFilter();
-        ticketListPage.waitTillLoaderGetsRemoved();
-        try{
-            if(!ticketListPage.noTicketFound()){
-                for(int i=1;i<=ticketListPage.getListSize();i++){
-                    String symbol=ticketListPage.getSymbol(i);
-                    softAssert.assertTrue(symbol.equalsIgnoreCase("!!!"),"Ticket Symbol not displayed correctly");
+        try {
+            ticketListPage.clickFilter();
+            ticketListPage.waitTillLoaderGetsRemoved();
+            filterTab.OpenEscalationFilter();
+            filterTab.selectAllLevel3();
+            filterTab.clickOutsideFilter();
+            filterTab.clickApplyFilter();
+            ticketListPage.waitTillLoaderGetsRemoved();
+            try {
+                if (!ticketListPage.noTicketFound()) {
+                    for (int i = 1; i <= ticketListPage.getListSize(); i++) {
+                        String symbol = ticketListPage.getSymbol(i);
+                        softAssert.assertTrue(symbol.equalsIgnoreCase("!!!"), "Ticket Symbol not displayed correctly");
+                    }
+                } else {
+                    ExtentTestManager.getTest().log(LogStatus.WARNING, "No Ticket Found for Selected Filter");
                 }
-            }else{
-                ExtentTestManager.getTest().log(LogStatus.WARNING,"No Ticket Found for Selected Filter");
-            }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            softAssert.fail("Ticket Escalation Symbol on ticket not displayed correctly");
-            ExtentTestManager.getTest().log(LogStatus.ERROR,e.fillInStackTrace());
+            } catch (NoSuchElementException | TimeoutException e) {
+                e.printStackTrace();
+                softAssert.fail("Ticket Escalation Symbol on ticket not displayed correctly");
+                ExtentTestManager.getTest().log(LogStatus.ERROR, e.fillInStackTrace());
+            }
+            ticketListPage.resetFilter();
+            ticketListPage.waitTillLoaderGetsRemoved();
+        } catch (NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
+            softAssert.fail("Not able to apply filter with escalation level :"+e.fillInStackTrace());
         }
-        ticketListPage.resetFilter();
-        ticketListPage.waitTillLoaderGetsRemoved();
         softAssert.assertAll();
     }
 
@@ -151,30 +163,34 @@ public class TicketEscalationTest extends BaseTest {
         ExtentTestManager.startTest("Validate the Escalation of Ticket on SLA Expiry", "Validate the Escalation of Ticket on SLA Expiry");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SoftAssert softAssert = new SoftAssert();
-        ticketListPage.clickFilter();
-        ticketListPage.waitTillLoaderGetsRemoved();
-        filterTab.OpenEscalationFilter();
-        filterTab.selectAllLevel2();
-        filterTab.clickOutsideFilter();
-        filterTab.clickApplyFilter();
-        ticketListPage.waitTillLoaderGetsRemoved();
-        try{
-            if(!ticketListPage.noTicketFound()){
-                for(int i=1;i<=ticketListPage.getListSize();i++){
-                    String symbol=ticketListPage.getSymbol(i);
-                    softAssert.assertTrue(symbol.equalsIgnoreCase("!!"),"Ticket Symbol not displayed correctly");
+        try {
+            ticketListPage.clickFilter();
+            ticketListPage.waitTillLoaderGetsRemoved();
+            filterTab.OpenEscalationFilter();
+            filterTab.selectAllLevel2();
+            filterTab.clickOutsideFilter();
+            filterTab.clickApplyFilter();
+            ticketListPage.waitTillLoaderGetsRemoved();
+            try {
+                if (!ticketListPage.noTicketFound()) {
+                    for (int i = 1; i <= ticketListPage.getListSize(); i++) {
+                        String symbol = ticketListPage.getSymbol(i);
+                        softAssert.assertTrue(symbol.equalsIgnoreCase("!!"), "Ticket Symbol not displayed correctly");
+                    }
+                } else {
+                    ExtentTestManager.getTest().log(LogStatus.WARNING, "No Ticket Found for Selected Filter");
                 }
-            }else{
-                ExtentTestManager.getTest().log(LogStatus.WARNING,"No Ticket Found for Selected Filter");
-            }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            softAssert.fail("Ticket Escalation Symbol on ticket not displayed correctly");
-            ExtentTestManager.getTest().log(LogStatus.ERROR,e.fillInStackTrace());
+            } catch (NoSuchElementException | TimeoutException e) {
+                e.printStackTrace();
+                softAssert.fail("Ticket Escalation Symbol on ticket not displayed correctly");
+                ExtentTestManager.getTest().log(LogStatus.ERROR, e.fillInStackTrace());
+            }
+            ticketListPage.resetFilter();
+            ticketListPage.waitTillLoaderGetsRemoved();
+        } catch (NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
+            softAssert.fail("Not able to apply filter with escalation level :"+e.fillInStackTrace());
         }
-        ticketListPage.resetFilter();
-        ticketListPage.waitTillLoaderGetsRemoved();
         softAssert.assertAll();
     }
 

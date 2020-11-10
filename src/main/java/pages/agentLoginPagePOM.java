@@ -34,7 +34,7 @@ public class agentLoginPagePOM extends BasePage {
     }
 
     public boolean isQueueLoginPage() {
-        log.info("Supervisor Login Page");
+        log.info("Login Page");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Supervisor Login Page");
         return checkState(loginQueueTitle);
     }
@@ -59,7 +59,7 @@ public class agentLoginPagePOM extends BasePage {
     }
 
     public void byQueueName(String queueName) throws InterruptedException {
-        log.info("Selecting Queue : "+queueName);
+        log.info("Selecting Queue : " + queueName);
         selectByText(queueName);
     }
 

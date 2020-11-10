@@ -12,6 +12,7 @@ import pages.AuthenticationTabPOM;
 import pages.SideMenuPOM;
 import pages.customerInteractionPagePOM;
 import pages.customerInteractionsSearchPOM;
+
 import java.util.List;
 import java.util.Map;
 
@@ -32,7 +33,7 @@ public class AuthTabTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 2, description = "Verify the Authentication tab")
+    @Test(priority = 2, description = "Verify the Authentication tab",dependsOnMethods = "openCustomerInteraction")
     public void validateAuthTab() {
         ExtentTestManager.startTest("Verify the Authentication tab", "Verify the Authentication tab");
         SoftAssert softAssert = new SoftAssert();
@@ -65,7 +66,7 @@ public class AuthTabTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 3, description = "Verify the Authentication tab Minimum question Configured correctly")
+    @Test(priority = 3, description = "Verify the Authentication tab Minimum question Configured correctly",dependsOnMethods = "validateAuthTab")
     public void validateAuthTabMinQuestion() throws InterruptedException {
         ExtentTestManager.startTest("Verify the Authentication tab Minimum question Configured correctly", "Verify the Authentication tab Minimum question Configured correctly");
         SoftAssert softAssert = new SoftAssert();
@@ -74,14 +75,14 @@ public class AuthTabTest extends BaseTest {
         authTab.waitTillLoaderGetsRemoved();
         Assert.assertTrue(authTab.isAuthTabLoad(), "Authentication tab does not load correctly");
         List<AuthTabDataBeans> list = data.getPolicy();
-        for(int i=1;i<=Integer.parseInt(list.get(0).getMinAnswer());i++){
+        for (int i = 1; i <= Integer.parseInt(list.get(0).getMinAnswer()); i++) {
             authTab.clickCheckBox(i);
         }
-        softAssert.assertTrue(authTab.isAuthBtnEnable(),"Authenticate Button does not enable after choose minimum number of question");
+        softAssert.assertTrue(authTab.isAuthBtnEnable(), "Authenticate Button does not enable after choose minimum number of question");
         softAssert.assertAll();
     }
 
-    @Test(priority = 4, description = "Authenticate User")
+    @Test(priority = 4, description = "Authenticate User",dependsOnMethods = "validateAuthTabMinQuestion")
     public void authCustomer() throws InterruptedException {
         ExtentTestManager.startTest("Authenticate User", "Authenticate User");
         SoftAssert softAssert = new SoftAssert();
@@ -91,25 +92,25 @@ public class AuthTabTest extends BaseTest {
         Assert.assertTrue(authTab.isAuthTabLoad(), "Authentication tab does not load correctly");
         authTab.clickAuthBtn();
         authTab.waitTillLoaderGetsRemoved();
-        Assert.assertTrue(authTab.isSIMBarPopup(),"SIM Bar/unbar popup does not open");
-        softAssert.assertTrue(authTab.isIssueDetailTitle(),"Issue Detail does not configured");
-        softAssert.assertFalse(authTab.isSubmitBtnEnable(),"Submit button enable without adding comment");
+        Assert.assertTrue(authTab.isSIMBarPopup(), "SIM Bar/unbar popup does not open");
+        softAssert.assertTrue(authTab.isIssueDetailTitle(), "Issue Detail does not configured");
+        softAssert.assertFalse(authTab.isSubmitBtnEnable(), "Submit button enable without adding comment");
         authTab.openSelectPopup();
-        List<String> reason=authTab.getReasonConfig();
-        List<String> configReason=data.issueDetailReason("SIM Bar Unbar");
-        for(String s:reason){
-            if(!configReason.contains(s)){
-                softAssert.assertFalse(true,s+": Must not configured on UI as not mentioned in config.");
+        List<String> reason = authTab.getReasonConfig();
+        List<String> configReason = data.issueDetailReason("SIM Bar Unbar");
+        for (String s : reason) {
+            if (!configReason.contains(s)) {
+                softAssert.assertFalse(true, s + ": Must not configured on UI as not mentioned in config.");
             }
             configReason.remove(s);
         }
 
-        for(String s: configReason){
-            softAssert.assertFalse(true,s+": Must configured on UI as mentioned in config.");
+        for (String s : configReason) {
+            softAssert.assertFalse(true, s + ": Must configured on UI as mentioned in config.");
         }
         authTab.chooseReason();
         authTab.writeComment("Adding comment using Automation");
-        softAssert.assertTrue(authTab.isSubmitBtnEnable(),"Submit button does not enabled after adding comment");
+        softAssert.assertTrue(authTab.isSubmitBtnEnable(), "Submit button does not enabled after adding comment");
         authTab.closeSIMBarPopup();
         softAssert.assertAll();
     }

@@ -35,15 +35,15 @@ public class FrontendAgentTicketTest extends BaseTest {
         SoftAssert softAssert = new SoftAssert();
         customerInteractionPagePOM customerInteractionPage = new customerInteractionPagePOM(driver);
         viewHistoryPOM viewHistory = customerInteractionPage.clickOnViewHistory();
-        FrontendTicketHistory ticketHistory=viewHistory.clickOnTicketHistory();
+        FrontendTicketHistory ticketHistory = viewHistory.clickOnTicketHistory();
         ticketHistory.waitTillLoaderGetsRemoved();
         ticketHistory.writeTicketId(Data.getTicketNumber());
         ticketHistory.clickSearchBtn();
         ticketHistory.waitTillLoaderGetsRemoved();
         Thread.sleep(3000);
-        softAssert.assertEquals(ticketHistory.getTicketId(1),Data.getTicketNumber(),"Ticket Id does not same as search ticket id.");
-        softAssert.assertEquals(ticketHistory.getTicketPriority(1),Data.getPriority(),"Ticket priority not same as rule defined");
-        softAssert.assertEquals(ticketHistory.getTicketQueue(1),Data.getAssignmentQueue(),"Ticket Queue not same as rule defined");
+        softAssert.assertEquals(ticketHistory.getTicketId(1), Data.getTicketNumber(), "Ticket Id does not same as search ticket id.");
+        softAssert.assertEquals(ticketHistory.getTicketPriority(1), Data.getPriority(), "Ticket priority not same as rule defined");
+        softAssert.assertEquals(ticketHistory.getTicketQueue(1), Data.getAssignmentQueue(), "Ticket Queue not same as rule defined");
         softAssert.assertAll();
     }
 
@@ -53,10 +53,10 @@ public class FrontendAgentTicketTest extends BaseTest {
         SoftAssert softAssert = new SoftAssert();
         customerInteractionPagePOM customerInteractionPage = new customerInteractionPagePOM(driver);
         viewHistoryPOM viewHistory = customerInteractionPage.clickOnViewHistory();
-        FrontendTicketHistory ticketHistory=viewHistory.clickOnTicketHistory();
+        FrontendTicketHistory ticketHistory = viewHistory.clickOnTicketHistory();
         ticketHistory.clickClearSearchBox();
         ticketHistory.waitTillLoaderGetsRemoved();
-        softAssert.assertTrue(ticketHistory.validateAddToInteractionIcon(),"Add to interaction Icon does not found on ticket");
+        softAssert.assertTrue(ticketHistory.validateAddToInteractionIcon(), "Add to interaction Icon does not found on ticket");
         softAssert.assertAll();
     }
 
@@ -68,9 +68,9 @@ public class FrontendAgentTicketTest extends BaseTest {
         viewHistoryPOM viewHistory = customerInteractionPage.clickOnViewHistory();
         viewHistory.clickOnInteractionsTab();
         viewHistory.waitTillLoaderGetsRemoved();
-        Assert.assertTrue(viewHistory.clickOnTicketIcon(),"No NFTR issue found in interaction history tab");
+        Assert.assertTrue(viewHistory.clickOnTicketIcon(), "No NFTR issue found in interaction history tab");
         viewHistory.waitTillLoaderGetsRemoved();
-        softAssert.assertTrue(viewHistory.checkViewTicketPage(),"View ticket page does not open");
+        softAssert.assertTrue(viewHistory.checkViewTicketPage(), "View ticket page does not open");
         viewHistory.clickCloseTicketTab();
         softAssert.assertAll();
     }

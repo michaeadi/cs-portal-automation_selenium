@@ -4,6 +4,8 @@ import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.TicketStateDataBean;
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -25,9 +27,9 @@ public class SupervisorReopenTicketTest extends BaseTest {
         agentLoginPagePOM AgentLoginPagePOM = sideMenu.openSupervisorDashboard();
         SoftAssert softAssert = new SoftAssert();
         AgentLoginPagePOM.waitTillLoaderGetsRemoved();
-        softAssert.assertTrue(AgentLoginPagePOM.isQueueLoginPage(),"Agent Does not redirect to Queue Login Page");
-        softAssert.assertTrue(AgentLoginPagePOM.checkSkipButton(),"Queue Login Page Does Not have SKIP button");
-        softAssert.assertTrue(AgentLoginPagePOM.checkSubmitButton(),"Queue Login Page have Does Not Submit button");
+        softAssert.assertTrue(AgentLoginPagePOM.isQueueLoginPage(), "Agent Does not redirect to Queue Login Page");
+        softAssert.assertTrue(AgentLoginPagePOM.checkSkipButton(), "Queue Login Page Does Not have SKIP button");
+        softAssert.assertTrue(AgentLoginPagePOM.checkSubmitButton(), "Queue Login Page have Does Not Submit button");
         AgentLoginPagePOM.clickSkipBtn();
         AgentLoginPagePOM.waitTillLoaderGetsRemoved();
         Assert.assertEquals(driver.getTitle(), config.getProperty("supervisorTicketListPage"));
@@ -40,22 +42,39 @@ public class SupervisorReopenTicketTest extends BaseTest {
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         SoftAssert softAssert = new SoftAssert();
+        String ticketId = null;
         ticketListPage.changeTicketTypeToClosed();
         ticketListPage.waitTillLoaderGetsRemoved();
-        String ticketId = ticketListPage.getTicketIdvalue();
-        ticketListPage.clickCheckbox();
-        softAssert.assertTrue(ticketListPage.isReopenBtn(), "Reopen Button Available");
-        ticketListPage.ClickReopenButton();
-        ticketListPage.addReopenComment("Reopen Comment Using Automation");
-        ticketListPage.submitReopenReq();
-        Thread.sleep(3000);
-        ticketListPage.waitTillLoaderGetsRemoved();
-        ticketListPage.changeTicketTypeToOpen();
-        ticketListPage.waitTillLoaderGetsRemoved();
-        ticketListPage.writeTicketId(ticketId);
-        ticketListPage.clickSearchBtn();
-        ticketListPage.waitTillLoaderGetsRemoved();
-        Assert.assertEquals(ticketListPage.getStatevalue().toLowerCase().trim(),reopen.getTicketStateName().toLowerCase().trim(), "Ticket Does Not Reopen in Correct state");
+        try {
+            ticketId = ticketListPage.getTicketIdvalue();
+            ticketListPage.clickCheckbox();
+            try {
+                softAssert.assertTrue(ticketListPage.isReopenBtn(), "Reopen Button Available");
+                try {
+                    ticketListPage.ClickReopenButton();
+                    ticketListPage.addReopenComment("Reopen Comment Using Automation");
+                    ticketListPage.submitReopenReq();
+                    ticketListPage.waitTillLoaderGetsRemoved();
+                    try {
+                        ticketListPage.changeTicketTypeToOpen();
+                        ticketListPage.waitTillLoaderGetsRemoved();
+                        ticketListPage.writeTicketId(ticketId);
+                        ticketListPage.clickSearchBtn();
+                        ticketListPage.waitTillLoaderGetsRemoved();
+                        Assert.assertEquals(ticketListPage.getStatevalue().toLowerCase().trim(), reopen.getTicketStateName().toLowerCase().trim(), "Ticket Does Not Reopen in Correct state");
+                    } catch (NoSuchElementException | TimeoutException e) {
+                        softAssert.fail("Ticket does not reopened successfully :"+e.fillInStackTrace());
+                    }
+                } catch (NoSuchElementException | TimeoutException e) {
+                    softAssert.fail("Not able to add Re open comment " + e.fillInStackTrace());
+                    ticketListPage.closedReopenBox();
+                }
+            } catch (NoSuchElementException | TimeoutException e) {
+                softAssert.fail("Reopen Ticket action can not complete due to following error " + e.fillInStackTrace());
+            }
+        } catch (NoSuchElementException | TimeoutException e) {
+            softAssert.fail("No Ticket Found with closed State " + e.fillInStackTrace());
+        }
         softAssert.assertAll();
     }
 }

@@ -8,8 +8,8 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Accounts {
-String balanceDescription;
-String balance;
-long expireTime;
+    String balanceDescription;
+    String balance;
+    long expireTime;
 
 }

@@ -20,8 +20,8 @@ public class SideMenuPOM extends BasePage {
     By userManagement = By.xpath("//a[contains(text(),'User management')]");
     By profileManagement = By.xpath("//a[contains(text(),'Profile Management')]");
     By customerInteraction = By.xpath("//a[contains(text(),'Customer Interaction')]");
-    By templateManagement=By.xpath("//a[contains(text(),'Template Management')]");
-    By ticketBulkUpdate=By.xpath("//a[contains(text(),'Bulk')]");
+    By templateManagement = By.xpath("//a[contains(text(),'Template Management')]");
+    By ticketBulkUpdate = By.xpath("//a[contains(text(),'Bulk')]");
     By supervisorDashboard = By.xpath("//a[contains(text(),'Supervisor Dashboard')]");
     By agentDashboard = By.xpath("//a[contains(text(),'Ticket Dashboard')]");
     By logout = By.xpath("//span[@class=\"logout-icon\"]");
@@ -173,6 +173,14 @@ public class SideMenuPOM extends BasePage {
         hoverAndClick(customerServices);
         click(agentDashboard);
         return new agentLoginPagePOM(driver);
+    }
+
+    public TicketBulkUpdatePOM openTicketBulkUpdateDashboard() {
+        log.info("Opening Ticket Bulk Update Dashboard Page");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening Ticket Bulk Update Dashboard Page");
+        hoverAndClick(customerServices);
+        click(ticketBulkUpdate);
+        return new TicketBulkUpdatePOM(driver);
     }
 
     public loginPagePOM logout() {

@@ -18,6 +18,7 @@ public class PlansResultPOJO {
     Data data;
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     Sms sms;
+    String dataManager;
 }
 
 

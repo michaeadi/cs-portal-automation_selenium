@@ -1,9 +1,6 @@
 package POJO.TicketList;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -35,10 +32,12 @@ public class TicketListDetails {
     private ArrayList<QueueStates> queueStates;
     private ArrayList<IssueDetails> issueDetails;
     private ArrayList<Interactions> interactions;
+    private ArrayList<IssueDetails> ticketDetails;
     private String committedSla;
     private String actionPerformed;
     private String expectedClosureDate;
     private String comment;
     private String assignee;
-    private Map<String ,Long> sla;
+    private String msisdn;
+    private Map<String, Long> sla;
 }

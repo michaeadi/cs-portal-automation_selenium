@@ -1,8 +1,13 @@
 package API;
 
 import POJO.*;
+import POJO.KYCProfile.KYCProfile;
+import POJO.LoanDetails.Loan;
+import POJO.LoanSummary.Summary;
 import POJO.SMSHistory.SMSHistoryPOJO;
 import POJO.TicketList.TicketPOJO;
+import POJO.Vendors.VendorNames;
+import POJO.Voucher.VoucherSearchPOJO;
 import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.TestDatabean;
 import Utils.PassUtils;
@@ -110,6 +115,27 @@ public class APITest extends tests.BaseTest {
         return response.as(UsageHistoryPOJO.class);
     }
 
+    public UsageHistoryPOJO usageHistoryMenuTest(String msisdn) {
+        getTest().log(LogStatus.INFO, "Using Usage History API for Getting expected data for UI");
+        baseURI = baseUrl;
+        Headers headers = new Headers(map);
+        RequestSpecification request = given()
+                .headers(headers)
+                .body("{\"msisdn\":\"" + msisdn + "\",\"pageSize\":5,\"pageNumber\":1,\"type\":null,\"startDate\":null,\"endDate\":null,\"action\":\"More\"}")
+                .contentType("application/json");
+        QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
+        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
+        log.info("Request Headers are  : " + queryable.getHeaders());
+        getTest().log(LogStatus.INFO, "Request Body is  : " + queryable.getBody().toString());
+        log.info("Request Body is  : " + queryable.getBody().toString());
+        Response response = request.post("/cs-gsm-service/v1/usage/history");
+        log.info("Response : " + response.asString());
+        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
+        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        return response.as(UsageHistoryPOJO.class);
+    }
+
     public AMHandSetProfilePOJO amProfileTest(String msisdn) {
         getTest().log(LogStatus.INFO, "Using AM Profile API for Getting expected data for UI");
         baseURI = baseUrl;
@@ -157,7 +183,7 @@ public class APITest extends tests.BaseTest {
     }
 
     public ProfilePOJO profileAPITest(String msisdn) {
-        getTest().log(LogStatus.INFO, "Using KYC Profile API for Getting expected data for UI");
+        getTest().log(LogStatus.INFO, "Using /cs-gsm-service/v1/profile api for Getting expected data for UI");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
@@ -175,6 +201,27 @@ public class APITest extends tests.BaseTest {
         getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
         getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
         return response.as(ProfilePOJO.class);
+    }
+
+    public KYCProfile KYCProfileAPITest(String msisdn) {
+        getTest().log(LogStatus.INFO, "Using /cs-gsm-service/v1/profile api for Getting expected data for UI");
+        baseURI = baseUrl;
+        Headers headers = new Headers(map);
+        RequestSpecification request = given()
+                .headers(headers)
+                .body("{\"msisdn\":\"" + msisdn + "\"}")
+                .contentType("application/json");
+        QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
+        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
+        log.info("Request Headers are  : " + queryable.getHeaders());
+        getTest().log(LogStatus.INFO, "Request Body is  : " + queryable.getBody().toString());
+        log.info("Request Body is  : " + queryable.getBody().toString());
+        Response response = request.post("/cs-gsm-service/v1/kyc/profile");
+        log.info("Response : " + response.asString());
+        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
+        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        return response.as(KYCProfile.class);
     }
 
     public AMProfilePOJO amServiceProfileAPITest(String Msisdn) {
@@ -306,12 +353,12 @@ public class APITest extends tests.BaseTest {
         return response.as(UsageHistoryPOJO.class);
     }
 
-    public TicketPOJO ticketMetaDataTest(String ticketId){
+    public TicketPOJO ticketMetaDataTest(String ticketId) {
         getTest().log(LogStatus.INFO, "Using fetch ticket details using ticket Id to validate ticket meta data");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
-                .headers(headers).param("id",ticketId).contentType("application/json");
+                .headers(headers).param("id", ticketId).contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
         getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
         log.info("Request Headers are  : " + queryable.getHeaders());
@@ -323,12 +370,12 @@ public class APITest extends tests.BaseTest {
         return response.as(TicketPOJO.class);
     }
 
-    public SMSHistoryPOJO smsHistoryTest(String msisdn){
+    public SMSHistoryPOJO smsHistoryTest(String msisdn) {
         getTest().log(LogStatus.INFO, "Using fetch ticket details using ticket Id to validate ticket meta data");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
-                .headers(headers).body("{\"receiverId\":"+msisdn+",\"pageNumber\":0,\"pageSize\":10}").contentType("application/json");
+                .headers(headers).body("{\"receiverId\":" + msisdn + ",\"pageNumber\":0,\"pageSize\":10}").contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
         getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
         log.info("Request Headers are  : " + queryable.getHeaders());
@@ -338,6 +385,77 @@ public class APITest extends tests.BaseTest {
         getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
         getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
         return response.as(SMSHistoryPOJO.class);
+    }
+
+    public VoucherSearchPOJO voucherSearchTest(String voucherId) {
+        getTest().log(LogStatus.INFO, "Using fetch Voucher details using voucher Id to validate Voucher meta data");
+        baseURI = baseUrl;
+        Headers headers = new Headers(map);
+        RequestSpecification request = given()
+                .headers(headers).body("{\"voucherId\":\"" + voucherId + "\"}").contentType("application/json");
+        QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
+        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
+        log.info("Request Headers are  : " + queryable.getHeaders());
+        log.info("Request Body are  : " + queryable.getBody());
+        Response response = request.post("/cs-gsm-service/v1/voucher/detail");
+        log.info("Response : " + response.asString());
+        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
+        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        return response.as(VoucherSearchPOJO.class);
+    }
+
+    public VendorNames  vendorsNamesTest() {
+        getTest().log(LogStatus.INFO, "Using fetch vendor name");
+        baseURI = baseUrl;
+        Headers headers = new Headers(map);
+        RequestSpecification request = given()
+                .headers(headers);
+        QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
+        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
+        log.info("Request Headers are  : " + queryable.getHeaders());
+        Response response = request.get("/cs-vas-service/v1/vendors");
+        log.info("Response : " + response.asString());
+        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
+        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        return response.as(VendorNames.class);
+    }
+
+    public Summary loanSummaryTest(String msisdn, String vendorName) {
+        getTest().log(LogStatus.INFO, "Using fetch Voucher details using voucher Id to validate Voucher meta data");
+        baseURI = baseUrl;
+        Headers headers = new Headers(map);
+        RequestSpecification request = given()
+                .headers(headers).body("{\"msisdn\":\""+msisdn+"\",\"vendorName\":\""+vendorName+"\"}").contentType("application/json");
+        QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
+        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
+        log.info("Request Headers are  : " + queryable.getHeaders());
+        log.info("Request Body are  : " + queryable.getBody());
+        Response response = request.post("/cs-vas-service/v1/loan/summary");
+        log.info("Response : " + response.asString());
+        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
+        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        return response.as(Summary.class);
+    }
+
+    public Loan loanDetailsTest(String msisdn, String vendorName) {
+        getTest().log(LogStatus.INFO, "Using Loan details API to validate Loan Detail and Loan history widget");
+        baseURI = baseUrl;
+        Headers headers = new Headers(map);
+        RequestSpecification request = given()
+                .headers(headers).body("{\"msisdn\":\""+msisdn+"\",\"vendorName\":\""+vendorName+"\"}").contentType("application/json");
+        QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
+        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
+        log.info("Request Headers are  : " + queryable.getHeaders());
+        log.info("Request Body are  : " + queryable.getBody());
+        Response response = request.post("/cs-vas-service/v1/loan/details");
+        log.info("Response : " + response.asString());
+        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
+        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        return response.as(Loan.class);
     }
 
 }

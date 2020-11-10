@@ -24,8 +24,8 @@ public class CurrentBalanceWidgetPOM extends BasePage {
     By currentBalanceLastRechargeUnableToFetch = By.xpath("//span[@class=\"label-color\"]/span[@class=\"api-failed-error ng-star-inserted\"]");
     By lastRechargeDateTImeUnableTOFetch = By.xpath("//div[@class=\"api-failed-error ng-star-inserted\"]");
     By daDetails = By.xpath("//button[text()=\"DA Details\"]");
-    By ticketIcon=By.xpath("//span[contains(text(),'Your Current Plan')]//span[@class=\"card__card-header--icon ng-star-inserted\"]");
-    By getTitle=By.xpath("//span[contains(text(),'Your Current Plan')]");
+    By ticketIcon = By.xpath("//span[contains(text(),'Your Current Plan')]//span[@class=\"card__card-header--icon ng-star-inserted\"]");
+    By getTitle = By.xpath("//span[contains(text(),'Your Current Plan')]");
 
     public CurrentBalanceWidgetPOM(WebDriver driver) {
         super(driver);
@@ -57,10 +57,10 @@ public class CurrentBalanceWidgetPOM extends BasePage {
 
 
     public boolean isCurrentBalanceWidgetMenuVisible() {
-        try{
-        log.info("Checking is Your Current Balance Widget's Menu Visible");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is Your Current Balance Widget'Menu Visible");
-        return isElementVisible(menu);
+        try {
+            log.info("Checking is Your Current Balance Widget's Menu Visible");
+            ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is Your Current Balance Widget'Menu Visible");
+            return isElementVisible(menu);
         } catch (Exception e) {
             throw new NoSuchElementException("Current Plan widget menu option does not display");
         }
@@ -153,15 +153,15 @@ public class CurrentBalanceWidgetPOM extends BasePage {
         return readText(lastRechargeDateTime).trim();
     }
 
-    public WidgetInteractionPOM clickTicketIcon(){
+    public WidgetInteractionPOM clickTicketIcon() {
         log.info("Clicking on Ticket Icon");
-        ExtentTestManager.getTest().log(LogStatus.INFO,"Clicking on Ticket Icon");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Ticket Icon");
         click(ticketIcon);
         return new WidgetInteractionPOM(driver);
     }
 
-    public String getWidgetTitle(){
-        log.info("Getting Widget title: "+readText(getTitle));
+    public String getWidgetTitle() {
+        log.info("Getting Widget title: " + readText(getTitle));
         return readText(getTitle).toLowerCase();
     }
 }

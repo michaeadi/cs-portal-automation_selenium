@@ -13,7 +13,6 @@ import java.util.List;
 public class MoreUsageHistoryPOM extends BasePage {
 
 
-
     By bundleName = By.xpath("div[@class=\"ng-star-inserted\"][1]/span");
     By transactionNumber = By.xpath("div[@class=\"ng-star-inserted\"][2]/span"); //Transaction number does not display yet
     By dateTime = By.xpath("div[@class=\"ng-star-inserted\"][2]/span");
@@ -39,12 +38,12 @@ public class MoreUsageHistoryPOM extends BasePage {
     By smsHistoryNoResultFoundMessage = By.xpath("//span[contains(text(),\"SMS History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]/span/span");
     By dataHistoryNoResultFound = By.xpath("//span[contains(text(),\"Data History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]");
     By dataHistoryNoResultFoundMessage = By.xpath("//span[contains(text(),\"Data History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]/span/span");
-    By getSMSWidgetTitle=By.xpath("//span[contains(text(),\"SMS History \")]");
-    By getDataWidgetTitle=By.xpath("//span[contains(text(),\"Data History \")]");
-    By getCallWidgetTitle=By.xpath("//span[contains(text(),\"Call History \")]");
+    By getSMSWidgetTitle = By.xpath("//span[contains(text(),\"SMS History \")]");
+    By getDataWidgetTitle = By.xpath("//span[contains(text(),\"Data History \")]");
+    By getCallWidgetTitle = By.xpath("//span[contains(text(),\"Call History \")]");
     By ticketSMSIcon = By.xpath("//span[contains(text(),\"SMS History \")]//span[@class=\"card__card-header--icon ng-star-inserted\"]");
-    By ticketDataIcon=By.xpath("//span[contains(text(),\"Data History \")]//span[@class=\"card__card-header--icon ng-star-inserted\"]");
-    By ticketCallIcon=By.xpath("//span[contains(text(),\"Call History \")]//span[@class=\"card__card-header--icon ng-star-inserted\"]");
+    By ticketDataIcon = By.xpath("//span[contains(text(),\"Data History \")]//span[@class=\"card__card-header--icon ng-star-inserted\"]");
+    By ticketCallIcon = By.xpath("//span[contains(text(),\"Call History \")]//span[@class=\"card__card-header--icon ng-star-inserted\"]");
 
     public MoreUsageHistoryPOM(WebDriver driver) {
         super(driver);
@@ -257,38 +256,38 @@ public class MoreUsageHistoryPOM extends BasePage {
         return callHistoryRowsElements.size();
     }
 
-    public String getSMSWidgetTitle(){
-        log.info("Getting Widget title: "+readText(getSMSWidgetTitle));
+    public String getSMSWidgetTitle() {
+        log.info("Getting Widget title: " + readText(getSMSWidgetTitle));
         return readText(getSMSWidgetTitle).toLowerCase();
     }
 
-    public String getCallWidgetTitle(){
-        log.info("Getting Widget title: "+readText(getCallWidgetTitle));
+    public String getCallWidgetTitle() {
+        log.info("Getting Widget title: " + readText(getCallWidgetTitle));
         return readText(getCallWidgetTitle).toLowerCase();
     }
 
-    public String getDataWidgetTitle(){
-        log.info("Getting Widget title: "+readText(getDataWidgetTitle));
+    public String getDataWidgetTitle() {
+        log.info("Getting Widget title: " + readText(getDataWidgetTitle));
         return readText(getDataWidgetTitle).toLowerCase();
     }
 
-    public WidgetInteractionPOM clickSMSTicketIcon(){
+    public WidgetInteractionPOM clickSMSTicketIcon() {
         log.info("Clicking on Ticket Icon");
-        ExtentTestManager.getTest().log(LogStatus.INFO,"Clicking on SMS Ticket Icon");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on SMS Ticket Icon");
         click(ticketSMSIcon);
         return new WidgetInteractionPOM(driver);
     }
 
-    public WidgetInteractionPOM clickDataTicketIcon(){
+    public WidgetInteractionPOM clickDataTicketIcon() {
         log.info("Clicking on Ticket Icon");
-        ExtentTestManager.getTest().log(LogStatus.INFO,"Clicking on Data Ticket Icon");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Data Ticket Icon");
         click(ticketDataIcon);
         return new WidgetInteractionPOM(driver);
     }
 
-    public WidgetInteractionPOM clickCallTicketIcon(){
+    public WidgetInteractionPOM clickCallTicketIcon() {
         log.info("Clicking on Ticket Icon");
-        ExtentTestManager.getTest().log(LogStatus.INFO,"Clicking on Call Ticket Icon");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Call Ticket Icon");
         click(ticketCallIcon);
         return new WidgetInteractionPOM(driver);
     }
