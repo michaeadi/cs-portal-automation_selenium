@@ -69,10 +69,6 @@ public class SupervisorUpdateTicket extends BaseTest {
                 ticketListPage.waitTillLoaderGetsRemoved();
                 try {
                     selectedState = viewTicket.selectState(data.ticketStateClosed());
-                }catch (ElementClickInterceptedException e){
-                    softAssert.fail("Update Ticket does not complete due to error :" + e.fillInStackTrace());
-                    viewTicket.clickBackButton();
-                }
                 if (selectedState.equalsIgnoreCase(data.ticketStateClosed())) {
                     ticketListPage.waitTillLoaderGetsRemoved();
                     ticketListPage.changeTicketTypeToClosed();
@@ -96,13 +92,17 @@ public class SupervisorUpdateTicket extends BaseTest {
                 } else {
                     viewTicket.clickBackButton();
                 }
-            } catch (TimeoutException | NoSuchElementException | AssertionError | NullPointerException e) {
+                }catch (TimeoutException | NoSuchElementException | ElementClickInterceptedException e){
+                    softAssert.fail("Update Ticket does not complete due to error :" + e.fillInStackTrace());
+                    viewTicket.clickBackButton();
+                }
+            } catch (TimeoutException | NoSuchElementException | AssertionError e) {
                 e.printStackTrace();
                 softAssert.fail("Update Ticket does not complete due to error :" + e.fillInStackTrace());
             }
         } catch (TimeoutException | NoSuchElementException | AssertionError e) {
             e.printStackTrace();
-            softAssert.fail("Ticket id search not done for following error: " + e.getMessage());
+            softAssert.fail("Ticket id search not done due to following error: " + e.getMessage());
         }
         ticketListPage.clearInputBox();
         ticketListPage.waitTillLoaderGetsRemoved();
