@@ -33,7 +33,7 @@ public class BackendAgentLoginTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 2, description = "Backend Agent Queue Login Page")
+    @Test(priority = 2, description = "Backend Agent Queue Login Page",dependsOnMethods = "LoggingIN")
     public void agentQueueLogin(Method method) {
         ExtentTestManager.startTest("Backend Agent Login into Queue", "Backend Agent Login into Queue");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");

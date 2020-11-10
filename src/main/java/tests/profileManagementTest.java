@@ -34,7 +34,7 @@ public class profileManagementTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 2)
+    @Test(priority = 2,dependsOnMethods = "openProfileManagementPage")
     public void configurationFilterTest() {
         ExtentTestManager.startTest("Validating Profile Management's Configuration Filter", "Validating Profile Management's Configuration Filter");
         SoftAssert softAssert = new SoftAssert();
@@ -60,7 +60,7 @@ public class profileManagementTest extends BaseTest {
         profileManagement.clickOnOption("All");
     }
 
-    @Test(priority = 3, description = "Validating Profile Management")
+    @Test(priority = 3, description = "Validating Profile Management",dependsOnMethods = "openProfileManagementPage")
     public void roleStatusFilterTest() {
         ExtentTestManager.startTest("Validating Profile Management's Role Status Filter", "Validating Profile Management's Role Status Filter");
         SoftAssert softAssert = new SoftAssert();
@@ -88,7 +88,7 @@ public class profileManagementTest extends BaseTest {
     }
 
     @User(UserType = "ALL")
-    @Test(priority = 3, description = "Validating Role's Widget Order Test", dataProvider = "loginData", dataProviderClass = DataProviders.class)
+    @Test(priority = 3, description = "Validating Role's Widget Order Test", dataProvider = "loginData", dataProviderClass = DataProviders.class,dependsOnMethods = "openProfileManagementPage")
     public void widgetOrderTest(TestDatabean Data) {
         ExtentTestManager.startTest("Validating Role's Widget Order Test", "Validating Profile Management with Validating Filter and Columns Present ");
         SoftAssert softAssert = new SoftAssert();

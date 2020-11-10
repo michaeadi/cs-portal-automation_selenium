@@ -139,7 +139,7 @@ public class ViewTemplateTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 6, description = "Validate template layout")
+    @Test(priority = 6, description = "Validate template layout",dependsOnMethods = "openTemplateManagement")
     public void validateTemplateLayout() {
         ExtentTestManager.startTest("Validating template layout", "Validating All Language displayed");
         ViewCreatedTemplatePOM viewCreatedTemplate = new ViewCreatedTemplatePOM(driver);
@@ -157,7 +157,7 @@ public class ViewTemplateTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 7, description = "Validate admin able to deactivate/Activate Template")
+    @Test(priority = 7, description = "Validate admin able to deactivate/Activate Template",dependsOnMethods = "openTemplateManagement")
     public void deactivateTemplate() {
         ExtentTestManager.startTest("Validate admin able to deactivate/Activate Template", "Validate admin able to deactivate/Activate Template");
         ViewCreatedTemplatePOM viewCreatedTemplate = new ViewCreatedTemplatePOM(driver);

@@ -66,6 +66,7 @@ public class StateQueueMappingTest extends BaseTest {
             softAssert.assertTrue(ticketListPage.validateQueueFilter(data.getQueue()), "Queue Filter Does Applied Correctly");
         } catch (InterruptedException | NoSuchElementException | TimeoutException e) {
             e.printStackTrace();
+            filterTab.clickOutsideFilter();
             filterTab.clickCloseFilter();
             softAssert.fail("Not able to apply filter " + e.fillInStackTrace());
         }

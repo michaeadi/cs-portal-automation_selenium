@@ -185,7 +185,7 @@ public class BasePage {
     }
 
 
-    void selectByText(String text) {
+    public void selectByText(String text) {
         WebElement elementby = driver.findElement(By.xpath("//span[contains(text(),'" + text + "')]"));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", elementby);
         driver.findElement(By.xpath("//span[contains(text(),'" + text + "')]")).click();

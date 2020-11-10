@@ -118,7 +118,7 @@ public class WidgetTaggedIssueTest extends BaseTest {
                             tagIssueTab.writeComment("Comment added using test automation");
                             customerInteractionPagePOM customerInteractionPage = tagIssueTab.clickSubmitBtn();
                             tagIssueTab.interactionTabClosed();
-                            softAssert.assertTrue(customerInteractionPage.isPageLoaded());
+                            softAssert.assertTrue(customerInteractionPage.isPageLoaded(),"Customer interaction page does not loaded correctly");
                             viewHistoryPOM viewHistory = customerInteractionPage.clickOnViewHistory();
                             viewHistory.clickOnInteractionsTab();
                             String issueCode = viewHistory.getLastCreatedIssueCode();
@@ -182,11 +182,11 @@ public class WidgetTaggedIssueTest extends BaseTest {
                             tagIssueTab.writeComment("Comment added using test automation");
                             customerInteractionPagePOM customerInteractionPage = tagIssueTab.clickSubmitBtn();
                             tagIssueTab.interactionTabClosed();
-                            softAssert.assertTrue(customerInteractionPage.isPageLoaded());
+                            softAssert.assertTrue(customerInteractionPage.isPageLoaded(),"Customer Interaction Page does not load properly");
                             viewHistoryPOM viewHistory = customerInteractionPage.clickOnViewHistory();
                             viewHistory.clickOnInteractionsTab();
                             String issueCode = viewHistory.getLastCreatedIssueCode();
-                            softAssert.assertEquals(issueCode.toLowerCase().trim(), data.getCode(s).trim().toLowerCase());
+                            softAssert.assertEquals(issueCode.toLowerCase().trim(), data.getCode(s).trim().toLowerCase(),"Issue code not as expected");
                             customerInteractionPage = viewHistory.openingCustomerInteractionDashboard();
                             softAssert.assertTrue(customerInteractionPage.isPageLoaded());
                             usageHistory = new UsageHistoryWidgetPOM(driver);

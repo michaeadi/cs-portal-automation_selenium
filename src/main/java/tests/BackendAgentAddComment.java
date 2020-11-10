@@ -34,7 +34,7 @@ public class BackendAgentAddComment extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 2, description = "Backend agent add new comment on Ticket", dataProvider = "ticketState", dataProviderClass = DataProviders.class)
+    @Test(priority = 2, description = "Backend agent add new comment on Ticket", dataProvider = "ticketState", dataProviderClass = DataProviders.class,dependsOnMethods = "agentQueueLogin")
     public void addNewComment(Method method, TicketStateDataBean ticketState) throws InterruptedException {
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         ViewTicketPagePOM viewTicket = new ViewTicketPagePOM(driver);
@@ -83,7 +83,7 @@ public class BackendAgentAddComment extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 5, description = "Validate Delete comment as Backend Agent")
+    @Test(priority = 5,dependsOnMethods = "agentQueueLogin", description = "Validate Delete comment as Backend Agent")
     public void deleteLastAddedComment() throws InterruptedException {
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         ViewTicketPagePOM viewTicket = new ViewTicketPagePOM(driver);

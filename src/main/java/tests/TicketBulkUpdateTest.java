@@ -1,5 +1,6 @@
 package tests;
 
+import POJO.TicketList.Interactions;
 import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.TicketStateDataBean;
 import Utils.ExtentReports.ExtentTestManager;
@@ -144,6 +145,7 @@ public class TicketBulkUpdateTest extends BaseTest {
         TicketBulkUpdatePOM ticketBulkUpdatePOM = new TicketBulkUpdatePOM(driver);
         DataProviders data = new DataProviders();
         SoftAssert softAssert = new SoftAssert();
+        Integer size=null;
         ticketBulkUpdatePOM.waitTillLoaderGetsRemoved();
         ticketBulkUpdatePOM.clickAddCommentOption();
         ticketBulkUpdatePOM.addComment("Adding Comment using Automation for Bulk Update option test. Please Ignore this comment");
@@ -153,7 +155,11 @@ public class TicketBulkUpdateTest extends BaseTest {
         ticketBulkUpdatePOM.waitTillLoaderGetsRemoved();
         softAssert.assertEquals(ticketBulkUpdatePOM.getErrorTicketCount(), ticketBulkUpdatePOM.getErrorCount(), "Error Ticket count does not displayed correctly");
         softAssert.assertEquals(ticketBulkUpdatePOM.getErrorTicketCount(), ticketBulkUpdatePOM.getErrorCount(), "Error Ticket count does not displayed correctly");
-        int size = Integer.parseInt(String.valueOf(ticketBulkUpdatePOM.getUpdatedMessage().trim().charAt(0))) - ticketBulkUpdatePOM.getErrorTicketCount();
+        try {
+            size = Integer.parseInt(String.valueOf(ticketBulkUpdatePOM.getUpdatedMessage().trim().charAt(0))) - ticketBulkUpdatePOM.getErrorTicketCount();
+        }catch (NumberFormatException e){
+            softAssert.fail("Not able to read message properly "+e.fillInStackTrace());
+        }
         softAssert.assertEquals(ticketBulkUpdatePOM.getSuccessCount(), String.valueOf(size), "Action Performed does not on ticket");
         softAssert.assertAll();
     }
