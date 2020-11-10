@@ -67,7 +67,7 @@ public class viewHistoryPOM extends BasePage {
 
     public boolean clickOnTicketIcon() {
         try {
-            List<WebElement> list = driver.findElements(allIssue);
+            List<WebElement> list = returnListOfElement(allIssue);
             for (int i = 1; i <= list.size(); i++) {
                 if (!getAttributeValue(i).equalsIgnoreCase("ftr")) {
                     ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Ticket NFTR ticket icon" + getAttributeValue(i));

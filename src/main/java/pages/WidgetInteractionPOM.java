@@ -52,7 +52,7 @@ public class WidgetInteractionPOM extends BasePage {
     }
 
     public List<String> getListOfIssue() {
-        List<WebElement> list = driver.findElements(listOfIssue);
+        List<WebElement> list = returnListOfElement(listOfIssue);
         List<String> issueList = new ArrayList<>();
         for (int i = 1; i <= list.size(); i++) {
             By issueLabel = By.xpath("//div[@class=\"bottom-drawer__card-body--intraction-list ng-star-inserted\"][" + i + "]//label");

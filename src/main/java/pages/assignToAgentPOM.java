@@ -74,7 +74,7 @@ public class assignToAgentPOM extends BasePage {
     public String ticketAssignedToAgent(String assigneeAUUID) throws InterruptedException {
         int slot;
         By list = By.xpath("//div[@class=\"pannel-content-area ng-star-inserted\"]/div");
-        List<WebElement> agentList = driver.findElements(list);
+        List<WebElement> agentList = returnListOfElement(list);
         for (int i = 1; i <= agentList.size(); i++) {
             By agentAUUID = By.xpath("//div[@class=\"pannel-content-area ng-star-inserted\"]/div[" + i + "]//span[@class=\"auuid yellow\"]");
             String auuid = readText(agentAUUID);

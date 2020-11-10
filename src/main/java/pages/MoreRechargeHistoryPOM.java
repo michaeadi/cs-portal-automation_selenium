@@ -12,7 +12,7 @@ import java.util.List;
 @Log4j2
 public class MoreRechargeHistoryPOM extends BasePage {
     By rows = By.xpath("//span[contains(text(),\"BUNDLE SUBSCRIPTION HISTORY \")]//parent::div//following-sibling::div[@class=\"card__content restricted ng-star-inserted\"]//div[@class=\"card__card-header--card-body--table--data-list ng-star-inserted\"]");
-    List<WebElement> rowsElements = driver.findElements(rows);
+    List<WebElement> rowsElements = returnListOfElement(rows);
     By bundleName = By.xpath("div[1]/span[@class=\"ng-star-inserted\"]");
     By packageCategory = By.xpath("div[2]/span[@class=\"ng-star-inserted\"]");
     By transactionNumber = By.xpath("div[3]/span[@class=\"ng-star-inserted\"]");

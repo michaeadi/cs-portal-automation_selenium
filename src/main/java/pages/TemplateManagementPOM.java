@@ -145,7 +145,7 @@ public class TemplateManagementPOM extends BasePage {
     }
 
     public boolean validateAddedCategoryDisplay(String text) {
-        List<WebElement> list = driver.findElements(allCategoryList);
+        List<WebElement> list = returnListOfElement(allCategoryList);
         for (int i = 1; i <= list.size(); i++) {
             By categoryName = By.xpath("//div[@class='sms-managment__card-list--card--content-area--content ng-star-inserted']//div[@class=\"sms-managment__card-list--card--content-area--content--sms-card ng-star-inserted\"][" + i + "]//h6");
             String name = readText(categoryName);

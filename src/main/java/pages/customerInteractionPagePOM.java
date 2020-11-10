@@ -60,7 +60,7 @@ public class customerInteractionPagePOM extends BasePage {
 
     public List<String> getPinnedTagTexts() {
         List<String> strings = new ArrayList<String>();
-        List<WebElement> webElements = driver.findElements(pinTags);
+        List<WebElement> webElements = returnListOfElement(pinTags);
         System.out.println("Size: " + webElements.size());
         for (int i = 1; i <= webElements.size(); i++) {
             By tagName = By.xpath("//div[@class='sub-header__divide--control']//div[@class=\"sub-header__divide--control--tab ng-star-inserted\"][" + i + "]");

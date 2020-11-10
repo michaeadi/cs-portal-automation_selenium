@@ -5,12 +5,12 @@ import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.time.DateUtils;
 import org.openqa.selenium.*;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.*;
 import org.testng.Assert;
 import tests.BaseTest;
 
@@ -26,7 +26,8 @@ import java.util.concurrent.TimeUnit;
 public class BasePage {
     public static Properties config = BaseTest.config;
     public WebDriver driver;
-    public WebDriverWait wait;
+    //public WebDriverWait wait;
+    Wait<WebDriver> wait ;
     By loader = By.xpath("/html/body/app-root/ngx-ui-loader/div[2]");
     @CacheLookup
     By loader1 = By.xpath("//div[@class=\"ngx-overlay foreground-closing\"]");
@@ -38,14 +39,17 @@ public class BasePage {
     public BasePage(WebDriver driver) {
         PageFactory.initElements(new AjaxElementLocatorFactory(driver, 10), this);
         this.driver = driver;
-        wait = new WebDriverWait(driver, Duration.ofSeconds(Integer.parseInt(BaseTest.config.getProperty("GeneralWaitInSeconds"))));
-        driver.manage().timeouts().implicitlyWait(Integer.parseInt(BaseTest.config.getProperty("ImplicitWaitInSeconds")), TimeUnit.SECONDS);
+        ExpectedCondition<Boolean> expectation = driver1 -> ((JavascriptExecutor) driver1).executeScript("return document.readyState").toString().equals("complete");
+        wait = new FluentWait<>(driver)
+                .withTimeout(Duration.ofSeconds(Integer.parseInt(BaseTest.config.getProperty("GeneralWaitInSeconds"))))
+                .pollingEvery(Duration.ofSeconds(Integer.parseInt(BaseTest.config.getProperty("PoolingWaitInSeconds"))))
+                .ignoring(NoSuchElementException.class);
+        wait.until(expectation);
     }
 
 
     public void waitTillLoaderGetsRemoved() {
         printInfoLog("Waiting for loader to be removed");
-//        wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(loader1));
         printInfoLog("Loader Removed");
     }
@@ -60,9 +64,11 @@ public class BasePage {
 
     //Click Method
     void click(By elementLocation) {
-        waitVisibility(elementLocation);
+        wait.until(ExpectedConditions.elementToBeClickable(elementLocation));
         highLighterMethod(elementLocation);
-        driver.findElement(elementLocation).click();
+        WebElement element=driver.findElement(elementLocation);
+        JavascriptExecutor ex=(JavascriptExecutor)driver;
+        ex.executeScript("arguments[0].click()", element);
         log.info("Clicking on element" + elementLocation.toString());
     }
 
@@ -202,7 +208,7 @@ public class BasePage {
     }
 
     public boolean validateFilter(By element, String text) {
-        List<WebElement> list = driver.findElements(element);
+        List<WebElement> list = returnListOfElement(element);
         log.info("Validating Filter");
         for (WebElement x : list) {
             log.info("Element Text : " + x.getText());
@@ -260,5 +266,9 @@ public class BasePage {
     public String ValueRoundOff(Double value){
         DecimalFormat df = new DecimalFormat("###.##");
         return df.format(value);
+    }
+
+    public List<WebElement> returnListOfElement(By element){
+        return wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(element));
     }
 }

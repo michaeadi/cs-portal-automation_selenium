@@ -45,9 +45,9 @@ public class createInteractionTest extends BaseTest {
         customerInteractionPagePOM customerInteractionPagePOM = new customerInteractionPagePOM(driver);
         InteractionsPOM interactionsPOM = customerInteractionPagePOM.clickOnInteractionIcon();
         SoftAssert softAssert = new SoftAssert();
-        interactionsPOM.clickOnCode();
         try {
             try {
+                interactionsPOM.clickOnCode();
                 interactionsPOM.searchCode(Data.getIssueCode());
             } catch (Exception e) {
                 Thread.sleep(1000);
@@ -56,6 +56,7 @@ public class createInteractionTest extends BaseTest {
 
             }
             interactionsPOM.selectCode(Data.getIssueCode());
+            interactionsPOM.waitTillLoaderGetsRemoved();
             ExtentTestManager.getTest().log(LogStatus.INFO, "Creating ticket with issue code -" + Data.getIssueCode());
             System.out.println(interactionsPOM.getIssue());
             softAssert.assertEquals(interactionsPOM.getIssue().trim().toLowerCase().replace(" ", ""), Data.getIssue().trim().toLowerCase().replace(" ", ""), "Issue is not as expected ");
@@ -92,8 +93,8 @@ public class createInteractionTest extends BaseTest {
         customerInteractionPagePOM customerInteractionPagePOM = new customerInteractionPagePOM(driver);
         InteractionsPOM interactionsPOM = customerInteractionPagePOM.clickOnInteractionIcon();
         SoftAssert softAssert = new SoftAssert();
-        interactionsPOM.clickOnCode();
         try {
+            interactionsPOM.clickOnCode();
             interactionsPOM.searchCode(Data.getIssueCode());
         } catch (Exception e) {
             System.out.println("Try Again:");
@@ -103,6 +104,7 @@ public class createInteractionTest extends BaseTest {
 
         }
         interactionsPOM.selectCode(Data.getIssueCode());
+        interactionsPOM.waitTillLoaderGetsRemoved();
         ExtentTestManager.getTest().log(LogStatus.INFO, "Creating ticket with issue code -" + Data.getIssueCode());
         softAssert.assertEquals(interactionsPOM.getIssue().trim().toLowerCase().replace(" ", ""), Data.getIssue().trim().toLowerCase().replace(" ", ""), "Issue is not as expected ");
         softAssert.assertEquals(interactionsPOM.getIssueSubSubType().trim().toLowerCase().replace(" ", ""), Data.getIssueSubSubType().trim().toLowerCase().replace(" ", ""), "Issue sub sub type is not as expected ");

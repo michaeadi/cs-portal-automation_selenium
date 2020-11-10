@@ -68,7 +68,7 @@ public class ViewCreatedTemplatePOM extends BasePage {
     public boolean isTemplatePresent(String text) {
         log.info("Checking Template Present With Name: " + text);
         ExtentTestManager.getTest().log(LogStatus.INFO, "Checking Template Present With Name: " + text);
-        List<WebElement> list = driver.findElements(allActiveTemplate);
+        List<WebElement> list = returnListOfElement(allActiveTemplate);
         for (int i = 1; i <= list.size(); i++) {
             By element = By.xpath("//div[@class=\"sms-managment__card-list--card--sms-template--content--sms-card ng-star-inserted\"][" + i + "]//h6");
             log.info("Reading Template: " + readText(element));
@@ -105,7 +105,7 @@ public class ViewCreatedTemplatePOM extends BasePage {
     }
 
     public ArrayList<String> getAllOptions() {
-        List<WebElement> listOfElements = driver.findElements(options);
+        List<WebElement> listOfElements = returnListOfElement(options);
         System.out.println("List Size: " + listOfElements.size());
         ArrayList<String> strings = new ArrayList<>();
         for (int i = 0; i < listOfElements.size(); i++) {
