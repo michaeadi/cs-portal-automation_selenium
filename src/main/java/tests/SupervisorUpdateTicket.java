@@ -96,7 +96,7 @@ public class SupervisorUpdateTicket extends BaseTest {
                 } else {
                     viewTicket.clickBackButton();
                 }
-            } catch (TimeoutException | NoSuchElementException | AssertionError e) {
+            } catch (TimeoutException | NoSuchElementException | AssertionError | NullPointerException e) {
                 e.printStackTrace();
                 softAssert.fail("Update Ticket does not complete due to error :" + e.fillInStackTrace());
             }
