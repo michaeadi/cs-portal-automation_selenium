@@ -63,11 +63,15 @@ public class customerInteractionTest extends BaseTest {
                 DataProviders data = new DataProviders();
                 authTab.waitTillLoaderGetsRemoved();
                 Assert.assertTrue(authTab.isAuthTabLoad(), "Authentication tab does not load correctly");
-                List<AuthTabDataBeans> list = data.getPolicy();
-                for (int i = 1; i <= Integer.parseInt(list.get(0).getMinAnswer()); i++) {
-                    authTab.clickCheckBox(i);
+                try {
+                    List<AuthTabDataBeans> list = data.getPolicy();
+                    for (int i = 1; i <= Integer.parseInt(list.get(0).getMinAnswer()); i++) {
+                        authTab.clickCheckBox(i);
+                    }
+                    Assert.assertTrue(authTab.isAuthBtnEnable(), "Authenticate Button does not enable after choose minimum number of question");
+                } catch (NoSuchElementException | TimeoutException e) {
+                    softAssert.fail("Not able to authenticate user: " + e.fillInStackTrace());
                 }
-                Assert.assertTrue(authTab.isAuthBtnEnable(), "Authenticate Button does not enable after choose minimum number of question");
                 authTab.clickAuthBtn();
             }
             try {
@@ -85,7 +89,7 @@ public class customerInteractionTest extends BaseTest {
 
         } catch (NoSuchElementException | TimeoutException | InterruptedException | AssertionError e) {
             e.printStackTrace();
-            softAssert.fail("Not able to View PUK Details"+e.getMessage());
+            softAssert.fail("Not able to View PUK Details" + e.getMessage());
         }
 
         try {
@@ -95,18 +99,22 @@ public class customerInteractionTest extends BaseTest {
                 DataProviders data = new DataProviders();
                 authTab.waitTillLoaderGetsRemoved();
                 Assert.assertTrue(authTab.isAuthTabLoad(), "Authentication tab does not load correctly");
-                List<AuthTabDataBeans> list = data.getPolicy();
-                for (int i = 1; i <= Integer.parseInt(list.get(0).getMinAnswer()); i++) {
-                    authTab.clickCheckBox(i);
+                try {
+                    List<AuthTabDataBeans> list = data.getPolicy();
+                    for (int i = 1; i <= Integer.parseInt(list.get(0).getMinAnswer()); i++) {
+                        authTab.clickCheckBox(i);
+                    }
+                    Assert.assertTrue(authTab.isAuthBtnEnable(), "Authenticate Button does not enable after choose minimum number of question");
+                } catch (NoSuchElementException | TimeoutException e) {
+                    softAssert.fail("Not able to authenticate user: " + e.fillInStackTrace());
                 }
-                Assert.assertTrue(authTab.isAuthBtnEnable(), "Authenticate Button does not enable after choose minimum number of question");
                 authTab.clickAuthBtn();
             }
 
 
         } catch (NoSuchElementException | TimeoutException | InterruptedException | AssertionError e) {
             e.printStackTrace();
-            softAssert.fail("Airtel Money Status does not unlock"+e.getMessage());
+            softAssert.fail("Airtel Money Status does not unlock" + e.getMessage());
         }
 
         try {
