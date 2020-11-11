@@ -19,7 +19,7 @@ public class UsageHistoryWidgetPOM extends BasePage {
 
     By usageHistoryDatePicker = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Usage History\")]//parent::div//form//input");
     By usageHistoryHeader = By.xpath("//span[@class=\"card__card-header--label\" and text()=\"Usage History \"]");
-    By rows = By.xpath("//div[@class=\"card__card-header\"]/span[contains(text(),\"Usage\")]//parent::div//following-sibling::div[@class=\"card__content restricted ng-star-inserted\"]//div[@class=\"card__card-header--card-body--table--data-list ng-star-inserted\"]");
+    By rows = By.xpath("//div[@class=\"card__card-header\"]/span[contains(text(),\"Usage\")]//parent::div//following-sibling::div[@class=\"card__content restricted ng-star-inserted\"]//div[@class=\"card__card-header--card-body--table--data-list row-border\"]");
     List<WebElement> as = returnListOfElement(rows);
     By type = By.xpath("div[1]/span[@class=\"ng-star-inserted\"]");
     By charge = By.xpath("div[2]/span[@class=\"ng-star-inserted\"]");

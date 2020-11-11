@@ -38,6 +38,7 @@ public class BasePage {
     public BasePage(WebDriver driver) {
         PageFactory.initElements(new AjaxElementLocatorFactory(driver, 10), this);
         this.driver = driver;
+        driver.manage().timeouts().implicitlyWait(5,TimeUnit.SECONDS);
         ExpectedCondition<Boolean> expectation = driver1 -> ((JavascriptExecutor) driver1).executeScript("return document.readyState").toString().equals("complete");
         wait = new FluentWait<>(driver)
                 .withTimeout(Duration.ofSeconds(Integer.parseInt(BaseTest.config.getProperty("GeneralWaitInSeconds"))))
@@ -66,13 +67,15 @@ public class BasePage {
         wait.until(ExpectedConditions.elementToBeClickable(elementLocation));
         highLighterMethod(elementLocation);
         WebElement element=driver.findElement(elementLocation);
-        JavascriptExecutor ex=(JavascriptExecutor)driver;
-        ex.executeScript("arguments[0].click()", element);
+//        JavascriptExecutor ex=(JavascriptExecutor)driver;
+//        ex.executeScript("arguments[0].click()", element);
+        driver.findElement(elementLocation).click();
         log.info("Clicking on element" + elementLocation.toString());
     }
 
     void scrollToViewElement(By Element) throws InterruptedException {
         WebElement element = driver.findElement(Element);
+        waitVisibility(Element);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
         Thread.sleep(500);
     }
@@ -109,6 +112,7 @@ public class BasePage {
 
     //Wait For Element
     public void waitVisibility(By by) {
+        wait.until(ExpectedConditions.presenceOfElementLocated(by));
         wait.until(ExpectedConditions.visibilityOfElementLocated(by));
     }
 
@@ -268,6 +272,12 @@ public class BasePage {
     }
 
     public List<WebElement> returnListOfElement(By element){
-        return wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(element));
+        List<WebElement> list = new ArrayList<>();
+        try {
+            list = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(element));
+        } catch (TimeoutException | NoSuchElementException e) {
+            printInfoLog("Not able to Fetch List of Elements :"+e.fillInStackTrace());
+        }
+        return list;
     }
 }

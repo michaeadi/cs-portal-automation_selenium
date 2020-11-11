@@ -11,6 +11,8 @@ import Utils.DataProviders.TestDatabean;
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -67,12 +69,17 @@ public class customerInteractionTest extends BaseTest {
                     List<AuthTabDataBeans> list = data.getPolicy();
                     for (int i = 1; i <= Integer.parseInt(list.get(0).getMinAnswer()); i++) {
                         authTab.clickCheckBox(i);
-                    }
+                        }
                     Assert.assertTrue(authTab.isAuthBtnEnable(), "Authenticate Button does not enable after choose minimum number of question");
-                } catch (NoSuchElementException | TimeoutException e) {
+                    authTab.clickAuthBtn();
+                } catch (NoSuchElementException | AssertionError | TimeoutException e) {
+                    e.printStackTrace();
+                    String base64Screenshot = "data:image/png;base64," + ((TakesScreenshot) driver).
+                            getScreenshotAs(OutputType.BASE64);
+                    ExtentTestManager.getTest().log(LogStatus.INFO, ExtentTestManager.getTest().addBase64ScreenShot(base64Screenshot));
                     softAssert.fail("Not able to authenticate user: " + e.fillInStackTrace());
+                    authTab.clickCloseBtn();
                 }
-                authTab.clickAuthBtn();
             }
             try {
                 softAssert.assertEquals(demographic.getPUK1().trim(), kycProfile.getResult().getPuk().get(0).getValue(), "Customer's PUK1 Number is not as Expected");
@@ -105,10 +112,12 @@ public class customerInteractionTest extends BaseTest {
                         authTab.clickCheckBox(i);
                     }
                     Assert.assertTrue(authTab.isAuthBtnEnable(), "Authenticate Button does not enable after choose minimum number of question");
+                    authTab.clickAuthBtn();
                 } catch (NoSuchElementException | TimeoutException e) {
-                    softAssert.fail("Not able to authenticate user: " + e.fillInStackTrace());
+                    e.fillInStackTrace();
+                    softAssert.fail("Action(Airtel Money Status)Not able to authenticate user: " + e.fillInStackTrace());
+                    authTab.clickCloseBtn();
                 }
-                authTab.clickAuthBtn();
             }
 
 

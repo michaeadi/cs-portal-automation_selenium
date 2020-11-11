@@ -14,7 +14,7 @@ public class RechargeHistoryWidgetPOM extends BasePage {
 
     By rechargeHistoryDatePicker = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Recharge History\")]//parent::div//form/span/input");
     By rechargeHistoryHeader = By.xpath("//span[@class=\"card__card-header--label\" and text()=\"Recharge History \"]");
-    By rows = By.xpath("//div[@class=\"card__card-header\"]/span[contains(text(),\"Recharge\")]//parent::div//following-sibling::div[@class=\"card__content restricted ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]");
+    By rows = By.xpath("//div[@class=\"card__card-header\"]/span[contains(text(),\"Recharge\")]//parent::div//following-sibling::div[@class=\"card__content restricted ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]//div[@class=\"ng-star-inserted\"]");
     List<WebElement> as = returnListOfElement(rows);
     By charges = By.xpath("div[1]/span[@class=\"ng-star-inserted\"]");
     By dateTime = By.xpath("div[2]/span[@class=\"date_time ng-star-inserted\"]");
