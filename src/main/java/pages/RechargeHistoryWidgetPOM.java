@@ -14,7 +14,7 @@ public class RechargeHistoryWidgetPOM extends BasePage {
 
     By rechargeHistoryDatePicker = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Recharge History\")]//parent::div//form/span/input");
     By rechargeHistoryHeader = By.xpath("//span[@class=\"card__card-header--label\" and text()=\"Recharge History \"]");
-    By rows = By.xpath("//div[@class=\"card__card-header\"]/span[contains(text(),\"Recharge\")]//parent::div//following-sibling::div[@class=\"card__content restricted ng-star-inserted\"]//div[@class=\"card__card-header--card-body--table--data-list ng-star-inserted\"]");
+    By rows = By.xpath("//div[@class=\"card__card-header\"]/span[contains(text(),\"Recharge\")]//parent::div//following-sibling::div[@class=\"card__content restricted ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]");
     List<WebElement> as = returnListOfElement(rows);
     By charges = By.xpath("div[1]/span[@class=\"ng-star-inserted\"]");
     By dateTime = By.xpath("div[2]/span[@class=\"date_time ng-star-inserted\"]");
@@ -30,6 +30,10 @@ public class RechargeHistoryWidgetPOM extends BasePage {
     By getTitle = By.xpath("//span[contains(text(),'Recharge History')]");
     By voucherBox = By.xpath("//input[@placeholder=\"Voucher ID\"]");
     By voucherBtn = By.xpath("//input[@placeholder=\"Voucher ID\"]//parent::span//button");
+    By refillIconDisable=By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Recharge History\")]//parent::div//span[2]/span/img[@class=\"header-action-icon disabled ng-star-inserted\"]");
+    By refillIconClickable=By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Recharge History\")]//parent::div//span[2]/span/img[@class=\"header-action-icon ng-star-inserted\"]");
+    By popUpMessage=By.xpath("//div[@class=\"confirm-block ng-star-inserted\"]/p");
+    By noActionBtn=By.xpath("//div[@class=\"confirm-block ng-star-inserted\"]//button[@class=\"no-btn\"]");
 
     public RechargeHistoryWidgetPOM(WebDriver driver) {
         super(driver);
@@ -167,4 +171,31 @@ public class RechargeHistoryWidgetPOM extends BasePage {
         click(voucherBtn);
         return new VoucherTabPOM(driver);
     }
+
+    public Boolean isRefillIconDisable(){
+        printInfoLog("Checking Clear refill icon disable :"+checkState(refillIconDisable));
+        return checkState(refillIconDisable);
+    }
+
+    public Boolean isRefillIconEnable(){
+        printInfoLog("Checking Clear refill icon enable :"+checkState(refillIconClickable));
+        return checkState(refillIconClickable);
+    }
+
+    public void clickRefillIcon(){
+        printInfoLog("Clicking Clear refill icon");
+        click(refillIconClickable);
+    }
+
+    public boolean checkPopDisplay(){
+        printInfoLog("Reading Pop up title: "+readText(popUpMessage));
+        return checkState(popUpMessage);
+    }
+
+    public void clickNoBtn(){
+        printInfoLog("Clicking No Button ");
+        click(noActionBtn);
+    }
+
+
 }

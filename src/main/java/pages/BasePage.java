@@ -26,7 +26,6 @@ import java.util.concurrent.TimeUnit;
 public class BasePage {
     public static Properties config = BaseTest.config;
     public WebDriver driver;
-    //public WebDriverWait wait;
     Wait<WebDriver> wait ;
     By loader = By.xpath("/html/body/app-root/ngx-ui-loader/div[2]");
     @CacheLookup
