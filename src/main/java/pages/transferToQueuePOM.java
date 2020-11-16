@@ -12,6 +12,7 @@ public class transferToQueuePOM extends BasePage {
 
     By pageTitle = By.xpath("//*[@id=\"assignQueue\"]/app-assign-to-queue/section/div/div[1]/h4");
     By transferQueue;
+    By closeTab=By.xpath("//button[@class=\"mat-button\"]//span[contains(text(),'X')]");
 
     public transferToQueuePOM(WebDriver driver) {
         super(driver);
@@ -28,5 +29,10 @@ public class transferToQueuePOM extends BasePage {
         transferQueue = By.xpath("//span[contains(text(),'" + queueName + "')]//ancestor::div[1]//following-sibling::div/img");
         click(transferQueue);
         ExtentTestManager.getTest().log(LogStatus.INFO, "Transferring Ticket to Ticket Pool Name: " + queueName);
+    }
+
+    public void clickCloseTab(){
+        printInfoLog("Closing Transfer to Queue Tab");
+        click(closeTab);
     }
 }

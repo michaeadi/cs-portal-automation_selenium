@@ -6,11 +6,7 @@ import Utils.DataProviders.TicketStateDataBean;
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-
+import org.openqa.selenium.*;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -18,56 +14,57 @@ import java.util.NoSuchElementException;
 public class FilterTabPOM extends BasePage {
 
     By applyFilter = By.xpath("//button[@class=\"filter-button mat-button\"]");
-    By closeFilter=By.xpath("//span[@class='close-button']");
+    By closeFilter = By.xpath("//span[@class='close-button']");
 
     //Filter By Created date
-    By filterCreatedByLabel=By.xpath("//div[@class=\"mat-drawer-inner-container\"]//span[contains(text(),'Filter By Created Date')]");
-    By last7DaysCD=By.xpath("//mat-radio-group[@formcontrolname='days']/mat-radio-button[1]/label/div[2]/span[2]");
-    By last30DaysCD=By.xpath("//mat-radio-group[@formcontrolname='days']/mat-radio-button[2]/label/div[2]/span[2]");
-    By dateDurationCD=By.xpath("//mat-radio-group[@formcontrolname='days']/mat-radio-button[3]/label/div[2]/span[2]");
-    By startDateCD=By.xpath("//input[@formcontrolname=\"startDate\"]");
-    By endDateCD=By.xpath("//input[@formcontrolname=\"endDate\"]");
+    By filterCreatedByLabel = By.xpath("//div[@class=\"mat-drawer-inner-container\"]//span[contains(text(),'Filter By Created Date')]");
+    By filterClosureByLabel = By.xpath("//div[@class=\"mat-drawer-inner-container\"]//span[contains(text(),'Filter by Closure Date')]");
+    By last7DaysCD = By.xpath("//mat-radio-group[@formcontrolname='days']/mat-radio-button[1]/label/div[2]/span[2]");
+    By last30DaysCD = By.xpath("//mat-radio-group[@formcontrolname='days']/mat-radio-button[2]/label/div[2]/span[2]");
+    By dateDurationCD = By.xpath("//mat-radio-group[@formcontrolname='days']/mat-radio-button[3]/label/div[2]/span[2]");
+    By startDateCD = By.xpath("//input[@formcontrolname=\"startDate\"]");
+    By endDateCD = By.xpath("//input[@formcontrolname=\"endDate\"]");
 
     //Filter By SLA Date
-    By sLADueDateLabel= By.xpath("//div[@class=\"mat-drawer-inner-container\"]//span[contains(text(),'Filter By SLA Due Date')]");
-    By last7DaysSD=By.xpath("//mat-radio-group[@formcontrolname='slaDays']/mat-radio-button[1]/label/div[2]/span[2]");
-    By last30DaysSD=By.xpath("//mat-radio-group[@formcontrolname='slaDays']/mat-radio-button[2]/label/div[2]/span[2]");
-    By dateDurationSD=By.xpath("//mat-radio-group[@formcontrolname='slaDays']/mat-radio-button[3]/label/div[2]/span[2]");
-    By slaStartDate=By.xpath("//input[@formcontrolname=\"slaStartDate\"]");
-    By slaEndDate=By.xpath("//input[@formcontrolname=\"slaEndDate\"]");
+    By sLADueDateLabel = By.xpath("//div[@class=\"mat-drawer-inner-container\"]//span[contains(text(),'Filter By SLA Due Date')]");
+    By last7DaysSD = By.xpath("//mat-radio-group[@formcontrolname='slaDays']/mat-radio-button[1]/label/div[2]/span[2]");
+    By last30DaysSD = By.xpath("//mat-radio-group[@formcontrolname='slaDays']/mat-radio-button[2]/label/div[2]/span[2]");
+    By dateDurationSD = By.xpath("//mat-radio-group[@formcontrolname='slaDays']/mat-radio-button[3]/label/div[2]/span[2]");
+    By slaStartDate = By.xpath("//input[@formcontrolname=\"slaStartDate\"]");
+    By slaEndDate = By.xpath("//input[@formcontrolname=\"slaEndDate\"]");
 
     //Filter By Category
-    By categoryLabel=By.xpath("//div[@class=\"mat-drawer-inner-container\"]//span[contains(text(),'Filter By Category')]");
-    By byCode=By.xpath("//mat-label[contains(text(),'Code')]");
-    By byIssue=By.xpath("//label[@class='mat-form-field-label ng-tns-c6-98 mat-empty mat-form-field-empty ng-star-inserted']//mat-label[@class='ng-star-inserted'][contains(text(),'Issue')]");
-    By byIssueType=By.xpath("//mat-label[contains(text(),'Issue Type')]");
-    By byIssueSubType=By.xpath("//mat-label[contains(text(),'Issue sub type')]");
-    By byIssueSubSubType=By.xpath("//mat-label[contains(text(),'Issue sub sub type')]");
+    By categoryLabel = By.xpath("//div[@class=\"mat-drawer-inner-container\"]//span[contains(text(),'Filter By Category')]");
+    By byCode = By.xpath("//div[@formarrayname=\"category\"]//div[2]//div[@class=\"mat-select-value\"]");
+    By byIssue = By.xpath("//label[@class='mat-form-field-label ng-tns-c6-98 mat-empty mat-form-field-empty ng-star-inserted']//mat-label[@class='ng-star-inserted'][contains(text(),'Issue')]");
+    By byIssueType = By.xpath("//mat-label[contains(text(),'Issue Type')]");
+    By byIssueSubType = By.xpath("//mat-label[contains(text(),'Issue sub type')]");
+    By byIssueSubSubType = By.xpath("//mat-label[contains(text(),'Issue sub sub type')]");
+    By searchBox = By.xpath("//input[@placeholder=\"Search\"]");
 
     //Filter By Queue
-    By queueLabel=By.xpath("//span[contains(text(),'Filter By Queue')]");
+    By queueLabel = By.xpath("//span[contains(text(),'Filter By Queue')]");
     By showQueueFilter = By.xpath("//mat-label[contains(text(),'Select Queue')]");
-    By openQueueList = By.xpath("//div[5]//div[2]//div[1]//mat-form-field[1]//div[1]//div[1]//div[1]//mat-select[1]//div[1]//div[2]//div[1]");
+    By openQueueList = By.xpath("//app-custom-mat-select[@formcontrolname=\"selectedFilterQueue\"]");
 
     //Filter By Ticket Assignee
-    By ticketAssigneeLabel=By.xpath("//span[contains(text(),'Filter By Ticket Assignee')]");
-    By unAssigned=By.xpath("//span[contains(text(),'Unassigned')]");
-    By assigned=By.xpath("//span[contains(text(),'Assigned')]");
-    By assigneeList=By.xpath("//mat-select[@formcontrolname=\"selectedAssigneeName\"]");
+    By ticketAssigneeLabel = By.xpath("//span[contains(text(),'Filter By Ticket Assignee')]");
+    By unAssigned = By.xpath("//span[contains(text(),'Unassigned')]");
+    By assigned = By.xpath("//span[contains(text(),'Assigned')]");
+    By assigneeList = By.xpath("//mat-select[@formcontrolname=\"selectedAssigneeName\"]");
 
     //Filter By Ticket Escalated level
-    By escalatedLevelLabel=By.xpath("//span[contains(text(),'Filter By Escalated Level')]");
-    By openEscalationFilter=By.xpath("//*[@formcontrolname=\"selectedEscalatedLevel\"]/div/div[2]");
-    By level1Escalation= By.xpath("//span[contains(text(),' L1 ')]");
-    By level2Escalation= By.xpath("//span[contains(text(),' L2 ')]");
-    By level3Escalation= By.xpath("//span[contains(text(),' L3 ')]");
+    By escalatedLevelLabel = By.xpath("//span[contains(text(),'Filter By Escalated Level')]");
+    By openEscalationFilter = By.xpath("//*[@formcontrolname=\"selectedEscalatedLevel\"]/div/div[2]");
+    By level1Escalation = By.xpath("//span[contains(text(),' L1 ')]");
+    By level2Escalation = By.xpath("//span[contains(text(),' L2 ')]");
+    By level3Escalation = By.xpath("//span[contains(text(),' L3 ')]");
 
     //Filter By State
-    By stateLabel=By.xpath("//span[contains(text(),'Filter By State')]");
+    By stateLabel = By.xpath("//span[contains(text(),'Filter By State')]");
 
     //Filter By Priority
-    By priorityLabel=By.xpath("//span[contains(text(),'By Priority')]");
-
+    By priorityLabel = By.xpath("//span[contains(text(),'By Priority')]");
 
 
     public FilterTabPOM(WebDriver driver) {
@@ -82,10 +79,22 @@ public class FilterTabPOM extends BasePage {
         scrollToViewElement(showQueueFilter);
     }
 
+    public void clickLast7DaysFilter() {
+        printInfoLog("Clicking on filter by created date - Last 7 days");
+        click(last7DaysCD);
+    }
+
+    public void clickLast30DaysFilter() {
+        printInfoLog("Clicking on filter by created date - Last 30 days");
+        click(last30DaysCD);
+    }
+
 
     public void selectQueueByName(String queueName) throws InterruptedException {
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Select Queue Filter Name: "+queueName);
-        click(By.xpath("//span[contains(text(),' " + queueName + " ')]"));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Select Queue Filter Name: " + queueName);
+        By queue = By.xpath("//mat-option//span[contains(text(),'" + queueName + "')]");
+        scrollToViewElement(queue);
+        click(queue);
     }
 
     public void clickApplyFilter() {
@@ -110,25 +119,25 @@ public class FilterTabPOM extends BasePage {
         click(openEscalationFilter);
     }
 
-    public void selectAllLevel1(){
+    public void selectAllLevel1() {
         ExtentTestManager.getTest().log(LogStatus.INFO, "Selecting escalation level 1");
-        try{
-        List<WebElement> level1=driver.findElements(level1Escalation);
-        for(WebElement level:level1){
-            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", level);
-            Thread.sleep(500);
-            level.click();
-        }
+        try {
+            List<WebElement> level1 = driver.findElements(level1Escalation);
+            for (WebElement level : level1) {
+                ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", level);
+                Thread.sleep(500);
+                level.click();
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-    public void selectAllLevel2(){
+    public void selectAllLevel2() {
         ExtentTestManager.getTest().log(LogStatus.INFO, "Selecting escalation level 2");
-        try{
-            List<WebElement> level1=driver.findElements(level2Escalation);
-            for(WebElement level:level1){
+        try {
+            List<WebElement> level1 = driver.findElements(level2Escalation);
+            for (WebElement level : level1) {
                 ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", level);
                 Thread.sleep(500);
                 level.click();
@@ -138,11 +147,11 @@ public class FilterTabPOM extends BasePage {
         }
     }
 
-    public void selectAllLevel3(){
+    public void selectAllLevel3() {
         ExtentTestManager.getTest().log(LogStatus.INFO, "Selecting escalation level 3");
-        try{
-            List<WebElement> level1=driver.findElements(level3Escalation);
-            for(WebElement level:level1){
+        try {
+            List<WebElement> level1 = driver.findElements(level3Escalation);
+            for (WebElement level : level1) {
                 ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", level);
                 Thread.sleep(500);
                 level.click();
@@ -152,25 +161,30 @@ public class FilterTabPOM extends BasePage {
         }
     }
 
-    public boolean isCreatedByFilter(){
-        log.info("Is filter by created date available :"+checkState(filterCreatedByLabel));
-        ExtentTestManager.getTest().log(LogStatus.PASS,"Is filter by created date available :"+checkState(filterCreatedByLabel));
+    public boolean isCreatedByFilter() {
+        log.info("Is filter by created date available :" + checkState(filterCreatedByLabel));
+        ExtentTestManager.getTest().log(LogStatus.PASS, "Is filter by created date available :" + checkState(filterCreatedByLabel));
         return checkState(filterCreatedByLabel);
     }
 
-    public boolean isSlaDueDateFilter(){
-        log.info("Is filter by SLA due date available :"+checkState(sLADueDateLabel));
-        ExtentTestManager.getTest().log(LogStatus.PASS,"Is filter by SLA due date available :"+checkState(sLADueDateLabel));
+    public boolean isClosureByFilter() {
+        printInfoLog("Is filter by Closure date available :" + checkState(filterClosureByLabel));
+        return checkState(filterClosureByLabel);
+    }
+
+    public boolean isSlaDueDateFilter() {
+        log.info("Is filter by SLA due date available :" + checkState(sLADueDateLabel));
+        ExtentTestManager.getTest().log(LogStatus.PASS, "Is filter by SLA due date available :" + checkState(sLADueDateLabel));
         return checkState(sLADueDateLabel);
     }
 
-    public boolean isCategoryFilter(){
-        log.info("Is filter by issue category available :"+checkState(categoryLabel));
-        ExtentTestManager.getTest().log(LogStatus.PASS,"Is filter by issue category available :"+checkState(categoryLabel));
+    public boolean isCategoryFilter() {
+        log.info("Is filter by issue category available :" + checkState(categoryLabel));
+        ExtentTestManager.getTest().log(LogStatus.PASS, "Is filter by issue category available :" + checkState(categoryLabel));
         return checkState(categoryLabel);
     }
 
-    public boolean isQueueFilter(){
+    public boolean isQueueFilter() {
         try {
             log.info("Is filter by Queue available :" + checkState(queueLabel));
             ExtentTestManager.getTest().log(LogStatus.PASS, "Is filter by Queue available :" + checkState(queueLabel));
@@ -180,82 +194,115 @@ public class FilterTabPOM extends BasePage {
         }
     }
 
-    public boolean isTicketByAssigneeFilter(){
+    public boolean isTicketByAssigneeFilter() {
         try {
-            log.info("Is filter by ticket assignee name available :"+checkState(ticketAssigneeLabel));
-            ExtentTestManager.getTest().log(LogStatus.PASS,"Is filter by ticket assignee name available :"+checkState(ticketAssigneeLabel));
+            log.info("Is filter by ticket assignee name available :" + checkState(ticketAssigneeLabel));
+            ExtentTestManager.getTest().log(LogStatus.PASS, "Is filter by ticket assignee name available :" + checkState(ticketAssigneeLabel));
             return checkState(ticketAssigneeLabel);
         } catch (NoSuchElementException e) {
             return false;
         }
     }
 
-    public boolean isEscalatedLevelFilter(){
+    public boolean isEscalatedLevelFilter() {
         try {
-            log.info("Is filter by ticket escalation level available :"+checkState(escalatedLevelLabel));
-            ExtentTestManager.getTest().log(LogStatus.PASS,"Is filter by ticket escalation level available :"+checkState(escalatedLevelLabel));
+            log.info("Is filter by ticket escalation level available :" + checkState(escalatedLevelLabel));
+            ExtentTestManager.getTest().log(LogStatus.PASS, "Is filter by ticket escalation level available :" + checkState(escalatedLevelLabel));
             return checkState(escalatedLevelLabel);
         } catch (NoSuchElementException e) {
             return false;
         }
     }
 
-    public boolean isStateFilter(){
+    public boolean isStateFilter() {
         try {
-            log.info("Is filter by ticket state available :"+checkState(stateLabel));
-            ExtentTestManager.getTest().log(LogStatus.PASS,"Is filter by ticket state available :"+checkState(stateLabel));
+            log.info("Is filter by ticket state available :" + checkState(stateLabel));
+            ExtentTestManager.getTest().log(LogStatus.PASS, "Is filter by ticket state available :" + checkState(stateLabel));
             return checkState(stateLabel);
         } catch (NoSuchElementException e) {
             return false;
         }
     }
 
-    public boolean isPriorityFilter(){
+    public boolean isPriorityFilter() {
         try {
-            log.info("Is filter by ticket priority available :"+checkState(priorityLabel));
-            ExtentTestManager.getTest().log(LogStatus.PASS,"Is filter by ticket priority available :"+checkState(priorityLabel));
+            log.info("Is filter by ticket priority available :" + checkState(priorityLabel));
+            ExtentTestManager.getTest().log(LogStatus.PASS, "Is filter by ticket priority available :" + checkState(priorityLabel));
             return checkState(priorityLabel);
         } catch (NoSuchElementException e) {
             return false;
         }
     }
 
-    public boolean validateOpenStateFilter(){
-        DataProviders d=new DataProviders();
-        List<TicketStateDataBean> open=d.getState("open");
-        try{
-        for(TicketStateDataBean state:open){
-            By check=By.xpath("//span[@class='mat-checkbox-label'][contains(text(),'"+state.getTicketStateName()+"')]");
-            log.info("Filter by state name "+state.getTicketStateName()+" is: "+checkState(check));
-            ExtentTestManager.getTest().log(LogStatus.PASS,"Is filter by state name "+state.getTicketStateName()+" available: "+checkState(check));
-        }
-        return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-
-    }
-
-    public boolean validatePriorityFilter(){
-        DataProviders d=new DataProviders();
-        List<PriorityDataBean> priorityList=d.getPriority();
-        try{
-            for(PriorityDataBean state:priorityList){
-                By check=By.xpath("//span[@class='mat-checkbox-label'][contains(text(),'"+state.getTicketPriority()+"')]");
-                log.info("Filter by state name "+state.getTicketPriority()+" is: "+checkState(check));
-                ExtentTestManager.getTest().log(LogStatus.PASS,"Is filter by state name "+state.getTicketPriority()+" available: "+checkState(check));
+    public boolean validateOpenStateFilter() {
+        DataProviders d = new DataProviders();
+        List<TicketStateDataBean> open = d.getState("open");
+        Boolean flag = true;
+        for (TicketStateDataBean state : open) {
+            By check = By.xpath("//span[@class='mat-checkbox-label'][contains(text(),'" + state.getTicketStateName() + "')]");
+            try {
+                log.info("Filter by state name " + state.getTicketStateName() + " is: " + checkState(check));
+                ExtentTestManager.getTest().log(LogStatus.PASS, "Is filter by state name " + state.getTicketStateName() + " available: " + checkState(check));
+            } catch (NoSuchElementException | TimeoutException e) {
+                printFailLog("State does not mapped Correctly(Check Config): " + state.getTicketStateName() + " " + e.fillInStackTrace());
+                flag = false;
             }
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-        return false;
+        return flag;
     }
 
-    public void clickCloseFilter(){
-        log.info("Closing Filter Tab");
+
+    public boolean validateCloseStateFilter() {
+        DataProviders d = new DataProviders();
+        List<TicketStateDataBean> open = d.getState("Close");
+        Boolean flag=true;
+            for (TicketStateDataBean state : open) {
+                By check = By.xpath("//span[@class='mat-checkbox-label'][contains(text(),'" + state.getTicketStateName() + "')]");
+                try {
+                    log.info("Filter by state name " + state.getTicketStateName() + " is: " + checkState(check));
+                    printInfoLog("Is filter by state name " + state.getTicketStateName() + " available: " + checkState(check));
+                }catch (NoSuchElementException | TimeoutException e) {
+                    printFailLog("State does not mapped Correctly(Check Config): '"+state.getTicketStateName()+"' "+e.fillInStackTrace());
+                    flag=false;
+                }
+            }
+            return flag;
+        }
+
+
+    public boolean validatePriorityFilter() {
+        DataProviders d = new DataProviders();
+        List<PriorityDataBean> priorityList = d.getPriority();
+        Boolean flag=true;
+            for (PriorityDataBean state : priorityList) {
+                By check = By.xpath("//span[@class='mat-checkbox-label'][contains(text(),'" + state.getTicketPriority() + "')]");
+                try{
+                log.info("Filter by state name " + state.getTicketPriority() + " is: " + checkState(check));
+                ExtentTestManager.getTest().log(LogStatus.PASS, "Is filter by state name " + state.getTicketPriority() + " available: " + checkState(check));
+            }catch (TimeoutException | NoSuchElementException e) {
+                    printFailLog("Priority does not mapped Correctly(Check Config): '"+state.getTicketPriority()+"' "+e.fillInStackTrace());
+                    flag=false;
+                }
+        }
+        return flag;
+    }
+
+    public void clickCloseFilter() {
+        printInfoLog("Closing Filter Tab");
         click(closeFilter);
+    }
+
+    public void applyFilterByCategoryCode(String code) throws InterruptedException {
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking Code Field");
+        scrollToViewElement(byCode);
+        click(byCode);
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Searching category code: " + code);
+        writeText(searchBox, code);
+        waitTillLoaderGetsRemoved();
+        By selectCode = By.xpath("//span[@class='mat-option-text'][contains(text(),'" + code + "')]");
+        click(selectCode);
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Category Code Selected");
+        waitTillLoaderGetsRemoved();
     }
 
 

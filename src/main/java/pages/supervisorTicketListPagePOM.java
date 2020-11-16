@@ -15,35 +15,36 @@ public class supervisorTicketListPagePOM extends BasePage {
 
     @CacheLookup
     By searchTicketBox = By.xpath("//input[@type='search'][1]");
-    By searchTicketBox2=By.xpath("//span[@class='search-box small-search']//input");
-    By searchTicketBtn = By.xpath("//html//body//app-root//app-dashboard//div//app-admin-panel//div//div//app-sidenav-bar//mat-sidenav-container//mat-sidenav-content//div//app-service-request//div//app-backend-supervisor//mat-sidenav-container//mat-sidenav-content//section//div//div//div//app-ticket-search-box//span//button");
-    By ticketIdLabel = By.xpath("//div//div//div//div//div//div//div//div//div//ul[1]//li[1]//span[1]");
-    By ticketIdvalue = By.xpath("//ul[1]//li[1]//span[2]");
-    By workGroupName = By.xpath("//body/app-root/app-dashboard/div/app-admin-panel/div/div/app-sidenav-bar/mat-sidenav-container/mat-sidenav-content/div/app-service-request/div/app-backend-supervisor/mat-sidenav-container/mat-sidenav-content/section/div/div/div/div/div/ul[1]/li[2]/span[1]");
-    By workgroupSLA = By.xpath("//ul[1]//li[2]//span[2]");
-    By prioritylabel = By.xpath("//div//div//div//div//div//div//div//div//div//ul[1]//li[3]//span[1]");
-    By priorityValue = By.xpath("//div//div//div//div//div//div//div//div//div//ul[1]//li[3]//span[2]");
-    By stateLabel = By.xpath("//div//div//div//div//div//div//div//div//div//ul[1]//li[4]//span[1]");
-    By statevalue = By.xpath("//ul[1]//li[4]//span[2]");
-    By creationdateLabel = By.xpath("//ul[1]//li[5]//span[1]");
-    By creationdatevalue = By.xpath("//ul[1]//li[5]//span[2]");
-    By createdbyLabel = By.xpath("//li[6]//span[1]");
-    By createdbyvalue = By.xpath("//li[6]//span[2]");
-    By queueLabel = By.xpath("//li[7]//span[1]");
-    By queueValue = By.xpath("//li[7]//span[2]");
+    By searchTicketBox2 = By.xpath("//span[@class='search-box small-search']//input");
+    @CacheLookup
+    By searchTicketBtn = By.xpath("//app-ticket-search-box//button");
+    By ticketIdLabel = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\"]//ul[1]//li[1]//span[@class=\"data-title\"]");
+    By ticketIdvalue = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\"]//ul[1]//li[1]//span[@class=\"blue-clr\"]");
+    By workGroupName = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\"]//ul[1]//li[2]//span[@class=\"data-title value-clr\"]");
+    By workgroupSLA = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\"]//ul[1]//li[2]//span[2]");
+    By prioritylabel = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\"]//ul[1]//li[3]//span[1]");
+    By priorityValue = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\"]//ul[1]//li[3]//span[2]");
+    By stateLabel = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\"]//ul[1]//li[4]//span[1]");
+    By statevalue = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\"]//ul[1]//li[4]//span[2]");
+    By creationdateLabel = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\"]//ul[1]//li[5]//span[1]");
+    By creationdatevalue = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\"]//ul[1]//li[5]//span[2]");
+    By createdbyLabel = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\"]//ul[1]//li[6]//span[1]");
+    By createdbyvalue = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\"]//ul[1]//li[6]//span[2]");
+    By queueLabel = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\"]//ul[1]//li[7]//span[1]");
     By listQueueValue = By.xpath("//ul/li[7]/span[2]");
-    By issueLabel = By.xpath("//ul[2]//li[1]//span[1]");
-    By issueValue = By.xpath("//ul[2]//li[1]//span[2]");
-    By issueTypeLabel = By.xpath("//ul[2]//li[2]//span[1]");
-    By issueTypeValue = By.xpath("//ul[2]//li[2]//span[2]");
-    By subTypeLabel = By.xpath("//ul[2]//li[3]//span[1]");
-    By subTypeValue = By.xpath("//ul[2]//li[3]//span[2]");
-    By subSubTypeLabel = By.xpath("//ul[2]//li[4]//span[1]");
-    By subSubTypeValue = By.xpath("//ul[2]//li[4]//span[2]");
-    By codeLabel = By.xpath("//ul[2]//li[5]//span[1]");
-    By codeValue = By.xpath("//ul[2]//li[5]//span[2]");
+    By queueValue = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\"]//ul[1]//li[7]//span[2]");
+    By issueLabel = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\"]//ul[2]//li[1]//span[1]");
+    By issueValue = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\"]//ul[2]//li[1]//span[2]");
+    By issueTypeLabel = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\"]//ul[2]//li[2]//span[1]");
+    By issueTypeValue = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\"]//ul[2]//li[2]//span[2]");
+    By subTypeLabel = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\"]//ul[2]//li[3]//span[1]");
+    By subTypeValue = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\"]//ul[2]//li[3]//span[2]");
+    By subSubTypeLabel = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\"]//ul[2]//li[4]//span[1]");
+    By subSubTypeValue = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\"]//ul[2]//li[4]//span[2]");
+    By codeLabel = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\"]//ul[2]//li[5]//span[1]");
+    By codeValue = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\"]//ul[2]//li[5]//span[2]");
     By assignedto = By.xpath("//body//p//span[1]");
-    By checkBox = By.xpath("//*[@id=\"style-3\"]/app-sidenav-bar/mat-sidenav-container/mat-sidenav-content/div/app-service-request/div/app-backend-supervisor/mat-sidenav-container/mat-sidenav-content/section/div[2]/div[1]/div/div[1]/input");
+    By checkBox = By.xpath("//app-ticket-list//div[1]//div[1]//div[1]//input[@class=\"supercheck\"]");
     By assignToagentBtn = By.xpath("//li[1]//button[1]");
     By transfertoQueueBtn = By.xpath("//li[2]//button[1]");
     By loggedInQueue = By.xpath("//span[contains(text(),'Login with Ticket Pool')]");
@@ -53,16 +54,18 @@ public class supervisorTicketListPagePOM extends BasePage {
     By selectFilterBtn = By.xpath("//span[contains(text(),'Select Filter')]");
     By pageRefreshBtn = By.xpath("//span[contains(text(),'Refresh ')]");
     By noResultFound = By.xpath("//body//mat-error//p[1]");
-    By resetFilterButton = By.xpath("//body/app-root/app-dashboard/div/app-admin-panel/div/div/app-sidenav-bar/mat-sidenav-container/mat-sidenav-content/div/app-service-request/div/app-backend-supervisor/mat-sidenav-container/mat-sidenav-content/section/div/div/button[1]");
+    By resetFilterButton = By.xpath("//div[@class='clear-filter-btn']//button");
     By reOpenBtn = By.xpath("//li[1]//button[1]");
     By reOpenBox = By.xpath("//*[@placeholder=\"Leave a comment\"]");
     By submitReopenComment = By.className("sbt-btn");
+    By closeReopenCommentBox=By.xpath("//button[@class=\"close-btn\"]");
     By redDot = By.xpath("//span[@class='reddot ng-star-inserted']");
     By greenDot = By.xpath("//span[@class='greendot ng-star-inserted']");
     By assigneeAUUID = By.xpath("//div[@class='service-request']//div[1]//div[1]//div[2]//div[2]//p[1]//span[3]");
-    By allTicket = By.xpath("//div[@class=\"table-card ng-star-inserted\"]");
-    By searchOptionBtn=By.xpath("//div[@class='options']");
-    By allSearchOption=By.xpath("//ul[@class='ng-star-inserted']//li");
+    By allTicket = By.xpath("//div[@class=\"container-fluid table-card ng-star-inserted\"]");
+    By searchOptionBtn = By.xpath("//div[@class='options']");
+    By allSearchOption = By.xpath("//ul[@class='ng-star-inserted']//li");
+    By msisdn=By.xpath("//span[@class=\"td-msisdn auuid-clr\"]");
 
     public supervisorTicketListPagePOM(WebDriver driver) {
         super(driver);
@@ -82,8 +85,6 @@ public class supervisorTicketListPagePOM extends BasePage {
 
     public void clearInputBox() {
         log.info("Clear Search Box");
-//        click(searchTicketBox);
-//        clearInputTag(searchTicketBox);
         for (int i = 0; i < 12; i++) {
             driver.findElement(searchTicketBox).sendKeys(Keys.BACK_SPACE);
         }
@@ -132,50 +133,42 @@ public class supervisorTicketListPagePOM extends BasePage {
     }
 
     public boolean isCreatedbyLabel() {
-        log.info("Is Created By field Available :" + checkState(createdbyLabel));
-        ExtentTestManager.getTest().log(LogStatus.PASS, "Is Created By field Available :" + checkState(createdbyLabel));
+        printInfoLog("Is Created By field Available :" + checkState(createdbyLabel));
         return checkState(createdbyLabel);
     }
 
     public boolean isQueueLabel() {
-        log.info("Is Queue field Available :" + checkState(queueLabel));
-        ExtentTestManager.getTest().log(LogStatus.PASS, "Is Queue field Available :" + checkState(queueLabel));
+        printInfoLog("Is Queue field Available :" + checkState(queueLabel));
         return checkState(queueLabel);
     }
 
     public boolean isIssueLabel() {
-        log.info("Is Issue label Field Available :" + checkState(issueLabel));
-        ExtentTestManager.getTest().log(LogStatus.PASS, "Is Issue Label field Available :" + checkState(prioritylabel));
+        printInfoLog("Is Issue Label field Available :" + checkState(prioritylabel));
         return checkState(issueLabel);
     }
 
     public boolean isIssueTypeLabel() {
-        log.info("Is Issue Type field Available :" + checkState(issueTypeLabel));
-        ExtentTestManager.getTest().log(LogStatus.PASS, "Is Priority field Available :" + checkState(prioritylabel));
+        printInfoLog("Is Priority field Available :" + checkState(prioritylabel));
         return checkState(issueTypeLabel);
     }
 
     public boolean isSubTypeLabel() {
-        log.info("Is Issue Sub Type field Available :" + checkState(subTypeLabel));
-        ExtentTestManager.getTest().log(LogStatus.PASS, "Is Issue Type field Available :" + checkState(issueTypeLabel));
+        printInfoLog("Is Issue Type field Available :" + checkState(issueTypeLabel));
         return checkState(subTypeLabel);
     }
 
     public boolean isSubSubTypeLabel() {
-        log.info("Is Issue Sub Sub Type field Available :" + checkState(subSubTypeLabel));
-        ExtentTestManager.getTest().log(LogStatus.PASS, "Is Issue Sub Sub Type field Available :" + checkState(subSubTypeLabel));
+        printInfoLog("Is Issue Sub Sub Type field Available :" + checkState(subSubTypeLabel));
         return checkState(subSubTypeLabel);
     }
 
     public boolean isCodeLabel() {
-        log.info("Is Code field Available :" + checkState(codeLabel));
-        ExtentTestManager.getTest().log(LogStatus.PASS, "Is Code field Available :" + checkState(codeLabel));
+        printInfoLog("Is Code field Available :" + checkState(codeLabel));
         return checkState(codeLabel);
     }
 
     public String getTicketIdvalue() {
-        log.info("Ticket Id: " + readText(ticketIdvalue));
-        ExtentTestManager.getTest().log(LogStatus.PASS, "Ticket Id: " + readText(ticketIdvalue));
+        printInfoLog("Ticket Id: " + readText(ticketIdvalue));
         return readText(ticketIdvalue);
     }
 
@@ -265,7 +258,7 @@ public class supervisorTicketListPagePOM extends BasePage {
 
 
     public void changeTicketTypeToClosed() {
-        log.info("Switch Ticket State Type to closed");
+        printInfoLog("Switch Ticket State Type to closed");
         click(selectTicketType);
         click(closedTicketType);
     }
@@ -289,25 +282,27 @@ public class supervisorTicketListPagePOM extends BasePage {
     }
 
 
-    public void clickFilter() {
+    public FilterTabPOM clickFilter() {
         log.info("Selecting Filter");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Selecting Filter");
         click(selectFilterBtn);
+        return new FilterTabPOM(driver);
     }
 
     public void resetFilter() {
         log.info("Removing Filter");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Removing Filter");
         click(resetFilterButton);
+        waitTillLoaderGetsRemoved();
     }
 
     public boolean validateQueueFilter(String text) {
         ExtentTestManager.getTest().log(LogStatus.INFO, "Validating Queue Filter");
-        boolean answer=false;
-        for(int i=1;i<getListSize();i++){
-            By queue=By.xpath("//div[@class=\"table-card ng-star-inserted\"]["+i+"]//ul/li[7]/span[2]");
-            log.info(readText(queue).trim()+" : "+text+" :"+readText(queue).trim().equalsIgnoreCase(text));
-            answer=readText(queue).trim().equalsIgnoreCase(text);
+        boolean answer = false;
+        for (int i = 1; i <= getListSize(); i++) {
+            By queue = By.xpath("//div[@class=\"container-fluid table-card ng-star-inserted\"][" + i + "]//ul/li[7]/span[2]");
+            printInfoLog(readText(queue).trim() + " : " + text + " :" + readText(queue).trim().equalsIgnoreCase(text));
+            answer = readText(queue).trim().equalsIgnoreCase(text);
         }
         return answer;
     }
@@ -326,6 +321,11 @@ public class supervisorTicketListPagePOM extends BasePage {
     public void submitReopenReq() {
         ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Submit Button");
         click(submitReopenComment);
+    }
+
+    public void closedReopenBox() {
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on closing reopen comment box Button");
+        click(closeReopenCommentBox);
     }
 
     public boolean isReopenBtn() {
@@ -387,35 +387,41 @@ public class supervisorTicketListPagePOM extends BasePage {
         return ticketList;
     }
 
-    public int getListSize(){
+    public int getListSize() {
         List<WebElement> list = driver.findElements(allTicket);
-        log.info("Size: "+list.size());
+        log.info("Size: " + list.size());
         return list.size();
     }
 
     public String getSymbol(int i) {
-        By ticket = By.xpath("//div[@class=\"table-card ng-star-inserted\"][" + i + "]//ul[1]//li[1]//span[2]");
-        By symbol = By.xpath("//div[@class=\"table-card ng-star-inserted\"][" + i + "]//span[@class=\"escalation\"]");
-        log.info(readText(symbol)+": Escalation symbol found on ticket Id: " + readText(ticket).trim());
-        ExtentTestManager.getTest().log(LogStatus.INFO, readText(symbol)+": Escalation symbol found on ticket Id: " + readText(ticket).trim());
+        By ticket = By.xpath("//div[@class=\"container-fluid table-card ng-star-inserted\"][" + i + "]//ul[1]//li[1]//span[2]");
+        By symbol = By.xpath("//div[@class=\"container-fluid table-card ng-star-inserted\"][" + i + "]//span[@class=\"escalation\"]");
+        log.info(readText(symbol) + ": Escalation symbol found on ticket Id: " + readText(ticket).trim());
+        ExtentTestManager.getTest().log(LogStatus.INFO, readText(symbol) + ": Escalation symbol found on ticket Id: " + readText(ticket).trim());
         return readText(symbol).trim();
     }
 
-    public void clickTicketOption(){
+    public void clickTicketOption() {
         log.info("Click on Ticket Icon to get list of option");
         click(searchOptionBtn);
     }
 
-    public List<String> getListOfSearchOption(){
+    public List<String> getListOfSearchOption() {
         log.info("Getting Search Option");
-        List<WebElement> list=driver.findElements(allSearchOption);
-        List<String> searchOption=new ArrayList<>();
-        for(int i=1;i<=list.size();i++){
-            By search=By.xpath("//ul[@class='ng-star-inserted']//li["+i+"]");
-            log.info("Options Available : "+readText(search));
+        List<WebElement> list = driver.findElements(allSearchOption);
+        List<String> searchOption = new ArrayList<>();
+        for (int i = 1; i <= list.size(); i++) {
+            By search = By.xpath("//ul[@class='ng-star-inserted']//li[" + i + "]");
+            log.info("Options Available : " + readText(search));
+            ExtentTestManager.getTest().log(LogStatus.INFO, "Options Available : " + readText(search));
             searchOption.add(readText(search).trim());
         }
         return searchOption;
+    }
+
+    public String getMSISDN(){
+        printInfoLog("Reading MSISDN: "+readText(msisdn));
+        return readText(msisdn);
     }
 
 

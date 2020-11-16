@@ -6,7 +6,6 @@ import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.testng.Assert;
 
 import java.util.List;
 
@@ -23,6 +22,8 @@ public class assignToAgentPOM extends BasePage {
     By availableSlot = By.xpath("//*[@id=\"assignTicket\"]/app-assign-to-agents/section/div/div[2]/div[1]/div[3]/p/span");
     By assignedSlot = By.xpath("//*[@id=\"assignTicket\"]/app-assign-to-agents/section/div/div[2]/div[1]/div[3]/p/text()");
     By infoMessage = By.xpath("//*[@id=\"assignTicket\"]/app-assign-to-agents/section/div/div[1]/hr");
+    By closeTab= By.xpath("//button[@class=\"mat-button\"]//span[contains(text(),'X')]");
+
     public assignToAgentPOM(WebDriver driver) {
         super(driver);
     }
@@ -40,13 +41,13 @@ public class assignToAgentPOM extends BasePage {
 
     public String getAgentName() {
         log.info("Agent Name: " + readText(agentName));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Assigning Ticket to Agent Name: "+readText(agentName));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Assigning Ticket to Agent Name: " + readText(agentName));
         return readText(agentName);
     }
 
     public String getAgentAuuid() {
         log.info("Agent AUUID: " + readText(agentAuuid));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Assigning Ticket to Agent AUUID: "+readText(agentAuuid));
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Assigning Ticket to Agent AUUID: " + readText(agentAuuid));
         return readText(agentAuuid);
     }
 
@@ -60,13 +61,10 @@ public class assignToAgentPOM extends BasePage {
         return readText(assignedSlot);
     }
 
-//    public void ClickedAssignBtn() {
-//        log.info("Clicking on Assign Button");
-//        if (getAvailableSlot() > 0) {
-//            ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Assign Button");
-//            click(assignBtn);
-//        }
-//    }
+    public void closeAssignTab() {
+        printInfoLog("Clicking on Close Assign Button");
+        click(closeTab);
+    }
 
     public String getInfoMessage() {
         log.info("Reading Info Message: " + readText(infoMessage));
@@ -75,13 +73,13 @@ public class assignToAgentPOM extends BasePage {
 
     public String ticketAssignedToAgent(String assigneeAUUID) throws InterruptedException {
         int slot;
-        By list=By.xpath("//div[@class=\"pannel-content-area ng-star-inserted\"]/div");
-        List<WebElement> agentList=driver.findElements(list);
-        for(int i=1;i<=agentList.size();i++) {
+        By list = By.xpath("//div[@class=\"pannel-content-area ng-star-inserted\"]/div");
+        List<WebElement> agentList = driver.findElements(list);
+        for (int i = 1; i <= agentList.size(); i++) {
             By agentAUUID = By.xpath("//div[@class=\"pannel-content-area ng-star-inserted\"]/div[" + i + "]//span[@class=\"auuid yellow\"]");
-            String auuid=readText(agentAUUID);
-            System.out.println("Agent AUUID: "+readText(agentAUUID));
-            System.out.println("Check state: "+readText(agentAUUID).contains(assigneeAUUID));
+            String auuid = readText(agentAUUID);
+            System.out.println("Agent AUUID: " + readText(agentAUUID));
+            System.out.println("Check state: " + readText(agentAUUID).contains(assigneeAUUID));
             if (!readText(agentAUUID).contains(assigneeAUUID)) {
                 By allSlot = By.xpath("//div[@class=\"pannel-content-area ng-star-inserted\"]/div[" + i + "]//span[@class=\"slot-count orange\"]");
                 System.out.println(readText(allSlot));

@@ -11,6 +11,7 @@ import pages.SideMenuPOM;
 import pages.customerInteractionPagePOM;
 import pages.customerInteractionsSearchPOM;
 import pages.viewHistoryPOM;
+
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -20,7 +21,7 @@ public class PinTagTest extends BaseTest {
 
     @DataProviders.User(UserType = "NFTR")
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
-    public void openCustomerInteraction(TestDatabean Data) {
+    public void openCustomerInteraction(TestDatabean Data) throws InterruptedException {
         ExtentTestManager.startTest("Validating the Search forCustomer Interactions :" + Data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + Data.getCustomerNumber());
         SoftAssert softAssert = new SoftAssert();
         SideMenuPOM SideMenuPOM = new SideMenuPOM(driver);
@@ -83,12 +84,12 @@ public class PinTagTest extends BaseTest {
                 viewHistory.clickOnInteractionsTab();
                 String issueCode = viewHistory.getLastCreatedIssueCode();
                 softAssert.assertEquals(issueCode.toLowerCase().trim(), Data.getIssueCode().trim().toLowerCase());
-            }else{
-                softAssert.fail(Data.getTagName()+" Does not display on UI");
+            } else {
+                softAssert.fail(Data.getTagName() + " Does not display on UI");
             }
         } catch (NoSuchElementException e) {
             ExtentTestManager.getTest().log(LogStatus.FAIL, Data.getTagName() + " tag does not display on UI but present in config sheet.");
-            softAssert.fail(Data.getTagName() + " tag does not display on UI but present in config sheet.\n"+e.fillInStackTrace());
+            softAssert.fail(Data.getTagName() + " tag does not display on UI but present in config sheet.\n" + e.fillInStackTrace());
             e.printStackTrace();
         }
         softAssert.assertAll();

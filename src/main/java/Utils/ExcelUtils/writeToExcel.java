@@ -15,6 +15,7 @@ public class writeToExcel {
 
     public void writeTicketNumber(String filePath, String sheetName, String[] dataToWrite, int rowNum) throws IOException {
 
+        System.out.println("");
         File file = new File(filePath);
 
         FileInputStream inputStream = new FileInputStream(file);
@@ -32,7 +33,7 @@ public class writeToExcel {
 //        System.out.println(row.getRowNum());
 
         Cell cell;
-        int ticketRow = 27;
+        int ticketRow = 58;
         try {
             cell = row.getCell(ticketRow);
             cell.setCellValue(dataToWrite[0]);

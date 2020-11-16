@@ -41,6 +41,7 @@ public class SupervisorLoginTest extends BaseTest {
         ExtentTestManager.startTest("Supervisor SKIP Queue Login Test", "Supervisor SKIP Queue Login");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SideMenuPOM sideMenu = new SideMenuPOM(driver);
+        sideMenu.waitTillLoaderGetsRemoved();
         sideMenu.clickOnSideMenu();
         sideMenu.clickOnName();
         agentLoginPagePOM AgentLoginPagePOM = sideMenu.openSupervisorDashboard();
@@ -60,6 +61,7 @@ public class SupervisorLoginTest extends BaseTest {
         ExtentTestManager.startTest("Supervisor Logging into Queue", "Supervisor Logging into Queue");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SideMenuPOM sideMenu = new SideMenuPOM(driver);
+        sideMenu.waitTillLoaderGetsRemoved();
         sideMenu.clickOnSideMenu();
         sideMenu.clickOnName();
         agentLoginPagePOM AgentLoginPagePOM = sideMenu.openSupervisorDashboard();
@@ -77,7 +79,7 @@ public class SupervisorLoginTest extends BaseTest {
     }
 
     @Test(priority = 4, description = "Verify there are 2 options displayed to select from in the Search Dropdown : 1) Ticket Id & 2) MSISDN", dataProviderClass = DataProviders.class)
-    public void validateCheckBox(Method method) {
+    public void validateTicketSearchOptions(Method method) {
         ExtentTestManager.startTest("Validate Search Ticket Option", "Verify there are 2 options displayed to select from in the Search Dropdown : 1) Ticket Id & 2) MSISDN");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);

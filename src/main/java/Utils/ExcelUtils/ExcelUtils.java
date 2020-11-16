@@ -10,7 +10,7 @@ public class ExcelUtils {
     static XSSFWorkbook workbook;
     static XSSFSheet Sheet;
 
-    public ExcelUtils (String excelpath, String sheetname) {
+    public ExcelUtils(String excelpath, String sheetname) {
         try {
             workbook = new XSSFWorkbook(excelpath);
             Sheet = workbook.getSheet(sheetname);
@@ -43,8 +43,8 @@ public class ExcelUtils {
     }
 
     public static String getcelldataNumber(int rownum, int colnum) {
-        Cell          cell1         = Sheet.getRow(rownum).getCell(colnum);
-        DataFormatter dataFormatter = new DataFormatter ();
+        Cell cell1 = Sheet.getRow(rownum).getCell(colnum);
+        DataFormatter dataFormatter = new DataFormatter();
         return dataFormatter.formatCellValue(cell1);
 
     }

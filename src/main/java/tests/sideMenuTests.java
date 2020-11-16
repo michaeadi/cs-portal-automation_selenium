@@ -22,10 +22,12 @@ public class sideMenuTests extends BaseTest {
 //            softAssert.assertTrue(SideMenuPOM.isCaseManagementVisible());
             softAssert.assertTrue(SideMenuPOM.isUserManagementVisible());
             softAssert.assertTrue(SideMenuPOM.isProfileManagementVisible());
+            softAssert.assertTrue(SideMenuPOM.isTemplateManagementVisible());
             SideMenuPOM.clickOnName();
 //        SideMenuPOM.clickOnSideMenu();
             softAssert.assertTrue(SideMenuPOM.isCustomerInteractionVisible());
             softAssert.assertTrue(SideMenuPOM.isSupervisorDashboardVisible());
+            softAssert.assertTrue(SideMenuPOM.isTicketBulkUpdateVisible());
         } catch (NotFoundException | TimeoutException e) {
             softAssert.fail("Side Menu Failed");
         } finally {

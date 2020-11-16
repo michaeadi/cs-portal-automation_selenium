@@ -10,7 +10,16 @@ import lombok.ToString;
 @ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class apiErrors {
-    String lastRecharge;
-    String mainAccountBalance;
-
+    private String lastRecharge;
+    private String mainAccountBalance;
+    private String appStatus;
+    private String airtelMoneyStatus;
+    private String sim;
+    private String segment;
+    private String subSegment;
+    private String lineType;
+    private String puk;
+    private String activationDate;
+    private String serviceCategory;
+    private String status;
 }

@@ -126,18 +126,111 @@ public class nftrDataExcelToBeanDao {
                                 nftrDataBeans.setIssueFieldMandatory6(cellValue);
                                 break;
                             case 23:
-                                nftrDataBeans.setWorkgroup(cellValue);
+                                nftrDataBeans.setIssueFieldLabel7(cellValue);
                                 break;
                             case 24:
-                                nftrDataBeans.setSLA(cellValue);
+                                nftrDataBeans.setIssueFieldType7(cellValue);
                                 break;
                             case 25:
-                                nftrDataBeans.setAssignmentQueue(cellValue);
+                                nftrDataBeans.setIssueFieldMandatory7(cellValue);
                                 break;
                             case 26:
-                                nftrDataBeans.setPriority(cellValue);
+                                nftrDataBeans.setTicketFieldLabel1(cellValue);
                                 break;
                             case 27:
+                                nftrDataBeans.setTicketFieldType1(cellValue);
+                                break;
+                            case 28:
+                                nftrDataBeans.setTicketFieldMandatory1(cellValue);
+                                break;
+                            case 29:
+                                nftrDataBeans.setTicketFieldLabel2(cellValue);
+                                break;
+                            case 30:
+                                nftrDataBeans.setTicketFieldType2(cellValue);
+                                break;
+                            case 31:
+                                nftrDataBeans.setTicketFieldMandatory2(cellValue);
+                                break;
+                            case 32:
+                                nftrDataBeans.setTicketFieldLabel3(cellValue);
+                                break;
+                            case 33:
+                                nftrDataBeans.setTicketFieldType3(cellValue);
+                                break;
+                            case 34:
+                                nftrDataBeans.setTicketFieldMandatory3(cellValue);
+                                break;
+                            case 35:
+                                nftrDataBeans.setTicketFieldLabel4(cellValue);
+                                break;
+                            case 36:
+                                nftrDataBeans.setTicketFieldType4(cellValue);
+                                break;
+                            case 37:
+                                nftrDataBeans.setTicketFieldMandatory4(cellValue);
+                                break;
+                            case 38:
+                                nftrDataBeans.setTicketFieldLabel5(cellValue);
+                                break;
+                            case 39:
+                                nftrDataBeans.setTicketFieldType5(cellValue);
+                                break;
+                            case 40:
+                                nftrDataBeans.setTicketFieldMandatory5(cellValue);
+                                break;
+                            case 41:
+                                nftrDataBeans.setTicketFieldLabel6(cellValue);
+                                break;
+                            case 42:
+                                nftrDataBeans.setTicketFieldType6(cellValue);
+                                break;
+                            case 43:
+                                nftrDataBeans.setTicketFieldMandatory6(cellValue);
+                                break;
+                            case 44:
+                                nftrDataBeans.setTicketFieldLabel7(cellValue);
+                                break;
+                            case 45:
+                                nftrDataBeans.setTicketFieldType7(cellValue);
+                                break;
+                            case 46:
+                                nftrDataBeans.setTicketFieldMandatory7(cellValue);
+                                break;
+                            case 47:
+                                nftrDataBeans.setWorkgroup1(cellValue);
+                                break;
+                            case 48:
+                                nftrDataBeans.setSLA1(cellValue);
+                                break;
+                            case 49:
+                                nftrDataBeans.setWorkgroup2(cellValue);
+                                break;
+                            case 50:
+                                nftrDataBeans.setSLA2(cellValue);
+                                break;
+                            case 51:
+                                nftrDataBeans.setWorkgroup3(cellValue);
+                                break;
+                            case 52:
+                                nftrDataBeans.setSLA3(cellValue);
+                                break;
+                            case 53:
+                                nftrDataBeans.setWorkgroup4(cellValue);
+                                break;
+                            case 54:
+                                nftrDataBeans.setSLA4(cellValue);
+                                break;
+                            case 55:
+                                nftrDataBeans.setCommittedSLA(cellValue);
+                                break;
+                            case 56:
+                                nftrDataBeans.setAssignmentQueue(cellValue);
+                                break;
+                            case 57:
+                                nftrDataBeans.setPriority(cellValue);
+                                break;
+                            case 58:
                                 nftrDataBeans.setTicketNumber(cellValue);
                                 break;
 

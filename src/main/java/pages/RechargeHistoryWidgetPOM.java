@@ -12,7 +12,7 @@ import java.util.List;
 @Log4j2
 public class RechargeHistoryWidgetPOM extends BasePage {
 
-    By rechargeHistoryDatePicker = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Recharge History\")]//following-sibling::form//child::input[@name=\"dateRange\"]");
+    By rechargeHistoryDatePicker = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Recharge History\")]//parent::div//form/span/input");
     By rechargeHistoryHeader = By.xpath("//span[@class=\"card__card-header--label\" and text()=\"Recharge History \"]");
     By rows = By.xpath("//div[@class=\"card__card-header\"]/span[contains(text(),\"Recharge\")]//parent::div//following-sibling::div[@class=\"card__content restricted ng-star-inserted\"]//div[@class=\"card__card-header--card-body--table--data-list ng-star-inserted\"]");
     List<WebElement> as = driver.findElements(rows);
@@ -26,8 +26,11 @@ public class RechargeHistoryWidgetPOM extends BasePage {
     By rechargeHistoryNoResultFound = By.xpath("//span[contains(text(),\"Recharge History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]");
     By rechargeHistoryNoResultFoundMessage = By.xpath("//span[contains(text(),\"Recharge History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]/span/span");
     By rechargeHistoryError = By.xpath("//span[contains(text(),\"Recharge History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"widget-error apiMsgBlock ng-star-inserted\"][1]");
-    By ticketIcon=By.xpath("//span[contains(text(),'Recharge History')]//span[@class=\"card__card-header--icon ng-star-inserted\"]");
-    By getTitle=By.xpath("//span[contains(text(),'Recharge History')]");
+    By ticketIcon = By.xpath("//span[contains(text(),'Recharge History')]//span[@class=\"card__card-header--icon ng-star-inserted\"]");
+    By getTitle = By.xpath("//span[contains(text(),'Recharge History')]");
+    By voucherBox = By.xpath("//input[@placeholder=\"Voucher ID\"]");
+    By voucherBtn = By.xpath("//input[@placeholder=\"Voucher ID\"]//parent::span//button");
+
     public RechargeHistoryWidgetPOM(WebDriver driver) {
         super(driver);
     }
@@ -39,9 +42,16 @@ public class RechargeHistoryWidgetPOM extends BasePage {
     }
 
     public String getHeaders(int row) {
-        String header = readText(By.xpath("//span[contains(text(),\"Recharge History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"card__card-header--card-body--table--list-heading\"]/div[" + row + "]"));
+        String header = readText(By.xpath("//span[contains(text(),\"Recharge History\")]//ancestor::div[2]//div[@class=\"card__card-header--card-body--table--list-heading ng-star-inserted\"]/div["+row+"]/span[1]"));
         log.info("Getting header Number " + row + " : " + header);
         ExtentTestManager.getTest().log(LogStatus.INFO, "Getting header Number " + row + " : " + header);
+        return header;
+    }
+
+    public String getSubHeaders(int row) {
+        String header = readText(By.xpath("//span[contains(text(),\"Recharge History\")]//ancestor::div[2]//div[@class=\"card__card-header--card-body--table--list-heading ng-star-inserted\"]/div["+row+"]/span[2]"));
+        log.info("Getting Sub header Number " + row + " : " + header);
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Sub Header Number " + row + " : " + header);
         return header;
     }
 
@@ -134,15 +144,27 @@ public class RechargeHistoryWidgetPOM extends BasePage {
         return checkState(rechargeHistoryDatePicker);
     }
 
-    public WidgetInteractionPOM clickTicketIcon(){
+    public WidgetInteractionPOM clickTicketIcon() {
         log.info("Clicking on Ticket Icon");
-        ExtentTestManager.getTest().log(LogStatus.INFO,"Clicking on Ticket Icon");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Ticket Icon");
         click(ticketIcon);
         return new WidgetInteractionPOM(driver);
     }
 
-    public String getWidgetTitle(){
-        log.info("Getting Widget title: "+readText(getTitle));
+    public String getWidgetTitle() {
+        log.info("Getting Widget title: " + readText(getTitle));
         return readText(getTitle).toLowerCase();
+    }
+
+    public void writeVoucherId(String id) throws InterruptedException {
+        printInfoLog("Writing voucher id in search box: " + id);
+        scrollToViewElement(voucherBox);
+        writeText(voucherBox, id);
+    }
+
+    public VoucherTabPOM clickSearchBtn() {
+        printInfoLog("Clicking Search Button");
+        click(voucherBtn);
+        return new VoucherTabPOM(driver);
     }
 }
