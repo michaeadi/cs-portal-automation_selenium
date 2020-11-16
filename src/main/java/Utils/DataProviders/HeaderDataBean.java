@@ -16,5 +16,7 @@ public class HeaderDataBean {
     String Row6;
     String Row7;
     String Row8;
+    String Row9;
+    String Row10;
 
 }

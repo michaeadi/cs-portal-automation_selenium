@@ -3,6 +3,7 @@ package tests;
 import API.APITest;
 import POJO.AccountsBalancePOJO;
 import POJO.BundleRechargeHistoryPOJO;
+import POJO.RechargeHistoryPOJO;
 import POJO.UsageHistoryPOJO;
 import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.HeaderDataBean;
@@ -165,50 +166,55 @@ public class widgetsOptionsTest extends BaseTest {
 //        softAssert.assertAll();
 //    }
 //
-//    @Table(Name = "Bundle Subscription History")
-//    @Test(priority = 5, description = "Validating Recharge History's  Menu", dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
-//    public void rechargeHistoryMenuTest(HeaderDataBean Data) {
-//        ExtentTestManager.startTest("Validating Recharge History's  Menu", "Validating Recharge History's  Menu of User :" + customerNumber);
-//        RechargeHistoryWidgetPOM rechargeHistory = new RechargeHistoryWidgetPOM(driver);
-//        SoftAssert softAssert = new SoftAssert();
-//        softAssert.assertTrue(rechargeHistory.isRechargeHistoryWidgetMenuVisible(), "Usage History's MENU is not visible ");
-//        rechargeHistory.clickingRechargeHistoryWidgetMenu();
-//        softAssert.assertTrue(rechargeHistory.isRechargeHistoryMenuVisible(), "More Option in  MENU is not visible ");
-//        MoreRechargeHistoryPOM moreRechargeHistory = rechargeHistory.openingRechargeHistoryDetails();
-//        softAssert.assertTrue(moreRechargeHistory.isDatePickerVisible(), "Date picker is not visible ");
-//
-//
-//        BundleRechargeHistoryPOJO bundleRechargeHistoryAPI = api.bundleRechargeHistoryAPITest(customerNumber);
-//        int size = moreRechargeHistory.getNumbersOfRows();
-//        softAssert.assertEquals(moreRechargeHistory.getHeaders(1).toLowerCase().trim(), Data.getRow1().toLowerCase().trim(), "Header Name for Row 1 is not as expected");
-//        softAssert.assertEquals(moreRechargeHistory.getHeaders(2).toLowerCase().trim(), Data.getRow2().toLowerCase().trim(), "Header Name for Row 2 is not as expected");
-//        softAssert.assertEquals(moreRechargeHistory.getHeaders(3).toLowerCase().trim(), Data.getRow3().toLowerCase().trim(), "Header Name for Row 3 is not as expected");
-//        softAssert.assertEquals(moreRechargeHistory.getHeaders(4).toLowerCase().trim(), Data.getRow4().toLowerCase().trim(), "Header Name for Row 4 is not as expected");
-//        softAssert.assertEquals(moreRechargeHistory.getHeaders(5).toLowerCase().trim(), Data.getRow5().toLowerCase().trim(), "Header Name for Row 5 is not as expected");
-//        softAssert.assertEquals(moreRechargeHistory.getHeaders(6).toLowerCase().trim(), Data.getRow6().toLowerCase().trim(), "Header Name for Row 6 is not as expected");
-//        softAssert.assertEquals(moreRechargeHistory.getHeaders(7).toLowerCase().trim(), Data.getRow7().toLowerCase().trim(), "Header Name for Row 7 is not as expected");
-//        softAssert.assertEquals(moreRechargeHistory.getHeaders(8).toLowerCase().trim(), Data.getRow8().toLowerCase().trim(), "Header Name for Row 8 is not as expected");
-//        if (bundleRechargeHistoryAPI.getResult().size() == 0 || bundleRechargeHistoryAPI.getResult() == null) {
-//            ExtentTestManager.getTest().log(LogStatus.WARNING, "Unable to get DATA History Details from API");
-//            softAssert.assertTrue(moreRechargeHistory.isBundleHistoryNoResultFoundVisible(), "Error Message is not Visible");
-//            softAssert.assertEquals(moreRechargeHistory.gettingBundleHistoryNoResultFoundMessage(), "No Result found", "Error Message is not as expected");
-//        } else {
-//            for (int i = 0; i < size; i++) {
-//                softAssert.assertEquals(moreRechargeHistory.getBundleName(i), bundleRechargeHistoryAPI.getResult().get(i).getBundleName(), " Bundle Name received is not as expected on row " + i);
-//                softAssert.assertEquals(moreRechargeHistory.getPackageCategory(i), bundleRechargeHistoryAPI.getResult().get(i).getPackageCategory(), "Package Category received is not as expected on row " + i);
-//                softAssert.assertEquals(moreRechargeHistory.getTransactionNumber(i), bundleRechargeHistoryAPI.getResult().get(i).getTxnNumber(), "Bundle Transaction number received is not as expected on row " + i);
-//                softAssert.assertEquals(moreRechargeHistory.getStatus(i).toLowerCase(), bundleRechargeHistoryAPI.getResult().get(i).getStatus().toLowerCase(), "Bundle Status received is not as expected on row " + i);
-//                softAssert.assertEquals(moreRechargeHistory.getSubscriptionDateTime(i), (moreRechargeHistory.getDateFromEpoch(Long.parseLong(bundleRechargeHistoryAPI.getResult().get(i).getSubscriptionDateTime()), "dd-MMM-yyyy HH:mm")), "Bundle Subscription Date & Time received is not as expected on row " + i);
-//                softAssert.assertEquals(moreRechargeHistory.getExpiresOn(i), (moreRechargeHistory.getDateFromEpoch(Long.parseLong(bundleRechargeHistoryAPI.getResult().get(i).getExpiresOn()), "dd-MMM-yyyy HH:mm")), "Bundle Expiry Date & Time received is not as expected on row " + i);
-//                softAssert.assertEquals(moreRechargeHistory.getValidity(i), bundleRechargeHistoryAPI.getResult().get(i).getValidity(), "Bundle Validity received is not as expected on row " + i);
-//                softAssert.assertEquals(moreRechargeHistory.getBundlePrice(i), bundleRechargeHistoryAPI.getResult().get(i).getBundlePrice(), "Bundle Price received is not as expected on row " + i);
-//                if (i != 0) {
-//                    softAssert.assertTrue(moreRechargeHistory.isSortOrderDisplay(moreRechargeHistory.getSubscriptionDateTime(i), moreRechargeHistory.getSubscriptionDateTime(i - 1), "dd-MMM-yyy HH:mm"), moreRechargeHistory.getSubscriptionDateTime(i) + "should not display before " + moreRechargeHistory.getSubscriptionDateTime(i - 1));
-//                }
-//            }
-//        }
-//        moreRechargeHistory.openingCustomerInteractionDashboard();
-//        softAssert.assertAll();
-//    }
+    @Table(Name = "More Recharge History")
+    @Test(priority = 5, description = "Validating Recharge History's  Menu", dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
+    public void rechargeHistoryMenuTest(HeaderDataBean Data) {
+        ExtentTestManager.startTest("Validating Recharge History's  Menu", "Validating Recharge History's  Menu of User :" + customerNumber);
+        RechargeHistoryWidgetPOM rechargeHistory = new RechargeHistoryWidgetPOM(driver);
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(rechargeHistory.isRechargeHistoryWidgetMenuVisible(), "Usage History's MENU is not visible ");
+        rechargeHistory.clickingRechargeHistoryWidgetMenu();
+        softAssert.assertTrue(rechargeHistory.isRechargeHistoryMenuVisible(), "More Option in  MENU is not visible ");
+        MoreRechargeHistoryPOM moreRechargeHistory = rechargeHistory.openingRechargeHistoryDetails();
+        softAssert.assertTrue(moreRechargeHistory.isDatePickerVisible(), "Date picker is not visible ");
+
+        RechargeHistoryPOJO rechargeHistoryAPI = api.rechargeHistoryAPITest(customerNumber);
+        int size = moreRechargeHistory.getNumbersOfRows();
+        if (rechargeHistoryAPI.getResult().size() == 0 || rechargeHistoryAPI.getResult() == null) {
+            ExtentTestManager.getTest().log(LogStatus.WARNING, "Unable to get DATA History Details from API");
+            softAssert.assertTrue(moreRechargeHistory.getNoResultFound(), "No Result Message is not Visible");
+        } else {
+            softAssert.assertEquals(moreRechargeHistory.getHeaders(1).toLowerCase().trim(), Data.getRow1().toLowerCase().trim(), "Header Name for Row 1 is not as expected");
+            softAssert.assertEquals(moreRechargeHistory.getHeaders(2).toLowerCase().trim(), Data.getRow2().toLowerCase().trim(), "Header Name for Row 2 is not as expected");
+            softAssert.assertEquals(moreRechargeHistory.getHeaders(3).toLowerCase().trim(), Data.getRow3().toLowerCase().trim(), "Header Name for Row 3 is not as expected");
+            softAssert.assertEquals(moreRechargeHistory.getHeaders(4).toLowerCase().trim()+moreRechargeHistory.getSubHeaders(4).toLowerCase().trim().replace("|", ""), Data.getRow4().toLowerCase().trim().toLowerCase().trim().replace("|", ""), "Header Name for Row 4 is not as expected");
+            softAssert.assertEquals(moreRechargeHistory.getHeaders(5).toLowerCase().trim(), Data.getRow5().toLowerCase().trim(), "Header Name for Row 5 is not as expected");
+            softAssert.assertEquals(moreRechargeHistory.getHeaders(6).toLowerCase().trim(), Data.getRow6().toLowerCase().trim(), "Header Name for Row 6 is not as expected");
+            softAssert.assertEquals(moreRechargeHistory.getHeaders(7).toLowerCase().trim(), Data.getRow7().toLowerCase().trim(), "Header Name for Row 7 is not as expected");
+            softAssert.assertEquals(moreRechargeHistory.getHeaders(8).toLowerCase().trim(), Data.getRow8().toLowerCase().trim(), "Header Name for Row 8 is not as expected");
+            softAssert.assertEquals(moreRechargeHistory.getHeaders(9).toLowerCase().trim(), Data.getRow9().toLowerCase().trim(), "Header Name for Row 9 is not as expected");
+            softAssert.assertEquals(moreRechargeHistory.getHeaders(10).toLowerCase().trim(), Data.getRow10().toLowerCase().trim(), "Header Name for Row 10 is not as expected");
+            for (int i = 0; i < size; i++) {
+                softAssert.assertEquals(moreRechargeHistory.getValueCorrespondingToRechargeHeader(i+1,1).trim(), rechargeHistoryAPI.getResult().get(i).getCharges().trim(), " Charges received is not as expected on row " + i);
+                softAssert.assertEquals(moreRechargeHistory.getValueCorrespondingToRechargeHeader(i+1,2), rechargeHistory.getDateFromString(rechargeHistoryAPI.getResult().get(i).getDateTime(),"dd-MMM-yyyy HH:mm"), "Date & Time received is not as expected on row " + i);
+                softAssert.assertEquals(moreRechargeHistory.getValueCorrespondingToRechargeHeader(i+1,3).toLowerCase().trim().replaceAll("[^a-zA-Z]+", ""), rechargeHistoryAPI.getResult().get(i).getBundleName().toLowerCase().trim().replaceAll("[^a-zA-Z]+", ""), "Bundle Name received is not as expected on row " + i);
+                if(rechargeHistoryAPI.getResult().get(i).getRechargeBenefit()==null){
+                    softAssert.assertEquals(moreRechargeHistory.getValueCorrespondingToRechargeHeader(i+1,4).replaceAll("[^a-zA-Z]",""),"","Recharge Benefits is not same in case of null recharge history benefits");
+                }else
+                softAssert.assertEquals(moreRechargeHistory.getValueCorrespondingToRechargeHeader(i+1,4).replaceAll("[^a-zA-Z]+", ""), rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getVOICE().replace(null,"")+rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getDATA().replace(null,"")+rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getSMS().replace(null,""), "Recharge Benefits received is not as expected on row " + i);
+                softAssert.assertEquals(moreRechargeHistory.getValueCorrespondingToRechargeHeader(i+1,5).toLowerCase().trim(), rechargeHistoryAPI.getResult().get(i).getStatus().trim().toLowerCase(), "Status received is not as expected on row " + i);
+                softAssert.assertEquals(moreRechargeHistory.getValueCorrespondingToRechargeHeader(i+1,6), rechargeHistoryAPI.getResult().get(i).getMode(), "Mode of recharge received is not as expected on row " + i);
+                softAssert.assertEquals(moreRechargeHistory.getValueCorrespondingToRechargeHeader(i+1,7), "-", "Serial Number received is not as expected on row " + i);
+                softAssert.assertEquals(moreRechargeHistory.getValueCorrespondingToRechargeHeader(i+1,8), rechargeHistoryAPI.getResult().get(i).getExpiryDate().replace(null,"-"), "Expiry date received is not as expected on row " + i);
+                softAssert.assertEquals(moreRechargeHistory.getValueCorrespondingToRechargeHeader(i+1,9), "-", "Old Expiry date received is not as expected on row " + i);
+                softAssert.assertEquals(moreRechargeHistory.getValueCorrespondingToRechargeHeader(i+1,10), "-", "Validity received is not as expected on row " + i);
+                if (i != 0) {
+                    softAssert.assertTrue(moreRechargeHistory.isSortOrderDisplay(moreRechargeHistory.getValueCorrespondingToRechargeHeader(i+1,2), moreRechargeHistory.getValueCorrespondingToRechargeHeader(i,2), "dd-MMM-yyy HH:mm"), moreRechargeHistory.getValueCorrespondingToRechargeHeader(i,2) + "should not display before " + moreRechargeHistory.getValueCorrespondingToRechargeHeader(i + 1,2));
+                }
+            }
+        }
+        moreRechargeHistory.openingCustomerInteractionDashboard();
+        softAssert.assertAll();
+    }
 
 }

@@ -4,13 +4,16 @@ import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.time.DateUtils;
-import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
-import org.openqa.selenium.support.ui.*;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 import org.testng.Assert;
 import tests.BaseTest;
 
@@ -26,9 +29,8 @@ import java.util.concurrent.TimeUnit;
 public class BasePage {
     public static Properties config = BaseTest.config;
     public WebDriver driver;
-    Wait<WebDriver> wait ;
+    Wait<WebDriver> wait;
     By loader = By.xpath("/html/body/app-root/ngx-ui-loader/div[2]");
-    @CacheLookup
     By loader1 = By.xpath("//div[@class=\"ngx-overlay foreground-closing\"]");
     By overlay = By.xpath("//mat-dialog-container[@role='dialog']");
     By timeLine = By.xpath("//app-new-loader[@class=\"ng-star-inserted\"]//div[1]");
@@ -38,7 +40,7 @@ public class BasePage {
     public BasePage(WebDriver driver) {
         PageFactory.initElements(new AjaxElementLocatorFactory(driver, 10), this);
         this.driver = driver;
-        driver.manage().timeouts().implicitlyWait(5,TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         ExpectedCondition<Boolean> expectation = driver1 -> ((JavascriptExecutor) driver1).executeScript("return document.readyState").toString().equals("complete");
         wait = new FluentWait<>(driver)
                 .withTimeout(Duration.ofSeconds(Integer.parseInt(BaseTest.config.getProperty("GeneralWaitInSeconds"))))
@@ -66,9 +68,9 @@ public class BasePage {
     void click(By elementLocation) {
         wait.until(ExpectedConditions.elementToBeClickable(elementLocation));
         highLighterMethod(elementLocation);
-        WebElement element=driver.findElement(elementLocation);
-//        JavascriptExecutor ex=(JavascriptExecutor)driver;
-//        ex.executeScript("arguments[0].click()", element);
+//        WebElement element = driver.findElement(elementLocation);
+//        Actions actions = new Actions(driver);
+//        actions.moveToElement(element).click().perform();
         driver.findElement(elementLocation).click();
         log.info("Clicking on element" + elementLocation.toString());
     }
@@ -98,6 +100,7 @@ public class BasePage {
 
     //HighlightElement
     void highLighterMethod(By element) {
+        waitTillLoaderGetsRemoved();
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].setAttribute('style', 'border: 2px solid black;');", driver.findElement(element));
     }
@@ -161,6 +164,17 @@ public class BasePage {
         Date date = new Date(Epoch);
         DateFormat format = new SimpleDateFormat(pattern);
         return format.format(date);
+    }
+
+    public String getDateFromString(String date, String pattern) {
+        try {
+            Date newDate = new SimpleDateFormat("dd-MMM-yyyy HH:mm").parse(date);
+            DateFormat format = new SimpleDateFormat(pattern);
+            return format.format(newDate);
+        } catch (ParseException e) {
+            printFailLog("Not able to parse the date: "+date+" "+e.fillInStackTrace());
+        }
+        return "Invalid Date String";
     }
 
     public String getDateFromEpochInUTC(long Epoch, String pattern) {
@@ -266,17 +280,17 @@ public class BasePage {
         ExtentTestManager.getTest().log(LogStatus.WARNING, message);
     }
 
-    public String ValueRoundOff(Double value){
+    public String ValueRoundOff(Double value) {
         DecimalFormat df = new DecimalFormat("###.##");
         return df.format(value);
     }
 
-    public List<WebElement> returnListOfElement(By element){
+    public List<WebElement> returnListOfElement(By element) {
         List<WebElement> list = new ArrayList<>();
         try {
             list = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(element));
         } catch (TimeoutException | NoSuchElementException e) {
-            printInfoLog("Not able to Fetch List of Elements :"+e.fillInStackTrace());
+            printInfoLog("Not able to Fetch List of Elements :" + e.fillInStackTrace());
         }
         return list;
     }

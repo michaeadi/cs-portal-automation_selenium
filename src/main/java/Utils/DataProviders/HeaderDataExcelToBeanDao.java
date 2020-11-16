@@ -82,6 +82,12 @@ public class HeaderDataExcelToBeanDao {
                             case 8:
                                 HeaderDataBean.setRow8(cellValue);
                                 break;
+                            case 9:
+                                HeaderDataBean.setRow9(cellValue);
+                                break;
+                            case 10:
+                                HeaderDataBean.setRow10(cellValue);
+                                break;
 
                         }
                     }

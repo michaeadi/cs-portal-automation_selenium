@@ -500,13 +500,13 @@ public class customerInteractionTest extends BaseTest {
             softAssert.assertEquals(rechargeHistoryWidget.gettingRechargeHistoryNoResultFoundMessage(), "No Result found", "Error Message is not as expected");
         } else {
             for (int i = 0; i < size; i++) {
-                softAssert.assertEquals(rechargeHistoryWidget.getRechargeHistoryCharges(i), rechargeHistoryAPI.getResult().get(i).getCharges(), "Recharge History Charge is not As received in API for row number " + i);
-                softAssert.assertEquals(rechargeHistoryWidget.getRechargeHistoryDateTime(i), rechargeHistoryWidget.getDateFromEpoch(Long.parseLong(rechargeHistoryAPI.getResult().get(i).getDateTime()), "dd-MMM-yyyy HH:mm"), "Recharge History Date Time is not As received in API for row number " + i);
-                softAssert.assertEquals(rechargeHistoryWidget.getRechargeHistoryBundleName(i), rechargeHistoryAPI.getResult().get(i).getBundleName(), "Recharge History Bundle Name is not As received in API for row number " + i);
-                softAssert.assertEquals(rechargeHistoryWidget.getRechargeHistoryBenefits(i).replace("-", "null"), rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getVOICE() + " | " + rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getDATA() + " | " + rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getSMS(), "Recharge History Benefits is not As received in API for row number " + i);
-                softAssert.assertEquals(rechargeHistoryWidget.getRechargeHistoryStatus(i), rechargeHistoryAPI.getResult().get(i).getStatus(), "Recharge History Status is not As received in API for row number " + i);
+                softAssert.assertEquals(rechargeHistoryWidget.getRechargeHistoryCharges(i+1), rechargeHistoryAPI.getResult().get(i).getCharges(), "Recharge History Charge is not As received in API for row number " + i);
+                softAssert.assertEquals(rechargeHistoryWidget.getRechargeHistoryDateTime(i+1), rechargeHistoryWidget.getDateFromString(rechargeHistoryAPI.getResult().get(i).getDateTime(), "dd-MMM-yyyy HH:mm"), "Recharge History Date Time is not As received in API for row number " + i);
+                softAssert.assertEquals(rechargeHistoryWidget.getRechargeHistoryBundleName(i+1), rechargeHistoryAPI.getResult().get(i).getBundleName(), "Recharge History Bundle Name is not As received in API for row number " + i);
+                softAssert.assertEquals(rechargeHistoryWidget.getRechargeHistoryBenefits(i+1).replace("-", "null"), rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getVOICE() + " | " + rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getDATA() + " | " + rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getSMS(), "Recharge History Benefits is not As received in API for row number " + i);
+                softAssert.assertEquals(rechargeHistoryWidget.getRechargeHistoryStatus(i+1), rechargeHistoryAPI.getResult().get(i).getStatus(), "Recharge History Status is not As received in API for row number " + i);
                 if (i != 0) {
-                    softAssert.assertTrue(rechargeHistoryWidget.isSortOrderDisplay(rechargeHistoryWidget.getRechargeHistoryDateTime(i), rechargeHistoryWidget.getRechargeHistoryDateTime(i - 1), "dd-MMM-yyy HH:mm"), rechargeHistoryWidget.getRechargeHistoryDateTime(i) + "should not display before " + rechargeHistoryWidget.getRechargeHistoryDateTime(i - 1));
+                    softAssert.assertTrue(rechargeHistoryWidget.isSortOrderDisplay(rechargeHistoryWidget.getRechargeHistoryDateTime(i+1), rechargeHistoryWidget.getRechargeHistoryDateTime(i ), "dd-MMM-yyy HH:mm"), rechargeHistoryWidget.getRechargeHistoryDateTime(i) + "should not display before " + rechargeHistoryWidget.getRechargeHistoryDateTime(i - 1));
                 }
             }
 
