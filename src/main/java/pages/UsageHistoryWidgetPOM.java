@@ -64,10 +64,10 @@ public class UsageHistoryWidgetPOM extends BasePage {
         return isElementVisible(menu);
     }
 
-    public MoreUsageHistoryPOM openingMoreDetails() {
+    public DetailedUsageHistoryPOM openingMoreDetails() {
         printInfoLog("Opening More under Usage History Widget");
         click(menu);
-        return new MoreUsageHistoryPOM(driver);
+        return new DetailedUsageHistoryPOM(driver);
     }
 
 

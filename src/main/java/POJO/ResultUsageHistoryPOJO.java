@@ -20,6 +20,8 @@ public class ResultUsageHistoryPOJO {
     String charges;
     String txnAmount;
     String startBalance;
+    String description;
+    String addOrSubtract;
     String endBalance;
     String callTo;
     String callDuration;

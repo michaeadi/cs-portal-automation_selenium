@@ -7,7 +7,6 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -100,7 +99,7 @@ public class BasePage {
 
     //HighlightElement
     void highLighterMethod(By element) {
-        waitTillLoaderGetsRemoved();
+//        waitTillLoaderGetsRemoved();
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].setAttribute('style', 'border: 2px solid black;');", driver.findElement(element));
     }
@@ -168,11 +167,23 @@ public class BasePage {
 
     public String getDateFromString(String date, String pattern) {
         try {
-            Date newDate = new SimpleDateFormat("dd-MMM-yyyy HH:mm").parse(date);
+            Date newDate = new SimpleDateFormat("dd-MMM-yyyy hh:mm aa").parse(date);
             DateFormat format = new SimpleDateFormat(pattern);
             return format.format(newDate);
         } catch (ParseException e) {
-            printFailLog("Not able to parse the date: "+date+" "+e.fillInStackTrace());
+            printFailLog("Not able to parse the date: " + date + " " + e.fillInStackTrace());
+        }
+        return "Invalid Date String";
+    }
+
+    public String getDateFromStringInUTC(String date, String pattern) {
+        try {
+            Date newDate = new SimpleDateFormat("dd-MMM-yyyy hh:mm aa").parse(date);
+            DateFormat format = new SimpleDateFormat(pattern);
+            format.setTimeZone(TimeZone.getTimeZone("Etc/UTC"));
+            return format.format(newDate);
+        } catch (ParseException e) {
+            printFailLog("Not able to parse the date: " + date + " " + e.fillInStackTrace());
         }
         return "Invalid Date String";
     }
@@ -238,7 +249,40 @@ public class BasePage {
 
     public boolean isSortOrderDisplay(String historyDateTime, String historyDateTime1, String pattern) {
         DateFormat format = new SimpleDateFormat(pattern);
+        final Calendar cal = Calendar.getInstance();
         try {
+            if (historyDateTime.contains("Yesterday")) {
+                String pattern1=pattern.split("hh")[0].trim();
+                DateFormat format1 = new SimpleDateFormat(pattern1);
+                cal.add(Calendar.DATE, -1);
+                String yesterday = format1.format(cal.getTime());
+                historyDateTime=historyDateTime.replace("Yesterday",yesterday);
+                System.out.println(historyDateTime+" :"+yesterday);
+            }
+
+            if (historyDateTime1.contains("Yesterday")) {
+                String pattern1=pattern.split("hh")[0].trim();
+                DateFormat format1 = new SimpleDateFormat(pattern1);
+                cal.add(Calendar.DATE, -1);
+                String yesterday = format1.format(cal.getTime());
+                historyDateTime1=historyDateTime1.replace("Yesterday",yesterday);
+                System.out.println(historyDateTime1+" :"+yesterday);
+            }
+
+            if (historyDateTime.contains("Today")) {
+                String pattern1=pattern.split("hh")[0].trim();
+                DateFormat format1 = new SimpleDateFormat(pattern1);
+                String today = format1.format(Calendar.getInstance().getTime());
+                historyDateTime=historyDateTime.replace("Today",today);
+            }
+
+            if (historyDateTime1.contains("Today")) {
+                String pattern1=pattern.split("hh")[0].trim();
+                DateFormat format1 = new SimpleDateFormat(pattern1);
+                String today = format1.format(Calendar.getInstance().getTime());
+                historyDateTime1=historyDateTime1.replace("Today",today);
+            }
+
             Date date1 = format.parse(historyDateTime);
             Date date2 = format.parse(historyDateTime1);
             if (date1.compareTo(date2) <= 0) {

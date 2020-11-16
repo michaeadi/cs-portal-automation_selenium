@@ -462,11 +462,11 @@ public class customerInteractionTest extends BaseTest {
             for (int i = 0; i < size; i++) {
                 softAssert.assertEquals(usageHistoryWidget.getHistoryType(i), usageHistoryAPI.getResult().get(i).getType(), "Usage History Type is not As received in API for row number " + i);
                 softAssert.assertEquals(usageHistoryWidget.getHistoryCharge(i), usageHistoryAPI.getResult().get(i).getCharges(), "Usage History Charge is not As received in API for row number " + i);
-                softAssert.assertEquals(usageHistoryWidget.getHistoryDateTime(i), usageHistoryWidget.getDateFromEpoch(Long.parseLong(usageHistoryAPI.getResult().get(i).getDateTime()), "dd-MMM-yyy HH:mm"), "Usage History Date Time is not As received in API for row number " + i);
+                softAssert.assertEquals(usageHistoryWidget.getHistoryDateTime(i), usageHistoryWidget.getDateFromString(usageHistoryAPI.getResult().get(i).getDateTime(), "dd-MMM-yyy HH:mm"), "Usage History Date Time is not As received in API for row number " + i);
                 softAssert.assertEquals(usageHistoryWidget.getHistoryStartBalance(i), usageHistoryAPI.getResult().get(i).getStartBalance(), "Usage History Start Balance  is not As received in API for row number " + i);
                 softAssert.assertEquals(usageHistoryWidget.getHistoryEndBalance(i), usageHistoryAPI.getResult().get(i).getEndBalance(), "Usage History End Balance is not As received in API for row number " + i);
                 if (i != 0) {
-                    softAssert.assertTrue(usageHistoryWidget.isSortOrderDisplay(usageHistoryWidget.getHistoryDateTime(i), usageHistoryWidget.getHistoryDateTime(i - 1), "dd-MMM-yyy HH:mm"), usageHistoryWidget.getHistoryDateTime(i) + "should not display before " + usageHistoryWidget.getHistoryDateTime(i - 1));
+                    softAssert.assertTrue(usageHistoryWidget.isSortOrderDisplay(usageHistoryWidget.getHistoryDateTime(i-1), usageHistoryWidget.getHistoryDateTime(i), "dd-MMM-yyy HH:mm"), usageHistoryWidget.getHistoryDateTime(i-1) + "should not display before " + usageHistoryWidget.getHistoryDateTime(i));
                 }
             }
         }
@@ -506,7 +506,7 @@ public class customerInteractionTest extends BaseTest {
                 softAssert.assertEquals(rechargeHistoryWidget.getRechargeHistoryBenefits(i+1).replace("-", "null"), rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getVOICE() + " | " + rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getDATA() + " | " + rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getSMS(), "Recharge History Benefits is not As received in API for row number " + i);
                 softAssert.assertEquals(rechargeHistoryWidget.getRechargeHistoryStatus(i+1), rechargeHistoryAPI.getResult().get(i).getStatus(), "Recharge History Status is not As received in API for row number " + i);
                 if (i != 0) {
-                    softAssert.assertTrue(rechargeHistoryWidget.isSortOrderDisplay(rechargeHistoryWidget.getRechargeHistoryDateTime(i+1), rechargeHistoryWidget.getRechargeHistoryDateTime(i ), "dd-MMM-yyy HH:mm"), rechargeHistoryWidget.getRechargeHistoryDateTime(i) + "should not display before " + rechargeHistoryWidget.getRechargeHistoryDateTime(i - 1));
+                    softAssert.assertTrue(rechargeHistoryWidget.isSortOrderDisplay(rechargeHistoryWidget.getRechargeHistoryDateTime(i+1), rechargeHistoryWidget.getRechargeHistoryDateTime(i ), "dd-MMM-yyy HH:mm"), rechargeHistoryWidget.getRechargeHistoryDateTime(i+1) + "should not display before " + rechargeHistoryWidget.getRechargeHistoryDateTime(i));
                 }
             }
 
