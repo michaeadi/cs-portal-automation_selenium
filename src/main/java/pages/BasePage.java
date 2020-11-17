@@ -4,7 +4,10 @@ import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.time.DateUtils;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.PageFactory;
@@ -191,10 +194,7 @@ public class BasePage {
         driver.findElement(By.xpath("//span[contains(text(),'" + text + "')]")).click();
     }
 
-    public void clickOutside() {
-        Actions action = new Actions(driver);
-        action.moveByOffset(0, 0).click().build().perform();
-    }
+    JavascriptExecutor js = (JavascriptExecutor) driver;
 
     public void clearInputTag(By element) {
         log.info("Clear Search Box");
@@ -231,9 +231,15 @@ public class BasePage {
         }
     }
 
+    public void clickOutside() {
+        //review
+        Actions action = new Actions(driver);
+        action.moveByOffset(0, 0).click().build().perform();
+    }
+
     public String convertToHR(String committedSla) {
         Long ms = Long.parseLong(committedSla);
-        log.info("Converting SLA: " + committedSla + " to " + String.valueOf(TimeUnit.MILLISECONDS.toHours(ms)));
+        log.info("Converting SLA: " + committedSla + " to " + TimeUnit.MILLISECONDS.toHours(ms));
         return String.valueOf(TimeUnit.MILLISECONDS.toHours(ms));
     }
 

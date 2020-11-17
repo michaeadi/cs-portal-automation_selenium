@@ -76,6 +76,7 @@ public class AuthTabTest extends BaseTest {
         Assert.assertTrue(authTab.isAuthTabLoad(), "Authentication tab does not load correctly");
         List<AuthTabDataBeans> list = data.getPolicy();
         for (int i = 1; i <= Integer.parseInt(list.get(0).getMinAnswer()); i++) {
+           //assertfalse for auth button
             authTab.clickCheckBox(i);
         }
         softAssert.assertTrue(authTab.isAuthBtnEnable(), "Authenticate Button does not enable after choose minimum number of question");

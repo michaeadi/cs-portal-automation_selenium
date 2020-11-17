@@ -7,7 +7,6 @@ import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.nftrDataBeans;
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
-import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
@@ -75,6 +74,7 @@ public class SupervisorSearchTicket extends BaseTest {
             softAssert.assertTrue(ticketListPage.isSubTypeLabel(), "Ticket Meta Data Have Issue Sub Type");
             softAssert.assertTrue(ticketListPage.isSubSubTypeLabel(), "Ticket Meta Data Have Issue Sub Sub Type");
             softAssert.assertTrue(ticketListPage.isCodeLabel(), "Ticket Meta Data Have Code");
+          //Messages need to be updated.
             softAssert.assertEquals(ticketListPage.getIssueValue().toLowerCase().trim(), Data.getIssue().toLowerCase().trim(),
                     "Issue Validated");
             softAssert.assertEquals(ticketListPage.getIssueTypeValue().toLowerCase().trim(), Data.getIssueType().toLowerCase().trim(),

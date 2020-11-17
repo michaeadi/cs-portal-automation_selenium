@@ -22,7 +22,9 @@ public class assignToAgentPOM extends BasePage {
     By availableSlot = By.xpath("//*[@id=\"assignTicket\"]/app-assign-to-agents/section/div/div[2]/div[1]/div[3]/p/span");
     By assignedSlot = By.xpath("//*[@id=\"assignTicket\"]/app-assign-to-agents/section/div/div[2]/div[1]/div[3]/p/text()");
     By infoMessage = By.xpath("//*[@id=\"assignTicket\"]/app-assign-to-agents/section/div/div[1]/hr");
-    By closeTab= By.xpath("//button[@class=\"mat-button\"]//span[contains(text(),'X')]");
+    By closeTab = By.xpath("//button[@class=\"mat-button\"]//span[contains(text(),'X')]");
+    By list = By.xpath("//div[@class=\"pannel-content-area ng-star-inserted\"]/div");
+    List<WebElement> agentList = driver.findElements(list);
 
     public assignToAgentPOM(WebDriver driver) {
         super(driver);
@@ -73,8 +75,6 @@ public class assignToAgentPOM extends BasePage {
 
     public String ticketAssignedToAgent(String assigneeAUUID) throws InterruptedException {
         int slot;
-        By list = By.xpath("//div[@class=\"pannel-content-area ng-star-inserted\"]/div");
-        List<WebElement> agentList = driver.findElements(list);
         for (int i = 1; i <= agentList.size(); i++) {
             By agentAUUID = By.xpath("//div[@class=\"pannel-content-area ng-star-inserted\"]/div[" + i + "]//span[@class=\"auuid yellow\"]");
             String auuid = readText(agentAUUID);
@@ -84,6 +84,8 @@ public class assignToAgentPOM extends BasePage {
                 By allSlot = By.xpath("//div[@class=\"pannel-content-area ng-star-inserted\"]/div[" + i + "]//span[@class=\"slot-count orange\"]");
                 System.out.println(readText(allSlot));
                 try {
+
+                    //regex
                     slot = Integer.parseInt(readText(allSlot));
                 } catch (NumberFormatException e) {
                     e.printStackTrace();

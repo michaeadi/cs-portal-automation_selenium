@@ -20,6 +20,7 @@ public class LogoutTest extends BaseTest {
         loginPagePOM loginPagePOM=null;
         if (sideMenuPOM.isSideMenuVisible()) {
             sideMenuPOM.clickOnSideMenu();
+            //try catch issue
             try{
             loginPagePOM = sideMenuPOM.logout();
         }catch (TimeoutException | NoSuchElementException e){
