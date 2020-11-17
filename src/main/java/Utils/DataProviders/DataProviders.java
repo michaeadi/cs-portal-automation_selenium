@@ -500,55 +500,23 @@ public class DataProviders {
         List<AuthTabDataBeans> list =
                 authTabBeanToExcel.getData(Excel.getAbsolutePath(), config.getProperty("authPolicy"));
         List<String> question = new ArrayList<>();
-        String q1 = list.get(0).getQ1();
-        String q2 = list.get(0).getQ2();
-        String q3 = list.get(0).getQ3();
-        String q4 = list.get(0).getQ4();
-        String q5 = list.get(0).getQ5();
-        String q6 = list.get(0).getQ6();
-        String q7 = list.get(0).getQ7();
-        String q8 = list.get(0).getQ8();
-        String q9 = list.get(0).getQ9();
-        String q10 = list.get(0).getQ10();
-        if (q1 != null)
-            if (!q1.isEmpty())
-                question.add(q1);
+        question.add(list.get(0).getQ1());
+        question.add(list.get(0).getQ2());
+        question.add(list.get(0).getQ3());
+        question.add(list.get(0).getQ4());
+        question.add(list.get(0).getQ5());
+        question.add(list.get(0).getQ6());
+        question.add(list.get(0).getQ7());
+        question.add(list.get(0).getQ8());
+        question.add(list.get(0).getQ9());
+        question.add(list.get(0).getQ10());
 
-        if (q2 != null)
-            if (!q2.isEmpty())
-                question.add(q2);
-
-        if (q3 != null)
-            if (!q3.isEmpty())
-                question.add(q3);
-
-        if (q4 != null)
-            if (!q4.isEmpty())
-                question.add(q4);
-
-        if (q5 != null)
-            if (!q5.isEmpty())
-                question.add(q5);
-
-        if (q6 != null)
-            if (!q6.isEmpty())
-                question.add(q6);
-
-        if (q7 != null)
-            if (!q7.isEmpty())
-                question.add(q7);
-
-        if (q8 != null)
-            if (!q8.isEmpty())
-                question.add(q8);
-
-        if (q9 != null)
-            if (!q9.isEmpty())
-                question.add(q9);
-
-        if (q10 != null)
-            if (!q10.isEmpty())
-                question.add(q10);
+        while(question.contains(null)){
+            question.remove(null);
+        }
+        while(question.contains("")){
+            question.remove("");
+        }
 
         return question;
     }
@@ -572,28 +540,19 @@ public class DataProviders {
         List<String> reasons = new ArrayList<>();
         for (ActionTagDataBeans s : list) {
             if (s.getActionTagName().trim().equalsIgnoreCase(actionTagName)) {
-                String r1 = s.getOption1();
-                String r2 = s.getOption2();
-                String r3 = s.getOption3();
-                String r4 = s.getOption4();
-                String r5 = s.getOption5();
-
-                if (r1 != null)
-                    if (r1.isEmpty())
-                        reasons.add(r1);
-                if (r2 != null)
-                    if (r2.isEmpty())
-                        reasons.add(r2);
-                if (r3 != null)
-                    if (r3.isEmpty())
-                        reasons.add(r3);
-                if (r4 != null)
-                    if (r4.isEmpty())
-                        reasons.add(r4);
-                if (r5 != null)
-                    if (r5.isEmpty())
-                        reasons.add(r5);
+                reasons.add(s.getOption1());
+                reasons.add(s.getOption2());
+                reasons.add(s.getOption3());
+                reasons.add(s.getOption4());
+                reasons.add(s.getOption5());
             }
+        }
+        while (reasons.contains(null)){
+            reasons.remove(null);
+        }
+
+        while (reasons.contains("")){
+            reasons.remove("");
         }
         return reasons;
     }
