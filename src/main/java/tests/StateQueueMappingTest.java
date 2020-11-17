@@ -68,10 +68,11 @@ public class StateQueueMappingTest extends BaseTest {
             e.printStackTrace();
             filterTab.clickOutsideFilter();
             filterTab.clickCloseFilter();
-            softAssert.fail("Not able to apply filter " + e.fillInStackTrace());
+            Assert.fail("Not able to apply filter " + e.fillInStackTrace());
         }
         Assert.assertEquals(ticketListPage.getqueueValue().toLowerCase().trim(), data.getQueue().toLowerCase().trim(), "Ticket Does not found with Selected Queue");
         try {
+            //Re-check
             ticketId = ticketListPage.getTicketIdvalue();
             TicketPOJO ticketPOJO = api.ticketMetaDataTest(ticketId);
             ArrayList<QueueStates> assignState = ticketPOJO.getResult().getQueueStates();

@@ -184,7 +184,7 @@ public class LoanWidgetTest extends BaseTest {
                                 softAssert.assertEquals(loanDetailPOM.getLoanHistoryHeaderName(7).toLowerCase().trim(), data.getRow7().toLowerCase().trim(), "Loan History Widget Header Name at POS(7) not same as mentioned in excel");
                                 LoanHistory loanHistory = loanDetails.getResult().getLoanHistory();
                                 ArrayList<HeaderList> headerList = loanDetails.getResult().getLoanHistory().getHeaderList();
-                                ArrayList<LoanRepaymentList> loanRepaymentList = loanDetails.getResult().getLoanHistory().getLoanRepaymentList();
+                                ArrayList<LoanRepaymentList> loanRepaymentList = loanHistory.getLoanRepaymentList();
                                 for (int j = 0; j < headerList.size(); j++) {
                                     softAssert.assertEquals(loanDetailPOM.getLoanHistoryHeaderName(j + 1).toLowerCase().trim(), headerList.get(j).getHeader().toLowerCase().trim(), "Loam History widget Header name at POS(" + (j + 1) + ") not same as in API Response");
                                 }

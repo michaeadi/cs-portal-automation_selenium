@@ -68,8 +68,10 @@ public class AssignToAgentTicketTest extends BaseTest {
         softAssert.assertEquals(assignTicket.getQueueName(), ticketQueue, "Assign to Agent tab Queue does not Open Correctly");
         try {
             auuid = assignTicket.ticketAssignedToAgent(assigneeAUUID).trim();
-        } catch (InterruptedException | NoSuchElementException | TimeoutException e) {
-            softAssert.fail("Not able to assign ticket to agent "+e.fillInStackTrace());
+        }
+        //remove interrupted exception
+        catch (InterruptedException | NoSuchElementException | TimeoutException e) {
+            softAssert.fail("Not able to assign ticket to agent " + e.fillInStackTrace());
             assignTicket.closeAssignTab();
             ticketListPage.clickCheckbox();
         }
