@@ -262,6 +262,7 @@ public class widgetsOptionsTest extends BaseTest {
             softAssert.fail("Last 7 Days date filter Option does not available on UI "+e.getCause());
         }
 
+        try{
         UsageHistoryPOJO usageHistoryAPI = api.usageHistoryMenuTest(customerNumber);
         int size = usageHistoryAPI.getTotalCount();
         if (usageHistoryAPI.getResult().size() == 0 || usageHistoryAPI.getResult() == null) {
@@ -292,7 +293,12 @@ public class widgetsOptionsTest extends BaseTest {
                 }
             }
         }
+        }catch (NoSuchElementException | TimeoutException e){
+            e.printStackTrace();
+            softAssert.fail("Not able to validate Detailed Usage History Completely: "+e.fillInStackTrace());
+        }
         usageHistory.openingCustomerInteractionDashboard();
+        usageHistory.waitTillLoaderGetsRemoved();
         softAssert.assertAll();
     }
 
