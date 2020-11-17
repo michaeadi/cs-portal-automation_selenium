@@ -3,6 +3,7 @@ package tests;
 import Utils.DataProviders.DataProviders;
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
@@ -69,8 +70,7 @@ public class AssignToAgentTicketTest extends BaseTest {
         try {
             auuid = assignTicket.ticketAssignedToAgent(assigneeAUUID).trim();
         }
-        //remove interrupted exception
-        catch (InterruptedException | NoSuchElementException | TimeoutException e) {
+        catch (ElementClickInterceptedException | NoSuchElementException | TimeoutException e) {
             softAssert.fail("Not able to assign ticket to agent " + e.fillInStackTrace());
             assignTicket.closeAssignTab();
             ticketListPage.clickCheckbox();
