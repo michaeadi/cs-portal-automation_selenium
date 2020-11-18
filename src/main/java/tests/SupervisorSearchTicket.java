@@ -7,7 +7,6 @@ import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.nftrDataBeans;
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
-import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
@@ -63,36 +62,36 @@ public class SupervisorSearchTicket extends BaseTest {
 
         try {
             TicketPOJO ticketPOJO = api.ticketMetaDataTest(Data.getTicketNumber());
-            softAssert.assertTrue(ticketListPage.isTicketIdLabel(), "Ticket Meta Data Have Ticket Id");
-            softAssert.assertTrue(ticketListPage.isWorkGroupName(), "Ticket Meta Data Have Workgroup");
-            softAssert.assertTrue(ticketListPage.isPrioritylabel(), "Ticket Meta Data Have Priority");
-            softAssert.assertTrue(ticketListPage.isStateLabel(), "Ticket Meta Data Have State");
-            softAssert.assertTrue(ticketListPage.isCreationdateLabel(), "Ticket Meta Data Have Creation Date");
-            softAssert.assertTrue(ticketListPage.isCreatedbyLabel(), "Ticket Meta Data Have Created By");
-            softAssert.assertTrue(ticketListPage.isQueueLabel(), "Ticket Meta Data Have Queue");
-            softAssert.assertTrue(ticketListPage.isIssueLabel(), "Ticket Meta Data Have Issue");
-            softAssert.assertTrue(ticketListPage.isIssueTypeLabel(), "Ticket Meta Data Have Issue Type");
-            softAssert.assertTrue(ticketListPage.isSubTypeLabel(), "Ticket Meta Data Have Issue Sub Type");
-            softAssert.assertTrue(ticketListPage.isSubSubTypeLabel(), "Ticket Meta Data Have Issue Sub Sub Type");
-            softAssert.assertTrue(ticketListPage.isCodeLabel(), "Ticket Meta Data Have Code");
+            softAssert.assertTrue(ticketListPage.isTicketIdLabel(), "Ticket Meta Data Does Not Have Ticket Id");
+            softAssert.assertTrue(ticketListPage.isWorkGroupName(), "Ticket Meta Data Does Not Have Workgroup");
+            softAssert.assertTrue(ticketListPage.isPrioritylabel(), "Ticket Meta Data Does Not Have Priority");
+            softAssert.assertTrue(ticketListPage.isStateLabel(), "Ticket Meta Data Does Not Have State");
+            softAssert.assertTrue(ticketListPage.isCreationdateLabel(), "Ticket Meta Data Does Not Have Creation Date");
+            softAssert.assertTrue(ticketListPage.isCreatedbyLabel(), "Ticket Meta Data Does Not Have Created By");
+            softAssert.assertTrue(ticketListPage.isQueueLabel(), "Ticket Meta Data Does Not Have Queue");
+            softAssert.assertTrue(ticketListPage.isIssueLabel(), "Ticket Meta Data Does Not Have Issue");
+            softAssert.assertTrue(ticketListPage.isIssueTypeLabel(), "Ticket Meta Data Does Not Have Issue Type");
+            softAssert.assertTrue(ticketListPage.isSubTypeLabel(), "Ticket Meta Data Does Not Have Issue Sub Type");
+            softAssert.assertTrue(ticketListPage.isSubSubTypeLabel(), "Ticket Meta Data Does Not Have Issue Sub Sub Type");
+            softAssert.assertTrue(ticketListPage.isCodeLabel(), "Ticket Meta Data Does Not Have Code");
             softAssert.assertEquals(ticketListPage.getIssueValue().toLowerCase().trim(), Data.getIssue().toLowerCase().trim(),
-                    "Issue Validated");
+                    "Issue Does Not Validated");
             softAssert.assertEquals(ticketListPage.getIssueTypeValue().toLowerCase().trim(), Data.getIssueType().toLowerCase().trim(),
-                    "Issue Type Validated");
+                    "Issue Does Not Type Validated");
             softAssert.assertEquals(ticketListPage.getSubTypeValue().toLowerCase().trim(), Data.getIssueSubType().toLowerCase().trim(),
-                    "Issue Sub Type Validated");
+                    "Issue Does Not Sub Type Validated");
             softAssert.assertEquals(ticketListPage.getsubSubTypeValue().toLowerCase().trim(), Data.getIssueSubSubType().toLowerCase().trim(),
-                    "Issue Sub Sub Type Validated");
+                    "Issue Does Not Sub Sub Type Validated");
             softAssert.assertEquals(ticketListPage.getCodeValue().toLowerCase().trim(), Data.getIssueCode().toLowerCase().trim(),
-                    "Issue Code Validated");
+                    "Issue Does Not Code Validated");
             softAssert.assertEquals(ticketListPage.getWorkGroupName().toLowerCase().trim(), Data.getWorkgroup1().toLowerCase().trim(),
-                    "Ticket WorkGroup Validated");
+                    "Ticket Does Not WorkGroup Validated");
             softAssert.assertEquals(ticketListPage.getqueueValue().toLowerCase().trim(), Data.getAssignmentQueue().toLowerCase().trim(),
-                    "Ticket Queue Validated");
+                    "Ticket Does Not Queue Validated");
             softAssert.assertEquals(ticketListPage.getPriorityValue().toLowerCase().trim(), Data.getPriority().toLowerCase().trim(),
-                    "Ticket Priority Validated");
+                    "Ticket Does Not Priority Validated");
             softAssert.assertEquals(ticketListPage.getPriorityValue().toLowerCase().trim(), Data.getPriority().toLowerCase().trim(),
-                    "Issue Type Validated");
+                    "Issue Does Not Type Validated");
             softAssert.assertEquals(ticketListPage.convertToHR(ticketPOJO.getResult().getCommittedSla()), Data.getCommittedSLA(), "Committed SLA does not configured Correctly");
             softAssert.assertEquals(ticketListPage.getMSISDN().trim(), ticketPOJO.getResult().getMsisdn().trim(), "User MSISDN is not same as expected");
             Map<String, Long> sla = ticketPOJO.getResult().getSla();
@@ -137,7 +136,7 @@ public class SupervisorSearchTicket extends BaseTest {
                     configTicketLayout.remove(layout.getPlaceHolder().toLowerCase().trim());
                 }
             } catch (NullPointerException e) {
-                ticketListPage.printInfoLog("No Ticket Layout Config in database");
+                ticketListPage.printInfoLog("No Ticket Layout Config in database"+e.getMessage());
             }
 
             for (String name : configTicketLayout) {
@@ -163,8 +162,8 @@ public class SupervisorSearchTicket extends BaseTest {
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         SoftAssert softAssert = new SoftAssert();
         ticketListPage.clickCheckbox();
-        softAssert.assertTrue(ticketListPage.isAssignToAgent(), "Check User have Option to Assign to Agent");
-        softAssert.assertTrue(ticketListPage.isTransferToQueue(), "Check User have Option to Transfer to Queue");
+        softAssert.assertTrue(ticketListPage.isAssignToAgent(), "Check User does not have Option to Assign to Agent");
+        softAssert.assertTrue(ticketListPage.isTransferToQueue(), "Check User does not have Option to Transfer to Queue");
         softAssert.assertAll();
     }
 

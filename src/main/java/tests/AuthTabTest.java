@@ -66,7 +66,7 @@ public class AuthTabTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 3, description = "Verify the Authentication tab Minimum question Configured correctly",dependsOnMethods = "validateAuthTab")
+    @Test(priority = 3, description = "Verify the Authentication tab Minimum question Configured correctly")
     public void validateAuthTabMinQuestion() throws InterruptedException {
         ExtentTestManager.startTest("Verify the Authentication tab Minimum question Configured correctly", "Verify the Authentication tab Minimum question Configured correctly");
         SoftAssert softAssert = new SoftAssert();
@@ -75,8 +75,12 @@ public class AuthTabTest extends BaseTest {
         authTab.waitTillLoaderGetsRemoved();
         Assert.assertTrue(authTab.isAuthTabLoad(), "Authentication tab does not load correctly");
         List<AuthTabDataBeans> list = data.getPolicy();
+        softAssert.assertFalse(authTab.isAuthBtnEnable(),"Authenticate button is enable without choosing minimum number of question.");
         for (int i = 1; i <= Integer.parseInt(list.get(0).getMinAnswer()); i++) {
             authTab.clickCheckBox(i);
+            if(i<Integer.parseInt(list.get(0).getMinAnswer())){
+                softAssert.assertFalse(authTab.isAuthBtnEnable(),"Authenticate button is enable without choosing minimum number of question.");
+            }
         }
         softAssert.assertTrue(authTab.isAuthBtnEnable(), "Authenticate Button does not enable after choose minimum number of question");
         softAssert.assertAll();
