@@ -6,6 +6,7 @@ import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class MessageHistoryTabPOM extends BasePage {
     By agentNameLabel = By.xpath("//table[@id=\"fetchTicketByCustomer\"]//thead/tr[1]/th[7]//b");
     By actionLabel = By.xpath("//table[@id=\"fetchTicketByCustomer\"]//thead/tr[1]/th[8]//b");
     By listOfMessage = By.xpath("//table[@id=\"fetchTicketByCustomer\"]//tbody/tr");
-    List<WebElement> list = driver.findElements(listOfMessage);
+    List<WebElement> list = returnListOfElement(listOfMessage);
     By popUpTitle = By.xpath("//h1[@id='mat-dialog-title-1']");
     By popUpMessage = By.xpath("//p[@class=\"error\"]");
     By yesBtn = By.xpath("//div[@class=\"deactivate-popup__content mat-dialog-content\"]//button[2]");

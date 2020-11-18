@@ -52,7 +52,7 @@ public class ViewTicketPagePOM extends BasePage {
         scrollToViewElement(submitAs);
         click(arrowIcon);
         try {
-            List<WebElement> list = driver.findElements(allTicketState);
+            List<WebElement> list = returnListOfElement(allTicketState);
             System.out.println("List Size: " + list.size());
             for (int i = 1; i <= list.size(); i++) {
                 By chooseState = By.xpath("//div[@class='cdk-overlay-pane']//mat-option[" + i + "]//span");
@@ -84,7 +84,7 @@ public class ViewTicketPagePOM extends BasePage {
 
     public void validateAddedComment(String text) {
         try {
-            List<WebElement> list = driver.findElements(allComment);
+            List<WebElement> list = returnListOfElement(allComment);
             for (int i = 1; i <= list.size(); i++) {
                 By comment = By.xpath("//table[@class='ng-star-inserted']//tbody//tr[" + i + "]//p");
                 System.out.println("Reading Comment:" + readText(comment) + " Is:" + readText(comment).trim().equalsIgnoreCase(text));
@@ -102,7 +102,7 @@ public class ViewTicketPagePOM extends BasePage {
 
     public boolean validateCommentType(String text) {
         try {
-            List<WebElement> list = driver.findElements(allComment);
+            List<WebElement> list = returnListOfElement(allComment);
             for (int i = 1; i <= list.size(); i++) {
                 By commentType = By.xpath("//table[@class='ng-star-inserted']//tbody//tr[" + i + "]/td/span/span[1]");
                 System.out.println("Reading Comment:" + readText(commentType) + " Is:" + readText(commentType).trim().equalsIgnoreCase(text));
@@ -138,7 +138,7 @@ public class ViewTicketPagePOM extends BasePage {
     public void openEditCommentBox() {
         log.info("Editing last added comment");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Editing last added comment");
-        List<WebElement> list = driver.findElements(allComment);
+        List<WebElement> list = returnListOfElement(allComment);
         By lastAddedComment = By.xpath("//table[@class='ng-star-inserted']/tbody//tr[" + list.size() + "]//td[1]//a[1]//img[1]");
         click(lastAddedComment);
     }
@@ -151,7 +151,7 @@ public class ViewTicketPagePOM extends BasePage {
     public void openDeleteComment() {
         log.info("Delete last added comment");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Deleting last added comment");
-        List<WebElement> list = driver.findElements(allComment);
+        List<WebElement> list = returnListOfElement(allComment);
         By deleteComment = By.xpath("//table[@class='ng-star-inserted']/tbody//tr[" + list.size() + "]//td[1]//a[2]//img[1]");
         click(deleteComment);
     }
@@ -163,7 +163,7 @@ public class ViewTicketPagePOM extends BasePage {
     }
 
     public boolean isCommentDelete(String text) {
-        List<WebElement> list = driver.findElements(allComment);
+        List<WebElement> list = returnListOfElement(allComment);
         for (int i = 1; i <= list.size() - 1; i++) {
             By comment = By.xpath("//table[@class='ng-star-inserted']//tbody//tr[" + i + "]//p");
             System.out.println("Reading Comment:" + readText(comment) + " Is:" + readText(comment).trim().equalsIgnoreCase(text));

@@ -377,7 +377,7 @@ public class supervisorTicketListPagePOM extends BasePage {
     }
 
     public List<String> getALLTicketId() {
-        List<WebElement> list = driver.findElements(allTicket);
+        List<WebElement> list = returnListOfElement(allTicket);
         List<String> ticketList = new ArrayList<>();
         for (int i = 1; i <= list.size(); i++) {
             By ticket = By.xpath("//div[@class=\"table-card ng-star-inserted\"][" + i + "]//ul[1]//li[1]//span[2]");
@@ -388,7 +388,7 @@ public class supervisorTicketListPagePOM extends BasePage {
     }
 
     public int getListSize() {
-        List<WebElement> list = driver.findElements(allTicket);
+        List<WebElement> list = returnListOfElement(allTicket);
         log.info("Size: " + list.size());
         return list.size();
     }
@@ -408,7 +408,7 @@ public class supervisorTicketListPagePOM extends BasePage {
 
     public List<String> getListOfSearchOption() {
         log.info("Getting Search Option");
-        List<WebElement> list = driver.findElements(allSearchOption);
+        List<WebElement> list = returnListOfElement(allSearchOption);
         List<String> searchOption = new ArrayList<>();
         for (int i = 1; i <= list.size(); i++) {
             By search = By.xpath("//ul[@class='ng-star-inserted']//li[" + i + "]");

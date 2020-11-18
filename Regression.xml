@@ -60,6 +60,11 @@
             <class name="tests.VoucherTabTest"/>
         </classes>
     </test>
+    <test name="Clear Refill error">
+        <classes>
+            <class name="tests.ClearRefillErrorTest"/>
+        </classes>
+    </test>
     <test name="Validate Authentication tab">
         <classes>
             <class name="tests.AuthTabTest"/>

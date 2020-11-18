@@ -38,7 +38,7 @@ public class profileManagementPOM extends BasePage {
     }
 
     public String getConfigurationCol(int rowNumber) {
-        List<WebElement> webElementConfigurationList = driver.findElements(configurationCol);
+        List<WebElement> webElementConfigurationList = returnListOfElement(configurationCol);
         log.info("Getting Configuration Status of Profile : " + webElementConfigurationList.get(rowNumber).getText());
         ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Configuration Status of Profile : " + webElementConfigurationList.get(rowNumber).getText());
         return webElementConfigurationList.get(rowNumber).getText();
@@ -46,14 +46,14 @@ public class profileManagementPOM extends BasePage {
 
 
     public String getRoleStatusCol(int rowNumber) {
-        List<WebElement> webElementRoleStatusList = driver.findElements(roleStatusCol);
+        List<WebElement> webElementRoleStatusList = returnListOfElement(roleStatusCol);
         log.info("Getting Role Status of Profile : " + webElementRoleStatusList.get(rowNumber).getText());
         ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Role Status of Profile : " + webElementRoleStatusList.get(rowNumber).getText());
         return webElementRoleStatusList.get(rowNumber).getText();
     }
 
     public void checkAllUnselectedWidgetsCheckboxes() {
-        List<WebElement> checkboxWebElements = driver.findElements(widgetUnCheckbox);
+        List<WebElement> checkboxWebElements = returnListOfElement(widgetUnCheckbox);
         for (WebElement element : checkboxWebElements) {
             log.info("Selecting Check Box");
             ExtentTestManager.getTest().log(LogStatus.INFO, "Selecting Check Box");
@@ -62,12 +62,12 @@ public class profileManagementPOM extends BasePage {
     }
 
     public int getNumberOfProfiles() {
-        List<WebElement> rowsElements = driver.findElements(rows);
+        List<WebElement> rowsElements = returnListOfElement(rows);
         return rowsElements.size();
     }
 
     public void viewRoleWithName(String Name) {
-        List<WebElement> rowsElements = driver.findElements(rows);
+        List<WebElement> rowsElements = returnListOfElement(rows);
         log.info("Clicking on view/Edit button for Role : " + Name);
         System.out.println(rowsElements.size());
         for (WebElement rowsElement : rowsElements) {
@@ -86,7 +86,7 @@ public class profileManagementPOM extends BasePage {
     }
 
     public int getWidgetRowsSize() {
-        List<WebElement> widgetsRowsElements = driver.findElements(widgetsRows);
+        List<WebElement> widgetsRowsElements = returnListOfElement(widgetsRows);
         log.info("Getting number of Widgets : " + widgetsRowsElements.size());
         return widgetsRowsElements.size();
     }
@@ -97,7 +97,7 @@ public class profileManagementPOM extends BasePage {
     }
 
     public boolean isRoleConfigured(String Name) {
-        List<WebElement> rowsElements = driver.findElements(rows);
+        List<WebElement> rowsElements = returnListOfElement(rows);
         boolean isConfigured = false;
         for (WebElement rowsElement : rowsElements) {
             if (rowsElement.findElement(roleName).getText().equalsIgnoreCase(Name)) {
@@ -115,13 +115,13 @@ public class profileManagementPOM extends BasePage {
     }
 
     public WebElement getConfigFilterElement() {
-        List<WebElement> webElements = driver.findElements(By.xpath("//div[@class=\"mat-select-value\"]"));
+        List<WebElement> webElements = returnListOfElement(By.xpath("//div[@class=\"mat-select-value\"]"));
 
         return webElements.get(0);
     }
 
     public WebElement getRoleStatusFilterElement() {
-        List<WebElement> webElements = driver.findElements(By.xpath("//div[@class=\"mat-select-value\"]"));
+        List<WebElement> webElements = returnListOfElement(By.xpath("//div[@class=\"mat-select-value\"]"));
         return webElements.get(1);
     }
 
@@ -144,14 +144,14 @@ public class profileManagementPOM extends BasePage {
     }
 
     public int getNumberOfColumns() {
-        List<WebElement> webElements = driver.findElements(By.xpath("//th//span"));
+        List<WebElement> webElements = returnListOfElement(By.xpath("//th//span"));
         log.info("Getting total number of Columns available on Profile Management Page : " + webElements.size());
         ExtentTestManager.getTest().log(LogStatus.INFO, "Getting total number of Columns available on Profile Management Page : " + webElements.size());
         return webElements.size();
     }
 
     public String getNameOfCol(int ColNo) {
-        List<WebElement> webElements = driver.findElements(By.xpath("//th//span"));
+        List<WebElement> webElements = returnListOfElement(By.xpath("//th//span"));
         try {
             log.info("Getting Name of Columns available on Profile Management Page : " + webElements.get(ColNo).getText());
             ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Name of Columns available on Profile Management Page : " + webElements.get(ColNo).getText());

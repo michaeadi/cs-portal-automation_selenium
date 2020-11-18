@@ -148,7 +148,7 @@ public class FrontendTicketHistory extends BasePage {
         try {
             if (!checkNoTicketFound()) {
                 log.info("Ticket found");
-                List<WebElement> list = driver.findElements(allTicket);
+                List<WebElement> list = returnListOfElement(allTicket);
                 for (int i = 1; i <= list.size(); i++) {
                     if (!checkAddToInteraction(i)) {
                         return false;

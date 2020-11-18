@@ -9,7 +9,10 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
-import org.openqa.selenium.support.ui.*;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 import org.testng.Assert;
 import tests.BaseTest;
 
@@ -26,42 +29,38 @@ public class BasePage {
     public static Properties config = BaseTest.config;
     public WebDriver driver;
     Wait<WebDriver> wait;
-    Wait<WebDriver> wait1;
     By loader = By.xpath("/html/body/app-root/ngx-ui-loader/div[2]");
     By loader1 = By.xpath("//div[@class=\"ngx-overlay foreground-closing\"]");
     By overlay = By.xpath("//mat-dialog-container[@role='dialog']");
     By timeLine = By.xpath("//app-new-loader[@class=\"ng-star-inserted\"]//div[1]");
     By home = By.xpath("//div[text()=\"HOME\"]");
-    JavascriptExecutor js;
 
     //Constructor
     public BasePage(WebDriver driver) {
         PageFactory.initElements(new AjaxElementLocatorFactory(driver, 10), this);
         this.driver = driver;
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        js = (JavascriptExecutor) driver;
         ExpectedCondition<Boolean> expectation = driver1 -> ((JavascriptExecutor) driver1).executeScript("return document.readyState").toString().equals("complete");
-        wait1 = new FluentWait<>(driver)
+        wait = new FluentWait<>(driver)
                 .withTimeout(Duration.ofSeconds(Integer.parseInt(BaseTest.config.getProperty("GeneralWaitInSeconds"))))
                 .pollingEvery(Duration.ofSeconds(Integer.parseInt(BaseTest.config.getProperty("PoolingWaitInSeconds"))))
                 .ignoring(NoSuchElementException.class);
-        wait1.until(expectation);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(Integer.parseInt(BaseTest.config.getProperty("GeneralWaitInSeconds"))));
+        wait.until(expectation);
     }
 
 
     public void waitTillLoaderGetsRemoved() {
         printInfoLog("Waiting for loader to be removed");
-        wait1.until(ExpectedConditions.invisibilityOfElementLocated(loader1));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(loader1));
         printInfoLog("Loader Removed");
     }
 
     public void waitTillOverlayGetsRemoved() {
-        wait1.until(ExpectedConditions.invisibilityOfElementLocated(overlay));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(overlay));
     }
 
     public void waitTillTimeLineGetsRemoved() {
-        wait1.until(ExpectedConditions.invisibilityOfElementLocated(timeLine));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(timeLine));
     }
 
     //Click Method
@@ -101,6 +100,7 @@ public class BasePage {
     //HighlightElement
     void highLighterMethod(By element) {
 //        waitTillLoaderGetsRemoved();
+        JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].setAttribute('style', 'border: 2px solid black;');", driver.findElement(element));
     }
 

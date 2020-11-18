@@ -1,6 +1,7 @@
 package API;
 
 import POJO.*;
+import POJO.ClearRefillStatus.RefillStatus;
 import POJO.KYCProfile.KYCProfile;
 import POJO.LoanDetails.Loan;
 import POJO.LoanSummary.Summary;
@@ -456,6 +457,24 @@ public class APITest extends tests.BaseTest {
         getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
         getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
         return response.as(Loan.class);
+    }
+
+    public RefillStatus clearRefillTest(String msisdn) {
+        getTest().log(LogStatus.INFO, "Using fetch Voucher details using voucher Id to validate Voucher meta data");
+        baseURI = baseUrl;
+        Headers headers = new Headers(map);
+        RequestSpecification request = given()
+                .headers(headers).body("{\"msisdn\":\""+msisdn+"\"}").contentType("application/json");
+        QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
+        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
+        log.info("Request Headers are  : " + queryable.getHeaders());
+        log.info("Request Body are  : " + queryable.getBody());
+        Response response = request.post("/cs-gsm-service/v1/refill/status");
+        log.info("Response : " + response.asString());
+        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
+        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        return response.as(RefillStatus.class);
     }
 
 }

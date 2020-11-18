@@ -11,108 +11,85 @@ import java.util.List;
 
 @Log4j2
 public class MoreRechargeHistoryPOM extends BasePage {
-    By rows = By.xpath("//span[contains(text(),\"BUNDLE SUBSCRIPTION HISTORY \")]//parent::div//following-sibling::div[@class=\"card__content restricted ng-star-inserted\"]//div[@class=\"card__card-header--card-body--table--data-list ng-star-inserted\"]");
-    List<WebElement> rowsElements = driver.findElements(rows);
-    By bundleName = By.xpath("div[1]/span[@class=\"ng-star-inserted\"]");
-    By packageCategory = By.xpath("div[2]/span[@class=\"ng-star-inserted\"]");
-    By transactionNumber = By.xpath("div[3]/span[@class=\"ng-star-inserted\"]");
-    By status = By.xpath("div[4]/span[@class=\"background-badge ng-star-inserted\"]");
-    By subscriptionDateTime = By.xpath("div[5]/span[@class=\"date_time ng-star-inserted\"]");
-    By expiresOn = By.xpath("div[6]/span[@class=\"date_time ng-star-inserted\"]");
-    By validity = By.xpath("div[7]/span[@class=\"ng-star-inserted\"]");
-    By bundlePrice = By.xpath("div[8]/span[@class=\"ng-star-inserted\"]");
-    By DatePicker = By.xpath("//span[contains(text(),\"BUNDLE SUBSCRIPTION HISTORY \")]//following-sibling::form/span[@class=\"datepicker-transaction ng-star-inserted\"]");
-    By bundleHistoryNoResultFound = By.xpath("//span[contains(text(),\"BUNDLE SUBSCRIPTION HISTORY \")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]");
-    By bundleHistoryNoResultFoundMessage = By.xpath("//span[contains(text(),\"BUNDLE SUBSCRIPTION HISTORY \")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]/span/span");
+
+    By widgetName=By.xpath("//span[contains(text(),'RECHARGE HISTORY')]//parent::div[@class=\"card__card-header\"]");
+    By datePicker=By.xpath("//span[contains(text(),'RECHARGE HISTORY')]//parent::div[@class=\"card__card-header\"]//span[@class=\"filter-object\"]//form//input[@name=\"dateRange\"]");
+    By todayDateFilter=By.xpath("//span[contains(text(),'RECHARGE HISTORY')]//parent::div[@class=\"card__card-header\"]//span[@class=\"filter-object\"]//form//mat-radio-group[@role=\"radiogroup\"]//span[contains(text(),'Today')]");
+    By last7DaysFilter=By.xpath("//span[contains(text(),'RECHARGE HISTORY')]//parent::div[@class=\"card__card-header\"]//span[@class=\"filter-object\"]//form//mat-radio-group[@role=\"radiogroup\"]//span[contains(text(),'seven days')]");
+    By last2DaysFilter=By.xpath("//span[contains(text(),'RECHARGE HISTORY')]//parent::div[@class=\"card__card-header\"]//span[@class=\"filter-object\"]//form//mat-radio-group[@role=\"radiogroup\"]//span[contains(text(),'two days')]");
+    By listOfRecharge=By.xpath("//span[contains(text(),'RECHARGE HISTORY')]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]/div[@class=\"ng-star-inserted\"]");
+    List<WebElement> rows=returnListOfElement(listOfRecharge);
+    By pagination=By.xpath("//span[contains(text(),'RECHARGE HISTORY')]//ancestor::div[@class=\"card widget ng-star-inserted\"]//pagination-template//ul");
+    By errorMessage=By.xpath("//span[contains(text(),'RECHARGE HISTORY')]//ancestor::div[@class=\"card widget ng-star-inserted\"]//span[contains(text(),'No Result found')]");
+
+    public Boolean isWidgetDisplay(){
+        printInfoLog("Checking More Recharge History Widget Display");
+        return checkState(widgetName);
+    }
+
+    public Boolean IsPagination(){
+        printInfoLog("Is Pagination Available: "+checkState(pagination));
+        return checkState(pagination);
+    }
+
+    public Boolean isDatePickerDisplay(){
+        printInfoLog("Checking More Recharge History Widget Date Picker Display");
+        return checkState(widgetName);
+    }
 
 
     public String getHeaders(int row) {
-        String header = readText(By.xpath("//span[contains(text(),\"BUNDLE SUBSCRIPTION HISTORY\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"card__card-header--card-body--table--list-heading\"]/div[" + row + "]"));
-        log.info("Getting header Number " + row + " : " + header);
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting header Number " + row + " : " + header);
+        By headers=By.xpath("//span[contains(text(),'RECHARGE HISTORY')]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"card__card-header--card-body--table--list-heading ng-star-inserted\"]//div["+row+"]/span");
+        String header = readText(headers);
+        printInfoLog("Reading header Name: "+ header);
         return header;
     }
 
-    public String gettingBundleHistoryNoResultFoundMessage() {
-        log.info("Validating error message when there is no data from API : " + readText(bundleHistoryNoResultFoundMessage));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Validating error message when there is no data from API : " + readText(bundleHistoryNoResultFoundMessage));
-        return readText(bundleHistoryNoResultFoundMessage);
+    public String getSubHeaders(int row) {
+        By headers=By.xpath("//span[contains(text(),'RECHARGE HISTORY')]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"card__card-header--card-body--table--list-heading ng-star-inserted\"]//div["+row+"]/span[2]");
+        String header = readText(headers);
+        printInfoLog("Reading Sub header Name: "+ header);
+        return header;
     }
 
-    public boolean isBundleHistoryNoResultFoundVisible() {
-        log.info("Validating error is visible when there is no data from API : " + isElementVisible(bundleHistoryNoResultFound));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Validating error is visible when there is no data from API : " + isElementVisible(bundleHistoryNoResultFound));
-        return isElementVisible(bundleHistoryNoResultFound);
+    public Boolean getNoResultFound(){
+        printInfoLog("Is no result found message display: "+checkState(errorMessage));
+        return checkState(errorMessage);
     }
+
+    public String getValueCorrespondingToRechargeHeader(int row,int column){
+        By value=By.xpath("//span[contains(text(),'RECHARGE HISTORY')]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]//div[@class=\"ng-star-inserted\"]["+row+"]//div["+column+"]/span");
+        printInfoLog("Reading '"+getHeaders(column)+"' = "+readText(value));
+        return readText(value);
+    }
+
 
     public MoreRechargeHistoryPOM(WebDriver driver) {
         super(driver);
     }
 
     public boolean isDatePickerVisible() {
-        log.info("Checking is DatePicker is Enabled");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is DatePicker is Enabled");
-        return checkState(DatePicker);
+        printInfoLog("Is DatePicker available: "+checkState(datePicker));
+        return checkState(datePicker);
     }
 
-    public String getBundleName(int RowNumber) {
-        WebElement rowElement = rowsElements.get(RowNumber);
-        log.info("Getting  Bundle Name from Row Number " + RowNumber + " : " + rowElement.findElement(bundleName).getText());
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting  Bundle Name from Row Number " + RowNumber + " : " + rowElement.findElement(bundleName).getText());
-        return rowElement.findElement(bundleName).getText();
+    public boolean isLast2DateVisible() {
+        printInfoLog("Is Last 2 Day Date available: "+checkState(last2DaysFilter));
+        return checkState(last2DaysFilter);
     }
 
-    public String getTransactionNumber(int RowNumber) {
-        WebElement rowElement = rowsElements.get(RowNumber);
-        log.info("Getting Transaction Number from Row Number " + RowNumber + " : " + rowElement.findElement(transactionNumber).getText());
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Transaction Number from Row Number " + RowNumber + " : " + rowElement.findElement(transactionNumber).getText());
-        return rowElement.findElement(transactionNumber).getText();
+    public boolean isLast7DateVisible() {
+        printInfoLog("Is Last 7 Day Date available: "+checkState(last7DaysFilter));
+        return checkState(last7DaysFilter);
     }
 
-    public String getPackageCategory(int RowNumber) {
-        WebElement rowElement = rowsElements.get(RowNumber);
-        log.info("Getting Package Category from Row Number " + RowNumber + " : " + rowElement.findElement(packageCategory).getText());
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Package Category from Row Number " + RowNumber + " : " + rowElement.findElement(packageCategory).getText());
-        return rowElement.findElement(packageCategory).getText();
-    }
-
-    public String getStatus(int RowNumber) {
-        WebElement rowElement = rowsElements.get(RowNumber);
-        log.info("Getting Status from Row Number " + RowNumber + " : " + rowElement.findElement(status).getText());
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Status from Row Number " + RowNumber + " : " + rowElement.findElement(status).getText());
-        return rowElement.findElement(status).getText();
-    }
-
-    public String getSubscriptionDateTime(int RowNumber) {
-        WebElement rowElement = rowsElements.get(RowNumber);
-        log.info("Getting Subscription Date & Time from Row Number " + RowNumber + " : " + rowElement.findElement(subscriptionDateTime).getText());
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Subscription Date & Time from Row Number " + RowNumber + " : " + rowElement.findElement(subscriptionDateTime).getText());
-        return rowElement.findElement(subscriptionDateTime).getText();
-    }
-
-    public String getExpiresOn(int RowNumber) {
-        WebElement rowElement = rowsElements.get(RowNumber);
-        log.info("Getting Expires On Date & Time from Row Number " + RowNumber + " : " + rowElement.findElement(expiresOn).getText());
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Expires On Date & Time from Row Number " + RowNumber + " : " + rowElement.findElement(expiresOn).getText());
-        return rowElement.findElement(expiresOn).getText();
-    }
-
-    public String getValidity(int RowNumber) {
-        WebElement rowElement = rowsElements.get(RowNumber);
-        log.info("Getting Validity from Row Number " + RowNumber + " : " + rowElement.findElement(validity).getText());
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Validity from Row Number " + RowNumber + " : " + rowElement.findElement(validity).getText());
-        return rowElement.findElement(validity).getText();
-    }
-
-    public String getBundlePrice(int RowNumber) {
-        WebElement rowElement = rowsElements.get(RowNumber);
-        log.info("Getting Bundle Price from Row Number " + RowNumber + " : " + rowElement.findElement(bundlePrice).getText());
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Bundle Price from Row Number " + RowNumber + " : " + rowElement.findElement(bundlePrice).getText());
-        return rowElement.findElement(bundlePrice).getText();
+    public boolean isTodayDateVisible() {
+        printInfoLog("Is Today Day Date available: "+checkState(todayDateFilter));
+        return checkState(todayDateFilter);
     }
 
     public int getNumbersOfRows() {
-        return rowsElements.size();
+        return rows.size();
     }
 
 }

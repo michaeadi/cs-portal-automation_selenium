@@ -50,7 +50,7 @@ public class userManagementPOM extends BasePage {
     }
 
     public ArrayList<String> getWorkflows() {
-        List<WebElement> listOfElements = driver.findElements(workflowsOptions);
+        List<WebElement> listOfElements = returnListOfElement(workflowsOptions);
         System.out.println("total elements " + listOfElements.size());
         ArrayList<String> strings = new ArrayList<>();
         for (int i = 0; i < listOfElements.size(); i++) {
@@ -67,7 +67,7 @@ public class userManagementPOM extends BasePage {
     }
 
     public ArrayList<String> getLoginQueues() {
-        List<WebElement> listOfElements = driver.findElements(workflowsOptions);
+        List<WebElement> listOfElements = returnListOfElement(workflowsOptions);
         System.out.println("total elements " + listOfElements.size());
         ArrayList<String> strings = new ArrayList<>();
         for (int i = 0; i < listOfElements.size(); i++) {
@@ -83,7 +83,7 @@ public class userManagementPOM extends BasePage {
     }
 
     public ArrayList<String> getInteractionChannels() {
-        List<WebElement> listOfElements = driver.findElements(channelsOptions);
+        List<WebElement> listOfElements = returnListOfElement(channelsOptions);
         System.out.println("List Size: " + listOfElements.size());
         ArrayList<String> strings = new ArrayList<>();
         for (int i = 0; i < listOfElements.size(); i++) {
@@ -112,7 +112,7 @@ public class userManagementPOM extends BasePage {
 
 
     public void openWorkgroupList() throws InterruptedException {
-        List<WebElement> webElements = driver.findElements(By.xpath("//mat-select[starts-with(@class,'mat-select ng-tns') and @aria-multiselectable=\"true\"]"));
+        List<WebElement> webElements = returnListOfElement(By.xpath("//mat-select[starts-with(@class,'mat-select ng-tns') and @aria-multiselectable=\"true\"]"));
         webElements.get(0).click();
         log.info("Opening Work Group Flow List");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening Work Group Flow List");
@@ -121,7 +121,7 @@ public class userManagementPOM extends BasePage {
     }
 
     public void openLoginQueueList() throws InterruptedException {
-        List<WebElement> webElements = driver.findElements(By.xpath("//mat-select[starts-with(@class,'mat-select ng-tns') and @aria-multiselectable=\"true\"]"));
+        List<WebElement> webElements = returnListOfElement(By.xpath("//mat-select[starts-with(@class,'mat-select ng-tns') and @aria-multiselectable=\"true\"]"));
         webElements.get(1).click();
         log.info("Opening Login QueueFlow List");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening Login Queue Flow List");
@@ -207,7 +207,7 @@ public class userManagementPOM extends BasePage {
     }
 
     public void pressESCWorkflow() {
-        List<WebElement> webElements = driver.findElements(By.xpath("//mat-select[starts-with(@class,'mat-select ng-tns') and @aria-multiselectable=\"true\"]"));
+        List<WebElement> webElements = returnListOfElement(By.xpath("//mat-select[starts-with(@class,'mat-select ng-tns') and @aria-multiselectable=\"true\"]"));
         webElements.get(0).sendKeys(Keys.ESCAPE);
     }
 
