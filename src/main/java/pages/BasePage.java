@@ -106,9 +106,15 @@ public class BasePage {
 
     //Check the state of element
     boolean checkState(By elementLocation) {
-        waitVisibility(elementLocation);
-        highLighterMethod(elementLocation);
-        return driver.findElement(elementLocation).isEnabled();
+        try {
+            waitVisibility(elementLocation);
+            highLighterMethod(elementLocation);
+            return driver.findElement(elementLocation).isEnabled();
+        }catch (NoSuchElementException | TimeoutException e){
+            printFailLog("Check State Failed: "+e.fillInStackTrace());
+            e.printStackTrace();
+            return false;
+        }
 
     }
 
