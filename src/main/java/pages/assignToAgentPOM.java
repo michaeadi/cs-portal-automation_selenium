@@ -84,8 +84,6 @@ public class assignToAgentPOM extends BasePage {
                 By allSlot = By.xpath("//div[@class=\"pannel-content-area ng-star-inserted\"]/div[" + i + "]//span[@class=\"slot-count orange\"]");
                 System.out.println(readText(allSlot));
                 try {
-
-                    //regex
                     slot = Integer.parseInt(readText(allSlot));
                 } catch (NumberFormatException e) {
                     e.printStackTrace();

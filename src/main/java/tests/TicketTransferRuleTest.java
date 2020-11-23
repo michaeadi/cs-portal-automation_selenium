@@ -77,8 +77,7 @@ public class TicketTransferRuleTest extends BaseTest {
                 softAssert.assertEquals(ticketListPage.getStatevalue().toLowerCase().trim(), selectedState.toLowerCase().trim(), "Ticket Does not Updated to Selected State");
                 softAssert.assertEquals(ticketListPage.getqueueValue().toLowerCase().trim(), ruleData.getToQueue().toLowerCase().trim(), "Ticket does not updated to correct ticket pool");
             } catch (TimeoutException | NoSuchElementException e) {
-             //Print stack trace
-                softAssert.fail("Ticket has been transferred to Selected but not able search ticket.");
+                softAssert.fail("Ticket has been transferred to Selected but not able search ticket."+e.fillInStackTrace());
             }
         } else {
             viewTicket.clickBackButton();

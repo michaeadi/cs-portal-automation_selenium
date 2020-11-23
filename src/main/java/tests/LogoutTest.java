@@ -17,14 +17,14 @@ public class LogoutTest extends BaseTest {
         SideMenuPOM sideMenuPOM = new SideMenuPOM(driver);
         ExtentTestManager.startTest("Logging Out Of Portal", "Logging Out Of Portal");
         SoftAssert softAssert = new SoftAssert();
-        loginPagePOM loginPagePOM=null;
+        loginPagePOM loginPagePOM = null;
         if (sideMenuPOM.isSideMenuVisible()) {
             sideMenuPOM.clickOnSideMenu();
-            //try catch issue
-            try{
             loginPagePOM = sideMenuPOM.logout();
-        }catch (TimeoutException | NoSuchElementException e){
-                loginPagePOM.selectByText("Yes");
+            try {
+                Assert.assertTrue(loginPagePOM.isEnterAUUIDFieldVisible());
+            } catch (TimeoutException | NoSuchElementException e) {
+                loginPagePOM.selectByText("Continue");
             }
             Assert.assertTrue(loginPagePOM.isEnterAUUIDFieldVisible());
         } else {

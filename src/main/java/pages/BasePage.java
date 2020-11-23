@@ -4,16 +4,12 @@ import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.time.DateUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.*;
 import org.testng.Assert;
 import tests.BaseTest;
 
@@ -29,48 +25,59 @@ import java.util.concurrent.TimeUnit;
 public class BasePage {
     public static Properties config = BaseTest.config;
     public WebDriver driver;
-    public WebDriverWait wait;
+    Wait<WebDriver> wait;
+    Wait<WebDriver> wait1;
     By loader = By.xpath("/html/body/app-root/ngx-ui-loader/div[2]");
-    @CacheLookup
     By loader1 = By.xpath("//div[@class=\"ngx-overlay foreground-closing\"]");
     By overlay = By.xpath("//mat-dialog-container[@role='dialog']");
     By timeLine = By.xpath("//app-new-loader[@class=\"ng-star-inserted\"]//div[1]");
     By home = By.xpath("//div[text()=\"HOME\"]");
+    JavascriptExecutor js;
 
     //Constructor
     public BasePage(WebDriver driver) {
         PageFactory.initElements(new AjaxElementLocatorFactory(driver, 10), this);
         this.driver = driver;
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        js = (JavascriptExecutor) driver;
+        ExpectedCondition<Boolean> expectation = driver1 -> ((JavascriptExecutor) driver1).executeScript("return document.readyState").toString().equals("complete");
+        wait1 = new FluentWait<>(driver)
+                .withTimeout(Duration.ofSeconds(Integer.parseInt(BaseTest.config.getProperty("GeneralWaitInSeconds"))))
+                .pollingEvery(Duration.ofSeconds(Integer.parseInt(BaseTest.config.getProperty("PoolingWaitInSeconds"))))
+                .ignoring(NoSuchElementException.class);
+        wait1.until(expectation);
         wait = new WebDriverWait(driver, Duration.ofSeconds(Integer.parseInt(BaseTest.config.getProperty("GeneralWaitInSeconds"))));
-        driver.manage().timeouts().implicitlyWait(Integer.parseInt(BaseTest.config.getProperty("ImplicitWaitInSeconds")), TimeUnit.SECONDS);
     }
 
 
     public void waitTillLoaderGetsRemoved() {
         printInfoLog("Waiting for loader to be removed");
-//        wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(loader1));
+        wait1.until(ExpectedConditions.invisibilityOfElementLocated(loader1));
         printInfoLog("Loader Removed");
     }
 
     public void waitTillOverlayGetsRemoved() {
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(overlay));
+        wait1.until(ExpectedConditions.invisibilityOfElementLocated(overlay));
     }
 
     public void waitTillTimeLineGetsRemoved() {
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(timeLine));
+        wait1.until(ExpectedConditions.invisibilityOfElementLocated(timeLine));
     }
 
     //Click Method
     void click(By elementLocation) {
-        waitVisibility(elementLocation);
+        wait.until(ExpectedConditions.elementToBeClickable(elementLocation));
         highLighterMethod(elementLocation);
+//        WebElement element = driver.findElement(elementLocation);
+//        Actions actions = new Actions(driver);
+//        actions.moveToElement(element).click().perform();
         driver.findElement(elementLocation).click();
         log.info("Clicking on element" + elementLocation.toString());
     }
 
     void scrollToViewElement(By Element) throws InterruptedException {
         WebElement element = driver.findElement(Element);
+        waitVisibility(Element);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
         Thread.sleep(500);
     }
@@ -93,7 +100,7 @@ public class BasePage {
 
     //HighlightElement
     void highLighterMethod(By element) {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
+//        waitTillLoaderGetsRemoved();
         js.executeScript("arguments[0].setAttribute('style', 'border: 2px solid black;');", driver.findElement(element));
     }
 
@@ -107,6 +114,7 @@ public class BasePage {
 
     //Wait For Element
     public void waitVisibility(By by) {
+        wait.until(ExpectedConditions.presenceOfElementLocated(by));
         wait.until(ExpectedConditions.visibilityOfElementLocated(by));
     }
 
@@ -157,6 +165,29 @@ public class BasePage {
         return format.format(date);
     }
 
+    public String getDateFromString(String date, String pattern) {
+        try {
+            Date newDate = new SimpleDateFormat("dd-MMM-yyyy hh:mm aa").parse(date);
+            DateFormat format = new SimpleDateFormat(pattern);
+            return format.format(newDate);
+        } catch (ParseException e) {
+            printFailLog("Not able to parse the date: " + date + " " + e.fillInStackTrace());
+        }
+        return "Invalid Date String";
+    }
+
+    public String getDateFromStringInUTC(String date, String pattern) {
+        try {
+            Date newDate = new SimpleDateFormat("dd-MMM-yyyy hh:mm aa").parse(date);
+            DateFormat format = new SimpleDateFormat(pattern);
+            format.setTimeZone(TimeZone.getTimeZone("Etc/UTC"));
+            return format.format(newDate);
+        } catch (ParseException e) {
+            printFailLog("Not able to parse the date: " + date + " " + e.fillInStackTrace());
+        }
+        return "Invalid Date String";
+    }
+
     public String getDateFromEpochInUTC(long Epoch, String pattern) {
         Date date = new Date(Epoch);
         DateFormat format = new SimpleDateFormat(pattern);
@@ -194,7 +225,10 @@ public class BasePage {
         driver.findElement(By.xpath("//span[contains(text(),'" + text + "')]")).click();
     }
 
-    JavascriptExecutor js = (JavascriptExecutor) driver;
+    public void clickOutside() {
+        Actions action = new Actions(driver);
+        action.moveByOffset(0, 0).click().build().perform();
+    }
 
     public void clearInputTag(By element) {
         log.info("Clear Search Box");
@@ -202,7 +236,7 @@ public class BasePage {
     }
 
     public boolean validateFilter(By element, String text) {
-        List<WebElement> list = driver.findElements(element);
+        List<WebElement> list = returnListOfElement(element);
         log.info("Validating Filter");
         for (WebElement x : list) {
             log.info("Element Text : " + x.getText());
@@ -215,7 +249,40 @@ public class BasePage {
 
     public boolean isSortOrderDisplay(String historyDateTime, String historyDateTime1, String pattern) {
         DateFormat format = new SimpleDateFormat(pattern);
+        final Calendar cal = Calendar.getInstance();
         try {
+            if (historyDateTime.contains("Yesterday")) {
+                String pattern1=pattern.split("hh")[0].trim();
+                DateFormat format1 = new SimpleDateFormat(pattern1);
+                cal.add(Calendar.DATE, -1);
+                String yesterday = format1.format(cal.getTime());
+                historyDateTime=historyDateTime.replace("Yesterday",yesterday);
+                System.out.println(historyDateTime+" :"+yesterday);
+            }
+
+            if (historyDateTime1.contains("Yesterday")) {
+                String pattern1=pattern.split("hh")[0].trim();
+                DateFormat format1 = new SimpleDateFormat(pattern1);
+                cal.add(Calendar.DATE, -1);
+                String yesterday = format1.format(cal.getTime());
+                historyDateTime1=historyDateTime1.replace("Yesterday",yesterday);
+                System.out.println(historyDateTime1+" :"+yesterday);
+            }
+
+            if (historyDateTime.contains("Today")) {
+                String pattern1=pattern.split("hh")[0].trim();
+                DateFormat format1 = new SimpleDateFormat(pattern1);
+                String today = format1.format(Calendar.getInstance().getTime());
+                historyDateTime=historyDateTime.replace("Today",today);
+            }
+
+            if (historyDateTime1.contains("Today")) {
+                String pattern1=pattern.split("hh")[0].trim();
+                DateFormat format1 = new SimpleDateFormat(pattern1);
+                String today = format1.format(Calendar.getInstance().getTime());
+                historyDateTime1=historyDateTime1.replace("Today",today);
+            }
+
             Date date1 = format.parse(historyDateTime);
             Date date2 = format.parse(historyDateTime1);
             if (date1.compareTo(date2) <= 0) {
@@ -231,15 +298,9 @@ public class BasePage {
         }
     }
 
-    public void clickOutside() {
-        //review
-        Actions action = new Actions(driver);
-        action.moveByOffset(0, 0).click().build().perform();
-    }
-
     public String convertToHR(String committedSla) {
         Long ms = Long.parseLong(committedSla);
-        log.info("Converting SLA: " + committedSla + " to " + TimeUnit.MILLISECONDS.toHours(ms));
+        log.info("Converting SLA: " + committedSla + " to " + String.valueOf(TimeUnit.MILLISECONDS.toHours(ms)));
         return String.valueOf(TimeUnit.MILLISECONDS.toHours(ms));
     }
 
@@ -263,8 +324,18 @@ public class BasePage {
         ExtentTestManager.getTest().log(LogStatus.WARNING, message);
     }
 
-    public String ValueRoundOff(Double value){
+    public String ValueRoundOff(Double value) {
         DecimalFormat df = new DecimalFormat("###.##");
         return df.format(value);
+    }
+
+    public List<WebElement> returnListOfElement(By element) {
+        List<WebElement> list = new ArrayList<>();
+        try {
+            list = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(element));
+        } catch (TimeoutException | NoSuchElementException e) {
+            printInfoLog("Not able to Fetch List of Elements :" + e.fillInStackTrace());
+        }
+        return list;
     }
 }
