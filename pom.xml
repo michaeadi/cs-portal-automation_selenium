@@ -8,31 +8,31 @@
     <artifactId>CS_PORTAL</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <!--    <repositories>-->
-    <!--        <repository>-->
-    <!--            <id>central</id>-->
-    <!--            <name>Central Repository</name>-->
-    <!--            <url>http://insecure.repo1.maven.org/maven2</url>-->
-    <!--            <layout>default</layout>-->
-    <!--            <snapshots>-->
-    <!--                <enabled>false</enabled>-->
-    <!--            </snapshots>-->
-    <!--        </repository>-->
-    <!--    </repositories>-->
-    <!--    <pluginRepositories>-->
-    <!--        <pluginRepository>-->
-    <!--            <id>central</id>-->
-    <!--            <name>Central Repository</name>-->
-    <!--            <url>http://insecure.repo1.maven.org/maven2</url>-->
-    <!--            <layout>default</layout>-->
-    <!--            <snapshots>-->
-    <!--                <enabled>false</enabled>-->
-    <!--            </snapshots>-->
-    <!--            <releases>-->
-    <!--                <updatePolicy>never</updatePolicy>-->
-    <!--            </releases>-->
-    <!--        </pluginRepository>-->
-    <!--    </pluginRepositories>-->
+    <repositories>
+        <repository>
+            <id>central</id>
+            <name>Central Repository</name>
+            <url>http://insecure.repo1.maven.org/maven2</url>
+            <layout>default</layout>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>central</id>
+            <name>Central Repository</name>
+            <url>http://insecure.repo1.maven.org/maven2</url>
+            <layout>default</layout>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <updatePolicy>always</updatePolicy>
+            </releases>
+        </pluginRepository>
+    </pluginRepositories>
     <dependencies>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
