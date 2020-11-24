@@ -7,6 +7,8 @@ import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.HeaderDataBean;
 import Utils.DataProviders.TestDatabean;
 import Utils.ExtentReports.ExtentTestManager;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -58,6 +60,14 @@ public class CRBTWidgetTest extends BaseTest {
         crbtWidget.searchKeyword("h");
         crbtWidget.clickSearchBtn();
         crbtWidget.waitTillTimeLineGetsRemoved();
+        try{
+            crbtWidget.clickSearchOption();
+            softAssert.assertEquals(crbtWidget.getOption1().trim().toLowerCase(),config.getProperty("searchByName").trim().toLowerCase(),"Search By option does not same as expected.");
+            softAssert.assertEquals(crbtWidget.getOption2().trim().toLowerCase(),config.getProperty("searchByTitle").trim().toLowerCase(),"Search By option does not same as expected.");
+        }catch (NoSuchElementException | TimeoutException e){
+            softAssert.fail("Not able to search option: "+e.fillInStackTrace());
+        }
+        crbtWidget.clickOutside();
         if (!searchTune.getStatusCode().equalsIgnoreCase("200")) {
             softAssert.fail("API Response "+searchTune.getMessage());
             softAssert.assertTrue(crbtWidget.isWidgetError(),"Widget Error does not display as api response is not 200.");
