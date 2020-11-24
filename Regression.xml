@@ -75,6 +75,11 @@
             <class name="tests.LoanWidgetTest"/>
         </classes>
     </test>
+        <test name="CRBT Widget Test">
+            <classes>
+                <class name="tests.CRBTWidgetTest"/>
+            </classes>
+        </test>
     <test name="Supervisors Ticket Bulk Update Test">
         <classes>
             <class name="tests.TicketBulkUpdateTest"/>

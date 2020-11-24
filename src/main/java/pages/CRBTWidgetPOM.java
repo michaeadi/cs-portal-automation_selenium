@@ -18,6 +18,10 @@ public class CRBTWidgetPOM extends BasePage {
     By searchOptionBtn=By.xpath("//span[contains(text(),\"RING BACK TUNE \") and @class=\"card__card-header--label\"]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"search-area\"]//span");
     By option1=By.xpath("//div[@class=\"mat-menu-content\"]/button[1]/span");
     By option2=By.xpath("//div[@class=\"mat-menu-content\"]/button[2]/span");
+    /*
+    *Top 20 Element Locator
+    * By header=By.xpath("//span[contains(text(),"RING BACK TUNE ") and @class="card__card-header--label"]//ancestor::div[@class="card widget ng-star-inserted"]//div[@class="mat-tab-body-wrapper"]//div[@class="card__card-header--card-body--table--list-heading ng-star-inserted"]/div[1]/span");
+    * */
 
 
     public CRBTWidgetPOM(WebDriver driver) {
@@ -54,6 +58,83 @@ public class CRBTWidgetPOM extends BasePage {
         return driver.findElement(tab).getAttribute("aria-selected")=="true" ? true :false;
     }
 
+    public boolean isNoResultImg(){
+        printInfoLog("Is No Result Found Image Displayed: "+checkState(noResultImg));
+        return checkState(noResultImg);
+    }
 
+    public boolean isNoResultMessage(){
+        printInfoLog("Is No Result Found Message Displayed: "+checkState(noResultMessage));
+        return checkState(noResultMessage);
+    }
+
+    public boolean isWidgetError(){
+        printInfoLog("Is no Widget Error Display: "+checkState(widgetError));
+        return checkState(widgetError);
+    }
+
+    public void searchKeyword(String text){
+        printInfoLog("Writing Keyword in search box: "+text);
+        writeText(searchBox,text);
+    }
+
+    public void clickSearchBtn(){
+        printInfoLog("Clicking Search Button");
+        click(searchBtn);
+    }
+
+    public void clickSearchOption(){
+        printInfoLog("Clicking Search Option");
+        click(searchOptionBtn);
+    }
+
+    public String getOption1(){
+        printInfoLog("Reading option1: "+readText(option1));
+        return readText(option1);
+    }
+
+    public String getOption2(){
+        printInfoLog("Reading option2: "+readText(option2));
+        return readText(option2);
+    }
+
+    public String getTop20Header(int i){
+        By text=By.xpath("//span[contains(text(),\"RING BACK TUNE \") and @class=\"card__card-header--label\"]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"mat-tab-body-wrapper\"]//div[@class=\"card__card-header--card-body--table--list-heading ng-star-inserted\"]/div["+i+"]/span");
+        printInfoLog("Reading Header Name at POS("+i+"): "+readText(text));
+        return readText(text).trim();
+    }
+
+    public String getValueTop20(int row,int column){
+        By value=By.xpath("//span[contains(text(),\"RING BACK TUNE\") and @class=\"card__card-header--label\"]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"mat-tab-body-wrapper\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]//div["+row+"]//div[@class=\"card__card-header--card-body--table--data-list row-border\"]//div["+column+"]/span");
+        printInfoLog("Reading value for '"+getTop20Header(column)+"': "+readText(value));
+        return readText(value).trim();
+    }
+
+    public String getSearchHeader(int i){
+        By text=By.xpath("//span[contains(text(),\"RING BACK TUNE \") and @class=\"card__card-header--label\"]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"mat-tab-body-wrapper\"]//div[@class=\"card__card-header--card-body--table\"]//div[@class=\"card__card-header--card-body--table--list-heading ng-star-inserted\"]//div["+i+"]/span");
+        printInfoLog("Reading Header Name at POS("+i+"): "+readText(text));
+        return readText(text).trim();
+    }
+
+    public String getValueSearch(int row,int column){
+        By value=By.xpath("//span[contains(text(),\"RING BACK TUNE\") and @class=\"card__card-header--label\"]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"mat-tab-body-wrapper\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]//div["+row+"]//div[@class=\"card__card-header--card-body--table--data-list row-border\"]//div["+column+"]/span");
+        printInfoLog("Reading value for '"+getSearchHeader(column)+"': "+readText(value));
+        return readText(value).trim();
+    }
+
+    public void clickTop20Tab(){
+        printInfoLog("Clicking on Top 20 Tab.");
+        click(top20TuneTab);
+    }
+
+    public void clickSearchTuneTab(){
+        printInfoLog("Clicking on Search Tunes.");
+        click(searchTuneTab);
+    }
+
+    public void clickMyTunesTab(){
+        printInfoLog("Clicking on My Tunes.");
+        click(myTuneTab);
+    }
 
 }
