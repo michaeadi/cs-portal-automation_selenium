@@ -26,9 +26,9 @@ public class MoreUsageHistoryPOM extends BasePage {
     By smsHistoryRows = By.xpath("//span[contains(text(),\"SMS History \")]//parent::div//following-sibling::div[@class=\"card__content restricted ng-star-inserted\"]//div[@class=\"card__card-header--card-body--table--data-list ng-star-inserted\"]");
     By callHistoryRows = By.xpath("//span[contains(text(),\"Call History \")]//parent::div//following-sibling::div[@class=\"card__content restricted ng-star-inserted\"]//div[@class=\"card__card-header--card-body--table--data-list ng-star-inserted\"]");
     By dataHistoryRows = By.xpath("//span[contains(text(),\"Data History \")]//parent::div//following-sibling::div[@class=\"card__content restricted ng-star-inserted\"]//div[@class=\"card__card-header--card-body--table--data-list ng-star-inserted\"]");
-    List<WebElement> smsHistoryRowsElements = driver.findElements(smsHistoryRows);
-    List<WebElement> callHistoryRowsElements = driver.findElements(callHistoryRows);
-    List<WebElement> dataHistoryRowsElements = driver.findElements(dataHistoryRows);
+    List<WebElement> smsHistoryRowsElements = returnListOfElement(smsHistoryRows);
+    List<WebElement> callHistoryRowsElements = returnListOfElement(callHistoryRows);
+    List<WebElement> dataHistoryRowsElements = returnListOfElement(dataHistoryRows);
     By smsDatePicker = By.xpath("//span[contains(text(),\"SMS History \")]//following-sibling::form/span[@class=\"datepicker-transaction ng-star-inserted\"]");
     By dataDatePicker = By.xpath("//span[contains(text(),\"Data History \")]//following-sibling::form/span[@class=\"datepicker-transaction ng-star-inserted\"]");
     By callDatePicker = By.xpath("//span[contains(text(),\"Call History \")]//following-sibling::form/span[@class=\"datepicker-transaction ng-star-inserted\"]");

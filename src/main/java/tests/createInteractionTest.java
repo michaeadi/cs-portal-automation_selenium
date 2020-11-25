@@ -1,5 +1,8 @@
 package tests;
 
+import API.APITest;
+import POJO.SMSHistory.SMSHistoryList;
+import POJO.SMSHistory.SMSHistoryPOJO;
 import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.TestDatabean;
 import Utils.DataProviders.ftrDataBeans;
@@ -22,6 +25,8 @@ import static Utils.DataProviders.DataProviders.User;
 
 public class createInteractionTest extends BaseTest {
 
+    String customerNumber = null;
+    APITest api = new APITest();
 
     @User(UserType = "NFTR")
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
@@ -33,6 +38,7 @@ public class createInteractionTest extends BaseTest {
         SideMenuPOM.clickOnName();
         customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
         customerInteractionsSearchPOM.enterNumber(Data.getCustomerNumber());
+        customerNumber=Data.getCustomerNumber();
         customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
         softAssert.assertTrue(customerInteractionPagePOM.isPageLoaded());
         softAssert.assertAll();
@@ -45,17 +51,19 @@ public class createInteractionTest extends BaseTest {
         customerInteractionPagePOM customerInteractionPagePOM = new customerInteractionPagePOM(driver);
         InteractionsPOM interactionsPOM = customerInteractionPagePOM.clickOnInteractionIcon();
         SoftAssert softAssert = new SoftAssert();
-        interactionsPOM.clickOnCode();
         try {
             try {
+                interactionsPOM.waitTillLoaderGetsRemoved();
+                interactionsPOM.clickOnCode();
                 interactionsPOM.searchCode(Data.getIssueCode());
-            } catch (Exception e) {
+            } catch (NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
                 Thread.sleep(1000);
                 interactionsPOM.clickOnCode();
                 interactionsPOM.searchCode(Data.getIssueCode());
 
             }
             interactionsPOM.selectCode(Data.getIssueCode());
+            interactionsPOM.waitTillLoaderGetsRemoved();
             ExtentTestManager.getTest().log(LogStatus.INFO, "Creating ticket with issue code -" + Data.getIssueCode());
             System.out.println(interactionsPOM.getIssue());
             softAssert.assertEquals(interactionsPOM.getIssue().trim().toLowerCase().replace(" ", ""), Data.getIssue().trim().toLowerCase().replace(" ", ""), "Issue is not as expected ");
@@ -69,9 +77,10 @@ public class createInteractionTest extends BaseTest {
             interactionsPOM.clickOnSave();
             softAssert.assertTrue(interactionsPOM.isResolvedFTRDisplayed(), "Resolved FTR does not display");
             softAssert.assertEquals(interactionsPOM.getResolvedFTRDisplayed(), "Resolved FTR", "Resolved FTR does not display");
-        } catch (Exception e) {
+        } catch (NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
             System.out.println("in catch");
             interactionsPOM.resetInteractionIssue();
+            interactionsPOM.waitTillLoaderGetsRemoved();
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
@@ -90,10 +99,11 @@ public class createInteractionTest extends BaseTest {
         LocalDateTime now = LocalDateTime.now();
         System.out.println(dtf.format(now));
         customerInteractionPagePOM customerInteractionPagePOM = new customerInteractionPagePOM(driver);
+        customerInteractionPagePOM.waitTillLoaderGetsRemoved();
         InteractionsPOM interactionsPOM = customerInteractionPagePOM.clickOnInteractionIcon();
         SoftAssert softAssert = new SoftAssert();
-        interactionsPOM.clickOnCode();
         try {
+            interactionsPOM.clickOnCode();
             interactionsPOM.searchCode(Data.getIssueCode());
         } catch (Exception e) {
             System.out.println("Try Again:");
@@ -103,6 +113,7 @@ public class createInteractionTest extends BaseTest {
 
         }
         interactionsPOM.selectCode(Data.getIssueCode());
+        interactionsPOM.waitTillLoaderGetsRemoved();
         ExtentTestManager.getTest().log(LogStatus.INFO, "Creating ticket with issue code -" + Data.getIssueCode());
         softAssert.assertEquals(interactionsPOM.getIssue().trim().toLowerCase().replace(" ", ""), Data.getIssue().trim().toLowerCase().replace(" ", ""), "Issue is not as expected ");
         softAssert.assertEquals(interactionsPOM.getIssueSubSubType().trim().toLowerCase().replace(" ", ""), Data.getIssueSubSubType().trim().toLowerCase().replace(" ", ""), "Issue sub sub type is not as expected ");
@@ -319,22 +330,17 @@ public class createInteractionTest extends BaseTest {
             e.printStackTrace();
             Assert.fail(e.getCause().getMessage());
         }
-        String base64Screenshot = "data:image/png;base64," + ((TakesScreenshot) driver).
-                getScreenshotAs(OutputType.BASE64);
-        ExtentTestManager.getTest().log(LogStatus.INFO, ExtentTestManager.getTest().addBase64ScreenShot(base64Screenshot));
+//        String base64Screenshot = "data:image/png;base64," + ((TakesScreenshot) driver).
+//                getScreenshotAs(OutputType.BASE64);
+//        ExtentTestManager.getTest().log(LogStatus.INFO, ExtentTestManager.getTest().addBase64ScreenShot(base64Screenshot));
         interactionsPOM.closeInteractions();
-        customerInteractionPagePOM customerInteractionPage = new customerInteractionPagePOM(driver);
-        viewHistoryPOM viewHistory = customerInteractionPage.clickOnViewHistory();
-        viewHistory.waitTillLoaderGetsRemoved();
-        MessageHistoryTabPOM messageHistory = viewHistory.clickOnMessageHistory();
-        messageHistory.waitTillLoaderGetsRemoved();
-        softAssert.assertTrue(messageHistory.isMessageTypeColumn(), "Message Type Column does not display on UI");
-        softAssert.assertEquals(messageHistory.messageType(1).toLowerCase().trim(), config.getProperty("systemSMSType").toLowerCase().trim(), "Message Type is not system");
-        softAssert.assertEquals(messageHistory.templateEvent(1).toLowerCase().trim(), config.getProperty("ticketCreateEvent").toLowerCase().trim(), "Template event not same as defined.");
-        softAssert.assertTrue(messageHistory.messageText(1).contains(ticket_number), "Message content not same as set message content.");
-        softAssert.assertTrue(messageHistory.isActionBtnDisable(1), "Resend SMS icon does not disable");
-        softAssert.assertTrue(messageHistory.agentId(1).trim().equalsIgnoreCase("-"), " :Agent id does not empty");
-        softAssert.assertTrue(messageHistory.agentName(1).trim().equalsIgnoreCase("-"), " :Agent name does not empty");
+        SMSHistoryPOJO smsHistory = api.smsHistoryTest(customerNumber);
+        SMSHistoryList list = smsHistory.getResult().get(0);
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Message Sent after Ticket Creation: " + list.getMessageText());
+        softAssert.assertTrue(list.getMessageText().contains(ticket_number), "Message Sent does not send for same ticket id which has been Create");
+        softAssert.assertEquals(list.getSmsType().toLowerCase().trim(), config.getProperty("systemSMSType").toLowerCase().trim(), "Message type is not system");
+        softAssert.assertFalse(list.isAction(), "Action button is not disabled");
+        softAssert.assertEquals(list.getTemplateName().toLowerCase().trim(), config.getProperty("ticketCreateEvent").toLowerCase().trim(), "Template event not same as defined.");
         softAssert.assertAll();
     }
 

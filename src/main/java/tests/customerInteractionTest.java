@@ -11,6 +11,8 @@ import Utils.DataProviders.TestDatabean;
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -63,12 +65,21 @@ public class customerInteractionTest extends BaseTest {
                 DataProviders data = new DataProviders();
                 authTab.waitTillLoaderGetsRemoved();
                 Assert.assertTrue(authTab.isAuthTabLoad(), "Authentication tab does not load correctly");
-                List<AuthTabDataBeans> list = data.getPolicy();
-                for (int i = 1; i <= Integer.parseInt(list.get(0).getMinAnswer()); i++) {
-                    authTab.clickCheckBox(i);
+                try {
+                    List<AuthTabDataBeans> list = data.getPolicy();
+                    for (int i = 1; i <= Integer.parseInt(list.get(0).getMinAnswer()); i++) {
+                        authTab.clickCheckBox(i);
+                        }
+                    Assert.assertTrue(authTab.isAuthBtnEnable(), "Authenticate Button does not enable after choose minimum number of question");
+                    authTab.clickAuthBtn();
+                } catch (NoSuchElementException | AssertionError | TimeoutException e) {
+                    e.printStackTrace();
+                    String base64Screenshot = "data:image/png;base64," + ((TakesScreenshot) driver).
+                            getScreenshotAs(OutputType.BASE64);
+                    ExtentTestManager.getTest().log(LogStatus.INFO, ExtentTestManager.getTest().addBase64ScreenShot(base64Screenshot));
+                    softAssert.fail("Not able to authenticate user: " + e.fillInStackTrace());
+                    authTab.clickCloseBtn();
                 }
-                Assert.assertTrue(authTab.isAuthBtnEnable(), "Authenticate Button does not enable after choose minimum number of question");
-                authTab.clickAuthBtn();
             }
             try {
                 softAssert.assertEquals(demographic.getPUK1().trim(), kycProfile.getResult().getPuk().get(0).getValue(), "Customer's PUK1 Number is not as Expected");
@@ -85,7 +96,7 @@ public class customerInteractionTest extends BaseTest {
 
         } catch (NoSuchElementException | TimeoutException | InterruptedException | AssertionError e) {
             e.printStackTrace();
-            softAssert.fail("Not able to View PUK Details"+e.getMessage());
+            softAssert.fail("Not able to View PUK Details" + e.getMessage());
         }
 
         try {
@@ -95,18 +106,24 @@ public class customerInteractionTest extends BaseTest {
                 DataProviders data = new DataProviders();
                 authTab.waitTillLoaderGetsRemoved();
                 Assert.assertTrue(authTab.isAuthTabLoad(), "Authentication tab does not load correctly");
-                List<AuthTabDataBeans> list = data.getPolicy();
-                for (int i = 1; i <= Integer.parseInt(list.get(0).getMinAnswer()); i++) {
-                    authTab.clickCheckBox(i);
+                try {
+                    List<AuthTabDataBeans> list = data.getPolicy();
+                    for (int i = 1; i <= Integer.parseInt(list.get(0).getMinAnswer()); i++) {
+                        authTab.clickCheckBox(i);
+                    }
+                    Assert.assertTrue(authTab.isAuthBtnEnable(), "Authenticate Button does not enable after choose minimum number of question");
+                    authTab.clickAuthBtn();
+                } catch (NoSuchElementException | TimeoutException e) {
+                    e.fillInStackTrace();
+                    softAssert.fail("Action(Airtel Money Status)Not able to authenticate user: " + e.fillInStackTrace());
+                    authTab.clickCloseBtn();
                 }
-                Assert.assertTrue(authTab.isAuthBtnEnable(), "Authenticate Button does not enable after choose minimum number of question");
-                authTab.clickAuthBtn();
             }
 
 
         } catch (NoSuchElementException | TimeoutException | InterruptedException | AssertionError e) {
             e.printStackTrace();
-            softAssert.fail("Airtel Money Status does not unlock"+e.getMessage());
+            softAssert.fail("Airtel Money Status does not unlock" + e.getMessage());
         }
 
         try {
@@ -445,11 +462,11 @@ public class customerInteractionTest extends BaseTest {
             for (int i = 0; i < size; i++) {
                 softAssert.assertEquals(usageHistoryWidget.getHistoryType(i), usageHistoryAPI.getResult().get(i).getType(), "Usage History Type is not As received in API for row number " + i);
                 softAssert.assertEquals(usageHistoryWidget.getHistoryCharge(i), usageHistoryAPI.getResult().get(i).getCharges(), "Usage History Charge is not As received in API for row number " + i);
-                softAssert.assertEquals(usageHistoryWidget.getHistoryDateTime(i), usageHistoryWidget.getDateFromEpoch(Long.parseLong(usageHistoryAPI.getResult().get(i).getDateTime()), "dd-MMM-yyy HH:mm"), "Usage History Date Time is not As received in API for row number " + i);
+                softAssert.assertEquals(usageHistoryWidget.getHistoryDateTime(i), usageHistoryWidget.getDateFromString(usageHistoryAPI.getResult().get(i).getDateTime(), "dd-MMM-yyy HH:mm"), "Usage History Date Time is not As received in API for row number " + i);
                 softAssert.assertEquals(usageHistoryWidget.getHistoryStartBalance(i), usageHistoryAPI.getResult().get(i).getStartBalance(), "Usage History Start Balance  is not As received in API for row number " + i);
                 softAssert.assertEquals(usageHistoryWidget.getHistoryEndBalance(i), usageHistoryAPI.getResult().get(i).getEndBalance(), "Usage History End Balance is not As received in API for row number " + i);
                 if (i != 0) {
-                    softAssert.assertTrue(usageHistoryWidget.isSortOrderDisplay(usageHistoryWidget.getHistoryDateTime(i), usageHistoryWidget.getHistoryDateTime(i - 1), "dd-MMM-yyy HH:mm"), usageHistoryWidget.getHistoryDateTime(i) + "should not display before " + usageHistoryWidget.getHistoryDateTime(i - 1));
+                    softAssert.assertTrue(usageHistoryWidget.isSortOrderDisplay(usageHistoryWidget.getHistoryDateTime(i-1), usageHistoryWidget.getHistoryDateTime(i), "dd-MMM-yyy HH:mm"), usageHistoryWidget.getHistoryDateTime(i-1) + "should not display before " + usageHistoryWidget.getHistoryDateTime(i));
                 }
             }
         }
@@ -483,13 +500,13 @@ public class customerInteractionTest extends BaseTest {
             softAssert.assertEquals(rechargeHistoryWidget.gettingRechargeHistoryNoResultFoundMessage(), "No Result found", "Error Message is not as expected");
         } else {
             for (int i = 0; i < size; i++) {
-                softAssert.assertEquals(rechargeHistoryWidget.getRechargeHistoryCharges(i), rechargeHistoryAPI.getResult().get(i).getCharges(), "Recharge History Charge is not As received in API for row number " + i);
-                softAssert.assertEquals(rechargeHistoryWidget.getRechargeHistoryDateTime(i), rechargeHistoryWidget.getDateFromEpoch(Long.parseLong(rechargeHistoryAPI.getResult().get(i).getDateTime()), "dd-MMM-yyyy HH:mm"), "Recharge History Date Time is not As received in API for row number " + i);
-                softAssert.assertEquals(rechargeHistoryWidget.getRechargeHistoryBundleName(i), rechargeHistoryAPI.getResult().get(i).getBundleName(), "Recharge History Bundle Name is not As received in API for row number " + i);
-                softAssert.assertEquals(rechargeHistoryWidget.getRechargeHistoryBenefits(i).replace("-", "null"), rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getVOICE() + " | " + rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getDATA() + " | " + rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getSMS(), "Recharge History Benefits is not As received in API for row number " + i);
-                softAssert.assertEquals(rechargeHistoryWidget.getRechargeHistoryStatus(i), rechargeHistoryAPI.getResult().get(i).getStatus(), "Recharge History Status is not As received in API for row number " + i);
+                softAssert.assertEquals(rechargeHistoryWidget.getRechargeHistoryCharges(i+1), rechargeHistoryAPI.getResult().get(i).getCharges(), "Recharge History Charge is not As received in API for row number " + i);
+                softAssert.assertEquals(rechargeHistoryWidget.getRechargeHistoryDateTime(i+1), rechargeHistoryWidget.getDateFromString(rechargeHistoryAPI.getResult().get(i).getDateTime(), "dd-MMM-yyyy HH:mm"), "Recharge History Date Time is not As received in API for row number " + i);
+                softAssert.assertEquals(rechargeHistoryWidget.getRechargeHistoryBundleName(i+1), rechargeHistoryAPI.getResult().get(i).getBundleName(), "Recharge History Bundle Name is not As received in API for row number " + i);
+                softAssert.assertEquals(rechargeHistoryWidget.getRechargeHistoryBenefits(i+1).replace("-", "null"), rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getVOICE() + " | " + rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getDATA() + " | " + rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getSMS(), "Recharge History Benefits is not As received in API for row number " + i);
+                softAssert.assertEquals(rechargeHistoryWidget.getRechargeHistoryStatus(i+1), rechargeHistoryAPI.getResult().get(i).getStatus(), "Recharge History Status is not As received in API for row number " + i);
                 if (i != 0) {
-                    softAssert.assertTrue(rechargeHistoryWidget.isSortOrderDisplay(rechargeHistoryWidget.getRechargeHistoryDateTime(i), rechargeHistoryWidget.getRechargeHistoryDateTime(i - 1), "dd-MMM-yyy HH:mm"), rechargeHistoryWidget.getRechargeHistoryDateTime(i) + "should not display before " + rechargeHistoryWidget.getRechargeHistoryDateTime(i - 1));
+                    softAssert.assertTrue(rechargeHistoryWidget.isSortOrderDisplay(rechargeHistoryWidget.getRechargeHistoryDateTime(i+1), rechargeHistoryWidget.getRechargeHistoryDateTime(i ), "dd-MMM-yyy HH:mm"), rechargeHistoryWidget.getRechargeHistoryDateTime(i+1) + "should not display before " + rechargeHistoryWidget.getRechargeHistoryDateTime(i));
                 }
             }
 

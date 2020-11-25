@@ -71,7 +71,7 @@ public class AuthenticationTabPOM extends BasePage {
     }
 
     public Map<String, String> getQuestionAnswer() {
-        List<WebElement> list = driver.findElements(listOfQuestions);
+        List<WebElement> list = returnListOfElement(listOfQuestions);
         Map<String, String> questionList = new HashMap<>();
         for (int i = 1; i <= list.size(); i++) {
             By question = By.xpath("//app-authentication-block-modal//div[1]//div[2]//div[1]//div[@class=\"main-container__body--left--wrapper ng-star-inserted\"][" + i + "]//span[1]");
@@ -109,7 +109,7 @@ public class AuthenticationTabPOM extends BasePage {
     }
 
     public List<String> getReasonConfig() {
-        List<WebElement> list = driver.findElements(options);
+        List<WebElement> list = returnListOfElement(options);
         List<String> reason = new ArrayList<>();
         for (int i = 1; i <= list.size(); i++) {
             String text = readText(By.xpath("//mat-option[" + i + "]//span"));

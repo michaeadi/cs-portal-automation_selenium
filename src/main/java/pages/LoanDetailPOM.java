@@ -13,20 +13,20 @@ public class LoanDetailPOM extends BasePage {
     * */
     By loanDetailWidgetTitle= By.xpath("//span[contains(text(),'LOAN DETAILS') and @class=\"card__card-header--label\"]");
     By headerList=By.xpath("//span[contains(text(),'LOAN DETAILS') and @class=\"card__card-header--label\"]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[2]//div[@class=\"card__card-header--card-body--table--list-heading left-spacing\"]//div");
-    List<WebElement> ls=driver.findElements(headerList);
+    List<WebElement> ls=returnListOfElement(headerList);
 
     /*
     * Loan History Widget Element Locator
     * */
     By loanHistoryWidgetTitle=By.xpath("//span[contains(text(),'LOAN HISTORY') or class=\"card__card-header--label\"]");
     By historyHeaderList=By.xpath("//span[contains(text(),'LOAN HISTORY') or class=\"card__card-header--label\"]//ancestor::div[@class=\"custom-widget ng-star-inserted\"]//div[2]//div[@class=\"card__card-header--card-body--table--list-heading left-spacing\"]//div");
-    List<WebElement> Hls=driver.findElements(historyHeaderList);
+    List<WebElement> Hls=returnListOfElement(historyHeaderList);
 
     /*
     * Loan Recoveries Widget Element Locator
     * */
     By recoveryWidgetHeaderList=By.xpath("//span[contains(text(),'LOAN HISTORY') or class=\"card__card-header--label\"]//ancestor::div[@class=\"custom-widget ng-star-inserted\"]//div[2]//div[@class=\"card__card-header--card-body--table--data-list innertable-area ng-star-inserted\"][1]//app-loan-recoveries/div/div[1]//div[@class=\"inner-wrapper ng-star-inserted\"]");
-    List<WebElement> recoveryWidgetList=driver.findElements(recoveryWidgetHeaderList);
+    List<WebElement> recoveryWidgetList=returnListOfElement(recoveryWidgetHeaderList);
     By closeTab=By.xpath("//mat-icon[contains(text(),'close')]");
     By homeTab=By.xpath("//div[contains(text(),'HOME')]");
 

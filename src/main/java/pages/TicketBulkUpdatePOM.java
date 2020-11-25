@@ -153,7 +153,7 @@ public class TicketBulkUpdatePOM extends BasePage {
 
     public List<String> getTicketList(){
         List<String> tickets=new ArrayList<>();
-        List<WebElement> list=driver.findElements(ticketList);
+        List<WebElement> list=returnListOfElement(ticketList);
         for(int i=1;i<=list.size();i++){
             By ticketNumber=By.xpath("//div[@class=\"container-fluid table-card ng-star-inserted\"]["+i+"]//ul[1]//li[1]//span[2]");
             tickets.add(readText(ticketNumber));
@@ -165,7 +165,7 @@ public class TicketBulkUpdatePOM extends BasePage {
         List<String> queues=new ArrayList<>();
         click(transferToQueue);
         click(selectTransferToQueue);
-        List<WebElement> list=driver.findElements(options);
+        List<WebElement> list=returnListOfElement(options);
         for(int i=1;i<=list.size();i++){
             By queue=By.xpath("//mat-option["+i+"]//span");
             queues.add(readText(queue).trim().toLowerCase());
@@ -179,7 +179,7 @@ public class TicketBulkUpdatePOM extends BasePage {
         List<String> states=new ArrayList<>();
         click(changeState);
         click(selectChangeState);
-        List<WebElement> list=driver.findElements(options);
+        List<WebElement> list=returnListOfElement(options);
         for(int i=1;i<=list.size();i++){
             By state=By.xpath("//mat-option["+i+"]//span");
             states.add(readText(state).trim().toLowerCase());
@@ -225,12 +225,12 @@ public class TicketBulkUpdatePOM extends BasePage {
     }
 
     public String getSuccessCount(){
-        List<WebElement> list=driver.findElements(successTicketId);
+        List<WebElement> list=returnListOfElement(successTicketId);
         return String.valueOf(list.size());
     }
 
     public String getErrorCount(){
-        List<WebElement> list=driver.findElements(errorTicketId);
+        List<WebElement> list=returnListOfElement(errorTicketId);
         return String.valueOf(list.size());
     }
 

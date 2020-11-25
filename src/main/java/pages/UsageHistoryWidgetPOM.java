@@ -2,6 +2,7 @@ package pages;
 
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
+import com.sun.xml.bind.v2.runtime.reflect.Lister;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -18,8 +19,8 @@ public class UsageHistoryWidgetPOM extends BasePage {
 
     By usageHistoryDatePicker = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Usage History\")]//parent::div//form//input");
     By usageHistoryHeader = By.xpath("//span[@class=\"card__card-header--label\" and text()=\"Usage History \"]");
-    By rows = By.xpath("//div[@class=\"card__card-header\"]/span[contains(text(),\"Usage\")]//parent::div//following-sibling::div[@class=\"card__content restricted ng-star-inserted\"]//div[@class=\"card__card-header--card-body--table--data-list ng-star-inserted\"]");
-    List<WebElement> as = driver.findElements(rows);
+    By rows = By.xpath("//div[@class=\"card__card-header\"]/span[contains(text(),\"Usage\")]//parent::div//following-sibling::div[@class=\"card__content restricted ng-star-inserted\"]//div[@class=\"card__card-header--card-body--table--data-list row-border\"]");
+    List<WebElement> as = returnListOfElement(rows);
     By type = By.xpath("div[1]/span[@class=\"ng-star-inserted\"]");
     By charge = By.xpath("div[2]/span[@class=\"ng-star-inserted\"]");
     By dateTime = By.xpath("div[3]/span[@class=\"date_time ng-star-inserted\"]");
@@ -63,10 +64,10 @@ public class UsageHistoryWidgetPOM extends BasePage {
         return isElementVisible(menu);
     }
 
-    public MoreUsageHistoryPOM openingMoreDetails() {
+    public DetailedUsageHistoryPOM openingMoreDetails() {
         printInfoLog("Opening More under Usage History Widget");
         click(menu);
-        return new MoreUsageHistoryPOM(driver);
+        return new DetailedUsageHistoryPOM(driver);
     }
 
 

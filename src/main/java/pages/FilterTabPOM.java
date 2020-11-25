@@ -122,7 +122,7 @@ public class FilterTabPOM extends BasePage {
     public void selectAllLevel1() {
         ExtentTestManager.getTest().log(LogStatus.INFO, "Selecting escalation level 1");
         try {
-            List<WebElement> level1 = driver.findElements(level1Escalation);
+            List<WebElement> level1 = returnListOfElement(level1Escalation);
             for (WebElement level : level1) {
                 ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", level);
                 Thread.sleep(500);
@@ -136,7 +136,7 @@ public class FilterTabPOM extends BasePage {
     public void selectAllLevel2() {
         ExtentTestManager.getTest().log(LogStatus.INFO, "Selecting escalation level 2");
         try {
-            List<WebElement> level1 = driver.findElements(level2Escalation);
+            List<WebElement> level1 = returnListOfElement(level2Escalation);
             for (WebElement level : level1) {
                 ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", level);
                 Thread.sleep(500);
@@ -150,7 +150,7 @@ public class FilterTabPOM extends BasePage {
     public void selectAllLevel3() {
         ExtentTestManager.getTest().log(LogStatus.INFO, "Selecting escalation level 3");
         try {
-            List<WebElement> level1 = driver.findElements(level3Escalation);
+            List<WebElement> level1 = returnListOfElement(level3Escalation);
             for (WebElement level : level1) {
                 ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", level);
                 Thread.sleep(500);
