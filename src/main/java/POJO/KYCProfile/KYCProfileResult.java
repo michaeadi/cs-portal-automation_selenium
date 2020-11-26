@@ -21,5 +21,9 @@ public class KYCProfileResult {
     private String subSegment;
     private String serviceClass;
     private Boolean vip;
+    private Boolean gsmAdditionalInfo;
+    private String modifiedBy;
+    private String modifiedDate;
+    private String reason;
     private ArrayList<PUKPOJO> puk;
 }
