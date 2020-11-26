@@ -20,10 +20,9 @@ public class CurrentBalanceWidgetPOM extends BasePage {
     By voiceExpiryDate = By.xpath("//span[@class=\"card__content--bottom--plan ng-star-inserted\"][1]/p[@class=\"ng-star-inserted\"][2]");
     By dataExpiryDate = By.xpath("//span[@class=\"card__content--bottom--plan ng-star-inserted\"][2]/p[@class=\"ng-star-inserted\"][2]");
     By smsExpiryDate = By.xpath("//span[@class=\"card__content--bottom--plan ng-star-inserted\"][3]/p[@class=\"ng-star-inserted\"][2]");
-    By menu = By.xpath("//span[contains(text(),\"Your Current Plan \")]//parent::div/span[@class=\"card__card-header--menu ng-star-inserted\"]/img");
+    By menu = By.xpath("//span[contains(text(),\"Your Current Plan \")]//parent::div/span[2]/img");
     By currentBalanceLastRechargeUnableToFetch = By.xpath("//span[@class=\"label-color\"]/span[@class=\"api-failed-error ng-star-inserted\"]");
     By lastRechargeDateTImeUnableTOFetch = By.xpath("//div[@class=\"api-failed-error ng-star-inserted\"]");
-    By daDetails = By.xpath("//button[text()=\"DA Details\"]");
     By ticketIcon = By.xpath("//span[contains(text(),'Your Current Plan')]//span[@class=\"card__card-header--icon ng-star-inserted\"]");
     By getTitle = By.xpath("//span[contains(text(),'Your Current Plan')]");
 
@@ -66,23 +65,11 @@ public class CurrentBalanceWidgetPOM extends BasePage {
         }
     }
 
-    public boolean isDADetailsMenuVisible() {
-        log.info("Checking is DA Details Visible");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is DA Details Visible");
-        return checkState(daDetails);
-    }
-
     public DADetailsPOM openingDADetails() {
         log.info("Clicking Current Balance Widget's Menu Visible");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking Current Balance Widget'Menu Visible");
-        click(daDetails);
-        return new DADetailsPOM(driver);
-    }
-
-    public void clickingCurrentBalanceWidgetMenu() {
-        log.info("Clicking Current Balance Widget's Menu Visible");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking Current Balance Widget'Menu Visible");
         click(menu);
+        return new DADetailsPOM(driver);
     }
 
     public String gettingLastRechargeAmount() {

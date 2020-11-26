@@ -294,8 +294,6 @@ public class WidgetTaggedIssueTest extends BaseTest {
         Map<String, String> tagIssue = data.getListOfIssue(config.getProperty("daDetails"));
         try {
             softAssert.assertTrue(currentBalanceWidget.isCurrentBalanceWidgetMenuVisible(), "Current Balance Widget MENU is not visible ");
-            currentBalanceWidget.clickingCurrentBalanceWidgetMenu();
-            softAssert.assertTrue(currentBalanceWidget.isDADetailsMenuVisible(), "DA Details Option in  MENU is not visible ");
             DADetailsPOM daDetails = currentBalanceWidget.openingDADetails();
             softAssert.assertTrue(daDetails.isDAWidgetIsVisible());
             String widgetName = daDetails.getWidgetTitle();

@@ -29,6 +29,10 @@ public class customerInteractionPagePOM extends BasePage {
     By loanWidget = By.xpath("//span[contains(text(),'LOAN SERVICES')]//ancestor::div[@class=\"card widget ng-star-inserted\"]");
     By sendSMSAction = By.xpath("//div[@class=\"mat-menu-content\"]//button[contains(text(),'Send SMS')]");
     By simBarUnBar = By.xpath("//div[@class=\"mat-menu-content\"]//button[1]");
+    By sendSettings=By.xpath("//div[@class=\"mat-menu-content\"]//button[contains(text(),'Send Internet Settings')]");
+    By sendSettingTitle=By.xpath("//span[contains(text(),'Send Internet Settings')]");
+    By noBtn=By.xpath("//button[@class=\"no-btn\"]");
+    By closeBtn=By.xpath("//span[contains(text(),'Send Internet Settings')]//following-sibling::mat-icon[contains(text(),'close')]");
 
     public customerInteractionPagePOM(WebDriver driver) {
         super(driver);
@@ -38,6 +42,11 @@ public class customerInteractionPagePOM extends BasePage {
         log.info("Getting header of 1st Widget : " + readText(firstWidgetHeader));
         ExtentTestManager.getTest().log(LogStatus.INFO, "Getting header of 1st Widget : " + readText(firstWidgetHeader));
         return readText(firstWidgetHeader);
+    }
+
+    public Boolean isSendInternetSettingTitle(){
+        printInfoLog("Is Send Internet Setting Title Display: "+checkState(sendSettingTitle));
+        return checkState(sendSettingTitle);
     }
 
     public String getSecondWidgetHeader() {
@@ -143,6 +152,21 @@ public class customerInteractionPagePOM extends BasePage {
         ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Send SMS");
         click(sendSMSAction);
         return new SendSMSPOM(driver);
+    }
+
+    public void clickSendSetting() {
+        printInfoLog("Clicking on Send SMS Setting");
+        click(sendSettings);
+    }
+
+    public void clickNoBtn() {
+        printInfoLog("Clicking on No Button");
+        click(noBtn);
+    }
+
+    public void clickCloseBtn() {
+        printInfoLog("Clicking on Close Button");
+        click(closeBtn);
     }
 
     public AuthenticationTabPOM openAuthTab() {
