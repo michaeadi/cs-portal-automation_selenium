@@ -2,6 +2,7 @@ package tests;
 
 import API.APITest;
 import POJO.AccountsBalancePOJO;
+import POJO.Accumulators.AccumulatorsPOJO;
 import POJO.BundleRechargeHistoryPOJO;
 import POJO.RechargeHistoryPOJO;
 import POJO.UsageHistoryPOJO;
@@ -33,8 +34,6 @@ public class widgetsOptionsTest extends BaseTest {
         try {
             currentBalanceWidget.waitTillLoaderGetsRemoved();
             softAssert.assertTrue(currentBalanceWidget.isCurrentBalanceWidgetMenuVisible(), "Current Balance Widget MENU is not visible ");
-            currentBalanceWidget.clickingCurrentBalanceWidgetMenu();
-            softAssert.assertTrue(currentBalanceWidget.isDADetailsMenuVisible(), "DA Details Option in  MENU is not visible ");
             daDetails = currentBalanceWidget.openingDADetails();
             softAssert.assertEquals(daDetails.getHeaders(1).toLowerCase().trim(), Data.getRow1().toLowerCase().trim(), "Header Name for Row 1 is not as expected");
             softAssert.assertEquals(daDetails.getHeaders(2).toLowerCase().trim(), Data.getRow2().toLowerCase().trim(), "Header Name for Row 2 is not as expected");
@@ -42,22 +41,64 @@ public class widgetsOptionsTest extends BaseTest {
             softAssert.assertEquals(daDetails.getHeaders(4).toLowerCase().trim(), Data.getRow4().toLowerCase().trim(), "Header Name for Row 4 is not as expected");
             softAssert.assertEquals(daDetails.getHeaders(5).toLowerCase().trim(), Data.getRow5().toLowerCase().trim(), "Header Name for Row 5 is not as expected");
             AccountsBalancePOJO accountsBalanceAPI = api.balanceAPITest(customerNumber);
-            int size = daDetails.getNumbersOfRows();
-            for (int i = 0; i < size; i++) {
-                softAssert.assertEquals(daDetails.getDAId(i+1), accountsBalanceAPI.getResult().get(i).getDaId(), "DA ID is not as received in API on row " + i);
-                softAssert.assertEquals(daDetails.getDADescription(i+1), accountsBalanceAPI.getResult().get(i).getDaDesc(), "DA Description is not as received in API on row " + i);
-                softAssert.assertEquals(daDetails.getBundleType(i+1).replace("-", "null") + " ", accountsBalanceAPI.getResult().get(i).getBundleType() + " ", "DA Bundle Type is not as received in API on row " + i);
-                softAssert.assertEquals(daDetails.getDADateTime(i+1), daDetails.getDateFromEpochInUTC(accountsBalanceAPI.getResult().get(i).getExpiryDate(), "dd-MMM-yyyy HH:mm"), "DA Date Time is not as received in API on row " + i);
-                softAssert.assertEquals(daDetails.getDABalance(i+1), accountsBalanceAPI.getResult().get(i).getCurrentDaBalance(), "DA Current Balance is not as received in API on row " + i);
-                if (i != 0) {
-                    softAssert.assertTrue(daDetails.isSortOrderDisplay(daDetails.getDADateTime(i), daDetails.getDADateTime(i+1), "dd-MMM-yyy HH:mm"), daDetails.getDADateTime(i) + "should not display before " + daDetails.getDADateTime(i+1));
+            if (accountsBalanceAPI.getStatusCode() == 200) {
+                int size = daDetails.getNumbersOfRows();
+                for (int i = 0; i < size; i++) {
+                    softAssert.assertEquals(daDetails.getDAId(i + 1), accountsBalanceAPI.getResult().get(i).getDaId(), "DA ID is not as received in API on row " + i);
+                    softAssert.assertEquals(daDetails.getDADescription(i + 1), accountsBalanceAPI.getResult().get(i).getDaDesc(), "DA Description is not as received in API on row " + i);
+                    softAssert.assertEquals(daDetails.getBundleType(i + 1).replace("-", "null") + " ", accountsBalanceAPI.getResult().get(i).getBundleType() + " ", "DA Bundle Type is not as received in API on row " + i);
+                    softAssert.assertEquals(daDetails.getDADateTime(i + 1), daDetails.getDateFromEpochInUTC(accountsBalanceAPI.getResult().get(i).getExpiryDate(), "dd-MMM-yyyy HH:mm"), "DA Date Time is not as received in API on row " + i);
+                    softAssert.assertEquals(daDetails.getDABalance(i + 1), accountsBalanceAPI.getResult().get(i).getCurrentDaBalance(), "DA Current Balance is not as received in API on row " + i);
+                    if (i != 0) {
+                        softAssert.assertTrue(daDetails.isSortOrderDisplay(daDetails.getDADateTime(i), daDetails.getDADateTime(i + 1), "dd-MMM-yyy HH:mm"), daDetails.getDADateTime(i) + "should not display before " + daDetails.getDADateTime(i + 1));
+                    }
                 }
+                daDetails.openingCustomerInteractionDashboard();
+            }else{
+                softAssert.fail("API Response does not 200 :"+accountsBalanceAPI.getMessage());
             }
-            daDetails.openingCustomerInteractionDashboard();
-        } catch (NoSuchElementException | TimeoutException e) {
+            } catch(NoSuchElementException | TimeoutException e){
+                e.printStackTrace();
+                ExtentTestManager.getTest().log(LogStatus.FAIL, e.fillInStackTrace());
+                softAssert.fail("DA details does not display correctly");
+                daDetails.openingCustomerInteractionDashboard();
+            }
+        softAssert.assertAll();
+    }
+
+    @Table(Name = "Accumulator")
+    @Test(priority = 2, description = "Validating Accumulator Details", dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
+    public void accumulatorDetailsTest(HeaderDataBean Data) {
+        customerNumber = customerInteractionTest.customerNumber;
+        ExtentTestManager.startTest("Validating Accumulator Details", "Validating Accumulator Details of User :" + customerNumber);
+        CurrentBalanceWidgetPOM currentBalanceWidget = new CurrentBalanceWidgetPOM(driver);
+        SoftAssert softAssert = new SoftAssert();
+        DADetailsPOM daDetails=null;
+        try {
+            currentBalanceWidget.waitTillLoaderGetsRemoved();
+            softAssert.assertTrue(currentBalanceWidget.isCurrentBalanceWidgetMenuVisible(), "Current Balance Widget MENU is not visible ");
+            daDetails = currentBalanceWidget.openingDADetails();
+            softAssert.assertEquals(daDetails.getAccumulatorHeaders(1).toLowerCase().trim(), Data.getRow1().toLowerCase().trim(), "Header Name for Row 1 is not as expected");
+            softAssert.assertEquals(daDetails.getAccumulatorHeaders(2).toLowerCase().trim(), Data.getRow2().toLowerCase().trim(), "Header Name for Row 2 is not as expected");
+            softAssert.assertEquals(daDetails.getAccumulatorHeaders(3).toLowerCase().trim(), Data.getRow3().toLowerCase().trim(), "Header Name for Row 3 is not as expected");
+            softAssert.assertEquals(daDetails.getAccumulatorHeaders(4).toLowerCase().trim(), Data.getRow4().toLowerCase().trim(), "Header Name for Row 4 is not as expected");
+            AccumulatorsPOJO accumulatorAPI = api.accumulatorsAPITest(customerNumber);
+            if (accumulatorAPI.getStatusCode() == 200) {
+                int size = accumulatorAPI.getResult().size()>5 ?5:accumulatorAPI.getResult().size();
+                for (int i = 0; i < size; i++) {
+                    softAssert.assertEquals(daDetails.getValueCorrespondingToAccumulator(i + 1,1).trim(), accumulatorAPI.getResult().get(i).getId(), "Accumulator ID is not as received in API on row " + i);
+                    softAssert.assertEquals(daDetails.getValueCorrespondingToAccumulator(i + 1,2).trim(), String.valueOf(accumulatorAPI.getResult().get(i).getValue()), "Accumulator Value is not as received in API on row " + i);
+                    softAssert.assertEquals(daDetails.getValueCorrespondingToAccumulator(i + 1,3).trim(), accumulatorAPI.getResult().get(i).getStartDate()==null?"-":daDetails.getDateFromString(accumulatorAPI.getResult().get(i).getStartDate(),"dd-MMM-yyyy"), "Accumulator Start Date is not as received in API on row " + i);
+                    softAssert.assertEquals(daDetails.getValueCorrespondingToAccumulator(i + 1,4).trim(), accumulatorAPI.getResult().get(i).getNextResetDate()==null?"-":daDetails.getDateFromString(accumulatorAPI.getResult().get(i).getNextResetDate(), "dd-MMM-yyyy"), "Accumulator Next Reset Date Time is not as received in API on row " + i);
+                }
+                daDetails.openingCustomerInteractionDashboard();
+            }else{
+                softAssert.fail("API Response does not 200 :"+accumulatorAPI.getMessage());
+            }
+        } catch(NoSuchElementException | TimeoutException e){
             e.printStackTrace();
             ExtentTestManager.getTest().log(LogStatus.FAIL, e.fillInStackTrace());
-            softAssert.fail("DA details does not display correctly");
+            softAssert.fail("Accumulator details does not display correctly");
             daDetails.openingCustomerInteractionDashboard();
         }
         softAssert.assertAll();

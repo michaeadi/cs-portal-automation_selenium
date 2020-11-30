@@ -25,6 +25,12 @@
             <class name="tests.sideMenuTests"/>
         </classes>
     </test>
+    <test name="Customer Interactions TEST" preserve-order="true">
+        <classes>
+            <class name="tests.customerInteractionTest"/>
+            <class name="tests.widgetsOptionsTest"/>
+        </classes>
+    </test>
     <test name="Create NFTR FTR Tickets TEST">
         <classes>
             <class name="tests.createInteractionTest"/>

@@ -5,6 +5,8 @@ import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.TestDatabean;
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -117,6 +119,23 @@ public class AuthTabTest extends BaseTest {
         softAssert.assertTrue(authTab.isSubmitBtnEnable(), "Submit button does not enabled after adding comment");
         authTab.closeSIMBarPopup();
         softAssert.assertAll();
+    }
+
+    @Test(priority = 5, description = "Verify the Send Internet Setting tab",dependsOnMethods = "openCustomerInteraction")
+    public void validateSendInternetSetting() {
+        ExtentTestManager.startTest("Verify the Send Internet Setting tab", "Verify the Send Internet Setting tab");
+        SoftAssert softAssert = new SoftAssert();
+        customerInteractionPagePOM homepage = new customerInteractionPagePOM(driver);
+        homepage.waitTillLoaderGetsRemoved();
+        homepage.clickOnAction();
+        homepage.clickSendSetting();
+        try {
+            softAssert.assertTrue(homepage.isSendInternetSettingTitle(), "Send Internet Setting Tab Does not open after internet setting.");
+            homepage.clickNoBtn();
+        } catch (TimeoutException | NoSuchElementException e) {
+            softAssert.fail("Not able to close send Internet Setting Tab." + e.fillInStackTrace());
+            homepage.clickCloseBtn();
+        }
     }
 
 }

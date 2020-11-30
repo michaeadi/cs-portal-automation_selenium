@@ -60,9 +60,16 @@ public class CustomerDemoGraphicPOM extends BasePage {
      * SIM Status & Airtel Money Status & Service Status
      * */
     By SIMStatus = By.xpath("//div[@class=\"customer-details\"]//div[@class=\"top col-md-7\"]/div/div[2]//span");
+    By SIMStatusReason=By.xpath("//div[@class=\"customer-details\"]//div[@class=\"top col-md-7\"]/div/div[2]//span//a");
     By airtelMoneyStatus = By.xpath("//div[@class=\"customer-details\"]//div[@class=\"top col-md-7\"]/div/div[3]//li[2]//p[1]//span[2]");
     By serviceStatus = By.xpath("//div[@class=\"customer-details\"]//div[@class=\"top col-md-7\"]/div/div[3]//li[2]//p[2]//span[2]");
 
+    /*
+    * SIM Status Reason
+    * */
+    By reasonCode=By.xpath("//div[@class=\"customer-details\"]//div[@class=\"top col-md-7\"]/div/div[2]//span//a//span[1]/label");
+    By modifiedBy=By.xpath("//div[@class=\"customer-details\"]//div[@class=\"top col-md-7\"]/div/div[2]//span//a//span[2]/label");
+    By modifiedDate=By.xpath("//div[@class=\"customer-details\"]//div[@class=\"top col-md-7\"]/div/div[2]//span//a//span[3]/label");
     /*
      * ID Type & ID Number
      * */
@@ -101,6 +108,21 @@ public class CustomerDemoGraphicPOM extends BasePage {
         log.info("Getting Customer DOB " + readText(customerDOB));
         ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Customer DOB " + readText(customerDOB));
         return readText(customerDOB);
+    }
+
+    public String getSIMStatusReasonCode() {
+        printInfoLog("Getting SIM Status Reason Code " + readText(reasonCode));
+        return readText(reasonCode);
+    }
+
+    public String getSIMStatusModifiedBy() {
+        printInfoLog("Getting SIM Status Modified By " + readText(modifiedBy));
+        return readText(modifiedBy);
+    }
+
+    public String getSIMStatusModifiedDate() {
+        printInfoLog("Getting SIM Status Modified Date " + readText(modifiedDate));
+        return readText(modifiedDate);
     }
 
     public String getActivationDate() {
@@ -271,6 +293,11 @@ public class CustomerDemoGraphicPOM extends BasePage {
     public void hoverOnDeviceInfoIcon(){
         printInfoLog("Hover on Device Info icon");
         hoverAndClick(deviceInfoIcon);
+    }
+
+    public void hoverOnSIMStatusInfoIcon(){
+        printInfoLog("Hover on SIM Status Reason Info icon");
+        hoverAndClick(SIMStatusReason);
     }
 
     public boolean invalidMSISDNError(){
