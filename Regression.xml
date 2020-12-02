@@ -60,6 +60,11 @@
             <class name="tests.VoucherTabTest"/>
         </classes>
     </test>
+    <test name="Clear Refill error">
+        <classes>
+            <class name="tests.ClearRefillErrorTest"/>
+        </classes>
+    </test>
     <test name="Validate Authentication tab">
         <classes>
             <class name="tests.AuthTabTest"/>
@@ -70,6 +75,11 @@
             <class name="tests.LoanWidgetTest"/>
         </classes>
     </test>
+        <test name="CRBT Widget Test">
+            <classes>
+                <class name="tests.CRBTWidgetTest"/>
+            </classes>
+        </test>
     <test name="Supervisors Ticket Bulk Update Test">
         <classes>
             <class name="tests.TicketBulkUpdateTest"/>

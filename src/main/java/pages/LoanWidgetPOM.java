@@ -25,7 +25,7 @@ public class LoanWidgetPOM extends BasePage {
     *Vendors List & Details
      * */
     By vendorList=By.xpath("//span[contains(text(),'LOAN SERVICES')]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"card__card-header--card-body--table\"]//div[@class=\"card__card-header--card-body--table--data-list ng-star-inserted\"]");
-    List<WebElement> vendors=  driver.findElements(vendorList);
+    List<WebElement> vendors=  returnListOfElement(vendorList);
 
     public LoanWidgetPOM(WebDriver driver) {
         super(driver);

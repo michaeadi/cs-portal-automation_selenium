@@ -63,7 +63,6 @@ public class BasePage {
     public void waitTillTimeLineGetsRemoved() {
         wait1.until(ExpectedConditions.invisibilityOfElementLocated(timeLine));
     }
-
     //Click Method
     void click(By elementLocation) {
         wait.until(ExpectedConditions.elementToBeClickable(elementLocation));
@@ -101,14 +100,21 @@ public class BasePage {
     //HighlightElement
     void highLighterMethod(By element) {
 //        waitTillLoaderGetsRemoved();
+        JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].setAttribute('style', 'border: 2px solid black;');", driver.findElement(element));
     }
 
     //Check the state of element
     boolean checkState(By elementLocation) {
-        waitVisibility(elementLocation);
-        highLighterMethod(elementLocation);
-        return driver.findElement(elementLocation).isEnabled();
+        try {
+            waitVisibility(elementLocation);
+            highLighterMethod(elementLocation);
+            return driver.findElement(elementLocation).isEnabled();
+        }catch (NoSuchElementException | TimeoutException e){
+            printFailLog("Check State Failed: "+e.fillInStackTrace());
+            e.printStackTrace();
+            return false;
+        }
 
     }
 

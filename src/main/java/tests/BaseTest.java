@@ -63,7 +63,7 @@ public class BaseTest {
         String browser = config.getProperty("browser");
         System.out.println(baseUrl);
         if (browser.equals("chrome")) {
-            WebDriverManager.chromedriver().setup();
+            WebDriverManager.chromedriver().proxy("172.23.12.116:4145").setup();
             ChromeOptions options = new ChromeOptions();
             options.addArguments("--window-size=1792,1120");
             options.setHeadless(true);

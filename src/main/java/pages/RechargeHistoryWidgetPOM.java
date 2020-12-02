@@ -14,22 +14,21 @@ public class RechargeHistoryWidgetPOM extends BasePage {
 
     By rechargeHistoryDatePicker = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Recharge History\")]//parent::div//form/span/input");
     By rechargeHistoryHeader = By.xpath("//span[@class=\"card__card-header--label\" and text()=\"Recharge History \"]");
-    By rows = By.xpath("//div[@class=\"card__card-header\"]/span[contains(text(),\"Recharge\")]//parent::div//following-sibling::div[@class=\"card__content restricted ng-star-inserted\"]//div[@class=\"card__card-header--card-body--table--data-list ng-star-inserted\"]");
-    List<WebElement> as = driver.findElements(rows);
-    By charges = By.xpath("div[1]/span[@class=\"ng-star-inserted\"]");
-    By dateTime = By.xpath("div[2]/span[@class=\"date_time ng-star-inserted\"]");
-    By bundleName = By.xpath("div[3]/span[@class=\"ng-star-inserted\"]");
-    By benefit = By.xpath("div[4]/span[@class=\"ng-star-inserted\"]");
-    By status = By.xpath("div[5]/span[@class=\"ng-star-inserted\"]");
-    By menu = By.xpath("//span[contains(text(),\"Recharge History\")]//parent::div/span[@class=\"card__card-header--menu ng-star-inserted\"]/img");
+    By rows = By.xpath("//div[@class=\"card__card-header\"]/span[contains(text(),\"Recharge\")]//parent::div//following-sibling::div[@class=\"card__content restricted ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]//div[@class=\"card__card-header--card-body--table--data-list row-border\"]");
+    List<WebElement> as = returnListOfElement(rows);
+    By menu = By.xpath("//span[contains(text(),\"Recharge History\")]//parent::div//span[@class=\"card__card-header--menu ng-star-inserted\"]/img");
     By more = By.xpath("//button[text()=\"Recharge History\"]");
-    By rechargeHistoryNoResultFound = By.xpath("//span[contains(text(),\"Recharge History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]");
-    By rechargeHistoryNoResultFoundMessage = By.xpath("//span[contains(text(),\"Recharge History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]/span/span");
+    By rechargeHistoryNoResultFound = By.xpath("//span[contains(text(),\"Recharge History\")]/ancestor::div[@class=\"card widget ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]/img");
+    By rechargeHistoryNoResultFoundMessage = By.xpath("//span[contains(text(),\"Recharge History\")]/ancestor::div[@class=\"card widget ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]/span/span");
     By rechargeHistoryError = By.xpath("//span[contains(text(),\"Recharge History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"widget-error apiMsgBlock ng-star-inserted\"][1]");
-    By ticketIcon = By.xpath("//span[contains(text(),'Recharge History')]//span[@class=\"card__card-header--icon ng-star-inserted\"]");
+    By ticketIcon = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Recharge History\")]//parent::div//span[@class=\"card__card-header--icon ng-star-inserted\"]/img");
     By getTitle = By.xpath("//span[contains(text(),'Recharge History')]");
     By voucherBox = By.xpath("//input[@placeholder=\"Voucher ID\"]");
     By voucherBtn = By.xpath("//input[@placeholder=\"Voucher ID\"]//parent::span//button");
+    By refillIconDisable=By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Recharge History\")]//parent::div//span[2]/span/img[@class=\"header-action-icon disabled ng-star-inserted\"]");
+    By refillIconClickable=By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Recharge History\")]//parent::div//span[2]/span/img[@class=\"header-action-icon ng-star-inserted\"]");
+    By popUpMessage=By.xpath("//div[@class=\"confirm-block ng-star-inserted\"]/p");
+    By noActionBtn=By.xpath("//div[@class=\"confirm-block ng-star-inserted\"]//button[@class=\"no-btn\"]");
 
     public RechargeHistoryWidgetPOM(WebDriver driver) {
         super(driver);
@@ -98,38 +97,34 @@ public class RechargeHistoryWidgetPOM extends BasePage {
     }
 
     public String getRechargeHistoryCharges(int RowNumber) {
-        WebElement rowElement = as.get(RowNumber);
-        log.info("Getting Recharge History Charges from Row Number " + RowNumber + " : " + rowElement.findElement(charges).getText());
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Recharge History Charges from Row Number " + RowNumber + " : " + rowElement.findElement(charges).getText());
-        return rowElement.findElement(charges).getText();
+        By charges=By.xpath("//div[@class=\"card__card-header\"]/span[contains(text(),\"Recharge\")]//parent::div//following-sibling::div[@class=\"card__content restricted ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]//div[@class=\"ng-star-inserted\"]["+RowNumber+"]//div[@class=\"ng-star-inserted\"][1]//span");
+        printInfoLog("Getting Recharge History Charges from Row Number " + RowNumber + " : " + readText(charges));
+        return readText(charges);
     }
 
     public String getRechargeHistoryDateTime(int RowNumber) {
-        WebElement rowElement = as.get(RowNumber);
-        log.info("Getting Recharge History Date Time from Row Number " + RowNumber + " : " + rowElement.findElement(dateTime).getText());
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Recharge History Date Time from Row Number " + RowNumber + " : " + rowElement.findElement(dateTime).getText());
-        return rowElement.findElement(dateTime).getText();
+        By date=By.xpath("//div[@class=\"card__card-header\"]/span[contains(text(),\"Recharge\")]//parent::div//following-sibling::div[@class=\"card__content restricted ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]//div[@class=\"ng-star-inserted\"]["+RowNumber+"]//div[@class=\"ng-star-inserted\"][2]//span[1]");
+//        By time=By.xpath("//div[@class=\"card__card-header\"]/span[contains(text(),\"Recharge\")]//parent::div//following-sibling::div[@class=\"card__content restricted ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]//div[@class=\"ng-star-inserted\"]["+RowNumber+"]//div[@class=\"ng-star-inserted\"][2]//span[@class=\"time ng-star-inserted\"]");
+        printInfoLog("Getting Recharge History Date & Time from Row Number " + RowNumber + " : " + readText(date));
+        return readText(date);
     }
 
     public String getRechargeHistoryBundleName(int RowNumber) {
-        WebElement rowElement = as.get(RowNumber);
-        log.info("Getting Recharge History Bundle Name from Row Number " + RowNumber + " : " + rowElement.findElement(bundleName).getText());
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Recharge History Bundle Name from Row Number " + RowNumber + " : " + rowElement.findElement(bundleName).getText());
-        return rowElement.findElement(bundleName).getText();
+        By bundleName=By.xpath("//div[@class=\"card__card-header\"]/span[contains(text(),\"Recharge\")]//parent::div//following-sibling::div[@class=\"card__content restricted ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]//div[@class=\"ng-star-inserted\"]["+RowNumber+"]//div[@class=\"ng-star-inserted\"][3]//span");
+        printInfoLog("Getting Recharge History Bundle Name from Row Number " + RowNumber + " : " + readText(bundleName));
+        return readText(bundleName);
     }
 
     public String getRechargeHistoryBenefits(int RowNumber) {
-        WebElement rowElement = as.get(RowNumber);
-        log.info("Getting Recharge History Benefits from Row Number " + RowNumber + " : " + rowElement.findElement(benefit).getText());
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Recharge History Benefits from Row Number " + RowNumber + " : " + rowElement.findElement(benefit).getText());
-        return rowElement.findElement(benefit).getText();
+        By benefits=By.xpath("//div[@class=\"card__card-header\"]/span[contains(text(),\"Recharge\")]//parent::div//following-sibling::div[@class=\"card__content restricted ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]//div[@class=\"ng-star-inserted\"]["+RowNumber+"]//div[@class=\"ng-star-inserted\"][4]//span");
+        printInfoLog("Getting Recharge History Benefits from Row Number " + RowNumber + " : " + readText(benefits));
+        return readText(benefits);
     }
 
     public String getRechargeHistoryStatus(int RowNumber) {
-        WebElement rowElement = as.get(RowNumber);
-        log.info("Getting Recharge History Status from Row Number " + RowNumber + " : " + rowElement.findElement(status).getText());
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Recharge History Status from Row Number " + RowNumber + " : " + rowElement.findElement(status).getText());
-        return rowElement.findElement(status).getText();
+        By status=By.xpath("//div[@class=\"card__card-header\"]/span[contains(text(),\"Recharge\")]//parent::div//following-sibling::div[@class=\"card__content restricted ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]//div[@class=\"ng-star-inserted\"]["+RowNumber+"]//div[@class=\"ng-star-inserted\"][5]//span");
+        printInfoLog("Getting Recharge History Status from Row Number " + RowNumber + " : " + readText(status));
+        return readText(status);
     }
 
     public boolean isRechargeHistoryWidgetIsVisible() {
@@ -167,4 +162,31 @@ public class RechargeHistoryWidgetPOM extends BasePage {
         click(voucherBtn);
         return new VoucherTabPOM(driver);
     }
+
+    public Boolean isRefillIconDisable(){
+        printInfoLog("Checking Clear refill icon disable :"+checkState(refillIconDisable));
+        return checkState(refillIconDisable);
+    }
+
+    public Boolean isRefillIconEnable(){
+        printInfoLog("Checking Clear refill icon enable :"+checkState(refillIconClickable));
+        return checkState(refillIconClickable);
+    }
+
+    public void clickRefillIcon(){
+        printInfoLog("Clicking Clear refill icon");
+        click(refillIconClickable);
+    }
+
+    public boolean checkPopDisplay(){
+        printInfoLog("Reading Pop up title: "+readText(popUpMessage));
+        return checkState(popUpMessage);
+    }
+
+    public void clickNoBtn(){
+        printInfoLog("Clicking No Button ");
+        click(noActionBtn);
+    }
+
+
 }
