@@ -26,7 +26,7 @@ public class ExtentManager {
                 extent.loadConfig(new File(workingDir + "\\src\\main\\resources\\reportextent-config.xml"));
 
             } else {
-                extent = new ExtentReports(workingDir + "/ExtentReports/CS_Portal-Automation-Report-" + date + ".html", true);
+                extent = new ExtentReports(workingDir + "/ExtentReports/CS_Portal-Automation-Report-"+BaseTest.Opco+"-" + date + ".html", true);
                 extent.addSystemInfo("user", "Ravtej Singh");
                 extent.assignProject("CS Portal");
                 extent.addSystemInfo("OPCO", BaseTest.Opco);
