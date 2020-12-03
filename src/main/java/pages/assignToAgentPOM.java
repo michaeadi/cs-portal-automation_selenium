@@ -100,6 +100,7 @@ public class assignToAgentPOM extends BasePage {
             }
         }
         ExtentTestManager.getTest().log(LogStatus.WARNING, "No User have Available Slot");
+        closeAssignTab();
         return "No Agent Available";
     }
 

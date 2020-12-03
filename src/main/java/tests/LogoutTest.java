@@ -31,5 +31,6 @@ public class LogoutTest extends BaseTest {
             loginPagePOM = new loginPagePOM(driver);
             Assert.assertTrue(loginPagePOM.isEnterAUUIDFieldVisible());
         }
+        loginPagePOM.waitTillLoaderGetsRemoved();
     }
 }

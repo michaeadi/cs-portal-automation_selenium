@@ -56,7 +56,7 @@ public class TransferToQueueTest extends BaseTest {
             filterTab.clickApplyFilter();
             ticketListPage.waitTillLoaderGetsRemoved();
             softAssert.assertTrue(ticketListPage.validateQueueFilter(data.getFromQueue()), "Queue Filter Does Applied Correctly");
-            Assert.assertEquals(ticketListPage.getqueueValue(), data.getFromQueue(), "Ticket Does not found with Selected State");
+            Assert.assertEquals(ticketListPage.getqueueValue().trim().toLowerCase(), data.getFromQueue().toLowerCase().trim(), "Ticket Does not found with Selected State");
             try {
                 ticketId = ticketListPage.getTicketIdvalue();
                 ticketListPage.resetFilter();
@@ -69,7 +69,7 @@ public class TransferToQueueTest extends BaseTest {
                     softAssert.assertTrue(ticketListPage.isAssignToAgent(), "Assign to Agent Button Does Not Available");
                     softAssert.assertTrue(ticketListPage.isTransferToQueue(), "Transfer to Queue Button Does Not Available");
                     ticketListPage.clickTransfertoQueue();
-                    softAssert.assertTrue(transferQueue.validatePageTitle());
+                    softAssert.assertTrue(transferQueue.validatePageTitle(),"Page Title Does not Display");
                     transferQueue.clickTransferQueue(data.getToQueue());
                 } catch (NoSuchElementException | TimeoutException e) {
                     softAssert.fail("Not able to perform Transfer to Queue: " + e.fillInStackTrace());

@@ -241,8 +241,7 @@ public class FilterTabPOM extends BasePage {
         for (TicketStateDataBean state : open) {
             By check = By.xpath("//span[@class='mat-checkbox-label'][contains(text(),'" + state.getTicketStateName() + "')]");
             try {
-                log.info("Filter by state name " + state.getTicketStateName() + " is: " + checkState(check));
-                ExtentTestManager.getTest().log(LogStatus.PASS, "Is filter by state name " + state.getTicketStateName() + " available: " + checkState(check));
+                printInfoLog("Is filter by state name " + state.getTicketStateName() + " available: " + checkState(check));
             } catch (NoSuchElementException | TimeoutException e) {
                 printFailLog("State does not mapped Correctly(Check Config): " + state.getTicketStateName() + " " + e.fillInStackTrace());
                 flag = false;
