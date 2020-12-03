@@ -136,7 +136,7 @@ public class SupervisorSearchTicket extends BaseTest {
                     configTicketLayout.remove(layout.getPlaceHolder().toLowerCase().trim());
                 }
             } catch (NullPointerException e) {
-                ticketListPage.printInfoLog("No Ticket Layout Config in database"+e.getMessage());
+                ticketListPage.printInfoLog("No Ticket Layout Config in database :"+e.getMessage());
             }
 
             for (String name : configTicketLayout) {

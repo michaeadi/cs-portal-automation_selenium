@@ -252,7 +252,7 @@ public class widgetsOptionsTest extends BaseTest {
                     }
                     softAssert.assertEquals(moreRechargeHistory.getValueCorrespondingToRechargeHeader(i + 1, 8), ((rechargeHistoryAPI.getResult().get(i).getExpiryDate()==null)?"-":rechargeHistory.getDateFromString(rechargeHistoryAPI.getResult().get(i).getExpiryDate(),"dd-MMM-yyyy HH:mm")), "Expiry date received is not as expected on row " + i);
                     softAssert.assertEquals(moreRechargeHistory.getValueCorrespondingToRechargeHeader(i + 1, 9), "-", "Old Expiry date received is not as expected on row " + i);
-                    softAssert.assertEquals(moreRechargeHistory.getValueCorrespondingToRechargeHeader(i + 1, 10).trim(), rechargeHistoryAPI.getResult().get(i).getValidity(), "Validity received is not as expected on row " + i);
+                    softAssert.assertEquals(moreRechargeHistory.getValueCorrespondingToRechargeHeader(i + 1, 10).trim(), ((rechargeHistoryAPI.getResult().get(i).getValidity()==null)?"-":rechargeHistoryAPI.getResult().get(i).getValidity()), "Validity received is not as expected on row " + i);
                     if (i != 0) {
                         softAssert.assertTrue(moreRechargeHistory.isSortOrderDisplay(moreRechargeHistory.getValueCorrespondingToRechargeHeader(i+1, 2), moreRechargeHistory.getValueCorrespondingToRechargeHeader(i, 2), "dd-MMM-yyy HH:mm"), moreRechargeHistory.getValueCorrespondingToRechargeHeader(i+1, 2) + "should not display before " + moreRechargeHistory.getValueCorrespondingToRechargeHeader(i , 2));
                     }

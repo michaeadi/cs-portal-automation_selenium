@@ -66,13 +66,13 @@ public class createInteractionTest extends BaseTest {
             interactionsPOM.waitTillLoaderGetsRemoved();
             ExtentTestManager.getTest().log(LogStatus.INFO, "Creating ticket with issue code -" + Data.getIssueCode());
             System.out.println(interactionsPOM.getIssue());
-            softAssert.assertEquals(interactionsPOM.getIssue().trim().toLowerCase().replace(" ", ""), Data.getIssue().trim().toLowerCase().replace(" ", ""), "Issue is not as expected ");
+            softAssert.assertEquals(interactionsPOM.getIssue().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), Data.getIssue().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue is not as expected ");
             System.out.println(interactionsPOM.getIssueSubSubType());
-            softAssert.assertEquals(interactionsPOM.getIssueSubSubType().trim().toLowerCase().replace(" ", ""), Data.getIssueSubSubType().trim().toLowerCase().replace(" ", ""), "Issue sub sub type is not as expected ");
+            softAssert.assertEquals(interactionsPOM.getIssueSubSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), Data.getIssueSubSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue sub sub type is not as expected ");
             System.out.println(interactionsPOM.getIssueType());
-            softAssert.assertEquals(interactionsPOM.getIssueType().trim().toLowerCase().replace(" ", ""), Data.getIssueType().trim().toLowerCase().replace(" ", ""), "Issue type is not as expected ");
+            softAssert.assertEquals(interactionsPOM.getIssueType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), Data.getIssueType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue type is not as expected ");
             System.out.println(interactionsPOM.getIssueSubType());
-            softAssert.assertEquals(interactionsPOM.getIssueSubType().trim().toLowerCase().replace(" ", ""), Data.getIssueSubType().trim().toLowerCase().replace(" ", ""), "Issue sub type is not as expected ");
+            softAssert.assertEquals(interactionsPOM.getIssueSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), Data.getIssueSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue sub type is not as expected ");
             interactionsPOM.sendComment("Automation Suite");
             interactionsPOM.clickOnSave();
             softAssert.assertTrue(interactionsPOM.isResolvedFTRDisplayed(), "Resolved FTR does not display");
@@ -115,10 +115,10 @@ public class createInteractionTest extends BaseTest {
         interactionsPOM.selectCode(Data.getIssueCode());
         interactionsPOM.waitTillLoaderGetsRemoved();
         ExtentTestManager.getTest().log(LogStatus.INFO, "Creating ticket with issue code -" + Data.getIssueCode());
-        softAssert.assertEquals(interactionsPOM.getIssue().trim().toLowerCase().replace(" ", ""), Data.getIssue().trim().toLowerCase().replace(" ", ""), "Issue is not as expected ");
-        softAssert.assertEquals(interactionsPOM.getIssueSubSubType().trim().toLowerCase().replace(" ", ""), Data.getIssueSubSubType().trim().toLowerCase().replace(" ", ""), "Issue sub sub type is not as expected ");
-        softAssert.assertEquals(interactionsPOM.getIssueType().trim().toLowerCase().replace(" ", ""), Data.getIssueType().trim().toLowerCase().replace(" ", ""), "Issue type is not as expected ");
-        softAssert.assertEquals(interactionsPOM.getIssueSubType().trim().toLowerCase().replace(" ", ""), Data.getIssueSubType().trim().toLowerCase().replace(" ", ""), "Issue sub type is not as expected ");
+        softAssert.assertEquals(interactionsPOM.getIssue().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), Data.getIssue().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue is not as expected ");
+        softAssert.assertEquals(interactionsPOM.getIssueSubSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), Data.getIssueSubSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue sub sub type is not as expected ");
+        softAssert.assertEquals(interactionsPOM.getIssueType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), Data.getIssueType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue type is not as expected ");
+        softAssert.assertEquals(interactionsPOM.getIssueSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), Data.getIssueSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue sub type is not as expected ");
         String ticket_number = null;
         try {
 
