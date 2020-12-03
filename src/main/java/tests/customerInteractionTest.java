@@ -151,7 +151,7 @@ public class customerInteractionTest extends BaseTest {
             demographic.hoverOnSIMStatusInfoIcon();
             softAssert.assertEquals(demographic.getSIMStatusReasonCode().trim().toLowerCase(),kycProfile.getResult().getReason()==null || kycProfile.getResult().getReason()=="" ?"-":kycProfile.getResult().getReason().toLowerCase().trim(),"Customer SIM Status Reason is not as Expected");
             softAssert.assertEquals(demographic.getSIMStatusModifiedBy().trim().toLowerCase(),kycProfile.getResult().getModifiedBy().trim().toLowerCase(),"Customer SIM Status Modified By is not as Expected");
-            softAssert.assertEquals(demographic.getSIMStatusModifiedDate().trim().toLowerCase(),demographic.getDateFromString(kycProfile.getResult().getModifiedDate(),"dd-MMM-yyy HH:mm"),"Customer SIM Status Modified Date is not as Expected");
+            softAssert.assertEquals(demographic.getSIMStatusModifiedDate().trim(),demographic.getDateFromString(kycProfile.getResult().getModifiedDate(),"dd-MMM-yyy HH:mm"),"Customer SIM Status Modified Date is not as Expected");
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
             softAssert.fail("Customer's SIM Status is not visible", e.getCause());
             e.printStackTrace();

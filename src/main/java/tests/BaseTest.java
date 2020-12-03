@@ -49,6 +49,7 @@ public class BaseTest {
 
         Opco = System.getProperty("Opco").toUpperCase();
         Env = System.getProperty("Env").toUpperCase();
+        if (Env.equalsIgnoreCase("TEST")) Env = "SIT";
         ExcelPath = Opco + ".xlsx";
         config = new Properties();
         FileInputStream fis;
