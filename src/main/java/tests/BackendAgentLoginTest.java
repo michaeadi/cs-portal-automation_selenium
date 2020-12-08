@@ -23,6 +23,7 @@ public class BackendAgentLoginTest extends BaseTest {
         loginPagePOM loginPagePOM = new loginPagePOM(driver);
         loginPagePOM.openBaseURL(config.getProperty(tests.BaseTest.Env + "-baseurl"));
         softAssert.assertEquals(driver.getCurrentUrl(), config.getProperty(tests.BaseTest.Env + "-baseurl"), "URl isn't as expected");
+        loginPagePOM.waitTillLoaderGetsRemoved();
         loginPagePOM.enterAUUID(Data.getLoginAUUID());//*[@id="mat-input-7"]
         loginPagePOM.clickOnSubmitBtn();
         loginPagePOM.enterPassword(PassUtils.decodePassword(Data.getPassword()));
