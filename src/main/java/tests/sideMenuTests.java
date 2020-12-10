@@ -18,17 +18,17 @@ public class sideMenuTests extends BaseTest {
 //        Thread.sleep(10000);
         SideMenuPOM.clickOnSideMenu();
         try {
-            softAssert.assertTrue(SideMenuPOM.isAdminSettingVisible());
-            softAssert.assertTrue(SideMenuPOM.isCustomerServicesVisible());
+            softAssert.assertTrue(SideMenuPOM.isAdminSettingVisible(),"Admin Setting Module does not displayed");
+            softAssert.assertTrue(SideMenuPOM.isCustomerServicesVisible(),"Customer Service Module does not displayed");
 //            softAssert.assertTrue(SideMenuPOM.isCaseManagementVisible());
-            softAssert.assertTrue(SideMenuPOM.isUserManagementVisible());
-            softAssert.assertTrue(SideMenuPOM.isProfileManagementVisible());
-            softAssert.assertTrue(SideMenuPOM.isTemplateManagementVisible());
+            softAssert.assertTrue(SideMenuPOM.isUserManagementVisible(),"User Management Module does not displayed");
+            softAssert.assertTrue(SideMenuPOM.isProfileManagementVisible(),"Profile Management Module does not displayed");
+            softAssert.assertTrue(SideMenuPOM.isTemplateManagementVisible(),"Template Management Module does not displayed");
             SideMenuPOM.clickOnName();
 //        SideMenuPOM.clickOnSideMenu();
-            softAssert.assertTrue(SideMenuPOM.isCustomerInteractionVisible());
-            softAssert.assertTrue(SideMenuPOM.isSupervisorDashboardVisible());
-            softAssert.assertTrue(SideMenuPOM.isTicketBulkUpdateVisible());
+            softAssert.assertTrue(SideMenuPOM.isCustomerInteractionVisible(),"Admin Setting Module does not displayed");
+            softAssert.assertTrue(SideMenuPOM.isSupervisorDashboardVisible(),"Supervisor Dashboard Module does not displayed");
+            softAssert.assertTrue(SideMenuPOM.isTicketBulkUpdateVisible(),"Ticket Bulk Update Module does not displayed");
         } catch (NotFoundException | TimeoutException e) {
             softAssert.fail("Side Menu Failed");
         } finally {

@@ -85,50 +85,50 @@
 <!--            <class name="tests.TicketBulkUpdateTest"/>-->
 <!--        </classes>-->
 <!--    </test>-->
-<!--    <test name="Logout Test">-->
-<!--        <classes>-->
-<!--            <class name="tests.LogoutTest"/>-->
-<!--        </classes>-->
-<!--    </test>-->
-<!--    <test name="Supervisors Login Test">-->
-<!--        <classes>-->
-<!--            <class name="tests.SupervisorLoginTest"/>-->
-<!--        </classes>-->
-<!--    </test>-->
-<!--    <test name="api-Regenerate">-->
-<!--        <classes>-->
-<!--            <class name="API.APITest">-->
-<!--                <methods>-->
-<!--                    <include name="loginAPI"/>-->
-<!--                </methods>-->
-<!--            </class>-->
-<!--        </classes>-->
-<!--    </test>-->
-<!--    <test name="Supervisors Search Ticket Test ">-->
-<!--        <classes>-->
-<!--            <class name="tests.SupervisorSearchTicket"/>-->
-<!--        </classes>-->
-<!--    </test>-->
-<!--    <test name="Ticket Transfer Rule Test ">-->
-<!--        <classes>-->
-<!--            <class name="tests.TicketTransferRuleTest"/>-->
-<!--        </classes>-->
-<!--    </test>-->
+    <test name="Logout Test">
+        <classes>
+            <class name="tests.LogoutTest"/>
+        </classes>
+    </test>
+    <test name="Supervisors Login Test">
+        <classes>
+            <class name="tests.SupervisorLoginTest"/>
+        </classes>
+    </test>
+    <test name="api-Regenerate">
+        <classes>
+            <class name="API.APITest">
+                <methods>
+                    <include name="loginAPI"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Supervisors Search Ticket Test ">
+        <classes>
+            <class name="tests.SupervisorSearchTicket"/>
+        </classes>
+    </test>
+    <test name="Ticket Transfer Rule Test ">
+        <classes>
+            <class name="tests.TicketTransferRuleTest"/>
+        </classes>
+    </test>
 <!--    <test name="Supervisors Validate Filter Option ">-->
 <!--        <classes>-->
 <!--            <class name="tests.SupervisorFilterTest"/>-->
 <!--        </classes>-->
 <!--    </test>-->
-<!--    <test name="Validate Ticket State Queue Mapping">-->
-<!--        <classes>-->
-<!--            <class name="tests.StateQueueMappingTest"/>-->
-<!--        </classes>-->
-<!--    </test>-->
-<!--    <test name="Supervisors Update Ticket Test">-->
-<!--        <classes>-->
-<!--            <class name="tests.SupervisorUpdateTicket"/>-->
-<!--        </classes>-->
-<!--    </test>-->
+    <test name="Validate Ticket State Queue Mapping">
+        <classes>
+            <class name="tests.StateQueueMappingTest"/>
+        </classes>
+    </test>
+    <test name="Supervisors Update Ticket Test">
+        <classes>
+            <class name="tests.SupervisorUpdateTicket"/>
+        </classes>
+    </test>
 <!--    <test name="Supervisors Assign To Agent Test">-->
 <!--        <classes>-->
 <!--            <class name="tests.AssignToAgentTicketTest"/>-->
@@ -144,26 +144,26 @@
 <!--            <class name="tests.SupervisorReopenTicketTest"/>-->
 <!--        </classes>-->
 <!--    </test>-->
-<!--    <test name="Ticket Escalation">-->
-<!--        <classes>-->
-<!--            <class name="tests.TicketEscalationTest"/>-->
-<!--        </classes>-->
-<!--    </test>-->
+    <test name="Ticket Escalation">
+        <classes>
+            <class name="tests.TicketEscalationTest"/>
+        </classes>
+    </test>
 <!--    <test name="Supervisors Add Comment on Ticket">-->
 <!--        <classes>-->
 <!--            <class name="tests.SupervisorAddCommentTest"/>-->
 <!--        </classes>-->
 <!--    </test>-->
-<!--    <test name="Logout Supervisor Test">-->
-<!--        <classes>-->
-<!--            <class name="tests.LogoutTest"/>-->
-<!--        </classes>-->
-<!--    </test>-->
-<!--    <test name="Login Admin Test">-->
-<!--        <classes>-->
-<!--            <class name="tests.LoginTests"/>-->
-<!--        </classes>-->
-<!--    </test>-->
+    <test name="Logout Supervisor Test">
+        <classes>
+            <class name="tests.LogoutTest"/>
+        </classes>
+    </test>
+    <test name="Login Admin Test">
+        <classes>
+            <class name="tests.LoginTests"/>
+        </classes>
+    </test>
 <!--    <test name="Create Template Test">-->
 <!--        <classes>-->
 <!--            <class name="tests.CreateTemplateTest"/>-->
@@ -179,21 +179,21 @@
 <!--            <class name="tests.SendSMSTest"/>-->
 <!--        </classes>-->
 <!--    </test>-->
-<!--    <test name="UserManagement Test">-->
-<!--        <classes>-->
-<!--            <class name="tests.userManagementTest"/>-->
-<!--        </classes>-->
-<!--    </test>-->
+    <test name="UserManagement Test">
+        <classes>
+            <class name="tests.userManagementTest"/>
+        </classes>
+    </test>
 <!--    <test name="Profile Management Test">-->
 <!--        <classes>-->
 <!--            <class name="tests.profileManagementTest"/>-->
 <!--        </classes>-->
 <!--    </test>-->
-<!--    <test name="Logout Test from ADMIN/SUPERVISOR">-->
-<!--        <classes>-->
-<!--            <class name="tests.LogoutTest"/>-->
-<!--        </classes>-->
-<!--    </test>-->
+    <test name="Logout Test from ADMIN/SUPERVISOR">
+        <classes>
+            <class name="tests.LogoutTest"/>
+        </classes>
+    </test>
 <!--    <test name="LOGIN TO BACKEND AGENT">-->
 <!--        <classes>-->
 <!--            <class name="tests.BackendAgentLoginTest"/>-->
