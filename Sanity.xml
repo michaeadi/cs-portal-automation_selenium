@@ -149,5 +149,5 @@
 <!--        <classes>-->
 <!--            <class name="tests.LogoutTest"/>-->
 <!--        </classes>-->
-    </test>
+<!--    </test>-->
 </suite>
