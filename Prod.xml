@@ -13,7 +13,6 @@
                 </methods>
             </class>
         </classes>
-
     </test>
     <test name="Login Admin 1 Test">
         <classes>
