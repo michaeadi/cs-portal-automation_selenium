@@ -19,3 +19,5 @@ CS_PORTAL.iml
 .idea/workspace.xml
 .idea
 CS_PORTAL.iml
+/target/generated-sources/
+/target/maven-status/
