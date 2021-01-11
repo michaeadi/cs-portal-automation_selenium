@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="2" passed="2">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Automation Framework CS PORTAl Test Suite" duration-ms="66970" started-at="2021-01-11T13:42:22 IST" finished-at="2021-01-11T13:43:29 IST">
+    <groups>
+    </groups>
+    <test name="api" duration-ms="9737" started-at="2021-01-11T13:42:22 IST" finished-at="2021-01-11T13:42:32 IST">
+      <class name="API.APITest">
+        <test-method status="PASS" signature="methodLevelSetup()[pri:0, instance:API.APITest@17503f6b]" name="methodLevelSetup" is-config="true" duration-ms="0" started-at="2021-01-11T13:42:24 IST" finished-at="2021-01-11T13:42:24 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- methodLevelSetup -->
+        <test-method status="PASS" signature="loginAPI(Utils.DataProviders.TestDatabean)[pri:1, instance:API.APITest@17503f6b]" name="loginAPI" duration-ms="7265" started-at="2021-01-11T13:42:24 IST" data-provider="loginData" finished-at="2021-01-11T13:42:31 IST">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Utils.DataProviders.TestDatabean@3b9ac754]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- loginAPI -->
+      </class> <!-- API.APITest -->
+    </test> <!-- api -->
+    <test name="Login Admin 1 Test" duration-ms="56480" started-at="2021-01-11T13:42:32 IST" finished-at="2021-01-11T13:43:29 IST">
+      <class name="tests.LoginTests">
+        <test-method status="PASS" signature="classLevelSetup()[pri:0, instance:tests.LoginTests@45efd90f]" name="classLevelSetup" is-config="true" duration-ms="13479" started-at="2021-01-11T13:42:08 IST" finished-at="2021-01-11T13:42:22 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- classLevelSetup -->
+        <test-method status="PASS" signature="LoggingIN(java.lang.reflect.Method, Utils.DataProviders.TestDatabean)[pri:1, instance:tests.LoginTests@45efd90f]" name="LoggingIN" duration-ms="56075" started-at="2021-01-11T13:42:33 IST" description="Logging IN" data-provider="loginData" finished-at="2021-01-11T13:43:29 IST">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void tests.LoginTests.LoggingIN(java.lang.reflect.Method,Utils.DataProviders.TestDatabean)]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[Utils.DataProviders.TestDatabean@105db94d]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- LoggingIN -->
+        <test-method status="PASS" signature="methodLevelSetup()[pri:0, instance:tests.LoginTests@45efd90f]" name="methodLevelSetup" is-config="true" duration-ms="0" started-at="2021-01-11T13:42:33 IST" finished-at="2021-01-11T13:42:33 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- methodLevelSetup -->
+        <test-method status="PASS" signature="teardown()[pri:0, instance:tests.LoginTests@45efd90f]" name="teardown" is-config="true" duration-ms="646" started-at="2021-01-11T13:43:29 IST" finished-at="2021-01-11T13:43:29 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- teardown -->
+      </class> <!-- tests.LoginTests -->
+    </test> <!-- Login Admin 1 Test -->
+  </suite> <!-- Automation Framework CS PORTAl Test Suite -->
+</testng-results>
