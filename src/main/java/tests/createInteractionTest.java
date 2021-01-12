@@ -79,6 +79,7 @@ public class createInteractionTest extends BaseTest {
             softAssert.assertEquals(interactionsPOM.getResolvedFTRDisplayed(), "Resolved FTR", "Resolved FTR does not display");
         } catch (NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
             System.out.println("in catch");
+            interactionsPOM.clickOutside();
             interactionsPOM.resetInteractionIssue();
             interactionsPOM.waitTillLoaderGetsRemoved();
             e.printStackTrace();
@@ -325,6 +326,7 @@ public class createInteractionTest extends BaseTest {
                 interactionsPOM.clickOnContinueButton();
             } catch (NoSuchElementException | TimeoutException ex) {
                 softAssert.fail("Unable to close interaction", ex.getCause());
+                interactionsPOM.clickOutside();
                 interactionsPOM.resetInteractionIssue();
             }
             e.printStackTrace();

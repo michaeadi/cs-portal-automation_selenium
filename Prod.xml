@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Automation Framework CS PORTAl Test Suite" preserve-order="true" allow-return-values="true">
+    <listeners>
+        <listener class-name="Utils.Listeners.TestListener"/>
+        <!--        <listener class-name="Utils.Listeners.AnnotationTransformer"/>-->
+    </listeners>
+    <test name="api">
+        <classes>
+            <class name="API.APITest">
+                <methods>
+                    <include name="loginAPI"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Login Admin 1 Test">
+        <classes>
+            <class name="tests.LoginTests"/>
+        </classes>
+    </test>
+    <test name="Side Menu">
+        <classes>
+            <class name="tests.sideMenuTests"/>
+        </classes>
+    </test>
+    <test name="Customer Interactions TEST" preserve-order="true">
+        <classes>
+            <class name="tests.customerInteractionTest"/>
+            <class name="tests.widgetsOptionsTest"/>
+        </classes>
+    </test>
+    <test name="Logout Test">
+        <classes>
+            <class name="tests.LogoutTest"/>
+        </classes>
+    </test>
+    <test name="Supervisors Login Test">
+        <classes>
+            <class name="tests.SupervisorLoginTest"/>
+        </classes>
+    </test>
+    <test name="api-Regenerate">
+        <classes>
+            <class name="API.APITest">
+                <methods>
+                    <include name="loginAPI"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Supervisors Validate Filter Option ">
+        <classes>
+            <class name="tests.SupervisorFilterTest"/>
+        </classes>
+    </test>
+    <test name="Logout Supervisor Test">
+        <classes>
+            <class name="tests.LogoutTest"/>
+        </classes>
+    </test>
+    <test name="LOGIN TO BACKEND AGENT">
+        <classes>
+            <class name="tests.BackendAgentLoginTest"/>
+        </classes>
+    </test>
+    <test name="Validate BACKEND AGENT Filter Options">
+        <classes>
+            <class name="tests.BackendAgentFilterTest"/>
+        </classes>
+    </test>
+    <test name="Logout Test from Backend agent">
+        <classes>
+            <class name="tests.LogoutTest"/>
+        </classes>
+    </test>
+</suite>
