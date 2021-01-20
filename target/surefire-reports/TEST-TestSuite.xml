@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="TestSuite" time="84.095" tests="2" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="TestSuite" time="606.483" tests="13" errors="0" skipped="0" failures="6">
   <properties>
     <property name="sun.desktop" value="windows"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
@@ -19,7 +19,7 @@
     <property name="user.country" value="US"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_231\jre\bin"/>
-    <property name="sun.java.command" value="C:\Users\2394650\AppData\Local\Temp\surefire1715108460733520265\surefirebooter258980901250456743.jar C:\Users\2394650\AppData\Local\Temp\surefire1715108460733520265 2021-01-11T13-42-04_413-jvmRun1 surefire6176326512455354114tmp surefire_04498665493541635044tmp"/>
+    <property name="sun.java.command" value="C:\Users\2394650\AppData\Local\Temp\surefire2485779645818061751\surefirebooter7488628010823845920.jar C:\Users\2394650\AppData\Local\Temp\surefire2485779645818061751 2021-01-20T15-33-21_442-jvmRun1 surefire2138315913488838023tmp surefire_01757399869505430063tmp"/>
     <property name="surefire.test.class.path" value="C:\Users\2394650\IdeaProjects\cs-portal-automation_selenium1\target\test-classes;C:\Users\2394650\IdeaProjects\cs-portal-automation_selenium1\target\classes;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-java\4.0.0-alpha-3\selenium-java-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-api\4.0.0-alpha-3\selenium-api-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-chrome-driver\4.0.0-alpha-3\selenium-chrome-driver-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\com\google\guava\guava\27.1-jre\guava-27.1-jre.jar;C:\Users\2394650\.m2\repository\com\google\guava\failureaccess\1.0.1\failureaccess-1.0.1.jar;C:\Users\2394650\.m2\repository\com\google\guava\listenablefuture\9999.0-empty-to-avoid-conflict-with-guava\listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar;C:\Users\2394650\.m2\repository\org\checkerframework\checker-qual\2.5.2\checker-qual-2.5.2.jar;C:\Users\2394650\.m2\repository\com\google\errorprone\error_prone_annotations\2.2.0\error_prone_annotations-2.2.0.jar;C:\Users\2394650\.m2\repository\com\google\j2objc\j2objc-annotations\1.1\j2objc-annotations-1.1.jar;C:\Users\2394650\.m2\repository\org\codehaus\mojo\animal-sniffer-annotations\1.17\animal-sniffer-annotations-1.17.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-chromium-driver\4.0.0-alpha-3\selenium-chromium-driver-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-devtools\4.0.0-alpha-3\selenium-devtools-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-http\4.0.0-alpha-3\selenium-http-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-json\4.0.0-alpha-3\selenium-json-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-edge-driver\4.0.0-alpha-3\selenium-edge-driver-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-edgehtml-driver\4.0.0-alpha-3\selenium-edgehtml-driver-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-firefox-driver\4.0.0-alpha-3\selenium-firefox-driver-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-firefox-xpi-driver\4.0.0-alpha-3\selenium-firefox-xpi-driver-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-ie-driver\4.0.0-alpha-3\selenium-ie-driver-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-opera-driver\4.0.0-alpha-3\selenium-opera-driver-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-remote-driver\4.0.0-alpha-3\selenium-remote-driver-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\com\squareup\okhttp3\okhttp\4.0.1\okhttp-4.0.1.jar;C:\Users\2394650\.m2\repository\com\squareup\okio\okio\2.2.2\okio-2.2.2.jar;C:\Users\2394650\.m2\repository\org\jetbrains\kotlin\kotlin-stdlib\1.3.40\kotlin-stdlib-1.3.40.jar;C:\Users\2394650\.m2\repository\org\jetbrains\kotlin\kotlin-stdlib-common\1.3.40\kotlin-stdlib-common-1.3.40.jar;C:\Users\2394650\.m2\repository\org\jetbrains\annotations\13.0\annotations-13.0.jar;C:\Users\2394650\.m2\repository\io\opentracing\opentracing-api\0.33.0\opentracing-api-0.33.0.jar;C:\Users\2394650\.m2\repository\net\bytebuddy\byte-buddy\1.9.12\byte-buddy-1.9.12.jar;C:\Users\2394650\.m2\repository\org\apache\commons\commons-exec\1.3\commons-exec-1.3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-safari-driver\4.0.0-alpha-3\selenium-safari-driver-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-support\4.0.0-alpha-3\selenium-support-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\hamcrest\java-hamcrest\2.0.0.0\java-hamcrest-2.0.0.0.jar;C:\Users\2394650\.m2\repository\commons-cli\commons-cli\1.4\commons-cli-1.4.jar;C:\Users\2394650\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.10.2\jackson-core-2.10.2.jar;C:\Users\2394650\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.9.8\jackson-databind-2.9.8.jar;C:\Users\2394650\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.9.0\jackson-annotations-2.9.0.jar;C:\Users\2394650\.m2\repository\org\hamcrest\hamcrest-all\1.3\hamcrest-all-1.3.jar;C:\Users\2394650\.m2\repository\org\hamcrest\hamcrest\2.2\hamcrest-2.2.jar;C:\Users\2394650\.m2\repository\io\rest-assured\rest-assured\3.3.0\rest-assured-3.3.0.jar;C:\Users\2394650\.m2\repository\org\codehaus\groovy\groovy\2.4.15\groovy-2.4.15.jar;C:\Users\2394650\.m2\repository\org\codehaus\groovy\groovy-xml\2.4.15\groovy-xml-2.4.15.jar;C:\Users\2394650\.m2\repository\org\apache\httpcomponents\httpclient\4.5.3\httpclient-4.5.3.jar;C:\Users\2394650\.m2\repository\org\apache\httpcomponents\httpcore\4.4.6\httpcore-4.4.6.jar;C:\Users\2394650\.m2\repository\commons-logging\commons-logging\1.2\commons-logging-1.2.jar;C:\Users\2394650\.m2\repository\commons-codec\commons-codec\1.9\commons-codec-1.9.jar;C:\Users\2394650\.m2\repository\org\apache\httpcomponents\httpmime\4.5.3\httpmime-4.5.3.jar;C:\Users\2394650\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\2394650\.m2\repository\org\hamcrest\hamcrest-library\1.3\hamcrest-library-1.3.jar;C:\Users\2394650\.m2\repository\org\ccil\cowan\tagsoup\tagsoup\1.2.1\tagsoup-1.2.1.jar;C:\Users\2394650\.m2\repository\io\rest-assured\xml-path\3.3.0\xml-path-3.3.0.jar;C:\Users\2394650\.m2\repository\javax\xml\bind\jaxb-api\2.2.12\jaxb-api-2.2.12.jar;C:\Users\2394650\.m2\repository\com\sun\xml\bind\jaxb-osgi\2.2.10\jaxb-osgi-2.2.10.jar;C:\Users\2394650\.m2\repository\org\apache\sling\org.apache.sling.javax.activation\0.1.0\org.apache.sling.javax.activation-0.1.0.jar;C:\Users\2394650\.m2\repository\javax\activation\activation\1.1.1\activation-1.1.1.jar;C:\Users\2394650\.m2\repository\io\rest-assured\json-path\4.2.0\json-path-4.2.0.jar;C:\Users\2394650\.m2\repository\org\codehaus\groovy\groovy-json\2.5.8\groovy-json-2.5.8.jar;C:\Users\2394650\.m2\repository\io\rest-assured\rest-assured-common\4.2.0\rest-assured-common-4.2.0.jar;C:\Users\2394650\.m2\repository\commons-io\commons-io\2.6\commons-io-2.6.jar;C:\Users\2394650\.m2\repository\io\rest-assured\json-schema-validator\4.2.0\json-schema-validator-4.2.0.jar;C:\Users\2394650\.m2\repository\com\github\java-json-tools\json-schema-validator\2.2.10\json-schema-validator-2.2.10.jar;C:\Users\2394650\.m2\repository\com\github\java-json-tools\json-schema-core\1.2.10\json-schema-core-1.2.10.jar;C:\Users\2394650\.m2\repository\com\github\java-json-tools\jackson-coreutils\1.9\jackson-coreutils-1.9.jar;C:\Users\2394650\.m2\repository\com\github\fge\msg-simple\1.1\msg-simple-1.1.jar;C:\Users\2394650\.m2\repository\com\github\fge\btf\1.2\btf-1.2.jar;C:\Users\2394650\.m2\repository\com\github\fge\uri-template\0.9\uri-template-0.9.jar;C:\Users\2394650\.m2\repository\org\mozilla\rhino\1.7.7.1\rhino-1.7.7.1.jar;C:\Users\2394650\.m2\repository\javax\mail\mailapi\1.4.3\mailapi-1.4.3.jar;C:\Users\2394650\.m2\repository\joda-time\joda-time\2.9.7\joda-time-2.9.7.jar;C:\Users\2394650\.m2\repository\com\googlecode\libphonenumber\libphonenumber\8.0.0\libphonenumber-8.0.0.jar;C:\Users\2394650\.m2\repository\com\google\code\findbugs\jsr305\3.0.1\jsr305-3.0.1.jar;C:\Users\2394650\.m2\repository\net\sf\jopt-simple\jopt-simple\5.0.3\jopt-simple-5.0.3.jar;C:\Users\2394650\.m2\repository\org\codehaus\jackson\jackson-core-asl\1.9.13\jackson-core-asl-1.9.13.jar;C:\Users\2394650\.m2\repository\org\codehaus\jackson\jackson-mapper-lgpl\1.9.13\jackson-mapper-lgpl-1.9.13.jar;C:\Users\2394650\.m2\repository\org\codehaus\jackson\jackson-core-lgpl\1.9.13\jackson-core-lgpl-1.9.13.jar;C:\Users\2394650\.m2\repository\org\testng\testng\7.0.0\testng-7.0.0.jar;C:\Users\2394650\.m2\repository\com\beust\jcommander\1.72\jcommander-1.72.jar;C:\Users\2394650\.m2\repository\org\apache\logging\log4j\log4j-api\2.13.3\log4j-api-2.13.3.jar;C:\Users\2394650\.m2\repository\org\apache\logging\log4j\log4j-core\2.13.3\log4j-core-2.13.3.jar;C:\Users\2394650\.m2\repository\org\apache\commons\commons-lang3\3.9\commons-lang3-3.9.jar;C:\Users\2394650\.m2\repository\org\apache\poi\poi-ooxml\4.1.0\poi-ooxml-4.1.0.jar;C:\Users\2394650\.m2\repository\org\apache\poi\poi\4.1.0\poi-4.1.0.jar;C:\Users\2394650\.m2\repository\org\apache\commons\commons-collections4\4.3\commons-collections4-4.3.jar;C:\Users\2394650\.m2\repository\org\apache\commons\commons-math3\3.6.1\commons-math3-3.6.1.jar;C:\Users\2394650\.m2\repository\org\apache\poi\poi-ooxml-schemas\4.1.0\poi-ooxml-schemas-4.1.0.jar;C:\Users\2394650\.m2\repository\org\apache\xmlbeans\xmlbeans\3.1.0\xmlbeans-3.1.0.jar;C:\Users\2394650\.m2\repository\org\apache\commons\commons-compress\1.18\commons-compress-1.18.jar;C:\Users\2394650\.m2\repository\com\github\virtuald\curvesapi\1.06\curvesapi-1.06.jar;C:\Users\2394650\.m2\repository\org\projectlombok\lombok\1.18.12\lombok-1.18.12.jar;C:\Users\2394650\.m2\repository\com\relevantcodes\extentreports\2.41.2\extentreports-2.41.2.jar;C:\Users\2394650\.m2\repository\org\jsoup\jsoup\1.8.3\jsoup-1.8.3.jar;C:\Users\2394650\.m2\repository\org\xerial\sqlite-jdbc\3.8.11.1\sqlite-jdbc-3.8.11.1.jar;C:\Users\2394650\.m2\repository\org\freemarker\freemarker\2.3.23\freemarker-2.3.23.jar;C:\Users\2394650\.m2\repository\org\mongodb\mongodb-driver\3.0.4\mongodb-driver-3.0.4.jar;C:\Users\2394650\.m2\repository\org\mongodb\bson\3.0.4\bson-3.0.4.jar;C:\Users\2394650\.m2\repository\org\mongodb\mongodb-driver-core\3.0.4\mongodb-driver-core-3.0.4.jar;C:\Users\2394650\.m2\repository\io\github\bonigarcia\webdrivermanager\4.2.2\webdrivermanager-4.2.2.jar;C:\Users\2394650\.m2\repository\org\slf4j\slf4j-api\1.7.30\slf4j-api-1.7.30.jar;C:\Users\2394650\.m2\repository\com\google\code\gson\gson\2.8.6\gson-2.8.6.jar;C:\Users\2394650\.m2\repository\org\apache\httpcomponents\client5\httpclient5\5.0.1\httpclient5-5.0.1.jar;C:\Users\2394650\.m2\repository\org\apache\httpcomponents\core5\httpcore5\5.0.1\httpcore5-5.0.1.jar;C:\Users\2394650\.m2\repository\org\apache\httpcomponents\core5\httpcore5-h2\5.0.1\httpcore5-h2-5.0.1.jar;C:\Users\2394650\.m2\repository\org\rauschig\jarchivelib\1.1.0\jarchivelib-1.1.0.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="C:\Users\2394650"/>
@@ -33,7 +33,7 @@
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
     <property name="idea.version2020.1.2" value="true"/>
-    <property name="surefire.real.class.path" value="C:\Users\2394650\AppData\Local\Temp\surefire1715108460733520265\surefirebooter258980901250456743.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\2394650\AppData\Local\Temp\surefire2485779645818061751\surefirebooter7488628010823845920.jar"/>
     <property name="sun.boot.class.path" value="C:\Program Files\Java\jdk1.8.0_231\jre\lib\resources.jar;C:\Program Files\Java\jdk1.8.0_231\jre\lib\rt.jar;C:\Program Files\Java\jdk1.8.0_231\jre\lib\sunrsasign.jar;C:\Program Files\Java\jdk1.8.0_231\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.8.0_231\jre\lib\jce.jar;C:\Program Files\Java\jdk1.8.0_231\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.8.0_231\jre\lib\jfr.jar;C:\Program Files\Java\jdk1.8.0_231\jre\classes"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
@@ -49,13 +49,12 @@
     <property name="localRepository" value="C:\Users\2394650\.m2\repository"/>
     <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/"/>
     <property name="java.io.tmpdir" value="C:\Users\2394650\AppData\Local\Temp\"/>
-    <property name="reportPath" value="output"/>
     <property name="java.version" value="1.8.0_231"/>
     <property name="user.dir" value="C:\Users\2394650\IdeaProjects\cs-portal-automation_selenium1"/>
     <property name="os.arch" value="amd64"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
     <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
-    <property name="suiteType" value="Sanity"/>
+    <property name="suiteType" value="Regression"/>
     <property name="sun.os.patch.level" value=""/>
     <property name="java.library.path" value="C:\Program Files\Java\jdk1.8.0_231\jre\bin;C:\windows\Sun\Java\bin;C:\windows\system32;C:\windows;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\windows\system32;C:\windows;C:\windows\System32\Wbem;C:\windows\System32\WindowsPowerShell\v1.0\;C:\windows\System32\OpenSSH\;C:\Program Files\nodejs\;C:\Program Files\PuTTY\;C:\Users\2394650\AppData\Local\Microsoft\WindowsApps;C:\Users\2394650\AppData\Roaming\npm;C:\Users\2394650\AppData\Local\Programs\Git\cmd;."/>
     <property name="java.vm.info" value="mixed mode"/>
@@ -65,6 +64,1393 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="52.0"/>
   </properties>
-  <testcase name="loginAPI" classname="API.APITest" time="7.271"/>
-  <testcase name="LoggingIN" classname="tests.LoginTests" time="56.067"/>
+  <testcase name="loginAPI" classname="API.APITest" time="3.55"/>
+  <testcase name="LoggingIN" classname="tests.LoginTests" time="118.235"/>
+  <testcase name="openCustomerInteraction" classname="tests.customerInteractionTest" time="31.029"/>
+  <testcase name="validateDemographicInformation" classname="tests.customerInteractionTest" time="210.518">
+    <failure message="The following asserts failed:&#10;	Customer&apos;s Airtel Money Status is not visible no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//div[@class=&quot;customer-details&quot;]//div[@class=&quot;top col-md-7&quot;]/div/div[3]//li[2]//p[1]//span[2]&quot;}&#10;  (Session info: headless chrome=87.0.4280.141)&#10;For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html&#10;Build info: version: &apos;4.0.0-alpha-3&apos;, revision: &apos;8c567de6dc&apos;&#10;System info: host: &apos;LT2394650&apos;, ip: &apos;172.23.64.204&apos;, os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;1.8.0_231&apos;&#10;Driver info: org.openqa.selenium.chrome.ChromeDriver&#10;Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 87.0.4280.141, chrome: {chromedriverVersion: 87.0.4280.88 (89e2380a3e36c..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:64383}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:virtualAuthenticators: true}&#10;Session ID: 534c9180d1b4c5ac86c2663aeb48b53c&#10;*** Element info: {Using=xpath, value=//div[@class=&quot;customer-details&quot;]//div[@class=&quot;top col-md-7&quot;]/div/div[3]//li[2]//p[1]//span[2]},&#10;	Customer&apos;s Airtel Money Service Status is not visible no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//div[@class=&quot;customer-details&quot;]//div[@class=&quot;top col-md-7&quot;]/div/div[3]//li[2]//p[2]//span[2]&quot;}&#10;  (Session info: headless chrome=87.0.4280.141)&#10;For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html&#10;Build info: version: &apos;4.0.0-alpha-3&apos;, revision: &apos;8c567de6dc&apos;&#10;System info: host: &apos;LT2394650&apos;, ip: &apos;172.23.64.204&apos;, os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;1.8.0_231&apos;&#10;Driver info: org.openqa.selenium.chrome.ChromeDriver&#10;Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 87.0.4280.141, chrome: {chromedriverVersion: 87.0.4280.88 (89e2380a3e36c..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:64383}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:virtualAuthenticators: true}&#10;Session ID: 534c9180d1b4c5ac86c2663aeb48b53c&#10;*** Element info: {Using=xpath, value=//div[@class=&quot;customer-details&quot;]//div[@class=&quot;top col-md-7&quot;]/div/div[3]//li[2]//p[2]//span[2]}" type="java.lang.AssertionError">java.lang.AssertionError: 
+The following asserts failed:
+	Customer's Airtel Money Status is not visible no such element: Unable to locate element: {"method":"xpath","selector":"//div[@class="customer-details"]//div[@class="top col-md-7"]/div/div[3]//li[2]//p[1]//span[2]"}
+  (Session info: headless chrome=87.0.4280.141)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.204', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 87.0.4280.141, chrome: {chromedriverVersion: 87.0.4280.88 (89e2380a3e36c..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:64383}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:virtualAuthenticators: true}
+Session ID: 534c9180d1b4c5ac86c2663aeb48b53c
+*** Element info: {Using=xpath, value=//div[@class="customer-details"]//div[@class="top col-md-7"]/div/div[3]//li[2]//p[1]//span[2]},
+	Customer's Airtel Money Service Status is not visible no such element: Unable to locate element: {"method":"xpath","selector":"//div[@class="customer-details"]//div[@class="top col-md-7"]/div/div[3]//li[2]//p[2]//span[2]"}
+  (Session info: headless chrome=87.0.4280.141)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.204', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 87.0.4280.141, chrome: {chromedriverVersion: 87.0.4280.88 (89e2380a3e36c..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:64383}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:virtualAuthenticators: true}
+Session ID: 534c9180d1b4c5ac86c2663aeb48b53c
+*** Element info: {Using=xpath, value=//div[@class="customer-details"]//div[@class="top col-md-7"]/div/div[3]//li[2]//p[2]//span[2]}
+	at tests.customerInteractionTest.validateDemographicInformation(customerInteractionTest.java:317)
+</failure>
+    <system-out><![CDATA[15:36:06.051 I am in on TestSuccess method openCustomerInteraction succeed
+User Type ALL
+User Type ADDED ALL
+User Type BA
+NO USER FOUND
+User Type API
+NO USER FOUND
+User Type NFTR
+NO USER FOUND
+15:36:06.249 I am in onTestStart method validateDemographicInformation start
+15:36:06.270 [main] INFO  API.APITest(199) - Request Headers are  : x-app-name=cs-service
+x-service-id=customer_service_service_request_webctx
+x-app-type=web
+x-client-id=4
+x-api-key=120b65cd-2141-4561-b265-69ffa82fbaf3 
+x-login-module=MSISDN
+x-channel=4
+x-app-version=1.0.0
+Opco=KE
+Authorization=Bearer eyJjdHkiOiJKV1QiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAtMjU2In0.YWiYeq-6LFw2EZbcvlfe7SNfRG9oK4ZtpTkrDeiey5EujMP19SazND23x5uh2FAnteJ3EX8xkhQ-uRVxJkscJgcXs1bznXTVVgmWnfFza2IH94JDMKTnn-_hd08W1jDmWAc6AHaxRNrz0gVZ2-ls27g3dAHqWOS4tPgF5_Nj5TG_g5i0lsUrYwn432LLvcg2Dlh0Jf7KkeCKP5pGTw4TQ6HYFfvuS1t10Fh22WnI-glXE1pIdzQlCEDk5hJP1MOKJzBnS1yOpw19JXNhk8ZTzl4glksdJhegFhXTmExQtXawoUj67i-jyqTX-j0cd7DqinZXVK2Rwowz1ZNXyOT00A.qowVKCzgna9H5ypr.JUhb8j2ul43VEvAPmFitPSxydIonrT7nUKXiYOYrSnSog_GTtic_rP_cKcCAH08dAnB5C8Lo1zRm-0g0EssD4I0SPKd0xGgP6l69BvW4U3qNzs6fon2QnhUM0yR-gTqI6sYwBNSP2FSCnaeBMJjwjFMyart9tGcpHRAQwDWYWoAoR2p43zF9O3-CTuzN4jxZiKHRilKBGV50AxFaHm5YvAkdgCtrFG2qUsiBgM9bHTMbLrSyx8ZpSpIFw2RPm8tJIVrk.9GIv0AnnsK_303DHFHQMMA
+Content-Type=application/json
+15:36:06.271 [main] INFO  API.APITest(201) - Request Body is  : {"msisdn":"751522556"}
+15:36:10.761 [main] INFO  API.APITest(203) - Response : {"status":"SUCCESS","statusCode":200,"result":{"deviceType":"Not 4G Compatible","appStatus":"App Not Downloaded","imeiNumber":"355423031243939","type":"Phone","brand":"Nony","model":"I8750","os":"Nucleus"},"apiErrors":{"airtelMoneyStatus":"Unable to Fetch Data"}}
+15:36:10.762 [main] INFO  API.APITest(204) - Response time : 4 s
+15:36:11.009 [main] INFO  API.APITest(220) - Request Headers are  : x-app-name=cs-service
+x-service-id=customer_service_service_request_webctx
+x-app-type=web
+x-client-id=4
+x-api-key=120b65cd-2141-4561-b265-69ffa82fbaf3 
+x-login-module=MSISDN
+x-channel=4
+x-app-version=1.0.0
+Opco=KE
+Authorization=Bearer eyJjdHkiOiJKV1QiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAtMjU2In0.YWiYeq-6LFw2EZbcvlfe7SNfRG9oK4ZtpTkrDeiey5EujMP19SazND23x5uh2FAnteJ3EX8xkhQ-uRVxJkscJgcXs1bznXTVVgmWnfFza2IH94JDMKTnn-_hd08W1jDmWAc6AHaxRNrz0gVZ2-ls27g3dAHqWOS4tPgF5_Nj5TG_g5i0lsUrYwn432LLvcg2Dlh0Jf7KkeCKP5pGTw4TQ6HYFfvuS1t10Fh22WnI-glXE1pIdzQlCEDk5hJP1MOKJzBnS1yOpw19JXNhk8ZTzl4glksdJhegFhXTmExQtXawoUj67i-jyqTX-j0cd7DqinZXVK2Rwowz1ZNXyOT00A.qowVKCzgna9H5ypr.JUhb8j2ul43VEvAPmFitPSxydIonrT7nUKXiYOYrSnSog_GTtic_rP_cKcCAH08dAnB5C8Lo1zRm-0g0EssD4I0SPKd0xGgP6l69BvW4U3qNzs6fon2QnhUM0yR-gTqI6sYwBNSP2FSCnaeBMJjwjFMyart9tGcpHRAQwDWYWoAoR2p43zF9O3-CTuzN4jxZiKHRilKBGV50AxFaHm5YvAkdgCtrFG2qUsiBgM9bHTMbLrSyx8ZpSpIFw2RPm8tJIVrk.9GIv0AnnsK_303DHFHQMMA
+Content-Type=application/json
+15:36:11.010 [main] INFO  API.APITest(222) - Request Body is  : {"msisdn":"751522556"}
+15:36:13.916 [main] INFO  API.APITest(224) - Response : {"status":"SUCCESS","statusCode":200,"result":{"activationDate":"1510099200000","sim":"8925403172001761197","simType":"4G","puk":[{"label":"PUK1","value":"84124834"},{"label":"PUK2","value":"22939926"}],"status":"Active","lineType":"PREPAID","serviceCategory":"","segment":"","subSegment":"","serviceClass":"1","gsmAdditionalInfo":true,"modifiedBy":"Shadrack Marende","modifiedDate":"21-Nov-2017 12:06 PM","reason":"","vip":false},"apiErrors":{}}
+15:36:13.916 [main] INFO  API.APITest(225) - Response time : 2 s
+15:36:13.937 [main] INFO  API.APITest(177) - Request Headers are  : x-app-name=cs-service
+x-service-id=customer_service_service_request_webctx
+x-app-type=web
+x-client-id=4
+x-api-key=120b65cd-2141-4561-b265-69ffa82fbaf3 
+x-login-module=MSISDN
+x-channel=4
+x-app-version=1.0.0
+Opco=KE
+Authorization=Bearer eyJjdHkiOiJKV1QiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAtMjU2In0.YWiYeq-6LFw2EZbcvlfe7SNfRG9oK4ZtpTkrDeiey5EujMP19SazND23x5uh2FAnteJ3EX8xkhQ-uRVxJkscJgcXs1bznXTVVgmWnfFza2IH94JDMKTnn-_hd08W1jDmWAc6AHaxRNrz0gVZ2-ls27g3dAHqWOS4tPgF5_Nj5TG_g5i0lsUrYwn432LLvcg2Dlh0Jf7KkeCKP5pGTw4TQ6HYFfvuS1t10Fh22WnI-glXE1pIdzQlCEDk5hJP1MOKJzBnS1yOpw19JXNhk8ZTzl4glksdJhegFhXTmExQtXawoUj67i-jyqTX-j0cd7DqinZXVK2Rwowz1ZNXyOT00A.qowVKCzgna9H5ypr.JUhb8j2ul43VEvAPmFitPSxydIonrT7nUKXiYOYrSnSog_GTtic_rP_cKcCAH08dAnB5C8Lo1zRm-0g0EssD4I0SPKd0xGgP6l69BvW4U3qNzs6fon2QnhUM0yR-gTqI6sYwBNSP2FSCnaeBMJjwjFMyart9tGcpHRAQwDWYWoAoR2p43zF9O3-CTuzN4jxZiKHRilKBGV50AxFaHm5YvAkdgCtrFG2qUsiBgM9bHTMbLrSyx8ZpSpIFw2RPm8tJIVrk.9GIv0AnnsK_303DHFHQMMA
+Content-Type=application/json
+15:36:13.937 [main] INFO  API.APITest(179) - Request Body is  : {"msisdn":"751522556"}
+15:36:16.707 [main] INFO  API.APITest(181) - Response : {"status":"SUCCESS","statusCode":200,"result":{"name":"Moline Okango","dob":599616000000,"identificationType":"National ID","identificationNo":"32247975","gsm":"Not Available"},"apiErrors":{}}
+15:36:16.708 [main] INFO  API.APITest(182) - Response time : 2 s
+15:36:16.715 [main] INFO  API.APITest(89) - Request Headers are  : x-app-name=cs-service
+x-service-id=customer_service_service_request_webctx
+x-app-type=web
+x-client-id=4
+x-api-key=120b65cd-2141-4561-b265-69ffa82fbaf3 
+x-login-module=MSISDN
+x-channel=4
+x-app-version=1.0.0
+Opco=KE
+Authorization=Bearer eyJjdHkiOiJKV1QiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAtMjU2In0.YWiYeq-6LFw2EZbcvlfe7SNfRG9oK4ZtpTkrDeiey5EujMP19SazND23x5uh2FAnteJ3EX8xkhQ-uRVxJkscJgcXs1bznXTVVgmWnfFza2IH94JDMKTnn-_hd08W1jDmWAc6AHaxRNrz0gVZ2-ls27g3dAHqWOS4tPgF5_Nj5TG_g5i0lsUrYwn432LLvcg2Dlh0Jf7KkeCKP5pGTw4TQ6HYFfvuS1t10Fh22WnI-glXE1pIdzQlCEDk5hJP1MOKJzBnS1yOpw19JXNhk8ZTzl4glksdJhegFhXTmExQtXawoUj67i-jyqTX-j0cd7DqinZXVK2Rwowz1ZNXyOT00A.qowVKCzgna9H5ypr.JUhb8j2ul43VEvAPmFitPSxydIonrT7nUKXiYOYrSnSog_GTtic_rP_cKcCAH08dAnB5C8Lo1zRm-0g0EssD4I0SPKd0xGgP6l69BvW4U3qNzs6fon2QnhUM0yR-gTqI6sYwBNSP2FSCnaeBMJjwjFMyart9tGcpHRAQwDWYWoAoR2p43zF9O3-CTuzN4jxZiKHRilKBGV50AxFaHm5YvAkdgCtrFG2qUsiBgM9bHTMbLrSyx8ZpSpIFw2RPm8tJIVrk.9GIv0AnnsK_303DHFHQMMA
+Content-Type=application/json
+15:36:16.716 [main] INFO  API.APITest(91) - Request Body is  : {"msisdn":"751522556"}
+15:36:19.788 [main] INFO  API.APITest(94) - Response : {"status":"SUCCESS","statusCode":200,"result":{"dataManager":"ON","mainAccountBalance":{"balance":"12.81","currency":"KES","expireTime":1641816000000},"data":{"balance":"0.0","accounts":[{"balanceDescription":"DATA-100","balance":"0.0"},{"balanceDescription":"DATA-9000","balance":"0.0"}]},"lastRecharge":{"amount":"20","rechargeOn":1610278696000}},"apiErrors":{}}
+15:36:19.789 [main] INFO  API.APITest(95) - Response time : 3 s
+15:36:19.888 [main] INFO  pages.BasePage(313) - Is PUK Info locked: true
+15:36:19.959 [main] INFO  pages.BasePage(313) - Clicking Tap to unlock on PUK Info
+15:36:20.132 [main] INFO  pages.BasePage(74) - Clicking on elementBy.xpath: //div[@class="customer-details"]//div[@class="top col-md-7"]/div/div[1]//ul//span[contains(text(),'Tap to unlock')]
+15:36:20.149 [main] INFO  pages.BasePage(313) - Waiting for loader to be removed
+15:36:32.370 [main] INFO  pages.BasePage(313) - Loader Removed
+15:36:32.370 [main] INFO  pages.BasePage(313) - Checking Authentication tab load
+15:36:32.623 [main] INFO  pages.BasePage(313) - Clicking 1Q Checkbox
+15:36:33.356 [main] INFO  pages.BasePage(74) - Clicking on elementBy.xpath: //app-authentication-block-modal//div[1]//div[2]//div[1]//div[@class="main-container__body--left--wrapper ng-star-inserted"][1]//mat-checkbox
+15:36:33.356 [main] INFO  pages.BasePage(313) - Clicking 2Q Checkbox
+15:36:34.078 [main] INFO  pages.BasePage(74) - Clicking on elementBy.xpath: //app-authentication-block-modal//div[1]//div[2]//div[1]//div[@class="main-container__body--left--wrapper ng-star-inserted"][2]//mat-checkbox
+15:36:34.079 [main] INFO  pages.BasePage(313) - Clicking 3Q Checkbox
+15:36:34.767 [main] INFO  pages.BasePage(74) - Clicking on elementBy.xpath: //app-authentication-block-modal//div[1]//div[2]//div[1]//div[@class="main-container__body--left--wrapper ng-star-inserted"][3]//mat-checkbox
+15:36:34.767 [main] INFO  pages.BasePage(313) - Checking Authenticate button is enable
+15:36:34.795 [main] INFO  pages.BasePage(313) - Clicking on Authenticate button
+15:36:35.003 [main] INFO  pages.BasePage(74) - Clicking on elementBy.xpath: //div[@class="main-container__body--right--buttons"]//button[2]
+15:36:37.124 [main] INFO  pages.CustomerDemoGraphicPOM(154) - Getting PUK1 84124834
+15:36:37.335 [main] INFO  pages.CustomerDemoGraphicPOM(160) - Getting PUK2 22939926
+15:37:21.202 [main] INFO  pages.BasePage(313) - Is Airtel Money Status Info locked: false
+15:38:04.987 [main] INFO  pages.CustomerDemoGraphicPOM(95) - Getting Customer Name Moline Okango
+15:38:05.183 [main] INFO  pages.CustomerDemoGraphicPOM(108) - Getting Customer DOB 01-Jan-1989
+15:38:05.376 [main] INFO  pages.CustomerDemoGraphicPOM(129) - Getting Activation Date 08 November 2017
+15:38:05.598 [main] INFO  pages.BasePage(313) - Getting SIM Status: Active
+15:38:05.663 [main] INFO  pages.BasePage(313) - Hover on SIM Status Reason Info icon
+15:38:05.934 [main] INFO  pages.BasePage(313) - Getting SIM Status Reason Code -
+15:38:06.106 [main] INFO  pages.BasePage(313) - Getting SIM Status Modified By Shadrack Marende
+15:38:06.245 [main] INFO  pages.BasePage(313) - Getting SIM Status Modified Date 21-Nov-2017 12:06
+15:38:06.363 [main] INFO  pages.BasePage(313) - Status of Data Manager Status+ true
+15:39:34.031 [main] INFO  pages.BasePage(313) - Getting Device Compatible: Not 4G Compatible
+15:39:34.188 [main] INFO  pages.CustomerDemoGraphicPOM(135) - Getting Activation Time 05: 30 AM
+15:39:34.436 [main] INFO  pages.CustomerDemoGraphicPOM(141) - Getting Sim Number 8925403172001761197
+15:39:34.654 [main] INFO  pages.CustomerDemoGraphicPOM(147) - Getting Sim Type 4G 
+15:39:34.861 [main] INFO  pages.CustomerDemoGraphicPOM(166) - Getting ID Type National ID
+15:39:35.102 [main] INFO  pages.CustomerDemoGraphicPOM(172) - Getting masked ID Number ***47975
+15:39:35.316 [main] INFO  pages.BasePage(313) - Getting Line Type: PREPAID
+15:39:35.441 [main] INFO  pages.BasePage(313) - Getting service Category: -
+15:39:35.581 [main] INFO  pages.BasePage(313) - Getting Segment: - -
+15:39:35.756 [main] INFO  pages.BasePage(313) - Getting service class: 1
+15:39:35.836 [main] INFO  pages.BasePage(313) - Hover on Device Info icon
+15:39:36.116 [main] INFO  pages.BasePage(313) - Getting IMEI Number: 355423031243939
+15:39:36.249 [main] INFO  pages.BasePage(313) - Getting Device Type: Phone
+15:39:36.403 [main] INFO  pages.BasePage(313) - Getting Device Brand: Nony
+15:39:36.546 [main] INFO  pages.BasePage(313) - Getting Device model: I8750
+15:39:36.690 [main] INFO  pages.BasePage(313) - Getting Device Operating System Number: Nucleus
+]]></system-out>
+    <system-err><![CDATA[org.openqa.selenium.TimeoutException: Expected condition failed: waiting for presence of element located by: By.xpath: //div[@class="customer-details"]//div[@class="top col-md-7"]/div/div[3]//ul//span[contains(text(),'Tap to unlock')] (tried for 40 second(s) with 500 milliseconds interval)
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:138)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:234)
+	at pages.BasePage.waitVisibility(BasePage.java:122)
+	at pages.BasePage.checkState(BasePage.java:110)
+	at pages.CustomerDemoGraphicPOM.isAirtelMoneyStatusLock(CustomerDemoGraphicPOM.java:199)
+	at tests.customerInteractionTest.validateDemographicInformation(customerInteractionTest.java:103)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:584)
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:172)
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:804)
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:145)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.util.ArrayList.forEach(ArrayList.java:1257)
+	at org.testng.TestRunner.privateRun(TestRunner.java:770)
+	at org.testng.TestRunner.run(TestRunner.java:591)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:402)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:396)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:355)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:304)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1180)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1102)
+	at org.testng.TestNG.runSuites(TestNG.java:1032)
+	at org.testng.TestNG.run(TestNG.java:1000)
+	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:283)
+	at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:75)
+	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:120)
+	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:384)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)
+Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@class="customer-details"]//div[@class="top col-md-7"]/div/div[3]//ul//span[contains(text(),'Tap to unlock')]"}
+  (Session info: headless chrome=87.0.4280.141)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.204', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 87.0.4280.141, chrome: {chromedriverVersion: 87.0.4280.88 (89e2380a3e36c..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:64383}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:virtualAuthenticators: true}
+Session ID: 534c9180d1b4c5ac86c2663aeb48b53c
+*** Element info: {Using=xpath, value=//div[@class="customer-details"]//div[@class="top col-md-7"]/div/div[3]//ul//span[contains(text(),'Tap to unlock')]}
+	at sun.reflect.GeneratedConstructorAccessor63.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:191)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:125)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:52)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:161)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:576)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:327)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:445)
+	at org.openqa.selenium.By$ByXPath.findElement(By.java:396)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:319)
+	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:182)
+	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:179)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:211)
+	... 36 more
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for presence of element located by: By.xpath: //div[@class="customer-details"]//div[@class="top col-md-7"]/div/div[3]//ul//span[contains(text(),'Tap to unlock')] (tried for 40 second(s) with 500 milliseconds interval)
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:138)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:234)
+	at pages.BasePage.waitVisibility(BasePage.java:122)
+	at pages.BasePage.checkState(BasePage.java:110)
+	at pages.CustomerDemoGraphicPOM.isAirtelMoneyStatusLock(CustomerDemoGraphicPOM.java:200)
+	at tests.customerInteractionTest.validateDemographicInformation(customerInteractionTest.java:103)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:584)
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:172)
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:804)
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:145)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.util.ArrayList.forEach(ArrayList.java:1257)
+	at org.testng.TestRunner.privateRun(TestRunner.java:770)
+	at org.testng.TestRunner.run(TestRunner.java:591)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:402)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:396)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:355)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:304)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1180)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1102)
+	at org.testng.TestNG.runSuites(TestNG.java:1032)
+	at org.testng.TestNG.run(TestNG.java:1000)
+	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:283)
+	at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:75)
+	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:120)
+	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:384)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)
+Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@class="customer-details"]//div[@class="top col-md-7"]/div/div[3]//ul//span[contains(text(),'Tap to unlock')]"}
+  (Session info: headless chrome=87.0.4280.141)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.204', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 87.0.4280.141, chrome: {chromedriverVersion: 87.0.4280.88 (89e2380a3e36c..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:64383}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:virtualAuthenticators: true}
+Session ID: 534c9180d1b4c5ac86c2663aeb48b53c
+*** Element info: {Using=xpath, value=//div[@class="customer-details"]//div[@class="top col-md-7"]/div/div[3]//ul//span[contains(text(),'Tap to unlock')]}
+	at sun.reflect.GeneratedConstructorAccessor63.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:191)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:125)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:52)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:161)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:576)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:327)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:445)
+	at org.openqa.selenium.By$ByXPath.findElement(By.java:396)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:319)
+	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:182)
+	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:179)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:211)
+	... 36 more
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for presence of element located by: By.xpath: //div[@class="customer-details"]//div[@class="top col-md-7"]/div/div[3]//li[2]//p[1]//span[2] (tried for 40 second(s) with 500 milliseconds interval)
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:138)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:234)
+	at pages.BasePage.waitVisibility(BasePage.java:122)
+	at pages.BasePage.readText(BasePage.java:95)
+	at pages.CustomerDemoGraphicPOM.getAirtelMoneyStatus(CustomerDemoGraphicPOM.java:229)
+	at tests.customerInteractionTest.validateDemographicInformation(customerInteractionTest.java:173)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:584)
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:172)
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:804)
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:145)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.util.ArrayList.forEach(ArrayList.java:1257)
+	at org.testng.TestRunner.privateRun(TestRunner.java:770)
+	at org.testng.TestRunner.run(TestRunner.java:591)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:402)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:396)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:355)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:304)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1180)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1102)
+	at org.testng.TestNG.runSuites(TestNG.java:1032)
+	at org.testng.TestNG.run(TestNG.java:1000)
+	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:283)
+	at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:75)
+	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:120)
+	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:384)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)
+Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@class="customer-details"]//div[@class="top col-md-7"]/div/div[3]//li[2]//p[1]//span[2]"}
+  (Session info: headless chrome=87.0.4280.141)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.204', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 87.0.4280.141, chrome: {chromedriverVersion: 87.0.4280.88 (89e2380a3e36c..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:64383}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:virtualAuthenticators: true}
+Session ID: 534c9180d1b4c5ac86c2663aeb48b53c
+*** Element info: {Using=xpath, value=//div[@class="customer-details"]//div[@class="top col-md-7"]/div/div[3]//li[2]//p[1]//span[2]}
+	at sun.reflect.GeneratedConstructorAccessor63.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:191)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:125)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:52)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:161)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:576)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:327)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:445)
+	at org.openqa.selenium.By$ByXPath.findElement(By.java:396)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:319)
+	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:182)
+	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:179)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:211)
+	... 36 more
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for presence of element located by: By.xpath: //div[@class="customer-details"]//div[@class="top col-md-7"]/div/div[3]//li[2]//p[2]//span[2] (tried for 40 second(s) with 500 milliseconds interval)
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:138)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:234)
+	at pages.BasePage.waitVisibility(BasePage.java:122)
+	at pages.BasePage.readText(BasePage.java:95)
+	at pages.CustomerDemoGraphicPOM.getServiceStatus(CustomerDemoGraphicPOM.java:234)
+	at tests.customerInteractionTest.validateDemographicInformation(customerInteractionTest.java:181)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:584)
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:172)
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:804)
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:145)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.util.ArrayList.forEach(ArrayList.java:1257)
+	at org.testng.TestRunner.privateRun(TestRunner.java:770)
+	at org.testng.TestRunner.run(TestRunner.java:591)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:402)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:396)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:355)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:304)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1180)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1102)
+	at org.testng.TestNG.runSuites(TestNG.java:1032)
+	at org.testng.TestNG.run(TestNG.java:1000)
+	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:283)
+	at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:75)
+	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:120)
+	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:384)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)
+Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@class="customer-details"]//div[@class="top col-md-7"]/div/div[3]//li[2]//p[2]//span[2]"}
+  (Session info: headless chrome=87.0.4280.141)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.204', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 87.0.4280.141, chrome: {chromedriverVersion: 87.0.4280.88 (89e2380a3e36c..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:64383}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:virtualAuthenticators: true}
+Session ID: 534c9180d1b4c5ac86c2663aeb48b53c
+*** Element info: {Using=xpath, value=//div[@class="customer-details"]//div[@class="top col-md-7"]/div/div[3]//li[2]//p[2]//span[2]}
+	at sun.reflect.GeneratedConstructorAccessor63.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:191)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:125)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:52)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:161)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:576)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:327)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:445)
+	at org.openqa.selenium.By$ByXPath.findElement(By.java:396)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:319)
+	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:182)
+	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:179)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:211)
+	... 36 more
+]]></system-err>
+  </testcase>
+  <testcase name="invalidMSISDNTest" classname="tests.customerInteractionTest" time="8.461"/>
+  <testcase name="openCustomerInteractionAPI" classname="tests.customerInteractionTest" time="37.922"/>
+  <testcase name="yourCurrentBalanceWidgetTest" classname="tests.customerInteractionTest" time="4.514">
+    <failure message="The following asserts failed:&#10;	Data Expiry Date is not as Received in API  expected [01-01-1970] but found [-]" type="java.lang.AssertionError">java.lang.AssertionError: 
+The following asserts failed:
+	Data Expiry Date is not as Received in API  expected [01-01-1970] but found [-]
+	at tests.customerInteractionTest.yourCurrentBalanceWidgetTest(customerInteractionTest.java:441)
+</failure>
+    <system-out><![CDATA[15:40:24.138 I am in on TestSuccess method openCustomerInteractionAPI succeed
+15:40:24.139 I am in onTestStart method yourCurrentBalanceWidgetTest start
+15:40:24.152 [main] INFO  pages.CurrentBalanceWidgetPOM(82) - Checking is Your Current Balance Widget Visible
+15:40:24.191 [main] INFO  API.APITest(89) - Request Headers are  : x-app-name=cs-service
+x-service-id=customer_service_service_request_webctx
+x-app-type=web
+x-client-id=4
+x-api-key=120b65cd-2141-4561-b265-69ffa82fbaf3 
+x-login-module=MSISDN
+x-channel=4
+x-app-version=1.0.0
+Opco=KE
+Authorization=Bearer eyJjdHkiOiJKV1QiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAtMjU2In0.YWiYeq-6LFw2EZbcvlfe7SNfRG9oK4ZtpTkrDeiey5EujMP19SazND23x5uh2FAnteJ3EX8xkhQ-uRVxJkscJgcXs1bznXTVVgmWnfFza2IH94JDMKTnn-_hd08W1jDmWAc6AHaxRNrz0gVZ2-ls27g3dAHqWOS4tPgF5_Nj5TG_g5i0lsUrYwn432LLvcg2Dlh0Jf7KkeCKP5pGTw4TQ6HYFfvuS1t10Fh22WnI-glXE1pIdzQlCEDk5hJP1MOKJzBnS1yOpw19JXNhk8ZTzl4glksdJhegFhXTmExQtXawoUj67i-jyqTX-j0cd7DqinZXVK2Rwowz1ZNXyOT00A.qowVKCzgna9H5ypr.JUhb8j2ul43VEvAPmFitPSxydIonrT7nUKXiYOYrSnSog_GTtic_rP_cKcCAH08dAnB5C8Lo1zRm-0g0EssD4I0SPKd0xGgP6l69BvW4U3qNzs6fon2QnhUM0yR-gTqI6sYwBNSP2FSCnaeBMJjwjFMyart9tGcpHRAQwDWYWoAoR2p43zF9O3-CTuzN4jxZiKHRilKBGV50AxFaHm5YvAkdgCtrFG2qUsiBgM9bHTMbLrSyx8ZpSpIFw2RPm8tJIVrk.9GIv0AnnsK_303DHFHQMMA
+Content-Type=application/json
+15:40:24.191 [main] INFO  API.APITest(91) - Request Body is  : {"msisdn":"751522556"}
+15:40:27.367 [main] INFO  API.APITest(94) - Response : {"status":"SUCCESS","statusCode":200,"result":{"dataManager":"ON","mainAccountBalance":{"balance":"12.81","currency":"KES","expireTime":1641816000000},"data":{"balance":"0.0","accounts":[{"balanceDescription":"DATA-100","balance":"0.0"},{"balanceDescription":"DATA-9000","balance":"0.0"}]},"lastRecharge":{"amount":"20","rechargeOn":1610278696000}},"apiErrors":{}}
+15:40:27.368 [main] INFO  API.APITest(95) - Response time : 3 s
+15:40:27.458 [main] INFO  pages.CurrentBalanceWidgetPOM(94) - Getting Main Account Balance from Your Current Balance Widget : 12.81
+15:40:27.652 [main] INFO  pages.CurrentBalanceWidgetPOM(88) - Getting Currency from Your Current Balance Widget : KES
+15:40:27.865 [main] INFO  pages.CurrentBalanceWidgetPOM(76) - Getting Main Account Balance from Your Current Balance Widget : 20
+15:40:28.077 [main] INFO  pages.CurrentBalanceWidgetPOM(138) - Getting Last Recharge Date from Your Current Balance Widget : 10-Jan-2021 17:08
+PlansResultPOJO(lastRecharge=lastRecharge(amount=20, rechargeOn=1610278696000), mainAccountBalance=mainAccountBalance(balance=12.81, currency=KES, expireTime=1641816000000), voice=null, data=Data(balance=0.0, expireTime=0, accounts=[Accounts(balanceDescription=DATA-100, balance=0.0, expireTime=0), Accounts(balanceDescription=DATA-9000, balance=0.0, expireTime=0)]), sms=null, dataManager=ON)
+15:40:28.349 [main] INFO  pages.CurrentBalanceWidgetPOM(126) - Getting Remaining Data Balance from Your Current Balance Widget : 0.0
+15:40:28.537 [main] INFO  pages.CurrentBalanceWidgetPOM(108) - Getting Remaining Data Expiry Date from Your Current Balance Widget : -
+]]></system-out>
+  </testcase>
+  <testcase name="usageHistoryWidgetTest" classname="tests.customerInteractionTest" time="5.996"/>
+  <testcase name="rechargeHistoryWidgetTest" classname="tests.customerInteractionTest" time="3.186">
+    <failure message="The following asserts failed:&#10;	Recharge History Date Time is not As received in API for row number 0 expected [Invalid Date String] but found [10-Jan-2021 11:38]" type="java.lang.AssertionError">java.lang.AssertionError: 
+The following asserts failed:
+	Recharge History Date Time is not As received in API for row number 0 expected [Invalid Date String] but found [10-Jan-2021 11:38]
+	at tests.customerInteractionTest.rechargeHistoryWidgetTest(customerInteractionTest.java:522)
+</failure>
+    <system-out><![CDATA[15:40:35.234 I am in on TestSuccess method usageHistoryWidgetTest succeed
+User Type Airtel Money
+NO Table FOUND
+User Type Usage History
+NO Table FOUND
+User Type Recharge History
+User table ADDED Recharge History
+User Type Bundle Subscription History
+NO Table FOUND
+User Type SMS History
+NO Table FOUND
+User Type Data History
+NO Table FOUND
+User Type Call History
+NO Table FOUND
+User Type DA DETAILS
+NO Table FOUND
+User Type Loan Services
+NO Table FOUND
+User Type Loan Details
+NO Table FOUND
+User Type Loan History
+NO Table FOUND
+User Type Loan Recoveries
+NO Table FOUND
+User Type More Recharge History
+NO Table FOUND
+User Type Detailed Usage History
+NO Table FOUND
+User Type Search Tune Tab
+NO Table FOUND
+User Type Accumulator
+NO Table FOUND
+15:40:35.449 I am in onTestStart method rechargeHistoryWidgetTest start
+15:40:35.495 [main] INFO  pages.RechargeHistoryWidgetPOM(131) - Checking is Recharge History Widget Visible
+15:40:35.533 [main] INFO  pages.RechargeHistoryWidgetPOM(137) - Checking Recharge History Widget Date Picker Visibility 
+15:40:35.709 [main] INFO  pages.RechargeHistoryWidgetPOM(45) - Getting header Number 1 : Charges
+15:40:35.807 [main] INFO  pages.RechargeHistoryWidgetPOM(52) - Getting Sub header Number 1 : (Ksh)
+15:40:35.898 [main] INFO  pages.RechargeHistoryWidgetPOM(45) - Getting header Number 2 : Date & Time
+15:40:35.987 [main] INFO  pages.RechargeHistoryWidgetPOM(45) - Getting header Number 3 : Bundle Name
+15:40:36.067 [main] INFO  pages.RechargeHistoryWidgetPOM(45) - Getting header Number 4 : Benefit
+15:40:36.147 [main] INFO  pages.RechargeHistoryWidgetPOM(52) - Getting Sub header Number 4 : Voice|Data|SMS
+15:40:36.226 [main] INFO  pages.RechargeHistoryWidgetPOM(45) - Getting header Number 5 : Status
+15:40:36.227 [main] INFO  API.APITest(263) - Request Headers are  : x-app-name=cs-service
+x-service-id=customer_service_service_request_webctx
+x-app-type=web
+x-client-id=4
+x-api-key=120b65cd-2141-4561-b265-69ffa82fbaf3 
+x-login-module=MSISDN
+x-channel=4
+x-app-version=1.0.0
+Opco=KE
+Authorization=Bearer eyJjdHkiOiJKV1QiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAtMjU2In0.YWiYeq-6LFw2EZbcvlfe7SNfRG9oK4ZtpTkrDeiey5EujMP19SazND23x5uh2FAnteJ3EX8xkhQ-uRVxJkscJgcXs1bznXTVVgmWnfFza2IH94JDMKTnn-_hd08W1jDmWAc6AHaxRNrz0gVZ2-ls27g3dAHqWOS4tPgF5_Nj5TG_g5i0lsUrYwn432LLvcg2Dlh0Jf7KkeCKP5pGTw4TQ6HYFfvuS1t10Fh22WnI-glXE1pIdzQlCEDk5hJP1MOKJzBnS1yOpw19JXNhk8ZTzl4glksdJhegFhXTmExQtXawoUj67i-jyqTX-j0cd7DqinZXVK2Rwowz1ZNXyOT00A.qowVKCzgna9H5ypr.JUhb8j2ul43VEvAPmFitPSxydIonrT7nUKXiYOYrSnSog_GTtic_rP_cKcCAH08dAnB5C8Lo1zRm-0g0EssD4I0SPKd0xGgP6l69BvW4U3qNzs6fon2QnhUM0yR-gTqI6sYwBNSP2FSCnaeBMJjwjFMyart9tGcpHRAQwDWYWoAoR2p43zF9O3-CTuzN4jxZiKHRilKBGV50AxFaHm5YvAkdgCtrFG2qUsiBgM9bHTMbLrSyx8ZpSpIFw2RPm8tJIVrk.9GIv0AnnsK_303DHFHQMMA
+Content-Type=application/json
+15:40:36.228 [main] INFO  API.APITest(265) - Request Body is  : {"msisdn":"751522556","pageSize":5,"pageNumber":1,"startDate":null,"endDate":null,"rechargeHistoryVoucherSearch":null}
+15:40:37.803 [main] INFO  API.APITest(267) - Response : {"status":"SUCCESS","statusCode":200,"pageSize":5,"pageNumber":1,"totalCount":1,"result":[{"charges":"20","dateTime":"10 Jan 2021 11:38 AM","bundleName":"Prepaid_Recharge","rechargeBenefit":{},"transactionId":"03190041916102680075190245810801109373596300000000000047001967-0000000","status":"SUCCESS","mode":"Voucher","serialNumber":"002210554697450"}],"startDate":"01/05/2021","endDate":"01/20/2021"}
+15:40:37.804 [main] INFO  API.APITest(268) - Response time : 1 s
+15:40:37.899 [main] INFO  pages.BasePage(313) - Getting Recharge History Charges from Row Number 1 : 20
+15:40:38.063 [main] INFO  pages.BasePage(313) - Getting Recharge History Date & Time from Row Number 1 : 10-Jan-2021 11:38
+15:40:38.151 [main] INFO  pages.BasePage(318) - Not able to parse the date: 10 Jan 2021 11:38 AM java.text.ParseException: Unparseable date: "10 Jan 2021 11:38 AM"
+15:40:38.284 [main] INFO  pages.BasePage(313) - Getting Recharge History Bundle Name from Row Number 1 : Prepaid_Recharge
+15:40:38.443 [main] INFO  pages.BasePage(313) - Getting Recharge History Benefits from Row Number 1 : - | - | -
+15:40:38.587 [main] INFO  pages.BasePage(313) - Getting Recharge History Status from Row Number 1 : SUCCESS
+]]></system-out>
+  </testcase>
+  <testcase name="daDetailsTest" classname="tests.widgetsOptionsTest" time="21.804"/>
+  <testcase name="accumulatorDetailsTest" classname="tests.widgetsOptionsTest" time="31.274">
+    <failure message="The following asserts failed:&#10;	Accumulator Start Date is not as received in API on row 1 expected [Invalid Date String] but found [21-Jan-2021],&#10;	Accumulator Next Reset Date Time is not as received in API on row 1 expected [Invalid Date String] but found [21-Jan-2021],&#10;	Accumulator Start Date is not as received in API on row 2 expected [Invalid Date String] but found [21-Jan-2021],&#10;	Accumulator Next Reset Date Time is not as received in API on row 2 expected [Invalid Date String] but found [21-Jan-2021],&#10;	Accumulator Start Date is not as received in API on row 3 expected [Invalid Date String] but found [10-Feb-2021],&#10;	Accumulator Next Reset Date Time is not as received in API on row 3 expected [Invalid Date String] but found [10-Feb-2021],&#10;	Accumulator Start Date is not as received in API on row 4 expected [Invalid Date String] but found [21-Jan-2021],&#10;	Accumulator Next Reset Date Time is not as received in API on row 4 expected [Invalid Date String] but found [21-Jan-2021]" type="java.lang.AssertionError">java.lang.AssertionError: 
+The following asserts failed:
+	Accumulator Start Date is not as received in API on row 1 expected [Invalid Date String] but found [21-Jan-2021],
+	Accumulator Next Reset Date Time is not as received in API on row 1 expected [Invalid Date String] but found [21-Jan-2021],
+	Accumulator Start Date is not as received in API on row 2 expected [Invalid Date String] but found [21-Jan-2021],
+	Accumulator Next Reset Date Time is not as received in API on row 2 expected [Invalid Date String] but found [21-Jan-2021],
+	Accumulator Start Date is not as received in API on row 3 expected [Invalid Date String] but found [10-Feb-2021],
+	Accumulator Next Reset Date Time is not as received in API on row 3 expected [Invalid Date String] but found [10-Feb-2021],
+	Accumulator Start Date is not as received in API on row 4 expected [Invalid Date String] but found [21-Jan-2021],
+	Accumulator Next Reset Date Time is not as received in API on row 4 expected [Invalid Date String] but found [21-Jan-2021]
+	at tests.widgetsOptionsTest.accumulatorDetailsTest(widgetsOptionsTest.java:104)
+</failure>
+    <system-out><![CDATA[15:41:01.036 I am in on TestSuccess method daDetailsTest succeed
+User Type Airtel Money
+NO Table FOUND
+User Type Usage History
+NO Table FOUND
+User Type Recharge History
+NO Table FOUND
+User Type Bundle Subscription History
+NO Table FOUND
+User Type SMS History
+NO Table FOUND
+User Type Data History
+NO Table FOUND
+User Type Call History
+NO Table FOUND
+User Type DA DETAILS
+NO Table FOUND
+User Type Loan Services
+NO Table FOUND
+User Type Loan Details
+NO Table FOUND
+User Type Loan History
+NO Table FOUND
+User Type Loan Recoveries
+NO Table FOUND
+User Type More Recharge History
+NO Table FOUND
+User Type Detailed Usage History
+NO Table FOUND
+User Type Search Tune Tab
+NO Table FOUND
+User Type Accumulator
+User table ADDED Accumulator
+15:41:01.177 I am in onTestStart method accumulatorDetailsTest start
+15:41:01.189 [main] INFO  pages.BasePage(313) - Waiting for loader to be removed
+15:41:06.238 [main] INFO  pages.BasePage(313) - Loader Removed
+15:41:06.238 [main] INFO  pages.CurrentBalanceWidgetPOM(60) - Checking is Your Current Balance Widget's Menu Visible
+15:41:06.402 [main] INFO  pages.CurrentBalanceWidgetPOM(69) - Clicking Current Balance Widget's Menu Visible
+15:41:07.094 [main] INFO  pages.BasePage(74) - Clicking on elementBy.xpath: //span[contains(text(),"Your Current Plan ")]//parent::div/span[2]/img
+15:41:12.193 [main] INFO  pages.BasePage(313) - Getting Accumulator header Number 1 : ID
+15:41:12.532 [main] INFO  pages.BasePage(313) - Getting Accumulator header Number 2 : Value
+15:41:12.687 [main] INFO  pages.BasePage(313) - Getting Accumulator header Number 3 : Start Date
+15:41:12.818 [main] INFO  pages.BasePage(313) - Getting Accumulator header Number 4 : Next Reset Date
+15:41:12.819 [main] INFO  API.APITest(526) - Request Headers are  : x-app-name=cs-service
+x-service-id=customer_service_service_request_webctx
+x-app-type=web
+x-client-id=4
+x-api-key=120b65cd-2141-4561-b265-69ffa82fbaf3 
+x-login-module=MSISDN
+x-channel=4
+x-app-version=1.0.0
+Opco=KE
+Authorization=Bearer eyJjdHkiOiJKV1QiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAtMjU2In0.YWiYeq-6LFw2EZbcvlfe7SNfRG9oK4ZtpTkrDeiey5EujMP19SazND23x5uh2FAnteJ3EX8xkhQ-uRVxJkscJgcXs1bznXTVVgmWnfFza2IH94JDMKTnn-_hd08W1jDmWAc6AHaxRNrz0gVZ2-ls27g3dAHqWOS4tPgF5_Nj5TG_g5i0lsUrYwn432LLvcg2Dlh0Jf7KkeCKP5pGTw4TQ6HYFfvuS1t10Fh22WnI-glXE1pIdzQlCEDk5hJP1MOKJzBnS1yOpw19JXNhk8ZTzl4glksdJhegFhXTmExQtXawoUj67i-jyqTX-j0cd7DqinZXVK2Rwowz1ZNXyOT00A.qowVKCzgna9H5ypr.JUhb8j2ul43VEvAPmFitPSxydIonrT7nUKXiYOYrSnSog_GTtic_rP_cKcCAH08dAnB5C8Lo1zRm-0g0EssD4I0SPKd0xGgP6l69BvW4U3qNzs6fon2QnhUM0yR-gTqI6sYwBNSP2FSCnaeBMJjwjFMyart9tGcpHRAQwDWYWoAoR2p43zF9O3-CTuzN4jxZiKHRilKBGV50AxFaHm5YvAkdgCtrFG2qUsiBgM9bHTMbLrSyx8ZpSpIFw2RPm8tJIVrk.9GIv0AnnsK_303DHFHQMMA
+Content-Type=application/json
+15:41:12.819 [main] INFO  API.APITest(527) - Request Body are  : {"msisdn":"751522556","pageSize":5,"pageNumber":1}
+15:41:16.293 [main] INFO  API.APITest(529) - Response : {"status":"SUCCESS","statusCode":200,"result":[{"id":"158","value":"4"},{"id":"1","value":"0","startDate":"21 Jan 2021 12:00 PM","nextResetDate":"21 Jan 2021 12:00 PM"},{"id":"2","value":"0","startDate":"21 Jan 2021 12:00 PM","nextResetDate":"21 Jan 2021 12:00 PM"},{"id":"3","value":"0","startDate":"10 Feb 2021 12:00 PM","nextResetDate":"10 Feb 2021 12:00 PM"},{"id":"4","value":"0","startDate":"21 Jan 2021 12:00 PM","nextResetDate":"21 Jan 2021 12:00 PM"},{"id":"5","value":"0","startDate":"21 Jan 2021 12:00 PM","nextResetDate":"21 Jan 2021 12:00 PM"},{"id":"91","value":"0","startDate":"21 Jan 2021 12:00 PM","nextResetDate":"21 Jan 2021 12:00 PM"},{"id":"112","value":"0"},{"id":"113","value":"0","startDate":"21 Jan 2021 12:00 PM","nextResetDate":"21 Jan 2021 12:00 PM"},{"id":"202","value":"0","startDate":"21 Jan 2021 12:00 PM","nextResetDate":"21 Jan 2021 12:00 PM"},{"id":"251","value":"0","startDate":"21 Jan 2021 12:00 PM","nextResetDate":"21 Jan 2021 12:00 PM"},{"id":"258","value":"0","startDate":"21 Jan 2021 12:00 PM","nextResetDate":"21 Jan 2021 12:00 PM"},{"id":"261","value":"0","startDate":"21 Jan 2021 12:00 PM","nextResetDate":"21 Jan 2021 12:00 PM"},{"id":"268","value":"0","startDate":"21 Jan 2021 12:00 PM","nextResetDate":"21 Jan 2021 12:00 PM"}]}
+15:41:16.294 [main] INFO  API.APITest(530) - Response time : 3 s
+15:41:18.244 [main] INFO  pages.BasePage(313) - Getting Accumulator header Number 1 : ID
+15:41:18.244 [main] INFO  pages.BasePage(313) - Reading 'ID' = 158
+15:41:18.938 [main] INFO  pages.BasePage(313) - Getting Accumulator header Number 2 : Value
+15:41:18.938 [main] INFO  pages.BasePage(313) - Reading 'Value' = 4
+15:41:19.178 [main] INFO  pages.BasePage(313) - Getting Accumulator header Number 3 : Start Date
+15:41:19.178 [main] INFO  pages.BasePage(313) - Reading 'Start Date' = -
+15:41:19.377 [main] INFO  pages.BasePage(313) - Getting Accumulator header Number 4 : Next Reset Date
+15:41:19.377 [main] INFO  pages.BasePage(313) - Reading 'Next Reset Date' = -
+15:41:19.607 [main] INFO  pages.BasePage(313) - Getting Accumulator header Number 1 : ID
+15:41:19.607 [main] INFO  pages.BasePage(313) - Reading 'ID' = 1
+15:41:19.850 [main] INFO  pages.BasePage(313) - Getting Accumulator header Number 2 : Value
+15:41:19.850 [main] INFO  pages.BasePage(313) - Reading 'Value' = 0
+15:41:20.700 [main] INFO  pages.BasePage(313) - Getting Accumulator header Number 3 : Start Date
+15:41:20.701 [main] INFO  pages.BasePage(313) - Reading 'Start Date' = 21-Jan-2021
+15:41:20.701 [main] INFO  pages.BasePage(318) - Not able to parse the date: 21 Jan 2021 12:00 PM java.text.ParseException: Unparseable date: "21 Jan 2021 12:00 PM"
+15:41:21.381 [main] INFO  pages.BasePage(313) - Getting Accumulator header Number 4 : Next Reset Date
+15:41:21.381 [main] INFO  pages.BasePage(313) - Reading 'Next Reset Date' = 21-Jan-2021
+15:41:21.382 [main] INFO  pages.BasePage(318) - Not able to parse the date: 21 Jan 2021 12:00 PM java.text.ParseException: Unparseable date: "21 Jan 2021 12:00 PM"
+15:41:21.644 [main] INFO  pages.BasePage(313) - Getting Accumulator header Number 1 : ID
+15:41:21.644 [main] INFO  pages.BasePage(313) - Reading 'ID' = 2
+15:41:21.907 [main] INFO  pages.BasePage(313) - Getting Accumulator header Number 2 : Value
+15:41:21.907 [main] INFO  pages.BasePage(313) - Reading 'Value' = 0
+15:41:22.181 [main] INFO  pages.BasePage(313) - Getting Accumulator header Number 3 : Start Date
+15:41:22.181 [main] INFO  pages.BasePage(313) - Reading 'Start Date' = 21-Jan-2021
+15:41:22.181 [main] INFO  pages.BasePage(318) - Not able to parse the date: 21 Jan 2021 12:00 PM java.text.ParseException: Unparseable date: "21 Jan 2021 12:00 PM"
+15:41:22.414 [main] INFO  pages.BasePage(313) - Getting Accumulator header Number 4 : Next Reset Date
+15:41:22.414 [main] INFO  pages.BasePage(313) - Reading 'Next Reset Date' = 21-Jan-2021
+15:41:22.415 [main] INFO  pages.BasePage(318) - Not able to parse the date: 21 Jan 2021 12:00 PM java.text.ParseException: Unparseable date: "21 Jan 2021 12:00 PM"
+15:41:22.683 [main] INFO  pages.BasePage(313) - Getting Accumulator header Number 1 : ID
+15:41:22.683 [main] INFO  pages.BasePage(313) - Reading 'ID' = 3
+15:41:22.963 [main] INFO  pages.BasePage(313) - Getting Accumulator header Number 2 : Value
+15:41:22.963 [main] INFO  pages.BasePage(313) - Reading 'Value' = 0
+15:41:23.201 [main] INFO  pages.BasePage(313) - Getting Accumulator header Number 3 : Start Date
+15:41:23.202 [main] INFO  pages.BasePage(313) - Reading 'Start Date' = 10-Feb-2021
+15:41:23.202 [main] INFO  pages.BasePage(318) - Not able to parse the date: 10 Feb 2021 12:00 PM java.text.ParseException: Unparseable date: "10 Feb 2021 12:00 PM"
+15:41:24.474 [main] INFO  pages.BasePage(313) - Getting Accumulator header Number 4 : Next Reset Date
+15:41:24.474 [main] INFO  pages.BasePage(313) - Reading 'Next Reset Date' = 10-Feb-2021
+15:41:24.474 [main] INFO  pages.BasePage(318) - Not able to parse the date: 10 Feb 2021 12:00 PM java.text.ParseException: Unparseable date: "10 Feb 2021 12:00 PM"
+15:41:25.140 [main] INFO  pages.BasePage(313) - Getting Accumulator header Number 1 : ID
+15:41:25.141 [main] INFO  pages.BasePage(313) - Reading 'ID' = 4
+15:41:25.470 [main] INFO  pages.BasePage(313) - Getting Accumulator header Number 2 : Value
+15:41:25.470 [main] INFO  pages.BasePage(313) - Reading 'Value' = 0
+15:41:25.744 [main] INFO  pages.BasePage(313) - Getting Accumulator header Number 3 : Start Date
+15:41:25.744 [main] INFO  pages.BasePage(313) - Reading 'Start Date' = 21-Jan-2021
+15:41:25.744 [main] INFO  pages.BasePage(318) - Not able to parse the date: 21 Jan 2021 12:00 PM java.text.ParseException: Unparseable date: "21 Jan 2021 12:00 PM"
+15:41:26.006 [main] INFO  pages.BasePage(313) - Getting Accumulator header Number 4 : Next Reset Date
+15:41:26.007 [main] INFO  pages.BasePage(313) - Reading 'Next Reset Date' = 21-Jan-2021
+15:41:26.007 [main] INFO  pages.BasePage(318) - Not able to parse the date: 21 Jan 2021 12:00 PM java.text.ParseException: Unparseable date: "21 Jan 2021 12:00 PM"
+15:41:26.007 [main] INFO  pages.BasePage(160) - Opening Customer Interactions Dashboard
+15:41:27.412 [main] INFO  pages.BasePage(74) - Clicking on elementBy.xpath: //*[text()="HOME"]
+15:41:27.412 [main] INFO  pages.BasePage(313) - Waiting for loader to be removed
+15:41:32.444 [main] INFO  pages.BasePage(313) - Loader Removed
+]]></system-out>
+  </testcase>
+  <testcase name="rechargeHistoryMenuTest" classname="tests.widgetsOptionsTest" time="30.129">
+    <failure message="The following asserts failed:&#10;	Date &amp; Time received is not as expected on row 0 expected [Invalid Date String] but found [10-Jan-2021 11:38]" type="java.lang.AssertionError"><![CDATA[java.lang.AssertionError: 
+The following asserts failed:
+	Date & Time received is not as expected on row 0 expected [Invalid Date String] but found [10-Jan-2021 11:38]
+	at tests.widgetsOptionsTest.rechargeHistoryMenuTest(widgetsOptionsTest.java:267)
+]]></failure>
+    <system-out><![CDATA[15:41:32.454 I am in on TestFailure method accumulatorDetailsTest failed
+java.lang.AssertionError: The following asserts failed:
+	Accumulator Start Date is not as received in API on row 1 expected [Invalid Date String] but found [21-Jan-2021],
+	Accumulator Next Reset Date Time is not as received in API on row 1 expected [Invalid Date String] but found [21-Jan-2021],
+	Accumulator Start Date is not as received in API on row 2 expected [Invalid Date String] but found [21-Jan-2021],
+	Accumulator Next Reset Date Time is not as received in API on row 2 expected [Invalid Date String] but found [21-Jan-2021],
+	Accumulator Start Date is not as received in API on row 3 expected [Invalid Date String] but found [10-Feb-2021],
+	Accumulator Next Reset Date Time is not as received in API on row 3 expected [Invalid Date String] but found [10-Feb-2021],
+	Accumulator Start Date is not as received in API on row 4 expected [Invalid Date String] but found [21-Jan-2021],
+	Accumulator Next Reset Date Time is not as received in API on row 4 expected [Invalid Date String] but found [21-Jan-2021]
+	at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:47)
+	at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:31)
+	at tests.widgetsOptionsTest.accumulatorDetailsTest(widgetsOptionsTest.java:104)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:584)
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:172)
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:804)
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:145)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.util.ArrayList.forEach(ArrayList.java:1257)
+	at org.testng.TestRunner.privateRun(TestRunner.java:770)
+	at org.testng.TestRunner.run(TestRunner.java:591)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:402)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:396)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:355)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:304)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1180)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1102)
+	at org.testng.TestNG.runSuites(TestNG.java:1032)
+	at org.testng.TestNG.run(TestNG.java:1000)
+	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:283)
+	at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:75)
+	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:120)
+	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:384)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)
+
+User Type Airtel Money
+NO Table FOUND
+User Type Usage History
+NO Table FOUND
+User Type Recharge History
+NO Table FOUND
+User Type Bundle Subscription History
+NO Table FOUND
+User Type SMS History
+NO Table FOUND
+User Type Data History
+NO Table FOUND
+User Type Call History
+NO Table FOUND
+User Type DA DETAILS
+NO Table FOUND
+User Type Loan Services
+NO Table FOUND
+User Type Loan Details
+NO Table FOUND
+User Type Loan History
+NO Table FOUND
+User Type Loan Recoveries
+NO Table FOUND
+User Type More Recharge History
+User table ADDED More Recharge History
+User Type Detailed Usage History
+NO Table FOUND
+User Type Search Tune Tab
+NO Table FOUND
+User Type Accumulator
+NO Table FOUND
+15:41:39.113 I am in onTestStart method rechargeHistoryMenuTest start
+15:41:39.211 [main] INFO  pages.RechargeHistoryWidgetPOM(75) - Checking is Recharge History's Menu Visible
+15:41:39.445 [main] INFO  pages.RechargeHistoryWidgetPOM(94) - Clicking Current Balance Widget's Menu Visible
+15:41:40.084 [main] INFO  pages.BasePage(74) - Clicking on elementBy.xpath: //span[contains(text(),"Recharge History")]//parent::div//span[@class="card__card-header--menu ng-star-inserted"]/img
+15:41:40.084 [main] INFO  pages.RechargeHistoryWidgetPOM(81) - Checking is More Option Visible
+15:41:40.238 [main] INFO  pages.RechargeHistoryWidgetPOM(87) - Opening Recharge History Details under Recharge History Widget
+15:41:40.560 [main] INFO  pages.BasePage(74) - Clicking on elementBy.xpath: //button[text()="Recharge History"]
+15:41:46.786 [main] INFO  pages.BasePage(313) - Is DatePicker available: true
+15:41:47.029 [main] INFO  API.APITest(263) - Request Headers are  : x-app-name=cs-service
+x-service-id=customer_service_service_request_webctx
+x-app-type=web
+x-client-id=4
+x-api-key=120b65cd-2141-4561-b265-69ffa82fbaf3 
+x-login-module=MSISDN
+x-channel=4
+x-app-version=1.0.0
+Opco=KE
+Authorization=Bearer eyJjdHkiOiJKV1QiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAtMjU2In0.YWiYeq-6LFw2EZbcvlfe7SNfRG9oK4ZtpTkrDeiey5EujMP19SazND23x5uh2FAnteJ3EX8xkhQ-uRVxJkscJgcXs1bznXTVVgmWnfFza2IH94JDMKTnn-_hd08W1jDmWAc6AHaxRNrz0gVZ2-ls27g3dAHqWOS4tPgF5_Nj5TG_g5i0lsUrYwn432LLvcg2Dlh0Jf7KkeCKP5pGTw4TQ6HYFfvuS1t10Fh22WnI-glXE1pIdzQlCEDk5hJP1MOKJzBnS1yOpw19JXNhk8ZTzl4glksdJhegFhXTmExQtXawoUj67i-jyqTX-j0cd7DqinZXVK2Rwowz1ZNXyOT00A.qowVKCzgna9H5ypr.JUhb8j2ul43VEvAPmFitPSxydIonrT7nUKXiYOYrSnSog_GTtic_rP_cKcCAH08dAnB5C8Lo1zRm-0g0EssD4I0SPKd0xGgP6l69BvW4U3qNzs6fon2QnhUM0yR-gTqI6sYwBNSP2FSCnaeBMJjwjFMyart9tGcpHRAQwDWYWoAoR2p43zF9O3-CTuzN4jxZiKHRilKBGV50AxFaHm5YvAkdgCtrFG2qUsiBgM9bHTMbLrSyx8ZpSpIFw2RPm8tJIVrk.9GIv0AnnsK_303DHFHQMMA
+Content-Type=application/json
+15:41:47.030 [main] INFO  API.APITest(265) - Request Body is  : {"msisdn":"751522556","pageSize":5,"pageNumber":1,"startDate":null,"endDate":null,"rechargeHistoryVoucherSearch":null}
+15:41:51.912 [main] INFO  API.APITest(267) - Response : {"status":"SUCCESS","statusCode":200,"pageSize":5,"pageNumber":1,"totalCount":1,"result":[{"charges":"20","dateTime":"10 Jan 2021 11:38 AM","bundleName":"Prepaid_Recharge","rechargeBenefit":{},"transactionId":"03190041916102680075190245810801109373596300000000000047001967-0000000","status":"SUCCESS","mode":"Voucher","serialNumber":"002210554697450"}],"startDate":"01/05/2021","endDate":"01/20/2021"}
+15:41:51.913 [main] INFO  API.APITest(268) - Response time : 4 s
+15:41:52.157 [main] INFO  pages.BasePage(313) - Reading header Name: Charges (Ksh)
+15:41:52.403 [main] INFO  pages.BasePage(313) - Reading header Name: Date & Time
+15:41:52.593 [main] INFO  pages.BasePage(313) - Reading header Name: Bundle Name
+15:41:52.745 [main] INFO  pages.BasePage(313) - Reading header Name: Benefits
+15:41:53.001 [main] INFO  pages.BasePage(313) - Reading Sub header Name: Voice|Data|SMS
+15:41:53.176 [main] INFO  pages.BasePage(313) - Reading header Name: Status
+15:41:53.308 [main] INFO  pages.BasePage(313) - Reading header Name: Mode
+15:41:53.430 [main] INFO  pages.BasePage(313) - Reading header Name: Serial Number
+15:41:53.547 [main] INFO  pages.BasePage(313) - Reading header Name: Expiry Date
+15:41:53.777 [main] INFO  pages.BasePage(313) - Reading header Name: Old Expiry Date
+15:41:54.441 [main] INFO  pages.BasePage(313) - Reading header Name: Validity
+15:41:54.871 [main] INFO  pages.BasePage(313) - Reading header Name: Charges (Ksh)
+15:41:54.982 [main] INFO  pages.BasePage(313) - Reading 'Charges (Ksh)' = 20
+15:41:55.237 [main] INFO  pages.BasePage(313) - Reading header Name: Date & Time
+15:41:55.364 [main] INFO  pages.BasePage(313) - Reading 'Date & Time' = 10-Jan-2021 11:38
+15:41:55.463 [main] INFO  pages.BasePage(318) - Not able to parse the date: 10 Jan 2021 11:38 AM java.text.ParseException: Unparseable date: "10 Jan 2021 11:38 AM"
+15:41:55.611 [main] INFO  pages.BasePage(313) - Reading header Name: Bundle Name
+15:41:55.773 [main] INFO  pages.BasePage(313) - Reading 'Bundle Name' = Prepaid_Recharge
+Recharge History Benefits:?? null null null
+15:41:56.015 [main] INFO  pages.BasePage(313) - Reading header Name: Benefits
+15:41:56.139 [main] INFO  pages.BasePage(313) - Reading 'Benefits' = - | - | -
+15:41:56.398 [main] INFO  pages.BasePage(313) - Reading header Name: Status
+15:41:56.553 [main] INFO  pages.BasePage(313) - Reading 'Status' = SUCCESS
+15:41:56.871 [main] INFO  pages.BasePage(313) - Reading header Name: Mode
+15:41:57.131 [main] INFO  pages.BasePage(313) - Reading 'Mode' = Voucher
+15:41:58.181 [main] INFO  pages.BasePage(313) - Reading header Name: Serial Number
+15:41:58.255 [main] INFO  pages.BasePage(313) - Reading 'Serial Number' = 002210554697450
+15:41:58.373 [main] INFO  pages.BasePage(313) - Reading header Name: Expiry Date
+15:41:58.443 [main] INFO  pages.BasePage(313) - Reading 'Expiry Date' = -
+15:41:58.550 [main] INFO  pages.BasePage(313) - Reading header Name: Old Expiry Date
+15:41:58.615 [main] INFO  pages.BasePage(313) - Reading 'Old Expiry Date' = -
+15:41:58.721 [main] INFO  pages.BasePage(313) - Reading header Name: Validity
+15:41:58.783 [main] INFO  pages.BasePage(313) - Reading 'Validity' = -
+15:41:58.838 [main] INFO  pages.BasePage(160) - Opening Customer Interactions Dashboard
+15:41:59.113 [main] INFO  pages.BasePage(74) - Clicking on elementBy.xpath: //*[text()="HOME"]
+15:41:59.113 [main] INFO  pages.BasePage(313) - Waiting for loader to be removed
+15:42:04.175 [main] INFO  pages.BasePage(313) - Loader Removed
+15:42:04.185 [main] INFO  pages.BasePage(313) - Waiting for loader to be removed
+15:42:09.244 [main] INFO  pages.BasePage(313) - Loader Removed
+]]></system-out>
+  </testcase>
+  <testcase name="usageHistoryMenuTest" classname="tests.widgetsOptionsTest" time="77.296">
+    <failure message="The following asserts failed:&#10;	Sun 17 Jan 2021&#10;12:40:46 PMshould not display before Sun 17 Jan 2021&#10;12:25:29 PM did not expect to find [true] but found [false],&#10;	Sun 17 Jan 2021&#10;12:25:29 PMshould not display before Sun 17 Jan 2021&#10;11:27:12 AM did not expect to find [true] but found [false],&#10;	Sun 17 Jan 2021&#10;11:27:12 AMshould not display before Sat 16 Jan 2021&#10;08:42:30 PM did not expect to find [true] but found [false],&#10;	Sat 16 Jan 2021&#10;08:42:30 PMshould not display before Sat 16 Jan 2021&#10;07:48:46 PM did not expect to find [true] but found [false],&#10;	Sat 16 Jan 2021&#10;07:48:46 PMshould not display before Sat 16 Jan 2021&#10;07:18:51 PM did not expect to find [true] but found [false],&#10;	Sat 16 Jan 2021&#10;07:18:51 PMshould not display before Sat 16 Jan 2021&#10;03:46:02 PM did not expect to find [true] but found [false],&#10;	Sat 16 Jan 2021&#10;03:46:02 PMshould not display before Sat 16 Jan 2021&#10;02:43:45 PM did not expect to find [true] but found [false],&#10;	Sat 16 Jan 2021&#10;02:43:45 PMshould not display before Sat 16 Jan 2021&#10;02:42:57 PM did not expect to find [true] but found [false],&#10;	Sat 16 Jan 2021&#10;02:42:57 PMshould not display before Sat 16 Jan 2021&#10;02:31:45 PM did not expect to find [true] but found [false],&#10;	Sat 16 Jan 2021&#10;02:31:45 PMshould not display before Sat 16 Jan 2021&#10;02:23:07 PM did not expect to find [true] but found [false],&#10;	Sat 16 Jan 2021&#10;02:23:07 PMshould not display before Sat 16 Jan 2021&#10;02:16:11 PM did not expect to find [true] but found [false],&#10;	Sat 16 Jan 2021&#10;02:16:11 PMshould not display before Sat 16 Jan 2021&#10;01:33:56 PM did not expect to find [true] but found [false],&#10;	Sat 16 Jan 2021&#10;01:33:56 PMshould not display before Sat 16 Jan 2021&#10;01:17:03 PM did not expect to find [true] but found [false],&#10;	Sat 16 Jan 2021&#10;01:17:03 PMshould not display before Sat 16 Jan 2021&#10;01:08:43 PM did not expect to find [true] but found [false],&#10;	Sat 16 Jan 2021&#10;01:08:43 PMshould not display before Sat 16 Jan 2021&#10;09:43:31 AM did not expect to find [true] but found [false]" type="java.lang.AssertionError">java.lang.AssertionError: 
+The following asserts failed:
+	Sun 17 Jan 2021
+12:40:46 PMshould not display before Sun 17 Jan 2021
+12:25:29 PM did not expect to find [true] but found [false],
+	Sun 17 Jan 2021
+12:25:29 PMshould not display before Sun 17 Jan 2021
+11:27:12 AM did not expect to find [true] but found [false],
+	Sun 17 Jan 2021
+11:27:12 AMshould not display before Sat 16 Jan 2021
+08:42:30 PM did not expect to find [true] but found [false],
+	Sat 16 Jan 2021
+08:42:30 PMshould not display before Sat 16 Jan 2021
+07:48:46 PM did not expect to find [true] but found [false],
+	Sat 16 Jan 2021
+07:48:46 PMshould not display before Sat 16 Jan 2021
+07:18:51 PM did not expect to find [true] but found [false],
+	Sat 16 Jan 2021
+07:18:51 PMshould not display before Sat 16 Jan 2021
+03:46:02 PM did not expect to find [true] but found [false],
+	Sat 16 Jan 2021
+03:46:02 PMshould not display before Sat 16 Jan 2021
+02:43:45 PM did not expect to find [true] but found [false],
+	Sat 16 Jan 2021
+02:43:45 PMshould not display before Sat 16 Jan 2021
+02:42:57 PM did not expect to find [true] but found [false],
+	Sat 16 Jan 2021
+02:42:57 PMshould not display before Sat 16 Jan 2021
+02:31:45 PM did not expect to find [true] but found [false],
+	Sat 16 Jan 2021
+02:31:45 PMshould not display before Sat 16 Jan 2021
+02:23:07 PM did not expect to find [true] but found [false],
+	Sat 16 Jan 2021
+02:23:07 PMshould not display before Sat 16 Jan 2021
+02:16:11 PM did not expect to find [true] but found [false],
+	Sat 16 Jan 2021
+02:16:11 PMshould not display before Sat 16 Jan 2021
+01:33:56 PM did not expect to find [true] but found [false],
+	Sat 16 Jan 2021
+01:33:56 PMshould not display before Sat 16 Jan 2021
+01:17:03 PM did not expect to find [true] but found [false],
+	Sat 16 Jan 2021
+01:17:03 PMshould not display before Sat 16 Jan 2021
+01:08:43 PM did not expect to find [true] but found [false],
+	Sat 16 Jan 2021
+01:08:43 PMshould not display before Sat 16 Jan 2021
+09:43:31 AM did not expect to find [true] but found [false]
+	at tests.widgetsOptionsTest.usageHistoryMenuTest(widgetsOptionsTest.java:347)
+</failure>
+    <system-out><![CDATA[15:42:09.245 I am in on TestFailure method rechargeHistoryMenuTest failed
+java.lang.AssertionError: The following asserts failed:
+	Date & Time received is not as expected on row 0 expected [Invalid Date String] but found [10-Jan-2021 11:38]
+	at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:47)
+	at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:31)
+	at tests.widgetsOptionsTest.rechargeHistoryMenuTest(widgetsOptionsTest.java:267)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:584)
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:172)
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:804)
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:145)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.util.ArrayList.forEach(ArrayList.java:1257)
+	at org.testng.TestRunner.privateRun(TestRunner.java:770)
+	at org.testng.TestRunner.run(TestRunner.java:591)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:402)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:396)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:355)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:304)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1180)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1102)
+	at org.testng.TestNG.runSuites(TestNG.java:1032)
+	at org.testng.TestNG.run(TestNG.java:1000)
+	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:283)
+	at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:75)
+	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:120)
+	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:384)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)
+
+User Type Airtel Money
+NO Table FOUND
+User Type Usage History
+NO Table FOUND
+User Type Recharge History
+NO Table FOUND
+User Type Bundle Subscription History
+NO Table FOUND
+User Type SMS History
+NO Table FOUND
+User Type Data History
+NO Table FOUND
+User Type Call History
+NO Table FOUND
+User Type DA DETAILS
+NO Table FOUND
+User Type Loan Services
+NO Table FOUND
+User Type Loan Details
+NO Table FOUND
+User Type Loan History
+NO Table FOUND
+User Type Loan Recoveries
+NO Table FOUND
+User Type More Recharge History
+NO Table FOUND
+User Type Detailed Usage History
+User table ADDED Detailed Usage History
+User Type Search Tune Tab
+NO Table FOUND
+User Type Accumulator
+NO Table FOUND
+15:42:09.787 I am in onTestStart method usageHistoryMenuTest start
+15:42:09.822 [main] INFO  pages.BasePage(313) - Opening More under Usage History Widget
+15:42:10.109 [main] INFO  pages.BasePage(74) - Clicking on elementBy.xpath: //span[@class="card__card-header--label" and contains(text(),"Usage History")]//parent::div//span[@class="filter-object"]/img
+15:42:10.120 [main] INFO  pages.BasePage(313) - Waiting for loader to be removed
+15:42:21.119 [main] INFO  pages.BasePage(313) - Loader Removed
+15:42:21.217 [main] INFO  pages.BasePage(313) - Checking Detailed Usage history widget display: true
+15:42:21.389 [main] INFO  pages.BasePage(313) - Is Free CDR Checkbox displayed: true
+15:42:21.546 [main] INFO  pages.BasePage(313) - Is Type of CDR Option displayed: true
+15:42:21.708 [main] INFO  pages.BasePage(313) - Is Today Date Filter Option displayed: true
+15:42:21.917 [main] INFO  pages.BasePage(313) - Is last 2 day Date Filter Option displayed: true
+15:42:22.078 [main] INFO  pages.BasePage(313) - Is last 7 day Date Filter Option displayed: true
+15:42:22.157 [main] INFO  API.APITest(132) - Request Headers are  : x-app-name=cs-service
+x-service-id=customer_service_service_request_webctx
+x-app-type=web
+x-client-id=4
+x-api-key=120b65cd-2141-4561-b265-69ffa82fbaf3 
+x-login-module=MSISDN
+x-channel=4
+x-app-version=1.0.0
+Opco=KE
+Authorization=Bearer eyJjdHkiOiJKV1QiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAtMjU2In0.YWiYeq-6LFw2EZbcvlfe7SNfRG9oK4ZtpTkrDeiey5EujMP19SazND23x5uh2FAnteJ3EX8xkhQ-uRVxJkscJgcXs1bznXTVVgmWnfFza2IH94JDMKTnn-_hd08W1jDmWAc6AHaxRNrz0gVZ2-ls27g3dAHqWOS4tPgF5_Nj5TG_g5i0lsUrYwn432LLvcg2Dlh0Jf7KkeCKP5pGTw4TQ6HYFfvuS1t10Fh22WnI-glXE1pIdzQlCEDk5hJP1MOKJzBnS1yOpw19JXNhk8ZTzl4glksdJhegFhXTmExQtXawoUj67i-jyqTX-j0cd7DqinZXVK2Rwowz1ZNXyOT00A.qowVKCzgna9H5ypr.JUhb8j2ul43VEvAPmFitPSxydIonrT7nUKXiYOYrSnSog_GTtic_rP_cKcCAH08dAnB5C8Lo1zRm-0g0EssD4I0SPKd0xGgP6l69BvW4U3qNzs6fon2QnhUM0yR-gTqI6sYwBNSP2FSCnaeBMJjwjFMyart9tGcpHRAQwDWYWoAoR2p43zF9O3-CTuzN4jxZiKHRilKBGV50AxFaHm5YvAkdgCtrFG2qUsiBgM9bHTMbLrSyx8ZpSpIFw2RPm8tJIVrk.9GIv0AnnsK_303DHFHQMMA
+Content-Type=application/json
+15:42:22.157 [main] INFO  API.APITest(134) - Request Body is  : {"msisdn":"751522556","pageSize":5,"pageNumber":1,"type":null,"startDate":null,"endDate":null,"action":"More"}
+15:42:23.893 [main] INFO  API.APITest(136) - Response : {"status":"Success","statusCode":200,"pageSize":5,"pageNumber":1,"totalCount":16,"result":[{"description":"Call to: 25403789728218","dateTime":"Sun 17 Jan 2021","bundleName":"AIRTIME","type":"VOICE","charges":"- 0.23 KES","startBalance":"13.04 KES","endBalance":"12.81 KES","addOrSubtract":"db","transactionAmountDetails":"Call duration: 6 Second","time":"12:40:46 PM"},{"description":"Call to: 25403789728218","dateTime":"Sun 17 Jan 2021","bundleName":"AIRTIME","type":"VOICE","charges":"- 1.15 KES","startBalance":"14.19 KES","endBalance":"13.04 KES","addOrSubtract":"db","transactionAmountDetails":"Call duration: 30 Second","time":"12:25:29 PM"},{"description":"Call to: 25403789728218","dateTime":"Sun 17 Jan 2021","bundleName":"AIRTIME","type":"VOICE","charges":"- 1.38 KES","startBalance":"15.57 KES","endBalance":"14.19 KES","addOrSubtract":"db","transactionAmountDetails":"Call duration: 36 Second","time":"11:27:12 AM"},{"description":"SMS to: 25402721579552","dateTime":"Sat 16 Jan 2021","bundleName":"AIRTIME","type":"SMS","charges":"- 1.1 KES","startBalance":"16.67 KES","endBalance":"15.57 KES","addOrSubtract":"db","time":"08:42:30 PM"},{"description":"Call to: 25403732569729","dateTime":"Sat 16 Jan 2021","bundleName":"AIRTIME","type":"VOICE","charges":"- 3.03 KES","startBalance":"19.7 KES","endBalance":"16.67 KES","addOrSubtract":"db","transactionAmountDetails":"Call duration: 79 Second","time":"07:48:46 PM"},{"description":"Call to: 25403732569729","dateTime":"Sat 16 Jan 2021","bundleName":"AIRTIME","type":"VOICE","charges":"- 0.92 KES","startBalance":"20.62 KES","endBalance":"19.7 KES","addOrSubtract":"db","transactionAmountDetails":"Call duration: 24 Second","time":"07:18:51 PM"},{"description":"SMS to: 25402703554420","dateTime":"Sat 16 Jan 2021","bundleName":"AIRTIME","type":"SMS","charges":"- 1.1 KES","startBalance":"21.72 KES","endBalance":"20.62 KES","addOrSubtract":"db","time":"03:46:02 PM"},{"description":"Call to: 25403789728218","dateTime":"Sat 16 Jan 2021","bundleName":"AIRTIME","type":"VOICE","charges":"- 2.34 KES","startBalance":"24.06 KES","endBalance":"21.72 KES","addOrSubtract":"db","transactionAmountDetails":"Call duration: 61 Second","time":"02:43:45 PM"},{"description":"Call to: 25402703554420","dateTime":"Sat 16 Jan 2021","bundleName":"AIRTIME","type":"VOICE","charges":"- 0.73 KES","startBalance":"24.78 KES","endBalance":"24.06 KES","addOrSubtract":"db","transactionAmountDetails":"Call duration: 19 Second","time":"02:42:57 PM"},{"description":"Call to: 25402703554420","dateTime":"Sat 16 Jan 2021","bundleName":"AIRTIME","type":"VOICE","charges":"- 2.76 KES","startBalance":"27.54 KES","endBalance":"24.78 KES","addOrSubtract":"db","transactionAmountDetails":"Call duration: 72 Second","time":"02:31:45 PM"},{"description":"Call to: 25402703554420","dateTime":"Sat 16 Jan 2021","bundleName":"AIRTIME","type":"VOICE","charges":"- 0.34 KES","startBalance":"27.89 KES","endBalance":"27.54 KES","addOrSubtract":"db","transactionAmountDetails":"Call duration: 9 Second","time":"02:23:07 PM"},{"description":"Call to: 25402703554420","dateTime":"Sat 16 Jan 2021","bundleName":"AIRTIME","type":"VOICE","charges":"- 1.88 KES","startBalance":"29.77 KES","endBalance":"27.89 KES","addOrSubtract":"db","transactionAmountDetails":"Call duration: 49 Second","time":"02:16:11 PM"},{"description":"Call to: 25402703554420","dateTime":"Sat 16 Jan 2021","bundleName":"AIRTIME","type":"VOICE","charges":"- 0.88 KES","startBalance":"30.65 KES","endBalance":"29.77 KES","addOrSubtract":"db","transactionAmountDetails":"Call duration: 23 Second","time":"01:33:56 PM"},{"description":"Call to: 25402703554420","dateTime":"Sat 16 Jan 2021","bundleName":"AIRTIME","type":"VOICE","charges":"- 1.73 KES","startBalance":"32.37 KES","endBalance":"30.65 KES","addOrSubtract":"db","transactionAmountDetails":"Call duration: 45 Second","time":"01:17:03 PM"},{"description":"SMS to: 25402703554420","dateTime":"Sat 16 Jan 2021","bundleName":"AIRTIME","type":"SMS","charges":"- 1.1 KES","startBalance":"33.47 KES","endBalance":"32.37 KES","addOrSubtract":"db","time":"01:08:43 PM"},{"description":"Call to: 25402703554420","dateTime":"Sat 16 Jan 2021","bundleName":"AIRTIME","type":"VOICE","charges":"- 0.23 KES","startBalance":"33.7 KES","endBalance":"33.47 KES","addOrSubtract":"db","transactionAmountDetails":"Call duration: 6 Second","time":"09:43:31 AM"}],"startDate":"01/15/2021","endDate":"01/20/2021"}
+15:42:23.894 [main] INFO  API.APITest(137) - Response time : 1 s
+15:42:23.993 [main] INFO  pages.BasePage(313) - Reading Header at POS(1): Type
+15:42:24.125 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:24.253 [main] INFO  pages.BasePage(313) - Reading Header at POS(3): Start Balance
+15:42:24.384 [main] INFO  pages.BasePage(313) - Reading Header at POS(4): Transaction Amount
+15:42:24.550 [main] INFO  pages.BasePage(313) - Reading Header at POS(5): Remaining Balance
+15:42:24.687 [main] INFO  pages.BasePage(313) - Reading Header at POS(6): Description
+15:42:24.819 [main] INFO  pages.BasePage(313) - Reading Header at POS(7): Bundle Name
+15:42:24.966 [main] INFO  pages.BasePage(313) - Is pagination displayed: true
+15:42:25.110 [main] INFO  pages.BasePage(313) - Reading Header at POS(1): Type
+15:42:25.254 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Type' is: VOICE
+15:42:25.383 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:25.554 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sun 17 Jan 2021
+12:40:46 PM
+15:42:25.665 [main] INFO  pages.BasePage(313) - Reading Header at POS(3): Start Balance
+15:42:25.799 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Start Balance' is: 13.04 KES
+15:42:25.925 [main] INFO  pages.BasePage(313) - Reading Header at POS(4): Transaction Amount
+15:42:26.051 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Transaction Amount' is: - 0.23 KES
+15:42:26.110 [main] INFO  pages.BasePage(313) - Checking Negative Sign Display at ROW(1)
+15:42:26.263 [main] INFO  pages.BasePage(313) - Reading Header at POS(5): Remaining Balance
+15:42:26.432 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Remaining Balance' is: 12.81 KES
+15:42:26.580 [main] INFO  pages.BasePage(313) - Reading Header at POS(6): Description
+15:42:26.728 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Description' is: Call to: 25403789728218
+15:42:26.868 [main] INFO  pages.BasePage(313) - Reading Header at POS(7): Bundle Name
+15:42:27.028 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Bundle Name' is: AIRTIME
+15:42:27.159 [main] INFO  pages.BasePage(313) - Reading Header at POS(1): Type
+15:42:27.291 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Type' is: VOICE
+15:42:27.456 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:27.589 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sun 17 Jan 2021
+12:25:29 PM
+15:42:27.702 [main] INFO  pages.BasePage(313) - Reading Header at POS(3): Start Balance
+15:42:27.825 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Start Balance' is: 14.19 KES
+15:42:27.960 [main] INFO  pages.BasePage(313) - Reading Header at POS(4): Transaction Amount
+15:42:28.093 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Transaction Amount' is: - 1.15 KES
+15:42:28.158 [main] INFO  pages.BasePage(313) - Checking Negative Sign Display at ROW(2)
+15:42:28.360 [main] INFO  pages.BasePage(313) - Reading Header at POS(5): Remaining Balance
+15:42:28.521 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Remaining Balance' is: 13.04 KES
+15:42:28.652 [main] INFO  pages.BasePage(313) - Reading Header at POS(6): Description
+15:42:28.790 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Description' is: Call to: 25403789728218
+15:42:28.917 [main] INFO  pages.BasePage(313) - Reading Header at POS(7): Bundle Name
+15:42:29.064 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Bundle Name' is: AIRTIME
+15:42:29.195 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:29.364 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sun 17 Jan 2021
+12:40:46 PM
+15:42:29.484 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:29.605 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sun 17 Jan 2021
+12:25:29 PM
+15:42:29.665 [main] INFO  pages.BasePage(297) - Sun Jan 17 12:40:46 IST 2021 come after Sun Jan 17 12:25:29 IST 2021
+15:42:29.721 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:29.867 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sun 17 Jan 2021
+12:40:46 PM
+15:42:30.009 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:30.145 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sun 17 Jan 2021
+12:25:29 PM
+15:42:30.328 [main] INFO  pages.BasePage(313) - Reading Header at POS(1): Type
+15:42:30.474 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Type' is: VOICE
+15:42:30.595 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:30.727 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sun 17 Jan 2021
+11:27:12 AM
+15:42:30.875 [main] INFO  pages.BasePage(313) - Reading Header at POS(3): Start Balance
+15:42:31.001 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Start Balance' is: 15.57 KES
+15:42:31.129 [main] INFO  pages.BasePage(313) - Reading Header at POS(4): Transaction Amount
+15:42:31.313 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Transaction Amount' is: - 1.38 KES
+15:42:31.384 [main] INFO  pages.BasePage(313) - Checking Negative Sign Display at ROW(3)
+15:42:31.569 [main] INFO  pages.BasePage(313) - Reading Header at POS(5): Remaining Balance
+15:42:31.716 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Remaining Balance' is: 14.19 KES
+15:42:31.877 [main] INFO  pages.BasePage(313) - Reading Header at POS(6): Description
+15:42:32.016 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Description' is: Call to: 25403789728218
+15:42:32.154 [main] INFO  pages.BasePage(313) - Reading Header at POS(7): Bundle Name
+15:42:32.326 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Bundle Name' is: AIRTIME
+15:42:32.440 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:32.569 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sun 17 Jan 2021
+12:25:29 PM
+15:42:32.690 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:32.818 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sun 17 Jan 2021
+11:27:12 AM
+15:42:32.901 [main] INFO  pages.BasePage(297) - Sun Jan 17 12:25:29 IST 2021 come after Sun Jan 17 11:27:12 IST 2021
+15:42:32.969 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:33.108 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sun 17 Jan 2021
+12:25:29 PM
+15:42:33.271 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:33.392 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sun 17 Jan 2021
+11:27:12 AM
+15:42:33.517 [main] INFO  pages.BasePage(313) - Reading Header at POS(1): Type
+15:42:33.646 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Type' is: SMS
+15:42:33.760 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:33.896 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+08:42:30 PM
+15:42:34.041 [main] INFO  pages.BasePage(313) - Reading Header at POS(3): Start Balance
+15:42:34.229 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Start Balance' is: 16.67 KES
+15:42:34.393 [main] INFO  pages.BasePage(313) - Reading Header at POS(4): Transaction Amount
+15:42:34.533 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Transaction Amount' is: - 1.1 KES
+15:42:34.598 [main] INFO  pages.BasePage(313) - Checking Negative Sign Display at ROW(4)
+15:42:34.754 [main] INFO  pages.BasePage(313) - Reading Header at POS(5): Remaining Balance
+15:42:34.892 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Remaining Balance' is: 15.57 KES
+15:42:35.056 [main] INFO  pages.BasePage(313) - Reading Header at POS(6): Description
+15:42:35.185 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Description' is: SMS to: 25402721579552
+15:42:35.319 [main] INFO  pages.BasePage(313) - Reading Header at POS(7): Bundle Name
+15:42:35.464 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Bundle Name' is: AIRTIME
+15:42:35.575 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:35.710 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sun 17 Jan 2021
+11:27:12 AM
+15:42:35.855 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:36.024 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+08:42:30 PM
+15:42:36.091 [main] INFO  pages.BasePage(297) - Sun Jan 17 11:27:12 IST 2021 come after Sat Jan 16 20:42:30 IST 2021
+15:42:36.148 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:36.270 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sun 17 Jan 2021
+11:27:12 AM
+15:42:36.393 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:36.504 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+08:42:30 PM
+15:42:36.633 [main] INFO  pages.BasePage(313) - Reading Header at POS(1): Type
+15:42:36.770 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Type' is: VOICE
+15:42:36.924 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:37.065 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+07:48:46 PM
+15:42:37.224 [main] INFO  pages.BasePage(313) - Reading Header at POS(3): Start Balance
+15:42:37.369 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Start Balance' is: 19.7 KES
+15:42:37.505 [main] INFO  pages.BasePage(313) - Reading Header at POS(4): Transaction Amount
+15:42:37.631 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Transaction Amount' is: - 3.03 KES
+15:42:37.687 [main] INFO  pages.BasePage(313) - Checking Negative Sign Display at ROW(5)
+15:42:37.885 [main] INFO  pages.BasePage(313) - Reading Header at POS(5): Remaining Balance
+15:42:38.009 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Remaining Balance' is: 16.67 KES
+15:42:38.133 [main] INFO  pages.BasePage(313) - Reading Header at POS(6): Description
+15:42:38.262 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Description' is: Call to: 25403732569729
+15:42:38.394 [main] INFO  pages.BasePage(313) - Reading Header at POS(7): Bundle Name
+15:42:38.551 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Bundle Name' is: AIRTIME
+15:42:38.695 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:38.910 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+08:42:30 PM
+15:42:39.045 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:39.159 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+07:48:46 PM
+15:42:39.227 [main] INFO  pages.BasePage(297) - Sat Jan 16 20:42:30 IST 2021 come after Sat Jan 16 19:48:46 IST 2021
+15:42:39.292 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:39.414 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+08:42:30 PM
+15:42:39.540 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:39.667 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+07:48:46 PM
+15:42:39.841 [main] INFO  pages.BasePage(313) - Reading Header at POS(1): Type
+15:42:39.987 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Type' is: VOICE
+15:42:40.111 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:40.241 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+07:18:51 PM
+15:42:40.379 [main] INFO  pages.BasePage(313) - Reading Header at POS(3): Start Balance
+15:42:40.523 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Start Balance' is: 20.62 KES
+15:42:40.669 [main] INFO  pages.BasePage(313) - Reading Header at POS(4): Transaction Amount
+15:42:40.826 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Transaction Amount' is: - 0.92 KES
+15:42:40.888 [main] INFO  pages.BasePage(313) - Checking Negative Sign Display at ROW(6)
+15:42:41.047 [main] INFO  pages.BasePage(313) - Reading Header at POS(5): Remaining Balance
+15:42:41.178 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Remaining Balance' is: 19.7 KES
+15:42:41.341 [main] INFO  pages.BasePage(313) - Reading Header at POS(6): Description
+15:42:41.510 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Description' is: Call to: 25403732569729
+15:42:41.679 [main] INFO  pages.BasePage(313) - Reading Header at POS(7): Bundle Name
+15:42:41.845 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Bundle Name' is: AIRTIME
+15:42:41.964 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:42.088 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+07:48:46 PM
+15:42:42.208 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:42.328 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+07:18:51 PM
+15:42:42.390 [main] INFO  pages.BasePage(297) - Sat Jan 16 19:48:46 IST 2021 come after Sat Jan 16 19:18:51 IST 2021
+15:42:42.455 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:42.616 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+07:48:46 PM
+15:42:42.739 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:42.869 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+07:18:51 PM
+15:42:42.999 [main] INFO  pages.BasePage(313) - Reading Header at POS(1): Type
+15:42:43.127 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Type' is: SMS
+15:42:43.244 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:43.379 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+03:46:02 PM
+15:42:43.539 [main] INFO  pages.BasePage(313) - Reading Header at POS(3): Start Balance
+15:42:43.692 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Start Balance' is: 21.72 KES
+15:42:43.843 [main] INFO  pages.BasePage(313) - Reading Header at POS(4): Transaction Amount
+15:42:43.986 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Transaction Amount' is: - 1.1 KES
+15:42:44.046 [main] INFO  pages.BasePage(313) - Checking Negative Sign Display at ROW(7)
+15:42:44.202 [main] INFO  pages.BasePage(313) - Reading Header at POS(5): Remaining Balance
+15:42:44.341 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Remaining Balance' is: 20.62 KES
+15:42:44.514 [main] INFO  pages.BasePage(313) - Reading Header at POS(6): Description
+15:42:44.652 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Description' is: SMS to: 25402703554420
+15:42:44.775 [main] INFO  pages.BasePage(313) - Reading Header at POS(7): Bundle Name
+15:42:44.908 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Bundle Name' is: AIRTIME
+15:42:45.038 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:45.160 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+07:18:51 PM
+15:42:45.298 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:45.474 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+03:46:02 PM
+15:42:45.534 [main] INFO  pages.BasePage(297) - Sat Jan 16 19:18:51 IST 2021 come after Sat Jan 16 15:46:02 IST 2021
+15:42:45.591 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:45.710 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+07:18:51 PM
+15:42:45.824 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:45.953 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+03:46:02 PM
+15:42:46.077 [main] INFO  pages.BasePage(313) - Reading Header at POS(1): Type
+15:42:46.206 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Type' is: VOICE
+15:42:46.362 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:46.507 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+02:43:45 PM
+15:42:46.652 [main] INFO  pages.BasePage(313) - Reading Header at POS(3): Start Balance
+15:42:46.784 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Start Balance' is: 24.06 KES
+15:42:46.910 [main] INFO  pages.BasePage(313) - Reading Header at POS(4): Transaction Amount
+15:42:47.039 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Transaction Amount' is: - 2.34 KES
+15:42:47.099 [main] INFO  pages.BasePage(313) - Checking Negative Sign Display at ROW(8)
+15:42:47.312 [main] INFO  pages.BasePage(313) - Reading Header at POS(5): Remaining Balance
+15:42:47.454 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Remaining Balance' is: 21.72 KES
+15:42:47.581 [main] INFO  pages.BasePage(313) - Reading Header at POS(6): Description
+15:42:47.711 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Description' is: Call to: 25403789728218
+15:42:47.845 [main] INFO  pages.BasePage(313) - Reading Header at POS(7): Bundle Name
+15:42:47.968 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Bundle Name' is: AIRTIME
+15:42:48.087 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:48.267 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+03:46:02 PM
+15:42:48.410 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:48.537 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+02:43:45 PM
+15:42:48.599 [main] INFO  pages.BasePage(297) - Sat Jan 16 15:46:02 IST 2021 come after Sat Jan 16 14:43:45 IST 2021
+15:42:48.661 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:48.776 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+03:46:02 PM
+15:42:48.903 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:49.024 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+02:43:45 PM
+15:42:49.186 [main] INFO  pages.BasePage(313) - Reading Header at POS(1): Type
+15:42:49.326 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Type' is: VOICE
+15:42:49.442 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:49.573 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+02:42:57 PM
+15:42:49.724 [main] INFO  pages.BasePage(313) - Reading Header at POS(3): Start Balance
+15:42:49.886 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Start Balance' is: 24.78 KES
+15:42:50.057 [main] INFO  pages.BasePage(313) - Reading Header at POS(4): Transaction Amount
+15:42:50.196 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Transaction Amount' is: - 0.73 KES
+15:42:50.260 [main] INFO  pages.BasePage(313) - Checking Negative Sign Display at ROW(9)
+15:42:50.423 [main] INFO  pages.BasePage(313) - Reading Header at POS(5): Remaining Balance
+15:42:50.552 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Remaining Balance' is: 24.06 KES
+15:42:50.685 [main] INFO  pages.BasePage(313) - Reading Header at POS(6): Description
+15:42:50.809 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Description' is: Call to: 25402703554420
+15:42:50.979 [main] INFO  pages.BasePage(313) - Reading Header at POS(7): Bundle Name
+15:42:51.119 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Bundle Name' is: AIRTIME
+15:42:51.252 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:51.384 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+02:43:45 PM
+15:42:51.505 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:51.624 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+02:42:57 PM
+15:42:51.687 [main] INFO  pages.BasePage(297) - Sat Jan 16 14:43:45 IST 2021 come after Sat Jan 16 14:42:57 IST 2021
+15:42:51.745 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:51.912 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+02:43:45 PM
+15:42:52.037 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:52.151 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+02:42:57 PM
+15:42:52.282 [main] INFO  pages.BasePage(313) - Reading Header at POS(1): Type
+15:42:52.410 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Type' is: VOICE
+15:42:52.532 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:52.690 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+02:31:45 PM
+15:42:52.886 [main] INFO  pages.BasePage(313) - Reading Header at POS(3): Start Balance
+15:42:53.033 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Start Balance' is: 27.54 KES
+15:42:53.165 [main] INFO  pages.BasePage(313) - Reading Header at POS(4): Transaction Amount
+15:42:53.297 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Transaction Amount' is: - 2.76 KES
+15:42:53.359 [main] INFO  pages.BasePage(313) - Checking Negative Sign Display at ROW(10)
+15:42:53.525 [main] INFO  pages.BasePage(313) - Reading Header at POS(5): Remaining Balance
+15:42:53.650 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Remaining Balance' is: 24.78 KES
+15:42:53.819 [main] INFO  pages.BasePage(313) - Reading Header at POS(6): Description
+15:42:53.967 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Description' is: Call to: 25402703554420
+15:42:54.103 [main] INFO  pages.BasePage(313) - Reading Header at POS(7): Bundle Name
+15:42:54.247 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Bundle Name' is: AIRTIME
+15:42:54.373 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:54.488 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+02:42:57 PM
+15:42:54.605 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:54.775 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+02:31:45 PM
+15:42:54.847 [main] INFO  pages.BasePage(297) - Sat Jan 16 14:42:57 IST 2021 come after Sat Jan 16 14:31:45 IST 2021
+15:42:54.906 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:55.017 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+02:42:57 PM
+15:42:55.134 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:55.248 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+02:31:45 PM
+15:42:55.398 [main] INFO  pages.BasePage(313) - Reading Header at POS(1): Type
+15:42:55.539 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Type' is: VOICE
+15:42:55.702 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:55.850 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+02:23:07 PM
+15:42:55.982 [main] INFO  pages.BasePage(313) - Reading Header at POS(3): Start Balance
+15:42:56.109 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Start Balance' is: 27.89 KES
+15:42:56.230 [main] INFO  pages.BasePage(313) - Reading Header at POS(4): Transaction Amount
+15:42:56.354 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Transaction Amount' is: - 0.34 KES
+15:42:56.411 [main] INFO  pages.BasePage(313) - Checking Negative Sign Display at ROW(11)
+15:42:56.597 [main] INFO  pages.BasePage(313) - Reading Header at POS(5): Remaining Balance
+15:42:56.728 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Remaining Balance' is: 27.54 KES
+15:42:56.879 [main] INFO  pages.BasePage(313) - Reading Header at POS(6): Description
+15:42:57.012 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Description' is: Call to: 25402703554420
+15:42:57.165 [main] INFO  pages.BasePage(313) - Reading Header at POS(7): Bundle Name
+15:42:57.300 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Bundle Name' is: AIRTIME
+15:42:57.424 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:57.593 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+02:31:45 PM
+15:42:57.709 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:57.824 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+02:23:07 PM
+15:42:57.893 [main] INFO  pages.BasePage(297) - Sat Jan 16 14:31:45 IST 2021 come after Sat Jan 16 14:23:07 IST 2021
+15:42:57.950 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:58.071 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+02:31:45 PM
+15:42:58.193 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:58.328 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+02:23:07 PM
+15:42:58.536 [main] INFO  pages.BasePage(313) - Reading Header at POS(1): Type
+15:42:58.663 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Type' is: VOICE
+15:42:58.773 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:42:58.916 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+02:16:11 PM
+15:42:59.046 [main] INFO  pages.BasePage(313) - Reading Header at POS(3): Start Balance
+15:42:59.177 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Start Balance' is: 29.77 KES
+15:42:59.344 [main] INFO  pages.BasePage(313) - Reading Header at POS(4): Transaction Amount
+15:42:59.470 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Transaction Amount' is: - 1.88 KES
+15:42:59.525 [main] INFO  pages.BasePage(313) - Checking Negative Sign Display at ROW(12)
+15:42:59.712 [main] INFO  pages.BasePage(313) - Reading Header at POS(5): Remaining Balance
+15:42:59.867 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Remaining Balance' is: 27.89 KES
+15:43:00.028 [main] INFO  pages.BasePage(313) - Reading Header at POS(6): Description
+15:43:00.167 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Description' is: Call to: 25402703554420
+15:43:00.331 [main] INFO  pages.BasePage(313) - Reading Header at POS(7): Bundle Name
+15:43:00.465 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Bundle Name' is: AIRTIME
+15:43:00.581 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:43:00.701 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+02:23:07 PM
+15:43:00.813 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:43:00.944 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+02:16:11 PM
+15:43:01.003 [main] INFO  pages.BasePage(297) - Sat Jan 16 14:23:07 IST 2021 come after Sat Jan 16 14:16:11 IST 2021
+15:43:01.083 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:43:01.280 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+02:23:07 PM
+15:43:01.440 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:43:01.586 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+02:16:11 PM
+15:43:01.754 [main] INFO  pages.BasePage(313) - Reading Header at POS(1): Type
+15:43:01.924 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Type' is: VOICE
+15:43:02.053 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:43:02.180 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+01:33:56 PM
+15:43:02.351 [main] INFO  pages.BasePage(313) - Reading Header at POS(3): Start Balance
+15:43:02.479 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Start Balance' is: 30.65 KES
+15:43:02.602 [main] INFO  pages.BasePage(313) - Reading Header at POS(4): Transaction Amount
+15:43:02.741 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Transaction Amount' is: - 0.88 KES
+15:43:02.807 [main] INFO  pages.BasePage(313) - Checking Negative Sign Display at ROW(13)
+15:43:02.983 [main] INFO  pages.BasePage(313) - Reading Header at POS(5): Remaining Balance
+15:43:03.129 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Remaining Balance' is: 29.77 KES
+15:43:03.320 [main] INFO  pages.BasePage(313) - Reading Header at POS(6): Description
+15:43:03.451 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Description' is: Call to: 25402703554420
+15:43:03.576 [main] INFO  pages.BasePage(313) - Reading Header at POS(7): Bundle Name
+15:43:03.700 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Bundle Name' is: AIRTIME
+15:43:03.814 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:43:03.941 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+02:16:11 PM
+15:43:04.055 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:43:04.250 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+01:33:56 PM
+15:43:04.334 [main] INFO  pages.BasePage(297) - Sat Jan 16 14:16:11 IST 2021 come after Sat Jan 16 13:33:56 IST 2021
+15:43:04.401 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:43:04.535 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+02:16:11 PM
+15:43:04.654 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:43:04.771 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+01:33:56 PM
+15:43:04.913 [main] INFO  pages.BasePage(313) - Reading Header at POS(1): Type
+15:43:05.046 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Type' is: VOICE
+15:43:05.201 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:43:05.334 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+01:17:03 PM
+15:43:05.458 [main] INFO  pages.BasePage(313) - Reading Header at POS(3): Start Balance
+15:43:05.589 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Start Balance' is: 32.37 KES
+15:43:05.735 [main] INFO  pages.BasePage(313) - Reading Header at POS(4): Transaction Amount
+15:43:05.898 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Transaction Amount' is: - 1.73 KES
+15:43:05.959 [main] INFO  pages.BasePage(313) - Checking Negative Sign Display at ROW(14)
+15:43:06.151 [main] INFO  pages.BasePage(313) - Reading Header at POS(5): Remaining Balance
+15:43:06.280 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Remaining Balance' is: 30.65 KES
+15:43:06.406 [main] INFO  pages.BasePage(313) - Reading Header at POS(6): Description
+15:43:06.537 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Description' is: Call to: 25402703554420
+15:43:06.660 [main] INFO  pages.BasePage(313) - Reading Header at POS(7): Bundle Name
+15:43:06.794 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Bundle Name' is: AIRTIME
+15:43:06.954 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:43:07.107 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+01:33:56 PM
+15:43:07.277 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:43:07.456 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+01:17:03 PM
+15:43:07.529 [main] INFO  pages.BasePage(297) - Sat Jan 16 13:33:56 IST 2021 come after Sat Jan 16 13:17:03 IST 2021
+15:43:07.588 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:43:07.705 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+01:33:56 PM
+15:43:07.819 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:43:07.943 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+01:17:03 PM
+15:43:08.109 [main] INFO  pages.BasePage(313) - Reading Header at POS(1): Type
+15:43:08.256 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Type' is: SMS
+15:43:08.433 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:43:08.567 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+01:08:43 PM
+15:43:08.782 [main] INFO  pages.BasePage(313) - Reading Header at POS(3): Start Balance
+15:43:09.054 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Start Balance' is: 33.47 KES
+15:43:09.440 [main] INFO  pages.BasePage(313) - Reading Header at POS(4): Transaction Amount
+15:43:09.742 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Transaction Amount' is: - 1.1 KES
+15:43:09.937 [main] INFO  pages.BasePage(313) - Checking Negative Sign Display at ROW(15)
+15:43:10.230 [main] INFO  pages.BasePage(313) - Reading Header at POS(5): Remaining Balance
+15:43:10.423 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Remaining Balance' is: 32.37 KES
+15:43:10.601 [main] INFO  pages.BasePage(313) - Reading Header at POS(6): Description
+15:43:10.762 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Description' is: SMS to: 25402703554420
+15:43:10.975 [main] INFO  pages.BasePage(313) - Reading Header at POS(7): Bundle Name
+15:43:11.120 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Bundle Name' is: AIRTIME
+15:43:11.237 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:43:11.364 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+01:17:03 PM
+15:43:11.501 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:43:11.629 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+01:08:43 PM
+15:43:11.695 [main] INFO  pages.BasePage(297) - Sat Jan 16 13:17:03 IST 2021 come after Sat Jan 16 13:08:43 IST 2021
+15:43:11.754 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:43:11.948 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+01:17:03 PM
+15:43:12.102 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:43:12.243 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+01:08:43 PM
+15:43:12.395 [main] INFO  pages.BasePage(313) - Reading Header at POS(1): Type
+15:43:12.541 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Type' is: VOICE
+15:43:12.672 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:43:12.823 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+09:43:31 AM
+15:43:13.039 [main] INFO  pages.BasePage(313) - Reading Header at POS(3): Start Balance
+15:43:13.206 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Start Balance' is: 33.7 KES
+15:43:13.373 [main] INFO  pages.BasePage(313) - Reading Header at POS(4): Transaction Amount
+15:43:13.557 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Transaction Amount' is: - 0.23 KES
+15:43:13.644 [main] INFO  pages.BasePage(313) - Checking Negative Sign Display at ROW(16)
+15:43:13.895 [main] INFO  pages.BasePage(313) - Reading Header at POS(5): Remaining Balance
+15:43:14.072 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Remaining Balance' is: 33.47 KES
+15:43:14.270 [main] INFO  pages.BasePage(313) - Reading Header at POS(6): Description
+15:43:14.453 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Description' is: Call to: 25402703554420
+15:43:14.626 [main] INFO  pages.BasePage(313) - Reading Header at POS(7): Bundle Name
+15:43:14.809 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Bundle Name' is: AIRTIME
+15:43:15.004 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:43:15.199 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+01:08:43 PM
+15:43:15.407 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:43:15.665 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+09:43:31 AM
+15:43:15.747 [main] INFO  pages.BasePage(297) - Sat Jan 16 13:08:43 IST 2021 come after Sat Jan 16 09:43:31 IST 2021
+15:43:15.824 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:43:15.988 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+01:08:43 PM
+15:43:16.140 [main] INFO  pages.BasePage(313) - Reading Header at POS(2): Date & Time
+15:43:16.303 [main] INFO  pages.BasePage(313) - Reading value for Header name 'Date & Time' is: Sat 16 Jan 2021
+09:43:31 AM
+15:43:16.397 [main] INFO  pages.BasePage(160) - Opening Customer Interactions Dashboard
+15:43:16.952 [main] INFO  pages.BasePage(74) - Clicking on elementBy.xpath: //*[text()="HOME"]
+15:43:16.953 [main] INFO  pages.BasePage(313) - Waiting for loader to be removed
+15:43:21.985 [main] INFO  pages.BasePage(313) - Loader Removed
+15:43:22.017 [main] INFO  pages.BasePage(313) - Waiting for loader to be removed
+15:43:27.086 [main] INFO  pages.BasePage(313) - Loader Removed
+]]></system-out>
+  </testcase>
 </testsuite>

@@ -1,4 +1,108 @@
 -------------------------------------------------------------------------------
 Test set: TestSuite
 -------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 84.095 s - in TestSuite
+Tests run: 13, Failures: 6, Errors: 0, Skipped: 0, Time elapsed: 606.483 s <<< FAILURE! - in TestSuite
+validateDemographicInformation(tests.customerInteractionTest)  Time elapsed: 210.518 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	Customer's Airtel Money Status is not visible no such element: Unable to locate element: {"method":"xpath","selector":"//div[@class="customer-details"]//div[@class="top col-md-7"]/div/div[3]//li[2]//p[1]//span[2]"}
+  (Session info: headless chrome=87.0.4280.141)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.204', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 87.0.4280.141, chrome: {chromedriverVersion: 87.0.4280.88 (89e2380a3e36c..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:64383}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:virtualAuthenticators: true}
+Session ID: 534c9180d1b4c5ac86c2663aeb48b53c
+*** Element info: {Using=xpath, value=//div[@class="customer-details"]//div[@class="top col-md-7"]/div/div[3]//li[2]//p[1]//span[2]},
+	Customer's Airtel Money Service Status is not visible no such element: Unable to locate element: {"method":"xpath","selector":"//div[@class="customer-details"]//div[@class="top col-md-7"]/div/div[3]//li[2]//p[2]//span[2]"}
+  (Session info: headless chrome=87.0.4280.141)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.204', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 87.0.4280.141, chrome: {chromedriverVersion: 87.0.4280.88 (89e2380a3e36c..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:64383}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:virtualAuthenticators: true}
+Session ID: 534c9180d1b4c5ac86c2663aeb48b53c
+*** Element info: {Using=xpath, value=//div[@class="customer-details"]//div[@class="top col-md-7"]/div/div[3]//li[2]//p[2]//span[2]}
+	at tests.customerInteractionTest.validateDemographicInformation(customerInteractionTest.java:317)
+
+yourCurrentBalanceWidgetTest(tests.customerInteractionTest)  Time elapsed: 4.514 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	Data Expiry Date is not as Received in API  expected [01-01-1970] but found [-]
+	at tests.customerInteractionTest.yourCurrentBalanceWidgetTest(customerInteractionTest.java:441)
+
+rechargeHistoryWidgetTest(tests.customerInteractionTest)  Time elapsed: 3.186 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	Recharge History Date Time is not As received in API for row number 0 expected [Invalid Date String] but found [10-Jan-2021 11:38]
+	at tests.customerInteractionTest.rechargeHistoryWidgetTest(customerInteractionTest.java:522)
+
+accumulatorDetailsTest(tests.widgetsOptionsTest)  Time elapsed: 31.274 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	Accumulator Start Date is not as received in API on row 1 expected [Invalid Date String] but found [21-Jan-2021],
+	Accumulator Next Reset Date Time is not as received in API on row 1 expected [Invalid Date String] but found [21-Jan-2021],
+	Accumulator Start Date is not as received in API on row 2 expected [Invalid Date String] but found [21-Jan-2021],
+	Accumulator Next Reset Date Time is not as received in API on row 2 expected [Invalid Date String] but found [21-Jan-2021],
+	Accumulator Start Date is not as received in API on row 3 expected [Invalid Date String] but found [10-Feb-2021],
+	Accumulator Next Reset Date Time is not as received in API on row 3 expected [Invalid Date String] but found [10-Feb-2021],
+	Accumulator Start Date is not as received in API on row 4 expected [Invalid Date String] but found [21-Jan-2021],
+	Accumulator Next Reset Date Time is not as received in API on row 4 expected [Invalid Date String] but found [21-Jan-2021]
+	at tests.widgetsOptionsTest.accumulatorDetailsTest(widgetsOptionsTest.java:104)
+
+rechargeHistoryMenuTest(tests.widgetsOptionsTest)  Time elapsed: 30.129 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	Date & Time received is not as expected on row 0 expected [Invalid Date String] but found [10-Jan-2021 11:38]
+	at tests.widgetsOptionsTest.rechargeHistoryMenuTest(widgetsOptionsTest.java:267)
+
+usageHistoryMenuTest(tests.widgetsOptionsTest)  Time elapsed: 77.296 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	Sun 17 Jan 2021
+12:40:46 PMshould not display before Sun 17 Jan 2021
+12:25:29 PM did not expect to find [true] but found [false],
+	Sun 17 Jan 2021
+12:25:29 PMshould not display before Sun 17 Jan 2021
+11:27:12 AM did not expect to find [true] but found [false],
+	Sun 17 Jan 2021
+11:27:12 AMshould not display before Sat 16 Jan 2021
+08:42:30 PM did not expect to find [true] but found [false],
+	Sat 16 Jan 2021
+08:42:30 PMshould not display before Sat 16 Jan 2021
+07:48:46 PM did not expect to find [true] but found [false],
+	Sat 16 Jan 2021
+07:48:46 PMshould not display before Sat 16 Jan 2021
+07:18:51 PM did not expect to find [true] but found [false],
+	Sat 16 Jan 2021
+07:18:51 PMshould not display before Sat 16 Jan 2021
+03:46:02 PM did not expect to find [true] but found [false],
+	Sat 16 Jan 2021
+03:46:02 PMshould not display before Sat 16 Jan 2021
+02:43:45 PM did not expect to find [true] but found [false],
+	Sat 16 Jan 2021
+02:43:45 PMshould not display before Sat 16 Jan 2021
+02:42:57 PM did not expect to find [true] but found [false],
+	Sat 16 Jan 2021
+02:42:57 PMshould not display before Sat 16 Jan 2021
+02:31:45 PM did not expect to find [true] but found [false],
+	Sat 16 Jan 2021
+02:31:45 PMshould not display before Sat 16 Jan 2021
+02:23:07 PM did not expect to find [true] but found [false],
+	Sat 16 Jan 2021
+02:23:07 PMshould not display before Sat 16 Jan 2021
+02:16:11 PM did not expect to find [true] but found [false],
+	Sat 16 Jan 2021
+02:16:11 PMshould not display before Sat 16 Jan 2021
+01:33:56 PM did not expect to find [true] but found [false],
+	Sat 16 Jan 2021
+01:33:56 PMshould not display before Sat 16 Jan 2021
+01:17:03 PM did not expect to find [true] but found [false],
+	Sat 16 Jan 2021
+01:17:03 PMshould not display before Sat 16 Jan 2021
+01:08:43 PM did not expect to find [true] but found [false],
+	Sat 16 Jan 2021
+01:08:43 PMshould not display before Sat 16 Jan 2021
+09:43:31 AM did not expect to find [true] but found [false]
+	at tests.widgetsOptionsTest.usageHistoryMenuTest(widgetsOptionsTest.java:347)
+

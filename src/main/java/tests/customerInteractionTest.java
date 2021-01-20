@@ -470,7 +470,7 @@ public class customerInteractionTest extends BaseTest {
                 softAssert.assertEquals(usageHistoryWidget.getHistoryStartBalance(i), usageHistoryAPI.getResult().get(i).getStartBalance(), "Usage History Start Balance  is not As received in API for row number " + i);
                 softAssert.assertEquals(usageHistoryWidget.getHistoryEndBalance(i), usageHistoryAPI.getResult().get(i).getEndBalance(), "Usage History End Balance is not As received in API for row number " + i);
                 if (i != 0) {
-                    softAssert.assertTrue(usageHistoryWidget.isSortOrderDisplay(usageHistoryWidget.getHistoryDateTime(i-1), usageHistoryWidget.getHistoryDateTime(i), "dd-MMM-yyy HH:mm"), usageHistoryWidget.getHistoryDateTime(i-1) + "should not display before " + usageHistoryWidget.getHistoryDateTime(i));
+                    softAssert.assertTrue(usageHistoryWidget.isSortOrderDisplay(usageHistoryWidget.getHistoryDateTime(i), usageHistoryWidget.getHistoryDateTime(i-1), "dd-MMM-yyy HH:mm"), usageHistoryWidget.getHistoryDateTime(i) + "should not display before " + usageHistoryWidget.getHistoryDateTime(i-1));
                 }
             }
         }

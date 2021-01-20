@@ -64,7 +64,8 @@ public class BaseTest {
         String browser = config.getProperty("browser");
         System.out.println(baseUrl);
         if (browser.equals("chrome")) {
-            WebDriverManager.chromedriver().proxy("172.23.12.116:4145").setup();
+//            WebDriverManager.chromedriver().proxy("172.23.12.116:4145").setup(); //Always use this on server
+            WebDriverManager.chromedriver().setup(); //Use this for local for proxy issue
             ChromeOptions options = new ChromeOptions();
             options.addArguments("--window-size=1792,1120");
             options.setHeadless(true);

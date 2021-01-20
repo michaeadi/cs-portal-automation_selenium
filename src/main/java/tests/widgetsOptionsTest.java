@@ -334,7 +334,7 @@ public class widgetsOptionsTest extends BaseTest {
                 softAssert.assertEquals(detailedUsage.getValueCorrespondingToHeader(i+1,6), usageHistoryAPI.getResult().get(i).getDescription(), "Description received is not as expected on row " + i);
                 softAssert.assertEquals(detailedUsage.getValueCorrespondingToHeader(i+1,7).toLowerCase().trim(), usageHistoryAPI.getResult().get(i).getBundleName().toLowerCase().trim(), "Bundle Name received is not as expected on row " + i);
                 if(i !=0){
-                    softAssert.assertTrue(detailedUsage.isSortOrderDisplay(detailedUsage.getValueCorrespondingToHeader(i, 2).replace("\n"," "), detailedUsage.getValueCorrespondingToHeader(i+1, 2).replace("\n"," "), "E dd MMM yyyy hh:mm:ss aa"), detailedUsage.getValueCorrespondingToHeader(i, 2) + "should not display before " + detailedUsage.getValueCorrespondingToHeader(i+1, 2));
+                    softAssert.assertTrue(detailedUsage.isSortOrderDisplay(detailedUsage.getValueCorrespondingToHeader(i+1, 2).replace("\n"," "), detailedUsage.getValueCorrespondingToHeader(i, 2).replace("\n"," "), "E dd MMM yyyy hh:mm:ss aa"), detailedUsage.getValueCorrespondingToHeader(i+1, 2) + "should not display before " + detailedUsage.getValueCorrespondingToHeader(i, 2));
                 }
             }
         }
