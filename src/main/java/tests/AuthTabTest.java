@@ -98,26 +98,31 @@ public class AuthTabTest extends BaseTest {
         Assert.assertTrue(authTab.isAuthTabLoad(), "Authentication tab does not load correctly");
         authTab.clickAuthBtn();
         authTab.waitTillLoaderGetsRemoved();
+        try {
         Assert.assertTrue(authTab.isSIMBarPopup(), "SIM Bar/unbar popup does not open");
         softAssert.assertTrue(authTab.isIssueDetailTitle(), "Issue Detail does not configured");
         softAssert.assertFalse(authTab.isSubmitBtnEnable(), "Submit button enable without adding comment");
         authTab.openSelectPopup();
-        List<String> reason = authTab.getReasonConfig();
-        List<String> configReason = data.issueDetailReason("SIM Bar Unbar");
-        for (String s : reason) {
-            if (!configReason.contains(s)) {
-                softAssert.assertFalse(true, s + ": Must not configured on UI as not mentioned in config.");
+            List<String> reason = authTab.getReasonConfig();
+            List<String> configReason = data.issueDetailReason("SIM Bar Unbar");
+            for (String s : reason) {
+                if (!configReason.contains(s)) {
+                    softAssert.assertFalse(true, s + ": Must not configured on UI as not mentioned in config.");
+                }
+                configReason.remove(s);
             }
-            configReason.remove(s);
-        }
 
-        for (String s : configReason) {
-            softAssert.assertFalse(true, s + ": Must configured on UI as mentioned in config.");
+            for (String s : configReason) {
+                softAssert.assertFalse(true, s + ": Must configured on UI as mentioned in config.");
+            }
+            authTab.chooseReason();
+            authTab.writeComment("Adding comment using Automation");
+            softAssert.assertTrue(authTab.isSubmitBtnEnable(), "Submit button does not enabled after adding comment");
+            authTab.closeSIMBarPopup();
+        }catch (NoSuchElementException | TimeoutException e){
+            softAssert.fail("Not able to check SIM/Bar Issue detail option: "+e.fillInStackTrace());
+            authTab.closeSIMBarPopup();
         }
-        authTab.chooseReason();
-        authTab.writeComment("Adding comment using Automation");
-        softAssert.assertTrue(authTab.isSubmitBtnEnable(), "Submit button does not enabled after adding comment");
-        authTab.closeSIMBarPopup();
         softAssert.assertAll();
     }
 
@@ -127,14 +132,19 @@ public class AuthTabTest extends BaseTest {
         SoftAssert softAssert = new SoftAssert();
         customerInteractionPagePOM homepage = new customerInteractionPagePOM(driver);
         homepage.waitTillLoaderGetsRemoved();
-        homepage.clickOnAction();
-        homepage.clickSendSetting();
         try {
-            softAssert.assertTrue(homepage.isSendInternetSettingTitle(), "Send Internet Setting Tab Does not open after internet setting.");
-            homepage.clickNoBtn();
-        } catch (TimeoutException | NoSuchElementException e) {
-            softAssert.fail("Not able to close send Internet Setting Tab." + e.fillInStackTrace());
-            homepage.clickCloseBtn();
+            homepage.clickOnAction();
+            homepage.clickSendSetting();
+            try {
+                softAssert.assertTrue(homepage.isSendInternetSettingTitle(), "Send Internet Setting Tab Does not open after internet setting.");
+                homepage.clickNoBtn();
+            } catch (TimeoutException | NoSuchElementException e) {
+                softAssert.fail("Not able to close send Internet Setting Tab." + e.fillInStackTrace());
+                homepage.clickCloseBtn();
+            }
+        }catch (NoSuchElementException | TimeoutException e){
+            softAssert.fail("Send Internet Setting Option does not configure correctly."+e.fillInStackTrace());
+            homepage.clickOutside();
         }
     }
 
