@@ -13,7 +13,7 @@ import java.util.List;
 public class viewHistoryPOM extends BasePage {
     By firstIssueCode = By.xpath("//tbody/tr[1]/td[7]/p");
     By interactionsTab = By.xpath("//div[@class=\"mat-tab-label-content\" and contains(text(),\"Interaction\")]");
-    By ticketHistory = By.xpath("//div[contains(text(),'Ticket')]");
+    By ticketHistory = By.xpath("//div[contains(text(),'Ticket')] | //span[contains(text(),'Ticket')]");
     By allIssue = By.xpath("//table[@id=\"fetchInteractionByCustomer\"]//tbody//tr");
     By ticketId = By.xpath("//table[@id=\"fetchInteractionByCustomer\"]//tbody//tr[1]//td[8]//span[1]//span[1]");
     By ticketPageTitle = By.xpath("//h2[contains(text(),'View Ticket')]");

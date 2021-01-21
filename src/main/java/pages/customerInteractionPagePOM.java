@@ -17,7 +17,7 @@ public class customerInteractionPagePOM extends BasePage {
     By actions = By.xpath("//span[@class=\"action-placeholder\"]");
     By simBar = By.xpath("//button[@class=\"db-action-menu-item mat-menu-item ng-star-inserted\"]");
     By pinTags = By.xpath("//div[@class=\"sub-header__divide--control--tab ng-star-inserted\"]");
-    By viewHistory = By.xpath("//div[@class=\"mat-tab-label-content\" and contains(text(),\"VIEW HISTORY\")]");
+    By viewHistory = By.xpath("//*[contains(text(),\"VIEW HISTORY\")]");
     By firstWidgetHeader = By.xpath("//div[@class=\"home-tab-container__left-widgets--widgets ng-star-inserted\"][1]//child::span[@class=\"card__card-header--label\"]");
     By thirdWidgetHeader = By.xpath("//div[@class=\"home-tab-container__left-widgets--widgets ng-star-inserted\"][2]//child::span[@class=\"card__card-header--label\"]");
     By secondWidgetHeader = By.xpath("//div[@class=\"home-tab-container__right-widgets--widgets ng-star-inserted\"][1]//child::span[@class=\"card__card-header--label\"]");
