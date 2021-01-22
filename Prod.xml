@@ -5,7 +5,7 @@
         <listener class-name="Utils.Listeners.TestListener"/>
         <!--        <listener class-name="Utils.Listeners.AnnotationTransformer"/>-->
     </listeners>
-    <test name="api">
+    <test name="PROD Sanity API Test">
         <classes>
             <class name="API.APITest">
                 <methods>
