@@ -30,6 +30,20 @@
             <class name="tests.widgetsOptionsTest"/>
         </classes>
     </test>
+    <test name="Validate Authentication tab">
+        <classes>
+            <class name="tests.AuthTabTest">
+                <methods>
+                    <exclude name="validateResetME2UPassword"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Validate Frontend Agent Ticket Page">
+        <classes>
+            <class name="tests.FrontendAgentTicketTest"/>
+        </classes>
+    </test>
     <test name="Logout Test">
         <classes>
             <class name="tests.LogoutTest"/>
@@ -52,6 +66,11 @@
     <test name="Supervisors Validate Filter Option ">
         <classes>
             <class name="tests.SupervisorFilterTest"/>
+        </classes>
+    </test>
+    <test name="Supervisors Search/View Ticket ">
+        <classes>
+            <class name="tests.PRODSupervisorTicket"/>
         </classes>
     </test>
     <test name="Logout Supervisor Test">

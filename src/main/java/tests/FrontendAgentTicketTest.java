@@ -4,6 +4,8 @@ import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.TestDatabean;
 import Utils.DataProviders.nftrDataBeans;
 import Utils.ExtentReports.ExtentTestManager;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -72,6 +74,57 @@ public class FrontendAgentTicketTest extends BaseTest {
         viewHistory.waitTillLoaderGetsRemoved();
         softAssert.assertTrue(viewHistory.checkViewTicketPage(), "View ticket page does not open");
         viewHistory.clickCloseTicketTab();
+        softAssert.assertAll();
+    }
+
+    @Test(priority = 5, description = "Verify the fields displayed for SMS channel.", dependsOnMethods = "openCustomerInteraction")
+    public void validateSendSMSTab() {
+        ExtentTestManager.startTest("Validating the Send SMS Tab ", "Validating the send sms tab");
+        SoftAssert softAssert = new SoftAssert();
+        customerInteractionPagePOM homepage = new customerInteractionPagePOM(driver);
+        homepage.waitTillLoaderGetsRemoved();
+        homepage.clickOnAction();
+        try {
+            SendSMSPOM smsTab = homepage.openSendSMSTab();
+            smsTab.waitTillLoaderGetsRemoved();
+            try {
+                softAssert.assertTrue(smsTab.isPageLoaded(), "Send SMS tab does not open correctly");
+            } catch (NoSuchElementException | TimeoutException e) {
+                softAssert.fail("Send SMS tab does not open correctly" + e.getMessage());
+            }
+            try {
+                softAssert.assertTrue(smsTab.isCategory(), "Category field does not displayed");
+            } catch (NoSuchElementException | TimeoutException e) {
+                softAssert.fail("Category field does not displayed"+e.fillInStackTrace());
+            }
+            try {
+                softAssert.assertTrue(smsTab.isCustomerNumber(), "Customer number does not displayed");
+            } catch (NoSuchElementException | TimeoutException e) {
+                softAssert.fail("Customer number does not displayed"+e.fillInStackTrace());
+            }
+            try {
+                softAssert.assertTrue(smsTab.isLanguage(), "Language field does not displayed");
+            } catch (NoSuchElementException | TimeoutException e) {
+                softAssert.fail("Language field does not displayed"+e.fillInStackTrace());
+            }
+            try {
+                softAssert.assertTrue(smsTab.isTemplateName(), "Template name field does not display");
+            } catch (NoSuchElementException | TimeoutException e) {
+                softAssert.fail("Template name field does not displayed"+e.fillInStackTrace());
+            }
+            try {
+                softAssert.assertTrue(smsTab.isMessageContentEditable(), "Message Content Editable");
+            } catch (NoSuchElementException | TimeoutException e) {
+                softAssert.fail("Message Content Is Editable"+e.getCause());
+            }
+            try {
+                softAssert.assertTrue(smsTab.isSendBtnDisabled(), "Send SMS button is clickable");
+            } catch (NoSuchElementException | TimeoutException e) {
+                softAssert.fail("Send SMS button is display on UI"+e.getCause());
+            }
+        } catch (NoSuchElementException | TimeoutException e) {
+            softAssert.fail("Send SMS tab does not open properly. " + e.fillInStackTrace());
+        }
         softAssert.assertAll();
     }
 }
