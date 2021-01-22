@@ -5,7 +5,7 @@
         <listener class-name="Utils.Listeners.TestListener"/>
         <!--        <listener class-name="Utils.Listeners.AnnotationTransformer"/>-->
     </listeners>
-    <test name="api">
+    <test name="Sanity API Login">
         <classes>
             <class name="API.APITest">
                 <methods>
@@ -14,7 +14,7 @@
             </class>
         </classes>
     </test>
-    <test name="Login Admin 1 Test">
+    <test name="Login Admin Test">
         <classes>
             <class name="tests.LoginTests"/>
         </classes>
@@ -109,11 +109,6 @@
             <class name="tests.SupervisorSearchTicket"/>
         </classes>
     </test>
-    <test name="Ticket Transfer Rule Test ">
-        <classes>
-            <class name="tests.TicketTransferRuleTest"/>
-        </classes>
-    </test>
     <test name="Supervisors Validate Filter Option ">
         <classes>
             <class name="tests.SupervisorFilterTest"/>
@@ -172,11 +167,6 @@
     <test name="View Template Test">
         <classes>
             <class name="tests.ViewTemplateTest"/>
-        </classes>
-    </test>
-    <test name="Send SMS Test">
-        <classes>
-            <class name="tests.SendSMSTest"/>
         </classes>
     </test>
     <test name="UserManagement Test">

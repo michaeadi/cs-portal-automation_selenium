@@ -31,7 +31,7 @@ public class BasePage {
     By loader1 = By.xpath("//div[@class=\"ngx-overlay foreground-closing\"]");
     By overlay = By.xpath("//mat-dialog-container[@role='dialog']");
     By timeLine = By.xpath("//app-new-loader[@class=\"ng-star-inserted\"]//div[1]");
-    By home = By.xpath("//div[text()=\"HOME\"]");
+    By home = By.xpath("//*[text()=\"HOME\"]");
     JavascriptExecutor js;
 
     //Constructor
