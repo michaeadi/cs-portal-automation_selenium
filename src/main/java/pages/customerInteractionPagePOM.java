@@ -30,7 +30,9 @@ public class customerInteractionPagePOM extends BasePage {
     By sendSMSAction = By.xpath("//div[@class=\"mat-menu-content\"]//button[contains(text(),'Send SMS')]");
     By simBarUnBar = By.xpath("//div[@class=\"mat-menu-content\"]//button[1]");
     By sendSettings=By.xpath("//div[@class=\"mat-menu-content\"]//button[contains(text(),'Send Internet Settings')]");
+    By resetME2UPassword=By.xpath("//div[@class=\"mat-menu-content\"]//button[contains(text(),'Reset Me2U Password')]");
     By sendSettingTitle=By.xpath("//span[contains(text(),'Send Internet Settings')]");
+    By resetME2Title=By.xpath("//span[contains(text(),'Reset Me2U Password')]");
     By noBtn=By.xpath("//button[@class=\"no-btn\"]");
     By closeBtn=By.xpath("//span[contains(text(),'Send Internet Settings')]//following-sibling::mat-icon[contains(text(),'close')]");
 
@@ -47,6 +49,11 @@ public class customerInteractionPagePOM extends BasePage {
     public Boolean isSendInternetSettingTitle(){
         printInfoLog("Is Send Internet Setting Title Display: "+checkState(sendSettingTitle));
         return checkState(sendSettingTitle);
+    }
+
+    public Boolean isResetME2UPasswordTitle(){
+        printInfoLog("Is Reset ME2U Password Title Display: "+checkState(resetME2Title));
+        return checkState(resetME2Title);
     }
 
     public String getSecondWidgetHeader() {
@@ -157,6 +164,11 @@ public class customerInteractionPagePOM extends BasePage {
     public void clickSendSetting() {
         printInfoLog("Clicking on Send SMS Setting");
         click(sendSettings);
+    }
+
+    public void clickResetME2U() {
+        printInfoLog("Clicking on Reset ME2U Password");
+        click(resetME2UPassword);
     }
 
     public void clickNoBtn() {

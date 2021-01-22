@@ -79,7 +79,6 @@ public class SupervisorUpdateTicket extends BaseTest {
                     softAssert.assertEquals(ticketListPage.getTicketIdvalue(), Data.getTicketNumber(), "Search Ticket Does not Fetched Correctly");
                     Assert.assertEquals(ticketListPage.getStatevalue(), selectedState, "Ticket Does not Updated to Selected State");
                     if(ticketId==null){
-                        System.out.println("Writing Ticket id WMWM");
                         ticketId=Data.getTicketNumber();
                     }
                     SMSHistoryPOJO smsHistory = api.smsHistoryTest(customerNumber);

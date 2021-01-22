@@ -1,17 +1,16 @@
 package tests;
 
 import Utils.DataProviders.DataProviders;
+import Utils.DataProviders.TransferQueueDataBean;
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pages.FilterTabPOM;
-import pages.SideMenuPOM;
-import pages.agentLoginPagePOM;
-import pages.supervisorTicketListPagePOM;
+import pages.*;
 
 import java.lang.reflect.Method;
 
@@ -147,6 +146,32 @@ public class SupervisorFilterTest extends BaseTest {
         }
         softAssert.assertTrue(filterTab.validatePriorityFilter(), "Filter by priority does not display all priority correctly");
         filterTab.clickCloseFilter();
+        softAssert.assertAll();
+    }
+
+    @Test(priority = 4, description = "Apply Filter by Created Date", enabled = true)
+    public void applyFilterByCreatedDate() throws InterruptedException {
+        ExtentTestManager.startTest("Apply Filter by Created Date", "Apply Filter by Created Date");
+        supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
+        FilterTabPOM filterTab = new FilterTabPOM(driver);
+        SoftAssert softAssert = new SoftAssert();
+        String ticketId = null;
+        try {
+            ticketListPage.clickFilter();
+            filterTab.clickLast30DaysFilter();
+            filterTab.clickApplyFilter();
+            ticketListPage.waitTillLoaderGetsRemoved();
+            softAssert.assertTrue(ticketListPage.isResetFilter(), "Reset Filter button Does Not Available");
+            if(ticketListPage.isResetFilter()){
+                ticketListPage.resetFilter();
+                ticketListPage.waitTillLoaderGetsRemoved();
+            }
+        } catch (NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
+            e.printStackTrace();
+            filterTab.clickOutsideFilter();
+            filterTab.clickCloseFilter();
+            softAssert.fail("Not able to apply filter " + e.getMessage());
+        }
         softAssert.assertAll();
     }
 }

@@ -296,6 +296,15 @@ public class supervisorTicketListPagePOM extends BasePage {
         waitTillLoaderGetsRemoved();
     }
 
+    public boolean isResetFilter() {
+        printInfoLog("Is Removing Filter Button Available");
+        try {
+            return checkState(resetFilterButton);
+        }catch (NoSuchElementException | TimeoutException e){
+            return false;
+        }
+    }
+
     public boolean validateQueueFilter(String text) {
         ExtentTestManager.getTest().log(LogStatus.INFO, "Validating Queue Filter");
         boolean answer = false;

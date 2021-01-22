@@ -85,6 +85,9 @@ public class AuthTabTest extends BaseTest {
             }
         }
         softAssert.assertTrue(authTab.isAuthBtnEnable(), "Authenticate Button does not enable after choose minimum number of question");
+        if(!authTab.isAuthBtnEnable()){
+            authTab.clickCloseBtn();
+        }
         softAssert.assertAll();
     }
 
@@ -144,6 +147,28 @@ public class AuthTabTest extends BaseTest {
             }
         }catch (NoSuchElementException | TimeoutException e){
             softAssert.fail("Send Internet Setting Option does not configure correctly."+e.fillInStackTrace());
+            homepage.clickOutside();
+        }
+    }
+
+    @Test(priority = 6, description = "Verify the Reset ME2U Password tab",dependsOnMethods = "openCustomerInteraction")
+    public void validateResetME2UPassword() {
+        ExtentTestManager.startTest("Verify the Reset ME2U Password tab", "Verify the Reset ME2U Password tab");
+        SoftAssert softAssert = new SoftAssert();
+        customerInteractionPagePOM homepage = new customerInteractionPagePOM(driver);
+        homepage.waitTillLoaderGetsRemoved();
+        try {
+            homepage.clickOnAction();
+            homepage.clickResetME2U();
+            try {
+                softAssert.assertTrue(homepage.isResetME2UPasswordTitle(), "Reset ME2U Password Tab Does not open.");
+                homepage.clickNoBtn();
+            } catch (TimeoutException | NoSuchElementException e) {
+                softAssert.fail("Not able to Reset ME2U Password Tab." + e.fillInStackTrace());
+                homepage.clickCloseBtn();
+            }
+        }catch (NoSuchElementException | TimeoutException e){
+            softAssert.fail("Reset ME2U Password Option does not configure correctly."+e.fillInStackTrace());
             homepage.clickOutside();
         }
     }
