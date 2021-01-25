@@ -213,7 +213,7 @@ public class customerInteractionTest extends BaseTest {
 
         try {
             softAssert.assertEquals(demographic.getIdType().trim(), gsmKycAPI.getResult().getIdentificationType(), "Customer's ID Type is not as Expected");
-        } catch (NoSuchElementException | TimeoutException e) {
+        } catch (NoSuchElementException | TimeoutException |NullPointerException e) {
             softAssert.fail("Customer's Id Type is not visible", e.getCause());
             e.printStackTrace();
         }

@@ -44,6 +44,8 @@ public class BaseTest {
             suiteType = "Regression";
         } else if (System.getProperty("suiteType").equalsIgnoreCase("Sanity")) {
             suiteType = "Sanity";
+        }else if (System.getProperty("suiteType").equalsIgnoreCase("Prod")) {
+            suiteType = "Prod";
         }
 
 
