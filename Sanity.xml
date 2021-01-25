@@ -35,11 +35,6 @@
             <class name="tests.createInteractionTest"/>
         </classes>
     </test>
-    <test name="Widget Tagged Interaction TEST">
-        <classes>
-            <class name="tests.WidgetTaggedIssueTest"/>
-        </classes>
-    </test>
     <test name="Customer Pinned Tag TEST">
         <classes>
             <class name="tests.PinTagTest"/>
