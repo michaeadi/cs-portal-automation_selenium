@@ -47,7 +47,7 @@ public class CRBTWidgetTest extends BaseTest {
         Assert.assertTrue(crbtWidget.isCRBTWidgetDisplay(), "CRBT Widget Does not display");
         ActivateRingtone ringtoneAPI = api.activateRingtone(customerNumber);
 
-        if (ringtoneAPI.getResult().getIsHelloTunesSubscribed() && ringtoneAPI.getStatusCode().equalsIgnoreCase("200")) {
+        if (ringtoneAPI.getResult().getIsHelloTunesSubscribed() && Integer.parseInt(ringtoneAPI.getStatusCode())==200) {
             /*
              * Assertion In case of ringtone activate
              * */

@@ -28,7 +28,7 @@ public class LoanDetailPOM extends BasePage {
     By recoveryWidgetHeaderList=By.xpath("//span[contains(text(),'LOAN HISTORY') or class=\"card__card-header--label\"]//ancestor::div[@class=\"custom-widget ng-star-inserted\"]//div[2]//div[@class=\"card__card-header--card-body--table--data-list innertable-area ng-star-inserted\"][1]//app-loan-recoveries/div/div[1]//div[@class=\"inner-wrapper ng-star-inserted\"]");
     List<WebElement> recoveryWidgetList=returnListOfElement(recoveryWidgetHeaderList);
     By closeTab=By.xpath("//mat-icon[contains(text(),'close')]");
-    By homeTab=By.xpath("//div[contains(text(),'HOME')]");
+    By homeTab=By.xpath("//*[contains(text(),'HOME')]");
 
     public LoanDetailPOM(WebDriver driver) {
         super(driver);

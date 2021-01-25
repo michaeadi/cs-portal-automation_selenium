@@ -35,11 +35,6 @@
             <class name="tests.createInteractionTest"/>
         </classes>
     </test>
-    <test name="Widget Tagged Interaction TEST">
-        <classes>
-            <class name="tests.WidgetTaggedIssueTest"/>
-        </classes>
-    </test>
     <test name="Customer Pinned Tag TEST">
         <classes>
             <class name="tests.PinTagTest"/>
@@ -67,7 +62,11 @@
     </test>
     <test name="Validate Authentication tab">
         <classes>
-            <class name="tests.AuthTabTest"/>
+            <class name="tests.AuthTabTest">
+                <methods>
+                    <exclude name="validateResetME2UPassword"/>
+                </methods>
+            </class>
         </classes>
     </test>
     <test name="Loan Widget Test">

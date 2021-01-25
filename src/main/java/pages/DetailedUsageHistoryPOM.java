@@ -73,13 +73,13 @@ public class DetailedUsageHistoryPOM extends BasePage {
     }
 
     public String getValueCorrespondingToHeader(int row,int column){
-        By value=By.xpath("//div[@class=\"card__card-header\"]//span[contains(text(),'USAGE HISTORY')]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]/div[@class=\"ng-star-inserted\"]["+row+"]//div[@class=\"ng-star-inserted\"]["+column+"]/span");
+        By value=By.xpath("//div[@class=\"card__card-header\"]//span[contains(text(),'USAGE HISTORY')]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]/div[@class=\"ng-star-inserted\" or @class=\"slide-toggle red ng-star-inserted\"]["+row+"]//div[@class=\"ng-star-inserted\" or @class=\"slide-toggle red ng-star-inserted\"]["+column+"]/span");
         printInfoLog("Reading value for Header name '"+getHeaders(column)+"' is: "+readText(value));
         return readText(value);
     }
 
     public Boolean checkSignDisplay(int row){
-        By value=By.xpath("//div[@class=\"card__card-header\"]//span[contains(text(),'USAGE HISTORY')]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]/div[@class=\"ng-star-inserted\"]["+row+"]//div[@class=\"ng-star-inserted\"][4]/img[@class=\"sign-icon-before ng-star-inserted\"]");
+        By value=By.xpath("//div[@class=\"card__card-header\"]//span[contains(text(),'USAGE HISTORY')]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]/div[@class=\"ng-star-inserted\"]["+row+"]//div[@class=\"ng-star-inserted\" or @class=\"slide-toggle red ng-star-inserted\"][4]/img[@class=\"sign-icon-before ng-star-inserted\"]");
         printInfoLog("Checking Negative Sign Display at ROW("+row+")");
         return checkState(value);
     }

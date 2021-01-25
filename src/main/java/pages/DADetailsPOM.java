@@ -36,31 +36,31 @@ DADetailsPOM extends BasePage {
     }
 
     public String getDAId(int RowNumber) {
-        By daId=By.xpath("//span[contains(text(),\"DA Details\")]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]/div[@class=\"ng-star-inserted\"]["+RowNumber+"]//div[@class=\"ng-star-inserted\"][1]/span");
+        By daId=By.xpath("//span[contains(text(),\"DA Details\")]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]/div[@class=\"ng-star-inserted\"]["+RowNumber+"]//div[@class=\"ng-star-inserted\" or @class=\"slide-toggle red ng-star-inserted\"][1]/span");
         printInfoLog("Getting DA ID from Row Number " + RowNumber + " : " + readText(daId));
         return readText(daId);
     }
 
     public String getDADescription(int RowNumber) {
-        By daDescription = By.xpath("//span[contains(text(),\"DA Details\")]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]/div[@class=\"ng-star-inserted\"]["+RowNumber+"]//div[@class=\"ng-star-inserted\"][2]/span");
+        By daDescription = By.xpath("//span[contains(text(),\"DA Details\")]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]/div[@class=\"ng-star-inserted\"]["+RowNumber+"]//div[@class=\"ng-star-inserted\" or @class=\"slide-toggle red ng-star-inserted\"][2]/span");
         printInfoLog("Getting DA Description from Row Number " + RowNumber + " : " + readText(daDescription));
         return readText(daDescription);
     }
 
     public String getBundleType(int RowNumber) {
-        By bundleType = By.xpath("//span[contains(text(),\"DA Details\")]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]/div[@class=\"ng-star-inserted\"]["+RowNumber+"]//div[@class=\"ng-star-inserted\"][3]/span");
+        By bundleType = By.xpath("//span[contains(text(),\"DA Details\")]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]/div[@class=\"ng-star-inserted\"]["+RowNumber+"]//div[@class=\"ng-star-inserted\" or @class=\"slide-toggle red ng-star-inserted\"][3]/span");
         printInfoLog("Getting DA Bundle Type from Row Number " + RowNumber + " : " + readText(bundleType));
         return readText(bundleType);
     }
 
     public String getDABalance(int RowNumber) {
-        By daBalance = By.xpath("//span[contains(text(),\"DA Details\")]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]/div[@class=\"ng-star-inserted\"]["+RowNumber+"]//div[@class=\"ng-star-inserted\"][4]/span");
+        By daBalance = By.xpath("//span[contains(text(),\"DA Details\")]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]/div[@class=\"ng-star-inserted\"]["+RowNumber+"]//div[@class=\"ng-star-inserted\" or @class=\"slide-toggle red ng-star-inserted\"][4]/span");
         printInfoLog("Getting DA Balance from Row Number " + RowNumber + " : " + readText(daBalance));
         return readText(daBalance);
     }
 
     public String getDADateTime(int RowNumber) {
-        By dateTime = By.xpath("//span[contains(text(),\"DA Details\")]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]/div[@class=\"ng-star-inserted\"]["+RowNumber+"]//div[@class=\"ng-star-inserted\"][5]/span");
+        By dateTime = By.xpath("//span[contains(text(),\"DA Details\")]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]/div[@class=\"ng-star-inserted\"]["+RowNumber+"]//div[@class=\"ng-star-inserted\" or @class=\"slide-toggle red ng-star-inserted\"][5]/span");
         printInfoLog("Getting DA Date and Time from Row Number " + RowNumber + " : " + readText(dateTime));
         return readText(dateTime);
     }
@@ -95,7 +95,7 @@ DADetailsPOM extends BasePage {
     }
 
     public String getValueCorrespondingToAccumulator(int row,int column){
-        String value=readText(By.xpath("//span[contains(text(),\"Accumulators\")]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]/div[@class=\"ng-star-inserted\"]["+row+"]//div[@class=\"ng-star-inserted\"]["+column+"]/span"));
+        String value=readText(By.xpath("//span[contains(text(),\"Accumulators\")]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]/div[@class=\"ng-star-inserted\"  or @class=\"slide-toggle red ng-star-inserted\"]["+row+"]//div[@class=\"ng-star-inserted\" or @class=\"slide-toggle red ng-star-inserted\"]["+column+"]/span"));
         printInfoLog("Reading '"+getAccumulatorHeaders(column)+"' = "+value);
         return value.trim();
     }
