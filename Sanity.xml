@@ -62,7 +62,11 @@
     </test>
     <test name="Validate Authentication tab">
         <classes>
-            <class name="tests.AuthTabTest"/>
+            <class name="tests.AuthTabTest">
+                <methods>
+                    <exclude name="validateResetME2UPassword"/>
+                </methods>
+            </class>
         </classes>
     </test>
     <test name="Loan Widget Test">
