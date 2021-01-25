@@ -14,7 +14,7 @@
             </class>
         </classes>
     </test>
-    <test name="Login Admin Test">
+    <test name="Login With ALL User Test">
         <classes>
             <class name="tests.LoginTests"/>
         </classes>
