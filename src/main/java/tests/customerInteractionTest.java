@@ -317,6 +317,293 @@ public class customerInteractionTest extends BaseTest {
         softAssert.assertAll();
     }
 
+    @User()
+    @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
+    public void openCustomerInteractionBySIM(TestDatabean Data) {
+        ExtentTestManager.startTest("Validating the Search for Customer Interactions By Using SIM Number :" + Data.getSimNumber(), "Validating the Search for Customer Interactions By Using SIM Number : " + Data.getSimNumber());
+        SoftAssert softAssert = new SoftAssert();
+        SideMenuPOM SideMenuPOM = new SideMenuPOM(driver);
+        SideMenuPOM.clickOnSideMenu();
+        SideMenuPOM.clickOnName();
+        customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
+        customerInteractionsSearchPOM.enterNumber(Data.getSimNumber());
+        customerNumber = Data.getCustomerNumber();
+        customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
+        softAssert.assertTrue(customerInteractionPagePOM.isPageLoaded());
+        softAssert.assertAll();
+    }
+
+    @User()
+    @Test(priority = 2, description = "Validating Demographic Info", dataProvider = "loginData", dataProviderClass = DataProviders.class,dependsOnMethods = "openCustomerInteraction")
+    public void validateDemographicInformationBySIMNumber(TestDatabean Data) {
+        ExtentTestManager.startTest("Validating the Demographic Information of User :" + Data.getCustomerNumber(), "Validating the Demographic Information of User :" + Data.getCustomerNumber());
+        CustomerDemoGraphicPOM demographic = new CustomerDemoGraphicPOM(driver);
+        SoftAssert softAssert = new SoftAssert();
+
+        ProfilePOJO profileAPI = api.profileAPITest(customerNumber);
+        KYCProfile kycProfile = api.KYCProfileAPITest(customerNumber);
+        GsmKycPOJO gsmKycAPI = api.gsmKYCAPITest(customerNumber);
+        PlansPOJO plansAPI = api.accountPlansTest(customerNumber);
+
+        try {
+            if (demographic.isPUKInfoLock()) {
+                demographic.clickPUKToUnlock();
+                AuthenticationTabPOM authTab = new AuthenticationTabPOM(driver);
+                DataProviders data = new DataProviders();
+                authTab.waitTillLoaderGetsRemoved();
+                Assert.assertTrue(authTab.isAuthTabLoad(), "Authentication tab does not load correctly");
+                try {
+                    List<AuthTabDataBeans> list = data.getPolicy();
+                    for (int i = 1; i <= Integer.parseInt(list.get(0).getMinAnswer()); i++) {
+                        authTab.clickCheckBox(i);
+                    }
+                    Assert.assertTrue(authTab.isAuthBtnEnable(), "Authenticate Button does not enable after choose minimum number of question");
+                    authTab.clickAuthBtn();
+                } catch (NoSuchElementException | AssertionError | TimeoutException e) {
+                    e.printStackTrace();
+                    String base64Screenshot = "data:image/png;base64," + ((TakesScreenshot) driver).
+                            getScreenshotAs(OutputType.BASE64);
+                    ExtentTestManager.getTest().log(LogStatus.INFO, ExtentTestManager.getTest().addBase64ScreenShot(base64Screenshot));
+                    softAssert.fail("Not able to authenticate user: " + e.fillInStackTrace());
+                    authTab.clickCloseBtn();
+                }
+            }
+            try {
+                softAssert.assertEquals(demographic.getPUK1().trim(), kycProfile.getResult().getPuk().get(0).getValue(), "Customer's PUK1 Number is not as Expected");
+            } catch (NoSuchElementException e) {
+                softAssert.fail("Customer's PUK1 Number is not visible", e.getCause());
+                e.printStackTrace();
+            }
+            try {
+                softAssert.assertEquals(demographic.getPUK2().trim(), kycProfile.getResult().getPuk().get(1).getValue(), "Customer's PUK2 Number is not as Expected");
+            } catch (NoSuchElementException e) {
+                softAssert.fail("Customer's  PUK2 Number is not visible", e.getCause());
+                e.printStackTrace();
+            }
+
+        } catch (NoSuchElementException | TimeoutException | InterruptedException | AssertionError e) {
+            e.printStackTrace();
+            softAssert.fail("Not able to View PUK Details" + e.getMessage());
+        }
+
+        try {
+            if (demographic.isAirtelMoneyStatusLock()) {
+                demographic.clickAirtelStatusToUnlock();
+                AuthenticationTabPOM authTab = new AuthenticationTabPOM(driver);
+                DataProviders data = new DataProviders();
+                authTab.waitTillLoaderGetsRemoved();
+                Assert.assertTrue(authTab.isAuthTabLoad(), "Authentication tab does not load correctly");
+                try {
+                    List<AuthTabDataBeans> list = data.getPolicy();
+                    for (int i = 1; i <= Integer.parseInt(list.get(0).getMinAnswer()); i++) {
+                        authTab.clickCheckBox(i);
+                    }
+                    Assert.assertTrue(authTab.isAuthBtnEnable(), "Authenticate Button does not enable after choose minimum number of question");
+                    authTab.clickAuthBtn();
+                } catch (NoSuchElementException | TimeoutException e) {
+                    e.fillInStackTrace();
+                    softAssert.fail("Action(Airtel Money Status)Not able to authenticate user: " + e.fillInStackTrace());
+                    authTab.clickCloseBtn();
+                }
+            }
+
+
+        } catch (NoSuchElementException | TimeoutException | InterruptedException | AssertionError e) {
+            e.printStackTrace();
+            softAssert.fail("Airtel Money Status does not unlock" + e.getMessage());
+        }
+
+        try {
+            softAssert.assertEquals(demographic.getCustomerName().trim(), gsmKycAPI.getResult().getName().trim(), "Customer Name is not as Expected");
+        } catch (NoSuchElementException | TimeoutException e) {
+            softAssert.fail("Customer Name is not visible", e.getCause());
+            e.printStackTrace();
+        }
+        try {
+            softAssert.assertEquals(demographic.getCustomerDOB().trim(), demographic.getDateFromEpoch(gsmKycAPI.getResult().getDob(), "dd-MMM-yyyy"), "Customer DOB is not as Expected");
+        } catch (NoSuchElementException | TimeoutException e) {
+            softAssert.fail("Customer DOB is not visible", e.getCause());
+            e.printStackTrace();
+        }
+        try {
+            softAssert.assertEquals(demographic.getActivationDate().trim(), demographic.getDateFromEpoch(Long.parseLong(kycProfile.getResult().getActivationDate()), "dd MMMM yyyy"), "Customer's Activation Date is not as Expected");
+
+        } catch (NoSuchElementException | TimeoutException | NumberFormatException e) {
+            softAssert.fail("Customer's Activation Date is not visible", e.getCause());
+            e.printStackTrace();
+        }
+
+        try {
+            softAssert.assertEquals(demographic.getSIMStatus().toLowerCase().trim(), kycProfile.getResult().getStatus().toLowerCase().trim(), "Customer's SIM Status is not as Expected");
+            demographic.hoverOnSIMStatusInfoIcon();
+            softAssert.assertEquals(demographic.getSIMStatusReasonCode().trim().toLowerCase(),kycProfile.getResult().getReason()==null || kycProfile.getResult().getReason()=="" ?"-":kycProfile.getResult().getReason().toLowerCase().trim(),"Customer SIM Status Reason is not as Expected");
+            softAssert.assertEquals(demographic.getSIMStatusModifiedBy().trim().toLowerCase(),kycProfile.getResult().getModifiedBy().trim().toLowerCase(),"Customer SIM Status Modified By is not as Expected");
+            softAssert.assertEquals(demographic.getSIMStatusModifiedDate().trim(),demographic.getDateFromString(kycProfile.getResult().getModifiedDate(),"dd-MMM-yyy HH:mm"),"Customer SIM Status Modified Date is not as Expected");
+        } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
+            softAssert.fail("Customer's SIM Status is not visible", e.getCause());
+            e.printStackTrace();
+        }
+
+        try {
+            if (demographic.getDataManagerStatus().equalsIgnoreCase("true")) {
+                softAssert.assertEquals("on", plansAPI.getResult().getDataManager().toLowerCase().trim(), "Customer's Data Manager Status is not as Expected");
+            } else {
+                softAssert.assertEquals("off", plansAPI.getResult().getDataManager().toLowerCase().trim(), "Customer's Data Manager Status is not as Expected");
+            }
+
+        } catch (NoSuchElementException | TimeoutException e) {
+            softAssert.fail("Customer's Data Manager Status is not visible", e.getCause());
+            e.printStackTrace();
+        }
+
+        try {
+            softAssert.assertEquals(demographic.getAirtelMoneyStatus().toLowerCase().trim(), profileAPI.getResult().getAirtelMoneyStatus().toLowerCase().trim(), "Customer's Airtel Money Status is not as Expected");
+
+        } catch (NoSuchElementException | TimeoutException e) {
+            softAssert.fail("Customer's Airtel Money Status is not visible", e.getCause());
+            e.printStackTrace();
+        }
+
+        try {
+            softAssert.assertEquals(demographic.getServiceStatus().toLowerCase().trim(), profileAPI.getResult().getServiceStatus().toLowerCase().trim(), "Customer's Airtel Money Service Status is not as Expected");
+
+        } catch (NoSuchElementException | TimeoutException e) {
+            softAssert.fail("Customer's Airtel Money Service Status is not visible", e.getCause());
+            e.printStackTrace();
+        }
+
+        try {
+            softAssert.assertEquals(demographic.getDeviceCompatible(), profileAPI.getResult().getDeviceType(), "Customer's Device Type is not as Expected");
+        } catch (NoSuchElementException | TimeoutException e) {
+            softAssert.fail("Customer's Device Type is not visible", e.getCause());
+            e.printStackTrace();
+        }
+
+        try {
+            softAssert.assertEquals(demographic.getActivationTime().trim(), demographic.getDateFromEpoch(Long.parseLong(kycProfile.getResult().getActivationDate()), "hh: mm aa"), "Customer's Activation Time is not as Expected");
+        } catch (NoSuchElementException | TimeoutException e) {
+            softAssert.fail("Customer's Activation Time is not visible", e.getCause());
+            e.printStackTrace();
+        }
+        try {
+            softAssert.assertEquals(demographic.getSimNumber().trim(), Data.getCustomerNumber(), "Customer's Mobile Number is not as Expected");
+        } catch (NoSuchElementException | TimeoutException e) {
+            softAssert.fail("Customer's Mobile Number is not visible", e.getCause());
+            e.printStackTrace();
+        }
+        try {
+            softAssert.assertEquals(demographic.getSimType().trim(), kycProfile.getResult().getSimType(), "Customer's SIM Type is not as Expected");
+        } catch (NoSuchElementException | TimeoutException e) {
+            softAssert.fail("Customer's SIM Type is not visible", e.getCause());
+            e.printStackTrace();
+        }
+
+        try {
+            softAssert.assertEquals(demographic.getIdType().trim(), gsmKycAPI.getResult().getIdentificationType(), "Customer's ID Type is not as Expected");
+        } catch (NoSuchElementException | TimeoutException |NullPointerException e) {
+            softAssert.fail("Customer's Id Type is not visible", e.getCause());
+            e.printStackTrace();
+        }
+        try {
+            softAssert.assertTrue(gsmKycAPI.getResult().getIdentificationNo().contains(demographic.getIdNumber().replace("*", "")), "Customer's ID Number is not as Expected");
+        } catch (NoSuchElementException | TimeoutException e) {
+            softAssert.fail("Customer's Id Number is not visible", e.getCause());
+            e.printStackTrace();
+        }
+
+        try {
+            if (kycProfile.getResult().getLineType().isEmpty()) {
+                softAssert.assertEquals(demographic.getLineType().trim(), "-", "Customer Line Type as not expected");
+            } else {
+                softAssert.assertEquals(demographic.getLineType().toLowerCase().trim(), kycProfile.getResult().getLineType().toLowerCase().trim(), "Customer Line Type as not expected");
+            }
+        } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
+            softAssert.fail("Customer's Line Type is not visible", e.getCause());
+            e.printStackTrace();
+        }
+
+        try {
+            if (kycProfile.getResult().getServiceCategory().isEmpty()) {
+                softAssert.assertEquals(demographic.getServiceCategory().trim(), "-", "Customer Service Category as not expected");
+            } else {
+                softAssert.assertEquals(demographic.getServiceCategory().toLowerCase().trim(), kycProfile.getResult().getServiceCategory().toLowerCase().trim(), "Customer Service Category as not expected");
+            }
+        } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
+            softAssert.fail("Customer's Service Category is not visible", e.getCause());
+            e.printStackTrace();
+        }
+
+        try {
+            if (kycProfile.getResult().getSegment().isEmpty()) {
+                softAssert.assertEquals(demographic.getSegment().trim(), "- -", "Customer Segment as not expected");
+            } else {
+                softAssert.assertEquals(demographic.getSegment().toLowerCase().trim(), "- " + kycProfile.getResult().getSegment().toLowerCase().trim(), "Customer Segment as not expected");
+            }
+        } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
+            softAssert.fail("Customer's Segment is not visible", e.getCause());
+            e.printStackTrace();
+        }
+
+        try {
+            if (kycProfile.getResult().getServiceClass().isEmpty()) {
+                softAssert.assertEquals(demographic.getServiceClass().trim(), "-", "Customer Service Class as not expected");
+            } else {
+                softAssert.assertEquals(demographic.getServiceClass().toLowerCase().trim(), kycProfile.getResult().getServiceClass().toLowerCase().trim(), "Customer Service Class as not expected");
+            }
+        } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
+            softAssert.fail("Customer's Service Class is not visible", e.getCause());
+            e.printStackTrace();
+        }
+
+        try {
+            if (kycProfile.getResult().getVip()) {
+                softAssert.assertTrue(demographic.isVIP(), "Customer is VIP but Icon does not display as expected");
+            }
+        } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
+            softAssert.fail("Customer is VIP or not is not visible", e.getCause());
+            e.printStackTrace();
+        }
+
+        try {
+            demographic.hoverOnDeviceInfoIcon();
+            softAssert.assertEquals(demographic.getIMEINumber().trim(), profileAPI.getResult().getImeiNumber(), "Customer device IMEI number as not expected.");
+
+            try {
+                softAssert.assertEquals(demographic.getDeviceType().toLowerCase().trim(), profileAPI.getResult().getType().toLowerCase().trim(), "Customer device type as not expected.");
+            } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
+                softAssert.fail("Customer device type as not visible.", e.getCause());
+                e.printStackTrace();
+            }
+
+            try {
+                softAssert.assertEquals(demographic.getBrand().toLowerCase().trim(), profileAPI.getResult().getBrand().toLowerCase().trim(), "Customer device Brand as not expected.");
+            } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
+                softAssert.fail("Customer device Brand as not visible.", e.getCause());
+                e.printStackTrace();
+            }
+
+            try {
+                softAssert.assertEquals(demographic.getDeviceModel().toLowerCase().trim(), profileAPI.getResult().getModel().toLowerCase().trim(), "Customer device model as not expected.");
+            } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
+                softAssert.fail("Customer device model as not visible.", e.getCause());
+                e.printStackTrace();
+            }
+
+            try {
+                softAssert.assertEquals(demographic.getDeviceOS().toLowerCase().trim(), profileAPI.getResult().getOs().toLowerCase().trim(), "Customer device OS as not expected.");
+            } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
+                softAssert.fail("Customer device OS as not visible.", e.getCause());
+                e.printStackTrace();
+            }
+
+        } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
+            softAssert.fail("Customer device IMEI number is not visible.", e.getCause());
+            e.printStackTrace();
+        }
+
+        softAssert.assertAll();
+    }
+
     @Test(priority = 3, description = "As an agent I want capability to check if an MSISDN is valid or invalid")
     public void invalidMSISDNTest() {
         ExtentTestManager.startTest("Validating the Demographic Information of User with invalid MSISDN : 123456789", "Validating the Demographic Information of User : 123456789");
