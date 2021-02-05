@@ -35,7 +35,7 @@ import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 
 @Log4j2
-public class APITest extends tests.BaseTest {
+public class APIEndPoints extends tests.BaseTest {
     @DataProviders.User(UserType = "API")
     @Test(dataProvider = "loginData", dataProviderClass = DataProviders.class, priority = 1)
     public void loginAPI(TestDatabean Data) throws JsonProcessingException {

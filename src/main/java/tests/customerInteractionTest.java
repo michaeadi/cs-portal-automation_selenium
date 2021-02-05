@@ -1,7 +1,7 @@
 package tests;
 
 
-import API.APITest;
+import API.APIEndPoints;
 import POJO.*;
 import POJO.KYCProfile.KYCProfile;
 import Utils.DataProviders.AuthTabDataBeans;
@@ -27,7 +27,7 @@ import static Utils.DataProviders.DataProviders.User;
 public class customerInteractionTest extends BaseTest {
 
     static String customerNumber;
-    APITest api = new APITest();
+    APIEndPoints api = new APIEndPoints();
 
     @User()
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)

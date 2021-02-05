@@ -1,6 +1,6 @@
 package tests;
 
-import API.APITest;
+import API.APIEndPoints;
 import POJO.SMSHistory.SMSHistoryList;
 import POJO.SMSHistory.SMSHistoryPOJO;
 import Utils.DataProviders.DataProviders;
@@ -26,7 +26,7 @@ import static Utils.DataProviders.DataProviders.User;
 public class createInteractionTest extends BaseTest {
 
     String customerNumber = null;
-    APITest api = new APITest();
+    APIEndPoints api = new APIEndPoints();
 
     @User(UserType = "NFTR")
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)

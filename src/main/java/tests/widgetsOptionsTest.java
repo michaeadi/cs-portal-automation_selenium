@@ -1,9 +1,8 @@
 package tests;
 
-import API.APITest;
+import API.APIEndPoints;
 import POJO.AccountsBalancePOJO;
 import POJO.Accumulators.AccumulatorsPOJO;
-import POJO.BundleRechargeHistoryPOJO;
 import POJO.RechargeHistoryPOJO;
 import POJO.UsageHistoryPOJO;
 import Utils.DataProviders.DataProviders;
@@ -21,7 +20,7 @@ import static Utils.DataProviders.DataProviders.Table;
 
 public class widgetsOptionsTest extends BaseTest {
     String customerNumber;
-    APITest api = new APITest();
+    APIEndPoints api = new APIEndPoints();
 
     @Table(Name = "Da Details")
     @Test(priority = 1, description = "Validating DA Details", dataProvider = "HeaderData", dataProviderClass = DataProviders.class)

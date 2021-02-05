@@ -1,6 +1,6 @@
 package tests;
 
-import API.APITest;
+import API.APIEndPoints;
 import POJO.SMSHistory.SMSHistoryList;
 import POJO.SMSHistory.SMSHistoryPOJO;
 import Utils.DataProviders.DataProviders;
@@ -23,7 +23,7 @@ public class SupervisorUpdateTicket extends BaseTest {
 
     static String ticketId=null;
     String customerNumber = null;
-    APITest api = new APITest();
+    APIEndPoints api = new APIEndPoints();
 
     @DataProviders.User(UserType = "NFTR")
     @Test(priority = 0, dataProvider = "loginData", dataProviderClass = DataProviders.class)

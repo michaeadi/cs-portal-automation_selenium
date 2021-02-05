@@ -1,6 +1,6 @@
 package tests;
 
-import API.APITest;
+import API.APIEndPoints;
 import POJO.LoanDetails.*;
 import POJO.LoanSummary.Summary;
 import POJO.Vendors.HeaderList;
@@ -25,7 +25,7 @@ import java.util.NoSuchElementException;
 public class LoanWidgetTest extends BaseTest {
 
     static String customerNumber;
-    APITest api = new APITest();
+    APIEndPoints api = new APIEndPoints();
     ArrayList<Vendors> vendors;
 
     @DataProviders.User()

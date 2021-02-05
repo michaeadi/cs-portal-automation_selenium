@@ -7,7 +7,7 @@
     </listeners>
     <test name="Sanity API Login">
         <classes>
-            <class name="API.APITest">
+            <class name="API.APIEndPoints">
                 <methods>
                     <include name="loginAPI"/>
                 </methods>
@@ -96,7 +96,7 @@
     </test>
     <test name="api-Regenerate">
         <classes>
-            <class name="API.APITest">
+            <class name="API.APIEndPoints">
                 <methods>
                     <include name="loginAPI"/>
                 </methods>

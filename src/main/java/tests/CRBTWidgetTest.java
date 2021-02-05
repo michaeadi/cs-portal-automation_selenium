@@ -1,6 +1,6 @@
 package tests;
 
-import API.APITest;
+import API.APIEndPoints;
 import POJO.CRBT.ActivateRingtone;
 import POJO.CRBT.Top20Ringtone;
 import Utils.DataProviders.DataProviders;
@@ -20,7 +20,7 @@ import pages.customerInteractionsSearchPOM;
 public class CRBTWidgetTest extends BaseTest {
 
     String customerNumber = null;
-    APITest api = new APITest();
+    APIEndPoints api = new APIEndPoints();
 
     @DataProviders.User(UserType = "NFTR")
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)

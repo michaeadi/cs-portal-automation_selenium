@@ -1,6 +1,6 @@
 package tests;
 
-import API.APITest;
+import API.APIEndPoints;
 import POJO.TicketList.IssueDetails;
 import POJO.TicketList.TicketPOJO;
 import Utils.DataProviders.DataProviders;
@@ -25,7 +25,7 @@ import java.util.Map;
 public class SupervisorSearchTicket extends BaseTest {
 
 
-    APITest api = new APITest();
+    APIEndPoints api = new APIEndPoints();
 
     @Test(priority = 1, description = "Supervisor SKIP Login ")
     public void agentSkipQueueLogin(Method method) throws InterruptedException {

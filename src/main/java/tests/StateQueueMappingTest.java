@@ -1,6 +1,6 @@
 package tests;
 
-import API.APITest;
+import API.APIEndPoints;
 import POJO.TicketList.QueueStates;
 import POJO.TicketList.TicketPOJO;
 import Utils.DataProviders.DataProviders;
@@ -23,7 +23,7 @@ import java.util.List;
 
 public class StateQueueMappingTest extends BaseTest {
 
-    APITest api = new APITest();
+    APIEndPoints api = new APIEndPoints();
 
     @Test(priority = 1, description = "Supervisor SKIP Login ", enabled = true)
     public void agentSkipQueueLogin(Method method) {

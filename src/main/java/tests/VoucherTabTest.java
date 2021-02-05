@@ -1,6 +1,6 @@
 package tests;
 
-import API.APITest;
+import API.APIEndPoints;
 import POJO.Voucher.VoucherDetail;
 import POJO.Voucher.VoucherSearchPOJO;
 import Utils.DataProviders.DataProviders;
@@ -15,7 +15,7 @@ import pages.*;
 
 public class VoucherTabTest extends BaseTest {
 
-    APITest api = new APITest();
+    APIEndPoints api = new APIEndPoints();
 
     @DataProviders.User(UserType = "NFTR")
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
