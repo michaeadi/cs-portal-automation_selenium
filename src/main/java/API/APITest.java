@@ -71,9 +71,6 @@ public class APITest extends tests.BaseTest {
         getTest().log(LogStatus.INFO, "Response : " + response.asString());
         log.info("Response : " + response.asString());
         log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
-        if(response.statusCode()==1120){
-
-        }
         getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
         getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
 
