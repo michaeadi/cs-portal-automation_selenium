@@ -17,7 +17,7 @@ public class SideMenuPOM extends BasePage {
     By adminSettings = By.xpath("//mat-list-item//span[contains(text(),'Admin')]");
     By customerServices = By.xpath("//mat-list-item//span[contains(text(),'Customer')]");
     By caseManagement = By.xpath("//mat-list-item//span[contains(text(),'Case')]");
-    By userManagement = By.xpath("//a[contains(text(),'User Management')]");
+    By userManagement = By.xpath("//a[contains(text(),'User management')]");
     By profileManagement = By.xpath("//a[contains(text(),'Profile Management')]");
     By customerInteraction = By.xpath("//a[contains(text(),'Customer Interaction')]");
     By templateManagement = By.xpath("//a[contains(text(),'Template Management')]");

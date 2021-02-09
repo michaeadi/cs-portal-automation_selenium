@@ -366,7 +366,7 @@ public class APIEndPoints extends tests.BaseTest {
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
         getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
         log.info("Request Headers are  : " + queryable.getHeaders());
-        Response response = request.get("/cs-service/api/cs-service/v1/fetch/ticket");
+        Response response = request.get("/sr/api/sr-service/v1/fetch/ticket");
         log.info("Response : " + response.asString());
         log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
         getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
