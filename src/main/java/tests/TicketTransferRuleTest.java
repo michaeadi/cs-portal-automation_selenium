@@ -15,26 +15,7 @@ import java.lang.reflect.Method;
 
 public class TicketTransferRuleTest extends BaseTest {
 
-    @Test(priority = 1, description = "Supervisor SKIP Login ", dataProviderClass = DataProviders.class)
-    public void agentSkipQueueLogin() {
-        ExtentTestManager.startTest("Supervisor SKIP Queue Login", "Supervisor SKIP Queue Login");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
-        SideMenuPOM sideMenu = new SideMenuPOM(driver);
-        sideMenu.clickOnSideMenu();
-        sideMenu.clickOnName();
-        agentLoginPagePOM AgentLoginPagePOM = sideMenu.openSupervisorDashboard();
-        SoftAssert softAssert = new SoftAssert();
-        AgentLoginPagePOM.waitTillLoaderGetsRemoved();
-        softAssert.assertTrue(AgentLoginPagePOM.isQueueLoginPage(), "Agent redirect to Queue Login Page");
-        softAssert.assertTrue(AgentLoginPagePOM.checkSkipButton(), "Checking Queue Login Page have SKIP button");
-        softAssert.assertTrue(AgentLoginPagePOM.checkSubmitButton(), "Checking Queue Login Page have Submit button");
-        AgentLoginPagePOM.clickSkipBtn();
-        AgentLoginPagePOM.waitTillLoaderGetsRemoved();
-        Assert.assertEquals(driver.getTitle(), config.getProperty("supervisorTicketListPage"));
-        softAssert.assertAll();
-    }
-
-    @Test(priority = 2, dependsOnMethods = "agentSkipQueueLogin", description = "Ticket Transfer Rule Test", dataProvider = "ticketTransferRule", dataProviderClass = DataProviders.class)
+    @Test(priority = 1, description = "Ticket Transfer Rule Test", dataProvider = "ticketTransferRule", dataProviderClass = DataProviders.class)
     public void ticketTransferRuleCheck(Method method, TicketTransferRuleDataBean ruleData) throws InterruptedException {
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         ViewTicketPagePOM viewTicket = new ViewTicketPagePOM(driver);
@@ -62,7 +43,7 @@ public class TicketTransferRuleTest extends BaseTest {
             ticketId = ticketListPage.getTicketIdvalue();
         } catch (NoSuchElementException | TimeoutException e) {
             ticketListPage.resetFilter();
-            Assert.fail("No Ticket Found with Selected Filter :" + ticketId, e.getCause());
+            Assert.fail("No Ticket Found with Selected Filter ", e.getCause());
         }
         ticketListPage.viewTicket();
         Assert.assertEquals(ticketId, viewTicket.getTicketId(), "Verify the searched Ticket fetched Successfully");
@@ -80,6 +61,7 @@ public class TicketTransferRuleTest extends BaseTest {
                 softAssert.fail("Ticket has been transferred to Selected but not able search ticket."+e.fillInStackTrace());
             }
         } else {
+            viewTicket.clickOutside();
             viewTicket.clickBackButton();
             softAssert.fail("Required State not found");
         }

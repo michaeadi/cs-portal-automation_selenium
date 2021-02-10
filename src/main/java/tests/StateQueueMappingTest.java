@@ -25,26 +25,7 @@ public class StateQueueMappingTest extends BaseTest {
 
     APIEndPoints api = new APIEndPoints();
 
-    @Test(priority = 1, description = "Supervisor SKIP Login ", enabled = true)
-    public void agentSkipQueueLogin(Method method) {
-        ExtentTestManager.startTest("Supervisor SKIP Queue Login Test", "Supervisor SKIP Queue Login Test");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
-        SideMenuPOM sideMenu = new SideMenuPOM(driver);
-        sideMenu.clickOnSideMenu();
-        sideMenu.clickOnName();
-        agentLoginPagePOM AgentLoginPagePOM = sideMenu.openSupervisorDashboard();
-        SoftAssert softAssert = new SoftAssert();
-        AgentLoginPagePOM.waitTillLoaderGetsRemoved();
-        softAssert.assertTrue(AgentLoginPagePOM.isQueueLoginPage(), "Agent redirect to Queue Login Page");
-        softAssert.assertTrue(AgentLoginPagePOM.checkSkipButton(), "Checking Queue Login Page have SKIP button");
-        softAssert.assertTrue(AgentLoginPagePOM.checkSubmitButton(), "Checking Queue Login Page have Submit button");
-        AgentLoginPagePOM.clickSkipBtn();
-        AgentLoginPagePOM.waitTillLoaderGetsRemoved();
-        Assert.assertEquals(driver.getTitle(), config.getProperty("supervisorTicketListPage"));
-        softAssert.assertAll();
-    }
-
-    @Test(priority = 2, dependsOnMethods = "agentSkipQueueLogin", dataProvider = "queueState", description = "State Queue Mapping Test", enabled = true, dataProviderClass = DataProviders.class)
+    @Test(priority = 1, dataProvider = "queueState", description = "State Queue Mapping Test", enabled = true, dataProviderClass = DataProviders.class)
     public void stateQueueTest(Method method, QueueStateDataBeans data) throws InterruptedException {
         ExtentTestManager.startTest("State Queue Mapping Test: " + data.getQueue(), "State Queue Mapping Test");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");

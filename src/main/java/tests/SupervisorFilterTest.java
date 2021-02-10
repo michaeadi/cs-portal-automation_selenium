@@ -16,26 +16,7 @@ import java.lang.reflect.Method;
 
 public class SupervisorFilterTest extends BaseTest {
 
-    @Test(priority = 1, description = "Supervisor SKIP Login ", enabled = true)
-    public void agentSkipQueueLogin(Method method) {
-        ExtentTestManager.startTest("Supervisor SKIP Queue Login Test", "Supervisor SKIP Queue Login Test");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
-        SideMenuPOM sideMenu = new SideMenuPOM(driver);
-        sideMenu.clickOnSideMenu();
-        sideMenu.clickOnName();
-        agentLoginPagePOM AgentLoginPagePOM = sideMenu.openSupervisorDashboard();
-        SoftAssert softAssert = new SoftAssert();
-        AgentLoginPagePOM.waitTillLoaderGetsRemoved();
-        softAssert.assertTrue(AgentLoginPagePOM.isQueueLoginPage(), "Agent Does not redirect to Queue Login Page");
-        softAssert.assertTrue(AgentLoginPagePOM.checkSkipButton(), "Queue Login Page Does Not have SKIP button");
-        softAssert.assertTrue(AgentLoginPagePOM.checkSubmitButton(), "Queue Login Page have Does Not Submit button");
-        AgentLoginPagePOM.clickSkipBtn();
-        AgentLoginPagePOM.waitTillLoaderGetsRemoved();
-        Assert.assertEquals(driver.getTitle(), config.getProperty("supervisorTicketListPage"));
-        softAssert.assertAll();
-    }
-
-    @Test(priority = 2, dependsOnMethods = "agentSkipQueueLogin", description = "Validate Filter Tab for Supervisor", dataProviderClass = DataProviders.class)
+    @Test(priority = 1, description = "Validate Filter Tab for Supervisor", dataProviderClass = DataProviders.class)
     public void validateOpenFilterTab(Method method) throws InterruptedException {
         ExtentTestManager.startTest("Validate Filter Tab for Supervisor(Open State)", "Validate Filter Tab for Supervisor(Open State)");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
@@ -92,7 +73,7 @@ public class SupervisorFilterTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 3, dependsOnMethods = "agentSkipQueueLogin", description = "Validate Filter Tab for Supervisor", dataProviderClass = DataProviders.class)
+    @Test(priority = 2, description = "Validate Filter Tab for Supervisor", dataProviderClass = DataProviders.class)
     public void validateClosedFilterTab(Method method) throws InterruptedException {
         ExtentTestManager.startTest("Validate Filter Tab for Supervisor(Closed State)", "Validate Filter Tab for Supervisor(Closed State)");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");

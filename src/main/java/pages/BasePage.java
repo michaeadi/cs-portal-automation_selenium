@@ -65,13 +65,16 @@ public class BasePage {
     }
     //Click Method
     void click(By elementLocation) {
-        wait.until(ExpectedConditions.elementToBeClickable(elementLocation));
-        highLighterMethod(elementLocation);
-//        WebElement element = driver.findElement(elementLocation);
-//        Actions actions = new Actions(driver);
-//        actions.moveToElement(element).click().perform();
-        driver.findElement(elementLocation).click();
-        log.info("Clicking on element" + elementLocation.toString());
+        try {
+            wait.until(ExpectedConditions.elementToBeClickable(elementLocation));
+            highLighterMethod(elementLocation);
+            driver.findElement(elementLocation).click();
+            log.info("Clicking on element" + elementLocation.toString());
+        }catch (ElementClickInterceptedException e){
+            waitTillLoaderGetsRemoved();
+            driver.findElement(elementLocation).click();
+            log.info("Clicking Again on element" + elementLocation.toString());
+        }
     }
 
     void scrollToViewElement(By Element) throws InterruptedException {
