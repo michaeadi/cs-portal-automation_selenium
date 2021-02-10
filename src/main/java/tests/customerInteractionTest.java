@@ -329,7 +329,10 @@ public class customerInteractionTest extends BaseTest {
         customerInteractionsSearchPOM.enterNumber(Data.getSimNumber());
         customerNumber = Data.getCustomerNumber();
         customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
-        if(customerInteractionPagePOM.isPageLoaded())
+        if(!customerInteractionPagePOM.isPageLoaded()){
+            softAssert.fail("Customer Info Dashboard Page does not open using SIM Number.");
+            customerInteractionsSearchPOM.clearCustomerNumber();
+        }
         softAssert.assertAll();
     }
 

@@ -22,6 +22,11 @@ public class customerInteractionsSearchPOM extends BasePage {
         writeText(numberSearch, number);
     }
 
+    public void clearCustomerNumber(){
+        printInfoLog("Clearing Customer Number");
+        driver.findElement(numberSearch).clear();
+    }
+
     public customerInteractionPagePOM clickOnSearch() {
         log.info("Clicking on Search Button");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Search Button");
