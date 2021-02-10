@@ -318,7 +318,7 @@ public class customerInteractionTest extends BaseTest {
     }
 
     @User()
-    @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
+    @Test(priority = 3, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteractionBySIM(TestDatabean Data) {
         ExtentTestManager.startTest("Validating the Search for Customer Interactions By Using SIM Number :" + Data.getSimNumber(), "Validating the Search for Customer Interactions By Using SIM Number : " + Data.getSimNumber());
         SoftAssert softAssert = new SoftAssert();
@@ -329,12 +329,12 @@ public class customerInteractionTest extends BaseTest {
         customerInteractionsSearchPOM.enterNumber(Data.getSimNumber());
         customerNumber = Data.getCustomerNumber();
         customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
-        softAssert.assertTrue(customerInteractionPagePOM.isPageLoaded());
+        if(customerInteractionPagePOM.isPageLoaded())
         softAssert.assertAll();
     }
 
     @User()
-    @Test(priority = 2, description = "Validating Demographic Info", dataProvider = "loginData", dataProviderClass = DataProviders.class,dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 4, description = "Validating Demographic Info", dataProvider = "loginData", dataProviderClass = DataProviders.class,dependsOnMethods = "openCustomerInteraction")
     public void validateDemographicInformationBySIMNumber(TestDatabean Data) {
         ExtentTestManager.startTest("Validating the Demographic Information of User :" + Data.getCustomerNumber(), "Validating the Demographic Information of User :" + Data.getCustomerNumber());
         CustomerDemoGraphicPOM demographic = new CustomerDemoGraphicPOM(driver);
@@ -604,7 +604,7 @@ public class customerInteractionTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 3, description = "As an agent I want capability to check if an MSISDN is valid or invalid")
+    @Test(priority = 5, description = "As an agent I want capability to check if an MSISDN is valid or invalid")
     public void invalidMSISDNTest() {
         ExtentTestManager.startTest("Validating the Demographic Information of User with invalid MSISDN : 123456789", "Validating the Demographic Information of User : 123456789");
         CustomerDemoGraphicPOM demographic = new CustomerDemoGraphicPOM(driver);
@@ -621,7 +621,7 @@ public class customerInteractionTest extends BaseTest {
     }
 
     @User(UserType = "API")
-    @Test(priority = 4, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
+    @Test(priority = 6, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteractionAPI(TestDatabean Data) {
         ExtentTestManager.startTest("Validating the Search forCustomer Interactions :" + Data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + Data.getCustomerNumber());
         SoftAssert softAssert = new SoftAssert();
@@ -638,7 +638,7 @@ public class customerInteractionTest extends BaseTest {
     }
 
     @Table(Name = "Airtel Money")
-    @Test(priority = 5, description = "Validating AM Transaction Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, enabled = false)
+    @Test(priority = 7, description = "Validating AM Transaction Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, enabled = false)
     public void airtelMoneyTransactionWidgetTest(HeaderDataBean Data) {
         ExtentTestManager.startTest("Validating AM Transaction Widget", "Validating AM Transaction Widget of User :" + customerNumber);
         AMTransactionsWidgetPOM amTransactionsWidget = new AMTransactionsWidgetPOM(driver);
@@ -672,7 +672,7 @@ public class customerInteractionTest extends BaseTest {
     }
 
     //Needs Discussion
-    @Test(priority = 6, description = "Validating Current Balance Widget")
+    @Test(priority = 8, description = "Validating Current Balance Widget")
     public void yourCurrentBalanceWidgetTest() {
         ExtentTestManager.startTest("Validating Current Balance Transaction Widget", "Validating Current Balance Transaction Widget of User :" + customerNumber);
         CurrentBalanceWidgetPOM currentBalanceWidget = new CurrentBalanceWidgetPOM(driver);
@@ -730,7 +730,7 @@ public class customerInteractionTest extends BaseTest {
 
 
     @Table(Name = "Usage History")
-    @Test(priority = 7, description = "Validating Usage History Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
+    @Test(priority = 9, description = "Validating Usage History Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
     public void usageHistoryWidgetTest(HeaderDataBean Data) {
         ExtentTestManager.startTest("Validating Usage History Widget", "Validating Usage History Widget of User :" + customerNumber);
         UsageHistoryWidgetPOM usageHistoryWidget = new UsageHistoryWidgetPOM(driver);
@@ -770,7 +770,7 @@ public class customerInteractionTest extends BaseTest {
 
 
     @Table(Name = "Recharge History")
-    @Test(priority = 8, description = "Validating Recharge History Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
+    @Test(priority = 10, description = "Validating Recharge History Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
     public void rechargeHistoryWidgetTest(HeaderDataBean Data) {
         ExtentTestManager.startTest("Validating Recharge History Widget", "Validating Recharge History Widget of User :" + customerNumber);
         RechargeHistoryWidgetPOM rechargeHistoryWidget = new RechargeHistoryWidgetPOM(driver);

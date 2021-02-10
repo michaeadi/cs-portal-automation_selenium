@@ -98,10 +98,10 @@ public class customerInteractionPagePOM extends BasePage {
 
 
     public boolean isPageLoaded() {
-        waitVisibility(searchNumber);
-        log.info("Checking that is Customer Interaction Page is loaded : " + checkState(searchNumber));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking that is Customer Interaction Page is loaded : " + checkState(searchNumber));
-        return checkState(searchNumber);
+        Boolean check=checkState(searchNumber);
+        log.info("Checking that is Customer Interaction Page is loaded : " + check);
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking that is Customer Interaction Page is loaded : " + check);
+        return check;
     }
 
     public InteractionsPOM clickOnInteractionIcon() {
