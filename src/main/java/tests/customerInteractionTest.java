@@ -35,13 +35,16 @@ public class customerInteractionTest extends BaseTest {
         ExtentTestManager.startTest("Validating the Search forCustomer Interactions :" + Data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + Data.getCustomerNumber());
         SoftAssert softAssert = new SoftAssert();
         SideMenuPOM SideMenuPOM = new SideMenuPOM(driver);
+        customerNumber = Data.getCustomerNumber();
         SideMenuPOM.clickOnSideMenu();
         SideMenuPOM.clickOnName();
         customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
         customerInteractionsSearchPOM.enterNumber(Data.getCustomerNumber());
-        customerNumber = Data.getCustomerNumber();
         customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
-        softAssert.assertTrue(customerInteractionPagePOM.isPageLoaded());
+        if(!customerInteractionPagePOM.isPageLoaded()){
+            softAssert.fail("Customer Info Dashboard Page does not open using SIM Number.");
+            customerInteractionsSearchPOM.clearCustomerNumber();
+        }
         softAssert.assertAll();
     }
 
@@ -141,7 +144,7 @@ public class customerInteractionTest extends BaseTest {
         try {
             softAssert.assertEquals(demographic.getActivationDate().trim(), demographic.getDateFromEpoch(Long.parseLong(kycProfile.getResult().getActivationDate()), "dd MMMM yyyy"), "Customer's Activation Date is not as Expected");
 
-        } catch (NoSuchElementException | TimeoutException | NumberFormatException e) {
+        } catch (NoSuchElementException | TimeoutException | NumberFormatException | NullPointerException e) {
             softAssert.fail("Customer's Activation Date is not visible", e.getCause());
             e.printStackTrace();
         }
@@ -331,13 +334,16 @@ public class customerInteractionTest extends BaseTest {
         customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
         if(!customerInteractionPagePOM.isPageLoaded()){
             softAssert.fail("Customer Info Dashboard Page does not open using SIM Number.");
-            customerInteractionsSearchPOM.clearCustomerNumber();
+            String base64Screenshot = "data:image/png;base64," + ((TakesScreenshot) driver).
+                getScreenshotAs(OutputType.BASE64);
+        ExtentTestManager.getTest().log(LogStatus.INFO, ExtentTestManager.getTest().addBase64ScreenShot(base64Screenshot));
+        customerInteractionsSearchPOM.clearCustomerNumber();
         }
         softAssert.assertAll();
     }
 
     @User()
-    @Test(priority = 4, description = "Validating Demographic Info", dataProvider = "loginData", dataProviderClass = DataProviders.class,dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 4, description = "Validating Demographic Info", dataProvider = "loginData", dataProviderClass = DataProviders.class,dependsOnMethods = "openCustomerInteractionBySIM")
     public void validateDemographicInformationBySIMNumber(TestDatabean Data) {
         ExtentTestManager.startTest("Validating the Demographic Information of User :" + Data.getCustomerNumber(), "Validating the Demographic Information of User :" + Data.getCustomerNumber());
         CustomerDemoGraphicPOM demographic = new CustomerDemoGraphicPOM(driver);
@@ -636,7 +642,10 @@ public class customerInteractionTest extends BaseTest {
         customerNumber = Data.getCustomerNumber();
         customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
         softAssert.assertTrue(customerInteractionPagePOM.isPageLoaded());
-        customerInteractionPagePOM.waitTillTimeLineGetsRemoved();
+        if(!customerInteractionPagePOM.isPageLoaded()){
+            softAssert.fail("Customer Info Dashboard Page does not open using SIM Number.");
+            customerInteractionsSearchPOM.clearCustomerNumber();
+        }
         softAssert.assertAll();
     }
 
