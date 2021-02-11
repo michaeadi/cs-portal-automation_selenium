@@ -51,8 +51,8 @@ public class StateQueueMappingTest extends BaseTest {
             filterTab.clickCloseFilter();
             Assert.fail("Not able to apply filter " + e.fillInStackTrace());
         }
-        Assert.assertEquals(ticketListPage.getqueueValue().toLowerCase().trim(), data.getQueue().toLowerCase().trim(), "Ticket Does not found with Selected Queue");
         try {
+            Assert.assertEquals(ticketListPage.getqueueValue().toLowerCase().trim(), data.getQueue().toLowerCase().trim(), "Ticket Does not found with Selected Queue");
             //Re-check
             ticketId = ticketListPage.getTicketIdvalue();
             TicketPOJO ticketPOJO = api.ticketMetaDataTest(ticketId);
@@ -80,7 +80,7 @@ public class StateQueueMappingTest extends BaseTest {
             }
         } catch (NoSuchElementException | TimeoutException e) {
             e.printStackTrace();
-            softAssert.fail("Ticket id search not done for following error: " + e.getMessage());
+            softAssert.fail("Not able to search Ticket due to following error: " + e.getMessage());
         }
         ticketListPage.resetFilter();
         softAssert.assertAll();

@@ -60,6 +60,7 @@ public class TicketTransferRuleTest extends BaseTest {
             } catch (TimeoutException | NoSuchElementException e) {
                 softAssert.fail("Ticket has been transferred to Selected but not able search ticket."+e.fillInStackTrace());
             }
+            ticketListPage.clearInputBox();
         } else {
             viewTicket.clickOutside();
             viewTicket.clickBackButton();
