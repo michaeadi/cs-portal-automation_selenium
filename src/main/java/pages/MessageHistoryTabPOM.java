@@ -27,7 +27,7 @@ public class MessageHistoryTabPOM extends BasePage {
     By actionLabel = By.xpath("//table[@id=\"fetchTicketByCustomer\"]//thead/tr[1]/th[8]//b");
     By listOfMessage = By.xpath("//table[@id=\"fetchTicketByCustomer\"]//tbody/tr");
     List<WebElement> list = returnListOfElement(listOfMessage);
-    By popUpTitle = By.xpath("//h1[@id='mat-dialog-title-1']");
+    By popUpTitle = By.xpath("//h1[contains(text(),'Resend Message')]");
     By popUpMessage = By.xpath("//p[@class=\"error\"]");
     By yesBtn = By.xpath("//div[@class=\"deactivate-popup__content mat-dialog-content\"]//button[2]");
     By noBtn = By.xpath("//div[@class=\"deactivate-popup__content mat-dialog-content\"]//button[1]");
