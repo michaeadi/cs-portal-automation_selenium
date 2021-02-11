@@ -50,7 +50,7 @@ public class supervisorTicketListPagePOM extends BasePage {
     By loggedInQueue = By.xpath("//span[contains(text(),'Login with Ticket Pool')]");
     By selectTicketType = By.xpath("//*[@name=\"state\"]");
     By openTicketType = By.xpath("//span[contains(text(),' Open ') and @class='mat-option-text']");
-    By closedTicketType = By.xpath("//span[contains(text(),' Closed ') and @class='mat-option-text']]");
+    By closedTicketType = By.xpath("//span[contains(text(),' Closed ') and @class='mat-option-text']");
     By selectFilterBtn = By.xpath("//span[contains(text(),'Select Filter')]");
     By pageRefreshBtn = By.xpath("//span[contains(text(),'Refresh ')]");
     By noResultFound = By.xpath("//body//mat-error//p[1]");
