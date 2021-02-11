@@ -63,6 +63,7 @@ public class BasePage {
     public void waitTillTimeLineGetsRemoved() {
         wait1.until(ExpectedConditions.invisibilityOfElementLocated(timeLine));
     }
+
     //Click Method
     void click(By elementLocation) {
         try {
@@ -70,7 +71,7 @@ public class BasePage {
             highLighterMethod(elementLocation);
             driver.findElement(elementLocation).click();
             log.info("Clicking on element" + elementLocation.toString());
-        }catch (ElementClickInterceptedException e){
+        } catch (ElementClickInterceptedException e) {
             waitTillLoaderGetsRemoved();
             driver.findElement(elementLocation).click();
             log.info("Clicking Again on element" + elementLocation.toString());
@@ -113,7 +114,7 @@ public class BasePage {
             waitVisibility(elementLocation);
             highLighterMethod(elementLocation);
             return driver.findElement(elementLocation).isEnabled();
-        }catch (NoSuchElementException | TimeoutException e){
+        } catch (NoSuchElementException | TimeoutException e) {
             e.printStackTrace();
             return false;
         }
@@ -168,15 +169,19 @@ public class BasePage {
     }
 
     public String getDateFromEpoch(long Epoch, String pattern) {
-        Date date = new Date(Epoch);
-        DateFormat format = new SimpleDateFormat(pattern);
-        return format.format(date);
+        if (Epoch == 0) {
+            return "-";
+        } else {
+            Date date = new Date(Epoch);
+            DateFormat format = new SimpleDateFormat(pattern);
+            return format.format(date);
+        }
     }
 
-    public String getDateFromString(String date, String pattern) {
+    public String getDateFromString(String date, String newPatten, String existingPattern) {
         try {
-            Date newDate = new SimpleDateFormat("dd-MMM-yyyy hh:mm aa").parse(date);
-            DateFormat format = new SimpleDateFormat(pattern);
+            Date newDate = new SimpleDateFormat(existingPattern).parse(date);
+            DateFormat format = new SimpleDateFormat(newPatten);
             return format.format(newDate);
         } catch (ParseException e) {
             printFailLog("Not able to parse the date: " + date + " " + e.fillInStackTrace());
@@ -260,35 +265,35 @@ public class BasePage {
         final Calendar cal = Calendar.getInstance();
         try {
             if (historyDateTime.contains("Yesterday")) {
-                String pattern1=pattern.split("hh")[0].trim();
+                String pattern1 = pattern.split("hh")[0].trim();
                 DateFormat format1 = new SimpleDateFormat(pattern1);
                 cal.add(Calendar.DATE, -1);
                 String yesterday = format1.format(cal.getTime());
-                historyDateTime=historyDateTime.replace("Yesterday",yesterday);
-                System.out.println(historyDateTime+" :"+yesterday);
+                historyDateTime = historyDateTime.replace("Yesterday", yesterday);
+                System.out.println(historyDateTime + " :" + yesterday);
             }
 
             if (historyDateTime1.contains("Yesterday")) {
-                String pattern1=pattern.split("hh")[0].trim();
+                String pattern1 = pattern.split("hh")[0].trim();
                 DateFormat format1 = new SimpleDateFormat(pattern1);
                 cal.add(Calendar.DATE, -1);
                 String yesterday = format1.format(cal.getTime());
-                historyDateTime1=historyDateTime1.replace("Yesterday",yesterday);
-                System.out.println(historyDateTime1+" :"+yesterday);
+                historyDateTime1 = historyDateTime1.replace("Yesterday", yesterday);
+                System.out.println(historyDateTime1 + " :" + yesterday);
             }
 
             if (historyDateTime.contains("Today")) {
-                String pattern1=pattern.split("hh")[0].trim();
+                String pattern1 = pattern.split("hh")[0].trim();
                 DateFormat format1 = new SimpleDateFormat(pattern1);
                 String today = format1.format(Calendar.getInstance().getTime());
-                historyDateTime=historyDateTime.replace("Today",today);
+                historyDateTime = historyDateTime.replace("Today", today);
             }
 
             if (historyDateTime1.contains("Today")) {
-                String pattern1=pattern.split("hh")[0].trim();
+                String pattern1 = pattern.split("hh")[0].trim();
                 DateFormat format1 = new SimpleDateFormat(pattern1);
                 String today = format1.format(Calendar.getInstance().getTime());
-                historyDateTime1=historyDateTime1.replace("Today",today);
+                historyDateTime1 = historyDateTime1.replace("Today", today);
             }
 
             Date date1 = format.parse(historyDateTime);

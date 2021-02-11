@@ -154,7 +154,7 @@ public class customerInteractionTest extends BaseTest {
             demographic.hoverOnSIMStatusInfoIcon();
             softAssert.assertEquals(demographic.getSIMStatusReasonCode().trim().toLowerCase(),kycProfile.getResult().getReason()==null || kycProfile.getResult().getReason()=="" ?"-":kycProfile.getResult().getReason().toLowerCase().trim(),"Customer SIM Status Reason is not as Expected");
             softAssert.assertEquals(demographic.getSIMStatusModifiedBy().trim().toLowerCase(),kycProfile.getResult().getModifiedBy().trim().toLowerCase(),"Customer SIM Status Modified By is not as Expected");
-            softAssert.assertEquals(demographic.getSIMStatusModifiedDate().trim(),demographic.getDateFromString(kycProfile.getResult().getModifiedDate(),"dd-MMM-yyy HH:mm"),"Customer SIM Status Modified Date is not as Expected");
+            softAssert.assertEquals(demographic.getSIMStatusModifiedDate().trim(),demographic.getDateFromString(kycProfile.getResult().getModifiedDate(),"dd-MMM-yyy HH:mm","dd-MMM-yyyy hh:mm aa"),"Customer SIM Status Modified Date is not as Expected");
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
             softAssert.fail("Customer's SIM Status is not visible", e.getCause());
             e.printStackTrace();
@@ -447,7 +447,7 @@ public class customerInteractionTest extends BaseTest {
             demographic.hoverOnSIMStatusInfoIcon();
             softAssert.assertEquals(demographic.getSIMStatusReasonCode().trim().toLowerCase(),kycProfile.getResult().getReason()==null || kycProfile.getResult().getReason()=="" ?"-":kycProfile.getResult().getReason().toLowerCase().trim(),"Customer SIM Status Reason is not as Expected");
             softAssert.assertEquals(demographic.getSIMStatusModifiedBy().trim().toLowerCase(),kycProfile.getResult().getModifiedBy().trim().toLowerCase(),"Customer SIM Status Modified By is not as Expected");
-            softAssert.assertEquals(demographic.getSIMStatusModifiedDate().trim(),demographic.getDateFromString(kycProfile.getResult().getModifiedDate(),"dd-MMM-yyy HH:mm"),"Customer SIM Status Modified Date is not as Expected");
+            softAssert.assertEquals(demographic.getSIMStatusModifiedDate().trim(),demographic.getDateFromString(kycProfile.getResult().getModifiedDate(),"dd-MMM-yyy HH:mm","dd-MMM-yyyy hh:mm aa"),"Customer SIM Status Modified Date is not as Expected");
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
             softAssert.fail("Customer's SIM Status is not visible", e.getCause());
             e.printStackTrace();
@@ -613,7 +613,7 @@ public class customerInteractionTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 5, description = "As an agent I want capability to check if an MSISDN is valid or invalid")
+    @Test(priority = 5, description = "As an agent I want capability to check if an MSISDN is valid or invalid",dependsOnMethods = "openCustomerInteractionBySIM")
     public void invalidMSISDNTest() {
         ExtentTestManager.startTest("Validating the Demographic Information of User with invalid MSISDN : 123456789", "Validating the Demographic Information of User : 123456789");
         CustomerDemoGraphicPOM demographic = new CustomerDemoGraphicPOM(driver);
@@ -765,7 +765,7 @@ public class customerInteractionTest extends BaseTest {
             for (int i = 0; i < size; i++) {
                 softAssert.assertEquals(usageHistoryWidget.getHistoryType(i), usageHistoryAPI.getResult().get(i).getType(), "Usage History Type is not As received in API for row number " + i);
                 softAssert.assertEquals(usageHistoryWidget.getHistoryCharge(i), usageHistoryAPI.getResult().get(i).getCharges(), "Usage History Charge is not As received in API for row number " + i);
-                softAssert.assertEquals(usageHistoryWidget.getHistoryDateTime(i), usageHistoryWidget.getDateFromString(usageHistoryAPI.getResult().get(i).getDateTime(), "dd-MMM-yyy HH:mm"), "Usage History Date Time is not As received in API for row number " + i);
+                softAssert.assertEquals(usageHistoryWidget.getHistoryDateTime(i), usageHistoryWidget.getDateFromString(usageHistoryAPI.getResult().get(i).getDateTime(), config.getProperty("UIUsageHistoryTimeFormat"),config.getProperty("APIUsageHistoryTimeFormat")), "Usage History Date Time is not As received in API for row number " + i);
                 softAssert.assertEquals(usageHistoryWidget.getHistoryStartBalance(i), usageHistoryAPI.getResult().get(i).getStartBalance(), "Usage History Start Balance  is not As received in API for row number " + i);
                 softAssert.assertEquals(usageHistoryWidget.getHistoryEndBalance(i), usageHistoryAPI.getResult().get(i).getEndBalance(), "Usage History End Balance is not As received in API for row number " + i);
                 if (i != 0) {
@@ -803,7 +803,7 @@ public class customerInteractionTest extends BaseTest {
             softAssert.assertEquals(rechargeHistoryWidget.getHeaders(5).toLowerCase().trim(), Data.getRow5().toLowerCase().trim(), "Header Name for Row 5 is not as expected");
             for (int i = 0; i < size; i++) {
                 softAssert.assertEquals(rechargeHistoryWidget.getRechargeHistoryCharges(i+1), rechargeHistoryAPI.getResult().get(i).getCharges(), "Recharge History Charge is not As received in API for row number " + i);
-                softAssert.assertEquals(rechargeHistoryWidget.getRechargeHistoryDateTime(i+1), rechargeHistoryWidget.getDateFromString(rechargeHistoryAPI.getResult().get(i).getDateTime(), "dd-MMM-yyyy HH:mm"), "Recharge History Date Time is not As received in API for row number " + i);
+                softAssert.assertEquals(rechargeHistoryWidget.getRechargeHistoryDateTime(i+1), rechargeHistoryWidget.getDateFromString(rechargeHistoryAPI.getResult().get(i).getDateTime(), config.getProperty("UIRechargeHistoryTimeFormat"),config.getProperty("APIRechargeHistoryTimeFormat")), "Recharge History Date Time is not As received in API for row number " + i);
                 softAssert.assertEquals(rechargeHistoryWidget.getRechargeHistoryBundleName(i+1), rechargeHistoryAPI.getResult().get(i).getBundleName(), "Recharge History Bundle Name is not As received in API for row number " + i);
                 softAssert.assertEquals(rechargeHistoryWidget.getRechargeHistoryBenefits(i+1).replace("-", "null"), rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getVOICE() + " | " + rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getDATA() + " | " + rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getSMS(), "Recharge History Benefits is not As received in API for row number " + i);
                 softAssert.assertEquals(rechargeHistoryWidget.getRechargeHistoryStatus(i+1), rechargeHistoryAPI.getResult().get(i).getStatus(), "Recharge History Status is not As received in API for row number " + i);
