@@ -1,13 +1,23 @@
 package tests;
 
 import API.APIEndPoints;
+import POJO.LoginPOJO;
 import POJO.SMSHistory.SMSHistoryList;
 import POJO.SMSHistory.SMSHistoryPOJO;
 import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.TestDatabean;
 import Utils.DataProviders.nftrDataBeans;
 import Utils.ExtentReports.ExtentTestManager;
+import Utils.PassUtils;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.relevantcodes.extentreports.LogStatus;
+import io.restassured.http.Header;
+import io.restassured.http.Headers;
+import io.restassured.response.Response;
+import io.restassured.specification.QueryableRequestSpecification;
+import io.restassured.specification.RequestSpecification;
+import io.restassured.specification.SpecificationQuerier;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -18,6 +28,12 @@ import pages.*;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.concurrent.TimeUnit;
+
+import static Utils.ExtentReports.ExtentTestManager.getTest;
+import static Utils.ExtentReports.ExtentTestManager.startTest;
+import static io.restassured.RestAssured.baseURI;
+import static io.restassured.RestAssured.given;
 
 public class SupervisorUpdateTicket extends BaseTest {
 
@@ -25,13 +41,49 @@ public class SupervisorUpdateTicket extends BaseTest {
     String customerNumber = null;
     APIEndPoints api = new APIEndPoints();
 
+    @DataProviders.User(UserType = "API")
+    @Test(dataProvider = "loginData", dataProviderClass = DataProviders.class, priority = 0)
+    public void loginAPI(TestDatabean Data) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        LoginPOJO Req = LoginPOJO.loginBody(PassUtils.decodePassword(Data.getPassword()), Data.getLoginAUUID());
+        map.clear();
+        map.add(new Header("x-app-name", config.getProperty(Env + "-x-app-name")));
+        map.add(new Header("x-service-id", config.getProperty(Env + "-x-service-id")));
+        //map.add(new Header("x-bsy-bn", config.getProperty(Env + "-x-bsy-bn"))); //Comment this line this header removed from MG Opco.
+        map.add(new Header("x-app-type", config.getProperty(Env + "-x-app-type")));
+        map.add(new Header("x-client-id", config.getProperty(Env + "-x-client-id")));
+        map.add(new Header("x-api-key", config.getProperty(Env + "-x-api-key")));
+        map.add(new Header("x-login-module", config.getProperty(Env + "-x-login-module")));
+        map.add(new Header("x-channel", config.getProperty(Env + "-x-channel")));
+        map.add(new Header("x-app-version", config.getProperty(Env + "-x-app-version")));
+        map.add(new Header("Opco", Opco));
+
+        String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(Req);
+        startTest("LOGIN API TEST ", "Logging in Using Login API for getting TOKEN with user : " + Data.getLoginAUUID());
+        getTest().log(LogStatus.INFO, "Logging in Using Login API for getting TOKEN with user : " + Data.getLoginAUUID());
+        baseURI = baseUrl;
+        Headers headers = new Headers(map);
+        RequestSpecification request = given()
+                .headers(headers)
+                .body(dtoAsString)
+                .contentType("application/json");
+        QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
+        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
+        Response response = request.post("/auth/api/user-mngmnt/v2/login");
+        Token = "Bearer " + response.jsonPath().getString("result.accessToken");
+        map.add(new Header("Authorization", Token));
+        getTest().log(LogStatus.INFO, "Response : " + response.asString());
+        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
+        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+    }
+
     @DataProviders.User(UserType = "NFTR")
-    @Test(priority = 0, dataProvider = "loginData", dataProviderClass = DataProviders.class)
+    @Test(priority = 1, dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void setCustomerNumber(Method method, TestDatabean Data) {
         customerNumber = Data.getCustomerNumber();
     }
 
-    @Test(priority = 1, description = "Update Ticket", dataProvider = "ticketId", dataProviderClass = DataProviders.class)
+    @Test(priority = 2, description = "Update Ticket", dataProvider = "ticketId", dataProviderClass = DataProviders.class)
     public void updateTicket(Method method, nftrDataBeans Data) throws InterruptedException {
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         ViewTicketPagePOM viewTicket = new ViewTicketPagePOM(driver);
@@ -92,7 +144,7 @@ public class SupervisorUpdateTicket extends BaseTest {
     }
 
     @DataProviders.User(UserType = "NFTR")
-    @Test(priority = 2, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
+    @Test(priority = 3, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteraction(Method method, TestDatabean Data) throws IOException {
         ExtentTestManager.startTest("Validating the Search forCustomer Interactions :" + Data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + Data.getCustomerNumber());
         SoftAssert softAssert = new SoftAssert();
@@ -110,7 +162,7 @@ public class SupervisorUpdateTicket extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 3, dependsOnMethods = "openCustomerInteraction", description = "Validate Re-open Icon on Closed Ticket")
+    @Test(priority = 4, dependsOnMethods = "openCustomerInteraction", description = "Validate Re-open Icon on Closed Ticket")
     public void validateReopenIcon() throws InterruptedException, IOException {
         ExtentTestManager.startTest("Validate Re-open Icon on Closed Ticket: " + ticketId, "Validate Re-open Icon on Closed Ticket: " + ticketId);
         SoftAssert softAssert = new SoftAssert();

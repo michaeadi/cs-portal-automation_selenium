@@ -1,12 +1,23 @@
 package tests;
 
 import API.APIEndPoints;
+import POJO.LoginPOJO;
 import POJO.TicketList.IssueDetails;
 import POJO.TicketList.TicketPOJO;
 import Utils.DataProviders.DataProviders;
+import Utils.DataProviders.TestDatabean;
 import Utils.DataProviders.nftrDataBeans;
 import Utils.ExtentReports.ExtentTestManager;
+import Utils.PassUtils;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.relevantcodes.extentreports.LogStatus;
+import io.restassured.http.Header;
+import io.restassured.http.Headers;
+import io.restassured.response.Response;
+import io.restassured.specification.QueryableRequestSpecification;
+import io.restassured.specification.RequestSpecification;
+import io.restassured.specification.SpecificationQuerier;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -21,11 +32,53 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
+import static Utils.ExtentReports.ExtentTestManager.getTest;
+import static Utils.ExtentReports.ExtentTestManager.startTest;
+import static io.restassured.RestAssured.baseURI;
+import static io.restassured.RestAssured.given;
 
 public class SupervisorSearchTicket extends BaseTest {
 
 
     APIEndPoints api = new APIEndPoints();
+
+    @DataProviders.User(UserType = "API")
+    @Test(dataProvider = "loginData", dataProviderClass = DataProviders.class, priority = 0)
+    public void loginAPI(TestDatabean Data) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        LoginPOJO Req = LoginPOJO.loginBody(PassUtils.decodePassword(Data.getPassword()), Data.getLoginAUUID());
+        map.clear();
+        map.add(new Header("x-app-name", config.getProperty(Env + "-x-app-name")));
+        map.add(new Header("x-service-id", config.getProperty(Env + "-x-service-id")));
+        //map.add(new Header("x-bsy-bn", config.getProperty(Env + "-x-bsy-bn"))); //Comment this line this header removed from MG Opco.
+        map.add(new Header("x-app-type", config.getProperty(Env + "-x-app-type")));
+        map.add(new Header("x-client-id", config.getProperty(Env + "-x-client-id")));
+        map.add(new Header("x-api-key", config.getProperty(Env + "-x-api-key")));
+        map.add(new Header("x-login-module", config.getProperty(Env + "-x-login-module")));
+        map.add(new Header("x-channel", config.getProperty(Env + "-x-channel")));
+        map.add(new Header("x-app-version", config.getProperty(Env + "-x-app-version")));
+        map.add(new Header("Opco", Opco));
+
+        String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(Req);
+        startTest("LOGIN API TEST ", "Logging in Using Login API for getting TOKEN with user : " + Data.getLoginAUUID());
+        getTest().log(LogStatus.INFO, "Logging in Using Login API for getting TOKEN with user : " + Data.getLoginAUUID());
+        baseURI = baseUrl;
+        Headers headers = new Headers(map);
+        RequestSpecification request = given()
+                .headers(headers)
+                .body(dtoAsString)
+                .contentType("application/json");
+        QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
+        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
+        Response response = request.post("/auth/api/user-mngmnt/v2/login");
+        Token = "Bearer " + response.jsonPath().getString("result.accessToken");
+        map.add(new Header("Authorization", Token));
+        getTest().log(LogStatus.INFO, "Response : " + response.asString());
+        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
+        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+    }
 
     @Test(priority = 1, description = "Ticket Search ", dataProvider = "ticketId", dataProviderClass = DataProviders.class)
     public void SearchTicket(Method method, nftrDataBeans Data) {
@@ -55,19 +108,19 @@ public class SupervisorSearchTicket extends BaseTest {
                 softAssert.assertTrue(ticketListPage.isSubTypeLabel(), "Ticket Meta Data Does Not Have Issue Sub Type");
                 softAssert.assertTrue(ticketListPage.isSubSubTypeLabel(), "Ticket Meta Data Does Not Have Issue Sub Sub Type");
                 softAssert.assertTrue(ticketListPage.isCodeLabel(), "Ticket Meta Data Does Not Have Code");
-                softAssert.assertEquals(ticketListPage.getIssueValue().toLowerCase().trim(), Data.getIssue().toLowerCase().trim(),
+                softAssert.assertEquals(ticketListPage.getIssueValue().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), Data.getIssue().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(),
                         "Issue Does Not Validated");
-                softAssert.assertEquals(ticketListPage.getIssueTypeValue().toLowerCase().trim(), Data.getIssueType().toLowerCase().trim(),
+                softAssert.assertEquals(ticketListPage.getIssueTypeValue().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), Data.getIssueType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(),
                         "Issue Does Not Type Validated");
-                softAssert.assertEquals(ticketListPage.getSubTypeValue().toLowerCase().trim(), Data.getIssueSubType().toLowerCase().trim(),
+                softAssert.assertEquals(ticketListPage.getSubTypeValue().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), Data.getIssueSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(),
                         "Issue Does Not Sub Type Validated");
-                softAssert.assertEquals(ticketListPage.getsubSubTypeValue().toLowerCase().trim(), Data.getIssueSubSubType().toLowerCase().trim(),
+                softAssert.assertEquals(ticketListPage.getsubSubTypeValue().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), Data.getIssueSubSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(),
                         "Issue Does Not Sub Sub Type Validated");
                 softAssert.assertEquals(ticketListPage.getCodeValue().toLowerCase().trim(), Data.getIssueCode().toLowerCase().trim(),
                         "Issue Does Not Code Validated");
-                softAssert.assertEquals(ticketListPage.getWorkGroupName().toLowerCase().trim(), Data.getWorkgroup1().toLowerCase().trim(),
+                softAssert.assertEquals(ticketListPage.getWorkGroupName().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), Data.getWorkgroup1().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(),
                         "Ticket Does Not WorkGroup Validated");
-                softAssert.assertEquals(ticketListPage.getqueueValue().toLowerCase().trim(), Data.getAssignmentQueue().toLowerCase().trim(),
+                softAssert.assertEquals(ticketListPage.getqueueValue().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), Data.getAssignmentQueue().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(),
                         "Ticket Does Not Queue Validated");
                 softAssert.assertEquals(ticketListPage.getPriorityValue().toLowerCase().trim(), Data.getPriority().toLowerCase().trim(),
                         "Ticket Does Not Priority Validated");
