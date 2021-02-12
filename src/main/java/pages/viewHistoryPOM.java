@@ -52,12 +52,20 @@ public class viewHistoryPOM extends BasePage {
         return readText(firstIssueCode);
     }
 
-    public String getAttributeValue(int index) {
-        By element = By.xpath("//table[@id=\"fetchInteractionByCustomer\"]//tbody//tr[" + index + "]//td[8]//span[1]//span[1]");
+    public String ftrIssueValue(int index) {
+        By element = By.xpath("//table[@id=\"fetchInteractionByCustomer\"]//tbody//tr[" + index + "]//td[9]//span[1]//span[1]");
         String value = driver.findElement(element).getAttribute("title");
         log.info("Reading Attribute Value: " + value);
         return value;
     }
+
+    public String nftrIssueValue(int index) {
+        By element = By.xpath("//table[@id=\"fetchInteractionByCustomer\"]//tbody//tr[" + index + "]//td[9]//span[2]//span[1]");
+        String value = driver.findElement(element).getAttribute("title");
+        log.info("Reading Attribute Value: " + value);
+        return value;
+    }
+
 
     public void clickTicketIcon(int index) {
         By element = By.xpath("//table[@id=\"fetchInteractionByCustomer\"]//tbody//tr[" + index + "]//td[8]//span[1]//span[1]");
@@ -69,8 +77,8 @@ public class viewHistoryPOM extends BasePage {
         try {
             List<WebElement> list = returnListOfElement(allIssue);
             for (int i = 1; i <= list.size(); i++) {
-                if (!getAttributeValue(i).equalsIgnoreCase("ftr")) {
-                    ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Ticket NFTR ticket icon" + getAttributeValue(i));
+                if (!nftrIssueValue(i).equalsIgnoreCase("ftr")) {
+                    ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Ticket NFTR ticket icon" + nftrIssueValue(i));
                     clickTicketIcon(i);
                     return true;
                 }
