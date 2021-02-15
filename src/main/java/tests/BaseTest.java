@@ -43,7 +43,7 @@ public class BaseTest {
         if (System.getProperty("suiteType").equalsIgnoreCase("Regression")) {
             suiteType = "Regression";
         } else if (System.getProperty("suiteType").equalsIgnoreCase("Sanity")) {
-            suiteType = "Prod";
+            suiteType = "Sanity";
         }else if (System.getProperty("suiteType").equalsIgnoreCase("Prod")) {
             suiteType = "Prod";
         }
@@ -51,7 +51,7 @@ public class BaseTest {
 
         Opco = System.getProperty("Opco").toUpperCase();
         Env = System.getProperty("Env").toUpperCase();
-        if (Env.equalsIgnoreCase("TEST")) Env = "PROD";
+        if (Env.equalsIgnoreCase("TEST")) Env = "SIT";
         ExcelPath = Opco + ".xlsx";
         config = new Properties();
         FileInputStream fis;
