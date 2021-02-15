@@ -5,6 +5,7 @@ import POJO.Accumulators.AccumulatorsPOJO;
 import POJO.CRBT.ActivateRingtone;
 import POJO.CRBT.Top20Ringtone;
 import POJO.ClearRefillStatus.RefillStatus;
+import POJO.HLRService.HLRServicePOJO;
 import POJO.KYCProfile.KYCProfile;
 import POJO.LoanDetails.Loan;
 import POJO.LoanSummary.Summary;
@@ -531,6 +532,24 @@ public class APIEndPoints extends tests.BaseTest {
         getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
         getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
         return response.as(AccumulatorsPOJO.class);
+    }
+
+    public HLRServicePOJO getServiceProfileWidgetInfo(String msisdn) {
+        getTest().log(LogStatus.INFO, "Using fetch Ringtone details using MSISDN");
+        baseURI = baseUrl;
+        Headers headers = new Headers(map);
+        RequestSpecification request = given()
+                .headers(headers).body("{\"msisdn\":\""+msisdn+"\",\"pageSize\":5,\"pageNumber\":1}").contentType("application/json");
+        QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
+        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
+        log.info("Request Headers are  : " + queryable.getHeaders());
+        log.info("Request Body are  : " + queryable.getBody());
+        Response response = request.post("/cs-gsm-service/v1/hlr/service/profiles");
+        log.info("Response : " + response.asString());
+        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
+        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        return response.as(HLRServicePOJO.class);
     }
 
 }

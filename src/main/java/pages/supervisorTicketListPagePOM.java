@@ -66,6 +66,8 @@ public class supervisorTicketListPagePOM extends BasePage {
     By searchOptionBtn = By.xpath("//div[@class='options']");
     By allSearchOption = By.xpath("//ul[@class='ng-star-inserted']//li");
     By msisdn=By.xpath("//span[@class=\"td-msisdn auuid-clr\"]");
+    By allTicketTab=By.xpath("//div[@class='mat-tab-list']//div[contains(text(),'All Tickets')]");
+    By myTicketTab=By.xpath("//div[@class='mat-tab-list']//div[contains(text(),'My Assigned Tickets')]");
 
     public supervisorTicketListPagePOM(WebDriver driver) {
         super(driver);
@@ -368,6 +370,28 @@ public class supervisorTicketListPagePOM extends BasePage {
             log.info("Checking red dot symbol for negative SLA: " + checkState(redDot));
             ExtentTestManager.getTest().log(LogStatus.INFO, "Checking red dot symbol for negative SLA: " + checkState(redDot));
             return checkState(redDot);
+        } catch (TimeoutException e) {
+            log.info(e.fillInStackTrace());
+            return false;
+        }
+    }
+
+    public boolean isAllTicketTab() {
+        try {
+            boolean flag=checkState(allTicket);
+            printInfoLog("IS All Assigned Ticket Tab displayed: " + flag);
+            return flag;
+        } catch (TimeoutException e) {
+            log.info(e.fillInStackTrace());
+            return false;
+        }
+    }
+
+    public boolean isMyAssignedTicketTab() {
+        try {
+            boolean flag=checkState(myTicketTab);
+            printInfoLog("IS My Assigned Ticket Tab displayed: " + flag);
+            return flag;
         } catch (TimeoutException e) {
             log.info(e.fillInStackTrace());
             return false;
