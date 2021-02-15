@@ -378,7 +378,7 @@ public class supervisorTicketListPagePOM extends BasePage {
 
     public boolean isAllTicketTab() {
         try {
-            boolean flag=checkState(allTicket);
+            boolean flag=checkState(allTicketTab);
             printInfoLog("IS All Assigned Ticket Tab displayed: " + flag);
             return flag;
         } catch (TimeoutException e) {
