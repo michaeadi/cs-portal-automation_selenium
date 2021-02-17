@@ -3,6 +3,7 @@ package tests;
 
 import API.APIEndPoints;
 import POJO.*;
+import POJO.AirtelMoney.AirtelMoneyPOJO;
 import POJO.HLRService.HLRServicePOJO;
 import POJO.KYCProfile.KYCProfile;
 import Utils.DataProviders.AuthTabDataBeans;
@@ -665,7 +666,7 @@ public class customerInteractionTest extends BaseTest {
         softAssert.assertEquals(amTransactionsWidget.getHeaders(5).toLowerCase().trim(), Data.getRow5().toLowerCase().trim(), "Header Name for Row 5 is not as expected");
 
         AMProfilePOJO amServiceProfileAPI = api.amServiceProfileAPITest(customerNumber);
-        AMTransactionHistoryPOJO amTransactionHistoryAPI = api.transactionHistoryAPITest(customerNumber);
+        AirtelMoneyPOJO amTransactionHistoryAPI = api.transactionHistoryAPITest(customerNumber);
         if (amServiceProfileAPI.getResult() != null) {
             softAssert.assertEquals(amTransactionsWidget.gettingAirtelMoneyBalance(), Double.parseDouble(amServiceProfileAPI.getResult().getWallet().get(0).getBalance())
                     , "Customer's Airtel Money Balance is not as Expected");

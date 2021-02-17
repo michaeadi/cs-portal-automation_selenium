@@ -2,6 +2,7 @@ package API;
 
 import POJO.*;
 import POJO.Accumulators.AccumulatorsPOJO;
+import POJO.AirtelMoney.AirtelMoneyPOJO;
 import POJO.CRBT.ActivateRingtone;
 import POJO.CRBT.Top20Ringtone;
 import POJO.ClearRefillStatus.RefillStatus;
@@ -293,7 +294,7 @@ public class APIEndPoints extends tests.BaseTest {
         return response.as(BundleRechargeHistoryPOJO.class);
     }
 
-    public AMTransactionHistoryPOJO transactionHistoryAPITest(String msisdn) {
+    public AirtelMoneyPOJO transactionHistoryAPITest(String msisdn) {
         getTest().log(LogStatus.INFO, "Using Transaction History API for Getting expected data for UI");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
@@ -311,7 +312,7 @@ public class APIEndPoints extends tests.BaseTest {
         log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
         getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
         getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
-        return response.as(AMTransactionHistoryPOJO.class);
+        return response.as(AirtelMoneyPOJO.class);
     }
 
     public AccountsBalancePOJO balanceAPITest(String msisdn) {
