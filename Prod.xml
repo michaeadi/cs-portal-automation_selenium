@@ -24,73 +24,73 @@
             <class name="tests.sideMenuTests"/>
         </classes>
     </test>
-    <test name="Customer Interactions TEST" preserve-order="true">
-        <classes>
-            <class name="tests.customerInteractionTest"/>
-            <class name="tests.widgetsOptionsTest"/>
-        </classes>
-    </test>
-    <test name="Validate Authentication tab">
-        <classes>
-            <class name="tests.AuthTabTest">
-                <methods>
-                    <exclude name="validateResetME2UPassword"/>
-                </methods>
-            </class>
-        </classes>
-    </test>
-    <test name="Validate Frontend Agent Ticket Page">
-        <classes>
-            <class name="tests.FrontendAgentTicketTest"/>
-        </classes>
-    </test>
-    <test name="Logout Test">
-        <classes>
-            <class name="tests.LogoutTest"/>
-        </classes>
-    </test>
-    <test name="Supervisors Login Test">
-        <classes>
-            <class name="tests.SupervisorLoginTest"/>
-        </classes>
-    </test>
-    <test name="api-Regenerate">
-        <classes>
-            <class name="API.APIEndPoints">
-                <methods>
-                    <include name="loginAPI"/>
-                </methods>
-            </class>
-        </classes>
-    </test>
-    <test name="Supervisors Validate Filter Option ">
-        <classes>
-            <class name="tests.SupervisorFilterTest"/>
-        </classes>
-    </test>
-    <test name="Supervisors Search/View Ticket ">
-        <classes>
-            <class name="tests.PRODSupervisorTicket"/>
-        </classes>
-    </test>
-    <test name="Logout Supervisor Test">
-        <classes>
-            <class name="tests.LogoutTest"/>
-        </classes>
-    </test>
-    <test name="LOGIN TO BACKEND AGENT">
-        <classes>
-            <class name="tests.BackendAgentLoginTest"/>
-        </classes>
-    </test>
-    <test name="Validate BACKEND AGENT Filter Options">
-        <classes>
-            <class name="tests.BackendAgentFilterTest"/>
-        </classes>
-    </test>
-    <test name="Logout Test from Backend agent">
-        <classes>
-            <class name="tests.LogoutTest"/>
-        </classes>
-    </test>
+<!--    <test name="Customer Interactions TEST" preserve-order="true">-->
+<!--        <classes>-->
+<!--            <class name="tests.customerInteractionTest"/>-->
+<!--            <class name="tests.widgetsOptionsTest"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="Validate Authentication tab">-->
+<!--        <classes>-->
+<!--            <class name="tests.AuthTabTest">-->
+<!--                <methods>-->
+<!--                    <exclude name="validateResetME2UPassword"/>-->
+<!--                </methods>-->
+<!--            </class>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="Validate Frontend Agent Ticket Page">-->
+<!--        <classes>-->
+<!--            <class name="tests.FrontendAgentTicketTest"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="Logout Test">-->
+<!--        <classes>-->
+<!--            <class name="tests.LogoutTest"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="Supervisors Login Test">-->
+<!--        <classes>-->
+<!--            <class name="tests.SupervisorLoginTest"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="api-Regenerate">-->
+<!--        <classes>-->
+<!--            <class name="API.APIEndPoints">-->
+<!--                <methods>-->
+<!--                    <include name="loginAPI"/>-->
+<!--                </methods>-->
+<!--            </class>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="Supervisors Validate Filter Option ">-->
+<!--        <classes>-->
+<!--            <class name="tests.SupervisorFilterTest"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="Supervisors Search/View Ticket ">-->
+<!--        <classes>-->
+<!--            <class name="tests.PRODSupervisorTicket"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="Logout Supervisor Test">-->
+<!--        <classes>-->
+<!--            <class name="tests.LogoutTest"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="LOGIN TO BACKEND AGENT">-->
+<!--        <classes>-->
+<!--            <class name="tests.BackendAgentLoginTest"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="Validate BACKEND AGENT Filter Options">-->
+<!--        <classes>-->
+<!--            <class name="tests.BackendAgentFilterTest"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="Logout Test from Backend agent">-->
+<!--        <classes>-->
+<!--            <class name="tests.LogoutTest"/>-->
+<!--        </classes>-->
+<!--    </test>-->
 </suite>
