@@ -15,10 +15,10 @@ public class AirtelMoneyData {
     private String service;
     private String source;
     private String msisdn;
-    private Integer amount;
-    private Integer serviceCharge;
-    private Integer balanceBefore;
-    private Integer balanceAfter;
+    private String amount;
+    private String serviceCharge;
+    private String balanceBefore;
+    private String balanceAfter;
     private String status;
     private String currencyType;
     private String txnType;

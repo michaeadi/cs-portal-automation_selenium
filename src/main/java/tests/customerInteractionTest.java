@@ -652,18 +652,13 @@ public class customerInteractionTest extends BaseTest {
     }
 
     @Table(Name = "Airtel Money")
-    @Test(priority = 7, description = "Validating AM Transaction Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, enabled = false)
+    @Test(priority = 7, description = "Validating AM Transaction Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, enabled = true)
     public void airtelMoneyTransactionWidgetTest(HeaderDataBean Data) {
         ExtentTestManager.startTest("Validating AM Transaction Widget", "Validating AM Transaction Widget of User :" + customerNumber);
         AMTransactionsWidgetPOM amTransactionsWidget = new AMTransactionsWidgetPOM(driver);
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(amTransactionsWidget.isAirtelMoneyTransactionWidgetIsVisible(), "Airtel Money Transaction Widget is not visible");
         softAssert.assertTrue(amTransactionsWidget.isAirtelMoneyWidgetDatePickerVisible(), "Airtel Money Transaction Widget's Date Picker is not visible");
-        softAssert.assertEquals(amTransactionsWidget.getHeaders(1).toLowerCase().trim(), Data.getRow1().toLowerCase().trim(), "Header Name for Row 1 is not as expected");
-        softAssert.assertEquals(amTransactionsWidget.getHeaders(2).toLowerCase().trim(), Data.getRow2().toLowerCase().trim(), "Header Name for Row 2 is not as expected");
-        softAssert.assertEquals(amTransactionsWidget.getHeaders(3).toLowerCase().trim(), Data.getRow3().toLowerCase().trim(), "Header Name for Row 3 is not as expected");
-        softAssert.assertEquals(amTransactionsWidget.getHeaders(4).toLowerCase().trim(), Data.getRow4().toLowerCase().trim(), "Header Name for Row 4 is not as expected");
-        softAssert.assertEquals(amTransactionsWidget.getHeaders(5).toLowerCase().trim(), Data.getRow5().toLowerCase().trim(), "Header Name for Row 5 is not as expected");
 
         AMProfilePOJO amServiceProfileAPI = api.amServiceProfileAPITest(customerNumber);
         AirtelMoneyPOJO amTransactionHistoryAPI = api.transactionHistoryAPITest(customerNumber);
@@ -681,6 +676,30 @@ public class customerInteractionTest extends BaseTest {
         if (amTransactionHistoryAPI.getStatusCode() != 200) {
             softAssert.assertTrue(amTransactionsWidget.isAirtelMoneyErrorVisible(), "API is Giving error But Widget is not showing error Message on API is " + amTransactionHistoryAPI.getMessage());
             softAssert.fail("API is Unable to Get AM Transaction History for Customer");
+        }else{
+            softAssert.assertEquals(amTransactionsWidget.getHeaders(1).toLowerCase().trim(), Data.getRow1().toLowerCase().trim(), "Header Name for Row 1 is not as expected");
+            softAssert.assertEquals(amTransactionsWidget.getHeaders(2).toLowerCase().trim(), Data.getRow2().toLowerCase().trim(), "Header Name for Row 2 is not as expected");
+            softAssert.assertEquals(amTransactionsWidget.getHeaders(3).toLowerCase().trim(), Data.getRow3().toLowerCase().trim(), "Header Name for Row 3 is not as expected");
+            softAssert.assertEquals(amTransactionsWidget.getHeaders(4).toLowerCase().trim(), Data.getRow4().toLowerCase().trim(), "Header Name for Row 4 is not as expected");
+            softAssert.assertEquals(amTransactionsWidget.getHeaders(5).toLowerCase().trim(), Data.getRow5().toLowerCase().trim(), "Header Name for Row 5 is not as expected");
+            int count=amTransactionHistoryAPI.getResult().getTotalCount();
+            if(count>0){
+                if(count>5){
+                    count=5;
+                }
+                for(int i=0;i<count;i++) {
+                    softAssert.assertEquals(amTransactionsWidget.getValueCorrespondingToHeader(i+1,1),amTransactionHistoryAPI.getResult().getData().get(i).getAmount(),"Amount is not expected as API response.");
+                    softAssert.assertEquals(amTransactionsWidget.getValueCorrespondingToHeader(i+1,2),amTransactionHistoryAPI.getResult().getData().get(i).getMsisdn(),"Receiver MSISDN is not expected as API response.");
+                    softAssert.assertEquals(amTransactionsWidget.getValueCorrespondingToHeader(i+1,3),amTransactionsWidget.getDateFromEpoch(new Long(amTransactionHistoryAPI.getResult().getData().get(i).getTransactionDate()),config.getProperty("AMHistoryTimeFormat")),"Date is not expected as API response.");
+                    softAssert.assertEquals(amTransactionsWidget.getValueCorrespondingToHeader(i+1,4),amTransactionHistoryAPI.getResult().getData().get(i).getTransactionId(),"Transaction Id is not expected as API response.");
+                    softAssert.assertEquals(amTransactionsWidget.getValueCorrespondingToHeader(i+1,5),amTransactionHistoryAPI.getResult().getData().get(i).getStatus(),"Status is not expected as API response.");
+                    if(amTransactionHistoryAPI.getResult().getData().get(i).getEnableResendSms()){
+                        softAssert.assertTrue(amTransactionsWidget.isResendSMS(),"Resend SMS Icon does not enable as mentioned in API Response.");
+                    }
+                }
+            }else{
+                softAssert.assertTrue(amTransactionsWidget.isAirtelMoneyNoResultFoundVisible(),"No Result Found Icon does not display on UI.");
+            }
         }
         softAssert.assertAll();
     }
