@@ -76,6 +76,7 @@ public class TransferToQueueTest extends BaseTest {
             ticketListPage.waitTillLoaderGetsRemoved();
             try {
                 Assert.assertEquals(ticketListPage.getqueueValue().toLowerCase().trim(), data.getToQueue().toLowerCase().trim(), "Ticket Does not Transfer to Selected Queue");
+                ticketListPage.clearInputBox();
             } catch (AssertionError f) {
                 f.printStackTrace();
                 ticketListPage.printInfoLog("Not able to perform transfer to Queue action: " + ticketListPage.getTransferErrorMessage());
@@ -90,6 +91,7 @@ public class TransferToQueueTest extends BaseTest {
                         Assert.assertEquals(ticketListPage.getqueueValue().toLowerCase().trim(), data.getToQueue().toLowerCase().trim(), "Ticket Does not Transfer to Selected Queue");
                     } catch (NoSuchElementException | TimeoutException g) {
                         softAssert.fail("Transfer Anyway does not display in case of ticket does not transfer to selected queue.");
+                        ticketListPage.clickCancelBtn();
                     }
                 } else {
                     ticketListPage.clickCancelBtn();

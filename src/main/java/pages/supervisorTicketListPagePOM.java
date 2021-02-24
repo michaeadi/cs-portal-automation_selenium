@@ -32,7 +32,7 @@ public class supervisorTicketListPagePOM extends BasePage {
     By createdbyvalue = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\" or @class=\"data-area\"]//ul[1]//li[6]//span[2]");
     By queueLabel = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\" or @class=\"data-area\"]//ul[1]//li[7]//span[1]");
     By listQueueValue = By.xpath("//ul/li[7]/span[2]");
-    By queueValue = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\" or @class=\"data-area\"]//ul[1]//li[7]//span[2]");
+    By queueValue = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"or @class=\"container-fluid table-card light-red ng-star-inserted\"][1]//div[@class=\"data-area-full\" or @class=\"data-area\"]//ul[1]//li[7]//span[2]");
     By issueLabel = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\" or @class=\"data-area\"]//ul[2]//li[1]//span[1]");
     By issueValue = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\" or @class=\"data-area\"]//ul[2]//li[1]//span[2]");
     By issueTypeLabel = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\" or @class=\"data-area\"]//ul[2]//li[2]//span[1]");
