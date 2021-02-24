@@ -25,19 +25,19 @@ public class MoreAMTransactionsTabPOM extends BasePage {
     * */
     By searchTxnId=By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Airtel Money Transactions\")]//parent::div//input[@type='search']");
     By searchBtn=By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Airtel Money Transactions\")]//parent::div//button[@class=\"search-icon-btn\"]");
-    By negAmount=By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Airtel Money Transactions\")]/ancestor::div[@class=\"card widget ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"card__card-header--card-body--table--data-list row-border\"][10]//span[@class=\"amount-sign db ng-star-inserted\"]");
-    By posAmount=By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Airtel Money Transactions\")]/ancestor::div[@class=\"card widget ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"card__card-header--card-body--table--data-list row-border\"][10]//span[@class=\"amount-sign cr ng-star-inserted\"]");
 
 
     public MoreAMTransactionsTabPOM(WebDriver driver) {
         super(driver);
     }
 
-    public Boolean isNegSignDisplay(){
+    public Boolean isNegSignDisplay(int row){
+        By negAmount=By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Airtel Money Transactions\")]/ancestor::div[@class=\"card widget ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"card__card-header--card-body--table--data-list row-border\"]["+row+"]//span[@class=\"amount-sign db ng-star-inserted\"]");
         return checkState(negAmount);
     }
 
-    public Boolean isPosSignDisplay(){
+    public Boolean isPosSignDisplay(int row){
+        By posAmount=By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Airtel Money Transactions\")]/ancestor::div[@class=\"card widget ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"card__card-header--card-body--table--data-list row-border\"]["+row+"]//span[@class=\"amount-sign cr ng-star-inserted\"]");
         return checkState(posAmount);
     }
 

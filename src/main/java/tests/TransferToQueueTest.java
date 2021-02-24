@@ -16,7 +16,22 @@ import java.lang.reflect.Method;
 
 public class TransferToQueueTest extends BaseTest {
 
-    @Test(priority = 1, dataProvider = "TransferQueue", description = "Transfer to queue", enabled = true, dataProviderClass = DataProviders.class)
+    @Test(priority = 1, description = "Supervisor Dashboard Login ")
+    public void openSupervisorDashboard(Method method) {
+        ExtentTestManager.startTest("Open Supervisor Dashboard", "Open Supervisor Dashboard");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
+        SideMenuPOM sideMenu = new SideMenuPOM(driver);
+        sideMenu.waitTillLoaderGetsRemoved();
+        sideMenu.clickOnSideMenu();
+        sideMenu.clickOnName();
+        agentLoginPagePOM AgentLoginPagePOM = sideMenu.openSupervisorDashboard();
+        SoftAssert softAssert = new SoftAssert();
+        AgentLoginPagePOM.waitTillLoaderGetsRemoved();
+        Assert.assertEquals(driver.getTitle(), config.getProperty("supervisorTicketListPage"));
+        softAssert.assertAll();
+    }
+
+    @Test(priority = 2, dataProvider = "TransferQueue", description = "Transfer to queue", enabled = true, dataProviderClass = DataProviders.class)
     public void transferToQueue(Method method, TransferQueueDataBean data) throws InterruptedException {
         ExtentTestManager.startTest("Transfer to queue", "Transfer to queue");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
@@ -49,7 +64,7 @@ public class TransferToQueueTest extends BaseTest {
                     softAssert.assertTrue(ticketListPage.isAssignToAgent(), "Assign to Agent Button Does Not Available");
                     softAssert.assertTrue(ticketListPage.isTransferToQueue(), "Transfer to Queue Button Does Not Available");
                     ticketListPage.clickTransfertoQueue();
-                    softAssert.assertTrue(transferQueue.validatePageTitle(),"Page Title Does not Display");
+                    softAssert.assertTrue(transferQueue.validatePageTitle(), "Page Title Does not Display");
                     transferQueue.clickTransferQueue(data.getToQueue());
                 } catch (NoSuchElementException | TimeoutException e) {
                     softAssert.fail("Not able to perform Transfer to Queue: " + e.fillInStackTrace());
@@ -59,10 +74,27 @@ public class TransferToQueueTest extends BaseTest {
                 softAssert.fail("No Ticket Found in Selected Queue to perform transfer to queue action" + e.fillInStackTrace());
             }
             ticketListPage.waitTillLoaderGetsRemoved();
-            ticketListPage.writeTicketId(ticketId);
-            ticketListPage.clickSearchBtn();
-            ticketListPage.waitTillLoaderGetsRemoved();
-            Assert.assertEquals(ticketListPage.getqueueValue().toLowerCase().trim(), data.getToQueue().toLowerCase().trim(), "Ticket Does not Transfer to Selected Queue");
+            try {
+                Assert.assertEquals(ticketListPage.getqueueValue().toLowerCase().trim(), data.getToQueue().toLowerCase().trim(), "Ticket Does not Transfer to Selected Queue");
+            } catch (AssertionError f) {
+                f.printStackTrace();
+                ticketListPage.printInfoLog("Not able to perform transfer to Queue action: " + ticketListPage.getTransferErrorMessage());
+                softAssert.assertTrue(ticketListPage.isCancelBtn(),"Cancel Button does not display.");
+                if (data.getTransferAnyway().equalsIgnoreCase("true")) {
+                    softAssert.assertTrue(ticketListPage.isTransferAnyWayBtn(), "Transfer Any button does not displayed.");
+                    try {
+                        ticketListPage.clickTransferAnyWayBtn();
+                        ticketListPage.writeTicketId(ticketId);
+                        ticketListPage.clickSearchBtn();
+                        ticketListPage.waitTillLoaderGetsRemoved();
+                        Assert.assertEquals(ticketListPage.getqueueValue().toLowerCase().trim(), data.getToQueue().toLowerCase().trim(), "Ticket Does not Transfer to Selected Queue");
+                    } catch (NoSuchElementException | TimeoutException g) {
+                        softAssert.fail("Transfer Anyway does not display in case of ticket does not transfer to selected queue.");
+                    }
+                } else {
+                    ticketListPage.clickCancelBtn();
+                }
+            }
         } catch (InterruptedException | NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
             e.printStackTrace();
             filterTab.clickOutsideFilter();

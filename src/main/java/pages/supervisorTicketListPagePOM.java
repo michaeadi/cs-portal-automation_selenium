@@ -44,7 +44,7 @@ public class supervisorTicketListPagePOM extends BasePage {
     By codeLabel = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\" or @class=\"data-area\"]//ul[2]//li[5]//span[1]");
     By codeValue = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\" or @class=\"data-area\"]//ul[2]//li[5]//span[2]");
     By assignedto = By.xpath("//body//p//span[1]");
-    By checkBox = By.xpath("//app-ticket-list//div[1]//div[1]//div[1]//input[@class=\"supercheck\"]");
+    By checkBox = By.xpath("//app-ticket-list//div[1]//div[1]//div[1]//input[@class=\"supercheck\" or @class=\"supercheck ng-star-inserted\"]");
     By assignToagentBtn = By.xpath("//li[1]//button[1]");
     By transfertoQueueBtn = By.xpath("//li[2]//button[1]");
     By loggedInQueue = By.xpath("//span[contains(text(),'Login with Ticket Pool')]");
@@ -62,15 +62,47 @@ public class supervisorTicketListPagePOM extends BasePage {
     By redDot = By.xpath("//span[@class='reddot ng-star-inserted']");
     By greenDot = By.xpath("//span[@class='greendot ng-star-inserted']");
     By assigneeAUUID = By.xpath("//div[@class='service-request']//div[1]//div[1]//div[2]//div[2]//p[1]//span[3]");
+    By assigneeName = By.xpath("//div[@class='service-request']//div[1]//div[1]//div[2]//div[2]//p[1]//span[2]");
     By allTicket = By.xpath("//div[@class=\"container-fluid table-card ng-star-inserted\"]");
     By searchOptionBtn = By.xpath("//div[@class='options']");
     By allSearchOption = By.xpath("//ul[@class='ng-star-inserted']//li");
     By msisdn=By.xpath("//span[@class=\"td-msisdn auuid-clr\"]");
     By allTicketTab=By.xpath("//div[@class='mat-tab-list']//div[contains(text(),'All Tickets')]");
     By myTicketTab=By.xpath("//div[@class='mat-tab-list']//div[contains(text(),'My Assigned Tickets')]");
+    By transferErrorMessage=By.xpath("//div[@class=\"transferQueueError bk-light-red ng-star-inserted\"]//span");
+    By cancelBtn=By.xpath("//span[contains(text(),'Cancel')]");
+    By transferAnywayBtn=By.xpath("//span[contains(text(),'Transfer Anyway')]");
 
     public supervisorTicketListPagePOM(WebDriver driver) {
         super(driver);
+    }
+
+    public String getTransferErrorMessage(){
+        String value=readText(transferErrorMessage);
+        printInfoLog("Reading transfer error message: "+value);
+        return value;
+    }
+
+    public Boolean isCancelBtn(){
+        Boolean status=checkState(cancelBtn);
+        printInfoLog("Is Cancel Button Displayed: "+status);
+        return status;
+    }
+
+    public Boolean isTransferAnyWayBtn() {
+        Boolean status = checkState(transferAnywayBtn);
+        printInfoLog("Is Transfer Any Way Button Displayed: " + status);
+        return status;
+    }
+
+    public void clickCancelBtn(){
+        printInfoLog("Clicking on Cancel Button.");
+        click(cancelBtn);
+    }
+
+    public void clickTransferAnyWayBtn(){
+        printInfoLog("Clicking on Transfer Anyway button");
+        click(transferAnywayBtn);
     }
 
     public void writeTicketId(String ticketId) {
@@ -359,6 +391,16 @@ public class supervisorTicketListPagePOM extends BasePage {
         try {
             log.info("Ticket Assignee to :" + readText(assigneeAUUID));
             return readText(assigneeAUUID);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Not Assigned";
+        }
+    }
+
+    public String getAssigneeName(){
+        try {
+            log.info("Ticket Assignee to :" + readText(assigneeName));
+            return readText(assigneeName);
         } catch (Exception e) {
             e.printStackTrace();
             return "Not Assigned";

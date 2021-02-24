@@ -60,6 +60,9 @@ public class TransferQueueDataToExcel {
                             case 1:
                                 testDataBean.setToQueue(cellValue);
                                 break;
+                            case 2:
+                                testDataBean.setTransferAnyway(cellValue);
+                                break;
                         }
                     }
                 }

@@ -388,9 +388,9 @@ public class widgetsOptionsTest extends BaseTest {
                         softAssert.assertEquals(amTransactionsWidget.getHeaders(12).toLowerCase().trim(), Data.getRow12().toLowerCase().trim(), "Header Name for Row 12 is not as expected");
                         for (int i = 0; i < count; i++) {
                             if (amTransactionHistoryAPI.getResult().getData().get(i).getAmount().charAt(0) == '+') {
-                                softAssert.assertTrue(amTransactionsWidget.isPosSignDisplay(), "Positive Sign does not display in case of Amount Credited.");
+                                softAssert.assertTrue(amTransactionsWidget.isPosSignDisplay(i+1), i+"th Positive Sign does not display in case of Amount Credited.");
                             } else {
-                                softAssert.assertTrue(amTransactionsWidget.isNegSignDisplay(), "Negative Sign does not display in case of Amount Debited.");
+                                softAssert.assertTrue(amTransactionsWidget.isNegSignDisplay(i+1), i+"th Negative Sign does not display in case of Amount Debited.");
                             }
                             softAssert.assertEquals(amTransactionsWidget.getValueCorrespondingToHeader(i + 1, 2), amTransactionsWidget.getDateFromEpoch(new Long(amTransactionHistoryAPI.getResult().getData().get(i).getTransactionDate()), config.getProperty("AMHistoryTimeFormat")), i + "th Date is not expected as API response.");
                             softAssert.assertEquals(amTransactionsWidget.getValueCorrespondingToHeader(i + 1, 3), amTransactionHistoryAPI.getResult().getData().get(i).getService(), i + "th Service name is not expected as API response.");

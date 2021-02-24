@@ -8,4 +8,5 @@ import lombok.Setter;
 public class TransferQueueDataBean {
     private String fromQueue;
     private String toQueue;
+    private String transferAnyway;
 }
