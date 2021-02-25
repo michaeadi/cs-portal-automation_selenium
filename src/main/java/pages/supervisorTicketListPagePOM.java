@@ -499,5 +499,11 @@ public class supervisorTicketListPagePOM extends BasePage {
         return readText(msisdn);
     }
 
+    public void clickSearchOptionByTextNoIgnoreCase(String text){
+        printInfoLog("Clicking search By option: "+text);
+        By option=By.xpath("//ul[@class='ng-star-inserted']//li[normalize-space()='"+text+"']");
+        click(option);
+    }
+
 
 }
