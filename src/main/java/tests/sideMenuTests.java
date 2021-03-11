@@ -35,7 +35,5 @@ public class sideMenuTests extends BaseTest {
             SideMenuPOM.clickOnSideMenu();
             softAssert.assertAll();
         }
-
-
     }
 }

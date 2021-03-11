@@ -32,7 +32,7 @@ public class SupervisorReopenTicketTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 2, dependsOnMethods = "agentSkipQueueLogin", dataProvider = "ReOpenState", description = "Supervisor Reopen Ticket", dataProviderClass = DataProviders.class)
+    @Test(priority = 2, dependsOnMethods = "openSupervisorDashboard", dataProvider = "ReOpenState", description = "Supervisor Reopen Ticket", dataProviderClass = DataProviders.class)
     public void ReopenTicket(Method method, TicketStateDataBean reopen) throws InterruptedException {
         ExtentTestManager.startTest("Supervisor Reopen Ticket", "Reopen Ticket as Supervisor");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");

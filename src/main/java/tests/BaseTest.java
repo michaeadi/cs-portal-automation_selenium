@@ -66,8 +66,8 @@ public class BaseTest {
         String browser = config.getProperty("browser");
         System.out.println(baseUrl);
         if (browser.equals("chrome")) {
-            WebDriverManager.chromedriver().proxy("172.23.12.116:4145").setup(); //Always use this on server
-//            WebDriverManager.chromedriver().setup(); //Use this for local for proxy issue
+//            WebDriverManager.chromedriver().proxy("172.23.12.116:4145").setup(); //Always use this on server
+            WebDriverManager.chromedriver().setup(); //Use this for local for proxy issue
             ChromeOptions options = new ChromeOptions();
             options.addArguments("--window-size=1792,1120");
             options.setHeadless(true);
@@ -76,6 +76,7 @@ public class BaseTest {
             prefs.put("download.default_directory", System.getProperty("user.dir")+"\\Excels");
             prefs.put("intl.accept_languages", "nl");
             prefs.put("disable-popup-blocking", "true");
+            options.setAcceptInsecureCerts(true);
             options.setExperimentalOption("prefs", prefs);
             //Using with Options will start in Headless Browser
             driver = new ChromeDriver(options);

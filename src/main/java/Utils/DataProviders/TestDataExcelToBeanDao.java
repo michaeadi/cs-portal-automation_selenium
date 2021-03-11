@@ -100,6 +100,12 @@ public class TestDataExcelToBeanDao {
                             case 14:
                                 testDatabean.setRoleType(cellValue);
                                 break;
+                            case 15:
+                                testDatabean.setProdCustomerNumber(cellValue);
+                                break;
+                            case 16:
+                                testDatabean.setProdSIMNumber(cellValue);
+                                break;
                         }
                     }
                 }

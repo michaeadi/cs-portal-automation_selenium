@@ -65,4 +65,14 @@ public class SupervisorLoginTest extends BaseTest {
         softAssert.assertAll();
     }
 
+    @Test(priority = 4,description = "Validate Supervisor ticket tabs ALL Tickets & My Assigned Tab")
+    public void validateSupervisorTabs(){
+        ExtentTestManager.startTest("Validate Supervisor ticket tabs(All Tickets & My Assigned Ticket) ", "Validate Supervisor ticket tabs(All Tickets & My Assigned Ticket)");
+        supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(ticketListPage.isMyAssignedTicketTab(),"My Assigned Tickets Tab does not displayed correctly.");
+        softAssert.assertTrue(ticketListPage.isAllTicketTab(),"ALL Tickets Tab does not displayed correctly.");
+        softAssert.assertAll();
+    }
+
 }

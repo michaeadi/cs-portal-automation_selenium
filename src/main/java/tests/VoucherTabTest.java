@@ -100,7 +100,7 @@ public class VoucherTabTest extends BaseTest {
             Assert.assertTrue(voucherTab.isVoucherTabOpen(), "Voucher Id not found");
             VoucherSearchPOJO voucher = api.voucherSearchTest("000106222035384");
             VoucherDetail voucherDetail = voucher.getResult();
-            if(voucher.getStatus().equalsIgnoreCase("200")) {
+            if(voucher.getStatusCode()==200) {
                 softAssert.assertEquals(voucherTab.getSerialValue(), voucherDetail.getVoucherId(), "Voucher Serial number is not same as search voucher id");
                 softAssert.assertEquals(voucherTab.getStatusValue().toLowerCase().trim(), voucherDetail.getStatus().toLowerCase().trim(), "Voucher Status is not same as voucher status received by api");
                 softAssert.assertEquals(voucherTab.getSubStatus().toLowerCase().trim(), voucherDetail.getSubStatus().toLowerCase().trim(), "Voucher Sub Status is not same as voucher Sub Status received by api");

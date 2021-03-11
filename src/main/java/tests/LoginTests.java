@@ -28,6 +28,7 @@ public class LoginTests extends BaseTest {
         loginPagePOM.clickOnVisibleButton();
         loginPagePOM.clickOnVisibleButton();
         loginPagePOM.clickOnLogin();
+        loginPagePOM.waitTillLoaderGetsRemoved();
         SideMenuPOM sideMenuPOM = new SideMenuPOM(driver);
         sideMenuPOM.waitForHomePage();
         softAssert.assertTrue(sideMenuPOM.isSideMenuVisible());

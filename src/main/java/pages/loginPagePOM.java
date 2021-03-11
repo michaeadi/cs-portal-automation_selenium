@@ -9,7 +9,7 @@ import org.openqa.selenium.WebDriver;
 @Log4j2
 public class loginPagePOM extends BasePage {
 
-    By enterAUUID = By.xpath("//input[@autocomplete=\"new-password\"]");
+    By enterAUUID = By.xpath("//input[@formcontrolname=\"loginTypeStatus\"]");
     By submitButton = By.xpath(" //*[@type='submit']");
     By mobAUUID = By.xpath("/html/body/app-root/app-login/div/div[2]/div/div[2]/mat-card/div/div[2]/mat-card-content/div/form/table/tbody/tr[1]/td/mat-form-field/div/div[1]/div/input");
     //    By mobAUUID = By.xpath("//input[@autocomplete=\"new-password\" and  @formcontrolname=\"number\"]");

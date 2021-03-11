@@ -1,5 +1,7 @@
 package tests;
 
+import API.APIEndPoints;
+import POJO.TicketList.TicketPOJO;
 import Utils.DataProviders.DataProviders;
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
@@ -15,27 +17,24 @@ import java.lang.reflect.Method;
 
 public class AssignToAgentTicketTest extends BaseTest {
 
+    APIEndPoints api = new APIEndPoints();
 
-    @Test(priority = 1, description = "Supervisor SKIP Login ")
-    public void agentSkipQueueLogin(Method method) {
-        ExtentTestManager.startTest("Supervisor SKIP Queue Login Test", "Supervisor SKIP Queue Login Test");
+    @Test(priority = 1, description = "Supervisor Dashboard Login ")
+    public void openSupervisorDashboard(Method method) {
+        ExtentTestManager.startTest("Open Supervisor Dashboard", "Open Supervisor Dashboard");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SideMenuPOM sideMenu = new SideMenuPOM(driver);
+        sideMenu.waitTillLoaderGetsRemoved();
         sideMenu.clickOnSideMenu();
         sideMenu.clickOnName();
         agentLoginPagePOM AgentLoginPagePOM = sideMenu.openSupervisorDashboard();
         SoftAssert softAssert = new SoftAssert();
         AgentLoginPagePOM.waitTillLoaderGetsRemoved();
-        softAssert.assertTrue(AgentLoginPagePOM.isQueueLoginPage(), "Agent redirect to Queue Login Page");
-        softAssert.assertTrue(AgentLoginPagePOM.checkSkipButton(), "Checking Queue Login Page have SKIP button");
-        softAssert.assertTrue(AgentLoginPagePOM.checkSubmitButton(), "Checking Queue Login Page have Submit button");
-        AgentLoginPagePOM.clickSkipBtn();
-        AgentLoginPagePOM.waitTillLoaderGetsRemoved();
         Assert.assertEquals(driver.getTitle(), config.getProperty("supervisorTicketListPage"));
         softAssert.assertAll();
     }
 
-    @Test(priority = 2, dependsOnMethods = "agentSkipQueueLogin", description = "Assign Ticket to Agent", dataProviderClass = DataProviders.class)
+    @Test(priority = 2, dependsOnMethods = "openSupervisorDashboard", description = "Assign Ticket to Agent", dataProviderClass = DataProviders.class)
     public void assignTicketToAgent(Method method) throws InterruptedException {
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         assignToAgentPOM assignTicket = new assignToAgentPOM(driver);
@@ -61,6 +60,12 @@ public class AssignToAgentTicketTest extends BaseTest {
         String ticketQueue = ticketListPage.getqueueValue();
         String assigneeAUUID = ticketListPage.getAssigneeAUUID();
         String ticketId = ticketListPage.getTicketIdvalue();
+        TicketPOJO ticketAPI=api.ticketMetaDataTest(ticketId);
+        if(ticketAPI.getResult().getAssignee()==null){
+            softAssert.assertEquals(ticketListPage.getAssigneeName(),"Not Assigned","Not Assigned does not display correctly");
+        }else {
+            softAssert.assertEquals(ticketListPage.getAssigneeName().toLowerCase().trim(), ticketAPI.getResult().getAssignee().toLowerCase().trim(), "Assignee pan does not display on UI Correctly.");
+        }
         ticketListPage.clickCheckbox();
         softAssert.assertTrue(ticketListPage.isAssignToAgent(), "Assign to Agent Button  Does Not Available");
         softAssert.assertTrue(ticketListPage.isTransferToQueue(), "Transfer to Queue Button  Does Not Available");

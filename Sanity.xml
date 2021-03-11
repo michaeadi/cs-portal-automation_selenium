@@ -103,6 +103,11 @@
             </class>
         </classes>
     </test>
+    <test name="Supervisors Global Search Ticket Test">
+        <classes>
+            <class name="tests.SupervisorGlobalSearchTest"/>
+        </classes>
+    </test>
     <test name="Supervisors Search Ticket Test ">
         <classes>
             <class name="tests.SupervisorSearchTicket"/>

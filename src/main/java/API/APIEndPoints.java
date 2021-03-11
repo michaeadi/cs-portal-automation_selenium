@@ -2,9 +2,11 @@ package API;
 
 import POJO.*;
 import POJO.Accumulators.AccumulatorsPOJO;
+import POJO.AirtelMoney.AirtelMoneyPOJO;
 import POJO.CRBT.ActivateRingtone;
 import POJO.CRBT.Top20Ringtone;
 import POJO.ClearRefillStatus.RefillStatus;
+import POJO.HLRService.HLRServicePOJO;
 import POJO.KYCProfile.KYCProfile;
 import POJO.LoanDetails.Loan;
 import POJO.LoanSummary.Summary;
@@ -68,7 +70,6 @@ public class APIEndPoints extends tests.BaseTest {
         Response response = request.post("/auth/api/user-mngmnt/v2/login");
         Token = "Bearer " + response.jsonPath().getString("result.accessToken");
         map.add(new Header("Authorization", Token));
-        getTest().log(LogStatus.INFO, "Response : " + response.asString());
         log.info("Response : " + response.asString());
         log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
         getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
@@ -124,9 +125,9 @@ public class APIEndPoints extends tests.BaseTest {
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
-                .headers(headers)
-                .body("{\"msisdn\":\"" + msisdn + "\",\"pageSize\":5,\"pageNumber\":1,\"type\":null,\"startDate\":null,\"endDate\":null,\"action\":\"More\"}")
-                .contentType("application/json");
+                    .headers(headers)
+                    .body("{\"msisdn\":\"" + msisdn + "\",\"pageSize\":5,\"pageNumber\":1,\"type\":null,\"startDate\":null,\"endDate\":null,\"action\":\"More\",cdrTypeFilter: \"FREE\"}")
+                    .contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
         getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
         log.info("Request Headers are  : " + queryable.getHeaders());
@@ -292,7 +293,7 @@ public class APIEndPoints extends tests.BaseTest {
         return response.as(BundleRechargeHistoryPOJO.class);
     }
 
-    public AMTransactionHistoryPOJO transactionHistoryAPITest(String msisdn) {
+    public AirtelMoneyPOJO transactionHistoryAPITest(String msisdn) {
         getTest().log(LogStatus.INFO, "Using Transaction History API for Getting expected data for UI");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
@@ -310,7 +311,7 @@ public class APIEndPoints extends tests.BaseTest {
         log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
         getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
         getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
-        return response.as(AMTransactionHistoryPOJO.class);
+        return response.as(AirtelMoneyPOJO.class);
     }
 
     public AccountsBalancePOJO balanceAPITest(String msisdn) {
@@ -531,6 +532,24 @@ public class APIEndPoints extends tests.BaseTest {
         getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
         getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
         return response.as(AccumulatorsPOJO.class);
+    }
+
+    public HLRServicePOJO getServiceProfileWidgetInfo(String msisdn) {
+        getTest().log(LogStatus.INFO, "Using fetch Ringtone details using MSISDN");
+        baseURI = baseUrl;
+        Headers headers = new Headers(map);
+        RequestSpecification request = given()
+                .headers(headers).body("{\"msisdn\":\""+msisdn+"\",\"pageSize\":5,\"pageNumber\":1}").contentType("application/json");
+        QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
+        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
+        log.info("Request Headers are  : " + queryable.getHeaders());
+        log.info("Request Body are  : " + queryable.getBody());
+        Response response = request.post("/cs-gsm-service/v1/hlr/service/profiles");
+        log.info("Response : " + response.asString());
+        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
+        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        return response.as(HLRServicePOJO.class);
     }
 
 }
