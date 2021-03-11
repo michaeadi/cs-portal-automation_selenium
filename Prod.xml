@@ -49,48 +49,48 @@
             <class name="tests.LogoutTest"/>
         </classes>
     </test>
-<!--    <test name="Supervisors Login Test">-->
-<!--        <classes>-->
-<!--            <class name="tests.SupervisorLoginTest"/>-->
-<!--        </classes>-->
-<!--    </test>-->
-<!--    <test name="api-Regenerate">-->
-<!--        <classes>-->
-<!--            <class name="API.APIEndPoints">-->
-<!--                <methods>-->
-<!--                    <include name="loginAPI"/>-->
-<!--                </methods>-->
-<!--            </class>-->
-<!--        </classes>-->
-<!--    </test>-->
-<!--    <test name="Supervisors Validate Filter Option ">-->
-<!--        <classes>-->
-<!--            <class name="tests.SupervisorFilterTest"/>-->
-<!--        </classes>-->
-<!--    </test>-->
-<!--    <test name="Supervisors Search/View Ticket ">-->
-<!--        <classes>-->
-<!--            <class name="tests.PRODSupervisorTicket"/>-->
-<!--        </classes>-->
-<!--    </test>-->
-<!--    <test name="Logout Supervisor Test">-->
-<!--        <classes>-->
-<!--            <class name="tests.LogoutTest"/>-->
-<!--        </classes>-->
-<!--    </test>-->
-<!--    <test name="LOGIN TO BACKEND AGENT">-->
-<!--        <classes>-->
-<!--            <class name="tests.BackendAgentLoginTest"/>-->
-<!--        </classes>-->
-<!--    </test>-->
-<!--    <test name="Validate BACKEND AGENT Filter Options">-->
-<!--        <classes>-->
-<!--            <class name="tests.BackendAgentFilterTest"/>-->
-<!--        </classes>-->
-<!--    </test>-->
-<!--    <test name="Logout Test from Backend agent">-->
-<!--        <classes>-->
-<!--            <class name="tests.LogoutTest"/>-->
-<!--        </classes>-->
-<!--    </test>-->
+    <test name="Supervisors Login Test">
+        <classes>
+            <class name="tests.SupervisorLoginTest"/>
+        </classes>
+    </test>
+    <test name="api-Regenerate">
+        <classes>
+            <class name="API.APIEndPoints">
+                <methods>
+                    <include name="loginAPI"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Supervisors Validate Filter Option ">
+        <classes>
+            <class name="tests.SupervisorFilterTest"/>
+        </classes>
+    </test>
+    <test name="Supervisors Search/View Ticket ">
+        <classes>
+            <class name="tests.PRODSupervisorTicket"/>
+        </classes>
+    </test>
+    <test name="Logout Supervisor Test">
+        <classes>
+            <class name="tests.LogoutTest"/>
+        </classes>
+    </test>
+    <test name="LOGIN TO BACKEND AGENT">
+        <classes>
+            <class name="tests.BackendAgentLoginTest"/>
+        </classes>
+    </test>
+    <test name="Validate BACKEND AGENT Filter Options">
+        <classes>
+            <class name="tests.BackendAgentFilterTest"/>
+        </classes>
+    </test>
+    <test name="Logout Test from Backend agent">
+        <classes>
+            <class name="tests.LogoutTest"/>
+        </classes>
+    </test>
 </suite>
