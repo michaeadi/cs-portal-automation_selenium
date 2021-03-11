@@ -8,6 +8,7 @@ import POJO.RechargeHistoryPOJO;
 import POJO.UsageHistoryPOJO;
 import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.HeaderDataBean;
+import Utils.DataProviders.TestDatabean;
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.NoSuchElementException;
@@ -23,8 +24,32 @@ public class widgetsOptionsTest extends BaseTest {
     String customerNumber;
     APIEndPoints api = new APIEndPoints();
 
+    @DataProviders.User(UserType = "API")
+    @Test(priority = 0, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
+    public void openCustomerInteractionAPI(TestDatabean Data) {
+        ExtentTestManager.startTest("Validating the Search forCustomer Interactions :" + Data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + Data.getCustomerNumber());
+        SoftAssert softAssert = new SoftAssert();
+        SideMenuPOM SideMenuPOM = new SideMenuPOM(driver);
+        SideMenuPOM.clickOnSideMenu();
+        SideMenuPOM.clickOnName();
+        customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
+        if(Env.equalsIgnoreCase("Prod")){
+            customerNumber = Data.getProdCustomerNumber();
+        }else {
+            customerNumber = Data.getCustomerNumber();
+        }
+        customerInteractionsSearchPOM.enterNumber(customerNumber);
+        customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
+        softAssert.assertTrue(customerInteractionPagePOM.isPageLoaded());
+        if (!customerInteractionPagePOM.isPageLoaded()) {
+            softAssert.fail("Customer Info Dashboard Page does not open using SIM Number.");
+            customerInteractionsSearchPOM.clearCustomerNumber();
+        }
+        softAssert.assertAll();
+    }
+
     @Table(Name = "Da Details")
-    @Test(priority = 1, description = "Validating DA Details", dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
+    @Test(priority = 1, description = "Validating DA Details", dataProvider = "HeaderData", dataProviderClass = DataProviders.class,dependsOnMethods = "openCustomerInteractionAPI")
     public void daDetailsTest(HeaderDataBean Data) {
         customerNumber = customerInteractionTest.customerNumber;
         ExtentTestManager.startTest("Validating DA Details", "Validating DA Details of User :" + customerNumber);
@@ -67,7 +92,7 @@ public class widgetsOptionsTest extends BaseTest {
     }
 
     @Table(Name = "Accumulator")
-    @Test(priority = 2, description = "Validating Accumulator Details", dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
+    @Test(priority = 2, description = "Validating Accumulator Details", dataProvider = "HeaderData", dataProviderClass = DataProviders.class,dependsOnMethods = "openCustomerInteractionAPI")
     public void accumulatorDetailsTest(HeaderDataBean Data) {
         customerNumber = customerInteractionTest.customerNumber;
         ExtentTestManager.startTest("Validating Accumulator Details", "Validating Accumulator Details of User :" + customerNumber);
@@ -209,7 +234,7 @@ public class widgetsOptionsTest extends BaseTest {
 //    }
 //
     @Table(Name = "More Recharge History")
-    @Test(priority = 5, description = "Validating Recharge History's  Menu", dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
+    @Test(priority = 5, description = "Validating Recharge History's  Menu", dataProvider = "HeaderData", dataProviderClass = DataProviders.class,dependsOnMethods = "openCustomerInteractionAPI")
     public void rechargeHistoryMenuTest(HeaderDataBean Data) {
         ExtentTestManager.startTest("Validating Recharge History's  Menu", "Validating Recharge History's  Menu of User :" + customerNumber);
         RechargeHistoryWidgetPOM rechargeHistory = new RechargeHistoryWidgetPOM(driver);
@@ -268,7 +293,7 @@ public class widgetsOptionsTest extends BaseTest {
     }
 
     @Table(Name = "Detailed Usage History")
-    @Test(priority = 6, description = "Validating Usage History's  Menu", dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
+    @Test(priority = 6, description = "Validating Usage History's  Menu", dataProvider = "HeaderData", dataProviderClass = DataProviders.class,dependsOnMethods = "openCustomerInteractionAPI")
     public void usageHistoryMenuTest(HeaderDataBean Data) {
         ExtentTestManager.startTest("Validating Usage History's  Menu", "Validating Usage History's  Menu of User :" + customerNumber);
         UsageHistoryWidgetPOM usageHistory = new UsageHistoryWidgetPOM(driver);
@@ -332,6 +357,9 @@ public class widgetsOptionsTest extends BaseTest {
                     }
                     softAssert.assertEquals(detailedUsage.getValueCorrespondingToHeader(i + 1, 5), usageHistoryAPI.getResult().get(i).getEndBalance(), "End balance received is not as expected on row " + i);
                     softAssert.assertEquals(detailedUsage.getValueCorrespondingToHeader(i + 1, 6), usageHistoryAPI.getResult().get(i).getDescription(), "Description received is not as expected on row " + i);
+                    if(usageHistoryAPI.getResult().get(i).getBundleName()==null){
+                        usageHistoryAPI.getResult().get(i).setBundleName("-");
+                    }
                     softAssert.assertEquals(detailedUsage.getValueCorrespondingToHeader(i + 1, 7).toLowerCase().trim(), usageHistoryAPI.getResult().get(i).getBundleName().toLowerCase().trim(), "Bundle Name received is not as expected on row " + i);
                     if (i != 0) {
                         softAssert.assertTrue(detailedUsage.isSortOrderDisplay(detailedUsage.getValueCorrespondingToHeader(i + 1, 2).replace("\n", " "), detailedUsage.getValueCorrespondingToHeader(i, 2).replace("\n", " "), "E dd MMM yyyy hh:mm:ss aa"), detailedUsage.getValueCorrespondingToHeader(i + 1, 2) + "should not display before " + detailedUsage.getValueCorrespondingToHeader(i, 2));
@@ -348,7 +376,7 @@ public class widgetsOptionsTest extends BaseTest {
     }
 
     @Table(Name = "More Airtel Money History")
-    @Test(priority = 7, description = "Validating Airtel Money History's  Menu", dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
+    @Test(priority = 7, description = "Validating Airtel Money History's  Menu", dataProvider = "HeaderData", dataProviderClass = DataProviders.class,dependsOnMethods = "openCustomerInteractionAPI",enabled = false)
     public void airtelMoneyHistoryMenuTest(HeaderDataBean Data) {
         customerNumber = customerInteractionTest.customerNumber;
         ExtentTestManager.startTest("Validating Airtel Money History's  Menu", "Validating Airtel Money History's  Menu of User :" + customerNumber);

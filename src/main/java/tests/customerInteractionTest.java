@@ -37,11 +37,15 @@ public class customerInteractionTest extends BaseTest {
         ExtentTestManager.startTest("Validating the Search forCustomer Interactions :" + Data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + Data.getCustomerNumber());
         SoftAssert softAssert = new SoftAssert();
         SideMenuPOM SideMenuPOM = new SideMenuPOM(driver);
-        customerNumber = Data.getCustomerNumber();
+        if(Env.equalsIgnoreCase("Prod")){
+            customerNumber = Data.getProdCustomerNumber();
+        }else {
+            customerNumber = Data.getCustomerNumber();
+        }
         SideMenuPOM.clickOnSideMenu();
         SideMenuPOM.clickOnName();
         customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
-        customerInteractionsSearchPOM.enterNumber(Data.getCustomerNumber());
+        customerInteractionsSearchPOM.enterNumber(customerNumber);
         customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
         if (!customerInteractionPagePOM.isPageLoaded()) {
             softAssert.fail("Customer Info Dashboard Page does not open using SIM Number.");
@@ -331,8 +335,13 @@ public class customerInteractionTest extends BaseTest {
         SideMenuPOM.clickOnSideMenu();
         SideMenuPOM.clickOnName();
         customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
-        customerInteractionsSearchPOM.enterNumber(Data.getSimNumber());
-        customerNumber = Data.getCustomerNumber();
+        if(Env.equalsIgnoreCase("Prod")){
+            customerInteractionsSearchPOM.enterNumber(Data.getProdSIMNumber());
+            customerNumber = Data.getProdCustomerNumber();
+        }else {
+            customerInteractionsSearchPOM.enterNumber(Data.getCustomerNumber());
+            customerNumber = Data.getCustomerNumber();
+        }
         customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
         if (!customerInteractionPagePOM.isPageLoaded()) {
             softAssert.fail("Customer Info Dashboard Page does not open using SIM Number.");
@@ -640,8 +649,12 @@ public class customerInteractionTest extends BaseTest {
         SideMenuPOM.clickOnSideMenu();
         SideMenuPOM.clickOnName();
         customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
-        customerInteractionsSearchPOM.enterNumber(Data.getCustomerNumber());
-        customerNumber = Data.getCustomerNumber();
+        if(Env.equalsIgnoreCase("Prod")){
+            customerNumber = Data.getProdCustomerNumber();
+        }else {
+            customerNumber = Data.getCustomerNumber();
+        }
+        customerInteractionsSearchPOM.enterNumber(customerNumber);
         customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
         softAssert.assertTrue(customerInteractionPagePOM.isPageLoaded());
         if (!customerInteractionPagePOM.isPageLoaded()) {
@@ -652,7 +665,7 @@ public class customerInteractionTest extends BaseTest {
     }
 
     @Table(Name = "Airtel Money")
-    @Test(priority = 7, description = "Validating AM Transaction Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, enabled = true)
+    @Test(priority = 7, description = "Validating AM Transaction Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, enabled = true,dependsOnMethods = "openCustomerInteractionAPI")
     public void airtelMoneyTransactionWidgetTest(HeaderDataBean Data) {
         ExtentTestManager.startTest("Validating AM Transaction Widget", "Validating AM Transaction Widget of User :" + customerNumber);
         AMTransactionsWidgetPOM amTransactionsWidget = new AMTransactionsWidgetPOM(driver);
@@ -690,7 +703,7 @@ public class customerInteractionTest extends BaseTest {
                 for(int i=0;i<count;i++) {
                     softAssert.assertEquals(amTransactionsWidget.getValueCorrespondingToHeader(i+1,1),amTransactionHistoryAPI.getResult().getData().get(i).getAmount(),"Amount is not expected as API response.");
                     softAssert.assertEquals(amTransactionsWidget.getValueCorrespondingToHeader(i+1,2),amTransactionHistoryAPI.getResult().getData().get(i).getMsisdn(),"Receiver MSISDN is not expected as API response.");
-                    softAssert.assertEquals(amTransactionsWidget.getValueCorrespondingToHeader(i+1,3),amTransactionsWidget.getDateFromEpoch(new Long(amTransactionHistoryAPI.getResult().getData().get(i).getTransactionDate()),config.getProperty("AMHistoryTimeFormat")),"Date is not expected as API response.");
+                    softAssert.assertEquals(amTransactionsWidget.getValueCorrespondingToHeader(i+1,3),amTransactionsWidget.getDateFromEpochInUTC(new Long(amTransactionHistoryAPI.getResult().getData().get(i).getTransactionDate()),config.getProperty("AMHistoryTimeFormat")),"Date is not expected as API response.");
                     softAssert.assertEquals(amTransactionsWidget.getValueCorrespondingToHeader(i+1,4),amTransactionHistoryAPI.getResult().getData().get(i).getTransactionId(),"Transaction Id is not expected as API response.");
                     softAssert.assertEquals(amTransactionsWidget.getValueCorrespondingToHeader(i+1,5),amTransactionHistoryAPI.getResult().getData().get(i).getStatus(),"Status is not expected as API response.");
                     if(amTransactionHistoryAPI.getResult().getData().get(i).getEnableResendSms()){
@@ -763,7 +776,7 @@ public class customerInteractionTest extends BaseTest {
 
 
     @Table(Name = "Usage History")
-    @Test(priority = 9, description = "Validating Usage History Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
+    @Test(priority = 9, description = "Validating Usage History Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class,dependsOnMethods = "openCustomerInteractionAPI")
     public void usageHistoryWidgetTest(HeaderDataBean Data) {
         ExtentTestManager.startTest("Validating Usage History Widget", "Validating Usage History Widget of User :" + customerNumber);
         UsageHistoryWidgetPOM usageHistoryWidget = new UsageHistoryWidgetPOM(driver);
@@ -803,7 +816,7 @@ public class customerInteractionTest extends BaseTest {
 
 
     @Table(Name = "Recharge History")
-    @Test(priority = 10, description = "Validating Recharge History Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
+    @Test(priority = 10, description = "Validating Recharge History Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class,dependsOnMethods = "openCustomerInteractionAPI")
     public void rechargeHistoryWidgetTest(HeaderDataBean Data) {
         ExtentTestManager.startTest("Validating Recharge History Widget", "Validating Recharge History Widget of User :" + customerNumber);
         RechargeHistoryWidgetPOM rechargeHistoryWidget = new RechargeHistoryWidgetPOM(driver);
@@ -843,7 +856,7 @@ public class customerInteractionTest extends BaseTest {
     }
 
     @Table(Name = "Service Profile")
-    @Test(priority = 11, description = "Verify Service Profile Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class,enabled = false)
+    @Test(priority = 11, description = "Verify Service Profile Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class,enabled = false,dependsOnMethods = "openCustomerInteractionAPI")
     public void validateServiceProfileWidget(HeaderDataBean Data) {
         ExtentTestManager.startTest("Verify Service Profile Widget: " + customerNumber, "Verify Service Profile Widget: " + customerNumber);
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");

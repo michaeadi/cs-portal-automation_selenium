@@ -7,21 +7,23 @@ import lombok.Setter;
 @Setter
 public class TestDatabean {
 
-    String loginAUUID;
-    String password;
-    String userType;
-    String customerNumber;
-    String customerName;
-    String customerDOB;
-    String activationDate;
-    String activationTime;
-    String simNumber;
-    String simType;
-    String PUK1;
-    String PUK2;
-    String idType;
-    String idNumber;
-    String roleType;
+    private String loginAUUID;
+    private String password;
+    private String userType;
+    private String customerNumber;
+    private String customerName;
+    private String customerDOB;
+    private String activationDate;
+    private String activationTime;
+    private String simNumber;
+    private String simType;
+    private String PUK1;
+    private String PUK2;
+    private String idType;
+    private String idNumber;
+    private String roleType;
+    private String prodCustomerNumber;
+    private String prodSIMNumber;
 
 
 }

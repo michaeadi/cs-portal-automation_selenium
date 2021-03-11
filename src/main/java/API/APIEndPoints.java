@@ -70,7 +70,6 @@ public class APIEndPoints extends tests.BaseTest {
         Response response = request.post("/auth/api/user-mngmnt/v2/login");
         Token = "Bearer " + response.jsonPath().getString("result.accessToken");
         map.add(new Header("Authorization", Token));
-        getTest().log(LogStatus.INFO, "Response : " + response.asString());
         log.info("Response : " + response.asString());
         log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
         getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
@@ -126,9 +125,9 @@ public class APIEndPoints extends tests.BaseTest {
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
-                .headers(headers)
-                .body("{\"msisdn\":\"" + msisdn + "\",\"pageSize\":5,\"pageNumber\":1,\"type\":null,\"startDate\":null,\"endDate\":null,\"action\":\"More\"}")
-                .contentType("application/json");
+                    .headers(headers)
+                    .body("{\"msisdn\":\"" + msisdn + "\",\"pageSize\":5,\"pageNumber\":1,\"type\":null,\"startDate\":null,\"endDate\":null,\"action\":\"More\",cdrTypeFilter: \"FREE\"}")
+                    .contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
         getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
         log.info("Request Headers are  : " + queryable.getHeaders());
