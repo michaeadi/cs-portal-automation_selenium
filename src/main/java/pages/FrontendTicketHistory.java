@@ -94,7 +94,7 @@ public class FrontendTicketHistory extends BasePage {
     }
 
     public boolean checkAddToInteraction(int index) {
-        By addToInteractionBtn = By.xpath("//table[@id='fetchTicketByCustomer']//tbody//tr[" + index + "]//td[8]//span[1]//a[1]//img");
+        By addToInteractionBtn = By.xpath("//table[@id='fetchTicketByCustomer']//tbody//tr[" + index + "]//td[7]//span[1]//a[1]//img");
         String ticketId = getTicketId(index);
         log.info("Check Add to interaction on ticket id: " + ticketId);
         ExtentTestManager.getTest().log(LogStatus.INFO, "Checking Add to interaction on ticket id: " + ticketId);
