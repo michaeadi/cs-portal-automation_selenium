@@ -20,7 +20,7 @@ public class supervisorTicketListPagePOM extends BasePage {
     By searchTicketBtn = By.xpath("//app-ticket-search-box//button");
     By ticketIdLabel = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\" or @class=\"data-area\"]//ul[1]//li[1]//span[@class=\"data-title\"]");
     By ticketIdvalue = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area\" or @class=\"data-area-full\"]//ul[1]//li[1]//span[@class=\"blue-clr\"]");
-    By workGroupName = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\" or @class=\"data-area\"]//ul[1]//li[2]//span[@class=\"data-title ellipsis value-clr\"]");
+    By workGroupName = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\" or @class=\"data-area\"]//ul[1]//li[2]//span[@class=\"data-title ellipsis value-clr\" or @class=\"data-title value-clr\"]");
     By workgroupSLA = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\" or @class=\"data-area\"]//ul[1]//li[2]//span[2]");
     By prioritylabel = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\" or @class=\"data-area\"]//ul[1]//li[3]//span[1]");
     By priorityValue = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\" or @class=\"data-area\"]//ul[1]//li[3]//span[2]");

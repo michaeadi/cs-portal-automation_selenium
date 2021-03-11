@@ -72,9 +72,9 @@ public class PRODSupervisorTicket extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 3, description = "Supervisor Search Ticket", enabled = true)
+    @Test(priority = 3, description = "Supervisor View Ticket", enabled = true)
     public void supervisorViewTicket() {
-        ExtentTestManager.startTest("Supervisor Search Ticket", "Supervisor Search Ticket");
+        ExtentTestManager.startTest("Supervisor View Ticket", "Supervisor View Ticket");
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         SoftAssert softAssert = new SoftAssert();
         String ticketId = ticketListPage.getTicketIdvalue();
