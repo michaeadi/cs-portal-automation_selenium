@@ -1,99 +1,76 @@
 package tests;
 
+import Utils.DataProviders.DataProviders;
+import Utils.DataProviders.TestDatabean;
 import Utils.ExtentReports.ExtentTestManager;
+import Utils.PassUtils;
 import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pages.SideMenuPOM;
-import pages.ViewTicketPagePOM;
-import pages.agentLoginPagePOM;
-import pages.supervisorTicketListPagePOM;
+import pages.*;
+
+import java.lang.reflect.Method;
+import java.util.List;
 
 public class PRODSupervisorTicket extends BaseTest {
 
-    @Test(priority = 1, description = "Supervisor SKIP Login ", enabled = true)
-    public void agentSkipQueueLogin() {
-        ExtentTestManager.startTest("Supervisor SKIP Queue Login Test", "Supervisor SKIP Queue Login Test");
+    @DataProviders.User(UserType = "ALL")
+    @Test(priority = 1, description = "Logging IN", dataProvider = "loginData", dataProviderClass = DataProviders.class)
+    public void LoggingIN(Method method, TestDatabean Data) {
+        ExtentTestManager.startTest("Logging Into Portal", "Logging Into Portal with AUUID :  " + Data.getLoginAUUID());
+        SoftAssert softAssert = new SoftAssert();
+        loginPagePOM loginPagePOM = new loginPagePOM(driver);
+        loginPagePOM.openBaseURL(config.getProperty(tests.BaseTest.Env + "-baseurl"));
+        softAssert.assertEquals(driver.getCurrentUrl(), config.getProperty(tests.BaseTest.Env + "-baseurl"), "URl isn't as expected");
+        loginPagePOM.enterAUUID(Data.getLoginAUUID());//*[@id="mat-input-7"]
+        loginPagePOM.clickOnSubmitBtn();
+        loginPagePOM.enterPassword(PassUtils.decodePassword(Data.getPassword()));
+        softAssert.assertTrue(loginPagePOM.checkLoginButton(), "Login Button is not enabled even after entering Passowrd");
+        loginPagePOM.clickOnVisibleButton();
+        loginPagePOM.clickOnVisibleButton();
+        loginPagePOM.clickOnLogin();
+        softAssert.assertAll();
+    }
+
+    @Test(priority = 2, description = "Supervisor Dashboard Login ")
+    public void openSupervisorDashboard(Method method) {
+        ExtentTestManager.startTest("Open Supervisor Dashboard", "Open Supervisor Dashboard");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SideMenuPOM sideMenu = new SideMenuPOM(driver);
+        sideMenu.waitTillLoaderGetsRemoved();
         sideMenu.clickOnSideMenu();
         sideMenu.clickOnName();
         agentLoginPagePOM AgentLoginPagePOM = sideMenu.openSupervisorDashboard();
         SoftAssert softAssert = new SoftAssert();
         AgentLoginPagePOM.waitTillLoaderGetsRemoved();
-        softAssert.assertTrue(AgentLoginPagePOM.isQueueLoginPage(), "Agent Does not redirect to Queue Login Page");
-        softAssert.assertTrue(AgentLoginPagePOM.checkSkipButton(), "Queue Login Page Does Not have SKIP button");
-        softAssert.assertTrue(AgentLoginPagePOM.checkSubmitButton(), "Queue Login Page have Does Not Submit button");
-        AgentLoginPagePOM.clickSkipBtn();
-        AgentLoginPagePOM.waitTillLoaderGetsRemoved();
         Assert.assertEquals(driver.getTitle(), config.getProperty("supervisorTicketListPage"));
         softAssert.assertAll();
     }
 
-    @Test(priority = 2, description = "Supervisor Search Ticket", enabled = true)
-    public void supervisorSearchTicket() {
-        ExtentTestManager.startTest("Supervisor Search Ticket", "Supervisor Search Ticket");
+    @Test(priority = 3, description = "Verify there are Searchable fields options displayed to select from in the Search Dropdown : 1) Ticket Id & 2) MSISDN", dataProviderClass = DataProviders.class)
+    public void validateTicketSearchOptions(Method method) {
+        ExtentTestManager.startTest("Validate Search Ticket Option", "Verify there are 2 options displayed to select from in the Search Dropdown : 1) Ticket Id & 2) MSISDN");
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         SoftAssert softAssert = new SoftAssert();
-        String ticketId = ticketListPage.getTicketIdvalue();
-        try {
-
-            ticketListPage.writeTicketId(ticketId);
-            ticketListPage.clickSearchBtn();
-            ticketListPage.waitTillLoaderGetsRemoved();
-            Assert.assertEquals(ticketListPage.getTicketIdvalue(), ticketId, "Search Ticket does not found");
-
-            try {
-                softAssert.assertTrue(ticketListPage.isTicketIdLabel(), "Ticket Meta Data Does Not Have Ticket Id");
-                softAssert.assertTrue(ticketListPage.isWorkGroupName(), "Ticket Meta Data Does Not Have Workgroup");
-                softAssert.assertTrue(ticketListPage.isPrioritylabel(), "Ticket Meta Data Does Not Have Priority");
-                softAssert.assertTrue(ticketListPage.isStateLabel(), "Ticket Meta Data Does Not Have State");
-                softAssert.assertTrue(ticketListPage.isCreationdateLabel(), "Ticket Meta Data Does Not Have Creation Date");
-                softAssert.assertTrue(ticketListPage.isCreatedbyLabel(), "Ticket Meta Data Does Not Have Created By");
-                softAssert.assertTrue(ticketListPage.isQueueLabel(), "Ticket Meta Data Does Not Have Queue");
-                softAssert.assertTrue(ticketListPage.isIssueLabel(), "Ticket Meta Data Does Not Have Issue");
-                softAssert.assertTrue(ticketListPage.isIssueTypeLabel(), "Ticket Meta Data Does Not Have Issue Type");
-                softAssert.assertTrue(ticketListPage.isSubTypeLabel(), "Ticket Meta Data Does Not Have Issue Sub Type");
-                softAssert.assertTrue(ticketListPage.isSubSubTypeLabel(), "Ticket Meta Data Does Not Have Issue Sub Sub Type");
-                softAssert.assertTrue(ticketListPage.isCodeLabel(), "Ticket Meta Data Does Not Have Code");
-            } catch (NullPointerException | TimeoutException | NoSuchElementException e) {
-                e.printStackTrace();
-                softAssert.fail("Ticket meta data Assertion failed: " + e.getMessage());
-            }
-        } catch (TimeoutException | NoSuchElementException | AssertionError e) {
-            e.printStackTrace();
-            softAssert.fail("Ticket id search not done for following error: " + e.getMessage());
-        }
-        ticketListPage.clearInputBox();
-        ticketListPage.waitTillLoaderGetsRemoved();
+        ticketListPage.clickTicketOption();
+        List<String> list=ticketListPage.getListOfSearchOption();
+        softAssert.assertTrue(list.contains(config.getProperty("ticketOption")),config.getProperty("ticketOption")+" option does not found in list.");
+        softAssert.assertTrue(list.contains(config.getProperty("msisdnOption")),config.getProperty("msisdnOption")+" option does not found in list.");
+        ticketListPage.clickTicketOption();
         softAssert.assertAll();
     }
 
-    @Test(priority = 3, description = "Supervisor View Ticket", enabled = true)
-    public void supervisorViewTicket() {
-        ExtentTestManager.startTest("Supervisor View Ticket", "Supervisor View Ticket");
+    @Test(priority = 4,description = "Validate Supervisor ticket tabs ALL Tickets & My Assigned Tab")
+    public void validateSupervisorTabs(){
+        ExtentTestManager.startTest("Validate Supervisor ticket tabs(All Tickets & My Assigned Ticket) ", "Validate Supervisor ticket tabs(All Tickets & My Assigned Ticket)");
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         SoftAssert softAssert = new SoftAssert();
-        String ticketId = ticketListPage.getTicketIdvalue();
-        ViewTicketPagePOM viewTicketPagePOM=new ViewTicketPagePOM(driver);
-        try {
-            ticketListPage.writeTicketId(ticketId);
-            ticketListPage.clickSearchBtn();
-            ticketListPage.waitTillLoaderGetsRemoved();
-            Assert.assertEquals(ticketListPage.getTicketIdvalue(), ticketId, "Search Ticket does not found");
-            ticketListPage.viewTicket();
-            ticketListPage.waitTillLoaderGetsRemoved();
-            Assert.assertEquals(viewTicketPagePOM.getTicketId(), ticketId, "View Ticket does not Same as Open.");
-            viewTicketPagePOM.clickBackButton();
-        } catch (TimeoutException | NoSuchElementException | AssertionError | InterruptedException e) {
-            e.printStackTrace();
-            softAssert.fail("Ticket id search not done for following error: " + e.getMessage());
-        }
-        ticketListPage.clearInputBox();
-        ticketListPage.waitTillLoaderGetsRemoved();
+        softAssert.assertTrue(ticketListPage.isMyAssignedTicketTab(),"My Assigned Tickets Tab does not displayed correctly.");
+        softAssert.assertTrue(ticketListPage.isAllTicketTab(),"ALL Tickets Tab does not displayed correctly.");
         softAssert.assertAll();
     }
 
