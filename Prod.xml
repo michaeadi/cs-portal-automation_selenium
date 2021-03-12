@@ -101,12 +101,12 @@
     <test name="Create Template Test">
         <classes>
             <class name="tests.CreateTemplateTest">
-            <methods>
-                <exclude name="createTemplate"/>
-                <exclude name="validateAddedTemplate"/>
-                <exclude name="addTemplateCategory"/>
-            </methods>
-        </class>
+                <methods>
+                    <exclude name="createTemplate"/>
+                    <exclude name="validateAddedTemplate"/>
+                    <exclude name="addTemplateCategory"/>
+                </methods>
+            </class>
         </classes>
     </test>
     <test name="Validate Ticket Bulk Update Test">
