@@ -93,4 +93,37 @@
             <class name="tests.LogoutTest"/>
         </classes>
     </test>
+    <test name="Login Admin Test">
+        <classes>
+            <class name="tests.LoginTests"/>
+        </classes>
+    </test>
+    <test name="Create Template Test">
+        <classes>
+            <class name="tests.CreateTemplateTest">
+            <methods>
+                <exclude name="createTemplate"/>
+                <exclude name="validateAddedTemplate"/>
+                <exclude name="addTemplateCategory"/>
+            </methods>
+        </class>
+        </classes>
+    </test>
+    <test name="Validate Ticket Bulk Update Test">
+        <classes>
+            <class name="tests.TicketBulkUpdateTest">
+                <methods>
+                    <exclude name="maxTicketSelectTest"/>
+                    <exclude name="uploadTicketFromExcelTest"/>
+                    <exclude name="bulkAddCommentTest"/>
+                    <exclude name="bulkOptionTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Logout Test from Admin agent">
+        <classes>
+            <class name="tests.LogoutTest"/>
+        </classes>
+    </test>
 </suite>
