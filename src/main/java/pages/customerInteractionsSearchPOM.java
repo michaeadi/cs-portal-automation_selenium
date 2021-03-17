@@ -9,8 +9,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 @Log4j2
 public class customerInteractionsSearchPOM extends BasePage {
-    By numberSearch = By.xpath("//input[@name=\"search\"]");
-    By searchButton = By.xpath("//button[@class=\"search-icon-btn\"]");
+    By numberSearch = By.xpath("//input[@name='search']");
+    By searchButton = By.xpath("//button[@class='search-icon-btn']");
 
     public customerInteractionsSearchPOM(WebDriver driver) {
         super(driver);

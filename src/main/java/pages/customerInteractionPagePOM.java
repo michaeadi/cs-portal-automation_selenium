@@ -12,7 +12,7 @@ import java.util.List;
 
 @Log4j2
 public class customerInteractionPagePOM extends BasePage {
-    By searchNumber=By.xpath("//div[@class=\"customer-details\"]//div[@class=\"user-left-side\"]/div/div[1]//input");
+    By searchNumber=By.xpath("//input[@type='search' and @placeholder='Search']");
     By interactionIcon = By.xpath("//div[@class='sub-header__divide--control--tab']");
     By actions = By.xpath("//span[@class=\"action-placeholder\"]");
     By simBar = By.xpath("//button[@class=\"db-action-menu-item mat-menu-item ng-star-inserted\"]");
@@ -35,6 +35,7 @@ public class customerInteractionPagePOM extends BasePage {
     By resetME2Title=By.xpath("//span[contains(text(),'Reset Me2U Password')]");
     By noBtn=By.xpath("//button[@class=\"no-btn\"]");
     By closeBtn=By.xpath("//span[contains(text(),'Send Internet Settings')]//following-sibling::mat-icon[contains(text(),'close')]");
+    By birthdayIcon=By.xpath("//span[@class='customer-icon-block']/img");
 
     public customerInteractionPagePOM(WebDriver driver) {
         super(driver);
@@ -190,6 +191,11 @@ public class customerInteractionPagePOM extends BasePage {
     public boolean isLoanWidgetDisplay(){
         printInfoLog("Checking Loan Widget Displayed");
         return checkState(loanWidget);
+    }
+
+    public boolean isCustomerBirthday(){
+        printInfoLog("Checking Customer Birthday or not");
+        return checkState(birthdayIcon);
     }
 
 

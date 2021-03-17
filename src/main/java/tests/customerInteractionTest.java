@@ -34,7 +34,7 @@ public class customerInteractionTest extends BaseTest {
     @User()
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteraction(TestDatabean Data) {
-        ExtentTestManager.startTest("Validating the Search forCustomer Interactions :" + Data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + Data.getCustomerNumber());
+        ExtentTestManager.startTest("Validating the Search for Customer Interactions :" + Data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + Data.getCustomerNumber());
         SoftAssert softAssert = new SoftAssert();
         SideMenuPOM SideMenuPOM = new SideMenuPOM(driver);
         if(Env.equalsIgnoreCase("Prod")){
