@@ -1,55 +1,109 @@
 -------------------------------------------------------------------------------
 Test set: TestSuite
 -------------------------------------------------------------------------------
-Tests run: 47, Failures: 5, Errors: 0, Skipped: 3, Time elapsed: 1,857.919 s <<< FAILURE! - in TestSuite
-validateDemographicInformation(tests.customerInteractionTest)  Time elapsed: 103.147 s  <<< FAILURE!
-java.lang.AssertionError: 
-The following asserts failed:
-	Not able to authenticate user: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//app-authentication-block-modal//div[1]//div[2]//div[1]//div[@class="main-container__body--left--wrapper ng-star-inserted"][1]//mat-checkbox"}
+Tests run: 18, Failures: 7, Errors: 0, Skipped: 10, Time elapsed: 476.189 s <<< FAILURE! - in TestSuite
+LoggingIN(tests.LoginTests)  Time elapsed: 85.29 s  <<< FAILURE!
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for presence of element located by: By.xpath: //input[@formcontrolname="loginTypeStatus"] (tried for 60 second(s) with 500 milliseconds interval)
+	at tests.LoginTests.LoggingIN(LoginTests.java:24)
+Caused by: org.openqa.selenium.NoSuchElementException: 
+no such element: Unable to locate element: {"method":"xpath","selector":"//input[@formcontrolname="loginTypeStatus"]"}
   (Session info: headless chrome=89.0.4389.82)
 For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
 Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
 System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:63299}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: 85fa06d3e51bdfa78895c3f549eb3c45
-*** Element info: {Using=xpath, value=//app-authentication-block-modal//div[1]//div[2]//div[1]//div[@class="main-container__body--left--wrapper ng-star-inserted"][1]//mat-checkbox},
-	Not able to View PUK DetailsExpected condition failed: waiting for presence of element located by: By.xpath: //p[@class="puk-show"][1]/span[contains(text(),"PUK1")]//following-sibling::span (tried for 40 second(s) with 500 milliseconds interval)
-	at tests.customerInteractionTest.validateDemographicInformation(customerInteractionTest.java:326)
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:62859}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 1257bd7cdd1631bf0c521e12d0a8ea03
+*** Element info: {Using=xpath, value=//input[@formcontrolname="loginTypeStatus"]}
+	at tests.LoginTests.LoggingIN(LoginTests.java:24)
 
-openCustomerInteractionBySIM(tests.customerInteractionTest)  Time elapsed: 66.397 s  <<< FAILURE!
-java.lang.AssertionError: 
-The following asserts failed:
-	Customer Info Dashboard Page does not open using SIM Number.
-	at tests.customerInteractionTest.openCustomerInteractionBySIM(customerInteractionTest.java:353)
+sideMenuAssert(tests.sideMenuTests)  Time elapsed: 60.456 s  <<< FAILURE!
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.xpath: //mat-toolbar//button (tried for 60 second(s) with 500 milliseconds interval)
+	at tests.sideMenuTests.sideMenuAssert(sideMenuTests.java:19)
+Caused by: org.openqa.selenium.NoSuchElementException: 
+no such element: Unable to locate element: {"method":"xpath","selector":"//mat-toolbar//button"}
+  (Session info: headless chrome=89.0.4389.82)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:62859}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 1257bd7cdd1631bf0c521e12d0a8ea03
+*** Element info: {Using=xpath, value=//mat-toolbar//button}
+	at tests.sideMenuTests.sideMenuAssert(sideMenuTests.java:19)
 
-accumulatorDetailsTest(tests.widgetsOptionsTest)  Time elapsed: 17.913 s  <<< FAILURE!
-java.lang.AssertionError: 
-The following asserts failed:
-	Header Name for Row 2 is not as expected expected [value] but found [description],
-	Header Name for Row 3 is not as expected expected [start date] but found [value],
-	Header Name for Row 4 is not as expected expected [next reset date] but found [start date],
-	Accumulator Value is not as received in API on row 0 expected [614400] but found [-],
-	Accumulator Start Date is not as received in API on row 0 expected [12-Mar-2021] but found [614400],
-	Accumulator Value is not as received in API on row 1 expected [917] but found [-],
-	Accumulator Start Date is not as received in API on row 1 expected [-] but found [917],
-	Accumulator Value is not as received in API on row 2 expected [1] but found [-],
-	Accumulator Start Date is not as received in API on row 2 expected [-] but found [1],
-	Accumulator Value is not as received in API on row 3 expected [0] but found [-],
-	Accumulator Start Date is not as received in API on row 3 expected [12-Mar-2021] but found [0],
-	Accumulator Value is not as received in API on row 4 expected [0] but found [-],
-	Accumulator Start Date is not as received in API on row 4 expected [12-Mar-2021] but found [0]
-	at tests.widgetsOptionsTest.accumulatorDetailsTest(widgetsOptionsTest.java:129)
+openCustomerInteraction(tests.customerInteractionTest)  Time elapsed: 60.491 s  <<< FAILURE!
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.xpath: //mat-toolbar//button (tried for 60 second(s) with 500 milliseconds interval)
+	at tests.customerInteractionTest.openCustomerInteraction(customerInteractionTest.java:45)
+Caused by: org.openqa.selenium.NoSuchElementException: 
+no such element: Unable to locate element: {"method":"xpath","selector":"//mat-toolbar//button"}
+  (Session info: headless chrome=89.0.4389.82)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:62859}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 1257bd7cdd1631bf0c521e12d0a8ea03
+*** Element info: {Using=xpath, value=//mat-toolbar//button}
+	at tests.customerInteractionTest.openCustomerInteraction(customerInteractionTest.java:45)
 
-usageHistoryMenuTest(tests.widgetsOptionsTest)  Time elapsed: 150.763 s  <<< FAILURE!
-java.lang.AssertionError: 
-The following asserts failed:
-	Not able to validate Detailed Usage History Completely: org.openqa.selenium.TimeoutException: Expected condition failed: waiting for presence of element located by: By.xpath: //div[@class="card__card-header"]//span[contains(text(),'USAGE HISTORY')]//ancestor::div[@class="card widget ng-star-inserted"]//div[@class="table-data-wrapper ng-star-inserted"]/div[@class="ng-star-inserted" or @class="slide-toggle red ng-star-inserted"][21]//div[@class="ng-star-inserted" or @class="slide-toggle red ng-star-inserted"][1]/span (tried for 40 second(s) with 500 milliseconds interval)
-	at tests.widgetsOptionsTest.usageHistoryMenuTest(widgetsOptionsTest.java:378)
+openCustomerInteractionBySIM(tests.customerInteractionTest)  Time elapsed: 60.444 s  <<< FAILURE!
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.xpath: //mat-toolbar//button (tried for 60 second(s) with 500 milliseconds interval)
+	at tests.customerInteractionTest.openCustomerInteractionBySIM(customerInteractionTest.java:337)
+Caused by: org.openqa.selenium.NoSuchElementException: 
+no such element: Unable to locate element: {"method":"xpath","selector":"//mat-toolbar//button"}
+  (Session info: headless chrome=89.0.4389.82)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:62859}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 1257bd7cdd1631bf0c521e12d0a8ea03
+*** Element info: {Using=xpath, value=//mat-toolbar//button}
+	at tests.customerInteractionTest.openCustomerInteractionBySIM(customerInteractionTest.java:337)
 
-agentQueueLogin(tests.BackendAgentLoginTest)  Time elapsed: 112.057 s  <<< FAILURE!
-java.lang.AssertionError: 
-The following asserts failed:
-	did not expect to find [true] but found [false]
-	at tests.BackendAgentLoginTest.agentQueueLogin(BackendAgentLoginTest.java:57)
+openCustomerInteractionAPI(tests.customerInteractionTest)  Time elapsed: 60.494 s  <<< FAILURE!
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.xpath: //mat-toolbar//button (tried for 60 second(s) with 500 milliseconds interval)
+	at tests.customerInteractionTest.openCustomerInteractionAPI(customerInteractionTest.java:653)
+Caused by: org.openqa.selenium.NoSuchElementException: 
+no such element: Unable to locate element: {"method":"xpath","selector":"//mat-toolbar//button"}
+  (Session info: headless chrome=89.0.4389.82)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:62859}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 1257bd7cdd1631bf0c521e12d0a8ea03
+*** Element info: {Using=xpath, value=//mat-toolbar//button}
+	at tests.customerInteractionTest.openCustomerInteractionAPI(customerInteractionTest.java:653)
+
+yourCurrentBalanceWidgetTest(tests.customerInteractionTest)  Time elapsed: 67.091 s  <<< FAILURE!
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for presence of element located by: By.xpath: //div[@class="card__content--top--left ng-star-inserted"] (tried for 60 second(s) with 500 milliseconds interval)
+	at tests.customerInteractionTest.yourCurrentBalanceWidgetTest(customerInteractionTest.java:734)
+Caused by: org.openqa.selenium.NoSuchElementException: 
+no such element: Unable to locate element: {"method":"xpath","selector":"//div[@class="card__content--top--left ng-star-inserted"]"}
+  (Session info: headless chrome=89.0.4389.82)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:62859}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 1257bd7cdd1631bf0c521e12d0a8ea03
+*** Element info: {Using=xpath, value=//div[@class="card__content--top--left ng-star-inserted"]}
+	at tests.customerInteractionTest.yourCurrentBalanceWidgetTest(customerInteractionTest.java:734)
+
+openCustomerInteractionAPI(tests.widgetsOptionsTest)  Time elapsed: 60.467 s  <<< FAILURE!
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.xpath: //mat-toolbar//button (tried for 60 second(s) with 500 milliseconds interval)
+	at tests.widgetsOptionsTest.openCustomerInteractionAPI(widgetsOptionsTest.java:33)
+Caused by: org.openqa.selenium.NoSuchElementException: 
+no such element: Unable to locate element: {"method":"xpath","selector":"//mat-toolbar//button"}
+  (Session info: headless chrome=89.0.4389.82)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:62859}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 1257bd7cdd1631bf0c521e12d0a8ea03
+*** Element info: {Using=xpath, value=//mat-toolbar//button}
+	at tests.widgetsOptionsTest.openCustomerInteractionAPI(widgetsOptionsTest.java:33)
 

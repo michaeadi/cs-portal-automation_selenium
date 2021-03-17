@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="TestSuite" time="1,857.919" tests="47" errors="0" skipped="3" failures="5">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="TestSuite" time="476.189" tests="18" errors="0" skipped="10" failures="7">
   <properties>
     <property name="sun.desktop" value="windows"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
@@ -7,7 +7,7 @@
     <property name="java.specification.version" value="1.8"/>
     <property name="sun.cpu.isalist" value="amd64"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
-    <property name="Opco" value="KE"/>
+    <property name="Opco" value="TZ"/>
     <property name="java.class.path" value="C:\Users\2394650\IdeaProjects\cs-portal-automation_selenium1\target\test-classes;C:\Users\2394650\IdeaProjects\cs-portal-automation_selenium1\target\classes;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-java\4.0.0-alpha-3\selenium-java-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-api\4.0.0-alpha-3\selenium-api-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-chrome-driver\4.0.0-alpha-3\selenium-chrome-driver-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\com\google\guava\guava\27.1-jre\guava-27.1-jre.jar;C:\Users\2394650\.m2\repository\com\google\guava\failureaccess\1.0.1\failureaccess-1.0.1.jar;C:\Users\2394650\.m2\repository\com\google\guava\listenablefuture\9999.0-empty-to-avoid-conflict-with-guava\listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar;C:\Users\2394650\.m2\repository\org\checkerframework\checker-qual\2.5.2\checker-qual-2.5.2.jar;C:\Users\2394650\.m2\repository\com\google\errorprone\error_prone_annotations\2.2.0\error_prone_annotations-2.2.0.jar;C:\Users\2394650\.m2\repository\com\google\j2objc\j2objc-annotations\1.1\j2objc-annotations-1.1.jar;C:\Users\2394650\.m2\repository\org\codehaus\mojo\animal-sniffer-annotations\1.17\animal-sniffer-annotations-1.17.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-chromium-driver\4.0.0-alpha-3\selenium-chromium-driver-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-devtools\4.0.0-alpha-3\selenium-devtools-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-http\4.0.0-alpha-3\selenium-http-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-json\4.0.0-alpha-3\selenium-json-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-edge-driver\4.0.0-alpha-3\selenium-edge-driver-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-edgehtml-driver\4.0.0-alpha-3\selenium-edgehtml-driver-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-firefox-driver\4.0.0-alpha-3\selenium-firefox-driver-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-firefox-xpi-driver\4.0.0-alpha-3\selenium-firefox-xpi-driver-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-ie-driver\4.0.0-alpha-3\selenium-ie-driver-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-opera-driver\4.0.0-alpha-3\selenium-opera-driver-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-remote-driver\4.0.0-alpha-3\selenium-remote-driver-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\com\squareup\okhttp3\okhttp\4.0.1\okhttp-4.0.1.jar;C:\Users\2394650\.m2\repository\com\squareup\okio\okio\2.2.2\okio-2.2.2.jar;C:\Users\2394650\.m2\repository\org\jetbrains\kotlin\kotlin-stdlib\1.3.40\kotlin-stdlib-1.3.40.jar;C:\Users\2394650\.m2\repository\org\jetbrains\kotlin\kotlin-stdlib-common\1.3.40\kotlin-stdlib-common-1.3.40.jar;C:\Users\2394650\.m2\repository\org\jetbrains\annotations\13.0\annotations-13.0.jar;C:\Users\2394650\.m2\repository\io\opentracing\opentracing-api\0.33.0\opentracing-api-0.33.0.jar;C:\Users\2394650\.m2\repository\net\bytebuddy\byte-buddy\1.9.12\byte-buddy-1.9.12.jar;C:\Users\2394650\.m2\repository\org\apache\commons\commons-exec\1.3\commons-exec-1.3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-safari-driver\4.0.0-alpha-3\selenium-safari-driver-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-support\4.0.0-alpha-3\selenium-support-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\hamcrest\java-hamcrest\2.0.0.0\java-hamcrest-2.0.0.0.jar;C:\Users\2394650\.m2\repository\commons-cli\commons-cli\1.4\commons-cli-1.4.jar;C:\Users\2394650\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.10.2\jackson-core-2.10.2.jar;C:\Users\2394650\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.9.8\jackson-databind-2.9.8.jar;C:\Users\2394650\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.9.0\jackson-annotations-2.9.0.jar;C:\Users\2394650\.m2\repository\org\hamcrest\hamcrest-all\1.3\hamcrest-all-1.3.jar;C:\Users\2394650\.m2\repository\org\hamcrest\hamcrest\2.2\hamcrest-2.2.jar;C:\Users\2394650\.m2\repository\io\rest-assured\rest-assured\3.3.0\rest-assured-3.3.0.jar;C:\Users\2394650\.m2\repository\org\codehaus\groovy\groovy\2.4.15\groovy-2.4.15.jar;C:\Users\2394650\.m2\repository\org\codehaus\groovy\groovy-xml\2.4.15\groovy-xml-2.4.15.jar;C:\Users\2394650\.m2\repository\org\apache\httpcomponents\httpclient\4.5.3\httpclient-4.5.3.jar;C:\Users\2394650\.m2\repository\org\apache\httpcomponents\httpcore\4.4.6\httpcore-4.4.6.jar;C:\Users\2394650\.m2\repository\commons-logging\commons-logging\1.2\commons-logging-1.2.jar;C:\Users\2394650\.m2\repository\commons-codec\commons-codec\1.9\commons-codec-1.9.jar;C:\Users\2394650\.m2\repository\org\apache\httpcomponents\httpmime\4.5.3\httpmime-4.5.3.jar;C:\Users\2394650\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\2394650\.m2\repository\org\hamcrest\hamcrest-library\1.3\hamcrest-library-1.3.jar;C:\Users\2394650\.m2\repository\org\ccil\cowan\tagsoup\tagsoup\1.2.1\tagsoup-1.2.1.jar;C:\Users\2394650\.m2\repository\io\rest-assured\xml-path\3.3.0\xml-path-3.3.0.jar;C:\Users\2394650\.m2\repository\javax\xml\bind\jaxb-api\2.2.12\jaxb-api-2.2.12.jar;C:\Users\2394650\.m2\repository\com\sun\xml\bind\jaxb-osgi\2.2.10\jaxb-osgi-2.2.10.jar;C:\Users\2394650\.m2\repository\org\apache\sling\org.apache.sling.javax.activation\0.1.0\org.apache.sling.javax.activation-0.1.0.jar;C:\Users\2394650\.m2\repository\javax\activation\activation\1.1.1\activation-1.1.1.jar;C:\Users\2394650\.m2\repository\io\rest-assured\json-path\4.2.0\json-path-4.2.0.jar;C:\Users\2394650\.m2\repository\org\codehaus\groovy\groovy-json\2.5.8\groovy-json-2.5.8.jar;C:\Users\2394650\.m2\repository\io\rest-assured\rest-assured-common\4.2.0\rest-assured-common-4.2.0.jar;C:\Users\2394650\.m2\repository\commons-io\commons-io\2.6\commons-io-2.6.jar;C:\Users\2394650\.m2\repository\io\rest-assured\json-schema-validator\4.2.0\json-schema-validator-4.2.0.jar;C:\Users\2394650\.m2\repository\com\github\java-json-tools\json-schema-validator\2.2.10\json-schema-validator-2.2.10.jar;C:\Users\2394650\.m2\repository\com\github\java-json-tools\json-schema-core\1.2.10\json-schema-core-1.2.10.jar;C:\Users\2394650\.m2\repository\com\github\java-json-tools\jackson-coreutils\1.9\jackson-coreutils-1.9.jar;C:\Users\2394650\.m2\repository\com\github\fge\msg-simple\1.1\msg-simple-1.1.jar;C:\Users\2394650\.m2\repository\com\github\fge\btf\1.2\btf-1.2.jar;C:\Users\2394650\.m2\repository\com\github\fge\uri-template\0.9\uri-template-0.9.jar;C:\Users\2394650\.m2\repository\org\mozilla\rhino\1.7.7.1\rhino-1.7.7.1.jar;C:\Users\2394650\.m2\repository\javax\mail\mailapi\1.4.3\mailapi-1.4.3.jar;C:\Users\2394650\.m2\repository\joda-time\joda-time\2.9.7\joda-time-2.9.7.jar;C:\Users\2394650\.m2\repository\com\googlecode\libphonenumber\libphonenumber\8.0.0\libphonenumber-8.0.0.jar;C:\Users\2394650\.m2\repository\com\google\code\findbugs\jsr305\3.0.1\jsr305-3.0.1.jar;C:\Users\2394650\.m2\repository\net\sf\jopt-simple\jopt-simple\5.0.3\jopt-simple-5.0.3.jar;C:\Users\2394650\.m2\repository\org\codehaus\jackson\jackson-core-asl\1.9.13\jackson-core-asl-1.9.13.jar;C:\Users\2394650\.m2\repository\org\codehaus\jackson\jackson-mapper-lgpl\1.9.13\jackson-mapper-lgpl-1.9.13.jar;C:\Users\2394650\.m2\repository\org\codehaus\jackson\jackson-core-lgpl\1.9.13\jackson-core-lgpl-1.9.13.jar;C:\Users\2394650\.m2\repository\org\testng\testng\7.0.0\testng-7.0.0.jar;C:\Users\2394650\.m2\repository\com\beust\jcommander\1.72\jcommander-1.72.jar;C:\Users\2394650\.m2\repository\org\apache\logging\log4j\log4j-api\2.13.3\log4j-api-2.13.3.jar;C:\Users\2394650\.m2\repository\org\apache\logging\log4j\log4j-core\2.13.3\log4j-core-2.13.3.jar;C:\Users\2394650\.m2\repository\org\apache\commons\commons-lang3\3.9\commons-lang3-3.9.jar;C:\Users\2394650\.m2\repository\org\apache\poi\poi-ooxml\4.1.0\poi-ooxml-4.1.0.jar;C:\Users\2394650\.m2\repository\org\apache\poi\poi\4.1.0\poi-4.1.0.jar;C:\Users\2394650\.m2\repository\org\apache\commons\commons-collections4\4.3\commons-collections4-4.3.jar;C:\Users\2394650\.m2\repository\org\apache\commons\commons-math3\3.6.1\commons-math3-3.6.1.jar;C:\Users\2394650\.m2\repository\org\apache\poi\poi-ooxml-schemas\4.1.0\poi-ooxml-schemas-4.1.0.jar;C:\Users\2394650\.m2\repository\org\apache\xmlbeans\xmlbeans\3.1.0\xmlbeans-3.1.0.jar;C:\Users\2394650\.m2\repository\org\apache\commons\commons-compress\1.18\commons-compress-1.18.jar;C:\Users\2394650\.m2\repository\com\github\virtuald\curvesapi\1.06\curvesapi-1.06.jar;C:\Users\2394650\.m2\repository\org\projectlombok\lombok\1.18.12\lombok-1.18.12.jar;C:\Users\2394650\.m2\repository\com\relevantcodes\extentreports\2.41.2\extentreports-2.41.2.jar;C:\Users\2394650\.m2\repository\org\jsoup\jsoup\1.8.3\jsoup-1.8.3.jar;C:\Users\2394650\.m2\repository\org\xerial\sqlite-jdbc\3.8.11.1\sqlite-jdbc-3.8.11.1.jar;C:\Users\2394650\.m2\repository\org\freemarker\freemarker\2.3.23\freemarker-2.3.23.jar;C:\Users\2394650\.m2\repository\org\mongodb\mongodb-driver\3.0.4\mongodb-driver-3.0.4.jar;C:\Users\2394650\.m2\repository\org\mongodb\bson\3.0.4\bson-3.0.4.jar;C:\Users\2394650\.m2\repository\org\mongodb\mongodb-driver-core\3.0.4\mongodb-driver-core-3.0.4.jar;C:\Users\2394650\.m2\repository\io\github\bonigarcia\webdrivermanager\4.2.2\webdrivermanager-4.2.2.jar;C:\Users\2394650\.m2\repository\org\slf4j\slf4j-api\1.7.30\slf4j-api-1.7.30.jar;C:\Users\2394650\.m2\repository\com\google\code\gson\gson\2.8.6\gson-2.8.6.jar;C:\Users\2394650\.m2\repository\org\apache\httpcomponents\client5\httpclient5\5.0.1\httpclient5-5.0.1.jar;C:\Users\2394650\.m2\repository\org\apache\httpcomponents\core5\httpcore5\5.0.1\httpcore5-5.0.1.jar;C:\Users\2394650\.m2\repository\org\apache\httpcomponents\core5\httpcore5-h2\5.0.1\httpcore5-h2-5.0.1.jar;C:\Users\2394650\.m2\repository\org\rauschig\jarchivelib\1.1.0\jarchivelib-1.1.0.jar;"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
     <property name="sun.arch.data.model" value="64"/>
@@ -19,7 +19,7 @@
     <property name="user.country" value="US"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_231\jre\bin"/>
-    <property name="sun.java.command" value="C:\Users\2394650\AppData\Local\Temp\surefire8205367819285409724\surefirebooter7545090904265110163.jar C:\Users\2394650\AppData\Local\Temp\surefire8205367819285409724 2021-03-12T00-07-53_627-jvmRun1 surefire4737935860566137413tmp surefire_05622455085406213458tmp"/>
+    <property name="sun.java.command" value="C:\Users\2394650\AppData\Local\Temp\surefire8141719338641586168\surefirebooter1090195663240186472.jar C:\Users\2394650\AppData\Local\Temp\surefire8141719338641586168 2021-03-16T17-45-00_925-jvmRun1 surefire6973694208262417003tmp surefire_08249879782608727683tmp"/>
     <property name="surefire.test.class.path" value="C:\Users\2394650\IdeaProjects\cs-portal-automation_selenium1\target\test-classes;C:\Users\2394650\IdeaProjects\cs-portal-automation_selenium1\target\classes;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-java\4.0.0-alpha-3\selenium-java-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-api\4.0.0-alpha-3\selenium-api-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-chrome-driver\4.0.0-alpha-3\selenium-chrome-driver-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\com\google\guava\guava\27.1-jre\guava-27.1-jre.jar;C:\Users\2394650\.m2\repository\com\google\guava\failureaccess\1.0.1\failureaccess-1.0.1.jar;C:\Users\2394650\.m2\repository\com\google\guava\listenablefuture\9999.0-empty-to-avoid-conflict-with-guava\listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar;C:\Users\2394650\.m2\repository\org\checkerframework\checker-qual\2.5.2\checker-qual-2.5.2.jar;C:\Users\2394650\.m2\repository\com\google\errorprone\error_prone_annotations\2.2.0\error_prone_annotations-2.2.0.jar;C:\Users\2394650\.m2\repository\com\google\j2objc\j2objc-annotations\1.1\j2objc-annotations-1.1.jar;C:\Users\2394650\.m2\repository\org\codehaus\mojo\animal-sniffer-annotations\1.17\animal-sniffer-annotations-1.17.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-chromium-driver\4.0.0-alpha-3\selenium-chromium-driver-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-devtools\4.0.0-alpha-3\selenium-devtools-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-http\4.0.0-alpha-3\selenium-http-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-json\4.0.0-alpha-3\selenium-json-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-edge-driver\4.0.0-alpha-3\selenium-edge-driver-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-edgehtml-driver\4.0.0-alpha-3\selenium-edgehtml-driver-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-firefox-driver\4.0.0-alpha-3\selenium-firefox-driver-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-firefox-xpi-driver\4.0.0-alpha-3\selenium-firefox-xpi-driver-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-ie-driver\4.0.0-alpha-3\selenium-ie-driver-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-opera-driver\4.0.0-alpha-3\selenium-opera-driver-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-remote-driver\4.0.0-alpha-3\selenium-remote-driver-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\com\squareup\okhttp3\okhttp\4.0.1\okhttp-4.0.1.jar;C:\Users\2394650\.m2\repository\com\squareup\okio\okio\2.2.2\okio-2.2.2.jar;C:\Users\2394650\.m2\repository\org\jetbrains\kotlin\kotlin-stdlib\1.3.40\kotlin-stdlib-1.3.40.jar;C:\Users\2394650\.m2\repository\org\jetbrains\kotlin\kotlin-stdlib-common\1.3.40\kotlin-stdlib-common-1.3.40.jar;C:\Users\2394650\.m2\repository\org\jetbrains\annotations\13.0\annotations-13.0.jar;C:\Users\2394650\.m2\repository\io\opentracing\opentracing-api\0.33.0\opentracing-api-0.33.0.jar;C:\Users\2394650\.m2\repository\net\bytebuddy\byte-buddy\1.9.12\byte-buddy-1.9.12.jar;C:\Users\2394650\.m2\repository\org\apache\commons\commons-exec\1.3\commons-exec-1.3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-safari-driver\4.0.0-alpha-3\selenium-safari-driver-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\seleniumhq\selenium\selenium-support\4.0.0-alpha-3\selenium-support-4.0.0-alpha-3.jar;C:\Users\2394650\.m2\repository\org\hamcrest\java-hamcrest\2.0.0.0\java-hamcrest-2.0.0.0.jar;C:\Users\2394650\.m2\repository\commons-cli\commons-cli\1.4\commons-cli-1.4.jar;C:\Users\2394650\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.10.2\jackson-core-2.10.2.jar;C:\Users\2394650\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.9.8\jackson-databind-2.9.8.jar;C:\Users\2394650\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.9.0\jackson-annotations-2.9.0.jar;C:\Users\2394650\.m2\repository\org\hamcrest\hamcrest-all\1.3\hamcrest-all-1.3.jar;C:\Users\2394650\.m2\repository\org\hamcrest\hamcrest\2.2\hamcrest-2.2.jar;C:\Users\2394650\.m2\repository\io\rest-assured\rest-assured\3.3.0\rest-assured-3.3.0.jar;C:\Users\2394650\.m2\repository\org\codehaus\groovy\groovy\2.4.15\groovy-2.4.15.jar;C:\Users\2394650\.m2\repository\org\codehaus\groovy\groovy-xml\2.4.15\groovy-xml-2.4.15.jar;C:\Users\2394650\.m2\repository\org\apache\httpcomponents\httpclient\4.5.3\httpclient-4.5.3.jar;C:\Users\2394650\.m2\repository\org\apache\httpcomponents\httpcore\4.4.6\httpcore-4.4.6.jar;C:\Users\2394650\.m2\repository\commons-logging\commons-logging\1.2\commons-logging-1.2.jar;C:\Users\2394650\.m2\repository\commons-codec\commons-codec\1.9\commons-codec-1.9.jar;C:\Users\2394650\.m2\repository\org\apache\httpcomponents\httpmime\4.5.3\httpmime-4.5.3.jar;C:\Users\2394650\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\2394650\.m2\repository\org\hamcrest\hamcrest-library\1.3\hamcrest-library-1.3.jar;C:\Users\2394650\.m2\repository\org\ccil\cowan\tagsoup\tagsoup\1.2.1\tagsoup-1.2.1.jar;C:\Users\2394650\.m2\repository\io\rest-assured\xml-path\3.3.0\xml-path-3.3.0.jar;C:\Users\2394650\.m2\repository\javax\xml\bind\jaxb-api\2.2.12\jaxb-api-2.2.12.jar;C:\Users\2394650\.m2\repository\com\sun\xml\bind\jaxb-osgi\2.2.10\jaxb-osgi-2.2.10.jar;C:\Users\2394650\.m2\repository\org\apache\sling\org.apache.sling.javax.activation\0.1.0\org.apache.sling.javax.activation-0.1.0.jar;C:\Users\2394650\.m2\repository\javax\activation\activation\1.1.1\activation-1.1.1.jar;C:\Users\2394650\.m2\repository\io\rest-assured\json-path\4.2.0\json-path-4.2.0.jar;C:\Users\2394650\.m2\repository\org\codehaus\groovy\groovy-json\2.5.8\groovy-json-2.5.8.jar;C:\Users\2394650\.m2\repository\io\rest-assured\rest-assured-common\4.2.0\rest-assured-common-4.2.0.jar;C:\Users\2394650\.m2\repository\commons-io\commons-io\2.6\commons-io-2.6.jar;C:\Users\2394650\.m2\repository\io\rest-assured\json-schema-validator\4.2.0\json-schema-validator-4.2.0.jar;C:\Users\2394650\.m2\repository\com\github\java-json-tools\json-schema-validator\2.2.10\json-schema-validator-2.2.10.jar;C:\Users\2394650\.m2\repository\com\github\java-json-tools\json-schema-core\1.2.10\json-schema-core-1.2.10.jar;C:\Users\2394650\.m2\repository\com\github\java-json-tools\jackson-coreutils\1.9\jackson-coreutils-1.9.jar;C:\Users\2394650\.m2\repository\com\github\fge\msg-simple\1.1\msg-simple-1.1.jar;C:\Users\2394650\.m2\repository\com\github\fge\btf\1.2\btf-1.2.jar;C:\Users\2394650\.m2\repository\com\github\fge\uri-template\0.9\uri-template-0.9.jar;C:\Users\2394650\.m2\repository\org\mozilla\rhino\1.7.7.1\rhino-1.7.7.1.jar;C:\Users\2394650\.m2\repository\javax\mail\mailapi\1.4.3\mailapi-1.4.3.jar;C:\Users\2394650\.m2\repository\joda-time\joda-time\2.9.7\joda-time-2.9.7.jar;C:\Users\2394650\.m2\repository\com\googlecode\libphonenumber\libphonenumber\8.0.0\libphonenumber-8.0.0.jar;C:\Users\2394650\.m2\repository\com\google\code\findbugs\jsr305\3.0.1\jsr305-3.0.1.jar;C:\Users\2394650\.m2\repository\net\sf\jopt-simple\jopt-simple\5.0.3\jopt-simple-5.0.3.jar;C:\Users\2394650\.m2\repository\org\codehaus\jackson\jackson-core-asl\1.9.13\jackson-core-asl-1.9.13.jar;C:\Users\2394650\.m2\repository\org\codehaus\jackson\jackson-mapper-lgpl\1.9.13\jackson-mapper-lgpl-1.9.13.jar;C:\Users\2394650\.m2\repository\org\codehaus\jackson\jackson-core-lgpl\1.9.13\jackson-core-lgpl-1.9.13.jar;C:\Users\2394650\.m2\repository\org\testng\testng\7.0.0\testng-7.0.0.jar;C:\Users\2394650\.m2\repository\com\beust\jcommander\1.72\jcommander-1.72.jar;C:\Users\2394650\.m2\repository\org\apache\logging\log4j\log4j-api\2.13.3\log4j-api-2.13.3.jar;C:\Users\2394650\.m2\repository\org\apache\logging\log4j\log4j-core\2.13.3\log4j-core-2.13.3.jar;C:\Users\2394650\.m2\repository\org\apache\commons\commons-lang3\3.9\commons-lang3-3.9.jar;C:\Users\2394650\.m2\repository\org\apache\poi\poi-ooxml\4.1.0\poi-ooxml-4.1.0.jar;C:\Users\2394650\.m2\repository\org\apache\poi\poi\4.1.0\poi-4.1.0.jar;C:\Users\2394650\.m2\repository\org\apache\commons\commons-collections4\4.3\commons-collections4-4.3.jar;C:\Users\2394650\.m2\repository\org\apache\commons\commons-math3\3.6.1\commons-math3-3.6.1.jar;C:\Users\2394650\.m2\repository\org\apache\poi\poi-ooxml-schemas\4.1.0\poi-ooxml-schemas-4.1.0.jar;C:\Users\2394650\.m2\repository\org\apache\xmlbeans\xmlbeans\3.1.0\xmlbeans-3.1.0.jar;C:\Users\2394650\.m2\repository\org\apache\commons\commons-compress\1.18\commons-compress-1.18.jar;C:\Users\2394650\.m2\repository\com\github\virtuald\curvesapi\1.06\curvesapi-1.06.jar;C:\Users\2394650\.m2\repository\org\projectlombok\lombok\1.18.12\lombok-1.18.12.jar;C:\Users\2394650\.m2\repository\com\relevantcodes\extentreports\2.41.2\extentreports-2.41.2.jar;C:\Users\2394650\.m2\repository\org\jsoup\jsoup\1.8.3\jsoup-1.8.3.jar;C:\Users\2394650\.m2\repository\org\xerial\sqlite-jdbc\3.8.11.1\sqlite-jdbc-3.8.11.1.jar;C:\Users\2394650\.m2\repository\org\freemarker\freemarker\2.3.23\freemarker-2.3.23.jar;C:\Users\2394650\.m2\repository\org\mongodb\mongodb-driver\3.0.4\mongodb-driver-3.0.4.jar;C:\Users\2394650\.m2\repository\org\mongodb\bson\3.0.4\bson-3.0.4.jar;C:\Users\2394650\.m2\repository\org\mongodb\mongodb-driver-core\3.0.4\mongodb-driver-core-3.0.4.jar;C:\Users\2394650\.m2\repository\io\github\bonigarcia\webdrivermanager\4.2.2\webdrivermanager-4.2.2.jar;C:\Users\2394650\.m2\repository\org\slf4j\slf4j-api\1.7.30\slf4j-api-1.7.30.jar;C:\Users\2394650\.m2\repository\com\google\code\gson\gson\2.8.6\gson-2.8.6.jar;C:\Users\2394650\.m2\repository\org\apache\httpcomponents\client5\httpclient5\5.0.1\httpclient5-5.0.1.jar;C:\Users\2394650\.m2\repository\org\apache\httpcomponents\core5\httpcore5\5.0.1\httpcore5-5.0.1.jar;C:\Users\2394650\.m2\repository\org\apache\httpcomponents\core5\httpcore5-h2\5.0.1\httpcore5-h2-5.0.1.jar;C:\Users\2394650\.m2\repository\org\rauschig\jarchivelib\1.1.0\jarchivelib-1.1.0.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="C:\Users\2394650"/>
@@ -33,7 +33,7 @@
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
     <property name="idea.version2020.1.2" value="true"/>
-    <property name="surefire.real.class.path" value="C:\Users\2394650\AppData\Local\Temp\surefire8205367819285409724\surefirebooter7545090904265110163.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\2394650\AppData\Local\Temp\surefire8141719338641586168\surefirebooter1090195663240186472.jar"/>
     <property name="sun.boot.class.path" value="C:\Program Files\Java\jdk1.8.0_231\jre\lib\resources.jar;C:\Program Files\Java\jdk1.8.0_231\jre\lib\rt.jar;C:\Program Files\Java\jdk1.8.0_231\jre\lib\sunrsasign.jar;C:\Program Files\Java\jdk1.8.0_231\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.8.0_231\jre\lib\jce.jar;C:\Program Files\Java\jdk1.8.0_231\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.8.0_231\jre\lib\jfr.jar;C:\Program Files\Java\jdk1.8.0_231\jre\classes"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
@@ -64,27 +64,25 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="52.0"/>
   </properties>
-  <testcase name="loginAPI" classname="API.APIEndPoints" time="4.722"/>
-  <testcase name="loginAPI" classname="API.APIEndPoints" time="1.283"/>
-  <testcase name="LoggingIN" classname="tests.LoginTests" time="102.163"/>
-  <testcase name="sideMenuAssert" classname="tests.sideMenuTests" time="27.258"/>
-  <testcase name="openCustomerInteraction" classname="tests.customerInteractionTest" time="35.084"/>
-  <testcase name="validateDemographicInformation" classname="tests.customerInteractionTest" time="103.147">
-    <failure message="The following asserts failed:&#10;	Not able to authenticate user: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//app-authentication-block-modal//div[1]//div[2]//div[1]//div[@class=&quot;main-container__body--left--wrapper ng-star-inserted&quot;][1]//mat-checkbox&quot;}&#10;  (Session info: headless chrome=89.0.4389.82)&#10;For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html&#10;Build info: version: &apos;4.0.0-alpha-3&apos;, revision: &apos;8c567de6dc&apos;&#10;System info: host: &apos;LT2394650&apos;, ip: &apos;172.23.64.219&apos;, os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;1.8.0_231&apos;&#10;Driver info: org.openqa.selenium.chrome.ChromeDriver&#10;Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:63299}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}&#10;Session ID: 85fa06d3e51bdfa78895c3f549eb3c45&#10;*** Element info: {Using=xpath, value=//app-authentication-block-modal//div[1]//div[2]//div[1]//div[@class=&quot;main-container__body--left--wrapper ng-star-inserted&quot;][1]//mat-checkbox},&#10;	Not able to View PUK DetailsExpected condition failed: waiting for presence of element located by: By.xpath: //p[@class=&quot;puk-show&quot;][1]/span[contains(text(),&quot;PUK1&quot;)]//following-sibling::span (tried for 40 second(s) with 500 milliseconds interval)" type="java.lang.AssertionError">java.lang.AssertionError: 
-The following asserts failed:
-	Not able to authenticate user: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//app-authentication-block-modal//div[1]//div[2]//div[1]//div[@class="main-container__body--left--wrapper ng-star-inserted"][1]//mat-checkbox"}
+  <testcase name="loginAPI" classname="API.APIEndPoints" time="5.312"/>
+  <testcase name="LoggingIN" classname="tests.LoginTests" time="85.29">
+    <failure message="Expected condition failed: waiting for presence of element located by: By.xpath: //input[@formcontrolname=&quot;loginTypeStatus&quot;] (tried for 60 second(s) with 500 milliseconds interval)" type="org.openqa.selenium.TimeoutException">org.openqa.selenium.TimeoutException: Expected condition failed: waiting for presence of element located by: By.xpath: //input[@formcontrolname="loginTypeStatus"] (tried for 60 second(s) with 500 milliseconds interval)
+	at tests.LoginTests.LoggingIN(LoginTests.java:24)
+Caused by: org.openqa.selenium.NoSuchElementException: 
+no such element: Unable to locate element: {"method":"xpath","selector":"//input[@formcontrolname="loginTypeStatus"]"}
   (Session info: headless chrome=89.0.4389.82)
 For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
 Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
 System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:63299}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: 85fa06d3e51bdfa78895c3f549eb3c45
-*** Element info: {Using=xpath, value=//app-authentication-block-modal//div[1]//div[2]//div[1]//div[@class="main-container__body--left--wrapper ng-star-inserted"][1]//mat-checkbox},
-	Not able to View PUK DetailsExpected condition failed: waiting for presence of element located by: By.xpath: //p[@class="puk-show"][1]/span[contains(text(),"PUK1")]//following-sibling::span (tried for 40 second(s) with 500 milliseconds interval)
-	at tests.customerInteractionTest.validateDemographicInformation(customerInteractionTest.java:326)
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:62859}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 1257bd7cdd1631bf0c521e12d0a8ea03
+*** Element info: {Using=xpath, value=//input[@formcontrolname="loginTypeStatus"]}
+	at tests.LoginTests.LoggingIN(LoginTests.java:24)
 </failure>
-    <system-out><![CDATA[00:10:55.265 I am in on TestSuccess method openCustomerInteraction succeed
+    <system-out><![CDATA[17:45:18.305 I am in on TestSuccess method loginAPI succeed
+I am in onFinish method PROD Sanity API Test
+I am in onStart method Login Admin 1 Test
 User Type ALL
 User Type ADDED ALL
 User Type BA
@@ -93,126 +91,77 @@ User Type API
 NO USER FOUND
 User Type NFTR
 NO USER FOUND
-00:10:55.592 I am in onTestStart method validateDemographicInformation start
-00:10:55.636 [main] INFO  API.APIEndPoints(200) - Request Headers are  : x-app-name=cs-service
-x-service-id=customer_service_service_request_webctx
-x-app-type=web
-x-client-id=3
-x-api-key=a90d64e9-a628-4824-aeef-28ad4b23ccbe
-x-login-module=MSISDN
-x-channel=4
-x-app-version=1.0.0
-Opco=KE
-Authorization=Bearer eyJjdHkiOiJKV1QiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAtMjU2In0.XPKUBR3cuuKp611_QPcYdq-CQimp0FNOb07chjP-NNMA13n4h7UbuKKJZFo77uRP0m9W9w-wOAqsJ-g-SnuQ1NIs0qrPFsjdSNDLOUTyIqDgvtt1TBTcUWoVqVLul1X3F0MbpGRhW_WOaCnuY0K8Kz7ou78aEw1BFIPqhiNRNHmKN1aBaAhbwJMihiUkBbZp7yE7iEN6D4BO14Em08_sat9bLd81f8gofK5pu8hcHR-7MXuMX34zIl0ugXyZWP444CdKS32LqZma6p9J5YOkDHtzLNs1WctGjiOqwC13dGDeRtLIjtad3zCb-PT1_yvO86fiXmAHwv5KsIZt-3tfCQ.oUu9g2LDcmoj4XR6.nuQOLJGFcWABhT6mRh3H5t9xtr0V7FtLdqgNXP-45xnT7U73hhlLPx2akmWyfTIGUZ5nNdgNr_52GhJAF9zb8T9H2bVkQ_ZMRqRVlIsQRYEO04i1vv3hJNx92GmgWEMhVkXY_NxTufZG6ojW_P6mCPEpGDgp4wAlyErb7WN0Csdk5v9oTDprymC3vOGrsLbA1ER79l3CIFMfHtaVf39FJRpB_c9cJ1mAwfZ_zLP2tVHAeo5ohjEQOGMuSlq44FEal0-H.hqCAc2n-PdLCNHRjl_kmVQ
-Content-Type=application/json
-00:10:55.636 [main] INFO  API.APIEndPoints(202) - Request Body is  : {"msisdn":"789474747"}
-00:10:56.484 [main] INFO  API.APIEndPoints(204) - Response : {"status":"SUCCESS","statusCode":200,"result":{"airtelMoneyStatus":"Active","deviceType":"4G Compatible","appStatus":"App Not Downloaded","serviceStatus":"Active","imeiNumber":"864253048085096","type":"Smartphone","brand":"Huawei","model":"DUB-LX1","os":"Android"},"apiErrors":{}}
-00:10:56.485 [main] INFO  API.APIEndPoints(205) - Response time : 0 s
-00:10:56.916 [main] INFO  API.APIEndPoints(221) - Request Headers are  : x-app-name=cs-service
-x-service-id=customer_service_service_request_webctx
-x-app-type=web
-x-client-id=3
-x-api-key=a90d64e9-a628-4824-aeef-28ad4b23ccbe
-x-login-module=MSISDN
-x-channel=4
-x-app-version=1.0.0
-Opco=KE
-Authorization=Bearer eyJjdHkiOiJKV1QiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAtMjU2In0.XPKUBR3cuuKp611_QPcYdq-CQimp0FNOb07chjP-NNMA13n4h7UbuKKJZFo77uRP0m9W9w-wOAqsJ-g-SnuQ1NIs0qrPFsjdSNDLOUTyIqDgvtt1TBTcUWoVqVLul1X3F0MbpGRhW_WOaCnuY0K8Kz7ou78aEw1BFIPqhiNRNHmKN1aBaAhbwJMihiUkBbZp7yE7iEN6D4BO14Em08_sat9bLd81f8gofK5pu8hcHR-7MXuMX34zIl0ugXyZWP444CdKS32LqZma6p9J5YOkDHtzLNs1WctGjiOqwC13dGDeRtLIjtad3zCb-PT1_yvO86fiXmAHwv5KsIZt-3tfCQ.oUu9g2LDcmoj4XR6.nuQOLJGFcWABhT6mRh3H5t9xtr0V7FtLdqgNXP-45xnT7U73hhlLPx2akmWyfTIGUZ5nNdgNr_52GhJAF9zb8T9H2bVkQ_ZMRqRVlIsQRYEO04i1vv3hJNx92GmgWEMhVkXY_NxTufZG6ojW_P6mCPEpGDgp4wAlyErb7WN0Csdk5v9oTDprymC3vOGrsLbA1ER79l3CIFMfHtaVf39FJRpB_c9cJ1mAwfZ_zLP2tVHAeo5ohjEQOGMuSlq44FEal0-H.hqCAc2n-PdLCNHRjl_kmVQ
-Content-Type=application/json
-00:10:56.918 [main] INFO  API.APIEndPoints(223) - Request Body is  : {"msisdn":"789474747"}
-00:10:58.443 [main] INFO  API.APIEndPoints(225) - Response : {"status":"SUCCESS","statusCode":200,"result":{"activationDate":"1474968211000","sim":"8925403512006589365","simType":"4G","puk":[{"label":"PUK1","value":"35574193"},{"label":"PUK2","value":"26355276"}],"status":"Active","lineType":"HYBRID","serviceCategory":"Ivory","segment":"Individual","subSegment":"High Data User","serviceClass":"52","gsmAdditionalInfo":true,"modifiedBy":"BELINDAH JEMELI","modifiedDate":"20-Jan-2021 11:54 AM","reason":"Customer Request","vip":false},"apiErrors":{}}
-00:10:58.445 [main] INFO  API.APIEndPoints(226) - Response time : 1 s
-00:10:58.484 [main] INFO  API.APIEndPoints(178) - Request Headers are  : x-app-name=cs-service
-x-service-id=customer_service_service_request_webctx
-x-app-type=web
-x-client-id=3
-x-api-key=a90d64e9-a628-4824-aeef-28ad4b23ccbe
-x-login-module=MSISDN
-x-channel=4
-x-app-version=1.0.0
-Opco=KE
-Authorization=Bearer eyJjdHkiOiJKV1QiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAtMjU2In0.XPKUBR3cuuKp611_QPcYdq-CQimp0FNOb07chjP-NNMA13n4h7UbuKKJZFo77uRP0m9W9w-wOAqsJ-g-SnuQ1NIs0qrPFsjdSNDLOUTyIqDgvtt1TBTcUWoVqVLul1X3F0MbpGRhW_WOaCnuY0K8Kz7ou78aEw1BFIPqhiNRNHmKN1aBaAhbwJMihiUkBbZp7yE7iEN6D4BO14Em08_sat9bLd81f8gofK5pu8hcHR-7MXuMX34zIl0ugXyZWP444CdKS32LqZma6p9J5YOkDHtzLNs1WctGjiOqwC13dGDeRtLIjtad3zCb-PT1_yvO86fiXmAHwv5KsIZt-3tfCQ.oUu9g2LDcmoj4XR6.nuQOLJGFcWABhT6mRh3H5t9xtr0V7FtLdqgNXP-45xnT7U73hhlLPx2akmWyfTIGUZ5nNdgNr_52GhJAF9zb8T9H2bVkQ_ZMRqRVlIsQRYEO04i1vv3hJNx92GmgWEMhVkXY_NxTufZG6ojW_P6mCPEpGDgp4wAlyErb7WN0Csdk5v9oTDprymC3vOGrsLbA1ER79l3CIFMfHtaVf39FJRpB_c9cJ1mAwfZ_zLP2tVHAeo5ohjEQOGMuSlq44FEal0-H.hqCAc2n-PdLCNHRjl_kmVQ
-Content-Type=application/json
-00:10:58.484 [main] INFO  API.APIEndPoints(180) - Request Body is  : {"msisdn":"789474747"}
-00:10:59.936 [main] INFO  API.APIEndPoints(182) - Response : {"status":"SUCCESS","statusCode":200,"result":{"name":"Edward Wachira","dob":688176000000,"identificationType":"National ID","identificationNo":"28771105","gsm":"APPROVED"},"apiErrors":{}}
-00:10:59.938 [main] INFO  API.APIEndPoints(183) - Response time : 1 s
-00:10:59.950 [main] INFO  API.APIEndPoints(90) - Request Headers are  : x-app-name=cs-service
-x-service-id=customer_service_service_request_webctx
-x-app-type=web
-x-client-id=3
-x-api-key=a90d64e9-a628-4824-aeef-28ad4b23ccbe
-x-login-module=MSISDN
-x-channel=4
-x-app-version=1.0.0
-Opco=KE
-Authorization=Bearer eyJjdHkiOiJKV1QiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAtMjU2In0.XPKUBR3cuuKp611_QPcYdq-CQimp0FNOb07chjP-NNMA13n4h7UbuKKJZFo77uRP0m9W9w-wOAqsJ-g-SnuQ1NIs0qrPFsjdSNDLOUTyIqDgvtt1TBTcUWoVqVLul1X3F0MbpGRhW_WOaCnuY0K8Kz7ou78aEw1BFIPqhiNRNHmKN1aBaAhbwJMihiUkBbZp7yE7iEN6D4BO14Em08_sat9bLd81f8gofK5pu8hcHR-7MXuMX34zIl0ugXyZWP444CdKS32LqZma6p9J5YOkDHtzLNs1WctGjiOqwC13dGDeRtLIjtad3zCb-PT1_yvO86fiXmAHwv5KsIZt-3tfCQ.oUu9g2LDcmoj4XR6.nuQOLJGFcWABhT6mRh3H5t9xtr0V7FtLdqgNXP-45xnT7U73hhlLPx2akmWyfTIGUZ5nNdgNr_52GhJAF9zb8T9H2bVkQ_ZMRqRVlIsQRYEO04i1vv3hJNx92GmgWEMhVkXY_NxTufZG6ojW_P6mCPEpGDgp4wAlyErb7WN0Csdk5v9oTDprymC3vOGrsLbA1ER79l3CIFMfHtaVf39FJRpB_c9cJ1mAwfZ_zLP2tVHAeo5ohjEQOGMuSlq44FEal0-H.hqCAc2n-PdLCNHRjl_kmVQ
-Content-Type=application/json
-00:10:59.951 [main] INFO  API.APIEndPoints(92) - Request Body is  : {"msisdn":"789474747"}
-00:11:01.578 [main] INFO  API.APIEndPoints(95) - Response : {"status":"SUCCESS","statusCode":200,"result":{"dataManager":"ON","mainAccountBalance":{"balance":"19.01","currency":"KES","expireTime":1630152000000},"data":{"balance":"16.40 GB","expireTime":1617235200000,"accounts":[{"balanceDescription":"DATA-100","balance":"0.0"},{"balanceDescription":"DATA-226","balance":"16.40 GB","expireTime":1617235200000}]}},"apiErrors":{"lastRecharge":"Unable to Fetch Data"}}
-00:11:01.580 [main] INFO  API.APIEndPoints(96) - Response time : 1 s
-00:11:01.873 [main] INFO  pages.BasePage(321) - Is PUK Info locked: true
-00:11:02.040 [main] INFO  pages.BasePage(321) - Clicking Tap to unlock on PUK Info
-00:11:02.372 [main] INFO  pages.BasePage(73) - Clicking on elementBy.xpath: //div[@class="customer-details"]//div[@class="top col-md-7"]/div/div[1]//ul//span[contains(text(),'Tap to unlock')]
-00:11:02.402 [main] INFO  pages.BasePage(321) - Waiting for loader to be removed
-00:11:07.455 [main] INFO  pages.BasePage(321) - Loader Removed
-00:11:07.455 [main] INFO  pages.BasePage(321) - Checking Authentication tab load
-00:11:08.033 [main] INFO  pages.BasePage(321) - Clicking 1Q Checkbox
-00:11:13.775 [main] INFO  pages.BasePage(321) - Clicking on close button
-00:11:15.178 [main] INFO  pages.BasePage(321) - Waiting for loader to be removed
-00:11:31.981 [main] INFO  pages.BasePage(321) - Loader Removed
-00:11:32.135 [main] INFO  pages.BasePage(77) - Clicking Again on elementBy.xpath: //app-authentication-block-modal//mat-icon[contains(text(),'close')]
-00:12:16.214 [main] INFO  pages.BasePage(321) - Is Airtel Money Status Info locked: true
-00:12:16.385 [main] INFO  pages.BasePage(321) - Clicking Tap to unlock on Airtel Status Info
-00:12:16.805 [main] INFO  pages.BasePage(73) - Clicking on elementBy.xpath: //div[@class="customer-details"]//div[@class="top col-md-7"]/div/div[3]//ul//span[contains(text(),'Tap to unlock')]
-00:12:16.839 [main] INFO  pages.BasePage(321) - Waiting for loader to be removed
-00:12:21.867 [main] INFO  pages.BasePage(321) - Loader Removed
-00:12:21.867 [main] INFO  pages.BasePage(321) - Checking Authentication tab load
-00:12:22.383 [main] INFO  pages.BasePage(321) - Clicking 1Q Checkbox
-00:12:27.708 [main] INFO  pages.BasePage(73) - Clicking on elementBy.xpath: //app-authentication-block-modal//div[1]//div[2]//div[1]//div[@class="main-container__body--left--wrapper ng-star-inserted"][1]//mat-checkbox
-00:12:27.708 [main] INFO  pages.BasePage(321) - Clicking 2Q Checkbox
-00:12:28.645 [main] INFO  pages.BasePage(73) - Clicking on elementBy.xpath: //app-authentication-block-modal//div[1]//div[2]//div[1]//div[@class="main-container__body--left--wrapper ng-star-inserted"][2]//mat-checkbox
-00:12:28.646 [main] INFO  pages.BasePage(321) - Clicking 3Q Checkbox
-00:12:29.539 [main] INFO  pages.BasePage(73) - Clicking on elementBy.xpath: //app-authentication-block-modal//div[1]//div[2]//div[1]//div[@class="main-container__body--left--wrapper ng-star-inserted"][3]//mat-checkbox
-00:12:29.540 [main] INFO  pages.BasePage(321) - Checking Authenticate button is enable
-00:12:29.583 [main] INFO  pages.BasePage(321) - Clicking on Authenticate button
-00:12:30.045 [main] INFO  pages.BasePage(73) - Clicking on elementBy.xpath: //div[@class="main-container__body--right--buttons"]//button[2]
-00:12:30.274 [main] INFO  pages.CustomerDemoGraphicPOM(95) - Getting Customer Name Edward Wachira
-00:12:30.757 [main] INFO  pages.CustomerDemoGraphicPOM(108) - Getting Customer DOB 23-Oct-1991
-00:12:31.185 [main] INFO  pages.CustomerDemoGraphicPOM(129) - Getting Activation Date 27 September 2016
-00:12:31.689 [main] INFO  pages.BasePage(321) - Getting SIM Status: Active
-00:12:31.884 [main] INFO  pages.BasePage(321) - Hover on SIM Status Reason Info icon
-00:12:32.530 [main] INFO  pages.BasePage(321) - Getting SIM Status Reason Code Customer Request
-00:12:32.761 [main] INFO  pages.BasePage(321) - Getting SIM Status Modified By BELINDAH JEMELI
-00:12:33.014 [main] INFO  pages.BasePage(321) - Getting SIM Status Modified Date 20-Jan-2021 11:54
-00:12:33.268 [main] INFO  pages.BasePage(321) - Status of Data Manager Status+ true
-00:12:33.495 [main] INFO  pages.BasePage(321) - Getting Airtel Money Status: Active
-00:12:33.820 [main] INFO  pages.BasePage(321) - Getting Service Status: Active
-00:12:34.047 [main] INFO  pages.BasePage(321) - Getting Device Compatible: 4G Compatible
-00:12:34.278 [main] INFO  pages.CustomerDemoGraphicPOM(135) - Getting Activation Time 02: 53 PM
-00:12:34.688 [main] INFO  pages.CustomerDemoGraphicPOM(141) - Getting Sim Number 8925403512006589365
-00:12:35.066 [main] INFO  pages.CustomerDemoGraphicPOM(147) - Getting Sim Type 4G 
-00:12:35.542 [main] INFO  pages.CustomerDemoGraphicPOM(166) - Getting ID Type National ID
-00:12:35.895 [main] INFO  pages.CustomerDemoGraphicPOM(172) - Getting masked ID Number ***71105
-00:12:36.217 [main] INFO  pages.BasePage(321) - Getting Line Type: HYBRID
-00:12:36.479 [main] INFO  pages.BasePage(321) - Getting service Category: Ivory
-00:12:36.755 [main] INFO  pages.BasePage(321) - Getting Segment: - Individual
-00:12:37.021 [main] INFO  pages.BasePage(321) - Getting service class: 52
-00:12:37.163 [main] INFO  pages.BasePage(321) - Hover on Device Info icon
-00:12:37.542 [main] INFO  pages.BasePage(321) - Getting IMEI Number: 864253048085096
-00:12:37.789 [main] INFO  pages.BasePage(321) - Getting Device Type: Smartphone
-00:12:38.050 [main] INFO  pages.BasePage(321) - Getting Device Brand: Huawei
-00:12:38.317 [main] INFO  pages.BasePage(321) - Getting Device model: DUB-LX1
-00:12:38.606 [main] INFO  pages.BasePage(321) - Getting Device Operating System Number: Android
+17:45:19.218 I am in onTestStart method LoggingIN start
+17:45:39.079 [main] INFO  pages.loginPagePOM(34) - Opening URL:-http://172.27.0.142:30050/login
+17:45:39.091 [main] INFO  pages.BasePage(321) - Waiting for loader to be removed
+17:45:44.118 [main] INFO  pages.BasePage(321) - Loader Removed
+17:45:44.118 [main] INFO  pages.loginPagePOM(38) - Entering AUUID :2388008In username
 ]]></system-out>
-    <system-err><![CDATA[org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//app-authentication-block-modal//div[1]//div[2]//div[1]//div[@class="main-container__body--left--wrapper ng-star-inserted"][1]//mat-checkbox"}
+  </testcase>
+  <testcase name="sideMenuAssert" classname="tests.sideMenuTests" time="60.456">
+    <failure message="Expected condition failed: waiting for visibility of element located by By.xpath: //mat-toolbar//button (tried for 60 second(s) with 500 milliseconds interval)" type="org.openqa.selenium.TimeoutException">org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.xpath: //mat-toolbar//button (tried for 60 second(s) with 500 milliseconds interval)
+	at tests.sideMenuTests.sideMenuAssert(sideMenuTests.java:19)
+Caused by: org.openqa.selenium.NoSuchElementException: 
+no such element: Unable to locate element: {"method":"xpath","selector":"//mat-toolbar//button"}
   (Session info: headless chrome=89.0.4389.82)
 For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
 Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
 System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:63299}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: 85fa06d3e51bdfa78895c3f549eb3c45
-*** Element info: {Using=xpath, value=//app-authentication-block-modal//div[1]//div[2]//div[1]//div[@class="main-container__body--left--wrapper ng-star-inserted"][1]//mat-checkbox}
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:62859}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 1257bd7cdd1631bf0c521e12d0a8ea03
+*** Element info: {Using=xpath, value=//mat-toolbar//button}
+	at tests.sideMenuTests.sideMenuAssert(sideMenuTests.java:19)
+</failure>
+    <system-out><![CDATA[17:46:44.507 I am in on TestFailure method LoggingIN failed
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for presence of element located by: By.xpath: //input[@formcontrolname="loginTypeStatus"] (tried for 60 second(s) with 500 milliseconds interval)
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:138)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:234)
+	at pages.BasePage.waitVisibility(BasePage.java:126)
+	at pages.BasePage.writeText(BasePage.java:90)
+	at pages.loginPagePOM.enterAUUID(loginPagePOM.java:40)
+	at tests.LoginTests.LoggingIN(LoginTests.java:24)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:584)
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:172)
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:804)
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:145)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.util.ArrayList.forEach(ArrayList.java:1257)
+	at org.testng.TestRunner.privateRun(TestRunner.java:770)
+	at org.testng.TestRunner.run(TestRunner.java:591)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:402)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:396)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:355)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:304)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1180)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1102)
+	at org.testng.TestNG.runSuites(TestNG.java:1032)
+	at org.testng.TestNG.run(TestNG.java:1000)
+	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:283)
+	at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:75)
+	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:120)
+	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:384)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)
+Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//input[@formcontrolname="loginTypeStatus"]"}
+  (Session info: headless chrome=89.0.4389.82)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:62859}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 1257bd7cdd1631bf0c521e12d0a8ea03
+*** Element info: {Using=xpath, value=//input[@formcontrolname="loginTypeStatus"]}
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
 	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
@@ -227,90 +176,79 @@ Session ID: 85fa06d3e51bdfa78895c3f549eb3c45
 	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:445)
 	at org.openqa.selenium.By$ByXPath.findElement(By.java:396)
 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:319)
-	at pages.BasePage.scrollToViewElement(BasePage.java:82)
-	at pages.AuthenticationTabPOM.clickCheckBox(AuthenticationTabPOM.java:88)
-	at tests.customerInteractionTest.validateDemographicInformation(customerInteractionTest.java:80)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
-	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:584)
-	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:172)
-	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
-	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:804)
-	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:145)
-	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
-	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
-	at java.util.ArrayList.forEach(ArrayList.java:1257)
-	at org.testng.TestRunner.privateRun(TestRunner.java:770)
-	at org.testng.TestRunner.run(TestRunner.java:591)
-	at org.testng.SuiteRunner.runTest(SuiteRunner.java:402)
-	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:396)
-	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:355)
-	at org.testng.SuiteRunner.run(SuiteRunner.java:304)
-	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
-	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
-	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1180)
-	at org.testng.TestNG.runSuitesLocally(TestNG.java:1102)
-	at org.testng.TestNG.runSuites(TestNG.java:1032)
-	at org.testng.TestNG.run(TestNG.java:1000)
-	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:283)
-	at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:75)
-	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:120)
-	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:384)
-	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)
-	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)
-	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)
-org.openqa.selenium.TimeoutException: Expected condition failed: waiting for presence of element located by: By.xpath: //p[@class="puk-show"][1]/span[contains(text(),"PUK1")]//following-sibling::span (tried for 40 second(s) with 500 milliseconds interval)
-	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:138)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:234)
-	at pages.BasePage.waitVisibility(BasePage.java:126)
-	at pages.BasePage.readText(BasePage.java:99)
-	at pages.CustomerDemoGraphicPOM.getPUK1(CustomerDemoGraphicPOM.java:154)
-	at tests.customerInteractionTest.validateDemographicInformation(customerInteractionTest.java:94)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
-	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:584)
-	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:172)
-	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
-	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:804)
-	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:145)
-	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
-	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
-	at java.util.ArrayList.forEach(ArrayList.java:1257)
-	at org.testng.TestRunner.privateRun(TestRunner.java:770)
-	at org.testng.TestRunner.run(TestRunner.java:591)
-	at org.testng.SuiteRunner.runTest(SuiteRunner.java:402)
-	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:396)
-	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:355)
-	at org.testng.SuiteRunner.run(SuiteRunner.java:304)
-	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
-	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
-	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1180)
-	at org.testng.TestNG.runSuitesLocally(TestNG.java:1102)
-	at org.testng.TestNG.runSuites(TestNG.java:1032)
-	at org.testng.TestNG.run(TestNG.java:1000)
-	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:283)
-	at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:75)
-	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:120)
-	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:384)
-	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)
-	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)
-	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)
-Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//p[@class="puk-show"][1]/span[contains(text(),"PUK1")]//following-sibling::span"}
+	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:182)
+	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:179)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:211)
+	... 36 more
+
+I am in onFinish method Login Admin 1 Test
+I am in onStart method Side Menu
+17:46:45.148 I am in onTestStart method sideMenuAssert start
+]]></system-out>
+  </testcase>
+  <testcase name="openCustomerInteraction" classname="tests.customerInteractionTest" time="60.491">
+    <failure message="Expected condition failed: waiting for visibility of element located by By.xpath: //mat-toolbar//button (tried for 60 second(s) with 500 milliseconds interval)" type="org.openqa.selenium.TimeoutException">org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.xpath: //mat-toolbar//button (tried for 60 second(s) with 500 milliseconds interval)
+	at tests.customerInteractionTest.openCustomerInteraction(customerInteractionTest.java:45)
+Caused by: org.openqa.selenium.NoSuchElementException: 
+no such element: Unable to locate element: {"method":"xpath","selector":"//mat-toolbar//button"}
   (Session info: headless chrome=89.0.4389.82)
 For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
 Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
 System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:63299}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: 85fa06d3e51bdfa78895c3f549eb3c45
-*** Element info: {Using=xpath, value=//p[@class="puk-show"][1]/span[contains(text(),"PUK1")]//following-sibling::span}
-	at sun.reflect.GeneratedConstructorAccessor63.newInstance(Unknown Source)
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:62859}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 1257bd7cdd1631bf0c521e12d0a8ea03
+*** Element info: {Using=xpath, value=//mat-toolbar//button}
+	at tests.customerInteractionTest.openCustomerInteraction(customerInteractionTest.java:45)
+</failure>
+    <system-out><![CDATA[17:47:45.604 I am in on TestFailure method sideMenuAssert failed
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.xpath: //mat-toolbar//button (tried for 60 second(s) with 500 milliseconds interval)
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:138)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:234)
+	at pages.SideMenuPOM.clickOnSideMenu(SideMenuPOM.java:40)
+	at tests.sideMenuTests.sideMenuAssert(sideMenuTests.java:19)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:584)
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:172)
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:804)
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:145)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.util.ArrayList.forEach(ArrayList.java:1257)
+	at org.testng.TestRunner.privateRun(TestRunner.java:770)
+	at org.testng.TestRunner.run(TestRunner.java:591)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:402)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:396)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:355)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:304)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1180)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1102)
+	at org.testng.TestNG.runSuites(TestNG.java:1032)
+	at org.testng.TestNG.run(TestNG.java:1000)
+	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:283)
+	at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:75)
+	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:120)
+	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:384)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)
+Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//mat-toolbar//button"}
+  (Session info: headless chrome=89.0.4389.82)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:62859}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 1257bd7cdd1631bf0c521e12d0a8ea03
+*** Element info: {Using=xpath, value=//mat-toolbar//button}
+	at sun.reflect.GeneratedConstructorAccessor48.newInstance(Unknown Source)
 	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
 	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
 	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:191)
@@ -323,66 +261,13 @@ Session ID: 85fa06d3e51bdfa78895c3f549eb3c45
 	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:445)
 	at org.openqa.selenium.By$ByXPath.findElement(By.java:396)
 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:319)
-	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:182)
-	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:179)
+	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:205)
+	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:201)
 	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:211)
-	... 36 more
-]]></system-err>
-  </testcase>
-  <testcase name="openCustomerInteractionBySIM" classname="tests.customerInteractionTest" time="66.397">
-    <failure message="The following asserts failed:&#10;	Customer Info Dashboard Page does not open using SIM Number." type="java.lang.AssertionError">java.lang.AssertionError: 
-The following asserts failed:
-	Customer Info Dashboard Page does not open using SIM Number.
-	at tests.customerInteractionTest.openCustomerInteractionBySIM(customerInteractionTest.java:353)
-</failure>
-    <system-out><![CDATA[00:12:38.743 I am in on TestFailure method validateDemographicInformation failed
-java.lang.AssertionError: The following asserts failed:
-	Not able to authenticate user: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//app-authentication-block-modal//div[1]//div[2]//div[1]//div[@class="main-container__body--left--wrapper ng-star-inserted"][1]//mat-checkbox"}
-  (Session info: headless chrome=89.0.4389.82)
-For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
-Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
-System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:63299}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: 85fa06d3e51bdfa78895c3f549eb3c45
-*** Element info: {Using=xpath, value=//app-authentication-block-modal//div[1]//div[2]//div[1]//div[@class="main-container__body--left--wrapper ng-star-inserted"][1]//mat-checkbox},
-	Not able to View PUK DetailsExpected condition failed: waiting for presence of element located by: By.xpath: //p[@class="puk-show"][1]/span[contains(text(),"PUK1")]//following-sibling::span (tried for 40 second(s) with 500 milliseconds interval)
-	at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:47)
-	at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:31)
-	at tests.customerInteractionTest.validateDemographicInformation(customerInteractionTest.java:326)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
-	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:584)
-	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:172)
-	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
-	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:804)
-	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:145)
-	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
-	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
-	at java.util.ArrayList.forEach(ArrayList.java:1257)
-	at org.testng.TestRunner.privateRun(TestRunner.java:770)
-	at org.testng.TestRunner.run(TestRunner.java:591)
-	at org.testng.SuiteRunner.runTest(SuiteRunner.java:402)
-	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:396)
-	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:355)
-	at org.testng.SuiteRunner.run(SuiteRunner.java:304)
-	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
-	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
-	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1180)
-	at org.testng.TestNG.runSuitesLocally(TestNG.java:1102)
-	at org.testng.TestNG.runSuites(TestNG.java:1032)
-	at org.testng.TestNG.run(TestNG.java:1000)
-	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:283)
-	at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:75)
-	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:120)
-	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:384)
-	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)
-	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)
-	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)
+	... 34 more
 
+I am in onFinish method Side Menu
+I am in onStart method Customer Interactions TEST
 User Type ALL
 User Type ADDED ALL
 User Type BA
@@ -391,31 +276,17 @@ User Type API
 NO USER FOUND
 User Type NFTR
 NO USER FOUND
-00:12:39.594 I am in onTestStart method openCustomerInteractionBySIM start
-00:12:39.712 [main] INFO  pages.BasePage(321) - Waiting for loader to be removed
-00:12:44.770 [main] INFO  pages.BasePage(321) - Loader Removed
-00:12:44.770 [main] INFO  pages.SideMenuPOM(42) - Clicking on Side Menu
-00:12:45.034 [main] INFO  pages.BasePage(73) - Clicking on elementBy.xpath: //mat-toolbar//button
-00:12:45.034 [main] INFO  pages.SideMenuPOM(65) - Clicking on User Name
-00:12:45.274 [main] INFO  pages.BasePage(73) - Clicking on elementBy.xpath: //*[@class="ellipsis"]
-00:12:45.275 [main] INFO  pages.SideMenuPOM(131) - Opening Customer Interaction Page
-00:12:45.836 [main] INFO  pages.BasePage(73) - Clicking on elementBy.xpath: //a[contains(text(),'Customer Interaction')]
-00:12:45.858 [main] INFO  pages.customerInteractionsSearchPOM(20) - Entering Number in search box :8925403512006580000
-00:12:46.198 [main] INFO  pages.BasePage(93) - Writing 8925403512006580000to  By.xpath: //input[@name="search"]
-00:12:46.198 [main] INFO  pages.customerInteractionsSearchPOM(31) - Clicking on Search Button
-00:12:46.199 [main] INFO  pages.BasePage(321) - Waiting for loader to be removed
-00:13:01.285 [main] INFO  pages.BasePage(321) - Loader Removed
-00:13:01.533 [main] INFO  pages.BasePage(73) - Clicking on elementBy.xpath: //button[@class="search-icon-btn"]
-00:13:45.434 [main] INFO  pages.customerInteractionPagePOM(102) - Checking that is Customer Interaction Page is loaded : false
-00:13:45.876 [main] INFO  pages.BasePage(321) - Clearing Customer Number
+17:47:46.603 I am in onTestStart method openCustomerInteraction start
 ]]></system-out>
-    <system-err><![CDATA[org.openqa.selenium.TimeoutException: Expected condition failed: waiting for presence of element located by: By.xpath: //div[@class="customer-details"]//div[@class="user-left-side"]/div/div[1]//input (tried for 40 second(s) with 500 milliseconds interval)
+  </testcase>
+  <testcase name="validateDemographicInformation" classname="tests.customerInteractionTest" time="0">
+    <skipped message="Method customerInteractionTest.validateDemographicInformation(Utils.DataProviders.TestDatabean)[pri:2, instance:tests.customerInteractionTest@4c2bb6e0] depends on not successfully finished methods"/>
+    <system-out><![CDATA[17:48:47.094 I am in on TestFailure method openCustomerInteraction failed
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.xpath: //mat-toolbar//button (tried for 60 second(s) with 500 milliseconds interval)
 	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:138)
 	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:234)
-	at pages.BasePage.waitVisibility(BasePage.java:126)
-	at pages.BasePage.checkState(BasePage.java:114)
-	at pages.customerInteractionPagePOM.isPageLoaded(customerInteractionPagePOM.java:101)
-	at tests.customerInteractionTest.openCustomerInteractionBySIM(customerInteractionTest.java:346)
+	at pages.SideMenuPOM.clickOnSideMenu(SideMenuPOM.java:40)
+	at tests.customerInteractionTest.openCustomerInteraction(customerInteractionTest.java:45)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -448,16 +319,16 @@ NO USER FOUND
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)
 	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)
-Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@class="customer-details"]//div[@class="user-left-side"]/div/div[1]//input"}
+Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//mat-toolbar//button"}
   (Session info: headless chrome=89.0.4389.82)
 For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
 Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
 System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:63299}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: 85fa06d3e51bdfa78895c3f549eb3c45
-*** Element info: {Using=xpath, value=//div[@class="customer-details"]//div[@class="user-left-side"]/div/div[1]//input}
-	at sun.reflect.GeneratedConstructorAccessor63.newInstance(Unknown Source)
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:62859}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 1257bd7cdd1631bf0c521e12d0a8ea03
+*** Element info: {Using=xpath, value=//mat-toolbar//button}
+	at sun.reflect.GeneratedConstructorAccessor48.newInstance(Unknown Source)
 	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
 	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
 	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:191)
@@ -470,20 +341,49 @@ Session ID: 85fa06d3e51bdfa78895c3f549eb3c45
 	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:445)
 	at org.openqa.selenium.By$ByXPath.findElement(By.java:396)
 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:319)
-	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:182)
-	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:179)
+	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:205)
+	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:201)
 	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:211)
-	... 36 more
-]]></system-err>
+	... 34 more
+
+17:48:47.540 I am in onTestStart method validateDemographicInformation start
+]]></system-out>
+  </testcase>
+  <testcase name="openCustomerInteractionBySIM" classname="tests.customerInteractionTest" time="60.444">
+    <failure message="Expected condition failed: waiting for visibility of element located by By.xpath: //mat-toolbar//button (tried for 60 second(s) with 500 milliseconds interval)" type="org.openqa.selenium.TimeoutException">org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.xpath: //mat-toolbar//button (tried for 60 second(s) with 500 milliseconds interval)
+	at tests.customerInteractionTest.openCustomerInteractionBySIM(customerInteractionTest.java:337)
+Caused by: org.openqa.selenium.NoSuchElementException: 
+no such element: Unable to locate element: {"method":"xpath","selector":"//mat-toolbar//button"}
+  (Session info: headless chrome=89.0.4389.82)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:62859}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 1257bd7cdd1631bf0c521e12d0a8ea03
+*** Element info: {Using=xpath, value=//mat-toolbar//button}
+	at tests.customerInteractionTest.openCustomerInteractionBySIM(customerInteractionTest.java:337)
+</failure>
+    <system-out><![CDATA[I am in on TestSkipped method validateDemographicInformation skipped
+User Type ALL
+User Type ADDED ALL
+User Type BA
+NO USER FOUND
+User Type API
+NO USER FOUND
+User Type NFTR
+NO USER FOUND
+17:48:47.723 I am in onTestStart method openCustomerInteractionBySIM start
+]]></system-out>
   </testcase>
   <testcase name="validateDemographicInformationBySIMNumber" classname="tests.customerInteractionTest" time="0">
     <skipped message="Method customerInteractionTest.validateDemographicInformationBySIMNumber(Utils.DataProviders.TestDatabean)[pri:4, instance:tests.customerInteractionTest@4c2bb6e0] depends on not successfully finished methods"/>
-    <system-out><![CDATA[00:13:45.990 I am in on TestFailure method openCustomerInteractionBySIM failed
-java.lang.AssertionError: The following asserts failed:
-	Customer Info Dashboard Page does not open using SIM Number.
-	at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:47)
-	at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:31)
-	at tests.customerInteractionTest.openCustomerInteractionBySIM(customerInteractionTest.java:353)
+    <system-out><![CDATA[17:49:48.169 I am in on TestFailure method openCustomerInteractionBySIM failed
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.xpath: //mat-toolbar//button (tried for 60 second(s) with 500 milliseconds interval)
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:138)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:234)
+	at pages.SideMenuPOM.clickOnSideMenu(SideMenuPOM.java:40)
+	at tests.customerInteractionTest.openCustomerInteractionBySIM(customerInteractionTest.java:337)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -516,559 +416,77 @@ java.lang.AssertionError: The following asserts failed:
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)
 	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)
+Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//mat-toolbar//button"}
+  (Session info: headless chrome=89.0.4389.82)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:62859}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 1257bd7cdd1631bf0c521e12d0a8ea03
+*** Element info: {Using=xpath, value=//mat-toolbar//button}
+	at sun.reflect.GeneratedConstructorAccessor48.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:191)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:125)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:52)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:161)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:576)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:327)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:445)
+	at org.openqa.selenium.By$ByXPath.findElement(By.java:396)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:319)
+	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:205)
+	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:201)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:211)
+	... 34 more
 
-00:13:46.434 I am in onTestStart method validateDemographicInformationBySIMNumber start
+17:49:48.707 I am in onTestStart method validateDemographicInformationBySIMNumber start
 ]]></system-out>
   </testcase>
   <testcase name="invalidMSISDNTest" classname="tests.customerInteractionTest" time="0">
     <skipped message="Method customerInteractionTest.invalidMSISDNTest()[pri:5, instance:tests.customerInteractionTest@4c2bb6e0] depends on not successfully finished methods"/>
     <system-out><![CDATA[I am in on TestSkipped method validateDemographicInformationBySIMNumber skipped
-00:13:46.436 I am in onTestStart method invalidMSISDNTest start
+17:49:48.708 I am in onTestStart method invalidMSISDNTest start
 ]]></system-out>
   </testcase>
-  <testcase name="openCustomerInteractionAPI" classname="tests.customerInteractionTest" time="14.785"/>
-  <testcase name="airtelMoneyTransactionWidgetTest" classname="tests.customerInteractionTest" time="8.339"/>
-  <testcase name="yourCurrentBalanceWidgetTest" classname="tests.customerInteractionTest" time="4.198"/>
-  <testcase name="usageHistoryWidgetTest" classname="tests.customerInteractionTest" time="14.272"/>
-  <testcase name="rechargeHistoryWidgetTest" classname="tests.customerInteractionTest" time="47.392"/>
-  <testcase name="openCustomerInteractionAPI" classname="tests.widgetsOptionsTest" time="24.202"/>
-  <testcase name="daDetailsTest" classname="tests.widgetsOptionsTest" time="32.85"/>
-  <testcase name="accumulatorDetailsTest" classname="tests.widgetsOptionsTest" time="17.913">
-    <failure message="The following asserts failed:&#10;	Header Name for Row 2 is not as expected expected [value] but found [description],&#10;	Header Name for Row 3 is not as expected expected [start date] but found [value],&#10;	Header Name for Row 4 is not as expected expected [next reset date] but found [start date],&#10;	Accumulator Value is not as received in API on row 0 expected [614400] but found [-],&#10;	Accumulator Start Date is not as received in API on row 0 expected [12-Mar-2021] but found [614400],&#10;	Accumulator Value is not as received in API on row 1 expected [917] but found [-],&#10;	Accumulator Start Date is not as received in API on row 1 expected [-] but found [917],&#10;	Accumulator Value is not as received in API on row 2 expected [1] but found [-],&#10;	Accumulator Start Date is not as received in API on row 2 expected [-] but found [1],&#10;	Accumulator Value is not as received in API on row 3 expected [0] but found [-],&#10;	Accumulator Start Date is not as received in API on row 3 expected [12-Mar-2021] but found [0],&#10;	Accumulator Value is not as received in API on row 4 expected [0] but found [-],&#10;	Accumulator Start Date is not as received in API on row 4 expected [12-Mar-2021] but found [0]" type="java.lang.AssertionError">java.lang.AssertionError: 
-The following asserts failed:
-	Header Name for Row 2 is not as expected expected [value] but found [description],
-	Header Name for Row 3 is not as expected expected [start date] but found [value],
-	Header Name for Row 4 is not as expected expected [next reset date] but found [start date],
-	Accumulator Value is not as received in API on row 0 expected [614400] but found [-],
-	Accumulator Start Date is not as received in API on row 0 expected [12-Mar-2021] but found [614400],
-	Accumulator Value is not as received in API on row 1 expected [917] but found [-],
-	Accumulator Start Date is not as received in API on row 1 expected [-] but found [917],
-	Accumulator Value is not as received in API on row 2 expected [1] but found [-],
-	Accumulator Start Date is not as received in API on row 2 expected [-] but found [1],
-	Accumulator Value is not as received in API on row 3 expected [0] but found [-],
-	Accumulator Start Date is not as received in API on row 3 expected [12-Mar-2021] but found [0],
-	Accumulator Value is not as received in API on row 4 expected [0] but found [-],
-	Accumulator Start Date is not as received in API on row 4 expected [12-Mar-2021] but found [0]
-	at tests.widgetsOptionsTest.accumulatorDetailsTest(widgetsOptionsTest.java:129)
+  <testcase name="openCustomerInteractionAPI" classname="tests.customerInteractionTest" time="60.494">
+    <failure message="Expected condition failed: waiting for visibility of element located by By.xpath: //mat-toolbar//button (tried for 60 second(s) with 500 milliseconds interval)" type="org.openqa.selenium.TimeoutException">org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.xpath: //mat-toolbar//button (tried for 60 second(s) with 500 milliseconds interval)
+	at tests.customerInteractionTest.openCustomerInteractionAPI(customerInteractionTest.java:653)
+Caused by: org.openqa.selenium.NoSuchElementException: 
+no such element: Unable to locate element: {"method":"xpath","selector":"//mat-toolbar//button"}
+  (Session info: headless chrome=89.0.4389.82)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:62859}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 1257bd7cdd1631bf0c521e12d0a8ea03
+*** Element info: {Using=xpath, value=//mat-toolbar//button}
+	at tests.customerInteractionTest.openCustomerInteractionAPI(customerInteractionTest.java:653)
 </failure>
-    <system-out><![CDATA[00:16:13.802 I am in on TestSuccess method daDetailsTest succeed
-User Type Airtel Money
-NO Table FOUND
-User Type Usage History
-NO Table FOUND
-User Type Recharge History
-NO Table FOUND
-User Type Bundle Subscription History
-NO Table FOUND
-User Type SMS History
-NO Table FOUND
-User Type Data History
-NO Table FOUND
-User Type Call History
-NO Table FOUND
-User Type DA DETAILS
-NO Table FOUND
-User Type Loan Services
-NO Table FOUND
-User Type Loan Details
-NO Table FOUND
-User Type Loan History
-NO Table FOUND
-User Type Loan Recoveries
-NO Table FOUND
-User Type More Recharge History
-NO Table FOUND
-User Type Detailed Usage History
-NO Table FOUND
-User Type Search Tune Tab
-NO Table FOUND
-User Type Accumulator
-User table ADDED Accumulator
-User Type Service Profile
-NO Table FOUND
-User Type More Airtel Money History
-NO Table FOUND
-00:16:13.941 I am in onTestStart method accumulatorDetailsTest start
-00:16:13.958 [main] INFO  pages.BasePage(321) - Waiting for loader to be removed
-00:16:19.025 [main] INFO  pages.BasePage(321) - Loader Removed
-00:16:19.025 [main] INFO  pages.CurrentBalanceWidgetPOM(60) - Checking is Your Current Balance Widget's Menu Visible
-00:16:19.104 [main] INFO  pages.CurrentBalanceWidgetPOM(69) - Clicking Current Balance Widget's Menu Visible
-00:16:19.373 [main] INFO  pages.BasePage(73) - Clicking on elementBy.xpath: //span[contains(text(),"Your Current Plan ")]//parent::div/span[2]/img
-00:16:20.929 [main] INFO  pages.BasePage(321) - Getting Accumulator header Number 1 : ID
-00:16:21.088 [main] INFO  pages.BasePage(321) - Getting Accumulator header Number 2 : Description
-00:16:21.247 [main] INFO  pages.BasePage(321) - Getting Accumulator header Number 3 : Value
-00:16:21.380 [main] INFO  pages.BasePage(321) - Getting Accumulator header Number 4 : Start Date
-00:16:21.382 [main] INFO  API.APIEndPoints(527) - Request Headers are  : x-app-name=cs-service
-x-service-id=customer_service_service_request_webctx
-x-app-type=web
-x-client-id=3
-x-api-key=a90d64e9-a628-4824-aeef-28ad4b23ccbe
-x-login-module=MSISDN
-x-channel=4
-x-app-version=1.0.0
-Opco=KE
-Authorization=Bearer eyJjdHkiOiJKV1QiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAtMjU2In0.XPKUBR3cuuKp611_QPcYdq-CQimp0FNOb07chjP-NNMA13n4h7UbuKKJZFo77uRP0m9W9w-wOAqsJ-g-SnuQ1NIs0qrPFsjdSNDLOUTyIqDgvtt1TBTcUWoVqVLul1X3F0MbpGRhW_WOaCnuY0K8Kz7ou78aEw1BFIPqhiNRNHmKN1aBaAhbwJMihiUkBbZp7yE7iEN6D4BO14Em08_sat9bLd81f8gofK5pu8hcHR-7MXuMX34zIl0ugXyZWP444CdKS32LqZma6p9J5YOkDHtzLNs1WctGjiOqwC13dGDeRtLIjtad3zCb-PT1_yvO86fiXmAHwv5KsIZt-3tfCQ.oUu9g2LDcmoj4XR6.nuQOLJGFcWABhT6mRh3H5t9xtr0V7FtLdqgNXP-45xnT7U73hhlLPx2akmWyfTIGUZ5nNdgNr_52GhJAF9zb8T9H2bVkQ_ZMRqRVlIsQRYEO04i1vv3hJNx92GmgWEMhVkXY_NxTufZG6ojW_P6mCPEpGDgp4wAlyErb7WN0Csdk5v9oTDprymC3vOGrsLbA1ER79l3CIFMfHtaVf39FJRpB_c9cJ1mAwfZ_zLP2tVHAeo5ohjEQOGMuSlq44FEal0-H.hqCAc2n-PdLCNHRjl_kmVQ
-Content-Type=application/json
-00:16:21.382 [main] INFO  API.APIEndPoints(528) - Request Body are  : {"msisdn":"789474747","pageSize":5,"pageNumber":1}
-00:16:22.112 [main] INFO  API.APIEndPoints(530) - Response : {"status":"SUCCESS","statusCode":200,"result":[{"id":"202","value":"614400","startDate":"12 Mar 2021 12:00 PM","nextResetDate":"12 Mar 2021 12:00 PM"},{"id":"112","value":"917"},{"id":"84","value":"1"},{"id":"1","value":"0","startDate":"12 Mar 2021 12:00 PM","nextResetDate":"12 Mar 2021 12:00 PM"},{"id":"2","value":"0","startDate":"12 Mar 2021 12:00 PM","nextResetDate":"12 Mar 2021 12:00 PM"},{"id":"3","value":"0","startDate":"27 Mar 2021 12:00 PM","nextResetDate":"27 Mar 2021 12:00 PM"},{"id":"4","value":"0","startDate":"12 Mar 2021 12:00 PM","nextResetDate":"12 Mar 2021 12:00 PM"},{"id":"5","value":"0","startDate":"12 Mar 2021 12:00 PM","nextResetDate":"12 Mar 2021 12:00 PM"},{"id":"91","value":"0","startDate":"12 Mar 2021 12:00 PM","nextResetDate":"12 Mar 2021 12:00 PM"},{"id":"113","value":"0","startDate":"12 Mar 2021 12:00 PM","nextResetDate":"12 Mar 2021 12:00 PM"},{"id":"251","value":"0","startDate":"12 Mar 2021 12:00 PM","nextResetDate":"12 Mar 2021 12:00 PM"},{"id":"252","value":"0","startDate":"12 Mar 2021 12:00 PM","nextResetDate":"12 Mar 2021 12:00 PM"},{"id":"258","value":"0","startDate":"12 Mar 2021 12:00 PM","nextResetDate":"12 Mar 2021 12:00 PM"},{"id":"261","value":"0","startDate":"12 Mar 2021 12:00 PM","nextResetDate":"12 Mar 2021 12:00 PM"},{"id":"268","value":"0","startDate":"12 Mar 2021 12:00 PM","nextResetDate":"12 Mar 2021 12:00 PM"}]}
-00:16:22.113 [main] INFO  API.APIEndPoints(531) - Response time : 0 s
-00:16:22.287 [main] INFO  pages.BasePage(321) - Getting Accumulator header Number 1 : ID
-00:16:22.287 [main] INFO  pages.BasePage(321) - Reading 'ID' = 202
-00:16:22.488 [main] INFO  pages.BasePage(321) - Getting Accumulator header Number 2 : Description
-00:16:22.489 [main] INFO  pages.BasePage(321) - Reading 'Description' = -
-00:16:22.739 [main] INFO  pages.BasePage(321) - Getting Accumulator header Number 3 : Value
-00:16:22.739 [main] INFO  pages.BasePage(321) - Reading 'Value' = 614400
-00:16:22.973 [main] INFO  pages.BasePage(321) - Getting Accumulator header Number 4 : Start Date
-00:16:22.974 [main] INFO  pages.BasePage(321) - Reading 'Start Date' = 12-Mar-2021
-00:16:23.190 [main] INFO  pages.BasePage(321) - Getting Accumulator header Number 1 : ID
-00:16:23.190 [main] INFO  pages.BasePage(321) - Reading 'ID' = 112
-00:16:23.357 [main] INFO  pages.BasePage(321) - Getting Accumulator header Number 2 : Description
-00:16:23.357 [main] INFO  pages.BasePage(321) - Reading 'Description' = -
-00:16:23.541 [main] INFO  pages.BasePage(321) - Getting Accumulator header Number 3 : Value
-00:16:23.541 [main] INFO  pages.BasePage(321) - Reading 'Value' = 917
-00:16:23.728 [main] INFO  pages.BasePage(321) - Getting Accumulator header Number 4 : Start Date
-00:16:23.729 [main] INFO  pages.BasePage(321) - Reading 'Start Date' = -
-00:16:23.937 [main] INFO  pages.BasePage(321) - Getting Accumulator header Number 1 : ID
-00:16:23.937 [main] INFO  pages.BasePage(321) - Reading 'ID' = 84
-00:16:24.135 [main] INFO  pages.BasePage(321) - Getting Accumulator header Number 2 : Description
-00:16:24.135 [main] INFO  pages.BasePage(321) - Reading 'Description' = -
-00:16:24.387 [main] INFO  pages.BasePage(321) - Getting Accumulator header Number 3 : Value
-00:16:24.387 [main] INFO  pages.BasePage(321) - Reading 'Value' = 1
-00:16:24.573 [main] INFO  pages.BasePage(321) - Getting Accumulator header Number 4 : Start Date
-00:16:24.574 [main] INFO  pages.BasePage(321) - Reading 'Start Date' = -
-00:16:24.785 [main] INFO  pages.BasePage(321) - Getting Accumulator header Number 1 : ID
-00:16:24.785 [main] INFO  pages.BasePage(321) - Reading 'ID' = 1
-00:16:24.988 [main] INFO  pages.BasePage(321) - Getting Accumulator header Number 2 : Description
-00:16:24.989 [main] INFO  pages.BasePage(321) - Reading 'Description' = -
-00:16:25.166 [main] INFO  pages.BasePage(321) - Getting Accumulator header Number 3 : Value
-00:16:25.167 [main] INFO  pages.BasePage(321) - Reading 'Value' = 0
-00:16:25.367 [main] INFO  pages.BasePage(321) - Getting Accumulator header Number 4 : Start Date
-00:16:25.367 [main] INFO  pages.BasePage(321) - Reading 'Start Date' = 12-Mar-2021
-00:16:25.566 [main] INFO  pages.BasePage(321) - Getting Accumulator header Number 1 : ID
-00:16:25.566 [main] INFO  pages.BasePage(321) - Reading 'ID' = 2
-00:16:25.776 [main] INFO  pages.BasePage(321) - Getting Accumulator header Number 2 : Description
-00:16:25.777 [main] INFO  pages.BasePage(321) - Reading 'Description' = -
-00:16:26.006 [main] INFO  pages.BasePage(321) - Getting Accumulator header Number 3 : Value
-00:16:26.007 [main] INFO  pages.BasePage(321) - Reading 'Value' = 0
-00:16:26.276 [main] INFO  pages.BasePage(321) - Getting Accumulator header Number 4 : Start Date
-00:16:26.276 [main] INFO  pages.BasePage(321) - Reading 'Start Date' = 12-Mar-2021
-00:16:26.276 [main] INFO  pages.BasePage(164) - Opening Customer Interactions Dashboard
-00:16:26.757 [main] INFO  pages.BasePage(73) - Clicking on elementBy.xpath: //*[text()="HOME"]
-00:16:26.757 [main] INFO  pages.BasePage(321) - Waiting for loader to be removed
-00:16:31.824 [main] INFO  pages.BasePage(321) - Loader Removed
+    <system-out><![CDATA[I am in on TestSkipped method invalidMSISDNTest skipped
+User Type ALL
+NO USER FOUND
+User Type BA
+NO USER FOUND
+User Type API
+User Type ADDED API
+User Type NFTR
+NO USER FOUND
+17:49:48.922 I am in onTestStart method openCustomerInteractionAPI start
 ]]></system-out>
   </testcase>
-  <testcase name="rechargeHistoryMenuTest" classname="tests.widgetsOptionsTest" time="102.056"/>
-  <testcase name="usageHistoryMenuTest" classname="tests.widgetsOptionsTest" time="150.763">
-    <failure message="The following asserts failed:&#10;	Not able to validate Detailed Usage History Completely: org.openqa.selenium.TimeoutException: Expected condition failed: waiting for presence of element located by: By.xpath: //div[@class=&quot;card__card-header&quot;]//span[contains(text(),&apos;USAGE HISTORY&apos;)]//ancestor::div[@class=&quot;card widget ng-star-inserted&quot;]//div[@class=&quot;table-data-wrapper ng-star-inserted&quot;]/div[@class=&quot;ng-star-inserted&quot; or @class=&quot;slide-toggle red ng-star-inserted&quot;][21]//div[@class=&quot;ng-star-inserted&quot; or @class=&quot;slide-toggle red ng-star-inserted&quot;][1]/span (tried for 40 second(s) with 500 milliseconds interval)" type="java.lang.AssertionError">java.lang.AssertionError: 
-The following asserts failed:
-	Not able to validate Detailed Usage History Completely: org.openqa.selenium.TimeoutException: Expected condition failed: waiting for presence of element located by: By.xpath: //div[@class="card__card-header"]//span[contains(text(),'USAGE HISTORY')]//ancestor::div[@class="card widget ng-star-inserted"]//div[@class="table-data-wrapper ng-star-inserted"]/div[@class="ng-star-inserted" or @class="slide-toggle red ng-star-inserted"][21]//div[@class="ng-star-inserted" or @class="slide-toggle red ng-star-inserted"][1]/span (tried for 40 second(s) with 500 milliseconds interval)
-	at tests.widgetsOptionsTest.usageHistoryMenuTest(widgetsOptionsTest.java:378)
-</failure>
-    <system-out><![CDATA[00:18:14.642 I am in on TestSuccess method rechargeHistoryMenuTest succeed
-User Type Airtel Money
-NO Table FOUND
-User Type Usage History
-NO Table FOUND
-User Type Recharge History
-NO Table FOUND
-User Type Bundle Subscription History
-NO Table FOUND
-User Type SMS History
-NO Table FOUND
-User Type Data History
-NO Table FOUND
-User Type Call History
-NO Table FOUND
-User Type DA DETAILS
-NO Table FOUND
-User Type Loan Services
-NO Table FOUND
-User Type Loan Details
-NO Table FOUND
-User Type Loan History
-NO Table FOUND
-User Type Loan Recoveries
-NO Table FOUND
-User Type More Recharge History
-NO Table FOUND
-User Type Detailed Usage History
-User table ADDED Detailed Usage History
-User Type Search Tune Tab
-NO Table FOUND
-User Type Accumulator
-NO Table FOUND
-User Type Service Profile
-NO Table FOUND
-User Type More Airtel Money History
-NO Table FOUND
-00:18:14.793 I am in onTestStart method usageHistoryMenuTest start
-00:18:14.849 [main] INFO  pages.BasePage(321) - Opening More under Usage History Widget
-00:18:15.140 [main] INFO  pages.BasePage(73) - Clicking on elementBy.xpath: //span[@class="card__card-header--label" and contains(text(),"Usage History")]//parent::div//span[@class="filter-object"]/img
-00:18:15.162 [main] INFO  pages.BasePage(321) - Waiting for loader to be removed
-00:18:31.101 [main] INFO  pages.BasePage(321) - Loader Removed
-00:18:31.321 [main] INFO  pages.BasePage(321) - Checking Detailed Usage history widget display: true
-00:18:31.613 [main] INFO  pages.BasePage(321) - Is Free CDR Checkbox displayed: true
-00:18:31.947 [main] INFO  pages.BasePage(321) - Is Type of CDR Option displayed: true
-00:18:32.232 [main] INFO  pages.BasePage(321) - Is Today Date Filter Option displayed: true
-00:18:32.577 [main] INFO  pages.BasePage(321) - Is last 2 day Date Filter Option displayed: true
-00:18:32.865 [main] INFO  pages.BasePage(321) - Is last 7 day Date Filter Option displayed: true
-00:18:32.975 [main] INFO  API.APIEndPoints(133) - Request Headers are  : x-app-name=cs-service
-x-service-id=customer_service_service_request_webctx
-x-app-type=web
-x-client-id=3
-x-api-key=a90d64e9-a628-4824-aeef-28ad4b23ccbe
-x-login-module=MSISDN
-x-channel=4
-x-app-version=1.0.0
-Opco=KE
-Authorization=Bearer eyJjdHkiOiJKV1QiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAtMjU2In0.XPKUBR3cuuKp611_QPcYdq-CQimp0FNOb07chjP-NNMA13n4h7UbuKKJZFo77uRP0m9W9w-wOAqsJ-g-SnuQ1NIs0qrPFsjdSNDLOUTyIqDgvtt1TBTcUWoVqVLul1X3F0MbpGRhW_WOaCnuY0K8Kz7ou78aEw1BFIPqhiNRNHmKN1aBaAhbwJMihiUkBbZp7yE7iEN6D4BO14Em08_sat9bLd81f8gofK5pu8hcHR-7MXuMX34zIl0ugXyZWP444CdKS32LqZma6p9J5YOkDHtzLNs1WctGjiOqwC13dGDeRtLIjtad3zCb-PT1_yvO86fiXmAHwv5KsIZt-3tfCQ.oUu9g2LDcmoj4XR6.nuQOLJGFcWABhT6mRh3H5t9xtr0V7FtLdqgNXP-45xnT7U73hhlLPx2akmWyfTIGUZ5nNdgNr_52GhJAF9zb8T9H2bVkQ_ZMRqRVlIsQRYEO04i1vv3hJNx92GmgWEMhVkXY_NxTufZG6ojW_P6mCPEpGDgp4wAlyErb7WN0Csdk5v9oTDprymC3vOGrsLbA1ER79l3CIFMfHtaVf39FJRpB_c9cJ1mAwfZ_zLP2tVHAeo5ohjEQOGMuSlq44FEal0-H.hqCAc2n-PdLCNHRjl_kmVQ
-Content-Type=application/json
-00:18:32.975 [main] INFO  API.APIEndPoints(135) - Request Body is  : {"msisdn":"789474747","pageSize":5,"pageNumber":1,"type":null,"startDate":null,"endDate":null,"action":"More",cdrTypeFilter: "FREE"}
-00:18:42.902 [main] INFO  API.APIEndPoints(137) - Response : {"status":"Success","statusCode":200,"pageSize":5,"pageNumber":1,"totalCount":28,"result":[{"description":"Call to: 25403739667209","dateTime":"Today","bundleName":"VOICE-227","type":"VOICE","charges":"- 10.2 KES","startBalance":"2157.2 KES","endBalance":"2147 KES","addOrSubtract":"db","transactionAmountDetails":"Call duration: 153 Second","time":"02:09:46 PM"},{"description":"Call to: 25403782936347","dateTime":"Today","bundleName":"VOICE-227","type":"VOICE","charges":"- 1.53 KES","startBalance":"2158.73 KES","endBalance":"2157.2 KES","addOrSubtract":"db","transactionAmountDetails":"Call duration: 23 Second","time":"01:27:20 PM"},{"description":"Call to: 25402727480213","dateTime":"Today","bundleName":"VOICE-228","type":"VOICE","charges":"- 1.87 KES","startBalance":"1053 KES","endBalance":"1051.13 KES","addOrSubtract":"db","transactionAmountDetails":"Call duration: 28 Second","time":"01:26:38 PM"},{"description":"Call to: 25402708814131","dateTime":"Today","bundleName":"VOICE-228","type":"VOICE","charges":"- 7.87 KES","startBalance":"1060.87 KES","endBalance":"1053 KES","addOrSubtract":"db","transactionAmountDetails":"Call duration: 118 Second","time":"01:14:39 PM"},{"description":"Call to: 25403782936347","dateTime":"Today","bundleName":"VOICE-227","type":"VOICE","charges":"- 1 KES","startBalance":"2159.73 KES","endBalance":"2158.73 KES","addOrSubtract":"db","transactionAmountDetails":"Call duration: 15 Second","time":"12:54:05 PM"},{"description":"Call to: 25403739655972","dateTime":"Today","bundleName":"VOICE-227","type":"VOICE","charges":"- 8.6 KES","startBalance":"2168.33 KES","endBalance":"2159.73 KES","addOrSubtract":"db","transactionAmountDetails":"Call duration: 129 Second","time":"12:23:43 PM"},{"description":"Call to: 25403733333313","dateTime":"Today","bundleName":"VOICE-227","type":"VOICE","charges":"- 4.53 KES","startBalance":"2172.87 KES","endBalance":"2168.33 KES","addOrSubtract":"db","transactionAmountDetails":"Call duration: 68 Second","time":"12:19:40 PM"},{"description":"Call to: 25403784742988","dateTime":"Today","bundleName":"VOICE-227","type":"VOICE","charges":"- 3.2 KES","startBalance":"2176.07 KES","endBalance":"2172.87 KES","addOrSubtract":"db","transactionAmountDetails":"Call duration: 48 Second","time":"11:44:54 AM"},{"description":"Call to: 25403784742988","dateTime":"Today","bundleName":"VOICE-227","type":"VOICE","charges":"- 0.67 KES","startBalance":"2176.73 KES","endBalance":"2176.07 KES","addOrSubtract":"db","transactionAmountDetails":"Call duration: 10 Second","time":"11:41:12 AM"},{"description":"Call to: 25402720266105","dateTime":"Today","bundleName":"VOICE-228","type":"VOICE","charges":"- 2.47 KES","startBalance":"1063.33 KES","endBalance":"1060.87 KES","addOrSubtract":"db","transactionAmountDetails":"Call duration: 37 Second","time":"11:37:24 AM"},{"description":"Call to: 25403753586979","dateTime":"Today","bundleName":"VOICE-227","type":"VOICE","charges":"- 1.8 KES","startBalance":"2178.53 KES","endBalance":"2176.73 KES","addOrSubtract":"db","transactionAmountDetails":"Call duration: 27 Second","time":"11:05:17 AM"},{"dateTime":"Today","type":"DATA","charges":"0 KES","startBalance":"19.01 KES","endBalance":"19.01 KES","expandedData":[{"type":"DATA","dateTime":"Today","startBalance":"19.01 KES","charges":"0 KES","endBalance":"19.01 KES","bundleName":"AIRTIME","time":"09:52:35 AM"}],"transactionAmountDetails":"Data Usage: 0 MB","time":"9-10 AM"},{"description":"Call to: 25403735832811","dateTime":"Yesterday","bundleName":"VOICE-227","type":"VOICE","charges":"- 3.8 KES","startBalance":"2182.33 KES","endBalance":"2178.53 KES","addOrSubtract":"db","transactionAmountDetails":"Call duration: 57 Second","time":"05:33:10 PM"},{"description":"Call to: 25403736199909","dateTime":"Yesterday","bundleName":"VOICE-227","type":"VOICE","charges":"- 3.6 KES","startBalance":"2185.93 KES","endBalance":"2182.33 KES","addOrSubtract":"db","transactionAmountDetails":"Call duration: 54 Second","time":"05:25:02 PM"},{"description":"Call to: 25403736199909","dateTime":"Yesterday","bundleName":"VOICE-227","type":"VOICE","charges":"- 18.93 KES","startBalance":"2204.87 KES","endBalance":"2185.93 KES","addOrSubtract":"db","transactionAmountDetails":"Call duration: 284 Second","time":"05:07:28 PM"},{"description":"Call to: 25403733333313","dateTime":"Yesterday","bundleName":"VOICE-227","type":"VOICE","charges":"- 17.33 KES","startBalance":"2222.2 KES","endBalance":"2204.87 KES","addOrSubtract":"db","transactionAmountDetails":"Call duration: 260 Second","time":"03:15:30 PM"},{"description":"Call to: 25403736418931","dateTime":"Yesterday","bundleName":"VOICE-227","type":"VOICE","charges":"- 16 KES","startBalance":"2238.2 KES","endBalance":"2222.2 KES","addOrSubtract":"db","transactionAmountDetails":"Call duration: 240 Second","time":"01:50:42 PM"},{"description":"SMS to: 25402708814131","dateTime":"Yesterday","bundleName":"SMS-23","type":"SMS","charges":"- 1 KES","startBalance":"1992 KES","endBalance":"1991 KES","addOrSubtract":"db","time":"01:28:20 PM"},{"description":"SMS to: 25402708814131","dateTime":"Yesterday","bundleName":"SMS-23","type":"SMS","charges":"- 1 KES","startBalance":"1993 KES","endBalance":"1992 KES","addOrSubtract":"db","time":"01:28:07 PM"},{"description":"Call to: 25403786370610","dateTime":"Yesterday","bundleName":"VOICE-227","type":"VOICE","charges":"- 8.93 KES","startBalance":"2247.13 KES","endBalance":"2238.2 KES","addOrSubtract":"db","transactionAmountDetails":"Call duration: 134 Second","time":"01:25:08 PM"},{"description":"Call to: 25403784742988","dateTime":"Yesterday","bundleName":"VOICE-227","type":"VOICE","charges":"- 14.27 KES","startBalance":"2261.4 KES","endBalance":"2247.13 KES","addOrSubtract":"db","transactionAmountDetails":"Call duration: 214 Second","time":"01:11:59 PM"},{"description":"Call to: 25402720266105","dateTime":"Yesterday","bundleName":"VOICE-228","type":"VOICE","charges":"- 18.6 KES","startBalance":"1081.93 KES","endBalance":"1063.33 KES","addOrSubtract":"db","transactionAmountDetails":"Call duration: 279 Second","time":"10:44:38 AM"},{"description":"Recharge: USSD_DATA ApartyBparty_254756468056_350MB refillCDR","dateTime":"Yesterday","type":"Recharge","charges":"- 50 KES","startBalance":"-","endBalance":"19.01 KES","addOrSubtract":"db","time":"10:15:02 AM"},{"description":"Call to: 25403736418931","dateTime":"Yesterday","bundleName":"VOICE-227","type":"VOICE","charges":"- 5 KES","startBalance":"2266.4 KES","endBalance":"2261.4 KES","addOrSubtract":"db","transactionAmountDetails":"Call duration: 75 Second","time":"09:58:52 AM"},{"description":"Call to: 25403733560000","dateTime":"Yesterday","bundleName":"VOICE-227","type":"VOICE","charges":"- 21.87 KES","startBalance":"2288.27 KES","endBalance":"2266.4 KES","addOrSubtract":"db","transactionAmountDetails":"Call duration: 328 Second","time":"09:52:44 AM"},{"description":"Call to: 25403736880234","dateTime":"Tue 09 Mar 2021","bundleName":"VOICE-227","type":"VOICE","charges":"- 11.07 KES","startBalance":"2299.33 KES","endBalance":"2288.27 KES","addOrSubtract":"db","transactionAmountDetails":"Call duration: 166 Second","time":"02:55:11 PM"},{"description":"Call to: 25403732306230","dateTime":"Tue 09 Mar 2021","bundleName":"VOICE-227","type":"VOICE","charges":"- 4.6 KES","startBalance":"2303.93 KES","endBalance":"2299.33 KES","addOrSubtract":"db","transactionAmountDetails":"Call duration: 69 Second","time":"11:54:47 AM"},{"description":"Call to: 25402720266105","dateTime":"Tue 09 Mar 2021","bundleName":"VOICE-228","type":"VOICE","charges":"- 0.67 KES","startBalance":"1082.6 KES","endBalance":"1081.93 KES","addOrSubtract":"db","transactionAmountDetails":"Call duration: 10 Second","time":"11:18:01 AM"}],"startDate":"03/09/2021","endDate":"03/11/2021"}
-00:18:42.902 [main] INFO  API.APIEndPoints(138) - Response time : 9 s
-00:18:43.023 [main] INFO  pages.BasePage(321) - Reading Header at POS(1): Type
-00:18:43.248 [main] INFO  pages.BasePage(321) - Reading Header at POS(2): Date & Time
-00:18:43.479 [main] INFO  pages.BasePage(321) - Reading Header at POS(3): Start Balance
-00:18:43.753 [main] INFO  pages.BasePage(321) - Reading Header at POS(4): Transaction Amount
-00:18:44.006 [main] INFO  pages.BasePage(321) - Reading Header at POS(5): Remaining Balance
-00:18:44.205 [main] INFO  pages.BasePage(321) - Reading Header at POS(6): Description
-00:18:44.405 [main] INFO  pages.BasePage(321) - Reading Header at POS(7): Bundle Name
-00:18:44.693 [main] INFO  pages.BasePage(321) - Is pagination displayed: true
-00:18:44.910 [main] INFO  pages.BasePage(321) - Reading Header at POS(1): Type
-00:18:45.130 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Type' is: VOICE
-00:18:45.337 [main] INFO  pages.BasePage(321) - Reading Header at POS(2): Date & Time
-00:18:45.528 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Date & Time' is: Today
-02:09:46 PM
-00:18:45.722 [main] INFO  pages.BasePage(321) - Reading Header at POS(3): Start Balance
-00:18:45.995 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Start Balance' is: 2157.2 KES
-00:18:46.188 [main] INFO  pages.BasePage(321) - Reading Header at POS(4): Transaction Amount
-00:18:46.412 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Transaction Amount' is: - 10.2 KES
-00:18:46.505 [main] INFO  pages.BasePage(321) - Checking Negative Sign Display at ROW(1)
-00:18:46.732 [main] INFO  pages.BasePage(321) - Reading Header at POS(5): Remaining Balance
-00:18:46.956 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Remaining Balance' is: 2147 KES
-00:18:47.234 [main] INFO  pages.BasePage(321) - Reading Header at POS(6): Description
-00:18:47.509 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Description' is: Call to: 25403739667209
-00:18:47.711 [main] INFO  pages.BasePage(321) - Reading Header at POS(7): Bundle Name
-00:18:47.956 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Bundle Name' is: VOICE-227
-00:18:48.178 [main] INFO  pages.BasePage(321) - Reading Header at POS(1): Type
-00:18:48.363 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Type' is: VOICE
-00:18:48.612 [main] INFO  pages.BasePage(321) - Reading Header at POS(2): Date & Time
-00:18:48.846 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Date & Time' is: Today
-01:27:20 PM
-00:18:49.040 [main] INFO  pages.BasePage(321) - Reading Header at POS(3): Start Balance
-00:18:49.262 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Start Balance' is: 2158.73 KES
-00:18:49.461 [main] INFO  pages.BasePage(321) - Reading Header at POS(4): Transaction Amount
-00:18:49.678 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Transaction Amount' is: - 1.53 KES
-00:18:49.853 [main] INFO  pages.BasePage(321) - Checking Negative Sign Display at ROW(2)
-00:18:50.124 [main] INFO  pages.BasePage(321) - Reading Header at POS(5): Remaining Balance
-00:18:50.371 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Remaining Balance' is: 2157.2 KES
-00:18:50.616 [main] INFO  pages.BasePage(321) - Reading Header at POS(6): Description
-00:18:50.823 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Description' is: Call to: 25403782936347
-00:18:51.043 [main] INFO  pages.BasePage(321) - Reading Header at POS(7): Bundle Name
-00:18:51.293 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Bundle Name' is: VOICE-227
-00:18:51.551 [main] INFO  pages.BasePage(321) - Reading Header at POS(1): Type
-00:18:51.792 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Type' is: VOICE
-00:18:51.987 [main] INFO  pages.BasePage(321) - Reading Header at POS(2): Date & Time
-00:18:52.232 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Date & Time' is: Today
-01:26:38 PM
-00:18:52.430 [main] INFO  pages.BasePage(321) - Reading Header at POS(3): Start Balance
-00:18:52.728 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Start Balance' is: 1053 KES
-00:18:53.016 [main] INFO  pages.BasePage(321) - Reading Header at POS(4): Transaction Amount
-00:18:53.275 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Transaction Amount' is: - 1.87 KES
-00:18:53.385 [main] INFO  pages.BasePage(321) - Checking Negative Sign Display at ROW(3)
-00:18:53.604 [main] INFO  pages.BasePage(321) - Reading Header at POS(5): Remaining Balance
-00:18:53.843 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Remaining Balance' is: 1051.13 KES
-00:18:54.076 [main] INFO  pages.BasePage(321) - Reading Header at POS(6): Description
-00:18:54.378 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Description' is: Call to: 25402727480213
-00:18:54.566 [main] INFO  pages.BasePage(321) - Reading Header at POS(7): Bundle Name
-00:18:54.770 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Bundle Name' is: VOICE-228
-00:18:54.945 [main] INFO  pages.BasePage(321) - Reading Header at POS(1): Type
-00:18:55.158 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Type' is: VOICE
-00:18:55.340 [main] INFO  pages.BasePage(321) - Reading Header at POS(2): Date & Time
-00:18:55.599 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Date & Time' is: Today
-01:14:39 PM
-00:18:55.806 [main] INFO  pages.BasePage(321) - Reading Header at POS(3): Start Balance
-00:18:56.039 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Start Balance' is: 1060.87 KES
-00:18:56.301 [main] INFO  pages.BasePage(321) - Reading Header at POS(4): Transaction Amount
-00:18:56.533 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Transaction Amount' is: - 7.87 KES
-00:18:56.639 [main] INFO  pages.BasePage(321) - Checking Negative Sign Display at ROW(4)
-00:18:56.896 [main] INFO  pages.BasePage(321) - Reading Header at POS(5): Remaining Balance
-00:18:57.108 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Remaining Balance' is: 1053 KES
-00:18:57.299 [main] INFO  pages.BasePage(321) - Reading Header at POS(6): Description
-00:18:57.493 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Description' is: Call to: 25402708814131
-00:18:57.656 [main] INFO  pages.BasePage(321) - Reading Header at POS(7): Bundle Name
-00:18:57.876 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Bundle Name' is: VOICE-228
-00:18:58.064 [main] INFO  pages.BasePage(321) - Reading Header at POS(1): Type
-00:18:58.280 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Type' is: VOICE
-00:18:58.480 [main] INFO  pages.BasePage(321) - Reading Header at POS(2): Date & Time
-00:18:58.705 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Date & Time' is: Today
-12:54:05 PM
-00:18:58.925 [main] INFO  pages.BasePage(321) - Reading Header at POS(3): Start Balance
-00:18:59.181 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Start Balance' is: 2159.73 KES
-00:18:59.422 [main] INFO  pages.BasePage(321) - Reading Header at POS(4): Transaction Amount
-00:18:59.646 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Transaction Amount' is: - 1 KES
-00:18:59.744 [main] INFO  pages.BasePage(321) - Checking Negative Sign Display at ROW(5)
-00:19:00.021 [main] INFO  pages.BasePage(321) - Reading Header at POS(5): Remaining Balance
-00:19:00.266 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Remaining Balance' is: 2158.73 KES
-00:19:00.470 [main] INFO  pages.BasePage(321) - Reading Header at POS(6): Description
-00:19:00.722 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Description' is: Call to: 25403782936347
-00:19:00.921 [main] INFO  pages.BasePage(321) - Reading Header at POS(7): Bundle Name
-00:19:01.146 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Bundle Name' is: VOICE-227
-00:19:01.361 [main] INFO  pages.BasePage(321) - Reading Header at POS(1): Type
-00:19:01.609 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Type' is: VOICE
-00:19:01.785 [main] INFO  pages.BasePage(321) - Reading Header at POS(2): Date & Time
-00:19:02.006 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Date & Time' is: Today
-12:23:43 PM
-00:19:02.203 [main] INFO  pages.BasePage(321) - Reading Header at POS(3): Start Balance
-00:19:02.400 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Start Balance' is: 2168.33 KES
-00:19:02.592 [main] INFO  pages.BasePage(321) - Reading Header at POS(4): Transaction Amount
-00:19:02.804 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Transaction Amount' is: - 8.6 KES
-00:19:02.942 [main] INFO  pages.BasePage(321) - Checking Negative Sign Display at ROW(6)
-00:19:03.201 [main] INFO  pages.BasePage(321) - Reading Header at POS(5): Remaining Balance
-00:19:03.393 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Remaining Balance' is: 2159.73 KES
-00:19:03.565 [main] INFO  pages.BasePage(321) - Reading Header at POS(6): Description
-00:19:03.755 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Description' is: Call to: 25403739655972
-00:19:03.961 [main] INFO  pages.BasePage(321) - Reading Header at POS(7): Bundle Name
-00:19:04.183 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Bundle Name' is: VOICE-227
-00:19:04.431 [main] INFO  pages.BasePage(321) - Reading Header at POS(1): Type
-00:19:04.628 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Type' is: VOICE
-00:19:04.821 [main] INFO  pages.BasePage(321) - Reading Header at POS(2): Date & Time
-00:19:05.059 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Date & Time' is: Today
-12:19:40 PM
-00:19:05.248 [main] INFO  pages.BasePage(321) - Reading Header at POS(3): Start Balance
-00:19:05.564 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Start Balance' is: 2172.87 KES
-00:19:05.755 [main] INFO  pages.BasePage(321) - Reading Header at POS(4): Transaction Amount
-00:19:05.991 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Transaction Amount' is: - 4.53 KES
-00:19:06.161 [main] INFO  pages.BasePage(321) - Checking Negative Sign Display at ROW(7)
-00:19:06.443 [main] INFO  pages.BasePage(321) - Reading Header at POS(5): Remaining Balance
-00:19:06.649 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Remaining Balance' is: 2168.33 KES
-00:19:06.867 [main] INFO  pages.BasePage(321) - Reading Header at POS(6): Description
-00:19:07.076 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Description' is: Call to: 25403733333313
-00:19:07.265 [main] INFO  pages.BasePage(321) - Reading Header at POS(7): Bundle Name
-00:19:07.497 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Bundle Name' is: VOICE-227
-00:19:07.683 [main] INFO  pages.BasePage(321) - Reading Header at POS(1): Type
-00:19:07.917 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Type' is: VOICE
-00:19:08.117 [main] INFO  pages.BasePage(321) - Reading Header at POS(2): Date & Time
-00:19:08.328 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Date & Time' is: Today
-11:44:54 AM
-00:19:08.523 [main] INFO  pages.BasePage(321) - Reading Header at POS(3): Start Balance
-00:19:08.724 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Start Balance' is: 2176.07 KES
-00:19:08.918 [main] INFO  pages.BasePage(321) - Reading Header at POS(4): Transaction Amount
-00:19:09.132 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Transaction Amount' is: - 3.2 KES
-00:19:09.242 [main] INFO  pages.BasePage(321) - Checking Negative Sign Display at ROW(8)
-00:19:09.563 [main] INFO  pages.BasePage(321) - Reading Header at POS(5): Remaining Balance
-00:19:09.799 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Remaining Balance' is: 2172.87 KES
-00:19:10.001 [main] INFO  pages.BasePage(321) - Reading Header at POS(6): Description
-00:19:10.209 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Description' is: Call to: 25403784742988
-00:19:10.388 [main] INFO  pages.BasePage(321) - Reading Header at POS(7): Bundle Name
-00:19:10.628 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Bundle Name' is: VOICE-227
-00:19:10.872 [main] INFO  pages.BasePage(321) - Reading Header at POS(1): Type
-00:19:11.134 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Type' is: VOICE
-00:19:11.391 [main] INFO  pages.BasePage(321) - Reading Header at POS(2): Date & Time
-00:19:11.610 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Date & Time' is: Today
-11:41:12 AM
-00:19:11.803 [main] INFO  pages.BasePage(321) - Reading Header at POS(3): Start Balance
-00:19:12.031 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Start Balance' is: 2176.73 KES
-00:19:12.234 [main] INFO  pages.BasePage(321) - Reading Header at POS(4): Transaction Amount
-00:19:12.405 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Transaction Amount' is: - 0.67 KES
-00:19:12.498 [main] INFO  pages.BasePage(321) - Checking Negative Sign Display at ROW(9)
-00:19:12.831 [main] INFO  pages.BasePage(321) - Reading Header at POS(5): Remaining Balance
-00:19:13.027 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Remaining Balance' is: 2176.07 KES
-00:19:13.230 [main] INFO  pages.BasePage(321) - Reading Header at POS(6): Description
-00:19:13.449 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Description' is: Call to: 25403784742988
-00:19:13.701 [main] INFO  pages.BasePage(321) - Reading Header at POS(7): Bundle Name
-00:19:13.926 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Bundle Name' is: VOICE-227
-00:19:14.119 [main] INFO  pages.BasePage(321) - Reading Header at POS(1): Type
-00:19:14.321 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Type' is: VOICE
-00:19:14.524 [main] INFO  pages.BasePage(321) - Reading Header at POS(2): Date & Time
-00:19:14.725 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Date & Time' is: Today
-11:37:24 AM
-00:19:14.936 [main] INFO  pages.BasePage(321) - Reading Header at POS(3): Start Balance
-00:19:15.231 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Start Balance' is: 1063.33 KES
-00:19:15.441 [main] INFO  pages.BasePage(321) - Reading Header at POS(4): Transaction Amount
-00:19:15.840 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Transaction Amount' is: - 2.47 KES
-00:19:15.951 [main] INFO  pages.BasePage(321) - Checking Negative Sign Display at ROW(10)
-00:19:16.185 [main] INFO  pages.BasePage(321) - Reading Header at POS(5): Remaining Balance
-00:19:16.455 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Remaining Balance' is: 1060.87 KES
-00:19:16.698 [main] INFO  pages.BasePage(321) - Reading Header at POS(6): Description
-00:19:16.959 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Description' is: Call to: 25402720266105
-00:19:17.174 [main] INFO  pages.BasePage(321) - Reading Header at POS(7): Bundle Name
-00:19:17.375 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Bundle Name' is: VOICE-228
-00:19:17.580 [main] INFO  pages.BasePage(321) - Reading Header at POS(1): Type
-00:19:17.839 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Type' is: VOICE
-00:19:18.064 [main] INFO  pages.BasePage(321) - Reading Header at POS(2): Date & Time
-00:19:18.321 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Date & Time' is: Today
-11:05:17 AM
-00:19:18.477 [main] INFO  pages.BasePage(321) - Reading Header at POS(3): Start Balance
-00:19:18.711 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Start Balance' is: 2178.53 KES
-00:19:18.917 [main] INFO  pages.BasePage(321) - Reading Header at POS(4): Transaction Amount
-00:19:19.125 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Transaction Amount' is: - 1.8 KES
-00:19:19.225 [main] INFO  pages.BasePage(321) - Checking Negative Sign Display at ROW(11)
-00:19:19.453 [main] INFO  pages.BasePage(321) - Reading Header at POS(5): Remaining Balance
-00:19:19.709 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Remaining Balance' is: 2176.73 KES
-00:19:19.927 [main] INFO  pages.BasePage(321) - Reading Header at POS(6): Description
-00:19:20.219 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Description' is: Call to: 25403753586979
-00:19:20.404 [main] INFO  pages.BasePage(321) - Reading Header at POS(7): Bundle Name
-00:19:20.627 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Bundle Name' is: VOICE-227
-00:19:20.835 [main] INFO  pages.BasePage(321) - Reading Header at POS(1): Type
-00:19:21.029 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Type' is: DATA
-00:19:21.273 [main] INFO  pages.BasePage(321) - Reading Header at POS(2): Date & Time
-00:19:21.533 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Date & Time' is: Today
-9-10 AM
-00:19:21.721 [main] INFO  pages.BasePage(321) - Reading Header at POS(3): Start Balance
-00:19:21.942 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Start Balance' is: 19.01 KES
-00:19:22.134 [main] INFO  pages.BasePage(321) - Reading Header at POS(4): Transaction Amount
-00:19:22.325 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Transaction Amount' is: 0 KES
-00:19:22.537 [main] INFO  pages.BasePage(321) - Reading Header at POS(5): Remaining Balance
-00:19:22.776 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Remaining Balance' is: 19.01 KES
-00:19:23.012 [main] INFO  pages.BasePage(321) - Reading Header at POS(6): Description
-00:19:23.266 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Description' is: -
-00:19:23.482 [main] INFO  pages.BasePage(321) - Reading Header at POS(7): Bundle Name
-00:19:23.859 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Bundle Name' is: -
-00:19:24.112 [main] INFO  pages.BasePage(321) - Reading Header at POS(1): Type
-00:19:24.384 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Type' is: VOICE
-00:19:24.610 [main] INFO  pages.BasePage(321) - Reading Header at POS(2): Date & Time
-00:19:24.946 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Date & Time' is: Yesterday
-05:33:10 PM
-00:19:25.176 [main] INFO  pages.BasePage(321) - Reading Header at POS(3): Start Balance
-00:19:25.417 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Start Balance' is: 2182.33 KES
-00:19:25.642 [main] INFO  pages.BasePage(321) - Reading Header at POS(4): Transaction Amount
-00:19:25.911 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Transaction Amount' is: - 3.8 KES
-00:19:25.993 [main] INFO  pages.BasePage(321) - Checking Negative Sign Display at ROW(13)
-00:19:26.267 [main] INFO  pages.BasePage(321) - Reading Header at POS(5): Remaining Balance
-00:19:26.480 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Remaining Balance' is: 2178.53 KES
-00:19:26.676 [main] INFO  pages.BasePage(321) - Reading Header at POS(6): Description
-00:19:26.936 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Description' is: Call to: 25403735832811
-00:19:27.167 [main] INFO  pages.BasePage(321) - Reading Header at POS(7): Bundle Name
-00:19:27.357 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Bundle Name' is: VOICE-227
-00:19:27.565 [main] INFO  pages.BasePage(321) - Reading Header at POS(1): Type
-00:19:27.778 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Type' is: VOICE
-00:19:27.978 [main] INFO  pages.BasePage(321) - Reading Header at POS(2): Date & Time
-00:19:28.213 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Date & Time' is: Yesterday
-05:25:02 PM
-00:19:28.430 [main] INFO  pages.BasePage(321) - Reading Header at POS(3): Start Balance
-00:19:28.652 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Start Balance' is: 2185.93 KES
-00:19:28.831 [main] INFO  pages.BasePage(321) - Reading Header at POS(4): Transaction Amount
-00:19:29.048 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Transaction Amount' is: - 3.6 KES
-00:19:29.150 [main] INFO  pages.BasePage(321) - Checking Negative Sign Display at ROW(14)
-00:19:29.449 [main] INFO  pages.BasePage(321) - Reading Header at POS(5): Remaining Balance
-00:19:29.686 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Remaining Balance' is: 2182.33 KES
-00:19:29.912 [main] INFO  pages.BasePage(321) - Reading Header at POS(6): Description
-00:19:30.152 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Description' is: Call to: 25403736199909
-00:19:30.340 [main] INFO  pages.BasePage(321) - Reading Header at POS(7): Bundle Name
-00:19:30.576 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Bundle Name' is: VOICE-227
-00:19:30.766 [main] INFO  pages.BasePage(321) - Reading Header at POS(1): Type
-00:19:30.977 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Type' is: VOICE
-00:19:31.170 [main] INFO  pages.BasePage(321) - Reading Header at POS(2): Date & Time
-00:19:31.413 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Date & Time' is: Yesterday
-05:07:28 PM
-00:19:31.618 [main] INFO  pages.BasePage(321) - Reading Header at POS(3): Start Balance
-00:19:31.830 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Start Balance' is: 2204.87 KES
-00:19:32.050 [main] INFO  pages.BasePage(321) - Reading Header at POS(4): Transaction Amount
-00:19:32.271 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Transaction Amount' is: - 18.93 KES
-00:19:32.376 [main] INFO  pages.BasePage(321) - Checking Negative Sign Display at ROW(15)
-00:19:32.615 [main] INFO  pages.BasePage(321) - Reading Header at POS(5): Remaining Balance
-00:19:32.846 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Remaining Balance' is: 2185.93 KES
-00:19:33.112 [main] INFO  pages.BasePage(321) - Reading Header at POS(6): Description
-00:19:33.350 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Description' is: Call to: 25403736199909
-00:19:33.541 [main] INFO  pages.BasePage(321) - Reading Header at POS(7): Bundle Name
-00:19:33.810 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Bundle Name' is: VOICE-227
-00:19:34.028 [main] INFO  pages.BasePage(321) - Reading Header at POS(1): Type
-00:19:34.248 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Type' is: VOICE
-00:19:34.465 [main] INFO  pages.BasePage(321) - Reading Header at POS(2): Date & Time
-00:19:34.714 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Date & Time' is: Yesterday
-03:15:30 PM
-00:19:34.972 [main] INFO  pages.BasePage(321) - Reading Header at POS(3): Start Balance
-00:19:35.240 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Start Balance' is: 2222.2 KES
-00:19:35.515 [main] INFO  pages.BasePage(321) - Reading Header at POS(4): Transaction Amount
-00:19:35.778 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Transaction Amount' is: - 17.33 KES
-00:19:35.907 [main] INFO  pages.BasePage(321) - Checking Negative Sign Display at ROW(16)
-00:19:36.160 [main] INFO  pages.BasePage(321) - Reading Header at POS(5): Remaining Balance
-00:19:36.400 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Remaining Balance' is: 2204.87 KES
-00:19:36.598 [main] INFO  pages.BasePage(321) - Reading Header at POS(6): Description
-00:19:36.835 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Description' is: Call to: 25403733333313
-00:19:37.037 [main] INFO  pages.BasePage(321) - Reading Header at POS(7): Bundle Name
-00:19:37.260 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Bundle Name' is: VOICE-227
-00:19:37.475 [main] INFO  pages.BasePage(321) - Reading Header at POS(1): Type
-00:19:37.683 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Type' is: VOICE
-00:19:37.897 [main] INFO  pages.BasePage(321) - Reading Header at POS(2): Date & Time
-00:19:38.206 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Date & Time' is: Yesterday
-01:50:42 PM
-00:19:38.444 [main] INFO  pages.BasePage(321) - Reading Header at POS(3): Start Balance
-00:19:38.662 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Start Balance' is: 2238.2 KES
-00:19:38.923 [main] INFO  pages.BasePage(321) - Reading Header at POS(4): Transaction Amount
-00:19:39.233 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Transaction Amount' is: - 16 KES
-00:19:39.363 [main] INFO  pages.BasePage(321) - Checking Negative Sign Display at ROW(17)
-00:19:39.607 [main] INFO  pages.BasePage(321) - Reading Header at POS(5): Remaining Balance
-00:19:39.837 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Remaining Balance' is: 2222.2 KES
-00:19:40.027 [main] INFO  pages.BasePage(321) - Reading Header at POS(6): Description
-00:19:40.255 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Description' is: Call to: 25403736418931
-00:19:40.457 [main] INFO  pages.BasePage(321) - Reading Header at POS(7): Bundle Name
-00:19:40.673 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Bundle Name' is: VOICE-227
-00:19:40.923 [main] INFO  pages.BasePage(321) - Reading Header at POS(1): Type
-00:19:41.242 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Type' is: SMS
-00:19:41.439 [main] INFO  pages.BasePage(321) - Reading Header at POS(2): Date & Time
-00:19:41.683 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Date & Time' is: Yesterday
-01:28:20 PM
-00:19:41.888 [main] INFO  pages.BasePage(321) - Reading Header at POS(3): Start Balance
-00:19:42.094 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Start Balance' is: 1992 KES
-00:19:42.285 [main] INFO  pages.BasePage(321) - Reading Header at POS(4): Transaction Amount
-00:19:42.596 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Transaction Amount' is: - 1 KES
-00:19:42.720 [main] INFO  pages.BasePage(321) - Checking Negative Sign Display at ROW(18)
-00:19:42.984 [main] INFO  pages.BasePage(321) - Reading Header at POS(5): Remaining Balance
-00:19:43.232 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Remaining Balance' is: 1991 KES
-00:19:43.445 [main] INFO  pages.BasePage(321) - Reading Header at POS(6): Description
-00:19:43.720 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Description' is: SMS to: 25402708814131
-00:19:43.985 [main] INFO  pages.BasePage(321) - Reading Header at POS(7): Bundle Name
-00:19:44.191 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Bundle Name' is: SMS-23
-00:19:44.419 [main] INFO  pages.BasePage(321) - Reading Header at POS(1): Type
-00:19:44.643 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Type' is: SMS
-00:19:44.860 [main] INFO  pages.BasePage(321) - Reading Header at POS(2): Date & Time
-00:19:45.056 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Date & Time' is: Yesterday
-01:28:07 PM
-00:19:45.269 [main] INFO  pages.BasePage(321) - Reading Header at POS(3): Start Balance
-00:19:45.494 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Start Balance' is: 1993 KES
-00:19:45.699 [main] INFO  pages.BasePage(321) - Reading Header at POS(4): Transaction Amount
-00:19:45.925 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Transaction Amount' is: - 1 KES
-00:19:46.031 [main] INFO  pages.BasePage(321) - Checking Negative Sign Display at ROW(19)
-00:19:46.306 [main] INFO  pages.BasePage(321) - Reading Header at POS(5): Remaining Balance
-00:19:46.570 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Remaining Balance' is: 1992 KES
-00:19:46.762 [main] INFO  pages.BasePage(321) - Reading Header at POS(6): Description
-00:19:46.993 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Description' is: SMS to: 25402708814131
-00:19:47.196 [main] INFO  pages.BasePage(321) - Reading Header at POS(7): Bundle Name
-00:19:47.429 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Bundle Name' is: SMS-23
-00:19:47.651 [main] INFO  pages.BasePage(321) - Reading Header at POS(1): Type
-00:19:47.857 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Type' is: VOICE
-00:19:48.052 [main] INFO  pages.BasePage(321) - Reading Header at POS(2): Date & Time
-00:19:48.251 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Date & Time' is: Yesterday
-01:25:08 PM
-00:19:48.459 [main] INFO  pages.BasePage(321) - Reading Header at POS(3): Start Balance
-00:19:48.690 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Start Balance' is: 2247.13 KES
-00:19:48.919 [main] INFO  pages.BasePage(321) - Reading Header at POS(4): Transaction Amount
-00:19:49.138 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Transaction Amount' is: - 8.93 KES
-00:19:49.237 [main] INFO  pages.BasePage(321) - Checking Negative Sign Display at ROW(20)
-00:19:49.468 [main] INFO  pages.BasePage(321) - Reading Header at POS(5): Remaining Balance
-00:19:49.694 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Remaining Balance' is: 2238.2 KES
-00:19:49.911 [main] INFO  pages.BasePage(321) - Reading Header at POS(6): Description
-00:19:50.161 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Description' is: Call to: 25403786370610
-00:19:50.440 [main] INFO  pages.BasePage(321) - Reading Header at POS(7): Bundle Name
-00:19:50.666 [main] INFO  pages.BasePage(321) - Reading value for Header name 'Bundle Name' is: VOICE-227
-00:19:50.887 [main] INFO  pages.BasePage(321) - Reading Header at POS(1): Type
-00:20:34.887 [main] INFO  pages.BasePage(164) - Opening Customer Interactions Dashboard
-00:20:35.412 [main] INFO  pages.BasePage(73) - Clicking on elementBy.xpath: //*[text()="HOME"]
-00:20:35.412 [main] INFO  pages.BasePage(321) - Waiting for loader to be removed
-00:20:40.461 [main] INFO  pages.BasePage(321) - Loader Removed
-00:20:40.493 [main] INFO  pages.BasePage(321) - Waiting for loader to be removed
-00:20:45.554 [main] INFO  pages.BasePage(321) - Loader Removed
-]]></system-out>
-    <system-err><![CDATA[org.openqa.selenium.TimeoutException: Expected condition failed: waiting for presence of element located by: By.xpath: //div[@class="card__card-header"]//span[contains(text(),'USAGE HISTORY')]//ancestor::div[@class="card widget ng-star-inserted"]//div[@class="table-data-wrapper ng-star-inserted"]/div[@class="ng-star-inserted" or @class="slide-toggle red ng-star-inserted"][21]//div[@class="ng-star-inserted" or @class="slide-toggle red ng-star-inserted"][1]/span (tried for 40 second(s) with 500 milliseconds interval)
+  <testcase name="airtelMoneyTransactionWidgetTest" classname="tests.customerInteractionTest" time="0">
+    <skipped message="Method customerInteractionTest.airtelMoneyTransactionWidgetTest(Utils.DataProviders.HeaderDataBean)[pri:7, instance:tests.customerInteractionTest@4c2bb6e0] depends on not successfully finished methods"/>
+    <system-out><![CDATA[17:50:49.416 I am in on TestFailure method openCustomerInteractionAPI failed
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.xpath: //mat-toolbar//button (tried for 60 second(s) with 500 milliseconds interval)
 	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:138)
 	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:234)
-	at pages.BasePage.waitVisibility(BasePage.java:126)
-	at pages.BasePage.readText(BasePage.java:99)
-	at pages.DetailedUsageHistoryPOM.getValueCorrespondingToHeader(DetailedUsageHistoryPOM.java:77)
-	at tests.widgetsOptionsTest.usageHistoryMenuTest(widgetsOptionsTest.java:351)
+	at pages.SideMenuPOM.clickOnSideMenu(SideMenuPOM.java:40)
+	at tests.customerInteractionTest.openCustomerInteractionAPI(customerInteractionTest.java:653)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -1101,16 +519,16 @@ Content-Type=application/json
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)
 	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)
-Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@class="card__card-header"]//span[contains(text(),'USAGE HISTORY')]//ancestor::div[@class="card widget ng-star-inserted"]//div[@class="table-data-wrapper ng-star-inserted"]/div[@class="ng-star-inserted" or @class="slide-toggle red ng-star-inserted"][21]//div[@class="ng-star-inserted" or @class="slide-toggle red ng-star-inserted"][1]/span"}
+Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//mat-toolbar//button"}
   (Session info: headless chrome=89.0.4389.82)
 For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
 Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
 System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:63299}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: 85fa06d3e51bdfa78895c3f549eb3c45
-*** Element info: {Using=xpath, value=//div[@class="card__card-header"]//span[contains(text(),'USAGE HISTORY')]//ancestor::div[@class="card widget ng-star-inserted"]//div[@class="table-data-wrapper ng-star-inserted"]/div[@class="ng-star-inserted" or @class="slide-toggle red ng-star-inserted"][21]//div[@class="ng-star-inserted" or @class="slide-toggle red ng-star-inserted"][1]/span}
-	at sun.reflect.GeneratedConstructorAccessor63.newInstance(Unknown Source)
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:62859}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 1257bd7cdd1631bf0c521e12d0a8ea03
+*** Element info: {Using=xpath, value=//mat-toolbar//button}
+	at sun.reflect.GeneratedConstructorAccessor48.newInstance(Unknown Source)
 	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
 	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
 	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:191)
@@ -1123,80 +541,57 @@ Session ID: 85fa06d3e51bdfa78895c3f549eb3c45
 	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:445)
 	at org.openqa.selenium.By$ByXPath.findElement(By.java:396)
 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:319)
-	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:182)
-	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:179)
+	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:205)
+	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:201)
 	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:211)
-	... 36 more
-]]></system-err>
-  </testcase>
-  <testcase name="openCustomerInteraction" classname="tests.AuthTabTest" time="34.656"/>
-  <testcase name="validateAuthTab" classname="tests.AuthTabTest" time="35.648"/>
-  <testcase name="validateAuthTabMinQuestion" classname="tests.AuthTabTest" time="8.056"/>
-  <testcase name="authCustomer" classname="tests.AuthTabTest" time="28.376"/>
-  <testcase name="validateSendInternetSetting" classname="tests.AuthTabTest" time="6.243"/>
-  <testcase name="openCustomerInteraction" classname="tests.FrontendAgentTicketTest" time="24.067"/>
-  <testcase name="validateTicket" classname="tests.FrontendAgentTicketTest" time="43.44"/>
-  <testcase name="validateAddToInteraction" classname="tests.FrontendAgentTicketTest" time="72.532"/>
-  <testcase name="validateNFTRIssue" classname="tests.FrontendAgentTicketTest" time="39.431"/>
-  <testcase name="validateSendSMSTab" classname="tests.FrontendAgentTicketTest" time="23.662"/>
-  <testcase name="Logout" classname="tests.LogoutTest" time="31.861"/>
-  <testcase name="Logout" classname="tests.LogoutTest" time="31.8"/>
-  <testcase name="Logout" classname="tests.LogoutTest" time="45.443"/>
-  <testcase name="LoggingIN" classname="tests.SupervisorLoginTest" time="18.778"/>
-  <testcase name="agentSkipQueueLogin" classname="tests.SupervisorLoginTest" time="61.183"/>
-  <testcase name="agentQueueLogin" classname="tests.SupervisorLoginTest" time="43.706"/>
-  <testcase name="validateTicketSearchOptions" classname="tests.SupervisorLoginTest" time="0.656"/>
-  <testcase name="validateOpenFilterTab" classname="tests.SupervisorFilterTest" time="70.378"/>
-  <testcase name="validateClosedFilterTab" classname="tests.SupervisorFilterTest" time="38.393"/>
-  <testcase name="applyFilterByCreatedDate" classname="tests.SupervisorFilterTest" time="54.546"/>
-  <testcase name="agentSkipQueueLogin" classname="tests.PRODSupervisorTicket" time="37.164"/>
-  <testcase name="supervisorSearchTicket" classname="tests.PRODSupervisorTicket" time="43.57"/>
-  <testcase name="supervisorViewTicket" classname="tests.PRODSupervisorTicket" time="53.491"/>
-  <testcase name="LoggingIN" classname="tests.BackendAgentLoginTest" time="22.745"/>
-  <testcase name="agentQueueLogin" classname="tests.BackendAgentLoginTest" time="112.057">
-    <failure message="The following asserts failed:&#10;	did not expect to find [true] but found [false]" type="java.lang.AssertionError">java.lang.AssertionError: 
-The following asserts failed:
-	did not expect to find [true] but found [false]
-	at tests.BackendAgentLoginTest.agentQueueLogin(BackendAgentLoginTest.java:57)
-</failure>
-    <system-out><![CDATA[00:34:34.716 I am in on TestSuccess method LoggingIN succeed
-00:34:34.717 I am in onTestStart method agentQueueLogin start
-00:34:34.726 [main] INFO  pages.BasePage(321) - Waiting for loader to be removed
-00:34:39.781 [main] INFO  pages.BasePage(321) - Loader Removed
-00:34:39.781 [main] INFO  pages.BasePage(321) - Waiting for loader to be removed
-00:34:44.825 [main] INFO  pages.BasePage(321) - Loader Removed
-00:34:44.825 [main] INFO  pages.SideMenuPOM(57) - Checking that  Side Menu options are Visible or Not
-00:35:32.720 [main] INFO  pages.BasePage(321) - Waiting for loader to be removed
-00:35:48.315 [main] INFO  pages.BasePage(321) - Loader Removed
-00:35:48.357 [main] INFO  pages.SideMenuPOM(42) - Clicking on Side Menu
-00:35:48.493 [main] INFO  pages.BasePage(73) - Clicking on elementBy.xpath: //mat-toolbar//button
-00:35:48.606 [main] INFO  pages.SideMenuPOM(65) - Clicking on User Name
-00:35:48.934 [main] INFO  pages.BasePage(73) - Clicking on elementBy.xpath: //*[@class="ellipsis"]
-00:35:48.958 [main] INFO  pages.SideMenuPOM(171) - Opening Backend Agent Dashboard Page
-00:35:49.954 [main] INFO  pages.BasePage(73) - Clicking on elementBy.xpath: //a[contains(text(),'Ticket Dashboard')]
-00:35:50.099 [main] INFO  pages.BasePage(321) - Waiting for loader to be removed
-00:36:05.259 [main] INFO  pages.BasePage(321) - Loader Removed
-00:36:05.367 [main] INFO  pages.agentLoginPagePOM(37) - Login Page
-00:36:07.416 [main] INFO  pages.agentLoginPagePOM(31) - Checking Submit Button
-00:36:07.768 [main] INFO  pages.agentLoginPagePOM(43) - Select Login Queue
-00:36:08.113 [main] INFO  pages.BasePage(73) - Clicking on elementBy.xpath: //span[contains(text(),'Select Sub Workgroup (Queue)')]
-00:36:08.305 [main] INFO  pages.agentLoginPagePOM(67) - Selecting ALL Queue
-00:36:08.809 [main] INFO  pages.BasePage(73) - Clicking on elementBy.xpath: //body/div/div/div/div/div/app-select-all/mat-checkbox/label/span[1]
-00:36:08.809 [main] INFO  pages.agentLoginPagePOM(55) - Clicking on Submit Button
-00:36:09.355 [main] INFO  pages.BasePage(73) - Clicking on elementBy.xpath: //span[contains(text(),'Submit')]
-00:36:09.444 [main] INFO  pages.BasePage(321) - Waiting for loader to be removed
-00:36:26.670 [main] INFO  pages.BasePage(321) - Loader Removed
+	... 34 more
+
+17:50:49.872 I am in onTestStart method airtelMoneyTransactionWidgetTest start
 ]]></system-out>
-    <system-err><![CDATA[org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//mat-toolbar//button"}
+  </testcase>
+  <testcase name="yourCurrentBalanceWidgetTest" classname="tests.customerInteractionTest" time="67.091">
+    <failure message="Expected condition failed: waiting for presence of element located by: By.xpath: //div[@class=&quot;card__content--top--left ng-star-inserted&quot;] (tried for 60 second(s) with 500 milliseconds interval)" type="org.openqa.selenium.TimeoutException">org.openqa.selenium.TimeoutException: Expected condition failed: waiting for presence of element located by: By.xpath: //div[@class="card__content--top--left ng-star-inserted"] (tried for 60 second(s) with 500 milliseconds interval)
+	at tests.customerInteractionTest.yourCurrentBalanceWidgetTest(customerInteractionTest.java:734)
+Caused by: org.openqa.selenium.NoSuchElementException: 
+no such element: Unable to locate element: {"method":"xpath","selector":"//div[@class="card__content--top--left ng-star-inserted"]"}
   (Session info: headless chrome=89.0.4389.82)
 For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
 Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
 System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:63299}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: 85fa06d3e51bdfa78895c3f549eb3c45
-*** Element info: {Using=xpath, value=//mat-toolbar//button}
-	at sun.reflect.GeneratedConstructorAccessor63.newInstance(Unknown Source)
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:62859}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 1257bd7cdd1631bf0c521e12d0a8ea03
+*** Element info: {Using=xpath, value=//div[@class="card__content--top--left ng-star-inserted"]}
+	at tests.customerInteractionTest.yourCurrentBalanceWidgetTest(customerInteractionTest.java:734)
+</failure>
+    <system-out><![CDATA[I am in on TestSkipped method airtelMoneyTransactionWidgetTest skipped
+17:50:49.873 I am in onTestStart method yourCurrentBalanceWidgetTest start
+17:50:49.909 [main] INFO  pages.CurrentBalanceWidgetPOM(82) - Checking is Your Current Balance Widget Visible
+17:50:54.984 [main] INFO  API.APIEndPoints(90) - Request Headers are  : x-app-name=cs-service
+x-service-id=customer_service_service_request_webctx
+x-app-type=web
+x-client-id=3
+x-api-key=8eb23893-c50f-41ba-92f4-35e67fbdcf75
+x-login-module=MSISDN
+x-channel=4
+x-app-version=1.0.0
+Opco=TZ
+Authorization=Bearer eyJjdHkiOiJKV1QiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAtMjU2In0.LsXkGrozBAVp0OGJAfE4hSZTQs5Jcxr_1a-vAJPJLwBAbl5E24iVZaoisq7TGnK8Gb0nrmq-FbEBsSA8Nj6k0LLgRvoDSMSNbAmZa-5ochdSMzYp2vvIaZGqY39YVr8AanoQToUg3MkcBYoMEhNT3J0__E78b0OkEQRIQ3QYfc0DHNnSClRBrGCzfkmlE1pUMD6cIw3UA8CCx4N8ZoCAfHpGqiJS7xxrXEvresKmmEiFA5I6hsWAcQWbnf9XGRJk7t5CXMJniuDjwrSCZtLB193OqFUgZ52k8sIYV8y5LN1y4JuuZ3elW-Q-M_7vDv_krHJ6heUEA7sGHxcIYrkG2g.jdameouv-HYnDwjo.-Tuu0VfAVtAAHGFXK5_vVtrdkMnoEWLNKi1gQhnWcF3r_ClXrQmgXBVXQrOhG9J_xxuKYIKetBBjBKovR8Qi93Tmwm-DtVjWH2U-cAVpKRA4c0pWwEPM4DRNFsAD_QShOis2BxmCJ5bpIQzP1qomBiNmC0Nd7RX6UjLjW-Gx-w2_GAUiq17RmScup6La8oO5fV03AAMqGZbgHvNOg3qaUUwC3h8oHL0pxV7ZaBUP4hpudDj_CYTGGuFvnJ6q2neNx_Of.YZrrg4KcC1YlANOpOIkKuA
+Content-Type=application/json
+17:50:54.985 [main] INFO  API.APIEndPoints(92) - Request Body is  : {"msisdn":"787298733"}
+17:50:56.318 [main] INFO  API.APIEndPoints(95) - Response : {"status":"SUCCESS","statusCode":200,"result":{"dataManager":"ON","mainAccountBalance":{"balance":"1.0","currency":"TZS","expireTime":1702036800000},"sms":{"balance":"956","expireTime":1618272000000,"accounts":[{"balanceDescription":"Jiachie SMS INTERNATIONAL MAKE CALLSnthly","balance":"956","expireTime":1618272000000}]},"lastRecharge":{"amount":"500","rechargeOn":1615751399000}},"apiErrors":{}}
+17:50:56.319 [main] INFO  API.APIEndPoints(96) - Response time : 1 s
+]]></system-out>
+    <system-err><![CDATA[org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//span[@class="card__card-header--label" and text()="Your Current Plan "]"}
+  (Session info: headless chrome=89.0.4389.82)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:62859}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 1257bd7cdd1631bf0c521e12d0a8ea03
+*** Element info: {Using=xpath, value=//span[@class="card__card-header--label" and text()="Your Current Plan "]}
+	at sun.reflect.GeneratedConstructorAccessor48.newInstance(Unknown Source)
 	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
 	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
 	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:191)
@@ -1210,8 +605,8 @@ Session ID: 85fa06d3e51bdfa78895c3f549eb3c45
 	at org.openqa.selenium.By$ByXPath.findElement(By.java:396)
 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:319)
 	at pages.BasePage.isElementVisible(BasePage.java:227)
-	at pages.SideMenuPOM.isSideMenuVisible(SideMenuPOM.java:60)
-	at tests.BackendAgentLoginTest.agentQueueLogin(BackendAgentLoginTest.java:45)
+	at pages.CurrentBalanceWidgetPOM.isCurrentBalanceWidgetVisible(CurrentBalanceWidgetPOM.java:84)
+	at tests.customerInteractionTest.yourCurrentBalanceWidgetTest(customerInteractionTest.java:730)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -1246,14 +641,16 @@ Session ID: 85fa06d3e51bdfa78895c3f549eb3c45
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)
 ]]></system-err>
   </testcase>
-  <testcase name="ValidateTicket" classname="tests.BackendAgentLoginTest" time="0">
-    <skipped message="Method BackendAgentLoginTest.ValidateTicket(java.lang.reflect.Method)[pri:3, instance:tests.BackendAgentLoginTest@5e17553a] depends on not successfully finished methods"/>
-    <system-out><![CDATA[00:36:26.774 I am in on TestFailure method agentQueueLogin failed
-java.lang.AssertionError: The following asserts failed:
-	did not expect to find [true] but found [false]
-	at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:47)
-	at org.testng.asserts.SoftAssert.assertAll(SoftAssert.java:31)
-	at tests.BackendAgentLoginTest.agentQueueLogin(BackendAgentLoginTest.java:57)
+  <testcase name="usageHistoryWidgetTest" classname="tests.customerInteractionTest" time="0">
+    <skipped message="Method customerInteractionTest.usageHistoryWidgetTest(Utils.DataProviders.HeaderDataBean)[pri:9, instance:tests.customerInteractionTest@4c2bb6e0] depends on not successfully finished methods"/>
+    <system-out><![CDATA[17:51:57.013 I am in on TestFailure method yourCurrentBalanceWidgetTest failed
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for presence of element located by: By.xpath: //div[@class="card__content--top--left ng-star-inserted"] (tried for 60 second(s) with 500 milliseconds interval)
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:138)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:234)
+	at pages.BasePage.waitVisibility(BasePage.java:126)
+	at pages.BasePage.readText(BasePage.java:99)
+	at pages.CurrentBalanceWidgetPOM.gettingMainAccountBalance(CurrentBalanceWidgetPOM.java:94)
+	at tests.customerInteractionTest.yourCurrentBalanceWidgetTest(customerInteractionTest.java:734)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -1286,10 +683,155 @@ java.lang.AssertionError: The following asserts failed:
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)
 	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)
+Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//div[@class="card__content--top--left ng-star-inserted"]"}
+  (Session info: headless chrome=89.0.4389.82)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:62859}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 1257bd7cdd1631bf0c521e12d0a8ea03
+*** Element info: {Using=xpath, value=//div[@class="card__content--top--left ng-star-inserted"]}
+	at sun.reflect.GeneratedConstructorAccessor48.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:191)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:125)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:52)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:161)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:576)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:327)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:445)
+	at org.openqa.selenium.By$ByXPath.findElement(By.java:396)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:319)
+	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:182)
+	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:179)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:211)
+	... 36 more
 
-00:36:27.468 I am in onTestStart method ValidateTicket start
+17:51:57.517 I am in onTestStart method usageHistoryWidgetTest start
 ]]></system-out>
   </testcase>
-  <testcase name="agentQueueLogin" classname="tests.BackendAgentFilterTest" time="38.733"/>
-  <testcase name="validateFilter" classname="tests.BackendAgentFilterTest" time="53.737"/>
+  <testcase name="rechargeHistoryWidgetTest" classname="tests.customerInteractionTest" time="0">
+    <skipped message="Method customerInteractionTest.rechargeHistoryWidgetTest(Utils.DataProviders.HeaderDataBean)[pri:10, instance:tests.customerInteractionTest@4c2bb6e0] depends on not successfully finished methods"/>
+    <system-out><![CDATA[I am in on TestSkipped method usageHistoryWidgetTest skipped
+17:51:57.518 I am in onTestStart method rechargeHistoryWidgetTest start
+]]></system-out>
+  </testcase>
+  <testcase name="openCustomerInteractionAPI" classname="tests.widgetsOptionsTest" time="60.467">
+    <failure message="Expected condition failed: waiting for visibility of element located by By.xpath: //mat-toolbar//button (tried for 60 second(s) with 500 milliseconds interval)" type="org.openqa.selenium.TimeoutException">org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.xpath: //mat-toolbar//button (tried for 60 second(s) with 500 milliseconds interval)
+	at tests.widgetsOptionsTest.openCustomerInteractionAPI(widgetsOptionsTest.java:33)
+Caused by: org.openqa.selenium.NoSuchElementException: 
+no such element: Unable to locate element: {"method":"xpath","selector":"//mat-toolbar//button"}
+  (Session info: headless chrome=89.0.4389.82)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:62859}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 1257bd7cdd1631bf0c521e12d0a8ea03
+*** Element info: {Using=xpath, value=//mat-toolbar//button}
+	at tests.widgetsOptionsTest.openCustomerInteractionAPI(widgetsOptionsTest.java:33)
+</failure>
+    <system-out><![CDATA[I am in on TestSkipped method rechargeHistoryWidgetTest skipped
+User Type ALL
+NO USER FOUND
+User Type BA
+NO USER FOUND
+User Type API
+User Type ADDED API
+User Type NFTR
+NO USER FOUND
+17:51:57.712 I am in onTestStart method openCustomerInteractionAPI start
+]]></system-out>
+  </testcase>
+  <testcase name="daDetailsTest" classname="tests.widgetsOptionsTest" time="0">
+    <skipped message="Method widgetsOptionsTest.daDetailsTest(Utils.DataProviders.HeaderDataBean)[pri:1, instance:tests.widgetsOptionsTest@3e62d773] depends on not successfully finished methods"/>
+    <system-out><![CDATA[17:52:58.180 I am in on TestFailure method openCustomerInteractionAPI failed
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.xpath: //mat-toolbar//button (tried for 60 second(s) with 500 milliseconds interval)
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:138)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:234)
+	at pages.SideMenuPOM.clickOnSideMenu(SideMenuPOM.java:40)
+	at tests.widgetsOptionsTest.openCustomerInteractionAPI(widgetsOptionsTest.java:33)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:584)
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:172)
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:804)
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:145)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.util.ArrayList.forEach(ArrayList.java:1257)
+	at org.testng.TestRunner.privateRun(TestRunner.java:770)
+	at org.testng.TestRunner.run(TestRunner.java:591)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:402)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:396)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:355)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:304)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1180)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1102)
+	at org.testng.TestNG.runSuites(TestNG.java:1032)
+	at org.testng.TestNG.run(TestNG.java:1000)
+	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:283)
+	at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:75)
+	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:120)
+	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:384)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)
+Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//mat-toolbar//button"}
+  (Session info: headless chrome=89.0.4389.82)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:62859}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 1257bd7cdd1631bf0c521e12d0a8ea03
+*** Element info: {Using=xpath, value=//mat-toolbar//button}
+	at sun.reflect.GeneratedConstructorAccessor48.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:191)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:125)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:52)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:161)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:576)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:327)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:445)
+	at org.openqa.selenium.By$ByXPath.findElement(By.java:396)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:319)
+	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:205)
+	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:201)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:211)
+	... 34 more
+
+17:52:58.613 I am in onTestStart method daDetailsTest start
+]]></system-out>
+  </testcase>
+  <testcase name="accumulatorDetailsTest" classname="tests.widgetsOptionsTest" time="0">
+    <skipped message="Method widgetsOptionsTest.accumulatorDetailsTest(Utils.DataProviders.HeaderDataBean)[pri:2, instance:tests.widgetsOptionsTest@3e62d773] depends on not successfully finished methods"/>
+    <system-out><![CDATA[I am in on TestSkipped method daDetailsTest skipped
+17:52:58.613 I am in onTestStart method accumulatorDetailsTest start
+]]></system-out>
+  </testcase>
+  <testcase name="rechargeHistoryMenuTest" classname="tests.widgetsOptionsTest" time="0">
+    <skipped message="Method widgetsOptionsTest.rechargeHistoryMenuTest(Utils.DataProviders.HeaderDataBean)[pri:5, instance:tests.widgetsOptionsTest@3e62d773] depends on not successfully finished methods"/>
+    <system-out><![CDATA[I am in on TestSkipped method accumulatorDetailsTest skipped
+17:52:58.618 I am in onTestStart method rechargeHistoryMenuTest start
+]]></system-out>
+  </testcase>
+  <testcase name="usageHistoryMenuTest" classname="tests.widgetsOptionsTest" time="0">
+    <skipped message="Method widgetsOptionsTest.usageHistoryMenuTest(Utils.DataProviders.HeaderDataBean)[pri:6, instance:tests.widgetsOptionsTest@3e62d773] depends on not successfully finished methods"/>
+    <system-out><![CDATA[I am in on TestSkipped method rechargeHistoryMenuTest skipped
+17:52:58.619 I am in onTestStart method usageHistoryMenuTest start
+]]></system-out>
+  </testcase>
 </testsuite>

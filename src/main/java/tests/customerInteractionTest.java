@@ -70,6 +70,7 @@ public class customerInteractionTest extends BaseTest {
         try {
             if (demographic.isPUKInfoLock()) {
                 demographic.clickPUKToUnlock();
+                Thread.sleep(5000);
                 AuthenticationTabPOM authTab = new AuthenticationTabPOM(driver);
                 DataProviders data = new DataProviders();
                 authTab.waitTillLoaderGetsRemoved();
@@ -111,6 +112,7 @@ public class customerInteractionTest extends BaseTest {
         try {
             if (demographic.isAirtelMoneyStatusLock()) {
                 demographic.clickAirtelStatusToUnlock();
+                Thread.sleep(5000);
                 AuthenticationTabPOM authTab = new AuthenticationTabPOM(driver);
                 DataProviders data = new DataProviders();
                 authTab.waitTillLoaderGetsRemoved();
@@ -368,6 +370,7 @@ public class customerInteractionTest extends BaseTest {
         try {
             if (demographic.isPUKInfoLock()) {
                 demographic.clickPUKToUnlock();
+                Thread.sleep(5000);
                 AuthenticationTabPOM authTab = new AuthenticationTabPOM(driver);
                 DataProviders data = new DataProviders();
                 authTab.waitTillLoaderGetsRemoved();
@@ -409,6 +412,7 @@ public class customerInteractionTest extends BaseTest {
         try {
             if (demographic.isAirtelMoneyStatusLock()) {
                 demographic.clickAirtelStatusToUnlock();
+                Thread.sleep(5000);
                 AuthenticationTabPOM authTab = new AuthenticationTabPOM(driver);
                 DataProviders data = new DataProviders();
                 authTab.waitTillLoaderGetsRemoved();
@@ -690,16 +694,16 @@ public class customerInteractionTest extends BaseTest {
             softAssert.assertTrue(amTransactionsWidget.isAirtelMoneyErrorVisible(), "API is Giving error But Widget is not showing error Message on API is " + amTransactionHistoryAPI.getMessage());
             softAssert.fail("API is Unable to Get AM Transaction History for Customer");
         }else{
-            softAssert.assertEquals(amTransactionsWidget.getHeaders(1).toLowerCase().trim(), Data.getRow1().toLowerCase().trim(), "Header Name for Row 1 is not as expected");
-            softAssert.assertEquals(amTransactionsWidget.getHeaders(2).toLowerCase().trim(), Data.getRow2().toLowerCase().trim(), "Header Name for Row 2 is not as expected");
-            softAssert.assertEquals(amTransactionsWidget.getHeaders(3).toLowerCase().trim(), Data.getRow3().toLowerCase().trim(), "Header Name for Row 3 is not as expected");
-            softAssert.assertEquals(amTransactionsWidget.getHeaders(4).toLowerCase().trim(), Data.getRow4().toLowerCase().trim(), "Header Name for Row 4 is not as expected");
-            softAssert.assertEquals(amTransactionsWidget.getHeaders(5).toLowerCase().trim(), Data.getRow5().toLowerCase().trim(), "Header Name for Row 5 is not as expected");
             int count=amTransactionHistoryAPI.getResult().getTotalCount();
             if(count>0){
                 if(count>5){
                     count=5;
                 }
+                softAssert.assertEquals(amTransactionsWidget.getHeaders(1).toLowerCase().trim(), Data.getRow1().toLowerCase().trim(), "Header Name for Row 1 is not as expected");
+                softAssert.assertEquals(amTransactionsWidget.getHeaders(2).toLowerCase().trim(), Data.getRow2().toLowerCase().trim(), "Header Name for Row 2 is not as expected");
+                softAssert.assertEquals(amTransactionsWidget.getHeaders(3).toLowerCase().trim(), Data.getRow3().toLowerCase().trim(), "Header Name for Row 3 is not as expected");
+                softAssert.assertEquals(amTransactionsWidget.getHeaders(4).toLowerCase().trim(), Data.getRow4().toLowerCase().trim(), "Header Name for Row 4 is not as expected");
+                softAssert.assertEquals(amTransactionsWidget.getHeaders(5).toLowerCase().trim(), Data.getRow5().toLowerCase().trim(), "Header Name for Row 5 is not as expected");
                 for(int i=0;i<count;i++) {
                     softAssert.assertEquals(amTransactionsWidget.getValueCorrespondingToHeader(i+1,1),amTransactionHistoryAPI.getResult().getData().get(i).getAmount(),"Amount is not expected as API response.");
                     softAssert.assertEquals(amTransactionsWidget.getValueCorrespondingToHeader(i+1,2),amTransactionHistoryAPI.getResult().getData().get(i).getMsisdn(),"Receiver MSISDN is not expected as API response.");
@@ -741,8 +745,8 @@ public class customerInteractionTest extends BaseTest {
                 ExtentTestManager.getTest().log(LogStatus.FAIL, e.fillInStackTrace());
                 softAssert.fail("Last Recharge is not in expected format");
             }
-            String Time = currentBalanceWidget.getDateFromEpoch(plansAPI.getResult().getLastRecharge().getRechargeOn(), config.getProperty("LastRechargeTimePattern"));
-            String Date = currentBalanceWidget.getDateFromEpoch(plansAPI.getResult().getLastRecharge().getRechargeOn(), config.getProperty("LastRechargeDatePattern"));
+            String Time = currentBalanceWidget.getDateFromEpochInUTC(plansAPI.getResult().getLastRecharge().getRechargeOn(), config.getProperty("LastRechargeTimePattern"));
+            String Date = currentBalanceWidget.getDateFromEpochInUTC(plansAPI.getResult().getLastRecharge().getRechargeOn(), config.getProperty("LastRechargeDatePattern"));
             softAssert.assertEquals(currentBalanceWidget.getLastRechargeDateTime(), Date + " " + Time, "Last Recharge Date and Time is not as Received in API");
         } else {
             ExtentTestManager.getTest().log(LogStatus.WARNING, "Unable to get Last Recharge Details from API");
@@ -837,7 +841,7 @@ public class customerInteractionTest extends BaseTest {
                 softAssert.assertEquals(rechargeHistoryWidget.getHeaders(1).toLowerCase().trim() + " " + rechargeHistoryWidget.getSubHeaders(1).toLowerCase().trim(), Data.getRow1().toLowerCase().trim(), "Header Name for Row 1 is not as expected");
                 softAssert.assertEquals(rechargeHistoryWidget.getHeaders(2).toLowerCase().trim(), Data.getRow2().toLowerCase().trim(), "Header Name for Row 2 is not as expected");
                 softAssert.assertEquals(rechargeHistoryWidget.getHeaders(3).toLowerCase().trim(), Data.getRow3().toLowerCase().trim(), "Header Name for Row 3 is not as expected");
-                softAssert.assertEquals(rechargeHistoryWidget.getHeaders(4).toLowerCase().trim() + rechargeHistoryWidget.getSubHeaders(4).toLowerCase().trim().replace("|", ""), Data.getRow4().toLowerCase().trim().replace("|", ""), "Header Name for Row 4 is not as expected");
+                softAssert.assertEquals(rechargeHistoryWidget.getHeaders(4).toLowerCase().trim() + rechargeHistoryWidget.getSubHeaders(4).toLowerCase().trim().replace("|", ""), Data.getRow4().toLowerCase().replace("|", "").trim(), "Header Name for Row 4 is not as expected");
                 softAssert.assertEquals(rechargeHistoryWidget.getHeaders(5).toLowerCase().trim(), Data.getRow5().toLowerCase().trim(), "Header Name for Row 5 is not as expected");
                 for (int i = 0; i < size; i++) {
                     softAssert.assertEquals(rechargeHistoryWidget.getRechargeHistoryCharges(i + 1), rechargeHistoryAPI.getResult().get(i).getCharges(), "Recharge History Charge is not As received in API for row number " + i);
