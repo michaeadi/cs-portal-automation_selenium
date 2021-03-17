@@ -53,14 +53,14 @@ public class viewHistoryPOM extends BasePage {
     }
 
     public String ftrIssueValue(int index) {
-        By element = By.xpath("//table[@id=\"fetchInteractionByCustomer\"]//tbody//tr[" + index + "]//td[9]//span[1]//span[1]");
+        By element = By.xpath("//table[@id=\"fetchInteractionByCustomer\"]//tbody//tr[" + index + "]//td[9]//span//span");
         String value = driver.findElement(element).getAttribute("title");
         log.info("Reading Attribute Value: " + value);
         return value;
     }
 
     public String nftrIssueValue(int index) {
-        By element = By.xpath("//table[@id=\"fetchInteractionByCustomer\"]//tbody//tr[" + index + "]//td[9]//span[2]//span[1]");
+        By element = By.xpath("//table[@id=\"fetchInteractionByCustomer\"]//tbody//tr[" + index + "]//td[9]//span//span");
         String value = driver.findElement(element).getAttribute("title");
         log.info("Reading Attribute Value: " + value);
         return value;

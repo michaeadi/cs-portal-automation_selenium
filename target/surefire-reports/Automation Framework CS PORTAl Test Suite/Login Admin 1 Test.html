@@ -57,9 +57,9 @@ function toggleAllBoxes() {
 <tr>
 <td>Tests passed/Failed/Skipped:</td><td>0/1/0</td>
 </tr><tr>
-<td>Started on:</td><td>Thu Mar 11 16:28:59 IST 2021</td>
+<td>Started on:</td><td>Tue Mar 16 18:28:51 IST 2021</td>
 </tr>
-<tr><td>Total time:</td><td>147 seconds (147489 ms)</td>
+<tr><td>Total time:</td><td>93 seconds (93499 ms)</td>
 </tr><tr>
 <td>Included groups:</td><td></td>
 </tr><tr>
@@ -75,22 +75,24 @@ function toggleAllBoxes() {
 <td><b>Instance</b></td>
 </tr>
 <tr>
-<td title='tests.LoginTests.LoggingIN()'><b>LoggingIN</b><br>Test class: tests.LoginTests<br>Test method: Logging IN<br>Parameters: public void tests.LoginTests.LoggingIN(java.lang.reflect.Method,Utils.DataProviders.TestDatabean), Utils.DataProviders.TestDatabean@6ef4cbe1</td>
-<td><div><pre>org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.xpath: //mat-toolbar//button (tried for 20 second(s) with 500 milliseconds interval)
+<td title='tests.LoginTests.LoggingIN()'><b>LoggingIN</b><br>Test class: tests.LoginTests<br>Test method: Logging IN<br>Parameters: public void tests.LoginTests.LoggingIN(java.lang.reflect.Method,Utils.DataProviders.TestDatabean), Utils.DataProviders.TestDatabean@5ec9eefa</td>
+<td><div><pre>org.openqa.selenium.TimeoutException: Expected condition failed: waiting for presence of element located by: By.xpath: //input[@formcontrolname=&quot;loginTypeStatus&quot;] (tried for 60 second(s) with 500 milliseconds interval)
 	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:138)
 	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:234)
-	at pages.SideMenuPOM.waitForHomePage(SideMenuPOM.java:48)
-	at tests.LoginTests.LoggingIN(LoginTests.java:33)
+	at pages.BasePage.waitVisibility(BasePage.java:126)
+	at pages.BasePage.writeText(BasePage.java:90)
+	at pages.loginPagePOM.enterAUUID(loginPagePOM.java:40)
+	at tests.LoginTests.LoggingIN(LoginTests.java:24)
 	at java.util.ArrayList.forEach(ArrayList.java:1257)
-Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//mat-toolbar//button&quot;}
+Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//input[@formcontrolname=&quot;loginTypeStatus&quot;]&quot;}
   (Session info: headless chrome=89.0.4389.82)
 For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
 Build info: version: &apos;4.0.0-alpha-3&apos;, revision: &apos;8c567de6dc&apos;
 System info: host: &apos;LT2394650&apos;, ip: &apos;172.23.64.219&apos;, os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;1.8.0_231&apos;
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:61999}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: 22ec530818c8240b8b3a5234bfb19207
-*** Element info: {Using=xpath, value=//mat-toolbar//button}
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:64759}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 205c1d715245f7f0fa3c79fc636e605b
+*** Element info: {Using=xpath, value=//input[@formcontrolname=&quot;loginTypeStatus&quot;]}
 	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:191)
 	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:125)
 	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:52)
@@ -101,16 +103,18 @@ Session ID: 22ec530818c8240b8b3a5234bfb19207
 	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:445)
 	at org.openqa.selenium.By$ByXPath.findElement(By.java:396)
 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:319)
-	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:205)
-	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:201)
+	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:182)
+	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:179)
 	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:211)
-	... 34 more
-... Removed 35 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace609232239", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace609232239'><pre>org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.xpath: //mat-toolbar//button (tried for 20 second(s) with 500 milliseconds interval)
+	... 36 more
+... Removed 35 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1800031808", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1800031808'><pre>org.openqa.selenium.TimeoutException: Expected condition failed: waiting for presence of element located by: By.xpath: //input[@formcontrolname=&quot;loginTypeStatus&quot;] (tried for 60 second(s) with 500 milliseconds interval)
 	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:138)
 	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:234)
-	at pages.SideMenuPOM.waitForHomePage(SideMenuPOM.java:48)
-	at tests.LoginTests.LoggingIN(LoginTests.java:33)
+	at pages.BasePage.waitVisibility(BasePage.java:126)
+	at pages.BasePage.writeText(BasePage.java:90)
+	at pages.loginPagePOM.enterAUUID(loginPagePOM.java:40)
+	at tests.LoginTests.LoggingIN(LoginTests.java:24)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -143,15 +147,15 @@ Session ID: 22ec530818c8240b8b3a5234bfb19207
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:345)
 	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:126)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:418)
-Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//mat-toolbar//button&quot;}
+Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//input[@formcontrolname=&quot;loginTypeStatus&quot;]&quot;}
   (Session info: headless chrome=89.0.4389.82)
 For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
 Build info: version: &apos;4.0.0-alpha-3&apos;, revision: &apos;8c567de6dc&apos;
 System info: host: &apos;LT2394650&apos;, ip: &apos;172.23.64.219&apos;, os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;1.8.0_231&apos;
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:61999}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: 22ec530818c8240b8b3a5234bfb19207
-*** Element info: {Using=xpath, value=//mat-toolbar//button}
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:64759}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 205c1d715245f7f0fa3c79fc636e605b
+*** Element info: {Using=xpath, value=//input[@formcontrolname=&quot;loginTypeStatus&quot;]}
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
 	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
@@ -166,12 +170,12 @@ Session ID: 22ec530818c8240b8b3a5234bfb19207
 	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:445)
 	at org.openqa.selenium.By$ByXPath.findElement(By.java:396)
 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:319)
-	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:205)
-	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:201)
+	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:182)
+	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:179)
 	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:211)
-	... 34 more
+	... 36 more
 </pre></div></td>
-<td>146</td>
+<td>92</td>
 <td>tests.LoginTests@45efd90f</td></tr>
 </table><p>
 <table width='100%' border='1' class='invocation-passed'>
@@ -182,9 +186,9 @@ Session ID: 22ec530818c8240b8b3a5234bfb19207
 <td><b>Instance</b></td>
 </tr>
 <tr>
-<td title='API.APIEndPoints.loginAPI()'><b>loginAPI</b><br>Test class: API.APIEndPoints<br>Parameters: Utils.DataProviders.TestDatabean@57e5396b</td>
+<td title='API.APIEndPoints.loginAPI()'><b>loginAPI</b><br>Test class: API.APIEndPoints<br>Parameters: Utils.DataProviders.TestDatabean@5e180aaf</td>
 <td></td>
-<td>5</td>
+<td>4</td>
 <td>API.APIEndPoints@17503f6b</td></tr>
 </table><p>
 </body>

@@ -27,25 +27,27 @@ public class FrontendAgentTicketTest extends BaseTest {
         customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
         customerInteractionsSearchPOM.enterNumber(Data.getCustomerNumber());
         customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
-        softAssert.assertTrue(customerInteractionPagePOM.isPageLoaded());
+        softAssert.assertTrue(customerInteractionPagePOM.isPageLoaded(),"Dashboard page does not open.");
         softAssert.assertAll();
     }
 
-    @Test(priority = 2, description = "Validate Ticket Meta Data for Frontend Agent ", dataProvider = "singleTicketId", dataProviderClass = DataProviders.class)
-    public void validateTicket(nftrDataBeans Data) throws InterruptedException, IOException {
-        ExtentTestManager.startTest("Validate Ticket Meta Data for Frontend Agent :" + Data.getTicketNumber(), "Validate Ticket Meta Data for Frontend Agent : " + Data.getTicketNumber());
+    @Test(priority = 2, description = "Validate Ticket Meta Data for Frontend Agent ")
+    public void validateTicket() throws InterruptedException, IOException {
+        ExtentTestManager.startTest("Validate Ticket Meta Data for Frontend Agent", "Validate Ticket Meta Data for Frontend Agent ");
         SoftAssert softAssert = new SoftAssert();
         customerInteractionPagePOM customerInteractionPage = new customerInteractionPagePOM(driver);
         viewHistoryPOM viewHistory = customerInteractionPage.clickOnViewHistory();
         FrontendTicketHistory ticketHistory = viewHistory.clickOnTicketHistory();
         ticketHistory.waitTillLoaderGetsRemoved();
-        ticketHistory.writeTicketId(Data.getTicketNumber());
+        String ticketId=ticketHistory.getTicketId(1);
+        ticketHistory.writeTicketId(ticketId);
         ticketHistory.clickSearchBtn();
         ticketHistory.waitTillLoaderGetsRemoved();
         Thread.sleep(3000);
-        softAssert.assertEquals(ticketHistory.getTicketId(1), Data.getTicketNumber(), "Ticket Id does not same as search ticket id.");
-        softAssert.assertEquals(ticketHistory.getTicketPriority(1), Data.getPriority(), "Ticket priority not same as rule defined");
-        softAssert.assertEquals(ticketHistory.getTicketQueue(1), Data.getAssignmentQueue(), "Ticket Queue not same as rule defined");
+        softAssert.assertEquals(ticketHistory.getTicketId(1), ticketId, "Ticket Id does not same as search ticket id.");
+        softAssert.assertNotNull(ticketHistory.getTicketPriority(1), "Ticket priority must not be null.");
+        softAssert.assertNotNull(ticketHistory.getTicketQueue(1), "Ticket Queue must not be null.");
+        ticketHistory.clickClearSearchBox();
         softAssert.assertAll();
     }
 
@@ -56,7 +58,6 @@ public class FrontendAgentTicketTest extends BaseTest {
         customerInteractionPagePOM customerInteractionPage = new customerInteractionPagePOM(driver);
         viewHistoryPOM viewHistory = customerInteractionPage.clickOnViewHistory();
         FrontendTicketHistory ticketHistory = viewHistory.clickOnTicketHistory();
-        ticketHistory.clickClearSearchBox();
         ticketHistory.waitTillLoaderGetsRemoved();
         softAssert.assertTrue(ticketHistory.validateAddToInteractionIcon(), "Add to interaction Icon does not found on ticket");
         softAssert.assertAll();

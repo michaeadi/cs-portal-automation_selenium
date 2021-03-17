@@ -36,13 +36,14 @@ public class AuthTabTest extends BaseTest {
     }
 
     @Test(priority = 2, description = "Verify the Authentication tab",dependsOnMethods = "openCustomerInteraction")
-    public void validateAuthTab() {
+    public void validateAuthTab() throws InterruptedException {
         ExtentTestManager.startTest("Verify the Authentication tab", "Verify the Authentication tab");
         SoftAssert softAssert = new SoftAssert();
         customerInteractionPagePOM homepage = new customerInteractionPagePOM(driver);
         homepage.waitTillLoaderGetsRemoved();
         homepage.clickOnAction();
         AuthenticationTabPOM authTab = homepage.openAuthTab();
+        Thread.sleep(5000);
         DataProviders data = new DataProviders();
         authTab.waitTillLoaderGetsRemoved();
         Assert.assertTrue(authTab.isAuthTabLoad(), "Authentication tab does not load correctly");
@@ -85,13 +86,11 @@ public class AuthTabTest extends BaseTest {
             }
         }
         softAssert.assertTrue(authTab.isAuthBtnEnable(), "Authenticate Button does not enable after choose minimum number of question");
-        if(!authTab.isAuthBtnEnable()){
-            authTab.clickCloseBtn();
-        }
+        authTab.clickCloseBtn();
         softAssert.assertAll();
     }
 
-    @Test(priority = 4, description = "Authenticate User",dependsOnMethods = "validateAuthTabMinQuestion")
+    @Test(priority = 4, description = "Authenticate User",dependsOnMethods = "validateAuthTabMinQuestion",enabled = false)
     public void authCustomer() throws InterruptedException {
         ExtentTestManager.startTest("Authenticate User", "Authenticate User");
         SoftAssert softAssert = new SoftAssert();

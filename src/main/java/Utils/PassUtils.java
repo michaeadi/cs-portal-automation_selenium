@@ -24,8 +24,4 @@ public class PassUtils {
         return format.format(date);
     }
 
-    public static void main(String[] args) {
-        System.out.println(decodePassword("QWFpcnRlbEAwOTE5"));
-    }
-
 }

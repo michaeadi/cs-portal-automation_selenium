@@ -87,7 +87,7 @@ public class FrontendTicketHistory extends BasePage {
     }
 
     public void clickAddToInteraction(int index) {
-        By addToInteractionBtn = By.xpath("//table[@id='fetchTicketByCustomer']//tbody//tr[" + index + "]//td[7]//span[1]//a[1]//img");
+        By addToInteractionBtn = By.xpath("//table[@id='fetchTicketByCustomer']//tbody//tr[" + index + "]//td[8]//span[1]//a[1]//img");
         log.info("Clicking on Add to interaction button");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Add to interaction button");
         click(addToInteractionBtn);
@@ -102,14 +102,14 @@ public class FrontendTicketHistory extends BasePage {
     }
 
     public boolean checkReopen(int index) {
-        By reopenBtn = By.xpath("//table[@id='fetchTicketByCustomer']//tbody//tr[" + index + "]//td[8]//span[1]//a[2]//img");
+        By reopenBtn = By.xpath("//table[@id='fetchTicketByCustomer']//tbody//tr[" + index + "]//td[9]//span[1]//a[2]//img");
         log.info("Checking Reopen button on ticket");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Checking reopen button on ticket");
         return checkState(reopenBtn);
     }
 
     public void clickReopen(int index) {
-        By reopenBtn = By.xpath("//table[@id='fetchTicketByCustomer']//tbody//tr[" + index + "]//td[8]//span[1]//a[2]//img");
+        By reopenBtn = By.xpath("//table[@id='fetchTicketByCustomer']//tbody//tr[" + index + "]//td[9]//span[1]//a[2]//img");
         log.info("Clicking on Reopen button");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Add to interaction button");
         click(reopenBtn);
