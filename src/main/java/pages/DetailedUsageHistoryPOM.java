@@ -10,12 +10,12 @@ public class DetailedUsageHistoryPOM extends BasePage {
     /*
     * Filter Headers
     * */
-    By freeCDR=By.xpath("//div[@class=\"card__card-header\"]//span[contains(text(),'USAGE HISTORY')]//parent::div[@class=\"card__card-header\"]//form/span[1]//label/span");
-    By typeOfCDR=By.xpath("//div[@class=\"card__card-header\"]//span[contains(text(),'USAGE HISTORY')]//parent::div[@class=\"card__card-header\"]//form/span[2]");
-    By todayDateFilter=By.xpath("//div[@class=\"card__card-header\"]//span[contains(text(),'USAGE HISTORY')]//parent::div[@class=\"card__card-header\"]//form/span[3]//mat-radio-button[1]//span[contains(text(),'Today')]");
-    By last2DayDateFilter=By.xpath("//div[@class=\"card__card-header\"]//span[contains(text(),'USAGE HISTORY')]//parent::div[@class=\"card__card-header\"]//form/span[3]//mat-radio-button[2]//span[contains(text(),'two days')]");
-    By last7DayDateFilter=By.xpath("//div[@class=\"card__card-header\"]//span[contains(text(),'USAGE HISTORY')]//parent::div[@class=\"card__card-header\"]//form/span[3]//mat-radio-button[3]//span[contains(text(),'seven days')]");
-    By datePicker=By.xpath("//div[@class=\"card__card-header\"]//span[contains(text(),'USAGE HISTORY')]//parent::div[@class=\"card__card-header\"]//form/span[4]//input");
+    By freeCDR=By.xpath("//div[@class=\"card__card-header\"]//span[contains(text(),'USAGE HISTORY')]//ancestor::div[@class=\"card widget ng-star-inserted\"]//form/span[1]//label/span");
+    By typeOfCDR=By.xpath("//div[@class=\"card__card-header\"]//span[contains(text(),'USAGE HISTORY')]//ancestor::div[@class=\"card widget ng-star-inserted\"]//form/span[2]");
+    By todayDateFilter=By.xpath("//div[@class=\"card__card-header\"]//span[contains(text(),'USAGE HISTORY')]//ancestor::div[@class=\"card widget ng-star-inserted\"]//form/span[3]//mat-radio-button[1]//span[contains(text(),'Today')]");
+    By last2DayDateFilter=By.xpath("//div[@class=\"card__card-header\"]//span[contains(text(),'USAGE HISTORY')]//ancestor::div[@class=\"card widget ng-star-inserted\"]//form/span[3]//mat-radio-button[2]//span[contains(text(),'two days')]");
+    By last7DayDateFilter=By.xpath("//div[@class=\"card__card-header\"]//span[contains(text(),'USAGE HISTORY')]//ancestor::div[@class=\"card widget ng-star-inserted\"]//form/span[3]//mat-radio-button[3]//span[contains(text(),'seven days')]");
+    By datePicker=By.xpath("//div[@class=\"card__card-header\"]//span[contains(text(),'USAGE HISTORY')]//ancestor::div[@class=\"card widget ng-star-inserted\"]//form/span[4]//input");
 
     /*
     * Header Names

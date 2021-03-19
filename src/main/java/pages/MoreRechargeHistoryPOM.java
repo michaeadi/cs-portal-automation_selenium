@@ -13,14 +13,14 @@ import java.util.List;
 public class MoreRechargeHistoryPOM extends BasePage {
 
     By widgetName=By.xpath("//span[contains(text(),'RECHARGE HISTORY')]//parent::div[@class=\"card__card-header\"]");
-    By datePicker=By.xpath("//span[contains(text(),'RECHARGE HISTORY')]//parent::div[@class=\"card__card-header\"]//span[@class=\"filter-object\"]//form//input[@name=\"dateRange\"]");
+    By datePicker=By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Recharge History\")]//ancestor::div[@class='card widget ng-star-inserted']//input[@name='dateRange']");
     By todayDateFilter=By.xpath("//span[contains(text(),'RECHARGE HISTORY')]//parent::div[@class=\"card__card-header\"]//span[@class=\"filter-object\"]//form//mat-radio-group[@role=\"radiogroup\"]//span[contains(text(),'Today')]");
     By last7DaysFilter=By.xpath("//span[contains(text(),'RECHARGE HISTORY')]//parent::div[@class=\"card__card-header\"]//span[@class=\"filter-object\"]//form//mat-radio-group[@role=\"radiogroup\"]//span[contains(text(),'seven days')]");
     By last2DaysFilter=By.xpath("//span[contains(text(),'RECHARGE HISTORY')]//parent::div[@class=\"card__card-header\"]//span[@class=\"filter-object\"]//form//mat-radio-group[@role=\"radiogroup\"]//span[contains(text(),'two days')]");
     By listOfRecharge=By.xpath("//span[contains(text(),'RECHARGE HISTORY')]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]/div[@class=\"ng-star-inserted\"]");
     List<WebElement> rows=returnListOfElement(listOfRecharge);
     By pagination=By.xpath("//span[contains(text(),'RECHARGE HISTORY')]//ancestor::div[@class=\"card widget ng-star-inserted\"]//pagination-template//ul");
-    By errorMessage=By.xpath("//span[contains(text(),'RECHARGE HISTORY')]//ancestor::div[@class=\"card widget ng-star-inserted\"]//span[contains(text(),'No Result found')]");
+    By errorMessage=By.xpath("//span[contains(text(),\"Recharge History\")]/ancestor::div[@class=\"card widget ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]/span/span");
 
     public Boolean isWidgetDisplay(){
         printInfoLog("Checking More Recharge History Widget Display");

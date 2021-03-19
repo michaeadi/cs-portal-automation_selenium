@@ -28,6 +28,7 @@ import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.SpecificationQuerier;
 import lombok.extern.log4j.Log4j2;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import java.util.concurrent.TimeUnit;
 
@@ -42,6 +43,7 @@ public class APIEndPoints extends tests.BaseTest {
     @Test(dataProvider = "loginData", dataProviderClass = DataProviders.class, priority = 1)
     public void loginAPI(TestDatabean Data) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
+        SoftAssert softAssert=new SoftAssert();
         LoginPOJO Req = LoginPOJO.loginBody(PassUtils.decodePassword(Data.getPassword()), Data.getLoginAUUID());
         map.clear();
         map.add(new Header("x-app-name", config.getProperty(Env + "-x-app-name")));
@@ -74,7 +76,11 @@ public class APIEndPoints extends tests.BaseTest {
         log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
         getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
         getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
-
+        if(!response.jsonPath().getString("message").equalsIgnoreCase("User authenticated successfully")){
+            continueExecution=false;
+            softAssert.fail("Not able to generate Token. Please Update Password As soon as possible if required.\nAPI Response Message: "+response.jsonPath().getString("message"));
+        }
+        softAssert.assertAll();
     }
 
     public PlansPOJO accountPlansTest(String msisdn) {
@@ -105,7 +111,7 @@ public class APIEndPoints extends tests.BaseTest {
         Headers headers = new Headers(map);
         RequestSpecification request = given()
                 .headers(headers)
-                .body("{\"msisdn\":\"" + msisdn + "\",\"pageSize\":5,\"pageNumber\":1,\"type\":null,\"startDate\":null,\"endDate\":null}")
+                .body("{\"msisdn\":\"" + msisdn + "\",\"pageSize\":5,\"pageNumber\":1,\"type\":null,\"startDate\":null,\"endDate\":null,\"action\": \"More\"}")
                 .contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
         getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
@@ -126,7 +132,7 @@ public class APIEndPoints extends tests.BaseTest {
         Headers headers = new Headers(map);
         RequestSpecification request = given()
                     .headers(headers)
-                    .body("{\"msisdn\":\"" + msisdn + "\",\"pageSize\":5,\"pageNumber\":1,\"type\":null,\"startDate\":null,\"endDate\":null,\"action\":\"More\",cdrTypeFilter: \"FREE\"}")
+                    .body("{\"msisdn\":\""+msisdn+"\",\"pageSize\":5,\"pageNumber\":1,\"typeFilter\":null,\"startDate\":null,\"endDate\":null,\"action\":\"More\",\"cdrTypeFilter\":\"FREE\"}")
                     .contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
         getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());

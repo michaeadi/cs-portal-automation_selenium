@@ -12,22 +12,23 @@ public class CustomerDemoGraphicPOM extends BasePage {
     /*
      * Customer Name & DOB & Refresh Icon Element Locator
      * */
-    By customerNumberSearchBox = By.xpath("//div[@class=\"customer-details\"]//div[@class=\"user-left-side\"]/div/div[1]//input");
-    By customerName = By.xpath("//div[@class=\"customer-details\"]//div[@class=\"user-left-side\"]/div/div[1]/div[2]//p");
-    By customerDOB = By.xpath("//div[@class=\"customer-details\"]//div[@class=\"user-left-side\"]/div/div[1]/div[2]//span[2]");
-    By refreshIcon = By.xpath("//div[@class=\"customer-details\"]//div[@class=\"user-left-side\"]/div/div[1]/div[3]/img");
+    By customerNumberSearchBox = By.xpath("//input[@type='search' and @placeholder='Search']");
+    By customerName = By.xpath("//span[@class='customer-name ng-star-inserted']/span[1]");
+    By customerDOB = By.xpath("//span[contains(text(),'DOB')]//following-sibling::span/span");
+    By customerInfoIcon=By.xpath("//span[@class='customer-name ng-star-inserted']/a");
+    By refreshIcon = By.xpath("//img[@class='refresh-button cursor-pointer']");
 
     /*
-     * Activation Date & Time
+     * Activation Date & Time No longer required in newer version
      * */
-    By activationDate = By.xpath("//div[@class=\"customer-details\"]//div[@class=\"user-left-side\"]/div/div[2]//span[1]");
-    By activationTime = By.xpath("//div[@class=\"customer-details\"]//div[@class=\"user-left-side\"]/div/div[2]//span[2]");
+    By activationDate = By.xpath("//span[contains(text(),'Customer Activation Date')]//following-sibling::span/span");
 
     /*
      * SIM Number & Device Info
      * */
-    By simNumber = By.xpath("//div[@class=\"customer-details\"]//div[@class=\"user-left-side\"]/div/div[3]//li[2]/p[1]/span");
-    By simType = By.xpath("//div[@class=\"customer-details\"]//div[@class=\"user-left-side\"]/div/div[3]//li[2]/p[2]/span[1]");
+    By simNumber = By.xpath("//span[contains(text(),'SIM Number')]//following-sibling::span/span");
+    By simNumberInfoIcon=By.xpath("//span[contains(text(),'SIM Number')]//following-sibling::span/a");
+    By simType = By.xpath("//span[contains(text(),'SIM Type')]//following-sibling::span/span");
     By deviceCompatible = By.xpath("//div[@class=\"customer-details\"]//div[@class=\"user-left-side\"]/div/div[3]//li[2]/p[2]/span[2]");
 
     /*
@@ -43,8 +44,8 @@ public class CustomerDemoGraphicPOM extends BasePage {
     /*
      * PUK Tap to unlock & Airtel Money Status Lock
      * */
-    By pukLock = By.xpath("//div[@class=\"customer-details\"]//div[@class=\"top col-md-7\"]/div/div[1]//ul//span[contains(text(),'Tap to unlock')]");
-    By airtelMoneyLock = By.xpath("//div[@class=\"customer-details\"]//div[@class=\"top col-md-7\"]/div/div[3]//ul//span[contains(text(),'Tap to unlock')]");
+    By pukLock = By.xpath("//span[contains(text(),'PUK')]//parent::div//span[contains(text(),'Tap to unlock')]");
+    By airtelMoneyLock = By.xpath("//span[contains(text(),'Airtel Money Profile')]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[contains(text(),'Tap to unlock')]");
     By airtelStatus = By.xpath("//div[@class=\"customer-details\"]//div[@class=\"container-fluid cusomer-profile-detail\"]/div//div[6]//span[contains(text(),'Tap to unlock')]");
     /*
      * PUK1 & PUK2
@@ -59,29 +60,33 @@ public class CustomerDemoGraphicPOM extends BasePage {
     /*
      * SIM Status & Airtel Money Status & Service Status
      * */
-    By SIMStatus = By.xpath("//div[@class=\"customer-details\"]//div[@class=\"top col-md-7\"]/div/div[2]//span");
-    By SIMStatusReason=By.xpath("//div[@class=\"customer-details\"]//div[@class=\"top col-md-7\"]/div/div[2]//span//a");
-    By airtelMoneyStatus = By.xpath("//div[@class=\"customer-details\"]//div[@class=\"top col-md-7\"]/div/div[3]//li[2]//p[1]//span[2]");
-    By serviceStatus = By.xpath("//div[@class=\"customer-details\"]//div[@class=\"top col-md-7\"]/div/div[3]//li[2]//p[2]//span[2]");
+    By SIMStatus = By.xpath("//span[contains(text(),'GSM Status')]//following-sibling::span/span");
+    By SIMStatusReason=By.xpath("//span[contains(text(),'GSM Status')]//following-sibling::span/a");
+    By airtelMoneyStatus = By.xpath("//span[contains(text(),'Account Status')]//following-sibling::span/span");
+    By serviceStatus = By.xpath("//span[contains(text(),'Service Status')]//following-sibling::span/span");
+    By walletBalance=By.xpath("//span[contains(text(),'Wallet Balance')]//following-sibling::span/span");
+    By registrationStatus=By.xpath("//span[contains(text(),'Registration Status')]//following-sibling::span/span");
 
     /*
     * SIM Status Reason
     * */
-    By reasonCode=By.xpath("//div[@class=\"customer-details\"]//div[@class=\"top col-md-7\"]/div/div[2]//span//a//span[1]/label");
-    By modifiedBy=By.xpath("//div[@class=\"customer-details\"]//div[@class=\"top col-md-7\"]/div/div[2]//span//a//span[2]/label");
-    By modifiedDate=By.xpath("//div[@class=\"customer-details\"]//div[@class=\"top col-md-7\"]/div/div[2]//span//a//span[3]/label");
+    By reasonCode=By.xpath("//span[contains(text(),'Reason Code')]//following-sibling::span");
+    By modifiedBy=By.xpath("//span[contains(text(),'Modified By')]//following-sibling::span");
+    By modifiedDate=By.xpath("//span[contains(text(),'Modified Date')]//following-sibling::span");
     /*
      * ID Type & ID Number
      * */
-    By idType = By.xpath("//div[@class=\"customer-details\"]//div[@class=\"top col-md-7\"]/div/div[4]//ul/li[1]//p");
-    By idNumber = By.xpath("//div[@class=\"customer-details\"]//div[@class=\"top col-md-7\"]/div/div[4]//ul/li[2]//span");
+    By idType = By.xpath("//span[contains(text(),'ID Type')]//following-sibling::span");
+    By idNumber = By.xpath("//span[contains(text(),'ID No.')]//following-sibling::span");
 
-    By lineType = By.xpath("//div[@class=\"customer-details\"]//div[@class=\"container-fluid cusomer-profile-detail\"]/div//div[1]//ul[1]//span//span[1]");
-    By segment = By.xpath("//div[@class=\"customer-details\"]//div[@class=\"container-fluid cusomer-profile-detail\"]/div//div[1]//ul[1]//span//span[2]");
-    By serviceClass = By.xpath("//div[@class=\"customer-details\"]//div[@class=\"container-fluid cusomer-profile-detail\"]/div//div[2]//p/span[2]");
-    By serviceCategory = By.xpath("//div[@class=\"customer-details\"]//div[@class=\"container-fluid cusomer-profile-detail\"]/div//div[3]//p/span[2]");
-    By appStatus = By.xpath("//div[@class=\"customer-details\"]//div[@class=\"container-fluid cusomer-profile-detail\"]/div//div[4]//p/span[2]");
-    By gsmKycStatus = By.xpath("//div[@class=\"customer-details\"]//div[@class=\"container-fluid cusomer-profile-detail\"]/div//div[5]//p/span[2]");
+    By lineType = By.xpath("//span[contains(text(),'Connection Type')]//following-sibling::span");
+    By segment = By.xpath("//span[contains(text(),'Segment')]//following-sibling::span");
+    By hoverInfoSegment=By.xpath("//span[contains(text(),'Segment')]//following-sibling::span/a");
+    By serviceClass = By.xpath("//span[contains(text(),'Service Class')]//following-sibling::span");
+    By serviceCategory = By.xpath("//span[contains(text(),'Service Category')]//following-sibling::span");
+    By subSegment=By.xpath("//span[contains(text(),'Sub Segment')]//following-sibling::span");
+    By appStatus = By.xpath("//span[contains(text(),'App Status')]//following-sibling::span");
+    By gsmKycStatus = By.xpath("//span[contains(text(),'GSM KYC Status')]//following-sibling::span");
 
     By vipFlag=By.xpath("//div[@class=\"customer-details\"]//div[@class=\"vip-flag ng-star-inserted\"]");
     By errorMessage=By.xpath("//p[contains(text(),'Entered customer number is Invalid')]");
@@ -129,12 +134,6 @@ public class CustomerDemoGraphicPOM extends BasePage {
         log.info("Getting Activation Date " + readText(activationDate));
         ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Activation Date " + readText(activationDate));
         return readText(activationDate);
-    }
-
-    public String getActivationTime() {
-        log.info("Getting Activation Time " + readText(activationTime));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Activation Time " + readText(activationTime));
-        return readText(activationTime);
     }
 
     public String getSimNumber() {
@@ -235,6 +234,16 @@ public class CustomerDemoGraphicPOM extends BasePage {
         return readText(serviceStatus);
     }
 
+    public String getWalletBalance(){
+        printInfoLog("Getting Airtel Money Wallet Balance: "+readText(walletBalance));
+        return readText(walletBalance);
+    }
+
+    public String getRegistrationStatus(){
+        printInfoLog("Getting Airtel Money Registration Status : "+readText(registrationStatus));
+        return readText(registrationStatus);
+    }
+
     public String getLineType() {
         printInfoLog("Getting Line Type: "+readText(lineType));
         return readText(lineType);
@@ -300,6 +309,16 @@ public class CustomerDemoGraphicPOM extends BasePage {
         hoverAndClick(SIMStatusReason);
     }
 
+    public void hoverOnCustomerInfoIcon(){
+        printInfoLog("Hover on Customer Info icon");
+        hoverAndClick(customerInfoIcon);
+    }
+
+    public void hoverOnSegmentInfoIcon(){
+        printInfoLog("Hover on Segment Info icon");
+        hoverAndClick(hoverInfoSegment);
+    }
+
     public boolean invalidMSISDNError(){
         printInfoLog("Reading Error Message: "+readText(errorMessage));
         return checkState(errorMessage);
@@ -319,4 +338,8 @@ public class CustomerDemoGraphicPOM extends BasePage {
     }
 
 
+    public void hoverOnSIMNumberIcon() {
+        printInfoLog("Hover on SIM Number Info icon");
+        hoverAndClick(simNumberInfoIcon);
+    }
 }

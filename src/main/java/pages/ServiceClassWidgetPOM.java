@@ -33,9 +33,14 @@ public class ServiceClassWidgetPOM extends BasePage {
     }
 
     public String getValueCorrespondingToAccumulator(int row,int column){
-        String value=readText(By.xpath("//span[contains(text(),\"Service Profile\")]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]/div[@class=\"ng-star-inserted\"  or @class=\"slide-toggle red ng-star-inserted\"]["+row+"]//div[@class=\"ng-star-inserted\" or @class=\"slide-toggle red ng-star-inserted\"]["+column+"]/span"));
+        String value=readText(By.xpath("//span[contains(text(),\"Service Profile\")]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]/div[@class=\"ng-star-inserted\"  or @class=\"slide-toggle red ng-star-inserted\"]["+row+"]//div[@class=\"ng-star-inserted\" or @class=\"slide-toggle red ng-star-inserted\"]["+column+"]//span"));
         printInfoLog("Reading '"+getHeaders(column)+"' = "+value);
         return value.trim();
+    }
+
+    public Boolean getServiceStatus(){
+        By status=By.xpath("//span[contains(text(),\"Service Profile\")]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]/div[@class=\"ng-star-inserted\"  or @class=\"slide-toggle red ng-star-inserted\"][2]//mat-slide-toggle//input");
+        return Boolean.valueOf(driver.findElement(status).getAttribute("aria-checked"));
     }
 
     public int getNumberOfRows() {

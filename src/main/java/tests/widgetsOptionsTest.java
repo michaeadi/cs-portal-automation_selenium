@@ -51,7 +51,6 @@ public class widgetsOptionsTest extends BaseTest {
     @Table(Name = "Da Details")
     @Test(priority = 1, description = "Validating DA Details", dataProvider = "HeaderData", dataProviderClass = DataProviders.class,dependsOnMethods = "openCustomerInteractionAPI")
     public void daDetailsTest(HeaderDataBean Data) {
-        customerNumber = customerInteractionTest.customerNumber;
         ExtentTestManager.startTest("Validating DA Details", "Validating DA Details of User :" + customerNumber);
         CurrentBalanceWidgetPOM currentBalanceWidget = new CurrentBalanceWidgetPOM(driver);
         SoftAssert softAssert = new SoftAssert();
@@ -75,10 +74,10 @@ public class widgetsOptionsTest extends BaseTest {
                     softAssert.assertEquals(daDetails.getDAId(i + 1), accountsBalanceAPI.getResult().get(i).getDaId(), "DA ID is not as received in API on row " + i);
                     softAssert.assertEquals(daDetails.getDADescription(i + 1), accountsBalanceAPI.getResult().get(i).getDaDesc(), "DA Description is not as received in API on row " + i);
                     softAssert.assertEquals(daDetails.getBundleType(i + 1).replace("-", "null") + " ", accountsBalanceAPI.getResult().get(i).getBundleType() + " ", "DA Bundle Type is not as received in API on row " + i);
-                    softAssert.assertEquals(daDetails.getDADateTime(i + 1), daDetails.getDateFromEpochInUTC(accountsBalanceAPI.getResult().get(i).getExpiryDate(), "dd-MMM-yyyy HH:mm"), "DA Date Time is not as received in API on row " + i);
+                    softAssert.assertEquals(daDetails.getDADateTime(i + 1), daDetails.getDateFromEpochInUTC(accountsBalanceAPI.getResult().get(i).getExpiryDate(), "dd-MMM-yyyy"), "DA Date Time is not as received in API on row " + i);
                     softAssert.assertEquals(daDetails.getDABalance(i + 1), accountsBalanceAPI.getResult().get(i).getCurrentDaBalance(), "DA Current Balance is not as received in API on row " + i);
                     if (i != 0) {
-                        softAssert.assertTrue(daDetails.isSortOrderDisplay(daDetails.getDADateTime(i), daDetails.getDADateTime(i + 1), "dd-MMM-yyy HH:mm"), daDetails.getDADateTime(i) + "should not display before " + daDetails.getDADateTime(i + 1));
+                        softAssert.assertTrue(daDetails.isSortOrderDisplay(daDetails.getDADateTime(i), daDetails.getDADateTime(i + 1), "dd-MMM-yyy"), daDetails.getDADateTime(i) + "should not display before " + daDetails.getDADateTime(i + 1));
                     }
                 }
                 daDetails.openingCustomerInteractionDashboard();
@@ -97,7 +96,6 @@ public class widgetsOptionsTest extends BaseTest {
     @Table(Name = "Accumulator")
     @Test(priority = 2, description = "Validating Accumulator Details", dataProvider = "HeaderData", dataProviderClass = DataProviders.class,dependsOnMethods = "openCustomerInteractionAPI")
     public void accumulatorDetailsTest(HeaderDataBean Data) {
-        customerNumber = customerInteractionTest.customerNumber;
         ExtentTestManager.startTest("Validating Accumulator Details", "Validating Accumulator Details of User :" + customerNumber);
         CurrentBalanceWidgetPOM currentBalanceWidget = new CurrentBalanceWidgetPOM(driver);
         SoftAssert softAssert = new SoftAssert();
@@ -243,8 +241,6 @@ public class widgetsOptionsTest extends BaseTest {
         RechargeHistoryWidgetPOM rechargeHistory = new RechargeHistoryWidgetPOM(driver);
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(rechargeHistory.isRechargeHistoryWidgetMenuVisible(), "Recharge History's MENU is not visible ");
-        rechargeHistory.clickingRechargeHistoryWidgetMenu();
-        softAssert.assertTrue(rechargeHistory.isRechargeHistoryMenuVisible(), "More Option in  MENU is not visible ");
         MoreRechargeHistoryPOM moreRechargeHistory = rechargeHistory.openingRechargeHistoryDetails();
         softAssert.assertTrue(moreRechargeHistory.isDatePickerVisible(), "Date picker is not visible ");
 
@@ -370,9 +366,6 @@ public class widgetsOptionsTest extends BaseTest {
                         usageHistoryAPI.getResult().get(i).setBundleName("-");
                     }
                     softAssert.assertEquals(detailedUsage.getValueCorrespondingToHeader(i + 1, 7).toLowerCase().trim(), usageHistoryAPI.getResult().get(i).getBundleName().toLowerCase().trim(), "Bundle Name received is not as expected on row " + i);
-//                    if (i != 0) {
-//                        softAssert.assertTrue(detailedUsage.isSortOrderDisplay(detailedUsage.getValueCorrespondingToHeader(i + 1, 2).replace("\n", " "), detailedUsage.getValueCorrespondingToHeader(i, 2).replace("\n", " "), "E dd MMM yyyy hh:mm:ss aa"), detailedUsage.getValueCorrespondingToHeader(i + 1, 2) + "should not display before " + detailedUsage.getValueCorrespondingToHeader(i, 2));
-//                    }
                 }
             }
         } catch (NoSuchElementException | TimeoutException e) {
@@ -387,7 +380,6 @@ public class widgetsOptionsTest extends BaseTest {
     @Table(Name = "More Airtel Money History")
     @Test(priority = 7, description = "Validating Airtel Money History's  Menu", dataProvider = "HeaderData", dataProviderClass = DataProviders.class,dependsOnMethods = "openCustomerInteractionAPI",enabled = false)
     public void airtelMoneyHistoryMenuTest(HeaderDataBean Data) {
-        customerNumber = customerInteractionTest.customerNumber;
         ExtentTestManager.startTest("Validating Airtel Money History's  Menu", "Validating Airtel Money History's  Menu of User :" + customerNumber);
         AMTransactionsWidgetPOM amHistoryPOM = new AMTransactionsWidgetPOM(driver);
         SoftAssert softAssert = new SoftAssert();

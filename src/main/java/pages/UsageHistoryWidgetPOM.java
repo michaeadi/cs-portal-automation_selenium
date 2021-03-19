@@ -17,7 +17,7 @@ public class UsageHistoryWidgetPOM extends BasePage {
         super(driver);
     }
 
-    By usageHistoryDatePicker = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Usage History\")]//parent::div//form//input");
+    By usageHistoryDatePicker = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Usage History\")]//ancestor::div[@class='card widget ng-star-inserted']//input");
     By usageHistoryHeader = By.xpath("//span[@class=\"card__card-header--label\" and text()=\"Usage History \"]");
     By rows = By.xpath("//div[@class=\"card__card-header\"]/span[contains(text(),\"Usage\")]//parent::div//following-sibling::div[@class=\"card__content restricted ng-star-inserted\"]//div[@class=\"card__card-header--card-body--table--data-list row-border\"]");
     List<WebElement> as = returnListOfElement(rows);
@@ -26,7 +26,7 @@ public class UsageHistoryWidgetPOM extends BasePage {
     By dateTime = By.xpath("div[3]/span[@class=\"date_time ng-star-inserted\"]");
     By startBalance = By.xpath("div[4]/span[@class=\"ng-star-inserted\"]");
     By endBalance = By.xpath("div[5]/span[@class=\"ng-star-inserted\"]");
-    By menu = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Usage History\")]//parent::div//span[@class=\"filter-object\"]/img");
+    By menu = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Usage History\")]//ancestor::div[1]//span/img[@class='header-action-icon ng-star-inserted']");
     By usageHistoryNoResultFound = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Usage History\")]//ancestor::div[2]//div[@class=\"no-result-found ng-star-inserted\"]//img");
     By usageHistoryNoResultFoundMessage = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Usage History\")]//ancestor::div[2]//span[contains(text(),'No Result found')]");
     By usageHistoryError = By.xpath("//span[contains(text(),\"Usage History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"widget-error apiMsgBlock ng-star-inserted\"][1]");
@@ -86,17 +86,16 @@ public class UsageHistoryWidgetPOM extends BasePage {
     }
 
     public String getHistoryDateTime(int RowNumber) {
-        WebElement rowElement = as.get(RowNumber);
-        log.info("Getting Usage History Date Time from Row Number " + RowNumber + " : " + rowElement.findElement(dateTime).getText());
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Usage History Date Time from Row Number " + RowNumber + " : " + rowElement.findElement(dateTime).getText());
-        return rowElement.findElement(dateTime).getText();
+        By dateTime=By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Usage History\")]/ancestor::div[@class=\"card widget ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"card__card-header--card-body--table--data-list row-border\"]["+(RowNumber+1)+"]/div[3]//span");
+        printInfoLog("Getting Usage History Date Time from Row Number " + RowNumber + " : " + readText(dateTime));
+        return readText(dateTime);
     }
 
     public String getHistoryCharge(int RowNumber) {
         WebElement rowElement = as.get(RowNumber);
         log.info("Getting Usage History Charge from Row Number " + RowNumber + " : " + rowElement.findElement(charge).getText());
         ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Usage History Charge from Row Number " + RowNumber + " : " + rowElement.findElement(charge).getText());
-        return rowElement.findElement(charge).getText();
+        return rowElement.findElement(charge).getText().replace('+',' ').trim();
     }
 
     public String getHistoryType(int RowNumber) {

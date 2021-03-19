@@ -9,261 +9,111 @@
 <table>
 <tr><th>Test</th><th># Passed</th><th># Skipped</th><th># Retried</th><th># Failed</th><th>Time (ms)</th><th>Included Groups</th><th>Excluded Groups</th></tr>
 <tr><th colspan="7">Automation Framework CS PORTAl Test Suite</th></tr>
-<tr><td><a href="#t0">PROD Sanity API Test</a></td><td class="num">1</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">7,565</td><td></td><td></td></tr>
-<tr class="stripe"><td><a href="#t1">Login Admin 1 Test</a></td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num attn">1</td><td class="num">86,035</td><td></td><td></td></tr>
-<tr><td><a href="#t2">Side Menu</a></td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num attn">1</td><td class="num">60,911</td><td></td><td></td></tr>
-<tr class="stripe"><td><a href="#t3">Customer Interactions TEST</a></td><td class="num">0</td><td class="num attn">10</td><td class="num">0</td><td class="num attn">5</td><td class="num">312,397</td><td></td><td></td></tr>
-<tr><th>Total</th><th class="num">1</th><th class="num attn">10</th><th class="num">0</th><th class="num attn">7</th><th class="num">466,908</th><th colspan="2"></th></tr>
+<tr><td><a href="#t0">Sanity API Login</a></td><td class="num">1</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">5,072</td><td></td><td></td></tr>
+<tr class="stripe"><td><a href="#t1">Login With ALL User Test</a></td><td class="num">1</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">44,309</td><td></td><td></td></tr>
+<tr><td><a href="#t2">Customer Interactions TEST</a></td><td class="num">11</td><td class="num attn">2</td><td class="num">0</td><td class="num attn">3</td><td class="num">508,753</td><td></td><td></td></tr>
+<tr><th>Total</th><th class="num">13</th><th class="num attn">2</th><th class="num">0</th><th class="num attn">3</th><th class="num">558,134</th><th colspan="2"></th></tr>
 </table>
-<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">Automation Framework CS PORTAl Test Suite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">PROD Sanity API Test &#8212; passed</th></tr><tr class="passedeven"><td rowspan="1">API.APIEndPoints</td><td><a href="#m0">loginAPI</a></td><td rowspan="1">1615896912993</td><td rowspan="1">5307</td></tr></tbody>
-<tbody id="t1"><tr><th colspan="4">Login Admin 1 Test &#8212; failed</th></tr><tr class="failedeven"><td rowspan="1">tests.LoginTests</td><td><a href="#m1">LoggingIN</a></td><td rowspan="1">1615896919218</td><td rowspan="1">85278</td></tr></tbody>
-<tbody id="t2"><tr><th colspan="4">Side Menu &#8212; failed</th></tr><tr class="failedeven"><td rowspan="1">tests.sideMenuTests</td><td><a href="#m2">sideMenuAssert</a></td><td rowspan="1">1615897005148</td><td rowspan="1">60455</td></tr></tbody>
-<tbody id="t3"><tr><th colspan="4">Customer Interactions TEST &#8212; failed</th></tr><tr class="failedeven"><td rowspan="4">tests.customerInteractionTest</td><td><a href="#m3">openCustomerInteraction</a></td><td rowspan="1">1615897066603</td><td rowspan="1">60490</td></tr><tr class="failedeven"><td><a href="#m4">openCustomerInteractionAPI</a></td><td rowspan="1">1615897188922</td><td rowspan="1">60493</td></tr><tr class="failedeven"><td><a href="#m5">openCustomerInteractionBySIM</a></td><td rowspan="1">1615897127722</td><td rowspan="1">60446</td></tr><tr class="failedeven"><td><a href="#m6">yourCurrentBalanceWidgetTest</a></td><td rowspan="1">1615897249873</td><td rowspan="1">67139</td></tr><tr class="failedodd"><td rowspan="1">tests.widgetsOptionsTest</td><td><a href="#m7">openCustomerInteractionAPI</a></td><td rowspan="1">1615897317712</td><td rowspan="1">60467</td></tr><tr><th colspan="4">Customer Interactions TEST &#8212; skipped</th></tr><tr class="skippedeven"><td rowspan="6">tests.customerInteractionTest</td><td><a href="#m8">airtelMoneyTransactionWidgetTest</a></td><td rowspan="1">1615897249872</td><td rowspan="1">0</td></tr><tr class="skippedeven"><td><a href="#m9">invalidMSISDNTest</a></td><td rowspan="1">1615897188708</td><td rowspan="1">0</td></tr><tr class="skippedeven"><td><a href="#m10">rechargeHistoryWidgetTest</a></td><td rowspan="1">1615897317518</td><td rowspan="1">0</td></tr><tr class="skippedeven"><td><a href="#m11">usageHistoryWidgetTest</a></td><td rowspan="1">1615897317517</td><td rowspan="1">0</td></tr><tr class="skippedeven"><td><a href="#m12">validateDemographicInformation</a></td><td rowspan="1">1615897127540</td><td rowspan="1">0</td></tr><tr class="skippedeven"><td><a href="#m13">validateDemographicInformationBySIMNumber</a></td><td rowspan="1">1615897188707</td><td rowspan="1">0</td></tr><tr class="skippedodd"><td rowspan="4">tests.widgetsOptionsTest</td><td><a href="#m14">accumulatorDetailsTest</a></td><td rowspan="1">1615897378613</td><td rowspan="1">0</td></tr><tr class="skippedodd"><td><a href="#m15">daDetailsTest</a></td><td rowspan="1">1615897378612</td><td rowspan="1">0</td></tr><tr class="skippedodd"><td><a href="#m16">rechargeHistoryMenuTest</a></td><td rowspan="1">1615897378617</td><td rowspan="1">0</td></tr><tr class="skippedodd"><td><a href="#m17">usageHistoryMenuTest</a></td><td rowspan="1">1615897378619</td><td rowspan="1">0</td></tr></tbody>
+<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">Automation Framework CS PORTAl Test Suite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">Sanity API Login &#8212; passed</th></tr><tr class="passedeven"><td rowspan="1">API.APIEndPoints</td><td><a href="#m0">loginAPI</a></td><td rowspan="1">1616170353622</td><td rowspan="1">3867</td></tr></tbody>
+<tbody id="t1"><tr><th colspan="4">Login With ALL User Test &#8212; passed</th></tr><tr class="passedeven"><td rowspan="1">tests.LoginTests</td><td><a href="#m1">LoggingIN</a></td><td rowspan="1">1616170358184</td><td rowspan="1">44017</td></tr></tbody>
+<tbody id="t2"><tr><th colspan="4">Customer Interactions TEST &#8212; failed</th></tr><tr class="failedeven"><td rowspan="3">tests.customerInteractionTest</td><td><a href="#m2">airtelMoneyTransactionWidgetTest</a></td><td rowspan="1">1616170715039</td><td rowspan="1">3041</td></tr><tr class="failedeven"><td><a href="#m3">openCustomerInteractionBySIM</a></td><td rowspan="1">1616170657702</td><td rowspan="1">43524</td></tr><tr class="failedeven"><td><a href="#m4">validateDemographicInformation</a></td><td rowspan="1">1616170431045</td><td rowspan="1">225761</td></tr><tr><th colspan="4">Customer Interactions TEST &#8212; skipped</th></tr><tr class="skippedeven"><td rowspan="2">tests.customerInteractionTest</td><td><a href="#m5">invalidMSISDNTest</a></td><td rowspan="1">1616170701634</td><td rowspan="1">0</td></tr><tr class="skippedeven"><td><a href="#m6">validateDemographicInformationBySIMNumber</a></td><td rowspan="1">1616170701633</td><td rowspan="1">0</td></tr><tr><th colspan="4">Customer Interactions TEST &#8212; passed</th></tr><tr class="passedeven"><td rowspan="6">tests.customerInteractionTest</td><td><a href="#m7">openCustomerInteraction</a></td><td rowspan="1">1616170402461</td><td rowspan="1">28437</td></tr><tr class="passedeven"><td><a href="#m8">openCustomerInteractionAPI</a></td><td rowspan="1">1616170701768</td><td rowspan="1">13146</td></tr><tr class="passedeven"><td><a href="#m9">rechargeHistoryWidgetTest</a></td><td rowspan="1">1616170724154</td><td rowspan="1">23233</td></tr><tr class="passedeven"><td><a href="#m10">usageHistoryWidgetTest</a></td><td rowspan="1">1616170720954</td><td rowspan="1">3108</td></tr><tr class="passedeven"><td><a href="#m11">validateServiceProfileWidget</a></td><td rowspan="1">1616170747467</td><td rowspan="1">4615</td></tr><tr class="passedeven"><td><a href="#m12">yourCurrentBalanceWidgetTest</a></td><td rowspan="1">1616170718557</td><td rowspan="1">2300</td></tr><tr class="passedodd"><td rowspan="5">tests.widgetsOptionsTest</td><td><a href="#m13">accumulatorDetailsTest</a></td><td rowspan="1">1616170805143</td><td rowspan="1">17010</td></tr><tr class="passedodd"><td><a href="#m14">daDetailsTest</a></td><td rowspan="1">1616170775616</td><td rowspan="1">29458</td></tr><tr class="passedodd"><td><a href="#m15">openCustomerInteractionAPI</a></td><td rowspan="1">1616170752145</td><td rowspan="1">23395</td></tr><tr class="passedodd"><td><a href="#m16">rechargeHistoryMenuTest</a></td><td rowspan="1">1616170822213</td><td rowspan="1">55863</td></tr><tr class="passedodd"><td><a href="#m17">usageHistoryMenuTest</a></td><td rowspan="1">1616170878142</td><td rowspan="1">32889</td></tr></tbody>
 </table>
-<h2>PROD Sanity API Test</h2><h3 id="m0">API.APIEndPoints#loginAPI</h3><table class="result"><tr class="param"><th>Parameter #1</th></tr><tr class="param stripe"><td>Utils.DataProviders.TestDatabean@184823ed</td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h2>Login Admin 1 Test</h2><h3 id="m1">tests.LoginTests#LoggingIN</h3><table class="result"><tr class="param"><th>Parameter #1</th><th>Parameter #2</th></tr><tr class="param stripe"><td>public void tests.LoginTests.LoggingIN(java.lang.reflect.Method,Utils.DataProviders.TestDatabean)</td><td>Utils.DataProviders.TestDatabean@67f946c3</td></tr><tr><th colspan="2">Exception</th></tr><tr><td colspan="2"><div class="stacktrace">org.openqa.selenium.TimeoutException: Expected condition failed: waiting for presence of element located by: By.xpath: //input[@formcontrolname=&quot;loginTypeStatus&quot;] (tried for 60 second(s) with 500 milliseconds interval)
-	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:138)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:234)
-	at pages.BasePage.waitVisibility(BasePage.java:126)
-	at pages.BasePage.writeText(BasePage.java:90)
-	at pages.loginPagePOM.enterAUUID(loginPagePOM.java:40)
-	at tests.LoginTests.LoggingIN(LoginTests.java:24)
+<h2>Sanity API Login</h2><h3 id="m0">API.APIEndPoints#loginAPI</h3><table class="result"><tr class="param"><th>Parameter #1</th></tr><tr class="param stripe"><td>Utils.DataProviders.TestDatabean@1d7eb170</td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h2>Login With ALL User Test</h2><h3 id="m1">tests.LoginTests#LoggingIN</h3><table class="result"><tr class="param"><th>Parameter #1</th><th>Parameter #2</th></tr><tr class="param stripe"><td>public void tests.LoginTests.LoggingIN(java.lang.reflect.Method,Utils.DataProviders.TestDatabean)</td><td>Utils.DataProviders.TestDatabean@2b44605c</td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h2>Customer Interactions TEST</h2><h3 id="m2">tests.customerInteractionTest#airtelMoneyTransactionWidgetTest</h3><table class="result"><tr class="param"><th>Parameter #1</th></tr><tr class="param stripe"><td>Utils.DataProviders.HeaderDataBean@2728add3</td></tr><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.NullPointerException
+	at tests.customerInteractionTest.airtelMoneyTransactionWidgetTest(customerInteractionTest.java:678)
 	at java.util.ArrayList.forEach(ArrayList.java:1257)
-Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//input[@formcontrolname=&quot;loginTypeStatus&quot;]&quot;}
-  (Session info: headless chrome=89.0.4389.82)
+... Removed 31 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m3">tests.customerInteractionTest#openCustomerInteractionBySIM</h3><table class="result"><tr class="param"><th>Parameter #1</th></tr><tr class="param stripe"><td>Utils.DataProviders.TestDatabean@220be130</td></tr><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.AssertionError: The following asserts failed:
+	Customer Info Dashboard Page does not open using SIM Number.
+	at tests.customerInteractionTest.openCustomerInteractionBySIM(customerInteractionTest.java:367)
+	at java.util.ArrayList.forEach(ArrayList.java:1257)
+... Removed 33 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m4">tests.customerInteractionTest#validateDemographicInformation</h3><table class="result"><tr class="param"><th>Parameter #1</th></tr><tr class="param stripe"><td>Utils.DataProviders.TestDatabean@639948a2</td></tr><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.AssertionError: The following asserts failed:
+	Customer Name is not visible no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//span[@class=&apos;customer-name ng-star-inserted&apos;]/span[1]&quot;}
+  (Session info: headless chrome=89.0.4389.90)
 For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
 Build info: version: &apos;4.0.0-alpha-3&apos;, revision: &apos;8c567de6dc&apos;
 System info: host: &apos;LT2394650&apos;, ip: &apos;172.23.64.219&apos;, os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;1.8.0_231&apos;
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:62859}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: 1257bd7cdd1631bf0c521e12d0a8ea03
-*** Element info: {Using=xpath, value=//input[@formcontrolname=&quot;loginTypeStatus&quot;]}
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:191)
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:125)
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:52)
-	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:161)
-	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:576)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:327)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:445)
-	at org.openqa.selenium.By$ByXPath.findElement(By.java:396)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:319)
-	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:182)
-	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:179)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:211)
-	... 36 more
-... Removed 35 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h2>Side Menu</h2><h3 id="m2">tests.sideMenuTests#sideMenuAssert</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.xpath: //mat-toolbar//button (tried for 60 second(s) with 500 milliseconds interval)
-	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:138)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:234)
-	at pages.SideMenuPOM.clickOnSideMenu(SideMenuPOM.java:40)
-	at tests.sideMenuTests.sideMenuAssert(sideMenuTests.java:19)
-	at java.util.ArrayList.forEach(ArrayList.java:1257)
-Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//mat-toolbar//button&quot;}
-  (Session info: headless chrome=89.0.4389.82)
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:55645}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: aad01f0e8d3b704d60825ae79888a52f
+*** Element info: {Using=xpath, value=//span[@class=&apos;customer-name ng-star-inserted&apos;]/span[1]},
+	Customer DOB is not visible or null no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//span[@class=&apos;customer-name ng-star-inserted&apos;]/a&quot;}
+  (Session info: headless chrome=89.0.4389.90)
 For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
 Build info: version: &apos;4.0.0-alpha-3&apos;, revision: &apos;8c567de6dc&apos;
 System info: host: &apos;LT2394650&apos;, ip: &apos;172.23.64.219&apos;, os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;1.8.0_231&apos;
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:62859}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: 1257bd7cdd1631bf0c521e12d0a8ea03
-*** Element info: {Using=xpath, value=//mat-toolbar//button}
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:191)
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:125)
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:52)
-	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:161)
-	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:576)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:327)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:445)
-	at org.openqa.selenium.By$ByXPath.findElement(By.java:396)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:319)
-	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:205)
-	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:201)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:211)
-	... 34 more
-... Removed 34 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h2>Customer Interactions TEST</h2><h3 id="m3">tests.customerInteractionTest#openCustomerInteraction</h3><table class="result"><tr class="param"><th>Parameter #1</th></tr><tr class="param stripe"><td>Utils.DataProviders.TestDatabean@26c7b1c6</td></tr><tr><th>Exception</th></tr><tr><td><div class="stacktrace">org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.xpath: //mat-toolbar//button (tried for 60 second(s) with 500 milliseconds interval)
-	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:138)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:234)
-	at pages.SideMenuPOM.clickOnSideMenu(SideMenuPOM.java:40)
-	at tests.customerInteractionTest.openCustomerInteraction(customerInteractionTest.java:45)
-	at java.util.ArrayList.forEach(ArrayList.java:1257)
-Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//mat-toolbar//button&quot;}
-  (Session info: headless chrome=89.0.4389.82)
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:55645}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: aad01f0e8d3b704d60825ae79888a52f
+*** Element info: {Using=xpath, value=//span[@class=&apos;customer-name ng-star-inserted&apos;]/a},
+	Customer&apos;s Id Type is not visible or null no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//span[contains(text(),&apos;ID Type&apos;)]//following-sibling::span&quot;}
+  (Session info: headless chrome=89.0.4389.90)
 For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
 Build info: version: &apos;4.0.0-alpha-3&apos;, revision: &apos;8c567de6dc&apos;
 System info: host: &apos;LT2394650&apos;, ip: &apos;172.23.64.219&apos;, os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;1.8.0_231&apos;
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:62859}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: 1257bd7cdd1631bf0c521e12d0a8ea03
-*** Element info: {Using=xpath, value=//mat-toolbar//button}
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:191)
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:125)
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:52)
-	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:161)
-	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:576)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:327)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:445)
-	at org.openqa.selenium.By$ByXPath.findElement(By.java:396)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:319)
-	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:205)
-	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:201)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:211)
-	... 34 more
-... Removed 34 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m4">tests.customerInteractionTest#openCustomerInteractionAPI</h3><table class="result"><tr class="param"><th>Parameter #1</th></tr><tr class="param stripe"><td>Utils.DataProviders.TestDatabean@10131289</td></tr><tr><th>Exception</th></tr><tr><td><div class="stacktrace">org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.xpath: //mat-toolbar//button (tried for 60 second(s) with 500 milliseconds interval)
-	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:138)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:234)
-	at pages.SideMenuPOM.clickOnSideMenu(SideMenuPOM.java:40)
-	at tests.customerInteractionTest.openCustomerInteractionAPI(customerInteractionTest.java:653)
-	at java.util.ArrayList.forEach(ArrayList.java:1257)
-Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//mat-toolbar//button&quot;}
-  (Session info: headless chrome=89.0.4389.82)
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:55645}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: aad01f0e8d3b704d60825ae79888a52f
+*** Element info: {Using=xpath, value=//span[contains(text(),&apos;ID Type&apos;)]//following-sibling::span},
+	Customer&apos;s Id Number is not visible no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//span[contains(text(),&apos;ID No.&apos;)]//following-sibling::span&quot;}
+  (Session info: headless chrome=89.0.4389.90)
 For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
 Build info: version: &apos;4.0.0-alpha-3&apos;, revision: &apos;8c567de6dc&apos;
 System info: host: &apos;LT2394650&apos;, ip: &apos;172.23.64.219&apos;, os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;1.8.0_231&apos;
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:62859}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: 1257bd7cdd1631bf0c521e12d0a8ea03
-*** Element info: {Using=xpath, value=//mat-toolbar//button}
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:191)
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:125)
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:52)
-	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:161)
-	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:576)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:327)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:445)
-	at org.openqa.selenium.By$ByXPath.findElement(By.java:396)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:319)
-	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:205)
-	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:201)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:211)
-	... 34 more
-... Removed 34 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m5">tests.customerInteractionTest#openCustomerInteractionBySIM</h3><table class="result"><tr class="param"><th>Parameter #1</th></tr><tr class="param stripe"><td>Utils.DataProviders.TestDatabean@59b492ec</td></tr><tr><th>Exception</th></tr><tr><td><div class="stacktrace">org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.xpath: //mat-toolbar//button (tried for 60 second(s) with 500 milliseconds interval)
-	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:138)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:234)
-	at pages.SideMenuPOM.clickOnSideMenu(SideMenuPOM.java:40)
-	at tests.customerInteractionTest.openCustomerInteractionBySIM(customerInteractionTest.java:337)
-	at java.util.ArrayList.forEach(ArrayList.java:1257)
-Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//mat-toolbar//button&quot;}
-  (Session info: headless chrome=89.0.4389.82)
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:55645}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: aad01f0e8d3b704d60825ae79888a52f
+*** Element info: {Using=xpath, value=//span[contains(text(),&apos;ID No.&apos;)]//following-sibling::span},
+	Customer&apos;s Data Manager Status is not visible,
+	Customer&apos;s Device Type is not visible no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//div[@class=&quot;customer-details&quot;]//div[@class=&quot;user-left-side&quot;]/div/div[3]//li[2]/p[2]/span[2]&quot;}
+  (Session info: headless chrome=89.0.4389.90)
 For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
 Build info: version: &apos;4.0.0-alpha-3&apos;, revision: &apos;8c567de6dc&apos;
 System info: host: &apos;LT2394650&apos;, ip: &apos;172.23.64.219&apos;, os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;1.8.0_231&apos;
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:62859}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: 1257bd7cdd1631bf0c521e12d0a8ea03
-*** Element info: {Using=xpath, value=//mat-toolbar//button}
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:191)
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:125)
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:52)
-	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:161)
-	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:576)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:327)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:445)
-	at org.openqa.selenium.By$ByXPath.findElement(By.java:396)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:319)
-	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:205)
-	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:201)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:211)
-	... 34 more
-... Removed 34 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m6">tests.customerInteractionTest#yourCurrentBalanceWidgetTest</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">org.openqa.selenium.TimeoutException: Expected condition failed: waiting for presence of element located by: By.xpath: //div[@class=&quot;card__content--top--left ng-star-inserted&quot;] (tried for 60 second(s) with 500 milliseconds interval)
-	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:138)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:234)
-	at pages.BasePage.waitVisibility(BasePage.java:126)
-	at pages.BasePage.readText(BasePage.java:99)
-	at pages.CurrentBalanceWidgetPOM.gettingMainAccountBalance(CurrentBalanceWidgetPOM.java:94)
-	at tests.customerInteractionTest.yourCurrentBalanceWidgetTest(customerInteractionTest.java:734)
-	at java.util.ArrayList.forEach(ArrayList.java:1257)
-Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//div[@class=&quot;card__content--top--left ng-star-inserted&quot;]&quot;}
-  (Session info: headless chrome=89.0.4389.82)
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:55645}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: aad01f0e8d3b704d60825ae79888a52f
+*** Element info: {Using=xpath, value=//div[@class=&quot;customer-details&quot;]//div[@class=&quot;user-left-side&quot;]/div/div[3]//li[2]/p[2]/span[2]},
+	Customer&apos;s Service Category is not visible no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//span[contains(text(),&apos;Service Category&apos;)]//following-sibling::span&quot;}
+  (Session info: headless chrome=89.0.4389.90)
 For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
 Build info: version: &apos;4.0.0-alpha-3&apos;, revision: &apos;8c567de6dc&apos;
 System info: host: &apos;LT2394650&apos;, ip: &apos;172.23.64.219&apos;, os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;1.8.0_231&apos;
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:62859}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: 1257bd7cdd1631bf0c521e12d0a8ea03
-*** Element info: {Using=xpath, value=//div[@class=&quot;card__content--top--left ng-star-inserted&quot;]}
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:191)
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:125)
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:52)
-	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:161)
-	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:576)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:327)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:445)
-	at org.openqa.selenium.By$ByXPath.findElement(By.java:396)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:319)
-	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:182)
-	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:179)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:211)
-	... 36 more
-... Removed 34 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m7">tests.widgetsOptionsTest#openCustomerInteractionAPI</h3><table class="result"><tr class="param"><th>Parameter #1</th></tr><tr class="param stripe"><td>Utils.DataProviders.TestDatabean@7b44bfb8</td></tr><tr><th>Exception</th></tr><tr><td><div class="stacktrace">org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.xpath: //mat-toolbar//button (tried for 60 second(s) with 500 milliseconds interval)
-	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:138)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:234)
-	at pages.SideMenuPOM.clickOnSideMenu(SideMenuPOM.java:40)
-	at tests.widgetsOptionsTest.openCustomerInteractionAPI(widgetsOptionsTest.java:33)
-	at java.util.ArrayList.forEach(ArrayList.java:1257)
-Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//mat-toolbar//button&quot;}
-  (Session info: headless chrome=89.0.4389.82)
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:55645}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: aad01f0e8d3b704d60825ae79888a52f
+*** Element info: {Using=xpath, value=//span[contains(text(),&apos;Service Category&apos;)]//following-sibling::span},
+	Customer Segment as not expected expected [- -] but found [Unable to fetch data],
+	Customer device IMEI number is not visible. no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//div[@class=&quot;customer-details&quot;]//div[@class=&quot;user-left-side&quot;]/div/div[3]//li[2]/p[2]/span[2]/a&quot;}
+  (Session info: headless chrome=89.0.4389.90)
 For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
 Build info: version: &apos;4.0.0-alpha-3&apos;, revision: &apos;8c567de6dc&apos;
 System info: host: &apos;LT2394650&apos;, ip: &apos;172.23.64.219&apos;, os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;1.8.0_231&apos;
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.82, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:62859}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: 1257bd7cdd1631bf0c521e12d0a8ea03
-*** Element info: {Using=xpath, value=//mat-toolbar//button}
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:191)
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:125)
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:52)
-	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:161)
-	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:576)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:327)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:445)
-	at org.openqa.selenium.By$ByXPath.findElement(By.java:396)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:319)
-	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:205)
-	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:201)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:211)
-	... 34 more
-... Removed 34 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m8">tests.customerInteractionTest#airtelMoneyTransactionWidgetTest</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.Throwable: Method customerInteractionTest.airtelMoneyTransactionWidgetTest(Utils.DataProviders.HeaderDataBean)[pri:7, instance:tests.customerInteractionTest@4c2bb6e0] depends on not successfully finished methods
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:55645}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: aad01f0e8d3b704d60825ae79888a52f
+*** Element info: {Using=xpath, value=//div[@class=&quot;customer-details&quot;]//div[@class=&quot;user-left-side&quot;]/div/div[3]//li[2]/p[2]/span[2]/a}
+	at tests.customerInteractionTest.validateDemographicInformation(customerInteractionTest.java:340)
+	at java.util.ArrayList.forEach(ArrayList.java:1257)
+... Removed 33 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m5">tests.customerInteractionTest#invalidMSISDNTest</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.Throwable: Method customerInteractionTest.invalidMSISDNTest()[pri:5, instance:tests.customerInteractionTest@17d919b6] depends on not successfully finished methods
 	at java.util.ArrayList.forEach(ArrayList.java:1257)
 ... Removed 22 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m9">tests.customerInteractionTest#invalidMSISDNTest</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.Throwable: Method customerInteractionTest.invalidMSISDNTest()[pri:5, instance:tests.customerInteractionTest@4c2bb6e0] depends on not successfully finished methods
+<h3 id="m6">tests.customerInteractionTest#validateDemographicInformationBySIMNumber</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.Throwable: Method customerInteractionTest.validateDemographicInformationBySIMNumber(Utils.DataProviders.TestDatabean)[pri:4, instance:tests.customerInteractionTest@17d919b6] depends on not successfully finished methods
 	at java.util.ArrayList.forEach(ArrayList.java:1257)
 ... Removed 22 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m10">tests.customerInteractionTest#rechargeHistoryWidgetTest</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.Throwable: Method customerInteractionTest.rechargeHistoryWidgetTest(Utils.DataProviders.HeaderDataBean)[pri:10, instance:tests.customerInteractionTest@4c2bb6e0] depends on not successfully finished methods
-	at java.util.ArrayList.forEach(ArrayList.java:1257)
-... Removed 22 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m11">tests.customerInteractionTest#usageHistoryWidgetTest</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.Throwable: Method customerInteractionTest.usageHistoryWidgetTest(Utils.DataProviders.HeaderDataBean)[pri:9, instance:tests.customerInteractionTest@4c2bb6e0] depends on not successfully finished methods
-	at java.util.ArrayList.forEach(ArrayList.java:1257)
-... Removed 22 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m12">tests.customerInteractionTest#validateDemographicInformation</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.Throwable: Method customerInteractionTest.validateDemographicInformation(Utils.DataProviders.TestDatabean)[pri:2, instance:tests.customerInteractionTest@4c2bb6e0] depends on not successfully finished methods
-	at java.util.ArrayList.forEach(ArrayList.java:1257)
-... Removed 22 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m13">tests.customerInteractionTest#validateDemographicInformationBySIMNumber</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.Throwable: Method customerInteractionTest.validateDemographicInformationBySIMNumber(Utils.DataProviders.TestDatabean)[pri:4, instance:tests.customerInteractionTest@4c2bb6e0] depends on not successfully finished methods
-	at java.util.ArrayList.forEach(ArrayList.java:1257)
-... Removed 22 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m14">tests.widgetsOptionsTest#accumulatorDetailsTest</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.Throwable: Method widgetsOptionsTest.accumulatorDetailsTest(Utils.DataProviders.HeaderDataBean)[pri:2, instance:tests.widgetsOptionsTest@3e62d773] depends on not successfully finished methods
-	at java.util.ArrayList.forEach(ArrayList.java:1257)
-... Removed 22 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m15">tests.widgetsOptionsTest#daDetailsTest</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.Throwable: Method widgetsOptionsTest.daDetailsTest(Utils.DataProviders.HeaderDataBean)[pri:1, instance:tests.widgetsOptionsTest@3e62d773] depends on not successfully finished methods
-	at java.util.ArrayList.forEach(ArrayList.java:1257)
-... Removed 22 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m16">tests.widgetsOptionsTest#rechargeHistoryMenuTest</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.Throwable: Method widgetsOptionsTest.rechargeHistoryMenuTest(Utils.DataProviders.HeaderDataBean)[pri:5, instance:tests.widgetsOptionsTest@3e62d773] depends on not successfully finished methods
-	at java.util.ArrayList.forEach(ArrayList.java:1257)
-... Removed 22 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m17">tests.widgetsOptionsTest#usageHistoryMenuTest</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.Throwable: Method widgetsOptionsTest.usageHistoryMenuTest(Utils.DataProviders.HeaderDataBean)[pri:6, instance:tests.widgetsOptionsTest@3e62d773] depends on not successfully finished methods
-	at java.util.ArrayList.forEach(ArrayList.java:1257)
-... Removed 22 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m7">tests.customerInteractionTest#openCustomerInteraction</h3><table class="result"><tr class="param"><th>Parameter #1</th></tr><tr class="param stripe"><td>Utils.DataProviders.TestDatabean@5cc3e49b</td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m8">tests.customerInteractionTest#openCustomerInteractionAPI</h3><table class="result"><tr class="param"><th>Parameter #1</th></tr><tr class="param stripe"><td>Utils.DataProviders.TestDatabean@4a14f7d7</td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m9">tests.customerInteractionTest#rechargeHistoryWidgetTest</h3><table class="result"><tr class="param"><th>Parameter #1</th></tr><tr class="param stripe"><td>Utils.DataProviders.HeaderDataBean@526f8cb0</td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m10">tests.customerInteractionTest#usageHistoryWidgetTest</h3><table class="result"><tr class="param"><th>Parameter #1</th></tr><tr class="param stripe"><td>Utils.DataProviders.HeaderDataBean@1e75bef1</td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m11">tests.customerInteractionTest#validateServiceProfileWidget</h3><table class="result"><tr class="param"><th>Parameter #1</th></tr><tr class="param stripe"><td>Utils.DataProviders.HeaderDataBean@1a899fcd</td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m12">tests.customerInteractionTest#yourCurrentBalanceWidgetTest</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m13">tests.widgetsOptionsTest#accumulatorDetailsTest</h3><table class="result"><tr class="param"><th>Parameter #1</th></tr><tr class="param stripe"><td>Utils.DataProviders.HeaderDataBean@17aa06eb</td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m14">tests.widgetsOptionsTest#daDetailsTest</h3><table class="result"><tr class="param"><th>Parameter #1</th></tr><tr class="param stripe"><td>Utils.DataProviders.HeaderDataBean@7ca46aaf</td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m15">tests.widgetsOptionsTest#openCustomerInteractionAPI</h3><table class="result"><tr class="param"><th>Parameter #1</th></tr><tr class="param stripe"><td>Utils.DataProviders.TestDatabean@5e1535e0</td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m16">tests.widgetsOptionsTest#rechargeHistoryMenuTest</h3><table class="result"><tr class="param"><th>Parameter #1</th></tr><tr class="param stripe"><td>Utils.DataProviders.HeaderDataBean@6fab250b</td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m17">tests.widgetsOptionsTest#usageHistoryMenuTest</h3><table class="result"><tr class="param"><th>Parameter #1</th></tr><tr class="param stripe"><td>Utils.DataProviders.HeaderDataBean@326acc7c</td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
 </body>
 </html>

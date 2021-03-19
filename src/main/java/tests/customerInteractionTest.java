@@ -23,7 +23,6 @@ import pages.*;
 
 import java.util.List;
 
-import static Utils.DataProviders.DataProviders.Table;
 import static Utils.DataProviders.DataProviders.User;
 
 public class customerInteractionTest extends BaseTest {
@@ -34,22 +33,27 @@ public class customerInteractionTest extends BaseTest {
     @User()
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteraction(TestDatabean Data) {
-        ExtentTestManager.startTest("Validating the Search for Customer Interactions :" + Data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + Data.getCustomerNumber());
         SoftAssert softAssert = new SoftAssert();
-        SideMenuPOM SideMenuPOM = new SideMenuPOM(driver);
-        if(Env.equalsIgnoreCase("Prod")){
-            customerNumber = Data.getProdCustomerNumber();
-        }else {
-            customerNumber = Data.getCustomerNumber();
-        }
-        SideMenuPOM.clickOnSideMenu();
-        SideMenuPOM.clickOnName();
-        customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
-        customerInteractionsSearchPOM.enterNumber(customerNumber);
-        customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
-        if (!customerInteractionPagePOM.isPageLoaded()) {
-            softAssert.fail("Customer Info Dashboard Page does not open using SIM Number.");
-            customerInteractionsSearchPOM.clearCustomerNumber();
+        if (continueExecution) {
+            ExtentTestManager.startTest("Validating the Search for Customer Interactions :" + Data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + Data.getCustomerNumber());
+            SideMenuPOM SideMenuPOM = new SideMenuPOM(driver);
+            if (Env.equalsIgnoreCase("Prod")) {
+                customerNumber = Data.getProdCustomerNumber();
+            } else {
+                customerNumber = Data.getCustomerNumber();
+            }
+            SideMenuPOM.clickOnSideMenu();
+            SideMenuPOM.clickOnName();
+            customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
+            customerInteractionsSearchPOM.enterNumber(customerNumber);
+            customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
+            if (!customerInteractionPagePOM.isPageLoaded()) {
+                softAssert.fail("Customer Info Dashboard Page does not open using SIM Number.");
+                customerInteractionsSearchPOM.clearCustomerNumber();
+            }
+
+        } else {
+            softAssert.fail("Execution Terminate due to either agent logout or User Password Update");
         }
         softAssert.assertAll();
     }
@@ -58,14 +62,15 @@ public class customerInteractionTest extends BaseTest {
     @User()
     @Test(priority = 2, description = "Validating Demographic Info", dataProvider = "loginData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
     public void validateDemographicInformation(TestDatabean Data) {
+        SoftAssert softAssert = new SoftAssert();
         ExtentTestManager.startTest("Validating the Demographic Information of User :" + Data.getCustomerNumber(), "Validating the Demographic Information of User :" + Data.getCustomerNumber());
         CustomerDemoGraphicPOM demographic = new CustomerDemoGraphicPOM(driver);
-        SoftAssert softAssert = new SoftAssert();
 
         ProfilePOJO profileAPI = api.profileAPITest(customerNumber);
         KYCProfile kycProfile = api.KYCProfileAPITest(customerNumber);
         GsmKycPOJO gsmKycAPI = api.gsmKYCAPITest(customerNumber);
         PlansPOJO plansAPI = api.accountPlansTest(customerNumber);
+        AMProfilePOJO amProfileAPI = api.amServiceProfileAPITest(customerNumber);
 
         try {
             if (demographic.isPUKInfoLock()) {
@@ -112,7 +117,6 @@ public class customerInteractionTest extends BaseTest {
         try {
             if (demographic.isAirtelMoneyStatusLock()) {
                 demographic.clickAirtelStatusToUnlock();
-                Thread.sleep(5000);
                 AuthenticationTabPOM authTab = new AuthenticationTabPOM(driver);
                 DataProviders data = new DataProviders();
                 authTab.waitTillLoaderGetsRemoved();
@@ -144,14 +148,29 @@ public class customerInteractionTest extends BaseTest {
             e.printStackTrace();
         }
         try {
+            demographic.hoverOnCustomerInfoIcon();
             softAssert.assertEquals(demographic.getCustomerDOB().trim(), demographic.getDateFromEpoch(gsmKycAPI.getResult().getDob(), "dd-MMM-yyyy"), "Customer DOB is not as Expected");
-        } catch (NoSuchElementException | TimeoutException e) {
-            softAssert.fail("Customer DOB is not visible", e.getCause());
+        } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
+            softAssert.fail("Customer DOB is not visible or null", e.getCause());
+            e.printStackTrace();
+        }
+
+        try {
+            softAssert.assertEquals(demographic.getIdType().trim(), gsmKycAPI.getResult().getIdentificationType(), "Customer's ID Type is not as Expected");
+        } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
+            softAssert.fail("Customer's Id Type is not visible or null", e.getCause());
             e.printStackTrace();
         }
         try {
-            softAssert.assertEquals(demographic.getActivationDate().trim(), demographic.getDateFromEpoch(Long.parseLong(kycProfile.getResult().getActivationDate()), "dd MMMM yyyy"), "Customer's Activation Date is not as Expected");
+            softAssert.assertTrue(gsmKycAPI.getResult().getIdentificationNo().contains(demographic.getIdNumber().replace("*", "")), "Customer's ID Number is not as Expected");
+        } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
+            softAssert.fail("Customer's Id Number is not visible", e.getCause());
+            e.printStackTrace();
+        }
 
+        try {
+            demographic.hoverOnSIMNumberIcon();
+            softAssert.assertEquals(demographic.getActivationDate().trim(), demographic.getDateFromEpoch(Long.parseLong(kycProfile.getResult().getActivationDate()), "dd-MMM-yyy"), "Customer's Activation Date is not as Expected");
         } catch (NoSuchElementException | TimeoutException | NumberFormatException | NullPointerException e) {
             softAssert.fail("Customer's Activation Date is not visible", e.getCause());
             e.printStackTrace();
@@ -162,7 +181,7 @@ public class customerInteractionTest extends BaseTest {
             demographic.hoverOnSIMStatusInfoIcon();
             softAssert.assertEquals(demographic.getSIMStatusReasonCode().trim().toLowerCase(), kycProfile.getResult().getReason() == null || kycProfile.getResult().getReason() == "" ? "-" : kycProfile.getResult().getReason().toLowerCase().trim(), "Customer SIM Status Reason is not as Expected");
             softAssert.assertEquals(demographic.getSIMStatusModifiedBy().trim().toLowerCase(), kycProfile.getResult().getModifiedBy().trim().toLowerCase(), "Customer SIM Status Modified By is not as Expected");
-            softAssert.assertEquals(demographic.getSIMStatusModifiedDate().trim(), demographic.getDateFromString(kycProfile.getResult().getModifiedDate(), "dd-MMM-yyy HH:mm", "dd-MMM-yyyy hh:mm aa"), "Customer SIM Status Modified Date is not as Expected");
+            softAssert.assertEquals(demographic.getSIMStatusModifiedDate().trim(), demographic.getDateFromString(kycProfile.getResult().getModifiedDate(), "dd-MMM-yyy hh:mm aa", "dd-MMM-yyyy hh:mm aa"), "Customer SIM Status Modified Date is not as Expected");
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
             softAssert.fail("Customer's SIM Status is not visible", e.getCause());
             e.printStackTrace();
@@ -197,16 +216,23 @@ public class customerInteractionTest extends BaseTest {
         }
 
         try {
-            softAssert.assertEquals(demographic.getDeviceCompatible(), profileAPI.getResult().getDeviceType(), "Customer's Device Type is not as Expected");
+            softAssert.assertEquals(demographic.getWalletBalance().toUpperCase().trim(), amProfileAPI.getResult().getWallet().get(0).getCurrency().toUpperCase() + " " + amProfileAPI.getResult().getWallet().get(0).getBalance(), "Customer's Airtel Wallet Balance & Currency code not same not as Expected");
         } catch (NoSuchElementException | TimeoutException e) {
-            softAssert.fail("Customer's Device Type is not visible", e.getCause());
+            softAssert.fail("Customer's Airtel Money Wallet Balance is not visible", e.getCause());
             e.printStackTrace();
         }
 
         try {
-            softAssert.assertEquals(demographic.getActivationTime().trim(), demographic.getDateFromEpoch(Long.parseLong(kycProfile.getResult().getActivationDate()), "hh: mm aa"), "Customer's Activation Time is not as Expected");
+            softAssert.assertEquals(demographic.getRegistrationStatus().toLowerCase().trim(), amProfileAPI.getResult().getRegStatus().toLowerCase().trim(), "Customer's Airtel Money Registration Status not same not as Expected");
         } catch (NoSuchElementException | TimeoutException e) {
-            softAssert.fail("Customer's Activation Time is not visible", e.getCause());
+            softAssert.fail("Customer's Airtel Money Registration Status is not visible", e.getCause());
+            e.printStackTrace();
+        }
+
+        try {
+            softAssert.assertEquals(demographic.getDeviceCompatible(), profileAPI.getResult().getDeviceType(), "Customer's Device Type is not as Expected");
+        } catch (NoSuchElementException | TimeoutException e) {
+            softAssert.fail("Customer's Device Type is not visible", e.getCause());
             e.printStackTrace();
         }
         try {
@@ -223,26 +249,13 @@ public class customerInteractionTest extends BaseTest {
         }
 
         try {
-            softAssert.assertEquals(demographic.getIdType().trim(), gsmKycAPI.getResult().getIdentificationType(), "Customer's ID Type is not as Expected");
-        } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
-            softAssert.fail("Customer's Id Type is not visible", e.getCause());
-            e.printStackTrace();
-        }
-        try {
-            softAssert.assertTrue(gsmKycAPI.getResult().getIdentificationNo().contains(demographic.getIdNumber().replace("*", "")), "Customer's ID Number is not as Expected");
-        } catch (NoSuchElementException | TimeoutException e) {
-            softAssert.fail("Customer's Id Number is not visible", e.getCause());
-            e.printStackTrace();
-        }
-
-        try {
             if (kycProfile.getResult().getLineType().isEmpty()) {
-                softAssert.assertEquals(demographic.getLineType().trim(), "-", "Customer Line Type as not expected");
+                softAssert.assertEquals(demographic.getLineType().trim(), "-", "Customer Connection Type as not expected");
             } else {
-                softAssert.assertEquals(demographic.getLineType().toLowerCase().trim(), kycProfile.getResult().getLineType().toLowerCase().trim(), "Customer Line Type as not expected");
+                softAssert.assertEquals(demographic.getLineType().toLowerCase().trim(), kycProfile.getResult().getLineType().toLowerCase().trim(), "Customer Connection Type as not expected");
             }
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
-            softAssert.fail("Customer's Line Type is not visible", e.getCause());
+            softAssert.fail("Customer's Connection Type is not visible", e.getCause());
             e.printStackTrace();
         }
 
@@ -324,7 +337,6 @@ public class customerInteractionTest extends BaseTest {
             softAssert.fail("Customer device IMEI number is not visible.", e.getCause());
             e.printStackTrace();
         }
-
         softAssert.assertAll();
     }
 
@@ -337,11 +349,11 @@ public class customerInteractionTest extends BaseTest {
         SideMenuPOM.clickOnSideMenu();
         SideMenuPOM.clickOnName();
         customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
-        if(Env.equalsIgnoreCase("Prod")){
+        if (Env.equalsIgnoreCase("Prod")) {
             customerInteractionsSearchPOM.enterNumber(Data.getProdSIMNumber());
             customerNumber = Data.getProdCustomerNumber();
-        }else {
-            customerInteractionsSearchPOM.enterNumber(Data.getCustomerNumber());
+        } else {
+            customerInteractionsSearchPOM.enterNumber(Data.getSimNumber());
             customerNumber = Data.getCustomerNumber();
         }
         customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
@@ -366,6 +378,7 @@ public class customerInteractionTest extends BaseTest {
         KYCProfile kycProfile = api.KYCProfileAPITest(customerNumber);
         GsmKycPOJO gsmKycAPI = api.gsmKYCAPITest(customerNumber);
         PlansPOJO plansAPI = api.accountPlansTest(customerNumber);
+        AMProfilePOJO amProfileAPI = api.amServiceProfileAPITest(customerNumber);
 
         try {
             if (demographic.isPUKInfoLock()) {
@@ -444,15 +457,29 @@ public class customerInteractionTest extends BaseTest {
             e.printStackTrace();
         }
         try {
+            demographic.hoverOnCustomerInfoIcon();
             softAssert.assertEquals(demographic.getCustomerDOB().trim(), demographic.getDateFromEpoch(gsmKycAPI.getResult().getDob(), "dd-MMM-yyyy"), "Customer DOB is not as Expected");
-        } catch (NoSuchElementException | TimeoutException e) {
-            softAssert.fail("Customer DOB is not visible", e.getCause());
+        } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
+            softAssert.fail("Customer DOB is not visible or null", e.getCause());
+            e.printStackTrace();
+        }
+
+        try {
+            softAssert.assertEquals(demographic.getIdType().trim(), gsmKycAPI.getResult().getIdentificationType(), "Customer's ID Type is not as Expected");
+        } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
+            softAssert.fail("Customer's Id Type is not visible or null", e.getCause());
             e.printStackTrace();
         }
         try {
-            softAssert.assertEquals(demographic.getActivationDate().trim(), demographic.getDateFromEpoch(Long.parseLong(kycProfile.getResult().getActivationDate()), "dd MMMM yyyy"), "Customer's Activation Date is not as Expected");
-
-        } catch (NoSuchElementException | TimeoutException | NumberFormatException e) {
+            softAssert.assertTrue(gsmKycAPI.getResult().getIdentificationNo().contains(demographic.getIdNumber().replace("*", "")), "Customer's ID Number is not as Expected");
+        } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
+            softAssert.fail("Customer's Id Number is not visible", e.getCause());
+            e.printStackTrace();
+        }
+        try {
+            demographic.hoverOnSIMNumberIcon();
+            softAssert.assertEquals(demographic.getActivationDate().trim(), demographic.getDateFromEpoch(Long.parseLong(kycProfile.getResult().getActivationDate()), "dd-MMM-yyy"), "Customer's Activation Date is not as Expected");
+        } catch (NoSuchElementException | TimeoutException | NumberFormatException | NullPointerException e) {
             softAssert.fail("Customer's Activation Date is not visible", e.getCause());
             e.printStackTrace();
         }
@@ -462,37 +489,23 @@ public class customerInteractionTest extends BaseTest {
             demographic.hoverOnSIMStatusInfoIcon();
             softAssert.assertEquals(demographic.getSIMStatusReasonCode().trim().toLowerCase(), kycProfile.getResult().getReason() == null || kycProfile.getResult().getReason() == "" ? "-" : kycProfile.getResult().getReason().toLowerCase().trim(), "Customer SIM Status Reason is not as Expected");
             softAssert.assertEquals(demographic.getSIMStatusModifiedBy().trim().toLowerCase(), kycProfile.getResult().getModifiedBy().trim().toLowerCase(), "Customer SIM Status Modified By is not as Expected");
-            softAssert.assertEquals(demographic.getSIMStatusModifiedDate().trim(), demographic.getDateFromString(kycProfile.getResult().getModifiedDate(), "dd-MMM-yyy HH:mm", "dd-MMM-yyyy hh:mm aa"), "Customer SIM Status Modified Date is not as Expected");
+            softAssert.assertEquals(demographic.getSIMStatusModifiedDate().trim(), demographic.getDateFromString(kycProfile.getResult().getModifiedDate(), "dd-MMM-yyy hh:mm aa", "dd-MMM-yyyy hh:mm aa"), "Customer SIM Status Modified Date is not as Expected");
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
             softAssert.fail("Customer's SIM Status is not visible", e.getCause());
             e.printStackTrace();
         }
 
         try {
-            if (demographic.getDataManagerStatus().equalsIgnoreCase("true")) {
-                softAssert.assertEquals("on", plansAPI.getResult().getDataManager().toLowerCase().trim(), "Customer's Data Manager Status is not as Expected");
-            } else {
-                softAssert.assertEquals("off", plansAPI.getResult().getDataManager().toLowerCase().trim(), "Customer's Data Manager Status is not as Expected");
-            }
-
+            softAssert.assertEquals(demographic.getWalletBalance().toUpperCase().trim(), amProfileAPI.getResult().getWallet().get(0).getCurrency().toUpperCase() + " " + amProfileAPI.getResult().getWallet().get(0).getBalance(), "Customer's Airtel Wallet Balance & Currency code not same not as Expected");
         } catch (NoSuchElementException | TimeoutException e) {
-            softAssert.fail("Customer's Data Manager Status is not visible", e.getCause());
+            softAssert.fail("Customer's Airtel Money Wallet Balance is not visible", e.getCause());
             e.printStackTrace();
         }
 
         try {
-            softAssert.assertEquals(demographic.getAirtelMoneyStatus().toLowerCase().trim(), profileAPI.getResult().getAirtelMoneyStatus().toLowerCase().trim(), "Customer's Airtel Money Status is not as Expected");
-
+            softAssert.assertEquals(demographic.getRegistrationStatus().toLowerCase().trim(), amProfileAPI.getResult().getRegStatus().toLowerCase().trim(), "Customer's Airtel Money Registration Status not same not as Expected");
         } catch (NoSuchElementException | TimeoutException e) {
-            softAssert.fail("Customer's Airtel Money Status is not visible", e.getCause());
-            e.printStackTrace();
-        }
-
-        try {
-            softAssert.assertEquals(demographic.getServiceStatus().toLowerCase().trim(), profileAPI.getResult().getServiceStatus().toLowerCase().trim(), "Customer's Airtel Money Service Status is not as Expected");
-
-        } catch (NoSuchElementException | TimeoutException e) {
-            softAssert.fail("Customer's Airtel Money Service Status is not visible", e.getCause());
+            softAssert.fail("Customer's Airtel Money Registration Status is not visible", e.getCause());
             e.printStackTrace();
         }
 
@@ -503,12 +516,6 @@ public class customerInteractionTest extends BaseTest {
             e.printStackTrace();
         }
 
-        try {
-            softAssert.assertEquals(demographic.getActivationTime().trim(), demographic.getDateFromEpoch(Long.parseLong(kycProfile.getResult().getActivationDate()), "hh: mm aa"), "Customer's Activation Time is not as Expected");
-        } catch (NoSuchElementException | TimeoutException e) {
-            softAssert.fail("Customer's Activation Time is not visible", e.getCause());
-            e.printStackTrace();
-        }
         try {
             softAssert.assertEquals(demographic.getSimNumber().trim(), Data.getCustomerNumber(), "Customer's Mobile Number is not as Expected");
         } catch (NoSuchElementException | TimeoutException e) {
@@ -523,26 +530,13 @@ public class customerInteractionTest extends BaseTest {
         }
 
         try {
-            softAssert.assertEquals(demographic.getIdType().trim(), gsmKycAPI.getResult().getIdentificationType(), "Customer's ID Type is not as Expected");
-        } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
-            softAssert.fail("Customer's Id Type is not visible", e.getCause());
-            e.printStackTrace();
-        }
-        try {
-            softAssert.assertTrue(gsmKycAPI.getResult().getIdentificationNo().contains(demographic.getIdNumber().replace("*", "")), "Customer's ID Number is not as Expected");
-        } catch (NoSuchElementException | TimeoutException e) {
-            softAssert.fail("Customer's Id Number is not visible", e.getCause());
-            e.printStackTrace();
-        }
-
-        try {
             if (kycProfile.getResult().getLineType().isEmpty()) {
-                softAssert.assertEquals(demographic.getLineType().trim(), "-", "Customer Line Type as not expected");
+                softAssert.assertEquals(demographic.getLineType().trim(), "-", "Customer Connection Type as not expected");
             } else {
-                softAssert.assertEquals(demographic.getLineType().toLowerCase().trim(), kycProfile.getResult().getLineType().toLowerCase().trim(), "Customer Line Type as not expected");
+                softAssert.assertEquals(demographic.getLineType().toLowerCase().trim(), kycProfile.getResult().getLineType().toLowerCase().trim(), "Customer Connection Type as not expected");
             }
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
-            softAssert.fail("Customer's Line Type is not visible", e.getCause());
+            softAssert.fail("Customer's Connection Type is not visible", e.getCause());
             e.printStackTrace();
         }
 
@@ -653,9 +647,9 @@ public class customerInteractionTest extends BaseTest {
         SideMenuPOM.clickOnSideMenu();
         SideMenuPOM.clickOnName();
         customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
-        if(Env.equalsIgnoreCase("Prod")){
+        if (Env.equalsIgnoreCase("Prod")) {
             customerNumber = Data.getProdCustomerNumber();
-        }else {
+        } else {
             customerNumber = Data.getCustomerNumber();
         }
         customerInteractionsSearchPOM.enterNumber(customerNumber);
@@ -668,54 +662,42 @@ public class customerInteractionTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Table(Name = "Airtel Money")
-    @Test(priority = 7, description = "Validating AM Transaction Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, enabled = true,dependsOnMethods = "openCustomerInteractionAPI")
+    @DataProviders.Table(Name = "Airtel Money")
+    @Test(priority = 7, description = "Validating AM Transaction Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, enabled = true, dependsOnMethods = "openCustomerInteractionAPI")
     public void airtelMoneyTransactionWidgetTest(HeaderDataBean Data) {
         ExtentTestManager.startTest("Validating AM Transaction Widget", "Validating AM Transaction Widget of User :" + customerNumber);
         AMTransactionsWidgetPOM amTransactionsWidget = new AMTransactionsWidgetPOM(driver);
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(amTransactionsWidget.isAirtelMoneyTransactionWidgetIsVisible(), "Airtel Money Transaction Widget is not visible");
         softAssert.assertTrue(amTransactionsWidget.isAirtelMoneyWidgetDatePickerVisible(), "Airtel Money Transaction Widget's Date Picker is not visible");
-
-        AMProfilePOJO amServiceProfileAPI = api.amServiceProfileAPITest(customerNumber);
         AirtelMoneyPOJO amTransactionHistoryAPI = api.transactionHistoryAPITest(customerNumber);
-        if (amServiceProfileAPI.getResult() != null) {
-            softAssert.assertEquals(amTransactionsWidget.gettingAirtelMoneyBalance(), Double.parseDouble(amServiceProfileAPI.getResult().getWallet().get(0).getBalance())
-                    , "Customer's Airtel Money Balance is not as Expected");
-            softAssert.assertEquals(amTransactionsWidget.gettingAirtelMoneyCurrency(), amServiceProfileAPI.getResult().getWallet().get(0).getCurrency(),
-                    "Customer's Airtel Money Balance Currency  is not as Expected");
-        } else if (amServiceProfileAPI.getStatusCode() != 200) {
-            ExtentTestManager.getTest().log(LogStatus.WARNING, "Unable to get AM Balance from API");
-            softAssert.assertTrue(amTransactionsWidget.isAMBalanceUnableToFetch(), "No error Message on Unable to get AM Balance For User From API");
-            softAssert.assertEquals(amTransactionsWidget.gettingAMBalanceUnableToFetchMessage(), "Unable to Fetch Data", "Error Message is not as Expected");
-            softAssert.fail("API is Unable to Get AM Balance for Customer");
-        }
         if (amTransactionHistoryAPI.getStatusCode() != 200) {
             softAssert.assertTrue(amTransactionsWidget.isAirtelMoneyErrorVisible(), "API is Giving error But Widget is not showing error Message on API is " + amTransactionHistoryAPI.getMessage());
             softAssert.fail("API is Unable to Get AM Transaction History for Customer");
-        }else{
-            int count=amTransactionHistoryAPI.getResult().getTotalCount();
-            if(count>0){
-                if(count>5){
-                    count=5;
+        } else if (amTransactionHistoryAPI.getResult().getTotalCount() == null) {
+            softAssert.assertTrue(amTransactionsWidget.isAirtelMoneyNoResultFoundVisible(), "No Result Found Icon does not display on UI.");
+        } else {
+            int count = amTransactionHistoryAPI.getResult().getTotalCount();
+            if (count > 0) {
+                if (count > 5) {
+                    count = 5;
                 }
                 softAssert.assertEquals(amTransactionsWidget.getHeaders(1).toLowerCase().trim(), Data.getRow1().toLowerCase().trim(), "Header Name for Row 1 is not as expected");
                 softAssert.assertEquals(amTransactionsWidget.getHeaders(2).toLowerCase().trim(), Data.getRow2().toLowerCase().trim(), "Header Name for Row 2 is not as expected");
                 softAssert.assertEquals(amTransactionsWidget.getHeaders(3).toLowerCase().trim(), Data.getRow3().toLowerCase().trim(), "Header Name for Row 3 is not as expected");
                 softAssert.assertEquals(amTransactionsWidget.getHeaders(4).toLowerCase().trim(), Data.getRow4().toLowerCase().trim(), "Header Name for Row 4 is not as expected");
                 softAssert.assertEquals(amTransactionsWidget.getHeaders(5).toLowerCase().trim(), Data.getRow5().toLowerCase().trim(), "Header Name for Row 5 is not as expected");
-                for(int i=0;i<count;i++) {
-                    softAssert.assertEquals(amTransactionsWidget.getValueCorrespondingToHeader(i+1,1),amTransactionHistoryAPI.getResult().getData().get(i).getAmount(),"Amount is not expected as API response.");
-                    softAssert.assertEquals(amTransactionsWidget.getValueCorrespondingToHeader(i+1,2),amTransactionHistoryAPI.getResult().getData().get(i).getMsisdn(),"Receiver MSISDN is not expected as API response.");
-                    softAssert.assertEquals(amTransactionsWidget.getValueCorrespondingToHeader(i+1,3),amTransactionsWidget.getDateFromEpochInUTC(new Long(amTransactionHistoryAPI.getResult().getData().get(i).getTransactionDate()),config.getProperty("AMHistoryTimeFormat")),"Date is not expected as API response.");
-                    softAssert.assertEquals(amTransactionsWidget.getValueCorrespondingToHeader(i+1,4),amTransactionHistoryAPI.getResult().getData().get(i).getTransactionId(),"Transaction Id is not expected as API response.");
-                    softAssert.assertEquals(amTransactionsWidget.getValueCorrespondingToHeader(i+1,5),amTransactionHistoryAPI.getResult().getData().get(i).getStatus(),"Status is not expected as API response.");
-                    if(amTransactionHistoryAPI.getResult().getData().get(i).getEnableResendSms()){
-                        softAssert.assertTrue(amTransactionsWidget.isResendSMS(),"Resend SMS Icon does not enable as mentioned in API Response.");
+                softAssert.assertTrue(amTransactionsWidget.isTransactionId(), "Transaction Id Search Box does not displayed on UI");
+                for (int i = 0; i < count; i++) {
+                    softAssert.assertEquals(amTransactionsWidget.getValueCorrespondingToHeader(i + 1, 1), amTransactionHistoryAPI.getResult().getData().get(i).getAmount(), "Amount is not expected as API response.");
+                    softAssert.assertEquals(amTransactionsWidget.getValueCorrespondingToHeader(i + 1, 2), amTransactionHistoryAPI.getResult().getData().get(i).getMsisdn(), "Receiver MSISDN is not expected as API response.");
+                    softAssert.assertEquals(amTransactionsWidget.getValueCorrespondingToHeader(i + 1, 3), amTransactionsWidget.getDateFromEpochInUTC(new Long(amTransactionHistoryAPI.getResult().getData().get(i).getTransactionDate()), config.getProperty("AMHistoryTimeFormat")), "Date is not expected as API response.");
+                    softAssert.assertEquals(amTransactionsWidget.getValueCorrespondingToHeader(i + 1, 4), amTransactionHistoryAPI.getResult().getData().get(i).getTransactionId(), "Transaction Id is not expected as API response.");
+                    softAssert.assertEquals(amTransactionsWidget.getValueCorrespondingToHeader(i + 1, 5), amTransactionHistoryAPI.getResult().getData().get(i).getStatus(), "Status is not expected as API response.");
+                    if (amTransactionHistoryAPI.getResult().getData().get(i).getEnableResendSms()) {
+                        softAssert.assertTrue(amTransactionsWidget.isResendSMS(), "Resend SMS Icon does not enable as mentioned in API Response.");
                     }
                 }
-            }else{
-                softAssert.assertTrue(amTransactionsWidget.isAirtelMoneyNoResultFoundVisible(),"No Result Found Icon does not display on UI.");
             }
         }
         softAssert.assertAll();
@@ -750,11 +732,8 @@ public class customerInteractionTest extends BaseTest {
             softAssert.assertEquals(currentBalanceWidget.getLastRechargeDateTime(), Date + " " + Time, "Last Recharge Date and Time is not as Received in API");
         } else {
             ExtentTestManager.getTest().log(LogStatus.WARNING, "Unable to get Last Recharge Details from API");
-            softAssert.assertTrue(currentBalanceWidget.isLastRechargeUnableToFetchVisible(), "Error Message is not Visible");
-            softAssert.assertTrue(currentBalanceWidget.isLastRechargeDateTImeUnableTOFetch(), "Error Message is not Visible");
-            softAssert.assertEquals(currentBalanceWidget.gettingLastRechargeUnableToFetchVisible(), "Unable to Fetch Data", "Error Message is not as Expected");
-            softAssert.assertEquals(currentBalanceWidget.gettingLastRechargeDateTImeUnableTOFetch(), "Unable to Fetch Data", "Error Message is not as Expected");
-
+            softAssert.assertEquals(currentBalanceWidget.gettingLastRechargeAmount().replace('-', ' ').trim(), "", "Last Recharge Amount is not as expected");
+            softAssert.assertEquals(currentBalanceWidget.getLastRechargeDateTime(), "- -", "Last Recharge Date & Time is not as expected");
         }
 
         System.out.println(plansAPI.getResult().toString());
@@ -779,8 +758,8 @@ public class customerInteractionTest extends BaseTest {
     }
 
 
-    @Table(Name = "Usage History")
-    @Test(priority = 9, description = "Validating Usage History Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class,dependsOnMethods = "openCustomerInteractionAPI")
+    @DataProviders.Table(Name = "Usage History")
+    @Test(priority = 9, description = "Validating Usage History Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI")
     public void usageHistoryWidgetTest(HeaderDataBean Data) {
         ExtentTestManager.startTest("Validating Usage History Widget", "Validating Usage History Widget of User :" + customerNumber);
         UsageHistoryWidgetPOM usageHistoryWidget = new UsageHistoryWidgetPOM(driver);
@@ -802,12 +781,12 @@ public class customerInteractionTest extends BaseTest {
             softAssert.assertEquals(usageHistoryWidget.getHeaders(5).toLowerCase().trim(), Data.getRow5().toLowerCase().trim(), "Header Name for Row 5 is not as expected");
             for (int i = 0; i < size; i++) {
                 softAssert.assertEquals(usageHistoryWidget.getHistoryType(i), usageHistoryAPI.getResult().get(i).getType(), "Usage History Type is not As received in API for row number " + i);
-                softAssert.assertEquals(usageHistoryWidget.getHistoryCharge(i), usageHistoryAPI.getResult().get(i).getCharges(), "Usage History Charge is not As received in API for row number " + i);
-                softAssert.assertEquals(usageHistoryWidget.getHistoryDateTime(i), usageHistoryWidget.getDateFromString(usageHistoryAPI.getResult().get(i).getDateTime(), config.getProperty("UIUsageHistoryTimeFormat"), config.getProperty("APIUsageHistoryTimeFormat")), "Usage History Date Time is not As received in API for row number " + i);
+                softAssert.assertEquals(usageHistoryWidget.getHistoryCharge(i).replaceAll("[^0-9]", "").trim(), usageHistoryAPI.getResult().get(i).getCharges().replaceAll("[^0-9]", ""), "Usage History Charge is not As received in API for row number " + i);
+                softAssert.assertEquals(usageHistoryWidget.getHistoryDateTime(i), usageHistoryAPI.getResult().get(i).getDateTime() + "\n" + usageHistoryAPI.getResult().get(i).getTime(), "Usage History Date Time is not As received in API for row number " + i);
                 softAssert.assertEquals(usageHistoryWidget.getHistoryStartBalance(i), usageHistoryAPI.getResult().get(i).getStartBalance(), "Usage History Start Balance  is not As received in API for row number " + i);
                 softAssert.assertEquals(usageHistoryWidget.getHistoryEndBalance(i), usageHistoryAPI.getResult().get(i).getEndBalance(), "Usage History End Balance is not As received in API for row number " + i);
                 if (i != 0) {
-                    softAssert.assertTrue(usageHistoryWidget.isSortOrderDisplay(usageHistoryWidget.getHistoryDateTime(i), usageHistoryWidget.getHistoryDateTime(i - 1), "dd-MMM-yyy HH:mm"), usageHistoryWidget.getHistoryDateTime(i) + "should not display before " + usageHistoryWidget.getHistoryDateTime(i - 1));
+                    softAssert.assertTrue(usageHistoryWidget.isSortOrderDisplay(usageHistoryWidget.getHistoryDateTime(i).replace("\n", " "), usageHistoryWidget.getHistoryDateTime(i - 1).replace("\n", " "), "EEE dd MMM yyy hh:mm:ss aa"), usageHistoryWidget.getHistoryDateTime(i - 1) + "should not display before " + usageHistoryWidget.getHistoryDateTime(i));
                 }
             }
         }
@@ -819,8 +798,8 @@ public class customerInteractionTest extends BaseTest {
     }
 
 
-    @Table(Name = "Recharge History")
-    @Test(priority = 10, description = "Validating Recharge History Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class,dependsOnMethods = "openCustomerInteractionAPI")
+    @DataProviders.Table(Name = "Recharge History")
+    @Test(priority = 10, description = "Validating Recharge History Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI")
     public void rechargeHistoryWidgetTest(HeaderDataBean Data) {
         ExtentTestManager.startTest("Validating Recharge History Widget", "Validating Recharge History Widget of User :" + customerNumber);
         RechargeHistoryWidgetPOM rechargeHistoryWidget = new RechargeHistoryWidgetPOM(driver);
@@ -831,7 +810,7 @@ public class customerInteractionTest extends BaseTest {
         if (rechargeHistoryAPI.getStatusCode() != 200 || rechargeHistoryAPI.getStatus().equalsIgnoreCase("something went wrong")) {
             softAssert.assertTrue(rechargeHistoryWidget.isRechargeHistoryErrorVisible(), "API is Giving error But Widget is not showing error Message on API is ");
             softAssert.fail("API is unable to give Recharge History ");
-        }else {
+        } else {
             int size = rechargeHistoryWidget.getNumberOfRows();
             if (rechargeHistoryAPI.getResult().size() == 0 || rechargeHistoryAPI.getResult() == null) {
                 ExtentTestManager.getTest().log(LogStatus.WARNING, "Unable to get Last Recharge Details from API");
@@ -859,8 +838,8 @@ public class customerInteractionTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Table(Name = "Service Profile")
-    @Test(priority = 11, description = "Verify Service Profile Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class,enabled = false,dependsOnMethods = "openCustomerInteractionAPI")
+    @DataProviders.Table(Name = "Service Profile")
+    @Test(priority = 11, description = "Verify Service Profile Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, enabled = true, dependsOnMethods = "openCustomerInteractionAPI")
     public void validateServiceProfileWidget(HeaderDataBean Data) {
         ExtentTestManager.startTest("Verify Service Profile Widget: " + customerNumber, "Verify Service Profile Widget: " + customerNumber);
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
@@ -868,7 +847,7 @@ public class customerInteractionTest extends BaseTest {
         SoftAssert softAssert = new SoftAssert();
         Assert.assertTrue(hlrWidget.isServiceClassWidgetDisplay(), "Service Profile Widget does not display correctly.");
         HLRServicePOJO hlrService = api.getServiceProfileWidgetInfo(customerNumber);
-        int size=hlrWidget.getNumberOfRows();
+        int size = hlrWidget.getNumberOfRows();
         if (Integer.parseInt(hlrService.getStatusCode()) == 200) {
             if (hlrService.getResult().size() == 0 || hlrService.getResult() == null) {
                 hlrWidget.printWarningLog("Unable to get Last Service Profile from API");
@@ -878,10 +857,20 @@ public class customerInteractionTest extends BaseTest {
                 softAssert.assertEquals(hlrWidget.getHeaders(1).trim().toLowerCase(), Data.getRow1().trim().toLowerCase(), "Header Name at Row(1) is not as expected.");
                 softAssert.assertEquals(hlrWidget.getHeaders(2).trim().toLowerCase(), Data.getRow2().trim().toLowerCase(), "Header Name at Row(2) is not as expected.");
                 softAssert.assertEquals(hlrWidget.getHeaders(3).trim().toLowerCase(), Data.getRow3().trim().toLowerCase(), "Header Name at Row(3) is not as expected.");
+                softAssert.assertEquals(hlrWidget.getHeaders(4).trim().toLowerCase(), Data.getRow4().trim().toLowerCase(), "Header Name at Row(4) is not as expected.");
+                softAssert.assertEquals(hlrWidget.getHeaders(5).trim().toLowerCase(), Data.getRow5().trim().toLowerCase(), "Header Name at Row(5) is not as expected.");
                 for (int i = 0; i < size; i++) {
-                    softAssert.assertEquals(hlrWidget.getValueCorrespondingToAccumulator(i + 1,1), hlrService.getResult().get(i).getServiceName(), "Service Name is not As received in API for row number " + i);
-                    softAssert.assertEquals(hlrWidget.getValueCorrespondingToAccumulator(i + 1,2), hlrService.getResult().get(i).getHlrCode(),"HLR Code is not As received in API for row number " + i);
-                    softAssert.assertEquals(hlrWidget.getValueCorrespondingToAccumulator(i + 1,3), hlrService.getResult().get(i).getServiceStatus(), "Service Status is not As received in API for row number " + i);
+                    softAssert.assertEquals(hlrWidget.getValueCorrespondingToAccumulator(i + 1, 1), hlrService.getResult().get(i).getServiceName(), "Service Name is not As received in API for row number " + i);
+                    softAssert.assertEquals(hlrWidget.getValueCorrespondingToAccumulator(i + 1, 2), hlrService.getResult().get(i).getServiceDesc(), "Service desc is not As received in API for row number " + i);
+                    softAssert.assertEquals(hlrWidget.getValueCorrespondingToAccumulator(i + 1, 3), hlrService.getResult().get(i).getHlrCodes().get(0), "HLR Code is not As received in API for row number " + i);
+                    softAssert.assertEquals(hlrWidget.getValueCorrespondingToAccumulator(i + 1, 4), hlrService.getResult().get(i).getHlrCodeDetails().get(0), "HLR code details is not As received in API for row number " + i);
+                    if (hlrService.getResult().get(i).getType().equalsIgnoreCase("Action")) {
+                        if (hlrService.getResult().get(i).getServiceStatus().equalsIgnoreCase("enabled")) {
+                            softAssert.assertTrue(hlrWidget.getServiceStatus(), "Service Status is not as expected.");
+                        } else {
+                            softAssert.assertFalse(hlrWidget.getServiceStatus(), "Service Status is not as expected.");
+                        }
+                    }
                 }
             }
         } else {

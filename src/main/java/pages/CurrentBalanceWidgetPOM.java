@@ -9,7 +9,7 @@ import org.openqa.selenium.WebDriver;
 
 @Log4j2
 public class CurrentBalanceWidgetPOM extends BasePage {
-    By currentBalanceHeader = By.xpath("//span[@class=\"card__card-header--label\" and text()=\"Your Current Plan \"]");
+D    By currentBalanceHeader = By.xpath("//span[@class='card__card-header--label--text' and contains(text(),'Your Current')]");
     By currentBalanceCurrency = By.xpath("//div[@class=\"card__content--top--left ng-star-inserted\"]/span[@class=\"currency ng-star-inserted\"]");
     By mainAccountBalance = By.xpath("//div[@class=\"card__content--top--left ng-star-inserted\"]");
     By currentBalanceLastRecharge = By.xpath("//span[@class=\"label-color\"]/span[@class=\"currency ng-star-inserted\"]");
@@ -20,10 +20,10 @@ public class CurrentBalanceWidgetPOM extends BasePage {
     By voiceExpiryDate = By.xpath("//span[@class=\"card__content--bottom--plan ng-star-inserted\"][1]/p[@class=\"ng-star-inserted\"][2]");
     By dataExpiryDate = By.xpath("//span[@class=\"card__content--bottom--plan ng-star-inserted\"][2]/p[@class=\"ng-star-inserted\"][2]");
     By smsExpiryDate = By.xpath("//span[@class=\"card__content--bottom--plan ng-star-inserted\"][3]/p[@class=\"ng-star-inserted\"][2]");
-    By menu = By.xpath("//span[contains(text(),\"Your Current Plan \")]//parent::div/span[2]/img");
+    By menu = By.xpath("//span[@class='card__card-header--label--text' and contains(text(),'Your Current')]//ancestor::div[1]//span/img[@class='header-action-icon ng-star-inserted']");
     By currentBalanceLastRechargeUnableToFetch = By.xpath("//span[@class=\"label-color\"]/span[@class=\"api-failed-error ng-star-inserted\"]");
     By lastRechargeDateTImeUnableTOFetch = By.xpath("//div[@class=\"api-failed-error ng-star-inserted\"]");
-    By ticketIcon = By.xpath("//span[contains(text(),'Your Current Plan')]//span[@class=\"card__card-header--icon ng-star-inserted\"]");
+    By ticketIcon = By.xpath("//span[@class='card__card-header--label--text' and contains(text(),'Your Current')]//ancestor::div[1]//span/img[@class='interaction-ticket']");
     By getTitle = By.xpath("//span[contains(text(),'Your Current Plan')]");
 
     public CurrentBalanceWidgetPOM(WebDriver driver) {
@@ -75,7 +75,7 @@ public class CurrentBalanceWidgetPOM extends BasePage {
     public String gettingLastRechargeAmount() {
         log.info("Getting Main Account Balance from Your Current Balance Widget : " + readText(currentBalanceLastRecharge).replaceAll("\\s", "").replaceAll("[A-Z,a-z]", ""));
         ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Main Account Balance from Your Current Balance Widget : " + readText(currentBalanceLastRecharge).replaceAll("\\s", "").replaceAll("[A-Z,a-z]", ""));
-        return readText(currentBalanceLastRecharge).replaceAll("\\s", "").replaceAll("[A-Z,a-z]", "");
+        return readText(currentBalanceLastRecharge).replaceAll("\\s", "").replaceAll("[A-Z,a-z]", "").trim();
     }
 
     public boolean isCurrentBalanceWidgetVisible() {
@@ -87,7 +87,7 @@ public class CurrentBalanceWidgetPOM extends BasePage {
     public String gettingCurrentBalanceCurrency() {
         log.info("Getting Currency from Your Current Balance Widget : " + readText(currentBalanceCurrency).trim());
         ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Currency from Your Current Balance Widget : " + readText(currentBalanceCurrency).trim());
-        return readText(currentBalanceCurrency);
+        return readText(currentBalanceCurrency).replaceAll("[^a-zA-z]","");
     }
 
     public String gettingMainAccountBalance() {

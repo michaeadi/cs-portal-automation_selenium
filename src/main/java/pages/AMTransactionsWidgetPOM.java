@@ -11,7 +11,7 @@ public class AMTransactionsWidgetPOM extends BasePage {
     By airtelMoneyTransactionHeader = By.xpath("//span[@class=\"card__card-header--label\" and text()=\"Airtel Money Transactions \"]");
     By airtelMoneyBalance = By.xpath("//div[@class=\"card__content--money-balance ng-star-inserted\"]/span[@class=\"ng-star-inserted\"]");
     By airtelMoneyCurrency = By.xpath("//div[@class=\"card__content--money-balance ng-star-inserted\"]/span[@class=\"currency ng-star-inserted\"]");
-    By airtelMoneyDatePicker = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Airtel Money Transactions\")]//parent::div//form/span/input");
+    By airtelMoneyDatePicker = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Airtel Money Transactions\")]//ancestor::div[@class='card widget ng-star-inserted']//input[@name='dateRange']");
     By airtelMoneyBalanceUnableToFetch = By.xpath("//div[@class=\"card__content--money-balance ng-star-inserted\"]/span[@class=\"api-failed-error ng-star-inserted\"]");
     By airtelMoneyNoResultFound = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Airtel Money Transactions\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]");
     By airtelMoneyNoResultFoundMessage = By.xpath("//span[contains(text(),\"Airtel Money Transactions \")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]/span/span");
@@ -20,6 +20,8 @@ public class AMTransactionsWidgetPOM extends BasePage {
     By getTitle = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Airtel Money Transactions\")]");
     By clickMenu=By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Airtel Money Transactions\")]/ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"card__card-header\"]//span[@class=\"card__card-header--menu ng-star-inserted\"]/img");
     By amHistoryTab=By.xpath("//button[contains(text(),\"AM History\")][@role=\"menuitem\"]");
+    By transactionId=By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Airtel Money Transactions\")]//ancestor::div[@class='card widget ng-star-inserted']//input[@placeholder='Transaction ID']");
+    By transactionSearchBtn=By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Airtel Money Transactions\")]//ancestor::div[@class='card widget ng-star-inserted']//input[@placeholder='Transaction ID']//following-sibling::button");
 
     public boolean isAirtelMoneyErrorVisible() {
         log.info("Validating error is visible when there is Error inAPI : " + isElementVisible(airtelMoneyError));
@@ -119,5 +121,19 @@ public class AMTransactionsWidgetPOM extends BasePage {
         printInfoLog("Opening AM History Sub Tab");
         click(amHistoryTab);
         return new MoreAMTransactionsTabPOM(driver);
+    }
+
+    public Boolean isTransactionId(){
+        printInfoLog("Checking is Transaction Id Box Displayed");
+        return checkState(transactionId);
+    }
+
+    public void writeTransactionId(String id){
+        writeText(transactionId,id);
+    }
+
+    public void clickSearchBtn(){
+        printInfoLog("Clicking on Search Button");
+        click(transactionSearchBtn);
     }
 }

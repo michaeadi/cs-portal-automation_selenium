@@ -241,13 +241,13 @@ public class DataProviders {
                 credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("LoginSheet"));
         List<TestDatabean> finalTicketList = new ArrayList<>();
         for (TestDatabean login : list) {
-            System.out.println("User Type " + login.getUserType());
+            log.info("User Type " + login.getUserType());
             if (login.getUserType().toLowerCase().trim().equals(rows.UserType().toLowerCase().trim())) {
                 finalTicketList.add(login);
-                System.out.println("User Type ADDED " + login.getUserType());
+                log.info("User Type ADDED " + login.getUserType());
 
             } else {
-                System.out.println("NO USER FOUND");
+                log.info("NO USER FOUND");
             }
         }
         Object[][] hashMapObj = new Object[finalTicketList.size()][1];
@@ -268,13 +268,8 @@ public class DataProviders {
                 ExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty("HeaderSheet"));
         List<HeaderDataBean> finalTicketList = new ArrayList<>();
         for (HeaderDataBean login : list) {
-            System.out.println("User Type " + login.getTableName());
             if (login.getTableName().toLowerCase().trim().equals(table.Name().toLowerCase().trim())) {
                 finalTicketList.add(login);
-                System.out.println("User table ADDED " + login.getTableName());
-
-            } else {
-                System.out.println("NO Table FOUND");
             }
         }
         Object[][] hashMapObj = new Object[finalTicketList.size()][1];

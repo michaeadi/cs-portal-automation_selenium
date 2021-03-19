@@ -12,7 +12,7 @@ import java.util.List;
 @Log4j2
 public class
 DADetailsPOM extends BasePage {
-    By rows = By.xpath("//div[@class=\"table-data-wrapper ng-star-inserted\"]/div[@class=\"ng-star-inserted\"]");
+    By rows = By.xpath("//span[contains(text(),'DA Details')]//ancestor::div[2]//div[@class=\"table-data-wrapper ng-star-inserted\"]/div[@class=\"ng-star-inserted\"]");
     By daID = By.xpath("div[@class=\"ng-star-inserted\"][1]/span");
     By bundleType = By.xpath("div[@class=\"ng-star-inserted\"][3]/span");
     List<WebElement> Rows = returnListOfElement(rows);
