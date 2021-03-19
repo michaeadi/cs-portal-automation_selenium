@@ -9,7 +9,7 @@ import org.openqa.selenium.WebDriver;
 
 @Log4j2
 public class CurrentBalanceWidgetPOM extends BasePage {
-D    By currentBalanceHeader = By.xpath("//span[@class='card__card-header--label--text' and contains(text(),'Your Current')]");
+    By currentBalanceHeader = By.xpath("//span[@class='card__card-header--label--text' and contains(text(),'Your Current')]");
     By currentBalanceCurrency = By.xpath("//div[@class=\"card__content--top--left ng-star-inserted\"]/span[@class=\"currency ng-star-inserted\"]");
     By mainAccountBalance = By.xpath("//div[@class=\"card__content--top--left ng-star-inserted\"]");
     By currentBalanceLastRecharge = By.xpath("//span[@class=\"label-color\"]/span[@class=\"currency ng-star-inserted\"]");
