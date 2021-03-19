@@ -19,26 +19,22 @@ import java.util.NoSuchElementException;
 
 public class SupervisorAddCommentTest extends BaseTest {
 
-    @Test(priority = 1, description = "Supervisor SKIP Login ", dataProviderClass = DataProviders.class)
-    public void agentSkipQueueLogin(Method method) {
-        ExtentTestManager.startTest("Supervisor SKIP Queue Login", "Supervisor SKIP Queue Login");
+    @Test(priority = 1, description = "Supervisor Dashboard Login ")
+    public void openSupervisorDashboard(Method method) {
+        ExtentTestManager.startTest("Open Supervisor Dashboard", "Open Supervisor Dashboard");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SideMenuPOM sideMenu = new SideMenuPOM(driver);
+        sideMenu.waitTillLoaderGetsRemoved();
         sideMenu.clickOnSideMenu();
         sideMenu.clickOnName();
         agentLoginPagePOM AgentLoginPagePOM = sideMenu.openSupervisorDashboard();
         SoftAssert softAssert = new SoftAssert();
         AgentLoginPagePOM.waitTillLoaderGetsRemoved();
-        softAssert.assertTrue(AgentLoginPagePOM.isQueueLoginPage(), "Agent redirect to Queue Login Page");
-        softAssert.assertTrue(AgentLoginPagePOM.checkSkipButton(), "Checking Queue Login Page have SKIP button");
-        softAssert.assertTrue(AgentLoginPagePOM.checkSubmitButton(), "Checking Queue Login Page have Submit button");
-        AgentLoginPagePOM.clickSkipBtn();
-        AgentLoginPagePOM.waitTillLoaderGetsRemoved();
         Assert.assertEquals(driver.getTitle(), config.getProperty("supervisorTicketListPage"));
         softAssert.assertAll();
     }
 
-    @Test(priority = 2, dependsOnMethods = "agentSkipQueueLogin", description = "Supervisor Add Comment on Ticket")
+    @Test(priority = 2, dependsOnMethods = "openSupervisorDashboard", description = "Supervisor Add Comment on Ticket")
     public void addCommentOnTicket(Method method) throws InterruptedException {
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         ViewTicketPagePOM viewTicket = new ViewTicketPagePOM(driver);

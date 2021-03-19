@@ -526,6 +526,27 @@ public class DataProviders {
         return list;
     }
 
+    //Get Voucher Id
+    public String getVoucherId(){
+        ActionTagBeanToExcel actionTagDataBeans = new ActionTagBeanToExcel();
+        File Exceldir = new File("Excels");
+        File Excel = new File(Exceldir, tests.BaseTest.Opco + ".xlsx");
+        List<ActionTagDataBeans> list =
+                actionTagDataBeans.getData(Excel.getAbsolutePath(), config.getProperty("actionTagged"));
+        for(ActionTagDataBeans s:list){
+            if(s.getActionTagName().equalsIgnoreCase("Voucher Id")){
+                if(BaseTest.Env.equalsIgnoreCase("prod")) {
+                    return s.getTestDataProd();
+                }
+                else
+                {
+                    return s.getTestDataUAT();
+                }
+            }
+        }
+        return null;
+    }
+
     public List<String> issueDetailReason(String actionTagName) {
         ActionTagBeanToExcel actionTagDataBeans = new ActionTagBeanToExcel();
         File Exceldir = new File("Excels");

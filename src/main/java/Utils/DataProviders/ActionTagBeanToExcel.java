@@ -74,6 +74,12 @@ public class ActionTagBeanToExcel {
                             case 6:
                                 actionTagDataBeans.setCode(cellValue);
                                 break;
+                            case 7:
+                                actionTagDataBeans.setTestDataUAT(cellValue);
+                                break;
+                            case 8:
+                                actionTagDataBeans.setTestDataProd(cellValue);
+                                break;
 
                         }
                     }

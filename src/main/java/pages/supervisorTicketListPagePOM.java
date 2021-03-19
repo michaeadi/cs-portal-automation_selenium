@@ -72,6 +72,7 @@ public class supervisorTicketListPagePOM extends BasePage {
     By transferErrorMessage=By.xpath("//div[@class=\"transferQueueError bk-light-red ng-star-inserted\"]//span");
     By cancelBtn=By.xpath("//span[contains(text(),'Cancel')]");
     By transferAnywayBtn=By.xpath("//span[contains(text(),'Transfer Anyway')]");
+    By notAssigned=By.xpath("//div[@class='service-request']//div[1]//div[1]//div[2]//div[2]//p[1]/span[contains(text(),'Not Assigned')]");
 
     public supervisorTicketListPagePOM(WebDriver driver) {
         super(driver);
@@ -405,6 +406,11 @@ public class supervisorTicketListPagePOM extends BasePage {
             e.printStackTrace();
             return "Not Assigned";
         }
+    }
+
+    public Boolean isNotAssigneeDisplay(){
+        printInfoLog("Checking Is not assigned displayed");
+        return checkState(notAssigned);
     }
 
     public boolean isNegativeSLA() {

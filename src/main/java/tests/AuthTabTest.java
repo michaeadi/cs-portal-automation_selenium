@@ -46,24 +46,33 @@ public class AuthTabTest extends BaseTest {
         Thread.sleep(5000);
         DataProviders data = new DataProviders();
         authTab.waitTillLoaderGetsRemoved();
-        Assert.assertTrue(authTab.isAuthTabLoad(), "Authentication tab does not load correctly");
-        Map<String, String> questionList = authTab.getQuestionAnswer();
-        List<AuthTabDataBeans> list = data.getPolicy();
-        List<String> questions = data.getPolicyQuestion();
-        softAssert.assertEquals(authTab.getAuthInstruction().toLowerCase().trim(), list.get(0).getPolicyMessage().toLowerCase().trim(), "Policy Message not same as configured");
-        for (String s : questions) {
-            String trim = s.replaceAll("[^a-zA-Z]+", "").toLowerCase().trim();
-            if (!questionList.containsKey(trim)) {
-                softAssert.assertTrue(false, s + " :Question must configured on UI as present in config sheet");
+        try {
+            Assert.assertTrue(authTab.isAuthTabLoad(), "Authentication tab does not load correctly");
+            Map<String, String> questionList = authTab.getQuestionAnswer();
+            List<AuthTabDataBeans> list = data.getPolicy();
+            List<String> questions = data.getPolicyQuestion();
+            softAssert.assertEquals(authTab.getAuthInstruction().toLowerCase().trim(), list.get(0).getPolicyMessage().toLowerCase().trim(), "Policy Message not same as configured");
+            for (String s : questions) {
+                String trim = s.replaceAll("[^a-zA-Z]+", "").toLowerCase().trim();
+                if (!questionList.containsKey(trim)) {
+                    softAssert.assertTrue(false, s + " :Question must configured on UI as present in config sheet");
+                }
+                questionList.remove(trim);
             }
-            questionList.remove(trim);
-        }
-        if (questionList.isEmpty()) {
-            ExtentTestManager.getTest().log(LogStatus.PASS, "All Questions correctly configured and display on UI.");
-        } else {
-            for (Map.Entry<String, String> mapElement : questionList.entrySet()) {
-                ExtentTestManager.getTest().log(LogStatus.FAIL, mapElement.getKey() + " Question Display on UI but does not present in config sheet.");
-                softAssert.fail(mapElement.getKey() + " :Question Display on UI but does not present in config sheet.");
+            if (questionList.isEmpty()) {
+                ExtentTestManager.getTest().log(LogStatus.PASS, "All Questions correctly configured and display on UI.");
+            } else {
+                for (Map.Entry<String, String> mapElement : questionList.entrySet()) {
+                    ExtentTestManager.getTest().log(LogStatus.FAIL, mapElement.getKey() + " Question Display on UI but does not present in config sheet.");
+                    softAssert.fail(mapElement.getKey() + " :Question Display on UI but does not present in config sheet.");
+                }
+            }
+        }catch (NoSuchElementException | TimeoutException | AssertionError e){
+            softAssert.fail("Not able to validate auth Tab");
+            try {
+                authTab.closeSIMBarPopup();
+            }catch (NoSuchElementException | TimeoutException f){
+                authTab.clickCloseBtn();
             }
         }
         softAssert.assertAll();

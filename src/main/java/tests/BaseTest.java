@@ -29,6 +29,7 @@ public class BaseTest {
     public static String baseUrl;
     public static String suiteType;
     public static boolean continueExecution=true;
+    public static boolean continueExecutionBA=true;
 
     public WebDriver getDriver() {
         return driver;

@@ -62,7 +62,7 @@ public class AssignToAgentTicketTest extends BaseTest {
         String ticketId = ticketListPage.getTicketIdvalue();
         TicketPOJO ticketAPI=api.ticketMetaDataTest(ticketId);
         if(ticketAPI.getResult().getAssignee()==null){
-            softAssert.assertEquals(ticketListPage.getAssigneeName(),"Not Assigned","Not Assigned does not display correctly");
+            softAssert.assertTrue(ticketListPage.isNotAssigneeDisplay(),"Not Assigned does not display correctly");
         }else {
             softAssert.assertEquals(ticketListPage.getAssigneeName().toLowerCase().trim(), ticketAPI.getResult().getAssignee().toLowerCase().trim(), "Assignee pan does not display on UI Correctly.");
         }

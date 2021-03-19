@@ -31,6 +31,7 @@ public class PinTagTest extends BaseTest {
         customerInteractionsSearchPOM.enterNumber(Data.getCustomerNumber());
         customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
         softAssert.assertTrue(customerInteractionPagePOM.isPageLoaded());
+        customerInteractionPagePOM.waitTillLoaderGetsRemoved();
         softAssert.assertAll();
     }
 

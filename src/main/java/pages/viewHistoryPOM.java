@@ -68,7 +68,7 @@ public class viewHistoryPOM extends BasePage {
 
 
     public void clickTicketIcon(int index) {
-        By element = By.xpath("//table[@id=\"fetchInteractionByCustomer\"]//tbody//tr[" + index + "]//td[8]//span[1]//span[1]");
+        By element = By.xpath("//table[@id=\"fetchInteractionByCustomer\"]//tbody//tr[" + index + "]//td[9]//span//span");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on ticket icon");
         click(element);
     }

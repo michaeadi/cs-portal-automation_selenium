@@ -15,7 +15,7 @@ public class RechargeHistoryWidgetPOM extends BasePage {
     By rechargeHistoryDatePicker = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Recharge History\")]//ancestor::div[@class='card widget ng-star-inserted']//input[@name='dateRange']");
     By rechargeHistoryHeader = By.xpath("//span[@class=\"card__card-header--label\" and text()=\"Recharge History \"]");
     By rows = By.xpath("//div[@class=\"card__card-header\"]/span[contains(text(),\"Recharge\")]//parent::div//following-sibling::div[@class=\"card__content restricted ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]//div[@class=\"card__card-header--card-body--table--data-list row-border\"]");
-    List<WebElement> as = returnListOfElement(rows);
+    List<WebElement> as;
     By menu = By.xpath("//span[contains(text(),\"Recharge History\")]//ancestor::div[1]//span/img[@class='header-action-icon ng-star-inserted']");
     By more = By.xpath("//button[text()=\"Recharge History\"]");
     By rechargeHistoryNoResultFound = By.xpath("//span[contains(text(),\"Recharge History\")]/ancestor::div[@class=\"card widget ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]/img");
@@ -68,6 +68,7 @@ public class RechargeHistoryWidgetPOM extends BasePage {
 
 
     public int getNumberOfRows() {
+        as = returnListOfElement(rows);
         return as.size();
     }
 

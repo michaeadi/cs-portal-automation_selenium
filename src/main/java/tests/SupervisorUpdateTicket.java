@@ -148,8 +148,8 @@ public class SupervisorUpdateTicket extends BaseTest {
     public void openCustomerInteraction(Method method, TestDatabean Data) throws IOException {
         ExtentTestManager.startTest("Validating the Search forCustomer Interactions :" + Data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + Data.getCustomerNumber());
         SoftAssert softAssert = new SoftAssert();
-        if(ticketId==null) {
-            SideMenuPOM SideMenuPOM = new SideMenuPOM(driver);
+        SideMenuPOM SideMenuPOM = new SideMenuPOM(driver);
+        if(ticketId!=null) {
             SideMenuPOM.clickOnSideMenu();
             SideMenuPOM.clickOnName();
             customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
@@ -157,7 +157,7 @@ public class SupervisorUpdateTicket extends BaseTest {
             customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
             softAssert.assertTrue(customerInteractionPagePOM.isPageLoaded());
         }else{
-            softAssert.fail("No Ticket Id Closed. SKIP Validate Re-open Icon on Closed Ticket");
+            SideMenuPOM.printWarningLog("No Ticket Id Closed. SKIP Validate Re-open Icon on Closed Ticket");
         }
         softAssert.assertAll();
     }

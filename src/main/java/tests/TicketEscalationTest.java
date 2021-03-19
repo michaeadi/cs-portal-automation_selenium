@@ -15,26 +15,22 @@ import java.lang.reflect.Method;
 
 public class TicketEscalationTest extends BaseTest {
 
-    @Test(priority = 1, description = "Supervisor SKIP Login ")
-    public void agentSkipQueueLogin(Method method) {
-        ExtentTestManager.startTest("Supervisor SKIP Queue Login Test", "Supervisor SKIP Queue Login Test");
+    @Test(priority = 1, description = "Supervisor Dashboard Login ")
+    public void openSupervisorDashboard(Method method) {
+        ExtentTestManager.startTest("Open Supervisor Dashboard", "Open Supervisor Dashboard");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SideMenuPOM sideMenu = new SideMenuPOM(driver);
+        sideMenu.waitTillLoaderGetsRemoved();
         sideMenu.clickOnSideMenu();
         sideMenu.clickOnName();
         agentLoginPagePOM AgentLoginPagePOM = sideMenu.openSupervisorDashboard();
         SoftAssert softAssert = new SoftAssert();
         AgentLoginPagePOM.waitTillLoaderGetsRemoved();
-        softAssert.assertTrue(AgentLoginPagePOM.isQueueLoginPage(), "Agent redirect to Queue Login Page");
-        softAssert.assertTrue(AgentLoginPagePOM.checkSkipButton(), "Checking Queue Login Page have SKIP button");
-        softAssert.assertTrue(AgentLoginPagePOM.checkSubmitButton(), "Checking Queue Login Page have Submit button");
-        AgentLoginPagePOM.clickSkipBtn();
-        AgentLoginPagePOM.waitTillLoaderGetsRemoved();
         Assert.assertEquals(driver.getTitle(), config.getProperty("supervisorTicketListPage"));
         softAssert.assertAll();
     }
 
-    @Test(priority = 2, dependsOnMethods = "agentSkipQueueLogin", description = "Validate Ticket Escalation Symbol", dataProviderClass = DataProviders.class)
+    @Test(priority = 2, dependsOnMethods = "openSupervisorDashboard", description = "Validate Ticket Escalation Symbol", dataProviderClass = DataProviders.class)
     public void ticketEscalation(Method method) throws InterruptedException {
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         assignToAgentPOM assignTicket = new assignToAgentPOM(driver);
@@ -77,7 +73,7 @@ public class TicketEscalationTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 3, dependsOnMethods = "agentSkipQueueLogin", description = "Validate the Escalation of Ticket Before the SLA Expiry", dataProviderClass = DataProviders.class)
+    @Test(priority = 3, dependsOnMethods = "openSupervisorDashboard", description = "Validate the Escalation of Ticket Before the SLA Expiry", dataProviderClass = DataProviders.class)
     public void ticketEscalationBeforeSLA(Method method) throws InterruptedException {
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         assignToAgentPOM assignTicket = new assignToAgentPOM(driver);
@@ -116,7 +112,7 @@ public class TicketEscalationTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 4, dependsOnMethods = "agentSkipQueueLogin", description = "Validate the Escalation of Ticket after SLA Expiry", dataProviderClass = DataProviders.class)
+    @Test(priority = 4, dependsOnMethods = "openSupervisorDashboard", description = "Validate the Escalation of Ticket after SLA Expiry", dataProviderClass = DataProviders.class)
     public void ticketEscalationAfterSLA(Method method) throws InterruptedException {
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         assignToAgentPOM assignTicket = new assignToAgentPOM(driver);
@@ -155,7 +151,7 @@ public class TicketEscalationTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 5, dependsOnMethods = "agentSkipQueueLogin", description = "Validate the Escalation of Ticket on SLA Expiry", dataProviderClass = DataProviders.class)
+    @Test(priority = 5, dependsOnMethods = "openSupervisorDashboard", description = "Validate the Escalation of Ticket on SLA Expiry", dataProviderClass = DataProviders.class)
     public void ticketEscalationOnSLA(Method method) throws InterruptedException {
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         assignToAgentPOM assignTicket = new assignToAgentPOM(driver);

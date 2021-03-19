@@ -6,6 +6,8 @@ import Utils.ExtentReports.ExtentTestManager;
 import Utils.PassUtils;
 import com.relevantcodes.extentreports.LogStatus;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.SideMenuPOM;
@@ -16,6 +18,15 @@ import pages.supervisorTicketListPagePOM;
 import java.lang.reflect.Method;
 
 public class BackendAgentLoginTest extends BaseTest {
+
+    @BeforeMethod
+    public void checkExecution(){
+        SoftAssert softAssert=new SoftAssert();
+        if(!continueExecutionBA){
+           softAssert.fail("Terminate Execution as user not able to login into portal or Role does not assign to user. Please do needful.");
+        }
+        softAssert.assertAll();
+    }
     @DataProviders.User(UserType = "BA")
     @Test(priority = 1, description = "Logging IN ", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void LoggingIN(Method method, TestDatabean Data) {
@@ -32,10 +43,21 @@ public class BackendAgentLoginTest extends BaseTest {
         loginPagePOM.clickOnVisibleButton();
         loginPagePOM.clickOnVisibleButton();
         loginPagePOM.clickOnLogin();
+        SideMenuPOM sideMenu = new SideMenuPOM(driver);
+        sideMenu.waitTillLoaderGetsRemoved();
+        softAssert.assertTrue(sideMenu.isSideMenuVisible());
+        sideMenu.clickOnSideMenu();
+        if(!sideMenu.isAgentDashboard()){
+            continueExecutionBA=false;
+            softAssert.fail("Agent Dashboard does not Assign to User Visible.Please Assign Role to user.");
+        }else {
+            continueExecutionBA=true;
+        }
+        sideMenu.clickOnSideMenu();
         softAssert.assertAll();
     }
 
-    @Test(priority = 2, description = "Backend Agent Queue Login Page",dependsOnMethods = "LoggingIN")
+    @Test(priority = 2, description = "Backend Agent Login into Queue", dependsOnMethods = "LoggingIN")
     public void agentQueueLogin(Method method) {
         ExtentTestManager.startTest("Backend Agent Login into Queue", "Backend Agent Login into Queue");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
@@ -76,7 +98,7 @@ public class BackendAgentLoginTest extends BaseTest {
         softAssert.assertTrue(ticketListPage.isSubTypeLabel(), "Ticket Meta Data Does Not Have Issue Sub Type");
         softAssert.assertTrue(ticketListPage.isSubSubTypeLabel(), "Ticket Meta Data Does Not Have Issue Sub Sub Type");
         softAssert.assertTrue(ticketListPage.isCodeLabel(), "Ticket Meta Data Does Not Have Code");
-        softAssert.assertFalse(ticketListPage.getMSISDN().isEmpty(),"MSISDN Can not be empty");
+        softAssert.assertFalse(ticketListPage.getMSISDN().isEmpty(), "MSISDN Can not be empty");
         softAssert.assertAll();
     }
 }

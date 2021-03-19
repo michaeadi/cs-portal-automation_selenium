@@ -67,9 +67,9 @@ public class SupervisorGlobalSearchTest extends BaseTest {
     }
 
     @DataProviders.User(UserType = "NFTR")
-    @Test(priority = 4,description = "Verify Global Search By MSISDN(Customer Service)",dataProvider = "loginData", dataProviderClass = DataProviders.class)
-    public void globalSearchTestByMSISDN(TestDatabean data){
-        ExtentTestManager.startTest("Verify Global Search By MSISDN(Customer Service)", "Verify Global Search By MSISDN(Customer Service)");
+    @Test(priority = 4,description = "Verify Global Search By Global Search Option",dataProvider = "loginData", dataProviderClass = DataProviders.class)
+    public void globalSearchTestBy(TestDatabean data){
+        ExtentTestManager.startTest("Verify Global Search By Global Search Option", "Verify Global Search By Global Search Option");
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         SoftAssert softAssert = new SoftAssert();
         ticketListPage.waitTillLoaderGetsRemoved();
@@ -82,7 +82,7 @@ public class SupervisorGlobalSearchTest extends BaseTest {
             ticketListPage.waitTillLoaderGetsRemoved();
             softAssert.assertEquals(ticketListPage.getMSISDN(), msisdn, "Ticket does not found By searched MSISDN.");
         }catch (NoSuchElementException | TimeoutException e){
-            softAssert.fail("Not able to validate Global search by msisdn.");
+            softAssert.fail("Not able to validate Global search by Global Search Option.");
         }
         ticketListPage.clearInputBox();
         softAssert.assertAll();

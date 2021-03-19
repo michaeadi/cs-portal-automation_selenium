@@ -13,4 +13,6 @@ public class ActionTagDataBeans {
     private String option4;
     private String option5;
     private String code;
+    private String testDataUAT;
+    private String testDataProd;
 }

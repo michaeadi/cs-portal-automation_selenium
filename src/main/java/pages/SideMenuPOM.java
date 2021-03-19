@@ -175,6 +175,12 @@ public class SideMenuPOM extends BasePage {
         return new agentLoginPagePOM(driver);
     }
 
+    public Boolean isAgentDashboard(){
+        printWarningLog("Checking Agent Dashboard Visible or not");
+        hoverAndClick(customerServices);
+        return checkState(agentDashboard);
+    }
+
     public TicketBulkUpdatePOM openTicketBulkUpdateDashboard() {
         log.info("Opening Ticket Bulk Update Dashboard Page");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening Ticket Bulk Update Dashboard Page");
