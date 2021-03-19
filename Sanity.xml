@@ -24,15 +24,6 @@
             <class name="tests.sideMenuTests"/>
         </classes>
     </test>
-    <test name="Validate Authentication tab">
-        <classes>
-            <class name="tests.AuthTabTest">
-                <methods>
-                    <exclude name="validateResetME2UPassword"/>
-                </methods>
-            </class>
-        </classes>
-    </test>
     <test name="Customer Interactions TEST" preserve-order="true">
         <classes>
             <class name="tests.customerInteractionTest"/>
