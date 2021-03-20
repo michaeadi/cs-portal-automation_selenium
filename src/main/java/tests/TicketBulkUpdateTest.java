@@ -1,6 +1,5 @@
 package tests;
 
-import POJO.TicketList.Interactions;
 import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.TicketStateDataBean;
 import Utils.ExtentReports.ExtentTestManager;
@@ -47,6 +46,11 @@ public class TicketBulkUpdateTest extends BaseTest {
             filterTab.waitTillLoaderGetsRemoved();
             filterTab.clickLast30DaysFilter();
             filterTab.clickApplyFilter();
+            try {
+                ticketBulkUpdatePOM.getToastMessage();
+            } catch (NoSuchElementException | TimeoutException e) {
+                //continue
+            }
             ticketBulkUpdatePOM.waitTillLoaderGetsRemoved();
             try {
                 softAssert.assertEquals(ticketBulkUpdatePOM.getMaxSelectMessage().replaceAll("[^0-9]+", "").trim(), config.getProperty("maxBulkTicket"), "Max Ticket bulk update message not displayed");
@@ -55,6 +59,7 @@ public class TicketBulkUpdateTest extends BaseTest {
             }
             ticketBulkUpdatePOM.clickClearFilter();
         } catch (NoSuchElementException | TimeoutException e) {
+            ticketBulkUpdatePOM.clickCloseFilter();
             softAssert.fail("Not able to apply filter: " + e.fillInStackTrace());
         }
         ticketBulkUpdatePOM.waitTillLoaderGetsRemoved();
@@ -145,7 +150,7 @@ public class TicketBulkUpdateTest extends BaseTest {
         TicketBulkUpdatePOM ticketBulkUpdatePOM = new TicketBulkUpdatePOM(driver);
         DataProviders data = new DataProviders();
         SoftAssert softAssert = new SoftAssert();
-        Integer size=null;
+        Integer size = null;
         ticketBulkUpdatePOM.waitTillLoaderGetsRemoved();
         ticketBulkUpdatePOM.clickAddCommentOption();
         ticketBulkUpdatePOM.addComment("Adding Comment using Automation for Bulk Update option test. Please Ignore this comment");
@@ -157,8 +162,8 @@ public class TicketBulkUpdateTest extends BaseTest {
         softAssert.assertEquals(ticketBulkUpdatePOM.getErrorTicketCount(), ticketBulkUpdatePOM.getErrorCount(), "Error Ticket count does not displayed correctly");
         try {
             size = Integer.parseInt(String.valueOf(ticketBulkUpdatePOM.getUpdatedMessage().trim().charAt(0))) - ticketBulkUpdatePOM.getErrorTicketCount();
-        }catch (NumberFormatException e){
-            softAssert.fail("Not able to read message properly "+e.fillInStackTrace());
+        } catch (NumberFormatException e) {
+            softAssert.fail("Not able to read message properly " + e.fillInStackTrace());
         }
         softAssert.assertEquals(ticketBulkUpdatePOM.getSuccessCount(), String.valueOf(size), "Action Performed does not on ticket");
         softAssert.assertAll();

@@ -37,6 +37,7 @@ public class TicketBulkUpdatePOM extends BasePage {
     By successTicketId=By.xpath("class=\"id-section successful\"");
     By errorTicketId=By.xpath("//li[@class=\"id-section error-bg\"]//span[2]");
     By errorTicketMessage=By.xpath("//div[@class=\"bar-status\"]//span");
+    By closeFilter = By.xpath("//span[@class='close-button']");
 
     public TicketBulkUpdatePOM(WebDriver driver) {
         super(driver);
@@ -45,6 +46,10 @@ public class TicketBulkUpdatePOM extends BasePage {
     public boolean isTicketBulkUpdate() {
         printInfoLog("Checking Ticket Bulk Update page opened" + checkState(pageTitle));
         return checkState(pageTitle);
+    }
+    public void clickCloseFilter() {
+        printInfoLog("Closing Filter Tab");
+        click(closeFilter);
     }
 
     public boolean isSelectFilter(){

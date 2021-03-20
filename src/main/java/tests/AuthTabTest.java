@@ -10,10 +10,7 @@ import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pages.AuthenticationTabPOM;
-import pages.SideMenuPOM;
-import pages.customerInteractionPagePOM;
-import pages.customerInteractionsSearchPOM;
+import pages.*;
 
 import java.util.List;
 import java.util.Map;
@@ -40,12 +37,14 @@ public class AuthTabTest extends BaseTest {
         ExtentTestManager.startTest("Verify the Authentication tab", "Verify the Authentication tab");
         SoftAssert softAssert = new SoftAssert();
         customerInteractionPagePOM homepage = new customerInteractionPagePOM(driver);
+        CustomerDemoGraphicPOM demographic = new CustomerDemoGraphicPOM(driver);
         homepage.waitTillLoaderGetsRemoved();
-        homepage.clickOnAction();
-        AuthenticationTabPOM authTab = homepage.openAuthTab();
-        Thread.sleep(5000);
+        if (demographic.isPUKInfoLock()) {
+            demographic.clickPUKToUnlock();
+        }
+        AuthenticationTabPOM authTab = new AuthenticationTabPOM(driver);
+        Thread.sleep(15000);
         DataProviders data = new DataProviders();
-        authTab.waitTillLoaderGetsRemoved();
         try {
             Assert.assertTrue(authTab.isAuthTabLoad(), "Authentication tab does not load correctly");
             Map<String, String> questionList = authTab.getQuestionAnswer();
@@ -106,9 +105,10 @@ public class AuthTabTest extends BaseTest {
         AuthenticationTabPOM authTab = new AuthenticationTabPOM(driver);
         DataProviders data = new DataProviders();
         authTab.waitTillLoaderGetsRemoved();
-        Assert.assertTrue(authTab.isAuthTabLoad(), "Authentication tab does not load correctly");
-        authTab.clickAuthBtn();
-        authTab.waitTillLoaderGetsRemoved();
+        if(authTab.isAuthTabLoad()){
+            authTab.clickAuthBtn();
+            authTab.waitTillLoaderGetsRemoved();
+        }
         try {
         Assert.assertTrue(authTab.isSIMBarPopup(), "SIM Bar/unbar popup does not open");
         softAssert.assertTrue(authTab.isIssueDetailTitle(), "Issue Detail does not configured");
@@ -146,6 +146,8 @@ public class AuthTabTest extends BaseTest {
         try {
             homepage.clickOnAction();
             homepage.clickSendSetting();
+            homepage.waitTillLoaderGetsRemoved();
+            homepage.waitTillLoaderGetsRemoved();
             try {
                 softAssert.assertTrue(homepage.isSendInternetSettingTitle(), "Send Internet Setting Tab Does not open after internet setting.");
                 homepage.clickNoBtn();

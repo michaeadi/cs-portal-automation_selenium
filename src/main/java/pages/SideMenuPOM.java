@@ -176,7 +176,7 @@ public class SideMenuPOM extends BasePage {
     }
 
     public Boolean isAgentDashboard(){
-        printWarningLog("Checking Agent Dashboard Visible or not");
+        printInfoLog("Checking Agent Dashboard Visible or not");
         hoverAndClick(customerServices);
         return checkState(agentDashboard);
     }

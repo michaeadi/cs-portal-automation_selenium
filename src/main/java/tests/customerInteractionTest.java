@@ -641,7 +641,7 @@ public class customerInteractionTest extends BaseTest {
     @User(UserType = "API")
     @Test(priority = 6, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteractionAPI(TestDatabean Data) {
-        ExtentTestManager.startTest("Validating the Search forCustomer Interactions :" + Data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + Data.getCustomerNumber());
+        ExtentTestManager.startTest("Validating the Search for Customer Interactions for Widget :" + Data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + Data.getCustomerNumber());
         SoftAssert softAssert = new SoftAssert();
         SideMenuPOM SideMenuPOM = new SideMenuPOM(driver);
         SideMenuPOM.clickOnSideMenu();
@@ -656,7 +656,7 @@ public class customerInteractionTest extends BaseTest {
         customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
         softAssert.assertTrue(customerInteractionPagePOM.isPageLoaded());
         if (!customerInteractionPagePOM.isPageLoaded()) {
-            softAssert.fail("Customer Info Dashboard Page does not open using SIM Number.");
+            softAssert.fail("Customer Info Dashboard Page does not open using MSISDN Number.");
             customerInteractionsSearchPOM.clearCustomerNumber();
         }
         softAssert.assertAll();
@@ -704,7 +704,7 @@ public class customerInteractionTest extends BaseTest {
     }
 
     //Needs Discussion
-    @Test(priority = 8, description = "Validating Current Balance Widget")
+    @Test(priority = 8, description = "Validating Current Balance Widget",dependsOnMethods = "openCustomerInteractionAPI")
     public void yourCurrentBalanceWidgetTest() {
         ExtentTestManager.startTest("Validating Current Balance Transaction Widget", "Validating Current Balance Transaction Widget of User :" + customerNumber);
         CurrentBalanceWidgetPOM currentBalanceWidget = new CurrentBalanceWidgetPOM(driver);

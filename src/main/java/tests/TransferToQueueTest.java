@@ -95,6 +95,7 @@ public class TransferToQueueTest extends BaseTest {
                     }
                 } else {
                     ticketListPage.clickCancelBtn();
+                    softAssert.fail("Transfer to queue does not Perform as both queue belong to same workgroup.");
                 }
             }
         } catch (InterruptedException | NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {

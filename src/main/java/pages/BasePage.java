@@ -32,6 +32,7 @@ public class BasePage {
     By overlay = By.xpath("//mat-dialog-container[@role='dialog']");
     By timeLine = By.xpath("//app-new-loader[@class=\"ng-star-inserted\"]//div[1]");
     By home = By.xpath("//*[text()=\"HOME\"]");
+    By toastMessage=By.xpath("//app-toast-component/p");
     JavascriptExecutor js;
 
     //Constructor
@@ -166,6 +167,12 @@ public class BasePage {
         click(home);
         waitTillLoaderGetsRemoved();
         return new customerInteractionPagePOM(driver);
+    }
+
+    public String getToastMessage(){
+        String message=readText(toastMessage);
+        printInfoLog(message);
+        return message;
     }
 
     public String getDateFromEpoch(long Epoch, String pattern) {

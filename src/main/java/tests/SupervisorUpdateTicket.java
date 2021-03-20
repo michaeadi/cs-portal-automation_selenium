@@ -164,9 +164,10 @@ public class SupervisorUpdateTicket extends BaseTest {
 
     @Test(priority = 4, dependsOnMethods = "openCustomerInteraction", description = "Validate Re-open Icon on Closed Ticket")
     public void validateReopenIcon() throws InterruptedException, IOException {
-        ExtentTestManager.startTest("Validate Re-open Icon on Closed Ticket: " + ticketId, "Validate Re-open Icon on Closed Ticket: " + ticketId);
         SoftAssert softAssert = new SoftAssert();
         customerInteractionPagePOM customerInteractionPage = new customerInteractionPagePOM(driver);
+        if(ticketId!=null) {
+        ExtentTestManager.startTest("Validate Re-open Icon on Closed Ticket: " + ticketId, "Validate Re-open Icon on Closed Ticket: " + ticketId);
         viewHistoryPOM viewHistory = customerInteractionPage.clickOnViewHistory();
         FrontendTicketHistory ticketHistory = viewHistory.clickOnTicketHistory();
         ticketHistory.waitTillLoaderGetsRemoved();
@@ -177,6 +178,9 @@ public class SupervisorUpdateTicket extends BaseTest {
         softAssert.assertEquals(ticketHistory.getTicketId(1), ticketId, "Ticket Id does not same as search ticket id.");
         ticketHistory.getTicketState(1);
         softAssert.assertTrue(ticketHistory.checkReopen(1), "Reopen icon does not found on ticket");
+        }else{
+            customerInteractionPage.printWarningLog("No Ticket Id Closed. SKIP Validate Re-open Icon on Closed Ticket");
+        }
         softAssert.assertAll();
     }
 }

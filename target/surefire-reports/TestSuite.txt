@@ -1,4 +1,545 @@
 -------------------------------------------------------------------------------
 Test set: TestSuite
 -------------------------------------------------------------------------------
-Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 377.673 s - in TestSuite
+Tests run: 129, Failures: 44, Errors: 0, Skipped: 33, Time elapsed: 1,907.971 s <<< FAILURE! - in TestSuite
+validateAuthTab(tests.AuthTabTest)  Time elapsed: 48.51 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	Not able to validate auth Tab
+	at tests.AuthTabTest.validateAuthTab(AuthTabTest.java:78)
+
+validateAuthTabMinQuestion(tests.AuthTabTest)  Time elapsed: 26.813 s  <<< FAILURE!
+java.lang.AssertionError: Authentication tab does not load correctly did not expect to find [true] but found [false]
+	at tests.AuthTabTest.validateAuthTabMinQuestion(AuthTabTest.java:88)
+
+validateSendInternetSetting(tests.AuthTabTest)  Time elapsed: 13.48 s  <<< FAILURE!
+org.openqa.selenium.ElementClickInterceptedException: 
+element click intercepted: Element <button _ngcontent-jxq-c57="" class="no-btn" style="border: 2px solid black;">...</button> is not clickable at point (1274, 631). Other element would receive the click: <div _ngcontent-jxq-c1="" class="ngx-overlay loading-foreground" style="background-color: rgba(40, 40, 40, 0.8); border-radius: 0px;">...</div>
+  (Session info: headless chrome=89.0.4389.90)
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:52187}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 9bddb60362793b98befcaaba70e29dcd
+	at tests.AuthTabTest.validateSendInternetSetting(AuthTabTest.java:151)
+
+openCustomerInteraction(tests.customerInteractionTest)  Time elapsed: 12.479 s  <<< FAILURE!
+org.openqa.selenium.ElementClickInterceptedException: 
+element click intercepted: Element <button _ngcontent-jxq-c14="" mat-icon-button="" class="mat-icon-button ng-tns-c14-4" style="border: 2px solid black;">...</button> is not clickable at point (30, 34). Other element would receive the click: <div _ngcontent-jxq-c1="" class="ngx-overlay loading-foreground" style="background-color: rgba(40, 40, 40, 0.8); border-radius: 0px;">...</div>
+  (Session info: headless chrome=89.0.4389.90)
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:52187}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 9bddb60362793b98befcaaba70e29dcd
+	at tests.customerInteractionTest.openCustomerInteraction(customerInteractionTest.java:45)
+
+openCustomerInteractionBySIM(tests.customerInteractionTest)  Time elapsed: 22.898 s  <<< FAILURE!
+org.openqa.selenium.ElementClickInterceptedException: 
+element click intercepted: Element <button _ngcontent-jxq-c14="" mat-icon-button="" class="mat-icon-button ng-tns-c14-4" style="border: 2px solid black;">...</button> is not clickable at point (30, 34). Other element would receive the click: <div class="cdk-overlay-backdrop cdk-overlay-dark-backdrop cdk-overlay-backdrop-showing"></div>
+  (Session info: headless chrome=89.0.4389.90)
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:52187}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 9bddb60362793b98befcaaba70e29dcd
+	at tests.customerInteractionTest.openCustomerInteractionBySIM(customerInteractionTest.java:349)
+
+openCustomerInteractionAPI(tests.customerInteractionTest)  Time elapsed: 12.511 s  <<< FAILURE!
+org.openqa.selenium.ElementClickInterceptedException: 
+element click intercepted: Element <button _ngcontent-jxq-c14="" mat-icon-button="" class="mat-icon-button ng-tns-c14-4" style="border: 2px solid black;">...</button> is not clickable at point (30, 34). Other element would receive the click: <div class="cdk-overlay-backdrop cdk-overlay-dark-backdrop cdk-overlay-backdrop-showing"></div>
+  (Session info: headless chrome=89.0.4389.90)
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:52187}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 9bddb60362793b98befcaaba70e29dcd
+	at tests.customerInteractionTest.openCustomerInteractionAPI(customerInteractionTest.java:647)
+
+openCustomerInteractionAPI(tests.widgetsOptionsTest)  Time elapsed: 12.565 s  <<< FAILURE!
+org.openqa.selenium.ElementClickInterceptedException: 
+element click intercepted: Element <button _ngcontent-jxq-c14="" mat-icon-button="" class="mat-icon-button ng-tns-c14-4" style="border: 2px solid black;">...</button> is not clickable at point (30, 34). Other element would receive the click: <div class="cdk-overlay-backdrop cdk-overlay-dark-backdrop cdk-overlay-backdrop-showing"></div>
+  (Session info: headless chrome=89.0.4389.90)
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:52187}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 9bddb60362793b98befcaaba70e29dcd
+	at tests.widgetsOptionsTest.openCustomerInteractionAPI(widgetsOptionsTest.java:33)
+
+openCustomerInteraction(tests.CRBTWidgetTest)  Time elapsed: 12.433 s  <<< FAILURE!
+org.openqa.selenium.ElementClickInterceptedException: 
+element click intercepted: Element <button _ngcontent-jxq-c14="" mat-icon-button="" class="mat-icon-button ng-tns-c14-4" style="border: 2px solid black;">...</button> is not clickable at point (30, 34). Other element would receive the click: <div class="cdk-overlay-backdrop cdk-overlay-dark-backdrop cdk-overlay-backdrop-showing"></div>
+  (Session info: headless chrome=89.0.4389.90)
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:52187}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 9bddb60362793b98befcaaba70e29dcd
+	at tests.CRBTWidgetTest.openCustomerInteraction(CRBTWidgetTest.java:31)
+
+validateMyTuneTab(tests.CRBTWidgetTest)  Time elapsed: 43.525 s  <<< FAILURE!
+java.lang.AssertionError: CRBT Widget Does not display did not expect to find [true] but found [false]
+	at tests.CRBTWidgetTest.validateMyTuneTab(CRBTWidgetTest.java:47)
+
+openCustomerInteraction(tests.createInteractionTest)  Time elapsed: 12.545 s  <<< FAILURE!
+org.openqa.selenium.ElementClickInterceptedException: 
+element click intercepted: Element <button _ngcontent-jxq-c14="" mat-icon-button="" class="mat-icon-button ng-tns-c14-4" style="border: 2px solid black;">...</button> is not clickable at point (30, 34). Other element would receive the click: <div class="cdk-overlay-backdrop cdk-overlay-dark-backdrop cdk-overlay-backdrop-showing"></div>
+  (Session info: headless chrome=89.0.4389.90)
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:52187}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 9bddb60362793b98befcaaba70e29dcd
+	at tests.createInteractionTest.openCustomerInteraction(createInteractionTest.java:52)
+
+openCustomerInteraction(tests.PinTagTest)  Time elapsed: 12.547 s  <<< FAILURE!
+org.openqa.selenium.ElementClickInterceptedException: 
+element click intercepted: Element <button _ngcontent-jxq-c14="" mat-icon-button="" class="mat-icon-button ng-tns-c14-4" style="border: 2px solid black;">...</button> is not clickable at point (30, 34). Other element would receive the click: <div class="cdk-overlay-backdrop cdk-overlay-dark-backdrop cdk-overlay-backdrop-showing"></div>
+  (Session info: headless chrome=89.0.4389.90)
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:52187}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 9bddb60362793b98befcaaba70e29dcd
+	at tests.PinTagTest.openCustomerInteraction(PinTagTest.java:28)
+
+checkALLPinnedTag(tests.PinTagTest)  Time elapsed: 0.617 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	blank call tag should not display on UI as tagged not mention in config sheet.,
+	call drop tag does not display on UI but present in config sheet.,
+	silent call tag does not display on UI but present in config sheet.
+	at tests.PinTagTest.checkALLPinnedTag(PinTagTest.java:69)
+
+checkIssueCodeForPinTag(tests.PinTagTest)  Time elapsed: 5.114 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	Silent Call Does not display on UI
+	at tests.PinTagTest.checkIssueCodeForPinTag(PinTagTest.java:96)
+
+checkIssueCodeForPinTag(tests.PinTagTest)  Time elapsed: 5.104 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	Call Drop Does not display on UI
+	at tests.PinTagTest.checkIssueCodeForPinTag(PinTagTest.java:96)
+
+openCustomerInteraction(tests.InteractionCommentTest)  Time elapsed: 12.566 s  <<< FAILURE!
+org.openqa.selenium.ElementClickInterceptedException: 
+element click intercepted: Element <button _ngcontent-jxq-c14="" mat-icon-button="" class="mat-icon-button ng-tns-c14-4" style="border: 2px solid black;">...</button> is not clickable at point (30, 34). Other element would receive the click: <div class="cdk-overlay-backdrop cdk-overlay-dark-backdrop cdk-overlay-backdrop-showing"></div>
+  (Session info: headless chrome=89.0.4389.90)
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:52187}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 9bddb60362793b98befcaaba70e29dcd
+	at tests.InteractionCommentTest.openCustomerInteraction(InteractionCommentTest.java:31)
+
+addInteractionComment(tests.InteractionCommentTest)  Time elapsed: 12.52 s  <<< FAILURE!
+org.openqa.selenium.ElementClickInterceptedException: 
+element click intercepted: Element <div _ngcontent-jxq-c26="" class="sub-header__divide--control--tab" style="border: 2px solid black;">...</div> is not clickable at point (1432, 265). Other element would receive the click: <div class="cdk-overlay-backdrop cdk-overlay-dark-backdrop cdk-overlay-backdrop-showing"></div>
+  (Session info: headless chrome=89.0.4389.90)
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:52187}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 9bddb60362793b98befcaaba70e29dcd
+	at tests.InteractionCommentTest.addInteractionComment(InteractionCommentTest.java:47)
+
+openCustomerInteraction(tests.FrontendAgentTicketTest)  Time elapsed: 12.602 s  <<< FAILURE!
+org.openqa.selenium.ElementClickInterceptedException: 
+element click intercepted: Element <button _ngcontent-jxq-c14="" mat-icon-button="" class="mat-icon-button ng-tns-c14-4" style="border: 2px solid black;">...</button> is not clickable at point (30, 34). Other element would receive the click: <div class="cdk-overlay-backdrop cdk-overlay-dark-backdrop cdk-overlay-backdrop-showing"></div>
+  (Session info: headless chrome=89.0.4389.90)
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:52187}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 9bddb60362793b98befcaaba70e29dcd
+	at tests.FrontendAgentTicketTest.openCustomerInteraction(FrontendAgentTicketTest.java:25)
+
+validateTicket(tests.FrontendAgentTicketTest)  Time elapsed: 7.433 s  <<< FAILURE!
+org.openqa.selenium.ElementClickInterceptedException: 
+element click intercepted: Element <span _ngcontent-jxq-c26="" apphotkeys="" class="ng-star-inserted" style="border: 2px solid black;">...</span> is not clickable at point (371, 262). Other element would receive the click: <div class="cdk-overlay-backdrop cdk-overlay-dark-backdrop cdk-overlay-backdrop-showing"></div>
+  (Session info: headless chrome=89.0.4389.90)
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:52187}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 9bddb60362793b98befcaaba70e29dcd
+	at tests.FrontendAgentTicketTest.validateTicket(FrontendAgentTicketTest.java:39)
+
+validateAddToInteraction(tests.FrontendAgentTicketTest)  Time elapsed: 7.341 s  <<< FAILURE!
+org.openqa.selenium.ElementClickInterceptedException: 
+element click intercepted: Element <span _ngcontent-jxq-c26="" apphotkeys="" class="ng-star-inserted" style="border: 2px solid black;">...</span> is not clickable at point (371, 262). Other element would receive the click: <div class="cdk-overlay-backdrop cdk-overlay-dark-backdrop cdk-overlay-backdrop-showing"></div>
+  (Session info: headless chrome=89.0.4389.90)
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:52187}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 9bddb60362793b98befcaaba70e29dcd
+	at tests.FrontendAgentTicketTest.validateAddToInteraction(FrontendAgentTicketTest.java:59)
+
+validateNFTRIssue(tests.FrontendAgentTicketTest)  Time elapsed: 7.4 s  <<< FAILURE!
+org.openqa.selenium.ElementClickInterceptedException: 
+element click intercepted: Element <span _ngcontent-jxq-c26="" apphotkeys="" class="ng-star-inserted" style="border: 2px solid black;">...</span> is not clickable at point (371, 262). Other element would receive the click: <div class="cdk-overlay-backdrop cdk-overlay-dark-backdrop cdk-overlay-backdrop-showing"></div>
+  (Session info: headless chrome=89.0.4389.90)
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:52187}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 9bddb60362793b98befcaaba70e29dcd
+	at tests.FrontendAgentTicketTest.validateNFTRIssue(FrontendAgentTicketTest.java:71)
+
+openCustomerInteraction(tests.VoucherTabTest)  Time elapsed: 12.552 s  <<< FAILURE!
+org.openqa.selenium.ElementClickInterceptedException: 
+element click intercepted: Element <button _ngcontent-jxq-c14="" mat-icon-button="" class="mat-icon-button ng-tns-c14-4" style="border: 2px solid black;">...</button> is not clickable at point (30, 34). Other element would receive the click: <div class="cdk-overlay-backdrop cdk-overlay-dark-backdrop cdk-overlay-backdrop-showing"></div>
+  (Session info: headless chrome=89.0.4389.90)
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:52187}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 9bddb60362793b98befcaaba70e29dcd
+	at tests.VoucherTabTest.openCustomerInteraction(VoucherTabTest.java:81)
+
+voucherSearchTest(tests.VoucherTabTest)  Time elapsed: 0.085 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	Voucher Id does not found in config sheet. Please add voucher in sheet.
+	at tests.VoucherTabTest.voucherSearchTest(VoucherTabTest.java:130)
+
+openCustomerInteractionAPI(tests.ClearRefillErrorTest)  Time elapsed: 12.475 s  <<< FAILURE!
+org.openqa.selenium.ElementClickInterceptedException: 
+element click intercepted: Element <button _ngcontent-jxq-c14="" mat-icon-button="" class="mat-icon-button ng-tns-c14-4" style="border: 2px solid black;">...</button> is not clickable at point (30, 34). Other element would receive the click: <div class="cdk-overlay-backdrop cdk-overlay-dark-backdrop cdk-overlay-backdrop-showing"></div>
+  (Session info: headless chrome=89.0.4389.90)
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:52187}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 9bddb60362793b98befcaaba70e29dcd
+	at tests.ClearRefillErrorTest.openCustomerInteractionAPI(ClearRefillErrorTest.java:30)
+
+openCustomerInteraction(tests.LoanWidgetTest)  Time elapsed: 12.519 s  <<< FAILURE!
+org.openqa.selenium.ElementClickInterceptedException: 
+element click intercepted: Element <button _ngcontent-jxq-c14="" mat-icon-button="" class="mat-icon-button ng-tns-c14-4" style="border: 2px solid black;">...</button> is not clickable at point (30, 34). Other element would receive the click: <div class="cdk-overlay-backdrop cdk-overlay-dark-backdrop cdk-overlay-backdrop-showing"></div>
+  (Session info: headless chrome=89.0.4389.90)
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:52187}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 9bddb60362793b98befcaaba70e29dcd
+	at tests.LoanWidgetTest.openCustomerInteraction(LoanWidgetTest.java:37)
+
+openTicketBulkUpdate(tests.TicketBulkUpdateTest)  Time elapsed: 17.597 s  <<< FAILURE!
+org.openqa.selenium.ElementClickInterceptedException: 
+element click intercepted: Element <button _ngcontent-jxq-c14="" mat-icon-button="" class="mat-icon-button ng-tns-c14-4" style="border: 2px solid black;">...</button> is not clickable at point (30, 34). Other element would receive the click: <div class="cdk-overlay-backdrop cdk-overlay-dark-backdrop cdk-overlay-backdrop-showing"></div>
+  (Session info: headless chrome=89.0.4389.90)
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:52187}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 9bddb60362793b98befcaaba70e29dcd
+	at tests.TicketBulkUpdateTest.openTicketBulkUpdate(TicketBulkUpdateTest.java:29)
+
+bulkAddCommentTest(tests.TicketBulkUpdateTest)  Time elapsed: 26.85 s  <<< FAILURE!
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for element to be clickable: By.xpath: //form//div//div[3]//div[@class="label customer-checkbox"]//label (tried for 20 second(s) with 500 milliseconds interval)
+	at tests.TicketBulkUpdateTest.bulkAddCommentTest(TicketBulkUpdateTest.java:155)
+Caused by: org.openqa.selenium.NoSuchElementException: 
+no such element: Unable to locate element: {"method":"xpath","selector":"//form//div//div[3]//div[@class="label customer-checkbox"]//label"}
+  (Session info: headless chrome=89.0.4389.90)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:52187}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 9bddb60362793b98befcaaba70e29dcd
+*** Element info: {Using=xpath, value=//form//div//div[3]//div[@class="label customer-checkbox"]//label}
+	at tests.TicketBulkUpdateTest.bulkAddCommentTest(TicketBulkUpdateTest.java:155)
+
+Logout(tests.LogoutTest)  Time elapsed: 17.692 s  <<< FAILURE!
+org.openqa.selenium.ElementClickInterceptedException: 
+element click intercepted: Element <button _ngcontent-jxq-c14="" mat-icon-button="" class="mat-icon-button ng-tns-c14-4" style="border: 2px solid black;">...</button> is not clickable at point (30, 34). Other element would receive the click: <div class="cdk-overlay-backdrop cdk-overlay-dark-backdrop cdk-overlay-backdrop-showing"></div>
+  (Session info: headless chrome=89.0.4389.90)
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:52187}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 9bddb60362793b98befcaaba70e29dcd
+	at tests.LogoutTest.Logout(LogoutTest.java:22)
+
+globalSearchTestByInvalidTicket(tests.SupervisorGlobalSearchTest)  Time elapsed: 54.166 s  <<< FAILURE!
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for element to be clickable: By.xpath: //app-ticket-search-box//button (tried for 20 second(s) with 500 milliseconds interval)
+	at tests.SupervisorGlobalSearchTest.globalSearchTestByInvalidTicket(SupervisorGlobalSearchTest.java:62)
+Caused by: org.openqa.selenium.NoSuchElementException: 
+no such element: Unable to locate element: {"method":"xpath","selector":"//app-ticket-search-box//button"}
+  (Session info: headless chrome=89.0.4389.90)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:52187}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 9bddb60362793b98befcaaba70e29dcd
+*** Element info: {Using=xpath, value=//app-ticket-search-box//button}
+	at tests.SupervisorGlobalSearchTest.globalSearchTestByInvalidTicket(SupervisorGlobalSearchTest.java:62)
+
+globalSearchTestBy(tests.SupervisorGlobalSearchTest)  Time elapsed: 31.817 s  <<< FAILURE!
+org.openqa.selenium.NoSuchElementException: 
+no such element: Unable to locate element: {"method":"xpath","selector":"//input[@type='search'][1]"}
+  (Session info: headless chrome=89.0.4389.90)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:52187}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 9bddb60362793b98befcaaba70e29dcd
+*** Element info: {Using=xpath, value=//input[@type='search'][1]}
+	at tests.SupervisorGlobalSearchTest.globalSearchTestBy(SupervisorGlobalSearchTest.java:87)
+
+validateCheckBox(tests.SupervisorSearchTicket)  Time elapsed: 21.789 s  <<< FAILURE!
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for element to be clickable: By.xpath: //app-ticket-list//div[1]//div[1]//div[1]//input[@class="supercheck" or @class="supercheck ng-star-inserted"] (tried for 20 second(s) with 500 milliseconds interval)
+	at tests.SupervisorSearchTicket.validateCheckBox(SupervisorSearchTicket.java:201)
+Caused by: org.openqa.selenium.NoSuchElementException: 
+no such element: Unable to locate element: {"method":"xpath","selector":"//app-ticket-list//div[1]//div[1]//div[1]//input[@class="supercheck" or @class="supercheck ng-star-inserted"]"}
+  (Session info: headless chrome=89.0.4389.90)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:52187}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 9bddb60362793b98befcaaba70e29dcd
+*** Element info: {Using=xpath, value=//app-ticket-list//div[1]//div[1]//div[1]//input[@class="supercheck" or @class="supercheck ng-star-inserted"]}
+	at tests.SupervisorSearchTicket.validateCheckBox(SupervisorSearchTicket.java:201)
+
+validateOpenFilterTab(tests.SupervisorFilterTest)  Time elapsed: 21.791 s  <<< FAILURE!
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for element to be clickable: By.xpath: //*[@name="state"] (tried for 20 second(s) with 500 milliseconds interval)
+	at tests.SupervisorFilterTest.validateOpenFilterTab(SupervisorFilterTest.java:26)
+Caused by: org.openqa.selenium.NoSuchElementException: 
+no such element: Unable to locate element: {"method":"xpath","selector":"//*[@name="state"]"}
+  (Session info: headless chrome=89.0.4389.90)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:52187}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 9bddb60362793b98befcaaba70e29dcd
+*** Element info: {Using=xpath, value=//*[@name="state"]}
+	at tests.SupervisorFilterTest.validateOpenFilterTab(SupervisorFilterTest.java:26)
+
+validateClosedFilterTab(tests.SupervisorFilterTest)  Time elapsed: 21.755 s  <<< FAILURE!
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for element to be clickable: By.xpath: //*[@name="state"] (tried for 20 second(s) with 500 milliseconds interval)
+	at tests.SupervisorFilterTest.validateClosedFilterTab(SupervisorFilterTest.java:83)
+Caused by: org.openqa.selenium.NoSuchElementException: 
+no such element: Unable to locate element: {"method":"xpath","selector":"//*[@name="state"]"}
+  (Session info: headless chrome=89.0.4389.90)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:52187}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 9bddb60362793b98befcaaba70e29dcd
+*** Element info: {Using=xpath, value=//*[@name="state"]}
+	at tests.SupervisorFilterTest.validateClosedFilterTab(SupervisorFilterTest.java:83)
+
+applyFilterByCreatedDate(tests.SupervisorFilterTest)  Time elapsed: 43.704 s  <<< FAILURE!
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for element to be clickable: By.xpath: //span[@class='close-button'] (tried for 20 second(s) with 500 milliseconds interval)
+	at tests.SupervisorFilterTest.applyFilterByCreatedDate(SupervisorFilterTest.java:153)
+Caused by: org.openqa.selenium.NoSuchElementException: 
+no such element: Unable to locate element: {"method":"xpath","selector":"//span[@class='close-button']"}
+  (Session info: headless chrome=89.0.4389.90)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:52187}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 9bddb60362793b98befcaaba70e29dcd
+*** Element info: {Using=xpath, value=//span[@class='close-button']}
+	at tests.SupervisorFilterTest.applyFilterByCreatedDate(SupervisorFilterTest.java:153)
+
+openSupervisorDashboard(tests.AssignToAgentTicketTest)  Time elapsed: 26.74 s  <<< FAILURE!
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.xpath: //mat-toolbar//button (tried for 20 second(s) with 500 milliseconds interval)
+	at tests.AssignToAgentTicketTest.openSupervisorDashboard(AssignToAgentTicketTest.java:28)
+Caused by: org.openqa.selenium.NoSuchElementException: 
+no such element: Unable to locate element: {"method":"xpath","selector":"//mat-toolbar//button"}
+  (Session info: headless chrome=89.0.4389.90)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:52187}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 9bddb60362793b98befcaaba70e29dcd
+*** Element info: {Using=xpath, value=//mat-toolbar//button}
+	at tests.AssignToAgentTicketTest.openSupervisorDashboard(AssignToAgentTicketTest.java:28)
+
+openSupervisorDashboard(tests.TransferToQueueTest)  Time elapsed: 26.818 s  <<< FAILURE!
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.xpath: //mat-toolbar//button (tried for 20 second(s) with 500 milliseconds interval)
+	at tests.TransferToQueueTest.openSupervisorDashboard(TransferToQueueTest.java:25)
+Caused by: org.openqa.selenium.NoSuchElementException: 
+no such element: Unable to locate element: {"method":"xpath","selector":"//mat-toolbar//button"}
+  (Session info: headless chrome=89.0.4389.90)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:52187}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 9bddb60362793b98befcaaba70e29dcd
+*** Element info: {Using=xpath, value=//mat-toolbar//button}
+	at tests.TransferToQueueTest.openSupervisorDashboard(TransferToQueueTest.java:25)
+
+transferToQueue(tests.TransferToQueueTest)  Time elapsed: 43.866 s  <<< FAILURE!
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for element to be clickable: By.xpath: //span[@class='close-button'] (tried for 20 second(s) with 500 milliseconds interval)
+	at tests.TransferToQueueTest.transferToQueue(TransferToQueueTest.java:103)
+Caused by: org.openqa.selenium.NoSuchElementException: 
+no such element: Unable to locate element: {"method":"xpath","selector":"//span[@class='close-button']"}
+  (Session info: headless chrome=89.0.4389.90)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:52187}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 9bddb60362793b98befcaaba70e29dcd
+*** Element info: {Using=xpath, value=//span[@class='close-button']}
+	at tests.TransferToQueueTest.transferToQueue(TransferToQueueTest.java:103)
+
+transferToQueue(tests.TransferToQueueTest)  Time elapsed: 43.789 s  <<< FAILURE!
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for element to be clickable: By.xpath: //span[@class='close-button'] (tried for 20 second(s) with 500 milliseconds interval)
+	at tests.TransferToQueueTest.transferToQueue(TransferToQueueTest.java:103)
+Caused by: org.openqa.selenium.NoSuchElementException: 
+no such element: Unable to locate element: {"method":"xpath","selector":"//span[@class='close-button']"}
+  (Session info: headless chrome=89.0.4389.90)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:52187}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 9bddb60362793b98befcaaba70e29dcd
+*** Element info: {Using=xpath, value=//span[@class='close-button']}
+	at tests.TransferToQueueTest.transferToQueue(TransferToQueueTest.java:103)
+
+openSupervisorDashboard(tests.SupervisorReopenTicketTest)  Time elapsed: 26.82 s  <<< FAILURE!
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.xpath: //mat-toolbar//button (tried for 20 second(s) with 500 milliseconds interval)
+	at tests.SupervisorReopenTicketTest.openSupervisorDashboard(SupervisorReopenTicketTest.java:26)
+Caused by: org.openqa.selenium.NoSuchElementException: 
+no such element: Unable to locate element: {"method":"xpath","selector":"//mat-toolbar//button"}
+  (Session info: headless chrome=89.0.4389.90)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:52187}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 9bddb60362793b98befcaaba70e29dcd
+*** Element info: {Using=xpath, value=//mat-toolbar//button}
+	at tests.SupervisorReopenTicketTest.openSupervisorDashboard(SupervisorReopenTicketTest.java:26)
+
+openSupervisorDashboard(tests.TicketEscalationTest)  Time elapsed: 26.817 s  <<< FAILURE!
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.xpath: //mat-toolbar//button (tried for 20 second(s) with 500 milliseconds interval)
+	at tests.TicketEscalationTest.openSupervisorDashboard(TicketEscalationTest.java:24)
+Caused by: org.openqa.selenium.NoSuchElementException: 
+no such element: Unable to locate element: {"method":"xpath","selector":"//mat-toolbar//button"}
+  (Session info: headless chrome=89.0.4389.90)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:52187}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 9bddb60362793b98befcaaba70e29dcd
+*** Element info: {Using=xpath, value=//mat-toolbar//button}
+	at tests.TicketEscalationTest.openSupervisorDashboard(TicketEscalationTest.java:24)
+
+openSupervisorDashboard(tests.SupervisorAddCommentTest)  Time elapsed: 26.762 s  <<< FAILURE!
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.xpath: //mat-toolbar//button (tried for 20 second(s) with 500 milliseconds interval)
+	at tests.SupervisorAddCommentTest.openSupervisorDashboard(SupervisorAddCommentTest.java:28)
+Caused by: org.openqa.selenium.NoSuchElementException: 
+no such element: Unable to locate element: {"method":"xpath","selector":"//mat-toolbar//button"}
+  (Session info: headless chrome=89.0.4389.90)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:52187}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 9bddb60362793b98befcaaba70e29dcd
+*** Element info: {Using=xpath, value=//mat-toolbar//button}
+	at tests.SupervisorAddCommentTest.openSupervisorDashboard(SupervisorAddCommentTest.java:28)
+
+validateRoles(tests.ViewTemplateTest)  Time elapsed: 1.416 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	cm supervisor Agent Roles should not display on UI as Agent channel not mention in config sheet.,
+	cs admin Agent Roles should not display on UI as Agent channel not mention in config sheet.,
+	cs user management Agent Roles should not display on UI as Agent channel not mention in config sheet.,
+	it admin zm Agent Roles should not display on UI as Agent channel not mention in config sheet.,
+	cs portal sms management Agent Roles should not display on UI as Agent channel not mention in config sheet.,
+	cs um it admin Agent Roles should not display on UI as Agent channel not mention in config sheet.,
+	kyc it admin Agent Roles should not display on UI as Agent channel not mention in config sheet.,
+	testdepartmentroles Agent Roles should not display on UI as Agent channel not mention in config sheet.,
+	departmenttest Agent Roles should not display on UI as Agent channel not mention in config sheet.,
+	cs beta user Agent Roles should not display on UI as Agent channel not mention in config sheet.,
+	cs sms management Agent Roles does not display on UI but present in config sheet.
+	at tests.ViewTemplateTest.validateRoles(ViewTemplateTest.java:104)
+
+getWorkflows(tests.userManagementTest)  Time elapsed: 3.674 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	sales and distribution workgroup should not display on UI as interaction channel not mention in config sheet.,
+	service recovery workgroup should not display on UI as interaction channel not mention in config sheet.,
+	close looping workgroup should not display on UI as interaction channel not mention in config sheet.,
+	it support workgroup should not display on UI as interaction channel not mention in config sheet.,
+	tsg workgroup does not display on UI but present in config sheet.,
+	tsg workgroup does not display on UI but present in config sheet.,
+	sales and distibution workgroup does not display on UI but present in config sheet.,
+	sales and distibution workgroup does not display on UI but present in config sheet.,
+	sales and distibution workgroup does not display on UI but present in config sheet.,
+	sales and distibution workgroup does not display on UI but present in config sheet.,
+	sales and distibution workgroup does not display on UI but present in config sheet.,
+	sales and distibution workgroup does not display on UI but present in config sheet.,
+	marketing workgroup does not display on UI but present in config sheet.,
+	marketing workgroup does not display on UI but present in config sheet.,
+	marketing workgroup does not display on UI but present in config sheet.,
+	marketing workgroup does not display on UI but present in config sheet.,
+	cs operations workgroup does not display on UI but present in config sheet.,
+	cs operations workgroup does not display on UI but present in config sheet.,
+	cs operations workgroup does not display on UI but present in config sheet.,
+	airtel money finance workgroup does not display on UI but present in config sheet.,
+	it  support workgroup does not display on UI but present in config sheet.,
+	it  support workgroup does not display on UI but present in config sheet.,
+	enteprise business workgroup does not display on UI but present in config sheet.,
+	enteprise business workgroup does not display on UI but present in config sheet.,
+	cs operations workgroup does not display on UI but present in config sheet.,
+	cs operations workgroup does not display on UI but present in config sheet.,
+	cs operations workgroup does not display on UI but present in config sheet.,
+	ericsson workgroup does not display on UI but present in config sheet.,
+	enteprise business workgroup does not display on UI but present in config sheet.,
+	it  support workgroup does not display on UI but present in config sheet.,
+	marketing workgroup does not display on UI but present in config sheet.,
+	tsg workgroup does not display on UI but present in config sheet.
+	at tests.userManagementTest.getWorkflows(userManagementTest.java:119)
+
+getLoginQueue(tests.userManagementTest)  Time elapsed: 4.185 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	bank to wallet reversals ticketPool should not display on UI as interaction channel not mention in config sheet.,
+	bank to wallet  reversals ticketPool does not display on UI but present in config sheet.,
+	technical support corprate customers ticketPool does not display on UI but present in config sheet.,
+	enterprise billing ticketPool does not display on UI but present in config sheet.,
+	airtel money_cs ticketPool does not display on UI but present in config sheet.,
+	airtel money_operations ticketPool does not display on UI but present in config sheet.,
+	ericsson ticketPool does not display on UI but present in config sheet.,
+	credit control ticketPool does not display on UI but present in config sheet.,
+	it ticketPool does not display on UI but present in config sheet.,
+	marketing ticketPool does not display on UI but present in config sheet.,
+	tsg ticketPool does not display on UI but present in config sheet.
+	at tests.userManagementTest.getLoginQueue(userManagementTest.java:154)
+
+widgetOrderTest(tests.profileManagementTest)  Time elapsed: 40.43 s  <<< FAILURE!
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for presence of element located by: By.xpath: //span[@class="order-no ng-star-inserted"and contains(text(),"7")]/ancestor::div[@class="widgetDataTable"]/div[1] (tried for 20 second(s) with 500 milliseconds interval)
+	at tests.profileManagementTest.widgetOrderTest(profileManagementTest.java:104)
+Caused by: org.openqa.selenium.NoSuchElementException: 
+no such element: Unable to locate element: {"method":"xpath","selector":"//span[@class="order-no ng-star-inserted"and contains(text(),"7")]/ancestor::div[@class="widgetDataTable"]/div[1]"}
+  (Session info: headless chrome=89.0.4389.90)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:52187}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 9bddb60362793b98befcaaba70e29dcd
+*** Element info: {Using=xpath, value=//span[@class="order-no ng-star-inserted"and contains(text(),"7")]/ancestor::div[@class="widgetDataTable"]/div[1]}
+	at tests.profileManagementTest.widgetOrderTest(profileManagementTest.java:104)
+
