@@ -29,8 +29,8 @@ public class BackendAgentLoginTest extends BaseTest {
     }
     @DataProviders.User(UserType = "BA")
     @Test(priority = 1, description = "Logging IN ", dataProvider = "loginData", dataProviderClass = DataProviders.class)
-    public void LoggingIN(Method method, TestDatabean Data) {
-        ExtentTestManager.startTest("Logging Into Portal", "Logging Into Portal with AUUID :  " + Data.getLoginAUUID());
+    public void LoggingIN(Method method, TestDatabean Data) throws InterruptedException {
+        ExtentTestManager.startTest("Backend Agent Login Into Portal", "Logging Into Portal with AUUID :  " + Data.getLoginAUUID());
         SoftAssert softAssert = new SoftAssert();
         loginPagePOM loginPagePOM = new loginPagePOM(driver);
         loginPagePOM.openBaseURL(config.getProperty(BaseTest.Env + "-baseurl"));
@@ -44,7 +44,7 @@ public class BackendAgentLoginTest extends BaseTest {
         loginPagePOM.clickOnVisibleButton();
         loginPagePOM.clickOnLogin();
         SideMenuPOM sideMenu = new SideMenuPOM(driver);
-        sideMenu.waitTillLoaderGetsRemoved();
+        Thread.sleep(20000); // wait for 20 Seconds for Dashboard page In case of slow Network slow
         if(sideMenu.isSideMenuVisible()){
             sideMenu.clickOnSideMenu();
             if (!sideMenu.isAgentDashboard()) {

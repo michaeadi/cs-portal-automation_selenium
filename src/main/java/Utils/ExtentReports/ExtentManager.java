@@ -1,6 +1,7 @@
 package Utils.ExtentReports;
 
 import com.relevantcodes.extentreports.ExtentReports;
+import org.kohsuke.rngom.parse.host.Base;
 import tests.frontendAgent.BaseTest;
 
 import java.io.File;
@@ -23,6 +24,7 @@ public class ExtentManager {
                 extent.assignProject("CS Portal");
                 extent.addSystemInfo("OPCO", BaseTest.Opco);
                 extent.addSystemInfo("Environment", BaseTest.Env);
+                extent.addSystemInfo("Suite Type", BaseTest.suiteType.toUpperCase());
                 extent.loadConfig(new File(workingDir + "\\src\\main\\resources\\reportextent-config.xml"));
 
             } else {
@@ -31,6 +33,7 @@ public class ExtentManager {
                 extent.assignProject("CS Portal");
                 extent.addSystemInfo("OPCO", BaseTest.Opco);
                 extent.addSystemInfo("Environment", BaseTest.Env);
+                extent.addSystemInfo("Suite Type", BaseTest.suiteType.toUpperCase());
                 extent.loadConfig(new File(workingDir + "/src/main/resources/reportextent-config.xml"));
 
             }

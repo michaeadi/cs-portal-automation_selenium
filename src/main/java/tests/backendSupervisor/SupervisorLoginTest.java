@@ -31,7 +31,7 @@ public class SupervisorLoginTest extends BaseTest {
 
     @DataProviders.User(UserType = "ALL")
     @Test(priority = 1, description = "Logging IN", dataProvider = "loginData", dataProviderClass = DataProviders.class)
-    public void LoggingIN(Method method, TestDatabean Data) {
+    public void LoggingIN(Method method, TestDatabean Data) throws InterruptedException {
         ExtentTestManager.startTest("Logging Into Portal", "Logging Into Portal with AUUID :  " + Data.getLoginAUUID());
         SoftAssert softAssert = new SoftAssert();
         loginPagePOM loginPagePOM = new loginPagePOM(driver);
@@ -44,6 +44,22 @@ public class SupervisorLoginTest extends BaseTest {
         loginPagePOM.clickOnVisibleButton();
         loginPagePOM.clickOnVisibleButton();
         loginPagePOM.clickOnLogin();
+        SideMenuPOM sideMenuPOM =new SideMenuPOM(driver);
+        Thread.sleep(20000); // wait for 20 Seconds for Dashboard page In case of slow Network slow
+        if(sideMenuPOM.isSideMenuVisible()){
+            sideMenuPOM.clickOnSideMenu();
+            if (!sideMenuPOM.isCustomerServicesVisible()) {
+                continueExecutionBS = false;
+                softAssert.fail("Backend Supervisor Dashboard does not Assign to User.Please Assign Role to user.");
+            } else {
+                continueExecutionBS = true;
+            }
+            sideMenuPOM.clickOnSideMenu();
+        }else {
+            continueExecutionBS = false;
+            softAssert.fail("Backend Supervisor Dashboard does Open with user.Check for the ScreenShot.");
+        }
+        softAssert.assertAll();
         softAssert.assertAll();
     }
 

@@ -145,18 +145,17 @@ public class SystemStatusTest extends BaseTest {
             UtilsMethods.printInfoLog("Response Body : " + response.asString());
             UtilsMethods.printInfoLog("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
             if (response.jsonPath().getString("message").equalsIgnoreCase("Failed to authenticate user.")) {
-                continueExecutionFA = false;
+                continueExecutionBA = false;
                 softAssert.fail("Not able to generate Token. Please Update Password As soon as possible if required.\nAPI Response Message: " + response.jsonPath().getString("message"));
             } else if (response.jsonPath().getString("message").toLowerCase().contains("something went wrong")) {
-                continueExecutionFA = false;
+                continueExecutionBA = false;
                 softAssert.fail("Not able to generate Token. Login API Failed(Marked Build As Failed).\nAPI Response Message: " + response.jsonPath().getString("message"));
             } else if (!response.jsonPath().getString("message").equalsIgnoreCase("User authenticated successfully")) {
-                continueExecutionFA = false;
+                continueExecutionBA = false;
                 softAssert.fail("Not able to generate Token. Please Check the API error Message and make changes if required.\nAPI Response Message: " + response.jsonPath().getString("message"));
             }
         } catch (Exception e) {
-            continueExecutionFA = false;
-            continueExecutionBS = false;
+            continueExecutionBA = false;
             softAssert.fail("Connectivity issue occurred, Not able to connect with server : " + e.fillInStackTrace());
         }
         softAssert.assertAll();
