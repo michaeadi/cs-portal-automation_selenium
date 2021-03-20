@@ -1,7 +1,7 @@
 package Utils.ExtentReports;
 
 import com.relevantcodes.extentreports.ExtentReports;
-import tests.BaseTest;
+import tests.frontendAgent.BaseTest;
 
 import java.io.File;
 import java.time.LocalDateTime;

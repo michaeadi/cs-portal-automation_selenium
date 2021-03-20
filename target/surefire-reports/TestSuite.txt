@@ -1,25 +1,282 @@
 -------------------------------------------------------------------------------
 Test set: TestSuite
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 3, Errors: 0, Skipped: 0, Time elapsed: 14.84 s <<< FAILURE! - in TestSuite
-loginAPI(tests.SystemStatusTest)  Time elapsed: 4.49 s  <<< FAILURE!
+Tests run: 260, Failures: 41, Errors: 0, Skipped: 219, Time elapsed: 326.485 s <<< FAILURE! - in TestSuite
+loginAPI(tests.SystemStatusTest)  Time elapsed: 4.419 s  <<< FAILURE!
 java.lang.AssertionError: 
 The following asserts failed:
 	Not able to generate Token. Please Update Password As soon as possible if required.
 API Response Message: Failed to authenticate user.
 	at tests.SystemStatusTest.loginAPI(SystemStatusTest.java:78)
 
-testCredOfAdmin(tests.SystemStatusTest)  Time elapsed: 1.642 s  <<< FAILURE!
+testCredOfAdmin(tests.SystemStatusTest)  Time elapsed: 1.812 s  <<< FAILURE!
 java.lang.AssertionError: 
 The following asserts failed:
 	Not able to generate Token. Please Update Password As soon as possible if required.
 API Response Message: Failed to authenticate user.
 	at tests.SystemStatusTest.testCredOfAdmin(SystemStatusTest.java:121)
 
-testCredOfBackendAgent(tests.SystemStatusTest)  Time elapsed: 1.354 s  <<< FAILURE!
+testCredOfBackendAgent(tests.SystemStatusTest)  Time elapsed: 1.75 s  <<< FAILURE!
 java.lang.AssertionError: 
 The following asserts failed:
 	Not able to generate Token. Please Update Password As soon as possible if required.
 API Response Message: Failed to authenticate user.
 	at tests.SystemStatusTest.testCredOfBackendAgent(SystemStatusTest.java:161)
+
+checkExecution(tests.LoginTests)  Time elapsed: 3.006 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	Terminate Execution as user not able to login into portal or Role does not assign to user. Please do needful.
+	at tests.LoginTests.checkExecution(LoginTests.java:23)
+
+checkExecution(tests.sideMenuTests)  Time elapsed: 0.359 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	Terminate Execution as user not able to login into portal or Role does not assign to user. Please do needful.
+	at tests.sideMenuTests.checkExecution(sideMenuTests.java:19)
+
+checkExecution(tests.AuthTabTest)  Time elapsed: 0.406 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	Terminate Execution as user not able to login into portal or Role does not assign to user. Please do needful.
+	at tests.AuthTabTest.checkExecution(AuthTabTest.java:27)
+
+checkExecution(tests.customerInteractionTest)  Time elapsed: 0.61 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	Terminate Execution as user not able to login into portal or Role does not assign to user. Please do needful.
+	at tests.customerInteractionTest.checkExecution(customerInteractionTest.java:40)
+
+checkExecution(tests.widgetsOptionsTest)  Time elapsed: 0.125 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	Terminate Execution as user not able to login into portal or Role does not assign to user. Please do needful.
+	at tests.widgetsOptionsTest.checkExecution(widgetsOptionsTest.java:34)
+
+checkExecution(tests.CRBTWidgetTest)  Time elapsed: 0.484 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	Terminate Execution as user not able to login into portal or Role does not assign to user. Please do needful.
+	at tests.CRBTWidgetTest.checkExecution(CRBTWidgetTest.java:32)
+
+checkExecution(tests.createInteractionTest)  Time elapsed: 0.516 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	Terminate Execution as user not able to login into portal or Role does not assign to user. Please do needful.
+	at tests.createInteractionTest.checkExecution(createInteractionTest.java:54)
+
+checkExecution(tests.PinTagTest)  Time elapsed: 0.578 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	Terminate Execution as user not able to login into portal or Role does not assign to user. Please do needful.
+	at tests.PinTagTest.checkExecution(PinTagTest.java:28)
+
+checkExecution(tests.InteractionCommentTest)  Time elapsed: 0.515 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	Terminate Execution as user not able to login into portal or Role does not assign to user. Please do needful.
+	at tests.InteractionCommentTest.checkExecution(InteractionCommentTest.java:32)
+
+checkExecution(tests.FrontendAgentTicketTest)  Time elapsed: 0.422 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	Terminate Execution as user not able to login into portal or Role does not assign to user. Please do needful.
+	at tests.FrontendAgentTicketTest.checkExecution(FrontendAgentTicketTest.java:26)
+
+checkExecution(tests.VoucherTabTest)  Time elapsed: 0.531 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	Terminate Execution as user not able to login into portal or Role does not assign to user. Please do needful.
+	at tests.VoucherTabTest.checkExecution(VoucherTabTest.java:47)
+
+checkExecution(tests.ClearRefillErrorTest)  Time elapsed: 0.422 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	Terminate Execution as user not able to login into portal or Role does not assign to user. Please do needful.
+	at tests.ClearRefillErrorTest.checkExecution(ClearRefillErrorTest.java:31)
+
+checkExecution(tests.LoanWidgetTest)  Time elapsed: 0.515 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	Terminate Execution as user not able to login into portal or Role does not assign to user. Please do needful.
+	at tests.LoanWidgetTest.checkExecution(LoanWidgetTest.java:38)
+
+checkExecution(tests.TicketBulkUpdateTest)  Time elapsed: 0.625 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	Terminate Execution as user not able to login into portal or Role does not assign to user. Please do needful.
+	at tests.TicketBulkUpdateTest.checkExecution(TicketBulkUpdateTest.java:31)
+
+Logout(tests.LogoutTest)  Time elapsed: 15.233 s  <<< FAILURE!
+java.lang.AssertionError: did not expect to find [true] but found [false]
+	at tests.LogoutTest.Logout(LogoutTest.java:32)
+
+checkExecution(tests.SupervisorLoginTest)  Time elapsed: 16.031 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	Terminate Execution as user not able to login into portal or Role does not assign to user. Please do needful.
+	at tests.SupervisorLoginTest.checkExecution(SupervisorLoginTest.java:28)
+
+loginAPI(tests.SystemStatusTest)  Time elapsed: 1.372 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	Not able to generate Token. Please Update Password As soon as possible if required.
+API Response Message: Failed to authenticate user.
+	at tests.SystemStatusTest.loginAPI(SystemStatusTest.java:78)
+
+checkExecution(tests.SupervisorGlobalSearchTest)  Time elapsed: 2.146 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	Terminate Execution as user not able to login into portal or Role does not assign to user. Please do needful.
+	at tests.SupervisorGlobalSearchTest.checkExecution(SupervisorGlobalSearchTest.java:27)
+
+checkExecution(tests.SupervisorSearchTicket)  Time elapsed: 0.359 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	Terminate Execution as user not able to login into portal or Role does not assign to user. Please do needful.
+	at tests.SupervisorSearchTicket.checkExecution(SupervisorSearchTicket.java:55)
+
+checkExecution(tests.SupervisorFilterTest)  Time elapsed: 0.375 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	Terminate Execution as user not able to login into portal or Role does not assign to user. Please do needful.
+	at tests.SupervisorFilterTest.checkExecution(SupervisorFilterTest.java:26)
+
+checkExecution(tests.SupervisorUpdateTicket)  Time elapsed: 0.375 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	Terminate Execution as user not able to login into portal or Role does not assign to user. Please do needful.
+	at tests.SupervisorUpdateTicket.checkExecution(SupervisorUpdateTicket.java:52)
+
+checkExecution(tests.AssignToAgentTicketTest)  Time elapsed: 0.297 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	Terminate Execution as user not able to login into portal or Role does not assign to user. Please do needful.
+	at tests.AssignToAgentTicketTest.checkExecution(AssignToAgentTicketTest.java:29)
+
+checkExecution(tests.TransferToQueueTest)  Time elapsed: 0.328 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	Terminate Execution as user not able to login into portal or Role does not assign to user. Please do needful.
+	at tests.TransferToQueueTest.checkExecution(TransferToQueueTest.java:26)
+
+checkExecution(tests.SupervisorReopenTicketTest)  Time elapsed: 0.313 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	Terminate Execution as user not able to login into portal or Role does not assign to user. Please do needful.
+	at tests.SupervisorReopenTicketTest.checkExecution(SupervisorReopenTicketTest.java:27)
+
+checkExecution(tests.TicketEscalationTest)  Time elapsed: 0.281 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	Terminate Execution as user not able to login into portal or Role does not assign to user. Please do needful.
+	at tests.TicketEscalationTest.checkExecution(TicketEscalationTest.java:25)
+
+checkExecution(tests.SupervisorAddCommentTest)  Time elapsed: 0.266 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	Terminate Execution as user not able to login into portal or Role does not assign to user. Please do needful.
+	at tests.SupervisorAddCommentTest.checkExecution(SupervisorAddCommentTest.java:29)
+
+Logout(tests.LogoutTest)  Time elapsed: 15.153 s  <<< FAILURE!
+java.lang.AssertionError: did not expect to find [true] but found [false]
+	at tests.LogoutTest.Logout(LogoutTest.java:32)
+
+checkExecution(tests.LoginTests)  Time elapsed: 15.842 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	Terminate Execution as user not able to login into portal or Role does not assign to user. Please do needful.
+	at tests.LoginTests.checkExecution(LoginTests.java:23)
+
+checkExecution(tests.CreateTemplateTest)  Time elapsed: 0.219 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	Terminate Execution as user not able to login into portal or Role does not assign to user. Please do needful.
+	at tests.CreateTemplateTest.checkExecution(CreateTemplateTest.java:29)
+
+checkExecution(tests.ViewTemplateTest)  Time elapsed: 0.234 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	Terminate Execution as user not able to login into portal or Role does not assign to user. Please do needful.
+	at tests.ViewTemplateTest.checkExecution(ViewTemplateTest.java:25)
+
+checkExecution(tests.userManagementTest)  Time elapsed: 0.25 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	Terminate Execution as user not able to login into portal or Role does not assign to user. Please do needful.
+	at tests.userManagementTest.checkExecution(userManagementTest.java:27)
+
+checkExecution(tests.profileManagementTest)  Time elapsed: 0.219 s  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	Terminate Execution as user not able to login into portal or Role does not assign to user. Please do needful.
+	at tests.profileManagementTest.checkExecution(profileManagementTest.java:24)
+
+Logout(tests.LogoutTest)  Time elapsed: 15.149 s  <<< FAILURE!
+java.lang.AssertionError: did not expect to find [true] but found [false]
+	at tests.LogoutTest.Logout(LogoutTest.java:32)
+
+LoggingIN(tests.BackendAgentLoginTest)  Time elapsed: 91.778 s  <<< FAILURE!
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.xpath: //mat-toolbar//button (tried for 40 second(s) with 500 milliseconds interval)
+	at tests.BackendAgentLoginTest.LoggingIN(BackendAgentLoginTest.java:49)
+Caused by: org.openqa.selenium.NoSuchElementException: 
+no such element: Unable to locate element: {"method":"xpath","selector":"//mat-toolbar//button"}
+  (Session info: headless chrome=89.0.4389.90)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:56922}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 94b3a7619e74f60390a19cf6f2350ccd
+*** Element info: {Using=xpath, value=//mat-toolbar//button}
+	at tests.BackendAgentLoginTest.LoggingIN(BackendAgentLoginTest.java:49)
+
+agentQueueLogin(tests.BackendAgentFilterTest)  Time elapsed: 43.833 s  <<< FAILURE!
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.xpath: //mat-toolbar//button (tried for 40 second(s) with 500 milliseconds interval)
+	at tests.BackendAgentFilterTest.agentQueueLogin(BackendAgentFilterTest.java:31)
+Caused by: org.openqa.selenium.NoSuchElementException: 
+no such element: Unable to locate element: {"method":"xpath","selector":"//mat-toolbar//button"}
+  (Session info: headless chrome=89.0.4389.90)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:56922}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 94b3a7619e74f60390a19cf6f2350ccd
+*** Element info: {Using=xpath, value=//mat-toolbar//button}
+	at tests.BackendAgentFilterTest.agentQueueLogin(BackendAgentFilterTest.java:31)
+
+updateTicket(tests.BackendAgentUpdateTicket)  Time elapsed: 48.825 s  <<< FAILURE!
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for presence of element located by: By.xpath: //app-ticket-list//div[@class="container-fluid table-card ng-star-inserted"][1]//div[@class="data-area" or @class="data-area-full"]//ul[1]//li[1]//span[@class="blue-clr"] (tried for 40 second(s) with 500 milliseconds interval)
+	at tests.BackendAgentUpdateTicket.updateTicket(BackendAgentUpdateTicket.java:38)
+Caused by: org.openqa.selenium.NoSuchElementException: 
+no such element: Unable to locate element: {"method":"xpath","selector":"//app-ticket-list//div[@class="container-fluid table-card ng-star-inserted"][1]//div[@class="data-area" or @class="data-area-full"]//ul[1]//li[1]//span[@class="blue-clr"]"}
+  (Session info: headless chrome=89.0.4389.90)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:56922}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 94b3a7619e74f60390a19cf6f2350ccd
+*** Element info: {Using=xpath, value=//app-ticket-list//div[@class="container-fluid table-card ng-star-inserted"][1]//div[@class="data-area" or @class="data-area-full"]//ul[1]//li[1]//span[@class="blue-clr"]}
+	at tests.BackendAgentUpdateTicket.updateTicket(BackendAgentUpdateTicket.java:38)
+
+agentQueueLogin(tests.BackendAgentAddComment)  Time elapsed: 43.748 s  <<< FAILURE!
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.xpath: //mat-toolbar//button (tried for 40 second(s) with 500 milliseconds interval)
+	at tests.BackendAgentAddComment.agentQueueLogin(BackendAgentAddComment.java:33)
+Caused by: org.openqa.selenium.NoSuchElementException: 
+no such element: Unable to locate element: {"method":"xpath","selector":"//mat-toolbar//button"}
+  (Session info: headless chrome=89.0.4389.90)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '4.0.0-alpha-3', revision: '8c567de6dc'
+System info: host: 'LT2394650', ip: '172.23.64.219', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 89.0.4389.90, chrome: {chromedriverVersion: 89.0.4389.23 (61b08ee2c5002..., userDataDir: C:\Users\2394650\AppData\Lo...}, goog:chromeOptions: {debuggerAddress: localhost:56922}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 94b3a7619e74f60390a19cf6f2350ccd
+*** Element info: {Using=xpath, value=//mat-toolbar//button}
+	at tests.BackendAgentAddComment.agentQueueLogin(BackendAgentAddComment.java:33)
+
+Logout(tests.LogoutTest)  Time elapsed: 15.135 s  <<< FAILURE!
+java.lang.AssertionError: did not expect to find [true] but found [false]
+	at tests.LogoutTest.Logout(LogoutTest.java:32)
 

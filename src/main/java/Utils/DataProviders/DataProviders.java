@@ -1,10 +1,9 @@
 package Utils.DataProviders;
 
 import Utils.ExcelUtils.WriteTicket;
-import Utils.ExcelUtils.writeToExcel;
 import lombok.extern.log4j.Log4j2;
 import org.testng.annotations.DataProvider;
-import tests.BaseTest;
+import tests.frontendAgent.BaseTest;
 
 import java.io.File;
 import java.io.IOException;
@@ -344,7 +343,7 @@ public class DataProviders {
     public List<TicketStateDataBean> getState(String stateName) {
         TicketStateToBean ticketStateToBean = new TicketStateToBean();
         File Exceldir = new File("Excels");
-        File Excel = new File(Exceldir, tests.BaseTest.Opco + ".xlsx");
+        File Excel = new File(Exceldir, BaseTest.Opco + ".xlsx");
         List<TicketStateDataBean> list =
                 ticketStateToBean.getData(Excel.getAbsolutePath(), config.getProperty("ticketState"));
         List<TicketStateDataBean> closeState = new ArrayList<TicketStateDataBean>();
@@ -367,7 +366,7 @@ public class DataProviders {
     public List<PriorityDataBean> getPriority() {
         PriorityDataExcelToBeanDao priorityDataBean = new PriorityDataExcelToBeanDao();
         File Exceldir = new File("Excels");
-        File Excel = new File(Exceldir, tests.BaseTest.Opco + ".xlsx");
+        File Excel = new File(Exceldir, BaseTest.Opco + ".xlsx");
         List<PriorityDataBean> list =
                 priorityDataBean.getData(Excel.getAbsolutePath(), config.getProperty("priority"));
         return list;
@@ -377,7 +376,7 @@ public class DataProviders {
     public Map<String, Boolean> getALLPinnedTags() {
         PinnedTagDataExcelToBeanDao pinnedTag = new PinnedTagDataExcelToBeanDao();
         File Exceldir = new File("Excels");
-        File Excel = new File(Exceldir, tests.BaseTest.Opco + ".xlsx");
+        File Excel = new File(Exceldir, BaseTest.Opco + ".xlsx");
         List<PinnedtagsDataBeans> list =
                 pinnedTag.getData(Excel.getAbsolutePath(), config.getProperty("PinnedTagSheet"));
         Map<String, Boolean> finalList = new HashMap<String, Boolean>();
@@ -391,7 +390,7 @@ public class DataProviders {
     public Object[][] getSingleTicketId() {
         nftrDataExcelToBeanDao credsExcelToBeanDao = new nftrDataExcelToBeanDao();
         File Exceldir = new File("Excels");
-        File Excel = new File(Exceldir, tests.BaseTest.Opco + ".xlsx");
+        File Excel = new File(Exceldir, BaseTest.Opco + ".xlsx");
         List<nftrDataBeans> list =
                 credsExcelToBeanDao.getData(Excel.getAbsolutePath(), config.getProperty(BaseTest.suiteType + "-NftrSheet"));
         List<nftrDataBeans> finalTicketList = new ArrayList<nftrDataBeans>();
@@ -482,7 +481,7 @@ public class DataProviders {
     public List<AuthTabDataBeans> getPolicy() {
         AuthTabBeanToExcel authTabBeanToExcel = new AuthTabBeanToExcel();
         File Exceldir = new File("Excels");
-        File Excel = new File(Exceldir, tests.BaseTest.Opco + ".xlsx");
+        File Excel = new File(Exceldir, BaseTest.Opco + ".xlsx");
         List<AuthTabDataBeans> list =
                 authTabBeanToExcel.getData(Excel.getAbsolutePath(), config.getProperty("authPolicy"));
         return list;
@@ -491,7 +490,7 @@ public class DataProviders {
     public List<String> getPolicyQuestion() {
         AuthTabBeanToExcel authTabBeanToExcel = new AuthTabBeanToExcel();
         File Exceldir = new File("Excels");
-        File Excel = new File(Exceldir, tests.BaseTest.Opco + ".xlsx");
+        File Excel = new File(Exceldir, BaseTest.Opco + ".xlsx");
         List<AuthTabDataBeans> list =
                 authTabBeanToExcel.getData(Excel.getAbsolutePath(), config.getProperty("authPolicy"));
         List<String> question = new ArrayList<>();
@@ -520,7 +519,7 @@ public class DataProviders {
     public List<ActionTagDataBeans> getActionTag() {
         ActionTagBeanToExcel actionTagDataBeans = new ActionTagBeanToExcel();
         File Exceldir = new File("Excels");
-        File Excel = new File(Exceldir, tests.BaseTest.Opco + ".xlsx");
+        File Excel = new File(Exceldir, BaseTest.Opco + ".xlsx");
         List<ActionTagDataBeans> list =
                 actionTagDataBeans.getData(Excel.getAbsolutePath(), config.getProperty("actionTagged"));
         return list;
@@ -530,7 +529,7 @@ public class DataProviders {
     public String getVoucherId(){
         ActionTagBeanToExcel actionTagDataBeans = new ActionTagBeanToExcel();
         File Exceldir = new File("Excels");
-        File Excel = new File(Exceldir, tests.BaseTest.Opco + ".xlsx");
+        File Excel = new File(Exceldir, BaseTest.Opco + ".xlsx");
         List<ActionTagDataBeans> list =
                 actionTagDataBeans.getData(Excel.getAbsolutePath(), config.getProperty("actionTagged"));
         for(ActionTagDataBeans s:list){
@@ -550,7 +549,7 @@ public class DataProviders {
     public List<String> issueDetailReason(String actionTagName) {
         ActionTagBeanToExcel actionTagDataBeans = new ActionTagBeanToExcel();
         File Exceldir = new File("Excels");
-        File Excel = new File(Exceldir, tests.BaseTest.Opco + ".xlsx");
+        File Excel = new File(Exceldir, BaseTest.Opco + ".xlsx");
         List<ActionTagDataBeans> list =
                 actionTagDataBeans.getData(Excel.getAbsolutePath(), config.getProperty("actionTagged"));
         List<String> reasons = new ArrayList<>();

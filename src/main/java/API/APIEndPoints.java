@@ -14,31 +14,23 @@ import POJO.SMSHistory.SMSHistoryPOJO;
 import POJO.TicketList.TicketPOJO;
 import POJO.Vendors.VendorNames;
 import POJO.Voucher.VoucherSearchPOJO;
-import Utils.DataProviders.DataProviders;
-import Utils.DataProviders.TestDatabean;
-import Utils.PassUtils;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.relevantcodes.extentreports.LogStatus;
-import io.restassured.http.Header;
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
 import io.restassured.specification.QueryableRequestSpecification;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.SpecificationQuerier;
 import lombok.extern.log4j.Log4j2;
-import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
+import tests.frontendAgent.BaseTest;
 
 import java.util.concurrent.TimeUnit;
 
 import static Utils.ExtentReports.ExtentTestManager.getTest;
-import static Utils.ExtentReports.ExtentTestManager.startTest;
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 
 @Log4j2
-public class APIEndPoints extends tests.BaseTest {
+public class APIEndPoints extends BaseTest {
 
     public PlansPOJO accountPlansTest(String msisdn) {
         getTest().log(LogStatus.INFO, "Using Account Plans API for Getting expected data for UI");

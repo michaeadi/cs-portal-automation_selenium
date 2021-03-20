@@ -11,7 +11,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.*;
 import org.testng.Assert;
-import tests.BaseTest;
+import tests.frontendAgent.BaseTest;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;

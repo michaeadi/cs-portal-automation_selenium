@@ -4,7 +4,7 @@ import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 import io.restassured.http.Header;
 import lombok.extern.log4j.Log4j2;
-import tests.BaseTest;
+import tests.frontendAgent.BaseTest;
 
 @Log4j2
 public class UtilsMethods extends BaseTest {
