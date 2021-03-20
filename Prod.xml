@@ -52,9 +52,10 @@
     </test>
     <test name="api-Regenerate">
         <classes>
-            <class name="API.APIEndPoints">
+            <class name="tests.SystemStatusTest">
                 <methods>
-                    <include name="loginAPI"/>
+                    <exclude name="testCredOfAdmin"/>
+                    <exclude name="testCredOfBackendAgent"/>
                 </methods>
             </class>
         </classes>

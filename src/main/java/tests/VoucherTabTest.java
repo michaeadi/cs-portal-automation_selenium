@@ -9,6 +9,7 @@ import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.TestDatabean;
 import Utils.ExtentReports.ExtentTestManager;
 import Utils.PassUtils;
+import Utils.UtilsMethods;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.relevantcodes.extentreports.LogStatus;
@@ -40,36 +41,54 @@ public class VoucherTabTest extends BaseTest {
     @Test(dataProvider = "loginData", dataProviderClass = DataProviders.class, priority = 0)
     public void loginAPI(TestDatabean Data) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
+        SoftAssert softAssert = new SoftAssert();
         LoginPOJO Req = LoginPOJO.loginBody(PassUtils.decodePassword(Data.getPassword()), Data.getLoginAUUID());
+
         map.clear();
-        map.add(new Header("x-app-name", config.getProperty(Env + "-x-app-name")));
-        map.add(new Header("x-service-id", config.getProperty(Env + "-x-service-id")));
+        UtilsMethods.addHeaders("x-app-name", config.getProperty(Env + "-x-app-name"));
+        UtilsMethods.addHeaders("x-service-id", config.getProperty(Env + "-x-service-id"));
         //map.add(new Header("x-bsy-bn", config.getProperty(Env + "-x-bsy-bn"))); //Comment this line this header removed from MG Opco.
-        map.add(new Header("x-app-type", config.getProperty(Env + "-x-app-type")));
-        map.add(new Header("x-client-id", config.getProperty(Env + "-x-client-id")));
-        map.add(new Header("x-api-key", config.getProperty(Env + "-x-api-key")));
-        map.add(new Header("x-login-module", config.getProperty(Env + "-x-login-module")));
-        map.add(new Header("x-channel", config.getProperty(Env + "-x-channel")));
-        map.add(new Header("x-app-version", config.getProperty(Env + "-x-app-version")));
-        map.add(new Header("Opco", Opco));
+        UtilsMethods.addHeaders("x-app-type", config.getProperty(Env + "-x-app-type"));
+        UtilsMethods.addHeaders("x-client-id", config.getProperty(Env + "-x-client-id"));
+        UtilsMethods.addHeaders("x-api-key", config.getProperty(Env + "-x-api-key"));
+        UtilsMethods.addHeaders("x-login-module", config.getProperty(Env + "-x-login-module"));
+        UtilsMethods.addHeaders("x-channel", config.getProperty(Env + "-x-channel"));
+        UtilsMethods.addHeaders("x-app-version", config.getProperty(Env + "-x-app-version"));
+        UtilsMethods.addHeaders("Opco", Opco);
 
         String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(Req);
         startTest("LOGIN API TEST ", "Logging in Using Login API for getting TOKEN with user : " + Data.getLoginAUUID());
-        getTest().log(LogStatus.INFO, "Logging in Using Login API for getting TOKEN with user : " + Data.getLoginAUUID());
+        UtilsMethods.printInfoLog("Logging in Using Login API for getting TOKEN with user : " + Data.getLoginAUUID());
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
                 .headers(headers)
                 .body(dtoAsString)
                 .contentType("application/json");
-        QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
-        Response response = request.post("/auth/api/user-mngmnt/v2/login");
-        Token = "Bearer " + response.jsonPath().getString("result.accessToken");
-        map.add(new Header("Authorization", Token));
-        getTest().log(LogStatus.INFO, "Response : " + response.asString());
-        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
-        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        try {
+            QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
+            UtilsMethods.printInfoLog("Request Headers are  : " + queryable.getHeaders());
+            Response response = request.post("/auth/api/user-mngmnt/v2/login");
+            Token = "Bearer " + response.jsonPath().getString("result.accessToken");
+            map.add(new Header("Authorization", Token));
+            UtilsMethods.printInfoLog("Request URL : " + queryable.getURI());
+            UtilsMethods.printInfoLog("Response Body : " + response.asString());
+            UtilsMethods.printInfoLog("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+            if (response.jsonPath().getString("message").equalsIgnoreCase("Failed to authenticate user.")) {
+                continueExecutionAPI = false;
+                softAssert.fail("Not able to generate Token. Please Update Password As soon as possible if required.\nAPI Response Message: " + response.jsonPath().getString("message"));
+            } else if (response.jsonPath().getString("message").toLowerCase().contains("something went wrong")) {
+                continueExecutionAPI = false;
+                softAssert.fail("Not able to generate Token. Login API Failed(Marked Build As Failed).\nAPI Response Message: " + response.jsonPath().getString("message"));
+            } else if (!response.jsonPath().getString("message").equalsIgnoreCase("User authenticated successfully")) {
+                continueExecutionAPI = false;
+                softAssert.fail("Not able to generate Token. Please Check the API error Message and make changes if required.\nAPI Response Message: " + response.jsonPath().getString("message"));
+            }
+        } catch (Exception e) {
+            continueExecutionAPI = false;
+            softAssert.fail("Connectivity issue occurred, Not able to connect with server : " + e.fillInStackTrace());
+        }
+        softAssert.assertAll();
     }
 
     @DataProviders.User(UserType = "NFTR")
