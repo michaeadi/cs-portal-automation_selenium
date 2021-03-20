@@ -5,6 +5,7 @@ import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 
 @Log4j2
 public class AMTransactionsWidgetPOM extends BasePage {
@@ -135,5 +136,12 @@ public class AMTransactionsWidgetPOM extends BasePage {
     public void clickSearchBtn(){
         printInfoLog("Clicking on Search Button");
         click(transactionSearchBtn);
+    }
+
+    public String doubleClickOnTransactionId(int row){
+        By id=By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Airtel Money Transactions\")]/ancestor::div[@class=\"card widget ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"card__card-header--card-body--table--data-list row-border\"]["+row+"]/div[4]//span");
+        Actions act = new Actions(driver);
+        act.moveToElement(driver.findElement(id)).doubleClick().build().perform();
+        return readText(id);
     }
 }

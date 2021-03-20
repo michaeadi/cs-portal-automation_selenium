@@ -11,6 +11,7 @@ import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.HeaderDataBean;
 import Utils.DataProviders.TestDatabean;
 import Utils.ExtentReports.ExtentTestManager;
+import Utils.UtilsMethods;
 import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
@@ -22,6 +23,10 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.*;
 
+import java.awt.*;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.io.IOException;
 import java.util.List;
 
 import static Utils.DataProviders.DataProviders.User;
@@ -674,7 +679,7 @@ public class customerInteractionTest extends BaseTest {
 
     @DataProviders.Table(Name = "Airtel Money")
     @Test(priority = 7, description = "Validating AM Transaction Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, enabled = true, dependsOnMethods = "openCustomerInteractionAPI")
-    public void airtelMoneyTransactionWidgetTest(HeaderDataBean Data) {
+    public void airtelMoneyTransactionWidgetTest(HeaderDataBean Data) throws IOException, UnsupportedFlavorException {
         ExtentTestManager.startTest("Validating AM Transaction Widget", "Validating AM Transaction Widget of User :" + customerNumber);
         AMTransactionsWidgetPOM amTransactionsWidget = new AMTransactionsWidgetPOM(driver);
         SoftAssert softAssert = new SoftAssert();
@@ -707,6 +712,10 @@ public class customerInteractionTest extends BaseTest {
                     if (amTransactionHistoryAPI.getResult().getData().get(i).getEnableResendSms()) {
                         softAssert.assertTrue(amTransactionsWidget.isResendSMS(), "Resend SMS Icon does not enable as mentioned in API Response.");
                     }
+                    String id=amTransactionsWidget.doubleClickOnTransactionId(i+1);
+                    String clipboardText=(String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
+                    UtilsMethods.printInfoLog("Reading Clipboard copied text: "+clipboardText);
+                    softAssert.assertEquals(id,clipboardText,"After double clicking on Transaction id. Transaction id does not copy to clipboard.");
                 }
             }
         }
