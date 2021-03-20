@@ -39,49 +39,6 @@ import static io.restassured.RestAssured.given;
 
 @Log4j2
 public class APIEndPoints extends tests.BaseTest {
-    @DataProviders.User(UserType = "API")
-    @Test(dataProvider = "loginData", dataProviderClass = DataProviders.class, priority = 1)
-    public void loginAPI(TestDatabean Data) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        SoftAssert softAssert=new SoftAssert();
-        LoginPOJO Req = LoginPOJO.loginBody(PassUtils.decodePassword(Data.getPassword()), Data.getLoginAUUID());
-        map.clear();
-        map.add(new Header("x-app-name", config.getProperty(Env + "-x-app-name")));
-        map.add(new Header("x-service-id", config.getProperty(Env + "-x-service-id")));
-        //map.add(new Header("x-bsy-bn", config.getProperty(Env + "-x-bsy-bn"))); //Comment this line this header removed from MG Opco.
-        map.add(new Header("x-app-type", config.getProperty(Env + "-x-app-type")));
-        map.add(new Header("x-client-id", config.getProperty(Env + "-x-client-id")));
-        map.add(new Header("x-api-key", config.getProperty(Env + "-x-api-key")));
-        map.add(new Header("x-login-module", config.getProperty(Env + "-x-login-module")));
-        map.add(new Header("x-channel", config.getProperty(Env + "-x-channel")));
-        map.add(new Header("x-app-version", config.getProperty(Env + "-x-app-version")));
-        map.add(new Header("Opco", Opco));
-
-        String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(Req);
-        startTest("LOGIN API TEST ", "Logging in Using Login API for getting TOKEN with user : " + Data.getLoginAUUID());
-        getTest().log(LogStatus.INFO, "Logging in Using Login API for getting TOKEN with user : " + Data.getLoginAUUID());
-        baseURI = baseUrl;
-        Headers headers = new Headers(map);
-        RequestSpecification request = given()
-                .headers(headers)
-                .body(dtoAsString)
-                .contentType("application/json");
-        QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
-        log.info("Request Headers are  : " + queryable.getHeaders());
-        Response response = request.post("/auth/api/user-mngmnt/v2/login");
-        Token = "Bearer " + response.jsonPath().getString("result.accessToken");
-        map.add(new Header("Authorization", Token));
-        log.info("Response : " + response.asString());
-        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
-        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
-        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
-        if(!response.jsonPath().getString("message").equalsIgnoreCase("User authenticated successfully")){
-            continueExecution=false;
-            softAssert.fail("Not able to generate Token. Please Update Password As soon as possible if required.\nAPI Response Message: "+response.jsonPath().getString("message"));
-        }
-        softAssert.assertAll();
-    }
 
     public PlansPOJO accountPlansTest(String msisdn) {
         getTest().log(LogStatus.INFO, "Using Account Plans API for Getting expected data for UI");

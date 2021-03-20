@@ -7,11 +7,7 @@
     </listeners>
     <test name="Regression API Login">
         <classes>
-            <class name="API.APIEndPoints">
-                <methods>
-                    <include name="loginAPI"/>
-                </methods>
-            </class>
+            <class name="tests.SystemStatusTest"/>
         </classes>
     </test>
     <test name="Login Admin 1 Test">

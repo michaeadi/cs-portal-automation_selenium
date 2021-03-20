@@ -7,11 +7,7 @@
     </listeners>
     <test name="Sanity API Login">
         <classes>
-            <class name="API.APIEndPoints">
-                <methods>
-                    <include name="loginAPI"/>
-                </methods>
-            </class>
+            <class name="tests.SystemStatusTest"/>
         </classes>
     </test>
     <test name="Login With ALL User Test">

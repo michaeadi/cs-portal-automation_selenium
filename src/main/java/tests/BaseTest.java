@@ -28,8 +28,10 @@ public class BaseTest {
     public static String Token;
     public static String baseUrl;
     public static String suiteType;
-    public static boolean continueExecution=true;
+    public static boolean continueExecutionAPI=true;
     public static boolean continueExecutionBA=true;
+    public static boolean continueExecutionBS=true;
+    public static boolean continueExecutionFA=true;
 
     public WebDriver getDriver() {
         return driver;
