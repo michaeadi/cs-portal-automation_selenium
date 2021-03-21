@@ -55,6 +55,11 @@
             <class name="tests.frontendAgent.InteractionCommentTest"/>
         </classes>
     </test>
+    <test name="Send SMS Test">
+        <classes>
+            <class name="tests.frontendAgent.SendSMSTest"/>
+        </classes>
+    </test>
     <test name="Validate Frontend Agent Ticket Page">
         <classes>
             <class name="tests.frontendAgent.FrontendAgentTicketTest"/>
