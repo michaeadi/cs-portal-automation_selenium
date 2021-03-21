@@ -1,8 +1,7 @@
 package pages;
 
 
-import Utils.ExtentReports.ExtentTestManager;
-import com.relevantcodes.extentreports.LogStatus;
+import Utils.UtilsMethods;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.*;
 
@@ -15,7 +14,7 @@ public class CustomerDemoGraphicPOM extends BasePage {
     By customerNumberSearchBox = By.xpath("//input[@type='search' and @placeholder='Search']");
     By customerName = By.xpath("//span[@class='customer-name ng-star-inserted']/span[1]");
     By customerDOB = By.xpath("//span[contains(text(),'DOB')]//following-sibling::span/span");
-    By customerInfoIcon=By.xpath("//span[@class='customer-name ng-star-inserted']/a");
+    By customerInfoIcon = By.xpath("//span[@class='customer-name ng-star-inserted']/a");
     By refreshIcon = By.xpath("//img[@class='refresh-button cursor-pointer']");
 
     /*
@@ -27,14 +26,14 @@ public class CustomerDemoGraphicPOM extends BasePage {
      * SIM Number & Device Info
      * */
     By simNumber = By.xpath("//span[contains(text(),'SIM Number')]//following-sibling::span/span");
-    By simNumberInfoIcon=By.xpath("//span[contains(text(),'SIM Number')]//following-sibling::span/a");
+    By simNumberInfoIcon = By.xpath("//span[contains(text(),'SIM Number')]//following-sibling::span/a");
     By simType = By.xpath("//span[contains(text(),'SIM Type')]//following-sibling::span/span");
     By deviceCompatible = By.xpath("//div[@class=\"customer-details\"]//div[@class=\"user-left-side\"]/div/div[3]//li[2]/p[2]/span[2]");
 
     /*
      * Device Info
      * */
-    By deviceInfoIcon=By.xpath("//div[@class=\"customer-details\"]//div[@class=\"user-left-side\"]/div/div[3]//li[2]/p[2]/span[2]/a");
+    By deviceInfoIcon = By.xpath("//div[@class=\"customer-details\"]//div[@class=\"user-left-side\"]/div/div[3]//li[2]/p[2]/span[2]/a");
     By IMEINumber = By.xpath("//div[@class=\"customer-details\"]//div[@class=\"user-left-side\"]/div/div[3]//li[2]/p[2]/span[2]/a//div[1]//span");
     By type = By.xpath("//div[@class=\"customer-details\"]//div[@class=\"user-left-side\"]/div/div[3]//li[2]/p[2]/span[2]/a//div[2]//span");
     By brand = By.xpath("//div[@class=\"customer-details\"]//div[@class=\"user-left-side\"]/div/div[3]//li[2]/p[2]/span[2]/a//div[3]//span");
@@ -61,18 +60,18 @@ public class CustomerDemoGraphicPOM extends BasePage {
      * SIM Status & Airtel Money Status & Service Status
      * */
     By SIMStatus = By.xpath("//span[contains(text(),'GSM Status')]//following-sibling::span/span");
-    By SIMStatusReason=By.xpath("//span[contains(text(),'GSM Status')]//following-sibling::span/a");
+    By SIMStatusReason = By.xpath("//span[contains(text(),'GSM Status')]//following-sibling::span/a");
     By airtelMoneyStatus = By.xpath("//span[contains(text(),'Account Status')]//following-sibling::span/span");
     By serviceStatus = By.xpath("//span[contains(text(),'Service Status')]//following-sibling::span/span");
-    By walletBalance=By.xpath("//span[contains(text(),'Wallet Balance')]//following-sibling::span/span");
-    By registrationStatus=By.xpath("//span[contains(text(),'Registration Status')]//following-sibling::span/span");
+    By walletBalance = By.xpath("//span[contains(text(),'Wallet Balance')]//following-sibling::span/span");
+    By registrationStatus = By.xpath("//span[contains(text(),'Registration Status')]//following-sibling::span/span");
 
     /*
-    * SIM Status Reason
-    * */
-    By reasonCode=By.xpath("//span[contains(text(),'Reason Code')]//following-sibling::span");
-    By modifiedBy=By.xpath("//span[contains(text(),'Modified By')]//following-sibling::span");
-    By modifiedDate=By.xpath("//span[contains(text(),'Modified Date')]//following-sibling::span");
+     * SIM Status Reason
+     * */
+    By reasonCode = By.xpath("//span[contains(text(),'Reason Code')]//following-sibling::span");
+    By modifiedBy = By.xpath("//span[contains(text(),'Modified By')]//following-sibling::span");
+    By modifiedDate = By.xpath("//span[contains(text(),'Modified Date')]//following-sibling::span");
     /*
      * ID Type & ID Number
      * */
@@ -81,101 +80,92 @@ public class CustomerDemoGraphicPOM extends BasePage {
 
     By lineType = By.xpath("//span[contains(text(),'Connection Type')]//following-sibling::span");
     By segment = By.xpath("//span[contains(text(),'Segment')]//following-sibling::span");
-    By hoverInfoSegment=By.xpath("//span[contains(text(),'Segment')]//following-sibling::span/a");
+    By hoverInfoSegment = By.xpath("//span[contains(text(),'Segment')]//following-sibling::span/a");
     By serviceClass = By.xpath("//span[contains(text(),'Service Class')]//following-sibling::span");
     By serviceCategory = By.xpath("//span[contains(text(),'Service Category')]//following-sibling::span");
-    By subSegment=By.xpath("//span[contains(text(),'Sub Segment')]//following-sibling::span");
+    By subSegment = By.xpath("//span[contains(text(),'Sub Segment')]//following-sibling::span");
     By appStatus = By.xpath("//span[contains(text(),'App Status')]//following-sibling::span");
     By gsmKycStatus = By.xpath("//span[contains(text(),'GSM KYC Status')]//following-sibling::span");
 
-    By vipFlag=By.xpath("//div[@class=\"customer-details\"]//div[@class=\"vip-flag ng-star-inserted\"]");
-    By errorMessage=By.xpath("//p[contains(text(),'Entered customer number is Invalid')]");
-    By clearSearchBox=By.xpath("//div[@class=\"customer-details\"]//div[@class=\"user-left-side\"]/div/div[1]//span[contains(text(),'X')]");
+    By vipFlag = By.xpath("//div[@class=\"customer-details\"]//div[@class=\"vip-flag ng-star-inserted\"]");
+    By errorMessage = By.xpath("//p[contains(text(),'Entered customer number is Invalid')]");
+    By clearSearchBox = By.xpath("//div[@class=\"customer-details\"]//div[@class=\"user-left-side\"]/div/div[1]//span[contains(text(),'X')]");
 
     public CustomerDemoGraphicPOM(WebDriver driver) {
         super(driver);
     }
 
     public String getCustomerName() {
-        log.info("Getting Customer Name " + readText(customerName));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Customer Name " + readText(customerName));
+        UtilsMethods.printInfoLog("Getting Customer Name " + readText(customerName));
 
         return readText(customerName);
     }
 
-    public String getDeviceCompatible(){
-        printInfoLog("Getting Device Compatible: "+readText(deviceCompatible));
+    public String getDeviceCompatible() {
+        UtilsMethods.printInfoLog("Getting Device Compatible: " + readText(deviceCompatible));
         return readText(deviceCompatible).trim();
     }
 
 
     public String getCustomerDOB() {
-        log.info("Getting Customer DOB " + readText(customerDOB));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Customer DOB " + readText(customerDOB));
+        UtilsMethods.printInfoLog("Getting Customer DOB " + readText(customerDOB));
         return readText(customerDOB);
     }
 
     public String getSIMStatusReasonCode() {
-        printInfoLog("Getting SIM Status Reason Code " + readText(reasonCode));
+        UtilsMethods.printInfoLog("Getting SIM Status Reason Code " + readText(reasonCode));
         return readText(reasonCode);
     }
 
     public String getSIMStatusModifiedBy() {
-        printInfoLog("Getting SIM Status Modified By " + readText(modifiedBy));
+        UtilsMethods.printInfoLog("Getting SIM Status Modified By " + readText(modifiedBy));
         return readText(modifiedBy);
     }
 
     public String getSIMStatusModifiedDate() {
-        printInfoLog("Getting SIM Status Modified Date " + readText(modifiedDate));
+        UtilsMethods.printInfoLog("Getting SIM Status Modified Date " + readText(modifiedDate));
         return readText(modifiedDate);
     }
 
     public String getActivationDate() {
-        log.info("Getting Activation Date " + readText(activationDate));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Activation Date " + readText(activationDate));
+        UtilsMethods.printInfoLog("Getting Activation Date " + readText(activationDate));
         return readText(activationDate);
     }
 
     public String getSimNumber() {
-        log.info("Getting Sim Number " + readText(simNumber));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Sim Number " + readText(simNumber));
+        UtilsMethods.printInfoLog("Getting Sim Number " + readText(simNumber));
         return readText(simNumber);
     }
 
     public String getSimType() {
-        log.info("Getting Sim Type " + readText(simType));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Sim Type " + readText(simType));
+        UtilsMethods.printInfoLog("Getting Sim Type " + readText(simType));
         return readText(simType);
     }
 
     public String getPUK1() {
 
-        log.info("Getting PUK1 " + readText(PUK1));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting PUK1 " + readText(PUK1));
+        UtilsMethods.printInfoLog("Getting PUK1 " + readText(PUK1));
         return readText(PUK1);
     }
 
     public String getPUK2() {
-        log.info("Getting PUK2 " + readText(PUK2));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting PUK2 " + readText(PUK2));
+        UtilsMethods.printInfoLog("Getting PUK2 " + readText(PUK2));
         return readText(PUK2);
     }
 
     public String getIdType() {
-        log.info("Getting ID Type " + readText(idType));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting ID Type " + readText(idType));
+        UtilsMethods.printInfoLog("Getting ID Type " + readText(idType));
         return readText(idType);
     }
 
     public String getIdNumber() {
-        log.info("Getting masked ID Number " + readText(idNumber));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting masked ID Number " + readText(idNumber));
+        UtilsMethods.printInfoLog("Getting masked ID Number " + readText(idNumber));
         return readText(idNumber);
     }
 
     public boolean isPUKInfoLock() {
         try {
-            printInfoLog("Is PUK Info locked: " + checkState(pukLock));
+            UtilsMethods.printInfoLog("Is PUK Info locked: " + checkState(pukLock));
             return checkState(pukLock);
         } catch (TimeoutException | NoSuchElementException e) {
             e.printStackTrace();
@@ -185,7 +175,7 @@ public class CustomerDemoGraphicPOM extends BasePage {
 
     public boolean isVIP() {
         try {
-            printInfoLog("Is Customer VIP: " + checkState(vipFlag));
+            UtilsMethods.printInfoLog("Is Customer VIP: " + checkState(vipFlag));
             return checkState(vipFlag);
         } catch (TimeoutException | NoSuchElementException e) {
             e.printStackTrace();
@@ -195,7 +185,7 @@ public class CustomerDemoGraphicPOM extends BasePage {
 
     public boolean isAirtelMoneyStatusLock() {
         try {
-            printInfoLog("Is Airtel Money Status Info locked: " + checkState(airtelMoneyLock));
+            UtilsMethods.printInfoLog("Is Airtel Money Status Info locked: " + checkState(airtelMoneyLock));
             return checkState(airtelMoneyLock);
         } catch (TimeoutException | NoSuchElementException e) {
             e.printStackTrace();
@@ -204,134 +194,134 @@ public class CustomerDemoGraphicPOM extends BasePage {
     }
 
     public void clickPUKToUnlock() {
-        printInfoLog("Clicking Tap to unlock on PUK Info");
+        UtilsMethods.printInfoLog("Clicking Tap to unlock on PUK Info");
         click(pukLock);
     }
 
     public void clickAirtelStatusToUnlock() {
-        printInfoLog("Clicking Tap to unlock on Airtel Status Info");
+        UtilsMethods.printInfoLog("Clicking Tap to unlock on Airtel Status Info");
         click(airtelMoneyLock);
     }
 
 
-    public String getDataManagerStatus(){
-        printInfoLog("Status of Data Manager Status+ "+driver.findElement(dataManagerStatus).getAttribute("aria-checked"));
+    public String getDataManagerStatus() {
+        UtilsMethods.printInfoLog("Status of Data Manager Status+ " + driver.findElement(dataManagerStatus).getAttribute("aria-checked"));
         return driver.findElement(dataManagerStatus).getAttribute("aria-checked");
     }
 
-    public String getSIMStatus(){
-        printInfoLog("Getting SIM Status: "+readText(SIMStatus));
+    public String getSIMStatus() {
+        UtilsMethods.printInfoLog("Getting SIM Status: " + readText(SIMStatus));
         return readText(SIMStatus);
     }
 
-    public String getAirtelMoneyStatus(){
-        printInfoLog("Getting Airtel Money Status: "+readText(airtelMoneyStatus));
+    public String getAirtelMoneyStatus() {
+        UtilsMethods.printInfoLog("Getting Airtel Money Status: " + readText(airtelMoneyStatus));
         return readText(airtelMoneyStatus);
     }
 
-    public String getServiceStatus(){
-        printInfoLog("Getting Service Status: "+readText(serviceStatus));
+    public String getServiceStatus() {
+        UtilsMethods.printInfoLog("Getting Service Status: " + readText(serviceStatus));
         return readText(serviceStatus);
     }
 
-    public String getWalletBalance(){
-        printInfoLog("Getting Airtel Money Wallet Balance: "+readText(walletBalance));
+    public String getWalletBalance() {
+        UtilsMethods.printInfoLog("Getting Airtel Money Wallet Balance: " + readText(walletBalance));
         return readText(walletBalance);
     }
 
-    public String getRegistrationStatus(){
-        printInfoLog("Getting Airtel Money Registration Status : "+readText(registrationStatus));
+    public String getRegistrationStatus() {
+        UtilsMethods.printInfoLog("Getting Airtel Money Registration Status : " + readText(registrationStatus));
         return readText(registrationStatus);
     }
 
     public String getLineType() {
-        printInfoLog("Getting Line Type: "+readText(lineType));
+        UtilsMethods.printInfoLog("Getting Line Type: " + readText(lineType));
         return readText(lineType);
     }
 
     public String getSegment() {
-        printInfoLog("Getting Segment: "+readText(segment));
+        UtilsMethods.printInfoLog("Getting Segment: " + readText(segment));
         return readText(segment);
     }
 
     public String getServiceClass() {
-        printInfoLog("Getting service class: "+readText(serviceClass));
+        UtilsMethods.printInfoLog("Getting service class: " + readText(serviceClass));
         return readText(serviceClass);
     }
 
     public String getServiceCategory() {
-        printInfoLog("Getting service Category: "+readText(serviceCategory));
+        UtilsMethods.printInfoLog("Getting service Category: " + readText(serviceCategory));
         return readText(serviceCategory);
     }
 
     public String getAppStatus() {
-        printInfoLog("Getting app Status: "+readText(appStatus));
+        UtilsMethods.printInfoLog("Getting app Status: " + readText(appStatus));
         return readText(appStatus);
     }
 
     public String getGsmKycStatus() {
-        printInfoLog("Getting Gsm Kyc Status: "+readText(gsmKycStatus));
+        UtilsMethods.printInfoLog("Getting Gsm Kyc Status: " + readText(gsmKycStatus));
         return readText(gsmKycStatus);
     }
 
-    public String getIMEINumber(){
-        printInfoLog("Getting IMEI Number: "+readText(IMEINumber));
+    public String getIMEINumber() {
+        UtilsMethods.printInfoLog("Getting IMEI Number: " + readText(IMEINumber));
         return readText(IMEINumber);
     }
 
-    public String getDeviceType(){
-        printInfoLog("Getting Device Type: "+readText(type));
+    public String getDeviceType() {
+        UtilsMethods.printInfoLog("Getting Device Type: " + readText(type));
         return readText(type);
     }
 
-    public String getBrand(){
-        printInfoLog("Getting Device Brand: "+readText(brand));
+    public String getBrand() {
+        UtilsMethods.printInfoLog("Getting Device Brand: " + readText(brand));
         return readText(brand);
     }
 
-    public String getDeviceModel(){
-        printInfoLog("Getting Device model: "+readText(model));
+    public String getDeviceModel() {
+        UtilsMethods.printInfoLog("Getting Device model: " + readText(model));
         return readText(model);
     }
 
-    public String getDeviceOS(){
-        printInfoLog("Getting Device Operating System Number: "+readText(os));
+    public String getDeviceOS() {
+        UtilsMethods.printInfoLog("Getting Device Operating System Number: " + readText(os));
         return readText(os);
     }
 
-    public void hoverOnDeviceInfoIcon(){
-        printInfoLog("Hover on Device Info icon");
+    public void hoverOnDeviceInfoIcon() {
+        UtilsMethods.printInfoLog("Hover on Device Info icon");
         hoverAndClick(deviceInfoIcon);
     }
 
-    public void hoverOnSIMStatusInfoIcon(){
-        printInfoLog("Hover on SIM Status Reason Info icon");
+    public void hoverOnSIMStatusInfoIcon() {
+        UtilsMethods.printInfoLog("Hover on SIM Status Reason Info icon");
         hoverAndClick(SIMStatusReason);
     }
 
-    public void hoverOnCustomerInfoIcon(){
-        printInfoLog("Hover on Customer Info icon");
+    public void hoverOnCustomerInfoIcon() {
+        UtilsMethods.printInfoLog("Hover on Customer Info icon");
         hoverAndClick(customerInfoIcon);
     }
 
-    public void hoverOnSegmentInfoIcon(){
-        printInfoLog("Hover on Segment Info icon");
+    public void hoverOnSegmentInfoIcon() {
+        UtilsMethods.printInfoLog("Hover on Segment Info icon");
         hoverAndClick(hoverInfoSegment);
     }
 
-    public boolean invalidMSISDNError(){
-        printInfoLog("Reading Error Message: "+readText(errorMessage));
+    public boolean invalidMSISDNError() {
+        UtilsMethods.printInfoLog("Reading Error Message: " + readText(errorMessage));
         return checkState(errorMessage);
     }
 
-    public void enterMSISDN(String text){
-        printInfoLog("Writing MSISDN in Search Box: "+text);
-        writeText(customerNumberSearchBox,text);
+    public void enterMSISDN(String text) {
+        UtilsMethods.printInfoLog("Writing MSISDN in Search Box: " + text);
+        writeText(customerNumberSearchBox, text);
         driver.findElement(customerNumberSearchBox).sendKeys(Keys.ENTER);
     }
 
-    public void clearSearchBox(int size){
-        printInfoLog("Clearing Search box");
+    public void clearSearchBox(int size) {
+        UtilsMethods.printInfoLog("Clearing Search box");
         for (int i = 0; i < size; i++) {
             driver.findElement(customerNumberSearchBox).sendKeys(Keys.BACK_SPACE);
         }
@@ -339,7 +329,7 @@ public class CustomerDemoGraphicPOM extends BasePage {
 
 
     public void hoverOnSIMNumberIcon() {
-        printInfoLog("Hover on SIM Number Info icon");
+        UtilsMethods.printInfoLog("Hover on SIM Number Info icon");
         hoverAndClick(simNumberInfoIcon);
     }
 }

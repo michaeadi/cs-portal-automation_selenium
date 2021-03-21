@@ -1,7 +1,6 @@
 package pages;
 
-import Utils.ExtentReports.ExtentTestManager;
-import com.relevantcodes.extentreports.LogStatus;
+import Utils.UtilsMethods;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -31,31 +30,28 @@ public class userManagementPOM extends BasePage {
     }
 
     public void clickUpdateButton() {
-        log.info("Clicking on Update Button");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Update Button");
+        UtilsMethods.printInfoLog("Clicking on Update Button");
         click(updateButton);
     }
 
     public void setTicketBucketSize(int Size) {
-        log.info("Setting Current Ticket Size : " + Size);
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Setting Current Ticket Size : " + Size);
+        UtilsMethods.printInfoLog("Setting Current Ticket Size : " + Size);
         clearInputTag(bucketSize);
         writeText(bucketSize, String.valueOf(Size));
     }
 
     public String getCurrentTicketBucketSize() {
-        log.info("Getting Current Ticket Size : " + readText(ticketBucketSize));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Current Ticket Size : " + readText(ticketBucketSize));
+        UtilsMethods.printInfoLog("Getting Current Ticket Size : " + readText(ticketBucketSize));
         return readText(ticketBucketSize);
     }
 
     public ArrayList<String> getWorkflows() {
         List<WebElement> listOfElements = returnListOfElement(workflowsOptions);
-        System.out.println("total elements " + listOfElements.size());
+        log.info("total elements " + listOfElements.size());
         ArrayList<String> strings = new ArrayList<>();
         for (int i = 0; i < listOfElements.size(); i++) {
             try {
-                ExtentTestManager.getTest().log(LogStatus.INFO, "Reading Work Group: " + listOfElements.get(i).getText().toLowerCase().trim());
+                UtilsMethods.printInfoLog("Reading Work Group: " + listOfElements.get(i).getText().toLowerCase().trim());
                 strings.add(listOfElements.get(i).getText().toLowerCase().trim());
 
             } catch (IndexOutOfBoundsException e) {
@@ -68,11 +64,11 @@ public class userManagementPOM extends BasePage {
 
     public ArrayList<String> getLoginQueues() {
         List<WebElement> listOfElements = returnListOfElement(workflowsOptions);
-        System.out.println("total elements " + listOfElements.size());
+        log.info("total elements " + listOfElements.size());
         ArrayList<String> strings = new ArrayList<>();
         for (int i = 0; i < listOfElements.size(); i++) {
             try {
-                ExtentTestManager.getTest().log(LogStatus.INFO, "Reading Login Queue: " + listOfElements.get(i).getText().toLowerCase().trim());
+                UtilsMethods.printInfoLog("Reading Login Queue: " + listOfElements.get(i).getText().toLowerCase().trim());
                 strings.add(listOfElements.get(i).getText().toLowerCase().trim());
             } catch (IndexOutOfBoundsException e) {
                 e.printStackTrace();
@@ -84,11 +80,11 @@ public class userManagementPOM extends BasePage {
 
     public ArrayList<String> getInteractionChannels() {
         List<WebElement> listOfElements = returnListOfElement(channelsOptions);
-        System.out.println("List Size: " + listOfElements.size());
+        log.info("List Size: " + listOfElements.size());
         ArrayList<String> strings = new ArrayList<>();
         for (int i = 0; i < listOfElements.size(); i++) {
             try {
-                ExtentTestManager.getTest().log(LogStatus.INFO, "Reading Login Channel: " + listOfElements.get(i).getText().toLowerCase().trim());
+                UtilsMethods.printInfoLog("Reading Login Channel: " + listOfElements.get(i).getText().toLowerCase().trim());
                 strings.add(listOfElements.get(i).getText().toLowerCase().trim());
             } catch (IndexOutOfBoundsException e) {
                 e.printStackTrace();
@@ -114,8 +110,7 @@ public class userManagementPOM extends BasePage {
     public void openWorkgroupList() throws InterruptedException {
         List<WebElement> webElements = returnListOfElement(By.xpath("//mat-select[starts-with(@class,'mat-select ng-tns') and @aria-multiselectable=\"true\"]"));
         webElements.get(0).click();
-        log.info("Opening Work Group Flow List");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening Work Group Flow List");
+        UtilsMethods.printInfoLog("Opening Work Group Flow List");
         Thread.sleep(1000);
 
     }
@@ -123,21 +118,19 @@ public class userManagementPOM extends BasePage {
     public void openLoginQueueList() throws InterruptedException {
         List<WebElement> webElements = returnListOfElement(By.xpath("//mat-select[starts-with(@class,'mat-select ng-tns') and @aria-multiselectable=\"true\"]"));
         webElements.get(1).click();
-        log.info("Opening Login QueueFlow List");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening Login Queue Flow List");
+        UtilsMethods.printInfoLog("Opening Login Queue Flow List");
         Thread.sleep(1000);
     }
 
 
     public boolean isLoginQueuePresent(String[] strings, String workflow) {
         boolean isThere = false;
-        ExtentTestManager.getTest().log(LogStatus.INFO, "finding " + workflow + " in Login Queue List");
-        log.info("finding " + workflow + " in Login Queue List");
+        UtilsMethods.printInfoLog("finding " + workflow + " in Login Queue List");
         for (String a : strings) {
             if (a.equals(workflow)) {
                 isThere = true;
                 log.info(workflow + " is present in Login Queue List");
-                ExtentTestManager.getTest().log(LogStatus.INFO, workflow + " is present in Login Queue List");
+                UtilsMethods.printInfoLog(workflow + " is present in Login Queue List");
 
             }
         }
@@ -145,63 +138,53 @@ public class userManagementPOM extends BasePage {
     }
 
     public void clickViewEditButton() {
-        log.info("Clicking View/Edit button");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking View/Edit button");
+        UtilsMethods.printInfoLog("Clicking View/Edit button");
         click(viewEditButton);
     }
 
     public void waitUntilEditPageIsOpen() {
-        log.info("Waiting Until Edit Profile Page is Loaded");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Waiting Until Edit Profile Page is Loaded");
+        UtilsMethods.printInfoLog("Waiting Until Edit Profile Page is Loaded");
         waitTillLoaderGetsRemoved();
         wait.until(ExpectedConditions.elementToBeClickable(cancelButton));
     }
 
     public void waitTillUMPageLoaded() {
-        log.info("Waiting Until Profile Management Page is Loaded");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Waiting Until Profile Management Page is Loaded");
+        UtilsMethods.printInfoLog("Waiting Until Profile Management Page is Loaded");
         wait.until(ExpectedConditions.visibilityOfElementLocated(totalUsersHeading));
     }
 
     public boolean isSearchVisible() {
-        log.info("Checking is Search Auuid Text box is Visible : " + checkState(searchAuuid));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is Search Auuid Text box is Visible : " + checkState(searchAuuid));
+        UtilsMethods.printInfoLog("Checking is Search Auuid Text box is Visible : " + checkState(searchAuuid));
         return checkState(searchAuuid);
     }
 
     public void searchAuuid(String Auuid) {
-        log.info("Writing AUUID to Search Auuid Text box : " + Auuid);
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Writing AUUID to Search Auuid Text box : " + Auuid);
+        UtilsMethods.printInfoLog("Writing AUUID to Search Auuid Text box : " + Auuid);
         writeText(searchAuuid, Auuid);
     }
 
     public void clickSearchButton() {
-        log.info("Clicking on Search Button");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Search Button");
+        UtilsMethods.printInfoLog("Clicking on Search Button");
         click(searchButton);
     }
 
     public void waitUntilResultPageIsVisible() {
         waitTillLoaderGetsRemoved();
-        log.info("Waiting Untill Result Page is Loaded");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Waiting Untill Result Page is Loaded");
+        UtilsMethods.printInfoLog("Waiting Untill Result Page is Loaded");
         wait.until(ExpectedConditions.visibilityOfElementLocated(searchButton));
     }
 
     public String resultIsVisible(String AUUID) {
 
         By title = By.xpath("//div[@title='" + AUUID + "']");
-        log.info("Checking is Search Auuid Text box is Visible : " + isElementVisible(title));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is Search Auuid Text box is Visible : " + isElementVisible(title));
-        log.info("Getting AUUID from result : " + readText(title));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting AUUID from result : " + readText(title));
+        UtilsMethods.printInfoLog("Checking is Search Auuid Text box is Visible : " + isElementVisible(title));
+        UtilsMethods.printInfoLog("Getting AUUID from result : " + readText(title));
         isElementVisible(title);
         return readText(title);
     }
 
     public void openListInteractionChannels() throws InterruptedException {
-        log.info("Opening Interaction Channel List");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening Interaction Channel List");
+        UtilsMethods.printInfoLog("Opening Interaction Channel List");
         click(interactionChannel);
         Thread.sleep(1000);
     }
@@ -220,13 +203,12 @@ public class userManagementPOM extends BasePage {
 
     public boolean isInteractionChannelPresent(String[] strings, String channel) {
         boolean isThere = false;
-        log.info("finding " + channel + " in Interaction List");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "finding " + channel + " in Interaction List");
+        UtilsMethods.printInfoLog("finding " + channel + " in Interaction List");
         for (String a : strings) {
             if (a.equals(channel)) {
                 isThere = true;
                 log.info(channel + " is present in interaction Channel List");
-                ExtentTestManager.getTest().log(LogStatus.INFO, channel + " is present in interaction Channel List");
+                UtilsMethods.printInfoLog(channel + " is present in interaction Channel List");
             }
         }
         return isThere;

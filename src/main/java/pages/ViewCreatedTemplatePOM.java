@@ -1,7 +1,6 @@
 package pages;
 
-import Utils.ExtentReports.ExtentTestManager;
-import com.relevantcodes.extentreports.LogStatus;
+import Utils.UtilsMethods;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -56,7 +55,7 @@ public class ViewCreatedTemplatePOM extends BasePage {
     }
 
     public void WriteSearchKeyword(String text) {
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Search By Agent Name: " + text);
+        UtilsMethods.printInfoLog("Search By Agent Name: " + text);
         writeText(searchKeyWord, text);
     }
 
@@ -66,8 +65,7 @@ public class ViewCreatedTemplatePOM extends BasePage {
     }
 
     public boolean isTemplatePresent(String text) {
-        log.info("Checking Template Present With Name: " + text);
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking Template Present With Name: " + text);
+        UtilsMethods.printInfoLog("Checking Template Present With Name: " + text);
         List<WebElement> list = returnListOfElement(allActiveTemplate);
         for (int i = 1; i <= list.size(); i++) {
             By element = By.xpath("//div[@class=\"sms-managment__card-list--card--sms-template--content--sms-card ng-star-inserted\"][" + i + "]//h6");
@@ -81,15 +79,13 @@ public class ViewCreatedTemplatePOM extends BasePage {
 
     public String templateName(int i) {
         By element = By.xpath("//div[@class=\"sms-managment__card-list--card--sms-template--content--sms-card ng-star-inserted\"][" + i + "]//h6");
-        log.info("Reading Template: " + readText(element));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Reading Template: " + readText(element));
+        UtilsMethods.printInfoLog("Reading Template: " + readText(element));
         return readText(element);
     }
 
     public String templateCategory(int i) {
         By element = By.xpath("//div[@class=\"sms-managment__card-list--card--sms-template--content--sms-card ng-star-inserted\"][" + i + "]//h5");
-        log.info("Reading Category: " + readText(element));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Reading Category: " + readText(element));
+        UtilsMethods.printInfoLog("Reading Category: " + readText(element));
         return readText(element);
     }
 
@@ -99,18 +95,17 @@ public class ViewCreatedTemplatePOM extends BasePage {
     }
 
     public void selectALLOption() {
-        log.info("Clicking on All Select Option");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on All Select Option");
+        UtilsMethods.printInfoLog("Clicking on All Select Option");
         click(allOption);
     }
 
     public ArrayList<String> getAllOptions() {
         List<WebElement> listOfElements = returnListOfElement(options);
-        System.out.println("List Size: " + listOfElements.size());
+        log.info("List Size: " + listOfElements.size());
         ArrayList<String> strings = new ArrayList<>();
         for (int i = 0; i < listOfElements.size(); i++) {
             try {
-                ExtentTestManager.getTest().log(LogStatus.INFO, "Reading : " + listOfElements.get(i).getText().toLowerCase().trim());
+                UtilsMethods.printInfoLog("Reading : " + listOfElements.get(i).getText().toLowerCase().trim());
                 strings.add(listOfElements.get(i).getText().toLowerCase().trim());
             } catch (IndexOutOfBoundsException e) {
                 e.printStackTrace();
@@ -122,15 +117,13 @@ public class ViewCreatedTemplatePOM extends BasePage {
 
     public String validateActiveStatus(int i) {
         By status = By.xpath("//div[@class=\"sms-managment__card-list--card--sms-template--content--sms-card ng-star-inserted\"][" + i + "]//div//p[1]");
-        log.info("Read Status: " + readText(status));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Read Status: " + readText(status));
+        UtilsMethods.printInfoLog("Read Status: " + readText(status));
         return readText(status);
     }
 
     public String validateDeActiveStatus(int i) {
         By status = By.xpath("//div[@class=\"sms-managment__card-list--card--sms-template--content--sms-card ng-star-inserted\"][" + i + "]//div//p[2]");
-        log.info("Read Status: " + readText(status));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Read Status: " + readText(status));
+        UtilsMethods.printInfoLog("Read Status: " + readText(status));
         return readText(status);
     }
 
@@ -150,8 +143,7 @@ public class ViewCreatedTemplatePOM extends BasePage {
 
     public void clickDeleteIcon(int i) {
         By icon = By.xpath("//div[@class=\"sms-managment__card-list--card--sms-template--content--sms-card ng-star-inserted\"][" + i + "]//div//img[@title=\"delete\"]");
-        log.info("clicking delete icon");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "clicking delete icon");
+        UtilsMethods.printInfoLog("clicking delete icon");
         click(icon);
     }
 
@@ -171,8 +163,7 @@ public class ViewCreatedTemplatePOM extends BasePage {
 
     public String templateLanguage(int i) {
         By icon = By.xpath("//div[@class=\"sms-managment__card-list--card--sms-template--content--sms-card ng-star-inserted\"][" + i + "]//div[2]//span");
-        log.info("Template language: " + readText(icon));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Template language: " + readText(icon));
+        UtilsMethods.printInfoLog("Template language: " + readText(icon));
         return readText(icon);
     }
 
@@ -190,35 +181,31 @@ public class ViewCreatedTemplatePOM extends BasePage {
 
     public String popUpTitleDeActive() {
         String text = readText(deActivePopUpTitle);
-        log.info("Pop up title: " + text);
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Pop up title: " + text);
+        UtilsMethods.printInfoLog("Pop up title: " + text);
         return text;
     }
 
     public String popUpMessage() {
         String text = readText(popUpMessage);
         log.info("Pop up message: " + text);
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Pop up message: " + text);
+        UtilsMethods.printInfoLog("Pop up message: " + text);
         return text;
     }
 
     public boolean isNoButtonAvailable() {
         boolean check = checkState(noBtn);
-        log.info("Pop up 'No' button available: " + check);
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Pop up 'No' button available: " + check);
+        UtilsMethods.printInfoLog("Pop up 'No' button available: " + check);
         return check;
     }
 
     public boolean isYesButtonAvailable() {
         boolean check = checkState(yesBtn);
-        log.info("Pop up 'YES' button available: " + check);
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Pop up 'YES' button available: " + check);
+        UtilsMethods.printInfoLog("Pop up 'YES' button available: " + check);
         return check;
     }
 
     public void clickNoBtn() {
-        log.info("Clicking 'No' Button");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking 'No' Button");
+        UtilsMethods.printInfoLog("Clicking 'No' Button");
         click(noBtn);
     }
 

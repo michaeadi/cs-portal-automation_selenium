@@ -1,6 +1,7 @@
 package pages;
 
 import Utils.ExtentReports.ExtentTestManager;
+import Utils.UtilsMethods;
 import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
@@ -49,69 +50,58 @@ public class TemplateManagementPOM extends BasePage {
 
     public boolean isPageLoaded() {
         waitVisibility(createdTemplateTab);
-        log.info("Checking that is Template Management Page is loaded : " + checkState(createdTemplateTab));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking that is Template Management Page is loaded : " + checkState(createdTemplateTab));
+        UtilsMethods.printInfoLog("Checking that is Template Management Page is loaded : " + checkState(createdTemplateTab));
         return checkState(createdTemplateTab);
     }
 
     public void clickCreatedTemplateTab() {
-        log.info("Clicking on created template");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on created template");
+        UtilsMethods.printInfoLog("Clicking on created template");
         click(createdTemplateTab);
     }
 
     public ViewCreatedTemplatePOM clickViewCreatedTemplateTab() {
-        log.info("Clicking on view created template");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on view created template");
+        UtilsMethods.printInfoLog("Clicking on view created template");
         click(viewCreatedTemplateTab);
         return new ViewCreatedTemplatePOM(driver);
     }
 
     public boolean isAddTemplateAvailable() {
-        log.info("Checking create SMS template page have 'Add Template' Option with radio button to select : " + isElementVisible(addTemplateBtn));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking create SMS template page have 'Add Template' Option with radio button to select : " + isElementVisible(addTemplateBtn));
+        UtilsMethods.printInfoLog("Checking create SMS template page have 'Add Template' Option with radio button to select : " + isElementVisible(addTemplateBtn));
         return isElementVisible(addTemplateBtn);
     }
 
     public boolean isAddTemplateCategoryAvailable() {
-        log.info("Checking create SMS template page have 'Add Template' Option with radio button to select : " + isElementVisible(addTemplateCategoryBtn));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking create SMS template page have 'Add Template Category' Option with radio button to select : " + isElementVisible(addTemplateCategoryBtn));
+        UtilsMethods.printInfoLog("Checking create SMS template page have 'Add Template Category' Option with radio button to select : " + isElementVisible(addTemplateCategoryBtn));
         return isElementVisible(addTemplateCategoryBtn);
     }
 
     public boolean isCategoryAvailable() {
-        log.info("Checking 'Category' label displayed on the 'Add Template' tab, when the Customer channel is selected as 'SMS'." + isElementVisible(categoryLabel));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking Category label displayed on the 'Add Template' tab, when the Customer channel is selected as 'SMS'." + isElementVisible(categoryLabel));
+        UtilsMethods.printInfoLog("Checking Category label displayed on the 'Add Template' tab, when the Customer channel is selected as 'SMS'." + isElementVisible(categoryLabel));
         return isElementVisible(categoryLabel);
     }
 
     public boolean isMessageChannelAvailable() {
-        log.info("Checking 'Message Channel' label displayed on the 'Add Template' tab, when the Customer channel is selected as 'SMS'." + isElementVisible(messageChannelLabel));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking 'Message Channel' label displayed on the 'Add Template' tab, when the Customer channel is selected as 'SMS'." + isElementVisible(messageChannelLabel));
+        UtilsMethods.printInfoLog("Checking 'Message Channel' label displayed on the 'Add Template' tab, when the Customer channel is selected as 'SMS'." + isElementVisible(messageChannelLabel));
         return isElementVisible(messageChannelLabel);
     }
 
     public boolean isTemplateNameAvailable() {
-        log.info("Checking 'Template name' label displayed on the 'Add Template' tab, when the Customer channel is selected as 'SMS'." + isElementVisible(templateNameLabel));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking 'Template name' label displayed on the 'Add Template' tab, when the Customer channel is selected as 'SMS'." + isElementVisible(templateNameLabel));
+        UtilsMethods.printInfoLog("Checking 'Template name' label displayed on the 'Add Template' tab, when the Customer channel is selected as 'SMS'." + isElementVisible(templateNameLabel));
         return isElementVisible(templateNameLabel);
     }
 
     public boolean isRoleAvailable() {
-        log.info("Checking 'Role' label displayed on the 'Add Template' tab, when the Customer channel is selected as 'SMS'." + isElementVisible(roleLabel));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking 'Role' label displayed on the 'Add Template' tab, when the Customer channel is selected as 'SMS'." + isElementVisible(roleLabel));
+        UtilsMethods.printInfoLog("Checking 'Role' label displayed on the 'Add Template' tab, when the Customer channel is selected as 'SMS'." + isElementVisible(roleLabel));
         return isElementVisible(roleLabel);
     }
 
     public boolean isAgentChannelAvailable() {
-        log.info("Checking 'Agent Channel' label displayed on the 'Add Template' tab, when the Customer channel is selected as 'SMS'." + isElementVisible(agentChannelLabel));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking 'Agent Channel' label displayed on the 'Add Template' tab, when the Customer channel is selected as 'SMS'." + isElementVisible(agentChannelLabel));
+        UtilsMethods.printInfoLog("Checking 'Agent Channel' label displayed on the 'Add Template' tab, when the Customer channel is selected as 'SMS'." + isElementVisible(agentChannelLabel));
         return isElementVisible(agentChannelLabel);
     }
 
     public boolean isSMSLanguageAvailable() {
-        log.info("Checking 'SMS Language' label displayed on the 'Add Template' tab, when the Customer channel is selected as 'SMS'." + isElementVisible(smsLanguageLabel));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking 'SMS Language' label displayed on the 'Add Template' tab, when the Customer channel is selected as 'SMS'." + isElementVisible(smsLanguageLabel));
+        UtilsMethods.printInfoLog("Checking 'SMS Language' label displayed on the 'Add Template' tab, when the Customer channel is selected as 'SMS'." + isElementVisible(smsLanguageLabel));
         return isElementVisible(smsLanguageLabel);
     }
 
@@ -126,20 +116,17 @@ public class TemplateManagementPOM extends BasePage {
     }
 
     public void writeTemplateCategoryName(String text) {
-        log.info("Creating Template Category with name: " + text);
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Creating Template Category with name: " + text);
+        UtilsMethods.printInfoLog("Creating Template Category with name: " + text);
         writeText(templateCategoryName, text);
     }
 
     public void writeTemplateName(String text) {
-        log.info("Creating Template  with name: " + text);
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Creating Template  with name: " + text);
+        UtilsMethods.printInfoLog("Creating Template  with name: " + text);
         writeText(templateNameBox, text);
     }
 
     public void clickAddCategoryBtn() {
-        log.info("clicking add template category button");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "clicking add template category button");
+        UtilsMethods.printInfoLog("clicking add template category button");
         click(addCategoryBtn);
     }
 
@@ -159,38 +146,33 @@ public class TemplateManagementPOM extends BasePage {
     }
 
     public void selectOptionFromList(String text) {
-        log.info("Selecting option with name: " + text);
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Selecting option with name: " + text);
+        UtilsMethods.printInfoLog("Selecting option with name: " + text);
         selectByText(text);
     }
 
     public void clickTemplateCategory() {
         log.info("Opening Template Category name list");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening Template Category name list");
+        UtilsMethods.printInfoLog("Opening Template Category name list");
         click(openCategoryList);
     }
 
     public void clickAgentRole() {
-        log.info("Opening Agent Role list");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening Agent Role list");
+        UtilsMethods.printInfoLog("Opening Agent Role list");
         click(openRoleList);
     }
 
     public void clickAgentChannels() {
-        log.info("Opening Agent channel list");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening Agent channel list");
+        UtilsMethods.printInfoLog("Opening Agent channel list");
         click(openChannelList);
     }
 
     public void clickSMSLanguage() {
-        log.info("Opening SMS language list");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening SMS language list");
+        UtilsMethods.printInfoLog("Opening SMS language list");
         click(openLangList);
     }
 
     public boolean clickCreateTemplateBtn() {
-        log.info("Clicking create template button");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking create template button");
+        UtilsMethods.printInfoLog("Clicking create template button");
         if (driver.findElement(createBtn).isEnabled()) {
             click(createBtn);
             return true;
@@ -200,15 +182,14 @@ public class TemplateManagementPOM extends BasePage {
     }
 
     public void writeSMSContent(String text) {
-        log.info("SMS Content: " + text);
-        ExtentTestManager.getTest().log(LogStatus.INFO, "SMS Content: " + text);
+        UtilsMethods.printInfoLog("SMS Content: " + text);
         writeText(smsContent, text);
     }
 
     public String readResponseMessage() {
 //        String text = readText(message);
-        String text= (String) js.executeScript("return arguments[0].innerHTML", driver.findElement(message));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Response: " + text);
+        String text = (String) js.executeScript("return arguments[0].innerHTML", driver.findElement(message));
+        UtilsMethods.printInfoLog("Response: " + text);
         return text;
     }
 

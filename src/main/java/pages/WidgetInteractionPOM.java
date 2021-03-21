@@ -1,6 +1,7 @@
 package pages;
 
 import Utils.ExtentReports.ExtentTestManager;
+import Utils.UtilsMethods;
 import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
@@ -27,26 +28,22 @@ public class WidgetInteractionPOM extends BasePage {
     }
 
     public String getTabTitle() {
-        log.info("Reading Interaction Tab title: " + readText(heading));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Reading Interaction Tab title: " + readText(heading));
+        UtilsMethods.printInfoLog("Reading Interaction Tab title: " + readText(heading));
         return readText(heading);
     }
 
     public boolean checkNoInteractionTag() {
-        log.info("Is interaction tagged to widget :" + isElementVisible(noInteractionTag));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Is interaction tagged to widget :" + isElementVisible(noInteractionTag));
+        UtilsMethods.printInfoLog("Is interaction tagged to widget :" + isElementVisible(noInteractionTag));
         return isElementVisible(noInteractionTag);
     }
 
     public void writeKeyword(String text) {
-        log.info("Search Issue with keyword: " + text);
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Search Issue with keyword: " + text);
+        UtilsMethods.printInfoLog("Search Issue with keyword: " + text);
         writeText(searchBox, text);
     }
 
     public customerInteractionPagePOM closeInteractionTab() {
-        log.info("Close interaction tab");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Close interaction tab");
+        UtilsMethods.printInfoLog("Close interaction tab");
         click(closeTab);
         return new customerInteractionPagePOM(driver);
     }
@@ -69,14 +66,12 @@ public class WidgetInteractionPOM extends BasePage {
     }
 
     public void writeComment(String text) {
-        log.info("Adding Comment : " + text);
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Adding comment : " + text);
+        UtilsMethods.printInfoLog("Adding comment : " + text);
         writeText(commentBox, text);
     }
 
     public customerInteractionPagePOM clickSubmitBtn() {
-        log.info("Clicking Submit Button");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking submit button");
+        UtilsMethods.printInfoLog("Clicking submit button");
         click(submitBtn);
         ExtentTestManager.getTest().log(LogStatus.PASS, "Issue Created");
         return new customerInteractionPagePOM(driver);

@@ -199,7 +199,7 @@ public class SupervisorUpdateTicket extends BaseTest {
             customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
             softAssert.assertTrue(customerInteractionPagePOM.isPageLoaded());
         }else{
-            SideMenuPOM.printWarningLog("No Ticket Id Closed. SKIP Validate Re-open Icon on Closed Ticket");
+            UtilsMethods.printWarningLog("No Ticket Id Closed. SKIP Validate Re-open Icon on Closed Ticket");
         }
         softAssert.assertAll();
     }
@@ -221,7 +221,7 @@ public class SupervisorUpdateTicket extends BaseTest {
         ticketHistory.getTicketState(1);
         softAssert.assertTrue(ticketHistory.checkReopen(1), "Reopen icon does not found on ticket");
         }else{
-            customerInteractionPage.printWarningLog("No Ticket Id Closed. SKIP Validate Re-open Icon on Closed Ticket");
+            UtilsMethods.printWarningLog("No Ticket Id Closed. SKIP Validate Re-open Icon on Closed Ticket");
         }
         softAssert.assertAll();
     }

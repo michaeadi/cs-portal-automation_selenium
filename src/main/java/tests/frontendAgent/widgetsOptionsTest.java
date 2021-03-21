@@ -10,6 +10,7 @@ import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.HeaderDataBean;
 import Utils.DataProviders.TestDatabean;
 import Utils.ExtentReports.ExtentTestManager;
+import Utils.UtilsMethods;
 import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -18,7 +19,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.*;
-import tests.frontendAgent.BaseTest;
 
 import static Utils.DataProviders.DataProviders.Table;
 
@@ -85,10 +85,10 @@ public class widgetsOptionsTest extends BaseTest {
                     softAssert.assertEquals(daDetails.getDAId(i + 1), accountsBalanceAPI.getResult().get(i).getDaId(), "DA ID is not as received in API on row " + i);
                     softAssert.assertEquals(daDetails.getDADescription(i + 1), accountsBalanceAPI.getResult().get(i).getDaDesc(), "DA Description is not as received in API on row " + i);
                     softAssert.assertEquals(daDetails.getBundleType(i + 1).replace("-", "null") + " ", accountsBalanceAPI.getResult().get(i).getBundleType() + " ", "DA Bundle Type is not as received in API on row " + i);
-                    softAssert.assertEquals(daDetails.getDADateTime(i + 1), daDetails.getDateFromEpochInUTC(accountsBalanceAPI.getResult().get(i).getExpiryDate(), "dd-MMM-yyyy"), "DA Date Time is not as received in API on row " + i);
+                    softAssert.assertEquals(daDetails.getDADateTime(i + 1), UtilsMethods.getDateFromEpochInUTC(accountsBalanceAPI.getResult().get(i).getExpiryDate(), "dd-MMM-yyyy"), "DA Date Time is not as received in API on row " + i);
                     softAssert.assertEquals(daDetails.getDABalance(i + 1), accountsBalanceAPI.getResult().get(i).getCurrentDaBalance(), "DA Current Balance is not as received in API on row " + i);
                     if (i != 0) {
-                        softAssert.assertTrue(daDetails.isSortOrderDisplay(daDetails.getDADateTime(i), daDetails.getDADateTime(i + 1), "dd-MMM-yyy"), daDetails.getDADateTime(i) + "should not display before " + daDetails.getDADateTime(i + 1));
+                        softAssert.assertTrue(UtilsMethods.isSortOrderDisplay(daDetails.getDADateTime(i), daDetails.getDADateTime(i + 1), "dd-MMM-yyy"), daDetails.getDADateTime(i) + "should not display before " + daDetails.getDADateTime(i + 1));
                     }
                 }
                 daDetails.openingCustomerInteractionDashboard();
@@ -125,8 +125,8 @@ public class widgetsOptionsTest extends BaseTest {
                 for (int i = 0; i < size; i++) {
                     softAssert.assertEquals(daDetails.getValueCorrespondingToAccumulator(i + 1, 1).trim(), accumulatorAPI.getResult().get(i).getId(), "Accumulator ID is not as received in API on row " + i);
                     softAssert.assertEquals(daDetails.getValueCorrespondingToAccumulator(i + 1, 2).trim(), String.valueOf(accumulatorAPI.getResult().get(i).getValue()), "Accumulator Value is not as received in API on row " + i);
-                    softAssert.assertEquals(daDetails.getValueCorrespondingToAccumulator(i + 1, 3).trim(), accumulatorAPI.getResult().get(i).getStartDate() == null ? "-" : daDetails.getDateFromString(accumulatorAPI.getResult().get(i).getStartDate(), config.getProperty("UIAccumulatorTimeFormat"), config.getProperty("APIAccumulatorTimeFormat")), "Accumulator Start Date is not as received in API on row " + i);
-                    softAssert.assertEquals(daDetails.getValueCorrespondingToAccumulator(i + 1, 4).trim(), accumulatorAPI.getResult().get(i).getNextResetDate() == null ? "-" : daDetails.getDateFromString(accumulatorAPI.getResult().get(i).getNextResetDate(), config.getProperty("UIAccumulatorTimeFormat"), config.getProperty("APIAccumulatorTimeFormat")), "Accumulator Next Reset Date Time is not as received in API on row " + i);
+                    softAssert.assertEquals(daDetails.getValueCorrespondingToAccumulator(i + 1, 3).trim(), accumulatorAPI.getResult().get(i).getStartDate() == null ? "-" : UtilsMethods.getDateFromString(accumulatorAPI.getResult().get(i).getStartDate(), config.getProperty("UIAccumulatorTimeFormat"), config.getProperty("APIAccumulatorTimeFormat")), "Accumulator Start Date is not as received in API on row " + i);
+                    softAssert.assertEquals(daDetails.getValueCorrespondingToAccumulator(i + 1, 4).trim(), accumulatorAPI.getResult().get(i).getNextResetDate() == null ? "-" : UtilsMethods.getDateFromString(accumulatorAPI.getResult().get(i).getNextResetDate(), config.getProperty("UIAccumulatorTimeFormat"), config.getProperty("APIAccumulatorTimeFormat")), "Accumulator Next Reset Date Time is not as received in API on row " + i);
                 }
                 daDetails.openingCustomerInteractionDashboard();
             } else {
@@ -274,7 +274,7 @@ public class widgetsOptionsTest extends BaseTest {
                 softAssert.assertEquals(moreRechargeHistory.getHeaders(10).toLowerCase().trim(), Data.getRow10().toLowerCase().trim(), "Header Name for Row 10 is not as expected");
                 for (int i = 0; i < size; i++) {
                     softAssert.assertEquals(moreRechargeHistory.getValueCorrespondingToRechargeHeader(i + 1, 1).trim(), rechargeHistoryAPI.getResult().get(i).getCharges().trim(), " Charges received is not as expected on row " + i);
-                    softAssert.assertEquals(moreRechargeHistory.getValueCorrespondingToRechargeHeader(i + 1, 2), rechargeHistory.getDateFromString(rechargeHistoryAPI.getResult().get(i).getDateTime(), config.getProperty("UIRechargeHistoryTimeFormat"), config.getProperty("APIRechargeHistoryTimeFormat")), "Date & Time received is not as expected on row " + i);
+                    softAssert.assertEquals(moreRechargeHistory.getValueCorrespondingToRechargeHeader(i + 1, 2), UtilsMethods.getDateFromString(rechargeHistoryAPI.getResult().get(i).getDateTime(), config.getProperty("UIRechargeHistoryTimeFormat"), config.getProperty("APIRechargeHistoryTimeFormat")), "Date & Time received is not as expected on row " + i);
                     softAssert.assertEquals(moreRechargeHistory.getValueCorrespondingToRechargeHeader(i + 1, 3).toLowerCase().trim().replaceAll("[^a-zA-Z]+", ""), rechargeHistoryAPI.getResult().get(i).getBundleName().toLowerCase().trim().replaceAll("[^a-zA-Z]+", ""), "Bundle Name received is not as expected on row " + i);
                     System.out.println("Recharge History Benefits:?? " + rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getSMS() + " " + rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getVOICE() + " " + rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getDATA());
                     softAssert.assertEquals(moreRechargeHistory.getValueCorrespondingToRechargeHeader(i + 1, 4).replaceAll("[^a-zA-Z0-9]+", ""), ((rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getVOICE() == null) ? "" : rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getVOICE()) + ((rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getDATA() == null) ? "" : rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getDATA()) + ((rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getSMS() == null) ? "" : rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getSMS()), "Recharge Benefits received is not as expected on row " + i);
@@ -285,11 +285,11 @@ public class widgetsOptionsTest extends BaseTest {
                     } else {
                         softAssert.assertEquals(moreRechargeHistory.getValueCorrespondingToRechargeHeader(i + 1, 7), "-", "Serial Number received is not as expected on row " + i);
                     }
-                    softAssert.assertEquals(moreRechargeHistory.getValueCorrespondingToRechargeHeader(i + 1, 8), ((rechargeHistoryAPI.getResult().get(i).getExpiryDate() == null) ? "-" : rechargeHistory.getDateFromString(rechargeHistoryAPI.getResult().get(i).getExpiryDate(), "dd-MMM-yyyy hh:mm aa", "dd MMM yyyy hh:mm aa")), "Expiry date received is not as expected on row " + i);
+                    softAssert.assertEquals(moreRechargeHistory.getValueCorrespondingToRechargeHeader(i + 1, 8), ((rechargeHistoryAPI.getResult().get(i).getExpiryDate() == null) ? "-" : UtilsMethods.getDateFromString(rechargeHistoryAPI.getResult().get(i).getExpiryDate(), "dd-MMM-yyyy hh:mm aa", "dd MMM yyyy hh:mm aa")), "Expiry date received is not as expected on row " + i);
                     softAssert.assertEquals(moreRechargeHistory.getValueCorrespondingToRechargeHeader(i + 1, 9), "-", "Old Expiry date received is not as expected on row " + i);
                     softAssert.assertEquals(moreRechargeHistory.getValueCorrespondingToRechargeHeader(i + 1, 10).trim(), ((rechargeHistoryAPI.getResult().get(i).getValidity() == null) ? "-" : rechargeHistoryAPI.getResult().get(i).getValidity()), "Validity received is not as expected on row " + i);
                     if (i != 0) {
-                        softAssert.assertTrue(moreRechargeHistory.isSortOrderDisplay(moreRechargeHistory.getValueCorrespondingToRechargeHeader(i + 1, 2), moreRechargeHistory.getValueCorrespondingToRechargeHeader(i, 2), "dd-MMM-yyy HH:mm"), moreRechargeHistory.getValueCorrespondingToRechargeHeader(i + 1, 2) + "should not display before " + moreRechargeHistory.getValueCorrespondingToRechargeHeader(i, 2));
+                        softAssert.assertTrue(UtilsMethods.isSortOrderDisplay(moreRechargeHistory.getValueCorrespondingToRechargeHeader(i + 1, 2), moreRechargeHistory.getValueCorrespondingToRechargeHeader(i, 2), "dd-MMM-yyy HH:mm"), moreRechargeHistory.getValueCorrespondingToRechargeHeader(i + 1, 2) + "should not display before " + moreRechargeHistory.getValueCorrespondingToRechargeHeader(i, 2));
                     }
                 }
             }
@@ -432,7 +432,7 @@ public class widgetsOptionsTest extends BaseTest {
                             } else {
                                 softAssert.assertTrue(amTransactionsWidget.isNegSignDisplay(i+1), i+"th Negative Sign does not display in case of Amount Debited.");
                             }
-                            softAssert.assertEquals(amTransactionsWidget.getValueCorrespondingToHeader(i + 1, 2), amTransactionsWidget.getDateFromEpoch(new Long(amTransactionHistoryAPI.getResult().getData().get(i).getTransactionDate()), config.getProperty("AMHistoryTimeFormat")), i + "th Date is not expected as API response.");
+                            softAssert.assertEquals(amTransactionsWidget.getValueCorrespondingToHeader(i + 1, 2), UtilsMethods.getDateFromEpoch(new Long(amTransactionHistoryAPI.getResult().getData().get(i).getTransactionDate()), config.getProperty("AMHistoryTimeFormat")), i + "th Date is not expected as API response.");
                             softAssert.assertEquals(amTransactionsWidget.getValueCorrespondingToHeader(i + 1, 3), amTransactionHistoryAPI.getResult().getData().get(i).getService(), i + "th Service name is not expected as API response.");
                             softAssert.assertEquals(amTransactionsWidget.getValueCorrespondingToHeader(i + 1, 4), amTransactionHistoryAPI.getResult().getData().get(i).getSource(), i + "th Sender MSISDN is not expected as API response.");
                             softAssert.assertEquals(amTransactionsWidget.getValueCorrespondingToHeader(i + 1, 5), amTransactionHistoryAPI.getResult().getData().get(i).getMsisdn(), i + "th Receiver MSISDN is not expected as API response.");

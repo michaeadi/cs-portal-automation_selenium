@@ -65,7 +65,7 @@ public class LoanWidgetTest extends BaseTest {
         LoanWidgetPOM loanWidget = new LoanWidgetPOM(driver);
         vendors = vendorNames.getResult().getVendors();
         for (Vendors v : vendors) {
-            loanWidget.printInfoLog("Loan Services: " + v.getVendorName());
+            UtilsMethods.printInfoLog("Loan Services: " + v.getVendorName());
         }
         /*
          * Checking API Giving valid Response
@@ -99,8 +99,8 @@ public class LoanWidgetTest extends BaseTest {
                 if (!summary.getStatusCode().equalsIgnoreCase("200") | summary.getStatus().equalsIgnoreCase("Failure")) {
                     softAssert.assertTrue(loanWidget.checkMessageDisplay(summary.getMessage()), summary.getMessage() + " :Message does not display");
                 } else {
-                    softAssert.assertEquals(loanWidget.getLoanAmount(i), loanWidget.ValueRoundOff(summary.getResult().getLoanAmount()), "Loan amount not same as API Response");
-                    softAssert.assertEquals(loanWidget.getOutstandingAmount(i), loanWidget.ValueRoundOff(summary.getResult().getCurrentOutstanding().getValue()), "Current Outstanding amount not same as API Response");
+                    softAssert.assertEquals(loanWidget.getLoanAmount(i), UtilsMethods.ValueRoundOff(summary.getResult().getLoanAmount()), "Loan amount not same as API Response");
+                    softAssert.assertEquals(loanWidget.getOutstandingAmount(i), UtilsMethods.ValueRoundOff(summary.getResult().getCurrentOutstanding().getValue()), "Current Outstanding amount not same as API Response");
                     /*
                      * Due Date and Created on assertion pending as API not working as expected
                      * */
@@ -152,11 +152,11 @@ public class LoanWidgetTest extends BaseTest {
                                 softAssert.assertEquals(loanDetailPOM.getHeaderName(i + 1).toLowerCase().trim(), headerList.get(i).getHeader().toLowerCase().trim(), "Loan Detail Widget Header name at POS(" + (i + 1) + ") not same as in API Response");
                             }
 
-                            softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToHeader(1).trim(), loanDetailPOM.ValueRoundOff(loanDetailValue.getTotalLoanEligibility()), "Total Loan Eligibility Value not same as API Response");
+                            softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToHeader(1).trim(), UtilsMethods.ValueRoundOff(loanDetailValue.getTotalLoanEligibility()), "Total Loan Eligibility Value not same as API Response");
                             softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToHeader(2).trim(), String.valueOf(loanDetailValue.getCountOfEvents()), "Number of Loan Taken Value not same as API Response");
-                            softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToHeader(3).trim(), loanDetailPOM.ValueRoundOff(loanDetailValue.getTotalLoanAmount()), "Total Loan amount Value not same as API Response");
-                            softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToHeader(4).trim(), loanDetailPOM.ValueRoundOff(loanDetailValue.getLoanPaid()), "Total Loan Paid value not same as API Response");
-                            softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToHeader(5).trim(), loanDetailPOM.ValueRoundOff(loanDetailValue.getRemainingBalance()), "Total Current Outstanding value not same as API Response");
+                            softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToHeader(3).trim(), UtilsMethods.ValueRoundOff(loanDetailValue.getTotalLoanAmount()), "Total Loan amount Value not same as API Response");
+                            softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToHeader(4).trim(), UtilsMethods.ValueRoundOff(loanDetailValue.getLoanPaid()), "Total Loan Paid value not same as API Response");
+                            softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToHeader(5).trim(), UtilsMethods.ValueRoundOff(loanDetailValue.getRemainingBalance()), "Total Current Outstanding value not same as API Response");
                         } catch (NoSuchElementException | TimeoutException | AssertionError e) {
                             softAssert.fail("Loan detail Widget does not open properly: " + e.fillInStackTrace());
                             loanDetailPOM.clickCloseTab();
@@ -216,12 +216,12 @@ public class LoanWidgetTest extends BaseTest {
                                 }
                                 for (int m = 0; m < count; m++) {
                                     softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToLoanHistoryHeader(m + 1, 1).trim(), loanRepaymentList.get(m).getId(), "Loan Transaction id not same as API response in Row" + (m + 1));
-                                    softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToLoanHistoryHeader(m + 1, 2).trim(), loanDetailPOM.ValueRoundOff(loanRepaymentList.get(m).getAmountCredited()), "Loan Amount Credited not same as API response in Row" + (m + 1));
-                                    softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToLoanHistoryHeader(m + 1, 3).trim(), loanDetailPOM.ValueRoundOff(loanRepaymentList.get(m).getServiceCharge()), "Loan Service charge not same as API response in Row" + (m + 1));
-                                    softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToLoanHistoryHeader(m + 1, 4).trim(), loanDetailPOM.ValueRoundOff(loanRepaymentList.get(m).getRecovered()), "Loan Recovered Amount not same as API response in Row" + (m + 1));
+                                    softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToLoanHistoryHeader(m + 1, 2).trim(), UtilsMethods.ValueRoundOff(loanRepaymentList.get(m).getAmountCredited()), "Loan Amount Credited not same as API response in Row" + (m + 1));
+                                    softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToLoanHistoryHeader(m + 1, 3).trim(), UtilsMethods.ValueRoundOff(loanRepaymentList.get(m).getServiceCharge()), "Loan Service charge not same as API response in Row" + (m + 1));
+                                    softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToLoanHistoryHeader(m + 1, 4).trim(), UtilsMethods.ValueRoundOff(loanRepaymentList.get(m).getRecovered()), "Loan Recovered Amount not same as API response in Row" + (m + 1));
                                     softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToLoanHistoryHeader(m + 1, 5).trim().toLowerCase(), loanRepaymentList.get(m).getLoanChannel().toLowerCase().trim(), "Loan channel not same as API response in Row" + (m + 1));
                                     softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToLoanHistoryHeader(m + 1, 6).trim().toLowerCase(), loanRepaymentList.get(m).getLoanType().toLowerCase().trim(), "Loan Type not same as API response in Row" + (m + 1));
-                                    softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToLoanHistoryHeader(m + 1, 7).trim(), loanDetailPOM.getDateFromEpochInUTC(Long.valueOf(loanRepaymentList.get(m).getDateCreated()), headerList.get(6).getDateFormat() + " " + headerList.get(6).getTimeFormat()), "Loan Date Created not same as API response in Row" + (m + 1));
+                                    softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToLoanHistoryHeader(m + 1, 7).trim(), UtilsMethods.getDateFromEpochInUTC(Long.valueOf(loanRepaymentList.get(m).getDateCreated()), headerList.get(6).getDateFormat() + " " + headerList.get(6).getTimeFormat()), "Loan Date Created not same as API response in Row" + (m + 1));
                                     /*
                                      * Loan Recovery Widget Opened
                                      * */
@@ -242,9 +242,9 @@ public class LoanWidgetTest extends BaseTest {
                                             ArrayList<LoanRepaymentDetailList> repaymentList = loanRepaymentList.get(m).getLoanRepaymentTransaction().getLoanRepaymentDetailList();
                                             for (int l = 0; l < repaymentCount; l++) {
                                                 softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToLoanRecoveryHeader(m + 1, l + 1, 1).trim(), repaymentList.get(l).getTransactionId(), "Loan Recovery Transaction id column value does not same as API Response for Transaction No.(" + (m + 1) + ") in row POS(" + (l + 1) + ")");
-                                                softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToLoanRecoveryHeader(m + 1, l + 1, 2).trim(), loanDetailPOM.ValueRoundOff(repaymentList.get(l).getAmountRecovered()), "Loan Recovery Amount Recovered column value does not same as API Response for Transaction No.(" + (m + 1) + ") in row POS(" + (l + 1) + ")");
+                                                softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToLoanRecoveryHeader(m + 1, l + 1, 2).trim(), UtilsMethods.ValueRoundOff(repaymentList.get(l).getAmountRecovered()), "Loan Recovery Amount Recovered column value does not same as API Response for Transaction No.(" + (m + 1) + ") in row POS(" + (l + 1) + ")");
                                                 softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToLoanRecoveryHeader(m + 1, l + 1, 3).toLowerCase().trim(), repaymentList.get(l).getRecoveryMethod().toLowerCase().trim(), "Loan Recovery method column value does not same as API Response for Transaction No.(" + (m + 1) + ") in row POS(" + (l + 1) + ")");
-                                                softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToLoanRecoveryHeader(m + 1, l + 1, 4), loanDetailPOM.getDateFromEpochInUTC(Long.valueOf(repaymentList.get(l).getDateRecovered()), recoveryWidgetHeader.get(3).getDateFormat() + " " + recoveryWidgetHeader.get(3).getTimeFormat()), "Loan Recovery Date Recovered column value does not same as API Response for Transaction No.(" + (m + 1) + ") in row POS(" + (l + 1) + ")");
+                                                softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToLoanRecoveryHeader(m + 1, l + 1, 4), UtilsMethods.getDateFromEpochInUTC(Long.valueOf(repaymentList.get(l).getDateRecovered()), recoveryWidgetHeader.get(3).getDateFormat() + " " + recoveryWidgetHeader.get(3).getTimeFormat()), "Loan Recovery Date Recovered column value does not same as API Response for Transaction No.(" + (m + 1) + ") in row POS(" + (l + 1) + ")");
                                             }
 
                                         }

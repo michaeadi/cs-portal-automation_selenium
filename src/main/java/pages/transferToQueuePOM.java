@@ -1,6 +1,7 @@
 package pages;
 
 import Utils.ExtentReports.ExtentTestManager;
+import Utils.UtilsMethods;
 import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
@@ -19,8 +20,7 @@ public class transferToQueuePOM extends BasePage {
     }
 
     public boolean validatePageTitle() {
-        log.info("Validating Transfer to Queue Title");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Validating Transfer to Queue Title");
+        UtilsMethods.printInfoLog("Validating Transfer to Queue Title");
         return checkState(pageTitle);
     }
 
@@ -28,11 +28,11 @@ public class transferToQueuePOM extends BasePage {
         log.info("Clicking on Transfer to Button");
         transferQueue = By.xpath("//span[contains(text(),'" + queueName + "')]//ancestor::div[1]//following-sibling::div/img");
         click(transferQueue);
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Transferring Ticket to Ticket Pool Name: " + queueName);
+        UtilsMethods.printInfoLog("Transferring Ticket to Ticket Pool Name: " + queueName);
     }
 
     public void clickCloseTab(){
-        printInfoLog("Closing Transfer to Queue Tab");
+        UtilsMethods.printInfoLog("Closing Transfer to Queue Tab");
         click(closeTab);
     }
 }

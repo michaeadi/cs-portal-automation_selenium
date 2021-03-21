@@ -1,6 +1,7 @@
 package pages;
 
 
+import Utils.UtilsMethods;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -34,39 +35,39 @@ public class AuthenticationTabPOM extends BasePage {
     }
 
     public boolean isAuthTabLoad() {
-        printInfoLog("Checking Authentication tab load");
+        UtilsMethods.printInfoLog("Checking Authentication tab load");
         return checkState(authTabTitle);
     }
 
     public void clickCloseBtn() {
-        printInfoLog("Clicking on close button");
+        UtilsMethods.printInfoLog("Clicking on close button");
         click(authCloseBtn);
     }
 
     public String getAuthInstruction() {
-        printInfoLog("Reading auth instruction: " + readText(authInstruction));
+        UtilsMethods.printInfoLog("Reading auth instruction: " + readText(authInstruction));
         return readText(authInstruction);
     }
 
     public void clickNonAuthBtn() {
-        printInfoLog("Clicking on Non-Authenticate button");
+        UtilsMethods.printInfoLog("Clicking on Non-Authenticate button");
         if (driver.findElement(NotAuthBtn).isEnabled())
             click(NotAuthBtn);
     }
 
     public void clickAuthBtn() {
-        printInfoLog("Clicking on Authenticate button");
+        UtilsMethods.printInfoLog("Clicking on Authenticate button");
         if (driver.findElement(authBtn).isEnabled())
             click(authBtn);
     }
 
     public boolean isNonAuthBtnEnable() {
-        printInfoLog("Checking Non-Authenticate button is enable");
+        UtilsMethods.printInfoLog("Checking Non-Authenticate button is enable");
         return driver.findElement(NotAuthBtn).isEnabled();
     }
 
     public boolean isAuthBtnEnable() {
-        printInfoLog("Checking Authenticate button is enable");
+        UtilsMethods.printInfoLog("Checking Authenticate button is enable");
         return driver.findElement(authBtn).isEnabled();
     }
 
@@ -76,31 +77,31 @@ public class AuthenticationTabPOM extends BasePage {
         for (int i = 1; i <= list.size(); i++) {
             By question = By.xpath("//app-authentication-block-modal//div[1]//div[2]//div[1]//div[@class=\"main-container__body--left--wrapper ng-star-inserted\"][" + i + "]//span[1]");
             By answer = By.xpath("//app-authentication-block-modal//div[1]//div[2]//div[1]//div[@class=\"main-container__body--left--wrapper ng-star-inserted\"][" + i + "]//span[2]");
-            printInfoLog("Question: " + readText(question) + " :" + readText(answer));
+            UtilsMethods.printInfoLog("Question: " + readText(question) + " :" + readText(answer));
             questionList.put(readText(question).replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), readText(answer).trim());
         }
         return questionList;
     }
 
     public void clickCheckBox(int i) throws InterruptedException {
-        printInfoLog("Clicking " + i + "Q Checkbox");
+        UtilsMethods.printInfoLog("Clicking " + i + "Q Checkbox");
         By checkBox = By.xpath("//app-authentication-block-modal//div[1]//div[2]//div[1]//div[@class=\"main-container__body--left--wrapper ng-star-inserted\"][" + i + "]//mat-checkbox");
         scrollToViewElement(checkBox);
         click(checkBox);
     }
 
     public boolean isSIMBarPopup() {
-        printInfoLog("Is SIM bar/unbar popup open: " + checkState(simBarTitle));
+        UtilsMethods.printInfoLog("Is SIM bar/unbar popup open: " + checkState(simBarTitle));
         return checkState(simBarTitle);
     }
 
     public void closeSIMBarPopup() {
-        printInfoLog("Closing SIM bar/unbar popup");
+        UtilsMethods.printInfoLog("Closing SIM bar/unbar popup");
         click(simCloseBtn);
     }
 
     public boolean isIssueDetailTitle() {
-        printInfoLog("Is Issue Detail Configured: " + checkState(issueDetails));
+        UtilsMethods.printInfoLog("Is Issue Detail Configured: " + checkState(issueDetails));
         return checkState(issueDetails);
     }
 
@@ -113,7 +114,7 @@ public class AuthenticationTabPOM extends BasePage {
         List<String> reason = new ArrayList<>();
         for (int i = 1; i <= list.size(); i++) {
             String text = readText(By.xpath("//mat-option[" + i + "]//span"));
-            printInfoLog("Reading Reason: " + text);
+            UtilsMethods.printInfoLog("Reading Reason: " + text);
             reason.add(text.trim());
         }
         return reason;
@@ -121,28 +122,28 @@ public class AuthenticationTabPOM extends BasePage {
 
     public void chooseReason() {
         By code = By.xpath("//mat-option[1]//span");
-        printInfoLog("Choosing Reason: " + readText(code));
+        UtilsMethods.printInfoLog("Choosing Reason: " + readText(code));
         click(code);
     }
 
 
     public void writeComment(String text) {
-        printInfoLog("Writing comment into comment box: " + text);
+        UtilsMethods.printInfoLog("Writing comment into comment box: " + text);
         writeText(commentBox, text);
     }
 
     public boolean isCancelBtnEnable() {
-        printInfoLog("Checking SIM Bar/unbar cancel button is enable");
+        UtilsMethods.printInfoLog("Checking SIM Bar/unbar cancel button is enable");
         return driver.findElement(cancelBtn).isEnabled();
     }
 
     public boolean isSubmitBtnEnable() {
-        printInfoLog("Checking SIM Bar/unbar submit button is enable");
+        UtilsMethods.printInfoLog("Checking SIM Bar/unbar submit button is enable");
         return driver.findElement(submitBtn).isEnabled();
     }
 
     public void clickCancelBtn() {
-        printInfoLog("Clicking Cancel Button");
+        UtilsMethods.printInfoLog("Clicking Cancel Button");
         click(cancelBtn);
     }
 

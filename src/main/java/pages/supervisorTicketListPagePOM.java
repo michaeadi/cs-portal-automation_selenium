@@ -81,41 +81,39 @@ public class supervisorTicketListPagePOM extends BasePage {
 
     public String getTransferErrorMessage(){
         String value=readText(transferErrorMessage);
-        printInfoLog("Reading transfer error message: "+value);
+        UtilsMethods.printInfoLog("Reading transfer error message: "+value);
         return value;
     }
 
     public Boolean isCancelBtn(){
         Boolean status=checkState(cancelBtn);
-        printInfoLog("Is Cancel Button Displayed: "+status);
+        UtilsMethods.printInfoLog("Is Cancel Button Displayed: "+status);
         return status;
     }
 
     public Boolean isTransferAnyWayBtn() {
         Boolean status = checkState(transferAnywayBtn);
-        printInfoLog("Is Transfer Any Way Button Displayed: " + status);
+        UtilsMethods.printInfoLog("Is Transfer Any Way Button Displayed: " + status);
         return status;
     }
 
     public void clickCancelBtn(){
-        printInfoLog("Clicking on Cancel Button.");
+        UtilsMethods.printInfoLog("Clicking on Cancel Button.");
         click(cancelBtn);
     }
 
     public void clickTransferAnyWayBtn(){
-        printInfoLog("Clicking on Transfer Anyway button");
+        UtilsMethods.printInfoLog("Clicking on Transfer Anyway button");
         click(transferAnywayBtn);
     }
 
     public void writeTicketId(String ticketId) {
-        log.info("Search Ticket Id: " + ticketId);
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Search Ticket Id: " + ticketId);
+        UtilsMethods.printInfoLog("Search Ticket Id: " + ticketId);
         writeText(searchTicketBox, ticketId);
     }
 
     public void writeTicketIdSecond(String ticketId) {
-        log.info("Search Ticket Id: " + ticketId);
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Search Ticket Id: " + ticketId);
+        UtilsMethods.printInfoLog("Search Ticket Id: " + ticketId);
         writeText(searchTicketBox2, ticketId);
     }
 
@@ -127,22 +125,19 @@ public class supervisorTicketListPagePOM extends BasePage {
     }
 
     public void clickSearchBtn() {
-        log.info("Clicking on Search Button");
         waitTillLoaderGetsRemoved();
         wait.until(ExpectedConditions.elementToBeClickable(searchTicketBtn));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Search Button");
+        UtilsMethods.printInfoLog("Clicking on Search Button");
         click(searchTicketBtn);
     }
 
     public boolean isTicketIdLabel() {
-        log.info("Is Ticket Id field Available :" + checkState(ticketIdLabel));
-        ExtentTestManager.getTest().log(LogStatus.PASS, "Is Ticket Id field Available :" + checkState(ticketIdLabel));
+        UtilsMethods.printPassLog("Is Ticket Id field Available :" + checkState(ticketIdLabel));
         return checkState(ticketIdLabel);
     }
 
     public boolean isWorkGroupName() {
-        log.info("Ticket lie in WorkGroup :" + readText(workGroupName));
-        ExtentTestManager.getTest().log(LogStatus.PASS, "Ticket lie in WorkGroup :" + readText(workGroupName));
+        UtilsMethods.printPassLog("Ticket lie in WorkGroup :" + readText(workGroupName));
         return checkState(workGroupName);
     }
 
@@ -151,60 +146,57 @@ public class supervisorTicketListPagePOM extends BasePage {
     }
 
     public boolean isPrioritylabel() {
-        log.info("Is Priority field Available :" + checkState(prioritylabel));
-        ExtentTestManager.getTest().log(LogStatus.PASS, "Is Priority field Available :" + checkState(prioritylabel));
+        UtilsMethods.printPassLog("Is Priority field Available :" + checkState(prioritylabel));
         return checkState(prioritylabel);
     }
 
     public boolean isStateLabel() {
-        log.info("Is State field Available :" + checkState(stateLabel));
-        ExtentTestManager.getTest().log(LogStatus.PASS, "Is State field Available :" + checkState(stateLabel));
+        UtilsMethods.printPassLog("Is State field Available :" + checkState(stateLabel));
         return checkState(stateLabel);
     }
 
     public boolean isCreationdateLabel() {
-        log.info("Is Creation Date field Available :" + checkState(creationdateLabel));
-        ExtentTestManager.getTest().log(LogStatus.PASS, "Is Creation Date field Available :" + checkState(creationdateLabel));
+        UtilsMethods.printPassLog("Is Creation Date field Available :" + checkState(creationdateLabel));
         return checkState(creationdateLabel);
     }
 
     public boolean isCreatedbyLabel() {
-        printInfoLog("Is Created By field Available :" + checkState(createdbyLabel));
+        UtilsMethods.printInfoLog("Is Created By field Available :" + checkState(createdbyLabel));
         return checkState(createdbyLabel);
     }
 
     public boolean isQueueLabel() {
-        printInfoLog("Is Queue field Available :" + checkState(queueLabel));
+        UtilsMethods.printInfoLog("Is Queue field Available :" + checkState(queueLabel));
         return checkState(queueLabel);
     }
 
     public boolean isIssueLabel() {
-        printInfoLog("Is Issue Label field Available :" + checkState(prioritylabel));
+        UtilsMethods.printInfoLog("Is Issue Label field Available :" + checkState(prioritylabel));
         return checkState(issueLabel);
     }
 
     public boolean isIssueTypeLabel() {
-        printInfoLog("Is Priority field Available :" + checkState(prioritylabel));
+        UtilsMethods.printInfoLog("Is Priority field Available :" + checkState(prioritylabel));
         return checkState(issueTypeLabel);
     }
 
     public boolean isSubTypeLabel() {
-        printInfoLog("Is Issue Type field Available :" + checkState(issueTypeLabel));
+        UtilsMethods.printInfoLog("Is Issue Type field Available :" + checkState(issueTypeLabel));
         return checkState(subTypeLabel);
     }
 
     public boolean isSubSubTypeLabel() {
-        printInfoLog("Is Issue Sub Sub Type field Available :" + checkState(subSubTypeLabel));
+        UtilsMethods.printInfoLog("Is Issue Sub Sub Type field Available :" + checkState(subSubTypeLabel));
         return checkState(subSubTypeLabel);
     }
 
     public boolean isCodeLabel() {
-        printInfoLog("Is Code field Available :" + checkState(codeLabel));
+        UtilsMethods.printInfoLog("Is Code field Available :" + checkState(codeLabel));
         return checkState(codeLabel);
     }
 
     public String getTicketIdvalue() {
-        printInfoLog("Ticket Id: " + readText(ticketIdvalue));
+        UtilsMethods.printInfoLog("Ticket Id: " + readText(ticketIdvalue));
         return readText(ticketIdvalue);
     }
 
@@ -258,26 +250,22 @@ public class supervisorTicketListPagePOM extends BasePage {
     }
 
     public void clickAssigntoAgent() {
-        log.info("Clicking on Assign to Agent");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Assign to Agent Button");
+        UtilsMethods.printInfoLog("Clicking on Assign to Agent Button");
         click(assignToagentBtn);
     }
 
     public boolean isAssignToAgent() {
-        log.info("Is Assign to agent button: " + checkState(assignToagentBtn));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Validate Assign to Agent Button Available");
+        UtilsMethods.printInfoLog("Validate Assign to Agent Button Available");
         return checkState(assignToagentBtn);
     }
 
     public void clickTransfertoQueue() {
-        log.info("Clicking on Transfer to Queue");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Transfer to Queue Button");
+        UtilsMethods.printInfoLog("Clicking on Transfer to Queue Button");
         click(transfertoQueueBtn);
     }
 
     public boolean isTransferToQueue() {
-        log.info("Is Transfer to Queue button: " + checkState(transfertoQueueBtn));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Validate Transfer to Queue Button Available");
+        UtilsMethods.printInfoLog("Validate Transfer to Queue Button Available");
         return checkState(transfertoQueueBtn);
     }
 
@@ -294,7 +282,7 @@ public class supervisorTicketListPagePOM extends BasePage {
 
 
     public void changeTicketTypeToClosed() {
-        printInfoLog("Switch Ticket State Type to closed");
+        UtilsMethods.printInfoLog("Switch Ticket State Type to closed");
         click(selectTicketType);
         click(closedTicketType);
     }
@@ -313,27 +301,25 @@ public class supervisorTicketListPagePOM extends BasePage {
 
     public boolean noTicketFound() {
         log.info("No ticket found");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Is No Ticket Found :" + isElementVisible(noResultFound));
+        UtilsMethods.printInfoLog("Is No Ticket Found :" + isElementVisible(noResultFound));
         return isElementVisible(noResultFound);
     }
 
 
     public FilterTabPOM clickFilter() {
-        log.info("Selecting Filter");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Selecting Filter");
+        UtilsMethods.printInfoLog("Selecting Filter");
         click(selectFilterBtn);
         return new FilterTabPOM(driver);
     }
 
     public void resetFilter() {
-        log.info("Removing Filter");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Removing Filter");
+        UtilsMethods.printInfoLog("Removing Filter");
         click(resetFilterButton);
         waitTillLoaderGetsRemoved();
     }
 
     public boolean isResetFilter() {
-        printInfoLog("Is Removing Filter Button Available");
+        UtilsMethods.printInfoLog("Is Removing Filter Button Available");
         try {
             return checkState(resetFilterButton);
         }catch (NoSuchElementException | TimeoutException e){
@@ -342,12 +328,12 @@ public class supervisorTicketListPagePOM extends BasePage {
     }
 
     public boolean validateQueueFilter(String text) {
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Validating Queue Filter");
+        UtilsMethods.printInfoLog("Validating Queue Filter");
         boolean answer = false;
         if(getListSize()>0) {
             for (int i = 1; i <= getListSize(); i++) {
                 By queue = By.xpath("//div[@class=\"container-fluid table-card ng-star-inserted\"][" + i + "]//ul/li[7]/span[2]");
-                printInfoLog(readText(queue).trim() + " : " + text + " :" + readText(queue).trim().equalsIgnoreCase(text));
+                UtilsMethods.printInfoLog(readText(queue).trim() + " : " + text + " :" + readText(queue).trim().equalsIgnoreCase(text));
                 answer = readText(queue).trim().equalsIgnoreCase(text);
             }
         }else {
@@ -357,23 +343,23 @@ public class supervisorTicketListPagePOM extends BasePage {
     }
 
     public void ClickReopenButton() {
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking Reopen Button");
+        UtilsMethods.printInfoLog("Clicking Reopen Button");
         click(reOpenBtn);
     }
 
     public void addReopenComment(String comment) {
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Add Reopen Comment: " + comment);
+        UtilsMethods.printInfoLog("Add Reopen Comment: " + comment);
         writeText(reOpenBox, comment);
         clickOutside();
     }
 
     public void submitReopenReq() {
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Submit Button");
+        UtilsMethods.printInfoLog("Clicking on Submit Button");
         click(submitReopenComment);
     }
 
     public void closedReopenBox() {
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on closing reopen comment box Button");
+        UtilsMethods.printInfoLog("Clicking on closing reopen comment box Button");
         click(closeReopenCommentBox);
     }
 
@@ -414,14 +400,13 @@ public class supervisorTicketListPagePOM extends BasePage {
     }
 
     public Boolean isNotAssigneeDisplay(){
-        printInfoLog("Checking Is not assigned displayed");
+        UtilsMethods.printInfoLog("Checking Is not assigned displayed");
         return checkState(notAssigned);
     }
 
     public boolean isNegativeSLA() {
         try {
-            log.info("Checking red dot symbol for negative SLA: " + checkState(redDot));
-            ExtentTestManager.getTest().log(LogStatus.INFO, "Checking red dot symbol for negative SLA: " + checkState(redDot));
+            UtilsMethods.printInfoLog("Checking red dot symbol for negative SLA: " + checkState(redDot));
             return checkState(redDot);
         } catch (TimeoutException e) {
             log.info(e.fillInStackTrace());
@@ -432,7 +417,7 @@ public class supervisorTicketListPagePOM extends BasePage {
     public boolean isAllTicketTab() {
         try {
             boolean flag=checkState(allTicketTab);
-            printInfoLog("IS All Assigned Ticket Tab displayed: " + flag);
+            UtilsMethods.printInfoLog("IS All Assigned Ticket Tab displayed: " + flag);
             return flag;
         } catch (TimeoutException e) {
             log.info(e.fillInStackTrace());
@@ -443,7 +428,7 @@ public class supervisorTicketListPagePOM extends BasePage {
     public boolean isMyAssignedTicketTab() {
         try {
             boolean flag=checkState(myTicketTab);
-            printInfoLog("IS My Assigned Ticket Tab displayed: " + flag);
+            UtilsMethods.printInfoLog("IS My Assigned Ticket Tab displayed: " + flag);
             return flag;
         } catch (TimeoutException e) {
             log.info(e.fillInStackTrace());
@@ -453,8 +438,7 @@ public class supervisorTicketListPagePOM extends BasePage {
 
     public boolean isPositiveSLA() {
         try {
-            log.info("Checking green dot symbol for positive SLA: " + checkState(greenDot));
-            ExtentTestManager.getTest().log(LogStatus.INFO, "Checking green dot symbol for positive SLA: " + checkState(greenDot));
+            UtilsMethods.printInfoLog("Checking green dot symbol for positive SLA: " + checkState(greenDot));
             return checkState(greenDot);
         } catch (TimeoutException e) {
             log.info(e.fillInStackTrace());
@@ -468,7 +452,7 @@ public class supervisorTicketListPagePOM extends BasePage {
         for (int i = 1; i <= list.size(); i++) {
             By ticket = By.xpath("//div[@class=\"table-card ng-star-inserted\"][" + i + "]//ul[1]//li[1]//span[2]");
             ticketList.add(readText(ticket).trim());
-            ExtentTestManager.getTest().log(LogStatus.INFO, "Ticket Id: " + readText(ticket).trim());
+            UtilsMethods.printInfoLog("Ticket Id: " + readText(ticket).trim());
         }
         return ticketList;
     }
@@ -482,8 +466,7 @@ public class supervisorTicketListPagePOM extends BasePage {
     public String getSymbol(int i) {
         By ticket = By.xpath("//div[@class=\"container-fluid table-card ng-star-inserted\"][" + i + "]//ul[1]//li[1]//span[2]");
         By symbol = By.xpath("//div[@class=\"container-fluid table-card ng-star-inserted\"][" + i + "]//span[@class=\"escalation\"]");
-        log.info(readText(symbol) + ": Escalation symbol found on ticket Id: " + readText(ticket).trim());
-        ExtentTestManager.getTest().log(LogStatus.INFO, readText(symbol) + ": Escalation symbol found on ticket Id: " + readText(ticket).trim());
+        UtilsMethods.printInfoLog(readText(symbol) + ": Escalation symbol found on ticket Id: " + readText(ticket).trim());
         return readText(symbol).trim();
     }
 
@@ -498,20 +481,19 @@ public class supervisorTicketListPagePOM extends BasePage {
         List<String> searchOption = new ArrayList<>();
         for (int i = 1; i <= list.size(); i++) {
             By search = By.xpath("//ul[@class='ng-star-inserted']//li[" + i + "]");
-            log.info("Options Available : " + readText(search));
-            ExtentTestManager.getTest().log(LogStatus.INFO, "Options Available : " + readText(search));
+            UtilsMethods.printInfoLog("Options Available : " + readText(search));
             searchOption.add(readText(search).trim());
         }
         return searchOption;
     }
 
     public String getMSISDN(){
-        printInfoLog("Reading MSISDN: "+readText(msisdn));
+        UtilsMethods.printInfoLog("Reading MSISDN: "+readText(msisdn));
         return readText(msisdn);
     }
 
     public void clickSearchOptionByTextNoIgnoreCase(String text){
-        printInfoLog("Clicking search By option: "+text);
+        UtilsMethods.printInfoLog("Clicking search By option: "+text);
         By option=By.xpath("//ul[@class='ng-star-inserted']//li[normalize-space()='"+text+"']");
         click(option);
     }

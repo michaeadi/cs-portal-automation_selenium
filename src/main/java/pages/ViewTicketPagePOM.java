@@ -1,6 +1,7 @@
 package pages;
 
 import Utils.ExtentReports.ExtentTestManager;
+import Utils.UtilsMethods;
 import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.*;
@@ -28,21 +29,20 @@ public class ViewTicketPagePOM extends BasePage {
 
     public String getTicketId() {
 
-        log.info("View Ticket: " + readText(ticketIdValue));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "View Ticket: " + readText(ticketIdValue));
+        UtilsMethods.printInfoLog("View Ticket: " + readText(ticketIdValue));
         return readText(ticketIdValue);
     }
 
 //    public String selectState(String state) throws InterruptedException {
 //        log.info("Selecting State: " + state);
-//        ExtentTestManager.getTest().log(LogStatus.INFO, "Selecting State: " + state);
+//        UtilsMethods.printInfoLog("Selecting State: " + state);
 //        //By stateName= By.xpath("//div[@class=\"ng-tns-c9-325 ng-trigger ng-trigger-transformPanel mat-select-panel mat-primary\"]//span[contains(text(),' "+state+"')]");
 //        //By stateName=By.xpath("//span[contains(text(),' "+state+"')]");
 //        scrollToViewElement(submitAs);
 //        String selectedState = readText(stateName);
 //        //click(selectState);
-//        ExtentTestManager.getTest().log(LogStatus.INFO, "Selecting State: " + selectedState);
-//        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Submit as " + selectedState);
+//        UtilsMethods.printInfoLog("Selecting State: " + selectedState);
+//        UtilsMethods.printInfoLog("Clicking on Submit as " + selectedState);
 //        click(submitAs);
 //        return selectedState;
 //    }
@@ -53,25 +53,24 @@ public class ViewTicketPagePOM extends BasePage {
         click(arrowIcon);
         try {
             List<WebElement> list = returnListOfElement(allTicketState);
-            System.out.println("List Size: " + list.size());
+            log.info("List Size: " + list.size());
             for (int i = 1; i <= list.size(); i++) {
                 By chooseState = By.xpath("//div[@class='cdk-overlay-pane']//mat-option[" + i + "]//span");
-                System.out.println("State Read: " + readText(chooseState));
+                log.info("State Read: " + readText(chooseState));
                 if (state.equalsIgnoreCase(readText(chooseState).trim())) {
-                    log.info("Clicking State: " + state);
-                    ExtentTestManager.getTest().log(LogStatus.INFO, "Selecting State: " + state);
+                    UtilsMethods.printInfoLog("Selecting State: " + state);
                     click(chooseState);
                     String selectedState = readText(stateName);
-                    printInfoLog("Clicking on Submit as " + selectedState);
+                    UtilsMethods.printInfoLog("Clicking on Submit as " + selectedState);
                     click(submitAs);
                     return selectedState;
                 }
             }
-            printFailLog(state + " State does not mapped to ticket");
+            UtilsMethods.printFailLog(state + " State does not mapped to ticket");
             return "Required State not found";
         } catch (TimeoutException | NoSuchElementException e) {
             e.printStackTrace();
-            printFailLog("No State does not mapped to ticket "+e.fillInStackTrace());
+            UtilsMethods.printFailLog("No State does not mapped to ticket " + e.fillInStackTrace());
         }
         return "Required State not found";
     }
@@ -87,14 +86,13 @@ public class ViewTicketPagePOM extends BasePage {
             List<WebElement> list = returnListOfElement(allComment);
             for (int i = 1; i <= list.size(); i++) {
                 By comment = By.xpath("//table[@class='ng-star-inserted']//tbody//tr[" + i + "]//p");
-                System.out.println("Reading Comment:" + readText(comment) + " Is:" + readText(comment).trim().equalsIgnoreCase(text));
+                log.info("Reading Comment:" + readText(comment) + " Is:" + readText(comment).trim().equalsIgnoreCase(text));
                 if (readText(comment).trim().equalsIgnoreCase(text)) {
-                    log.info("Latest comment found on ticket: " + comment);
-                    ExtentTestManager.getTest().log(LogStatus.PASS, "Newly added comment found on ticket");
+                    UtilsMethods.printPassLog("Newly added comment found on ticket");
                     return;
                 }
             }
-            ExtentTestManager.getTest().log(LogStatus.WARNING, "Newly added comment does not found on ticket");
+            UtilsMethods.printWarningLog("Newly added comment does not found on ticket");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -105,10 +103,9 @@ public class ViewTicketPagePOM extends BasePage {
             List<WebElement> list = returnListOfElement(allComment);
             for (int i = 1; i <= list.size(); i++) {
                 By commentType = By.xpath("//table[@class='ng-star-inserted']//tbody//tr[" + i + "]/td/span/span[1]");
-                System.out.println("Reading Comment:" + readText(commentType) + " Is:" + readText(commentType).trim().equalsIgnoreCase(text));
+                log.info("Reading Comment:" + readText(commentType) + " Is:" + readText(commentType).trim().equalsIgnoreCase(text));
                 if (readText(commentType).trim().equalsIgnoreCase(text)) {
-                    log.info("Comment type found on ticket: " + readText(commentType));
-                    ExtentTestManager.getTest().log(LogStatus.PASS, "Comment type found on ticket: " + readText(commentType));
+                    UtilsMethods.printPassLog("Comment type found on ticket: " + readText(commentType));
                     return true;
                 }
             }
@@ -116,7 +113,7 @@ public class ViewTicketPagePOM extends BasePage {
             return false;
         } catch (Exception e) {
             e.printStackTrace();
-            ExtentTestManager.getTest().log(LogStatus.INFO, e.fillInStackTrace());
+            UtilsMethods.printInfoLog("Exception Occurred: " + e.fillInStackTrace());
             return false;
         }
     }
@@ -125,19 +122,19 @@ public class ViewTicketPagePOM extends BasePage {
         log.info("Adding comment on ticket:" + comment);
         scrollToViewElement(addCommentBox);
         writeText(addCommentBox, comment);
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Adding comment on ticket:" + comment);
+        UtilsMethods.printInfoLog("Adding comment on ticket:" + comment);
     }
 
     public void clickAddButton() throws InterruptedException {
         log.info("Clicking on Add comment button");
         scrollToViewElement(addBtn);
         click(addBtn);
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Add comment button");
+        UtilsMethods.printInfoLog("Clicking on Add comment button");
     }
 
     public void openEditCommentBox() {
         log.info("Editing last added comment");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Editing last added comment");
+        UtilsMethods.printInfoLog("Editing last added comment");
         List<WebElement> list = returnListOfElement(allComment);
         By lastAddedComment = By.xpath("//table[@class='ng-star-inserted']/tbody//tr[" + list.size() + "]//td[1]//a[1]//img[1]");
         click(lastAddedComment);
@@ -150,7 +147,7 @@ public class ViewTicketPagePOM extends BasePage {
 
     public void openDeleteComment() {
         log.info("Delete last added comment");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Deleting last added comment");
+        UtilsMethods.printInfoLog("Deleting last added comment");
         List<WebElement> list = returnListOfElement(allComment);
         By deleteComment = By.xpath("//table[@class='ng-star-inserted']/tbody//tr[" + list.size() + "]//td[1]//a[2]//img[1]");
         click(deleteComment);
@@ -158,7 +155,7 @@ public class ViewTicketPagePOM extends BasePage {
 
     public void clickContinueButton() {
         log.info("Clicking on Continue button");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Continue button");
+        UtilsMethods.printInfoLog("Clicking on Continue button");
         click(continueBtn);
     }
 

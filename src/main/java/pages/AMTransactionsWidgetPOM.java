@@ -1,7 +1,6 @@
 package pages;
 
-import Utils.ExtentReports.ExtentTestManager;
-import com.relevantcodes.extentreports.LogStatus;
+import Utils.UtilsMethods;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -32,76 +31,65 @@ public class AMTransactionsWidgetPOM extends BasePage {
     }
 
     public boolean isAirtelMoneyErrorVisible() {
-        log.info("Validating error is visible when there is Error inAPI : " + isElementVisible(airtelMoneyError));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Validating error is visible when there is Error inAPI : " + isElementVisible(airtelMoneyError));
+        UtilsMethods.printInfoLog("Validating error is visible when there is Error inAPI : " + isElementVisible(airtelMoneyError));
         return isElementVisible(airtelMoneyError);
     }
 
     public String gettingAirtelMoneyNoResultFoundMessage() {
-        log.info("Validating error message when there is no data from API : " + readText(airtelMoneyNoResultFoundMessage));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Validating error message when there is no data from API : " + readText(airtelMoneyNoResultFoundMessage));
+        UtilsMethods.printInfoLog("Validating error message when there is no data from API : " + readText(airtelMoneyNoResultFoundMessage));
         return readText(airtelMoneyNoResultFoundMessage);
     }
 
     public boolean isAirtelMoneyNoResultFoundVisible() {
-        log.info("Validating error is visible when there is no data from API : " + isElementVisible(airtelMoneyNoResultFound));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Validating error is visible when there is no data from API : " + isElementVisible(airtelMoneyNoResultFound));
+        UtilsMethods.printInfoLog("Validating error is visible when there is no data from API : " + isElementVisible(airtelMoneyNoResultFound));
         return isElementVisible(airtelMoneyNoResultFound);
     }
 
     public String getHeaders(int row) {
         String header = readText(By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Airtel Money Transactions\")]/ancestor::div[@class=\"card widget ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"card__card-header--card-body--table--list-heading ng-star-inserted\"]/div[" + row + "]"));
-        log.info("Getting header Number " + row + " : " + header);
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting header Number " + row + " : " + header);
+        UtilsMethods.printInfoLog("Getting header Number " + row + " : " + header);
         return header;
     }
 
     public String getValueCorrespondingToHeader(int row, int column) {
         String value = readText(By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Airtel Money Transactions\")]/ancestor::div[@class=\"card widget ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"card__card-header--card-body--table--data-list row-border\"][" + row + "]/div[" + column + "]//span"));
-        printInfoLog("Reading Value(" + row + "): " + value);
+        UtilsMethods.printInfoLog("Reading Value(" + row + "): " + value);
         return value;
     }
 
     public boolean isAirtelMoneyTransactionWidgetIsVisible() {
-        log.info("Checking is Airtel Money Widget Visible");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is Airtel Money Widget Visible");
+        UtilsMethods.printInfoLog("Checking is Airtel Money Widget Visible");
         return isElementVisible(airtelMoneyTransactionHeader);
     }
 
     public boolean isAirtelMoneyWidgetDatePickerVisible() {
-        log.info("Checking Airtel Money Widget Date Picker Visibility ");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking Airtel Money Widget Date Picker Visibility ");
+        UtilsMethods.printInfoLog("Checking Airtel Money Widget Date Picker Visibility ");
         return checkState(airtelMoneyDatePicker);
     }
 
     public String gettingAirtelMoneyCurrency() {
-        log.info("Getting Airtel Money Currency  from Widget : " + readText(airtelMoneyCurrency));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Airtel Money Currency from Widget : " + readText(airtelMoneyCurrency));
+        UtilsMethods.printInfoLog("Getting Airtel Money Currency from Widget : " + readText(airtelMoneyCurrency));
         return readText(airtelMoneyCurrency);
     }
 
     public String gettingAMBalanceUnableToFetchMessage() {
-        log.info("Getting error Message for unable to fetch AM Money Balance : " + readText(airtelMoneyBalanceUnableToFetch));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting error Message for unable to fetch AM Money Balance : " + readText(airtelMoneyCurrency));
+        UtilsMethods.printInfoLog("Getting error Message for unable to fetch AM Money Balance : " + readText(airtelMoneyCurrency));
         return readText(airtelMoneyBalanceUnableToFetch);
     }
 
     public boolean isAMBalanceUnableToFetch() {
-        log.info("Is error visible on unable to fetch AM Money Balance : " + isElementVisible(airtelMoneyBalanceUnableToFetch));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Is error visible on unable to fetch AM Money Balance : " + isElementVisible(airtelMoneyBalanceUnableToFetch));
+        UtilsMethods.printInfoLog("Is error visible on unable to fetch AM Money Balance : " + isElementVisible(airtelMoneyBalanceUnableToFetch));
         return isElementVisible(airtelMoneyBalanceUnableToFetch);
     }
 
     public double gettingAirtelMoneyBalance() {
-        log.info("Getting Airtel Money Balance from Widget : " + readText(airtelMoneyBalance));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Airtel Money Balance from Widget : " + readText(airtelMoneyBalance));
+        UtilsMethods.printInfoLog("Getting Airtel Money Balance from Widget : " + readText(airtelMoneyBalance));
         return Double.parseDouble(readText(airtelMoneyBalance));
     }
 
     public WidgetInteractionPOM clickTicketIcon() {
         try {
-            log.info("Clicking on Ticket Icon");
-            ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Ticket Icon");
+            UtilsMethods.printInfoLog("Clicking on Ticket Icon");
             click(ticketIcon);
             return new WidgetInteractionPOM(driver);
         } catch (NoSuchElementException | TimeoutException e) {
@@ -121,18 +109,18 @@ public class AMTransactionsWidgetPOM extends BasePage {
     }
 
     public void clickMenuOption() {
-        printInfoLog("Clicking Menu Option");
+        UtilsMethods.printInfoLog("Clicking Menu Option");
         click(clickMenu);
     }
 
     public MoreAMTransactionsTabPOM openAMHistoryTab() {
-        printInfoLog("Opening AM History Sub Tab");
+        UtilsMethods.printInfoLog("Opening AM History Sub Tab");
         click(amHistoryTab);
         return new MoreAMTransactionsTabPOM(driver);
     }
 
     public Boolean isTransactionId() {
-        printInfoLog("Checking is Transaction Id Box Displayed");
+        UtilsMethods.printInfoLog("Checking is Transaction Id Box Displayed");
         return checkState(transactionId);
     }
 
@@ -141,7 +129,7 @@ public class AMTransactionsWidgetPOM extends BasePage {
     }
 
     public void clickSearchBtn() {
-        printInfoLog("Clicking on Search Button");
+        UtilsMethods.printInfoLog("Clicking on Search Button");
         click(transactionSearchBtn);
     }
 

@@ -1,7 +1,6 @@
 package pages;
 
-import Utils.ExtentReports.ExtentTestManager;
-import com.relevantcodes.extentreports.LogStatus;
+import Utils.UtilsMethods;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -39,23 +38,20 @@ public class SideMenuPOM extends BasePage {
     public void clickOnSideMenu() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(sideMenuOption));
         waitTillLoaderGetsRemoved();
-        log.info("Clicking on Side Menu");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Side Menu");
+        UtilsMethods.printInfoLog("Clicking on Side Menu");
         click(sideMenuOption);
     }
 
     public void waitForHomePage() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(sideMenuOption));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(loader));
-        log.info("Wait for Side menu and Home Page to be loaded");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Wait for Side menu and Home Page to be loaded");
+        UtilsMethods.printInfoLog("Wait for Side menu and Home Page to be loaded");
 
     }
 
     public boolean isSideMenuVisible() {
         waitTillLoaderGetsRemoved();
-        log.info("Checking that  Side Menu options are Visible or Not");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking that  Side Menu options are Visible or Not");
+        UtilsMethods.printInfoLog("Checking that  Side Menu options are Visible or Not");
 
         return isElementVisible(sideMenuOption);
     }
@@ -67,131 +63,114 @@ public class SideMenuPOM extends BasePage {
     }
 
     public boolean isAdminSettingVisible() {
-        log.info("Checking is Admin Setting Visible or not");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking that is Admin Setting  Visible or Not");
+        UtilsMethods.printInfoLog("Checking that is Admin Setting  Visible or Not");
         return checkState(adminSettings);
     }
 
     public boolean isCustomerServicesVisible() {
-        log.info("Checking that is Customer Service Visible or Not");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking that is Customer Service Visible or Not");
+        UtilsMethods.printInfoLog("Checking that is Customer Service Visible or Not");
 
         return checkState(customerServices);
     }
 
     public boolean isCaseManagementVisible() {
-        log.info("Checking that is Customer Service Visible or Not");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking that is Customer Service Visible or Not");
+        UtilsMethods.printInfoLog("Checking that is Customer Service Visible or Not");
         return checkState(caseManagement);
     }
 
     public boolean isUserManagementVisible() {
-        log.info("Checking that is User Management Option Visible or Not");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking that is User Management Option Visible or Not");
+        UtilsMethods.printInfoLog("Checking that is User Management Option Visible or Not");
         hoverAndClick(adminSettings);
         return checkState(userManagement);
     }
 
     public boolean isProfileManagementVisible() {
-        log.info("Checking that is Profile Management Option Visible or Not");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking that is Profile Management Option Visible or Not");
+        UtilsMethods.printInfoLog("Checking that is Profile Management Option Visible or Not");
         hoverAndClick(adminSettings);
         return checkState(profileManagement);
     }
 
     public boolean isCustomerInteractionVisible() {
-        log.info("Checking that is Customer Interaction Option Visible or Not");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking that is Customer Interaction Option Visible or Not");
+        UtilsMethods.printInfoLog("Checking that is Customer Interaction Option Visible or Not");
         hoverAndClick(customerServices);
         return checkState(customerInteraction);
     }
 
     public boolean isSupervisorDashboardVisible() {
-        log.info("Checking that is Supervisor DashBoard Option Visible or Not");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking that is Supervisor DashBoard Option Visible or Not");
+        UtilsMethods.printInfoLog("Checking that is Supervisor DashBoard Option Visible or Not");
         hoverAndClick(customerServices);
         return checkState(supervisorDashboard);
     }
 
     public boolean isTicketBulkUpdateVisible() {
-        log.info("Checking that is Supervisor Ticket Bulk Update Option Visible or Not");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking that is Supervisor Ticket Bulk Update Option Visible or Not");
+        UtilsMethods.printInfoLog("Checking that is Supervisor Ticket Bulk Update Option Visible or Not");
         hoverAndClick(customerServices);
         return checkState(ticketBulkUpdate);
     }
 
     public boolean isTemplateManagementVisible() {
-        log.info("Checking that is Admin Template Management Option Visible or Not");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking that is Admin Template Management Option Visible or Not");
+        UtilsMethods.printInfoLog("Checking that is Admin Template Management Option Visible or Not");
         hoverAndClick(adminSettings);
         return checkState(templateManagement);
     }
 
     public customerInteractionsSearchPOM openCustomerInteractionPage() {
-        log.info("Opening Customer Interaction Page");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening Customer Interaction Page");
+        UtilsMethods.printInfoLog("Opening Customer Interaction Page");
         hoverAndClick(customerServices);
         click(customerInteraction);
         return new customerInteractionsSearchPOM(driver);
     }
 
     public TemplateManagementPOM openTemplateManagementPage() {
-        log.info("Opening Template Management Page");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening Template Management Page");
+        UtilsMethods.printInfoLog("Opening Template Management Page");
         hoverAndClick(adminSettings);
         click(templateManagement);
         return new TemplateManagementPOM(driver);
     }
 
     public userManagementPOM openUserManagementPage() {
-        log.info("Opening User Management Page");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening User Management Page");
+        UtilsMethods.printInfoLog("Opening User Management Page");
         hoverAndClick(adminSettings);
         click(userManagement);
         return new userManagementPOM(driver);
     }
 
     public profileManagementPOM openProfileManagementPage() {
-        log.info("Opening Profile Management Page");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening Profile Management Page");
+        UtilsMethods.printInfoLog("Opening Profile Management Page");
         hoverAndClick(adminSettings);
         click(profileManagement);
         return new profileManagementPOM(driver);
     }
 
     public agentLoginPagePOM openSupervisorDashboard() {
-        log.info("Opening Supervisor Dashboard Page");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening Supervisor Dashboard Page");
+        UtilsMethods.printInfoLog("Opening Supervisor Dashboard Page");
         hoverAndClick(customerServices);
         click(supervisorDashboard);
         return new agentLoginPagePOM(driver);
     }
 
     public agentLoginPagePOM openBackendAgentDashboard() {
-        log.info("Opening Backend Agent Dashboard Page");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening Backend Agent Dashboard Page");
+        UtilsMethods.printInfoLog("Opening Backend Agent Dashboard Page");
         hoverAndClick(customerServices);
         click(agentDashboard);
         return new agentLoginPagePOM(driver);
     }
 
-    public Boolean isAgentDashboard(){
-        printInfoLog("Checking Agent Dashboard Visible or not");
+    public Boolean isAgentDashboard() {
+        UtilsMethods.printInfoLog("Checking Agent Dashboard Visible or not");
         hoverAndClick(customerServices);
         return checkState(agentDashboard);
     }
 
     public TicketBulkUpdatePOM openTicketBulkUpdateDashboard() {
-        log.info("Opening Ticket Bulk Update Dashboard Page");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening Ticket Bulk Update Dashboard Page");
+        UtilsMethods.printInfoLog("Opening Ticket Bulk Update Dashboard Page");
         hoverAndClick(customerServices);
         click(ticketBulkUpdate);
         return new TicketBulkUpdatePOM(driver);
     }
 
     public loginPagePOM logout() {
-        log.info("Logging Out");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Logging Out");
+        UtilsMethods.printInfoLog("Logging Out");
         click(logout);
         waitTillLoaderGetsRemoved();
         return new loginPagePOM(driver);

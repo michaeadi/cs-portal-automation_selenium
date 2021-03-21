@@ -3,6 +3,7 @@ package tests.backendSupervisor;
 import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.TransferQueueDataBean;
 import Utils.ExtentReports.ExtentTestManager;
+import Utils.UtilsMethods;
 import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoSuchElementException;
@@ -90,7 +91,7 @@ public class TransferToQueueTest extends BaseTest {
                 ticketListPage.clearInputBox();
             } catch (AssertionError f) {
                 f.printStackTrace();
-                ticketListPage.printInfoLog("Not able to perform transfer to Queue action: " + ticketListPage.getTransferErrorMessage());
+                UtilsMethods.printInfoLog("Not able to perform transfer to Queue action: " + ticketListPage.getTransferErrorMessage());
                 softAssert.assertTrue(ticketListPage.isCancelBtn(),"Cancel Button does not display.");
                 if (data.getTransferAnyway().equalsIgnoreCase("true")) {
                     softAssert.assertTrue(ticketListPage.isTransferAnyWayBtn(), "Transfer Any button does not displayed.");

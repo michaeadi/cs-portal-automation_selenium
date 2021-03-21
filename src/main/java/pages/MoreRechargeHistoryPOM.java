@@ -1,7 +1,6 @@
 package pages;
 
-import Utils.ExtentReports.ExtentTestManager;
-import com.relevantcodes.extentreports.LogStatus;
+import Utils.UtilsMethods;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -23,17 +22,17 @@ public class MoreRechargeHistoryPOM extends BasePage {
     By errorMessage=By.xpath("//span[contains(text(),\"Recharge History\")]/ancestor::div[@class=\"card widget ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]/span/span");
 
     public Boolean isWidgetDisplay(){
-        printInfoLog("Checking More Recharge History Widget Display");
+        UtilsMethods.printInfoLog("Checking More Recharge History Widget Display");
         return checkState(widgetName);
     }
 
     public Boolean IsPagination(){
-        printInfoLog("Is Pagination Available: "+checkState(pagination));
+        UtilsMethods.printInfoLog("Is Pagination Available: "+checkState(pagination));
         return checkState(pagination);
     }
 
     public Boolean isDatePickerDisplay(){
-        printInfoLog("Checking More Recharge History Widget Date Picker Display");
+        UtilsMethods.printInfoLog("Checking More Recharge History Widget Date Picker Display");
         return checkState(widgetName);
     }
 
@@ -41,25 +40,25 @@ public class MoreRechargeHistoryPOM extends BasePage {
     public String getHeaders(int row) {
         By headers=By.xpath("//span[contains(text(),'RECHARGE HISTORY')]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"card__card-header--card-body--table--list-heading ng-star-inserted\"]//div["+row+"]/span");
         String header = readText(headers);
-        printInfoLog("Reading header Name: "+ header);
+        UtilsMethods.printInfoLog("Reading header Name: "+ header);
         return header;
     }
 
     public String getSubHeaders(int row) {
         By headers=By.xpath("//span[contains(text(),'RECHARGE HISTORY')]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"card__card-header--card-body--table--list-heading ng-star-inserted\"]//div["+row+"]/span[2]");
         String header = readText(headers);
-        printInfoLog("Reading Sub header Name: "+ header);
+        UtilsMethods.printInfoLog("Reading Sub header Name: "+ header);
         return header;
     }
 
     public Boolean getNoResultFound(){
-        printInfoLog("Is no result found message display: "+checkState(errorMessage));
+        UtilsMethods.printInfoLog("Is no result found message display: "+checkState(errorMessage));
         return checkState(errorMessage);
     }
 
     public String getValueCorrespondingToRechargeHeader(int row,int column){
         By value=By.xpath("//span[contains(text(),'RECHARGE HISTORY')]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]//div[@class=\"ng-star-inserted\"]["+row+"]//div["+column+"]/span");
-        printInfoLog("Reading '"+getHeaders(column)+"' = "+readText(value));
+        UtilsMethods.printInfoLog("Reading '"+getHeaders(column)+"' = "+readText(value));
         return readText(value);
     }
 
@@ -69,22 +68,22 @@ public class MoreRechargeHistoryPOM extends BasePage {
     }
 
     public boolean isDatePickerVisible() {
-        printInfoLog("Is DatePicker available: "+checkState(datePicker));
+        UtilsMethods.printInfoLog("Is DatePicker available: "+checkState(datePicker));
         return checkState(datePicker);
     }
 
     public boolean isLast2DateVisible() {
-        printInfoLog("Is Last 2 Day Date available: "+checkState(last2DaysFilter));
+        UtilsMethods.printInfoLog("Is Last 2 Day Date available: "+checkState(last2DaysFilter));
         return checkState(last2DaysFilter);
     }
 
     public boolean isLast7DateVisible() {
-        printInfoLog("Is Last 7 Day Date available: "+checkState(last7DaysFilter));
+        UtilsMethods.printInfoLog("Is Last 7 Day Date available: "+checkState(last7DaysFilter));
         return checkState(last7DaysFilter);
     }
 
     public boolean isTodayDateVisible() {
-        printInfoLog("Is Today Day Date available: "+checkState(todayDateFilter));
+        UtilsMethods.printInfoLog("Is Today Day Date available: "+checkState(todayDateFilter));
         return checkState(todayDateFilter);
     }
 

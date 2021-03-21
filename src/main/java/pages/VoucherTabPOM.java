@@ -1,5 +1,6 @@
 package pages;
 
+import Utils.UtilsMethods;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -33,112 +34,112 @@ public class VoucherTabPOM extends BasePage {
     }
 
     public boolean isVoucherTabOpen() {
-        printInfoLog("Checking Voucher tab opened");
+        UtilsMethods.printInfoLog("Checking Voucher tab opened");
         return checkState(tabTitle);
     }
 
     public boolean isSerialLabel() {
-        printInfoLog("Is Serial label present: " + checkState(serialLabel));
+        UtilsMethods.printInfoLog("Is Serial label present: " + checkState(serialLabel));
         return checkState(serialLabel);
     }
 
     public boolean isStatusLabel() {
-        printInfoLog("Is Status label present: " + checkState(statusLabel));
+        UtilsMethods.printInfoLog("Is Status label present: " + checkState(statusLabel));
         return checkState(statusLabel);
     }
 
     public boolean isSubStatus() {
-        printInfoLog("Is Sub Status label present: " + checkState(subStatusLabel));
+        UtilsMethods.printInfoLog("Is Sub Status label present: " + checkState(subStatusLabel));
         return checkState(subStatusLabel);
     }
 
     public boolean isRechargeAmt() {
-        printInfoLog("Is Recharge Amount label present: " + checkState(rechargeAmtLabel));
+        UtilsMethods.printInfoLog("Is Recharge Amount label present: " + checkState(rechargeAmtLabel));
         return checkState(rechargeAmtLabel);
     }
 
     public boolean isTimeStamp() {
-        printInfoLog("Is Time Stamp label present: " + checkState(timeStampLabel));
+        UtilsMethods.printInfoLog("Is Time Stamp label present: " + checkState(timeStampLabel));
         return checkState(timeStampLabel);
     }
 
     public boolean isSubscriberId() {
-        printInfoLog("Is Subscriber Id label present: " + checkState(subscriberIdLabel));
+        UtilsMethods.printInfoLog("Is Subscriber Id label present: " + checkState(subscriberIdLabel));
         return checkState(subscriberIdLabel);
     }
 
     public boolean isExpiryDate() {
-        printInfoLog("Is Expiry Date label present: " + checkState(expiryDateLabel));
+        UtilsMethods.printInfoLog("Is Expiry Date label present: " + checkState(expiryDateLabel));
         return checkState(expiryDateLabel);
     }
 
     public boolean isAgent() {
-        printInfoLog("Is Agent label present: " + checkState(agentLabel));
+        UtilsMethods.printInfoLog("Is Agent label present: " + checkState(agentLabel));
         return checkState(agentLabel);
     }
 
     public boolean isBatchID() {
-        printInfoLog("Is Batch ID label present: " + checkState(batchIdLabel));
+        UtilsMethods.printInfoLog("Is Batch ID label present: " + checkState(batchIdLabel));
         return checkState(batchIdLabel);
     }
 
     public boolean isVoucherGroup() {
-        printInfoLog("Is Voucher Group label present: " + checkState(voucherGroupLabel));
+        UtilsMethods.printInfoLog("Is Voucher Group label present: " + checkState(voucherGroupLabel));
         return checkState(voucherGroupLabel);
     }
 
     public String getSerialValue() {
-        printInfoLog("Reading Serial value present: " + readText(serialNo));
+        UtilsMethods.printInfoLog("Reading Serial value present: " + readText(serialNo));
         return readText(serialNo);
     }
 
     public String getStatusValue() {
-        printInfoLog("Reading Status value present: " + readText(statusValue));
+        UtilsMethods.printInfoLog("Reading Status value present: " + readText(statusValue));
         return readText(statusValue);
     }
 
     public String getSubStatus() {
-        printInfoLog("Reading Sub Status value present: " + readText(subStatusValue));
+        UtilsMethods.printInfoLog("Reading Sub Status value present: " + readText(subStatusValue));
         return readText(subStatusValue);
     }
 
     public String getRechargeAmt() {
-        printInfoLog("Reading Recharge Amount value present: " + readText(rechargeAmtValue));
+        UtilsMethods.printInfoLog("Reading Recharge Amount value present: " + readText(rechargeAmtValue));
         return readText(rechargeAmtValue);
     }
 
     public String getTimeStamp() {
-        printInfoLog("Reading Time Stamp value present: " + readText(timeStampValue));
+        UtilsMethods.printInfoLog("Reading Time Stamp value present: " + readText(timeStampValue));
         return readText(timeStampValue);
     }
 
     public String getSubscriberId() {
-        printInfoLog("Reading Subscriber Id value present: " + readText(subscriberIdValue));
+        UtilsMethods.printInfoLog("Reading Subscriber Id value present: " + readText(subscriberIdValue));
         return readText(subscriberIdValue);
     }
 
     public String getExpiryDate() {
-        printInfoLog("Reading Expiry Date value present: " + readText(expiryDateValue));
+        UtilsMethods.printInfoLog("Reading Expiry Date value present: " + readText(expiryDateValue));
         return readText(expiryDateValue);
     }
 
     public String getAgent() {
-        printInfoLog("Reading Agent value present: " + readText(agentValue));
+        UtilsMethods.printInfoLog("Reading Agent value present: " + readText(agentValue));
         return readText(agentValue);
     }
 
     public String getBatchID() {
-        printInfoLog("Reading Batch ID value present: " + readText(batchIdValue));
+        UtilsMethods.printInfoLog("Reading Batch ID value present: " + readText(batchIdValue));
         return readText(batchIdValue);
     }
 
     public String getVoucherGroup() {
-        printInfoLog("Reading Voucher Group value present: " + readText(voucherGroupValue));
+        UtilsMethods.printInfoLog("Reading Voucher Group value present: " + readText(voucherGroupValue));
         return readText(voucherGroupValue);
     }
 
     public void clickDoneBtn() {
-        printInfoLog("Clicking done button");
+        UtilsMethods.printInfoLog("Clicking done button");
         click(doneBtn);
     }
 }

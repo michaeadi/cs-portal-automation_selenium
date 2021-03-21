@@ -1,6 +1,7 @@
 package pages;
 
 import Utils.ExtentReports.ExtentTestManager;
+import Utils.UtilsMethods;
 import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -22,19 +23,19 @@ public class ServiceClassWidgetPOM extends BasePage {
     }
 
     public boolean isServiceClassWidgetDisplay(){
-        printInfoLog("Is CRBT Widget Display: "+checkState(title));
+        UtilsMethods.printInfoLog("Is CRBT Widget Display: "+checkState(title));
         return checkState(title);
     }
 
     public String getHeaders(int row) {
         String header = readText(By.xpath("//span[contains(text(),\"Service Profile\")]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"card__card-header--card-body--table--list-heading ng-star-inserted\"]//div["+row+"]//span"));
-        printInfoLog("Getting header Name at Row- " + row + " : " + header);
+        UtilsMethods.printInfoLog("Getting header Name at Row- " + row + " : " + header);
         return header;
     }
 
     public String getValueCorrespondingToAccumulator(int row,int column){
         String value=readText(By.xpath("//span[contains(text(),\"Service Profile\")]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]/div[@class=\"ng-star-inserted\"  or @class=\"slide-toggle red ng-star-inserted\"]["+row+"]//div[@class=\"ng-star-inserted\" or @class=\"slide-toggle red ng-star-inserted\"]["+column+"]//span"));
-        printInfoLog("Reading '"+getHeaders(column)+"' = "+value);
+        UtilsMethods.printInfoLog("Reading '"+getHeaders(column)+"' = "+value);
         return value.trim();
     }
 
@@ -48,17 +49,17 @@ public class ServiceClassWidgetPOM extends BasePage {
     }
 
     public String gettingServiceProfileNoResultFoundMessage() {
-        printInfoLog("Validating error message when there is no data from API : " + readText(serviceProfileNoResultFoundMessage));
+        UtilsMethods.printInfoLog("Validating error message when there is no data from API : " + readText(serviceProfileNoResultFoundMessage));
         return readText(serviceProfileNoResultFoundMessage);
     }
 
     public boolean isServiceProfileNoResultFoundVisible() {
-        printInfoLog("Validating error is visible when there is no data from API : " + isElementVisible(serviceProfileNoResultFound));
+        UtilsMethods.printInfoLog("Validating error is visible when there is no data from API : " + isElementVisible(serviceProfileNoResultFound));
         return isElementVisible(serviceProfileNoResultFound);
     }
 
     public boolean isServiceProfileErrorVisible() {
-        printInfoLog("Validating error is visible when there is Error in API : " + isElementVisible(serviceProfileError));
+        UtilsMethods.printInfoLog("Validating error is visible when there is Error in API : " + isElementVisible(serviceProfileError));
         return isElementVisible(serviceProfileError);
     }
 }

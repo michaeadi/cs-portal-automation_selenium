@@ -170,7 +170,7 @@ public class SupervisorSearchTicket extends BaseTest {
                         "Ticket Does Not Priority Validated");
                 softAssert.assertEquals(ticketListPage.getPriorityValue().toLowerCase().trim(), Data.getPriority().toLowerCase().trim(),
                         "Issue Does Not Type Validated");
-                softAssert.assertEquals(ticketListPage.convertToHR(ticketPOJO.getResult().getCommittedSla()), Data.getCommittedSLA(), "Committed SLA does not configured Correctly");
+                softAssert.assertEquals(UtilsMethods.convertToHR(ticketPOJO.getResult().getCommittedSla()), Data.getCommittedSLA(), "Committed SLA does not configured Correctly");
                 softAssert.assertEquals(ticketListPage.getMSISDN().trim(), ticketPOJO.getResult().getMsisdn().trim(), "User MSISDN is not same as expected");
                 Map<String, Long> sla = ticketPOJO.getResult().getSla();
                 if (Data.getWorkgroup1() != null)
@@ -214,7 +214,7 @@ public class SupervisorSearchTicket extends BaseTest {
                         configTicketLayout.remove(layout.getPlaceHolder().toLowerCase().trim());
                     }
                 } catch (NullPointerException e) {
-                    ticketListPage.printInfoLog("No Ticket Layout Config in database :" + e.getMessage());
+                    UtilsMethods.printInfoLog("No Ticket Layout Config in database :" + e.getMessage());
                 }
 
                 for (String name : configTicketLayout) {

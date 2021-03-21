@@ -1,7 +1,6 @@
 package pages;
 
-import Utils.ExtentReports.ExtentTestManager;
-import com.relevantcodes.extentreports.LogStatus;
+import Utils.UtilsMethods;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -33,34 +32,29 @@ public class CurrentBalanceWidgetPOM extends BasePage {
     }
 
     public boolean isLastRechargeUnableToFetchVisible() {
-        log.info("Validating is error visible for last recharge balance : " + isElementVisible(currentBalanceLastRechargeUnableToFetch));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Validating is error visible for last recharge balance : " + isElementVisible(currentBalanceLastRechargeUnableToFetch));
+        UtilsMethods.printInfoLog("Validating is error visible for last recharge balance : " + isElementVisible(currentBalanceLastRechargeUnableToFetch));
         return isElementVisible(currentBalanceLastRechargeUnableToFetch);
     }
 
     public boolean isLastRechargeDateTImeUnableTOFetch() {
-        log.info("Validating is error visible for last recharge Date & Time : " + isElementVisible(lastRechargeDateTImeUnableTOFetch));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Validating is error visible for last recharge Date & Time : " + isElementVisible(lastRechargeDateTImeUnableTOFetch));
+        UtilsMethods.printInfoLog("Validating is error visible for last recharge Date & Time : " + isElementVisible(lastRechargeDateTImeUnableTOFetch));
         return isElementVisible(lastRechargeDateTImeUnableTOFetch);
     }
 
     public String gettingLastRechargeUnableToFetchVisible() {
-        log.info("Validating  error message for last recharge balance : " + readText(currentBalanceLastRechargeUnableToFetch));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Validating  error message for last recharge balance : " + readText(currentBalanceLastRechargeUnableToFetch));
+        UtilsMethods.printInfoLog("Validating  error message for last recharge balance : " + readText(currentBalanceLastRechargeUnableToFetch));
         return readText(currentBalanceLastRechargeUnableToFetch);
     }
 
     public String gettingLastRechargeDateTImeUnableTOFetch() {
-        log.info("Validating  error message for last recharge Date & Time : " + readText(lastRechargeDateTImeUnableTOFetch));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Validating  error message for last recharge Date & Time : " + readText(lastRechargeDateTImeUnableTOFetch));
+        UtilsMethods.printInfoLog("Validating  error message for last recharge Date & Time : " + readText(lastRechargeDateTImeUnableTOFetch));
         return readText(lastRechargeDateTImeUnableTOFetch);
     }
 
 
     public boolean isCurrentBalanceWidgetMenuVisible() {
         try {
-            log.info("Checking is Your Current Balance Widget's Menu Visible");
-            ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is Your Current Balance Widget'Menu Visible");
+            UtilsMethods.printInfoLog("Checking is Your Current Balance Widget'Menu Visible");
             return isElementVisible(menu);
         } catch (Exception e) {
             throw new NoSuchElementException("Current Plan widget menu option does not display");
@@ -68,84 +62,70 @@ public class CurrentBalanceWidgetPOM extends BasePage {
     }
 
     public DADetailsPOM openingDADetails() {
-        log.info("Clicking Current Balance Widget's Menu Visible");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking Current Balance Widget'Menu Visible");
+        UtilsMethods.printInfoLog("Clicking Current Balance Widget'Menu Visible");
         click(menu);
         return new DADetailsPOM(driver);
     }
 
     public String gettingLastRechargeAmount() {
-        log.info("Getting Main Account Balance from Your Current Balance Widget : " + readText(currentBalanceLastRecharge).replaceAll("\\s", "").replaceAll("[A-Z,a-z]", ""));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Main Account Balance from Your Current Balance Widget : " + readText(currentBalanceLastRecharge).replaceAll("\\s", "").replaceAll("[A-Z,a-z]", ""));
+        UtilsMethods.printInfoLog("Getting Main Account Balance from Your Current Balance Widget : " + readText(currentBalanceLastRecharge).replaceAll("\\s", "").replaceAll("[A-Z,a-z]", ""));
         return readText(currentBalanceLastRecharge).replaceAll("\\s", "").replaceAll("[A-Z,a-z]", "").trim();
     }
 
     public boolean isCurrentBalanceWidgetVisible() {
-        log.info("Checking is Your Current Balance Widget Visible");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is Your Current Balance Widget Visible");
+        UtilsMethods.printInfoLog("Checking is Your Current Balance Widget Visible");
         return isElementVisible(currentBalanceHeader);
     }
 
     public String gettingCurrentBalanceCurrency() {
-        log.info("Getting Currency from Your Current Balance Widget : " + readText(currentBalanceCurrency).trim());
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Currency from Your Current Balance Widget : " + readText(currentBalanceCurrency).trim());
+        UtilsMethods.printInfoLog("Getting Currency from Your Current Balance Widget : " + readText(currentBalanceCurrency).trim());
         return readText(currentBalanceCurrency).replaceAll("[^a-zA-z]", "");
     }
 
     public String gettingMainAccountBalance() {
-        log.info("Getting Main Account Balance from Your Current Balance Widget : " + readText(mainAccountBalance).replaceAll("\\s", "").replaceAll("[A-Z,a-z]", ""))
-        ;
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Main Account Balance from Your Current Balance Widget : " + readText(mainAccountBalance).replaceAll("\\s", "").replaceAll("[A-Z,a-z]", ""))
+        UtilsMethods.printInfoLog("Getting Main Account Balance from Your Current Balance Widget : " + readText(mainAccountBalance).replaceAll("\\s", "").replaceAll("[A-Z,a-z]", ""))
         ;
         return readText(mainAccountBalance).replaceAll("\\s", "").replaceAll("[A-Z,a-z]", "");
     }
 
     public String getVoiceExpiryDate() {
-        log.info("Getting Remaining Voice Expiry Date from Your Current Balance Widget : " + readText(voiceExpiryDate).trim());
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Remaining Voice Expiry Date from Your Current Balance Widget : " + readText(voiceExpiryDate).trim());
+        UtilsMethods.printInfoLog("Getting Remaining Voice Expiry Date from Your Current Balance Widget : " + readText(voiceExpiryDate).trim());
         return readText(voiceExpiryDate).trim();
     }
 
     public String getDataExpiryDate() {
-        log.info("Getting Remaining Data Expiry Date from Your Current Balance Widget : " + readText(dataExpiryDate).trim());
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Remaining Data Expiry Date from Your Current Balance Widget : " + readText(dataExpiryDate).trim());
+        UtilsMethods.printInfoLog("Getting Remaining Data Expiry Date from Your Current Balance Widget : " + readText(dataExpiryDate).trim());
         return readText(dataExpiryDate).trim();
     }
 
     public String getSmsExpiryDate() {
-        log.info("Getting Remaining SMS Expiry Date from Your Current Balance Widget : " + readText(smsExpiryDate).trim());
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Remaining SMS Expiry Date from Your Current Balance Widget : " + readText(smsExpiryDate).trim());
+        UtilsMethods.printInfoLog("Getting Remaining SMS Expiry Date from Your Current Balance Widget : " + readText(smsExpiryDate).trim());
         return readText(smsExpiryDate).trim();
     }
 
     public String getVoiceBalance() {
-        log.info("Getting Remaining Voice Balance from Your Current Balance Widget : " + readText(voiceBalance).trim());
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Remaining Voice Balance from Your Current Balance Widget : " + readText(voiceBalance).trim());
+        UtilsMethods.printInfoLog("Getting Remaining Voice Balance from Your Current Balance Widget : " + readText(voiceBalance).trim());
         return readText(voiceBalance).trim();
     }
 
     public String getDataBalance() {
-        log.info("Getting Remaining Data Balance from Your Current Balance Widget : " + readText(dataBalance).trim());
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Remaining Data Balance from Your Current Balance Widget : " + readText(dataBalance).trim());
+        UtilsMethods.printInfoLog("Getting Remaining Data Balance from Your Current Balance Widget : " + readText(dataBalance).trim());
         return readText(dataBalance).trim();
     }
 
     public String getSmsBalance() {
-        log.info("Getting Remaining SMS Balance from Your Current Balance Widget : " + readText(smsBalance).trim());
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Remaining SMS Balance from Your Current Balance Widget : " + readText(smsBalance).trim());
+        UtilsMethods.printInfoLog("Getting Remaining SMS Balance from Your Current Balance Widget : " + readText(smsBalance).trim());
         return readText(smsBalance).trim();
     }
 
     public String getLastRechargeDateTime() {
-        log.info("Getting Last Recharge Date from Your Current Balance Widget : " + readText(lastRechargeDateTime).trim());
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Last Recharge Date from Your Current Balance Widget : " + readText(lastRechargeDateTime).trim());
+        UtilsMethods.printInfoLog("Getting Last Recharge Date from Your Current Balance Widget : " + readText(lastRechargeDateTime).trim());
         return readText(lastRechargeDateTime).trim();
     }
 
     public WidgetInteractionPOM clickTicketIcon() {
         try {
-            log.info("Clicking on Ticket Icon");
-            ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Ticket Icon");
+            UtilsMethods.printInfoLog("Clicking on Ticket Icon");
             click(ticketIcon);
             return new WidgetInteractionPOM(driver);
         } catch (NoSuchElementException | TimeoutException e) {

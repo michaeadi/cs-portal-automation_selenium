@@ -1,6 +1,7 @@
 package pages;
 
 import Utils.ExtentReports.ExtentTestManager;
+import Utils.UtilsMethods;
 import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.time.DateUtils;
@@ -52,9 +53,9 @@ public class BasePage {
 
 
     public void waitTillLoaderGetsRemoved() {
-        printInfoLog("Waiting for loader to be removed");
+        UtilsMethods.printInfoLog("Waiting for loader to be removed");
         wait1.until(ExpectedConditions.invisibilityOfElementLocated(loader1));
-        printInfoLog("Loader Removed");
+        UtilsMethods.printInfoLog("Loader Removed");
     }
 
     public void waitTillOverlayGetsRemoved() {
@@ -142,25 +143,6 @@ public class BasePage {
         actions.moveToElement(target).build().perform();
     }
 
-    void hover(By elementLocation) {
-        Actions actions = new Actions(driver);
-        waitVisibility(elementLocation);
-        WebElement target = driver.findElement(elementLocation);
-        actions.moveToElement(target).build().perform();
-    }
-
-    //Asserting Current URL
-    void AssertCurrentURL(String URL) {
-        String currentUrl = driver.getCurrentUrl();
-        Assert.assertEquals(currentUrl, URL);
-    }
-
-    //Wait and Switch to Frame
-    void waitAndSwitchFrame(String Frame) {
-        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(Frame));
-
-    }
-
     public customerInteractionPagePOM openingCustomerInteractionDashboard() {
         log.info("Opening Customer Interactions Dashboard");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening Customer Interactions Dashboard");
@@ -171,56 +153,8 @@ public class BasePage {
 
     public String getToastMessage(){
         String message=readText(toastMessage);
-        printInfoLog(message);
+        UtilsMethods.printInfoLog(message);
         return message;
-    }
-
-    public String getDateFromEpoch(long Epoch, String pattern) {
-        if (Epoch == 0) {
-            return "-";
-        } else {
-            Date date = new Date(Epoch);
-            DateFormat format = new SimpleDateFormat(pattern);
-            return format.format(date);
-        }
-    }
-
-    public String getDateFromString(String date, String newPatten, String existingPattern) {
-        try {
-            Date newDate = new SimpleDateFormat(existingPattern).parse(date);
-            DateFormat format = new SimpleDateFormat(newPatten);
-            return format.format(newDate);
-        } catch (ParseException e) {
-            printFailLog("Not able to parse the date: " + date + " " + e.fillInStackTrace());
-        }
-        return "Invalid Date String";
-    }
-
-    public String getDateFromStringInUTC(String date, String pattern) {
-        try {
-            Date newDate = new SimpleDateFormat("dd-MMM-yyyy hh:mm aa").parse(date);
-            DateFormat format = new SimpleDateFormat(pattern);
-            format.setTimeZone(TimeZone.getTimeZone("Etc/UTC"));
-            return format.format(newDate);
-        } catch (ParseException e) {
-            printFailLog("Not able to parse the date: " + date + " " + e.fillInStackTrace());
-        }
-        return "Invalid Date String";
-    }
-
-    public String getDateFromEpochInUTC(long Epoch, String pattern) {
-        Date date = new Date(Epoch);
-        DateFormat format = new SimpleDateFormat(pattern);
-        format.setTimeZone(TimeZone.getTimeZone("Etc/UTC"));
-        return format.format(date);
-    }
-
-
-    public String getTimeFromEpoch(long Epoch, String pattern) {
-        Date date = new Date(Epoch);
-        Date nearestMinute = DateUtils.round(date, Calendar.MINUTE);
-        DateFormat format1 = new SimpleDateFormat(pattern);
-        return format1.format(nearestMinute);
     }
 
     //Switch to parent frame
@@ -267,94 +201,12 @@ public class BasePage {
         return true;
     }
 
-    public boolean isSortOrderDisplay(String historyDateTime, String historyDateTime1, String pattern) {
-        DateFormat format = new SimpleDateFormat(pattern);
-        final Calendar cal = Calendar.getInstance();
-        try {
-            if (historyDateTime.contains("Yesterday")) {
-                String pattern1 = pattern.split("hh")[0].trim();
-                DateFormat format1 = new SimpleDateFormat(pattern1);
-                cal.add(Calendar.DATE, -1);
-                String yesterday = format1.format(cal.getTime());
-                historyDateTime = historyDateTime.replace("Yesterday", yesterday);
-                System.out.println(historyDateTime + " :" + yesterday);
-            }
-
-            if (historyDateTime1.contains("Yesterday")) {
-                String pattern1 = pattern.split("hh")[0].trim();
-                DateFormat format1 = new SimpleDateFormat(pattern1);
-                cal.add(Calendar.DATE, -1);
-                String yesterday = format1.format(cal.getTime());
-                historyDateTime1 = historyDateTime1.replace("Yesterday", yesterday);
-                System.out.println(historyDateTime1 + " :" + yesterday);
-            }
-
-            if (historyDateTime.contains("Today")) {
-                String pattern1 = pattern.split("hh")[0].trim();
-                DateFormat format1 = new SimpleDateFormat(pattern1);
-                String today = format1.format(Calendar.getInstance().getTime());
-                historyDateTime = historyDateTime.replace("Today", today);
-            }
-
-            if (historyDateTime1.contains("Today")) {
-                String pattern1 = pattern.split("hh")[0].trim();
-                DateFormat format1 = new SimpleDateFormat(pattern1);
-                String today = format1.format(Calendar.getInstance().getTime());
-                historyDateTime1 = historyDateTime1.replace("Today", today);
-            }
-
-            Date date1 = format.parse(historyDateTime);
-            Date date2 = format.parse(historyDateTime1);
-            if (date1.compareTo(date2) <= 0) {
-                log.info(date1 + " come before " + date2);
-                return true;
-            } else {
-                log.info(date1 + " come after " + date2);
-                return false;
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    public String convertToHR(String committedSla) {
-        Long ms = Long.parseLong(committedSla);
-        log.info("Converting SLA: " + committedSla + " to " + String.valueOf(TimeUnit.MILLISECONDS.toHours(ms)));
-        return String.valueOf(TimeUnit.MILLISECONDS.toHours(ms));
-    }
-
-    public void printInfoLog(String message) {
-        log.info(message);
-        ExtentTestManager.getTest().log(LogStatus.INFO, message);
-    }
-
-    public void printFailLog(String message) {
-        log.info(message);
-        ExtentTestManager.getTest().log(LogStatus.FAIL, message);
-    }
-
-    public void printPassLog(String message) {
-        log.info(message);
-        ExtentTestManager.getTest().log(LogStatus.PASS, message);
-    }
-
-    public void printWarningLog(String message) {
-        log.info(message);
-        ExtentTestManager.getTest().log(LogStatus.WARNING, message);
-    }
-
-    public String ValueRoundOff(Double value) {
-        DecimalFormat df = new DecimalFormat("###.##");
-        return df.format(value);
-    }
-
     public List<WebElement> returnListOfElement(By element) {
         List<WebElement> list = new ArrayList<>();
         try {
             list = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(element));
         } catch (TimeoutException | NoSuchElementException e) {
-            printInfoLog("Not able to Fetch List of Elements :" + e.fillInStackTrace());
+            UtilsMethods.printInfoLog("Not able to Fetch List of Elements :" + e.fillInStackTrace());
         }
         return list;
     }

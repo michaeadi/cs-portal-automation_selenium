@@ -1,7 +1,6 @@
 package pages;
 
-import Utils.ExtentReports.ExtentTestManager;
-import com.relevantcodes.extentreports.LogStatus;
+import Utils.UtilsMethods;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.*;
 import org.testng.Assert;
@@ -26,28 +25,29 @@ public class UsageHistoryWidgetPOM extends BasePage {
     By usageHistoryError = By.xpath("//span[contains(text(),\"Usage History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"widget-error apiMsgBlock ng-star-inserted\"][1]");
     By ticketIcon = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),'Usage History')]//ancestor::div[1]//span/img[@class='interaction-ticket']");
     By getTitle = By.xpath("//span[contains(text(),'Usage History')]");
+
     public UsageHistoryWidgetPOM(WebDriver driver) {
         super(driver);
     }
 
     public boolean isUsageHistoryErrorVisible() {
-        printInfoLog("Validating error is visible when there is Error in API : " + isElementVisible(usageHistoryError));
+        UtilsMethods.printInfoLog("Validating error is visible when there is Error in API : " + isElementVisible(usageHistoryError));
         return isElementVisible(usageHistoryError);
     }
 
     public String getHeaders(int row) {
         String header = readText(By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Usage History\")]//ancestor::div[2]//div[@class=\"card__card-header--card-body--table--list-heading ng-star-inserted\"]/div[" + row + "]/span"));
-        printInfoLog("Getting header Number " + row + " : " + header);
+        UtilsMethods.printInfoLog("Getting header Number " + row + " : " + header);
         return header;
     }
 
     public String gettingUsageHistoryNoResultFoundMessage() {
-        printInfoLog("Validating error message when there is no data from API : " + readText(usageHistoryNoResultFoundMessage));
+        UtilsMethods.printInfoLog("Validating error message when there is no data from API : " + readText(usageHistoryNoResultFoundMessage));
         return readText(usageHistoryNoResultFoundMessage);
     }
 
     public boolean isUsageHistoryNoResultFoundVisible() {
-        printInfoLog("Validating error is visible when there is no data from API : " + isElementVisible(usageHistoryNoResultFound));
+        UtilsMethods.printInfoLog("Validating error is visible when there is no data from API : " + isElementVisible(usageHistoryNoResultFound));
         return isElementVisible(usageHistoryNoResultFound);
     }
 
@@ -57,12 +57,12 @@ public class UsageHistoryWidgetPOM extends BasePage {
     }
 
     public boolean isUsageHistoryWidgetMenuVisible() {
-        printInfoLog("Checking is Usage History's Menu Visible");
+        UtilsMethods.printInfoLog("Checking is Usage History's Menu Visible");
         return isElementVisible(menu);
     }
 
     public DetailedUsageHistoryPOM openingMoreDetails() {
-        printInfoLog("Opening More under Usage History Widget");
+        UtilsMethods.printInfoLog("Opening More under Usage History Widget");
         click(menu);
         return new DetailedUsageHistoryPOM(driver);
     }
@@ -70,54 +70,47 @@ public class UsageHistoryWidgetPOM extends BasePage {
 
     public String getHistoryEndBalance(int RowNumber) {
         WebElement rowElement = as.get(RowNumber);
-        log.info("Getting Usage History End Balacne  from Row Number " + RowNumber + " : " + rowElement.findElement(endBalance).getText());
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Usage History End Balance from Row Number " + RowNumber + " : " + rowElement.findElement(endBalance).getText());
+        UtilsMethods.printInfoLog("Getting Usage History End Balance from Row Number " + RowNumber + " : " + rowElement.findElement(endBalance).getText());
         return rowElement.findElement(endBalance).getText();
     }
 
     public String getHistoryStartBalance(int RowNumber) {
         WebElement rowElement = as.get(RowNumber);
-        log.info("Getting Usage History Start Balance from Row Number " + RowNumber + " : " + rowElement.findElement(startBalance).getText());
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Usage History Start Balance from Row Number " + RowNumber + " : " + rowElement.findElement(startBalance).getText());
+        UtilsMethods.printInfoLog("Getting Usage History Start Balance from Row Number " + RowNumber + " : " + rowElement.findElement(startBalance).getText());
         return rowElement.findElement(startBalance).getText();
     }
 
     public String getHistoryDateTime(int RowNumber) {
         By dateTime = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Usage History\")]/ancestor::div[@class=\"card widget ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"card__card-header--card-body--table--data-list row-border\"][" + (RowNumber + 1) + "]/div[3]//span");
-        printInfoLog("Getting Usage History Date Time from Row Number " + RowNumber + " : " + readText(dateTime));
+        UtilsMethods.printInfoLog("Getting Usage History Date Time from Row Number " + RowNumber + " : " + readText(dateTime));
         return readText(dateTime);
     }
 
     public String getHistoryCharge(int RowNumber) {
         WebElement rowElement = as.get(RowNumber);
-        log.info("Getting Usage History Charge from Row Number " + RowNumber + " : " + rowElement.findElement(charge).getText());
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Usage History Charge from Row Number " + RowNumber + " : " + rowElement.findElement(charge).getText());
+        UtilsMethods.printInfoLog("Getting Usage History Charge from Row Number " + RowNumber + " : " + rowElement.findElement(charge).getText());
         return rowElement.findElement(charge).getText().replace('+', ' ').trim();
     }
 
     public String getHistoryType(int RowNumber) {
         WebElement rowElement = as.get(RowNumber);
-        log.info("Getting Usage History Type from Row Number " + RowNumber + " : " + rowElement.findElement(type).getText());
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Usage History Type from Row Number " + RowNumber + " : " + rowElement.findElement(type).getText());
+        UtilsMethods.printInfoLog("Getting Usage History Type from Row Number " + RowNumber + " : " + rowElement.findElement(type).getText());
         return rowElement.findElement(type).getText();
     }
 
     public boolean isUsageHistoryWidgetIsVisible() {
-        log.info("Checking is Usage History Widget Visible");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking is Usage History Widget Visible");
+        UtilsMethods.printInfoLog("Checking is Usage History Widget Visible");
         return isElementVisible(usageHistoryHeader);
     }
 
     public boolean isUsageHistoryDatePickerVisible() {
-        log.info("Checking Usage History Widget Date Picker Visibility ");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking Usage HistoryWidget Date Picker Visibility ");
+        UtilsMethods.printInfoLog("Checking Usage HistoryWidget Date Picker Visibility ");
         return checkState(usageHistoryDatePicker);
     }
 
     public WidgetInteractionPOM clickTicketIcon() {
         try {
-            log.info("Clicking on Ticket Icon");
-            ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Ticket Icon");
+            UtilsMethods.printInfoLog("Clicking on Ticket Icon");
             click(ticketIcon);
             return new WidgetInteractionPOM(driver);
         } catch (NoSuchElementException | TimeoutException e) {

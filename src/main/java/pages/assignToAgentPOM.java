@@ -1,6 +1,7 @@
 package pages;
 
 import Utils.ExtentReports.ExtentTestManager;
+import Utils.UtilsMethods;
 import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
@@ -22,15 +23,14 @@ public class assignToAgentPOM extends BasePage {
     By availableSlot = By.xpath("//*[@id=\"assignTicket\"]/app-assign-to-agents/section/div/div[2]/div[1]/div[3]/p/span");
     By assignedSlot = By.xpath("//*[@id=\"assignTicket\"]/app-assign-to-agents/section/div/div[2]/div[1]/div[3]/p/text()");
     By infoMessage = By.xpath("//*[@id=\"assignTicket\"]/app-assign-to-agents/section/div/div[1]/hr");
-    By closeTab= By.xpath("//button[@class=\"mat-button\"]//span[contains(text(),'X')]");
+    By closeTab = By.xpath("//button[@class=\"mat-button\"]//span[contains(text(),'X')]");
 
     public assignToAgentPOM(WebDriver driver) {
         super(driver);
     }
 
     public boolean validatePageTitle() {
-        log.info("Validating Assign to agent Page");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Validating Assign to agent Page");
+        UtilsMethods.printInfoLog("Validating Assign to agent Page");
         return checkState(pageTitle);
     }
 
@@ -40,14 +40,12 @@ public class assignToAgentPOM extends BasePage {
     }
 
     public String getAgentName() {
-        log.info("Agent Name: " + readText(agentName));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Assigning Ticket to Agent Name: " + readText(agentName));
+        UtilsMethods.printInfoLog("Assigning Ticket to Agent Name: " + readText(agentName));
         return readText(agentName);
     }
 
     public String getAgentAuuid() {
-        log.info("Agent AUUID: " + readText(agentAuuid));
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Assigning Ticket to Agent AUUID: " + readText(agentAuuid));
+        UtilsMethods.printInfoLog("Assigning Ticket to Agent AUUID: " + readText(agentAuuid));
         return readText(agentAuuid);
     }
 
@@ -62,7 +60,7 @@ public class assignToAgentPOM extends BasePage {
     }
 
     public void closeAssignTab() {
-        printInfoLog("Clicking on Close Assign Button");
+        UtilsMethods.printInfoLog("Clicking on Close Assign Button");
         click(closeTab);
     }
 
@@ -78,11 +76,11 @@ public class assignToAgentPOM extends BasePage {
         for (int i = 1; i <= agentList.size(); i++) {
             By agentAUUID = By.xpath("//div[@class=\"pannel-content-area ng-star-inserted\"]/div[" + i + "]//span[@class=\"auuid yellow\"]");
             String auuid = readText(agentAUUID);
-            System.out.println("Agent AUUID: " + readText(agentAUUID));
-            System.out.println("Check state: " + readText(agentAUUID).contains(assigneeAUUID));
+            log.info("Agent AUUID: " + readText(agentAUUID));
+            log.info("Check state: " + readText(agentAUUID).contains(assigneeAUUID));
             if (!readText(agentAUUID).contains(assigneeAUUID)) {
                 By allSlot = By.xpath("//div[@class=\"pannel-content-area ng-star-inserted\"]/div[" + i + "]//span[@class=\"slot-count orange\"]");
-                System.out.println(readText(allSlot));
+                log.info(readText(allSlot));
                 try {
                     slot = Integer.parseInt(readText(allSlot));
                 } catch (NumberFormatException e) {
@@ -94,12 +92,12 @@ public class assignToAgentPOM extends BasePage {
                     By clickAssignBtn = By.xpath("//div[@class=\"pannel-content-area ng-star-inserted\"]/div[" + i + "]/div[4]/img[1]");
                     scrollToViewElement(clickAssignBtn);
                     click(clickAssignBtn);
-                    ExtentTestManager.getTest().log(LogStatus.INFO, "Click on Assign to Agent Button");
+                    UtilsMethods.printInfoLog("Click on Assign to Agent Button");
                     return auuid.split("-")[1];
                 }
             }
         }
-        ExtentTestManager.getTest().log(LogStatus.WARNING, "No User have Available Slot");
+        UtilsMethods.printWarningLog("No User have Available Slot");
         closeAssignTab();
         return "No Agent Available";
     }

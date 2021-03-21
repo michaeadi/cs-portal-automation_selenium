@@ -3,10 +3,10 @@ package pages;
 import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.PriorityDataBean;
 import Utils.DataProviders.TicketStateDataBean;
-import Utils.ExtentReports.ExtentTestManager;
-import com.relevantcodes.extentreports.LogStatus;
+import Utils.UtilsMethods;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.*;
+
 import java.util.List;
 
 @Log4j2
@@ -79,25 +79,25 @@ public class FilterTabPOM extends BasePage {
     }
 
     public void clickLast7DaysFilter() {
-        printInfoLog("Clicking on filter by created date - Last 7 days");
+        UtilsMethods.printInfoLog("Clicking on filter by created date - Last 7 days");
         click(last7DaysCD);
     }
 
     public void clickLast30DaysFilter() {
-        printInfoLog("Clicking on filter by created date - Last 30 days");
+        UtilsMethods.printInfoLog("Clicking on filter by created date - Last 30 days");
         click(last30DaysCD);
     }
 
 
     public void selectQueueByName(String queueName) throws InterruptedException {
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Select Queue Filter Name: " + queueName);
+        UtilsMethods.printInfoLog("Select Queue Filter Name: " + queueName);
         By queue = By.xpath("//mat-option//span[contains(text(),'" + queueName + "')]");
         scrollToViewElement(queue);
         click(queue);
     }
 
     public void clickApplyFilter() {
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on APPLY Filter Button");
+        UtilsMethods.printInfoLog("Clicking on APPLY Filter Button");
         click(applyFilter);
     }
 
@@ -106,20 +106,20 @@ public class FilterTabPOM extends BasePage {
     }
 
     public void clickUnAssignedFilter() throws InterruptedException {
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Apply Filter By Ticket Assignee");
+        UtilsMethods.printInfoLog("Apply Filter By Ticket Assignee");
         scrollToViewElement(unAssigned);
         click(unAssigned);
     }
 
     public void OpenEscalationFilter() throws InterruptedException {
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Apply filter by ticket escalation level");
+        UtilsMethods.printInfoLog("Apply filter by ticket escalation level");
         scrollToViewElement(openEscalationFilter);
         Thread.sleep(1000);
         click(openEscalationFilter);
     }
 
     public void selectAllLevel1() {
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Selecting escalation level 1");
+        UtilsMethods.printInfoLog("Selecting escalation level 1");
         try {
             List<WebElement> level1 = returnListOfElement(level1Escalation);
             for (WebElement level : level1) {
@@ -133,7 +133,7 @@ public class FilterTabPOM extends BasePage {
     }
 
     public void selectAllLevel2() {
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Selecting escalation level 2");
+        UtilsMethods.printInfoLog("Selecting escalation level 2");
         try {
             List<WebElement> level1 = returnListOfElement(level2Escalation);
             for (WebElement level : level1) {
@@ -147,7 +147,7 @@ public class FilterTabPOM extends BasePage {
     }
 
     public void selectAllLevel3() {
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Selecting escalation level 3");
+        UtilsMethods.printInfoLog("Selecting escalation level 3");
         try {
             List<WebElement> level1 = returnListOfElement(level3Escalation);
             for (WebElement level : level1) {
@@ -161,32 +161,28 @@ public class FilterTabPOM extends BasePage {
     }
 
     public boolean isCreatedByFilter() {
-        log.info("Is filter by created date available :" + checkState(filterCreatedByLabel));
-        ExtentTestManager.getTest().log(LogStatus.PASS, "Is filter by created date available :" + checkState(filterCreatedByLabel));
+        UtilsMethods.printPassLog("Is filter by created date available :" + checkState(filterCreatedByLabel));
         return checkState(filterCreatedByLabel);
     }
 
     public boolean isClosureByFilter() {
-        printInfoLog("Is filter by Closure date available :" + checkState(filterClosureByLabel));
+        UtilsMethods.printInfoLog("Is filter by Closure date available :" + checkState(filterClosureByLabel));
         return checkState(filterClosureByLabel);
     }
 
     public boolean isSlaDueDateFilter() {
-        log.info("Is filter by SLA due date available :" + checkState(sLADueDateLabel));
-        ExtentTestManager.getTest().log(LogStatus.PASS, "Is filter by SLA due date available :" + checkState(sLADueDateLabel));
+        UtilsMethods.printPassLog("Is filter by SLA due date available :" + checkState(sLADueDateLabel));
         return checkState(sLADueDateLabel);
     }
 
     public boolean isCategoryFilter() {
-        log.info("Is filter by issue category available :" + checkState(categoryLabel));
-        ExtentTestManager.getTest().log(LogStatus.PASS, "Is filter by issue category available :" + checkState(categoryLabel));
+        UtilsMethods.printPassLog("Is filter by issue category available :" + checkState(categoryLabel));
         return checkState(categoryLabel);
     }
 
     public boolean isQueueFilter() {
         try {
-            log.info("Is filter by Queue available :" + checkState(queueLabel));
-            ExtentTestManager.getTest().log(LogStatus.PASS, "Is filter by Queue available :" + checkState(queueLabel));
+            UtilsMethods.printPassLog("Is filter by Queue available :" + checkState(queueLabel));
             return checkState(queueLabel);
         } catch (NoSuchElementException e) {
             return false;
@@ -195,8 +191,7 @@ public class FilterTabPOM extends BasePage {
 
     public boolean isTicketByAssigneeFilter() {
         try {
-            log.info("Is filter by ticket assignee name available :" + checkState(ticketAssigneeLabel));
-            ExtentTestManager.getTest().log(LogStatus.PASS, "Is filter by ticket assignee name available :" + checkState(ticketAssigneeLabel));
+            UtilsMethods.printPassLog("Is filter by ticket assignee name available :" + checkState(ticketAssigneeLabel));
             return checkState(ticketAssigneeLabel);
         } catch (NoSuchElementException e) {
             return false;
@@ -205,8 +200,7 @@ public class FilterTabPOM extends BasePage {
 
     public boolean isEscalatedLevelFilter() {
         try {
-            log.info("Is filter by ticket escalation level available :" + checkState(escalatedLevelLabel));
-            ExtentTestManager.getTest().log(LogStatus.PASS, "Is filter by ticket escalation level available :" + checkState(escalatedLevelLabel));
+            UtilsMethods.printPassLog("Is filter by ticket escalation level available :" + checkState(escalatedLevelLabel));
             return checkState(escalatedLevelLabel);
         } catch (NoSuchElementException e) {
             return false;
@@ -215,8 +209,7 @@ public class FilterTabPOM extends BasePage {
 
     public boolean isStateFilter() {
         try {
-            log.info("Is filter by ticket state available :" + checkState(stateLabel));
-            ExtentTestManager.getTest().log(LogStatus.PASS, "Is filter by ticket state available :" + checkState(stateLabel));
+            UtilsMethods.printPassLog("Is filter by ticket state available :" + checkState(stateLabel));
             return checkState(stateLabel);
         } catch (NoSuchElementException e) {
             return false;
@@ -225,8 +218,7 @@ public class FilterTabPOM extends BasePage {
 
     public boolean isPriorityFilter() {
         try {
-            log.info("Is filter by ticket priority available :" + checkState(priorityLabel));
-            ExtentTestManager.getTest().log(LogStatus.PASS, "Is filter by ticket priority available :" + checkState(priorityLabel));
+            UtilsMethods.printPassLog("Is filter by ticket priority available :" + checkState(priorityLabel));
             return checkState(priorityLabel);
         } catch (NoSuchElementException e) {
             return false;
@@ -240,9 +232,9 @@ public class FilterTabPOM extends BasePage {
         for (TicketStateDataBean state : open) {
             By check = By.xpath("//span[@class='mat-checkbox-label'][contains(text(),'" + state.getTicketStateName() + "')]");
             try {
-                printInfoLog("Is filter by state name " + state.getTicketStateName() + " available: " + checkState(check));
+                UtilsMethods.printInfoLog("Is filter by state name " + state.getTicketStateName() + " available: " + checkState(check));
             } catch (NoSuchElementException | TimeoutException e) {
-                printFailLog("State does not mapped Correctly(Check Config): " + state.getTicketStateName() + " " + e.fillInStackTrace());
+                UtilsMethods.printFailLog("State does not mapped Correctly(Check Config): " + state.getTicketStateName() + " " + e.fillInStackTrace());
                 flag = false;
             }
         }
@@ -253,57 +245,56 @@ public class FilterTabPOM extends BasePage {
     public boolean validateCloseStateFilter() {
         DataProviders d = new DataProviders();
         List<TicketStateDataBean> open = d.getState("Close");
-        Boolean flag=true;
-            for (TicketStateDataBean state : open) {
-                By check = By.xpath("//span[@class='mat-checkbox-label'][contains(text(),'" + state.getTicketStateName() + "')]");
-                try {
-                    log.info("Filter by state name " + state.getTicketStateName() + " is: " + checkState(check));
-                    printInfoLog("Is filter by state name " + state.getTicketStateName() + " available: " + checkState(check));
-                }catch (NoSuchElementException | TimeoutException e) {
-                    printFailLog("State does not mapped Correctly(Check Config): '"+state.getTicketStateName()+"' "+e.fillInStackTrace());
-                    flag=false;
-                }
+        Boolean flag = true;
+        for (TicketStateDataBean state : open) {
+            By check = By.xpath("//span[@class='mat-checkbox-label'][contains(text(),'" + state.getTicketStateName() + "')]");
+            try {
+                log.info("Filter by state name " + state.getTicketStateName() + " is: " + checkState(check));
+                UtilsMethods.printInfoLog("Is filter by state name " + state.getTicketStateName() + " available: " + checkState(check));
+            } catch (NoSuchElementException | TimeoutException e) {
+                UtilsMethods.printFailLog("State does not mapped Correctly(Check Config): '" + state.getTicketStateName() + "' " + e.fillInStackTrace());
+                flag = false;
             }
-            return flag;
         }
+        return flag;
+    }
 
 
     public boolean validatePriorityFilter() {
         DataProviders d = new DataProviders();
         List<PriorityDataBean> priorityList = d.getPriority();
-        Boolean flag=true;
-            for (PriorityDataBean state : priorityList) {
-                By check = By.xpath("//span[@class='mat-checkbox-label'][contains(text(),'" + state.getTicketPriority() + "')]");
-                try{
-                log.info("Filter by state name " + state.getTicketPriority() + " is: " + checkState(check));
-                ExtentTestManager.getTest().log(LogStatus.PASS, "Is filter by state name " + state.getTicketPriority() + " available: " + checkState(check));
-            }catch (TimeoutException | NoSuchElementException e) {
-                    printFailLog("Priority does not mapped Correctly(Check Config): '"+state.getTicketPriority()+"' "+e.fillInStackTrace());
-                    flag=false;
-                }
+        Boolean flag = true;
+        for (PriorityDataBean state : priorityList) {
+            By check = By.xpath("//span[@class='mat-checkbox-label'][contains(text(),'" + state.getTicketPriority() + "')]");
+            try {
+                UtilsMethods.printPassLog("Is filter by state name " + state.getTicketPriority() + " available: " + checkState(check));
+            } catch (TimeoutException | NoSuchElementException e) {
+                UtilsMethods.printFailLog("Priority does not mapped Correctly(Check Config): '" + state.getTicketPriority() + "' " + e.fillInStackTrace());
+                flag = false;
+            }
         }
         return flag;
     }
 
     public void clickCloseFilter() {
         try {
-            printInfoLog("Closing Filter Tab");
+            UtilsMethods.printInfoLog("Closing Filter Tab");
             click(closeFilter);
-        }catch (NoSuchElementException | TimeoutException e){
-            printInfoLog("Close Filter Button does not display");
+        } catch (NoSuchElementException | TimeoutException e) {
+            UtilsMethods.printInfoLog("Close Filter Button does not display");
         }
     }
 
     public void applyFilterByCategoryCode(String code) throws InterruptedException {
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking Code Field");
+        UtilsMethods.printInfoLog("Clicking Code Field");
         scrollToViewElement(byCode);
         click(byCode);
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Searching category code: " + code);
+        UtilsMethods.printInfoLog("Searching category code: " + code);
         writeText(searchBox, code);
         waitTillLoaderGetsRemoved();
         By selectCode = By.xpath("//span[@class='mat-option-text'][contains(text(),'" + code + "')]");
         click(selectCode);
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Category Code Selected");
+        UtilsMethods.printInfoLog("Category Code Selected");
         waitTillLoaderGetsRemoved();
     }
 

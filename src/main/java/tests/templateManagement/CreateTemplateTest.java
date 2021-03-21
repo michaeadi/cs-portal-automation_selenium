@@ -1,6 +1,7 @@
 package tests.templateManagement;
 
 import Utils.ExtentReports.ExtentTestManager;
+import Utils.UtilsMethods;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
@@ -105,7 +106,7 @@ public class CreateTemplateTest extends BaseTest {
         try {
             templateManagement.readResponseMessage();
         } catch (NoSuchElementException | TimeoutException e) {
-            templateManagement.printInfoLog("Not able to read Message Pop up: " + e.fillInStackTrace());
+            UtilsMethods.printInfoLog("Not able to read Message Pop up: " + e.fillInStackTrace());
         }
         softAssert.assertTrue(templateManagement.validateAddedCategoryDisplay(templateCategory), "Added Category does not display in list");
         templateManagement.waitTillOverlayGetsRemoved();
@@ -125,7 +126,7 @@ public class CreateTemplateTest extends BaseTest {
             try {
                 templateManagement.selectOptionFromList(templateCategory);
             } catch (StaleElementReferenceException e) {
-                templateManagement.printInfoLog("Trying Again to select Agent Channels");
+                UtilsMethods.printInfoLog("Trying Again to select Agent Channels");
                 templateManagement.selectOptionFromList(config.getProperty("selectALL"));
             }
             templateManagement.writeTemplateName(templateName);
@@ -133,7 +134,7 @@ public class CreateTemplateTest extends BaseTest {
             try {
                 templateManagement.selectOptionFromList(config.getProperty("selectALL"));
             } catch (StaleElementReferenceException e) {
-                templateManagement.printInfoLog("Trying Again to select Agent Channels");
+                UtilsMethods.printInfoLog("Trying Again to select Agent Channels");
                 templateManagement.selectOptionFromList(config.getProperty("selectALL"));
             }
             templateManagement.clickOutside();
@@ -141,7 +142,7 @@ public class CreateTemplateTest extends BaseTest {
             try {
                 templateManagement.selectOptionFromList(config.getProperty("selectALL"));
             } catch (StaleElementReferenceException e) {
-                templateManagement.printInfoLog("Trying Again to select Agent Channels");
+                UtilsMethods.printInfoLog("Trying Again to select Agent Channels");
                 templateManagement.selectOptionFromList(config.getProperty("selectALL"));
             }
             templateManagement.clickOutside();
@@ -154,7 +155,7 @@ public class CreateTemplateTest extends BaseTest {
             try {
                 templateManagement.readResponseMessage();
             } catch (NoSuchElementException | TimeoutException e) {
-                templateManagement.printInfoLog("Not able to read Message Pop up: " + e.fillInStackTrace());
+                UtilsMethods.printInfoLog("Not able to read Message Pop up: " + e.fillInStackTrace());
             }
             templateManagement.waitTillOverlayGetsRemoved();
         } catch (NoSuchElementException | TimeoutException | StaleElementReferenceException e) {

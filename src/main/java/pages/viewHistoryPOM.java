@@ -1,7 +1,6 @@
 package pages;
 
-import Utils.ExtentReports.ExtentTestManager;
-import com.relevantcodes.extentreports.LogStatus;
+import Utils.UtilsMethods;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -38,16 +37,14 @@ public class viewHistoryPOM extends BasePage {
     }
 
     public MessageHistoryTabPOM clickOnMessageHistory() {
-        log.info("Clicking on Message History Tab under view history ");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Message History Tab under view history ");
+        UtilsMethods.printInfoLog("Clicking on Message History Tab under view history ");
         waitTillLoaderGetsRemoved();
         click(messageHistory);
         return new MessageHistoryTabPOM(driver);
     }
 
     public String getLastCreatedIssueCode() {
-        log.info("Getting the issue code of last created FTR interaction ");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Getting the issue code of last created FTR interaction ");
+        UtilsMethods.printInfoLog("Getting the issue code of last created FTR interaction ");
         waitTillLoaderGetsRemoved();
         return readText(firstIssueCode);
     }
@@ -69,7 +66,7 @@ public class viewHistoryPOM extends BasePage {
 
     public void clickTicketIcon(int index) {
         By element = By.xpath("//table[@id=\"fetchInteractionByCustomer\"]//tbody//tr[" + index + "]//td[9]//span//span");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on ticket icon");
+        UtilsMethods.printInfoLog("Clicking on ticket icon");
         click(element);
     }
 
@@ -78,7 +75,7 @@ public class viewHistoryPOM extends BasePage {
             List<WebElement> list = returnListOfElement(allIssue);
             for (int i = 1; i <= list.size(); i++) {
                 if (!nftrIssueValue(i).equalsIgnoreCase("ftr")) {
-                    ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Ticket NFTR ticket icon" + nftrIssueValue(i));
+                    UtilsMethods.printInfoLog("Clicking on Ticket NFTR ticket icon" + nftrIssueValue(i));
                     clickTicketIcon(i);
                     return true;
                 }
@@ -87,13 +84,12 @@ public class viewHistoryPOM extends BasePage {
             e.printStackTrace();
             log.info("Something went wrong");
         }
-        ExtentTestManager.getTest().log(LogStatus.WARNING, "No any NFTR issue found");
+        UtilsMethods.printWarningLog("No any NFTR issue found");
         return false;
     }
 
     public boolean checkViewTicketPage() {
-        log.info("Checking View Ticket Page");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking View Ticket Page");
+        UtilsMethods.printInfoLog("Checking View Ticket Page");
         return checkState(ticketPageTitle);
     }
 

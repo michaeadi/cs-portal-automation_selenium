@@ -1,5 +1,6 @@
 package pages;
 
+import Utils.UtilsMethods;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -44,61 +45,61 @@ public class TicketBulkUpdatePOM extends BasePage {
     }
 
     public boolean isTicketBulkUpdate() {
-        printInfoLog("Checking Ticket Bulk Update page opened" + checkState(pageTitle));
+        UtilsMethods.printInfoLog("Checking Ticket Bulk Update page opened" + checkState(pageTitle));
         return checkState(pageTitle);
     }
     public void clickCloseFilter() {
-        printInfoLog("Closing Filter Tab");
+        UtilsMethods.printInfoLog("Closing Filter Tab");
         click(closeFilter);
     }
 
     public boolean isSelectFilter(){
-        printInfoLog("Checking select filter option available");
+        UtilsMethods.printInfoLog("Checking select filter option available");
         return checkState(selectFilter);
     }
 
     public String getTransferToQueueOption(){
-        printInfoLog("Option: "+readText(transferToQueue));
+        UtilsMethods.printInfoLog("Option: "+readText(transferToQueue));
         return readText(transferToQueue).trim();
     }
 
     public String getChangeStateOption(){
-        printInfoLog("Option: "+readText(changeState));
+        UtilsMethods.printInfoLog("Option: "+readText(changeState));
         return readText(changeState).trim();
     }
 
     public String getTicketCommentOption(){
-        printInfoLog("Option: "+readText(ticketComment));
+        UtilsMethods.printInfoLog("Option: "+readText(ticketComment));
         return readText(ticketComment).trim();
     }
 
     public void clickNextBtn(){
-        printInfoLog("Clicking on next button");
+        UtilsMethods.printInfoLog("Clicking on next button");
         click(nextBtn);
     }
 
     public void clickBackBtn(){
-        printInfoLog("Clicking on back button");
+        UtilsMethods.printInfoLog("Clicking on back button");
         click(backBtn);
     }
 
     public void clickPopUpCancelBtn(){
-        printInfoLog("Clicking on pop up cancel button");
+        UtilsMethods.printInfoLog("Clicking on pop up cancel button");
         click(popUpCancelBtn);
     }
 
     public void clickPopUpContinueBtn(){
-        printInfoLog("Clicking on pop up continue button");
+        UtilsMethods.printInfoLog("Clicking on pop up continue button");
         click(popUpContinueBtn);
     }
 
     public boolean isNextBtnEnable(){
-        printInfoLog("Checking next button enable");
+        UtilsMethods.printInfoLog("Checking next button enable");
         return driver.findElement(nextBtn).isEnabled();
     }
 
     public void clickCancelBtn(){
-        printInfoLog("Clicking on cancel button");
+        UtilsMethods.printInfoLog("Clicking on cancel button");
         click(cancelBtn);
     }
 
@@ -106,7 +107,7 @@ public class TicketBulkUpdatePOM extends BasePage {
         File Exceldir = new File("Excels");
         File Excel = new File(Exceldir, config.getProperty("ticketBulkUpdate"));
         String path = Excel.getAbsolutePath();
-        printInfoLog("File adding:"+path);
+        UtilsMethods.printInfoLog("File adding:"+path);
         WebElement addFile = driver.findElement(uploadFile);
         addFile.sendKeys(path);
     }
@@ -115,7 +116,7 @@ public class TicketBulkUpdatePOM extends BasePage {
         File Exceldir = new File("Excels");
         File Excel = new File(Exceldir, config.getProperty("ticketBulkUpdate"));
         if(!Excel.exists()) {
-            printInfoLog("Downloading Template File");
+            UtilsMethods.printInfoLog("Downloading Template File");
             WebElement btnDownload = driver.findElement(downloadFile);
             btnDownload.click();
             Thread.sleep(7000);
@@ -124,23 +125,23 @@ public class TicketBulkUpdatePOM extends BasePage {
     }
 
     public String getErrorMessage() {
-        printInfoLog("Reading Error Message: " + readText(errorMessage).trim());
+        UtilsMethods.printInfoLog("Reading Error Message: " + readText(errorMessage).trim());
         return readText(errorMessage).trim();
     }
 
     public String getMaxSelectMessage() {
-        printInfoLog("Reading Max select Message: " + readText(maxSelectMessage).trim());
+        UtilsMethods.printInfoLog("Reading Max select Message: " + readText(maxSelectMessage).trim());
         return readText(maxSelectMessage).trim();
     }
 
     public FilterTabPOM clickSelectFilter(){
-        printInfoLog("Clicking selecting filter");
+        UtilsMethods.printInfoLog("Clicking selecting filter");
         click(selectFilter);
         return new FilterTabPOM(driver);
     }
 
     public void clickClearFilter(){
-        printInfoLog("Clicking clear filter");
+        UtilsMethods.printInfoLog("Clicking clear filter");
         click(clearFilter);
     }
 
@@ -148,10 +149,10 @@ public class TicketBulkUpdatePOM extends BasePage {
         File Exceldir = new File("Excels");
         File Excel = new File(Exceldir, "BulkUploadTemplate.xlsx");
         if(Excel.delete()){
-            printInfoLog("File Deleted ");
+            UtilsMethods.printInfoLog("File Deleted ");
             return true;
         }else {
-            printInfoLog("Not able to delete Excel");
+            UtilsMethods.printInfoLog("Not able to delete Excel");
             return false;
         }
     }
@@ -195,37 +196,37 @@ public class TicketBulkUpdatePOM extends BasePage {
     }
 
     public void clickAddCommentOption(){
-        printInfoLog("Clicking Add Ticket Comment Option");
+        UtilsMethods.printInfoLog("Clicking Add Ticket Comment Option");
         click(ticketComment);
     }
 
     public void clickTransferToQueueOption(){
-        printInfoLog("Clicking Transfer to Queue Option");
+        UtilsMethods.printInfoLog("Clicking Transfer to Queue Option");
         click(transferToQueue);
     }
 
     public void clickTicketStateOption(){
-        printInfoLog("Clicking Ticket State Option");
+        UtilsMethods.printInfoLog("Clicking Ticket State Option");
         click(changeState);
     }
 
     public void addComment(String comment){
-        printInfoLog("Adding comment: "+comment);
+        UtilsMethods.printInfoLog("Adding comment: "+comment);
         writeText(commentBox,comment);
     }
 
     public void clickConfirmAction(){
-        printInfoLog("Clicking Confirm option");
+        UtilsMethods.printInfoLog("Clicking Confirm option");
         click(confirmAction);
     }
 
     public boolean isStatusBarComplete(){
-        printInfoLog("Waiting for Status to be complete");
+        UtilsMethods.printInfoLog("Waiting for Status to be complete");
         return checkState(statueBar);
     }
 
     public String getUpdatedMessage(){
-        printInfoLog("Message After Ticket Action Performed: "+readText(updateMessage));
+        UtilsMethods.printInfoLog("Message After Ticket Action Performed: "+readText(updateMessage));
         return readText(updateMessage);
     }
 
