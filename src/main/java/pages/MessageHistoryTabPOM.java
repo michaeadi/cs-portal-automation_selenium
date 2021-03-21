@@ -116,7 +116,7 @@ public class MessageHistoryTabPOM extends BasePage {
 
     public String messageText(int i) {
         if (i <= list.size()) {
-            String type = readText(By.xpath("//table[@id=\"fetchTicketByCustomer\"]//tbody/tr[" + i + "]//td[5]//p//b"));
+            String type = driver.findElement(By.xpath("//table[@id=\"fetchTicketByCustomer\"]//tbody/tr[" + i + "]//td[5]//p//b")).getAttribute("title");
             UtilsMethods.printInfoLog("Message Text: " + type);
             return type;
         }

@@ -1,70 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" ignored="0" total="10" passed="10">
+<testng-results skipped="0" failed="0" ignored="0" total="16" passed="16">
   <reporter-output>
   </reporter-output>
-  <suite name="Automation Framework CS PORTAl Test Suite" duration-ms="136397" started-at="2021-03-21T15:25:13 IST" finished-at="2021-03-21T15:27:29 IST">
+  <suite name="Automation Framework CS PORTAl Test Suite" duration-ms="244098" started-at="2021-03-21T19:52:14 IST" finished-at="2021-03-21T19:56:18 IST">
     <groups>
     </groups>
-    <test name="Regression API Login" duration-ms="11484" started-at="2021-03-21T15:25:13 IST" finished-at="2021-03-21T15:25:24 IST">
+    <test name="Sanity API Login" duration-ms="7372" started-at="2021-03-21T19:52:14 IST" finished-at="2021-03-21T19:52:21 IST">
       <class name="tests.frontendAgent.SystemStatusTest">
-        <test-method status="PASS" signature="methodLevelSetup()[pri:0, instance:tests.frontendAgent.SystemStatusTest@5c86dbc5]" name="methodLevelSetup" is-config="true" duration-ms="1" started-at="2021-03-21T15:25:15 IST" finished-at="2021-03-21T15:25:15 IST">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- methodLevelSetup -->
-        <test-method status="PASS" signature="loginAPI(Utils.DataProviders.TestDatabean)[pri:1, instance:tests.frontendAgent.SystemStatusTest@5c86dbc5]" name="loginAPI" duration-ms="5248" started-at="2021-03-21T15:25:15 IST" data-provider="loginData" finished-at="2021-03-21T15:25:20 IST">
+        <test-method status="PASS" signature="loginAPI(Utils.DataProviders.TestDatabean)[pri:1, instance:tests.frontendAgent.SystemStatusTest@5c86dbc5]" name="loginAPI" duration-ms="3372" started-at="2021-03-21T19:52:15 IST" data-provider="loginData" finished-at="2021-03-21T19:52:18 IST">
           <params>
             <param index="0">
               <value>
-                <![CDATA[Utils.DataProviders.TestDatabean@3b9ac754]]>
+                <![CDATA[Utils.DataProviders.TestDatabean@7f3fc42f]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- loginAPI -->
-        <test-method status="PASS" signature="methodLevelSetup()[pri:0, instance:tests.frontendAgent.SystemStatusTest@5c86dbc5]" name="methodLevelSetup" is-config="true" duration-ms="2" started-at="2021-03-21T15:25:21 IST" finished-at="2021-03-21T15:25:21 IST">
+        <test-method status="PASS" signature="methodLevelSetup()[pri:0, instance:tests.frontendAgent.SystemStatusTest@5c86dbc5]" name="methodLevelSetup" is-config="true" duration-ms="0" started-at="2021-03-21T19:52:15 IST" finished-at="2021-03-21T19:52:15 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- methodLevelSetup -->
-        <test-method status="PASS" signature="testCredOfAdmin(Utils.DataProviders.TestDatabean)[pri:2, instance:tests.frontendAgent.SystemStatusTest@5c86dbc5]" name="testCredOfAdmin" duration-ms="1844" started-at="2021-03-21T15:25:21 IST" data-provider="loginData" finished-at="2021-03-21T15:25:23 IST">
+        <test-method status="PASS" signature="testCredOfAdmin(Utils.DataProviders.TestDatabean)[pri:2, instance:tests.frontendAgent.SystemStatusTest@5c86dbc5]" name="testCredOfAdmin" duration-ms="1343" started-at="2021-03-21T19:52:18 IST" data-provider="loginData" finished-at="2021-03-21T19:52:20 IST">
           <params>
             <param index="0">
               <value>
-                <![CDATA[Utils.DataProviders.TestDatabean@5927f904]]>
+                <![CDATA[Utils.DataProviders.TestDatabean@46c10083]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testCredOfAdmin -->
-        <test-method status="PASS" signature="methodLevelSetup()[pri:0, instance:tests.frontendAgent.SystemStatusTest@5c86dbc5]" name="methodLevelSetup" is-config="true" duration-ms="0" started-at="2021-03-21T15:25:23 IST" finished-at="2021-03-21T15:25:23 IST">
+        <test-method status="PASS" signature="methodLevelSetup()[pri:0, instance:tests.frontendAgent.SystemStatusTest@5c86dbc5]" name="methodLevelSetup" is-config="true" duration-ms="0" started-at="2021-03-21T19:52:18 IST" finished-at="2021-03-21T19:52:18 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- methodLevelSetup -->
-        <test-method status="PASS" signature="testCredOfBackendAgent(Utils.DataProviders.TestDatabean)[pri:2, instance:tests.frontendAgent.SystemStatusTest@5c86dbc5]" name="testCredOfBackendAgent" duration-ms="1318" started-at="2021-03-21T15:25:23 IST" data-provider="loginData" finished-at="2021-03-21T15:25:24 IST">
+        <test-method status="PASS" signature="testCredOfBackendAgent(Utils.DataProviders.TestDatabean)[pri:2, instance:tests.frontendAgent.SystemStatusTest@5c86dbc5]" name="testCredOfBackendAgent" duration-ms="1234" started-at="2021-03-21T19:52:20 IST" data-provider="loginData" finished-at="2021-03-21T19:52:21 IST">
           <params>
             <param index="0">
               <value>
-                <![CDATA[Utils.DataProviders.TestDatabean@63f40ca0]]>
+                <![CDATA[Utils.DataProviders.TestDatabean@45592af7]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testCredOfBackendAgent -->
-      </class> <!-- tests.frontendAgent.SystemStatusTest -->
-    </test> <!-- Regression API Login -->
-    <test name="Login Admin 1 Test" duration-ms="80660" started-at="2021-03-21T15:25:25 IST" finished-at="2021-03-21T15:26:46 IST">
-      <class name="tests.frontendAgent.LoginTests">
-        <test-method status="PASS" signature="checkExecution()[pri:0, instance:tests.frontendAgent.LoginTests@68746f22]" name="checkExecution" is-config="true" duration-ms="2" started-at="2021-03-21T15:25:25 IST" finished-at="2021-03-21T15:25:25 IST">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- checkExecution -->
-        <test-method status="PASS" signature="methodLevelSetup()[pri:0, instance:tests.frontendAgent.LoginTests@68746f22]" name="methodLevelSetup" is-config="true" duration-ms="0" started-at="2021-03-21T15:25:25 IST" finished-at="2021-03-21T15:25:25 IST">
+        <test-method status="PASS" signature="methodLevelSetup()[pri:0, instance:tests.frontendAgent.SystemStatusTest@5c86dbc5]" name="methodLevelSetup" is-config="true" duration-ms="0" started-at="2021-03-21T19:52:20 IST" finished-at="2021-03-21T19:52:20 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- methodLevelSetup -->
-        <test-method status="PASS" signature="LoggingIN(java.lang.reflect.Method, Utils.DataProviders.TestDatabean)[pri:1, instance:tests.frontendAgent.LoginTests@68746f22]" name="LoggingIN" duration-ms="80213" started-at="2021-03-21T15:25:25 IST" description="Logging IN" data-provider="loginData" finished-at="2021-03-21T15:26:46 IST">
+      </class> <!-- tests.frontendAgent.SystemStatusTest -->
+    </test> <!-- Sanity API Login -->
+    <test name="Login With ALL User Test" duration-ms="72147" started-at="2021-03-21T19:52:21 IST" finished-at="2021-03-21T19:53:33 IST">
+      <class name="tests.frontendAgent.LoginTests">
+        <test-method status="PASS" signature="checkExecution()[pri:0, instance:tests.frontendAgent.LoginTests@68746f22]" name="checkExecution" is-config="true" duration-ms="0" started-at="2021-03-21T19:52:21 IST" finished-at="2021-03-21T19:52:21 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- checkExecution -->
+        <test-method status="PASS" signature="methodLevelSetup()[pri:0, instance:tests.frontendAgent.LoginTests@68746f22]" name="methodLevelSetup" is-config="true" duration-ms="0" started-at="2021-03-21T19:52:21 IST" finished-at="2021-03-21T19:52:21 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- methodLevelSetup -->
+        <test-method status="PASS" signature="LoggingIN(java.lang.reflect.Method, Utils.DataProviders.TestDatabean)[pri:1, instance:tests.frontendAgent.LoginTests@68746f22]" name="LoggingIN" duration-ms="72005" started-at="2021-03-21T19:52:21 IST" description="Logging IN" data-provider="loginData" finished-at="2021-03-21T19:53:33 IST">
           <params>
             <param index="0">
               <value>
@@ -73,7 +73,7 @@
             </param>
             <param index="1">
               <value>
-                <![CDATA[Utils.DataProviders.TestDatabean@30159886]]>
+                <![CDATA[Utils.DataProviders.TestDatabean@10131289]]>
               </value>
             </param>
           </params>
@@ -81,97 +81,173 @@
           </reporter-output>
         </test-method> <!-- LoggingIN -->
       </class> <!-- tests.frontendAgent.LoginTests -->
-    </test> <!-- Login Admin 1 Test -->
-    <test name="Widget Tagged Interaction TEST" duration-ms="43305" started-at="2021-03-21T15:26:46 IST" finished-at="2021-03-21T15:27:29 IST">
-      <class name="tests.frontendAgent.WidgetTaggedIssueTest">
-        <test-method status="PASS" signature="classLevelSetup()[pri:0, instance:tests.frontendAgent.WidgetTaggedIssueTest@78fa769e]" name="classLevelSetup" is-config="true" duration-ms="4135" started-at="2021-03-21T15:25:09 IST" finished-at="2021-03-21T15:25:13 IST">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- classLevelSetup -->
-        <test-method status="PASS" signature="openCustomerInteraction(Utils.DataProviders.TestDatabean)[pri:1, instance:tests.frontendAgent.WidgetTaggedIssueTest@78fa769e]" name="openCustomerInteraction" duration-ms="22774" started-at="2021-03-21T15:26:46 IST" description="Validate Customer Interaction Page" data-provider="loginData" finished-at="2021-03-21T15:27:09 IST">
+    </test> <!-- Login With ALL User Test -->
+    <test name="Send SMS Test" duration-ms="136061" started-at="2021-03-21T19:53:33 IST" finished-at="2021-03-21T19:55:50 IST">
+      <class name="tests.frontendAgent.SendSMSTest">
+        <test-method status="PASS" signature="openCustomerInteraction(Utils.DataProviders.TestDatabean)[pri:1, instance:tests.frontendAgent.SendSMSTest@17d919b6]" name="openCustomerInteraction" duration-ms="22041" started-at="2021-03-21T19:53:34 IST" description="Validate Customer Interaction Page" data-provider="loginData" finished-at="2021-03-21T19:53:56 IST">
           <params>
             <param index="0">
               <value>
-                <![CDATA[Utils.DataProviders.TestDatabean@6d815fb7]]>
+                <![CDATA[Utils.DataProviders.TestDatabean@6d0114c0]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- openCustomerInteraction -->
-        <test-method status="PASS" signature="checkExecution()[pri:0, instance:tests.frontendAgent.WidgetTaggedIssueTest@78fa769e]" name="checkExecution" is-config="true" duration-ms="0" started-at="2021-03-21T15:26:46 IST" finished-at="2021-03-21T15:26:46 IST">
+        <test-method status="PASS" signature="checkExecution()[pri:0, instance:tests.frontendAgent.SendSMSTest@17d919b6]" name="checkExecution" is-config="true" duration-ms="0" started-at="2021-03-21T19:53:34 IST" finished-at="2021-03-21T19:53:34 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- checkExecution -->
-        <test-method status="PASS" signature="methodLevelSetup()[pri:0, instance:tests.frontendAgent.WidgetTaggedIssueTest@78fa769e]" name="methodLevelSetup" is-config="true" duration-ms="0" started-at="2021-03-21T15:26:46 IST" finished-at="2021-03-21T15:26:46 IST">
+        <test-method status="PASS" signature="methodLevelSetup()[pri:0, instance:tests.frontendAgent.SendSMSTest@17d919b6]" name="methodLevelSetup" is-config="true" duration-ms="0" started-at="2021-03-21T19:53:34 IST" finished-at="2021-03-21T19:53:34 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- methodLevelSetup -->
-        <test-method status="PASS" signature="methodLevelSetup()[pri:0, instance:tests.frontendAgent.WidgetTaggedIssueTest@78fa769e]" name="methodLevelSetup" is-config="true" duration-ms="0" started-at="2021-03-21T15:27:09 IST" finished-at="2021-03-21T15:27:09 IST">
+        <test-method status="PASS" signature="methodLevelSetup()[pri:0, instance:tests.frontendAgent.SendSMSTest@17d919b6]" name="methodLevelSetup" is-config="true" duration-ms="1" started-at="2021-03-21T19:53:56 IST" finished-at="2021-03-21T19:53:56 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- methodLevelSetup -->
-        <test-method status="PASS" signature="checkExecution()[pri:0, instance:tests.frontendAgent.WidgetTaggedIssueTest@78fa769e]" name="checkExecution" is-config="true" duration-ms="0" started-at="2021-03-21T15:27:09 IST" finished-at="2021-03-21T15:27:09 IST">
+        <test-method status="PASS" signature="checkExecution()[pri:0, instance:tests.frontendAgent.SendSMSTest@17d919b6]" name="checkExecution" is-config="true" duration-ms="0" started-at="2021-03-21T19:53:56 IST" finished-at="2021-03-21T19:53:56 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- checkExecution -->
-        <test-method status="PASS" signature="currentPlanWidgetTagIssue()[pri:2, instance:tests.frontendAgent.WidgetTaggedIssueTest@78fa769e]" name="currentPlanWidgetTagIssue" duration-ms="4928" started-at="2021-03-21T15:27:09 IST" description="Validating Current Plan widget tagged issue" finished-at="2021-03-21T15:27:14 IST">
+        <test-method status="PASS" signature="validateSendSMSTab()[pri:2, instance:tests.frontendAgent.SendSMSTest@17d919b6]" name="validateSendSMSTab" duration-ms="23718" started-at="2021-03-21T19:53:56 IST" description="Verify the fields displayed for SMS channel." depends-on-methods="tests.frontendAgent.SendSMSTest.openCustomerInteraction" finished-at="2021-03-21T19:54:19 IST">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- currentPlanWidgetTagIssue -->
-        <test-method status="PASS" signature="methodLevelSetup()[pri:0, instance:tests.frontendAgent.WidgetTaggedIssueTest@78fa769e]" name="methodLevelSetup" is-config="true" duration-ms="1" started-at="2021-03-21T15:27:14 IST" finished-at="2021-03-21T15:27:14 IST">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- methodLevelSetup -->
-        <test-method status="PASS" signature="rechargeHistoryWidgetTagIssue()[pri:3, instance:tests.frontendAgent.WidgetTaggedIssueTest@78fa769e]" name="rechargeHistoryWidgetTagIssue" duration-ms="1761" started-at="2021-03-21T15:27:14 IST" description="Validating Recharge History widget tagged issue" finished-at="2021-03-21T15:27:16 IST">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- rechargeHistoryWidgetTagIssue -->
-        <test-method status="PASS" signature="checkExecution()[pri:0, instance:tests.frontendAgent.WidgetTaggedIssueTest@78fa769e]" name="checkExecution" is-config="true" duration-ms="0" started-at="2021-03-21T15:27:14 IST" finished-at="2021-03-21T15:27:14 IST">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- checkExecution -->
-        <test-method status="PASS" signature="methodLevelSetup()[pri:0, instance:tests.frontendAgent.WidgetTaggedIssueTest@78fa769e]" name="methodLevelSetup" is-config="true" duration-ms="0" started-at="2021-03-21T15:27:16 IST" finished-at="2021-03-21T15:27:16 IST">
+        </test-method> <!-- validateSendSMSTab -->
+        <test-method status="PASS" signature="methodLevelSetup()[pri:0, instance:tests.frontendAgent.SendSMSTest@17d919b6]" name="methodLevelSetup" is-config="true" duration-ms="0" started-at="2021-03-21T19:54:19 IST" finished-at="2021-03-21T19:54:19 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- methodLevelSetup -->
-        <test-method status="PASS" signature="checkExecution()[pri:0, instance:tests.frontendAgent.WidgetTaggedIssueTest@78fa769e]" name="checkExecution" is-config="true" duration-ms="1" started-at="2021-03-21T15:27:16 IST" finished-at="2021-03-21T15:27:16 IST">
+        <test-method status="PASS" signature="sendSMS()[pri:3, instance:tests.frontendAgent.SendSMSTest@17d919b6]" name="sendSMS" duration-ms="44878" started-at="2021-03-21T19:54:19 IST" description="Verify the frontend agent able to send SMS" depends-on-methods="tests.frontendAgent.SendSMSTest.validateSendSMSTab" finished-at="2021-03-21T19:55:04 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- sendSMS -->
+        <test-method status="PASS" signature="checkExecution()[pri:0, instance:tests.frontendAgent.SendSMSTest@17d919b6]" name="checkExecution" is-config="true" duration-ms="0" started-at="2021-03-21T19:54:19 IST" finished-at="2021-03-21T19:54:19 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- checkExecution -->
-        <test-method status="PASS" signature="usageWidgetTagIssue()[pri:4, instance:tests.frontendAgent.WidgetTaggedIssueTest@78fa769e]" name="usageWidgetTagIssue" duration-ms="2078" started-at="2021-03-21T15:27:16 IST" description="Validating Usage History widget tagged issue" finished-at="2021-03-21T15:27:18 IST">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- usageWidgetTagIssue -->
-        <test-method status="PASS" signature="methodLevelSetup()[pri:0, instance:tests.frontendAgent.WidgetTaggedIssueTest@78fa769e]" name="methodLevelSetup" is-config="true" duration-ms="0" started-at="2021-03-21T15:27:18 IST" finished-at="2021-03-21T15:27:18 IST">
+        <test-method status="PASS" signature="methodLevelSetup()[pri:0, instance:tests.frontendAgent.SendSMSTest@17d919b6]" name="methodLevelSetup" is-config="true" duration-ms="0" started-at="2021-03-21T19:55:04 IST" finished-at="2021-03-21T19:55:04 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- methodLevelSetup -->
-        <test-method status="PASS" signature="checkExecution()[pri:0, instance:tests.frontendAgent.WidgetTaggedIssueTest@78fa769e]" name="checkExecution" is-config="true" duration-ms="1" started-at="2021-03-21T15:27:18 IST" finished-at="2021-03-21T15:27:18 IST">
+        <test-method status="PASS" signature="checkExecution()[pri:0, instance:tests.frontendAgent.SendSMSTest@17d919b6]" name="checkExecution" is-config="true" duration-ms="0" started-at="2021-03-21T19:55:04 IST" finished-at="2021-03-21T19:55:04 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- checkExecution -->
-        <test-method status="PASS" signature="airtelMoneyWidgetTagIssue()[pri:5, instance:tests.frontendAgent.WidgetTaggedIssueTest@78fa769e]" name="airtelMoneyWidgetTagIssue" duration-ms="1746" started-at="2021-03-21T15:27:18 IST" description="Validating Airtel Money widget tagged issue" finished-at="2021-03-21T15:27:19 IST">
+        <test-method status="PASS" signature="checkSendMessageLog()[pri:4, instance:tests.frontendAgent.SendSMSTest@17d919b6]" name="checkSendMessageLog" duration-ms="27686" started-at="2021-03-21T19:55:04 IST" description="Check Sent SMS display in message history" finished-at="2021-03-21T19:55:32 IST">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- airtelMoneyWidgetTagIssue -->
-        <test-method status="PASS" signature="methodLevelSetup()[pri:0, instance:tests.frontendAgent.WidgetTaggedIssueTest@78fa769e]" name="methodLevelSetup" is-config="true" duration-ms="0" started-at="2021-03-21T15:27:19 IST" finished-at="2021-03-21T15:27:19 IST">
+        </test-method> <!-- checkSendMessageLog -->
+        <test-method status="PASS" signature="ReSendMessageLog()[pri:5, instance:tests.frontendAgent.SendSMSTest@17d919b6]" name="ReSendMessageLog" duration-ms="17607" started-at="2021-03-21T19:55:32 IST" description="Re Send SMS using action button in message history" finished-at="2021-03-21T19:55:50 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- ReSendMessageLog -->
+        <test-method status="PASS" signature="checkExecution()[pri:0, instance:tests.frontendAgent.SendSMSTest@17d919b6]" name="checkExecution" is-config="true" duration-ms="0" started-at="2021-03-21T19:55:32 IST" finished-at="2021-03-21T19:55:32 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- checkExecution -->
+        <test-method status="PASS" signature="methodLevelSetup()[pri:0, instance:tests.frontendAgent.SendSMSTest@17d919b6]" name="methodLevelSetup" is-config="true" duration-ms="0" started-at="2021-03-21T19:55:32 IST" finished-at="2021-03-21T19:55:32 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- methodLevelSetup -->
-        <test-method status="PASS" signature="checkExecution()[pri:0, instance:tests.frontendAgent.WidgetTaggedIssueTest@78fa769e]" name="checkExecution" is-config="true" duration-ms="0" started-at="2021-03-21T15:27:19 IST" finished-at="2021-03-21T15:27:19 IST">
+      </class> <!-- tests.frontendAgent.SendSMSTest -->
+    </test> <!-- Send SMS Test -->
+    <test name="View Template Test" duration-ms="27995" started-at="2021-03-21T19:55:50 IST" finished-at="2021-03-21T19:56:18 IST">
+      <class name="tests.templateManagement.ViewTemplateTest">
+        <test-method status="PASS" signature="classLevelSetup()[pri:0, instance:tests.templateManagement.ViewTemplateTest@4ef74c30]" name="classLevelSetup" is-config="true" duration-ms="2582" started-at="2021-03-21T19:52:11 IST" finished-at="2021-03-21T19:52:14 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- classLevelSetup -->
+        <test-method status="PASS" signature="methodLevelSetup()[pri:0, instance:tests.templateManagement.ViewTemplateTest@4ef74c30]" name="methodLevelSetup" is-config="true" duration-ms="0" started-at="2021-03-21T19:55:50 IST" finished-at="2021-03-21T19:55:50 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- methodLevelSetup -->
+        <test-method status="PASS" signature="openTemplateManagement()[pri:1, instance:tests.templateManagement.ViewTemplateTest@4ef74c30]" name="openTemplateManagement" duration-ms="17614" started-at="2021-03-21T19:55:50 IST" description="Open Template Management" finished-at="2021-03-21T19:56:07 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openTemplateManagement -->
+        <test-method status="PASS" signature="checkExecution()[pri:0, instance:tests.templateManagement.ViewTemplateTest@4ef74c30]" name="checkExecution" is-config="true" duration-ms="0" started-at="2021-03-21T19:55:50 IST" finished-at="2021-03-21T19:55:50 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- checkExecution -->
-        <test-method status="PASS" signature="daDetailsTest()[pri:6, instance:tests.frontendAgent.WidgetTaggedIssueTest@78fa769e]" name="daDetailsTest" duration-ms="9693" started-at="2021-03-21T15:27:19 IST" description="Validating DA Detail widget tagged issue" finished-at="2021-03-21T15:27:29 IST">
+        <test-method status="PASS" signature="methodLevelSetup()[pri:0, instance:tests.templateManagement.ViewTemplateTest@4ef74c30]" name="methodLevelSetup" is-config="true" duration-ms="1" started-at="2021-03-21T19:56:07 IST" finished-at="2021-03-21T19:56:07 IST">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- daDetailsTest -->
-        <test-method status="PASS" signature="teardown()[pri:0, instance:tests.frontendAgent.WidgetTaggedIssueTest@78fa769e]" name="teardown" is-config="true" duration-ms="694" started-at="2021-03-21T15:27:29 IST" finished-at="2021-03-21T15:27:30 IST">
+        </test-method> <!-- methodLevelSetup -->
+        <test-method status="PASS" signature="checkExecution()[pri:0, instance:tests.templateManagement.ViewTemplateTest@4ef74c30]" name="checkExecution" is-config="true" duration-ms="0" started-at="2021-03-21T19:56:07 IST" finished-at="2021-03-21T19:56:07 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- checkExecution -->
+        <test-method status="PASS" signature="openViewCreatedTemplate()[pri:2, instance:tests.templateManagement.ViewTemplateTest@4ef74c30]" name="openViewCreatedTemplate" duration-ms="5317" started-at="2021-03-21T19:56:07 IST" description="View Created Template Page Loaded" depends-on-methods="tests.templateManagement.ViewTemplateTest.openTemplateManagement" finished-at="2021-03-21T19:56:13 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openViewCreatedTemplate -->
+        <test-method status="PASS" signature="methodLevelSetup()[pri:0, instance:tests.templateManagement.ViewTemplateTest@4ef74c30]" name="methodLevelSetup" is-config="true" duration-ms="0" started-at="2021-03-21T19:56:13 IST" finished-at="2021-03-21T19:56:13 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- methodLevelSetup -->
+        <test-method status="PASS" signature="validateAgentChannel()[pri:3, instance:tests.templateManagement.ViewTemplateTest@4ef74c30]" name="validateAgentChannel" duration-ms="1428" started-at="2021-03-21T19:56:13 IST" description="Validating All Agent Channel displayed" depends-on-methods="tests.templateManagement.ViewTemplateTest.openTemplateManagement" finished-at="2021-03-21T19:56:14 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- validateAgentChannel -->
+        <test-method status="PASS" signature="checkExecution()[pri:0, instance:tests.templateManagement.ViewTemplateTest@4ef74c30]" name="checkExecution" is-config="true" duration-ms="0" started-at="2021-03-21T19:56:13 IST" finished-at="2021-03-21T19:56:13 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- checkExecution -->
+        <test-method status="PASS" signature="methodLevelSetup()[pri:0, instance:tests.templateManagement.ViewTemplateTest@4ef74c30]" name="methodLevelSetup" is-config="true" duration-ms="1" started-at="2021-03-21T19:56:14 IST" finished-at="2021-03-21T19:56:14 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- methodLevelSetup -->
+        <test-method status="PASS" signature="validateRoles()[pri:4, instance:tests.templateManagement.ViewTemplateTest@4ef74c30]" name="validateRoles" duration-ms="1253" started-at="2021-03-21T19:56:14 IST" description="Validating All Agent Roles displayed" depends-on-methods="tests.templateManagement.ViewTemplateTest.openTemplateManagement" finished-at="2021-03-21T19:56:15 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- validateRoles -->
+        <test-method status="PASS" signature="checkExecution()[pri:0, instance:tests.templateManagement.ViewTemplateTest@4ef74c30]" name="checkExecution" is-config="true" duration-ms="0" started-at="2021-03-21T19:56:14 IST" finished-at="2021-03-21T19:56:14 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- checkExecution -->
+        <test-method status="PASS" signature="checkExecution()[pri:0, instance:tests.templateManagement.ViewTemplateTest@4ef74c30]" name="checkExecution" is-config="true" duration-ms="0" started-at="2021-03-21T19:56:15 IST" finished-at="2021-03-21T19:56:15 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- checkExecution -->
+        <test-method status="PASS" signature="validateLanguage()[pri:5, instance:tests.templateManagement.ViewTemplateTest@4ef74c30]" name="validateLanguage" duration-ms="781" started-at="2021-03-21T19:56:15 IST" description="Validating All Language displayed" depends-on-methods="tests.templateManagement.ViewTemplateTest.openTemplateManagement" finished-at="2021-03-21T19:56:16 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- validateLanguage -->
+        <test-method status="PASS" signature="methodLevelSetup()[pri:0, instance:tests.templateManagement.ViewTemplateTest@4ef74c30]" name="methodLevelSetup" is-config="true" duration-ms="0" started-at="2021-03-21T19:56:15 IST" finished-at="2021-03-21T19:56:15 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- methodLevelSetup -->
+        <test-method status="PASS" signature="methodLevelSetup()[pri:0, instance:tests.templateManagement.ViewTemplateTest@4ef74c30]" name="methodLevelSetup" is-config="true" duration-ms="0" started-at="2021-03-21T19:56:16 IST" finished-at="2021-03-21T19:56:16 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- methodLevelSetup -->
+        <test-method status="PASS" signature="validateTemplateLayout()[pri:6, instance:tests.templateManagement.ViewTemplateTest@4ef74c30]" name="validateTemplateLayout" duration-ms="962" started-at="2021-03-21T19:56:16 IST" description="Validate template layout" depends-on-methods="tests.templateManagement.ViewTemplateTest.openTemplateManagement" finished-at="2021-03-21T19:56:17 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- validateTemplateLayout -->
+        <test-method status="PASS" signature="checkExecution()[pri:0, instance:tests.templateManagement.ViewTemplateTest@4ef74c30]" name="checkExecution" is-config="true" duration-ms="0" started-at="2021-03-21T19:56:16 IST" finished-at="2021-03-21T19:56:16 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- checkExecution -->
+        <test-method status="PASS" signature="methodLevelSetup()[pri:0, instance:tests.templateManagement.ViewTemplateTest@4ef74c30]" name="methodLevelSetup" is-config="true" duration-ms="1" started-at="2021-03-21T19:56:17 IST" finished-at="2021-03-21T19:56:17 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- methodLevelSetup -->
+        <test-method status="PASS" signature="checkExecution()[pri:0, instance:tests.templateManagement.ViewTemplateTest@4ef74c30]" name="checkExecution" is-config="true" duration-ms="0" started-at="2021-03-21T19:56:17 IST" finished-at="2021-03-21T19:56:17 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- checkExecution -->
+        <test-method status="PASS" signature="deactivateTemplate()[pri:7, instance:tests.templateManagement.ViewTemplateTest@4ef74c30]" name="deactivateTemplate" duration-ms="631" started-at="2021-03-21T19:56:17 IST" description="Validate admin able to deactivate/Activate Template" depends-on-methods="tests.templateManagement.ViewTemplateTest.openTemplateManagement" finished-at="2021-03-21T19:56:18 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- deactivateTemplate -->
+        <test-method status="PASS" signature="teardown()[pri:0, instance:tests.templateManagement.ViewTemplateTest@4ef74c30]" name="teardown" is-config="true" duration-ms="620" started-at="2021-03-21T19:56:18 IST" finished-at="2021-03-21T19:56:18 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- teardown -->
-      </class> <!-- tests.frontendAgent.WidgetTaggedIssueTest -->
-    </test> <!-- Widget Tagged Interaction TEST -->
+      </class> <!-- tests.templateManagement.ViewTemplateTest -->
+    </test> <!-- View Template Test -->
   </suite> <!-- Automation Framework CS PORTAl Test Suite -->
 </testng-results>

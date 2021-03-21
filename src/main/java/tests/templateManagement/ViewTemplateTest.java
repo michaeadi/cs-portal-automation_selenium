@@ -95,9 +95,6 @@ public class ViewTemplateTest extends BaseTest {
             if (agentRoles.contains(s)) {
                 ExtentTestManager.getTest().log(LogStatus.INFO, "Validate " + s + " Agent Roles is display correctly");
                 agentRoles.remove(s);
-            } else {
-                ExtentTestManager.getTest().log(LogStatus.FAIL, s + " Agent Roles must not display on frontend as tag not mention in config sheet.");
-                softAssert.fail(s + " Agent Roles should not display on UI as Agent channel not mention in config sheet.");
             }
         }
         if (agentRoles.isEmpty()) {

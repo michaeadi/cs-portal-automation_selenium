@@ -19,7 +19,7 @@ public class supervisorTicketListPagePOM extends BasePage {
     By searchTicketBox2 = By.xpath("//span[@class='search-box small-search' or @class='search-box small-search search-box-container']//input");
     @CacheLookup
     By searchTicketBtn = By.xpath("//app-ticket-search-box//button");
-    By ticketIdLabel = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\" or @class=\"data-area\"]//ul[1]//li[1]//span[@class=\"data-title\"]");
+    By ticketIdLabel = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\" or @class=\"data-area\"]//ul[1]//li[1]//span[@class=\"data-title\" or @class=\"data-title highlight\"]");
     By ticketIdvalue = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area\" or @class=\"data-area-full\"]//ul[1]//li[1]//span[@class=\"blue-clr\"]");
     By workGroupName = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\" or @class=\"data-area\"]//ul[1]//li[2]//span[@class=\"data-title ellipsis value-clr\" or @class=\"data-title value-clr\"]");
     By workgroupSLA = By.xpath("//app-ticket-list//div[@class=\"container-fluid table-card ng-star-inserted\"][1]//div[@class=\"data-area-full\" or @class=\"data-area\"]//ul[1]//li[2]//span[2]");
