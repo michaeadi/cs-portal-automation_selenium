@@ -112,7 +112,20 @@ public class SupervisorUpdateTicket extends BaseTest {
         customerNumber = Data.getCustomerNumber();
     }
 
-    @Test(priority = 2, description = "Update Ticket", dataProvider = "ticketId", dataProviderClass = DataProviders.class)
+    @Test(priority = 2,description = "Open Supervisor Dashboard")
+    public void openSupervisorDashboard(){
+        ExtentTestManager.startTest("Open Supervisor Dashboard","Open Supervisor Dashboard");
+        SideMenuPOM sideMenu = new SideMenuPOM(driver);
+        sideMenu.clickOnSideMenu();
+        sideMenu.clickOnName();
+        agentLoginPagePOM AgentLoginPagePOM = sideMenu.openSupervisorDashboard();
+        SoftAssert softAssert = new SoftAssert();
+        AgentLoginPagePOM.waitTillLoaderGetsRemoved();
+        Assert.assertEquals(driver.getTitle(), config.getProperty("supervisorTicketListPage"));
+        softAssert.assertAll();
+    }
+
+    @Test(priority = 3, description = "Update Ticket", dataProvider = "ticketId", dataProviderClass = DataProviders.class)
     public void updateTicket(Method method, nftrDataBeans Data) throws InterruptedException {
         supervisorTicketListPagePOM ticketListPage = new supervisorTicketListPagePOM(driver);
         ViewTicketPagePOM viewTicket = new ViewTicketPagePOM(driver);
@@ -173,14 +186,14 @@ public class SupervisorUpdateTicket extends BaseTest {
     }
 
     @DataProviders.User(UserType = "NFTR")
-    @Test(priority = 3, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
+    @Test(priority = 4, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteraction(Method method, TestDatabean Data) throws IOException {
         ExtentTestManager.startTest("Validating the Search forCustomer Interactions :" + Data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + Data.getCustomerNumber());
         SoftAssert softAssert = new SoftAssert();
         SideMenuPOM SideMenuPOM = new SideMenuPOM(driver);
+        SideMenuPOM.clickOnSideMenu();
+        SideMenuPOM.clickOnName();
         if(ticketId!=null) {
-            SideMenuPOM.clickOnSideMenu();
-            SideMenuPOM.clickOnName();
             customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
             customerInteractionsSearchPOM.enterNumber(Data.getCustomerNumber());
             customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
@@ -191,7 +204,7 @@ public class SupervisorUpdateTicket extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 4, dependsOnMethods = "openCustomerInteraction", description = "Validate Re-open Icon on Closed Ticket")
+    @Test(priority = 5, dependsOnMethods = "openCustomerInteraction", description = "Validate Re-open Icon on Closed Ticket")
     public void validateReopenIcon() throws InterruptedException, IOException {
         SoftAssert softAssert = new SoftAssert();
         customerInteractionPagePOM customerInteractionPage = new customerInteractionPagePOM(driver);

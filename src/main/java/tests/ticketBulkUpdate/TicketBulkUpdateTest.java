@@ -58,7 +58,10 @@ public class TicketBulkUpdateTest extends BaseTest {
             filterTab.clickLast30DaysFilter();
             filterTab.clickApplyFilter();
             try {
-                ticketBulkUpdatePOM.getToastMessage();
+                String message=ticketBulkUpdatePOM.getToastMessage();
+                if(message.equalsIgnoreCase("Bad Gateway") | message.contains("Unknown Error")){
+                    softAssert.fail("Toast Message Appeared: "+message);
+                }
             } catch (NoSuchElementException | TimeoutException e) {
                 //continue
             }
@@ -86,16 +89,29 @@ public class TicketBulkUpdateTest extends BaseTest {
         Assert.assertTrue(ticketBulkUpdatePOM.fileDownload(), "Ticket Upload Template does not download.Please check Excels/BulkUploadTemplate.xlsx downloaded");
         Assert.assertTrue(data.writeTicketNumberToExcel(), "No Ticket Found to write in Excel");
         ticketBulkUpdatePOM.addFile();
-        ticketBulkUpdatePOM.waitTillLoaderGetsRemoved();
-        List<String> uploadTickets = data.getTicketNumbers();
-        List<String> addedTicket = ticketBulkUpdatePOM.getTicketList();
-        int uploadedSize = uploadTickets.size();
-        uploadTickets.removeAll(addedTicket);
-        int size = uploadedSize - uploadTickets.size();
-        String[] newString = ticketBulkUpdatePOM.getErrorMessage().replaceAll("[^a-zA-Z0-9\\s]+", "").split(" ");
-        softAssert.assertEquals(newString[0], String.valueOf(size), "Uploaded ticket miscount");
-        softAssert.assertEquals(newString[newString.length - 1], String.valueOf(uploadedSize), "Total number of ticket is not same as expected");
-        softAssert.assertTrue(ticketBulkUpdatePOM.deleteFile(), "File not deleted");
+        try {
+            String message=ticketBulkUpdatePOM.getToastMessage();
+            if(message.equalsIgnoreCase("Bad Gateway") | message.contains("Unknown Error")){
+                softAssert.fail("Toast Message Appeared: "+message);
+            }
+        } catch (NoSuchElementException | TimeoutException e) {
+            //continue
+        }
+        try {
+            ticketBulkUpdatePOM.waitTillLoaderGetsRemoved();
+            List<String> uploadTickets = data.getTicketNumbers();
+            List<String> addedTicket = ticketBulkUpdatePOM.getTicketList();
+            int uploadedSize = uploadTickets.size();
+            uploadTickets.removeAll(addedTicket);
+            int size = uploadedSize - uploadTickets.size();
+            String[] newString = ticketBulkUpdatePOM.getErrorMessage().replaceAll("[^a-zA-Z0-9\\s]+", "").split(" ");
+            softAssert.assertEquals(newString[0], String.valueOf(size), "Uploaded ticket miscount");
+            softAssert.assertEquals(newString[newString.length - 1], String.valueOf(uploadedSize), "Total number of ticket is not same as expected");
+            softAssert.assertTrue(ticketBulkUpdatePOM.deleteFile(), "File not deleted");
+        }catch (NoSuchElementException | TimeoutException e){
+            e.printStackTrace();
+            softAssert.fail("Not able to validate Upload Ticket id from excel. Due to error: "+e.getMessage());
+        }
         softAssert.assertAll();
     }
 
@@ -155,7 +171,7 @@ public class TicketBulkUpdateTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 5, description = "Add comment on ticket using bulk update feature")
+    @Test(priority = 5, description = "Add comment on ticket using bulk update feature", dependsOnMethods = "uploadTicketFromExcelTest")
     public void bulkAddCommentTest(Method method) {
         ExtentTestManager.startTest("Add comment on ticket using bulk update feature", "Add comment on ticket using bulk update feature");
         TicketBulkUpdatePOM ticketBulkUpdatePOM = new TicketBulkUpdatePOM(driver);

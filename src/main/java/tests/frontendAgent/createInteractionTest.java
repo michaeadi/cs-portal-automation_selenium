@@ -105,7 +105,7 @@ public class createInteractionTest extends BaseTest {
             SMSHistoryPOJO smsHistory = api.smsHistoryTest(customerNumber);
             SMSHistoryList list = smsHistory.getResult().get(0);
             ExtentTestManager.getTest().log(LogStatus.INFO, "Message Sent after Ticket Creation: " + list.getMessageText());
-            softAssert.assertTrue(list.getMessageText().contains(Data.getIssueCode()), "Message Sent does not send for same ticket id which has been Create");
+            softAssert.assertTrue(list.getMessageText().contains(Data.getIssueCode()), "Message does not sent to customer for same FTR Category for which Issue has been Create");
             softAssert.assertEquals(list.getSmsType().toLowerCase().trim(), config.getProperty("systemSMSType").toLowerCase().trim(), "Message type is not system");
             softAssert.assertFalse(list.isAction(), "Action button is not disabled");
             softAssert.assertEquals(list.getTemplateName().toLowerCase().trim(), config.getProperty("ticketCreateEvent").toLowerCase().trim(), "Template event not same as defined.");

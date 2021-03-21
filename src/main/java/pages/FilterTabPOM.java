@@ -8,7 +8,6 @@ import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.*;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Log4j2
 public class FilterTabPOM extends BasePage {
@@ -287,8 +286,12 @@ public class FilterTabPOM extends BasePage {
     }
 
     public void clickCloseFilter() {
-        printInfoLog("Closing Filter Tab");
-        click(closeFilter);
+        try {
+            printInfoLog("Closing Filter Tab");
+            click(closeFilter);
+        }catch (NoSuchElementException | TimeoutException e){
+            printInfoLog("Close Filter Button does not display");
+        }
     }
 
     public void applyFilterByCategoryCode(String code) throws InterruptedException {

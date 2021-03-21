@@ -61,8 +61,8 @@ public class TransferToQueueTest extends BaseTest {
             filterTab.clickOutsideFilter();
             filterTab.clickApplyFilter();
             ticketListPage.waitTillLoaderGetsRemoved();
-            softAssert.assertTrue(ticketListPage.validateQueueFilter(data.getFromQueue()), "Queue Filter Does Applied Correctly");
             Assert.assertEquals(ticketListPage.getqueueValue().trim().toLowerCase(), data.getFromQueue().toLowerCase().trim(), "Ticket Does not found with Selected State");
+            softAssert.assertTrue(ticketListPage.validateQueueFilter(data.getFromQueue()), "Queue Filter Does Applied Correctly");
             try {
                 ticketId = ticketListPage.getTicketIdvalue();
                 ticketListPage.resetFilter();
@@ -106,7 +106,7 @@ public class TransferToQueueTest extends BaseTest {
                     }
                 } else {
                     ticketListPage.clickCancelBtn();
-                    softAssert.fail("Transfer to queue does not Perform as both queue belong to same workgroup.");
+                    softAssert.fail("Transfer to queue does not Perform as per config sheet both queue belong to same workgroup.");
                 }
             }
         } catch (InterruptedException | NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
@@ -115,6 +115,7 @@ public class TransferToQueueTest extends BaseTest {
             filterTab.clickCloseFilter();
             softAssert.fail("Not able to apply filter " + e.getMessage());
         }
+        ticketListPage.clearInputBox();
         softAssert.assertAll();
     }
 }

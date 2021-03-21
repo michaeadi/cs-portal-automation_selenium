@@ -27,6 +27,8 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import pages.SideMenuPOM;
+import pages.agentLoginPagePOM;
 import pages.supervisorTicketListPagePOM;
 import tests.frontendAgent.BaseTest;
 
@@ -109,7 +111,20 @@ public class SupervisorSearchTicket extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(priority = 1, description = "Ticket Search ", dataProvider = "ticketId", dataProviderClass = DataProviders.class)
+    @Test(priority = 1,description = "Open Supervisor Dashboard")
+    public void openSupervisorDashboard(){
+        ExtentTestManager.startTest("Open Supervisor Dashboard","Open Supervisor Dashboard");
+        SideMenuPOM sideMenu = new SideMenuPOM(driver);
+        sideMenu.clickOnSideMenu();
+        sideMenu.clickOnName();
+        agentLoginPagePOM AgentLoginPagePOM = sideMenu.openSupervisorDashboard();
+        SoftAssert softAssert = new SoftAssert();
+        AgentLoginPagePOM.waitTillLoaderGetsRemoved();
+        Assert.assertEquals(driver.getTitle(), config.getProperty("supervisorTicketListPage"));
+        softAssert.assertAll();
+    }
+
+    @Test(priority = 2, description = "Ticket Search ", dataProvider = "ticketId", dataProviderClass = DataProviders.class)
     public void SearchTicket(Method method, nftrDataBeans Data) {
         ExtentTestManager.startTest("Search Ticket & Validate Ticket Meta Data: " + Data.getTicketNumber(), "Search Ticket & Validate Ticket Meta Data");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");

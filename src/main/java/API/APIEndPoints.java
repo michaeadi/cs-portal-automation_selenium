@@ -14,6 +14,7 @@ import POJO.SMSHistory.SMSHistoryPOJO;
 import POJO.TicketList.TicketPOJO;
 import POJO.Vendors.VendorNames;
 import POJO.Voucher.VoucherSearchPOJO;
+import Utils.UtilsMethods;
 import com.relevantcodes.extentreports.LogStatus;
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
@@ -32,6 +33,8 @@ import static io.restassured.RestAssured.given;
 @Log4j2
 public class APIEndPoints extends BaseTest {
 
+    public static Integer statusCode = null;
+
     public PlansPOJO accountPlansTest(String msisdn) {
         getTest().log(LogStatus.INFO, "Using Account Plans API for Getting expected data for UI");
         baseURI = baseUrl;
@@ -41,16 +44,10 @@ public class APIEndPoints extends BaseTest {
                 .body("{\"msisdn\":\"" + msisdn + "\"}")
                 .contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
-        log.info("Request Headers are  : " + queryable.getHeaders());
-        getTest().log(LogStatus.INFO, "Request Body is  : " + queryable.getBody().toString());
-        log.info("Request Body is  : " + queryable.getBody().toString());
         Response response = request.post("/cs-gsm-service/v1/account/plans");
-        getTest().log(LogStatus.INFO, "Response : " + response.asString());
-        log.info("Response : " + response.asString());
-        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
-        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
-        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        UtilsMethods.printPostRequestDetail(queryable);
+        UtilsMethods.printResponseDetail(response);
+        statusCode = response.getStatusCode();
         return response.as(PlansPOJO.class);
     }
 
@@ -63,15 +60,10 @@ public class APIEndPoints extends BaseTest {
                 .body("{\"msisdn\":\"" + msisdn + "\",\"pageSize\":5,\"pageNumber\":1,\"type\":null,\"startDate\":null,\"endDate\":null,\"action\": \"More\"}")
                 .contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
-        log.info("Request Headers are  : " + queryable.getHeaders());
-        getTest().log(LogStatus.INFO, "Request Body is  : " + queryable.getBody().toString());
-        log.info("Request Body is  : " + queryable.getBody().toString());
         Response response = request.post("/cs-gsm-service/v1/usage/history");
-        log.info("Response : " + response.asString());
-        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
-        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
-        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        UtilsMethods.printPostRequestDetail(queryable);
+        UtilsMethods.printResponseDetail(response);
+        statusCode = response.getStatusCode();
         return response.as(UsageHistoryPOJO.class);
     }
 
@@ -80,19 +72,14 @@ public class APIEndPoints extends BaseTest {
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
-                    .headers(headers)
-                    .body("{\"msisdn\":\""+msisdn+"\",\"pageSize\":5,\"pageNumber\":1,\"typeFilter\":null,\"startDate\":null,\"endDate\":null,\"action\":\"More\",\"cdrTypeFilter\":\"FREE\"}")
-                    .contentType("application/json");
+                .headers(headers)
+                .body("{\"msisdn\":\"" + msisdn + "\",\"pageSize\":5,\"pageNumber\":1,\"typeFilter\":null,\"startDate\":null,\"endDate\":null,\"action\":\"More\",\"cdrTypeFilter\":\"FREE\"}")
+                .contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
-        log.info("Request Headers are  : " + queryable.getHeaders());
-        getTest().log(LogStatus.INFO, "Request Body is  : " + queryable.getBody().toString());
-        log.info("Request Body is  : " + queryable.getBody().toString());
         Response response = request.post("/cs-gsm-service/v1/usage/history");
-        log.info("Response : " + response.asString());
-        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
-        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
-        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        UtilsMethods.printPostRequestDetail(queryable);
+        UtilsMethods.printResponseDetail(response);
+        statusCode = response.getStatusCode();
         return response.as(UsageHistoryPOJO.class);
     }
 
@@ -105,15 +92,10 @@ public class APIEndPoints extends BaseTest {
                 .body("{\"extTxnId\":1234,\"msisdn\":\"" + msisdn + "\",\"walletType\":\"Main\"}")
                 .contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
-        log.info("Request Headers are  : " + queryable.getHeaders());
-        getTest().log(LogStatus.INFO, "Request Body is  : " + queryable.getBody().toString());
-        log.info("Request Body is  : " + queryable.getBody().toString());
         Response response = request.post("/cs-gsm-service/v1/am/profile");
-        log.info("Response : " + response.asString());
-        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
-        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
-        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        UtilsMethods.printPostRequestDetail(queryable);
+        UtilsMethods.printResponseDetail(response);
+        statusCode = response.getStatusCode();
         return response.as(AMHandSetProfilePOJO.class);
 
     }
@@ -129,15 +111,10 @@ public class APIEndPoints extends BaseTest {
                 .body("{\"msisdn\":\"" + msisdn + "\"}")
                 .contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
-        log.info("Request Headers are  : " + queryable.getHeaders());
-        getTest().log(LogStatus.INFO, "Request Body is  : " + queryable.getBody().toString());
-        log.info("Request Body is  : " + queryable.getBody().toString());
         Response response = request.post("/cs-gsm-service/v1/gsm/kyc");
-        log.info("Response : " + response.asString());
-        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
-        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
-        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        UtilsMethods.printPostRequestDetail(queryable);
+        UtilsMethods.printResponseDetail(response);
+        statusCode = response.getStatusCode();
         return response.as(GsmKycPOJO.class);
 
     }
@@ -151,15 +128,10 @@ public class APIEndPoints extends BaseTest {
                 .body("{\"msisdn\":\"" + msisdn + "\"}")
                 .contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
-        log.info("Request Headers are  : " + queryable.getHeaders());
-        getTest().log(LogStatus.INFO, "Request Body is  : " + queryable.getBody().toString());
-        log.info("Request Body is  : " + queryable.getBody().toString());
         Response response = request.post("/cs-gsm-service/v1/profile");
-        log.info("Response : " + response.asString());
-        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
-        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
-        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        UtilsMethods.printPostRequestDetail(queryable);
+        UtilsMethods.printResponseDetail(response);
+        statusCode = response.getStatusCode();
         return response.as(ProfilePOJO.class);
     }
 
@@ -172,15 +144,10 @@ public class APIEndPoints extends BaseTest {
                 .body("{\"msisdn\":\"" + msisdn + "\"}")
                 .contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
-        log.info("Request Headers are  : " + queryable.getHeaders());
-        getTest().log(LogStatus.INFO, "Request Body is  : " + queryable.getBody().toString());
-        log.info("Request Body is  : " + queryable.getBody().toString());
         Response response = request.post("/cs-gsm-service/v1/kyc/profile");
-        log.info("Response : " + response.asString());
-        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
-        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
-        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        UtilsMethods.printPostRequestDetail(queryable);
+        UtilsMethods.printResponseDetail(response);
+        statusCode = response.getStatusCode();
         return response.as(KYCProfile.class);
     }
 
@@ -194,15 +161,13 @@ public class APIEndPoints extends BaseTest {
                 .queryParam("msisdn", Msisdn)
                 .queryParam("walletType", "Main");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
         log.info("Request Headers are  : " + queryable.getHeaders());
         getTest().log(LogStatus.INFO, "Request Body is  : " + queryable.getQueryParams().toString());
         log.info("Request Body is  : " + queryable.getQueryParams().toString());
         Response response = request.get("/cs-am-service/v1/profile");
-        log.info("Response : " + response.asString());
-        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
-        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
-        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        UtilsMethods.printGetRequestDetail(queryable);
+        UtilsMethods.printResponseDetail(response);
+        statusCode = response.getStatusCode();
         return response.as(AMProfilePOJO.class);
     }
 
@@ -215,15 +180,10 @@ public class APIEndPoints extends BaseTest {
                 .body("{\"msisdn\":\"" + msisdn + "\",\"pageSize\":5,\"pageNumber\":1,\"startDate\":null,\"endDate\":null,\"rechargeHistoryVoucherSearch\":null}")
                 .contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
-        log.info("Request Headers are  : " + queryable.getHeaders());
-        getTest().log(LogStatus.INFO, "Request Body is  : " + queryable.getBody().toString());
-        log.info("Request Body is  : " + queryable.getBody().toString());
         Response response = request.post("/cs-gsm-service/v1/recharge/history");
-        log.info("Response : " + response.asString());
-        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
-        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
-        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        UtilsMethods.printPostRequestDetail(queryable);
+        UtilsMethods.printResponseDetail(response);
+        statusCode = response.getStatusCode();
         return response.as(RechargeHistoryPOJO.class);
     }
 
@@ -236,15 +196,10 @@ public class APIEndPoints extends BaseTest {
                 .body("{\"msisdn\":\"" + msisdn + "\",\"pageSize\":5,\"pageNumber\":1,\"startDate\":null,\"endDate\":null}")
                 .contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
-        log.info("Request Headers are  : " + queryable.getHeaders());
-        getTest().log(LogStatus.INFO, "Request Body is  : " + queryable.getBody().toString());
-        log.info("Request Body is  : " + queryable.getBody().toString());
         Response response = request.post("/cs-gsm-service/v1/bundle/recharge/history");
-        log.info("Response : " + response.asString());
-        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
-        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
-        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        UtilsMethods.printPostRequestDetail(queryable);
+        UtilsMethods.printResponseDetail(response);
+        statusCode = response.getStatusCode();
         return response.as(BundleRechargeHistoryPOJO.class);
     }
 
@@ -257,15 +212,10 @@ public class APIEndPoints extends BaseTest {
                 .body("{\"msisdn\":\"" + msisdn + "\",\"pageSize\":5,\"pageNumber\":1,\"startDate\":null,\"endDate\":null}")
                 .contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
-        log.info("Request Headers are  : " + queryable.getHeaders());
-        getTest().log(LogStatus.INFO, "Request Body is  : " + queryable.getBody().toString());
-        log.info("Request Body is  : " + queryable.getBody().toString());
         Response response = request.post("/cs-am-service/v1/transaction/history");
-        log.info("Response : " + response.asString());
-        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
-        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
-        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        UtilsMethods.printPostRequestDetail(queryable);
+        UtilsMethods.printResponseDetail(response);
+        statusCode = response.getStatusCode();
         return response.as(AirtelMoneyPOJO.class);
     }
 
@@ -278,16 +228,10 @@ public class APIEndPoints extends BaseTest {
                 .body("{\"msisdn\": \"" + msisdn + "\",\"pageSize\": 10,\"pageNumber\": 1}")
                 .contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
-        log.info("Request Headers are  : " + queryable.getHeaders());
-        getTest().log(LogStatus.INFO, "Request Body is  : " + queryable.getBody().toString());
-        log.info("Request Body is  : " + queryable.getBody().toString());
         Response response = request.post("/cs-gsm-service/v1/accounts/balance");
-        log.info("Response : " + response.asString());
-        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
-
-        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
-        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        UtilsMethods.printPostRequestDetail(queryable);
+        UtilsMethods.printResponseDetail(response);
+        statusCode = response.getStatusCode();
         return response.as(AccountsBalancePOJO.class);
 
     }
@@ -301,15 +245,10 @@ public class APIEndPoints extends BaseTest {
                 .body("{\"msisdn\":\"" + msisdn + "\",\"pageSize\":5,\"pageNumber\":1,\"startDate\":null,\"endDate\":null,\"type\":\"" + Type + "\"}")
                 .contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
-        log.info("Request Headers are  : " + queryable.getHeaders());
-        getTest().log(LogStatus.INFO, "Request Body is  : " + queryable.getBody().toString());
-        log.info("Request Body is  : " + queryable.getBody().toString());
         Response response = request.post("/cs-gsm-service/v1/usage/history");
-        log.info("Response : " + response.asString());
-        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
-        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
-        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        UtilsMethods.printPostRequestDetail(queryable);
+        UtilsMethods.printResponseDetail(response);
+        statusCode = response.getStatusCode();
         return response.as(UsageHistoryPOJO.class);
     }
 
@@ -320,13 +259,11 @@ public class APIEndPoints extends BaseTest {
         RequestSpecification request = given()
                 .headers(headers).param("id", ticketId).contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
         log.info("Request Headers are  : " + queryable.getHeaders());
         Response response = request.get("/sr/api/sr-service/v1/fetch/ticket");
-        log.info("Response : " + response.asString());
-        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
-        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
-        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        UtilsMethods.printGetRequestDetail(queryable);
+        UtilsMethods.printResponseDetail(response);
+        statusCode = response.getStatusCode();
         return response.as(TicketPOJO.class);
     }
 
@@ -337,13 +274,10 @@ public class APIEndPoints extends BaseTest {
         RequestSpecification request = given()
                 .headers(headers).body("{\"receiverId\":" + msisdn + ",\"pageNumber\":0,\"pageSize\":10}").contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
-        log.info("Request Headers are  : " + queryable.getHeaders());
         Response response = request.post("/cs-notification-service/v1/fetch/history");
-        log.info("Response : " + response.asString());
-        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
-        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
-        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        UtilsMethods.printPostRequestDetail(queryable);
+        UtilsMethods.printResponseDetail(response);
+        statusCode = response.getStatusCode();
         return response.as(SMSHistoryPOJO.class);
     }
 
@@ -354,31 +288,25 @@ public class APIEndPoints extends BaseTest {
         RequestSpecification request = given()
                 .headers(headers).body("{\"voucherId\":\"" + voucherId + "\"}").contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
-        log.info("Request Headers are  : " + queryable.getHeaders());
-        log.info("Request Body are  : " + queryable.getBody());
         Response response = request.post("/cs-gsm-service/v1/voucher/detail");
-        log.info("Response : " + response.asString());
-        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
-        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
-        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        UtilsMethods.printPostRequestDetail(queryable);
+        UtilsMethods.printResponseDetail(response);
+        statusCode = response.getStatusCode();
         return response.as(VoucherSearchPOJO.class);
     }
 
-    public VendorNames  vendorsNamesTest() {
+    public VendorNames vendorsNamesTest() {
         getTest().log(LogStatus.INFO, "Using fetch vendor name");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
                 .headers(headers);
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
         log.info("Request Headers are  : " + queryable.getHeaders());
         Response response = request.get("/cs-vas-service/v1/vendors");
-        log.info("Response : " + response.asString());
-        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
-        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
-        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        UtilsMethods.printGetRequestDetail(queryable);
+        UtilsMethods.printResponseDetail(response);
+        statusCode = response.getStatusCode();
         return response.as(VendorNames.class);
     }
 
@@ -387,16 +315,12 @@ public class APIEndPoints extends BaseTest {
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
-                .headers(headers).body("{\"msisdn\":\""+msisdn+"\",\"vendorName\":\""+vendorName+"\"}").contentType("application/json");
+                .headers(headers).body("{\"msisdn\":\"" + msisdn + "\",\"vendorName\":\"" + vendorName + "\"}").contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
-        log.info("Request Headers are  : " + queryable.getHeaders());
-        log.info("Request Body are  : " + queryable.getBody());
         Response response = request.post("/cs-vas-service/v1/loan/summary");
-        log.info("Response : " + response.asString());
-        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
-        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
-        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        UtilsMethods.printPostRequestDetail(queryable);
+        UtilsMethods.printResponseDetail(response);
+        statusCode = response.getStatusCode();
         return response.as(Summary.class);
     }
 
@@ -405,16 +329,12 @@ public class APIEndPoints extends BaseTest {
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
-                .headers(headers).body("{\"msisdn\":\""+msisdn+"\",\"vendorName\":\""+vendorName+"\"}").contentType("application/json");
+                .headers(headers).body("{\"msisdn\":\"" + msisdn + "\",\"vendorName\":\"" + vendorName + "\"}").contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
-        log.info("Request Headers are  : " + queryable.getHeaders());
-        log.info("Request Body are  : " + queryable.getBody());
         Response response = request.post("/cs-vas-service/v1/loan/details");
-        log.info("Response : " + response.asString());
-        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
-        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
-        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        UtilsMethods.printPostRequestDetail(queryable);
+        UtilsMethods.printResponseDetail(response);
+        statusCode = response.getStatusCode();
         return response.as(Loan.class);
     }
 
@@ -423,51 +343,40 @@ public class APIEndPoints extends BaseTest {
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
-                .headers(headers).body("{\"msisdn\":\""+msisdn+"\"}").contentType("application/json");
+                .headers(headers).body("{\"msisdn\":\"" + msisdn + "\"}").contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
-        log.info("Request Headers are  : " + queryable.getHeaders());
-        log.info("Request Body are  : " + queryable.getBody());
         Response response = request.post("/cs-gsm-service/v1/refill/status");
-        log.info("Response : " + response.asString());
-        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
-        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
-        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        UtilsMethods.printPostRequestDetail(queryable);
+        UtilsMethods.printResponseDetail(response);
+        statusCode = response.getStatusCode();
         return response.as(RefillStatus.class);
     }
 
-    public Top20Ringtone ringtoneDetailTest(String msisdn,String searchBy,String searchText) {
+    public Top20Ringtone ringtoneDetailTest(String msisdn, String searchBy, String searchText) {
         getTest().log(LogStatus.INFO, "Using fetch Ringtone details using MSISDN");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
-                .headers(headers).body("{\"searchBy\":\""+searchBy+"\",\"searchText\":\""+searchText+"\",\"msisdn\":\""+msisdn+"\"}").contentType("application/json");
+                .headers(headers).body("{\"searchBy\":\"" + searchBy + "\",\"searchText\":\"" + searchText + "\",\"msisdn\":\"" + msisdn + "\"}").contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
-        log.info("Request Headers are  : " + queryable.getHeaders());
-        log.info("Request Body are  : " + queryable.getBody());
         Response response = request.post("/cs-vas-service/v1/search/tunes");
-        log.info("Response : " + response.asString());
-        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
-        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
-        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        UtilsMethods.printPostRequestDetail(queryable);
+        UtilsMethods.printResponseDetail(response);
+        statusCode = response.getStatusCode();
         return response.as(Top20Ringtone.class);
     }
 
-    public ActivateRingtone activateRingtone(String msisdn){
+    public ActivateRingtone activateRingtone(String msisdn) {
         getTest().log(LogStatus.INFO, "Using fetch ticket details using ticket Id to validate ticket meta data");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
                 .headers(headers).param("msisdn", msisdn).contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
-        log.info("Request Headers are  : " + queryable.getHeaders());
         Response response = request.get("/cs-vas-service/v1/fetch/tunes");
-        log.info("Response : " + response.asString());
-        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
-        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
-        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        UtilsMethods.printGetRequestDetail(queryable);
+        UtilsMethods.printResponseDetail(response);
+        statusCode = response.getStatusCode();
         return response.as(ActivateRingtone.class);
     }
 
@@ -476,16 +385,12 @@ public class APIEndPoints extends BaseTest {
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
-                .headers(headers).body("{\"msisdn\":\""+msisdn+"\",\"pageSize\":5,\"pageNumber\":1}").contentType("application/json");
+                .headers(headers).body("{\"msisdn\":\"" + msisdn + "\",\"pageSize\":5,\"pageNumber\":1}").contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
-        log.info("Request Headers are  : " + queryable.getHeaders());
-        log.info("Request Body are  : " + queryable.getBody());
         Response response = request.post("/cs-gsm-service/v1/accumulators");
-        log.info("Response : " + response.asString());
-        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
-        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
-        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        UtilsMethods.printPostRequestDetail(queryable);
+        UtilsMethods.printResponseDetail(response);
+        statusCode = response.getStatusCode();
         return response.as(AccumulatorsPOJO.class);
     }
 
@@ -494,16 +399,12 @@ public class APIEndPoints extends BaseTest {
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
-                .headers(headers).body("{\"msisdn\":\""+msisdn+"\",\"pageSize\":5,\"pageNumber\":1}").contentType("application/json");
+                .headers(headers).body("{\"msisdn\":\"" + msisdn + "\",\"pageSize\":5,\"pageNumber\":1}").contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        getTest().log(LogStatus.INFO, "Request Headers are  : " + queryable.getHeaders());
-        log.info("Request Headers are  : " + queryable.getHeaders());
-        log.info("Request Body are  : " + queryable.getBody());
         Response response = request.post("/cs-gsm-service/v1/hlr/service/profiles");
-        log.info("Response : " + response.asString());
-        log.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
-        getTest().log(LogStatus.INFO, "Response Body is  : " + response.asString());
-        getTest().log(LogStatus.INFO, "Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        UtilsMethods.printPostRequestDetail(queryable);
+        UtilsMethods.printResponseDetail(response);
+        statusCode = response.getStatusCode();
         return response.as(HLRServicePOJO.class);
     }
 

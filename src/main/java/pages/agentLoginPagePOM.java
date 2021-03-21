@@ -1,7 +1,6 @@
 package pages;
 
-import Utils.ExtentReports.ExtentTestManager;
-import com.relevantcodes.extentreports.LogStatus;
+import Utils.UtilsMethods;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -22,38 +21,32 @@ public class agentLoginPagePOM extends BasePage {
 
 
     public boolean checkSkipButton() {
-        log.info("Checking Skip Button");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking Agent Login Page SKIP Button");
+        UtilsMethods.printInfoLog("Checking Agent Login Page SKIP Button");
         return checkState(skipBtn);
     }
 
     public boolean checkSubmitButton() {
-        log.info("Checking Submit Button");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Checking Agent Login Page Submit Button");
+        UtilsMethods.printInfoLog("Checking Agent Login Page Submit Button");
         return checkState(submitBtn);
     }
 
     public boolean isQueueLoginPage() {
-        log.info("Login Page");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Supervisor Login Page");
+        UtilsMethods.printInfoLog("Supervisor Login Page");
         return checkState(loginQueueTitle);
     }
 
     public void clickSelectQueue() {
-        log.info("Select Login Queue");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Selecting Login Queue");
+        UtilsMethods.printInfoLog("Selecting Login Queue");
         click(selectQueue);
     }
 
     public void clickSkipBtn() {
-        log.info("Clicking on SKIP Button");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on SKIP Button");
+        UtilsMethods.printInfoLog("Clicking on SKIP Button");
         click(skipBtn);
     }
 
     public void clickSubmitBtn() {
-        log.info("Clicking on Submit Button");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on SUBMIT Button");
+        UtilsMethods.printInfoLog("Clicking on SUBMIT Button");
         clickOutside();
         click(submitBtn);
     }
@@ -64,8 +57,7 @@ public class agentLoginPagePOM extends BasePage {
     }
 
     public void selectAllQueue() {
-        log.info("Selecting ALL Queue");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Selecting ALL Queue");
+        UtilsMethods.printInfoLog("Selecting ALL Queue");
         click(allQueueOption);
     }
 }

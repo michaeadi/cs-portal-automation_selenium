@@ -3,9 +3,8 @@ package pages;
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.testng.Assert;
 
 import java.util.List;
 
@@ -21,7 +20,7 @@ public class RechargeHistoryWidgetPOM extends BasePage {
     By rechargeHistoryNoResultFound = By.xpath("//span[contains(text(),\"Recharge History\")]/ancestor::div[@class=\"card widget ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]/img");
     By rechargeHistoryNoResultFoundMessage = By.xpath("//span[contains(text(),\"Recharge History\")]/ancestor::div[@class=\"card widget ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]/span/span");
     By rechargeHistoryError = By.xpath("//span[contains(text(),\"Recharge History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"widget-error apiMsgBlock ng-star-inserted\"][1]");
-    By ticketIcon = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Recharge History\")]//parent::div//span[@class=\"card__card-header--icon ng-star-inserted\"]/img");
+    By ticketIcon = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),'Recharge History')]//ancestor::div[1]//span/img[@class='interaction-ticket']");
     By getTitle = By.xpath("//span[contains(text(),'Recharge History')]");
     By voucherBox = By.xpath("//input[@placeholder=\"Voucher ID\"]");
     By voucherBtn = By.xpath("//input[@placeholder=\"Voucher ID\"]//parent::span//button");
@@ -141,10 +140,15 @@ public class RechargeHistoryWidgetPOM extends BasePage {
     }
 
     public WidgetInteractionPOM clickTicketIcon() {
-        log.info("Clicking on Ticket Icon");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Ticket Icon");
-        click(ticketIcon);
-        return new WidgetInteractionPOM(driver);
+        try {
+            log.info("Clicking on Ticket Icon");
+            ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Ticket Icon");
+            click(ticketIcon);
+            return new WidgetInteractionPOM(driver);
+        }catch (NoSuchElementException | TimeoutException e){
+            Assert.fail("Ticket Icon does not display on Recharge History Widget");
+        }
+        return null;
     }
 
     public String getWidgetTitle() {

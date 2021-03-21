@@ -10,6 +10,7 @@ import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.HeaderDataBean;
 import Utils.DataProviders.TestDatabean;
 import Utils.ExtentReports.ExtentTestManager;
+import Utils.UtilsMethods;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
@@ -92,17 +93,21 @@ public class LoanWidgetTest extends BaseTest {
         ExtentTestManager.startTest("Validating Loan Service Widget:" + customerNumber, "Validating Loan Service Widget");
         SoftAssert softAssert = new SoftAssert();
         LoanWidgetPOM loanWidget = new LoanWidgetPOM(driver);
-        for (int i = 1; i <= loanWidget.getSize(); i++) {
-            Summary summary = api.loanSummaryTest(customerNumber, loanWidget.getVendorName(i).trim());
-            if (!summary.getStatusCode().equalsIgnoreCase("200") | summary.getStatus().equalsIgnoreCase("Failure")) {
-                softAssert.assertTrue(loanWidget.checkMessageDisplay(summary.getMessage()), summary.getMessage() + " :Message does not display");
-            } else {
-                softAssert.assertEquals(loanWidget.getLoanAmount(i), loanWidget.ValueRoundOff(summary.getResult().getLoanAmount()), "Loan amount not same as API Response");
-                softAssert.assertEquals(loanWidget.getOutstandingAmount(i), loanWidget.ValueRoundOff(summary.getResult().getCurrentOutstanding().getValue()), "Current Outstanding amount not same as API Response");
-                /*
-                 * Due Date and Created on assertion pending as API not working as expected
-                 * */
+        if(loanWidget.getSize()>0) {
+            for (int i = 1; i <= loanWidget.getSize(); i++) {
+                Summary summary = api.loanSummaryTest(customerNumber, loanWidget.getVendorName(i).trim());
+                if (!summary.getStatusCode().equalsIgnoreCase("200") | summary.getStatus().equalsIgnoreCase("Failure")) {
+                    softAssert.assertTrue(loanWidget.checkMessageDisplay(summary.getMessage()), summary.getMessage() + " :Message does not display");
+                } else {
+                    softAssert.assertEquals(loanWidget.getLoanAmount(i), loanWidget.ValueRoundOff(summary.getResult().getLoanAmount()), "Loan amount not same as API Response");
+                    softAssert.assertEquals(loanWidget.getOutstandingAmount(i), loanWidget.ValueRoundOff(summary.getResult().getCurrentOutstanding().getValue()), "Current Outstanding amount not same as API Response");
+                    /*
+                     * Due Date and Created on assertion pending as API not working as expected
+                     * */
+                }
             }
+        }else {
+            UtilsMethods.printWarningLog("No Vendor Found in Loan Service Widget");
         }
         softAssert.assertAll();
     }
@@ -115,52 +120,56 @@ public class LoanWidgetTest extends BaseTest {
         LoanWidgetPOM loanWidget = new LoanWidgetPOM(driver);
         LoanDetailPOM loanDetailPOM = null;
         List<String> vendorNameList = loanWidget.getVendorNamesList();
-        for (int i = 1; i <= vendorNameList.size(); i++) {
-            String vendorName = vendorNameList.get(i - 1).trim();
-            Summary summary = api.loanSummaryTest(customerNumber, vendorName);
-            if (summary.getStatusCode().equalsIgnoreCase("200")) {
-                try {
-                    loanDetailPOM = loanWidget.clickVendorName(i);
-                    loanDetailPOM.waitTillLoaderGetsRemoved();
+        if(vendorNameList.size()>0) {
+            for (int i = 1; i <= vendorNameList.size(); i++) {
+                String vendorName = vendorNameList.get(i - 1).trim();
+                Summary summary = api.loanSummaryTest(customerNumber, vendorName);
+                if (summary.getStatusCode().equalsIgnoreCase("200")) {
                     try {
-                        Assert.assertTrue(loanDetailPOM.IsLoanDetailWidgetDisplay(), "Loan Detail Widget not display");
-                        Loan loanDetails = api.loanDetailsTest(customerNumber, vendorName);
-                        /*
-                         * Validating Header name displayed on UI with Config present in Excel
-                         * */
+                        loanDetailPOM = loanWidget.clickVendorName(i);
+                        loanDetailPOM.waitTillLoaderGetsRemoved();
                         try {
-                            softAssert.assertEquals(loanDetailPOM.getHeaderName(1).toLowerCase().trim(), data.getRow1().toLowerCase().trim(), "Header name not same as defined in excel at pos(1)");
-                            softAssert.assertEquals(loanDetailPOM.getHeaderName(2).toLowerCase().trim(), data.getRow2().toLowerCase().trim(), "Header name not same as defined in excel pos(2)");
-                            softAssert.assertEquals(loanDetailPOM.getHeaderName(3).toLowerCase().trim(), data.getRow3().toLowerCase().trim(), "Header name not same as defined in excel pos(3)");
-                            softAssert.assertEquals(loanDetailPOM.getHeaderName(4).toLowerCase().trim(), data.getRow4().toLowerCase().trim(), "Header name not same as defined in excel pos(4)");
-                            softAssert.assertEquals(loanDetailPOM.getHeaderName(5).toLowerCase().trim(), data.getRow5().toLowerCase().trim(), "Header name not same as defined in excel pos(5)");
-                        }catch (NoSuchElementException | TimeoutException e){
-                            softAssert.fail("Header name of detail widget does not display properly: "+e.fillInStackTrace());
-                        }
-                        /*
-                         * Validating Header name & value displayed on UI with API Response
-                         * */
-                        ArrayList<HeaderList> headerList = loanDetails.getResult().getLoanDetails().getHeaderList();
-                        LoanDetailList loanDetailValue = loanDetails.getResult().getLoanDetails().getLoanDetailList().get(0);
-                        for (int j = 0; j < headerList.size(); j++) {
-                            softAssert.assertEquals(loanDetailPOM.getHeaderName(i + 1).toLowerCase().trim(), headerList.get(i).getHeader().toLowerCase().trim(), "Loan Detail Widget Header name at POS(" + (i + 1) + ") not same as in API Response");
-                        }
+                            Assert.assertTrue(loanDetailPOM.IsLoanDetailWidgetDisplay(), "Loan Detail Widget not display");
+                            Loan loanDetails = api.loanDetailsTest(customerNumber, vendorName);
+                            /*
+                             * Validating Header name displayed on UI with Config present in Excel
+                             * */
+                            try {
+                                softAssert.assertEquals(loanDetailPOM.getHeaderName(1).toLowerCase().trim(), data.getRow1().toLowerCase().trim(), "Header name not same as defined in excel at pos(1)");
+                                softAssert.assertEquals(loanDetailPOM.getHeaderName(2).toLowerCase().trim(), data.getRow2().toLowerCase().trim(), "Header name not same as defined in excel pos(2)");
+                                softAssert.assertEquals(loanDetailPOM.getHeaderName(3).toLowerCase().trim(), data.getRow3().toLowerCase().trim(), "Header name not same as defined in excel pos(3)");
+                                softAssert.assertEquals(loanDetailPOM.getHeaderName(4).toLowerCase().trim(), data.getRow4().toLowerCase().trim(), "Header name not same as defined in excel pos(4)");
+                                softAssert.assertEquals(loanDetailPOM.getHeaderName(5).toLowerCase().trim(), data.getRow5().toLowerCase().trim(), "Header name not same as defined in excel pos(5)");
+                            } catch (NoSuchElementException | TimeoutException e) {
+                                softAssert.fail("Header name of detail widget does not display properly: " + e.fillInStackTrace());
+                            }
+                            /*
+                             * Validating Header name & value displayed on UI with API Response
+                             * */
+                            ArrayList<HeaderList> headerList = loanDetails.getResult().getLoanDetails().getHeaderList();
+                            LoanDetailList loanDetailValue = loanDetails.getResult().getLoanDetails().getLoanDetailList().get(0);
+                            for (int j = 0; j < headerList.size(); j++) {
+                                softAssert.assertEquals(loanDetailPOM.getHeaderName(i + 1).toLowerCase().trim(), headerList.get(i).getHeader().toLowerCase().trim(), "Loan Detail Widget Header name at POS(" + (i + 1) + ") not same as in API Response");
+                            }
 
-                        softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToHeader(1).trim(), loanDetailPOM.ValueRoundOff(loanDetailValue.getTotalLoanEligibility()), "Total Loan Eligibility Value not same as API Response");
-                        softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToHeader(2).trim(), String.valueOf(loanDetailValue.getCountOfEvents()), "Number of Loan Taken Value not same as API Response");
-                        softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToHeader(3).trim(), loanDetailPOM.ValueRoundOff(loanDetailValue.getTotalLoanAmount()), "Total Loan amount Value not same as API Response");
-                        softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToHeader(4).trim(), loanDetailPOM.ValueRoundOff(loanDetailValue.getLoanPaid()), "Total Loan Paid value not same as API Response");
-                        softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToHeader(5).trim(), loanDetailPOM.ValueRoundOff(loanDetailValue.getRemainingBalance()), "Total Current Outstanding value not same as API Response");
-                    } catch (NoSuchElementException | TimeoutException | AssertionError e) {
-                        softAssert.fail("Loan detail Widget does not open properly: " + e.fillInStackTrace());
-                        loanDetailPOM.clickCloseTab();
+                            softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToHeader(1).trim(), loanDetailPOM.ValueRoundOff(loanDetailValue.getTotalLoanEligibility()), "Total Loan Eligibility Value not same as API Response");
+                            softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToHeader(2).trim(), String.valueOf(loanDetailValue.getCountOfEvents()), "Number of Loan Taken Value not same as API Response");
+                            softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToHeader(3).trim(), loanDetailPOM.ValueRoundOff(loanDetailValue.getTotalLoanAmount()), "Total Loan amount Value not same as API Response");
+                            softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToHeader(4).trim(), loanDetailPOM.ValueRoundOff(loanDetailValue.getLoanPaid()), "Total Loan Paid value not same as API Response");
+                            softAssert.assertEquals(loanDetailPOM.getValueCorrespondingToHeader(5).trim(), loanDetailPOM.ValueRoundOff(loanDetailValue.getRemainingBalance()), "Total Current Outstanding value not same as API Response");
+                        } catch (NoSuchElementException | TimeoutException | AssertionError e) {
+                            softAssert.fail("Loan detail Widget does not open properly: " + e.fillInStackTrace());
+                            loanDetailPOM.clickCloseTab();
+                        }
+                    } catch (NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
+                        softAssert.fail("Vendor Name not clickable or Present on UI" + e.fillInStackTrace());
                     }
-                } catch (NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
-                    softAssert.fail("Vendor Name not clickable or Present on UI" + e.fillInStackTrace());
                 }
             }
+            loanDetailPOM.clickCloseTab();
+        }else {
+            UtilsMethods.printWarningLog("No Vendor Found in Loan Service Widget");
         }
-        loanDetailPOM.clickCloseTab();
         softAssert.assertAll();
     }
 
@@ -173,6 +182,7 @@ public class LoanWidgetTest extends BaseTest {
         LoanWidgetPOM loanWidget = new LoanWidgetPOM(driver);
         LoanDetailPOM loanDetailPOM = null;
         loanWidget.waitTillLoaderGetsRemoved();
+        if(loanWidget.getSize()>0){
         try {
             for (int i = 1; i <= loanWidget.getSize(); i++) {
                 String vendorName = loanWidget.getVendorName(i).trim();
@@ -258,6 +268,9 @@ public class LoanWidgetTest extends BaseTest {
             }
         } catch (NoSuchElementException | TimeoutException e) {
             softAssert.fail("Loan History widget can not be validate due to following error: " + e.fillInStackTrace());
+        }
+        }else {
+            UtilsMethods.printWarningLog("No Vendor Found in Loan Service Widget");
         }
         softAssert.assertAll();
     }

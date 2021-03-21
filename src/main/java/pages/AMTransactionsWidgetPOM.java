@@ -4,8 +4,11 @@ import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.testng.Assert;
 
 @Log4j2
 public class AMTransactionsWidgetPOM extends BasePage {
@@ -17,12 +20,16 @@ public class AMTransactionsWidgetPOM extends BasePage {
     By airtelMoneyNoResultFound = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Airtel Money Transactions\")]/ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"no-result-found ng-star-inserted\"]/img");
     By airtelMoneyNoResultFoundMessage = By.xpath("//span[contains(text(),\"Airtel Money Transactions \")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"no-result-found ng-star-inserted\"]/span/span");
     By airtelMoneyError = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Airtel Money Transactions\")]/ancestor::div[@class=\"card ng-star-inserted\"]//div[@class='image-container']");
-    By ticketIcon = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Airtel Money Transactions\")]//span[@class=\"card__card-header--icon ng-star-inserted\"]");
+    By ticketIcon = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),'Airtel')]//ancestor::div[1]//span/img[@class='interaction-ticket']");
     By getTitle = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Airtel Money Transactions\")]");
-    By clickMenu=By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Airtel Money Transactions\")]/ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"card__card-header\"]//span[@class=\"card__card-header--menu ng-star-inserted\"]/img");
-    By amHistoryTab=By.xpath("//button[contains(text(),\"AM History\")][@role=\"menuitem\"]");
-    By transactionId=By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Airtel Money Transactions\")]//ancestor::div[@class='card widget ng-star-inserted']//input[@placeholder='Transaction ID']");
-    By transactionSearchBtn=By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Airtel Money Transactions\")]//ancestor::div[@class='card widget ng-star-inserted']//input[@placeholder='Transaction ID']//following-sibling::button");
+    By clickMenu = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Airtel Money Transactions\")]/ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"card__card-header\"]//span[@class=\"card__card-header--menu ng-star-inserted\"]/img");
+    By amHistoryTab = By.xpath("//button[contains(text(),\"AM History\")][@role=\"menuitem\"]");
+    By transactionId = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Airtel Money Transactions\")]//ancestor::div[@class='card widget ng-star-inserted']//input[@placeholder='Transaction ID']");
+    By transactionSearchBtn = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Airtel Money Transactions\")]//ancestor::div[@class='card widget ng-star-inserted']//input[@placeholder='Transaction ID']//following-sibling::button");
+
+    public AMTransactionsWidgetPOM(WebDriver driver) {
+        super(driver);
+    }
 
     public boolean isAirtelMoneyErrorVisible() {
         log.info("Validating error is visible when there is Error inAPI : " + isElementVisible(airtelMoneyError));
@@ -42,7 +49,6 @@ public class AMTransactionsWidgetPOM extends BasePage {
         return isElementVisible(airtelMoneyNoResultFound);
     }
 
-
     public String getHeaders(int row) {
         String header = readText(By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Airtel Money Transactions\")]/ancestor::div[@class=\"card widget ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"card__card-header--card-body--table--list-heading ng-star-inserted\"]/div[" + row + "]"));
         log.info("Getting header Number " + row + " : " + header);
@@ -50,14 +56,10 @@ public class AMTransactionsWidgetPOM extends BasePage {
         return header;
     }
 
-    public String getValueCorrespondingToHeader(int row,int column){
-        String value=readText(By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Airtel Money Transactions\")]/ancestor::div[@class=\"card widget ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"card__card-header--card-body--table--data-list row-border\"]["+row+"]/div["+column+"]//span"));
-        printInfoLog("Reading Value("+row+"): "+value);
+    public String getValueCorrespondingToHeader(int row, int column) {
+        String value = readText(By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Airtel Money Transactions\")]/ancestor::div[@class=\"card widget ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"card__card-header--card-body--table--data-list row-border\"][" + row + "]/div[" + column + "]//span"));
+        printInfoLog("Reading Value(" + row + "): " + value);
         return value;
-    }
-
-    public AMTransactionsWidgetPOM(WebDriver driver) {
-        super(driver);
     }
 
     public boolean isAirtelMoneyTransactionWidgetIsVisible() {
@@ -97,10 +99,15 @@ public class AMTransactionsWidgetPOM extends BasePage {
     }
 
     public WidgetInteractionPOM clickTicketIcon() {
-        log.info("Clicking on Ticket Icon");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Ticket Icon");
-        click(ticketIcon);
-        return new WidgetInteractionPOM(driver);
+        try {
+            log.info("Clicking on Ticket Icon");
+            ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Ticket Icon");
+            click(ticketIcon);
+            return new WidgetInteractionPOM(driver);
+        } catch (NoSuchElementException | TimeoutException e) {
+            Assert.fail("Ticket Icon does not display on AM History Widget");
+        }
+        return null;
     }
 
     public String getWidgetTitle() {
@@ -108,38 +115,38 @@ public class AMTransactionsWidgetPOM extends BasePage {
         return readText(getTitle).toLowerCase();
     }
 
-    public Boolean isResendSMS(){
-        By check=By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Airtel Money Transactions\")]/ancestor::div[@class=\"card widget ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"card__card-header--card-body--table--data-list row-border\"][1]/div[6]//img[1][@class=\"hide-reversal ng-star-inserted\"]");
+    public Boolean isResendSMS() {
+        By check = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Airtel Money Transactions\")]/ancestor::div[@class=\"card widget ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"card__card-header--card-body--table--data-list row-border\"][1]/div[6]//img[1][@class=\"hide-reversal ng-star-inserted\"]");
         return checkState(check);
     }
 
-    public void clickMenuOption(){
+    public void clickMenuOption() {
         printInfoLog("Clicking Menu Option");
         click(clickMenu);
     }
 
-    public MoreAMTransactionsTabPOM openAMHistoryTab(){
+    public MoreAMTransactionsTabPOM openAMHistoryTab() {
         printInfoLog("Opening AM History Sub Tab");
         click(amHistoryTab);
         return new MoreAMTransactionsTabPOM(driver);
     }
 
-    public Boolean isTransactionId(){
+    public Boolean isTransactionId() {
         printInfoLog("Checking is Transaction Id Box Displayed");
         return checkState(transactionId);
     }
 
-    public void writeTransactionId(String id){
-        writeText(transactionId,id);
+    public void writeTransactionId(String id) {
+        writeText(transactionId, id);
     }
 
-    public void clickSearchBtn(){
+    public void clickSearchBtn() {
         printInfoLog("Clicking on Search Button");
         click(transactionSearchBtn);
     }
 
-    public String doubleClickOnTransactionId(int row){
-        By id=By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Airtel Money Transactions\")]/ancestor::div[@class=\"card widget ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"card__card-header--card-body--table--data-list row-border\"]["+row+"]/div[4]//span");
+    public String doubleClickOnTransactionId(int row) {
+        By id = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Airtel Money Transactions\")]/ancestor::div[@class=\"card widget ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"card__card-header--card-body--table--data-list row-border\"][" + row + "]/div[4]//span");
         Actions act = new Actions(driver);
         act.moveToElement(driver.findElement(id)).doubleClick().build().perform();
         return readText(id);

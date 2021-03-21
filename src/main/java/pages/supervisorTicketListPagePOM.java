@@ -1,6 +1,7 @@
 package pages;
 
 import Utils.ExtentReports.ExtentTestManager;
+import Utils.UtilsMethods;
 import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.*;
@@ -343,10 +344,14 @@ public class supervisorTicketListPagePOM extends BasePage {
     public boolean validateQueueFilter(String text) {
         ExtentTestManager.getTest().log(LogStatus.INFO, "Validating Queue Filter");
         boolean answer = false;
-        for (int i = 1; i <= getListSize(); i++) {
-            By queue = By.xpath("//div[@class=\"container-fluid table-card ng-star-inserted\"][" + i + "]//ul/li[7]/span[2]");
-            printInfoLog(readText(queue).trim() + " : " + text + " :" + readText(queue).trim().equalsIgnoreCase(text));
-            answer = readText(queue).trim().equalsIgnoreCase(text);
+        if(getListSize()>0) {
+            for (int i = 1; i <= getListSize(); i++) {
+                By queue = By.xpath("//div[@class=\"container-fluid table-card ng-star-inserted\"][" + i + "]//ul/li[7]/span[2]");
+                printInfoLog(readText(queue).trim() + " : " + text + " :" + readText(queue).trim().equalsIgnoreCase(text));
+                answer = readText(queue).trim().equalsIgnoreCase(text);
+            }
+        }else {
+            UtilsMethods.printWarningLog("No Ticket Found");
         }
         return answer;
     }

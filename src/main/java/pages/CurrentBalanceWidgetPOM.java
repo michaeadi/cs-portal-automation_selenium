@@ -5,7 +5,9 @@ import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 
 @Log4j2
 public class CurrentBalanceWidgetPOM extends BasePage {
@@ -87,7 +89,7 @@ public class CurrentBalanceWidgetPOM extends BasePage {
     public String gettingCurrentBalanceCurrency() {
         log.info("Getting Currency from Your Current Balance Widget : " + readText(currentBalanceCurrency).trim());
         ExtentTestManager.getTest().log(LogStatus.INFO, "Getting Currency from Your Current Balance Widget : " + readText(currentBalanceCurrency).trim());
-        return readText(currentBalanceCurrency).replaceAll("[^a-zA-z]","");
+        return readText(currentBalanceCurrency).replaceAll("[^a-zA-z]", "");
     }
 
     public String gettingMainAccountBalance() {
@@ -141,10 +143,15 @@ public class CurrentBalanceWidgetPOM extends BasePage {
     }
 
     public WidgetInteractionPOM clickTicketIcon() {
-        log.info("Clicking on Ticket Icon");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Ticket Icon");
-        click(ticketIcon);
-        return new WidgetInteractionPOM(driver);
+        try {
+            log.info("Clicking on Ticket Icon");
+            ExtentTestManager.getTest().log(LogStatus.INFO, "Clicking on Ticket Icon");
+            click(ticketIcon);
+            return new WidgetInteractionPOM(driver);
+        } catch (NoSuchElementException | TimeoutException e) {
+            Assert.fail("Ticket Icon does not display on Current Plan History Widget");
+        }
+        return null;
     }
 
     public String getWidgetTitle() {
