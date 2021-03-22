@@ -15,7 +15,7 @@ import pages.SideMenuPOM;
 import pages.TicketBulkUpdatePOM;
 import tests.frontendAgent.BaseTest;
 
-import java.awt.*;
+import java.awt.AWTException;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
