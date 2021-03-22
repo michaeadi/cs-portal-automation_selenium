@@ -9,7 +9,10 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pages.*;
+import pages.SideMenuPOM;
+import pages.agentLoginPagePOM;
+import pages.loginPagePOM;
+import pages.supervisorTicketListPagePOM;
 import tests.frontendAgent.BaseTest;
 
 import java.lang.reflect.Method;
