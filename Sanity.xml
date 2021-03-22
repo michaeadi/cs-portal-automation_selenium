@@ -29,6 +29,11 @@
             </class>
         </classes>
     </test>
+    <test name="Validate Action Trail Tab Test">
+        <classes>
+            <class name="tests.frontendAgent.ActionTrailTest"/>
+        </classes>
+    </test>
     <test name="Customer Interactions TEST" preserve-order="true">
         <classes>
             <class name="tests.frontendAgent.customerInteractionTest"/>

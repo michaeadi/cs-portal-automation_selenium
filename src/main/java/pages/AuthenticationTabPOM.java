@@ -29,6 +29,7 @@ public class AuthenticationTabPOM extends BasePage {
     By commentBox = By.xpath("//textarea[@id='interactionComment']");
     By cancelBtn = By.xpath("//button[@class=\"no-btn\"]");
     By submitBtn = By.xpath("//button[@class=\"submit-btn\"]");
+    By code = By.xpath("//mat-option[1]//span");
 
     public AuthenticationTabPOM(WebDriver driver) {
         super(driver);
@@ -121,9 +122,13 @@ public class AuthenticationTabPOM extends BasePage {
     }
 
     public void chooseReason() {
-        By code = By.xpath("//mat-option[1]//span");
         UtilsMethods.printInfoLog("Choosing Reason: " + readText(code));
         click(code);
+    }
+
+    public String getReason(){
+        UtilsMethods.printInfoLog("Choosing Reason: " + readText(code));
+        return readText(code);
     }
 
 
@@ -145,6 +150,11 @@ public class AuthenticationTabPOM extends BasePage {
     public void clickCancelBtn() {
         UtilsMethods.printInfoLog("Clicking Cancel Button");
         click(cancelBtn);
+    }
+
+    public void clickSubmitBtn() {
+        UtilsMethods.printInfoLog("Clicking Submit Button");
+        click(submitBtn);
     }
 
 }

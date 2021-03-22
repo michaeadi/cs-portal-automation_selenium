@@ -18,6 +18,7 @@ public class viewHistoryPOM extends BasePage {
     By ticketPageTitle = By.xpath("//h2[contains(text(),'View Ticket')]");
     By closeTicketTab = By.xpath("//button[@class='close-btn']//img");
     By messageHistory = By.xpath("//div[contains(text(),'Message')]");
+    By actionTrailTab=By.xpath("//div[contains(text(),'Action')]");
 
     public viewHistoryPOM(WebDriver driver) {
         super(driver);
@@ -41,6 +42,13 @@ public class viewHistoryPOM extends BasePage {
         waitTillLoaderGetsRemoved();
         click(messageHistory);
         return new MessageHistoryTabPOM(driver);
+    }
+
+    public ActionTrailTabPOM clickOnActionTrailHistory() {
+        UtilsMethods.printInfoLog("Clicking on Action Trail History Tab under view history ");
+        waitTillLoaderGetsRemoved();
+        click(actionTrailTab);
+        return new ActionTrailTabPOM(driver);
     }
 
     public String getLastCreatedIssueCode() {
