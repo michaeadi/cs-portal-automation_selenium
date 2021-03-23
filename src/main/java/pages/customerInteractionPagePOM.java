@@ -35,6 +35,7 @@ public class customerInteractionPagePOM extends BasePage {
     By noBtn = By.xpath("//button[@class=\"no-btn\"]");
     By closeBtn = By.xpath("//span[contains(text(),'Send Internet Settings')]//following-sibling::mat-icon[contains(text(),'close')]");
     By birthdayIcon = By.xpath("//span[@class='customer-icon-block']/img");
+    By continueBtn = By.xpath("//span[contains(text(),'continue')]");
 
     public customerInteractionPagePOM(WebDriver driver) {
         super(driver);
@@ -180,6 +181,12 @@ public class customerInteractionPagePOM extends BasePage {
     public boolean isCustomerBirthday() {
         UtilsMethods.printInfoLog("Checking Customer Birthday or not");
         return checkState(birthdayIcon);
+    }
+
+    public void clickContinueButton() {
+        log.info("Clicking on Continue button");
+        UtilsMethods.printInfoLog("Clicking on Continue button");
+        click(continueBtn);
     }
 
 

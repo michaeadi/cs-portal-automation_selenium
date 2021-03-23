@@ -4,7 +4,10 @@ import Utils.DataProviders.DataProviders;
 import Utils.DataProviders.HeaderDataBean;
 import Utils.DataProviders.TestDatabean;
 import Utils.ExtentReports.ExtentTestManager;
+import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.TimeoutException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -84,7 +87,15 @@ public class ActionTrailTest extends BaseTest {
                 authTab.writeComment(comments);
                 softAssert.assertTrue(homepage.isSendInternetSettingTitle(), "Send Internet Setting Tab Does not open after internet setting.");
                 authTab.clickSubmitBtn();
-            } catch (TimeoutException | NoSuchElementException e) {
+                authTab.waitTillLoaderGetsRemoved();
+                if(homepage.isSendInternetSettingTitle()){
+                    String base64Screenshot = "data:image/png;base64," + ((TakesScreenshot) driver).
+                            getScreenshotAs(OutputType.BASE64);
+                    ExtentTestManager.getTest().log(LogStatus.INFO, "Test Failed", ExtentTestManager.getTest().addBase64ScreenShot(base64Screenshot));
+                    softAssert.fail("Send Internet setting pop up does not close after submit button: ");
+                  authTab.clickCloseBtn();
+                }
+            } catch (TimeoutException | NoSuchElementException |AssertionError e) {
                 softAssert.fail("Not able to close send Internet Setting Tab." + e.fillInStackTrace());
                 authTab.clickCloseBtn();
             }
@@ -92,6 +103,7 @@ public class ActionTrailTest extends BaseTest {
             softAssert.fail("Send Internet Setting Option does not configure correctly."+e.fillInStackTrace());
             homepage.clickOutside();
         }
+        softAssert.assertAll();
     }
 
     @Test(priority = 4,description = "Validating Action Trail History",dependsOnMethods = "validateSendInternetSetting")

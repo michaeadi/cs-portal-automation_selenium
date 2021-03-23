@@ -87,7 +87,9 @@ public class CustomerDemoGraphicPOM extends BasePage {
     By appStatus = By.xpath("//span[contains(text(),'App Status')]//following-sibling::span");
     By gsmKycStatus = By.xpath("//span[contains(text(),'GSM KYC Status')]//following-sibling::span");
 
-    By vipFlag = By.xpath("//div[@class=\"customer-details\"]//div[@class=\"vip-flag ng-star-inserted\"]");
+    By vipFlag = By.id("vip_customer");
+    By customerBirthday=By.id("cust_birthday");
+    By anniversary=By.id("airtel_anniversary");
     By errorMessage = By.xpath("//p[contains(text(),'Entered customer number is Invalid')]");
     By clearSearchBox = By.xpath("//div[@class=\"customer-details\"]//div[@class=\"user-left-side\"]/div/div[1]//span[contains(text(),'X')]");
 
@@ -175,8 +177,31 @@ public class CustomerDemoGraphicPOM extends BasePage {
 
     public boolean isVIP() {
         try {
-            UtilsMethods.printInfoLog("Is Customer VIP: " + checkState(vipFlag));
-            return checkState(vipFlag);
+            Boolean check=checkState(vipFlag);
+            UtilsMethods.printInfoLog("Is Customer VIP: " + check);
+            return check;
+        } catch (TimeoutException | NoSuchElementException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean isBirthday() {
+        try {
+            Boolean check=checkState(customerBirthday);
+            UtilsMethods.printInfoLog("Is Customer Birthday Today: " + check);
+            return check;
+        } catch (TimeoutException | NoSuchElementException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean isAirtelAnniversary() {
+        try {
+            Boolean check=checkState(customerBirthday);
+            UtilsMethods.printInfoLog("Is Customer Birthday Today: " + check);
+            return check;
         } catch (TimeoutException | NoSuchElementException e) {
             e.printStackTrace();
             return false;

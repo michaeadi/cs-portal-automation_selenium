@@ -12,7 +12,11 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pages.*;
+import pages.FilterTabPOM;
+import pages.SideMenuPOM;
+import pages.agentLoginPagePOM;
+import pages.supervisorTicketListPagePOM;
+import pages.assignToAgentPOM;
 import tests.frontendAgent.BaseTest;
 
 import java.lang.reflect.Method;

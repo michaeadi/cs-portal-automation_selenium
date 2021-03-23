@@ -165,6 +165,12 @@ public class customerInteractionTest extends BaseTest {
         try {
             demographic.hoverOnCustomerInfoIcon();
             softAssert.assertEquals(demographic.getCustomerDOB().trim(), UtilsMethods.getDateFromEpoch(gsmKycAPI.getResult().getDob(), "dd-MMM-yyyy"), "Customer DOB is not as Expected");
+            if(UtilsMethods.isCustomerBirthday(demographic.getCustomerDOB().trim(),"dd-MMM-yyyy")){
+                UtilsMethods.printPassLog("Today is Customer Birthday");
+                softAssert.assertTrue(demographic.isBirthday(),"Today is customer birthday but does not display birthday icon.");
+            }else{
+                softAssert.assertFalse(demographic.isBirthday(),"Today is not customer birthday but birthday icon display.");
+            }
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
             softAssert.fail("Customer DOB is not visible or null", e.getCause());
             e.printStackTrace();

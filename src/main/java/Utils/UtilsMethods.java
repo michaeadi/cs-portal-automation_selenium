@@ -172,4 +172,10 @@ public class UtilsMethods extends BaseTest {
         DecimalFormat df = new DecimalFormat("###.##");
         return df.format(value);
     }
+
+    public static Boolean isCustomerBirthday(String birthDay,String pattern){
+        DateFormat format1 = new SimpleDateFormat(pattern);
+        String today = format1.format(Calendar.getInstance().getTime());
+        return today.equalsIgnoreCase(birthDay);
+    }
 }

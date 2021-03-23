@@ -161,6 +161,7 @@ public class AuthTabTest extends BaseTest {
             try {
                 softAssert.assertTrue(homepage.isSendInternetSettingTitle(), "Send Internet Setting Tab Does not open after internet setting.");
                 homepage.clickNoBtn();
+                homepage.clickContinueButton();
             } catch (TimeoutException | NoSuchElementException e) {
                 softAssert.fail("Not able to close send Internet Setting Tab." + e.fillInStackTrace());
                 homepage.clickCloseBtn();
@@ -183,6 +184,7 @@ public class AuthTabTest extends BaseTest {
             try {
                 softAssert.assertTrue(homepage.isResetME2UPasswordTitle(), "Reset ME2U Password Tab Does not open.");
                 homepage.clickNoBtn();
+                homepage.clickContinueButton();
             } catch (TimeoutException | NoSuchElementException e) {
                 softAssert.fail("Not able to Reset ME2U Password Tab." + e.fillInStackTrace());
                 homepage.clickCloseBtn();

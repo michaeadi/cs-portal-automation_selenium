@@ -14,7 +14,7 @@ import java.util.Map;
 public class AuthenticationTabPOM extends BasePage {
 
     By authTabTitle = By.xpath("//app-authentication-block-modal//span[@class=\"main-container__header--title\"]");
-    By authCloseBtn = By.xpath("//app-authentication-block-modal//mat-icon[contains(text(),'close')]");
+    By authCloseBtn = By.xpath("//mat-icon[contains(text(),'close')]");
     By listOfQuestions = By.xpath("//app-authentication-block-modal//div[1]//div[2]//div[1]//div[@class=\"main-container__body--left--wrapper ng-star-inserted\"]");
     By authInstruction = By.xpath("//div[@class=\"main-container__body--right--instructions\"]//p");
     By NotAuthBtn = By.xpath("//div[@class=\"main-container__body--right--buttons\"]//button[1]");
