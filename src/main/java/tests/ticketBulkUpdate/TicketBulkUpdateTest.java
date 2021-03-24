@@ -5,6 +5,8 @@ import Utils.DataProviders.TicketStateDataBean;
 import Utils.ExtentReports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -67,8 +69,14 @@ public class TicketBulkUpdateTest extends BaseTest {
             }
             ticketBulkUpdatePOM.waitTillLoaderGetsRemoved();
             try {
+                softAssert.assertTrue(ticketBulkUpdatePOM.isClearFilterButton(),"Clear Filter button does not display after selecting filter.");
                 softAssert.assertEquals(ticketBulkUpdatePOM.getMaxSelectMessage().replaceAll("[^0-9]+", "").trim(), config.getProperty("maxBulkTicket"), "Max Ticket bulk update message not displayed");
             } catch (NoSuchElementException | NullPointerException | TimeoutException e) {
+                String base64Screenshot = "data:image/png;base64," + ((TakesScreenshot) driver).
+                        getScreenshotAs(OutputType.BASE64);
+
+                //ExtentReports log and screenshot operations for failed tests.
+                ExtentTestManager.getTest().log(LogStatus.FAIL, "Test Failed", ExtentTestManager.getTest().addBase64ScreenShot(base64Screenshot));
                 softAssert.fail("Max Ticket Message does not display. " + e.fillInStackTrace());
             }
             ticketBulkUpdatePOM.clickClearFilter();
@@ -104,7 +112,7 @@ public class TicketBulkUpdateTest extends BaseTest {
             int uploadedSize = uploadTickets.size();
             uploadTickets.removeAll(addedTicket);
             int size = uploadedSize - uploadTickets.size();
-            String[] newString = ticketBulkUpdatePOM.getErrorMessage().replaceAll("[^a-zA-Z0-9\\s]+", "").split(" ");
+            String[] newString = ticketBulkUpdatePOM.getErrorMessage().replaceAll("[^0-9\\s]+","").trim().split(" ");
             softAssert.assertEquals(newString[0], String.valueOf(size), "Uploaded ticket miscount");
             softAssert.assertEquals(newString[newString.length - 1], String.valueOf(uploadedSize), "Total number of ticket is not same as expected");
             softAssert.assertTrue(ticketBulkUpdatePOM.deleteFile(), "File not deleted");
@@ -185,14 +193,14 @@ public class TicketBulkUpdateTest extends BaseTest {
         ticketBulkUpdatePOM.clickNextBtn();
         softAssert.assertTrue(ticketBulkUpdatePOM.isStatusBarComplete(), "Status not update for all ticket");
         ticketBulkUpdatePOM.waitTillLoaderGetsRemoved();
-        softAssert.assertEquals(ticketBulkUpdatePOM.getErrorTicketCount(), ticketBulkUpdatePOM.getErrorCount(), "Error Ticket count does not displayed correctly");
-        softAssert.assertEquals(ticketBulkUpdatePOM.getErrorTicketCount(), ticketBulkUpdatePOM.getErrorCount(), "Error Ticket count does not displayed correctly");
+        softAssert.assertEquals(ticketBulkUpdatePOM.getErrorTicketCount(), Integer.parseInt(ticketBulkUpdatePOM.getErrorCount()), "Error Ticket count does not displayed correctly");
         try {
-            size = Integer.parseInt(String.valueOf(ticketBulkUpdatePOM.getUpdatedMessage().trim().charAt(0))) - ticketBulkUpdatePOM.getErrorTicketCount();
+            String[] array=ticketBulkUpdatePOM.getUpdatedMessage().replaceAll("[^0-9\\s]+","").trim().split(" ");
+            size = Integer.parseInt(array[0]) - ticketBulkUpdatePOM.getErrorTicketCount();
         } catch (NumberFormatException e) {
             softAssert.fail("Not able to read message properly " + e.fillInStackTrace());
         }
-        softAssert.assertEquals(ticketBulkUpdatePOM.getSuccessCount(), String.valueOf(size), "Action Performed does not on ticket");
+        softAssert.assertEquals(ticketBulkUpdatePOM.getSuccessCount(), size, "Action does not Performed on all uploaded ticket");
         softAssert.assertAll();
     }
 }

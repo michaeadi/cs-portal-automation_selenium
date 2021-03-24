@@ -31,11 +31,11 @@ public class TicketBulkUpdatePOM extends BasePage {
     By options=By.xpath("//span[@class=\"mat-option-text\"]");
     By popUpCancelBtn=By.xpath("//div[@class=\"deactivate-popup__button-section mat-dialog-actions\"]//button[1]");
     By popUpContinueBtn=By.xpath("//div[@class=\"deactivate-popup__button-section mat-dialog-actions\"]//button[2]");
-    By commentBox=By.xpath("//input[@type=\"textarea\"]");
+    By commentBox=By.xpath("//textarea[@type='textarea']");
     By confirmAction=By.xpath("//div[@class=\"tnc customer-checkbox ng-star-inserted\"]//input");
     By statueBar=By.xpath("//span[@class=\"bar-fill-stripes\"]");
     By updateMessage=By.xpath("//div[@class=\"bar-status\"]");
-    By successTicketId=By.xpath("class=\"id-section successful\"");
+    By successTicketId=By.xpath("//li[@class=\"id-section successful\"]");
     By errorTicketId=By.xpath("//li[@class=\"id-section error-bg\"]//span[2]");
     By errorTicketMessage=By.xpath("//div[@class=\"bar-status\"]//span");
     By closeFilter = By.xpath("//span[@class='close-button']");
@@ -145,6 +145,11 @@ public class TicketBulkUpdatePOM extends BasePage {
         click(clearFilter);
     }
 
+    public Boolean isClearFilterButton(){
+        UtilsMethods.printInfoLog("Checking Clear Filter Button Display");
+        return checkState(clearFilter);
+    }
+
     public boolean deleteFile(){
         File Exceldir = new File("Excels");
         File Excel = new File(Exceldir, "BulkUploadTemplate.xlsx");
@@ -230,9 +235,9 @@ public class TicketBulkUpdatePOM extends BasePage {
         return readText(updateMessage);
     }
 
-    public String getSuccessCount(){
+    public Integer getSuccessCount(){
         List<WebElement> list=returnListOfElement(successTicketId);
-        return String.valueOf(list.size());
+        return list.size();
     }
 
     public String getErrorCount(){
