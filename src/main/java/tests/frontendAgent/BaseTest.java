@@ -61,10 +61,10 @@ public class BaseTest {
         FileInputStream fis;
         fis = new FileInputStream(System.getProperty("user.dir") + "/src/main/resources/" + Opco + "-config.properties");
         config.load(fis);
-        System.out.println(config.getProperty(suiteType + "-NftrSheet"));
-        System.out.println("OPCO Chosen :" + Opco);
-        System.out.println("Environment Chosen : " + Env);
-        System.out.println("Suite Type : " + suiteType);
+        log.info("Config Sheet :"+config.getProperty(suiteType + "-NftrSheet"));
+        log.info("OPCO Chosen :" + Opco);
+        log.info("Environment Chosen : " + Env);
+        log.info("Suite Type : " + suiteType);
 
         baseUrl = config.getProperty(Env + "-APIBase");
         String browser = config.getProperty("browser");

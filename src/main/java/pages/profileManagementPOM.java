@@ -23,6 +23,7 @@ public class profileManagementPOM extends BasePage {
     By submitButton = By.xpath("//button[contains(text(),\"Submit\")]");
     By configurationCol = By.xpath("//tr//td[2]");
     By roleStatusCol = By.xpath("//tr//td[3]");
+    By disabledWidget=By.xpath("//div[@class='data-list ng-star-inserted']//div[@class='drag-disabled']");
 
     public profileManagementPOM(WebDriver driver) {
         super(driver);
@@ -85,6 +86,12 @@ public class profileManagementPOM extends BasePage {
         List<WebElement> widgetsRowsElements = returnListOfElement(widgetsRows);
         log.info("Getting number of Widgets : " + widgetsRowsElements.size());
         return widgetsRowsElements.size();
+    }
+
+    public int getDisableWidgetRows(){
+        List<WebElement> rows=returnListOfElement(disabledWidget);
+        log.info("Getting number of Widgets : " + rows.size());
+        return rows.size();
     }
 
     public boolean isEditPageLoaded() {

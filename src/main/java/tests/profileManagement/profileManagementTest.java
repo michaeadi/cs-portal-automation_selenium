@@ -109,7 +109,7 @@ public class profileManagementTest extends BaseTest {
             profileManagement.viewRoleWithName(Data.getRoleType());
             profileManagement.waitTillLoaderGetsRemoved();
             softAssert.assertTrue(profileManagement.isEditPageLoaded());
-            int size = profileManagement.getWidgetRowsSize();
+            int size = profileManagement.getWidgetRowsSize()-profileManagement.getDisableWidgetRows();
             widgets = new String[size];
             for (int i = 1; i <= size; i++) {
                 widgets[i - 1] = profileManagement.getWidgetNameForOrder(i);

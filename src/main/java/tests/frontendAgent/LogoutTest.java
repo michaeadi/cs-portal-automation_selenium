@@ -33,7 +33,7 @@ public class LogoutTest extends BaseTest {
             loginPagePOM = sideMenuPOM.logout();
             try {
                 Assert.assertTrue(loginPagePOM.isEnterAUUIDFieldVisible());
-            } catch (TimeoutException | NoSuchElementException e) {
+            } catch (TimeoutException | NoSuchElementException |AssertionError e) {
                 loginPagePOM.selectByText("Continue");
             }
             Assert.assertTrue(loginPagePOM.isEnterAUUIDFieldVisible());
