@@ -1,7 +1,6 @@
 package Utils.ExtentReports;
 
 import com.relevantcodes.extentreports.ExtentReports;
-import org.kohsuke.rngom.parse.host.Base;
 import tests.frontendAgent.BaseTest;
 
 import java.io.File;
@@ -19,7 +18,7 @@ public class ExtentManager {
             //Set HTML reporting file location
             String workingDir = System.getProperty("user.dir");
             if (System.getProperty("os.name").toLowerCase().contains("win")) {
-                extent = new ExtentReports(workingDir + "\\ExtentReports\\CS_Portal-" + BaseTest.Opco + "-" + BaseTest.Env + "-" + date + ".html", true);
+                extent = new ExtentReports(workingDir + "\\ExtentReports\\CS_Portal-" + BaseTest.Opco + "-" + BaseTest.Env + "-" + BaseTest.suiteType + "-" + date + ".html", true);
                 extent.addSystemInfo("user", "Rahul Gupta");
                 extent.assignProject("CS Portal");
                 extent.addSystemInfo("OPCO", BaseTest.Opco);
@@ -28,7 +27,7 @@ public class ExtentManager {
                 extent.loadConfig(new File(workingDir + "\\src\\main\\resources\\reportextent-config.xml"));
 
             } else {
-                extent = new ExtentReports(workingDir + "/ExtentReports/CS_Portal-Automation-Report-"+BaseTest.Opco+"-" + date + ".html", true);
+                extent = new ExtentReports(workingDir + "/ExtentReports/CS_Portal-Automation-Report-" + BaseTest.Opco + BaseTest.Env + "-" + BaseTest.suiteType + "-" + date + ".html", true);
                 extent.addSystemInfo("user", "Rahul Gupta");
                 extent.assignProject("CS Portal");
                 extent.addSystemInfo("OPCO", BaseTest.Opco);
