@@ -13,10 +13,7 @@ import Utils.DataProviders.TestDatabean;
 import Utils.ExtentReports.ExtentTestManager;
 import Utils.UtilsMethods;
 import com.relevantcodes.extentreports.LogStatus;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.*;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -675,8 +672,13 @@ public class customerInteractionTest extends BaseTest {
         }
         customerInteractionsSearchPOM.enterNumber(customerNumber);
         customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
-        softAssert.assertTrue(customerInteractionPagePOM.isPageLoaded());
         if (!customerInteractionPagePOM.isPageLoaded()) {
+            //Take base64Screenshot screenshot.
+            String base64Screenshot1 = "data:image/png;base64," + ((TakesScreenshot) driver).
+                    getScreenshotAs(OutputType.BASE64);
+
+            //ExtentReports log and screenshot operations for failed tests.
+            ExtentTestManager.getTest().log(LogStatus.FAIL, "Test Failed", ExtentTestManager.getTest().addBase64ScreenShot(base64Screenshot1));
             softAssert.fail("Customer Info Dashboard Page does not open using MSISDN Number.");
             customerInteractionsSearchPOM.clearCustomerNumber();
         }

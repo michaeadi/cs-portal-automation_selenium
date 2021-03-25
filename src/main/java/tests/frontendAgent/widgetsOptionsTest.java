@@ -51,7 +51,6 @@ public class widgetsOptionsTest extends BaseTest {
         }
         customerInteractionsSearchPOM.enterNumber(customerNumber);
         customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
-        softAssert.assertTrue(customerInteractionPagePOM.isPageLoaded());
         if (!customerInteractionPagePOM.isPageLoaded()) {
             softAssert.fail("Customer Info Dashboard Page does not open using SIM Number.");
             customerInteractionsSearchPOM.clearCustomerNumber();
