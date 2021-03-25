@@ -122,7 +122,7 @@ public class VoucherTabTest extends BaseTest {
         RechargeHistoryWidgetPOM rechargeHistory = new RechargeHistoryWidgetPOM(driver);
         DataProviders data=new DataProviders();
         String voucherId=data.getVoucherId();
-        if(voucherId!=null && voucherId==" ") {
+        if(voucherId!=null && voucherId!=" ") {
             rechargeHistory.writeVoucherId(voucherId);
             VoucherTabPOM voucherTab = rechargeHistory.clickSearchBtn();
             try {
