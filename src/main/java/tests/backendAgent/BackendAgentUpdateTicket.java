@@ -1,16 +1,16 @@
 package tests.backendAgent;
 
-import Utils.DataProviders.DataProviders;
-import Utils.DataProviders.TicketStateDataBean;
-import Utils.ExtentReports.ExtentTestManager;
+import com.airtel.cs.commonutils.DataProviders.DataProviders;
+import com.airtel.cs.commonutils.DataProviders.TicketStateDataBean;
+import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pages.ViewTicketPagePOM;
-import pages.supervisorTicketListPagePOM;
-import tests.frontendAgent.BaseTest;
+import com.airtel.cs.pagerepository.pagemethods.ViewTicketPagePOM;
+import com.airtel.cs.pagerepository.pagemethods.supervisorTicketListPagePOM;
+import tests.frontendagent.BaseTest;
 
 import java.lang.reflect.Method;
 

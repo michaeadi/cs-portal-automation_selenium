@@ -1,17 +1,17 @@
 package tests.templateManagement;
 
-import Utils.DataProviders.DataProviders;
-import Utils.ExtentReports.ExtentTestManager;
+import com.airtel.cs.commonutils.DataProviders.DataProviders;
+import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pages.SideMenuPOM;
-import pages.TemplateManagementPOM;
-import pages.ViewCreatedTemplatePOM;
-import tests.frontendAgent.BaseTest;
+import com.airtel.cs.pagerepository.pagemethods.SideMenuPOM;
+import com.airtel.cs.pagerepository.pagemethods.TemplateManagementPOM;
+import com.airtel.cs.pagerepository.pagemethods.ViewCreatedTemplatePOM;
+import tests.frontendagent.BaseTest;
 
 import java.util.ArrayList;
 

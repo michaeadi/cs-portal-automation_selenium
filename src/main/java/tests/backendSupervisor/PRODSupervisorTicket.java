@@ -1,19 +1,19 @@
 package tests.backendSupervisor;
 
-import Utils.DataProviders.DataProviders;
-import Utils.DataProviders.TestDatabean;
-import Utils.ExtentReports.ExtentTestManager;
-import Utils.PassUtils;
+import com.airtel.cs.commonutils.DataProviders.DataProviders;
+import com.airtel.cs.commonutils.DataProviders.TestDatabean;
+import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
+import com.airtel.cs.commonutils.PassUtils;
 import com.relevantcodes.extentreports.LogStatus;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pages.SideMenuPOM;
-import pages.agentLoginPagePOM;
-import pages.loginPagePOM;
-import pages.supervisorTicketListPagePOM;
-import tests.frontendAgent.BaseTest;
+import com.airtel.cs.pagerepository.pagemethods.SideMenuPOM;
+import com.airtel.cs.pagerepository.pagemethods.agentLoginPagePOM;
+import com.airtel.cs.pagerepository.pagemethods.loginPagePOM;
+import com.airtel.cs.pagerepository.pagemethods.supervisorTicketListPagePOM;
+import tests.frontendagent.BaseTest;
 
 import java.lang.reflect.Method;
 import java.util.List;

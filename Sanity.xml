@@ -2,27 +2,27 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Automation Framework CS PORTAl Test Suite" preserve-order="true" allow-return-values="true">
     <listeners>
-        <listener class-name="Utils.Listeners.TestListener"/>
-        <!--        <listener class-name="Utils.Listeners.AnnotationTransformer"/>-->
+        <listener class-name="com.airtel.cs.commonutils.Listeners.TestListener"/>
+        <!--        <listener class-name="com.airtel.cs.commonutils.Listeners.AnnotationTransformer"/>-->
     </listeners>
-    <test name="Sanity API Login">
+    <test name="Sanity com.airtel.cs.api Login">
         <classes>
-            <class name="tests.frontendAgent.SystemStatusTest"/>
+            <class name="tests.frontendagent.SystemStatusTest"/>
         </classes>
     </test>
     <test name="Login With ALL User Test">
         <classes>
-            <class name="tests.frontendAgent.LoginTests"/>
+            <class name="tests.frontendagent.LoginTests"/>
         </classes>
     </test>
     <test name="Side Menu">
         <classes>
-            <class name="tests.frontendAgent.sideMenuTests"/>
+            <class name="tests.frontendagent.sideMenuTests"/>
         </classes>
     </test>
     <test name="Validate Authentication tab">
         <classes>
-            <class name="tests.frontendAgent.AuthTabTest">
+            <class name="tests.frontendagent.AuthTabTest">
                 <methods>
                     <exclude name="validateResetME2UPassword"/>
                 </methods>
@@ -31,58 +31,58 @@
     </test>
     <test name="Validate Action Trail Tab Test">
         <classes>
-            <class name="tests.frontendAgent.ActionTrailTest"/>
+            <class name="tests.frontendagent.ActionTrailTest"/>
         </classes>
     </test>
     <test name="Customer Interactions TEST" preserve-order="true">
         <classes>
-            <class name="tests.frontendAgent.customerInteractionTest"/>
-            <class name="tests.frontendAgent.widgetsOptionsTest"/>
+            <class name="tests.frontendagent.customerInteractionTest"/>
+            <class name="tests.frontendagent.widgetsOptionsTest"/>
         </classes>
     </test>
     <test name="CRBT Widget Test">
         <classes>
-            <class name="tests.frontendAgent.CRBTWidgetTest"/>
+            <class name="tests.frontendagent.CRBTWidgetTest"/>
         </classes>
     </test>
     <test name="Create NFTR FTR Tickets TEST">
         <classes>
-            <class name="tests.frontendAgent.createInteractionTest"/>
+            <class name="tests.frontendagent.createInteractionTest"/>
         </classes>
     </test>
     <test name="Customer Pinned Tag TEST">
         <classes>
-            <class name="tests.frontendAgent.PinTagTest"/>
+            <class name="tests.frontendagent.PinTagTest"/>
         </classes>
     </test>
     <test name="Add Interaction Ticket Comment">
         <classes>
-            <class name="tests.frontendAgent.InteractionCommentTest"/>
+            <class name="tests.frontendagent.InteractionCommentTest"/>
         </classes>
     </test>
     <test name="Send SMS Test">
         <classes>
-            <class name="tests.frontendAgent.SendSMSTest"/>
+            <class name="tests.frontendagent.SendSMSTest"/>
         </classes>
     </test>
     <test name="Validate Frontend Agent Ticket Page">
         <classes>
-            <class name="tests.frontendAgent.FrontendAgentTicketTest"/>
+            <class name="tests.frontendagent.FrontendAgentTicketTest"/>
         </classes>
     </test>
     <test name="Validate Voucher Tab">
         <classes>
-            <class name="tests.frontendAgent.VoucherTabTest"/>
+            <class name="tests.frontendagent.VoucherTabTest"/>
         </classes>
     </test>
     <test name="Clear Refill error">
         <classes>
-            <class name="tests.frontendAgent.ClearRefillErrorTest"/>
+            <class name="tests.frontendagent.ClearRefillErrorTest"/>
         </classes>
     </test>
     <test name="Loan Widget Test">
         <classes>
-            <class name="tests.frontendAgent.LoanWidgetTest"/>
+            <class name="tests.frontendagent.LoanWidgetTest"/>
         </classes>
     </test>
     <test name="Supervisors Ticket Bulk Update Test">
@@ -92,7 +92,7 @@
     </test>
     <test name="Logout Test">
         <classes>
-            <class name="tests.frontendAgent.LogoutTest"/>
+            <class name="tests.frontendagent.LogoutTest"/>
         </classes>
     </test>
     <test name="Supervisors Login Test">
@@ -102,7 +102,7 @@
     </test>
     <test name="api-Regenerate">
         <classes>
-            <class name="tests.frontendAgent.SystemStatusTest">
+            <class name="tests.frontendagent.SystemStatusTest">
                 <methods>
                     <exclude name="testCredOfAdmin"/>
                     <exclude name="testCredOfBackendAgent"/>
@@ -157,12 +157,12 @@
     </test>
     <test name="Logout Supervisor Test">
         <classes>
-            <class name="tests.frontendAgent.LogoutTest"/>
+            <class name="tests.frontendagent.LogoutTest"/>
         </classes>
     </test>
     <test name="Login Admin Test">
         <classes>
-            <class name="tests.frontendAgent.LoginTests"/>
+            <class name="tests.frontendagent.LoginTests"/>
         </classes>
     </test>
     <test name="Create Template Test">
@@ -187,7 +187,7 @@
     </test>
     <test name="Logout Test from ADMIN/SUPERVISOR">
         <classes>
-            <class name="tests.frontendAgent.LogoutTest"/>
+            <class name="tests.frontendagent.LogoutTest"/>
         </classes>
     </test>
     <test name="LOGIN TO BACKEND AGENT">
@@ -212,7 +212,7 @@
     </test>
     <test name="Logout Test from Backend agent">
         <classes>
-            <class name="tests.frontendAgent.LogoutTest"/>
+            <class name="tests.frontendagent.LogoutTest"/>
         </classes>
     </test>
 </suite>

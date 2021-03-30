@@ -1,18 +1,18 @@
 package tests.profileManagement;
 
-import Utils.DataProviders.DataProviders;
-import Utils.DataProviders.TestDatabean;
-import Utils.ExtentReports.ExtentTestManager;
+import com.airtel.cs.commonutils.DataProviders.DataProviders;
+import com.airtel.cs.commonutils.DataProviders.TestDatabean;
+import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pages.SideMenuPOM;
-import pages.customerInteractionPagePOM;
-import pages.customerInteractionsSearchPOM;
-import pages.profileManagementPOM;
-import tests.frontendAgent.BaseTest;
+import com.airtel.cs.pagerepository.pagemethods.SideMenuPOM;
+import com.airtel.cs.pagerepository.pagemethods.customerInteractionPagePOM;
+import com.airtel.cs.pagerepository.pagemethods.customerInteractionsSearchPOM;
+import com.airtel.cs.pagerepository.pagemethods.profileManagementPOM;
+import tests.frontendagent.BaseTest;
 
-import static Utils.DataProviders.DataProviders.User;
+import static com.airtel.cs.commonutils.DataProviders.DataProviders.User;
 
 public class profileManagementTest extends BaseTest {
 

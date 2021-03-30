@@ -1,15 +1,15 @@
 package tests.backendSupervisor;
 
-import API.APIEndPoints;
-import POJO.LoginPOJO;
-import POJO.TicketList.QueueStates;
-import POJO.TicketList.TicketPOJO;
-import Utils.DataProviders.DataProviders;
-import Utils.DataProviders.QueueStateDataBeans;
-import Utils.DataProviders.TestDatabean;
-import Utils.ExtentReports.ExtentTestManager;
-import Utils.PassUtils;
-import Utils.UtilsMethods;
+import com.airtel.cs.api.APIEndPoints;
+import com.airtel.cs.pojo.LoginPOJO;
+import com.airtel.cs.pojo.TicketList.QueueStates;
+import com.airtel.cs.pojo.TicketList.TicketPOJO;
+import com.airtel.cs.commonutils.DataProviders.DataProviders;
+import com.airtel.cs.commonutils.DataProviders.QueueStateDataBeans;
+import com.airtel.cs.commonutils.DataProviders.TestDatabean;
+import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
+import com.airtel.cs.commonutils.PassUtils;
+import com.airtel.cs.commonutils.UtilsMethods;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.relevantcodes.extentreports.LogStatus;
@@ -25,16 +25,16 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pages.FilterTabPOM;
-import pages.supervisorTicketListPagePOM;
-import tests.frontendAgent.BaseTest;
+import com.airtel.cs.pagerepository.pagemethods.FilterTabPOM;
+import com.airtel.cs.pagerepository.pagemethods.supervisorTicketListPagePOM;
+import tests.frontendagent.BaseTest;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import static Utils.ExtentReports.ExtentTestManager.startTest;
+import static com.airtel.cs.commonutils.extentreports.ExtentTestManager.startTest;
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 
@@ -51,7 +51,7 @@ public class StateQueueMappingTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @DataProviders.User(UserType = "API")
+    @DataProviders.User(UserType = "com/airtel/cs/api")
     @Test(dataProvider = "loginData", dataProviderClass = DataProviders.class, priority = 0)
     public void loginAPI(TestDatabean Data) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
@@ -71,8 +71,8 @@ public class StateQueueMappingTest extends BaseTest {
         UtilsMethods.addHeaders("Opco", Opco);
 
         String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(Req);
-        startTest("LOGIN API TEST ", "Logging in Using Login API for getting TOKEN with user : " + Data.getLoginAUUID());
-        UtilsMethods.printInfoLog("Logging in Using Login API for getting TOKEN with user : " + Data.getLoginAUUID());
+        startTest("LOGIN com.airtel.cs.API TEST ", "Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + Data.getLoginAUUID());
+        UtilsMethods.printInfoLog("Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + Data.getLoginAUUID());
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
@@ -90,13 +90,13 @@ public class StateQueueMappingTest extends BaseTest {
             UtilsMethods.printInfoLog("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
             if (response.jsonPath().getString("message").equalsIgnoreCase("Failed to authenticate user.")) {
                 continueExecutionAPI = false;
-                softAssert.fail("Not able to generate Token. Please Update Password As soon as possible if required.\nAPI Response Message: " + response.jsonPath().getString("message"));
+                softAssert.fail("Not able to generate Token. Please Update Password As soon as possible if required.\ncom.airtel.cs.API Response Message: " + response.jsonPath().getString("message"));
             } else if (response.jsonPath().getString("message").toLowerCase().contains("something went wrong")) {
                 continueExecutionAPI = false;
-                softAssert.fail("Not able to generate Token. Login API Failed(Marked Build As Failed).\nAPI Response Message: " + response.jsonPath().getString("message"));
+                softAssert.fail("Not able to generate Token. Login com.airtel.cs.API Failed(Marked Build As Failed).\ncom.airtel.cs.API Response Message: " + response.jsonPath().getString("message"));
             } else if (!response.jsonPath().getString("message").equalsIgnoreCase("User authenticated successfully")) {
                 continueExecutionAPI = false;
-                softAssert.fail("Not able to generate Token. Please Check the API error Message and make changes if required.\nAPI Response Message: " + response.jsonPath().getString("message"));
+                softAssert.fail("Not able to generate Token. Please Check the com.airtel.cs.API error Message and make changes if required.\ncom.airtel.cs.API Response Message: " + response.jsonPath().getString("message"));
             }
         } catch (Exception e) {
             continueExecutionAPI = false;

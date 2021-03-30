@@ -1,17 +1,17 @@
 package tests.backendSupervisor;
 
-import Utils.ExtentReports.ExtentTestManager;
+import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pages.SideMenuPOM;
-import pages.ViewTicketPagePOM;
-import pages.agentLoginPagePOM;
-import pages.supervisorTicketListPagePOM;
-import tests.frontendAgent.BaseTest;
+import com.airtel.cs.pagerepository.pagemethods.SideMenuPOM;
+import com.airtel.cs.pagerepository.pagemethods.ViewTicketPagePOM;
+import com.airtel.cs.pagerepository.pagemethods.agentLoginPagePOM;
+import com.airtel.cs.pagerepository.pagemethods.supervisorTicketListPagePOM;
+import tests.frontendagent.BaseTest;
 
 import java.lang.reflect.Method;
 import java.time.LocalDateTime;

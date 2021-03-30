@@ -2,33 +2,33 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Automation Framework CS PORTAl Test Suite" preserve-order="true" allow-return-values="true">
     <listeners>
-        <listener class-name="Utils.Listeners.TestListener"/>
-        <!--        <listener class-name="Utils.Listeners.AnnotationTransformer"/>-->
+        <listener class-name="com.airtel.cs.commonutils.Listeners.TestListener"/>
+        <!--        <listener class-name="com.airtel.cs.commonutils.Listeners.AnnotationTransformer"/>-->
     </listeners>
-    <test name="PROD Sanity API Test">
+    <test name="PROD Sanity com.airtel.cs.api Test">
         <classes>
-            <class name="tests.frontendAgent.SystemStatusTest"/>
+            <class name="tests.frontendagent.SystemStatusTest"/>
         </classes>
     </test>
     <test name="Login Admin 1 Test">
         <classes>
-            <class name="tests.frontendAgent.LoginTests"/>
+            <class name="tests.frontendagent.LoginTests"/>
         </classes>
     </test>
     <test name="Side Menu">
         <classes>
-            <class name="tests.frontendAgent.sideMenuTests"/>
+            <class name="tests.frontendagent.sideMenuTests"/>
         </classes>
     </test>
     <test name="Customer Interactions TEST" preserve-order="true">
         <classes>
-            <class name="tests.frontendAgent.customerInteractionTest"/>
-            <class name="tests.frontendAgent.widgetsOptionsTest"/>
+            <class name="tests.frontendagent.customerInteractionTest"/>
+            <class name="tests.frontendagent.widgetsOptionsTest"/>
         </classes>
     </test>
     <test name="Validate Authentication tab">
         <classes>
-            <class name="tests.frontendAgent.AuthTabTest">
+            <class name="tests.frontendagent.AuthTabTest">
                 <methods>
                     <exclude name="validateResetME2UPassword"/>
                 </methods>
@@ -37,17 +37,17 @@
     </test>
     <test name="Validate Action Trail Tab Test">
         <classes>
-            <class name="tests.frontendAgent.ActionTrailTest"/>
+            <class name="tests.frontendagent.ActionTrailTest"/>
         </classes>
     </test>
     <test name="Validate Frontend Agent Ticket Page">
         <classes>
-            <class name="tests.frontendAgent.FrontendAgentTicketTest"/>
+            <class name="tests.frontendagent.FrontendAgentTicketTest"/>
         </classes>
     </test>
     <test name="Logout Test">
         <classes>
-            <class name="tests.frontendAgent.LogoutTest"/>
+            <class name="tests.frontendagent.LogoutTest"/>
         </classes>
     </test>
     <test name="Supervisors Login Test">
@@ -57,7 +57,7 @@
     </test>
     <test name="api-Regenerate">
         <classes>
-            <class name="tests.frontendAgent.SystemStatusTest">
+            <class name="tests.frontendagent.SystemStatusTest">
                 <methods>
                     <exclude name="testCredOfAdmin"/>
                     <exclude name="testCredOfBackendAgent"/>
@@ -77,7 +77,7 @@
     </test>
     <test name="Logout Supervisor Test">
         <classes>
-            <class name="tests.frontendAgent.LogoutTest"/>
+            <class name="tests.frontendagent.LogoutTest"/>
         </classes>
     </test>
     <test name="LOGIN TO BACKEND AGENT">
@@ -92,12 +92,12 @@
     </test>
     <test name="Logout Test from Backend agent">
         <classes>
-            <class name="tests.frontendAgent.LogoutTest"/>
+            <class name="tests.frontendagent.LogoutTest"/>
         </classes>
     </test>
     <test name="Login Admin Test">
         <classes>
-            <class name="tests.frontendAgent.LoginTests"/>
+            <class name="tests.frontendagent.LoginTests"/>
         </classes>
     </test>
     <test name="Create Template Test">
@@ -125,7 +125,7 @@
     </test>
     <test name="Logout Test from Admin agent">
         <classes>
-            <class name="tests.frontendAgent.LogoutTest"/>
+            <class name="tests.frontendagent.LogoutTest"/>
         </classes>
     </test>
 </suite>

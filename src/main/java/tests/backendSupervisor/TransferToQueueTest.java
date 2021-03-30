@@ -1,9 +1,14 @@
 package tests.backendSupervisor;
 
-import Utils.DataProviders.DataProviders;
-import Utils.DataProviders.TransferQueueDataBean;
-import Utils.ExtentReports.ExtentTestManager;
-import Utils.UtilsMethods;
+import com.airtel.cs.commonutils.DataProviders.DataProviders;
+import com.airtel.cs.commonutils.DataProviders.TransferQueueDataBean;
+import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
+import com.airtel.cs.commonutils.UtilsMethods;
+import com.airtel.cs.pagerepository.pagemethods.FilterTabPOM;
+import com.airtel.cs.pagerepository.pagemethods.SideMenuPOM;
+import com.airtel.cs.pagerepository.pagemethods.agentLoginPagePOM;
+import com.airtel.cs.pagerepository.pagemethods.supervisorTicketListPagePOM;
+import com.airtel.cs.pagerepository.pagemethods.transferToQueuePOM;
 import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoSuchElementException;
@@ -12,8 +17,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pages.*;
-import tests.frontendAgent.BaseTest;
+import tests.frontendagent.BaseTest;
 
 import java.lang.reflect.Method;
 

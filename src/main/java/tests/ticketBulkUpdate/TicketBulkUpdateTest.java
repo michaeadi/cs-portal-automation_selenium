@@ -1,8 +1,8 @@
 package tests.ticketBulkUpdate;
 
-import Utils.DataProviders.DataProviders;
-import Utils.DataProviders.TicketStateDataBean;
-import Utils.ExtentReports.ExtentTestManager;
+import com.airtel.cs.commonutils.DataProviders.DataProviders;
+import com.airtel.cs.commonutils.DataProviders.TicketStateDataBean;
+import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
@@ -12,10 +12,10 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pages.FilterTabPOM;
-import pages.SideMenuPOM;
-import pages.TicketBulkUpdatePOM;
-import tests.frontendAgent.BaseTest;
+import com.airtel.cs.pagerepository.pagemethods.FilterTabPOM;
+import com.airtel.cs.pagerepository.pagemethods.SideMenuPOM;
+import com.airtel.cs.pagerepository.pagemethods.TicketBulkUpdatePOM;
+import tests.frontendagent.BaseTest;
 
 import java.awt.AWTException;
 import java.io.IOException;
