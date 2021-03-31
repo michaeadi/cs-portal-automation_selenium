@@ -6,7 +6,7 @@ import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.pagerepository.pagemethods.MessageHistoryTabPOM;
 import com.airtel.cs.pagerepository.pagemethods.SendSMSPOM;
 import com.airtel.cs.pagerepository.pagemethods.SideMenuPOM;
-import com.airtel.cs.pagerepository.pagemethods.customerInteractionPagePOM;
+import com.airtel.cs.pagerepository.pagemethods.CustomerProfilePage;
 import com.airtel.cs.pagerepository.pagemethods.customerInteractionsSearchPOM;
 import com.airtel.cs.pagerepository.pagemethods.viewHistoryPOM;
 import org.openqa.selenium.ElementClickInterceptedException;
@@ -43,7 +43,7 @@ public class SendSMSTest extends BaseTest {
         customerNumber = Data.getCustomerNumber();
         customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
         customerInteractionsSearchPOM.enterNumber(Data.getCustomerNumber());
-        customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
+        CustomerProfilePage customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
         customerInteractionPagePOM.waitTillLoaderGetsRemoved();
         softAssert.assertTrue(customerInteractionPagePOM.isPageLoaded());
         softAssert.assertAll();
@@ -53,7 +53,7 @@ public class SendSMSTest extends BaseTest {
     public void validateSendSMSTab() {
         ExtentTestManager.startTest("Validating the Send SMS Tab ", "Validating the send sms tab");
         SoftAssert softAssert = new SoftAssert();
-        customerInteractionPagePOM homepage = new customerInteractionPagePOM(driver);
+        CustomerProfilePage homepage = new CustomerProfilePage(driver);
         homepage.waitTillLoaderGetsRemoved();
         homepage.clickOnAction();
         try {
@@ -144,7 +144,7 @@ public class SendSMSTest extends BaseTest {
     public void checkSendMessageLog() {
         ExtentTestManager.startTest("Check Sent SMS display in message history ", "Check Sent SMS display in message history");
         SoftAssert softAssert = new SoftAssert();
-        customerInteractionPagePOM customerInteractionPage = new customerInteractionPagePOM(driver);
+        CustomerProfilePage customerInteractionPage = new CustomerProfilePage(driver);
         viewHistoryPOM viewHistory = customerInteractionPage.clickOnViewHistory();
         viewHistory.waitTillLoaderGetsRemoved();
         MessageHistoryTabPOM messageHistory = viewHistory.clickOnMessageHistory();

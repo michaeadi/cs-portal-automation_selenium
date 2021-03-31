@@ -12,7 +12,7 @@ import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.pagerepository.pagemethods.RechargeHistoryWidgetPOM;
 import com.airtel.cs.pagerepository.pagemethods.SideMenuPOM;
 import com.airtel.cs.pagerepository.pagemethods.VoucherTabPOM;
-import com.airtel.cs.pagerepository.pagemethods.customerInteractionPagePOM;
+import com.airtel.cs.pagerepository.pagemethods.CustomerProfilePage;
 import com.airtel.cs.pagerepository.pagemethods.customerInteractionsSearchPOM;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -112,7 +112,7 @@ public class VoucherTabTest extends BaseTest {
         SideMenuPOM.clickOnName();
         customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
         customerInteractionsSearchPOM.enterNumber(Data.getCustomerNumber());
-        customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
+        CustomerProfilePage customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
         softAssert.assertTrue(customerInteractionPagePOM.isPageLoaded());
         customerInteractionPagePOM.waitTillLoaderGetsRemoved();
         softAssert.assertAll();

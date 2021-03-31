@@ -17,7 +17,7 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Log4j2
-public class BasePage {
+public class BasePage extends BaseTest {
     public static Properties config = BaseTest.config;
     public WebDriver driver;
     Wait<WebDriver> wait;
@@ -27,7 +27,7 @@ public class BasePage {
     By overlay = By.xpath("//mat-dialog-container[@role='dialog']");
     By timeLine = By.xpath("//app-new-loader[@class=\"ng-star-inserted\"]//div[1]");
     By home = By.xpath("//*[text()=\"HOME\"]");
-    By toastMessage=By.xpath("//app-toast-component/p");
+    By toastMessage = By.xpath("//app-toast-component/p");
     JavascriptExecutor js;
 
     //Constructor
@@ -137,16 +137,16 @@ public class BasePage {
         actions.moveToElement(target).build().perform();
     }
 
-    public customerInteractionPagePOM openingCustomerInteractionDashboard() {
+    public CustomerProfilePage openingCustomerInteractionDashboard() {
         log.info("Opening Customer Interactions Dashboard");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening Customer Interactions Dashboard");
         click(home);
         waitTillLoaderGetsRemoved();
-        return new customerInteractionPagePOM(driver);
+        return new CustomerProfilePage(driver);
     }
 
-    public String getToastMessage(){
-        String message=readText(toastMessage);
+    public String getToastMessage() {
+        String message = readText(toastMessage);
         UtilsMethods.printInfoLog(message);
         return message;
     }
@@ -203,5 +203,14 @@ public class BasePage {
             UtilsMethods.printInfoLog("Not able to Fetch List of Elements :" + e.fillInStackTrace());
         }
         return list;
+    }
+
+    public void hardWait(int time) throws InterruptedException {
+        time = time * 1000;
+        Thread.sleep(time);
+    }
+
+    public void hardWait() throws InterruptedException {
+        hardWait(3);
     }
 }

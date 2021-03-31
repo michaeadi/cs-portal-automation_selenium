@@ -7,7 +7,7 @@ import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.pagerepository.pagemethods.AuthenticationTabPOM;
 import com.airtel.cs.pagerepository.pagemethods.CustomerDemoGraphicPOM;
 import com.airtel.cs.pagerepository.pagemethods.SideMenuPOM;
-import com.airtel.cs.pagerepository.pagemethods.customerInteractionPagePOM;
+import com.airtel.cs.pagerepository.pagemethods.CustomerProfilePage;
 import com.airtel.cs.pagerepository.pagemethods.customerInteractionsSearchPOM;
 import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.NoSuchElementException;
@@ -41,7 +41,7 @@ public class AuthTabTest extends BaseTest {
         SideMenuPOM.clickOnName();
         customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
         customerInteractionsSearchPOM.enterNumber(Data.getCustomerNumber());
-        customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
+        CustomerProfilePage customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
         softAssert.assertTrue(customerInteractionPagePOM.isPageLoaded());
         softAssert.assertAll();
     }
@@ -50,7 +50,7 @@ public class AuthTabTest extends BaseTest {
     public void validateAuthTab() throws InterruptedException {
         ExtentTestManager.startTest("Verify the Authentication tab", "Verify the Authentication tab");
         SoftAssert softAssert = new SoftAssert();
-        customerInteractionPagePOM homepage = new customerInteractionPagePOM(driver);
+        CustomerProfilePage homepage = new CustomerProfilePage(driver);
         CustomerDemoGraphicPOM demographic = new CustomerDemoGraphicPOM(driver);
         homepage.waitTillLoaderGetsRemoved();
         if (demographic.isPUKInfoLock()) {
@@ -155,7 +155,7 @@ public class AuthTabTest extends BaseTest {
     public void validateSendInternetSetting() {
         ExtentTestManager.startTest("Verify the Send Internet Setting tab", "Verify the Send Internet Setting tab");
         SoftAssert softAssert = new SoftAssert();
-        customerInteractionPagePOM homepage = new customerInteractionPagePOM(driver);
+        CustomerProfilePage homepage = new CustomerProfilePage(driver);
         homepage.waitTillLoaderGetsRemoved();
         try {
             homepage.clickOnAction();
@@ -180,7 +180,7 @@ public class AuthTabTest extends BaseTest {
     public void validateResetME2UPassword() {
         ExtentTestManager.startTest("Verify the Reset ME2U Password tab", "Verify the Reset ME2U Password tab");
         SoftAssert softAssert = new SoftAssert();
-        customerInteractionPagePOM homepage = new customerInteractionPagePOM(driver);
+        CustomerProfilePage homepage = new CustomerProfilePage(driver);
         homepage.waitTillLoaderGetsRemoved();
         try {
             homepage.clickOnAction();

@@ -9,7 +9,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import com.airtel.cs.pagerepository.pagemethods.SideMenuPOM;
-import com.airtel.cs.pagerepository.pagemethods.customerInteractionPagePOM;
+import com.airtel.cs.pagerepository.pagemethods.CustomerProfilePage;
 import com.airtel.cs.pagerepository.pagemethods.customerInteractionsSearchPOM;
 import com.airtel.cs.pagerepository.pagemethods.viewHistoryPOM;
 
@@ -39,7 +39,7 @@ public class PinTagTest extends BaseTest {
         SideMenuPOM.clickOnName();
         customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
         customerInteractionsSearchPOM.enterNumber(Data.getCustomerNumber());
-        customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
+        CustomerProfilePage customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
         softAssert.assertTrue(customerInteractionPagePOM.isPageLoaded());
         customerInteractionPagePOM.waitTillLoaderGetsRemoved();
         softAssert.assertAll();
@@ -50,7 +50,7 @@ public class PinTagTest extends BaseTest {
     public void checkALLPinnedTag() {
         ExtentTestManager.startTest("Validating Pinned Tag", "Validating Pinned Tag :");
         SoftAssert softAssert = new SoftAssert();
-        customerInteractionPagePOM customerInteractionPage = new customerInteractionPagePOM(driver);
+        CustomerProfilePage customerInteractionPage = new CustomerProfilePage(driver);
         DataProviders data = new DataProviders();
         Map<String, Boolean> tags = data.getALLPinnedTags();
         List<String> availableTags = customerInteractionPage.getPinnedTagTexts();
@@ -83,7 +83,7 @@ public class PinTagTest extends BaseTest {
     public void checkIssueCodeForPinTag(PinnedtagsDataBeans Data) {
         ExtentTestManager.startTest("Validating Pinned Tag : " + Data.getTagName(), "Validating Pinned Tag : " + Data.getTagName() + "  Tag and Issue creation by tag");
         SoftAssert softAssert = new SoftAssert();
-        customerInteractionPagePOM customerInteractionPage = new customerInteractionPagePOM(driver);
+        CustomerProfilePage customerInteractionPage = new CustomerProfilePage(driver);
         try {
             if (customerInteractionPage.isPinTagVisible(Data.getTagName())) {
                 customerInteractionsSearchPOM customerInteractionsSearch = customerInteractionPage.clickPinTag(Data.getTagName());

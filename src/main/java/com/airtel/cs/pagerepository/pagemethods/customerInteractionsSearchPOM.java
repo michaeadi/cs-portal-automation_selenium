@@ -25,11 +25,12 @@ public class customerInteractionsSearchPOM extends BasePage {
         driver.findElement(numberSearch).clear();
     }
 
-    public customerInteractionPagePOM clickOnSearch() {
+    public CustomerProfilePage clickOnSearch() {
         UtilsMethods.printInfoLog("Clicking on Search Button");
         waitTillLoaderGetsRemoved();
         click(searchButton);
-        return new customerInteractionPagePOM(driver);
+        commonLib.hardWait();
+        return new CustomerProfilePage(driver);
     }
 
     public void waitUntilPageIsLoaded() {

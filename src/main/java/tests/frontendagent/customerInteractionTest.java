@@ -20,7 +20,7 @@ import com.airtel.cs.pagerepository.pagemethods.RechargeHistoryWidgetPOM;
 import com.airtel.cs.pagerepository.pagemethods.ServiceClassWidgetPOM;
 import com.airtel.cs.pagerepository.pagemethods.SideMenuPOM;
 import com.airtel.cs.pagerepository.pagemethods.UsageHistoryWidgetPOM;
-import com.airtel.cs.pagerepository.pagemethods.customerInteractionPagePOM;
+import com.airtel.cs.pagerepository.pagemethods.CustomerProfilePage;
 import com.airtel.cs.pagerepository.pagemethods.customerInteractionsSearchPOM;
 import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.*;
@@ -67,7 +67,7 @@ public class customerInteractionTest extends BaseTest {
             SideMenuPOM.clickOnName();
             customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
             customerInteractionsSearchPOM.enterNumber(customerNumber);
-            customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
+            CustomerProfilePage customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
             if (!customerInteractionPagePOM.isPageLoaded()) {
                 softAssert.fail("Customer Info Dashboard Page does not open using SIM Number.");
                 customerInteractionsSearchPOM.clearCustomerNumber();
@@ -383,7 +383,7 @@ public class customerInteractionTest extends BaseTest {
             customerInteractionsSearchPOM.enterNumber(Data.getSimNumber());
             customerNumber = Data.getCustomerNumber();
         }
-        customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
+        CustomerProfilePage customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
         if (!customerInteractionPagePOM.isPageLoaded()) {
             softAssert.fail("Customer Info Dashboard Page does not open using SIM Number.");
             String base64Screenshot = "data:image/png;base64," + ((TakesScreenshot) driver).
@@ -680,7 +680,7 @@ public class customerInteractionTest extends BaseTest {
             customerNumber = Data.getCustomerNumber();
         }
         customerInteractionsSearchPOM.enterNumber(customerNumber);
-        customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
+        CustomerProfilePage customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
         if (!customerInteractionPagePOM.isPageLoaded()) {
             //Take base64Screenshot screenshot.
             String base64Screenshot1 = "data:image/png;base64," + ((TakesScreenshot) driver).

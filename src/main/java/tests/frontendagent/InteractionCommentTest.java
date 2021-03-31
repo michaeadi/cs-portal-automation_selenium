@@ -7,7 +7,7 @@ import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.pagerepository.pagemethods.InteractionsPOM;
 import com.airtel.cs.pagerepository.pagemethods.MessageHistoryTabPOM;
 import com.airtel.cs.pagerepository.pagemethods.SideMenuPOM;
-import com.airtel.cs.pagerepository.pagemethods.customerInteractionPagePOM;
+import com.airtel.cs.pagerepository.pagemethods.CustomerProfilePage;
 import com.airtel.cs.pagerepository.pagemethods.customerInteractionsSearchPOM;
 import com.airtel.cs.pagerepository.pagemethods.viewHistoryPOM;
 import com.relevantcodes.extentreports.LogStatus;
@@ -47,7 +47,7 @@ public class InteractionCommentTest extends BaseTest {
         SideMenuPOM.clickOnName();
         customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
         customerInteractionsSearchPOM.enterNumber(Data.getCustomerNumber());
-        customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
+        CustomerProfilePage customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
         softAssert.assertTrue(customerInteractionPagePOM.isPageLoaded());
         softAssert.assertAll();
     }
@@ -58,7 +58,7 @@ public class InteractionCommentTest extends BaseTest {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         LocalDateTime now = LocalDateTime.now();
         System.out.println(dtf.format(now));
-        customerInteractionPagePOM customerInteractionPagePOM = new customerInteractionPagePOM(driver);
+        CustomerProfilePage customerInteractionPagePOM = new CustomerProfilePage(driver);
         InteractionsPOM interactionsPOM = customerInteractionPagePOM.clickOnInteractionIcon();
         SoftAssert softAssert = new SoftAssert();
         interactionsPOM.clickOnCode();
@@ -294,7 +294,7 @@ public class InteractionCommentTest extends BaseTest {
     public void checkSendMessageLog() {
         ExtentTestManager.startTest("Check Sent SMS display in message history for System Type", "Check Sent SMS display in message history");
         SoftAssert softAssert = new SoftAssert();
-        customerInteractionPagePOM customerInteractionPage = new customerInteractionPagePOM(driver);
+        CustomerProfilePage customerInteractionPage = new CustomerProfilePage(driver);
         viewHistoryPOM viewHistory = customerInteractionPage.clickOnViewHistory();
         viewHistory.waitTillLoaderGetsRemoved();
         MessageHistoryTabPOM messageHistory = viewHistory.clickOnMessageHistory();

@@ -14,7 +14,7 @@ import com.airtel.cs.commonutils.PassUtils;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.pagerepository.pagemethods.InteractionsPOM;
 import com.airtel.cs.pagerepository.pagemethods.SideMenuPOM;
-import com.airtel.cs.pagerepository.pagemethods.customerInteractionPagePOM;
+import com.airtel.cs.pagerepository.pagemethods.CustomerProfilePage;
 import com.airtel.cs.pagerepository.pagemethods.customerInteractionsSearchPOM;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -67,7 +67,7 @@ public class createInteractionTest extends BaseTest {
         customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
         customerInteractionsSearchPOM.enterNumber(Data.getCustomerNumber());
         customerNumber=Data.getCustomerNumber();
-        customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
+        CustomerProfilePage customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
         softAssert.assertTrue(customerInteractionPagePOM.isPageLoaded());
         softAssert.assertAll();
     }
@@ -76,7 +76,7 @@ public class createInteractionTest extends BaseTest {
     @Test(priority = 2, dependsOnMethods = "openCustomerInteraction", description = "Create FTR Interaction ", dataProvider = "getTestData1", dataProviderClass = DataProviders.class, enabled = true)
     public void CreateInteraction(ftrDataBeans Data) throws InterruptedException {
         ExtentTestManager.startTest(" Validating FTR Ticket: " + Data.getIssueCode(), "Creating FTR Tickets and Configurations of Issue Code " + Data.getIssueCode());
-        customerInteractionPagePOM customerInteractionPagePOM = new customerInteractionPagePOM(driver);
+        CustomerProfilePage customerInteractionPagePOM = new CustomerProfilePage(driver);
         InteractionsPOM interactionsPOM = customerInteractionPagePOM.clickOnInteractionIcon();
         SoftAssert softAssert = new SoftAssert();
         try {
@@ -188,7 +188,7 @@ public class createInteractionTest extends BaseTest {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         LocalDateTime now = LocalDateTime.now();
         System.out.println(dtf.format(now));
-        customerInteractionPagePOM customerInteractionPagePOM = new customerInteractionPagePOM(driver);
+        CustomerProfilePage customerInteractionPagePOM = new CustomerProfilePage(driver);
         customerInteractionPagePOM.waitTillLoaderGetsRemoved();
         InteractionsPOM interactionsPOM = customerInteractionPagePOM.clickOnInteractionIcon();
         SoftAssert softAssert = new SoftAssert();

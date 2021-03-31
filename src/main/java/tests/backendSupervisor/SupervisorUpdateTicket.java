@@ -14,7 +14,7 @@ import com.airtel.cs.pagerepository.pagemethods.FrontendTicketHistory;
 import com.airtel.cs.pagerepository.pagemethods.SideMenuPOM;
 import com.airtel.cs.pagerepository.pagemethods.ViewTicketPagePOM;
 import com.airtel.cs.pagerepository.pagemethods.agentLoginPagePOM;
-import com.airtel.cs.pagerepository.pagemethods.customerInteractionPagePOM;
+import com.airtel.cs.pagerepository.pagemethods.CustomerProfilePage;
 import com.airtel.cs.pagerepository.pagemethods.customerInteractionsSearchPOM;
 import com.airtel.cs.pagerepository.pagemethods.supervisorTicketListPagePOM;
 import com.airtel.cs.pagerepository.pagemethods.viewHistoryPOM;
@@ -203,7 +203,7 @@ public class SupervisorUpdateTicket extends BaseTest {
         if(ticketId!=null) {
             customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
             customerInteractionsSearchPOM.enterNumber(Data.getCustomerNumber());
-            customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
+            CustomerProfilePage customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
             softAssert.assertTrue(customerInteractionPagePOM.isPageLoaded());
         }else{
             UtilsMethods.printWarningLog("No Ticket Id Closed. SKIP Validate Re-open Icon on Closed Ticket");
@@ -214,7 +214,7 @@ public class SupervisorUpdateTicket extends BaseTest {
     @Test(priority = 5, dependsOnMethods = "openCustomerInteraction", description = "Validate Re-open Icon on Closed Ticket")
     public void validateReopenIcon() throws InterruptedException, IOException {
         SoftAssert softAssert = new SoftAssert();
-        customerInteractionPagePOM customerInteractionPage = new customerInteractionPagePOM(driver);
+        CustomerProfilePage customerInteractionPage = new CustomerProfilePage(driver);
         if(ticketId!=null) {
         ExtentTestManager.startTest("Validate Re-open Icon on Closed Ticket: " + ticketId, "Validate Re-open Icon on Closed Ticket: " + ticketId);
         viewHistoryPOM viewHistory = customerInteractionPage.clickOnViewHistory();

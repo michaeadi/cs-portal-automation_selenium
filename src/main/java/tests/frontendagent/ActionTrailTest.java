@@ -7,7 +7,7 @@ import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.pagerepository.pagemethods.ActionTrailTabPOM;
 import com.airtel.cs.pagerepository.pagemethods.AuthenticationTabPOM;
 import com.airtel.cs.pagerepository.pagemethods.SideMenuPOM;
-import com.airtel.cs.pagerepository.pagemethods.customerInteractionPagePOM;
+import com.airtel.cs.pagerepository.pagemethods.CustomerProfilePage;
 import com.airtel.cs.pagerepository.pagemethods.customerInteractionsSearchPOM;
 import com.airtel.cs.pagerepository.pagemethods.viewHistoryPOM;
 import com.relevantcodes.extentreports.LogStatus;
@@ -44,7 +44,7 @@ public class ActionTrailTest extends BaseTest {
         SideMenuPOM.clickOnName();
         customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
         customerInteractionsSearchPOM.enterNumber(Data.getCustomerNumber());
-        customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
+        CustomerProfilePage customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
         softAssert.assertTrue(customerInteractionPagePOM.isPageLoaded());
         agentAuuid=Data.getLoginAUUID();
         softAssert.assertAll();
@@ -56,7 +56,7 @@ public class ActionTrailTest extends BaseTest {
         ExtentTestManager.startTest("Validating the Action Trail Tab Under View History", "Validating the Action Trail Tab Under View History");
         SoftAssert softAssert=new SoftAssert();
         try {
-            customerInteractionPagePOM homepage = new customerInteractionPagePOM(driver);
+            CustomerProfilePage homepage = new CustomerProfilePage(driver);
             homepage.waitTillLoaderGetsRemoved();
             viewHistoryPOM historyTab = homepage.clickOnViewHistory();
             ActionTrailTabPOM actionTrailTab = historyTab.clickOnActionTrailHistory();
@@ -76,7 +76,7 @@ public class ActionTrailTest extends BaseTest {
     public void validateSendInternetSetting() {
         ExtentTestManager.startTest("Verify the Send Internet Setting tab", "Verify the Send Internet Setting tab");
         SoftAssert softAssert = new SoftAssert();
-        customerInteractionPagePOM homepage = new customerInteractionPagePOM(driver);
+        CustomerProfilePage homepage = new CustomerProfilePage(driver);
         AuthenticationTabPOM authTab=new AuthenticationTabPOM(driver);
         homepage.waitTillLoaderGetsRemoved();
         try {
@@ -116,7 +116,7 @@ public class ActionTrailTest extends BaseTest {
         ExtentTestManager.startTest("Validating Action Trail History", "Validating Action Trail History");
         SoftAssert softAssert=new SoftAssert();
         try {
-            customerInteractionPagePOM homepage = new customerInteractionPagePOM(driver);
+            CustomerProfilePage homepage = new CustomerProfilePage(driver);
             homepage.waitTillLoaderGetsRemoved();
             viewHistoryPOM historyTab = homepage.clickOnViewHistory();
             ActionTrailTabPOM actionTrailTab = historyTab.clickOnActionTrailHistory();

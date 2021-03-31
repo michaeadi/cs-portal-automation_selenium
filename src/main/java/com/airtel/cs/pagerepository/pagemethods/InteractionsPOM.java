@@ -169,11 +169,11 @@ public class InteractionsPOM extends BasePage {
         return readText(resolvedFTR);
     }
 
-    public customerInteractionPagePOM closeInteractions() {
+    public CustomerProfilePage closeInteractions() {
         wait.until(ExpectedConditions.elementToBeClickable(closeInteractions));
         click(closeInteractions);
         UtilsMethods.printInfoLog("Closing Interaction Screen");
-        return new customerInteractionPagePOM(driver);
+        return new CustomerProfilePage(driver);
     }
 
     public void clickCommentIcon() {

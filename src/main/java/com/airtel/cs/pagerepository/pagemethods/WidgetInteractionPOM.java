@@ -42,10 +42,10 @@ public class WidgetInteractionPOM extends BasePage {
         writeText(searchBox, text);
     }
 
-    public customerInteractionPagePOM closeInteractionTab() {
+    public CustomerProfilePage closeInteractionTab() {
         UtilsMethods.printInfoLog("Close interaction tab");
         click(closeTab);
-        return new customerInteractionPagePOM(driver);
+        return new CustomerProfilePage(driver);
     }
 
     public List<String> getListOfIssue() {
@@ -70,11 +70,11 @@ public class WidgetInteractionPOM extends BasePage {
         writeText(commentBox, text);
     }
 
-    public customerInteractionPagePOM clickSubmitBtn() {
+    public CustomerProfilePage clickSubmitBtn() {
         UtilsMethods.printInfoLog("Clicking submit button");
         click(submitBtn);
         ExtentTestManager.getTest().log(LogStatus.PASS, "Issue Created");
-        return new customerInteractionPagePOM(driver);
+        return new CustomerProfilePage(driver);
     }
 
     public void interactionTabClosed() {

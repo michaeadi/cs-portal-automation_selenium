@@ -20,7 +20,7 @@ import com.airtel.cs.pagerepository.pagemethods.MoreRechargeHistoryPOM;
 import com.airtel.cs.pagerepository.pagemethods.RechargeHistoryWidgetPOM;
 import com.airtel.cs.pagerepository.pagemethods.SideMenuPOM;
 import com.airtel.cs.pagerepository.pagemethods.UsageHistoryWidgetPOM;
-import com.airtel.cs.pagerepository.pagemethods.customerInteractionPagePOM;
+import com.airtel.cs.pagerepository.pagemethods.CustomerProfilePage;
 import com.airtel.cs.pagerepository.pagemethods.customerInteractionsSearchPOM;
 import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.NoSuchElementException;
@@ -60,7 +60,7 @@ public class widgetsOptionsTest extends BaseTest {
             customerNumber = Data.getCustomerNumber();
         }
         customerInteractionsSearchPOM.enterNumber(customerNumber);
-        customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
+        CustomerProfilePage customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
         if (!customerInteractionPagePOM.isPageLoaded()) {
             softAssert.fail("Customer Info Dashboard Page does not open using SIM Number.");
             customerInteractionsSearchPOM.clearCustomerNumber();

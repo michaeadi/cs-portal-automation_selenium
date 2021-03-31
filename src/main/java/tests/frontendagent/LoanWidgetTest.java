@@ -14,7 +14,7 @@ import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.pagerepository.pagemethods.LoanDetailPOM;
 import com.airtel.cs.pagerepository.pagemethods.LoanWidgetPOM;
 import com.airtel.cs.pagerepository.pagemethods.SideMenuPOM;
-import com.airtel.cs.pagerepository.pagemethods.customerInteractionPagePOM;
+import com.airtel.cs.pagerepository.pagemethods.CustomerProfilePage;
 import com.airtel.cs.pagerepository.pagemethods.customerInteractionsSearchPOM;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.TimeoutException;
@@ -54,7 +54,7 @@ public class LoanWidgetTest extends BaseTest {
         customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
         customerInteractionsSearchPOM.enterNumber(Data.getCustomerNumber());
         customerNumber = Data.getCustomerNumber();
-        customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
+        CustomerProfilePage customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
         softAssert.assertTrue(customerInteractionPagePOM.isPageLoaded());
         customerInteractionPagePOM.waitTillLoaderGetsRemoved();
         softAssert.assertAll();

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Log4j2
-public class customerInteractionPagePOM extends BasePage {
+public class CustomerProfilePage extends BasePage {
     By searchNumber = By.xpath("//input[@type='search' and @placeholder='Search']");
     By interactionIcon = By.xpath("//div[@class='sub-header__divide--control--tab']");
     By actions = By.xpath("//span[@class=\"action-placeholder\"]");
@@ -37,7 +37,7 @@ public class customerInteractionPagePOM extends BasePage {
     By birthdayIcon = By.xpath("//span[@class='customer-icon-block']/img");
     By continueBtn = By.xpath("//span[contains(text(),'continue')]");
 
-    public customerInteractionPagePOM(WebDriver driver) {
+    public CustomerProfilePage(WebDriver driver) {
         super(driver);
     }
 

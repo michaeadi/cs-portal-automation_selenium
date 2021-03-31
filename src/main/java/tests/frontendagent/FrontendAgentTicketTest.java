@@ -6,7 +6,7 @@ import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.pagerepository.pagemethods.FrontendTicketHistory;
 import com.airtel.cs.pagerepository.pagemethods.SendSMSPOM;
 import com.airtel.cs.pagerepository.pagemethods.SideMenuPOM;
-import com.airtel.cs.pagerepository.pagemethods.customerInteractionPagePOM;
+import com.airtel.cs.pagerepository.pagemethods.CustomerProfilePage;
 import com.airtel.cs.pagerepository.pagemethods.customerInteractionsSearchPOM;
 import com.airtel.cs.pagerepository.pagemethods.viewHistoryPOM;
 import org.openqa.selenium.NoSuchElementException;
@@ -40,7 +40,7 @@ public class FrontendAgentTicketTest extends BaseTest {
         SideMenuPOM.clickOnName();
         customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
         customerInteractionsSearchPOM.enterNumber(Data.getCustomerNumber());
-        customerInteractionPagePOM customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
+        CustomerProfilePage customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
         softAssert.assertTrue(customerInteractionPagePOM.isPageLoaded(),"Dashboard page does not open.");
         softAssert.assertAll();
     }
@@ -49,7 +49,7 @@ public class FrontendAgentTicketTest extends BaseTest {
     public void validateTicket() throws InterruptedException, IOException {
         ExtentTestManager.startTest("Validate Ticket Meta Data for Frontend Agent", "Validate Ticket Meta Data for Frontend Agent ");
         SoftAssert softAssert = new SoftAssert();
-        customerInteractionPagePOM customerInteractionPage = new customerInteractionPagePOM(driver);
+        CustomerProfilePage customerInteractionPage = new CustomerProfilePage(driver);
         viewHistoryPOM viewHistory = customerInteractionPage.clickOnViewHistory();
         FrontendTicketHistory ticketHistory = viewHistory.clickOnTicketHistory();
         ticketHistory.waitTillLoaderGetsRemoved();
@@ -69,7 +69,7 @@ public class FrontendAgentTicketTest extends BaseTest {
     public void validateAddToInteraction() throws InterruptedException, IOException {
         ExtentTestManager.startTest("Validate Add to Interaction Icon on Each Ticket", "Validate Add to Interaction Icon on Each Ticket");
         SoftAssert softAssert = new SoftAssert();
-        customerInteractionPagePOM customerInteractionPage = new customerInteractionPagePOM(driver);
+        CustomerProfilePage customerInteractionPage = new CustomerProfilePage(driver);
         viewHistoryPOM viewHistory = customerInteractionPage.clickOnViewHistory();
         FrontendTicketHistory ticketHistory = viewHistory.clickOnTicketHistory();
         ticketHistory.waitTillLoaderGetsRemoved();
@@ -81,7 +81,7 @@ public class FrontendAgentTicketTest extends BaseTest {
     public void validateNFTRIssue() throws InterruptedException, IOException {
         ExtentTestManager.startTest("Validate NFTR issue have ticket icon", "Validate NFTR issue have ticket icon");
         SoftAssert softAssert = new SoftAssert();
-        customerInteractionPagePOM customerInteractionPage = new customerInteractionPagePOM(driver);
+        CustomerProfilePage customerInteractionPage = new CustomerProfilePage(driver);
         viewHistoryPOM viewHistory = customerInteractionPage.clickOnViewHistory();
         viewHistory.clickOnInteractionsTab();
         viewHistory.waitTillLoaderGetsRemoved();
@@ -96,7 +96,7 @@ public class FrontendAgentTicketTest extends BaseTest {
     public void validateSendSMSTab() {
         ExtentTestManager.startTest("Validating the Send SMS Tab ", "Validating the send sms tab");
         SoftAssert softAssert = new SoftAssert();
-        customerInteractionPagePOM homepage = new customerInteractionPagePOM(driver);
+        CustomerProfilePage homepage = new CustomerProfilePage(driver);
         homepage.waitTillLoaderGetsRemoved();
         homepage.clickOnAction();
         try {
