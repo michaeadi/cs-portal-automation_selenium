@@ -213,4 +213,9 @@ public class BasePage extends BaseTest {
     public void hardWait() throws InterruptedException {
         hardWait(3);
     }
+    public boolean elementVisibleWithExplictWait(By elementLocation) {
+        WebDriverWait webDriverWait = new WebDriverWait(driver,Duration.ofSeconds(5));
+        WebElement modal = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(elementLocation));
+        return modal.isDisplayed();
+    }
 }

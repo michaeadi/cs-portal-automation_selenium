@@ -1,10 +1,12 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
 import com.airtel.cs.commonutils.UtilsMethods;
+import com.airtel.cs.pagerepository.pageelements.CustomerProfilePageElements;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +39,11 @@ public class CustomerProfilePage extends BasePage {
     By birthdayIcon = By.xpath("//span[@class='customer-icon-block']/img");
     By continueBtn = By.xpath("//span[contains(text(),'continue')]");
 
+    public CustomerProfilePageElements customerProfilePageElements;
+
     public CustomerProfilePage(WebDriver driver) {
         super(driver);
+        customerProfilePageElements = PageFactory.initElements(driver, CustomerProfilePageElements.class);
     }
 
     public String getFirstWidgetHeader() {
@@ -189,5 +194,19 @@ public class CustomerProfilePage extends BasePage {
         click(continueBtn);
     }
 
+    public Boolean isChangeServiceClassVisible() {
+        boolean result = false;
+        try {
+            result = elementVisibleWithExplictWait(customerProfilePageElements.changeServiceClass_btn);
+        } catch (Exception e) {
+            log.error("ChangeServiceClass is not visible", e);
+        }
+        return result;
+    }
 
+    public Boolean openChangeServiceClassTab(){
+        boolean result = false;
+
+        return result;
+    }
 }
