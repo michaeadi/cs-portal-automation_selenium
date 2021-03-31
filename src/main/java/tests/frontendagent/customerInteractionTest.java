@@ -6,10 +6,10 @@ import com.airtel.cs.pojo.*;
 import com.airtel.cs.pojo.AirtelMoney.AirtelMoneyPOJO;
 import com.airtel.cs.pojo.HLRService.HLRServicePOJO;
 import com.airtel.cs.pojo.KYCProfile.KYCProfile;
-import com.airtel.cs.commonutils.DataProviders.AuthTabDataBeans;
-import com.airtel.cs.commonutils.DataProviders.DataProviders;
-import com.airtel.cs.commonutils.DataProviders.HeaderDataBean;
-import com.airtel.cs.commonutils.DataProviders.TestDatabean;
+import com.airtel.cs.commonutils.dataproviders.AuthTabDataBeans;
+import com.airtel.cs.commonutils.dataproviders.DataProviders;
+import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
+import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.pagerepository.pagemethods.AMTransactionsWidgetPOM;
@@ -35,7 +35,7 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 import java.util.List;
 
-import static com.airtel.cs.commonutils.DataProviders.DataProviders.User;
+import static com.airtel.cs.commonutils.dataproviders.DataProviders.User;
 
 public class customerInteractionTest extends BaseTest {
 
@@ -665,7 +665,7 @@ public class customerInteractionTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @User(UserType = "com/airtel/cs/api")
+    @User(userType = "com/airtel/cs/api")
     @Test(priority = 6, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteractionAPI(TestDatabean Data) {
         ExtentTestManager.startTest("Validating the Search for Customer Interactions for Widget :" + Data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + Data.getCustomerNumber());
@@ -694,7 +694,7 @@ public class customerInteractionTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @DataProviders.Table(Name = "Airtel Money")
+    @DataProviders.Table(name = "Airtel Money")
     @Test(priority = 7, description = "Validating AM Transaction Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, enabled = true, dependsOnMethods = "openCustomerInteractionAPI")
     public void airtelMoneyTransactionWidgetTest(HeaderDataBean Data) throws IOException, UnsupportedFlavorException {
         ExtentTestManager.startTest("Validating AM Transaction Widget", "Validating AM Transaction Widget of User :" + customerNumber);
@@ -794,7 +794,7 @@ public class customerInteractionTest extends BaseTest {
     }
 
 
-    @DataProviders.Table(Name = "Usage History")
+    @DataProviders.Table(name = "Usage History")
     @Test(priority = 9, description = "Validating Usage History Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI")
     public void usageHistoryWidgetTest(HeaderDataBean Data) {
         ExtentTestManager.startTest("Validating Usage History Widget", "Validating Usage History Widget of User :" + customerNumber);
@@ -834,7 +834,7 @@ public class customerInteractionTest extends BaseTest {
     }
 
 
-    @DataProviders.Table(Name = "Recharge History")
+    @DataProviders.Table(name = "Recharge History")
     @Test(priority = 10, description = "Validating Recharge History Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI")
     public void rechargeHistoryWidgetTest(HeaderDataBean Data) {
         ExtentTestManager.startTest("Validating Recharge History Widget", "Validating Recharge History Widget of User :" + customerNumber);
@@ -874,7 +874,7 @@ public class customerInteractionTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @DataProviders.Table(Name = "Service Profile")
+    @DataProviders.Table(name = "Service Profile")
     @Test(priority = 11, description = "Verify Service Profile Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, enabled = true, dependsOnMethods = "openCustomerInteractionAPI")
     public void validateServiceProfileWidget(HeaderDataBean Data) {
         ExtentTestManager.startTest("Verify Service Profile Widget: " + customerNumber, "Verify Service Profile Widget: " + customerNumber);

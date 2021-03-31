@@ -4,8 +4,8 @@ import com.airtel.cs.api.APIEndPoints;
 import com.airtel.cs.pojo.LoginPOJO;
 import com.airtel.cs.pojo.Voucher.VoucherDetail;
 import com.airtel.cs.pojo.Voucher.VoucherSearchPOJO;
-import com.airtel.cs.commonutils.DataProviders.DataProviders;
-import com.airtel.cs.commonutils.DataProviders.TestDatabean;
+import com.airtel.cs.commonutils.dataproviders.DataProviders;
+import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.commonutils.PassUtils;
 import com.airtel.cs.commonutils.UtilsMethods;
@@ -48,7 +48,7 @@ public class VoucherTabTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @DataProviders.User(UserType = "com/airtel/cs/api")
+    @DataProviders.User(userType = "com/airtel/cs/api")
     @Test(dataProvider = "loginData", dataProviderClass = DataProviders.class, priority = 0)
     public void loginAPI(TestDatabean Data) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
@@ -102,7 +102,7 @@ public class VoucherTabTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @DataProviders.User(UserType = "NFTR")
+    @DataProviders.User(userType = "NFTR")
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteraction(TestDatabean Data) {
         ExtentTestManager.startTest("Validating the Search for Customer Interactions :" + Data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + Data.getCustomerNumber());

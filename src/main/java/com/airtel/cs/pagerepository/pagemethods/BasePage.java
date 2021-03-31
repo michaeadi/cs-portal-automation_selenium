@@ -74,10 +74,10 @@ public class BasePage {
         }
     }
 
-    void scrollToViewElement(By Element) throws InterruptedException {
-        WebElement element = driver.findElement(Element);
-        waitVisibility(Element);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+    void scrollToViewElement(By element) throws InterruptedException {
+        WebElement element1 = driver.findElement(element);
+        waitVisibility(element);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element1);
         Thread.sleep(500);
     }
 
@@ -157,9 +157,9 @@ public class BasePage {
     }
 
     // is element  visible
-    boolean isElementVisible(By Element) {
+    boolean isElementVisible(By element) {
         try {
-            return driver.findElement(Element).isDisplayed();
+            return driver.findElement(element).isDisplayed();
         } catch (Exception e) {
             e.printStackTrace();
             return false;

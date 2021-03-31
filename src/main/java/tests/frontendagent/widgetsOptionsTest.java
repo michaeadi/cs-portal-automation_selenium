@@ -6,9 +6,9 @@ import com.airtel.cs.pojo.Accumulators.AccumulatorsPOJO;
 import com.airtel.cs.pojo.AirtelMoney.AirtelMoneyPOJO;
 import com.airtel.cs.pojo.RechargeHistoryPOJO;
 import com.airtel.cs.pojo.UsageHistoryPOJO;
-import com.airtel.cs.commonutils.DataProviders.DataProviders;
-import com.airtel.cs.commonutils.DataProviders.HeaderDataBean;
-import com.airtel.cs.commonutils.DataProviders.TestDatabean;
+import com.airtel.cs.commonutils.dataproviders.DataProviders;
+import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
+import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.pagerepository.pagemethods.AMTransactionsWidgetPOM;
@@ -30,7 +30,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-import static com.airtel.cs.commonutils.DataProviders.DataProviders.Table;
+import static com.airtel.cs.commonutils.dataproviders.DataProviders.Table;
 
 public class widgetsOptionsTest extends BaseTest {
     String customerNumber;
@@ -45,7 +45,7 @@ public class widgetsOptionsTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @DataProviders.User(UserType = "com/airtel/cs/api")
+    @DataProviders.User(userType = "com/airtel/cs/api")
     @Test(priority = 0, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteractionAPI(TestDatabean Data) {
         ExtentTestManager.startTest("Validating the Search forCustomer Interactions :" + Data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + Data.getCustomerNumber());
@@ -68,7 +68,7 @@ public class widgetsOptionsTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Table(Name = "Da Details")
+    @Table(name = "Da Details")
     @Test(priority = 1, description = "Validating DA Details", dataProvider = "HeaderData", dataProviderClass = DataProviders.class,dependsOnMethods = "openCustomerInteractionAPI")
     public void daDetailsTest(HeaderDataBean Data) {
         ExtentTestManager.startTest("Validating DA Details", "Validating DA Details of User :" + customerNumber);
@@ -113,7 +113,7 @@ public class widgetsOptionsTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Table(Name = "Accumulator")
+    @Table(name = "Accumulator")
     @Test(priority = 2, description = "Validating Accumulator Details", dataProvider = "HeaderData", dataProviderClass = DataProviders.class,dependsOnMethods = "openCustomerInteractionAPI")
     public void accumulatorDetailsTest(HeaderDataBean Data) {
         ExtentTestManager.startTest("Validating Accumulator Details", "Validating Accumulator Details of User :" + customerNumber);
@@ -254,7 +254,7 @@ public class widgetsOptionsTest extends BaseTest {
 //        softAssert.assertAll();
 //    }
 //
-    @Table(Name = "More Recharge History")
+    @Table(name = "More Recharge History")
     @Test(priority = 5, description = "Validating Recharge History's  Menu", dataProvider = "HeaderData", dataProviderClass = DataProviders.class,dependsOnMethods = "openCustomerInteractionAPI")
     public void rechargeHistoryMenuTest(HeaderDataBean Data) {
         ExtentTestManager.startTest("Validating Recharge History's  Menu", "Validating Recharge History's  Menu of User :" + customerNumber);
@@ -311,7 +311,7 @@ public class widgetsOptionsTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Table(Name = "Detailed Usage History")
+    @Table(name = "Detailed Usage History")
     @Test(priority = 6, description = "Validating Usage History's  Menu", dataProvider = "HeaderData", dataProviderClass = DataProviders.class,dependsOnMethods = "openCustomerInteractionAPI")
     public void usageHistoryMenuTest(HeaderDataBean Data) {
         ExtentTestManager.startTest("Validating Usage History's  Menu", "Validating Usage History's  Menu of User :" + customerNumber);
@@ -397,7 +397,7 @@ public class widgetsOptionsTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Table(Name = "More Airtel Money History")
+    @Table(name = "More Airtel Money History")
     @Test(priority = 7, description = "Validating Airtel Money History's  Menu", dataProvider = "HeaderData", dataProviderClass = DataProviders.class,dependsOnMethods = "openCustomerInteractionAPI",enabled = false)
     public void airtelMoneyHistoryMenuTest(HeaderDataBean Data) {
         ExtentTestManager.startTest("Validating Airtel Money History's  Menu", "Validating Airtel Money History's  Menu of User :" + customerNumber);

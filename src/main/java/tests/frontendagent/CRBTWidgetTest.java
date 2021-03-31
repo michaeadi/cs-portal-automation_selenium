@@ -3,9 +3,9 @@ package tests.frontendagent;
 import com.airtel.cs.api.APIEndPoints;
 import com.airtel.cs.pojo.CRBT.ActivateRingtone;
 import com.airtel.cs.pojo.CRBT.Top20Ringtone;
-import com.airtel.cs.commonutils.DataProviders.DataProviders;
-import com.airtel.cs.commonutils.DataProviders.HeaderDataBean;
-import com.airtel.cs.commonutils.DataProviders.TestDatabean;
+import com.airtel.cs.commonutils.dataproviders.DataProviders;
+import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
+import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -32,7 +32,7 @@ public class CRBTWidgetTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @DataProviders.User(UserType = "NFTR")
+    @DataProviders.User(userType = "NFTR")
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteraction(TestDatabean Data) {
         ExtentTestManager.startTest("Validating the Search for Customer Interactions: " + Data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + Data.getCustomerNumber());
@@ -48,7 +48,7 @@ public class CRBTWidgetTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @DataProviders.Table(Name = "Search Tune Tab")
+    @DataProviders.Table(name = "Search Tune Tab")
     @Test(priority = 2, description = "Validate CRBT Widget Displayed Correctly", dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
     public void validateMyTuneTab(HeaderDataBean data) {
         ExtentTestManager.startTest("Validate CRBT Widget Displayed Correctly", "Validate CRBT Widget Displayed Correctly");

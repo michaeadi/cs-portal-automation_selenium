@@ -1,7 +1,7 @@
 package tests.backendAgent;
 
-import com.airtel.cs.commonutils.DataProviders.DataProviders;
-import com.airtel.cs.commonutils.DataProviders.TestDatabean;
+import com.airtel.cs.commonutils.dataproviders.DataProviders;
+import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.commonutils.PassUtils;
 import com.relevantcodes.extentreports.LogStatus;
@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import com.airtel.cs.pagerepository.pagemethods.SideMenuPOM;
 import com.airtel.cs.pagerepository.pagemethods.agentLoginPagePOM;
-import com.airtel.cs.pagerepository.pagemethods.loginPagePOM;
+import com.airtel.cs.pagerepository.pagemethods.LoginPage;
 import com.airtel.cs.pagerepository.pagemethods.supervisorTicketListPagePOM;
 import tests.frontendagent.BaseTest;
 
@@ -27,12 +27,12 @@ public class BackendAgentLoginTest extends BaseTest {
         }
         softAssert.assertAll();
     }
-    @DataProviders.User(UserType = "BA")
+    @DataProviders.User(userType = "BA")
     @Test(priority = 1, description = "Logging IN ", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void LoggingIN(Method method, TestDatabean Data) throws InterruptedException {
         ExtentTestManager.startTest("Backend Agent Login Into Portal", "Logging Into Portal with AUUID :  " + Data.getLoginAUUID());
         SoftAssert softAssert = new SoftAssert();
-        loginPagePOM loginPagePOM = new loginPagePOM(driver);
+        LoginPage loginPagePOM = new LoginPage(driver);
         loginPagePOM.openBaseURL(config.getProperty(BaseTest.Env + "-baseurl"));
         softAssert.assertEquals(driver.getCurrentUrl(), config.getProperty(BaseTest.Env + "-baseurl"), "URl isn't as expected");
         loginPagePOM.waitTillLoaderGetsRemoved();

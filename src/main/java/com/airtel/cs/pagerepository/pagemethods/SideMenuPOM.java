@@ -169,10 +169,10 @@ public class SideMenuPOM extends BasePage {
         return new TicketBulkUpdatePOM(driver);
     }
 
-    public loginPagePOM logout() {
+    public LoginPage logout() {
         UtilsMethods.printInfoLog("Logging Out");
         click(logout);
         waitTillLoaderGetsRemoved();
-        return new loginPagePOM(driver);
+        return new LoginPage(driver);
     }
 }

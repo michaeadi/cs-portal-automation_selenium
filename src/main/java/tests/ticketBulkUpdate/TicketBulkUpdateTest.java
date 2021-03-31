@@ -1,7 +1,7 @@
 package tests.ticketBulkUpdate;
 
-import com.airtel.cs.commonutils.DataProviders.DataProviders;
-import com.airtel.cs.commonutils.DataProviders.TicketStateDataBean;
+import com.airtel.cs.commonutils.dataproviders.DataProviders;
+import com.airtel.cs.commonutils.dataproviders.TicketStateDataBean;
 import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.NoSuchElementException;

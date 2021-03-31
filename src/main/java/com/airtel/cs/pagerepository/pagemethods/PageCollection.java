@@ -5,12 +5,12 @@ import org.openqa.selenium.WebDriver;
 public class PageCollection {
 
 
-
     /**
      * The driver.
      */
-    private WebDriver driver;
+    private final WebDriver driver;
     private SideMenuPOM sideMenuPOM;
+    private LoginPage loginPage;
 
     /**
      * Instantiates a new page collection.
@@ -24,5 +24,9 @@ public class PageCollection {
 
     public SideMenuPOM getSideMenuPOM() {
         return (sideMenuPOM == null) ? sideMenuPOM = new SideMenuPOM(driver) : sideMenuPOM;
+    }
+
+    public LoginPage getLoginPage() {
+        return (loginPage == null) ? loginPage = new LoginPage(driver) : loginPage;
     }
 }

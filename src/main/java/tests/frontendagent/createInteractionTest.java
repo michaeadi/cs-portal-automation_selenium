@@ -4,10 +4,10 @@ import com.airtel.cs.api.APIEndPoints;
 import com.airtel.cs.pojo.LoginPOJO;
 import com.airtel.cs.pojo.SMSHistory.SMSHistoryList;
 import com.airtel.cs.pojo.SMSHistory.SMSHistoryPOJO;
-import com.airtel.cs.commonutils.DataProviders.DataProviders;
-import com.airtel.cs.commonutils.DataProviders.TestDatabean;
-import com.airtel.cs.commonutils.DataProviders.ftrDataBeans;
-import com.airtel.cs.commonutils.DataProviders.nftrDataBeans;
+import com.airtel.cs.commonutils.dataproviders.DataProviders;
+import com.airtel.cs.commonutils.dataproviders.TestDatabean;
+import com.airtel.cs.commonutils.dataproviders.ftrDataBeans;
+import com.airtel.cs.commonutils.dataproviders.nftrDataBeans;
 import com.airtel.cs.commonutils.ExcelUtils.writeToExcel;
 import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.commonutils.PassUtils;
@@ -37,7 +37,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.TimeUnit;
 
-import static com.airtel.cs.commonutils.DataProviders.DataProviders.User;
+import static com.airtel.cs.commonutils.dataproviders.DataProviders.User;
 import static com.airtel.cs.commonutils.extentreports.ExtentTestManager.startTest;
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
@@ -56,7 +56,7 @@ public class createInteractionTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @User(UserType = "NFTR")
+    @User(userType = "NFTR")
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteraction(TestDatabean Data) {
         ExtentTestManager.startTest("Validating the Search for Customer Interactions: " + Data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + Data.getCustomerNumber());
@@ -127,7 +127,7 @@ public class createInteractionTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @DataProviders.User(UserType = "com/airtel/cs/api")
+    @DataProviders.User(userType = "com/airtel/cs/api")
     @Test(dataProvider = "loginData", dataProviderClass = DataProviders.class, priority = 3)
     public void loginAPI(TestDatabean Data) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
@@ -396,7 +396,7 @@ public class createInteractionTest extends BaseTest {
                 valueToWrite = new String[]{ticket_number};
                 writeToExcel objExcelFile = new writeToExcel();
                 File Exceldir = new File("Excels");
-                File Excel = new File(Exceldir, BaseTest.ExcelPath);
+                File Excel = new File(Exceldir, BaseTest.excelPath);
                 System.out.println("Ticket Number:You " + Data.getRownum());
                 objExcelFile.writeTicketNumber(Excel.getAbsolutePath(), config.getProperty(BaseTest.suiteType + "-NftrSheet"), valueToWrite, Data.getRownum());
                 System.out.println("Ticket Number Written to Excel " + valueToWrite[0]);

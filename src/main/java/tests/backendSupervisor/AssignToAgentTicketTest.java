@@ -2,7 +2,7 @@ package tests.backendSupervisor;
 
 import com.airtel.cs.api.APIEndPoints;
 import com.airtel.cs.pojo.TicketList.TicketPOJO;
-import com.airtel.cs.commonutils.DataProviders.DataProviders;
+import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.ElementClickInterceptedException;

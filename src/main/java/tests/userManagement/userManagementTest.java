@@ -1,7 +1,7 @@
 package tests.userManagement;
 
-import com.airtel.cs.commonutils.DataProviders.DataProviders;
-import com.airtel.cs.commonutils.DataProviders.TestDatabean;
+import com.airtel.cs.commonutils.dataproviders.DataProviders;
+import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.NoSuchElementException;
@@ -41,7 +41,7 @@ public class userManagementTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @DataProviders.User(UserType = "ALL")
+    @DataProviders.User(userType = "ALL")
     @Test(priority = 2,dependsOnMethods = "openUserManagementPage",description = "Validating User Management Edit Page", dataProviderClass = DataProviders.class, dataProvider = "loginData")
     public void openEditUserPage(TestDatabean Data) {
         ExtentTestManager.startTest("Validating User Management Edit Page", "Validating User Management Edit Page and Search Auuid Functionality  ");
@@ -166,7 +166,7 @@ public class userManagementTest extends BaseTest {
 
     }
 
-    @DataProviders.User(UserType = "ALL")
+    @DataProviders.User(userType = "ALL")
     @Test(priority = 6,dependsOnMethods = "openEditUserPage", description = "Validating Bucket Size", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void changeBucketSize(TestDatabean Data) {
         ExtentTestManager.startTest("Validating Bucket Size", "Validating Bucket Size");

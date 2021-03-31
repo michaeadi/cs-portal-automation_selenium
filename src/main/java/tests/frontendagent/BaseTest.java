@@ -5,6 +5,7 @@ import com.airtel.cs.commonutils.commonlib.CommonLib;
 import com.airtel.cs.commonutils.extentreports.ExtentReport;
 import com.airtel.cs.commonutils.seleniumutils.SeleniumCommonUtils;
 import com.airtel.cs.pagerepository.pagemethods.PageCollection;
+import com.codoid.products.fillo.Recordset;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -28,6 +29,8 @@ import java.util.*;
 public class BaseTest {
 
 
+    private static final String USER_DIR = "user.dir";
+    private static final String OPCO = System.getProperty("Opco").toUpperCase();
     public static WebDriver driver;
     public static PageCollection pages;
     public static final CommonLib commonLib = new CommonLib();
@@ -35,7 +38,7 @@ public class BaseTest {
     public static String Opco;
     public static String Env;
     public static final StringBuilder TESTCASE_DESCRIPTION_BUILDER = new StringBuilder(); // FOR ADDING TESTCASE DESCRIPTION IN EXTNT REPORTS
-    public static String ExcelPath;
+    public static String excelPath;
     public static List<Header> map = new ArrayList<>();
     public static String Token;
     public static String baseUrl;
@@ -48,11 +51,11 @@ public class BaseTest {
     public static ExtentReports reports;
     public static ConstantsUtils constants = ConstantsUtils.getInstance();
     private static final String EVN_NAME = System.getProperty("Env").toUpperCase();
-    public static boolean continueExecutionAPI=true;
-    public static boolean continueExecutionBA=true;
-    public static boolean continueExecutionBS=true;
-    public static boolean continueExecutionFA=true;
-
+    public static Recordset recordset = null;
+    public static boolean continueExecutionAPI = true;
+    public static boolean continueExecutionBA = true;
+    public static boolean continueExecutionBS = true;
+    public static boolean continueExecutionFA = true;
 
 
     public WebDriver getDriver() {
@@ -70,13 +73,12 @@ public class BaseTest {
         }
 
 
-        Opco = System.getProperty("Opco").toUpperCase();
         Env = System.getProperty("Env").toUpperCase();
         if (Env.equalsIgnoreCase("TEST")) Env = "SIT";
-        ExcelPath = Opco + ".xlsx";
+        excelPath = System.getProperty(USER_DIR) + "/resources/excels/" + OPCO + ".xlsx";
         config = new Properties();
         FileInputStream fis;
-        fis = new FileInputStream(System.getProperty("user.dir") + "/resources/properties/" + System.getProperty("Opco") + EVN_NAME + "-config.properties");
+        fis = new FileInputStream(System.getProperty(USER_DIR) + "/resources/properties/" + OPCO + "-config.properties");
         config.load(fis);
         System.out.println(config.getProperty(suiteType + "-NftrSheet"));
         System.out.println("OPCO Chosen :" + Opco);
@@ -91,7 +93,7 @@ public class BaseTest {
             //WebDriverManager.chromedriver().setup(); //Use this for local for proxy issue
             ChromeOptions options = new ChromeOptions();
             options.addArguments("--window-size=1792,1120");
-            options.setHeadless(true);
+            options.setHeadless(false);
             Map<String, Object> prefs = new HashMap<String, Object>();
             //prefs.put("download.prompt_for_download", false);
             prefs.put("download.default_directory", System.getProperty("user.dir") + "\\Excels");
@@ -106,6 +108,7 @@ public class BaseTest {
             driver = new FirefoxDriver();
             driver.manage().window().maximize();
         }
+        assertCheck = new StringBuilder(); // @ THIS WILL EMPTY ASSERT STRING-BUILDER BEFORE EACH TEST
     }
 
     @BeforeClass(alwaysRun = true)

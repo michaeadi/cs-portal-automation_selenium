@@ -1,8 +1,8 @@
 package tests.frontendagent;
 
-import com.airtel.cs.commonutils.DataProviders.AuthTabDataBeans;
-import com.airtel.cs.commonutils.DataProviders.DataProviders;
-import com.airtel.cs.commonutils.DataProviders.TestDatabean;
+import com.airtel.cs.commonutils.dataproviders.AuthTabDataBeans;
+import com.airtel.cs.commonutils.dataproviders.DataProviders;
+import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.pagerepository.pagemethods.AuthenticationTabPOM;
 import com.airtel.cs.pagerepository.pagemethods.CustomerDemoGraphicPOM;
@@ -31,7 +31,7 @@ public class AuthTabTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @DataProviders.User(UserType = "NFTR")
+    @DataProviders.User(userType = "NFTR")
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteraction(TestDatabean Data) {
         ExtentTestManager.startTest("Validating the Search for Customer Interactions :" + Data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + Data.getCustomerNumber());

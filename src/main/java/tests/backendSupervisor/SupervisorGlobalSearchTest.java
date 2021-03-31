@@ -1,7 +1,7 @@
 package tests.backendSupervisor;
 
-import com.airtel.cs.commonutils.DataProviders.DataProviders;
-import com.airtel.cs.commonutils.DataProviders.TestDatabean;
+import com.airtel.cs.commonutils.dataproviders.DataProviders;
+import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.NoSuchElementException;
@@ -77,7 +77,7 @@ public class SupervisorGlobalSearchTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @DataProviders.User(UserType = "NFTR")
+    @DataProviders.User(userType = "NFTR")
     @Test(priority = 4,description = "Verify Global Search By Global Search Option",dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void globalSearchTestBy(TestDatabean data){
         ExtentTestManager.startTest("Verify Global Search By Global Search Option", "Verify Global Search By Global Search Option");

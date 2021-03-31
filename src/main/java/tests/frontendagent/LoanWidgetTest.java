@@ -6,9 +6,9 @@ import com.airtel.cs.pojo.LoanSummary.Summary;
 import com.airtel.cs.pojo.Vendors.HeaderList;
 import com.airtel.cs.pojo.Vendors.VendorNames;
 import com.airtel.cs.pojo.Vendors.Vendors;
-import com.airtel.cs.commonutils.DataProviders.DataProviders;
-import com.airtel.cs.commonutils.DataProviders.HeaderDataBean;
-import com.airtel.cs.commonutils.DataProviders.TestDatabean;
+import com.airtel.cs.commonutils.dataproviders.DataProviders;
+import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
+import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.pagerepository.pagemethods.LoanDetailPOM;
@@ -60,7 +60,7 @@ public class LoanWidgetTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @DataProviders.Table(Name = "Loan Services")
+    @DataProviders.Table(name = "Loan Services")
     @Test(priority = 2, dependsOnMethods = "openCustomerInteraction", description = "Validating Loan Widget layout", dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
     public void validateLoanWidgetLayout(HeaderDataBean Data) throws InterruptedException, IOException {
         ExtentTestManager.startTest("Validating Loan Service Widget layout", "Validating Loan Service Widget");
@@ -116,7 +116,7 @@ public class LoanWidgetTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @DataProviders.Table(Name = "Loan Details")
+    @DataProviders.Table(name = "Loan Details")
     @Test(priority = 4, description = "Validate Loan Detail Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class,dependsOnMethods = "openCustomerInteraction")
     public void validateLoanDetailWidget(HeaderDataBean data) throws InterruptedException, IOException {
         ExtentTestManager.startTest("Validate Loan Detail Widget", "Validate Loan Detail Widget");
@@ -178,7 +178,7 @@ public class LoanWidgetTest extends BaseTest {
     }
 
 
-    @DataProviders.Table(Name = "Loan History")
+    @DataProviders.Table(name = "Loan History")
     @Test(priority = 5,dependsOnMethods = "openCustomerInteraction", description = "Validate Loan History Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
     public void validateLoanHistoryWidget(HeaderDataBean data) throws InterruptedException, IOException {
         ExtentTestManager.startTest("Validate Loan History Widget", "Validate Loan History Widget");

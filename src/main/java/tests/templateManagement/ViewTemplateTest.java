@@ -1,6 +1,6 @@
 package tests.templateManagement;
 
-import com.airtel.cs.commonutils.DataProviders.DataProviders;
+import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.NoSuchElementException;

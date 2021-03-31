@@ -3,8 +3,8 @@ package tests.frontendagent;
 
 import com.airtel.cs.api.APIEndPoints;
 import com.airtel.cs.pojo.ClearRefillStatus.RefillStatus;
-import com.airtel.cs.commonutils.DataProviders.DataProviders;
-import com.airtel.cs.commonutils.DataProviders.TestDatabean;
+import com.airtel.cs.commonutils.dataproviders.DataProviders;
+import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -31,7 +31,7 @@ public class ClearRefillErrorTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @DataProviders.User(UserType = "com/airtel/cs/api")
+    @DataProviders.User(userType = "com/airtel/cs/api")
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteractionAPI(TestDatabean Data) {
         ExtentTestManager.startTest("Validating the Search forCustomer Interactions :" + Data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + Data.getCustomerNumber());

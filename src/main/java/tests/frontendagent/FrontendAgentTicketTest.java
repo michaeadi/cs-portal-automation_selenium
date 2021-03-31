@@ -1,7 +1,7 @@
 package tests.frontendagent;
 
-import com.airtel.cs.commonutils.DataProviders.DataProviders;
-import com.airtel.cs.commonutils.DataProviders.TestDatabean;
+import com.airtel.cs.commonutils.dataproviders.DataProviders;
+import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.pagerepository.pagemethods.FrontendTicketHistory;
 import com.airtel.cs.pagerepository.pagemethods.SendSMSPOM;
@@ -30,7 +30,7 @@ public class FrontendAgentTicketTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @DataProviders.User(UserType = "NFTR")
+    @DataProviders.User(userType = "NFTR")
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteraction(Method method, TestDatabean Data) throws IOException {
         ExtentTestManager.startTest("Validating the Search forCustomer Interactions :" + Data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + Data.getCustomerNumber());

@@ -1,7 +1,7 @@
 package tests.backendSupervisor;
 
-import com.airtel.cs.commonutils.DataProviders.DataProviders;
-import com.airtel.cs.commonutils.DataProviders.TicketTransferRuleDataBean;
+import com.airtel.cs.commonutils.dataproviders.DataProviders;
+import com.airtel.cs.commonutils.dataproviders.TicketTransferRuleDataBean;
 import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.pagerepository.pagemethods.FilterTabPOM;
 import com.airtel.cs.pagerepository.pagemethods.ViewTicketPagePOM;

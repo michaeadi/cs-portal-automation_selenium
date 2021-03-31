@@ -8,7 +8,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import com.airtel.cs.pagerepository.pagemethods.SideMenuPOM;
-import com.airtel.cs.pagerepository.pagemethods.loginPagePOM;
+import com.airtel.cs.pagerepository.pagemethods.LoginPage;
 
 import java.lang.reflect.Method;
 
@@ -27,7 +27,7 @@ public class LogoutTest extends BaseTest {
         SideMenuPOM sideMenuPOM = new SideMenuPOM(driver);
         ExtentTestManager.startTest("Logging Out Of Portal", "Logging Out Of Portal");
         SoftAssert softAssert = new SoftAssert();
-        loginPagePOM loginPagePOM = null;
+        LoginPage loginPagePOM = null;
         if (sideMenuPOM.isSideMenuVisible()) {
             sideMenuPOM.clickOnSideMenu();
             loginPagePOM = sideMenuPOM.logout();
@@ -38,7 +38,7 @@ public class LogoutTest extends BaseTest {
             }
             Assert.assertTrue(loginPagePOM.isEnterAUUIDFieldVisible());
         } else {
-            loginPagePOM = new loginPagePOM(driver);
+            loginPagePOM = new LoginPage(driver);
             Assert.assertTrue(loginPagePOM.isEnterAUUIDFieldVisible());
         }
         loginPagePOM.waitTillLoaderGetsRemoved();

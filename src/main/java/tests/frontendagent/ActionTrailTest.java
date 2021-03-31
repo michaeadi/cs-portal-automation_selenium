@@ -1,8 +1,8 @@
 package tests.frontendagent;
 
-import com.airtel.cs.commonutils.DataProviders.DataProviders;
-import com.airtel.cs.commonutils.DataProviders.HeaderDataBean;
-import com.airtel.cs.commonutils.DataProviders.TestDatabean;
+import com.airtel.cs.commonutils.dataproviders.DataProviders;
+import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
+import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.pagerepository.pagemethods.ActionTrailTabPOM;
 import com.airtel.cs.pagerepository.pagemethods.AuthenticationTabPOM;
@@ -34,7 +34,7 @@ public class ActionTrailTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @DataProviders.User(UserType = "NFTR")
+    @DataProviders.User(userType = "NFTR")
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteraction(TestDatabean Data) {
         ExtentTestManager.startTest("Validating the Search for Customer Interactions :" + Data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + Data.getCustomerNumber());
@@ -50,7 +50,7 @@ public class ActionTrailTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @DataProviders.Table(Name = "Action Trail Tab")
+    @DataProviders.Table(name = "Action Trail Tab")
     @Test(priority = 3,description = "Validating Action Trail Tab", dataProvider = "HeaderData", dataProviderClass = DataProviders.class,dependsOnMethods = "openCustomerInteraction")
     public void validateActionTrailOpenCorrectly(HeaderDataBean data){
         ExtentTestManager.startTest("Validating the Action Trail Tab Under View History", "Validating the Action Trail Tab Under View History");

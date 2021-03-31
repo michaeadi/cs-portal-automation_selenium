@@ -1,8 +1,8 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
-import com.airtel.cs.commonutils.DataProviders.DataProviders;
-import com.airtel.cs.commonutils.DataProviders.PriorityDataBean;
-import com.airtel.cs.commonutils.DataProviders.TicketStateDataBean;
+import com.airtel.cs.commonutils.dataproviders.DataProviders;
+import com.airtel.cs.commonutils.dataproviders.PriorityDataBean;
+import com.airtel.cs.commonutils.dataproviders.TicketStateDataBean;
 import com.airtel.cs.commonutils.UtilsMethods;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.*;

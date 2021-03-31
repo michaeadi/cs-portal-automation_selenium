@@ -1,7 +1,7 @@
 package tests.profileManagement;
 
-import com.airtel.cs.commonutils.DataProviders.DataProviders;
-import com.airtel.cs.commonutils.DataProviders.TestDatabean;
+import com.airtel.cs.commonutils.dataproviders.DataProviders;
+import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -12,7 +12,7 @@ import com.airtel.cs.pagerepository.pagemethods.customerInteractionsSearchPOM;
 import com.airtel.cs.pagerepository.pagemethods.profileManagementPOM;
 import tests.frontendagent.BaseTest;
 
-import static com.airtel.cs.commonutils.DataProviders.DataProviders.User;
+import static com.airtel.cs.commonutils.dataproviders.DataProviders.User;
 
 public class profileManagementTest extends BaseTest {
 
@@ -98,7 +98,7 @@ public class profileManagementTest extends BaseTest {
         profileManagement.clickOnOption("All");
     }
 
-    @User(UserType = "ALL")
+    @User(userType = "ALL")
     @Test(priority = 3, description = "Validating Role's Widget Order Test", dataProvider = "loginData", dataProviderClass = DataProviders.class,dependsOnMethods = "openProfileManagementPage")
     public void widgetOrderTest(TestDatabean Data) {
         ExtentTestManager.startTest("Validating Role's Widget Order Test", "Validating Profile Management with Validating Filter and Columns Present ");

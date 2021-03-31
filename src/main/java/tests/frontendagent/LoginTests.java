@@ -1,14 +1,14 @@
 package tests.frontendagent;
 
-import com.airtel.cs.commonutils.DataProviders.DataProviders;
-import com.airtel.cs.commonutils.DataProviders.TestDatabean;
+import com.airtel.cs.commonutils.dataproviders.DataProviders;
+import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.commonutils.PassUtils;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import com.airtel.cs.pagerepository.pagemethods.SideMenuPOM;
-import com.airtel.cs.pagerepository.pagemethods.loginPagePOM;
+import com.airtel.cs.pagerepository.pagemethods.LoginPage;
 
 import java.lang.reflect.Method;
 
@@ -23,18 +23,18 @@ public class LoginTests extends BaseTest {
         softAssert.assertAll();
     }
 
-    @DataProviders.User(UserType = "ALL")
+    @DataProviders.User(userType = "ALL")
     @Test(priority = 1, description = "Logging IN", dataProvider = "loginData", dataProviderClass = DataProviders.class)
-    public void LoggingIN(Method method, TestDatabean Data) throws InterruptedException {
-        ExtentTestManager.startTest("Logging Into Portal", "Logging Into Portal with AUUID :  " + Data.getLoginAUUID());
+    public void loggingIN(Method method, TestDatabean data) throws InterruptedException {
+        ExtentTestManager.startTest("Logging Into Portal", "Logging Into Portal with AUUID :  " + data.getLoginAUUID());
         SoftAssert softAssert = new SoftAssert();
-        loginPagePOM loginPagePOM = new loginPagePOM(driver);
+        LoginPage loginPagePOM = new LoginPage(driver);
         loginPagePOM.openBaseURL(config.getProperty(BaseTest.Env + "-baseurl"));
         softAssert.assertEquals(driver.getCurrentUrl(), config.getProperty(BaseTest.Env + "-baseurl"), "URl isn't as expected");
         loginPagePOM.waitTillLoaderGetsRemoved();
-        loginPagePOM.enterAUUID(Data.getLoginAUUID());//*[@id="mat-input-7"]
+        loginPagePOM.enterAUUID(data.getLoginAUUID());//*[@id="mat-input-7"]
         loginPagePOM.clickOnSubmitBtn();
-        loginPagePOM.enterPassword(PassUtils.decodePassword(Data.getPassword()));
+        loginPagePOM.enterPassword(PassUtils.decodePassword(data.getPassword()));
         softAssert.assertTrue(loginPagePOM.checkLoginButton(), "Login Button is not enabled even after entering Passowrd");
         loginPagePOM.clickOnVisibleButton();
         loginPagePOM.clickOnVisibleButton();

@@ -14,9 +14,8 @@ import java.util.Scanner;
 public class ConstantsUtils extends BaseTest implements Cloneable {
     private static ConstantsUtils constants;
     private Properties prop;
-    private static final String EVN_NAME = System.getProperty("Env").toUpperCase();
 
-    private static final String FILE_PATH = System.getProperty("user.dir") + "/resources/properties/" + System.getProperty("Opco") + EVN_NAME + "-config.properties";
+    private static final String FILE_PATH = System.getProperty("user.dir") + "/resources/properties/" + System.getProperty("Opco") + "-config.properties";
 
     private ConstantsUtils() {
         Scanner inFile;
