@@ -1,7 +1,10 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
 import com.airtel.cs.commonutils.UtilsMethods;
+import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.pagerepository.pageelements.CustomerProfilePageElements;
+import com.airtel.cs.pojo.PlansPOJO;
+import com.airtel.cs.pojo.MainAccountBalance;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -40,6 +43,7 @@ public class CustomerProfilePage extends BasePage {
     By continueBtn = By.xpath("//span[contains(text(),'continue')]");
 
     public CustomerProfilePageElements customerProfilePageElements;
+    public static final String TARIFF_PLAN_TEST_NUMBER = constants.getValue(ApplicationConstants.TARIFF_PLAN_TEST_NUMBER);
 
     public CustomerProfilePage(WebDriver driver) {
         super(driver);
@@ -89,16 +93,16 @@ public class CustomerProfilePage extends BasePage {
         return strings;
     }
 
-    public customerInteractionsSearchPOM clickPinTag(String text) {
+    public CustomerInteractionsSearchPOM clickPinTag(String text) {
         UtilsMethods.printInfoLog("Clicking " + text + " Pinned Tag");
         By tagName = By.xpath("//div[@class=\"sub-header__divide--control--tab ng-star-inserted\" and contains(text(),\"" + text + "\")]");
         click(tagName);
-        return new customerInteractionsSearchPOM(driver);
+        return new CustomerInteractionsSearchPOM(driver);
     }
 
 
     public boolean isPageLoaded() {
-        Boolean check = checkState(searchNumber);
+        boolean check = checkState(searchNumber);
         UtilsMethods.printInfoLog("Checking that is Customer Interaction Page is loaded : " + check);
         return check;
     }
@@ -110,10 +114,13 @@ public class CustomerProfilePage extends BasePage {
         return new InteractionsPOM(driver);
     }
 
-    public viewHistoryPOM clickOnViewHistory() {
+    /*
+    With this Method we will route to the View History tab adjacent to Home tab
+     */
+    public ViewHistory clickOnViewHistory() {
         click(viewHistory);
         UtilsMethods.printInfoLog("Clicking on View History");
-        return new viewHistoryPOM(driver);
+        return new ViewHistory(driver);
     }
 
 
@@ -194,7 +201,10 @@ public class CustomerProfilePage extends BasePage {
         click(continueBtn);
     }
 
-    public Boolean isChangeServiceClassVisible() {
+    /*
+    This Method will let us know, if Change Service Class Option is visible under Actions drop down
+     */
+    public Boolean isChangeServiceClassOptionVisible() {
         boolean result = false;
         try {
             result = elementVisibleWithExplictWait(customerProfilePageElements.changeServiceClass_btn);
@@ -204,9 +214,169 @@ public class CustomerProfilePage extends BasePage {
         return result;
     }
 
-    public Boolean openChangeServiceClassTab(){
-        boolean result = false;
+    /*
+    This Method will open change service class tab from Actions drop down
+     */
+    public void openChangeServiceClassTab() {
+        try {
+            if (isVisible(customerProfilePageElements.changeServiceClass_btn)) {
+                click(customerProfilePageElements.changeServiceClass_btn);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Message = Message + "</br>" + e.getMessage();
+            commonLib.fail(Message, true);
+        }
+    }
 
+    /*
+    This Method will let us know, if Suspend SIM Option is visible under Actions drop down
+     */
+    public Boolean isSuspendSIMOptionVisible() {
+        boolean result = false;
+        try {
+            result = elementVisibleWithExplictWait(customerProfilePageElements.suspendSIM);
+        } catch (Exception e) {
+            log.error("Suspend SIM Option is not visible, Exception in Method -isSuspendSIMOptionVisible", e);
+        }
         return result;
+    }
+
+    /*
+   This Method will open Suspend SIM tab from Actions drop down
+    */
+    public void openSuspendSIMTab() {
+        try {
+            if (isVisible(customerProfilePageElements.suspendSIM)) {
+                click(customerProfilePageElements.suspendSIM);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Message = Message + "</br>" + e.getMessage();
+            commonLib.fail(Message, true);
+        }
+    }
+
+    /*
+    This Method will let us know, if Suspend SIM Option is visible under Actions drop down
+     */
+    public Boolean isReactivationSIMOptionVisible() {
+        boolean result = false;
+        try {
+            result = elementVisibleWithExplictWait(customerProfilePageElements.reactivationSIM);
+        } catch (Exception e) {
+            log.error("Reactivation SIM Option is not visible, Exception in Method -isReactivationSIMOptionVisible", e);
+        }
+        return result;
+    }
+
+    /*
+    This Method will verify if Service Class Tab opened or not
+    */
+    public Boolean isSuspendSIMModalOpened() {
+        boolean result = false;
+        try {
+            result = elementVisibleWithExplictWait(customerProfilePageElements.suspendSIM);
+        } catch (Exception e) {
+            log.error("Suspend SIM Modal is not Visible, Exception in Method - isSuspendSIMModalOpened", e);
+        }
+        return result;
+    }
+
+    /*
+    This Method wil return us the main account balance or air time for a MSISDN
+     */
+    public MainAccountBalance getMainAccountBalance() {
+        PlansPOJO plansAPI = api.accountPlansTest(TARIFF_PLAN_TEST_NUMBER);
+        return plansAPI.getResult().getMainAccountBalance();
+    }
+
+    /*
+    This Method will return last created interaction issue code from view history << interaction tab
+     */
+    public String goAndCheckFTRCreatedorNot() {
+        clickOnViewHistory();
+        ViewHistory history = new ViewHistory(driver);
+        history.clickOnInteractionsTab();
+        return history.getLastCreatedIssueCode();
+    }
+
+    /*
+    This will will route you to Home Tab over customer profile page
+     */
+    public void goToHomeTab() {
+        if (isVisible(customerProfilePageElements.homePage)) {
+            click(customerProfilePageElements.homePage);
+        }
+    }
+
+    public Boolean isAuthTabOpenedDoAction() {
+        boolean tabOpened = false;
+        if (isVisible(customerProfilePageElements.authenticationModal)) {
+            tabOpened = true;
+            selectAuthCheckBox();
+            click(customerProfilePageElements.authenticateBtn);
+            waitTillLoaderGetsRemoved();
+        }
+        return tabOpened;
+    }
+
+    public void selectAuthCheckBox() {
+        int count = 0;
+        final List<WebElement> elementsListfromBy = getElementsListFromBy(customerProfilePageElements.authCheckBox);
+        for (WebElement authQuestionList : elementsListfromBy) {
+            click(customerProfilePageElements.authCheckBox);
+            count++;
+            if (count == 3) {
+                break;
+            }
+        }
+    }
+
+    /*
+   This Method will click over issue details List
+    */
+    public void clickIssueDetails() {
+        click(customerProfilePageElements.issueDetailsReason);
+    }
+
+    /*
+    This Method will select the Reason over issue details pop up
+     */
+    public void selectReason() {
+        final List<WebElement> elementsListfromBy = getElementsListFromBy(customerProfilePageElements.selectReason);
+        for (WebElement dropDownList : elementsListfromBy) {
+            if (dropDownList.getSize() != null) {
+                click(customerProfilePageElements.selectReason);
+                break;
+            }
+        }
+    }
+
+    public void enterCommentIssuePopUp() {
+        setTextWithTimeStamp(customerProfilePageElements.commentBox, "Comment By Automation");
+    }
+
+    /*
+    This Method will let us know, submit Btn is enabled or not over issue details pop up
+     */
+    public Boolean isSubmitEnabled() {
+        return checkState(customerProfilePageElements.submitBtn);
+    }
+
+    public void doSIMBarAction() {
+        clickIssueDetails();
+        selectReason();
+        enterCommentIssuePopUp();
+        if (Boolean.TRUE.equals(isSubmitEnabled())) {
+            click(customerProfilePageElements.submitBtn);
+        }
+    }
+
+    /*
+  This Method will provide us the text present over the Success or Failure modal
+   */
+    public String getModalText() {
+        return readText(customerProfilePageElements.modalSuccessFailureMsg);
     }
 }

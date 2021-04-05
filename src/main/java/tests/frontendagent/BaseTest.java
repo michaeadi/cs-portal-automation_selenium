@@ -1,5 +1,7 @@
 package tests.frontendagent;
 
+import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
+import com.airtel.cs.commonutils.applicationutils.constants.CommonConstantsUtils;
 import com.airtel.cs.commonutils.applicationutils.constants.ConstantsUtils;
 import com.airtel.cs.commonutils.commonlib.CommonLib;
 import com.airtel.cs.commonutils.extentreports.ExtentReport;
@@ -23,25 +25,34 @@ import org.testng.annotations.BeforeSuite;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 @Log4j2
 public class BaseTest {
 
 
     private static final String USER_DIR = "user.dir";
-    private static final String OPCO = System.getProperty("Opco").toUpperCase();
+    public static final String OPCO = System.getProperty("Opco").toUpperCase();
     public static WebDriver driver;
+    public static WebDriver default_Driver = null;
+    public static WebDriver temp_Driver = null;
+    public static String loginURL = null;
+    public static String parentWindowHandle;
+    public static String tempWindowHandle;
     public static PageCollection pages;
     public static final CommonLib commonLib = new CommonLib();
     public static Properties config;
-    public static String Opco;
     public static String Env;
     public static final StringBuilder TESTCASE_DESCRIPTION_BUILDER = new StringBuilder(); // FOR ADDING TESTCASE DESCRIPTION IN EXTNT REPORTS
     public static String excelPath;
     public static List<Header> map = new ArrayList<>();
     public static String Token;
     public static String baseUrl;
+    public static String umBaseUrl;
     public static String suiteType;
     public StringBuilder assertCheck = null;
     public static final ExtentReport reporter = new ExtentReport();
@@ -50,12 +61,16 @@ public class BaseTest {
     public static ExtentTest test;
     public static ExtentReports reports;
     public static ConstantsUtils constants = ConstantsUtils.getInstance();
+    public static CommonConstantsUtils commonConstants =CommonConstantsUtils.getInstance();
     private static final String EVN_NAME = System.getProperty("Env").toUpperCase();
     public static Recordset recordset = null;
     public static boolean continueExecutionAPI = true;
     public static boolean continueExecutionBA = true;
     public static boolean continueExecutionBS = true;
     public static boolean continueExecutionFA = true;
+    public static String ElementName = ""; // FOR PASSING ELEMENT NAMES TO LOGS
+    public static String Message = null;
+
 
 
     public WebDriver getDriver() {
@@ -81,11 +96,13 @@ public class BaseTest {
         fis = new FileInputStream(System.getProperty(USER_DIR) + "/resources/properties/" + OPCO + "-config.properties");
         config.load(fis);
         System.out.println(config.getProperty(suiteType + "-NftrSheet"));
-        System.out.println("OPCO Chosen :" + Opco);
+        System.out.println("OPCO Chosen :" + OPCO);
         System.out.println("Environment Chosen : " + Env);
         System.out.println("Suite Type : " + suiteType);
 
         baseUrl = config.getProperty(Env + "-APIBase");
+        umBaseUrl = constants.getValue(ApplicationConstants.UM_API_BASE);
+        loginURL = constants.getValue(ApplicationConstants.UM_LOGIN_URL);
         String browser = config.getProperty("browser");
         System.out.println(baseUrl);
         if (browser.equals("chrome")) {
@@ -108,6 +125,8 @@ public class BaseTest {
             driver = new FirefoxDriver();
             driver.manage().window().maximize();
         }
+        default_Driver = driver;
+        parentWindowHandle = default_Driver.getWindowHandle();
         assertCheck = new StringBuilder(); // @ THIS WILL EMPTY ASSERT STRING-BUILDER BEFORE EACH TEST
     }
 
@@ -135,5 +154,25 @@ public class BaseTest {
      */
     public static void initializePages() {
         pages = new PageCollection(driver);
+    }
+    /**
+     * Goto URL.l
+     *
+     * @param url the url
+     */
+    // open url method
+    public void gotoURL(String url) {
+        try {
+            commonLib.info("OPENING URL -" + url);
+            driver.get(url);
+            try {
+                driver.switchTo().alert().accept();
+            } catch (Exception e) {
+            }
+            selUtils.waitForPageLoad();
+        } catch (Exception e) {
+            e.getStackTrace();
+            commonLib.warning("Exception in method - | gotoURL | " + "</br>" + e.getMessage());
+        }
     }
 }

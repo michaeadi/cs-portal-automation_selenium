@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import com.airtel.cs.pagerepository.pagemethods.SideMenuPOM;
 import com.airtel.cs.pagerepository.pagemethods.CustomerProfilePage;
-import com.airtel.cs.pagerepository.pagemethods.customerInteractionsSearchPOM;
+import com.airtel.cs.pagerepository.pagemethods.CustomerInteractionsSearchPOM;
 import com.airtel.cs.pagerepository.pagemethods.profileManagementPOM;
 import tests.frontendagent.BaseTest;
 
@@ -134,7 +134,7 @@ public class profileManagementTest extends BaseTest {
         SideMenuPOM SideMenuPOM = new SideMenuPOM(driver);
         SideMenuPOM.clickOnSideMenu();
         SideMenuPOM.clickOnName();
-        customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
+        CustomerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
         customerInteractionsSearchPOM.enterNumber(Data.getCustomerNumber());
         CustomerProfilePage customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
         softAssert.assertTrue(customerInteractionPagePOM.isPageLoaded());

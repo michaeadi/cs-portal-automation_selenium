@@ -7,8 +7,8 @@ import com.airtel.cs.pagerepository.pagemethods.FrontendTicketHistory;
 import com.airtel.cs.pagerepository.pagemethods.SendSMSPOM;
 import com.airtel.cs.pagerepository.pagemethods.SideMenuPOM;
 import com.airtel.cs.pagerepository.pagemethods.CustomerProfilePage;
-import com.airtel.cs.pagerepository.pagemethods.customerInteractionsSearchPOM;
-import com.airtel.cs.pagerepository.pagemethods.viewHistoryPOM;
+import com.airtel.cs.pagerepository.pagemethods.CustomerInteractionsSearchPOM;
+import com.airtel.cs.pagerepository.pagemethods.ViewHistory;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
@@ -38,7 +38,7 @@ public class FrontendAgentTicketTest extends BaseTest {
         SideMenuPOM SideMenuPOM = new SideMenuPOM(driver);
         SideMenuPOM.clickOnSideMenu();
         SideMenuPOM.clickOnName();
-        customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
+        CustomerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
         customerInteractionsSearchPOM.enterNumber(Data.getCustomerNumber());
         CustomerProfilePage customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
         softAssert.assertTrue(customerInteractionPagePOM.isPageLoaded(),"Dashboard page does not open.");
@@ -50,7 +50,7 @@ public class FrontendAgentTicketTest extends BaseTest {
         ExtentTestManager.startTest("Validate Ticket Meta Data for Frontend Agent", "Validate Ticket Meta Data for Frontend Agent ");
         SoftAssert softAssert = new SoftAssert();
         CustomerProfilePage customerInteractionPage = new CustomerProfilePage(driver);
-        viewHistoryPOM viewHistory = customerInteractionPage.clickOnViewHistory();
+        ViewHistory viewHistory = customerInteractionPage.clickOnViewHistory();
         FrontendTicketHistory ticketHistory = viewHistory.clickOnTicketHistory();
         ticketHistory.waitTillLoaderGetsRemoved();
         String ticketId=ticketHistory.getTicketId(1);
@@ -70,7 +70,7 @@ public class FrontendAgentTicketTest extends BaseTest {
         ExtentTestManager.startTest("Validate Add to Interaction Icon on Each Ticket", "Validate Add to Interaction Icon on Each Ticket");
         SoftAssert softAssert = new SoftAssert();
         CustomerProfilePage customerInteractionPage = new CustomerProfilePage(driver);
-        viewHistoryPOM viewHistory = customerInteractionPage.clickOnViewHistory();
+        ViewHistory viewHistory = customerInteractionPage.clickOnViewHistory();
         FrontendTicketHistory ticketHistory = viewHistory.clickOnTicketHistory();
         ticketHistory.waitTillLoaderGetsRemoved();
         softAssert.assertTrue(ticketHistory.validateAddToInteractionIcon(), "Add to interaction Icon does not found on ticket");
@@ -82,7 +82,7 @@ public class FrontendAgentTicketTest extends BaseTest {
         ExtentTestManager.startTest("Validate NFTR issue have ticket icon", "Validate NFTR issue have ticket icon");
         SoftAssert softAssert = new SoftAssert();
         CustomerProfilePage customerInteractionPage = new CustomerProfilePage(driver);
-        viewHistoryPOM viewHistory = customerInteractionPage.clickOnViewHistory();
+        ViewHistory viewHistory = customerInteractionPage.clickOnViewHistory();
         viewHistory.clickOnInteractionsTab();
         viewHistory.waitTillLoaderGetsRemoved();
         Assert.assertTrue(viewHistory.clickOnTicketIcon(), "No NFTR issue found in interaction history tab");

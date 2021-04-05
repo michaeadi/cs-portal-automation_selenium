@@ -6,6 +6,9 @@ import com.relevantcodes.extentreports.LogStatus;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.PageLoadStrategy;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.logging.LogType;
@@ -235,5 +238,36 @@ public class CommonLib extends BaseTest {
             }
         }
         return theRandomNum;
+    }
+
+    /* --------- METHODS FOR 2nd BROWSER ------------- */
+
+    public void openNewTemporaryBrowser2Nd() {
+        try {
+            default_Driver = driver;
+            ChromeOptions options = null;
+            options.addArguments("start-maximized");
+            options.addArguments("--disable-infobars");
+            options.addArguments("--disable-extensions");
+            options.addArguments("chrome.switches", "--disable-extensions");
+            options.addArguments("--disable-gpu");
+            options.addArguments("--disable-dev-shm-usage");
+            options.addArguments("--disable-notifications");
+            options.addArguments("--disable-popup-blocking");
+            options.addArguments("enable-automation");
+            options.addArguments("--disable-browser-side-navigation");
+            options.addArguments("--dns-prefetch-disable");
+            options.setPageLoadStrategy(PageLoadStrategy.NONE);
+            options.setExperimentalOption("useAutomationExtension", false);
+            options.addArguments("--headless", "window-size=1920,1080", "--no-sandbox");
+            temp_Driver = new ChromeDriver(options);
+            driver = temp_Driver;
+            driver.manage().window().maximize();
+            driver.manage().deleteAllCookies();
+            tempWindowHandle = temp_Driver.getWindowHandle();
+        } catch (Exception e) {
+            fail("Exception Caught in Method - open_NewTemporaryBrowser_2nd" + "</br>" + "Exception Message - "
+                    + e.getMessage(), true);
+        }
     }
 }

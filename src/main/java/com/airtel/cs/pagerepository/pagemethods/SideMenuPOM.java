@@ -114,11 +114,11 @@ public class SideMenuPOM extends BasePage {
         return checkState(templateManagement);
     }
 
-    public customerInteractionsSearchPOM openCustomerInteractionPage() {
+    public CustomerInteractionsSearchPOM openCustomerInteractionPage() {
         UtilsMethods.printInfoLog("Opening Customer Interaction Page");
         hoverAndClick(customerServices);
         click(customerInteraction);
-        return new customerInteractionsSearchPOM(driver);
+        return new CustomerInteractionsSearchPOM(driver);
     }
 
     public TemplateManagementPOM openTemplateManagementPage() {

@@ -9,7 +9,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class mainAccountBalance {
+public class MainAccountBalance {
     String balance;
     String currency;
     long expireTime;

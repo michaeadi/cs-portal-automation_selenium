@@ -11,7 +11,7 @@ import lombok.ToString;
 @JsonInclude(JsonInclude.Include.ALWAYS)
 public class PlansResultPOJO {
     lastRecharge lastRecharge;
-    mainAccountBalance mainAccountBalance;
+    MainAccountBalance mainAccountBalance;
     @JsonInclude(JsonInclude.Include.USE_DEFAULTS)
     Voice voice;
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)

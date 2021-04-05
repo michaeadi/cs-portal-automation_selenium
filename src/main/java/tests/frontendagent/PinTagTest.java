@@ -10,8 +10,8 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import com.airtel.cs.pagerepository.pagemethods.SideMenuPOM;
 import com.airtel.cs.pagerepository.pagemethods.CustomerProfilePage;
-import com.airtel.cs.pagerepository.pagemethods.customerInteractionsSearchPOM;
-import com.airtel.cs.pagerepository.pagemethods.viewHistoryPOM;
+import com.airtel.cs.pagerepository.pagemethods.CustomerInteractionsSearchPOM;
+import com.airtel.cs.pagerepository.pagemethods.ViewHistory;
 
 import java.util.List;
 import java.util.Map;
@@ -37,7 +37,7 @@ public class PinTagTest extends BaseTest {
         SideMenuPOM SideMenuPOM = new SideMenuPOM(driver);
         SideMenuPOM.clickOnSideMenu();
         SideMenuPOM.clickOnName();
-        customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
+        CustomerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
         customerInteractionsSearchPOM.enterNumber(Data.getCustomerNumber());
         CustomerProfilePage customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
         softAssert.assertTrue(customerInteractionPagePOM.isPageLoaded());
@@ -86,12 +86,12 @@ public class PinTagTest extends BaseTest {
         CustomerProfilePage customerInteractionPage = new CustomerProfilePage(driver);
         try {
             if (customerInteractionPage.isPinTagVisible(Data.getTagName())) {
-                customerInteractionsSearchPOM customerInteractionsSearch = customerInteractionPage.clickPinTag(Data.getTagName());
+                CustomerInteractionsSearchPOM customerInteractionsSearch = customerInteractionPage.clickPinTag(Data.getTagName());
                 customerInteractionsSearch.waitUntilPageIsLoaded();
                 customerInteractionsSearch.enterNumber(Data.getCustomerNumber());
                 customerInteractionPage = customerInteractionsSearch.clickOnSearch();
                 softAssert.assertTrue(customerInteractionPage.isPageLoaded());
-                viewHistoryPOM viewHistory = customerInteractionPage.clickOnViewHistory();
+                ViewHistory viewHistory = customerInteractionPage.clickOnViewHistory();
                 viewHistory.clickOnInteractionsTab();
                 String issueCode = viewHistory.getLastCreatedIssueCode();
                 softAssert.assertEquals(issueCode.toLowerCase().trim(), Data.getIssueCode().trim().toLowerCase());

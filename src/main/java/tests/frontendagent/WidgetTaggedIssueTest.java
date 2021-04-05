@@ -11,8 +11,8 @@ import com.airtel.cs.pagerepository.pagemethods.SideMenuPOM;
 import com.airtel.cs.pagerepository.pagemethods.UsageHistoryWidgetPOM;
 import com.airtel.cs.pagerepository.pagemethods.WidgetInteractionPOM;
 import com.airtel.cs.pagerepository.pagemethods.CustomerProfilePage;
-import com.airtel.cs.pagerepository.pagemethods.customerInteractionsSearchPOM;
-import com.airtel.cs.pagerepository.pagemethods.viewHistoryPOM;
+import com.airtel.cs.pagerepository.pagemethods.CustomerInteractionsSearchPOM;
+import com.airtel.cs.pagerepository.pagemethods.ViewHistory;
 import com.relevantcodes.extentreports.LogStatus;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -41,7 +41,7 @@ public class WidgetTaggedIssueTest extends BaseTest {
         SideMenuPOM SideMenuPOM = new SideMenuPOM(driver);
         SideMenuPOM.clickOnSideMenu();
         SideMenuPOM.clickOnName();
-        customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
+        CustomerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
         customerInteractionsSearchPOM.enterNumber(Data.getCustomerNumber());
         CustomerProfilePage customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
         softAssert.assertTrue(customerInteractionPagePOM.isPageLoaded());
@@ -74,7 +74,7 @@ public class WidgetTaggedIssueTest extends BaseTest {
                             CustomerProfilePage customerInteractionPage = tagIssueTab.clickSubmitBtn();
                             tagIssueTab.interactionTabClosed();
                             softAssert.assertTrue(customerInteractionPage.isPageLoaded());
-                            viewHistoryPOM viewHistory = customerInteractionPage.clickOnViewHistory();
+                            ViewHistory viewHistory = customerInteractionPage.clickOnViewHistory();
                             viewHistory.clickOnInteractionsTab();
                             String issueCode = viewHistory.getLastCreatedIssueCode();
                             softAssert.assertEquals(issueCode.toLowerCase().trim(), data.getCode(s).trim().toLowerCase());
@@ -138,7 +138,7 @@ public class WidgetTaggedIssueTest extends BaseTest {
                             CustomerProfilePage customerInteractionPage = tagIssueTab.clickSubmitBtn();
                             tagIssueTab.interactionTabClosed();
                             softAssert.assertTrue(customerInteractionPage.isPageLoaded(),"Customer interaction page does not loaded correctly");
-                            viewHistoryPOM viewHistory = customerInteractionPage.clickOnViewHistory();
+                            ViewHistory viewHistory = customerInteractionPage.clickOnViewHistory();
                             viewHistory.clickOnInteractionsTab();
                             String issueCode = viewHistory.getLastCreatedIssueCode();
                             softAssert.assertEquals(issueCode.toLowerCase().trim(), data.getCode(s).trim().toLowerCase(), "Issue code for category label " + s + " does not configured correctly.");
@@ -202,7 +202,7 @@ public class WidgetTaggedIssueTest extends BaseTest {
                             CustomerProfilePage customerInteractionPage = tagIssueTab.clickSubmitBtn();
                             tagIssueTab.interactionTabClosed();
                             softAssert.assertTrue(customerInteractionPage.isPageLoaded(),"Customer Interaction Page does not load properly");
-                            viewHistoryPOM viewHistory = customerInteractionPage.clickOnViewHistory();
+                            ViewHistory viewHistory = customerInteractionPage.clickOnViewHistory();
                             viewHistory.clickOnInteractionsTab();
                             String issueCode = viewHistory.getLastCreatedIssueCode();
                             softAssert.assertEquals(issueCode.toLowerCase().trim(), data.getCode(s).trim().toLowerCase(),"Issue code not as expected");
@@ -266,7 +266,7 @@ public class WidgetTaggedIssueTest extends BaseTest {
                             CustomerProfilePage customerInteractionPage = tagIssueTab.clickSubmitBtn();
                             tagIssueTab.interactionTabClosed();
                             softAssert.assertTrue(customerInteractionPage.isPageLoaded());
-                            viewHistoryPOM viewHistory = customerInteractionPage.clickOnViewHistory();
+                            ViewHistory viewHistory = customerInteractionPage.clickOnViewHistory();
                             viewHistory.clickOnInteractionsTab();
                             String issueCode = viewHistory.getLastCreatedIssueCode();
                             softAssert.assertEquals(issueCode.toLowerCase().trim(), data.getCode(s).trim().toLowerCase());
@@ -333,7 +333,7 @@ public class WidgetTaggedIssueTest extends BaseTest {
                                 CustomerProfilePage customerInteractionPage = tagIssueTab.clickSubmitBtn();
                                 tagIssueTab.interactionTabClosed();
                                 softAssert.assertTrue(customerInteractionPage.isPageLoaded());
-                                viewHistoryPOM viewHistory = customerInteractionPage.clickOnViewHistory();
+                                ViewHistory viewHistory = customerInteractionPage.clickOnViewHistory();
                                 viewHistory.clickOnInteractionsTab();
                                 String issueCode = viewHistory.getLastCreatedIssueCode();
                                 softAssert.assertEquals(issueCode.toLowerCase().trim(), data.getCode(s).trim().toLowerCase());

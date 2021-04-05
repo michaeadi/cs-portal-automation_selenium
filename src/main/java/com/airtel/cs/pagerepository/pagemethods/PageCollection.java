@@ -12,6 +12,10 @@ public class PageCollection {
     private SideMenuPOM sideMenuPOM;
     private LoginPage loginPage;
     private CustomerProfilePage customerProfilePage;
+    private TariffPlanPage tariffPlanPage;
+    private CustomerInteractionsSearchPOM customerInteractionsSearchPOM;
+    private ViewHistory viewHistory;
+    private UserManagementPage userManagementPage;
 
     /**
      * Instantiates a new page collection.
@@ -33,5 +37,21 @@ public class PageCollection {
 
     public CustomerProfilePage getCustomerProfilePage() {
         return (customerProfilePage == null) ? customerProfilePage = new CustomerProfilePage(driver) : customerProfilePage;
+    }
+
+    public TariffPlanPage getTariffPlanPage() {
+        return (tariffPlanPage == null) ? tariffPlanPage = new TariffPlanPage(driver) : tariffPlanPage;
+    }
+
+    public CustomerInteractionsSearchPOM getCustomerInteractionsSearchPOM() {
+        return (customerInteractionsSearchPOM == null) ? customerInteractionsSearchPOM = new CustomerInteractionsSearchPOM(driver) : customerInteractionsSearchPOM;
+    }
+
+    public ViewHistory getViewHistoryPOM() {
+        return (viewHistory == null) ? viewHistory = new ViewHistory(driver) : viewHistory;
+    }
+
+    public UserManagementPage getUserManagementPage() {
+        return (userManagementPage == null) ? userManagementPage = new UserManagementPage(driver) : userManagementPage;
     }
 }

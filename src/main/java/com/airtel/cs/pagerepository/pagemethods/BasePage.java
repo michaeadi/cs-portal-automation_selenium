@@ -1,7 +1,10 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
+import com.airtel.cs.api.APIEndPoints;
+import com.airtel.cs.commonutils.applicationutils.enums.ReportInfoMessageColorList;
 import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.commonutils.UtilsMethods;
+import com.airtel.cs.pagerepository.pageelements.AirtelByWrapper;
 import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.NoSuchElementException;
@@ -28,6 +31,7 @@ public class BasePage extends BaseTest {
     By timeLine = By.xpath("//app-new-loader[@class=\"ng-star-inserted\"]//div[1]");
     By home = By.xpath("//*[text()=\"HOME\"]");
     By toastMessage = By.xpath("//app-toast-component/p");
+    public static final APIEndPoints api = new APIEndPoints();
     JavascriptExecutor js;
 
     //Constructor
@@ -93,13 +97,13 @@ public class BasePage extends BaseTest {
     //Read Text
     String readText(By elementLocation) {
         waitVisibility(elementLocation);
-//        highLighterMethod(elementLocation);
+        highLighterMethod(elementLocation);
         return driver.findElement(elementLocation).getText();
     }
 
     //HighlightElement
     void highLighterMethod(By element) {
-//        waitTillLoaderGetsRemoved();
+        waitTillLoaderGetsRemoved();
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].setAttribute('style', 'border: 2px solid black;');", driver.findElement(element));
     }
@@ -205,17 +209,313 @@ public class BasePage extends BaseTest {
         return list;
     }
 
+    /**
+     * With This Method you can provide the hard wait time in seconds
+     *
+     * @param time time in seconds
+     * @throws InterruptedException InterruptedException
+     */
     public void hardWait(int time) throws InterruptedException {
         time = time * 1000;
         Thread.sleep(time);
     }
 
+    /*
+    With this Method we can put hard wait of 3 seconds
+     */
     public void hardWait() throws InterruptedException {
         hardWait(3);
     }
+
+    /**
+     * This Method will let us know the visiblity of the element after an explicit wait time
+     *
+     * @param elementLocation element locator
+     * @return true/false
+     */
     public boolean elementVisibleWithExplictWait(By elementLocation) {
-        WebDriverWait webDriverWait = new WebDriverWait(driver,Duration.ofSeconds(5));
+        WebDriverWait webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(5));
         WebElement modal = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(elementLocation));
         return modal.isDisplayed();
+    }
+
+    /**
+     * This Method will return the attribute value in true false like checkbox is checked or not etc
+     *
+     * @param elementLocation element locator
+     * @param attributeName   attribute name
+     * @return true/false
+     */
+    public boolean getAttributeBoolean(By elementLocation, String attributeName) {
+        commonLib.hardWait();
+        return "true".equalsIgnoreCase(getElementfromBy(elementLocation).getAttribute(attributeName));
+    }
+
+    /**
+     * THIS METHOD WILL RETURN WEBELEMENT FROM BY -
+     */
+    public WebElement getElementfromBy(By elementLocation) {
+        WebElement element = null;
+        try {
+            element = driver.findElement(elementLocation);
+        } catch (Exception e) {
+            log.error("Element Not Found", e);
+        }
+        return element;
+    }
+
+    /**
+     * This Method will provide us the attribute value from the DOM
+     *
+     * @param elementLocation element locator
+     * @param attributeName   attribute name
+     * @param requireWait     yes/no
+     * @return value of the attribute
+     */
+    public String getAttribute(By elementLocation, String attributeName, boolean requireWait) {
+        String attributeValue = "";
+        try {
+            ElementName = getElementNameFromAirtelByWrapper(elementLocation);
+            Message = ElementName
+                    + " - element not visible. Not able to Get Attribute by Method - [--getAttribute(By elementLocation, String attributeName)--]";
+            if (requireWait) {
+                if (isVisible(elementLocation, 5)) {
+                    return getElementfromBy(elementLocation).getAttribute(attributeName).trim();
+                } else {
+                    commonLib.warning(Message);
+                    return Message;
+                }
+            } else {
+                attributeValue = getElementfromBy(elementLocation).getAttribute(attributeName);
+                attributeValue = (attributeValue == null) ? ""
+                        : (attributeValue == "") ? attributeValue : attributeValue.trim();
+                if (attributeValue.equals("")) {
+                    WebElement element = getElementfromBy(elementLocation);
+                    JavascriptExecutor executor = (JavascriptExecutor) driver;
+                    Object allAttributes = executor.executeScript(
+                            "var items = {}; for (index = 0; index < arguments[0].attributes.length; ++index) { items[arguments[0].attributes[index].name] = arguments[0].attributes[index].value }; return items;",
+                            element);
+                    commonLib.logs(allAttributes.toString());
+                }
+            }
+        } catch (Exception e) {
+            commonLib.warning(Message + "</br>" + "Exception - " + e.getMessage());
+            return Message;
+        }
+        return attributeValue;
+    }
+
+    /**
+     * This Method will provide us the name of the element mentioned under Airtel By Wrapper class
+     *
+     * @param element element locator
+     * @return element name
+     */
+    public String getElementNameFromAirtelByWrapper(By element) {
+        ElementName = "---this Element is not an instance of ameyo wrapper please add Valid Name of this Element---";
+        try {
+            if (element instanceof AirtelByWrapper) {
+                ElementName = ((AirtelByWrapper) element).getDescription();
+            }
+        } catch (Exception e) {
+            commonLib.warning("Caught some Exception inside method - [--getElementName--] " + e.getMessage());
+        }
+        return ElementName;
+    }
+
+    /**
+     * CREATED THIS TO BYPASS THE DEFAULT 10 SEC WAIT CAUSED BY ISDISPLAYED METHOD
+     *
+     * @param webelementBy element locator
+     * @return will return true false
+     */
+    public boolean isVisible(By webelementBy) {
+        return isVisible(webelementBy, 2);
+    }
+
+    /**
+     * This Method will let us know, if element is visible or not
+     *
+     * @param webelementBy element lcoator
+     * @param time         time in seconds
+     * @return true/false
+     */
+    public boolean isVisible(By webelementBy, int time) {
+        try {
+            ElementName = getElementNameFromAirtelByWrapper(webelementBy);
+            Wait<WebDriver> driverWait = getWaitObject(time);
+            WebElement webElement = driverWait.until(ExpectedConditions.visibilityOfElementLocated(webelementBy));
+            return webElement != null;
+        } catch (Exception e) {
+            log.error("Element Not Visible", e);
+            return false;
+        }
+    }
+
+    public Wait<WebDriver> getWaitObject(int maxWaitFor) {
+        FluentWait wait = null;
+        try {
+            wait = new FluentWait(driver).withTimeout(Duration.ofSeconds(maxWaitFor))
+                    .pollingEvery(Duration.ofSeconds(2)).ignoring(NoSuchElementException.class);
+        } catch (Exception e) {
+            e.getStackTrace();
+            commonLib.warning(
+                    "Exception in method - | methodName | " + "</br>" + "Exception Message - " + e.getMessage());
+        }
+        return wait;
+    }
+
+    /**
+     * This Method will return list of web elements
+     *
+     * @param elementLocation element locator
+     * @return Will return list of elements
+     */
+    public List<WebElement> getElementsListFromBy(By elementLocation) {
+        List<WebElement> elements = null;
+        try {
+            elements = driver.findElements(elementLocation);
+        } catch (Exception e) {
+            e.getStackTrace();
+
+        }
+        return elements;
+    }
+
+    /**
+     * This Method will enter text with timestamp as random variable
+     *
+     * @param elementLocation element locator
+     * @param text            text to be enter
+     */
+    public void setTextWithTimeStamp(By elementLocation, String text) {
+        setTextWithTimeStamp(elementLocation, text, "yes");
+    }
+
+    /**
+     * This Method will enter text with timestamp as random variable
+     *
+     * @param elementLocation         element locator
+     * @param text                    text to be enter
+     * @param requiredClearFieldYesNo Do you need to clear field? yes or no
+     */
+    public void setTextWithTimeStamp(By elementLocation, String text, String requiredClearFieldYesNo) {
+        try {
+            if (requiredClearFieldYesNo.toLowerCase().equalsIgnoreCase("yes")) {
+                getElementfromBy(elementLocation).clear();
+            }
+            setText(elementLocation, text + System.currentTimeMillis());
+        } catch (Exception ex) {
+            commonLib.error(
+                    ElementName + " - element not visible. Not able to set Random Text by [--setRandomText--] Method");
+        }
+    }
+
+    /**
+     * This Method will enter the text
+     *
+     * @param elementLocation element locator
+     * @param text            text to be enter
+     */
+    public void setText(By elementLocation, String text) {
+        setText(elementLocation, text, 3);
+    }
+
+    /**
+     * This method will enter the text
+     *
+     * @param elementLocation element locator
+     * @param text            text to be enter
+     * @param time            time in seconds
+     */
+    public void setText(By elementLocation, String text, int time) {
+        Message = ElementName + " - element not visible. Not able to Enter Text.";
+        try {
+            if (isVisible(elementLocation, time)) {
+                getElementfromBy(elementLocation).clear();
+                getElementfromBy(elementLocation).sendKeys(text);
+                commonLib.infoHighlight("Entered Value in field " + ElementName + " - ", text,
+                        ReportInfoMessageColorList.GOLD);
+            } else {
+                commonLib.fail(Message, true);
+            }
+        } catch (Exception e) {
+            commonLib.fail(
+                    "CAUGHT EXCEPTION IN SET-TEXT METHOD for Element - " + ElementName + "</br>" + e.getMessage(),
+                    true);
+        }
+    }
+
+    /**
+     * This Method wil click with the help of java script executor
+     *
+     * @param elementLocation element locator
+     */
+    public void clickByJavascriptExecutor(By elementLocation) {
+        clickByJavascriptExecutor(elementLocation, 3, true);
+    }
+
+    /**
+     * This Method wil click with the help of java script executor
+     *
+     * @param elementLocation                 element locator
+     * @param time                            time in seconds
+     * @param requireToReportFailForException require to report fail for exception
+     */
+    public void clickByJavascriptExecutor(By elementLocation, int time, boolean requireToReportFailForException) {
+        Message = ElementName + " - element not visible. Not able to Click";
+        try {
+            if (isVisible(elementLocation, time) && isClickable(elementLocation, time)) {
+                WebElement element = getElementfromBy(elementLocation);
+                if ((element.getTagName()).equals("input")) {
+                    highLighterMethod(elementLocation);
+                    JavascriptExecutor executor = (JavascriptExecutor) driver;
+                    executor.executeScript("arguments[0].click();", element);
+                } else {
+                    highLighterMethod(elementLocation);
+                    getElementfromBy(elementLocation).click();
+                }
+                commonLib.infoHighlight(ElementName, " - Clicked.", ReportInfoMessageColorList.GREEN);
+            } else {
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (requireToReportFailForException) {
+                Message = Message + "</br>" + e.getMessage();
+                commonLib.fail(Message, true);
+            }
+        }
+    }
+
+    /**
+     * This Method will let us know, element is clickable or not
+     *
+     * @param webelementBy element locator
+     * @return return true false
+     */
+    public boolean isClickable(By webelementBy) {
+        return isClickable(webelementBy, 2);
+    }
+
+    /**
+     * This Method will let us know, element is clickable or not
+     *
+     * @param webelementBy element locator
+     * @param time         time in seconds
+     * @return return true false
+     */
+    public boolean isClickable(By webelementBy, int time) {
+        try {
+            ElementName = getElementNameFromAirtelByWrapper(webelementBy);
+            Wait<WebDriver> wait = getWaitObject(time);
+            WebElement Element = wait.until(ExpectedConditions.elementToBeClickable(webelementBy));
+            if (Element != null) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

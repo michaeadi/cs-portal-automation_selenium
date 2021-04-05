@@ -7,8 +7,8 @@ import com.airtel.cs.pagerepository.pagemethods.MessageHistoryTabPOM;
 import com.airtel.cs.pagerepository.pagemethods.SendSMSPOM;
 import com.airtel.cs.pagerepository.pagemethods.SideMenuPOM;
 import com.airtel.cs.pagerepository.pagemethods.CustomerProfilePage;
-import com.airtel.cs.pagerepository.pagemethods.customerInteractionsSearchPOM;
-import com.airtel.cs.pagerepository.pagemethods.viewHistoryPOM;
+import com.airtel.cs.pagerepository.pagemethods.CustomerInteractionsSearchPOM;
+import com.airtel.cs.pagerepository.pagemethods.ViewHistory;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -41,7 +41,7 @@ public class SendSMSTest extends BaseTest {
         SideMenuPOM.clickOnSideMenu();
         SideMenuPOM.clickOnName();
         customerNumber = Data.getCustomerNumber();
-        customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
+        CustomerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
         customerInteractionsSearchPOM.enterNumber(Data.getCustomerNumber());
         CustomerProfilePage customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
         customerInteractionPagePOM.waitTillLoaderGetsRemoved();
@@ -145,7 +145,7 @@ public class SendSMSTest extends BaseTest {
         ExtentTestManager.startTest("Check Sent SMS display in message history ", "Check Sent SMS display in message history");
         SoftAssert softAssert = new SoftAssert();
         CustomerProfilePage customerInteractionPage = new CustomerProfilePage(driver);
-        viewHistoryPOM viewHistory = customerInteractionPage.clickOnViewHistory();
+        ViewHistory viewHistory = customerInteractionPage.clickOnViewHistory();
         viewHistory.waitTillLoaderGetsRemoved();
         MessageHistoryTabPOM messageHistory = viewHistory.clickOnMessageHistory();
         messageHistory.waitTillLoaderGetsRemoved();

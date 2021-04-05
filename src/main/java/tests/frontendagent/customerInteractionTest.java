@@ -21,7 +21,7 @@ import com.airtel.cs.pagerepository.pagemethods.ServiceClassWidgetPOM;
 import com.airtel.cs.pagerepository.pagemethods.SideMenuPOM;
 import com.airtel.cs.pagerepository.pagemethods.UsageHistoryWidgetPOM;
 import com.airtel.cs.pagerepository.pagemethods.CustomerProfilePage;
-import com.airtel.cs.pagerepository.pagemethods.customerInteractionsSearchPOM;
+import com.airtel.cs.pagerepository.pagemethods.CustomerInteractionsSearchPOM;
 import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.*;
 import org.testng.Assert;
@@ -65,7 +65,7 @@ public class customerInteractionTest extends BaseTest {
             }
             SideMenuPOM.clickOnSideMenu();
             SideMenuPOM.clickOnName();
-            customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
+            CustomerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
             customerInteractionsSearchPOM.enterNumber(customerNumber);
             CustomerProfilePage customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
             if (!customerInteractionPagePOM.isPageLoaded()) {
@@ -375,7 +375,7 @@ public class customerInteractionTest extends BaseTest {
         SideMenuPOM SideMenuPOM = new SideMenuPOM(driver);
         SideMenuPOM.clickOnSideMenu();
         SideMenuPOM.clickOnName();
-        customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
+        CustomerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
         if (Env.equalsIgnoreCase("Prod")) {
             customerInteractionsSearchPOM.enterNumber(Data.getProdSIMNumber());
             customerNumber = Data.getProdCustomerNumber();
@@ -673,7 +673,7 @@ public class customerInteractionTest extends BaseTest {
         SideMenuPOM SideMenuPOM = new SideMenuPOM(driver);
         SideMenuPOM.clickOnSideMenu();
         SideMenuPOM.clickOnName();
-        customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
+        CustomerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
         if (Env.equalsIgnoreCase("Prod")) {
             customerNumber = Data.getProdCustomerNumber();
         } else {

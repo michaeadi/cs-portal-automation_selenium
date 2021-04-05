@@ -1,4 +1,4 @@
-package tests.userManagement;
+package tests.usermanagement;
 
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
@@ -15,7 +15,7 @@ import tests.frontendagent.BaseTest;
 
 import java.util.ArrayList;
 
-public class userManagementTest extends BaseTest {
+public class UserManagementTest extends BaseTest {
 
     int currentBucketSize;
 

@@ -8,8 +8,8 @@ import com.airtel.cs.pagerepository.pagemethods.InteractionsPOM;
 import com.airtel.cs.pagerepository.pagemethods.MessageHistoryTabPOM;
 import com.airtel.cs.pagerepository.pagemethods.SideMenuPOM;
 import com.airtel.cs.pagerepository.pagemethods.CustomerProfilePage;
-import com.airtel.cs.pagerepository.pagemethods.customerInteractionsSearchPOM;
-import com.airtel.cs.pagerepository.pagemethods.viewHistoryPOM;
+import com.airtel.cs.pagerepository.pagemethods.CustomerInteractionsSearchPOM;
+import com.airtel.cs.pagerepository.pagemethods.ViewHistory;
 import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
@@ -45,7 +45,7 @@ public class InteractionCommentTest extends BaseTest {
         SideMenuPOM SideMenuPOM = new SideMenuPOM(driver);
         SideMenuPOM.clickOnSideMenu();
         SideMenuPOM.clickOnName();
-        customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
+        CustomerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
         customerInteractionsSearchPOM.enterNumber(Data.getCustomerNumber());
         CustomerProfilePage customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
         softAssert.assertTrue(customerInteractionPagePOM.isPageLoaded());
@@ -295,7 +295,7 @@ public class InteractionCommentTest extends BaseTest {
         ExtentTestManager.startTest("Check Sent SMS display in message history for System Type", "Check Sent SMS display in message history");
         SoftAssert softAssert = new SoftAssert();
         CustomerProfilePage customerInteractionPage = new CustomerProfilePage(driver);
-        viewHistoryPOM viewHistory = customerInteractionPage.clickOnViewHistory();
+        ViewHistory viewHistory = customerInteractionPage.clickOnViewHistory();
         viewHistory.waitTillLoaderGetsRemoved();
         MessageHistoryTabPOM messageHistory = viewHistory.clickOnMessageHistory();
         messageHistory.waitTillLoaderGetsRemoved();

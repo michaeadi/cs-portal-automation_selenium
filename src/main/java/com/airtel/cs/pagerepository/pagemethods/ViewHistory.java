@@ -1,15 +1,17 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
 import com.airtel.cs.commonutils.UtilsMethods;
+import com.airtel.cs.pagerepository.pageelements.ViewHistoryElements;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
 @Log4j2
-public class viewHistoryPOM extends BasePage {
+public class ViewHistory extends BasePage {
     By firstIssueCode = By.xpath("//tbody/tr[1]/td[7]/p");
     By interactionsTab = By.xpath("//div[@class=\"mat-tab-label-content\" and contains(text(),\"Interaction\")]");
     By ticketHistory = By.xpath("//div[contains(text(),'Ticket')] | //span[contains(text(),'Ticket')]");
@@ -18,16 +20,29 @@ public class viewHistoryPOM extends BasePage {
     By ticketPageTitle = By.xpath("//h2[contains(text(),'View Ticket')]");
     By closeTicketTab = By.xpath("//button[@class='close-btn']//img");
     By messageHistory = By.xpath("//div[contains(text(),'Message')]");
-    By actionTrailTab=By.xpath("//div[contains(text(),'Action')]");
+    By actionTrailTab = By.xpath("//div[contains(text(),'Action')]");
 
-    public viewHistoryPOM(WebDriver driver) {
+    public ViewHistoryElements viewHistoryElements;
+
+    public ViewHistory(WebDriver driver) {
         super(driver);
+        viewHistoryElements = PageFactory.initElements(driver, ViewHistoryElements.class);
     }
 
     public void clickOnInteractionsTab() {
         log.info("Clicking on Interactions Tab under view history ");
         waitTillLoaderGetsRemoved();
         click(interactionsTab);
+    }
+
+    /*
+    This Method will give you the row(Row May be interaction,issue or message count under view history) count
+     */
+    public Integer getRowCount() {
+        final String paginationNumber = readText(viewHistoryElements.paginationDetails);
+        final int length = paginationNumber.substring(0, paginationNumber.lastIndexOf(" ")).length();
+        paginationNumber.substring(0, paginationNumber.lastIndexOf(" ")).substring(10, length);
+        return Integer.parseInt(paginationNumber.substring(0, paginationNumber.lastIndexOf(" ")).substring(10, length));
     }
 
     public FrontendTicketHistory clickOnTicketHistory() {
@@ -106,4 +121,12 @@ public class viewHistoryPOM extends BasePage {
         click(closeTicketTab);
     }
 
+    /*
+    This Method will route you to Action Trail Tab when You are under View History Tab
+     */
+    public void goToActionTrail() {
+        if (isVisible(viewHistoryElements.actionTrailTab)) {
+            click(viewHistoryElements.actionTrailTab);
+        }
+    }
 }

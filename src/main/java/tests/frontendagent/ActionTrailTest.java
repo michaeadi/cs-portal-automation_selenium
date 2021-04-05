@@ -8,8 +8,8 @@ import com.airtel.cs.pagerepository.pagemethods.ActionTrailTabPOM;
 import com.airtel.cs.pagerepository.pagemethods.AuthenticationTabPOM;
 import com.airtel.cs.pagerepository.pagemethods.SideMenuPOM;
 import com.airtel.cs.pagerepository.pagemethods.CustomerProfilePage;
-import com.airtel.cs.pagerepository.pagemethods.customerInteractionsSearchPOM;
-import com.airtel.cs.pagerepository.pagemethods.viewHistoryPOM;
+import com.airtel.cs.pagerepository.pagemethods.CustomerInteractionsSearchPOM;
+import com.airtel.cs.pagerepository.pagemethods.ViewHistory;
 import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
@@ -42,7 +42,7 @@ public class ActionTrailTest extends BaseTest {
         SideMenuPOM SideMenuPOM = new SideMenuPOM(driver);
         SideMenuPOM.clickOnSideMenu();
         SideMenuPOM.clickOnName();
-        customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
+        CustomerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
         customerInteractionsSearchPOM.enterNumber(Data.getCustomerNumber());
         CustomerProfilePage customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
         softAssert.assertTrue(customerInteractionPagePOM.isPageLoaded());
@@ -58,7 +58,7 @@ public class ActionTrailTest extends BaseTest {
         try {
             CustomerProfilePage homepage = new CustomerProfilePage(driver);
             homepage.waitTillLoaderGetsRemoved();
-            viewHistoryPOM historyTab = homepage.clickOnViewHistory();
+            ViewHistory historyTab = homepage.clickOnViewHistory();
             ActionTrailTabPOM actionTrailTab = historyTab.clickOnActionTrailHistory();
             softAssert.assertEquals(actionTrailTab.getHeaderValue(0).toLowerCase().trim(), data.getRow1().toLowerCase().trim(), "Action Type Column does not display in header.");
             softAssert.assertEquals(actionTrailTab.getHeaderValue(1).toLowerCase().trim(), data.getRow2().toLowerCase().trim(), "Date & Time Column does not display in header.");
@@ -118,7 +118,7 @@ public class ActionTrailTest extends BaseTest {
         try {
             CustomerProfilePage homepage = new CustomerProfilePage(driver);
             homepage.waitTillLoaderGetsRemoved();
-            viewHistoryPOM historyTab = homepage.clickOnViewHistory();
+            ViewHistory historyTab = homepage.clickOnViewHistory();
             ActionTrailTabPOM actionTrailTab = historyTab.clickOnActionTrailHistory();
             softAssert.assertEquals(actionTrailTab.getValue(0,0).toLowerCase().trim(),"send internet settings","Action Type Column Value does not display in Correctly.");
             softAssert.assertNotNull(actionTrailTab.getValue(0,1).toLowerCase().trim(), "Date & Time Column does not display in Correctly.");

@@ -1,20 +1,32 @@
 package com.airtel.cs.api;
 
-import com.airtel.cs.pojo.*;
+import com.airtel.cs.commonutils.UtilsMethods;
+import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
+import com.airtel.cs.pojo.AMHandSetProfilePOJO;
+import com.airtel.cs.pojo.AMProfilePOJO;
+import com.airtel.cs.pojo.AccountsBalancePOJO;
 import com.airtel.cs.pojo.Accumulators.AccumulatorsPOJO;
 import com.airtel.cs.pojo.AirtelMoney.AirtelMoneyPOJO;
+import com.airtel.cs.pojo.BundleRechargeHistoryPOJO;
 import com.airtel.cs.pojo.CRBT.ActivateRingtone;
 import com.airtel.cs.pojo.CRBT.Top20Ringtone;
 import com.airtel.cs.pojo.ClearRefillStatus.RefillStatus;
+import com.airtel.cs.pojo.GsmKycPOJO;
 import com.airtel.cs.pojo.HLRService.HLRServicePOJO;
 import com.airtel.cs.pojo.KYCProfile.KYCProfile;
 import com.airtel.cs.pojo.LoanDetails.Loan;
 import com.airtel.cs.pojo.LoanSummary.Summary;
+import com.airtel.cs.pojo.LoginPOJO;
+import com.airtel.cs.pojo.PlansPOJO;
+import com.airtel.cs.pojo.ProfilePOJO;
+import com.airtel.cs.pojo.RechargeHistoryPOJO;
 import com.airtel.cs.pojo.SMSHistory.SMSHistoryPOJO;
 import com.airtel.cs.pojo.TicketList.TicketPOJO;
+import com.airtel.cs.pojo.UsageHistoryPOJO;
 import com.airtel.cs.pojo.Vendors.VendorNames;
 import com.airtel.cs.pojo.Voucher.VoucherSearchPOJO;
-import com.airtel.cs.commonutils.UtilsMethods;
+import com.airtel.cs.pojo.tariffplan.AvailablePlanPOJO;
+import com.airtel.cs.pojo.tariffplan.CurrentPlanPOJO;
 import com.relevantcodes.extentreports.LogStatus;
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
@@ -32,6 +44,9 @@ import static io.restassured.RestAssured.given;
 public class APIEndPoints extends BaseTest {
 
     public static Integer statusCode = null;
+    private static final String APPLICATION_JSON = "application/json";
+    private static Response response;
+    private static final String TARIFF_PLAN_TEST_NUMBER = constants.getValue(ApplicationConstants.TARIFF_PLAN_TEST_NUMBER);
 
     public PlansPOJO accountPlansTest(String msisdn) {
         getTest().log(LogStatus.INFO, "Using Account Plans com.airtel.cs.API for Getting expected data for UI");
@@ -404,6 +419,68 @@ public class APIEndPoints extends BaseTest {
         UtilsMethods.printResponseDetail(response);
         statusCode = response.getStatusCode();
         return response.as(HLRServicePOJO.class);
+    }
+
+    /**
+     * This Method will hit the API with POST Method
+     * @param endPoint endpoint
+     * @param body body of the api
+     */
+    public static void commonPostMethod(String endPoint, String body) {
+        commonPostMethod(endPoint, body, baseUrl);
+    }
+
+    /**
+     * This Method will hit the API with POST Method
+     * @param endPoint endpoint
+     * @param body body of the api
+     * @param url http url
+     */
+    public static void commonPostMethod(String endPoint, String body, String url) {
+        try {
+            commonLib.info("Using " + endPoint + " API for Testing");
+            baseURI = url;
+            Headers headers = new Headers(map);
+            RequestSpecification request = given()
+                    .headers(headers)
+                    .body(body)
+                    .contentType(APPLICATION_JSON);
+            response = request.post(endPoint);
+            QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
+            UtilsMethods.printPostRequestDetail(queryable);
+            UtilsMethods.printResponseDetail(response);
+        } catch (Exception e) {
+            commonLib.fail("Caught exception in Testcase - commonPostMethod " + e.getMessage(), false);
+        }
+    }
+
+    /*
+    This Method will hit the Available Plan API and returns the response
+     */
+    public AvailablePlanPOJO availablePlanPOJO() {
+        String body = "{ \"msisdn\":\"" + TARIFF_PLAN_TEST_NUMBER + "\"}";
+        commonPostMethod("/cs-gsm-service/v1/tariff/available-plans", body);
+        return response.as(AvailablePlanPOJO.class);
+    }
+
+    /*
+    This Method will hit the Current Plan API and returns the response
+     */
+    public CurrentPlanPOJO currentPlanPOJO() {
+        String body = "{ \"msisdn\":\"" + TARIFF_PLAN_TEST_NUMBER + "\"}";
+        commonPostMethod("/cs-gsm-service/v1/tariff/current-plan", body);
+        return response.as(CurrentPlanPOJO.class);
+    }
+
+    /**
+     * This Method will hit the Login API "/auth/api/user-mngmnt/v2/login" and return the response
+     * @param body body of the API
+     * @return response
+     */
+    public LoginPOJO loginPOJO(String body) {
+        UtilsMethods.printInfoLog("Logging in Using Login API for getting TOKEN with user");
+        commonPostMethod("/auth/api/user-mngmnt/v2/login", body);
+        return response.as(LoginPOJO.class);
     }
 
 }

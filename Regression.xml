@@ -188,7 +188,7 @@
     </test>
     <test name="UserManagement Test">
         <classes>
-            <class name="tests.userManagement.userManagementTest"/>
+            <class name="tests.usermanagement.UserManagementTest"/>
         </classes>
     </test>
     <test name="Profile Management Test">

@@ -41,7 +41,7 @@ public class SystemStatusTest extends BaseTest {
         UtilsMethods.addHeaders("x-login-module", config.getProperty(Env + "-x-login-module"));
         UtilsMethods.addHeaders("x-channel", config.getProperty(Env + "-x-channel"));
         UtilsMethods.addHeaders("x-app-version", config.getProperty(Env + "-x-app-version"));
-        UtilsMethods.addHeaders("Opco", Opco);
+        UtilsMethods.addHeaders("Opco", OPCO);
 
         String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(Req);
         startTest("LOGIN com.airtel.cs.API TEST ", "Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + Data.getLoginAUUID());

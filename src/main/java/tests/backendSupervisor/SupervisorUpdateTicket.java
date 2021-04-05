@@ -15,9 +15,9 @@ import com.airtel.cs.pagerepository.pagemethods.SideMenuPOM;
 import com.airtel.cs.pagerepository.pagemethods.ViewTicketPagePOM;
 import com.airtel.cs.pagerepository.pagemethods.agentLoginPagePOM;
 import com.airtel.cs.pagerepository.pagemethods.CustomerProfilePage;
-import com.airtel.cs.pagerepository.pagemethods.customerInteractionsSearchPOM;
+import com.airtel.cs.pagerepository.pagemethods.CustomerInteractionsSearchPOM;
 import com.airtel.cs.pagerepository.pagemethods.supervisorTicketListPagePOM;
-import com.airtel.cs.pagerepository.pagemethods.viewHistoryPOM;
+import com.airtel.cs.pagerepository.pagemethods.ViewHistory;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.relevantcodes.extentreports.LogStatus;
@@ -76,7 +76,7 @@ public class SupervisorUpdateTicket extends BaseTest {
         UtilsMethods.addHeaders("x-login-module", config.getProperty(Env + "-x-login-module"));
         UtilsMethods.addHeaders("x-channel", config.getProperty(Env + "-x-channel"));
         UtilsMethods.addHeaders("x-app-version", config.getProperty(Env + "-x-app-version"));
-        UtilsMethods.addHeaders("Opco", Opco);
+        UtilsMethods.addHeaders("Opco", OPCO);
 
         String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(Req);
         startTest("LOGIN com.airtel.cs.API TEST ", "Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + Data.getLoginAUUID());
@@ -201,7 +201,7 @@ public class SupervisorUpdateTicket extends BaseTest {
         SideMenuPOM.clickOnSideMenu();
         SideMenuPOM.clickOnName();
         if(ticketId!=null) {
-            customerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
+            CustomerInteractionsSearchPOM customerInteractionsSearchPOM = SideMenuPOM.openCustomerInteractionPage();
             customerInteractionsSearchPOM.enterNumber(Data.getCustomerNumber());
             CustomerProfilePage customerInteractionPagePOM = customerInteractionsSearchPOM.clickOnSearch();
             softAssert.assertTrue(customerInteractionPagePOM.isPageLoaded());
@@ -217,7 +217,7 @@ public class SupervisorUpdateTicket extends BaseTest {
         CustomerProfilePage customerInteractionPage = new CustomerProfilePage(driver);
         if(ticketId!=null) {
         ExtentTestManager.startTest("Validate Re-open Icon on Closed Ticket: " + ticketId, "Validate Re-open Icon on Closed Ticket: " + ticketId);
-        viewHistoryPOM viewHistory = customerInteractionPage.clickOnViewHistory();
+        ViewHistory viewHistory = customerInteractionPage.clickOnViewHistory();
         FrontendTicketHistory ticketHistory = viewHistory.clickOnTicketHistory();
         ticketHistory.waitTillLoaderGetsRemoved();
         ticketHistory.writeTicketId(ticketId);

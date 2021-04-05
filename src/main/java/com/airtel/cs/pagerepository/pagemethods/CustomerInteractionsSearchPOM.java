@@ -7,11 +7,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 @Log4j2
-public class customerInteractionsSearchPOM extends BasePage {
+public class CustomerInteractionsSearchPOM extends BasePage {
     By numberSearch = By.xpath("//input[@name='search']");
     By searchButton = By.xpath("//button[@class='search-icon-btn']");
 
-    public customerInteractionsSearchPOM(WebDriver driver) {
+    public CustomerInteractionsSearchPOM(WebDriver driver) {
         super(driver);
     }
 
