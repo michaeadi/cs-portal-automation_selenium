@@ -1,7 +1,7 @@
 package com.airtel.cs.commonutils.applicationutils.constants;
 
 
-import com.airtel.cs.driver.Driver;
+import com.airtel.cs.driver.Driver1;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -11,7 +11,7 @@ import java.io.InputStream;
 import java.util.Properties;
 import java.util.Scanner;
 
-public class ConstantsUtils extends Driver implements Cloneable {
+public class ConstantsUtils extends Driver1 implements Cloneable {
     private static ConstantsUtils constants;
     private Properties prop;
 

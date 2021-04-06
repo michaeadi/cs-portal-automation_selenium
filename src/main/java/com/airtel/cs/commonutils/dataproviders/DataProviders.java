@@ -1,7 +1,7 @@
 package com.airtel.cs.commonutils.dataproviders;
 
 import com.airtel.cs.commonutils.excelutils.WriteTicket;
-import com.airtel.cs.driver.Driver;
+import com.airtel.cs.driver.Driver1;
 import com.codoid.products.fillo.Connection;
 import com.codoid.products.fillo.Fillo;
 import com.codoid.products.fillo.Recordset;
@@ -23,9 +23,9 @@ import java.util.Map;
 import java.util.Properties;
 
 @Log4j2
-public class DataProviders extends Driver {
+public class DataProviders extends Driver1 {
 
-    public static Properties config = Driver.config;
+    public static Properties config = Driver1.config;
     public static List<String> ticketNumbers = new ArrayList<>();
 
     //helper

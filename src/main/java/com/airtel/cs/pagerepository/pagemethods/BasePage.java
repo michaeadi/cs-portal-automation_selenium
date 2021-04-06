@@ -4,7 +4,7 @@ import com.airtel.cs.api.APIEndPoints;
 import com.airtel.cs.commonutils.applicationutils.enums.ReportInfoMessageColorList;
 import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.commonutils.UtilsMethods;
-import com.airtel.cs.driver.Driver;
+import com.airtel.cs.driver.Driver1;
 import com.airtel.cs.pagerepository.pageelements.AirtelByWrapper;
 import com.airtel.cs.pagerepository.pageelements.BasePageElements;
 import com.relevantcodes.extentreports.LogStatus;
@@ -23,8 +23,8 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 @Log4j2
-public class BasePage extends Driver {
-    public static Properties config = Driver.config;
+public class BasePage extends Driver1 {
+    public static Properties config = Driver1.config;
     public WebDriver driver;
     public Wait<WebDriver> wait;
     public Wait<WebDriver> wait1;
@@ -41,11 +41,11 @@ public class BasePage extends Driver {
         js = (JavascriptExecutor) driver;
         ExpectedCondition<Boolean> expectation = driver1 -> ((JavascriptExecutor) driver1).executeScript("return document.readyState").toString().equals("complete");
         wait1 = new FluentWait<>(driver)
-                .withTimeout(Duration.ofSeconds(Integer.parseInt(Driver.config.getProperty("GeneralWaitInSeconds"))))
-                .pollingEvery(Duration.ofSeconds(Integer.parseInt(Driver.config.getProperty("PoolingWaitInSeconds"))))
+                .withTimeout(Duration.ofSeconds(Integer.parseInt(Driver1.config.getProperty("GeneralWaitInSeconds"))))
+                .pollingEvery(Duration.ofSeconds(Integer.parseInt(Driver1.config.getProperty("PoolingWaitInSeconds"))))
                 .ignoring(NoSuchElementException.class);
         wait1.until(expectation);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(Integer.parseInt(Driver.config.getProperty("GeneralWaitInSeconds"))));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(Integer.parseInt(Driver1.config.getProperty("GeneralWaitInSeconds"))));
         basePageElements = new BasePageElements();
     }
 

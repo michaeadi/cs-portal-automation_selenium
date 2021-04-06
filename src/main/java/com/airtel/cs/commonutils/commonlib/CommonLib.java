@@ -2,7 +2,7 @@ package com.airtel.cs.commonutils.commonlib;
 
 import com.airtel.cs.commonutils.applicationutils.enums.JavaColors;
 import com.airtel.cs.commonutils.applicationutils.enums.ReportInfoMessageColorList;
-import com.airtel.cs.driver.Driver;
+import com.airtel.cs.driver.Driver1;
 import com.relevantcodes.extentreports.LogStatus;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,7 +22,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
-public class CommonLib extends Driver {
+public class CommonLib extends Driver1 {
     public void fail(String message, boolean requireScreenshot) {
         LOGGER.error(message);
         reporter.showInExtentReport(LogStatus.FAIL, message, requireScreenshot);
