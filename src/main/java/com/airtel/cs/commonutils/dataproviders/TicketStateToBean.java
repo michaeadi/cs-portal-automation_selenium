@@ -22,7 +22,7 @@ public class TicketStateToBean {
         return dataFormatter.formatCellValue(cell, evaluator);
     }
 
-    public List<TicketStateDataBean> getData(String path, String SheetName) {
+    public List<TicketStateDataBean> getData(String path, String sheetName) {
 
         List<TicketStateDataBean> ticketStateList = new ArrayList<>();
         FileInputStream file;
@@ -39,7 +39,7 @@ public class TicketStateToBean {
                 evaluator = new HSSFFormulaEvaluator((HSSFWorkbook) workbook);
             }
 
-            Sheet sheet = workbook.getSheet(SheetName);
+            Sheet sheet = workbook.getSheet(sheetName);
 
             for (Row cells : sheet) {
                 TicketStateDataBean ticketStateDataBean = new TicketStateDataBean();
@@ -61,6 +61,8 @@ public class TicketStateToBean {
                                 break;
                             case 2:
                                 ticketStateDataBean.setIsReopenState(cellValue);
+                                break;
+                            default:
                                 break;
 
                         }

@@ -24,9 +24,9 @@ public class PinnedTagDataExcelToBeanDao {
         return dataFormatter.formatCellValue(cell, evaluator);
     }
 
-    public List<PinnedtagsDataBeans> getData(String path, String SheetName) {
+    public List<PinnedTagsDataBeans> getData(String path, String SheetName) {
 
-        List<PinnedtagsDataBeans> userCredsBeanList = new ArrayList<>();
+        List<PinnedTagsDataBeans> userCredsBeanList = new ArrayList<>();
         FileInputStream file;
         try {
             file = new FileInputStream(new File(path));
@@ -44,7 +44,7 @@ public class PinnedTagDataExcelToBeanDao {
             Sheet sheet = workbook.getSheet(SheetName);
 
             for (Row cells : sheet) {
-                PinnedtagsDataBeans PinnedtagsDataBeans = new PinnedtagsDataBeans();
+                PinnedTagsDataBeans PinnedtagsDataBeans = new PinnedTagsDataBeans();
                 Iterator<Cell> cellIterator = cells.cellIterator();
                 while (cellIterator.hasNext()) {
                     Cell cell = cellIterator.next();

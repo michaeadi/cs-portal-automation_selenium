@@ -23,7 +23,7 @@ public class QueueStateBeanToExcel {
         return dataFormatter.formatCellValue(cell, evaluator);
     }
 
-    public List<QueueStateDataBeans> getData(String path, String SheetName) {
+    public List<QueueStateDataBeans> getData(String path, String sheetName) {
 
         List<QueueStateDataBeans> userCredsBeanList = new ArrayList<>();
         FileInputStream file;
@@ -40,7 +40,7 @@ public class QueueStateBeanToExcel {
                 evaluator = new HSSFFormulaEvaluator((HSSFWorkbook) workbook);
             }
 
-            Sheet sheet = workbook.getSheet(SheetName);
+            Sheet sheet = workbook.getSheet(sheetName);
 
             for (Row cells : sheet) {
                 QueueStateDataBeans queueStateDataBeans = new QueueStateDataBeans();
@@ -71,6 +71,7 @@ public class QueueStateBeanToExcel {
                                 break;
                             case 5:
                                 queueStateDataBeans.setState5(cellValue);
+                                break;
                             case 6:
                                 queueStateDataBeans.setState6(cellValue);
                                 break;
@@ -82,6 +83,7 @@ public class QueueStateBeanToExcel {
                                 break;
                             case 9:
                                 queueStateDataBeans.setState9(cellValue);
+                                break;
                             case 10:
                                 queueStateDataBeans.setState10(cellValue);
                                 break;

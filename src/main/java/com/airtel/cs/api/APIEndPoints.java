@@ -2,6 +2,7 @@ package com.airtel.cs.api;
 
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
+import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pojo.AMHandSetProfilePOJO;
 import com.airtel.cs.pojo.AMProfilePOJO;
 import com.airtel.cs.pojo.AccountsBalancePOJO;
@@ -25,6 +26,7 @@ import com.airtel.cs.pojo.TicketList.TicketPOJO;
 import com.airtel.cs.pojo.UsageHistoryPOJO;
 import com.airtel.cs.pojo.Vendors.VendorNames;
 import com.airtel.cs.pojo.Voucher.VoucherSearchPOJO;
+import com.airtel.cs.pojo.configuration.ConfigurationPOJO;
 import com.airtel.cs.pojo.tariffplan.AvailablePlanPOJO;
 import com.airtel.cs.pojo.tariffplan.CurrentPlanPOJO;
 import com.relevantcodes.extentreports.LogStatus;
@@ -34,14 +36,13 @@ import io.restassured.specification.QueryableRequestSpecification;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.SpecificationQuerier;
 import lombok.extern.log4j.Log4j2;
-import tests.frontendagent.BaseTest;
 
 import static com.airtel.cs.commonutils.extentreports.ExtentTestManager.getTest;
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 
 @Log4j2
-public class APIEndPoints extends BaseTest {
+public class APIEndPoints extends Driver {
 
     public static Integer statusCode = null;
     private static final String APPLICATION_JSON = "application/json";
@@ -217,12 +218,28 @@ public class APIEndPoints extends BaseTest {
     }
 
     public AirtelMoneyPOJO transactionHistoryAPITest(String msisdn) {
-        getTest().log(LogStatus.INFO, "Using Transaction History com.airtel.cs.API for Getting expected data for UI");
+        getTest().log(LogStatus.INFO, "Using Transaction History API for Getting expected data for UI");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
                 .headers(headers)
                 .body("{\"msisdn\":\"" + msisdn + "\",\"pageSize\":5,\"pageNumber\":1,\"startDate\":null,\"endDate\":null}")
+                .contentType("application/json");
+        QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
+        Response response = request.post("/cs-am-service/v1/transaction/history");
+        UtilsMethods.printPostRequestDetail(queryable);
+        UtilsMethods.printResponseDetail(response);
+        statusCode = response.getStatusCode();
+        return response.as(AirtelMoneyPOJO.class);
+    }
+
+    public AirtelMoneyPOJO moreTransactionHistoryAPITest(String msisdn, String currencyType) {
+        getTest().log(LogStatus.INFO, "Using Transaction History API for Getting expected data for UI");
+        baseURI = baseUrl;
+        Headers headers = new Headers(map);
+        RequestSpecification request = given()
+                .headers(headers)
+                .body("{\"msisdn\":\"" + msisdn + "\",\"pageSize\":5,\"pageNumber\":1,\"daysFilter\":null,\"startDate\":null,\"endDate\":null,\"airtelMoneyTransactionIdSearch\":null,\"currencyType\":\"" + currencyType + "\",\"amHistory\":true}")
                 .contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
         Response response = request.post("/cs-am-service/v1/transaction/history");
@@ -421,10 +438,41 @@ public class APIEndPoints extends BaseTest {
         return response.as(HLRServicePOJO.class);
     }
 
+    public void getAuthTabAnswer(String key, String msisdn) {
+        getTest().log(LogStatus.INFO, "Fetch Answer using auth user api");
+        baseURI = baseUrl;
+        Headers headers = new Headers(map);
+        RequestSpecification request = given()
+                .headers(headers).param("key", key).param("msisdn", msisdn).contentType("application/json");
+        QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
+        log.info("Request Headers are  : " + queryable.getHeaders());
+        Response response = request.get("/cs-service/api/cs-service/v1/auth/user");
+        UtilsMethods.printGetRequestDetail(queryable);
+        UtilsMethods.printResponseDetail(response);
+        UtilsMethods.printInfoLog(response.prettyPrint());
+        UtilsMethods.printInfoLog(response.peek().toString());
+        statusCode = response.getStatusCode();
+    }
+
+    public ConfigurationPOJO getConfiguration(String key) {
+        getTest().log(LogStatus.INFO, "Using Configuration API to validate meta data");
+        baseURI = baseUrl;
+        Headers headers = new Headers(map);
+        RequestSpecification request = given()
+                .headers(headers).queryParam("keys", key).queryParam("opco", OPCO).contentType("application/json");
+        QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
+        Response response = request.get("/cs-service/api/cs-service/v1/configurations");
+        UtilsMethods.printGetRequestDetail(queryable);
+        UtilsMethods.printResponseDetail(response);
+        statusCode = response.getStatusCode();
+        return response.as(ConfigurationPOJO.class);
+    }
+
     /**
      * This Method will hit the API with POST Method
+     *
      * @param endPoint endpoint
-     * @param body body of the api
+     * @param body     body of the api
      */
     public static void commonPostMethod(String endPoint, String body) {
         commonPostMethod(endPoint, body, baseUrl);
@@ -432,9 +480,10 @@ public class APIEndPoints extends BaseTest {
 
     /**
      * This Method will hit the API with POST Method
+     *
      * @param endPoint endpoint
-     * @param body body of the api
-     * @param url http url
+     * @param body     body of the api
+     * @param url      http url
      */
     public static void commonPostMethod(String endPoint, String body, String url) {
         try {
@@ -474,6 +523,7 @@ public class APIEndPoints extends BaseTest {
 
     /**
      * This Method will hit the Login API "/auth/api/user-mngmnt/v2/login" and return the response
+     *
      * @param body body of the API
      * @return response
      */

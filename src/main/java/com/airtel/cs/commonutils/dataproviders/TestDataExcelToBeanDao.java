@@ -24,7 +24,7 @@ public class TestDataExcelToBeanDao {
         return dataFormatter.formatCellValue(cell, evaluator);
     }
 
-    public List<TestDatabean> getData(String path, String SheetName) {
+    public List<TestDatabean> getData(String path, String sheetName) {
 
         List<TestDatabean> userCredsBeanList = new ArrayList<>();
         FileInputStream file;
@@ -41,7 +41,7 @@ public class TestDataExcelToBeanDao {
                 evaluator = new HSSFFormulaEvaluator((HSSFWorkbook) workbook);
             }
 
-            Sheet sheet = workbook.getSheet(SheetName);
+            Sheet sheet = workbook.getSheet(sheetName);
 
             for (Row cells : sheet) {
                 TestDatabean testDatabean = new TestDatabean();
@@ -86,10 +86,10 @@ public class TestDataExcelToBeanDao {
                                 testDatabean.setSimType(cellValue);
                                 break;
                             case 10:
-                                testDatabean.setPUK1(cellValue);
+                                testDatabean.setPuk1(cellValue);
                                 break;
                             case 11:
-                                testDatabean.setPUK2(cellValue);
+                                testDatabean.setPuk2(cellValue);
                                 break;
                             case 12:
                                 testDatabean.setIdType(cellValue);
@@ -105,6 +105,8 @@ public class TestDataExcelToBeanDao {
                                 break;
                             case 16:
                                 testDatabean.setProdSIMNumber(cellValue);
+                                break;
+                            default:
                                 break;
                         }
                     }

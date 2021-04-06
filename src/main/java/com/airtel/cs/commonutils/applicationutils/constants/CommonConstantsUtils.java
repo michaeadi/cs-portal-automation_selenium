@@ -1,7 +1,7 @@
 package com.airtel.cs.commonutils.applicationutils.constants;
 
 
-import tests.frontendagent.BaseTest;
+import com.airtel.cs.driver.Driver;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -11,7 +11,7 @@ import java.io.InputStream;
 import java.util.Properties;
 import java.util.Scanner;
 
-public class CommonConstantsUtils extends BaseTest implements Cloneable {
+public class CommonConstantsUtils extends Driver implements Cloneable {
     private static CommonConstantsUtils commonConstants;
     private Properties prop;
     private static final String USER_DIR = "user.dir";

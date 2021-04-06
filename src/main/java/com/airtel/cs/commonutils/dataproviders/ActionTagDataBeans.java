@@ -15,4 +15,5 @@ public class ActionTagDataBeans {
     private String code;
     private String testDataUAT;
     private String testDataProd;
+    private String isAuth;
 }

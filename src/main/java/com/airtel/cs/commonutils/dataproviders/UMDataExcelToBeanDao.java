@@ -24,7 +24,7 @@ public class UMDataExcelToBeanDao {
         return dataFormatter.formatCellValue(cell, evaluator);
     }
 
-    public List<UMDataBeans> getData(String path, String SheetName) {
+    public List<UMDataBeans> getData(String path, String sheetName) {
 
         List<UMDataBeans> userCredsBeanList = new ArrayList<>();
         FileInputStream file;
@@ -41,10 +41,10 @@ public class UMDataExcelToBeanDao {
                 evaluator = new HSSFFormulaEvaluator((HSSFWorkbook) workbook);
             }
 
-            Sheet sheet = workbook.getSheet(SheetName);
+            Sheet sheet = workbook.getSheet(sheetName);
 
             for (Row cells : sheet) {
-                UMDataBeans UMDataBeans = new UMDataBeans();
+                UMDataBeans umDataBeans = new UMDataBeans();
                 Iterator<Cell> cellIterator = cells.cellIterator();
                 while (cellIterator.hasNext()) {
                     Cell cell = cellIterator.next();
@@ -56,13 +56,15 @@ public class UMDataExcelToBeanDao {
 
                         switch (columnIndex) {
                             case 0:
-                                UMDataBeans.setInteraction(cellValue);
+                                umDataBeans.setInteraction(cellValue);
                                 break;
                             case 1:
-                                UMDataBeans.setWorkflow(cellValue);
+                                umDataBeans.setWorkflow(cellValue);
                                 break;
                             case 2:
-                                UMDataBeans.setLoginQueue(cellValue);
+                                umDataBeans.setLoginQueue(cellValue);
+                                break;
+                            default:
                                 break;
                         }
                     }
@@ -70,7 +72,7 @@ public class UMDataExcelToBeanDao {
 
 
                 if (cells.getRowNum() != 0) {
-                    userCredsBeanList.add(UMDataBeans);
+                    userCredsBeanList.add(umDataBeans);
                 }
             }
         } catch (

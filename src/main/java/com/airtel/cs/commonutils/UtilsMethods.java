@@ -1,13 +1,13 @@
 package com.airtel.cs.commonutils;
 
 import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
+import com.airtel.cs.driver.Driver;
 import com.relevantcodes.extentreports.LogStatus;
 import io.restassured.http.Header;
 import io.restassured.response.Response;
 import io.restassured.specification.QueryableRequestSpecification;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.time.DateUtils;
-import tests.frontendagent.BaseTest;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -19,7 +19,7 @@ import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 @Log4j2
-public class UtilsMethods extends BaseTest {
+public class UtilsMethods extends Driver {
 
     public static void addHeaders(String key, String value) {
         map.add(new Header(key, value));
@@ -172,7 +172,7 @@ public class UtilsMethods extends BaseTest {
         return df.format(value);
     }
 
-    public static Boolean isCustomerBirthday(String birthDay,String pattern){
+    public static Boolean isCustomerBirthday(String birthDay, String pattern) {
         DateFormat format1 = new SimpleDateFormat(pattern);
         String today = format1.format(Calendar.getInstance().getTime());
         return today.equalsIgnoreCase(birthDay);

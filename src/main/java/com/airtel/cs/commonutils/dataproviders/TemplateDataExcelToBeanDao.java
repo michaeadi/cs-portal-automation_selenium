@@ -23,7 +23,7 @@ public class TemplateDataExcelToBeanDao {
         return dataFormatter.formatCellValue(cell, evaluator);
     }
 
-    public List<TemplateDataBeans> getData(String path, String SheetName) {
+    public List<TemplateDataBeans> getData(String path, String sheetName) {
 
         List<TemplateDataBeans> templateDataBeans = new ArrayList<>();
         FileInputStream file;
@@ -40,7 +40,7 @@ public class TemplateDataExcelToBeanDao {
                 evaluator = new HSSFFormulaEvaluator((HSSFWorkbook) workbook);
             }
 
-            Sheet sheet = workbook.getSheet(SheetName);
+            Sheet sheet = workbook.getSheet(sheetName);
 
             for (Row cells : sheet) {
                 TemplateDataBeans templateData = new TemplateDataBeans();
@@ -59,6 +59,8 @@ public class TemplateDataExcelToBeanDao {
                                 break;
                             case 1:
                                 templateData.setLanguage(cellValue);
+                                break;
+                            default:
                                 break;
                         }
                     }

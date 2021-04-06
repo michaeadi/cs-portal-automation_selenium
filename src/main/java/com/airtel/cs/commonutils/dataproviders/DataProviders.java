@@ -1,12 +1,12 @@
 package com.airtel.cs.commonutils.dataproviders;
 
-import com.airtel.cs.commonutils.ExcelUtils.WriteTicket;
+import com.airtel.cs.commonutils.excelutils.WriteTicket;
+import com.airtel.cs.driver.Driver;
 import com.codoid.products.fillo.Connection;
 import com.codoid.products.fillo.Fillo;
 import com.codoid.products.fillo.Recordset;
 import lombok.extern.log4j.Log4j2;
 import org.testng.annotations.DataProvider;
-import tests.frontendagent.BaseTest;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,10 +23,25 @@ import java.util.Map;
 import java.util.Properties;
 
 @Log4j2
-public class DataProviders extends BaseTest {
+public class DataProviders extends Driver {
 
-    public static Properties config = BaseTest.config;
+    public static Properties config = Driver.config;
     public static List<String> ticketNumbers = new ArrayList<>();
+
+    //helper
+    public static Map<String, String> getWidgetTaggedIssue() {
+        FtrDataExcelToBeanDao credsExcelToBeanDao = new FtrDataExcelToBeanDao();
+        List<FtrDataBeans> list =
+                credsExcelToBeanDao.getData(excelPath, config.getProperty(suiteType + "-FtrSheet"));
+        Map<String, String> finalList = new HashMap<>();
+        for (FtrDataBeans ftr : list) {
+            if (ftr.getWidgetName() != null) {
+                log.info("Adding in Map<" + ftr.getIssueSubSubType().trim() + "," + ftr.getWidgetName() + ">");
+                finalList.put(ftr.getIssueSubSubType().trim(), ftr.getWidgetName().toLowerCase().trim());
+            }
+        }
+        return finalList;
+    }
 
     @DataProvider
     public Object[][] getTestData() {
@@ -42,9 +57,9 @@ public class DataProviders extends BaseTest {
 
     @DataProvider
     public Object[][] getTestData1() {
-        ftrDataExcelToBeanDao credsExcelToBeanDao = new ftrDataExcelToBeanDao();
-        List<ftrDataBeans> list =
-                credsExcelToBeanDao.getData(excelPath, config.getProperty(BaseTest.suiteType + "-FtrSheet"));
+        FtrDataExcelToBeanDao credsExcelToBeanDao = new FtrDataExcelToBeanDao();
+        List<FtrDataBeans> list =
+                credsExcelToBeanDao.getData(excelPath, config.getProperty(suiteType + "-FtrSheet"));
 
         Object[][] hashMapObj = new Object[list.size()][1];
         for (int i = 0; i < list.size(); i++) {
@@ -55,11 +70,11 @@ public class DataProviders extends BaseTest {
 
     @DataProvider
     public Object[][] getTestData2() {
-        nftrDataExcelToBeanDao credsExcelToBeanDao = new nftrDataExcelToBeanDao();
-        List<nftrDataBeans> list =
-                credsExcelToBeanDao.getData(excelPath, config.getProperty(BaseTest.suiteType + "-NftrSheet"));
-        List<nftrDataBeans> finalList = new ArrayList<>();
-        for (nftrDataBeans l : list) {
+        NftrDataExcelToBeanDao credsExcelToBeanDao = new NftrDataExcelToBeanDao();
+        List<NftrDataBeans> list =
+                credsExcelToBeanDao.getData(excelPath, config.getProperty(suiteType + "-NftrSheet"));
+        List<NftrDataBeans> finalList = new ArrayList<>();
+        for (NftrDataBeans l : list) {
             if (l.getIssueCode() != null) {
                 if (!l.getIssueCode().isEmpty())
                     finalList.add(l);
@@ -147,7 +162,7 @@ public class DataProviders extends BaseTest {
     public Object[][] getPinTags(Method method) {
         PinnedTagDataExcelToBeanDao credsExcelToBeanDao = new PinnedTagDataExcelToBeanDao();
         RowNumber rows = method.getAnnotation(RowNumber.class);
-        List<PinnedtagsDataBeans> list =
+        List<PinnedTagsDataBeans> list =
                 credsExcelToBeanDao.getData(excelPath, config.getProperty("PinnedTagSheet"));
         Object[][] hashMapObj = new Object[list.size()][1];
         for (int i = 0; i < list.size(); i++) {
@@ -195,11 +210,11 @@ public class DataProviders extends BaseTest {
 
     @DataProvider(name = "ticketId")
     public Object[][] getTestData5() {
-        nftrDataExcelToBeanDao credsExcelToBeanDao = new nftrDataExcelToBeanDao();
-        List<nftrDataBeans> list =
-                credsExcelToBeanDao.getData(excelPath, config.getProperty(BaseTest.suiteType + "-NftrSheet"));
-        List<nftrDataBeans> finalTicketList = new ArrayList<nftrDataBeans>();
-        for (nftrDataBeans nftrTicket : list) {
+        NftrDataExcelToBeanDao credsExcelToBeanDao = new NftrDataExcelToBeanDao();
+        List<NftrDataBeans> list =
+                credsExcelToBeanDao.getData(excelPath, config.getProperty(suiteType + "-NftrSheet"));
+        List<NftrDataBeans> finalTicketList = new ArrayList<NftrDataBeans>();
+        for (NftrDataBeans nftrTicket : list) {
             if (nftrTicket.getTicketNumber() != null) {
                 if (!nftrTicket.getTicketNumber().isEmpty()) {
                     System.out.println("Ticket Id: " + nftrTicket.getTicketNumber());
@@ -226,7 +241,7 @@ public class DataProviders extends BaseTest {
         List<TestDatabean> finalTicketList = new ArrayList<>();
         for (TestDatabean login : list) {
             log.info("User Type " + login.getUserType());
-            if (login.getUserType().toLowerCase().trim().equals(rows.userType().toLowerCase().trim())) {
+            if (login.getUserType().toLowerCase().trim().equals(rows.UserType().toLowerCase().trim())) {
                 finalTicketList.add(login);
                 log.info("User Type ADDED " + login.getUserType());
 
@@ -250,7 +265,7 @@ public class DataProviders extends BaseTest {
                 excelToBeanDao.getData(excelPath, config.getProperty("HeaderSheet"));
         List<HeaderDataBean> finalTicketList = new ArrayList<>();
         for (HeaderDataBean login : list) {
-            if (login.getTableName().toLowerCase().trim().equals(table.name().toLowerCase().trim())) {
+            if (login.getTableName().toLowerCase().trim().equals(table.Name().toLowerCase().trim())) {
                 finalTicketList.add(login);
             }
         }
@@ -260,14 +275,6 @@ public class DataProviders extends BaseTest {
         }
         return hashMapObj;
     }
-
-    @Documented
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.METHOD)
-    public @interface Table {
-        String name() default "";
-    }
-
 
     @DataProvider(name = "ReOpenState")
     public Object[][] isReOpenState() {
@@ -290,26 +297,11 @@ public class DataProviders extends BaseTest {
         return hashMapObj;
     }
 
-    @Documented
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.METHOD)
-    public @interface RowNumber {
-        String rowNumber() default "";
-    }
-
-
-    @Documented
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.METHOD)
-    public @interface User {
-        String userType() default "ALL";
-    }
-
     @DataProvider
     public Object[][] interactionComment() {
-        nftrDataExcelToBeanDao credsExcelToBeanDao = new nftrDataExcelToBeanDao();
-        List<nftrDataBeans> list =
-                credsExcelToBeanDao.getData(excelPath, config.getProperty(BaseTest.suiteType + "-NftrSheet"));
+        NftrDataExcelToBeanDao credsExcelToBeanDao = new NftrDataExcelToBeanDao();
+        List<NftrDataBeans> list =
+                credsExcelToBeanDao.getData(excelPath, config.getProperty(suiteType + "-NftrSheet"));
 
         Object[][] hashMapObj = new Object[1][1];
 
@@ -348,10 +340,10 @@ public class DataProviders extends BaseTest {
     //helper method
     public Map<String, Boolean> getALLPinnedTags() {
         PinnedTagDataExcelToBeanDao pinnedTag = new PinnedTagDataExcelToBeanDao();
-        List<PinnedtagsDataBeans> list =
+        List<PinnedTagsDataBeans> list =
                 pinnedTag.getData(excelPath, config.getProperty("PinnedTagSheet"));
-        Map<String, Boolean> finalList = new HashMap<String, Boolean>();
-        for (PinnedtagsDataBeans l : list) {
+        Map<String, Boolean> finalList = new HashMap<>();
+        for (PinnedTagsDataBeans l : list) {
             finalList.put(l.getTagName().toLowerCase().trim(), false);
         }
         return finalList;
@@ -359,11 +351,11 @@ public class DataProviders extends BaseTest {
 
     @DataProvider(name = "singleTicketId")
     public Object[][] getSingleTicketId() {
-        nftrDataExcelToBeanDao credsExcelToBeanDao = new nftrDataExcelToBeanDao();
-        List<nftrDataBeans> list =
-                credsExcelToBeanDao.getData(excelPath, config.getProperty(BaseTest.suiteType + "-NftrSheet"));
-        List<nftrDataBeans> finalTicketList = new ArrayList<nftrDataBeans>();
-        for (nftrDataBeans nftrTicket : list) {
+        NftrDataExcelToBeanDao credsExcelToBeanDao = new NftrDataExcelToBeanDao();
+        List<NftrDataBeans> list =
+                credsExcelToBeanDao.getData(excelPath, config.getProperty(suiteType + "-NftrSheet"));
+        List<NftrDataBeans> finalTicketList = new ArrayList<NftrDataBeans>();
+        for (NftrDataBeans nftrTicket : list) {
             System.out.println("Ticket Id: " + nftrTicket.getTicketNumber());
             if (nftrTicket.getTicketNumber() == null) {
                 System.out.println("No Ticket ID Found");
@@ -379,21 +371,6 @@ public class DataProviders extends BaseTest {
         return hashMapObj;
     }
 
-    //helper
-    public static final Map<String, String> getWidgetTaggedIssue() {
-        System.out.println("Calling instance");
-        ftrDataExcelToBeanDao credsExcelToBeanDao = new ftrDataExcelToBeanDao();
-        List<ftrDataBeans> list =
-                credsExcelToBeanDao.getData(excelPath, config.getProperty(BaseTest.suiteType + "-FtrSheet"));
-        Map<String, String> finalList = new HashMap<>();
-        for (ftrDataBeans ftr : list) {
-            if (ftr.getWidgetName() != null) {
-                System.out.println("Adding in Map<" + ftr.getIssueSubSubType().trim() + "," + ftr.getWidgetName() + ">");
-                finalList.put(ftr.getIssueSubSubType().trim(), ftr.getWidgetName().toLowerCase().trim());
-            }
-        }
-        return finalList;
-    }
 
     //helper
     public Map<String, String> getListOfIssue(String widgetName) {
@@ -407,11 +384,10 @@ public class DataProviders extends BaseTest {
         return finalList;
     }
 
-
     public String getCode(String text) {
-        ftrDataExcelToBeanDao credsExcelToBeanDao = new ftrDataExcelToBeanDao();
-        List<ftrDataBeans> list =
-                credsExcelToBeanDao.getData(excelPath, config.getProperty(BaseTest.suiteType + "-FtrSheet"));
+        FtrDataExcelToBeanDao credsExcelToBeanDao = new FtrDataExcelToBeanDao();
+        List<FtrDataBeans> list =
+                credsExcelToBeanDao.getData(excelPath, config.getProperty(suiteType + "-FtrSheet"));
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getIssueSubSubType().equalsIgnoreCase(text)) {
                 System.out.println("Found Single Row: " + list.get(i).getIssueSubSubType());
@@ -472,6 +448,13 @@ public class DataProviders extends BaseTest {
         return question;
     }
 
+    public List<QuestionAnswerKeyDataBeans> getQuestionAnswerKey() {
+        QuestionAnswerKeyToExcel authTabBeanToExcel = new QuestionAnswerKeyToExcel();
+        File excelDir = new File("Excels");
+        File Excel = new File(excelDir, OPCO + ".xlsx");
+        return authTabBeanToExcel.getData(Excel.getAbsolutePath(), config.getProperty("questionAnswerKey"));
+    }
+
     //Get Action Tagging
     public List<ActionTagDataBeans> getActionTag() {
         ActionTagBeanToExcel actionTagDataBeans = new ActionTagBeanToExcel();
@@ -487,7 +470,7 @@ public class DataProviders extends BaseTest {
                 actionTagDataBeans.getData(excelPath, config.getProperty("actionTagged"));
         for (ActionTagDataBeans s : list) {
             if (s.getActionTagName().equalsIgnoreCase("Voucher Id")) {
-                if (BaseTest.Env.equalsIgnoreCase("prod")) {
+                if (Env.equalsIgnoreCase("prod")) {
                     return s.getTestDataProd();
                 } else {
                     return s.getTestDataUAT();
@@ -589,11 +572,11 @@ public class DataProviders extends BaseTest {
 
     //Get ticket layout using issue code
     public List<String> getTicketLayout(String code) {
-        nftrDataExcelToBeanDao credsExcelToBeanDao = new nftrDataExcelToBeanDao();
-        List<nftrDataBeans> list =
-                credsExcelToBeanDao.getData(excelPath, config.getProperty(BaseTest.suiteType + "-NftrSheet"));
+        NftrDataExcelToBeanDao credsExcelToBeanDao = new NftrDataExcelToBeanDao();
+        List<NftrDataBeans> list =
+                credsExcelToBeanDao.getData(excelPath, config.getProperty(suiteType + "-NftrSheet"));
         List<String> finalTicketList = new ArrayList<String>();
-        for (nftrDataBeans nftrTicket : list) {
+        for (NftrDataBeans nftrTicket : list) {
             if (nftrTicket.getIssueCode().equalsIgnoreCase(code)) {
                 if (isNull(nftrTicket.getTicketFieldLabel1())) {
                     finalTicketList.add(nftrTicket.getTicketFieldLabel1().toLowerCase().trim());
@@ -632,7 +615,7 @@ public class DataProviders extends BaseTest {
             size = 5;
         }
         for (int i = 0; i < size; i++) {
-            nftrDataBeans n = (nftrDataBeans) list[i][0];
+            NftrDataBeans n = (NftrDataBeans) list[i][0];
             System.out.println("No:" + n.getTicketNumber());
             String[] valueToWrite = new String[]{n.getTicketNumber()};
             objExcelFile.writeTicketNumber(Excel.getAbsolutePath(), "Sheet1", valueToWrite, i + 1);
@@ -657,6 +640,27 @@ public class DataProviders extends BaseTest {
             hashMapObj[i][0] = list.get(i);
         }
         return hashMapObj;
+    }
+
+    @Documented
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.METHOD)
+    public @interface Table {
+        String Name() default "";
+    }
+
+    @Documented
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.METHOD)
+    public @interface RowNumber {
+        String rowNumber() default "";
+    }
+
+    @Documented
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.METHOD)
+    public @interface User {
+        String UserType() default "ALL";
     }
 
     public static List<String> getScenarioDetailsFromExcelSheetColumnWise(Recordset recordSet, String rowKeyword, String searchInColumn, List<String> requiredColumnList) {

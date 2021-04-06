@@ -1,6 +1,7 @@
 package com.airtel.cs.commonutils.extentreports;
 
 import com.airtel.cs.commonutils.applicationutils.enums.ReportInfoMessageColorList;
+import com.airtel.cs.driver.Driver;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 import org.apache.commons.compress.archivers.dump.InvalidFormatException;
@@ -8,26 +9,22 @@ import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import tests.frontendagent.BaseTest;
 
 import java.io.File;
 import java.io.IOException;
 
 import static org.apache.hc.core5.util.Deadline.DATE_FORMAT;
 
-public class ExtentReport extends BaseTest {
+public class ExtentReport extends Driver {
     /**
      * @param testName   : testName is the Type of test (Smoke, Sanity, Regression
      *                   etc.)
-     * @param buildVer   : Build Version name can be ( Provide Environment details by
-     *                   directly calling the ExcelLib method to get the Environment
-     *                   cell data. )
      * @param methodName : The Current Method/Function name where user is calling this
      *                   function.
      * @throws InvalidFormatException
      * @throws Exception
      */
-    public static void startTest(String testName, String buildVer, String methodName) {
+    public static void startTest(String testName, String methodName) {
         test = reports.startTest(testName + " :: " + methodName);
         test.assignCategory(testName);
         test.assignAuthor("Airtel-Africa");

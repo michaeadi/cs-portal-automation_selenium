@@ -23,7 +23,7 @@ public class TransferQueueDataToExcel {
         return dataFormatter.formatCellValue(cell, evaluator);
     }
 
-    public List<TransferQueueDataBean> getData(String path, String SheetName) {
+    public List<TransferQueueDataBean> getData(String path, String sheetName) {
 
         List<TransferQueueDataBean> ruleData = new ArrayList<>();
         FileInputStream file;
@@ -40,7 +40,7 @@ public class TransferQueueDataToExcel {
                 evaluator = new HSSFFormulaEvaluator((HSSFWorkbook) workbook);
             }
 
-            Sheet sheet = workbook.getSheet(SheetName);
+            Sheet sheet = workbook.getSheet(sheetName);
 
             for (Row cells : sheet) {
                 TransferQueueDataBean testDataBean = new TransferQueueDataBean();
@@ -62,6 +62,8 @@ public class TransferQueueDataToExcel {
                                 break;
                             case 2:
                                 testDataBean.setTransferAnyway(cellValue);
+                                break;
+                            default:
                                 break;
                         }
                     }

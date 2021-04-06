@@ -4,7 +4,9 @@ import com.airtel.cs.api.APIEndPoints;
 import com.airtel.cs.commonutils.applicationutils.enums.ReportInfoMessageColorList;
 import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.commonutils.UtilsMethods;
+import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pagerepository.pageelements.AirtelByWrapper;
+import com.airtel.cs.pagerepository.pageelements.BasePageElements;
 import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.NoSuchElementException;
@@ -13,26 +15,23 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.*;
-import tests.frontendagent.BaseTest;
 
 import java.time.Duration;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 @Log4j2
-public class BasePage extends BaseTest {
-    public static Properties config = BaseTest.config;
+public class BasePage extends Driver {
+    public static Properties config = Driver.config;
     public WebDriver driver;
-    Wait<WebDriver> wait;
-    Wait<WebDriver> wait1;
-    By loader = By.xpath("/html/body/app-root/ngx-ui-loader/div[2]");
-    By loader1 = By.xpath("//div[@class=\"ngx-overlay foreground-closing\"]");
-    By overlay = By.xpath("//mat-dialog-container[@role='dialog']");
-    By timeLine = By.xpath("//app-new-loader[@class=\"ng-star-inserted\"]//div[1]");
-    By home = By.xpath("//*[text()=\"HOME\"]");
-    By toastMessage = By.xpath("//app-toast-component/p");
+    public Wait<WebDriver> wait;
+    public Wait<WebDriver> wait1;
+    public JavascriptExecutor js;
+    BasePageElements basePageElements;
     public static final APIEndPoints api = new APIEndPoints();
-    JavascriptExecutor js;
+
 
     //Constructor
     public BasePage(WebDriver driver) {
@@ -42,30 +41,31 @@ public class BasePage extends BaseTest {
         js = (JavascriptExecutor) driver;
         ExpectedCondition<Boolean> expectation = driver1 -> ((JavascriptExecutor) driver1).executeScript("return document.readyState").toString().equals("complete");
         wait1 = new FluentWait<>(driver)
-                .withTimeout(Duration.ofSeconds(Integer.parseInt(BaseTest.config.getProperty("GeneralWaitInSeconds"))))
-                .pollingEvery(Duration.ofSeconds(Integer.parseInt(BaseTest.config.getProperty("PoolingWaitInSeconds"))))
+                .withTimeout(Duration.ofSeconds(Integer.parseInt(Driver.config.getProperty("GeneralWaitInSeconds"))))
+                .pollingEvery(Duration.ofSeconds(Integer.parseInt(Driver.config.getProperty("PoolingWaitInSeconds"))))
                 .ignoring(NoSuchElementException.class);
         wait1.until(expectation);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(Integer.parseInt(BaseTest.config.getProperty("GeneralWaitInSeconds"))));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(Integer.parseInt(Driver.config.getProperty("GeneralWaitInSeconds"))));
+        basePageElements = new BasePageElements();
     }
 
 
     public void waitTillLoaderGetsRemoved() {
         UtilsMethods.printInfoLog("Waiting for loader to be removed");
-        wait1.until(ExpectedConditions.invisibilityOfElementLocated(loader1));
+        wait1.until(ExpectedConditions.invisibilityOfElementLocated(basePageElements.loader1));
         UtilsMethods.printInfoLog("Loader Removed");
     }
 
     public void waitTillOverlayGetsRemoved() {
-        wait1.until(ExpectedConditions.invisibilityOfElementLocated(overlay));
+        wait1.until(ExpectedConditions.invisibilityOfElementLocated(basePageElements.overlay));
     }
 
     public void waitTillTimeLineGetsRemoved() {
-        wait1.until(ExpectedConditions.invisibilityOfElementLocated(timeLine));
+        wait1.until(ExpectedConditions.invisibilityOfElementLocated(basePageElements.timeLine));
     }
 
     //Click Method
-    void click(By elementLocation) {
+    public void click(By elementLocation) {
         try {
             wait.until(ExpectedConditions.elementToBeClickable(elementLocation));
             highLighterMethod(elementLocation);
@@ -78,7 +78,7 @@ public class BasePage extends BaseTest {
         }
     }
 
-    void scrollToViewElement(By element) throws InterruptedException {
+    public void scrollToViewElement(By element) throws InterruptedException {
         WebElement element1 = driver.findElement(element);
         waitVisibility(element);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element1);
@@ -86,7 +86,7 @@ public class BasePage extends BaseTest {
     }
 
     //Write Text
-    void writeText(By elementLocation, String text) {
+    public void writeText(By elementLocation, String text) {
         waitVisibility(elementLocation);
         highLighterMethod(elementLocation);
         driver.findElement(elementLocation).sendKeys(text);
@@ -95,23 +95,23 @@ public class BasePage extends BaseTest {
     }
 
     //Read Text
-    String readText(By elementLocation) {
+    public String readText(By elementLocation) {
         waitVisibility(elementLocation);
-        highLighterMethod(elementLocation);
+        //highLighterMethod(elementLocation);
         return driver.findElement(elementLocation).getText();
     }
 
     //HighlightElement
-    void highLighterMethod(By element) {
+    public void highLighterMethod(By element) {
         waitTillLoaderGetsRemoved();
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].setAttribute('style', 'border: 2px solid black;');", driver.findElement(element));
     }
 
     //Check the state of element
-    boolean checkState(By elementLocation) {
+    public boolean checkState(By elementLocation) {
         try {
-            waitVisibility(elementLocation);
+            // waitVisibility(elementLocation);
             highLighterMethod(elementLocation);
             return driver.findElement(elementLocation).isEnabled();
         } catch (NoSuchElementException | TimeoutException e) {
@@ -127,14 +127,14 @@ public class BasePage extends BaseTest {
         wait.until(ExpectedConditions.visibilityOfElementLocated(by));
     }
 
-    void waitAndSwitchWindow(int windownumber) {
+    public void waitAndSwitchWindow(int windownumber) {
         wait.until(ExpectedConditions.numberOfWindowsToBe(windownumber));
         ArrayList<String> tabs2 = new ArrayList<>(driver.getWindowHandles());
         driver.switchTo().window(tabs2.get(windownumber - 1));
     }
 
     //Hover and click on Element Using ACTIONS class
-    void hoverAndClick(By elementLocation) {
+    public void hoverAndClick(By elementLocation) {
         Actions actions = new Actions(driver);
         waitVisibility(elementLocation);
         WebElement target = driver.findElement(elementLocation);
@@ -144,24 +144,24 @@ public class BasePage extends BaseTest {
     public CustomerProfilePage openingCustomerInteractionDashboard() {
         log.info("Opening Customer Interactions Dashboard");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening Customer Interactions Dashboard");
-        click(home);
+        click(basePageElements.home);
         waitTillLoaderGetsRemoved();
         return new CustomerProfilePage(driver);
     }
 
     public String getToastMessage() {
-        String message = readText(toastMessage);
+        String message = readText(basePageElements.toastMessage);
         UtilsMethods.printInfoLog(message);
         return message;
     }
 
     //Switch to parent frame
-    void switchToParentFrme() {
+    public void switchToParentFrme() {
         driver.switchTo().parentFrame();
     }
 
     // is element  visible
-    boolean isElementVisible(By element) {
+    public boolean isElementVisible(By element) {
         try {
             return driver.findElement(element).isDisplayed();
         } catch (Exception e) {
@@ -207,6 +207,18 @@ public class BasePage extends BaseTest {
             UtilsMethods.printInfoLog("Not able to Fetch List of Elements :" + e.fillInStackTrace());
         }
         return list;
+    }
+
+    public String readTextOnRows(By elementLocation, int row) {
+        waitVisibility(elementLocation);
+        return driver.findElements(elementLocation).get(row).getText();
+    }
+
+    public String readOnRowColumn(By rowLocation, By columnLocation, int row, int column) {
+        waitVisibility(rowLocation);
+        log.info("Row Size: " + driver.findElements(rowLocation).size());
+        log.info("Column Size: " + driver.findElement(rowLocation).findElements(columnLocation).size());
+        return driver.findElements(rowLocation).get(row).findElements(columnLocation).get(column).getText();
     }
 
     /**

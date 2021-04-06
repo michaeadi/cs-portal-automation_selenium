@@ -2,6 +2,7 @@ package com.airtel.cs.commonutils.commonlib;
 
 import com.airtel.cs.commonutils.applicationutils.enums.JavaColors;
 import com.airtel.cs.commonutils.applicationutils.enums.ReportInfoMessageColorList;
+import com.airtel.cs.driver.Driver;
 import com.relevantcodes.extentreports.LogStatus;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,7 +13,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.logging.LogType;
-import tests.frontendagent.BaseTest;
 
 import java.lang.invoke.MethodHandles;
 import java.text.DateFormat;
@@ -22,7 +22,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
-public class CommonLib extends BaseTest {
+public class CommonLib extends Driver {
     public void fail(String message, boolean requireScreenshot) {
         LOGGER.error(message);
         reporter.showInExtentReport(LogStatus.FAIL, message, requireScreenshot);

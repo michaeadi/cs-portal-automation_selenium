@@ -80,6 +80,9 @@ public class ActionTagBeanToExcel {
                             case 8:
                                 actionTagDataBeans.setTestDataProd(cellValue);
                                 break;
+                            case 9:
+                                actionTagDataBeans.setIsAuth(cellValue);
+                                break;
 
                         }
                     }

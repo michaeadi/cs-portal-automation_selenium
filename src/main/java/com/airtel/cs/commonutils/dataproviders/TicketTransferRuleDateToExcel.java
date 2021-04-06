@@ -23,7 +23,7 @@ public class TicketTransferRuleDateToExcel {
         return dataFormatter.formatCellValue(cell, evaluator);
     }
 
-    public List<TicketTransferRuleDataBean> getData(String path, String SheetName) {
+    public List<TicketTransferRuleDataBean> getData(String path, String sheetName) {
 
         List<TicketTransferRuleDataBean> ruleData = new ArrayList<>();
         FileInputStream file;
@@ -40,7 +40,7 @@ public class TicketTransferRuleDateToExcel {
                 evaluator = new HSSFFormulaEvaluator((HSSFWorkbook) workbook);
             }
 
-            Sheet sheet = workbook.getSheet(SheetName);
+            Sheet sheet = workbook.getSheet(sheetName);
 
             for (Row cells : sheet) {
                 TicketTransferRuleDataBean testDatabean = new TicketTransferRuleDataBean();
@@ -68,6 +68,8 @@ public class TicketTransferRuleDateToExcel {
                                 break;
                             case 4:
                                 testDatabean.setToQueue(cellValue);
+                                break;
+                            default:
                                 break;
                         }
                     }

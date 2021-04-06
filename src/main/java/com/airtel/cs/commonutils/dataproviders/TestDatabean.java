@@ -17,8 +17,8 @@ public class TestDatabean {
     private String activationTime;
     private String simNumber;
     private String simType;
-    private String PUK1;
-    private String PUK2;
+    private String puk1;
+    private String puk2;
     private String idType;
     private String idNumber;
     private String roleType;

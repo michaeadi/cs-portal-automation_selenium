@@ -2,33 +2,33 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Automation Framework CS PORTAl Test Suite" preserve-order="true" allow-return-values="true">
     <listeners>
-        <listener class-name="com.airtel.cs.commonutils.Listeners.TestListener"/>
-        <!--        <listener class-name="com.airtel.cs.commonutils.Listeners.AnnotationTransformer"/>-->
+        <listener class-name="com.airtel.cs.commonutils.listeners.TestListener"/>
+        <!--        <listener class-name="com.airtel.cs.commonutils.listeners.AnnotationTransformer"/>-->
     </listeners>
     <test name="PROD Sanity com.airtel.cs.api Test">
         <classes>
-            <class name="tests.frontendagent.SystemStatusTest"/>
+            <class name="com.airtel.cs.ui.frontendagent.SystemStatusTest"/>
         </classes>
     </test>
     <test name="Login Admin 1 Test">
         <classes>
-            <class name="tests.frontendagent.LoginTests"/>
+            <class name="com.airtel.cs.ui.frontendagent.LoginTests"/>
         </classes>
     </test>
     <test name="Side Menu">
         <classes>
-            <class name="tests.frontendagent.sideMenuTests"/>
+            <class name="com.airtel.cs.ui.frontendagent.SideMenuTests"/>
         </classes>
     </test>
     <test name="Customer Interactions TEST" preserve-order="true">
         <classes>
-            <class name="tests.frontendagent.customerInteractionTest"/>
-            <class name="tests.frontendagent.widgetsOptionsTest"/>
+            <class name="com.airtel.cs.ui.frontendagent.customerInteractionTest"/>
+            <class name="com.airtel.cs.ui.frontendagent.widgetsOptionsTest"/>
         </classes>
     </test>
     <test name="Validate Authentication tab">
         <classes>
-            <class name="tests.frontendagent.AuthTabTest">
+            <class name="com.airtel.cs.ui.frontendagent.AuthTabTest">
                 <methods>
                     <exclude name="validateResetME2UPassword"/>
                 </methods>
@@ -37,27 +37,27 @@
     </test>
     <test name="Validate Action Trail Tab Test">
         <classes>
-            <class name="tests.frontendagent.ActionTrailTest"/>
+            <class name="com.airtel.cs.ui.frontendagent.ActionTrailTest"/>
         </classes>
     </test>
     <test name="Validate Frontend Agent Ticket Page">
         <classes>
-            <class name="tests.frontendagent.FrontendAgentTicketTest"/>
+            <class name="com.airtel.cs.ui.frontendagent.FrontendAgentTicketTest"/>
         </classes>
     </test>
     <test name="Logout Test">
         <classes>
-            <class name="tests.frontendagent.LogoutTest"/>
+            <class name="com.airtel.cs.ui.frontendagent.LogoutTest"/>
         </classes>
     </test>
     <test name="Supervisors Login Test">
         <classes>
-            <class name="tests.backendSupervisor.SupervisorLoginTest"/>
+            <class name="com.airtel.cs.ui.backendSupervisor.SupervisorLoginTest"/>
         </classes>
     </test>
     <test name="api-Regenerate">
         <classes>
-            <class name="tests.frontendagent.SystemStatusTest">
+            <class name="com.airtel.cs.ui.frontendagent.SystemStatusTest">
                 <methods>
                     <exclude name="testCredOfAdmin"/>
                     <exclude name="testCredOfBackendAgent"/>
@@ -67,42 +67,42 @@
     </test>
     <test name="Supervisors Validate Filter Option ">
         <classes>
-            <class name="tests.backendSupervisor.SupervisorFilterTest"/>
+            <class name="com.airtel.cs.ui.backendSupervisor.SupervisorFilterTest"/>
         </classes>
     </test>
     <test name="Supervisors Search/View Ticket ">
         <classes>
-            <class name="tests.backendSupervisor.PRODSupervisorTicket"/>
+            <class name="com.airtel.cs.ui.backendSupervisor.PRODSupervisorTicket"/>
         </classes>
     </test>
     <test name="Logout Supervisor Test">
         <classes>
-            <class name="tests.frontendagent.LogoutTest"/>
+            <class name="com.airtel.cs.ui.frontendagent.LogoutTest"/>
         </classes>
     </test>
     <test name="LOGIN TO BACKEND AGENT">
         <classes>
-            <class name="tests.backendAgent.BackendAgentLoginTest"/>
+            <class name="com.airtel.cs.ui.backendAgent.BackendAgentLoginTest"/>
         </classes>
     </test>
     <test name="Validate BACKEND AGENT Filter Options">
         <classes>
-            <class name="tests.backendAgent.BackendAgentFilterTest"/>
+            <class name="com.airtel.cs.ui.backendAgent.BackendAgentFilterTest"/>
         </classes>
     </test>
     <test name="Logout Test from Backend agent">
         <classes>
-            <class name="tests.frontendagent.LogoutTest"/>
+            <class name="com.airtel.cs.ui.frontendagent.LogoutTest"/>
         </classes>
     </test>
     <test name="Login Admin Test">
         <classes>
-            <class name="tests.frontendagent.LoginTests"/>
+            <class name="com.airtel.cs.ui.frontendagent.LoginTests"/>
         </classes>
     </test>
     <test name="Create Template Test">
         <classes>
-            <class name="tests.templateManagement.CreateTemplateTest">
+            <class name="com.airtel.cs.ui.templateManagement.CreateTemplateTest">
                 <methods>
                     <exclude name="createTemplate"/>
                     <exclude name="validateAddedTemplate"/>
@@ -113,7 +113,7 @@
     </test>
     <test name="Validate Ticket Bulk Update Test">
         <classes>
-            <class name="tests.ticketBulkUpdate.TicketBulkUpdateTest">
+            <class name="com.airtel.cs.ui.ticketBulkUpdate.TicketBulkUpdateTest">
                 <methods>
                     <exclude name="maxTicketSelectTest"/>
                     <exclude name="uploadTicketFromExcelTest"/>
@@ -125,7 +125,7 @@
     </test>
     <test name="Logout Test from Admin agent">
         <classes>
-            <class name="tests.frontendagent.LogoutTest"/>
+            <class name="com.airtel.cs.ui.frontendagent.LogoutTest"/>
         </classes>
     </test>
 </suite>
