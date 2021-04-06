@@ -16,15 +16,15 @@ import java.util.List;
 
 public class PinnedTagDataExcelToBeanDao {
 
-    static DataFormatter dataFormatter;
-    static FormulaEvaluator evaluator;
+    DataFormatter dataFormatter;
+    FormulaEvaluator evaluator;
 
-    private static String fetchValue(Cell cell) {
+    private String fetchValue(Cell cell) {
         evaluator.evaluate(cell);
         return dataFormatter.formatCellValue(cell, evaluator);
     }
 
-    public List<PinnedTagsDataBeans> getData(String path, String SheetName) {
+    public List<PinnedTagsDataBeans> getData(String path, String sheetName) {
 
         List<PinnedTagsDataBeans> userCredsBeanList = new ArrayList<>();
         FileInputStream file;
@@ -41,10 +41,10 @@ public class PinnedTagDataExcelToBeanDao {
                 evaluator = new HSSFFormulaEvaluator((HSSFWorkbook) workbook);
             }
 
-            Sheet sheet = workbook.getSheet(SheetName);
+            Sheet sheet = workbook.getSheet(sheetName);
 
             for (Row cells : sheet) {
-                PinnedTagsDataBeans PinnedtagsDataBeans = new PinnedTagsDataBeans();
+                PinnedTagsDataBeans tagsDataBeans = new PinnedTagsDataBeans();
                 Iterator<Cell> cellIterator = cells.cellIterator();
                 while (cellIterator.hasNext()) {
                     Cell cell = cellIterator.next();
@@ -56,16 +56,18 @@ public class PinnedTagDataExcelToBeanDao {
 
                         switch (columnIndex) {
                             case 0:
-                                PinnedtagsDataBeans.setTagName(cellValue);
+                                tagsDataBeans.setTagName(cellValue);
                                 break;
                             case 1:
-                                PinnedtagsDataBeans.setAvailable(cellValue);
+                                tagsDataBeans.setAvailable(cellValue);
                                 break;
                             case 2:
-                                PinnedtagsDataBeans.setIssueCode(cellValue);
+                                tagsDataBeans.setIssueCode(cellValue);
                                 break;
                             case 3:
-                                PinnedtagsDataBeans.setCustomerNumber(cellValue);
+                                tagsDataBeans.setCustomerNumber(cellValue);
+                                break;
+                            default:
                                 break;
                         }
                     }
@@ -73,7 +75,7 @@ public class PinnedTagDataExcelToBeanDao {
 
 
                 if (cells.getRowNum() != 0) {
-                    userCredsBeanList.add(PinnedtagsDataBeans);
+                    userCredsBeanList.add(tagsDataBeans);
                 }
             }
         } catch (

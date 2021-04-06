@@ -23,7 +23,7 @@ public class PriorityDataExcelToBeanDao {
         return dataFormatter.formatCellValue(cell, evaluator);
     }
 
-    public List<PriorityDataBean> getData(String path, String SheetName) {
+    public List<PriorityDataBean> getData(String path, String sheetName) {
 
         List<PriorityDataBean> priorityList = new ArrayList<>();
         FileInputStream file;
@@ -40,7 +40,7 @@ public class PriorityDataExcelToBeanDao {
                 evaluator = new HSSFFormulaEvaluator((HSSFWorkbook) workbook);
             }
 
-            Sheet sheet = workbook.getSheet(SheetName);
+            Sheet sheet = workbook.getSheet(sheetName);
 
             for (Row cells : sheet) {
                 PriorityDataBean priorityDataBean = new PriorityDataBean();
@@ -48,15 +48,12 @@ public class PriorityDataExcelToBeanDao {
                 while (cellIterator.hasNext()) {
                     Cell cell = cellIterator.next();
 
-                    if (cells.getRowNum() == 0) {
-                    } else {
+                    if (cells.getRowNum() > 0) {
                         int columnIndex = cell.getColumnIndex();
                         String cellValue = fetchValue(cell);
 
-                        switch (columnIndex) {
-                            case 0:
-                                priorityDataBean.setTicketPriority(cellValue);
-                                break;
+                        if (columnIndex == 0) {
+                            priorityDataBean.setTicketPriority(cellValue);
                         }
                     }
                 }

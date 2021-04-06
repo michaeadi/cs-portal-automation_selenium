@@ -14,10 +14,10 @@ import java.util.Iterator;
 import java.util.List;
 
 public class TicketStateToBean {
-    static DataFormatter dataFormatter;
-    static FormulaEvaluator evaluator;
+    DataFormatter dataFormatter;
+    FormulaEvaluator evaluator;
 
-    private static String fetchValue(Cell cell) {
+    private String fetchValue(Cell cell) {
         evaluator.evaluate(cell);
         return dataFormatter.formatCellValue(cell, evaluator);
     }
@@ -47,8 +47,7 @@ public class TicketStateToBean {
                 while (cellIterator.hasNext()) {
                     Cell cell = cellIterator.next();
 
-                    if (cells.getRowNum() == 0) {
-                    } else {
+                    if (cells.getRowNum() > 0) {
                         int columnIndex = cell.getColumnIndex();
                         String cellValue = fetchValue(cell);
 

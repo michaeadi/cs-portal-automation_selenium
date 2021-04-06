@@ -15,15 +15,15 @@ import java.util.List;
 
 public class QuestionAnswerKeyToExcel {
 
-    static DataFormatter dataFormatter;
-    static FormulaEvaluator evaluator;
+    DataFormatter dataFormatter;
+    FormulaEvaluator evaluator;
 
-    private static String fetchValue(Cell cell) {
+    private String fetchValue(Cell cell) {
         evaluator.evaluate(cell);
         return dataFormatter.formatCellValue(cell, evaluator);
     }
 
-    public List<QuestionAnswerKeyDataBeans> getData(String path, String SheetName) {
+    public List<QuestionAnswerKeyDataBeans> getData(String path, String sheetName) {
 
         List<QuestionAnswerKeyDataBeans> questionAnswerKeyDataBeans = new ArrayList<>();
         FileInputStream file;
@@ -40,7 +40,7 @@ public class QuestionAnswerKeyToExcel {
                 evaluator = new HSSFFormulaEvaluator((HSSFWorkbook) workbook);
             }
 
-            Sheet sheet = workbook.getSheet(SheetName);
+            Sheet sheet = workbook.getSheet(sheetName);
 
             for (Row cells : sheet) {
                 QuestionAnswerKeyDataBeans keyDataBeans = new QuestionAnswerKeyDataBeans();
@@ -48,8 +48,7 @@ public class QuestionAnswerKeyToExcel {
                 while (cellIterator.hasNext()) {
                     Cell cell = cellIterator.next();
 
-                    if (cells.getRowNum() == 0) {
-                    } else {
+                    if (cells.getRowNum() > 0) {
                         int columnIndex = cell.getColumnIndex();
                         String cellValue = fetchValue(cell);
 
@@ -62,6 +61,8 @@ public class QuestionAnswerKeyToExcel {
                                 break;
                             case 2:
                                 keyDataBeans.setAnswerKey(cellValue);
+                                break;
+                            default:
                                 break;
                         }
                     }

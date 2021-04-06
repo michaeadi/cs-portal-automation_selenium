@@ -82,6 +82,6 @@ public class NftrDataBeans {
     String priority;
     String ticketNumber;
 
-    int rownum;
+    int rowNum;
 
 }

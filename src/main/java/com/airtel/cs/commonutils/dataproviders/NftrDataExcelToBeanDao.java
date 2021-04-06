@@ -53,7 +53,7 @@ public class NftrDataExcelToBeanDao {
                     } else {
                         int columnIndex = cell.getColumnIndex();
                         String cellValue = fetchValue(cell);
-                        nftrDataBeans.setRownum((cell.getRowIndex()));
+                        nftrDataBeans.setRowNum((cell.getRowIndex()));
 
                         switch (columnIndex) {
                             case 0:

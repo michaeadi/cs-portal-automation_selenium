@@ -15,10 +15,10 @@ import java.util.List;
 
 public class QueueStateBeanToExcel {
 
-    static DataFormatter dataFormatter;
-    static FormulaEvaluator evaluator;
+    DataFormatter dataFormatter;
+    FormulaEvaluator evaluator;
 
-    private static String fetchValue(Cell cell) {
+    private String fetchValue(Cell cell) {
         evaluator.evaluate(cell);
         return dataFormatter.formatCellValue(cell, evaluator);
     }
@@ -48,8 +48,7 @@ public class QueueStateBeanToExcel {
                 while (cellIterator.hasNext()) {
                     Cell cell = cellIterator.next();
 
-                    if (cells.getRowNum() == 0) {
-                    } else {
+                    if (cells.getRowNum() > 0) {
                         int columnIndex = cell.getColumnIndex();
                         String cellValue = fetchValue(cell);
 
@@ -86,6 +85,8 @@ public class QueueStateBeanToExcel {
                                 break;
                             case 10:
                                 queueStateDataBeans.setState10(cellValue);
+                                break;
+                            default:
                                 break;
 
                         }
