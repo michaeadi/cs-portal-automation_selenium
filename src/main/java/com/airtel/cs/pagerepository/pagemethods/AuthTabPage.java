@@ -39,8 +39,8 @@ public class AuthTabPage extends BasePage {
 
     public void clickNonAuthBtn() {
         UtilsMethods.printInfoLog("Clicking on Non-Authenticate button");
-        if (driver.findElement(pageElements.NotAuthBtn).isEnabled())
-            click(pageElements.NotAuthBtn);
+        if (driver.findElement(pageElements.notAuthBtn).isEnabled())
+            click(pageElements.notAuthBtn);
     }
 
     public void clickAuthBtn() {
@@ -51,7 +51,7 @@ public class AuthTabPage extends BasePage {
 
     public boolean isNonAuthBtnEnable() {
         UtilsMethods.printInfoLog("Checking Non-Authenticate button is enable");
-        return driver.findElement(pageElements.NotAuthBtn).isEnabled();
+        return driver.findElement(pageElements.notAuthBtn).isEnabled();
     }
 
     public boolean isAuthBtnEnable() {

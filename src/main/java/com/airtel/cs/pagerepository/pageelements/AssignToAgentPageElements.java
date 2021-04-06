@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 public class AssignToAgentPageElements {
     public By pageTitle = By.xpath("//*[@id=\"assignTicket\"]/app-assign-to-agents/section/div/div[1]/h4");
     public By searchBox = By.name("searchAgent");
-    public By searchBtn = By.xpath("//mat-sidenav-content//mat-sidenav//div//div//div//div//div[1]//button[1]");
+    public By searchBtn = By.xpath("//mat-sidenav-content//form//*//button[@class='search-icon-btn']");
     public By queueName = By.xpath("//*[@id=\"assignTicket\"]/app-assign-to-agents/section/div/div[1]/div/p");
     public By agentName = By.xpath("//*[@id=\"assignTicket\"]/app-assign-to-agents/section/div/div[2]/div[1]/div[1]/p/span[1]");
     public By agentAuuid = By.xpath("//*[@id=\"assignTicket\"]/app-assign-to-agents/section/div/div[2]/div[1]/div[1]/p/span[2]");

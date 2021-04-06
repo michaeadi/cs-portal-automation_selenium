@@ -7,7 +7,7 @@ public class AuthTabPageElements {
     public By authCloseBtn = By.xpath("//mat-icon[contains(text(),'close')]");
     public By listOfQuestions = By.xpath("//app-authentication-block-modal//div[1]//div[2]//div[1]//div[@class=\"main-container__body--left--wrapper ng-star-inserted\"]");
     public By authInstruction = By.xpath("//div[@class=\"main-container__body--right--instructions\"]//p");
-    public By NotAuthBtn = By.xpath("//div[@class=\"main-container__body--right--buttons\"]//button[1]");
+    public By notAuthBtn = By.xpath("//div[@class=\"main-container__body--right--buttons\"]//button[1]");
     public By authBtn = By.xpath("//div[@class=\"main-container__body--right--buttons\"]//button[2]");
 
     //SIM Bar/Unbar pop up

@@ -32,7 +32,6 @@ public class BasePage extends Driver {
     BasePageElements basePageElements;
     public static final APIEndPoints api = new APIEndPoints();
 
-
     //Constructor
     public BasePage(WebDriver driver) {
         PageFactory.initElements(new AjaxElementLocatorFactory(driver, 10), this);

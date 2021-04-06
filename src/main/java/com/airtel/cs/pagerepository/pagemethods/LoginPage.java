@@ -45,11 +45,6 @@ public class LoginPage extends BasePage {
         click(pageElements.submitButton);
     }
 
-    public String getEnteredAUUID() {
-        UtilsMethods.printInfoLog("reading AUUID from Pre filled field");
-        return readText(pageElements.mobAUUID);
-    }
-
     public void enterPassword(String password) {
         UtilsMethods.printInfoLog("Send password to Password field");
         writeText(pageElements.enterPassword, password);
@@ -110,7 +105,7 @@ public class LoginPage extends BasePage {
             pages.getLoginPage().enterPassword(PassUtils.decodePassword(getUserNamePassword("password")));
             pages.getLoginPage().clickOnLogin();
             pages.getLoginPage().waitTillLoaderGetsRemoved();
-            isLoginSuccessful=true;
+            isLoginSuccessful = true;
 
         } catch (Exception e) {
             e.getStackTrace();

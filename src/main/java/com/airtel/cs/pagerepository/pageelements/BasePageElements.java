@@ -3,7 +3,6 @@ package com.airtel.cs.pagerepository.pageelements;
 import org.openqa.selenium.By;
 
 public class BasePageElements {
-    public By loader = By.xpath("/html/body/app-root/ngx-ui-loader/div[2]");
     public By loader1 = By.xpath("//div[@class=\"ngx-overlay foreground-closing\"]");
     public By overlay = By.xpath("//mat-dialog-container[@role='dialog']");
     public By timeLine = By.xpath("//app-new-loader[@class=\"ng-star-inserted\"]//div[1]");
