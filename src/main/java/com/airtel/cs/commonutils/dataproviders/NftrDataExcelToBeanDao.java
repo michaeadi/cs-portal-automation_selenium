@@ -201,25 +201,25 @@ public class NftrDataExcelToBeanDao {
                                 nftrDataBeans.setWorkgroup1(cellValue);
                                 break;
                             case 48:
-                                nftrDataBeans.setSLA1(cellValue);
+                                nftrDataBeans.setSla1(cellValue);
                                 break;
                             case 49:
                                 nftrDataBeans.setWorkgroup2(cellValue);
                                 break;
                             case 50:
-                                nftrDataBeans.setSLA2(cellValue);
+                                nftrDataBeans.setSla2(cellValue);
                                 break;
                             case 51:
                                 nftrDataBeans.setWorkgroup3(cellValue);
                                 break;
                             case 52:
-                                nftrDataBeans.setSLA3(cellValue);
+                                nftrDataBeans.setSla3(cellValue);
                                 break;
                             case 53:
                                 nftrDataBeans.setWorkgroup4(cellValue);
                                 break;
                             case 54:
-                                nftrDataBeans.setSLA4(cellValue);
+                                nftrDataBeans.setSla4(cellValue);
                                 break;
                             case 55:
                                 nftrDataBeans.setCommittedSLA(cellValue);

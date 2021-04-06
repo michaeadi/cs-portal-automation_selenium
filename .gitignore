@@ -2,7 +2,6 @@
 /target/classes
 /ExtentReports
 /logs
-src/test/
 CS_PORTAL.iml
 .idea/.gitignore
 .idea/compiler.xml

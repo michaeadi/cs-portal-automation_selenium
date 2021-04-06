@@ -16,15 +16,15 @@ import java.util.List;
 
 public class FtrDataExcelToBeanDao {
 
-    static DataFormatter dataFormatter;
-    static FormulaEvaluator evaluator;
+    DataFormatter dataFormatter;
+    FormulaEvaluator evaluator;
 
-    private static String fetchValue(Cell cell) {
+    private String fetchValue(Cell cell) {
         evaluator.evaluate(cell);
         return dataFormatter.formatCellValue(cell, evaluator);
     }
 
-    public List<FtrDataBeans> getData(String path, String SheetName) {
+    public List<FtrDataBeans> getData(String path, String sheetName) {
 
         List<FtrDataBeans> userCredsBeanList = new ArrayList<>();
         FileInputStream file;
@@ -41,7 +41,7 @@ public class FtrDataExcelToBeanDao {
                 evaluator = new HSSFFormulaEvaluator((HSSFWorkbook) workbook);
             }
 
-            Sheet sheet = workbook.getSheet(SheetName);
+            Sheet sheet = workbook.getSheet(sheetName);
 
             for (Row cells : sheet) {
                 FtrDataBeans ftrDataBeans = new FtrDataBeans();
@@ -49,8 +49,7 @@ public class FtrDataExcelToBeanDao {
                 while (cellIterator.hasNext()) {
                     Cell cell = cellIterator.next();
 
-                    if (cells.getRowNum() == 0) {
-                    } else {
+                    if (cells.getRowNum() > 0) {
                         int columnIndex = cell.getColumnIndex();
                         String cellValue = fetchValue(cell);
 
@@ -72,7 +71,9 @@ public class FtrDataExcelToBeanDao {
                                 break;
                             case 5:
                                 ftrDataBeans.setWidgetName(cellValue);
-
+                                break;
+                            default:
+                                break;
                         }
                     }
                 }

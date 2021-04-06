@@ -15,15 +15,15 @@ import java.util.List;
 
 public class ActionTagBeanToExcel {
 
-    static DataFormatter dataFormatter;
-    static FormulaEvaluator evaluator;
+    DataFormatter dataFormatter;
+    FormulaEvaluator evaluator;
 
-    private static String fetchValue(Cell cell) {
+    private String fetchValue(Cell cell) {
         evaluator.evaluate(cell);
         return dataFormatter.formatCellValue(cell, evaluator);
     }
 
-    public List<ActionTagDataBeans> getData(String path, String SheetName) {
+    public List<ActionTagDataBeans> getData(String path, String sheetName) {
 
         List<ActionTagDataBeans> userCredsBeanList = new ArrayList<>();
         FileInputStream file;
@@ -40,7 +40,7 @@ public class ActionTagBeanToExcel {
                 evaluator = new HSSFFormulaEvaluator((HSSFWorkbook) workbook);
             }
 
-            Sheet sheet = workbook.getSheet(SheetName);
+            Sheet sheet = workbook.getSheet(sheetName);
 
             for (Row cells : sheet) {
                 ActionTagDataBeans actionTagDataBeans = new ActionTagDataBeans();
@@ -48,8 +48,7 @@ public class ActionTagBeanToExcel {
                 while (cellIterator.hasNext()) {
                     Cell cell = cellIterator.next();
 
-                    if (cells.getRowNum() == 0) {
-                    } else {
+                    if (cells.getRowNum() > 0) {
                         int columnIndex = cell.getColumnIndex();
                         String cellValue = fetchValue(cell);
 

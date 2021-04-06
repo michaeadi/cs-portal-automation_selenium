@@ -16,15 +16,15 @@ import java.util.List;
 
 public class HeaderDataExcelToBeanDao {
 
-    static DataFormatter dataFormatter;
-    static FormulaEvaluator evaluator;
+    DataFormatter dataFormatter;
+    FormulaEvaluator evaluator;
 
-    private static String fetchValue(Cell cell) {
+    private String fetchValue(Cell cell) {
         evaluator.evaluate(cell);
         return dataFormatter.formatCellValue(cell, evaluator);
     }
 
-    public List<HeaderDataBean> getData(String path, String SheetName) {
+    public List<HeaderDataBean> getData(String path, String sheetName) {
 
         List<HeaderDataBean> userCredsBeanList = new ArrayList<>();
         FileInputStream file;
@@ -41,58 +41,59 @@ public class HeaderDataExcelToBeanDao {
                 evaluator = new HSSFFormulaEvaluator((HSSFWorkbook) workbook);
             }
 
-            Sheet sheet = workbook.getSheet(SheetName);
+            Sheet sheet = workbook.getSheet(sheetName);
 
             for (Row cells : sheet) {
-                HeaderDataBean HeaderDataBean = new HeaderDataBean();
+                HeaderDataBean headerDataBean = new HeaderDataBean();
                 Iterator<Cell> cellIterator = cells.cellIterator();
                 while (cellIterator.hasNext()) {
                     Cell cell = cellIterator.next();
 
-                    if (cells.getRowNum() == 0) {
-                    } else {
+                    if (cells.getRowNum() > 0) {
                         int columnIndex = cell.getColumnIndex();
                         String cellValue = fetchValue(cell);
 
                         switch (columnIndex) {
                             case 0:
-                                HeaderDataBean.setTableName(cellValue);
+                                headerDataBean.setTableName(cellValue);
                                 break;
                             case 1:
-                                HeaderDataBean.setRow1(cellValue);
+                                headerDataBean.setRow1(cellValue);
                                 break;
                             case 2:
-                                HeaderDataBean.setRow2(cellValue);
+                                headerDataBean.setRow2(cellValue);
                                 break;
                             case 3:
-                                HeaderDataBean.setRow3(cellValue);
+                                headerDataBean.setRow3(cellValue);
                                 break;
                             case 4:
-                                HeaderDataBean.setRow4(cellValue);
+                                headerDataBean.setRow4(cellValue);
                                 break;
                             case 5:
-                                HeaderDataBean.setRow5(cellValue);
+                                headerDataBean.setRow5(cellValue);
                                 break;
                             case 6:
-                                HeaderDataBean.setRow6(cellValue);
+                                headerDataBean.setRow6(cellValue);
                                 break;
                             case 7:
-                                HeaderDataBean.setRow7(cellValue);
+                                headerDataBean.setRow7(cellValue);
                                 break;
                             case 8:
-                                HeaderDataBean.setRow8(cellValue);
+                                headerDataBean.setRow8(cellValue);
                                 break;
                             case 9:
-                                HeaderDataBean.setRow9(cellValue);
+                                headerDataBean.setRow9(cellValue);
                                 break;
                             case 10:
-                                HeaderDataBean.setRow10(cellValue);
+                                headerDataBean.setRow10(cellValue);
                                 break;
                             case 11:
-                                HeaderDataBean.setRow11(cellValue);
+                                headerDataBean.setRow11(cellValue);
                                 break;
                             case 12:
-                                HeaderDataBean.setRow12(cellValue);
+                                headerDataBean.setRow12(cellValue);
+                                break;
+                            default:
                                 break;
 
                         }
@@ -101,7 +102,7 @@ public class HeaderDataExcelToBeanDao {
 
 
                 if (cells.getRowNum() != 0) {
-                    userCredsBeanList.add(HeaderDataBean);
+                    userCredsBeanList.add(headerDataBean);
                 }
             }
         } catch (

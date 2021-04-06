@@ -70,13 +70,13 @@ public class NftrDataBeans {
     String ticketFieldMandatory7;
 
     String workgroup1;
-    String SLA1;
+    String sla1;
     String workgroup2;
-    String SLA2;
+    String sla2;
     String workgroup3;
-    String SLA3;
+    String sla3;
     String workgroup4;
-    String SLA4;
+    String sla4;
     String committedSLA;
     String assignmentQueue;
     String priority;
