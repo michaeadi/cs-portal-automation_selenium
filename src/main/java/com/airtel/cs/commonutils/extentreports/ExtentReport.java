@@ -1,7 +1,7 @@
 package com.airtel.cs.commonutils.extentreports;
 
 import com.airtel.cs.commonutils.applicationutils.enums.ReportInfoMessageColorList;
-import com.airtel.cs.driver.Driver1;
+import com.airtel.cs.driver.Driver;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 import org.apache.commons.compress.archivers.dump.InvalidFormatException;
@@ -15,7 +15,7 @@ import java.io.IOException;
 
 import static org.apache.hc.core5.util.Deadline.DATE_FORMAT;
 
-public class ExtentReport extends Driver1 {
+public class ExtentReport extends Driver {
     /**
      * @param testName   : testName is the Type of test (Smoke, Sanity, Regression
      *                   etc.)

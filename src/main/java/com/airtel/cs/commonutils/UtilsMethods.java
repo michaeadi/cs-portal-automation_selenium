@@ -1,7 +1,7 @@
 package com.airtel.cs.commonutils;
 
 import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
-import com.airtel.cs.driver.Driver1;
+import com.airtel.cs.driver.Driver;
 import com.relevantcodes.extentreports.LogStatus;
 import io.restassured.http.Header;
 import io.restassured.response.Response;
@@ -19,7 +19,7 @@ import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 @Log4j2
-public class UtilsMethods extends Driver1 {
+public class UtilsMethods extends Driver {
 
     public static void addHeaders(String key, String value) {
         map.add(new Header(key, value));

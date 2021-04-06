@@ -2,7 +2,7 @@ package com.airtel.cs.commonutils.listeners;
 
 import com.airtel.cs.commonutils.extentreports.ExtentManager;
 import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
-import com.airtel.cs.driver.Driver1;
+import com.airtel.cs.driver.Driver;
 import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.OutputType;
@@ -18,7 +18,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 @Log4j2
-public class TestListenerMethod extends Driver1 implements ITestListener {
+public class TestListenerMethod extends Driver implements ITestListener {
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss.");
     LocalDateTime now = LocalDateTime.now();
 
@@ -61,7 +61,7 @@ public class TestListenerMethod extends Driver1 implements ITestListener {
 
         //Get driver from BaseTest and assign to local webDriver variable.
         Object testClass = iTestResult.getInstance();
-        WebDriver webDriver = ((Driver1) testClass).getDriver();
+        WebDriver webDriver = ((Driver) testClass).getDriver();
 
         //Take base64Screenshot screenshot.
 //        String base64Screenshot = "data:image/png;base64," + ((TakesScreenshot) webDriver).
@@ -78,7 +78,7 @@ public class TestListenerMethod extends Driver1 implements ITestListener {
 
         //Get driver from BaseTest and assign to local webDriver variable.
         Object testClass = iTestResult.getInstance();
-        WebDriver webDriver = ((Driver1) testClass).getDriver();
+        WebDriver webDriver = ((Driver) testClass).getDriver();
 
         //Take base64Screenshot screenshot.
         String base64Screenshot = "data:image/png;base64," + ((TakesScreenshot) webDriver).

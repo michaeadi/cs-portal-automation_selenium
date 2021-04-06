@@ -2,7 +2,7 @@ package com.airtel.cs.api;
 
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
-import com.airtel.cs.driver.Driver1;
+import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pojo.AMHandSetProfilePOJO;
 import com.airtel.cs.pojo.AMProfilePOJO;
 import com.airtel.cs.pojo.AccountsBalancePOJO;
@@ -42,7 +42,7 @@ import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 
 @Log4j2
-public class APIEndPoints extends Driver1 {
+public class APIEndPoints extends Driver {
 
     public static Integer statusCode = null;
     private static final String APPLICATION_JSON = "application/json";

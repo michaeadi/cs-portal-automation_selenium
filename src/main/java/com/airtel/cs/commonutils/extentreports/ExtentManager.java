@@ -1,13 +1,13 @@
 package com.airtel.cs.commonutils.extentreports;
 
-import com.airtel.cs.driver.Driver1;
+import com.airtel.cs.driver.Driver;
 import com.relevantcodes.extentreports.ExtentReports;
 
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class ExtentManager extends Driver1 {
+public class ExtentManager extends Driver {
 
     private static ExtentReports extent;
 

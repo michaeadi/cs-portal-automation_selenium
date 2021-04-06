@@ -1,7 +1,7 @@
 package com.airtel.cs.commonutils.listeners;
 
 import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
-import com.airtel.cs.driver.Driver1;
+import com.airtel.cs.driver.Driver;
 import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -31,7 +31,7 @@ public class Retry implements IRetryAnalyzer {
 
     public void extendReportsFailOperations(ITestResult iTestResult) {
         Object testClass = iTestResult.getInstance();
-        WebDriver webDriver = ((Driver1) testClass).getDriver();
+        WebDriver webDriver = ((Driver) testClass).getDriver();
         String base64Screenshot =
                 "data:image/png;base64," + ((TakesScreenshot) webDriver).getScreenshotAs(OutputType.BASE64);
         ExtentTestManager.getTest().log(LogStatus.FAIL, "Test Failed",
