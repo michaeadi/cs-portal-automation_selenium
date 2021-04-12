@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Automation Framework CS PORTAl Test Suite" preserve-order="true" allow-return-values="true">
     <listeners>
-        <listener class-name="com.airtel.cs.commonutils.listeners.TestListener"/>
+        <listener class-name="com.airtel.cs.commonutils.listeners.TestListenerMethod"/>
         <!--        <listener class-name="com.airtel.cs.commonutils.listeners.AnnotationTransformer"/>-->
     </listeners>
     <test name="Sanity com.airtel.cs.api Login">
@@ -213,6 +213,16 @@
     <test name="Logout Test from Backend agent">
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.LogoutTest"/>
+        </classes>
+    </test>
+    <test name="Tariff Plan Test">
+        <classes>
+            <class name="com.airtel.cs.ui.tariffplan.TariffPlanMigrationTest"/>
+        </classes>
+    </test>
+    <test name="SIM Bar Unbar Test">
+        <classes>
+            <class name="com.airtel.cs.ui.simbarunbar.SIMBarUnbarPermissionSeparationTest"/>
         </classes>
     </test>
 </suite>

@@ -10,6 +10,9 @@ import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.pojo.LoginPOJO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import com.airtel.cs.driver.Driver;
@@ -60,9 +63,20 @@ public class PreRequisites extends Driver {
         UtilsMethods.addHeaders("Authorization", Token);
     }
 
-    @AfterClass
+    @AfterClass(alwaysRun = true)
     public void doLogout() {
-
+        ExtentTestManager.startTest("Logging Out Of Portal", "Logging Out Of Portal");
+        if (pages.getSideMenu().isSideMenuVisible()) {
+            pages.getSideMenu().clickOnSideMenu();
+            pages.getSideMenu().logout();
+            try {
+                Assert.assertTrue(pages.getLoginPage().isEnterAUUIDFieldVisible());
+            } catch (TimeoutException | NoSuchElementException | AssertionError e) {
+                pages.getLoginPage().selectByText("Continue");
+            }
+        }
+        Assert.assertTrue(pages.getLoginPage().isEnterAUUIDFieldVisible());
+        pages.getLoginPage().waitTillLoaderGetsRemoved();
     }
 
     /*

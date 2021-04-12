@@ -61,7 +61,7 @@ public class Driver {
     public static ExtentTest test;
     public static ExtentReports reports;
     public static ConstantsUtils constants = ConstantsUtils.getInstance();
-    public static CommonConstantsUtils commonConstants =CommonConstantsUtils.getInstance();
+    public static CommonConstantsUtils commonConstants = CommonConstantsUtils.getInstance();
     private static final String EVN_NAME = System.getProperty("Env").toUpperCase();
     public static Recordset recordset = null;
     public static boolean continueExecutionAPI = true;
@@ -70,8 +70,8 @@ public class Driver {
     public static boolean continueExecutionFA = true;
     public static String ElementName = ""; // FOR PASSING ELEMENT NAMES TO LOGS
     public static String Message = null;
-    public static String token =null;
-
+    public static String token = null;
+    public static String RUN_TARIFF_TEST_CASE = constants.getValue(ApplicationConstants.RUN_TARIFF_TEST_CASE);
 
 
     public WebDriver getDriver() {
@@ -111,7 +111,7 @@ public class Driver {
             //WebDriverManager.chromedriver().setup(); //Use this for local for proxy issue
             ChromeOptions options = new ChromeOptions();
             options.addArguments("--window-size=1792,1120");
-            options.setHeadless(false);
+            options.setHeadless(true);
             Map<String, Object> prefs = new HashMap<String, Object>();
             //prefs.put("download.prompt_for_download", false);
             prefs.put("download.default_directory", System.getProperty("user.dir") + "\\Excels");
@@ -156,6 +156,7 @@ public class Driver {
     public static void initializePages() {
         pages = new PageCollection(driver);
     }
+
     /**
      * Goto URL.l
      *

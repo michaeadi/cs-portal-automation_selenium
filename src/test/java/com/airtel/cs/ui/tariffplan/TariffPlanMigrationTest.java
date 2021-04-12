@@ -9,7 +9,11 @@ import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.pojo.MainAccountBalance;
 import com.airtel.cs.pojo.tariffplan.AvailablePlanPOJO;
 import com.airtel.cs.pojo.tariffplan.CurrentPlanPOJO;
+import org.apache.commons.lang3.StringUtils;
+import org.testng.SkipException;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
 
 public class TariffPlanMigrationTest extends PreRequisites {
     String currentPlanFromUI;
@@ -20,6 +24,14 @@ public class TariffPlanMigrationTest extends PreRequisites {
     Integer interactionCountAfterMigration;
     Integer rowCountBeforeMigration;
     Integer rowCountAfterMigration;
+
+    @BeforeClass
+    public void checkTariffPlanFlag() {
+        if (!StringUtils.equals(RUN_TARIFF_TEST_CASE, "true")) {
+            commonLib.skip("Skipping because this is for NG Only");
+            throw new SkipException("Skipping because this is for NG Only");
+        }
+    }
 
     @DataProviders.User(UserType = "Tariff")
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class, groups = {"SanityTest", "RegressionTest", "ProdTest"})
