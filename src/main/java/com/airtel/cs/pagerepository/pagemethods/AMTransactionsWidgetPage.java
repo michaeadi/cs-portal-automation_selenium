@@ -27,8 +27,8 @@ public class AMTransactionsWidgetPage extends BasePage {
     }
 
     public String gettingAirtelMoneyNoResultFoundMessage() {
-        UtilsMethods.printInfoLog("Validating error message when there is no data from com.airtel.cs.API : " + readText(pageElements.airtelMoneyNoResultFoundMessage));
-        return readText(pageElements.airtelMoneyNoResultFoundMessage);
+        UtilsMethods.printInfoLog("Validating error message when there is no data from com.airtel.cs.API : " + getText(pageElements.airtelMoneyNoResultFoundMessage));
+        return getText(pageElements.airtelMoneyNoResultFoundMessage);
     }
 
     public boolean isAirtelMoneyNoResultFoundVisible() {
@@ -43,7 +43,7 @@ public class AMTransactionsWidgetPage extends BasePage {
     }
 
     public String getValueCorrespondingToHeader(int row, int column) {
-        String value = readText(By.xpath(pageElements.valueRows + row + pageElements.valueColumns + column + pageElements.columnText));
+        String value = getText(By.xpath(pageElements.valueRows + row + pageElements.valueColumns + column + pageElements.columnText));
 
         UtilsMethods.printInfoLog("Reading Value(" + row + "): " + value);
         return value;
@@ -60,13 +60,13 @@ public class AMTransactionsWidgetPage extends BasePage {
     }
 
     public String gettingAirtelMoneyCurrency() {
-        UtilsMethods.printInfoLog("Getting Airtel Money Currency from Widget : " + readText(pageElements.airtelMoneyCurrency));
-        return readText(pageElements.airtelMoneyCurrency);
+        UtilsMethods.printInfoLog("Getting Airtel Money Currency from Widget : " + getText(pageElements.airtelMoneyCurrency));
+        return getText(pageElements.airtelMoneyCurrency);
     }
 
     public String gettingAMBalanceUnableToFetchMessage() {
-        UtilsMethods.printInfoLog("Getting error Message for unable to fetch AM Money Balance : " + readText(pageElements.airtelMoneyCurrency));
-        return readText(pageElements.airtelMoneyBalanceUnableToFetch);
+        UtilsMethods.printInfoLog("Getting error Message for unable to fetch AM Money Balance : " + getText(pageElements.airtelMoneyCurrency));
+        return getText(pageElements.airtelMoneyBalanceUnableToFetch);
     }
 
     public boolean isAMBalanceUnableToFetch() {
@@ -75,13 +75,13 @@ public class AMTransactionsWidgetPage extends BasePage {
     }
 
     public double gettingAirtelMoneyBalance() {
-        UtilsMethods.printInfoLog("Getting Airtel Money Balance from Widget : " + readText(pageElements.airtelMoneyBalance));
-        return Double.parseDouble(readText(pageElements.airtelMoneyBalance));
+        UtilsMethods.printInfoLog("Getting Airtel Money Balance from Widget : " + getText(pageElements.airtelMoneyBalance));
+        return Double.parseDouble(getText(pageElements.airtelMoneyBalance));
     }
 
     public double gettingAirtelMoneyBalance2() {
-        UtilsMethods.printInfoLog("Getting Airtel Money 2nd Balance from Widget : " + readText(pageElements.airtelMoneyBalance2));
-        return Double.parseDouble(readText(pageElements.airtelMoneyBalance2));
+        UtilsMethods.printInfoLog("Getting Airtel Money 2nd Balance from Widget : " + getText(pageElements.airtelMoneyBalance2));
+        return Double.parseDouble(getText(pageElements.airtelMoneyBalance2));
     }
 
     public WidgetInteractionPage clickTicketIcon() {
@@ -96,8 +96,8 @@ public class AMTransactionsWidgetPage extends BasePage {
     }
 
     public String getWidgetTitle() {
-        log.info("Getting Widget title: " + readText(pageElements.getTitle));
-        return readText(pageElements.getTitle).toLowerCase();
+        log.info("Getting Widget title: " + getText(pageElements.getTitle));
+        return getText(pageElements.getTitle).toLowerCase();
     }
 
     public Boolean isResendSMS() {
@@ -133,6 +133,6 @@ public class AMTransactionsWidgetPage extends BasePage {
         Actions act = new Actions(driver);
         By id = By.xpath(pageElements.valueRows + row + pageElements.transactionIdColumn);
         act.moveToElement(driver.findElement(id)).doubleClick().build().perform();
-        return readText(id);
+        return getText(id);
     }
 }

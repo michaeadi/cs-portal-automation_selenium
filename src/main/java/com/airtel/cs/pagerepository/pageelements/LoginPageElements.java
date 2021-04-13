@@ -9,6 +9,6 @@ public class LoginPageElements {
     public By enterPassword = By.name("password");
     public By visiblePassword = By.xpath(" //*[@class='visibility-icon c-pointer abs visible-status mat-icon notranslate material-icons mat-icon-no-color ng-star-inserted']");
     public By backButton = By.xpath(" //*[@class=\"back\"]");
-    public static final By enterAuuid = By.xpath("//input[@formcontrolname='loginTypeStatus']");
+    public By enterAuuid = By.xpath("//input[@formcontrolname='loginTypeStatus']");
 
 }

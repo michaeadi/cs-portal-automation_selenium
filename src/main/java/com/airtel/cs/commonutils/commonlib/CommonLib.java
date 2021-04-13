@@ -246,6 +246,7 @@ public class CommonLib extends Driver {
         try {
             default_Driver = driver;
             ChromeOptions options = null;
+            options = new ChromeOptions();
             options.addArguments("start-maximized");
             options.addArguments("--disable-infobars");
             options.addArguments("--disable-extensions");

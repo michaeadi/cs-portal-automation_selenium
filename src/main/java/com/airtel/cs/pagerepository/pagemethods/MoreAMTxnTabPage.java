@@ -80,8 +80,8 @@ public class MoreAMTxnTabPage extends BasePage {
     }
 
     public String gettingAirtelMoneyNoResultFoundMessage() {
-        UtilsMethods.printInfoLog("Validating error message when there is no data from com.airtel.cs.API : " + readText(pageElements.airtelMoneyNoResultFoundMessage));
-        return readText(pageElements.airtelMoneyNoResultFoundMessage);
+        UtilsMethods.printInfoLog("Validating error message when there is no data from com.airtel.cs.API : " + getText(pageElements.airtelMoneyNoResultFoundMessage));
+        return getText(pageElements.airtelMoneyNoResultFoundMessage);
     }
 
     public boolean isAirtelMoneyNoResultFoundVisible() {
@@ -90,13 +90,13 @@ public class MoreAMTxnTabPage extends BasePage {
     }
 
     public String getHeaders(int row) {
-        String header = readText(By.xpath(pageElements.headerRow + "[" + row + "]"));
+        String header = getText(By.xpath(pageElements.headerRow + "[" + row + "]"));
         UtilsMethods.printInfoLog("Getting header Number " + row + " : " + header);
         return header;
     }
 
     public String getValueCorrespondingToHeader(int row, int column) {
-        String value = readText(By.xpath(pageElements.valueRow + row + pageElements.valueColumns + column + pageElements.columnText));
+        String value = getText(By.xpath(pageElements.valueRow + row + pageElements.valueColumns + column + pageElements.columnText));
         UtilsMethods.printInfoLog("Reading Value(" + row + "): " + value);
         return value;
     }
@@ -171,8 +171,8 @@ public class MoreAMTxnTabPage extends BasePage {
     }
 
     public String gettingAirtelMoneyNoResultFoundMessageOnSecondWidget() {
-        UtilsMethods.printInfoLog("Validating error message when there is no data from com.airtel.cs.API : " + readText(pageElements.airtelMoneyNoResultFoundMessage));
-        return readText(pageElements.airtelMoneyNoResultFoundMessageSec);
+        UtilsMethods.printInfoLog("Validating error message when there is no data from com.airtel.cs.API : " + getText(pageElements.airtelMoneyNoResultFoundMessage));
+        return getText(pageElements.airtelMoneyNoResultFoundMessageSec);
     }
 
     public boolean isAirtelMoneyNoResultFoundVisibleOnSecondWidget() {
@@ -181,13 +181,13 @@ public class MoreAMTxnTabPage extends BasePage {
     }
 
     public String getHeadersOnSecondWidget(int row) {
-        String header = readText(By.xpath(pageElements.headerRowSec + "[" + row + "]"));
+        String header = getText(By.xpath(pageElements.headerRowSec + "[" + row + "]"));
         UtilsMethods.printInfoLog("Getting header Number " + row + " : " + header);
         return header;
     }
 
     public String getValueCorrespondingToHeaderOnSecondWidget(int row, int column) {
-        String value = readText(By.xpath(pageElements.valueRowSec + row + pageElements.valueColumns + column + pageElements.columnText));
+        String value = getText(By.xpath(pageElements.valueRowSec + row + pageElements.valueColumns + column + pageElements.columnText));
         UtilsMethods.printInfoLog("Reading Value(" + row + "): " + value);
         return value;
     }

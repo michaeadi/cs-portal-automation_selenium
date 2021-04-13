@@ -70,53 +70,53 @@ public class VoucherTabPage extends BasePage {
     }
 
     public String getSerialValue() {
-        UtilsMethods.printInfoLog("Reading Serial value present: " + readText(pageElements.serialNo));
-        return readText(pageElements.serialNo);
+        UtilsMethods.printInfoLog("Reading Serial value present: " + getText(pageElements.serialNo));
+        return getText(pageElements.serialNo);
     }
 
     public String getStatusValue() {
-        UtilsMethods.printInfoLog("Reading Status value present: " + readText(pageElements.statusValue));
-        return readText(pageElements.statusValue);
+        UtilsMethods.printInfoLog("Reading Status value present: " + getText(pageElements.statusValue));
+        return getText(pageElements.statusValue);
     }
 
     public String getSubStatus() {
-        UtilsMethods.printInfoLog("Reading Sub Status value present: " + readText(pageElements.subStatusValue));
-        return readText(pageElements.subStatusValue);
+        UtilsMethods.printInfoLog("Reading Sub Status value present: " + getText(pageElements.subStatusValue));
+        return getText(pageElements.subStatusValue);
     }
 
     public String getRechargeAmt() {
-        UtilsMethods.printInfoLog("Reading Recharge Amount value present: " + readText(pageElements.rechargeAmtValue));
-        return readText(pageElements.rechargeAmtValue);
+        UtilsMethods.printInfoLog("Reading Recharge Amount value present: " + getText(pageElements.rechargeAmtValue));
+        return getText(pageElements.rechargeAmtValue);
     }
 
     public String getTimeStamp() {
-        UtilsMethods.printInfoLog("Reading Time Stamp value present: " + readText(pageElements.timeStampValue));
-        return readText(pageElements.timeStampValue);
+        UtilsMethods.printInfoLog("Reading Time Stamp value present: " + getText(pageElements.timeStampValue));
+        return getText(pageElements.timeStampValue);
     }
 
     public String getSubscriberId() {
-        UtilsMethods.printInfoLog("Reading Subscriber Id value present: " + readText(pageElements.subscriberIdValue));
-        return readText(pageElements.subscriberIdValue);
+        UtilsMethods.printInfoLog("Reading Subscriber Id value present: " + getText(pageElements.subscriberIdValue));
+        return getText(pageElements.subscriberIdValue);
     }
 
     public String getExpiryDate() {
-        UtilsMethods.printInfoLog("Reading Expiry Date value present: " + readText(pageElements.expiryDateValue));
-        return readText(pageElements.expiryDateValue);
+        UtilsMethods.printInfoLog("Reading Expiry Date value present: " + getText(pageElements.expiryDateValue));
+        return getText(pageElements.expiryDateValue);
     }
 
     public String getAgent() {
-        UtilsMethods.printInfoLog("Reading Agent value present: " + readText(pageElements.agentValue));
-        return readText(pageElements.agentValue);
+        UtilsMethods.printInfoLog("Reading Agent value present: " + getText(pageElements.agentValue));
+        return getText(pageElements.agentValue);
     }
 
     public String getBatchID() {
-        UtilsMethods.printInfoLog("Reading Batch ID value present: " + readText(pageElements.batchIdValue));
-        return readText(pageElements.batchIdValue);
+        UtilsMethods.printInfoLog("Reading Batch ID value present: " + getText(pageElements.batchIdValue));
+        return getText(pageElements.batchIdValue);
     }
 
     public String getVoucherGroup() {
-        UtilsMethods.printInfoLog("Reading Voucher Group value present: " + readText(pageElements.voucherGroupValue));
-        return readText(pageElements.voucherGroupValue);
+        UtilsMethods.printInfoLog("Reading Voucher Group value present: " + getText(pageElements.voucherGroupValue));
+        return getText(pageElements.voucherGroupValue);
     }
 
     public void clickDoneBtn() {

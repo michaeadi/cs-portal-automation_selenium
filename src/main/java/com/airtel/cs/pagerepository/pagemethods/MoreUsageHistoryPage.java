@@ -24,8 +24,8 @@ public class MoreUsageHistoryPage extends BasePage {
     }
 
     public String gettingCallHistoryNoResultFoundMessage() {
-        UtilsMethods.printInfoLog("Validating error message when there is no data from com.airtel.cs.API : " + readText(pageElements.callHistoryNoResultFoundMessage));
-        return readText(pageElements.callHistoryNoResultFoundMessage);
+        UtilsMethods.printInfoLog("Validating error message when there is no data from com.airtel.cs.API : " + getText(pageElements.callHistoryNoResultFoundMessage));
+        return getText(pageElements.callHistoryNoResultFoundMessage);
     }
 
     public boolean isCallHistoryNoResultFoundVisible() {
@@ -34,32 +34,32 @@ public class MoreUsageHistoryPage extends BasePage {
     }
 
     public String getCallHistoryHeader(int row) {
-        String header = readText(By.xpath("//span[contains(text(),\"Call History \")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"card__card-header--card-body--table--list-heading\"]/div[" + row + "]"));
+        String header = getText(By.xpath("//span[contains(text(),\"Call History \")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"card__card-header--card-body--table--list-heading\"]/div[" + row + "]"));
         UtilsMethods.printInfoLog("Getting header Number " + row + " : " + header);
         return header;
     }
 
     public String getDataHistoryHeader(int row) {
-        String header = readText(By.xpath("//span[contains(text(),\"Data History \")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"card__card-header--card-body--table--list-heading\"]/div[" + row + "]"));
+        String header = getText(By.xpath("//span[contains(text(),\"Data History \")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"card__card-header--card-body--table--list-heading\"]/div[" + row + "]"));
         UtilsMethods.printInfoLog("Getting header Number " + row + " : " + header);
         return header;
     }
 
     public String getHeaders(int row) {
-        String header = readText(By.xpath("//span[contains(text(),\"Usage History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"card__card-header--card-body--table--list-heading\"]/div[" + row + "]"));
+        String header = getText(By.xpath("//span[contains(text(),\"Usage History\")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"card__card-header--card-body--table--list-heading\"]/div[" + row + "]"));
         UtilsMethods.printInfoLog("Getting header Number " + row + " : " + header);
         return header;
     }
 
     public String getSMSHistoryHeader(int row) {
-        String header = readText(By.xpath("//span[contains(text(),\"SMS History \")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"card__card-header--card-body--table--list-heading\"]/div[" + row + "]"));
+        String header = getText(By.xpath("//span[contains(text(),\"SMS History \")]/ancestor::div[@class=\"card ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"card__card-header--card-body--table--list-heading\"]/div[" + row + "]"));
         UtilsMethods.printInfoLog("Getting header Number " + row + " : " + header);
         return header;
     }
 
     public String gettingSMSHistoryNoResultFoundMessage() {
-        UtilsMethods.printInfoLog("Validating error message when there is no data from com.airtel.cs.API : " + readText(pageElements.smsHistoryNoResultFoundMessage));
-        return readText(pageElements.smsHistoryNoResultFoundMessage);
+        UtilsMethods.printInfoLog("Validating error message when there is no data from com.airtel.cs.API : " + getText(pageElements.smsHistoryNoResultFoundMessage));
+        return getText(pageElements.smsHistoryNoResultFoundMessage);
     }
 
     public boolean isSMSHistoryNoResultFoundVisible() {
@@ -68,8 +68,8 @@ public class MoreUsageHistoryPage extends BasePage {
     }
 
     public String gettingDataHistoryNoResultFoundMessage() {
-        UtilsMethods.printInfoLog("Validating error message when there is no data from com.airtel.cs.API : " + readText(pageElements.dataHistoryNoResultFoundMessage));
-        return readText(pageElements.dataHistoryNoResultFoundMessage);
+        UtilsMethods.printInfoLog("Validating error message when there is no data from com.airtel.cs.API : " + getText(pageElements.dataHistoryNoResultFoundMessage));
+        return getText(pageElements.dataHistoryNoResultFoundMessage);
     }
 
     public boolean isDataHistoryNoResultFoundVisible() {
@@ -202,18 +202,18 @@ public class MoreUsageHistoryPage extends BasePage {
     }
 
     public String getSMSWidgetTitle() {
-        log.info("Getting Widget title: " + readText(pageElements.getSMSWidgetTitle));
-        return readText(pageElements.getSMSWidgetTitle).toLowerCase();
+        log.info("Getting Widget title: " + getText(pageElements.getSMSWidgetTitle));
+        return getText(pageElements.getSMSWidgetTitle).toLowerCase();
     }
 
     public String getCallWidgetTitle() {
-        log.info("Getting Widget title: " + readText(pageElements.getCallWidgetTitle));
-        return readText(pageElements.getCallWidgetTitle).toLowerCase();
+        log.info("Getting Widget title: " + getText(pageElements.getCallWidgetTitle));
+        return getText(pageElements.getCallWidgetTitle).toLowerCase();
     }
 
     public String getDataWidgetTitle() {
-        log.info("Getting Widget title: " + readText(pageElements.getDataWidgetTitle));
-        return readText(pageElements.getDataWidgetTitle).toLowerCase();
+        log.info("Getting Widget title: " + getText(pageElements.getDataWidgetTitle));
+        return getText(pageElements.getDataWidgetTitle).toLowerCase();
     }
 
     public WidgetInteractionPage clickSMSTicketIcon() {

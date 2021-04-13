@@ -1,8 +1,8 @@
-package com.airtel.cs.ui.tariffplan;
+package com.airtel.cs.ui.frontendagent.tariffplan;
 
 import com.airtel.cs.common.requisite.PreRequisites;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
-import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
+import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
@@ -28,7 +28,7 @@ public class TariffPlanMigrationTest extends PreRequisites {
     @BeforeClass
     public void checkTariffPlanFlag() {
         if (!StringUtils.equals(RUN_TARIFF_TEST_CASE, "true")) {
-            commonLib.skip("Skipping because this is for NG Only");
+            commonLib.skip("Skipping because Run Tariff Test Case Flag Value is - " + RUN_TARIFF_TEST_CASE);
             throw new SkipException("Skipping because this is for NG Only");
         }
     }
@@ -50,7 +50,7 @@ public class TariffPlanMigrationTest extends PreRequisites {
         mainAccountBalanceBeforeMigration = pages.getCustomerProfilePage().getMainAccountBalance();
         pages.getCustomerProfilePage().goAndCheckFTRCreatedorNot();
         interactionCountBeforeMigration = pages.getViewHistoryPOM().getRowCount();
-        pages.getViewHistoryPOM().goToActionTrail();
+        pages.getViewHistoryPOM().goToActionTrailTab();
         rowCountBeforeMigration = pages.getViewHistoryPOM().getRowCount();
         pages.getCustomerProfilePage().clickOnAction();
         assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isChangeServiceClassOptionVisible(), true, "Change Service Class (Tariff Plan) Option is Visible under Actions Tab", "Change Service Class (Tariff Plan) Option is NOT Visible under Actions Tab"));
@@ -77,7 +77,7 @@ public class TariffPlanMigrationTest extends PreRequisites {
         actions.assertAll_foundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "testChangeServiceClassVisibleAndClickable")
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "testValidateCustomerCurrentPlanDetails")
     public void testSelectPlanOtherThanCurrentPlan() {
         ExtentTestManager.startTest("Validate new Plan Details from Drop Down List", "Validate new Plan Details from Drop Down List");
         customerNewPlan = pages.getTariffPlanPage().selectPlanOtherThanCurrentPlan(currentPlanFromUI);
@@ -90,7 +90,7 @@ public class TariffPlanMigrationTest extends PreRequisites {
         actions.assertAll_foundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "testChangeServiceClassVisibleAndClickable")
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "testSelectPlanOtherThanCurrentPlan")
     public void testIssueDetailsPopUp() {
         ExtentTestManager.startTest("Validate new Plan Details from Drop Down List", "Validate new Plan Details from Drop Down List");
         pages.getTariffPlanPage().openIssueDetailsModal();
@@ -107,7 +107,7 @@ public class TariffPlanMigrationTest extends PreRequisites {
         actions.assertAll_foundFailedAssert(assertCheck);
     }
 
-    //    @Test(priority = 6, groups = {"RegressionTest"}, dependsOnMethods = "testIssueDetailsPopUp")
+    @Test(priority = 6, groups = {"RegressionTest"}, dependsOnMethods = "testIssueDetailsPopUp")
     public void testPlanMigration() {
         ExtentTestManager.startTest("Validate new Plan Details from Drop Down List", "Validate new Plan Details from Drop Down List");
         assertCheck.append(actions.assertEqual_boolean(pages.getTariffPlanPage().changePlan(), true, "Plan Changed Successfully", "Plan Not Changed"));
@@ -124,11 +124,11 @@ public class TariffPlanMigrationTest extends PreRequisites {
         actions.assertAll_foundFailedAssert(assertCheck);
     }
 
-    //    @Test(priority = 7, groups = {"RegressionTest"}, dependsOnMethods = "testPlanMigration")
+    @Test(priority = 7, groups = {"RegressionTest"}, dependsOnMethods = "testPlanMigration")
     public void testActionTrailActivity() {
         ExtentTestManager.startTest("Validate that system should capture the Service class migration activity into Action Trail", "Validate that system should capture the Service class migration activity into Action Trail");
-        pages.getCustomerProfilePage().clickOnViewHistory();
-        pages.getViewHistoryPOM().goToActionTrail();
+        pages.getCustomerProfilePage().goToViewHistory();
+        pages.getViewHistoryPOM().goToActionTrailTab();
         rowCountAfterMigration = pages.getViewHistoryPOM().getRowCount();
         assertCheck.append(actions.assertEqual_intType(rowCountAfterMigration, rowCountBeforeMigration + 1, "Activity Row Count Increased By 1", "Activity Row Count NOT increased"));
         actions.assertAll_foundFailedAssert(assertCheck);
@@ -140,7 +140,7 @@ public class TariffPlanMigrationTest extends PreRequisites {
         /* LOGIN IN TEMPORARY BROWSER AS PER TESTCASE REQUIREMENT -
          *  - WITH UM CREDENTIALS */
         pages.getLoginPage().openNewTempBrowserAndLoginInUM();
-        pages.getUserManagementPage().removeOrAddPermission(commonConstants.getValue(CommonConstants.TARIFF_PLAN_MIGRATE_PERMISSION));
+        pages.getUserManagementPage().removeOrAddPermission(commonConstants.getValue(PermissionConstants.TARIFF_PLAN_MIGRATE_PERMISSION));
         pages.getUserManagementPage().destroyTempBrowser();
         goAndCheckServiceClassOptionVisible();
         assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isChangeServiceClassOptionVisible(), false, "Change Service Class Option Should not be visible, As permissions are removed", "Change Service Class Opton is visible and should not be"));
@@ -161,7 +161,7 @@ public class TariffPlanMigrationTest extends PreRequisites {
         /* LOGIN IN TEMPORARY BROWSER AS PER TESTCASE REQUIREMENT -
          *  - WITH UM CREDENTIALS */
         pages.getLoginPage().openNewTempBrowserAndLoginInUM();
-        pages.getUserManagementPage().removeOrAddPermission(commonConstants.getValue(CommonConstants.TARIFF_PLAN_VIEW_PERMISSION));
+        pages.getUserManagementPage().removeOrAddPermission(commonConstants.getValue(PermissionConstants.TARIFF_PLAN_VIEW_PERMISSION));
         pages.getUserManagementPage().destroyTempBrowser();
         goAndCheckServiceClassOptionVisible();
         assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isChangeServiceClassOptionVisible(), false, "Change Service Class Option Should not be visible, As permissions are removed", "Change Service Class Opton is visible and should not be"));

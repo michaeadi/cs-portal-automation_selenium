@@ -86,7 +86,7 @@ public class PinTagTest extends Driver {
                 pages.getMsisdnSearchPage().enterNumber(data.getCustomerNumber());
                 pages.getMsisdnSearchPage().clickOnSearch();
                 softAssert.assertTrue(pages.getCustomerProfilePage().isPageLoaded());
-                pages.getCustomerProfilePage().clickOnViewHistory();
+                pages.getCustomerProfilePage().goToViewHistory();
                 pages.getViewHistory().clickOnInteractionsTab();
                 String issueCode = pages.getViewHistory().getLastCreatedIssueCode();
                 softAssert.assertEquals(issueCode.toLowerCase().trim(), data.getIssueCode().trim().toLowerCase());

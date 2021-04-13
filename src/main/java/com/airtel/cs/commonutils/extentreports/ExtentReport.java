@@ -21,11 +21,11 @@ public class ExtentReport extends Driver {
      *                   etc.)
      * @param methodName : The Current Method/Function name where user is calling this
      *                   function.
-     * @throws InvalidFormatException
-     * @throws Exception
+     * @throws InvalidFormatException InvalidFormatException
+     * @throws Exception              Exception
      */
     public static void startTest(String testName, String methodName) {
-        test = reports.startTest(testName + " :: " + methodName);
+        test = extent.startTest(testName + " :: " + methodName);
         test.assignCategory(testName);
         test.assignAuthor("Airtel-Africa");
     }
@@ -35,8 +35,8 @@ public class ExtentReport extends Driver {
      * test logs.
      */
     public static void endTest(ExtentTest test) {
-        reports.endTest(test);
-        reports.flush();
+        extent.endTest(test);
+        extent.flush();
     }
 
     public void showInExtentReport(LogStatus logStatus, String details, Boolean withScreenshot) {
@@ -51,7 +51,7 @@ public class ExtentReport extends Driver {
                 message = "<b>" + "<font size=\"3\" color=\"DARKSALMON\">" + details + "</font>" + "</b>";
             } else if (logStatus.equals(LogStatus.WARNING)) {
                 message = "<b>" + "<font size=\"3\" color=\"GOLD\">" + details + "</font>" + "</b>";
-            }else if (logStatus.equals(LogStatus.SKIP)) {
+            } else if (logStatus.equals(LogStatus.SKIP)) {
                 message = "<b>" + "<font size=\"3\" color=\"GOLD\">" + details + "</font>" + "</b>";
             } else {
                 message = details;

@@ -55,4 +55,10 @@ public class FilterTabElements {
 
     //Filter By Priority
     public By priorityLabel = By.xpath("//span[contains(text(),'By Priority')]");
+
+    //Filter By Source
+    public By sourceLabel = By.xpath("//*[@class='filter-naming']//span[contains(text(),'Source')]");
+    public By sourceFilterLabel = By.xpath("//*[@formcontrolname='sourceApp']//*[@class='mat-select-arrow']");
+    public By selectCustomerService = By.xpath("//*[contains(text(),' Customer Service ')]");
+    public By clearFilterButtonDashboard = By.xpath("//*[text()='Clear Filter']");
 }

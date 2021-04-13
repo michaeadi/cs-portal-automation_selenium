@@ -71,7 +71,7 @@ public class ProfileManagementPage extends BasePage {
 
     public String getWidgetNameForOrder(int Order) {
         log.info("Getting name for widget with order no : " + Order);
-        return readText(By.xpath("//span[@class=\"order-no ng-star-inserted\"and contains(text(),\"" + Order + "\")]/ancestor::div[@class=\"widgetDataTable\"]/div[1]"));
+        return getText(By.xpath("//span[@class=\"order-no ng-star-inserted\"and contains(text(),\"" + Order + "\")]/ancestor::div[@class=\"widgetDataTable\"]/div[1]"));
     }
 
     public int getWidgetRowsSize() {

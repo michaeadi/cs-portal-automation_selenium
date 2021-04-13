@@ -51,7 +51,7 @@ public class ActionTrailTest extends Driver {
         SoftAssert softAssert = new SoftAssert();
         try {
             pages.getMsisdnSearchPage().waitTillLoaderGetsRemoved();
-            pages.getCustomerProfilePage().clickOnViewHistory();
+            pages.getCustomerProfilePage().goToViewHistory();
             pages.getViewHistory().clickOnActionTrailHistory();
             softAssert.assertEquals(pages.getActionTrailPage().getHeaderValue(0).toLowerCase().trim(), data.getRow1().toLowerCase().trim(), "Action Type Column does not display in header.");
             softAssert.assertEquals(pages.getActionTrailPage().getHeaderValue(1).toLowerCase().trim(), data.getRow2().toLowerCase().trim(), "Date & Time Column does not display in header.");
@@ -108,7 +108,7 @@ public class ActionTrailTest extends Driver {
         SoftAssert softAssert = new SoftAssert();
         try {
             pages.getCustomerProfilePage().waitTillLoaderGetsRemoved();
-            pages.getCustomerProfilePage().clickOnViewHistory();
+            pages.getCustomerProfilePage().goToViewHistory();
             pages.getViewHistory().clickOnActionTrailHistory();
             softAssert.assertEquals(pages.getActionTrailPage().getValue(0, 0).toLowerCase().trim(), "send internet settings", "Action Type Column Value does not display in Correctly.");
             softAssert.assertNotNull(pages.getActionTrailPage().getValue(0, 1).toLowerCase().trim(), "Date & Time Column does not display in Correctly.");

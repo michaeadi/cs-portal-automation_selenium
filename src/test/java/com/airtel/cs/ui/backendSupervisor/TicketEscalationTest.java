@@ -44,7 +44,7 @@ public class TicketEscalationTest extends Driver {
         try {
             pages.getSupervisorTicketList().clickFilter();
             pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
-            pages.getFilterTabPage().OpenEscalationFilter();
+            pages.getFilterTabPage().openEscalationFilter();
             pages.getFilterTabPage().selectAllLevel1();
             pages.getFilterTabPage().selectAllLevel2();
             pages.getFilterTabPage().selectAllLevel3();
@@ -81,7 +81,7 @@ public class TicketEscalationTest extends Driver {
         try {
             pages.getSupervisorTicketList().clickFilter();
             pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
-            pages.getFilterTabPage().OpenEscalationFilter();
+            pages.getFilterTabPage().openEscalationFilter();
             pages.getFilterTabPage().selectAllLevel1();
             pages.getFilterTabPage().clickOutsideFilter();
             pages.getFilterTabPage().clickApplyFilter();
@@ -118,7 +118,7 @@ public class TicketEscalationTest extends Driver {
         try {
             pages.getSupervisorTicketList().clickFilter();
             pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
-            pages.getFilterTabPage().OpenEscalationFilter();
+            pages.getFilterTabPage().openEscalationFilter();
             pages.getFilterTabPage().selectAllLevel3();
             pages.getFilterTabPage().clickOutsideFilter();
             pages.getFilterTabPage().clickApplyFilter();
@@ -155,7 +155,7 @@ public class TicketEscalationTest extends Driver {
         try {
             pages.getSupervisorTicketList().clickFilter();
             pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
-            pages.getFilterTabPage().OpenEscalationFilter();
+            pages.getFilterTabPage().openEscalationFilter();
             pages.getFilterTabPage().selectAllLevel2();
             pages.getFilterTabPage().clickOutsideFilter();
             pages.getFilterTabPage().clickApplyFilter();

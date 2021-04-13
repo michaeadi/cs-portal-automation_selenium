@@ -25,8 +25,8 @@ public class LoginTests extends Driver {
     public void LoggingIN(TestDatabean Data) throws InterruptedException {
         ExtentTestManager.startTest("Logging Into Portal", "Logging Into Portal with AUUID :  " + Data.getLoginAUUID());
         SoftAssert softAssert = new SoftAssert();
-        pages.getLoginPage().openBaseURL(config.getProperty(Env + "-baseurl"));
-        softAssert.assertEquals(driver.getCurrentUrl(), config.getProperty(Env + "-baseurl"), "URl isn't as expected");
+        pages.getLoginPage().openBaseURL(config.getProperty(evnName + "-baseurl"));
+        softAssert.assertEquals(driver.getCurrentUrl(), config.getProperty(evnName + "-baseurl"), "URl isn't as expected");
         pages.getLoginPage().waitTillLoaderGetsRemoved();
         pages.getLoginPage().enterAUUID(Data.getLoginAUUID());//*[@id="mat-input-7"]
         pages.getLoginPage().clickOnSubmitBtn();

@@ -1,7 +1,7 @@
-package com.airtel.cs.ui.simbarunbar;
+package com.airtel.cs.ui.frontendagent.simbarunbar;
 
 import com.airtel.cs.common.requisite.PreRequisites;
-import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
+import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
@@ -35,7 +35,7 @@ public class SIMBarUnbarPermissionSeparationTest extends PreRequisites {
         /* LOGIN IN TEMPORARY BROWSER AS PER TESTCASE REQUIREMENT -
          *  - WITH UM CREDENTIALS */
         pages.getLoginPage().openNewTempBrowserAndLoginInUM();
-        pages.getUserManagementPage().removeOrAddPermission(commonConstants.getValue(CommonConstants.SIM_BAR_PERMISSION));
+        pages.getUserManagementPage().removeOrAddPermission(commonConstants.getValue(PermissionConstants.SIM_BAR_PERMISSION));
         pages.getUserManagementPage().destroyTempBrowser();
         loginInCSPortal();
         pages.getSideMenuPOM().openCustomerInteractionPage();
@@ -47,13 +47,13 @@ public class SIMBarUnbarPermissionSeparationTest extends PreRequisites {
     }
 
     @DataProviders.User(UserType = "Beta")
-    @Test(priority = 4, dependsOnMethods = "viewSIMBarOption", dataProvider = "loginData", dataProviderClass = DataProviders.class, groups = {"RegressionTest"})
+    @Test(priority = 4, dependsOnMethods = "removeSuspendPermissionFromUM", dataProvider = "loginData", dataProviderClass = DataProviders.class, groups = {"RegressionTest"})
     public void giveSuspendPermissionFromUM(TestDatabean data) throws InterruptedException {
         ExtentTestManager.startTest("Validate that if the logged in user do NOT have permission to do Suspend Action", "Validate that if the logged in user do NOT have permission to do Suspend Action");
         /* LOGIN IN TEMPORARY BROWSER AS PER TESTCASE REQUIREMENT -
          *  - WITH UM CREDENTIALS */
         pages.getLoginPage().openNewTempBrowserAndLoginInUM();
-        pages.getUserManagementPage().removeOrAddPermission(commonConstants.getValue(CommonConstants.SIM_BAR_PERMISSION));
+        pages.getUserManagementPage().removeOrAddPermission(constants.getValue(PermissionConstants.SIM_BAR_PERMISSION));
         pages.getUserManagementPage().destroyTempBrowser();
         loginInCSPortal();
         pages.getSideMenuPOM().openCustomerInteractionPage();
@@ -91,7 +91,7 @@ public class SIMBarUnbarPermissionSeparationTest extends PreRequisites {
         /* LOGIN IN TEMPORARY BROWSER AS PER TESTCASE REQUIREMENT -
          *  - WITH UM CREDENTIALS */
         pages.getLoginPage().openNewTempBrowserAndLoginInUM();
-        pages.getUserManagementPage().removeOrAddPermission(commonConstants.getValue(CommonConstants.SIM_UNBAR_PERMISSION));
+        pages.getUserManagementPage().removeOrAddPermission(constants.getValue(PermissionConstants.SIM_UNBAR_PERMISSION));
         pages.getUserManagementPage().destroyTempBrowser();
         loginInCSPortal();
         pages.getSideMenuPOM().openCustomerInteractionPage();
@@ -109,7 +109,7 @@ public class SIMBarUnbarPermissionSeparationTest extends PreRequisites {
         /* LOGIN IN TEMPORARY BROWSER AS PER TESTCASE REQUIREMENT -
          *  - WITH UM CREDENTIALS */
         pages.getLoginPage().openNewTempBrowserAndLoginInUM();
-        pages.getUserManagementPage().removeOrAddPermission(commonConstants.getValue(CommonConstants.SIM_BAR_PERMISSION));
+        pages.getUserManagementPage().removeOrAddPermission(commonConstants.getValue(PermissionConstants.SIM_BAR_PERMISSION));
         pages.getUserManagementPage().destroyTempBrowser();
         loginInCSPortal();
         pages.getSideMenuPOM().openCustomerInteractionPage();

@@ -35,7 +35,7 @@ public class LoginPage extends BasePage {
     }
 
     public void enterAUUID(String auuid) {
-        UtilsMethods.printInfoLog("Entering auuid :" + auuid + "In username");
+        UtilsMethods.printInfoLog("Entering auuid :" + auuid + " In username");
         writeText(pageElements.enterAUUID, auuid);
 
     }
@@ -67,7 +67,7 @@ public class LoginPage extends BasePage {
 
     public String getPasswordText() {
         UtilsMethods.printInfoLog("getting text from Password field ");
-        return readText(pageElements.enterPassword);
+        return getText(pageElements.enterPassword);
     }
 
     public void clickBackButton() {

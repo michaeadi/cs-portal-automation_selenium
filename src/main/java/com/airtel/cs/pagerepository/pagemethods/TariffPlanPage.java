@@ -34,7 +34,7 @@ public class TariffPlanPage extends BasePage {
     This Method will return the current plan of the customer from change service class tab
      */
     public String getCurrentPlan() {
-        return readText(pageElements.currentPlanName);
+        return getText(pageElements.currentPlanName);
     }
 
     /*
@@ -48,21 +48,21 @@ public class TariffPlanPage extends BasePage {
     This Method will return Name of the current plan showing over Plan Description
      */
     public String getCurrentPlanDetailsHeader() {
-        return readText(pageElements.currentPlanDetailsHeaderName);
+        return getText(pageElements.currentPlanDetailsHeaderName);
     }
 
     /*
     This Method will return us the Plan Description
      */
     public String getPlanDescription() {
-        return readText(pageElements.planDescription);
+        return getText(pageElements.planDescription);
     }
 
     /*
     This Method will give us the drop down name under Service Class Tab
      */
     public String getDropDownName() {
-        return readText(pageElements.dropDownName);
+        return getText(pageElements.dropDownName);
     }
 
     /*
@@ -95,7 +95,7 @@ public class TariffPlanPage extends BasePage {
         for (WebElement dropDownList : elementsListfromBy) {
             if (!(dropDownList.getText().equalsIgnoreCase(currentPlan))) {
                 click(pageElements.dropDownList);
-                selectedValue = readText(pageElements.selectedDropDownValue);
+                selectedValue = getText(pageElements.selectedDropDownValue);
                 break;
             }
         }
@@ -106,7 +106,7 @@ public class TariffPlanPage extends BasePage {
     This Method will give us the Note present under Service Class Tab, once select the Plan other than Current Plan
      */
     public String getFootNote() {
-        return readText(pageElements.planFootNote);
+        return getText(pageElements.planFootNote);
     }
 
     /*
@@ -247,6 +247,6 @@ public class TariffPlanPage extends BasePage {
     This Method will provide us the text present over the Success or Failure modal
      */
     public String getModalText() {
-        return readText(pageElements.modalSuccessFailureMsg);
+        return getText(pageElements.modalSuccessFailureMsg);
     }
 }

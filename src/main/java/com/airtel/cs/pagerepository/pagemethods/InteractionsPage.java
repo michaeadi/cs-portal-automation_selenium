@@ -29,12 +29,12 @@ public class InteractionsPage extends BasePage {
 
     public String isDateFieldAvailable() {
         UtilsMethods.printInfoLog("Checking is Date Field is available at expected place ");
-        return readText(pageElements.issueDetails);
+        return getText(pageElements.issueDetails);
     }
 
     public String isDateFieldAvailableMandatory() {
         UtilsMethods.printInfoLog("Is Date Field mandatory: ");
-        return readText(pageElements.issueDetails) + readText(pageElements.issueDetailsMandatory);
+        return getText(pageElements.issueDetails) + getText(pageElements.issueDetailsMandatory);
     }
 
 
@@ -47,14 +47,14 @@ public class InteractionsPage extends BasePage {
     public String getIssueDetailLabel(String num) {
         UtilsMethods.printInfoLog("Getting the label for issue detail field situated at Position : " + num);
         By issueDetails = By.xpath(" //input[@name=" + "'q" + num + "']//following-sibling::span/label");
-        return readText(issueDetails);
+        return getText(issueDetails);
     }
 
     public String getIssueDetailLabelDropDown(String num) {
         UtilsMethods.printInfoLog("Getting the label for issue detail field situated at Position : " + num);
         By issueDetails = By.xpath("//div[@formarrayname=\"issueDetails\"]//li[" + num + "]//mat-label");
         By mandatory = By.xpath("//div[@formarrayname=\"issueDetails\"]//li[" + num + "]//span");
-        return readText(issueDetails) + readText(mandatory);
+        return getText(issueDetails) + getText(mandatory);
     }
 
     public void setIssueDetailInput(String num, String input) {
@@ -149,8 +149,8 @@ public class InteractionsPage extends BasePage {
 
     public String getResolvedFTRDisplayed() {
         waitVisibility(pageElements.resolvedFTR);
-        UtilsMethods.printInfoLog("Getting the Ticket Number or Ticket Status  Displayed : " + readText(pageElements.resolvedFTR));
-        return readText(pageElements.resolvedFTR);
+        UtilsMethods.printInfoLog("Getting the Ticket Number or Ticket Status  Displayed : " + getText(pageElements.resolvedFTR));
+        return getText(pageElements.resolvedFTR);
     }
 
     public CustomerProfilePage closeInteractions() {
@@ -181,7 +181,7 @@ public class InteractionsPage extends BasePage {
 
     public String getAddedComment() {
         UtilsMethods.printInfoLog("Added Comment Validate Successfully");
-        return readText(pageElements.addedComment);
+        return getText(pageElements.addedComment);
     }
 
     public void saveInteractionComment() {

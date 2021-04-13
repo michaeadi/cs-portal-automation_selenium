@@ -58,7 +58,7 @@ public class customerInteractionTest extends Driver {
         SoftAssert softAssert = new SoftAssert();
         if (continueExecutionAPI) {
             ExtentTestManager.startTest("Validating the Search for Customer Interactions :" + Data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + Data.getCustomerNumber());
-            if (Env.equalsIgnoreCase("Prod")) {
+            if (evnName.equalsIgnoreCase("Prod")) {
                 customerNumber = Data.getProdCustomerNumber();
             } else {
                 customerNumber = Data.getCustomerNumber();
@@ -380,7 +380,7 @@ public class customerInteractionTest extends Driver {
         pages.getSideMenu().clickOnSideMenu();
         pages.getSideMenu().clickOnName();
         pages.getSideMenu().openCustomerInteractionPage();
-        if (Env.equalsIgnoreCase("Prod")) {
+        if (evnName.equalsIgnoreCase("Prod")) {
             pages.getMsisdnSearchPage().enterNumber(Data.getProdSIMNumber());
             customerNumber = Data.getProdCustomerNumber();
         } else {
@@ -455,7 +455,7 @@ public class customerInteractionTest extends Driver {
 
         try {
             if (pages.getDemoGraphicPage().checkAMProfileWidget()) {
-                if (Env.equalsIgnoreCase("NG")) {
+                if (evnName.equalsIgnoreCase("NG")) {
                     softAssert.fail("AM Profile Widget Must not display for NG Opco.");
                 } else if (demographic.isAirtelMoneyStatusLock()) {
                     demographic.clickAirtelStatusToUnlock();
@@ -527,7 +527,7 @@ public class customerInteractionTest extends Driver {
             softAssert.fail("Customer's SIM Status is not visible", e.getCause());
             e.printStackTrace();
         }
-        if (!Env.equalsIgnoreCase("NG")) {
+        if (!evnName.equalsIgnoreCase("NG")) {
             try {
                 softAssert.assertEquals(demographic.getWalletBalance().toUpperCase().trim(), amProfileAPI.getResult().getWallet().get(0).getCurrency().toUpperCase() + " " + amProfileAPI.getResult().getWallet().get(0).getBalance(), "Customer's Airtel Wallet Balance & Currency code not same not as Expected");
             } catch (NoSuchElementException | TimeoutException e) {
@@ -679,7 +679,7 @@ public class customerInteractionTest extends Driver {
         pages.getSideMenu().clickOnName();
         pages.getSideMenu().openCustomerInteractionPage();
         pages.getSideMenu().waitTillLoaderGetsRemoved();
-        if (Env.equalsIgnoreCase("Prod")) {
+        if (evnName.equalsIgnoreCase("Prod")) {
             customerNumber = data.getProdCustomerNumber();
         } else {
             customerNumber = data.getCustomerNumber();

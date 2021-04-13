@@ -39,14 +39,14 @@ public class MoreRechargeHistoryPage extends BasePage {
 
     public String getHeaders(int row) {
         By headers = By.xpath("//div[@id='INTERNET_BUNDLES_HISTORY']/div[@class=\"card__card-header--card-body--table--list-heading ng-star-inserted\"]//div[" + row + "]/span");
-        String header = readText(headers);
+        String header = getText(headers);
         UtilsMethods.printInfoLog("Reading header Name: " + header);
         return header;
     }
 
     public String getSubHeaders(int row) {
         By headers = By.xpath("//div[@id='INTERNET_BUNDLES_HISTORY']/div[@class=\"card__card-header--card-body--table--list-heading ng-star-inserted\"]//div[" + row + "]/span[2]");
-        String header = readText(headers);
+        String header = getText(headers);
         UtilsMethods.printInfoLog("Reading Sub header Name: " + header);
         return header;
     }
@@ -58,8 +58,8 @@ public class MoreRechargeHistoryPage extends BasePage {
 
     public String getValueCorrespondingToRechargeHeader(int row, int column) {
         By value = By.xpath("//div[@id='INTERNET_BUNDLES_HISTORY']/div[@class=\"table-data-wrapper ng-star-inserted\"]//div[@class=\"ng-star-inserted\"][" + row + "]//div[" + column + "]/span");
-        UtilsMethods.printInfoLog("Reading '" + getHeaders(column) + "' = " + readText(value));
-        return readText(value);
+        UtilsMethods.printInfoLog("Reading '" + getHeaders(column) + "' = " + getText(value));
+        return getText(value);
     }
 
     public boolean isDatePickerVisible() {

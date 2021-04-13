@@ -30,13 +30,13 @@ public class CurrentBalanceWidgetPage extends BasePage {
     }
 
     public String gettingLastRechargeUnableToFetchVisible() {
-        UtilsMethods.printInfoLog("Validating  error message for last recharge balance : " + readText(pageElements.currentBalanceLastRechargeUnableToFetch));
-        return readText(pageElements.currentBalanceLastRechargeUnableToFetch);
+        UtilsMethods.printInfoLog("Validating  error message for last recharge balance : " + getText(pageElements.currentBalanceLastRechargeUnableToFetch));
+        return getText(pageElements.currentBalanceLastRechargeUnableToFetch);
     }
 
     public String gettingLastRechargeDateTImeUnableTOFetch() {
-        UtilsMethods.printInfoLog("Validating  error message for last recharge Date & Time : " + readText(pageElements.lastRechargeDateTImeUnableTOFetch));
-        return readText(pageElements.lastRechargeDateTImeUnableTOFetch);
+        UtilsMethods.printInfoLog("Validating  error message for last recharge Date & Time : " + getText(pageElements.lastRechargeDateTImeUnableTOFetch));
+        return getText(pageElements.lastRechargeDateTImeUnableTOFetch);
     }
 
 
@@ -55,8 +55,8 @@ public class CurrentBalanceWidgetPage extends BasePage {
     }
 
     public String gettingLastRechargeAmount() {
-        UtilsMethods.printInfoLog("Getting Main Account Balance from Your Current Balance Widget : " + readText(pageElements.currentBalanceLastRecharge).replaceAll("\\s", "").replaceAll("[A-Z,a-z]", ""));
-        return readText(pageElements.currentBalanceLastRecharge).replaceAll("\\s", "").replaceAll("[A-Z,a-z]", "").trim();
+        UtilsMethods.printInfoLog("Getting Main Account Balance from Your Current Balance Widget : " + getText(pageElements.currentBalanceLastRecharge).replaceAll("\\s", "").replaceAll("[A-Z,a-z]", ""));
+        return getText(pageElements.currentBalanceLastRecharge).replaceAll("\\s", "").replaceAll("[A-Z,a-z]", "").trim();
     }
 
     public boolean isCurrentBalanceWidgetVisible() {
@@ -65,49 +65,49 @@ public class CurrentBalanceWidgetPage extends BasePage {
     }
 
     public String gettingCurrentBalanceCurrency() {
-        UtilsMethods.printInfoLog("Getting Currency from Your Current Balance Widget : " + readText(pageElements.currentBalanceCurrency).trim());
-        return readText(pageElements.currentBalanceCurrency).replaceAll("[^a-zA-z]", "");
+        UtilsMethods.printInfoLog("Getting Currency from Your Current Balance Widget : " + getText(pageElements.currentBalanceCurrency).trim());
+        return getText(pageElements.currentBalanceCurrency).replaceAll("[^a-zA-z]", "");
     }
 
     public String gettingMainAccountBalance() {
-        UtilsMethods.printInfoLog("Getting Main Account Balance from Your Current Balance Widget : " + readText(pageElements.mainAccountBalance).replaceAll("\\s", "").replaceAll("[A-Z,a-z]", ""))
+        UtilsMethods.printInfoLog("Getting Main Account Balance from Your Current Balance Widget : " + getText(pageElements.mainAccountBalance).replaceAll("\\s", "").replaceAll("[A-Z,a-z]", ""))
         ;
-        return readText(pageElements.mainAccountBalance).replaceAll("\\s", "").replaceAll("[A-Z,a-z]", "");
+        return getText(pageElements.mainAccountBalance).replaceAll("\\s", "").replaceAll("[A-Z,a-z]", "");
     }
 
     public String getVoiceExpiryDate() {
-        UtilsMethods.printInfoLog("Getting Remaining Voice Expiry Date from Your Current Balance Widget : " + readText(pageElements.voiceExpiryDate).trim());
-        return readText(pageElements.voiceExpiryDate).trim();
+        UtilsMethods.printInfoLog("Getting Remaining Voice Expiry Date from Your Current Balance Widget : " + getText(pageElements.voiceExpiryDate).trim());
+        return getText(pageElements.voiceExpiryDate).trim();
     }
 
     public String getDataExpiryDate() {
-        UtilsMethods.printInfoLog("Getting Remaining Data Expiry Date from Your Current Balance Widget : " + readText(pageElements.dataExpiryDate).trim());
-        return readText(pageElements.dataExpiryDate).trim();
+        UtilsMethods.printInfoLog("Getting Remaining Data Expiry Date from Your Current Balance Widget : " + getText(pageElements.dataExpiryDate).trim());
+        return getText(pageElements.dataExpiryDate).trim();
     }
 
     public String getSmsExpiryDate() {
-        UtilsMethods.printInfoLog("Getting Remaining SMS Expiry Date from Your Current Balance Widget : " + readText(pageElements.smsExpiryDate).trim());
-        return readText(pageElements.smsExpiryDate).trim();
+        UtilsMethods.printInfoLog("Getting Remaining SMS Expiry Date from Your Current Balance Widget : " + getText(pageElements.smsExpiryDate).trim());
+        return getText(pageElements.smsExpiryDate).trim();
     }
 
     public String getVoiceBalance() {
-        UtilsMethods.printInfoLog("Getting Remaining Voice Balance from Your Current Balance Widget : " + readText(pageElements.voiceBalance).trim());
-        return readText(pageElements.voiceBalance).trim();
+        UtilsMethods.printInfoLog("Getting Remaining Voice Balance from Your Current Balance Widget : " + getText(pageElements.voiceBalance).trim());
+        return getText(pageElements.voiceBalance).trim();
     }
 
     public String getDataBalance() {
-        UtilsMethods.printInfoLog("Getting Remaining Data Balance from Your Current Balance Widget : " + readText(pageElements.dataBalance).trim());
-        return readText(pageElements.dataBalance).trim();
+        UtilsMethods.printInfoLog("Getting Remaining Data Balance from Your Current Balance Widget : " + getText(pageElements.dataBalance).trim());
+        return getText(pageElements.dataBalance).trim();
     }
 
     public String getSmsBalance() {
-        UtilsMethods.printInfoLog("Getting Remaining SMS Balance from Your Current Balance Widget : " + readText(pageElements.smsBalance).trim());
-        return readText(pageElements.smsBalance).trim();
+        UtilsMethods.printInfoLog("Getting Remaining SMS Balance from Your Current Balance Widget : " + getText(pageElements.smsBalance).trim());
+        return getText(pageElements.smsBalance).trim();
     }
 
     public String getLastRechargeDateTime() {
-        UtilsMethods.printInfoLog("Getting Last Recharge Date from Your Current Balance Widget : " + readText(pageElements.lastRechargeDateTime).trim());
-        return readText(pageElements.lastRechargeDateTime).trim();
+        UtilsMethods.printInfoLog("Getting Last Recharge Date from Your Current Balance Widget : " + getText(pageElements.lastRechargeDateTime).trim());
+        return getText(pageElements.lastRechargeDateTime).trim();
     }
 
     public WidgetInteractionPage clickTicketIcon() {
@@ -122,7 +122,7 @@ public class CurrentBalanceWidgetPage extends BasePage {
     }
 
     public String getWidgetTitle() {
-        log.info("Getting Widget title: " + readText(pageElements.getTitle));
-        return readText(pageElements.getTitle).toLowerCase();
+        log.info("Getting Widget title: " + getText(pageElements.getTitle));
+        return getText(pageElements.getTitle).toLowerCase();
     }
 }

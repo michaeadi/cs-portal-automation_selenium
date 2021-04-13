@@ -24,36 +24,36 @@ public class SendSMSPage extends BasePage {
     }
 
     public String getCustomerNumber() {
-        String text = readText(pageElements.customerNumberText);
+        String text = getText(pageElements.customerNumberText);
         UtilsMethods.printInfoLog("Reading Customer Number: " + text);
         return text.split("-")[0].trim();
     }
 
     public void selectCategory() {
         click(pageElements.openCategory);
-        UtilsMethods.printInfoLog("Searching Category with name: " + readText(pageElements.selectOption1));
-        writeText(pageElements.searchCategory, readText(pageElements.selectOption1));
-        UtilsMethods.printInfoLog("Selecting Category with name: " + readText(pageElements.selectOption1));
+        UtilsMethods.printInfoLog("Searching Category with name: " + getText(pageElements.selectOption1));
+        writeText(pageElements.searchCategory, getText(pageElements.selectOption1));
+        UtilsMethods.printInfoLog("Selecting Category with name: " + getText(pageElements.selectOption1));
         click(pageElements.selectOption1);
     }
 
     public String selectTemplateName() {
         click(pageElements.openTemplates);
-        UtilsMethods.printInfoLog("Selecting Category with name: " + readText(pageElements.selectOption1));
-        String text = readText(pageElements.selectOption1);
+        UtilsMethods.printInfoLog("Selecting Category with name: " + getText(pageElements.selectOption1));
+        String text = getText(pageElements.selectOption1);
         click(pageElements.selectOption1);
         return text;
     }
 
     public void selectLanguage() {
         click(pageElements.openLanguage);
-        UtilsMethods.printInfoLog("Selecting Category with name: " + readText(pageElements.selectOption1));
+        UtilsMethods.printInfoLog("Selecting Category with name: " + getText(pageElements.selectOption1));
         click(pageElements.selectOption1);
     }
 
     public String getMessageContent() {
-        UtilsMethods.printInfoLog("Get Message Content: " + readText(pageElements.messageContent));
-        return readText(pageElements.messageContent).trim();
+        UtilsMethods.printInfoLog("Get Message Content: " + getText(pageElements.messageContent));
+        return getText(pageElements.messageContent).trim();
     }
 
     public boolean isCustomerNumber() {

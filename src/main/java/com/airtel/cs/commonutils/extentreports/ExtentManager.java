@@ -18,21 +18,21 @@ public class ExtentManager extends Driver {
             //Set HTML reporting file location
             String workingDir = System.getProperty("user.dir");
             if (System.getProperty("os.name").toLowerCase().contains("win")) {
-                extent = new ExtentReports(workingDir + "\\ExtentReports\\CS_Portal-" + OPCO + "-" + Env + "-" + suiteType + "-" + date + ".html", true);
+                extent = new ExtentReports(workingDir + "\\ExtentReports\\CS_Portal-" + OPCO + "-" + evnName + "-" + SUITE_TYPE + "-" + date + ".html", true);
                 extent.addSystemInfo("user", "Rahul Gupta");
                 extent.assignProject("CS Portal");
                 extent.addSystemInfo("OPCO", OPCO);
-                extent.addSystemInfo("Environment", Env);
-                extent.addSystemInfo("Suite Type", suiteType.toUpperCase());
+                extent.addSystemInfo("Environment", evnName);
+                extent.addSystemInfo("Suite Type", SUITE_TYPE.toUpperCase());
                 extent.loadConfig(new File(workingDir + "/resources/properties/reportextent-config.xml"));
 
             } else {
-                extent = new ExtentReports(workingDir + "/ExtentReports/CS_Portal-Automation-Report-" + OPCO + Env + "-" + date + ".html", true);
+                extent = new ExtentReports(workingDir + "/ExtentReports/CS_Portal-Automation-Report-" + OPCO + evnName + "-" + date + ".html", true);
                 extent.addSystemInfo("user", "Rahul Gupta");
                 extent.assignProject("CS Portal");
                 extent.addSystemInfo("OPCO", OPCO);
-                extent.addSystemInfo("Environment", Env);
-                extent.addSystemInfo("Suite Type", suiteType.toUpperCase());
+                extent.addSystemInfo("Environment", evnName);
+                extent.addSystemInfo("Suite Type", SUITE_TYPE.toUpperCase());
                 extent.loadConfig(new File(workingDir + "/resources/properties/reportextent-config.xml"));
 
             }

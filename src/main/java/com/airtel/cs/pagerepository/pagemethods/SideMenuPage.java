@@ -18,7 +18,7 @@ public class SideMenuPage extends BasePage {
     }
 
     public String getUserName() {
-        return readText(pageElements.userName);
+        return getText(pageElements.userName);
     }
 
     public void clickOnSideMenu() {

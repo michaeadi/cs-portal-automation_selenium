@@ -76,7 +76,7 @@ public class MessageHistoryPage extends BasePage {
 
     public String messageType(int i) {
         if (i <= getListSize()) {
-            String type = readText(By.xpath("//table[@id=\"fetchTicketByCustomer\"]//tbody/tr[" + i + "]//td[1]//b"));
+            String type = getText(By.xpath("//table[@id=\"fetchTicketByCustomer\"]//tbody/tr[" + i + "]//td[1]//b"));
             UtilsMethods.printInfoLog("Message Type: " + type);
             return type;
         }
@@ -85,7 +85,7 @@ public class MessageHistoryPage extends BasePage {
 
     public String sentDate(int i) {
         if (i <= getListSize()) {
-            String type = readText(By.xpath("//table[@id=\"fetchTicketByCustomer\"]//tbody/tr[" + i + "]//td[2]//p//span[@class=\"date_time\"]"));
+            String type = getText(By.xpath("//table[@id=\"fetchTicketByCustomer\"]//tbody/tr[" + i + "]//td[2]//p//span[@class=\"date_time\"]"));
             UtilsMethods.printInfoLog("Sent Date: " + type);
             return type;
         }
@@ -95,7 +95,7 @@ public class MessageHistoryPage extends BasePage {
 
     public String templateEvent(int i) {
         if (i <= getListSize()) {
-            String type = readText(By.xpath("//table[@id=\"fetchTicketByCustomer\"]//tbody/tr[" + i + "]//td[3]//p//b"));
+            String type = getText(By.xpath("//table[@id=\"fetchTicketByCustomer\"]//tbody/tr[" + i + "]//td[3]//p//b"));
             UtilsMethods.printInfoLog("Template/Event Name: " + type);
             return type;
         }
@@ -104,7 +104,7 @@ public class MessageHistoryPage extends BasePage {
 
     public String messageLanguage(int i) {
         if (i <= getListSize()) {
-            String type = readText(By.xpath("//table[@id=\"fetchTicketByCustomer\"]//tbody/tr[" + i + "]//td[4]//p//b"));
+            String type = getText(By.xpath("//table[@id=\"fetchTicketByCustomer\"]//tbody/tr[" + i + "]//td[4]//p//b"));
             UtilsMethods.printInfoLog("Message language: " + type);
             return type;
         }
@@ -122,7 +122,7 @@ public class MessageHistoryPage extends BasePage {
 
     public String agentId(int i) {
         if (i <= getListSize()) {
-            String type = readText(By.xpath("//table[@id=\"fetchTicketByCustomer\"]//tbody/tr[" + i + "]//td[6]//p//b"));
+            String type = getText(By.xpath("//table[@id=\"fetchTicketByCustomer\"]//tbody/tr[" + i + "]//td[6]//p//b"));
             UtilsMethods.printInfoLog("Agent Id: " + type);
             return type;
         }
@@ -131,7 +131,7 @@ public class MessageHistoryPage extends BasePage {
 
     public String agentName(int i) {
         if (i <= getListSize()) {
-            String type = readText(By.xpath("//table[@id=\"fetchTicketByCustomer\"]//tbody/tr[" + i + "]//td[7]//p//span"));
+            String type = getText(By.xpath("//table[@id=\"fetchTicketByCustomer\"]//tbody/tr[" + i + "]//td[7]//p//span"));
             UtilsMethods.printInfoLog("Agent Name: " + type);
             return type;
         }
@@ -162,13 +162,13 @@ public class MessageHistoryPage extends BasePage {
     }
 
     public String getPopUpTitle() {
-        UtilsMethods.printInfoLog("Reading pop title: " + readText(pageElements.popUpTitle));
-        return readText(pageElements.popUpTitle);
+        UtilsMethods.printInfoLog("Reading pop title: " + getText(pageElements.popUpTitle));
+        return getText(pageElements.popUpTitle);
     }
 
     public String getPopUpMessage() {
-        UtilsMethods.printInfoLog("Reading pop message: " + readText(pageElements.popUpMessage));
-        return readText(pageElements.popUpMessage);
+        UtilsMethods.printInfoLog("Reading pop message: " + getText(pageElements.popUpMessage));
+        return getText(pageElements.popUpMessage);
     }
 
     public void clickYesBtn() {

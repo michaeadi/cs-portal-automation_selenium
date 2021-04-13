@@ -27,14 +27,14 @@ public class UsageHistoryWidgetPage extends BasePage {
     }
 
     public String getHeaders(int row) {
-        String header = readText(By.xpath(pageElements.headerRow + row + pageElements.headerText));
+        String header = getText(By.xpath(pageElements.headerRow + row + pageElements.headerText));
         UtilsMethods.printInfoLog("Getting header Number " + row + " : " + header);
         return header;
     }
 
     public String gettingUsageHistoryNoResultFoundMessage() {
-        UtilsMethods.printInfoLog("Validating error message when there is no data from com.airtel.cs.API : " + readText(pageElements.usageHistoryNoResultFoundMessage));
-        return readText(pageElements.usageHistoryNoResultFoundMessage);
+        UtilsMethods.printInfoLog("Validating error message when there is no data from com.airtel.cs.API : " + getText(pageElements.usageHistoryNoResultFoundMessage));
+        return getText(pageElements.usageHistoryNoResultFoundMessage);
     }
 
     public boolean isUsageHistoryNoResultFoundVisible() {
@@ -72,8 +72,8 @@ public class UsageHistoryWidgetPage extends BasePage {
 
     public String getHistoryDateTime(int rowNumber) {
         By dateTime = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Usage History\")]/ancestor::div[@class=\"card widget ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"card__card-header--card-body--table--data-list row-border\"][" + (rowNumber + 1) + "]/div[3]//span");
-        UtilsMethods.printInfoLog("Getting Usage History Date Time from Row Number " + rowNumber + " : " + readText(dateTime));
-        return readText(dateTime);
+        UtilsMethods.printInfoLog("Getting Usage History Date Time from Row Number " + rowNumber + " : " + getText(dateTime));
+        return getText(dateTime);
     }
 
     public String getHistoryCharge(int rowNumber) {
@@ -110,7 +110,7 @@ public class UsageHistoryWidgetPage extends BasePage {
     }
 
     public String getWidgetTitle() {
-        log.info("Getting Widget title: " + readText(pageElements.getTitle));
-        return readText(pageElements.getTitle).toLowerCase();
+        log.info("Getting Widget title: " + getText(pageElements.getTitle));
+        return getText(pageElements.getTitle).toLowerCase();
     }
 }

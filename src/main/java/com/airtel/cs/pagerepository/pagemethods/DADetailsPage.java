@@ -21,39 +21,39 @@ public class DADetailsPage extends BasePage {
     }
 
     public String getHeaders(int row) {
-        String header = readText(By.xpath(pageElements.headerRow + row + pageElements.headerValue));
+        String header = getText(By.xpath(pageElements.headerRow + row + pageElements.headerValue));
         UtilsMethods.printInfoLog("Getting header Number " + row + " : " + header);
         return header;
     }
 
     public String getDAId(int rowNumber) {
         By daId = By.xpath(pageElements.valueRow + rowNumber + pageElements.daID);
-        UtilsMethods.printInfoLog("Getting DA ID from Row Number " + rowNumber + " : " + readText(daId));
-        return readText(daId);
+        UtilsMethods.printInfoLog("Getting DA ID from Row Number " + rowNumber + " : " + getText(daId));
+        return getText(daId);
     }
 
     public String getDADescription(int rowNumber) {
         By daDescription = By.xpath(pageElements.valueRow + rowNumber + pageElements.daDesc);
-        UtilsMethods.printInfoLog("Getting DA Description from Row Number " + rowNumber + " : " + readText(daDescription));
-        return readText(daDescription);
+        UtilsMethods.printInfoLog("Getting DA Description from Row Number " + rowNumber + " : " + getText(daDescription));
+        return getText(daDescription);
     }
 
     public String getBundleType(int rowNumber) {
         By bundleType = By.xpath(pageElements.valueRow + rowNumber + pageElements.bundleType);
-        UtilsMethods.printInfoLog("Getting DA Bundle Type from Row Number " + rowNumber + " : " + readText(bundleType));
-        return readText(bundleType);
+        UtilsMethods.printInfoLog("Getting DA Bundle Type from Row Number " + rowNumber + " : " + getText(bundleType));
+        return getText(bundleType);
     }
 
     public String getDABalance(int rowNumber) {
         By daBalance = By.xpath(pageElements.valueRow + rowNumber + pageElements.daBalance);
-        UtilsMethods.printInfoLog("Getting DA Balance from Row Number " + rowNumber + " : " + readText(daBalance));
-        return readText(daBalance);
+        UtilsMethods.printInfoLog("Getting DA Balance from Row Number " + rowNumber + " : " + getText(daBalance));
+        return getText(daBalance);
     }
 
     public String getDADateTime(int rowNumber) {
         By dateTime = By.xpath(pageElements.valueRow + rowNumber + pageElements.daDateTime);
-        UtilsMethods.printInfoLog("Getting DA Date and Time from Row Number " + rowNumber + " : " + readText(dateTime));
-        return readText(dateTime);
+        UtilsMethods.printInfoLog("Getting DA Date and Time from Row Number " + rowNumber + " : " + getText(dateTime));
+        return getText(dateTime);
     }
 
 
@@ -74,8 +74,8 @@ public class DADetailsPage extends BasePage {
     }
 
     public String getWidgetTitle() {
-        log.info("Getting Widget title: " + readText(pageElements.getTitle));
-        return readText(pageElements.getTitle).toLowerCase();
+        log.info("Getting Widget title: " + getText(pageElements.getTitle));
+        return getText(pageElements.getTitle).toLowerCase();
     }
 
     public boolean isDAWidgetIsVisible() {
@@ -84,13 +84,13 @@ public class DADetailsPage extends BasePage {
     }
 
     public String getAccumulatorHeaders(int row) {
-        String header = readText(By.xpath(pageElements.accumulatorHeader + row + pageElements.headerValue));
+        String header = getText(By.xpath(pageElements.accumulatorHeader + row + pageElements.headerValue));
         UtilsMethods.printInfoLog("Getting Accumulator header Number " + row + " : " + header);
         return header;
     }
 
     public String getValueCorrespondingToAccumulator(int row, int column) {
-        String value = readText(By.xpath(pageElements.accumulatorColumnHeader + row + pageElements.accumulatorColumnValue + column + pageElements.headerValue));
+        String value = getText(By.xpath(pageElements.accumulatorColumnHeader + row + pageElements.accumulatorColumnValue + column + pageElements.headerValue));
         UtilsMethods.printInfoLog("Reading '" + getAccumulatorHeaders(column) + "' = " + value);
         return value.trim();
     }

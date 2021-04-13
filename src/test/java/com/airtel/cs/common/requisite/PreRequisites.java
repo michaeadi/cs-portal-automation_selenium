@@ -30,8 +30,8 @@ public class PreRequisites extends Driver {
     @BeforeClass
     public void doLogin() throws InterruptedException {
         ExtentTestManager.startTest("Logging Into Portal", "Logging Into Portal with AUUID");
-        pages.getLoginPage().openBaseURL(config.getProperty(Driver.Env + "-baseurl"));
-        assertCheck.append(actions.assertEqual_stringType(driver.getCurrentUrl(), config.getProperty(Driver.Env + "-baseurl"), "Login URL Opened", "Login URL not Opened"));
+        pages.getLoginPage().openBaseURL(config.getProperty(evnName + "-baseurl"));
+        assertCheck.append(actions.assertEqual_stringType(driver.getCurrentUrl(), config.getProperty(evnName + "-baseurl"), "Login URL Opened", "Login URL not Opened"));
         pages.getLoginPage().waitTillLoaderGetsRemoved();
         pages.getLoginPage().isLoginPageDisplayed();
         pages.getLoginPage().enterAUUID(pages.getLoginPage().getUserNamePassword("auuid"));
@@ -83,14 +83,14 @@ public class PreRequisites extends Driver {
     This Method will add headers in a Map, and then we can use in the test case
      */
     private void addHeaders() {
-        UtilsMethods.addHeaders("x-app-name", config.getProperty(Env + "-x-app-name"));
-        UtilsMethods.addHeaders("x-service-id", config.getProperty(Env + "-x-service-id"));
-        UtilsMethods.addHeaders("x-app-type", config.getProperty(Env + "-x-app-type"));
-        UtilsMethods.addHeaders("x-client-id", config.getProperty(Env + "-x-client-id"));
-        UtilsMethods.addHeaders("x-api-key", config.getProperty(Env + "-x-api-key"));
-        UtilsMethods.addHeaders("x-login-module", config.getProperty(Env + "-x-login-module"));
-        UtilsMethods.addHeaders("x-channel", config.getProperty(Env + "-x-channel"));
-        UtilsMethods.addHeaders("x-app-version", config.getProperty(Env + "-x-app-version"));
+        UtilsMethods.addHeaders("x-app-name", config.getProperty(evnName + "-x-app-name"));
+        UtilsMethods.addHeaders("x-service-id", config.getProperty(evnName + "-x-service-id"));
+        UtilsMethods.addHeaders("x-app-type", config.getProperty(evnName + "-x-app-type"));
+        UtilsMethods.addHeaders("x-client-id", config.getProperty(evnName + "-x-client-id"));
+        UtilsMethods.addHeaders("x-api-key", config.getProperty(evnName + "-x-api-key"));
+        UtilsMethods.addHeaders("x-login-module", config.getProperty(evnName + "-x-login-module"));
+        UtilsMethods.addHeaders("x-channel", config.getProperty(evnName + "-x-channel"));
+        UtilsMethods.addHeaders("x-app-version", config.getProperty(evnName + "-x-app-version"));
         UtilsMethods.addHeaders("Opco", OPCO);
         UtilsMethods.addHeaders("sr-client-id", constants.getValue(ApplicationConstants.SR_CLIENT_ID));
     }

@@ -137,7 +137,7 @@ public class SendSMSTest extends Driver {
     public void checkSendMessageLog() {
         ExtentTestManager.startTest("Check Sent SMS display in message history ", "Check Sent SMS display in message history");
         SoftAssert softAssert = new SoftAssert();
-        pages.getCustomerProfilePage().clickOnViewHistory();
+        pages.getCustomerProfilePage().goToViewHistory();
         pages.getViewHistory().waitTillLoaderGetsRemoved();
         pages.getViewHistory().clickOnMessageHistory();
         pages.getMessageHistoryPage().waitTillLoaderGetsRemoved();

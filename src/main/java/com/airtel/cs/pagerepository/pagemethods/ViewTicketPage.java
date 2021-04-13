@@ -22,8 +22,8 @@ public class ViewTicketPage extends BasePage {
 
     public String getTicketId() {
 
-        UtilsMethods.printInfoLog("View Ticket: " + readText(pageElements.ticketIdValue));
-        return readText(pageElements.ticketIdValue);
+        UtilsMethods.printInfoLog("View Ticket: " + getText(pageElements.ticketIdValue));
+        return getText(pageElements.ticketIdValue);
     }
 
 
@@ -36,11 +36,11 @@ public class ViewTicketPage extends BasePage {
             log.info("List Size: " + list.size());
             for (int i = 1; i <= list.size(); i++) {
                 By chooseState = By.xpath("//div[@class='cdk-overlay-pane']//mat-option[" + i + "]//span");
-                log.info("State Read: " + readText(chooseState));
-                if (state.equalsIgnoreCase(readText(chooseState).trim())) {
+                log.info("State Read: " + getText(chooseState));
+                if (state.equalsIgnoreCase(getText(chooseState).trim())) {
                     UtilsMethods.printInfoLog("Selecting State: " + state);
                     click(chooseState);
-                    String selectedState = readText(pageElements.stateName);
+                    String selectedState = getText(pageElements.stateName);
                     UtilsMethods.printInfoLog("Clicking on Submit as " + selectedState);
                     click(pageElements.submitAs);
                     return selectedState;
@@ -57,8 +57,8 @@ public class ViewTicketPage extends BasePage {
 
 
     public String getStateName() {
-        log.info("State: " + readText(pageElements.stateName));
-        return readText(pageElements.stateName);
+        log.info("State: " + getText(pageElements.stateName));
+        return getText(pageElements.stateName);
     }
 
     public void validateAddedComment(String text) {
@@ -66,8 +66,8 @@ public class ViewTicketPage extends BasePage {
             List<WebElement> list = returnListOfElement(pageElements.allComment);
             for (int i = 1; i <= list.size(); i++) {
                 By comment = By.xpath("//table[@class='ng-star-inserted']//tbody//tr[" + i + "]//p");
-                log.info("Reading Comment:" + readText(comment) + " Is:" + readText(comment).trim().equalsIgnoreCase(text));
-                if (readText(comment).trim().equalsIgnoreCase(text)) {
+                log.info("Reading Comment:" + getText(comment) + " Is:" + getText(comment).trim().equalsIgnoreCase(text));
+                if (getText(comment).trim().equalsIgnoreCase(text)) {
                     UtilsMethods.printPassLog("Newly added comment found on ticket");
                     return;
                 }
@@ -83,9 +83,9 @@ public class ViewTicketPage extends BasePage {
             List<WebElement> list = returnListOfElement(pageElements.allComment);
             for (int i = 1; i <= list.size(); i++) {
                 By commentType = By.xpath("//table[@class='ng-star-inserted']//tbody//tr[" + i + "]/td/span/span[1]");
-                log.info("Reading Comment:" + readText(commentType) + " Is:" + readText(commentType).trim().equalsIgnoreCase(text));
-                if (readText(commentType).trim().equalsIgnoreCase(text)) {
-                    UtilsMethods.printPassLog("Comment type found on ticket: " + readText(commentType));
+                log.info("Reading Comment:" + getText(commentType) + " Is:" + getText(commentType).trim().equalsIgnoreCase(text));
+                if (getText(commentType).trim().equalsIgnoreCase(text)) {
+                    UtilsMethods.printPassLog("Comment type found on ticket: " + getText(commentType));
                     return true;
                 }
             }
@@ -143,8 +143,8 @@ public class ViewTicketPage extends BasePage {
         List<WebElement> list = returnListOfElement(pageElements.allComment);
         for (int i = 1; i <= list.size() - 1; i++) {
             By comment = By.xpath("//table[@class='ng-star-inserted']//tbody//tr[" + i + "]//p");
-            log.info("Reading Comment:" + readText(comment) + " Is:" + readText(comment).trim().equalsIgnoreCase(text));
-            if (readText(comment).trim().equalsIgnoreCase(text)) {
+            log.info("Reading Comment:" + getText(comment) + " Is:" + getText(comment).trim().equalsIgnoreCase(text));
+            if (getText(comment).trim().equalsIgnoreCase(text)) {
                 log.info("Latest comment found on ticket: " + comment);
                 ExtentTestManager.getTest().log(LogStatus.FAIL, "Deleted comment found on ticket");
                 return false;

@@ -22,71 +22,71 @@ public class DemoGraphicPage extends BasePage {
     }
 
     public String getCustomerName() {
-        UtilsMethods.printInfoLog("Getting Customer Name " + readText(pageElements.customerName));
+        UtilsMethods.printInfoLog("Getting Customer Name " + getText(pageElements.customerName));
 
-        return readText(pageElements.customerName);
+        return getText(pageElements.customerName);
     }
 
     public String getDeviceCompatible() {
-        UtilsMethods.printInfoLog("Getting Device Compatible: " + readText(pageElements.deviceCompatible));
-        return readText(pageElements.deviceCompatible).trim();
+        UtilsMethods.printInfoLog("Getting Device Compatible: " + getText(pageElements.deviceCompatible));
+        return getText(pageElements.deviceCompatible).trim();
     }
 
 
     public String getCustomerDOB() {
-        UtilsMethods.printInfoLog("Getting Customer DOB " + readText(pageElements.customerDOB));
-        return readText(pageElements.customerDOB);
+        UtilsMethods.printInfoLog("Getting Customer DOB " + getText(pageElements.customerDOB));
+        return getText(pageElements.customerDOB);
     }
 
     public String getSIMStatusReasonCode() {
-        UtilsMethods.printInfoLog("Getting SIM Status Reason Code " + readText(pageElements.reasonCode));
-        return readText(pageElements.reasonCode);
+        UtilsMethods.printInfoLog("Getting SIM Status Reason Code " + getText(pageElements.reasonCode));
+        return getText(pageElements.reasonCode);
     }
 
     public String getSIMStatusModifiedBy() {
-        UtilsMethods.printInfoLog("Getting SIM Status Modified By " + readText(pageElements.modifiedBy));
-        return readText(pageElements.modifiedBy);
+        UtilsMethods.printInfoLog("Getting SIM Status Modified By " + getText(pageElements.modifiedBy));
+        return getText(pageElements.modifiedBy);
     }
 
     public String getSIMStatusModifiedDate() {
-        UtilsMethods.printInfoLog("Getting SIM Status Modified Date " + readText(pageElements.modifiedDate));
-        return readText(pageElements.modifiedDate);
+        UtilsMethods.printInfoLog("Getting SIM Status Modified Date " + getText(pageElements.modifiedDate));
+        return getText(pageElements.modifiedDate);
     }
 
     public String getActivationDate() {
-        UtilsMethods.printInfoLog("Getting Activation Date " + readText(pageElements.activationDate));
-        return readText(pageElements.activationDate);
+        UtilsMethods.printInfoLog("Getting Activation Date " + getText(pageElements.activationDate));
+        return getText(pageElements.activationDate);
     }
 
     public String getSimNumber() {
-        UtilsMethods.printInfoLog("Getting Sim Number " + readText(pageElements.simNumber));
-        return readText(pageElements.simNumber);
+        UtilsMethods.printInfoLog("Getting Sim Number " + getText(pageElements.simNumber));
+        return getText(pageElements.simNumber);
     }
 
     public String getSimType() {
-        UtilsMethods.printInfoLog("Getting Sim Type " + readText(pageElements.simType));
-        return readText(pageElements.simType);
+        UtilsMethods.printInfoLog("Getting Sim Type " + getText(pageElements.simType));
+        return getText(pageElements.simType);
     }
 
     public String getPUK1() {
 
-        UtilsMethods.printInfoLog("Getting PUK1 " + readText(pageElements.PUK1));
-        return readText(pageElements.PUK1);
+        UtilsMethods.printInfoLog("Getting PUK1 " + getText(pageElements.PUK1));
+        return getText(pageElements.PUK1);
     }
 
     public String getPUK2() {
-        UtilsMethods.printInfoLog("Getting PUK2 " + readText(pageElements.PUK2));
-        return readText(pageElements.PUK2);
+        UtilsMethods.printInfoLog("Getting PUK2 " + getText(pageElements.PUK2));
+        return getText(pageElements.PUK2);
     }
 
     public String getIdType() {
-        UtilsMethods.printInfoLog("Getting ID Type " + readText(pageElements.idType));
-        return readText(pageElements.idType);
+        UtilsMethods.printInfoLog("Getting ID Type " + getText(pageElements.idType));
+        return getText(pageElements.idType);
     }
 
     public String getIdNumber() {
-        UtilsMethods.printInfoLog("Getting masked ID Number " + readText(pageElements.idNumber));
-        return readText(pageElements.idNumber);
+        UtilsMethods.printInfoLog("Getting masked ID Number " + getText(pageElements.idNumber));
+        return getText(pageElements.idNumber);
     }
 
     public boolean isPUKInfoLock() {
@@ -164,88 +164,88 @@ public class DemoGraphicPage extends BasePage {
     }
 
     public String getSIMStatus() {
-        UtilsMethods.printInfoLog("Getting SIM Status: " + readText(pageElements.SIMStatus));
-        return readText(pageElements.SIMStatus);
+        UtilsMethods.printInfoLog("Getting SIM Status: " + getText(pageElements.SIMStatus));
+        return getText(pageElements.SIMStatus);
     }
 
     public String getAirtelMoneyStatus() {
-        UtilsMethods.printInfoLog("Getting Airtel Money Status: " + readText(pageElements.airtelMoneyStatus));
-        return readText(pageElements.airtelMoneyStatus);
+        UtilsMethods.printInfoLog("Getting Airtel Money Status: " + getText(pageElements.airtelMoneyStatus));
+        return getText(pageElements.airtelMoneyStatus);
     }
 
     public String getServiceStatus() {
-        UtilsMethods.printInfoLog("Getting Service Status: " + readText(pageElements.serviceStatus));
-        return readText(pageElements.serviceStatus);
+        UtilsMethods.printInfoLog("Getting Service Status: " + getText(pageElements.serviceStatus));
+        return getText(pageElements.serviceStatus);
     }
 
     public String getWalletBalance() {
-        UtilsMethods.printInfoLog("Getting Airtel Money Wallet Balance: " + readText(pageElements.walletBalance));
-        return readText(pageElements.walletBalance);
+        UtilsMethods.printInfoLog("Getting Airtel Money Wallet Balance: " + getText(pageElements.walletBalance));
+        return getText(pageElements.walletBalance);
     }
 
     public String getWalletBalance2() {
-        UtilsMethods.printInfoLog("Getting Airtel Money Wallet Balance: " + readText(pageElements.walletBalance));
-        return readText(pageElements.walletBalance2);
+        UtilsMethods.printInfoLog("Getting Airtel Money Wallet Balance: " + getText(pageElements.walletBalance));
+        return getText(pageElements.walletBalance2);
     }
 
     public String getRegistrationStatus() {
-        UtilsMethods.printInfoLog("Getting Airtel Money Registration Status : " + readText(pageElements.registrationStatus));
-        return readText(pageElements.registrationStatus);
+        UtilsMethods.printInfoLog("Getting Airtel Money Registration Status : " + getText(pageElements.registrationStatus));
+        return getText(pageElements.registrationStatus);
     }
 
     public String getLineType() {
-        UtilsMethods.printInfoLog("Getting Line Type: " + readText(pageElements.lineType));
-        return readText(pageElements.lineType);
+        UtilsMethods.printInfoLog("Getting Line Type: " + getText(pageElements.lineType));
+        return getText(pageElements.lineType);
     }
 
     public String getSegment() {
-        UtilsMethods.printInfoLog("Getting Segment: " + readText(pageElements.segment));
-        return readText(pageElements.segment);
+        UtilsMethods.printInfoLog("Getting Segment: " + getText(pageElements.segment));
+        return getText(pageElements.segment);
     }
 
     public String getServiceClass() {
-        UtilsMethods.printInfoLog("Getting service class: " + readText(pageElements.serviceClass));
-        return readText(pageElements.serviceClass);
+        UtilsMethods.printInfoLog("Getting service class: " + getText(pageElements.serviceClass));
+        return getText(pageElements.serviceClass);
     }
 
     public String getServiceCategory() {
-        UtilsMethods.printInfoLog("Getting service Category: " + readText(pageElements.serviceCategory));
-        return readText(pageElements.serviceCategory);
+        UtilsMethods.printInfoLog("Getting service Category: " + getText(pageElements.serviceCategory));
+        return getText(pageElements.serviceCategory);
     }
 
     public String getAppStatus() {
-        UtilsMethods.printInfoLog("Getting app Status: " + readText(pageElements.appStatus));
-        return readText(pageElements.appStatus);
+        UtilsMethods.printInfoLog("Getting app Status: " + getText(pageElements.appStatus));
+        return getText(pageElements.appStatus);
     }
 
     public String getGsmKycStatus() {
-        UtilsMethods.printInfoLog("Getting Gsm Kyc Status: " + readText(pageElements.gsmKycStatus));
-        return readText(pageElements.gsmKycStatus);
+        UtilsMethods.printInfoLog("Getting Gsm Kyc Status: " + getText(pageElements.gsmKycStatus));
+        return getText(pageElements.gsmKycStatus);
     }
 
     public String getIMEINumber() {
-        UtilsMethods.printInfoLog("Getting IMEI Number: " + readText(pageElements.IMEINumber));
-        return readText(pageElements.IMEINumber);
+        UtilsMethods.printInfoLog("Getting IMEI Number: " + getText(pageElements.IMEINumber));
+        return getText(pageElements.IMEINumber);
     }
 
     public String getDeviceType() {
-        UtilsMethods.printInfoLog("Getting Device Type: " + readText(pageElements.type));
-        return readText(pageElements.type);
+        UtilsMethods.printInfoLog("Getting Device Type: " + getText(pageElements.type));
+        return getText(pageElements.type);
     }
 
     public String getBrand() {
-        UtilsMethods.printInfoLog("Getting Device Brand: " + readText(pageElements.brand));
-        return readText(pageElements.brand);
+        UtilsMethods.printInfoLog("Getting Device Brand: " + getText(pageElements.brand));
+        return getText(pageElements.brand);
     }
 
     public String getDeviceModel() {
-        UtilsMethods.printInfoLog("Getting Device model: " + readText(pageElements.model));
-        return readText(pageElements.model);
+        UtilsMethods.printInfoLog("Getting Device model: " + getText(pageElements.model));
+        return getText(pageElements.model);
     }
 
     public String getDeviceOS() {
-        UtilsMethods.printInfoLog("Getting Device Operating System Number: " + readText(pageElements.os));
-        return readText(pageElements.os);
+        UtilsMethods.printInfoLog("Getting Device Operating System Number: " + getText(pageElements.os));
+        return getText(pageElements.os);
     }
 
     public void hoverOnDeviceInfoIcon() {
@@ -269,7 +269,7 @@ public class DemoGraphicPage extends BasePage {
     }
 
     public boolean invalidMSISDNError() {
-        UtilsMethods.printInfoLog("Reading Error Message: " + readText(pageElements.errorMessage));
+        UtilsMethods.printInfoLog("Reading Error Message: " + getText(pageElements.errorMessage));
         return checkState(pageElements.errorMessage);
     }
 

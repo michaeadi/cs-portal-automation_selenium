@@ -32,7 +32,7 @@ public class DataProviders extends Driver {
     public static Map<String, String> getWidgetTaggedIssue() {
         FtrDataExcelToBeanDao credsExcelToBeanDao = new FtrDataExcelToBeanDao();
         List<FtrDataBeans> list =
-                credsExcelToBeanDao.getData(excelPath, config.getProperty(suiteType + "-FtrSheet"));
+                credsExcelToBeanDao.getData(excelPath, config.getProperty(SUITE_TYPE + "-FtrSheet"));
         Map<String, String> finalList = new HashMap<>();
         for (FtrDataBeans ftr : list) {
             if (ftr.getWidgetName() != null) {
@@ -59,7 +59,7 @@ public class DataProviders extends Driver {
     public Object[][] getTestData1() {
         FtrDataExcelToBeanDao credsExcelToBeanDao = new FtrDataExcelToBeanDao();
         List<FtrDataBeans> list =
-                credsExcelToBeanDao.getData(excelPath, config.getProperty(suiteType + "-FtrSheet"));
+                credsExcelToBeanDao.getData(excelPath, config.getProperty(SUITE_TYPE + "-FtrSheet"));
 
         Object[][] hashMapObj = new Object[list.size()][1];
         for (int i = 0; i < list.size(); i++) {
@@ -72,7 +72,7 @@ public class DataProviders extends Driver {
     public Object[][] getTestData2() {
         NftrDataExcelToBeanDao credsExcelToBeanDao = new NftrDataExcelToBeanDao();
         List<NftrDataBeans> list =
-                credsExcelToBeanDao.getData(excelPath, config.getProperty(suiteType + "-NftrSheet"));
+                credsExcelToBeanDao.getData(excelPath, config.getProperty(SUITE_TYPE + "-NftrSheet"));
         List<NftrDataBeans> finalList = new ArrayList<>();
         for (NftrDataBeans l : list) {
             if (l.getIssueCode() != null) {
@@ -212,7 +212,7 @@ public class DataProviders extends Driver {
     public Object[][] getTestData5() {
         NftrDataExcelToBeanDao credsExcelToBeanDao = new NftrDataExcelToBeanDao();
         List<NftrDataBeans> list =
-                credsExcelToBeanDao.getData(excelPath, config.getProperty(suiteType + "-NftrSheet"));
+                credsExcelToBeanDao.getData(excelPath, config.getProperty(SUITE_TYPE + "-NftrSheet"));
         List<NftrDataBeans> finalTicketList = new ArrayList<NftrDataBeans>();
         for (NftrDataBeans nftrTicket : list) {
             if (nftrTicket.getTicketNumber() != null) {
@@ -240,13 +240,9 @@ public class DataProviders extends Driver {
                 credsExcelToBeanDao.getData(excelPath, config.getProperty("LoginSheet"));
         List<TestDatabean> finalTicketList = new ArrayList<>();
         for (TestDatabean login : list) {
-            log.info("User Type " + login.getUserType());
             if (login.getUserType().toLowerCase().trim().equals(rows.UserType().toLowerCase().trim())) {
                 finalTicketList.add(login);
-                log.info("User Type ADDED " + login.getUserType());
-
-            } else {
-                log.info("NO USER FOUND");
+                log.info("User Role Found For Login " + login.getUserType());
             }
         }
         Object[][] hashMapObj = new Object[finalTicketList.size()][1];
@@ -301,7 +297,7 @@ public class DataProviders extends Driver {
     public Object[][] interactionComment() {
         NftrDataExcelToBeanDao credsExcelToBeanDao = new NftrDataExcelToBeanDao();
         List<NftrDataBeans> list =
-                credsExcelToBeanDao.getData(excelPath, config.getProperty(suiteType + "-NftrSheet"));
+                credsExcelToBeanDao.getData(excelPath, config.getProperty(SUITE_TYPE + "-NftrSheet"));
 
         Object[][] hashMapObj = new Object[1][1];
 
@@ -353,7 +349,7 @@ public class DataProviders extends Driver {
     public Object[][] getSingleTicketId() {
         NftrDataExcelToBeanDao credsExcelToBeanDao = new NftrDataExcelToBeanDao();
         List<NftrDataBeans> list =
-                credsExcelToBeanDao.getData(excelPath, config.getProperty(suiteType + "-NftrSheet"));
+                credsExcelToBeanDao.getData(excelPath, config.getProperty(SUITE_TYPE + "-NftrSheet"));
         List<NftrDataBeans> finalTicketList = new ArrayList<NftrDataBeans>();
         for (NftrDataBeans nftrTicket : list) {
             System.out.println("Ticket Id: " + nftrTicket.getTicketNumber());
@@ -387,7 +383,7 @@ public class DataProviders extends Driver {
     public String getCode(String text) {
         FtrDataExcelToBeanDao credsExcelToBeanDao = new FtrDataExcelToBeanDao();
         List<FtrDataBeans> list =
-                credsExcelToBeanDao.getData(excelPath, config.getProperty(suiteType + "-FtrSheet"));
+                credsExcelToBeanDao.getData(excelPath, config.getProperty(SUITE_TYPE + "-FtrSheet"));
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getIssueSubSubType().equalsIgnoreCase(text)) {
                 System.out.println("Found Single Row: " + list.get(i).getIssueSubSubType());
@@ -470,7 +466,7 @@ public class DataProviders extends Driver {
                 actionTagDataBeans.getData(excelPath, config.getProperty("actionTagged"));
         for (ActionTagDataBeans s : list) {
             if (s.getActionTagName().equalsIgnoreCase("Voucher Id")) {
-                if (Env.equalsIgnoreCase("prod")) {
+                if (evnName.equalsIgnoreCase("prod")) {
                     return s.getTestDataProd();
                 } else {
                     return s.getTestDataUAT();
@@ -574,7 +570,7 @@ public class DataProviders extends Driver {
     public List<String> getTicketLayout(String code) {
         NftrDataExcelToBeanDao credsExcelToBeanDao = new NftrDataExcelToBeanDao();
         List<NftrDataBeans> list =
-                credsExcelToBeanDao.getData(excelPath, config.getProperty(suiteType + "-NftrSheet"));
+                credsExcelToBeanDao.getData(excelPath, config.getProperty(SUITE_TYPE + "-NftrSheet"));
         List<String> finalTicketList = new ArrayList<String>();
         for (NftrDataBeans nftrTicket : list) {
             if (nftrTicket.getIssueCode().equalsIgnoreCase(code)) {

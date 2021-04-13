@@ -50,6 +50,7 @@ public class FilterTabPage extends BasePage {
     public void clickApplyFilter() {
         UtilsMethods.printInfoLog("Clicking on APPLY Filter Button");
         click(tabElements.applyFilter);
+        waitTillLoaderGetsRemoved();
     }
 
     public void clickOutsideFilter() {
@@ -62,7 +63,7 @@ public class FilterTabPage extends BasePage {
         click(tabElements.unAssigned);
     }
 
-    public void OpenEscalationFilter() throws InterruptedException {
+    public void openEscalationFilter() throws InterruptedException {
         UtilsMethods.printInfoLog("Apply filter by ticket escalation level");
         scrollToViewElement(tabElements.openEscalationFilter);
         Thread.sleep(1000);
@@ -249,5 +250,38 @@ public class FilterTabPage extends BasePage {
         waitTillLoaderGetsRemoved();
     }
 
+    /*
+    This Method is used to verify if soruce filter is present or not
+     */
+    public boolean isSourceFilterPresent() {
+        boolean result;
+        result = checkState(tabElements.sourceLabel);
+        UtilsMethods.printPassLog("Is Source Filter available :" + result);
+        return result;
+    }
 
+    /*
+    This Method is used to select source filter value
+     */
+    public void selectSourceFilterValue() throws InterruptedException {
+        if (isVisible(tabElements.sourceFilterLabel)) {
+            scrollToViewElement(tabElements.sourceFilterLabel);
+            click(tabElements.sourceFilterLabel);
+            click(tabElements.selectCustomerService);
+            waitTillLoaderGetsRemoved();
+            clickApplyFilter();
+            clearFilterDashbaord();
+        }
+    }
+
+    public void clearFilterDashbaord() {
+        if (isVisible(tabElements.clearFilterButtonDashboard)) {
+            click(tabElements.clearFilterButtonDashboard);
+        }
+    }
+
+    public Boolean isApplyFilterBtnEnabled() {
+        selUtils.clickElementAfterScroll(tabElements.applyFilter);
+        return checkState(tabElements.applyFilter);
+    }
 }

@@ -24,57 +24,57 @@ public class FrontendTicketHistoryPage extends BasePage {
 
     public String getTicketId(int index) {
         By ticketID = By.xpath("//table[@id='fetchTicketByCustomer']//tbody//tr[" + index + "]//td[1]//p[1]//b[1]");
-        UtilsMethods.printInfoLog("Reading Ticket Id: " + readText(ticketID));
-        return readText(ticketID);
+        UtilsMethods.printInfoLog("Reading Ticket Id: " + getText(ticketID));
+        return getText(ticketID);
     }
 
     public String getTicketPriority(int index) {
         By ticketPriority = By.xpath("//table[@id='fetchTicketByCustomer']//tbody//tr[" + index + "]//td[2]//p[1]//b[1]");
-        UtilsMethods.printInfoLog("Reading Ticket Priority: " + readText(ticketPriority));
-        return readText(ticketPriority);
+        UtilsMethods.printInfoLog("Reading Ticket Priority: " + getText(ticketPriority));
+        return getText(ticketPriority);
     }
 
 
     public String getTicketQueue(int index) {
         By ticketQueue = By.xpath("//table[@id='fetchTicketByCustomer']//tbody//tr[" + index + "]//td[3]//p[1]");
-        UtilsMethods.printInfoLog("Reading Ticket Queue: " + readText(ticketQueue));
-        return readText(ticketQueue);
+        UtilsMethods.printInfoLog("Reading Ticket Queue: " + getText(ticketQueue));
+        return getText(ticketQueue);
     }
 
     public String getTicketState(int index) {
         By ticketState = By.xpath("//table[@id='fetchTicketByCustomer']//tbody//tr[" + index + "]//td[4]//p[1]");
-        UtilsMethods.printInfoLog("Reading Ticket state: " + readText(ticketState));
-        return readText(ticketState);
+        UtilsMethods.printInfoLog("Reading Ticket state: " + getText(ticketState));
+        return getText(ticketState);
     }
 
     public String getCloseDate(int index) {
         By ticketCloseDate = By.xpath("//table[@id='fetchTicketByCustomer']//tbody//tr[" + index + "]//td[5]//p[1]//span[1]");
-        UtilsMethods.printInfoLog("Reading Ticket close date: " + readText(ticketCloseDate));
-        return readText(ticketCloseDate);
+        UtilsMethods.printInfoLog("Reading Ticket close date: " + getText(ticketCloseDate));
+        return getText(ticketCloseDate);
     }
 
     public String getCloseTime(int index) {
         By ticketCloseTime = By.xpath("//table[@id='fetchTicketByCustomer']//tbody//tr[" + index + "]//td[5]//p[1]");
-        UtilsMethods.printInfoLog("Reading Ticket close time: " + readText(ticketCloseTime));
-        return readText(ticketCloseTime);
+        UtilsMethods.printInfoLog("Reading Ticket close time: " + getText(ticketCloseTime));
+        return getText(ticketCloseTime);
     }
 
     public String getCreatedBy(int index) {
         By ticketCreatedBy = By.xpath("//table[@id='fetchTicketByCustomer']//tbody//tr[" + index + "]//td[6]//p[1]");
-        UtilsMethods.printInfoLog("Reading Ticket created by: " + readText(ticketCreatedBy));
-        return readText(ticketCreatedBy);
+        UtilsMethods.printInfoLog("Reading Ticket created by: " + getText(ticketCreatedBy));
+        return getText(ticketCreatedBy);
     }
 
     public String getCreationDate(int index) {
         By ticketCreationDate = By.xpath("//table[@id='fetchTicketByCustomer']//tbody//tr[" + index + "]//td[7]//p[1]//span[1]");
-        UtilsMethods.printInfoLog("Reading Ticket Creation date: " + readText(ticketCreationDate));
-        return readText(ticketCreationDate);
+        UtilsMethods.printInfoLog("Reading Ticket Creation date: " + getText(ticketCreationDate));
+        return getText(ticketCreationDate);
     }
 
     public String getCreationTime(int index) {
         By ticketCreationTime = By.xpath("//table[@id='fetchTicketByCustomer']//tbody//tr[" + index + "]//td[7]//p[1]");
-        UtilsMethods.printInfoLog("Reading Ticket Creation time: " + readText(ticketCreationTime));
-        return readText(ticketCreationTime);
+        UtilsMethods.printInfoLog("Reading Ticket Creation time: " + getText(ticketCreationTime));
+        return getText(ticketCreationTime);
     }
 
     public void clickAddToInteraction(int index) {
@@ -104,8 +104,8 @@ public class FrontendTicketHistoryPage extends BasePage {
 
     public String getSourceApp(int index) {
         By check = By.xpath("//table[@id='fetchTicketByCustomer']//tbody//tr[" + index + "]//td[8]/p");
-        UtilsMethods.printInfoLog("Reading Source APP: " + readText(check));
-        return readText(check);
+        UtilsMethods.printInfoLog("Reading Source APP: " + getText(check));
+        return getText(check);
     }
 
 
@@ -153,6 +153,11 @@ public class FrontendTicketHistoryPage extends BasePage {
         }
         ExtentTestManager.getTest().log(LogStatus.ERROR, "Add to interaction icon does not present on tickets");
         return false;
+    }
+
+    public void clickToOpenTicketTicketHistory() {
+        click(pageElements.ticketRow);
+        waitTillLoaderGetsRemoved();
     }
 
 }

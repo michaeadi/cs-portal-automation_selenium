@@ -42,6 +42,8 @@ public class UserManagementPage extends BasePage {
         if (isVisible(pageElements.editCSBetaUserRole)) {
             click(pageElements.editCSBetaUserRole);
             waitTillLoaderGetsRemoved();
+        } else {
+            commonLib.error("Automation Beta Role is NOT Created, Kindly Create Automation Beta User Role");
         }
     }
 
@@ -102,8 +104,8 @@ public class UserManagementPage extends BasePage {
     }
 
     public String getCurrentTicketBucketSize() {
-        UtilsMethods.printInfoLog("Getting Current Ticket Size : " + readText(pageElements.ticketBucketSize));
-        return readText(pageElements.ticketBucketSize);
+        UtilsMethods.printInfoLog("Getting Current Ticket Size : " + getText(pageElements.ticketBucketSize));
+        return getText(pageElements.ticketBucketSize);
     }
 
     public ArrayList<String> getWorkflows() {
@@ -239,9 +241,9 @@ public class UserManagementPage extends BasePage {
 
         By title = By.xpath("//div[@title='" + auuid + "']");
         UtilsMethods.printInfoLog("Checking is Search Auuid Text box is Visible : " + isElementVisible(title));
-        UtilsMethods.printInfoLog("Getting auuid from result : " + readText(title));
+        UtilsMethods.printInfoLog("Getting auuid from result : " + getText(title));
         isElementVisible(title);
-        return readText(title);
+        return getText(title);
     }
 
     public void openListInteractionChannels() throws InterruptedException {

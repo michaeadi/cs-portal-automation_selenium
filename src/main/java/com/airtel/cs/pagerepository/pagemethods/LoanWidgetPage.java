@@ -21,75 +21,75 @@ public class LoanWidgetPage extends BasePage {
     }
 
     public String getVendor() {
-        UtilsMethods.printInfoLog("Reading Header: " + readText(pageElements.vendor));
-        return readText(pageElements.vendor).trim();
+        UtilsMethods.printInfoLog("Reading Header: " + getText(pageElements.vendor));
+        return getText(pageElements.vendor).trim();
     }
 
     public String getLoanAmount() {
-        UtilsMethods.printInfoLog("Reading Header: " + readText(pageElements.loanAmount));
-        return readText(pageElements.loanAmount).trim();
+        UtilsMethods.printInfoLog("Reading Header: " + getText(pageElements.loanAmount));
+        return getText(pageElements.loanAmount).trim();
     }
 
     public String getCreatedON() {
-        UtilsMethods.printInfoLog("Reading Header: " + readText(pageElements.createdOn));
-        return readText(pageElements.createdOn).trim();
+        UtilsMethods.printInfoLog("Reading Header: " + getText(pageElements.createdOn));
+        return getText(pageElements.createdOn).trim();
     }
 
     public String getCurrentOutstanding() {
-        UtilsMethods.printInfoLog("Reading Header: " + readText(pageElements.currentOutstanding));
-        return readText(pageElements.currentOutstanding).trim();
+        UtilsMethods.printInfoLog("Reading Header: " + getText(pageElements.currentOutstanding));
+        return getText(pageElements.currentOutstanding).trim();
     }
 
     public String getDueDate() {
-        UtilsMethods.printInfoLog("Reading Header: " + readText(pageElements.dueDate));
-        return readText(pageElements.dueDate).trim();
+        UtilsMethods.printInfoLog("Reading Header: " + getText(pageElements.dueDate));
+        return getText(pageElements.dueDate).trim();
     }
 
     public String getCurrencyType() {
-        UtilsMethods.printInfoLog("Reading Sub header: " + readText(pageElements.currencyType));
-        return readText(pageElements.currencyType).trim();
+        UtilsMethods.printInfoLog("Reading Sub header: " + getText(pageElements.currencyType));
+        return getText(pageElements.currencyType).trim();
     }
 
     public String getVendorName(int i) {
         By name = By.xpath("//div[@id='LOAN_SERVICES']//div[@class=\"card__card-header--card-body--table\"]//div[@class=\"card__card-header--card-body--table--data-list ng-star-inserted\"][" + i + "]//div[@class=\"show-error-message ng-star-inserted\"][1]//span[1]");
-        UtilsMethods.printInfoLog("Reading Vendor Name: " + readText(name));
-        return readText(name).trim();
+        UtilsMethods.printInfoLog("Reading Vendor Name: " + getText(name));
+        return getText(name).trim();
     }
 
     public String getLoanAmount(int i) {
         By amount = By.xpath("//div[@id='LOAN_SERVICES']//div[@class=\"card__card-header--card-body--table\"]//div[@class=\"card__card-header--card-body--table--data-list ng-star-inserted\"][" + i + "]//div[@class=\"show-error-message ng-star-inserted\"][2]//span");
-        UtilsMethods.printInfoLog("Reading Loan Amount: " + readText(amount));
-        return readText(amount).trim();
+        UtilsMethods.printInfoLog("Reading Loan Amount: " + getText(amount));
+        return getText(amount).trim();
     }
 
     public String getDateCreatedOn(int i) {
         By name = By.xpath("//div[@id='LOAN_SERVICES']//div[@class=\"card__card-header--card-body--table\"]//div[@class=\"card__card-header--card-body--table--data-list ng-star-inserted\"][" + i + "]//div[@class=\"show-error-message ng-star-inserted\"][3]//span[@class=\"date_time ng-star-inserted\"]");
-        UtilsMethods.printInfoLog("Reading Date Created on: " + readText(name));
-        return readText(name).trim();
+        UtilsMethods.printInfoLog("Reading Date Created on: " + getText(name));
+        return getText(name).trim();
     }
 
     public String getTimeCreatedOn(int i) {
         By name = By.xpath("//div[@id='LOAN_SERVICES']//div[@class=\"card__card-header--card-body--table\"]//div[@class=\"card__card-header--card-body--table--data-list ng-star-inserted\"][" + i + "]//div[@class=\"show-error-message ng-star-inserted\"][3]//span[@class=\"time ng-star-inserted\"]");
-        UtilsMethods.printInfoLog("Reading Time Created on: " + readText(name));
-        return readText(name).trim();
+        UtilsMethods.printInfoLog("Reading Time Created on: " + getText(name));
+        return getText(name).trim();
     }
 
     public String getOutstandingAmount(int i) {
         By name = By.xpath("//div[@id='LOAN_SERVICES']//div[@class=\"card__card-header--card-body--table\"]//div[@class=\"card__card-header--card-body--table--data-list ng-star-inserted\"][" + i + "]//div[@class=\"show-error-message ng-star-inserted\"][4]//div[@class=\"widget-section\"]");
-        UtilsMethods.printInfoLog("Reading Current Outstanding amount: " + readText(name));
-        return readText(name).trim();
+        UtilsMethods.printInfoLog("Reading Current Outstanding amount: " + getText(name));
+        return getText(name).trim();
     }
 
     public String getDueDate(int i) {
         By name = By.xpath("//div[@id='LOAN_SERVICES']//div[@class=\"card__card-header--card-body--table\"]//div[@class=\"card__card-header--card-body--table--data-list ng-star-inserted\"][" + i + "]//div[@class=\"show-error-message ng-star-inserted\"][5]//span[@class=\"date_time ng-star-inserted\"]");
-        UtilsMethods.printInfoLog("Reading Due Date on: " + readText(name));
-        return readText(name).trim();
+        UtilsMethods.printInfoLog("Reading Due Date on: " + getText(name));
+        return getText(name).trim();
     }
 
     public String getTimeDueDate(int i) {
         By name = By.xpath("//div[@id='LOAN_SERVICES']//div[@class=\"card__card-header--card-body--table\"]//div[@class=\"card__card-header--card-body--table--data-list ng-star-inserted\"][" + i + "]//div[@class=\"show-error-message ng-star-inserted\"][5]//span[@class=\"time ng-star-inserted\"]");
-        UtilsMethods.printInfoLog("Reading Due Time on: " + readText(name));
-        return readText(name).trim();
+        UtilsMethods.printInfoLog("Reading Due Time on: " + getText(name));
+        return getText(name).trim();
     }
 
     public boolean checkVendorNameDisplay(String name) {

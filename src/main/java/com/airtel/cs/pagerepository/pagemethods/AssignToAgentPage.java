@@ -28,28 +28,28 @@ public class AssignToAgentPage extends BasePage {
     }
 
     public String getQueueName() {
-        log.info("Queue Name: " + readText(pageElements.queueName));
-        return readText(pageElements.queueName);
+        log.info("Queue Name: " + getText(pageElements.queueName));
+        return getText(pageElements.queueName);
     }
 
     public String getAgentName() {
-        UtilsMethods.printInfoLog("Assigning Ticket to Agent Name: " + readText(pageElements.agentName));
-        return readText(pageElements.agentName);
+        UtilsMethods.printInfoLog("Assigning Ticket to Agent Name: " + getText(pageElements.agentName));
+        return getText(pageElements.agentName);
     }
 
     public String getAgentAuuid() {
-        UtilsMethods.printInfoLog("Assigning Ticket to Agent AUUID: " + readText(pageElements.agentAuuid));
-        return readText(pageElements.agentAuuid);
+        UtilsMethods.printInfoLog("Assigning Ticket to Agent AUUID: " + getText(pageElements.agentAuuid));
+        return getText(pageElements.agentAuuid);
     }
 
     public int getAvailableSlot(By element) {
-        log.info("Agent Available Slot: " + readText(element));
-        return Integer.parseInt(readText(element));
+        log.info("Agent Available Slot: " + getText(element));
+        return Integer.parseInt(getText(element));
     }
 
     public String getAssignedSlot() {
-        log.info("Agent Assigned Slot: " + readText((pageElements.assignedSlot)));
-        return readText(pageElements.assignedSlot);
+        log.info("Agent Assigned Slot: " + getText((pageElements.assignedSlot)));
+        return getText(pageElements.assignedSlot);
     }
 
     public void closeAssignTab() {
@@ -58,8 +58,8 @@ public class AssignToAgentPage extends BasePage {
     }
 
     public String getInfoMessage() {
-        log.info("Reading Info Message: " + readText(pageElements.infoMessage));
-        return readText(pageElements.infoMessage);
+        log.info("Reading Info Message: " + getText(pageElements.infoMessage));
+        return getText(pageElements.infoMessage);
     }
 
     public String ticketAssignedToAgent(String assigneeAUUID) throws InterruptedException {
@@ -68,14 +68,14 @@ public class AssignToAgentPage extends BasePage {
         List<WebElement> agentList = returnListOfElement(list);
         for (int i = 1; i <= agentList.size(); i++) {
             By agentAUUID = By.xpath("//div[@class=\"pannel-content-area ng-star-inserted\"]/div[" + i + "]//span[@class=\"auuid yellow\"]");
-            String auuid = readText(agentAUUID);
-            log.info("Agent AUUID: " + readText(agentAUUID));
-            log.info("Check state: " + readText(agentAUUID).contains(assigneeAUUID));
-            if (!readText(agentAUUID).contains(assigneeAUUID)) {
+            String auuid = getText(agentAUUID);
+            log.info("Agent AUUID: " + getText(agentAUUID));
+            log.info("Check state: " + getText(agentAUUID).contains(assigneeAUUID));
+            if (!getText(agentAUUID).contains(assigneeAUUID)) {
                 By allSlot = By.xpath("//div[@class=\"pannel-content-area ng-star-inserted\"]/div[" + i + "]//span[@class=\"slot-count orange\"]");
-                log.info(readText(allSlot));
+                log.info(getText(allSlot));
                 try {
-                    slot = Integer.parseInt(readText(allSlot));
+                    slot = Integer.parseInt(getText(allSlot));
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
                     slot = 0;

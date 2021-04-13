@@ -22,12 +22,12 @@ public class LoanDetailPage extends BasePage {
     }
 
     public boolean isLoanDetailWidgetDisplay() {
-        UtilsMethods.printInfoLog("Reading Widget: " + readText(pageElements.loanDetailWidgetTitle));
+        UtilsMethods.printInfoLog("Reading Widget: " + getText(pageElements.loanDetailWidgetTitle));
         return checkState(pageElements.loanDetailWidgetTitle);
     }
 
     public boolean isLoanHistoryWidgetDisplay() {
-        UtilsMethods.printInfoLog("Reading Widget: " + readText(pageElements.loanHistoryWidgetTitle));
+        UtilsMethods.printInfoLog("Reading Widget: " + getText(pageElements.loanHistoryWidgetTitle));
         return checkState(pageElements.loanHistoryWidgetTitle);
     }
 
@@ -47,26 +47,26 @@ public class LoanDetailPage extends BasePage {
 
     public String getHeaderName(int i) {
         By name = By.xpath("//div[@id='LOAN_DETAILS']//div[2]//div[@class=\"card__card-header--card-body--table--list-heading left-spacing\"]//div[" + i + "]//span");
-        UtilsMethods.printInfoLog("Reading Header Name: " + readText(name));
-        return readText(name);
+        UtilsMethods.printInfoLog("Reading Header Name: " + getText(name));
+        return getText(name);
     }
 
     public String getValueCorrespondingToHeader(int i) {
         By value = By.xpath("//div[@id='LOAN_DETAILS']//div[2]//div[@class=\"card__card-header--card-body--table--data-list innertable-area ng-star-inserted\"]//div[" + i + "]//span");
-        UtilsMethods.printInfoLog("Reading '" + getHeaderName(i) + "' = " + readText(value));
-        return readText(value);
+        UtilsMethods.printInfoLog("Reading '" + getHeaderName(i) + "' = " + getText(value));
+        return getText(value);
     }
 
     public String getLoanHistoryHeaderName(int i) {
         By name = By.xpath("//div[@id='LOAN_HISTORY']//div[2]//div[@class=\"card__card-header--card-body--table--list-heading left-spacing\"]//div[" + i + "]//span");
-        UtilsMethods.printInfoLog("Reading Header Name: " + readText(name));
-        return readText(name);
+        UtilsMethods.printInfoLog("Reading Header Name: " + getText(name));
+        return getText(name);
     }
 
     public String getValueCorrespondingToLoanHistoryHeader(int row, int column) {
         By value = By.xpath("//div[@id='LOAN_HISTORY']//div[2]//div[@class=\"card__card-header--card-body--table--data-list innertable-area ng-star-inserted\"][" + row + "]//div[" + column + "]/span");
-        UtilsMethods.printInfoLog("Reading '" + getLoanHistoryHeaderName(column) + "' = " + readText(value));
-        return readText(value);
+        UtilsMethods.printInfoLog("Reading '" + getLoanHistoryHeaderName(column) + "' = " + getText(value));
+        return getText(value);
     }
 
     //    public String getDateTime(int row){
@@ -76,21 +76,21 @@ public class LoanDetailPage extends BasePage {
 //    }
     public void clickTransactionId(int row) throws InterruptedException {
         By value = By.xpath("//div[@id='LOAN_HISTORY']//div[2]//div[@class=\"card__card-header--card-body--table--data-list innertable-area ng-star-inserted\"][" + row + "]//div[1]//span");
-        UtilsMethods.printInfoLog("Clicking Transaction Id: " + readText(value));
+        UtilsMethods.printInfoLog("Clicking Transaction Id: " + getText(value));
         scrollToViewElement(value);
         click(value);
     }
 
     public String getLoanRecoveryHeaderName(int transactionNo, int column) {
         By name = By.xpath("//div[@id='LOAN_HISTORY']//div[2]//div[@class=\"card__card-header--card-body--table--data-list innertable-area ng-star-inserted\"][" + transactionNo + "]//app-loan-recoveries/div/div[1]//div[@class=\"inner-wrapper ng-star-inserted\"][" + column + "]//span");
-        UtilsMethods.printInfoLog("Reading Header Name: " + readText(name));
-        return readText(name);
+        UtilsMethods.printInfoLog("Reading Header Name: " + getText(name));
+        return getText(name);
     }
 
     public String getValueCorrespondingToLoanRecoveryHeader(int transactionNo, int row, int column) {
         By value = By.xpath("//div[@id='LOAN_HISTORY']//div[2]//div[@class=\"card__card-header--card-body--table--data-list innertable-area ng-star-inserted\"][" + transactionNo + "]//app-loan-recoveries//div[@class=\"listing-wrapper ng-star-inserted\"][" + row + "]//div[@class=\"inner-wrapper ng-star-inserted\"][" + column + "]//span");
-        UtilsMethods.printInfoLog("Reading '" + getLoanRecoveryHeaderName(transactionNo, column) + "' = " + readText(value));
-        return readText(value);
+        UtilsMethods.printInfoLog("Reading '" + getLoanRecoveryHeaderName(transactionNo, column) + "' = " + getText(value));
+        return getText(value);
     }
 
     public void clickCloseTab() {

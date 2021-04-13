@@ -3,6 +3,7 @@ package com.airtel.cs.pagerepository.pagemethods;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.pagerepository.pageelements.SupervisorTicketListPageElements;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
@@ -27,7 +28,7 @@ public class SupervisorTicketListPage extends BasePage {
     }
 
     public String getTransferErrorMessage() {
-        String value = readText(pageElements.transferErrorMessage);
+        String value = getText(pageElements.transferErrorMessage);
         UtilsMethods.printInfoLog("Reading transfer error message: " + value);
         return value;
     }
@@ -84,12 +85,12 @@ public class SupervisorTicketListPage extends BasePage {
     }
 
     public boolean isWorkGroupName() {
-        UtilsMethods.printPassLog("Ticket lie in WorkGroup :" + readText(pageElements.workGroupName));
+        UtilsMethods.printPassLog("Ticket lie in WorkGroup :" + getText(pageElements.workGroupName));
         return checkState(pageElements.workGroupName);
     }
 
     public String getWorkGroupName() {
-        return readText(pageElements.workGroupName);
+        return getText(pageElements.workGroupName);
     }
 
     public boolean isPrioritylabel() {
@@ -143,52 +144,52 @@ public class SupervisorTicketListPage extends BasePage {
     }
 
     public String getTicketIdvalue() {
-        UtilsMethods.printInfoLog("Ticket Id: " + readText(pageElements.ticketIdvalue));
-        return readText(pageElements.ticketIdvalue);
+        UtilsMethods.printInfoLog("Ticket Id: " + getText(pageElements.ticketIdvalue));
+        return getText(pageElements.ticketIdvalue);
     }
 
     public String getWorkgroupSLA() {
-        return readText(pageElements.workgroupSLA);
+        return getText(pageElements.workgroupSLA);
     }
 
     public String getPriorityValue() {
-        return readText(pageElements.priorityValue);
+        return getText(pageElements.priorityValue);
     }
 
     public String getStatevalue() {
-        return readText(pageElements.statevalue);
+        return getText(pageElements.statevalue);
     }
 
     public String getCreationdatevalue() {
-        return readText(pageElements.creationdatevalue);
+        return getText(pageElements.creationdatevalue);
     }
 
     public String getqueueValue() {
-        return readText(pageElements.queueValue);
+        return getText(pageElements.queueValue);
     }
 
     public String getIssueValue() {
-        return readText(pageElements.issueValue);
+        return getText(pageElements.issueValue);
     }
 
     public String getIssueTypeValue() {
-        return readText(pageElements.issueTypeValue);
+        return getText(pageElements.issueTypeValue);
     }
 
     public String getSubTypeValue() {
-        return readText(pageElements.subTypeValue);
+        return getText(pageElements.subTypeValue);
     }
 
     public String getsubSubTypeValue() {
-        return readText(pageElements.subSubTypeValue);
+        return getText(pageElements.subSubTypeValue);
     }
 
     public String getCodeValue() {
-        return readText(pageElements.codeValue);
+        return getText(pageElements.codeValue);
     }
 
     public String getAssignedto() {
-        return readText(pageElements.assignedto);
+        return getText(pageElements.assignedto);
     }
 
     public void clickCheckbox() {
@@ -279,8 +280,8 @@ public class SupervisorTicketListPage extends BasePage {
         if (getListSize() > 0) {
             for (int i = 1; i <= getListSize(); i++) {
                 By queue = By.xpath("//div[@class=\"container-fluid table-card ng-star-inserted\"][" + i + "]//ul/li[7]/span[2]");
-                UtilsMethods.printInfoLog(readText(queue).trim() + " : " + text + " :" + readText(queue).trim().equalsIgnoreCase(text));
-                answer = readText(queue).trim().equalsIgnoreCase(text);
+                UtilsMethods.printInfoLog(getText(queue).trim() + " : " + text + " :" + getText(queue).trim().equalsIgnoreCase(text));
+                answer = getText(queue).trim().equalsIgnoreCase(text);
             }
         } else {
             UtilsMethods.printWarningLog("No Ticket Found");
@@ -327,8 +328,8 @@ public class SupervisorTicketListPage extends BasePage {
 
     public String getAssigneeAUUID() {
         try {
-            log.info("Ticket Assignee to :" + readText(pageElements.assigneeAUUID));
-            return readText(pageElements.assigneeAUUID);
+            log.info("Ticket Assignee to :" + getText(pageElements.assigneeAUUID));
+            return getText(pageElements.assigneeAUUID);
         } catch (Exception e) {
             e.printStackTrace();
             return "Not Assigned";
@@ -337,8 +338,8 @@ public class SupervisorTicketListPage extends BasePage {
 
     public String getAssigneeName() {
         try {
-            log.info("Ticket Assignee to :" + readText(pageElements.assigneeName));
-            return readText(pageElements.assigneeName);
+            log.info("Ticket Assignee to :" + getText(pageElements.assigneeName));
+            return getText(pageElements.assigneeName);
         } catch (Exception e) {
             e.printStackTrace();
             return "Not Assigned";
@@ -397,8 +398,8 @@ public class SupervisorTicketListPage extends BasePage {
         List<String> ticketList = new ArrayList<>();
         for (int i = 1; i <= list.size(); i++) {
             By ticket = By.xpath("//div[@class=\"table-card ng-star-inserted\"][" + i + "]//ul[1]//li[1]//span[2]");
-            ticketList.add(readText(ticket).trim());
-            UtilsMethods.printInfoLog("Ticket Id: " + readText(ticket).trim());
+            ticketList.add(getText(ticket).trim());
+            UtilsMethods.printInfoLog("Ticket Id: " + getText(ticket).trim());
         }
         return ticketList;
     }
@@ -412,8 +413,8 @@ public class SupervisorTicketListPage extends BasePage {
     public String getSymbol(int i) {
         By ticket = By.xpath("//div[@class=\"container-fluid table-card ng-star-inserted\"][" + i + "]//ul[1]//li[1]//span[2]");
         By symbol = By.xpath("//div[@class=\"container-fluid table-card ng-star-inserted\"][" + i + "]//span[@class=\"escalation\"]");
-        UtilsMethods.printInfoLog(readText(symbol) + ": Escalation symbol found on ticket Id: " + readText(ticket).trim());
-        return readText(symbol).trim();
+        UtilsMethods.printInfoLog(getText(symbol) + ": Escalation symbol found on ticket Id: " + getText(ticket).trim());
+        return getText(symbol).trim();
     }
 
     public void clickTicketOption() {
@@ -427,20 +428,59 @@ public class SupervisorTicketListPage extends BasePage {
         List<String> searchOption = new ArrayList<>();
         for (int i = 1; i <= list.size(); i++) {
             By search = By.xpath("//ul[@class='ng-star-inserted']//li[" + i + "]");
-            UtilsMethods.printInfoLog("Options Available : " + readText(search));
-            searchOption.add(readText(search).trim());
+            UtilsMethods.printInfoLog("Options Available : " + getText(search));
+            searchOption.add(getText(search).trim());
         }
         return searchOption;
     }
 
     public String getMSISDN() {
-        UtilsMethods.printInfoLog("Reading MSISDN: " + readText(pageElements.msisdn));
-        return readText(pageElements.msisdn);
+        UtilsMethods.printInfoLog("Reading MSISDN: " + getText(pageElements.msisdn));
+        return getText(pageElements.msisdn);
     }
 
     public void clickSearchOptionByTextNoIgnoreCase(String text) {
         UtilsMethods.printInfoLog("Clicking search By option: " + text);
         By option = By.xpath("//ul[@class='ng-star-inserted']//li[normalize-space()='" + text + "']");
         click(option);
+    }
+
+    /*
+    This Method will be used to check Source Title is visible or not under Ticket Listing
+     */
+    public Boolean isSourceTitleVisible() {
+        return isVisible(pageElements.sourceTitleTicketRowTicketListing);
+    }
+
+    /*
+    This Method will check source title for all the row present in a Page
+     */
+    public Boolean checkSourceTitleListingPage() {
+        boolean result = false;
+        final List<WebElement> listFromBy = getElementsListFromBy(pageElements.sourceTitleText);
+        for (WebElement list : listFromBy) {
+            result = StringUtils.isNoneBlank(selUtils.getText(list));
+        }
+        return result;
+    }
+
+    public void clickToOpenTicketFromDashboard() {
+        if (isVisible(pageElements.openTicketDetailPage)) {
+            click(pageElements.openTicketDetailPage);
+            waitTillLoaderGetsRemoved();
+        } else {
+            commonLib.error("Ticket Data is NOT available over dashboard");
+        }
+    }
+
+    public String checkSourceTitleDetailPage() {
+        return getText(pageElements.sourceTitleText);
+    }
+
+    public void goBackToTicketListing() {
+        if (isVisible(pageElements.backButtonDetailPage)) {
+            click(pageElements.backButtonDetailPage);
+            waitTillLoaderGetsRemoved();
+        }
     }
 }

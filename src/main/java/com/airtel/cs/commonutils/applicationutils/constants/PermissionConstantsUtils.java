@@ -11,15 +11,15 @@ import java.io.InputStream;
 import java.util.Properties;
 import java.util.Scanner;
 
-public class CommonConstantsUtils extends Driver implements Cloneable {
-    private static CommonConstantsUtils commonConstants;
+public class PermissionConstantsUtils extends Driver implements Cloneable {
+    private static PermissionConstantsUtils commonConstants;
     private Properties prop;
     private static final String USER_DIR = "user.dir";
     private static final String FILE_NAME = "/resources/properties/commonconfig.properties";
 
     private static final String FILE_PATH = System.getProperty(USER_DIR) + FILE_NAME;
 
-    private CommonConstantsUtils() {
+    private PermissionConstantsUtils() {
         Scanner inFile;
         try {
             inFile = new Scanner(new FileReader(FILE_PATH));
@@ -37,9 +37,9 @@ public class CommonConstantsUtils extends Driver implements Cloneable {
         }
     }
 
-    public static CommonConstantsUtils getInstance() {
+    public static PermissionConstantsUtils getInstance() {
         if (commonConstants == null) {
-            commonConstants = new CommonConstantsUtils();
+            commonConstants = new PermissionConstantsUtils();
         }
         return commonConstants;
     }

@@ -216,13 +216,23 @@
         </classes>
     </test>
     <test name="Tariff Plan Test">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
         <classes>
-            <class name="com.airtel.cs.ui.tariffplan.TariffPlanMigrationTest"/>
+            <class name="com.airtel.cs.ui.frontendagent.tariffplan.TariffPlanMigrationTest"/>
         </classes>
     </test>
     <test name="SIM Bar Unbar Test">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
         <classes>
-            <class name="com.airtel.cs.ui.simbarunbar.SIMBarUnbarPermissionSeparationTest"/>
+            <class name="com.airtel.cs.ui.frontendagent.simbarunbar.SIMBarUnbarPermissionSeparationTest"/>
         </classes>
     </test>
 </suite>

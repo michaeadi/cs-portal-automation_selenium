@@ -33,8 +33,8 @@ public class AuthTabPage extends BasePage {
     }
 
     public String getAuthInstruction() {
-        UtilsMethods.printInfoLog("Reading auth instruction: " + readText(pageElements.authInstruction));
-        return readText(pageElements.authInstruction);
+        UtilsMethods.printInfoLog("Reading auth instruction: " + getText(pageElements.authInstruction));
+        return getText(pageElements.authInstruction);
     }
 
     public void clickNonAuthBtn() {
@@ -65,8 +65,8 @@ public class AuthTabPage extends BasePage {
         for (int i = 1; i <= list.size(); i++) {
             By question = By.xpath("//app-authentication-block-modal//div[1]//div[2]//div[1]//div[@class=\"main-container__body--left--wrapper ng-star-inserted\"][" + i + "]//span[1]");
             By answer = By.xpath("//app-authentication-block-modal//div[1]//div[2]//div[1]//div[@class=\"main-container__body--left--wrapper ng-star-inserted\"][" + i + "]//span[2]");
-            UtilsMethods.printInfoLog("Question: " + readText(question) + " :" + readText(answer));
-            questionList.put(readText(question).replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), readText(answer).trim());
+            UtilsMethods.printInfoLog("Question: " + getText(question) + " :" + getText(answer));
+            questionList.put(getText(question).replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), getText(answer).trim());
         }
         return questionList;
     }
@@ -101,7 +101,7 @@ public class AuthTabPage extends BasePage {
         List<WebElement> list = returnListOfElement(pageElements.options);
         List<String> reason = new ArrayList<>();
         for (int i = 1; i <= list.size(); i++) {
-            String text = readText(By.xpath("//mat-option[" + i + "]//span"));
+            String text = getText(By.xpath("//mat-option[" + i + "]//span"));
             UtilsMethods.printInfoLog("Reading Reason: " + text);
             reason.add(text.trim());
         }
@@ -109,13 +109,13 @@ public class AuthTabPage extends BasePage {
     }
 
     public void chooseReason() {
-        UtilsMethods.printInfoLog("Choosing Reason: " + readText(pageElements.code));
+        UtilsMethods.printInfoLog("Choosing Reason: " + getText(pageElements.code));
         click(pageElements.code);
     }
 
     public String getReason() {
-        UtilsMethods.printInfoLog("Choosing Reason: " + readText(pageElements.code));
-        return readText(pageElements.code);
+        UtilsMethods.printInfoLog("Choosing Reason: " + getText(pageElements.code));
+        return getText(pageElements.code);
     }
 
 

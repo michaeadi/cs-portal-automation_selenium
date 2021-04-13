@@ -4,14 +4,19 @@ package com.airtel.cs.commonutils.seleniumutils;
 import com.airtel.cs.commonutils.applicationutils.constants.ConstantsUtils;
 import com.airtel.cs.driver.Driver;
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 
 import java.time.Duration;
 import java.util.NoSuchElementException;
+import java.util.concurrent.TimeUnit;
 
 public class SeleniumCommonUtils extends Driver {
     public SeleniumCommonUtils() {
@@ -69,16 +74,94 @@ public class SeleniumCommonUtils extends Driver {
 
     public void waitForPageLoad() {
         try {
-            Wait<WebDriver> wait = new FluentWait(driver).withTimeout(Duration.ofSeconds(20))
+            FluentWait wait = new FluentWait(driver).withTimeout(Duration.ofSeconds(20))
                     .pollingEvery(Duration.ofSeconds(2)).ignoring(NoSuchElementException.class);
             wait.until(driver -> {
                 commonLib.info("Current Window State  : "
-                        + String.valueOf(((JavascriptExecutor) driver).executeScript("return document.readyState")));
+                        + ((JavascriptExecutor) driver).executeScript("return document.readyState"));
                 return String.valueOf(((JavascriptExecutor) driver).executeScript("return document.readyState"))
                         .equals("complete");
             });
         } catch (Exception e) {
             commonLib.warning("Exception in method - | waitForPageLoad | " + e.getMessage());
         }
+    }
+
+    /**
+     * This Method can be used to get the text of WebElement
+     *
+     * @param element The WebElement
+     * @return return
+     */
+    public String getText(WebElement element) {
+        String text = "";
+        try {
+            Wait<WebDriver> wait = getWaitObject(10);
+            element = wait.until(ExpectedConditions.visibilityOf(element));
+            if (element != null) {
+                text = element.getText().trim();
+            } else {
+                text = "BLANK" + "</br>" + ElementName + " - Element not visible. " + "</br>"
+                        + " Fail to Get Text by Method - [---- getText(By elementLocation, int time) ----]";
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+            commonLib.warning("Exception in method - | getText | " + "</br>" + "Exception Message - " + e.getMessage());
+        }
+        return text;
+    }
+
+    /**
+     * This Method will be used to check visibility of WeblEments
+     *
+     * @param webelementBy WebElement
+     * @param time         The Time in Seconds
+     * @return return
+     */
+    public boolean isVisible(By webelementBy, int time) {
+        try {
+            Wait<WebDriver> wait = getWaitObject(time);
+            WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(webelementBy));
+            return element != null;
+        } catch (Exception e) {
+            commonLib.error("Element is NOT visible");
+            return false;
+        }
+    }
+
+    /*
+    This Method will provide the fluent wait object
+     */
+    public Wait<WebDriver> getWaitObject(int maxWaitFor) {
+        FluentWait wait = null;
+        try {
+            wait = new FluentWait(driver).withTimeout(Duration.ofSeconds(maxWaitFor))
+                    .pollingEvery(Duration.ofMillis(200)).ignoring(NoSuchElementException.class);
+        } catch (Exception e) {
+            e.getStackTrace();
+            commonLib.warning(
+                    "Exception in method - | methodName | " + "</br>" + "Exception Message - " + e.getMessage());
+        }
+        return wait;
+    }
+
+    /*
+    This Method will click after scroll
+     */
+    public void clickElementAfterScroll(By element) {
+        new Actions(driver).moveToElement(getElementfromBy(element)).click().build().perform();
+    }
+
+    /**
+     * THIS METHOD WILL RETURN WEB ELEMENT FROM BY -
+     */
+    public WebElement getElementfromBy(By elementLocation) {
+        WebElement element = null;
+        try {
+            element = driver.findElement(elementLocation);
+        } catch (Exception e) {
+            commonLib.error("Not able to find out elements");
+        }
+        return element;
     }
 }

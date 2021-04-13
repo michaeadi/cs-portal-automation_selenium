@@ -27,8 +27,8 @@ public class BackendAgentLoginTest extends Driver {
     public void loggingIN(TestDatabean data) throws InterruptedException {
         ExtentTestManager.startTest("Backend Agent Login Into Portal", "Logging Into Portal with AUUID :  " + data.getLoginAUUID());
         SoftAssert softAssert = new SoftAssert();
-        pages.getLoginPage().openBaseURL(config.getProperty(Env + "-baseurl"));
-        softAssert.assertEquals(driver.getCurrentUrl(), config.getProperty(Env + "-baseurl"), "URl isn't as expected");
+        pages.getLoginPage().openBaseURL(config.getProperty(evnName + "-baseurl"));
+        softAssert.assertEquals(driver.getCurrentUrl(), config.getProperty(evnName + "-baseurl"), "URl isn't as expected");
         pages.getLoginPage().waitTillLoaderGetsRemoved();
         pages.getLoginPage().enterAUUID(data.getLoginAUUID());//*[@id="mat-input-7"]
         pages.getLoginPage().clickOnSubmitBtn();

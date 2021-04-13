@@ -44,7 +44,7 @@ public class widgetsOptionsTest extends Driver {
         pages.getSideMenu().clickOnName();
         pages.getSideMenu().openCustomerInteractionPage();
         pages.getSideMenu().waitTillLoaderGetsRemoved();
-        if (Env.equalsIgnoreCase("Prod")) {
+        if (evnName.equalsIgnoreCase("Prod")) {
             customerNumber = data.getProdCustomerNumber();
         } else {
             customerNumber = data.getCustomerNumber();

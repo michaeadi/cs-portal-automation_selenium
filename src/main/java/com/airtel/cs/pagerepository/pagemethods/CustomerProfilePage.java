@@ -6,6 +6,7 @@ import com.airtel.cs.pagerepository.pageelements.CustomerProfilePageElements;
 import com.airtel.cs.pojo.PlansPOJO;
 import com.airtel.cs.pojo.MainAccountBalance;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -26,8 +27,8 @@ public class CustomerProfilePage extends BasePage {
     }
 
     public String getFirstWidgetHeader() {
-        UtilsMethods.printInfoLog("Getting header of 1st Widget : " + readText(pageElements.firstWidgetHeader));
-        return readText(pageElements.firstWidgetHeader);
+        UtilsMethods.printInfoLog("Getting header of 1st Widget : " + getText(pageElements.firstWidgetHeader));
+        return getText(pageElements.firstWidgetHeader);
     }
 
     public Boolean isSendInternetSettingTitle() {
@@ -41,18 +42,18 @@ public class CustomerProfilePage extends BasePage {
     }
 
     public String getSecondWidgetHeader() {
-        UtilsMethods.printInfoLog("Getting header of 2nd Widget : " + readText(pageElements.secondWidgetHeader));
-        return readText(pageElements.secondWidgetHeader);
+        UtilsMethods.printInfoLog("Getting header of 2nd Widget : " + getText(pageElements.secondWidgetHeader));
+        return getText(pageElements.secondWidgetHeader);
     }
 
     public String getThirdWidgetHeader() {
-        UtilsMethods.printInfoLog("Getting header of 3rd Widget : " + readText(pageElements.thirdWidgetHeader));
-        return readText(pageElements.thirdWidgetHeader);
+        UtilsMethods.printInfoLog("Getting header of 3rd Widget : " + getText(pageElements.thirdWidgetHeader));
+        return getText(pageElements.thirdWidgetHeader);
     }
 
     public String getFourthWidgetHeader() {
-        UtilsMethods.printInfoLog("Getting header of 4th Widget : " + readText(pageElements.fourthWidgetHeader));
-        return readText(pageElements.fourthWidgetHeader);
+        UtilsMethods.printInfoLog("Getting header of 4th Widget : " + getText(pageElements.fourthWidgetHeader));
+        return getText(pageElements.fourthWidgetHeader);
     }
 
     public List<String> getPinnedTagTexts() {
@@ -61,9 +62,9 @@ public class CustomerProfilePage extends BasePage {
         log.info("Size: " + webElements.size());
         for (int i = 1; i <= webElements.size(); i++) {
             By tagName = By.xpath("//div[@class='sub-header__divide--control']//div[@class=\"sub-header__divide--control--tab ng-star-inserted\"][" + i + "]");
-            log.info("Text: " + readText(tagName).toLowerCase().trim());
-            UtilsMethods.printInfoLog("Reading pinned tag name: " + readText(tagName));
-            strings.add(readText(tagName).toLowerCase().trim());
+            log.info("Text: " + getText(tagName).toLowerCase().trim());
+            UtilsMethods.printInfoLog("Reading pinned tag name: " + getText(tagName));
+            strings.add(getText(tagName).toLowerCase().trim());
         }
         return strings;
     }
@@ -90,7 +91,7 @@ public class CustomerProfilePage extends BasePage {
     /*
     With this Method we will route to the View History tab adjacent to Home tab
      */
-    public void clickOnViewHistory() {
+    public void goToViewHistory() {
         click(pageElements.viewHistory);
         UtilsMethods.printInfoLog("Clicking on View History");
     }
@@ -151,7 +152,7 @@ public class CustomerProfilePage extends BasePage {
     }
 
     public AuthTabPage openAuthTab() {
-        UtilsMethods.printInfoLog("Opening Authentication tab for : " + readText(pageElements.simBarUnBar));
+        UtilsMethods.printInfoLog("Opening Authentication tab for : " + getText(pageElements.simBarUnBar));
         click(pageElements.simBarUnBar);
         return new AuthTabPage(driver);
     }
@@ -205,10 +206,15 @@ public class CustomerProfilePage extends BasePage {
      */
     public Boolean isSuspendSIMOptionVisible() {
         boolean result = false;
-        try {
-            result = elementVisibleWithExplictWait(pageElements.suspendSIM);
-        } catch (Exception e) {
-            log.error("Suspend SIM Option is not visible, Exception in Method -isSuspendSIMOptionVisible", e);
+        final String simStatus = pages.getDemoGraphicPage().getSIMStatus();
+        if (StringUtils.equalsIgnoreCase(simStatus, "Active")) {
+            try {
+                result = elementVisibleWithExplictWait(pageElements.suspendSIM);
+            } catch (Exception e) {
+                log.error("Suspend SIM Option is not visible, Exception in Method -isSuspendSIMOptionVisible", e);
+            }
+        } else {
+            commonLib.error("GSM SIM Status is NOT Active and is - " + simStatus);
         }
         return result;
     }
@@ -233,10 +239,15 @@ public class CustomerProfilePage extends BasePage {
      */
     public Boolean isReactivationSIMOptionVisible() {
         boolean result = false;
-        try {
-            result = elementVisibleWithExplictWait(pageElements.reactivationSIM);
-        } catch (Exception e) {
-            log.error("Reactivation SIM Option is not visible, Exception in Method -isReactivationSIMOptionVisible", e);
+        final String simStatus = pages.getDemoGraphicPage().getSIMStatus();
+        if (StringUtils.equalsIgnoreCase(simStatus, "Suspended")) {
+            try {
+                result = elementVisibleWithExplictWait(pageElements.reactivationSIM);
+            } catch (Exception e) {
+                log.error("Reactivation SIM Option is not visible, Exception in Method -isReactivationSIMOptionVisible", e);
+            }
+        } else {
+            commonLib.error("GSM SIM Status is NOT Suspended and is - " + simStatus);
         }
         return result;
     }
@@ -266,7 +277,7 @@ public class CustomerProfilePage extends BasePage {
     This Method will return last created interaction issue code from view history << interaction tab
      */
     public String goAndCheckFTRCreatedorNot() {
-        clickOnViewHistory();
+        goToViewHistory();
         ViewHistoryPage history = new ViewHistoryPage(driver);
         history.clickOnInteractionsTab();
         return history.getLastCreatedIssueCode();
@@ -348,6 +359,6 @@ public class CustomerProfilePage extends BasePage {
   This Method will provide us the text present over the Success or Failure modal
    */
     public String getModalText() {
-        return readText(pageElements.modalSuccessFailureMsg);
+        return getText(pageElements.modalSuccessFailureMsg);
     }
 }

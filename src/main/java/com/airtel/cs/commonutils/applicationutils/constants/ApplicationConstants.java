@@ -9,6 +9,7 @@ public class ApplicationConstants {
     public static final String TARIFF_PLAN_ISSUE_CODE = "cs.tariff.plan.issue.code";
     public static final String UM_LOGIN_URL = "um.login.url";
     public static final String RUN_TARIFF_TEST_CASE = "cs.run.tariff.plan.test.case";
+    public static final String WEB_BROWSER = "cs.application.browser";
 
     private ApplicationConstants() {
         throw new IllegalStateException();

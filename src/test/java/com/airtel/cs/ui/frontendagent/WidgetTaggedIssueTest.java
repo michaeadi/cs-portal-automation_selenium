@@ -63,7 +63,7 @@ public class WidgetTaggedIssueTest extends Driver {
                             pages.getWidgetInteraction().clickSubmitBtn();
                             pages.getWidgetInteraction().interactionTabClosed();
                             softAssert.assertTrue(pages.getCustomerProfilePage().isPageLoaded());
-                            pages.getCustomerProfilePage().clickOnViewHistory();
+                            pages.getCustomerProfilePage().goToViewHistory();
                             pages.getViewHistory().clickOnInteractionsTab();
                             String issueCode = pages.getViewHistory().getLastCreatedIssueCode();
                             softAssert.assertEquals(issueCode.toLowerCase().trim(), data.getCode(s).trim().toLowerCase());
@@ -125,7 +125,7 @@ public class WidgetTaggedIssueTest extends Driver {
                             pages.getWidgetInteraction().clickSubmitBtn();
                             pages.getWidgetInteraction().interactionTabClosed();
                             softAssert.assertTrue(pages.getCustomerProfilePage().isPageLoaded(), "Customer interaction page does not loaded correctly");
-                            pages.getCustomerProfilePage().clickOnViewHistory();
+                            pages.getCustomerProfilePage().goToViewHistory();
                             pages.getViewHistory().clickOnInteractionsTab();
                             String issueCode = pages.getViewHistory().getLastCreatedIssueCode();
                             softAssert.assertEquals(issueCode.toLowerCase().trim(), data.getCode(s).trim().toLowerCase(), "Issue code for category label " + s + " does not configured correctly.");
@@ -187,7 +187,7 @@ public class WidgetTaggedIssueTest extends Driver {
                             pages.getWidgetInteraction().clickSubmitBtn();
                             pages.getWidgetInteraction().interactionTabClosed();
                             softAssert.assertTrue(pages.getCustomerProfilePage().isPageLoaded(), "Customer Interaction Page does not load properly");
-                            pages.getCustomerProfilePage().clickOnViewHistory();
+                            pages.getCustomerProfilePage().goToViewHistory();
                             pages.getViewHistory().clickOnInteractionsTab();
                             String issueCode = pages.getViewHistory().getLastCreatedIssueCode();
                             softAssert.assertEquals(issueCode.toLowerCase().trim(), data.getCode(s).trim().toLowerCase(), "Issue code not as expected");
@@ -249,7 +249,7 @@ public class WidgetTaggedIssueTest extends Driver {
                             pages.getWidgetInteraction().clickSubmitBtn();
                             pages.getWidgetInteraction().interactionTabClosed();
                             softAssert.assertTrue(pages.getCustomerProfilePage().isPageLoaded());
-                            pages.getCustomerProfilePage().clickOnViewHistory();
+                            pages.getCustomerProfilePage().goToViewHistory();
                             pages.getViewHistory().clickOnInteractionsTab();
                             String issueCode = pages.getViewHistory().getLastCreatedIssueCode();
                             softAssert.assertEquals(issueCode.toLowerCase().trim(), data.getCode(s).trim().toLowerCase());
@@ -314,7 +314,7 @@ public class WidgetTaggedIssueTest extends Driver {
                                 pages.getWidgetInteraction().clickSubmitBtn();
                                 pages.getWidgetInteraction().interactionTabClosed();
                                 softAssert.assertTrue(pages.getCustomerProfilePage().isPageLoaded());
-                                pages.getCustomerProfilePage().clickOnViewHistory();
+                                pages.getCustomerProfilePage().goToViewHistory();
                                 pages.getViewHistory().clickOnInteractionsTab();
                                 String issueCode = pages.getViewHistory().getLastCreatedIssueCode();
                                 softAssert.assertEquals(issueCode.toLowerCase().trim(), data.getCode(s).trim().toLowerCase());

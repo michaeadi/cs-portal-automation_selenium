@@ -25,13 +25,13 @@ public class ServiceClassWidgetPage extends BasePage {
     }
 
     public String getHeaders(int row) {
-        String header = readText(By.xpath("//span[contains(text(),\"Service Profile\")]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"card__card-header--card-body--table--list-heading ng-star-inserted\"]//div[" + row + "]//span"));
+        String header = getText(By.xpath("//span[contains(text(),\"Service Profile\")]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"card__card-header--card-body--table--list-heading ng-star-inserted\"]//div[" + row + "]//span"));
         UtilsMethods.printInfoLog("Getting header Name at Row- " + row + " : " + header);
         return header;
     }
 
     public String getValueCorrespondingToAccumulator(int row, int column) {
-        String value = readText(By.xpath("//span[contains(text(),\"Service Profile\")]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]/div[@class=\"ng-star-inserted\"  or @class=\"slide-toggle red ng-star-inserted\"][" + row + "]//div[@class=\"ng-star-inserted\" or @class=\"slide-toggle red ng-star-inserted\"][" + column + "]//span"));
+        String value = getText(By.xpath("//span[contains(text(),\"Service Profile\")]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]/div[@class=\"ng-star-inserted\"  or @class=\"slide-toggle red ng-star-inserted\"][" + row + "]//div[@class=\"ng-star-inserted\" or @class=\"slide-toggle red ng-star-inserted\"][" + column + "]//span"));
         UtilsMethods.printInfoLog("Reading '" + getHeaders(column) + "' = " + value);
         return value.trim();
     }
@@ -47,8 +47,8 @@ public class ServiceClassWidgetPage extends BasePage {
     }
 
     public String gettingServiceProfileNoResultFoundMessage() {
-        UtilsMethods.printInfoLog("Validating error message when there is no data from com.airtel.cs.API : " + readText(pageElements.serviceProfileNoResultFoundMessage));
-        return readText(pageElements.serviceProfileNoResultFoundMessage);
+        UtilsMethods.printInfoLog("Validating error message when there is no data from com.airtel.cs.API : " + getText(pageElements.serviceProfileNoResultFoundMessage));
+        return getText(pageElements.serviceProfileNoResultFoundMessage);
     }
 
     public boolean isServiceProfileNoResultFoundVisible() {

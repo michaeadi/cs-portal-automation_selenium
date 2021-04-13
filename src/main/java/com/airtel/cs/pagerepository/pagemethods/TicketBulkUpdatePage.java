@@ -37,18 +37,18 @@ public class TicketBulkUpdatePage extends BasePage {
     }
 
     public String getTransferToQueueOption() {
-        UtilsMethods.printInfoLog("Option: " + readText(pageElements.transferToQueue));
-        return readText(pageElements.transferToQueue).trim();
+        UtilsMethods.printInfoLog("Option: " + getText(pageElements.transferToQueue));
+        return getText(pageElements.transferToQueue).trim();
     }
 
     public String getChangeStateOption() {
-        UtilsMethods.printInfoLog("Option: " + readText(pageElements.changeState));
-        return readText(pageElements.changeState).trim();
+        UtilsMethods.printInfoLog("Option: " + getText(pageElements.changeState));
+        return getText(pageElements.changeState).trim();
     }
 
     public String getTicketCommentOption() {
-        UtilsMethods.printInfoLog("Option: " + readText(pageElements.ticketComment));
-        return readText(pageElements.ticketComment).trim();
+        UtilsMethods.printInfoLog("Option: " + getText(pageElements.ticketComment));
+        return getText(pageElements.ticketComment).trim();
     }
 
     public void clickNextBtn() {
@@ -103,13 +103,13 @@ public class TicketBulkUpdatePage extends BasePage {
     }
 
     public String getErrorMessage() {
-        UtilsMethods.printInfoLog("Reading Error Message: " + readText(pageElements.errorMessage).trim());
-        return readText(pageElements.errorMessage).trim();
+        UtilsMethods.printInfoLog("Reading Error Message: " + getText(pageElements.errorMessage).trim());
+        return getText(pageElements.errorMessage).trim();
     }
 
     public String getMaxSelectMessage() {
-        UtilsMethods.printInfoLog("Reading Max select Message: " + readText(pageElements.maxSelectMessage).trim());
-        return readText(pageElements.maxSelectMessage).trim();
+        UtilsMethods.printInfoLog("Reading Max select Message: " + getText(pageElements.maxSelectMessage).trim());
+        return getText(pageElements.maxSelectMessage).trim();
     }
 
     public FilterTabPage clickSelectFilter() {
@@ -145,7 +145,7 @@ public class TicketBulkUpdatePage extends BasePage {
         List<WebElement> list = returnListOfElement(pageElements.ticketList);
         for (int i = 1; i <= list.size(); i++) {
             By ticketNumber = By.xpath("//div[@class=\"container-fluid table-card ng-star-inserted\"][" + i + "]//ul[1]//li[1]//span[2]");
-            tickets.add(readText(ticketNumber));
+            tickets.add(getText(ticketNumber));
         }
         return tickets;
     }
@@ -157,7 +157,7 @@ public class TicketBulkUpdatePage extends BasePage {
         List<WebElement> list = returnListOfElement(pageElements.options);
         for (int i = 1; i <= list.size(); i++) {
             By queue = By.xpath("//mat-option[" + i + "]//span");
-            queues.add(readText(queue).trim().toLowerCase());
+            queues.add(getText(queue).trim().toLowerCase());
         }
         clickOutside();
         clickTransferToQueueOption();
@@ -171,7 +171,7 @@ public class TicketBulkUpdatePage extends BasePage {
         List<WebElement> list = returnListOfElement(pageElements.options);
         for (int i = 1; i <= list.size(); i++) {
             By state = By.xpath("//mat-option[" + i + "]//span");
-            states.add(readText(state).trim().toLowerCase());
+            states.add(getText(state).trim().toLowerCase());
         }
         clickOutside();
         clickTicketStateOption();
@@ -209,8 +209,8 @@ public class TicketBulkUpdatePage extends BasePage {
     }
 
     public String getUpdatedMessage() {
-        UtilsMethods.printInfoLog("Message After Ticket Action Performed: " + readText(pageElements.updateMessage));
-        return readText(pageElements.updateMessage);
+        UtilsMethods.printInfoLog("Message After Ticket Action Performed: " + getText(pageElements.updateMessage));
+        return getText(pageElements.updateMessage);
     }
 
     public Integer getSuccessCount() {
@@ -225,7 +225,7 @@ public class TicketBulkUpdatePage extends BasePage {
 
     public int getErrorTicketCount() {
         if (Integer.parseInt(getErrorCount()) > 0) {
-            String text = readText(pageElements.errorTicketMessage).trim().replaceAll("^[0-9]", "");
+            String text = getText(pageElements.errorTicketMessage).trim().replaceAll("^[0-9]", "");
             return Integer.parseInt(text);
         }
         return 0;

@@ -25,8 +25,8 @@ public class WidgetInteractionPage extends BasePage {
     }
 
     public String getTabTitle() {
-        UtilsMethods.printInfoLog("Reading Interaction Tab title: " + readText(pageElements.heading));
-        return readText(pageElements.heading);
+        UtilsMethods.printInfoLog("Reading Interaction Tab title: " + getText(pageElements.heading));
+        return getText(pageElements.heading);
     }
 
     public boolean checkNoInteractionTag() {
@@ -50,8 +50,8 @@ public class WidgetInteractionPage extends BasePage {
         List<String> issueList = new ArrayList<>();
         for (int i = 1; i <= list.size(); i++) {
             By issueLabel = By.xpath("//div[@class=\"bottom-drawer__card-body--intraction-list ng-star-inserted\"][" + i + "]//label");
-            log.info("Reading Issue label: " + readText(issueLabel));
-            issueList.add(readText(issueLabel));
+            log.info("Reading Issue label: " + getText(issueLabel));
+            issueList.add(getText(issueLabel));
         }
         return issueList;
     }

@@ -41,8 +41,8 @@ public class FrontendAgentTicketTest extends Driver {
     public void validateTicket() throws InterruptedException {
         ExtentTestManager.startTest("Validate Ticket Meta Data for Frontend Agent", "Validate Ticket Meta Data for Frontend Agent ");
         SoftAssert softAssert = new SoftAssert();
-        pages.getCustomerProfilePage().clickOnViewHistory();
-        pages.getViewHistory().clickOnTicketHistory();
+        pages.getCustomerProfilePage().goToViewHistory();
+        pages.getViewHistory().goToTicketHistoryTab();
         pages.getFrontendTicketHistoryPage().waitTillLoaderGetsRemoved();
         String ticketId = pages.getFrontendTicketHistoryPage().getTicketId(1);
         pages.getFrontendTicketHistoryPage().writeTicketId(ticketId);
@@ -61,8 +61,8 @@ public class FrontendAgentTicketTest extends Driver {
     public void validateAddToInteraction() {
         ExtentTestManager.startTest("Validate Add to Interaction Icon on Each Ticket", "Validate Add to Interaction Icon on Each Ticket");
         SoftAssert softAssert = new SoftAssert();
-        pages.getCustomerProfilePage().clickOnViewHistory();
-        pages.getViewHistory().clickOnTicketHistory();
+        pages.getCustomerProfilePage().goToViewHistory();
+        pages.getViewHistory().goToTicketHistoryTab();
         pages.getFrontendTicketHistoryPage().waitTillLoaderGetsRemoved();
         softAssert.assertTrue(pages.getFrontendTicketHistoryPage().validateAddToInteractionIcon(), "Add to interaction Icon does not found on ticket");
         softAssert.assertAll();
@@ -72,7 +72,7 @@ public class FrontendAgentTicketTest extends Driver {
     public void validateNFTRIssue() {
         ExtentTestManager.startTest("Validate NFTR issue have ticket icon", "Validate NFTR issue have ticket icon");
         SoftAssert softAssert = new SoftAssert();
-        pages.getCustomerProfilePage().clickOnViewHistory();
+        pages.getCustomerProfilePage().goToViewHistory();
         pages.getViewHistory().clickOnInteractionsTab();
         pages.getViewHistory().waitTillLoaderGetsRemoved();
         Assert.assertTrue(pages.getViewHistory().clickOnTicketIcon(), "No NFTR issue found in interaction history tab");

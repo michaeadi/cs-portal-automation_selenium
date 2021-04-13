@@ -1,31 +1,37 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
 import com.airtel.cs.api.APIEndPoints;
+import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.enums.ReportInfoMessageColorList;
 import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
-import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pagerepository.pageelements.AirtelByWrapper;
 import com.airtel.cs.pagerepository.pageelements.BasePageElements;
 import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
+import org.openqa.selenium.By;
+import org.openqa.selenium.ElementClickInterceptedException;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.*;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
-import org.openqa.selenium.support.ui.*;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 @Log4j2
 public class BasePage extends Driver {
-    public static Properties config = Driver.config;
-    public WebDriver driver;
     public Wait<WebDriver> wait;
     public Wait<WebDriver> wait1;
     public JavascriptExecutor js;
@@ -89,28 +95,25 @@ public class BasePage extends Driver {
         waitVisibility(elementLocation);
         highLighterMethod(elementLocation);
         driver.findElement(elementLocation).sendKeys(text);
-        log.info("Writing " + text + "to  " + elementLocation.toString());
-
+        log.info("Writing " + text + " to  " + elementLocation.toString());
     }
 
     //Read Text
-    public String readText(By elementLocation) {
+    public String getText(By elementLocation) {
         waitVisibility(elementLocation);
-        //highLighterMethod(elementLocation);
         return driver.findElement(elementLocation).getText();
     }
 
     //HighlightElement
     public void highLighterMethod(By element) {
         waitTillLoaderGetsRemoved();
-        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].setAttribute('style', 'border: 2px solid black;');", driver.findElement(element));
     }
 
     //Check the state of element
     public boolean checkState(By elementLocation) {
         try {
-            // waitVisibility(elementLocation);
             highLighterMethod(elementLocation);
             return driver.findElement(elementLocation).isEnabled();
         } catch (NoSuchElementException | TimeoutException e) {
@@ -149,7 +152,7 @@ public class BasePage extends Driver {
     }
 
     public String getToastMessage() {
-        String message = readText(basePageElements.toastMessage);
+        String message = getText(basePageElements.toastMessage);
         UtilsMethods.printInfoLog(message);
         return message;
     }
@@ -529,4 +532,6 @@ public class BasePage extends Driver {
             return false;
         }
     }
+
+
 }

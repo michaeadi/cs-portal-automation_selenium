@@ -26,20 +26,20 @@ public class RechargeHistoryWidgetPage extends BasePage {
     }
 
     public String getHeaders(int row) {
-        String header = readText(By.xpath("//div[@id='RECHARGE_HISTORY']//div[@class=\"card__card-header--card-body--table--list-heading ng-star-inserted\"]/div[" + row + "]/span[1]"));
+        String header = getText(By.xpath("//div[@id='RECHARGE_HISTORY']//div[@class=\"card__card-header--card-body--table--list-heading ng-star-inserted\"]/div[" + row + "]/span[1]"));
         UtilsMethods.printInfoLog("Getting header Number " + row + " : " + header);
         return header;
     }
 
     public String getSubHeaders(int row) {
-        String header = readText(By.xpath("//div[@id='RECHARGE_HISTORY']//div[@class=\"card__card-header--card-body--table--list-heading ng-star-inserted\"]/div[" + row + "]/span[2]"));
+        String header = getText(By.xpath("//div[@id='RECHARGE_HISTORY']//div[@class=\"card__card-header--card-body--table--list-heading ng-star-inserted\"]/div[" + row + "]/span[2]"));
         UtilsMethods.printInfoLog("Getting Sub Header Number " + row + " : " + header);
         return header;
     }
 
     public String gettingRechargeHistoryNoResultFoundMessage() {
-        UtilsMethods.printInfoLog("Validating error message when there is no data from com.airtel.cs.API : " + readText(pageElements.rechargeHistoryNoResultFoundMessage));
-        return readText(pageElements.rechargeHistoryNoResultFoundMessage);
+        UtilsMethods.printInfoLog("Validating error message when there is no data from com.airtel.cs.API : " + getText(pageElements.rechargeHistoryNoResultFoundMessage));
+        return getText(pageElements.rechargeHistoryNoResultFoundMessage);
     }
 
     public boolean isRechargeHistoryNoResultFoundVisible() {
@@ -75,32 +75,32 @@ public class RechargeHistoryWidgetPage extends BasePage {
 
     public String getRechargeHistoryCharges(int rowNumber) {
         By charges = By.xpath("//div[@id='RECHARGE_HISTORY']//parent::div//following-sibling::div[@class=\"card__content restricted ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]//div[@class=\"ng-star-inserted\"][" + rowNumber + "]//div[@class=\"ng-star-inserted\" or @class=\"slide-toggle red ng-star-inserted\"][1]//span");
-        UtilsMethods.printInfoLog("Getting Recharge History Charges from Row Number " + rowNumber + " : " + readText(charges));
-        return readText(charges);
+        UtilsMethods.printInfoLog("Getting Recharge History Charges from Row Number " + rowNumber + " : " + getText(charges));
+        return getText(charges);
     }
 
     public String getRechargeHistoryDateTime(int rowNumber) {
         By date = By.xpath("//div[@id='RECHARGE_HISTORY']//parent::div//following-sibling::div[@class=\"card__content restricted ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]//div[@class=\"ng-star-inserted\"][" + rowNumber + "]//div[@class=\"ng-star-inserted\" or @class=\"slide-toggle red ng-star-inserted\"][2]//span[1]");
-        UtilsMethods.printInfoLog("Getting Recharge History Date & Time from Row Number " + rowNumber + " : " + readText(date));
-        return readText(date);
+        UtilsMethods.printInfoLog("Getting Recharge History Date & Time from Row Number " + rowNumber + " : " + getText(date));
+        return getText(date);
     }
 
     public String getRechargeHistoryBundleName(int rowNumber) {
         By bundleName = By.xpath("//div[@id='RECHARGE_HISTORY']//parent::div//following-sibling::div[@class=\"card__content restricted ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]//div[@class=\"ng-star-inserted\"][" + rowNumber + "]//div[@class=\"ng-star-inserted\" or @class=\"slide-toggle red ng-star-inserted\"][3]//span");
-        UtilsMethods.printInfoLog("Getting Recharge History Bundle Name from Row Number " + rowNumber + " : " + readText(bundleName));
-        return readText(bundleName);
+        UtilsMethods.printInfoLog("Getting Recharge History Bundle Name from Row Number " + rowNumber + " : " + getText(bundleName));
+        return getText(bundleName);
     }
 
     public String getRechargeHistoryBenefits(int rowNumber) {
         By benefits = By.xpath("//div[@id='RECHARGE_HISTORY']//parent::div//following-sibling::div[@class=\"card__content restricted ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]//div[@class=\"ng-star-inserted\"][" + rowNumber + "]//div[@class=\"ng-star-inserted\" or @class=\"slide-toggle red ng-star-inserted\"][4]//span");
-        UtilsMethods.printInfoLog("Getting Recharge History Benefits from Row Number " + rowNumber + " : " + readText(benefits));
-        return readText(benefits);
+        UtilsMethods.printInfoLog("Getting Recharge History Benefits from Row Number " + rowNumber + " : " + getText(benefits));
+        return getText(benefits);
     }
 
     public String getRechargeHistoryStatus(int rowNumber) {
         By status = By.xpath("//div[@id='RECHARGE_HISTORY']//parent::div//following-sibling::div[@class=\"card__content restricted ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]//div[@class=\"ng-star-inserted\"][" + rowNumber + "]//div[@class=\"ng-star-inserted\" or @class=\"slide-toggle red ng-star-inserted\"][5]//span");
-        UtilsMethods.printInfoLog("Getting Recharge History Status from Row Number " + rowNumber + " : " + readText(status));
-        return readText(status);
+        UtilsMethods.printInfoLog("Getting Recharge History Status from Row Number " + rowNumber + " : " + getText(status));
+        return getText(status);
     }
 
     public boolean isRechargeHistoryWidgetIsVisible() {
@@ -125,8 +125,8 @@ public class RechargeHistoryWidgetPage extends BasePage {
     }
 
     public String getWidgetTitle() {
-        log.info("Getting Widget title: " + readText(pageElements.getTitle));
-        return readText(pageElements.getTitle).toLowerCase();
+        log.info("Getting Widget title: " + getText(pageElements.getTitle));
+        return getText(pageElements.getTitle).toLowerCase();
     }
 
     public void writeVoucherId(String id) throws InterruptedException {
@@ -156,7 +156,7 @@ public class RechargeHistoryWidgetPage extends BasePage {
     }
 
     public boolean checkPopDisplay() {
-        UtilsMethods.printInfoLog("Reading Pop up title: " + readText(pageElements.popUpMessage));
+        UtilsMethods.printInfoLog("Reading Pop up title: " + getText(pageElements.popUpMessage));
         return checkState(pageElements.popUpMessage);
     }
 

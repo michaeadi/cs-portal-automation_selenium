@@ -108,7 +108,7 @@ public class TemplateManagementPage extends BasePage {
         List<WebElement> list = returnListOfElement(pageElements.allCategoryList);
         for (int i = 1; i <= list.size(); i++) {
             By categoryName = By.xpath("//div[@class='sms-managment__card-list--card--content-area--content ng-star-inserted']//div[@class=\"sms-managment__card-list--card--content-area--content--sms-card ng-star-inserted\"][" + i + "]//h6");
-            String name = readText(categoryName);
+            String name = getText(categoryName);
             log.info("Reading Category Name: " + name);
             if (name.trim().equalsIgnoreCase(text)) {
                 ExtentTestManager.getTest().log(LogStatus.PASS, "Recent Added Template Category found with name :" + text);

@@ -52,13 +52,13 @@ public class DetailedUsageHistoryPage extends BasePage {
 
     public String getHeaders(int column) {
         By header = By.xpath(pageElements.headerRow + column + pageElements.columnText);
-        UtilsMethods.printInfoLog("Reading Header at POS(" + column + "): " + readText(header));
-        return readText(header);
+        UtilsMethods.printInfoLog("Reading Header at POS(" + column + "): " + getText(header));
+        return getText(header);
     }
     public String getValueCorrespondingToHeader(int row, int column) {
         By value = By.xpath(pageElements.columnRow + row + pageElements.columnValue + column + pageElements.columnText);
-        UtilsMethods.printInfoLog("Reading value for Header name '" + getHeaders(column) + "' is: " + readText(value));
-        return readText(value);
+        UtilsMethods.printInfoLog("Reading value for Header name '" + getHeaders(column) + "' is: " + getText(value));
+        return getText(value);
     }
     public Boolean checkSignDisplay(int row) {
         By value = By.xpath(pageElements.columnRow + row + pageElements.checkSign);

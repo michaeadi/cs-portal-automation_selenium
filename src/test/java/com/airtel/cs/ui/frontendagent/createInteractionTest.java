@@ -130,15 +130,15 @@ public class createInteractionTest extends Driver {
         LoginPOJO req = LoginPOJO.loginBody(PassUtils.decodePassword(data.getPassword()), data.getLoginAUUID());
 
         map.clear();
-        UtilsMethods.addHeaders("x-app-name", config.getProperty(Env + "-x-app-name"));
-        UtilsMethods.addHeaders("x-service-id", config.getProperty(Env + "-x-service-id"));
+        UtilsMethods.addHeaders("x-app-name", config.getProperty(evnName + "-x-app-name"));
+        UtilsMethods.addHeaders("x-service-id", config.getProperty(evnName + "-x-service-id"));
         //map.add(new Header("x-bsy-bn", config.getProperty(Env + "-x-bsy-bn"))); //Comment this line this header removed from MG Opco.
-        UtilsMethods.addHeaders("x-app-type", config.getProperty(Env + "-x-app-type"));
-        UtilsMethods.addHeaders("x-client-id", config.getProperty(Env + "-x-client-id"));
-        UtilsMethods.addHeaders("x-api-key", config.getProperty(Env + "-x-api-key"));
-        UtilsMethods.addHeaders("x-login-module", config.getProperty(Env + "-x-login-module"));
-        UtilsMethods.addHeaders("x-channel", config.getProperty(Env + "-x-channel"));
-        UtilsMethods.addHeaders("x-app-version", config.getProperty(Env + "-x-app-version"));
+        UtilsMethods.addHeaders("x-app-type", config.getProperty(evnName + "-x-app-type"));
+        UtilsMethods.addHeaders("x-client-id", config.getProperty(evnName + "-x-client-id"));
+        UtilsMethods.addHeaders("x-api-key", config.getProperty(evnName + "-x-api-key"));
+        UtilsMethods.addHeaders("x-login-module", config.getProperty(evnName + "-x-login-module"));
+        UtilsMethods.addHeaders("x-channel", config.getProperty(evnName + "-x-channel"));
+        UtilsMethods.addHeaders("x-app-version", config.getProperty(evnName + "-x-app-version"));
         UtilsMethods.addHeaders("Opco", OPCO);
 
         String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(req);
@@ -391,7 +391,7 @@ public class createInteractionTest extends Driver {
                 File excelDir = new File("Excels");
                 File excel = new File(excelDir, excelPath);
                 log.info("Ticket Number:You " + data.getRowNum());
-                objExcelFile.writeTicketNumber(excel.getAbsolutePath(), config.getProperty(suiteType + "-NftrSheet"), valueToWrite, data.getRowNum());
+                objExcelFile.writeTicketNumber(excel.getAbsolutePath(), config.getProperty(SUITE_TYPE + "-NftrSheet"), valueToWrite, data.getRowNum());
                 log.info("Ticket Number Written to Excel " + valueToWrite[0]);
             } else {
                 softAssert.fail("It's FTR not NFTR");

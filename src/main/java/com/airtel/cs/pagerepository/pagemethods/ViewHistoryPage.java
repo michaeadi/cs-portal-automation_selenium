@@ -30,12 +30,12 @@ public class ViewHistoryPage extends BasePage {
     This Method will give you the row(Row May be interaction,issue or message count under view history) count
      */
     public Integer getRowCount() {
-        final String paginationNumber = readText(pageElements.paginationDetails);
+        final String paginationNumber = getText(pageElements.paginationDetails);
         final int length = paginationNumber.substring(0, paginationNumber.lastIndexOf(" ")).length();
         return Integer.parseInt(paginationNumber.substring(0, paginationNumber.lastIndexOf(" ")).substring(10, length));
     }
 
-    public FrontendTicketHistoryPage clickOnTicketHistory() {
+    public FrontendTicketHistoryPage goToTicketHistoryTab() {
         log.info("Clicking on Ticket History Tab under view history ");
         waitTillLoaderGetsRemoved();
         click(pageElements.ticketHistory);
@@ -59,7 +59,7 @@ public class ViewHistoryPage extends BasePage {
     public String getLastCreatedIssueCode() {
         UtilsMethods.printInfoLog("Getting the issue code of last created FTR interaction ");
         waitTillLoaderGetsRemoved();
-        return readText(pageElements.firstIssueCode);
+        return getText(pageElements.firstIssueCode);
     }
 
     public String ftrIssueValue(int index) {
@@ -114,9 +114,23 @@ public class ViewHistoryPage extends BasePage {
     /*
     This Method will route you to Action Trail Tab when You are under View History Tab
      */
-    public void goToActionTrail() {
+    public void goToActionTrailTab() {
         if (isVisible(pageElements.actionTrailTab)) {
             click(pageElements.actionTrailTab);
         }
+    }
+
+    /*
+    This Method will check Source Title is visible or not under NFTR details page
+     */
+    public Boolean isSourceAppVisible() {
+        return isVisible(pageElements.sourceApp);
+    }
+
+    /*
+    This Method will give us the value of Source App for a NFTR ticket under NFTR detail page
+     */
+    public String getSourceText() {
+        return getText(pageElements.sourceAppValue);
     }
 }

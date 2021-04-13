@@ -76,37 +76,37 @@ public class CRBTWidgetPage extends BasePage {
     }
 
     public String getOption1() {
-        UtilsMethods.printInfoLog("Reading option1: " + readText(pageElements.option1));
-        return readText(pageElements.option1);
+        UtilsMethods.printInfoLog("Reading option1: " + getText(pageElements.option1));
+        return getText(pageElements.option1);
     }
 
     public String getOption2() {
-        UtilsMethods.printInfoLog("Reading option2: " + readText(pageElements.option2));
-        return readText(pageElements.option2);
+        UtilsMethods.printInfoLog("Reading option2: " + getText(pageElements.option2));
+        return getText(pageElements.option2);
     }
 
     public String getTop20Header(int i) {
         By text = By.xpath("//div[@id='RING_BACK_TUNE']//div[@class=\"mat-tab-body-wrapper\"]//div[@class=\"card__card-header--card-body--table--list-heading ng-star-inserted\"]/div[" + i + "]/span");
-        UtilsMethods.printInfoLog("Reading Header Name at POS(" + i + "): " + readText(text));
-        return readText(text).trim();
+        UtilsMethods.printInfoLog("Reading Header Name at POS(" + i + "): " + getText(text));
+        return getText(text).trim();
     }
 
     public String getValueTop20(int row, int column) {
         By value = By.xpath("//div[@id='RING_BACK_TUNE']//div[@class=\"mat-tab-body-wrapper\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]//div[" + row + "]//div[@class=\"card__card-header--card-body--table--data-list row-border\"]//div[" + column + "]/span");
-        UtilsMethods.printInfoLog("Reading value for '" + getTop20Header(column) + "': " + readText(value));
-        return readText(value).trim();
+        UtilsMethods.printInfoLog("Reading value for '" + getTop20Header(column) + "': " + getText(value));
+        return getText(value).trim();
     }
 
     public String getSearchHeader(int i) {
         By text = By.xpath("//div[@id='RING_BACK_TUNE']//div[@class=\"mat-tab-body-wrapper\"]//div[@class=\"card__card-header--card-body--table\"]//div[@class=\"card__card-header--card-body--table--list-heading ng-star-inserted\"]//div[" + i + "]/span");
-        UtilsMethods.printInfoLog("Reading Header Name at POS(" + i + "): " + readText(text));
-        return readText(text).trim();
+        UtilsMethods.printInfoLog("Reading Header Name at POS(" + i + "): " + getText(text));
+        return getText(text).trim();
     }
 
     public String getValueSearch(int row, int column) {
         By value = By.xpath("//div[@id='RING_BACK_TUNE']//div[@class=\"mat-tab-body-wrapper\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]//div[" + row + "]//div[@class=\"card__card-header--card-body--table--data-list row-border\"]//div[" + column + "]/span");
-        UtilsMethods.printInfoLog("Reading value for '" + getSearchHeader(column) + "': " + readText(value));
-        return readText(value).trim();
+        UtilsMethods.printInfoLog("Reading value for '" + getSearchHeader(column) + "': " + getText(value));
+        return getText(value).trim();
     }
 
     public void clickTop20Tab() {
