@@ -1,7 +1,6 @@
 package com.airtel.cs.driver;
 
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
-import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstantsUtils;
 import com.airtel.cs.commonutils.applicationutils.constants.ConstantsUtils;
 import com.airtel.cs.commonutils.commonlib.CommonLib;
 import com.airtel.cs.commonutils.extentreports.ExtentReport;
@@ -64,7 +63,6 @@ public class Driver {
     public static ExtentTest test;
     public static ExtentReports extent;
     public static ConstantsUtils constants = ConstantsUtils.getInstance();
-    public static PermissionConstantsUtils commonConstants = PermissionConstantsUtils.getInstance();
     public static Recordset recordset = null;
     public static boolean continueExecutionAPI = true;
     public static boolean continueExecutionBA = true;
