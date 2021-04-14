@@ -17,10 +17,12 @@ public class ConstantsUtils extends Driver implements Cloneable {
     private static ConstantsUtils constants;
     private final Properties prop;
     private static final String USER_DIR = "user.dir";
-    private static final String FILE_NAME = "/resources/properties/commonconfig.properties";
+    private static final String COMMON_CONFIG_FILE_NAME = "commonconfig.properties";
+    private static final String RESOURCES_PROPERTIES = "/resources/properties/";
+    private static final String OPCO_CONFIG_FILE_NAME = System.getProperty("Opco") + "-config.properties";
 
-    private static final String OPCO_FILE_PATH = System.getProperty(USER_DIR) + "/resources/properties/" + System.getProperty("Opco") + "-config.properties";
-    private static final String PERMISSION_FILE_PATH = System.getProperty(USER_DIR) + FILE_NAME;
+    private static final String OPCO_FILE_PATH = System.getProperty(USER_DIR) + RESOURCES_PROPERTIES + OPCO_CONFIG_FILE_NAME;
+    private static final String PERMISSION_FILE_PATH = System.getProperty(USER_DIR) + RESOURCES_PROPERTIES + COMMON_CONFIG_FILE_NAME;
 
     List<String> fileList = Arrays.asList(OPCO_FILE_PATH, PERMISSION_FILE_PATH);
 
