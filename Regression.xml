@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Automation Framework CS PORTAl Test Suite" preserve-order="true" allow-return-values="true">
     <listeners>
-        <listener class-name="com.airtel.cs.commonutils.listeners.TestListener"/>
+        <listener class-name="com.airtel.cs.commonutils.listeners.TestListenerMethod"/>
         <!--        <listener class-name="com.airtel.cs.commonutils.listeners.AnnotationTransformer"/>-->
     </listeners>
     <test name="Regression com.airtel.cs.api Login">
@@ -244,6 +244,16 @@
         </groups>
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.simbarunbar.SIMBarUnbarPermissionSeparationTest"/>
+        </classes>
+    </test>
+    <test name="Source App Test">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.backendSupervisor.ticketsourceapp.TicketSourceAppTest"/>
         </classes>
     </test>
 </suite>

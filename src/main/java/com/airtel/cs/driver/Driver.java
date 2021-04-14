@@ -41,8 +41,8 @@ public class Driver {
     private static final String USER_DIR = "user.dir";
     public static final String OPCO = System.getProperty("Opco").toUpperCase();
     public static WebDriver driver;
-    public static WebDriver default_Driver = null;
-    public static WebDriver temp_Driver = null;
+    public static WebDriver defaultDriver = null;
+    public static WebDriver tempDriver = null;
     public static String loginURL = null;
     public static String parentWindowHandle;
     public static String tempWindowHandle;
@@ -54,7 +54,7 @@ public class Driver {
     public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss.SSSZ";
     public static String excelPath;
     public static List<Header> map = new ArrayList<>();
-    public static String Token;
+    public static String token;
     public static String baseUrl;
     public static String umBaseUrl;
     public static StringBuilder assertCheck;
@@ -70,11 +70,10 @@ public class Driver {
     public static boolean continueExecutionBA = true;
     public static boolean continueExecutionBS = true;
     public static boolean continueExecutionFA = true;
-    public static String ElementName = ""; // FOR PASSING ELEMENT NAMES TO LOGS
-    public static String Message = null;
-    public static String token = null;
-    public static String RUN_TARIFF_TEST_CASE = constants.getValue(ApplicationConstants.RUN_TARIFF_TEST_CASE);
-    public static final String HTMLFILE_PATH = System.getProperty(USER_DIR) + "/resources/htmlreport/" + OPCO + "-" + evnName + PATH_DELIMITER;
+    public static String elementName = ""; // FOR PASSING ELEMENT NAMES TO LOGS
+    public static String message = null;
+    public static final String RUN_TARIFF_TEST_CASE = constants.getValue(ApplicationConstants.RUN_TARIFF_TEST_CASE);
+    public static final String HTML_FILE_PATH = System.getProperty(USER_DIR) + "/resources/htmlreport/" + OPCO + "-" + evnName + PATH_DELIMITER;
     public static final String SUITE_TYPE = System.getProperty("suiteType");
     public static final String EXTENT_REPORT_CONFIG_FILE_LOCATION = System.getProperty(USER_DIR)
             + "/resources/properties/reportextent-config.xml";
@@ -135,10 +134,7 @@ public class Driver {
         try {
             commonLib.info("OPENING URL -" + url);
             driver.get(url);
-            try {
-                driver.switchTo().alert().accept();
-            } catch (Exception e) {
-            }
+            driver.switchTo().alert().accept();
             selUtils.waitForPageLoad();
         } catch (Exception e) {
             e.getStackTrace();
@@ -155,8 +151,8 @@ public class Driver {
             } else if (currentClassName.toLowerCase().contains("ui")) {
                 reportTitle = "_CSPortalScenarios_";
             }
-            String modifiedHtmlfilePath = null;
-            modifiedHtmlfilePath = HTMLFILE_PATH + SUITE_TYPE + reportTitle + dateTime.toString(DATE_FORMAT) + ".html";
+            String modifiedHtmlfilePath;
+            modifiedHtmlfilePath = HTML_FILE_PATH + SUITE_TYPE + reportTitle + dateTime.toString(DATE_FORMAT) + ".html";
             browser = constants.getValue(ApplicationConstants.WEB_BROWSER);
             extent = new ExtentReports(modifiedHtmlfilePath);
             extent.loadConfig(new File(EXTENT_REPORT_CONFIG_FILE_LOCATION));
@@ -171,7 +167,7 @@ public class Driver {
     /*
     This Method is used for environment level setup
      */
-    private static void envLevelSetup() throws IOException {
+    private static void envLevelSetup() {
 
         excelPath = System.getProperty(USER_DIR) + "/resources/excels/" + OPCO + ".xlsx";
         try (FileInputStream fis = new FileInputStream(System.getProperty(USER_DIR) + "/resources/properties/" + OPCO + "-config.properties")) {
@@ -199,7 +195,6 @@ public class Driver {
         try {
             switch (browser) {
                 case "chrome":
-                    //commonLib.info("Browser selected for execution - Chrome");
                     WebDriverManager.chromedriver().setup();
                     browserCapabilities();
                     break;

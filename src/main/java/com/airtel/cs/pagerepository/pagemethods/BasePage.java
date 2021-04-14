@@ -37,11 +37,13 @@ public class BasePage extends Driver {
     public JavascriptExecutor js;
     BasePageElements basePageElements;
     public static final APIEndPoints api = new APIEndPoints();
+    private static final String BREAK_LINE= "</br>";
+
 
     //Constructor
     public BasePage(WebDriver driver) {
         PageFactory.initElements(new AjaxElementLocatorFactory(driver, 10), this);
-        this.driver = driver;
+        Driver.driver = driver;
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         js = (JavascriptExecutor) driver;
         ExpectedCondition<Boolean> expectation = driver1 -> ((JavascriptExecutor) driver1).executeScript("return document.readyState").toString().equals("complete");
@@ -287,22 +289,22 @@ public class BasePage extends Driver {
      * @return value of the attribute
      */
     public String getAttribute(By elementLocation, String attributeName, boolean requireWait) {
-        String attributeValue = "";
+        String attributeValue;
         try {
-            ElementName = getElementNameFromAirtelByWrapper(elementLocation);
-            Message = ElementName
+            elementName = getElementNameFromAirtelByWrapper(elementLocation);
+            message = elementName
                     + " - element not visible. Not able to Get Attribute by Method - [--getAttribute(By elementLocation, String attributeName)--]";
             if (requireWait) {
                 if (isVisible(elementLocation, 5)) {
                     return getElementfromBy(elementLocation).getAttribute(attributeName).trim();
                 } else {
-                    commonLib.warning(Message);
-                    return Message;
+                    commonLib.warning(message);
+                    return message;
                 }
             } else {
                 attributeValue = getElementfromBy(elementLocation).getAttribute(attributeName);
                 attributeValue = (attributeValue == null) ? ""
-                        : (attributeValue == "") ? attributeValue : attributeValue.trim();
+                        : (attributeValue.equals("")) ? attributeValue : attributeValue.trim();
                 if (attributeValue.equals("")) {
                     WebElement element = getElementfromBy(elementLocation);
                     JavascriptExecutor executor = (JavascriptExecutor) driver;
@@ -313,8 +315,8 @@ public class BasePage extends Driver {
                 }
             }
         } catch (Exception e) {
-            commonLib.warning(Message + "</br>" + "Exception - " + e.getMessage());
-            return Message;
+            commonLib.warning(message + BREAK_LINE + "Exception - " + e.getMessage());
+            return message;
         }
         return attributeValue;
     }
@@ -326,15 +328,15 @@ public class BasePage extends Driver {
      * @return element name
      */
     public String getElementNameFromAirtelByWrapper(By element) {
-        ElementName = "---this Element is not an instance of ameyo wrapper please add Valid Name of this Element---";
+        elementName = "---this Element is not an instance of ameyo wrapper please add Valid Name of this Element---";
         try {
             if (element instanceof AirtelByWrapper) {
-                ElementName = ((AirtelByWrapper) element).getDescription();
+                elementName = ((AirtelByWrapper) element).getDescription();
             }
         } catch (Exception e) {
             commonLib.warning("Caught some Exception inside method - [--getElementName--] " + e.getMessage());
         }
-        return ElementName;
+        return elementName;
     }
 
     /**
@@ -356,7 +358,7 @@ public class BasePage extends Driver {
      */
     public boolean isVisible(By webelementBy, int time) {
         try {
-            ElementName = getElementNameFromAirtelByWrapper(webelementBy);
+            elementName = getElementNameFromAirtelByWrapper(webelementBy);
             Wait<WebDriver> driverWait = getWaitObject(time);
             WebElement webElement = driverWait.until(ExpectedConditions.visibilityOfElementLocated(webelementBy));
             return webElement != null;
@@ -367,16 +369,16 @@ public class BasePage extends Driver {
     }
 
     public Wait<WebDriver> getWaitObject(int maxWaitFor) {
-        FluentWait wait = null;
+        FluentWait fluentWait = null;
         try {
-            wait = new FluentWait(driver).withTimeout(Duration.ofSeconds(maxWaitFor))
+            fluentWait = new FluentWait(driver).withTimeout(Duration.ofSeconds(maxWaitFor))
                     .pollingEvery(Duration.ofSeconds(2)).ignoring(NoSuchElementException.class);
         } catch (Exception e) {
             e.getStackTrace();
             commonLib.warning(
-                    "Exception in method - | methodName | " + "</br>" + "Exception Message - " + e.getMessage());
+                    "Exception in method - | methodName | " + BREAK_LINE + "Exception Message - " + e.getMessage());
         }
-        return wait;
+        return fluentWait;
     }
 
     /**
@@ -415,13 +417,13 @@ public class BasePage extends Driver {
      */
     public void setTextWithTimeStamp(By elementLocation, String text, String requiredClearFieldYesNo) {
         try {
-            if (requiredClearFieldYesNo.toLowerCase().equalsIgnoreCase("yes")) {
+            if (requiredClearFieldYesNo.equalsIgnoreCase("yes")) {
                 getElementfromBy(elementLocation).clear();
             }
             setText(elementLocation, text + System.currentTimeMillis());
         } catch (Exception ex) {
             commonLib.error(
-                    ElementName + " - element not visible. Not able to set Random Text by [--setRandomText--] Method");
+                    elementName + " - element not visible. Not able to set Random Text by [--setRandomText--] Method");
         }
     }
 
@@ -443,19 +445,19 @@ public class BasePage extends Driver {
      * @param time            time in seconds
      */
     public void setText(By elementLocation, String text, int time) {
-        Message = ElementName + " - element not visible. Not able to Enter Text.";
+        message = elementName + " - element not visible. Not able to Enter Text.";
         try {
             if (isVisible(elementLocation, time)) {
                 getElementfromBy(elementLocation).clear();
                 getElementfromBy(elementLocation).sendKeys(text);
-                commonLib.infoHighlight("Entered Value in field " + ElementName + " - ", text,
+                commonLib.infoHighlight("Entered Value in field " + elementName + " - ", text,
                         ReportInfoMessageColorList.GOLD);
             } else {
-                commonLib.fail(Message, true);
+                commonLib.fail(message, true);
             }
         } catch (Exception e) {
             commonLib.fail(
-                    "CAUGHT EXCEPTION IN SET-TEXT METHOD for Element - " + ElementName + "</br>" + e.getMessage(),
+                    "CAUGHT EXCEPTION IN SET-TEXT METHOD for Element - " + elementName + BREAK_LINE + e.getMessage(),
                     true);
         }
     }
@@ -477,7 +479,7 @@ public class BasePage extends Driver {
      * @param requireToReportFailForException require to report fail for exception
      */
     public void clickByJavascriptExecutor(By elementLocation, int time, boolean requireToReportFailForException) {
-        Message = ElementName + " - element not visible. Not able to Click";
+        message = elementName + " - element not visible. Not able to Click";
         try {
             if (isVisible(elementLocation, time) && isClickable(elementLocation, time)) {
                 WebElement element = getElementfromBy(elementLocation);
@@ -489,14 +491,13 @@ public class BasePage extends Driver {
                     highLighterMethod(elementLocation);
                     getElementfromBy(elementLocation).click();
                 }
-                commonLib.infoHighlight(ElementName, " - Clicked.", ReportInfoMessageColorList.GREEN);
-            } else {
+                commonLib.infoHighlight(elementName, " - Clicked.", ReportInfoMessageColorList.GREEN);
             }
         } catch (Exception e) {
             e.printStackTrace();
             if (requireToReportFailForException) {
-                Message = Message + "</br>" + e.getMessage();
-                commonLib.fail(Message, true);
+                message = message + "</br>" + e.getMessage();
+                commonLib.fail(message, true);
             }
         }
     }
@@ -520,14 +521,10 @@ public class BasePage extends Driver {
      */
     public boolean isClickable(By webelementBy, int time) {
         try {
-            ElementName = getElementNameFromAirtelByWrapper(webelementBy);
-            Wait<WebDriver> wait = getWaitObject(time);
-            WebElement Element = wait.until(ExpectedConditions.elementToBeClickable(webelementBy));
-            if (Element != null) {
-                return true;
-            } else {
-                return false;
-            }
+            elementName = getElementNameFromAirtelByWrapper(webelementBy);
+            wait = getWaitObject(time);
+            WebElement element = wait.until(ExpectedConditions.elementToBeClickable(webelementBy));
+            return element != null;
         } catch (Exception e) {
             return false;
         }

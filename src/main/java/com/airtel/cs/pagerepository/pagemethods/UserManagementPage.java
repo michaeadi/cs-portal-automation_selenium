@@ -17,6 +17,7 @@ import java.util.List;
 public class UserManagementPage extends BasePage {
 
     public UserManagementElements pageElements;
+    private static final String FINDING="finding ";
 
     /*
     This Method will initialize all the elements of UserManagementElements class
@@ -89,7 +90,7 @@ public class UserManagementPage extends BasePage {
         UtilsMethods.printInfoLog("Logging Out");
         click(pageElements.logoutUMBtn);
         waitTillLoaderGetsRemoved();
-        default_Driver.close();
+        defaultDriver.close();
     }
 
     public void clickUpdateButton() {
@@ -112,10 +113,10 @@ public class UserManagementPage extends BasePage {
         List<WebElement> listOfElements = returnListOfElement(pageElements.workflowsOptions);
         log.info("total elements " + listOfElements.size());
         ArrayList<String> strings = new ArrayList<>();
-        for (int i = 0; i < listOfElements.size(); i++) {
+        for (WebElement listOfElement : listOfElements) {
             try {
-                UtilsMethods.printInfoLog("Reading Work Group: " + listOfElements.get(i).getText().toLowerCase().trim());
-                strings.add(listOfElements.get(i).getText().toLowerCase().trim());
+                UtilsMethods.printInfoLog("Reading Work Group: " + listOfElement.getText().toLowerCase().trim());
+                strings.add(listOfElement.getText().toLowerCase().trim());
 
             } catch (IndexOutOfBoundsException e) {
                 e.printStackTrace();
@@ -129,10 +130,10 @@ public class UserManagementPage extends BasePage {
         List<WebElement> listOfElements = returnListOfElement(pageElements.workflowsOptions);
         log.info("total elements " + listOfElements.size());
         ArrayList<String> strings = new ArrayList<>();
-        for (int i = 0; i < listOfElements.size(); i++) {
+        for (WebElement listOfElement : listOfElements) {
             try {
-                UtilsMethods.printInfoLog("Reading Login Queue: " + listOfElements.get(i).getText().toLowerCase().trim());
-                strings.add(listOfElements.get(i).getText().toLowerCase().trim());
+                UtilsMethods.printInfoLog("Reading Login Queue: " + listOfElement.getText().toLowerCase().trim());
+                strings.add(listOfElement.getText().toLowerCase().trim());
             } catch (IndexOutOfBoundsException e) {
                 e.printStackTrace();
                 break;
@@ -145,10 +146,10 @@ public class UserManagementPage extends BasePage {
         List<WebElement> listOfElements = returnListOfElement(pageElements.channelsOptions);
         log.info("List Size: " + listOfElements.size());
         ArrayList<String> strings = new ArrayList<>();
-        for (int i = 0; i < listOfElements.size(); i++) {
+        for (WebElement listOfElement : listOfElements) {
             try {
-                UtilsMethods.printInfoLog("Reading Login Channel: " + listOfElements.get(i).getText().toLowerCase().trim());
-                strings.add(listOfElements.get(i).getText().toLowerCase().trim());
+                UtilsMethods.printInfoLog("Reading Login Channel: " + listOfElement.getText().toLowerCase().trim());
+                strings.add(listOfElement.getText().toLowerCase().trim());
             } catch (IndexOutOfBoundsException e) {
                 e.printStackTrace();
                 break;
@@ -159,7 +160,7 @@ public class UserManagementPage extends BasePage {
 
     public boolean isWorkFlowPresent(String[] strings, String workflow) {
         boolean isThere = false;
-        log.info("finding " + workflow + " in workflow List");
+        log.info(FINDING + workflow + " in workflow List");
         for (String a : strings) {
             if (a.equals(workflow)) {
                 isThere = true;
@@ -188,7 +189,7 @@ public class UserManagementPage extends BasePage {
 
     public boolean isLoginQueuePresent(String[] strings, String workflow) {
         boolean isThere = false;
-        UtilsMethods.printInfoLog("finding " + workflow + " in Login Queue List");
+        UtilsMethods.printInfoLog(FINDING + workflow + " in Login Queue List");
         for (String a : strings) {
             if (a.equals(workflow)) {
                 isThere = true;
@@ -265,7 +266,7 @@ public class UserManagementPage extends BasePage {
 
     public boolean isInteractionChannelPresent(String[] strings, String channel) {
         boolean isThere = false;
-        UtilsMethods.printInfoLog("finding " + channel + " in Interaction List");
+        UtilsMethods.printInfoLog(FINDING + channel + " in Interaction List");
         for (String a : strings) {
             if (a.equals(channel)) {
                 isThere = true;

@@ -244,8 +244,8 @@ public class CommonLib extends Driver {
 
     public void openNewTemporaryBrowser2Nd() {
         try {
-            default_Driver = driver;
-            ChromeOptions options = null;
+            defaultDriver = driver;
+            ChromeOptions options;
             options = new ChromeOptions();
             options.addArguments("start-maximized");
             options.addArguments("--disable-infobars");
@@ -261,11 +261,11 @@ public class CommonLib extends Driver {
             options.setPageLoadStrategy(PageLoadStrategy.NONE);
             options.setExperimentalOption("useAutomationExtension", false);
             options.addArguments("--headless", "window-size=1920,1080", "--no-sandbox");
-            temp_Driver = new ChromeDriver(options);
-            driver = temp_Driver;
+            tempDriver = new ChromeDriver(options);
+            driver = tempDriver;
             driver.manage().window().maximize();
             driver.manage().deleteAllCookies();
-            tempWindowHandle = temp_Driver.getWindowHandle();
+            tempWindowHandle = tempDriver.getWindowHandle();
         } catch (Exception e) {
             fail("Exception Caught in Method - open_NewTemporaryBrowser_2nd" + "</br>" + "Exception Message - "
                     + e.getMessage(), true);

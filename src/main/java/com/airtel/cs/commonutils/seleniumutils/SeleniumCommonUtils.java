@@ -16,9 +16,11 @@ import org.openqa.selenium.support.ui.Wait;
 
 import java.time.Duration;
 import java.util.NoSuchElementException;
-import java.util.concurrent.TimeUnit;
 
 public class SeleniumCommonUtils extends Driver {
+
+    private static final String BREAK_LINE= "</br>";
+
     public SeleniumCommonUtils() {
         constants = ConstantsUtils.getInstance();
     }
@@ -28,12 +30,12 @@ public class SeleniumCommonUtils extends Driver {
             int index = 1;
             String[] testSteps = description.split(",");
             TESTCASE_DESCRIPTION_BUILDER.setLength(0);
-            TESTCASE_DESCRIPTION_BUILDER.append("</br>");
+            TESTCASE_DESCRIPTION_BUILDER.append(BREAK_LINE);
             for (String string : testSteps) {
-                TESTCASE_DESCRIPTION_BUILDER.append("<font size=\"3\" color=\"DARKSALMON\">" + "      " + "<b>" + "     Step ").append(index).append(" - ").append("</b>").append("<font size=\"3\" color=\"MEDIUMAQUAMARINE\">").append(string).append("</font>").append("</br>").append(System.lineSeparator());
+                TESTCASE_DESCRIPTION_BUILDER.append("<font size=\"3\" color=\"DARKSALMON\">" + "      " + "<b>" + "     Step ").append(index).append(" - ").append("</b>").append("<font size=\"3\" color=\"MEDIUMAQUAMARINE\">").append(string).append("</font>").append(BREAK_LINE).append(System.lineSeparator());
                 index++;
             }
-            TESTCASE_DESCRIPTION_BUILDER.append("</br>");
+            TESTCASE_DESCRIPTION_BUILDER.append(BREAK_LINE);
             reporter.showInExtentReportAddDescriptionOFTestcase(isPrerequisiteStepsORMainDescriptionSteps);
         } catch (Exception e) {
             commonLib.fail(e.getMessage(), false);
@@ -101,12 +103,12 @@ public class SeleniumCommonUtils extends Driver {
             if (element != null) {
                 text = element.getText().trim();
             } else {
-                text = "BLANK" + "</br>" + ElementName + " - Element not visible. " + "</br>"
+                text = "BLANK" + BREAK_LINE + elementName + " - Element not visible. " + BREAK_LINE
                         + " Fail to Get Text by Method - [---- getText(By elementLocation, int time) ----]";
             }
         } catch (Exception e) {
             e.getStackTrace();
-            commonLib.warning("Exception in method - | getText | " + "</br>" + "Exception Message - " + e.getMessage());
+            commonLib.warning("Exception in method - | getText | " + BREAK_LINE + "Exception Message - " + e.getMessage());
         }
         return text;
     }
@@ -140,7 +142,7 @@ public class SeleniumCommonUtils extends Driver {
         } catch (Exception e) {
             e.getStackTrace();
             commonLib.warning(
-                    "Exception in method - | methodName | " + "</br>" + "Exception Message - " + e.getMessage());
+                    "Exception in method - | methodName | " + BREAK_LINE + "Exception Message - " + e.getMessage());
         }
         return wait;
     }

@@ -57,7 +57,7 @@ public class CustomerProfilePage extends BasePage {
     }
 
     public List<String> getPinnedTagTexts() {
-        List<String> strings = new ArrayList<String>();
+        List<String> strings = new ArrayList<>();
         List<WebElement> webElements = returnListOfElement(pageElements.pinTags);
         log.info("Size: " + webElements.size());
         for (int i = 1; i <= webElements.size(); i++) {
@@ -196,8 +196,8 @@ public class CustomerProfilePage extends BasePage {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            Message = Message + "</br>" + e.getMessage();
-            commonLib.fail(Message, true);
+            message = message + "</br>" + e.getMessage();
+            commonLib.fail(message, true);
         }
     }
 
@@ -229,8 +229,8 @@ public class CustomerProfilePage extends BasePage {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            Message = Message + "</br>" + e.getMessage();
-            commonLib.fail(Message, true);
+            message = message + "</br>" + e.getMessage();
+            commonLib.fail(message, true);
         }
     }
 

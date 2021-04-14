@@ -17,7 +17,7 @@ import java.util.List;
 @Log4j2
 public class LoginPage extends BasePage {
 
-    public LoginPageElements pageElements = null;
+    public LoginPageElements pageElements;
 
     public LoginPage(WebDriver driver) {
         super(driver);
@@ -85,7 +85,7 @@ public class LoginPage extends BasePage {
      */
     public void openNewTempBrowserAndLoginInUM() {
         commonLib.infoHighlight("", "LOGGING-IN USER in 2nd TEMPORARY BROWSER", ReportInfoMessageColorList.BLUE);
-        default_Driver = driver;
+        defaultDriver = driver;
         commonLib.openNewTemporaryBrowser2Nd();
         loginIntoUM();
         waitTillLoaderGetsRemoved();

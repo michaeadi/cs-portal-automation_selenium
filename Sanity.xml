@@ -235,4 +235,14 @@
             <class name="com.airtel.cs.ui.frontendagent.simbarunbar.SIMBarUnbarPermissionSeparationTest"/>
         </classes>
     </test>
+    <test name="Source App Test">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.backendSupervisor.ticketsourceapp.TicketSourceAppTest"/>
+        </classes>
+    </test>
 </suite>

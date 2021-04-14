@@ -28,7 +28,7 @@ public class PreRequisites extends Driver {
 
 
     @BeforeClass
-    public void doLogin() throws InterruptedException {
+    public void doLogin() {
         ExtentTestManager.startTest("Logging Into Portal", "Logging Into Portal with AUUID");
         pages.getLoginPage().openBaseURL(config.getProperty(evnName + "-baseurl"));
         assertCheck.append(actions.assertEqual_stringType(driver.getCurrentUrl(), config.getProperty(evnName + "-baseurl"), "Login URL Opened", "Login URL not Opened"));
@@ -59,8 +59,8 @@ public class PreRequisites extends Driver {
         LoginPOJO loginPOJO = api.loginPOJO(dtoAsString);
         String accessToken = loginPOJO.getResult().get("accessToken");
         String tokenType = loginPOJO.getResult().get("tokenType");
-        Token = tokenType + " " + accessToken;
-        UtilsMethods.addHeaders("Authorization", Token);
+        token = tokenType + " " + accessToken;
+        UtilsMethods.addHeaders("Authorization", token);
     }
 
     @AfterClass(alwaysRun = true)
