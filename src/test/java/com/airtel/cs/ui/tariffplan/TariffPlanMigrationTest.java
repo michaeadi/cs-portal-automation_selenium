@@ -1,4 +1,4 @@
-package com.airtel.cs.ui.frontendagent.tariffplan;
+package com.airtel.cs.ui.tariffplan;
 
 import com.airtel.cs.common.requisite.PreRequisites;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
@@ -135,12 +135,12 @@ public class TariffPlanMigrationTest extends PreRequisites {
     }
 
     @Test(priority = 8, groups = {"RegressionTest"})
-    public void testIfMigrationPermissionRemoved() throws InterruptedException {
+    public void testIfMigrationPermissionRemoved() {
         ExtentTestManager.startTest("Validate that if the logged in user has the permission to view this feature but does not have permission for Migration then user will be able to see the Change Service Plan Opton but won't be able to migrate Service Class", "Validate that if the logged in user has the permisson to view this feature but does not have permission for Migration then user will be able to see the Change Service Plan Opton but won't be able to migrate Service Class");
         /* LOGIN IN TEMPORARY BROWSER AS PER TESTCASE REQUIREMENT -
          *  - WITH UM CREDENTIALS */
         pages.getLoginPage().openNewTempBrowserAndLoginInUM();
-        pages.getUserManagementPage().removeOrAddPermission(commonConstants.getValue(PermissionConstants.TARIFF_PLAN_MIGRATE_PERMISSION));
+        pages.getUserManagementPage().removeOrAddPermission(constants.getValue(PermissionConstants.TARIFF_PLAN_MIGRATE_PERMISSION));
         pages.getUserManagementPage().destroyTempBrowser();
         goAndCheckServiceClassOptionVisible();
         assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isChangeServiceClassOptionVisible(), false, "Change Service Class Option Should not be visible, As permissions are removed", "Change Service Class Opton is visible and should not be"));
@@ -156,12 +156,12 @@ public class TariffPlanMigrationTest extends PreRequisites {
     }
 
     @Test(priority = 9, groups = {"RegressionTest"})
-    public void testIfViewPermissionRemoved() throws InterruptedException {
+    public void testIfViewPermissionRemoved() {
         ExtentTestManager.startTest("Validate that if the logged in user does not have permission for Service Plan Migration user won't be able to view Change Service Class option under the Action button on customer dashboard.", "Validate that if the logged in user does not have permission for Service Plan Migration user won't be able to view Change Service Class option under the Action button on customer dashboard.");
         /* LOGIN IN TEMPORARY BROWSER AS PER TESTCASE REQUIREMENT -
          *  - WITH UM CREDENTIALS */
         pages.getLoginPage().openNewTempBrowserAndLoginInUM();
-        pages.getUserManagementPage().removeOrAddPermission(commonConstants.getValue(PermissionConstants.TARIFF_PLAN_VIEW_PERMISSION));
+        pages.getUserManagementPage().removeOrAddPermission(constants.getValue(PermissionConstants.TARIFF_PLAN_VIEW_PERMISSION));
         pages.getUserManagementPage().destroyTempBrowser();
         goAndCheckServiceClassOptionVisible();
         assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isChangeServiceClassOptionVisible(), false, "Change Service Class Option Should not be visible, As permissions are removed", "Change Service Class Opton is visible and should not be"));

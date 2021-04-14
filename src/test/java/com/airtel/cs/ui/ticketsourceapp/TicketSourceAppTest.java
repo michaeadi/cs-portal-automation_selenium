@@ -1,4 +1,4 @@
-package com.airtel.cs.ui.backendSupervisor.ticketsourceapp;
+package com.airtel.cs.ui.ticketsourceapp;
 
 import com.airtel.cs.common.requisite.PreRequisites;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;

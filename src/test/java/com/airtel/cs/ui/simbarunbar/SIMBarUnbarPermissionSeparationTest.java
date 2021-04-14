@@ -1,4 +1,4 @@
-package com.airtel.cs.ui.frontendagent.simbarunbar;
+package com.airtel.cs.ui.simbarunbar;
 
 import com.airtel.cs.common.requisite.PreRequisites;
 import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
@@ -35,7 +35,7 @@ public class SIMBarUnbarPermissionSeparationTest extends PreRequisites {
         /* LOGIN IN TEMPORARY BROWSER AS PER TESTCASE REQUIREMENT -
          *  - WITH UM CREDENTIALS */
         pages.getLoginPage().openNewTempBrowserAndLoginInUM();
-        pages.getUserManagementPage().removeOrAddPermission(commonConstants.getValue(PermissionConstants.SIM_BAR_PERMISSION));
+        pages.getUserManagementPage().removeOrAddPermission(constants.getValue(PermissionConstants.SIM_BAR_PERMISSION));
         pages.getUserManagementPage().destroyTempBrowser();
         loginInCSPortal();
         pages.getSideMenuPOM().openCustomerInteractionPage();
@@ -109,7 +109,7 @@ public class SIMBarUnbarPermissionSeparationTest extends PreRequisites {
         /* LOGIN IN TEMPORARY BROWSER AS PER TESTCASE REQUIREMENT -
          *  - WITH UM CREDENTIALS */
         pages.getLoginPage().openNewTempBrowserAndLoginInUM();
-        pages.getUserManagementPage().removeOrAddPermission(commonConstants.getValue(PermissionConstants.SIM_BAR_PERMISSION));
+        pages.getUserManagementPage().removeOrAddPermission(constants.getValue(PermissionConstants.SIM_BAR_PERMISSION));
         pages.getUserManagementPage().destroyTempBrowser();
         loginInCSPortal();
         pages.getSideMenuPOM().openCustomerInteractionPage();

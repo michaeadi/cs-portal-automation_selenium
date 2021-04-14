@@ -222,7 +222,7 @@
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.frontendagent.tariffplan.TariffPlanMigrationTest"/>
+            <class name="com.airtel.cs.ui.tariffplan.TariffPlanMigrationTest"/>
         </classes>
     </test>
     <test name="SIM Bar Unbar Test">
@@ -232,7 +232,7 @@
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.frontendagent.simbarunbar.SIMBarUnbarPermissionSeparationTest"/>
+            <class name="com.airtel.cs.ui.simbarunbar.SIMBarUnbarPermissionSeparationTest"/>
         </classes>
     </test>
     <test name="Source App Test">
@@ -242,7 +242,7 @@
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.backendSupervisor.ticketsourceapp.TicketSourceAppTest"/>
+            <class name="com.airtel.cs.ui.ticketsourceapp.TicketSourceAppTest"/>
         </classes>
     </test>
 </suite>
