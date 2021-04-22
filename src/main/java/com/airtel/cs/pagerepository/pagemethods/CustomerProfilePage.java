@@ -1,10 +1,9 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
-import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.pagerepository.pageelements.CustomerProfilePageElements;
-import com.airtel.cs.pojo.PlansPOJO;
 import com.airtel.cs.pojo.MainAccountBalance;
+import com.airtel.cs.pojo.PlansPOJO;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
@@ -27,33 +26,39 @@ public class CustomerProfilePage extends BasePage {
     }
 
     public String getFirstWidgetHeader() {
-        UtilsMethods.printInfoLog("Getting header of 1st Widget : " + getText(pageElements.firstWidgetHeader));
-        return getText(pageElements.firstWidgetHeader);
+        final String text = getText(pageElements.firstWidgetHeader);
+        commonLib.info("Getting header of 1st Widget : " + text);
+        return text;
     }
 
     public Boolean isSendInternetSettingTitle() {
-        UtilsMethods.printInfoLog("Is Send Internet Setting Title Display: " + checkState(pageElements.sendSettingTitle));
-        return checkState(pageElements.sendSettingTitle);
+        final boolean state = checkState(pageElements.sendSettingTitle);
+        commonLib.info("Is Send Internet Setting Title Display: " + state);
+        return state;
     }
 
     public Boolean isResetME2UPasswordTitle() {
-        UtilsMethods.printInfoLog("Is Reset ME2U Password Title Display: " + checkState(pageElements.resetME2Title));
-        return checkState(pageElements.resetME2Title);
+        final boolean state = checkState(pageElements.resetME2Title);
+        commonLib.info("Is Reset ME2U Password Title Display: " + state);
+        return state;
     }
 
     public String getSecondWidgetHeader() {
-        UtilsMethods.printInfoLog("Getting header of 2nd Widget : " + getText(pageElements.secondWidgetHeader));
-        return getText(pageElements.secondWidgetHeader);
+        final String text = getText(pageElements.secondWidgetHeader);
+        commonLib.info("Getting header of 2nd Widget : " + text);
+        return text;
     }
 
     public String getThirdWidgetHeader() {
-        UtilsMethods.printInfoLog("Getting header of 3rd Widget : " + getText(pageElements.thirdWidgetHeader));
-        return getText(pageElements.thirdWidgetHeader);
+        final String text = getText(pageElements.thirdWidgetHeader);
+        commonLib.info("Getting header of 3rd Widget : " + text);
+        return text;
     }
 
     public String getFourthWidgetHeader() {
-        UtilsMethods.printInfoLog("Getting header of 4th Widget : " + getText(pageElements.fourthWidgetHeader));
-        return getText(pageElements.fourthWidgetHeader);
+        final String text = getText(pageElements.fourthWidgetHeader);
+        commonLib.info("Getting header of 4th Widget : " + text);
+        return text;
     }
 
     public List<String> getPinnedTagTexts() {
@@ -63,14 +68,14 @@ public class CustomerProfilePage extends BasePage {
         for (int i = 1; i <= webElements.size(); i++) {
             By tagName = By.xpath("//div[@class='sub-header__divide--control']//div[@class=\"sub-header__divide--control--tab ng-star-inserted\"][" + i + "]");
             log.info("Text: " + getText(tagName).toLowerCase().trim());
-            UtilsMethods.printInfoLog("Reading pinned tag name: " + getText(tagName));
+            commonLib.info("Reading pinned tag name: " + getText(tagName));
             strings.add(getText(tagName).toLowerCase().trim());
         }
         return strings;
     }
 
     public void clickPinTag(String text) {
-        UtilsMethods.printInfoLog("Clicking " + text + " Pinned Tag");
+        commonLib.info("Clicking " + text + " Pinned Tag");
         By tagName = By.xpath("//div[@class=\"sub-header__divide--control--tab ng-star-inserted\" and contains(text(),\"" + text + "\")]");
         click(tagName);
     }
@@ -78,14 +83,14 @@ public class CustomerProfilePage extends BasePage {
 
     public boolean isPageLoaded() {
         boolean check = checkState(pageElements.searchNumber);
-        UtilsMethods.printInfoLog("Checking that is Customer Interaction Page is loaded : " + check);
+        commonLib.info("Checking that is Customer Interaction Page is loaded : " + check);
         return check;
     }
 
     public void clickOnInteractionIcon() {
         waitTillLoaderGetsRemoved();
         click(pageElements.interactionIcon);
-        UtilsMethods.printInfoLog("Clicking on Interactions Icon");
+        commonLib.info("Clicking on Interactions Icon");
     }
 
     /*
@@ -93,83 +98,82 @@ public class CustomerProfilePage extends BasePage {
      */
     public void goToViewHistory() {
         click(pageElements.viewHistory);
-        UtilsMethods.printInfoLog("Clicking on View History");
+        commonLib.info("Clicking on View History");
     }
-
 
     public boolean isPinTagVisible(String text) {
         By tagName = By.xpath("//div[@class=\"sub-header__divide--control--tab ng-star-inserted\" and contains(text(),\"" + text + "\")]");
-        UtilsMethods.printInfoLog("Checking is " + text + " Pinned Tag Visible");
+        commonLib.info("Checking is " + text + " Pinned Tag Visible");
         return isElementVisible(tagName);
     }
 
     public DADetailsPage clickOnDADetailsTab() {
         click(pageElements.daDetailsTab);
-        UtilsMethods.printInfoLog("Clicking on DA Details Tab");
+        commonLib.info("Clicking on DA Details Tab");
         return new DADetailsPage(driver);
     }
 
     public MoreRechargeHistoryPage clickOnRechargeHistoryTab() {
         click(pageElements.rechargeHistoryTab);
-        UtilsMethods.printInfoLog("Clicking on Recharge History Tab");
+        commonLib.info("Clicking on Recharge History Tab");
         return new MoreRechargeHistoryPage(driver);
     }
 
     public MoreUsageHistoryPage clickOnUsageHistoryTab() {
         click(pageElements.usageHistoryTab);
-        UtilsMethods.printInfoLog("Clicking on Usage History Tab");
+        commonLib.info("Clicking on Usage History Tab");
         return new MoreUsageHistoryPage(driver);
     }
 
     public void clickOnAction() {
-        UtilsMethods.printInfoLog("Clicking on Home Action button");
+        commonLib.info("Clicking on Home Action button");
         click(pageElements.homeActionBtn);
     }
 
     public void openSendSMSTab() {
-        UtilsMethods.printInfoLog("Clicking on Send SMS");
+        commonLib.info("Clicking on Send SMS");
         click(pageElements.sendSMSAction);
     }
 
     public void clickSendSetting() {
-        UtilsMethods.printInfoLog("Clicking on Send SMS Setting");
+        commonLib.info("Clicking on Send SMS Setting");
         click(pageElements.sendSettings);
     }
 
     public void clickResetME2U() {
-        UtilsMethods.printInfoLog("Clicking on Reset ME2U Password");
+        commonLib.info("Clicking on Reset ME2U Password");
         click(pageElements.resetME2UPassword);
     }
 
     public void clickNoBtn() {
-        UtilsMethods.printInfoLog("Clicking on No Button");
+        commonLib.info("Clicking on No Button");
         click(pageElements.noBtn);
     }
 
     public void clickCloseBtn() {
-        UtilsMethods.printInfoLog("Clicking on Close Button");
+        commonLib.info("Clicking on Close Button");
         click(pageElements.closeBtn);
     }
 
     public AuthTabPage openAuthTab() {
-        UtilsMethods.printInfoLog("Opening Authentication tab for : " + getText(pageElements.simBarUnBar));
+        commonLib.info("Opening Authentication tab for : " + getText(pageElements.simBarUnBar));
         click(pageElements.simBarUnBar);
         return new AuthTabPage(driver);
     }
 
     public boolean isLoanWidgetDisplay() {
-        UtilsMethods.printInfoLog("Checking Loan Widget Displayed");
+        commonLib.info("Checking Loan Widget Displayed");
         return checkState(pageElements.loanWidget);
     }
 
     public boolean isCustomerBirthday() {
-        UtilsMethods.printInfoLog("Checking Customer Birthday or not");
+        commonLib.info("Checking Customer Birthday or not");
         return checkState(pageElements.birthdayIcon);
     }
 
     public void clickContinueButton() {
         log.info("Clicking on Continue button");
-        UtilsMethods.printInfoLog("Clicking on Continue button");
+        commonLib.info("Clicking on Continue button");
         click(pageElements.continueBtn);
     }
 

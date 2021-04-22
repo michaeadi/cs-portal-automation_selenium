@@ -1,6 +1,5 @@
 package com.airtel.cs.ui.frontendagent;
 
-import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.driver.Driver;
 import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.TimeoutException;
@@ -21,7 +20,7 @@ public class SideMenuTests extends Driver {
 
     @Test(priority = 1, description = "Validating Side Menu ")
     public void sideMenuAssert() {
-        ExtentTestManager.startTest("Validating Side Menu", "Validating Side Menu and It's Options");
+        selUtils.addTestcaseDescription("Validating Side Menu and It's Options", "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getSideMenu().clickOnSideMenu();
         try {

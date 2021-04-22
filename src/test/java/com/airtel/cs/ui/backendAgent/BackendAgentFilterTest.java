@@ -1,6 +1,5 @@
 package com.airtel.cs.ui.backendAgent;
 
-import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.driver.Driver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -20,7 +19,7 @@ public class BackendAgentFilterTest extends Driver {
 
     @Test(priority = 1, description = "Backend Agent Queue Login Page")
     public void agentQueueLogin() {
-        ExtentTestManager.startTest("Backend Agent Login into Queue", "Backend Agent Login into Queue");
+        selUtils.addTestcaseDescription("Backend Agent Login into Queue", "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getSideMenu().clickOnSideMenu();
         pages.getSideMenu().clickOnName();
@@ -38,7 +37,7 @@ public class BackendAgentFilterTest extends Driver {
 
     @Test(priority = 2, dependsOnMethods = "agentQueueLogin", description = "Validate Filter Tab for Backend Agent")
     public void validateFilter() {
-        ExtentTestManager.startTest("Validate Filter Tab for Backend Agent", "Validate Filter Tab for Backend Agent");
+        selUtils.addTestcaseDescription("Validate Filter Tab for Backend Agent", "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getSupervisorTicketList().clickFilter();
         pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();

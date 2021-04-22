@@ -32,7 +32,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import static com.airtel.cs.commonutils.extentreports.ExtentTestManager.startTest;
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 
@@ -50,7 +49,7 @@ public class StateQueueMappingTest extends Driver {
         softAssert.assertAll();
     }
 
-    @DataProviders.User(UserType = "API")
+    @DataProviders.User(userType = "API")
     @Test(dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void loginAPI(TestDatabean data) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
@@ -70,7 +69,7 @@ public class StateQueueMappingTest extends Driver {
         UtilsMethods.addHeaders("Opco", OPCO);
 
         String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(req);
-        startTest("LOGIN com.airtel.cs.API TEST ", "Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + data.getLoginAUUID());
+        selUtils.addTestcaseDescription("Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + data.getLoginAUUID(), "description");
         UtilsMethods.printInfoLog("Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + data.getLoginAUUID());
         baseURI = baseUrl;
         Headers headers = new Headers(map);
@@ -82,7 +81,7 @@ public class StateQueueMappingTest extends Driver {
             QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
             UtilsMethods.printInfoLog("Request Headers are  : " + queryable.getHeaders());
             Response response = request.post("/auth/api/user-mngmnt/v2/login");
-            String token = "Bearer " + response.jsonPath().getString("result.accessToken");
+            token = "Bearer " + response.jsonPath().getString("result.accessToken");
             map.add(new Header("Authorization", token));
             UtilsMethods.printInfoLog("Request URL : " + queryable.getURI());
             UtilsMethods.printInfoLog("Response Body : " + response.asString());
@@ -106,7 +105,7 @@ public class StateQueueMappingTest extends Driver {
 
     @Test(priority = 1, dataProvider = "queueState", description = "State Queue Mapping Test", dataProviderClass = DataProviders.class)
     public void stateQueueTest(QueueStateDataBeans data) {
-        ExtentTestManager.startTest("State Queue Mapping Test: " + data.getQueue(), "State Queue Mapping Test");
+        selUtils.addTestcaseDescription("State Queue Mapping Test: " + data.getQueue(), "description");
         SoftAssert softAssert = new SoftAssert();
         DataProviders dataProviders = new DataProviders();
         String ticketId;

@@ -18,6 +18,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.ITestContext;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -77,7 +80,8 @@ public class Driver {
             + "/resources/properties/reportextent-config.xml";
     public static final String CLIENT = System.getProperty("Client").toUpperCase();
     private static String browser = null;
-
+    private static String currentTestCaseName;
+    private String currentClassName;
 
     public WebDriver getDriver() {
         return driver;
@@ -89,7 +93,6 @@ public class Driver {
             reportConfigureBase(tr);
             envLevelSetup();
             startBrowser(browser);
-            initializePages();
         } catch (Exception e) {
             commonLib.fail(e.getMessage(), true);
         }
@@ -99,18 +102,45 @@ public class Driver {
     public void setup() {
         try {
             initializePages();
+            startReport();
         } catch (Exception e) {
             commonLib.error(e.getMessage());
         }
     }
 
-    @BeforeMethod
-    public void methodLevelSetup() {
-        assertCheck = new StringBuilder(); // @ THIS WILL EMPTY ASSERT STRING-BUILDER BEFORE EACH TEST
+    @BeforeMethod(alwaysRun = true)
+    public static void methodLevelSetup(ITestResult tr) {
+        try {
+            String currentClassName = getClassName(tr);
+            ExtentReport.startTest(currentClassName, currentTestCaseName);
+            assertCheck = new StringBuilder(); // @ THIS WILL EMPTY ASSERT STRING-BUILDER BEFORE EACH TEST
+        } catch (Exception ex) {
+            commonLib.error(ex.getMessage());
+        }
     }
 
-    @AfterSuite
-    public void teardown() {
+    @AfterMethod(alwaysRun = true)
+    public void endTest() {
+        try {
+            ExtentReport.endTest(test);
+        } catch (Exception e) {
+            commonLib.error(e.getMessage());
+        }
+    }
+
+    @AfterClass(alwaysRun = true)
+    public void cleanup() {
+        try {
+            ExtentReport.endTest(test);
+        } catch (Exception e) {
+            commonLib.error(e.getMessage());
+        }
+    }
+
+    @AfterSuite(alwaysRun = true)
+    public void closeReporting() {
+        extent.flush();
+        extent.close();
         driver.close();
         driver.quit();
     }
@@ -157,6 +187,7 @@ public class Driver {
             extent.addSystemInfo("Application Environment ", OPCO + " " + evnName);
             extent.addSystemInfo("Execution Browser ", browser);
             extent.addSystemInfo("Language Selected ", "English");
+            extent.addSystemInfo("Suite Type", SUITE_TYPE.toUpperCase());
         } catch (Exception ex) {
             commonLib.fail(ex.getMessage(), true);
         }
@@ -223,5 +254,23 @@ public class Driver {
         options.setExperimentalOption("prefs", prefs);
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
+    }
+
+    /**
+     * THIS WILL GET - CURRENT CLASS NAME, METHOD NAME SET TO GLOBAL VARIABLE -
+     */
+    public static String getClassName(ITestResult tr) {
+        String className = tr.getMethod().getInstance().getClass().getName();
+        int classNameStartingIndex = className.lastIndexOf('.');
+        className = className.substring(classNameStartingIndex + 1, className.length());
+        currentTestCaseName = tr.getMethod().getMethodName();
+        return className;
+    }
+
+    public void startReport() {
+        currentClassName = getClass().getName();
+        int classNameStartingIndex = currentClassName.lastIndexOf('.');
+        currentClassName = currentClassName.substring(classNameStartingIndex + 1, currentClassName.length());
+        test = extent.startTest(currentClassName);
     }
 }

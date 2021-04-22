@@ -19,18 +19,18 @@ import org.testng.asserts.SoftAssert;
 
 import java.util.concurrent.TimeUnit;
 
-import static com.airtel.cs.commonutils.extentreports.ExtentTestManager.startTest;
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 
 public class SystemStatusTest extends Driver {
 
-    @DataProviders.User(UserType = "API")
+    @DataProviders.User(userType = "API")
     @Test(dataProvider = "loginData", dataProviderClass = DataProviders.class, priority = 1)
     public void loginAPI(TestDatabean data) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         SoftAssert softAssert = new SoftAssert();
-        LoginPOJO Req = LoginPOJO.loginBody(PassUtils.decodePassword(data.getPassword()), data.getLoginAUUID());
+        final String loginAUUID = data.getLoginAUUID();
+        LoginPOJO Req = LoginPOJO.loginBody(PassUtils.decodePassword(data.getPassword()), loginAUUID);
 
         map.clear();
         UtilsMethods.addHeaders("x-app-name", config.getProperty(evnName + "-x-app-name"));
@@ -45,8 +45,8 @@ public class SystemStatusTest extends Driver {
         UtilsMethods.addHeaders("Opco", OPCO);
 
         String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(Req);
-        startTest("API TEST ", "Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + data.getLoginAUUID());
-        UtilsMethods.printInfoLog("Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + data.getLoginAUUID());
+        selUtils.addTestcaseDescription("Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + loginAUUID, "description");
+        commonLib.info("Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + loginAUUID);
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
@@ -55,13 +55,13 @@ public class SystemStatusTest extends Driver {
                 .contentType("application/json");
         try {
             QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-            UtilsMethods.printInfoLog("Request Headers are  : " + queryable.getHeaders());
+            commonLib.info("Request Headers are  : " + queryable.getHeaders());
             Response response = request.post("/auth/api/user-mngmnt/v2/login");
             String token = "Bearer " + response.jsonPath().getString("result.accessToken");
             map.add(new Header("Authorization", token));
-            UtilsMethods.printInfoLog("Request URL : " + queryable.getURI());
-            UtilsMethods.printInfoLog("Response Body : " + response.asString());
-            UtilsMethods.printInfoLog("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+            commonLib.info("Request URL : " + queryable.getURI());
+            commonLib.info("Response Body : " + response.asString());
+            commonLib.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
             if (response.jsonPath().getString("message").equalsIgnoreCase("Failed to authenticate user.")) {
                 continueExecutionAPI = false;
                 softAssert.fail("Not able to generate Token. Please Update Password As soon as possible if required.\nAPI Response Message: " + response.jsonPath().getString("message"));
@@ -84,10 +84,11 @@ public class SystemStatusTest extends Driver {
     public void testCredOfAdmin(TestDatabean data) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         SoftAssert softAssert = new SoftAssert();
-        LoginPOJO Req = LoginPOJO.loginBody(PassUtils.decodePassword(data.getPassword()), data.getLoginAUUID());
+        final String loginAUUID = data.getLoginAUUID();
+        LoginPOJO Req = LoginPOJO.loginBody(PassUtils.decodePassword(data.getPassword()), loginAUUID);
         String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(Req);
-        startTest("Checking System Status for Admin User ", "Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + data.getLoginAUUID());
-        UtilsMethods.printInfoLog("Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + data.getLoginAUUID());
+        selUtils.addTestcaseDescription("Checking System Status for Admin User,Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + loginAUUID, "description");
+        commonLib.info("Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + loginAUUID);
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
@@ -96,11 +97,11 @@ public class SystemStatusTest extends Driver {
                 .contentType("application/json");
         try {
             QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-            UtilsMethods.printInfoLog("Request Headers are  : " + queryable.getHeaders());
+            commonLib.info("Request Headers are  : " + queryable.getHeaders());
             Response response = request.post("/auth/api/user-mngmnt/v2/login");
-            UtilsMethods.printInfoLog("Request URL : " + queryable.getURI());
-            UtilsMethods.printInfoLog("Response Body : " + response.asString());
-            UtilsMethods.printInfoLog("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+            commonLib.info("Request URL : " + queryable.getURI());
+            commonLib.info("Response Body : " + response.asString());
+            commonLib.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
             if (response.jsonPath().getString("message").equalsIgnoreCase("Failed to authenticate user.")) {
                 continueExecutionFA = false;
                 continueExecutionBS = false;
@@ -122,15 +123,16 @@ public class SystemStatusTest extends Driver {
         softAssert.assertAll();
     }
 
-    @DataProviders.User(UserType = "BA")
-    @Test(dataProvider = "loginData", dataProviderClass = DataProviders.class, priority = 2)
+    @DataProviders.User(userType = "BA")
+    @Test(dataProvider = "loginData", dataProviderClass = DataProviders.class, priority = 3)
     public void testCredOfBackendAgent(TestDatabean data) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         SoftAssert softAssert = new SoftAssert();
-        LoginPOJO Req = LoginPOJO.loginBody(PassUtils.decodePassword(data.getPassword()), data.getLoginAUUID());
+        final String loginAUUID = data.getLoginAUUID();
+        LoginPOJO Req = LoginPOJO.loginBody(PassUtils.decodePassword(data.getPassword()), loginAUUID);
         String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(Req);
-        startTest("Checking System Status for Backend Agent User ", "Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + data.getLoginAUUID());
-        UtilsMethods.printInfoLog("Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + data.getLoginAUUID());
+        selUtils.addTestcaseDescription("Checking System Status for Backend Agent User,Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + loginAUUID, "description");
+        commonLib.info("Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + loginAUUID);
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
@@ -139,11 +141,11 @@ public class SystemStatusTest extends Driver {
                 .contentType("application/json");
         try {
             QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-            UtilsMethods.printInfoLog("Request Headers are  : " + queryable.getHeaders());
+            commonLib.info("Request Headers are  : " + queryable.getHeaders());
             Response response = request.post("/auth/api/user-mngmnt/v2/login");
-            UtilsMethods.printInfoLog("Request URL : " + queryable.getURI());
-            UtilsMethods.printInfoLog("Response Body : " + response.asString());
-            UtilsMethods.printInfoLog("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+            commonLib.info("Request URL : " + queryable.getURI());
+            commonLib.info("Response Body : " + response.asString());
+            commonLib.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
             if (response.jsonPath().getString("message").equalsIgnoreCase("Failed to authenticate user.")) {
                 continueExecutionBA = false;
                 softAssert.fail("Not able to generate Token. Please Update Password As soon as possible if required.\ncom.airtel.cs.API Response Message: " + response.jsonPath().getString("message"));

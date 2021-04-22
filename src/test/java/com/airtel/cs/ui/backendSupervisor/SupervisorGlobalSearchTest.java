@@ -1,7 +1,6 @@
 package com.airtel.cs.ui.backendSupervisor;
 
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
-import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.driver.Driver;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -23,7 +22,7 @@ public class SupervisorGlobalSearchTest extends Driver {
 
     @Test(priority = 1, description = "Supervisor Dashboard Login ")
     public void openSupervisorDashboard() {
-        ExtentTestManager.startTest("Open Supervisor Dashboard", "Open Supervisor Dashboard");
+        selUtils.addTestcaseDescription("Open Supervisor Dashboard", "description");
         pages.getSideMenu().waitTillLoaderGetsRemoved();
         pages.getSideMenu().clickOnSideMenu();
         pages.getSideMenu().clickOnName();
@@ -36,7 +35,7 @@ public class SupervisorGlobalSearchTest extends Driver {
 
     @Test(priority = 2, description = "Verify Global Search By Valid Ticket Id")
     public void globalSearchTestByTicket() {
-        ExtentTestManager.startTest("Verify Global Search By Valid Ticket Id", "Verify Global Search By Valid Ticket Id");
+        selUtils.addTestcaseDescription("Verify Global Search By Valid Ticket Id", "description");
         SoftAssert softAssert = new SoftAssert();
         try {
             pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
@@ -54,7 +53,7 @@ public class SupervisorGlobalSearchTest extends Driver {
 
     @Test(priority = 3, description = "Verify Global Search By Invalid Ticket Id")
     public void globalSearchTestByInvalidTicket() {
-        ExtentTestManager.startTest("Verify Global Search By Invalid Ticket Id", "Verify Global Search By Invalid Ticket Id");
+        selUtils.addTestcaseDescription("Verify Global Search By Invalid Ticket Id", "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
         String ticketId = "987654321012";
@@ -66,10 +65,10 @@ public class SupervisorGlobalSearchTest extends Driver {
         softAssert.assertAll();
     }
 
-    @DataProviders.User(UserType = "NFTR")
+    @DataProviders.User(userType = "NFTR")
     @Test(priority = 4, description = "Verify Global Search By Global Search Option")
     public void globalSearchTestBy() {
-        ExtentTestManager.startTest("Verify Global Search By Global Search Option", "Verify Global Search By Global Search Option");
+        selUtils.addTestcaseDescription("Verify Global Search By Global Search Option", "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
         try {

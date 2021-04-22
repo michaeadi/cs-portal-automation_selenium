@@ -29,39 +29,39 @@ public class SupervisorTicketListPage extends BasePage {
 
     public String getTransferErrorMessage() {
         String value = getText(pageElements.transferErrorMessage);
-        UtilsMethods.printInfoLog("Reading transfer error message: " + value);
+        commonLib.info("Reading transfer error message: " + value);
         return value;
     }
 
     public Boolean isCancelBtn() {
         Boolean status = checkState(pageElements.cancelBtn);
-        UtilsMethods.printInfoLog("Is Cancel Button Displayed: " + status);
+        commonLib.info("Is Cancel Button Displayed: " + status);
         return status;
     }
 
     public Boolean isTransferAnyWayBtn() {
         Boolean status = checkState(pageElements.transferAnywayBtn);
-        UtilsMethods.printInfoLog("Is Transfer Any Way Button Displayed: " + status);
+        commonLib.info("Is Transfer Any Way Button Displayed: " + status);
         return status;
     }
 
     public void clickCancelBtn() {
-        UtilsMethods.printInfoLog("Clicking on Cancel Button.");
+        commonLib.info("Clicking on Cancel Button.");
         click(pageElements.cancelBtn);
     }
 
     public void clickTransferAnyWayBtn() {
-        UtilsMethods.printInfoLog("Clicking on Transfer Anyway button");
+        commonLib.info("Clicking on Transfer Anyway button");
         click(pageElements.transferAnywayBtn);
     }
 
     public void writeTicketId(String ticketId) {
-        UtilsMethods.printInfoLog("Search Ticket Id: " + ticketId);
+        commonLib.info("Search Ticket Id: " + ticketId);
         writeText(pageElements.searchTicketBox, ticketId);
     }
 
     public void writeTicketIdSecond(String ticketId) {
-        UtilsMethods.printInfoLog("Search Ticket Id: " + ticketId);
+        commonLib.info("Search Ticket Id: " + ticketId);
         writeText(pageElements.searchTicketBox2, ticketId);
     }
 
@@ -75,7 +75,7 @@ public class SupervisorTicketListPage extends BasePage {
     public void clickSearchBtn() {
         waitTillLoaderGetsRemoved();
         wait.until(ExpectedConditions.elementToBeClickable(pageElements.searchTicketBtn));
-        UtilsMethods.printInfoLog("Clicking on Search Button");
+        commonLib.info("Clicking on Search Button");
         click(pageElements.searchTicketBtn);
     }
 
@@ -109,42 +109,42 @@ public class SupervisorTicketListPage extends BasePage {
     }
 
     public boolean isCreatedbyLabel() {
-        UtilsMethods.printInfoLog("Is Created By field Available :" + checkState(pageElements.createdbyLabel));
+        commonLib.info("Is Created By field Available :" + checkState(pageElements.createdbyLabel));
         return checkState(pageElements.createdbyLabel);
     }
 
     public boolean isQueueLabel() {
-        UtilsMethods.printInfoLog("Is Queue field Available :" + checkState(pageElements.queueLabel));
+        commonLib.info("Is Queue field Available :" + checkState(pageElements.queueLabel));
         return checkState(pageElements.queueLabel);
     }
 
     public boolean isIssueLabel() {
-        UtilsMethods.printInfoLog("Is Issue Label field Available :" + checkState(pageElements.prioritylabel));
+        commonLib.info("Is Issue Label field Available :" + checkState(pageElements.prioritylabel));
         return checkState(pageElements.issueLabel);
     }
 
     public boolean isIssueTypeLabel() {
-        UtilsMethods.printInfoLog("Is Priority field Available :" + checkState(pageElements.prioritylabel));
+        commonLib.info("Is Priority field Available :" + checkState(pageElements.prioritylabel));
         return checkState(pageElements.issueTypeLabel);
     }
 
     public boolean isSubTypeLabel() {
-        UtilsMethods.printInfoLog("Is Issue Type field Available :" + checkState(pageElements.issueTypeLabel));
+        commonLib.info("Is Issue Type field Available :" + checkState(pageElements.issueTypeLabel));
         return checkState(pageElements.subTypeLabel);
     }
 
     public boolean isSubSubTypeLabel() {
-        UtilsMethods.printInfoLog("Is Issue Sub Sub Type field Available :" + checkState(pageElements.subSubTypeLabel));
+        commonLib.info("Is Issue Sub Sub Type field Available :" + checkState(pageElements.subSubTypeLabel));
         return checkState(pageElements.subSubTypeLabel);
     }
 
     public boolean isCodeLabel() {
-        UtilsMethods.printInfoLog("Is Code field Available :" + checkState(pageElements.codeLabel));
+        commonLib.info("Is Code field Available :" + checkState(pageElements.codeLabel));
         return checkState(pageElements.codeLabel);
     }
 
     public String getTicketIdvalue() {
-        UtilsMethods.printInfoLog("Ticket Id: " + getText(pageElements.ticketIdvalue));
+        commonLib.info("Ticket Id: " + getText(pageElements.ticketIdvalue));
         return getText(pageElements.ticketIdvalue);
     }
 
@@ -198,22 +198,22 @@ public class SupervisorTicketListPage extends BasePage {
     }
 
     public void clickAssigntoAgent() {
-        UtilsMethods.printInfoLog("Clicking on Assign to Agent Button");
+        commonLib.info("Clicking on Assign to Agent Button");
         click(pageElements.assignToagentBtn);
     }
 
     public boolean isAssignToAgent() {
-        UtilsMethods.printInfoLog("Validate Assign to Agent Button Available");
+        commonLib.info("Validate Assign to Agent Button Available");
         return checkState(pageElements.assignToagentBtn);
     }
 
     public void clickTransfertoQueue() {
-        UtilsMethods.printInfoLog("Clicking on Transfer to Queue Button");
+        commonLib.info("Clicking on Transfer to Queue Button");
         click(pageElements.transfertoQueueBtn);
     }
 
     public boolean isTransferToQueue() {
-        UtilsMethods.printInfoLog("Validate Transfer to Queue Button Available");
+        commonLib.info("Validate Transfer to Queue Button Available");
         return checkState(pageElements.transfertoQueueBtn);
     }
 
@@ -230,7 +230,7 @@ public class SupervisorTicketListPage extends BasePage {
 
 
     public void changeTicketTypeToClosed() {
-        UtilsMethods.printInfoLog("Switch Ticket State Type to closed");
+        commonLib.info("Switch Ticket State Type to closed");
         click(pageElements.selectTicketType);
         click(pageElements.closedTicketType);
     }
@@ -249,24 +249,24 @@ public class SupervisorTicketListPage extends BasePage {
 
     public boolean noTicketFound() {
         log.info("No ticket found");
-        UtilsMethods.printInfoLog("Is No Ticket Found :" + isElementVisible(pageElements.noResultFound));
+        commonLib.info("Is No Ticket Found :" + isElementVisible(pageElements.noResultFound));
         return isElementVisible(pageElements.noResultFound);
     }
 
 
     public void clickFilter() {
-        UtilsMethods.printInfoLog("Selecting Filter");
+        commonLib.info("Selecting Filter");
         click(pageElements.selectFilterBtn);
     }
 
     public void resetFilter() {
-        UtilsMethods.printInfoLog("Removing Filter");
+        commonLib.info("Removing Filter");
         click(pageElements.resetFilterButton);
         waitTillLoaderGetsRemoved();
     }
 
     public boolean isResetFilter() {
-        UtilsMethods.printInfoLog("Is Removing Filter Button Available");
+        commonLib.info("Is Removing Filter Button Available");
         try {
             return checkState(pageElements.resetFilterButton);
         } catch (NoSuchElementException | TimeoutException e) {
@@ -275,12 +275,12 @@ public class SupervisorTicketListPage extends BasePage {
     }
 
     public boolean validateQueueFilter(String text) {
-        UtilsMethods.printInfoLog("Validating Queue Filter");
+        commonLib.info("Validating Queue Filter");
         boolean answer = false;
         if (getListSize() > 0) {
             for (int i = 1; i <= getListSize(); i++) {
                 By queue = By.xpath("//div[@class=\"container-fluid table-card ng-star-inserted\"][" + i + "]//ul/li[7]/span[2]");
-                UtilsMethods.printInfoLog(getText(queue).trim() + " : " + text + " :" + getText(queue).trim().equalsIgnoreCase(text));
+                commonLib.info(getText(queue).trim() + " : " + text + " :" + getText(queue).trim().equalsIgnoreCase(text));
                 answer = getText(queue).trim().equalsIgnoreCase(text);
             }
         } else {
@@ -289,24 +289,24 @@ public class SupervisorTicketListPage extends BasePage {
         return answer;
     }
 
-    public void ClickReopenButton() {
-        UtilsMethods.printInfoLog("Clicking Reopen Button");
+    public void clickReopenButton() {
+        commonLib.info("Clicking Reopen Button");
         click(pageElements.reOpenBtn);
     }
 
     public void addReopenComment(String comment) {
-        UtilsMethods.printInfoLog("Add Reopen Comment: " + comment);
+        commonLib.info("Add Reopen Comment: " + comment);
         writeText(pageElements.reOpenBox, comment);
         clickOutside();
     }
 
     public void submitReopenReq() {
-        UtilsMethods.printInfoLog("Clicking on Submit Button");
+        commonLib.info("Clicking on Submit Button");
         click(pageElements.submitReopenComment);
     }
 
     public void closedReopenBox() {
-        UtilsMethods.printInfoLog("Clicking on closing reopen comment box Button");
+        commonLib.info("Clicking on closing reopen comment box Button");
         click(pageElements.closeReopenCommentBox);
     }
 
@@ -315,7 +315,7 @@ public class SupervisorTicketListPage extends BasePage {
         return checkState(pageElements.reOpenBtn);
     }
 
-    public boolean CheckAssignedAUUID(String auuid) {
+    public boolean checkAssignedAUUID(String auuid) {
         log.info("Ticket Validated and Assigned to Agent AUUID: " + auuid);
         By agentAUUID = By.xpath("//span[contains(text(),'" + auuid + "')]");
         return checkState(agentAUUID);
@@ -347,13 +347,13 @@ public class SupervisorTicketListPage extends BasePage {
     }
 
     public Boolean isNotAssigneeDisplay() {
-        UtilsMethods.printInfoLog("Checking Is not assigned displayed");
+        commonLib.info("Checking Is not assigned displayed");
         return checkState(pageElements.notAssigned);
     }
 
     public boolean isNegativeSLA() {
         try {
-            UtilsMethods.printInfoLog("Checking red dot symbol for negative SLA: " + checkState(pageElements.redDot));
+            commonLib.info("Checking red dot symbol for negative SLA: " + checkState(pageElements.redDot));
             return checkState(pageElements.redDot);
         } catch (TimeoutException e) {
             log.info(e.fillInStackTrace());
@@ -364,7 +364,7 @@ public class SupervisorTicketListPage extends BasePage {
     public boolean isAllTicketTab() {
         try {
             boolean flag = checkState(pageElements.allTicketTab);
-            UtilsMethods.printInfoLog("IS All Assigned Ticket Tab displayed: " + flag);
+            commonLib.info("IS All Assigned Ticket Tab displayed: " + flag);
             return flag;
         } catch (TimeoutException e) {
             log.info(e.fillInStackTrace());
@@ -375,7 +375,7 @@ public class SupervisorTicketListPage extends BasePage {
     public boolean isMyAssignedTicketTab() {
         try {
             boolean flag = checkState(pageElements.myTicketTab);
-            UtilsMethods.printInfoLog("IS My Assigned Ticket Tab displayed: " + flag);
+            commonLib.info("IS My Assigned Ticket Tab displayed: " + flag);
             return flag;
         } catch (TimeoutException e) {
             log.info(e.fillInStackTrace());
@@ -385,7 +385,7 @@ public class SupervisorTicketListPage extends BasePage {
 
     public boolean isPositiveSLA() {
         try {
-            UtilsMethods.printInfoLog("Checking green dot symbol for positive SLA: " + checkState(pageElements.greenDot));
+            commonLib.info("Checking green dot symbol for positive SLA: " + checkState(pageElements.greenDot));
             return checkState(pageElements.greenDot);
         } catch (TimeoutException e) {
             log.info(e.fillInStackTrace());
@@ -399,7 +399,7 @@ public class SupervisorTicketListPage extends BasePage {
         for (int i = 1; i <= list.size(); i++) {
             By ticket = By.xpath("//div[@class=\"table-card ng-star-inserted\"][" + i + "]//ul[1]//li[1]//span[2]");
             ticketList.add(getText(ticket).trim());
-            UtilsMethods.printInfoLog("Ticket Id: " + getText(ticket).trim());
+            commonLib.info("Ticket Id: " + getText(ticket).trim());
         }
         return ticketList;
     }
@@ -413,7 +413,7 @@ public class SupervisorTicketListPage extends BasePage {
     public String getSymbol(int i) {
         By ticket = By.xpath("//div[@class=\"container-fluid table-card ng-star-inserted\"][" + i + "]//ul[1]//li[1]//span[2]");
         By symbol = By.xpath("//div[@class=\"container-fluid table-card ng-star-inserted\"][" + i + "]//span[@class=\"escalation\"]");
-        UtilsMethods.printInfoLog(getText(symbol) + ": Escalation symbol found on ticket Id: " + getText(ticket).trim());
+        commonLib.info(getText(symbol) + ": Escalation symbol found on ticket Id: " + getText(ticket).trim());
         return getText(symbol).trim();
     }
 
@@ -428,19 +428,19 @@ public class SupervisorTicketListPage extends BasePage {
         List<String> searchOption = new ArrayList<>();
         for (int i = 1; i <= list.size(); i++) {
             By search = By.xpath("//ul[@class='ng-star-inserted']//li[" + i + "]");
-            UtilsMethods.printInfoLog("Options Available : " + getText(search));
+            commonLib.info("Options Available : " + getText(search));
             searchOption.add(getText(search).trim());
         }
         return searchOption;
     }
 
     public String getMSISDN() {
-        UtilsMethods.printInfoLog("Reading MSISDN: " + getText(pageElements.msisdn));
+        commonLib.info("Reading MSISDN: " + getText(pageElements.msisdn));
         return getText(pageElements.msisdn);
     }
 
     public void clickSearchOptionByTextNoIgnoreCase(String text) {
-        UtilsMethods.printInfoLog("Clicking search By option: " + text);
+        commonLib.info("Clicking search By option: " + text);
         By option = By.xpath("//ul[@class='ng-star-inserted']//li[normalize-space()='" + text + "']");
         click(option);
     }

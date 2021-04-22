@@ -64,7 +64,7 @@ public class SupervisorTicketListPageElements {
     public By cancelBtn = By.xpath("//span[contains(text(),'Cancel')]");
     public By transferAnywayBtn = By.xpath("//span[contains(text(),'Transfer Anyway')]");
     public By notAssigned = By.xpath("//div[@class='service-request']//div[1]//div[1]//div[2]//div[2]//p[1]/span[contains(text(),'Not Assigned')]");
-    public By sourceTitleTicketRowTicketListing = By.xpath("//span[contains(text(),'Source')]");
+    public By sourceTitleTicketRowTicketListing = By.xpath("//span[contains(text(),'Source')] | //b[contains(text(),'Source')]");
     public By sourceTitleText = By.xpath("//*[@title='Customer Service']");
     public By openTicketDetailPage = By.xpath("//*[contains(@class,'data-area-full')]");
     public By backButtonDetailPage = By.xpath("//span[text()=' BACK ']");

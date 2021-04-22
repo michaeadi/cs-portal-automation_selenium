@@ -1,6 +1,5 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
-import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.pagerepository.pageelements.MsisdnSearchPageElements;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.WebDriver;
@@ -18,24 +17,24 @@ public class MsisdnSearchPage extends BasePage {
     }
 
     public void enterNumber(String number) {
-        UtilsMethods.printInfoLog("Entering Number in search box :" + number);
+        commonLib.info("Entering Number in search box :" + number);
         writeText(pageElements.numberSearch, number);
     }
 
     public void clearCustomerNumber() {
-        UtilsMethods.printInfoLog("Clearing Customer Number");
+        commonLib.info("Clearing Customer Number");
         driver.findElement(pageElements.numberSearch).clear();
     }
 
     public void clickOnSearch() {
-        UtilsMethods.printInfoLog("Clicking on Search Button");
+        commonLib.info("Clicking on Search Button");
         waitTillLoaderGetsRemoved();
         click(pageElements.searchButton);
     }
 
     public void waitUntilPageIsLoaded() {
         waitTillLoaderGetsRemoved();
-        UtilsMethods.printInfoLog("Waiting till the Search Page is Loaded");
+        commonLib.info("Waiting till the Search Page is Loaded");
         wait.until(ExpectedConditions.elementToBeClickable(pageElements.searchButton));
     }
 }

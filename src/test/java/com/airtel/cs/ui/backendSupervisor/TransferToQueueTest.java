@@ -3,7 +3,6 @@ package com.airtel.cs.ui.backendSupervisor;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.TransferQueueDataBean;
-import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.driver.Driver;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoSuchElementException;
@@ -26,7 +25,7 @@ public class TransferToQueueTest extends Driver {
 
     @Test(priority = 1, description = "Supervisor Dashboard Login ")
     public void openSupervisorDashboard() {
-        ExtentTestManager.startTest("Open Supervisor Dashboard", "Open Supervisor Dashboard");
+        selUtils.addTestcaseDescription("Open Supervisor Dashboard", "description");
         pages.getSideMenu().waitTillLoaderGetsRemoved();
         pages.getSideMenu().clickOnSideMenu();
         pages.getSideMenu().clickOnName();
@@ -39,7 +38,7 @@ public class TransferToQueueTest extends Driver {
 
     @Test(priority = 2, dataProvider = "TransferQueue", description = "Transfer to queue", enabled = true, dataProviderClass = DataProviders.class)
     public void transferToQueue(TransferQueueDataBean data) {
-        ExtentTestManager.startTest("Transfer to queue", "Transfer to queue");
+        selUtils.addTestcaseDescription("Transfer to queue", "description");
         SoftAssert softAssert = new SoftAssert();
         String ticketId = null;
         try {

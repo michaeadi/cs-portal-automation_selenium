@@ -7,13 +7,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ExtentTestManager extends Driver {
-    static Map<Integer, ExtentTest> extentTestMap = new HashMap<Integer, ExtentTest>();
+    static Map<Integer, ExtentTest> extentTestMap = new HashMap<>();
 
     public static synchronized ExtentTest getTest() {
         return extentTestMap.get((int) Thread.currentThread().getId());
     }
 
-    public static synchronized void endTest() {
+    public static synchronized void endTestOld() {
         extent.endTest(extentTestMap.get((int) Thread.currentThread().getId()));
     }
 

@@ -13,9 +13,20 @@ import org.openqa.selenium.WebDriver;
 import java.io.File;
 import java.io.IOException;
 
-import static org.apache.hc.core5.util.Deadline.DATE_FORMAT;
-
 public class ExtentReport extends Driver {
+
+    private static final String FONT_SIZE_COLOR_MEDIUMQUAMARINE = "<font size=\"3\" color=\"MEDIUMAQUAMARINE\">";
+    private static final String FONT_SIZE_COLOR_DARKSALMON = "<font size=\"3\" color=\"DARKSALMON\">";
+    private static final String FONT_SIZE_COLOR_CORAL = "<font size=\"3\" color=\"Coral\">";
+    private static final String FONT_SIZE_COLOR_WHITE = "<font size=\"3\" color=\"White\">";
+    private static final String FONT_SIZE_COLOR_GOLDENROD = "<font size=\"3\" color=\"GoldenRod\">";
+    private static final String FONT = "</font>";
+    private static final String BREAK_LINE = "</br>";
+    private static final String PATH_DELIMITER = "/";
+    private static final String USER_DIR = "user.dir";
+    private static final String RESOURCE_SCREENSHOT = "/resources/screenshots/";
+
+
     /**
      * @param testName   : testName is the Type of test (Smoke, Sanity, Regression
      *                   etc.)
@@ -44,15 +55,15 @@ public class ExtentReport extends Driver {
             // screenshot.
             String message = null;
             if (logStatus.equals(LogStatus.PASS)) {
-                message = "<font size=\"3\" color=\"MEDIUMAQUAMARINE\">" + details + "</font>";
+                message = FONT_SIZE_COLOR_MEDIUMQUAMARINE + details + FONT;
             } else if (logStatus.equals(LogStatus.FAIL)) {
-                message = "<b>" + "<font size=\"3\" color=\"DARKSALMON\">" + details + "</font>" + "</b>";
+                message = "<b>" + FONT_SIZE_COLOR_DARKSALMON + details + FONT + "</b>";
             } else if (logStatus.equals(LogStatus.ERROR)) {
-                message = "<b>" + "<font size=\"3\" color=\"DARKSALMON\">" + details + "</font>" + "</b>";
+                message = "<b>" + FONT_SIZE_COLOR_DARKSALMON + details + FONT + "</b>";
             } else if (logStatus.equals(LogStatus.WARNING)) {
-                message = "<b>" + "<font size=\"3\" color=\"GOLD\">" + details + "</font>" + "</b>";
+                message = "<b>" + "<font size=\"3\" color=\"GOLD\">" + details + FONT + "</b>";
             } else if (logStatus.equals(LogStatus.SKIP)) {
-                message = "<b>" + "<font size=\"3\" color=\"GOLD\">" + details + "</font>" + "</b>";
+                message = "<b>" + "<font size=\"3\" color=\"GOLD\">" + details + FONT + "</b>";
             } else {
                 message = details;
             }
@@ -70,10 +81,10 @@ public class ExtentReport extends Driver {
 
         if (isPrerequisiteStepsORMainDescriptionSteps.toLowerCase().contains("description")) {
             test.log(LogStatus.INFO, "<b>" + "<font size=\"4\" color=\"DARKSALMON\">" + "DESCRIPTION OF TESTCASE"
-                    + "</font>" + "</b>" + "</br>" + TESTCASE_DESCRIPTION_BUILDER);
+                    + FONT + "</b>" + BREAK_LINE + TESTCASE_DESCRIPTION_BUILDER);
         } else if (isPrerequisiteStepsORMainDescriptionSteps.toLowerCase().contains("pre")) {
             test.log(LogStatus.INFO,
-                    "<b>" + "<font size=\"4\" color=\"DARKSALMON\">" + "PRE-REQUISITES STEPS" + "</font>" + "</b>");
+                    "<b>" + "<font size=\"4\" color=\"DARKSALMON\">" + "PRE-REQUISITES STEPS" + FONT + "</b>");
             test.log(LogStatus.INFO, "HTML", "<b>" + TESTCASE_DESCRIPTION_BUILDER + "</b>");
         }
     }
@@ -89,21 +100,21 @@ public class ExtentReport extends Driver {
                                                 ReportInfoMessageColorList color, Boolean requiredScreenshot) {
         switch (color) {
             case RED:
-                test.log(LogStatus.INFO, "HTML", normalText + "<b>" + "<font size=\"3\" color=\"DARKSALMON\">"
-                        + highlightText + "</font>" + "</b>");
+                test.log(LogStatus.INFO, "HTML", normalText + "<b>" + FONT_SIZE_COLOR_DARKSALMON
+                        + highlightText + FONT + "</b>");
                 break;
             case GOLD:
                 test.log(LogStatus.INFO, "HTML",
-                        normalText + "<b>" + "<font size=\"3\" color=\"gold\">" + highlightText + "</font>" + "</b>");
+                        normalText + "<b>" + "<font size=\"3\" color=\"gold\">" + highlightText + FONT + "</b>");
                 break;
             case GREEN:
-                test.log(LogStatus.INFO, "HTML", normalText + "<b>" + "<font size=\"3\" color=\"MEDIUMAQUAMARINE\">"
-                        + highlightText + "</font>" + "</b>");
+                test.log(LogStatus.INFO, "HTML", normalText + "<b>" + FONT_SIZE_COLOR_MEDIUMQUAMARINE
+                        + highlightText + FONT + "</b>");
                 break;
 
             case BLUE:
                 test.log(LogStatus.INFO, "HTML", normalText + "<b>" + "<center>"
-                        + "<font size=\"4\" color=\"LightBlue\">" + highlightText + "</font>" + "</center>" + "</b>");
+                        + "<font size=\"4\" color=\"LightBlue\">" + highlightText + FONT + "</center>" + "</b>");
                 break;
             case STEELBLUE:
                 int index = 1;
@@ -111,14 +122,14 @@ public class ExtentReport extends Driver {
                 String[] values = highlightText.split(",");
                 StringBuilder headers = new StringBuilder();
                 for (int i = 0; i < valuesHeaders.length; i++) {
-                    headers.append("<font size=\"3\" color=\"Coral\">" + "<b>").append(index).append(" . ").append("</b>").append("<font size=\"3\" color=\"White\">").append(valuesHeaders[i]).append("</font>").append("<font size=\"3\" color=\"GoldenRod\">").append(" - ").append(values[i]).append("</font>").append("</br>").append(System.lineSeparator());
+                    headers.append(FONT_SIZE_COLOR_CORAL + "<b>").append(index).append(" . ").append("</b>").append(FONT_SIZE_COLOR_WHITE).append(valuesHeaders[i]).append(FONT).append(FONT_SIZE_COLOR_GOLDENROD).append(" - ").append(values[i]).append(FONT).append(BREAK_LINE).append(System.lineSeparator());
                     index++;
                 }
                 test.log(LogStatus.INFO, headers.toString());
                 break;
             default:
                 test.log(LogStatus.INFO, "HTML", normalText + "<b>" + "<font size=\"2\" color=\"MEDIUMAQUAMARINE\">"
-                        + highlightText + "</font>" + "</b>");
+                        + highlightText + FONT + "</b>");
         }
         if (Boolean.TRUE.equals(requiredScreenshot)) {
             attachScreenshotAsPerExecutionType(LogStatus.INFO);
@@ -135,9 +146,9 @@ public class ExtentReport extends Driver {
             StringBuilder headers = new StringBuilder();
             for (int i = 0; i < valuesHeaders.length; i++) {
                 if (valuesActual[i].trim().equals(valuesExpected[i].trim())) {
-                    headers.append("<font size=\"3\" color=\"GoldenRod\">" + "<b>").append(index).append(" . ").append("</b>").append("<font size=\"3\" color=\"White\">").append(valuesHeaders[i]).append("</font>").append("<font size=\"3\" color=\"MEDIUMAQUAMARINE\">").append(" - ").append(valuesActual[i]).append("</font>").append("</br>").append(System.lineSeparator());
+                    headers.append(FONT_SIZE_COLOR_GOLDENROD + "<b>").append(index).append(" . ").append("</b>").append(FONT_SIZE_COLOR_WHITE).append(valuesHeaders[i]).append(FONT).append(FONT_SIZE_COLOR_MEDIUMQUAMARINE).append(" - ").append(valuesActual[i]).append(FONT).append(BREAK_LINE).append(System.lineSeparator());
                 } else {
-                    headers.append("<font size=\"3\" color=\"Coral\">" + "<b>").append(index).append(" . ").append("</b>").append("<font size=\"3\" color=\"White\">").append(valuesHeaders[i]).append("</font>").append("<font size=\"3\" color=\"Coral\">").append(" - ").append(valuesActual[i]).append("</font>").append("<font size=\"3\" color=\"GoldenRod\">").append(" , Expected - ").append(valuesExpected[i]).append("</font>").append("</br>").append(System.lineSeparator());
+                    headers.append(FONT_SIZE_COLOR_CORAL + "<b>").append(index).append(" . ").append("</b>").append(FONT_SIZE_COLOR_WHITE).append(valuesHeaders[i]).append(FONT).append(FONT_SIZE_COLOR_CORAL).append(" - ").append(valuesActual[i]).append(FONT).append(FONT_SIZE_COLOR_GOLDENROD).append(" , Expected - ").append(valuesExpected[i]).append(FONT).append(BREAK_LINE).append(System.lineSeparator());
                 }
                 index++;
             }
@@ -156,8 +167,8 @@ public class ExtentReport extends Driver {
     public String addScreenShot(WebDriver driver) {
         String filePath = null;
         try {
-            String htmlfileScreenshotsPath = System.getProperty("user.dir") + "/resources/screenshots/"
-                    + dateTime.toString(DATE_FORMAT) + "/";
+            String htmlfileScreenshotsPath = System.getProperty(USER_DIR) + RESOURCE_SCREENSHOT
+                    + dateTime.toString(DATE_FORMAT) + PATH_DELIMITER;
             filePath = htmlfileScreenshotsPath + dateTime.toString().toLowerCase() + ".png";
             File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
             File destFile = new File(filePath);
@@ -172,19 +183,11 @@ public class ExtentReport extends Driver {
         try {
             ExtentReport extent = new ExtentReport();
             String screenshot = "";
-            String[] arrSplit = null;
-            screenshot = extent.addScreenShot(driver);
-            if (screenshot.toLowerCase().contains("PM".toLowerCase())) {
-                arrSplit = screenshot.toLowerCase().split("PM/".toLowerCase());
-            } else if (screenshot.toLowerCase().contains("AM".toLowerCase())) {
-                arrSplit = screenshot.toLowerCase().split("AM/".toLowerCase());
-            }
-            assert arrSplit != null;
-            screenshot = arrSplit[1];
+            screenshot = extent.addScreenShot(driver).toLowerCase();
             screenshot = "./".concat(screenshot);
             test.log(logStatus, test.addScreenCapture(screenshot));
         } catch (Exception e) {
-            commonLib.error("ERROR INSIDE METHOD - attachScreenshotAsPerExecutionType" + "</br>" + e.getMessage());
+            commonLib.error("ERROR INSIDE METHOD - attachScreenshotAsPerExecutionType" + BREAK_LINE + e.getMessage());
         }
     }
 }

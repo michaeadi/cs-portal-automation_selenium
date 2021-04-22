@@ -25,43 +25,43 @@ public class LoginPage extends BasePage {
     }
 
     public boolean isEnterAUUIDFieldVisible() {
-        UtilsMethods.printInfoLog("Checking is Enter AUUID field is Visible");
+        commonLib.info("Checking is Enter AUUID field is Visible");
         return isElementVisible(pageElements.enterAUUID);
     }
 
     public void openBaseURL(String baseURL) {
         driver.get(baseURL);
-        UtilsMethods.printInfoLog("Opening URL:-" + baseURL);
+        commonLib.info("Opening URL:-" + baseURL);
     }
 
     public void enterAUUID(String auuid) {
-        UtilsMethods.printInfoLog("Entering auuid :" + auuid + " In username");
+        commonLib.info("Entering auuid :" + auuid + " In username");
         writeText(pageElements.enterAUUID, auuid);
 
     }
 
     public void clickOnSubmitBtn() {
-        UtilsMethods.printInfoLog("Clicking on Submit button");
+        commonLib.info("Clicking on Submit button");
         click(pageElements.submitButton);
     }
 
     public void enterPassword(String password) {
-        UtilsMethods.printInfoLog("Send password to Password field");
+        commonLib.info("Send password to Password field");
         writeText(pageElements.enterPassword, password);
     }
 
     public boolean checkLoginButton() {
-        UtilsMethods.printInfoLog("checking login button is enabled or not");
+        commonLib.info("checking login button is enabled or not");
         return checkState(pageElements.submitButton);
     }
 
     public void clickOnLogin() {
-        UtilsMethods.printInfoLog("Clicking on Login button");
+        commonLib.info("Clicking on Login button");
         click(pageElements.submitButton);
     }
 
     public void clickOnVisibleButton() {
-        UtilsMethods.printInfoLog("Clicking on Visible Password Button");
+        commonLib.info("Clicking on Visible Password Button");
         click(pageElements.visiblePassword);
     }
 

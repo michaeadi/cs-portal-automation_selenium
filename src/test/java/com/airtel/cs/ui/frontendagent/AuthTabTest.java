@@ -1,17 +1,14 @@
 package com.airtel.cs.ui.frontendagent;
 
 import com.airtel.cs.api.APIEndPoints;
-import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.dataproviders.ActionTagDataBeans;
 import com.airtel.cs.commonutils.dataproviders.AuthTabDataBeans;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.QuestionAnswerKeyDataBeans;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
-import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pojo.configuration.ConfigurationPOJO;
 import com.airtel.cs.pojo.configuration.LockedSection;
-import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
@@ -36,10 +33,10 @@ public class AuthTabTest extends Driver {
         softAssert.assertAll();
     }
 
-    @DataProviders.User(UserType = "NFTR")
+    @DataProviders.User(userType = "NFTR")
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteraction(TestDatabean data) {
-        ExtentTestManager.startTest("Validating the Search for Customer Interactions :" + data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + data.getCustomerNumber());
+        selUtils.addTestcaseDescription("Validating the Search for Customer Interactions :" + data.getCustomerNumber(), "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getSideMenu().clickOnSideMenu();
         pages.getSideMenu().clickOnName();
@@ -52,14 +49,14 @@ public class AuthTabTest extends Driver {
 
     @Test(priority = 2, description = "Validate that the answers of the questions")
     public void validateAnswerQuestionConfig() {
-        ExtentTestManager.startTest("Verify that the answers of the questions in pop up should either show data from configuration", "CSP-63443 For every question there should be an answer key, that should be created and stored in DB policy_questions table, from UI/API path the answers should be checked.Then the same should be configured in configurations table like - answerkey:\"API_URL.xpath.\" (AM_NAME: \"cs-am-service/v1/profile.result.firstName\")");
+        selUtils.addTestcaseDescription("Verify that the answers of the questions in pop up should either show data from configuration,CSP-63443 For every question there should be an answer key, that should be created and stored in DB policy_questions table, from UI/API path the answers should be checked.Then the same should be configured in configurations table like - answerkey:\"API_URL.xpath.\" (AM_NAME: \"cs-am-service/v1/profile.result.firstName\")", "description");
         SoftAssert softAssert = new SoftAssert();
         ConfigurationPOJO config = api.getConfiguration("authorization_data");
         authTabConfig = config.getResult().getAuthDataConfig();
         for (Map.Entry mapElement : authTabConfig.entrySet()) {
             String key = (String) mapElement.getKey();
             String value = mapElement.getValue().toString();
-            UtilsMethods.printInfoLog(key + " :" + value);
+            commonLib.info(key + " :" + value);
             if (value == null || value.isEmpty()) {
                 softAssert.fail("For Question Key '" + key + "' value is missing. Please configure the same.");
             }
@@ -69,12 +66,12 @@ public class AuthTabTest extends Driver {
 
     @Test(priority = 3, description = "Verify the question Answer as Per Config")
     public void validateAnswerKey() {
-        ExtentTestManager.startTest("Verify the question Answer as Per Config", "validate the question Answer as Per Config");
+        selUtils.addTestcaseDescription("Verify the question Answer as Per Config", "description");
         SoftAssert softAssert = new SoftAssert();
         DataProviders dataProviders = new DataProviders();
         List<QuestionAnswerKeyDataBeans> config = dataProviders.getQuestionAnswerKey();
         for (QuestionAnswerKeyDataBeans questionAnswer : config) {
-            UtilsMethods.printInfoLog("Question Key: '" + questionAnswer.getQuestionKey() + "' ; Answer Found in API: '" + authTabConfig.get(questionAnswer.getQuestionKey()));
+            commonLib.info("Question Key: '" + questionAnswer.getQuestionKey() + "' ; Answer Found in API: '" + authTabConfig.get(questionAnswer.getQuestionKey()));
             if (authTabConfig.get(questionAnswer.getQuestionKey()) != null) {
                 softAssert.assertEquals(authTabConfig.get(questionAnswer.getQuestionKey()), questionAnswer.getAnswerKey(), "Answer key is not expected for Question: " + questionAnswer.getQuestionKey());
             } else {
@@ -86,21 +83,21 @@ public class AuthTabTest extends Driver {
 
     @Test(priority = 4, description = "Verify that there is a authorization pop for the actions")
     public void validateLockedSectionStatus() {
-        ExtentTestManager.startTest("Verify that there is a authorization pop for the actions", "CSP-63442 Verify that there is a authorization pop for the actions like SIM Bar Unbar, PIN reset");
+        selUtils.addTestcaseDescription("Verify that there is a authorization pop for the actions,CSP-63442 Verify that there is a authorization pop for the actions like SIM Bar Unbar, PIN reset", "description");
         SoftAssert softAssert = new SoftAssert();
         DataProviders dataProviders = new DataProviders();
         ConfigurationPOJO config = api.getConfiguration("locked_sections_keys");
         List<LockedSection> lockedSection = config.getResult().getLockedSectionsKeysConfig();
         List<ActionTagDataBeans> actionTags = dataProviders.getActionTag();
         for (LockedSection ls : lockedSection) {
-            UtilsMethods.printInfoLog(ls.getKey() + " : " + ls.getIsAuthenticated());
+            commonLib.info(ls.getKey() + " : " + ls.getIsAuthenticated());
             for (ActionTagDataBeans at : actionTags) {
                 if (ls.getKey().equalsIgnoreCase(at.getActionTagName())) {
                     if (ls.getIsAuthenticated() != Boolean.parseBoolean(at.getIsAuth())) {
                         softAssert.fail("Action does not locked but as per config Action must be locked.");
                         break;
                     } else if (ls.getIsAuthenticated() == Boolean.parseBoolean(at.getIsAuth())) {
-                        UtilsMethods.printPassLog("Action Verified " + at.getActionTagName());
+                        commonLib.pass("Action Verified " + at.getActionTagName());
                     }
                 }
             }
@@ -110,7 +107,7 @@ public class AuthTabTest extends Driver {
 
     @Test(priority = 5, description = "Verify the Authentication tab", dependsOnMethods = "openCustomerInteraction")
     public void validateAuthTab() throws InterruptedException {
-        ExtentTestManager.startTest("Verify the Authentication tab", "Verify the Authentication tab");
+        selUtils.addTestcaseDescription("Verify the Authentication tab", "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getCustomerProfilePage().waitTillLoaderGetsRemoved();
         if (pages.getDemoGraphicPage().isPUKInfoLock()) {
@@ -132,10 +129,10 @@ public class AuthTabTest extends Driver {
                 questionList.remove(trim);
             }
             if (questionList.isEmpty()) {
-                ExtentTestManager.getTest().log(LogStatus.PASS, "All Questions correctly configured and display on UI.");
+                commonLib.pass("All Questions correctly configured and display on UI.");
             } else {
                 for (Map.Entry<String, String> mapElement : questionList.entrySet()) {
-                    ExtentTestManager.getTest().log(LogStatus.FAIL, mapElement.getKey() + " Question Display on UI but does not present in config sheet.");
+                    commonLib.fail(mapElement.getKey() + " Question Display on UI but does not present in config sheet.", true);
                     softAssert.fail(mapElement.getKey() + " :Question Display on UI but does not present in config sheet.");
                 }
             }
@@ -152,7 +149,7 @@ public class AuthTabTest extends Driver {
 
     @Test(priority = 6, description = "Verify the Authentication tab Minimum question Configured correctly")
     public void validateAuthTabMinQuestion() throws InterruptedException {
-        ExtentTestManager.startTest("Verify the Authentication tab Minimum question Configured correctly", "Verify the Authentication tab Minimum question Configured correctly");
+        selUtils.addTestcaseDescription("Verify the Authentication tab Minimum question Configured correctly", "description");
         SoftAssert softAssert = new SoftAssert();
         DataProviders data = new DataProviders();
         pages.getAuthTabPage().waitTillLoaderGetsRemoved();
@@ -172,7 +169,7 @@ public class AuthTabTest extends Driver {
 
     @Test(priority = 7, description = "Authenticate User", dependsOnMethods = "validateAuthTabMinQuestion", enabled = false)
     public void authCustomer() {
-        ExtentTestManager.startTest("Authenticate User", "Authenticate User");
+        selUtils.addTestcaseDescription("Authenticate User", "description");
         SoftAssert softAssert = new SoftAssert();
         DataProviders data = new DataProviders();
         pages.getAuthTabPage().waitTillLoaderGetsRemoved();
@@ -198,7 +195,7 @@ public class AuthTabTest extends Driver {
                 softAssert.fail(s + ": Must configured on UI as mentioned in config.");
             }
             pages.getAuthTabPage().chooseReason();
-            pages.getAuthTabPage().writeComment("Adding comment using Automation");
+            pages.getAuthTabPage().enterComment("Adding comment using Automation");
             softAssert.assertTrue(pages.getAuthTabPage().isSubmitBtnEnable(), "Submit button does not enabled after adding comment");
             pages.getAuthTabPage().closeSIMBarPopup();
         } catch (NoSuchElementException | TimeoutException e) {
@@ -210,7 +207,7 @@ public class AuthTabTest extends Driver {
 
     @Test(priority = 8, description = "Verify the Send Internet Setting tab", dependsOnMethods = "openCustomerInteraction")
     public void validateSendInternetSetting() {
-        ExtentTestManager.startTest("Verify the Send Internet Setting tab", "Verify the Send Internet Setting tab");
+        selUtils.addTestcaseDescription("Verify the Send Internet Setting tab", "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getCustomerProfilePage().waitTillLoaderGetsRemoved();
         try {
@@ -234,7 +231,7 @@ public class AuthTabTest extends Driver {
 
     @Test(priority = 9, description = "Verify the Reset ME2U Password tab", dependsOnMethods = "openCustomerInteraction")
     public void validateResetME2UPassword() {
-        ExtentTestManager.startTest("Verify the Reset ME2U Password tab", "Verify the Reset ME2U Password tab");
+        selUtils.addTestcaseDescription("Verify the Reset ME2U Password tab", "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getCustomerProfilePage().waitTillLoaderGetsRemoved();
         try {

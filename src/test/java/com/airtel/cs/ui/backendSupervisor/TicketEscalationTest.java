@@ -24,7 +24,7 @@ public class TicketEscalationTest extends Driver {
 
     @Test(priority = 1, description = "Supervisor Dashboard Login ")
     public void openSupervisorDashboard() {
-        ExtentTestManager.startTest("Open Supervisor Dashboard", "Open Supervisor Dashboard");
+        selUtils.addTestcaseDescription("Open Supervisor Dashboard", "description");
         pages.getSideMenu().waitTillLoaderGetsRemoved();
         pages.getSideMenu().clickOnSideMenu();
         pages.getSideMenu().clickOnName();
@@ -37,7 +37,7 @@ public class TicketEscalationTest extends Driver {
 
     @Test(priority = 2, dependsOnMethods = "openSupervisorDashboard", description = "Validate Ticket Escalation Symbol")
     public void ticketEscalation() throws InterruptedException {
-        ExtentTestManager.startTest("Validate Ticket Escalation", "Verify that ticket Escalation Symbol Display");
+        selUtils.addTestcaseDescription("Validate Ticket Escalation,Verify that ticket Escalation Symbol Display", "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getSupervisorTicketList().changeTicketTypeToOpen();
         pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
@@ -76,7 +76,7 @@ public class TicketEscalationTest extends Driver {
 
     @Test(priority = 3, dependsOnMethods = "openSupervisorDashboard", description = "Validate the Escalation of Ticket Before the SLA Expiry")
     public void ticketEscalationBeforeSLA() throws InterruptedException {
-        ExtentTestManager.startTest("Validate the Escalation of Ticket Before the SLA Expiry", "Validate the Escalation of Ticket Before the SLA Expiry");
+        selUtils.addTestcaseDescription("Validate the Escalation of Ticket Before the SLA Expiry", "description");
         SoftAssert softAssert = new SoftAssert();
         try {
             pages.getSupervisorTicketList().clickFilter();
@@ -112,7 +112,7 @@ public class TicketEscalationTest extends Driver {
 
     @Test(priority = 4, dependsOnMethods = "openSupervisorDashboard", description = "Validate the Escalation of Ticket after SLA Expiry")
     public void ticketEscalationAfterSLA() throws InterruptedException {
-        ExtentTestManager.startTest("Validate the Escalation of Ticket after SLA Expiry", "Validate the Escalation of Ticket after SLA Expiry");
+        selUtils.addTestcaseDescription("Validate the Escalation of Ticket after SLA Expiry", "description");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SoftAssert softAssert = new SoftAssert();
         try {
@@ -149,7 +149,7 @@ public class TicketEscalationTest extends Driver {
 
     @Test(priority = 5, dependsOnMethods = "openSupervisorDashboard", description = "Validate the Escalation of Ticket on SLA Expiry")
     public void ticketEscalationOnSLA() throws InterruptedException {
-        ExtentTestManager.startTest("Validate the Escalation of Ticket on SLA Expiry", "Validate the Escalation of Ticket on SLA Expiry");
+        selUtils.addTestcaseDescription("Validate the Escalation of Ticket on SLA Expiry", "description");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SoftAssert softAssert = new SoftAssert();
         try {

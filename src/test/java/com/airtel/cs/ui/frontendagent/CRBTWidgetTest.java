@@ -4,7 +4,6 @@ import com.airtel.cs.api.APIEndPoints;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
-import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pojo.crbt.ActivateRingtone;
 import com.airtel.cs.pojo.crbt.Top20Ringtone;
@@ -29,10 +28,10 @@ public class CRBTWidgetTest extends Driver {
         softAssert.assertAll();
     }
 
-    @DataProviders.User(UserType = "NFTR")
+    @DataProviders.User(userType = "NFTR")
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteraction(TestDatabean data) {
-        ExtentTestManager.startTest("Validating the Search for Customer Interactions: " + data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + data.getCustomerNumber());
+        selUtils.addTestcaseDescription("Validating the Search for Customer Interactions: " + data.getCustomerNumber(), "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getSideMenu().clickOnSideMenu();
         pages.getSideMenu().clickOnName();
@@ -45,10 +44,10 @@ public class CRBTWidgetTest extends Driver {
         softAssert.assertAll();
     }
 
-    @DataProviders.Table(Name = "Search Tune Tab")
+    @DataProviders.Table(name = "Search Tune Tab")
     @Test(priority = 2, description = "Validate CRBT Widget Displayed Correctly", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
     public void validateMyTuneTab(HeaderDataBean data) {
-        ExtentTestManager.startTest("Validate CRBT Widget Displayed Correctly", "Validate CRBT Widget Displayed Correctly");
+        selUtils.addTestcaseDescription("Validate CRBT Widget Displayed Correctly", "description");
         SoftAssert softAssert = new SoftAssert();
         Assert.assertTrue(pages.getCrbtWidgetPage().isCRBTWidgetDisplay(), "CRBT Widget Does not display");
         ActivateRingtone ringtoneAPI = api.activateRingtone(customerNumber);

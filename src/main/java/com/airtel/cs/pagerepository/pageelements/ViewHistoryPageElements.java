@@ -15,5 +15,6 @@ public class ViewHistoryPageElements {
     public By paginationDetails = By.xpath("//*[contains(@class,'pagination-details')]");
     public By sourceApp = By.xpath("//*[@class='bksuper hr']//span[contains(text(),'Source')]");
     public By sourceAppValue = By.xpath("//*[@class='bksuper hr']/li[9]/span[2]");
+    public By closeBtn = By.xpath("//*[@class='close-btn']/img");
 
 }

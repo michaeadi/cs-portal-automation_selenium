@@ -1,6 +1,5 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
-import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.pagerepository.pageelements.ActionTrailPageElements;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
@@ -15,7 +14,7 @@ public class ActionTrailPage extends BasePage {
 
     public String getHeaderValue(int i) {
         String text = driver.findElements(pageElements.headRow).get(i).getText();
-        UtilsMethods.printInfoLog(text);
+        commonLib.info(text);
         return text;
     }
 
@@ -29,7 +28,7 @@ public class ActionTrailPage extends BasePage {
 
     public String getValue(int row, int column) {
         String text = driver.findElements(pageElements.detailRow).get(0).findElements(pageElements.detailColumn).get(column).getText();
-        UtilsMethods.printInfoLog("Value: " + text);
+        commonLib.info("Value: " + text);
         return text;
     }
 }

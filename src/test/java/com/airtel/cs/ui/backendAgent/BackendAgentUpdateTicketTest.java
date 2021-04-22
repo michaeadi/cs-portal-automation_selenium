@@ -10,7 +10,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-public class BackendAgentUpdateTicket extends Driver {
+public class BackendAgentUpdateTicketTest extends Driver {
 
     @BeforeMethod
     public void checkExecution(){
@@ -23,7 +23,7 @@ public class BackendAgentUpdateTicket extends Driver {
 
     @Test(priority = 1, description = "Backend Agent Update Ticket", dataProvider = "ticketState", dataProviderClass = DataProviders.class)
     public void updateTicket(TicketStateDataBean ticketState) throws InterruptedException {
-        ExtentTestManager.startTest("Backend Agent Update Ticket", "Backend Agent Update Ticket");
+        selUtils.addTestcaseDescription("Backend Agent Update Ticket", "description");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SoftAssert softAssert = new SoftAssert();
         pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();

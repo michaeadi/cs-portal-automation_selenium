@@ -29,7 +29,7 @@ public class UserManagementTest extends Driver {
 
     @Test(priority = 1)
     public void openUserManagementPage() {
-        ExtentTestManager.startTest("Validating User Management", "Validating User Management");
+        selUtils.addTestcaseDescription("Validating User Management", "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getSideMenu().clickOnSideMenu();
         pages.getSideMenu().clickOnName();
@@ -41,7 +41,7 @@ public class UserManagementTest extends Driver {
 
     @Test(priority = 2,dependsOnMethods = "openUserManagementPage")
     public void validateAddToUser() throws InterruptedException {
-        ExtentTestManager.startTest("Validating Add to User Management page", "Validating Add to User Management page");
+        selUtils.addTestcaseDescription("Validating Add to User Management page", "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getUserManagementPage().clickAddUserBtn();
         Thread.sleep(60000);
@@ -53,7 +53,7 @@ public class UserManagementTest extends Driver {
     @DataProviders.User()
     @Test(priority = 3, dependsOnMethods = "openUserManagementPage", description = "Validating User Management Edit Page", dataProviderClass = DataProviders.class, dataProvider = "loginData")
     public void openEditUserPage(TestDatabean data) {
-        ExtentTestManager.startTest("Validating User Management Edit Page", "Validating User Management Edit Page and Search Auuid Functionality  ");
+        selUtils.addTestcaseDescription("Validating User Management Edit Page", "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getUserManagementPage().waitTillLoaderGetsRemoved();
         pages.getUserManagementPage().searchAuuid(data.getLoginAUUID());
@@ -70,7 +70,7 @@ public class UserManagementTest extends Driver {
 
     @Test(priority = 4, dependsOnMethods = "openEditUserPage", description = "Validating User Management Edit User : Interaction Channel")
     public void getInteractionChannel() throws InterruptedException {
-        ExtentTestManager.startTest("Validating User Management Edit User : Interaction Channel", "Validating User Management Edit User : Interaction Channel");
+        selUtils.addTestcaseDescription("Validating User Management Edit User : Interaction Channel", "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getUserManagementPage().openListInteractionChannels();
         ArrayList<String> strings = pages.getUserManagementPage().getInteractionChannels();
@@ -105,7 +105,7 @@ public class UserManagementTest extends Driver {
 
     @Test(priority = 5, dependsOnMethods = "openEditUserPage", description = "Validating User Management Edit User : Work Flows")
     public void getWorkflows() throws InterruptedException {
-        ExtentTestManager.startTest("Validating User Management Edit User : Work Flows", "Validating User Management Edit User : Work Flows");
+        selUtils.addTestcaseDescription("Validating User Management Edit User : Work Flows", "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getUserManagementPage().openWorkgroupList();
         ArrayList<String> strings = pages.getUserManagementPage().getWorkflows();
@@ -139,7 +139,7 @@ public class UserManagementTest extends Driver {
 
     @Test(priority = 6, dependsOnMethods = "openEditUserPage", description = "Validating User Management Edit User : Login Queue")
     public void getLoginQueue() throws InterruptedException {
-        ExtentTestManager.startTest("Validating User Management Edit User : Login Queue", "Validating User Management Edit User :  Login Queue");
+        selUtils.addTestcaseDescription("Validating User Management Edit User : Login Queue", "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getUserManagementPage().openLoginQueueList();
         ArrayList<String> strings = pages.getUserManagementPage().getLoginQueues();
@@ -174,7 +174,7 @@ public class UserManagementTest extends Driver {
     @DataProviders.User()
     @Test(priority = 7, dependsOnMethods = "openEditUserPage", description = "Validating Bucket Size", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void changeBucketSize(TestDatabean data) {
-        ExtentTestManager.startTest("Validating Bucket Size", "Validating Bucket Size");
+        selUtils.addTestcaseDescription("Validating Bucket Size", "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getUserManagementPage().setTicketBucketSize(currentBucketSize + 1);
         pages.getUserManagementPage().clickUpdateButton();

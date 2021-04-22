@@ -146,9 +146,9 @@ public class CommonLib extends Driver {
         }
     }
 
-    public void pass(String message, boolean requireScreenshot) {
+    public void pass(String message) {
         LOGGER.info(message);
-        reporter.showInExtentReport(LogStatus.PASS, message, requireScreenshot);
+        reporter.showInExtentReport(LogStatus.PASS, message, false);
     }
 
     public void setStatusInReport(boolean status, String message, boolean requireScreenshot) {

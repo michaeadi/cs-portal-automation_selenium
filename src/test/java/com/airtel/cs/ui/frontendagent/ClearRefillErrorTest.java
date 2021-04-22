@@ -4,7 +4,6 @@ package com.airtel.cs.ui.frontendagent;
 import com.airtel.cs.api.APIEndPoints;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
-import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pojo.clearrefillstatus.RefillStatus;
 import org.openqa.selenium.NoSuchElementException;
@@ -28,10 +27,10 @@ public class ClearRefillErrorTest extends Driver {
         softAssert.assertAll();
     }
 
-    @DataProviders.User(UserType = "API")
+    @DataProviders.User(userType = "API")
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteractionAPI(TestDatabean data) {
-        ExtentTestManager.startTest("Validating the Search forCustomer Interactions :" + data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + data.getCustomerNumber());
+        selUtils.addTestcaseDescription("Validating the Search for Customer Interactions :" + data.getCustomerNumber(), "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getSideMenu().clickOnSideMenu();
         pages.getSideMenu().clickOnName();
@@ -45,7 +44,7 @@ public class ClearRefillErrorTest extends Driver {
 
     @Test(priority = 2, dependsOnMethods = "openCustomerInteractionAPI", description = "Validating Clear Refill Clear")
     public void clearRefillTest() {
-        ExtentTestManager.startTest("Validating Clear Refill Clear: " + customerNumber, "Validating Clear Refill Clear :" + customerNumber);
+        selUtils.addTestcaseDescription("Validating Clear Refill Clear: " + customerNumber, "description");
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(pages.getRechargeHistoryWidget().isRechargeHistoryWidgetIsVisible(), "Recharge History Widget is not visible");
         softAssert.assertTrue(pages.getRechargeHistoryWidget().isRechargeHistoryDatePickerVisible(), "Recharge History Widget's Date Picker is not visible");

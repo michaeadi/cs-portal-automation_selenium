@@ -26,16 +26,17 @@ public class PinTagTest extends Driver {
     }
 
 
-    @DataProviders.User(UserType = "NFTR")
+    @DataProviders.User(userType = "NFTR")
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteraction(TestDatabean data) {
-        ExtentTestManager.startTest("Validating the Search forCustomer Interactions :" + data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + data.getCustomerNumber());
+        final String customerNumber = data.getCustomerNumber();
+        selUtils.addTestcaseDescription("Validating the Search forCustomer Interactions :" + customerNumber, "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getSideMenu().clickOnSideMenu();
         pages.getSideMenu().clickOnName();
         pages.getSideMenu().openCustomerInteractionPage();
         pages.getSideMenu().waitTillLoaderGetsRemoved();
-        pages.getMsisdnSearchPage().enterNumber(data.getCustomerNumber());
+        pages.getMsisdnSearchPage().enterNumber(customerNumber);
         pages.getMsisdnSearchPage().clickOnSearch();
         softAssert.assertTrue(pages.getCustomerProfilePage().isPageLoaded());
         pages.getCustomerProfilePage().waitTillLoaderGetsRemoved();
@@ -45,7 +46,7 @@ public class PinTagTest extends Driver {
 
     @Test(priority = 2, description = "Validating Pinned Tags",dependsOnMethods = "openCustomerInteraction")
     public void checkALLPinnedTag() {
-        ExtentTestManager.startTest("Validating Pinned Tag", "Validating Pinned Tag :");
+        selUtils.addTestcaseDescription("Validating Pinned Tag", "description");
         SoftAssert softAssert = new SoftAssert();
         DataProviders data = new DataProviders();
         Map<String, Boolean> tags = data.getALLPinnedTags();
@@ -77,11 +78,12 @@ public class PinTagTest extends Driver {
 
     @Test(priority = 3, description = "SideMenu ", dataProvider = "pinTag", dataProviderClass = DataProviders.class,dependsOnMethods = "openCustomerInteraction")
     public void checkIssueCodeForPinTag(PinnedTagsDataBeans data) {
-        ExtentTestManager.startTest("Validating Pinned Tag : " + data.getTagName(), "Validating Pinned Tag : " + data.getTagName() + "  Tag and Issue creation by tag");
+        final String tagName = data.getTagName();
+        selUtils.addTestcaseDescription("Validating Pinned Tag : " + tagName, "description");
         SoftAssert softAssert = new SoftAssert();
         try {
-            if (pages.getCustomerProfilePage().isPinTagVisible(data.getTagName())) {
-                pages.getCustomerProfilePage().clickPinTag(data.getTagName());
+            if (pages.getCustomerProfilePage().isPinTagVisible(tagName)) {
+                pages.getCustomerProfilePage().clickPinTag(tagName);
                 pages.getMsisdnSearchPage().waitUntilPageIsLoaded();
                 pages.getMsisdnSearchPage().enterNumber(data.getCustomerNumber());
                 pages.getMsisdnSearchPage().clickOnSearch();
@@ -91,11 +93,11 @@ public class PinTagTest extends Driver {
                 String issueCode = pages.getViewHistory().getLastCreatedIssueCode();
                 softAssert.assertEquals(issueCode.toLowerCase().trim(), data.getIssueCode().trim().toLowerCase());
             } else {
-                softAssert.fail(data.getTagName() + " Does not display on UI");
+                softAssert.fail(tagName + " Does not display on UI");
             }
         } catch (NoSuchElementException e) {
-            ExtentTestManager.getTest().log(LogStatus.FAIL, data.getTagName() + " tag does not display on UI but present in config sheet.");
-            softAssert.fail(data.getTagName() + " tag does not display on UI but present in config sheet.\n" + e.fillInStackTrace());
+            ExtentTestManager.getTest().log(LogStatus.FAIL, tagName + " tag does not display on UI but present in config sheet.");
+            softAssert.fail(tagName + " tag does not display on UI but present in config sheet.\n" + e.fillInStackTrace());
             e.printStackTrace();
         }
         softAssert.assertAll();

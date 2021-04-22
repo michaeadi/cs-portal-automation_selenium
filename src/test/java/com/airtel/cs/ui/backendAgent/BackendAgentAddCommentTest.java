@@ -10,7 +10,7 @@ import org.testng.asserts.SoftAssert;
 
 import java.time.LocalDateTime;
 
-public class BackendAgentAddComment extends Driver {
+public class BackendAgentAddCommentTest extends Driver {
 
     @BeforeMethod
     public void checkExecution() {
@@ -23,7 +23,7 @@ public class BackendAgentAddComment extends Driver {
 
     @Test(priority = 1, description = "Backend Agent Queue Login Page")
     public void agentQueueLogin() {
-        ExtentTestManager.startTest("Backend Agent Login into Queue", "Backend Agent Login into Queue");
+        selUtils.addTestcaseDescription("Backend Agent Login into Queue", "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getSideMenu().clickOnSideMenu();
         pages.getSideMenu().clickOnName();
@@ -41,7 +41,7 @@ public class BackendAgentAddComment extends Driver {
 
     @Test(priority = 2, description = "Backend agent add new comment on Ticket", dependsOnMethods = "agentQueueLogin")
     public void addNewComment() throws InterruptedException {
-        ExtentTestManager.startTest("Backend Agent add new comment on ticket", "Backend Agent add new comment on ticket");
+        selUtils.addTestcaseDescription("Backend Agent add new comment on ticket", "description");
         SoftAssert softAssert = new SoftAssert();
         String ticketId = pages.getSupervisorTicketList().getTicketIdvalue();
         String comment = "Backend Agent added comment on ticket using automation";
@@ -56,7 +56,7 @@ public class BackendAgentAddComment extends Driver {
 
     @Test(priority = 3, dependsOnMethods = "agentQueueLogin", description = "Validate issue comment as Backend Agent")
     public void validateIssueCommentBS() {
-        ExtentTestManager.startTest("Validate issue comment as Backend Agent", "Validate issue comment [Backend Agent]");
+        selUtils.addTestcaseDescription("Validate issue comment as Backend Agent", "description");
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(pages.getViewTicket().validateCommentType(config.getProperty("issueComment")), "Issue Comment does not found on ticket");
         softAssert.assertAll();
@@ -64,7 +64,7 @@ public class BackendAgentAddComment extends Driver {
 
     @Test(priority = 4, dependsOnMethods = "addNewComment", description = "Validate Edit comment as Backend Agent")
     public void editComment() throws InterruptedException {
-        ExtentTestManager.startTest("Validate Edit comment as Backend Agent", "Validate Edit comment [Backend Agent]");
+        selUtils.addTestcaseDescription("Validate Edit comment as Backend Agent", "description");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SoftAssert softAssert = new SoftAssert();
         String comment = "Adding updated comment using automation";
@@ -79,7 +79,7 @@ public class BackendAgentAddComment extends Driver {
 
     @Test(priority = 5, dependsOnMethods = "agentQueueLogin", description = "Validate Delete comment as Backend Agent")
     public void deleteLastAddedComment() throws InterruptedException {
-        ExtentTestManager.startTest("Validate Delete comment as Backend Agent", "Validate Delete comment [Backend Agent]");
+        selUtils.addTestcaseDescription("Validate Delete comment as Backend Agent", "description");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SoftAssert softAssert = new SoftAssert();
         String comment = "Adding Comment to test Delete comment Flow " + LocalDateTime.now();

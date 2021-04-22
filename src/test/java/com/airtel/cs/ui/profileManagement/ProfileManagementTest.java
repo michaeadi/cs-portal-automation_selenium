@@ -2,7 +2,6 @@ package com.airtel.cs.ui.profileManagement;
 
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
-import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.driver.Driver;
 import lombok.extern.log4j.Log4j2;
 import org.testng.annotations.BeforeMethod;
@@ -12,7 +11,7 @@ import org.testng.asserts.SoftAssert;
 import static com.airtel.cs.commonutils.dataproviders.DataProviders.User;
 
 @Log4j2
-public class profileManagementTest extends Driver {
+public class ProfileManagementTest extends Driver {
 
     @BeforeMethod
     public void checkExecution() {
@@ -25,7 +24,7 @@ public class profileManagementTest extends Driver {
 
     @Test(priority = 1, description = "Validating Profile Management")
     public void openProfileManagementPage() {
-        ExtentTestManager.startTest("Validating Profile Management", "Validating Profile Management with Validating Filter and Columns Present ");
+        selUtils.addTestcaseDescription("Validating Profile Management with Validating Filter and Columns Present", "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getSideMenu().clickOnSideMenu();
         pages.getSideMenu().clickOnName();
@@ -44,7 +43,7 @@ public class profileManagementTest extends Driver {
 
     @Test(priority = 2, dependsOnMethods = "openProfileManagementPage")
     public void configurationFilterTest() {
-        ExtentTestManager.startTest("Validating Profile Management's Configuration Filter", "Validating Profile Management's Configuration Filter");
+        selUtils.addTestcaseDescription("Validating Profile Management's Configuration Filter", "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getProfileManagement().getConfigFilterElement().click();
         pages.getProfileManagement().clickOnOption("Not Configured");
@@ -70,7 +69,7 @@ public class profileManagementTest extends Driver {
 
     @Test(priority = 3, description = "Validating Profile Management", dependsOnMethods = "openProfileManagementPage")
     public void roleStatusFilterTest() {
-        ExtentTestManager.startTest("Validating Profile Management's Role Status Filter", "Validating Profile Management's Role Status Filter");
+        selUtils.addTestcaseDescription("Validating Profile Management's Role Status Filter", "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getProfileManagement().waitTillLoaderGetsRemoved();
         pages.getProfileManagement().getRoleStatusFilterElement().click();
@@ -96,9 +95,9 @@ public class profileManagementTest extends Driver {
     }
 
     @User()
-    @Test(priority = 3, description = "Validating Role's Widget Order Test", dataProvider = "loginData", dataProviderClass = DataProviders.class, dependsOnMethods = "openProfileManagementPage")
+    @Test(priority = 4, description = "Validating Role's Widget Order Test", dataProvider = "loginData", dataProviderClass = DataProviders.class, dependsOnMethods = "openProfileManagementPage")
     public void widgetOrderTest(TestDatabean data) {
-        ExtentTestManager.startTest("Validating Role's Widget Order Test", "Validating Profile Management with Validating Filter and Columns Present ");
+        selUtils.addTestcaseDescription("Validating Role's Widget Order Test", "description");
         SoftAssert softAssert = new SoftAssert();
         String[] widgets;
         if (pages.getProfileManagement().isRoleConfigured(data.getRoleType())) {

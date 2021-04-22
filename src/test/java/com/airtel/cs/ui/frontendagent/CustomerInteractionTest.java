@@ -7,20 +7,18 @@ import com.airtel.cs.commonutils.dataproviders.AuthTabDataBeans;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
-import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pagerepository.pagemethods.AuthTabPage;
 import com.airtel.cs.pagerepository.pagemethods.DemoGraphicPage;
 import com.airtel.cs.pojo.AMProfilePOJO;
-import com.airtel.cs.pojo.airtelmoney.AirtelMoneyPOJO;
 import com.airtel.cs.pojo.GsmKycPOJO;
-import com.airtel.cs.pojo.hlrservice.HLRServicePOJO;
-import com.airtel.cs.pojo.kycprofile.KYCProfile;
 import com.airtel.cs.pojo.PlansPOJO;
 import com.airtel.cs.pojo.ProfilePOJO;
 import com.airtel.cs.pojo.RechargeHistoryPOJO;
 import com.airtel.cs.pojo.UsageHistoryPOJO;
-import com.relevantcodes.extentreports.LogStatus;
+import com.airtel.cs.pojo.airtelmoney.AirtelMoneyPOJO;
+import com.airtel.cs.pojo.hlrservice.HLRServicePOJO;
+import com.airtel.cs.pojo.kycprofile.KYCProfile;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
@@ -38,7 +36,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Log4j2
-public class customerInteractionTest extends Driver {
+public class CustomerInteractionTest extends Driver {
 
     static String customerNumber;
     APIEndPoints api = new APIEndPoints();
@@ -54,19 +52,20 @@ public class customerInteractionTest extends Driver {
 
     @DataProviders.User()
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
-    public void openCustomerInteraction(TestDatabean Data) {
+    public void openCustomerInteraction(TestDatabean data) {
         SoftAssert softAssert = new SoftAssert();
         if (continueExecutionAPI) {
-            ExtentTestManager.startTest("Validating the Search for Customer Interactions :" + Data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + Data.getCustomerNumber());
+            final String customerNumber = data.getCustomerNumber();
+            selUtils.addTestcaseDescription("Validating the Search for Customer Interactions :" + customerNumber, "description");
             if (evnName.equalsIgnoreCase("Prod")) {
-                customerNumber = Data.getProdCustomerNumber();
+                CustomerInteractionTest.customerNumber = data.getProdCustomerNumber();
             } else {
-                customerNumber = Data.getCustomerNumber();
+                CustomerInteractionTest.customerNumber = customerNumber;
             }
             pages.getSideMenu().clickOnSideMenu();
             pages.getSideMenu().clickOnName();
             pages.getSideMenu().openCustomerInteractionPage();
-            pages.getMsisdnSearchPage().enterNumber(customerNumber);
+            pages.getMsisdnSearchPage().enterNumber(CustomerInteractionTest.customerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();
             if (!pages.getCustomerProfilePage().isPageLoaded()) {
                 softAssert.fail("Customer Info Dashboard Page does not open using SIM Number.");
@@ -85,7 +84,7 @@ public class customerInteractionTest extends Driver {
     public void validateDemographicInformation(TestDatabean data) {
         SoftAssert softAssert = new SoftAssert();
         DataProviders dataProviders = new DataProviders();
-        ExtentTestManager.startTest("Validating the Demographic Information of User :" + data.getCustomerNumber(), "Validating the Demographic Information of User :" + data.getCustomerNumber());
+        selUtils.addTestcaseDescription("Validating the Demographic Information of User :" + data.getCustomerNumber(), "description");
         ProfilePOJO profileAPI = api.profileAPITest(customerNumber);
         KYCProfile kycProfile = api.KYCProfileAPITest(customerNumber);
         GsmKycPOJO gsmKycAPI = api.gsmKYCAPITest(customerNumber);
@@ -110,7 +109,7 @@ public class customerInteractionTest extends Driver {
                     e.printStackTrace();
                     String base64Screenshot = "data:image/png;base64," + ((TakesScreenshot) driver).
                             getScreenshotAs(OutputType.BASE64);
-                    ExtentTestManager.getTest().log(LogStatus.INFO, ExtentTestManager.getTest().addBase64ScreenShot(base64Screenshot));
+                    commonLib.fail("Not able to authenticate user: ", true);
                     softAssert.fail("Not able to authenticate user: " + e.fillInStackTrace());
                     authTab.clickCloseBtn();
                 }
@@ -169,7 +168,7 @@ public class customerInteractionTest extends Driver {
             pages.getDemoGraphicPage().hoverOnCustomerInfoIcon();
             softAssert.assertEquals(pages.getDemoGraphicPage().getCustomerDOB().trim(), UtilsMethods.getDateFromEpoch(gsmKycAPI.getResult().getDob(), "dd-MMM-yyyy"), "Customer DOB is not as Expected");
             if (UtilsMethods.isCustomerBirthday(pages.getDemoGraphicPage().getCustomerDOB().trim(), "dd-MMM-yyyy")) {
-                UtilsMethods.printPassLog("Today is Customer Birthday");
+                commonLib.pass("Today is Customer Birthday");
                 softAssert.assertTrue(pages.getDemoGraphicPage().isBirthday(), "Today is customer birthday but does not display birthday icon.");
             } else {
                 softAssert.assertFalse(pages.getDemoGraphicPage().isBirthday(), "Today is not customer birthday but birthday icon display.");
@@ -246,7 +245,7 @@ public class customerInteractionTest extends Driver {
             e.printStackTrace();
         }
 
-        if(OPCO.equalsIgnoreCase("CD")){
+        if (OPCO.equalsIgnoreCase("CD")) {
             try {
                 softAssert.assertEquals(pages.getDemoGraphicPage().getWalletBalance2().toUpperCase().trim(), amProfileAPI.getResult().getWallet().get(1).getCurrency().toUpperCase() + " " + amProfileAPI.getResult().getWallet().get(1).getBalance(), "Customer's Airtel Wallet Balance & Currency code not same not as Expected");
             } catch (NoSuchElementException | TimeoutException e) {
@@ -375,7 +374,7 @@ public class customerInteractionTest extends Driver {
     @DataProviders.User()
     @Test(priority = 3, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteractionBySIM(TestDatabean Data) {
-        ExtentTestManager.startTest("Validating the Search for Customer Interactions By Using SIM Number :" + Data.getSimNumber(), "Validating the Search for Customer Interactions By Using SIM Number : " + Data.getSimNumber());
+        selUtils.addTestcaseDescription("Validating the Search for Customer Interactions By Using SIM Number :" + Data.getSimNumber(), "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getSideMenu().clickOnSideMenu();
         pages.getSideMenu().clickOnName();
@@ -392,7 +391,7 @@ public class customerInteractionTest extends Driver {
             softAssert.fail("Customer Info Dashboard Page does not open using SIM Number.");
             String base64Screenshot = "data:image/png;base64," + ((TakesScreenshot) driver).
                     getScreenshotAs(OutputType.BASE64);
-            ExtentTestManager.getTest().log(LogStatus.INFO, ExtentTestManager.getTest().addBase64ScreenShot(base64Screenshot));
+            commonLib.fail("Customer Info Dashboard Page does not open using SIM Number.", true);
             pages.getMsisdnSearchPage().clearCustomerNumber();
         }
         softAssert.assertAll();
@@ -401,15 +400,16 @@ public class customerInteractionTest extends Driver {
     @DataProviders.User()
     @Test(priority = 4, description = "Validating Demographic Info", dataProvider = "loginData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionBySIM")
     public void validateDemographicInformationBySIMNumber(TestDatabean Data) {
-        ExtentTestManager.startTest("Validating the Demographic Information of User :" + Data.getCustomerNumber(), "Validating the Demographic Information of User :" + Data.getCustomerNumber());
+        final String customerNumber = Data.getCustomerNumber();
+        selUtils.addTestcaseDescription("Validating the Demographic Information of User :" + customerNumber, "description");
         DemoGraphicPage demographic = new DemoGraphicPage(driver);
         SoftAssert softAssert = new SoftAssert();
 
-        ProfilePOJO profileAPI = api.profileAPITest(customerNumber);
-        KYCProfile kycProfile = api.KYCProfileAPITest(customerNumber);
-        GsmKycPOJO gsmKycAPI = api.gsmKYCAPITest(customerNumber);
-        PlansPOJO plansAPI = api.accountPlansTest(customerNumber);
-        AMProfilePOJO amProfileAPI = api.amServiceProfileAPITest(customerNumber);
+        ProfilePOJO profileAPI = api.profileAPITest(CustomerInteractionTest.customerNumber);
+        KYCProfile kycProfile = api.KYCProfileAPITest(CustomerInteractionTest.customerNumber);
+        GsmKycPOJO gsmKycAPI = api.gsmKYCAPITest(CustomerInteractionTest.customerNumber);
+        PlansPOJO plansAPI = api.accountPlansTest(CustomerInteractionTest.customerNumber);
+        AMProfilePOJO amProfileAPI = api.amServiceProfileAPITest(CustomerInteractionTest.customerNumber);
 
         try {
             if (demographic.isPUKInfoLock()) {
@@ -430,7 +430,7 @@ public class customerInteractionTest extends Driver {
                     e.printStackTrace();
                     String base64Screenshot = "data:image/png;base64," + ((TakesScreenshot) driver).
                             getScreenshotAs(OutputType.BASE64);
-                    ExtentTestManager.getTest().log(LogStatus.INFO, ExtentTestManager.getTest().addBase64ScreenShot(base64Screenshot));
+                    commonLib.fail("Not able to authenticate user:", true);
                     softAssert.fail("Not able to authenticate user: " + e.fillInStackTrace());
                     authTab.clickCloseBtn();
                 }
@@ -550,7 +550,7 @@ public class customerInteractionTest extends Driver {
         }
 
         try {
-            softAssert.assertEquals(demographic.getSimNumber().trim(), Data.getCustomerNumber(), "Customer's Mobile Number is not as Expected");
+            softAssert.assertEquals(demographic.getSimNumber().trim(), customerNumber, "Customer's Mobile Number is not as Expected");
         } catch (NoSuchElementException | TimeoutException e) {
             softAssert.fail("Customer's Mobile Number is not visible", e.getCause());
             e.printStackTrace();
@@ -657,7 +657,7 @@ public class customerInteractionTest extends Driver {
 
     @Test(priority = 5, description = "As an agent I want capability to check if an MSISDN is valid or invalid", dependsOnMethods = "openCustomerInteractionBySIM")
     public void invalidMSISDNTest() {
-        ExtentTestManager.startTest("Validating the Demographic Information of User with invalid MSISDN : 123456789", "Validating the Demographic Information of User : 123456789");
+        selUtils.addTestcaseDescription("Validating the Demographic Information of User with invalid MSISDN : 123456789", "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getDemoGraphicPage().clearSearchBox(customerNumber.length());
         pages.getDemoGraphicPage().enterMSISDN("123456789"); //Entering Invalid MSISDN
@@ -670,10 +670,10 @@ public class customerInteractionTest extends Driver {
         softAssert.assertAll();
     }
 
-    @DataProviders.User(UserType = "API")
+    @DataProviders.User(userType = "API")
     @Test(priority = 6, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteractionAPI(TestDatabean data) {
-        ExtentTestManager.startTest("Validating the Search for Customer Interactions for Widget :" + data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + data.getCustomerNumber());
+        selUtils.addTestcaseDescription("Validating the Search for Customer Interactions for Widget :" + data.getCustomerNumber(), "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getSideMenu().clickOnSideMenu();
         pages.getSideMenu().clickOnName();
@@ -692,30 +692,30 @@ public class customerInteractionTest extends Driver {
                     getScreenshotAs(OutputType.BASE64);
 
             //ExtentReports log and screenshot operations for failed tests.
-            ExtentTestManager.getTest().log(LogStatus.FAIL, "Test Failed", ExtentTestManager.getTest().addBase64ScreenShot(base64Screenshot1));
+            commonLib.fail("Test Failed", true);
             softAssert.fail("Customer Info Dashboard Page does not open using MSISDN Number.");
             pages.getMsisdnSearchPage().clearCustomerNumber();
         }
         softAssert.assertAll();
     }
 
-    @DataProviders.Table(Name = "Airtel Money")
+    @DataProviders.Table(name = "Airtel Money")
     @Test(priority = 7, description = "Validating AM Transaction Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI")
     public void airtelMoneyTransactionWidgetTest(HeaderDataBean data) throws IOException, UnsupportedFlavorException {
-        ExtentTestManager.startTest("Validating AM Transaction Widget", "Validating AM Transaction Widget of User :" + customerNumber);
+        selUtils.addTestcaseDescription("Validating AM Transaction Widget of User :" + customerNumber, "description");
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(pages.getAmTxnWidgetPage().isAirtelMoneyTransactionWidgetIsVisible(), "Airtel Money Transaction Widget is not visible");
         softAssert.assertTrue(pages.getAmTxnWidgetPage().isAirtelMoneyWidgetDatePickerVisible(), "Airtel Money Transaction Widget's Date Picker is not visible");
         AirtelMoneyPOJO amTransactionHistoryAPI = api.transactionHistoryAPITest(customerNumber);
-        AMProfilePOJO amProfileAPI=api.amServiceProfileAPITest(customerNumber);
-        if(amProfileAPI.getStatusCode()==200) {
+        AMProfilePOJO amProfileAPI = api.amServiceProfileAPITest(customerNumber);
+        if (amProfileAPI.getStatusCode() == 200) {
             softAssert.assertEquals(pages.getAmTxnWidgetPage().gettingAirtelMoneyBalance(), amProfileAPI.getResult().getWallet().get(0).getBalance(), "Customer's Airtel Wallet Balance & Currency code not same not as Expected");
-            if(OPCO.equalsIgnoreCase("CD")){
+            if (OPCO.equalsIgnoreCase("CD")) {
                 softAssert.assertEquals(pages.getAmTxnWidgetPage().gettingAirtelMoneyBalance2(), amProfileAPI.getResult().getWallet().get(1).getBalance(), "Customer's Airtel Wallet Balance & Currency code not same not as Expected");
-            }else{
+            } else {
                 softAssert.fail("Not able to fetch 2nd Airtel Money Wallet balance for DRC Opco.");
             }
-        }else{
+        } else {
             softAssert.fail("API is Unable to Get AM Profile for Customer");
         }
         if (amTransactionHistoryAPI.getStatusCode() != 200) {
@@ -746,7 +746,7 @@ public class customerInteractionTest extends Driver {
                     }
                     String id = pages.getAmTxnWidgetPage().doubleClickOnTransactionId(i + 1);
                     String clipboardText = (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
-                    UtilsMethods.printInfoLog("Reading Clipboard copied text: " + clipboardText);
+                    commonLib.info("Reading Clipboard copied text: " + clipboardText);
                     softAssert.assertEquals(id, clipboardText, "After double clicking on Transaction id. Transaction id does not copy to clipboard.");
                 }
             }
@@ -757,7 +757,7 @@ public class customerInteractionTest extends Driver {
     //Needs Discussion
     @Test(priority = 8, description = "Validating Current Balance Widget", dependsOnMethods = "openCustomerInteractionAPI")
     public void yourCurrentBalanceWidgetTest() {
-        ExtentTestManager.startTest("Validating Current Balance Transaction Widget", "Validating Current Balance Transaction Widget of User :" + customerNumber);
+        selUtils.addTestcaseDescription("Validating Current Balance Transaction Widget of User :" + customerNumber, "description");
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(pages.getCurrentBalanceWidgetPage().isCurrentBalanceWidgetVisible(), "Current Balance Widget is not visible ");
 
@@ -766,7 +766,7 @@ public class customerInteractionTest extends Driver {
             softAssert.assertEquals(Double.parseDouble(pages.getCurrentBalanceWidgetPage().gettingMainAccountBalance()), Double.parseDouble(plansAPI.getResult().getMainAccountBalance().getBalance()), "Current Balance is not as Received in com.airtel.cs.API ");
             softAssert.assertEquals(pages.getCurrentBalanceWidgetPage().gettingCurrentBalanceCurrency(), plansAPI.getResult().getMainAccountBalance().getCurrency(), "Current Balance Currency is not as Received in com.airtel.cs.API ");
         } else {
-            ExtentTestManager.getTest().log(LogStatus.WARNING, "Unable to get Main Balance from com.airtel.cs.API");
+            commonLib.warning("Unable to get Main Balance from com.airtel.cs.API");
 
         }
         if (plansAPI.getResult().getLastRecharge() != null) {
@@ -774,14 +774,14 @@ public class customerInteractionTest extends Driver {
                 softAssert.assertEquals(Integer.parseInt(pages.getCurrentBalanceWidgetPage().gettingLastRechargeAmount()), Integer.parseInt(plansAPI.getResult().getLastRecharge().getAmount()), "Last Recharge is not as Received in com.airtel.cs.API ");
             } catch (NumberFormatException e) {
                 e.printStackTrace();
-                ExtentTestManager.getTest().log(LogStatus.FAIL, e.fillInStackTrace());
+                commonLib.fail("Last Recharge is not in expected format", true);
                 softAssert.fail("Last Recharge is not in expected format");
             }
             String Time = UtilsMethods.getDateFromEpochInUTC(plansAPI.getResult().getLastRecharge().getRechargeOn(), config.getProperty("LastRechargeTimePattern"));
             String Date = UtilsMethods.getDateFromEpochInUTC(plansAPI.getResult().getLastRecharge().getRechargeOn(), config.getProperty("LastRechargeDatePattern"));
             softAssert.assertEquals(pages.getCurrentBalanceWidgetPage().getLastRechargeDateTime(), Date + " " + Time, "Last Recharge Date and Time is not as Received in com.airtel.cs.API");
         } else {
-            ExtentTestManager.getTest().log(LogStatus.WARNING, "Unable to get Last Recharge Details from com.airtel.cs.API");
+            commonLib.warning("Unable to get Last Recharge Details from com.airtel.cs.API");
             softAssert.assertEquals(pages.getCurrentBalanceWidgetPage().gettingLastRechargeAmount().replace('-', ' ').trim(), "", "Last Recharge Amount is not as expected");
             softAssert.assertEquals(pages.getCurrentBalanceWidgetPage().getLastRechargeDateTime(), "- -", "Last Recharge Date & Time is not as expected");
         }
@@ -793,17 +793,17 @@ public class customerInteractionTest extends Driver {
         }
         if (plansAPI.getResult().getData() != null) {
             try {
-                Double amount = Double.parseDouble(plansAPI.getResult().getData().getBalance().split(" ")[0]);
+                double amount = Double.parseDouble(plansAPI.getResult().getData().getBalance().split(" ")[0]);
                 if (amount > 0) {
                     String unit = plansAPI.getResult().getData().getBalance().split(" ")[1];
                     if (unit.equalsIgnoreCase("MB") && amount > 1024) {
                         softAssert.fail("MB to GB conversion does not done Correctly. Data Balance" + pages.getCurrentBalanceWidgetPage().getDataBalance());
                     } else {
-                        UtilsMethods.printPassLog("MB to GB Conversion Verified. Balance " + pages.getCurrentBalanceWidgetPage().getDataBalance());
+                        commonLib.pass("MB to GB Conversion Verified. Balance " + pages.getCurrentBalanceWidgetPage().getDataBalance());
                     }
                 }
             } catch (NumberFormatException ns) {
-                UtilsMethods.printInfoLog("Not able to fetch amount" + ns.fillInStackTrace());
+                commonLib.info("Not able to fetch amount" + ns.fillInStackTrace());
             }
             softAssert.assertEquals(pages.getCurrentBalanceWidgetPage().getDataBalance().replace("-", "null"), plansAPI.getResult().getData().getBalance(), "Data Balance is not as Received in com.airtel.cs.API ");
             softAssert.assertEquals(pages.getCurrentBalanceWidgetPage().getDataExpiryDate(), UtilsMethods.getDateFromEpoch(plansAPI.getResult().getData().getExpireTime(), config.getProperty("BalanceExpiryPattern")), "Data Expiry Date is not as Received in com.airtel.cs.API ");
@@ -820,10 +820,10 @@ public class customerInteractionTest extends Driver {
     }
 
 
-    @DataProviders.Table(Name = "Usage History")
+    @DataProviders.Table(name = "Usage History")
     @Test(priority = 9, description = "Validating Usage History Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI")
     public void usageHistoryWidgetTest(HeaderDataBean data) {
-        ExtentTestManager.startTest("Validating Usage History Widget", "Validating Usage History Widget of User :" + customerNumber);
+        selUtils.addTestcaseDescription("Validating Usage History Widget of User :" + customerNumber, "description");
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(pages.getUsageHistoryWidget().isUsageHistoryWidgetIsVisible(), "Usage History Widget is not visible");
         softAssert.assertTrue(pages.getUsageHistoryWidget().isUsageHistoryDatePickerVisible(), "Usage History Widget's Date Picker is not visible");
@@ -831,7 +831,7 @@ public class customerInteractionTest extends Driver {
         UsageHistoryPOJO usageHistoryAPI = api.usageHistoryTest(customerNumber);
         int size = pages.getUsageHistoryWidget().getNumberOfRows();
         if (usageHistoryAPI.getResult().size() == 0 || usageHistoryAPI.getResult() == null) {
-            ExtentTestManager.getTest().log(LogStatus.WARNING, "Unable to get Usage History Details from com.airtel.cs.API");
+            commonLib.warning("Unable to get Usage History Details from com.airtel.cs.API");
             softAssert.assertTrue(pages.getUsageHistoryWidget().isUsageHistoryNoResultFoundVisible(), "Error Message is not Visible");
             softAssert.assertEquals(pages.getUsageHistoryWidget().gettingUsageHistoryNoResultFoundMessage(), "No Result found", "Error Message is not as expected");
         } else {
@@ -859,10 +859,10 @@ public class customerInteractionTest extends Driver {
     }
 
 
-    @DataProviders.Table(Name = "Recharge History")
+    @DataProviders.Table(name = "Recharge History")
     @Test(priority = 10, description = "Validating Recharge History Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI")
     public void rechargeHistoryWidgetTest(HeaderDataBean data) {
-        ExtentTestManager.startTest("Validating Recharge History Widget", "Validating Recharge History Widget of User :" + customerNumber);
+        selUtils.addTestcaseDescription("Validating Recharge History Widget of User :" + customerNumber, "description");
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(pages.getRechargeHistoryWidget().isRechargeHistoryWidgetIsVisible(), "Recharge History Widget is not visible");
         softAssert.assertTrue(pages.getRechargeHistoryWidget().isRechargeHistoryDatePickerVisible(), "Recharge History Widget's Date Picker is not visible");
@@ -873,7 +873,7 @@ public class customerInteractionTest extends Driver {
         } else {
             int size = pages.getRechargeHistoryWidget().getNumberOfRows();
             if (rechargeHistoryAPI.getResult().size() == 0 || rechargeHistoryAPI.getResult() == null) {
-                ExtentTestManager.getTest().log(LogStatus.WARNING, "Unable to get Last Recharge Details from com.airtel.cs.API");
+                commonLib.warning("Unable to get Last Recharge Details from com.airtel.cs.API");
                 softAssert.assertTrue(pages.getRechargeHistoryWidget().isRechargeHistoryNoResultFoundVisible(), "Error Message is not Visible");
                 softAssert.assertEquals(pages.getRechargeHistoryWidget().gettingRechargeHistoryNoResultFoundMessage(), "No Result found", "Error Message is not as expected");
             } else {
@@ -898,18 +898,18 @@ public class customerInteractionTest extends Driver {
         softAssert.assertAll();
     }
 
-    @DataProviders.Table(Name = "Service Profile")
+    @DataProviders.Table(name = "Service Profile")
     @Test(priority = 11, description = "Verify Service Profile Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI")
     public void validateServiceProfileWidget(HeaderDataBean data) {
-        ExtentTestManager.startTest("Verify Service Profile Widget: " + customerNumber, "Verify Service Profile Widget: " + customerNumber);
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
+        selUtils.addTestcaseDescription("Verify Service Profile Widget: " + customerNumber, "description");
+        commonLib.info("Opening URL");
         SoftAssert softAssert = new SoftAssert();
         Assert.assertTrue(pages.getServiceClassWidget().isServiceClassWidgetDisplay(), "Service Profile Widget does not display correctly.");
         HLRServicePOJO hlrService = api.getServiceProfileWidgetInfo(customerNumber);
         int size = pages.getServiceClassWidget().getNumberOfRows();
         if (Integer.parseInt(hlrService.getStatusCode()) == 200) {
             if (hlrService.getResult().isEmpty() || hlrService.getResult() == null) {
-                UtilsMethods.printWarningLog("Unable to get Last Service Profile from com.airtel.cs.API");
+                commonLib.warning("Unable to get Last Service Profile from com.airtel.cs.API");
                 softAssert.assertTrue(pages.getServiceClassWidget().isServiceProfileNoResultFoundVisible(), "Error Message is not Visible");
                 softAssert.assertEquals(pages.getServiceClassWidget().gettingServiceProfileNoResultFoundMessage(), "No Result found", "Error Message is not as expected");
             } else {

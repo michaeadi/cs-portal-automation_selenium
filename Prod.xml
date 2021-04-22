@@ -22,8 +22,8 @@
     </test>
     <test name="Customer Interactions TEST" preserve-order="true">
         <classes>
-            <class name="com.airtel.cs.ui.frontendagent.customerInteractionTest"/>
-            <class name="com.airtel.cs.ui.frontendagent.widgetsOptionsTest"/>
+            <class name="com.airtel.cs.ui.frontendagent.CustomerInteractionTest"/>
+            <class name="com.airtel.cs.ui.frontendagent.WidgetsOptionsTest"/>
         </classes>
     </test>
     <test name="Validate Authentication tab">
@@ -72,7 +72,7 @@
     </test>
     <test name="Supervisors Search/View Ticket ">
         <classes>
-            <class name="com.airtel.cs.ui.backendSupervisor.PRODSupervisorTicket"/>
+            <class name="com.airtel.cs.ui.backendSupervisor.PRODSupervisorTicketTest"/>
         </classes>
     </test>
     <test name="Logout Supervisor Test">

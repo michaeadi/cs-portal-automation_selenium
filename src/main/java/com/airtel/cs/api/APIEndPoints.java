@@ -50,7 +50,7 @@ public class APIEndPoints extends Driver {
     private static final String TARIFF_PLAN_TEST_NUMBER = constants.getValue(ApplicationConstants.TARIFF_PLAN_TEST_NUMBER);
 
     public PlansPOJO accountPlansTest(String msisdn) {
-        getTest().log(LogStatus.INFO, "Using Account Plans com.airtel.cs.API for Getting expected data for UI");
+        commonLib.info("Using Account Plans com.airtel.cs.API for Getting expected data for UI");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
@@ -66,7 +66,7 @@ public class APIEndPoints extends Driver {
     }
 
     public UsageHistoryPOJO usageHistoryTest(String msisdn) {
-        getTest().log(LogStatus.INFO, "Using Usage History com.airtel.cs.API for Getting expected data for UI");
+        commonLib.info("Using Usage History com.airtel.cs.API for Getting expected data for UI");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
@@ -82,7 +82,7 @@ public class APIEndPoints extends Driver {
     }
 
     public UsageHistoryPOJO usageHistoryMenuTest(String msisdn) {
-        getTest().log(LogStatus.INFO, "Using Usage History com.airtel.cs.API for Getting expected data for UI");
+        commonLib.info("Using Usage History com.airtel.cs.API for Getting expected data for UI");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
@@ -98,7 +98,7 @@ public class APIEndPoints extends Driver {
     }
 
     public AMHandSetProfilePOJO amProfileTest(String msisdn) {
-        getTest().log(LogStatus.INFO, "Using AM Profile com.airtel.cs.API for Getting expected data for UI");
+        commonLib.info("Using AM Profile com.airtel.cs.API for Getting expected data for UI");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
@@ -115,7 +115,7 @@ public class APIEndPoints extends Driver {
     }
 
     public GsmKycPOJO gsmKYCAPITest(String msisdn) {
-        getTest().log(LogStatus.INFO, "Using GSM KYC com.airtel.cs.API for Getting expected data for UI");
+        commonLib.info("Using GSM KYC com.airtel.cs.API for Getting expected data for UI");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
@@ -134,7 +134,7 @@ public class APIEndPoints extends Driver {
     }
 
     public ProfilePOJO profileAPITest(String msisdn) {
-        getTest().log(LogStatus.INFO, "Using /cs-gsm-service/v1/profile api for Getting expected data for UI");
+        commonLib.info("Using /cs-gsm-service/v1/profile api for Getting expected data for UI");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
@@ -150,7 +150,7 @@ public class APIEndPoints extends Driver {
     }
 
     public KYCProfile KYCProfileAPITest(String msisdn) {
-        getTest().log(LogStatus.INFO, "Using /cs-gsm-service/v1/profile api for Getting expected data for UI");
+        commonLib.info("Using /cs-gsm-service/v1/profile api for Getting expected data for UI");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
@@ -166,7 +166,7 @@ public class APIEndPoints extends Driver {
     }
 
     public AMProfilePOJO amServiceProfileAPITest(String Msisdn) {
-        getTest().log(LogStatus.INFO, "Using AM Service Profile com.airtel.cs.API for Getting expected data for UI");
+        commonLib.info("Using AM Service Profile com.airtel.cs.API for Getting expected data for UI");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
@@ -176,7 +176,7 @@ public class APIEndPoints extends Driver {
                 .queryParam("walletType", "Main");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
         log.info("Request Headers are  : " + queryable.getHeaders());
-        getTest().log(LogStatus.INFO, "Request Body is  : " + queryable.getQueryParams().toString());
+        commonLib.info("Request Body is  : " + queryable.getQueryParams().toString());
         log.info("Request Body is  : " + queryable.getQueryParams().toString());
         Response response = request.get("/cs-am-service/v1/profile");
         UtilsMethods.printGetRequestDetail(queryable);
@@ -186,7 +186,7 @@ public class APIEndPoints extends Driver {
     }
 
     public RechargeHistoryPOJO rechargeHistoryAPITest(String msisdn) {
-        getTest().log(LogStatus.INFO, "Using Recharge History com.airtel.cs.API for Getting expected data for UI");
+        commonLib.info("Using Recharge History com.airtel.cs.API for Getting expected data for UI");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
@@ -202,7 +202,7 @@ public class APIEndPoints extends Driver {
     }
 
     public BundleRechargeHistoryPOJO bundleRechargeHistoryAPITest(String msisdn) {
-        getTest().log(LogStatus.INFO, "Using Recharge History com.airtel.cs.API for Getting expected data for UI");
+        commonLib.info("Using Recharge History com.airtel.cs.API for Getting expected data for UI");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
@@ -218,7 +218,7 @@ public class APIEndPoints extends Driver {
     }
 
     public AirtelMoneyPOJO transactionHistoryAPITest(String msisdn) {
-        getTest().log(LogStatus.INFO, "Using Transaction History API for Getting expected data for UI");
+        commonLib.info("Using Transaction History API for Getting expected data for UI");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
@@ -234,7 +234,7 @@ public class APIEndPoints extends Driver {
     }
 
     public AirtelMoneyPOJO moreTransactionHistoryAPITest(String msisdn, String currencyType) {
-        getTest().log(LogStatus.INFO, "Using Transaction History API for Getting expected data for UI");
+        commonLib.info("Using Transaction History API for Getting expected data for UI");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
@@ -250,7 +250,7 @@ public class APIEndPoints extends Driver {
     }
 
     public AccountsBalancePOJO balanceAPITest(String msisdn) {
-        getTest().log(LogStatus.INFO, "Using Balance (accounts) com.airtel.cs.API for Getting expected data for UI");
+        commonLib.info("Using Balance (accounts) com.airtel.cs.API for Getting expected data for UI");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
@@ -267,7 +267,7 @@ public class APIEndPoints extends Driver {
     }
 
     public UsageHistoryPOJO usageHistoryTest(String msisdn, String Type) {
-        getTest().log(LogStatus.INFO, "Using Usage History com.airtel.cs.API for Getting expected data for UI");
+        commonLib.info("Using Usage History com.airtel.cs.API for Getting expected data for UI");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
@@ -283,7 +283,7 @@ public class APIEndPoints extends Driver {
     }
 
     public TicketPOJO ticketMetaDataTest(String ticketId) {
-        getTest().log(LogStatus.INFO, "Using fetch ticket details using ticket Id to validate ticket meta data");
+        commonLib.info("Using fetch ticket details using ticket Id to validate ticket meta data");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
@@ -298,7 +298,7 @@ public class APIEndPoints extends Driver {
     }
 
     public SMSHistoryPOJO smsHistoryTest(String msisdn) {
-        getTest().log(LogStatus.INFO, "Using fetch ticket details using ticket Id to validate ticket meta data");
+        commonLib.info("Using fetch ticket details using ticket Id to validate ticket meta data");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
@@ -312,7 +312,7 @@ public class APIEndPoints extends Driver {
     }
 
     public VoucherSearchPOJO voucherSearchTest(String voucherId) {
-        getTest().log(LogStatus.INFO, "Using fetch Voucher details using voucher Id to validate Voucher meta data");
+        commonLib.info("Using fetch Voucher details using voucher Id to validate Voucher meta data");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
@@ -326,7 +326,7 @@ public class APIEndPoints extends Driver {
     }
 
     public VendorNames vendorsNamesTest() {
-        getTest().log(LogStatus.INFO, "Using fetch vendor name");
+        commonLib.info("Using fetch vendor name");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
@@ -341,7 +341,7 @@ public class APIEndPoints extends Driver {
     }
 
     public Summary loanSummaryTest(String msisdn, String vendorName) {
-        getTest().log(LogStatus.INFO, "Using fetch Voucher details using voucher Id to validate Voucher meta data");
+        commonLib.info("Using fetch Voucher details using voucher Id to validate Voucher meta data");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
@@ -355,7 +355,7 @@ public class APIEndPoints extends Driver {
     }
 
     public Loan loanDetailsTest(String msisdn, String vendorName) {
-        getTest().log(LogStatus.INFO, "Using Loan details com.airtel.cs.API to validate Loan Detail and Loan history widget");
+        commonLib.info("Using Loan details com.airtel.cs.API to validate Loan Detail and Loan history widget");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
@@ -369,7 +369,7 @@ public class APIEndPoints extends Driver {
     }
 
     public RefillStatus clearRefillTest(String msisdn) {
-        getTest().log(LogStatus.INFO, "Using fetch Voucher details using voucher Id to validate Voucher meta data");
+        commonLib.info("Using fetch Voucher details using voucher Id to validate Voucher meta data");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
@@ -383,7 +383,7 @@ public class APIEndPoints extends Driver {
     }
 
     public Top20Ringtone ringtoneDetailTest(String msisdn, String searchBy, String searchText) {
-        getTest().log(LogStatus.INFO, "Using fetch Ringtone details using MSISDN");
+        commonLib.info("Using fetch Ringtone details using MSISDN");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
@@ -397,7 +397,7 @@ public class APIEndPoints extends Driver {
     }
 
     public ActivateRingtone activateRingtone(String msisdn) {
-        getTest().log(LogStatus.INFO, "Using fetch ticket details using ticket Id to validate ticket meta data");
+        commonLib.info("Using fetch ticket details using ticket Id to validate ticket meta data");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
@@ -411,7 +411,7 @@ public class APIEndPoints extends Driver {
     }
 
     public AccumulatorsPOJO accumulatorsAPITest(String msisdn) {
-        getTest().log(LogStatus.INFO, "Using fetch Ringtone details using MSISDN");
+        commonLib.info("Using fetch Ringtone details using MSISDN");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
@@ -425,7 +425,7 @@ public class APIEndPoints extends Driver {
     }
 
     public HLRServicePOJO getServiceProfileWidgetInfo(String msisdn) {
-        getTest().log(LogStatus.INFO, "Using fetch Ringtone details using MSISDN");
+        commonLib.info("Using fetch Ringtone details using MSISDN");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
@@ -439,7 +439,7 @@ public class APIEndPoints extends Driver {
     }
 
     public void getAuthTabAnswer(String key, String msisdn) {
-        getTest().log(LogStatus.INFO, "Fetch Answer using auth user api");
+        commonLib.info("Fetch Answer using auth user api");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
@@ -455,7 +455,7 @@ public class APIEndPoints extends Driver {
     }
 
     public ConfigurationPOJO getConfiguration(String key) {
-        getTest().log(LogStatus.INFO, "Using Configuration API to validate meta data");
+        commonLib.info("Using Configuration API to validate meta data");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
@@ -528,7 +528,7 @@ public class APIEndPoints extends Driver {
      * @return response
      */
     public LoginPOJO loginPOJO(String body) {
-        UtilsMethods.printInfoLog("Logging in Using Login API for getting TOKEN with user");
+        commonLib.info("Logging in Using Login API for getting TOKEN with user");
         commonPostMethod("/auth/api/user-mngmnt/v2/login", body);
         return response.as(LoginPOJO.class);
     }

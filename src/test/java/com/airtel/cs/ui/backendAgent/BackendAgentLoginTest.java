@@ -22,10 +22,10 @@ public class BackendAgentLoginTest extends Driver {
         softAssert.assertAll();
     }
 
-    @DataProviders.User(UserType = "BA")
+    @DataProviders.User(userType = "BA")
     @Test(priority = 1, description = "Logging IN ", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void loggingIN(TestDatabean data) throws InterruptedException {
-        ExtentTestManager.startTest("Backend Agent Login Into Portal", "Logging Into Portal with AUUID :  " + data.getLoginAUUID());
+        selUtils.addTestcaseDescription("Logging Into Portal with AUUID :  " + data.getLoginAUUID(), "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getLoginPage().openBaseURL(config.getProperty(evnName + "-baseurl"));
         softAssert.assertEquals(driver.getCurrentUrl(), config.getProperty(evnName + "-baseurl"), "URl isn't as expected");
@@ -57,7 +57,7 @@ public class BackendAgentLoginTest extends Driver {
 
     @Test(priority = 2, description = "Backend Agent Login into Queue", dependsOnMethods = "loggingIN")
     public void agentQueueLogin() {
-        ExtentTestManager.startTest("Backend Agent Login into Queue", "Backend Agent Login into Queue");
+        selUtils.addTestcaseDescription("Backend Agent Login into Queue", "description");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SoftAssert softAssert = new SoftAssert();
         pages.getSideMenu().waitTillLoaderGetsRemoved();
@@ -78,7 +78,7 @@ public class BackendAgentLoginTest extends Driver {
 
     @Test(priority = 3, dependsOnMethods = "agentQueueLogin", description = "Ticket Search ")
     public void validateTicket() {
-        ExtentTestManager.startTest("Backend Agent Validate Ticket List Page", "Validate the Backend Agent View Ticket List page");
+        selUtils.addTestcaseDescription("Backend Agent Validate Ticket List Page", "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
         softAssert.assertTrue(pages.getSupervisorTicketList().isTicketIdLabel(), "Ticket Meta Data Does Not Have Ticket Id");

@@ -33,7 +33,7 @@ public class TicketBulkUpdateTest extends Driver {
 
     @Test(priority = 1, description = "Open Ticket Bulk Update Dashboard")
     public void openTicketBulkUpdate() throws InterruptedException {
-        ExtentTestManager.startTest("Open Ticket Bulk Update Dashboard", "Open Ticket Bulk Update Dashboard");
+        selUtils.addTestcaseDescription("Open Ticket Bulk Update Dashboard", "description");
         pages.getSideMenu().waitTillLoaderGetsRemoved();
         pages.getSideMenu().clickOnSideMenu();
         pages.getSideMenu().clickOnName();
@@ -47,7 +47,7 @@ public class TicketBulkUpdateTest extends Driver {
 
     @Test(priority = 2, description = "Verify that max 300 Tickets to be allowed to be bulk updated in one go", dependsOnMethods = "openTicketBulkUpdate")
     public void maxTicketSelectTest() {
-        ExtentTestManager.startTest("Verify that max 300 Tickets to be allowed to be bulk updated in one go", "Verify that max 300 Tickets to be allowed to be bulk updated in one go");
+        selUtils.addTestcaseDescription("Verify that max 300 Tickets to be allowed to be bulk updated in one go", "description");
         SoftAssert softAssert = new SoftAssert();
         try {
             FilterTabPage filterTab = pages.getTicketBulkUpdate().clickSelectFilter();
@@ -85,7 +85,7 @@ public class TicketBulkUpdateTest extends Driver {
 
     @Test(priority = 3, description = "Check user able to upload ticket id from excel", dependsOnMethods = "openTicketBulkUpdate")
     public void uploadTicketFromExcelTest() throws IOException, InterruptedException, AWTException {
-        ExtentTestManager.startTest("Check user able to upload ticket id from excel", "Check user able to upload ticket id from excel");
+        selUtils.addTestcaseDescription("Check user able to upload ticket id from excel", "description");
         DataProviders data = new DataProviders();
         SoftAssert softAssert = new SoftAssert();
         Assert.assertTrue(pages.getTicketBulkUpdate().fileDownload(), "Ticket Upload Template does not download.Please check Excels/BulkUploadTemplate.xlsx downloaded");
@@ -119,7 +119,7 @@ public class TicketBulkUpdateTest extends Driver {
 
     @Test(priority = 4, description = "Validate Bulk option test", dependsOnMethods = "uploadTicketFromExcelTest")
     public void bulkOptionTest() {
-        ExtentTestManager.startTest("Validate Bulk option test", "Validate Bulk option test");
+        selUtils.addTestcaseDescription("Validate Bulk option test", "description");
         DataProviders data = new DataProviders();
         SoftAssert softAssert = new SoftAssert();
         pages.getTicketBulkUpdate().waitTillLoaderGetsRemoved();
@@ -173,7 +173,7 @@ public class TicketBulkUpdateTest extends Driver {
 
     @Test(priority = 5, description = "Add comment on ticket using bulk update feature", dependsOnMethods = "uploadTicketFromExcelTest")
     public void bulkAddCommentTest() {
-        ExtentTestManager.startTest("Add comment on ticket using bulk update feature", "Add comment on ticket using bulk update feature");
+        selUtils.addTestcaseDescription("Add comment on ticket using bulk update feature", "description");
         SoftAssert softAssert = new SoftAssert();
         Integer size = null;
         pages.getTicketBulkUpdate().waitTillLoaderGetsRemoved();

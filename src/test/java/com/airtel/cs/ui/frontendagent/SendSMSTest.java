@@ -2,7 +2,6 @@ package com.airtel.cs.ui.frontendagent;
 
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
-import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.driver.Driver;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoSuchElementException;
@@ -27,17 +26,18 @@ public class SendSMSTest extends Driver {
         softAssert.assertAll();
     }
 
-    @DataProviders.User(UserType = "NFTR")
+    @DataProviders.User(userType = "NFTR")
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteraction(TestDatabean data) {
-        ExtentTestManager.startTest("Validating the Search for Customer Interactions :" + data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + data.getCustomerNumber());
+        final String customerNumber = data.getCustomerNumber();
+        selUtils.addTestcaseDescription("Validating the Search for Customer Interactions :" + customerNumber, "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getSideMenu().clickOnSideMenu();
         pages.getSideMenu().clickOnName();
-        customerNumber = data.getCustomerNumber();
+        this.customerNumber = customerNumber;
         pages.getSideMenu().openCustomerInteractionPage();
         pages.getSideMenu().waitTillLoaderGetsRemoved();
-        pages.getMsisdnSearchPage().enterNumber(data.getCustomerNumber());
+        pages.getMsisdnSearchPage().enterNumber(customerNumber);
         pages.getMsisdnSearchPage().clickOnSearch();
         pages.getCustomerProfilePage().waitTillLoaderGetsRemoved();
         softAssert.assertTrue(pages.getCustomerProfilePage().isPageLoaded());
@@ -46,7 +46,7 @@ public class SendSMSTest extends Driver {
 
     @Test(priority = 2, description = "Verify the fields displayed for SMS channel.", dependsOnMethods = "openCustomerInteraction")
     public void validateSendSMSTab() {
-        ExtentTestManager.startTest("Validating the Send SMS Tab ", "Validating the send sms tab");
+        selUtils.addTestcaseDescription("Validating the Send SMS Tab ", "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getCustomerProfilePage().waitTillLoaderGetsRemoved();
         pages.getCustomerProfilePage().clickOnAction();
@@ -97,7 +97,7 @@ public class SendSMSTest extends Driver {
 
     @Test(priority = 3, description = "Verify the frontend agent able to send SMS", dependsOnMethods = "validateSendSMSTab")
     public void sendSMS() {
-        ExtentTestManager.startTest("Validating the Send SMS Tab ", "Validating the send sms tab");
+        selUtils.addTestcaseDescription("Validating the Send SMS Tab ", "description");
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(pages.getSendSMS().isPageLoaded(), "Send SMS tab does not open correctly");
         Assert.assertEquals(pages.getSendSMS().getCustomerNumber(), customerNumber, "Customer Number as not same as whose profile opened");
@@ -135,7 +135,7 @@ public class SendSMSTest extends Driver {
 
     @Test(priority = 4, description = "Check Sent SMS display in message history",dependsOnMethods = "openCustomerInteraction")
     public void checkSendMessageLog() {
-        ExtentTestManager.startTest("Check Sent SMS display in message history ", "Check Sent SMS display in message history");
+        selUtils.addTestcaseDescription("Check Sent SMS display in message history ", "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getCustomerProfilePage().goToViewHistory();
         pages.getViewHistory().waitTillLoaderGetsRemoved();
@@ -207,7 +207,7 @@ public class SendSMSTest extends Driver {
 
     @Test(priority = 5, description = "Re Send SMS using action button in message history",dependsOnMethods = "checkSendMessageLog")
     public void reSendMessageLog() {
-        ExtentTestManager.startTest("Re Send SMS using action button in message history", "Re Send SMS using action button in message history");
+        selUtils.addTestcaseDescription("Re Send SMS using action button in message history", "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getMessageHistoryPage().waitTillLoaderGetsRemoved();
         try {

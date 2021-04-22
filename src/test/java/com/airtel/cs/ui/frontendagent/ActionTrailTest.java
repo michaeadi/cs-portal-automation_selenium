@@ -3,9 +3,7 @@ package com.airtel.cs.ui.frontendagent;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
-import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.driver.Driver;
-import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -29,10 +27,10 @@ public class ActionTrailTest extends Driver {
         softAssert.assertAll();
     }
 
-    @DataProviders.User(UserType = "NFTR")
+    @DataProviders.User(userType = "NFTR")
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteraction(TestDatabean data) {
-        ExtentTestManager.startTest("Validating the Search for Customer Interactions :" + data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + data.getCustomerNumber());
+        selUtils.addTestcaseDescription("Validating the Search for Customer Interactions :" + data.getCustomerNumber(), "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getSideMenu().clickOnSideMenu();
         pages.getSideMenu().clickOnName();
@@ -44,10 +42,10 @@ public class ActionTrailTest extends Driver {
         softAssert.assertAll();
     }
 
-    @DataProviders.Table(Name = "Action Trail Tab")
+    @DataProviders.Table(name = "Action Trail Tab")
     @Test(priority = 3, description = "Validating Action Trail Tab", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
     public void validateActionTrailOpenCorrectly(HeaderDataBean data) {
-        ExtentTestManager.startTest("Validating the Action Trail Tab Under View History", "Validating the Action Trail Tab Under View History");
+        selUtils.addTestcaseDescription("Validating the Action Trail Tab Under View History", "description");
         SoftAssert softAssert = new SoftAssert();
         try {
             pages.getMsisdnSearchPage().waitTillLoaderGetsRemoved();
@@ -67,7 +65,7 @@ public class ActionTrailTest extends Driver {
 
     @Test(priority = 2, description = "Verify the Send Internet Setting tab", dependsOnMethods = "openCustomerInteraction")
     public void validateSendInternetSetting() {
-        ExtentTestManager.startTest("Verify the Send Internet Setting tab", "Verify the Send Internet Setting tab");
+        selUtils.addTestcaseDescription("Verify the Send Internet Setting tab", "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getCustomerProfilePage().waitTillLoaderGetsRemoved();
         try {
@@ -80,14 +78,14 @@ public class ActionTrailTest extends Driver {
                 pages.getAuthTabPage().openSelectPopup();
                 reason = pages.getAuthTabPage().getReason();
                 pages.getAuthTabPage().chooseReason();
-                pages.getAuthTabPage().writeComment(comments);
+                pages.getAuthTabPage().enterComment(comments);
                 softAssert.assertTrue(pages.getCustomerProfilePage().isSendInternetSettingTitle(), "Send Internet Setting Tab Does not open after internet setting.");
                 pages.getAuthTabPage().clickSubmitBtn();
                 pages.getAuthTabPage().waitTillLoaderGetsRemoved();
                 if (pages.getCustomerProfilePage().isSendInternetSettingTitle()) {
                     String base64Screenshot = "data:image/png;base64," + ((TakesScreenshot) driver).
                             getScreenshotAs(OutputType.BASE64);
-                    ExtentTestManager.getTest().log(LogStatus.INFO, "Test Failed", ExtentTestManager.getTest().addBase64ScreenShot(base64Screenshot));
+                    commonLib.fail("Test Failed", true);
                     softAssert.fail("Send Internet setting pop up does not close after submit button: ");
                     pages.getAuthTabPage().clickCloseBtn();
                 }
@@ -104,7 +102,7 @@ public class ActionTrailTest extends Driver {
 
     @Test(priority = 4, description = "Validating Action Trail History", dependsOnMethods = "validateSendInternetSetting")
     public void validateActionTrailValue() {
-        ExtentTestManager.startTest("Validating Action Trail History", "Validating Action Trail History");
+        selUtils.addTestcaseDescription("Validating Action Trail History", "description");
         SoftAssert softAssert = new SoftAssert();
         try {
             pages.getCustomerProfilePage().waitTillLoaderGetsRemoved();

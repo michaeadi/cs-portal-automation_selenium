@@ -41,8 +41,7 @@ public class TestListenerMethod extends Driver implements ITestListener {
     @Override
     public void onFinish(ITestContext iTestContext) {
         log.info("I am in onFinish method " + iTestContext.getName());
-
-        ExtentTestManager.endTest();
+        ExtentTestManager.endTestOld();
         ExtentManager.getReporter().flush();
     }
 
@@ -61,13 +60,6 @@ public class TestListenerMethod extends Driver implements ITestListener {
 
         //Get driver from BaseTest and assign to local webDriver variable.
         Object testClass = iTestResult.getInstance();
-        WebDriver webDriver = ((Driver) testClass).getDriver();
-
-        //Take base64Screenshot screenshot.
-//        String base64Screenshot = "data:image/png;base64," + ((TakesScreenshot) webDriver).
-//                getScreenshotAs(OutputType.BASE64);
-
-        //ExtentReports log and screenshot operations for Passed tests.
         ExtentTestManager.getTest().log(LogStatus.PASS, "Test Passed");
     }
 

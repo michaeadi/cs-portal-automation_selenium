@@ -36,12 +36,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import static com.airtel.cs.commonutils.extentreports.ExtentTestManager.startTest;
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 
 @Log4j2
-public class SupervisorSearchTicket extends Driver {
+public class SupervisorSearchTicketTest extends Driver {
 
 
     APIEndPoints api = new APIEndPoints();
@@ -55,7 +54,7 @@ public class SupervisorSearchTicket extends Driver {
         softAssert.assertAll();
     }
 
-    @DataProviders.User(UserType = "API")
+    @DataProviders.User(userType = "API")
     @Test(dataProvider = "loginData", dataProviderClass = DataProviders.class, priority = 0)
     public void loginAPI(TestDatabean data) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
@@ -75,7 +74,7 @@ public class SupervisorSearchTicket extends Driver {
         UtilsMethods.addHeaders("Opco", OPCO);
 
         String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(req);
-        startTest("LOGIN com.airtel.cs.API TEST ", "Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + data.getLoginAUUID());
+        selUtils.addTestcaseDescription("LOGIN com.airtel.cs.API TEST,Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + data.getLoginAUUID(), "description");
         UtilsMethods.printInfoLog("Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + data.getLoginAUUID());
         baseURI = baseUrl;
         Headers headers = new Headers(map);
@@ -111,7 +110,7 @@ public class SupervisorSearchTicket extends Driver {
 
     @Test(priority = 1, description = "Open Supervisor Dashboard")
     public void openSupervisorDashboard() {
-        ExtentTestManager.startTest("Open Supervisor Dashboard", "Open Supervisor Dashboard");
+        selUtils.addTestcaseDescription("Open Supervisor Dashboard", "description");
         pages.getSideMenu().clickOnSideMenu();
         pages.getSideMenu().clickOnName();
         pages.getSideMenu().openSupervisorDashboard();
@@ -123,7 +122,7 @@ public class SupervisorSearchTicket extends Driver {
 
     @Test(priority = 2, description = "Ticket Search ", dataProvider = "ticketId", dataProviderClass = DataProviders.class)
     public void SearchTicket(NftrDataBeans data) {
-        ExtentTestManager.startTest("Search Ticket & Validate Ticket Meta Data: " + data.getTicketNumber(), "Search Ticket & Validate Ticket Meta Data");
+        selUtils.addTestcaseDescription("Search Ticket & Validate Ticket Meta Data: " + data.getTicketNumber(), "description");
         SoftAssert softAssert = new SoftAssert();
         Map<String, String> workGroups = new HashMap<>();
         DataProviders dataProviders = new DataProviders();
@@ -233,7 +232,7 @@ public class SupervisorSearchTicket extends Driver {
 
     @Test(priority = 3, description = "Validate Assign to Agent and Transfer to Queue Option")
     public void validateCheckBox() {
-        ExtentTestManager.startTest("Validate Check Box", "Validate Assign to Agent and Transfer to Queue Option om Open Ticket");
+        selUtils.addTestcaseDescription("Validate Check Box,Validate Assign to Agent and Transfer to Queue Option on Open Ticket", "description");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SoftAssert softAssert = new SoftAssert();
         pages.getSupervisorTicketList().clickCheckbox();

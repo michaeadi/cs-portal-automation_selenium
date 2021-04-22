@@ -27,7 +27,7 @@ public class DataUnitConversionTest extends Driver {
         softAssert.assertAll();
     }
 
-    @DataProviders.User(UserType = "API")
+    @DataProviders.User(userType = "API")
     @Test(priority = 0, dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void setCustomerNumber(TestDatabean data) {
         customerNumber = data.getCustomerNumber();
@@ -35,7 +35,7 @@ public class DataUnitConversionTest extends Driver {
 
     @Test(priority = 1, description = "Validating Usage History Widget MB to GB Conversion")
     public void usageHistoryWidgetTest() {
-        ExtentTestManager.startTest("Validating Usage History Widget MB to GB Conversion", "CSP-63391 Verify that in Usage History Widget if the data amount is coming MB from ESB com.airtel.cs.API then CS Portal should show the data amount after converting it to GB");
+        selUtils.addTestcaseDescription("Validating Usage History Widget MB to GB Conversion,CSP-63391 Verify that in Usage History Widget if the data amount is coming MB from ESB com.airtel.cs.API then CS Portal should show the data amount after converting it to GB", "description");
         SoftAssert softAssert = new SoftAssert();
         String startBalanceUnit = null;
         String endBalanceUnit = null;
@@ -82,7 +82,7 @@ public class DataUnitConversionTest extends Driver {
 
     @Test(priority = 2, description = "Validating Usage History Menu Widget MB to GB Conversion")
     public void usageHistoryMenuWidgetTest() {
-        ExtentTestManager.startTest("Validating Usage History Menu Widget MB to GB Conversion", "CSP-63392 Verify that in Usage History Detailed Widget if the data amount is coming MB from ESB com.airtel.cs.API then CS Portal should show the data amount after converting it to GB");
+        selUtils.addTestcaseDescription("Validating Usage History Menu Widget MB to GB Conversion,CSP-63392 Verify that in Usage History Detailed Widget if the data amount is coming MB from ESB com.airtel.cs.API then CS Portal should show the data amount after converting it to GB", "description");
         SoftAssert softAssert = new SoftAssert();
         String startBalanceUnit = null;
         String endBalanceUnit = null;
@@ -129,7 +129,7 @@ public class DataUnitConversionTest extends Driver {
 
     @Test(priority = 3, description = "Validating Recharge History Widget MB to GB Conversion")
     public void rechargeHistoryUnitConversionTest() {
-        ExtentTestManager.startTest("Validating Recharge History Widget MB to GB Conversion", "CSP-63393 Verify that in Recharge History Widget if the data amount is coming MB from ESB com.airtel.cs.API then CS Portal should show the data amount after converting it to GB");
+        selUtils.addTestcaseDescription("Validating Recharge History Widget MB to GB Conversion,CSP-63393 Verify that in Recharge History Widget if the data amount is coming MB from ESB com.airtel.cs.API then CS Portal should show the data amount after converting it to GB", "description");
         SoftAssert softAssert = new SoftAssert();
 
         RechargeHistoryPOJO rechargeHistoryAPI = api.rechargeHistoryAPITest(customerNumber);
@@ -140,7 +140,7 @@ public class DataUnitConversionTest extends Driver {
         } else {
             for (int i = 0; i < rechargeHistoryAPI.getResult().size(); i++) {
                 if (rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getDATA() != null && !rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getDATA().equalsIgnoreCase("0")) {
-                    Double dataBalanceAmount = Double.parseDouble(rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getDATA().split(" ")[0]);
+                    double dataBalanceAmount = Double.parseDouble(rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getDATA().split(" ")[0]);
                     String dataBalanceUnit = rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getDATA().split(" ")[1];
                     if (dataBalanceUnit != null) {
                         if (dataBalanceUnit.equalsIgnoreCase("MB") && dataBalanceAmount > 1024) {
@@ -157,7 +157,7 @@ public class DataUnitConversionTest extends Driver {
 
     @Test(priority = 4, description = "Validating DA Details History Widget MB to GB Conversion")
     public void daDetailsUnitConversionTest() {
-        ExtentTestManager.startTest("Validating DA Details History Widget MB to GB Conversion", "CSP-63396 Verify that in DA Details Widget if the data amount is coming MB from ESB com.airtel.cs.API then CS Portal should show the data amount after converting it to GB");
+        selUtils.addTestcaseDescription("Validating DA Details History Widget MB to GB Conversion,CSP-63396 Verify that in DA Details Widget if the data amount is coming MB from ESB com.airtel.cs.API then CS Portal should show the data amount after converting it to GB", "description");
         SoftAssert softAssert = new SoftAssert();
 
         AccountsBalancePOJO plansAPI = api.balanceAPITest(customerNumber);
@@ -168,7 +168,7 @@ public class DataUnitConversionTest extends Driver {
         } else {
             for (int i = 0; i < plansAPI.getResult().size(); i++) {
                 if (plansAPI.getResult().get(i).getCurrentDaBalance() != null && !plansAPI.getResult().get(i).getCurrentDaBalance().equalsIgnoreCase("0")) {
-                    Double dataBalanceAmount = Double.parseDouble(plansAPI.getResult().get(i).getCurrentDaBalance().split(" ")[0]);
+                    double dataBalanceAmount = Double.parseDouble(plansAPI.getResult().get(i).getCurrentDaBalance().split(" ")[0]);
                     String dataBalanceUnit = plansAPI.getResult().get(i).getCurrentDaBalance().split(" ")[1];
                     if (dataBalanceUnit != null) {
                         if (dataBalanceUnit.equalsIgnoreCase("MB") && dataBalanceAmount > 1024) {

@@ -20,9 +20,9 @@ public class LoginPOJO {
 
 
     public static LoginPOJO loginBody(String username, String password) {
-        LoginPOJO Req = new LoginPOJO();
-        Req.setPassword(password);
-        Req.setUsername(username);
-        return Req;
+        LoginPOJO req = new LoginPOJO();
+        req.setPassword(password);
+        req.setUsername(username);
+        return req;
     }
 }

@@ -23,7 +23,7 @@ public class SupervisorFilterTest extends Driver {
 
     @Test(priority = 1, description = "Validate Filter Tab for Supervisor")
     public void validateOpenFilterTab() {
-        ExtentTestManager.startTest("Validate Filter Tab for Supervisor(Open State)", "Validate Filter Tab for Supervisor(Open State)");
+        selUtils.addTestcaseDescription("Validate Filter Tab for Supervisor(Open State)", "description");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SoftAssert softAssert = new SoftAssert();
         pages.getSupervisorTicketList().changeTicketTypeToOpen();
@@ -78,7 +78,7 @@ public class SupervisorFilterTest extends Driver {
 
     @Test(priority = 2, description = "Validate Filter Tab for Supervisor")
     public void validateClosedFilterTab() {
-        ExtentTestManager.startTest("Validate Filter Tab for Supervisor(Closed State)", "Validate Filter Tab for Supervisor(Closed State)");
+        selUtils.addTestcaseDescription("Validate Filter Tab for Supervisor(Closed State)", "description");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SoftAssert softAssert = new SoftAssert();
         pages.getSupervisorTicketList().changeTicketTypeToClosed();
@@ -133,7 +133,7 @@ public class SupervisorFilterTest extends Driver {
 
     @Test(priority = 4, description = "Apply Filter by Created Date")
     public void applyFilterByCreatedDate() {
-        ExtentTestManager.startTest("Apply Filter by Created Date", "Apply Filter by Created Date");
+        selUtils.addTestcaseDescription("Apply Filter by Created Date", "description");
         SoftAssert softAssert = new SoftAssert();
         try {
             pages.getSupervisorTicketList().clickFilter();

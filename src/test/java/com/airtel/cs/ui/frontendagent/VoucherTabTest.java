@@ -5,7 +5,6 @@ import com.airtel.cs.commonutils.PassUtils;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
-import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pojo.LoginPOJO;
 import com.airtel.cs.pojo.voucher.VoucherDetail;
@@ -27,7 +26,6 @@ import org.testng.asserts.SoftAssert;
 
 import java.util.concurrent.TimeUnit;
 
-import static com.airtel.cs.commonutils.extentreports.ExtentTestManager.startTest;
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 
@@ -44,12 +42,13 @@ public class VoucherTabTest extends Driver {
         softAssert.assertAll();
     }
 
-    @DataProviders.User(UserType = "API")
+    @DataProviders.User(userType = "API")
     @Test(dataProvider = "loginData", dataProviderClass = DataProviders.class, priority = 0)
     public void loginAPI(TestDatabean data) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         SoftAssert softAssert = new SoftAssert();
-        LoginPOJO req = LoginPOJO.loginBody(PassUtils.decodePassword(data.getPassword()), data.getLoginAUUID());
+        final String loginAUUID = data.getLoginAUUID();
+        LoginPOJO req = LoginPOJO.loginBody(PassUtils.decodePassword(data.getPassword()), loginAUUID);
 
         map.clear();
         UtilsMethods.addHeaders("x-app-name", config.getProperty(evnName + "-x-app-name"));
@@ -64,8 +63,8 @@ public class VoucherTabTest extends Driver {
         UtilsMethods.addHeaders("Opco", OPCO);
 
         String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(req);
-        startTest("LOGIN API TEST ", "Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + data.getLoginAUUID());
-        UtilsMethods.printInfoLog("Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + data.getLoginAUUID());
+        selUtils.addTestcaseDescription("LOGIN API TEST,Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + loginAUUID, "description");
+        UtilsMethods.printInfoLog("Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + loginAUUID);
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
@@ -98,15 +97,16 @@ public class VoucherTabTest extends Driver {
         softAssert.assertAll();
     }
 
-    @DataProviders.User(UserType = "NFTR")
+    @DataProviders.User(userType = "NFTR")
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteraction(TestDatabean data) {
-        ExtentTestManager.startTest("Validating the Search for Customer Interactions :" + data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + data.getCustomerNumber());
+        final String customerNumber = data.getCustomerNumber();
+        selUtils.addTestcaseDescription("Validating the Search for Customer Interactions :" + customerNumber, "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getSideMenu().clickOnSideMenu();
         pages.getSideMenu().clickOnName();
         pages.getSideMenu().openCustomerInteractionPage();
-        pages.getMsisdnSearchPage().enterNumber(data.getCustomerNumber());
+        pages.getMsisdnSearchPage().enterNumber(customerNumber);
         pages.getMsisdnSearchPage().clickOnSearch();
         softAssert.assertTrue(pages.getCustomerProfilePage().isPageLoaded());
         pages.getCustomerProfilePage().waitTillLoaderGetsRemoved();
@@ -115,11 +115,11 @@ public class VoucherTabTest extends Driver {
 
     @Test(priority = 2, description = "Validate Voucher Search Test",dependsOnMethods = "openCustomerInteraction")
     public void voucherSearchTest() throws InterruptedException {
-        ExtentTestManager.startTest("Validate Voucher Search Test", "Validate Voucher Search Test");
+        selUtils.addTestcaseDescription("Validate Voucher Search Test", "description");
         SoftAssert softAssert = new SoftAssert();
         DataProviders data = new DataProviders();
         String voucherId = data.getVoucherId();
-        if (voucherId != null && voucherId != " ") {
+        if (voucherId != null && !voucherId.equals(" ")) {
             pages.getRechargeHistoryWidget().writeVoucherId(voucherId);
             pages.getRechargeHistoryWidget().clickSearchBtn();
             try {

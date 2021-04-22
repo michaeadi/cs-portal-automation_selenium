@@ -28,7 +28,7 @@ public class AssignToAgentTicketTest extends Driver {
 
     @Test(priority = 1, description = "Supervisor Dashboard Login ")
     public void openSupervisorDashboard() {
-        ExtentTestManager.startTest("Open Supervisor Dashboard", "Open Supervisor Dashboard");
+        selUtils.addTestcaseDescription("Open Supervisor Dashboard", "description");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         pages.getSideMenu().waitTillLoaderGetsRemoved();
         pages.getSideMenu().clickOnSideMenu();
@@ -42,7 +42,7 @@ public class AssignToAgentTicketTest extends Driver {
 
     @Test(priority = 2, dependsOnMethods = "openSupervisorDashboard", description = "Assign Ticket to Agent")
     public void assignTicketToAgent() throws InterruptedException {
-        ExtentTestManager.startTest("Assign Ticket to Agent", "Supervisor Perform Assign Ticket to Agent");
+        selUtils.addTestcaseDescription("Supervisor Perform Assign Ticket to Agent", "description");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SoftAssert softAssert = new SoftAssert();
         String auuid = null;

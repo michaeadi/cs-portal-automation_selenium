@@ -70,6 +70,7 @@ public class AuthTabBeanToExcel {
                                 break;
                             case 5:
                                 authTabDataBeans.setQ3(cellValue);
+                                break;
                             case 6:
                                 authTabDataBeans.setQ4(cellValue);
                                 break;
@@ -90,6 +91,8 @@ public class AuthTabBeanToExcel {
                                 break;
                             case 12:
                                 authTabDataBeans.setQ10(cellValue);
+                                break;
+                            default:
                                 break;
 
                         }

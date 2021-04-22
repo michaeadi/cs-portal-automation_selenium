@@ -37,12 +37,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.concurrent.TimeUnit;
 
 import static com.airtel.cs.commonutils.dataproviders.DataProviders.User;
-import static com.airtel.cs.commonutils.extentreports.ExtentTestManager.startTest;
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 
 @Log4j2
-public class createInteractionTest extends Driver {
+public class CreateInteractionTest extends Driver {
 
     String customerNumber = null;
     APIEndPoints api = new APIEndPoints();
@@ -56,10 +55,10 @@ public class createInteractionTest extends Driver {
         softAssert.assertAll();
     }
 
-    @User(UserType = "NFTR")
+    @User(userType = "NFTR")
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteraction(TestDatabean data) {
-        ExtentTestManager.startTest("Validating the Search for Customer Interactions: " + data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + data.getCustomerNumber());
+        selUtils.addTestcaseDescription("Validating the Search for Customer Interactions: " + data.getCustomerNumber(), "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getSideMenu().clickOnSideMenu();
         pages.getSideMenu().clickOnName();
@@ -75,23 +74,24 @@ public class createInteractionTest extends Driver {
 
     @Test(priority = 2, dependsOnMethods = "openCustomerInteraction", description = "Create FTR Interaction ", dataProvider = "getTestData1", dataProviderClass = DataProviders.class)
     public void createInteraction(FtrDataBeans data) throws InterruptedException {
-        ExtentTestManager.startTest(" Validating FTR Ticket: " + data.getIssueCode(), "Creating FTR Tickets and Configurations of Issue Code " + data.getIssueCode());
+        final String issueCode = data.getIssueCode();
+        selUtils.addTestcaseDescription(" Validating FTR Ticket: " + issueCode, "description");
         pages.getCustomerProfilePage().clickOnInteractionIcon();
         SoftAssert softAssert = new SoftAssert();
         try {
             try {
                 pages.getInteractionsPage().waitTillLoaderGetsRemoved();
                 pages.getInteractionsPage().clickOnCode();
-                pages.getInteractionsPage().searchCode(data.getIssueCode());
+                pages.getInteractionsPage().searchCode(issueCode);
             } catch (NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
                 Thread.sleep(1000);
                 pages.getInteractionsPage().clickOnCode();
-                pages.getInteractionsPage().searchCode(data.getIssueCode());
+                pages.getInteractionsPage().searchCode(issueCode);
 
             }
-            pages.getInteractionsPage().selectCode(data.getIssueCode());
+            pages.getInteractionsPage().selectCode(issueCode);
             pages.getInteractionsPage().waitTillLoaderGetsRemoved();
-            ExtentTestManager.getTest().log(LogStatus.INFO, "Creating ticket with issue code -" + data.getIssueCode());
+            ExtentTestManager.getTest().log(LogStatus.INFO, "Creating ticket with issue code -" + issueCode);
             softAssert.assertEquals(pages.getInteractionsPage().getIssue().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), data.getIssue().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue is not as expected ");
             softAssert.assertEquals(pages.getInteractionsPage().getIssueSubSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), data.getIssueSubSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue sub sub type is not as expected ");
             softAssert.assertEquals(pages.getInteractionsPage().getIssueType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), data.getIssueType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue type is not as expected ");
@@ -103,7 +103,7 @@ public class createInteractionTest extends Driver {
             SMSHistoryPOJO smsHistory = api.smsHistoryTest(customerNumber);
             SMSHistoryList list = smsHistory.getResult().get(0);
             ExtentTestManager.getTest().log(LogStatus.INFO, "Message Sent after Ticket Creation: " + list.getMessageText());
-            softAssert.assertTrue(list.getMessageText().contains(data.getIssueCode()), "Message does not sent to customer for same FTR Category for which Issue has been Create");
+            softAssert.assertTrue(list.getMessageText().contains(issueCode), "Message does not sent to customer for same FTR Category for which Issue has been Create");
             softAssert.assertEquals(list.getSmsType().toLowerCase().trim(), config.getProperty("systemSMSType").toLowerCase().trim(), "Message type is not system");
             softAssert.assertFalse(list.isAction(), "Action button is not disabled");
             softAssert.assertEquals(list.getTemplateName().toLowerCase().trim(), config.getProperty("ticketCreateEvent").toLowerCase().trim(), "Template event not same as defined.");
@@ -122,7 +122,7 @@ public class createInteractionTest extends Driver {
         softAssert.assertAll();
     }
 
-    @DataProviders.User(UserType = "com/airtel/cs/api")
+    @DataProviders.User(userType = "com/airtel/cs/api")
     @Test(dataProvider = "loginData", dataProviderClass = DataProviders.class, priority = 3)
     public void loginAPI(TestDatabean data) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
@@ -142,7 +142,7 @@ public class createInteractionTest extends Driver {
         UtilsMethods.addHeaders("Opco", OPCO);
 
         String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(req);
-        startTest("LOGIN com.airtel.cs.API TEST ", "Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + data.getLoginAUUID());
+        selUtils.addTestcaseDescription("LOGIN com.airtel.cs.API TEST,Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + data.getLoginAUUID(), "description");
         UtilsMethods.printInfoLog("Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + data.getLoginAUUID());
         baseURI = baseUrl;
         Headers headers = new Headers(map);
@@ -179,7 +179,8 @@ public class createInteractionTest extends Driver {
 
     @Test(priority = 4, dependsOnMethods = "openCustomerInteraction", description = "Create Interaction ", dataProvider = "getTestData2", dataProviderClass = DataProviders.class)
     public void CreateNFTRInteraction(NftrDataBeans data) throws InterruptedException, IOException {
-        ExtentTestManager.startTest(" Validating NFTR Ticket: " + data.getIssueCode(), "Creating NFTR Tickets and Configurations of Issue Code " + data.getIssueCode());
+        final String issueCode = data.getIssueCode();
+        selUtils.addTestcaseDescription(" Validating NFTR Ticket: " + issueCode, "description");
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         LocalDateTime now = LocalDateTime.now();
         CustomerProfilePage customerInteractionPagePOM = new CustomerProfilePage(driver);
@@ -188,17 +189,17 @@ public class createInteractionTest extends Driver {
         SoftAssert softAssert = new SoftAssert();
         try {
             pages.getInteractionsPage().clickOnCode();
-            pages.getInteractionsPage().searchCode(data.getIssueCode());
+            pages.getInteractionsPage().searchCode(issueCode);
         } catch (Exception e) {
             log.info("Try Again:");
             Thread.sleep(1000);
             pages.getInteractionsPage().clickOnCode();
-            pages.getInteractionsPage().searchCode(data.getIssueCode());
+            pages.getInteractionsPage().searchCode(issueCode);
 
         }
-        pages.getInteractionsPage().selectCode(data.getIssueCode());
+        pages.getInteractionsPage().selectCode(issueCode);
         pages.getInteractionsPage().waitTillLoaderGetsRemoved();
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Creating ticket with issue code -" + data.getIssueCode());
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Creating ticket with issue code -" + issueCode);
         softAssert.assertEquals(pages.getInteractionsPage().getIssue().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), data.getIssue().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue is not as expected ");
         softAssert.assertEquals(pages.getInteractionsPage().getIssueSubSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), data.getIssueSubSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue sub sub type is not as expected ");
         softAssert.assertEquals(pages.getInteractionsPage().getIssueType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), data.getIssueType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue type is not as expected ");

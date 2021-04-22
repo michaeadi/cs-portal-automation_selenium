@@ -21,8 +21,6 @@ import java.time.format.DateTimeFormatter;
 @Log4j2
 public class InteractionCommentTest extends Driver {
 
-    String ticket_number = null;
-
     String ticketNumber = null;
 
     @BeforeMethod
@@ -34,16 +32,17 @@ public class InteractionCommentTest extends Driver {
         softAssert.assertAll();
     }
 
-    @DataProviders.User(UserType = "NFTR")
+    @DataProviders.User(userType = "NFTR")
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteraction(TestDatabean data) {
-        ExtentTestManager.startTest("Validating the Search forCustomer Interactions :" + data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + data.getCustomerNumber());
+        final String customerNumber = data.getCustomerNumber();
+        selUtils.addTestcaseDescription("Validating the Search forCustomer Interactions :" + customerNumber, "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getSideMenu().clickOnSideMenu();
         pages.getSideMenu().clickOnName();
         pages.getSideMenu().openCustomerInteractionPage();
         pages.getSideMenu().waitTillLoaderGetsRemoved();
-        pages.getMsisdnSearchPage().enterNumber(data.getCustomerNumber());
+        pages.getMsisdnSearchPage().enterNumber(customerNumber);
         pages.getMsisdnSearchPage().clickOnSearch();
         softAssert.assertTrue(pages.getCustomerProfilePage().isPageLoaded());
         softAssert.assertAll();
@@ -51,7 +50,8 @@ public class InteractionCommentTest extends Driver {
 
     @Test(priority = 2, description = "Create Interaction ", dataProvider = "interactionComment", dataProviderClass = DataProviders.class,dependsOnMethods = "openCustomerInteraction")
     public void addInteractionComment(NftrDataBeans data) throws InterruptedException {
-        ExtentTestManager.startTest("Add Interaction Ticket Comment", "Add Interaction Ticket Comment on Ticket" + data.getIssueCode());
+        final String issueCode = data.getIssueCode();
+        selUtils.addTestcaseDescription("Add Interaction Ticket Comment on Ticket" + issueCode, "description");
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         LocalDateTime now = LocalDateTime.now();
         log.info(dtf.format(now));
@@ -59,15 +59,15 @@ public class InteractionCommentTest extends Driver {
         SoftAssert softAssert = new SoftAssert();
         pages.getInteractionsPage().clickOnCode();
         try {
-            pages.getInteractionsPage().searchCode(data.getIssueCode());
+            pages.getInteractionsPage().searchCode(issueCode);
         } catch (Exception e) {
             Thread.sleep(1000);
             pages.getInteractionsPage().clickOnCode();
-            pages.getInteractionsPage().searchCode(data.getIssueCode());
+            pages.getInteractionsPage().searchCode(issueCode);
 
         }
-        pages.getInteractionsPage().selectCode(data.getIssueCode());
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Creating ticket with issue code -" + data.getIssueCode());
+        pages.getInteractionsPage().selectCode(issueCode);
+        ExtentTestManager.getTest().log(LogStatus.INFO, "Creating ticket with issue code -" + issueCode);
         log.info(pages.getInteractionsPage().getIssue());
         softAssert.assertEquals(pages.getInteractionsPage().getIssue().trim().toLowerCase().replace(" ", ""), data.getIssue().trim().toLowerCase().replace(" ", ""), "Issue is not as expected ");
         log.info(pages.getInteractionsPage().getIssueSubSubType());
@@ -284,7 +284,7 @@ public class InteractionCommentTest extends Driver {
 
     @Test(priority = 3, description = "Check Sent SMS display in message history", dependsOnMethods = "addInteractionComment")
     public void checkSendMessageLog() {
-        ExtentTestManager.startTest("Check Sent SMS display in message history for System Type", "Check Sent SMS display in message history");
+        selUtils.addTestcaseDescription("Check Sent SMS display in message history for System Type", "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getCustomerProfilePage().goToViewHistory();
         pages.getViewHistory().waitTillLoaderGetsRemoved();

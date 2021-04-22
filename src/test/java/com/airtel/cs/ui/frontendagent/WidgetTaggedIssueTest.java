@@ -24,15 +24,16 @@ public class WidgetTaggedIssueTest extends Driver {
         softAssert.assertAll();
     }
 
-    @DataProviders.User(UserType = "NFTR")
+    @DataProviders.User(userType = "NFTR")
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteraction(TestDatabean data) {
-        ExtentTestManager.startTest("Validating the Search forCustomer Interactions :" + data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + data.getCustomerNumber());
+        final String customerNumber = data.getCustomerNumber();
+        selUtils.addTestcaseDescription("Validating the Search forCustomer Interactions :" + customerNumber, "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getSideMenu().clickOnSideMenu();
         pages.getSideMenu().clickOnName();
         pages.getSideMenu().openCustomerInteractionPage();
-        pages.getMsisdnSearchPage().enterNumber(data.getCustomerNumber());
+        pages.getMsisdnSearchPage().enterNumber(customerNumber);
         pages.getMsisdnSearchPage().clickOnSearch();
         softAssert.assertTrue(pages.getCustomerProfilePage().isPageLoaded());
         softAssert.assertAll();
@@ -40,7 +41,7 @@ public class WidgetTaggedIssueTest extends Driver {
 
     @Test(priority = 2, description = "Validating Current Plan widget tagged issue")
     public void currentPlanWidgetTagIssue() {
-        ExtentTestManager.startTest("Validating Current Plan widget tagged issue", "Validating Current Plan widget tagged issue");
+        selUtils.addTestcaseDescription("Validating Current Plan widget tagged issue", "description");
         SoftAssert softAssert = new SoftAssert();
         DataProviders data = new DataProviders();
         Map<String, String> tagIssue = data.getListOfIssue(config.getProperty("currentPlan"));
@@ -102,7 +103,7 @@ public class WidgetTaggedIssueTest extends Driver {
 
     @Test(priority = 3, description = "Validating Recharge History widget tagged issue")
     public void rechargeHistoryWidgetTagIssue() {
-        ExtentTestManager.startTest("Validating Recharge History widget tagged issue", "Validating Recharge History widget tagged issue");
+        selUtils.addTestcaseDescription("Validating Recharge History widget tagged issue", "description");
         SoftAssert softAssert = new SoftAssert();
         DataProviders data = new DataProviders();
         Map<String, String> tagIssue = data.getListOfIssue(config.getProperty("rechargeHistory"));
@@ -164,7 +165,7 @@ public class WidgetTaggedIssueTest extends Driver {
 
     @Test(priority = 4, description = "Validating Usage History widget tagged issue", dataProviderClass = DataProviders.class)
     public void usageWidgetTagIssue() {
-        ExtentTestManager.startTest("Validating Usage History widget tagged issue", "Validating Usage History widget tagged issue");
+        selUtils.addTestcaseDescription("Validating Usage History widget tagged issue", "description");
         SoftAssert softAssert = new SoftAssert();
         DataProviders data = new DataProviders();
         Map<String, String> tagIssue = data.getListOfIssue(config.getProperty("usageHistory"));
@@ -226,7 +227,7 @@ public class WidgetTaggedIssueTest extends Driver {
 
     @Test(priority = 5, description = "Validating Airtel Money widget tagged issue")
     public void airtelMoneyWidgetTagIssue() {
-        ExtentTestManager.startTest("Validating Airtel Money widget tagged issue", "Validating Airtel Money widget tagged issue");
+        selUtils.addTestcaseDescription("Validating Airtel Money widget tagged issue", "description");
         SoftAssert softAssert = new SoftAssert();
         DataProviders data = new DataProviders();
         Map<String, String> tagIssue = data.getListOfIssue(config.getProperty("airtelMoney"));
@@ -288,7 +289,7 @@ public class WidgetTaggedIssueTest extends Driver {
 
     @Test(priority = 6, description = "Validating DA Detail widget tagged issue")
     public void daDetailsTest() {
-        ExtentTestManager.startTest("Validating DA Detail widget tagged issue", "Validating DA Detail widget tagged issue");
+        selUtils.addTestcaseDescription("Validating DA Detail widget tagged issue", "description");
         SoftAssert softAssert = new SoftAssert();
         DataProviders data = new DataProviders();
         Map<String, String> tagIssue = data.getListOfIssue(config.getProperty("daDetails"));
@@ -361,7 +362,7 @@ public class WidgetTaggedIssueTest extends Driver {
 
     /*@Test(priority = 6, description = "Validating SMS History widget tagged issue")
     public void smsHistoryWidgetTaggedIssueTest() {
-        ExtentTestManager.startTest("Validating SMS History widget tagged issue", "Validating SMS History widget tagged issue");
+        selUtils.addTestcaseDescription("Validating SMS History widget tagged issue", "description");
         UsageHistoryWidgetPOM usageHistory = new UsageHistoryWidgetPOM(driver);
         SoftAssert softAssert = new SoftAssert();
         DataProviders data = new DataProviders();
@@ -432,7 +433,7 @@ public class WidgetTaggedIssueTest extends Driver {
 
     @Test(priority = 7, description = "Validating Data History widget tagged issue")
     public void dataHistoryWidgetTaggedIssueTest() {
-        ExtentTestManager.startTest("Validating Data History widget tagged issue", "Validating Data History widget tagged issue");
+        selUtils.addTestcaseDescription("Validating Data History widget tagged issue", "description");
         UsageHistoryWidgetPOM usageHistory = new UsageHistoryWidgetPOM(driver);
         SoftAssert softAssert = new SoftAssert();
         DataProviders data = new DataProviders();
@@ -502,7 +503,7 @@ public class WidgetTaggedIssueTest extends Driver {
 
     @Test(priority = 8, description = "Validating Call History widget tagged issue")
     public void callHistoryWidgetTaggedIssueTest() {
-        ExtentTestManager.startTest("Validating Call History widget tagged issue", "Validating Call History widget tagged issue");
+        selUtils.addTestcaseDescription("Validating Call History widget tagged issue", "description");
         UsageHistoryWidgetPOM usageHistory = new UsageHistoryWidgetPOM(driver);
         SoftAssert softAssert = new SoftAssert();
         DataProviders data = new DataProviders();

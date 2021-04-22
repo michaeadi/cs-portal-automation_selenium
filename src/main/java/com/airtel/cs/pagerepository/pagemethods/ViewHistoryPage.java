@@ -43,21 +43,21 @@ public class ViewHistoryPage extends BasePage {
     }
 
     public MessageHistoryPage clickOnMessageHistory() {
-        UtilsMethods.printInfoLog("Clicking on Message History Tab under view history ");
+        commonLib.pass("Clicking on Message History Tab under view history ");
         waitTillLoaderGetsRemoved();
         click(pageElements.messageHistory);
         return new MessageHistoryPage(driver);
     }
 
     public ActionTrailPage clickOnActionTrailHistory() {
-        UtilsMethods.printInfoLog("Clicking on Action Trail History Tab under view history ");
+        commonLib.pass("Clicking on Action Trail History Tab under view history ");
         waitTillLoaderGetsRemoved();
         click(pageElements.actionTrailTab);
         return new ActionTrailPage(driver);
     }
 
     public String getLastCreatedIssueCode() {
-        UtilsMethods.printInfoLog("Getting the issue code of last created FTR interaction ");
+        commonLib.pass("Getting the issue code of last created FTR interaction ");
         waitTillLoaderGetsRemoved();
         return getText(pageElements.firstIssueCode);
     }
@@ -79,7 +79,7 @@ public class ViewHistoryPage extends BasePage {
 
     public void clickTicketIcon(int index) {
         By element = By.xpath("//table[@id=\"fetchInteractionByCustomer\"]//tbody//tr[" + index + "]//td[9]//span//span");
-        UtilsMethods.printInfoLog("Clicking on ticket icon");
+        commonLib.pass("Clicking on ticket icon");
         click(element);
     }
 
@@ -88,7 +88,7 @@ public class ViewHistoryPage extends BasePage {
             List<WebElement> list = returnListOfElement(pageElements.allIssue);
             for (int i = 1; i <= list.size(); i++) {
                 if (!nftrIssueValue(i).equalsIgnoreCase("ftr")) {
-                    UtilsMethods.printInfoLog("Clicking on Ticket NFTR ticket icon" + nftrIssueValue(i));
+                    commonLib.pass("Clicking on Ticket NFTR ticket icon" + nftrIssueValue(i));
                     clickTicketIcon(i);
                     return true;
                 }
@@ -102,7 +102,7 @@ public class ViewHistoryPage extends BasePage {
     }
 
     public boolean checkViewTicketPage() {
-        UtilsMethods.printInfoLog("Checking View Ticket Page");
+        commonLib.pass("Checking View Ticket Page");
         return checkState(pageElements.ticketPageTitle);
     }
 
@@ -132,5 +132,12 @@ public class ViewHistoryPage extends BasePage {
      */
     public String getSourceText() {
         return getText(pageElements.sourceAppValue);
+    }
+
+    /*
+    This Method will close the Interaction History Detail page
+     */
+    public void closeInteractionHistoryDetailPage() {
+        click(pageElements.closeBtn);
     }
 }

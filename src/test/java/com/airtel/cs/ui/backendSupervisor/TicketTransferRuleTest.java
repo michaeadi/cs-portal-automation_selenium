@@ -2,9 +2,7 @@ package com.airtel.cs.ui.backendSupervisor;
 
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.TicketTransferRuleDataBean;
-import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.driver.Driver;
-import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
@@ -25,8 +23,8 @@ public class TicketTransferRuleTest extends Driver {
 
     @Test(priority = 1, description = "Ticket Transfer Rule Test", dataProvider = "ticketTransferRule", dataProviderClass = DataProviders.class)
     public void ticketTransferRuleCheck(TicketTransferRuleDataBean ruleData) throws InterruptedException {
-        ExtentTestManager.startTest("Ticket Transfer Rule Test " + ruleData.getIssueCode(), "Ticket Transfer Rule Test " + ruleData.getIssueCode() + " to ticket state " + ruleData.getToQueue());
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
+        selUtils.addTestcaseDescription("Ticket Transfer Rule Test " + ruleData.getIssueCode() + " to ticket state " + ruleData.getToQueue(), "description");
+        commonLib.info("Opening URL");
         SoftAssert softAssert = new SoftAssert();
         String ticketId = null;
         pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();

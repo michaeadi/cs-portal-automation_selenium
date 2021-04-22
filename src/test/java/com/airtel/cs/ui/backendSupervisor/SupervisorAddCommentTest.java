@@ -25,7 +25,7 @@ public class SupervisorAddCommentTest extends Driver {
 
     @Test(priority = 1, description = "Supervisor Dashboard Login ")
     public void openSupervisorDashboard() {
-        ExtentTestManager.startTest("Open Supervisor Dashboard", "Open Supervisor Dashboard");
+        selUtils.addTestcaseDescription("Open Supervisor Dashboard", "description");
         pages.getSideMenu().waitTillLoaderGetsRemoved();
         pages.getSideMenu().clickOnSideMenu();
         pages.getSideMenu().clickOnName();
@@ -38,7 +38,7 @@ public class SupervisorAddCommentTest extends Driver {
 
     @Test(priority = 2, dependsOnMethods = "openSupervisorDashboard", description = "Supervisor Add Comment on Ticket")
     public void addCommentOnTicket() throws InterruptedException {
-        ExtentTestManager.startTest("Supervisor Add Comment on Ticket", "Add new Comment[Backend Supervisor]");
+        selUtils.addTestcaseDescription("Supervisor Add Comment on Ticket,Add new Comment[Backend Supervisor]", "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getSupervisorTicketList().changeTicketTypeToOpen();
         try {
@@ -68,7 +68,7 @@ public class SupervisorAddCommentTest extends Driver {
 
     @Test(priority = 3, dependsOnMethods = "addCommentOnTicket", description = "Validate issue comment as supervisor")
     public void validateIssueComment() {
-        ExtentTestManager.startTest("Validate issue comment as supervisor", "Validate issue comment [Backend Supervisor]");
+        selUtils.addTestcaseDescription("Validate issue comment [Backend Supervisor]", "description");
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(pages.getViewTicket().validateCommentType(config.getProperty("issueComment")), "Issue Comment does not found on ticket");
         softAssert.assertAll();
@@ -76,7 +76,7 @@ public class SupervisorAddCommentTest extends Driver {
 
     @Test(priority = 4, dependsOnMethods = "addCommentOnTicket", description = "Validate Edit comment as Backend Supervisor")
     public void editComment() throws InterruptedException {
-        ExtentTestManager.startTest("Validate Edit comment as Backend Supervisor", "Validate Edit comment [Backend Supervisor]");
+        selUtils.addTestcaseDescription("Validate Edit comment as Backend Supervisor", "description");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SoftAssert softAssert = new SoftAssert();
         String comment = "Adding updated comment using automation";
@@ -91,7 +91,7 @@ public class SupervisorAddCommentTest extends Driver {
 
     @Test(priority = 5, dependsOnMethods = "addCommentOnTicket", description = "Validate Delete comment as Backend Supervisor")
     public void deleteLastAddedComment() throws InterruptedException {
-        ExtentTestManager.startTest("Validate Delete comment as Backend Supervisor", "Validate Delete comment [Backend Supervisor]");
+        selUtils.addTestcaseDescription("Validate Delete comment as Backend Supervisor", "description");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SoftAssert softAssert = new SoftAssert();
         String comment = "Adding Comment to test Delete comment Flow " + LocalDateTime.now();

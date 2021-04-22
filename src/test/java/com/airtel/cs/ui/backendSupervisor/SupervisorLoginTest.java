@@ -3,7 +3,6 @@ package com.airtel.cs.ui.backendSupervisor;
 import com.airtel.cs.commonutils.PassUtils;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
-import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pagerepository.pagemethods.SideMenuPage;
 import org.testng.Assert;
@@ -28,14 +27,14 @@ public class SupervisorLoginTest extends Driver {
     @DataProviders.User()
     @Test(priority = 1, description = "Logging IN", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void loggingIN(TestDatabean data) throws InterruptedException {
-        ExtentTestManager.startTest("Logging Into Portal", "Logging Into Portal with AUUID :  " + data.getLoginAUUID());
+        selUtils.addTestcaseDescription("Logging Into Portal with AUUID :  " + data.getLoginAUUID(), "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getLoginPage().openBaseURL(config.getProperty(evnName + "-baseurl"));
         softAssert.assertEquals(driver.getCurrentUrl(), config.getProperty(evnName + "-baseurl"), "URl isn't as expected");
         pages.getLoginPage().enterAUUID(data.getLoginAUUID());//*[@id="mat-input-7"]
         pages.getLoginPage().clickOnSubmitBtn();
         pages.getLoginPage().enterPassword(PassUtils.decodePassword(data.getPassword()));
-        softAssert.assertTrue(pages.getLoginPage().checkLoginButton(), "Login Button is not enabled even after entering Passowrd");
+        softAssert.assertTrue(pages.getLoginPage().checkLoginButton(), "Login Button is not enabled even after entering Password");
         pages.getLoginPage().clickOnVisibleButton();
         pages.getLoginPage().clickOnVisibleButton();
         pages.getLoginPage().clickOnLogin();
@@ -59,7 +58,7 @@ public class SupervisorLoginTest extends Driver {
 
     @Test(priority = 2, description = "Supervisor Dashboard Login ")
     public void openSupervisorDashboard(Method method) {
-        ExtentTestManager.startTest("Open Supervisor Dashboard", "Open Supervisor Dashboard");
+        selUtils.addTestcaseDescription("Open Supervisor Dashboard", "description");
         pages.getSideMenu().waitTillLoaderGetsRemoved();
         pages.getSideMenu().clickOnSideMenu();
         pages.getSideMenu().clickOnName();
@@ -72,7 +71,7 @@ public class SupervisorLoginTest extends Driver {
 
     @Test(priority = 3, description = "Verify there are Searchable fields options displayed to select from in the Search Dropdown : 1) Ticket Id & 2) MSISDN")
     public void validateTicketSearchOptions() {
-        ExtentTestManager.startTest("Validate Search Ticket Option", "Verify there are 2 options displayed to select from in the Search Dropdown : 1) Ticket Id & 2) MSISDN");
+        selUtils.addTestcaseDescription("Validate Search Ticket Option,Verify there are 2 options displayed to select from in the Search Dropdown : 1) Ticket Id & 2) MSISDN", "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getSupervisorTicketList().clickTicketOption();
         List<String> list = pages.getSupervisorTicketList().getListOfSearchOption();
@@ -84,7 +83,7 @@ public class SupervisorLoginTest extends Driver {
 
     @Test(priority = 4, description = "Validate Supervisor ticket tabs ALL Tickets & My Assigned Tab")
     public void validateSupervisorTabs() {
-        ExtentTestManager.startTest("Validate Supervisor ticket tabs(All Tickets & My Assigned Ticket) ", "Validate Supervisor ticket tabs(All Tickets & My Assigned Ticket)");
+        selUtils.addTestcaseDescription("Validate Supervisor ticket tabs(All Tickets & My Assigned Ticket) ", "description");
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(pages.getSupervisorTicketList().isMyAssignedTicketTab(), "My Assigned Tickets Tab does not displayed correctly.");
         softAssert.assertTrue(pages.getSupervisorTicketList().isAllTicketTab(), "ALL Tickets Tab does not displayed correctly.");

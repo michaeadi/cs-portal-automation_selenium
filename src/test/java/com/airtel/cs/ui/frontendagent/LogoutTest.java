@@ -1,6 +1,5 @@
 package com.airtel.cs.ui.frontendagent;
 
-import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.driver.Driver;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -22,7 +21,7 @@ public class LogoutTest extends Driver {
 
     @Test
     public void logout() {
-        ExtentTestManager.startTest("Logging Out Of Portal", "Logging Out Of Portal");
+        selUtils.addTestcaseDescription("Logging Out Of Portal", "description");
         if (pages.getSideMenu().isSideMenuVisible()) {
             pages.getSideMenu().clickOnSideMenu();
             pages.getSideMenu().logout();

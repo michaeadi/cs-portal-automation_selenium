@@ -32,11 +32,10 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.concurrent.TimeUnit;
 
-import static com.airtel.cs.commonutils.extentreports.ExtentTestManager.startTest;
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 
-public class SupervisorUpdateTicket extends Driver {
+public class SupervisorUpdateTicketTest extends Driver {
 
     static String ticketId=null;
     String customerNumber = null;
@@ -51,7 +50,7 @@ public class SupervisorUpdateTicket extends Driver {
         softAssert.assertAll();
     }
 
-    @DataProviders.User(UserType = "API")
+    @DataProviders.User(userType = "API")
     @Test(dataProvider = "loginData", dataProviderClass = DataProviders.class, priority = 0)
     public void loginAPI(TestDatabean data) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
@@ -71,7 +70,7 @@ public class SupervisorUpdateTicket extends Driver {
         UtilsMethods.addHeaders("Opco", OPCO);
 
         String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(Req);
-        startTest("LOGIN com.airtel.cs.API TEST ", "Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + data.getLoginAUUID());
+        selUtils.addTestcaseDescription("LOGIN com.airtel.cs.API TEST ,Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + data.getLoginAUUID(), "description");
         UtilsMethods.printInfoLog("Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + data.getLoginAUUID());
         baseURI = baseUrl;
         Headers headers = new Headers(map);
@@ -105,7 +104,7 @@ public class SupervisorUpdateTicket extends Driver {
         softAssert.assertAll();
     }
 
-    @DataProviders.User(UserType = "NFTR")
+    @DataProviders.User(userType = "NFTR")
     @Test(priority = 1, dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void setCustomerNumber(TestDatabean Data) {
         customerNumber = Data.getCustomerNumber();
@@ -113,7 +112,7 @@ public class SupervisorUpdateTicket extends Driver {
 
     @Test(priority = 2, description = "Open Supervisor Dashboard")
     public void openSupervisorDashboard() {
-        ExtentTestManager.startTest("Open Supervisor Dashboard", "Open Supervisor Dashboard");
+        selUtils.addTestcaseDescription("Open Supervisor Dashboard", "description");
         pages.getSideMenu().clickOnSideMenu();
         pages.getSideMenu().clickOnName();
         pages.getSideMenu().openSupervisorDashboard();
@@ -125,7 +124,7 @@ public class SupervisorUpdateTicket extends Driver {
 
     @Test(priority = 3, description = "Update Ticket", dataProvider = "ticketId", dataProviderClass = DataProviders.class)
     public void updateTicket(Method method, NftrDataBeans Data) throws InterruptedException {
-        ExtentTestManager.startTest("Update Ticket: " + Data.getIssueCode(), "Update Ticket");
+        selUtils.addTestcaseDescription("Update Ticket: " + Data.getIssueCode(), "description");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SoftAssert softAssert = new SoftAssert();
         DataProviders data = new DataProviders();
@@ -181,10 +180,10 @@ public class SupervisorUpdateTicket extends Driver {
         softAssert.assertAll();
     }
 
-    @DataProviders.User(UserType = "NFTR")
+    @DataProviders.User(userType = "NFTR")
     @Test(priority = 4, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteraction(Method method, TestDatabean Data) throws IOException {
-        ExtentTestManager.startTest("Validating the Search forCustomer Interactions :" + Data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + Data.getCustomerNumber());
+        selUtils.addTestcaseDescription("Validating the Search forCustomer Interactions :" + Data.getCustomerNumber(), "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getSideMenu().clickOnSideMenu();
         pages.getSideMenu().clickOnName();
@@ -203,7 +202,7 @@ public class SupervisorUpdateTicket extends Driver {
     public void validateReopenIcon() throws InterruptedException, IOException {
         SoftAssert softAssert = new SoftAssert();
         if (ticketId != null) {
-            ExtentTestManager.startTest("Validate Re-open Icon on Closed Ticket: " + ticketId, "Validate Re-open Icon on Closed Ticket: " + ticketId);
+            selUtils.addTestcaseDescription("Validate Re-open Icon on Closed Ticket: " + ticketId, "description");
             pages.getCustomerProfilePage().goToViewHistory();
             pages.getViewHistory().goToTicketHistoryTab();
             pages.getFrontendTicketHistoryPage().waitTillLoaderGetsRemoved();

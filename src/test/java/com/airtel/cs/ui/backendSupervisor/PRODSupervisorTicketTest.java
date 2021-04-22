@@ -13,7 +13,7 @@ import org.testng.asserts.SoftAssert;
 
 import java.util.List;
 
-public class PRODSupervisorTicket extends Driver {
+public class PRODSupervisorTicketTest extends Driver {
 
     @BeforeMethod
     public void checkExecution() {
@@ -27,7 +27,7 @@ public class PRODSupervisorTicket extends Driver {
     @DataProviders.User()
     @Test(priority = 1, description = "Logging IN", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void loggingIN(TestDatabean data) {
-        ExtentTestManager.startTest("Logging Into Portal", "Logging Into Portal with AUUID :  " + data.getLoginAUUID());
+        selUtils.addTestcaseDescription("Logging Into Portal with AUUID :  " + data.getLoginAUUID(), "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getLoginPage().openBaseURL(config.getProperty(evnName + "-baseurl"));
         softAssert.assertEquals(driver.getCurrentUrl(), config.getProperty(evnName + "-baseurl"), "URl isn't as expected");
@@ -43,7 +43,7 @@ public class PRODSupervisorTicket extends Driver {
 
     @Test(priority = 2, description = "Supervisor Dashboard Login ")
     public void openSupervisorDashboard() {
-        ExtentTestManager.startTest("Open Supervisor Dashboard", "Open Supervisor Dashboard");
+        selUtils.addTestcaseDescription("Open Supervisor Dashboard", "description");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         pages.getSideMenu().waitTillLoaderGetsRemoved();
         pages.getSideMenu().clickOnSideMenu();
@@ -57,7 +57,7 @@ public class PRODSupervisorTicket extends Driver {
 
     @Test(priority = 3, description = "Verify there are Searchable fields options displayed to select from in the Search Dropdown : 1) Ticket Id & 2) MSISDN")
     public void validateTicketSearchOptions() {
-        ExtentTestManager.startTest("Validate Search Ticket Option", "Verify there are 2 options displayed to select from in the Search Dropdown : 1) Ticket Id & 2) MSISDN");
+        selUtils.addTestcaseDescription("Validate Search Ticket Option,Verify there are 2 options displayed to select from in the Search Dropdown : 1) Ticket Id & 2) MSISDN", "description");
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         SoftAssert softAssert = new SoftAssert();
         pages.getSupervisorTicketList().clickTicketOption();
@@ -70,7 +70,7 @@ public class PRODSupervisorTicket extends Driver {
 
     @Test(priority = 4, description = "Validate Supervisor ticket tabs ALL Tickets & My Assigned Tab")
     public void validateSupervisorTabs() {
-        ExtentTestManager.startTest("Validate Supervisor ticket tabs(All Tickets & My Assigned Ticket) ", "Validate Supervisor ticket tabs(All Tickets & My Assigned Ticket)");
+        selUtils.addTestcaseDescription("Validate Supervisor ticket tabs(All Tickets & My Assigned Ticket) ", "description");
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(pages.getSupervisorTicketList().isMyAssignedTicketTab(), "My Assigned Tickets Tab does not displayed correctly.");
         softAssert.assertTrue(pages.getSupervisorTicketList().isAllTicketTab(), "ALL Tickets Tab does not displayed correctly.");

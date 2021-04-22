@@ -21,6 +21,9 @@ import java.util.concurrent.TimeUnit;
 @Log4j2
 public class UtilsMethods extends Driver {
 
+    private static final String YESTERDAY = "Yesterday";
+    private static final String TODAY = "Today";
+
     public static void addHeaders(String key, String value) {
         map.add(new Header(key, value));
     }
@@ -63,11 +66,11 @@ public class UtilsMethods extends Driver {
         printInfoLog("And Body is  : " + queryable.getBody().toString());
     }
 
-    public static String getDateFromEpoch(long Epoch, String pattern) {
-        if (Epoch == 0) {
+    public static String getDateFromEpoch(long epoch, String pattern) {
+        if (epoch == 0) {
             return "-";
         } else {
-            Date date = new Date(Epoch);
+            Date date = new Date(epoch);
             DateFormat format = new SimpleDateFormat(pattern);
             return format.format(date);
         }
@@ -96,15 +99,15 @@ public class UtilsMethods extends Driver {
         return "Invalid Date String";
     }
 
-    public static String getDateFromEpochInUTC(long Epoch, String pattern) {
-        Date date = new Date(Epoch);
+    public static String getDateFromEpochInUTC(long epoch, String pattern) {
+        Date date = new Date(epoch);
         DateFormat format = new SimpleDateFormat(pattern);
         format.setTimeZone(TimeZone.getTimeZone("Etc/UTC"));
         return format.format(date);
     }
 
-    public static String getTimeFromEpoch(long Epoch, String pattern) {
-        Date date = new Date(Epoch);
+    public static String getTimeFromEpoch(long epoch, String pattern) {
+        Date date = new Date(epoch);
         Date nearestMinute = DateUtils.round(date, Calendar.MINUTE);
         DateFormat format1 = new SimpleDateFormat(pattern);
         return format1.format(nearestMinute);
@@ -114,36 +117,36 @@ public class UtilsMethods extends Driver {
         DateFormat format = new SimpleDateFormat(pattern);
         final Calendar cal = Calendar.getInstance();
         try {
-            if (historyDateTime.contains("Yesterday")) {
+            if (historyDateTime.contains(YESTERDAY)) {
                 String pattern1 = pattern.split("hh")[0].trim();
                 DateFormat format1 = new SimpleDateFormat(pattern1);
                 cal.add(Calendar.DATE, -1);
                 String yesterday = format1.format(cal.getTime());
-                historyDateTime = historyDateTime.replace("Yesterday", yesterday);
-                System.out.println(historyDateTime + " :" + yesterday);
+                historyDateTime = historyDateTime.replace(YESTERDAY, yesterday);
+                UtilsMethods.printInfoLog(historyDateTime + " :" + yesterday);
             }
 
-            if (historyDateTime1.contains("Yesterday")) {
+            if (historyDateTime1.contains(YESTERDAY)) {
                 String pattern1 = pattern.split("hh")[0].trim();
                 DateFormat format1 = new SimpleDateFormat(pattern1);
                 cal.add(Calendar.DATE, -1);
                 String yesterday = format1.format(cal.getTime());
-                historyDateTime1 = historyDateTime1.replace("Yesterday", yesterday);
-                System.out.println(historyDateTime1 + " :" + yesterday);
+                historyDateTime1 = historyDateTime1.replace(YESTERDAY, yesterday);
+                UtilsMethods.printInfoLog(historyDateTime1 + " :" + yesterday);
             }
 
-            if (historyDateTime.contains("Today")) {
+            if (historyDateTime.contains(TODAY)) {
                 String pattern1 = pattern.split("hh")[0].trim();
                 DateFormat format1 = new SimpleDateFormat(pattern1);
                 String today = format1.format(Calendar.getInstance().getTime());
-                historyDateTime = historyDateTime.replace("Today", today);
+                historyDateTime = historyDateTime.replace(TODAY, today);
             }
 
-            if (historyDateTime1.contains("Today")) {
+            if (historyDateTime1.contains(TODAY)) {
                 String pattern1 = pattern.split("hh")[0].trim();
                 DateFormat format1 = new SimpleDateFormat(pattern1);
                 String today = format1.format(Calendar.getInstance().getTime());
-                historyDateTime1 = historyDateTime1.replace("Today", today);
+                historyDateTime1 = historyDateTime1.replace(TODAY, today);
             }
 
             Date date1 = format.parse(historyDateTime);
@@ -162,12 +165,13 @@ public class UtilsMethods extends Driver {
     }
 
     public static String convertToHR(String committedSla) {
-        Long ms = Long.parseLong(committedSla);
-        log.info("Converting SLA: " + committedSla + " to " + String.valueOf(TimeUnit.MILLISECONDS.toHours(ms)));
-        return String.valueOf(TimeUnit.MILLISECONDS.toHours(ms));
+        long ms = Long.parseLong(committedSla);
+        final String valueOf = String.valueOf(TimeUnit.MILLISECONDS.toHours(ms));
+        log.info("Converting SLA: " + committedSla + " to " + valueOf);
+        return valueOf;
     }
 
-    public static String ValueRoundOff(Double value) {
+    public static String valueRoundOff(Double value) {
         DecimalFormat df = new DecimalFormat("###.##");
         return df.format(value);
     }

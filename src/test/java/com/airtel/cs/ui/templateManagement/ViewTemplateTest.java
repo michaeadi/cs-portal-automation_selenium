@@ -26,7 +26,7 @@ public class ViewTemplateTest extends Driver {
 
     @Test(priority = 1, description = "Open Template Management")
     public void openTemplateManagement() {
-        ExtentTestManager.startTest("Open Template Management", "Open Template Management");
+        selUtils.addTestcaseDescription("Open Template Management", "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getSideMenu().clickOnSideMenu();
         pages.getSideMenu().clickOnName();
@@ -38,7 +38,7 @@ public class ViewTemplateTest extends Driver {
 
     @Test(priority = 2, description = "View Created Template Page Loaded", dependsOnMethods = "openTemplateManagement")
     public void openViewCreatedTemplate() {
-        ExtentTestManager.startTest("View Created Template Page Loaded", "View Created Template Page Loaded");
+        selUtils.addTestcaseDescription("View Created Template Page Loaded", "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getTemplateManagement().waitTillLoaderGetsRemoved();
         pages.getTemplateManagement().clickViewCreatedTemplateTab();
@@ -48,7 +48,7 @@ public class ViewTemplateTest extends Driver {
 
     @Test(priority = 3, description = "Validating All Agent Channel displayed", dependsOnMethods = "openTemplateManagement")
     public void validateAgentChannel() {
-        ExtentTestManager.startTest("Validating All Agent Channel displayed", "Validating All Agent Channel displayed");
+        selUtils.addTestcaseDescription("Validating All Agent Channel displayed", "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getViewCreatedTemplate().clickAgentChannel();
         ArrayList<String> strings = pages.getViewCreatedTemplate().getAllOptions();
@@ -77,7 +77,7 @@ public class ViewTemplateTest extends Driver {
 
     @Test(priority = 4, description = "Validating All Agent Roles displayed", dependsOnMethods = "openTemplateManagement")
     public void validateRoles() {
-        ExtentTestManager.startTest("Validating All Agent Roles displayed", "Validating All Agent Roles displayed");
+        selUtils.addTestcaseDescription("Validating All Agent Roles displayed", "description");
         SoftAssert softAssert = new SoftAssert();
         try {
             pages.getViewCreatedTemplate().clickRoles();
@@ -108,7 +108,7 @@ public class ViewTemplateTest extends Driver {
 
     @Test(priority = 5, description = "Validating All Language displayed", dependsOnMethods = "openTemplateManagement")
     public void validateLanguage() {
-        ExtentTestManager.startTest("Validating All Language displayed", "Validating All Language displayed");
+        selUtils.addTestcaseDescription("Validating All Language displayed", "description");
         SoftAssert softAssert = new SoftAssert();
         try {
             pages.getViewCreatedTemplate().clickLanguage();
@@ -142,7 +142,7 @@ public class ViewTemplateTest extends Driver {
 
     @Test(priority = 6, description = "Validate template layout", dependsOnMethods = "openTemplateManagement")
     public void validateTemplateLayout() {
-        ExtentTestManager.startTest("Validating template layout", "Validating All Language displayed");
+        selUtils.addTestcaseDescription("Validating template layout", "description");
         SoftAssert softAssert = new SoftAssert();
         int i = 1;
         pages.getViewCreatedTemplate().templateName(i);
@@ -159,7 +159,7 @@ public class ViewTemplateTest extends Driver {
 
     @Test(priority = 7, description = "Validate admin able to deactivate/Activate Template", dependsOnMethods = "openTemplateManagement")
     public void deactivateTemplate() {
-        ExtentTestManager.startTest("Validate admin able to deactivate/Activate Template", "Validate admin able to deactivate/Activate Template");
+        selUtils.addTestcaseDescription("Validate admin able to deactivate/Activate Template", "description");
         SoftAssert softAssert = new SoftAssert();
         int i = 1;
         pages.getViewCreatedTemplate().clickDeleteIcon(i);

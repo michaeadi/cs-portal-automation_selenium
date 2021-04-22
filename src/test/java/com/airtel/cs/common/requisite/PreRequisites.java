@@ -6,7 +6,6 @@ import com.airtel.cs.commonutils.PassUtils;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
-import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.pojo.LoginPOJO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,7 +28,7 @@ public class PreRequisites extends Driver {
 
     @BeforeClass
     public void doLogin() {
-        ExtentTestManager.startTest("Logging Into Portal", "Logging Into Portal with AUUID");
+        selUtils.addTestcaseDescription("Logging Into Portal", "pre-requisites");
         pages.getLoginPage().openBaseURL(config.getProperty(evnName + "-baseurl"));
         assertCheck.append(actions.assertEqual_stringType(driver.getCurrentUrl(), config.getProperty(evnName + "-baseurl"), "Login URL Opened", "Login URL not Opened"));
         pages.getLoginPage().waitTillLoaderGetsRemoved();
@@ -45,7 +44,7 @@ public class PreRequisites extends Driver {
         assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPOM().isSideMenuVisible(), true, "Side Menu Visible", "Side Menu Not Visible"));
         pages.getSideMenuPOM().clickOnSideMenu();
         assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPOM().isCustomerServicesVisible(), true, "Customer Service Visible", "Customer Service Not Visible"));
-        actions.assertAll_foundFailedAssert(assertCheck);
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     @BeforeClass(dependsOnMethods = "doLogin")
@@ -65,7 +64,7 @@ public class PreRequisites extends Driver {
 
     @AfterClass(alwaysRun = true)
     public void doLogout() {
-        ExtentTestManager.startTest("Logging Out Of Portal", "Logging Out Of Portal");
+        selUtils.addTestcaseDescription("Logging Out Of Portal", "description");
         if (pages.getSideMenu().isSideMenuVisible()) {
             pages.getSideMenu().clickOnSideMenu();
             pages.getSideMenu().logout();

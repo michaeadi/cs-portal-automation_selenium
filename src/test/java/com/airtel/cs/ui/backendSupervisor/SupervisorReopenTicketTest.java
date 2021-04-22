@@ -2,7 +2,6 @@ package com.airtel.cs.ui.backendSupervisor;
 
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.TicketStateDataBean;
-import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.driver.Driver;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -24,7 +23,7 @@ public class SupervisorReopenTicketTest extends Driver {
 
     @Test(priority = 1, description = "Supervisor Dashboard Login ")
     public void openSupervisorDashboard() {
-        ExtentTestManager.startTest("Open Supervisor Dashboard", "Open Supervisor Dashboard");
+        selUtils.addTestcaseDescription("Open Supervisor Dashboard", "description");
         pages.getSideMenu().waitTillLoaderGetsRemoved();
         pages.getSideMenu().clickOnSideMenu();
         pages.getSideMenu().clickOnName();
@@ -37,7 +36,7 @@ public class SupervisorReopenTicketTest extends Driver {
 
     @Test(priority = 2, dependsOnMethods = "openSupervisorDashboard", dataProvider = "ReOpenState", description = "Supervisor Reopen Ticket", dataProviderClass = DataProviders.class)
     public void reopenTicket(TicketStateDataBean reopen) {
-        ExtentTestManager.startTest("Supervisor Reopen Ticket", "Reopen Ticket as Supervisor");
+        selUtils.addTestcaseDescription("Validate Reopen Ticket as Supervisor", "description");
         SoftAssert softAssert = new SoftAssert();
         String ticketId;
         pages.getSupervisorTicketList().changeTicketTypeToClosed();
@@ -48,7 +47,7 @@ public class SupervisorReopenTicketTest extends Driver {
             try {
                 softAssert.assertTrue(pages.getSupervisorTicketList().isReopenBtn(), "Reopen Button Available");
                 try {
-                    pages.getSupervisorTicketList().ClickReopenButton();
+                    pages.getSupervisorTicketList().clickReopenButton();
                     pages.getSupervisorTicketList().addReopenComment("Reopen Comment Using Automation");
                     pages.getSupervisorTicketList().submitReopenReq();
                     pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();

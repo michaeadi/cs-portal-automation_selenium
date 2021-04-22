@@ -22,7 +22,7 @@ import org.testng.asserts.SoftAssert;
 
 import static com.airtel.cs.commonutils.dataproviders.DataProviders.Table;
 
-public class widgetsOptionsTest extends Driver {
+public class WidgetsOptionsTest extends Driver {
     String customerNumber;
     APIEndPoints api = new APIEndPoints();
 
@@ -35,21 +35,22 @@ public class widgetsOptionsTest extends Driver {
         softAssert.assertAll();
     }
 
-    @DataProviders.User(UserType = "API")
-    @Test(priority = 0, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
+    @DataProviders.User(userType = "API")
+    @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteractionAPI(TestDatabean data) {
-        ExtentTestManager.startTest("Validating the Search forCustomer Interactions :" + data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + data.getCustomerNumber());
+        final String customerNumber = data.getCustomerNumber();
+        selUtils.addTestcaseDescription("Validating the Search forCustomer Interactions :" + customerNumber, "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getSideMenu().clickOnSideMenu();
         pages.getSideMenu().clickOnName();
         pages.getSideMenu().openCustomerInteractionPage();
         pages.getSideMenu().waitTillLoaderGetsRemoved();
         if (evnName.equalsIgnoreCase("Prod")) {
-            customerNumber = data.getProdCustomerNumber();
+            this.customerNumber = data.getProdCustomerNumber();
         } else {
-            customerNumber = data.getCustomerNumber();
+            this.customerNumber = customerNumber;
         }
-        pages.getMsisdnSearchPage().enterNumber(customerNumber);
+        pages.getMsisdnSearchPage().enterNumber(this.customerNumber);
         pages.getMsisdnSearchPage().clickOnSearch();
         if (!pages.getCustomerProfilePage().isPageLoaded()) {
             softAssert.fail("Customer Info Dashboard Page does not open using SIM Number.");
@@ -58,10 +59,10 @@ public class widgetsOptionsTest extends Driver {
         softAssert.assertAll();
     }
 
-    @Table(Name = "Da Details")
-    @Test(priority = 1, description = "Validating DA Details", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI")
+    @Table(name = "Da Details")
+    @Test(priority = 2, description = "Validating DA Details", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI")
     public void daDetailsTest(HeaderDataBean data) {
-        ExtentTestManager.startTest("Validating DA Details", "Validating DA Details of User :" + customerNumber);
+        selUtils.addTestcaseDescription("Validating DA Details of User :" + customerNumber, "description");
         SoftAssert softAssert = new SoftAssert();
         try {
             pages.getCurrentBalanceWidgetPage().waitTillLoaderGetsRemoved();
@@ -101,10 +102,10 @@ public class widgetsOptionsTest extends Driver {
         softAssert.assertAll();
     }
 
-    @Table(Name = "Accumulator")
-    @Test(priority = 2, description = "Validating Accumulator Details", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI")
+    @Table(name = "Accumulator")
+    @Test(priority = 3, description = "Validating Accumulator Details", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI")
     public void accumulatorDetailsTest(HeaderDataBean Data) {
-        ExtentTestManager.startTest("Validating Accumulator Details", "Validating Accumulator Details of User :" + customerNumber);
+        selUtils.addTestcaseDescription("Validating Accumulator Details of User :" + customerNumber, "description");
         SoftAssert softAssert = new SoftAssert();
         try {
             pages.getCurrentBalanceWidgetPage().waitTillLoaderGetsRemoved();
@@ -137,9 +138,9 @@ public class widgetsOptionsTest extends Driver {
     }
 
     //    @Table(Name = "SMS History")
-//    @Test(priority = 2, description = "Validating Usage History's SMS History", dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
+//    @Test(priority = 4, description = "Validating Usage History's SMS History", dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
 //    public void usageHistoryMenuAndSMSHistoryTest(HeaderDataBean Data) {
-//        ExtentTestManager.startTest("Validating Usage History's SMS History", "Validating Usage History's SMS History of User :" + customerNumber);
+//        selUtils.addTestcaseDescription();("Validating Usage History's SMS History of User :" + customerNumber, "description");
 //        UsageHistoryWidgetPOM usageHistory = new UsageHistoryWidgetPOM(driver);
 //        SoftAssert softAssert = new SoftAssert();
 //        softAssert.assertTrue(usageHistory.isUsageHistoryWidgetMenuVisible(), "Usage History's MENU is not visible ");
@@ -173,9 +174,9 @@ public class widgetsOptionsTest extends Driver {
 //    }
 //
 //    @Table(Name = "Call History")
-//    @Test(priority = 3, description = "Validating Usage History's Call History", dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
+//    @Test(priority = 5, description = "Validating Usage History's Call History", dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
 //    public void usageHistoryCallMenuTest(HeaderDataBean Data) {
-//        ExtentTestManager.startTest("Validating Usage History's Call History", "Validating Usage History's Call History of User :" + customerNumber);
+//        selUtils.addTestcaseDescription();("Validating Usage History's Call History of User :" + customerNumber, "description");
 //        MoreUsageHistoryPOM moreUsageHistory = new MoreUsageHistoryPOM(driver);
 //        SoftAssert softAssert = new SoftAssert();
 //        softAssert.assertTrue(moreUsageHistory.isCallDatePickerVisible(), "Call History Date picker is not visible ");
@@ -207,9 +208,9 @@ public class widgetsOptionsTest extends Driver {
 //    }
 //
 //    @Table(Name = "Data History")
-//    @Test(priority = 4, description = "Validating Usage History's Data History", dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
+//    @Test(priority = 6, description = "Validating Usage History's Data History", dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
 //    public void usageHistoryDataMenuTest(HeaderDataBean Data) {
-//        ExtentTestManager.startTest("Validating Usage History's Data History", "Validating Usage History's Data History of User :" + customerNumber);
+//        selUtils.addTestcaseDescription();("Validating Usage History's Data History of User :" + customerNumber, "description");
 //        MoreUsageHistoryPOM moreUsageHistory = new MoreUsageHistoryPOM(driver);
 //        SoftAssert softAssert = new SoftAssert();
 //
@@ -240,10 +241,10 @@ public class widgetsOptionsTest extends Driver {
 //        softAssert.assertAll();
 //    }
 //
-    @Table(Name = "More Recharge History")
-    @Test(priority = 5, description = "Validating Recharge History's  Menu", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI")
+    @Table(name = "More Recharge History")
+    @Test(priority = 4, description = "Validating Recharge History's  Menu", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI")
     public void rechargeHistoryMenuTest(HeaderDataBean data) {
-        ExtentTestManager.startTest("Validating Recharge History's  Menu", "Validating Recharge History's  Menu of User :" + customerNumber);
+        selUtils.addTestcaseDescription("Validating Recharge History's  Menu of User :" + customerNumber, "description");
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(pages.getRechargeHistoryWidget().isRechargeHistoryWidgetMenuVisible(), "Recharge History's MENU is not visible ");
         pages.getRechargeHistoryWidget().openingRechargeHistoryDetails();
@@ -296,10 +297,10 @@ public class widgetsOptionsTest extends Driver {
         softAssert.assertAll();
     }
 
-    @Table(Name = "Detailed Usage History")
-    @Test(priority = 6, description = "Validating Usage History's  Menu", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI")
+    @Table(name = "Detailed Usage History")
+    @Test(priority = 5, description = "Validating Usage History's  Menu", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI")
     public void usageHistoryMenuTest(HeaderDataBean data) {
-        ExtentTestManager.startTest("Validating Usage History's  Menu", "Validating Usage History's  Menu of User :" + customerNumber);
+        selUtils.addTestcaseDescription("Validating Usage History's  Menu of User :" + customerNumber, "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getUsageHistoryWidget().openingMoreDetails();
         pages.getDetailedUsageHistoryPage().waitTillLoaderGetsRemoved();
@@ -381,10 +382,10 @@ public class widgetsOptionsTest extends Driver {
         softAssert.assertAll();
     }
 
-    @Table(Name = "More Airtel Money History")
-    @Test(priority = 7, description = "Validating Airtel Money History's  Menu", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI", enabled = false)
+    @Table(name = "More Airtel Money History")
+    @Test(priority = 6, description = "Validating Airtel Money History's  Menu", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI", enabled = false)
     public void airtelMoneyHistoryMenuTest(HeaderDataBean data) {
-        ExtentTestManager.startTest("Validating Airtel Money History's  Menu", "Validating Airtel Money History's  Menu of User :" + customerNumber);
+        selUtils.addTestcaseDescription("Validating Airtel Money History's  Menu of User :" + customerNumber, "description");
         SoftAssert softAssert = new SoftAssert();
         try {
             pages.getAmTxnWidgetPage().clickMenuOption();
@@ -452,11 +453,11 @@ public class widgetsOptionsTest extends Driver {
         softAssert.assertAll();
     }
 
-    @Table(Name = "More Airtel Money History")
+    @Table(name = "More Airtel Money History")
     @Test(priority = 7, description = "Validating Airtel Money History's  Menu Secondary Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI", enabled = false)
     public void airtelMoneyHistoryMenuSecondaryTest(HeaderDataBean data) {
         if(OPCO.equalsIgnoreCase("CD")) {
-            ExtentTestManager.startTest("Validating Airtel Money History's  Menu Secondary Widget", "Validating Airtel Money History's  Menu Secondary Widget of User :" + customerNumber);
+            selUtils.addTestcaseDescription("Validating Airtel Money History's  Menu Secondary Widget of User :" + customerNumber, "description");
             SoftAssert softAssert = new SoftAssert();
             try {
                 pages.getAmTxnWidgetPage().clickMenuOption();

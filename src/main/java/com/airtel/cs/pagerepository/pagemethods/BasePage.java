@@ -1,7 +1,6 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
 import com.airtel.cs.api.APIEndPoints;
-import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.enums.ReportInfoMessageColorList;
 import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.driver.Driver;
@@ -37,7 +36,7 @@ public class BasePage extends Driver {
     public JavascriptExecutor js;
     BasePageElements basePageElements;
     public static final APIEndPoints api = new APIEndPoints();
-    private static final String BREAK_LINE= "</br>";
+    private static final String BREAK_LINE = "</br>";
 
 
     //Constructor
@@ -58,9 +57,9 @@ public class BasePage extends Driver {
 
 
     public void waitTillLoaderGetsRemoved() {
-        UtilsMethods.printInfoLog("Waiting for loader to be removed");
+        commonLib.info("Waiting for loader to be removed");
         wait1.until(ExpectedConditions.invisibilityOfElementLocated(basePageElements.loader1));
-        UtilsMethods.printInfoLog("Loader Removed");
+        commonLib.info("Loader Removed");
     }
 
     public void waitTillOverlayGetsRemoved() {
@@ -77,11 +76,11 @@ public class BasePage extends Driver {
             wait.until(ExpectedConditions.elementToBeClickable(elementLocation));
             highLighterMethod(elementLocation);
             driver.findElement(elementLocation).click();
-            log.info("Clicking on element" + elementLocation.toString());
+            commonLib.info("Element Clicked" + elementLocation.toString());
         } catch (ElementClickInterceptedException e) {
             waitTillLoaderGetsRemoved();
             driver.findElement(elementLocation).click();
-            log.info("Clicking Again on element" + elementLocation.toString());
+            commonLib.info("Again Element Clicked" + elementLocation.toString());
         }
     }
 
@@ -97,7 +96,7 @@ public class BasePage extends Driver {
         waitVisibility(elementLocation);
         highLighterMethod(elementLocation);
         driver.findElement(elementLocation).sendKeys(text);
-        log.info("Writing " + text + " to  " + elementLocation.toString());
+        commonLib.info("Writing " + text + " to  " + elementLocation.toString());
     }
 
     //Read Text
@@ -155,7 +154,7 @@ public class BasePage extends Driver {
 
     public String getToastMessage() {
         String message = getText(basePageElements.toastMessage);
-        UtilsMethods.printInfoLog(message);
+        commonLib.info(message);
         return message;
     }
 
@@ -208,7 +207,7 @@ public class BasePage extends Driver {
         try {
             list = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(element));
         } catch (TimeoutException | NoSuchElementException e) {
-            UtilsMethods.printInfoLog("Not able to Fetch List of Elements :" + e.fillInStackTrace());
+            commonLib.info("Not able to Fetch List of Elements :" + e.fillInStackTrace());
         }
         return list;
     }
@@ -363,7 +362,7 @@ public class BasePage extends Driver {
             WebElement webElement = driverWait.until(ExpectedConditions.visibilityOfElementLocated(webelementBy));
             return webElement != null;
         } catch (Exception e) {
-            log.error("Element Not Visible", e);
+            commonLib.error("Element Not Visible " + e, true);
             return false;
         }
     }

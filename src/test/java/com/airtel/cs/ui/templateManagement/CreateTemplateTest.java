@@ -1,7 +1,6 @@
 package com.airtel.cs.ui.templateManagement;
 
 import com.airtel.cs.commonutils.UtilsMethods;
-import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pagerepository.pagemethods.TemplateManagementPage;
 import org.openqa.selenium.NoSuchElementException;
@@ -31,7 +30,7 @@ public class CreateTemplateTest extends Driver {
 
     @Test(priority = 1, description = "Open Template Management")
     public void openTemplateManagement() {
-        ExtentTestManager.startTest("Open Template Management", "Open Template Management");
+        selUtils.addTestcaseDescription("Open Template Management", "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getSideMenu().clickOnSideMenu();
         pages.getSideMenu().clickOnName();
@@ -43,7 +42,7 @@ public class CreateTemplateTest extends Driver {
 
     @Test(priority = 2, description = "Validate Template Management Page", dependsOnMethods = "openTemplateManagement")
     public void validateAddTemplateManagementPage() {
-        ExtentTestManager.startTest("Validate Template Management Page", "Validate Template Management Page");
+        selUtils.addTestcaseDescription("Validate Template Management Page", "description");
         SoftAssert softAssert = new SoftAssert();
         try {
             softAssert.assertTrue(pages.getTemplateManagement().isAddTemplateAvailable(), "Add Template button does not available.");
@@ -92,7 +91,7 @@ public class CreateTemplateTest extends Driver {
     public void addTemplateCategory() {
         DateTimeFormatter formatting = DateTimeFormatter.ofPattern("hhmmddMMM");
         templateCategory = "Category" + LocalDateTime.now().format(formatting);
-        ExtentTestManager.startTest("Create Template Category with name :" + templateCategory, "Create Template Category with name :" + templateCategory);
+        selUtils.addTestcaseDescription("Create Template Category with name :" + templateCategory, "description");
         SoftAssert softAssert = new SoftAssert();
         TemplateManagementPage templateManagement = new TemplateManagementPage(driver);
         templateManagement.switchTabToAddTemplateCategory();
@@ -113,7 +112,7 @@ public class CreateTemplateTest extends Driver {
     public void createTemplate() {
         DateTimeFormatter formating = DateTimeFormatter.ofPattern("MMMM hh0mm");
         templateName = "Template " + LocalDateTime.now().format(formating);
-        ExtentTestManager.startTest("Create Template with name: " + templateName, "Create Template with name: " + templateName);
+        selUtils.addTestcaseDescription("Create Template with name: " + templateName, "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getTemplateManagement().switchTabToAddTemplate();
         try {
@@ -162,7 +161,7 @@ public class CreateTemplateTest extends Driver {
 
     @Test(priority = 5, dependsOnMethods = "createTemplate", description = "Validate 'View Created Template' recent added template displaying")
     public void validateAddedTemplate() {
-        ExtentTestManager.startTest("Validate 'View Created Template' recent added template displaying with name: " + templateName, "Validate 'View Created Template' recent added template displaying with name: " + templateName);
+        selUtils.addTestcaseDescription("Validate 'View Created Template' recent added template displaying with name: " + templateName, "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getTemplateManagement().clickViewCreatedTemplateTab();
         pages.getViewCreatedTemplate().writeSearchKeyword(templateName);

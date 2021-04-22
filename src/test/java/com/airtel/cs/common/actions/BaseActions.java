@@ -35,7 +35,7 @@ public class BaseActions {
         assertFlag = false;
         try {
             Assert.assertEquals(actual, expected);
-            commonLib.pass(description, false);
+            commonLib.pass(description);
             assertFlag = true;
         } catch (Throwable ex) {
             // org.testng.Assert.fail("expected and actual result do not match");
@@ -48,7 +48,7 @@ public class BaseActions {
         assertFlag = false;
         try {
             Assert.assertEquals(actual, expected);
-            commonLib.pass(passDescription, false);
+            commonLib.pass(passDescription);
             assertFlag = true;
         } catch (Throwable ex) {
             // org.testng.Assert.fail("expected and actual result do not match");
@@ -57,7 +57,7 @@ public class BaseActions {
         return assertFlag;
     }
 
-    public boolean assertAll_foundFailedAssert(StringBuilder AssertResults) {
+    public boolean assertAllFoundFailedAssert(StringBuilder AssertResults) {
         // ACTION PENDING - REQUIRE TO CALL THIS TO @AFTERMETHOD
         if (AssertResults.toString().contains("false") || AssertResults.toString().contains("error")) {
             Assert.fail("Some Assertions failed in this testcase");
@@ -127,7 +127,7 @@ public class BaseActions {
         assertFlag = false;
         try {
             Assert.assertEquals(actual, expected);
-            commonLib.pass(passDescription, requirescreenshots);
+            commonLib.pass(passDescription);
             assertFlag = true;
         } catch (Throwable ex) {
             commonLib.fail(failDescription, requirescreenshots);
@@ -142,8 +142,8 @@ public class BaseActions {
     /**
      * Verify.
      *
-     * @param actual     the actual
-     * @param expected   the expected
+     * @param actual   the actual
+     * @param expected the expected
      */
     public Boolean assertEqual_stringType(String actual, String expected, String passMessage, String failMessage) {
         return assertEqual_stringType(actual, expected, passMessage, failMessage, false);
@@ -157,7 +157,7 @@ public class BaseActions {
                 shouldCapturescreenshot = false;
             }
             Assert.assertEquals(actual, expected);
-            commonLib.pass(passMessage, shouldCapturescreenshot);
+            commonLib.pass(passMessage);
             assertFlag = true;
         } catch (Throwable ex) {
             commonLib.fail(ex.getMessage() + "{<br />" + failMessage, shouldCapturescreenshot);
@@ -182,13 +182,14 @@ public class BaseActions {
                 shouldCapturescreenshot = false;
             }
             Assert.assertNotNull(actual, passMessage);
-            commonLib.pass(passMessage, shouldCapturescreenshot);
+            commonLib.pass(passMessage);
             assertFlag = true;
         } catch (Throwable ex) {
             commonLib.fail(ex.getMessage() + "{<br />" + failMessage, shouldCapturescreenshot);
         }
         return assertFlag;
     }
+
     public Boolean assertEqual_intNotNull(int actual, String passMessage, String failMessage) {
         return assertEqual_intNotNull(actual, passMessage, failMessage, false);
     }
@@ -201,7 +202,7 @@ public class BaseActions {
                 shouldCapturescreenshot = false;
             }
             Assert.assertNotNull(actual, passMessage);
-            commonLib.pass(passMessage, shouldCapturescreenshot);
+            commonLib.pass(passMessage);
             assertFlag = true;
         } catch (Throwable ex) {
             commonLib.fail(ex.getMessage() + "{<br />" + failMessage, shouldCapturescreenshot);
@@ -212,14 +213,14 @@ public class BaseActions {
     /**
      * Verify.
      *
-     * @param actual     the actual
-     * @param expected   the expected
+     * @param actual   the actual
+     * @param expected the expected
      */
     public Boolean assertNotEqual_stringType(String actual, String expected, String passMessage, String failMessage) {
         assertFlag = false;
         try {
             Assert.assertNotEquals(actual, expected, passMessage);
-            commonLib.pass(passMessage, false);
+            commonLib.pass(passMessage);
             assertFlag = true;
         } catch (Throwable ex) {
             commonLib.fail(ex.getMessage() + "{<br />" + failMessage, false);
@@ -232,7 +233,7 @@ public class BaseActions {
         assertFlag = false;
         try {
             Assert.assertNotEquals(actual, expected, passMessage);
-            commonLib.pass(passMessage, false);
+            commonLib.pass(passMessage);
             assertFlag = true;
         } catch (Throwable ex) {
             commonLib.fail(ex.getMessage() + "{<br />" + failMessage, false);
@@ -273,7 +274,7 @@ public class BaseActions {
         boolean shouldCapturescreenshot = false;
         try {
             Assert.assertEquals(actual, expected);
-            commonLib.pass(passMessage, shouldCapturescreenshot);
+            commonLib.pass(passMessage);
             assertFlag = true;
         } catch (Throwable ex) {
             commonLib.fail(ex.getMessage() + "{<br />" + failMessage, shouldCapturescreenshot);
@@ -286,7 +287,7 @@ public class BaseActions {
         boolean shouldCapturescreenshot = false;
         try {
             Assert.assertEquals(actual, expected);
-            commonLib.pass(passMessage, shouldCapturescreenshot);
+            commonLib.pass(passMessage);
             assertFlag = true;
         } catch (Throwable ex) {
             commonLib.fail(ex.getMessage() + "{<br />" + failMessage, shouldCapturescreenshot);

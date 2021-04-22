@@ -18,7 +18,7 @@ public class ExtentManager extends Driver {
             //Set HTML reporting file location
             String workingDir = System.getProperty("user.dir");
             if (System.getProperty("os.name").toLowerCase().contains("win")) {
-                extent = new ExtentReports(workingDir + "\\ExtentReports\\CS_Portal-" + OPCO + "-" + evnName + "-" + SUITE_TYPE + "-" + date + ".html", true);
+                extent = new ExtentReports(workingDir + "/ExtentReports/CS_Portal-" + OPCO + "-" + evnName + "-" + SUITE_TYPE + "-" + date + ".html", true);
                 extent.addSystemInfo("user", "Rahul Gupta");
                 extent.assignProject("CS Portal");
                 extent.addSystemInfo("OPCO", OPCO);

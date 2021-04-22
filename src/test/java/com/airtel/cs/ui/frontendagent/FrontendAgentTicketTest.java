@@ -2,7 +2,6 @@ package com.airtel.cs.ui.frontendagent;
 
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
-import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.driver.Driver;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -22,16 +21,17 @@ public class FrontendAgentTicketTest extends Driver {
         softAssert.assertAll();
     }
 
-    @DataProviders.User(UserType = "NFTR")
+    @DataProviders.User(userType = "NFTR")
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteraction(TestDatabean data) {
-        ExtentTestManager.startTest("Validating the Search forCustomer Interactions :" + data.getCustomerNumber(), "Validating the Customer Interaction Search Page By Searching Customer number : " + data.getCustomerNumber());
+        final String customerNumber = data.getCustomerNumber();
+        selUtils.addTestcaseDescription("Validating the Search forCustomer Interactions :" + customerNumber, "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getSideMenu().clickOnSideMenu();
         pages.getSideMenu().clickOnName();
         pages.getSideMenu().openCustomerInteractionPage();
         pages.getSideMenu().waitTillLoaderGetsRemoved();
-        pages.getMsisdnSearchPage().enterNumber(data.getCustomerNumber());
+        pages.getMsisdnSearchPage().enterNumber(customerNumber);
         pages.getMsisdnSearchPage().clickOnSearch();
         softAssert.assertTrue(pages.getCustomerProfilePage().isPageLoaded(), "Dashboard page does not open.");
         softAssert.assertAll();
@@ -39,7 +39,7 @@ public class FrontendAgentTicketTest extends Driver {
 
     @Test(priority = 2, description = "Validate Ticket Meta Data for Frontend Agent ",dependsOnMethods = "openCustomerInteraction")
     public void validateTicket() throws InterruptedException {
-        ExtentTestManager.startTest("Validate Ticket Meta Data for Frontend Agent", "Validate Ticket Meta Data for Frontend Agent ");
+        selUtils.addTestcaseDescription("Validate Ticket Meta Data for Frontend Agent", "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getCustomerProfilePage().goToViewHistory();
         pages.getViewHistory().goToTicketHistoryTab();
@@ -59,7 +59,7 @@ public class FrontendAgentTicketTest extends Driver {
 
     @Test(priority = 3, description = "Validate Add to Interaction Icon on Each Ticket", dataProviderClass = DataProviders.class,dependsOnMethods = "openCustomerInteraction")
     public void validateAddToInteraction() {
-        ExtentTestManager.startTest("Validate Add to Interaction Icon on Each Ticket", "Validate Add to Interaction Icon on Each Ticket");
+        selUtils.addTestcaseDescription("Validate Add to Interaction Icon on Each Ticket", "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getCustomerProfilePage().goToViewHistory();
         pages.getViewHistory().goToTicketHistoryTab();
@@ -70,7 +70,7 @@ public class FrontendAgentTicketTest extends Driver {
 
     @Test(priority = 4, description = "Validate NFTR issue have ticket icon", dataProviderClass = DataProviders.class,dependsOnMethods = "openCustomerInteraction")
     public void validateNFTRIssue() {
-        ExtentTestManager.startTest("Validate NFTR issue have ticket icon", "Validate NFTR issue have ticket icon");
+        selUtils.addTestcaseDescription("Validate NFTR issue have ticket icon", "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getCustomerProfilePage().goToViewHistory();
         pages.getViewHistory().clickOnInteractionsTab();
@@ -84,7 +84,7 @@ public class FrontendAgentTicketTest extends Driver {
 
     @Test(priority = 5, description = "Verify the fields displayed for SMS channel.", dependsOnMethods = "openCustomerInteraction")
     public void validateSendSMSTab() {
-        ExtentTestManager.startTest("Validating the Send SMS Tab ", "Validating the send sms tab");
+        selUtils.addTestcaseDescription("Validating the Send SMS Tab ", "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getCustomerProfilePage().waitTillLoaderGetsRemoved();
         pages.getCustomerProfilePage().clickOnAction();

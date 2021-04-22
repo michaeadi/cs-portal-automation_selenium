@@ -3,7 +3,6 @@ package com.airtel.cs.ui.frontendagent;
 import com.airtel.cs.commonutils.PassUtils;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
-import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.driver.Driver;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -23,7 +22,7 @@ public class LoginTests extends Driver {
     @DataProviders.User()
     @Test(priority = 1, description = "Logging IN", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void LoggingIN(TestDatabean Data) throws InterruptedException {
-        ExtentTestManager.startTest("Logging Into Portal", "Logging Into Portal with AUUID :  " + Data.getLoginAUUID());
+        selUtils.addTestcaseDescription("Logging Into Portal,Logging Into Portal with AUUID :" + Data.getLoginAUUID(), "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getLoginPage().openBaseURL(config.getProperty(evnName + "-baseurl"));
         softAssert.assertEquals(driver.getCurrentUrl(), config.getProperty(evnName + "-baseurl"), "URl isn't as expected");
