@@ -2,11 +2,9 @@ package com.airtel.cs.ui.ticketBulkUpdate;
 
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.TicketStateDataBean;
-import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pagerepository.pagemethods.FilterTabPage;
 import com.airtel.cs.pagerepository.pagemethods.TicketBulkUpdatePage;
-import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -41,7 +39,7 @@ public class TicketBulkUpdateTest extends Driver {
         SoftAssert softAssert = new SoftAssert();
         Thread.sleep(10000);
         ticketBulkUpdate.waitTillLoaderGetsRemoved();
-        softAssert.assertTrue(ticketBulkUpdate.isTicketBulkUpdate(),"Ticket Bulk Update page does not open.");
+        softAssert.assertTrue(ticketBulkUpdate.isTicketBulkUpdate(), "Ticket Bulk Update page does not open.");
         softAssert.assertAll();
     }
 
@@ -71,7 +69,7 @@ public class TicketBulkUpdateTest extends Driver {
                         getScreenshotAs(OutputType.BASE64);
 
                 //ExtentReports log and screenshot operations for failed tests.
-                ExtentTestManager.getTest().log(LogStatus.FAIL, "Test Failed", ExtentTestManager.getTest().addBase64ScreenShot(base64Screenshot));
+                commonLib.fail("Test Failed", true);
                 softAssert.fail("Max Ticket Message does not display. " + e.fillInStackTrace());
             }
             pages.getTicketBulkUpdate().clickClearFilter();
@@ -136,34 +134,34 @@ public class TicketBulkUpdateTest extends Driver {
         List<String> states = pages.getTicketBulkUpdate().getState();
         for (String s : queues) {
             if (loginQueue.contains(s)) {
-                ExtentTestManager.getTest().log(LogStatus.INFO, "Validate " + s + " ticketPool is display correctly");
+                commonLib.info("Validate " + s + " ticketPool is display correctly");
                 loginQueue.remove(s);
             } else {
-                ExtentTestManager.getTest().log(LogStatus.FAIL, s + " ticketPool must not display on frontend as tag not mention in config sheet.");
+                commonLib.fail(s + " ticketPool must not display on frontend as tag not mention in config sheet.", true);
                 softAssert.fail(s + " ticketPool should not display on UI as ticket pool not mention in config sheet.");
             }
         }
         if (loginQueue.isEmpty()) {
-            ExtentTestManager.getTest().log(LogStatus.PASS, "All ticketPool correctly configured and display on UI.");
+            commonLib.pass("All ticketPool correctly configured and display on UI.");
         } else {
             for (String element : loginQueue) {
-                ExtentTestManager.getTest().log(LogStatus.FAIL, element + " ticketPool does not display on UI but present in config sheet.");
+                commonLib.fail(element + " ticketPool does not display on UI but present in config sheet.", true);
                 softAssert.fail(element + " ticketPool does not display on UI but present in config sheet.");
             }
         }
 
         for (TicketStateDataBean s : openState) {
             if (!states.contains(s.getTicketStateName().trim().toLowerCase()))
-                ExtentTestManager.getTest().log(LogStatus.FAIL, s.getTicketStateName() + " :Ticket State does not display on UI but config in excel");
+                commonLib.fail(s.getTicketStateName() + " :Ticket State does not display on UI but config in excel", true);
             states.remove(s.getTicketStateName().trim().toLowerCase());
         }
         for (TicketStateDataBean s : closeState) {
             if (!states.contains(s.getTicketStateName().trim().toLowerCase()))
-                ExtentTestManager.getTest().log(LogStatus.FAIL, s.getTicketStateName() + " :Ticket State does not display on UI but config in excel");
+                commonLib.fail(s.getTicketStateName() + " :Ticket State does not display on UI but config in excel", true);
             states.remove(s.getTicketStateName().trim().toLowerCase());
         }
         for (String s : states) {
-            ExtentTestManager.getTest().log(LogStatus.FAIL, s + " :Ticket State does not config in excel but display on UI");
+            commonLib.fail(s + " :Ticket State does not config in excel but display on UI", true);
         }
         pages.getTicketBulkUpdate().clickCancelBtn();
         pages.getTicketBulkUpdate().clickPopUpCancelBtn();

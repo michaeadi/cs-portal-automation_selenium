@@ -1,22 +1,20 @@
 package com.airtel.cs.ui.frontendagent;
 
 import com.airtel.cs.api.APIEndPoints;
+import com.airtel.cs.commonutils.PassUtils;
+import com.airtel.cs.commonutils.UtilsMethods;
+import com.airtel.cs.commonutils.dataproviders.DataProviders;
+import com.airtel.cs.commonutils.dataproviders.FtrDataBeans;
+import com.airtel.cs.commonutils.dataproviders.NftrDataBeans;
+import com.airtel.cs.commonutils.dataproviders.TestDatabean;
+import com.airtel.cs.commonutils.excelutils.WriteToExcel;
 import com.airtel.cs.driver.Driver;
+import com.airtel.cs.pagerepository.pagemethods.CustomerProfilePage;
 import com.airtel.cs.pojo.LoginPOJO;
 import com.airtel.cs.pojo.smshistory.SMSHistoryList;
 import com.airtel.cs.pojo.smshistory.SMSHistoryPOJO;
-import com.airtel.cs.commonutils.dataproviders.DataProviders;
-import com.airtel.cs.commonutils.dataproviders.TestDatabean;
-import com.airtel.cs.commonutils.dataproviders.FtrDataBeans;
-import com.airtel.cs.commonutils.dataproviders.NftrDataBeans;
-import com.airtel.cs.commonutils.excelutils.WriteToExcel;
-import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
-import com.airtel.cs.commonutils.PassUtils;
-import com.airtel.cs.commonutils.UtilsMethods;
-import com.airtel.cs.pagerepository.pagemethods.CustomerProfilePage;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.relevantcodes.extentreports.LogStatus;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
@@ -24,7 +22,11 @@ import io.restassured.specification.QueryableRequestSpecification;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.SpecificationQuerier;
 import lombok.extern.log4j.Log4j2;
-import org.openqa.selenium.*;
+import org.openqa.selenium.ElementClickInterceptedException;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -91,7 +93,7 @@ public class CreateInteractionTest extends Driver {
             }
             pages.getInteractionsPage().selectCode(issueCode);
             pages.getInteractionsPage().waitTillLoaderGetsRemoved();
-            ExtentTestManager.getTest().log(LogStatus.INFO, "Creating ticket with issue code -" + issueCode);
+            commonLib.info("Creating ticket with issue code -" + issueCode);
             softAssert.assertEquals(pages.getInteractionsPage().getIssue().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), data.getIssue().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue is not as expected ");
             softAssert.assertEquals(pages.getInteractionsPage().getIssueSubSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), data.getIssueSubSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue sub sub type is not as expected ");
             softAssert.assertEquals(pages.getInteractionsPage().getIssueType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), data.getIssueType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue type is not as expected ");
@@ -102,7 +104,7 @@ public class CreateInteractionTest extends Driver {
             softAssert.assertEquals(pages.getInteractionsPage().getResolvedFTRDisplayed(), "Resolved FTR", "Resolved FTR does not display");
             SMSHistoryPOJO smsHistory = api.smsHistoryTest(customerNumber);
             SMSHistoryList list = smsHistory.getResult().get(0);
-            ExtentTestManager.getTest().log(LogStatus.INFO, "Message Sent after Ticket Creation: " + list.getMessageText());
+            commonLib.info("Message Sent after Ticket Creation: " + list.getMessageText());
             softAssert.assertTrue(list.getMessageText().contains(issueCode), "Message does not sent to customer for same FTR Category for which Issue has been Create");
             softAssert.assertEquals(list.getSmsType().toLowerCase().trim(), config.getProperty("systemSMSType").toLowerCase().trim(), "Message type is not system");
             softAssert.assertFalse(list.isAction(), "Action button is not disabled");
@@ -118,7 +120,7 @@ public class CreateInteractionTest extends Driver {
         String base64Screenshot = "data:image/png;base64," + ((TakesScreenshot) driver).
                 getScreenshotAs(OutputType.BASE64);
         pages.getInteractionsPage().closeInteractions();
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Test Failed", ExtentTestManager.getTest().addBase64ScreenShot(base64Screenshot));
+        commonLib.fail("Test Failed", true);
         softAssert.assertAll();
     }
 
@@ -143,7 +145,7 @@ public class CreateInteractionTest extends Driver {
 
         String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(req);
         selUtils.addTestcaseDescription("LOGIN com.airtel.cs.API TEST,Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + data.getLoginAUUID(), "description");
-        UtilsMethods.printInfoLog("Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + data.getLoginAUUID());
+        commonLib.info("Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + data.getLoginAUUID());
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
@@ -152,13 +154,13 @@ public class CreateInteractionTest extends Driver {
                 .contentType("application/json");
         try {
             QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-            UtilsMethods.printInfoLog("Request Headers are  : " + queryable.getHeaders());
+            commonLib.info("Request Headers are  : " + queryable.getHeaders());
             Response response = request.post("/auth/api/user-mngmnt/v2/login");
             String token = "Bearer " + response.jsonPath().getString("result.accessToken");
             map.add(new Header("Authorization", token));
-            UtilsMethods.printInfoLog("Request URL : " + queryable.getURI());
-            UtilsMethods.printInfoLog("Response Body : " + response.asString());
-            UtilsMethods.printInfoLog("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+            commonLib.info("Request URL : " + queryable.getURI());
+            commonLib.info("Response Body : " + response.asString());
+            commonLib.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
             if (response.jsonPath().getString("message").equalsIgnoreCase("Failed to authenticate user.")) {
                 continueExecutionAPI = false;
                 softAssert.fail("Not able to generate Token. Please Update Password As soon as possible if required.\ncom.airtel.cs.API Response Message: " + response.jsonPath().getString("message"));
@@ -199,7 +201,7 @@ public class CreateInteractionTest extends Driver {
         }
         pages.getInteractionsPage().selectCode(issueCode);
         pages.getInteractionsPage().waitTillLoaderGetsRemoved();
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Creating ticket with issue code -" + issueCode);
+        commonLib.info("Creating ticket with issue code -" + issueCode);
         softAssert.assertEquals(pages.getInteractionsPage().getIssue().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), data.getIssue().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue is not as expected ");
         softAssert.assertEquals(pages.getInteractionsPage().getIssueSubSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), data.getIssueSubSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue sub sub type is not as expected ");
         softAssert.assertEquals(pages.getInteractionsPage().getIssueType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), data.getIssueType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue type is not as expected ");
@@ -400,10 +402,10 @@ public class CreateInteractionTest extends Driver {
         } catch (NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
             log.info("in catch");
             e.printStackTrace();
-            ExtentTestManager.getTest().log(LogStatus.ERROR, e.fillInStackTrace());
+            commonLib.error(e.getMessage());
             String base64Screenshot = "data:image/png;base64," + ((TakesScreenshot) driver).
                     getScreenshotAs(OutputType.BASE64);
-            ExtentTestManager.getTest().log(LogStatus.INFO, ExtentTestManager.getTest().addBase64ScreenShot(base64Screenshot));
+            commonLib.fail(e.getMessage(), true);
             try {
                 pages.getInteractionsPage().closeInteractions();
                 pages.getInteractionsPage().clickOnContinueButton();
@@ -418,7 +420,7 @@ public class CreateInteractionTest extends Driver {
         pages.getInteractionsPage().closeInteractions();
         SMSHistoryPOJO smsHistory = api.smsHistoryTest(customerNumber);
         SMSHistoryList list = smsHistory.getResult().get(0);
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Message Sent after Ticket Creation: " + list.getMessageText());
+        commonLib.info("Message Sent after Ticket Creation: " + list.getMessageText());
         try {
             softAssert.assertTrue(list.getMessageText().contains(ticketNumber), "Message Sent does not send for same ticket id which has been Create");
             softAssert.assertEquals(list.getSmsType().toLowerCase().trim(), config.getProperty("systemSMSType").toLowerCase().trim(), "Message type is not system");

@@ -1,8 +1,6 @@
 package com.airtel.cs.ui.backendAgent;
 
-import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.driver.Driver;
-import com.relevantcodes.extentreports.LogStatus;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -65,7 +63,7 @@ public class BackendAgentAddCommentTest extends Driver {
     @Test(priority = 4, dependsOnMethods = "addNewComment", description = "Validate Edit comment as Backend Agent")
     public void editComment() throws InterruptedException {
         selUtils.addTestcaseDescription("Validate Edit comment as Backend Agent", "description");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
+        commonLib.info("Opening URL");
         SoftAssert softAssert = new SoftAssert();
         String comment = "Adding updated comment using automation";
         pages.getViewTicket().openEditCommentBox();
@@ -80,7 +78,7 @@ public class BackendAgentAddCommentTest extends Driver {
     @Test(priority = 5, dependsOnMethods = "agentQueueLogin", description = "Validate Delete comment as Backend Agent")
     public void deleteLastAddedComment() throws InterruptedException {
         selUtils.addTestcaseDescription("Validate Delete comment as Backend Agent", "description");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
+        commonLib.info("Opening URL");
         SoftAssert softAssert = new SoftAssert();
         String comment = "Adding Comment to test Delete comment Flow " + LocalDateTime.now();
         pages.getViewTicket().addComment(comment);

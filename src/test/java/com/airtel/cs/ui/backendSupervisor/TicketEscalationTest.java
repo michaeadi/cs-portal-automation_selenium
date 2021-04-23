@@ -1,8 +1,6 @@
 package com.airtel.cs.ui.backendSupervisor;
 
-import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.driver.Driver;
-import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -58,12 +56,12 @@ public class TicketEscalationTest extends Driver {
                         softAssert.assertTrue(symbol.equalsIgnoreCase("!") || symbol.equalsIgnoreCase("!!") || symbol.equalsIgnoreCase("!!!"), "Ticket Symbol not displayed correctly");
                     }
                 } else {
-                    ExtentTestManager.getTest().log(LogStatus.WARNING, "No Ticket Found for Selected Filter");
+                    commonLib.warning("No Ticket Found for Selected Filter");
                 }
 
             } catch (NoSuchElementException | TimeoutException e) {
                 softAssert.fail("Ticket Escalation Symbol on ticket not displayed correctly");
-                ExtentTestManager.getTest().log(LogStatus.ERROR, e.fillInStackTrace());
+                commonLib.error("", true);
             }
             pages.getSupervisorTicketList().resetFilter();
             pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
@@ -93,12 +91,12 @@ public class TicketEscalationTest extends Driver {
                         softAssert.assertTrue(symbol.equalsIgnoreCase("!"), "Ticket Symbol not displayed correctly");
                     }
                 } else {
-                    ExtentTestManager.getTest().log(LogStatus.WARNING, "No Ticket Found for Selected Filter");
+                    commonLib.warning("No Ticket Found for Selected Filter");
                 }
 
             } catch (NoSuchElementException | TimeoutException e) {
                 softAssert.fail("Ticket Escalation Symbol on ticket not displayed correctly");
-                ExtentTestManager.getTest().log(LogStatus.ERROR, e.fillInStackTrace());
+                commonLib.error("", true);
                 e.printStackTrace();
             }
             pages.getSupervisorTicketList().resetFilter();
@@ -113,7 +111,7 @@ public class TicketEscalationTest extends Driver {
     @Test(priority = 4, dependsOnMethods = "openSupervisorDashboard", description = "Validate the Escalation of Ticket after SLA Expiry")
     public void ticketEscalationAfterSLA() throws InterruptedException {
         selUtils.addTestcaseDescription("Validate the Escalation of Ticket after SLA Expiry", "description");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
+        commonLib.info("Opening URL");
         SoftAssert softAssert = new SoftAssert();
         try {
             pages.getSupervisorTicketList().clickFilter();
@@ -130,13 +128,13 @@ public class TicketEscalationTest extends Driver {
                         softAssert.assertTrue(symbol.equalsIgnoreCase("!!!"), "Ticket Symbol not displayed correctly");
                     }
                 } else {
-                    ExtentTestManager.getTest().log(LogStatus.WARNING, "No Ticket Found for Selected Filter");
+                    commonLib.warning("No Ticket Found for Selected Filter");
                 }
 
             } catch (NoSuchElementException | TimeoutException e) {
                 e.printStackTrace();
                 softAssert.fail("Ticket Escalation Symbol on ticket not displayed correctly");
-                ExtentTestManager.getTest().log(LogStatus.ERROR, e.fillInStackTrace());
+                commonLib.error("", true);
             }
             pages.getSupervisorTicketList().resetFilter();
             pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
@@ -150,7 +148,7 @@ public class TicketEscalationTest extends Driver {
     @Test(priority = 5, dependsOnMethods = "openSupervisorDashboard", description = "Validate the Escalation of Ticket on SLA Expiry")
     public void ticketEscalationOnSLA() throws InterruptedException {
         selUtils.addTestcaseDescription("Validate the Escalation of Ticket on SLA Expiry", "description");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
+        commonLib.info("Opening URL");
         SoftAssert softAssert = new SoftAssert();
         try {
             pages.getSupervisorTicketList().clickFilter();
@@ -167,13 +165,13 @@ public class TicketEscalationTest extends Driver {
                         softAssert.assertTrue(symbol.equalsIgnoreCase("!!"), "Ticket Symbol not displayed correctly");
                     }
                 } else {
-                    ExtentTestManager.getTest().log(LogStatus.WARNING, "No Ticket Found for Selected Filter");
+                    commonLib.warning("No Ticket Found for Selected Filter");
                 }
 
             } catch (NoSuchElementException | TimeoutException e) {
                 e.printStackTrace();
                 softAssert.fail("Ticket Escalation Symbol on ticket not displayed correctly");
-                ExtentTestManager.getTest().log(LogStatus.ERROR, e.fillInStackTrace());
+                commonLib.error("Ticket Escalation Symbol on ticket not displayed correctly", true);
             }
             pages.getSupervisorTicketList().resetFilter();
             pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();

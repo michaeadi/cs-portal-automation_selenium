@@ -6,14 +6,12 @@ import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.NftrDataBeans;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
-import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pojo.LoginPOJO;
 import com.airtel.cs.pojo.ticketlist.IssueDetails;
 import com.airtel.cs.pojo.ticketlist.TicketPOJO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.relevantcodes.extentreports.LogStatus;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
@@ -75,7 +73,7 @@ public class SupervisorSearchTicketTest extends Driver {
 
         String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(req);
         selUtils.addTestcaseDescription("LOGIN com.airtel.cs.API TEST,Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + data.getLoginAUUID(), "description");
-        UtilsMethods.printInfoLog("Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + data.getLoginAUUID());
+        commonLib.info("Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + data.getLoginAUUID());
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
@@ -84,13 +82,13 @@ public class SupervisorSearchTicketTest extends Driver {
                 .contentType("application/json");
         try {
             QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-            UtilsMethods.printInfoLog("Request Headers are  : " + queryable.getHeaders());
+            commonLib.info("Request Headers are  : " + queryable.getHeaders());
             Response response = request.post("/auth/api/user-mngmnt/v2/login");
             String token = "Bearer " + response.jsonPath().getString("result.accessToken");
             map.add(new Header("Authorization", token));
-            UtilsMethods.printInfoLog("Request URL : " + queryable.getURI());
-            UtilsMethods.printInfoLog("Response Body : " + response.asString());
-            UtilsMethods.printInfoLog("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+            commonLib.info("Request URL : " + queryable.getURI());
+            commonLib.info("Response Body : " + response.asString());
+            commonLib.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
             if (response.jsonPath().getString("message").equalsIgnoreCase("Failed to authenticate user.")) {
                 continueExecutionAPI = false;
                 softAssert.fail("Not able to generate Token. Please Update Password As soon as possible if required.\ncom.airtel.cs.API Response Message: " + response.jsonPath().getString("message"));
@@ -181,9 +179,9 @@ public class SupervisorSearchTicketTest extends Driver {
                     log.info(key + " = " + value);
                     if (workGroups.containsKey(key)) {
                         workGroups.remove(key);
-                        ExtentTestManager.getTest().log(LogStatus.INFO, key + " : workgroup is configured correctly in DB as mentioned in configuration");
+                        commonLib.info(key + " : workgroup is configured correctly in DB as mentioned in configuration");
                     } else {
-                        ExtentTestManager.getTest().log(LogStatus.FAIL, key + " workgroup is not configured correctly in DB as not mentioned in configuration");
+                        commonLib.fail(key + " workgroup is not configured correctly in DB as not mentioned in configuration", true);
                     }
                     if (value.charAt(0) == '-') {
                         softAssert.assertTrue(pages.getSupervisorTicketList().isNegativeSLA(), "For negative SLA red symbol does not display");
@@ -196,23 +194,23 @@ public class SupervisorSearchTicketTest extends Driver {
                     String value = mapElement.getValue().toString();
                     if (key != null)
                         if (!key.isEmpty())
-                            ExtentTestManager.getTest().log(LogStatus.FAIL, key + " workgroup is not configured correctly in DB as mentioned in configuration");
+                            commonLib.fail(key + " workgroup is not configured correctly in DB as mentioned in configuration", true);
                 }
                 ArrayList<IssueDetails> ticketLayout = ticketPOJO.getResult().getTicketDetails();
                 List<String> configTicketLayout = dataProviders.getTicketLayout(data.getIssueCode());
                 try {
                     for (IssueDetails layout : ticketLayout) {
                         if (!configTicketLayout.contains(layout.getPlaceHolder().toLowerCase().trim())) {
-                            ExtentTestManager.getTest().log(LogStatus.FAIL, layout.getPlaceHolder() + " : Ticket Layout must not configure in database as does not mention in Config sheet.");
+                            commonLib.fail(layout.getPlaceHolder() + " : Ticket Layout must not configure in database as does not mention in Config sheet.", true);
                         }
                         configTicketLayout.remove(layout.getPlaceHolder().toLowerCase().trim());
                     }
                 } catch (NullPointerException e) {
-                    UtilsMethods.printInfoLog("No Ticket Layout Config in database :" + e.getMessage());
+                    commonLib.info("No Ticket Layout Config in database :" + e.getMessage());
                 }
 
                 for (String name : configTicketLayout) {
-                    ExtentTestManager.getTest().log(LogStatus.FAIL, name + " : Ticket Layout must be configure in database as mention in Config sheet.");
+                    commonLib.fail(name + " : Ticket Layout must be configure in database as mention in Config sheet.", true);
                 }
             } catch (NullPointerException | TimeoutException | NoSuchElementException e) {
                 e.printStackTrace();
@@ -222,7 +220,7 @@ public class SupervisorSearchTicketTest extends Driver {
             e.printStackTrace();
             String base64Screenshot = "data:image/png;base64," + ((TakesScreenshot) driver).
                     getScreenshotAs(OutputType.BASE64);
-            ExtentTestManager.getTest().log(LogStatus.INFO, ExtentTestManager.getTest().addBase64ScreenShot(base64Screenshot));
+            commonLib.fail("Ticket id search not done for following error: " + e.getMessage(), true);
             softAssert.fail("Ticket id search not done for following error: " + e.getMessage());
         }
         pages.getSupervisorTicketList().clearInputBox();
@@ -233,7 +231,7 @@ public class SupervisorSearchTicketTest extends Driver {
     @Test(priority = 3, description = "Validate Assign to Agent and Transfer to Queue Option")
     public void validateCheckBox() {
         selUtils.addTestcaseDescription("Validate Check Box,Validate Assign to Agent and Transfer to Queue Option on Open Ticket", "description");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
+        commonLib.info("Opening URL");
         SoftAssert softAssert = new SoftAssert();
         pages.getSupervisorTicketList().clickCheckbox();
         softAssert.assertTrue(pages.getSupervisorTicketList().isAssignToAgent(), "Check User does not have Option to Assign to Agent");

@@ -3,9 +3,7 @@ package com.airtel.cs.ui.backendAgent;
 import com.airtel.cs.commonutils.PassUtils;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
-import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.driver.Driver;
-import com.relevantcodes.extentreports.LogStatus;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -58,7 +56,7 @@ public class BackendAgentLoginTest extends Driver {
     @Test(priority = 2, description = "Backend Agent Login into Queue", dependsOnMethods = "loggingIN")
     public void agentQueueLogin() {
         selUtils.addTestcaseDescription("Backend Agent Login into Queue", "description");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
+        commonLib.info("Opening URL");
         SoftAssert softAssert = new SoftAssert();
         pages.getSideMenu().waitTillLoaderGetsRemoved();
         softAssert.assertTrue(pages.getSideMenu().isSideMenuVisible());

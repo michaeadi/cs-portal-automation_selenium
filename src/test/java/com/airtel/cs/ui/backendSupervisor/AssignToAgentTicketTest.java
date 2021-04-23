@@ -1,10 +1,8 @@
 package com.airtel.cs.ui.backendSupervisor;
 
 import com.airtel.cs.api.APIEndPoints;
-import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pojo.ticketlist.TicketPOJO;
-import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -29,7 +27,7 @@ public class AssignToAgentTicketTest extends Driver {
     @Test(priority = 1, description = "Supervisor Dashboard Login ")
     public void openSupervisorDashboard() {
         selUtils.addTestcaseDescription("Open Supervisor Dashboard", "description");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
+        commonLib.info("Opening URL");
         pages.getSideMenu().waitTillLoaderGetsRemoved();
         pages.getSideMenu().clickOnSideMenu();
         pages.getSideMenu().clickOnName();
@@ -43,7 +41,7 @@ public class AssignToAgentTicketTest extends Driver {
     @Test(priority = 2, dependsOnMethods = "openSupervisorDashboard", description = "Assign Ticket to Agent")
     public void assignTicketToAgent() throws InterruptedException {
         selUtils.addTestcaseDescription("Supervisor Perform Assign Ticket to Agent", "description");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
+        commonLib.info("Opening URL");
         SoftAssert softAssert = new SoftAssert();
         String auuid = null;
         pages.getSupervisorTicketList().changeTicketTypeToOpen();
@@ -89,11 +87,11 @@ public class AssignToAgentTicketTest extends Driver {
         pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
         softAssert.assertEquals(pages.getSupervisorTicketList().getAssigneeAUUID().trim(), auuid, "Ticket does not assigned to agent");
         if (pages.getSupervisorTicketList().getAssigneeAUUID().trim().equalsIgnoreCase(auuid)) {
-            ExtentTestManager.getTest().log(LogStatus.INFO, "Ticket unassigned from '" + assigneeAUUID + "' and Ticket Assigned to '" + auuid + "'");
-            ExtentTestManager.getTest().log(LogStatus.INFO, "Validated Ticket is Assigned to User Successfully");
+            commonLib.info("Ticket unassigned from '" + assigneeAUUID + "' and Ticket Assigned to '" + auuid + "'");
+            commonLib.info("Validated Ticket is Assigned to User Successfully");
         } else {
-            ExtentTestManager.getTest().log(LogStatus.INFO, "Ticket unassigned from '" + assigneeAUUID + "' and Ticket Assigned to '" + auuid + "'");
-            ExtentTestManager.getTest().log(LogStatus.FAIL, "Ticket does not Assigned to User Correctly");
+            commonLib.info("Ticket unassigned from '" + assigneeAUUID + "' and Ticket Assigned to '" + auuid + "'");
+            commonLib.fail("Ticket does not Assigned to User Correctly", true);
         }
         softAssert.assertAll();
     }

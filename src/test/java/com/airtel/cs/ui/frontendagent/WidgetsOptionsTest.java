@@ -5,14 +5,12 @@ import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
-import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pojo.AccountsBalancePOJO;
-import com.airtel.cs.pojo.accumulators.AccumulatorsPOJO;
-import com.airtel.cs.pojo.airtelmoney.AirtelMoneyPOJO;
 import com.airtel.cs.pojo.RechargeHistoryPOJO;
 import com.airtel.cs.pojo.UsageHistoryPOJO;
-import com.relevantcodes.extentreports.LogStatus;
+import com.airtel.cs.pojo.accumulators.AccumulatorsPOJO;
+import com.airtel.cs.pojo.airtelmoney.AirtelMoneyPOJO;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
@@ -95,7 +93,7 @@ public class WidgetsOptionsTest extends Driver {
             }
         } catch (NoSuchElementException | TimeoutException e) {
             e.printStackTrace();
-            ExtentTestManager.getTest().log(LogStatus.FAIL, e.fillInStackTrace());
+            commonLib.fail("DA details does not display correctly", true);
             softAssert.fail("DA details does not display correctly");
             pages.getDaDetailsPage().openingCustomerInteractionDashboard();
         }
@@ -130,7 +128,7 @@ public class WidgetsOptionsTest extends Driver {
             }
         } catch (NoSuchElementException | TimeoutException e) {
             e.printStackTrace();
-            ExtentTestManager.getTest().log(LogStatus.FAIL, e.fillInStackTrace());
+            commonLib.fail("Accumulator details does not display correctly", true);
             softAssert.fail("Accumulator details does not display correctly");
             pages.getDaDetailsPage().openingCustomerInteractionDashboard();
         }
@@ -155,7 +153,7 @@ public class WidgetsOptionsTest extends Driver {
 //        int smsSize = moreUsageHistory.getNumbersOfSMSRows();
 //
 //        if (smsUsageHistoryAPI.getResult().size() == 0 || smsUsageHistoryAPI.getResult() == null) {
-//            ExtentTestManager.getTest().log(LogStatus.WARNING, "Unable to get SMS History Details from com.airtel.cs.API");
+//            commonLib.warning("Unable to get SMS History Details from com.airtel.cs.API");
 //            softAssert.assertTrue(moreUsageHistory.isSMSHistoryNoResultFoundVisible(), "Error Message is not Visible");
 //            softAssert.assertEquals(moreUsageHistory.gettingSMSHistoryNoResultFoundMessage(), "No Result found", "Error Message is not as expected");
 //        } else {
@@ -188,7 +186,7 @@ public class WidgetsOptionsTest extends Driver {
 //        int callSize = moreUsageHistory.getNumbersOfCallRows();
 //        UsageHistoryPOJO callUsageHistoryAPI = api.usageHistoryTest(customerNumber, "CALL_HISTORY");
 //        if (callUsageHistoryAPI.getResult().size() == 0 || callUsageHistoryAPI.getResult() == null) {
-//            ExtentTestManager.getTest().log(LogStatus.WARNING, "Unable to get CALL History Details from com.airtel.cs.API");
+//            commonLib.warning("Unable to get CALL History Details from com.airtel.cs.API");
 //            softAssert.assertTrue(moreUsageHistory.isCallHistoryNoResultFoundVisible(), "Error Message is not Visible");
 //            softAssert.assertEquals(moreUsageHistory.gettingCallHistoryNoResultFoundMessage(), "No Result found", "Error Message is not as expected");
 //        } else {
@@ -222,7 +220,7 @@ public class WidgetsOptionsTest extends Driver {
 //        softAssert.assertEquals(moreUsageHistory.getDataHistoryHeader(4).toLowerCase().trim(), Data.getRow4().toLowerCase().trim(), "Header Name for Data Row 4 is not as expected");
 //        UsageHistoryPOJO dataUsageHistoryAPI = api.usageHistoryTest(customerNumber, "DATA_HISTORY");
 //        if (dataUsageHistoryAPI.getResult().size() == 0 || dataUsageHistoryAPI.getResult() == null) {
-//            ExtentTestManager.getTest().log(LogStatus.WARNING, "Unable to get DATA History Details from com.airtel.cs.API");
+//            commonLib.warning("Unable to get DATA History Details from com.airtel.cs.API");
 //            softAssert.assertTrue(moreUsageHistory.isDataHistoryNoResultFoundVisible(), "Error Message is not Visible");
 //            softAssert.assertEquals(moreUsageHistory.gettingDataHistoryNoResultFoundMessage(), "No Result found", "Error Message is not as expected");
 //        } else {
@@ -254,7 +252,7 @@ public class WidgetsOptionsTest extends Driver {
         int size = pages.getMoreRechargeHistoryPage().getNumbersOfRows();
         try {
             if (rechargeHistoryAPI.getResult().size() == 0 || rechargeHistoryAPI.getResult() == null) {
-                ExtentTestManager.getTest().log(LogStatus.WARNING, "Unable to get DATA History Details from com.airtel.cs.API");
+                commonLib.warning("Unable to get DATA History Details from com.airtel.cs.API");
                 softAssert.assertTrue(pages.getMoreRechargeHistoryPage().getNoResultFound(), "No Result Message is not Visible");
             } else {
                 softAssert.assertEquals(pages.getMoreRechargeHistoryPage().getHeaders(1).toLowerCase().trim(), data.getRow1().toLowerCase().trim(), "Header Name for Row 1 is not as expected");
@@ -343,7 +341,7 @@ public class WidgetsOptionsTest extends Driver {
                 size = 20;
             }
             if (usageHistoryAPI.getResult().size() == 0 || usageHistoryAPI.getResult() == null) {
-                ExtentTestManager.getTest().log(LogStatus.WARNING, "Unable to get Usage History Details from com.airtel.cs.API");
+                commonLib.warning("Unable to get Usage History Details from com.airtel.cs.API");
                 softAssert.assertTrue(pages.getDetailedUsageHistoryPage().getNoResultFound(), "No Result Message is not Visible");
             } else {
                 softAssert.assertEquals(pages.getDetailedUsageHistoryPage().getHeaders(1).toLowerCase().trim(), data.getRow1().toLowerCase().trim(), "Header Name for Row 1 is not as expected");
@@ -397,7 +395,7 @@ public class WidgetsOptionsTest extends Driver {
                 softAssert.assertTrue(pages.getMoreAMTxnTabPage().isTodayFilterTab(), "Last Seven Days Filter does not display.");
                 softAssert.assertTrue(pages.getMoreAMTxnTabPage().isTodayFilterTab(), "Date Range Filter does not display.");
                 softAssert.assertTrue(pages.getMoreAMTxnTabPage().isSearchTxnIdBox(), "TXN ID Box does not display.");
-                AirtelMoneyPOJO amTransactionHistoryAPI = api.moreTransactionHistoryAPITest(customerNumber,config.getProperty("amCurrency"));
+                AirtelMoneyPOJO amTransactionHistoryAPI = api.moreTransactionHistoryAPITest(customerNumber, config.getProperty("amCurrency"));
                 if (amTransactionHistoryAPI.getStatusCode() != 200) {
                     softAssert.assertTrue(pages.getMoreAMTxnTabPage().isAirtelMoneyErrorVisible(), "com.airtel.cs.API is Giving error But Widget is not showing error Message on com.airtel.cs.API is " + amTransactionHistoryAPI.getMessage());
                     softAssert.fail("com.airtel.cs.API is Unable to Get AM Transaction History for Customer");
@@ -456,7 +454,7 @@ public class WidgetsOptionsTest extends Driver {
     @Table(name = "More Airtel Money History")
     @Test(priority = 7, description = "Validating Airtel Money History's  Menu Secondary Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI", enabled = false)
     public void airtelMoneyHistoryMenuSecondaryTest(HeaderDataBean data) {
-        if(OPCO.equalsIgnoreCase("CD")) {
+        if (OPCO.equalsIgnoreCase("CD")) {
             selUtils.addTestcaseDescription("Validating Airtel Money History's  Menu Secondary Widget of User :" + customerNumber, "description");
             SoftAssert softAssert = new SoftAssert();
             try {

@@ -1,6 +1,5 @@
 package com.airtel.cs.ui.templateManagement;
 
-import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pagerepository.pagemethods.TemplateManagementPage;
 import org.openqa.selenium.NoSuchElementException;
@@ -101,7 +100,7 @@ public class CreateTemplateTest extends Driver {
         try {
             templateManagement.readResponseMessage();
         } catch (NoSuchElementException | TimeoutException e) {
-            UtilsMethods.printInfoLog("Not able to read Message Pop up: " + e.fillInStackTrace());
+            commonLib.info("Not able to read Message Pop up: " + e.fillInStackTrace());
         }
         softAssert.assertTrue(templateManagement.validateAddedCategoryDisplay(templateCategory), "Added Category does not display in list");
         templateManagement.waitTillOverlayGetsRemoved();
@@ -120,7 +119,7 @@ public class CreateTemplateTest extends Driver {
             try {
                 pages.getTemplateManagement().selectOptionFromList(templateCategory);
             } catch (StaleElementReferenceException e) {
-                UtilsMethods.printInfoLog("Trying Again to select Agent Channels");
+                commonLib.info("Trying Again to select Agent Channels");
                 pages.getTemplateManagement().selectOptionFromList(config.getProperty("selectALL"));
             }
             pages.getTemplateManagement().writeTemplateName(templateName);
@@ -128,7 +127,7 @@ public class CreateTemplateTest extends Driver {
             try {
                 pages.getTemplateManagement().selectOptionFromList(config.getProperty("selectALL"));
             } catch (StaleElementReferenceException e) {
-                UtilsMethods.printInfoLog("Trying Again to select Agent Channels");
+                commonLib.info("Trying Again to select Agent Channels");
                 pages.getTemplateManagement().selectOptionFromList(config.getProperty("selectALL"));
             }
             pages.getTemplateManagement().clickOutside();
@@ -136,7 +135,7 @@ public class CreateTemplateTest extends Driver {
             try {
                 pages.getTemplateManagement().selectOptionFromList(config.getProperty("selectALL"));
             } catch (StaleElementReferenceException e) {
-                UtilsMethods.printInfoLog("Trying Again to select Agent Channels");
+                commonLib.info("Trying Again to select Agent Channels");
                 pages.getTemplateManagement().selectOptionFromList(config.getProperty("selectALL"));
             }
             pages.getTemplateManagement().clickOutside();
@@ -149,7 +148,7 @@ public class CreateTemplateTest extends Driver {
             try {
                 pages.getTemplateManagement().readResponseMessage();
             } catch (NoSuchElementException | TimeoutException e) {
-                UtilsMethods.printInfoLog("Not able to read Message Pop up: " + e.fillInStackTrace());
+                commonLib.info("Not able to read Message Pop up: " + e.fillInStackTrace());
             }
             pages.getTemplateManagement().waitTillOverlayGetsRemoved();
         } catch (NoSuchElementException | TimeoutException | StaleElementReferenceException e) {

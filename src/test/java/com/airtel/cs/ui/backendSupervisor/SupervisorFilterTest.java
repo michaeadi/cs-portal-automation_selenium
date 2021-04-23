@@ -1,8 +1,6 @@
 package com.airtel.cs.ui.backendSupervisor;
 
-import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.driver.Driver;
-import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -24,7 +22,7 @@ public class SupervisorFilterTest extends Driver {
     @Test(priority = 1, description = "Validate Filter Tab for Supervisor")
     public void validateOpenFilterTab() {
         selUtils.addTestcaseDescription("Validate Filter Tab for Supervisor(Open State)", "description");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
+        commonLib.info("Opening URL");
         SoftAssert softAssert = new SoftAssert();
         pages.getSupervisorTicketList().changeTicketTypeToOpen();
         pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
@@ -79,7 +77,7 @@ public class SupervisorFilterTest extends Driver {
     @Test(priority = 2, description = "Validate Filter Tab for Supervisor")
     public void validateClosedFilterTab() {
         selUtils.addTestcaseDescription("Validate Filter Tab for Supervisor(Closed State)", "description");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
+        commonLib.info("Opening URL");
         SoftAssert softAssert = new SoftAssert();
         pages.getSupervisorTicketList().changeTicketTypeToClosed();
         pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();

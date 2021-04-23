@@ -1,14 +1,12 @@
 package com.airtel.cs.ui.templateManagement;
 
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
-import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
-import com.relevantcodes.extentreports.LogStatus;
+import com.airtel.cs.driver.Driver;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import com.airtel.cs.driver.Driver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,18 +55,18 @@ public class ViewTemplateTest extends Driver {
         List<String> interactionChannel = data.getInteractionChannelData();
         for (String s : strings) {
             if (interactionChannel.contains(s)) {
-                ExtentTestManager.getTest().log(LogStatus.INFO, "Validate " + s + " Agent channel is display correctly");
+                commonLib.info("Validate " + s + " Agent channel is display correctly");
                 interactionChannel.remove(s);
             } else {
-                ExtentTestManager.getTest().log(LogStatus.FAIL, s + " Agent channel must not display on frontend as tag not mention in config sheet.");
+                commonLib.fail(s + " Agent channel must not display on frontend as tag not mention in config sheet.", true);
                 softAssert.fail(s + " Agent channel should not display on UI as Agent channel not mention in config sheet.");
             }
         }
         if (interactionChannel.isEmpty()) {
-            ExtentTestManager.getTest().log(LogStatus.PASS, "All Agent channel correctly configured and display on UI.");
+            commonLib.pass("All Agent channel correctly configured and display on UI.");
         } else {
             for (String element : interactionChannel) {
-                ExtentTestManager.getTest().log(LogStatus.FAIL, element + " Agent channel does not display on UI but present in config sheet.");
+                commonLib.fail(element + " Agent channel does not display on UI but present in config sheet.", true);
                 softAssert.fail(element + " Agent channel does not display on UI but present in config sheet.");
             }
         }
@@ -87,15 +85,15 @@ public class ViewTemplateTest extends Driver {
             List<String> agentRoles = data.getRoles();
             for (String s : strings) {
                 if (agentRoles.contains(s)) {
-                    ExtentTestManager.getTest().log(LogStatus.INFO, "Validate " + s + " Agent Roles is display correctly");
+                    commonLib.info("Validate " + s + " Agent Roles is display correctly");
                     agentRoles.remove(s);
                 }
             }
             if (agentRoles.isEmpty()) {
-                ExtentTestManager.getTest().log(LogStatus.PASS, "All Agent Roles correctly configured and display on UI.");
+                commonLib.pass("All Agent Roles correctly configured and display on UI.");
             } else {
                 for (String element : agentRoles) {
-                    ExtentTestManager.getTest().log(LogStatus.FAIL, element + " Agent Roles does not display on UI but present in config sheet.");
+                    commonLib.fail(element + " Agent Roles does not display on UI but present in config sheet.", true);
                     softAssert.fail(element + " Agent Roles does not display on UI but present in config sheet.");
                 }
             }
@@ -118,18 +116,18 @@ public class ViewTemplateTest extends Driver {
             List<String> language = data.getLanguage();
             for (String s : strings) {
                 if (language.contains(s)) {
-                    ExtentTestManager.getTest().log(LogStatus.INFO, "Validate " + s + " Language is display correctly");
+                    commonLib.info("Validate " + s + " Language is display correctly");
                     language.remove(s);
                 } else {
-                    ExtentTestManager.getTest().log(LogStatus.FAIL, s + " Language must not display on frontend as tag not mention in config sheet.");
+                    commonLib.fail(s + " Language must not display on frontend as tag not mention in config sheet.", true);
                     softAssert.fail(s + " Language should not display on UI as Agent channel not mention in config sheet.");
                 }
             }
             if (language.isEmpty()) {
-                ExtentTestManager.getTest().log(LogStatus.PASS, "All Language correctly configured and display on UI.");
+                commonLib.pass("All Language correctly configured and display on UI.");
             } else {
                 for (String element : language) {
-                    ExtentTestManager.getTest().log(LogStatus.FAIL, element + " Language does not display on UI but present in config sheet.");
+                    commonLib.fail(element + " Language does not display on UI but present in config sheet.", true);
                     softAssert.fail(element + " Language does not display on UI but present in config sheet.");
                 }
             }

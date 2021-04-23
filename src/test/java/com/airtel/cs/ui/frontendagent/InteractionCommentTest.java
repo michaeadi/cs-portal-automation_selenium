@@ -48,7 +48,7 @@ public class InteractionCommentTest extends Driver {
         softAssert.assertAll();
     }
 
-    @Test(priority = 2, description = "Create Interaction ", dataProvider = "interactionComment", dataProviderClass = DataProviders.class,dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 2, description = "Create Interaction ", dataProvider = "interactionComment", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
     public void addInteractionComment(NftrDataBeans data) throws InterruptedException {
         final String issueCode = data.getIssueCode();
         selUtils.addTestcaseDescription("Add Interaction Ticket Comment on Ticket" + issueCode, "description");
@@ -67,7 +67,7 @@ public class InteractionCommentTest extends Driver {
 
         }
         pages.getInteractionsPage().selectCode(issueCode);
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Creating ticket with issue code -" + issueCode);
+        commonLib.info("Creating ticket with issue code -" + issueCode);
         log.info(pages.getInteractionsPage().getIssue());
         softAssert.assertEquals(pages.getInteractionsPage().getIssue().trim().toLowerCase().replace(" ", ""), data.getIssue().trim().toLowerCase().replace(" ", ""), "Issue is not as expected ");
         log.info(pages.getInteractionsPage().getIssueSubSubType());

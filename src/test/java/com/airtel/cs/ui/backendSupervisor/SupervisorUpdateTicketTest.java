@@ -6,14 +6,12 @@ import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.NftrDataBeans;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
-import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pojo.LoginPOJO;
 import com.airtel.cs.pojo.smshistory.SMSHistoryList;
 import com.airtel.cs.pojo.smshistory.SMSHistoryPOJO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.relevantcodes.extentreports.LogStatus;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
@@ -37,7 +35,7 @@ import static io.restassured.RestAssured.given;
 
 public class SupervisorUpdateTicketTest extends Driver {
 
-    static String ticketId=null;
+    static String ticketId = null;
     String customerNumber = null;
     APIEndPoints api = new APIEndPoints();
 
@@ -71,7 +69,7 @@ public class SupervisorUpdateTicketTest extends Driver {
 
         String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(Req);
         selUtils.addTestcaseDescription("LOGIN com.airtel.cs.API TEST ,Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + data.getLoginAUUID(), "description");
-        UtilsMethods.printInfoLog("Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + data.getLoginAUUID());
+        commonLib.info("Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + data.getLoginAUUID());
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
@@ -80,13 +78,13 @@ public class SupervisorUpdateTicketTest extends Driver {
                 .contentType("application/json");
         try {
             QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-            UtilsMethods.printInfoLog("Request Headers are  : " + queryable.getHeaders());
+            commonLib.info("Request Headers are  : " + queryable.getHeaders());
             Response response = request.post("/auth/api/user-mngmnt/v2/login");
             String token = "Bearer " + response.jsonPath().getString("result.accessToken");
             map.add(new Header("Authorization", token));
-            UtilsMethods.printInfoLog("Request URL : " + queryable.getURI());
-            UtilsMethods.printInfoLog("Response Body : " + response.asString());
-            UtilsMethods.printInfoLog("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+            commonLib.info("Request URL : " + queryable.getURI());
+            commonLib.info("Response Body : " + response.asString());
+            commonLib.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
             if (response.jsonPath().getString("message").equalsIgnoreCase("Failed to authenticate user.")) {
                 continueExecutionAPI = false;
                 softAssert.fail("Not able to generate Token. Please Update Password As soon as possible if required.\ncom.airtel.cs.API Response Message: " + response.jsonPath().getString("message"));
@@ -125,7 +123,7 @@ public class SupervisorUpdateTicketTest extends Driver {
     @Test(priority = 3, description = "Update Ticket", dataProvider = "ticketId", dataProviderClass = DataProviders.class)
     public void updateTicket(Method method, NftrDataBeans Data) throws InterruptedException {
         selUtils.addTestcaseDescription("Update Ticket: " + Data.getIssueCode(), "description");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
+        commonLib.info("Opening URL");
         SoftAssert softAssert = new SoftAssert();
         DataProviders data = new DataProviders();
         String selectedState = null;
@@ -153,7 +151,7 @@ public class SupervisorUpdateTicketTest extends Driver {
                         }
                         SMSHistoryPOJO smsHistory = api.smsHistoryTest(customerNumber);
                         SMSHistoryList list = smsHistory.getResult().get(0);
-                        ExtentTestManager.getTest().log(LogStatus.INFO, "Message Sent after closure: " + list.getMessageText());
+                        commonLib.info("Message Sent after closure: " + list.getMessageText());
                         softAssert.assertTrue(list.getMessageText().contains(Data.getTicketNumber()), "Message Sent does not send for same ticket id which has been closed");
                         softAssert.assertEquals(list.getSmsType().toLowerCase().trim(), config.getProperty("systemSMSType").toLowerCase().trim(), "Message type is not system");
                         softAssert.assertFalse(list.isAction(), "Action button is not disabled");
@@ -193,7 +191,7 @@ public class SupervisorUpdateTicketTest extends Driver {
             pages.getMsisdnSearchPage().clickOnSearch();
             softAssert.assertTrue(pages.getCustomerProfilePage().isPageLoaded());
         } else {
-            UtilsMethods.printWarningLog("No Ticket Id Closed. SKIP Validate Re-open Icon on Closed Ticket");
+            commonLib.warning("No Ticket Id Closed. SKIP Validate Re-open Icon on Closed Ticket");
         }
         softAssert.assertAll();
     }
@@ -214,7 +212,7 @@ public class SupervisorUpdateTicketTest extends Driver {
             pages.getFrontendTicketHistoryPage().getTicketState(1);
             softAssert.assertTrue(pages.getFrontendTicketHistoryPage().checkReopen(1), "Reopen icon does not found on ticket");
         } else {
-            UtilsMethods.printWarningLog("No Ticket Id Closed. SKIP Validate Re-open Icon on Closed Ticket");
+            commonLib.warning("No Ticket Id Closed. SKIP Validate Re-open Icon on Closed Ticket");
         }
         softAssert.assertAll();
     }

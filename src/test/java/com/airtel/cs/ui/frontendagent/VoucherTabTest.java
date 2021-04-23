@@ -64,7 +64,7 @@ public class VoucherTabTest extends Driver {
 
         String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(req);
         selUtils.addTestcaseDescription("LOGIN API TEST,Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + loginAUUID, "description");
-        UtilsMethods.printInfoLog("Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + loginAUUID);
+        commonLib.info("Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + loginAUUID);
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
@@ -73,13 +73,13 @@ public class VoucherTabTest extends Driver {
                 .contentType("application/json");
         try {
             QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-            UtilsMethods.printInfoLog("Request Headers are  : " + queryable.getHeaders());
+            commonLib.info("Request Headers are  : " + queryable.getHeaders());
             Response response = request.post("/auth/api/user-mngmnt/v2/login");
             String token = "Bearer " + response.jsonPath().getString("result.accessToken");
             map.add(new Header("Authorization", token));
-            UtilsMethods.printInfoLog("Request URL : " + queryable.getURI());
-            UtilsMethods.printInfoLog("Response Body : " + response.asString());
-            UtilsMethods.printInfoLog("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+            commonLib.info("Request URL : " + queryable.getURI());
+            commonLib.info("Response Body : " + response.asString());
+            commonLib.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
             if (response.jsonPath().getString("message").equalsIgnoreCase("Failed to authenticate user.")) {
                 continueExecutionAPI = false;
                 softAssert.fail("Not able to generate Token. Please Update Password As soon as possible if required.\ncom.airtel.cs.API Response Message: " + response.jsonPath().getString("message"));
@@ -113,7 +113,7 @@ public class VoucherTabTest extends Driver {
         softAssert.assertAll();
     }
 
-    @Test(priority = 2, description = "Validate Voucher Search Test",dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 2, description = "Validate Voucher Search Test", dependsOnMethods = "openCustomerInteraction")
     public void voucherSearchTest() throws InterruptedException {
         selUtils.addTestcaseDescription("Validate Voucher Search Test", "description");
         SoftAssert softAssert = new SoftAssert();

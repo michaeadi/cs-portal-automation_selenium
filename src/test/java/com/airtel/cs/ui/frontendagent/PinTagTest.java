@@ -3,9 +3,7 @@ package com.airtel.cs.ui.frontendagent;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.PinnedTagsDataBeans;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
-import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.driver.Driver;
-import com.relevantcodes.extentreports.LogStatus;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -44,7 +42,7 @@ public class PinTagTest extends Driver {
     }
 
 
-    @Test(priority = 2, description = "Validating Pinned Tags",dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 2, description = "Validating Pinned Tags", dependsOnMethods = "openCustomerInteraction")
     public void checkALLPinnedTag() {
         selUtils.addTestcaseDescription("Validating Pinned Tag", "description");
         SoftAssert softAssert = new SoftAssert();
@@ -54,10 +52,10 @@ public class PinTagTest extends Driver {
         try {
             for (String s : availableTags) {
                 if (tags.containsKey(s)) {
-                    ExtentTestManager.getTest().log(LogStatus.INFO, "Validate " + s + " pinned tag is display correctly");
+                    commonLib.info("Validate " + s + " pinned tag is display correctly");
                     tags.remove(s);
                 } else {
-                    ExtentTestManager.getTest().log(LogStatus.FAIL, s + " tag must not display on frontend as tag not mention in config sheet.");
+                    commonLib.fail(s + " tag must not display on frontend as tag not mention in config sheet.", true);
                     softAssert.fail(s + " tag should not display on UI as tagged not mention in config sheet.");
                 }
             }
@@ -65,18 +63,18 @@ public class PinTagTest extends Driver {
             e.printStackTrace();
         }
         if (tags.isEmpty()) {
-            ExtentTestManager.getTest().log(LogStatus.PASS, "All pinned tagged correctly configured and display on UI.");
+            commonLib.pass("All pinned tagged correctly configured and display on UI.");
         } else {
             for (Map.Entry mapElement : tags.entrySet()) {
                 String key = (String) mapElement.getKey();
-                ExtentTestManager.getTest().log(LogStatus.FAIL, key + " tag does not display on UI but present in config sheet.");
+                commonLib.fail(key + " tag does not display on UI but present in config sheet.", true);
                 softAssert.fail(key + " tag does not display on UI but present in config sheet.");
             }
         }
         softAssert.assertAll();
     }
 
-    @Test(priority = 3, description = "SideMenu ", dataProvider = "pinTag", dataProviderClass = DataProviders.class,dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 3, description = "SideMenu ", dataProvider = "pinTag", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
     public void checkIssueCodeForPinTag(PinnedTagsDataBeans data) {
         final String tagName = data.getTagName();
         selUtils.addTestcaseDescription("Validating Pinned Tag : " + tagName, "description");
@@ -96,7 +94,7 @@ public class PinTagTest extends Driver {
                 softAssert.fail(tagName + " Does not display on UI");
             }
         } catch (NoSuchElementException e) {
-            ExtentTestManager.getTest().log(LogStatus.FAIL, tagName + " tag does not display on UI but present in config sheet.");
+            commonLib.fail(tagName + " tag does not display on UI but present in config sheet.", true);
             softAssert.fail(tagName + " tag does not display on UI but present in config sheet.\n" + e.fillInStackTrace());
             e.printStackTrace();
         }

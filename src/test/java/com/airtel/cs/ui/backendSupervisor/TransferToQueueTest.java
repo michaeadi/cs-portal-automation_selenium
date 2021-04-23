@@ -1,6 +1,5 @@
 package com.airtel.cs.ui.backendSupervisor;
 
-import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.TransferQueueDataBean;
 import com.airtel.cs.driver.Driver;
@@ -80,7 +79,7 @@ public class TransferToQueueTest extends Driver {
                 pages.getSupervisorTicketList().clearInputBox();
             } catch (AssertionError f) {
                 f.printStackTrace();
-                UtilsMethods.printInfoLog("Not able to perform transfer to Queue action: " + pages.getSupervisorTicketList().getTransferErrorMessage());
+                commonLib.info("Not able to perform transfer to Queue action: " + pages.getSupervisorTicketList().getTransferErrorMessage());
                 softAssert.assertTrue(pages.getSupervisorTicketList().isCancelBtn(), "Cancel Button does not display.");
                 if (data.getTransferAnyway().equalsIgnoreCase("true")) {
                     softAssert.assertTrue(pages.getSupervisorTicketList().isTransferAnyWayBtn(), "Transfer Any button does not displayed.");

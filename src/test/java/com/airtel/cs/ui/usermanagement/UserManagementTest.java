@@ -2,9 +2,7 @@ package com.airtel.cs.ui.usermanagement;
 
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
-import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.driver.Driver;
-import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.annotations.BeforeMethod;
@@ -83,18 +81,18 @@ public class UserManagementTest extends Driver {
         List<String> interactionChannel = data.getInteractionChannelData();
         for (String s : strings) {
             if (interactionChannel.contains(s)) {
-                ExtentTestManager.getTest().log(LogStatus.INFO, "Validate " + s + " interaction channel is display correctly");
+                commonLib.info("Validate " + s + " interaction channel is display correctly");
                 interactionChannel.remove(s);
             } else {
-                ExtentTestManager.getTest().log(LogStatus.FAIL, s + " interaction channel must not display on frontend as tag not mention in config sheet.");
+                commonLib.fail(s + " interaction channel must not display on frontend as tag not mention in config sheet.",true);
                 softAssert.fail(s + " interaction channel should not display on UI as interaction channel not mention in config sheet.");
             }
         }
         if (interactionChannel.isEmpty()) {
-            ExtentTestManager.getTest().log(LogStatus.PASS, "All interaction channel correctly configured and display on UI.");
+            commonLib.pass("All interaction channel correctly configured and display on UI.");
         } else {
             for (String element : interactionChannel) {
-                ExtentTestManager.getTest().log(LogStatus.FAIL, element + " interaction channel does not display on UI but present in config sheet.");
+                commonLib.fail(element + " interaction channel does not display on UI but present in config sheet.",true);
                 softAssert.fail(element + " interaction channel does not display on UI but present in config sheet.");
             }
         }
@@ -118,18 +116,18 @@ public class UserManagementTest extends Driver {
         List<String> workFlow = data.getWorkFlowData();
         for (String s : strings) {
             if (workFlow.contains(s)) {
-                ExtentTestManager.getTest().log(LogStatus.INFO, "Validate " + s + " workgroup is display correctly");
+                commonLib.info("Validate " + s + " workgroup is display correctly");
                 workFlow.remove(s);
             } else {
-                ExtentTestManager.getTest().log(LogStatus.FAIL, s + " workgroup must not display on frontend as tag not mention in config sheet.");
+                commonLib.fail(s + " workgroup must not display on frontend as tag not mention in config sheet.",true);
                 softAssert.fail(s + " workgroup should not display on UI as interaction channel not mention in config sheet.");
             }
         }
         if (workFlow.isEmpty()) {
-            ExtentTestManager.getTest().log(LogStatus.PASS, "All workgroup correctly configured and display on UI.");
+            commonLib.pass("All workgroup correctly configured and display on UI.");
         } else {
             for (String element : workFlow) {
-                ExtentTestManager.getTest().log(LogStatus.FAIL, element + " workgroup does not display on UI but present in config sheet.");
+                commonLib.fail(element + " workgroup does not display on UI but present in config sheet.",true);
                 softAssert.fail(element + " workgroup does not display on UI but present in config sheet.");
             }
         }
@@ -152,18 +150,18 @@ public class UserManagementTest extends Driver {
         List<String> loginQueue = data.getLoginQueueData();
         for (String s : strings) {
             if (loginQueue.contains(s)) {
-                ExtentTestManager.getTest().log(LogStatus.INFO, "Validate " + s + " ticketPool is display correctly");
+                commonLib.info("Validate " + s + " ticketPool is display correctly");
                 loginQueue.remove(s);
             } else {
-                ExtentTestManager.getTest().log(LogStatus.FAIL, s + " ticketPool must not display on frontend as tag not mention in config sheet.");
+                commonLib.fail(s + " ticketPool must not display on frontend as tag not mention in config sheet.",true);
                 softAssert.fail(s + " ticketPool should not display on UI as interaction channel not mention in config sheet.");
             }
         }
         if (loginQueue.isEmpty()) {
-            ExtentTestManager.getTest().log(LogStatus.PASS, "All ticketPool correctly configured and display on UI.");
+            commonLib.pass("All ticketPool correctly configured and display on UI.");
         } else {
             for (String element : loginQueue) {
-                ExtentTestManager.getTest().log(LogStatus.FAIL, element + " ticketPool does not display on UI but present in config sheet.");
+                commonLib.fail(element + " ticketPool does not display on UI but present in config sheet.",true);
                 softAssert.fail(element + " ticketPool does not display on UI but present in config sheet.");
             }
         }

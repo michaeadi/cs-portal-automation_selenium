@@ -69,7 +69,7 @@ public class LoanWidgetTest extends Driver {
         VendorNames vendorNames = api.vendorsNamesTest();
         vendors = vendorNames.getResult().getVendors();
         for (Vendors v : vendors) {
-            UtilsMethods.printInfoLog("Loan Services: " + v.getVendorName());
+            commonLib.info("Loan Services: " + v.getVendorName());
         }
         /*
          * Checking com.airtel.cs.API Giving valid Response
@@ -110,7 +110,7 @@ public class LoanWidgetTest extends Driver {
                 }
             }
         } else {
-            UtilsMethods.printWarningLog("No Vendor Found in Loan Service Widget");
+            commonLib.warning("No Vendor Found in Loan Service Widget");
         }
         softAssert.assertAll();
     }
@@ -171,7 +171,7 @@ public class LoanWidgetTest extends Driver {
             assert loanDetail != null;
             loanDetail.clickCloseTab();
         } else {
-            UtilsMethods.printWarningLog("No Vendor Found in Loan Service Widget");
+            commonLib.warning("No Vendor Found in Loan Service Widget");
         }
         softAssert.assertAll();
     }
@@ -272,7 +272,7 @@ public class LoanWidgetTest extends Driver {
                 softAssert.fail("Loan History widget can not be validate due to following error: " + e.fillInStackTrace());
             }
         } else {
-            UtilsMethods.printWarningLog("No Vendor Found in Loan Service Widget");
+            commonLib.warning("No Vendor Found in Loan Service Widget");
         }
         softAssert.assertAll();
     }
