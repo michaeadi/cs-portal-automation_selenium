@@ -36,20 +36,20 @@ public class BackendAgentLoginTest extends Driver {
         pages.getLoginPage().clickOnVisibleButton();
         pages.getLoginPage().clickOnLogin();
         Thread.sleep(20000); // wait for 20 Seconds for Dashboard page In case of slow Network slow
-        if (pages.getSideMenu().isSideMenuVisible()) {
-            pages.getSideMenu().clickOnSideMenu();
-            if (!pages.getSideMenu().isAgentDashboard()) {
+        if (pages.getSideMenuPage().isSideMenuVisible()) {
+            pages.getSideMenuPage().clickOnSideMenu();
+            if (!pages.getSideMenuPage().isAgentDashboard()) {
                 continueExecutionBA = false;
                 softAssert.fail("Agent Dashboard does not Assign to User Visible.Please Assign Role to user.");
             } else {
                 continueExecutionBA = true;
             }
-            pages.getSideMenu().clickOnSideMenu();
+            pages.getSideMenuPage().clickOnSideMenu();
         } else {
             continueExecutionBA = false;
             softAssert.fail("Agent Dashboard does Open with user.Check for the ScreenShot.");
         }
-        pages.getSideMenu().waitTillLoaderGetsRemoved();
+        pages.getSideMenuPage().waitTillLoaderGetsRemoved();
         softAssert.assertAll();
     }
 
@@ -58,11 +58,11 @@ public class BackendAgentLoginTest extends Driver {
         selUtils.addTestcaseDescription("Backend Agent Login into Queue", "description");
         commonLib.info("Opening URL");
         SoftAssert softAssert = new SoftAssert();
-        pages.getSideMenu().waitTillLoaderGetsRemoved();
-        softAssert.assertTrue(pages.getSideMenu().isSideMenuVisible());
-        pages.getSideMenu().clickOnSideMenu();
-        pages.getSideMenu().clickOnName();
-        pages.getSideMenu().openBackendAgentDashboard();
+        pages.getSideMenuPage().waitTillLoaderGetsRemoved();
+        softAssert.assertTrue(pages.getSideMenuPage().isSideMenuVisible());
+        pages.getSideMenuPage().clickOnSideMenu();
+        pages.getSideMenuPage().clickOnName();
+        pages.getSideMenuPage().openBackendAgentDashboard();
         pages.getAgentLoginPage().waitTillLoaderGetsRemoved();
         softAssert.assertTrue(pages.getAgentLoginPage().isQueueLoginPage());
         softAssert.assertTrue(pages.getAgentLoginPage().checkSubmitButton());

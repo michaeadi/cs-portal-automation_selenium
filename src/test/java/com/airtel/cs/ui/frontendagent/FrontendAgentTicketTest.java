@@ -27,10 +27,10 @@ public class FrontendAgentTicketTest extends Driver {
         final String customerNumber = data.getCustomerNumber();
         selUtils.addTestcaseDescription("Validating the Search forCustomer Interactions :" + customerNumber, "description");
         SoftAssert softAssert = new SoftAssert();
-        pages.getSideMenu().clickOnSideMenu();
-        pages.getSideMenu().clickOnName();
-        pages.getSideMenu().openCustomerInteractionPage();
-        pages.getSideMenu().waitTillLoaderGetsRemoved();
+        pages.getSideMenuPage().clickOnSideMenu();
+        pages.getSideMenuPage().clickOnName();
+        pages.getSideMenuPage().openCustomerInteractionPage();
+        pages.getSideMenuPage().waitTillLoaderGetsRemoved();
         pages.getMsisdnSearchPage().enterNumber(customerNumber);
         pages.getMsisdnSearchPage().clickOnSearch();
         softAssert.assertTrue(pages.getCustomerProfilePage().isPageLoaded(), "Dashboard page does not open.");

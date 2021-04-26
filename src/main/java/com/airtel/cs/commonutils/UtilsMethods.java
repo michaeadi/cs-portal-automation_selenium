@@ -49,21 +49,21 @@ public class UtilsMethods extends Driver {
     }
 
     public static void printResponseDetail(Response response) {
-        printInfoLog("Then Response : " + response.asString());
-        printInfoLog("And Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
-        printInfoLog("And Status Code: " + response.getStatusCode());
+        commonLib.info("Then Response : " + response.asString());
+        commonLib.info("And Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        commonLib.info("And Status Code: " + response.getStatusCode());
     }
 
     public static void printGetRequestDetail(QueryableRequestSpecification queryable) {
-        printInfoLog("When Request URL: " + queryable.getURI());
+        commonLib.info("When Request URL: " + queryable.getURI());
         log.info("And Request Headers are  : " + queryable.getHeaders());
-        printInfoLog("And Query Parameter is  : " + queryable.getQueryParams().toString());
+        commonLib.info("And Query Parameter is  : " + queryable.getQueryParams().toString());
     }
 
     public static void printPostRequestDetail(QueryableRequestSpecification queryable) {
-        printInfoLog("When Request URL: " + queryable.getURI());
+        commonLib.info("When Request URL: " + queryable.getURI());
         log.info("And Request Headers are  : " + queryable.getHeaders());
-        printInfoLog("And Body is  : " + queryable.getBody().toString());
+        commonLib.info("And Body is  : " + queryable.getBody().toString());
     }
 
     public static String getDateFromEpoch(long epoch, String pattern) {
@@ -82,7 +82,7 @@ public class UtilsMethods extends Driver {
             DateFormat format = new SimpleDateFormat(newPatten);
             return format.format(newDate);
         } catch (ParseException e) {
-            printFailLog("Not able to parse the date: " + date + " " + e.fillInStackTrace());
+            commonLib.fail("Not able to parse the date: " + date + " " + e.fillInStackTrace(),true);
         }
         return "Invalid Date String";
     }
@@ -94,7 +94,7 @@ public class UtilsMethods extends Driver {
             format.setTimeZone(TimeZone.getTimeZone("Etc/UTC"));
             return format.format(newDate);
         } catch (ParseException e) {
-            printFailLog("Not able to parse the date: " + date + " " + e.fillInStackTrace());
+            commonLib.fail("Not able to parse the date: " + date + " " + e.fillInStackTrace(),true);
         }
         return "Invalid Date String";
     }
@@ -123,7 +123,7 @@ public class UtilsMethods extends Driver {
                 cal.add(Calendar.DATE, -1);
                 String yesterday = format1.format(cal.getTime());
                 historyDateTime = historyDateTime.replace(YESTERDAY, yesterday);
-                UtilsMethods.printInfoLog(historyDateTime + " :" + yesterday);
+                commonLib.info(historyDateTime + " :" + yesterday);
             }
 
             if (historyDateTime1.contains(YESTERDAY)) {
@@ -132,7 +132,7 @@ public class UtilsMethods extends Driver {
                 cal.add(Calendar.DATE, -1);
                 String yesterday = format1.format(cal.getTime());
                 historyDateTime1 = historyDateTime1.replace(YESTERDAY, yesterday);
-                UtilsMethods.printInfoLog(historyDateTime1 + " :" + yesterday);
+                commonLib.info(historyDateTime1 + " :" + yesterday);
             }
 
             if (historyDateTime.contains(TODAY)) {

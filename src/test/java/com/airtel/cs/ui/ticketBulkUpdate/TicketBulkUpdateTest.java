@@ -3,8 +3,8 @@ package com.airtel.cs.ui.ticketBulkUpdate;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.TicketStateDataBean;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pagerepository.pagemethods.FilterTabPage;
-import com.airtel.cs.pagerepository.pagemethods.TicketBulkUpdatePage;
+import com.airtel.cs.pagerepository.pagemethods.FilterTab;
+import com.airtel.cs.pagerepository.pagemethods.TicketBulkUpdate;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -32,10 +32,10 @@ public class TicketBulkUpdateTest extends Driver {
     @Test(priority = 1, description = "Open Ticket Bulk Update Dashboard")
     public void openTicketBulkUpdate() throws InterruptedException {
         selUtils.addTestcaseDescription("Open Ticket Bulk Update Dashboard", "description");
-        pages.getSideMenu().waitTillLoaderGetsRemoved();
-        pages.getSideMenu().clickOnSideMenu();
-        pages.getSideMenu().clickOnName();
-        TicketBulkUpdatePage ticketBulkUpdate = pages.getSideMenu().openTicketBulkUpdateDashboard();
+        pages.getSideMenuPage().waitTillLoaderGetsRemoved();
+        pages.getSideMenuPage().clickOnSideMenu();
+        pages.getSideMenuPage().clickOnName();
+        TicketBulkUpdate ticketBulkUpdate = pages.getSideMenuPage().openTicketBulkUpdateDashboard();
         SoftAssert softAssert = new SoftAssert();
         Thread.sleep(10000);
         ticketBulkUpdate.waitTillLoaderGetsRemoved();
@@ -48,7 +48,7 @@ public class TicketBulkUpdateTest extends Driver {
         selUtils.addTestcaseDescription("Verify that max 300 Tickets to be allowed to be bulk updated in one go", "description");
         SoftAssert softAssert = new SoftAssert();
         try {
-            FilterTabPage filterTab = pages.getTicketBulkUpdate().clickSelectFilter();
+            FilterTab filterTab = pages.getTicketBulkUpdate().clickSelectFilter();
             filterTab.waitTillLoaderGetsRemoved();
             filterTab.clickLast30DaysFilter();
             filterTab.clickApplyFilter();

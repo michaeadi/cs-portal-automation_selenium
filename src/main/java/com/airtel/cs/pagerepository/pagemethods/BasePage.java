@@ -2,11 +2,9 @@ package com.airtel.cs.pagerepository.pagemethods;
 
 import com.airtel.cs.api.APIEndPoints;
 import com.airtel.cs.commonutils.applicationutils.enums.ReportInfoMessageColorList;
-import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pagerepository.pageelements.AirtelByWrapper;
 import com.airtel.cs.pagerepository.pageelements.BasePageElements;
-import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
@@ -76,11 +74,11 @@ public class BasePage extends Driver {
             wait.until(ExpectedConditions.elementToBeClickable(elementLocation));
             highLighterMethod(elementLocation);
             driver.findElement(elementLocation).click();
-            commonLib.info("Element Clicked" + elementLocation.toString());
+            commonLib.info("Element Clicked " + elementLocation.toString());
         } catch (ElementClickInterceptedException e) {
             waitTillLoaderGetsRemoved();
             driver.findElement(elementLocation).click();
-            commonLib.info("Again Element Clicked" + elementLocation.toString());
+            commonLib.info("Again Element Clicked " + elementLocation.toString());
         }
     }
 
@@ -144,12 +142,12 @@ public class BasePage extends Driver {
         actions.moveToElement(target).build().perform();
     }
 
-    public CustomerProfilePage openingCustomerInteractionDashboard() {
+    public CustomerProfile openingCustomerInteractionDashboard() {
         log.info("Opening Customer Interactions Dashboard");
-        ExtentTestManager.getTest().log(LogStatus.INFO, "Opening Customer Interactions Dashboard");
+        commonLib.info("Opening Customer Interactions Dashboard");
         click(basePageElements.home);
         waitTillLoaderGetsRemoved();
-        return new CustomerProfilePage(driver);
+        return new CustomerProfile(driver);
     }
 
     public String getToastMessage() {
@@ -327,7 +325,7 @@ public class BasePage extends Driver {
      * @return element name
      */
     public String getElementNameFromAirtelByWrapper(By element) {
-        elementName = "---this Element is not an instance of ameyo wrapper please add Valid Name of this Element---";
+        elementName = "---this Element is not an instance of Airtel wrapper please add Valid Name of this Element---";
         try {
             if (element instanceof AirtelByWrapper) {
                 elementName = ((AirtelByWrapper) element).getDescription();

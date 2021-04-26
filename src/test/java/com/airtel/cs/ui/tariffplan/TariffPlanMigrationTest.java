@@ -37,7 +37,7 @@ public class TariffPlanMigrationTest extends PreRequisites {
     public void openCustomerInteraction(TestDatabean data) {
         selUtils.addTestcaseDescription("Validating the Search for Customer Interactions :" + data.getCustomerNumber(), "description");
         try {
-            pages.getSideMenuPOM().openCustomerInteractionPage();
+            pages.getSideMenuPage().openCustomerInteractionPage();
             pages.getMsisdnSearchPage().enterNumber(data.getCustomerNumber());
             pages.getMsisdnSearchPage().clickOnSearch();
             assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isPageLoaded(), true, "Customer Page Loaded Sucessfully", "Customer Page NOT Loaded"));

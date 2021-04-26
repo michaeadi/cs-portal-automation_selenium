@@ -4,7 +4,7 @@ import com.airtel.cs.commonutils.PassUtils;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pagerepository.pagemethods.SideMenuPage;
+import com.airtel.cs.pagerepository.pagemethods.SideMenu;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -38,7 +38,7 @@ public class SupervisorLoginTest extends Driver {
         pages.getLoginPage().clickOnVisibleButton();
         pages.getLoginPage().clickOnVisibleButton();
         pages.getLoginPage().clickOnLogin();
-        SideMenuPage sideMenu = new SideMenuPage(driver);
+        SideMenu sideMenu = new SideMenu(driver);
         Thread.sleep(20000); // wait for 20 Seconds for Dashboard page In case of slow Network slow
         if (sideMenu.isSideMenuVisible()) {
             sideMenu.clickOnSideMenu();
@@ -59,12 +59,12 @@ public class SupervisorLoginTest extends Driver {
     @Test(priority = 2, description = "Supervisor Dashboard Login ")
     public void openSupervisorDashboard(Method method) {
         selUtils.addTestcaseDescription("Open Supervisor Dashboard", "description");
-        pages.getSideMenu().waitTillLoaderGetsRemoved();
-        pages.getSideMenu().clickOnSideMenu();
-        pages.getSideMenu().clickOnName();
-        pages.getSideMenu().openSupervisorDashboard();
+        pages.getSideMenuPage().waitTillLoaderGetsRemoved();
+        pages.getSideMenuPage().clickOnSideMenu();
+        pages.getSideMenuPage().clickOnName();
+        pages.getSideMenuPage().openSupervisorDashboard();
         SoftAssert softAssert = new SoftAssert();
-        pages.getSideMenu().waitTillLoaderGetsRemoved();
+        pages.getSideMenuPage().waitTillLoaderGetsRemoved();
         Assert.assertEquals(driver.getTitle(), config.getProperty("supervisorTicketListPage"));
         softAssert.assertAll();
     }

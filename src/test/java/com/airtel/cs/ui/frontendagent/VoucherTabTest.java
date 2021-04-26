@@ -103,9 +103,9 @@ public class VoucherTabTest extends Driver {
         final String customerNumber = data.getCustomerNumber();
         selUtils.addTestcaseDescription("Validating the Search for Customer Interactions :" + customerNumber, "description");
         SoftAssert softAssert = new SoftAssert();
-        pages.getSideMenu().clickOnSideMenu();
-        pages.getSideMenu().clickOnName();
-        pages.getSideMenu().openCustomerInteractionPage();
+        pages.getSideMenuPage().clickOnSideMenu();
+        pages.getSideMenuPage().clickOnName();
+        pages.getSideMenuPage().openCustomerInteractionPage();
         pages.getMsisdnSearchPage().enterNumber(customerNumber);
         pages.getMsisdnSearchPage().clickOnSearch();
         softAssert.assertTrue(pages.getCustomerProfilePage().isPageLoaded());

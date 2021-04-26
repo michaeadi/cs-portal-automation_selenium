@@ -28,10 +28,10 @@ public class AssignToAgentTicketTest extends Driver {
     public void openSupervisorDashboard() {
         selUtils.addTestcaseDescription("Open Supervisor Dashboard", "description");
         commonLib.info("Opening URL");
-        pages.getSideMenu().waitTillLoaderGetsRemoved();
-        pages.getSideMenu().clickOnSideMenu();
-        pages.getSideMenu().clickOnName();
-        pages.getSideMenu().openSupervisorDashboard();
+        pages.getSideMenuPage().waitTillLoaderGetsRemoved();
+        pages.getSideMenuPage().clickOnSideMenu();
+        pages.getSideMenuPage().clickOnName();
+        pages.getSideMenuPage().openSupervisorDashboard();
         SoftAssert softAssert = new SoftAssert();
         pages.getAgentLoginPage().waitTillLoaderGetsRemoved();
         Assert.assertEquals(driver.getTitle(), config.getProperty("supervisorTicketListPage"));

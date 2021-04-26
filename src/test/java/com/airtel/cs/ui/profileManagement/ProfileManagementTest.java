@@ -26,9 +26,9 @@ public class ProfileManagementTest extends Driver {
     public void openProfileManagementPage() {
         selUtils.addTestcaseDescription("Validating Profile Management with Validating Filter and Columns Present", "description");
         SoftAssert softAssert = new SoftAssert();
-        pages.getSideMenu().clickOnSideMenu();
-        pages.getSideMenu().clickOnName();
-        pages.getSideMenu().openProfileManagementPage();
+        pages.getSideMenuPage().clickOnSideMenu();
+        pages.getSideMenuPage().clickOnName();
+        pages.getSideMenuPage().openProfileManagementPage();
         pages.getProfileManagement().waitTillPMPageLoads();
         softAssert.assertTrue(pages.getProfileManagement().isProfileConfigFilterPresent(),"Profile Management configuration filter does not present.");
         softAssert.assertTrue(pages.getProfileManagement().isRoleStatusFilterPresent(),"Profile Management Role status filter does not present.");
@@ -126,9 +126,9 @@ public class ProfileManagementTest extends Driver {
             pages.getProfileManagement().waitTillLoaderGetsRemoved();
             pages.getProfileManagement().waitTillPMPageLoads();
         }
-        pages.getSideMenu().clickOnSideMenu();
-        pages.getSideMenu().clickOnName();
-        pages.getSideMenu().openCustomerInteractionPage();
+        pages.getSideMenuPage().clickOnSideMenu();
+        pages.getSideMenuPage().clickOnName();
+        pages.getSideMenuPage().openCustomerInteractionPage();
         pages.getMsisdnSearchPage().enterNumber(data.getCustomerNumber());
         pages.getMsisdnSearchPage().clickOnSearch();
         softAssert.assertTrue(pages.getCustomerProfilePage().isPageLoaded());

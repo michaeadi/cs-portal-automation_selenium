@@ -13,7 +13,7 @@ public class SIMBarUnbarPermissionSeparationTest extends PreRequisites {
     public void openCustomerInteraction(TestDatabean data) {
         selUtils.addTestcaseDescription("Validating the Search for Customer Interactions :" + data.getCustomerNumber(), "description");
         try {
-            pages.getSideMenuPOM().openCustomerInteractionPage();
+            pages.getSideMenuPage().openCustomerInteractionPage();
             pages.getMsisdnSearchPage().enterNumber(data.getCustomerNumber());
             pages.getMsisdnSearchPage().clickOnSearch();
             assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isPageLoaded(), true, "Customer Page Loaded Sucessfully", "Customer Page NOT Loaded"));
@@ -46,7 +46,7 @@ public class SIMBarUnbarPermissionSeparationTest extends PreRequisites {
             pages.getUserManagementPage().removeOrAddPermission(constants.getValue(PermissionConstants.SIM_BAR_PERMISSION));
             pages.getUserManagementPage().destroyTempBrowser();
             loginInCSPortal();
-            pages.getSideMenuPOM().openCustomerInteractionPage();
+            pages.getSideMenuPage().openCustomerInteractionPage();
             pages.getMsisdnSearchPage().enterNumber(data.getCustomerNumber());
             pages.getMsisdnSearchPage().clickOnSearch();
             pages.getCustomerProfilePage().clickOnAction();
@@ -68,7 +68,7 @@ public class SIMBarUnbarPermissionSeparationTest extends PreRequisites {
             pages.getUserManagementPage().removeOrAddPermission(constants.getValue(PermissionConstants.SIM_BAR_PERMISSION));
             pages.getUserManagementPage().destroyTempBrowser();
             loginInCSPortal();
-            pages.getSideMenuPOM().openCustomerInteractionPage();
+            pages.getSideMenuPage().openCustomerInteractionPage();
             pages.getMsisdnSearchPage().enterNumber(data.getCustomerNumber());
             pages.getMsisdnSearchPage().clickOnSearch();
             pages.getCustomerProfilePage().clickOnAction();
@@ -118,7 +118,7 @@ public class SIMBarUnbarPermissionSeparationTest extends PreRequisites {
             pages.getUserManagementPage().removeOrAddPermission(constants.getValue(PermissionConstants.SIM_UNBAR_PERMISSION));
             pages.getUserManagementPage().destroyTempBrowser();
             loginInCSPortal();
-            pages.getSideMenuPOM().openCustomerInteractionPage();
+            pages.getSideMenuPage().openCustomerInteractionPage();
             pages.getMsisdnSearchPage().enterNumber(data.getCustomerNumber());
             pages.getMsisdnSearchPage().clickOnSearch();
             pages.getCustomerProfilePage().clickOnAction();
@@ -140,7 +140,7 @@ public class SIMBarUnbarPermissionSeparationTest extends PreRequisites {
             pages.getUserManagementPage().removeOrAddPermission(constants.getValue(PermissionConstants.SIM_BAR_PERMISSION));
             pages.getUserManagementPage().destroyTempBrowser();
             loginInCSPortal();
-            pages.getSideMenuPOM().openCustomerInteractionPage();
+            pages.getSideMenuPage().openCustomerInteractionPage();
             pages.getMsisdnSearchPage().enterNumber(data.getCustomerNumber());
             pages.getMsisdnSearchPage().clickOnSearch();
             pages.getCustomerProfilePage().clickOnAction();

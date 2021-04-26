@@ -32,11 +32,11 @@ public class SendSMSTest extends Driver {
         final String customerNumber = data.getCustomerNumber();
         selUtils.addTestcaseDescription("Validating the Search for Customer Interactions :" + customerNumber, "description");
         SoftAssert softAssert = new SoftAssert();
-        pages.getSideMenu().clickOnSideMenu();
-        pages.getSideMenu().clickOnName();
+        pages.getSideMenuPage().clickOnSideMenu();
+        pages.getSideMenuPage().clickOnName();
         this.customerNumber = customerNumber;
-        pages.getSideMenu().openCustomerInteractionPage();
-        pages.getSideMenu().waitTillLoaderGetsRemoved();
+        pages.getSideMenuPage().openCustomerInteractionPage();
+        pages.getSideMenuPage().waitTillLoaderGetsRemoved();
         pages.getMsisdnSearchPage().enterNumber(customerNumber);
         pages.getMsisdnSearchPage().clickOnSearch();
         pages.getCustomerProfilePage().waitTillLoaderGetsRemoved();

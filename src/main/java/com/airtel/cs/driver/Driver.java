@@ -102,7 +102,6 @@ public class Driver {
     public void setup() {
         try {
             initializePages();
-            startReport();
         } catch (Exception e) {
             commonLib.error(e.getMessage());
         }
@@ -139,10 +138,11 @@ public class Driver {
 
     @AfterSuite(alwaysRun = true)
     public void closeReporting() {
-        extent.flush();
-        extent.close();
+        ExtentReport.endTest(test);
         driver.close();
-        driver.quit();
+        if (driver != null) {
+            driver.quit();
+        }
     }
 
     /**

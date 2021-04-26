@@ -32,9 +32,9 @@ public class ClearRefillErrorTest extends Driver {
     public void openCustomerInteractionAPI(TestDatabean data) {
         selUtils.addTestcaseDescription("Validating the Search for Customer Interactions :" + data.getCustomerNumber(), "description");
         SoftAssert softAssert = new SoftAssert();
-        pages.getSideMenu().clickOnSideMenu();
-        pages.getSideMenu().clickOnName();
-        pages.getSideMenu().openCustomerInteractionPage();
+        pages.getSideMenuPage().clickOnSideMenu();
+        pages.getSideMenuPage().clickOnName();
+        pages.getSideMenuPage().openCustomerInteractionPage();
         pages.getMsisdnSearchPage().enterNumber(data.getCustomerNumber());
         customerNumber = data.getCustomerNumber();
         pages.getMsisdnSearchPage().clickOnSearch();

@@ -29,9 +29,9 @@ public class UserManagementTest extends Driver {
     public void openUserManagementPage() {
         selUtils.addTestcaseDescription("Validating User Management", "description");
         SoftAssert softAssert = new SoftAssert();
-        pages.getSideMenu().clickOnSideMenu();
-        pages.getSideMenu().clickOnName();
-        pages.getSideMenu().openUserManagementPage();
+        pages.getSideMenuPage().clickOnSideMenu();
+        pages.getSideMenuPage().clickOnName();
+        pages.getSideMenuPage().openUserManagementPage();
         pages.getUserManagementPage().waitTillUMPageLoaded();
         softAssert.assertTrue(pages.getUserManagementPage().isSearchVisible());
         softAssert.assertAll();

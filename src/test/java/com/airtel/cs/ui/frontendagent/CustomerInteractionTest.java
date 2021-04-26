@@ -8,8 +8,8 @@ import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pagerepository.pagemethods.AuthTabPage;
-import com.airtel.cs.pagerepository.pagemethods.DemoGraphicPage;
+import com.airtel.cs.pagerepository.pagemethods.AuthTab;
+import com.airtel.cs.pagerepository.pagemethods.DemoGraphic;
 import com.airtel.cs.pojo.AMProfilePOJO;
 import com.airtel.cs.pojo.GsmKycPOJO;
 import com.airtel.cs.pojo.PlansPOJO;
@@ -62,9 +62,9 @@ public class CustomerInteractionTest extends Driver {
             } else {
                 CustomerInteractionTest.customerNumber = customerNumber;
             }
-            pages.getSideMenu().clickOnSideMenu();
-            pages.getSideMenu().clickOnName();
-            pages.getSideMenu().openCustomerInteractionPage();
+            pages.getSideMenuPage().clickOnSideMenu();
+            pages.getSideMenuPage().clickOnName();
+            pages.getSideMenuPage().openCustomerInteractionPage();
             pages.getMsisdnSearchPage().enterNumber(CustomerInteractionTest.customerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();
             if (!pages.getCustomerProfilePage().isPageLoaded()) {
@@ -95,7 +95,7 @@ public class CustomerInteractionTest extends Driver {
             if (pages.getDemoGraphicPage().isPUKInfoLock()) {
                 pages.getDemoGraphicPage().clickPUKToUnlock();
                 Thread.sleep(5000);
-                AuthTabPage authTab = new AuthTabPage(driver);
+                AuthTab authTab = new AuthTab(driver);
                 authTab.waitTillLoaderGetsRemoved();
                 Assert.assertTrue(authTab.isAuthTabLoad(), "Authentication tab does not load correctly");
                 try {
@@ -135,7 +135,7 @@ public class CustomerInteractionTest extends Driver {
         try {
             if (pages.getDemoGraphicPage().isAirtelMoneyStatusLock()) {
                 pages.getDemoGraphicPage().clickAirtelStatusToUnlock();
-                AuthTabPage authTab = new AuthTabPage(driver);
+                AuthTab authTab = new AuthTab(driver);
                 authTab.waitTillLoaderGetsRemoved();
                 Assert.assertTrue(authTab.isAuthTabLoad(), "Authentication tab does not load correctly");
                 try {
@@ -376,9 +376,9 @@ public class CustomerInteractionTest extends Driver {
     public void openCustomerInteractionBySIM(TestDatabean Data) {
         selUtils.addTestcaseDescription("Validating the Search for Customer Interactions By Using SIM Number :" + Data.getSimNumber(), "description");
         SoftAssert softAssert = new SoftAssert();
-        pages.getSideMenu().clickOnSideMenu();
-        pages.getSideMenu().clickOnName();
-        pages.getSideMenu().openCustomerInteractionPage();
+        pages.getSideMenuPage().clickOnSideMenu();
+        pages.getSideMenuPage().clickOnName();
+        pages.getSideMenuPage().openCustomerInteractionPage();
         if (evnName.equalsIgnoreCase("Prod")) {
             pages.getMsisdnSearchPage().enterNumber(Data.getProdSIMNumber());
             customerNumber = Data.getProdCustomerNumber();
@@ -402,7 +402,7 @@ public class CustomerInteractionTest extends Driver {
     public void validateDemographicInformationBySIMNumber(TestDatabean Data) {
         final String customerNumber = Data.getCustomerNumber();
         selUtils.addTestcaseDescription("Validating the Demographic Information of User :" + customerNumber, "description");
-        DemoGraphicPage demographic = new DemoGraphicPage(driver);
+        DemoGraphic demographic = new DemoGraphic(driver);
         SoftAssert softAssert = new SoftAssert();
 
         ProfilePOJO profileAPI = api.profileAPITest(CustomerInteractionTest.customerNumber);
@@ -415,7 +415,7 @@ public class CustomerInteractionTest extends Driver {
             if (demographic.isPUKInfoLock()) {
                 demographic.clickPUKToUnlock();
                 Thread.sleep(5000);
-                AuthTabPage authTab = new AuthTabPage(driver);
+                AuthTab authTab = new AuthTab(driver);
                 DataProviders data = new DataProviders();
                 authTab.waitTillLoaderGetsRemoved();
                 Assert.assertTrue(authTab.isAuthTabLoad(), "Authentication tab does not load correctly");
@@ -460,7 +460,7 @@ public class CustomerInteractionTest extends Driver {
                 } else if (demographic.isAirtelMoneyStatusLock()) {
                     demographic.clickAirtelStatusToUnlock();
                     Thread.sleep(5000);
-                    AuthTabPage authTab = new AuthTabPage(driver);
+                    AuthTab authTab = new AuthTab(driver);
                     DataProviders data = new DataProviders();
                     authTab.waitTillLoaderGetsRemoved();
                     Assert.assertTrue(authTab.isAuthTabLoad(), "Authentication tab does not load correctly");
@@ -675,10 +675,10 @@ public class CustomerInteractionTest extends Driver {
     public void openCustomerInteractionAPI(TestDatabean data) {
         selUtils.addTestcaseDescription("Validating the Search for Customer Interactions for Widget :" + data.getCustomerNumber(), "description");
         SoftAssert softAssert = new SoftAssert();
-        pages.getSideMenu().clickOnSideMenu();
-        pages.getSideMenu().clickOnName();
-        pages.getSideMenu().openCustomerInteractionPage();
-        pages.getSideMenu().waitTillLoaderGetsRemoved();
+        pages.getSideMenuPage().clickOnSideMenu();
+        pages.getSideMenuPage().clickOnName();
+        pages.getSideMenuPage().openCustomerInteractionPage();
+        pages.getSideMenuPage().waitTillLoaderGetsRemoved();
         if (evnName.equalsIgnoreCase("Prod")) {
             customerNumber = data.getProdCustomerNumber();
         } else {

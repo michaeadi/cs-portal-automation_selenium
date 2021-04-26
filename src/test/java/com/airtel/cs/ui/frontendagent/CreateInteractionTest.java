@@ -9,7 +9,7 @@ import com.airtel.cs.commonutils.dataproviders.NftrDataBeans;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.commonutils.excelutils.WriteToExcel;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pagerepository.pagemethods.CustomerProfilePage;
+import com.airtel.cs.pagerepository.pagemethods.CustomerProfile;
 import com.airtel.cs.pojo.LoginPOJO;
 import com.airtel.cs.pojo.smshistory.SMSHistoryList;
 import com.airtel.cs.pojo.smshistory.SMSHistoryPOJO;
@@ -62,10 +62,10 @@ public class CreateInteractionTest extends Driver {
     public void openCustomerInteraction(TestDatabean data) {
         selUtils.addTestcaseDescription("Validating the Search for Customer Interactions: " + data.getCustomerNumber(), "description");
         SoftAssert softAssert = new SoftAssert();
-        pages.getSideMenu().clickOnSideMenu();
-        pages.getSideMenu().clickOnName();
-        pages.getSideMenu().openCustomerInteractionPage();
-        pages.getSideMenu().waitTillLoaderGetsRemoved();
+        pages.getSideMenuPage().clickOnSideMenu();
+        pages.getSideMenuPage().clickOnName();
+        pages.getSideMenuPage().openCustomerInteractionPage();
+        pages.getSideMenuPage().waitTillLoaderGetsRemoved();
         pages.getMsisdnSearchPage().enterNumber(data.getCustomerNumber());
         customerNumber = data.getCustomerNumber();
         pages.getMsisdnSearchPage().clickOnSearch();
@@ -185,7 +185,7 @@ public class CreateInteractionTest extends Driver {
         selUtils.addTestcaseDescription(" Validating NFTR Ticket: " + issueCode, "description");
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         LocalDateTime now = LocalDateTime.now();
-        CustomerProfilePage customerInteractionPagePOM = new CustomerProfilePage(driver);
+        CustomerProfile customerInteractionPagePOM = new CustomerProfile(driver);
         customerInteractionPagePOM.waitTillLoaderGetsRemoved();
         pages.getCustomerProfilePage().clickOnInteractionIcon();
         SoftAssert softAssert = new SoftAssert();

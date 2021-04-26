@@ -22,9 +22,9 @@ public class LogoutTest extends Driver {
     @Test
     public void logout() {
         selUtils.addTestcaseDescription("Logging Out Of Portal", "description");
-        if (pages.getSideMenu().isSideMenuVisible()) {
-            pages.getSideMenu().clickOnSideMenu();
-            pages.getSideMenu().logout();
+        if (pages.getSideMenuPage().isSideMenuVisible()) {
+            pages.getSideMenuPage().clickOnSideMenu();
+            pages.getSideMenuPage().logout();
             try {
                 Assert.assertTrue(pages.getLoginPage().isEnterAUUIDFieldVisible());
             } catch (TimeoutException | NoSuchElementException | AssertionError e) {

@@ -26,9 +26,9 @@ public class ViewTemplateTest extends Driver {
     public void openTemplateManagement() {
         selUtils.addTestcaseDescription("Open Template Management", "description");
         SoftAssert softAssert = new SoftAssert();
-        pages.getSideMenu().clickOnSideMenu();
-        pages.getSideMenu().clickOnName();
-        pages.getSideMenu().openTemplateManagementPage();
+        pages.getSideMenuPage().clickOnSideMenu();
+        pages.getSideMenuPage().clickOnName();
+        pages.getSideMenuPage().openTemplateManagementPage();
         softAssert.assertTrue(pages.getTemplateManagement().isPageLoaded());
         pages.getTemplateManagement().waitTillLoaderGetsRemoved();
         softAssert.assertAll();
