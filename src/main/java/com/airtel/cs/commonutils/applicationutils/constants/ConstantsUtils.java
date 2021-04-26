@@ -1,8 +1,6 @@
 package com.airtel.cs.commonutils.applicationutils.constants;
 
 
-import com.airtel.cs.driver.Driver;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -13,7 +11,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Scanner;
 
-public class ConstantsUtils extends Driver implements Cloneable {
+public class ConstantsUtils implements Cloneable {
     private static ConstantsUtils constants;
     private final Properties prop;
     private static final String USER_DIR = "user.dir";
