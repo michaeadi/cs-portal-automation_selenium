@@ -41,9 +41,9 @@ public class PreRequisites extends Driver {
         pages.getLoginPage().clickOnVisibleButton();
         pages.getLoginPage().clickOnLogin();
         pages.getLoginPage().waitTillLoaderGetsRemoved();
-        assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPOM().isSideMenuVisible(), true, "Side Menu Visible", "Side Menu Not Visible"));
-        pages.getSideMenuPOM().clickOnSideMenu();
-        assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPOM().isCustomerServicesVisible(), true, "Customer Service Visible", "Customer Service Not Visible"));
+        assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isSideMenuVisible(), true, "Side Menu Visible", "Side Menu Not Visible"));
+        pages.getSideMenuPage().clickOnSideMenu();
+        assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isCustomerServicesVisible(), true, "Customer Service Visible", "Customer Service Not Visible"));
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
@@ -65,9 +65,9 @@ public class PreRequisites extends Driver {
     @AfterClass(alwaysRun = true)
     public void doLogout() {
         selUtils.addTestcaseDescription("Logging Out Of Portal", "description");
-        if (pages.getSideMenu().isSideMenuVisible()) {
-            pages.getSideMenu().clickOnSideMenu();
-            pages.getSideMenu().logout();
+        if (pages.getSideMenuPage().isSideMenuVisible()) {
+            pages.getSideMenuPage().clickOnSideMenu();
+            pages.getSideMenuPage().logout();
             try {
                 Assert.assertTrue(pages.getLoginPage().isEnterAUUIDFieldVisible());
             } catch (TimeoutException | NoSuchElementException | AssertionError e) {
@@ -99,7 +99,7 @@ public class PreRequisites extends Driver {
      */
     public void loginInCSPortal() throws InterruptedException {
         doLogin();
-        pages.getSideMenuPOM().openCustomerInteractionPage();
+        pages.getSideMenuPage().openCustomerInteractionPage();
     }
 
     /*

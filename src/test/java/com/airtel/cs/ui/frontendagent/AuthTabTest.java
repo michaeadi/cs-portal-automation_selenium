@@ -1,6 +1,7 @@
 package com.airtel.cs.ui.frontendagent;
 
 import com.airtel.cs.api.APIEndPoints;
+import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.dataproviders.ActionTagDataBeans;
 import com.airtel.cs.commonutils.dataproviders.AuthTabDataBeans;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
@@ -23,6 +24,7 @@ public class AuthTabTest extends Driver {
 
     APIEndPoints api = new APIEndPoints();
     Map<String, String> authTabConfig;
+    public BaseActions actions = new BaseActions();
 
     @BeforeMethod
     public void checkExecution() {
@@ -37,14 +39,13 @@ public class AuthTabTest extends Driver {
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteraction(TestDatabean data) {
         selUtils.addTestcaseDescription("Validating the Search for Customer Interactions :" + data.getCustomerNumber(), "description");
-        SoftAssert softAssert = new SoftAssert();
-        pages.getSideMenu().clickOnSideMenu();
-        pages.getSideMenu().clickOnName();
-        pages.getSideMenu().openCustomerInteractionPage();
+        pages.getSideMenuPage().clickOnSideMenu();
+        pages.getSideMenuPage().clickOnName();
+        pages.getSideMenuPage().openCustomerInteractionPage();
         pages.getMsisdnSearchPage().enterNumber(data.getCustomerNumber());
         pages.getMsisdnSearchPage().clickOnSearch();
-        softAssert.assertTrue(pages.getCustomerProfilePage().isPageLoaded());
-        softAssert.assertAll();
+        assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isPageLoaded(), true, "Customer Page Loaded Successfully", "Customer Page NOT Loaded"));
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     @Test(priority = 2, description = "Validate that the answers of the questions")

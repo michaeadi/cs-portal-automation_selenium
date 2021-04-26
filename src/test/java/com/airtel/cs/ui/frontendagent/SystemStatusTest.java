@@ -1,26 +1,18 @@
 package com.airtel.cs.ui.frontendagent;
 
-import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pojo.LoginPOJO;
+import com.airtel.cs.commonutils.PassUtils;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
-import com.airtel.cs.commonutils.PassUtils;
-import com.airtel.cs.commonutils.UtilsMethods;
+import com.airtel.cs.driver.Driver;
+import com.airtel.cs.pojo.LoginPOJO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.http.Header;
-import io.restassured.http.Headers;
 import io.restassured.response.Response;
-import io.restassured.specification.QueryableRequestSpecification;
-import io.restassured.specification.RequestSpecification;
-import io.restassured.specification.SpecificationQuerier;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import java.util.concurrent.TimeUnit;
-
-import static io.restassured.RestAssured.baseURI;
-import static io.restassured.RestAssured.given;
 
 public class SystemStatusTest extends Driver {
 
@@ -30,36 +22,16 @@ public class SystemStatusTest extends Driver {
         ObjectMapper mapper = new ObjectMapper();
         SoftAssert softAssert = new SoftAssert();
         final String loginAUUID = data.getLoginAUUID();
-        LoginPOJO Req = LoginPOJO.loginBody(PassUtils.decodePassword(data.getPassword()), loginAUUID);
-
-        map.clear();
-        UtilsMethods.addHeaders("x-app-name", config.getProperty(evnName + "-x-app-name"));
-        UtilsMethods.addHeaders("x-service-id", config.getProperty(evnName + "-x-service-id"));
-        //map.add(new Header("x-bsy-bn", config.getProperty(Env + "-x-bsy-bn"))); //Comment this line this header removed from MG Opco.
-        UtilsMethods.addHeaders("x-app-type", config.getProperty(evnName + "-x-app-type"));
-        UtilsMethods.addHeaders("x-client-id", config.getProperty(evnName + "-x-client-id"));
-        UtilsMethods.addHeaders("x-api-key", config.getProperty(evnName + "-x-api-key"));
-        UtilsMethods.addHeaders("x-login-module", config.getProperty(evnName + "-x-login-module"));
-        UtilsMethods.addHeaders("x-channel", config.getProperty(evnName + "-x-channel"));
-        UtilsMethods.addHeaders("x-app-version", config.getProperty(evnName + "-x-app-version"));
-        UtilsMethods.addHeaders("Opco", OPCO);
-
-        String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(Req);
+        LoginPOJO Req = LoginPOJO.loginBody(loginAUUID, PassUtils.decodePassword(data.getPassword()));
         selUtils.addTestcaseDescription("Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + loginAUUID, "description");
+        map.clear();
+        pages.getLoginPage().setApiHeader();
+        String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(Req);
         commonLib.info("Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + loginAUUID);
-        baseURI = baseUrl;
-        Headers headers = new Headers(map);
-        RequestSpecification request = given()
-                .headers(headers)
-                .body(dtoAsString)
-                .contentType("application/json");
         try {
-            QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-            commonLib.info("Request Headers are  : " + queryable.getHeaders());
-            Response response = request.post("/auth/api/user-mngmnt/v2/login");
+            final Response response = pages.getLoginPage().loginAPI(dtoAsString);
             String token = "Bearer " + response.jsonPath().getString("result.accessToken");
             map.add(new Header("Authorization", token));
-            commonLib.info("Request URL : " + queryable.getURI());
             commonLib.info("Response Body : " + response.asString());
             commonLib.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
             if (response.jsonPath().getString("message").equalsIgnoreCase("Failed to authenticate user.")) {
@@ -85,21 +57,12 @@ public class SystemStatusTest extends Driver {
         ObjectMapper mapper = new ObjectMapper();
         SoftAssert softAssert = new SoftAssert();
         final String loginAUUID = data.getLoginAUUID();
-        LoginPOJO Req = LoginPOJO.loginBody(PassUtils.decodePassword(data.getPassword()), loginAUUID);
+        LoginPOJO Req = LoginPOJO.loginBody(loginAUUID, PassUtils.decodePassword(data.getPassword()));
         String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(Req);
         selUtils.addTestcaseDescription("Checking System Status for Admin User,Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + loginAUUID, "description");
         commonLib.info("Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + loginAUUID);
-        baseURI = baseUrl;
-        Headers headers = new Headers(map);
-        RequestSpecification request = given()
-                .headers(headers)
-                .body(dtoAsString)
-                .contentType("application/json");
         try {
-            QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-            commonLib.info("Request Headers are  : " + queryable.getHeaders());
-            Response response = request.post("/auth/api/user-mngmnt/v2/login");
-            commonLib.info("Request URL : " + queryable.getURI());
+            final Response response = pages.getLoginPage().loginAPI(dtoAsString);
             commonLib.info("Response Body : " + response.asString());
             commonLib.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
             if (response.jsonPath().getString("message").equalsIgnoreCase("Failed to authenticate user.")) {
@@ -129,21 +92,12 @@ public class SystemStatusTest extends Driver {
         ObjectMapper mapper = new ObjectMapper();
         SoftAssert softAssert = new SoftAssert();
         final String loginAUUID = data.getLoginAUUID();
-        LoginPOJO Req = LoginPOJO.loginBody(PassUtils.decodePassword(data.getPassword()), loginAUUID);
+        LoginPOJO Req = LoginPOJO.loginBody(loginAUUID, PassUtils.decodePassword(data.getPassword()));
         String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(Req);
         selUtils.addTestcaseDescription("Checking System Status for Backend Agent User,Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + loginAUUID, "description");
         commonLib.info("Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + loginAUUID);
-        baseURI = baseUrl;
-        Headers headers = new Headers(map);
-        RequestSpecification request = given()
-                .headers(headers)
-                .body(dtoAsString)
-                .contentType("application/json");
         try {
-            QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-            commonLib.info("Request Headers are  : " + queryable.getHeaders());
-            Response response = request.post("/auth/api/user-mngmnt/v2/login");
-            commonLib.info("Request URL : " + queryable.getURI());
+            final Response response = pages.getLoginPage().loginAPI(dtoAsString);
             commonLib.info("Response Body : " + response.asString());
             commonLib.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
             if (response.jsonPath().getString("message").equalsIgnoreCase("Failed to authenticate user.")) {

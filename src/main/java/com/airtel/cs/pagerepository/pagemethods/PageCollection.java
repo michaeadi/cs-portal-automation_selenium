@@ -9,46 +9,6 @@ public class PageCollection {
      * The driver.
      */
     private final WebDriver driver;
-    private SideMenuPage sideMenuPOM;
-    private LoginPage loginPage;
-    private CustomerProfilePage customerProfilePage;
-    private TariffPlanPage tariffPlanPage;
-    private MsisdnSearchPage msisdnSearchPage;
-    private ViewHistoryPage viewHistory;
-    private UserManagementPage userManagementPage;
-    private ActionTrailPage actionTrailPage;
-    private AgentLoginPage agentLoginPage;
-    private AMTransactionsWidgetPage amTxnWidgetPage;
-    private AssignToAgentPage assignToAgentPage;
-    private AuthTabPage authTabPage;
-    private CRBTWidgetPage crbtWidgetPage;
-    private CurrentBalanceWidgetPage currentBalanceWidgetPage;
-    private DemoGraphicPage demoGraphicPage;
-    private DADetailsPage daDetailsPage;
-    private DetailedUsageHistoryPage detailedUsageHistoryPage;
-    private FilterTabPage filterTabPage;
-    private FrontendTicketHistoryPage frontendTicketHistoryPage;
-    private InteractionsPage interactionsPage;
-    private LoanDetailPage loanDetailPage;
-    private LoanWidgetPage loanWidget;
-    private MessageHistoryPage messageHistoryPage;
-    private MoreAMTxnTabPage moreAMTxnTabPage;
-    private MoreRechargeHistoryPage moreRechargeHistoryPage;
-    private MoreUsageHistoryPage moreUsageHistoryPage;
-    private ProfileManagementPage profileManagement;
-    private RechargeHistoryWidgetPage rechargeHistoryWidget;
-    private SendSMSPage sendSMS;
-    private ServiceClassWidgetPage serviceClassWidget;
-    private SideMenuPage sideMenu;
-    private SupervisorTicketListPage supervisorTicketList;
-    private TemplateManagementPage templateManagement;
-    private TicketBulkUpdatePage ticketBulkUpdate;
-    private TransferToQueuePage transferToQueue;
-    private UsageHistoryWidgetPage usageHistoryWidget;
-    private ViewCreatedTemplatePage viewCreatedTemplate;
-    private ViewTicketPage viewTicket;
-    private VoucherTabPage voucherTab;
-    private WidgetInteractionPage widgetInteraction;
 
     /**
      * Instantiates a new page collection.
@@ -57,170 +17,165 @@ public class PageCollection {
      */
     public PageCollection(WebDriver driver) {
         this.driver = driver;
-
     }
 
-    public SideMenuPage getSideMenuPOM() {
-        return (sideMenuPOM == null) ? new SideMenuPage(driver) : sideMenuPOM;
+    public SideMenu getSideMenuPage() {
+        return new SideMenu(driver);
     }
 
-    public LoginPage getLoginPage() {
-        return (loginPage == null) ? new LoginPage(driver) : loginPage;
+    public Login getLoginPage() {
+        return new Login(driver);
     }
 
-    public CustomerProfilePage getCustomerProfilePage() {
-        return (customerProfilePage == null) ? new CustomerProfilePage(driver) : customerProfilePage;
+    public CustomerProfile getCustomerProfilePage() {
+        return new CustomerProfile(driver);
     }
 
-    public TariffPlanPage getTariffPlanPage() {
-        return (tariffPlanPage == null) ? new TariffPlanPage(driver) : tariffPlanPage;
+    public TariffPlan getTariffPlanPage() {
+        return new TariffPlan(driver);
     }
 
-    public MsisdnSearchPage getMsisdnSearchPage() {
-        return (msisdnSearchPage == null) ? new MsisdnSearchPage(driver) : msisdnSearchPage;
+    public MsisdnSearch getMsisdnSearchPage() {
+        return new MsisdnSearch(driver);
     }
 
-    public ViewHistoryPage getViewHistoryPOM() {
-        return (viewHistory == null) ? new ViewHistoryPage(driver) : viewHistory;
+    public ViewHistory getViewHistoryPOM() {
+        return new ViewHistory(driver);
     }
 
-    public UserManagementPage getUserManagementPage() {
-        return (userManagementPage == null) ? new UserManagementPage(driver) : userManagementPage;
+    public UserManagement getUserManagementPage() {
+        return new UserManagement(driver);
     }
 
-    public ActionTrailPage getActionTrailPage() {
-        return actionTrailPage == null ? new ActionTrailPage(driver) : actionTrailPage;
+    public ActionTrail getActionTrailPage() {
+        return new ActionTrail(driver);
     }
 
-    public AgentLoginPage getAgentLoginPage() {
-        return agentLoginPage == null ? new AgentLoginPage(driver) : agentLoginPage;
+    public AgentLogin getAgentLoginPage() {
+        return new AgentLogin(driver);
     }
 
-    public AMTransactionsWidgetPage getAmTxnWidgetPage() {
-        return amTxnWidgetPage == null ? new AMTransactionsWidgetPage(driver) : amTxnWidgetPage;
+    public AMTransactionsWidget getAmTxnWidgetPage() {
+        return new AMTransactionsWidget(driver);
     }
 
-    public AssignToAgentPage getAssignToAgentPage() {
-        return assignToAgentPage == null ? new AssignToAgentPage(driver) : assignToAgentPage;
+    public AssignToAgent getAssignToAgentPage() {
+        return new AssignToAgent(driver);
     }
 
-    public AuthTabPage getAuthTabPage() {
-        return authTabPage == null ? new AuthTabPage(driver) : authTabPage;
+    public AuthTab getAuthTabPage() {
+        return new AuthTab(driver);
     }
 
-    public CRBTWidgetPage getCrbtWidgetPage() {
-        return crbtWidgetPage == null ? new CRBTWidgetPage(driver) : crbtWidgetPage;
+    public CRBTWidget getCrbtWidgetPage() {
+        return new CRBTWidget(driver);
     }
 
-    public CurrentBalanceWidgetPage getCurrentBalanceWidgetPage() {
-        return currentBalanceWidgetPage == null ? new CurrentBalanceWidgetPage(driver) : currentBalanceWidgetPage;
+    public CurrentBalanceWidget getCurrentBalanceWidgetPage() {
+        return new CurrentBalanceWidget(driver);
     }
 
-    public DemoGraphicPage getDemoGraphicPage() {
-        return demoGraphicPage == null ? new DemoGraphicPage(driver) : demoGraphicPage;
+    public DemoGraphic getDemoGraphicPage() {
+        return new DemoGraphic(driver);
     }
 
-    public DADetailsPage getDaDetailsPage() {
-        return daDetailsPage == null ? new DADetailsPage(driver) : daDetailsPage;
+    public DADetails getDaDetailsPage() {
+        return new DADetails(driver);
     }
 
-    public DetailedUsageHistoryPage getDetailedUsageHistoryPage() {
-        return detailedUsageHistoryPage == null ? new DetailedUsageHistoryPage(driver) : detailedUsageHistoryPage;
+    public DetailedUsageHistory getDetailedUsageHistoryPage() {
+        return new DetailedUsageHistory(driver);
     }
 
-    public FilterTabPage getFilterTabPage() {
-        return filterTabPage == null ? new FilterTabPage(driver) : filterTabPage;
+    public FilterTab getFilterTabPage() {
+        return new FilterTab(driver);
     }
 
-    public FrontendTicketHistoryPage getFrontendTicketHistoryPage() {
-        return frontendTicketHistoryPage == null ? new FrontendTicketHistoryPage(driver) : frontendTicketHistoryPage;
+    public FrontendTicketHistory getFrontendTicketHistoryPage() {
+        return new FrontendTicketHistory(driver);
     }
 
-    public InteractionsPage getInteractionsPage() {
-        return interactionsPage == null ? new InteractionsPage(driver) : interactionsPage;
+    public Interactions getInteractionsPage() {
+        return new Interactions(driver);
     }
 
-    public LoanDetailPage getLoanDetailPage() {
-        return loanDetailPage == null ? new LoanDetailPage(driver) : loanDetailPage;
+    public LoanDetail getLoanDetailPage() {
+        return new LoanDetail(driver);
     }
 
-    public LoanWidgetPage getLoanWidget() {
-        return loanWidget == null ? new LoanWidgetPage(driver) : loanWidget;
+    public LoanWidget getLoanWidget() {
+        return new LoanWidget(driver);
     }
 
-    public MessageHistoryPage getMessageHistoryPage() {
-        return messageHistoryPage == null ? new MessageHistoryPage(driver) : messageHistoryPage;
+    public MessageHistory getMessageHistoryPage() {
+        return new MessageHistory(driver);
     }
 
-    public MoreAMTxnTabPage getMoreAMTxnTabPage() {
-        return moreAMTxnTabPage == null ? new MoreAMTxnTabPage(driver) : moreAMTxnTabPage;
+    public MoreAMTxnTab getMoreAMTxnTabPage() {
+        return new MoreAMTxnTab(driver);
     }
 
-    public MoreRechargeHistoryPage getMoreRechargeHistoryPage() {
-        return moreRechargeHistoryPage == null ? new MoreRechargeHistoryPage(driver) : moreRechargeHistoryPage;
+    public MoreRechargeHistory getMoreRechargeHistoryPage() {
+        return new MoreRechargeHistory(driver);
     }
 
-    public MoreUsageHistoryPage getMoreUsageHistoryPage() {
-        return moreUsageHistoryPage == null ? new MoreUsageHistoryPage(driver) : moreUsageHistoryPage;
+    public MoreUsageHistory getMoreUsageHistoryPage() {
+        return new MoreUsageHistory(driver);
     }
 
-    public ProfileManagementPage getProfileManagement() {
-        return profileManagement == null ? new ProfileManagementPage(driver) : profileManagement;
+    public ProfileManagement getProfileManagement() {
+        return new ProfileManagement(driver);
     }
 
-    public RechargeHistoryWidgetPage getRechargeHistoryWidget() {
-        return rechargeHistoryWidget == null ? new RechargeHistoryWidgetPage(driver) : rechargeHistoryWidget;
+    public RechargeHistoryWidget getRechargeHistoryWidget() {
+        return new RechargeHistoryWidget(driver);
     }
 
-    public SendSMSPage getSendSMS() {
-        return sendSMS == null ? new SendSMSPage(driver) : sendSMS;
+    public SendSMS getSendSMS() {
+        return new SendSMS(driver);
     }
 
-    public ServiceClassWidgetPage getServiceClassWidget() {
-        return serviceClassWidget == null ? new ServiceClassWidgetPage(driver) : serviceClassWidget;
+    public ServiceClassWidget getServiceClassWidget() {
+        return new ServiceClassWidget(driver);
     }
 
-    public SideMenuPage getSideMenu() {
-        return sideMenu == null ? new SideMenuPage(driver) : sideMenu;
+    public SupervisorTicketList getSupervisorTicketList() {
+        return new SupervisorTicketList(driver);
     }
 
-    public SupervisorTicketListPage getSupervisorTicketList() {
-        return supervisorTicketList == null ? new SupervisorTicketListPage(driver) : supervisorTicketList;
+    public TemplateManagement getTemplateManagement() {
+        return new TemplateManagement(driver);
     }
 
-    public TemplateManagementPage getTemplateManagement() {
-        return templateManagement == null ? new TemplateManagementPage(driver) : templateManagement;
+    public TicketBulkUpdate getTicketBulkUpdate() {
+        return new TicketBulkUpdate(driver);
     }
 
-    public TicketBulkUpdatePage getTicketBulkUpdate() {
-        return ticketBulkUpdate == null ? new TicketBulkUpdatePage(driver) : ticketBulkUpdate;
+    public TransferToQueue getTransferToQueue() {
+        return new TransferToQueue(driver);
     }
 
-    public TransferToQueuePage getTransferToQueue() {
-        return transferToQueue == null ? new TransferToQueuePage(driver) : transferToQueue;
+    public UsageHistoryWidget getUsageHistoryWidget() {
+        return new UsageHistoryWidget(driver);
     }
 
-    public UsageHistoryWidgetPage getUsageHistoryWidget() {
-        return usageHistoryWidget == null ? new UsageHistoryWidgetPage(driver) : usageHistoryWidget;
+    public ViewCreatedTemplate getViewCreatedTemplate() {
+        return new ViewCreatedTemplate(driver);
     }
 
-    public ViewCreatedTemplatePage getViewCreatedTemplate() {
-        return viewCreatedTemplate == null ? new ViewCreatedTemplatePage(driver) : viewCreatedTemplate;
+    public ViewHistory getViewHistory() {
+        return new ViewHistory(driver);
     }
 
-    public ViewHistoryPage getViewHistory() {
-        return viewHistory == null ? new ViewHistoryPage(driver) : viewHistory;
+    public ViewTicket getViewTicket() {
+        return new ViewTicket(driver);
     }
 
-    public ViewTicketPage getViewTicket() {
-        return viewTicket == null ? new ViewTicketPage(driver) : viewTicket;
+    public VoucherTab getVoucherTab() {
+        return new VoucherTab(driver);
     }
 
-    public VoucherTabPage getVoucherTab() {
-        return voucherTab == null ? new VoucherTabPage(driver) : voucherTab;
-    }
-
-    public WidgetInteractionPage getWidgetInteraction() {
-        return widgetInteraction == null ? new WidgetInteractionPage(driver) : widgetInteraction;
+    public WidgetInteraction getWidgetInteraction() {
+        return new WidgetInteraction(driver);
     }
 }

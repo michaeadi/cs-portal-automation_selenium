@@ -1,7 +1,7 @@
 package com.airtel.cs.ui.templateManagement;
 
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pagerepository.pagemethods.TemplateManagementPage;
+import com.airtel.cs.pagerepository.pagemethods.TemplateManagement;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
@@ -31,9 +31,9 @@ public class CreateTemplateTest extends Driver {
     public void openTemplateManagement() {
         selUtils.addTestcaseDescription("Open Template Management", "description");
         SoftAssert softAssert = new SoftAssert();
-        pages.getSideMenu().clickOnSideMenu();
-        pages.getSideMenu().clickOnName();
-        pages.getSideMenu().openTemplateManagementPage();
+        pages.getSideMenuPage().clickOnSideMenu();
+        pages.getSideMenuPage().clickOnName();
+        pages.getSideMenuPage().openTemplateManagementPage();
         softAssert.assertTrue(pages.getTemplateManagement().isPageLoaded(), "Template Management Module does not load");
         pages.getTemplateManagement().waitTillLoaderGetsRemoved();
         softAssert.assertAll();
@@ -92,7 +92,7 @@ public class CreateTemplateTest extends Driver {
         templateCategory = "Category" + LocalDateTime.now().format(formatting);
         selUtils.addTestcaseDescription("Create Template Category with name :" + templateCategory, "description");
         SoftAssert softAssert = new SoftAssert();
-        TemplateManagementPage templateManagement = new TemplateManagementPage(driver);
+        TemplateManagement templateManagement = new TemplateManagement(driver);
         templateManagement.switchTabToAddTemplateCategory();
         templateManagement.writeTemplateCategoryName(templateCategory);
         templateManagement.clickAddCategoryBtn();

@@ -33,10 +33,10 @@ public class CRBTWidgetTest extends Driver {
     public void openCustomerInteraction(TestDatabean data) {
         selUtils.addTestcaseDescription("Validating the Search for Customer Interactions: " + data.getCustomerNumber(), "description");
         SoftAssert softAssert = new SoftAssert();
-        pages.getSideMenu().clickOnSideMenu();
-        pages.getSideMenu().clickOnName();
-        pages.getSideMenu().openCustomerInteractionPage();
-        pages.getSideMenu().waitTillLoaderGetsRemoved();
+        pages.getSideMenuPage().clickOnSideMenu();
+        pages.getSideMenuPage().clickOnName();
+        pages.getSideMenuPage().openCustomerInteractionPage();
+        pages.getSideMenuPage().waitTillLoaderGetsRemoved();
         pages.getMsisdnSearchPage().enterNumber(data.getCustomerNumber());
         customerNumber = data.getCustomerNumber();
         pages.getMsisdnSearchPage().clickOnSearch();

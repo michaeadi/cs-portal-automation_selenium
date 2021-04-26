@@ -111,11 +111,11 @@ public class SupervisorUpdateTicketTest extends Driver {
     @Test(priority = 2, description = "Open Supervisor Dashboard")
     public void openSupervisorDashboard() {
         selUtils.addTestcaseDescription("Open Supervisor Dashboard", "description");
-        pages.getSideMenu().clickOnSideMenu();
-        pages.getSideMenu().clickOnName();
-        pages.getSideMenu().openSupervisorDashboard();
+        pages.getSideMenuPage().clickOnSideMenu();
+        pages.getSideMenuPage().clickOnName();
+        pages.getSideMenuPage().openSupervisorDashboard();
         SoftAssert softAssert = new SoftAssert();
-        pages.getSideMenu().waitTillLoaderGetsRemoved();
+        pages.getSideMenuPage().waitTillLoaderGetsRemoved();
         Assert.assertEquals(driver.getTitle(), config.getProperty("supervisorTicketListPage"));
         softAssert.assertAll();
     }
@@ -183,10 +183,10 @@ public class SupervisorUpdateTicketTest extends Driver {
     public void openCustomerInteraction(Method method, TestDatabean Data) throws IOException {
         selUtils.addTestcaseDescription("Validating the Search forCustomer Interactions :" + Data.getCustomerNumber(), "description");
         SoftAssert softAssert = new SoftAssert();
-        pages.getSideMenu().clickOnSideMenu();
-        pages.getSideMenu().clickOnName();
+        pages.getSideMenuPage().clickOnSideMenu();
+        pages.getSideMenuPage().clickOnName();
         if (ticketId != null) {
-            pages.getSideMenu().openCustomerInteractionPage();
+            pages.getSideMenuPage().openCustomerInteractionPage();
             pages.getMsisdnSearchPage().enterNumber(Data.getCustomerNumber());
             pages.getMsisdnSearchPage().clickOnSearch();
             softAssert.assertTrue(pages.getCustomerProfilePage().isPageLoaded());

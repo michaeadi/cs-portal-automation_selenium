@@ -39,7 +39,7 @@ public class BaseActions {
             assertFlag = true;
         } catch (Throwable ex) {
             // org.testng.Assert.fail("expected and actual result do not match");
-            commonLib.fail("Assertion FAILED - " + ex.getMessage(), false);
+            commonLib.fail("Assertion FAILED - " + ex.getMessage(), true);
         }
         return assertFlag;
     }
@@ -52,7 +52,7 @@ public class BaseActions {
             assertFlag = true;
         } catch (Throwable ex) {
             // org.testng.Assert.fail("expected and actual result do not match");
-            commonLib.fail("Assertion FAILED - " + ex.getMessage() + "</br>" + failDescription, false);
+            commonLib.fail("Assertion FAILED - " + ex.getMessage() + "-" + failDescription, true);
         }
         return assertFlag;
     }
@@ -104,18 +104,6 @@ public class BaseActions {
         Assert.assertEquals(actual, expected, description);
 
     }
-
-    /**
-     * Verify.
-     *
-     * @param actual     the actual
-     * @param expected   the expected
-     * @param descripton the description
-     */
-    // public void verify(boolean actual, boolean expected, String descripton) {
-    // Assert.assertEquals(actual, expected, descripton);
-    //
-    // }
 
     /**
      * Verify
@@ -201,7 +189,6 @@ public class BaseActions {
             if (!requiredScreenshot) {
                 shouldCapturescreenshot = false;
             }
-            Assert.assertNotNull(actual, passMessage);
             commonLib.pass(passMessage);
             assertFlag = true;
         } catch (Throwable ex) {
@@ -223,7 +210,7 @@ public class BaseActions {
             commonLib.pass(passMessage);
             assertFlag = true;
         } catch (Throwable ex) {
-            commonLib.fail(ex.getMessage() + "{<br />" + failMessage, false);
+            commonLib.fail(ex.getMessage() + "{<br />" + failMessage, true);
 
         }
         return assertFlag;
@@ -236,7 +223,7 @@ public class BaseActions {
             commonLib.pass(passMessage);
             assertFlag = true;
         } catch (Throwable ex) {
-            commonLib.fail(ex.getMessage() + "{<br />" + failMessage, false);
+            commonLib.fail(ex.getMessage() + "{<br />" + failMessage, true);
         }
         return assertFlag;
     }
@@ -258,13 +245,13 @@ public class BaseActions {
                     "Status Code Not Matched" + "</br>" + "Expected <" + expectedStatusCode + "> but found <" + actualStatusCode + ">", false);
             ResponseBody body = response.getBody();
             if (!isAssertPass) {
-                commonLib.fail("Invalid Response - " + "<pre>" + body.prettyPrint() + "</pre>", false);
+                commonLib.fail("Invalid Response - " + "<pre>" + body.prettyPrint() + "</pre>", true);
             } else if (requireToPrintResponseForPassCase) {
                 commonLib.info("Response - " + "<pre>" + body.prettyPrint() + "</pre>", false);
             }
-            isAsserMatched = isAssertPass ? true : false;
+            isAsserMatched = isAssertPass;
         } catch (AssertionError e) {
-            commonLib.fail("Status Code Not Matched" + "</br>" + e.getMessage(), false);
+            commonLib.fail("Status Code Not Matched" + "</br>" + e.getMessage(), true);
         }
         return isAsserMatched;
     }
@@ -306,10 +293,10 @@ public class BaseActions {
 
             ResponseBody body = response.getBody();
             if (!resultOfAssertion) {
-                commonLib.fail("Invalid Response - " + "<pre>" + body.prettyPrint() + "</pre>", false);
+                commonLib.fail("Invalid Response - " + "<pre>" + body.prettyPrint() + "</pre>", true);
             }
         } catch (AssertionError e) {
-            commonLib.fail("Status Code Not Matched" + "/br" + e.getMessage(), false);
+            commonLib.fail("Status Code Not Matched" + "/br" + e.getMessage(), true);
         }
     }
 }

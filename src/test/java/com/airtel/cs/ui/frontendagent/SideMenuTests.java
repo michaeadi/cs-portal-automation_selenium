@@ -22,21 +22,21 @@ public class SideMenuTests extends Driver {
     public void sideMenuAssert() {
         selUtils.addTestcaseDescription("Validating Side Menu and It's Options", "description");
         SoftAssert softAssert = new SoftAssert();
-        pages.getSideMenu().clickOnSideMenu();
+        pages.getSideMenuPage().clickOnSideMenu();
         try {
-            softAssert.assertTrue(pages.getSideMenu().isAdminSettingVisible(), "Admin Setting Module does not displayed");
-            softAssert.assertTrue(pages.getSideMenu().isCustomerServicesVisible(), "Customer Service Module does not displayed");
-            softAssert.assertTrue(pages.getSideMenu().isUserManagementVisible(), "User Management Module does not displayed");
-            softAssert.assertTrue(pages.getSideMenu().isProfileManagementVisible(), "Profile Management Module does not displayed");
-            softAssert.assertTrue(pages.getSideMenu().isTemplateManagementVisible(), "Template Management Module does not displayed");
-            pages.getSideMenu().clickOnName();
-            softAssert.assertTrue(pages.getSideMenu().isCustomerInteractionVisible(), "Admin Setting Module does not displayed");
-            softAssert.assertTrue(pages.getSideMenu().isSupervisorDashboardVisible(), "Supervisor Dashboard Module does not displayed");
-            softAssert.assertTrue(pages.getSideMenu().isTicketBulkUpdateVisible(), "Ticket Bulk Update Module does not displayed");
+            softAssert.assertTrue(pages.getSideMenuPage().isAdminSettingVisible(), "Admin Setting Module does not displayed");
+            softAssert.assertTrue(pages.getSideMenuPage().isCustomerServicesVisible(), "Customer Service Module does not displayed");
+            softAssert.assertTrue(pages.getSideMenuPage().isUserManagementVisible(), "User Management Module does not displayed");
+            softAssert.assertTrue(pages.getSideMenuPage().isProfileManagementVisible(), "Profile Management Module does not displayed");
+            softAssert.assertTrue(pages.getSideMenuPage().isTemplateManagementVisible(), "Template Management Module does not displayed");
+            pages.getSideMenuPage().clickOnName();
+            softAssert.assertTrue(pages.getSideMenuPage().isCustomerInteractionVisible(), "Admin Setting Module does not displayed");
+            softAssert.assertTrue(pages.getSideMenuPage().isSupervisorDashboardVisible(), "Supervisor Dashboard Module does not displayed");
+            softAssert.assertTrue(pages.getSideMenuPage().isTicketBulkUpdateVisible(), "Ticket Bulk Update Module does not displayed");
         } catch (NotFoundException | TimeoutException e) {
             softAssert.fail("Side Menu Failed");
         } finally {
-            pages.getSideMenu().clickOnSideMenu();
+            pages.getSideMenuPage().clickOnSideMenu();
             softAssert.assertAll();
         }
     }

@@ -13,7 +13,7 @@ public class TicketSourceAppTest extends PreRequisites {
     public void testSourceTitleOpenTicketListing() {
         selUtils.addTestcaseDescription("Validation Source App is visible under Supervisor Ticket Listing for OPEN Ticket", "description");
         try {
-            pages.getSideMenu().openSupervisorDashboard();
+            pages.getSideMenuPage().openSupervisorDashboard();
             assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isSourceTitleVisible(), true, "Source Title is visible on Ticket Row Listing Page", "Source Title is NOT visible on Ticket Row Listing Page"));
             assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().checkSourceTitleListingPage(), true, "Source Title Text is not Blank and is - " + pages.getSupervisorTicketList().checkSourceTitleListingPage(), "Source Title Text is Blank"));
             actions.assertAllFoundFailedAssert(assertCheck);
@@ -116,10 +116,10 @@ public class TicketSourceAppTest extends PreRequisites {
     public void testSourceAppInteractionHistory(TestDatabean data) {
         selUtils.addTestcaseDescription("Validate Source App is visible under view history and then to Interaction tab", "description");
         try {
-            assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPOM().isSideMenuVisible(), true, "Side Menu Visible", "Side Menu Not Visible"));
-            pages.getSideMenuPOM().clickOnSideMenu();
-            assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPOM().isCustomerServicesVisible(), true, "Customer Service Visible", "Customer Service Not Visible"));
-            pages.getSideMenuPOM().openCustomerInteractionPage();
+            assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isSideMenuVisible(), true, "Side Menu Visible", "Side Menu Not Visible"));
+            pages.getSideMenuPage().clickOnSideMenu();
+            assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isCustomerServicesVisible(), true, "Customer Service Visible", "Customer Service Not Visible"));
+            pages.getSideMenuPage().openCustomerInteractionPage();
             pages.getMsisdnSearchPage().enterNumber(data.getCustomerNumber());
             pages.getMsisdnSearchPage().clickOnSearch();
             pages.getCustomerProfilePage().goToViewHistory();
@@ -179,8 +179,8 @@ public class TicketSourceAppTest extends PreRequisites {
     public void testSourceAppBulkUpdate() {
         selUtils.addTestcaseDescription("Validate Source App under Bulk Update Tab", "description");
         try {
-            pages.getSideMenu().clickOnSideMenu();
-            pages.getSideMenu().openTicketBulkUpdateDashboard();
+            pages.getSideMenuPage().clickOnSideMenu();
+            pages.getSideMenuPage().openTicketBulkUpdateDashboard();
             assertCheck.append(actions.assertEqual_boolean(pages.getTicketBulkUpdate().isTicketBulkUpdate(), true, "Ticket Bulk Update Page Opened Successfully", "Ticket Bulk Update page does not open."));
             pages.getTicketBulkUpdate().clickSelectFilter();
             pages.getFilterTabPage().clickLast30DaysFilter();

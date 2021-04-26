@@ -1,5 +1,6 @@
 package com.airtel.cs.ui.frontendagent;
 
+import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.PassUtils;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
@@ -9,6 +10,8 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 public class LoginTests extends Driver {
+    public BaseActions actions = new BaseActions();
+
 
     @BeforeMethod
     public void checkExecution() {
@@ -36,15 +39,15 @@ public class LoginTests extends Driver {
         pages.getLoginPage().clickOnLogin();
         pages.getLoginPage().waitTillLoaderGetsRemoved();
         Thread.sleep(20000); // wait for 20 Seconds for Dashboard page In case of slow Network
-        if (pages.getSideMenu().isSideMenuVisible()) {
-            pages.getSideMenu().clickOnSideMenu();
-            if (!pages.getSideMenu().isCustomerServicesVisible()) {
+        if (pages.getSideMenuPage().isSideMenuVisible()) {
+            pages.getSideMenuPage().clickOnSideMenu();
+            if (!pages.getSideMenuPage().isCustomerServicesVisible()) {
                 continueExecutionFA = false;
                 softAssert.fail("Customer Service Dashboard does not Assign to User.Please Assign Role to user.");
             } else {
                 continueExecutionFA = true;
             }
-            pages.getSideMenu().clickOnSideMenu();
+            pages.getSideMenuPage().clickOnSideMenu();
         } else {
             continueExecutionFA = false;
             softAssert.fail("Customer Service Dashboard does Open with user.Check for the ScreenShot.");

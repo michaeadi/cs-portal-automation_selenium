@@ -6,7 +6,7 @@ import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pagerepository.pagemethods.LoanDetailPage;
+import com.airtel.cs.pagerepository.pagemethods.LoanDetail;
 import com.airtel.cs.pojo.loandetails.Loan;
 import com.airtel.cs.pojo.loandetails.LoanDetailList;
 import com.airtel.cs.pojo.loandetails.LoanHistory;
@@ -49,10 +49,10 @@ public class LoanWidgetTest extends Driver {
         final String customerNumber = data.getCustomerNumber();
         selUtils.addTestcaseDescription("Validating the Search forCustomer Interactions :" + customerNumber, "description");
         SoftAssert softAssert = new SoftAssert();
-        pages.getSideMenu().clickOnSideMenu();
-        pages.getSideMenu().clickOnName();
-        pages.getSideMenu().openCustomerInteractionPage();
-        pages.getSideMenu().waitTillLoaderGetsRemoved();
+        pages.getSideMenuPage().clickOnSideMenu();
+        pages.getSideMenuPage().clickOnName();
+        pages.getSideMenuPage().openCustomerInteractionPage();
+        pages.getSideMenuPage().waitTillLoaderGetsRemoved();
         pages.getMsisdnSearchPage().enterNumber(customerNumber);
         LoanWidgetTest.customerNumber = customerNumber;
         pages.getMsisdnSearchPage().clickOnSearch();
@@ -120,7 +120,7 @@ public class LoanWidgetTest extends Driver {
     public void validateLoanDetailWidget(HeaderDataBean data) throws InterruptedException, IOException {
         selUtils.addTestcaseDescription("Validate Loan Detail Widget", "description");
         SoftAssert softAssert = new SoftAssert();
-        LoanDetailPage loanDetail = null;
+        LoanDetail loanDetail = null;
         List<String> vendorNameList = pages.getLoanWidget().getVendorNamesList();
         if (vendorNameList.size() > 0) {
             for (int i = 1; i <= vendorNameList.size(); i++) {
@@ -182,7 +182,7 @@ public class LoanWidgetTest extends Driver {
     public void validateLoanHistoryWidget(HeaderDataBean data) throws InterruptedException, IOException {
         selUtils.addTestcaseDescription("Validate Loan History Widget", "description");
         SoftAssert softAssert = new SoftAssert();
-        LoanDetailPage loanDetail = null;
+        LoanDetail loanDetail = null;
         pages.getLoanWidget().waitTillLoaderGetsRemoved();
         if (pages.getLoanWidget().getSize() > 0) {
             try {

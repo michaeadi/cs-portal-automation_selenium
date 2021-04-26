@@ -32,9 +32,9 @@ public class ActionTrailTest extends Driver {
     public void openCustomerInteraction(TestDatabean data) {
         selUtils.addTestcaseDescription("Validating the Search for Customer Interactions :" + data.getCustomerNumber(), "description");
         SoftAssert softAssert = new SoftAssert();
-        pages.getSideMenu().clickOnSideMenu();
-        pages.getSideMenu().clickOnName();
-        pages.getSideMenu().openCustomerInteractionPage();
+        pages.getSideMenuPage().clickOnSideMenu();
+        pages.getSideMenuPage().clickOnName();
+        pages.getSideMenuPage().openCustomerInteractionPage();
         pages.getMsisdnSearchPage().enterNumber(data.getCustomerNumber());
         pages.getMsisdnSearchPage().clickOnSearch();
         softAssert.assertTrue(pages.getCustomerProfilePage().isPageLoaded());
@@ -108,12 +108,12 @@ public class ActionTrailTest extends Driver {
             pages.getCustomerProfilePage().waitTillLoaderGetsRemoved();
             pages.getCustomerProfilePage().goToViewHistory();
             pages.getViewHistory().clickOnActionTrailHistory();
-            softAssert.assertEquals(pages.getActionTrailPage().getValue(0, 0).toLowerCase().trim(), "send internet settings", "Action Type Column Value does not display in Correctly.");
-            softAssert.assertNotNull(pages.getActionTrailPage().getValue(0, 1).toLowerCase().trim(), "Date & Time Column does not display in Correctly.");
-            softAssert.assertEquals(pages.getActionTrailPage().getValue(0, 2).toLowerCase().trim(), reason.toLowerCase().trim(), "Reason Column does not display in Correctly.");
-            softAssert.assertEquals(pages.getActionTrailPage().getValue(0, 3), agentAuuid, "Agent Id Column does not display in Correctly.");
-            softAssert.assertNotNull(pages.getActionTrailPage().getValue(0, 4).toLowerCase().trim(), "Agent name Column does not display in Correctly.");
-            softAssert.assertEquals(pages.getActionTrailPage().getValue(0, 5).toLowerCase().trim(), comments.toLowerCase().trim(), "Comments Column does not display in Correctly.");
+            softAssert.assertEquals(pages.getActionTrailPage().getValue(0).toLowerCase().trim(), "send internet settings", "Action Type Column Value does not display in Correctly.");
+            softAssert.assertNotNull(pages.getActionTrailPage().getValue(1).toLowerCase().trim(), "Date & Time Column does not display in Correctly.");
+            softAssert.assertEquals(pages.getActionTrailPage().getValue(2).toLowerCase().trim(), reason.toLowerCase().trim(), "Reason Column does not display in Correctly.");
+            softAssert.assertEquals(pages.getActionTrailPage().getValue(3), agentAuuid, "Agent Id Column does not display in Correctly.");
+            softAssert.assertNotNull(pages.getActionTrailPage().getValue(4).toLowerCase().trim(), "Agent name Column does not display in Correctly.");
+            softAssert.assertEquals(pages.getActionTrailPage().getValue(5).toLowerCase().trim(), comments.toLowerCase().trim(), "Comments Column does not display in Correctly.");
         } catch (NoSuchElementException | TimeoutException e) {
             softAssert.fail("Not able to validate Action Trail Tab: " + e.fillInStackTrace());
         }

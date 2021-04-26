@@ -23,9 +23,9 @@ public class BackendAgentAddCommentTest extends Driver {
     public void agentQueueLogin() {
         selUtils.addTestcaseDescription("Backend Agent Login into Queue", "description");
         SoftAssert softAssert = new SoftAssert();
-        pages.getSideMenu().clickOnSideMenu();
-        pages.getSideMenu().clickOnName();
-        pages.getSideMenu().openBackendAgentDashboard();
+        pages.getSideMenuPage().clickOnSideMenu();
+        pages.getSideMenuPage().clickOnName();
+        pages.getSideMenuPage().openBackendAgentDashboard();
         pages.getAgentLoginPage().waitTillLoaderGetsRemoved();
         softAssert.assertTrue(pages.getAgentLoginPage().isQueueLoginPage());
         softAssert.assertTrue(pages.getAgentLoginPage().checkSubmitButton());

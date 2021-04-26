@@ -5,13 +5,9 @@ import com.airtel.cs.driver.Driver;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 import org.apache.commons.compress.archivers.dump.InvalidFormatException;
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-
-import java.io.File;
-import java.io.IOException;
 
 public class ExtentReport extends Driver {
 
@@ -22,9 +18,6 @@ public class ExtentReport extends Driver {
     private static final String FONT_SIZE_COLOR_GOLDENROD = "<font size=\"3\" color=\"GoldenRod\">";
     private static final String FONT = "</font>";
     private static final String BREAK_LINE = "</br>";
-    private static final String PATH_DELIMITER = "/";
-    private static final String USER_DIR = "user.dir";
-    private static final String RESOURCE_SCREENSHOT = "/resources/screenshots/";
 
 
     /**
@@ -161,31 +154,28 @@ public class ExtentReport extends Driver {
     /**
      * Below method is use to take the screenshot and Add it to the particular
      * test step.
-     *
-     * @throws IOException
      */
     public String addScreenShot(WebDriver driver) {
         String filePath = null;
         try {
-            String htmlfileScreenshotsPath = System.getProperty(USER_DIR) + RESOURCE_SCREENSHOT
-                    + dateTime.toString(DATE_FORMAT) + PATH_DELIMITER;
-            filePath = htmlfileScreenshotsPath + dateTime.toString().toLowerCase() + ".png";
-            File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-            File destFile = new File(filePath);
-            FileUtils.copyFile(src, destFile);
+            filePath = "data:image/png;base64," + ((TakesScreenshot) driver).getScreenshotAs(OutputType.BASE64);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return filePath;
     }
 
+    /**
+     * This Method will attach screenshot as Per Execution Type
+     *
+     * @param logStatus The LogStatus
+     */
     public void attachScreenshotAsPerExecutionType(LogStatus logStatus) {
         try {
             ExtentReport extent = new ExtentReport();
             String screenshot = "";
-            screenshot = extent.addScreenShot(driver).toLowerCase();
-            screenshot = "./".concat(screenshot);
-            test.log(logStatus, test.addScreenCapture(screenshot));
+            screenshot = extent.addScreenShot(driver);
+            test.log(logStatus, test.addBase64ScreenShot(screenshot));
         } catch (Exception e) {
             commonLib.error("ERROR INSIDE METHOD - attachScreenshotAsPerExecutionType" + BREAK_LINE + e.getMessage());
         }
