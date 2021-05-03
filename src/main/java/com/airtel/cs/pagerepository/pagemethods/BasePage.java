@@ -36,7 +36,6 @@ public class BasePage extends Driver {
     public static final APIEndPoints api = new APIEndPoints();
     private static final String BREAK_LINE = "</br>";
 
-
     //Constructor
     public BasePage(WebDriver driver) {
         PageFactory.initElements(new AjaxElementLocatorFactory(driver, 10), this);
@@ -74,11 +73,11 @@ public class BasePage extends Driver {
             wait.until(ExpectedConditions.elementToBeClickable(elementLocation));
             highLighterMethod(elementLocation);
             driver.findElement(elementLocation).click();
-            commonLib.info("Element Clicked " + elementLocation.toString());
+            log.info("Element Clicked " + elementLocation.toString());
         } catch (ElementClickInterceptedException e) {
             waitTillLoaderGetsRemoved();
             driver.findElement(elementLocation).click();
-            commonLib.info("Again Element Clicked " + elementLocation.toString());
+            log.info("Again Element Clicked " + elementLocation.toString());
         }
     }
 
@@ -94,7 +93,7 @@ public class BasePage extends Driver {
         waitVisibility(elementLocation);
         highLighterMethod(elementLocation);
         driver.findElement(elementLocation).sendKeys(text);
-        commonLib.info("Writing " + text + " to  " + elementLocation.toString());
+        log.info("Writing " + text + " to  " + elementLocation.toString());
     }
 
     //Read Text
@@ -103,11 +102,18 @@ public class BasePage extends Driver {
         return driver.findElement(elementLocation).getText();
     }
 
-    //HighlightElement
+    /**
+     * This Method will highlight the given element
+     *
+     * @param element The element
+     */
     public void highLighterMethod(By element) {
-        waitTillLoaderGetsRemoved();
-        js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].setAttribute('style', 'border: 2px solid black;');", driver.findElement(element));
+        if (isVisible(element)) {
+            js = (JavascriptExecutor) driver;
+            js.executeScript("arguments[0].setAttribute('style', 'border: 2px solid black;');", driver.findElement(element));
+        } else {
+            commonLib.fail("Exception Caught in Method - highLighterMethod", true);
+        }
     }
 
     //Check the state of element
@@ -343,7 +349,7 @@ public class BasePage extends Driver {
      * @return will return true false
      */
     public boolean isVisible(By webelementBy) {
-        return isVisible(webelementBy, 2);
+        return isVisible(webelementBy, 10);
     }
 
     /**
@@ -360,7 +366,7 @@ public class BasePage extends Driver {
             WebElement webElement = driverWait.until(ExpectedConditions.visibilityOfElementLocated(webelementBy));
             return webElement != null;
         } catch (Exception e) {
-            commonLib.error("Element Not Visible " + e, true);
+            log.error("Element Not Visible " + e);
             return false;
         }
     }

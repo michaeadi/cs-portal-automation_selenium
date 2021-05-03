@@ -20,5 +20,6 @@ public class UserManagement {
     public By bucketSize = By.xpath("//input[@formcontrolname=\"bucketSize\"]");
     public By addUser = By.xpath("//button//span[contains(text(),'Add User')]");
     public By addUserPageTitle = By.xpath("//span[contains(text(),'ADD NEW USER')]");
+    public By userManagementPage = By.xpath("//*[text()='User Management']");
 
 }

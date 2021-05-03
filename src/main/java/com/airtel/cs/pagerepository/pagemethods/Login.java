@@ -40,23 +40,50 @@ public class Login extends BasePage {
 
     public void openBaseURL(String baseURL) {
         driver.get(baseURL);
-        commonLib.info("Opening URL:-" + baseURL);
+        commonLib.info("Opening URL:- " + baseURL);
+    }
+
+    /**
+     * This Method will enter the AUUID once AUUID field is visible
+     *
+     * @param auuid      The AUUID
+     * @param timeToWait The wait time
+     */
+    public void enterAUUID(String auuid, int timeToWait) {
+        if (isVisible(pageElements.enterAUUID, timeToWait)) {
+            commonLib.info("Going to enter auuid : " + auuid + " in username");
+            writeText(pageElements.enterAUUID, auuid);
+        } else {
+            commonLib.fail("Exception Caught in Method - enterAUUID", true);
+        }
     }
 
     public void enterAUUID(String auuid) {
-        commonLib.info("Entering auuid :" + auuid + " In username");
-        writeText(pageElements.enterAUUID, auuid);
-
+        enterAUUID(auuid, 5);
     }
 
     public void clickOnSubmitBtn() {
         commonLib.info("Clicking on Submit button");
-        click(pageElements.submitButton);
+        clickByJavascriptExecutor(pageElements.submitButton);
+    }
+
+    /**
+     * This Method will enter the password once password field is visible
+     *
+     * @param password   The password
+     * @param timeToWait The wait time
+     */
+    public void enterPassword(String password, int timeToWait) {
+        if (isVisible(pageElements.enterPassword, timeToWait)) {
+            commonLib.info("Going to enter password to Password field");
+            writeText(pageElements.enterPassword, password);
+        } else {
+            commonLib.fail("Exception Caught in Method - enterPassword", true);
+        }
     }
 
     public void enterPassword(String password) {
-        commonLib.info("Going to send password to Password field");
-        writeText(pageElements.enterPassword, password);
+        enterPassword(password, 5);
     }
 
     public boolean checkLoginButton() {
@@ -143,16 +170,19 @@ public class Login extends BasePage {
     This Method is used to set headers
      */
     public void setApiHeader() {
-        UtilsMethods.addHeaders("x-app-name", config.getProperty(evnName + "-x-app-name"));
-        UtilsMethods.addHeaders("x-service-id", config.getProperty(evnName + "-x-service-id"));
-        //map.add(new Header("x-bsy-bn", config.getProperty(Env + "-x-bsy-bn"))); //Comment this line this header removed from MG Opco.
-        UtilsMethods.addHeaders("x-app-type", config.getProperty(evnName + "-x-app-type"));
-        UtilsMethods.addHeaders("x-client-id", config.getProperty(evnName + "-x-client-id"));
-        UtilsMethods.addHeaders("x-api-key", config.getProperty(evnName + "-x-api-key"));
-        UtilsMethods.addHeaders("x-login-module", config.getProperty(evnName + "-x-login-module"));
-        UtilsMethods.addHeaders("x-channel", config.getProperty(evnName + "-x-channel"));
-        UtilsMethods.addHeaders("x-app-version", config.getProperty(evnName + "-x-app-version"));
-        UtilsMethods.addHeaders("Opco", OPCO);
+        try {
+            UtilsMethods.addHeaders("x-app-name", constants.getValue(ApplicationConstants.APP_NAME));
+            UtilsMethods.addHeaders("x-service-id", constants.getValue(ApplicationConstants.SERVICE_ID));
+            UtilsMethods.addHeaders("x-app-type", constants.getValue(ApplicationConstants.APP_TYPE));
+            UtilsMethods.addHeaders("x-client-id", constants.getValue(ApplicationConstants.CLIENT_ID));
+            UtilsMethods.addHeaders("x-api-key", constants.getValue(ApplicationConstants.API_KEY));
+            UtilsMethods.addHeaders("x-login-module", constants.getValue(ApplicationConstants.LOGIN_MODULE));
+            UtilsMethods.addHeaders("x-channel", constants.getValue(ApplicationConstants.CHANNEL_ID));
+            UtilsMethods.addHeaders("x-app-version", constants.getValue(ApplicationConstants.APP_VERSION));
+            UtilsMethods.addHeaders("Opco", OPCO);
+        } catch (Exception e) {
+            commonLib.error("Exception in Method :- setApiHeader" + e.getMessage());
+        }
     }
 
     /*

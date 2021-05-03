@@ -178,4 +178,8 @@ public class PageCollection {
     public WidgetInteraction getWidgetInteraction() {
         return new WidgetInteraction(driver);
     }
+
+    public Growl getGrowl() {
+        return new Growl(driver);
+    }
 }

@@ -31,11 +31,11 @@ public class WidgetTaggedIssueTest extends Driver {
         selUtils.addTestcaseDescription("Validating the Search forCustomer Interactions :" + customerNumber, "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getSideMenuPage().clickOnSideMenu();
-        pages.getSideMenuPage().clickOnName();
+        pages.getSideMenuPage().clickOnUserName();
         pages.getSideMenuPage().openCustomerInteractionPage();
         pages.getMsisdnSearchPage().enterNumber(customerNumber);
         pages.getMsisdnSearchPage().clickOnSearch();
-        softAssert.assertTrue(pages.getCustomerProfilePage().isPageLoaded());
+        softAssert.assertTrue(pages.getCustomerProfilePage().isCustomerProfilePageLoaded());
         softAssert.assertAll();
     }
 
@@ -63,13 +63,13 @@ public class WidgetTaggedIssueTest extends Driver {
                             pages.getWidgetInteraction().writeComment("Comment added using test automation");
                             pages.getWidgetInteraction().clickSubmitBtn();
                             pages.getWidgetInteraction().interactionTabClosed();
-                            softAssert.assertTrue(pages.getCustomerProfilePage().isPageLoaded());
+                            softAssert.assertTrue(pages.getCustomerProfilePage().isCustomerProfilePageLoaded());
                             pages.getCustomerProfilePage().goToViewHistory();
                             pages.getViewHistory().clickOnInteractionsTab();
                             String issueCode = pages.getViewHistory().getLastCreatedIssueCode();
                             softAssert.assertEquals(issueCode.toLowerCase().trim(), data.getCode(s).trim().toLowerCase());
                             pages.getViewHistory().openingCustomerInteractionDashboard();
-                            softAssert.assertTrue(pages.getCustomerProfilePage().isPageLoaded());
+                            softAssert.assertTrue(pages.getCustomerProfilePage().isCustomerProfilePageLoaded());
                             pages.getCurrentBalanceWidgetPage().clickTicketIcon();
                             widgetName = pages.getCurrentBalanceWidgetPage().getWidgetTitle();
                             softAssert.assertTrue(pages.getWidgetInteraction().getTabTitle().toLowerCase().contains(widgetName), "Interaction tab does not have title displayed");
@@ -125,13 +125,13 @@ public class WidgetTaggedIssueTest extends Driver {
                             pages.getWidgetInteraction().writeComment("Comment added using test automation");
                             pages.getWidgetInteraction().clickSubmitBtn();
                             pages.getWidgetInteraction().interactionTabClosed();
-                            softAssert.assertTrue(pages.getCustomerProfilePage().isPageLoaded(), "Customer interaction page does not loaded correctly");
+                            softAssert.assertTrue(pages.getCustomerProfilePage().isCustomerProfilePageLoaded(), "Customer interaction page does not loaded correctly");
                             pages.getCustomerProfilePage().goToViewHistory();
                             pages.getViewHistory().clickOnInteractionsTab();
                             String issueCode = pages.getViewHistory().getLastCreatedIssueCode();
                             softAssert.assertEquals(issueCode.toLowerCase().trim(), data.getCode(s).trim().toLowerCase(), "Issue code for category label " + s + " does not configured correctly.");
                             pages.getViewHistory().openingCustomerInteractionDashboard();
-                            softAssert.assertTrue(pages.getCustomerProfilePage().isPageLoaded());
+                            softAssert.assertTrue(pages.getCustomerProfilePage().isCustomerProfilePageLoaded());
                             pages.getRechargeHistoryWidget().clickTicketIcon();
                             widgetName = pages.getRechargeHistoryWidget().getWidgetTitle();
                             softAssert.assertTrue(pages.getWidgetInteraction().getTabTitle().toLowerCase().contains(widgetName), "Interaction tab does not have title displayed");
@@ -187,13 +187,13 @@ public class WidgetTaggedIssueTest extends Driver {
                             pages.getWidgetInteraction().writeComment("Comment added using test automation");
                             pages.getWidgetInteraction().clickSubmitBtn();
                             pages.getWidgetInteraction().interactionTabClosed();
-                            softAssert.assertTrue(pages.getCustomerProfilePage().isPageLoaded(), "Customer Interaction Page does not load properly");
+                            softAssert.assertTrue(pages.getCustomerProfilePage().isCustomerProfilePageLoaded(), "Customer Interaction Page does not load properly");
                             pages.getCustomerProfilePage().goToViewHistory();
                             pages.getViewHistory().clickOnInteractionsTab();
                             String issueCode = pages.getViewHistory().getLastCreatedIssueCode();
                             softAssert.assertEquals(issueCode.toLowerCase().trim(), data.getCode(s).trim().toLowerCase(), "Issue code not as expected");
                             pages.getViewHistory().openingCustomerInteractionDashboard();
-                            softAssert.assertTrue(pages.getCustomerProfilePage().isPageLoaded());
+                            softAssert.assertTrue(pages.getCustomerProfilePage().isCustomerProfilePageLoaded());
                             pages.getUsageHistoryWidget().clickTicketIcon();
                             widgetName = pages.getUsageHistoryWidget().getWidgetTitle();
                             softAssert.assertTrue(pages.getWidgetInteraction().getTabTitle().toLowerCase().contains(widgetName), "Interaction tab does not have title displayed");
@@ -249,13 +249,13 @@ public class WidgetTaggedIssueTest extends Driver {
                             pages.getWidgetInteraction().writeComment("Comment added using test automation");
                             pages.getWidgetInteraction().clickSubmitBtn();
                             pages.getWidgetInteraction().interactionTabClosed();
-                            softAssert.assertTrue(pages.getCustomerProfilePage().isPageLoaded());
+                            softAssert.assertTrue(pages.getCustomerProfilePage().isCustomerProfilePageLoaded());
                             pages.getCustomerProfilePage().goToViewHistory();
                             pages.getViewHistory().clickOnInteractionsTab();
                             String issueCode = pages.getViewHistory().getLastCreatedIssueCode();
                             softAssert.assertEquals(issueCode.toLowerCase().trim(), data.getCode(s).trim().toLowerCase());
                             pages.getViewHistory().openingCustomerInteractionDashboard();
-                            softAssert.assertTrue(pages.getCustomerProfilePage().isPageLoaded());
+                            softAssert.assertTrue(pages.getCustomerProfilePage().isCustomerProfilePageLoaded());
                             pages.getAmTxnWidgetPage().clickTicketIcon();
                             widgetName = pages.getAmTxnWidgetPage().getWidgetTitle();
                             softAssert.assertTrue(pages.getWidgetInteraction().getTabTitle().toLowerCase().contains(widgetName), "Interaction tab does not have title displayed");
@@ -314,7 +314,7 @@ public class WidgetTaggedIssueTest extends Driver {
                                 pages.getWidgetInteraction().writeComment("Comment added using test automation");
                                 pages.getWidgetInteraction().clickSubmitBtn();
                                 pages.getWidgetInteraction().interactionTabClosed();
-                                softAssert.assertTrue(pages.getCustomerProfilePage().isPageLoaded());
+                                softAssert.assertTrue(pages.getCustomerProfilePage().isCustomerProfilePageLoaded());
                                 pages.getCustomerProfilePage().goToViewHistory();
                                 pages.getViewHistory().clickOnInteractionsTab();
                                 String issueCode = pages.getViewHistory().getLastCreatedIssueCode();

@@ -1,9 +1,11 @@
 package com.airtel.cs.ui.profileManagement;
 
+import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.driver.Driver;
 import lombok.extern.log4j.Log4j2;
+import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -13,13 +15,18 @@ import static com.airtel.cs.commonutils.dataproviders.DataProviders.User;
 @Log4j2
 public class ProfileManagementTest extends Driver {
 
+    private final BaseActions actions = new BaseActions();
+
     @BeforeMethod
     public void checkExecution() {
-        SoftAssert softAssert = new SoftAssert();
-        if (!continueExecutionFA) {
-            softAssert.fail("Terminate Execution as user not able to login into portal or Role does not assign to user. Please do needful.");
+        if (continueExecutionFA) {
+            assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, true, "Proceeding for test case as user able to login over portal", "Skipping tests because user not able to login into portal or Role does not assign to user"));
+        } else {
+            commonLib.skip("Skipping tests because user not able to login into portal or Role does not assign to user");
+            assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, false, "Skipping tests because user not able to login into portal or Role does not assign to user"));
+            throw new SkipException("Skipping tests because user not able to login into portal or Role does not assign to user");
         }
-        softAssert.assertAll();
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     @Test(priority = 1, description = "Validating Profile Management")
@@ -27,7 +34,7 @@ public class ProfileManagementTest extends Driver {
         selUtils.addTestcaseDescription("Validating Profile Management with Validating Filter and Columns Present", "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getSideMenuPage().clickOnSideMenu();
-        pages.getSideMenuPage().clickOnName();
+        pages.getSideMenuPage().clickOnUserName();
         pages.getSideMenuPage().openProfileManagementPage();
         pages.getProfileManagement().waitTillPMPageLoads();
         softAssert.assertTrue(pages.getProfileManagement().isProfileConfigFilterPresent(),"Profile Management configuration filter does not present.");
@@ -127,11 +134,11 @@ public class ProfileManagementTest extends Driver {
             pages.getProfileManagement().waitTillPMPageLoads();
         }
         pages.getSideMenuPage().clickOnSideMenu();
-        pages.getSideMenuPage().clickOnName();
+        pages.getSideMenuPage().clickOnUserName();
         pages.getSideMenuPage().openCustomerInteractionPage();
         pages.getMsisdnSearchPage().enterNumber(data.getCustomerNumber());
         pages.getMsisdnSearchPage().clickOnSearch();
-        softAssert.assertTrue(pages.getCustomerProfilePage().isPageLoaded());
+        softAssert.assertTrue(pages.getCustomerProfilePage().isCustomerProfilePageLoaded());
         softAssert.assertEquals(pages.getCustomerProfilePage().getFirstWidgetHeader().trim().toLowerCase(), widgets[0].trim().toLowerCase());
         softAssert.assertEquals(pages.getCustomerProfilePage().getSecondWidgetHeader().trim().toLowerCase(), widgets[1].trim().toLowerCase());
         softAssert.assertEquals(pages.getCustomerProfilePage().getThirdWidgetHeader().trim().toLowerCase(), widgets[2].trim().toLowerCase());

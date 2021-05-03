@@ -28,7 +28,6 @@ public class MsisdnSearch extends BasePage {
 
     public void clickOnSearch() {
         commonLib.info("Clicking on Search Button");
-        waitTillLoaderGetsRemoved();
         click(pageElements.searchButton);
     }
 
@@ -36,5 +35,12 @@ public class MsisdnSearch extends BasePage {
         waitTillLoaderGetsRemoved();
         commonLib.info("Waiting till the Search Page is Loaded");
         wait.until(ExpectedConditions.elementToBeClickable(pageElements.searchButton));
+    }
+
+    /*
+    This Method will tell us customer(msisdn) search page loaded or not
+     */
+    public Boolean isCustomerSearchPageVisible() {
+        return isVisible(pageElements.numberSearch);
     }
 }

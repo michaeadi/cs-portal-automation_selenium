@@ -1,5 +1,6 @@
 package com.airtel.cs.ui.backendSupervisor;
 
+import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.TransferQueueDataBean;
 import com.airtel.cs.driver.Driver;
@@ -7,19 +8,25 @@ import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
+import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 public class TransferToQueueTest extends Driver {
 
+    private final BaseActions actions = new BaseActions();
+
     @BeforeMethod
     public void checkExecution() {
-        SoftAssert softAssert = new SoftAssert();
-        if (!continueExecutionBS) {
-            softAssert.fail("Terminate Execution as Backend Supervisor user not able to login into portal or Role does not assign to user. Please do needful.");
+        if (continueExecutionFA) {
+            assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, true, "Proceeding for test case as user able to login over portal", "Skipping tests because user not able to login into portal or Role does not assign to user"));
+        } else {
+            commonLib.skip("Skipping tests because user not able to login into portal or Role does not assign to user");
+            assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, false, "Skipping tests because user not able to login into portal or Role does not assign to user"));
+            throw new SkipException("Skipping tests because user not able to login into portal or Role does not assign to user");
         }
-        softAssert.assertAll();
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     @Test(priority = 1, description = "Supervisor Dashboard Login ")
@@ -27,7 +34,7 @@ public class TransferToQueueTest extends Driver {
         selUtils.addTestcaseDescription("Open Supervisor Dashboard", "description");
         pages.getSideMenuPage().waitTillLoaderGetsRemoved();
         pages.getSideMenuPage().clickOnSideMenu();
-        pages.getSideMenuPage().clickOnName();
+        pages.getSideMenuPage().clickOnUserName();
         pages.getSideMenuPage().openSupervisorDashboard();
         SoftAssert softAssert = new SoftAssert();
         pages.getSideMenuPage().waitTillLoaderGetsRemoved();

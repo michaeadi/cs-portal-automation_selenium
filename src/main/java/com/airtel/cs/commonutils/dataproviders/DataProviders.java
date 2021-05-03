@@ -32,7 +32,7 @@ public class DataProviders extends Driver {
     private static final String USER_MANAGEMENT_SHEET = "UserManagementSheet";
     private static final String FTR_SHEET = "-FtrSheet";
     private static final String NFTR_SHEET = "-NftrSheet";
-    private static final String LOGIN_SHEET = "LoginSheet";
+    private static final String LOGIN_SHEET = "cs.login.sheet.name";
     private static final String TEMPLATE_MANAGEMENT = "TemplateManagement";
     private static final String PINNED_TAG_SHEET = "PinnedTagSheet";
     private static final String ACTION_TAGGED = "actionTagged";
@@ -255,7 +255,6 @@ public class DataProviders extends Driver {
         }
         return hashMapObj;
     }
-
 
     @DataProvider(name = "HeaderData")
     public Object[][] getHeaderData(Method method) {

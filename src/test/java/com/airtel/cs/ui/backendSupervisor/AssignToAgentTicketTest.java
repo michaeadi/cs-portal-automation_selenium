@@ -1,12 +1,14 @@
 package com.airtel.cs.ui.backendSupervisor;
 
 import com.airtel.cs.api.APIEndPoints;
+import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pojo.ticketlist.TicketPOJO;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
+import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -14,14 +16,18 @@ import org.testng.asserts.SoftAssert;
 public class AssignToAgentTicketTest extends Driver {
 
     APIEndPoints api = new APIEndPoints();
+    private final BaseActions actions = new BaseActions();
 
     @BeforeMethod
     public void checkExecution() {
-        SoftAssert softAssert = new SoftAssert();
-        if (!continueExecutionBS | !continueExecutionAPI) {
-            softAssert.fail("Terminate Execution as Backend Supervisor user not able to login into portal or Role does not assign to user. Please do needful.");
+        if (continueExecutionFA) {
+            assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, true, "Proceeding for test case as user able to login over portal", "Skipping tests because user not able to login into portal or Role does not assign to user"));
+        } else {
+            commonLib.skip("Skipping tests because user not able to login into portal or Role does not assign to user");
+            assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, false, "Skipping tests because user not able to login into portal or Role does not assign to user"));
+            throw new SkipException("Skipping tests because user not able to login into portal or Role does not assign to user");
         }
-        softAssert.assertAll();
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     @Test(priority = 1, description = "Supervisor Dashboard Login ")
@@ -30,7 +36,7 @@ public class AssignToAgentTicketTest extends Driver {
         commonLib.info("Opening URL");
         pages.getSideMenuPage().waitTillLoaderGetsRemoved();
         pages.getSideMenuPage().clickOnSideMenu();
-        pages.getSideMenuPage().clickOnName();
+        pages.getSideMenuPage().clickOnUserName();
         pages.getSideMenuPage().openSupervisorDashboard();
         SoftAssert softAssert = new SoftAssert();
         pages.getAgentLoginPage().waitTillLoaderGetsRemoved();

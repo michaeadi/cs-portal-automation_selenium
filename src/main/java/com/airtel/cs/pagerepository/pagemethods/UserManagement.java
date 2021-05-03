@@ -15,7 +15,7 @@ import java.util.List;
 public class UserManagement extends BasePage {
 
     public com.airtel.cs.pagerepository.pageelements.UserManagement pageElements;
-    private static final String FINDING="finding ";
+    private static final String FINDING = "finding ";
 
     /*
     This Method will initialize all the elements of UserManagementElements class
@@ -290,5 +290,12 @@ public class UserManagement extends BasePage {
     public boolean checkingAddUser() {
         commonLib.info("Checking Add to User Open");
         return checkState(pageElements.addUserPageTitle);
+    }
+
+    /*
+    This Method will tell us user management page loaded or not
+     */
+    public Boolean isUserManagementPageLoaded() {
+        return isVisible(pageElements.userManagementPage);
     }
 }

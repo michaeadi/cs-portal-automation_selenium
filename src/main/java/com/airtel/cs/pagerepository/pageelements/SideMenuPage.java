@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 public class SideMenuPage {
     public By sideMenuOption = By.xpath("//mat-toolbar//button");
     public By visi = By.xpath("/html/body/app-root/ngx-ui-loader/div[2]");
-    public By userName = By.xpath("//*[@class=\"ellipsis\"]");
+    public By userName = By.xpath("//*[@class='ellipsis']");
     public By adminSettings = By.xpath("//mat-list-item//span[contains(text(),'Admin')]");
     public By customerServices = By.xpath("//mat-list-item//span[contains(text(),'Customer')]");
     public By caseManagement = By.xpath("//mat-list-item//span[contains(text(),'Case')]");
@@ -17,6 +17,6 @@ public class SideMenuPage {
     public By ticketBulkUpdate = By.xpath("//a[contains(text(),'Bulk')]");
     public By supervisorDashboard = By.xpath("//a[contains(text(),'Supervisor Dashboard')]");
     public By agentDashboard = By.xpath("//a[contains(text(),'Ticket Dashboard')]");
-    public By logout = By.xpath("//span[@class=\"logout-icon\"]");
+    public By logout = By.xpath("//span[@class='logout-icon']");
     public By loader = By.xpath("/html/body/app-root/ngx-ui-loader/div[2]");
 }

@@ -1,6 +1,7 @@
 package com.airtel.cs.ui.frontendagent;
 
 import com.airtel.cs.api.APIEndPoints;
+import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
@@ -14,6 +15,7 @@ import com.airtel.cs.pojo.airtelmoney.AirtelMoneyPOJO;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
+import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -23,14 +25,19 @@ import static com.airtel.cs.commonutils.dataproviders.DataProviders.Table;
 public class WidgetsOptionsTest extends Driver {
     String customerNumber;
     APIEndPoints api = new APIEndPoints();
+    private final BaseActions actions = new BaseActions();
+
 
     @BeforeMethod
     public void checkExecution() {
-        SoftAssert softAssert = new SoftAssert();
-        if (!continueExecutionFA || !continueExecutionAPI) {
-            softAssert.fail("Terminate Execution as user not able to login into portal or Role does not assign to user. Please do needful.");
+        if (continueExecutionFA) {
+            assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, true, "Proceeding for test case as user able to login over portal", "Skipping tests because user not able to login into portal or Role does not assign to user"));
+        } else {
+            commonLib.skip("Skipping tests because user not able to login into portal or Role does not assign to user");
+            assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, false, "Skipping tests because user not able to login into portal or Role does not assign to user"));
+            throw new SkipException("Skipping tests because user not able to login into portal or Role does not assign to user");
         }
-        softAssert.assertAll();
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     @DataProviders.User(userType = "API")
@@ -40,7 +47,7 @@ public class WidgetsOptionsTest extends Driver {
         selUtils.addTestcaseDescription("Validating the Search forCustomer Interactions :" + customerNumber, "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getSideMenuPage().clickOnSideMenu();
-        pages.getSideMenuPage().clickOnName();
+        pages.getSideMenuPage().clickOnUserName();
         pages.getSideMenuPage().openCustomerInteractionPage();
         pages.getSideMenuPage().waitTillLoaderGetsRemoved();
         if (evnName.equalsIgnoreCase("Prod")) {
@@ -50,7 +57,7 @@ public class WidgetsOptionsTest extends Driver {
         }
         pages.getMsisdnSearchPage().enterNumber(this.customerNumber);
         pages.getMsisdnSearchPage().clickOnSearch();
-        if (!pages.getCustomerProfilePage().isPageLoaded()) {
+        if (!pages.getCustomerProfilePage().isCustomerProfilePageLoaded()) {
             softAssert.fail("Customer Info Dashboard Page does not open using SIM Number.");
             pages.getMsisdnSearchPage().clearCustomerNumber();
         }

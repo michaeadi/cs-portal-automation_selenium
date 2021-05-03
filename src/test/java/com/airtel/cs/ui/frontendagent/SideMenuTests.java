@@ -1,43 +1,47 @@
 package com.airtel.cs.ui.frontendagent;
 
+import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.driver.Driver;
 import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.TimeoutException;
+import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 public class SideMenuTests extends Driver {
+    private final BaseActions actions = new BaseActions();
 
     @BeforeMethod
     public void checkExecution() {
-        SoftAssert softAssert = new SoftAssert();
-        if (!continueExecutionFA) {
-            softAssert.fail("Terminate Execution as user not able to login into portal or Role does not assign to user. Please do needful.");
+        if (continueExecutionFA) {
+            assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, true, "Proceeding for test case as user able to login over portal", "Skipping tests because user not able to login into portal or Role does not assign to user"));
+        } else {
+            commonLib.skip("Skipping tests because user not able to login into portal or Role does not assign to user");
+            assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, false, "Skipping tests because user not able to login into portal or Role does not assign to user"));
+            throw new SkipException("Skipping tests because user not able to login into portal or Role does not assign to user");
         }
-        softAssert.assertAll();
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 1, description = "Validating Side Menu ")
-    public void sideMenuAssert() {
-        selUtils.addTestcaseDescription("Validating Side Menu and It's Options", "description");
-        SoftAssert softAssert = new SoftAssert();
-        pages.getSideMenuPage().clickOnSideMenu();
+    @Test(priority = 1, description = "Validating Side Menu Options")
+    public void testSideMenuOption() {
         try {
-            softAssert.assertTrue(pages.getSideMenuPage().isAdminSettingVisible(), "Admin Setting Module does not displayed");
-            softAssert.assertTrue(pages.getSideMenuPage().isCustomerServicesVisible(), "Customer Service Module does not displayed");
-            softAssert.assertTrue(pages.getSideMenuPage().isUserManagementVisible(), "User Management Module does not displayed");
-            softAssert.assertTrue(pages.getSideMenuPage().isProfileManagementVisible(), "Profile Management Module does not displayed");
-            softAssert.assertTrue(pages.getSideMenuPage().isTemplateManagementVisible(), "Template Management Module does not displayed");
-            pages.getSideMenuPage().clickOnName();
-            softAssert.assertTrue(pages.getSideMenuPage().isCustomerInteractionVisible(), "Admin Setting Module does not displayed");
-            softAssert.assertTrue(pages.getSideMenuPage().isSupervisorDashboardVisible(), "Supervisor Dashboard Module does not displayed");
-            softAssert.assertTrue(pages.getSideMenuPage().isTicketBulkUpdateVisible(), "Ticket Bulk Update Module does not displayed");
-        } catch (NotFoundException | TimeoutException e) {
-            softAssert.fail("Side Menu Failed");
-        } finally {
+            selUtils.addTestcaseDescription("Validating Side Menu Options, Validating all options are visible as per permission given", "description");
+            assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isSideMenuVisible(), true, "Side Menu is Visible", "Side Menu is NOT Visible"));
             pages.getSideMenuPage().clickOnSideMenu();
-            softAssert.assertAll();
+            assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isAdminSettingVisible(), true, "Admin Setting Module is Visible", "Admin Setting Module NOT Visible"));
+            assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isCustomerServicesVisible(), true, "Customer Service Module is Visible", "Customer Service Module NOT Visible"));
+            assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isUserManagementVisible(), true, "User Management Module is Visible", "User Management Module NOT Visible"));
+            assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isProfileManagementVisible(), true, "Profile Management Module is Visible", "Profile Management Module NOT Visible"));
+            assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isTemplateManagementVisible(), true, "Template Management Module is Visible", "Template Management Module NOT Visible"));
+            pages.getSideMenuPage().clickOnUserName();
+            assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isCustomerInteractionVisible(), true, "Admin Setting Module is Visible", "Admin Setting Module NOT Visible"));
+            assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isSupervisorDashboardVisible(), true, "Supervisor Dashboard Module is Visible", "Supervisor Dashboard Module NOT Visible"));
+            assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isTicketBulkUpdateVisible(), true, "Ticket Bulk Update Module is Visible", "Ticket Bulk Update Module NOT Visible"));
+            pages.getSideMenuPage().clickOnSideMenu();
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (NotFoundException | TimeoutException e) {
+            commonLib.fail("Exception in Method - testSideMenuOption", true);
         }
     }
 }

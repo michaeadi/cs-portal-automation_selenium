@@ -77,16 +77,16 @@ public class AMTransactionsWidget extends BasePage {
         return elementVisible;
     }
 
-    public double gettingAirtelMoneyBalance() {
+    public String gettingAirtelMoneyBalance() {
         final String text = getText(pageElements.airtelMoneyBalance);
         commonLib.info("Getting Airtel Money Balance from Widget : " + text);
-        return Double.parseDouble(text);
+        return text;
     }
 
-    public double gettingAirtelMoneyBalance2() {
+    public String gettingAirtelMoneyBalance2() {
         final String text = getText(pageElements.airtelMoneyBalance2);
         commonLib.info("Getting Airtel Money 2nd Balance from Widget : " + text);
-        return Double.parseDouble(text);
+        return text;
     }
 
     public WidgetInteraction clickTicketIcon() {

@@ -14,22 +14,21 @@ import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
-public class SystemStatusTest extends Driver {
+public class LoginAPITest extends Driver {
 
     private final BaseActions actions = new BaseActions();
-
+    ObjectMapper mapper = new ObjectMapper();
 
     @DataProviders.User(userType = "API")
-    @Test(dataProvider = "loginData", dataProviderClass = DataProviders.class, priority = 1)
-    public void loginAPI(TestDatabean data) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
+    @Test(priority = 1, dataProvider = "loginData", dataProviderClass = DataProviders.class)
+    public void testLoginAPI(TestDatabean data) throws JsonProcessingException {
+        selUtils.addTestcaseDescription("Validate the Login API with valid credentials of user type - API,Hit the Login API -/auth/api/user-mngmnt/v2/login with valid headers and credentials,Validating Success Message from response", "description");
         final String loginAUUID = data.getLoginAUUID();
         LoginPOJO Req = LoginPOJO.loginBody(loginAUUID, PassUtils.decodePassword(data.getPassword()));
-        selUtils.addTestcaseDescription("Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + loginAUUID, "description");
         map.clear();
         pages.getLoginPage().setApiHeader();
         String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(Req);
-        commonLib.info("Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + loginAUUID);
+        commonLib.info("Validating login api with user : " + loginAUUID);
         try {
             final Response response = pages.getLoginPage().loginAPI(dtoAsString);
             String token = "Bearer " + response.jsonPath().getString("result.accessToken");
@@ -40,52 +39,50 @@ public class SystemStatusTest extends Driver {
             assertCheck.append(actions.assertEqual_stringType(message, "User authenticated successfully", "User authenticated successfully", message));
         } catch (Exception e) {
             continueExecutionAPI = false;
-            commonLib.fail("Connectivity issue occurred, Not able to connect with server : " + e.fillInStackTrace(), true);
+            commonLib.fail("Exception in Method :- testLoginAPI " + e.fillInStackTrace(), true);
         }
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     @DataProviders.User()
-    @Test(dataProvider = "loginData", dataProviderClass = DataProviders.class, priority = 2)
-    public void testCredOfAdmin(TestDatabean data) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
+    @Test(priority = 2, dataProvider = "loginData", dataProviderClass = DataProviders.class)
+    public void testLoginApiWithAdminUser(TestDatabean data) throws JsonProcessingException {
+        selUtils.addTestcaseDescription("Validate the Login API with Admin valid credentials,Hit the Login API -/auth/api/user-mngmnt/v2/login with valid headers and credentials,Validating Success Message from response", "description");
         final String loginAUUID = data.getLoginAUUID();
         LoginPOJO Req = LoginPOJO.loginBody(loginAUUID, PassUtils.decodePassword(data.getPassword()));
         String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(Req);
-        selUtils.addTestcaseDescription("Checking System Status for Admin User,Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + loginAUUID, "description");
-        commonLib.info("Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + loginAUUID);
+        commonLib.info("Validating login api with user : " + loginAUUID);
         try {
             final Response response = pages.getLoginPage().loginAPI(dtoAsString);
             commonLib.info("Response Body : " + response.asString());
             commonLib.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
             final String message = response.jsonPath().getString("message");
-            assertCheck.append(actions.assertEqual_stringType(message,"User authenticated successfully","User authenticated successfully", message));
+            assertCheck.append(actions.assertEqual_stringType(message, "User authenticated successfully", "User authenticated successfully", message));
         } catch (Exception e) {
             continueExecutionFA = false;
             continueExecutionBS = false;
-            commonLib.fail("Connectivity issue occurred, Not able to connect with server : " + e.fillInStackTrace(), true);
+            commonLib.fail("Exception in Method :- testLoginApiWithAdminUser " + e.fillInStackTrace(), true);
         }
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     @DataProviders.User(userType = "BA")
-    @Test(dataProvider = "loginData", dataProviderClass = DataProviders.class, priority = 3)
-    public void testCredOfBackendAgent(TestDatabean data) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
+    @Test(priority = 3, dataProvider = "loginData", dataProviderClass = DataProviders.class)
+    public void testLoginApiWithBackendAgent(TestDatabean data) throws JsonProcessingException {
+        selUtils.addTestcaseDescription("Validate the Login API with Backend Agent valid credentials,Hit the Login API -/auth/api/user-mngmnt/v2/login with valid headers and credentials,Validating Success Message from response", "description");
         final String loginAUUID = data.getLoginAUUID();
         LoginPOJO Req = LoginPOJO.loginBody(loginAUUID, PassUtils.decodePassword(data.getPassword()));
         String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(Req);
-        selUtils.addTestcaseDescription("Checking System Status for Backend Agent User,Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + loginAUUID, "description");
-        commonLib.info("Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + loginAUUID);
+        commonLib.info("Validating login api with user : " + loginAUUID);
         try {
             final Response response = pages.getLoginPage().loginAPI(dtoAsString);
             commonLib.info("Response Body : " + response.asString());
             commonLib.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
             final String message = response.jsonPath().getString("message");
-            assertCheck.append(actions.assertEqual_stringType(message,"User authenticated successfully","User authenticated successfully", message));
+            assertCheck.append(actions.assertEqual_stringType(message, "User authenticated successfully", "User authenticated successfully", message));
         } catch (Exception e) {
             continueExecutionBA = false;
-            commonLib.fail("Connectivity issue occurred, Not able to connect with server : " + e.fillInStackTrace(), true);
+            commonLib.fail("Exception in Method :- testLoginApiWithBackendAgent " + e.fillInStackTrace(), true);
         }
         actions.assertAllFoundFailedAssert(assertCheck);
     }

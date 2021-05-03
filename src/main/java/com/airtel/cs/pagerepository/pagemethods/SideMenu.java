@@ -21,10 +21,12 @@ public class SideMenu extends BasePage {
     }
 
     public void clickOnSideMenu() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(pageElements.sideMenuOption));
-        waitTillLoaderGetsRemoved();
-        commonLib.info("Clicking on Side Menu");
-        click(pageElements.sideMenuOption);
+        if (isVisible(pageElements.sideMenuOption)) {
+            commonLib.info("Clicking on Side Menu");
+            click(pageElements.sideMenuOption);
+        } else {
+            commonLib.error("Side Menu Option is NOT Visible", true);
+        }
     }
 
     public void waitForHomePage() {
@@ -35,13 +37,11 @@ public class SideMenu extends BasePage {
     }
 
     public boolean isSideMenuVisible() {
-        waitTillLoaderGetsRemoved();
-        commonLib.info("Checking that  Side Menu options are Visible or Not");
+        commonLib.info("Checking that Side Menu options are Visible or Not");
         return isElementVisible(pageElements.sideMenuOption);
     }
 
-
-    public void clickOnName() {
+    public void clickOnUserName() {
         log.info("Clicking on User Name");
         click(pageElements.userName);
     }

@@ -80,11 +80,16 @@ public class CustomerProfile extends BasePage {
         click(tagName);
     }
 
-
-    public boolean isPageLoaded() {
-        boolean check = checkState(pageElements.searchNumber);
-        commonLib.info("Checking that is Customer Interaction Page is loaded : " + check);
-        return check;
+    /*
+    This Method will tell us customer profile page loaded or not?
+     */
+    public boolean isCustomerProfilePageLoaded() {
+        boolean result = false;
+        if (isVisible(pageElements.searchNumber)) {
+            result = checkState(pageElements.searchNumber);
+            commonLib.info("Is Customer Profile Page loaded ? " + result);
+        }
+        return result;
     }
 
     public void clickOnInteractionIcon() {

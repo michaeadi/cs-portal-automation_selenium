@@ -7,7 +7,7 @@
     </listeners>
     <test name="PROD Sanity com.airtel.cs.api Test">
         <classes>
-            <class name="com.airtel.cs.ui.frontendagent.SystemStatusTest"/>
+            <class name="com.airtel.cs.ui.frontendagent.LoginAPITest"/>
         </classes>
     </test>
     <test name="Login Admin 1 Test">
@@ -57,7 +57,7 @@
     </test>
     <test name="api-Regenerate">
         <classes>
-            <class name="com.airtel.cs.ui.frontendagent.SystemStatusTest">
+            <class name="com.airtel.cs.ui.frontendagent.LoginAPITest">
                 <methods>
                     <exclude name="testCredOfAdmin"/>
                     <exclude name="testCredOfBackendAgent"/>

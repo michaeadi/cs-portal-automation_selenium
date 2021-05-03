@@ -1,5 +1,6 @@
 package com.airtel.cs.ui.ticketBulkUpdate;
 
+import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.TicketStateDataBean;
 import com.airtel.cs.driver.Driver;
@@ -10,6 +11,7 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
+import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -20,13 +22,18 @@ import java.util.List;
 
 public class TicketBulkUpdateTest extends Driver {
 
+    private final BaseActions actions = new BaseActions();
+
     @BeforeMethod
     public void checkExecution() {
-        SoftAssert softAssert = new SoftAssert();
-        if (!continueExecutionFA) {
-            softAssert.fail("Terminate Execution as Backend Supervisor user not able to login into portal or Role does not assign to user. Please do needful.");
+        if (continueExecutionFA) {
+            assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, true, "Proceeding for test case as user able to login over portal", "Skipping tests because user not able to login into portal or Role does not assign to user"));
+        } else {
+            commonLib.skip("Skipping tests because user not able to login into portal or Role does not assign to user");
+            assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, false, "Skipping tests because user not able to login into portal or Role does not assign to user"));
+            throw new SkipException("Skipping tests because user not able to login into portal or Role does not assign to user");
         }
-        softAssert.assertAll();
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     @Test(priority = 1, description = "Open Ticket Bulk Update Dashboard")
@@ -34,7 +41,7 @@ public class TicketBulkUpdateTest extends Driver {
         selUtils.addTestcaseDescription("Open Ticket Bulk Update Dashboard", "description");
         pages.getSideMenuPage().waitTillLoaderGetsRemoved();
         pages.getSideMenuPage().clickOnSideMenu();
-        pages.getSideMenuPage().clickOnName();
+        pages.getSideMenuPage().clickOnUserName();
         TicketBulkUpdate ticketBulkUpdate = pages.getSideMenuPage().openTicketBulkUpdateDashboard();
         SoftAssert softAssert = new SoftAssert();
         Thread.sleep(10000);

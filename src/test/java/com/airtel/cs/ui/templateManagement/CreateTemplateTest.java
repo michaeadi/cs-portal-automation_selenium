@@ -1,10 +1,12 @@
 package com.airtel.cs.ui.templateManagement;
 
+import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pagerepository.pagemethods.TemplateManagement;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
+import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -14,17 +16,20 @@ import java.time.format.DateTimeFormatter;
 
 public class CreateTemplateTest extends Driver {
 
-
     static String templateCategory;
     static String templateName;
+    private final BaseActions actions = new BaseActions();
 
     @BeforeMethod
     public void checkExecution() {
-        SoftAssert softAssert = new SoftAssert();
-        if (!continueExecutionFA) {
-            softAssert.fail("Terminate Execution as user not able to login into portal or Role does not assign to user. Please do needful.");
+        if (continueExecutionFA) {
+            assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, true, "Proceeding for test case as user able to login over portal", "Skipping tests because user not able to login into portal or Role does not assign to user"));
+        } else {
+            commonLib.skip("Skipping tests because user not able to login into portal or Role does not assign to user");
+            assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, false, "Skipping tests because user not able to login into portal or Role does not assign to user"));
+            throw new SkipException("Skipping tests because user not able to login into portal or Role does not assign to user");
         }
-        softAssert.assertAll();
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     @Test(priority = 1, description = "Open Template Management")
@@ -32,7 +37,7 @@ public class CreateTemplateTest extends Driver {
         selUtils.addTestcaseDescription("Open Template Management", "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getSideMenuPage().clickOnSideMenu();
-        pages.getSideMenuPage().clickOnName();
+        pages.getSideMenuPage().clickOnUserName();
         pages.getSideMenuPage().openTemplateManagementPage();
         softAssert.assertTrue(pages.getTemplateManagement().isPageLoaded(), "Template Management Module does not load");
         pages.getTemplateManagement().waitTillLoaderGetsRemoved();

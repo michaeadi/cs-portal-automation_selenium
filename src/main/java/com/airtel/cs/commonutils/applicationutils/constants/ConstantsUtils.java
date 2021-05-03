@@ -17,12 +17,10 @@ public class ConstantsUtils implements Cloneable {
     private static final String USER_DIR = "user.dir";
     private static final String COMMON_CONFIG_FILE_NAME = "commonconfig.properties";
     private static final String RESOURCES_PROPERTIES = "/resources/properties/";
-    private static final String OPCO_CONFIG_FILE_NAME = System.getProperty("Opco") + "-config.properties";
-
+    private static final String OPCO_CONFIG_FILE_NAME = System.getProperty("Opco").toLowerCase() + "-" + System.getProperty("Env") + ".properties";
     private static final String OPCO_FILE_PATH = System.getProperty(USER_DIR) + RESOURCES_PROPERTIES + OPCO_CONFIG_FILE_NAME;
     private static final String PERMISSION_FILE_PATH = System.getProperty(USER_DIR) + RESOURCES_PROPERTIES + COMMON_CONFIG_FILE_NAME;
-
-    List<String> fileList = Arrays.asList(OPCO_FILE_PATH, PERMISSION_FILE_PATH);
+    private static final List<String> fileList = Arrays.asList(OPCO_FILE_PATH, PERMISSION_FILE_PATH);
 
 
     private ConstantsUtils() {
@@ -35,14 +33,12 @@ public class ConstantsUtils implements Cloneable {
             } catch (FileNotFoundException ex) {
                 ex.printStackTrace();
             }
-
             try (InputStream input = new FileInputStream(OPCO_FILE_PATH)) {
                 /*load a properties file*/
                 prop.load(input);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-
         });
     }
 

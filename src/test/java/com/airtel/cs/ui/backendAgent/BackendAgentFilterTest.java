@@ -1,20 +1,27 @@
 package com.airtel.cs.ui.backendAgent;
 
+import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.driver.Driver;
 import org.testng.Assert;
+import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 public class BackendAgentFilterTest extends Driver {
 
+    private final BaseActions actions = new BaseActions();
+
     @BeforeMethod
     public void checkExecution() {
-        SoftAssert softAssert = new SoftAssert();
-        if (!continueExecutionBA) {
-            softAssert.fail("Terminate Execution as Backend Agent not able to login into portal or Role does not assign to user. Please do needful.");
+        if (continueExecutionFA) {
+            assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, true, "Proceeding for test case as user able to login over portal", "Skipping tests because user not able to login into portal or Role does not assign to user"));
+        } else {
+            commonLib.skip("Skipping tests because user not able to login into portal or Role does not assign to user");
+            assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, false, "Skipping tests because user not able to login into portal or Role does not assign to user"));
+            throw new SkipException("Skipping tests because user not able to login into portal or Role does not assign to user");
         }
-        softAssert.assertAll();
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     @Test(priority = 1, description = "Backend Agent Queue Login Page")
@@ -22,7 +29,7 @@ public class BackendAgentFilterTest extends Driver {
         selUtils.addTestcaseDescription("Backend Agent Login into Queue", "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getSideMenuPage().clickOnSideMenu();
-        pages.getSideMenuPage().clickOnName();
+        pages.getSideMenuPage().clickOnUserName();
         pages.getSideMenuPage().openBackendAgentDashboard();
         pages.getAgentLoginPage().waitTillLoaderGetsRemoved();
         softAssert.assertTrue(pages.getAgentLoginPage().isQueueLoginPage());

@@ -47,7 +47,7 @@ public class PRODSupervisorTicketTest extends Driver {
         ExtentTestManager.getTest().log(LogStatus.INFO, "Opening URL");
         pages.getSideMenuPage().waitTillLoaderGetsRemoved();
         pages.getSideMenuPage().clickOnSideMenu();
-        pages.getSideMenuPage().clickOnName();
+        pages.getSideMenuPage().clickOnUserName();
         pages.getSideMenuPage().openSupervisorDashboard();
         SoftAssert softAssert = new SoftAssert();
         pages.getAgentLoginPage().waitTillLoaderGetsRemoved();

@@ -199,7 +199,7 @@ public class Driver {
     private static void envLevelSetup() {
 
         excelPath = System.getProperty(USER_DIR) + "/resources/excels/" + OPCO + ".xlsx";
-        try (FileInputStream fis = new FileInputStream(System.getProperty(USER_DIR) + "/resources/properties/" + OPCO + "-config.properties")) {
+        try (FileInputStream fis = new FileInputStream(System.getProperty(USER_DIR) + "/resources/properties/" + OPCO.toLowerCase() + "-" + evnName.toLowerCase() + ".properties")) {
             config.load(fis);
         } catch (IOException e) {
             commonLib.error(e.getMessage());
@@ -211,7 +211,7 @@ public class Driver {
         } else {
             evnName = "PROD";
         }
-        baseUrl = config.getProperty(evnName + "-APIBase");
+        baseUrl = constants.getValue(ApplicationConstants.API_BASE);
         umBaseUrl = constants.getValue(ApplicationConstants.UM_API_BASE);
         loginURL = constants.getValue(ApplicationConstants.UM_LOGIN_URL);
         assertCheck = new StringBuilder(); // @ THIS WILL EMPTY ASSERT STRING-BUILDER BEFORE EACH TEST
@@ -246,7 +246,7 @@ public class Driver {
     private static void browserCapabilities() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--window-size=1792,1120");
-        options.setHeadless(true);
+        options.setHeadless(false);
         Map<String, Object> prefs = new HashMap<>();
         prefs.put("download.default_directory", excelPath);
         prefs.put("intl.accept_languages", "nl");

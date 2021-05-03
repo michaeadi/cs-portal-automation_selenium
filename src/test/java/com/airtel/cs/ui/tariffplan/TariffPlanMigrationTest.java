@@ -40,7 +40,7 @@ public class TariffPlanMigrationTest extends PreRequisites {
             pages.getSideMenuPage().openCustomerInteractionPage();
             pages.getMsisdnSearchPage().enterNumber(data.getCustomerNumber());
             pages.getMsisdnSearchPage().clickOnSearch();
-            assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isPageLoaded(), true, "Customer Page Loaded Sucessfully", "Customer Page NOT Loaded"));
+            assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isCustomerProfilePageLoaded(), true, "Customer Page Loaded Sucessfully", "Customer Page NOT Loaded"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - openCustomerInteraction " + e.getMessage(), true);
