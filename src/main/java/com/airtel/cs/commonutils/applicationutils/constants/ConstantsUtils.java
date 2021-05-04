@@ -28,12 +28,12 @@ public class ConstantsUtils implements Cloneable {
         fileList.forEach(file -> {
             Scanner inFile;
             try {
-                inFile = new Scanner(new FileReader(OPCO_FILE_PATH));
+                inFile = new Scanner(new FileReader(file));
                 inFile.next();
             } catch (FileNotFoundException ex) {
                 ex.printStackTrace();
             }
-            try (InputStream input = new FileInputStream(OPCO_FILE_PATH)) {
+            try (InputStream input = new FileInputStream(file)) {
                 /*load a properties file*/
                 prop.load(input);
             } catch (IOException ex) {

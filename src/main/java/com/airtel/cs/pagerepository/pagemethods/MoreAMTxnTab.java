@@ -64,7 +64,7 @@ public class MoreAMTxnTab extends BasePage {
 
     public void searchByTxnId(String txnId) {
         commonLib.info("Search By Transaction Id: " + txnId);
-        writeText(pageElements.searchTxnId, txnId);
+        enterText(pageElements.searchTxnId, txnId);
     }
 
     public void clickSearchBtn() {
@@ -158,7 +158,7 @@ public class MoreAMTxnTab extends BasePage {
 
     public void searchByTxnIdOnSecondWidget(String txnId) {
         commonLib.info("Search By Transaction Id: " + txnId);
-        writeText(pageElements.searchTxnIdSec, txnId);
+        enterText(pageElements.searchTxnIdSec, txnId);
     }
 
     public void clickSearchBtnOnSecondWidget() {

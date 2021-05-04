@@ -124,7 +124,7 @@ public class AuthTab extends BasePage {
 
     public void enterComment(String text) {
         commonLib.info("Writing comment into comment box: " + text);
-        writeText(pageElements.commentBox, text);
+        enterText(pageElements.commentBox, text);
     }
 
     public boolean isCancelBtnEnable() {

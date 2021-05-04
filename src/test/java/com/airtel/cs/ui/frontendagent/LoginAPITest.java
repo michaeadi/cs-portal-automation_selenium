@@ -2,8 +2,7 @@ package com.airtel.cs.ui.frontendagent;
 
 import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.PassUtils;
-import com.airtel.cs.commonutils.dataproviders.DataProviders;
-import com.airtel.cs.commonutils.dataproviders.TestDatabean;
+import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pojo.LoginPOJO;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -19,12 +18,11 @@ public class LoginAPITest extends Driver {
     private final BaseActions actions = new BaseActions();
     ObjectMapper mapper = new ObjectMapper();
 
-    @DataProviders.User(userType = "API")
-    @Test(priority = 1, dataProvider = "loginData", dataProviderClass = DataProviders.class)
-    public void testLoginAPI(TestDatabean data) throws JsonProcessingException {
-        selUtils.addTestcaseDescription("Validate the Login API with valid credentials of user type - API,Hit the Login API -/auth/api/user-mngmnt/v2/login with valid headers and credentials,Validating Success Message from response", "description");
-        final String loginAUUID = data.getLoginAUUID();
-        LoginPOJO Req = LoginPOJO.loginBody(loginAUUID, PassUtils.decodePassword(data.getPassword()));
+    @Test(priority = 1)
+    public void testLoginAPIWithBetaUser() throws JsonProcessingException {
+        selUtils.addTestcaseDescription("Validate the Login API with Beta user,Hit the Login API -/auth/api/user-mngmnt/v2/login with valid headers and credentials,Validating Success Message from response", "description");
+        final String loginAUUID = constants.getValue(CommonConstants.BETA_USER_AUUID);
+        LoginPOJO Req = LoginPOJO.loginBody(loginAUUID, PassUtils.decodePassword(constants.getValue(CommonConstants.BETA_USER_PASSWORD)));
         map.clear();
         pages.getLoginPage().setApiHeader();
         String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(Req);
@@ -44,12 +42,11 @@ public class LoginAPITest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @DataProviders.User()
-    @Test(priority = 2, dataProvider = "loginData", dataProviderClass = DataProviders.class)
-    public void testLoginApiWithAdminUser(TestDatabean data) throws JsonProcessingException {
-        selUtils.addTestcaseDescription("Validate the Login API with Admin valid credentials,Hit the Login API -/auth/api/user-mngmnt/v2/login with valid headers and credentials,Validating Success Message from response", "description");
-        final String loginAUUID = data.getLoginAUUID();
-        LoginPOJO Req = LoginPOJO.loginBody(loginAUUID, PassUtils.decodePassword(data.getPassword()));
+    @Test(priority = 2)
+    public void testLoginApiWithAllUser() throws JsonProcessingException {
+        selUtils.addTestcaseDescription("Validate the Login API with User Having all the roles,Hit the Login API -/auth/api/user-mngmnt/v2/login with valid headers and credentials,Validating Success Message from response", "description");
+        final String loginAUUID = constants.getValue(CommonConstants.ALL_USER_ROLE_AUUID);
+        LoginPOJO Req = LoginPOJO.loginBody(loginAUUID, PassUtils.decodePassword(constants.getValue(CommonConstants.ALL_USER_ROLE_PASSWORD)));
         String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(Req);
         commonLib.info("Validating login api with user : " + loginAUUID);
         try {
@@ -66,12 +63,11 @@ public class LoginAPITest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @DataProviders.User(userType = "BA")
-    @Test(priority = 3, dataProvider = "loginData", dataProviderClass = DataProviders.class)
-    public void testLoginApiWithBackendAgent(TestDatabean data) throws JsonProcessingException {
+    @Test(priority = 3)
+    public void testLoginApiWithBackendAgent() throws JsonProcessingException {
         selUtils.addTestcaseDescription("Validate the Login API with Backend Agent valid credentials,Hit the Login API -/auth/api/user-mngmnt/v2/login with valid headers and credentials,Validating Success Message from response", "description");
-        final String loginAUUID = data.getLoginAUUID();
-        LoginPOJO Req = LoginPOJO.loginBody(loginAUUID, PassUtils.decodePassword(data.getPassword()));
+        final String loginAUUID = constants.getValue(CommonConstants.BA_USER_AUUID);
+        LoginPOJO Req = LoginPOJO.loginBody(loginAUUID, PassUtils.decodePassword(constants.getValue(CommonConstants.BA_USER_PASSWROD)));
         String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(Req);
         commonLib.info("Validating login api with user : " + loginAUUID);
         try {

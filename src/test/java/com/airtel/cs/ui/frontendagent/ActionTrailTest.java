@@ -1,6 +1,7 @@
 package com.airtel.cs.ui.frontendagent;
 
 import com.airtel.cs.common.actions.BaseActions;
+import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
@@ -36,22 +37,28 @@ public class ActionTrailTest extends Driver {
     @DataProviders.User(userType = "NFTR")
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteraction(TestDatabean data) {
-        selUtils.addTestcaseDescription("Validating the Search for Customer Interactions :" + data.getCustomerNumber(), "description");
-        pages.getSideMenuPage().clickOnSideMenu();
-        pages.getSideMenuPage().clickOnUserName();
-        pages.getSideMenuPage().openCustomerInteractionPage();
-        pages.getMsisdnSearchPage().enterNumber(data.getCustomerNumber());
-        pages.getMsisdnSearchPage().clickOnSearch();
-        assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isCustomerProfilePageLoaded(), true, "Customer Profile Page Loaded", "Customer Profile Page NOT Loaded"));
-        agentAuuid = data.getLoginAUUID();
-        actions.assertAllFoundFailedAssert(assertCheck);
+        try {
+            selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
+            final String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
+            pages.getSideMenuPage().clickOnSideMenu();
+            pages.getSideMenuPage().clickOnUserName();
+            pages.getSideMenuPage().openCustomerInteractionPage();
+            pages.getMsisdnSearchPage().enterNumber(customerNumber);
+            pages.getMsisdnSearchPage().clickOnSearch();
+            final boolean pageLoaded = pages.getCustomerProfilePage().isCustomerProfilePageLoaded();
+            assertCheck.append(actions.assertEqual_boolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
+            if (!pageLoaded) continueExecutionFA = false;
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - openCustomerInteraction" + e.fillInStackTrace(), true);
+        }
     }
 
     @DataProviders.Table(name = "Action Trail Tab")
     @Test(priority = 3, description = "Validating Action Trail Tab", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
     public void validateActionTrailOpenCorrectly(HeaderDataBean data) {
-        selUtils.addTestcaseDescription("Validating the Action Trail Tab Under View History", "description");
         try {
+            selUtils.addTestcaseDescription("Validating the Action Trail Tab Under View History", "description");
             pages.getMsisdnSearchPage().waitTillLoaderGetsRemoved();
             pages.getCustomerProfilePage().goToViewHistory();
             pages.getViewHistory().clickOnActionTrailHistory();
@@ -62,16 +69,16 @@ public class ActionTrailTest extends Driver {
             assertCheck.append(actions.assertEqual_stringType(pages.getActionTrailPage().getHeaderValue(4).toLowerCase().trim(), data.getRow5().toLowerCase().trim(), "Agent name Column displayed in header.", "Agent name Column does not display in header"));
             assertCheck.append(actions.assertEqual_stringType(pages.getActionTrailPage().getHeaderValue(5).toLowerCase().trim(), data.getRow6().toLowerCase().trim(), "Comments Column displayed in header", "Comments Column does not display in header"));
         } catch (NoSuchElementException | TimeoutException e) {
-            commonLib.fail("Not able to validate Action Trail Tab: " + e.fillInStackTrace(), true);
+            commonLib.fail("Exception in Method - validateActionTrailOpenCorrectly" + e.fillInStackTrace(), true);
         }
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     @Test(priority = 2, description = "Verify the Send Internet Setting tab", dependsOnMethods = "openCustomerInteraction")
     public void validateSendInternetSetting() {
-        selUtils.addTestcaseDescription("Verify the Send Internet Setting tab", "description");
-        pages.getCustomerProfilePage().waitTillLoaderGetsRemoved();
         try {
+            selUtils.addTestcaseDescription("Verify the Send Internet Setting tab", "description");
+            pages.getCustomerProfilePage().waitTillLoaderGetsRemoved();
             pages.getCustomerProfilePage().clickOnAction();
             pages.getCustomerProfilePage().clickSendSetting();
             pages.getCustomerProfilePage().waitTillLoaderGetsRemoved();
@@ -97,7 +104,7 @@ public class ActionTrailTest extends Driver {
                 pages.getAuthTabPage().clickCloseBtn();
             }
         } catch (NoSuchElementException | TimeoutException e) {
-            commonLib.fail("Send Internet Setting Option does not configure correctly." + e.fillInStackTrace(), true);
+            commonLib.fail("Exception in Method - validateSendInternetSetting" + e.fillInStackTrace(), true);
             pages.getCustomerProfilePage().clickOutside();
         }
         actions.assertAllFoundFailedAssert(assertCheck);
@@ -105,8 +112,8 @@ public class ActionTrailTest extends Driver {
 
     @Test(priority = 4, description = "Validating Action Trail History", dependsOnMethods = "validateSendInternetSetting")
     public void validateActionTrailValue() {
-        selUtils.addTestcaseDescription("Validating Action Trail History", "description");
         try {
+            selUtils.addTestcaseDescription("Validating Action Trail History", "description");
             pages.getCustomerProfilePage().waitTillLoaderGetsRemoved();
             pages.getCustomerProfilePage().goToViewHistory();
             pages.getViewHistory().clickOnActionTrailHistory();
@@ -117,7 +124,7 @@ public class ActionTrailTest extends Driver {
             assertCheck.append(actions.assertEqual_stringNotNull(pages.getActionTrailPage().getValue(4).toLowerCase().trim(), "Agent name Column displayed Correctly", "Agent name Column does not display in Correctly"));
             assertCheck.append(actions.assertEqual_stringType(pages.getActionTrailPage().getValue(5).toLowerCase().trim(), comments.toLowerCase().trim(), "Comments Column displayed Correctly", "Comments Column does not display in Correctly"));
         } catch (NoSuchElementException | TimeoutException e) {
-            commonLib.fail("Not able to validate Action Trail Tab: " + e.fillInStackTrace(), true);
+            commonLib.fail("Exception in Method - validateActionTrailValue" + e.fillInStackTrace(), true);
         }
         actions.assertAllFoundFailedAssert(assertCheck);
     }

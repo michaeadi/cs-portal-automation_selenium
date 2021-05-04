@@ -119,7 +119,7 @@ public class FrontendTicketHistory extends BasePage {
 
     public void writeTicketId(String id) {
         commonLib.info("Writing Ticket Id:" + id);
-        writeText(pageElements.searchBox, id);
+        enterText(pageElements.searchBox, id);
     }
 
     public void clickSearchBtn() {

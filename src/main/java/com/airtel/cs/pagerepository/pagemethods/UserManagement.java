@@ -99,7 +99,7 @@ public class UserManagement extends BasePage {
     public void setTicketBucketSize(int size) {
         commonLib.info("Setting Current Ticket size : " + size);
         clearInputTag(pageElements.bucketSize);
-        writeText(pageElements.bucketSize, String.valueOf(size));
+        enterText(pageElements.bucketSize, String.valueOf(size));
     }
 
     public String getCurrentTicketBucketSize() {
@@ -223,7 +223,7 @@ public class UserManagement extends BasePage {
 
     public void searchAuuid(String auuid) {
         commonLib.info("Writing AUUID to Search auuid Text box : " + auuid);
-        writeText(pageElements.searchAuuid, auuid);
+        enterText(pageElements.searchAuuid, auuid);
     }
 
     public void clickSearchButton() {

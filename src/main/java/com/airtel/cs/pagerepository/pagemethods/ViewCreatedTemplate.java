@@ -42,7 +42,7 @@ public class ViewCreatedTemplate extends BasePage {
 
     public void writeSearchKeyword(String text) {
         commonLib.info("Search By Agent Name: " + text);
-        writeText(pageElements.searchKeyWord, text);
+        enterText(pageElements.searchKeyWord, text);
     }
 
     public boolean isSearchByNameAvailable() {

@@ -73,11 +73,11 @@ public class BasePage extends Driver {
             wait.until(ExpectedConditions.elementToBeClickable(elementLocation));
             highLighterMethod(elementLocation);
             driver.findElement(elementLocation).click();
-            log.info("Element Clicked " + elementLocation.toString());
+            commonLib.info("Element Clicked " + elementLocation.toString());
         } catch (ElementClickInterceptedException e) {
             waitTillLoaderGetsRemoved();
             driver.findElement(elementLocation).click();
-            log.info("Again Element Clicked " + elementLocation.toString());
+            commonLib.info("Again Element Clicked " + elementLocation.toString());
         }
     }
 
@@ -89,11 +89,14 @@ public class BasePage extends Driver {
     }
 
     //Write Text
-    public void writeText(By elementLocation, String text) {
-        waitVisibility(elementLocation);
-        highLighterMethod(elementLocation);
-        driver.findElement(elementLocation).sendKeys(text);
-        log.info("Writing " + text + " to  " + elementLocation.toString());
+    public void enterText(By elementLocation, String text) {
+        if (isVisible(elementLocation)) {
+            highLighterMethod(elementLocation);
+            driver.findElement(elementLocation).sendKeys(text);
+            commonLib.info("Entering " + text + " to  " + elementLocation.toString());
+        } else {
+            commonLib.error("Text box is NOT visible : " + elementLocation);
+        }
     }
 
     //Read Text
@@ -110,7 +113,7 @@ public class BasePage extends Driver {
     public void highLighterMethod(By element) {
         if (isVisible(element)) {
             js = (JavascriptExecutor) driver;
-            js.executeScript("arguments[0].setAttribute('style', 'border: 2px solid black;');", driver.findElement(element));
+            js.executeScript("arguments[0].setAttribute('style', 'border: 2px solid orange;');", driver.findElement(element));
         } else {
             commonLib.fail("Exception Caught in Method - highLighterMethod", true);
         }
@@ -149,7 +152,6 @@ public class BasePage extends Driver {
     }
 
     public CustomerProfile openingCustomerInteractionDashboard() {
-        log.info("Opening Customer Interactions Dashboard");
         commonLib.info("Opening Customer Interactions Dashboard");
         click(basePageElements.home);
         waitTillLoaderGetsRemoved();
@@ -190,15 +192,15 @@ public class BasePage extends Driver {
     }
 
     public void clearInputTag(By element) {
-        log.info("Clear Search Box");
+        commonLib.info("Clear Search Box");
         driver.findElement(element).clear();
     }
 
     public boolean validateFilter(By element, String text) {
         List<WebElement> list = returnListOfElement(element);
-        log.info("Validating Filter");
+        commonLib.info("Validating Filter");
         for (WebElement x : list) {
-            log.info("Element Text : " + x.getText());
+            commonLib.info("Element Text : " + x.getText());
             if (!x.getText().equalsIgnoreCase(text)) {
                 return false;
             }
@@ -223,8 +225,8 @@ public class BasePage extends Driver {
 
     public String readOnRowColumn(By rowLocation, By columnLocation, int row, int column) {
         waitVisibility(rowLocation);
-        log.info("Row Size: " + driver.findElements(rowLocation).size());
-        log.info("Column Size: " + driver.findElement(rowLocation).findElements(columnLocation).size());
+        commonLib.info("Row Size: " + driver.findElements(rowLocation).size());
+        commonLib.info("Column Size: " + driver.findElement(rowLocation).findElements(columnLocation).size());
         return driver.findElements(rowLocation).get(row).findElements(columnLocation).get(column).getText();
     }
 
@@ -278,7 +280,7 @@ public class BasePage extends Driver {
         try {
             element = driver.findElement(elementLocation);
         } catch (Exception e) {
-            log.error("Element Not Found", e);
+            commonLib.error("Element Not Found" + e, true);
         }
         return element;
     }
@@ -349,7 +351,7 @@ public class BasePage extends Driver {
      * @return will return true false
      */
     public boolean isVisible(By webelementBy) {
-        return isVisible(webelementBy, 10);
+        return isVisible(webelementBy, 20);
     }
 
     /**
@@ -366,7 +368,7 @@ public class BasePage extends Driver {
             WebElement webElement = driverWait.until(ExpectedConditions.visibilityOfElementLocated(webelementBy));
             return webElement != null;
         } catch (Exception e) {
-            log.error("Element Not Visible " + e);
+            commonLib.error("Element Not Visible " + e);
             return false;
         }
     }

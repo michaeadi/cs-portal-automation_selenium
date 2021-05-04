@@ -68,7 +68,7 @@ public class CRBTWidget extends BasePage {
 
     public void searchKeyword(String text) {
         commonLib.info("Writing Keyword in search box: " + text);
-        writeText(pageElements.searchBox, text);
+        enterText(pageElements.searchBox, text);
     }
 
     public void clickSearchBtn() {

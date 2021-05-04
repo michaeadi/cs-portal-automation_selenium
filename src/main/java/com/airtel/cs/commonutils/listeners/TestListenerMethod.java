@@ -45,7 +45,7 @@ public class TestListenerMethod extends TestListenerAdapter {
 
     @Override
     public void onTestSkipped(ITestResult tr) {
-        try {
+       /* try {
             String className = tr.getMethod().getInstance().getClass().getName();
             int idx = className.lastIndexOf('.');
             className = className.substring(idx + 1, className.length());
@@ -55,8 +55,7 @@ public class TestListenerMethod extends TestListenerAdapter {
             ExtentReport.endTest(Driver.test);
         } catch (Exception ex) {
             Driver.commonLib.error(ex.getMessage());
-        }
-
+        }*/
     }
 
     @Override

@@ -127,7 +127,7 @@ public class AMTransactionsWidget extends BasePage {
     }
 
     public void writeTransactionId(String id) {
-        writeText(pageElements.transactionId, id);
+        enterText(pageElements.transactionId, id);
     }
 
     public void clickSearchBtn() {

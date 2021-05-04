@@ -145,7 +145,7 @@ public class RechargeHistoryWidget extends BasePage {
     public void writeVoucherId(String id) throws InterruptedException {
         commonLib.info("Writing voucher id in search box: " + id);
         scrollToViewElement(pageElements.voucherBox);
-        writeText(pageElements.voucherBox, id);
+        enterText(pageElements.voucherBox, id);
     }
 
     public void clickSearchBtn() {

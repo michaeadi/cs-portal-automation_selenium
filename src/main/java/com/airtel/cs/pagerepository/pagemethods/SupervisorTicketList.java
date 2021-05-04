@@ -56,12 +56,12 @@ public class SupervisorTicketList extends BasePage {
 
     public void writeTicketId(String ticketId) {
         commonLib.info("Search Ticket Id: " + ticketId);
-        writeText(pageElements.searchTicketBox, ticketId);
+        enterText(pageElements.searchTicketBox, ticketId);
     }
 
     public void writeTicketIdSecond(String ticketId) {
         commonLib.info("Search Ticket Id: " + ticketId);
-        writeText(pageElements.searchTicketBox2, ticketId);
+        enterText(pageElements.searchTicketBox2, ticketId);
     }
 
     public void clearInputBox() {
@@ -305,7 +305,7 @@ public class SupervisorTicketList extends BasePage {
 
     public void addReopenComment(String comment) {
         commonLib.info("Add Reopen Comment: " + comment);
-        writeText(pageElements.reOpenBox, comment);
+        enterText(pageElements.reOpenBox, comment);
         clickOutside();
     }
 

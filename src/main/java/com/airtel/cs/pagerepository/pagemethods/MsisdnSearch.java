@@ -17,8 +17,11 @@ public class MsisdnSearch extends BasePage {
     }
 
     public void enterNumber(String number) {
-        commonLib.info("Entering Number in search box :" + number);
-        writeText(pageElements.numberSearch, number);
+        if (isVisible(pageElements.numberSearch)) {
+            enterText(pageElements.numberSearch, number);
+        } else {
+            log.error("Search box is NOT visible");
+        }
     }
 
     public void clearCustomerNumber() {

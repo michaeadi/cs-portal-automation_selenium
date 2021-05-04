@@ -304,7 +304,7 @@ public class DemoGraphic extends BasePage {
 
     public void enterMSISDN(String text) {
         commonLib.info("Writing MSISDN in Search Box: " + text);
-        writeText(pageElements.customerNumberSearchBox, text);
+        enterText(pageElements.customerNumberSearchBox, text);
         driver.findElement(pageElements.customerNumberSearchBox).sendKeys(Keys.ENTER);
     }
 

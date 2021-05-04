@@ -33,7 +33,7 @@ public class SendSMS extends BasePage {
         click(pageElements.openCategory);
         final String text = getText(pageElements.selectOption1);
         commonLib.info("Searching Category with name: " + text);
-        writeText(pageElements.searchCategory, text);
+        enterText(pageElements.searchCategory, text);
         commonLib.info(TEXT + text);
         click(pageElements.selectOption1);
     }

@@ -41,7 +41,7 @@ public class Interactions extends BasePage {
     public void setDateFieldAvailable(String date) {
         commonLib.info("Writing date to date Field : " + date);
         By issueDetails = By.xpath("//input[@aria-haspopup=\"true\"]");
-        writeText(issueDetails, date);
+        enterText(issueDetails, date);
     }
 
     public String getIssueDetailLabel(String num) {
@@ -60,7 +60,7 @@ public class Interactions extends BasePage {
     public void setIssueDetailInput(String num, String input) {
         commonLib.info("Writing " + input + " in label for issue detail field situated at Position : " + num);
         By issueDetails = By.xpath(" //input[@name=" + "'q" + num + "']");
-        writeText(issueDetails, input);
+        enterText(issueDetails, input);
     }
 
     public void selectIssueDetailInput(String num) {
@@ -85,7 +85,7 @@ public class Interactions extends BasePage {
 
     public void searchCode(String code) {
         commonLib.info("searching issue code " + code);
-        writeText(pageElements.search, code);
+        enterText(pageElements.search, code);
     }
 
     public void selectCode(String code) {
@@ -125,7 +125,7 @@ public class Interactions extends BasePage {
     }
 
     public void sendComment(String comment) {
-        writeText(pageElements.interactionComment, comment);
+        enterText(pageElements.interactionComment, comment);
         commonLib.info("Adding comment -" + comment);
 
     }
@@ -182,7 +182,7 @@ public class Interactions extends BasePage {
 
     public void addInteractionComment(String text) {
         commonLib.info("Adding Interaction Ticket Comment: " + text);
-        writeText(pageElements.commentBox, text);
+        enterText(pageElements.commentBox, text);
     }
 
     public String getAddedComment() {

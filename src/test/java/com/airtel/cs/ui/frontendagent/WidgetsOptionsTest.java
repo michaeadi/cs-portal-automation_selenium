@@ -3,6 +3,7 @@ package com.airtel.cs.ui.frontendagent;
 import com.airtel.cs.api.APIEndPoints;
 import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.UtilsMethods;
+import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
@@ -43,25 +44,21 @@ public class WidgetsOptionsTest extends Driver {
     @DataProviders.User(userType = "API")
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteractionAPI(TestDatabean data) {
-        final String customerNumber = data.getCustomerNumber();
-        selUtils.addTestcaseDescription("Validating the Search forCustomer Interactions :" + customerNumber, "description");
-        SoftAssert softAssert = new SoftAssert();
-        pages.getSideMenuPage().clickOnSideMenu();
-        pages.getSideMenuPage().clickOnUserName();
-        pages.getSideMenuPage().openCustomerInteractionPage();
-        pages.getSideMenuPage().waitTillLoaderGetsRemoved();
-        if (evnName.equalsIgnoreCase("Prod")) {
-            this.customerNumber = data.getProdCustomerNumber();
-        } else {
-            this.customerNumber = customerNumber;
+        try {
+            selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
+            final String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
+            pages.getSideMenuPage().clickOnSideMenu();
+            pages.getSideMenuPage().clickOnUserName();
+            pages.getSideMenuPage().openCustomerInteractionPage();
+            pages.getMsisdnSearchPage().enterNumber(customerNumber);
+            pages.getMsisdnSearchPage().clickOnSearch();
+            final boolean pageLoaded = pages.getCustomerProfilePage().isCustomerProfilePageLoaded();
+            assertCheck.append(actions.assertEqual_boolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
+            if (!pageLoaded) continueExecutionFA = false;
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - openCustomerInteraction" + e.fillInStackTrace(), true);
         }
-        pages.getMsisdnSearchPage().enterNumber(this.customerNumber);
-        pages.getMsisdnSearchPage().clickOnSearch();
-        if (!pages.getCustomerProfilePage().isCustomerProfilePageLoaded()) {
-            softAssert.fail("Customer Info Dashboard Page does not open using SIM Number.");
-            pages.getMsisdnSearchPage().clearCustomerNumber();
-        }
-        softAssert.assertAll();
     }
 
     @Table(name = "Da Details")

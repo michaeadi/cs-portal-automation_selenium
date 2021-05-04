@@ -35,7 +35,7 @@ public class WidgetInteraction extends BasePage {
 
     public void writeKeyword(String text) {
         commonLib.info("Search Issue with keyword: " + text);
-        writeText(pageElements.searchBox, text);
+        enterText(pageElements.searchBox, text);
     }
 
     public CustomerProfile closeInteractionTab() {
@@ -64,7 +64,7 @@ public class WidgetInteraction extends BasePage {
 
     public void writeComment(String text) {
         commonLib.info("Adding comment : " + text);
-        writeText(pageElements.commentBox, text);
+        enterText(pageElements.commentBox, text);
     }
 
     public CustomerProfile clickSubmitBtn() {

@@ -4,6 +4,8 @@ import com.airtel.cs.api.APIEndPoints;
 import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.PassUtils;
 import com.airtel.cs.commonutils.UtilsMethods;
+import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
+import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.driver.Driver;
@@ -35,6 +37,7 @@ public class VoucherTabTest extends Driver {
 
     APIEndPoints api = new APIEndPoints();
     private final BaseActions actions = new BaseActions();
+    ObjectMapper mapper = new ObjectMapper();
 
     @BeforeMethod
     public void checkExecution() {
@@ -51,72 +54,46 @@ public class VoucherTabTest extends Driver {
     @DataProviders.User(userType = "API")
     @Test(dataProvider = "loginData", dataProviderClass = DataProviders.class, priority = 0)
     public void loginAPI(TestDatabean data) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        SoftAssert softAssert = new SoftAssert();
-        final String loginAUUID = data.getLoginAUUID();
-        LoginPOJO req = LoginPOJO.loginBody(PassUtils.decodePassword(data.getPassword()), loginAUUID);
-
+        selUtils.addTestcaseDescription("Validate the Login API with Beta user,Hit the Login API -/auth/api/user-mngmnt/v2/login with valid headers and credentials,Validating Success Message from response", "description");
+        final String loginAUUID = constants.getValue(CommonConstants.BETA_USER_AUUID);
+        LoginPOJO Req = LoginPOJO.loginBody(loginAUUID, PassUtils.decodePassword(constants.getValue(CommonConstants.BETA_USER_PASSWORD)));
         map.clear();
-        UtilsMethods.addHeaders("x-app-name", config.getProperty(evnName + "-x-app-name"));
-        UtilsMethods.addHeaders("x-service-id", config.getProperty(evnName + "-x-service-id"));
-        //map.add(new Header("x-bsy-bn", config.getProperty(Env + "-x-bsy-bn"))); //Comment this line this header removed from MG Opco.
-        UtilsMethods.addHeaders("x-app-type", config.getProperty(evnName + "-x-app-type"));
-        UtilsMethods.addHeaders("x-client-id", config.getProperty(evnName + "-x-client-id"));
-        UtilsMethods.addHeaders("x-api-key", config.getProperty(evnName + "-x-api-key"));
-        UtilsMethods.addHeaders("x-login-module", config.getProperty(evnName + "-x-login-module"));
-        UtilsMethods.addHeaders("x-channel", config.getProperty(evnName + "-x-channel"));
-        UtilsMethods.addHeaders("x-app-version", config.getProperty(evnName + "-x-app-version"));
-        UtilsMethods.addHeaders("Opco", OPCO);
-
-        String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(req);
-        selUtils.addTestcaseDescription("LOGIN API TEST,Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + loginAUUID, "description");
-        commonLib.info("Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + loginAUUID);
-        baseURI = baseUrl;
-        Headers headers = new Headers(map);
-        RequestSpecification request = given()
-                .headers(headers)
-                .body(dtoAsString)
-                .contentType("application/json");
+        pages.getLoginPage().setApiHeader();
+        String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(Req);
+        commonLib.info("Validating login api with user : " + loginAUUID);
         try {
-            QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-            commonLib.info("Request Headers are  : " + queryable.getHeaders());
-            Response response = request.post("/auth/api/user-mngmnt/v2/login");
+            final Response response = pages.getLoginPage().loginAPI(dtoAsString);
             String token = "Bearer " + response.jsonPath().getString("result.accessToken");
             map.add(new Header("Authorization", token));
-            commonLib.info("Request URL : " + queryable.getURI());
             commonLib.info("Response Body : " + response.asString());
             commonLib.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
-            if (response.jsonPath().getString("message").equalsIgnoreCase("Failed to authenticate user.")) {
-                continueExecutionAPI = false;
-                softAssert.fail("Not able to generate Token. Please Update Password As soon as possible if required.\ncom.airtel.cs.API Response Message: " + response.jsonPath().getString("message"));
-            } else if (response.jsonPath().getString("message").toLowerCase().contains("something went wrong")) {
-                continueExecutionAPI = false;
-                softAssert.fail("Not able to generate Token. Login com.airtel.cs.API Failed(Marked Build As Failed).\ncom.airtel.cs.API Response Message: " + response.jsonPath().getString("message"));
-            } else if (!response.jsonPath().getString("message").equalsIgnoreCase("User authenticated successfully")) {
-                continueExecutionAPI = false;
-                softAssert.fail("Not able to generate Token. Please Check the com.airtel.cs.API error Message and make changes if required.\ncom.airtel.cs.API Response Message: " + response.jsonPath().getString("message"));
-            }
+            final String message = response.jsonPath().getString("message");
+            assertCheck.append(actions.assertEqual_stringType(message, "User authenticated successfully", "User authenticated successfully", message));
         } catch (Exception e) {
             continueExecutionAPI = false;
-            softAssert.fail("Connectivity issue occurred, Not able to connect with server : " + e.fillInStackTrace());
+            commonLib.fail("Exception in Method :- testLoginAPI " + e.fillInStackTrace(), true);
         }
-        softAssert.assertAll();
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     @DataProviders.User(userType = "NFTR")
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteraction(TestDatabean data) {
-        final String customerNumber = data.getCustomerNumber();
-        selUtils.addTestcaseDescription("Validating the Search for Customer Interactions :" + customerNumber, "description");
-        SoftAssert softAssert = new SoftAssert();
-        pages.getSideMenuPage().clickOnSideMenu();
-        pages.getSideMenuPage().clickOnUserName();
-        pages.getSideMenuPage().openCustomerInteractionPage();
-        pages.getMsisdnSearchPage().enterNumber(customerNumber);
-        pages.getMsisdnSearchPage().clickOnSearch();
-        softAssert.assertTrue(pages.getCustomerProfilePage().isCustomerProfilePageLoaded());
-        pages.getCustomerProfilePage().waitTillLoaderGetsRemoved();
-        softAssert.assertAll();
+        try {
+            selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
+            final String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
+            pages.getSideMenuPage().clickOnSideMenu();
+            pages.getSideMenuPage().clickOnUserName();
+            pages.getSideMenuPage().openCustomerInteractionPage();
+            pages.getMsisdnSearchPage().enterNumber(customerNumber);
+            pages.getMsisdnSearchPage().clickOnSearch();
+            final boolean pageLoaded = pages.getCustomerProfilePage().isCustomerProfilePageLoaded();
+            assertCheck.append(actions.assertEqual_boolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
+            if (!pageLoaded) continueExecutionFA = false;
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - openCustomerInteraction" + e.fillInStackTrace(), true);
+        }
     }
 
     @Test(priority = 2, description = "Validate Voucher Search Test", dependsOnMethods = "openCustomerInteraction")

@@ -42,7 +42,7 @@ public class SideMenu extends BasePage {
     }
 
     public void clickOnUserName() {
-        log.info("Clicking on User Name");
+        commonLib.info("Clicking on User Name");
         click(pageElements.userName);
     }
 

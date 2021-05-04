@@ -97,12 +97,12 @@ public class TemplateManagement extends BasePage {
 
     public void writeTemplateCategoryName(String text) {
         commonLib.info("Creating Template Category with name: " + text);
-        writeText(pageElements.templateCategoryName, text);
+        enterText(pageElements.templateCategoryName, text);
     }
 
     public void writeTemplateName(String text) {
         commonLib.info("Creating Template  with name: " + text);
-        writeText(pageElements.templateNameBox, text);
+        enterText(pageElements.templateNameBox, text);
     }
 
     public void clickAddCategoryBtn() {
@@ -163,7 +163,7 @@ public class TemplateManagement extends BasePage {
 
     public void writeSMSContent(String text) {
         commonLib.info("SMS Content: " + text);
-        writeText(pageElements.smsContent, text);
+        enterText(pageElements.smsContent, text);
     }
 
     public String readResponseMessage() {

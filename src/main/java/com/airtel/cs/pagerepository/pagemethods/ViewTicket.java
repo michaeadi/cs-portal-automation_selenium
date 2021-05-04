@@ -105,7 +105,7 @@ public class ViewTicket extends BasePage {
     public void addComment(String comment) throws InterruptedException {
         log.info("Adding comment on ticket:" + comment);
         scrollToViewElement(pageElements.addCommentBox);
-        writeText(pageElements.addCommentBox, comment);
+        enterText(pageElements.addCommentBox, comment);
         commonLib.info("Adding comment on ticket:" + comment);
     }
 

@@ -197,7 +197,7 @@ public class TicketBulkUpdate extends BasePage {
 
     public void addComment(String comment) {
         commonLib.info("Adding comment: " + comment);
-        writeText(pageElements.commentBox, comment);
+        enterText(pageElements.commentBox, comment);
     }
 
     public void clickConfirmAction() {

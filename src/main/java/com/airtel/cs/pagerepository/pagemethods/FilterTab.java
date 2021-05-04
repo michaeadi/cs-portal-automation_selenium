@@ -263,7 +263,7 @@ public class FilterTab extends BasePage {
         scrollToViewElement(tabElements.byCode);
         click(tabElements.byCode);
         commonLib.info("Searching category code: " + code);
-        writeText(tabElements.searchBox, code);
+        enterText(tabElements.searchBox, code);
         waitTillLoaderGetsRemoved();
         By selectCode = By.xpath("//span[@class='mat-option-text'][contains(text(),'" + code + "')]");
         click(selectCode);

@@ -12,7 +12,7 @@
     </test>
     <test name="Test Login Into Portal With FA">
         <classes>
-            <class name="com.airtel.cs.ui.frontendagent.LoginTests"/>
+            <class name="com.airtel.cs.ui.frontendagent.LoginPortalTests"/>
         </classes>
     </test>
     <test name="Test Side Menu Options">
@@ -162,7 +162,7 @@
     </test>
     <test name="Login Admin Test">
         <classes>
-            <class name="com.airtel.cs.ui.frontendagent.LoginTests"/>
+            <class name="com.airtel.cs.ui.frontendagent.LoginPortalTests"/>
         </classes>
     </test>
     <test name="Create Template Test">

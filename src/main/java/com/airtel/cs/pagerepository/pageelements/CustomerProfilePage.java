@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 
 public class CustomerProfilePage {
 
-    public By searchNumber = By.xpath("//input[@type='text' and @placeholder='Search']");
+    public By searchNumber = By.xpath("//input[(@type='text' or @type='search') and @placeholder='Search']");
     public By interactionIcon = By.xpath("//div[@class='sub-header__divide--control--tab']");
     public By actions = By.xpath("//span[@class=\"action-placeholder\"]");
     public By simBar = By.xpath("//button[@class=\"db-action-menu-item mat-menu-item ng-star-inserted\"]");

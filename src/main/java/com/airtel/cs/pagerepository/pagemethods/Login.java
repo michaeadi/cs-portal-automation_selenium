@@ -52,7 +52,7 @@ public class Login extends BasePage {
     public void enterAUUID(String auuid, int timeToWait) {
         if (isVisible(pageElements.enterAUUID, timeToWait)) {
             commonLib.info("Going to enter auuid : " + auuid + " in username");
-            writeText(pageElements.enterAUUID, auuid);
+            enterText(pageElements.enterAUUID, auuid);
         } else {
             commonLib.fail("Exception Caught in Method - enterAUUID", true);
         }
@@ -76,7 +76,7 @@ public class Login extends BasePage {
     public void enterPassword(String password, int timeToWait) {
         if (isVisible(pageElements.enterPassword, timeToWait)) {
             commonLib.info("Going to enter password to Password field");
-            writeText(pageElements.enterPassword, password);
+            enterText(pageElements.enterPassword, password);
         } else {
             commonLib.fail("Exception Caught in Method - enterPassword", true);
         }
