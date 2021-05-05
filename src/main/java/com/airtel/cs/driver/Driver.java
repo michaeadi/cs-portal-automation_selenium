@@ -82,6 +82,8 @@ public class Driver {
     private static String browser = null;
     private static String currentTestCaseName;
     private String currentClassName;
+    public static String nftrSheetValue;
+    public static String ftrSheetValue;
 
     public WebDriver getDriver() {
         return driver;
@@ -188,6 +190,8 @@ public class Driver {
             extent.addSystemInfo("Execution Browser ", browser);
             extent.addSystemInfo("Language Selected ", "English");
             extent.addSystemInfo("Suite Type", SUITE_TYPE.toUpperCase());
+            nftrSheetValue = constants.getValue(ApplicationConstants.SUITE_TYPE).equals(SUITE_TYPE) ? ApplicationConstants.SANITY_NFTR_SHEET : ApplicationConstants.REGRESSION_NFTR_SHEET;
+            ftrSheetValue = constants.getValue(ApplicationConstants.SUITE_TYPE).equals(SUITE_TYPE) ? ApplicationConstants.SANITY_FTR_SHEET : ApplicationConstants.REGRESSION_FTR_SHEET;
         } catch (Exception ex) {
             commonLib.fail(ex.getMessage(), true);
         }

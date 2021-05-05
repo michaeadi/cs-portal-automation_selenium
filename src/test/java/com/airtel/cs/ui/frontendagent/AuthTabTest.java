@@ -85,7 +85,11 @@ public class AuthTabTest extends Driver {
                 final String questionKey = questionAnswer.getQuestionKey();
                 commonLib.info("Question Key: '" + questionKey + "' ; Answer Found in API: '" + authTabConfig.get(questionKey));
                 final String answerKey = questionAnswer.getAnswerKey();
-                assertCheck.append(actions.assertEqual_stringType(authTabConfig.get(questionKey), answerKey, "Answer Key Validated", "Answer key is not expected for Question: " + questionKey));
+                if (authTabConfig.get(questionAnswer.getQuestionKey()) != null) {
+                    assertCheck.append(actions.assertEqual_stringType(authTabConfig.get(questionAnswer.getQuestionKey()), questionAnswer.getAnswerKey(), "Answer key is not expected for Question: " + questionAnswer.getQuestionKey(), "Answer Key Validated"));
+                } else {
+                    commonLib.fail("Question Key does not found in Database but present in config sheet.", true);
+                }
             }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -106,9 +110,12 @@ public class AuthTabTest extends Driver {
                 final Boolean isAuthenticated = ls.getIsAuthenticated();
                 commonLib.info(key + " : " + isAuthenticated);
                 for (ActionTagDataBeans at : actionTags) {
-                    final String actionTagName = at.getActionTagName();
-                    assertCheck.append(actions.assertEqual_stringType(key, actionTagName, "Action Verified " + actionTagName, "Action NOT Verified"));
-                    assertCheck.append(actions.assertEqual_boolean(isAuthenticated, Boolean.parseBoolean(at.getIsAuth()), "Action locked as per config sheet", "Action does not locked but as per config Action must be locked"));
+                    if (isAuthenticated != Boolean.parseBoolean(at.getIsAuth())) {
+                        commonLib.fail("Action does not locked but as per config Action must be locked.", true);
+                        break;
+                    } else if (ls.getIsAuthenticated() == Boolean.parseBoolean(at.getIsAuth())) {
+                        commonLib.pass("Action Verified " + at.getActionTagName());
+                    }
                 }
             }
             actions.assertAllFoundFailedAssert(assertCheck);

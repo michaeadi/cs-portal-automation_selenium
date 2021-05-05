@@ -1,5 +1,6 @@
 package com.airtel.cs.commonutils.dataproviders;
 
+import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.excelutils.WriteTicket;
 import com.airtel.cs.driver.Driver;
 import com.codoid.products.fillo.Connection;
@@ -27,22 +28,13 @@ public class DataProviders extends Driver {
 
     public static Properties config = Driver.config;
     public static List<String> ticketNumbers = new ArrayList<>();
-    private static final String TICKET_STATE = "ticketState";
-    private static final String CLOSE_STATE = "closeState";
-    private static final String USER_MANAGEMENT_SHEET = "UserManagementSheet";
-    private static final String FTR_SHEET = "-FtrSheet";
-    private static final String NFTR_SHEET = "-NftrSheet";
-    private static final String LOGIN_SHEET = "cs.login.sheet.name";
-    private static final String TEMPLATE_MANAGEMENT = "TemplateManagement";
-    private static final String PINNED_TAG_SHEET = "PinnedTagSheet";
-    private static final String ACTION_TAGGED = "actionTagged";
-    private static final String STATE_QUEUE = "stateQueue";
+
 
     //helper
     public static Map<String, String> getWidgetTaggedIssue() {
-        FtrDataExcelToBeanDao credsExcelToBeanDao = new FtrDataExcelToBeanDao();
+        FtrDataExcelToBeanDao dataExcelToBeanDao = new FtrDataExcelToBeanDao();
         List<FtrDataBeans> list =
-                credsExcelToBeanDao.getData(excelPath, config.getProperty(SUITE_TYPE + FTR_SHEET));
+                dataExcelToBeanDao.getData(excelPath, constants.getValue(ftrSheetValue));
         Map<String, String> finalList = new HashMap<>();
         for (FtrDataBeans ftr : list) {
             if (ftr.getWidgetName() != null) {
@@ -55,9 +47,9 @@ public class DataProviders extends Driver {
 
     @DataProvider
     public Object[][] getTestData() {
-        TestDataExcelToBeanDao credsExcelToBeanDao = new TestDataExcelToBeanDao();
+        TestDataExcelToBeanDao dataExcelToBeanDao = new TestDataExcelToBeanDao();
         List<TestDatabean> list =
-                credsExcelToBeanDao.getData(excelPath, config.getProperty(LOGIN_SHEET));
+                dataExcelToBeanDao.getData(excelPath, constants.getValue(ApplicationConstants.LOGIN_SHEET_NAME));
         Object[][] hashMapObj = new Object[list.size()][1];
         for (int i = 0; i < list.size(); i++) {
             hashMapObj[i][0] = list.get(i);
@@ -67,9 +59,9 @@ public class DataProviders extends Driver {
 
     @DataProvider
     public Object[][] getTestData1() {
-        FtrDataExcelToBeanDao credsExcelToBeanDao = new FtrDataExcelToBeanDao();
+        FtrDataExcelToBeanDao dataExcelToBeanDao = new FtrDataExcelToBeanDao();
         List<FtrDataBeans> list =
-                credsExcelToBeanDao.getData(excelPath, config.getProperty(SUITE_TYPE + FTR_SHEET));
+                dataExcelToBeanDao.getData(excelPath, constants.getValue(ftrSheetValue));
 
         Object[][] hashMapObj = new Object[list.size()][1];
         for (int i = 0; i < list.size(); i++) {
@@ -80,9 +72,9 @@ public class DataProviders extends Driver {
 
     @DataProvider
     public Object[][] getTestData2() {
-        NftrDataExcelToBeanDao credsExcelToBeanDao = new NftrDataExcelToBeanDao();
+        NftrDataExcelToBeanDao dataExcelToBeanDao = new NftrDataExcelToBeanDao();
         List<NftrDataBeans> list =
-                credsExcelToBeanDao.getData(excelPath, config.getProperty(SUITE_TYPE + NFTR_SHEET));
+                dataExcelToBeanDao.getData(excelPath, constants.getValue(nftrSheetValue));
         List<NftrDataBeans> finalList = new ArrayList<>();
         for (NftrDataBeans l : list) {
             if (l.getIssueCode() != null && !l.getIssueCode().isEmpty()) {
@@ -97,9 +89,9 @@ public class DataProviders extends Driver {
     }
 
     public ArrayList<String> getInteractionChannelData() {
-        UMDataExcelToBeanDao credsExcelToBeanDao = new UMDataExcelToBeanDao();
+        UMDataExcelToBeanDao dataExcelToBeanDao = new UMDataExcelToBeanDao();
         List<UMDataBeans> list =
-                credsExcelToBeanDao.getData(excelPath, config.getProperty(USER_MANAGEMENT_SHEET));
+                dataExcelToBeanDao.getData(excelPath, constants.getValue(ApplicationConstants.USER_MANAGEMENT_SHEET));
         ArrayList<String> finalList = new ArrayList<>();
         for (UMDataBeans l : list) {
             if (l.getInteraction() != null && !l.getInteraction().isEmpty()) {
@@ -111,9 +103,9 @@ public class DataProviders extends Driver {
 
 
     public ArrayList<String> getWorkFlowData() {
-        UMDataExcelToBeanDao credsExcelToBeanDao = new UMDataExcelToBeanDao();
+        UMDataExcelToBeanDao dataExcelToBeanDao = new UMDataExcelToBeanDao();
         List<UMDataBeans> list =
-                credsExcelToBeanDao.getData(excelPath, config.getProperty(USER_MANAGEMENT_SHEET));
+                dataExcelToBeanDao.getData(excelPath, constants.getValue(ApplicationConstants.USER_MANAGEMENT_SHEET));
         ArrayList<String> finalList = new ArrayList<>();
         for (UMDataBeans l : list) {
             if (l.getWorkflow() != null && !l.getWorkflow().isEmpty()) {
@@ -124,9 +116,9 @@ public class DataProviders extends Driver {
     }
 
     public ArrayList<String> getLoginQueueData() {
-        UMDataExcelToBeanDao credsExcelToBeanDao = new UMDataExcelToBeanDao();
+        UMDataExcelToBeanDao dataExcelToBeanDao = new UMDataExcelToBeanDao();
         List<UMDataBeans> list =
-                credsExcelToBeanDao.getData(excelPath, config.getProperty(USER_MANAGEMENT_SHEET));
+                dataExcelToBeanDao.getData(excelPath, constants.getValue(ApplicationConstants.USER_MANAGEMENT_SHEET));
         ArrayList<String> finalList = new ArrayList<>();
         for (UMDataBeans l : list) {
             if (l.getLoginQueue() != null && !l.getLoginQueue().isEmpty()) {
@@ -139,7 +131,7 @@ public class DataProviders extends Driver {
     public ArrayList<String> getRoles() {
         TemplateDataExcelToBeanDao templateExcelToBeanDao = new TemplateDataExcelToBeanDao();
         List<TemplateDataBeans> list =
-                templateExcelToBeanDao.getData(excelPath, config.getProperty(TEMPLATE_MANAGEMENT));
+                templateExcelToBeanDao.getData(excelPath, constants.getValue(ApplicationConstants.TEMPLATE_MANAGEMENT_SHEET_NAME));
         ArrayList<String> finalList = new ArrayList<>();
         for (TemplateDataBeans l : list) {
             if (l.getRoles() != null && !l.getRoles().isEmpty()) {
@@ -152,7 +144,7 @@ public class DataProviders extends Driver {
     public ArrayList<String> getLanguage() {
         TemplateDataExcelToBeanDao templateExcelToBeanDao = new TemplateDataExcelToBeanDao();
         List<TemplateDataBeans> list =
-                templateExcelToBeanDao.getData(excelPath, config.getProperty(TEMPLATE_MANAGEMENT));
+                templateExcelToBeanDao.getData(excelPath, constants.getValue(ApplicationConstants.TEMPLATE_MANAGEMENT_SHEET_NAME));
         ArrayList<String> finalList = new ArrayList<>();
         for (TemplateDataBeans l : list) {
             if (l.getLanguage() != null && !l.getLanguage().isEmpty()) {
@@ -164,10 +156,9 @@ public class DataProviders extends Driver {
 
     @DataProvider(name = "pinTag")
     public Object[][] getPinTags(Method method) {
-        PinnedTagDataExcelToBeanDao credsExcelToBeanDao = new PinnedTagDataExcelToBeanDao();
-        RowNumber rows = method.getAnnotation(RowNumber.class);
+        PinnedTagDataExcelToBeanDao dataExcelToBeanDao = new PinnedTagDataExcelToBeanDao();
         List<PinnedTagsDataBeans> list =
-                credsExcelToBeanDao.getData(excelPath, config.getProperty(PINNED_TAG_SHEET));
+                dataExcelToBeanDao.getData(excelPath, constants.getValue(ApplicationConstants.PINNED_TAG_SHEET_NAME));
         Object[][] hashMapObj = new Object[list.size()][1];
         for (int i = 0; i < list.size(); i++) {
             hashMapObj[i][0] = list.get(i);
@@ -175,15 +166,15 @@ public class DataProviders extends Driver {
         return hashMapObj;
     }
 
-    @DataProvider(name = TICKET_STATE)
+    @DataProvider(name = "Ticket State")
     public Object[][] ticketStateList() {
         TicketStateToBean ticketStateToBean = new TicketStateToBean();
         List<TicketStateDataBean> list =
-                ticketStateToBean.getData(excelPath, config.getProperty(TICKET_STATE));
+                ticketStateToBean.getData(excelPath, constants.getValue(ApplicationConstants.TICKET_STATE_SHEET));
         List<TicketStateDataBean> closeState = new ArrayList<>();
         List<TicketStateDataBean> openState = new ArrayList<>();
         for (TicketStateDataBean state : list) {
-            if (state.getInternalState().equals(config.getProperty(CLOSE_STATE))) {
+            if (state.getInternalState().equals(constants.getValue(ApplicationConstants.TICKET_CLOSE_STATE))) {
                 closeState.add(state);
             } else {
                 openState.add(state);
@@ -199,11 +190,11 @@ public class DataProviders extends Driver {
     public String ticketStateClosed() {
         TicketStateToBean ticketStateToBean = new TicketStateToBean();
         List<TicketStateDataBean> list =
-                ticketStateToBean.getData(excelPath, config.getProperty(TICKET_STATE));
+                ticketStateToBean.getData(excelPath, constants.getValue(ApplicationConstants.TICKET_STATE_SHEET));
         List<TicketStateDataBean> closeState = new ArrayList<>();
         List<TicketStateDataBean> openState = new ArrayList<>();
         for (TicketStateDataBean state : list) {
-            if (state.getInternalState().equals(config.getProperty(CLOSE_STATE))) {
+            if (state.getInternalState().equals(constants.getValue(ApplicationConstants.TICKET_CLOSE_STATE))) {
                 closeState.add(state);
             } else {
                 openState.add(state);
@@ -214,9 +205,9 @@ public class DataProviders extends Driver {
 
     @DataProvider(name = "ticketId")
     public Object[][] getTestData5() {
-        NftrDataExcelToBeanDao credsExcelToBeanDao = new NftrDataExcelToBeanDao();
+        NftrDataExcelToBeanDao dataExcelToBeanDao = new NftrDataExcelToBeanDao();
         List<NftrDataBeans> list =
-                credsExcelToBeanDao.getData(excelPath, config.getProperty(SUITE_TYPE + NFTR_SHEET));
+                dataExcelToBeanDao.getData(excelPath, constants.getValue(nftrSheetValue));
         List<NftrDataBeans> finalTicketList = new ArrayList<>();
         for (NftrDataBeans nftrTicket : list) {
             if (nftrTicket.getTicketNumber() != null) {
@@ -238,10 +229,10 @@ public class DataProviders extends Driver {
 
     @DataProvider(name = "loginData")
     public Object[][] getLoginData(Method method) {
-        TestDataExcelToBeanDao credsExcelToBeanDao = new TestDataExcelToBeanDao();
+        TestDataExcelToBeanDao dataExcelToBeanDao = new TestDataExcelToBeanDao();
         User rows = method.getAnnotation(User.class);
         List<TestDatabean> list =
-                credsExcelToBeanDao.getData(excelPath, config.getProperty(LOGIN_SHEET));
+                dataExcelToBeanDao.getData(excelPath, constants.getValue(ApplicationConstants.LOGIN_SHEET_NAME));
         List<TestDatabean> finalTicketList = new ArrayList<>();
         for (TestDatabean login : list) {
             if (login.getUserType().toLowerCase().trim().equals(rows.userType().toLowerCase().trim())) {
@@ -261,7 +252,7 @@ public class DataProviders extends Driver {
         HeaderDataExcelToBeanDao excelToBeanDao = new HeaderDataExcelToBeanDao();
         Table table = method.getAnnotation(Table.class);
         List<HeaderDataBean> list =
-                excelToBeanDao.getData(excelPath, config.getProperty("HeaderSheet"));
+                excelToBeanDao.getData(excelPath, constants.getValue(ApplicationConstants.HEADER_SHEET));
         List<HeaderDataBean> finalTicketList = new ArrayList<>();
         for (HeaderDataBean login : list) {
             if (login.getTableName().toLowerCase().trim().equals(table.name().toLowerCase().trim())) {
@@ -279,7 +270,7 @@ public class DataProviders extends Driver {
     public Object[][] isReOpenState() {
         TicketStateToBean ticketStateToBean = new TicketStateToBean();
         List<TicketStateDataBean> list =
-                ticketStateToBean.getData(excelPath, config.getProperty(TICKET_STATE));
+                ticketStateToBean.getData(excelPath, constants.getValue(ApplicationConstants.TICKET_STATE_SHEET));
         List<TicketStateDataBean> reOpen = new ArrayList<>();
         for (TicketStateDataBean state : list) {
             log.info(state.getIsReopenState());
@@ -298,9 +289,9 @@ public class DataProviders extends Driver {
 
     @DataProvider
     public Object[][] interactionComment() {
-        NftrDataExcelToBeanDao credsExcelToBeanDao = new NftrDataExcelToBeanDao();
+        NftrDataExcelToBeanDao dataExcelToBeanDao = new NftrDataExcelToBeanDao();
         List<NftrDataBeans> list =
-                credsExcelToBeanDao.getData(excelPath, config.getProperty(SUITE_TYPE + NFTR_SHEET));
+                dataExcelToBeanDao.getData(excelPath, constants.getValue(nftrSheetValue));
 
         Object[][] hashMapObj = new Object[1][1];
 
@@ -313,11 +304,11 @@ public class DataProviders extends Driver {
     public List<TicketStateDataBean> getState(String stateName) {
         TicketStateToBean ticketStateToBean = new TicketStateToBean();
         List<TicketStateDataBean> list =
-                ticketStateToBean.getData(excelPath, config.getProperty(TICKET_STATE));
+                ticketStateToBean.getData(excelPath, constants.getValue(ApplicationConstants.TICKET_STATE_SHEET));
         List<TicketStateDataBean> closeState = new ArrayList<>();
         List<TicketStateDataBean> openState = new ArrayList<>();
         for (TicketStateDataBean state : list) {
-            if (state.getInternalState().equals(config.getProperty(CLOSE_STATE))) {
+            if (state.getInternalState().equals(constants.getValue(ApplicationConstants.TICKET_CLOSE_STATE))) {
                 closeState.add(state);
             } else {
                 openState.add(state);
@@ -333,14 +324,14 @@ public class DataProviders extends Driver {
     //helper method
     public List<PriorityDataBean> getPriority() {
         PriorityDataExcelToBeanDao priorityDataBean = new PriorityDataExcelToBeanDao();
-        return priorityDataBean.getData(excelPath, config.getProperty("priority"));
+        return priorityDataBean.getData(excelPath, constants.getValue(ApplicationConstants.TICKET_PRIORITY_SHEET));
     }
 
     //helper method
     public Map<String, Boolean> getALLPinnedTags() {
         PinnedTagDataExcelToBeanDao pinnedTag = new PinnedTagDataExcelToBeanDao();
         List<PinnedTagsDataBeans> list =
-                pinnedTag.getData(excelPath, config.getProperty(PINNED_TAG_SHEET));
+                pinnedTag.getData(excelPath, constants.getValue(ApplicationConstants.PINNED_TAG_SHEET_NAME));
         Map<String, Boolean> finalList = new HashMap<>();
         for (PinnedTagsDataBeans l : list) {
             finalList.put(l.getTagName().toLowerCase().trim(), false);
@@ -350,9 +341,9 @@ public class DataProviders extends Driver {
 
     @DataProvider(name = "singleTicketId")
     public Object[][] getSingleTicketId() {
-        NftrDataExcelToBeanDao credsExcelToBeanDao = new NftrDataExcelToBeanDao();
+        NftrDataExcelToBeanDao dataExcelToBeanDao = new NftrDataExcelToBeanDao();
         List<NftrDataBeans> list =
-                credsExcelToBeanDao.getData(excelPath, config.getProperty(SUITE_TYPE + NFTR_SHEET));
+                dataExcelToBeanDao.getData(excelPath, constants.getValue(nftrSheetValue));
         List<NftrDataBeans> finalTicketList = new ArrayList<>();
         for (NftrDataBeans nftrTicket : list) {
             log.info("Ticket Id: " + nftrTicket.getTicketNumber());
@@ -384,9 +375,9 @@ public class DataProviders extends Driver {
     }
 
     public String getCode(String text) {
-        FtrDataExcelToBeanDao credsExcelToBeanDao = new FtrDataExcelToBeanDao();
+        FtrDataExcelToBeanDao dataExcelToBeanDao = new FtrDataExcelToBeanDao();
         List<FtrDataBeans> list =
-                credsExcelToBeanDao.getData(excelPath, config.getProperty(SUITE_TYPE + FTR_SHEET));
+                dataExcelToBeanDao.getData(excelPath, constants.getValue(nftrSheetValue));
         for (FtrDataBeans ftrDataBeans : list) {
             if (ftrDataBeans.getIssueSubSubType().equalsIgnoreCase(text)) {
                 log.info("Found Single Row: " + ftrDataBeans.getIssueSubSubType());
@@ -398,9 +389,9 @@ public class DataProviders extends Driver {
 
     @DataProvider(name = "ticketTransferRule")
     public Object[][] ticketTransferRule() {
-        TicketTransferRuleDateToExcel credsExcelToBeanDao = new TicketTransferRuleDateToExcel();
+        TicketTransferRuleDateToExcel transferRuleDateToExcel = new TicketTransferRuleDateToExcel();
         List<TicketTransferRuleDataBean> list =
-                credsExcelToBeanDao.getData(excelPath, config.getProperty("ticketTransferRule"));
+                transferRuleDateToExcel.getData(excelPath, constants.getValue(ApplicationConstants.TICKET_TRANSFER_RULE_SHEET));
         List<TicketTransferRuleDataBean> finalList = new ArrayList<>();
         for (TicketTransferRuleDataBean l : list) {
             if (l.getIssueCode() != null && !l.getIssueCode().isEmpty()) {
@@ -417,13 +408,13 @@ public class DataProviders extends Driver {
     //Get Auth Policy
     public List<AuthTabDataBeans> getPolicy() {
         AuthTabBeanToExcel authTabBeanToExcel = new AuthTabBeanToExcel();
-        return authTabBeanToExcel.getData(excelPath, config.getProperty("authPolicy"));
+        return authTabBeanToExcel.getData(excelPath, constants.getValue(ApplicationConstants.AUTH_POLICY_SHEET));
     }
 
     public List<String> getPolicyQuestion() {
         AuthTabBeanToExcel authTabBeanToExcel = new AuthTabBeanToExcel();
         List<AuthTabDataBeans> list =
-                authTabBeanToExcel.getData(excelPath, config.getProperty("authPolicy"));
+                authTabBeanToExcel.getData(excelPath, constants.getValue(ApplicationConstants.AUTH_POLICY_SHEET));
         List<String> question = new ArrayList<>();
         question.add(list.get(0).getQ1());
         question.add(list.get(0).getQ2());
@@ -448,20 +439,20 @@ public class DataProviders extends Driver {
 
     public List<QuestionAnswerKeyDataBeans> getQuestionAnswerKey() {
         QuestionAnswerKeyToExcel authTabBeanToExcel = new QuestionAnswerKeyToExcel();
-        return authTabBeanToExcel.getData(excelPath, config.getProperty("questionAnswerKey"));
+        return authTabBeanToExcel.getData(excelPath, constants.getValue(ApplicationConstants.QUESTION_ANSWER_SHEET_NAME));
     }
 
     //Get Action Tagging
     public List<ActionTagDataBeans> getActionTag() {
         ActionTagBeanToExcel actionTagDataBeans = new ActionTagBeanToExcel();
-        return actionTagDataBeans.getData(excelPath, config.getProperty(ACTION_TAGGED));
+        return actionTagDataBeans.getData(excelPath, constants.getValue(ApplicationConstants.ACTION_TAGGED_SHEET_NAME));
     }
 
     //Get Voucher Id
     public String getVoucherId() {
         ActionTagBeanToExcel actionTagDataBeans = new ActionTagBeanToExcel();
         List<ActionTagDataBeans> list =
-                actionTagDataBeans.getData(excelPath, config.getProperty(ACTION_TAGGED));
+                actionTagDataBeans.getData(excelPath, constants.getValue(ApplicationConstants.ACTION_TAGGED_SHEET_NAME));
         for (ActionTagDataBeans s : list) {
             if (s.getActionTagName().equalsIgnoreCase("Voucher Id")) {
                 if (evnName.equalsIgnoreCase("prod")) {
@@ -477,7 +468,7 @@ public class DataProviders extends Driver {
     public List<String> issueDetailReason(String actionTagName) {
         ActionTagBeanToExcel actionTagDataBeans = new ActionTagBeanToExcel();
         List<ActionTagDataBeans> list =
-                actionTagDataBeans.getData(excelPath, config.getProperty(ACTION_TAGGED));
+                actionTagDataBeans.getData(excelPath, constants.getValue(ApplicationConstants.ACTION_TAGGED_SHEET_NAME));
         List<String> reasons = new ArrayList<>();
         for (ActionTagDataBeans s : list) {
             if (s.getActionTagName().trim().equalsIgnoreCase(actionTagName)) {
@@ -502,7 +493,7 @@ public class DataProviders extends Driver {
     public Object[][] getQueueState() {
         QueueStateBeanToExcel queueStateBeanToExcel = new QueueStateBeanToExcel();
         List<QueueStateDataBeans> list =
-                queueStateBeanToExcel.getData(excelPath, config.getProperty(STATE_QUEUE));
+                queueStateBeanToExcel.getData(excelPath, constants.getValue(ApplicationConstants.STATE_QUEUE_SHEET_NAME));
         List<QueueStateDataBeans> finalTicketList = new ArrayList<>();
         for (QueueStateDataBeans states : list) {
             assert states.getQueue() != null;
@@ -520,7 +511,7 @@ public class DataProviders extends Driver {
     public List<String> getQueueState(String queue) {
         QueueStateBeanToExcel queueStateBeanToExcel = new QueueStateBeanToExcel();
         List<QueueStateDataBeans> list =
-                queueStateBeanToExcel.getData(excelPath, config.getProperty(STATE_QUEUE));
+                queueStateBeanToExcel.getData(excelPath, constants.getValue(ApplicationConstants.STATE_QUEUE_SHEET_NAME));
         List<String> allStates = new ArrayList<>();
         for (QueueStateDataBeans states : list) {
             if (states.getQueue().equalsIgnoreCase(queue)) {
@@ -565,9 +556,9 @@ public class DataProviders extends Driver {
 
     //Get ticket layout using issue code
     public List<String> getTicketLayout(String code) {
-        NftrDataExcelToBeanDao credsExcelToBeanDao = new NftrDataExcelToBeanDao();
+        NftrDataExcelToBeanDao dataExcelToBeanDao = new NftrDataExcelToBeanDao();
         List<NftrDataBeans> list =
-                credsExcelToBeanDao.getData(excelPath, config.getProperty(SUITE_TYPE + NFTR_SHEET));
+                dataExcelToBeanDao.getData(excelPath, constants.getValue(nftrSheetValue));
         List<String> finalTicketList = new ArrayList<>();
         for (NftrDataBeans nftrTicket : list) {
             if (nftrTicket.getIssueCode().equalsIgnoreCase(code)) {
@@ -600,7 +591,7 @@ public class DataProviders extends Driver {
     public boolean writeTicketNumberToExcel() throws IOException {
         WriteTicket objExcelFile = new WriteTicket();
         File exceldir = new File("excels");
-        File excel = new File(exceldir, config.getProperty("ticketBulkUpdate"));
+        File excel = new File(exceldir, constants.getValue(ApplicationConstants.TICKET_BULK_UPDATE_SHEET));
         Object[][] list = getTestData5();
         boolean flag = false;
         int size = list.length;
@@ -627,7 +618,7 @@ public class DataProviders extends Driver {
     public Object[][] getTransferToQueueData() {
         TransferQueueDataToExcel transferQueue = new TransferQueueDataToExcel();
         List<TransferQueueDataBean> list =
-                transferQueue.getData(excelPath, config.getProperty("transferToQueue"));
+                transferQueue.getData(excelPath, constants.getValue(ApplicationConstants.TRANSFER_TO_QUEUE_SHEET));
         Object[][] hashMapObj = new Object[list.size()][1];
         for (int i = 0; i < list.size(); i++) {
             hashMapObj[i][0] = list.get(i);
@@ -680,7 +671,7 @@ public class DataProviders extends Driver {
                 }
             }
         } catch (Exception e) {
-            e.getMessage();
+            commonLib.error("Exception in Method - getScenarioDetailsFromExcelSheetColumnWise" + e.getMessage());
         }
         recordSet.close();
         return requiredDataPointList;
@@ -701,17 +692,16 @@ public class DataProviders extends Driver {
             connection = fillo.getConnection(filePath);
             String strQuery = "Select * from " + sheetName;
             recordSet = connection.executeQuery(strQuery);
-
             return recordSet;
         } catch (Exception e) {
-            e.getMessage();
+            commonLib.fail("Failed to query from excel sheet in method - readExcelSheet" + e.getMessage(), false);
         } finally {
             try {
                 if (connection != null) {
                     connection.close();
                 }
             } catch (Exception e) {
-                e.getMessage();
+                commonLib.fail("Failed to close connectino in Method - readExcelSheet" + e.getMessage(), false);
             }
         }
         return recordSet;
