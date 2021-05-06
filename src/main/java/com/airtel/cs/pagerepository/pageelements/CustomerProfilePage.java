@@ -21,15 +21,14 @@ public class CustomerProfilePage {
     public By loanWidget = By.xpath("//span[contains(text(),'LOAN SERVICES')]//ancestor::div[@class=\"card widget ng-star-inserted\"]");
     public By sendSMSAction = By.xpath("//div[@class=\"mat-menu-content\"]//button[contains(text(),'Send SMS')]");
     public By simBarUnBar = By.xpath("//div[@class=\"mat-menu-content\"]//button[1]");
-    public By sendSettings = By.xpath("//div[@class=\"mat-menu-content\"]//button[contains(text(),'Send Internet Settings')]");
+    public By sendSettings = By.xpath("//button[text()=' Send Internet Settings ']");
     public By resetME2UPassword = By.xpath("//div[@class=\"mat-menu-content\"]//button[contains(text(),'Reset Me2U Password')]");
     public By sendSettingTitle = By.xpath("//span[contains(text(),'Send Internet Settings')]");
     public By resetME2Title = By.xpath("//span[contains(text(),'Reset Me2U Password')]");
-    public By noBtn = By.xpath("//button[@class=\"no-btn\"]");
+    public By cancelBtn = By.xpath("//button[@class='no-btn']");
     public By closeBtn = By.xpath("//span[contains(text(),'Send Internet Settings')]//following-sibling::mat-icon[contains(text(),'close')]");
     public By birthdayIcon = By.xpath("//span[@class='customer-icon-block']/img");
     public By continueBtn = By.xpath("//span[contains(text(),'continue')]");
-
     public By changeServiceClass_btn = By.xpath("//button[contains(text(),'Change Service Class')]");
     public By homePage = By.xpath("//*[contains(text(),'HOME')]");
     public By suspendSIM = By.xpath("//*[contains(text(),'Suspend SIM')]");

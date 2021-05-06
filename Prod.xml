@@ -37,7 +37,7 @@
     </test>
     <test name="Validate Action Trail Tab Test">
         <classes>
-            <class name="com.airtel.cs.ui.frontendagent.ActionTrailTest"/>
+            <class name="com.airtel.cs.ui.frontendagent.actiondropdown.ActionTrailTest"/>
         </classes>
     </test>
     <test name="Validate Frontend Agent Ticket Page">

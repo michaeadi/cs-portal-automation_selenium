@@ -49,10 +49,15 @@ public class ViewHistory extends BasePage {
     }
 
     public ActionTrail clickOnActionTrailHistory() {
+        ActionTrail actionTrail = null;
         commonLib.info("Clicking on Action Trail History Tab under view history ");
-        waitTillLoaderGetsRemoved();
-        click(pageElements.actionTrailTab);
-        return new ActionTrail(driver);
+        if (isVisible(pageElements.actionTrailTab)) {
+            click(pageElements.actionTrailTab);
+            actionTrail = new ActionTrail(driver);
+        } else {
+            commonLib.fail("Exception in method - clickOnActionTrailHistory ", true);
+        }
+        return actionTrail;
     }
 
     public String getLastCreatedIssueCode() {

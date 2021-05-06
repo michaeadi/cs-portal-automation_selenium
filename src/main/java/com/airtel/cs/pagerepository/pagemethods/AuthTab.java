@@ -89,14 +89,24 @@ public class AuthTab extends BasePage {
         click(pageElements.simCloseBtn);
     }
 
-    public boolean isIssueDetailTitle() {
-        final boolean state = checkState(pageElements.issueDetails);
-        commonLib.info("Is Issue Detail Configured: " + state);
-        return state;
+    public boolean isIssueDetailTitleVisible() {
+        boolean result = false;
+        if (isVisible(pageElements.issueDetails)) {
+            final boolean state = checkState(pageElements.issueDetails);
+            commonLib.info("Is Issue Detail Configured: " + state);
+            result = state;
+        } else {
+            commonLib.fail("Exception in method - isIssueDetailTitleVisible", true);
+        }
+        return result;
     }
 
-    public void openSelectPopup() {
-        click(pageElements.listOfIssue);
+    public void clickSelectReasonDropDown() {
+        if (isVisible(pageElements.listOfIssue)) {
+            click(pageElements.listOfIssue);
+        } else {
+            commonLib.fail("Exception in method - clickSelectReasonDropDown", true);
+        }
     }
 
     public List<String> getReasonConfig() {
@@ -143,8 +153,22 @@ public class AuthTab extends BasePage {
     }
 
     public void clickSubmitBtn() {
-        commonLib.info("Clicking Submit Button");
-        click(pageElements.submitBtn);
+        if (isClickable(pageElements.submitBtn)) {
+            commonLib.info("Clicking Submit Button");
+            click(pageElements.submitBtn);
+        } else {
+            commonLib.fail("Exception in Method - clickSubmitBtn", true);
+        }
+    }
+
+    public String getSuccessModalText() {
+        String result = null;
+        if (isVisible(pageElements.successModal)) {
+            result = getText(pageElements.successModal);
+        } else {
+            commonLib.fail("Exception in method - getSuccessModalText", true);
+        }
+        return result;
     }
 
 }

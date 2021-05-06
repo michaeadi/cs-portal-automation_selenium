@@ -1,4 +1,4 @@
-package com.airtel.cs.ui.frontendagent;
+package com.airtel.cs.ui.frontendagent.actiondropdown;
 
 import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
@@ -7,8 +7,6 @@ import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.driver.Driver;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
@@ -16,9 +14,9 @@ import org.testng.annotations.Test;
 
 public class ActionTrailTest extends Driver {
 
+    String agentAuuid = null;
     String reason = null;
     String comments = "Adding comment using Automation";
-    String agentAuuid = null;
     private final BaseActions actions = new BaseActions();
 
 
@@ -34,9 +32,8 @@ public class ActionTrailTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @DataProviders.User(userType = "NFTR")
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
-    public void openCustomerInteraction(TestDatabean data) {
+    public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
             final String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
@@ -55,7 +52,7 @@ public class ActionTrailTest extends Driver {
     }
 
     @DataProviders.Table(name = "Action Trail Tab")
-    @Test(priority = 3, description = "Validating Action Trail Tab", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 2, description = "Validating Action Trail Tab", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
     public void validateActionTrailOpenCorrectly(HeaderDataBean data) {
         try {
             selUtils.addTestcaseDescription("Validating the Action Trail Tab Under View History", "description");
@@ -74,47 +71,10 @@ public class ActionTrailTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 2, description = "Verify the Send Internet Setting tab", dependsOnMethods = "openCustomerInteraction")
-    public void validateSendInternetSetting() {
-        try {
-            selUtils.addTestcaseDescription("Verify the Send Internet Setting tab", "description");
-            pages.getCustomerProfilePage().waitTillLoaderGetsRemoved();
-            pages.getCustomerProfilePage().clickOnAction();
-            pages.getCustomerProfilePage().clickSendSetting();
-            pages.getCustomerProfilePage().waitTillLoaderGetsRemoved();
-            pages.getCustomerProfilePage().waitTillLoaderGetsRemoved();
-            try {
-                assertCheck.append(actions.assertEqual_boolean(pages.getAuthTabPage().isIssueDetailTitle(), true, "Issue Detail Configured", "Issue Detail does not configured"));
-                pages.getAuthTabPage().openSelectPopup();
-                reason = pages.getAuthTabPage().getReason();
-                pages.getAuthTabPage().chooseReason();
-                pages.getAuthTabPage().enterComment(comments);
-                assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isSendInternetSettingTitle(), true, "Send Internet Setting Title Displayed Correctly", "Send Internet Setting Title NOT Displayed Correctly"));
-                pages.getAuthTabPage().clickSubmitBtn();
-                pages.getAuthTabPage().waitTillLoaderGetsRemoved();
-                if (pages.getCustomerProfilePage().isSendInternetSettingTitle()) {
-                    String base64Screenshot = "data:image/png;base64," + ((TakesScreenshot) driver).
-                            getScreenshotAs(OutputType.BASE64);
-                    commonLib.fail("Test Failed", true);
-                    commonLib.fail("Send Internet setting pop up does not close after submit button: ", true);
-                    pages.getAuthTabPage().clickCloseBtn();
-                }
-            } catch (TimeoutException | NoSuchElementException | AssertionError e) {
-                commonLib.fail("Not able to close send Internet Setting Tab." + e.fillInStackTrace(), true);
-                pages.getAuthTabPage().clickCloseBtn();
-            }
-        } catch (NoSuchElementException | TimeoutException e) {
-            commonLib.fail("Exception in Method - validateSendInternetSetting" + e.fillInStackTrace(), true);
-            pages.getCustomerProfilePage().clickOutside();
-        }
-        actions.assertAllFoundFailedAssert(assertCheck);
-    }
-
-    @Test(priority = 4, description = "Validating Action Trail History", dependsOnMethods = "validateSendInternetSetting")
+    @Test(priority = 3, description = "Validating Action Trail History")
     public void validateActionTrailValue() {
         try {
             selUtils.addTestcaseDescription("Validating Action Trail History", "description");
-            pages.getCustomerProfilePage().waitTillLoaderGetsRemoved();
             pages.getCustomerProfilePage().goToViewHistory();
             pages.getViewHistory().clickOnActionTrailHistory();
             assertCheck.append(actions.assertEqual_stringType(pages.getActionTrailPage().getValue(0).toLowerCase().trim(), "send internet settings", "Action Type Column value displayed Correctly", "Action Type Column Value does not display Correctly"));

@@ -13,11 +13,12 @@ public class AuthTabPage {
     //SIM Bar/Unbar pop up
     public By simBarTitle = By.xpath("//div[@class=\"main-container__header\"]//span");
     public By simCloseBtn = By.xpath("//div[@class=\"main-container__header\"]//mat-icon");
-    public By issueDetails = By.xpath("//div[@formarrayname=\"issueDetails\"]//div[contains(text(),'Issue Detail:')]");
+    public By issueDetails = By.xpath("//div[contains(text(),'Issue Detail:')]");
     public By listOfIssue = By.xpath("//div[@formarrayname=\"issueDetails\"]//mat-select");
     public By options = By.xpath("//mat-option");
     public By commentBox = By.xpath("//textarea[@id='interactionComment']");
     public By cancelBtn = By.xpath("//button[@class=\"no-btn\"]");
-    public By submitBtn = By.xpath("//button[@class=\"submit-btn\"]");
+    public By submitBtn = By.xpath("//button[@class='submit-btn']");
     public By code = By.xpath("//mat-option[1]//span");
+    public By successModal=By.xpath("//*[@class='main-container__body--message ng-star-inserted']");
 }

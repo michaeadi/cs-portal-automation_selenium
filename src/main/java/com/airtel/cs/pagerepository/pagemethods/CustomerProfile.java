@@ -31,7 +31,7 @@ public class CustomerProfile extends BasePage {
         return text;
     }
 
-    public Boolean isSendInternetSettingTitle() {
+    public Boolean isSendInternetSettingTitleVisible() {
         final boolean state = checkState(pageElements.sendSettingTitle);
         commonLib.info("Is Send Internet Setting Title Display: " + state);
         return state;
@@ -40,6 +40,7 @@ public class CustomerProfile extends BasePage {
     public Boolean isResetME2UPasswordTitle() {
         final boolean state = checkState(pageElements.resetME2Title);
         commonLib.info("Is Reset ME2U Password Title Display: " + state);
+        waitTillLoaderGetsRemoved();
         return state;
     }
 
@@ -102,8 +103,12 @@ public class CustomerProfile extends BasePage {
     With this Method we will route to the View History tab adjacent to Home tab
      */
     public void goToViewHistory() {
-        click(pageElements.viewHistory);
-        commonLib.info("Clicking on View History");
+        if (isVisible(pageElements.viewHistory)) {
+            click(pageElements.viewHistory);
+            commonLib.info("Clicking on View History");
+        } else {
+            commonLib.fail("Exception in method - goToViewHistory ", true);
+        }
     }
 
     public boolean isPinTagVisible(String text) {
@@ -132,7 +137,11 @@ public class CustomerProfile extends BasePage {
 
     public void clickOnAction() {
         commonLib.info("Clicking on Home Action button");
-        click(pageElements.homeActionBtn);
+        if (isVisible(pageElements.homeActionBtn)) {
+            click(pageElements.homeActionBtn);
+        } else {
+            commonLib.fail("Exception in method - clickOnAction ", true);
+        }
     }
 
     public void openSendSMSTab() {
@@ -142,17 +151,29 @@ public class CustomerProfile extends BasePage {
 
     public void clickSendSetting() {
         commonLib.info("Clicking on Send SMS Setting");
-        click(pageElements.sendSettings);
+        if (isVisible(pageElements.sendSettings)) {
+            click(pageElements.sendSettings);
+        } else {
+            commonLib.fail("Exception in method - clickSendSetting", true);
+        }
     }
 
     public void clickResetME2U() {
-        commonLib.info("Clicking on Reset ME2U Password");
-        click(pageElements.resetME2UPassword);
+        if (isVisible(pageElements.resetME2UPassword)) {
+            commonLib.info("Clicking on Reset ME2U Password");
+            click(pageElements.resetME2UPassword);
+        } else {
+            commonLib.fail("Exception in method - clickResetME2U ", true);
+        }
     }
 
-    public void clickNoBtn() {
-        commonLib.info("Clicking on No Button");
-        click(pageElements.noBtn);
+    public void clickCancelBtn() {
+        if (isVisible(pageElements.cancelBtn)) {
+            commonLib.info("Clicking on Cancel Button");
+            click(pageElements.cancelBtn);
+        } else {
+            commonLib.fail("Exception in method - clickCancelBtn", true);
+        }
     }
 
     public void clickCloseBtn() {
@@ -177,9 +198,9 @@ public class CustomerProfile extends BasePage {
     }
 
     public void clickContinueButton() {
-        log.info("Clicking on Continue button");
         commonLib.info("Clicking on Continue button");
         click(pageElements.continueBtn);
+        waitTillLoaderGetsRemoved();
     }
 
     /*

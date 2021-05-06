@@ -199,9 +199,9 @@ public class AuthTabTest extends Driver {
         }
         try {
             assertCheck.append(actions.assertEqual_boolean(pages.getAuthTabPage().isSIMBarPopup(), true, "SIM Bar/Unbar pop up opened", "SIM Bar/Unbar popup does not open"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getAuthTabPage().isIssueDetailTitle(), true, "Issue details configured correctly", "Issue Detail does not configured"));
+            assertCheck.append(actions.assertEqual_boolean(pages.getAuthTabPage().isIssueDetailTitleVisible(), true, "Issue details configured correctly", "Issue Detail does not configured"));
             assertCheck.append(actions.assertEqual_boolean(pages.getAuthTabPage().isSubmitBtnEnable(), false, "Submit button Not enabled without comment", "Submit button enable without adding comment"));
-            pages.getAuthTabPage().openSelectPopup();
+            pages.getAuthTabPage().clickSelectReasonDropDown();
             List<String> reason = pages.getAuthTabPage().getReasonConfig();
             List<String> configReason = data.issueDetailReason("SIM Bar Unbar");
             for (String s : reason) {
@@ -222,44 +222,6 @@ public class AuthTabTest extends Driver {
         } catch (NoSuchElementException | TimeoutException e) {
             commonLib.fail("Exception in Method :- authCustomer" + e.fillInStackTrace(), true);
             pages.getAuthTabPage().closeSIMBarPopup();
-        }
-    }
-
-    @Test(priority = 8, description = "Verify the Send Internet Setting tab", dependsOnMethods = "openCustomerInteraction")
-    public void validateSendInternetSetting() {
-        try {
-            selUtils.addTestcaseDescription("Verify the Send Internet Setting tab", "description");
-            pages.getCustomerProfilePage().waitTillLoaderGetsRemoved();
-            pages.getCustomerProfilePage().clickOnAction();
-            pages.getCustomerProfilePage().clickSendSetting();
-            pages.getCustomerProfilePage().waitTillLoaderGetsRemoved();
-            pages.getCustomerProfilePage().waitTillLoaderGetsRemoved();
-            assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isSendInternetSettingTitle(), true, "Send Internet Setting Tab opened", "Send Internet Setting Tab Does not open after internet setting."));
-            pages.getCustomerProfilePage().clickNoBtn();
-            pages.getCustomerProfilePage().clickContinueButton();
-            actions.assertAllFoundFailedAssert(assertCheck);
-        } catch (NoSuchElementException | TimeoutException e) {
-            pages.getCustomerProfilePage().clickCloseBtn();
-            commonLib.fail("Exception in Method :- validateSendInternetSetting" + e.fillInStackTrace(), true);
-            pages.getCustomerProfilePage().clickOutside();
-        }
-    }
-
-    @Test(priority = 9, description = "Verify the Reset ME2U Password tab", dependsOnMethods = "openCustomerInteraction")
-    public void validateResetME2UPassword() {
-        try {
-            selUtils.addTestcaseDescription("Verify the Reset ME2U Password tab", "description");
-            pages.getCustomerProfilePage().waitTillLoaderGetsRemoved();
-            pages.getCustomerProfilePage().clickOnAction();
-            pages.getCustomerProfilePage().clickResetME2U();
-            assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isResetME2UPasswordTitle(), true, "Reset ME2U Password Tab Opened", "Reset ME2U Password Tab Does not open."));
-            pages.getCustomerProfilePage().clickNoBtn();
-            pages.getCustomerProfilePage().clickContinueButton();
-            actions.assertAllFoundFailedAssert(assertCheck);
-        } catch (NoSuchElementException | TimeoutException e) {
-            pages.getCustomerProfilePage().clickCloseBtn();
-            commonLib.fail("Exception in Method :- validateResetME2UPassword" + e.fillInStackTrace(), true);
-            pages.getCustomerProfilePage().clickOutside();
         }
     }
 }
