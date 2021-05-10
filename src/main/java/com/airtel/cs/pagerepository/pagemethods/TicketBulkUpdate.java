@@ -21,7 +21,7 @@ public class TicketBulkUpdate extends BasePage {
     }
 
     public boolean isTicketBulkUpdate() {
-        final boolean state = checkState(pageElements.pageTitle);
+        final boolean state = isEnabled(pageElements.pageTitle);
         commonLib.info("Checking Ticket Bulk Update page opened: " + state);
         return state;
     }
@@ -33,7 +33,7 @@ public class TicketBulkUpdate extends BasePage {
 
     public boolean isSelectFilter() {
         commonLib.info("Checking select filter option available");
-        return checkState(pageElements.selectFilter);
+        return isEnabled(pageElements.selectFilter);
     }
 
     public String getTransferToQueueOption() {
@@ -127,7 +127,7 @@ public class TicketBulkUpdate extends BasePage {
 
     public Boolean isClearFilterButton() {
         commonLib.info("Checking Clear Filter Button Display");
-        return checkState(pageElements.clearFilter);
+        return isEnabled(pageElements.clearFilter);
     }
 
     public boolean deleteFile() {
@@ -207,7 +207,7 @@ public class TicketBulkUpdate extends BasePage {
 
     public boolean isStatusBarComplete() {
         commonLib.info("Waiting for Status to be complete");
-        return checkState(pageElements.statueBar);
+        return isEnabled(pageElements.statueBar);
     }
 
     public String getUpdatedMessage() {

@@ -21,7 +21,7 @@ public class AssignToAgent extends BasePage {
 
     public boolean validatePageTitle() {
         commonLib.info("Validating Assign to agent Page");
-        return checkState(pageElements.pageTitle);
+        return isEnabled(pageElements.pageTitle);
     }
 
     public String getQueueName() {

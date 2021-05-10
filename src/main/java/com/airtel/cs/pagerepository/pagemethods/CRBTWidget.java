@@ -15,7 +15,7 @@ public class CRBTWidget extends BasePage {
     }
 
     public boolean isCRBTWidgetDisplay() {
-        final boolean state = checkState(pageElements.titleCRBT);
+        final boolean state = isEnabled(pageElements.titleCRBT);
         commonLib.info("Is CRBT Widget Display: " + state);
         return state;
     }
@@ -26,19 +26,19 @@ public class CRBTWidget extends BasePage {
     }
 
     public boolean isMyTuneTabDisplay() {
-        final boolean state = checkState(pageElements.myTuneTab);
+        final boolean state = isEnabled(pageElements.myTuneTab);
         commonLib.info("Is My Tune Tab Display: " + state);
         return state;
     }
 
     public boolean isTop20TuneTabDisplay() {
-        final boolean state = checkState(pageElements.top20TuneTab);
+        final boolean state = isEnabled(pageElements.top20TuneTab);
         commonLib.info("Is Top 20 Tune Tab Display: " + state);
         return state;
     }
 
     public boolean isSearchTuneTabDisplay() {
-        final boolean state = checkState(pageElements.searchTuneTab);
+        final boolean state = isEnabled(pageElements.searchTuneTab);
         commonLib.info("Is Search Tune Tab Display: " + state);
         return state;
     }
@@ -49,19 +49,19 @@ public class CRBTWidget extends BasePage {
     }
 
     public boolean isNoResultImg() {
-        final boolean state = checkState(pageElements.noResultImg);
+        final boolean state = isEnabled(pageElements.noResultImg);
         commonLib.info("Is No Result Found Image Displayed: " + state);
         return state;
     }
 
     public boolean isNoResultMessage() {
-        final boolean state = checkState(pageElements.noResultMessage);
+        final boolean state = isEnabled(pageElements.noResultMessage);
         commonLib.info("Is No Result Found Message Displayed: " + state);
         return state;
     }
 
     public boolean isWidgetError() {
-        final boolean state = checkState(pageElements.widgetError);
+        final boolean state = isEnabled(pageElements.widgetError);
         commonLib.info("Is no Widget Error Display: " + state);
         return state;
     }

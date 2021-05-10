@@ -1,11 +1,9 @@
-package com.airtel.cs.ui.frontendagent;
+package com.airtel.cs.ui.frontendagent.loginandlogout;
 
 import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.PassUtils;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
-import com.airtel.cs.commonutils.dataproviders.DataProviders;
-import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.driver.Driver;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
@@ -31,7 +29,7 @@ public class LoginPortalTests extends Driver {
     public void testLoginIntoPortal() {
         try {
             selUtils.addTestcaseDescription("Logging Into Portal with valid credentials, Validating opened url,validating login button is getting enabled,Validating dashboard page opened successfully or not?", "description");
-            final String loginAUUID = constants.getValue(CommonConstants.ALL_USER_ROLE_AUUID);
+            loginAUUID = constants.getValue(CommonConstants.ALL_USER_ROLE_AUUID);
             final String value = constants.getValue(ApplicationConstants.DOMAIN_URL);
             pages.getLoginPage().openBaseURL(value);
             assertCheck.append(actions.assertEqual_stringType(driver.getCurrentUrl(), value, "Correct URL Opened", "URl isn't as expected"));

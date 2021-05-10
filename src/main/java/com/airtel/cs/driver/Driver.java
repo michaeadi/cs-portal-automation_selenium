@@ -6,9 +6,11 @@ import com.airtel.cs.commonutils.commonlib.CommonLib;
 import com.airtel.cs.commonutils.extentreports.ExtentReport;
 import com.airtel.cs.commonutils.seleniumutils.SeleniumCommonUtils;
 import com.airtel.cs.pagerepository.pagemethods.PageCollection;
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+import com.aventstack.extentreports.reporter.configuration.Theme;
 import com.codoid.products.fillo.Recordset;
-import com.relevantcodes.extentreports.ExtentReports;
-import com.relevantcodes.extentreports.ExtentTest;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import io.restassured.http.Header;
 import lombok.extern.log4j.Log4j2;
@@ -26,7 +28,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -65,6 +66,7 @@ public class Driver {
     public static final LocalDateTime dateTime = new LocalDateTime();
     public static ExtentTest test;
     public static ExtentReports extent;
+    public static ExtentSparkReporter spark;
     public static ConstantsUtils constants = ConstantsUtils.getInstance();
     public static Recordset recordset = null;
     public static boolean continueExecutionAPI = true;
@@ -80,10 +82,12 @@ public class Driver {
             + "/resources/properties/reportextent-config.xml";
     public static final String CLIENT = System.getProperty("Client").toUpperCase();
     private static String browser = null;
-    private static String currentTestCaseName;
-    private String currentClassName;
+    public static String currentTestCaseName;
+    public static String currentClassName;
     public static String nftrSheetValue;
     public static String ftrSheetValue;
+    public static String reason;
+    public static String loginAUUID;
 
     public WebDriver getDriver() {
         return driver;
@@ -112,8 +116,8 @@ public class Driver {
     @BeforeMethod(alwaysRun = true)
     public static void methodLevelSetup(ITestResult tr) {
         try {
-            String currentClassName = getClassName(tr);
-            ExtentReport.startTest(currentClassName, currentTestCaseName);
+            currentClassName = getClassName(tr);
+            ExtentReport.startTest(currentClassName,currentTestCaseName);
             assertCheck = new StringBuilder(); // @ THIS WILL EMPTY ASSERT STRING-BUILDER BEFORE EACH TEST
         } catch (Exception ex) {
             commonLib.error(ex.getMessage());
@@ -121,9 +125,9 @@ public class Driver {
     }
 
     @AfterMethod(alwaysRun = true)
-    public void endTest() {
+    public static void endTest() {
         try {
-            ExtentReport.endTest(test);
+            ExtentReport.endTest();
         } catch (Exception e) {
             commonLib.error(e.getMessage());
         }
@@ -132,7 +136,7 @@ public class Driver {
     @AfterClass(alwaysRun = true)
     public void cleanup() {
         try {
-            ExtentReport.endTest(test);
+            ExtentReport.endTest();
         } catch (Exception e) {
             commonLib.error(e.getMessage());
         }
@@ -140,7 +144,7 @@ public class Driver {
 
     @AfterSuite(alwaysRun = true)
     public void closeReporting() {
-        ExtentReport.endTest(test);
+        ExtentReport.endTest();
         driver.close();
         if (driver != null) {
             driver.quit();
@@ -184,12 +188,16 @@ public class Driver {
             String modifiedHtmlfilePath;
             modifiedHtmlfilePath = HTML_FILE_PATH + SUITE_TYPE + reportTitle + dateTime.toString(DATE_FORMAT) + ".html";
             browser = constants.getValue(ApplicationConstants.WEB_BROWSER);
-            extent = new ExtentReports(modifiedHtmlfilePath);
-            extent.loadConfig(new File(EXTENT_REPORT_CONFIG_FILE_LOCATION));
-            extent.addSystemInfo("Application Environment ", OPCO + " " + evnName);
-            extent.addSystemInfo("Execution Browser ", browser);
-            extent.addSystemInfo("Language Selected ", "English");
-            extent.addSystemInfo("Suite Type", SUITE_TYPE.toUpperCase());
+            extent = new ExtentReports();
+            spark = new ExtentSparkReporter(modifiedHtmlfilePath);
+            extent.attachReporter(spark);
+            //spark.config().setTheme(Theme.DARK);
+            spark.config().setDocumentTitle("Airtel Africa CS Automation");
+            spark.config().setReportName("Automation Report - CS Portal");
+            extent.setSystemInfo("Application Environment ", OPCO + " " + evnName);
+            extent.setSystemInfo("Execution Browser ", browser.toUpperCase());
+            extent.setSystemInfo("Language Selected ", "English");
+            extent.setSystemInfo("Suite Type", SUITE_TYPE.toUpperCase());
             nftrSheetValue = constants.getValue(ApplicationConstants.SUITE_TYPE).equals(SUITE_TYPE) ? ApplicationConstants.SANITY_NFTR_SHEET : ApplicationConstants.REGRESSION_NFTR_SHEET;
             ftrSheetValue = constants.getValue(ApplicationConstants.SUITE_TYPE).equals(SUITE_TYPE) ? ApplicationConstants.SANITY_FTR_SHEET : ApplicationConstants.REGRESSION_FTR_SHEET;
         } catch (Exception ex) {
@@ -269,12 +277,5 @@ public class Driver {
         className = className.substring(classNameStartingIndex + 1, className.length());
         currentTestCaseName = tr.getMethod().getMethodName();
         return className;
-    }
-
-    public void startReport() {
-        currentClassName = getClass().getName();
-        int classNameStartingIndex = currentClassName.lastIndexOf('.');
-        currentClassName = currentClassName.substring(classNameStartingIndex + 1, currentClassName.length());
-        test = extent.startTest(currentClassName);
     }
 }

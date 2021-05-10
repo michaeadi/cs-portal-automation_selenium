@@ -138,7 +138,7 @@ public class Interactions extends BasePage {
 
     public boolean isSaveEnable() {
         commonLib.info("Checking is Save button Enabled");
-        if (checkState(pageElements.saveButton)) {
+        if (isEnabled(pageElements.saveButton)) {
             return true;
         } else {
             throw new ElementClickInterceptedException("Save Button does not enabled");

@@ -1,4 +1,4 @@
-package com.airtel.cs.ui.frontendagent;
+package com.airtel.cs.ui.frontendagent.loginandlogout;
 
 import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.driver.Driver;
@@ -8,7 +8,6 @@ import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 public class LogoutTest extends Driver {
 

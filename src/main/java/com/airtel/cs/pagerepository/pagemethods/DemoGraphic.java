@@ -1,6 +1,8 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
 
+import com.airtel.cs.commonutils.dataproviders.AuthTabDataBeans;
+import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.pagerepository.pageelements.DemoGraphicPage;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.Keys;
@@ -8,6 +10,7 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Log4j2
@@ -39,19 +42,19 @@ public class DemoGraphic extends BasePage {
         return text;
     }
 
-    public String getSIMStatusReasonCode() {
+    public String getGSMStatusReasonCode() {
         final String text = getText(pageElements.reasonCode);
         commonLib.info("Getting SIM Status Reason Code " + text);
         return text;
     }
 
-    public String getSIMStatusModifiedBy() {
+    public String getGSMStatusModifiedBy() {
         final String text = getText(pageElements.modifiedBy);
         commonLib.info("Getting SIM Status Modified By " + text);
         return text;
     }
 
-    public String getSIMStatusModifiedDate() {
+    public String getGSMStatusModifiedDate() {
         final String text = getText(pageElements.modifiedDate);
         commonLib.info("Getting SIM Status Modified Date " + text);
         return text;
@@ -102,17 +105,25 @@ public class DemoGraphic extends BasePage {
 
     public boolean isPUKInfoLock() {
         try {
-            commonLib.info("Is PUK Info locked: " + checkState(pageElements.pukLock));
-            return checkState(pageElements.pukLock);
+            commonLib.info("Is PUK Info locked: " + isEnabled(pageElements.pukLock));
+            return isEnabled(pageElements.pukLock);
         } catch (TimeoutException | NoSuchElementException e) {
             e.printStackTrace();
             return false;
         }
     }
 
+    public void checkPolicyQuestion() throws InterruptedException {
+        DataProviders dataProviders = new DataProviders();
+        List<AuthTabDataBeans> list = dataProviders.getPolicy();
+        for (int i = 1; i <= Integer.parseInt(list.get(0).getMinAnswer()); i++) {
+            pages.getAuthTabPage().clickCheckBox(i);
+        }
+    }
+
     public boolean isVIP() {
         try {
-            boolean check = checkState(pageElements.vipFlag);
+            boolean check = isEnabled(pageElements.vipFlag);
             commonLib.info("Is Customer VIP: " + check);
             return check;
         } catch (TimeoutException | NoSuchElementException e) {
@@ -123,7 +134,7 @@ public class DemoGraphic extends BasePage {
 
     public boolean isBirthday() {
         try {
-            boolean check = checkState(pageElements.customerBirthday);
+            boolean check = isEnabled(pageElements.customerBirthday);
             commonLib.info("Is Customer Birthday Today: " + check);
             return check;
         } catch (TimeoutException | NoSuchElementException e) {
@@ -134,7 +145,7 @@ public class DemoGraphic extends BasePage {
 
     public boolean isAirtelAnniversary() {
         try {
-            boolean check = checkState(pageElements.customerBirthday);
+            boolean check = isEnabled(pageElements.customerBirthday);
             commonLib.info("Is Customer Birthday Today: " + check);
             return check;
         } catch (TimeoutException | NoSuchElementException e) {
@@ -145,8 +156,9 @@ public class DemoGraphic extends BasePage {
 
     public boolean isAirtelMoneyStatusLock() {
         try {
-            commonLib.info("Is Airtel Money Status Info locked: " + checkState(pageElements.airtelMoneyLock));
-            return checkState(pageElements.airtelMoneyLock);
+            final boolean enabled = isEnabled(pageElements.airtelMoneyLock);
+            commonLib.info("Is Airtel Money Status Info locked: " + enabled);
+            return enabled;
         } catch (TimeoutException | NoSuchElementException e) {
             e.printStackTrace();
             return false;
@@ -165,7 +177,7 @@ public class DemoGraphic extends BasePage {
 
     public boolean checkAMProfileWidget() {
         commonLib.info("Checking AM Profile Widget Display");
-        return checkState(pageElements.amProfileWidget);
+        return isEnabled(pageElements.amProfileWidget);
     }
 
 
@@ -175,8 +187,8 @@ public class DemoGraphic extends BasePage {
         return attribute;
     }
 
-    public String getSIMStatus() {
-        final String text = getText(pageElements.SIMStatus);
+    public String getGSMStatus() {
+        final String text = getText(pageElements.gsmStatus);
         commonLib.info("Getting SIM Status: " + text);
         return text;
     }
@@ -211,8 +223,8 @@ public class DemoGraphic extends BasePage {
         return text;
     }
 
-    public String getLineType() {
-        final String text = getText(pageElements.lineType);
+    public String getConnectionType() {
+        final String text = getText(pageElements.connectionType);
         commonLib.info("Getting Line Type: " + text);
         return text;
     }
@@ -299,7 +311,7 @@ public class DemoGraphic extends BasePage {
 
     public boolean invalidMSISDNError() {
         commonLib.info("Reading Error Message: " + getText(pageElements.errorMessage));
-        return checkState(pageElements.errorMessage);
+        return isEnabled(pageElements.errorMessage);
     }
 
     public void enterMSISDN(String text) {

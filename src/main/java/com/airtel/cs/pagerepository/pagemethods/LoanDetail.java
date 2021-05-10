@@ -25,12 +25,12 @@ public class LoanDetail extends BasePage {
 
     public boolean isLoanDetailWidgetDisplay() {
         commonLib.info("Reading Widget: " + getText(pageElements.loanDetailWidgetTitle));
-        return checkState(pageElements.loanDetailWidgetTitle);
+        return isEnabled(pageElements.loanDetailWidgetTitle);
     }
 
     public boolean isLoanHistoryWidgetDisplay() {
         commonLib.info("Reading Widget: " + getText(pageElements.loanHistoryWidgetTitle));
-        return checkState(pageElements.loanHistoryWidgetTitle);
+        return isEnabled(pageElements.loanHistoryWidgetTitle);
     }
 
     public int getDetailWidgetHeaderSize() {

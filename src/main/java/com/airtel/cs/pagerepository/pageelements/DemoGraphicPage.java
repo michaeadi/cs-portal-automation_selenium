@@ -6,7 +6,7 @@ public class DemoGraphicPage {
     /*
      * Customer Name & DOB & Refresh Icon Element Locator
      * */
-    public By customerNumberSearchBox = By.xpath("//input[@type='search' and @placeholder='Search']");
+    public By customerNumberSearchBox = By.xpath("//input[(@type='text' or @type='search') and @placeholder='Search']");
     public By customerName = By.xpath("//span[@class='customer-name ng-star-inserted']/span[1]");
     public By customerDOB = By.xpath("//span[contains(text(),'DOB')]//following-sibling::span/span");
     public By customerInfoIcon = By.xpath("//span[@class='customer-name ng-star-inserted']/a");
@@ -55,7 +55,7 @@ public class DemoGraphicPage {
     /*
      * SIM Status & Airtel Money Status & Service Status
      * */
-    public By SIMStatus = By.xpath("//span[contains(text(),'GSM Status')]//following-sibling::span/span");
+    public By gsmStatus = By.xpath("//span[contains(text(),'GSM Status')]//following-sibling::span/span");
     public By SIMStatusReason = By.xpath("//span[contains(text(),'GSM Status')]//following-sibling::span/a");
     public By airtelMoneyStatus = By.xpath("//span[contains(text(),'Account Status')]//following-sibling::span/span");
     public By serviceStatus = By.xpath("//span[contains(text(),'Service Status')]//following-sibling::span/span");
@@ -75,7 +75,7 @@ public class DemoGraphicPage {
     public By idType = By.xpath("//span[contains(text(),'ID Type')]//following-sibling::span");
     public By idNumber = By.xpath("//span[contains(text(),'ID No.')]//following-sibling::span");
 
-    public By lineType = By.xpath("//span[contains(text(),'Connection Type')]//following-sibling::span");
+    public By connectionType = By.xpath("//span[contains(text(),'Connection Type')]//following-sibling::span");
     public By segment = By.xpath("//span[contains(text(),'Segment')]//following-sibling::span");
     public By hoverInfoSegment = By.xpath("//span[contains(text(),'Segment')]//following-sibling::span/a");
     public By serviceClass = By.xpath("//span[contains(text(),'Service Class')]//following-sibling::span");

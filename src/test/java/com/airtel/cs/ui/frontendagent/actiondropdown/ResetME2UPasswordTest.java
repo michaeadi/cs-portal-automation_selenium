@@ -34,7 +34,7 @@ public class ResetME2UPasswordTest extends Driver {
     @Test(priority = 2, description = "Verify the Reset ME2U Password tab", dependsOnMethods = "openCustomerInteraction")
     public void validateResetME2UPassword() {
         try {
-            selUtils.addTestcaseDescription("Verify the Reset ME2U Password tab", "description");
+            selUtils.addTestcaseDescription("Open action drop down and click on Reset ME2U Password option,Validate title visible over modal,Close modal by clicking over cancel button", "description");
             pages.getCustomerProfilePage().clickOnAction();
             pages.getCustomerProfilePage().clickResetME2U();
             assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isResetME2UPasswordTitle(), true, "Reset ME2U Password Tab Opened", "Reset ME2U Password Tab Does not open."));

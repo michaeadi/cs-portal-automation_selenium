@@ -2,7 +2,7 @@ package com.airtel.cs.commonutils;
 
 import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.driver.Driver;
-import com.relevantcodes.extentreports.LogStatus;
+import com.aventstack.extentreports.Status;
 import io.restassured.http.Header;
 import io.restassured.response.Response;
 import io.restassured.specification.QueryableRequestSpecification;
@@ -30,22 +30,22 @@ public class UtilsMethods extends Driver {
 
     public static void printInfoLog(String message) {
         log.info(message);
-        ExtentTestManager.getTest().log(LogStatus.INFO, message);
+        ExtentTestManager.getTest().log(Status.INFO, message);
     }
 
     public static void printFailLog(String message) {
         log.info(message);
-        ExtentTestManager.getTest().log(LogStatus.FAIL, message);
+        ExtentTestManager.getTest().log(Status.FAIL, message);
     }
 
     public static void printPassLog(String message) {
         log.info(message);
-        ExtentTestManager.getTest().log(LogStatus.PASS, message);
+        ExtentTestManager.getTest().log(Status.PASS, message);
     }
 
     public static void printWarningLog(String message) {
         log.info(message);
-        ExtentTestManager.getTest().log(LogStatus.WARNING, message);
+        ExtentTestManager.getTest().log(Status.WARNING, message);
     }
 
     public static void printResponseDetail(Response response) {

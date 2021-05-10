@@ -1,8 +1,6 @@
 package com.airtel.cs.commonutils.listeners;
 
-import com.airtel.cs.commonutils.extentreports.ExtentReport;
 import com.airtel.cs.driver.Driver;
-import com.relevantcodes.extentreports.LogStatus;
 import lombok.extern.log4j.Log4j2;
 import org.testng.ITestContext;
 import org.testng.ITestResult;

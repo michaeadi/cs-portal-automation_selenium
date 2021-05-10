@@ -22,7 +22,7 @@ public class TemplateManagement extends BasePage {
 
     public boolean isPageLoaded() {
         waitVisibility(pageElements.createdTemplateTab);
-        final boolean state = checkState(pageElements.createdTemplateTab);
+        final boolean state = isEnabled(pageElements.createdTemplateTab);
         commonLib.info("Checking that is Template Management Page is loaded : " + state);
         return state;
     }

@@ -7,7 +7,8 @@ import com.airtel.cs.commonutils.dataproviders.NftrDataBeans;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.driver.Driver;
-import com.relevantcodes.extentreports.LogStatus;
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.markuputils.Markup;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
@@ -287,7 +288,7 @@ public class InteractionCommentTest extends Driver {
         }
         String base64Screenshot = "data:image/png;base64," + ((TakesScreenshot) driver).
                 getScreenshotAs(OutputType.BASE64);
-        ExtentTestManager.getTest().log(LogStatus.INFO, ExtentTestManager.getTest().addBase64ScreenShot(base64Screenshot));
+        ExtentTestManager.getTest().log(Status.INFO, (Markup) ExtentTestManager.getTest().addScreenCaptureFromBase64String(base64Screenshot));
         pages.getInteractionsPage().closeTicketCommentBox();
         pages.getInteractionsPage().waitTillLoaderGetsRemoved();
         softAssert.assertAll();

@@ -106,7 +106,7 @@ public class UsageHistoryWidget extends BasePage {
 
     public boolean isUsageHistoryDatePickerVisible() {
         commonLib.info("Checking Usage HistoryWidget Date Picker Visibility ");
-        return checkState(pageElements.usageHistoryDatePicker);
+        return isEnabled(pageElements.usageHistoryDatePicker);
     }
 
     public WidgetInteraction clickTicketIcon() {

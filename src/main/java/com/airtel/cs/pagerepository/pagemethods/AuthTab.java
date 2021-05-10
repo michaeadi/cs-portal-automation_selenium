@@ -22,8 +22,8 @@ public class AuthTab extends BasePage {
     }
 
     public boolean isAuthTabLoad() {
-        commonLib.info("Checking Authentication tab load");
-        return checkState(pageElements.authTabTitle);
+        commonLib.info("Checking Authentication tab loaded");
+        return isEnabled(pageElements.authTabTitle);
     }
 
     public void clickCloseBtn() {
@@ -79,7 +79,7 @@ public class AuthTab extends BasePage {
     }
 
     public boolean isSIMBarPopup() {
-        final boolean state = checkState(pageElements.simBarTitle);
+        final boolean state = isEnabled(pageElements.simBarTitle);
         commonLib.info("Is SIM bar/unbar popup open: " + state);
         return state;
     }
@@ -92,7 +92,7 @@ public class AuthTab extends BasePage {
     public boolean isIssueDetailTitleVisible() {
         boolean result = false;
         if (isVisible(pageElements.issueDetails)) {
-            final boolean state = checkState(pageElements.issueDetails);
+            final boolean state = isEnabled(pageElements.issueDetails);
             commonLib.info("Is Issue Detail Configured: " + state);
             result = state;
         } else {

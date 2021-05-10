@@ -19,7 +19,7 @@ public class TransferToQueue extends BasePage {
 
     public boolean validatePageTitle() {
         commonLib.info("Validating Transfer to Queue Title");
-        return checkState(pageElements.pageTitle);
+        return isEnabled(pageElements.pageTitle);
     }
 
     public void clickTransferQueue(String queueName) {

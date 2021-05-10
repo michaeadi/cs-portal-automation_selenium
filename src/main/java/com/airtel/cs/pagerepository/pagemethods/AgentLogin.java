@@ -17,17 +17,17 @@ public class AgentLogin extends BasePage {
 
     public boolean checkSkipButton() {
         commonLib.info("Checking Agent Login Page SKIP Button");
-        return checkState(pageElements.skipBtn);
+        return isEnabled(pageElements.skipBtn);
     }
 
     public boolean checkSubmitButton() {
         commonLib.info("Checking Agent Login Page Submit Button");
-        return checkState(pageElements.submitBtn);
+        return isEnabled(pageElements.submitBtn);
     }
 
     public boolean isQueueLoginPage() {
         commonLib.info("Supervisor Login Page");
-        return checkState(pageElements.loginQueueTitle);
+        return isEnabled(pageElements.loginQueueTitle);
     }
 
     public void clickSelectQueue() {

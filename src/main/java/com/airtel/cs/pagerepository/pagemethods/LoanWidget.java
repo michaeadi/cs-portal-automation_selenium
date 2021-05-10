@@ -108,14 +108,14 @@ public class LoanWidget extends BasePage {
 
     public boolean checkVendorNameDisplay(String name) {
         By vendor = By.xpath("//div[@id='LOAN_SERVICES']//div[@class=\"card__card-header--card-body--table\"]//span[contains(text(),'" + name + "')]");
-        final boolean checkState = checkState(vendor);
+        final boolean checkState = isEnabled(vendor);
         commonLib.info("Is Vendor name displayed: " + checkState);
         return checkState;
     }
 
     public boolean checkMessageDisplay(String message) {
         By vendor = By.xpath("//div[@id='LOAN_SERVICES']//div[@class=\"card__card-header--card-body--table\"]//span[contains(text(),'" + message + "')]");
-        final boolean checkState = checkState(vendor);
+        final boolean checkState = isEnabled(vendor);
         commonLib.info("Is message displayed: " + checkState);
         return checkState;
     }

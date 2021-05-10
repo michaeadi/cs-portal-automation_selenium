@@ -19,7 +19,7 @@ public class ServiceClassWidget extends BasePage {
     }
 
     public boolean isServiceClassWidgetDisplay() {
-        final boolean state = checkState(pageElements.title);
+        final boolean state = isEnabled(pageElements.title);
         commonLib.info("Is Service Class Widget Display: " + state);
         return state;
     }

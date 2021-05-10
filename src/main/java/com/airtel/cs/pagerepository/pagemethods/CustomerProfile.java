@@ -32,13 +32,13 @@ public class CustomerProfile extends BasePage {
     }
 
     public Boolean isSendInternetSettingTitleVisible() {
-        final boolean state = checkState(pageElements.sendSettingTitle);
+        final boolean state = isEnabled(pageElements.sendSettingTitle);
         commonLib.info("Is Send Internet Setting Title Display: " + state);
         return state;
     }
 
     public Boolean isResetME2UPasswordTitle() {
-        final boolean state = checkState(pageElements.resetME2Title);
+        final boolean state = isEnabled(pageElements.resetME2Title);
         commonLib.info("Is Reset ME2U Password Title Display: " + state);
         waitTillLoaderGetsRemoved();
         return state;
@@ -87,7 +87,7 @@ public class CustomerProfile extends BasePage {
     public boolean isCustomerProfilePageLoaded() {
         boolean result = false;
         if (isVisible(pageElements.searchNumber)) {
-            result = checkState(pageElements.searchNumber);
+            result = isEnabled(pageElements.searchNumber);
             commonLib.info("Is Customer Profile Page loaded ? " + result);
         }
         return result;
@@ -189,12 +189,12 @@ public class CustomerProfile extends BasePage {
 
     public boolean isLoanWidgetDisplay() {
         commonLib.info("Checking Loan Widget Displayed");
-        return checkState(pageElements.loanWidget);
+        return isEnabled(pageElements.loanWidget);
     }
 
     public boolean isCustomerBirthday() {
         commonLib.info("Checking Customer Birthday or not");
-        return checkState(pageElements.birthdayIcon);
+        return isEnabled(pageElements.birthdayIcon);
     }
 
     public void clickContinueButton() {
@@ -236,7 +236,7 @@ public class CustomerProfile extends BasePage {
      */
     public Boolean isSuspendSIMOptionVisible() {
         boolean result = false;
-        final String simStatus = pages.getDemoGraphicPage().getSIMStatus();
+        final String simStatus = pages.getDemoGraphicPage().getGSMStatus();
         if (StringUtils.equalsIgnoreCase(simStatus, "Active")) {
             try {
                 result = elementVisibleWithExplictWait(pageElements.suspendSIM);
@@ -269,7 +269,7 @@ public class CustomerProfile extends BasePage {
      */
     public Boolean isReactivationSIMOptionVisible() {
         boolean result = false;
-        final String simStatus = pages.getDemoGraphicPage().getSIMStatus();
+        final String simStatus = pages.getDemoGraphicPage().getGSMStatus();
         if (StringUtils.equalsIgnoreCase(simStatus, "Suspended")) {
             try {
                 result = elementVisibleWithExplictWait(pageElements.reactivationSIM);
@@ -373,7 +373,7 @@ public class CustomerProfile extends BasePage {
     This Method will let us know, submit Btn is enabled or not over issue details pop up
      */
     public Boolean isSubmitEnabled() {
-        return checkState(pageElements.submitBtn);
+        return isEnabled(pageElements.submitBtn);
     }
 
     public void doSIMBarAction() {

@@ -1,4 +1,4 @@
-package com.airtel.cs.ui.frontendagent;
+package com.airtel.cs.ui.frontendagent.widgets;
 
 import com.airtel.cs.api.APIEndPoints;
 import com.airtel.cs.common.actions.BaseActions;
@@ -139,110 +139,6 @@ public class WidgetsOptionsTest extends Driver {
         softAssert.assertAll();
     }
 
-    //    @Table(Name = "SMS History")
-//    @Test(priority = 4, description = "Validating Usage History's SMS History", dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
-//    public void usageHistoryMenuAndSMSHistoryTest(HeaderDataBean Data) {
-//        selUtils.addTestcaseDescription();("Validating Usage History's SMS History of User :" + customerNumber, "description");
-//        UsageHistoryWidgetPOM usageHistory = new UsageHistoryWidgetPOM(driver);
-//        SoftAssert softAssert = new SoftAssert();
-//        softAssert.assertTrue(usageHistory.isUsageHistoryWidgetMenuVisible(), "Usage History's MENU is not visible ");
-//        MoreUsageHistoryPOM moreUsageHistory = usageHistory.openingMoreDetails();
-//        softAssert.assertTrue(moreUsageHistory.isSMSDatePickerVisible(), "SMS History Date picker is not visible ");
-//        softAssert.assertEquals(moreUsageHistory.getSMSHistoryHeader(1).toLowerCase().trim(), Data.getRow1().toLowerCase().trim(), "Header Name for SMS Row 1 is not as expected");
-//        softAssert.assertEquals(moreUsageHistory.getSMSHistoryHeader(2).toLowerCase().trim(), Data.getRow2().toLowerCase().trim(), "Header Name for SMS Row 2 is not as expected");
-//        softAssert.assertEquals(moreUsageHistory.getSMSHistoryHeader(3).toLowerCase().trim(), Data.getRow3().toLowerCase().trim(), "Header Name for SMS Row 3 is not as expected");
-//        softAssert.assertEquals(moreUsageHistory.getSMSHistoryHeader(4).toLowerCase().trim(), Data.getRow4().toLowerCase().trim(), "Header Name for SMS Row 4 is not as expected");
-//
-//        UsageHistoryPOJO smsUsageHistoryAPI = api.usageHistoryTest(customerNumber, "SMS_HISTORY");
-//        int smsSize = moreUsageHistory.getNumbersOfSMSRows();
-//
-//        if (smsUsageHistoryAPI.getResult().size() == 0 || smsUsageHistoryAPI.getResult() == null) {
-//            commonLib.warning("Unable to get SMS History Details from com.airtel.cs.API");
-//            softAssert.assertTrue(moreUsageHistory.isSMSHistoryNoResultFoundVisible(), "Error Message is not Visible");
-//            softAssert.assertEquals(moreUsageHistory.gettingSMSHistoryNoResultFoundMessage(), "No Result found", "Error Message is not as expected");
-//        } else {
-//            for (int i = 0; i < smsSize; i++) {
-//                softAssert.assertEquals(moreUsageHistory.getSmsBundleName(i), smsUsageHistoryAPI.getResult().get(i).getBundleName(), "SMS Bundle received is not as expected on row " + i);
-//                softAssert.assertEquals(moreUsageHistory.getSMSCharges(i), smsUsageHistoryAPI.getResult().get(i).getCharges(), "SMS Charges received is not as expected on row " + i);
-//                softAssert.assertEquals(moreUsageHistory.getSMSDateTime(i), (moreUsageHistory.getDateFromEpoch(Long.parseLong(smsUsageHistoryAPI.getResult().get(i).getDateTime()), "dd-MMM-yyyy HH:mm")), "SMS Date & Time received is not as expected on row " + i);
-//                softAssert.assertEquals(moreUsageHistory.getSMSTo(i), smsUsageHistoryAPI.getResult().get(i).getSmsTo(), "SMS To received is not as expected on row " + i);
-////                softAssert.assertEquals(moreUsageHistory.getSMSTransactionNumber(i), smsUsageHistoryAPI.getResult().get(i).getTxnNumber(), "SMS Transaction Number received is not as expected on row " + i);
-//                if (i != 0) {
-//                    softAssert.assertTrue(moreUsageHistory.isSortOrderDisplay(moreUsageHistory.getSMSDateTime(i), moreUsageHistory.getSMSDateTime(i - 1), "dd-MMM-yyy HH:mm"), moreUsageHistory.getSMSDateTime(i) + "should not display before " + moreUsageHistory.getSMSDateTime(i - 1));
-//                }
-//            }
-//        }
-//        softAssert.assertAll();
-//    }
-//
-//    @Table(Name = "Call History")
-//    @Test(priority = 5, description = "Validating Usage History's Call History", dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
-//    public void usageHistoryCallMenuTest(HeaderDataBean Data) {
-//        selUtils.addTestcaseDescription();("Validating Usage History's Call History of User :" + customerNumber, "description");
-//        MoreUsageHistoryPOM moreUsageHistory = new MoreUsageHistoryPOM(driver);
-//        SoftAssert softAssert = new SoftAssert();
-//        softAssert.assertTrue(moreUsageHistory.isCallDatePickerVisible(), "Call History Date picker is not visible ");
-//        softAssert.assertEquals(moreUsageHistory.getCallHistoryHeader(1).toLowerCase().trim(), Data.getRow1().toLowerCase().trim(), "Header Name for Call Row 1 is not as expected");
-//        softAssert.assertEquals(moreUsageHistory.getCallHistoryHeader(2).toLowerCase().trim(), Data.getRow2().toLowerCase().trim(), "Header Name for Call Row 2 is not as expected");
-//        softAssert.assertEquals(moreUsageHistory.getCallHistoryHeader(3).toLowerCase().trim(), Data.getRow3().toLowerCase().trim(), "Header Name for Call Row 3 is not as expected");
-//        softAssert.assertEquals(moreUsageHistory.getCallHistoryHeader(4).toLowerCase().trim(), Data.getRow4().toLowerCase().trim(), "Header Name for Call Row 4 is not as expected");
-//        softAssert.assertEquals(moreUsageHistory.getCallHistoryHeader(5).toLowerCase().trim(), Data.getRow5().toLowerCase().trim(), "Header Name for Call Row 5 is not as expected");
-//        int callSize = moreUsageHistory.getNumbersOfCallRows();
-//        UsageHistoryPOJO callUsageHistoryAPI = api.usageHistoryTest(customerNumber, "CALL_HISTORY");
-//        if (callUsageHistoryAPI.getResult().size() == 0 || callUsageHistoryAPI.getResult() == null) {
-//            commonLib.warning("Unable to get CALL History Details from com.airtel.cs.API");
-//            softAssert.assertTrue(moreUsageHistory.isCallHistoryNoResultFoundVisible(), "Error Message is not Visible");
-//            softAssert.assertEquals(moreUsageHistory.gettingCallHistoryNoResultFoundMessage(), "No Result found", "Error Message is not as expected");
-//        } else {
-//            for (int i = 0; i < callSize; i++) {
-//                softAssert.assertEquals(moreUsageHistory.getCallBundleName(i), callUsageHistoryAPI.getResult().get(i).getBundleName(), "Call Bundle received is not as expected on row " + i);
-//                softAssert.assertEquals(moreUsageHistory.getCallCharges(i), callUsageHistoryAPI.getResult().get(i).getCharges(), "Call Charges received is not as expected on row " + i);
-//                softAssert.assertEquals(moreUsageHistory.getCallDateTime(i), (moreUsageHistory.getDateFromEpoch(Long.parseLong(callUsageHistoryAPI.getResult().get(i).getDateTime()), "dd-MMM-yyyy HH:mm")), "Call Date & Time received is not as expected on row " + i);
-//                softAssert.assertEquals(moreUsageHistory.getCallTo(i), callUsageHistoryAPI.getResult().get(i).getCallTo(), "Call To received is not as expected on row " + i);
-////                softAssert.assertEquals(moreUsageHistory.getCallTransactionNumber(i), callUsageHistoryAPI.getResult().get(i).getTxnNumber(), "Call Transaction Number received is not as expected on row " + i);
-//                softAssert.assertEquals(moreUsageHistory.getCallDuration(i), callUsageHistoryAPI.getResult().get(i).getCallDuration(), "Call Duration  received is not as expected on row " + i);
-//                if (i != 0) {
-//                    softAssert.assertTrue(moreUsageHistory.isSortOrderDisplay(moreUsageHistory.getCallDateTime(i), moreUsageHistory.getCallDateTime(i - 1), "dd-MMM-yyy HH:mm"), moreUsageHistory.getCallDuration(i) + "should not display before " + moreUsageHistory.getCallDuration(i - 1));
-//                }
-//            }
-//        }
-//        softAssert.assertAll();
-//    }
-//
-//    @Table(Name = "Data History")
-//    @Test(priority = 6, description = "Validating Usage History's Data History", dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
-//    public void usageHistoryDataMenuTest(HeaderDataBean Data) {
-//        selUtils.addTestcaseDescription();("Validating Usage History's Data History of User :" + customerNumber, "description");
-//        MoreUsageHistoryPOM moreUsageHistory = new MoreUsageHistoryPOM(driver);
-//        SoftAssert softAssert = new SoftAssert();
-//
-//        int dataSize = moreUsageHistory.getNumbersOfDataRows();
-//        softAssert.assertTrue(moreUsageHistory.isDataDatePickerVisible(), "Data History Date picker is not visible ");
-//        softAssert.assertEquals(moreUsageHistory.getDataHistoryHeader(1).toLowerCase().trim(), Data.getRow1().toLowerCase().trim(), "Header Name for Data Row 1 is not as expected");
-//        softAssert.assertEquals(moreUsageHistory.getDataHistoryHeader(2).toLowerCase().trim(), Data.getRow2().toLowerCase().trim(), "Header Name for Data Row 2 is not as expected");
-//        softAssert.assertEquals(moreUsageHistory.getDataHistoryHeader(3).toLowerCase().trim(), Data.getRow3().toLowerCase().trim(), "Header Name for Data Row 3 is not as expected");
-//        softAssert.assertEquals(moreUsageHistory.getDataHistoryHeader(4).toLowerCase().trim(), Data.getRow4().toLowerCase().trim(), "Header Name for Data Row 4 is not as expected");
-//        UsageHistoryPOJO dataUsageHistoryAPI = api.usageHistoryTest(customerNumber, "DATA_HISTORY");
-//        if (dataUsageHistoryAPI.getResult().size() == 0 || dataUsageHistoryAPI.getResult() == null) {
-//            commonLib.warning("Unable to get DATA History Details from com.airtel.cs.API");
-//            softAssert.assertTrue(moreUsageHistory.isDataHistoryNoResultFoundVisible(), "Error Message is not Visible");
-//            softAssert.assertEquals(moreUsageHistory.gettingDataHistoryNoResultFoundMessage(), "No Result found", "Error Message is not as expected");
-//        } else {
-//            for (int i = 0; i < dataSize; i++) {
-//                softAssert.assertEquals(moreUsageHistory.getDataBundleName(i), dataUsageHistoryAPI.getResult().get(i).getBundleName(), "Data Bundle received is not as expected on row " + i);
-//                softAssert.assertEquals(moreUsageHistory.getDataCharges(i), dataUsageHistoryAPI.getResult().get(i).getCharges(), "Data Charges received is not as expected on row " + i);
-//                softAssert.assertEquals(moreUsageHistory.getDataDateTime(i), (moreUsageHistory.getDateFromEpoch(Long.parseLong(dataUsageHistoryAPI.getResult().get(i).getDateTime()), "dd-MMM-yyyy HH:mm")), "Data Date & Time received is not as expected on row " + i);
-//                softAssert.assertEquals(moreUsageHistory.getUsedData(i), dataUsageHistoryAPI.getResult().get(i).getUsedData(), "Data Used is not as expected on row " + i);
-////                softAssert.assertEquals(moreUsageHistory.getDataTransactionNumber(i), dataUsageHistoryAPI.getResult().get(i).getTxnNumber(), "Data Transaction Number received is not as expected on row " + i);
-//                if (i != 0) {
-//                    softAssert.assertTrue(moreUsageHistory.isSortOrderDisplay(moreUsageHistory.getDataDateTime(i), moreUsageHistory.getDataDateTime(i - 1), "dd-MMM-yyy HH:mm"), moreUsageHistory.getDataDateTime(i) + "should not display before " + moreUsageHistory.getDataDateTime(i - 1));
-//                }
-//            }
-//        }
-//        moreUsageHistory.openingCustomerInteractionDashboard();
-//        softAssert.assertAll();
-//    }
-//
     @Table(name = "More Recharge History")
     @Test(priority = 4, description = "Validating Recharge History's  Menu", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI")
     public void rechargeHistoryMenuTest(HeaderDataBean data) {

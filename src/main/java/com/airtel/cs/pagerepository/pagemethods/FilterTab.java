@@ -121,32 +121,32 @@ public class FilterTab extends BasePage {
     }
 
     public boolean isCreatedByFilter() {
-        final boolean state = checkState(tabElements.filterCreatedByLabel);
+        final boolean state = isEnabled(tabElements.filterCreatedByLabel);
         commonLib.pass("Is filter by created date available :" + state);
         return state;
     }
 
     public boolean isClosureByFilter() {
-        final boolean state = checkState(tabElements.filterClosureByLabel);
+        final boolean state = isEnabled(tabElements.filterClosureByLabel);
         commonLib.info("Is filter by Closure date available :" + state);
         return state;
     }
 
     public boolean isSlaDueDateFilter() {
-        final boolean state = checkState(tabElements.sLADueDateLabel);
+        final boolean state = isEnabled(tabElements.sLADueDateLabel);
         commonLib.pass("Is filter by SLA due date available :" + state);
         return state;
     }
 
     public boolean isCategoryFilter() {
-        final boolean state = checkState(tabElements.categoryLabel);
+        final boolean state = isEnabled(tabElements.categoryLabel);
         commonLib.pass("Is filter by issue category available :" + state);
         return state;
     }
 
     public boolean isQueueFilter() {
         try {
-            final boolean state = checkState(tabElements.queueLabel);
+            final boolean state = isEnabled(tabElements.queueLabel);
             commonLib.pass("Is filter by Queue available :" + state);
             return state;
         } catch (NoSuchElementException e) {
@@ -156,7 +156,7 @@ public class FilterTab extends BasePage {
 
     public boolean isTicketByAssigneeFilter() {
         try {
-            final boolean state = checkState(tabElements.ticketAssigneeLabel);
+            final boolean state = isEnabled(tabElements.ticketAssigneeLabel);
             commonLib.pass("Is filter by ticket assignee name available :" + state);
             return state;
         } catch (NoSuchElementException e) {
@@ -166,7 +166,7 @@ public class FilterTab extends BasePage {
 
     public boolean isEscalatedLevelFilter() {
         try {
-            final boolean state = checkState(tabElements.escalatedLevelLabel);
+            final boolean state = isEnabled(tabElements.escalatedLevelLabel);
             commonLib.pass("Is filter by ticket escalation level available :" + state);
             return state;
         } catch (NoSuchElementException e) {
@@ -176,7 +176,7 @@ public class FilterTab extends BasePage {
 
     public boolean isStateFilter() {
         try {
-            final boolean state = checkState(tabElements.stateLabel);
+            final boolean state = isEnabled(tabElements.stateLabel);
             commonLib.pass("Is filter by ticket state available :" + state);
             return state;
         } catch (NoSuchElementException e) {
@@ -186,7 +186,7 @@ public class FilterTab extends BasePage {
 
     public boolean isPriorityFilter() {
         try {
-            final boolean state = checkState(tabElements.priorityLabel);
+            final boolean state = isEnabled(tabElements.priorityLabel);
             commonLib.pass("Is filter by ticket priority available :" + state);
             return state;
         } catch (NoSuchElementException e) {
@@ -202,7 +202,7 @@ public class FilterTab extends BasePage {
             final String stateName = state.getTicketStateName();
             By check = By.xpath(XPATH1 + stateName + "')]");
             try {
-                commonLib.info(FILTER_TEXT + stateName + AVAILABLE + checkState(check));
+                commonLib.info(FILTER_TEXT + stateName + AVAILABLE + isEnabled(check));
             } catch (NoSuchElementException | TimeoutException e) {
                 commonLib.fail("State does not mapped Correctly(Check Config): " + stateName + " " + e.fillInStackTrace(), true);
                 flag = false;
@@ -220,7 +220,7 @@ public class FilterTab extends BasePage {
             final String stateName = state.getTicketStateName();
             By check = By.xpath(XPATH1 + stateName + "')]");
             try {
-                final boolean checkState = checkState(check);
+                final boolean checkState = isEnabled(check);
                 log.info("Filter by state name " + stateName + " is: " + checkState);
                 commonLib.info(FILTER_TEXT + stateName + AVAILABLE + checkState);
             } catch (NoSuchElementException | TimeoutException e) {
@@ -240,7 +240,7 @@ public class FilterTab extends BasePage {
             final String ticketPriority = state.getTicketPriority();
             By check = By.xpath(XPATH1 + ticketPriority + "')]");
             try {
-                commonLib.pass(FILTER_TEXT + ticketPriority + AVAILABLE + checkState(check));
+                commonLib.pass(FILTER_TEXT + ticketPriority + AVAILABLE + isEnabled(check));
             } catch (TimeoutException | NoSuchElementException e) {
                 commonLib.fail("Priority does not mapped Correctly(Check Config): '" + ticketPriority + "' " + e.fillInStackTrace(), true);
                 flag = false;
@@ -276,7 +276,7 @@ public class FilterTab extends BasePage {
      */
     public boolean isSourceFilterPresent() {
         boolean result;
-        result = checkState(tabElements.sourceLabel);
+        result = isEnabled(tabElements.sourceLabel);
         commonLib.pass("Is Source Filter available :" + result);
         return result;
     }
@@ -303,6 +303,6 @@ public class FilterTab extends BasePage {
 
     public Boolean isApplyFilterBtnEnabled() {
         selUtils.clickElementAfterScroll(tabElements.applyFilter);
-        return checkState(tabElements.applyFilter);
+        return isEnabled(tabElements.applyFilter);
     }
 }

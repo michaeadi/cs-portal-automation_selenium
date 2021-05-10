@@ -3,7 +3,7 @@ package com.airtel.cs.commonutils.commonlib;
 import com.airtel.cs.commonutils.applicationutils.enums.JavaColors;
 import com.airtel.cs.commonutils.applicationutils.enums.ReportInfoMessageColorList;
 import com.airtel.cs.driver.Driver;
-import com.relevantcodes.extentreports.LogStatus;
+import com.aventstack.extentreports.Status;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.JavascriptExecutor;
@@ -25,22 +25,22 @@ import java.util.Random;
 public class CommonLib extends Driver {
     public void fail(String message, boolean requireScreenshot) {
         LOGGER.error(message);
-        reporter.showInExtentReport(LogStatus.FAIL, message, requireScreenshot);
+        reporter.showInExtentReport(Status.FAIL, message, requireScreenshot);
     }
 
     public void error(String message, boolean requireScreenshot) {
         LOGGER.error(message);
-        reporter.showInExtentReport(LogStatus.FAIL, message, requireScreenshot);
+        reporter.showInExtentReport(Status.FAIL, message, requireScreenshot);
     }
 
     public void warning(String message) {
         LOGGER.warn(message);
-        reporter.showInExtentReport(LogStatus.WARNING, message, false);
+        reporter.showInExtentReport(Status.WARNING, message, false);
     }
 
     public void skip(String message) {
         LOGGER.warn(message);
-        reporter.showInExtentReport(LogStatus.SKIP, message, false);
+        reporter.showInExtentReport(Status.SKIP, message, false);
     }
 
     public void hardWait(int time, String reasonForWait) {
@@ -132,42 +132,42 @@ public class CommonLib extends Driver {
 
     public void info(String message, boolean requireScreenshot) {
         LOGGER.info(message);
-        reporter.showInExtentReport(LogStatus.INFO, message, requireScreenshot);
+        reporter.showInExtentReport(Status.INFO, message, requireScreenshot);
     }
 
     public void infoColored(String message, JavaColors javaColors, boolean requireScreenshot) {
         LOGGER.info(message);
         if (javaColors.equals(JavaColors.GREEN)) {
-            reporter.showInExtentReport(LogStatus.PASS, message, requireScreenshot);
+            reporter.showInExtentReport(Status.PASS, message, requireScreenshot);
         } else if (javaColors.equals(JavaColors.RED)) {
-            reporter.showInExtentReport(LogStatus.FAIL, message, requireScreenshot);
+            reporter.showInExtentReport(Status.FAIL, message, requireScreenshot);
         } else {
-            reporter.showInExtentReport(LogStatus.INFO, message, requireScreenshot);
+            reporter.showInExtentReport(Status.INFO, message, requireScreenshot);
         }
     }
 
     public void pass(String message) {
         LOGGER.info(message);
-        reporter.showInExtentReport(LogStatus.PASS, message, false);
+        reporter.showInExtentReport(Status.PASS, message, false);
     }
 
     public void setStatusInReport(boolean status, String message, boolean requireScreenshot) {
         if (status) {
             LOGGER.info(message);
-            reporter.showInExtentReport(LogStatus.PASS, message + " - is visible successfully", requireScreenshot);
+            reporter.showInExtentReport(Status.PASS, message + " - is visible successfully", requireScreenshot);
         } else {
             LOGGER.error(message);
-            reporter.showInExtentReport(LogStatus.FAIL, message + " - is NOT VISIBLE", requireScreenshot);
+            reporter.showInExtentReport(Status.FAIL, message + " - is NOT VISIBLE", requireScreenshot);
         }
     }
 
     public void setStatusInReport(boolean status, String passMessage, String failMessage, boolean requireScreenshot) {
         if (status) {
             LOGGER.info(passMessage);
-            reporter.showInExtentReport(LogStatus.PASS, passMessage, requireScreenshot);
+            reporter.showInExtentReport(Status.PASS, passMessage, requireScreenshot);
         } else {
             LOGGER.error(failMessage);
-            reporter.showInExtentReport(LogStatus.FAIL, failMessage, requireScreenshot);
+            reporter.showInExtentReport(Status.FAIL, failMessage, requireScreenshot);
         }
     }
 

@@ -1,9 +1,8 @@
 package com.airtel.cs.commonutils.extentreports;
 
 import com.airtel.cs.driver.Driver;
-import com.relevantcodes.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentReports;
 
-import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -18,22 +17,22 @@ public class ExtentManager extends Driver {
             //Set HTML reporting file location
             String workingDir = System.getProperty("user.dir");
             if (System.getProperty("os.name").toLowerCase().contains("win")) {
-                extent = new ExtentReports(workingDir + "/ExtentReports/CS_Portal-" + OPCO + "-" + evnName + "-" + SUITE_TYPE + "-" + date + ".html", true);
-                extent.addSystemInfo("user", "Rahul Gupta");
-                extent.assignProject("CS Portal");
-                extent.addSystemInfo("OPCO", OPCO);
-                extent.addSystemInfo("Environment", evnName);
-                extent.addSystemInfo("Suite Type", SUITE_TYPE.toUpperCase());
-                extent.loadConfig(new File(workingDir + "/resources/properties/reportextent-config.xml"));
+               // extent = new ExtentReports(workingDir + "/ExtentReports/CS_Portal-" + OPCO + "-" + evnName + "-" + SUITE_TYPE + "-" + date + ".html", true);
+                extent.setSystemInfo("user", "Rahul Gupta");
+                //extent.assignProject("CS Portal");
+                extent.setSystemInfo("OPCO", OPCO);
+                extent.setSystemInfo("Environment", evnName);
+                extent.setSystemInfo("Suite Type", SUITE_TYPE.toUpperCase());
+               // extent.loadConfig(new File(workingDir + "/resources/properties/reportextent-config.xml"));
 
             } else {
-                extent = new ExtentReports(workingDir + "/ExtentReports/CS_Portal-Automation-Report-" + OPCO + evnName + "-" + date + ".html", true);
-                extent.addSystemInfo("user", "Rahul Gupta");
-                extent.assignProject("CS Portal");
-                extent.addSystemInfo("OPCO", OPCO);
-                extent.addSystemInfo("Environment", evnName);
-                extent.addSystemInfo("Suite Type", SUITE_TYPE.toUpperCase());
-                extent.loadConfig(new File(workingDir + "/resources/properties/reportextent-config.xml"));
+               // extent = new ExtentReports(workingDir + "/ExtentReports/CS_Portal-Automation-Report-" + OPCO + evnName + "-" + date + ".html", true);
+                extent.setSystemInfo("user", "Rahul Gupta");
+               // extent.assignProject("CS Portal");
+                extent.setSystemInfo("OPCO", OPCO);
+                extent.setSystemInfo("Environment", evnName);
+                extent.setSystemInfo("Suite Type", SUITE_TYPE.toUpperCase());
+               // extent.loadConfig(new File(workingDir + "/resources/properties/reportextent-config.xml"));
 
             }
         }

@@ -4,7 +4,7 @@ import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.driver.Driver;
-import com.relevantcodes.extentreports.LogStatus;
+import com.aventstack.extentreports.Status;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -51,13 +51,13 @@ public class WidgetTaggedIssueTest extends Driver {
         softAssert.assertTrue(pages.getWidgetInteraction().getTabTitle().toLowerCase().contains(widgetName), "Interaction tab does not have title displayed");
         try {
             if (pages.getWidgetInteraction().checkNoInteractionTag()) {
-                ExtentTestManager.getTest().log(LogStatus.INFO, "No Interaction tagged with widget");
+                ExtentTestManager.getTest().log(Status.INFO, "No Interaction tagged with widget");
             } else {
                 List<String> visibleIssueList = pages.getWidgetInteraction().getListOfIssue();
                 try {
                     for (String s : visibleIssueList) {
                         if (tagIssue.containsKey(s)) {
-                            ExtentTestManager.getTest().log(LogStatus.PASS, "Validate " + s + " :Issue tag to widget is display correctly");
+                            ExtentTestManager.getTest().log(Status.PASS, "Validate " + s + " :Issue tag to widget is display correctly");
                             tagIssue.remove(s);
                             pages.getWidgetInteraction().clickIssueLabel(s);
                             pages.getWidgetInteraction().writeComment("Comment added using test automation");
@@ -74,27 +74,27 @@ public class WidgetTaggedIssueTest extends Driver {
                             widgetName = pages.getCurrentBalanceWidgetPage().getWidgetTitle();
                             softAssert.assertTrue(pages.getWidgetInteraction().getTabTitle().toLowerCase().contains(widgetName), "Interaction tab does not have title displayed");
                         } else {
-                            ExtentTestManager.getTest().log(LogStatus.FAIL, s + " :Issue must not tag to widget and display on UI as this is not mention in config sheet.");
+                            ExtentTestManager.getTest().log(Status.FAIL, s + " :Issue must not tag to widget and display on UI as this is not mention in config sheet.");
                             softAssert.fail(s + " :Issue must not tag to widget and display on UI as this is not mention in config sheet.");
                         }
                     }
                 } catch (NoSuchElementException e) {
-                    ExtentTestManager.getTest().log(LogStatus.INFO, e.fillInStackTrace());
+                    ExtentTestManager.getTest().log(Status.INFO, e.fillInStackTrace());
                     e.printStackTrace();
                     softAssert.fail("Issue Creation Failed");
                 }
             }
             if (tagIssue.isEmpty()) {
-                ExtentTestManager.getTest().log(LogStatus.PASS, "All issue tagged to widget correctly configured and display on UI.");
+                ExtentTestManager.getTest().log(Status.PASS, "All issue tagged to widget correctly configured and display on UI.");
             } else {
                 for (Map.Entry<String, String> mapElement : tagIssue.entrySet()) {
-                    ExtentTestManager.getTest().log(LogStatus.FAIL, mapElement.getKey() + " issue does not display on UI but present in config sheet.");
+                    ExtentTestManager.getTest().log(Status.FAIL, mapElement.getKey() + " issue does not display on UI but present in config sheet.");
                     softAssert.fail(mapElement.getKey() + " :Issue does not display on UI but present in config sheet.");
                 }
             }
         } catch (NoSuchElementException e) {
             e.printStackTrace();
-            ExtentTestManager.getTest().log(LogStatus.INFO, e.fillInStackTrace());
+            ExtentTestManager.getTest().log(Status.INFO, e.fillInStackTrace());
             softAssert.fail("Interaction tab does not open correctly");
         }
         pages.getWidgetInteraction().closeInteractionTab();
@@ -113,13 +113,13 @@ public class WidgetTaggedIssueTest extends Driver {
         softAssert.assertTrue(pages.getWidgetInteraction().getTabTitle().toLowerCase().contains(widgetName), "Interaction tab does not have title displayed");
         try {
             if (pages.getWidgetInteraction().checkNoInteractionTag()) {
-                ExtentTestManager.getTest().log(LogStatus.INFO, "No Interaction tagged with widget");
+                ExtentTestManager.getTest().log(Status.INFO, "No Interaction tagged with widget");
             } else {
                 List<String> visibleIssueList = pages.getWidgetInteraction().getListOfIssue();
                 try {
                     for (String s : visibleIssueList) {
                         if (tagIssue.containsKey(s)) {
-                            ExtentTestManager.getTest().log(LogStatus.PASS, "Validate " + s + " :Issue tag to widget is display correctly");
+                            ExtentTestManager.getTest().log(Status.PASS, "Validate " + s + " :Issue tag to widget is display correctly");
                             tagIssue.remove(s);
                             pages.getWidgetInteraction().clickIssueLabel(s);
                             pages.getWidgetInteraction().writeComment("Comment added using test automation");
@@ -136,27 +136,27 @@ public class WidgetTaggedIssueTest extends Driver {
                             widgetName = pages.getRechargeHistoryWidget().getWidgetTitle();
                             softAssert.assertTrue(pages.getWidgetInteraction().getTabTitle().toLowerCase().contains(widgetName), "Interaction tab does not have title displayed");
                         } else {
-                            ExtentTestManager.getTest().log(LogStatus.FAIL, s + " :Issue must not tag to widget and display on UI as this is not mention in config sheet.");
+                            ExtentTestManager.getTest().log(Status.FAIL, s + " :Issue must not tag to widget and display on UI as this is not mention in config sheet.");
                             softAssert.fail(s + " :Issue must not tag to widget and display on UI as this is not mention in config sheet.");
                         }
                     }
                 } catch (NoSuchElementException e) {
-                    ExtentTestManager.getTest().log(LogStatus.INFO, e.fillInStackTrace());
+                    ExtentTestManager.getTest().log(Status.INFO, e.fillInStackTrace());
                     e.printStackTrace();
                     softAssert.fail("Issue Creation Failed");
                 }
             }
             if (tagIssue.isEmpty()) {
-                ExtentTestManager.getTest().log(LogStatus.PASS, "All issue tagged to widget correctly configured and display on UI.");
+                ExtentTestManager.getTest().log(Status.PASS, "All issue tagged to widget correctly configured and display on UI.");
             } else {
                 for (Map.Entry<String, String> mapElement : tagIssue.entrySet()) {
-                    ExtentTestManager.getTest().log(LogStatus.FAIL, mapElement.getKey() + " issue does not display on UI but present in config sheet.");
+                    ExtentTestManager.getTest().log(Status.FAIL, mapElement.getKey() + " issue does not display on UI but present in config sheet.");
                     softAssert.fail(mapElement.getKey() + " :Issue does not display on UI but present in config sheet.");
                 }
             }
         } catch (NoSuchElementException e) {
             e.printStackTrace();
-            ExtentTestManager.getTest().log(LogStatus.INFO, e.fillInStackTrace());
+            ExtentTestManager.getTest().log(Status.INFO, e.fillInStackTrace());
             softAssert.fail("Interaction tab does not open correctly");
         }
         pages.getWidgetInteraction().closeInteractionTab();
@@ -175,13 +175,13 @@ public class WidgetTaggedIssueTest extends Driver {
         softAssert.assertTrue(pages.getWidgetInteraction().getTabTitle().toLowerCase().contains(widgetName), "Interaction tab does not have title displayed");
         try {
             if (pages.getWidgetInteraction().checkNoInteractionTag()) {
-                ExtentTestManager.getTest().log(LogStatus.INFO, "No Interaction tagged with widget");
+                ExtentTestManager.getTest().log(Status.INFO, "No Interaction tagged with widget");
             } else {
                 List<String> visibleIssueList = pages.getWidgetInteraction().getListOfIssue();
                 try {
                     for (String s : visibleIssueList) {
                         if (tagIssue.containsKey(s)) {
-                            ExtentTestManager.getTest().log(LogStatus.PASS, "Validate " + s + " :Issue tag to widget is display correctly");
+                            ExtentTestManager.getTest().log(Status.PASS, "Validate " + s + " :Issue tag to widget is display correctly");
                             tagIssue.remove(s);
                             pages.getWidgetInteraction().clickIssueLabel(s);
                             pages.getWidgetInteraction().writeComment("Comment added using test automation");
@@ -198,27 +198,27 @@ public class WidgetTaggedIssueTest extends Driver {
                             widgetName = pages.getUsageHistoryWidget().getWidgetTitle();
                             softAssert.assertTrue(pages.getWidgetInteraction().getTabTitle().toLowerCase().contains(widgetName), "Interaction tab does not have title displayed");
                         } else {
-                            ExtentTestManager.getTest().log(LogStatus.FAIL, s + " :Issue must not tag to widget and display on UI as this is not mention in config sheet.");
+                            ExtentTestManager.getTest().log(Status.FAIL, s + " :Issue must not tag to widget and display on UI as this is not mention in config sheet.");
                             softAssert.fail(s + " :Issue must not tag to widget and display on UI as this is not mention in config sheet.");
                         }
                     }
                 } catch (NoSuchElementException e) {
                     e.printStackTrace();
                     softAssert.fail("Issue Creation Failed");
-                    ExtentTestManager.getTest().log(LogStatus.INFO, e.fillInStackTrace());
+                    ExtentTestManager.getTest().log(Status.INFO, e.fillInStackTrace());
                 }
             }
             if (tagIssue.isEmpty()) {
-                ExtentTestManager.getTest().log(LogStatus.PASS, "All issue tagged to widget correctly configured and display on UI.");
+                ExtentTestManager.getTest().log(Status.PASS, "All issue tagged to widget correctly configured and display on UI.");
             } else {
                 for (Map.Entry<String, String> mapElement : tagIssue.entrySet()) {
-                    ExtentTestManager.getTest().log(LogStatus.FAIL, mapElement.getKey() + " issue does not display on UI but present in config sheet.");
+                    ExtentTestManager.getTest().log(Status.FAIL, mapElement.getKey() + " issue does not display on UI but present in config sheet.");
                     softAssert.fail(mapElement.getKey() + " :Issue does not display on UI but present in config sheet.");
                 }
             }
         } catch (NoSuchElementException e) {
             e.printStackTrace();
-            ExtentTestManager.getTest().log(LogStatus.INFO, e.fillInStackTrace());
+            ExtentTestManager.getTest().log(Status.INFO, e.fillInStackTrace());
             softAssert.fail("Interaction tab does not open correctly");
         }
         pages.getWidgetInteraction().closeInteractionTab();
@@ -237,13 +237,13 @@ public class WidgetTaggedIssueTest extends Driver {
         softAssert.assertTrue(pages.getWidgetInteraction().getTabTitle().toLowerCase().contains(widgetName), "Interaction tab does not have title displayed");
         try {
             if (pages.getWidgetInteraction().checkNoInteractionTag()) {
-                ExtentTestManager.getTest().log(LogStatus.INFO, "No Interaction tagged with widget");
+                ExtentTestManager.getTest().log(Status.INFO, "No Interaction tagged with widget");
             } else {
                 List<String> visibleIssueList = pages.getWidgetInteraction().getListOfIssue();
                 try {
                     for (String s : visibleIssueList) {
                         if (tagIssue.containsKey(s)) {
-                            ExtentTestManager.getTest().log(LogStatus.PASS, "Validate " + s + " :Issue tag to widget is display correctly");
+                            ExtentTestManager.getTest().log(Status.PASS, "Validate " + s + " :Issue tag to widget is display correctly");
                             tagIssue.remove(s);
                             pages.getWidgetInteraction().clickIssueLabel(s);
                             pages.getWidgetInteraction().writeComment("Comment added using test automation");
@@ -260,27 +260,27 @@ public class WidgetTaggedIssueTest extends Driver {
                             widgetName = pages.getAmTxnWidgetPage().getWidgetTitle();
                             softAssert.assertTrue(pages.getWidgetInteraction().getTabTitle().toLowerCase().contains(widgetName), "Interaction tab does not have title displayed");
                         } else {
-                            ExtentTestManager.getTest().log(LogStatus.FAIL, s + " :Issue must not tag to widget and display on UI as this is not mention in config sheet.");
+                            ExtentTestManager.getTest().log(Status.FAIL, s + " :Issue must not tag to widget and display on UI as this is not mention in config sheet.");
                             softAssert.fail(s + " :Issue must not tag to widget and display on UI as this is not mention in config sheet.");
                         }
                     }
                 } catch (NoSuchElementException e) {
                     e.printStackTrace();
                     softAssert.fail("Issue Creation Failed");
-                    ExtentTestManager.getTest().log(LogStatus.INFO, e.fillInStackTrace());
+                    ExtentTestManager.getTest().log(Status.INFO, e.fillInStackTrace());
                 }
             }
             if (tagIssue.isEmpty()) {
-                ExtentTestManager.getTest().log(LogStatus.PASS, "All issue tagged to widget correctly configured and display on UI.");
+                ExtentTestManager.getTest().log(Status.PASS, "All issue tagged to widget correctly configured and display on UI.");
             } else {
                 for (Map.Entry<String, String> mapElement : tagIssue.entrySet()) {
-                    ExtentTestManager.getTest().log(LogStatus.FAIL, mapElement.getKey() + " issue does not display on UI but present in config sheet.");
+                    ExtentTestManager.getTest().log(Status.FAIL, mapElement.getKey() + " issue does not display on UI but present in config sheet.");
                     softAssert.fail(mapElement.getKey() + " :Issue does not display on UI but present in config sheet.");
                 }
             }
         } catch (NoSuchElementException e) {
             e.printStackTrace();
-            ExtentTestManager.getTest().log(LogStatus.INFO, e.fillInStackTrace());
+            ExtentTestManager.getTest().log(Status.INFO, e.fillInStackTrace());
             softAssert.fail("Interaction tab does not open correctly");
         }
         pages.getWidgetInteraction().closeInteractionTab();
@@ -302,13 +302,13 @@ public class WidgetTaggedIssueTest extends Driver {
 //            softAssert.assertTrue(tagIssueTab.getTabTitle().toLowerCase().contains(widgetName), "Interaction tab does not have title displayed");
             try {
                 if (pages.getWidgetInteraction().checkNoInteractionTag()) {
-                    ExtentTestManager.getTest().log(LogStatus.INFO, "No Interaction tagged with widget");
+                    ExtentTestManager.getTest().log(Status.INFO, "No Interaction tagged with widget");
                 } else {
                     List<String> visibleIssueList = pages.getWidgetInteraction().getListOfIssue();
                     try {
                         for (String s : visibleIssueList) {
                             if (tagIssue.containsKey(s)) {
-                                ExtentTestManager.getTest().log(LogStatus.PASS, "Validate " + s + " :Issue tag to widget is display correctly");
+                                ExtentTestManager.getTest().log(Status.PASS, "Validate " + s + " :Issue tag to widget is display correctly");
                                 tagIssue.remove(s);
                                 pages.getWidgetInteraction().clickIssueLabel(s);
                                 pages.getWidgetInteraction().writeComment("Comment added using test automation");
@@ -325,27 +325,27 @@ public class WidgetTaggedIssueTest extends Driver {
                                 widgetName = pages.getDaDetailsPage().getWidgetTitle();
                                 softAssert.assertTrue(pages.getWidgetInteraction().getTabTitle().toLowerCase().contains(widgetName), "Interaction tab does not have title displayed");
                             } else {
-                                ExtentTestManager.getTest().log(LogStatus.FAIL, s + " :Issue must not tag to widget and display on UI as this is not mention in config sheet.");
+                                ExtentTestManager.getTest().log(Status.FAIL, s + " :Issue must not tag to widget and display on UI as this is not mention in config sheet.");
                                 softAssert.fail(s + " :Issue must not tag to widget and display on UI as this is not mention in config sheet.");
                             }
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
                         softAssert.fail("Issue Creation Failed");
-                        ExtentTestManager.getTest().log(LogStatus.INFO, e.fillInStackTrace());
+                        ExtentTestManager.getTest().log(Status.INFO, e.fillInStackTrace());
                     }
                 }
                 if (tagIssue.isEmpty()) {
-                    ExtentTestManager.getTest().log(LogStatus.PASS, "All issue tagged to widget correctly configured and display on UI.");
+                    ExtentTestManager.getTest().log(Status.PASS, "All issue tagged to widget correctly configured and display on UI.");
                 } else {
                     for (Map.Entry<String, String> mapElement : tagIssue.entrySet()) {
-                        ExtentTestManager.getTest().log(LogStatus.FAIL, mapElement.getKey() + " issue does not display on UI but present in config sheet.");
+                        ExtentTestManager.getTest().log(Status.FAIL, mapElement.getKey() + " issue does not display on UI but present in config sheet.");
                         softAssert.fail(mapElement.getKey() + " :Issue does not display on UI but present in config sheet.");
                     }
                 }
             } catch (NoSuchElementException e) {
                 e.printStackTrace();
-                ExtentTestManager.getTest().log(LogStatus.INFO, e.fillInStackTrace());
+                ExtentTestManager.getTest().log(Status.INFO, e.fillInStackTrace());
                 softAssert.fail("Interaction tab does not open correctly");
             } finally {
                 pages.getWidgetInteraction().closeInteractionTab();
@@ -354,7 +354,7 @@ public class WidgetTaggedIssueTest extends Driver {
 
         } catch (Exception e) {
             e.printStackTrace();
-            ExtentTestManager.getTest().log(LogStatus.FAIL, e.fillInStackTrace());
+            ExtentTestManager.getTest().log(Status.FAIL, e.fillInStackTrace());
             softAssert.fail("DA details does not display correctly");
         }
         softAssert.assertAll();
@@ -375,13 +375,15 @@ public class WidgetTaggedIssueTest extends Driver {
             softAssert.assertTrue(tagIssueTab.getTabTitle().toLowerCase().contains(widgetName), "Interaction tab does not have title displayed");
             try {
                 if (tagIssueTab.checkNoInteractionTag()) {
-                    ExtentTestManager.getTest().log(LogStatus.WARNING, "No Interaction tagged with widget");
+                    ExtentTestManager.getTest().log(Status
+                   .WARNING, "No Interaction tagged with widget");
                 } else {
                     List<String> visibleIssueList = tagIssueTab.getListOfIssue();
                     try {
                         for (String s : visibleIssueList) {
                             if (tagIssue.containsKey(s)) {
-                                ExtentTestManager.getTest().log(LogStatus.PASS, "Validate " + s + " :Issue tag to widget is display correctly");
+                                ExtentTestManager.getTest().log(Status
+                               .PASS, "Validate " + s + " :Issue tag to widget is display correctly");
                                 tagIssue.remove(s);
                                 tagIssueTab.clickIssueLabel(s);
                                 tagIssueTab.writeComment("Comment added using test automation");
@@ -398,34 +400,40 @@ public class WidgetTaggedIssueTest extends Driver {
                                 widgetName = moreUsageHistory.getSMSWidgetTitle();
                                 softAssert.assertTrue(tagIssueTab.getTabTitle().toLowerCase().contains(widgetName), "Interaction tab does not have title displayed");
                             } else {
-                                ExtentTestManager.getTest().log(LogStatus.FAIL, s + " :Issue must not tag to widget and display on UI as this is not mention in config sheet.");
+                                ExtentTestManager.getTest().log(Status
+                               .FAIL, s + " :Issue must not tag to widget and display on UI as this is not mention in config sheet.");
                                 softAssert.fail(s + " :Issue must not tag to widget and display on UI as this is not mention in config sheet.");
                             }
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
                         softAssert.fail("Issue Creation Failed");
-                        ExtentTestManager.getTest().log(LogStatus.INFO, e.fillInStackTrace());
+                        ExtentTestManager.getTest().log(Status
+                       .INFO, e.fillInStackTrace());
                     }
                 }
                 if (tagIssue.isEmpty()) {
-                    ExtentTestManager.getTest().log(LogStatus.PASS, "All issue tagged to widget correctly configured and display on UI.");
+                    ExtentTestManager.getTest().log(Status
+                   .PASS, "All issue tagged to widget correctly configured and display on UI.");
                 } else {
                     for (Map.Entry<String, String> mapElement : tagIssue.entrySet()) {
-                        ExtentTestManager.getTest().log(LogStatus.FAIL, mapElement.getKey() + " issue does not display on UI but present in config sheet.");
+                        ExtentTestManager.getTest().log(Status
+                       .FAIL, mapElement.getKey() + " issue does not display on UI but present in config sheet.");
                         softAssert.fail(mapElement.getKey() + " :Issue does not display on UI but present in config sheet.");
                     }
                 }
             } catch (NoSuchElementException e) {
                 e.printStackTrace();
-                ExtentTestManager.getTest().log(LogStatus.INFO, e.fillInStackTrace());
+                ExtentTestManager.getTest().log(Status
+               .INFO, e.fillInStackTrace());
                 softAssert.fail("Interaction tab does not open correctly");
             } finally {
                 tagIssueTab.closeInteractionTab();
             }
         } catch (Exception e) {
             e.printStackTrace();
-            ExtentTestManager.getTest().log(LogStatus.FAIL, e.fillInStackTrace());
+            ExtentTestManager.getTest().log(Status
+           .FAIL, e.fillInStackTrace());
             softAssert.fail("SMS Widget does not display correctly");
         }
         softAssert.assertAll();
@@ -445,13 +453,15 @@ public class WidgetTaggedIssueTest extends Driver {
             softAssert.assertTrue(tagIssueTab.getTabTitle().toLowerCase().contains(widgetName), "Interaction tab does not have title displayed");
             try {
                 if (tagIssueTab.checkNoInteractionTag()) {
-                    ExtentTestManager.getTest().log(LogStatus.WARNING, "No Interaction tagged with widget");
+                    ExtentTestManager.getTest().log(Status
+                   .WARNING, "No Interaction tagged with widget");
                 } else {
                     List<String> visibleIssueList = tagIssueTab.getListOfIssue();
                     try {
                         for (String s : visibleIssueList) {
                             if (tagIssue.containsKey(s)) {
-                                ExtentTestManager.getTest().log(LogStatus.PASS, "Validate " + s + " :Issue tag to widget is display correctly");
+                                ExtentTestManager.getTest().log(Status
+                               .PASS, "Validate " + s + " :Issue tag to widget is display correctly");
                                 tagIssue.remove(s);
                                 tagIssueTab.clickIssueLabel(s);
                                 tagIssueTab.writeComment("Comment added using test automation");
@@ -468,34 +478,40 @@ public class WidgetTaggedIssueTest extends Driver {
                                 widgetName = moreUsageHistory.getDataWidgetTitle();
                                 softAssert.assertTrue(tagIssueTab.getTabTitle().toLowerCase().contains(widgetName), "Interaction tab does not have title displayed");
                             } else {
-                                ExtentTestManager.getTest().log(LogStatus.FAIL, s + " :Issue must not tag to widget and display on UI as this is not mention in config sheet.");
+                                ExtentTestManager.getTest().log(Status
+                               .FAIL, s + " :Issue must not tag to widget and display on UI as this is not mention in config sheet.");
                                 softAssert.fail(s + " :Issue must not tag to widget and display on UI as this is not mention in config sheet.");
                             }
                         }
                     } catch (NoSuchElementException e) {
                         e.printStackTrace();
                         softAssert.fail("Issue Creation Failed");
-                        ExtentTestManager.getTest().log(LogStatus.INFO, e.fillInStackTrace());
+                        ExtentTestManager.getTest().log(Status
+                       .INFO, e.fillInStackTrace());
                     }
                 }
                 if (tagIssue.isEmpty()) {
-                    ExtentTestManager.getTest().log(LogStatus.PASS, "All issue tagged to widget correctly configured and display on UI.");
+                    ExtentTestManager.getTest().log(Status
+                   .PASS, "All issue tagged to widget correctly configured and display on UI.");
                 } else {
                     for (Map.Entry<String, String> mapElement : tagIssue.entrySet()) {
-                        ExtentTestManager.getTest().log(LogStatus.FAIL, mapElement.getKey() + " issue does not display on UI but present in config sheet.");
+                        ExtentTestManager.getTest().log(Status
+                       .FAIL, mapElement.getKey() + " issue does not display on UI but present in config sheet.");
                         softAssert.fail(mapElement.getKey() + " :Issue does not display on UI but present in config sheet.");
                     }
                 }
             } catch (NoSuchElementException e) {
                 e.printStackTrace();
-                ExtentTestManager.getTest().log(LogStatus.INFO, e.fillInStackTrace());
+                ExtentTestManager.getTest().log(Status
+               .INFO, e.fillInStackTrace());
                 softAssert.fail("Interaction tab does not open correctly");
             } finally {
                 tagIssueTab.closeInteractionTab();
             }
         } catch (Exception e) {
             e.printStackTrace();
-            ExtentTestManager.getTest().log(LogStatus.FAIL, e.fillInStackTrace());
+            ExtentTestManager.getTest().log(Status
+           .FAIL, e.fillInStackTrace());
             softAssert.fail("Data Widget does not display correctly");
         }
         softAssert.assertAll();
@@ -515,13 +531,15 @@ public class WidgetTaggedIssueTest extends Driver {
             softAssert.assertTrue(tagIssueTab.getTabTitle().toLowerCase().contains(widgetName), "Interaction tab does not have title displayed");
             try {
                 if (tagIssueTab.checkNoInteractionTag()) {
-                    ExtentTestManager.getTest().log(LogStatus.WARNING, "No Interaction tagged with widget");
+                    ExtentTestManager.getTest().log(Status
+                   .WARNING, "No Interaction tagged with widget");
                 } else {
                     List<String> visibleIssueList = tagIssueTab.getListOfIssue();
                     try {
                         for (String s : visibleIssueList) {
                             if (tagIssue.containsKey(s)) {
-                                ExtentTestManager.getTest().log(LogStatus.PASS, "Validate " + s + " :Issue tag to widget is display correctly");
+                                ExtentTestManager.getTest().log(Status
+                               .PASS, "Validate " + s + " :Issue tag to widget is display correctly");
                                 tagIssue.remove(s);
                                 tagIssueTab.clickIssueLabel(s);
                                 tagIssueTab.writeComment("Comment added using test automation");
@@ -538,34 +556,40 @@ public class WidgetTaggedIssueTest extends Driver {
                                 widgetName = moreUsageHistory.getCallWidgetTitle();
                                 softAssert.assertTrue(tagIssueTab.getTabTitle().toLowerCase().contains(widgetName), "Interaction tab does not have title displayed");
                             } else {
-                                ExtentTestManager.getTest().log(LogStatus.FAIL, s + " :Issue must not tag to widget and display on UI as this is not mention in config sheet.");
+                                ExtentTestManager.getTest().log(Status
+                               .FAIL, s + " :Issue must not tag to widget and display on UI as this is not mention in config sheet.");
                                 softAssert.fail(s + " :Issue must not tag to widget and display on UI as this is not mention in config sheet.");
                             }
                         }
                     } catch (NoSuchElementException e) {
                         e.printStackTrace();
                         softAssert.fail("Issue Creation Failed");
-                        ExtentTestManager.getTest().log(LogStatus.INFO, e.fillInStackTrace());
+                        ExtentTestManager.getTest().log(Status
+                       .INFO, e.fillInStackTrace());
                     }
                 }
                 if (tagIssue.isEmpty()) {
-                    ExtentTestManager.getTest().log(LogStatus.PASS, "All issue tagged to widget correctly configured and display on UI.");
+                    ExtentTestManager.getTest().log(Status
+                   .PASS, "All issue tagged to widget correctly configured and display on UI.");
                 } else {
                     for (Map.Entry<String, String> mapElement : tagIssue.entrySet()) {
-                        ExtentTestManager.getTest().log(LogStatus.FAIL, mapElement.getKey() + " issue does not display on UI but present in config sheet.");
+                        ExtentTestManager.getTest().log(Status
+                       .FAIL, mapElement.getKey() + " issue does not display on UI but present in config sheet.");
                         softAssert.fail(mapElement.getKey() + " :Issue does not display on UI but present in config sheet.");
                     }
                 }
             } catch (NoSuchElementException e) {
                 e.printStackTrace();
-                ExtentTestManager.getTest().log(LogStatus.INFO, e.fillInStackTrace());
+                ExtentTestManager.getTest().log(Status
+               .INFO, e.fillInStackTrace());
                 softAssert.fail("Interaction tab does not open correctly");
             } finally {
                 tagIssueTab.closeInteractionTab();
             }
         } catch (Exception e) {
             e.printStackTrace();
-            ExtentTestManager.getTest().log(LogStatus.FAIL, e.fillInStackTrace());
+            ExtentTestManager.getTest().log(Status
+           .FAIL, e.fillInStackTrace());
             softAssert.fail("Call Widget does not display correctly");
         }
         softAssert.assertAll();

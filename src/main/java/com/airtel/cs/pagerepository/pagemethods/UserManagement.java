@@ -216,7 +216,7 @@ public class UserManagement extends BasePage {
     }
 
     public boolean isSearchVisible() {
-        final boolean state = checkState(pageElements.searchAuuid);
+        final boolean state = isEnabled(pageElements.searchAuuid);
         commonLib.info("Checking is Search Auuid Text box is Visible : " + state);
         return state;
     }
@@ -289,7 +289,7 @@ public class UserManagement extends BasePage {
 
     public boolean checkingAddUser() {
         commonLib.info("Checking Add to User Open");
-        return checkState(pageElements.addUserPageTitle);
+        return isEnabled(pageElements.addUserPageTitle);
     }
 
     /*

@@ -2,34 +2,34 @@ package com.airtel.cs.api;
 
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
+import com.airtel.cs.commonutils.applicationutils.constants.URIConstants;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pojo.AMHandSetProfilePOJO;
 import com.airtel.cs.pojo.AMProfilePOJO;
 import com.airtel.cs.pojo.AccountsBalancePOJO;
-import com.airtel.cs.pojo.accumulators.AccumulatorsPOJO;
-import com.airtel.cs.pojo.airtelmoney.AirtelMoneyPOJO;
 import com.airtel.cs.pojo.BundleRechargeHistoryPOJO;
-import com.airtel.cs.pojo.crbt.ActivateRingtone;
-import com.airtel.cs.pojo.crbt.Top20Ringtone;
-import com.airtel.cs.pojo.clearrefillstatus.RefillStatus;
 import com.airtel.cs.pojo.GsmKycPOJO;
-import com.airtel.cs.pojo.hlrservice.HLRServicePOJO;
-import com.airtel.cs.pojo.kycprofile.KYCProfile;
-import com.airtel.cs.pojo.loandetails.Loan;
-import com.airtel.cs.pojo.loansummary.Summary;
 import com.airtel.cs.pojo.LoginPOJO;
 import com.airtel.cs.pojo.PlansPOJO;
 import com.airtel.cs.pojo.ProfilePOJO;
 import com.airtel.cs.pojo.RechargeHistoryPOJO;
-import com.airtel.cs.pojo.smshistory.SMSHistoryPOJO;
-import com.airtel.cs.pojo.ticketlist.TicketPOJO;
 import com.airtel.cs.pojo.UsageHistoryPOJO;
-import com.airtel.cs.pojo.vendors.VendorNames;
-import com.airtel.cs.pojo.voucher.VoucherSearchPOJO;
+import com.airtel.cs.pojo.accumulators.AccumulatorsPOJO;
+import com.airtel.cs.pojo.airtelmoney.AirtelMoneyPOJO;
+import com.airtel.cs.pojo.clearrefillstatus.RefillStatus;
 import com.airtel.cs.pojo.configuration.ConfigurationPOJO;
+import com.airtel.cs.pojo.crbt.ActivateRingtone;
+import com.airtel.cs.pojo.crbt.Top20Ringtone;
+import com.airtel.cs.pojo.hlrservice.HLRServicePOJO;
+import com.airtel.cs.pojo.kycprofile.KYCProfile;
+import com.airtel.cs.pojo.loandetails.Loan;
+import com.airtel.cs.pojo.loansummary.Summary;
+import com.airtel.cs.pojo.smshistory.SMSHistoryPOJO;
 import com.airtel.cs.pojo.tariffplan.AvailablePlanPOJO;
 import com.airtel.cs.pojo.tariffplan.CurrentPlanPOJO;
-import com.relevantcodes.extentreports.LogStatus;
+import com.airtel.cs.pojo.ticketlist.TicketPOJO;
+import com.airtel.cs.pojo.vendors.VendorNames;
+import com.airtel.cs.pojo.voucher.VoucherSearchPOJO;
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
 import io.restassured.specification.QueryableRequestSpecification;
@@ -37,7 +37,6 @@ import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.SpecificationQuerier;
 import lombok.extern.log4j.Log4j2;
 
-import static com.airtel.cs.commonutils.extentreports.ExtentTestManager.getTest;
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 
@@ -58,7 +57,7 @@ public class APIEndPoints extends Driver {
                 .body("{\"msisdn\":\"" + msisdn + "\"}")
                 .contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        Response response = request.post("/cs-gsm-service/v1/account/plans");
+        response = request.post(URIConstants.ACCOUNT_PLAN);
         UtilsMethods.printPostRequestDetail(queryable);
         UtilsMethods.printResponseDetail(response);
         statusCode = response.getStatusCode();
@@ -74,7 +73,7 @@ public class APIEndPoints extends Driver {
                 .body("{\"msisdn\":\"" + msisdn + "\",\"pageSize\":5,\"pageNumber\":1,\"type\":null,\"startDate\":null,\"endDate\":null,\"action\": \"More\"}")
                 .contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        Response response = request.post("/cs-gsm-service/v1/usage/history");
+        response = request.post(URIConstants.USAGE_HISTORY);
         UtilsMethods.printPostRequestDetail(queryable);
         UtilsMethods.printResponseDetail(response);
         statusCode = response.getStatusCode();
@@ -90,7 +89,7 @@ public class APIEndPoints extends Driver {
                 .body("{\"msisdn\":\"" + msisdn + "\",\"pageSize\":5,\"pageNumber\":1,\"typeFilter\":null,\"startDate\":null,\"endDate\":null,\"action\":\"More\",\"cdrTypeFilter\":\"FREE\"}")
                 .contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        Response response = request.post("/cs-gsm-service/v1/usage/history");
+        response = request.post(URIConstants.USAGE_HISTORY);
         UtilsMethods.printPostRequestDetail(queryable);
         UtilsMethods.printResponseDetail(response);
         statusCode = response.getStatusCode();
@@ -106,7 +105,7 @@ public class APIEndPoints extends Driver {
                 .body("{\"extTxnId\":1234,\"msisdn\":\"" + msisdn + "\",\"walletType\":\"Main\"}")
                 .contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        Response response = request.post("/cs-gsm-service/v1/am/profile");
+        response = request.post(URIConstants.GSM_AM_PROFILE);
         UtilsMethods.printPostRequestDetail(queryable);
         UtilsMethods.printResponseDetail(response);
         statusCode = response.getStatusCode();
@@ -120,12 +119,10 @@ public class APIEndPoints extends Driver {
         Headers headers = new Headers(map);
         RequestSpecification request = given()
                 .headers(headers)
-//                .header("Opco", Opco)
-//                .header("Host", "172.23.36.206:30050")
                 .body("{\"msisdn\":\"" + msisdn + "\"}")
                 .contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        Response response = request.post("/cs-gsm-service/v1/gsm/kyc");
+        response = request.post(URIConstants.GSM_KYC);
         UtilsMethods.printPostRequestDetail(queryable);
         UtilsMethods.printResponseDetail(response);
         statusCode = response.getStatusCode();
@@ -142,7 +139,7 @@ public class APIEndPoints extends Driver {
                 .body("{\"msisdn\":\"" + msisdn + "\"}")
                 .contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        Response response = request.post("/cs-gsm-service/v1/profile");
+        response = request.post(URIConstants.GSM_PROFILE);
         UtilsMethods.printPostRequestDetail(queryable);
         UtilsMethods.printResponseDetail(response);
         statusCode = response.getStatusCode();
@@ -158,7 +155,7 @@ public class APIEndPoints extends Driver {
                 .body("{\"msisdn\":\"" + msisdn + "\"}")
                 .contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        Response response = request.post("/cs-gsm-service/v1/kyc/profile");
+        response = request.post(URIConstants.KYC_PROFILE);
         UtilsMethods.printPostRequestDetail(queryable);
         UtilsMethods.printResponseDetail(response);
         statusCode = response.getStatusCode();
@@ -178,7 +175,7 @@ public class APIEndPoints extends Driver {
         log.info("Request Headers are  : " + queryable.getHeaders());
         commonLib.info("Request Body is  : " + queryable.getQueryParams().toString());
         log.info("Request Body is  : " + queryable.getQueryParams().toString());
-        Response response = request.get("/cs-am-service/v1/profile");
+        response = request.get(URIConstants.AM_PROFILE);
         UtilsMethods.printGetRequestDetail(queryable);
         UtilsMethods.printResponseDetail(response);
         statusCode = response.getStatusCode();
@@ -194,7 +191,7 @@ public class APIEndPoints extends Driver {
                 .body("{\"msisdn\":\"" + msisdn + "\",\"pageSize\":5,\"pageNumber\":1,\"startDate\":null,\"endDate\":null,\"rechargeHistoryVoucherSearch\":null}")
                 .contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        Response response = request.post("/cs-gsm-service/v1/recharge/history");
+        response = request.post(URIConstants.RECHARGE_HISTORY);
         UtilsMethods.printPostRequestDetail(queryable);
         UtilsMethods.printResponseDetail(response);
         statusCode = response.getStatusCode();
@@ -210,7 +207,7 @@ public class APIEndPoints extends Driver {
                 .body("{\"msisdn\":\"" + msisdn + "\",\"pageSize\":5,\"pageNumber\":1,\"startDate\":null,\"endDate\":null}")
                 .contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        Response response = request.post("/cs-gsm-service/v1/bundle/recharge/history");
+        response = request.post(URIConstants.BUNDLE_RECHARGE_HISTORY);
         UtilsMethods.printPostRequestDetail(queryable);
         UtilsMethods.printResponseDetail(response);
         statusCode = response.getStatusCode();
@@ -226,7 +223,7 @@ public class APIEndPoints extends Driver {
                 .body("{\"msisdn\":\"" + msisdn + "\",\"pageSize\":5,\"pageNumber\":1,\"startDate\":null,\"endDate\":null}")
                 .contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        Response response = request.post("/cs-am-service/v1/transaction/history");
+        response = request.post(URIConstants.TRANSACTION_HISTORY);
         UtilsMethods.printPostRequestDetail(queryable);
         UtilsMethods.printResponseDetail(response);
         statusCode = response.getStatusCode();
@@ -242,7 +239,7 @@ public class APIEndPoints extends Driver {
                 .body("{\"msisdn\":\"" + msisdn + "\",\"pageSize\":5,\"pageNumber\":1,\"daysFilter\":null,\"startDate\":null,\"endDate\":null,\"airtelMoneyTransactionIdSearch\":null,\"currencyType\":\"" + currencyType + "\",\"amHistory\":true}")
                 .contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        Response response = request.post("/cs-am-service/v1/transaction/history");
+        response = request.post(URIConstants.TRANSACTION_HISTORY);
         UtilsMethods.printPostRequestDetail(queryable);
         UtilsMethods.printResponseDetail(response);
         statusCode = response.getStatusCode();
@@ -258,7 +255,7 @@ public class APIEndPoints extends Driver {
                 .body("{\"msisdn\": \"" + msisdn + "\",\"pageSize\": 10,\"pageNumber\": 1}")
                 .contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        Response response = request.post("/cs-gsm-service/v1/accounts/balance");
+        response = request.post(URIConstants.ACCOUNT_BALANCE);
         UtilsMethods.printPostRequestDetail(queryable);
         UtilsMethods.printResponseDetail(response);
         statusCode = response.getStatusCode();
@@ -266,16 +263,16 @@ public class APIEndPoints extends Driver {
 
     }
 
-    public UsageHistoryPOJO usageHistoryTest(String msisdn, String Type) {
+    public UsageHistoryPOJO usageHistoryTest(String msisdn, String type) {
         commonLib.info("Using Usage History com.airtel.cs.API for Getting expected data for UI");
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
                 .headers(headers)
-                .body("{\"msisdn\":\"" + msisdn + "\",\"pageSize\":5,\"pageNumber\":1,\"startDate\":null,\"endDate\":null,\"type\":\"" + Type + "\"}")
+                .body("{\"msisdn\":\"" + msisdn + "\",\"pageSize\":5,\"pageNumber\":1,\"startDate\":null,\"endDate\":null,\"type\":\"" + type + "\"}")
                 .contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        Response response = request.post("/cs-gsm-service/v1/usage/history");
+        response = request.post(URIConstants.USAGE_HISTORY);
         UtilsMethods.printPostRequestDetail(queryable);
         UtilsMethods.printResponseDetail(response);
         statusCode = response.getStatusCode();
@@ -290,7 +287,7 @@ public class APIEndPoints extends Driver {
                 .headers(headers).param("id", ticketId).contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
         log.info("Request Headers are  : " + queryable.getHeaders());
-        Response response = request.get("/sr/api/sr-service/v1/fetch/ticket");
+        response = request.get(URIConstants.SR_FETCH_HISTORY);
         UtilsMethods.printGetRequestDetail(queryable);
         UtilsMethods.printResponseDetail(response);
         statusCode = response.getStatusCode();
@@ -304,7 +301,7 @@ public class APIEndPoints extends Driver {
         RequestSpecification request = given()
                 .headers(headers).body("{\"receiverId\":" + msisdn + ",\"pageNumber\":0,\"pageSize\":10}").contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        Response response = request.post("/cs-notification-service/v1/fetch/history");
+        response = request.post(URIConstants.NOTIFICATION_FETCH_HISTORY);
         UtilsMethods.printPostRequestDetail(queryable);
         UtilsMethods.printResponseDetail(response);
         statusCode = response.getStatusCode();
@@ -318,7 +315,7 @@ public class APIEndPoints extends Driver {
         RequestSpecification request = given()
                 .headers(headers).body("{\"voucherId\":\"" + voucherId + "\"}").contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        Response response = request.post("/cs-gsm-service/v1/voucher/detail");
+        response = request.post(URIConstants.VOUCHER_DETAILS);
         UtilsMethods.printPostRequestDetail(queryable);
         UtilsMethods.printResponseDetail(response);
         statusCode = response.getStatusCode();
@@ -333,7 +330,7 @@ public class APIEndPoints extends Driver {
                 .headers(headers);
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
         log.info("Request Headers are  : " + queryable.getHeaders());
-        Response response = request.get("/cs-vas-service/v1/vendors");
+        response = request.get(URIConstants.VENDORS);
         UtilsMethods.printGetRequestDetail(queryable);
         UtilsMethods.printResponseDetail(response);
         statusCode = response.getStatusCode();
@@ -347,7 +344,7 @@ public class APIEndPoints extends Driver {
         RequestSpecification request = given()
                 .headers(headers).body("{\"msisdn\":\"" + msisdn + "\",\"vendorName\":\"" + vendorName + "\"}").contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        Response response = request.post("/cs-vas-service/v1/loan/summary");
+        response = request.post(URIConstants.LOAN_SUMMARY);
         UtilsMethods.printPostRequestDetail(queryable);
         UtilsMethods.printResponseDetail(response);
         statusCode = response.getStatusCode();
@@ -361,7 +358,7 @@ public class APIEndPoints extends Driver {
         RequestSpecification request = given()
                 .headers(headers).body("{\"msisdn\":\"" + msisdn + "\",\"vendorName\":\"" + vendorName + "\"}").contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        Response response = request.post("/cs-vas-service/v1/loan/details");
+        response = request.post(URIConstants.LOAN_DETAILS);
         UtilsMethods.printPostRequestDetail(queryable);
         UtilsMethods.printResponseDetail(response);
         statusCode = response.getStatusCode();
@@ -375,7 +372,7 @@ public class APIEndPoints extends Driver {
         RequestSpecification request = given()
                 .headers(headers).body("{\"msisdn\":\"" + msisdn + "\"}").contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        Response response = request.post("/cs-gsm-service/v1/refill/status");
+        response = request.post(URIConstants.REFILL_STATUS);
         UtilsMethods.printPostRequestDetail(queryable);
         UtilsMethods.printResponseDetail(response);
         statusCode = response.getStatusCode();
@@ -389,7 +386,7 @@ public class APIEndPoints extends Driver {
         RequestSpecification request = given()
                 .headers(headers).body("{\"searchBy\":\"" + searchBy + "\",\"searchText\":\"" + searchText + "\",\"msisdn\":\"" + msisdn + "\"}").contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        Response response = request.post("/cs-vas-service/v1/search/tunes");
+        response = request.post(URIConstants.SEARCH_TUNES);
         UtilsMethods.printPostRequestDetail(queryable);
         UtilsMethods.printResponseDetail(response);
         statusCode = response.getStatusCode();
@@ -403,7 +400,7 @@ public class APIEndPoints extends Driver {
         RequestSpecification request = given()
                 .headers(headers).param("msisdn", msisdn).contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        Response response = request.get("/cs-vas-service/v1/fetch/tunes");
+        response = request.get(URIConstants.FETCH_TUNES);
         UtilsMethods.printGetRequestDetail(queryable);
         UtilsMethods.printResponseDetail(response);
         statusCode = response.getStatusCode();
@@ -417,7 +414,7 @@ public class APIEndPoints extends Driver {
         RequestSpecification request = given()
                 .headers(headers).body("{\"msisdn\":\"" + msisdn + "\",\"pageSize\":5,\"pageNumber\":1}").contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        Response response = request.post("/cs-gsm-service/v1/accumulators");
+        response = request.post(URIConstants.ACCUMULATORS);
         UtilsMethods.printPostRequestDetail(queryable);
         UtilsMethods.printResponseDetail(response);
         statusCode = response.getStatusCode();
@@ -431,7 +428,7 @@ public class APIEndPoints extends Driver {
         RequestSpecification request = given()
                 .headers(headers).body("{\"msisdn\":\"" + msisdn + "\",\"pageSize\":5,\"pageNumber\":1}").contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        Response response = request.post("/cs-gsm-service/v1/hlr/service/profiles");
+        response = request.post(URIConstants.SERVICE_PROFILE);
         UtilsMethods.printPostRequestDetail(queryable);
         UtilsMethods.printResponseDetail(response);
         statusCode = response.getStatusCode();
@@ -446,7 +443,7 @@ public class APIEndPoints extends Driver {
                 .headers(headers).param("key", key).param("msisdn", msisdn).contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
         log.info("Request Headers are  : " + queryable.getHeaders());
-        Response response = request.get("/cs-service/api/cs-service/v1/auth/user");
+        response = request.get(URIConstants.AUTH_USER);
         UtilsMethods.printGetRequestDetail(queryable);
         UtilsMethods.printResponseDetail(response);
         UtilsMethods.printInfoLog(response.prettyPrint());
@@ -461,7 +458,7 @@ public class APIEndPoints extends Driver {
         RequestSpecification request = given()
                 .headers(headers).queryParam("keys", key).queryParam("opco", OPCO).contentType("application/json");
         QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        Response response = request.get("/cs-service/api/cs-service/v1/configurations");
+        response = request.get(URIConstants.CONFIGURATIONS);
         UtilsMethods.printGetRequestDetail(queryable);
         UtilsMethods.printResponseDetail(response);
         statusCode = response.getStatusCode();
@@ -508,7 +505,7 @@ public class APIEndPoints extends Driver {
      */
     public AvailablePlanPOJO availablePlanPOJO() {
         String body = "{ \"msisdn\":\"" + TARIFF_PLAN_TEST_NUMBER + "\"}";
-        commonPostMethod("/cs-gsm-service/v1/tariff/available-plans", body);
+        commonPostMethod(URIConstants.TARIFF_AVAILABLE_PLANS, body);
         return response.as(AvailablePlanPOJO.class);
     }
 
@@ -517,7 +514,7 @@ public class APIEndPoints extends Driver {
      */
     public CurrentPlanPOJO currentPlanPOJO() {
         String body = "{ \"msisdn\":\"" + TARIFF_PLAN_TEST_NUMBER + "\"}";
-        commonPostMethod("/cs-gsm-service/v1/tariff/current-plan", body);
+        commonPostMethod(URIConstants.TARIFF_CURRENT_PLAN, body);
         return response.as(CurrentPlanPOJO.class);
     }
 
@@ -529,7 +526,7 @@ public class APIEndPoints extends Driver {
      */
     public LoginPOJO loginPOJO(String body) {
         commonLib.info("Logging in Using Login API for getting TOKEN with user");
-        commonPostMethod("/auth/api/user-mngmnt/v2/login", body);
+        commonPostMethod(URIConstants.V2_LOGIN, body);
         return response.as(LoginPOJO.class);
     }
 

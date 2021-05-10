@@ -15,43 +15,43 @@ public class DetailedUsageHistory extends BasePage {
     }
 
     public Boolean isWidgetDisplay() {
-        final boolean state = checkState(pageElements.title);
+        final boolean state = isEnabled(pageElements.title);
         commonLib.info("Checking Detailed Usage history widget display: " + state);
         return state;
     }
 
     public Boolean isFreeCDR() {
-        final boolean state = checkState(pageElements.freeCDR);
+        final boolean state = isEnabled(pageElements.freeCDR);
         commonLib.info("Is Free CDR Checkbox displayed: " + state);
         return state;
     }
 
     public Boolean isTypeOfCDR() {
-        final boolean state = checkState(pageElements.typeOfCDR);
+        final boolean state = isEnabled(pageElements.typeOfCDR);
         commonLib.info("Is Type of CDR Option displayed: " + state);
         return state;
     }
 
     public Boolean isTodayDateFilter() {
-        final boolean state = checkState(pageElements.todayDateFilter);
+        final boolean state = isEnabled(pageElements.todayDateFilter);
         commonLib.info("Is Today Date Filter Option displayed: " + state);
         return state;
     }
 
     public Boolean isLast2DayDateFilter() {
-        final boolean state = checkState(pageElements.last2DayDateFilter);
+        final boolean state = isEnabled(pageElements.last2DayDateFilter);
         commonLib.info("Is last 2 day Date Filter Option displayed: " + state);
         return state;
     }
 
     public Boolean isLast7DayDateFilter() {
-        final boolean state = checkState(pageElements.last7DayDateFilter);
+        final boolean state = isEnabled(pageElements.last7DayDateFilter);
         commonLib.info("Is last 7 day Date Filter Option displayed: " + state);
         return state;
     }
 
     public Boolean isDatePickerDisplay() {
-        final boolean state = checkState(pageElements.datePicker);
+        final boolean state = isEnabled(pageElements.datePicker);
         commonLib.info("Is Date picker displayed: " + state);
         return state;
     }
@@ -71,16 +71,16 @@ public class DetailedUsageHistory extends BasePage {
     public Boolean checkSignDisplay(int row) {
         By value = By.xpath(pageElements.columnRow + row + pageElements.checkSign);
         commonLib.info("Checking Negative Sign Display at ROW(" + row + ")");
-        return checkState(value);
+        return isEnabled(value);
     }
     public Boolean isPagination() {
-        Boolean status = checkState(pageElements.pagination);
+        Boolean status = isEnabled(pageElements.pagination);
         commonLib.info("Is pagination displayed: " + status);
         return status;
     }
 
     public boolean getNoResultFound() {
         commonLib.info("Checking No Result Found Message Display");
-        return checkState(pageElements.noResultIcon);
+        return isEnabled(pageElements.noResultIcon);
     }
 }

@@ -21,7 +21,7 @@ public class ProfileManagement extends BasePage {
     }
 
     public boolean isSubmitButtonEnable() {
-        final boolean state = checkState(pageElements.submitButton);
+        final boolean state = isEnabled(pageElements.submitButton);
         commonLib.info("Checking that is Submit Button Enable : " + state);
         return state;
     }

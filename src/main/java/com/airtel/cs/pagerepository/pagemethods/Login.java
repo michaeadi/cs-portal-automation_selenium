@@ -88,7 +88,7 @@ public class Login extends BasePage {
 
     public boolean checkLoginButton() {
         commonLib.info("checking login button is enabled or not");
-        return checkState(pageElements.submitButton);
+        return isEnabled(pageElements.submitButton);
     }
 
     public void clickOnLogin() {

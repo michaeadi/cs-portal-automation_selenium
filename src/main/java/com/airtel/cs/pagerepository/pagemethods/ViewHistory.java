@@ -107,7 +107,7 @@ public class ViewHistory extends BasePage {
 
     public boolean checkViewTicketPage() {
         commonLib.info("Checking View Ticket Page");
-        return checkState(pageElements.ticketPageTitle);
+        return isEnabled(pageElements.ticketPageTitle);
     }
 
     public void clickCloseTicketTab() {

@@ -94,13 +94,13 @@ public class FrontendTicketHistory extends BasePage {
         By addToInteractionBtn = By.xpath(XPATH + index + "]//td[8]//span[1]//a[1]//img");
         String ticketId = getTicketId(index);
         commonLib.info("Checking Add to interaction on ticket id: " + ticketId);
-        return checkState(addToInteractionBtn);
+        return isEnabled(addToInteractionBtn);
     }
 
     public boolean checkReopen(int index) {
         By reopenBtn = By.xpath(XPATH + index + "]//td[8]//span[1]//a[2]//img");
         commonLib.info("Checking reopen button on ticket");
-        return checkState(reopenBtn);
+        return isEnabled(reopenBtn);
     }
 
     public void clickReopen(int index) {
@@ -130,7 +130,7 @@ public class FrontendTicketHistory extends BasePage {
     public boolean checkNoTicketFound() {
         log.info("Checking Ticket Found or not");
         try {
-            return checkState(pageElements.noTicketFound);
+            return isEnabled(pageElements.noTicketFound);
         } catch (Exception e) {
             log.info("No Ticket Found: " + false);
             return false;

@@ -48,53 +48,53 @@ public class SideMenu extends BasePage {
 
     public boolean isAdminSettingVisible() {
         commonLib.info("Checking that is Admin Setting  Visible or Not");
-        return checkState(pageElements.adminSettings);
+        return isEnabled(pageElements.adminSettings);
     }
 
     public boolean isCustomerServicesVisible() {
         commonLib.info("Checking that is Customer Service Visible or Not");
-        return checkState(pageElements.customerServices);
+        return isEnabled(pageElements.customerServices);
     }
 
     public boolean isCaseManagementVisible() {
         commonLib.info("Checking that is Customer Service Visible or Not");
-        return checkState(pageElements.caseManagement);
+        return isEnabled(pageElements.caseManagement);
     }
 
     public boolean isUserManagementVisible() {
         commonLib.info("Checking that is User Management Option Visible or Not");
         hoverAndClick(pageElements.adminSettings);
-        return checkState(pageElements.userManagement);
+        return isEnabled(pageElements.userManagement);
     }
 
     public boolean isProfileManagementVisible() {
         commonLib.info("Checking that is Profile Management Option Visible or Not");
         hoverAndClick(pageElements.adminSettings);
-        return checkState(pageElements.profileManagement);
+        return isEnabled(pageElements.profileManagement);
     }
 
     public boolean isCustomerInteractionVisible() {
         commonLib.info("Checking that is Customer Interaction Option Visible or Not");
         hoverAndClick(pageElements.customerServices);
-        return checkState(pageElements.customerInteraction);
+        return isEnabled(pageElements.customerInteraction);
     }
 
     public boolean isSupervisorDashboardVisible() {
         commonLib.info("Checking that is Supervisor DashBoard Option Visible or Not");
         hoverAndClick(pageElements.customerServices);
-        return checkState(pageElements.supervisorDashboard);
+        return isEnabled(pageElements.supervisorDashboard);
     }
 
     public boolean isTicketBulkUpdateVisible() {
         commonLib.info("Checking that is Supervisor Ticket Bulk Update Option Visible or Not");
         hoverAndClick(pageElements.customerServices);
-        return checkState(pageElements.ticketBulkUpdate);
+        return isEnabled(pageElements.ticketBulkUpdate);
     }
 
     public boolean isTemplateManagementVisible() {
         commonLib.info("Checking that is Admin Template Management Option Visible or Not");
         hoverAndClick(pageElements.adminSettings);
-        return checkState(pageElements.templateManagement);
+        return isEnabled(pageElements.templateManagement);
     }
 
     public void openCustomerInteractionPage() {
@@ -136,7 +136,7 @@ public class SideMenu extends BasePage {
     public Boolean isAgentDashboard() {
         commonLib.info("Checking Agent Dashboard Visible or not");
         hoverAndClick(pageElements.customerServices);
-        return checkState(pageElements.agentDashboard);
+        return isEnabled(pageElements.agentDashboard);
     }
 
     public TicketBulkUpdate openTicketBulkUpdateDashboard() {
@@ -149,6 +149,5 @@ public class SideMenu extends BasePage {
     public void logout() {
         commonLib.info("Logging Out");
         click(pageElements.logout);
-        waitTillLoaderGetsRemoved();
     }
 }

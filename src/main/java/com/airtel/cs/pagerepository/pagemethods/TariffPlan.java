@@ -121,7 +121,7 @@ public class TariffPlan extends BasePage {
     This Method will let us know, Migrate button is enabled or not
      */
     public Boolean isMigrateBtnEnabled() {
-        return checkState(pageElements.migrateButton);
+        return isEnabled(pageElements.migrateButton);
     }
 
     /*
@@ -215,7 +215,7 @@ public class TariffPlan extends BasePage {
     This Method will let us know, submit Btn is enabled or not over issue details pop up
      */
     public Boolean isSubmitEnabled() {
-        return checkState(pageElements.submitBtn);
+        return isEnabled(pageElements.submitBtn);
     }
 
     /*

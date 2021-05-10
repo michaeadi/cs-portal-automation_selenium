@@ -20,7 +20,7 @@ public class SendSMS extends BasePage {
 
     public boolean isPageLoaded() {
         commonLib.info("Checking is Send SMS Page Loaded");
-        return checkState(pageElements.sendSMSTitle);
+        return isEnabled(pageElements.sendSMSTitle);
     }
 
     public String getCustomerNumber() {
@@ -59,25 +59,25 @@ public class SendSMS extends BasePage {
     }
 
     public boolean isCustomerNumber() {
-        final boolean state = checkState(pageElements.customerNumber);
+        final boolean state = isEnabled(pageElements.customerNumber);
         commonLib.info("IS customer number field displayed: " + state);
         return state;
     }
 
     public boolean isCategory() {
-        final boolean state = checkState(pageElements.openCategory);
+        final boolean state = isEnabled(pageElements.openCategory);
         commonLib.info("IS category number field displayed: " + state);
         return state;
     }
 
     public boolean isTemplateName() {
-        final boolean state = checkState(pageElements.openTemplates);
+        final boolean state = isEnabled(pageElements.openTemplates);
         commonLib.info("IS template name field displayed: " + state);
         return state;
     }
 
     public boolean isLanguage() {
-        final boolean state = checkState(pageElements.openLanguage);
+        final boolean state = isEnabled(pageElements.openLanguage);
         commonLib.info("IS language field displayed: " + state);
         return state;
     }
@@ -99,11 +99,11 @@ public class SendSMS extends BasePage {
     }
 
     public boolean isSendBtnDisabled() {
-        return !checkState(pageElements.sendBtnDisabled);
+        return !isEnabled(pageElements.sendBtnDisabled);
     }
 
     public boolean isMessageContentEditable() {
-        return checkState(pageElements.messageReadOnly);
+        return isEnabled(pageElements.messageReadOnly);
     }
 
 }

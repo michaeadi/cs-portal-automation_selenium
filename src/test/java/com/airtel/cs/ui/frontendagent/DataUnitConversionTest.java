@@ -9,7 +9,7 @@ import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pojo.AccountsBalancePOJO;
 import com.airtel.cs.pojo.RechargeHistoryPOJO;
 import com.airtel.cs.pojo.UsageHistoryPOJO;
-import com.relevantcodes.extentreports.LogStatus;
+import com.aventstack.extentreports.Status;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -46,7 +46,7 @@ public class DataUnitConversionTest extends Driver {
         if (usageHistoryAPI.getStatusCode() != 200) {
             softAssert.fail("API is unable to give Usage History ");
         } else if (usageHistoryAPI.getResult().size() == 0 || usageHistoryAPI.getResult() == null) {
-            ExtentTestManager.getTest().log(LogStatus.WARNING, "Unable to get Usage History Details from com.airtel.cs.API");
+            ExtentTestManager.getTest().log(Status.WARNING, "Unable to get Usage History Details from com.airtel.cs.API");
         } else {
             for (int i = 0; i < usageHistoryAPI.getResult().size(); i++) {
                 if (usageHistoryAPI.getResult().get(i).getStartBalance().equalsIgnoreCase("-")) {
@@ -93,7 +93,7 @@ public class DataUnitConversionTest extends Driver {
         if (usageHistoryAPI.getStatusCode() != 200) {
             softAssert.fail("API is unable to give Usage History ");
         } else if (usageHistoryAPI.getResult().isEmpty() || usageHistoryAPI.getResult() == null) {
-            ExtentTestManager.getTest().log(LogStatus.WARNING, "Unable to get Usage History Details from com.airtel.cs.API");
+            ExtentTestManager.getTest().log(Status.WARNING, "Unable to get Usage History Details from com.airtel.cs.API");
         } else {
             for (int i = 0; i < usageHistoryAPI.getResult().size(); i++) {
                 if (usageHistoryAPI.getResult().get(i).getStartBalance().equalsIgnoreCase("-")) {
@@ -136,7 +136,7 @@ public class DataUnitConversionTest extends Driver {
         if (rechargeHistoryAPI.getStatusCode() != 200 || rechargeHistoryAPI.getStatus().equalsIgnoreCase("something went wrong")) {
             softAssert.fail("API is unable to give Recharge History ");
         }else if (rechargeHistoryAPI.getResult().isEmpty() || rechargeHistoryAPI.getResult() == null) {
-            ExtentTestManager.getTest().log(LogStatus.WARNING, "Unable to get Usage History Details from com.airtel.cs.API");
+            ExtentTestManager.getTest().log(Status.WARNING, "Unable to get Usage History Details from com.airtel.cs.API");
         } else {
             for (int i = 0; i < rechargeHistoryAPI.getResult().size(); i++) {
                 if (rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getDATA() != null && !rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getDATA().equalsIgnoreCase("0")) {
@@ -164,7 +164,7 @@ public class DataUnitConversionTest extends Driver {
         if (plansAPI.getStatusCode() != 200 || plansAPI.getStatus().equalsIgnoreCase("something went wrong")) {
             softAssert.fail("API is unable to give DA Details History ");
         }else if (plansAPI.getResult().isEmpty() || plansAPI.getResult() == null) {
-            ExtentTestManager.getTest().log(LogStatus.WARNING, "Unable to get Usage History Details from com.airtel.cs.API");
+            ExtentTestManager.getTest().log(Status.WARNING, "Unable to get Usage History Details from com.airtel.cs.API");
         } else {
             for (int i = 0; i < plansAPI.getResult().size(); i++) {
                 if (plansAPI.getResult().get(i).getCurrentDaBalance() != null && !plansAPI.getResult().get(i).getCurrentDaBalance().equalsIgnoreCase("0")) {

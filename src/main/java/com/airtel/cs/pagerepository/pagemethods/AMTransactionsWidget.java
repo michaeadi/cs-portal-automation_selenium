@@ -57,7 +57,7 @@ public class AMTransactionsWidget extends BasePage {
 
     public boolean isAirtelMoneyWidgetDatePickerVisible() {
         commonLib.info("Checking Airtel Money Widget Date Picker Visibility ");
-        return checkState(pageElements.airtelMoneyDatePicker);
+        return isEnabled(pageElements.airtelMoneyDatePicker);
     }
 
     public String gettingAirtelMoneyCurrency() {
@@ -107,7 +107,7 @@ public class AMTransactionsWidget extends BasePage {
     }
 
     public Boolean isResendSMS() {
-        return checkState(pageElements.resendSMSIcon);
+        return isEnabled(pageElements.resendSMSIcon);
     }
 
     public void clickMenuOption() {
@@ -123,7 +123,7 @@ public class AMTransactionsWidget extends BasePage {
 
     public Boolean isTransactionId() {
         commonLib.info("Checking is Transaction Id Box Displayed");
-        return checkState(pageElements.transactionId);
+        return isEnabled(pageElements.transactionId);
     }
 
     public void writeTransactionId(String id) {

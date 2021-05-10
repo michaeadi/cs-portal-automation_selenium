@@ -13,7 +13,7 @@ import com.airtel.cs.pojo.ticketlist.QueueStates;
 import com.airtel.cs.pojo.ticketlist.TicketPOJO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.relevantcodes.extentreports.LogStatus;
+import com.aventstack.extentreports.Status;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
@@ -145,13 +145,13 @@ public class StateQueueMappingTest extends Driver {
             for (String s : state) {
                 log.info("State:" + s);
                 if (!configState.contains(s.toLowerCase().trim())) {
-                    ExtentTestManager.getTest().log(LogStatus.FAIL, s + " :State must not mapped to '" + data.getQueue() + "' as its not mention in config.");
+                    ExtentTestManager.getTest().log(Status.FAIL, s + " :State must not mapped to '" + data.getQueue() + "' as its not mention in config.");
                 }
                 configState.remove(s.toLowerCase().trim());
             }
 
             for (String s : configState) {
-                ExtentTestManager.getTest().log(LogStatus.FAIL, s + " :State must be mapped to '" + data.getQueue() + "' as its mention in config.");
+                ExtentTestManager.getTest().log(Status.FAIL, s + " :State must be mapped to '" + data.getQueue() + "' as its mention in config.");
             }
         } catch (NoSuchElementException | TimeoutException e) {
             e.printStackTrace();

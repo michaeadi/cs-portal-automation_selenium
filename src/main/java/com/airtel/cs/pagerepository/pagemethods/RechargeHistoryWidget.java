@@ -67,7 +67,7 @@ public class RechargeHistoryWidget extends BasePage {
 
     public boolean isRechargeHistoryMenuVisible() {
         commonLib.info("Checking is More Option Visible");
-        return checkState(pageElements.more);
+        return isEnabled(pageElements.more);
     }
 
     public void openingRechargeHistoryDetails() {
@@ -122,7 +122,7 @@ public class RechargeHistoryWidget extends BasePage {
 
     public boolean isRechargeHistoryDatePickerVisible() {
         commonLib.info("Checking Recharge HistoryWidget Date Picker Visibility ");
-        return checkState(pageElements.rechargeHistoryDatePicker);
+        return isEnabled(pageElements.rechargeHistoryDatePicker);
     }
 
     public WidgetInteraction clickTicketIcon() {
@@ -154,13 +154,13 @@ public class RechargeHistoryWidget extends BasePage {
     }
 
     public Boolean isRefillIconDisable() {
-        final boolean state = checkState(pageElements.refillIconDisable);
+        final boolean state = isEnabled(pageElements.refillIconDisable);
         commonLib.info("Checking Clear refill icon disable :" + state);
         return state;
     }
 
     public Boolean isRefillIconEnable() {
-        final boolean state = checkState(pageElements.refillIconClickable);
+        final boolean state = isEnabled(pageElements.refillIconClickable);
         commonLib.info("Checking Clear refill icon enable :" + state);
         return state;
     }
@@ -172,7 +172,7 @@ public class RechargeHistoryWidget extends BasePage {
 
     public boolean checkPopDisplay() {
         commonLib.info("Reading Pop up title: " + getText(pageElements.popUpMessage));
-        return checkState(pageElements.popUpMessage);
+        return isEnabled(pageElements.popUpMessage);
     }
 
     public void clickNoBtn() {

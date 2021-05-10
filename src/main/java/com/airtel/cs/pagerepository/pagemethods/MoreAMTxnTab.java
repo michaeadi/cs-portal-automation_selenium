@@ -18,46 +18,46 @@ public class MoreAMTxnTab extends BasePage {
 
     public Boolean isNegSignDisplay(int row) {
         By negAmount = By.xpath(pageElements.valueRow + row + pageElements.negSymbol);
-        return checkState(negAmount);
+        return isEnabled(negAmount);
     }
 
     public Boolean isPosSignDisplay(int row) {
         By posAmount = By.xpath(pageElements.valueRow + row + pageElements.posSymbol);
-        return checkState(posAmount);
+        return isEnabled(posAmount);
     }
 
     public boolean isAMMenuHistoryTabDisplay() {
-        boolean status = checkState(pageElements.title);
+        boolean status = isEnabled(pageElements.title);
         commonLib.info("Is AM Menu History Tab Display: " + status);
         return status;
     }
 
     public boolean isTodayFilterTab() {
-        boolean status = checkState(pageElements.todayFilter);
+        boolean status = isEnabled(pageElements.todayFilter);
         commonLib.info("Is Today Filter Radio button Display: " + status);
         return status;
     }
 
     public boolean isLastTwoDayFilterTab() {
-        boolean status = checkState(pageElements.lasTwoDays);
+        boolean status = isEnabled(pageElements.lasTwoDays);
         commonLib.info("Is Last Two day Filter Radio button Display: " + status);
         return status;
     }
 
     public boolean isLastSevenDayFilterTab() {
-        boolean status = checkState(pageElements.lastSevenDays);
+        boolean status = isEnabled(pageElements.lastSevenDays);
         commonLib.info("Is Last Seven day Filter Radio button Display: " + status);
         return status;
     }
 
     public boolean isDateRangeFilterTab() {
-        boolean status = checkState(pageElements.dateRangeFilter);
+        boolean status = isEnabled(pageElements.dateRangeFilter);
         commonLib.info("Is Date Range Filter Radio button Display: " + status);
         return status;
     }
 
     public boolean isSearchTxnIdBox() {
-        boolean status = checkState(pageElements.searchTxnId);
+        boolean status = isEnabled(pageElements.searchTxnId);
         commonLib.info("Is Search Transaction Id Box Display: " + status);
         return status;
     }
@@ -105,53 +105,53 @@ public class MoreAMTxnTab extends BasePage {
 
     public Boolean isResendSMS() {
         By check = By.xpath(pageElements.resendSMS);
-        return checkState(check);
+        return isEnabled(check);
     }
 
     //Secondary Widget
 
     public Boolean isNegSignDisplayOnSecondWidget(int row) {
         By negAmount = By.xpath(pageElements.valueRowSec + row + pageElements.negSymbol);
-        return checkState(negAmount);
+        return isEnabled(negAmount);
     }
 
     public Boolean isPosSignDisplayOnSecondWidget(int row) {
         By posAmount = By.xpath(pageElements.valueRowSec + row + pageElements.posSymbol);
-        return checkState(posAmount);
+        return isEnabled(posAmount);
     }
 
     public boolean isAMMenuHistoryTabDisplayOnSecondWidget() {
-        boolean status = checkState(pageElements.titleSec);
+        boolean status = isEnabled(pageElements.titleSec);
         commonLib.info("Is AM Menu History Tab Display: " + status);
         return status;
     }
 
     public boolean isTodayFilterTabOnSecondWidget() {
-        boolean status = checkState(pageElements.todayFilterSec);
+        boolean status = isEnabled(pageElements.todayFilterSec);
         commonLib.info("Is Today Filter Radio button Display: " + status);
         return status;
     }
 
     public boolean isLastTwoDayFilterTabOnSecondWidget() {
-        boolean status = checkState(pageElements.lasTwoDaysSec);
+        boolean status = isEnabled(pageElements.lasTwoDaysSec);
         commonLib.info("Is Last Two day Filter Radio button Display: " + status);
         return status;
     }
 
     public boolean isLastSevenDayFilterTabOnSecondWidget() {
-        boolean status = checkState(pageElements.lastSevenDaysSec);
+        boolean status = isEnabled(pageElements.lastSevenDaysSec);
         commonLib.info("Is Last Seven day Filter Radio button Display: " + status);
         return status;
     }
 
     public boolean isDateRangeFilterTabOnSecondWidget() {
-        boolean status = checkState(pageElements.dateRangeFilterSec);
+        boolean status = isEnabled(pageElements.dateRangeFilterSec);
         commonLib.info("Is Date Range Filter Radio button Display: " + status);
         return status;
     }
 
     public boolean isSearchTxnIdBoxOnSecondWidget() {
-        boolean status = checkState(pageElements.searchTxnIdSec);
+        boolean status = isEnabled(pageElements.searchTxnIdSec);
         commonLib.info("Is Search Transaction Id Box Display: " + status);
         return status;
     }
@@ -196,6 +196,6 @@ public class MoreAMTxnTab extends BasePage {
 
     public Boolean isResendSMSOnSecondWidget() {
         By check = By.xpath(pageElements.resendSMSSec);
-        return checkState(check);
+        return isEnabled(check);
     }
 }

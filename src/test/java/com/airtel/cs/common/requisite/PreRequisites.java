@@ -5,7 +5,9 @@ import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.PassUtils;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
+import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
+import com.airtel.cs.commonutils.extentreports.ExtentReport;
 import com.airtel.cs.pojo.LoginPOJO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,70 +30,71 @@ public class PreRequisites extends Driver {
 
     @BeforeClass
     public void doLogin() {
-        selUtils.addTestcaseDescription("Logging Into Portal", "pre-requisites");
-        pages.getLoginPage().openBaseURL(config.getProperty(evnName + "-baseurl"));
-        assertCheck.append(actions.assertEqual_stringType(driver.getCurrentUrl(), config.getProperty(evnName + "-baseurl"), "Login URL Opened", "Login URL not Opened"));
-        pages.getLoginPage().waitTillLoaderGetsRemoved();
-        pages.getLoginPage().isLoginPageDisplayed();
-        pages.getLoginPage().enterAUUID(pages.getLoginPage().getUserNamePassword("auuid"));
-        pages.getLoginPage().clickOnSubmitBtn();
-        pages.getLoginPage().enterPassword(PassUtils.decodePassword(pages.getLoginPage().getUserNamePassword("password")));
-        assertCheck.append(actions.assertEqual_boolean(pages.getLoginPage().checkLoginButton(), true, "Login Button is Enabled", "Login Button is not Enabled"));
-        pages.getLoginPage().clickOnVisibleButton();
-        pages.getLoginPage().clickOnVisibleButton();
-        pages.getLoginPage().clickOnLogin();
-        pages.getLoginPage().waitTillLoaderGetsRemoved();
-        assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isSideMenuVisible(), true, "Side Menu Visible", "Side Menu Not Visible"));
-        pages.getSideMenuPage().clickOnSideMenu();
-        assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isCustomerServicesVisible(), true, "Customer Service Visible", "Customer Service Not Visible"));
-        actions.assertAllFoundFailedAssert(assertCheck);
+        try {
+            ExtentReport.startTest("PreRequisites", "doLogin");
+            selUtils.addTestcaseDescription("Logging Into Portal", "Pre-Requisites");
+            final String value = constants.getValue(ApplicationConstants.DOMAIN_URL);
+            loginAUUID = constants.getValue(CommonConstants.ALL_USER_ROLE_AUUID);
+            pages.getLoginPage().openBaseURL(value);
+            assertCheck.append(actions.assertEqual_stringType(driver.getCurrentUrl(), value, "Login URL Opened", "Login URL not Opened"));
+            pages.getLoginPage().enterAUUID(loginAUUID);
+            pages.getLoginPage().clickOnSubmitBtn();
+            pages.getLoginPage().enterPassword(PassUtils.decodePassword(constants.getValue(CommonConstants.ALL_USER_ROLE_PASSWORD)));
+            assertCheck.append(actions.assertEqual_boolean(pages.getLoginPage().checkLoginButton(), true, "Login Button is Enabled", "Login Button is not Enabled"));
+            pages.getLoginPage().clickOnVisibleButton();
+            pages.getLoginPage().clickOnVisibleButton();
+            pages.getLoginPage().clickOnLogin();
+            final boolean isGrowlVisible = pages.getGrowl().checkIsGrowlVisible();
+            commonLib.info("Growl was visible or not?:-" + isGrowlVisible);
+            if (isGrowlVisible) {
+                commonLib.fail("Growl Message:- " + pages.getGrowl().getToastContent(), true);
+                continueExecutionFA = false;
+            } else {
+                assertCheck.append(actions.assertEqual_boolean(pages.getUserManagementPage().isUserManagementPageLoaded(), true, "Customer Dashboard Page Loaded Successfully", "Customer Dashboard page NOT Loaded"));
+                assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isSideMenuVisible(), true, "Side Menu Visible", "Side Menu Not Visible"));
+                pages.getSideMenuPage().clickOnSideMenu();
+                assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isCustomerServicesVisible(), true, "Customer Service Visible", "Customer Service Not Visible"));
+                actions.assertAllFoundFailedAssert(assertCheck);
+            }
+        } catch (Exception e) {
+            continueExecutionFA = false;
+            commonLib.fail("Exception in Method - doLogin" + e.fillInStackTrace(), true);
+        }
     }
 
     @BeforeClass(dependsOnMethods = "doLogin")
     public void addTokenToHeaderMap() throws JsonProcessingException {
-        recordset = DataProviders.readExcelSheet(excelPath, constants.getValue(ApplicationConstants.LOGIN_SHEET_NAME));
-        List<String> datatPoints = DataProviders.getScenarioDetailsFromExcelSheetColumnWise(recordset, "API", "userType", Arrays.asList("loginAuuid", "password"));
-        LoginPOJO req = LoginPOJO.loginBody(datatPoints.get(0), PassUtils.decodePassword(datatPoints.get(1)));
+        loginAUUID = constants.getValue(CommonConstants.ALL_USER_ROLE_AUUID);
+        final String password = PassUtils.decodePassword(constants.getValue(CommonConstants.ALL_USER_ROLE_PASSWORD));
+        LoginPOJO req = LoginPOJO.loginBody(loginAUUID, password);
         String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(req);
         map.clear();
-        addHeaders();
+        pages.getLoginPage().setApiHeader();
         LoginPOJO loginPOJO = api.loginPOJO(dtoAsString);
-        String accessToken = loginPOJO.getResult().get("accessToken");
+        final String accessToken = loginPOJO.getResult().get("accessToken");
+        assertCheck.append(actions.assertEqual_stringNotNull(accessToken, "Access Token Fetched Successfully", "Access Token is Null"));
+        final String statusCode = loginPOJO.getStatusCode();
+        assertCheck.append(actions.assertEqual_stringType(statusCode, "200", "Status Code Matched Successfully", "Status code NOT Matched and is :-" + statusCode));
         String tokenType = loginPOJO.getResult().get("tokenType");
         token = tokenType + " " + accessToken;
         UtilsMethods.addHeaders("Authorization", token);
+        ExtentReport.endTest();
     }
 
     @AfterClass(alwaysRun = true)
     public void doLogout() {
-        selUtils.addTestcaseDescription("Logging Out Of Portal", "description");
+        commonLib.info("Logging Out Of Portal");
         if (pages.getSideMenuPage().isSideMenuVisible()) {
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().logout();
-            try {
-                Assert.assertTrue(pages.getLoginPage().isEnterAUUIDFieldVisible());
-            } catch (TimeoutException | NoSuchElementException | AssertionError e) {
-                pages.getLoginPage().selectByText("Continue");
-            }
+            final boolean isGrowlVisible = pages.getGrowl().checkIsGrowlVisible();
+            assertCheck.append(actions.assertEqual_boolean(isGrowlVisible, true, "Growl Visible Successfully", "Growl Not Visible"));
+            final String toastContent = pages.getGrowl().getToastContent();
+            assertCheck.append(actions.assertEqual_stringType(toastContent, "You have successfully logged out", "Logout Successfully", "Logout Operation Failed and Message is :-" + toastContent));
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } else {
+            commonLib.fail("Side Menu is NOT Visible", true);
         }
-        Assert.assertTrue(pages.getLoginPage().isEnterAUUIDFieldVisible());
-        pages.getLoginPage().waitTillLoaderGetsRemoved();
-    }
-
-    /*
-    This Method will add headers in a Map, and then we can use in the test case
-     */
-    private void addHeaders() {
-        UtilsMethods.addHeaders("x-app-name", config.getProperty(evnName + "-x-app-name"));
-        UtilsMethods.addHeaders("x-service-id", config.getProperty(evnName + "-x-service-id"));
-        UtilsMethods.addHeaders("x-app-type", config.getProperty(evnName + "-x-app-type"));
-        UtilsMethods.addHeaders("x-client-id", config.getProperty(evnName + "-x-client-id"));
-        UtilsMethods.addHeaders("x-api-key", config.getProperty(evnName + "-x-api-key"));
-        UtilsMethods.addHeaders("x-login-module", config.getProperty(evnName + "-x-login-module"));
-        UtilsMethods.addHeaders("x-channel", config.getProperty(evnName + "-x-channel"));
-        UtilsMethods.addHeaders("x-app-version", config.getProperty(evnName + "-x-app-version"));
-        UtilsMethods.addHeaders("Opco", OPCO);
-        UtilsMethods.addHeaders("sr-client-id", constants.getValue(ApplicationConstants.SR_CLIENT_ID));
     }
 
     /*

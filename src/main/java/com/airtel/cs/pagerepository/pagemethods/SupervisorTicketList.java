@@ -33,13 +33,13 @@ public class SupervisorTicketList extends BasePage {
     }
 
     public Boolean isCancelBtn() {
-        Boolean status = checkState(pageElements.cancelBtn);
+        Boolean status = isEnabled(pageElements.cancelBtn);
         commonLib.info("Is Cancel Button Displayed: " + status);
         return status;
     }
 
     public Boolean isTransferAnyWayBtn() {
-        Boolean status = checkState(pageElements.transferAnywayBtn);
+        Boolean status = isEnabled(pageElements.transferAnywayBtn);
         commonLib.info("Is Transfer Any Way Button Displayed: " + status);
         return status;
     }
@@ -79,14 +79,14 @@ public class SupervisorTicketList extends BasePage {
     }
 
     public boolean isTicketIdLabel() {
-        final boolean state = checkState(pageElements.ticketIdLabel);
+        final boolean state = isEnabled(pageElements.ticketIdLabel);
         commonLib.pass("Is Ticket Id field Available :" + state);
         return state;
     }
 
     public boolean isWorkGroupName() {
         commonLib.pass("Ticket lie in WorkGroup :" + getText(pageElements.workGroupName));
-        return checkState(pageElements.workGroupName);
+        return isEnabled(pageElements.workGroupName);
     }
 
     public String getWorkGroupName() {
@@ -94,58 +94,58 @@ public class SupervisorTicketList extends BasePage {
     }
 
     public boolean isPrioritylabel() {
-        final boolean state = checkState(pageElements.prioritylabel);
+        final boolean state = isEnabled(pageElements.prioritylabel);
         commonLib.pass("Is Priority field Available :" + state);
         return state;
     }
 
     public boolean isStateLabel() {
-        final boolean state = checkState(pageElements.stateLabel);
+        final boolean state = isEnabled(pageElements.stateLabel);
         commonLib.pass("Is State field Available :" + state);
         return state;
     }
 
     public boolean isCreationdateLabel() {
-        final boolean state = checkState(pageElements.creationdateLabel);
+        final boolean state = isEnabled(pageElements.creationdateLabel);
         commonLib.pass("Is Creation Date field Available :" + state);
         return state;
     }
 
     public boolean isCreatedbyLabel() {
-        final boolean state = checkState(pageElements.createdbyLabel);
+        final boolean state = isEnabled(pageElements.createdbyLabel);
         commonLib.info("Is Created By field Available :" + state);
         return state;
     }
 
     public boolean isQueueLabel() {
-        final boolean state = checkState(pageElements.queueLabel);
+        final boolean state = isEnabled(pageElements.queueLabel);
         commonLib.info("Is Queue field Available :" + state);
         return state;
     }
 
     public boolean isIssueLabel() {
-        commonLib.info("Is Issue Label field Available :" + checkState(pageElements.prioritylabel));
-        return checkState(pageElements.issueLabel);
+        commonLib.info("Is Issue Label field Available :" + isEnabled(pageElements.prioritylabel));
+        return isEnabled(pageElements.issueLabel);
     }
 
     public boolean isIssueTypeLabel() {
-        commonLib.info("Is Priority field Available :" + checkState(pageElements.prioritylabel));
-        return checkState(pageElements.issueTypeLabel);
+        commonLib.info("Is Priority field Available :" + isEnabled(pageElements.prioritylabel));
+        return isEnabled(pageElements.issueTypeLabel);
     }
 
     public boolean isSubTypeLabel() {
-        commonLib.info("Is Issue Type field Available :" + checkState(pageElements.issueTypeLabel));
-        return checkState(pageElements.subTypeLabel);
+        commonLib.info("Is Issue Type field Available :" + isEnabled(pageElements.issueTypeLabel));
+        return isEnabled(pageElements.subTypeLabel);
     }
 
     public boolean isSubSubTypeLabel() {
-        final boolean state = checkState(pageElements.subSubTypeLabel);
+        final boolean state = isEnabled(pageElements.subSubTypeLabel);
         commonLib.info("Is Issue Sub Sub Type field Available :" + state);
         return state;
     }
 
     public boolean isCodeLabel() {
-        final boolean state = checkState(pageElements.codeLabel);
+        final boolean state = isEnabled(pageElements.codeLabel);
         commonLib.info("Is Code field Available :" + state);
         return state;
     }
@@ -212,7 +212,7 @@ public class SupervisorTicketList extends BasePage {
 
     public boolean isAssignToAgent() {
         commonLib.info("Validate Assign to Agent Button Available");
-        return checkState(pageElements.assignToagentBtn);
+        return isEnabled(pageElements.assignToagentBtn);
     }
 
     public void clickTransfertoQueue() {
@@ -222,18 +222,18 @@ public class SupervisorTicketList extends BasePage {
 
     public boolean isTransferToQueue() {
         commonLib.info("Validate Transfer to Queue Button Available");
-        return checkState(pageElements.transfertoQueueBtn);
+        return isEnabled(pageElements.transfertoQueueBtn);
     }
 
     public boolean checkOpenTicketStateType() {
         log.info("Checking Open Ticket State Type Select");
-        return checkState(pageElements.openTicketType);
+        return isEnabled(pageElements.openTicketType);
     }
 
 
     private boolean checkClosedTicketstateType() {
         log.info("Checking Closed Ticket State Type Select");
-        return checkState(pageElements.closedTicketType);
+        return isEnabled(pageElements.closedTicketType);
     }
 
 
@@ -277,7 +277,7 @@ public class SupervisorTicketList extends BasePage {
     public boolean isResetFilter() {
         commonLib.info("Is Removing Filter Button Available");
         try {
-            return checkState(pageElements.resetFilterButton);
+            return isEnabled(pageElements.resetFilterButton);
         } catch (NoSuchElementException | TimeoutException e) {
             return false;
         }
@@ -320,7 +320,7 @@ public class SupervisorTicketList extends BasePage {
     }
 
     public boolean isReopenBtn() {
-        final boolean state = checkState(pageElements.reOpenBtn);
+        final boolean state = isEnabled(pageElements.reOpenBtn);
         log.info("Is Reopen Button Available: " + state);
         return state;
     }
@@ -328,7 +328,7 @@ public class SupervisorTicketList extends BasePage {
     public boolean checkAssignedAUUID(String auuid) {
         log.info("Ticket Validated and Assigned to Agent AUUID: " + auuid);
         By agentAUUID = By.xpath("//span[contains(text(),'" + auuid + "')]");
-        return checkState(agentAUUID);
+        return isEnabled(agentAUUID);
     }
 
     public By getEscalationSymbol() {
@@ -360,12 +360,12 @@ public class SupervisorTicketList extends BasePage {
 
     public Boolean isNotAssigneeDisplay() {
         commonLib.info("Checking Is not assigned displayed");
-        return checkState(pageElements.notAssigned);
+        return isEnabled(pageElements.notAssigned);
     }
 
     public boolean isNegativeSLA() {
         try {
-            final boolean state = checkState(pageElements.redDot);
+            final boolean state = isEnabled(pageElements.redDot);
             commonLib.info("Checking red dot symbol for negative SLA: " + state);
             return state;
         } catch (TimeoutException e) {
@@ -376,7 +376,7 @@ public class SupervisorTicketList extends BasePage {
 
     public boolean isAllTicketTab() {
         try {
-            boolean flag = checkState(pageElements.allTicketTab);
+            boolean flag = isEnabled(pageElements.allTicketTab);
             commonLib.info("IS All Assigned Ticket Tab displayed: " + flag);
             return flag;
         } catch (TimeoutException e) {
@@ -387,7 +387,7 @@ public class SupervisorTicketList extends BasePage {
 
     public boolean isMyAssignedTicketTab() {
         try {
-            boolean flag = checkState(pageElements.myTicketTab);
+            boolean flag = isEnabled(pageElements.myTicketTab);
             commonLib.info("IS My Assigned Ticket Tab displayed: " + flag);
             return flag;
         } catch (TimeoutException e) {
@@ -398,7 +398,7 @@ public class SupervisorTicketList extends BasePage {
 
     public boolean isPositiveSLA() {
         try {
-            final boolean state = checkState(pageElements.greenDot);
+            final boolean state = isEnabled(pageElements.greenDot);
             commonLib.info("Checking green dot symbol for positive SLA: " + state);
             return state;
         } catch (TimeoutException e) {

@@ -200,17 +200,17 @@ public class MoreUsageHistory extends BasePage {
 
     public boolean isSMSDatePickerVisible() {
         commonLib.info("Checking is SMS DatePicker is Enabled");
-        return checkState(pageElements.smsDatePicker);
+        return isEnabled(pageElements.smsDatePicker);
     }
 
     public boolean isDataDatePickerVisible() {
         commonLib.info("Checking is Data DatePicker is Enabled");
-        return checkState(pageElements.dataDatePicker);
+        return isEnabled(pageElements.dataDatePicker);
     }
 
     public boolean isCallDatePickerVisible() {
         commonLib.info("Checking is Call DatePicker is Enabled");
-        return checkState(pageElements.callDatePicker);
+        return isEnabled(pageElements.callDatePicker);
     }
 
     public int getNumbersOfSMSRows() {

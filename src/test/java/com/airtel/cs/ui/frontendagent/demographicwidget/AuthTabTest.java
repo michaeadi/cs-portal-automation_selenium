@@ -1,4 +1,4 @@
-package com.airtel.cs.ui.frontendagent;
+package com.airtel.cs.ui.frontendagent.demographicwidget;
 
 import com.airtel.cs.api.APIEndPoints;
 import com.airtel.cs.common.actions.BaseActions;

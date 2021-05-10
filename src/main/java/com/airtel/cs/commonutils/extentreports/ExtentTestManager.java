@@ -1,7 +1,7 @@
 package com.airtel.cs.commonutils.extentreports;
 
 import com.airtel.cs.driver.Driver;
-import com.relevantcodes.extentreports.ExtentTest;
+import com.aventstack.extentreports.ExtentTest;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,11 +14,11 @@ public class ExtentTestManager extends Driver {
     }
 
     public static synchronized void endTestOld() {
-        extent.endTest(extentTestMap.get((int) Thread.currentThread().getId()));
+        extent.removeTest(extentTestMap.get((int) Thread.currentThread().getId()));
     }
 
     public static synchronized ExtentTest startTest(String testName, String desc) {
-        test = extent.startTest(testName, desc);
+        test = extent.createTest(testName, desc);
         test.assignCategory(testName);
         test.assignAuthor("CS QA Airtel-Africa");
         extentTestMap.put((int) Thread.currentThread().getId(), test);

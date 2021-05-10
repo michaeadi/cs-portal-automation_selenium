@@ -1,6 +1,7 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
 import com.airtel.cs.api.APIEndPoints;
+import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.enums.ReportInfoMessageColorList;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pagerepository.pageelements.AirtelByWrapper;
@@ -44,11 +45,10 @@ public class BasePage extends Driver {
         js = (JavascriptExecutor) driver;
         ExpectedCondition<Boolean> expectation = driver1 -> ((JavascriptExecutor) driver1).executeScript("return document.readyState").toString().equals("complete");
         wait1 = new FluentWait<>(driver)
-                .withTimeout(Duration.ofSeconds(Integer.parseInt(Driver.config.getProperty("GeneralWaitInSeconds"))))
-                .pollingEvery(Duration.ofSeconds(Integer.parseInt(Driver.config.getProperty("PoolingWaitInSeconds"))))
-                .ignoring(NoSuchElementException.class);
+                .withTimeout(Duration.ofSeconds(Integer.parseInt(constants.getValue(ApplicationConstants.GENERAL_WAIT_IN_SEC))))
+                .pollingEvery(Duration.ofSeconds(Integer.parseInt(constants.getValue(ApplicationConstants.POOLING_WAIT_IN_SEC))));
         wait1.until(expectation);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(Integer.parseInt(Driver.config.getProperty("GeneralWaitInSeconds"))));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(Integer.parseInt(constants.getValue(ApplicationConstants.GENERAL_WAIT_IN_SEC))));
         basePageElements = new BasePageElements();
     }
 
@@ -70,12 +70,11 @@ public class BasePage extends Driver {
     //Click Method
     public void click(By elementLocation) {
         try {
-            wait.until(ExpectedConditions.elementToBeClickable(elementLocation));
-            highLighterMethod(elementLocation);
+            if (isVisible(elementLocation) && isClickable(elementLocation))
+                highLighterMethod(elementLocation);
             driver.findElement(elementLocation).click();
             commonLib.info("Element Clicked " + elementLocation.toString());
         } catch (ElementClickInterceptedException e) {
-            waitTillLoaderGetsRemoved();
             driver.findElement(elementLocation).click();
             commonLib.info("Again Element Clicked " + elementLocation.toString());
         }
@@ -92,6 +91,7 @@ public class BasePage extends Driver {
     public void enterText(By elementLocation, String text) {
         if (isVisible(elementLocation)) {
             highLighterMethod(elementLocation);
+            driver.findElement(elementLocation).clear();
             driver.findElement(elementLocation).sendKeys(text);
             commonLib.info("Entering " + text + " to  " + elementLocation.toString());
         } else {
@@ -120,9 +120,8 @@ public class BasePage extends Driver {
     }
 
     //Check the state of element
-    public boolean checkState(By elementLocation) {
+    public boolean isEnabled(By elementLocation) {
         try {
-            highLighterMethod(elementLocation);
             return driver.findElement(elementLocation).isEnabled();
         } catch (NoSuchElementException | TimeoutException e) {
             e.printStackTrace();
@@ -308,8 +307,12 @@ public class BasePage extends Driver {
                 }
             } else {
                 attributeValue = getElementfromBy(elementLocation).getAttribute(attributeName);
-                attributeValue = (attributeValue == null) ? ""
-                        : (attributeValue.equals("")) ? attributeValue : attributeValue.trim();
+                if ((attributeValue == null)) {
+                    attributeValue = "";
+                } else {
+                    if (!attributeValue.equals(""))
+                        attributeValue = attributeValue.trim();
+                }
                 if (attributeValue.equals("")) {
                     WebElement element = getElementfromBy(elementLocation);
                     JavascriptExecutor executor = (JavascriptExecutor) driver;
@@ -351,7 +354,7 @@ public class BasePage extends Driver {
      * @return will return true false
      */
     public boolean isVisible(By webelementBy) {
-        return isVisible(webelementBy, 20);
+        return isVisible(webelementBy, Integer.parseInt(constants.getValue(ApplicationConstants.GENERAL_WAIT_IN_SEC)));
     }
 
     /**
@@ -488,7 +491,7 @@ public class BasePage extends Driver {
         try {
             if (isVisible(elementLocation, time) && isClickable(elementLocation, time)) {
                 WebElement element = getElementfromBy(elementLocation);
-                if ((element.getTagName()).equals("input")) {
+                if (element.getTagName().equals("input") || element.getTagName().equals("button")) {
                     highLighterMethod(elementLocation);
                     JavascriptExecutor executor = (JavascriptExecutor) driver;
                     executor.executeScript("arguments[0].click();", element);

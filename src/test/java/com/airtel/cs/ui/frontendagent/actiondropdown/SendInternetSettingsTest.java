@@ -10,7 +10,6 @@ import org.testng.annotations.Test;
 public class SendInternetSettingsTest extends Driver {
 
     private final BaseActions actions = new BaseActions();
-    String reason = null;
     String comments = "Adding comment using Automation";
 
     @Test(priority = 1, description = "Validate Customer Profile Page")
@@ -51,11 +50,12 @@ public class SendInternetSettingsTest extends Driver {
     @Test(priority = 3, description = "Verify the Send Internet Setting tab", dependsOnMethods = "openCustomerInteraction")
     public void validateSendInternetSetting() {
         try {
-            selUtils.addTestcaseDescription("Verify the Send Internet Setting tab", "description");
+            selUtils.addTestcaseDescription("Open send internet setting modal from actions drop down,Validate issue detail title visible,Select reason and enter comment and click on submit button, Validate success message", "description");
             pages.getCustomerProfilePage().clickOnAction();
             pages.getCustomerProfilePage().clickSendSetting();
             assertCheck.append(actions.assertEqual_boolean(pages.getAuthTabPage().isIssueDetailTitleVisible(), true, "Issue Detail Configured", "Issue Detail does not configured"));
             pages.getAuthTabPage().clickSelectReasonDropDown();
+            reason = pages.getAuthTabPage().getReason();
             pages.getAuthTabPage().chooseReason();
             pages.getAuthTabPage().enterComment(comments);
             pages.getAuthTabPage().clickSubmitBtn();

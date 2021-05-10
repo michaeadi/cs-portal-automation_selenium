@@ -22,18 +22,18 @@ public class MoreRechargeHistory extends BasePage {
 
     public Boolean isWidgetDisplay() {
         commonLib.info("Checking More Recharge History Widget Display");
-        return checkState(pageElements.widgetName);
+        return isEnabled(pageElements.widgetName);
     }
 
     public Boolean isPagination() {
-        final boolean state = checkState(pageElements.pagination);
+        final boolean state = isEnabled(pageElements.pagination);
         commonLib.info("Is Pagination Available: " + state);
         return state;
     }
 
     public Boolean isDatePickerDisplay() {
         commonLib.info("Checking More Recharge History Widget Date Picker Display");
-        return checkState(pageElements.widgetName);
+        return isEnabled(pageElements.widgetName);
     }
 
 
@@ -52,7 +52,7 @@ public class MoreRechargeHistory extends BasePage {
     }
 
     public Boolean getNoResultFound() {
-        final boolean state = checkState(pageElements.errorMessage);
+        final boolean state = isEnabled(pageElements.errorMessage);
         commonLib.info("Is no result found message display: " + state);
         return state;
     }
@@ -65,25 +65,25 @@ public class MoreRechargeHistory extends BasePage {
     }
 
     public boolean isDatePickerVisible() {
-        final boolean state = checkState(pageElements.datePicker);
+        final boolean state = isEnabled(pageElements.datePicker);
         commonLib.info("Is DatePicker available: " + state);
         return state;
     }
 
     public boolean isLast2DateVisible() {
-        final boolean state = checkState(pageElements.last2DaysFilter);
+        final boolean state = isEnabled(pageElements.last2DaysFilter);
         commonLib.info("Is Last 2 Day Date available: " + state);
         return state;
     }
 
     public boolean isLast7DateVisible() {
-        final boolean state = checkState(pageElements.last7DaysFilter);
+        final boolean state = isEnabled(pageElements.last7DaysFilter);
         commonLib.info("Is Last 7 Day Date available: " + state);
         return state;
     }
 
     public boolean isTodayDateVisible() {
-        final boolean state = checkState(pageElements.todayDateFilter);
+        final boolean state = isEnabled(pageElements.todayDateFilter);
         commonLib.info("Is Today Day Date available: " + state);
         return state;
     }

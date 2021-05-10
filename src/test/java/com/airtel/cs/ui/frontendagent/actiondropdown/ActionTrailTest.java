@@ -14,8 +14,6 @@ import org.testng.annotations.Test;
 
 public class ActionTrailTest extends Driver {
 
-    String agentAuuid = null;
-    String reason = null;
     String comments = "Adding comment using Automation";
     private final BaseActions actions = new BaseActions();
 
@@ -32,7 +30,7 @@ public class ActionTrailTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
+    @Test(priority = 1, description = "Validate Customer Interaction Page")
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -55,7 +53,7 @@ public class ActionTrailTest extends Driver {
     @Test(priority = 2, description = "Validating Action Trail Tab", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
     public void validateActionTrailOpenCorrectly(HeaderDataBean data) {
         try {
-            selUtils.addTestcaseDescription("Validating the Action Trail Tab Under View History", "description");
+            selUtils.addTestcaseDescription("Verify View History tab opened successfully,Verify Action Trail History tab is visible and then click,Validate column header name are visible and correct", "description");
             pages.getMsisdnSearchPage().waitTillLoaderGetsRemoved();
             pages.getCustomerProfilePage().goToViewHistory();
             pages.getViewHistory().clickOnActionTrailHistory();
@@ -71,18 +69,18 @@ public class ActionTrailTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 3, description = "Validating Action Trail History")
+    @Test(priority = 3, description = "Validating Action Trail History", dependsOnMethods = {"validateActionTrailOpenCorrectly"})
     public void validateActionTrailValue() {
         try {
-            selUtils.addTestcaseDescription("Validating Action Trail History", "description");
+            selUtils.addTestcaseDescription("Verify View History tab opened successfully,Verify Action Trail History tab is visible and then click,Validate column value are visible and correct", "description");
             pages.getCustomerProfilePage().goToViewHistory();
             pages.getViewHistory().clickOnActionTrailHistory();
-            assertCheck.append(actions.assertEqual_stringType(pages.getActionTrailPage().getValue(0).toLowerCase().trim(), "send internet settings", "Action Type Column value displayed Correctly", "Action Type Column Value does not display Correctly"));
-            assertCheck.append(actions.assertEqual_stringNotNull(pages.getActionTrailPage().getValue(1).toLowerCase().trim(), "Date & Time Column displayed Correctly", "Date & Time Column does not display Correctly"));
-            assertCheck.append(actions.assertEqual_stringType(pages.getActionTrailPage().getValue(2).toLowerCase().trim(), reason.toLowerCase().trim(), "Reason Column displayed Correctly", "Reason Column does not display Correctly"));
-            assertCheck.append(actions.assertEqual_stringType(pages.getActionTrailPage().getValue(3), agentAuuid, "Agent Id Column displayed Correctly", "Agent Id Column does not display Correctly"));
-            assertCheck.append(actions.assertEqual_stringNotNull(pages.getActionTrailPage().getValue(4).toLowerCase().trim(), "Agent name Column displayed Correctly", "Agent name Column does not display in Correctly"));
-            assertCheck.append(actions.assertEqual_stringType(pages.getActionTrailPage().getValue(5).toLowerCase().trim(), comments.toLowerCase().trim(), "Comments Column displayed Correctly", "Comments Column does not display in Correctly"));
+            assertCheck.append(actions.assertEqual_stringType(pages.getActionTrailPage().getValue(0).toLowerCase().trim(), "send internet settings", "Action Type Column value displayed Correctly", "Action Type Column Value does not displayed Correctly"));
+            assertCheck.append(actions.assertEqual_stringNotNull(pages.getActionTrailPage().getValue(1).toLowerCase().trim(), "Date & Time Column displayed Correctly", "Date & Time Column does not displayed Correctly"));
+            assertCheck.append(actions.assertEqual_stringType(pages.getActionTrailPage().getValue(2).toLowerCase().trim(), reason.toLowerCase().trim(), "Reason Column displayed Correctly", "Reason Column does not displayed Correctly"));
+            assertCheck.append(actions.assertEqual_stringType(pages.getActionTrailPage().getValue(3), loginAUUID, "Agent Id Column displayed Correctly", "Agent Id Column does not displayed Correctly"));
+            assertCheck.append(actions.assertEqual_stringNotNull(pages.getActionTrailPage().getValue(4).toLowerCase().trim(), "Agent name Column displayed Correctly", "Agent name Column does not displayed in Correctly"));
+            assertCheck.append(actions.assertEqual_stringType(pages.getActionTrailPage().getValue(5).toLowerCase().trim(), comments.toLowerCase().trim(), "Comments Column displayed Correctly", "Comments Column does not displayed in Correctly"));
         } catch (NoSuchElementException | TimeoutException e) {
             commonLib.fail("Exception in Method - validateActionTrailValue" + e.fillInStackTrace(), true);
         }

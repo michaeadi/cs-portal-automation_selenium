@@ -24,49 +24,49 @@ public class MessageHistory extends BasePage {
     }
 
     public boolean isMessageTypeColumn() {
-        boolean state = checkState(pageElements.messageTypeLabel);
+        boolean state = isEnabled(pageElements.messageTypeLabel);
         log.info(TEXT1 + state);
         return state;
     }
 
     public boolean isDateSentColumn() {
-        boolean state = checkState(pageElements.dateSentLabel);
+        boolean state = isEnabled(pageElements.dateSentLabel);
         log.info(TEXT1 + state);
         return state;
     }
 
     public boolean isTemplateColumn() {
-        boolean state = checkState(pageElements.templateLabel);
+        boolean state = isEnabled(pageElements.templateLabel);
         log.info(TEXT1 + state);
         return state;
     }
 
     public boolean isMessageLanguageColumn() {
-        boolean state = checkState(pageElements.messageLanguageLabel);
+        boolean state = isEnabled(pageElements.messageLanguageLabel);
         log.info(TEXT1 + state);
         return state;
     }
 
     public boolean isMessageTextColumn() {
-        boolean state = checkState(pageElements.messageTextLabel);
+        boolean state = isEnabled(pageElements.messageTextLabel);
         log.info(TEXT1 + state);
         return state;
     }
 
     public boolean isAgentIdColumn() {
-        boolean state = checkState(pageElements.agentIdLabel);
+        boolean state = isEnabled(pageElements.agentIdLabel);
         log.info(TEXT1 + state);
         return state;
     }
 
     public boolean isAgentNameColumn() {
-        boolean state = checkState(pageElements.agentNameLabel);
+        boolean state = isEnabled(pageElements.agentNameLabel);
         log.info(TEXT1 + state);
         return state;
     }
 
     public boolean isActionColumn() {
-        boolean state = checkState(pageElements.actionLabel);
+        boolean state = isEnabled(pageElements.actionLabel);
         log.info(TEXT1 + state);
         return state;
     }
@@ -143,7 +143,7 @@ public class MessageHistory extends BasePage {
     public boolean isActionBtnEnable(int i) {
         if (i <= getListSize()) {
             By actionEnable = By.xpath(XPATH + i + "]//td[8]//img");
-            return checkState(actionEnable);
+            return isEnabled(actionEnable);
         }
         return false;
     }
@@ -151,7 +151,7 @@ public class MessageHistory extends BasePage {
     public boolean isActionBtnDisable(int i) {
         if (i <= getListSize()) {
             By actionEnable = By.xpath(XPATH + i + "]//td[8]//img[@class=\"disabled-icon\"]");
-            return checkState(actionEnable);
+            return isEnabled(actionEnable);
         }
         return false;
     }

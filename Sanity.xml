@@ -7,12 +7,12 @@
     </listeners>
     <test name="Test Login API">
         <classes>
-            <class name="com.airtel.cs.ui.frontendagent.LoginAPITest"/>
+            <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginAPITest"/>
         </classes>
     </test>
     <test name="Test Login Into Portal With FA">
         <classes>
-            <class name="com.airtel.cs.ui.frontendagent.LoginPortalTests"/>
+            <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginPortalTests"/>
         </classes>
     </test>
     <test name="Test Side Menu Options">
@@ -20,12 +20,7 @@
             <class name="com.airtel.cs.ui.frontendagent.SideMenuTests"/>
         </classes>
     </test>
-    <test name="Test Authentication Tab">
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.AuthTabTest"/>
-        </classes>
-    </test>
-    <test name="Validate Send Internet Setting Tab Test">
+    <!--<test name="Validate Send Internet Setting Tab Test">
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.actiondropdown.SendInternetSettingsTest"/>
         </classes>
@@ -39,216 +34,230 @@
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.actiondropdown.ActionTrailTest"/>
         </classes>
+    </test>-->
+    <test name="Demo Graphic Widget Test" preserve-order="true">
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.demographicwidget.DemoGraphicWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Customer Profile Widget Test" preserve-order="true">
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.widgets.WidgetTest"/>
+        </classes>
     </test>
     <test name="Customer Interactions Test" preserve-order="true">
         <classes>
-            <class name="com.airtel.cs.ui.frontendagent.CustomerInteractionTest"/>
-            <class name="com.airtel.cs.ui.frontendagent.WidgetsOptionsTest"/>
+            <class name="com.airtel.cs.ui.frontendagent.widgets.WidgetsOptionsTest"/>
         </classes>
     </test>
-    <test name="CRBT Widget Test">
+    <test name="Test Authentication Tab">
         <classes>
-            <class name="com.airtel.cs.ui.frontendagent.CRBTWidgetTest"/>
+            <class name="com.airtel.cs.ui.frontendagent.demographicwidget.AuthTabTest"/>
         </classes>
     </test>
-    <test name="Create NFTR FTR Tickets TEST">
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.CreateInteractionTest"/>
-        </classes>
-    </test>
-    <test name="Customer Pinned Tag TEST">
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.PinTagTest"/>
-        </classes>
-    </test>
-    <test name="Add Interaction Ticket Comment">
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.InteractionCommentTest"/>
-        </classes>
-    </test>
-    <test name="Send SMS Test">
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.SendSMSTest"/>
-        </classes>
-    </test>
-    <test name="Validate Frontend Agent Ticket Page">
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.FrontendAgentTicketTest"/>
-        </classes>
-    </test>
-    <test name="Validate Voucher Tab">
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.VoucherTabTest"/>
-        </classes>
-    </test>
-    <test name="Clear Refill error">
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.ClearRefillErrorTest"/>
-        </classes>
-    </test>
-    <test name="Loan Widget Test">
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.LoanWidgetTest"/>
-        </classes>
-    </test>
-    <test name="Supervisors Ticket Bulk Update Test">
-        <classes>
-            <class name="com.airtel.cs.ui.ticketBulkUpdate.TicketBulkUpdateTest"/>
-        </classes>
-    </test>
-    <test name="Logout Test">
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.LogoutTest"/>
-        </classes>
-    </test>
-    <test name="Supervisors Login Test">
-        <classes>
-            <class name="com.airtel.cs.ui.backendSupervisor.SupervisorLoginTest"/>
-        </classes>
-    </test>
-    <test name="api-Regenerate">
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.LoginAPITest">
-                <methods>
-                    <exclude name="testCredOfAdmin"/>
-                    <exclude name="testCredOfBackendAgent"/>
-                </methods>
-            </class>
-        </classes>
-    </test>
-    <test name="Supervisors Global Search Ticket Test">
-        <classes>
-            <class name="com.airtel.cs.ui.backendSupervisor.SupervisorGlobalSearchTest"/>
-        </classes>
-    </test>
-    <test name="Supervisors Search Ticket Test ">
-        <classes>
-            <class name="com.airtel.cs.ui.backendSupervisor.SupervisorSearchTicketTest"/>
-        </classes>
-    </test>
-    <test name="Supervisors Validate Filter Option ">
-        <classes>
-            <class name="com.airtel.cs.ui.backendSupervisor.SupervisorFilterTest"/>
-        </classes>
-    </test>
-    <test name="Supervisors Update Ticket Test">
-        <classes>
-            <class name="com.airtel.cs.ui.backendSupervisor.SupervisorUpdateTicketTest"/>
-        </classes>
-    </test>
-    <test name="Supervisors Assign To Agent Test">
-        <classes>
-            <class name="com.airtel.cs.ui.backendSupervisor.AssignToAgentTicketTest"/>
-        </classes>
-    </test>
-    <test name="Supervisors Ticket Transfer To Queue Test">
-        <classes>
-            <class name="com.airtel.cs.ui.backendSupervisor.TransferToQueueTest"/>
-        </classes>
-    </test>
-    <test name="Supervisor Re-Open Ticket">
-        <classes>
-            <class name="com.airtel.cs.ui.backendSupervisor.SupervisorReopenTicketTest"/>
-        </classes>
-    </test>
-    <test name="Ticket Escalation">
-        <classes>
-            <class name="com.airtel.cs.ui.backendSupervisor.TicketEscalationTest"/>
-        </classes>
-    </test>
-    <test name="Supervisors Add Comment on Ticket">
-        <classes>
-            <class name="com.airtel.cs.ui.backendSupervisor.SupervisorAddCommentTest"/>
-        </classes>
-    </test>
-    <test name="Logout Supervisor Test">
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.LogoutTest"/>
-        </classes>
-    </test>
-    <test name="Login Admin Test">
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.LoginPortalTests"/>
-        </classes>
-    </test>
-    <test name="Create Template Test">
-        <classes>
-            <class name="com.airtel.cs.ui.templateManagement.CreateTemplateTest"/>
-        </classes>
-    </test>
-    <test name="View Template Test">
-        <classes>
-            <class name="com.airtel.cs.ui.templateManagement.ViewTemplateTest"/>
-        </classes>
-    </test>
-    <test name="UserManagement Test">
-        <classes>
-            <class name="com.airtel.cs.ui.usermanagement.UserManagementTest"/>
-        </classes>
-    </test>
-    <test name="Profile Management Test">
-        <classes>
-            <class name="com.airtel.cs.ui.profileManagement.ProfileManagementTest"/>
-        </classes>
-    </test>
-    <test name="Logout Test from ADMIN/SUPERVISOR">
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.LogoutTest"/>
-        </classes>
-    </test>
-    <test name="LOGIN TO BACKEND AGENT">
-        <classes>
-            <class name="com.airtel.cs.ui.backendAgent.BackendAgentLoginTest"/>
-        </classes>
-    </test>
-    <test name="Validate BACKEND AGENT Filter Options">
-        <classes>
-            <class name="com.airtel.cs.ui.backendAgent.BackendAgentFilterTest"/>
-        </classes>
-    </test>
-    <test name="BACKEND AGENT Update Ticket">
-        <classes>
-            <class name="com.airtel.cs.ui.backendAgent.BackendAgentUpdateTicketTest"/>
-        </classes>
-    </test>
-    <test name="BACKEND AGENT Add Comment on Ticket">
-        <classes>
-            <class name="com.airtel.cs.ui.backendAgent.BackendAgentAddCommentTest"/>
-        </classes>
-    </test>
-    <test name="Logout Test from Backend agent">
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.LogoutTest"/>
-        </classes>
-    </test>
-    <test name="Tariff Plan Test">
-        <groups>
-            <run>
-                <include name="SanityTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.tariffplan.TariffPlanMigrationTest"/>
-        </classes>
-    </test>
-    <test name="SIM Bar Unbar Test">
-        <groups>
-            <run>
-                <include name="SanityTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.simbarunbar.SIMBarUnbarPermissionSeparationTest"/>
-        </classes>
-    </test>
-    <test name="Source App Test">
-        <groups>
-            <run>
-                <include name="SanityTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.ticketsourceapp.TicketSourceAppTest"/>
-        </classes>
-    </test>
+    <!-- <test name="CRBT Widget Test">
+         <classes>
+             <class name="com.airtel.cs.ui.frontendagent.CRBTWidgetTest"/>
+         </classes>
+     </test>
+     <test name="Create NFTR FTR Tickets TEST">
+         <classes>
+             <class name="com.airtel.cs.ui.frontendagent.CreateInteractionTest"/>
+         </classes>
+     </test>
+     <test name="Customer Pinned Tag TEST">
+         <classes>
+             <class name="com.airtel.cs.ui.frontendagent.PinTagTest"/>
+         </classes>
+     </test>
+     <test name="Add Interaction Ticket Comment">
+         <classes>
+             <class name="com.airtel.cs.ui.frontendagent.InteractionCommentTest"/>
+         </classes>
+     </test>
+     <test name="Send SMS Test">
+         <classes>
+             <class name="com.airtel.cs.ui.frontendagent.SendSMSTest"/>
+         </classes>
+     </test>
+     <test name="Validate Frontend Agent Ticket Page">
+         <classes>
+             <class name="com.airtel.cs.ui.frontendagent.FrontendAgentTicketTest"/>
+         </classes>
+     </test>
+     <test name="Validate Voucher Tab">
+         <classes>
+             <class name="com.airtel.cs.ui.frontendagent.VoucherTabTest"/>
+         </classes>
+     </test>
+     <test name="Clear Refill error">
+         <classes>
+             <class name="com.airtel.cs.ui.frontendagent.ClearRefillErrorTest"/>
+         </classes>
+     </test>
+     <test name="Loan Widget Test">
+         <classes>
+             <class name="com.airtel.cs.ui.frontendagent.LoanWidgetTest"/>
+         </classes>
+     </test>
+     <test name="Supervisors Ticket Bulk Update Test">
+         <classes>
+             <class name="com.airtel.cs.ui.ticketBulkUpdate.TicketBulkUpdateTest"/>
+         </classes>
+     </test>
+     <test name="Logout Test">
+         <classes>
+             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
+         </classes>
+     </test>
+     <test name="Supervisors Login Test">
+         <classes>
+             <class name="com.airtel.cs.ui.backendSupervisor.SupervisorLoginTest"/>
+         </classes>
+     </test>
+     <test name="api-Regenerate">
+         <classes>
+             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginAPITest">
+                 <methods>
+                     <exclude name="testCredOfAdmin"/>
+                     <exclude name="testCredOfBackendAgent"/>
+                 </methods>
+             </class>
+         </classes>
+     </test>
+     <test name="Supervisors Global Search Ticket Test">
+         <classes>
+             <class name="com.airtel.cs.ui.backendSupervisor.SupervisorGlobalSearchTest"/>
+         </classes>
+     </test>
+     <test name="Supervisors Search Ticket Test ">
+         <classes>
+             <class name="com.airtel.cs.ui.backendSupervisor.SupervisorSearchTicketTest"/>
+         </classes>
+     </test>
+     <test name="Supervisors Validate Filter Option ">
+         <classes>
+             <class name="com.airtel.cs.ui.backendSupervisor.SupervisorFilterTest"/>
+         </classes>
+     </test>
+     <test name="Supervisors Update Ticket Test">
+         <classes>
+             <class name="com.airtel.cs.ui.backendSupervisor.SupervisorUpdateTicketTest"/>
+         </classes>
+     </test>
+     <test name="Supervisors Assign To Agent Test">
+         <classes>
+             <class name="com.airtel.cs.ui.backendSupervisor.AssignToAgentTicketTest"/>
+         </classes>
+     </test>
+     <test name="Supervisors Ticket Transfer To Queue Test">
+         <classes>
+             <class name="com.airtel.cs.ui.backendSupervisor.TransferToQueueTest"/>
+         </classes>
+     </test>
+     <test name="Supervisor Re-Open Ticket">
+         <classes>
+             <class name="com.airtel.cs.ui.backendSupervisor.SupervisorReopenTicketTest"/>
+         </classes>
+     </test>
+     <test name="Ticket Escalation">
+         <classes>
+             <class name="com.airtel.cs.ui.backendSupervisor.TicketEscalationTest"/>
+         </classes>
+     </test>
+     <test name="Supervisors Add Comment on Ticket">
+         <classes>
+             <class name="com.airtel.cs.ui.backendSupervisor.SupervisorAddCommentTest"/>
+         </classes>
+     </test>
+     <test name="Logout Supervisor Test">
+         <classes>
+             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
+         </classes>
+     </test>
+     <test name="Login Admin Test">
+         <classes>
+             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginPortalTests"/>
+         </classes>
+     </test>
+     <test name="Create Template Test">
+         <classes>
+             <class name="com.airtel.cs.ui.templateManagement.CreateTemplateTest"/>
+         </classes>
+     </test>
+     <test name="View Template Test">
+         <classes>
+             <class name="com.airtel.cs.ui.templateManagement.ViewTemplateTest"/>
+         </classes>
+     </test>
+     <test name="UserManagement Test">
+         <classes>
+             <class name="com.airtel.cs.ui.usermanagement.UserManagementTest"/>
+         </classes>
+     </test>
+     <test name="Profile Management Test">
+         <classes>
+             <class name="com.airtel.cs.ui.profileManagement.ProfileManagementTest"/>
+         </classes>
+     </test>
+     <test name="Logout Test from ADMIN/SUPERVISOR">
+         <classes>
+             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
+         </classes>
+     </test>
+     <test name="LOGIN TO BACKEND AGENT">
+         <classes>
+             <class name="com.airtel.cs.ui.backendAgent.BackendAgentLoginTest"/>
+         </classes>
+     </test>
+     <test name="Validate BACKEND AGENT Filter Options">
+         <classes>
+             <class name="com.airtel.cs.ui.backendAgent.BackendAgentFilterTest"/>
+         </classes>
+     </test>
+     <test name="BACKEND AGENT Update Ticket">
+         <classes>
+             <class name="com.airtel.cs.ui.backendAgent.BackendAgentUpdateTicketTest"/>
+         </classes>
+     </test>
+     <test name="BACKEND AGENT Add Comment on Ticket">
+         <classes>
+             <class name="com.airtel.cs.ui.backendAgent.BackendAgentAddCommentTest"/>
+         </classes>
+     </test>
+     <test name="Logout Test from Backend agent">
+         <classes>
+             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
+         </classes>
+     </test>
+     <test name="Tariff Plan Test">
+         <groups>
+             <run>
+                 <include name="SanityTest"/>
+             </run>
+         </groups>
+         <classes>
+             <class name="com.airtel.cs.ui.tariffplan.TariffPlanMigrationTest"/>
+         </classes>
+     </test>
+     <test name="SIM Bar Unbar Test">
+         <groups>
+             <run>
+                 <include name="SanityTest"/>
+             </run>
+         </groups>
+         <classes>
+             <class name="com.airtel.cs.ui.simbarunbar.SIMBarUnbarPermissionSeparationTest"/>
+         </classes>
+     </test>
+     <test name="Source App Test">
+         <groups>
+             <run>
+                 <include name="SanityTest"/>
+             </run>
+         </groups>
+         <classes>
+             <class name="com.airtel.cs.ui.ticketsourceapp.TicketSourceAppTest"/>
+         </classes>
+     </test>-->
 </suite>

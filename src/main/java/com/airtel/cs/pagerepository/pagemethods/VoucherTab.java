@@ -15,65 +15,65 @@ public class VoucherTab extends BasePage {
 
     public boolean isVoucherTabOpen() {
         commonLib.info("Checking Voucher tab opened");
-        return checkState(pageElements.tabTitle);
+        return isEnabled(pageElements.tabTitle);
     }
 
     public boolean isSerialLabel() {
-        final boolean state = checkState(pageElements.serialLabel);
+        final boolean state = isEnabled(pageElements.serialLabel);
         commonLib.info("Is Serial label present: " + state);
         return state;
     }
 
     public boolean isStatusLabel() {
-        final boolean state = checkState(pageElements.statusLabel);
+        final boolean state = isEnabled(pageElements.statusLabel);
         commonLib.info("Is Status label present: " + state);
         return state;
     }
 
     public boolean isSubStatus() {
-        final boolean state = checkState(pageElements.subStatusLabel);
+        final boolean state = isEnabled(pageElements.subStatusLabel);
         commonLib.info("Is Sub Status label present: " + state);
         return state;
     }
 
     public boolean isRechargeAmt() {
-        final boolean state = checkState(pageElements.rechargeAmtLabel);
+        final boolean state = isEnabled(pageElements.rechargeAmtLabel);
         commonLib.info("Is Recharge Amount label present: " + state);
         return state;
     }
 
     public boolean isTimeStamp() {
-        final boolean state = checkState(pageElements.timeStampLabel);
+        final boolean state = isEnabled(pageElements.timeStampLabel);
         commonLib.info("Is Time Stamp label present: " + state);
         return state;
     }
 
     public boolean isSubscriberId() {
-        final boolean state = checkState(pageElements.subscriberIdLabel);
+        final boolean state = isEnabled(pageElements.subscriberIdLabel);
         commonLib.info("Is Subscriber Id label present: " + state);
         return state;
     }
 
     public boolean isExpiryDate() {
-        final boolean state = checkState(pageElements.expiryDateLabel);
+        final boolean state = isEnabled(pageElements.expiryDateLabel);
         commonLib.info("Is Expiry Date label present: " + state);
         return state;
     }
 
     public boolean isAgent() {
-        final boolean state = checkState(pageElements.agentLabel);
+        final boolean state = isEnabled(pageElements.agentLabel);
         commonLib.info("Is Agent label present: " + state);
         return state;
     }
 
     public boolean isBatchID() {
-        final boolean state = checkState(pageElements.batchIdLabel);
+        final boolean state = isEnabled(pageElements.batchIdLabel);
         commonLib.info("Is Batch ID label present: " + state);
         return state;
     }
 
     public boolean isVoucherGroup() {
-        final boolean state = checkState(pageElements.voucherGroupLabel);
+        final boolean state = isEnabled(pageElements.voucherGroupLabel);
         commonLib.info("Is Voucher Group label present: " + state);
         return state;
     }

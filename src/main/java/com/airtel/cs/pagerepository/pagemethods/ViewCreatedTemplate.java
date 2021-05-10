@@ -124,7 +124,7 @@ public class ViewCreatedTemplate extends BasePage {
 
     public boolean isDeleteIcon(int i) {
         By icon = By.xpath("//div[@class=\"sms-managment__card-list--card--sms-template--content--sms-card ng-star-inserted\"][" + i + "]//div//img[@title=\"delete\"]");
-        boolean status = checkState(icon);
+        boolean status = isEnabled(icon);
         log.info("Is delete icon: " + status);
         return status;
     }
@@ -137,14 +137,14 @@ public class ViewCreatedTemplate extends BasePage {
 
     public boolean isEditIcon(int i) {
         By icon = By.xpath("//div[@class=\"sms-managment__card-list--card--sms-template--content--sms-card ng-star-inserted\"][" + i + "]//div//img[@title=\"EDIT\"]");
-        boolean status = checkState(icon);
+        boolean status = isEnabled(icon);
         log.info("Is edit icon: " + status);
         return status;
     }
 
     public boolean isCommentIcon(int i) {
         By icon = By.xpath("//div[@class=\"sms-managment__card-list--card--sms-template--content--sms-card ng-star-inserted\"][" + i + "]//div//div//img");
-        boolean status = checkState(icon);
+        boolean status = isEnabled(icon);
         log.info("Is comment icon: " + status);
         return status;
     }
@@ -163,7 +163,7 @@ public class ViewCreatedTemplate extends BasePage {
     }
 
     public boolean checkPaginationDisplayed() {
-        boolean check = checkState(pageElements.pagination);
+        boolean check = isEnabled(pageElements.pagination);
         log.info("Is Pagination Available: " + check);
         return check;
     }
@@ -182,13 +182,13 @@ public class ViewCreatedTemplate extends BasePage {
     }
 
     public boolean isNoButtonAvailable() {
-        boolean check = checkState(pageElements.noBtn);
+        boolean check = isEnabled(pageElements.noBtn);
         commonLib.info("Pop up 'No' button available: " + check);
         return check;
     }
 
     public boolean isYesButtonAvailable() {
-        boolean check = checkState(pageElements.yesBtn);
+        boolean check = isEnabled(pageElements.yesBtn);
         commonLib.info("Pop up 'YES' button available: " + check);
         return check;
     }
