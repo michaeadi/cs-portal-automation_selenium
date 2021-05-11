@@ -70,11 +70,12 @@ public class BasePage extends Driver {
     //Click Method
     public void click(By elementLocation) {
         try {
-            if (isVisible(elementLocation) && isClickable(elementLocation))
+            if (isClickable(elementLocation))
                 highLighterMethod(elementLocation);
             driver.findElement(elementLocation).click();
             commonLib.info("Element Clicked " + elementLocation.toString());
         } catch (ElementClickInterceptedException e) {
+            waitTillLoaderGetsRemoved();
             driver.findElement(elementLocation).click();
             commonLib.info("Again Element Clicked " + elementLocation.toString());
         }

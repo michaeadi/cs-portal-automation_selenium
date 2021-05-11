@@ -20,6 +20,7 @@ import com.airtel.cs.pojo.UsageHistoryPOJO;
 import com.airtel.cs.pojo.airtelmoney.AirtelMoneyPOJO;
 import com.airtel.cs.pojo.hlrservice.HLRServicePOJO;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.StringUtils;
 import org.testng.annotations.Test;
 
 import java.awt.*;
@@ -63,7 +64,7 @@ public class WidgetTest extends Driver {
             AMProfilePOJO amProfileAPI = api.amServiceProfileAPITest(customerNumber);
             if (amProfileAPI.getStatusCode() == 200) {
                 assertCheck.append(actions.assertEqual_stringType(amTxnWidgetPage.gettingAirtelMoneyBalance(), amProfileAPI.getResult().getWallet().get(0).getBalance(), "Customer's Airtel Wallet Balance & Currency code as Expected", "Customer's Airtel Wallet Balance & Currency code not same not as Expected"));
-                if (OPCO.equalsIgnoreCase("CD")) {
+                if (StringUtils.equalsIgnoreCase(constants.getValue(ApplicationConstants.MULTI_WALLET_BALANCE), "true")) {
                     assertCheck.append(actions.assertEqual_stringType(amTxnWidgetPage.gettingAirtelMoneyBalance2(), amProfileAPI.getResult().getWallet().get(1).getBalance(), "Customer's Airtel Wallet Balance & Currency code as Expected", "Customer's Airtel Wallet Balance & Currency code not same not as Expected"));
                 }
             } else {

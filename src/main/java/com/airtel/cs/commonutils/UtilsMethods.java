@@ -1,8 +1,6 @@
 package com.airtel.cs.commonutils;
 
-import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.driver.Driver;
-import com.aventstack.extentreports.Status;
 import io.restassured.http.Header;
 import io.restassured.response.Response;
 import io.restassured.specification.QueryableRequestSpecification;
@@ -28,26 +26,6 @@ public class UtilsMethods extends Driver {
         map.add(new Header(key, value));
     }
 
-    public static void printInfoLog(String message) {
-        log.info(message);
-        ExtentTestManager.getTest().log(Status.INFO, message);
-    }
-
-    public static void printFailLog(String message) {
-        log.info(message);
-        ExtentTestManager.getTest().log(Status.FAIL, message);
-    }
-
-    public static void printPassLog(String message) {
-        log.info(message);
-        ExtentTestManager.getTest().log(Status.PASS, message);
-    }
-
-    public static void printWarningLog(String message) {
-        log.info(message);
-        ExtentTestManager.getTest().log(Status.WARNING, message);
-    }
-
     public static void printResponseDetail(Response response) {
         commonLib.info("Then Response : " + response.asString());
         commonLib.info("And Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
@@ -57,7 +35,9 @@ public class UtilsMethods extends Driver {
     public static void printGetRequestDetail(QueryableRequestSpecification queryable) {
         commonLib.info("When Request URL: " + queryable.getURI());
         log.info("And Request Headers are  : " + queryable.getHeaders());
-        commonLib.info("And Query Parameter is  : " + queryable.getQueryParams().toString());
+        if (!(queryable.getQueryParams().toString() == null || queryable.getQueryParams().toString().equals("{}"))) {
+            commonLib.info("Query Parameter is  : " + queryable.getQueryParams().toString());
+        }
     }
 
     public static void printPostRequestDetail(QueryableRequestSpecification queryable) {
@@ -82,7 +62,7 @@ public class UtilsMethods extends Driver {
             DateFormat format = new SimpleDateFormat(newPatten);
             return format.format(newDate);
         } catch (ParseException e) {
-            commonLib.fail("Not able to parse the date: " + date + " " + e.fillInStackTrace(),true);
+            commonLib.fail("Not able to parse the date: " + date + " " + e.fillInStackTrace(), true);
         }
         return "Invalid Date String";
     }
@@ -94,7 +74,7 @@ public class UtilsMethods extends Driver {
             format.setTimeZone(TimeZone.getTimeZone("Etc/UTC"));
             return format.format(newDate);
         } catch (ParseException e) {
-            commonLib.fail("Not able to parse the date: " + date + " " + e.fillInStackTrace(),true);
+            commonLib.fail("Not able to parse the date: " + date + " " + e.fillInStackTrace(), true);
         }
         return "Invalid Date String";
     }

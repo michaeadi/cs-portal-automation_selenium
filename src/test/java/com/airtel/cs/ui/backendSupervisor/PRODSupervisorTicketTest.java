@@ -4,7 +4,6 @@ import com.airtel.cs.commonutils.PassUtils;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
-import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.driver.Driver;
 import com.aventstack.extentreports.Status;
 import org.testng.Assert;
@@ -46,7 +45,7 @@ public class PRODSupervisorTicketTest extends Driver {
     @Test(priority = 2, description = "Supervisor Dashboard Login ")
     public void openSupervisorDashboard() {
         selUtils.addTestcaseDescription("Open Supervisor Dashboard", "description");
-        ExtentTestManager.getTest().log(Status.INFO, "Opening URL");
+        commonLib.info("Opening URL");
         pages.getSideMenuPage().waitTillLoaderGetsRemoved();
         pages.getSideMenuPage().clickOnSideMenu();
         pages.getSideMenuPage().clickOnUserName();
@@ -60,7 +59,7 @@ public class PRODSupervisorTicketTest extends Driver {
     @Test(priority = 3, description = "Verify there are Searchable fields options displayed to select from in the Search Dropdown : 1) Ticket Id & 2) MSISDN")
     public void validateTicketSearchOptions() {
         selUtils.addTestcaseDescription("Validate Search Ticket Option,Verify there are 2 options displayed to select from in the Search Dropdown : 1) Ticket Id & 2) MSISDN", "description");
-        ExtentTestManager.getTest().log(Status.INFO, "Opening URL");
+        commonLib.info("Opening URL");
         SoftAssert softAssert = new SoftAssert();
         pages.getSupervisorTicketList().clickTicketOption();
         List<String> list = pages.getSupervisorTicketList().getListOfSearchOption();

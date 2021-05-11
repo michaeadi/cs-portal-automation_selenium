@@ -258,7 +258,7 @@ public class Driver {
     private static void browserCapabilities() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--window-size=1792,1120");
-        options.setHeadless(false);
+        options.setHeadless(true);
         Map<String, Object> prefs = new HashMap<>();
         prefs.put("download.default_directory", excelPath);
         prefs.put("intl.accept_languages", "nl");

@@ -42,6 +42,9 @@ public class ApplicationConstants {
     public static final String TRANSFER_TO_QUEUE_SHEET = "cs.transfer.to.queue.sheet";
     public static final String GENERAL_WAIT_IN_SEC = "cs.general.wait.in.seconds";
     public static final String POOLING_WAIT_IN_SEC="cs.pooling.wait.in.seconds";
+    public static final String DATA_MANAGER_TOGGLEABLE="cs.data.manager.toggleable";
+    public static final String MULTI_WALLET_BALANCE="cs.multi.wallet.balance";
+    public static final String AIRTEL_MONEY_PROFILE="cs.airtel.money.profile";
 
 
     private ApplicationConstants() {

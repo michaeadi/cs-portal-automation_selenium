@@ -28,13 +28,13 @@ public class AMTransactionsWidget extends BasePage {
 
     public String gettingAirtelMoneyNoResultFoundMessage() {
         final String text = getText(pageElements.airtelMoneyNoResultFoundMessage);
-        commonLib.info("Validating error message when there is no data from com.airtel.cs.API : " + text);
+        commonLib.info("Validating error msg message when there is no data from API : " + text);
         return text;
     }
 
     public boolean isAirtelMoneyNoResultFoundVisible() {
         final boolean elementVisible = isElementVisible(pageElements.airtelMoneyNoResultFound);
-        commonLib.info("Validating error is visible when there is no data from com.airtel.cs.API : " + elementVisible);
+        commonLib.info("Validating error msg is visible when there is no data from API : " + elementVisible);
         return elementVisible;
     }
 

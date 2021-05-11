@@ -32,7 +32,7 @@
     </test>
     <test name="Customer Interactions TEST" preserve-order="true">
         <classes>
-            <class name="com.airtel.cs.ui.frontendagent.demographicwidget.DemoGraphicWidgetTest"/>
+            <class name="com.airtel.cs.ui.frontendagent.demographicwidget.DemoGraphicWidgetMsisdnTest"/>
             <class name="com.airtel.cs.ui.frontendagent.widgets.WidgetsOptionsTest"/>
         </classes>
     </test>

@@ -6,7 +6,6 @@ import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.QueueStateDataBeans;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
-import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pojo.LoginPOJO;
 import com.airtel.cs.pojo.ticketlist.QueueStates;
@@ -70,7 +69,7 @@ public class StateQueueMappingTest extends Driver {
 
         String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(req);
         selUtils.addTestcaseDescription("Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + data.getLoginAUUID(), "description");
-        UtilsMethods.printInfoLog("Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + data.getLoginAUUID());
+        commonLib.info("Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + data.getLoginAUUID());
         baseURI = baseUrl;
         Headers headers = new Headers(map);
         RequestSpecification request = given()
@@ -79,13 +78,13 @@ public class StateQueueMappingTest extends Driver {
                 .contentType("application/json");
         try {
             QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-            UtilsMethods.printInfoLog("Request Headers are  : " + queryable.getHeaders());
+            commonLib.info("Request Headers are  : " + queryable.getHeaders());
             Response response = request.post("/auth/api/user-mngmnt/v2/login");
             token = "Bearer " + response.jsonPath().getString("result.accessToken");
             map.add(new Header("Authorization", token));
-            UtilsMethods.printInfoLog("Request URL : " + queryable.getURI());
-            UtilsMethods.printInfoLog("Response Body : " + response.asString());
-            UtilsMethods.printInfoLog("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+            commonLib.info("Request URL : " + queryable.getURI());
+            commonLib.info("Response Body : " + response.asString());
+            commonLib.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
             if (response.jsonPath().getString("message").equalsIgnoreCase("Failed to authenticate user.")) {
                 continueExecutionAPI = false;
                 softAssert.fail("Not able to generate Token. Please Update Password As soon as possible if required.\ncom.airtel.cs.API Response Message: " + response.jsonPath().getString("message"));
@@ -145,13 +144,13 @@ public class StateQueueMappingTest extends Driver {
             for (String s : state) {
                 log.info("State:" + s);
                 if (!configState.contains(s.toLowerCase().trim())) {
-                    ExtentTestManager.getTest().log(Status.FAIL, s + " :State must not mapped to '" + data.getQueue() + "' as its not mention in config.");
+                    commonLib.fail(s + " :State must not mapped to '" + data.getQueue() + "' as its not mention in config.", true);
                 }
                 configState.remove(s.toLowerCase().trim());
             }
 
             for (String s : configState) {
-                ExtentTestManager.getTest().log(Status.FAIL, s + " :State must be mapped to '" + data.getQueue() + "' as its mention in config.");
+                commonLib.fail(s + " :State must be mapped to '" + data.getQueue() + "' as its mention in config.", true);
             }
         } catch (NoSuchElementException | TimeoutException e) {
             e.printStackTrace();

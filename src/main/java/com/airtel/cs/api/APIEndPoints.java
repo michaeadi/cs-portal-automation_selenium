@@ -30,12 +30,15 @@ import com.airtel.cs.pojo.tariffplan.CurrentPlanPOJO;
 import com.airtel.cs.pojo.ticketlist.TicketPOJO;
 import com.airtel.cs.pojo.vendors.VendorNames;
 import com.airtel.cs.pojo.voucher.VoucherSearchPOJO;
+import io.restassured.http.Header;
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
 import io.restassured.specification.QueryableRequestSpecification;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.SpecificationQuerier;
 import lombok.extern.log4j.Log4j2;
+
+import java.util.List;
 
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
@@ -47,22 +50,6 @@ public class APIEndPoints extends Driver {
     private static final String APPLICATION_JSON = "application/json";
     private static Response response;
     private static final String TARIFF_PLAN_TEST_NUMBER = constants.getValue(ApplicationConstants.TARIFF_PLAN_TEST_NUMBER);
-
-    public PlansPOJO accountPlansTest(String msisdn) {
-        commonLib.info("Using Account Plans com.airtel.cs.API for Getting expected data for UI");
-        baseURI = baseUrl;
-        Headers headers = new Headers(map);
-        RequestSpecification request = given()
-                .headers(headers)
-                .body("{\"msisdn\":\"" + msisdn + "\"}")
-                .contentType("application/json");
-        QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        response = request.post(URIConstants.ACCOUNT_PLAN);
-        UtilsMethods.printPostRequestDetail(queryable);
-        UtilsMethods.printResponseDetail(response);
-        statusCode = response.getStatusCode();
-        return response.as(PlansPOJO.class);
-    }
 
     public UsageHistoryPOJO usageHistoryTest(String msisdn) {
         commonLib.info("Using Usage History com.airtel.cs.API for Getting expected data for UI");
@@ -111,75 +98,6 @@ public class APIEndPoints extends Driver {
         statusCode = response.getStatusCode();
         return response.as(AMHandSetProfilePOJO.class);
 
-    }
-
-    public GsmKycPOJO gsmKYCAPITest(String msisdn) {
-        commonLib.info("Using GSM KYC com.airtel.cs.API for Getting expected data for UI");
-        baseURI = baseUrl;
-        Headers headers = new Headers(map);
-        RequestSpecification request = given()
-                .headers(headers)
-                .body("{\"msisdn\":\"" + msisdn + "\"}")
-                .contentType("application/json");
-        QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        response = request.post(URIConstants.GSM_KYC);
-        UtilsMethods.printPostRequestDetail(queryable);
-        UtilsMethods.printResponseDetail(response);
-        statusCode = response.getStatusCode();
-        return response.as(GsmKycPOJO.class);
-
-    }
-
-    public ProfilePOJO profileAPITest(String msisdn) {
-        commonLib.info("Using /cs-gsm-service/v1/profile api for Getting expected data for UI");
-        baseURI = baseUrl;
-        Headers headers = new Headers(map);
-        RequestSpecification request = given()
-                .headers(headers)
-                .body("{\"msisdn\":\"" + msisdn + "\"}")
-                .contentType("application/json");
-        QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        response = request.post(URIConstants.GSM_PROFILE);
-        UtilsMethods.printPostRequestDetail(queryable);
-        UtilsMethods.printResponseDetail(response);
-        statusCode = response.getStatusCode();
-        return response.as(ProfilePOJO.class);
-    }
-
-    public KYCProfile KYCProfileAPITest(String msisdn) {
-        commonLib.info("Using /cs-gsm-service/v1/profile api for Getting expected data for UI");
-        baseURI = baseUrl;
-        Headers headers = new Headers(map);
-        RequestSpecification request = given()
-                .headers(headers)
-                .body("{\"msisdn\":\"" + msisdn + "\"}")
-                .contentType("application/json");
-        QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        response = request.post(URIConstants.KYC_PROFILE);
-        UtilsMethods.printPostRequestDetail(queryable);
-        UtilsMethods.printResponseDetail(response);
-        statusCode = response.getStatusCode();
-        return response.as(KYCProfile.class);
-    }
-
-    public AMProfilePOJO amServiceProfileAPITest(String Msisdn) {
-        commonLib.info("Using AM Service Profile com.airtel.cs.API for Getting expected data for UI");
-        baseURI = baseUrl;
-        Headers headers = new Headers(map);
-        RequestSpecification request = given()
-                .headers(headers)
-                .contentType("application/json")
-                .queryParam("msisdn", Msisdn)
-                .queryParam("walletType", "Main");
-        QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-        log.info("Request Headers are  : " + queryable.getHeaders());
-        commonLib.info("Request Body is  : " + queryable.getQueryParams().toString());
-        log.info("Request Body is  : " + queryable.getQueryParams().toString());
-        response = request.get(URIConstants.AM_PROFILE);
-        UtilsMethods.printGetRequestDetail(queryable);
-        UtilsMethods.printResponseDetail(response);
-        statusCode = response.getStatusCode();
-        return response.as(AMProfilePOJO.class);
     }
 
     public RechargeHistoryPOJO rechargeHistoryAPITest(String msisdn) {
@@ -446,8 +364,8 @@ public class APIEndPoints extends Driver {
         response = request.get(URIConstants.AUTH_USER);
         UtilsMethods.printGetRequestDetail(queryable);
         UtilsMethods.printResponseDetail(response);
-        UtilsMethods.printInfoLog(response.prettyPrint());
-        UtilsMethods.printInfoLog(response.peek().toString());
+        commonLib.info(response.prettyPrint());
+        commonLib.info(response.peek().toString());
         statusCode = response.getStatusCode();
     }
 
@@ -463,6 +381,44 @@ public class APIEndPoints extends Driver {
         UtilsMethods.printResponseDetail(response);
         statusCode = response.getStatusCode();
         return response.as(ConfigurationPOJO.class);
+    }
+
+    /**
+     * This Method is used to hit the API which are suing GET Method with Query Params
+     *
+     * @param endPoint    send the endPoint
+     * @param queryParam1 send query param used for API
+     * @param queryParam2 send queryParam2 used for API
+     */
+    public static void commonGetMethodWithQueryParam(String endPoint, String queryParam1, String queryParam2) {
+        commonGetMethodWithQueryParam(endPoint, queryParam1, queryParam2, 200);
+    }
+
+    /**
+     * This Method is used to hit the API which are using GET Method with Query Params and status Code
+     *
+     * @param endPoint    send the endPoint
+     * @param queryParam1 send queryParam1 used for API
+     * @param queryParam2 send queryParam2 used for API
+     * @param statusCode  send status code which you want from this API
+     */
+    public static void commonGetMethodWithQueryParam(String endPoint, String queryParam1, String queryParam2, Integer statusCode) {
+        try {
+            commonLib.info("Using" + endPoint + " API for Testing");
+            baseURI = baseUrl;
+            Headers headers = new Headers(map);
+            RequestSpecification request = given()
+                    .headers(headers)
+                    .contentType(APPLICATION_JSON)
+                    .queryParam("msisdn", queryParam1)
+                    .queryParam("walletType", queryParam2);
+            QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
+            response = request.get(endPoint).then().assertThat().statusCode(statusCode).extract().response();
+            UtilsMethods.printGetRequestDetail(queryable);
+            UtilsMethods.printResponseDetail(response);
+        } catch (Exception e) {
+            commonLib.fail("Caught exception in Testcase - commonGetMethodWithQueryParam " + e.getMessage(), false);
+        }
     }
 
     /**
@@ -529,5 +485,95 @@ public class APIEndPoints extends Driver {
         commonPostMethod(URIConstants.V2_LOGIN, body);
         return response.as(LoginPOJO.class);
     }
+
+    /**
+     * This Method will hit the API "/cs-gsm-service/v1/kyc/profile" and return the response
+     *
+     * @param msisdn The msisdn
+     * @return The Response
+     */
+    public KYCProfile kycProfileAPITest(String msisdn) {
+        KYCProfile result = null;
+        try {
+            String body = "{\"msisdn\":\"" + msisdn + "\"}";
+            commonPostMethod(URIConstants.KYC_PROFILE, body);
+            result = response.as(KYCProfile.class);
+        } catch (Exception e) {
+            commonLib.fail("Exception in method - kycProfileAPITest " + e.getMessage(), false);
+        }
+        return result;
+    }
+
+    /**
+     * This Method will hit the API "/cs-gsm-service/v1/profile" and return the response
+     *
+     * @param msisdn The msisdn
+     * @return The Response
+     */
+    public ProfilePOJO profileAPITest(String msisdn) {
+        ProfilePOJO result = null;
+        try {
+            String body = "{\"msisdn\":\"" + msisdn + "\"}";
+            commonPostMethod(URIConstants.GSM_PROFILE, body);
+            result = response.as(ProfilePOJO.class);
+        } catch (Exception e) {
+            commonLib.fail("Exception in method - profileAPITest " + e.getMessage(), false);
+        }
+        return result;
+    }
+
+    /**
+     * This Method will hit the API "/cs-am-service/v1/profile" and return the response
+     *
+     * @param msisdn The msisdn
+     * @return The Response
+     */
+    public AMProfilePOJO amServiceProfileAPITest(String msisdn) {
+        AMProfilePOJO result = null;
+        try {
+            commonGetMethodWithQueryParam(URIConstants.AM_PROFILE, msisdn, "Main");
+            result = response.as(AMProfilePOJO.class);
+        } catch (Exception e) {
+            commonLib.fail("Exception in method - amServiceProfileAPITest " + e.getMessage(), false);
+        }
+        return result;
+    }
+
+    /**
+     * This Method will hit the API "/cs-gsm-service/v1/gsm/kyc" and return the response
+     *
+     * @param msisdn The msisdn
+     * @return The Response
+     */
+    public GsmKycPOJO gsmKYCAPITest(String msisdn) {
+        GsmKycPOJO result = null;
+        try {
+            String body = "{\"msisdn\":\"" + msisdn + "\"}";
+            commonPostMethod(URIConstants.GSM_KYC, body);
+            result = response.as(GsmKycPOJO.class);
+        } catch (Exception e) {
+            commonLib.fail("Exception in method - gsmKYCAPITest " + e.getMessage(), false);
+        }
+        return result;
+    }
+
+    /**
+     * This Method will hit the API "/cs-gsm-service/v1/account/plans" and return the response
+     *
+     * @param msisdn The msisdn
+     * @return The Response
+     */
+    public PlansPOJO accountPlansTest(String msisdn) {
+        PlansPOJO result = null;
+        try {
+            String body = "{\"msisdn\":\"" + msisdn + "\"}";
+            commonPostMethod(URIConstants.ACCOUNT_PLAN, body);
+            result = response.as(PlansPOJO.class);
+        } catch (Exception e) {
+            commonLib.fail("Exception in method - accountPlansTest " + e.getMessage(), false);
+        }
+        return result;
+    }
+
 
 }

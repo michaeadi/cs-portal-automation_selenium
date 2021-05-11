@@ -5,6 +5,7 @@ import com.airtel.cs.commonutils.dataproviders.AuthTabDataBeans;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.pagerepository.pageelements.DemoGraphicPage;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -30,8 +31,21 @@ public class DemoGraphic extends BasePage {
     }
 
     public String getDeviceCompatible() {
-        final String text = getText(pageElements.deviceCompatible);
-        commonLib.info("Getting Device Compatible: " + text);
+        String result = null;
+        final String src = getAttribute(pageElements.deviceCompatible, "src", false);
+        if (StringUtils.contains(src, "red-mobile.svg"))
+            result = "Not 4G Compatible";
+        else result = "4G Compatible";
+        return result;
+    }
+
+    /*
+    This Method will be used to get the value for data manager under demographic widget
+     */
+    public String getDataManagerValue() {
+        commonLib.info("Going to get Data Manger value");
+        final String text = getText(pageElements.dataManagerText);
+        commonLib.info("Data Manager value is -: " + text);
         return text.trim();
     }
 
@@ -55,9 +69,12 @@ public class DemoGraphic extends BasePage {
     }
 
     public String getGSMStatusModifiedDate() {
-        final String text = getText(pageElements.modifiedDate);
-        commonLib.info("Getting SIM Status Modified Date " + text);
-        return text;
+        String modifiedDate = null;
+        final String date = getText(pageElements.modifiedDate);
+        final String time = getText(pageElements.modifiedTime);
+        modifiedDate = date.concat(" ") + time;
+        commonLib.info("Getting SIM Status Modified Date " + modifiedDate);
+        return modifiedDate;
     }
 
     public String getActivationDate() {
@@ -73,9 +90,12 @@ public class DemoGraphic extends BasePage {
     }
 
     public String getSimType() {
-        final String text = getText(pageElements.simType);
-        commonLib.info("Getting Sim Type " + text);
-        return text;
+        String result = null;
+        final String src = getAttribute(pageElements.simType, "src", false);
+        if (StringUtils.contains(src, "red-sim.svg"))
+            result = "3G";
+        else result = "4G";
+        return result;
     }
 
     public String getPUK1() {
@@ -105,8 +125,9 @@ public class DemoGraphic extends BasePage {
 
     public boolean isPUKInfoLock() {
         try {
-            commonLib.info("Is PUK Info locked: " + isEnabled(pageElements.pukLock));
-            return isEnabled(pageElements.pukLock);
+            final boolean enabled = isEnabled(pageElements.pukLock);
+            commonLib.info("Is PUK Info locked: " + enabled);
+            return enabled;
         } catch (TimeoutException | NoSuchElementException e) {
             e.printStackTrace();
             return false;
@@ -309,9 +330,10 @@ public class DemoGraphic extends BasePage {
         hoverAndClick(pageElements.hoverInfoSegment);
     }
 
-    public boolean invalidMSISDNError() {
-        commonLib.info("Reading Error Message: " + getText(pageElements.errorMessage));
-        return isEnabled(pageElements.errorMessage);
+    public String invalidMSISDNError() {
+        final String text = getText(pageElements.errorMessage);
+        commonLib.info("Message is: " + text);
+        return text;
     }
 
     public void enterMSISDN(String text) {

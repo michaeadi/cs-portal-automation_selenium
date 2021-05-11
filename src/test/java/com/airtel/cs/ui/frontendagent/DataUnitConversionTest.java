@@ -4,7 +4,6 @@ import com.airtel.cs.api.APIEndPoints;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
-import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pojo.AccountsBalancePOJO;
 import com.airtel.cs.pojo.RechargeHistoryPOJO;
@@ -46,7 +45,7 @@ public class DataUnitConversionTest extends Driver {
         if (usageHistoryAPI.getStatusCode() != 200) {
             softAssert.fail("API is unable to give Usage History ");
         } else if (usageHistoryAPI.getResult().size() == 0 || usageHistoryAPI.getResult() == null) {
-            ExtentTestManager.getTest().log(Status.WARNING, "Unable to get Usage History Details from com.airtel.cs.API");
+            commonLib.warning("Unable to get Usage History Details from com.airtel.cs.API");
         } else {
             for (int i = 0; i < usageHistoryAPI.getResult().size(); i++) {
                 if (usageHistoryAPI.getResult().get(i).getStartBalance().equalsIgnoreCase("-")) {
@@ -69,7 +68,7 @@ public class DataUnitConversionTest extends Driver {
                         } else if ((startBalanceUnit.equalsIgnoreCase("MB") && startBalanceAmount > 1024) || endBalanceAmount > 1024) {
                             softAssert.fail("MB to GB conversion does not done Correctly. Start Balance" + usageHistoryAPI.getResult().get(i).getStartBalance() + " " + usageHistoryAPI.getResult().get(i).getEndBalance());
                         } else {
-                            UtilsMethods.printPassLog("MB to GB conversion done Correctly. Start Balance" + usageHistoryAPI.getResult().get(i).getStartBalance() + " " + usageHistoryAPI.getResult().get(i).getEndBalance());
+                            commonLib.pass("MB to GB conversion done Correctly. Start Balance" + usageHistoryAPI.getResult().get(i).getStartBalance() + " " + usageHistoryAPI.getResult().get(i).getEndBalance());
                         }
                     } else {
                         softAssert.fail("Start Balance is not empty but End Balance is Empty. Some Issue with data. Please verify");
@@ -93,7 +92,7 @@ public class DataUnitConversionTest extends Driver {
         if (usageHistoryAPI.getStatusCode() != 200) {
             softAssert.fail("API is unable to give Usage History ");
         } else if (usageHistoryAPI.getResult().isEmpty() || usageHistoryAPI.getResult() == null) {
-            ExtentTestManager.getTest().log(Status.WARNING, "Unable to get Usage History Details from com.airtel.cs.API");
+            commonLib.warning("Unable to get Usage History Details from com.airtel.cs.API");
         } else {
             for (int i = 0; i < usageHistoryAPI.getResult().size(); i++) {
                 if (usageHistoryAPI.getResult().get(i).getStartBalance().equalsIgnoreCase("-")) {
@@ -116,7 +115,7 @@ public class DataUnitConversionTest extends Driver {
                         } else if ((startBalanceUnit.equalsIgnoreCase("MB") && startBalanceAmount > 1024) || endBalanceAmount > 1024) {
                             softAssert.fail("MB to GB conversion does not done Correctly. Start Balance" + usageHistoryAPI.getResult().get(i).getStartBalance() + " " + usageHistoryAPI.getResult().get(i).getEndBalance());
                         } else {
-                            UtilsMethods.printPassLog("MB to GB conversion done Correctly. Start Balance" + usageHistoryAPI.getResult().get(i).getStartBalance() + " " + usageHistoryAPI.getResult().get(i).getEndBalance());
+                            commonLib.pass("MB to GB conversion done Correctly. Start Balance" + usageHistoryAPI.getResult().get(i).getStartBalance() + " " + usageHistoryAPI.getResult().get(i).getEndBalance());
                         }
                     } else {
                         softAssert.fail("Start Balance is not empty but End Balance is Empty. Some Issue with data. Please verify");
@@ -135,8 +134,8 @@ public class DataUnitConversionTest extends Driver {
         RechargeHistoryPOJO rechargeHistoryAPI = api.rechargeHistoryAPITest(customerNumber);
         if (rechargeHistoryAPI.getStatusCode() != 200 || rechargeHistoryAPI.getStatus().equalsIgnoreCase("something went wrong")) {
             softAssert.fail("API is unable to give Recharge History ");
-        }else if (rechargeHistoryAPI.getResult().isEmpty() || rechargeHistoryAPI.getResult() == null) {
-            ExtentTestManager.getTest().log(Status.WARNING, "Unable to get Usage History Details from com.airtel.cs.API");
+        } else if (rechargeHistoryAPI.getResult().isEmpty() || rechargeHistoryAPI.getResult() == null) {
+            commonLib.warning("Unable to get Usage History Details from com.airtel.cs.API");
         } else {
             for (int i = 0; i < rechargeHistoryAPI.getResult().size(); i++) {
                 if (rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getDATA() != null && !rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getDATA().equalsIgnoreCase("0")) {
@@ -146,7 +145,7 @@ public class DataUnitConversionTest extends Driver {
                         if (dataBalanceUnit.equalsIgnoreCase("MB") && dataBalanceAmount > 1024) {
                             softAssert.fail("MB to GB conversion does not done Correctly. Balance" + rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getDATA());
                         } else {
-                            UtilsMethods.printPassLog("MB to GB conversion done Correctly. Balance" + rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getDATA());
+                            commonLib.pass("MB to GB conversion done Correctly. Balance" + rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getDATA());
                         }
                     }
                 }
@@ -163,8 +162,8 @@ public class DataUnitConversionTest extends Driver {
         AccountsBalancePOJO plansAPI = api.balanceAPITest(customerNumber);
         if (plansAPI.getStatusCode() != 200 || plansAPI.getStatus().equalsIgnoreCase("something went wrong")) {
             softAssert.fail("API is unable to give DA Details History ");
-        }else if (plansAPI.getResult().isEmpty() || plansAPI.getResult() == null) {
-            ExtentTestManager.getTest().log(Status.WARNING, "Unable to get Usage History Details from com.airtel.cs.API");
+        } else if (plansAPI.getResult().isEmpty() || plansAPI.getResult() == null) {
+            commonLib.warning("Unable to get Usage History Details from com.airtel.cs.API");
         } else {
             for (int i = 0; i < plansAPI.getResult().size(); i++) {
                 if (plansAPI.getResult().get(i).getCurrentDaBalance() != null && !plansAPI.getResult().get(i).getCurrentDaBalance().equalsIgnoreCase("0")) {
@@ -174,7 +173,7 @@ public class DataUnitConversionTest extends Driver {
                         if (dataBalanceUnit.equalsIgnoreCase("MB") && dataBalanceAmount > 1024) {
                             softAssert.fail("MB to GB conversion does not done Correctly. Balance" + plansAPI.getResult().get(i).getCurrentDaBalance());
                         } else if (dataBalanceUnit.equalsIgnoreCase("MB")) {
-                            UtilsMethods.printPassLog("MB to GB conversion done Correctly. Balance" + plansAPI.getResult().get(i).getCurrentDaBalance());
+                            commonLib.pass("MB to GB conversion done Correctly. Balance" + plansAPI.getResult().get(i).getCurrentDaBalance());
                         }
                     }
                 }

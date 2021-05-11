@@ -5,7 +5,6 @@ import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.NftrDataBeans;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
-import com.airtel.cs.commonutils.extentreports.ExtentTestManager;
 import com.airtel.cs.driver.Driver;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.markuputils.Markup;
@@ -286,9 +285,6 @@ public class InteractionCommentTest extends Driver {
             e.printStackTrace();
             Assert.fail(e.getMessage());
         }
-        String base64Screenshot = "data:image/png;base64," + ((TakesScreenshot) driver).
-                getScreenshotAs(OutputType.BASE64);
-        ExtentTestManager.getTest().log(Status.INFO, (Markup) ExtentTestManager.getTest().addScreenCaptureFromBase64String(base64Screenshot));
         pages.getInteractionsPage().closeTicketCommentBox();
         pages.getInteractionsPage().waitTillLoaderGetsRemoved();
         softAssert.assertAll();
