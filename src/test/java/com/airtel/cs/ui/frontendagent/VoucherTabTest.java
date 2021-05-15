@@ -1,25 +1,20 @@
 package com.airtel.cs.ui.frontendagent;
 
-import com.airtel.cs.api.APIEndPoints;
+import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.PassUtils;
-import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pojo.LoginPOJO;
-import com.airtel.cs.pojo.voucher.VoucherDetail;
-import com.airtel.cs.pojo.voucher.VoucherSearchPOJO;
+import com.airtel.cs.pojo.response.LoginPOJO;
+import com.airtel.cs.pojo.response.voucher.VoucherDetail;
+import com.airtel.cs.pojo.response.voucher.VoucherSearchPOJO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.http.Header;
-import io.restassured.http.Headers;
 import io.restassured.response.Response;
-import io.restassured.specification.QueryableRequestSpecification;
-import io.restassured.specification.RequestSpecification;
-import io.restassured.specification.SpecificationQuerier;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
@@ -30,12 +25,11 @@ import org.testng.asserts.SoftAssert;
 
 import java.util.concurrent.TimeUnit;
 
-import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 
 public class VoucherTabTest extends Driver {
 
-    APIEndPoints api = new APIEndPoints();
+    RequestSource api = new RequestSource();
     private final BaseActions actions = new BaseActions();
     ObjectMapper mapper = new ObjectMapper();
 

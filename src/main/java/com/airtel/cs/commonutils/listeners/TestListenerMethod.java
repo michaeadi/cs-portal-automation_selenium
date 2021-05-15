@@ -1,6 +1,8 @@
 package com.airtel.cs.commonutils.listeners;
 
+import com.airtel.cs.commonutils.extentreports.ExtentReport;
 import com.airtel.cs.driver.Driver;
+import com.aventstack.extentreports.Status;
 import lombok.extern.log4j.Log4j2;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
@@ -27,7 +29,7 @@ public class TestListenerMethod extends TestListenerAdapter {
     @Override
     public void onFinish(ITestContext iTestContext) {
         log.info("I am in on Finish method " + iTestContext.getName());
-        Driver.reporter.endTest();
+        ExtentReport.endTest();
     }
 
     @Override
@@ -43,14 +45,14 @@ public class TestListenerMethod extends TestListenerAdapter {
 
     @Override
     public void onTestSkipped(ITestResult tr) {
-       /* try {
+        /*try {
             String className = tr.getMethod().getInstance().getClass().getName();
             int idx = className.lastIndexOf('.');
             className = className.substring(idx + 1, className.length());
             ExtentReport.startTest(className, tr.getName());
-            ExtentReport.test.log(LogStatus.SKIP,
+            ExtentReport.test.log(Status.SKIP,
                     tr.getName() + " - Testcase is getting skipped due to some failure." + "</br>" + tr.getStatus());
-            ExtentReport.endTest(Driver.test);
+            ExtentReport.endTest();
         } catch (Exception ex) {
             Driver.commonLib.error(ex.getMessage());
         }*/

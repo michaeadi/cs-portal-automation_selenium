@@ -226,16 +226,6 @@
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
         </classes>
     </test>
-    <test name="Tariff Plan Test">
-        <groups>
-            <run>
-                <include name="RegressionTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.tariffplan.TariffPlanMigrationTest"/>
-        </classes>
-    </test>
     <test name="SIM Bar Unbar Test">
         <groups>
             <run>

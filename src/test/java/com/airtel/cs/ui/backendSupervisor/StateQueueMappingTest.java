@@ -1,18 +1,17 @@
 package com.airtel.cs.ui.backendSupervisor;
 
-import com.airtel.cs.api.APIEndPoints;
+import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.commonutils.PassUtils;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.QueueStateDataBeans;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pojo.LoginPOJO;
-import com.airtel.cs.pojo.ticketlist.QueueStates;
-import com.airtel.cs.pojo.ticketlist.TicketPOJO;
+import com.airtel.cs.pojo.response.LoginPOJO;
+import com.airtel.cs.pojo.response.ticketlist.QueueStates;
+import com.airtel.cs.pojo.response.ticketlist.TicketPOJO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.aventstack.extentreports.Status;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
@@ -37,7 +36,7 @@ import static io.restassured.RestAssured.given;
 @Log4j2
 public class StateQueueMappingTest extends Driver {
 
-    APIEndPoints api = new APIEndPoints();
+    RequestSource api = new RequestSource();
 
     @BeforeMethod
     public void checkExecution() {

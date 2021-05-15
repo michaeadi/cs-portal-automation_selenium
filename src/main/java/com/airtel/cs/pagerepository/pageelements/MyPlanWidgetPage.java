@@ -3,7 +3,7 @@ package com.airtel.cs.pagerepository.pageelements;
 import org.openqa.selenium.By;
 
 public class MyPlanWidgetPage {
-    public By currentBalanceHeader = By.xpath("//div[@id='CURRENT_PLAN']//span[@class='card__card-header--label--text']");
+    public By currentBalanceHeader = By.xpath("//*[@data-csautomation-key='CURRENT_PLAN']//*[@data-csautomation-key='widgetName']");
     public By currentBalanceCurrency = By.xpath("//div[@class='card__content--top--left ng-star-inserted']/span[@class='currency ng-star-inserted']");
     public By mainAccountBalance = By.xpath("//div[@class='card__content--top--left ng-star-inserted']");
     public By currentBalanceLastRecharge = By.xpath("//span[@class='label-color']/span[@class='currency ng-star-inserted']");

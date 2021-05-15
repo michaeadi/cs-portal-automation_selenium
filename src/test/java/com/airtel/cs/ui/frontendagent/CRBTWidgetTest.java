@@ -1,14 +1,14 @@
 package com.airtel.cs.ui.frontendagent;
 
-import com.airtel.cs.api.APIEndPoints;
+import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pojo.crbt.ActivateRingtone;
-import com.airtel.cs.pojo.crbt.Top20Ringtone;
+import com.airtel.cs.pojo.response.crbt.ActivateRingtone;
+import com.airtel.cs.pojo.response.crbt.Top20Ringtone;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
@@ -20,7 +20,7 @@ import org.testng.asserts.SoftAssert;
 public class CRBTWidgetTest extends Driver {
 
     String customerNumber = null;
-    APIEndPoints api = new APIEndPoints();
+    RequestSource api = new RequestSource();
     private final BaseActions actions = new BaseActions();
 
 

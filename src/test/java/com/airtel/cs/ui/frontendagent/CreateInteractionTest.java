@@ -1,6 +1,6 @@
 package com.airtel.cs.ui.frontendagent;
 
-import com.airtel.cs.api.APIEndPoints;
+import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.PassUtils;
 import com.airtel.cs.commonutils.UtilsMethods;
@@ -12,9 +12,9 @@ import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.commonutils.excelutils.WriteToExcel;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pagerepository.pagemethods.CustomerProfile;
-import com.airtel.cs.pojo.LoginPOJO;
-import com.airtel.cs.pojo.smshistory.SMSHistoryList;
-import com.airtel.cs.pojo.smshistory.SMSHistoryPOJO;
+import com.airtel.cs.pojo.response.LoginPOJO;
+import com.airtel.cs.pojo.response.smshistory.SMSHistoryList;
+import com.airtel.cs.pojo.response.smshistory.SMSHistoryPOJO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.http.Header;
@@ -49,7 +49,7 @@ import static io.restassured.RestAssured.given;
 public class CreateInteractionTest extends Driver {
 
     String customerNumber = null;
-    APIEndPoints api = new APIEndPoints();
+    RequestSource api = new RequestSource();
     private final BaseActions actions = new BaseActions();
 
 

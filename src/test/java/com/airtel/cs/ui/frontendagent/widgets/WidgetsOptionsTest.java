@@ -1,6 +1,6 @@
 package com.airtel.cs.ui.frontendagent.widgets;
 
-import com.airtel.cs.api.APIEndPoints;
+import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
@@ -8,11 +8,11 @@ import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pojo.AccountsBalancePOJO;
-import com.airtel.cs.pojo.RechargeHistoryPOJO;
-import com.airtel.cs.pojo.UsageHistoryPOJO;
-import com.airtel.cs.pojo.accumulators.AccumulatorsPOJO;
-import com.airtel.cs.pojo.airtelmoney.AirtelMoneyPOJO;
+import com.airtel.cs.pojo.response.AccountsBalancePOJO;
+import com.airtel.cs.pojo.response.RechargeHistoryPOJO;
+import com.airtel.cs.pojo.response.UsageHistoryPOJO;
+import com.airtel.cs.pojo.response.accumulators.AccumulatorsPOJO;
+import com.airtel.cs.pojo.response.airtelmoney.AirtelMoneyPOJO;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
@@ -25,7 +25,7 @@ import static com.airtel.cs.commonutils.dataproviders.DataProviders.Table;
 
 public class WidgetsOptionsTest extends Driver {
     String customerNumber;
-    APIEndPoints api = new APIEndPoints();
+    RequestSource api = new RequestSource();
     private final BaseActions actions = new BaseActions();
 
 

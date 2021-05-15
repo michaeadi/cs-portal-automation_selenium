@@ -26,7 +26,7 @@ public class CustomerProfilePage {
     public By sendSettingTitle = By.xpath("//span[contains(text(),'Send Internet Settings')]");
     public By resetME2Title = By.xpath("//span[contains(text(),'Reset Me2U Password')]");
     public By cancelBtn = By.xpath("//button[@class='no-btn']");
-    public By closeBtn = By.xpath("//span[contains(text(),'Send Internet Settings')]//following-sibling::mat-icon[contains(text(),'close')]");
+    public By closeBtn = By.xpath("//following-sibling::mat-icon[contains(text(),'close')]");
     public By birthdayIcon = By.xpath("//span[@class='customer-icon-block']/img");
     public By continueBtn = By.xpath("//span[contains(text(),'continue')]");
     public By changeServiceClass_btn = By.xpath("//button[contains(text(),'Change Service Class')]");

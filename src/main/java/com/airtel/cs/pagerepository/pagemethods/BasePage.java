@@ -1,6 +1,6 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
-import com.airtel.cs.api.APIEndPoints;
+import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.enums.ReportInfoMessageColorList;
 import com.airtel.cs.driver.Driver;
@@ -34,7 +34,7 @@ public class BasePage extends Driver {
     public Wait<WebDriver> wait1;
     public JavascriptExecutor js;
     BasePageElements basePageElements;
-    public static final APIEndPoints api = new APIEndPoints();
+    public static final RequestSource api = new RequestSource();
     private static final String BREAK_LINE = "</br>";
 
     //Constructor

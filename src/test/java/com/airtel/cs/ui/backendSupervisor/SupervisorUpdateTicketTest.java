@@ -1,6 +1,6 @@
 package com.airtel.cs.ui.backendSupervisor;
 
-import com.airtel.cs.api.APIEndPoints;
+import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.PassUtils;
 import com.airtel.cs.commonutils.UtilsMethods;
@@ -8,9 +8,9 @@ import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.NftrDataBeans;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pojo.LoginPOJO;
-import com.airtel.cs.pojo.smshistory.SMSHistoryList;
-import com.airtel.cs.pojo.smshistory.SMSHistoryPOJO;
+import com.airtel.cs.pojo.response.LoginPOJO;
+import com.airtel.cs.pojo.response.smshistory.SMSHistoryList;
+import com.airtel.cs.pojo.response.smshistory.SMSHistoryPOJO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.http.Header;
@@ -39,7 +39,7 @@ public class SupervisorUpdateTicketTest extends Driver {
 
     static String ticketId = null;
     String customerNumber = null;
-    APIEndPoints api = new APIEndPoints();
+    RequestSource api = new RequestSource();
     private final BaseActions actions = new BaseActions();
 
     @BeforeMethod

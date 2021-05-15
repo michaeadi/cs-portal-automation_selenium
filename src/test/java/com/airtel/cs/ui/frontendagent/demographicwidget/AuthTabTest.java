@@ -1,6 +1,6 @@
 package com.airtel.cs.ui.frontendagent.demographicwidget;
 
-import com.airtel.cs.api.APIEndPoints;
+import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.dataproviders.ActionTagDataBeans;
@@ -8,8 +8,8 @@ import com.airtel.cs.commonutils.dataproviders.AuthTabDataBeans;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.QuestionAnswerKeyDataBeans;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pojo.configuration.ConfigurationPOJO;
-import com.airtel.cs.pojo.configuration.LockedSection;
+import com.airtel.cs.pojo.response.configuration.ConfigurationPOJO;
+import com.airtel.cs.pojo.response.configuration.LockedSection;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;
@@ -21,7 +21,7 @@ import java.util.Map;
 
 public class AuthTabTest extends Driver {
 
-    APIEndPoints api = new APIEndPoints();
+    RequestSource api = new RequestSource();
     Map<String, String> authTabConfig;
     public BaseActions actions = new BaseActions();
 

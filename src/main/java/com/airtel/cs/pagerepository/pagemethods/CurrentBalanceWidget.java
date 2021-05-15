@@ -68,6 +68,15 @@ public class CurrentBalanceWidget extends BasePage {
         return isElementVisible(pageElements.currentBalanceHeader);
     }
 
+    /*
+   This Method will get the text of the header
+    */
+    public String getCurrentPlanHeaderText(){
+        final String headerText = getText(pageElements.currentBalanceHeader);
+        commonLib.info("Airtel Money Widget Header Text is:- " + headerText);
+        return headerText;
+    }
+
     public String gettingCurrentBalanceCurrency() {
         final String text = getText(pageElements.currentBalanceCurrency);
         commonLib.info("Getting Currency from Your Current Balance Widget : " + text.trim());

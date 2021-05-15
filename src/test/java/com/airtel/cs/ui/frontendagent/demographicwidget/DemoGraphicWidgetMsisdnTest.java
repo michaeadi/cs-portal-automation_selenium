@@ -1,21 +1,16 @@
 package com.airtel.cs.ui.frontendagent.demographicwidget;
 
 
-import com.airtel.cs.api.APIEndPoints;
+import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
-import com.airtel.cs.commonutils.dataproviders.AuthTabDataBeans;
-import com.airtel.cs.commonutils.dataproviders.DataProviders;
-import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pagerepository.pagemethods.AuthTab;
-import com.airtel.cs.pagerepository.pagemethods.DemoGraphic;
-import com.airtel.cs.pojo.AMProfilePOJO;
-import com.airtel.cs.pojo.GsmKycPOJO;
-import com.airtel.cs.pojo.PlansPOJO;
-import com.airtel.cs.pojo.ProfilePOJO;
-import com.airtel.cs.pojo.kycprofile.KYCProfile;
+import com.airtel.cs.pojo.response.AMProfilePOJO;
+import com.airtel.cs.pojo.response.GsmKycPOJO;
+import com.airtel.cs.pojo.response.PlansPOJO;
+import com.airtel.cs.pojo.response.ProfilePOJO;
+import com.airtel.cs.pojo.response.kycprofile.KYCProfile;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.NoSuchElementException;
@@ -24,12 +19,10 @@ import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.List;
-
 @Log4j2
 public class DemoGraphicWidgetMsisdnTest extends Driver {
 
-    APIEndPoints api = new APIEndPoints();
+    RequestSource api = new RequestSource();
     private final BaseActions actions = new BaseActions();
     private static String customerNumber = null;
 

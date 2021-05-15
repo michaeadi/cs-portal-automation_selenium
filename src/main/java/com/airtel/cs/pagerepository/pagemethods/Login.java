@@ -3,6 +3,7 @@ package com.airtel.cs.pagerepository.pagemethods;
 import com.airtel.cs.commonutils.PassUtils;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
+import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.applicationutils.enums.ReportInfoMessageColorList;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.pagerepository.pageelements.LoginPage;
@@ -151,7 +152,7 @@ public class Login extends BasePage {
     This Method will return us the username and password mentioned in the excel file
      */
     public String getUserNamePassword(String usernameOrPassword) {
-        recordset = DataProviders.readExcelSheet(excelPath, constants.getValue(ApplicationConstants.LOGIN_SHEET_NAME));
+        recordset = DataProviders.readExcelSheet(excelPath, constants.getValue(CommonConstants.LOGIN_SHEET_NAME));
         List<String> datatPoints = DataProviders.getScenarioDetailsFromExcelSheetColumnWise(recordset, "Beta", "userType", Arrays.asList("loginAuuid", PASSWORD));
         if ("auuid".equalsIgnoreCase(usernameOrPassword)) usernameOrPassword = datatPoints.get(0);
         else if (PASSWORD.equalsIgnoreCase(usernameOrPassword)) usernameOrPassword = datatPoints.get(1);

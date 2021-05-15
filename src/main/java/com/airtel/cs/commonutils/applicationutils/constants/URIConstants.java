@@ -29,4 +29,8 @@ public class URIConstants {
     public static final String TARIFF_AVAILABLE_PLANS = "/cs-gsm-service/v1/tariff/available-plans";
     public static final String TARIFF_CURRENT_PLAN = "/cs-gsm-service/v1/tariff/current-plan";
     public static final String V2_LOGIN = "/auth/api/user-mngmnt/v2/login";
+
+    private URIConstants(){
+
+    }
 }

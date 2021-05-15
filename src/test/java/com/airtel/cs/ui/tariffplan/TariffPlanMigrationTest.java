@@ -5,9 +5,9 @@ import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants
 import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
-import com.airtel.cs.pojo.MainAccountBalance;
-import com.airtel.cs.pojo.tariffplan.AvailablePlanPOJO;
-import com.airtel.cs.pojo.tariffplan.CurrentPlanPOJO;
+import com.airtel.cs.pojo.response.MainAccountBalance;
+import com.airtel.cs.pojo.response.tariffplan.AvailablePlanPOJO;
+import com.airtel.cs.pojo.response.tariffplan.CurrentPlanPOJO;
 import org.apache.commons.lang3.StringUtils;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeClass;
@@ -33,7 +33,7 @@ public class TariffPlanMigrationTest extends PreRequisites {
     }
 
     @DataProviders.User(userType = "Tariff")
-    @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class, groups = {"SanityTest", "RegressionTest", "ProdTest"}, enabled = false)
     public void openCustomerInteraction(TestDatabean data) {
         selUtils.addTestcaseDescription("Validating the Search for Customer Interactions :" + data.getCustomerNumber(), "description");
         try {
@@ -47,7 +47,7 @@ public class TariffPlanMigrationTest extends PreRequisites {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction", enabled = false)
     public void testChangeServiceClassVisibleAndClickable() {
         selUtils.addTestcaseDescription("Validating Change Service Class option is visible or not under Actions tab", "description");
         try {
@@ -66,7 +66,7 @@ public class TariffPlanMigrationTest extends PreRequisites {
         }
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "testChangeServiceClassVisibleAndClickable")
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "testChangeServiceClassVisibleAndClickable", enabled = false)
     public void testValidateCustomerCurrentPlanDetails() {
         selUtils.addTestcaseDescription("Validate Customer Current Plan Details under Service Class Tab", "description");
         try {
@@ -88,7 +88,7 @@ public class TariffPlanMigrationTest extends PreRequisites {
         }
     }
 
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "testValidateCustomerCurrentPlanDetails")
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "testValidateCustomerCurrentPlanDetails", enabled = false)
     public void testSelectPlanOtherThanCurrentPlan() {
         selUtils.addTestcaseDescription("Validate new Plan Details from Drop Down List", "description");
         try {
@@ -105,7 +105,7 @@ public class TariffPlanMigrationTest extends PreRequisites {
         }
     }
 
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "testSelectPlanOtherThanCurrentPlan")
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "testSelectPlanOtherThanCurrentPlan", enabled = false)
     public void testIssueDetailsPopUp() {
         selUtils.addTestcaseDescription("Validate new Plan Details from Drop Down List", "description");
         try {
@@ -126,7 +126,7 @@ public class TariffPlanMigrationTest extends PreRequisites {
         }
     }
 
-    @Test(priority = 6, groups = {"RegressionTest"}, dependsOnMethods = "testIssueDetailsPopUp")
+    @Test(priority = 6, groups = {"RegressionTest"}, dependsOnMethods = "testIssueDetailsPopUp", enabled = false)
     public void testPlanMigration() {
         selUtils.addTestcaseDescription("Validate new Plan Details from Drop Down List", "description");
         try {
@@ -147,7 +147,7 @@ public class TariffPlanMigrationTest extends PreRequisites {
         }
     }
 
-    @Test(priority = 7, groups = {"RegressionTest"}, dependsOnMethods = "testPlanMigration")
+    @Test(priority = 7, groups = {"RegressionTest"}, dependsOnMethods = "testPlanMigration", enabled = false)
     public void testActionTrailActivity() {
         selUtils.addTestcaseDescription("Validate that system should capture the Service class migration activity into Action Trail", "description");
         try {
@@ -161,7 +161,7 @@ public class TariffPlanMigrationTest extends PreRequisites {
         }
     }
 
-    @Test(priority = 8, groups = {"RegressionTest"})
+    @Test(priority = 8, groups = {"RegressionTest"}, enabled = false)
     public void testIfMigrationPermissionRemoved() {
         selUtils.addTestcaseDescription("Validate that if the logged in user has the permission to view this feature but does not have permission for Migration, Then user will be able to see the Change Service Plan Option but won't be able to migrate Service Class", "description");
         /* LOGIN IN TEMPORARY BROWSER AS PER TESTCASE REQUIREMENT -
@@ -186,7 +186,7 @@ public class TariffPlanMigrationTest extends PreRequisites {
         }
     }
 
-    @Test(priority = 9, groups = {"RegressionTest"})
+    @Test(priority = 9, groups = {"RegressionTest"}, enabled = false)
     public void testIfViewPermissionRemoved() {
         selUtils.addTestcaseDescription("Validate that if the logged in user does not have permission for Service Plan Migration user won't be able to view Change Service Class option under the Action button on customer dashboard.", "description");
         /* LOGIN IN TEMPORARY BROWSER AS PER TESTCASE REQUIREMENT -

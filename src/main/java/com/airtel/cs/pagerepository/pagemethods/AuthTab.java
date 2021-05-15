@@ -167,6 +167,8 @@ public class AuthTab extends BasePage {
             result = getText(pageElements.successModal);
         } else {
             commonLib.fail("Exception in method - getSuccessModalText", true);
+            commonLib.info("Going to Close Modal through close Button");
+            click(pageElements.closeBtn);
         }
         return result;
     }

@@ -1,6 +1,7 @@
 package com.airtel.cs.commonutils.dataproviders;
 
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
+import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.excelutils.WriteTicket;
 import com.airtel.cs.driver.Driver;
 import com.codoid.products.fillo.Connection;
@@ -49,7 +50,7 @@ public class DataProviders extends Driver {
     public Object[][] getTestData() {
         TestDataExcelToBeanDao dataExcelToBeanDao = new TestDataExcelToBeanDao();
         List<TestDatabean> list =
-                dataExcelToBeanDao.getData(excelPath, constants.getValue(ApplicationConstants.LOGIN_SHEET_NAME));
+                dataExcelToBeanDao.getData(excelPath, constants.getValue(CommonConstants.LOGIN_SHEET_NAME));
         Object[][] hashMapObj = new Object[list.size()][1];
         for (int i = 0; i < list.size(); i++) {
             hashMapObj[i][0] = list.get(i);
@@ -91,7 +92,7 @@ public class DataProviders extends Driver {
     public ArrayList<String> getInteractionChannelData() {
         UMDataExcelToBeanDao dataExcelToBeanDao = new UMDataExcelToBeanDao();
         List<UMDataBeans> list =
-                dataExcelToBeanDao.getData(excelPath, constants.getValue(ApplicationConstants.USER_MANAGEMENT_SHEET));
+                dataExcelToBeanDao.getData(excelPath, constants.getValue(CommonConstants.USER_MANAGEMENT_SHEET));
         ArrayList<String> finalList = new ArrayList<>();
         for (UMDataBeans l : list) {
             if (l.getInteraction() != null && !l.getInteraction().isEmpty()) {
@@ -105,7 +106,7 @@ public class DataProviders extends Driver {
     public ArrayList<String> getWorkFlowData() {
         UMDataExcelToBeanDao dataExcelToBeanDao = new UMDataExcelToBeanDao();
         List<UMDataBeans> list =
-                dataExcelToBeanDao.getData(excelPath, constants.getValue(ApplicationConstants.USER_MANAGEMENT_SHEET));
+                dataExcelToBeanDao.getData(excelPath, constants.getValue(CommonConstants.USER_MANAGEMENT_SHEET));
         ArrayList<String> finalList = new ArrayList<>();
         for (UMDataBeans l : list) {
             if (l.getWorkflow() != null && !l.getWorkflow().isEmpty()) {
@@ -118,7 +119,7 @@ public class DataProviders extends Driver {
     public ArrayList<String> getLoginQueueData() {
         UMDataExcelToBeanDao dataExcelToBeanDao = new UMDataExcelToBeanDao();
         List<UMDataBeans> list =
-                dataExcelToBeanDao.getData(excelPath, constants.getValue(ApplicationConstants.USER_MANAGEMENT_SHEET));
+                dataExcelToBeanDao.getData(excelPath, constants.getValue(CommonConstants.USER_MANAGEMENT_SHEET));
         ArrayList<String> finalList = new ArrayList<>();
         for (UMDataBeans l : list) {
             if (l.getLoginQueue() != null && !l.getLoginQueue().isEmpty()) {
@@ -131,7 +132,7 @@ public class DataProviders extends Driver {
     public ArrayList<String> getRoles() {
         TemplateDataExcelToBeanDao templateExcelToBeanDao = new TemplateDataExcelToBeanDao();
         List<TemplateDataBeans> list =
-                templateExcelToBeanDao.getData(excelPath, constants.getValue(ApplicationConstants.TEMPLATE_MANAGEMENT_SHEET_NAME));
+                templateExcelToBeanDao.getData(excelPath, constants.getValue(CommonConstants.TEMPLATE_MANAGEMENT_SHEET_NAME));
         ArrayList<String> finalList = new ArrayList<>();
         for (TemplateDataBeans l : list) {
             if (l.getRoles() != null && !l.getRoles().isEmpty()) {
@@ -144,7 +145,7 @@ public class DataProviders extends Driver {
     public ArrayList<String> getLanguage() {
         TemplateDataExcelToBeanDao templateExcelToBeanDao = new TemplateDataExcelToBeanDao();
         List<TemplateDataBeans> list =
-                templateExcelToBeanDao.getData(excelPath, constants.getValue(ApplicationConstants.TEMPLATE_MANAGEMENT_SHEET_NAME));
+                templateExcelToBeanDao.getData(excelPath, constants.getValue(CommonConstants.TEMPLATE_MANAGEMENT_SHEET_NAME));
         ArrayList<String> finalList = new ArrayList<>();
         for (TemplateDataBeans l : list) {
             if (l.getLanguage() != null && !l.getLanguage().isEmpty()) {
@@ -158,7 +159,7 @@ public class DataProviders extends Driver {
     public Object[][] getPinTags(Method method) {
         PinnedTagDataExcelToBeanDao dataExcelToBeanDao = new PinnedTagDataExcelToBeanDao();
         List<PinnedTagsDataBeans> list =
-                dataExcelToBeanDao.getData(excelPath, constants.getValue(ApplicationConstants.PINNED_TAG_SHEET_NAME));
+                dataExcelToBeanDao.getData(excelPath, constants.getValue(CommonConstants.PINNED_TAG_SHEET_NAME));
         Object[][] hashMapObj = new Object[list.size()][1];
         for (int i = 0; i < list.size(); i++) {
             hashMapObj[i][0] = list.get(i);
@@ -170,11 +171,11 @@ public class DataProviders extends Driver {
     public Object[][] ticketStateList() {
         TicketStateToBean ticketStateToBean = new TicketStateToBean();
         List<TicketStateDataBean> list =
-                ticketStateToBean.getData(excelPath, constants.getValue(ApplicationConstants.TICKET_STATE_SHEET));
+                ticketStateToBean.getData(excelPath, constants.getValue(CommonConstants.TICKET_STATE_SHEET));
         List<TicketStateDataBean> closeState = new ArrayList<>();
         List<TicketStateDataBean> openState = new ArrayList<>();
         for (TicketStateDataBean state : list) {
-            if (state.getInternalState().equals(constants.getValue(ApplicationConstants.TICKET_CLOSE_STATE))) {
+            if (state.getInternalState().equals(constants.getValue(CommonConstants.TICKET_CLOSE_STATE))) {
                 closeState.add(state);
             } else {
                 openState.add(state);
@@ -190,11 +191,11 @@ public class DataProviders extends Driver {
     public String ticketStateClosed() {
         TicketStateToBean ticketStateToBean = new TicketStateToBean();
         List<TicketStateDataBean> list =
-                ticketStateToBean.getData(excelPath, constants.getValue(ApplicationConstants.TICKET_STATE_SHEET));
+                ticketStateToBean.getData(excelPath, constants.getValue(CommonConstants.TICKET_STATE_SHEET));
         List<TicketStateDataBean> closeState = new ArrayList<>();
         List<TicketStateDataBean> openState = new ArrayList<>();
         for (TicketStateDataBean state : list) {
-            if (state.getInternalState().equals(constants.getValue(ApplicationConstants.TICKET_CLOSE_STATE))) {
+            if (state.getInternalState().equals(constants.getValue(CommonConstants.TICKET_CLOSE_STATE))) {
                 closeState.add(state);
             } else {
                 openState.add(state);
@@ -232,7 +233,7 @@ public class DataProviders extends Driver {
         TestDataExcelToBeanDao dataExcelToBeanDao = new TestDataExcelToBeanDao();
         User rows = method.getAnnotation(User.class);
         List<TestDatabean> list =
-                dataExcelToBeanDao.getData(excelPath, constants.getValue(ApplicationConstants.LOGIN_SHEET_NAME));
+                dataExcelToBeanDao.getData(excelPath, constants.getValue(CommonConstants.LOGIN_SHEET_NAME));
         List<TestDatabean> finalTicketList = new ArrayList<>();
         for (TestDatabean login : list) {
             if (login.getUserType().toLowerCase().trim().equals(rows.userType().toLowerCase().trim())) {
@@ -252,7 +253,7 @@ public class DataProviders extends Driver {
         HeaderDataExcelToBeanDao excelToBeanDao = new HeaderDataExcelToBeanDao();
         Table table = method.getAnnotation(Table.class);
         List<HeaderDataBean> list =
-                excelToBeanDao.getData(excelPath, constants.getValue(ApplicationConstants.HEADER_SHEET));
+                excelToBeanDao.getData(excelPath, constants.getValue(CommonConstants.HEADER_SHEET));
         List<HeaderDataBean> finalTicketList = new ArrayList<>();
         for (HeaderDataBean login : list) {
             if (login.getTableName().toLowerCase().trim().equals(table.name().toLowerCase().trim())) {
@@ -270,7 +271,7 @@ public class DataProviders extends Driver {
     public Object[][] isReOpenState() {
         TicketStateToBean ticketStateToBean = new TicketStateToBean();
         List<TicketStateDataBean> list =
-                ticketStateToBean.getData(excelPath, constants.getValue(ApplicationConstants.TICKET_STATE_SHEET));
+                ticketStateToBean.getData(excelPath, constants.getValue(CommonConstants.TICKET_STATE_SHEET));
         List<TicketStateDataBean> reOpen = new ArrayList<>();
         for (TicketStateDataBean state : list) {
             log.info(state.getIsReopenState());
@@ -304,11 +305,11 @@ public class DataProviders extends Driver {
     public List<TicketStateDataBean> getState(String stateName) {
         TicketStateToBean ticketStateToBean = new TicketStateToBean();
         List<TicketStateDataBean> list =
-                ticketStateToBean.getData(excelPath, constants.getValue(ApplicationConstants.TICKET_STATE_SHEET));
+                ticketStateToBean.getData(excelPath, constants.getValue(CommonConstants.TICKET_STATE_SHEET));
         List<TicketStateDataBean> closeState = new ArrayList<>();
         List<TicketStateDataBean> openState = new ArrayList<>();
         for (TicketStateDataBean state : list) {
-            if (state.getInternalState().equals(constants.getValue(ApplicationConstants.TICKET_CLOSE_STATE))) {
+            if (state.getInternalState().equals(constants.getValue(CommonConstants.TICKET_CLOSE_STATE))) {
                 closeState.add(state);
             } else {
                 openState.add(state);
@@ -324,14 +325,14 @@ public class DataProviders extends Driver {
     //helper method
     public List<PriorityDataBean> getPriority() {
         PriorityDataExcelToBeanDao priorityDataBean = new PriorityDataExcelToBeanDao();
-        return priorityDataBean.getData(excelPath, constants.getValue(ApplicationConstants.TICKET_PRIORITY_SHEET));
+        return priorityDataBean.getData(excelPath, constants.getValue(CommonConstants.TICKET_PRIORITY_SHEET));
     }
 
     //helper method
     public Map<String, Boolean> getALLPinnedTags() {
         PinnedTagDataExcelToBeanDao pinnedTag = new PinnedTagDataExcelToBeanDao();
         List<PinnedTagsDataBeans> list =
-                pinnedTag.getData(excelPath, constants.getValue(ApplicationConstants.PINNED_TAG_SHEET_NAME));
+                pinnedTag.getData(excelPath, constants.getValue(CommonConstants.PINNED_TAG_SHEET_NAME));
         Map<String, Boolean> finalList = new HashMap<>();
         for (PinnedTagsDataBeans l : list) {
             finalList.put(l.getTagName().toLowerCase().trim(), false);
@@ -391,7 +392,7 @@ public class DataProviders extends Driver {
     public Object[][] ticketTransferRule() {
         TicketTransferRuleDateToExcel transferRuleDateToExcel = new TicketTransferRuleDateToExcel();
         List<TicketTransferRuleDataBean> list =
-                transferRuleDateToExcel.getData(excelPath, constants.getValue(ApplicationConstants.TICKET_TRANSFER_RULE_SHEET));
+                transferRuleDateToExcel.getData(excelPath, constants.getValue(CommonConstants.TICKET_TRANSFER_RULE_SHEET));
         List<TicketTransferRuleDataBean> finalList = new ArrayList<>();
         for (TicketTransferRuleDataBean l : list) {
             if (l.getIssueCode() != null && !l.getIssueCode().isEmpty()) {
@@ -408,13 +409,13 @@ public class DataProviders extends Driver {
     //Get Auth Policy
     public List<AuthTabDataBeans> getPolicy() {
         AuthTabBeanToExcel authTabBeanToExcel = new AuthTabBeanToExcel();
-        return authTabBeanToExcel.getData(excelPath, constants.getValue(ApplicationConstants.AUTH_POLICY_SHEET));
+        return authTabBeanToExcel.getData(excelPath, constants.getValue(CommonConstants.AUTH_POLICY_SHEET));
     }
 
     public List<String> getPolicyQuestion() {
         AuthTabBeanToExcel authTabBeanToExcel = new AuthTabBeanToExcel();
         List<AuthTabDataBeans> list =
-                authTabBeanToExcel.getData(excelPath, constants.getValue(ApplicationConstants.AUTH_POLICY_SHEET));
+                authTabBeanToExcel.getData(excelPath, constants.getValue(CommonConstants.AUTH_POLICY_SHEET));
         List<String> question = new ArrayList<>();
         question.add(list.get(0).getQ1());
         question.add(list.get(0).getQ2());
@@ -439,20 +440,20 @@ public class DataProviders extends Driver {
 
     public List<QuestionAnswerKeyDataBeans> getQuestionAnswerKey() {
         QuestionAnswerKeyToExcel authTabBeanToExcel = new QuestionAnswerKeyToExcel();
-        return authTabBeanToExcel.getData(excelPath, constants.getValue(ApplicationConstants.QUESTION_ANSWER_SHEET_NAME));
+        return authTabBeanToExcel.getData(excelPath, constants.getValue(CommonConstants.QUESTION_ANSWER_SHEET_NAME));
     }
 
     //Get Action Tagging
     public List<ActionTagDataBeans> getActionTag() {
         ActionTagBeanToExcel actionTagDataBeans = new ActionTagBeanToExcel();
-        return actionTagDataBeans.getData(excelPath, constants.getValue(ApplicationConstants.ACTION_TAGGED_SHEET_NAME));
+        return actionTagDataBeans.getData(excelPath, constants.getValue(CommonConstants.ACTION_TAGGED_SHEET_NAME));
     }
 
     //Get Voucher Id
     public String getVoucherId() {
         ActionTagBeanToExcel actionTagDataBeans = new ActionTagBeanToExcel();
         List<ActionTagDataBeans> list =
-                actionTagDataBeans.getData(excelPath, constants.getValue(ApplicationConstants.ACTION_TAGGED_SHEET_NAME));
+                actionTagDataBeans.getData(excelPath, constants.getValue(CommonConstants.ACTION_TAGGED_SHEET_NAME));
         for (ActionTagDataBeans s : list) {
             if (s.getActionTagName().equalsIgnoreCase("Voucher Id")) {
                 if (evnName.equalsIgnoreCase("prod")) {
@@ -468,7 +469,7 @@ public class DataProviders extends Driver {
     public List<String> issueDetailReason(String actionTagName) {
         ActionTagBeanToExcel actionTagDataBeans = new ActionTagBeanToExcel();
         List<ActionTagDataBeans> list =
-                actionTagDataBeans.getData(excelPath, constants.getValue(ApplicationConstants.ACTION_TAGGED_SHEET_NAME));
+                actionTagDataBeans.getData(excelPath, constants.getValue(CommonConstants.ACTION_TAGGED_SHEET_NAME));
         List<String> reasons = new ArrayList<>();
         for (ActionTagDataBeans s : list) {
             if (s.getActionTagName().trim().equalsIgnoreCase(actionTagName)) {
@@ -493,7 +494,7 @@ public class DataProviders extends Driver {
     public Object[][] getQueueState() {
         QueueStateBeanToExcel queueStateBeanToExcel = new QueueStateBeanToExcel();
         List<QueueStateDataBeans> list =
-                queueStateBeanToExcel.getData(excelPath, constants.getValue(ApplicationConstants.STATE_QUEUE_SHEET_NAME));
+                queueStateBeanToExcel.getData(excelPath, constants.getValue(CommonConstants.STATE_QUEUE_SHEET_NAME));
         List<QueueStateDataBeans> finalTicketList = new ArrayList<>();
         for (QueueStateDataBeans states : list) {
             assert states.getQueue() != null;
@@ -511,7 +512,7 @@ public class DataProviders extends Driver {
     public List<String> getQueueState(String queue) {
         QueueStateBeanToExcel queueStateBeanToExcel = new QueueStateBeanToExcel();
         List<QueueStateDataBeans> list =
-                queueStateBeanToExcel.getData(excelPath, constants.getValue(ApplicationConstants.STATE_QUEUE_SHEET_NAME));
+                queueStateBeanToExcel.getData(excelPath, constants.getValue(CommonConstants.STATE_QUEUE_SHEET_NAME));
         List<String> allStates = new ArrayList<>();
         for (QueueStateDataBeans states : list) {
             if (states.getQueue().equalsIgnoreCase(queue)) {
@@ -591,7 +592,7 @@ public class DataProviders extends Driver {
     public boolean writeTicketNumberToExcel() throws IOException {
         WriteTicket objExcelFile = new WriteTicket();
         File exceldir = new File("excels");
-        File excel = new File(exceldir, constants.getValue(ApplicationConstants.TICKET_BULK_UPDATE_SHEET));
+        File excel = new File(exceldir, constants.getValue(CommonConstants.TICKET_BULK_UPDATE_SHEET));
         Object[][] list = getTestData5();
         boolean flag = false;
         int size = list.length;
@@ -618,7 +619,7 @@ public class DataProviders extends Driver {
     public Object[][] getTransferToQueueData() {
         TransferQueueDataToExcel transferQueue = new TransferQueueDataToExcel();
         List<TransferQueueDataBean> list =
-                transferQueue.getData(excelPath, constants.getValue(ApplicationConstants.TRANSFER_TO_QUEUE_SHEET));
+                transferQueue.getData(excelPath, constants.getValue(CommonConstants.TRANSFER_TO_QUEUE_SHEET));
         Object[][] hashMapObj = new Object[list.size()][1];
         for (int i = 0; i < list.size(); i++) {
             hashMapObj[i][0] = list.get(i);

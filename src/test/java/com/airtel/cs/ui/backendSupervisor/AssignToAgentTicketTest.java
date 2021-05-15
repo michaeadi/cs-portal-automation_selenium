@@ -1,9 +1,9 @@
 package com.airtel.cs.ui.backendSupervisor;
 
-import com.airtel.cs.api.APIEndPoints;
+import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pojo.ticketlist.TicketPOJO;
+import com.airtel.cs.pojo.response.ticketlist.TicketPOJO;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -15,7 +15,7 @@ import org.testng.asserts.SoftAssert;
 
 public class AssignToAgentTicketTest extends Driver {
 
-    APIEndPoints api = new APIEndPoints();
+    RequestSource api = new RequestSource();
     private final BaseActions actions = new BaseActions();
 
     @BeforeMethod

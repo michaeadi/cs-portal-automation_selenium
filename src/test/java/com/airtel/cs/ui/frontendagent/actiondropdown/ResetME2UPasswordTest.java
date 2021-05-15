@@ -3,14 +3,24 @@ package com.airtel.cs.ui.frontendagent.actiondropdown;
 import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.driver.Driver;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
+import org.testng.SkipException;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class ResetME2UPasswordTest extends Driver {
 
     private final BaseActions actions = new BaseActions();
 
+    @BeforeMethod
+    public void isResetMe2uFeatureEnabled() {
+        if (StringUtils.equalsIgnoreCase(constants.getValue(ApplicationConstants.RESET_ME2U_PASSWORD), "false")) {
+            commonLib.skip("Reset Me2u Feature is NOT Enabled for this Opco=" + OPCO);
+            throw new SkipException("Reset Me2u Feature is NOT Enabled for this Opco=" + OPCO);
+        }
+    }
 
     @Test(priority = 1, description = "Validate Customer Profile Page")
     public void openCustomerInteraction() {
@@ -41,9 +51,7 @@ public class ResetME2UPasswordTest extends Driver {
             pages.getCustomerProfilePage().clickCancelBtn();
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException e) {
-            pages.getCustomerProfilePage().clickCloseBtn();
             commonLib.fail("Exception in Method :- validateResetME2UPassword" + e.fillInStackTrace(), true);
-            pages.getCustomerProfilePage().clickOutside();
         }
     }
 }

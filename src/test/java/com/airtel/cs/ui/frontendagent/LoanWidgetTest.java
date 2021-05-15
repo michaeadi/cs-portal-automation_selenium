@@ -1,6 +1,6 @@
 package com.airtel.cs.ui.frontendagent;
 
-import com.airtel.cs.api.APIEndPoints;
+import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
@@ -9,15 +9,15 @@ import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pagerepository.pagemethods.LoanDetail;
-import com.airtel.cs.pojo.loandetails.Loan;
-import com.airtel.cs.pojo.loandetails.LoanDetailList;
-import com.airtel.cs.pojo.loandetails.LoanHistory;
-import com.airtel.cs.pojo.loandetails.LoanRepaymentDetailList;
-import com.airtel.cs.pojo.loandetails.LoanRepaymentList;
-import com.airtel.cs.pojo.loansummary.Summary;
-import com.airtel.cs.pojo.vendors.HeaderList;
-import com.airtel.cs.pojo.vendors.VendorNames;
-import com.airtel.cs.pojo.vendors.Vendors;
+import com.airtel.cs.pojo.response.loandetails.Loan;
+import com.airtel.cs.pojo.response.loandetails.LoanDetailList;
+import com.airtel.cs.pojo.response.loandetails.LoanHistory;
+import com.airtel.cs.pojo.response.loandetails.LoanRepaymentDetailList;
+import com.airtel.cs.pojo.response.loandetails.LoanRepaymentList;
+import com.airtel.cs.pojo.response.loansummary.Summary;
+import com.airtel.cs.pojo.response.vendors.HeaderList;
+import com.airtel.cs.pojo.response.vendors.VendorNames;
+import com.airtel.cs.pojo.response.vendors.Vendors;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
@@ -34,7 +34,7 @@ import java.util.NoSuchElementException;
 public class LoanWidgetTest extends Driver {
 
     static String customerNumber;
-    APIEndPoints api = new APIEndPoints();
+    RequestSource api = new RequestSource();
     ArrayList<Vendors> vendors;
     private final BaseActions actions = new BaseActions();
 

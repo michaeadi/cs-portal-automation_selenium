@@ -1,31 +1,24 @@
 package com.airtel.cs.common.requisite;
 
-import com.airtel.cs.api.APIEndPoints;
+import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.PassUtils;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
-import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.extentreports.ExtentReport;
-import com.airtel.cs.pojo.LoginPOJO;
+import com.airtel.cs.pojo.response.LoginPOJO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.TimeoutException;
-import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import com.airtel.cs.driver.Driver;
-
-import java.util.Arrays;
-import java.util.List;
 
 
 public class PreRequisites extends Driver {
     public BaseActions actions = new BaseActions();
     ObjectMapper mapper = new ObjectMapper();
-    public APIEndPoints api = new APIEndPoints();
+    public RequestSource api = new RequestSource();
 
 
     @BeforeClass

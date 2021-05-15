@@ -3,14 +3,24 @@ package com.airtel.cs.ui.frontendagent.actiondropdown;
 import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.driver.Driver;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
+import org.testng.SkipException;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class SendInternetSettingsTest extends Driver {
 
     private final BaseActions actions = new BaseActions();
     String comments = "Adding comment using Automation";
+
+    @BeforeMethod
+    public void isSendInternetSettingsEnabled() {
+        if (StringUtils.equalsIgnoreCase(constants.getValue(ApplicationConstants.SEND_INTERNET_SETTINGS), "false")) {
+            throw new SkipException("Send Internet Settings Feature is NOT Enabled for this Opco=" + OPCO);
+        }
+    }
 
     @Test(priority = 1, description = "Validate Customer Profile Page")
     public void openCustomerInteraction() {
@@ -36,8 +46,8 @@ public class SendInternetSettingsTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Open send internet setting modal from actions drop down, Click on cancel button, Modal should be closed", "description");
             pages.getCustomerProfilePage().clickOnAction();
-            pages.getCustomerProfilePage().clickSendSetting();
-            assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isSendInternetSettingTitleVisible(), true, "Send Internet Setting Tab opened", "Send Internet Setting Tab Does not open after internet setting."));
+            pages.getCustomerProfilePage().clickSendInternetSetting();
+            assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isSendInternetSettingTitleVisible(), true, "Send Internet Setting Tab opened", "Send Internet Setting Tab does NOT opened"));
             pages.getCustomerProfilePage().clickCancelBtn();
             pages.getCustomerProfilePage().clickContinueButton();
             actions.assertAllFoundFailedAssert(assertCheck);
@@ -47,12 +57,12 @@ public class SendInternetSettingsTest extends Driver {
         }
     }
 
-    @Test(priority = 3, description = "Verify the Send Internet Setting tab", dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 3, description = "Verify the Send Internet Setting tab", dependsOnMethods = "validateCancelBtn")
     public void validateSendInternetSetting() {
         try {
             selUtils.addTestcaseDescription("Open send internet setting modal from actions drop down,Validate issue detail title visible,Select reason and enter comment and click on submit button, Validate success message", "description");
             pages.getCustomerProfilePage().clickOnAction();
-            pages.getCustomerProfilePage().clickSendSetting();
+            pages.getCustomerProfilePage().clickSendInternetSetting();
             assertCheck.append(actions.assertEqual_boolean(pages.getAuthTabPage().isIssueDetailTitleVisible(), true, "Issue Detail Configured", "Issue Detail does not configured"));
             pages.getAuthTabPage().clickSelectReasonDropDown();
             reason = pages.getAuthTabPage().getReason();
@@ -60,7 +70,7 @@ public class SendInternetSettingsTest extends Driver {
             pages.getAuthTabPage().enterComment(comments);
             pages.getAuthTabPage().clickSubmitBtn();
             final String successModalText = pages.getAuthTabPage().getSuccessModalText();
-            assertCheck.append(actions.assertEqual_stringType(successModalText, "Internet Setting has been sent on customer` s device", "Send Internet Modal closed successfully with success message", "Send Internet Modal NOT closed"));
+            assertCheck.append(actions.assertEqual_stringType(successModalText, "Internet Setting has been sent on customer` s device", "Send Internet Modal closed successfully with Success Message", "Send Internet Modal NOT closed"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException e) {
             commonLib.fail("Exception in Method - validateSendInternetSetting" + e.fillInStackTrace(), true);

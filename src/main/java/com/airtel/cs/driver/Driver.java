@@ -1,6 +1,7 @@
 package com.airtel.cs.driver;
 
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
+import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.ConstantsUtils;
 import com.airtel.cs.commonutils.commonlib.CommonLib;
 import com.airtel.cs.commonutils.extentreports.ExtentReport;
@@ -9,8 +10,8 @@ import com.airtel.cs.pagerepository.pagemethods.PageCollection;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
-import com.aventstack.extentreports.reporter.configuration.Theme;
 import com.codoid.products.fillo.Recordset;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import io.restassured.http.Header;
 import lombok.extern.log4j.Log4j2;
@@ -88,6 +89,7 @@ public class Driver {
     public static String ftrSheetValue;
     public static String reason;
     public static String loginAUUID;
+    public static ObjectMapper objectMapper = new ObjectMapper();
 
     public WebDriver getDriver() {
         return driver;
@@ -117,7 +119,7 @@ public class Driver {
     public static void methodLevelSetup(ITestResult tr) {
         try {
             currentClassName = getClassName(tr);
-            ExtentReport.startTest(currentClassName,currentTestCaseName);
+            ExtentReport.startTest(currentClassName, currentTestCaseName);
             assertCheck = new StringBuilder(); // @ THIS WILL EMPTY ASSERT STRING-BUILDER BEFORE EACH TEST
         } catch (Exception ex) {
             commonLib.error(ex.getMessage());
@@ -191,15 +193,14 @@ public class Driver {
             extent = new ExtentReports();
             spark = new ExtentSparkReporter(modifiedHtmlfilePath);
             extent.attachReporter(spark);
-            //spark.config().setTheme(Theme.DARK);
             spark.config().setDocumentTitle("Airtel Africa CS Automation");
             spark.config().setReportName("Automation Report - CS Portal");
             extent.setSystemInfo("Application Environment ", OPCO + " " + evnName);
             extent.setSystemInfo("Execution Browser ", browser.toUpperCase());
             extent.setSystemInfo("Language Selected ", "English");
             extent.setSystemInfo("Suite Type", SUITE_TYPE.toUpperCase());
-            nftrSheetValue = constants.getValue(ApplicationConstants.SUITE_TYPE).equals(SUITE_TYPE) ? ApplicationConstants.SANITY_NFTR_SHEET : ApplicationConstants.REGRESSION_NFTR_SHEET;
-            ftrSheetValue = constants.getValue(ApplicationConstants.SUITE_TYPE).equals(SUITE_TYPE) ? ApplicationConstants.SANITY_FTR_SHEET : ApplicationConstants.REGRESSION_FTR_SHEET;
+            nftrSheetValue = constants.getValue(CommonConstants.SUITE_TYPE).equals(SUITE_TYPE) ? CommonConstants.SANITY_NFTR_SHEET : CommonConstants.REGRESSION_NFTR_SHEET;
+            ftrSheetValue = constants.getValue(CommonConstants.SUITE_TYPE).equals(SUITE_TYPE) ? CommonConstants.SANITY_FTR_SHEET : CommonConstants.REGRESSION_FTR_SHEET;
         } catch (Exception ex) {
             commonLib.fail(ex.getMessage(), true);
         }

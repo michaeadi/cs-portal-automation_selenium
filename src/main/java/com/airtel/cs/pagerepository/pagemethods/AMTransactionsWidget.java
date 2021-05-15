@@ -22,7 +22,7 @@ public class AMTransactionsWidget extends BasePage {
 
     public boolean isAirtelMoneyErrorVisible() {
         final boolean elementVisible = isElementVisible(pageElements.airtelMoneyError);
-        commonLib.info("Validating error is visible when there is Error inAPI : " + elementVisible);
+        commonLib.info("Validating error is visible when there is Error in API : " + elementVisible);
         return elementVisible;
     }
 
@@ -34,7 +34,7 @@ public class AMTransactionsWidget extends BasePage {
 
     public boolean isAirtelMoneyNoResultFoundVisible() {
         final boolean elementVisible = isElementVisible(pageElements.airtelMoneyNoResultFound);
-        commonLib.info("Validating error msg is visible when there is no data from API : " + elementVisible);
+        commonLib.info("Validating 'No Result Found' msg is visible :- " + elementVisible);
         return elementVisible;
     }
 
@@ -50,14 +50,31 @@ public class AMTransactionsWidget extends BasePage {
         return value;
     }
 
-    public boolean isAirtelMoneyTransactionWidgetIsVisible() {
-        commonLib.info("Checking is Airtel Money Widget Visible");
-        return isElementVisible(pageElements.airtelMoneyTransactionHeader);
+    /*
+    This Method will let us know Airtel Money Widget is visible or not
+     */
+    public boolean isAirtelMoneyTransactionWidgetVisible() {
+        boolean elementVisible = false;
+        if (isVisible(pageElements.airtelMoneyTransactionHeader)) {
+            elementVisible = isElementVisible(pageElements.airtelMoneyTransactionHeader);
+            commonLib.info("Checking is Airtel Money Widget Visible? " + elementVisible);
+        }
+        return elementVisible;
+    }
+
+    /*
+    This Method will get the text of the header
+     */
+    public String getAirtelMoneyTransactionHeaderText() {
+        final String headerText = getText(pageElements.airtelMoneyTransactionHeader);
+        commonLib.info("Airtel Money Widget Header Text is:- " + headerText);
+        return headerText;
     }
 
     public boolean isAirtelMoneyWidgetDatePickerVisible() {
-        commonLib.info("Checking Airtel Money Widget Date Picker Visibility ");
-        return isEnabled(pageElements.airtelMoneyDatePicker);
+        final By datePicker = pageElements.airtelMoneyDatePicker;
+        commonLib.info("Checking Airtel Money Widget, is Date Picker visible? " + datePicker);
+        return isEnabled(datePicker);
     }
 
     public String gettingAirtelMoneyCurrency() {
@@ -121,9 +138,10 @@ public class AMTransactionsWidget extends BasePage {
         return new MoreAMTxnTab(driver);
     }
 
-    public Boolean isTransactionId() {
-        commonLib.info("Checking is Transaction Id Box Displayed");
-        return isEnabled(pageElements.transactionId);
+    public Boolean isTransactionIdSearchBoxVisible() {
+        final boolean enabled = isEnabled(pageElements.transactionId);
+        commonLib.info("Checking is Transaction Id Search Box Visible?" + enabled);
+        return enabled;
     }
 
     public void writeTransactionId(String id) {

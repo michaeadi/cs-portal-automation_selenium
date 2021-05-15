@@ -2,8 +2,8 @@ package com.airtel.cs.pagerepository.pagemethods;
 
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.pagerepository.pageelements.CustomerProfilePage;
-import com.airtel.cs.pojo.MainAccountBalance;
-import com.airtel.cs.pojo.PlansPOJO;
+import com.airtel.cs.pojo.response.MainAccountBalance;
+import com.airtel.cs.pojo.response.PlansPOJO;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
@@ -149,12 +149,12 @@ public class CustomerProfile extends BasePage {
         click(pageElements.sendSMSAction);
     }
 
-    public void clickSendSetting() {
+    public void clickSendInternetSetting() {
         commonLib.info("Clicking on Send SMS Setting");
         if (isVisible(pageElements.sendSettings)) {
             click(pageElements.sendSettings);
         } else {
-            commonLib.fail("Exception in method - clickSendSetting", true);
+            commonLib.fail("Exception in method - clickSendInternetSetting", true);
         }
     }
 
@@ -173,6 +173,8 @@ public class CustomerProfile extends BasePage {
             click(pageElements.cancelBtn);
         } else {
             commonLib.fail("Exception in method - clickCancelBtn", true);
+            commonLib.info("Going to Close Modal through close Button");
+            click(pageElements.closeBtn);
         }
     }
 

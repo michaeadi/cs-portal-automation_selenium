@@ -21,4 +21,5 @@ public class AuthTabPage {
     public By submitBtn = By.xpath("//button[@class='submit-btn']");
     public By code = By.xpath("//mat-option[1]//span");
     public By successModal=By.xpath("//*[@class='main-container__body--message ng-star-inserted']");
+    public By closeBtn = By.xpath("//following-sibling::mat-icon[contains(text(),'close')]");
 }

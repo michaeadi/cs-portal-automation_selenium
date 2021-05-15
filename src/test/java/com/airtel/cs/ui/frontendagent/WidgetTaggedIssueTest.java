@@ -3,7 +3,6 @@ package com.airtel.cs.ui.frontendagent;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.driver.Driver;
-import com.aventstack.extentreports.Status;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -230,7 +229,7 @@ public class WidgetTaggedIssueTest extends Driver {
         SoftAssert softAssert = new SoftAssert();
         DataProviders data = new DataProviders();
         Map<String, String> tagIssue = data.getListOfIssue(config.getProperty("airtelMoney"));
-        softAssert.assertTrue(pages.getAmTxnWidgetPage().isAirtelMoneyTransactionWidgetIsVisible(), "Airtel Money Widget is not visible ");
+        softAssert.assertTrue(pages.getAmTxnWidgetPage().isAirtelMoneyTransactionWidgetVisible(), "Airtel Money Widget is not visible ");
         String widgetName = pages.getAmTxnWidgetPage().getWidgetTitle();
         pages.getAmTxnWidgetPage().clickTicketIcon();
         softAssert.assertTrue(pages.getWidgetInteraction().getTabTitle().toLowerCase().contains(widgetName), "Interaction tab does not have title displayed");
