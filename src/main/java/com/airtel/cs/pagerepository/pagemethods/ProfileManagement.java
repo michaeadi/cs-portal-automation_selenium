@@ -28,7 +28,7 @@ public class ProfileManagement extends BasePage {
 
     public void clickingSubmitButton() {
         commonLib.info("Clicking Submit Button");
-        click(pageElements.submitButton);
+        clickAndWaitForLoaderToBeRemoved(pageElements.submitButton);
     }
 
     public String getConfigurationCol(int rowNumber) {
@@ -157,6 +157,6 @@ public class ProfileManagement extends BasePage {
 
     public void clickOnOption(String option) {
         commonLib.info("Clicking on Filter : " + option);
-        click(By.xpath("//span[@class=\"mat-option-text\" and text()=\" " + option + " \"]"));
+        clickAndWaitForLoaderToBeRemoved(By.xpath("//span[@class=\"mat-option-text\" and text()=\" " + option + " \"]"));
     }
 }

@@ -56,7 +56,7 @@ public class AssignToAgent extends BasePage {
 
     public void closeAssignTab() {
         commonLib.info("Clicking on Close Assign Button");
-        click(pageElements.closeTab);
+        clickAndWaitForLoaderToBeRemoved(pageElements.closeTab);
     }
 
     public String getInfoMessage() {
@@ -87,7 +87,7 @@ public class AssignToAgent extends BasePage {
                     commonLib.info("Found Agent with Available Slot");
                     By clickAssignBtn = By.xpath("//div[@class=\"pannel-content-area ng-star-inserted\"]/div[" + i + "]/div[4]/img[1]");
                     scrollToViewElement(clickAssignBtn);
-                    click(clickAssignBtn);
+                    clickAndWaitForLoaderToBeRemoved(clickAssignBtn);
                     commonLib.info("Click on Assign to Agent Button");
                     return auuid.split("-")[1];
                 }

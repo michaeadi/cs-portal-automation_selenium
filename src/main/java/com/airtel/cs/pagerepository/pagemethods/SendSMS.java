@@ -30,26 +30,26 @@ public class SendSMS extends BasePage {
     }
 
     public void selectCategory() {
-        click(pageElements.openCategory);
+        clickAndWaitForLoaderToBeRemoved(pageElements.openCategory);
         final String text = getText(pageElements.selectOption1);
         commonLib.info("Searching Category with name: " + text);
         enterText(pageElements.searchCategory, text);
         commonLib.info(TEXT + text);
-        click(pageElements.selectOption1);
+        clickAndWaitForLoaderToBeRemoved(pageElements.selectOption1);
     }
 
     public String selectTemplateName() {
-        click(pageElements.openTemplates);
+        clickAndWaitForLoaderToBeRemoved(pageElements.openTemplates);
         final String text = getText(pageElements.selectOption1);
         commonLib.info(TEXT + text);
-        click(pageElements.selectOption1);
+        clickAndWaitForLoaderToBeRemoved(pageElements.selectOption1);
         return text;
     }
 
     public void selectLanguage() {
-        click(pageElements.openLanguage);
+        clickAndWaitForLoaderToBeRemoved(pageElements.openLanguage);
         commonLib.info(TEXT + getText(pageElements.selectOption1));
-        click(pageElements.selectOption1);
+        clickAndWaitForLoaderToBeRemoved(pageElements.selectOption1);
     }
 
     public String getMessageContent() {
@@ -91,7 +91,7 @@ public class SendSMS extends BasePage {
         log.info("Checking Send button");
         if (driver.findElement(pageElements.submitBtn).isEnabled()) {
             commonLib.info("Clicking Send button");
-            click(pageElements.submitBtn);
+            clickAndWaitForLoaderToBeRemoved(pageElements.submitBtn);
             return true;
         } else {
             return false;

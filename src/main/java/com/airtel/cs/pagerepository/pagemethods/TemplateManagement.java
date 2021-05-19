@@ -29,12 +29,12 @@ public class TemplateManagement extends BasePage {
 
     public void clickCreatedTemplateTab() {
         commonLib.info("Clicking on created template");
-        click(pageElements.createdTemplateTab);
+        clickAndWaitForLoaderToBeRemoved(pageElements.createdTemplateTab);
     }
 
     public void clickViewCreatedTemplateTab() {
         commonLib.info("Clicking on view created template");
-        click(pageElements.viewCreatedTemplateTab);
+        clickAndWaitForLoaderToBeRemoved(pageElements.viewCreatedTemplateTab);
     }
 
     public boolean isAddTemplateAvailable() {
@@ -87,12 +87,12 @@ public class TemplateManagement extends BasePage {
 
     public void switchTabToAddTemplateCategory() {
         log.info("Switch Tab to Add template category Tab");
-        click(pageElements.addTemplateCategoryBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.addTemplateCategoryBtn);
     }
 
     public void switchTabToAddTemplate() {
         log.info("Switch Tab to Add template category Tab");
-        click(pageElements.addTemplateBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.addTemplateBtn);
     }
 
     public void writeTemplateCategoryName(String text) {
@@ -107,7 +107,7 @@ public class TemplateManagement extends BasePage {
 
     public void clickAddCategoryBtn() {
         commonLib.info("clicking add template category button");
-        click(pageElements.addCategoryBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.addCategoryBtn);
     }
 
     public boolean validateAddedCategoryDisplay(String text) {
@@ -133,28 +133,28 @@ public class TemplateManagement extends BasePage {
     public void clickTemplateCategory() {
         log.info("Opening Template Category name list");
         commonLib.info("Opening Template Category name list");
-        click(pageElements.openCategoryList);
+        clickAndWaitForLoaderToBeRemoved(pageElements.openCategoryList);
     }
 
     public void clickAgentRole() {
         commonLib.info("Opening Agent Role list");
-        click(pageElements.openRoleList);
+        clickAndWaitForLoaderToBeRemoved(pageElements.openRoleList);
     }
 
     public void clickAgentChannels() {
         commonLib.info("Opening Agent channel list");
-        click(pageElements.openChannelList);
+        clickAndWaitForLoaderToBeRemoved(pageElements.openChannelList);
     }
 
     public void clickSMSLanguage() {
         commonLib.info("Opening SMS language list");
-        click(pageElements.openLangList);
+        clickAndWaitForLoaderToBeRemoved(pageElements.openLangList);
     }
 
     public boolean clickCreateTemplateBtn() {
         commonLib.info("Clicking create template button");
         if (driver.findElement(pageElements.createBtn).isEnabled()) {
-            click(pageElements.createBtn);
+            clickAndWaitForLoaderToBeRemoved(pageElements.createBtn);
             return true;
         } else {
             return false;

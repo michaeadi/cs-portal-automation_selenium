@@ -22,7 +22,7 @@ public class ViewHistory extends BasePage {
     public void clickOnInteractionsTab() {
         log.info("Clicking on Interactions Tab under view history ");
         waitTillLoaderGetsRemoved();
-        click(pageElements.interactionsTab);
+        clickAndWaitForLoaderToBeRemoved(pageElements.interactionsTab);
     }
 
     /*
@@ -37,22 +37,21 @@ public class ViewHistory extends BasePage {
     public FrontendTicketHistory goToTicketHistoryTab() {
         log.info("Clicking on Ticket History Tab under view history ");
         waitTillLoaderGetsRemoved();
-        click(pageElements.ticketHistory);
+        clickAndWaitForLoaderToBeRemoved(pageElements.ticketHistory);
         return new FrontendTicketHistory(driver);
     }
 
     public MessageHistory clickOnMessageHistory() {
         commonLib.info("Clicking on Message History Tab under view history ");
         waitTillLoaderGetsRemoved();
-        click(pageElements.messageHistory);
+        clickAndWaitForLoaderToBeRemoved(pageElements.messageHistory);
         return new MessageHistory(driver);
     }
 
     public void clickOnActionTrailHistory() {
-        commonLib.info("Clicking on Action Trail History Tab under view history ");
         if (isVisible(pageElements.actionTrailTab)) {
-            click(pageElements.actionTrailTab);
-            waitTillLoaderGetsRemoved();
+            commonLib.info("Clicking on Action Trail History Tab under view history");
+            clickAndWaitForLoaderToBeRemoved(pageElements.actionTrailTab);
         } else {
             commonLib.fail("Exception in method - clickOnActionTrailHistory ", true);
         }
@@ -82,7 +81,7 @@ public class ViewHistory extends BasePage {
     public void clickTicketIcon(int index) {
         By element = By.xpath("//table[@id=\"fetchInteractionByCustomer\"]//tbody//tr[" + index + "]//td[9]//span//span");
         commonLib.info("Clicking on ticket icon");
-        click(element);
+        clickAndWaitForLoaderToBeRemoved(element);
     }
 
     public boolean clickOnTicketIcon() {
@@ -110,7 +109,7 @@ public class ViewHistory extends BasePage {
 
     public void clickCloseTicketTab() {
         log.info("closing ticket tab");
-        click(pageElements.closeTicketTab);
+        clickAndWaitForLoaderToBeRemoved(pageElements.closeTicketTab);
     }
 
     /*
@@ -118,7 +117,7 @@ public class ViewHistory extends BasePage {
      */
     public void goToActionTrailTab() {
         if (isVisible(pageElements.actionTrailTab)) {
-            click(pageElements.actionTrailTab);
+            clickAndWaitForLoaderToBeRemoved(pageElements.actionTrailTab);
         }
     }
 
@@ -140,6 +139,6 @@ public class ViewHistory extends BasePage {
     This Method will close the Interaction History Detail page
      */
     public void closeInteractionHistoryDetailPage() {
-        click(pageElements.closeBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.closeBtn);
     }
 }

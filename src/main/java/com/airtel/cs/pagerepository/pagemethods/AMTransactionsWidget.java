@@ -109,7 +109,7 @@ public class AMTransactionsWidget extends BasePage {
     public WidgetInteraction clickTicketIcon() {
         try {
             commonLib.info("Clicking on Ticket Icon");
-            click(pageElements.ticketIcon);
+            clickAndWaitForLoaderToBeRemoved(pageElements.ticketIcon);
             return new WidgetInteraction(driver);
         } catch (NoSuchElementException | TimeoutException e) {
             Assert.fail("Ticket Icon does not display on AM History Widget");
@@ -129,12 +129,12 @@ public class AMTransactionsWidget extends BasePage {
 
     public void clickMenuOption() {
         commonLib.info("Clicking Menu Option");
-        click(pageElements.clickMenu);
+        clickAndWaitForLoaderToBeRemoved(pageElements.clickMenu);
     }
 
     public MoreAMTxnTab openAMHistoryTab() {
         commonLib.info("Opening AM History Sub Tab");
-        click(pageElements.amHistoryTab);
+        clickAndWaitForLoaderToBeRemoved(pageElements.amHistoryTab);
         return new MoreAMTxnTab(driver);
     }
 
@@ -150,7 +150,7 @@ public class AMTransactionsWidget extends BasePage {
 
     public void clickSearchBtn() {
         commonLib.info("Clicking on Search Button");
-        click(pageElements.transactionSearchBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.transactionSearchBtn);
     }
 
     public String doubleClickOnTransactionId(int row) {

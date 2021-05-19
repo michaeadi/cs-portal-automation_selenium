@@ -3,6 +3,7 @@ package com.airtel.cs.ui.frontendagent;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.driver.Driver;
+import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -15,11 +16,10 @@ public class WidgetTaggedIssueTest extends Driver {
 
     @BeforeMethod
     public void checkExecution() {
-        SoftAssert softAssert = new SoftAssert();
         if (!continueExecutionFA) {
-            softAssert.fail("Terminate Execution as user not able to login into portal or Role does not assign to user. Please do needful.");
+            commonLib.skip("Skipping tests because user NOT able to login via API");
+            throw new SkipException("Skipping tests because user NOT able to login via API");
         }
-        softAssert.assertAll();
     }
 
     @DataProviders.User(userType = "NFTR")

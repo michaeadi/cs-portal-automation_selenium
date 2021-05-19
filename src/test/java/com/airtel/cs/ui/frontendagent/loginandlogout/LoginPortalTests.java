@@ -15,14 +15,10 @@ public class LoginPortalTests extends Driver {
 
     @BeforeMethod
     public void checkExecution() {
-        if (continueExecutionFA) {
-            assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, true, "Proceeding for test case as user able to login over through API", "Skipping tests because user NOT able to login via API"));
-        } else {
+        if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login via API");
-            assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, false, "Skipping tests because user NOT able to login via API"));
             throw new SkipException("Skipping tests because user NOT able to login via API");
         }
-        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     @Test(priority = 1, description = "Test Login Into Portal with valid credentials")

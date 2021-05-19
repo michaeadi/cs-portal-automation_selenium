@@ -80,7 +80,7 @@ public class LoanDetail extends BasePage {
         By value = By.xpath(XPATH1 + row + "]//div[1]//span");
         commonLib.info("Clicking Transaction Id: " + getText(value));
         scrollToViewElement(value);
-        click(value);
+        clickAndWaitForLoaderToBeRemoved(value);
     }
 
     public String getLoanRecoveryHeaderName(int transactionNo, int column) {
@@ -99,9 +99,9 @@ public class LoanDetail extends BasePage {
 
     public void clickCloseTab() {
         commonLib.info("Closing Widget Tab");
-        click(pageElements.closeTab);
+        clickAndWaitForLoaderToBeRemoved(pageElements.closeTab);
         waitTillLoaderGetsRemoved();
-        click(pageElements.homeTab);
+        clickAndWaitForLoaderToBeRemoved(pageElements.homeTab);
     }
 
 

@@ -32,18 +32,18 @@ public class AgentLogin extends BasePage {
 
     public void clickSelectQueue() {
         commonLib.info("Selecting Login Queue");
-        click(pageElements.selectQueue);
+        clickAndWaitForLoaderToBeRemoved(pageElements.selectQueue);
     }
 
     public void clickSkipBtn() {
         commonLib.info("Clicking on SKIP Button");
-        click(pageElements.skipBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.skipBtn);
     }
 
     public void clickSubmitBtn() {
         commonLib.info("Clicking on SUBMIT Button");
         clickOutside();
-        click(pageElements.submitBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.submitBtn);
     }
 
     public void byQueueName(String queueName) throws InterruptedException {
@@ -53,6 +53,6 @@ public class AgentLogin extends BasePage {
 
     public void selectAllQueue() {
         commonLib.info("Selecting ALL Queue");
-        click(pageElements.allQueueOption);
+        clickAndWaitForLoaderToBeRemoved(pageElements.allQueueOption);
     }
 }

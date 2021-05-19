@@ -1,4 +1,4 @@
-package com.airtel.cs.ui.frontendagent.widgets;
+package com.airtel.cs.ui.frontendagent.hometab;
 
 import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.common.actions.BaseActions;
@@ -13,6 +13,8 @@ import com.airtel.cs.pojo.response.AMProfilePOJO;
 import com.airtel.cs.pojo.response.airtelmoney.AirtelMoneyPOJO;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
+import org.testng.SkipException;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.awt.*;
@@ -26,6 +28,14 @@ public class AirtelMoneyTransactionWidgetTest extends Driver {
     private static String customerNumber = null;
     private final BaseActions actions = new BaseActions();
     RequestSource api = new RequestSource();
+
+    @BeforeMethod
+    public void checkExecution() {
+        if (!continueExecutionFA) {
+            commonLib.skip("Skipping tests because user NOT able to login via API");
+            throw new SkipException("Skipping tests because user NOT able to login via API");
+        }
+    }
 
     @Test(priority = 1, description = "Validate Customer Interaction Page")
     public void openCustomerInteractionAPI() {

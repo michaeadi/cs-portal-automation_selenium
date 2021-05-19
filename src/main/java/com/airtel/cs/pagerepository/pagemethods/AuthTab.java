@@ -28,7 +28,7 @@ public class AuthTab extends BasePage {
 
     public void clickCloseBtn() {
         commonLib.info("Clicking on close button");
-        click(pageElements.authCloseBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.authCloseBtn);
     }
 
     public String getAuthInstruction() {
@@ -40,13 +40,15 @@ public class AuthTab extends BasePage {
     public void clickNonAuthBtn() {
         commonLib.info("Clicking on Non-Authenticate button");
         if (driver.findElement(pageElements.notAuthBtn).isEnabled())
-            click(pageElements.notAuthBtn);
+            clickAndWaitForLoaderToBeRemoved(pageElements.notAuthBtn);
     }
 
     public void clickAuthBtn() {
         commonLib.info("Clicking on Authenticate button");
         if (driver.findElement(pageElements.authBtn).isEnabled())
-            click(pageElements.authBtn);
+            clickAndWaitForLoaderToBeRemoved(pageElements.authBtn);
+        else
+            clickAndWaitForLoaderToBeRemoved(pageElements.authCloseBtn);
     }
 
     public boolean isNonAuthBtnEnable() {
@@ -72,10 +74,10 @@ public class AuthTab extends BasePage {
     }
 
     public void clickCheckBox(int i) throws InterruptedException {
-        commonLib.info("Clicking " + i + "Q Checkbox");
-        By checkBox = By.xpath("//app-authentication-block-modal//div[1]//div[2]//div[1]//div[@class=\"main-container__body--left--wrapper ng-star-inserted\"][" + i + "]//mat-checkbox");
+        commonLib.info("Clicking " + i + "Ques Checkbox");
+        By checkBox = By.xpath("//*[@class='main-container__body--left--wrapper ng-star-inserted'][" + i + "]//mat-checkbox");
         scrollToViewElement(checkBox);
-        click(checkBox);
+        clickWithoutLoader(checkBox);
     }
 
     public boolean isSIMBarPopup() {
@@ -86,7 +88,7 @@ public class AuthTab extends BasePage {
 
     public void closeSIMBarPopup() {
         commonLib.info("Closing SIM bar/unbar popup");
-        click(pageElements.simCloseBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.simCloseBtn);
     }
 
     public boolean isIssueDetailTitleVisible() {
@@ -103,7 +105,7 @@ public class AuthTab extends BasePage {
 
     public void clickSelectReasonDropDown() {
         if (isVisible(pageElements.listOfIssue)) {
-            click(pageElements.listOfIssue);
+            clickWithoutLoader(pageElements.listOfIssue);
         } else {
             commonLib.fail("Exception in method - clickSelectReasonDropDown", true);
         }
@@ -122,7 +124,7 @@ public class AuthTab extends BasePage {
 
     public void chooseReason() {
         commonLib.info("Choosing Reason: " + getText(pageElements.code));
-        click(pageElements.code);
+        clickWithoutLoader(pageElements.code);
     }
 
     public String getReason() {
@@ -149,26 +151,28 @@ public class AuthTab extends BasePage {
 
     public void clickCancelBtn() {
         commonLib.info("Clicking Cancel Button");
-        click(pageElements.cancelBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.cancelBtn);
     }
 
     public void clickSubmitBtn() {
         if (isClickable(pageElements.submitBtn)) {
             commonLib.info("Clicking Submit Button");
-            click(pageElements.submitBtn);
+            clickAndWaitForLoaderToBeRemoved(pageElements.submitBtn);
         } else {
             commonLib.fail("Exception in Method - clickSubmitBtn", true);
         }
     }
 
-    public String getSuccessModalText() {
+    public String getToastText() {
         String result = null;
-        if (isVisible(pageElements.successModal)) {
-            result = getText(pageElements.successModal);
+        if (isVisible(pageElements.toastModal)) {
+            result = getText(pageElements.toastModal);
+            if (!result.equalsIgnoreCase("Internet Setting has been sent on customer` s device"))
+                clickWithoutLoader(pageElements.closeBtn);
         } else {
             commonLib.fail("Exception in method - getSuccessModalText", true);
             commonLib.info("Going to Close Modal through close Button");
-            click(pageElements.closeBtn);
+            clickWithoutLoader(pageElements.closeBtn);
         }
         return result;
     }

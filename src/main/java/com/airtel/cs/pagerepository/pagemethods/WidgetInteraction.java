@@ -40,7 +40,7 @@ public class WidgetInteraction extends BasePage {
 
     public CustomerProfile closeInteractionTab() {
         commonLib.info("Close interaction tab");
-        click(pageElements.closeTab);
+        clickAndWaitForLoaderToBeRemoved(pageElements.closeTab);
         return new CustomerProfile(driver);
     }
 
@@ -59,7 +59,7 @@ public class WidgetInteraction extends BasePage {
     public void clickIssueLabel(String text) {
         By issueLabel = By.xpath("//div[@class=\"bottom-drawer__card-body--intraction-list ng-star-inserted\"]//label[contains(text(),'" + text + "')]");
         log.info("Clicking Issue Label");
-        click(issueLabel);
+        clickAndWaitForLoaderToBeRemoved(issueLabel);
     }
 
     public void writeComment(String text) {
@@ -69,7 +69,7 @@ public class WidgetInteraction extends BasePage {
 
     public CustomerProfile clickSubmitBtn() {
         commonLib.info("Clicking submit button");
-        click(pageElements.submitBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.submitBtn);
         commonLib.pass("Issue Created");
         return new CustomerProfile(driver);
     }

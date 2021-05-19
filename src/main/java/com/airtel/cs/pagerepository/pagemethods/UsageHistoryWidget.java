@@ -60,7 +60,7 @@ public class UsageHistoryWidget extends BasePage {
 
     public void openingMoreDetails() {
         commonLib.info("Opening More under Usage History Widget");
-        click(pageElements.menu);
+        clickAndWaitForLoaderToBeRemoved(pageElements.menu);
     }
 
 
@@ -112,7 +112,7 @@ public class UsageHistoryWidget extends BasePage {
     public WidgetInteraction clickTicketIcon() {
         try {
             commonLib.info("Clicking on Ticket Icon");
-            click(pageElements.ticketIcon);
+            clickAndWaitForLoaderToBeRemoved(pageElements.ticketIcon);
             return new WidgetInteraction(driver);
         } catch (NoSuchElementException | TimeoutException e) {
             Assert.fail("Ticket Icon does not display on Usage History Widget");

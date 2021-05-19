@@ -87,7 +87,7 @@ public class FrontendTicketHistory extends BasePage {
     public void clickAddToInteraction(int index) {
         By addToInteractionBtn = By.xpath(XPATH + index + "]//td[8]//span[1]//a[1]//img");
         commonLib.info("Clicking on Add to interaction button");
-        click(addToInteractionBtn);
+        clickAndWaitForLoaderToBeRemoved(addToInteractionBtn);
     }
 
     public boolean checkAddToInteraction(int index) {
@@ -106,7 +106,7 @@ public class FrontendTicketHistory extends BasePage {
     public void clickReopen(int index) {
         By reopenBtn = By.xpath(XPATH + index + "]//td[8]//span[1]//a[2]//img");
         commonLib.info("Clicking on Add to interaction button");
-        click(reopenBtn);
+        clickAndWaitForLoaderToBeRemoved(reopenBtn);
     }
 
     public String getSourceApp(int index) {
@@ -124,7 +124,7 @@ public class FrontendTicketHistory extends BasePage {
 
     public void clickSearchBtn() {
         commonLib.info("Clicking Search button");
-        click(pageElements.searchBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.searchBtn);
     }
 
     public boolean checkNoTicketFound() {
@@ -139,7 +139,7 @@ public class FrontendTicketHistory extends BasePage {
 
     public void clickClearSearchBox() {
         commonLib.info("Click on clear search box button");
-        click(pageElements.clearTicketId);
+        clickAndWaitForLoaderToBeRemoved(pageElements.clearTicketId);
     }
 
     public boolean validateAddToInteractionIcon() {
@@ -164,7 +164,7 @@ public class FrontendTicketHistory extends BasePage {
     }
 
     public void clickToOpenTicketTicketHistory() {
-        click(pageElements.ticketRow);
+        clickAndWaitForLoaderToBeRemoved(pageElements.ticketRow);
         waitTillLoaderGetsRemoved();
     }
 

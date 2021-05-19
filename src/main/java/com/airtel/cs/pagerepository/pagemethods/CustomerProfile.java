@@ -78,7 +78,7 @@ public class CustomerProfile extends BasePage {
     public void clickPinTag(String text) {
         commonLib.info("Clicking " + text + " Pinned Tag");
         By tagName = By.xpath("//div[@class=\"sub-header__divide--control--tab ng-star-inserted\" and contains(text(),\"" + text + "\")]");
-        click(tagName);
+        clickAndWaitForLoaderToBeRemoved(tagName);
     }
 
     /*
@@ -95,7 +95,7 @@ public class CustomerProfile extends BasePage {
 
     public void clickOnInteractionIcon() {
         waitTillLoaderGetsRemoved();
-        click(pageElements.interactionIcon);
+        clickAndWaitForLoaderToBeRemoved(pageElements.interactionIcon);
         commonLib.info("Clicking on Interactions Icon");
     }
 
@@ -104,8 +104,8 @@ public class CustomerProfile extends BasePage {
      */
     public void goToViewHistory() {
         if (isVisible(pageElements.viewHistory)) {
-            click(pageElements.viewHistory);
             commonLib.info("Clicking on View History");
+            clickAndWaitForLoaderToBeRemoved(pageElements.viewHistory);
         } else {
             commonLib.fail("Exception in method - goToViewHistory ", true);
         }
@@ -118,27 +118,27 @@ public class CustomerProfile extends BasePage {
     }
 
     public DADetails clickOnDADetailsTab() {
-        click(pageElements.daDetailsTab);
+        clickAndWaitForLoaderToBeRemoved(pageElements.daDetailsTab);
         commonLib.info("Clicking on DA Details Tab");
         return new DADetails(driver);
     }
 
     public MoreRechargeHistory clickOnRechargeHistoryTab() {
-        click(pageElements.rechargeHistoryTab);
+        clickAndWaitForLoaderToBeRemoved(pageElements.rechargeHistoryTab);
         commonLib.info("Clicking on Recharge History Tab");
         return new MoreRechargeHistory(driver);
     }
 
     public MoreUsageHistory clickOnUsageHistoryTab() {
-        click(pageElements.usageHistoryTab);
+        clickAndWaitForLoaderToBeRemoved(pageElements.usageHistoryTab);
         commonLib.info("Clicking on Usage History Tab");
         return new MoreUsageHistory(driver);
     }
 
     public void clickOnAction() {
-        commonLib.info("Clicking on Home Action button");
         if (isVisible(pageElements.homeActionBtn)) {
-            click(pageElements.homeActionBtn);
+            commonLib.info("Clicking on Action drop down");
+            clickAndWaitForLoaderToBeRemoved(pageElements.homeActionBtn);
         } else {
             commonLib.fail("Exception in method - clickOnAction ", true);
         }
@@ -146,13 +146,13 @@ public class CustomerProfile extends BasePage {
 
     public void openSendSMSTab() {
         commonLib.info("Clicking on Send SMS");
-        click(pageElements.sendSMSAction);
+        clickAndWaitForLoaderToBeRemoved(pageElements.sendSMSAction);
     }
 
     public void clickSendInternetSetting() {
-        commonLib.info("Clicking on Send SMS Setting");
         if (isVisible(pageElements.sendSettings)) {
-            click(pageElements.sendSettings);
+            commonLib.info("Clicking on Send Internet Setting");
+            clickAndWaitForLoaderToBeRemoved(pageElements.sendSettings);
         } else {
             commonLib.fail("Exception in method - clickSendInternetSetting", true);
         }
@@ -161,7 +161,7 @@ public class CustomerProfile extends BasePage {
     public void clickResetME2U() {
         if (isVisible(pageElements.resetME2UPassword)) {
             commonLib.info("Clicking on Reset ME2U Password");
-            click(pageElements.resetME2UPassword);
+            clickAndWaitForLoaderToBeRemoved(pageElements.resetME2UPassword);
         } else {
             commonLib.fail("Exception in method - clickResetME2U ", true);
         }
@@ -169,23 +169,25 @@ public class CustomerProfile extends BasePage {
 
     public void clickCancelBtn() {
         if (isVisible(pageElements.cancelBtn)) {
-            commonLib.info("Clicking on Cancel Button");
-            click(pageElements.cancelBtn);
+            //waitTillLoaderGetsRemoved();
+            commonLib.info("Going to click on Cancel Button");
+            clickWithoutLoader(pageElements.cancelBtn);
+            clickContinueButton();
         } else {
             commonLib.fail("Exception in method - clickCancelBtn", true);
             commonLib.info("Going to Close Modal through close Button");
-            click(pageElements.closeBtn);
+            clickWithoutLoader(pageElements.closeBtn);
         }
     }
 
     public void clickCloseBtn() {
         commonLib.info("Clicking on Close Button");
-        click(pageElements.closeBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.closeBtn);
     }
 
     public AuthTab openAuthTab() {
         commonLib.info("Opening Authentication tab for : " + getText(pageElements.simBarUnBar));
-        click(pageElements.simBarUnBar);
+        clickAndWaitForLoaderToBeRemoved(pageElements.simBarUnBar);
         return new AuthTab(driver);
     }
 
@@ -201,8 +203,11 @@ public class CustomerProfile extends BasePage {
 
     public void clickContinueButton() {
         commonLib.info("Clicking on Continue button");
-        click(pageElements.continueBtn);
-        waitTillLoaderGetsRemoved();
+        if (isVisible(pageElements.continueBtn)) {
+            clickWithoutLoader(pageElements.continueBtn);
+        } else {
+            commonLib.fail("Exception in method - clickContinueButton", true);
+        }
     }
 
     /*
@@ -224,7 +229,7 @@ public class CustomerProfile extends BasePage {
     public void openChangeServiceClassTab() {
         try {
             if (isVisible(pageElements.changeServiceClass_btn)) {
-                click(pageElements.changeServiceClass_btn);
+                clickAndWaitForLoaderToBeRemoved(pageElements.changeServiceClass_btn);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -257,7 +262,7 @@ public class CustomerProfile extends BasePage {
     public void openSuspendSIMTab() {
         try {
             if (isVisible(pageElements.suspendSIM)) {
-                click(pageElements.suspendSIM);
+                clickAndWaitForLoaderToBeRemoved(pageElements.suspendSIM);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -320,7 +325,7 @@ public class CustomerProfile extends BasePage {
      */
     public void goToHomeTab() {
         if (isVisible(pageElements.homePage)) {
-            click(pageElements.homePage);
+            clickAndWaitForLoaderToBeRemoved(pageElements.homePage);
         }
     }
 
@@ -329,7 +334,7 @@ public class CustomerProfile extends BasePage {
         if (isVisible(pageElements.authenticationModal)) {
             tabOpened = true;
             selectAuthCheckBox();
-            click(pageElements.authenticateBtn);
+            clickAndWaitForLoaderToBeRemoved(pageElements.authenticateBtn);
             waitTillLoaderGetsRemoved();
         }
         return tabOpened;
@@ -339,7 +344,7 @@ public class CustomerProfile extends BasePage {
         int count = 0;
         final List<WebElement> elementsListfromBy = getElementsListFromBy(pageElements.authCheckBox);
         for (WebElement authQuestionList : elementsListfromBy) {
-            click(pageElements.authCheckBox);
+            clickAndWaitForLoaderToBeRemoved(pageElements.authCheckBox);
             count++;
             if (count == 3) {
                 break;
@@ -351,7 +356,7 @@ public class CustomerProfile extends BasePage {
    This Method will click over issue details List
     */
     public void clickIssueDetails() {
-        click(pageElements.issueDetailsReason);
+        clickAndWaitForLoaderToBeRemoved(pageElements.issueDetailsReason);
     }
 
     /*
@@ -361,7 +366,7 @@ public class CustomerProfile extends BasePage {
         final List<WebElement> elementsListfromBy = getElementsListFromBy(pageElements.selectReason);
         for (WebElement dropDownList : elementsListfromBy) {
             if (dropDownList.getSize() != null) {
-                click(pageElements.selectReason);
+                clickAndWaitForLoaderToBeRemoved(pageElements.selectReason);
                 break;
             }
         }
@@ -383,7 +388,7 @@ public class CustomerProfile extends BasePage {
         selectReason();
         enterCommentIssuePopUp();
         if (Boolean.TRUE.equals(isSubmitEnabled())) {
-            click(pageElements.submitBtn);
+            clickAndWaitForLoaderToBeRemoved(pageElements.submitBtn);
         }
     }
 

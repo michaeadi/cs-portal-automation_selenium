@@ -245,19 +245,19 @@ public class MoreUsageHistory extends BasePage {
 
     public WidgetInteraction clickSMSTicketIcon() {
         commonLib.info("Clicking on SMS Ticket Icon");
-        click(pageElements.ticketSMSIcon);
+        clickAndWaitForLoaderToBeRemoved(pageElements.ticketSMSIcon);
         return new WidgetInteraction(driver);
     }
 
     public WidgetInteraction clickDataTicketIcon() {
         commonLib.info("Clicking on Data Ticket Icon");
-        click(pageElements.ticketDataIcon);
+        clickAndWaitForLoaderToBeRemoved(pageElements.ticketDataIcon);
         return new WidgetInteraction(driver);
     }
 
     public WidgetInteraction clickCallTicketIcon() {
         commonLib.info("Clicking on Call Ticket Icon");
-        click(pageElements.ticketCallIcon);
+        clickAndWaitForLoaderToBeRemoved(pageElements.ticketCallIcon);
         return new WidgetInteraction(driver);
     }
 }

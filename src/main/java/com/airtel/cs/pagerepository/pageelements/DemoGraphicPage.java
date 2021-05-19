@@ -41,24 +41,24 @@ public class DemoGraphicPage {
     public By pukLock = By.xpath("//span[contains(text(),'PUK')]//parent::div//span[contains(text(),'Tap to unlock')]");
     public By airtelMoneyLock = By.xpath("//div[@id='AM_PROFILE']//div[contains(text(),'Tap to unlock')]");
     public By amProfileWidget = By.xpath("//div[@id='AM_PROFILE']");
-    public By airtelStatus = By.xpath("//div[@class=\"customer-details\"]//div[@class=\"container-fluid cusomer-profile-detail\"]/div//div[6]//span[contains(text(),'Tap to unlock')]");
+    public By airtelStatus = By.xpath("//div[@class='customer-details']//div[@class='container-fluid cusomer-profile-detail']/div//div[6]//span[contains(text(),'Tap to unlock')]");
     /*
      * PUK1 & PUK2
      * */
-    public By PUK1 = By.xpath("//p[@class=\"puk-show\"][1]/span[contains(text(),\"PUK1\")]//following-sibling::span");
-    public By PUK2 = By.xpath("//p[@class=\"puk-show\"][1]/span[contains(text(),\"PUK2\")]//following-sibling::span");
+    public By PUK1 = By.xpath("//span[contains(text(),'PUK1')]//following-sibling::span");
+    public By PUK2 = By.xpath("//span[contains(text(),'PUK2')]//following-sibling::span");
 
     /*
      * Data Manager on & off
      * */
-    public By dataManagerStatus = By.xpath("//div[@class=\"customer-details\"]//div[@class=\"top col-md-7\"]/div/div[1]//div[@class=\"mat-slide-toggle-bar mat-slide-toggle-bar-no-side-margin\"]//input");
+    public By dataManagerStatus = By.xpath("//div[@class='customer-details']//div[@class='top col-md-7']/div/div[1]//div[@class='mat-slide-toggle-bar mat-slide-toggle-bar-no-side-margin']//input");
     public By dataManagerText = By.xpath("//span[contains(text(),'Data')]//following-sibling::span");
     /*
      * SIM Status & Airtel Money Status & Service Status
      * */
     public By gsmStatus = By.xpath("//span[contains(text(),'GSM Status')]//following-sibling::span/span");
     public By SIMStatusReason = By.xpath("//span[contains(text(),'GSM Status')]//following-sibling::span/a");
-    public By airtelMoneyStatus = By.xpath("//span[contains(text(),'Account Status')]//following-sibling::span/span");
+    public By accountStatus = By.xpath("//span[contains(text(),'Account Status')]//following-sibling::span/span");
     public By serviceStatus = By.xpath("//span[contains(text(),'Service Status')]//following-sibling::span/span");
     public By walletBalance = By.xpath("//span[contains(text(),'Wallet Balance')]//following-sibling::span/span/div[1]");
     public By walletBalance2 = By.xpath("//span[contains(text(),'Wallet Balance')]//following-sibling::span/span/div[2]");
@@ -90,5 +90,5 @@ public class DemoGraphicPage {
     public By customerBirthday = By.id("cust_birthday");
     public By anniversary = By.id("airtel_anniversary");
     public By errorMessage = By.xpath("//p[contains(text(),'Entered customer number is Invalid')]");
-    public By clearSearchBox = By.xpath("//div[@class=\"customer-details\"]//div[@class=\"user-left-side\"]/div/div[1]//span[contains(text(),'X')]");
+    public By clearSearchBox = By.xpath("//div[@class='customer-details']//div[@class='user-left-side']/div/div[1]//span[contains(text(),'X')]");
 }

@@ -31,7 +31,7 @@ import java.util.concurrent.TimeUnit;
 @Log4j2
 public class BasePage extends Driver {
     public Wait<WebDriver> wait;
-    public Wait<WebDriver> wait1;
+    public Wait<WebDriver> fluentWait;
     public JavascriptExecutor js;
     BasePageElements basePageElements;
     public static final RequestSource api = new RequestSource();
@@ -44,10 +44,10 @@ public class BasePage extends Driver {
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         js = (JavascriptExecutor) driver;
         ExpectedCondition<Boolean> expectation = driver1 -> ((JavascriptExecutor) driver1).executeScript("return document.readyState").toString().equals("complete");
-        wait1 = new FluentWait<>(driver)
+        fluentWait = new FluentWait<>(driver)
                 .withTimeout(Duration.ofSeconds(Integer.parseInt(constants.getValue(ApplicationConstants.GENERAL_WAIT_IN_SEC))))
                 .pollingEvery(Duration.ofSeconds(Integer.parseInt(constants.getValue(ApplicationConstants.POOLING_WAIT_IN_SEC))));
-        wait1.until(expectation);
+        fluentWait.until(expectation);
         wait = new WebDriverWait(driver, Duration.ofSeconds(Integer.parseInt(constants.getValue(ApplicationConstants.GENERAL_WAIT_IN_SEC))));
         basePageElements = new BasePageElements();
     }
@@ -55,29 +55,53 @@ public class BasePage extends Driver {
 
     public void waitTillLoaderGetsRemoved() {
         commonLib.info("Waiting for loader to be removed");
-        wait1.until(ExpectedConditions.invisibilityOfElementLocated(basePageElements.loader1));
+        fluentWait.until(ExpectedConditions.invisibilityOfElementLocated(basePageElements.loader));
         commonLib.info("Loader Removed");
     }
 
     public void waitTillOverlayGetsRemoved() {
-        wait1.until(ExpectedConditions.invisibilityOfElementLocated(basePageElements.overlay));
+        commonLib.info("Waiting for overlay to be removed");
+        fluentWait.until(ExpectedConditions.invisibilityOfElementLocated(basePageElements.overlay));
+        commonLib.info("Overlay Removed");
     }
 
     public void waitTillTimeLineGetsRemoved() {
-        wait1.until(ExpectedConditions.invisibilityOfElementLocated(basePageElements.timeLine));
+        fluentWait.until(ExpectedConditions.invisibilityOfElementLocated(basePageElements.timeLine));
     }
 
-    //Click Method
-    public void click(By elementLocation) {
+    /**
+     * This Method will click and wait until loader gets removed
+     *
+     * @param elementLocation The Element
+     */
+    public void clickAndWaitForLoaderToBeRemoved(By elementLocation) {
         try {
-            if (isClickable(elementLocation))
+            if (isClickable(elementLocation)) {
                 highLighterMethod(elementLocation);
-            driver.findElement(elementLocation).click();
-            commonLib.info("Element Clicked " + elementLocation.toString());
+                driver.findElement(elementLocation).click();
+                commonLib.info("Element Clicked " + elementLocation.toString());
+                waitTillLoaderGetsRemoved();
+            } else {
+                commonLib.fail("Exception in method - clickAndWaitForLoaderToBeRemoved", true);
+            }
         } catch (ElementClickInterceptedException e) {
             waitTillLoaderGetsRemoved();
             driver.findElement(elementLocation).click();
             commonLib.info("Again Element Clicked " + elementLocation.toString());
+        }
+    }
+
+    /**
+     * This Method will be used to click where loader will not come after click
+     *
+     * @param elementLocation The Element
+     */
+    public void clickWithoutLoader(By elementLocation) {
+        if (isVisible(elementLocation) && isClickable(elementLocation)) {
+            driver.findElement(elementLocation).click();
+            commonLib.info("Element Clicked " + elementLocation.toString());
+        } else {
+            commonLib.fail("Exception in method - clickWithoutLoader", true);
         }
     }
 
@@ -103,6 +127,7 @@ public class BasePage extends Driver {
     //Read Text
     public String getText(By elementLocation) {
         waitVisibility(elementLocation);
+        highLighterMethod(elementLocation);
         return driver.findElement(elementLocation).getText();
     }
 
@@ -114,7 +139,7 @@ public class BasePage extends Driver {
     public void highLighterMethod(By element) {
         if (isVisible(element)) {
             js = (JavascriptExecutor) driver;
-            js.executeScript("arguments[0].setAttribute('style', 'border: 2px solid orange;');", driver.findElement(element));
+            js.executeScript("arguments[0].setAttribute('style', 'border: 1px solid orange;');", driver.findElement(element));
         } else {
             commonLib.fail("Exception Caught in Method - highLighterMethod", true);
         }
@@ -122,13 +147,15 @@ public class BasePage extends Driver {
 
     //Check the state of element
     public boolean isEnabled(By elementLocation) {
+        boolean result = false;
         try {
-            return driver.findElement(elementLocation).isEnabled();
+            if (isVisible(elementLocation))
+                result = driver.findElement(elementLocation).isEnabled();
         } catch (NoSuchElementException | TimeoutException e) {
             e.printStackTrace();
-            return false;
+            result = false;
         }
-
+        return result;
     }
 
     //Wait For Element
@@ -143,17 +170,22 @@ public class BasePage extends Driver {
         driver.switchTo().window(tabs2.get(windownumber - 1));
     }
 
-    //Hover and click on Element Using ACTIONS class
-    public void hoverAndClick(By elementLocation) {
+    /**
+     * This Method will be used to hover over element
+     *
+     * @param elementLocation The Element
+     */
+    public void hoverOverElement(By elementLocation) {
         Actions actions = new Actions(driver);
         waitVisibility(elementLocation);
         WebElement target = driver.findElement(elementLocation);
-        actions.moveToElement(target).build().perform();
+        if (isVisible(elementLocation))
+            actions.moveToElement(target).build().perform();
     }
 
     public CustomerProfile openingCustomerInteractionDashboard() {
         commonLib.info("Opening Customer Interactions Dashboard");
-        click(basePageElements.home);
+        clickAndWaitForLoaderToBeRemoved(basePageElements.home);
         waitTillLoaderGetsRemoved();
         return new CustomerProfile(driver);
     }
@@ -518,7 +550,7 @@ public class BasePage extends Driver {
      * @return return true false
      */
     public boolean isClickable(By webelementBy) {
-        return isClickable(webelementBy, 2);
+        return isClickable(webelementBy, Integer.parseInt(constants.getValue(ApplicationConstants.GENERAL_WAIT_IN_SEC)));
     }
 
     /**

@@ -1,4 +1,4 @@
-package com.airtel.cs.ui.frontendagent.widgets;
+package com.airtel.cs.ui.frontendagent.hometab;
 
 import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.common.requisite.PreRequisites;

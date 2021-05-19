@@ -73,7 +73,7 @@ public class DADetails extends BasePage {
     public WidgetInteraction clickTicketIcon() {
         try {
             commonLib.info("Clicking on Ticket Icon");
-            click(pageElements.ticketIcon);
+            clickAndWaitForLoaderToBeRemoved(pageElements.ticketIcon);
             return new WidgetInteraction(driver);
         } catch (NoSuchElementException | TimeoutException e) {
             Assert.fail("Ticket Icon does not display on DA History Widget");

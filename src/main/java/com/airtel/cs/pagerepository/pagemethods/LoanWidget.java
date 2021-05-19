@@ -123,7 +123,7 @@ public class LoanWidget extends BasePage {
     public LoanDetail clickVendorName(int i) {
         By name = By.xpath(XPATH + i + "]//div[@class=\"show-error-message ng-star-inserted\"][1]//span[1]");
         commonLib.info("Clicking Vendor Name");
-        click(name);
+        clickAndWaitForLoaderToBeRemoved(name);
         return new LoanDetail(driver);
     }
 

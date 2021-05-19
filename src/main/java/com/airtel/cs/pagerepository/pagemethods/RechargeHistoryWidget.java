@@ -72,12 +72,12 @@ public class RechargeHistoryWidget extends BasePage {
 
     public void openingRechargeHistoryDetails() {
         commonLib.info("Opening RechargeHistory under Recharge History Widget");
-        click(pageElements.menu);
+        clickAndWaitForLoaderToBeRemoved(pageElements.menu);
     }
 
     public void clickingRechargeHistoryWidgetMenu() {
         commonLib.info("Clicking Current Balance Widget'Menu Visible");
-        click(pageElements.menu);
+        clickAndWaitForLoaderToBeRemoved(pageElements.menu);
     }
 
     public String getRechargeHistoryCharges(int rowNumber) {
@@ -128,7 +128,7 @@ public class RechargeHistoryWidget extends BasePage {
     public WidgetInteraction clickTicketIcon() {
         try {
             commonLib.info("Clicking on Ticket Icon");
-            click(pageElements.ticketIcon);
+            clickAndWaitForLoaderToBeRemoved(pageElements.ticketIcon);
             return new WidgetInteraction(driver);
         } catch (NoSuchElementException | TimeoutException e) {
             Assert.fail("Ticket Icon does not display on Recharge History Widget");
@@ -150,7 +150,7 @@ public class RechargeHistoryWidget extends BasePage {
 
     public void clickSearchBtn() {
         commonLib.info("Clicking Search Button");
-        click(pageElements.voucherBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.voucherBtn);
     }
 
     public Boolean isRefillIconDisable() {
@@ -167,7 +167,7 @@ public class RechargeHistoryWidget extends BasePage {
 
     public void clickRefillIcon() {
         commonLib.info("Clicking Clear refill icon");
-        click(pageElements.refillIconClickable);
+        clickAndWaitForLoaderToBeRemoved(pageElements.refillIconClickable);
     }
 
     public boolean checkPopDisplay() {
@@ -177,6 +177,6 @@ public class RechargeHistoryWidget extends BasePage {
 
     public void clickNoBtn() {
         commonLib.info("Clicking No Button ");
-        click(pageElements.noActionBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.noActionBtn);
     }
 }

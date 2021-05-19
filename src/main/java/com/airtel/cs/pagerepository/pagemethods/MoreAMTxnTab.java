@@ -69,7 +69,7 @@ public class MoreAMTxnTab extends BasePage {
 
     public void clickSearchBtn() {
         commonLib.info("Clicking Search button");
-        click(pageElements.searchBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.searchBtn);
     }
 
 
@@ -163,7 +163,7 @@ public class MoreAMTxnTab extends BasePage {
 
     public void clickSearchBtnOnSecondWidget() {
         commonLib.info("Clicking Search button");
-        click(pageElements.searchBtnSec);
+        clickAndWaitForLoaderToBeRemoved(pageElements.searchBtnSec);
     }
 
 

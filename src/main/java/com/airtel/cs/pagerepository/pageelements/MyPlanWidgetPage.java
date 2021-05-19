@@ -19,4 +19,5 @@ public class MyPlanWidgetPage {
     public By lastRechargeDateTImeUnableTOFetch = By.xpath("//div[@class='api-failed-error ng-star-inserted']");
     public By ticketIcon = By.xpath("//div[@id='CURRENT_PLAN']//span/img[@class='interaction-ticket']");
     public By getTitle = By.xpath("//div[@id='CURRENT_PLAN']//span[@class='card__card-header--label--text']");
+    public By currentPlanWidgetLoader = By.xpath("//*[@data-csautomation-key='CURRENT_PLAN']//div[@class='animated-background']");
 }

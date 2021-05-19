@@ -28,14 +28,10 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
 
     @BeforeMethod
     public void checkExecution() {
-        if (continueExecutionFA) {
-            assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, true, "Proceeding for test case as user able to login over portal", "Skipping tests because user not able to login into portal or Role does not assign to user"));
-        } else {
-            commonLib.skip("Skipping tests because user not able to login into portal or Role does not assign to user");
-            assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, false, "Skipping tests because user not able to login into portal or Role does not assign to user"));
-            throw new SkipException("Skipping tests because user not able to login into portal or Role does not assign to user");
+        if (!continueExecutionFA) {
+            commonLib.skip("Skipping tests because user NOT able to login via API");
+            throw new SkipException("Skipping tests because user NOT able to login via API");
         }
-        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     @Test(priority = 1, description = "Validate Customer Interaction Page")
@@ -44,7 +40,6 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
             customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
             pages.getSideMenuPage().clickOnSideMenu();
-            pages.getSideMenuPage().clickOnUserName();
             pages.getSideMenuPage().openCustomerInteractionPage();
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();
@@ -63,10 +58,10 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
             selUtils.addTestcaseDescription("Verify PUK is locked or unlocked, If Locked then verify data, else unlock PUK details, Validate PUK1 and PUK2", "description");
             KYCProfile kycProfile = api.kycProfileAPITest(customerNumber);
             if (!(kycProfile == null)) {
-                if (pages.getDemoGraphicPage().isPUKInfoLock()) {
+                if (pages.getDemoGraphicPage().isPUKInfoLocked()) {
                     pages.getDemoGraphicPage().clickPUKToUnlock();
                     assertCheck.append(actions.assertEqual_boolean(pages.getAuthTabPage().isAuthTabLoad(), true, "Authentication tab loaded correctly", "Authentication tab does not load correctly"));
-                    pages.getDemoGraphicPage().checkPolicyQuestion();
+                    pages.getDemoGraphicPage().selectPolicyQuestion();
                     assertCheck.append(actions.assertEqual_boolean(pages.getAuthTabPage().isAuthBtnEnable(), true, "Authenticate Button enabled after minimum number of question chosen", "Authenticate Button does not enable after choose minimum number of question"));
                     pages.getAuthTabPage().clickAuthBtn();
                 }
@@ -90,14 +85,14 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                 ProfilePOJO profileAPI = api.profileAPITest(customerNumber);
                 AMProfilePOJO amProfileAPI = api.amServiceProfileAPITest(customerNumber);
                 if (!(profileAPI == null && amProfileAPI == null)) {
-                    if (pages.getDemoGraphicPage().isAirtelMoneyStatusLock()) {
+                    if (pages.getDemoGraphicPage().isAirtelMoneyProfileLocked()) {
                         pages.getDemoGraphicPage().clickAirtelStatusToUnlock();
                         assertCheck.append(actions.assertEqual_boolean(pages.getAuthTabPage().isAuthTabLoad(), true, "Authentication tab loaded correctly", "Authentication tab does not load correctly"));
-                        pages.getDemoGraphicPage().checkPolicyQuestion();
+                        pages.getDemoGraphicPage().selectPolicyQuestion();
                         assertCheck.append(actions.assertEqual_boolean(pages.getAuthTabPage().isAuthBtnEnable(), true, "Authenticate Button enabled after minimum number of question chosen", "Authenticate Button does not enable after choose minimum number of question"));
                         pages.getAuthTabPage().clickAuthBtn();
                     }
-                    assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getAirtelMoneyStatus().toLowerCase().trim(), profileAPI.getResult().getAirtelMoneyStatus().toLowerCase().trim(), "Customer's Airtel Money Status is as Expected", "Customer's Airtel Money Status is not as Expected"));
+                    assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getAccountStatus().toLowerCase().trim(), profileAPI.getResult().getAirtelMoneyStatus().toLowerCase().trim(), "Customer's Airtel Money Status is as Expected", "Customer's Airtel Money Status is not as Expected"));
                     assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getServiceStatus().toLowerCase().trim(), profileAPI.getResult().getServiceStatus().toLowerCase().trim(), "Customer's Airtel Money Service Status is as Expected", "Customer's Airtel Money Service Status is not as Expected"));
                     assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getWalletBalance().toUpperCase().trim(), amProfileAPI.getResult().getWallet().get(0).getCurrency().toUpperCase() + " " + amProfileAPI.getResult().getWallet().get(0).getBalance(), "Customer's Airtel Wallet Balance & Currency code as Expected", "Customer's Airtel Wallet Balance & Currency code not same not as Expected"));
                     if (StringUtils.equalsIgnoreCase(constants.getValue(ApplicationConstants.MULTI_WALLET_BALANCE), "true")) {
@@ -129,7 +124,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
             selUtils.addTestcaseDescription("Validate Customer Name,Validate Customer DOB,Validate if Customer has Birthday or Anniversary with Airtel", "description");
             GsmKycPOJO gsmKycAPI = api.gsmKYCAPITest(customerNumber);
             if (!(gsmKycAPI == null)) {
-                assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getCustomerName().trim(), gsmKycAPI.getResult().getName().trim(), "Customer Name is as Expected", "Customer Name is not as Expected"));
+                assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getCustomerName(), gsmKycAPI.getResult().getName(), "Customer Name is as Expected", "Customer Name is not as Expected"));
                 pages.getDemoGraphicPage().hoverOnCustomerInfoIcon();
                 final String customerDOB = pages.getDemoGraphicPage().getCustomerDOB();
                 assertCheck.append(actions.assertEqual_stringType(customerDOB.trim(), UtilsMethods.getDateFromEpoch(gsmKycAPI.getResult().getDob(), "dd-MMM-yyyy"), "Customer DOB is as Expected", "Customer DOB is not as Expected"));
@@ -138,8 +133,8 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                     final boolean birthday = pages.getDemoGraphicPage().isBirthday();
                     assertCheck.append(actions.assertEqual_boolean(birthday, true, "Today is customer birthday and birthday icon displayed", "Today is customer birthday but birthday Icon NOT displayed"));
                 }
-                assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getIdType().trim(), gsmKycAPI.getResult().getIdentificationType() == null || gsmKycAPI.getResult().getIdentificationType().equals("") ? "-" : gsmKycAPI.getResult().getIdentificationType().toLowerCase().trim(), "Customer's ID Type is as Expected", "Customer's ID Type is not as Expected"));
-                assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getIdNumber().replace("*", ""), gsmKycAPI.getResult().getIdentificationNo() == null || gsmKycAPI.getResult().getIdentificationNo().equals("") ? "-" : gsmKycAPI.getResult().getIdentificationNo().toLowerCase().trim(), "Customer's ID Number is as Expected", "Customer's ID Number is not as Expected"));
+                assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getIdType().trim(), gsmKycAPI.getResult().getIdentificationType() == null || gsmKycAPI.getResult().getIdentificationType().equals("") ? "-" : gsmKycAPI.getResult().getIdentificationType().trim(), "Customer's ID Type is as Expected", "Customer's ID Type is not as Expected"));
+                assertCheck.append(actions.assertEqual_boolean(gsmKycAPI.getResult().getIdentificationNo().contains(pages.getDemoGraphicPage().getIdNumber().replace("*", "")), true, "Customer's ID Number is as Expected", "Customer's ID Number is not as Expected"));
                 actions.assertAllFoundFailedAssert(assertCheck);
             } else {
                 commonLib.fail("gsmKycAPI is NULL", false);

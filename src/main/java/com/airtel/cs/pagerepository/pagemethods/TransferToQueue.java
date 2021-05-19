@@ -25,12 +25,12 @@ public class TransferToQueue extends BasePage {
     public void clickTransferQueue(String queueName) {
         log.info("Clicking on Transfer to Button");
         pageElements.transferQueue = By.xpath("//span[contains(text(),'" + queueName + "')]//ancestor::div[1]//following-sibling::div/img");
-        click(pageElements.transferQueue);
+        clickAndWaitForLoaderToBeRemoved(pageElements.transferQueue);
         commonLib.info("Transferring Ticket to Ticket Pool Name: " + queueName);
     }
 
     public void clickCloseTab() {
         commonLib.info("Closing Transfer to Queue Tab");
-        click(pageElements.closeTab);
+        clickAndWaitForLoaderToBeRemoved(pageElements.closeTab);
     }
 }

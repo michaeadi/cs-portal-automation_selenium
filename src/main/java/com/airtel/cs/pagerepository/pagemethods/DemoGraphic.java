@@ -123,7 +123,7 @@ public class DemoGraphic extends BasePage {
         return text;
     }
 
-    public boolean isPUKInfoLock() {
+    public boolean isPUKInfoLocked() {
         try {
             final boolean enabled = isEnabled(pageElements.pukLock);
             commonLib.info("Is PUK Info locked: " + enabled);
@@ -134,7 +134,7 @@ public class DemoGraphic extends BasePage {
         }
     }
 
-    public void checkPolicyQuestion() throws InterruptedException {
+    public void selectPolicyQuestion() throws InterruptedException {
         DataProviders dataProviders = new DataProviders();
         List<AuthTabDataBeans> list = dataProviders.getPolicy();
         for (int i = 1; i <= Integer.parseInt(list.get(0).getMinAnswer()); i++) {
@@ -175,7 +175,7 @@ public class DemoGraphic extends BasePage {
         }
     }
 
-    public boolean isAirtelMoneyStatusLock() {
+    public boolean isAirtelMoneyProfileLocked() {
         try {
             final boolean enabled = isEnabled(pageElements.airtelMoneyLock);
             commonLib.info("Is Airtel Money Status Info locked: " + enabled);
@@ -188,12 +188,12 @@ public class DemoGraphic extends BasePage {
 
     public void clickPUKToUnlock() {
         commonLib.info("Clicking Tap to unlock on PUK Info");
-        click(pageElements.pukLock);
+        clickAndWaitForLoaderToBeRemoved(pageElements.pukLock);
     }
 
     public void clickAirtelStatusToUnlock() {
         commonLib.info("Clicking Tap to unlock on Airtel Status Info");
-        click(pageElements.airtelMoneyLock);
+        clickAndWaitForLoaderToBeRemoved(pageElements.airtelMoneyLock);
     }
 
     public boolean checkAMProfileWidget() {
@@ -214,9 +214,9 @@ public class DemoGraphic extends BasePage {
         return text;
     }
 
-    public String getAirtelMoneyStatus() {
-        final String text = getText(pageElements.airtelMoneyStatus);
-        commonLib.info("Getting Airtel Money Status: " + text);
+    public String getAccountStatus() {
+        final String text = getText(pageElements.accountStatus);
+        commonLib.info("Getting AM Profile Account Status: " + text);
         return text;
     }
 
@@ -312,22 +312,22 @@ public class DemoGraphic extends BasePage {
 
     public void hoverOnDeviceInfoIcon() {
         commonLib.info("Hover on Device Info icon");
-        hoverAndClick(pageElements.deviceInfoIcon);
+        hoverOverElement(pageElements.deviceInfoIcon);
     }
 
     public void hoverOnSIMStatusInfoIcon() {
         commonLib.info("Hover on SIM Status Reason Info icon");
-        hoverAndClick(pageElements.SIMStatusReason);
+        hoverOverElement(pageElements.SIMStatusReason);
     }
 
     public void hoverOnCustomerInfoIcon() {
         commonLib.info("Hover on Customer Info icon");
-        hoverAndClick(pageElements.customerInfoIcon);
+        hoverOverElement(pageElements.customerInfoIcon);
     }
 
     public void hoverOnSegmentInfoIcon() {
         commonLib.info("Hover on Segment Info icon");
-        hoverAndClick(pageElements.hoverInfoSegment);
+        hoverOverElement(pageElements.hoverInfoSegment);
     }
 
     public String invalidMSISDNError() {
@@ -351,6 +351,7 @@ public class DemoGraphic extends BasePage {
 
     public void hoverOnSIMNumberIcon() {
         commonLib.info("Hover on SIM Number Info icon");
-        hoverAndClick(pageElements.simNumberInfoIcon);
+        hoverOverElement(pageElements.simNumberInfoIcon);
     }
+
 }

@@ -54,7 +54,7 @@ public class CurrentBalanceWidget extends BasePage {
 
     public void openingDADetails() {
         commonLib.info("Clicking Current Balance WidgetMenu Visible");
-        click(pageElements.menu);
+        clickAndWaitForLoaderToBeRemoved(pageElements.menu);
     }
 
     public String gettingLastRechargeAmount() {
@@ -134,7 +134,7 @@ public class CurrentBalanceWidget extends BasePage {
     public WidgetInteraction clickTicketIcon() {
         try {
             commonLib.info("Clicking on Ticket Icon");
-            click(pageElements.ticketIcon);
+            clickAndWaitForLoaderToBeRemoved(pageElements.ticketIcon);
             return new WidgetInteraction(driver);
         } catch (NoSuchElementException | TimeoutException e) {
             Assert.fail("Ticket Icon does not display on Current Plan History Widget");
