@@ -17,4 +17,11 @@ public class DADetailsPage {
     public String accumulatorHeader="//div[@id='ACCUMULATORS']//div[@class=\"card__card-header--card-body--table--list-heading ng-star-inserted\"]//div[";
     public String accumulatorColumnHeader="//div[@id='ACCUMULATORS']//div[@class=\"table-data-wrapper ng-star-inserted\"]/div[@class=\"ng-star-inserted\"  or @class=\"slide-toggle red ng-star-inserted\"][";
     public String accumulatorColumnValue="]//div[@class=\"ng-star-inserted\" or @class=\"slide-toggle red ng-star-inserted\"][";
+    public String offerHeader="//div[@id='DISPLAY_OFFERS']//div[@class='card__card-header--card-body--table--list-heading ng-star-inserted']//div[";
+    public String offerColumnHeader="//div[@id='DISPLAY_OFFERS']//div[@class='table-data-wrapper ng-star-inserted']/div[@class='ng-star-inserted'  or @class='slide-toggle red ng-star-inserted'][";
+    public String offerColumnValue="]//div[@class='data-container ng-star-inserted' or @class='slide-toggle red ng-star-inserted'][";
+    public String moreIcon="]//mat-icon";
+    public By displayOfferTitle=By.id("DISPLAY_OFFERS");
+    public String moreHeaderRow="]//div[@class=\"expansion-block display-block ng-star-inserted\"]//div[@class=\"header-data-container ng-star-inserted\"][";
+    public String moreColumnHeader="]//div[@class=\"expansion-block display-block ng-star-inserted\"]//div[@class='table-data-wrapper ng-star-inserted']/div[@class='ng-star-inserted'  or @class='slide-toggle red ng-star-inserted'][";
 }

@@ -103,4 +103,39 @@ public class DADetails extends BasePage {
         commonLib.info("Reading '" + getAccumulatorHeaders(column) + "' = " + value);
         return value.trim();
     }
+
+    public Boolean isOfferWidgetDisplay(){
+        commonLib.info("Checking that Display Offer widget Display");
+        return  isElementVisible(pageElements.displayOfferTitle);
+    }
+
+    public String getDisplayOfferHeader(int row) {
+        String header = getText(By.xpath(pageElements.offerHeader + row + pageElements.headerValue));
+        commonLib.info("Getting Display Offer header Number " + row + " : " + header);
+        return header;
+    }
+
+    public String getValueCorrespondingToOffer(int row, int column) {
+        String value = getText(By.xpath(pageElements.offerColumnHeader + row + pageElements.offerColumnValue + column + pageElements.headerValue));
+        commonLib.info("Reading '" + getDisplayOfferHeader(column) + "' = " + value);
+        return value.trim();
+    }
+
+    public void clickMoreIconButton(int row) {
+        commonLib.info("Clicking on More Icon Button");
+        By dropDownIcon = By.xpath(pageElements.offerColumnHeader + row + pageElements.moreIcon);
+        click(dropDownIcon);
+    }
+
+    public String getDisplayMoreWidgetHeader(int row, int moreRow) {
+        String header = getText(By.xpath(pageElements.offerColumnHeader + row + pageElements.moreHeaderRow + moreRow + pageElements.headerValue));
+        commonLib.info("Getting Display Offer header Number " + moreRow + " : " + header);
+        return header;
+    }
+
+    public String getDisplayMoreWidgetValue(int row, int moreRow, int moreColumn) {
+        String value = getText(By.xpath(pageElements.offerColumnHeader + row + pageElements.moreColumnHeader + moreRow + pageElements.offerColumnValue + moreColumn + pageElements.headerValue));
+        commonLib.info("Reading '" + getDisplayMoreWidgetHeader(row, moreRow) + "' = " + value);
+        return value.trim();
+    }
 }

@@ -496,4 +496,21 @@ public class RequestSource extends RestCommonUtils {
         }
         return result;
     }
+
+    /**
+     * This Method will hit the API "/cs-gsm-service/v1/offer/details" and return the response
+     *
+     * @param key The key
+     * @return The Response
+     */
+    public OfferDetailPOJO accountPlansTest(String msisdn) {
+        OfferDetailPOJO result = null;
+        try {
+            commonPostMethod(URIConstants.ACCUMULATORS, new AccumulatorsRequest(msisdn, 5, 1));
+            result = response.as(OfferDetailPOJO.class);
+        } catch (Exception e) {
+            commonLib.fail("Exception in method - accumulatorsAPITest " + e.getMessage(), false);
+        }
+        return result;
+    }
 }
