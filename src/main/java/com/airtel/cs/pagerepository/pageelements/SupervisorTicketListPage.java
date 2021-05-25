@@ -68,4 +68,6 @@ public class SupervisorTicketListPage {
     public By sourceTitleText = By.xpath("//*[@title='Customer Service']");
     public By openTicketDetailPage = By.xpath("//*[contains(@class,'data-area-full')]");
     public By backButtonDetailPage = By.xpath("//span[text()=' BACK ']");
+    public By selectAll=By.xpath("//div[@class='filter-section']//input[@class='supercheck' or @class='supercheck ng-star-inserted']");
+    public By closeTabBtn=By.className("close-btn");
 }

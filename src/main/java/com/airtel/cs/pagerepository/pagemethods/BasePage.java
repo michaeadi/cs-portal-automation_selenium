@@ -230,6 +230,13 @@ public class BasePage extends Driver {
         return driver.findElements(rowLocation).get(row).findElements(columnLocation).get(column).getText();
     }
 
+    public Integer getSizeOfElement(By elementLocation){
+        waitVisibility(elementLocation);
+        int size=driver.findElements(elementLocation).size();
+        commonLib.info("Row Size: " + size);
+        return size;
+    }
+
     /**
      * With This Method you can provide the hard wait time in seconds
      *

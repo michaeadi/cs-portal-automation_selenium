@@ -138,4 +138,65 @@ public class DADetails extends BasePage {
         commonLib.info("Reading '" + getDisplayMoreWidgetHeader(row, moreRow) + "' = " + value);
         return value.trim();
     }
+
+    public Boolean isFriendsFamilyDisplay(){
+        commonLib.info("Checking that Friend & Family widget Display");
+        return  isElementVisible(By.xpath(pageElements.fnfTitle));
+    }
+
+    public String getFriendsFamilyHeaders(int row) {
+        String header = getText(By.xpath(pageElements.fnfHeader + row + pageElements.headerValue));
+        commonLib.info("Getting Accumulator header Number " + row + " : " + header);
+        return header;
+    }
+
+    public String getValueCorrespondingToFriendsFamily(int row, int column) {
+        String value = getText(By.xpath(pageElements.fnfColumnHeader + row + pageElements.fnfColumnValue + column + pageElements.headerValue));
+        commonLib.info("Reading '" + getAccumulatorHeaders(column) + "' = " + value);
+        return value.trim();
+    }
+
+    public Boolean isFnFWidgetErrorDisplay(){
+        commonLib.info("Checking friend & family widget error display");
+        return isElementVisible(By.xpath(pageElements.fnfTitle+pageElements.unableToFetch));
+    }
+
+    public Boolean isFnFNoResultIconDisplay(){
+        commonLib.info("Checking friend & family no result icon display amd message: '"+getText(By.xpath(pageElements.fnfTitle+pageElements.noResultFoundMessage)));
+        return isElementVisible(By.xpath(pageElements.fnfTitle+pageElements.noResultFoundIcon));
+    }
+
+    public void hoverOnTotalDAIds(int row,int column){
+        commonLib.info("Hovering on Number of DA Ids for row number "+row);
+        hoverAndClick(By.xpath(pageElements.offerColumnHeader+row+pageElements.offerColumnValue+column+pageElements.headerValue));
+    }
+
+    public Boolean isAssociateDAWidgetDisplay(){
+        commonLib.info("Checking Associate DA Widget Display");
+        return  isElementVisible(By.xpath(pageElements.associatedWidgetTitle));
+    }
+
+    public String getAssociateHeaderValue(int row){
+        String header = readTextOnRows(By.xpath(pageElements.associatedWidgetTitle+pageElements.associateWidgetHeader), row);
+        commonLib.info("Getting header Number " + row + " : " + header);
+        return header;
+    }
+
+    public String getValueCorrespondingToAssociateWidget(int row,int column){
+        String value = readOnRowColumn(pageElements.associateWidgetRowValue,pageElements.associateWidgetColumnValue, row,column);
+        commonLib.info("Reading '" + getDisplayOfferHeader(column) + "' = " + value);
+        return value;
+    }
+
+    public int getNumberOfAssociateHeader(){
+        return getSizeOfElement(By.xpath(pageElements.associatedWidgetTitle+pageElements.associateWidgetHeader));
+    }
+
+    public Boolean isPaginationAvailable(){
+        commonLib.info("Checking Pagination available or not in offer widget");
+        return isElementVisible(pageElements.offerPagination);
+    }
+
+
+
 }

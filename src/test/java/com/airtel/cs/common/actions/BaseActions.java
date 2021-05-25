@@ -299,4 +299,30 @@ public class BaseActions {
             commonLib.fail("Status Code Not Matched" + "/br" + e.getMessage(), true);
         }
     }
+
+    public Boolean matchUiAndAPIResponse(String uiValue,String apiValue,String passMessage,String failMessage){
+        try{
+            if(apiValue!=null){
+                return assertEqual_stringType(uiValue.toLowerCase().trim(), apiValue.toLowerCase().trim(), passMessage, failMessage);
+            }else{
+                return assertEqual_stringType(uiValue,"-",passMessage,failMessage);
+            }
+        }catch (Exception e){
+            commonLib.fail("Exception : Not able to match ui and api response"+e.fillInStackTrace(),true);
+        }
+        return false;
+    }
+
+    public Boolean matchUiAndAPIResponse(String uiValue,Integer apiValue,String passMessage,String failMessage){
+        try{
+            if(apiValue!=null && !uiValue.equalsIgnoreCase("-")){
+                return assertEqual_intType(Integer.parseInt(uiValue), apiValue, passMessage, failMessage);
+            }else{
+                return assertEqual_stringType(uiValue,"-",passMessage,failMessage);
+            }
+        }catch (Exception e){
+            commonLib.fail("Exception : Not able to match ui and api response"+e.fillInStackTrace(),true);
+        }
+        return false;
+    }
 }

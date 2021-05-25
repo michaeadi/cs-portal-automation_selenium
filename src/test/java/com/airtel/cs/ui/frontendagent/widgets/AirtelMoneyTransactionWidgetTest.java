@@ -93,23 +93,20 @@ public class AirtelMoneyTransactionWidgetTest extends Driver {
             } else if (amTransactionHistoryAPI.getResult().getTotalCount() == null) {
                 assertCheck.append(actions.assertEqual_boolean(amTxnWidgetPage.isAirtelMoneyNoResultFoundVisible(), true, "'No Result Found' Icon displayed", "'No Result Found' Icon NOT displayed"));
             } else {
-                int count = amTransactionHistoryAPI.getResult().getTotalCount();
-                if (count > 5) {
-                    count = 5;
-                }
+                int count = Math.min(amTransactionHistoryAPI.getResult().getTotalCount(),5);
                 assertCheck.append(actions.assertEqual_stringType(amTxnWidgetPage.getHeaders(0).toLowerCase().trim(), data.getRow1().toLowerCase().trim(), "Header Name for Row 1 is as expected", "Header Name for Row 1 is not as expected"));
                 assertCheck.append(actions.assertEqual_stringType(amTxnWidgetPage.getHeaders(1).toLowerCase().trim(), data.getRow2().toLowerCase().trim(), "Header Name for Row 2 is as expected", "Header Name for Row 2 is not as expected"));
                 assertCheck.append(actions.assertEqual_stringType(amTxnWidgetPage.getHeaders(2).toLowerCase().trim(), data.getRow3().toLowerCase().trim(), "Header Name for Row 3 is as expected", "Header Name for Row 3 is not as expected"));
                 assertCheck.append(actions.assertEqual_stringType(amTxnWidgetPage.getHeaders(3).toLowerCase().trim(), data.getRow4().toLowerCase().trim(), "Header Name for Row 4 is as expected", "Header Name for Row 4 is not as expected"));
                 assertCheck.append(actions.assertEqual_stringType(amTxnWidgetPage.getHeaders(4).toLowerCase().trim(), data.getRow5().toLowerCase().trim(), "Header Name for Row 5 is as expected", "Header Name for Row 5 is not as expected"));
                 for (int i = 0; i < count; i++) {
-                    assertCheck.append(actions.assertEqual_stringType(amTxnWidgetPage.getValueCorrespondingToHeader(i + 1, 1), amTransactionHistoryAPI.getResult().getData().get(i).getAmount(), "Amount is as expected as com.airtel.cs.API response", "Amount is not expected as com.airtel.cs.API response"));
-                    assertCheck.append(actions.assertEqual_stringType(amTxnWidgetPage.getValueCorrespondingToHeader(i + 1, 2), amTransactionHistoryAPI.getResult().getData().get(i).getMsisdn(), "Receiver MSISDN is as expected as com.airtel.cs.API response", "Receiver MSISDN is not expected as com.airtel.cs.API response"));
-                    assertCheck.append(actions.assertEqual_stringType(amTxnWidgetPage.getValueCorrespondingToHeader(i + 1, 3), UtilsMethods.getDateFromEpochInUTC(Long.parseLong(amTransactionHistoryAPI.getResult().getData().get(i).getTransactionDate()), constants.getValue(CommonConstants.AM_HISTORY_TIME_FORMAT)), "Date is as expected as com.airtel.cs.API response", "Date is not expected as com.airtel.cs.API response"));
-                    assertCheck.append(actions.assertEqual_stringType(amTxnWidgetPage.getValueCorrespondingToHeader(i + 1, 4), amTransactionHistoryAPI.getResult().getData().get(i).getTransactionId(), "Transaction Id is as expected as com.airtel.cs.API response", "Transaction Id is not expected as com.airtel.cs.API response"));
-                    assertCheck.append(actions.assertEqual_stringType(amTxnWidgetPage.getValueCorrespondingToHeader(i + 1, 5), amTransactionHistoryAPI.getResult().getData().get(i).getStatus(), "Status is as expected as com.airtel.cs.API response", "Status is not expected as com.airtel.cs.API response"));
+                    assertCheck.append(actions.assertEqual_stringType(amTxnWidgetPage.getValueCorrespondingToHeader(i + 1, 1), amTransactionHistoryAPI.getResult().getData().get(i).getAmount(), "Amount is as expected as API response", "Amount is not expected as API response"));
+                    assertCheck.append(actions.assertEqual_stringType(amTxnWidgetPage.getValueCorrespondingToHeader(i + 1, 2), amTransactionHistoryAPI.getResult().getData().get(i).getMsisdn(), "Receiver MSISDN is as expected as API response", "Receiver MSISDN is not expected as API response"));
+                    assertCheck.append(actions.assertEqual_stringType(amTxnWidgetPage.getValueCorrespondingToHeader(i + 1, 3), UtilsMethods.getDateFromEpochInUTC(Long.parseLong(amTransactionHistoryAPI.getResult().getData().get(i).getTransactionDate()), constants.getValue(CommonConstants.AM_HISTORY_TIME_FORMAT)), "Date is as expected as API response", "Date is not expected as API response"));
+                    assertCheck.append(actions.assertEqual_stringType(amTxnWidgetPage.getValueCorrespondingToHeader(i + 1, 4), amTransactionHistoryAPI.getResult().getData().get(i).getTransactionId(), "Transaction Id is as expected as API response", "Transaction Id is not expected as API response"));
+                    assertCheck.append(actions.assertEqual_stringType(amTxnWidgetPage.getValueCorrespondingToHeader(i + 1, 5), amTransactionHistoryAPI.getResult().getData().get(i).getStatus(), "Status is as expected as API response", "Status is not expected as API response"));
                     if (amTransactionHistoryAPI.getResult().getData().get(i).getEnableResendSms()) {
-                        assertCheck.append(actions.assertEqual_boolean(amTxnWidgetPage.isResendSMS(), true, "Resend SMS Icon is enabled as mentioned in com.airtel.cs.API Response", "Resend SMS Icon does not enable as mentioned in com.airtel.cs.API Response"));
+                        assertCheck.append(actions.assertEqual_boolean(amTxnWidgetPage.isResendSMS(), true, "Resend SMS Icon is enabled as mentioned in API Response", "Resend SMS Icon does not enable as mentioned in API Response"));
                     }
                     String id = amTxnWidgetPage.doubleClickOnTransactionId(i + 1);
                     String clipboardText = (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);

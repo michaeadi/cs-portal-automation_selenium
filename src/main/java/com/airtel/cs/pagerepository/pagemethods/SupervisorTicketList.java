@@ -500,4 +500,15 @@ public class SupervisorTicketList extends BasePage {
             waitTillLoaderGetsRemoved();
         }
     }
+
+    public void clickSelectAll(){
+        commonLib.info("Clicking on Select All Button");
+        click(pageElements.selectAll);
+    }
+
+    public void clickCloseTab(){
+        commonLib.info("Closing the open overlay tab");
+        click(pageElements.closeTabBtn);
+    }
+
 }
