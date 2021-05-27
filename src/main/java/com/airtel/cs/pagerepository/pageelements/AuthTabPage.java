@@ -9,6 +9,7 @@ public class AuthTabPage {
     public By authInstruction = By.xpath("//div[@class='main-container__body--right--instructions']//p");
     public By notAuthBtn = By.xpath("//div[@class='main-container__body--right--buttons']//button[1]");
     public By authBtn = By.xpath("//div[@class='main-container__body--right--buttons']//button[2]");
+    public By widgetUnlockMsg = By.xpath("//*[@class='wait']/following-sibling::div");
 
     //SIM Bar/Unbar pop up
     public By simBarTitle = By.xpath("//div[@class='main-container__header']//span");
@@ -20,6 +21,6 @@ public class AuthTabPage {
     public By cancelBtn = By.xpath("//button[@class='no-btn']");
     public By submitBtn = By.xpath("//button[@class='submit-btn']");
     public By code = By.xpath("//mat-option[1]//span");
-    public By toastModal =By.xpath("//div[contains(@class,'main-container__body--message')]");
+    public By toastModal = By.xpath("//div[contains(@class,'main-container__body--message')]");
     public By closeBtn = By.xpath("//following-sibling::mat-icon[contains(text(),'close')]");
 }

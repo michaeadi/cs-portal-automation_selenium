@@ -31,7 +31,7 @@ public class MsisdnSearch extends BasePage {
 
     public void clickOnSearch() {
         commonLib.info("Clicking on Search Button");
-        clickAndWaitForLoaderToBeRemoved(pageElements.searchButton);
+        clickWithoutLoader(pageElements.searchButton);
     }
 
     public void waitUntilPageIsLoaded() {

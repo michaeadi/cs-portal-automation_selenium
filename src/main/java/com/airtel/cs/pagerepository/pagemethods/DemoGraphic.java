@@ -1,6 +1,5 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
-
 import com.airtel.cs.commonutils.dataproviders.AuthTabDataBeans;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.pagerepository.pageelements.DemoGraphicPage;
@@ -35,7 +34,8 @@ public class DemoGraphic extends BasePage {
         final String src = getAttribute(pageElements.deviceCompatible, "src", false);
         if (StringUtils.contains(src, "red-mobile.svg"))
             result = "Not 4G Compatible";
-        else result = "4G Compatible";
+        else
+            result = "4G Compatible";
         return result;
     }
 
@@ -48,7 +48,6 @@ public class DemoGraphic extends BasePage {
         commonLib.info("Data Manager value is -: " + text);
         return text.trim();
     }
-
 
     public String getCustomerDOB() {
         final String text = getText(pageElements.customerDOB);
@@ -94,21 +93,35 @@ public class DemoGraphic extends BasePage {
         final String src = getAttribute(pageElements.simType, "src", false);
         if (StringUtils.contains(src, "red-sim.svg"))
             result = "3G";
-        else result = "4G";
+        else
+            result = "4G";
         return result;
     }
 
+    /*
+    This Method is used to get puk1 details from the demographic widget
+     */
     public String getPUK1() {
-
-        final String text = getText(pageElements.PUK1);
-        commonLib.info("Getting PUK1 " + text);
-        return text;
+        String result = null;
+        if (isVisible(pageElements.puk1)) {
+            commonLib.info("Going to get PUK2");
+            result = getText(pageElements.puk1);
+            commonLib.info("PUK1 is " + result);
+        }
+        return result;
     }
 
+    /*
+    This Method is used to get puk2 details from the demographic widget
+     */
     public String getPUK2() {
-        final String text = getText(pageElements.PUK2);
-        commonLib.info("Getting PUK2 " + text);
-        return text;
+        String result = null;
+        if (isVisible(pageElements.puk2)) {
+            commonLib.info("Going to get PUK1");
+            result = getText(pageElements.puk2);
+            commonLib.info("PUK2 is " + result);
+        }
+        return result;
     }
 
     public String getIdType() {
@@ -135,10 +148,14 @@ public class DemoGraphic extends BasePage {
     }
 
     public void selectPolicyQuestion() throws InterruptedException {
-        DataProviders dataProviders = new DataProviders();
-        List<AuthTabDataBeans> list = dataProviders.getPolicy();
-        for (int i = 1; i <= Integer.parseInt(list.get(0).getMinAnswer()); i++) {
-            pages.getAuthTabPage().clickCheckBox(i);
+        try {
+            DataProviders dataProviders = new DataProviders();
+            List<AuthTabDataBeans> list = dataProviders.getPolicy();
+            for (int i = 1; i <= Integer.parseInt(list.get(0).getMinAnswer()); i++) {
+                pages.getAuthTabPage().clickCheckBox(i);
+            }
+        } catch (InterruptedException e) {
+            commonLib.fail("Exception in Method - selectPolicyQuestion" + e, true);
         }
     }
 
@@ -177,9 +194,9 @@ public class DemoGraphic extends BasePage {
 
     public boolean isAirtelMoneyProfileLocked() {
         try {
-            final boolean enabled = isEnabled(pageElements.airtelMoneyLock);
-            commonLib.info("Is Airtel Money Status Info locked: " + enabled);
-            return enabled;
+            final boolean visibility = isElementVisible(pageElements.airtelMoneyLock);
+            commonLib.info("Is Airtel Money Status Info locked: " + visibility);
+            return visibility;
         } catch (TimeoutException | NoSuchElementException e) {
             e.printStackTrace();
             return false;
@@ -200,7 +217,6 @@ public class DemoGraphic extends BasePage {
         commonLib.info("Checking AM Profile Widget Display");
         return isEnabled(pageElements.amProfileWidget);
     }
-
 
     public String getDataManagerStatus() {
         final String attribute = driver.findElement(pageElements.dataManagerStatus).getAttribute("aria-checked");
@@ -246,7 +262,7 @@ public class DemoGraphic extends BasePage {
 
     public String getConnectionType() {
         final String text = getText(pageElements.connectionType);
-        commonLib.info("Getting Line Type: " + text);
+        commonLib.info("Getting Connection Type: " + text);
         return text;
     }
 
@@ -263,9 +279,14 @@ public class DemoGraphic extends BasePage {
     }
 
     public String getServiceCategory() {
-        final String text = getText(pageElements.serviceCategory);
-        commonLib.info("Getting service Category: " + text);
-        return text;
+        String result = null;
+        try {
+            result = getText(pageElements.serviceCategory);
+            commonLib.info("Getting service Category: " + result);
+        } catch (Exception e) {
+            commonLib.fail("Exception in method - getServiceCategory", true);
+        }
+        return result;
     }
 
     public String getAppStatus() {
@@ -352,6 +373,66 @@ public class DemoGraphic extends BasePage {
     public void hoverOnSIMNumberIcon() {
         commonLib.info("Hover on SIM Number Info icon");
         hoverOverElement(pageElements.simNumberInfoIcon);
+    }
+
+    /*
+   This method will be used to get PIN1 text from demographic widget after hovering over SIM Number
+    */
+    public String getPIN1() {
+        String result = null;
+        result = getText(pageElements.pin1);
+        commonLib.info("PIN1 got from UI is - " + result);
+        return result;
+    }
+
+    /*
+   This method will be used to get PIN2 text from demographic widget after hovering over SIM Number
+    */
+    public String getPIN2() {
+        String result = null;
+        result = getText(pageElements.pin2);
+        commonLib.info("PIN2 got from UI is - " + result);
+        return result;
+    }
+
+    /*
+    This Method will give us auuid shown in the middle of the demographic widget
+    DGW - Demo Graphic Widget
+     */
+    public String getMiddleAuuidDGW() {
+        String result = null;
+        result = getAttribute(pageElements.middleAuuidDGW, "data-auuid", false);
+        return result;
+    }
+
+    /*
+    This Method will give us auuid shown at the footer of the demographic widget
+    DGW - Demo Graphic Widget
+     */
+    public String getFooterAuuidDGW() {
+        String result = null;
+        result = getText(pageElements.footerAuuidDGW);
+        return result;
+    }
+
+    /*
+    This Method will give us auuid shown in the middle of the demographic widget
+    AMP - Airtel Money Profile
+     */
+    public String getMiddleAuuidAMP() {
+        String result = null;
+        result = getAttribute(pageElements.middleAuuidAMP, "data-auuid", false);
+        return result;
+    }
+
+    /*
+    This Method will give us auuid shown at the footer of the demographic widget
+    AMP - Airtel Money Profile
+     */
+    public String getFooterAuuidAMP() {
+        String result = null;
+        result = getText(pageElements.footerAuuidAMP);
+        return result;
     }
 
 }

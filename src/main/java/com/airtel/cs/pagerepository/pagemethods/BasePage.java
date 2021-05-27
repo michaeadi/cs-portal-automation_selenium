@@ -76,7 +76,7 @@ public class BasePage extends Driver {
      */
     public void clickAndWaitForLoaderToBeRemoved(By elementLocation) {
         try {
-            if (isClickable(elementLocation)) {
+            if (isVisible(elementLocation) && isClickable(elementLocation)) {
                 highLighterMethod(elementLocation);
                 driver.findElement(elementLocation).click();
                 commonLib.info("Element Clicked " + elementLocation.toString());
@@ -179,8 +179,10 @@ public class BasePage extends Driver {
         Actions actions = new Actions(driver);
         waitVisibility(elementLocation);
         WebElement target = driver.findElement(elementLocation);
-        if (isVisible(elementLocation))
+        if (isVisible(elementLocation) && isClickable(elementLocation))
             actions.moveToElement(target).build().perform();
+        else
+            commonLib.fail("Exception in method - hoverOverElement", true);
     }
 
     public CustomerProfile openingCustomerInteractionDashboard() {
@@ -404,7 +406,7 @@ public class BasePage extends Driver {
             WebElement webElement = driverWait.until(ExpectedConditions.visibilityOfElementLocated(webelementBy));
             return webElement != null;
         } catch (Exception e) {
-            commonLib.error("Element Not Visible :-" + e);
+            commonLib.error("Element Not Visible :-" + webelementBy);
             return false;
         }
     }

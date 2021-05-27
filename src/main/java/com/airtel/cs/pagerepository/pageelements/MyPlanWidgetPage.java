@@ -20,4 +20,7 @@ public class MyPlanWidgetPage {
     public By ticketIcon = By.xpath("//div[@id='CURRENT_PLAN']//span/img[@class='interaction-ticket']");
     public By getTitle = By.xpath("//div[@id='CURRENT_PLAN']//span[@class='card__card-header--label--text']");
     public By currentPlanWidgetLoader = By.xpath("//*[@data-csautomation-key='CURRENT_PLAN']//div[@class='animated-background']");
+    public By footerYCPAuuid = By.xpath("//*[@data-csautomation-key='CURRENT_PLAN']//*[@class='auuid-container']");
+    public By middleYCPAuuid = By.xpath("//*[@data-csautomation-key='CURRENT_PLAN']");
+
 }

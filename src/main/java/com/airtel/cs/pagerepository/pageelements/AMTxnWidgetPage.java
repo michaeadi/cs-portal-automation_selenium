@@ -5,8 +5,8 @@ import org.openqa.selenium.By;
 public class AMTxnWidgetPage {
     public By airtelMoneyTransactionHeader = By.xpath("//div[@id='AIRTEL_MONEY']//span[contains(@class,'widget_header_label')]");
     public By airtelMoneyBalance = By.xpath("//*[@id='AIRTEL_MONEY']//span[@class='currency-amount']");
-    public By airtelMoneyBalance2=By.xpath("//div[@class='card__content--money-balance ng-star-inserted']//span[@class='currency ng-star-inserted'][2]//span[@class='currency-amount']");
-    public By airtelMoneyCurrency = By.xpath("//div[@class='card__content--money-balance ng-star-inserted']//span[@class='currency ng-star-inserted']");
+    public By airtelMoneyBalance2 = By.xpath("//div[@class='card__content--money-balance ng-star-inserted']//span[@class='currency ng-star-inserted'][2]//span[@class='currency-amount']");
+    public By airtelMoneyCurrency = By.xpath("//*[@id='AIRTEL_MONEY']//span[contains(@class,'currency ')]");
     public By airtelMoneyDatePicker = By.xpath("//div[@id='AIRTEL_MONEY']//input[@name='dateRange']");
     public By airtelMoneyBalanceUnableToFetch = By.xpath("//div[@id='AIRTEL_MONEY']//span[@class='api-failed-error ng-star-inserted']");
     public By airtelMoneyNoResultFound = By.xpath("//div[@id='AIRTEL_MONEY']//*[contains(@class,'no-result-found')]/img");
@@ -18,10 +18,15 @@ public class AMTxnWidgetPage {
     public By amHistoryTab = By.xpath("//button[contains(text(),'AM History')][@role='menuitem']");
     public By transactionId = By.xpath("//div[@id='AIRTEL_MONEY']//input[@placeholder='Transaction ID']");
     public By transactionSearchBtn = By.xpath("//div[@id='AIRTEL_MONEY']//input[@placeholder='Transaction ID']//following-sibling::button");
-    public By headerRows=By.xpath("//div[@id='AIRTEL_MONEY']/descendant::div[@class='card__card-header--card-body--table--list-heading ng-star-inserted']/div");
-    public String valueRows="//div[@id='AIRTEL_MONEY']/div[@class='card__content restricted ng-star-inserted']/descendant::div[@class='card__card-header--card-body--table--data-list row-border'][";
-    public String valueColumns="]/div[";
-    public String columnText= "]//span";
-    public By resendSMSIcon=By.xpath("//div[@id='AIRTEL_MONEY']/div[@class='card__content restricted ng-star-inserted']/descendant::div[@class='card__card-header--card-body--table--data-list row-border'][1]/div[6]//img[1][@class='hide-reversal ng-star-inserted']");
-    public String transactionIdColumn="]/div[4]//span";
+    public By headerRows = By.xpath("//div[@id='AIRTEL_MONEY']//div[contains(@class,'card-header--card-body--table--list')]/div");
+    public String dataRow = "//div[@id='AIRTEL_MONEY']//div[contains(@class,'table-data-wrapper')]/div[";
+    public String valueColumns = "]/div/div[";
+    public String columnText = "]//span";
+    public String amountSign = "]/div[";
+    public String amountImg = "]//img";
+    public String resendSMSIcon = "//div[@id='AIRTEL_MONEY']//div[contains(@class,'table-data-wrapper')]/div[";
+    public String resendSMSIcon2 = "]//img[contains(@src,'send')]";
+    public String transactionIdColumn = "]/div/div[4]//span";
+    public By footerAMAuuid = By.xpath("//*[@id='AIRTEL_MONEY']//*[@class='auuid-container']");
+    public By middleAMAuuid = By.xpath("//*[@id='AIRTEL_MONEY']");
 }

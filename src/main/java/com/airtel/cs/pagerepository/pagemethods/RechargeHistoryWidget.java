@@ -8,6 +8,7 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 
 import java.util.List;
@@ -17,7 +18,6 @@ public class RechargeHistoryWidget extends BasePage {
 
     RechargeHistoryWidgetPage pageElements;
     List<WebElement> as;
-    private static final String XPATH = "//div[@id='RECHARGE_HISTORY']//parent::div//following-sibling::div[@class=\"card__content restricted ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]//div[@class=\"ng-star-inserted\"][";
 
     public RechargeHistoryWidget(WebDriver driver) {
         super(driver);
@@ -31,13 +31,13 @@ public class RechargeHistoryWidget extends BasePage {
     }
 
     public String getHeaders(int row) {
-        String header = getText(By.xpath("//div[@id='RECHARGE_HISTORY']//div[@class=\"card__card-header--card-body--table--list-heading ng-star-inserted\"]/div[" + row + "]/span[1]"));
+        String header = getText(By.xpath("//div[@id='RECHARGE_HISTORY']//div[@class='card__card-header--card-body--table--list-heading ng-star-inserted']/div[" + row + "]/span[1]"));
         commonLib.info("Getting header Number " + row + " : " + header);
         return header;
     }
 
     public String getSubHeaders(int row) {
-        String header = getText(By.xpath("//div[@id='RECHARGE_HISTORY']//div[@class=\"card__card-header--card-body--table--list-heading ng-star-inserted\"]/div[" + row + "]/span[2]"));
+        String header = getText(By.xpath("//div[@id='RECHARGE_HISTORY']//div[@class='card__card-header--card-body--table--list-heading ng-star-inserted']/div[" + row + "]/span[2]"));
         commonLib.info("Getting Sub Header Number " + row + " : " + header);
         return header;
     }
@@ -80,44 +80,38 @@ public class RechargeHistoryWidget extends BasePage {
         clickAndWaitForLoaderToBeRemoved(pageElements.menu);
     }
 
-    public String getRechargeHistoryCharges(int rowNumber) {
-        By charges = By.xpath(XPATH + rowNumber + "]//div[@class=\"ng-star-inserted\" or @class=\"slide-toggle red ng-star-inserted\"][1]//span");
-        final String text = getText(charges);
-        commonLib.info("Getting Recharge History Charges from Row Number " + rowNumber + " : " + text);
-        return text;
+    /*
+   This Method will give us the header value
+    */
+    public String getHeaderValue(int row, int column) {
+        String result = null;
+        result = getText(By.xpath(pageElements.dataRow + row + pageElements.valueColumns + column + "]"));
+        commonLib.info("Reading Value(" + row + "): " + result);
+        return result;
     }
 
     public String getRechargeHistoryDateTime(int rowNumber) {
-        By date = By.xpath(XPATH + rowNumber + "]//div[@class=\"ng-star-inserted\" or @class=\"slide-toggle red ng-star-inserted\"][2]//span[1]");
+        By date = By.xpath(pageElements.dataRow + rowNumber + "]//div[@class='ng-star-inserted' or @class='slide-toggle red ng-star-inserted'][2]//span[1]");
         final String text = getText(date);
         commonLib.info("Getting Recharge History Date & Time from Row Number " + rowNumber + " : " + text);
-        return text;
-    }
-
-    public String getRechargeHistoryBundleName(int rowNumber) {
-        By bundleName = By.xpath(XPATH + rowNumber + "]//div[@class=\"ng-star-inserted\" or @class=\"slide-toggle red ng-star-inserted\"][3]//span");
-        final String text = getText(bundleName);
-        commonLib.info("Getting Recharge History Bundle Name from Row Number " + rowNumber + " : " + text);
-        return text;
-    }
-
-    public String getRechargeHistoryBenefits(int rowNumber) {
-        By benefits = By.xpath(XPATH + rowNumber + "]//div[@class=\"ng-star-inserted\" or @class=\"slide-toggle red ng-star-inserted\"][4]//span");
-        final String text = getText(benefits);
-        commonLib.info("Getting Recharge History Benefits from Row Number " + rowNumber + " : " + text);
-        return text;
-    }
-
-    public String getRechargeHistoryStatus(int rowNumber) {
-        By status = By.xpath(XPATH + rowNumber + "]//div[@class=\"ng-star-inserted\" or @class=\"slide-toggle red ng-star-inserted\"][5]//span");
-        final String text = getText(status);
-        commonLib.info("Getting Recharge History Status from Row Number " + rowNumber + " : " + text);
         return text;
     }
 
     public boolean isRechargeHistoryWidgetIsVisible() {
         commonLib.info("Checking is Recharge History Widget Visible");
         return isElementVisible(pageElements.rechargeHistoryHeader);
+    }
+
+    /*
+    This Method will let us know is Recharge History Widget Loaded Successfully or not
+     */
+    public boolean isRechargeHistoryWidgetLoaded() {
+        boolean result = false;
+        if (isElementVisible(pageElements.widgetLoader)) {
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(pageElements.widgetLoader));
+            result = true;
+        }
+        return result;
     }
 
     public boolean isRechargeHistoryDatePickerVisible() {
@@ -137,7 +131,7 @@ public class RechargeHistoryWidget extends BasePage {
     }
 
     public String getWidgetTitle() {
-        final String text = getText(pageElements.getTitle);
+        final String text = getText(pageElements.rechargeHistoryHeader);
         log.info("Getting Widget title: " + text);
         return text.toLowerCase();
     }
@@ -178,5 +172,25 @@ public class RechargeHistoryWidget extends BasePage {
     public void clickNoBtn() {
         commonLib.info("Clicking No Button ");
         clickAndWaitForLoaderToBeRemoved(pageElements.noActionBtn);
+    }
+
+    /*
+       This Method will give us footer auuid shown in RCW widget
+       RHW = Recharge History Widget
+        */
+    public String getFooterAuuidRHW() {
+        String result = null;
+        result = getText(pageElements.footerRHWAuuid);
+        return result;
+    }
+
+    /*
+    This Method will give us auuid shown in the middle of the RCW modal
+    RHW = Recharge History Widget
+     */
+    public String getMiddleAuuidRHW() {
+        String result = null;
+        result = getAttribute(pageElements.middleRHWAuuid, "data-auuid", false);
+        return result;
     }
 }

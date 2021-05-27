@@ -28,4 +28,6 @@ public class KYCProfileResult {
     private String modifiedDate;
     private String reason;
     private ArrayList<PUKPOJO> puk;
+    private String pin1;
+    private String pin2;
 }

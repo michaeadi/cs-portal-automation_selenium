@@ -131,11 +131,11 @@ public class UtilsMethods extends Driver {
 
             Date date1 = format.parse(historyDateTime);
             Date date2 = format.parse(historyDateTime1);
-            if (date1.compareTo(date2) <= 0) {
-                log.info(date1 + " come before " + date2);
+            if (date2.compareTo(date1) <= 0) {
+                log.info(date2 + " come before " + date1);
                 return true;
             } else {
-                log.info(date1 + " come after " + date2);
+                log.info(date2 + " come after " + date1);
                 return false;
             }
         } catch (ParseException e) {

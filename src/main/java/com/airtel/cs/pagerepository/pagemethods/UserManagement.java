@@ -296,6 +296,7 @@ public class UserManagement extends BasePage {
     This Method will tell us user management page loaded or not
      */
     public Boolean isUserManagementPageLoaded() {
+        waitTillLoaderGetsRemoved();
         return isVisible(pageElements.userManagementPage);
     }
 }

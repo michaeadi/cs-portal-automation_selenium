@@ -44,11 +44,18 @@ public class AuthTab extends BasePage {
     }
 
     public void clickAuthBtn() {
-        commonLib.info("Clicking on Authenticate button");
-        if (driver.findElement(pageElements.authBtn).isEnabled())
-            clickAndWaitForLoaderToBeRemoved(pageElements.authBtn);
-        else
-            clickAndWaitForLoaderToBeRemoved(pageElements.authCloseBtn);
+        if (driver.findElement(pageElements.authBtn).isEnabled()) {
+            commonLib.info("Clicking on Authenticate button");
+            clickWithoutLoader(pageElements.authBtn);
+        } else
+            clickWithoutLoader(pageElements.authCloseBtn);
+    }
+
+    /*
+    This Method will get the widget unlock message
+     */
+    public String getWidgetUnlockMessage() {
+        return getText(pageElements.widgetUnlockMsg);
     }
 
     public boolean isNonAuthBtnEnable() {
@@ -157,7 +164,7 @@ public class AuthTab extends BasePage {
     public void clickSubmitBtn() {
         if (isClickable(pageElements.submitBtn)) {
             commonLib.info("Clicking Submit Button");
-            clickAndWaitForLoaderToBeRemoved(pageElements.submitBtn);
+            clickWithoutLoader(pageElements.submitBtn);
         } else {
             commonLib.fail("Exception in Method - clickSubmitBtn", true);
         }
@@ -167,10 +174,10 @@ public class AuthTab extends BasePage {
         String result = null;
         if (isVisible(pageElements.toastModal)) {
             result = getText(pageElements.toastModal);
-            if (!result.equalsIgnoreCase("Internet Setting has been sent on customer` s device"))
-                clickWithoutLoader(pageElements.closeBtn);
+            //if (!result.equalsIgnoreCase("Internet Setting has been sent on customer` s device"))
+            clickWithoutLoader(pageElements.closeBtn);
         } else {
-            commonLib.fail("Exception in method - getSuccessModalText", true);
+            commonLib.fail("Exception in method - getToastText", true);
             commonLib.info("Going to Close Modal through close Button");
             clickWithoutLoader(pageElements.closeBtn);
         }

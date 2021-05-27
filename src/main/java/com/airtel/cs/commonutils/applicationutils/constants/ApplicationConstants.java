@@ -10,6 +10,9 @@ public class ApplicationConstants {
     public static final String RUN_TARIFF_TEST_CASE = "cs.run.tariff.plan.test.case";
     public static final String WEB_BROWSER = "cs.application.browser";
     public static final String CUSTOMER_MSISDN = "cs.customer.msisdn";
+    public static final String AM_CUSTOMER_MSISDN = "cs.am.customer.msisdn";
+    public static final String RECHARGE_HISTORY_MSISDN = "cs.recharge.history.msisdn";
+    public static final String CURRENT_BALANCE_MSISDN = "cs.current.balance.msisdn";
     public static final String DOMAIN_URL = "cs.portal.login.url";
     public static final String APP_NAME = "cs.x.app.name";
     public static final String SERVICE_ID = "cs.x.service.id";

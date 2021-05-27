@@ -35,7 +35,6 @@ public class ServiceProfileWidgetTest extends Driver {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
             customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
             pages.getSideMenuPage().clickOnSideMenu();
-            pages.getSideMenuPage().clickOnUserName();
             pages.getSideMenuPage().openCustomerInteractionPage();
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();

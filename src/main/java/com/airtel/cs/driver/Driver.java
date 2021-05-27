@@ -194,7 +194,7 @@ public class Driver {
             spark = new ExtentSparkReporter(modifiedHtmlfilePath);
             extent.attachReporter(spark);
             spark.config().setDocumentTitle("Airtel Africa CS Automation");
-            spark.config().setReportName("Automation Report - CS Portal");
+            spark.config().setReportName("Automation Report -" + OPCO + " CS Portal");
             extent.setSystemInfo("Application Environment ", OPCO + " " + evnName);
             extent.setSystemInfo("Execution Browser ", browser.toUpperCase());
             extent.setSystemInfo("Language Selected ", "English");

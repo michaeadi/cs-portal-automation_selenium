@@ -2,6 +2,7 @@ package com.airtel.cs.ui.frontendagent.leftmenu;
 
 import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.driver.Driver;
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;
@@ -36,7 +37,7 @@ public class SideMenuTests extends Driver {
             assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isTicketBulkUpdateVisible(), true, "Ticket Bulk Update Module is Visible", "Ticket Bulk Update Module NOT Visible"));
             pages.getSideMenuPage().clickOnSideMenu();
             actions.assertAllFoundFailedAssert(assertCheck);
-        } catch (NotFoundException | TimeoutException e) {
+        } catch (NotFoundException | TimeoutException | ElementClickInterceptedException e) {
             commonLib.fail("Exception in Method - testSideMenuOption", true);
         }
     }

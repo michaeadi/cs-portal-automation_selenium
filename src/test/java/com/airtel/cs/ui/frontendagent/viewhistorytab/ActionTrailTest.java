@@ -44,7 +44,7 @@ public class ActionTrailTest extends Driver {
     }
 
     @DataProviders.Table(name = "Action Trail Tab")
-    @Test(priority = 2, description = "Validating Action Trail Tab", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 2, description = "Validating Action Trail Tab", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = {"openCustomerInteraction"})
     public void validateActionTrailOpenCorrectly(HeaderDataBean data) {
         try {
             selUtils.addTestcaseDescription("Verify View History tab opened successfully,Verify Action Trail History tab is visible and then click on it,Validate column header name are visible and correct", "description");

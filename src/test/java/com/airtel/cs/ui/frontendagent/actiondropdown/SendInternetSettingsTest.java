@@ -77,7 +77,7 @@ public class SendInternetSettingsTest extends Driver {
             pages.getAuthTabPage().enterComment(comments);
             pages.getAuthTabPage().clickSubmitBtn();
             final String toastText = pages.getAuthTabPage().getToastText();
-            assertCheck.append(actions.assertEqual_stringType(toastText, "Internet Setting has been sent on customer` s device", "Send Internet Modal closed successfully with Success Message", "Send Internet Modal NOT closed and message found is :-" + toastText));
+            assertCheck.append(actions.assertEqual_stringType(toastText, "Internet Settings has been sent on Customer`s Device.", "Send Internet Settings Message has been sent to customer successfully", "Send Internet Settings Message hasn't been sent to customer ans message is :-" + toastText));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException e) {
             commonLib.fail("Exception in Method - validateSendInternetSetting" + e.fillInStackTrace(), true);

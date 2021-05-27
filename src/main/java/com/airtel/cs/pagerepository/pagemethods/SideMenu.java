@@ -37,7 +37,6 @@ public class SideMenu extends BasePage {
     }
 
     public boolean isSideMenuVisible() {
-        //waitTillLoaderGetsRemoved();
         commonLib.info("Checking that Side Menu options are Visible or Not");
         return isElementVisible(pageElements.sideMenuOption);
     }

@@ -63,40 +63,14 @@ public class UsageHistoryWidget extends BasePage {
         clickAndWaitForLoaderToBeRemoved(pageElements.menu);
     }
 
-
-    public String getHistoryEndBalance(int rowNumber) {
-        WebElement rowElement = as.get(rowNumber);
-        final String text = rowElement.findElement(pageElements.endBalance).getText();
-        commonLib.info("Getting Usage History End Balance from Row Number " + rowNumber + " : " + text);
-        return text;
-    }
-
-    public String getHistoryStartBalance(int rowNumber) {
-        WebElement rowElement = as.get(rowNumber);
-        final String text = rowElement.findElement(pageElements.startBalance).getText();
-        commonLib.info("Getting Usage History Start Balance from Row Number " + rowNumber + " : " + text);
-        return text;
-    }
-
-    public String getHistoryDateTime(int rowNumber) {
-        By dateTime = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Usage History\")]/ancestor::div[@class=\"card widget ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"card__card-header--card-body--table--data-list row-border\"][" + (rowNumber + 1) + "]/div[3]//span");
-        final String text = getText(dateTime);
-        commonLib.info("Getting Usage History Date Time from Row Number " + rowNumber + " : " + text);
-        return text;
-    }
-
-    public String getHistoryCharge(int rowNumber) {
-        WebElement rowElement = as.get(rowNumber);
-        final String text = rowElement.findElement(pageElements.charge).getText();
-        commonLib.info("Getting Usage History Charge from Row Number " + rowNumber + " : " + text);
-        return text.replace('+', ' ').trim();
-    }
-
-    public String getHistoryType(int rowNumber) {
-        WebElement rowElement = as.get(rowNumber);
-        final String text = rowElement.findElement(pageElements.type).getText();
-        commonLib.info("Getting Usage History Type from Row Number " + rowNumber + " : " + text);
-        return text;
+    /*
+    This Method will give us the header value
+     */
+    public String getHeaderValue(int row, int column) {
+        String result = null;
+        result = getText(By.xpath(pageElements.dataRow + row + pageElements.valueColumns + column + "]"));
+        commonLib.info("Reading Value(" + row + "): " + result);
+        return result;
     }
 
     public boolean isUsageHistoryWidgetIsVisible() {
@@ -124,5 +98,70 @@ public class UsageHistoryWidget extends BasePage {
         final String text = getText(pageElements.getTitle);
         log.info("Getting Widget title: " + text);
         return text.toLowerCase();
+    }
+
+    /*
+       This Method will give us footer auuid shown in UHW widget
+       UHW = Usage History Widget
+        */
+    public String getFooterAuuidUHW() {
+        String result = null;
+        result = getText(pageElements.footerUHWAuuid);
+        return result;
+    }
+
+    /*
+    This Method will give us auuid shown in the middle of the UHW modal
+    UHW = Usage History Widget
+     */
+    public String getMiddleAuuidUHW() {
+        String result = null;
+        result = getAttribute(pageElements.middleUHWAuuid, "data-auuid", false);
+        return result;
+    }
+
+    /*
+   This Method will get the text of the usage history widget header
+    */
+    public String getUsageHistoryHeaderText() {
+        final String headerText = getText(pageElements.usageHistoryHeader);
+        commonLib.info("Usage History Widget Header Text is:- " + headerText);
+        return headerText;
+    }
+
+
+    public String getHistoryEndBalance(int rowNumber) {
+        WebElement rowElement = as.get(rowNumber);
+        final String text = rowElement.findElement(pageElements.endBalance).getText();
+        commonLib.info("Getting Usage History End Balance from Row Number " + rowNumber + " : " + text);
+        return text;
+    }
+
+    public String getHistoryStartBalance(int rowNumber) {
+        WebElement rowElement = as.get(rowNumber);
+        final String text = rowElement.findElement(pageElements.startBalance).getText();
+        commonLib.info("Getting Usage History Start Balance from Row Number " + rowNumber + " : " + text);
+        return text;
+    }
+
+    public String getHistoryDateTime(int rowNumber) {
+        By dateTime = By.xpath(pageElements.dataRow + rowNumber + pageElements.valueColumns +"3]");
+        final String text = getText(dateTime);
+        commonLib.info("Getting Usage History Date Time from Row Number " + rowNumber + " : " + text);
+        return text;
+    }
+
+    public String getHistoryCharge(int rowNumber) {
+        WebElement rowElement = as.get(rowNumber);
+        final String text = rowElement.findElement(pageElements.charge).getText();
+        commonLib.info("Getting Usage History Charge from Row Number " + rowNumber + " : " + text);
+        return text.replace('+', ' ').trim();
+    }
+
+    public String getHistoryType(int rowNumber) {
+        WebElement rowElement = as.get(rowNumber);
+        final String text = rowElement.findElement(pageElements.type).getText();
+        commonLib.info("Getting Usage History Type from Row Number " + rowNumber + " : " + text);
+        return text;
     }
 }

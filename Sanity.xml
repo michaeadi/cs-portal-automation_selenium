@@ -14,7 +14,7 @@
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginPortalTests"/>
         </classes>
     </test>
-    <test name="Test Side Menu Options">
+   <!-- <test name="Test Side Menu Options">
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.leftmenu.SideMenuTests"/>
         </classes>
@@ -33,53 +33,53 @@
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.viewhistorytab.ActionTrailTest"/>
         </classes>
-    </test>
-    <test name="Demo Graphic Widget Test By MSISDN" preserve-order="true">
+    </test>-->
+    <!--<test name="Demo Graphic Widget Test By MSISDN" preserve-order="true">
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.demographicwidget.DemoGraphicWidgetMsisdnTest"/>
         </classes>
-    </test>
+    </test>-->
     <!--<test name="Airtel Money Transaction Widget Test" preserve-order="true">
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.AirtelMoneyTransactionWidgetTest"/>
         </classes>
-    </test>
-    <test name="Current Balance Widget Test" preserve-order="true">
+    </test>-->
+    <!--<test name="Current Balance Widget Test" preserve-order="true">
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.CurrentBalanceWidgetTest"/>
         </classes>
-    </test>
-    <test name="Usage History Widget Test" preserve-order="true">
+    </test>-->
+    <!--<test name="Usage History Widget Test" preserve-order="true">
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.UsageHistoryWidgetTest"/>
         </classes>
-    </test>
+    </test>-->
     <test name="Recharge History Widget Test" preserve-order="true">
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.RechargeHistoryWidgetTest"/>
         </classes>
     </test>
-    <test name="Service Profile Widget Test" preserve-order="true">
+    <!--<test name="Service Profile Widget Test" preserve-order="true">
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.ServiceProfileWidgetTest"/>
         </classes>
     </test>-->
-    <!--<test name="Customer Interactions Test" preserve-order="true">
+   <!-- <test name="Customer Interactions Test" preserve-order="true">
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.WidgetsOptionsTest"/>
         </classes>
-    </test>
-    <test name="Test Authentication Tab">
+    </test>-->
+   <!-- <test name="Test Authentication Tab">
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.demographicwidget.AuthTabTest"/>
         </classes>
-    </test>
-     <test name="CRBT Widget Test">
+    </test>-->
+    <!-- <test name="CRBT Widget Test">
          <classes>
              <class name="com.airtel.cs.ui.frontendagent.hometab.CRBTWidgetTest"/>
          </classes>
-     </test>
-     <test name="Create NFTR FTR Tickets TEST">
+     </test>-->
+ <!--    <test name="Create NFTR FTR Tickets TEST">
          <classes>
              <class name="com.airtel.cs.ui.frontendagent.CreateInteractionTest"/>
          </classes>
@@ -118,8 +118,8 @@
          <classes>
              <class name="com.airtel.cs.ui.frontendagent.hometab.LoanWidgetTest"/>
          </classes>
-     </test>
-     <test name="Supervisors Ticket Bulk Update Test">
+     </test>-->
+     <!--<test name="Supervisors Ticket Bulk Update Test">
          <classes>
              <class name="com.airtel.cs.ui.ticketBulkUpdate.TicketBulkUpdateTest"/>
          </classes>
@@ -128,8 +128,8 @@
          <classes>
              <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
          </classes>
-     </test>
-     <test name="Supervisors Login Test">
+     </test>-->
+ <!--    <test name="Supervisors Login Test">
          <classes>
              <class name="com.airtel.cs.ui.backendSupervisor.SupervisorLoginTest"/>
          </classes>
@@ -193,8 +193,8 @@
          <classes>
              <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
          </classes>
-     </test>
-     <test name="Login Admin Test">
+     </test>-->
+     <!--<test name="Login Admin Test">
          <classes>
              <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginPortalTests"/>
          </classes>
@@ -223,8 +223,8 @@
          <classes>
              <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
          </classes>
-     </test>
-     <test name="LOGIN TO BACKEND AGENT">
+     </test>-->
+     <!--<test name="LOGIN TO BACKEND AGENT">
          <classes>
              <class name="com.airtel.cs.ui.backendAgent.BackendAgentLoginTest"/>
          </classes>
