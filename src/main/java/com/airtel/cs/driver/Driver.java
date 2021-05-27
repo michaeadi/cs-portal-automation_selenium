@@ -55,7 +55,7 @@ public class Driver {
     protected static final Properties config = new Properties();
     public static String evnName = System.getProperty("Env").toUpperCase();
     public static final StringBuilder TESTCASE_DESCRIPTION_BUILDER = new StringBuilder(); // FOR ADDING TESTCASE DESCRIPTION IN EXTNT REPORTS
-    public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss.SSSZ";
+    public static final String DATE_FORMAT = "yyyy-MM-dd HH-mm-ss.SSSZ";
     public static String excelPath;
     public static List<Header> map = new ArrayList<>();
     public static String token;

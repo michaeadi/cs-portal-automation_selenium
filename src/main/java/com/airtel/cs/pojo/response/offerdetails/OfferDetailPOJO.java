@@ -15,5 +15,6 @@ public class OfferDetailPOJO {
 
     private String message;
     private String status;
-    private ArrayList<OfferResponse> response;
+    private String statusCode;
+    private ArrayList<OfferResponse> result;
 }

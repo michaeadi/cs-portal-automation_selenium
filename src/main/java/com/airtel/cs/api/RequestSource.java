@@ -7,6 +7,7 @@ import com.airtel.cs.pojo.request.*;
 import com.airtel.cs.pojo.response.*;
 import com.airtel.cs.pojo.response.accumulators.AccumulatorsPOJO;
 import com.airtel.cs.pojo.response.agentpermission.AgentPermission;
+import com.airtel.cs.pojo.response.agents.AgentDetailPOJO;
 import com.airtel.cs.pojo.response.airtelmoney.AirtelMoneyPOJO;
 import com.airtel.cs.pojo.response.clearrefillstatus.RefillStatus;
 import com.airtel.cs.pojo.response.configuration.ConfigurationPOJO;
@@ -25,6 +26,7 @@ import com.airtel.cs.pojo.response.ticketlist.TicketPOJO;
 import com.airtel.cs.pojo.response.transfertoqueue.TransferToQueuePOJO;
 import com.airtel.cs.pojo.response.vendors.VendorNames;
 import com.airtel.cs.pojo.response.voucher.VoucherSearchPOJO;
+import io.restassured.http.Headers;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.HashMap;
@@ -539,5 +541,17 @@ public class RequestSource extends RestCommonUtils {
         }
         return result;
     }
+
+    public AgentDetailPOJO getAgentDetail(Headers headers){
+        AgentDetailPOJO result = null;
+        try {
+            commonGetMethod(URIConstants.AGENT_DETAILS,headers);
+            result = response.as(AgentDetailPOJO.class);
+        } catch (Exception e) {
+            commonLib.fail("Exception in method - fetchTicketPoolAPI " + e.getMessage(), false);
+        }
+        return result;
+    }
+
 
 }

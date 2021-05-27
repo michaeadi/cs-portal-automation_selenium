@@ -33,6 +33,7 @@ public class URIConstants {
     public static final String FRIENDS_FAMILY = "/cs-gsm-service/v1/friendsNfamily/details";
     public static final String AGENT_PERMISSION = "/sr/api/sr-service/v1/agent/permissions";
     public static final String FETCH_TICKET_POOL = "/sr/api/sr-service/v1/fetch/ticketpool";
+    public static final String AGENT_DETAILS = "/sr/api/sr-service/v1/agents";
 
     private URIConstants() {
 

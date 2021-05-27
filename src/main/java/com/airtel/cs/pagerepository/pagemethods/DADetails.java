@@ -106,7 +106,7 @@ public class DADetails extends BasePage {
 
     public Boolean isOfferWidgetDisplay(){
         commonLib.info("Checking that Display Offer widget Display");
-        return  isElementVisible(pageElements.displayOfferTitle);
+        return  isElementVisible(By.xpath(pageElements.displayOfferTitle));
     }
 
     public String getDisplayOfferHeader(int row) {
@@ -196,6 +196,33 @@ public class DADetails extends BasePage {
         commonLib.info("Checking Pagination available or not in offer widget");
         return isElementVisible(pageElements.offerPagination);
     }
+
+    public Boolean checkPreviousBtnDisable(){
+        commonLib.info("Checking in Pagination previous button is disable or not in offer widget");
+        return isElementVisible(By.xpath(pageElements.displayOfferTitle+pageElements.previousBtnDisable));
+    }
+
+    public Boolean checkNextBtnEnable(){
+        commonLib.info("Checking in Pagination next button is disable or not in offer widget");
+        return isElementVisible(By.xpath(pageElements.displayOfferTitle+pageElements.nextBtnEnable));
+    }
+
+    public void clickNextBtn(){
+        commonLib.info("Clicking Next button in pagination");
+        click(By.xpath(pageElements.displayOfferTitle+pageElements.nextBtnEnable));
+    }
+
+    public void clickPreviousBtn(){
+        commonLib.info("Clicking Previous button in pagination");
+        click(By.xpath(pageElements.displayOfferTitle+pageElements.previousBtnEnable));
+    }
+
+    public String getPaginationText(){
+        String value=getText(By.xpath(pageElements.displayOfferTitle+pageElements.paginationCount)).trim();
+        commonLib.info("Reading Pagination text "+value);
+        return value;
+    }
+
 
 
 

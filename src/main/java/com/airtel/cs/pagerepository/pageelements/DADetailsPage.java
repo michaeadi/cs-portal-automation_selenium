@@ -30,7 +30,7 @@ public class DADetailsPage {
     public String offerColumnHeader="//div[@id='DISPLAY_OFFERS']//div[@class='table-data-wrapper ng-star-inserted']/div[@class='ng-star-inserted'  or @class='slide-toggle red ng-star-inserted'][";
     public String offerColumnValue="]//div[@class='data-container ng-star-inserted' or @class='slide-toggle red ng-star-inserted'][";
     public String moreIcon="]//mat-icon";
-    public By displayOfferTitle=By.id("DISPLAY_OFFERS");
+    public String displayOfferTitle="//div[@id='DISPLAY_OFFERS']";
     public String moreHeaderRow="]//div[@class=\"expansion-block display-block ng-star-inserted\"]//div[@class=\"header-data-container ng-star-inserted\"][";
     public String moreColumnHeader="]//div[@class=\"expansion-block display-block ng-star-inserted\"]//div[@class='table-data-wrapper ng-star-inserted']/div[@class='ng-star-inserted'  or @class='slide-toggle red ng-star-inserted'][";
     public By offerPagination=By.xpath("//div[@id='DISPLAY_OFFERS']//div[@class='pagination ng-star-inserted']");
@@ -56,4 +56,13 @@ public class DADetailsPage {
     public String associateWidgetHeader="//span[@class='header-data ']";
     public By associateWidgetRowValue=By.xpath("//div[@class='card__card-header--card-body--table--data-list row-border']");
     public By associateWidgetColumnValue=By.xpath("//span[@class='data ng-star-inserted']");
+
+    /**
+     * Pagination previous next button
+     * */
+    public String previousBtnDisable="//li[@class='pagination-previous disabled ng-star-inserted']";
+    public String previousBtnEnable="//li[@class='pagination-previous ng-star-inserted']";
+    public String nextBtnDisable="//li[@class='pagination-next disabled ng-star-inserted']";
+    public String nextBtnEnable="//li[@class='pagination-next ng-star-inserted']";
+    public String paginationCount="//*[@class='pagination-details']";
 }

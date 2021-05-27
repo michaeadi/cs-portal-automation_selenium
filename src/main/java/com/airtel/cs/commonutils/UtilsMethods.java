@@ -1,7 +1,11 @@
 package com.airtel.cs.commonutils;
 
+import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.driver.Driver;
+import com.airtel.cs.pojo.response.agents.AgentDetailPOJO;
+import com.airtel.cs.pojo.response.agents.Authorities;
 import io.restassured.http.Header;
+import io.restassured.http.Headers;
 import io.restassured.response.Response;
 import io.restassured.specification.QueryableRequestSpecification;
 import lombok.extern.log4j.Log4j2;
@@ -13,6 +17,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
@@ -21,6 +26,7 @@ public class UtilsMethods extends Driver {
 
     private static final String YESTERDAY = "Yesterday";
     private static final String TODAY = "Today";
+    private static RequestSource api=new RequestSource();
 
     public static void addHeaders(String key, String value) {
         map.add(new Header(key, value));
@@ -160,5 +166,21 @@ public class UtilsMethods extends Driver {
         DateFormat format1 = new SimpleDateFormat(pattern);
         String today = format1.format(Calendar.getInstance().getTime());
         return today.equalsIgnoreCase(birthDay);
+    }
+
+    public static Boolean isUserHasPermission(Headers headers, String permissionName){
+        AgentDetailPOJO agentDetailAPI=api.getAgentDetail(headers);
+        if(agentDetailAPI.getStatusCode()!=200){
+            commonLib.fail("Not able to get Agent detail using agent api",false);
+            return false;
+        }else{
+            List<Authorities> allPermissions=agentDetailAPI.getResult().getUserDetails().getUserDetails().getAuthorities();
+            for(Authorities permission:allPermissions){
+                if(permission.getAuthority().equalsIgnoreCase(permissionName)){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

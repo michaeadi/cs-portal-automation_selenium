@@ -11,6 +11,8 @@ import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
 import com.airtel.cs.pagerepository.pagemethods.DADetails;
 import com.airtel.cs.pojo.response.offerdetails.OfferDetailPOJO;
 import lombok.extern.log4j.Log4j2;
+import org.testng.SkipException;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 @Log4j2
@@ -20,6 +22,18 @@ public class DisplayOfferWidgetTest extends PreRequisites {
     private final BaseActions actions = new BaseActions();
     RequestSource api = new RequestSource();
     private OfferDetailPOJO offerDetailPOJO = null;
+
+    @BeforeMethod
+    public void checkExecution() {
+        if (continueExecutionFA) {
+            assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, true, "Proceeding for test case as user able to login over portal", "Skipping tests because user not able to login into portal or Role does not assign to user"));
+        } else {
+            commonLib.skip("Skipping tests because user not able to login into portal or Role does not assign to user");
+            assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, false, "Skipping tests because user not able to login into portal or Role does not assign to user"));
+            throw new SkipException("Skipping tests because user not able to login into portal or Role does not assign to user");
+        }
+        actions.assertAllFoundFailedAssert(assertCheck);
+    }
 
     @Test(priority = 1, description = "Validate Customer Interaction Page")
     public void openCustomerInteraction() {
@@ -50,9 +64,9 @@ public class DisplayOfferWidgetTest extends PreRequisites {
             pages.getCustomerProfilePage().waitTillLoaderGetsRemoved();
             assertCheck.append(actions.assertEqual_boolean(pages.getDaDetailsPage().isOfferWidgetDisplay(), true, "Display offer Widget display", "Display offer widget does not display"));
             offerDetailPOJO = api.offerDetailAPITest(customerNumber);
-            if (Integer.parseInt(offerDetailPOJO.getStatus()) != 200) {
-                commonLib.fail("API is Unable to Get AM Transaction History for Customer", false);
-            } else if(offerDetailPOJO.getResponse().size() > 0){
+            if (Integer.parseInt(offerDetailPOJO.getStatusCode()) != 200) {
+                commonLib.fail("API is Unable to Get Display Offer for Customer", false);
+            } else if(offerDetailPOJO.getResult().size() > 0){
                 assertCheck.append(actions.assertEqual_stringType(pages.getDaDetailsPage().getDisplayOfferHeader(1).toLowerCase().trim(), headerValues.getRow1().toLowerCase().trim(), "Header Name for Row 1 is as expected", "Header Name for Row 1 is not as expected"));
                 assertCheck.append(actions.assertEqual_stringType(pages.getDaDetailsPage().getDisplayOfferHeader(2).toLowerCase().trim(), headerValues.getRow2().toLowerCase().trim(), "Header Name for Row 2 is as expected", "Header Name for Row 2 is not as expected"));
                 assertCheck.append(actions.assertEqual_stringType(pages.getDaDetailsPage().getDisplayOfferHeader(3).toLowerCase().trim(), headerValues.getRow3().toLowerCase().trim(), "Header Name for Row 3 is as expected", "Header Name for Row 3 is not as expected"));
@@ -77,20 +91,20 @@ public class DisplayOfferWidgetTest extends PreRequisites {
         selUtils.addTestcaseDescription("Validate Offers widget Column value display as per API Response ", "description");
         DADetails daDetailsPage = pages.getDaDetailsPage();
         try {
-            if (Integer.parseInt(offerDetailPOJO.getStatus()) != 200) {
+            if (Integer.parseInt(offerDetailPOJO.getStatusCode()) != 200) {
                 commonLib.fail("API is Unable to Get AM Transaction History for Customer", false);
-            } else if (offerDetailPOJO.getResponse().size() > 0) {
-                int size = Math.min(offerDetailPOJO.getResponse().size(), 5);
+            } else if (offerDetailPOJO.getResult().size() > 0) {
+                int size = Math.min(offerDetailPOJO.getResult().size(), 5);
                 for (int i = 0; i < size; i++) {
-                    assertCheck.append(actions.matchUiAndAPIResponse(daDetailsPage.getValueCorrespondingToOffer(i + 1, 1), offerDetailPOJO.getResponse().get(i).getOfferId(), "Offer Id is as expected as API response", "offer Id is not expected as API response"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(daDetailsPage.getValueCorrespondingToOffer(i + 1, 2), offerDetailPOJO.getResponse().get(i).getOfferName(), "Offer Name is as expected as API response", "offer Name is not expected as API response"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(daDetailsPage.getValueCorrespondingToOffer(i + 1, 3), offerDetailPOJO.getResponse().get(i).getProductId(), "Product Id is as expected as API response", "Product Id is not expected as API response"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(daDetailsPage.getValueCorrespondingToOffer(i + 1, 4), UtilsMethods.getDateFromEpochInUTC(Long.parseLong(offerDetailPOJO.getResponse().get(i).getOfferStartDate()), constants.getValue(CommonConstants.OFFER_DETAILS_TIME_FORMAT)), "Offer Start date is as expected as API response", "offer Start date is not expected as API response"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(daDetailsPage.getValueCorrespondingToOffer(i + 1, 5), UtilsMethods.getDateFromEpochInUTC(Long.parseLong(offerDetailPOJO.getResponse().get(i).getOfferExpiryDate()), constants.getValue(CommonConstants.OFFER_DETAILS_TIME_FORMAT)), "Offer Expiry date is as expected as API response", "offer Expiry date is not expected as API response"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(daDetailsPage.getValueCorrespondingToOffer(i + 1, 6), offerDetailPOJO.getResponse().get(i).getPamServiceId(), "Offer PAM Service Id is as expected as API response", "offer PAM Service Id is not expected as API response"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(daDetailsPage.getValueCorrespondingToOffer(i + 1, 7), offerDetailPOJO.getResponse().get(i).getOfferType(), "Offer Type is as expected as API response", "offer Type is not expected as API response"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(daDetailsPage.getValueCorrespondingToOffer(i + 1, 8), offerDetailPOJO.getResponse().get(i).getOfferState(), "Offer State is as expected as API response", "offer State is not expected as API response"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(daDetailsPage.getValueCorrespondingToOffer(i + 1, 9), offerDetailPOJO.getResponse().get(i).getNoOfDAs(), "Offer No. of DA associated number is as expected as API response", "offer No. of DA associated number is not expected as API response"));
+                    assertCheck.append(actions.matchUiAndAPIResponse(daDetailsPage.getValueCorrespondingToOffer(i + 1, 1), offerDetailPOJO.getResult().get(i).getOfferId(), "Offer Id is as expected as API response", "offer Id is not expected as API response"));
+                    assertCheck.append(actions.matchUiAndAPIResponse(daDetailsPage.getValueCorrespondingToOffer(i + 1, 2), offerDetailPOJO.getResult().get(i).getOfferName(), "Offer Name is as expected as API response", "offer Name is not expected as API response"));
+                    assertCheck.append(actions.matchUiAndAPIResponse(daDetailsPage.getValueCorrespondingToOffer(i + 1, 3), offerDetailPOJO.getResult().get(i).getProductID(), "Product Id is as expected as API response", "Product Id is not expected as API response"));
+                    assertCheck.append(actions.matchUiAndAPIResponse(daDetailsPage.getValueCorrespondingToOffer(i + 1, 4), UtilsMethods.getDateFromEpochInUTC(Long.parseLong(offerDetailPOJO.getResult().get(i).getOfferstartDate()), constants.getValue(CommonConstants.OFFER_DETAILS_TIME_FORMAT)), "Offer Start date is as expected as API response", "offer Start date is not expected as API response"));
+                    assertCheck.append(actions.matchUiAndAPIResponse(daDetailsPage.getValueCorrespondingToOffer(i + 1, 5), UtilsMethods.getDateFromEpochInUTC(Long.parseLong(offerDetailPOJO.getResult().get(i).getOfferExpiryDate()), constants.getValue(CommonConstants.OFFER_DETAILS_TIME_FORMAT)), "Offer Expiry date is as expected as API response", "offer Expiry date is not expected as API response"));
+                    assertCheck.append(actions.matchUiAndAPIResponse(daDetailsPage.getValueCorrespondingToOffer(i + 1, 6), offerDetailPOJO.getResult().get(i).getPamServiceId(), "Offer PAM Service Id is as expected as API response", "offer PAM Service Id is not expected as API response"));
+                    assertCheck.append(actions.matchUiAndAPIResponse(daDetailsPage.getValueCorrespondingToOffer(i + 1, 7), offerDetailPOJO.getResult().get(i).getOfferType(), "Offer Type is as expected as API response", "offer Type is not expected as API response"));
+                    assertCheck.append(actions.matchUiAndAPIResponse(daDetailsPage.getValueCorrespondingToOffer(i + 1, 8), offerDetailPOJO.getResult().get(i).getOfferState(), "Offer State is as expected as API response", "offer State is not expected as API response"));
+                    assertCheck.append(actions.matchUiAndAPIResponse(daDetailsPage.getValueCorrespondingToOffer(i + 1, 9), offerDetailPOJO.getResult().get(i).getNoOfDAs(), "Offer No. of DA associated number is as expected as API response", "offer No. of DA associated number is not expected as API response"));
                 }
                 actions.assertAllFoundFailedAssert(assertCheck);
             }else{
@@ -105,33 +119,45 @@ public class DisplayOfferWidgetTest extends PreRequisites {
     public void associatedDAPopUpTest() {
         selUtils.addTestcaseDescription("Validate Associated DA's widget Column value display as per API Response ", "description");
         DADetails daDetailsPage = pages.getDaDetailsPage();
-        int size = Math.min(offerDetailPOJO.getResponse().size(), 5);
+        int size = Math.min(offerDetailPOJO.getResult().size(), 5);
         try {
             for (int i = 0; i < size; i++) {
-                if (offerDetailPOJO.getResponse().get(i).getNoOfDAs() > 0) {
+                if (offerDetailPOJO.getResult().get(i).getNoOfDAs() > 0) {
                     daDetailsPage.hoverOnTotalDAIds(i + 1, 9);
                     assertCheck.append(actions.assertEqual_boolean(daDetailsPage.isAssociateDAWidgetDisplay(), true, "After hover on Number of DA's Associate widget display as expected", "After hover on Number of DA's Associate widget does not display as expected"));
                     for (int j = 0; j < daDetailsPage.getNumberOfAssociateHeader(); j++) {
-                        assertCheck.append(actions.matchUiAndAPIResponse(daDetailsPage.getValueCorrespondingToAssociateWidget(j, 0), offerDetailPOJO.getResponse().get(i).getAccountInformation().get(j).getDaId(), "DA Id same as API response in associated widget for row(" + i + ")", "DA Id not same as API response in associated widget for row(" + i + ")"));
-                        assertCheck.append(actions.matchUiAndAPIResponse(daDetailsPage.getValueCorrespondingToAssociateWidget(j, 1), offerDetailPOJO.getResponse().get(i).getAccountInformation().get(j).getDaAmount(), "DA Amount same as API response in associated widget for row(" + i + ")", "DA Amount not same as API response in associated widget for row(" + i + ")"));
-                        assertCheck.append(actions.matchUiAndAPIResponse(daDetailsPage.getValueCorrespondingToAssociateWidget(j, 2), offerDetailPOJO.getResponse().get(i).getAccountInformation().get(j).getOfferId(), "DA Offer id same as API response in associated widget for row(" + i + ")", "DA Offer id not same as API response in associated widget for row(" + i + ")"));
-                        assertCheck.append(actions.matchUiAndAPIResponse(daDetailsPage.getValueCorrespondingToAssociateWidget(j, 2), offerDetailPOJO.getResponse().get(i).getAccountInformation().get(j).getProductId(), "DA Product id same as API response in associated widget for row(" + i + ")", "DA Product id not same as API response in associated widget for row(" + i + ")"));
-                        assertCheck.append(actions.matchUiAndAPIResponse(daDetailsPage.getValueCorrespondingToOffer(i + 1, 3), UtilsMethods.getDateFromEpochInUTC(Long.parseLong(offerDetailPOJO.getResponse().get(i).getAccountInformation().get(j).getDaStartDate()), constants.getValue(CommonConstants.OFFER_DETAILS_TIME_FORMAT)), "Offer Start date is as expected as API response", "offer Start date is not expected as API response"));
-                        assertCheck.append(actions.matchUiAndAPIResponse(daDetailsPage.getValueCorrespondingToOffer(i + 1, 4), UtilsMethods.getDateFromEpochInUTC(Long.parseLong(offerDetailPOJO.getResponse().get(i).getAccountInformation().get(j).getDaEndDate()), constants.getValue(CommonConstants.OFFER_DETAILS_TIME_FORMAT)), "Offer Expiry date is as expected as API response", "offer Expiry date is not expected as API response"));
+                        assertCheck.append(actions.matchUiAndAPIResponse(daDetailsPage.getValueCorrespondingToAssociateWidget(j, 0), offerDetailPOJO.getResult().get(i).getAccountInformation().get(j).getDaId(), "DA Id same as API response in associated widget for row(" + i + ")", "DA Id not same as API response in associated widget for row(" + i + ")"));
+                        assertCheck.append(actions.matchUiAndAPIResponse(daDetailsPage.getValueCorrespondingToAssociateWidget(j, 1), offerDetailPOJO.getResult().get(i).getAccountInformation().get(j).getDaAmount(), "DA Amount same as API response in associated widget for row(" + i + ")", "DA Amount not same as API response in associated widget for row(" + i + ")"));
+                        assertCheck.append(actions.matchUiAndAPIResponse(daDetailsPage.getValueCorrespondingToAssociateWidget(j, 2), offerDetailPOJO.getResult().get(i).getAccountInformation().get(j).getOfferId(), "DA Offer id same as API response in associated widget for row(" + i + ")", "DA Offer id not same as API response in associated widget for row(" + i + ")"));
+                        assertCheck.append(actions.matchUiAndAPIResponse(daDetailsPage.getValueCorrespondingToAssociateWidget(j, 2), offerDetailPOJO.getResult().get(i).getAccountInformation().get(j).getProductId(), "DA Product id same as API response in associated widget for row(" + i + ")", "DA Product id not same as API response in associated widget for row(" + i + ")"));
+                        assertCheck.append(actions.matchUiAndAPIResponse(daDetailsPage.getValueCorrespondingToOffer(i + 1, 3), UtilsMethods.getDateFromEpochInUTC(Long.parseLong(offerDetailPOJO.getResult().get(i).getAccountInformation().get(j).getDaStartDate()), constants.getValue(CommonConstants.OFFER_DETAILS_TIME_FORMAT)), "Offer Start date is as expected as API response", "offer Start date is not expected as API response"));
+                        assertCheck.append(actions.matchUiAndAPIResponse(daDetailsPage.getValueCorrespondingToOffer(i + 1, 4), UtilsMethods.getDateFromEpochInUTC(Long.parseLong(offerDetailPOJO.getResult().get(i).getAccountInformation().get(j).getDaEndDate()), constants.getValue(CommonConstants.OFFER_DETAILS_TIME_FORMAT)), "Offer Expiry date is as expected as API response", "offer Expiry date is not expected as API response"));
                     }
                     break;
                 }
             }
+            actions.assertAllFoundFailedAssert(assertCheck);
         }catch (Exception e){
             commonLib.fail("Exception in Method - associatedDAPopUpTest" + e.fillInStackTrace(), true);
         }
     }
 
-    @Test(priority = 5,description = "Next and Previous button must be clickable and On click of next Page. Next 5 transaction will load. Clicked on Previous page , 5 previous transaction will load.",dependsOnMethods = {""})
+    @Test(priority = 5,description = "Next and Previous button must be clickable and On click of next Page. Next 5 transaction will load. Clicked on Previous page , 5 previous transaction will load.",dependsOnMethods = {"associatedDAPopUpTest"})
     public void checkPaginationForOfferWidget(){
         selUtils.addTestcaseDescription("Validate Offers widget display pagination and agent able to navigate through pagination ", "description");
         try{
-
+            String paginationResult="1 - 5 of "+offerDetailPOJO.getResult().size()+1;
+            assertCheck.append(actions.assertEqual_stringType(pages.getDaDetailsPage().getPaginationText(),paginationResult,"Pagination Count as expected","Pagination count as not expected"));
+            if(offerDetailPOJO.getResult().size()>5){
+                assertCheck.append(actions.assertEqual_boolean(pages.getDaDetailsPage().checkNextBtnEnable(),true,"In pagination next button is enable as result is greater than 5","In Pagination next button is not enable but result is greater than 5."));
+                pages.getDaDetailsPage().clickNextBtn();
+                assertCheck.append(actions.assertEqual_boolean(pages.getDaDetailsPage().checkPreviousBtnDisable(),false,"In pagination Previous button is enable","In Pagination previous button is not enable"));
+                pages.getDaDetailsPage().clickPreviousBtn();
+                assertCheck.append(actions.assertEqual_stringType(pages.getDaDetailsPage().getPaginationText(),paginationResult,"Pagination Count as expected","Pagination count as not expected"));
+            }else{
+                assertCheck.append(actions.assertEqual_boolean(pages.getDaDetailsPage().checkNextBtnEnable(),false,"In pagination next button is disable as result is <= 5","In Pagination next button is not disable but result is <= 5."));
+            }
+            actions.assertAllFoundFailedAssert(assertCheck);
         }catch (Exception e){
             commonLib.fail("Exception in Method - checkPaginationForOfferWidget" + e.fillInStackTrace(), true);
         }

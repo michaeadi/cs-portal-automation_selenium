@@ -14,8 +14,8 @@ import java.util.ArrayList;
 public class OfferResponse {
     private Integer offerId;
     private String offerName;
-    private String productId;
-    private String offerStartDate;
+    private String productID;
+    private String offerstartDate;
     private String offerExpiryDate;
     private String offerType;
     private String offerState;

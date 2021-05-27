@@ -2,12 +2,15 @@ package com.airtel.cs.ui.frontendagent.widgets;
 
 import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.common.actions.BaseActions;
+import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
+import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pagerepository.pagemethods.ServiceClassWidget;
 import com.airtel.cs.pojo.response.hlrservice.HLRServicePOJO;
+import io.restassured.http.Headers;
 import lombok.extern.log4j.Log4j2;
 import org.testng.annotations.Test;
 
@@ -38,6 +41,18 @@ public class ServiceProfileWidgetTest extends Driver {
         }
     }
 
+    @Test(priority = 2,description = "")
+    public void isUserHasHLRPermission(){
+        try {
+            selUtils.addTestcaseDescription("Verify that Service Profile widget should be visible to the logged in agent if HLR permission is enabled in UM", "description");
+            String HLR_PERMISSION = constants.getValue(PermissionConstants.HLR_WIDGET_PERMISSION);
+            assertCheck.append(actions.assertEqual_boolean(pages.getServiceClassWidget().isServiceClassWidgetDisplay(), UtilsMethods.isUserHasPermission(new Headers(map), HLR_PERMISSION), "Service Profile Widget displayed correctly as per user permission", "Service Profile Widget does not display correctly as per user permission"));
+            actions.assertAllFoundFailedAssert(assertCheck);
+        }catch (Exception e){
+            commonLib.fail("Exception in Method - isUserHasHLRPermission" + e.fillInStackTrace(), true);
+        }
+    }
+
     @DataProviders.Table(name = "Service Profile")
     @Test(priority = 2, description = "Verify Service Profile Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI")
     public void validateServiceProfileWidget(HeaderDataBean data) {
@@ -47,10 +62,10 @@ public class ServiceProfileWidgetTest extends Driver {
             final ServiceClassWidget serviceClassWidget = pages.getServiceClassWidget();
             assertCheck.append(actions.assertEqual_boolean(serviceClassWidget.isServiceClassWidgetDisplay(), true, "Service Profile Widget displayed correctly", "Service Profile Widget does not display correctly"));
             HLRServicePOJO hlrService = api.getServiceProfileWidgetInfo(customerNumber);
-            int size = serviceClassWidget.getNumberOfRows();
+            int size = Math.min(hlrService.getTotalCount(),5);
             if (Integer.parseInt(hlrService.getStatusCode()) == 200) {
                 if (hlrService.getResult().isEmpty() || hlrService.getResult() == null) {
-                    commonLib.warning("Unable to get Last Service Profile from com.airtel.cs.API");
+                    commonLib.warning("Unable to get Last Service Profile from API");
                     assertCheck.append(actions.assertEqual_boolean(serviceClassWidget.isServiceProfileNoResultFoundVisible(), true, "Error Message is Visible", "Error Message is not Visible"));
                     assertCheck.append(actions.assertEqual_stringType(serviceClassWidget.gettingServiceProfileNoResultFoundMessage(), "No Result found", "Error Message is as expected", "Error Message is not as expected"));
                 } else {
@@ -60,15 +75,15 @@ public class ServiceProfileWidgetTest extends Driver {
                     assertCheck.append(actions.assertEqual_stringType(serviceClassWidget.getHeaders(4).trim().toLowerCase(), data.getRow4().trim().toLowerCase(), "Header Name at Row(4) is as expected", "Header Name at Row(4) is not as expected"));
                     assertCheck.append(actions.assertEqual_stringType(serviceClassWidget.getHeaders(5).trim().toLowerCase(), data.getRow5().trim().toLowerCase(), "Header Name at Row(5) is as expected", "Header Name at Row(5) is not as expected"));
                     for (int i = 0; i < size; i++) {
-                        assertCheck.append(actions.assertEqual_stringType(serviceClassWidget.getValueCorrespondingToAccumulator(i + 1, 1), hlrService.getResult().get(i).getServiceName(), "Service Name is As received in API for row number " + i, "Service Name is not As received in API for row number " + i));
-                        assertCheck.append(actions.assertEqual_stringType(serviceClassWidget.getValueCorrespondingToAccumulator(i + 1, 2), hlrService.getResult().get(i).getServiceDesc(), "Service desc is As received in API for row number " + i, "Service desc is not As received in API for row number " + i));
-                        assertCheck.append(actions.assertEqual_stringType(serviceClassWidget.getValueCorrespondingToAccumulator(i + 1, 3), hlrService.getResult().get(i).getHlrCodes().get(0), "HLR Code is As received in API for row number " + i, "HLR Code is not As received in API for row number " + i));
-                        assertCheck.append(actions.assertEqual_stringType(serviceClassWidget.getValueCorrespondingToAccumulator(i + 1, 4), hlrService.getResult().get(i).getHlrCodeDetails().get(0), "HLR code details is As received in API for row number " + i, "HLR code details is not As received in API for row number " + i));
+                        assertCheck.append(actions.assertEqual_stringType(serviceClassWidget.getValueCorrespondingToServiceProfile(i + 1, 1), hlrService.getResult().get(i).getServiceName(), "Service Name is As received in API for row number " + i, "Service Name is not As received in API for row number " + i));
+                        assertCheck.append(actions.assertEqual_stringType(serviceClassWidget.getValueCorrespondingToServiceProfile(i + 1, 2), hlrService.getResult().get(i).getServiceDesc(), "Service desc is As received in API for row number " + i, "Service desc is not As received in API for row number " + i));
+                        assertCheck.append(actions.assertEqual_stringType(serviceClassWidget.getValueCorrespondingToServiceProfile(i + 1, 3), hlrService.getResult().get(i).getHlrCodes().get(0), "HLR Code is As received in API for row number " + i, "HLR Code is not As received in API for row number " + i));
+                        assertCheck.append(actions.assertEqual_stringType(serviceClassWidget.getValueCorrespondingToServiceProfile(i + 1, 4), hlrService.getResult().get(i).getHlrCodeDetails().get(0), "HLR code details is As received in API for row number " + i, "HLR code details is not As received in API for row number " + i));
                         if (hlrService.getResult().get(i).getType().equalsIgnoreCase("Action")) {
                             if (hlrService.getResult().get(i).getServiceStatus().equalsIgnoreCase("enabled")) {
-                                assertCheck.append(actions.assertEqual_boolean(serviceClassWidget.getServiceStatus(), true, "Service Status is as expected", "Service Status is not as expected"));
+                                assertCheck.append(actions.assertEqual_boolean(serviceClassWidget.getServiceStatus(i+1), true, "Service Status is as expected", "Service Status is not as expected"));
                             } else {
-                                assertCheck.append(actions.assertEqual_boolean(serviceClassWidget.getServiceStatus(), false, "Service Status is as expected", "Service Status is not as expected"));
+                                assertCheck.append(actions.assertEqual_boolean(serviceClassWidget.getServiceStatus(i+1), false, "Service Status is as expected", "Service Status is not as expected"));
                             }
                         }
                     }
@@ -76,7 +91,7 @@ public class ServiceProfileWidgetTest extends Driver {
 
             } else {
                 assertCheck.append(actions.assertEqual_boolean(serviceClassWidget.isServiceProfileErrorVisible(), true, "com.airtel.cs.API is Giving error But Widget is showing error Message on com.airtel.cs.API is", "com.airtel.cs.API is Giving error But Widget is not showing error Message on com.airtel.cs.API is"));
-                commonLib.fail("com.airtel.cs.API is unable to fetch Service Profile History ", true);
+                commonLib.fail("API is unable to fetch Service Profile History ", true);
             }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {

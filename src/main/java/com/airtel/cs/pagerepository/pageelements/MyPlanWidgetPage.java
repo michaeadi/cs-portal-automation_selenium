@@ -14,7 +14,7 @@ public class MyPlanWidgetPage {
     public By voiceExpiryDate = By.xpath("//span[@class='card__content--bottom--plan ng-star-inserted'][1]/p[@class='ng-star-inserted'][2]");
     public By dataExpiryDate = By.xpath("//span[@class='card__content--bottom--plan ng-star-inserted'][2]/p[@class='ng-star-inserted'][2]");
     public By smsExpiryDate = By.xpath("//span[@class='card__content--bottom--plan ng-star-inserted'][3]/p[@class='ng-star-inserted'][2]");
-    public By menu = By.xpath("//div[@id='CURRENT_PLAN']//span/img[@class='header-action-icon ng-star-inserted']");
+    public By menu = By.xpath("//div[@data-csautomation-key='CURRENT_PLAN']//img[@data-csautomation-key='menuButton']");
     public By currentBalanceLastRechargeUnableToFetch = By.xpath("//span[@class='label-color']/span[@class='api-failed-error ng-star-inserted']");
     public By lastRechargeDateTImeUnableTOFetch = By.xpath("//div[@class='api-failed-error ng-star-inserted']");
     public By ticketIcon = By.xpath("//div[@id='CURRENT_PLAN']//span/img[@class='interaction-ticket']");
