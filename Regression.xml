@@ -25,6 +25,16 @@
             <class name="com.airtel.cs.ui.frontendagent.demographicwidget.AuthTabTest"/>
         </classes>
     </test>
+    <test name="Test Service Class Offer Widget Test Options">
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.widgets.ServiceProfileWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Test Display Offer Widget Test Options">
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.widgets.DisplayOfferWidgetTest"/>
+        </classes>
+    </test>
     <test name="Validate Action Trail Tab Test">
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.actiondropdown.ActionTrailTest"/>

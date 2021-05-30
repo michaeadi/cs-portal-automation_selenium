@@ -6,10 +6,12 @@ import com.airtel.cs.common.requisite.PreRequisites;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
+import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
 import com.airtel.cs.pagerepository.pagemethods.DADetails;
 import com.airtel.cs.pojo.response.offerdetails.OfferDetailPOJO;
+import io.restassured.http.Headers;
 import lombok.extern.log4j.Log4j2;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
@@ -146,7 +148,7 @@ public class DisplayOfferWidgetTest extends PreRequisites {
     public void checkPaginationForOfferWidget(){
         selUtils.addTestcaseDescription("Validate Offers widget display pagination and agent able to navigate through pagination ", "description");
         try{
-            String paginationResult="1 - 5 of "+offerDetailPOJO.getResult().size()+1;
+            String paginationResult="1 - 5 of "+offerDetailPOJO.getResult().size()+" Results";
             assertCheck.append(actions.assertEqual_stringType(pages.getDaDetailsPage().getPaginationText(),paginationResult,"Pagination Count as expected","Pagination count as not expected"));
             if(offerDetailPOJO.getResult().size()>5){
                 assertCheck.append(actions.assertEqual_boolean(pages.getDaDetailsPage().checkNextBtnEnable(),true,"In pagination next button is enable as result is greater than 5","In Pagination next button is not enable but result is greater than 5."));
@@ -160,6 +162,18 @@ public class DisplayOfferWidgetTest extends PreRequisites {
             actions.assertAllFoundFailedAssert(assertCheck);
         }catch (Exception e){
             commonLib.fail("Exception in Method - checkPaginationForOfferWidget" + e.fillInStackTrace(), true);
+        }
+    }
+
+    @Test(priority = 6,description = "Display Offer widget should be visible based on user permission")
+    public void isUserHasOfferPermission(){
+        try {
+            selUtils.addTestcaseDescription("Verify that necessary permissions are added for offers widget to be displayed.", "description");
+            String offer_widget_permission = constants.getValue(PermissionConstants.OFFER_WIDGET_PERMISSION);
+            assertCheck.append(actions.assertEqual_boolean(pages.getServiceClassWidget().isServiceClassWidgetDisplay(), UtilsMethods.isUserHasPermission(new Headers(map), offer_widget_permission), "Display Offer Widget displayed correctly as per user permission", "Display Offer Widget does not display correctly as per user permission"));
+            actions.assertAllFoundFailedAssert(assertCheck);
+        }catch (Exception e){
+            commonLib.fail("Exception in Method - isUserHasOfferPermission" + e.fillInStackTrace(), true);
         }
     }
 

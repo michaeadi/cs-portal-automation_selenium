@@ -20,6 +20,7 @@ public class ServiceProfileWidgetTest extends Driver {
     private static String customerNumber = null;
     private final BaseActions actions = new BaseActions();
     RequestSource api = new RequestSource();
+    private HLRServicePOJO hlrService;
 
 
     @Test(priority = 1, description = "Validate Customer Interaction Page")
@@ -41,27 +42,44 @@ public class ServiceProfileWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 2,description = "")
+    @Test(priority = 2,description = "Service Profile widget should be visible based on user permission")
     public void isUserHasHLRPermission(){
         try {
             selUtils.addTestcaseDescription("Verify that Service Profile widget should be visible to the logged in agent if HLR permission is enabled in UM", "description");
-            String HLR_PERMISSION = constants.getValue(PermissionConstants.HLR_WIDGET_PERMISSION);
-            assertCheck.append(actions.assertEqual_boolean(pages.getServiceClassWidget().isServiceClassWidgetDisplay(), UtilsMethods.isUserHasPermission(new Headers(map), HLR_PERMISSION), "Service Profile Widget displayed correctly as per user permission", "Service Profile Widget does not display correctly as per user permission"));
+            String hlr_permission = constants.getValue(PermissionConstants.HLR_WIDGET_PERMISSION);
+            assertCheck.append(actions.assertEqual_boolean(pages.getServiceClassWidget().isServiceClassWidgetDisplay(), UtilsMethods.isUserHasPermission(new Headers(map), hlr_permission), "Service Profile Widget displayed correctly as per user permission", "Service Profile Widget does not display correctly as per user permission"));
             actions.assertAllFoundFailedAssert(assertCheck);
         }catch (Exception e){
             commonLib.fail("Exception in Method - isUserHasHLRPermission" + e.fillInStackTrace(), true);
         }
     }
 
+    @Test(priority = 3,description = "",groups = {"RegressionTest"},enabled = false)
+    public void userHasNoHLRPermission(){
+        try {
+            selUtils.addTestcaseDescription("Verify that Service Profile widget should not be visible to the logged in agent if HLR permission is disabled in UM", "description");
+            pages.getLoginPage().openNewTempBrowserAndLoginInUM();
+            String hlr_permission = constants.getValue(PermissionConstants.HLR_WIDGET_PERMISSION);
+            pages.getUserManagementPage().removeOrAddPermission(constants.getValue(PermissionConstants.HLR_WIDGET_PERMISSION_UM));
+            pages.getUserManagementPage().destroyTempBrowser();
+            assertCheck.append(actions.assertEqual_boolean(pages.getServiceClassWidget().isServiceClassWidgetDisplay(), UtilsMethods.isUserHasPermission(new Headers(map), hlr_permission), "Service Profile Widget must not displayed as permission have removed", "Service Profile Widget is still displayed as permission have removed"));
+            actions.assertAllFoundFailedAssert(assertCheck);
+        }catch (Exception e){
+            commonLib.fail("Exception in Method - isUserHasHLRPermission" + e.fillInStackTrace(), true);
+        }
+    }
+
+
+
     @DataProviders.Table(name = "Service Profile")
-    @Test(priority = 2, description = "Verify Service Profile Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI")
+    @Test(priority = 4, description = "Verify Service Profile Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI")
     public void validateServiceProfileWidget(HeaderDataBean data) {
         try {
             selUtils.addTestcaseDescription("Verify Service Profile Widget: " + customerNumber, "description");
             commonLib.info("Opening URL");
             final ServiceClassWidget serviceClassWidget = pages.getServiceClassWidget();
             assertCheck.append(actions.assertEqual_boolean(serviceClassWidget.isServiceClassWidgetDisplay(), true, "Service Profile Widget displayed correctly", "Service Profile Widget does not display correctly"));
-            HLRServicePOJO hlrService = api.getServiceProfileWidgetInfo(customerNumber);
+            hlrService = api.getServiceProfileWidgetInfo(customerNumber);
             int size = Math.min(hlrService.getTotalCount(),5);
             if (Integer.parseInt(hlrService.getStatusCode()) == 200) {
                 if (hlrService.getResult().isEmpty() || hlrService.getResult() == null) {
@@ -96,6 +114,195 @@ public class ServiceProfileWidgetTest extends Driver {
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - validateServiceProfileWidget" + e.fillInStackTrace(), true);
+        }
+    }
+
+    @Test(priority = 5,description = "",groups = {"RegressionTest"})
+    public void validateUserHasPermissionToBar(){
+        try {
+            selUtils.addTestcaseDescription("Verify that agent having the UM permission HLR Service All Bar should be able to bar any of the unbarred service", "description");
+            String hlr_permission = constants.getValue(PermissionConstants.HLR_WIDGET_BAR_PERMISSION);
+            assertCheck.append(actions.assertEqual_boolean(UtilsMethods.isUserHasPermission(new Headers(map), hlr_permission),true, "User have permission to bar service as expected", "User does not have permission to bar service as expected."));
+            int size = Math.min(hlrService.getTotalCount(),5);
+            final ServiceClassWidget serviceClassWidget = pages.getServiceClassWidget();
+            boolean flag=true;
+            if (Integer.parseInt(hlrService.getStatusCode()) == 200) {
+                if (hlrService.getResult().isEmpty() || hlrService.getResult() == null) {
+                    commonLib.warning("Unable to get Last Service Profile from API");
+                    assertCheck.append(actions.assertEqual_boolean(serviceClassWidget.isServiceProfileNoResultFoundVisible(), true, "Error Message is Visible", "Error Message is not Visible"));
+                    assertCheck.append(actions.assertEqual_stringType(serviceClassWidget.gettingServiceProfileNoResultFoundMessage(), "No Result found", "Error Message is as expected", "Error Message is not as expected"));
+                } else {
+                    for (int i = 0; i < size; i++) {
+                        if (hlrService.getResult().get(i).getType().equalsIgnoreCase("Action")) {
+                            if (hlrService.getResult().get(i).getServiceStatus().equalsIgnoreCase("enabled")) {
+                                pages.getServiceClassWidget().clickServiceStatus(i + 1);
+                                pages.getServiceClassWidget().waitTillLoaderGetsRemoved();
+                                assertCheck.append(actions.assertEqual_boolean(pages.getServiceClassWidget().isBarTitleVisible(),true,"Service class unbar pop up window displayed as expected","Service class unbar pop up window does not displayed as expected"));
+                                pages.getServiceClassWidget().closePopupWindow();
+                                flag=false;
+                                break;
+                            }
+                        }
+                    }
+                    if(flag){
+                       commonLib.warning("No transaction found in service class widget to bar the status.");
+                    }
+                }
+            }else {
+                assertCheck.append(actions.assertEqual_boolean(serviceClassWidget.isServiceProfileErrorVisible(), true, "com.airtel.cs.API is Giving error But Widget is showing error Message on com.airtel.cs.API is", "com.airtel.cs.API is Giving error But Widget is not showing error Message on com.airtel.cs.API is"));
+                commonLib.fail("API is unable to fetch Service Profile History ", true);
+            }
+            actions.assertAllFoundFailedAssert(assertCheck);
+        }catch (Exception e){
+            commonLib.fail("Exception in Method - isUserHasHLRPermission" + e.fillInStackTrace(), true);
+        }
+    }
+
+    @Test(priority = 6,description = "")
+    public void validateUserHasPermissionToUnBar(){
+        try {
+            selUtils.addTestcaseDescription("Verify that agent having the UM permission HLR Service All Bar should be able to bar any of the unbarred service", "description");
+            String hlr_permission = constants.getValue(PermissionConstants.HLR_WIDGET_UNBAR_PERMISSION);
+            assertCheck.append(actions.assertEqual_boolean(UtilsMethods.isUserHasPermission(new Headers(map), hlr_permission),true, "User have permission to bar service as expected", "User does not have permission to bar service as expected."));
+            int size = Math.min(hlrService.getTotalCount(),5);
+            final ServiceClassWidget serviceClassWidget = pages.getServiceClassWidget();
+            boolean flag=true;
+            if (Integer.parseInt(hlrService.getStatusCode()) == 200) {
+                if (hlrService.getResult().isEmpty() || hlrService.getResult() == null) {
+                    commonLib.warning("Unable to get Last Service Profile from API");
+                    assertCheck.append(actions.assertEqual_boolean(serviceClassWidget.isServiceProfileNoResultFoundVisible(), true, "Error Message is Visible", "Error Message is not Visible"));
+                    assertCheck.append(actions.assertEqual_stringType(serviceClassWidget.gettingServiceProfileNoResultFoundMessage(), "No Result found", "Error Message is as expected", "Error Message is not as expected"));
+                } else {
+                    for (int i = 0; i < size; i++) {
+                        if (hlrService.getResult().get(i).getType().equalsIgnoreCase("Action")) {
+                            if (!hlrService.getResult().get(i).getServiceStatus().equalsIgnoreCase("enabled")) {
+                                pages.getServiceClassWidget().clickServiceStatus(i + 1);
+                                pages.getServiceClassWidget().waitTillLoaderGetsRemoved();
+                                assertCheck.append(actions.assertEqual_boolean(pages.getServiceClassWidget().isUnBarTitleVisible(),true,"Service class unbar pop up window displayed as expected","Service class unbar pop up window does not displayed as expected"));
+                                pages.getServiceClassWidget().closePopupWindow();
+                                flag=false;
+                                break;
+                            }
+                        }
+                    }
+                    if(flag){
+                        commonLib.warning("No transaction found in service class widget to unbar the status.");
+                    }
+                }
+            }else {
+                assertCheck.append(actions.assertEqual_boolean(serviceClassWidget.isServiceProfileErrorVisible(), true, "com.airtel.cs.API is Giving error But Widget is showing error Message on com.airtel.cs.API is", "com.airtel.cs.API is Giving error But Widget is not showing error Message on com.airtel.cs.API is"));
+                commonLib.fail("API is unable to fetch Service Profile History ", true);
+            }
+            actions.assertAllFoundFailedAssert(assertCheck);
+        }catch (Exception e){
+            commonLib.fail("Exception in Method - validateUserHasPermissionToUnBar" + e.fillInStackTrace(), true);
+        }
+    }
+
+    @Test(priority = 8,description = "",groups = {"RegressionTest"})
+    public void changeServiceStatusTestToBarred(){
+        try {
+            selUtils.addTestcaseDescription("Verify that on barring any service, the HLR widget should refresh and show the the particular service has been barred.", "description");
+            String hlr_permission = constants.getValue(PermissionConstants.HLR_WIDGET_UNBAR_PERMISSION);
+            assertCheck.append(actions.assertEqual_boolean(UtilsMethods.isUserHasPermission(new Headers(map), hlr_permission),true, "User have permission to bar service as expected", "User does not have permission to bar service as expected."));
+            int size = Math.min(hlrService.getTotalCount(),5);
+            final ServiceClassWidget serviceClassWidget = pages.getServiceClassWidget();
+            boolean flag=true;
+            if (Integer.parseInt(hlrService.getStatusCode()) == 200) {
+                if (hlrService.getResult().isEmpty() || hlrService.getResult() == null) {
+                    commonLib.warning("Unable to get Last Service Profile from API");
+                    assertCheck.append(actions.assertEqual_boolean(serviceClassWidget.isServiceProfileNoResultFoundVisible(), true, "Error Message is Visible", "Error Message is not Visible"));
+                    assertCheck.append(actions.assertEqual_stringType(serviceClassWidget.gettingServiceProfileNoResultFoundMessage(), "No Result found", "Error Message is as expected", "Error Message is not as expected"));
+                } else {
+                    for (int i = 0; i < size; i++) {
+                        if (hlrService.getResult().get(i).getType().equalsIgnoreCase("Action")) {
+                            if (hlrService.getResult().get(i).getServiceStatus().equalsIgnoreCase("enabled")) {
+                                pages.getServiceClassWidget().clickServiceStatus(i + 1);
+                                assertCheck.append(actions.assertEqual_boolean(pages.getServiceClassWidget().isBarTitleVisible(),true,"Service class bar pop up window displayed as expected","Service class unbar pop up window does not displayed as expected"));
+                                pages.getServiceClassWidget().enterComment("Service Status Changed to Barred Using Automation");
+                                pages.getServiceClassWidget().clickSubmitBtn();
+                                pages.getServiceClassWidget().waitTillLoaderGetsRemoved();
+                                assertCheck.append(actions.assertEqual_boolean(serviceClassWidget.getServiceStatus(i+1), false, "Service Status is as expected at row "+(i+1), "Service Status is not as expected at row "+(i+1)));
+                                flag=false;
+                                break;
+                            }
+                        }
+                    }
+                    if(flag){
+                        commonLib.warning("No transaction found in service class widget to bar the status.");
+                    }
+                }
+            }else {
+                assertCheck.append(actions.assertEqual_boolean(serviceClassWidget.isServiceProfileErrorVisible(), true, "com.airtel.cs.API is Giving error But Widget is showing error Message on com.airtel.cs.API is", "com.airtel.cs.API is Giving error But Widget is not showing error Message on com.airtel.cs.API is"));
+                commonLib.fail("API is unable to fetch Service Profile History ", true);
+            }
+            actions.assertAllFoundFailedAssert(assertCheck);
+        }catch (Exception e){
+            commonLib.fail("Exception in Method - changeServiceStatusTestToBarred" + e.fillInStackTrace(), true);
+        }
+    }
+
+    @Test(priority = 7,description = "",groups = {"RegressionTest"})
+    public void changeServiceStatusTestToUNBarred(){
+        try {
+            selUtils.addTestcaseDescription("Verify that on barring any service, the HLR widget should refresh and show the the particular service has been barred.", "description");
+            String hlr_permission = constants.getValue(PermissionConstants.HLR_WIDGET_UNBAR_PERMISSION);
+            assertCheck.append(actions.assertEqual_boolean(UtilsMethods.isUserHasPermission(new Headers(map), hlr_permission),true, "User have permission to bar service as expected", "User does not have permission to bar service as expected."));
+            int size = Math.min(hlrService.getTotalCount(),5);
+            final ServiceClassWidget serviceClassWidget = pages.getServiceClassWidget();
+            boolean flag=true;
+            if (Integer.parseInt(hlrService.getStatusCode()) == 200) {
+                if (hlrService.getResult().isEmpty() || hlrService.getResult() == null) {
+                    commonLib.warning("Unable to get Last Service Profile from API");
+                    assertCheck.append(actions.assertEqual_boolean(serviceClassWidget.isServiceProfileNoResultFoundVisible(), true, "Error Message is Visible", "Error Message is not Visible"));
+                    assertCheck.append(actions.assertEqual_stringType(serviceClassWidget.gettingServiceProfileNoResultFoundMessage(), "No Result found", "Error Message is as expected", "Error Message is not as expected"));
+                } else {
+                    for (int i = 0; i < size; i++) {
+                        if (hlrService.getResult().get(i).getType().equalsIgnoreCase("Action")) {
+                            if (!hlrService.getResult().get(i).getServiceStatus().equalsIgnoreCase("enabled")) {
+                                pages.getServiceClassWidget().clickServiceStatus(i + 1);
+                                assertCheck.append(actions.assertEqual_boolean(pages.getServiceClassWidget().isBarTitleVisible(),true,"Service class unbar pop up window displayed as expected","Service class unbar pop up window does not displayed as expected"));
+                                pages.getServiceClassWidget().enterComment("Service Status Changed to Unbarred Using Automation");
+                                pages.getServiceClassWidget().clickSubmitBtn();
+                                pages.getServiceClassWidget().waitTillLoaderGetsRemoved();
+                                assertCheck.append(actions.assertEqual_boolean(serviceClassWidget.getServiceStatus(i+1), true, "Service Status is as expected at row "+(i+1), "Service Status is not as expected at row "+(i+1)));
+                                flag=false;
+                                break;
+                            }
+                        }
+                    }
+                    if(flag){
+                        commonLib.warning("No transaction found in service class widget to unbar the status.");
+                    }
+                }
+            }else {
+                assertCheck.append(actions.assertEqual_boolean(serviceClassWidget.isServiceProfileErrorVisible(), true, "com.airtel.cs.API is Giving error But Widget is showing error Message on com.airtel.cs.API is", "com.airtel.cs.API is Giving error But Widget is not showing error Message on com.airtel.cs.API is"));
+                commonLib.fail("API is unable to fetch Service Profile History ", true);
+            }
+            actions.assertAllFoundFailedAssert(assertCheck);
+        }catch (Exception e){
+            commonLib.fail("Exception in Method - changeServiceStatusTestToUNBarred" + e.fillInStackTrace(), true);
+        }
+    }
+
+    @Test(priority = 5,description = "Next and Previous button must be clickable and On click of next Page. Next 5 transaction will load. Clicked on Previous page , 5 previous transaction will load.")
+    public void checkPaginationForHLRWidget(){
+        selUtils.addTestcaseDescription("Validate Offers widget display pagination and agent able to navigate through pagination ", "description");
+        try{
+            String paginationResult="1 - 5 of "+hlrService.getResult().size()+" Results";
+            assertCheck.append(actions.assertEqual_stringType(pages.getServiceClassWidget().getPaginationText(),paginationResult,"Pagination Count as expected","Pagination count as not expected"));
+            if(hlrService.getResult().size()>5){
+                assertCheck.append(actions.assertEqual_boolean(pages.getServiceClassWidget().checkNextBtnEnable(),true,"In pagination next button is enable as result is greater than 5","In Pagination next button is not enable but result is greater than 5."));
+                pages.getServiceClassWidget().clickNextBtn();
+                assertCheck.append(actions.assertEqual_boolean(pages.getServiceClassWidget().checkPreviousBtnDisable(),false,"In pagination Previous button is enable","In Pagination previous button is not enable"));
+                pages.getServiceClassWidget().clickPreviousBtn();
+                assertCheck.append(actions.assertEqual_stringType(pages.getServiceClassWidget().getPaginationText(),paginationResult,"Pagination Count as expected","Pagination count as not expected"));
+            }else{
+                assertCheck.append(actions.assertEqual_boolean(pages.getServiceClassWidget().checkNextBtnEnable(),false,"In pagination next button is disable as result is <= 5","In Pagination next button is not disable but result is <= 5."));
+            }
+            actions.assertAllFoundFailedAssert(assertCheck);
+        }catch (Exception e){
+            commonLib.fail("Exception in Method - checkPaginationForHLRWidget" + e.fillInStackTrace(), true);
         }
     }
 }

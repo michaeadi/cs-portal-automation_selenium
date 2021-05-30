@@ -7,7 +7,6 @@ import com.aventstack.extentreports.Status;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.logging.LogEntries;
@@ -17,10 +16,7 @@ import org.openqa.selenium.logging.LogType;
 import java.lang.invoke.MethodHandles;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class CommonLib extends Driver {
     public void fail(String message, boolean requireScreenshot) {
@@ -247,20 +243,13 @@ public class CommonLib extends Driver {
             defaultDriver = driver;
             ChromeOptions options;
             options = new ChromeOptions();
-            options.addArguments("start-maximized");
-            options.addArguments("--disable-infobars");
-            options.addArguments("--disable-extensions");
-            options.addArguments("chrome.switches", "--disable-extensions");
-            options.addArguments("--disable-gpu");
-            options.addArguments("--disable-dev-shm-usage");
-            options.addArguments("--disable-notifications");
-            options.addArguments("--disable-popup-blocking");
-            options.addArguments("enable-automation");
-            options.addArguments("--disable-browser-side-navigation");
-            options.addArguments("--dns-prefetch-disable");
-            options.setPageLoadStrategy(PageLoadStrategy.NONE);
-            options.setExperimentalOption("useAutomationExtension", false);
-            options.addArguments("--headless", "window-size=1920,1080", "--no-sandbox");
+            options.addArguments("--window-size=1792,1120");
+            options.setHeadless(true);
+            Map<String, Object> prefs = new HashMap<>();
+            prefs.put("download.default_directory", excelPath);
+            prefs.put("intl.accept_languages", "nl");
+            prefs.put("disable-popup-blocking", "true");
+            options.setExperimentalOption("prefs", prefs);
             tempDriver = new ChromeDriver(options);
             driver = tempDriver;
             driver.manage().window().maximize();

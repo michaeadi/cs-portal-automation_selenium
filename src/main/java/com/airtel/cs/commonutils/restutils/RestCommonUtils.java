@@ -104,19 +104,7 @@ public class RestCommonUtils extends Driver {
      * @param endPoint send the endPoint
      */
     public static void commonGetMethod(String endPoint) {
-        RestAssuredConfig restAssuredConfig = CurlRestAssuredConfigFactory.createConfig();
-        try {
-            commonLib.info("Using" + endPoint + "API for Testing");
-            baseURI = baseUrl;
-            Headers headers = new Headers(map);
-            request = given().config(restAssuredConfig).headers(headers).contentType(APPLICATION_JSON);
-            queryable = SpecificationQuerier.query(request);
-            response = request.get(endPoint);
-            UtilsMethods.printGetRequestDetail(queryable);
-            UtilsMethods.printResponseDetail(response);
-        } catch (Exception e) {
-            commonLib.fail("Caught exception in Testcase - commonGetMethod " + e.getMessage(), false);
-        }
+        commonGetMethod(endPoint,new Headers(map));
     }
 
     public static void commonGetMethod(String endPoint,Headers headers) {
