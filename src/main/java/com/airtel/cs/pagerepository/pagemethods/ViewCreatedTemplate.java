@@ -27,17 +27,17 @@ public class ViewCreatedTemplate extends BasePage {
 
     public void clickAgentChannel() {
         log.info("Clicking on Agent Channel list");
-        click(pageElements.agentChannel);
+        clickAndWaitForLoaderToBeRemoved(pageElements.agentChannel);
     }
 
     public void clickRoles() {
         log.info("Clicking on Roles list");
-        click(pageElements.roles);
+        clickAndWaitForLoaderToBeRemoved(pageElements.roles);
     }
 
     public void clickLanguage() {
         log.info("Clicking on Language list");
-        click(pageElements.language);
+        clickAndWaitForLoaderToBeRemoved(pageElements.language);
     }
 
     public void writeSearchKeyword(String text) {
@@ -77,12 +77,12 @@ public class ViewCreatedTemplate extends BasePage {
 
     public void clickSearchIcon() {
         log.info("Clicking on Search Icon");
-        click(pageElements.searchIcon);
+        clickAndWaitForLoaderToBeRemoved(pageElements.searchIcon);
     }
 
     public void selectALLOption() {
         commonLib.info("Clicking on All Select Option");
-        click(pageElements.allOption);
+        clickAndWaitForLoaderToBeRemoved(pageElements.allOption);
     }
 
     public ArrayList<String> getAllOptions() {
@@ -132,7 +132,7 @@ public class ViewCreatedTemplate extends BasePage {
     public void clickDeleteIcon(int i) {
         By icon = By.xpath("//div[@class=\"sms-managment__card-list--card--sms-template--content--sms-card ng-star-inserted\"][" + i + "]//div//img[@title=\"delete\"]");
         commonLib.info("clicking delete icon");
-        click(icon);
+        clickAndWaitForLoaderToBeRemoved(icon);
     }
 
     public boolean isEditIcon(int i) {
@@ -159,7 +159,7 @@ public class ViewCreatedTemplate extends BasePage {
     public void clickToggleButton(int i) {
         By status = By.xpath("//div[@class=\"sms-managment__card-list--card--sms-template--content--sms-card ng-star-inserted\"][" + i + "]//label//div[1]");
         log.info("Clicking toggle button");
-        click(status);
+        clickAndWaitForLoaderToBeRemoved(status);
     }
 
     public boolean checkPaginationDisplayed() {
@@ -195,7 +195,7 @@ public class ViewCreatedTemplate extends BasePage {
 
     public void clickNoBtn() {
         commonLib.info("Clicking 'No' Button");
-        click(pageElements.noBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.noBtn);
     }
 
 

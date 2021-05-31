@@ -30,7 +30,7 @@ public class UserManagement extends BasePage {
      */
     public void openRoleList() {
         if (isVisible(pageElements.roles)) {
-            click(pageElements.roles);
+            clickAndWaitForLoaderToBeRemoved(pageElements.roles);
         }
     }
 
@@ -39,7 +39,7 @@ public class UserManagement extends BasePage {
      */
     public void editRole() {
         if (isVisible(pageElements.editCSBetaUserRole)) {
-            click(pageElements.editCSBetaUserRole);
+            clickAndWaitForLoaderToBeRemoved(pageElements.editCSBetaUserRole);
             waitTillLoaderGetsRemoved();
         } else {
             commonLib.error("Automation Beta Role is NOT Created, Kindly Create Automation Beta User Role");
@@ -65,7 +65,7 @@ public class UserManagement extends BasePage {
      */
     public void updateRolePermission() {
         if (isVisible(pageElements.updateRoleBtn)) {
-            click(pageElements.updateRoleBtn);
+            clickAndWaitForLoaderToBeRemoved(pageElements.updateRoleBtn);
             waitTillLoaderGetsRemoved();
         }
     }
@@ -86,14 +86,14 @@ public class UserManagement extends BasePage {
      */
     public void destroyTempBrowser() {
         commonLib.info("Logging Out");
-        click(pageElements.logoutUMBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.logoutUMBtn);
         waitTillLoaderGetsRemoved();
         defaultDriver.close();
     }
 
     public void clickUpdateButton() {
         commonLib.info("Clicking on Update Button");
-        click(pageElements.updateButton);
+        clickAndWaitForLoaderToBeRemoved(pageElements.updateButton);
     }
 
     public void setTicketBucketSize(int size) {
@@ -201,7 +201,7 @@ public class UserManagement extends BasePage {
 
     public void clickViewEditButton() {
         commonLib.info("Clicking View/Edit button");
-        click(pageElements.viewEditButton);
+        clickAndWaitForLoaderToBeRemoved(pageElements.viewEditButton);
     }
 
     public void waitUntilEditPageIsOpen() {
@@ -228,7 +228,7 @@ public class UserManagement extends BasePage {
 
     public void clickSearchButton() {
         commonLib.info("Clicking on Search Button");
-        click(pageElements.searchButton);
+        clickAndWaitForLoaderToBeRemoved(pageElements.searchButton);
     }
 
     public void waitUntilResultPageIsVisible() {
@@ -249,7 +249,7 @@ public class UserManagement extends BasePage {
 
     public void openListInteractionChannels() throws InterruptedException {
         commonLib.info("Opening Interaction Channel List");
-        click(pageElements.interactionChannel);
+        clickAndWaitForLoaderToBeRemoved(pageElements.interactionChannel);
         Thread.sleep(1000);
     }
 
@@ -279,7 +279,7 @@ public class UserManagement extends BasePage {
 
     public void clickAddUserBtn() {
         commonLib.info("Clicking on Add to User Button");
-        click(pageElements.addUser);
+        clickAndWaitForLoaderToBeRemoved(pageElements.addUser);
     }
 
     public void switchFrameToAddUser() {
@@ -296,6 +296,7 @@ public class UserManagement extends BasePage {
     This Method will tell us user management page loaded or not
      */
     public Boolean isUserManagementPageLoaded() {
+        waitTillLoaderGetsRemoved();
         return isVisible(pageElements.userManagementPage);
     }
 }

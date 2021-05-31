@@ -5,50 +5,74 @@
         <listener class-name="com.airtel.cs.commonutils.listeners.TestListenerMethod"/>
         <!--        <listener class-name="com.airtel.cs.commonutils.listeners.AnnotationTransformer"/>-->
     </listeners>
-    <test name="Regression com.airtel.cs.api Login">
+    <test name="Test Login API">
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginAPITest"/>
         </classes>
     </test>
-    <test name="Login Admin 1 Test">
+    <test name="Test Login Into Portal With FA">
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginPortalTests"/>
         </classes>
     </test>
-    <test name="Side Menu">
+    <test name="Test Side Menu Options">
         <classes>
-            <class name="com.airtel.cs.ui.frontendagent.SideMenuTests"/>
-        </classes>
-    </test>
-    <test name="Validate Authentication tab">
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.demographicwidget.AuthTabTest"/>
-        </classes>
-    </test>
-    <test name="Test Service Class Offer Widget Test Options">
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.widgets.ServiceProfileWidgetTest"/>
-        </classes>
-    </test>
-    <test name="Test Display Offer Widget Test Options">
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.widgets.DisplayOfferWidgetTest"/>
+            <class name="com.airtel.cs.ui.frontendagent.leftmenu.SideMenuTests"/>
         </classes>
     </test>
     <test name="Validate Action Trail Tab Test">
         <classes>
-            <class name="com.airtel.cs.ui.frontendagent.actiondropdown.ActionTrailTest"/>
+            <class name="com.airtel.cs.ui.frontendagent.viewhistorytab.ActionTrailTest"/>
         </classes>
     </test>
-    <test name="Customer Interactions TEST" preserve-order="true">
+    <test name="Demo Graphic Widget Test By MSISDN" preserve-order="true">
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.demographicwidget.DemoGraphicWidgetMsisdnTest"/>
-            <class name="com.airtel.cs.ui.frontendagent.widgets.WidgetsOptionsTest"/>
+        </classes>
+    </test>
+    <test name="Airtel Money Transaction Widget Test" preserve-order="true">
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.AirtelMoneyTransactionWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Current Balance Widget Test" preserve-order="true">
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.CurrentBalanceWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Usage History Widget Test" preserve-order="true">
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.UsageHistoryWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Recharge History Widget Test" preserve-order="true">
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.RechargeHistoryWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Service Profile Widget Test" preserve-order="true">
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.ServiceProfileWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Display Offer Widget Test" preserve-order="true">
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.DisplayOfferWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Customer Interactions Test" preserve-order="true">
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.WidgetsOptionsTest"/>
+        </classes>
+    </test>
+    <test name="Test Authentication Tab">
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.demographicwidget.AuthTabTest"/>
         </classes>
     </test>
     <test name="CRBT Widget Test">
         <classes>
-            <class name="com.airtel.cs.ui.frontendagent.CRBTWidgetTest"/>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.CRBTWidgetTest"/>
         </classes>
     </test>
     <test name="Create NFTR FTR Tickets TEST">
@@ -83,12 +107,12 @@
     </test>
     <test name="Clear Refill error">
         <classes>
-            <class name="com.airtel.cs.ui.frontendagent.ClearRefillErrorTest"/>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.ClearRefillErrorTest"/>
         </classes>
     </test>
     <test name="Loan Widget Test">
         <classes>
-            <class name="com.airtel.cs.ui.frontendagent.LoanWidgetTest"/>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.LoanWidgetTest"/>
         </classes>
     </test>
     <test name="Supervisors Ticket Bulk Update Test">

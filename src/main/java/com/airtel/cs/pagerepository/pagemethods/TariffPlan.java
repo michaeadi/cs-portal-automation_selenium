@@ -71,7 +71,7 @@ public class TariffPlan extends BasePage {
      */
     public Boolean checkCurrentPlanNotInDropDownList(String currentPlan) {
         boolean result = true;
-        click(pageElements.dropDown);
+        clickAndWaitForLoaderToBeRemoved(pageElements.dropDown);
         final List<WebElement> elementsListfromBy = getElementsListFromBy(pageElements.dropDownList);
         for (WebElement dropDownList : elementsListfromBy) {
             result = dropDownList.getText().equalsIgnoreCase(currentPlan);
@@ -95,7 +95,7 @@ public class TariffPlan extends BasePage {
         final List<WebElement> elementsListfromBy = getElementsListFromBy(pageElements.dropDownList);
         for (WebElement dropDownList : elementsListfromBy) {
             if (!(dropDownList.getText().equalsIgnoreCase(currentPlan))) {
-                click(pageElements.dropDownList);
+                clickAndWaitForLoaderToBeRemoved(pageElements.dropDownList);
                 selectedValue = getText(pageElements.selectedDropDownValue);
                 break;
             }
@@ -130,7 +130,7 @@ public class TariffPlan extends BasePage {
     public void openIssueDetailsModal() {
         try {
             if (isVisible(pageElements.migrateButton)) {
-                click(pageElements.migrateButton);
+                clickAndWaitForLoaderToBeRemoved(pageElements.migrateButton);
             }
         } catch (Exception e) {
             log.error(TEXT, e.getMessage());
@@ -177,21 +177,21 @@ public class TariffPlan extends BasePage {
     This Method will click on the Cancel Btn over issue details pop up
      */
     public void clickCancelBtn() {
-        click(pageElements.cancelBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.cancelBtn);
     }
 
     /*
     This Method will click on the Submit Btn over issue details pop up
      */
     public void clickSubmitBtn() {
-        click(pageElements.submitBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.submitBtn);
     }
 
     /*
     This Method will click over issue details Popup
      */
     public void clickIssueDetails() {
-        click(pageElements.issueDetailsReason);
+        clickAndWaitForLoaderToBeRemoved(pageElements.issueDetailsReason);
     }
 
     /*
@@ -201,7 +201,7 @@ public class TariffPlan extends BasePage {
         final List<WebElement> elementsListfromBy = getElementsListFromBy(pageElements.selectReason);
         for (WebElement dropDownList : elementsListfromBy) {
             if (dropDownList.getSize() != null) {
-                click(pageElements.selectReason);
+                clickAndWaitForLoaderToBeRemoved(pageElements.selectReason);
                 break;
             }
         }
@@ -239,7 +239,7 @@ public class TariffPlan extends BasePage {
     This Method will click on submit btn and plan will get changed
      */
     public Boolean changePlan() {
-        click(pageElements.submitBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.submitBtn);
         waitTillLoaderGetsRemoved();
         return isVisible(pageElements.successMsg);
     }

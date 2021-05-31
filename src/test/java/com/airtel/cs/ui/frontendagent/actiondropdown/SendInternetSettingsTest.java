@@ -18,7 +18,16 @@ public class SendInternetSettingsTest extends Driver {
     @BeforeMethod
     public void isSendInternetSettingsEnabled() {
         if (StringUtils.equalsIgnoreCase(constants.getValue(ApplicationConstants.SEND_INTERNET_SETTINGS), "false")) {
+            commonLib.skip("Send Internet Settings Feature is NOT Enabled for this Opco=" + OPCO);
             throw new SkipException("Send Internet Settings Feature is NOT Enabled for this Opco=" + OPCO);
+        }
+    }
+
+    @BeforeMethod
+    public void checkExecution() {
+        if (!continueExecutionFA) {
+            commonLib.skip("Skipping tests because user NOT able to login via API");
+            throw new SkipException("Skipping tests because user NOT able to login via API");
         }
     }
 
@@ -28,7 +37,6 @@ public class SendInternetSettingsTest extends Driver {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
             final String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
             pages.getSideMenuPage().clickOnSideMenu();
-            pages.getSideMenuPage().clickOnUserName();
             pages.getSideMenuPage().openCustomerInteractionPage();
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();
@@ -49,7 +57,6 @@ public class SendInternetSettingsTest extends Driver {
             pages.getCustomerProfilePage().clickSendInternetSetting();
             assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isSendInternetSettingTitleVisible(), true, "Send Internet Setting Tab opened", "Send Internet Setting Tab does NOT opened"));
             pages.getCustomerProfilePage().clickCancelBtn();
-            pages.getCustomerProfilePage().clickContinueButton();
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException e) {
             pages.getCustomerProfilePage().clickCloseBtn();
@@ -57,7 +64,7 @@ public class SendInternetSettingsTest extends Driver {
         }
     }
 
-    @Test(priority = 3, description = "Verify the Send Internet Setting tab", dependsOnMethods = "validateCancelBtn")
+    @Test(priority = 3, description = "Verify the Send Internet Setting tab", dependsOnMethods = "openCustomerInteraction")
     public void validateSendInternetSetting() {
         try {
             selUtils.addTestcaseDescription("Open send internet setting modal from actions drop down,Validate issue detail title visible,Select reason and enter comment and click on submit button, Validate success message", "description");
@@ -69,8 +76,8 @@ public class SendInternetSettingsTest extends Driver {
             pages.getAuthTabPage().chooseReason();
             pages.getAuthTabPage().enterComment(comments);
             pages.getAuthTabPage().clickSubmitBtn();
-            final String successModalText = pages.getAuthTabPage().getSuccessModalText();
-            assertCheck.append(actions.assertEqual_stringType(successModalText, "Internet Setting has been sent on customer` s device", "Send Internet Modal closed successfully with Success Message", "Send Internet Modal NOT closed"));
+            final String toastText = pages.getAuthTabPage().getToastText();
+            assertCheck.append(actions.assertEqual_stringType(toastText, "Internet Settings has been sent on Customer`s Device.", "Send Internet Settings Message has been sent to customer successfully", "Send Internet Settings Message hasn't been sent to customer ans message is :-" + toastText));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException e) {
             commonLib.fail("Exception in Method - validateSendInternetSetting" + e.fillInStackTrace(), true);

@@ -46,12 +46,12 @@ public class SupervisorTicketList extends BasePage {
 
     public void clickCancelBtn() {
         commonLib.info("Clicking on Cancel Button.");
-        click(pageElements.cancelBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.cancelBtn);
     }
 
     public void clickTransferAnyWayBtn() {
         commonLib.info("Clicking on Transfer Anyway button");
-        click(pageElements.transferAnywayBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.transferAnywayBtn);
     }
 
     public void writeTicketId(String ticketId) {
@@ -75,7 +75,7 @@ public class SupervisorTicketList extends BasePage {
         waitTillLoaderGetsRemoved();
         wait.until(ExpectedConditions.elementToBeClickable(pageElements.searchTicketBtn));
         commonLib.info("Clicking on Search Button");
-        click(pageElements.searchTicketBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.searchTicketBtn);
     }
 
     public boolean isTicketIdLabel() {
@@ -202,12 +202,12 @@ public class SupervisorTicketList extends BasePage {
 
     public void clickCheckbox() {
         log.info("Selecting Ticket");
-        click(pageElements.checkBox);
+        clickAndWaitForLoaderToBeRemoved(pageElements.checkBox);
     }
 
     public void clickAssigntoAgent() {
         commonLib.info("Clicking on Assign to Agent Button");
-        click(pageElements.assignToagentBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.assignToagentBtn);
     }
 
     public boolean isAssignToAgent() {
@@ -217,7 +217,7 @@ public class SupervisorTicketList extends BasePage {
 
     public void clickTransfertoQueue() {
         commonLib.info("Clicking on Transfer to Queue Button");
-        click(pageElements.transfertoQueueBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.transfertoQueueBtn);
     }
 
     public boolean isTransferToQueue() {
@@ -239,20 +239,20 @@ public class SupervisorTicketList extends BasePage {
 
     public void changeTicketTypeToClosed() {
         commonLib.info("Switch Ticket State Type to closed");
-        click(pageElements.selectTicketType);
-        click(pageElements.closedTicketType);
+        clickAndWaitForLoaderToBeRemoved(pageElements.selectTicketType);
+        clickAndWaitForLoaderToBeRemoved(pageElements.closedTicketType);
     }
 
     public void changeTicketTypeToOpen() {
         log.info("Switch Ticket State Type to Open");
-        click(pageElements.selectTicketType);
-        click(pageElements.openTicketType);
+        clickAndWaitForLoaderToBeRemoved(pageElements.selectTicketType);
+        clickAndWaitForLoaderToBeRemoved(pageElements.openTicketType);
     }
 
 
     public void viewTicket() {
         log.info("View Ticket: " + getTicketIdvalue());
-        click(pageElements.stateLabel);
+        clickAndWaitForLoaderToBeRemoved(pageElements.stateLabel);
     }
 
     public boolean noTicketFound() {
@@ -265,12 +265,12 @@ public class SupervisorTicketList extends BasePage {
 
     public void clickFilter() {
         commonLib.info("Selecting Filter");
-        click(pageElements.selectFilterBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.selectFilterBtn);
     }
 
     public void resetFilter() {
         commonLib.info("Removing Filter");
-        click(pageElements.resetFilterButton);
+        clickAndWaitForLoaderToBeRemoved(pageElements.resetFilterButton);
         waitTillLoaderGetsRemoved();
     }
 
@@ -300,7 +300,7 @@ public class SupervisorTicketList extends BasePage {
 
     public void clickReopenButton() {
         commonLib.info("Clicking Reopen Button");
-        click(pageElements.reOpenBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.reOpenBtn);
     }
 
     public void addReopenComment(String comment) {
@@ -311,12 +311,12 @@ public class SupervisorTicketList extends BasePage {
 
     public void submitReopenReq() {
         commonLib.info("Clicking on Submit Button");
-        click(pageElements.submitReopenComment);
+        clickAndWaitForLoaderToBeRemoved(pageElements.submitReopenComment);
     }
 
     public void closedReopenBox() {
         commonLib.info("Clicking on closing reopen comment box Button");
-        click(pageElements.closeReopenCommentBox);
+        clickAndWaitForLoaderToBeRemoved(pageElements.closeReopenCommentBox);
     }
 
     public boolean isReopenBtn() {
@@ -435,7 +435,7 @@ public class SupervisorTicketList extends BasePage {
 
     public void clickTicketOption() {
         log.info("Click on Ticket Icon to get list of option");
-        click(pageElements.searchOptionBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.searchOptionBtn);
     }
 
     public List<String> getListOfSearchOption() {
@@ -459,7 +459,7 @@ public class SupervisorTicketList extends BasePage {
     public void clickSearchOptionByTextNoIgnoreCase(String text) {
         commonLib.info("Clicking search By option: " + text);
         By option = By.xpath("//ul[@class='ng-star-inserted']//li[normalize-space()='" + text + "']");
-        click(option);
+        clickAndWaitForLoaderToBeRemoved(option);
     }
 
     /*
@@ -483,7 +483,7 @@ public class SupervisorTicketList extends BasePage {
 
     public void clickToOpenTicketFromDashboard() {
         if (isVisible(pageElements.openTicketDetailPage)) {
-            click(pageElements.openTicketDetailPage);
+            clickAndWaitForLoaderToBeRemoved(pageElements.openTicketDetailPage);
             waitTillLoaderGetsRemoved();
         } else {
             commonLib.error("Ticket Data is NOT available over dashboard");
@@ -496,7 +496,7 @@ public class SupervisorTicketList extends BasePage {
 
     public void goBackToTicketListing() {
         if (isVisible(pageElements.backButtonDetailPage)) {
-            click(pageElements.backButtonDetailPage);
+            clickAndWaitForLoaderToBeRemoved(pageElements.backButtonDetailPage);
             waitTillLoaderGetsRemoved();
         }
     }

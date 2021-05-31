@@ -60,7 +60,73 @@ public class UsageHistoryWidget extends BasePage {
 
     public void openingMoreDetails() {
         commonLib.info("Opening More under Usage History Widget");
-        click(pageElements.menu);
+        clickAndWaitForLoaderToBeRemoved(pageElements.menu);
+    }
+
+    /*
+    This Method will give us the header value
+     */
+    public String getHeaderValue(int row, int column) {
+        String result = null;
+        result = getText(By.xpath(pageElements.dataRow + row + pageElements.valueColumns + column + "]"));
+        commonLib.info("Reading Value(" + row + "): " + result);
+        return result;
+    }
+
+    public boolean isUsageHistoryWidgetIsVisible() {
+        commonLib.info("Checking is Usage History Widget Visible");
+        return isElementVisible(pageElements.usageHistoryHeader);
+    }
+
+    public boolean isUsageHistoryDatePickerVisible() {
+        commonLib.info("Checking Usage HistoryWidget Date Picker Visibility ");
+        return isEnabled(pageElements.usageHistoryDatePicker);
+    }
+
+    public WidgetInteraction clickTicketIcon() {
+        try {
+            commonLib.info("Clicking on Ticket Icon");
+            clickAndWaitForLoaderToBeRemoved(pageElements.ticketIcon);
+            return new WidgetInteraction(driver);
+        } catch (NoSuchElementException | TimeoutException e) {
+            Assert.fail("Ticket Icon does not display on Usage History Widget");
+        }
+        return null;
+    }
+
+    public String getWidgetTitle() {
+        final String text = getText(pageElements.getTitle);
+        log.info("Getting Widget title: " + text);
+        return text.toLowerCase();
+    }
+
+    /*
+       This Method will give us footer auuid shown in UHW widget
+       UHW = Usage History Widget
+        */
+    public String getFooterAuuidUHW() {
+        String result = null;
+        result = getText(pageElements.footerUHWAuuid);
+        return result;
+    }
+
+    /*
+    This Method will give us auuid shown in the middle of the UHW modal
+    UHW = Usage History Widget
+     */
+    public String getMiddleAuuidUHW() {
+        String result = null;
+        result = getAttribute(pageElements.middleUHWAuuid, "data-auuid", false);
+        return result;
+    }
+
+    /*
+   This Method will get the text of the usage history widget header
+    */
+    public String getUsageHistoryHeaderText() {
+        final String headerText = getText(pageElements.usageHistoryHeader);
+        commonLib.info("Usage History Widget Header Text is:- " + headerText);
+        return headerText;
     }
 
 
@@ -79,7 +145,7 @@ public class UsageHistoryWidget extends BasePage {
     }
 
     public String getHistoryDateTime(int rowNumber) {
-        By dateTime = By.xpath("//span[@class=\"card__card-header--label\" and contains(text(),\"Usage History\")]/ancestor::div[@class=\"card widget ng-star-inserted\"]/div[@class=\"card__content restricted ng-star-inserted\"]/descendant::div[@class=\"card__card-header--card-body--table--data-list row-border\"][" + (rowNumber + 1) + "]/div[3]//span");
+        By dateTime = By.xpath(pageElements.dataRow + rowNumber + pageElements.valueColumns +"3]");
         final String text = getText(dateTime);
         commonLib.info("Getting Usage History Date Time from Row Number " + rowNumber + " : " + text);
         return text;
@@ -97,32 +163,5 @@ public class UsageHistoryWidget extends BasePage {
         final String text = rowElement.findElement(pageElements.type).getText();
         commonLib.info("Getting Usage History Type from Row Number " + rowNumber + " : " + text);
         return text;
-    }
-
-    public boolean isUsageHistoryWidgetIsVisible() {
-        commonLib.info("Checking is Usage History Widget Visible");
-        return isElementVisible(pageElements.usageHistoryHeader);
-    }
-
-    public boolean isUsageHistoryDatePickerVisible() {
-        commonLib.info("Checking Usage HistoryWidget Date Picker Visibility ");
-        return isEnabled(pageElements.usageHistoryDatePicker);
-    }
-
-    public WidgetInteraction clickTicketIcon() {
-        try {
-            commonLib.info("Clicking on Ticket Icon");
-            click(pageElements.ticketIcon);
-            return new WidgetInteraction(driver);
-        } catch (NoSuchElementException | TimeoutException e) {
-            Assert.fail("Ticket Icon does not display on Usage History Widget");
-        }
-        return null;
-    }
-
-    public String getWidgetTitle() {
-        final String text = getText(pageElements.getTitle);
-        log.info("Getting Widget title: " + text);
-        return text.toLowerCase();
     }
 }

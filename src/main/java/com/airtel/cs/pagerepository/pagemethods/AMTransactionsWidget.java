@@ -38,16 +38,34 @@ public class AMTransactionsWidget extends BasePage {
         return elementVisible;
     }
 
-    public String getHeaders(int row) {
-        String header = readTextOnRows(pageElements.headerRows, row);
-        commonLib.info("Getting header Number " + row + " : " + header);
+    public String getHeaders(int column) {
+        String header = readTextOnRows(pageElements.headerRows, column);
+        commonLib.info("Getting header Number " + column + " : " + header);
         return header;
     }
 
-    public String getValueCorrespondingToHeader(int row, int column) {
-        String value = getText(By.xpath(pageElements.valueRows + row + pageElements.valueColumns + column + pageElements.columnText));
-        commonLib.info("Reading Value(" + row + "): " + value);
-        return value;
+    /*
+    This Method will give us the header value
+     */
+    public String getHeaderValue(int row, int column) {
+        String result = null;
+        String attribute = null;
+        result = getText(By.xpath(pageElements.dataRow + row + pageElements.valueColumns + column + pageElements.columnText));
+        if (column == 1) {
+            String sign = null;
+            attribute = getAttribute(By.xpath(pageElements.dataRow + row + pageElements.amountSign + column + pageElements.amountImg), "src", false);
+            if (attribute.contains("cr.svg"))
+                sign = "+ ";
+            else if (attribute.contains("dr.svg")) {
+                sign = "- ";
+            }
+            result = sign + result;
+        }
+        if (column == 3) {
+            result = result.replace("\n", " ");
+        }
+        commonLib.info("Reading Value(" + row + "): " + result);
+        return result;
     }
 
     /*
@@ -60,6 +78,24 @@ public class AMTransactionsWidget extends BasePage {
             commonLib.info("Checking is Airtel Money Widget Visible? " + elementVisible);
         }
         return elementVisible;
+    }
+
+    /*
+    This Method will give us footer auuid shown in AM widget
+     */
+    public String getFooterAuuidAM() {
+        String result = null;
+        result = getText(pageElements.footerAMAuuid);
+        return result;
+    }
+
+    /*
+    This Method will give us auuid shown in the middle of the AM modal
+     */
+    public String getMiddleAuuidAM() {
+        String result = null;
+        result = getAttribute(pageElements.middleAMAuuid, "data-auuid", false);
+        return result;
     }
 
     /*
@@ -77,10 +113,15 @@ public class AMTransactionsWidget extends BasePage {
         return isEnabled(datePicker);
     }
 
+    /*
+    This Method will give us airtel money currency
+     */
     public String gettingAirtelMoneyCurrency() {
-        final String text = getText(pageElements.airtelMoneyCurrency);
-        commonLib.info("Getting Airtel Money Currency from Widget : " + text);
-        return text;
+        String result = null;
+        result = getText(pageElements.airtelMoneyCurrency);
+        result = result.replaceAll("\\s.*", "");
+        commonLib.info("Getting Airtel Money Currency from Widget : " + result);
+        return result;
     }
 
     public String gettingAMBalanceUnableToFetchMessage() {
@@ -109,7 +150,7 @@ public class AMTransactionsWidget extends BasePage {
     public WidgetInteraction clickTicketIcon() {
         try {
             commonLib.info("Clicking on Ticket Icon");
-            click(pageElements.ticketIcon);
+            clickAndWaitForLoaderToBeRemoved(pageElements.ticketIcon);
             return new WidgetInteraction(driver);
         } catch (NoSuchElementException | TimeoutException e) {
             Assert.fail("Ticket Icon does not display on AM History Widget");
@@ -123,18 +164,26 @@ public class AMTransactionsWidget extends BasePage {
         return text.toLowerCase();
     }
 
-    public Boolean isResendSMS() {
-        return isEnabled(pageElements.resendSMSIcon);
+    /*
+    This Method will tell us isResendSMS button is enabled or not
+     */
+    public Boolean isResendSMS(int row) {
+        boolean result = false;
+        final String attribute = getAttribute(By.xpath(pageElements.resendSMSIcon + row + pageElements.resendSMSIcon2), "class", false);
+        commonLib.info(attribute);
+        if (!attribute.contains("hide-reversal"))
+            result = true;
+        return result;
     }
 
     public void clickMenuOption() {
         commonLib.info("Clicking Menu Option");
-        click(pageElements.clickMenu);
+        clickAndWaitForLoaderToBeRemoved(pageElements.clickMenu);
     }
 
     public MoreAMTxnTab openAMHistoryTab() {
         commonLib.info("Opening AM History Sub Tab");
-        click(pageElements.amHistoryTab);
+        clickAndWaitForLoaderToBeRemoved(pageElements.amHistoryTab);
         return new MoreAMTxnTab(driver);
     }
 
@@ -150,12 +199,12 @@ public class AMTransactionsWidget extends BasePage {
 
     public void clickSearchBtn() {
         commonLib.info("Clicking on Search Button");
-        click(pageElements.transactionSearchBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.transactionSearchBtn);
     }
 
     public String doubleClickOnTransactionId(int row) {
         Actions act = new Actions(driver);
-        By id = By.xpath(pageElements.valueRows + row + pageElements.transactionIdColumn);
+        By id = By.xpath(pageElements.dataRow + row + pageElements.transactionIdColumn);
         act.moveToElement(driver.findElement(id)).doubleClick().build().perform();
         return getText(id);
     }

@@ -64,7 +64,7 @@ public class DemoGraphicWidgetBySIMTest extends Driver {
             AMProfilePOJO amProfileAPI = api.amServiceProfileAPITest(DemoGraphicWidgetBySIMTest.customerNumber);
 
             try {
-                if (demographic.isPUKInfoLock()) {
+                if (demographic.isPUKInfoLocked()) {
                     demographic.clickPUKToUnlock();
                     Thread.sleep(5000);
                     AuthTab authTab = new AuthTab(driver);
@@ -102,7 +102,7 @@ public class DemoGraphicWidgetBySIMTest extends Driver {
                 if (pages.getDemoGraphicPage().checkAMProfileWidget()) {
                     if (evnName.equalsIgnoreCase("NG")) {
                         commonLib.fail("AM Profile Widget Must not display for NG Opco.", true);
-                    } else if (demographic.isAirtelMoneyStatusLock()) {
+                    } else if (demographic.isAirtelMoneyProfileLocked()) {
                         demographic.clickAirtelStatusToUnlock();
                         Thread.sleep(5000);
                         AuthTab authTab = new AuthTab(driver);

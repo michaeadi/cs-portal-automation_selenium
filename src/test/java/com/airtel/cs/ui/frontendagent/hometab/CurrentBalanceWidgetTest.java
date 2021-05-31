@@ -1,4 +1,4 @@
-package com.airtel.cs.ui.frontendagent.widgets;
+package com.airtel.cs.ui.frontendagent.hometab;
 
 import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.common.actions.BaseActions;
@@ -10,24 +10,32 @@ import com.airtel.cs.pagerepository.pagemethods.CurrentBalanceWidget;
 import com.airtel.cs.pojo.response.PlansPOJO;
 import com.airtel.cs.pojo.response.PlansResultPOJO;
 import lombok.extern.log4j.Log4j2;
+import org.testng.SkipException;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 @Log4j2
 public class CurrentBalanceWidgetTest extends Driver {
+
     private static String customerNumber = null;
     private final BaseActions actions = new BaseActions();
     RequestSource api = new RequestSource();
-    PlansPOJO plansAPI;
-    PlansResultPOJO result;
+
+    @BeforeMethod
+    public void checkExecution() {
+        if (!continueExecutionFA) {
+            commonLib.skip("Skipping tests because user NOT able to login via API");
+            throw new SkipException("Skipping tests because user NOT able to login via API");
+        }
+    }
 
 
-    @Test(priority = 1, description = "Validate Customer Interaction Page")
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void openCustomerInteractionAPI() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
-            customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
+            customerNumber = constants.getValue(ApplicationConstants.CURRENT_BALANCE_MSISDN);
             pages.getSideMenuPage().clickOnSideMenu();
-            pages.getSideMenuPage().clickOnUserName();
             pages.getSideMenuPage().openCustomerInteractionPage();
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();
@@ -40,27 +48,31 @@ public class CurrentBalanceWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 2)
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void currentBalanceWidgetHeaderTest() {
         try {
-            selUtils.addTestcaseDescription("Validate Current Balance Widget is visible", "description");
+            selUtils.addTestcaseDescription("Validate Current Balance Widget is visible, Validate Footer AUUID, Validate Middle AUUID, Validate Widget Header Text", "description");
             assertCheck.append(actions.assertEqual_boolean(pages.getCurrentBalanceWidgetPage().isCurrentBalanceWidgetVisible(), true, "Current Balance Widget is visible", "Current Balance Widget is not visible"));
+            assertCheck.append(actions.assertEqual_stringType(pages.getCurrentBalanceWidgetPage().getFooterAuuidYCP(), loginAUUID, "Auuid shown at the footer of the Your Current Plan widget and is correct", "Auuid NOT shown at the footer of Your Current Plan widget"));
+            assertCheck.append(actions.assertEqual_stringType(pages.getCurrentBalanceWidgetPage().getMiddleAuuidTYP(), loginAUUID, "Auuid shown at the middle of the Your Current Plan widget and is correct", "Auuid NOT shown at the middle of Your Current Plan widget"));
             assertCheck.append(actions.assertEqual_stringType(pages.getCurrentBalanceWidgetPage().getCurrentPlanHeaderText(), "YOUR CURRENT PLAN", "Current Plan Widget Header Text Matched", "Current Plan Widget Header Text NOT Matched"));
-
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - currentBalanceWidgetHeaderTest" + e.fillInStackTrace(), true);
         }
     }
 
-    @Test(priority = 3)
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void mainAccountBalanceTest() {
         try {
             selUtils.addTestcaseDescription("Validate Main Account Balance,Validate Current Balance Currency,Validate Last Recharge Amount,Validate Last Recharge Date and Time", "description");
-            plansAPI = api.accountPlansTest(customerNumber);
-            result = plansAPI.getResult();
+            PlansPOJO plansAPI = api.accountPlansTest(customerNumber);
+            PlansResultPOJO result = plansAPI.getResult();
+            final int statusCode = plansAPI.getStatusCode();
+            assertCheck.append(actions.assertEqual_intType(statusCode, 200, "Plan API Success and status code is :" + statusCode, "Plan API got failed and status code is :" + statusCode));
             if (result.getMainAccountBalance() != null) {
-                assertCheck.append(actions.assertEqual_stringType(pages.getCurrentBalanceWidgetPage().gettingMainAccountBalance(), result.getMainAccountBalance().getBalance(), "Current Balance is as Received in API", "Current Balance is not as Received in API"));
+                final String mainAccountBalance = pages.getCurrentBalanceWidgetPage().gettingMainAccountBalance();
+                assertCheck.append(actions.assertEqual_stringType(mainAccountBalance, result.getMainAccountBalance().getBalance(), "Current Balance is as Received in API", "Current Balance is not as Received from API and current balance on ui is : " + mainAccountBalance));
                 assertCheck.append(actions.assertEqual_stringType(pages.getCurrentBalanceWidgetPage().gettingCurrentBalanceCurrency(), result.getMainAccountBalance().getCurrency(), "Current Balance Currency is as Received in API", "Current Balance Currency is not as Received in API"));
             } else {
                 commonLib.warning("Unable to get Main Balance from API");
@@ -86,13 +98,15 @@ public class CurrentBalanceWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 3, description = "", dependsOnMethods = "mainAccountBalanceTest")
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void voiceDataSmsTest() {
         try {
             selUtils.addTestcaseDescription("Validating Current Balance Transaction Widget of User :" + customerNumber, "description");
             final CurrentBalanceWidget currentBalanceWidgetPage = pages.getCurrentBalanceWidgetPage();
+            PlansPOJO plansAPI = api.accountPlansTest(customerNumber);
+            PlansResultPOJO result = plansAPI.getResult();
             if (result.getVoice() != null) {
-                assertCheck.append(actions.assertEqual_stringType(currentBalanceWidgetPage.getVoiceExpiryDate(), UtilsMethods.getDateFromEpoch(result.getVoice().getExpireTime(), config.getProperty("BalanceExpiryPattern")), "Voice Expiry Date is as Received in API", "Voice Expiry Date is not as Received in API"));
+                assertCheck.append(actions.assertEqual_stringType(currentBalanceWidgetPage.getVoiceExpiryDate(), UtilsMethods.getDateFromEpoch(result.getVoice().getExpireTime(), constants.getValue(CommonConstants.BALANCE_EXPIRY_PATTERN)), "Voice Expiry Date is as Received in API", "Voice Expiry Date is not as Received in API"));
                 assertCheck.append(actions.assertEqual_stringType(currentBalanceWidgetPage.getVoiceBalance().replace("-", "null"), result.getVoice().getBalance(), "Voice Balance is as Received in API", "Voice Balance is not as Received in API"));
             }
             if (result.getData() != null) {
@@ -110,10 +124,10 @@ public class CurrentBalanceWidgetTest extends Driver {
                     commonLib.info("Not able to fetch amount" + ns.fillInStackTrace());
                 }
                 assertCheck.append(actions.assertEqual_stringType(currentBalanceWidgetPage.getDataBalance().replace("-", "null"), result.getData().getBalance(), "Data Balance is as Received in API", "Data Balance is not as Received in API"));
-                assertCheck.append(actions.assertEqual_stringType(currentBalanceWidgetPage.getDataExpiryDate(), UtilsMethods.getDateFromEpoch(result.getData().getExpireTime(), config.getProperty("BalanceExpiryPattern")), "Data Expiry Date is as Received in API", "Data Expiry Date is not as Received in API"));
+                assertCheck.append(actions.assertEqual_stringType(currentBalanceWidgetPage.getDataExpiryDate(), UtilsMethods.getDateFromEpoch(result.getData().getExpireTime(), constants.getValue(CommonConstants.BALANCE_EXPIRY_PATTERN)), "Data Expiry Date is as Received in API", "Data Expiry Date is not as Received in API"));
             }
             if (result.getSms() != null) {
-                assertCheck.append(actions.assertEqual_stringType(currentBalanceWidgetPage.getSmsExpiryDate(), UtilsMethods.getDateFromEpoch(result.getSms().getExpireTime(), config.getProperty("BalanceExpiryPattern")), "SMS Expiry Date is as Received in API", "SMS Expiry Date is not as Received in API"));
+                assertCheck.append(actions.assertEqual_stringType(currentBalanceWidgetPage.getSmsExpiryDate(), UtilsMethods.getDateFromEpoch(result.getSms().getExpireTime(), constants.getValue(CommonConstants.BALANCE_EXPIRY_PATTERN)), "SMS Expiry Date is as Received in API", "SMS Expiry Date is not as Received in API"));
                 assertCheck.append(actions.assertEqual_stringType(currentBalanceWidgetPage.getSmsBalance().replace("-", "null"), result.getSms().getBalance(), "SMS Balance is as Received in API", "SMS Balance is not as Received in API"));
             }
             if (plansAPI.getStatusCode() != 200) {

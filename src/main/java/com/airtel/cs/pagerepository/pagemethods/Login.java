@@ -94,12 +94,15 @@ public class Login extends BasePage {
 
     public void clickOnLogin() {
         commonLib.info("Going to click on Login button");
-        click(pageElements.submitButton);
+        clickAndWaitForLoaderToBeRemoved(pageElements.submitButton);
     }
 
     public void clickOnVisibleButton() {
         commonLib.info("Going to click on Visible Password Button");
-        click(pageElements.visiblePassword);
+        if (isVisible(pageElements.visiblePassword))
+            clickWithoutLoader(pageElements.visiblePassword);
+        else
+            commonLib.fail("Exception in method - clickOnVisibleButton", true);
     }
 
     public String getPasswordText() {
@@ -109,7 +112,7 @@ public class Login extends BasePage {
 
     public void clickBackButton() {
         commonLib.info("Clicking on back button");
-        click(pageElements.backButton);
+        clickAndWaitForLoaderToBeRemoved(pageElements.backButton);
     }
 
     public Boolean isLoginPageDisplayed() {

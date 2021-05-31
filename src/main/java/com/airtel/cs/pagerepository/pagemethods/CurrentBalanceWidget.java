@@ -54,7 +54,7 @@ public class CurrentBalanceWidget extends BasePage {
 
     public void openingDADetails() {
         commonLib.info("Clicking Current Balance WidgetMenu Visible");
-        click(pageElements.menu);
+        clickAndWaitForLoaderToBeRemoved(pageElements.menu);
     }
 
     public String gettingLastRechargeAmount() {
@@ -71,7 +71,7 @@ public class CurrentBalanceWidget extends BasePage {
     /*
    This Method will get the text of the header
     */
-    public String getCurrentPlanHeaderText(){
+    public String getCurrentPlanHeaderText() {
         final String headerText = getText(pageElements.currentBalanceHeader);
         commonLib.info("Airtel Money Widget Header Text is:- " + headerText);
         return headerText;
@@ -84,9 +84,12 @@ public class CurrentBalanceWidget extends BasePage {
     }
 
     public String gettingMainAccountBalance() {
-        final String text = getText(pageElements.mainAccountBalance).replaceAll("\\s", "").replaceAll("[A-Z,a-z]", "");
-        commonLib.info("Getting Main Account Balance from Your Current Balance Widget : " + text);
-        return text;
+        String result = null;
+        if (isVisible(pageElements.mainAccountBalance)) {
+            result = getText(pageElements.mainAccountBalance).replaceAll("\\s", "").replaceAll("[A-Z,a-z]", "");
+            commonLib.info("Getting Main Account Balance from Your Current Balance Widget : " + result);
+        }
+        return result;
     }
 
     public String getVoiceExpiryDate() {
@@ -134,7 +137,7 @@ public class CurrentBalanceWidget extends BasePage {
     public WidgetInteraction clickTicketIcon() {
         try {
             commonLib.info("Clicking on Ticket Icon");
-            click(pageElements.ticketIcon);
+            clickAndWaitForLoaderToBeRemoved(pageElements.ticketIcon);
             return new WidgetInteraction(driver);
         } catch (NoSuchElementException | TimeoutException e) {
             Assert.fail("Ticket Icon does not display on Current Plan History Widget");
@@ -146,5 +149,25 @@ public class CurrentBalanceWidget extends BasePage {
         final String text = getText(pageElements.getTitle);
         log.info("Getting Widget title: " + text);
         return text.toLowerCase();
+    }
+
+    /*
+       This Method will give us footer auuid shown in YCP widget
+       YCP = Your Current Plan
+        */
+    public String getFooterAuuidYCP() {
+        String result = null;
+        result = getText(pageElements.footerYCPAuuid);
+        return result;
+    }
+
+    /*
+    This Method will give us auuid shown in the middle of the YCP modal
+    YCP = Your Current Plan
+     */
+    public String getMiddleAuuidTYP() {
+        String result = null;
+        result = getAttribute(pageElements.middleYCPAuuid, "data-auuid", false);
+        return result;
     }
 }

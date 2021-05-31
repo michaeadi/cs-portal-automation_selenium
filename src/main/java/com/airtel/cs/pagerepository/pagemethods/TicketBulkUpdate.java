@@ -28,7 +28,7 @@ public class TicketBulkUpdate extends BasePage {
 
     public void clickCloseFilter() {
         commonLib.info("Closing Filter Tab");
-        click(pageElements.closeFilter);
+        clickAndWaitForLoaderToBeRemoved(pageElements.closeFilter);
     }
 
     public boolean isSelectFilter() {
@@ -56,22 +56,22 @@ public class TicketBulkUpdate extends BasePage {
 
     public void clickNextBtn() {
         commonLib.info("Clicking on next button");
-        click(pageElements.nextBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.nextBtn);
     }
 
     public void clickBackBtn() {
         commonLib.info("Clicking on back button");
-        click(pageElements.backBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.backBtn);
     }
 
     public void clickPopUpCancelBtn() {
         commonLib.info("Clicking on pop up cancel button");
-        click(pageElements.popUpCancelBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.popUpCancelBtn);
     }
 
     public void clickPopUpContinueBtn() {
         commonLib.info("Clicking on pop up continue button");
-        click(pageElements.popUpContinueBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.popUpContinueBtn);
     }
 
     public boolean isNextBtnEnable() {
@@ -81,7 +81,7 @@ public class TicketBulkUpdate extends BasePage {
 
     public void clickCancelBtn() {
         commonLib.info("Clicking on cancel button");
-        click(pageElements.cancelBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.cancelBtn);
     }
 
     public void addFile() {
@@ -116,13 +116,13 @@ public class TicketBulkUpdate extends BasePage {
 
     public FilterTab clickSelectFilter() {
         commonLib.info("Clicking selecting filter");
-        click(pageElements.selectFilter);
+        clickAndWaitForLoaderToBeRemoved(pageElements.selectFilter);
         return new FilterTab(driver);
     }
 
     public void clickClearFilter() {
         commonLib.info("Clicking clear filter");
-        click(pageElements.clearFilter);
+        clickAndWaitForLoaderToBeRemoved(pageElements.clearFilter);
     }
 
     public Boolean isClearFilterButton() {
@@ -154,8 +154,8 @@ public class TicketBulkUpdate extends BasePage {
 
     public List<String> getQueue() {
         List<String> queues = new ArrayList<>();
-        click(pageElements.transferToQueue);
-        click(pageElements.selectTransferToQueue);
+        clickAndWaitForLoaderToBeRemoved(pageElements.transferToQueue);
+        clickAndWaitForLoaderToBeRemoved(pageElements.selectTransferToQueue);
         List<WebElement> list = returnListOfElement(pageElements.options);
         for (int i = 1; i <= list.size(); i++) {
             By queue = By.xpath("//mat-option[" + i + "]//span");
@@ -168,8 +168,8 @@ public class TicketBulkUpdate extends BasePage {
 
     public List<String> getState() {
         List<String> states = new ArrayList<>();
-        click(pageElements.changeState);
-        click(pageElements.selectChangeState);
+        clickAndWaitForLoaderToBeRemoved(pageElements.changeState);
+        clickAndWaitForLoaderToBeRemoved(pageElements.selectChangeState);
         List<WebElement> list = returnListOfElement(pageElements.options);
         for (int i = 1; i <= list.size(); i++) {
             By state = By.xpath("//mat-option[" + i + "]//span");
@@ -182,17 +182,17 @@ public class TicketBulkUpdate extends BasePage {
 
     public void clickAddCommentOption() {
         commonLib.info("Clicking Add Ticket Comment Option");
-        click(pageElements.ticketComment);
+        clickAndWaitForLoaderToBeRemoved(pageElements.ticketComment);
     }
 
     public void clickTransferToQueueOption() {
         commonLib.info("Clicking Transfer to Queue Option");
-        click(pageElements.transferToQueue);
+        clickAndWaitForLoaderToBeRemoved(pageElements.transferToQueue);
     }
 
     public void clickTicketStateOption() {
         commonLib.info("Clicking Ticket State Option");
-        click(pageElements.changeState);
+        clickAndWaitForLoaderToBeRemoved(pageElements.changeState);
     }
 
     public void addComment(String comment) {
@@ -202,7 +202,7 @@ public class TicketBulkUpdate extends BasePage {
 
     public void clickConfirmAction() {
         commonLib.info("Clicking Confirm option");
-        click(pageElements.confirmAction);
+        clickAndWaitForLoaderToBeRemoved(pageElements.confirmAction);
     }
 
     public boolean isStatusBarComplete() {

@@ -1,10 +1,9 @@
-package com.airtel.cs.ui.frontendagent.actiondropdown;
+package com.airtel.cs.ui.frontendagent.viewhistorytab;
 
 import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
-import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.driver.Driver;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -20,14 +19,10 @@ public class ActionTrailTest extends Driver {
 
     @BeforeMethod
     public void checkExecution() {
-        if (continueExecutionFA) {
-            assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, true, "Proceeding for test case as user able to login over portal", "Skipping tests because user not able to login into portal or Role does not assign to user"));
-        } else {
-            commonLib.skip("Skipping tests because user not able to login into portal or Role does not assign to user");
-            assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, false, "Skipping tests because user not able to login into portal or Role does not assign to user"));
-            throw new SkipException("Skipping tests because user not able to login into portal or Role does not assign to user");
+        if (!continueExecutionFA) {
+            commonLib.skip("Skipping tests because user NOT able to login via API");
+            throw new SkipException("Skipping tests because user NOT able to login via API");
         }
-        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     @Test(priority = 1, description = "Validate Customer Interaction Page")
@@ -36,7 +31,6 @@ public class ActionTrailTest extends Driver {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
             final String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
             pages.getSideMenuPage().clickOnSideMenu();
-            pages.getSideMenuPage().clickOnUserName();
             pages.getSideMenuPage().openCustomerInteractionPage();
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();
@@ -50,11 +44,10 @@ public class ActionTrailTest extends Driver {
     }
 
     @DataProviders.Table(name = "Action Trail Tab")
-    @Test(priority = 2, description = "Validating Action Trail Tab", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 2, description = "Validating Action Trail Tab", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = {"openCustomerInteraction"})
     public void validateActionTrailOpenCorrectly(HeaderDataBean data) {
         try {
-            selUtils.addTestcaseDescription("Verify View History tab opened successfully,Verify Action Trail History tab is visible and then click,Validate column header name are visible and correct", "description");
-            pages.getMsisdnSearchPage().waitTillLoaderGetsRemoved();
+            selUtils.addTestcaseDescription("Verify View History tab opened successfully,Verify Action Trail History tab is visible and then click on it,Validate column header name are visible and correct", "description");
             pages.getCustomerProfilePage().goToViewHistory();
             pages.getViewHistory().clickOnActionTrailHistory();
             assertCheck.append(actions.assertEqual_stringType(pages.getActionTrailPage().getHeaderValue(0).toLowerCase().trim(), data.getRow1().toLowerCase().trim(), "Action Type Column displayed in header", "Action Type Column does not display in header"));
@@ -72,14 +65,14 @@ public class ActionTrailTest extends Driver {
     @Test(priority = 3, description = "Validating Action Trail History", dependsOnMethods = {"validateActionTrailOpenCorrectly"})
     public void validateActionTrailValue() {
         try {
-            selUtils.addTestcaseDescription("Verify View History tab opened successfully,Verify Action Trail History tab is visible and then click,Validate column value are visible and correct", "description");
+            selUtils.addTestcaseDescription("Verify View History tab opened successfully,Verify Action Trail History tab is visible,Validate column's value are visible and correct", "description");
             assertCheck.append(actions.assertEqual_stringType(pages.getActionTrailPage().getValue(10).toLowerCase().trim(), "send internet settings", "Action Type Column value displayed Correctly", "Action Type Column Value does not displayed Correctly"));
             assertCheck.append(actions.assertEqual_stringNotNull(pages.getActionTrailPage().getValue(11).toLowerCase().trim(), "Date & Time Column displayed Correctly", "Date & Time Column does not displayed Correctly"));
             assertCheck.append(actions.assertEqual_stringType(pages.getActionTrailPage().getValue(12).toLowerCase().trim(), reason.toLowerCase().trim(), "Reason Column displayed Correctly", "Reason Column does not displayed Correctly"));
             assertCheck.append(actions.assertEqual_stringType(pages.getActionTrailPage().getValue(13), loginAUUID, "Agent Id Column displayed Correctly", "Agent Id Column does not displayed Correctly"));
             assertCheck.append(actions.assertEqual_stringNotNull(pages.getActionTrailPage().getValue(14).toLowerCase().trim(), "Agent name Column displayed Correctly", "Agent name Column does not displayed in Correctly"));
             assertCheck.append(actions.assertEqual_stringType(pages.getActionTrailPage().getValue(15).toLowerCase().trim(), comments.toLowerCase().trim(), "Comments Column displayed Correctly", "Comments Column does not displayed in Correctly"));
-        } catch (NoSuchElementException | TimeoutException e) {
+        } catch (NoSuchElementException | TimeoutException | IndexOutOfBoundsException e) {
             commonLib.fail("Exception in Method - validateActionTrailValue" + e.fillInStackTrace(), true);
         }
         actions.assertAllFoundFailedAssert(assertCheck);

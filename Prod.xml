@@ -17,13 +17,13 @@
     </test>
     <test name="Side Menu">
         <classes>
-            <class name="com.airtel.cs.ui.frontendagent.SideMenuTests"/>
+            <class name="com.airtel.cs.ui.frontendagent.leftmenu.SideMenuTests"/>
         </classes>
     </test>
     <test name="Customer Interactions TEST" preserve-order="true">
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.demographicwidget.DemoGraphicWidgetMsisdnTest"/>
-            <class name="com.airtel.cs.ui.frontendagent.widgets.WidgetsOptionsTest"/>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.WidgetsOptionsTest"/>
         </classes>
     </test>
     <test name="Validate Authentication tab">
@@ -37,7 +37,7 @@
     </test>
     <test name="Validate Action Trail Tab Test">
         <classes>
-            <class name="com.airtel.cs.ui.frontendagent.actiondropdown.ActionTrailTest"/>
+            <class name="com.airtel.cs.ui.frontendagent.viewhistorytab.ActionTrailTest"/>
         </classes>
     </test>
     <test name="Validate Frontend Agent Ticket Page">

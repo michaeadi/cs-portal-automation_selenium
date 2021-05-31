@@ -30,7 +30,7 @@ public class FilterTab extends BasePage {
     }
 
     public void clickQueueFilter() {
-        click(tabElements.openQueueList);
+        clickAndWaitForLoaderToBeRemoved(tabElements.openQueueList);
     }
 
     public void scrollToQueueFilter() throws InterruptedException {
@@ -39,12 +39,12 @@ public class FilterTab extends BasePage {
 
     public void clickLast7DaysFilter() {
         commonLib.info("Clicking on filter by created date - Last 7 days");
-        click(tabElements.last7DaysCD);
+        clickAndWaitForLoaderToBeRemoved(tabElements.last7DaysCD);
     }
 
     public void clickLast30DaysFilter() {
         commonLib.info("Clicking on filter by created date - Last 30 days");
-        click(tabElements.last30DaysCD);
+        clickAndWaitForLoaderToBeRemoved(tabElements.last30DaysCD);
     }
 
 
@@ -52,12 +52,12 @@ public class FilterTab extends BasePage {
         commonLib.info("Select Queue Filter Name: " + queueName);
         By queue = By.xpath("//mat-option//span[contains(text(),'" + queueName + "')]");
         scrollToViewElement(queue);
-        click(queue);
+        clickAndWaitForLoaderToBeRemoved(queue);
     }
 
     public void clickApplyFilter() {
         commonLib.info("Clicking on APPLY Filter Button");
-        click(tabElements.applyFilter);
+        clickAndWaitForLoaderToBeRemoved(tabElements.applyFilter);
         waitTillLoaderGetsRemoved();
     }
 
@@ -68,14 +68,14 @@ public class FilterTab extends BasePage {
     public void clickUnAssignedFilter() throws InterruptedException {
         commonLib.info("Apply Filter By Ticket Assignee");
         scrollToViewElement(tabElements.unAssigned);
-        click(tabElements.unAssigned);
+        clickAndWaitForLoaderToBeRemoved(tabElements.unAssigned);
     }
 
     public void openEscalationFilter() throws InterruptedException {
         commonLib.info("Apply filter by ticket escalation level");
         scrollToViewElement(tabElements.openEscalationFilter);
         Thread.sleep(1000);
-        click(tabElements.openEscalationFilter);
+        clickAndWaitForLoaderToBeRemoved(tabElements.openEscalationFilter);
     }
 
     public void selectAllLevel1() {
@@ -252,7 +252,7 @@ public class FilterTab extends BasePage {
     public void clickCloseFilter() {
         try {
             commonLib.info("Closing Filter Tab");
-            click(tabElements.closeFilter);
+            clickAndWaitForLoaderToBeRemoved(tabElements.closeFilter);
         } catch (NoSuchElementException | TimeoutException e) {
             commonLib.info("Close Filter Button does not display");
         }
@@ -261,12 +261,12 @@ public class FilterTab extends BasePage {
     public void applyFilterByCategoryCode(String code) throws InterruptedException {
         commonLib.info("Clicking Code Field");
         scrollToViewElement(tabElements.byCode);
-        click(tabElements.byCode);
+        clickAndWaitForLoaderToBeRemoved(tabElements.byCode);
         commonLib.info("Searching category code: " + code);
         enterText(tabElements.searchBox, code);
         waitTillLoaderGetsRemoved();
         By selectCode = By.xpath("//span[@class='mat-option-text'][contains(text(),'" + code + "')]");
-        click(selectCode);
+        clickAndWaitForLoaderToBeRemoved(selectCode);
         commonLib.info("Category Code Selected");
         waitTillLoaderGetsRemoved();
     }
@@ -287,8 +287,8 @@ public class FilterTab extends BasePage {
     public void selectSourceFilterValue() throws InterruptedException {
         if (isVisible(tabElements.sourceFilterLabel)) {
             scrollToViewElement(tabElements.sourceFilterLabel);
-            click(tabElements.sourceFilterLabel);
-            click(tabElements.selectCustomerService);
+            clickAndWaitForLoaderToBeRemoved(tabElements.sourceFilterLabel);
+            clickAndWaitForLoaderToBeRemoved(tabElements.selectCustomerService);
             waitTillLoaderGetsRemoved();
             clickApplyFilter();
             clearFilterDashbaord();
@@ -297,7 +297,7 @@ public class FilterTab extends BasePage {
 
     public void clearFilterDashbaord() {
         if (isVisible(tabElements.clearFilterButtonDashboard)) {
-            click(tabElements.clearFilterButtonDashboard);
+            clickAndWaitForLoaderToBeRemoved(tabElements.clearFilterButtonDashboard);
         }
     }
 

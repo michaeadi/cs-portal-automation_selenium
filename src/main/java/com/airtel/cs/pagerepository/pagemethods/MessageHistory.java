@@ -159,7 +159,7 @@ public class MessageHistory extends BasePage {
     public void clickActionBtn(int i) {
         if (i <= getListSize()) {
             By actionEnable = By.xpath(XPATH + i + "]//td[8]//img");
-            click(actionEnable);
+            clickAndWaitForLoaderToBeRemoved(actionEnable);
         }
     }
 
@@ -177,12 +177,12 @@ public class MessageHistory extends BasePage {
 
     public void clickYesBtn() {
         commonLib.info("Clicking on 'Yes' Button");
-        click(pageElements.yesBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.yesBtn);
     }
 
     public void clickNoBtn() {
         commonLib.info("Clicking on 'NO' Button");
-        click(pageElements.noBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.noBtn);
     }
 
 

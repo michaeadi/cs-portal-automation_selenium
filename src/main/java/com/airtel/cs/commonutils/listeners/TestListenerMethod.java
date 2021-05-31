@@ -22,30 +22,27 @@ public class TestListenerMethod extends TestListenerAdapter {
 
     @Override
     public void onStart(ITestContext iTestContext) {
-        log.info("I am in on Start method " + iTestContext.getName());
-        iTestContext.setAttribute("WebDriver", Driver.driver);
     }
 
     @Override
     public void onFinish(ITestContext iTestContext) {
-        log.info("I am in on Finish method " + iTestContext.getName());
-        ExtentReport.endTest();
     }
 
     @Override
     public void onTestStart(ITestResult iTestResult) {
-        log.info(java.time.LocalTime.now() + " I am in onTestStart method " + getTestMethodName(iTestResult) + " start");
     }
 
     @Override
     public void onTestSuccess(ITestResult iTestResult) {
-        setTestNameInXml(iTestResult);
-        super.onTestSuccess(iTestResult);
+    }
+
+    @Override
+    public void onTestFailure(ITestResult result) {
     }
 
     @Override
     public void onTestSkipped(ITestResult tr) {
-        /*try {
+       /* try {
             String className = tr.getMethod().getInstance().getClass().getName();
             int idx = className.lastIndexOf('.');
             className = className.substring(idx + 1, className.length());

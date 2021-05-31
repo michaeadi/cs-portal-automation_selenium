@@ -194,7 +194,7 @@ public class Driver {
             spark = new ExtentSparkReporter(modifiedHtmlfilePath);
             extent.attachReporter(spark);
             spark.config().setDocumentTitle("Airtel Africa CS Automation");
-            spark.config().setReportName("Automation Report - CS Portal");
+            spark.config().setReportName("Automation Report -" + OPCO + " CS Portal");
             extent.setSystemInfo("Application Environment ", OPCO + " " + evnName);
             extent.setSystemInfo("Execution Browser ", browser.toUpperCase());
             extent.setSystemInfo("Language Selected ", "English");
@@ -259,7 +259,7 @@ public class Driver {
     private static void browserCapabilities() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--window-size=1792,1120");
-        options.setHeadless(true);
+        options.setHeadless(false);
         Map<String, Object> prefs = new HashMap<>();
         prefs.put("download.default_directory", excelPath);
         prefs.put("intl.accept_languages", "nl");

@@ -1,7 +1,8 @@
-package com.airtel.cs.ui.frontendagent;
+package com.airtel.cs.ui.frontendagent.leftmenu;
 
 import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.driver.Driver;
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;
@@ -13,14 +14,10 @@ public class SideMenuTests extends Driver {
 
     @BeforeMethod
     public void checkExecution() {
-        if (continueExecutionFA) {
-            assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, true, "Proceeding for test case as user able to login over portal", "Skipping tests because user not able to login into portal or Role does not assign to user"));
-        } else {
-            commonLib.skip("Skipping tests because user not able to login into portal or Role does not assign to user");
-            assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, false, "Skipping tests because user not able to login into portal or Role does not assign to user"));
-            throw new SkipException("Skipping tests because user not able to login into portal or Role does not assign to user");
+        if (!continueExecutionFA) {
+            commonLib.skip("Skipping tests because user NOT able to login via API");
+            throw new SkipException("Skipping tests because user NOT able to login via API");
         }
-        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     @Test(priority = 1, description = "Validating Side Menu Options")
@@ -40,7 +37,7 @@ public class SideMenuTests extends Driver {
             assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isTicketBulkUpdateVisible(), true, "Ticket Bulk Update Module is Visible", "Ticket Bulk Update Module NOT Visible"));
             pages.getSideMenuPage().clickOnSideMenu();
             actions.assertAllFoundFailedAssert(assertCheck);
-        } catch (NotFoundException | TimeoutException e) {
+        } catch (NotFoundException | TimeoutException | ElementClickInterceptedException e) {
             commonLib.fail("Exception in Method - testSideMenuOption", true);
         }
     }

@@ -140,6 +140,6 @@ public class VoucherTab extends BasePage {
 
     public void clickDoneBtn() {
         commonLib.info("Clicking done button");
-        click(pageElements.doneBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.doneBtn);
     }
 }

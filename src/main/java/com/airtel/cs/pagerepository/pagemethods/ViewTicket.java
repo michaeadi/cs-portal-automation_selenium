@@ -33,7 +33,7 @@ public class ViewTicket extends BasePage {
     public String selectState(String state) throws InterruptedException {
         log.info("Finding State: " + state);
         scrollToViewElement(pageElements.submitAs);
-        click(pageElements.arrowIcon);
+        clickAndWaitForLoaderToBeRemoved(pageElements.arrowIcon);
         try {
             List<WebElement> list = returnListOfElement(pageElements.allTicketState);
             log.info("List Size: " + list.size());
@@ -42,10 +42,10 @@ public class ViewTicket extends BasePage {
                 log.info("State Read: " + getText(chooseState));
                 if (state.equalsIgnoreCase(getText(chooseState).trim())) {
                     commonLib.info("Selecting State: " + state);
-                    click(chooseState);
+                    clickAndWaitForLoaderToBeRemoved(chooseState);
                     String selectedState = getText(pageElements.stateName);
                     commonLib.info("Clicking on Submit as " + selectedState);
-                    click(pageElements.submitAs);
+                    clickAndWaitForLoaderToBeRemoved(pageElements.submitAs);
                     return selectedState;
                 }
             }
@@ -112,7 +112,7 @@ public class ViewTicket extends BasePage {
     public void clickAddButton() throws InterruptedException {
         log.info("Clicking on Add comment button");
         scrollToViewElement(pageElements.addBtn);
-        click(pageElements.addBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.addBtn);
         commonLib.info("Clicking on Add comment button");
     }
 
@@ -121,7 +121,7 @@ public class ViewTicket extends BasePage {
         commonLib.info("Editing last added comment");
         List<WebElement> list = returnListOfElement(pageElements.allComment);
         By lastAddedComment = By.xpath("//table[@class='ng-star-inserted']/tbody//tr[" + list.size() + "]//td[1]//a[1]//img[1]");
-        click(lastAddedComment);
+        clickAndWaitForLoaderToBeRemoved(lastAddedComment);
     }
 
     public void clearCommentBox() {
@@ -134,13 +134,13 @@ public class ViewTicket extends BasePage {
         commonLib.info("Deleting last added comment");
         List<WebElement> list = returnListOfElement(pageElements.allComment);
         By deleteComment = By.xpath("//table[@class='ng-star-inserted']/tbody//tr[" + list.size() + "]//td[1]//a[2]//img[1]");
-        click(deleteComment);
+        clickAndWaitForLoaderToBeRemoved(deleteComment);
     }
 
     public void clickContinueButton() {
         log.info("Clicking on Continue button");
         commonLib.info("Clicking on Continue button");
-        click(pageElements.continueBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.continueBtn);
     }
 
     public boolean isCommentDelete(String text) {
@@ -161,6 +161,6 @@ public class ViewTicket extends BasePage {
     public void clickBackButton() throws InterruptedException {
         log.info("Clicking Back button");
         scrollToViewElement(pageElements.backButton);
-        click(pageElements.backButton);
+        clickAndWaitForLoaderToBeRemoved(pageElements.backButton);
     }
 }

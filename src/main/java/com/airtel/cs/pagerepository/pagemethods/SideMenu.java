@@ -21,9 +21,9 @@ public class SideMenu extends BasePage {
     }
 
     public void clickOnSideMenu() {
-        if (isVisible(pageElements.sideMenuOption)) {
+        if (isVisible(pageElements.sideMenuOption) && isClickable(pageElements.sideMenuOption)) {
             commonLib.info("Clicking on Side Menu");
-            click(pageElements.sideMenuOption);
+            clickWithoutLoader(pageElements.sideMenuOption);
         } else {
             commonLib.error("Side Menu Option is NOT Visible", true);
         }
@@ -43,7 +43,7 @@ public class SideMenu extends BasePage {
 
     public void clickOnUserName() {
         commonLib.info("Clicking on User Name");
-        click(pageElements.userName);
+        clickWithoutLoader(pageElements.userName);
     }
 
     public boolean isAdminSettingVisible() {
@@ -63,91 +63,98 @@ public class SideMenu extends BasePage {
 
     public boolean isUserManagementVisible() {
         commonLib.info("Checking that is User Management Option Visible or Not");
-        hoverAndClick(pageElements.adminSettings);
+        hoverOverElement(pageElements.adminSettings);
         return isEnabled(pageElements.userManagement);
     }
 
     public boolean isProfileManagementVisible() {
         commonLib.info("Checking that is Profile Management Option Visible or Not");
-        hoverAndClick(pageElements.adminSettings);
+        hoverOverElement(pageElements.adminSettings);
         return isEnabled(pageElements.profileManagement);
+    }
+
+    public void hoverOverCustomerService() {
+        if (isVisible(pageElements.customerServices))
+            hoverOverElement(pageElements.customerServices);
+        else
+            commonLib.fail("Exception in method - hoverOverCustomerService", true);
     }
 
     public boolean isCustomerInteractionVisible() {
         commonLib.info("Checking that is Customer Interaction Option Visible or Not");
-        hoverAndClick(pageElements.customerServices);
+        hoverOverElement(pageElements.customerServices);
         return isEnabled(pageElements.customerInteraction);
     }
 
     public boolean isSupervisorDashboardVisible() {
         commonLib.info("Checking that is Supervisor DashBoard Option Visible or Not");
-        hoverAndClick(pageElements.customerServices);
+        hoverOverElement(pageElements.customerServices);
         return isEnabled(pageElements.supervisorDashboard);
     }
 
     public boolean isTicketBulkUpdateVisible() {
         commonLib.info("Checking that is Supervisor Ticket Bulk Update Option Visible or Not");
-        hoverAndClick(pageElements.customerServices);
+        hoverOverElement(pageElements.customerServices);
         return isEnabled(pageElements.ticketBulkUpdate);
     }
 
     public boolean isTemplateManagementVisible() {
         commonLib.info("Checking that is Admin Template Management Option Visible or Not");
-        hoverAndClick(pageElements.adminSettings);
+        hoverOverElement(pageElements.adminSettings);
         return isEnabled(pageElements.templateManagement);
     }
 
     public void openCustomerInteractionPage() {
         commonLib.info("Opening Customer Interaction Page");
-        hoverAndClick(pageElements.customerServices);
-        click(pageElements.customerInteraction);
+        hoverOverElement(pageElements.customerServices);
+        clickAndWaitForLoaderToBeRemoved(pageElements.customerInteraction);
     }
 
     public void openTemplateManagementPage() {
         commonLib.info("Opening Template Management Page");
-        hoverAndClick(pageElements.adminSettings);
-        click(pageElements.templateManagement);
+        hoverOverElement(pageElements.adminSettings);
+        clickAndWaitForLoaderToBeRemoved(pageElements.templateManagement);
     }
 
     public void openUserManagementPage() {
         commonLib.info("Opening User Management Page");
-        hoverAndClick(pageElements.adminSettings);
-        click(pageElements.userManagement);
+        hoverOverElement(pageElements.adminSettings);
+        clickAndWaitForLoaderToBeRemoved(pageElements.userManagement);
     }
 
     public void openProfileManagementPage() {
         commonLib.info("Opening Profile Management Page");
-        hoverAndClick(pageElements.adminSettings);
-        click(pageElements.profileManagement);
+        hoverOverElement(pageElements.adminSettings);
+        clickAndWaitForLoaderToBeRemoved(pageElements.profileManagement);
     }
 
     public void openSupervisorDashboard() {
         commonLib.info("Opening Supervisor Dashboard Page");
-        hoverAndClick(pageElements.customerServices);
-        click(pageElements.supervisorDashboard);
+        hoverOverElement(pageElements.customerServices);
+        clickAndWaitForLoaderToBeRemoved(pageElements.supervisorDashboard);
     }
 
     public void openBackendAgentDashboard() {
         commonLib.info("Opening Backend Agent Dashboard Page");
-        hoverAndClick(pageElements.customerServices);
-        click(pageElements.agentDashboard);
+        hoverOverElement(pageElements.customerServices);
+        clickAndWaitForLoaderToBeRemoved(pageElements.agentDashboard);
     }
 
     public Boolean isAgentDashboard() {
         commonLib.info("Checking Agent Dashboard Visible or not");
-        hoverAndClick(pageElements.customerServices);
+        hoverOverElement(pageElements.customerServices);
         return isEnabled(pageElements.agentDashboard);
     }
 
     public TicketBulkUpdate openTicketBulkUpdateDashboard() {
         commonLib.info("Opening Ticket Bulk Update Dashboard Page");
-        hoverAndClick(pageElements.customerServices);
-        click(pageElements.ticketBulkUpdate);
+        hoverOverElement(pageElements.customerServices);
+        clickAndWaitForLoaderToBeRemoved(pageElements.ticketBulkUpdate);
         return new TicketBulkUpdate(driver);
     }
 
     public void logout() {
         commonLib.info("Logging Out");
-        click(pageElements.logout);
+        clickAndWaitForLoaderToBeRemoved(pageElements.logout);
     }
 }

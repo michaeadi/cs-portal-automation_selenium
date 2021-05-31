@@ -22,7 +22,7 @@ public class CRBTWidget extends BasePage {
 
     public void clickTicketIcon() {
         commonLib.info("Clicking Ticket Icon");
-        click(pageElements.ticketIcon);
+        clickAndWaitForLoaderToBeRemoved(pageElements.ticketIcon);
     }
 
     public boolean isMyTuneTabDisplay() {
@@ -73,12 +73,12 @@ public class CRBTWidget extends BasePage {
 
     public void clickSearchBtn() {
         commonLib.info("Clicking Search Button");
-        click(pageElements.searchBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.searchBtn);
     }
 
     public void clickSearchOption() {
         commonLib.info("Clicking Search Option");
-        click(pageElements.searchOptionBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.searchOptionBtn);
     }
 
     public String getOption1() {
@@ -123,17 +123,17 @@ public class CRBTWidget extends BasePage {
 
     public void clickTop20Tab() {
         commonLib.info("Clicking on Top 20 Tab.");
-        click(pageElements.top20TuneTab);
+        clickAndWaitForLoaderToBeRemoved(pageElements.top20TuneTab);
     }
 
     public void clickSearchTuneTab() {
         commonLib.info("Clicking on Search Tunes.");
-        click(pageElements.searchTuneTab);
+        clickAndWaitForLoaderToBeRemoved(pageElements.searchTuneTab);
     }
 
     public void clickMyTunesTab() {
         commonLib.info("Clicking on My Tunes.");
-        click(pageElements.myTuneTab);
+        clickAndWaitForLoaderToBeRemoved(pageElements.myTuneTab);
     }
 
 }

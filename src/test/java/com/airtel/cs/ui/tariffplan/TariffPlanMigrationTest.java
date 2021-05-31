@@ -11,6 +11,7 @@ import com.airtel.cs.pojo.response.tariffplan.CurrentPlanPOJO;
 import org.apache.commons.lang3.StringUtils;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 
@@ -29,6 +30,14 @@ public class TariffPlanMigrationTest extends PreRequisites {
         if (!StringUtils.equals(RUN_TARIFF_TEST_CASE, "true")) {
             commonLib.skip("Skipping because Run Tariff Test Case Flag Value is - " + RUN_TARIFF_TEST_CASE);
             throw new SkipException("Skipping because this is for NG Only");
+        }
+    }
+
+    @BeforeMethod
+    public void checkExecution() {
+        if (!continueExecutionFA) {
+            commonLib.skip("Skipping tests because user NOT able to login via API");
+            throw new SkipException("Skipping tests because user NOT able to login via API");
         }
     }
 

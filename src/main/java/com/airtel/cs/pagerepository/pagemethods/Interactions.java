@@ -24,7 +24,7 @@ public class Interactions extends BasePage {
 
     public void clickOnContinueButton() {
         commonLib.info("clicking on continue button");
-        click(pageElements.continueButton);
+        clickAndWaitForLoaderToBeRemoved(pageElements.continueButton);
     }
 
     public String isDateFieldAvailable() {
@@ -66,8 +66,8 @@ public class Interactions extends BasePage {
     public void selectIssueDetailInput(String num) {
         commonLib.info("Selecting label for issue detail field situated at Position : " + num);
         By issueDetails = By.xpath(XPATH + num + "]//mat-select");
-        click(issueDetails);
-        click(pageElements.option1st);
+        clickAndWaitForLoaderToBeRemoved(issueDetails);
+        clickAndWaitForLoaderToBeRemoved(pageElements.option1st);
     }
 
     public void clickOnCode() throws InterruptedException {
@@ -131,7 +131,7 @@ public class Interactions extends BasePage {
     }
 
     public void clickOnSave() {
-        click(pageElements.saveButton);
+        clickAndWaitForLoaderToBeRemoved(pageElements.saveButton);
         commonLib.info("Clicking on save to create Ticket");
 
     }
@@ -161,7 +161,7 @@ public class Interactions extends BasePage {
 
     public CustomerProfile closeInteractions() {
         wait.until(ExpectedConditions.elementToBeClickable(pageElements.closeInteractions));
-        click(pageElements.closeInteractions);
+        clickAndWaitForLoaderToBeRemoved(pageElements.closeInteractions);
         commonLib.info("Closing Interaction Screen");
         return new CustomerProfile(driver);
     }
@@ -170,13 +170,13 @@ public class Interactions extends BasePage {
         log.info("Waiting for Comment Ticket Icon");
         waitVisibility(pageElements.resolvedFTR);
         commonLib.info("Click On Ticket Comment Icon");
-        click(pageElements.ticketCommentIcon);
+        clickAndWaitForLoaderToBeRemoved(pageElements.ticketCommentIcon);
     }
 
     public void openAddedComment() {
         waitVisibility(pageElements.ticketCommentIcon);
         commonLib.info("Click On Ticket Comment Icon");
-        click(pageElements.ticketCommentIcon);
+        clickAndWaitForLoaderToBeRemoved(pageElements.ticketCommentIcon);
     }
 
 
@@ -192,17 +192,17 @@ public class Interactions extends BasePage {
 
     public void saveInteractionComment() {
         log.info("Clicking Save Comment Button");
-        click(pageElements.addCommentBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.addCommentBtn);
     }
 
     public void closeTicketCommentBox() {
         log.info("Closing Ticket Comment Pop up");
-        click(pageElements.closeCommentTab);
+        clickAndWaitForLoaderToBeRemoved(pageElements.closeCommentTab);
     }
 
     public void resetInteractionIssue() {
         commonLib.info("Clicking reset issue details Button");
-        click(pageElements.resetBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.resetBtn);
         waitTillLoaderGetsRemoved();
     }
 

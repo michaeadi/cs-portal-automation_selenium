@@ -1,4 +1,4 @@
-package com.airtel.cs.ui.frontendagent.widgets;
+package com.airtel.cs.ui.frontendagent.hometab;
 
 import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.common.actions.BaseActions;
@@ -12,6 +12,8 @@ import com.airtel.cs.pagerepository.pagemethods.ServiceClassWidget;
 import com.airtel.cs.pojo.response.hlrservice.HLRServicePOJO;
 import io.restassured.http.Headers;
 import lombok.extern.log4j.Log4j2;
+import org.testng.SkipException;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 @Log4j2
@@ -22,6 +24,14 @@ public class ServiceProfileWidgetTest extends Driver {
     RequestSource api = new RequestSource();
     private HLRServicePOJO hlrService;
 
+    @BeforeMethod
+    public void checkExecution() {
+        if (!continueExecutionFA) {
+            commonLib.skip("Skipping tests because user NOT able to login via API");
+            throw new SkipException("Skipping tests because user NOT able to login via API");
+        }
+    }
+
 
     @Test(priority = 1, description = "Validate Customer Interaction Page")
     public void openCustomerInteractionAPI() {
@@ -29,7 +39,6 @@ public class ServiceProfileWidgetTest extends Driver {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
             customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
             pages.getSideMenuPage().clickOnSideMenu();
-            pages.getSideMenuPage().clickOnUserName();
             pages.getSideMenuPage().openCustomerInteractionPage();
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();
