@@ -21,7 +21,7 @@ public class LoginPortalTests extends Driver {
         }
     }
 
-    @Test(priority = 1, description = "Test Login Into Portal with valid credentials")
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void testLoginIntoPortal() {
         try {
             selUtils.addTestcaseDescription("Logging Into Portal with valid credentials, Validating opened url,validating login button is getting enabled,Validating dashboard page opened successfully or not?", "description");

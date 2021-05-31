@@ -85,16 +85,9 @@ public class RechargeHistoryWidget extends BasePage {
     */
     public String getHeaderValue(int row, int column) {
         String result = null;
-        result = getText(By.xpath(pageElements.dataRow + row + pageElements.valueColumns + column + "]"));
+        result = getText(By.xpath(pageElements.dataRow + row + pageElements.valueColumns + column + "]/span"));
         commonLib.info("Reading Value(" + row + "): " + result);
         return result;
-    }
-
-    public String getRechargeHistoryDateTime(int rowNumber) {
-        By date = By.xpath(pageElements.dataRow + rowNumber + "]//div[@class='ng-star-inserted' or @class='slide-toggle red ng-star-inserted'][2]//span[1]");
-        final String text = getText(date);
-        commonLib.info("Getting Recharge History Date & Time from Row Number " + rowNumber + " : " + text);
-        return text;
     }
 
     public boolean isRechargeHistoryWidgetIsVisible() {

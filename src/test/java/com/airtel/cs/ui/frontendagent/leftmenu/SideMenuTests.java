@@ -15,12 +15,12 @@ public class SideMenuTests extends Driver {
     @BeforeMethod
     public void checkExecution() {
         if (!continueExecutionFA) {
-            commonLib.skip("Skipping tests because user NOT able to login via API");
-            throw new SkipException("Skipping tests because user NOT able to login via API");
+            commonLib.skip("Skipping tests because user NOT able to login Over Portal");
+            throw new SkipException("Skipping tests because user NOT able to login Over Portal");
         }
     }
 
-    @Test(priority = 1, description = "Validating Side Menu Options")
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void testSideMenuOption() {
         try {
             selUtils.addTestcaseDescription("Validating Side Menu Options, Validating all options are visible as per permission given", "description");

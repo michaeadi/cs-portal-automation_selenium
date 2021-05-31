@@ -25,8 +25,8 @@ public class RechargeHistoryWidgetTest extends Driver {
     @BeforeMethod
     public void checkExecution() {
         if (!continueExecutionFA) {
-            commonLib.skip("Skipping tests because user NOT able to login via API");
-            throw new SkipException("Skipping tests because user NOT able to login via API");
+            commonLib.skip("Skipping tests because user NOT able to login Over Portal");
+            throw new SkipException("Skipping tests because user NOT able to login Over Portal");
         }
     }
 
@@ -49,7 +49,7 @@ public class RechargeHistoryWidgetTest extends Driver {
     }
 
     @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteractionAPI")
-    public void rechargeHistoryWidgetHeaderTest() {
+    public void rechargeHistoryWidgetHeaderAndValueTest() {
         try {
             selUtils.addTestcaseDescription("Validate is Recharge History Widget Visible,Validate is Recharge History Widget Loaded?,Validate Footer and Middle Auuid", "description");
             assertCheck.append(actions.assertEqual_boolean(pages.getRechargeHistoryWidget().isRechargeHistoryWidgetIsVisible(), true, "Recharge History Widget is visible", "Recharge History Widget is not visible"));
@@ -65,9 +65,9 @@ public class RechargeHistoryWidgetTest extends Driver {
 
     @DataProviders.Table(name = "Recharge History")
     @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI")
-    public void rechargeHistoryWidgetTest(HeaderDataBean data) {
+    public void rechargeHistoryWidgetHeaderAndValueTest(HeaderDataBean data) {
         try {
-            selUtils.addTestcaseDescription("Validating Recharge History Widget of User :" + customerNumber, "description");
+            selUtils.addTestcaseDescription("Validating Recharge History Widget of User :" + customerNumber + "Validate Recharge History API, Validate Recharge H", "description");
             final RechargeHistoryWidget rechargeHistoryWidget = pages.getRechargeHistoryWidget();
             RechargeHistoryPOJO rechargeHistoryAPI = api.rechargeHistoryAPITest(customerNumber);
             final int statusCode = rechargeHistoryAPI.getStatusCode();
@@ -88,13 +88,16 @@ public class RechargeHistoryWidgetTest extends Driver {
                     assertCheck.append(actions.assertEqual_stringType(rechargeHistoryWidget.getHeaders(4).toLowerCase().trim() + rechargeHistoryWidget.getSubHeaders(4).toLowerCase().trim().replace("|", ""), data.getRow4().toLowerCase().replace("|", "").trim(), "Header Name for Row 4 is as expected", "Header Name for Row 4 is not as expected"));
                     assertCheck.append(actions.assertEqual_stringType(rechargeHistoryWidget.getHeaders(5).toLowerCase().trim(), data.getRow5().toLowerCase().trim(), "Header Name for Row 5 is as expected", "Header Name for Row 5 is not as expected"));
                     for (int i = 0; i < size; i++) {
-                        assertCheck.append(actions.assertEqual_stringType(rechargeHistoryWidget.getHeaderValue(i + 1, 1), rechargeHistoryAPI.getResult().get(i).getCharges(), "Recharge History Charge is As received in CS API for row number " + i, "Recharge History Charge is not As received in CS API for row number " + i));
-                        assertCheck.append(actions.assertEqual_stringType(rechargeHistoryWidget.getHeaderValue(i + 1, 2), UtilsMethods.getDateFromString(rechargeHistoryAPI.getResult().get(i).getDateTime(), constants.getValue(CommonConstants.UI_RECHARGE_HISTORY_PATTERN), constants.getValue(CommonConstants.API_RECHARGE_HISTORY_PATTERN)), "Recharge History Date Time is As received in CS API for row number " + i, "Recharge History Date Time is not As received in CS API for row number " + i));
-                        assertCheck.append(actions.assertEqual_stringType(rechargeHistoryWidget.getHeaderValue(i + 1, 3), rechargeHistoryAPI.getResult().get(i).getBundleName(), "Recharge History Bundle Name is As received in CS API for row number " + i, "Recharge History Bundle Name is not As received in CS API for row number " + i));
-                        assertCheck.append(actions.assertEqual_stringType(rechargeHistoryWidget.getHeaderValue(i + 1, 4).replace("-", "null"), rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getVOICE() + " | " + rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getDATA() + " | " + rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getSMS(), "Recharge History Benefits is As received in CS API for row number " + i, "Recharge History Benefits is not As received in CS API for row number " + i));
-                        assertCheck.append(actions.assertEqual_stringType(rechargeHistoryWidget.getHeaderValue(i + 1, 5), rechargeHistoryAPI.getResult().get(i).getStatus(), "Recharge History Status is As received in CS API for row number " + i, "Recharge History Status is not As received in CS API for row number " + i));
+                        int row = i + 1;
+                        assertCheck.append(actions.assertEqual_stringType(rechargeHistoryWidget.getHeaderValue(row, 1), rechargeHistoryAPI.getResult().get(i).getCharges(), "Recharge History Charge is As received in CS API for row number " + row, "Recharge History Charge is not As received in CS API for row number " + row));
+                        assertCheck.append(actions.assertEqual_stringType(rechargeHistoryWidget.getHeaderValue(row, 2), UtilsMethods.getDateFromString(rechargeHistoryAPI.getResult().get(i).getDateTime(), constants.getValue(CommonConstants.UI_RECHARGE_HISTORY_PATTERN), constants.getValue(CommonConstants.API_RECHARGE_HISTORY_PATTERN)), "Recharge History Date Time is As received in CS API for row number " + i, "Recharge History Date Time is not As received in CS API for row number " + row));
+                        assertCheck.append(actions.assertEqual_stringType(rechargeHistoryWidget.getHeaderValue(row, 3), rechargeHistoryAPI.getResult().get(i).getBundleName(), "Recharge History Bundle Name is As received in CS API for row number " + row, "Recharge History Bundle Name is not As received in CS API for row number " + row));
+                        assertCheck.append(actions.assertEqual_stringType(rechargeHistoryWidget.getHeaderValue(row, 4).replace("-", "null"), rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getVOICE() + " | " + rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getDATA() + " | " + rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getSMS(), "Recharge History Benefits is As received in CS API for row number " + row, "Recharge History Benefits is not As received in CS API for row number " + row));
+                        assertCheck.append(actions.assertEqual_stringType(rechargeHistoryWidget.getHeaderValue(row, 5), rechargeHistoryAPI.getResult().get(i).getStatus(), "Recharge History Status is As received in CS API for row number " + row, "Recharge History Status is not As received in CS API for row number " + row));
                         if (i != 0) {
-                            assertCheck.append(actions.assertEqual_boolean(UtilsMethods.isSortOrderDisplay(rechargeHistoryWidget.getRechargeHistoryDateTime(i + 1), rechargeHistoryWidget.getRechargeHistoryDateTime(i), "dd-MMM-yyy HH:mm"), true, rechargeHistoryWidget.getRechargeHistoryDateTime(i + 1) + "displayed before " + rechargeHistoryWidget.getRechargeHistoryDateTime(i), rechargeHistoryWidget.getRechargeHistoryDateTime(i + 1) + "should not display before " + rechargeHistoryWidget.getRechargeHistoryDateTime(i)));
+                            final String dateTime = rechargeHistoryWidget.getHeaderValue(row, 2);
+                            final String dateTime1 = rechargeHistoryWidget.getHeaderValue(i, 2);
+                            assertCheck.append(actions.assertEqual_boolean(UtilsMethods.isSortOrderDisplay(dateTime1, dateTime, "dd-MMM-yyy HH:mm"), true, dateTime1 + " displayed before " + dateTime, dateTime1 + " should not display before " + dateTime));
                         }
                     }
 

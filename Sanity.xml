@@ -54,16 +54,16 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.UsageHistoryWidgetTest"/>
         </classes>
     </test>-->
-    <test name="Recharge History Widget Test" preserve-order="true">
+   <!-- <test name="Recharge History Widget Test" preserve-order="true">
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.RechargeHistoryWidgetTest"/>
         </classes>
-    </test>
-    <!--<test name="Service Profile Widget Test" preserve-order="true">
+    </test>-->
+    <test name="Service Profile Widget Test" preserve-order="true">
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.ServiceProfileWidgetTest"/>
         </classes>
-    </test>-->
+    </test>
    <!-- <test name="Customer Interactions Test" preserve-order="true">
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.WidgetsOptionsTest"/>

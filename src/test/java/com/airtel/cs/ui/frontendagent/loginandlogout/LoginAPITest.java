@@ -18,7 +18,7 @@ public class LoginAPITest extends Driver {
     private final BaseActions actions = new BaseActions();
     ObjectMapper mapper = new ObjectMapper();
 
-    @Test(priority = 1)
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void testLoginAPIWithBetaUser() throws JsonProcessingException {
         selUtils.addTestcaseDescription("Validate the Login API with Beta user,Hit the Login API -/auth/api/user-mngmnt/v2/login with valid headers and credentials,Validating Success Message from response", "description");
         final String loginAUUID = constants.getValue(CommonConstants.BETA_USER_AUUID);
@@ -42,7 +42,7 @@ public class LoginAPITest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 2)
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void testLoginApiWithAllUser() throws JsonProcessingException {
         selUtils.addTestcaseDescription("Validate the Login API with User Having all the roles,Hit the Login API -/auth/api/user-mngmnt/v2/login with valid headers and credentials,Validating Success Message from response", "description");
         final String loginAUUID = constants.getValue(CommonConstants.ALL_USER_ROLE_AUUID);
@@ -63,7 +63,7 @@ public class LoginAPITest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 3)
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void testLoginApiWithBackendAgent() throws JsonProcessingException {
         selUtils.addTestcaseDescription("Validate the Login API with Backend Agent valid credentials,Hit the Login API -/auth/api/user-mngmnt/v2/login with valid headers and credentials,Validating Success Message from response", "description");
         final String loginAUUID = constants.getValue(CommonConstants.BA_USER_AUUID);

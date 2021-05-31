@@ -28,12 +28,12 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
     @BeforeMethod
     public void checkExecution() {
         if (!continueExecutionFA) {
-            commonLib.skip("Skipping tests because user NOT able to login via API");
-            throw new SkipException("Skipping tests because user NOT able to login via API");
+            commonLib.skip("Skipping tests because user NOT able to login Over Portal");
+            throw new SkipException("Skipping tests because user NOT able to login Over Portal");
         }
     }
 
-    @Test(priority = 1, description = "Validate Customer Interaction Page")
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not",
@@ -54,8 +54,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
         }
     }
 
-    @Test(priority = 2, description = "Validate PUK Details under Demo Graphic Widget", dependsOnMethods = {
-            "openCustomerInteraction"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testPukDetails() {
         try {
             selUtils.addTestcaseDescription(
@@ -92,8 +91,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
         }
     }
 
-    @Test(priority = 3, description = "Validate Airtel Money Profile Widget under Demo Graphic Widget", dependsOnMethods = {
-            "openCustomerInteraction"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testAirtelMoneyProfile() {
         try {
             selUtils.addTestcaseDescription(
@@ -155,8 +153,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
 
     }
 
-    @Test(priority = 4, description = "Validate Customer Information under Demo Graphic Widget", dependsOnMethods = {
-            "openCustomerInteraction"})
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testCustomerInfo() {
         try {
             selUtils.addTestcaseDescription(
@@ -191,8 +188,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
         }
     }
 
-    @Test(priority = 5, description = "Validate SIM Number and GSM Status Module under Demo Graphic Widget", dependsOnMethods = {
-            "openCustomerInteraction"})
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testSIMNumberAndGSMStatus() {
         try {
             selUtils.addTestcaseDescription(
@@ -234,8 +230,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
         }
     }
 
-    @Test(priority = 6, description = "Validate Data Manager and Device Compatible", dependsOnMethods = {
-            "openCustomerInteraction"})
+    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testDataManagerAndDeviceCompatible() {
         try {
             selUtils.addTestcaseDescription("Validate Data Manager Status,Validate Device Compatible", "description");
@@ -271,8 +266,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
         }
     }
 
-    @Test(priority = 7, description = "Validate Connection type,Service Category and Segment", dependsOnMethods = {
-            "openCustomerInteraction"})
+    @Test(priority = 7, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testConnectionTypeServiceCategorySegment() {
         selUtils.addTestcaseDescription("Validate Connection Type, Validate Service Category,Validate Segment, Validate Service Class",
                 "description");
@@ -305,7 +299,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
 
     }
 
-    @Test(priority = 8, description = "Validate Device info", dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 8, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testDeviceInfo() {
         try {
             selUtils.addTestcaseDescription(
@@ -335,7 +329,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
         }
     }
 
-    @Test(priority = 9, description = "As an agent I want capability to check if an MSISDN is valid or invalid")
+    @Test(priority = 9, groups = {"RegressionTest"})
     public void invalidMSISDNTest() {
         try {
             selUtils.addTestcaseDescription("Validating the Demographic Information of User with invalid MSISDN : 123456789", "description");

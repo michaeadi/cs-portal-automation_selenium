@@ -25,7 +25,7 @@ public class LogoutTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void logout() {
         selUtils.addTestcaseDescription("Logging Out Of Portal", "description");
         if (pages.getSideMenuPage().isSideMenuVisible()) {

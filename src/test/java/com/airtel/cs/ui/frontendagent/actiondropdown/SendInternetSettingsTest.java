@@ -26,8 +26,8 @@ public class SendInternetSettingsTest extends Driver {
     @BeforeMethod
     public void checkExecution() {
         if (!continueExecutionFA) {
-            commonLib.skip("Skipping tests because user NOT able to login via API");
-            throw new SkipException("Skipping tests because user NOT able to login via API");
+            commonLib.skip("Skipping tests because user NOT able to login Over Portal");
+            throw new SkipException("Skipping tests because user NOT able to login Over Portal");
         }
     }
 

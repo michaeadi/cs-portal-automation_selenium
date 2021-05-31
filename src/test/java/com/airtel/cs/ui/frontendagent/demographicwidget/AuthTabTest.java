@@ -28,13 +28,13 @@ public class AuthTabTest extends Driver {
     @BeforeMethod
     public void checkExecution() {
         if (!continueExecutionFA) {
-            commonLib.skip("Skipping tests because user NOT able to login via API");
-            throw new SkipException("Skipping tests because user NOT able to login via API");
+            commonLib.skip("Skipping tests because user NOT able to login Over Portal");
+            throw new SkipException("Skipping tests because user NOT able to login Over Portal");
         }
     }
 
     @DataProviders.User(userType = "NFTR")
-    @Test(priority = 1, description = "Validate Customer Profile Page")
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -53,7 +53,7 @@ public class AuthTabTest extends Driver {
         }
     }
 
-    @Test(priority = 2, description = "Validate that the answers of the questions", dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void validateAnswerQuestionConfig() {
         try {
             selUtils.addTestcaseDescription("Jira id - CSP-63443,Verify that the answers of the questions in pop up should either show data from configuration or show inline spinner", "description");
@@ -71,7 +71,7 @@ public class AuthTabTest extends Driver {
         }
     }
 
-    @Test(priority = 3, description = "Verify the question Answer as Per Config", dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void validateAnswerKey() {
         try {
             selUtils.addTestcaseDescription("Verify the question Answer as Per Config", "description");
@@ -93,7 +93,7 @@ public class AuthTabTest extends Driver {
         }
     }
 
-    @Test(priority = 4, description = "Verify authorization pop for the actions", dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void validateLockedSectionStatus() {
         try {
             selUtils.addTestcaseDescription("Jira id - CSP-63442,Verify that there is a authorization pop for the actions like SIM Bar Unbar, PIN reset", "description");
@@ -120,7 +120,7 @@ public class AuthTabTest extends Driver {
         }
     }
 
-    @Test(priority = 5, description = "Verify the Authentication tab", dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
     public void validateAuthTab() throws InterruptedException {
         selUtils.addTestcaseDescription("Verify the Authentication tab", "description");
         pages.getCustomerProfilePage().waitTillLoaderGetsRemoved();
@@ -161,7 +161,7 @@ public class AuthTabTest extends Driver {
         }
     }
 
-    @Test(priority = 6, description = "Verify the Authentication tab Minimum question Configured correctly", dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void validateAuthTabMinQuestion() throws InterruptedException {
         try {
             selUtils.addTestcaseDescription("Verify the Authentication tab Minimum question Configured correctly", "description");
@@ -184,7 +184,7 @@ public class AuthTabTest extends Driver {
         }
     }
 
-    @Test(priority = 7, description = "Authenticate User", dependsOnMethods = "validateAuthTabMinQuestion", enabled = false)
+    @Test(priority = 7, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "validateAuthTabMinQuestion", enabled = false)
     public void authCustomer() {
         selUtils.addTestcaseDescription("Authenticate User", "description");
         DataProviders data = new DataProviders();
