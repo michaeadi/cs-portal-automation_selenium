@@ -580,5 +580,13 @@ public class BasePage extends Driver {
         }
     }
 
+    //Hover and click on Element Using ACTIONS class
+    public void hoverAndClick(By elementLocation) {
+        Actions actions = new Actions(driver);
+        waitVisibility(elementLocation);
+        WebElement target = driver.findElement(elementLocation);
+        actions.moveToElement(target).build().perform();
+    }
+
 
 }

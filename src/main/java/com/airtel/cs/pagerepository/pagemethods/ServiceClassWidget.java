@@ -43,7 +43,7 @@ public class ServiceClassWidget extends BasePage {
 
     public void clickServiceStatus(int row){
         By status = By.xpath("//span[contains(text(),\"Service Profile\")]//ancestor::div[@class=\"card widget ng-star-inserted\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]/div[@class=\"ng-star-inserted\"  or @class=\"slide-toggle red ng-star-inserted\"]["+row+"]//mat-slide-toggle");
-        click(status);
+        clickWithoutLoader(status);
     }
 
     public String gettingServiceProfileNoResultFoundMessage() {
@@ -72,7 +72,7 @@ public class ServiceClassWidget extends BasePage {
     public void clickSubmitBtn() {
         if (isClickable(pageElements.submitBtn)) {
             commonLib.info("Clicking Submit Button");
-            click(pageElements.submitBtn);
+            clickWithoutLoader(pageElements.submitBtn);
         } else {
             commonLib.fail("Exception in Method - clickSubmitBtn", true);
         }
@@ -92,7 +92,7 @@ public class ServiceClassWidget extends BasePage {
 
     public void closePopupWindow(){
         commonLib.info("Closing Pop up window");
-        click(pageElements.closeBtn);
+        clickWithoutLoader(pageElements.closeBtn);
     }
 
     public Boolean isPaginationAvailable(){
@@ -112,12 +112,12 @@ public class ServiceClassWidget extends BasePage {
 
     public void clickNextBtn(){
         commonLib.info("Clicking Next button in pagination");
-        click(By.xpath(pageElements.title+pageElements.nextBtnEnable));
+        clickWithoutLoader(By.xpath(pageElements.title+pageElements.nextBtnEnable));
     }
 
     public void clickPreviousBtn(){
         commonLib.info("Clicking Previous button in pagination");
-        click(By.xpath(pageElements.title+pageElements.previousBtnEnable));
+        clickWithoutLoader(By.xpath(pageElements.title+pageElements.previousBtnEnable));
     }
 
     public String getPaginationText(){

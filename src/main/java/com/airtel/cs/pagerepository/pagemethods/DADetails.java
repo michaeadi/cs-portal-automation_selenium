@@ -124,7 +124,7 @@ public class DADetails extends BasePage {
     public void clickMoreIconButton(int row) {
         commonLib.info("Clicking on More Icon Button");
         By dropDownIcon = By.xpath(pageElements.offerColumnHeader + row + pageElements.moreIcon);
-        click(dropDownIcon);
+        clickWithoutLoader(dropDownIcon);
     }
 
     public String getDisplayMoreWidgetHeader(int row, int moreRow) {
@@ -209,12 +209,12 @@ public class DADetails extends BasePage {
 
     public void clickNextBtn(){
         commonLib.info("Clicking Next button in pagination");
-        click(By.xpath(pageElements.displayOfferTitle+pageElements.nextBtnEnable));
+        clickWithoutLoader(By.xpath(pageElements.displayOfferTitle+pageElements.nextBtnEnable));
     }
 
     public void clickPreviousBtn(){
         commonLib.info("Clicking Previous button in pagination");
-        click(By.xpath(pageElements.displayOfferTitle+pageElements.previousBtnEnable));
+        clickWithoutLoader(By.xpath(pageElements.displayOfferTitle+pageElements.previousBtnEnable));
     }
 
     public String getPaginationText(){

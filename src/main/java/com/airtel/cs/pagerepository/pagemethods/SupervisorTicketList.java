@@ -503,12 +503,12 @@ public class SupervisorTicketList extends BasePage {
 
     public void clickSelectAll(){
         commonLib.info("Clicking on Select All Button");
-        click(pageElements.selectAll);
+        clickWithoutLoader(pageElements.selectAll);
     }
 
     public void clickCloseTab(){
         commonLib.info("Closing the open overlay tab");
-        click(pageElements.closeTabBtn);
+        clickWithoutLoader(pageElements.closeTabBtn);
     }
 
 }
