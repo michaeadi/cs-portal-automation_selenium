@@ -11,8 +11,6 @@ public class ServiceClassWidgetPage {
     public String unableToFetch = "//span[@class='api-failed-error ng-star-inserted']";
     public String noResultFoundIcon = "//*[contains(@class,'no-result-found')]/img";
     public String noResultFoundMessage = "//div[@class='no-result-found ng-star-inserted']//span//span";
-    public By barPopUp=By.xpath("//span[contains(text(),'BARRING')]");
-    public By unBarPopUp=By.xpath("//span[contains(text(),'UNBARRING')]");
     public By commentBox = By.xpath("//textarea[@id='interactionComment']");
     public By cancelBtn = By.xpath("//button[@class=\"no-btn\"]");
     public By submitBtn = By.xpath("//button[@class='submit-btn']");

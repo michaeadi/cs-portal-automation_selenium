@@ -7,7 +7,7 @@ public class CommonConstants {
     public static final String ALL_USER_ROLE_AUUID = "cs.all.user.role.auuid";
     public static final String ALL_USER_ROLE_PASSWORD = "cs.all.user.role.password";
     public static final String BA_USER_AUUID = "cs.backendagent.role.auuid";
-    public static final String BA_USER_PASSWROD = "cs.backendagent.role.password";
+    public static final String BA_USER_PASSWORD = "cs.backendagent.role.password";
     public static final String AM_HISTORY_TIME_FORMAT = "cs.am.history.time.format";
     public static final String LAST_RECHARGE_TIME_PATTERN = "cs.last.recharge.time.pattern";
     public static final String LAST_RECHARGE_DATE_PATTERN = "cs.last.recharge.date.pattern";

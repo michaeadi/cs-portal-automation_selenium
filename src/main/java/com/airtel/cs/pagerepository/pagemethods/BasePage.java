@@ -220,6 +220,16 @@ public class BasePage extends Driver {
         driver.findElement(By.xpath("//span[contains(text(),'" + text + "')]")).click();
     }
 
+    /**
+     * This method used is check whether text visible on UI or not
+     * @param text text to be found on UI
+     * @return true/false
+     * */
+    public Boolean isTextVisible(String text) {
+        By elementBy = By.xpath("//span[contains(text(),'" + text.trim() + "')]");
+        return isElementVisible(elementBy);
+    }
+
     public void clickOutside() {
         Actions action = new Actions(driver);
         action.moveByOffset(0, 0).click().build().perform();
@@ -580,7 +590,9 @@ public class BasePage extends Driver {
         }
     }
 
-    //Hover and click on Element Using ACTIONS class
+    /**
+     * This method use to hover on element and click on that element
+     * */
     public void hoverAndClick(By elementLocation) {
         Actions actions = new Actions(driver);
         waitVisibility(elementLocation);

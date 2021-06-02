@@ -185,10 +185,9 @@ public class CustomerProfile extends BasePage {
         clickAndWaitForLoaderToBeRemoved(pageElements.closeBtn);
     }
 
-    public AuthTab openAuthTab() {
+    public void openAuthTab() {
         commonLib.info("Opening Authentication tab for : " + getText(pageElements.simBarUnBar));
         clickAndWaitForLoaderToBeRemoved(pageElements.simBarUnBar);
-        return new AuthTab(driver);
     }
 
     public boolean isLoanWidgetDisplay() {

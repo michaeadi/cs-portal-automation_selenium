@@ -33,7 +33,6 @@ public class AuthTabTest extends Driver {
         }
     }
 
-    @DataProviders.User(userType = "NFTR")
     @Test(priority = 1, description = "Validate Customer Profile Page")
     public void openCustomerInteraction() {
         try {
@@ -123,11 +122,8 @@ public class AuthTabTest extends Driver {
     @Test(priority = 5, description = "Verify the Authentication tab", dependsOnMethods = "openCustomerInteraction")
     public void validateAuthTab() throws InterruptedException {
         selUtils.addTestcaseDescription("Verify the Authentication tab", "description");
-        pages.getCustomerProfilePage().waitTillLoaderGetsRemoved();
-        if (pages.getDemoGraphicPage().isPUKInfoLocked()) {
-            pages.getDemoGraphicPage().clickPUKToUnlock();
-        }
-        Thread.sleep(15000);
+        pages.getCustomerProfilePage().clickOnAction();
+        pages.getCustomerProfilePage().openAuthTab();
         DataProviders data = new DataProviders();
         try {
             assertCheck.append(actions.assertEqual_boolean(pages.getAuthTabPage().isAuthTabLoad(), true, "Authentication tab loaded correctly", "Authentication tab does not load correctly"));

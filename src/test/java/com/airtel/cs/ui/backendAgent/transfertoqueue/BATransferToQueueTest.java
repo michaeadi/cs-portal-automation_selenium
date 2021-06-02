@@ -1,12 +1,12 @@
-package com.airtel.cs.ui.backendAgent;
+package com.airtel.cs.ui.backendAgent.transfertoqueue;
 
 import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.common.requisite.PreRequisites;
 import com.airtel.cs.commonutils.PassUtils;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
+import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
-import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.commonutils.dataproviders.TransferQueueDataBean;
 import com.airtel.cs.pojo.response.agentpermission.AgentPermission;
 import org.openqa.selenium.ElementClickInterceptedException;
@@ -47,38 +47,33 @@ public class BATransferToQueueTest extends PreRequisites {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @DataProviders.User(userType = "BA")
-    @Test(priority = 2, description = "Logging IN ", dataProvider = "loginData", dataProviderClass = DataProviders.class)
-    public void loggingIN(TestDatabean data) throws InterruptedException {
-        selUtils.addTestcaseDescription("Logging Into Portal with AUUID :  " + data.getLoginAUUID(), "description");
-        SoftAssert softAssert = new SoftAssert();
-        final String VALUE = constants.getValue(ApplicationConstants.DOMAIN_URL);
-        pages.getLoginPage().openBaseURL(VALUE);
-        softAssert.assertEquals(driver.getCurrentUrl(), config.getProperty(evnName + "-baseurl"), "URl isn't as expected");
-        pages.getLoginPage().waitTillLoaderGetsRemoved();
-        pages.getLoginPage().enterAUUID(data.getLoginAUUID());//*[@id="mat-input-7"]
-        pages.getLoginPage().clickOnSubmitBtn();
-        pages.getLoginPage().enterPassword(PassUtils.decodePassword(data.getPassword()));
-        assertCheck.append(actions.assertEqual_boolean(pages.getLoginPage().checkLoginButton(),true, "Login Button is enabled after entering Password","Login Button is not enabled even after entering Password"));
-        pages.getLoginPage().clickOnVisibleButton();
-        pages.getLoginPage().clickOnVisibleButton();
-        pages.getLoginPage().clickOnLogin();
-        Thread.sleep(20000); // wait for 20 Seconds for Dashboard page In case of slow Network slow
-        if (pages.getSideMenuPage().isSideMenuVisible()) {
-            pages.getSideMenuPage().clickOnSideMenu();
-            if (!pages.getSideMenuPage().isAgentDashboard()) {
+    @Test(priority = 2)
+    public void testLoginIntoPortal() {
+        try {
+            selUtils.addTestcaseDescription("Logging Into Portal with valid Backend Agent credentials, Validating opened url,validating login button is getting enabled,Validating dashboard page opened successfully or not?", "description");
+            loginAUUID = constants.getValue(CommonConstants.BA_USER_AUUID);
+            final String value = constants.getValue(ApplicationConstants.DOMAIN_URL);
+            pages.getLoginPage().openBaseURL(value);
+            assertCheck.append(actions.assertEqual_stringType(driver.getCurrentUrl(), value, "Correct URL Opened", "URl isn't as expected"));
+            pages.getLoginPage().enterAUUID(loginAUUID);
+            pages.getLoginPage().clickOnSubmitBtn();
+            pages.getLoginPage().enterPassword(PassUtils.decodePassword(constants.getValue(CommonConstants.BA_USER_PASSWORD)));
+            assertCheck.append(actions.assertEqual_boolean(pages.getLoginPage().checkLoginButton(), true, "Login Button is Enabled", "Login Button is NOT enabled"));
+            pages.getLoginPage().clickOnVisibleButton();
+            pages.getLoginPage().clickOnVisibleButton();
+            pages.getLoginPage().clickOnLogin();
+            final boolean isGrowlVisible = pages.getGrowl().checkIsGrowlVisible();
+            if (isGrowlVisible) {
+                commonLib.fail("Growl Message:- " + pages.getGrowl().getToastContent(), true);
                 continueExecutionBA = false;
-                softAssert.fail("Agent Dashboard does not Assign to User Visible.Please Assign Role to user.");
             } else {
-                continueExecutionBA = true;
+                assertCheck.append(actions.assertEqual_boolean(pages.getUserManagementPage().isUserManagementPageLoaded(), true, "Customer Dashboard Page Loaded Successfully", "Customer Dashboard page NOT Loaded"));
+                actions.assertAllFoundFailedAssert(assertCheck);
             }
-            pages.getSideMenuPage().clickOnSideMenu();
-        } else {
+        } catch (Exception e) {
             continueExecutionBA = false;
-            softAssert.fail("Agent Dashboard does Open with user.For more detail Check for the ScreenShot.");
+            commonLib.fail("Exception in Method - testLoginIntoPortal" + e.fillInStackTrace(), true);
         }
-        pages.getSideMenuPage().waitTillLoaderGetsRemoved();
-        softAssert.assertAll();
     }
 
     @Test(priority = 3, description = "Backend Agent Queue Login Page")
