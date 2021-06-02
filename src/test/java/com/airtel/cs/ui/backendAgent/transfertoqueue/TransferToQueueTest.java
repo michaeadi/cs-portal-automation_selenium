@@ -18,7 +18,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-public class BATransferToQueueTest extends PreRequisites {
+public class TransferToQueueTest extends PreRequisites {
 
     private final BaseActions actions = new BaseActions();
     RequestSource api = new RequestSource();
