@@ -34,5 +34,7 @@ public class CommonConstants {
     public static final String ACTION_TAGGED_SHEET_NAME = "cs.action.tagged.sheetName";
     public static final String QUESTION_ANSWER_SHEET_NAME = "cs.question.answer.key.sheetName";
     public static final String LOGIN_SHEET_NAME = "cs.login.sheet.name";
+    public static final String SEARCH_BY_NAME="cs.search.by.name";
+    public static final String SEARCH_BY_TITLE="cs.search.by.title";
 
 }

@@ -30,6 +30,7 @@ public class ApplicationConstants {
     public static final String AIRTEL_MONEY_PROFILE = "cs.airtel.money.profile";
     public static final String SEND_INTERNET_SETTINGS = "cs.send.internet.settings";
     public static final String RESET_ME2U_PASSWORD = "cs.reset.me2u.password";
+    public static final String CRBT_WIDGET = "cs.crbt.widget";
 
 
     private ApplicationConstants() {

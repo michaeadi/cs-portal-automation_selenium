@@ -49,11 +49,11 @@ public class RechargeHistoryWidgetTest extends Driver {
     }
 
     @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteractionAPI")
-    public void rechargeHistoryWidgetHeaderAndValueTest() {
+    public void testHeaderAndAuuid() {
         try {
             selUtils.addTestcaseDescription("Validate is Recharge History Widget Visible,Validate is Recharge History Widget Loaded?,Validate Footer and Middle Auuid", "description");
             assertCheck.append(actions.assertEqual_boolean(pages.getRechargeHistoryWidget().isRechargeHistoryWidgetIsVisible(), true, "Recharge History Widget is visible", "Recharge History Widget is not visible"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getRechargeHistoryWidget().isRechargeHistoryWidgetLoaded(), true, "Recharge History Widget Loaded Successfully", "Recharge History NOT Successfully"));
+            assertCheck.append(actions.assertEqual_boolean(pages.getRechargeHistoryWidget().isRechargeHistoryWidgetLoaded(), true, "Recharge History Widget Loaded Successfully", "Recharge History NOT Loaded Successfully"));
             assertCheck.append(actions.assertEqual_stringType(pages.getRechargeHistoryWidget().getFooterAuuidRHW(), loginAUUID, "Auuid shown at the footer of the Recharge History widget and is correct", "Auuid NOT shown at the footer of Recharge History widget"));
             assertCheck.append(actions.assertEqual_stringType(pages.getRechargeHistoryWidget().getMiddleAuuidRHW(), loginAUUID, "Auuid shown at the middle of the Recharge History widget and is correct", "Auuid NOT shown at the middle of Recharge History widget"));
             assertCheck.append(actions.assertEqual_boolean(pages.getRechargeHistoryWidget().isRechargeHistoryDatePickerVisible(), true, "Recharge History Widget's Date Picker is visible", "Recharge History Widget's Date Picker is not visible"));
@@ -65,7 +65,7 @@ public class RechargeHistoryWidgetTest extends Driver {
 
     @DataProviders.Table(name = "Recharge History")
     @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI")
-    public void rechargeHistoryWidgetHeaderAndValueTest(HeaderDataBean data) {
+    public void testHeaderAndAuuid(HeaderDataBean data) {
         try {
             selUtils.addTestcaseDescription("Validating Recharge History Widget of User :" + customerNumber + "Validate Recharge History API, Validate Recharge H", "description");
             final RechargeHistoryWidget rechargeHistoryWidget = pages.getRechargeHistoryWidget();

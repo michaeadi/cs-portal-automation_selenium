@@ -17,5 +17,5 @@ public class BundleRechargeHistoryPOJO {
     int pageNumber;
     int totalCount;
     ArrayList<ResultBundleRechargeHistoryPOJO> result;
-    apiErrors apiErrors;
+    APIErrors apiErrors;
 }

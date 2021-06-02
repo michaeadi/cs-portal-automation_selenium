@@ -178,7 +178,7 @@ public class RechargeHistoryWidget extends BasePage {
     }
 
     /*
-    This Method will give us auuid shown in the middle of the RCW modal
+    This Method will give us auuid shown in the middle of the RCW widget
     RHW = Recharge History Widget
      */
     public String getMiddleAuuidRHW() {

@@ -69,16 +69,16 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.WidgetsOptionsTest"/>
         </classes>
     </test>-->
-    <test name="Test Authentication Tab">
+    <!--<test name="Test Authentication Tab">
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.demographicwidget.AuthTabTest"/>
         </classes>
-    </test>
-    <!-- <test name="CRBT Widget Test">
+    </test>-->
+     <test name="CRBT Widget Test">
          <classes>
              <class name="com.airtel.cs.ui.frontendagent.hometab.CRBTWidgetTest"/>
          </classes>
-     </test>-->
+     </test>
  <!--    <test name="Create NFTR FTR Tickets TEST">
          <classes>
              <class name="com.airtel.cs.ui.frontendagent.CreateInteractionTest"/>

@@ -14,5 +14,5 @@ public class AMProfilePOJO {
     String message;
     int statusCode;
     ResultAMProfilePOJO result;
-    apiErrors apiErrors;
+    APIErrors apiErrors;
 }
