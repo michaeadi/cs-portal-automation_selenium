@@ -16,7 +16,12 @@ import org.openqa.selenium.logging.LogType;
 import java.lang.invoke.MethodHandles;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
+import java.util.Map;
+import java.util.HashMap;
 
 public class CommonLib extends Driver {
     public void fail(String message, boolean requireScreenshot) {
@@ -25,8 +30,7 @@ public class CommonLib extends Driver {
     }
 
     public void error(String message, boolean requireScreenshot) {
-        LOGGER.error(message);
-        reporter.showInExtentReport(Status.FAIL, message, requireScreenshot);
+        fail(message,requireScreenshot);
     }
 
     public void warning(String message) {

@@ -125,9 +125,9 @@ public class StateQueueMappingTest extends Driver {
             Assert.fail("Not able to apply filter " + e.fillInStackTrace());
         }
         try {
-            Assert.assertEquals(pages.getSupervisorTicketList().getqueueValue().toLowerCase().trim(), data.getQueue().toLowerCase().trim(), "Ticket Does not found with Selected Queue");
+            Assert.assertEquals(pages.getSupervisorTicketList().getQueueValue().toLowerCase().trim(), data.getQueue().toLowerCase().trim(), "Ticket Does not found with Selected Queue");
             //Re-check
-            ticketId = pages.getSupervisorTicketList().getTicketIdvalue();
+            ticketId = pages.getSupervisorTicketList().getTicketIdValue();
             TicketPOJO ticketPOJO = api.ticketMetaDataTest(ticketId);
             ArrayList<QueueStates> assignState = ticketPOJO.getResult().getQueueStates();
             List<String> state = new ArrayList<>();

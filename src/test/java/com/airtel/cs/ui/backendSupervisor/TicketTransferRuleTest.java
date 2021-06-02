@@ -43,7 +43,7 @@ public class TicketTransferRuleTest extends Driver {
             softAssert.fail("Not able to apply filter " + e.getMessage());
         }
         try {
-            ticketId = pages.getSupervisorTicketList().getTicketIdvalue();
+            ticketId = pages.getSupervisorTicketList().getTicketIdValue();
         } catch (NoSuchElementException | TimeoutException e) {
             pages.getSupervisorTicketList().resetFilter();
             Assert.fail("No Ticket Found with Selected Filter ", e.getCause());
@@ -57,9 +57,9 @@ public class TicketTransferRuleTest extends Driver {
                 pages.getSupervisorTicketList().writeTicketId(ticketId);
                 pages.getSupervisorTicketList().clickSearchBtn();
                 pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
-                softAssert.assertEquals(pages.getSupervisorTicketList().getTicketIdvalue(), ticketId, "Search Ticket Does not Fetched Correctly");
+                softAssert.assertEquals(pages.getSupervisorTicketList().getTicketIdValue(), ticketId, "Search Ticket Does not Fetched Correctly");
                 softAssert.assertEquals(pages.getSupervisorTicketList().getStatevalue().toLowerCase().trim(), selectedState.toLowerCase().trim(), "Ticket Does not Updated to Selected State");
-                softAssert.assertEquals(pages.getSupervisorTicketList().getqueueValue().toLowerCase().trim(), ruleData.getToQueue().toLowerCase().trim(), "Ticket does not updated to correct ticket pool");
+                softAssert.assertEquals(pages.getSupervisorTicketList().getQueueValue().toLowerCase().trim(), ruleData.getToQueue().toLowerCase().trim(), "Ticket does not updated to correct ticket pool");
             } catch (TimeoutException | NoSuchElementException e) {
                 softAssert.fail("Ticket has been transferred to Selected but not able search ticket." + e.fillInStackTrace());
             }

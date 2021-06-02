@@ -133,7 +133,7 @@ public class SupervisorSearchTicketTest extends Driver {
             pages.getSupervisorTicketList().writeTicketId(data.getTicketNumber());
             pages.getSupervisorTicketList().clickSearchBtn();
             pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
-            Assert.assertEquals(pages.getSupervisorTicketList().getTicketIdvalue(), data.getTicketNumber(), "Search Ticket does not found");
+            Assert.assertEquals(pages.getSupervisorTicketList().getTicketIdValue(), data.getTicketNumber(), "Search Ticket does not found");
 
             try {
                 TicketPOJO ticketPOJO = api.ticketMetaDataTest(data.getTicketNumber());
@@ -141,8 +141,8 @@ public class SupervisorSearchTicketTest extends Driver {
                 softAssert.assertTrue(pages.getSupervisorTicketList().isWorkGroupName(), "Ticket Meta Data Does Not Have Workgroup");
                 softAssert.assertTrue(pages.getSupervisorTicketList().isPrioritylabel(), "Ticket Meta Data Does Not Have Priority");
                 softAssert.assertTrue(pages.getSupervisorTicketList().isStateLabel(), "Ticket Meta Data Does Not Have State");
-                softAssert.assertTrue(pages.getSupervisorTicketList().isCreationdateLabel(), "Ticket Meta Data Does Not Have Creation Date");
-                softAssert.assertTrue(pages.getSupervisorTicketList().isCreatedbyLabel(), "Ticket Meta Data Does Not Have Created By");
+                softAssert.assertTrue(pages.getSupervisorTicketList().isCreationDateLabel(), "Ticket Meta Data Does Not Have Creation Date");
+                softAssert.assertTrue(pages.getSupervisorTicketList().isCreatedByLabel(), "Ticket Meta Data Does Not Have Created By");
                 softAssert.assertTrue(pages.getSupervisorTicketList().isQueueLabel(), "Ticket Meta Data Does Not Have Queue");
                 softAssert.assertTrue(pages.getSupervisorTicketList().isIssueLabel(), "Ticket Meta Data Does Not Have Issue");
                 softAssert.assertTrue(pages.getSupervisorTicketList().isIssueTypeLabel(), "Ticket Meta Data Does Not Have Issue Type");
@@ -161,7 +161,7 @@ public class SupervisorSearchTicketTest extends Driver {
                         "Issue Does Not Code Validated");
                 softAssert.assertEquals(pages.getSupervisorTicketList().getWorkGroupName().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), data.getWorkgroup1().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(),
                         "Ticket Does Not WorkGroup Validated");
-                softAssert.assertEquals(pages.getSupervisorTicketList().getqueueValue().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), data.getAssignmentQueue().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(),
+                softAssert.assertEquals(pages.getSupervisorTicketList().getQueueValue().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), data.getAssignmentQueue().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(),
                         "Ticket Does Not Queue Validated");
                 softAssert.assertEquals(pages.getSupervisorTicketList().getPriorityValue().toLowerCase().trim(), data.getPriority().toLowerCase().trim(),
                         "Ticket Does Not Priority Validated");

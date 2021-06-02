@@ -137,7 +137,7 @@ public class SupervisorUpdateTicketTest extends Driver {
             pages.getSupervisorTicketList().writeTicketId(Data.getTicketNumber());
             pages.getSupervisorTicketList().clickSearchBtn();
             pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
-            Assert.assertEquals(pages.getSupervisorTicketList().getTicketIdvalue(), Data.getTicketNumber(), "Search Ticket does not found");
+            Assert.assertEquals(pages.getSupervisorTicketList().getTicketIdValue(), Data.getTicketNumber(), "Search Ticket does not found");
             try {
                 pages.getSupervisorTicketList().viewTicket();
                 pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
@@ -150,7 +150,7 @@ public class SupervisorUpdateTicketTest extends Driver {
                         pages.getSupervisorTicketList().writeTicketId(Data.getTicketNumber());
                         pages.getSupervisorTicketList().clickSearchBtn();
                         pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
-                        softAssert.assertEquals(pages.getSupervisorTicketList().getTicketIdvalue(), Data.getTicketNumber(), "Search Ticket Does not Fetched Correctly");
+                        softAssert.assertEquals(pages.getSupervisorTicketList().getTicketIdValue(), Data.getTicketNumber(), "Search Ticket Does not Fetched Correctly");
                         Assert.assertEquals(pages.getSupervisorTicketList().getStatevalue(), selectedState, "Ticket Does not Updated to Selected State");
                         if (ticketId == null) {
                             ticketId = Data.getTicketNumber();

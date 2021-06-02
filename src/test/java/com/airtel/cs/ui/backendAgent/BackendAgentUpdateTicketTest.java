@@ -32,7 +32,7 @@ public class BackendAgentUpdateTicketTest extends Driver {
         commonLib.info("Opening URL");
         SoftAssert softAssert = new SoftAssert();
         pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
-        String ticketId = pages.getSupervisorTicketList().getTicketIdvalue();
+        String ticketId = pages.getSupervisorTicketList().getTicketIdValue();
         pages.getSupervisorTicketList().viewTicket();
         Assert.assertEquals(ticketId, pages.getViewTicket().getTicketId(), "Verify the searched Ticket fetched Successfully");
         String selectedState = pages.getViewTicket().selectState(ticketState.getTicketStateName());

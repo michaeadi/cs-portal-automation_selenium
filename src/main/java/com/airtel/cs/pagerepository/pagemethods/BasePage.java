@@ -252,6 +252,10 @@ public class BasePage extends Driver {
         return true;
     }
 
+    /**
+     * @param element The element locator
+     * @return list of element found using element locator on page
+     * */
     public List<WebElement> returnListOfElement(By element) {
         List<WebElement> list = new ArrayList<>();
         try {
@@ -273,6 +277,11 @@ public class BasePage extends Driver {
         commonLib.info("Column Size: " + driver.findElement(rowLocation).findElements(columnLocation).size());
         return driver.findElements(rowLocation).get(row).findElements(columnLocation).get(column).getText();
     }
+
+    /**
+     * @param elementLocation The element locator
+     * @return integer The total number of element found on page
+     * */
 
     public Integer getSizeOfElement(By elementLocation){
         waitVisibility(elementLocation);
@@ -320,13 +329,13 @@ public class BasePage extends Driver {
      */
     public boolean getAttributeBoolean(By elementLocation, String attributeName) {
         commonLib.hardWait();
-        return "true".equalsIgnoreCase(getElementfromBy(elementLocation).getAttribute(attributeName));
+        return "true".equalsIgnoreCase(getElementFromBy(elementLocation).getAttribute(attributeName));
     }
 
     /**
      * THIS METHOD WILL RETURN WEBELEMENT FROM BY -
      */
-    public WebElement getElementfromBy(By elementLocation) {
+    public WebElement getElementFromBy(By elementLocation) {
         WebElement element = null;
         try {
             element = driver.findElement(elementLocation);
@@ -352,13 +361,13 @@ public class BasePage extends Driver {
                     + " - element not visible. Not able to Get Attribute by Method - [--getAttribute(By elementLocation, String attributeName)--]";
             if (requireWait) {
                 if (isVisible(elementLocation, 5)) {
-                    return getElementfromBy(elementLocation).getAttribute(attributeName).trim();
+                    return getElementFromBy(elementLocation).getAttribute(attributeName).trim();
                 } else {
                     commonLib.warning(message);
                     return message;
                 }
             } else {
-                attributeValue = getElementfromBy(elementLocation).getAttribute(attributeName);
+                attributeValue = getElementFromBy(elementLocation).getAttribute(attributeName);
                 if ((attributeValue == null)) {
                     attributeValue = "";
                 } else {
@@ -366,7 +375,7 @@ public class BasePage extends Driver {
                         attributeValue = attributeValue.trim();
                 }
                 if (attributeValue.equals("")) {
-                    WebElement element = getElementfromBy(elementLocation);
+                    WebElement element = getElementFromBy(elementLocation);
                     JavascriptExecutor executor = (JavascriptExecutor) driver;
                     Object allAttributes = executor.executeScript(
                             "var items = {}; for (index = 0; index < arguments[0].attributes.length; ++index) { items[arguments[0].attributes[index].name] = arguments[0].attributes[index].value }; return items;",
@@ -478,7 +487,7 @@ public class BasePage extends Driver {
     public void setTextWithTimeStamp(By elementLocation, String text, String requiredClearFieldYesNo) {
         try {
             if (requiredClearFieldYesNo.equalsIgnoreCase("yes")) {
-                getElementfromBy(elementLocation).clear();
+                getElementFromBy(elementLocation).clear();
             }
             setText(elementLocation, text + System.currentTimeMillis());
         } catch (Exception ex) {
@@ -508,8 +517,8 @@ public class BasePage extends Driver {
         message = elementName + " - element not visible. Not able to Enter Text.";
         try {
             if (isVisible(elementLocation, time)) {
-                getElementfromBy(elementLocation).clear();
-                getElementfromBy(elementLocation).sendKeys(text);
+                getElementFromBy(elementLocation).clear();
+                getElementFromBy(elementLocation).sendKeys(text);
                 commonLib.infoHighlight("Entered Value in field " + elementName + " - ", text,
                         ReportInfoMessageColorList.GOLD);
             } else {
@@ -542,14 +551,14 @@ public class BasePage extends Driver {
         message = elementName + " - element not visible. Not able to Click";
         try {
             if (isVisible(elementLocation, time) && isClickable(elementLocation, time)) {
-                WebElement element = getElementfromBy(elementLocation);
+                WebElement element = getElementFromBy(elementLocation);
                 if (element.getTagName().equals("input") || element.getTagName().equals("button")) {
                     highLighterMethod(elementLocation);
                     JavascriptExecutor executor = (JavascriptExecutor) driver;
                     executor.executeScript("arguments[0].click();", element);
                 } else {
                     highLighterMethod(elementLocation);
-                    getElementfromBy(elementLocation).click();
+                    getElementFromBy(elementLocation).click();
                 }
                 commonLib.infoHighlight(elementName, " - Clicked.", ReportInfoMessageColorList.GREEN);
             }

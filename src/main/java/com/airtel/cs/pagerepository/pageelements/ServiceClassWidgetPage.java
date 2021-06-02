@@ -12,11 +12,13 @@ public class ServiceClassWidgetPage {
     public String noResultFoundIcon = "//*[contains(@class,'no-result-found')]/img";
     public String noResultFoundMessage = "//div[@class='no-result-found ng-star-inserted']//span//span";
     public By commentBox = By.xpath("//textarea[@id='interactionComment']");
-    public By cancelBtn = By.xpath("//button[@class=\"no-btn\"]");
+    public By cancelBtn = By.xpath("//button[@class='no-btn']");
     public By submitBtn = By.xpath("//button[@class='submit-btn']");
     public By code = By.xpath("//mat-option[1]//span");
     public By successModal=By.xpath("//*[@class='main-container__body--message ng-star-inserted']");
     public By closeBtn = By.xpath("//following-sibling::mat-icon[contains(text(),'close')]");
+    public String serviceStatus="//span[contains(text(),'Service Profile')]//ancestor::div[@class='card widget ng-star-inserted']//div[@class='table-data-wrapper ng-star-inserted']/div[@class='ng-star-inserted'  or @class='slide-toggle red ng-star-inserted'][";
+    public String toggleBtn="]//mat-slide-toggle";
     /**
      * Pagination previous next button
      * */

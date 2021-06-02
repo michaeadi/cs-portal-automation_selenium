@@ -46,11 +46,11 @@ public class SupervisorGlobalSearchTest extends Driver {
         SoftAssert softAssert = new SoftAssert();
         try {
             pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
-            String ticketId = pages.getSupervisorTicketList().getTicketIdvalue();
+            String ticketId = pages.getSupervisorTicketList().getTicketIdValue();
             pages.getSupervisorTicketList().writeTicketId(ticketId);
             pages.getSupervisorTicketList().clickSearchBtn();
             pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
-            softAssert.assertEquals(pages.getSupervisorTicketList().getTicketIdvalue(), ticketId, "Search Ticket does not found with Ticket Number: " + ticketId);
+            softAssert.assertEquals(pages.getSupervisorTicketList().getTicketIdValue(), ticketId, "Search Ticket does not found with Ticket Number: " + ticketId);
         } catch (NoSuchElementException | TimeoutException e) {
             softAssert.fail("No Ticket Id Found.");
         }

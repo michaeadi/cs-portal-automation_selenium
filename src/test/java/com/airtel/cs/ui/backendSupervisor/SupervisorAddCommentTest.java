@@ -47,7 +47,7 @@ public class SupervisorAddCommentTest extends Driver {
         SoftAssert softAssert = new SoftAssert();
         pages.getSupervisorTicketList().changeTicketTypeToOpen();
         try {
-            String ticketId = pages.getSupervisorTicketList().getTicketIdvalue();
+            String ticketId = pages.getSupervisorTicketList().getTicketIdValue();
             String comment = "Supervisor added comment on ticket using automation";
             try {
                 pages.getSupervisorTicketList().viewTicket();

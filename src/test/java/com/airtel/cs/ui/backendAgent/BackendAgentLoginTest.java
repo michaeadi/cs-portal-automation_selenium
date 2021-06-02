@@ -92,8 +92,8 @@ public class BackendAgentLoginTest extends Driver {
         softAssert.assertTrue(pages.getSupervisorTicketList().isWorkGroupName(), "Ticket Meta Data Does Not  Have Workgroup");
         softAssert.assertTrue(pages.getSupervisorTicketList().isPrioritylabel(), "Ticket Meta Data  Does Not  Have Priority");
         softAssert.assertTrue(pages.getSupervisorTicketList().isStateLabel(), "Ticket Meta Data Does Not  Have State");
-        softAssert.assertTrue(pages.getSupervisorTicketList().isCreationdateLabel(), "Ticket Meta Data Does Not Have Creation Date");
-        softAssert.assertTrue(pages.getSupervisorTicketList().isCreatedbyLabel(), "Ticket Meta Data Does Not Have Created By");
+        softAssert.assertTrue(pages.getSupervisorTicketList().isCreationDateLabel(), "Ticket Meta Data Does Not Have Creation Date");
+        softAssert.assertTrue(pages.getSupervisorTicketList().isCreatedByLabel(), "Ticket Meta Data Does Not Have Created By");
         softAssert.assertTrue(pages.getSupervisorTicketList().isQueueLabel(), "Ticket Meta Data Have Does Not Queue");
         softAssert.assertTrue(pages.getSupervisorTicketList().isIssueLabel(), "Ticket Meta Data Have Does Not Issue");
         softAssert.assertTrue(pages.getSupervisorTicketList().isIssueTypeLabel(), "Ticket Meta Data Does Not Have Issue Type");

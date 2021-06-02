@@ -12,9 +12,13 @@ import com.airtel.cs.pagerepository.pagemethods.ServiceClassWidget;
 import com.airtel.cs.pojo.response.hlrservice.HLRServicePOJO;
 import io.restassured.http.Headers;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import java.util.NoSuchElementException;
 
 @Log4j2
 public class ServiceProfileWidgetTest extends Driver {
@@ -23,10 +27,11 @@ public class ServiceProfileWidgetTest extends Driver {
     private final BaseActions actions = new BaseActions();
     RequestSource api = new RequestSource();
     private HLRServicePOJO hlrService;
+    public static final String RUN_HLR_SERVICE_TEST_CASE = constants.getValue(ApplicationConstants.RUN_TARIFF_TEST_CASE);
 
     @BeforeMethod
     public void checkExecution() {
-        if (!continueExecutionFA) {
+        if (!continueExecutionFA && !StringUtils.equalsIgnoreCase(RUN_HLR_SERVICE_TEST_CASE,"true")) {
             commonLib.skip("Skipping tests because user NOT able to login via API");
             throw new SkipException("Skipping tests because user NOT able to login via API");
         }
@@ -250,9 +255,14 @@ public class ServiceProfileWidgetTest extends Driver {
                                 assertCheck.append(actions.assertEqual_boolean(pages.getServiceClassWidget().isBarTitleVisible(popUpTitle),true,"Service class bar pop up window displayed as expected","Service class unbar pop up window does not displayed as expected"));
                                 pages.getServiceClassWidget().enterComment("Service Status Changed to Barred Using Automation");
                                 pages.getServiceClassWidget().clickSubmitBtn();
-                                assertCheck.append(actions.assertEqual_boolean(serviceClassWidget.getServiceStatus(i+1), false, "Service Status is as expected at row "+(i+1), "Service Status is not as expected at row "+(i+1)));
-                                flag=false;
-                                break;
+                                try {
+                                    assertCheck.append(actions.assertEqual_boolean(serviceClassWidget.getServiceStatus(i + 1), false, "Service Status is as expected at row " + (i + 1), "Service Status is not as expected at row " + (i + 1)));
+                                    flag = false;
+                                    break;
+                                }catch (NoSuchElementException | TimeoutException e){
+                                    commonLib.fail("Not able to change service status, due to api error",true);
+                                    pages.getServiceClassWidget().closePopupWindow();
+                                }
                             }
                         }
                     }
@@ -293,10 +303,14 @@ public class ServiceProfileWidgetTest extends Driver {
                                 assertCheck.append(actions.assertEqual_boolean(pages.getServiceClassWidget().isUnBarTitleVisible(popUpTitle),true,"Service class unbar pop up window displayed as expected","Service class unbar pop up window does not displayed as expected"));
                                 pages.getServiceClassWidget().enterComment("Service Status Changed to Unbarred Using Automation");
                                 pages.getServiceClassWidget().clickSubmitBtn();
-                                pages.getServiceClassWidget().waitTillLoaderGetsRemoved();
-                                assertCheck.append(actions.assertEqual_boolean(serviceClassWidget.getServiceStatus(i+1), true, "Service Status is as expected at row "+(i+1), "Service Status is not as expected at row "+(i+1)));
-                                flag=false;
-                                break;
+                                try {
+                                    assertCheck.append(actions.assertEqual_boolean(serviceClassWidget.getServiceStatus(i + 1), true, "Service Status is as expected at row " + (i + 1), "Service Status is not as expected at row " + (i + 1)));
+                                    flag = false;
+                                    break;
+                                }catch (NoSuchElementException | TimeoutException e){
+                                commonLib.fail("Not able to change service status, due to api error",true);
+                                pages.getServiceClassWidget().closePopupWindow();
+                            }
                             }
                         }
                     }

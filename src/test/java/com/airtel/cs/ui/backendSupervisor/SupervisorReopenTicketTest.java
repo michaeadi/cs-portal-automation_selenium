@@ -49,7 +49,7 @@ public class SupervisorReopenTicketTest extends Driver {
         pages.getSupervisorTicketList().changeTicketTypeToClosed();
         pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
         try {
-            ticketId = pages.getSupervisorTicketList().getTicketIdvalue();
+            ticketId = pages.getSupervisorTicketList().getTicketIdValue();
             pages.getSupervisorTicketList().clickCheckbox();
             try {
                 softAssert.assertTrue(pages.getSupervisorTicketList().isReopenBtn(), "Reopen Button Available");

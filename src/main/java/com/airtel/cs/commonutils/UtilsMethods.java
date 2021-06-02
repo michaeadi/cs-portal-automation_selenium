@@ -99,6 +99,13 @@ public class UtilsMethods extends Driver {
         return format1.format(nearestMinute);
     }
 
+    /**
+     * @param historyDateTime first date
+     * @param historyDateTime1 second date
+     * @param pattern date format pattern
+     * @return true/false
+     * */
+
     public static boolean isSortOrderDisplay(String historyDateTime, String historyDateTime1, String pattern) {
         DateFormat format = new SimpleDateFormat(pattern);
         final Calendar cal = Calendar.getInstance();
@@ -150,6 +157,11 @@ public class UtilsMethods extends Driver {
         }
     }
 
+    /**
+     * @param committedSla time in milliseconds
+     * @return conversion milliseconds to hour
+     * */
+
     public static String convertToHR(String committedSla) {
         long ms = Long.parseLong(committedSla);
         final String valueOf = String.valueOf(TimeUnit.MILLISECONDS.toHours(ms));
@@ -157,16 +169,33 @@ public class UtilsMethods extends Driver {
         return valueOf;
     }
 
+    /**
+     * @param value value to round off
+     * @return value round off up to 2 digit
+     * */
+
     public static String valueRoundOff(Double value) {
         DecimalFormat df = new DecimalFormat("###.##");
         return df.format(value);
     }
+
+    /**
+     * @param birthDay birth date
+     * @param pattern date format in which birth date display
+     * @return true/false whether today date same as birth date
+     * */
 
     public static Boolean isCustomerBirthday(String birthDay, String pattern) {
         DateFormat format1 = new SimpleDateFormat(pattern);
         String today = format1.format(Calendar.getInstance().getTime());
         return today.equalsIgnoreCase(birthDay);
     }
+
+    /**
+     * @param headers auth header
+     * @param permissionName permission name to check
+     * @return true/false based on user have permission or not
+     * */
 
     public static Boolean isUserHasPermission(Headers headers, String permissionName){
         AgentDetailPOJO agentDetailAPI=api.getAgentDetail(headers);

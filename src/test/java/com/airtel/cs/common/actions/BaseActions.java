@@ -300,6 +300,13 @@ public class BaseActions {
         }
     }
 
+    /**
+     * This method use to assert API Response and display value on UI
+     * @param uiValue value display on UI
+     * @param apiValue api response value
+     * @param passMessage in case of both ui and API value same
+     * @param failMessage in case of both ui and API value not same
+     * */
     public Boolean matchUiAndAPIResponse(String uiValue,String apiValue,String passMessage,String failMessage){
         try{
             if(apiValue!=null){
@@ -313,6 +320,13 @@ public class BaseActions {
         return false;
     }
 
+    /**
+     * This method use to assert API Response and display value on UI
+     * @param uiValue value display on UI
+     * @param apiValue api response value
+     * @param passMessage in case of both ui and API value same
+     * @param failMessage in case of both ui and API value not same
+     * */
     public Boolean matchUiAndAPIResponse(String uiValue,Integer apiValue,String passMessage,String failMessage){
         try{
             if(apiValue!=null && !uiValue.equalsIgnoreCase("-")){

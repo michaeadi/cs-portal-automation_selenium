@@ -48,7 +48,7 @@ public class BackendAgentAddCommentTest extends Driver {
     public void addNewComment() throws InterruptedException {
         selUtils.addTestcaseDescription("Backend Agent add new comment on ticket", "description");
         SoftAssert softAssert = new SoftAssert();
-        String ticketId = pages.getSupervisorTicketList().getTicketIdvalue();
+        String ticketId = pages.getSupervisorTicketList().getTicketIdValue();
         String comment = "Backend Agent added comment on ticket using automation";
         pages.getSupervisorTicketList().viewTicket();
         Assert.assertEquals(ticketId, pages.getViewTicket().getTicketId(), "Verify the searched Ticket fetched Successfully");

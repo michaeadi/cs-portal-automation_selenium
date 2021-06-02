@@ -10,4 +10,5 @@ import lombok.ToString;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AdditionalDetails {
+    //Will write as per test case requirement
 }

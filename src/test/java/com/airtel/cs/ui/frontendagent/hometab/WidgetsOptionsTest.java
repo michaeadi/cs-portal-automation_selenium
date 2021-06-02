@@ -342,7 +342,7 @@ public class WidgetsOptionsTest extends Driver {
                 softAssert.fail("Not able to validate airtel menu widget: " + f.fillInStackTrace());
             }
         } catch (NoSuchElementException | TimeoutException e) {
-            softAssert.fail("Not able to Open Airtel Monet History Sub Tab " + e.fillInStackTrace());
+            softAssert.fail("Not able to Open Airtel Money History Sub Tab " + e.fillInStackTrace());
         }
         softAssert.assertAll();
     }
