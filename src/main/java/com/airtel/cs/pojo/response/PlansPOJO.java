@@ -14,5 +14,5 @@ public class PlansPOJO {
     String status;
     int statusCode;
     PlansResultPOJO result;
-    apiErrors apiErrors;
+    APIErrors apiErrors;
 }

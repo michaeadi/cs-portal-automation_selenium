@@ -37,7 +37,7 @@ public class TicketBulkUpdateTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 1, description = "Open Ticket Bulk Update Dashboard")
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest"})
     public void openTicketBulkUpdate() throws InterruptedException {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -56,7 +56,7 @@ public class TicketBulkUpdateTest extends Driver {
         }
     }
 
-    @Test(priority = 2, description = "Verify that max 300 Tickets to be allowed to be bulk updated in one go", dependsOnMethods = "openTicketBulkUpdate")
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = "openTicketBulkUpdate")
     public void maxTicketSelectTest() {
         selUtils.addTestcaseDescription("Verify that max 300 Tickets to be allowed to be bulk updated in one go", "description");
         SoftAssert softAssert = new SoftAssert();
@@ -94,7 +94,7 @@ public class TicketBulkUpdateTest extends Driver {
         softAssert.assertAll();
     }
 
-    @Test(priority = 3, description = "Check user able to upload ticket id from excel", dependsOnMethods = "openTicketBulkUpdate")
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = "openTicketBulkUpdate")
     public void uploadTicketFromExcelTest() throws IOException, InterruptedException, AWTException {
         selUtils.addTestcaseDescription("Check user able to upload ticket id from excel", "description");
         DataProviders data = new DataProviders();
@@ -128,7 +128,7 @@ public class TicketBulkUpdateTest extends Driver {
         softAssert.assertAll();
     }
 
-    @Test(priority = 4, description = "Validate Bulk option test", dependsOnMethods = "uploadTicketFromExcelTest")
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = "uploadTicketFromExcelTest")
     public void bulkOptionTest() {
         selUtils.addTestcaseDescription("Validate Bulk option test", "description");
         DataProviders data = new DataProviders();
@@ -182,7 +182,7 @@ public class TicketBulkUpdateTest extends Driver {
         softAssert.assertAll();
     }
 
-    @Test(priority = 5, description = "Add comment on ticket using bulk update feature", dependsOnMethods = "uploadTicketFromExcelTest")
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = "uploadTicketFromExcelTest")
     public void bulkAddCommentTest() {
         selUtils.addTestcaseDescription("Add comment on ticket using bulk update feature", "description");
         SoftAssert softAssert = new SoftAssert();

@@ -1,6 +1,6 @@
 package com.airtel.cs.pojo.response.kycprofile;
 
-import com.airtel.cs.pojo.response.apiErrors;
+import com.airtel.cs.pojo.response.APIErrors;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,5 +14,5 @@ public class KYCProfile {
     private String status;
     private String statusCode;
     private KYCProfileResult result;
-    private apiErrors apiErrors;
+    private APIErrors apiErrors;
 }

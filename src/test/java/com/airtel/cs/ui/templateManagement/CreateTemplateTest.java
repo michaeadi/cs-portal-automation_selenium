@@ -28,7 +28,7 @@ public class CreateTemplateTest extends Driver {
         }
     }
 
-    @Test(priority = 1, description = "Open Template Management")
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void openTemplateManagement() {
         selUtils.addTestcaseDescription("Open Template Management", "description");
         SoftAssert softAssert = new SoftAssert();
@@ -40,7 +40,7 @@ public class CreateTemplateTest extends Driver {
         softAssert.assertAll();
     }
 
-    @Test(priority = 2, description = "Validate Template Management Page", dependsOnMethods = "openTemplateManagement")
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openTemplateManagement")
     public void validateAddTemplateManagementPage() {
         selUtils.addTestcaseDescription("Validate Template Management Page", "description");
         SoftAssert softAssert = new SoftAssert();
@@ -87,7 +87,7 @@ public class CreateTemplateTest extends Driver {
         softAssert.assertAll();
     }
 
-    @Test(priority = 3, description = "Create Template Category")
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest"})
     public void addTemplateCategory() {
         DateTimeFormatter formatting = DateTimeFormatter.ofPattern("hhmmddMMM");
         templateCategory = "Category" + LocalDateTime.now().format(formatting);
@@ -108,7 +108,7 @@ public class CreateTemplateTest extends Driver {
         softAssert.assertAll();
     }
 
-    @Test(priority = 4, description = "Create Template", dependsOnMethods = "addTemplateCategory")
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = "addTemplateCategory")
     public void createTemplate() {
         DateTimeFormatter formating = DateTimeFormatter.ofPattern("MMMM hh0mm");
         templateName = "Template " + LocalDateTime.now().format(formating);
@@ -159,7 +159,7 @@ public class CreateTemplateTest extends Driver {
         softAssert.assertAll();
     }
 
-    @Test(priority = 5, dependsOnMethods = "createTemplate", description = "Validate 'View Created Template' recent added template displaying")
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = "createTemplate")
     public void validateAddedTemplate() {
         selUtils.addTestcaseDescription("Validate 'View Created Template' recent added template displaying with name: " + templateName, "description");
         SoftAssert softAssert = new SoftAssert();

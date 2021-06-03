@@ -1,5 +1,6 @@
 package com.airtel.cs.pojo.response.crbt;
 
+import com.airtel.cs.pojo.response.APIErrors;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +17,7 @@ public class Top20Ringtone {
     private String message;
     private String status;
     private String statusCode;
-    private com.airtel.cs.pojo.response.apiErrors apiErrors;
+    private APIErrors apiErrors;
     private int totalCount;
     private ArrayList<RingtoneResult> result;
 }

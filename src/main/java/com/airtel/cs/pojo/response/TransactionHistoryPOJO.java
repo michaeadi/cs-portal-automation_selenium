@@ -17,5 +17,5 @@ public class TransactionHistoryPOJO {
     int pageNumber;
     int totalCount;
     ArrayList<ResultRechargeHistoryPOJO> result;
-    apiErrors apiErrors;
+    APIErrors apiErrors;
 }

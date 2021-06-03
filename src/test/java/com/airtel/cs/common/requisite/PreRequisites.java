@@ -12,8 +12,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.response.Response;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import com.airtel.cs.driver.Driver;
+import org.testng.annotations.BeforeSuite;
 
 
 public class PreRequisites extends Driver {
@@ -22,7 +24,7 @@ public class PreRequisites extends Driver {
     public RequestSource api = new RequestSource();
 
 
-    @BeforeClass
+    @BeforeSuite
     public void doLogin() {
         try {
             ExtentReport.startTest("PreRequisites", "doLogin");
@@ -56,7 +58,7 @@ public class PreRequisites extends Driver {
         }
     }
 
-    @BeforeClass(dependsOnMethods = "doLogin")
+    @BeforeSuite(dependsOnMethods = "doLogin")
     public void addTokenToHeaderMap() throws JsonProcessingException {
         loginAUUID = constants.getValue(CommonConstants.BETA_USER_AUUID);
         final String password = PassUtils.decodePassword(constants.getValue(CommonConstants.BETA_USER_PASSWORD));
@@ -76,7 +78,7 @@ public class PreRequisites extends Driver {
         ExtentReport.endTest();
     }
 
-    @AfterClass(alwaysRun = true)
+    @AfterSuite(alwaysRun = true)
     public void doLogout() {
         commonLib.info("Logging Out Of Portal");
         if (pages.getSideMenuPage().isSideMenuVisible()) {

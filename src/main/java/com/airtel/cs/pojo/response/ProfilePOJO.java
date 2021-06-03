@@ -14,5 +14,5 @@ public class ProfilePOJO {
     String status;
     int statusCode;
     ResultProfilePOJO result;
-    apiErrors apiErrors;
+    APIErrors apiErrors;
 }

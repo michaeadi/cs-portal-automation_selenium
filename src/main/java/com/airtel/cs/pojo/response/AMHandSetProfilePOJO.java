@@ -12,5 +12,5 @@ public class AMHandSetProfilePOJO {
     int statusCode;
     String status;
     ResultAMHandSetProfilePOJO result;
-    apiErrors apiErrors;
+    APIErrors apiErrors;
 }

@@ -5,57 +5,133 @@
         <listener class-name="com.airtel.cs.commonutils.listeners.TestListenerMethod"/>
         <!--        <listener class-name="com.airtel.cs.commonutils.listeners.AnnotationTransformer"/>-->
     </listeners>
-    <test name="PROD Sanity com.airtel.cs.api Test">
+    <test name="Test Login API">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginAPITest"/>
         </classes>
     </test>
-    <test name="Login Admin 1 Test">
+    <test name="Test Login Into Portal With FA">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginPortalTests"/>
         </classes>
     </test>
-    <test name="Side Menu">
+    <test name="Test Side Menu Options">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.leftmenu.SideMenuTests"/>
         </classes>
     </test>
-    <test name="Customer Interactions TEST" preserve-order="true">
+    <test name="Demo Graphic Widget Test By MSISDN" preserve-order="true">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.demographicwidget.DemoGraphicWidgetMsisdnTest"/>
+        </classes>
+    </test>
+    <test name="Widget Detailed Page Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.WidgetsOptionsTest"/>
         </classes>
     </test>
     <test name="Validate Authentication tab">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.demographicwidget.AuthTabTest">
-                <methods>
-                    <exclude name="validateResetME2UPassword"/>
-                </methods>
             </class>
         </classes>
     </test>
     <test name="Validate Action Trail Tab Test">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.viewhistorytab.ActionTrailTest"/>
         </classes>
     </test>
     <test name="Validate Frontend Agent Ticket Page">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.FrontendAgentTicketTest"/>
         </classes>
     </test>
+    <test name="Service Profile Widget Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.ServiceProfileWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Display Offer Widget Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.DisplayOfferWidgetTest"/>
+        </classes>
+    </test>
     <test name="Logout Test">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
         </classes>
     </test>
     <test name="Supervisors Login Test">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
         <classes>
             <class name="com.airtel.cs.ui.backendSupervisor.SupervisorLoginTest"/>
         </classes>
     </test>
     <test name="api-Regenerate">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginAPITest">
                 <methods>
@@ -66,66 +142,95 @@
         </classes>
     </test>
     <test name="Supervisors Validate Filter Option ">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
         <classes>
             <class name="com.airtel.cs.ui.backendSupervisor.SupervisorFilterTest"/>
         </classes>
     </test>
     <test name="Supervisors Search/View Ticket ">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
         <classes>
             <class name="com.airtel.cs.ui.backendSupervisor.PRODSupervisorTicketTest"/>
         </classes>
     </test>
     <test name="Logout Supervisor Test">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
         </classes>
     </test>
     <test name="LOGIN TO BACKEND AGENT">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
         <classes>
             <class name="com.airtel.cs.ui.backendAgent.BackendAgentLoginTest"/>
         </classes>
     </test>
     <test name="Validate BACKEND AGENT Filter Options">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
         <classes>
             <class name="com.airtel.cs.ui.backendAgent.BackendAgentFilterTest"/>
         </classes>
     </test>
     <test name="Logout Test from Backend agent">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
         </classes>
     </test>
     <test name="Login Admin Test">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginPortalTests"/>
         </classes>
     </test>
     <test name="Create Template Test">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
         <classes>
             <class name="com.airtel.cs.ui.templateManagement.CreateTemplateTest">
-                <methods>
-                    <exclude name="createTemplate"/>
-                    <exclude name="validateAddedTemplate"/>
-                    <exclude name="addTemplateCategory"/>
-                </methods>
             </class>
         </classes>
     </test>
     <test name="Validate Ticket Bulk Update Test">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
         <classes>
             <class name="com.airtel.cs.ui.ticketBulkUpdate.TicketBulkUpdateTest">
-                <methods>
-                    <exclude name="maxTicketSelectTest"/>
-                    <exclude name="uploadTicketFromExcelTest"/>
-                    <exclude name="bulkAddCommentTest"/>
-                    <exclude name="bulkOptionTest"/>
-                </methods>
             </class>
-        </classes>
-    </test>
-    <test name="Logout Test from Admin agent">
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
         </classes>
     </test>
     <test name="SIM Bar Unbar Test">
@@ -146,6 +251,11 @@
         </groups>
         <classes>
             <class name="com.airtel.cs.ui.ticketsourceapp.TicketSourceAppTest"/>
+        </classes>
+    </test>
+    <test name="Logout Test from Admin agent">
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
         </classes>
     </test>
 </suite>

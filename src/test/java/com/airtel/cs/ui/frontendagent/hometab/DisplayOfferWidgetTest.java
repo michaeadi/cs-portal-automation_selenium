@@ -37,7 +37,7 @@ public class DisplayOfferWidgetTest extends PreRequisites {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 1, description = "Validate Customer Interaction Page")
+    @Test(priority = 1,groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -56,9 +56,9 @@ public class DisplayOfferWidgetTest extends PreRequisites {
     }
 
     @DataProviders.Table(name = "UC-UT Offer")
-    @Test(priority = 2, description = "CSP-63664 Verify that Offers widget is displayed on the DA details page.", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 2,groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = {"openCustomerInteraction"})
     public void displayOfferHeaderTest(HeaderDataBean headerValues) {
-        selUtils.addTestcaseDescription("Validate Offers widget header visible and display all the Column name as per config ", "description");
+        selUtils.addTestcaseDescription("CSP-63664 : Validate Offers widget header visible and display all the Column name as per config ", "description");
         try {
             pages.getCurrentBalanceWidgetPage().waitTillLoaderGetsRemoved();
             assertCheck.append(actions.assertEqual_boolean(pages.getCurrentBalanceWidgetPage().isCurrentBalanceWidgetMenuVisible(), true, "Current Balance Widget MENU is visible", "Current Balance Widget Menu is not visible"));
@@ -117,7 +117,7 @@ public class DisplayOfferWidgetTest extends PreRequisites {
         }
     }
 
-    @Test(priority = 4, description = "CSP-63676 Verify that hovering on the No Of DA's value displays the Associated DA's widget.", dependsOnMethods = {"displayOfferHeaderTest"})
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"displayOfferHeaderTest"})
     public void associatedDAPopUpTest() {
         selUtils.addTestcaseDescription("Validate Associated DA's widget Column value display as per API Response ", "description");
         DADetails daDetailsPage = pages.getDaDetailsPage();
@@ -144,7 +144,7 @@ public class DisplayOfferWidgetTest extends PreRequisites {
         }
     }
 
-    @Test(priority = 5,description = "Next and Previous button must be clickable and On click of next Page. Next 5 transaction will load. Clicked on Previous page , 5 previous transaction will load.",dependsOnMethods = {"associatedDAPopUpTest"})
+    @Test(priority = 5,groups = {"SanityTest", "RegressionTest", "ProdTest"},dependsOnMethods = {"associatedDAPopUpTest"})
     public void checkPaginationForOfferWidget(){
         selUtils.addTestcaseDescription("Validate Offers widget display pagination and agent able to navigate through pagination ", "description");
         try{
@@ -165,7 +165,7 @@ public class DisplayOfferWidgetTest extends PreRequisites {
         }
     }
 
-    @Test(priority = 6,description = "Display Offer widget should be visible based on user permission")
+    @Test(priority = 6,groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void isUserHasOfferPermission(){
         try {
             selUtils.addTestcaseDescription("Verify that necessary permissions are added for offers widget to be displayed.", "description");

@@ -147,7 +147,7 @@ public class DemoGraphic extends BasePage {
         }
     }
 
-    public void selectPolicyQuestion() throws InterruptedException {
+    public void selectPolicyQuestion() {
         try {
             DataProviders dataProviders = new DataProviders();
             List<AuthTabDataBeans> list = dataProviders.getPolicy();

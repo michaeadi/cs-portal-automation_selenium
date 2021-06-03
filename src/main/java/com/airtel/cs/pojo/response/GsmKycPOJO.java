@@ -11,5 +11,5 @@ public class GsmKycPOJO {
     String status;
     int statusCode;
     ResultGsmKycPOJO result;
-    apiErrors apiErrors;
+    APIErrors apiErrors;
 }

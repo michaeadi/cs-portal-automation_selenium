@@ -32,13 +32,13 @@ public class WidgetsOptionsTest extends Driver {
     @BeforeMethod
     public void checkExecution() {
         if (!continueExecutionFA) {
-            commonLib.skip("Skipping tests because user NOT able to login via API");
-            throw new SkipException("Skipping tests because user NOT able to login via API");
+            commonLib.skip("Skipping tests because user NOT able to login Over Portal");
+            throw new SkipException("Skipping tests because user NOT able to login Over Portal");
         }
     }
 
     @DataProviders.User(userType = "API")
-    @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteractionAPI(TestDatabean data) {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -58,7 +58,7 @@ public class WidgetsOptionsTest extends Driver {
     }
 
     @Table(name = "Da Details")
-    @Test(priority = 2, description = "Validating DA Details", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI")
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI")
     public void daDetailsTest(HeaderDataBean data) {
         selUtils.addTestcaseDescription("Validating DA Details of User :" + customerNumber, "description");
         SoftAssert softAssert = new SoftAssert();
@@ -101,7 +101,7 @@ public class WidgetsOptionsTest extends Driver {
     }
 
     @Table(name = "Accumulator")
-    @Test(priority = 3, description = "Validating Accumulator Details", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI")
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI")
     public void accumulatorDetailsTest(HeaderDataBean Data) {
         selUtils.addTestcaseDescription("Validating Accumulator Details of User :" + customerNumber, "description");
         SoftAssert softAssert = new SoftAssert();
@@ -115,7 +115,7 @@ public class WidgetsOptionsTest extends Driver {
             softAssert.assertEquals(pages.getDaDetailsPage().getAccumulatorHeaders(4).toLowerCase().trim(), Data.getRow4().toLowerCase().trim(), "Header Name for Row 4 is not as expected");
             AccumulatorsPOJO accumulatorAPI = api.accumulatorsAPITest(customerNumber);
             if (accumulatorAPI.getStatusCode() == 200) {
-                int size = accumulatorAPI.getResult().size() > 5 ? 5 : accumulatorAPI.getResult().size();
+                int size = Math.min(accumulatorAPI.getResult().size(), 5);
                 for (int i = 0; i < size; i++) {
                     softAssert.assertEquals(pages.getDaDetailsPage().getValueCorrespondingToAccumulator(i + 1, 1).trim(), accumulatorAPI.getResult().get(i).getId(), "Accumulator ID is not as received in com.airtel.cs.API on row " + i);
                     softAssert.assertEquals(pages.getDaDetailsPage().getValueCorrespondingToAccumulator(i + 1, 2).trim(), String.valueOf(accumulatorAPI.getResult().get(i).getValue()), "Accumulator Value is not as received in com.airtel.cs.API on row " + i);
@@ -136,7 +136,7 @@ public class WidgetsOptionsTest extends Driver {
     }
 
     @Table(name = "More Recharge History")
-    @Test(priority = 4, description = "Validating Recharge History's  Menu", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI")
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI")
     public void rechargeHistoryMenuTest(HeaderDataBean data) {
         selUtils.addTestcaseDescription("Validating Recharge History's  Menu of User :" + customerNumber, "description");
         SoftAssert softAssert = new SoftAssert();
@@ -192,7 +192,7 @@ public class WidgetsOptionsTest extends Driver {
     }
 
     @Table(name = "Detailed Usage History")
-    @Test(priority = 5, description = "Validating Usage History's  Menu", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI")
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI")
     public void usageHistoryMenuTest(HeaderDataBean data) {
         selUtils.addTestcaseDescription("Validating Usage History's  Menu of User :" + customerNumber, "description");
         SoftAssert softAssert = new SoftAssert();
@@ -277,7 +277,7 @@ public class WidgetsOptionsTest extends Driver {
     }
 
     @Table(name = "More Airtel Money History")
-    @Test(priority = 6, description = "Validating Airtel Money History's  Menu", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI", enabled = false)
+    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI", enabled = false)
     public void airtelMoneyHistoryMenuTest(HeaderDataBean data) {
         selUtils.addTestcaseDescription("Validating Airtel Money History's  Menu of User :" + customerNumber, "description");
         SoftAssert softAssert = new SoftAssert();
@@ -348,7 +348,7 @@ public class WidgetsOptionsTest extends Driver {
     }
 
     @Table(name = "More Airtel Money History")
-    @Test(priority = 7, description = "Validating Airtel Money History's  Menu Secondary Widget", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI", enabled = false)
+    @Test(priority = 7, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI", enabled = false)
     public void airtelMoneyHistoryMenuSecondaryTest(HeaderDataBean data) {
         if (OPCO.equalsIgnoreCase("CD")) {
             selUtils.addTestcaseDescription("Validating Airtel Money History's  Menu Secondary Widget of User :" + customerNumber, "description");

@@ -18,5 +18,5 @@ public class AccountsBalancePOJO {
     int statusCode;
     int totalCount;
     ArrayList<balanceResult> result;
-    apiErrors apiErrors;
+    APIErrors apiErrors;
 }

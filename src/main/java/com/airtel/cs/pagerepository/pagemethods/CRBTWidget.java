@@ -4,6 +4,7 @@ import com.airtel.cs.pagerepository.pageelements.CRBTWidgetPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class CRBTWidget extends BasePage {
 
@@ -18,6 +19,18 @@ public class CRBTWidget extends BasePage {
         final boolean state = isEnabled(pageElements.titleCRBT);
         commonLib.info("Is CRBT Widget Display: " + state);
         return state;
+    }
+
+    /*
+   This Method will let us know is CRBT Widget Loaded Successfully or not
+    */
+    public boolean isCRBTHistoryWidgetLoaded() {
+        boolean result = false;
+        if (isElementVisible(pageElements.widgetLoader)) {
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(pageElements.widgetLoader));
+            result = true;
+        }
+        return result;
     }
 
     public void clickTicketIcon() {
@@ -60,6 +73,15 @@ public class CRBTWidget extends BasePage {
         return state;
     }
 
+    /*
+    This Method is used to get No Result Message Displayed on UI
+     */
+    public String noResultMessage() {
+        String result = null;
+        result = getText(pageElements.noResultMessage);
+        return result;
+    }
+
     public boolean isWidgetError() {
         final boolean state = isEnabled(pageElements.widgetError);
         commonLib.info("Is no Widget Error Display: " + state);
@@ -76,7 +98,7 @@ public class CRBTWidget extends BasePage {
         clickAndWaitForLoaderToBeRemoved(pageElements.searchBtn);
     }
 
-    public void clickSearchOption() {
+    public void clickSearchByOption() {
         commonLib.info("Clicking Search Option");
         clickAndWaitForLoaderToBeRemoved(pageElements.searchOptionBtn);
     }
@@ -94,28 +116,28 @@ public class CRBTWidget extends BasePage {
     }
 
     public String getTop20Header(int i) {
-        By text = By.xpath("//div[@id='RING_BACK_TUNE']//div[@class=\"mat-tab-body-wrapper\"]//div[@class=\"card__card-header--card-body--table--list-heading ng-star-inserted\"]/div[" + i + "]/span");
+        By text = By.xpath(pageElements.crbtTableHeader + i + pageElements.crbtTableHeader1);
         final String text1 = getText(text);
         commonLib.info("Reading Header Name at POS(" + i + "): " + text1);
         return text1.trim();
     }
 
     public String getValueTop20(int row, int column) {
-        By value = By.xpath("//div[@id='RING_BACK_TUNE']//div[@class=\"mat-tab-body-wrapper\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]//div[" + row + "]//div[@class=\"card__card-header--card-body--table--data-list row-border\"]//div[" + column + "]/span");
+        By value = By.xpath(pageElements.crbtTableValue + row + pageElements.crbtTableValue1 + column + pageElements.crbtTableHeader1);
         final String text = getText(value);
         commonLib.info("Reading value for '" + getTop20Header(column) + "': " + text);
         return text.trim();
     }
 
     public String getSearchHeader(int i) {
-        By text = By.xpath("//div[@id='RING_BACK_TUNE']//div[@class=\"mat-tab-body-wrapper\"]//div[@class=\"card__card-header--card-body--table\"]//div[@class=\"card__card-header--card-body--table--list-heading ng-star-inserted\"]//div[" + i + "]/span");
+        By text = By.xpath("//div[@id='RING_BACK_TUNE']//div[@class='mat-tab-body-wrapper']//div[@class='card__card-header--card-body--table']//div[@class='card__card-header--card-body--table--list-heading ng-star-inserted']//div[" + i + "]/span");
         final String text1 = getText(text);
         commonLib.info("Reading Header Name at POS(" + i + "): " + text1);
         return text1.trim();
     }
 
     public String getValueSearch(int row, int column) {
-        By value = By.xpath("//div[@id='RING_BACK_TUNE']//div[@class=\"mat-tab-body-wrapper\"]//div[@class=\"table-data-wrapper ng-star-inserted\"]//div[" + row + "]//div[@class=\"card__card-header--card-body--table--data-list row-border\"]//div[" + column + "]/span");
+        By value = By.xpath("//div[@id='RING_BACK_TUNE']//div[@class='mat-tab-body-wrapper']//div[@class='table-data-wrapper ng-star-inserted']//div[" + row + "]//div[@class='card__card-header--card-body--table--data-list row-border']//div[" + column + "]/span");
         final String text = getText(value);
         commonLib.info("Reading value for '" + getSearchHeader(column) + "': " + text);
         return text.trim();
@@ -134,6 +156,26 @@ public class CRBTWidget extends BasePage {
     public void clickMyTunesTab() {
         commonLib.info("Clicking on My Tunes.");
         clickAndWaitForLoaderToBeRemoved(pageElements.myTuneTab);
+    }
+
+    /*
+      This Method will give us footer auuid shown in CRBT widget
+      CRBT = Caller Ring Back Tune Widget
+       */
+    public String getFooterAuuidCRBT() {
+        String result = null;
+        result = getText(pageElements.footerCRBTAuuid);
+        return result;
+    }
+
+    /*
+    This Method will give us auuid shown in the middle of the CRBT widget
+    CRBT = Caller Ring Back Tune Widget
+     */
+    public String getMiddleAuuidCRBT() {
+        String result = null;
+        result = getAttribute(pageElements.middleCRBTAuuid, "data-auuid", false);
+        return result;
     }
 
 }

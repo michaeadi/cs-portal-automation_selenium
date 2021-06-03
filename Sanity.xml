@@ -60,11 +60,21 @@
         </classes>
     </test>
     <test name="Service Profile Widget Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.ServiceProfileWidgetTest"/>
         </classes>
     </test>
     <test name="Display Offer Widget Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.DisplayOfferWidgetTest"/>
         </classes>

@@ -13,6 +13,8 @@ import com.airtel.cs.pojo.response.AMProfilePOJO;
 import com.airtel.cs.pojo.response.airtelmoney.AirtelMoneyPOJO;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
+import org.testng.SkipException;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.awt.*;
@@ -27,13 +29,20 @@ public class AirtelMoneyTransactionWidgetTest extends Driver {
     private final BaseActions actions = new BaseActions();
     RequestSource api = new RequestSource();
 
+    @BeforeMethod
+    public void checkExecution() {
+        if (!continueExecutionFA) {
+            commonLib.skip("Skipping tests because user NOT able to login Over Portal");
+            throw new SkipException("Skipping tests because user NOT able to login Over Portal");
+        }
+    }
+
     @Test(priority = 1, description = "Validate Customer Interaction Page")
     public void openCustomerInteractionAPI() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
-            customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
+            customerNumber = constants.getValue(ApplicationConstants.AM_CUSTOMER_MSISDN);
             pages.getSideMenuPage().clickOnSideMenu();
-            pages.getSideMenuPage().clickOnUserName();
             pages.getSideMenuPage().openCustomerInteractionPage();
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();
@@ -51,7 +60,9 @@ public class AirtelMoneyTransactionWidgetTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validate Airtel Money Header is Visible,Validate Airtel Money Header Text,Validate Date Picker is visible,Validate Transaction Id Search Box is visible", "description");
             assertCheck.append(actions.assertEqual_boolean(pages.getAmTxnWidgetPage().isAirtelMoneyTransactionWidgetVisible(), true, "Airtel Money Transaction Widget is visible", "Airtel Money Transaction Widget is not visible"));
-            assertCheck.append(actions.assertEqual_stringType(pages.getAmTxnWidgetPage().getAirtelMoneyTransactionHeaderText(), "AIRTEL MONEY TRANSACTIONS", "Airtel Money Widget Header Text Matched", "Airtel Money Widget Header Text NOT Matched"));
+            assertCheck.append(actions.assertEqual_stringType(pages.getAmTxnWidgetPage().getFooterAuuidAM(), loginAUUID, "Auuid shown at the footer of the Airtel Money Txn widget and is correct", "Auuid NOT shown at the footer of Airtel Money Txn widget"));
+            assertCheck.append(actions.assertEqual_stringType(pages.getAmTxnWidgetPage().getMiddleAuuidAM(), loginAUUID, "Auuid shown at the middle of the Airtel Money Txn widget and is correct", "Auuid NOT shown at the middle of Airtel Money Txn widget"));
+            assertCheck.append(actions.assertEqual_stringType(pages.getAmTxnWidgetPage().getAirtelMoneyTransactionHeaderText(), "AM TRANSACTIONS", "Airtel Money Widget Header Text Matched", "Airtel Money Widget Header Text NOT Matched"));
             assertCheck.append(actions.assertEqual_boolean(pages.getAmTxnWidgetPage().isAirtelMoneyWidgetDatePickerVisible(), true, "Airtel Money Transaction Widget's Date Picker is visible", "Airtel Money Transaction Widget's Date Picker is not visible"));
             assertCheck.append(actions.assertEqual_boolean(pages.getAmTxnWidgetPage().isTransactionIdSearchBoxVisible(), true, "Transaction Id Search Box displayed on UI", "Transaction Id Search Box does not displayed on UI"));
             actions.assertAllFoundFailedAssert(assertCheck);
@@ -94,10 +105,7 @@ public class AirtelMoneyTransactionWidgetTest extends Driver {
             } else if (amTransactionHistoryAPI.getResult().getTotalCount() == null) {
                 assertCheck.append(actions.assertEqual_boolean(amTxnWidgetPage.isAirtelMoneyNoResultFoundVisible(), true, "'No Result Found' Icon displayed", "'No Result Found' Icon NOT displayed"));
             } else {
-                int count = amTransactionHistoryAPI.getResult().getTotalCount();
-                if (count > 5) {
-                    count = 5;
-                }
+                int count = Math.min(amTransactionHistoryAPI.getResult().getTotalCount(),5);
                 assertCheck.append(actions.assertEqual_stringType(amTxnWidgetPage.getHeaders(0).toLowerCase().trim(), data.getRow1().toLowerCase().trim(), "Header Name for Row 1 is as expected", "Header Name for Row 1 is not as expected"));
                 assertCheck.append(actions.assertEqual_stringType(amTxnWidgetPage.getHeaders(1).toLowerCase().trim(), data.getRow2().toLowerCase().trim(), "Header Name for Row 2 is as expected", "Header Name for Row 2 is not as expected"));
                 assertCheck.append(actions.assertEqual_stringType(amTxnWidgetPage.getHeaders(2).toLowerCase().trim(), data.getRow3().toLowerCase().trim(), "Header Name for Row 3 is as expected", "Header Name for Row 3 is not as expected"));

@@ -9,7 +9,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class apiErrors {
+public class APIErrors {
     private String lastRecharge;
     private String mainAccountBalance;
     private String appStatus;

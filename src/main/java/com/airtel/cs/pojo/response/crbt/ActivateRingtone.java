@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.Map;
+
 @Getter
 @Setter
 @ToString
@@ -13,7 +15,7 @@ public class ActivateRingtone {
     private String message;
     private String status;
     private String statusCode;
-    private com.airtel.cs.pojo.response.apiErrors apiErrors;
+    private Map<String,String> apiErrors;
     private int totalCount;
     private RingtoneResult result;
 }
