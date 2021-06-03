@@ -9,6 +9,8 @@ public class ApplicationConstants {
     public static final String UM_LOGIN_URL = "um.login.url";
     public static final String RUN_TARIFF_TEST_CASE = "cs.run.tariff.plan.test.case";
     public static final String RUN_HLR_WIDGET_TEST_CASE="cs.run.hlr.widget.test.case";
+    public static final String RUN_DISPLAY_OFFER_TEST_CASE="cs.run.display.offer.widget.test.case";
+    public static final String RUN_FNF_WIDGET_TEST_CASE="cs.run.fnf.widget.test.case";
     public static final String WEB_BROWSER = "cs.application.browser";
     public static final String CUSTOMER_MSISDN = "cs.customer.msisdn";
     public static final String AM_CUSTOMER_MSISDN = "cs.am.customer.msisdn";

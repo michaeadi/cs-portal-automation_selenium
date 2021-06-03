@@ -19,6 +19,10 @@ public class TransferToQueueTest extends BAPreRequisites {
     private final BaseActions actions = new BaseActions();
     RequestSource api = new RequestSource();
 
+    /**
+     * Transfer to queue not working once need to verify one Env Up
+     * */
+
     @BeforeMethod
     public void checkExecution() {
         if (continueExecutionBA) {

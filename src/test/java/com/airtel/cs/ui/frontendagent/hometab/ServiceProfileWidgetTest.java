@@ -27,7 +27,7 @@ public class ServiceProfileWidgetTest extends Driver {
     private final BaseActions actions = new BaseActions();
     RequestSource api = new RequestSource();
     private HLRServicePOJO hlrService;
-    public static final String RUN_HLR_SERVICE_TEST_CASE = constants.getValue(ApplicationConstants.RUN_TARIFF_TEST_CASE);
+    public static final String RUN_HLR_SERVICE_TEST_CASE = constants.getValue(ApplicationConstants.RUN_HLR_WIDGET_TEST_CASE);
 
     @BeforeMethod
     public void checkExecution() {

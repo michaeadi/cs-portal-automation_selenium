@@ -1,4 +1,4 @@
-package com.airtel.cs.ui.frontendagent.widgets;
+package com.airtel.cs.ui.frontendagent.hometab;
 
 import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.common.actions.BaseActions;
@@ -7,14 +7,26 @@ import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
 import com.airtel.cs.pojo.response.friendsfamily.FriendsFamilyPOJO;
+import org.apache.commons.lang3.StringUtils;
+import org.testng.SkipException;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class FriendsFamilyWidgetTest extends PreRequisites {
     private final BaseActions actions = new BaseActions();
     RequestSource api = new RequestSource();
     private static String customerNumber;
+    public static final String RUN_FNF_WIDGET_TEST_CASE = constants.getValue(ApplicationConstants.RUN_FNF_WIDGET_TEST_CASE);
 
-    @Test(priority = 1, description = "Validate Customer Interaction Page")
+    @BeforeMethod
+    public void checkExecution() {
+        if (!continueExecutionFA && !StringUtils.equalsIgnoreCase(RUN_FNF_WIDGET_TEST_CASE,"true")) {
+            commonLib.skip("Skipping tests because user NOT able to login via API");
+            throw new SkipException("Skipping tests because user NOT able to login via API");
+        }
+    }
+
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -33,7 +45,7 @@ public class FriendsFamilyWidgetTest extends PreRequisites {
     }
 
     @DataProviders.Table(name = "Friends and Family")
-    @Test(priority = 2, description = "CSP-63690 Verify that in the DA Details page there should be a table containing Customer's FnF List", dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
     public void  friendFamilyHeaderTest(HeaderDataBean headerValues) {
         selUtils.addTestcaseDescription("Validate Friend and Family widget header visible and display all the Column name as per config ", "description");
         try {

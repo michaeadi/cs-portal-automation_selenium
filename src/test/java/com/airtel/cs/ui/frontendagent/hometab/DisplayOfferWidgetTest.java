@@ -13,6 +13,7 @@ import com.airtel.cs.pagerepository.pagemethods.DADetails;
 import com.airtel.cs.pojo.response.offerdetails.OfferDetailPOJO;
 import io.restassured.http.Headers;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.StringUtils;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -24,17 +25,14 @@ public class DisplayOfferWidgetTest extends PreRequisites {
     private final BaseActions actions = new BaseActions();
     RequestSource api = new RequestSource();
     private OfferDetailPOJO offerDetailPOJO = null;
+    public static final String RUN_DISPLAY_OFFER_TEST_CASE = constants.getValue(ApplicationConstants.RUN_DISPLAY_OFFER_TEST_CASE);
 
     @BeforeMethod
     public void checkExecution() {
-        if (continueExecutionFA) {
-            assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, true, "Proceeding for test case as user able to login over portal", "Skipping tests because user not able to login into portal or Role does not assign to user"));
-        } else {
-            commonLib.skip("Skipping tests because user not able to login into portal or Role does not assign to user");
-            assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, false, "Skipping tests because user not able to login into portal or Role does not assign to user"));
-            throw new SkipException("Skipping tests because user not able to login into portal or Role does not assign to user");
+        if (!continueExecutionFA && !StringUtils.equalsIgnoreCase(RUN_DISPLAY_OFFER_TEST_CASE,"true")) {
+            commonLib.skip("Skipping tests because user NOT able to login via API");
+            throw new SkipException("Skipping tests because user NOT able to login via API");
         }
-        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     @Test(priority = 1,groups = {"SanityTest", "RegressionTest", "ProdTest"})
@@ -88,7 +86,7 @@ public class DisplayOfferWidgetTest extends PreRequisites {
         }
     }
 
-    @Test(priority = 3, description = "CSP-63665 Offers widget column value should be displayed as per API response.", dataProviderClass = DataProviders.class, dependsOnMethods = {"displayOfferHeaderTest"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProviderClass = DataProviders.class, dependsOnMethods = {"displayOfferHeaderTest"})
     public void displayOfferWidgetTest() {
         selUtils.addTestcaseDescription("Validate Offers widget Column value display as per API Response ", "description");
         DADetails daDetailsPage = pages.getDaDetailsPage();
