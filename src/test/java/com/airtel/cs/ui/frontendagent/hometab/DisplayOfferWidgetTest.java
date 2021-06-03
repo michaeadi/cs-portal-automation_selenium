@@ -64,7 +64,9 @@ public class DisplayOfferWidgetTest extends PreRequisites {
             pages.getCustomerProfilePage().waitTillLoaderGetsRemoved();
             assertCheck.append(actions.assertEqual_boolean(pages.getDaDetailsPage().isOfferWidgetDisplay(), true, "Display offer Widget display", "Display offer widget does not display"));
             offerDetailPOJO = api.offerDetailAPITest(customerNumber);
-            if (Integer.parseInt(offerDetailPOJO.getStatusCode()) != 200) {
+            final int statusCode = offerDetailPOJO.getStatusCode();
+            assertCheck.append(actions.assertEqual_intType(statusCode, 200, "Display Offer Widget API success and status code is :" + statusCode, "Display Offer Widget API got failed and status code is :" + statusCode));
+            if (statusCode== 200) {
                 commonLib.fail("API is Unable to Get Display Offer for Customer", false);
             } else if(offerDetailPOJO.getResult().size() > 0){
                 assertCheck.append(actions.assertEqual_stringType(pages.getDaDetailsPage().getDisplayOfferHeader(1).toLowerCase().trim(), headerValues.getRow1().toLowerCase().trim(), "Header Name for Row 1 is as expected", "Header Name for Row 1 is not as expected"));
@@ -91,7 +93,9 @@ public class DisplayOfferWidgetTest extends PreRequisites {
         selUtils.addTestcaseDescription("Validate Offers widget Column value display as per API Response ", "description");
         DADetails daDetailsPage = pages.getDaDetailsPage();
         try {
-            if (Integer.parseInt(offerDetailPOJO.getStatusCode()) != 200) {
+            final int statusCode = offerDetailPOJO.getStatusCode();
+            assertCheck.append(actions.assertEqual_intType(statusCode, 200, "Display Offer Widget API success and status code is :" + statusCode, "Display Offer Widget API got failed and status code is :" + statusCode));
+            if (statusCode== 200) {
                 commonLib.fail("API is Unable to Get AM Transaction History for Customer", false);
             } else if (offerDetailPOJO.getResult().size() > 0) {
                 int size = Math.min(offerDetailPOJO.getResult().size(), 5);

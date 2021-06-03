@@ -15,7 +15,7 @@ import java.util.List;
 public class HLRServicePOJO {
     private String message;
     private String status;
-    private String statusCode;
+    private int statusCode;
     private APIErrors apiErrors;
     private int totalCount;
     private List<HLRServiceResult> result;

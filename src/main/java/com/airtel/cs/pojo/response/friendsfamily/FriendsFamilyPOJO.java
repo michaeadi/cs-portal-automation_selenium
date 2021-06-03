@@ -14,5 +14,6 @@ import java.util.ArrayList;
 public class FriendsFamilyPOJO {
     private String message;
     private String status;
+    private int statusCode;
     private ArrayList<FriendsFamilyResponse> response;
 }

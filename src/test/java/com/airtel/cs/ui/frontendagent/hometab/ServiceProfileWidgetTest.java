@@ -94,13 +94,15 @@ public class ServiceProfileWidgetTest extends Driver {
             final ServiceClassWidget serviceClassWidget = pages.getServiceClassWidget();
             assertCheck.append(actions.assertEqual_boolean(serviceClassWidget.isServiceClassWidgetDisplay(), true, "Service Profile Widget displayed correctly", "Service Profile Widget does not display correctly"));
             hlrService = api.getServiceProfileWidgetInfo(customerNumber);
-            int size = Math.min(hlrService.getTotalCount(),5);
-            if (Integer.parseInt(hlrService.getStatusCode()) == 200) {
+            final int statusCode = hlrService.getStatusCode();
+            assertCheck.append(actions.assertEqual_intType(statusCode, 200, "HLR Service Profile Profile API success and status code is :" + statusCode, "HLR Service Profile API got failed and status code is :" + statusCode));
+            if (statusCode== 200) {
                 if (hlrService.getResult().isEmpty() || hlrService.getResult() == null) {
                     commonLib.warning("Unable to get Last Service Profile from API");
                     assertCheck.append(actions.assertEqual_boolean(serviceClassWidget.isServiceProfileNoResultFoundVisible(), true, "Error Message is Visible", "Error Message is not Visible"));
                     assertCheck.append(actions.assertEqual_stringType(serviceClassWidget.gettingServiceProfileNoResultFoundMessage(), "No Result found", "Error Message is as expected", "Error Message is not as expected"));
                 } else {
+                    int size = Math.min(hlrService.getTotalCount(),5);
                     assertCheck.append(actions.assertEqual_stringType(serviceClassWidget.getHeaders(1).trim().toLowerCase(), data.getRow1().trim().toLowerCase(), "Header Name at Row(1) is as expected", "Header Name at Row(1) is not as expected"));
                     assertCheck.append(actions.assertEqual_stringType(serviceClassWidget.getHeaders(2).trim().toLowerCase(), data.getRow2().trim().toLowerCase(), "Header Name at Row(2) is as expected", "Header Name at Row(2) is not as expected"));
                     assertCheck.append(actions.assertEqual_stringType(serviceClassWidget.getHeaders(3).trim().toLowerCase(), data.getRow3().trim().toLowerCase(), "Header Name at Row(3) is as expected", "Header Name at Row(3) is not as expected"));
@@ -161,7 +163,9 @@ public class ServiceProfileWidgetTest extends Driver {
             int size = Math.min(hlrService.getTotalCount(),5);
             final ServiceClassWidget serviceClassWidget = pages.getServiceClassWidget();
             boolean flag=true;
-            if (Integer.parseInt(hlrService.getStatusCode()) == 200) {
+            final int statusCode = hlrService.getStatusCode();
+            assertCheck.append(actions.assertEqual_intType(statusCode, 200, "HLR Service Profile Profile API success and status code is :" + statusCode, "HLR Service Profile API got failed and status code is :" + statusCode));
+            if (statusCode== 200) {
                 if (hlrService.getResult().isEmpty() || hlrService.getResult() == null) {
                     commonLib.warning("Unable to get Last Service Profile from API");
                     assertCheck.append(actions.assertEqual_boolean(serviceClassWidget.isServiceProfileNoResultFoundVisible(), true, "Error Message is Visible", "Error Message is not Visible"));
@@ -201,7 +205,9 @@ public class ServiceProfileWidgetTest extends Driver {
             int size = Math.min(hlrService.getTotalCount(),5);
             final ServiceClassWidget serviceClassWidget = pages.getServiceClassWidget();
             boolean flag=true;
-            if (Integer.parseInt(hlrService.getStatusCode()) == 200) {
+            final int statusCode = hlrService.getStatusCode();
+            assertCheck.append(actions.assertEqual_intType(statusCode, 200, "HLR Service Profile Profile API success and status code is :" + statusCode, "HLR Service Profile API got failed and status code is :" + statusCode));
+            if (statusCode== 200) {
                 if (hlrService.getResult().isEmpty() || hlrService.getResult() == null) {
                     commonLib.warning("Unable to get Last Service Profile from API");
                     assertCheck.append(actions.assertEqual_boolean(serviceClassWidget.isServiceProfileNoResultFoundVisible(), true, "Error Message is Visible", "Error Message is not Visible"));
@@ -241,7 +247,9 @@ public class ServiceProfileWidgetTest extends Driver {
             int size = Math.min(hlrService.getTotalCount(),5);
             final ServiceClassWidget serviceClassWidget = pages.getServiceClassWidget();
             boolean flag=true;
-            if (Integer.parseInt(hlrService.getStatusCode()) == 200) {
+            final int statusCode = hlrService.getStatusCode();
+            assertCheck.append(actions.assertEqual_intType(statusCode, 200, "HLR Service Profile Profile API success and status code is :" + statusCode, "HLR Service Profile API got failed and status code is :" + statusCode));
+            if (statusCode== 200) {
                 if (hlrService.getResult().isEmpty() || hlrService.getResult() == null) {
                     commonLib.warning("Unable to get Last Service Profile from API");
                     assertCheck.append(actions.assertEqual_boolean(serviceClassWidget.isServiceProfileNoResultFoundVisible(), true, "Error Message is Visible", "Error Message is not Visible"));
@@ -289,7 +297,9 @@ public class ServiceProfileWidgetTest extends Driver {
             int size = Math.min(hlrService.getTotalCount(),5);
             final ServiceClassWidget serviceClassWidget = pages.getServiceClassWidget();
             boolean flag=true;
-            if (Integer.parseInt(hlrService.getStatusCode()) == 200) {
+            final int statusCode = hlrService.getStatusCode();
+            assertCheck.append(actions.assertEqual_intType(statusCode, 200, "HLR Service Profile Profile API success and status code is :" + statusCode, "HLR Service Profile API got failed and status code is :" + statusCode));
+            if (statusCode== 200) {
                 if (hlrService.getResult().isEmpty() || hlrService.getResult() == null) {
                     commonLib.warning("Unable to get Last Service Profile from API");
                     assertCheck.append(actions.assertEqual_boolean(serviceClassWidget.isServiceProfileNoResultFoundVisible(), true, "Error Message is Visible", "Error Message is not Visible"));
