@@ -60,7 +60,7 @@ public class FriendsFamilyWidgetTest extends PreRequisites {
             assertCheck.append(actions.assertEqual_intType(statusCode, 200, "Friends & Family Widget API success and status code is :" + statusCode, "Friends & Family Widget API got failed and status code is :" + statusCode));
             if (statusCode== 200) {
                 assertCheck.append(actions.assertEqual_boolean(pages.getDaDetailsPage().isFnFWidgetErrorDisplay(), true, "API and Widget both are showing error message", "API is Giving error But Widget is not showing error Message on API is " + friendsFamilyAPI.getMessage()));
-                commonLib.fail("API is Unable to Get AM Transaction History for Customer", false);
+                commonLib.fail("API is Unable to Get friends & Family History for Customer", false);
             } else if(friendsFamilyAPI.getResponse().size()>0){
                 assertCheck.append(actions.assertEqual_stringType(pages.getDaDetailsPage().getDisplayOfferHeader(1).toLowerCase().trim(), headerValues.getRow1().toLowerCase().trim(), "Header Name for Row 1 is as expected", "Header Name for Row 1 is not as expected"));
                 assertCheck.append(actions.assertEqual_stringType(pages.getDaDetailsPage().getDisplayOfferHeader(2).toLowerCase().trim(), headerValues.getRow2().toLowerCase().trim(), "Header Name for Row 2 is as expected", "Header Name for Row 2 is not as expected"));
