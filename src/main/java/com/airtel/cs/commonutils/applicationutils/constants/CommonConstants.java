@@ -36,5 +36,7 @@ public class CommonConstants {
     public static final String LOGIN_SHEET_NAME = "cs.login.sheet.name";
     public static final String SEARCH_BY_NAME="cs.search.by.name";
     public static final String SEARCH_BY_TITLE="cs.search.by.title";
+    public static final String TICKET_CREATE_EVENT="cs.ticket.create.event";
+    public static final String SYSTEM_SMS_TYPE="cs.system.sms.type";
 
 }

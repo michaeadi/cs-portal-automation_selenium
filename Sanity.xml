@@ -74,47 +74,47 @@
             <class name="com.airtel.cs.ui.frontendagent.demographicwidget.AuthTabTest"/>
         </classes>
     </test>-->
-     <test name="CRBT Widget Test">
+    <!-- <test name="CRBT Widget Test">
          <classes>
              <class name="com.airtel.cs.ui.frontendagent.hometab.CRBTWidgetTest"/>
          </classes>
-     </test>
- <!--    <test name="Create NFTR FTR Tickets TEST">
+     </test>-->
+     <!--<test name="Create NFTR FTR Tickets TEST">
          <classes>
              <class name="com.airtel.cs.ui.frontendagent.CreateInteractionTest"/>
          </classes>
-     </test>
-     <test name="Customer Pinned Tag TEST">
+     </test>-->
+     <!--<test name="Customer Pinned Tag TEST">
          <classes>
              <class name="com.airtel.cs.ui.frontendagent.PinTagTest"/>
          </classes>
-     </test>
-     <test name="Add Interaction Ticket Comment">
+     </test>-->
+    <!-- <test name="Add Interaction Ticket Comment">
          <classes>
              <class name="com.airtel.cs.ui.frontendagent.InteractionCommentTest"/>
          </classes>
-     </test>
-     <test name="Send SMS Test">
+     </test>-->
+     <!--<test name="Send SMS Test">
          <classes>
              <class name="com.airtel.cs.ui.frontendagent.SendSMSTest"/>
          </classes>
-     </test>
-     <test name="Validate Frontend Agent Ticket Page">
+     </test>-->
+     <!--<test name="Validate Frontend Agent Ticket Page">
          <classes>
              <class name="com.airtel.cs.ui.frontendagent.FrontendAgentTicketTest"/>
          </classes>
-     </test>
-     <test name="Validate Voucher Tab">
+     </test>-->
+     <!--<test name="Validate Voucher Tab">
          <classes>
              <class name="com.airtel.cs.ui.frontendagent.VoucherTabTest"/>
          </classes>
-     </test>
-     <test name="Clear Refill error">
+     </test>-->
+    <!-- <test name="Clear Refill error">
          <classes>
              <class name="com.airtel.cs.ui.frontendagent.hometab.ClearRefillErrorTest"/>
          </classes>
-     </test>
-     <test name="Loan Widget Test">
+     </test>-->
+     <!--<test name="Loan Widget Test">
          <classes>
              <class name="com.airtel.cs.ui.frontendagent.hometab.LoanWidgetTest"/>
          </classes>

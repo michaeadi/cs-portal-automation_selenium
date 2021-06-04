@@ -6,12 +6,8 @@ import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.NftrDataBeans;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.driver.Driver;
-import com.aventstack.extentreports.Status;
-import com.aventstack.extentreports.markuputils.Markup;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
@@ -94,8 +90,8 @@ public class InteractionCommentTest extends Driver {
                     }
                     pages.getInteractionsPage().setIssueDetailInput("1", "012345");
                 } else if (data.getIssueFieldType1().equalsIgnoreCase("Date") && !data.getIssueFieldLabel1().isEmpty()) {
-                    log.info(pages.getInteractionsPage().isDateFieldAvailable());
-                    softAssert.assertEquals(pages.getInteractionsPage().isDateFieldAvailable(), (data.getIssueFieldLabel1()));
+                    log.info(pages.getInteractionsPage().getAvailableDateField());
+                    softAssert.assertEquals(pages.getInteractionsPage().getAvailableDateField(), (data.getIssueFieldLabel1()));
                     if (data.getIssueFieldMandatory1().equalsIgnoreCase("Yes")) {
                         softAssert.assertTrue(pages.getInteractionsPage().isDateFieldAvailableMandatory().contains("*"), data.getIssueFieldLabel1() + "Label is mandatory but doesn't contain '*' ");
                     }
@@ -119,8 +115,8 @@ public class InteractionCommentTest extends Driver {
                     }
                     pages.getInteractionsPage().setIssueDetailInput("2", "012345");
                 } else if (data.getIssueFieldType2().equalsIgnoreCase("Date") && !data.getIssueFieldLabel2().isEmpty()) {
-                    log.info(pages.getInteractionsPage().isDateFieldAvailable());
-                    softAssert.assertEquals(pages.getInteractionsPage().isDateFieldAvailable(), (data.getIssueFieldLabel2()));
+                    log.info(pages.getInteractionsPage().getAvailableDateField());
+                    softAssert.assertEquals(pages.getInteractionsPage().getAvailableDateField(), (data.getIssueFieldLabel2()));
                     if (data.getIssueFieldMandatory2().equalsIgnoreCase("Yes")) {
                         softAssert.assertTrue(pages.getInteractionsPage().isDateFieldAvailableMandatory().contains("*"), data.getIssueFieldLabel2() + "Label is mandatory but doesn't contain '*' ");
                     }
@@ -143,8 +139,8 @@ public class InteractionCommentTest extends Driver {
                     }
                     pages.getInteractionsPage().setIssueDetailInput("3", "012345");
                 } else if (data.getIssueFieldType3().equalsIgnoreCase("Date") && !data.getIssueFieldLabel3().isEmpty()) {
-                    log.info(pages.getInteractionsPage().isDateFieldAvailable());
-                    softAssert.assertEquals(pages.getInteractionsPage().isDateFieldAvailable(), (data.getIssueFieldLabel3()));
+                    log.info(pages.getInteractionsPage().getAvailableDateField());
+                    softAssert.assertEquals(pages.getInteractionsPage().getAvailableDateField(), (data.getIssueFieldLabel3()));
                     if (data.getIssueFieldMandatory3().equalsIgnoreCase("Yes")) {
                         softAssert.assertTrue(pages.getInteractionsPage().isDateFieldAvailableMandatory().contains("*"), data.getIssueFieldLabel3() + "Label is mandatory but doesn't contain '*' ");
                     }
@@ -170,8 +166,8 @@ public class InteractionCommentTest extends Driver {
                     }
                     pages.getInteractionsPage().setIssueDetailInput("4", "012345");
                 } else if (data.getIssueFieldType4().equalsIgnoreCase("Date") && !data.getIssueFieldLabel4().isEmpty()) {
-                    log.info(pages.getInteractionsPage().isDateFieldAvailable());
-                    softAssert.assertEquals(pages.getInteractionsPage().isDateFieldAvailable(), (data.getIssueFieldLabel4()));
+                    log.info(pages.getInteractionsPage().getAvailableDateField());
+                    softAssert.assertEquals(pages.getInteractionsPage().getAvailableDateField(), (data.getIssueFieldLabel4()));
                     if (data.getIssueFieldMandatory4().equalsIgnoreCase("Yes")) {
                         softAssert.assertTrue(pages.getInteractionsPage().isDateFieldAvailableMandatory().contains("*"), data.getIssueFieldLabel4() + "Label is mandatory but doesn't contain '*' ");
                     }
@@ -194,8 +190,8 @@ public class InteractionCommentTest extends Driver {
                     }
                     pages.getInteractionsPage().setIssueDetailInput("5", "012345");
                 } else if (data.getIssueFieldType5().equalsIgnoreCase("Date") && !data.getIssueFieldLabel5().isEmpty()) {
-                    log.info(pages.getInteractionsPage().isDateFieldAvailable());
-                    softAssert.assertEquals(pages.getInteractionsPage().isDateFieldAvailable(), (data.getIssueFieldLabel5()));
+                    log.info(pages.getInteractionsPage().getAvailableDateField());
+                    softAssert.assertEquals(pages.getInteractionsPage().getAvailableDateField(), (data.getIssueFieldLabel5()));
                     if (data.getIssueFieldMandatory5().equalsIgnoreCase("Yes")) {
                         softAssert.assertTrue(pages.getInteractionsPage().isDateFieldAvailableMandatory().contains("*"), data.getIssueFieldLabel5() + "Label is mandatory but doesn't contain '*' ");
                     }
@@ -218,8 +214,8 @@ public class InteractionCommentTest extends Driver {
                     }
                     pages.getInteractionsPage().setIssueDetailInput("6", "012345");
                 } else if (data.getIssueFieldType6().equalsIgnoreCase("Date") && !data.getIssueFieldLabel6().isEmpty()) {
-                    log.info(pages.getInteractionsPage().isDateFieldAvailable());
-                    softAssert.assertEquals(pages.getInteractionsPage().isDateFieldAvailable(), (data.getIssueFieldLabel6()));
+                    log.info(pages.getInteractionsPage().getAvailableDateField());
+                    softAssert.assertEquals(pages.getInteractionsPage().getAvailableDateField(), (data.getIssueFieldLabel6()));
                     if (data.getIssueFieldMandatory6().equalsIgnoreCase("Yes")) {
                         softAssert.assertTrue(pages.getInteractionsPage().isDateFieldAvailableMandatory().contains("*"), data.getIssueFieldLabel6() + "Label is mandatory but doesn't contain '*' ");
                     }
@@ -242,8 +238,8 @@ public class InteractionCommentTest extends Driver {
                     }
                     pages.getInteractionsPage().setIssueDetailInput("7", "012345");
                 } else if (data.getIssueFieldType7().equalsIgnoreCase("Date") && !data.getIssueFieldLabel7().isEmpty()) {
-                    log.info(pages.getInteractionsPage().isDateFieldAvailable());
-                    softAssert.assertEquals(pages.getInteractionsPage().isDateFieldAvailable(), (data.getIssueFieldLabel7()));
+                    log.info(pages.getInteractionsPage().getAvailableDateField());
+                    softAssert.assertEquals(pages.getInteractionsPage().getAvailableDateField(), (data.getIssueFieldLabel7()));
                     if (data.getIssueFieldMandatory7().equalsIgnoreCase("Yes")) {
                         softAssert.assertTrue(pages.getInteractionsPage().isDateFieldAvailableMandatory().contains("*"), data.getIssueFieldLabel7() + "Label is mandatory but doesn't contain '*' ");
                     }

@@ -267,7 +267,7 @@ public class CommonLib extends Driver {
             driver.manage().deleteAllCookies();
             tempWindowHandle = tempDriver.getWindowHandle();
         } catch (Exception e) {
-            fail("Exception Caught in Method - open_NewTemporaryBrowser_2nd" + "</br>" + "Exception Message - "
+            fail("Exception Caught in Method - openNewTemporaryBrowser2Nd" + "</br>" + "Exception Message - "
                     + e.getMessage(), true);
         }
     }

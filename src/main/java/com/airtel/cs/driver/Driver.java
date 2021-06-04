@@ -20,6 +20,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.logging.LogType;
+import org.openqa.selenium.logging.LoggingPreferences;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
@@ -36,6 +38,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.logging.Level;
 
 @Log4j2
 public class Driver {
@@ -258,13 +261,18 @@ public class Driver {
      */
     private static void browserCapabilities() {
         ChromeOptions options = new ChromeOptions();
+        LoggingPreferences loggingprefs = new LoggingPreferences();
+        loggingprefs.enable(LogType.BROWSER, Level.WARNING);
+        loggingprefs.enable(LogType.PERFORMANCE, Level.ALL);
         options.addArguments("--window-size=1792,1120");
-        options.setHeadless(false);
+        options.setHeadless(true);
         Map<String, Object> prefs = new HashMap<>();
         prefs.put("download.default_directory", excelPath);
         prefs.put("intl.accept_languages", "nl");
         prefs.put("disable-popup-blocking", "true");
         options.setExperimentalOption("prefs", prefs);
+        options.setCapability("goog:loggingPrefs", loggingprefs);
+        options.setCapability(ChromeOptions.CAPABILITY,options);
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
     }

@@ -27,7 +27,7 @@ public class Interactions extends BasePage {
         clickAndWaitForLoaderToBeRemoved(pageElements.continueButton);
     }
 
-    public String isDateFieldAvailable() {
+    public String getAvailableDateField() {
         commonLib.info("Checking is Date Field is available at expected place ");
         return getText(pageElements.issueDetails);
     }
