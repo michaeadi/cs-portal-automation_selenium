@@ -169,7 +169,7 @@ public class FriendsFamilyWidgetTest extends PreRequisites {
                     pages.getDaDetailsPage().closePopup();
                 } else {
                     friendsFamilyAPI = api.friendsFamilyAPITest(customerNumber);
-                    Boolean flag = true;
+                    boolean flag = true;
                     for (int i = 0; i < friendsFamilyAPI.getResult().get(0).getFafInformation().size(); i++) {
                         if (friendsFamilyAPI.getResult().get(0).getFafInformation().get(i).getFafNumber().equals(constants.getValue(ApplicationConstants.FNF_NEW_MSISDN))) {
                             commonLib.pass("New Number added successfully into FnF List.");
@@ -230,7 +230,7 @@ public class FriendsFamilyWidgetTest extends PreRequisites {
             selUtils.addTestcaseDescription("Verify for adding a number into Customer's FnF list,Click on Add member Icon, Validate Add member pop up open, validate user have option to add new member,Add new Member into FnF List,Click on Submit button,Validate newly added member show in list,", "description");
             ArrayList<FriendsFamilyResponse> fnfInfoAPI = friendsFamilyAPI.getResult().get(0).getFafInformation();
             int size = Math.min(fnfInfoAPI.size(), 5);
-            Boolean status=true;
+            boolean status=true;
             for (int i = 0; i < size; i++) {
                 if(pages.getDaDetailsPage().getValueCorrespondingToFriendsFamily(i + 1, 1).equalsIgnoreCase(constants.getValue(ApplicationConstants.FNF_NEW_MSISDN))){
                     pages.getDaDetailsPage().clickActionIconOnFriendsFamily(i+1);
@@ -248,7 +248,7 @@ public class FriendsFamilyWidgetTest extends PreRequisites {
                             commonLib.fail("Get Failure message as pop up does not closed after clicking on submit button. Error Message: " + pages.getAuthTabPage().getErrorMessage(), true);
                         } else {
                             friendsFamilyAPI = api.friendsFamilyAPITest(customerNumber);
-                            Boolean flag = true;
+                            boolean flag = true;
                             for (int j = 0; j < friendsFamilyAPI.getResult().get(0).getFafInformation().size(); j++) {
                                 if (friendsFamilyAPI.getResult().get(0).getFafInformation().get(j).getFafNumber().equals(constants.getValue(ApplicationConstants.FNF_NEW_MSISDN))) {
                                     commonLib.fail("After deleting Newly added Number still showing into FnF List.",true);
