@@ -40,8 +40,12 @@ public class DADetailsPage {
     public String fnfTitle="//div[@id='FRIENDS_AND_FAMILY']";
     public String fnfHeader="//div[@id='FRIENDS_AND_FAMILY']//div[@class='card__card-header--card-body--table--list-heading ng-star-inserted']//div[";
     public String fnfColumnHeader="//div[@id='FRIENDS_AND_FAMILY']//div[@class='table-data-wrapper ng-star-inserted']/div[@class='ng-star-inserted'  or @class='slide-toggle red ng-star-inserted'][";
-    public String fnfColumnValue="]//div[@class='ng-star-inserted' or @class='slide-toggle red ng-star-inserted'][";
-
+    public String fnfColumnValue="]//div[@class='ng-star-inserted' or @class='slide-toggle red ng-star-inserted' or @class='data-container ng-star-inserted'][";
+    public String actionIcon="]//img";
+    public By addMemberIcon=By.xpath("//div[@id='FRIENDS_AND_FAMILY']//span[contains(text(),'Add')]");
+    public By popUpTitle=By.xpath("//div[@class='main-container__header']//span");
+    public By popUpCloseBtn = By.xpath("//div[@class='main-container__header']//mat-icon");
+    public By addNumber=By.xpath("//input[@name='q1']");
     /**
      * Widget No Result/widget error elements
      * */

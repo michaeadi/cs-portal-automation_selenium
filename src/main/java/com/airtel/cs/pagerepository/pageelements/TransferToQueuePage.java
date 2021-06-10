@@ -6,4 +6,5 @@ public class TransferToQueuePage {
     public By pageTitle = By.xpath("//*[@id=\"assignQueue\"]/app-assign-to-queue/section/div/div[1]/h4");
     public By transferQueue;
     public By closeTab = By.xpath("//button[@class=\"mat-button\"]//span[contains(text(),'X')]");
+    public By firstQueueName=By.xpath("//div[@class='agent-list ng-star-inserted'][1]//span");
 }

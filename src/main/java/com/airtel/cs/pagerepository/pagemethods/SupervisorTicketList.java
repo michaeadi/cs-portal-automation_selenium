@@ -1,5 +1,6 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
+import com.airtel.cs.commonutils.applicationutils.enums.ReportInfoMessageColorList;
 import com.airtel.cs.pagerepository.pageelements.SupervisorTicketListPage;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
@@ -33,6 +34,20 @@ public class SupervisorTicketList extends BasePage {
         String value = getText(pageElements.transferErrorMessage);
         commonLib.info("Reading transfer error message: " + value);
         return value;
+    }
+
+    /**
+     * This method use to get error message while performing transfer to queue
+     * */
+    public String getTransferSuccessMessage() {
+        try {
+            String value = getText(pageElements.transferSuccessMessage);
+            commonLib.info("Reading transfer Success message: " + value);
+            return value;
+        }catch (NoSuchElementException | TimeoutException e){
+            commonLib.infoHighlight("","Not able to read message", ReportInfoMessageColorList.RED);
+            return "Got some error";
+        }
     }
 
     /**
@@ -637,7 +652,7 @@ public class SupervisorTicketList extends BasePage {
      * This method use to get list of search by option
      * */
     public List<String> getListOfSearchOption() {
-        log.info("Getting Search Option");
+       commonLib.info("Getting Search Option");
         List<WebElement> list = returnListOfElement(pageElements.allSearchOption);
         List<String> searchOption = new ArrayList<>();
         for (int i = 1; i <= list.size(); i++) {

@@ -88,8 +88,8 @@ public class AuthTab extends BasePage {
     }
 
     public boolean isSIMBarPopup() {
-        final boolean state = isEnabled(pageElements.simBarTitle);
-        commonLib.info("Is SIM bar/unbar popup open: " + state);
+        final boolean state = isElementVisible(pageElements.simBarTitle);
+        commonLib.info("Is popup open: " + state);
         return state;
     }
 
@@ -164,7 +164,7 @@ public class AuthTab extends BasePage {
     public void clickSubmitBtn() {
         if (isClickable(pageElements.submitBtn)) {
             commonLib.info("Clicking Submit Button");
-            clickWithoutLoader(pageElements.submitBtn);
+            clickAndWaitForLoaderToBeRemoved(pageElements.submitBtn);
         } else {
             commonLib.fail("Exception in Method - clickSubmitBtn", true);
         }
@@ -182,6 +182,12 @@ public class AuthTab extends BasePage {
             clickWithoutLoader(pageElements.closeBtn);
         }
         return result;
+    }
+
+    public String getErrorMessage(){
+        String text=getText(pageElements.errorMessage);
+        commonLib.info("Reading Error Message Display over Pop up: "+text);
+        return text;
     }
 
 }

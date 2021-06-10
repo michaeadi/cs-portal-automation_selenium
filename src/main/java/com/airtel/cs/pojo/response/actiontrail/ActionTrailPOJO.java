@@ -1,4 +1,4 @@
-package com.airtel.cs.pojo.response.friendsfamily;
+package com.airtel.cs.pojo.response.actiontrail;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
@@ -11,9 +11,11 @@ import java.util.ArrayList;
 @Setter
 @ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class FriendsFamilyPOJO {
-    private String message;
+public class ActionTrailPOJO {
     private String status;
-    private int statusCode;
-    private ArrayList<FriendsFamilyInformation> result;
+    private Integer statusCode;
+    private Integer pageSize;
+    private Integer pageNumber;
+    private Integer totalCount;
+    private ArrayList<EventResult> result;
 }

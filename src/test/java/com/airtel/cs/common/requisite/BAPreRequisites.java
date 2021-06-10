@@ -43,10 +43,9 @@ public class BAPreRequisites extends Driver {
                 commonLib.fail("Growl Message:- " + pages.getGrowl().getToastContent(), true);
                 continueExecutionFA = false;
             } else {
-                assertCheck.append(actions.assertEqual_boolean(pages.getUserManagementPage().isUserManagementPageLoaded(), true, "Customer Dashboard Page Loaded Successfully", "Customer Dashboard page NOT Loaded"));
                 assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isSideMenuVisible(), true, "Side Menu Visible", "Side Menu Not Visible"));
                 pages.getSideMenuPage().clickOnSideMenu();
-                assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isCustomerServicesVisible(), true, "Customer Service Visible", "Customer Service Not Visible"));
+                assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isAgentDashboard(), true, "Customer Service Visible", "Customer Service Not Visible"));
                 actions.assertAllFoundFailedAssert(assertCheck);
             }
         } catch (Exception e) {

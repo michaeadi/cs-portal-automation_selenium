@@ -46,6 +46,7 @@ public class CurrentBalanceWidget extends BasePage {
     public boolean isCurrentBalanceWidgetMenuVisible() {
         try {
             commonLib.info("Checking is Your Current Balance Widget'Menu Visible");
+            waitVisibility(pageElements.menu);
             return isElementVisible(pageElements.menu);
         } catch (Exception e) {
             throw new NoSuchElementException("Current Plan widget menu option does not display");

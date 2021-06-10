@@ -7,6 +7,7 @@ import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
+import com.airtel.cs.commonutils.applicationutils.enums.ReportInfoMessageColorList;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
 import com.airtel.cs.pagerepository.pagemethods.DADetails;
@@ -40,17 +41,17 @@ public class DisplayOfferWidgetTest extends PreRequisites {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
             customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
-            pages.getSideMenuPage().clickOnUserName();
+            pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().openCustomerInteractionPage();
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();
             final boolean pageLoaded = pages.getCustomerProfilePage().isCustomerProfilePageLoaded();
             assertCheck.append(actions.assertEqual_boolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
             if (!pageLoaded) continueExecutionFA = false;
-            actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - openCustomerInteraction" + e.fillInStackTrace(), true);
         }
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     @DataProviders.Table(name = "UC-UT Offer")
@@ -66,7 +67,7 @@ public class DisplayOfferWidgetTest extends PreRequisites {
             offerDetailPOJO = api.offerDetailAPITest(customerNumber);
             final int statusCode = offerDetailPOJO.getStatusCode();
             assertCheck.append(actions.assertEqual_intType(statusCode, 200, "Display Offer Widget API success and status code is :" + statusCode, "Display Offer Widget API got failed and status code is :" + statusCode));
-            if (statusCode== 200) {
+            if (statusCode!= 200) {
                 commonLib.fail("API is Unable to Get Display Offer for Customer", false);
             } else if(offerDetailPOJO.getResult().size() > 0){
                 assertCheck.append(actions.assertEqual_stringType(pages.getDaDetailsPage().getDisplayOfferHeader(1).toLowerCase().trim(), headerValues.getRow1().toLowerCase().trim(), "Header Name for Row 1 is as expected", "Header Name for Row 1 is not as expected"));
@@ -95,7 +96,7 @@ public class DisplayOfferWidgetTest extends PreRequisites {
         try {
             final int statusCode = offerDetailPOJO.getStatusCode();
             assertCheck.append(actions.assertEqual_intType(statusCode, 200, "Display Offer Widget API success and status code is :" + statusCode, "Display Offer Widget API got failed and status code is :" + statusCode));
-            if (statusCode== 200) {
+            if (statusCode!= 200) {
                 commonLib.fail("API is Unable to Get AM Transaction History for Customer", false);
             } else if (offerDetailPOJO.getResult().size() > 0) {
                 int size = Math.min(offerDetailPOJO.getResult().size(), 5);
@@ -110,13 +111,13 @@ public class DisplayOfferWidgetTest extends PreRequisites {
                     assertCheck.append(actions.matchUiAndAPIResponse(daDetailsPage.getValueCorrespondingToOffer(i + 1, 8), offerDetailPOJO.getResult().get(i).getOfferState(), "Offer State is as expected as API response", "offer State is not expected as API response"));
                     assertCheck.append(actions.matchUiAndAPIResponse(daDetailsPage.getValueCorrespondingToOffer(i + 1, 9), offerDetailPOJO.getResult().get(i).getNoOfDAs(), "Offer No. of DA associated number is as expected as API response", "offer No. of DA associated number is not expected as API response"));
                 }
-                actions.assertAllFoundFailedAssert(assertCheck);
             }else{
                 commonLib.warning("API is unable to get Offer detail");
             }
         } catch (Exception e) {
             commonLib.fail("Exception in Method - displayOfferWidgetTest" + e.fillInStackTrace(), true);
         }
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"displayOfferHeaderTest"})
@@ -126,7 +127,8 @@ public class DisplayOfferWidgetTest extends PreRequisites {
         int size = Math.min(offerDetailPOJO.getResult().size(), 5);
         try {
             for (int i = 0; i < size; i++) {
-                if (offerDetailPOJO.getResult().get(i).getNoOfDAs() > 0) {
+                int daSize=offerDetailPOJO.getResult().get(i).getNoOfDAs()!=null ?offerDetailPOJO.getResult().get(i).getNoOfDAs() :-1;
+                if (daSize > 0) {
                     daDetailsPage.hoverOnTotalDAIds(i + 1, 9);
                     assertCheck.append(actions.assertEqual_boolean(daDetailsPage.isAssociateDAWidgetDisplay(), true, "After hover on Number of DA's Associate widget display as expected", "After hover on Number of DA's Associate widget does not display as expected"));
                     for (int j = 0; j < daDetailsPage.getNumberOfAssociateHeader(); j++) {
@@ -138,10 +140,13 @@ public class DisplayOfferWidgetTest extends PreRequisites {
                         assertCheck.append(actions.matchUiAndAPIResponse(daDetailsPage.getValueCorrespondingToOffer(i + 1, 4), UtilsMethods.getDateFromEpochInUTC(Long.parseLong(offerDetailPOJO.getResult().get(i).getAccountInformation().get(j).getDaEndDate()), constants.getValue(CommonConstants.OFFER_DETAILS_TIME_FORMAT)), "Offer Expiry date is as expected as API response", "offer Expiry date is not expected as API response"));
                     }
                     break;
+                }else{
+                    commonLib.infoHighlight("No Associated DA Id's with Offer:- ",String.valueOf(offerDetailPOJO.getResult().get(i).getOfferId()), ReportInfoMessageColorList.RED,true);
                 }
             }
             actions.assertAllFoundFailedAssert(assertCheck);
         }catch (Exception e){
+            e.printStackTrace();
             commonLib.fail("Exception in Method - associatedDAPopUpTest" + e.fillInStackTrace(), true);
         }
     }
@@ -150,7 +155,8 @@ public class DisplayOfferWidgetTest extends PreRequisites {
     public void checkPaginationForOfferWidget(){
         selUtils.addTestcaseDescription("Validate Offers widget display pagination and agent able to navigate through pagination ", "description");
         try{
-            String paginationResult="1 - 5 of "+offerDetailPOJO.getResult().size()+" Results";
+            int pageSize=Math.min(offerDetailPOJO.getResult().size(),5);
+            String paginationResult="1 - "+pageSize+" of "+offerDetailPOJO.getResult().size()+" Results";
             assertCheck.append(actions.assertEqual_stringType(pages.getDaDetailsPage().getPaginationText(),paginationResult,"Pagination Count as expected","Pagination count as not expected"));
             if(offerDetailPOJO.getResult().size()>5){
                 assertCheck.append(actions.assertEqual_boolean(pages.getDaDetailsPage().checkNextBtnEnable(),true,"In pagination next button is enable as result is greater than 5","In Pagination next button is not enable but result is greater than 5."));
@@ -172,7 +178,7 @@ public class DisplayOfferWidgetTest extends PreRequisites {
         try {
             selUtils.addTestcaseDescription("Verify that necessary permissions are added for offers widget to be displayed.", "description");
             String offer_widget_permission = constants.getValue(PermissionConstants.OFFER_WIDGET_PERMISSION);
-            assertCheck.append(actions.assertEqual_boolean(pages.getServiceClassWidget().isServiceClassWidgetDisplay(), UtilsMethods.isUserHasPermission(new Headers(map), offer_widget_permission), "Display Offer Widget displayed correctly as per user permission", "Display Offer Widget does not display correctly as per user permission"));
+            assertCheck.append(actions.assertEqual_boolean(pages.getDaDetailsPage().isOfferWidgetDisplay(), UtilsMethods.isUserHasPermission(new Headers(map), offer_widget_permission), "Display Offer Widget displayed correctly as per user permission", "Display Offer Widget does not display correctly as per user permission"));
             actions.assertAllFoundFailedAssert(assertCheck);
         }catch (Exception e){
             commonLib.fail("Exception in Method - isUserHasOfferPermission" + e.fillInStackTrace(), true);

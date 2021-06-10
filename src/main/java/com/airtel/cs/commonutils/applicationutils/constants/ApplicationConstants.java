@@ -34,6 +34,7 @@ public class ApplicationConstants {
     public static final String SEND_INTERNET_SETTINGS = "cs.send.internet.settings";
     public static final String RESET_ME2U_PASSWORD = "cs.reset.me2u.password";
     public static final String CRBT_WIDGET = "cs.crbt.widget";
+    public static final String FNF_NEW_MSISDN="cs.customer.new.member.msisdn";
 
 
     private ApplicationConstants() {

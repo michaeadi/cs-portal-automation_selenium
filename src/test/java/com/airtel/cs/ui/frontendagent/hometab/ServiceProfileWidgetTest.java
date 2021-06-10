@@ -15,6 +15,7 @@ import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -29,9 +30,16 @@ public class ServiceProfileWidgetTest extends Driver {
     private HLRServicePOJO hlrService;
     public static final String RUN_HLR_SERVICE_TEST_CASE = constants.getValue(ApplicationConstants.RUN_HLR_WIDGET_TEST_CASE);
 
+    @BeforeClass
+    public void checkServiceProfileFlag() {
+        if (!StringUtils.equals(RUN_HLR_SERVICE_TEST_CASE, "true")) {
+            commonLib.skip("Skipping because Run service profile widget Test Case Flag Value is - " + RUN_TARIFF_TEST_CASE);
+            throw new SkipException("Skipping because this functionality does not applicable for current opco");
+        }
+    }
     @BeforeMethod
     public void checkExecution() {
-        if (!continueExecutionFA && !StringUtils.equalsIgnoreCase(RUN_HLR_SERVICE_TEST_CASE,"true")) {
+        if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login via API");
             throw new SkipException("Skipping tests because user NOT able to login via API");
         }

@@ -121,7 +121,14 @@ public class DADetails extends BasePage {
      * */
     public boolean isDAWidgetIsVisible() {
         commonLib.info("Checking is DA Widget Visible");
-        return isElementVisible(pageElements.getTitle);
+        boolean status=isElementVisible(pageElements.getTitle);
+        try {
+            scrollToViewElement(pageElements.getTitle);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            commonLib.info("Not able scroll to the widget");
+        }
+        return status;
     }
 
     /**
@@ -153,7 +160,14 @@ public class DADetails extends BasePage {
      * */
     public Boolean isOfferWidgetDisplay(){
         commonLib.info("Checking that Display Offer widget Display");
-        return  isElementVisible(By.xpath(pageElements.displayOfferTitle));
+        Boolean status=isElementVisible(By.xpath(pageElements.displayOfferTitle));
+        try {
+            scrollToViewElement(pageElements.getTitle);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            commonLib.info("Not able scroll to the widget");
+        }
+        return  status;
     }
 
     /**
@@ -219,7 +233,14 @@ public class DADetails extends BasePage {
      * */
     public Boolean isFriendsFamilyDisplay(){
         commonLib.info("Checking that Friend & Family widget Display");
-        return  isElementVisible(By.xpath(pageElements.fnfTitle));
+        Boolean status=isElementVisible(By.xpath(pageElements.fnfTitle));
+        try {
+            scrollToViewElement(pageElements.getTitle);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            commonLib.info("Not able scroll to the widget");
+        }
+        return  status;
     }
 
     /**
@@ -228,7 +249,7 @@ public class DADetails extends BasePage {
      * @return String The header name
      * */
     public String getFriendsFamilyHeaders(int column) {
-        String header = getText(By.xpath(pageElements.fnfHeader + column + pageElements.headerValue));
+        String header = getText(By.xpath(pageElements.fnfHeader + column + "]"));
         commonLib.info("Getting Accumulator header Number " + column + " : " + header);
         return header;
     }
@@ -241,9 +262,47 @@ public class DADetails extends BasePage {
      * */
     public String getValueCorrespondingToFriendsFamily(int row, int column) {
         String value = getText(By.xpath(pageElements.fnfColumnHeader + row + pageElements.fnfColumnValue + column + pageElements.headerValue));
-        commonLib.info("Reading '" + getAccumulatorHeaders(column) + "' = " + value);
+        commonLib.info("Reading '" + getFriendsFamilyHeaders(column) + "' = " + value);
         return value.trim();
     }
+
+    /**
+     * This method use to get friend & Family widget action icon displayed or not based on row
+     * @param row The row number
+     * @return Boolean The  data value
+     * */
+    public Boolean isActionIconOnFriendsFamily(int row) {
+        Boolean status = isElementVisible(By.xpath(pageElements.fnfColumnHeader + row + pageElements.actionIcon));
+        commonLib.info("Is action icon display '" +status);
+        return status;
+    }
+
+    /**
+     * This method use to get friend & Family widget action icon displayed or not based on row
+     * @param row The row number
+     * */
+    public void clickActionIconOnFriendsFamily(int row) {
+        commonLib.info("click action icon associated to msisdn '" +getValueCorrespondingToFriendsFamily(row,1));
+        clickAndWaitForLoaderToBeRemoved(By.xpath(pageElements.fnfColumnHeader + row + pageElements.actionIcon));
+    }
+
+    /**
+     * This method use to get friend & Family widget add member icon displayed or not
+     * @return Boolean The  status
+     * */
+    public Boolean isFnFAddMemberIcon(){
+        commonLib.info("Checking add member icon display or not");
+        return isElementVisible(pageElements.addMemberIcon);
+    }
+
+    /**
+     * This method use to click friend & Family widget add member icon
+     * */
+    public void clickAddMemberIcon(){
+        commonLib.info("Clicking on add member icon");
+        clickAndWaitForLoaderToBeRemoved(pageElements.addMemberIcon);
+    }
+
 
     /**
      * This method use to check friend & Family widget error display or not
@@ -257,8 +316,41 @@ public class DADetails extends BasePage {
      * @return true/false
      * */
     public Boolean isFnFNoResultIconDisplay(){
-        commonLib.info("Checking friend & family no result icon display amd message: '"+getText(By.xpath(pageElements.fnfTitle+pageElements.noResultFoundMessage)));
-        return isElementVisible(By.xpath(pageElements.fnfTitle+pageElements.noResultFoundIcon));
+        Boolean status=isElementVisible(By.xpath(pageElements.fnfTitle+pageElements.noResultFoundIcon));
+        commonLib.info("Checking friend & family no result icon display: '"+status);
+        return status;
+    }
+    /**
+     * This method is used to check friend & Family widget no result found message display or not
+     * @return String The value of message
+     * */
+    public String getFnFNoResultMessage(){
+        String text=getText(By.xpath(pageElements.fnfTitle+pageElements.noResultFoundMessage));
+        commonLib.info("Checking friend & family no result message display: '"+text);
+        return text;
+    }
+
+    /**
+     * This method is used to close pop up
+     * */
+    public void closePopup() {
+        commonLib.info("Closing popup tab");
+        clickAndWaitForLoaderToBeRemoved(pageElements.popUpCloseBtn);
+    }
+
+    public void enterAddFnfNumber(String mobileNumber){
+        commonLib.info("Entering Mobile number: "+mobileNumber);
+        enterText(pageElements.addNumber,mobileNumber);
+    }
+
+    /**
+     * This method is used to get Pop up title text
+     * @return String The Value of title
+     * */
+    public String getPopUpTitle(){
+        String text=getText(pageElements.popUpTitle);
+        commonLib.info("Reading Pop Up Title: "+text);
+        return text;
     }
 
     /**

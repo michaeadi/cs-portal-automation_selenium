@@ -33,4 +33,13 @@ public class TransferToQueue extends BasePage {
         commonLib.info("Closing Transfer to Queue Tab");
         clickAndWaitForLoaderToBeRemoved(pageElements.closeTab);
     }
+
+    /**
+     * This method use to get first queue name from transfer to queue tab
+     * @return String Queue Name
+     * */
+    public String getFirstTransferQueue() {
+        commonLib.info("Getting first queue name");
+        return getText(pageElements.firstQueueName);
+    }
 }

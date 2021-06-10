@@ -23,4 +23,5 @@ public class AuthTabPage {
     public By code = By.xpath("//mat-option[1]//span");
     public By toastModal = By.xpath("//div[contains(@class,'main-container__body--message')]");
     public By closeBtn = By.xpath("//following-sibling::mat-icon[contains(text(),'close')]");
+    public By errorMessage=By.xpath("//span[@class='message-container']/p[@class='error-message ng-star-inserted']");
 }

@@ -39,5 +39,10 @@ public class CommonConstants {
     public static final String OFFER_DETAILS_TIME_FORMAT="cs.offer.details.time.format";
     public static final String SEARCH_BY_NAME="cs.search.by.name";
     public static final String SEARCH_BY_TITLE="cs.search.by.title";
+    public static final String BACKEND_TICKET_LIST_PAGE_TITLE="backend.agent.ticket.list.page";
+    public static final String SUPERVISOR_TICKET_LIST_PAGE_TITLE="supervisor.ticket.list.page";
+    public static final String SEARCH_BY_TICKET_ID="cs.search.by.ticket.id";
+    public static final String SEARCH_BY_GLOBAL_SEARCH="cs.search.by.global.search";
+    public static final String ADD_FNF_ACTION_TYPE="add.fnf.Type";
 
 }
