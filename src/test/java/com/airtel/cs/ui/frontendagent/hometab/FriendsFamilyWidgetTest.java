@@ -277,5 +277,26 @@ public class FriendsFamilyWidgetTest extends PreRequisites {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
+    @Test(priority = 10, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"addMemberToFNF"})
+    public void validateActionTabAfterDeleteFnFMember() {
+        try {
+            selUtils.addTestcaseDescription("Verify Action trail tab after removing number into Customer's FnF list,Hit action trail event api, Validate action type & comments & agent id", "description");
+            ActionTrailPOJO actionTrailAPI = api.getEventHistory(customerNumber, "ACTION");
+            final int statusCode = actionTrailAPI.getStatusCode();
+            assertCheck.append(actions.assertEqual_intType(statusCode, 200, "Friends & Family Widget API success and status code is :" + statusCode, "Friends & Family Widget API got failed and status code is :" + statusCode));
+            if (statusCode == 200) {
+                EventResult actionResultAPI = actionTrailAPI.getResult().get(0);
+                assertCheck.append(actions.matchUiAndAPIResponse(actionResultAPI.getActionType(), constants.getValue(CommonConstants.DELETE_FNF_ACTION_TYPE), "Action Type of Remove FnF as expected", "Action Type of Remove FnF as not expected"));
+                assertCheck.append(actions.matchUiAndAPIResponse(actionResultAPI.getComments(), DELETE_FNF_COMMENT, "Comment same as expected.", "Comment same as not expected."));
+                assertCheck.append(actions.matchUiAndAPIResponse(actionResultAPI.getAgentId(), constants.getValue(CommonConstants.ALL_USER_ROLE_AUUID), "Agent id same as expected", "Agent id same as not expected"));
+            } else {
+                commonLib.fail("Not able to fetch action trail event log using API", true);
+            }
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - validateActionTabAfterDeleteFnFMember" + e.fillInStackTrace(), true);
+        }
+        actions.assertAllFoundFailedAssert(assertCheck);
+    }
+
 
 }

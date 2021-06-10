@@ -572,7 +572,7 @@ public class RequestSource extends RestCommonUtils {
             commonGetMethod(URIConstants.AGENT_DETAILS,headers);
             result = response.as(AgentDetailPOJO.class);
         } catch (Exception e) {
-            commonLib.fail("Exception in method - fetchTicketPoolAPI " + e.getMessage(), false);
+            commonLib.fail("Exception in method - getAgentDetail " + e.getMessage(), false);
         }
         return result;
     }

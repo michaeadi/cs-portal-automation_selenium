@@ -44,5 +44,6 @@ public class CommonConstants {
     public static final String SEARCH_BY_TICKET_ID="cs.search.by.ticket.id";
     public static final String SEARCH_BY_GLOBAL_SEARCH="cs.search.by.global.search";
     public static final String ADD_FNF_ACTION_TYPE="add.fnf.Type";
+    public static final String DELETE_FNF_ACTION_TYPE="delete.fnf.Type";
 
 }
