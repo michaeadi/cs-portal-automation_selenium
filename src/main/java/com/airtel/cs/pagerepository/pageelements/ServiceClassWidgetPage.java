@@ -18,7 +18,7 @@ public class ServiceClassWidgetPage {
     public By successModal=By.xpath("//*[@class='main-container__body--message ng-star-inserted']");
     public By closeBtn = By.xpath("//following-sibling::mat-icon[contains(text(),'close')]");
     public String serviceStatus="//span[contains(text(),'Service Profile')]//ancestor::div[@class='card widget ng-star-inserted']//div[@class='table-data-wrapper ng-star-inserted']/div[@class='ng-star-inserted'  or @class='slide-toggle red ng-star-inserted'][";
-    public String toggleBtn="]//mat-slide-toggle";
+    public String toggleBtn="]//input";
     /**
      * Pagination previous next button
      * */
