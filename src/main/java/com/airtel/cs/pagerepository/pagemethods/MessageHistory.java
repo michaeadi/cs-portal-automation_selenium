@@ -15,7 +15,7 @@ public class MessageHistory extends BasePage {
     MessageHistoryPage pageElements;
     List<WebElement> list;
     private static final String TEXT1 = "Checking Message Type Column Displayed: ";
-    private static final String XPATH = "//table[@id=\"fetchTicketByCustomer\"]//tbody/tr[";
+    private static final String XPATH = "//table[@id='fetchTicketByCustomer']//tbody/tr[";
     private static final String TEXT = "No Message Found";
 
     public MessageHistory(WebDriver driver) {
@@ -25,55 +25,55 @@ public class MessageHistory extends BasePage {
 
     public boolean isMessageTypeColumn() {
         boolean state = isEnabled(pageElements.messageTypeLabel);
-        log.info(TEXT1 + state);
+        commonLib.info(TEXT1 + state);
         return state;
     }
 
     public boolean isDateSentColumn() {
         boolean state = isEnabled(pageElements.dateSentLabel);
-        log.info(TEXT1 + state);
+        commonLib.info(TEXT1 + state);
         return state;
     }
 
     public boolean isTemplateColumn() {
         boolean state = isEnabled(pageElements.templateLabel);
-        log.info(TEXT1 + state);
+        commonLib.info(TEXT1 + state);
         return state;
     }
 
     public boolean isMessageLanguageColumn() {
         boolean state = isEnabled(pageElements.messageLanguageLabel);
-        log.info(TEXT1 + state);
+        commonLib.info(TEXT1 + state);
         return state;
     }
 
     public boolean isMessageTextColumn() {
         boolean state = isEnabled(pageElements.messageTextLabel);
-        log.info(TEXT1 + state);
+        commonLib.info(TEXT1 + state);
         return state;
     }
 
     public boolean isAgentIdColumn() {
         boolean state = isEnabled(pageElements.agentIdLabel);
-        log.info(TEXT1 + state);
+        commonLib.info(TEXT1 + state);
         return state;
     }
 
     public boolean isAgentNameColumn() {
         boolean state = isEnabled(pageElements.agentNameLabel);
-        log.info(TEXT1 + state);
+        commonLib.info(TEXT1 + state);
         return state;
     }
 
     public boolean isActionColumn() {
         boolean state = isEnabled(pageElements.actionLabel);
-        log.info(TEXT1 + state);
+        commonLib.info(TEXT1 + state);
         return state;
     }
 
     public int getListSize() {
-        list = returnListOfElement(pageElements.listOfMessage);
-        return getListSize();
+        final List<WebElement> elementsList = getElementsListFromBy(pageElements.listOfMessage);
+        return elementsList.size();
     }
 
     public String messageType(int i) {
@@ -87,7 +87,7 @@ public class MessageHistory extends BasePage {
 
     public String sentDate(int i) {
         if (i <= getListSize()) {
-            String type = getText(By.xpath(XPATH + i + "]//td[2]//p//span[@class=\"date_time\"]"));
+            String type = getText(By.xpath(XPATH + i + "]//td[2]//p//span[@class='date_time']"));
             commonLib.info("Sent Date: " + type);
             return type;
         }
@@ -150,7 +150,7 @@ public class MessageHistory extends BasePage {
 
     public boolean isActionBtnDisable(int i) {
         if (i <= getListSize()) {
-            By actionEnable = By.xpath(XPATH + i + "]//td[8]//img[@class=\"disabled-icon\"]");
+            By actionEnable = By.xpath(XPATH + i + "]//td[8]//img[@class='disabled-icon']");
             return isEnabled(actionEnable);
         }
         return false;

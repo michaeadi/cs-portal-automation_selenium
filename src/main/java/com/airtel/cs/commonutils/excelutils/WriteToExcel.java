@@ -14,24 +14,11 @@ import java.io.IOException;
 public class WriteToExcel {
 
     public void writeTicketNumber(String filePath, String sheetName, String[] dataToWrite, int rowNum) throws IOException {
-
-        System.out.println("");
         File file = new File(filePath);
-
         FileInputStream inputStream = new FileInputStream(file);
-
         Workbook book = new XSSFWorkbook(inputStream);
-
-//Read excel sheet by sheet name
-
         Sheet sheet = book.getSheet(sheetName);
-
-
         Row row = sheet.getRow(rowNum);
-//        System.out.println("-----------------------" + row.getLastCellNum());
-        //Fill data in row
-//        System.out.println(row.getRowNum());
-
         Cell cell;
         int ticketRow = 58;
         try {
@@ -41,28 +28,13 @@ public class WriteToExcel {
         } catch (NullPointerException e) {
             cell = row.createCell(ticketRow);
             cell.setCellValue(dataToWrite[0]);
-
         }
-//        System.out.println(cell.getColumnIndex());
-//        System.out.println(cell.getRowIndex());
-//        cell.setCellValue(dataToWrite[0]);
-
-
-        //Close input stream
-
         inputStream.close();
-
         //Create an object of FileOutputStream class to create write data in excel file
-
         FileOutputStream outputStream = new FileOutputStream(file);
-
         //write data in the excel file
-
         book.write(outputStream);
-
         //close output stream
-
         outputStream.close();
-
     }
 }

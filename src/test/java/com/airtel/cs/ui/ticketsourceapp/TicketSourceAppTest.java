@@ -4,7 +4,7 @@ import com.airtel.cs.common.requisite.PreRequisites;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.commonutils.dataproviders.TransferQueueDataBean;
-import org.jetbrains.annotations.NotNull;
+import com.sun.istack.NotNull;
 import org.testng.annotations.Test;
 
 public class TicketSourceAppTest extends PreRequisites {

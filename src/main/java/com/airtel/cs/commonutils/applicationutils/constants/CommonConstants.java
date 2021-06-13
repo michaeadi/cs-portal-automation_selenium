@@ -46,9 +46,9 @@ public class CommonConstants {
     public static final String SEARCH_BY_GLOBAL_SEARCH="cs.search.by.global.search";
     public static final String ADD_FNF_ACTION_TYPE="add.fnf.Type";
     public static final String DELETE_FNF_ACTION_TYPE="delete.fnf.Type";
-    public static final String SYSTEM_SMS_TYPE="system.sms.type";
+    public static final String SYSTEM_SMS_TYPE="cs.system.sms.type";
     public static final String MANUAL_SMS_TYPE="manual.sms.type";
-    public static final String TICKET_CREATED_EVENT="ticket.create.event";
+    public static final String TICKET_CREATED_EVENT="cs.ticket.create.event";
     public static final String ISSUE_COMMENT_TYPE="cs.comment.issue.type";
     public static final String ALL_USER_ROLE_NAME="cs.all.user.role.name";
     public static final String ACCUMULATOR_API_TIME_FORMAT="cs.api.accumulator.time.format";
