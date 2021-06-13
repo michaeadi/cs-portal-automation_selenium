@@ -63,6 +63,7 @@ public class BaseActions {
             Assert.fail("Some Assertions failed in this testcase");
             return true;
         } else
+            commonLib.pass("All Assertion Verified and are Passed");
             return false;
     }
 

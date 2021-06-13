@@ -93,10 +93,16 @@ public class CustomerProfile extends BasePage {
         return result;
     }
 
+    /*
+    This Methos is used to open the interaction page
+     */
     public void clickOnInteractionIcon() {
-        waitTillLoaderGetsRemoved();
-        clickAndWaitForLoaderToBeRemoved(pageElements.interactionIcon);
-        commonLib.info("Clicking on Interactions Icon");
+        if (isVisible(pageElements.interactionIcon)) {
+            clickAndWaitForLoaderToBeRemoved(pageElements.interactionIcon);
+            commonLib.info("Clicking on Interactions Icon");
+        } else {
+            commonLib.fail("Interaction Icon is NOT Visible", true);
+        }
     }
 
     /*

@@ -41,11 +41,16 @@ public class ViewHistory extends BasePage {
         return new FrontendTicketHistory(driver);
     }
 
-    public MessageHistory clickOnMessageHistory() {
-        commonLib.info("Clicking on Message History Tab under view history ");
-        waitTillLoaderGetsRemoved();
-        clickAndWaitForLoaderToBeRemoved(pageElements.messageHistory);
-        return new MessageHistory(driver);
+    /*
+   With this Method we will route to the Message History tab under view history tab
+    */
+    public void clickOnMessageHistory() {
+        if (isVisible(pageElements.messageHistory)) {
+            commonLib.info("Clicking on Message History Tab under view history");
+            clickAndWaitForLoaderToBeRemoved(pageElements.messageHistory);
+        } else {
+            commonLib.fail("Exception in method - clickOnMessageHistory ", true);
+        }
     }
 
     public void clickOnActionTrailHistory() {

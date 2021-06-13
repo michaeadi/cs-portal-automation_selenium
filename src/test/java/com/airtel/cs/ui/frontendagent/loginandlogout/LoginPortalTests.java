@@ -43,7 +43,7 @@ public class LoginPortalTests extends Driver {
             pages.getLoginPage().clickOnVisibleButton();
             pages.getLoginPage().clickOnVisibleButton();
             pages.getLoginPage().clickOnLogin();
-            LogEntries logEntries = driver.manage().logs().get(LogType.PERFORMANCE);
+            /*LogEntries logEntries = driver.manage().logs().get(LogType.PERFORMANCE);
             for (LogEntry entry : logEntries) {
                 commonLib.info((String.format("%s %s %s\n", new Date(entry.getTimestamp()), entry.getLevel(),
                         entry.getMessage())));
@@ -52,10 +52,11 @@ public class LoginPortalTests extends Driver {
             commonLib.info(Network.responseReceived().toString());
             //Network.getResponseBody()
             String netData = ((JavascriptExecutor) driver).executeScript(scriptToExecute).toString();
-            System.out.println(netData);
+            System.out.println
+            (netData);
             if (netData.contains("auth/api/user-mngmnt/v2/login")) {
-                System.out.println(netData);
-            }
+                //System.out.println(netData);
+            }*/
             final boolean isGrowlVisible = pages.getGrowl().checkIsGrowlVisible();
             if (isGrowlVisible) {
                 commonLib.fail("Growl Message:- " + pages.getGrowl().getToastContent(), true);

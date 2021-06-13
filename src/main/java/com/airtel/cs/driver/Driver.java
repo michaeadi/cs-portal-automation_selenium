@@ -43,7 +43,6 @@ import java.util.logging.Level;
 @Log4j2
 public class Driver {
 
-
     private static final String PATH_DELIMITER = "/";
     private static final String USER_DIR = "user.dir";
     public static final String OPCO = System.getProperty("Opco").toUpperCase();
@@ -265,7 +264,7 @@ public class Driver {
         loggingprefs.enable(LogType.BROWSER, Level.WARNING);
         loggingprefs.enable(LogType.PERFORMANCE, Level.ALL);
         options.addArguments("--window-size=1792,1120");
-        options.setHeadless(true);
+        options.setHeadless(false);
         Map<String, Object> prefs = new HashMap<>();
         prefs.put("download.default_directory", excelPath);
         prefs.put("intl.accept_languages", "nl");

@@ -436,7 +436,6 @@ public class BasePage extends Driver {
             elements = driver.findElements(elementLocation);
         } catch (Exception e) {
             e.getStackTrace();
-
         }
         return elements;
     }
