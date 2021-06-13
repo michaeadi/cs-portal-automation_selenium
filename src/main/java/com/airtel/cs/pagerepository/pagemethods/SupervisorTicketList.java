@@ -108,6 +108,7 @@ public class SupervisorTicketList extends BasePage {
         for (int i = 0; i < 12; i++) {
             driver.findElement(pageElements.searchTicketBox).sendKeys(Keys.BACK_SPACE);
         }
+        waitTillLoaderGetsRemoved();
     }
 
     /**
@@ -674,6 +675,7 @@ public class SupervisorTicketList extends BasePage {
 
     /**
      * This method use check search By option display or not
+     * @param text Search By Option name
      * */
     public void clickSearchOptionByTextNoIgnoreCase(String text) {
         commonLib.info("Clicking search By option: " + text);

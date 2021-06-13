@@ -70,13 +70,13 @@ public class ViewTicket extends BasePage {
             List<WebElement> list = returnListOfElement(pageElements.allComment);
             for (int i = 1; i <= list.size(); i++) {
                 By comment = By.xpath("//table[@class='ng-star-inserted']//tbody//tr[" + i + "]//p");
-                log.info(READING_COMMENT + getText(comment) + " Is:" + getText(comment).trim().equalsIgnoreCase(text));
+                commonLib.info(READING_COMMENT + getText(comment) + " Is:" + getText(comment).trim().equalsIgnoreCase(text));
                 if (getText(comment).trim().equalsIgnoreCase(text)) {
                     commonLib.pass("Newly added comment found on ticket");
                     return;
                 }
             }
-            commonLib.warning("Newly added comment does not found on ticket");
+            commonLib.fail("Newly added comment does not found on ticket",true);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -103,14 +103,12 @@ public class ViewTicket extends BasePage {
     }
 
     public void addComment(String comment) throws InterruptedException {
-        log.info("Adding comment on ticket:" + comment);
         scrollToViewElement(pageElements.addCommentBox);
         enterText(pageElements.addCommentBox, comment);
         commonLib.info("Adding comment on ticket:" + comment);
     }
 
     public void clickAddButton() throws InterruptedException {
-        log.info("Clicking on Add comment button");
         scrollToViewElement(pageElements.addBtn);
         clickAndWaitForLoaderToBeRemoved(pageElements.addBtn);
         commonLib.info("Clicking on Add comment button");
@@ -147,9 +145,9 @@ public class ViewTicket extends BasePage {
         List<WebElement> list = returnListOfElement(pageElements.allComment);
         for (int i = 1; i <= list.size() - 1; i++) {
             By comment = By.xpath("//table[@class='ng-star-inserted']//tbody//tr[" + i + "]//p");
-            log.info(READING_COMMENT + getText(comment) + " Is:" + getText(comment).trim().equalsIgnoreCase(text));
+            commonLib.info(READING_COMMENT + getText(comment) + " Is:" + getText(comment).trim().equalsIgnoreCase(text));
             if (getText(comment).trim().equalsIgnoreCase(text)) {
-                log.info("Latest comment found on ticket: " + comment);
+                commonLib.info("Latest comment found on ticket: " + comment);
                 commonLib.fail("Deleted comment found on ticket", true);
                 return false;
             }

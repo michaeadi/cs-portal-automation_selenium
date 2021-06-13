@@ -2,23 +2,13 @@ package com.airtel.cs.ui.backendSupervisor;
 
 import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.common.actions.BaseActions;
-import com.airtel.cs.commonutils.PassUtils;
-import com.airtel.cs.commonutils.UtilsMethods;
+import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
+import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.NftrDataBeans;
-import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pojo.response.LoginPOJO;
 import com.airtel.cs.pojo.response.smshistory.SMSHistoryList;
 import com.airtel.cs.pojo.response.smshistory.SMSHistoryPOJO;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.restassured.http.Header;
-import io.restassured.http.Headers;
-import io.restassured.response.Response;
-import io.restassured.specification.QueryableRequestSpecification;
-import io.restassured.specification.RequestSpecification;
-import io.restassured.specification.SpecificationQuerier;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -26,200 +16,123 @@ import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
-
-import java.io.IOException;
-import java.lang.reflect.Method;
-import java.util.concurrent.TimeUnit;
-
-import static io.restassured.RestAssured.baseURI;
-import static io.restassured.RestAssured.given;
 
 public class SupervisorUpdateTicketTest extends Driver {
 
     static String ticketId = null;
-    String customerNumber = null;
-    RequestSource api = new RequestSource();
+    final String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
     private final BaseActions actions = new BaseActions();
+    RequestSource api = new RequestSource();
 
     @BeforeMethod
     public void checkExecution() {
-        if (continueExecutionFA) {
-            assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, true, "Proceeding for test case as user able to login over portal", "Skipping tests because user not able to login into portal or Role does not assign to user"));
-        } else {
-            commonLib.skip("Skipping tests because user not able to login into portal or Role does not assign to user");
-            assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, false, "Skipping tests because user not able to login into portal or Role does not assign to user"));
-            throw new SkipException("Skipping tests because user not able to login into portal or Role does not assign to user");
+        if (!continueExecutionBS) {
+            commonLib.skip("Skipping tests because user NOT able to login Over Portal");
+            throw new SkipException("Skipping tests because user NOT able to login Over Portal");
+        }
+    }
+
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void openSupervisorDashboard() {
+        try {
+            selUtils.addTestcaseDescription("Open Supervisor Dashboard , Validate agent redirect to ticket List Page", "description");
+            pages.getSideMenuPage().clickOnSideMenu();
+            pages.getSideMenuPage().clickOnUserName();
+            pages.getSideMenuPage().openSupervisorDashboard();
+            assertCheck.append(actions.assertEqual_stringType(driver.getTitle(), constants.getValue(CommonConstants.SUPERVISOR_TICKET_LIST_PAGE_TITLE), "Agent redirect to ticket list page as expected", "Agent does not redirect to ticket list page as expected"));
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - openSupervisorDashboard" + e.fillInStackTrace(), true);
         }
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @DataProviders.User(userType = "API")
-    @Test(dataProvider = "loginData", dataProviderClass = DataProviders.class, priority = 0)
-    public void loginAPI(TestDatabean data) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        SoftAssert softAssert = new SoftAssert();
-        LoginPOJO Req = LoginPOJO.loginBody(PassUtils.decodePassword(data.getPassword()), data.getLoginAUUID());
-
-        map.clear();
-        UtilsMethods.addHeaders("x-app-name", config.getProperty(evnName + "-x-app-name"));
-        UtilsMethods.addHeaders("x-service-id", config.getProperty(evnName + "-x-service-id"));
-        //map.add(new Header("x-bsy-bn", config.getProperty(Env + "-x-bsy-bn"))); //Comment this line this header removed from MG Opco.
-        UtilsMethods.addHeaders("x-app-type", config.getProperty(evnName + "-x-app-type"));
-        UtilsMethods.addHeaders("x-client-id", config.getProperty(evnName + "-x-client-id"));
-        UtilsMethods.addHeaders("x-api-key", config.getProperty(evnName + "-x-api-key"));
-        UtilsMethods.addHeaders("x-login-module", config.getProperty(evnName + "-x-login-module"));
-        UtilsMethods.addHeaders("x-channel", config.getProperty(evnName + "-x-channel"));
-        UtilsMethods.addHeaders("x-app-version", config.getProperty(evnName + "-x-app-version"));
-        UtilsMethods.addHeaders("Opco", OPCO);
-
-        String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(Req);
-        selUtils.addTestcaseDescription("LOGIN com.airtel.cs.API TEST ,Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + data.getLoginAUUID(), "description");
-        commonLib.info("Logging in Using Login com.airtel.cs.API for getting TOKEN with user : " + data.getLoginAUUID());
-        baseURI = baseUrl;
-        Headers headers = new Headers(map);
-        RequestSpecification request = given()
-                .headers(headers)
-                .body(dtoAsString)
-                .contentType("application/json");
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "ticketId", dataProviderClass = DataProviders.class)
+    public void updateTicket(NftrDataBeans Data) {
         try {
-            QueryableRequestSpecification queryable = SpecificationQuerier.query(request);
-            commonLib.info("Request Headers are  : " + queryable.getHeaders());
-            Response response = request.post("/auth/api/user-mngmnt/v2/login");
-            String token = "Bearer " + response.jsonPath().getString("result.accessToken");
-            map.add(new Header("Authorization", token));
-            commonLib.info("Request URL : " + queryable.getURI());
-            commonLib.info("Response Body : " + response.asString());
-            commonLib.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
-            if (response.jsonPath().getString("message").equalsIgnoreCase("Failed to authenticate user.")) {
-                continueExecutionAPI = false;
-                softAssert.fail("Not able to generate Token. Please Update Password As soon as possible if required.\ncom.airtel.cs.API Response Message: " + response.jsonPath().getString("message"));
-            } else if (response.jsonPath().getString("message").toLowerCase().contains("something went wrong")) {
-                continueExecutionAPI = false;
-                softAssert.fail("Not able to generate Token. Login com.airtel.cs.API Failed(Marked Build As Failed).\ncom.airtel.cs.API Response Message: " + response.jsonPath().getString("message"));
-            } else if (!response.jsonPath().getString("message").equalsIgnoreCase("User authenticated successfully")) {
-                continueExecutionAPI = false;
-                softAssert.fail("Not able to generate Token. Please Check the com.airtel.cs.API error Message and make changes if required.\ncom.airtel.cs.API Response Message: " + response.jsonPath().getString("message"));
-            }
-        } catch (Exception e) {
-            continueExecutionAPI = false;
-            softAssert.fail("Connectivity issue occurred, Not able to connect with server : " + e.fillInStackTrace());
-        }
-        softAssert.assertAll();
-    }
-
-    @DataProviders.User(userType = "NFTR")
-    @Test(priority = 1, dataProvider = "loginData", dataProviderClass = DataProviders.class)
-    public void setCustomerNumber(TestDatabean Data) {
-        customerNumber = Data.getCustomerNumber();
-    }
-
-    @Test(priority = 2, description = "Open Supervisor Dashboard")
-    public void openSupervisorDashboard() {
-        selUtils.addTestcaseDescription("Open Supervisor Dashboard", "description");
-        pages.getSideMenuPage().clickOnSideMenu();
-        pages.getSideMenuPage().clickOnUserName();
-        pages.getSideMenuPage().openSupervisorDashboard();
-        SoftAssert softAssert = new SoftAssert();
-        pages.getSideMenuPage().waitTillLoaderGetsRemoved();
-        Assert.assertEquals(driver.getTitle(), config.getProperty("supervisorTicketListPage"));
-        softAssert.assertAll();
-    }
-
-    @Test(priority = 3, description = "Update Ticket", dataProvider = "ticketId", dataProviderClass = DataProviders.class)
-    public void updateTicket(Method method, NftrDataBeans Data) throws InterruptedException {
-        selUtils.addTestcaseDescription("Update Ticket: " + Data.getIssueCode(), "description");
-        commonLib.info("Opening URL");
-        SoftAssert softAssert = new SoftAssert();
-        DataProviders data = new DataProviders();
-        String selectedState = null;
-        try {
-            pages.getSupervisorTicketList().writeTicketId(Data.getTicketNumber());
-            pages.getSupervisorTicketList().clickSearchBtn();
-            pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
-            Assert.assertEquals(pages.getSupervisorTicketList().getTicketIdValue(), Data.getTicketNumber(), "Search Ticket does not found");
+            selUtils.addTestcaseDescription("Update Ticket Id: " + Data.getIssueCode() + ",Search Ticket id which is already created,Open View Ticket Detail page,Select state which mapped to internal state 'Close'," +
+                    "Click on Submit button,Validate the ticket state changed and agent able to view in closed ticket list.,Validate SMS Sent to customer initiated from application once ticket closed.", "description");
+            DataProviders data = new DataProviders();
+            String selectedState = null;
             try {
-                pages.getSupervisorTicketList().viewTicket();
-                pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
+                pages.getSupervisorTicketList().writeTicketId(Data.getTicketNumber());
+                pages.getSupervisorTicketList().clickSearchBtn();
+                Assert.assertEquals(pages.getSupervisorTicketList().getTicketIdValue(), Data.getTicketNumber(), "Search Ticket does not found");
                 try {
-                    selectedState = pages.getViewTicket().selectState(data.ticketStateClosed());
-                    if (selectedState.equalsIgnoreCase(data.ticketStateClosed())) {
-                        pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
-                        pages.getSupervisorTicketList().changeTicketTypeToClosed();
-                        pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
-                        pages.getSupervisorTicketList().writeTicketId(Data.getTicketNumber());
-                        pages.getSupervisorTicketList().clickSearchBtn();
-                        pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
-                        softAssert.assertEquals(pages.getSupervisorTicketList().getTicketIdValue(), Data.getTicketNumber(), "Search Ticket Does not Fetched Correctly");
-                        Assert.assertEquals(pages.getSupervisorTicketList().getStatevalue(), selectedState, "Ticket Does not Updated to Selected State");
-                        if (ticketId == null) {
-                            ticketId = Data.getTicketNumber();
+                    pages.getSupervisorTicketList().viewTicket();
+                    try {
+                        selectedState = pages.getViewTicket().selectState(data.ticketStateClosed());
+                        if (selectedState.equalsIgnoreCase(data.ticketStateClosed())) {
+                            pages.getSupervisorTicketList().changeTicketTypeToClosed();
+                            pages.getSupervisorTicketList().writeTicketId(Data.getTicketNumber());
+                            pages.getSupervisorTicketList().clickSearchBtn();
+                            assertCheck.append(actions.assertEqual_stringType(pages.getSupervisorTicketList().getTicketIdValue(), Data.getTicketNumber(), "Search ticket fetched correctly", "Search Ticket Does not Fetched Correctly"));
+                            Assert.assertEquals(pages.getSupervisorTicketList().getStatevalue(), selectedState, "Ticket Does not Updated to Selected State");
+                            if (ticketId == null) {
+                                ticketId = Data.getTicketNumber();
+                            }
+                            SMSHistoryPOJO smsHistory = api.smsHistoryTest(customerNumber);
+                            SMSHistoryList list = smsHistory.getResult().get(0);
+                            commonLib.info("Message Sent after closure: " + list.getMessageText());
+                            assertCheck.append(actions.assertEqual_boolean(list.getMessageText().contains(Data.getTicketNumber()), true, "Message Sent to customer for same ticket id which has been closed", "Message does not Sent for same ticket id which has been closed"));
+                            assertCheck.append(actions.assertEqual_stringType(list.getSmsType().toLowerCase().trim(), constants.getValue(CommonConstants.SYSTEM_SMS_TYPE).toLowerCase().trim(), "Message type is system", "Message type is not system"));
+                            assertCheck.append(actions.assertEqual_boolean(list.isAction(), false, "Action button is disabled", "Action button is not disabled"));
+                            assertCheck.append(actions.assertEqual_stringType((list.getTemplateName().toLowerCase().trim()), constants.getValue(CommonConstants.TICKET_CREATED_EVENT).toLowerCase().trim(), "Template event same as expected.", "Template event not same as expected."));
+                        } else {
+                            pages.getViewTicket().clickBackButton();
                         }
-                        SMSHistoryPOJO smsHistory = api.smsHistoryTest(customerNumber);
-                        SMSHistoryList list = smsHistory.getResult().get(0);
-                        commonLib.info("Message Sent after closure: " + list.getMessageText());
-                        softAssert.assertTrue(list.getMessageText().contains(Data.getTicketNumber()), "Message Sent does not send for same ticket id which has been closed");
-                        softAssert.assertEquals(list.getSmsType().toLowerCase().trim(), config.getProperty("systemSMSType").toLowerCase().trim(), "Message type is not system");
-                        softAssert.assertFalse(list.isAction(), "Action button is not disabled");
-                        softAssert.assertEquals(list.getTemplateName().toLowerCase().trim(), config.getProperty("ticketCreateEvent").toLowerCase().trim(), "Template event not same as defined.");
-                    } else {
+                    } catch (TimeoutException | NoSuchElementException | ElementClickInterceptedException e) {
+                        commonLib.fail("Update Ticket does not complete due to error :" + e.fillInStackTrace(), true);
                         pages.getViewTicket().clickBackButton();
                     }
-                } catch (TimeoutException | NoSuchElementException | ElementClickInterceptedException e) {
-                    softAssert.fail("Update Ticket does not complete due to error :" + e.fillInStackTrace());
-                    pages.getViewTicket().clickBackButton();
+                } catch (TimeoutException | NoSuchElementException | AssertionError e) {
+                    commonLib.fail("Update Ticket does not complete due to error :" + e.fillInStackTrace(), true);
                 }
             } catch (TimeoutException | NoSuchElementException | AssertionError e) {
-                e.printStackTrace();
-                softAssert.fail("Update Ticket does not complete due to error :" + e.fillInStackTrace());
+                commonLib.fail("Ticket id search not done due to following error: " + e.getMessage(), true);
             }
-        } catch (TimeoutException | NoSuchElementException | AssertionError e) {
-            e.printStackTrace();
-            softAssert.fail("Ticket id search not done due to following error: " + e.getMessage());
+            pages.getSupervisorTicketList().clearInputBox();
+            pages.getSupervisorTicketList().changeTicketTypeToOpen();
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - updateTicket" + e.fillInStackTrace(), true);
         }
-        pages.getSupervisorTicketList().clearInputBox();
-        pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
-        pages.getSupervisorTicketList().changeTicketTypeToOpen();
-        pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
-        softAssert.assertAll();
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @DataProviders.User(userType = "NFTR")
-    @Test(priority = 4, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
-    public void openCustomerInteraction(Method method, TestDatabean Data) throws IOException {
-        selUtils.addTestcaseDescription("Validating the Search forCustomer Interactions :" + Data.getCustomerNumber(), "description");
-        SoftAssert softAssert = new SoftAssert();
-        pages.getSideMenuPage().clickOnSideMenu();
-        pages.getSideMenuPage().clickOnUserName();
-        if (ticketId != null) {
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void openCustomerInteraction() {
+        try {
+            selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
+            pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().openCustomerInteractionPage();
-            pages.getMsisdnSearchPage().enterNumber(Data.getCustomerNumber());
+            pages.getMsisdnSearchPage().enterNumber(customerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();
-            softAssert.assertTrue(pages.getCustomerProfilePage().isCustomerProfilePageLoaded());
-        } else {
-            commonLib.warning("No Ticket Id Closed. SKIP Validate Re-open Icon on Closed Ticket");
+            final boolean pageLoaded = pages.getCustomerProfilePage().isCustomerProfilePageLoaded();
+            assertCheck.append(actions.assertEqual_boolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
+            if (!pageLoaded) continueExecutionFA = false;
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - openCustomerInteraction" + e.fillInStackTrace(), true);
         }
-        softAssert.assertAll();
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 5, dependsOnMethods = "openCustomerInteraction", description = "Validate Re-open Icon on Closed Ticket")
-    public void validateReopenIcon() throws InterruptedException, IOException {
-        SoftAssert softAssert = new SoftAssert();
-        if (ticketId != null) {
-            selUtils.addTestcaseDescription("Validate Re-open Icon on Closed Ticket: " + ticketId, "description");
-            pages.getCustomerProfilePage().goToViewHistory();
-            pages.getViewHistory().goToTicketHistoryTab();
-            pages.getFrontendTicketHistoryPage().waitTillLoaderGetsRemoved();
-            pages.getFrontendTicketHistoryPage().writeTicketId(ticketId);
-            pages.getFrontendTicketHistoryPage().clickSearchBtn();
-            pages.getFrontendTicketHistoryPage().waitTillLoaderGetsRemoved();
-            Thread.sleep(3000);
-            softAssert.assertEquals(pages.getFrontendTicketHistoryPage().getTicketId(1), ticketId, "Ticket Id does not same as search ticket id.");
-            pages.getFrontendTicketHistoryPage().getTicketState(1);
-            softAssert.assertTrue(pages.getFrontendTicketHistoryPage().checkReopen(1), "Reopen icon does not found on ticket");
-        } else {
-            commonLib.warning("No Ticket Id Closed. SKIP Validate Re-open Icon on Closed Ticket");
+    @Test(priority = 5, dependsOnMethods = "openCustomerInteraction",groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void validateReopenIcon() {
+        try {
+            if (ticketId != null) {
+                selUtils.addTestcaseDescription("Validate Re-open Icon on Closed Ticket: " + ticketId + ",Open View History Tab, Open Ticket History tab,Search Ticket using ticket id, Validate the reopen ticket icon on searched ticket.", "description");
+                pages.getCustomerProfilePage().goToViewHistory();
+                pages.getViewHistory().goToTicketHistoryTab();
+                pages.getFrontendTicketHistoryPage().writeTicketId(ticketId);
+                pages.getFrontendTicketHistoryPage().clickSearchBtn();
+                assertCheck.append(actions.assertEqual_stringType(pages.getFrontendTicketHistoryPage().getTicketId(1), ticketId, "Ticket Id does same as search ticket id.", "Ticket Id does not same as search ticket id."));
+                pages.getFrontendTicketHistoryPage().getTicketState(1);
+                assertCheck.append(actions.assertEqual_boolean(pages.getFrontendTicketHistoryPage().checkReopen(1), true, "Reopen icon found on closed ticket", "Reopen icon does not found on closed ticket"));
+            } else {
+                commonLib.warning("No Ticket Id Closed. SKIP Validate Re-open Icon on Closed Ticket");
+            }
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - validateReopenIcon" + e.fillInStackTrace(), true);
         }
-        softAssert.assertAll();
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 }

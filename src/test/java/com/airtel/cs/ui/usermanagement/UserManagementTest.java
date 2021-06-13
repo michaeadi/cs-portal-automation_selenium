@@ -1,195 +1,204 @@
 package com.airtel.cs.ui.usermanagement;
 
 import com.airtel.cs.common.actions.BaseActions;
+import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
+import com.airtel.cs.commonutils.applicationutils.enums.JavaColors;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
-import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.driver.Driver;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserManagementTest extends Driver {
 
-    int currentBucketSize;
     private final BaseActions actions = new BaseActions();
+    int currentBucketSize;
 
     @BeforeMethod
     public void checkExecution() {
-        if (continueExecutionFA) {
-            assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, true, "Proceeding for test case as user able to login over portal", "Skipping tests because user not able to login into portal or Role does not assign to user"));
-        } else {
-            commonLib.skip("Skipping tests because user not able to login into portal or Role does not assign to user");
-            assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, false, "Skipping tests because user not able to login into portal or Role does not assign to user"));
-            throw new SkipException("Skipping tests because user not able to login into portal or Role does not assign to user");
+        if (!continueExecutionFA) {
+            commonLib.skip("Skipping tests because user NOT able to login via API");
+            throw new SkipException("Skipping tests because user NOT able to login via API");
+        }
+    }
+
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void openUserManagementPage() {
+        try {
+            selUtils.addTestcaseDescription("Validating User Management", "description");
+            pages.getSideMenuPage().clickOnSideMenu();
+            pages.getSideMenuPage().openUserManagementPage();
+            pages.getUserManagementPage().waitTillUMPageLoaded();
+            assertCheck.append(actions.assertEqual_boolean(pages.getUserManagementPage().isSearchVisible(), true, "User management module open as expected", "User management module does not open as expected"));
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - openUserManagementPage" + e.fillInStackTrace(), true);
         }
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 1)
-    public void openUserManagementPage() {
-        selUtils.addTestcaseDescription("Validating User Management", "description");
-        SoftAssert softAssert = new SoftAssert();
-        pages.getSideMenuPage().clickOnSideMenu();
-        pages.getSideMenuPage().clickOnUserName();
-        pages.getSideMenuPage().openUserManagementPage();
-        pages.getUserManagementPage().waitTillUMPageLoaded();
-        softAssert.assertTrue(pages.getUserManagementPage().isSearchVisible());
-        softAssert.assertAll();
-    }
-
-    @Test(priority = 2,dependsOnMethods = "openUserManagementPage")
-    public void validateAddToUser() throws InterruptedException {
-        selUtils.addTestcaseDescription("Validating Add to User Management page", "description");
-        SoftAssert softAssert = new SoftAssert();
-        pages.getUserManagementPage().clickAddUserBtn();
-        Thread.sleep(60000);
-        pages.getUserManagementPage().switchFrameToAddUser();
-        softAssert.assertTrue(pages.getUserManagementPage().checkingAddUser(),"Add to user page does not open");
-        softAssert.assertAll();
-    }
-
-    @DataProviders.User()
-    @Test(priority = 3, dependsOnMethods = "openUserManagementPage", description = "Validating User Management Edit Page", dataProviderClass = DataProviders.class, dataProvider = "loginData")
-    public void openEditUserPage(TestDatabean data) {
-        selUtils.addTestcaseDescription("Validating User Management Edit Page", "description");
-        SoftAssert softAssert = new SoftAssert();
-        pages.getUserManagementPage().waitTillLoaderGetsRemoved();
-        pages.getUserManagementPage().searchAuuid(data.getLoginAUUID());
-        pages.getUserManagementPage().clickSearchButton();
-        pages.getUserManagementPage().waitUntilResultPageIsVisible();
-        softAssert.assertEquals(pages.getUserManagementPage().resultIsVisible(data.getLoginAUUID()), data.getLoginAUUID());
-        currentBucketSize = Integer.parseInt(pages.getUserManagementPage().getCurrentTicketBucketSize());
-        pages.getUserManagementPage().clickViewEditButton();
-        pages.getUserManagementPage().waitUntilEditPageIsOpen();
-        softAssert.assertAll();
-
-    }
-
-
-    @Test(priority = 4, dependsOnMethods = "openEditUserPage", description = "Validating User Management Edit User : Interaction Channel")
-    public void getInteractionChannel() throws InterruptedException {
-        selUtils.addTestcaseDescription("Validating User Management Edit User : Interaction Channel", "description");
-        SoftAssert softAssert = new SoftAssert();
-        pages.getUserManagementPage().openListInteractionChannels();
-        ArrayList<String> strings = pages.getUserManagementPage().getInteractionChannels();
+    @Test(priority = 2, dependsOnMethods = {"openUserManagementPage"}, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void validateAddToUser() {
         try {
-            pages.getUserManagementPage().pressESC();
-        } catch (NoSuchElementException | TimeoutException e) {
-            pages.getUserManagementPage().clickOutside();
+            selUtils.addTestcaseDescription("Validating Add to User Management page,Click on Add To User button,Validate Add new user page displayed,Navigate back to Single Screen and validate user management module open.", "description");
+            pages.getUserManagementPage().clickAddUserBtn();
+            pages.getUserManagementPage().switchFrameToAddUser();
+            assertCheck.append(actions.assertEqual_boolean(pages.getUserManagementPage().checkingAddUser(), true, "Add user into UM Portal page displayed as expected", "Add to user page does not open"));
+            pages.getUserManagementPage().switchToParentFrme();
+            pages.getSideMenuPage().clickOnSideMenu();
+            pages.getSideMenuPage().openUserManagementPage();
+            pages.getUserManagementPage().waitTillUMPageLoaded();
+            assertCheck.append(actions.assertEqual_boolean(pages.getUserManagementPage().isSearchVisible(), true, "User management module open as expected", "User management module does not open as expected"));
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - validateAddToUser" + e.fillInStackTrace(), true);
         }
-        DataProviders data = new DataProviders();
-        List<String> interactionChannel = data.getInteractionChannelData();
-        for (String s : strings) {
-            if (interactionChannel.contains(s)) {
-                commonLib.info("Validate " + s + " interaction channel is display correctly");
-                interactionChannel.remove(s);
-            } else {
-                commonLib.fail(s + " interaction channel must not display on frontend as tag not mention in config sheet.",true);
-                softAssert.fail(s + " interaction channel should not display on UI as interaction channel not mention in config sheet.");
-            }
-        }
-        if (interactionChannel.isEmpty()) {
-            commonLib.pass("All interaction channel correctly configured and display on UI.");
-        } else {
-            for (String element : interactionChannel) {
-                commonLib.fail(element + " interaction channel does not display on UI but present in config sheet.",true);
-                softAssert.fail(element + " interaction channel does not display on UI but present in config sheet.");
-            }
-        }
-        softAssert.assertAll();
+        actions.assertAllFoundFailedAssert(assertCheck);
+    }
 
+    @Test(priority = 3, dependsOnMethods = "openUserManagementPage", groups = {"RegressionTest"})
+    public void openEditUserPage() {
+        try {
+            selUtils.addTestcaseDescription("Validating User Management Edit Page", "description");
+            pages.getUserManagementPage().waitTillLoaderGetsRemoved();
+            pages.getUserManagementPage().searchAuuid(CommonConstants.ALL_USER_ROLE_AUUID);
+            pages.getUserManagementPage().clickSearchButton();
+            pages.getUserManagementPage().waitUntilResultPageIsVisible();
+            assertCheck.append(actions.assertEqual_stringType(pages.getUserManagementPage().resultIsVisible(CommonConstants.ALL_USER_ROLE_AUUID), CommonConstants.ALL_USER_ROLE_AUUID, "Search using user auuid success and user detail fetched as expected", "Search using user auuid does not complete and user detail does not fetched as expected"));
+            currentBucketSize = Integer.parseInt(pages.getUserManagementPage().getCurrentTicketBucketSize());
+            pages.getUserManagementPage().clickViewEditButton();
+            pages.getUserManagementPage().waitUntilEditPageIsOpen();
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - openEditUserPage" + e.fillInStackTrace(), true);
+        }
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
 
-    @Test(priority = 5, dependsOnMethods = "openEditUserPage", description = "Validating User Management Edit User : Work Flows")
-    public void getWorkflows() throws InterruptedException {
-        selUtils.addTestcaseDescription("Validating User Management Edit User : Work Flows", "description");
-        SoftAssert softAssert = new SoftAssert();
-        pages.getUserManagementPage().openWorkgroupList();
-        ArrayList<String> strings = pages.getUserManagementPage().getWorkflows();
+    @Test(priority = 4, dependsOnMethods = "openEditUserPage", groups = {"RegressionTest"})
+    public void getInteractionChannel() {
         try {
-            pages.getUserManagementPage().pressESC();
-        } catch (NoSuchElementException | TimeoutException e) {
-            pages.getUserManagementPage().clickOutside();
-        }
-        DataProviders data = new DataProviders();
-        List<String> workFlow = data.getWorkFlowData();
-        for (String s : strings) {
-            if (workFlow.contains(s)) {
-                commonLib.info("Validate " + s + " workgroup is display correctly");
-                workFlow.remove(s);
+            selUtils.addTestcaseDescription("Validating User Management Edit User : Interaction Channel,Validate all Interaction displayed as per config file.", "description");
+            pages.getUserManagementPage().openListInteractionChannels();
+            ArrayList<String> strings = pages.getUserManagementPage().getInteractionChannels();
+            try {
+                pages.getUserManagementPage().pressESC();
+            } catch (NoSuchElementException | TimeoutException e) {
+                pages.getUserManagementPage().clickOutside();
+            }
+            DataProviders data = new DataProviders();
+            List<String> interactionChannel = data.getInteractionChannelData();
+            for (String s : strings) {
+                if (interactionChannel.contains(s)) {
+                    commonLib.pass("Validate " + s + " interaction channel is display correctly");
+                    interactionChannel.remove(s);
+                } else {
+                    commonLib.fail(s + " interaction channel must not display on frontend as tag not mention in config sheet.", false);
+                }
+            }
+            if (interactionChannel.isEmpty()) {
+                commonLib.pass("All interaction channel correctly configured and display on UI.");
             } else {
-                commonLib.fail(s + " workgroup must not display on frontend as tag not mention in config sheet.",true);
-                softAssert.fail(s + " workgroup should not display on UI as interaction channel not mention in config sheet.");
+                for (String element : interactionChannel) {
+                    commonLib.fail(element + " interaction channel does not display on UI but present in config sheet.", false);
+                }
             }
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - getInteractionChannel" + e.fillInStackTrace(), true);
         }
-        if (workFlow.isEmpty()) {
-            commonLib.pass("All workgroup correctly configured and display on UI.");
-        } else {
-            for (String element : workFlow) {
-                commonLib.fail(element + " workgroup does not display on UI but present in config sheet.",true);
-                softAssert.fail(element + " workgroup does not display on UI but present in config sheet.");
-            }
-        }
-        softAssert.assertAll();
-
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 6, dependsOnMethods = "openEditUserPage", description = "Validating User Management Edit User : Login Queue")
-    public void getLoginQueue() throws InterruptedException {
-        selUtils.addTestcaseDescription("Validating User Management Edit User : Login Queue", "description");
-        SoftAssert softAssert = new SoftAssert();
-        pages.getUserManagementPage().openLoginQueueList();
-        ArrayList<String> strings = pages.getUserManagementPage().getLoginQueues();
+
+    @Test(priority = 5, dependsOnMethods = "openEditUserPage", groups = {"RegressionTest"})
+    public void getWorkflows() {
         try {
-            pages.getUserManagementPage().pressESC();
-        } catch (NoSuchElementException | TimeoutException e) {
-            pages.getUserManagementPage().clickOutside();
-        }
-        DataProviders data = new DataProviders();
-        List<String> loginQueue = data.getLoginQueueData();
-        for (String s : strings) {
-            if (loginQueue.contains(s)) {
-                commonLib.info("Validate " + s + " ticketPool is display correctly");
-                loginQueue.remove(s);
+            selUtils.addTestcaseDescription("Validating User Management Edit User : Work Flows,validate all the workgroup display as per config", "description");
+            pages.getUserManagementPage().openWorkgroupList();
+            ArrayList<String> strings = pages.getUserManagementPage().getWorkflows();
+            try {
+                pages.getUserManagementPage().pressESC();
+            } catch (NoSuchElementException | TimeoutException e) {
+                pages.getUserManagementPage().clickOutside();
+            }
+            DataProviders data = new DataProviders();
+            List<String> workFlow = data.getWorkFlowData();
+            for (String s : strings) {
+                if (workFlow.contains(s)) {
+                    commonLib.infoColored("Validate " + s + " workgroup is display correctly", JavaColors.GREEN,false);
+                    workFlow.remove(s);
+                } else {
+                    commonLib.fail(s + " workgroup must not display on frontend as tag not mention in config sheet.", false);
+                }
+            }
+            if (workFlow.isEmpty()) {
+                commonLib.pass("All workgroup correctly configured and display on UI.");
             } else {
-                commonLib.fail(s + " ticketPool must not display on frontend as tag not mention in config sheet.",true);
-                softAssert.fail(s + " ticketPool should not display on UI as interaction channel not mention in config sheet.");
+                for (String element : workFlow) {
+                    commonLib.fail(element + " workgroup does not display on UI but present in config sheet.", false);
+                }
             }
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - getWorkflows" + e.fillInStackTrace(), true);
         }
-        if (loginQueue.isEmpty()) {
-            commonLib.pass("All ticketPool correctly configured and display on UI.");
-        } else {
-            for (String element : loginQueue) {
-                commonLib.fail(element + " ticketPool does not display on UI but present in config sheet.",true);
-                softAssert.fail(element + " ticketPool does not display on UI but present in config sheet.");
+        actions.assertAllFoundFailedAssert(assertCheck);
+    }
+
+    @Test(priority = 6, dependsOnMethods = "openEditUserPage", groups = {"RegressionTest"})
+    public void getLoginQueue() {
+        try {
+            selUtils.addTestcaseDescription("Validating User Management Edit User : Login Queue,Validate all the queue must be display as per config file.", "description");
+            pages.getUserManagementPage().openLoginQueueList();
+            ArrayList<String> strings = pages.getUserManagementPage().getLoginQueues();
+            try {
+                pages.getUserManagementPage().pressESC();
+            } catch (NoSuchElementException | TimeoutException e) {
+                pages.getUserManagementPage().clickOutside();
             }
+            DataProviders data = new DataProviders();
+            List<String> loginQueue = data.getLoginQueueData();
+            for (String s : strings) {
+                if (loginQueue.contains(s)) {
+                    commonLib.pass("Validate " + s + " ticketPool is display correctly");
+                    loginQueue.remove(s);
+                } else {
+                    commonLib.fail(s + " ticketPool must not display on frontend as tag not mention in config sheet.", true);
+                }
+            }
+            if (loginQueue.isEmpty()) {
+                commonLib.pass("All ticketPool correctly configured and display on UI.");
+            } else {
+                for (String element : loginQueue) {
+                    commonLib.fail(element + " ticketPool does not display on UI but present in config sheet.", true);
+                }
+            }
+        }catch (Exception e) {
+            commonLib.fail("Exception in Method - getLoginQueue" + e.fillInStackTrace(), true);
         }
-        softAssert.assertAll();
+        actions.assertAllFoundFailedAssert(assertCheck);
 
     }
 
     @DataProviders.User()
-    @Test(priority = 7, dependsOnMethods = "openEditUserPage", description = "Validating Bucket Size", dataProvider = "loginData", dataProviderClass = DataProviders.class)
-    public void changeBucketSize(TestDatabean data) {
-        selUtils.addTestcaseDescription("Validating Bucket Size", "description");
-        SoftAssert softAssert = new SoftAssert();
-        pages.getUserManagementPage().setTicketBucketSize(currentBucketSize + 1);
-        pages.getUserManagementPage().clickUpdateButton();
-        pages.getUserManagementPage().waitTillLoaderGetsRemoved();
-        pages.getUserManagementPage().searchAuuid(data.getLoginAUUID());
-        pages.getUserManagementPage().clickSearchButton();
-        pages.getUserManagementPage().waitUntilResultPageIsVisible();
-        softAssert.assertEquals(pages.getUserManagementPage().resultIsVisible(data.getLoginAUUID()), data.getLoginAUUID());
-        softAssert.assertEquals(Integer.parseInt(pages.getUserManagementPage().getCurrentTicketBucketSize()), currentBucketSize + 1, "Updated Bucket Size is not as Expected");
-        softAssert.assertAll();
-
+    @Test(priority = 7, dependsOnMethods = "openEditUserPage", groups = {"RegressionTest"}, dataProvider = "loginData", dataProviderClass = DataProviders.class)
+    public void changeBucketSize() {
+        try {
+            selUtils.addTestcaseDescription("Validating Bucket Size", "description");
+            pages.getUserManagementPage().setTicketBucketSize(currentBucketSize + 1);
+            pages.getUserManagementPage().clickUpdateButton();
+            pages.getUserManagementPage().waitTillLoaderGetsRemoved();
+            pages.getUserManagementPage().searchAuuid(CommonConstants.ALL_USER_ROLE_AUUID);
+            pages.getUserManagementPage().clickSearchButton();
+            pages.getUserManagementPage().waitUntilResultPageIsVisible();
+            assertCheck.append(actions.assertEqual_stringType(pages.getUserManagementPage().resultIsVisible(CommonConstants.ALL_USER_ROLE_AUUID), CommonConstants.ALL_USER_ROLE_AUUID, "Search using user auuid success and user detail fetched as expected", "Search using user auuid does not complete and user detail does not fetched as expected"));
+            assertCheck.append(actions.assertEqual_intType((Integer.parseInt(pages.getUserManagementPage().getCurrentTicketBucketSize())), currentBucketSize + 1, "Agent bucket size update as expected","Updated Bucket Size is not as Expected"));
+        }catch (Exception e) {
+            commonLib.fail("Exception in Method - changeBucketSize" + e.fillInStackTrace(), true);
+        }
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
 }

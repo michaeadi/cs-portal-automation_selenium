@@ -37,6 +37,7 @@ public class CommonConstants {
     public static final String QUESTION_ANSWER_SHEET_NAME = "cs.question.answer.key.sheetName";
     public static final String LOGIN_SHEET_NAME = "cs.login.sheet.name";
     public static final String OFFER_DETAILS_TIME_FORMAT="cs.offer.details.time.format";
+    public static final String DA_DETAIL_TIME_FORMAT="cs.ui.da.details.time.format";
     public static final String SEARCH_BY_NAME="cs.search.by.name";
     public static final String SEARCH_BY_TITLE="cs.search.by.title";
     public static final String BACKEND_TICKET_LIST_PAGE_TITLE="backend.agent.ticket.list.page";
@@ -45,5 +46,12 @@ public class CommonConstants {
     public static final String SEARCH_BY_GLOBAL_SEARCH="cs.search.by.global.search";
     public static final String ADD_FNF_ACTION_TYPE="add.fnf.Type";
     public static final String DELETE_FNF_ACTION_TYPE="delete.fnf.Type";
+    public static final String SYSTEM_SMS_TYPE="system.sms.type";
+    public static final String MANUAL_SMS_TYPE="manual.sms.type";
+    public static final String TICKET_CREATED_EVENT="ticket.create.event";
+    public static final String ISSUE_COMMENT_TYPE="cs.comment.issue.type";
+    public static final String ALL_USER_ROLE_NAME="cs.all.user.role.name";
+    public static final String ACCUMULATOR_API_TIME_FORMAT="cs.api.accumulator.time.format";
+    public static final String ACCUMULATOR_UI_TIME_FORMAT="cs.ui.accumulator.time.format";
 
 }

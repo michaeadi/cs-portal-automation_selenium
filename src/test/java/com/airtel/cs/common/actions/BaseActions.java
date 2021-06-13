@@ -339,4 +339,16 @@ public class BaseActions {
         }
         return false;
     }
+
+    /**
+     * This method match the actual and expected string and ignore all the characters except alphabets
+     * @param actual the actual
+     * @param expected the expected
+     * @param passMessage the pass message
+     * @param failMessage the fail message
+     * @return true/false
+     */
+    public Boolean matchStringIgnoreSpecialChar(String actual,String expected,String passMessage,String failMessage){
+        return assertEqual_stringType(actual.replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(),expected.replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(),passMessage,failMessage);
+    }
 }

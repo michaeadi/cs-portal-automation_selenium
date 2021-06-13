@@ -18,6 +18,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -32,9 +33,17 @@ public class FriendsFamilyWidgetTest extends PreRequisites {
     private final String ADD_FNF_COMMENT = "Adding new msisdn in FNF List using automation";
     private final String DELETE_FNF_COMMENT="Deleting Newly Added member from FnF List";
 
+    @BeforeClass
+    public void checkServiceProfileFlag() {
+        if (!StringUtils.equals(RUN_FNF_WIDGET_TEST_CASE, "true")) {
+            commonLib.skip("Skipping because Run Friend & Family widget Test Case Flag Value is - " + RUN_FNF_WIDGET_TEST_CASE);
+            throw new SkipException("Skipping because this functionality does not applicable for current Opco");
+        }
+    }
+
     @BeforeMethod
     public void checkExecution() {
-        if (!continueExecutionFA && !StringUtils.equalsIgnoreCase(RUN_FNF_WIDGET_TEST_CASE, "true")) {
+        if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
             throw new SkipException("Skipping tests because user NOT able to login Over Portal");
         }

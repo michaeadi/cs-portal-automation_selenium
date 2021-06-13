@@ -1,6 +1,7 @@
 package com.airtel.cs.ui.backendSupervisor;
 
 import com.airtel.cs.common.actions.BaseActions;
+import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.driver.Driver;
 import org.openqa.selenium.NoSuchElementException;
@@ -8,7 +9,6 @@ import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 public class SupervisorGlobalSearchTest extends Driver {
 
@@ -22,73 +22,73 @@ public class SupervisorGlobalSearchTest extends Driver {
         }
     }
 
-    @Test(priority = 1)
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void openSupervisorDashboard() {
         try {
             selUtils.addTestcaseDescription("Open Supervisor Dashboard , Validate agent redirect to ticket List Page", "description");
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().clickOnUserName();
             pages.getSideMenuPage().openSupervisorDashboard();
-            assertCheck.append(actions.assertEqual_stringType(driver.getTitle(), config.getProperty("supervisorTicketListPage"), "Agent redirect to ticket list page as expected", "Agent does not redirect to ticket list page as expected"));
-            actions.assertAllFoundFailedAssert(assertCheck);
+            assertCheck.append(actions.assertEqual_stringType(driver.getTitle(), constants.getValue(CommonConstants.SUPERVISOR_TICKET_LIST_PAGE_TITLE), "Agent redirect to ticket list page as expected", "Agent does not redirect to ticket list page as expected"));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - openSupervisorDashboard" + e.fillInStackTrace(), true);
         }
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 2, description = "Verify Global Search By Valid Ticket Id")
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void globalSearchTestByTicket() {
         try {
             selUtils.addTestcaseDescription("Verify Global Search By Valid Ticket Id,Search By ticket id", "description");
             try {
-                pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
                 String ticketId = pages.getSupervisorTicketList().getTicketIdValue();
                 pages.getSupervisorTicketList().writeTicketId(ticketId);
                 pages.getSupervisorTicketList().clickSearchBtn();
-                pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
                 assertCheck.append(actions.assertEqual_stringType(pages.getSupervisorTicketList().getTicketIdValue(), ticketId, "Search Ticket found.", "Search Ticket does not found with Ticket Number: " + ticketId));
             } catch (NoSuchElementException | TimeoutException e) {
                 commonLib.fail("No Ticket Id Found.", true);
             }
             pages.getSupervisorTicketList().clearInputBox();
-            actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - globalSearchTestByTicket" + e.fillInStackTrace(), true);
         }
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 3, description = "Verify Global Search By Invalid Ticket Id")
+    @Test(priority = 3, groups = {"RegressionTest"})
     public void globalSearchTestByInvalidTicket() {
-        selUtils.addTestcaseDescription("Verify Global Search By Invalid Ticket Id", "description");
-        SoftAssert softAssert = new SoftAssert();
-        pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
-        String ticketId = "987654321012";
-        pages.getSupervisorTicketList().writeTicketId(ticketId);
-        pages.getSupervisorTicketList().clickSearchBtn();
-        pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
-        softAssert.assertTrue(pages.getSupervisorTicketList().noTicketFound(), "No Result found Page does not display for Ticket Number: " + ticketId);
-        pages.getSupervisorTicketList().clearInputBox();
-        softAssert.assertAll();
+        try {
+            selUtils.addTestcaseDescription("Verify Global Search By Invalid Ticket Id,Search with invalid ticket id,validate no result must be displayed.", "description");
+            String ticketId = "987654321012";
+            pages.getSupervisorTicketList().writeTicketId(ticketId);
+            pages.getSupervisorTicketList().clickSearchBtn();
+            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().noTicketFound(), true, "No Result found Page display for Ticket Number: " + ticketId, "No Result page does not displayed with invalid ticket number: " + ticketId));
+            pages.getSupervisorTicketList().clearInputBox();
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - globalSearchTestByInvalidTicket" + e.fillInStackTrace(), true);
+        }
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     @DataProviders.User(userType = "NFTR")
-    @Test(priority = 4, description = "Verify Global Search By Global Search Option")
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void globalSearchTestBy() {
-        selUtils.addTestcaseDescription("Verify Global Search By Global Search Option", "description");
-        SoftAssert softAssert = new SoftAssert();
-        pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
         try {
-            String msisdn = pages.getSupervisorTicketList().getMSISDN();
-            pages.getSupervisorTicketList().clickTicketOption();
-            pages.getSupervisorTicketList().clickSearchOptionByTextNoIgnoreCase(config.getProperty("msisdnOption"));
-            pages.getSupervisorTicketList().writeTicketId(msisdn);
-            pages.getSupervisorTicketList().clickSearchBtn();
-            pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
-            softAssert.assertEquals(pages.getSupervisorTicketList().getMSISDN(), msisdn, "Ticket does not found By searched MSISDN.");
-        } catch (NoSuchElementException | TimeoutException e) {
-            softAssert.fail("Not able to validate Global search by Global Search Option.");
+            selUtils.addTestcaseDescription("Verify Global Search By Global Search Option, Search using customer msisdn,validate Result page show ticket with searched msisdn", "description");
+            try {
+                String msisdn = pages.getSupervisorTicketList().getMSISDN();
+                pages.getSupervisorTicketList().clickTicketOption();
+                pages.getSupervisorTicketList().clickSearchOptionByTextNoIgnoreCase(constants.getValue(CommonConstants.SEARCH_BY_GLOBAL_SEARCH));
+                pages.getSupervisorTicketList().writeTicketId(msisdn);
+                pages.getSupervisorTicketList().clickSearchBtn();
+                assertCheck.append(actions.assertEqual_stringType(pages.getSupervisorTicketList().getMSISDN(), msisdn, "Ticket found with searched MSISDN", "Ticket does not found By searched MSISDN."));
+            } catch (NoSuchElementException | TimeoutException e) {
+                commonLib.fail("Not able to validate Global search by Global Search Option.", true);
+            }
+            pages.getSupervisorTicketList().clearInputBox();
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - globalSearchTestBy" + e.fillInStackTrace(), true);
         }
-        pages.getSupervisorTicketList().clearInputBox();
-        softAssert.assertAll();
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 }
