@@ -3,6 +3,7 @@ package com.airtel.cs.pagerepository.pageelements;
 import org.openqa.selenium.By;
 
 public class RechargeHistoryWidgetPage {
+    public String widgetIdentifier="//div[@data-csautomation-key='RECHARGE_HISTORY']";
     public By rechargeHistoryDatePicker = By.xpath("//div[@id='RECHARGE_HISTORY']//input[@name='dateRange']");
     public By rechargeHistoryHeader = By.xpath("//div[@id='RECHARGE_HISTORY']//span[@class='card__card-header--label']");
     public By rows = By.xpath("//div[@id='RECHARGE_HISTORY']//parent::div//following-sibling::div[@class='card__content restricted ng-star-inserted']//div[@class='table-data-wrapper ng-star-inserted']//div[@class='card__card-header--card-body--table--data-list row-border']");

@@ -8,10 +8,8 @@ import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pojo.response.AccountsBalancePOJO;
 import com.airtel.cs.pojo.response.RechargeHistoryPOJO;
 import com.airtel.cs.pojo.response.UsageHistoryPOJO;
-import com.airtel.cs.pojo.response.accumulators.AccumulatorsPOJO;
 import com.airtel.cs.pojo.response.airtelmoney.AirtelMoneyPOJO;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -55,84 +53,6 @@ public class WidgetsOptionsTest extends Driver {
         } catch (Exception e) {
             commonLib.fail("Exception in Method - openCustomerInteraction" + e.fillInStackTrace(), true);
         }
-    }
-
-    @Table(name = "Da Details")
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI")
-    public void daDetailsTest(HeaderDataBean data) {
-        selUtils.addTestcaseDescription("Validating DA Details of User :" + customerNumber, "description");
-        SoftAssert softAssert = new SoftAssert();
-        try {
-            pages.getCurrentBalanceWidgetPage().waitTillLoaderGetsRemoved();
-            softAssert.assertTrue(pages.getCurrentBalanceWidgetPage().isCurrentBalanceWidgetMenuVisible(), "Current Balance Widget MENU is not visible ");
-            pages.getCurrentBalanceWidgetPage().openingDADetails();
-            softAssert.assertEquals(pages.getDaDetailsPage().getHeaders(1).toLowerCase().trim(), data.getRow1().toLowerCase().trim(), "Header Name for Row 1 is not as expected");
-            softAssert.assertEquals(pages.getDaDetailsPage().getHeaders(2).toLowerCase().trim(), data.getRow2().toLowerCase().trim(), "Header Name for Row 2 is not as expected");
-            softAssert.assertEquals(pages.getDaDetailsPage().getHeaders(3).toLowerCase().trim(), data.getRow3().toLowerCase().trim(), "Header Name for Row 3 is not as expected");
-            softAssert.assertEquals(pages.getDaDetailsPage().getHeaders(4).toLowerCase().trim(), data.getRow4().toLowerCase().trim(), "Header Name for Row 4 is not as expected");
-            softAssert.assertEquals(pages.getDaDetailsPage().getHeaders(5).toLowerCase().trim(), data.getRow5().toLowerCase().trim(), "Header Name for Row 5 is not as expected");
-            AccountsBalancePOJO accountsBalanceAPI = api.balanceAPITest(customerNumber);
-            if (accountsBalanceAPI.getStatusCode() == 200) {
-                int size = pages.getDaDetailsPage().getNumbersOfRows();
-                if (size > 10) {
-                    size = 10;
-                }
-                for (int i = 0; i < size; i++) {
-                    softAssert.assertEquals(pages.getDaDetailsPage().getDAId(i + 1), accountsBalanceAPI.getResult().get(i).getDaId(), "DA ID is not as received in com.airtel.cs.API on row " + i);
-                    softAssert.assertEquals(pages.getDaDetailsPage().getDADescription(i + 1).trim(), accountsBalanceAPI.getResult().get(i).getDaDesc(), "DA Description is not as received in com.airtel.cs.API on row " + i);
-                    softAssert.assertEquals(pages.getDaDetailsPage().getBundleType(i + 1).replace("-", "null") + " ", accountsBalanceAPI.getResult().get(i).getBundleType() + " ", "DA Bundle Type is not as received in com.airtel.cs.API on row " + i);
-                    softAssert.assertEquals(pages.getDaDetailsPage().getDADateTime(i + 1), UtilsMethods.getDateFromEpochInUTC(accountsBalanceAPI.getResult().get(i).getExpiryDate(), "dd-MMM-yyyy"), "DA Date Time is not as received in com.airtel.cs.API on row " + i);
-                    softAssert.assertEquals(pages.getDaDetailsPage().getDABalance(i + 1), accountsBalanceAPI.getResult().get(i).getCurrentDaBalance(), "DA Current Balance is not as received in com.airtel.cs.API on row " + i);
-                    if (i != 0) {
-                        softAssert.assertTrue(UtilsMethods.isSortOrderDisplay(pages.getDaDetailsPage().getDADateTime(i), pages.getDaDetailsPage().getDADateTime(i + 1), "dd-MMM-yyy"), pages.getDaDetailsPage().getDADateTime(i) + "should not display before " + pages.getDaDetailsPage().getDADateTime(i + 1));
-                    }
-                }
-                pages.getDaDetailsPage().openingCustomerInteractionDashboard();
-            } else {
-                softAssert.fail("com.airtel.cs.API Response does not 200 :" + accountsBalanceAPI.getMessage());
-            }
-        } catch (NoSuchElementException | TimeoutException e) {
-            e.printStackTrace();
-            commonLib.fail("DA details does not display correctly", true);
-            softAssert.fail("DA details does not display correctly");
-            pages.getDaDetailsPage().openingCustomerInteractionDashboard();
-        }
-        softAssert.assertAll();
-    }
-
-    @Table(name = "Accumulator")
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI")
-    public void accumulatorDetailsTest(HeaderDataBean Data) {
-        selUtils.addTestcaseDescription("Validating Accumulator Details of User :" + customerNumber, "description");
-        SoftAssert softAssert = new SoftAssert();
-        try {
-            pages.getCurrentBalanceWidgetPage().waitTillLoaderGetsRemoved();
-            softAssert.assertTrue(pages.getCurrentBalanceWidgetPage().isCurrentBalanceWidgetMenuVisible(), "Current Balance Widget MENU is not visible ");
-            pages.getCurrentBalanceWidgetPage().openingDADetails();
-            softAssert.assertEquals(pages.getDaDetailsPage().getAccumulatorHeaders(1).toLowerCase().trim(), Data.getRow1().toLowerCase().trim(), "Header Name for Row 1 is not as expected");
-            softAssert.assertEquals(pages.getDaDetailsPage().getAccumulatorHeaders(2).toLowerCase().trim(), Data.getRow2().toLowerCase().trim(), "Header Name for Row 2 is not as expected");
-            softAssert.assertEquals(pages.getDaDetailsPage().getAccumulatorHeaders(3).toLowerCase().trim(), Data.getRow3().toLowerCase().trim(), "Header Name for Row 3 is not as expected");
-            softAssert.assertEquals(pages.getDaDetailsPage().getAccumulatorHeaders(4).toLowerCase().trim(), Data.getRow4().toLowerCase().trim(), "Header Name for Row 4 is not as expected");
-            AccumulatorsPOJO accumulatorAPI = api.accumulatorsAPITest(customerNumber);
-            if (accumulatorAPI.getStatusCode() == 200) {
-                int size = Math.min(accumulatorAPI.getResult().size(), 5);
-                for (int i = 0; i < size; i++) {
-                    softAssert.assertEquals(pages.getDaDetailsPage().getValueCorrespondingToAccumulator(i + 1, 1).trim(), accumulatorAPI.getResult().get(i).getId(), "Accumulator ID is not as received in com.airtel.cs.API on row " + i);
-                    softAssert.assertEquals(pages.getDaDetailsPage().getValueCorrespondingToAccumulator(i + 1, 2).trim(), String.valueOf(accumulatorAPI.getResult().get(i).getValue()), "Accumulator Value is not as received in com.airtel.cs.API on row " + i);
-                    softAssert.assertEquals(pages.getDaDetailsPage().getValueCorrespondingToAccumulator(i + 1, 3).trim(), accumulatorAPI.getResult().get(i).getStartDate() == null ? "-" : UtilsMethods.getDateFromString(accumulatorAPI.getResult().get(i).getStartDate(), config.getProperty("UIAccumulatorTimeFormat"), config.getProperty("APIAccumulatorTimeFormat")), "Accumulator Start Date is not as received in com.airtel.cs.API on row " + i);
-                    softAssert.assertEquals(pages.getDaDetailsPage().getValueCorrespondingToAccumulator(i + 1, 4).trim(), accumulatorAPI.getResult().get(i).getNextResetDate() == null ? "-" : UtilsMethods.getDateFromString(accumulatorAPI.getResult().get(i).getNextResetDate(), config.getProperty("UIAccumulatorTimeFormat"), config.getProperty("APIAccumulatorTimeFormat")), "Accumulator Next Reset Date Time is not as received in com.airtel.cs.API on row " + i);
-                }
-                pages.getDaDetailsPage().openingCustomerInteractionDashboard();
-            } else {
-                softAssert.fail("com.airtel.cs.API Response does not 200 :" + accumulatorAPI.getMessage());
-            }
-        } catch (NoSuchElementException | TimeoutException e) {
-            e.printStackTrace();
-            commonLib.fail("Accumulator details does not display correctly", true);
-            softAssert.fail("Accumulator details does not display correctly");
-            pages.getDaDetailsPage().openingCustomerInteractionDashboard();
-        }
-        softAssert.assertAll();
     }
 
     @Table(name = "More Recharge History")

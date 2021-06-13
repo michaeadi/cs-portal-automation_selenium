@@ -6,18 +6,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 
-import java.util.List;
-
 @Log4j2
-public class RechargeHistoryWidget extends BasePage {
+public class RechargeHistoryWidget extends BasePage{
 
     RechargeHistoryWidgetPage pageElements;
-    List<WebElement> as;
 
     public RechargeHistoryWidget(WebDriver driver) {
         super(driver);
@@ -31,9 +27,7 @@ public class RechargeHistoryWidget extends BasePage {
     }
 
     public String getHeaders(int row) {
-        String header = getText(By.xpath("//div[@id='RECHARGE_HISTORY']//div[@class='card__card-header--card-body--table--list-heading ng-star-inserted']/div[" + row + "]/span[1]"));
-        commonLib.info("Getting header Number " + row + " : " + header);
-        return header;
+        return pages.getWidgetCommonMethod().getHeaderValue(getUniqueIdentifier(),row);
     }
 
     public String getSubHeaders(int row) {
@@ -56,8 +50,7 @@ public class RechargeHistoryWidget extends BasePage {
 
 
     public int getNumberOfRows() {
-        as = returnListOfElement(pageElements.rows);
-        return as.size();
+        return pages.getWidgetCommonMethod().getNumberOfDataRows(getUniqueIdentifier());
     }
 
     public boolean isRechargeHistoryWidgetMenuVisible() {
@@ -185,5 +178,9 @@ public class RechargeHistoryWidget extends BasePage {
         String result = null;
         result = getAttribute(pageElements.middleRHWAuuid, "data-auuid", false);
         return result;
+    }
+
+    public String getUniqueIdentifier(){
+        return pageElements.widgetIdentifier;
     }
 }

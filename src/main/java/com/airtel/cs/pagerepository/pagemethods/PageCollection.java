@@ -182,4 +182,6 @@ public class PageCollection {
     public Growl getGrowl() {
         return new Growl(driver);
     }
+
+    public WidgetCommonMethod getWidgetCommonMethod(){return new WidgetCommonMethod(driver);}
 }
