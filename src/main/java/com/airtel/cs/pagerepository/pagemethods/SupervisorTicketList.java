@@ -79,13 +79,13 @@ public class SupervisorTicketList extends BasePage {
     }
 
     public boolean isTicketIdLabel() {
-        final boolean state = isEnabled(pageElements.ticketIdLabel);
-        commonLib.pass("Is Ticket Id field Available :" + state);
+        final boolean state = isVisible(pageElements.ticketIdLabel);
+        commonLib.info("Is Ticket Id field Available :" + state);
         return state;
     }
 
     public boolean isWorkGroupName() {
-        commonLib.pass("Ticket lie in WorkGroup :" + getText(pageElements.workGroupName));
+        commonLib.info("Ticket lie in WorkGroup :" + getText(pageElements.workGroupName));
         return isEnabled(pageElements.workGroupName);
     }
 
@@ -95,19 +95,19 @@ public class SupervisorTicketList extends BasePage {
 
     public boolean isPrioritylabel() {
         final boolean state = isEnabled(pageElements.prioritylabel);
-        commonLib.pass("Is Priority field Available :" + state);
+        commonLib.info("Is Priority field Available :" + state);
         return state;
     }
 
     public boolean isStateLabel() {
         final boolean state = isEnabled(pageElements.stateLabel);
-        commonLib.pass("Is State field Available :" + state);
+        commonLib.info("Is State field Available :" + state);
         return state;
     }
 
     public boolean isCreationdateLabel() {
         final boolean state = isEnabled(pageElements.creationdateLabel);
-        commonLib.pass("Is Creation Date field Available :" + state);
+        commonLib.info("Is Creation Date field Available :" + state);
         return state;
     }
 

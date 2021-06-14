@@ -38,5 +38,7 @@ public class CommonConstants {
     public static final String SEARCH_BY_TITLE="cs.search.by.title";
     public static final String TICKET_CREATE_EVENT="cs.ticket.create.event";
     public static final String SYSTEM_SMS_TYPE="cs.system.sms.type";
+    public static final String BACKEND_AGENT_TICKET_LIST_PAGE="cs.backend.agent.ticket.list.page";
+    public static final String ISSUE_COMMENT="cs.issue.comment";
 
 }

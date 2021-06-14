@@ -63,9 +63,7 @@ public class PriorityDataExcelToBeanDao {
                     priorityList.add(priorityDataBean);
                 }
             }
-        } catch (
-
-                IOException e) {
+        } catch (IOException | NullPointerException e) {
             e.printStackTrace();
         }
         return priorityList;

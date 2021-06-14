@@ -140,10 +140,9 @@ public class SideMenu extends BasePage {
         clickAndWaitForLoaderToBeRemoved(pageElements.agentDashboard);
     }
 
-    public Boolean isAgentDashboard() {
+    public Boolean isBEAgentDashboard() {
         commonLib.info("Checking Agent Dashboard Visible or not");
-        hoverOverElement(pageElements.customerServices);
-        return isEnabled(pageElements.agentDashboard);
+        return isVisible(pageElements.backendAgentDashboard);
     }
 
     public TicketBulkUpdate openTicketBulkUpdateDashboard() {
