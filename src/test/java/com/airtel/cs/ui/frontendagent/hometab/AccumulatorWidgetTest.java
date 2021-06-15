@@ -28,7 +28,7 @@ public class AccumulatorWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 1, description = "Validate Customer Interaction Page")
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void openCustomerInteractionAPI() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -50,7 +50,7 @@ public class AccumulatorWidgetTest extends Driver {
     @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI")
     public void accumulatorDetailsTest(HeaderDataBean Data) {
         try {
-            selUtils.addTestcaseDescription("Validating Accumulator Details of User :" + customerNumber, "description");
+            selUtils.addTestcaseDescription("Validating Accumulator Details of User :" + customerNumber+",Validate accumulator widget header display as per config,Validate accumulator row data must be displayed as per api response.", "description");
             try {
                 assertCheck.append(actions.assertEqual_boolean(pages.getCurrentBalanceWidgetPage().isCurrentBalanceWidgetMenuVisible(), true, "Current Balance Widget MENU visible ", "Current Balance Widget MENU is not visible"));
                 pages.getCurrentBalanceWidgetPage().openingDADetails();

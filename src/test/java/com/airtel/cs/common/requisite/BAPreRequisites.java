@@ -98,17 +98,4 @@ public class BAPreRequisites extends Driver {
         pages.getSideMenuPage().openCustomerInteractionPage();
     }
 
-    /*
-    This Method will login in CS Portal and will check the Tariff Plan Option visible or not
-     */
-    public void goAndCheckServiceClassOptionVisible() {
-        try {
-            loginInCSPortal();
-            pages.getMsisdnSearchPage().enterNumber(constants.getValue(ApplicationConstants.TARIFF_PLAN_TEST_NUMBER));
-            pages.getMsisdnSearchPage().clickOnSearch();
-            pages.getCustomerProfilePage().clickOnAction();
-        } catch (Exception e) {
-            commonLib.error("Exception in Method - goAndCheckServiceClassOptionVisible " + e.getMessage());
-        }
-    }
 }

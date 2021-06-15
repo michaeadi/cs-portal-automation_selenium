@@ -13,22 +13,22 @@ public class ActionTrail extends BasePage {
         pageElements = PageFactory.initElements(driver, ActionTrailPage.class);
     }
 
-    public String getHeaderValue(int i) {
-        String text = driver.findElements(pageElements.headRow).get(i).getText();
+    /**
+     *This method will be use to read widget header name based on column number
+     * @param column The column number
+     * @return String The value
+     */
+    public String getHeaderValue(int column) {
+        String text = driver.findElements(pageElements.headRow).get(column).getText();
         commonLib.info(text);
         return text;
     }
 
-    public Integer getNumberOfHeadRow() {
-        return driver.findElements(pageElements.headRow).size();
-    }
-
-    public Integer getNumberOfColumns() {
-        return driver.findElements(pageElements.detailRow).size();
-    }
-
-    /*
-    This Method will give us action trail table value by providing row and column
+    /**
+     * This Method will give us action trail table value by providing row and column
+     * @param row The row Number
+     * @param column The Column Number
+     * @return String The value
      */
     public String getValue(int row, int column) {
         String text = getText(By.xpath(pageElements.actionTrailRow + row + pageElements.actionTrailColumn + column + "]"));

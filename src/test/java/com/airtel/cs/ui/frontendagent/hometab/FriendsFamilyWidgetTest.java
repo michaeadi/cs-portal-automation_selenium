@@ -164,7 +164,7 @@ public class FriendsFamilyWidgetTest extends PreRequisites {
             pages.getDaDetailsPage().clickAddMemberIcon();
             try {
                 assertCheck.append(actions.assertEqual_stringType(pages.getDaDetailsPage().getPopUpTitle().toLowerCase().trim(), "add fnf number", "Open Pop up title as expected", "Open Pop up title as not expected"));
-                pages.getDaDetailsPage().enterAddFnfNumber(constants.getValue(ApplicationConstants.FNF_NEW_MSISDN));
+                pages.getDaDetailsPage().enterAddFnfNumber(constants.getValue(ApplicationConstants.FNF_NEW_MEMBER_MSISDN));
                 pages.getAuthTabPage().enterComment(ADD_FNF_COMMENT);
                 assertCheck.append(actions.assertEqual_boolean(pages.getAuthTabPage().isSubmitBtnEnable(), true, "Submit button enable after adding msisdn & comment", "Submit button does not enable after adding msisdn & comment"));
                 pages.getAuthTabPage().clickSubmitBtn();
@@ -180,7 +180,7 @@ public class FriendsFamilyWidgetTest extends PreRequisites {
                     friendsFamilyAPI = api.friendsFamilyAPITest(customerNumber);
                     boolean flag = true;
                     for (int i = 0; i < friendsFamilyAPI.getResult().get(0).getFafInformation().size(); i++) {
-                        if (friendsFamilyAPI.getResult().get(0).getFafInformation().get(i).getFafNumber().equals(constants.getValue(ApplicationConstants.FNF_NEW_MSISDN))) {
+                        if (friendsFamilyAPI.getResult().get(0).getFafInformation().get(i).getFafNumber().equals(constants.getValue(ApplicationConstants.FNF_NEW_MEMBER_MSISDN))) {
                             commonLib.pass("New Number added successfully into FnF List.");
                             flag = false;
                             break;
@@ -241,7 +241,7 @@ public class FriendsFamilyWidgetTest extends PreRequisites {
             int size = Math.min(fnfInfoAPI.size(), 5);
             boolean status=true;
             for (int i = 0; i < size; i++) {
-                if(pages.getDaDetailsPage().getValueCorrespondingToFriendsFamily(i + 1, 1).equalsIgnoreCase(constants.getValue(ApplicationConstants.FNF_NEW_MSISDN))){
+                if(pages.getDaDetailsPage().getValueCorrespondingToFriendsFamily(i + 1, 1).equalsIgnoreCase(constants.getValue(ApplicationConstants.FNF_NEW_MEMBER_MSISDN))){
                     pages.getDaDetailsPage().clickActionIconOnFriendsFamily(i+1);
                     try {
                         assertCheck.append(actions.assertEqual_stringType(pages.getDaDetailsPage().getPopUpTitle().toLowerCase().trim(), "delete fnf number", "Open Pop up title as expected", "Open Pop up title as not expected"));
@@ -259,14 +259,14 @@ public class FriendsFamilyWidgetTest extends PreRequisites {
                             friendsFamilyAPI = api.friendsFamilyAPITest(customerNumber);
                             boolean flag = true;
                             for (int j = 0; j < friendsFamilyAPI.getResult().get(0).getFafInformation().size(); j++) {
-                                if (friendsFamilyAPI.getResult().get(0).getFafInformation().get(j).getFafNumber().equals(constants.getValue(ApplicationConstants.FNF_NEW_MSISDN))) {
+                                if (friendsFamilyAPI.getResult().get(0).getFafInformation().get(j).getFafNumber().equals(constants.getValue(ApplicationConstants.FNF_NEW_MEMBER_MSISDN))) {
                                     commonLib.fail("After deleting Newly added Number still showing into FnF List.",true);
                                     flag = false;
                                     break;
                                 }
                             }
                             if (flag) {
-                                commonLib.pass(constants.getValue(ApplicationConstants.FNF_NEW_MSISDN)+" :- Remove from FnF List successfully.");
+                                commonLib.pass(constants.getValue(ApplicationConstants.FNF_NEW_MEMBER_MSISDN)+" :- Remove from FnF List successfully.");
                             }
                         }
                     } catch (NoSuchElementException | TimeoutException e) {
@@ -278,7 +278,7 @@ public class FriendsFamilyWidgetTest extends PreRequisites {
                 }
             }
             if(status){
-                commonLib.fail(constants.getValue(ApplicationConstants.FNF_NEW_MSISDN)+":- MSISDN does not added into FnF List as expected.",true);
+                commonLib.fail(constants.getValue(ApplicationConstants.FNF_NEW_MEMBER_MSISDN)+":- MSISDN does not added into FnF List as expected.",true);
             }
         } catch (Exception e) {
             commonLib.fail("Exception in Method - deleteMemberToFnF" + e.fillInStackTrace(), true);
