@@ -8,11 +8,11 @@ public class ViewCreatedTemplatePage {
     public By agentChannel = By.xpath("//mat-label[contains(text(),'Agents Channel')]//ancestor::div[1]");
     public By roles = By.xpath("//mat-label[contains(text(),'Roles')]//ancestor::div[1]");
     public By language = By.xpath("//mat-label[contains(text(),'Language')]//ancestor::div[1]");
-    public By allActiveTemplate = By.xpath("//div[@class=\"sms-managment__card-list--card--sms-template--content--sms-card ng-star-inserted\"]");
+    public By allActiveTemplate = By.xpath("//div[@class='sms-managment__card-list--card--sms-template--content--sms-card ng-star-inserted']");
     public By searchIcon = By.xpath("//img[@class='search-icn']");
     public By allOption = By.xpath("//span[contains(text(),'Select All')]");
-    public By options = By.xpath("//mat-option[@role=\"option\"]");
-    public By allDeActiveTemplate = By.xpath("//div[@class=\"sms-managment__card-list--card--sms-template--content--sms-card deactivate-card ng-star-inserted\"]");
+    public By options = By.xpath("//mat-option[@role='option']");
+    public By allDeActiveTemplate = By.xpath("//div[@class='sms-managment__card-list--card--sms-template--content--sms-card deactivate-card ng-star-inserted']");
     public By pagination = By.xpath("//div[@class='pagination-details']");
 
     //DeActive Pop up

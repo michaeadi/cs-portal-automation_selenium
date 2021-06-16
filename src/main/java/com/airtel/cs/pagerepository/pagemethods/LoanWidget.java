@@ -14,7 +14,7 @@ public class LoanWidget extends BasePage {
     LoanWidgetPage pageElements;
     List<WebElement> vendors;
     private static final String TEXT1 = "Reading Header: ";
-    private static final String XPATH = "//div[@id='LOAN_SERVICES']//div[@class=\"card__card-header--card-body--table\"]//div[@class=\"card__card-header--card-body--table--data-list ng-star-inserted\"][";
+    private static final String XPATH = "//div[@id='LOAN_SERVICES']//div[@class='card__card-header--card-body--table']//div[@class='card__card-header--card-body--table--data-list ng-star-inserted'][";
 
     public LoanWidget(WebDriver driver) {
         super(driver);
@@ -58,70 +58,70 @@ public class LoanWidget extends BasePage {
     }
 
     public String getVendorName(int i) {
-        By name = By.xpath(XPATH + i + "]//div[@class=\"show-error-message ng-star-inserted\"][1]//span[1]");
+        By name = By.xpath(XPATH + i + "]//div[@class='show-error-message ng-star-inserted'][1]//span[1]");
         final String text = getText(name);
         commonLib.info("Reading Vendor Name: " + text);
         return text.trim();
     }
 
     public String getLoanAmount(int i) {
-        By amount = By.xpath(XPATH + i + "]//div[@class=\"show-error-message ng-star-inserted\"][2]//span");
+        By amount = By.xpath(XPATH + i + "]//div[@class='show-error-message ng-star-inserted'][2]//span");
         final String text = getText(amount);
         commonLib.info("Reading Loan Amount: " + text);
         return text.trim();
     }
 
     public String getDateCreatedOn(int i) {
-        By name = By.xpath(XPATH + i + "]//div[@class=\"show-error-message ng-star-inserted\"][3]//span[@class=\"date_time ng-star-inserted\"]");
+        By name = By.xpath(XPATH + i + "]//div[@class='show-error-message ng-star-inserted'][3]//span[@class='date_time ng-star-inserted']");
         final String text = getText(name);
         commonLib.info("Reading Date Created on: " + text);
         return text.trim();
     }
 
     public String getTimeCreatedOn(int i) {
-        By name = By.xpath(XPATH + i + "]//div[@class=\"show-error-message ng-star-inserted\"][3]//span[@class=\"time ng-star-inserted\"]");
+        By name = By.xpath(XPATH + i + "]//div[@class='show-error-message ng-star-inserted'][3]//span[@class='time ng-star-inserted']");
         final String text = getText(name);
         commonLib.info("Reading Time Created on: " + text);
         return text.trim();
     }
 
     public String getOutstandingAmount(int i) {
-        By name = By.xpath(XPATH + i + "]//div[@class=\"show-error-message ng-star-inserted\"][4]//div[@class=\"widget-section\"]");
+        By name = By.xpath(XPATH + i + "]//div[@class='show-error-message ng-star-inserted'][4]//div[@class='widget-section']");
         final String text = getText(name);
         commonLib.info("Reading Current Outstanding amount: " + text);
         return text.trim();
     }
 
     public String getDueDate(int i) {
-        By name = By.xpath(XPATH + i + "]//div[@class=\"show-error-message ng-star-inserted\"][5]//span[@class=\"date_time ng-star-inserted\"]");
+        By name = By.xpath(XPATH + i + "]//div[@class='show-error-message ng-star-inserted'][5]//span[@class='date_time ng-star-inserted']");
         final String text = getText(name);
         commonLib.info("Reading Due Date on: " + text);
         return text.trim();
     }
 
     public String getTimeDueDate(int i) {
-        By name = By.xpath(XPATH + i + "]//div[@class=\"show-error-message ng-star-inserted\"][5]//span[@class=\"time ng-star-inserted\"]");
+        By name = By.xpath(XPATH + i + "]//div[@class='show-error-message ng-star-inserted'][5]//span[@class='time ng-star-inserted']");
         final String text = getText(name);
         commonLib.info("Reading Due Time on: " + text);
         return text.trim();
     }
 
     public boolean checkVendorNameDisplay(String name) {
-        By vendor = By.xpath("//div[@id='LOAN_SERVICES']//div[@class=\"card__card-header--card-body--table\"]//span[contains(text(),'" + name + "')]");
+        By vendor = By.xpath("//div[@id='LOAN_SERVICES']//div[@class='card__card-header--card-body--table']//span[contains(text(),'" + name + "')]");
         final boolean checkState = isEnabled(vendor);
         commonLib.info("Is Vendor name displayed: " + checkState);
         return checkState;
     }
 
     public boolean checkMessageDisplay(String message) {
-        By vendor = By.xpath("//div[@id='LOAN_SERVICES']//div[@class=\"card__card-header--card-body--table\"]//span[contains(text(),'" + message + "')]");
+        By vendor = By.xpath("//div[@id='LOAN_SERVICES']//div[@class='card__card-header--card-body--table']//span[contains(text(),'" + message + "')]");
         final boolean checkState = isEnabled(vendor);
         commonLib.info("Is message displayed: " + checkState);
         return checkState;
     }
 
     public LoanDetail clickVendorName(int i) {
-        By name = By.xpath(XPATH + i + "]//div[@class=\"show-error-message ng-star-inserted\"][1]//span[1]");
+        By name = By.xpath(XPATH + i + "]//div[@class='show-error-message ng-star-inserted'][1]//span[1]");
         commonLib.info("Clicking Vendor Name");
         clickAndWaitForLoaderToBeRemoved(name);
         return new LoanDetail(driver);

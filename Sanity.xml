@@ -4,11 +4,11 @@
     <listeners>
         <listener class-name="com.airtel.cs.commonutils.listeners.TestListenerMethod"/>
     </listeners>
-    <test name="Test Login API">
+    <!--<test name="Test Login API">
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginAPITest"/>
         </classes>
-    </test>
+    </test>-->
     <test name="Test Login Into Portal With FA">
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginPortalTests"/>
@@ -78,8 +78,8 @@
          <classes>
              <class name="com.airtel.cs.ui.frontendagent.hometab.CRBTWidgetTest"/>
          </classes>
-     </test>-->
-     <!--<test name="Create NFTR FTR Tickets TEST">
+     </test>
+     <test name="Create NFTR FTR Tickets TEST">
          <classes>
              <class name="com.airtel.cs.ui.frontendagent.CreateInteractionTest"/>
          </classes>
@@ -89,7 +89,7 @@
              <class name="com.airtel.cs.ui.frontendagent.PinTagTest"/>
          </classes>
      </test>-->
-    <!-- <test name="Add Interaction Ticket Comment">
+    <!--<test name="Add Interaction Ticket Comment">
          <classes>
              <class name="com.airtel.cs.ui.frontendagent.InteractionCommentTest"/>
          </classes>
@@ -104,12 +104,12 @@
              <class name="com.airtel.cs.ui.frontendagent.FrontendAgentTicketTest"/>
          </classes>
      </test>-->
-     <!--<test name="Validate Voucher Tab">
+     <test name="Validate Voucher Tab">
          <classes>
              <class name="com.airtel.cs.ui.frontendagent.VoucherTabTest"/>
          </classes>
-     </test>-->
-    <!-- <test name="Clear Refill error">
+     </test>
+     <!--<test name="Clear Refill error">
          <classes>
              <class name="com.airtel.cs.ui.frontendagent.hometab.ClearRefillErrorTest"/>
          </classes>
@@ -198,32 +198,32 @@
          <classes>
              <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginPortalTests"/>
          </classes>
-     </test>
-     <test name="Create Template Test">
+     </test>-->
+     <!--<test name="Create Template Test">
          <classes>
              <class name="com.airtel.cs.ui.templateManagement.CreateTemplateTest"/>
          </classes>
-     </test>
-     <test name="View Template Test">
-         <classes>
-             <class name="com.airtel.cs.ui.templateManagement.ViewTemplateTest"/>
-         </classes>
-     </test>
-     <test name="UserManagement Test">
-         <classes>
-             <class name="com.airtel.cs.ui.usermanagement.UserManagementTest"/>
-         </classes>
-     </test>
-     <test name="Profile Management Test">
-         <classes>
-             <class name="com.airtel.cs.ui.profileManagement.ProfileManagementTest"/>
-         </classes>
-     </test>
-     <test name="Logout Test from ADMIN/SUPERVISOR">
-         <classes>
-             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
-         </classes>
      </test>-->
+   <!-- <test name="View Template Test">
+        <classes>
+            <class name="com.airtel.cs.ui.templateManagement.ViewTemplateTest"/>
+        </classes>
+    </test>-->
+    <!--<test name="UserManagement Test">
+        <classes>
+            <class name="com.airtel.cs.ui.usermanagement.UserManagementTest"/>
+        </classes>
+    </test>
+    <test name="Profile Management Test">
+        <classes>
+            <class name="com.airtel.cs.ui.profileManagement.ProfileManagementTest"/>
+        </classes>
+    </test>
+    <test name="Logout Test from ADMIN/SUPERVISOR">
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
+        </classes>
+    </test>-->
      <!--<test name="LOGIN TO BACKEND AGENT">
          <classes>
              <class name="com.airtel.cs.ui.backendAgent.BackendAgentLoginTest"/>

@@ -29,8 +29,13 @@ public class SendSMSTest extends Driver {
         }
     }
 
+    /**
+     * This method is used to Open Customer Profile Page with valid MSISDN
+     *
+     * @param data
+     */
     @DataProviders.User(userType = "NFTR")
-    @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteraction(TestDatabean data) {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -49,200 +54,226 @@ public class SendSMSTest extends Driver {
         }
     }
 
-    @Test(priority = 2, description = "Verify the fields displayed for SMS channel.", dependsOnMethods = "openCustomerInteraction")
+    /**
+     * This method is used to validate send SMS tab
+     */
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
     public void validateSendSMSTab() {
-        selUtils.addTestcaseDescription("Validating the Send SMS Tab ", "description");
-        SoftAssert softAssert = new SoftAssert();
-        pages.getCustomerProfilePage().waitTillLoaderGetsRemoved();
-        pages.getCustomerProfilePage().clickOnAction();
         try {
-            pages.getCustomerProfilePage().openSendSMSTab();
-            pages.getSendSMS().waitTillLoaderGetsRemoved();
+            selUtils.addTestcaseDescription("Validating the Send SMS Tab ", "description");
+            pages.getCustomerProfilePage();
+            pages.getCustomerProfilePage().clickOnAction();
             try {
-                softAssert.assertTrue(pages.getSendSMS().isPageLoaded(), "Send SMS tab does not open correctly");
+                pages.getCustomerProfilePage().openSendSMSTab();
+                pages.getSendSMS().waitTillLoaderGetsRemoved();
+                try {
+                    assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isPageLoaded(), true, "Send SMS tab open correctly", "Send SMS tab does not open correctly"));
+                } catch (NoSuchElementException | TimeoutException e) {
+                    commonLib.fail("Send SMS tab does not open correctly" + e.fillInStackTrace(), true);
+                }
+                try {
+                    assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isCategory(), true, "Category field is displayed", "Category field does not displayed"));
+                } catch (NoSuchElementException | TimeoutException e) {
+                    commonLib.fail("Category field does not displayed" + e.fillInStackTrace(), true);
+                }
+                try {
+                    assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isCustomerNumber(), true, "Customer number displayed", "Customer number does not displayed"));
+                } catch (NoSuchElementException | TimeoutException e) {
+                    commonLib.fail("Customer number does not displayed" + e.fillInStackTrace(), true);
+                }
+                try {
+                    assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isLanguage(), true, "Language field is displayed", "Language field does not displayed"));
+                } catch (NoSuchElementException | TimeoutException e) {
+                    commonLib.fail("Language field does not displayed" + e.fillInStackTrace(), true);
+                }
+                try {
+                    assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isTemplateName(), true, "Template name field is displayed", "Template name field does not display"));
+                } catch (NoSuchElementException | TimeoutException e) {
+                    commonLib.fail("Template name field does not displayed" + e.fillInStackTrace(), true);
+                }
+                try {
+                    assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isMessageContentEditable(), true, "Message Content Editable", "Message Content is not Editable"));
+                } catch (NoSuchElementException | TimeoutException e) {
+                    commonLib.fail("Message Content Is Editable" + e.fillInStackTrace(), true);
+                }
+                try {
+                    assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isSendBtnDisabled(), true, "Send SMS button is not clickable", "Send SMS button is clickable"));
+                } catch (NoSuchElementException | TimeoutException e) {
+                    commonLib.fail("Send SMS button is display on UI" + e.fillInStackTrace(), true);
+                }
             } catch (NoSuchElementException | TimeoutException e) {
-                softAssert.fail("Send SMS tab does not open correctly" + e.getMessage());
+                commonLib.fail("Send SMS tab does not open properly." + e.fillInStackTrace(), true);
             }
-            try {
-                softAssert.assertTrue(pages.getSendSMS().isCategory(), "Category field does not displayed");
-            } catch (NoSuchElementException | TimeoutException e) {
-                softAssert.fail("Category field does not displayed" + e.fillInStackTrace());
-            }
-            try {
-                softAssert.assertTrue(pages.getSendSMS().isCustomerNumber(), "Customer number does not displayed");
-            } catch (NoSuchElementException | TimeoutException e) {
-                softAssert.fail("Customer number does not displayed" + e.fillInStackTrace());
-            }
-            try {
-                softAssert.assertTrue(pages.getSendSMS().isLanguage(), "Language field does not displayed");
-            } catch (NoSuchElementException | TimeoutException e) {
-                softAssert.fail("Language field does not displayed" + e.fillInStackTrace());
-            }
-            try {
-                softAssert.assertTrue(pages.getSendSMS().isTemplateName(), "Template name field does not display");
-            } catch (NoSuchElementException | TimeoutException e) {
-                softAssert.fail("Template name field does not displayed" + e.fillInStackTrace());
-            }
-            try {
-                softAssert.assertTrue(pages.getSendSMS().isMessageContentEditable(), "Message Content Editable");
-            } catch (NoSuchElementException | TimeoutException e) {
-                softAssert.fail("Message Content Is Editable" + e.getCause());
-            }
-            try {
-                softAssert.assertTrue(pages.getSendSMS().isSendBtnDisabled(), "Send SMS button is clickable");
-            } catch (NoSuchElementException | TimeoutException e) {
-                softAssert.fail("Send SMS button is display on UI" + e.getCause());
-            }
-        } catch (NoSuchElementException | TimeoutException e) {
-            softAssert.fail("Send SMS tab does not open properly. " + e.fillInStackTrace());
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - validateSendSMSTab" + e.fillInStackTrace(), true);
         }
-        softAssert.assertAll();
     }
 
 
-    @Test(priority = 3, description = "Verify the frontend agent able to send SMS", dependsOnMethods = "validateSendSMSTab")
+    /**
+     * This method is used to validate send SMS tab
+     */
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "validateSendSMSTab")
     public void sendSMS() {
-        selUtils.addTestcaseDescription("Validating the Send SMS Tab ", "description");
-        SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(pages.getSendSMS().isPageLoaded(), "Send SMS tab does not open correctly");
-        Assert.assertEquals(pages.getSendSMS().getCustomerNumber(), customerNumber, "Customer Number as not same as whose profile opened");
         try {
-            pages.getSendSMS().selectCategory();
-            pages.getSendSMS().waitTillLoaderGetsRemoved();
+            selUtils.addTestcaseDescription("Validating the Send SMS Tab ", "description");
+            assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isPageLoaded(), true, "Send SMS tab does not open correctly"));
+            Assert.assertEquals(pages.getSendSMS().getCustomerNumber(), customerNumber, "Customer Number as not same as whose profile opened");
             try {
-                templateName = pages.getSendSMS().selectTemplateName();
+                pages.getSendSMS().selectCategory();
                 pages.getSendSMS().waitTillLoaderGetsRemoved();
                 try {
-                    pages.getSendSMS().selectLanguage();
+                    templateName = pages.getSendSMS().selectTemplateName();
                     pages.getSendSMS().waitTillLoaderGetsRemoved();
                     try {
-                        softAssert.assertTrue(pages.getSendSMS().clickSendSMSBtn(), "Send SMS does not enabled");
-                        pages.getSendSMS().waitTillSuccessMessage();
+                        pages.getSendSMS().selectLanguage();
                         pages.getSendSMS().waitTillLoaderGetsRemoved();
+                        try {
+                            assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().clickSendSMSBtn(), true, "Send SMS is enabled", "Send SMS does not enabled"));
+                            pages.getSendSMS().waitTillSuccessMessage();
+                            pages.getSendSMS().waitTillLoaderGetsRemoved();
+                        } catch (NoSuchElementException | TimeoutException e) {
+                            commonLib.fail("Not able to send sms to customer." + e.fillInStackTrace(), true);
+                        }
                     } catch (NoSuchElementException | TimeoutException e) {
-                        softAssert.fail("Not able to send sms to customer." + e.fillInStackTrace());
+                        commonLib.fail("Not able to select Language:" + e.fillInStackTrace(), true);
+                        pages.getSendSMS().clickOutside();
                     }
                 } catch (NoSuchElementException | TimeoutException e) {
-                    softAssert.fail("Not able to select Language: " + e.fillInStackTrace());
+                    commonLib.fail("Not able to select Template Name:" + e.fillInStackTrace(), true);
                     pages.getSendSMS().clickOutside();
                 }
             } catch (NoSuchElementException | TimeoutException e) {
-                softAssert.fail("Not able to select Template Name: " + e.fillInStackTrace());
+                commonLib.fail("Not able to select category:" + e.fillInStackTrace(), true);
                 pages.getSendSMS().clickOutside();
             }
-        } catch (NoSuchElementException | TimeoutException e) {
-            softAssert.fail("Not able to select category: " + e.fillInStackTrace());
             pages.getSendSMS().clickOutside();
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - sendSMS" + e.fillInStackTrace(), true);
         }
-        pages.getSendSMS().clickOutside();
-        softAssert.assertAll();
     }
 
-    @Test(priority = 4, description = "Check Sent SMS display in message history",dependsOnMethods = "openCustomerInteraction")
+    /**
+     * This method is used to Check Sent SMS display in message history
+     */
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
     public void checkSendMessageLog() {
-        selUtils.addTestcaseDescription("Check Sent SMS display in message history ", "description");
-        SoftAssert softAssert = new SoftAssert();
-        pages.getCustomerProfilePage().goToViewHistory();
-        pages.getViewHistory().waitTillLoaderGetsRemoved();
-        pages.getViewHistory().clickOnMessageHistory();
-        pages.getMessageHistoryPage().waitTillLoaderGetsRemoved();
         try {
-            softAssert.assertTrue(pages.getMessageHistoryPage().isMessageTypeColumn(), "Message Type Column does not display on UI");
-        } catch (NoSuchElementException | TimeoutException e) {
-            softAssert.fail("Message Type Column does not display on UI:" + e.getMessage());
+            selUtils.addTestcaseDescription("Check Sent SMS display in message history ", "description");
+            pages.getCustomerProfilePage().goToViewHistory();
+            pages.getViewHistory().waitTillLoaderGetsRemoved();
+            pages.getViewHistory().clickOnMessageHistory();
+            pages.getMessageHistoryPage().waitTillLoaderGetsRemoved();
+            try {
+                assertCheck.append(actions.assertEqual_boolean(pages.getMessageHistoryPage().isMessageTypeColumn(), true, "Message Type Column is displayed on UI", "Message Type Column does not display on UI"));
+            } catch (NoSuchElementException | TimeoutException e) {
+                commonLib.fail("Message Type Column does not display on UI:" + e.fillInStackTrace(), true);
+            }
+            try {
+                assertCheck.append(actions.assertEqual_boolean(pages.getMessageHistoryPage().isDateSentColumn(), true, "Date Sent Column is displayed on UI", "Date Sent Column does not display on UI"));
+            } catch (NoSuchElementException | TimeoutException e) {
+                commonLib.fail("Date Sent Column does not display on UI:" + e.fillInStackTrace(), true);
+            }
+            try {
+                assertCheck.append(actions.assertEqual_boolean(pages.getMessageHistoryPage().isTemplateColumn(), true, "Template/Event Column is displayed on UI", "Template/Event Column does not display on UI"));
+            } catch (NoSuchElementException | TimeoutException e) {
+                commonLib.fail("Template/Event Column does not display on UI:" + e.fillInStackTrace(), true);
+            }
+            try {
+                assertCheck.append(actions.assertEqual_boolean(pages.getMessageHistoryPage().isMessageLanguageColumn(), true, "Message Language Column is displayed on UI", "Message Language Column does not display on UI"));
+            } catch (NoSuchElementException | TimeoutException e) {
+                commonLib.fail("Message Language Column does not display on UI:" + e.fillInStackTrace(), true);
+            }
+            try {
+                assertCheck.append(actions.assertEqual_boolean(pages.getMessageHistoryPage().isMessageTextColumn(), true, "Message Text Column is displayed on UI", "Message Text Column does not display on UI"));
+            } catch (NoSuchElementException | TimeoutException e) {
+                commonLib.fail("Message Text Column does not display on UI:" + e.fillInStackTrace(), true);
+            }
+            try {
+                assertCheck.append(actions.assertEqual_boolean(pages.getMessageHistoryPage().isMessageTypeColumn(), true, "Message Type Column is displayed on UI", "Message Type Column does not display on UI"));
+            } catch (NoSuchElementException | TimeoutException e) {
+                commonLib.fail("Message Type Column does not display on UI:" + e.fillInStackTrace(), true);
+            }
+            try {
+                assertCheck.append(actions.assertEqual_stringNotNull(pages.getMessageHistoryPage().messageType(1).toLowerCase().trim(), config.getProperty("manualSMSType").toLowerCase().trim(), "Message Type is manual"));
+            } catch (NoSuchElementException | TimeoutException e) {
+                commonLib.fail("Message Type is not Display on UI:" + e.fillInStackTrace(), true);
+            }
+            try {
+
+                assertCheck.append(actions.assertEqual_stringNotNull(pages.getMessageHistoryPage().templateEvent(1).toLowerCase().trim(), templateName.toLowerCase().trim(), "Template name not same as sent template."));
+            } catch (NullPointerException e) {
+                commonLib.fail("SMS is not sent, Template name is empty." + e.fillInStackTrace(), true);
+            }
+            try {
+                messageContent = pages.getMessageHistoryPage().messageText(1);
+                assertCheck.append(actions.assertEqual_stringNotNull(messageContent, "Message content is not empty.", "Message content can not be empty."));
+            } catch (NullPointerException e) {
+                commonLib.fail("SMS is not sent,Message Content is empty." + e.fillInStackTrace(), true);
+            }
+            try {
+                assertCheck.append(actions.assertEqual_boolean(pages.getMessageHistoryPage().isActionBtnEnable(1), true, "Resend SMS icon does not enable"));
+            } catch (NoSuchElementException | TimeoutException e) {
+                commonLib.fail("Resend SMS Icon does not display on UI." + e.fillInStackTrace(), true);
+            }
+            try {
+                assertCheck.append(actions.assertEqual_boolean(!pages.getMessageHistoryPage().agentId(1).trim().equalsIgnoreCase("-"), true, "Agent id must is not empty", "Agent id must not be empty"));
+            } catch (NoSuchElementException | TimeoutException e) {
+                commonLib.fail("Agent Id does not display on UI." + e.fillInStackTrace(), true);
+            }
+            try {
+                assertCheck.append(actions.assertEqual_boolean(!pages.getMessageHistoryPage().agentName(1).trim().equalsIgnoreCase("-"), true, "Agent name is not empty", "Agent name must not be empty"));
+            } catch (NoSuchElementException | TimeoutException e) {
+                commonLib.fail("Agent Name does not display on UI." + e.fillInStackTrace(), true);
+            }
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - checkSendMessageLog" + e.fillInStackTrace(), true);
         }
-        try {
-            softAssert.assertTrue(pages.getMessageHistoryPage().isDateSentColumn(), "Date Sent Column does not display on UI");
-        } catch (NoSuchElementException | TimeoutException e) {
-            softAssert.fail("Date Sent Column does not display on UI:" + e.getMessage());
-        }
-        try {
-            softAssert.assertTrue(pages.getMessageHistoryPage().isTemplateColumn(), "Template/Event Column does not display on UI");
-        } catch (NoSuchElementException | TimeoutException e) {
-            softAssert.fail("Template/Event Column does not display on UI:" + e.getMessage());
-        }
-        try {
-            softAssert.assertTrue(pages.getMessageHistoryPage().isMessageLanguageColumn(), "Message Language Column does not display on UI");
-        } catch (NoSuchElementException | TimeoutException e) {
-            softAssert.fail("Message Language Column does not display on UI:" + e.getMessage());
-        }
-        try {
-            softAssert.assertTrue(pages.getMessageHistoryPage().isMessageTextColumn(), "Message Text Column does not display on UI");
-        } catch (NoSuchElementException | TimeoutException e) {
-            softAssert.fail("Message Text Column does not display on UI:" + e.getMessage());
-        }
-        try {
-            softAssert.assertTrue(pages.getMessageHistoryPage().isMessageTypeColumn(), "Message Type Column does not display on UI");
-        } catch (NoSuchElementException | TimeoutException e) {
-            softAssert.fail("Message Type Column does not display on UI:" + e.getMessage());
-        }
-        try {
-            softAssert.assertEquals(pages.getMessageHistoryPage().messageType(1).toLowerCase().trim(), config.getProperty("manualSMSType").toLowerCase().trim(), "Message Type is not manual");
-        } catch (NoSuchElementException | TimeoutException e) {
-            softAssert.fail("Message Type is not Display on UI:" + e.getMessage());
-        }
-        try {
-            softAssert.assertEquals(pages.getMessageHistoryPage().templateEvent(1).toLowerCase().trim(), templateName.toLowerCase().trim(), "Template name not same as sent template.");
-        } catch (NullPointerException e) {
-            softAssert.fail("SMS is not sent, Template name is empty." + e.getMessage());
-        }
-        try {
-            messageContent = pages.getMessageHistoryPage().messageText(1);
-            softAssert.assertNotNull(messageContent, "Message content can not be empty.");
-        } catch (NullPointerException e) {
-            softAssert.fail("SMS is not sent,Message Content is empty." + e.getMessage());
-        }
-        try {
-            softAssert.assertTrue(pages.getMessageHistoryPage().isActionBtnEnable(1), "Resend SMS icon does not enable");
-        } catch (NoSuchElementException | TimeoutException e) {
-            softAssert.fail("Resend SMS Icon does not display on UI.");
-        }
-        try {
-            softAssert.assertTrue(!pages.getMessageHistoryPage().agentId(1).trim().equalsIgnoreCase("-"), "Agent id must not be empty");
-        } catch (NoSuchElementException | TimeoutException e) {
-            softAssert.fail("Agent Id does not display on UI.");
-        }
-        try {
-            softAssert.assertTrue(!pages.getMessageHistoryPage().agentName(1).trim().equalsIgnoreCase("-"), "Agent name must not be empty");
-        } catch (NoSuchElementException | TimeoutException e) {
-            softAssert.fail("Agent Name does not display on UI.");
-        }
-        softAssert.assertAll();
     }
 
-    @Test(priority = 5, description = "Re Send SMS using action button in message history",dependsOnMethods = "checkSendMessageLog")
+    /**
+     * This method is used to Re-Send SMS using action button in message history
+     */
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "checkSendMessageLog")
     public void reSendMessageLog() {
-        selUtils.addTestcaseDescription("Re Send SMS using action button in message history", "description");
-        SoftAssert softAssert = new SoftAssert();
-        pages.getMessageHistoryPage().waitTillLoaderGetsRemoved();
         try {
-            pages.getMessageHistoryPage().clickActionBtn(1);
-            pages.getMessageHistoryPage().getPopUpTitle();
-            Assert.assertTrue(pages.getMessageHistoryPage().getPopUpMessage().contains(customerNumber), "Pop up Message tab does not contain customer number");
-            pages.getMessageHistoryPage().clickYesBtn();
+            selUtils.addTestcaseDescription("Re Send SMS using action button in message history", "description");
             pages.getMessageHistoryPage().waitTillLoaderGetsRemoved();
-            softAssert.assertTrue(pages.getMessageHistoryPage().isMessageTypeColumn(), "Message Type Column does not display on UI");
             try {
-                softAssert.assertEquals(pages.getMessageHistoryPage().messageType(1).toLowerCase().trim(), config.getProperty("manualSMSType").toLowerCase().trim(), "Message Type is not manual");
-            } catch (NoSuchElementException | TimeoutException e) {
-                softAssert.fail("Message Type is not Display on UI:" + e.getMessage());
+                pages.getMessageHistoryPage().clickActionBtn(1);
+                pages.getMessageHistoryPage().getPopUpTitle();
+                assertCheck.append(actions.assertEqual_boolean(pages.getMessageHistoryPage().getPopUpMessage().contains(customerNumber), true, "Pop up Message tab contain customer number", "Pop up Message tab does not contain customer number" ));
+                pages.getMessageHistoryPage().clickYesBtn();
+                pages.getMessageHistoryPage().waitTillLoaderGetsRemoved();
+                assertCheck.append(actions.assertEqual_boolean(pages.getMessageHistoryPage().isMessageTypeColumn(), true, "Message Type Column is displayed on UI", "Message Type Column does not display on UI"));
+                try {
+                    assertCheck.append(actions.assertEqual_stringNotNull(pages.getMessageHistoryPage().messageType(1).toLowerCase().trim(), config.getProperty("manualSMSType").toLowerCase().trim(), "Message Type is not manual"));
+                } catch (NoSuchElementException | TimeoutException e) {
+                    commonLib.fail("Message Type is not Display on UI:" + e.fillInStackTrace(), true);
+                }
+                try {
+                    assertCheck.append(actions.assertEqual_stringNotNull(pages.getMessageHistoryPage().templateEvent(1).toLowerCase().trim(), templateName.toLowerCase().trim(), "Template name not same as sent template."));
+                } catch (NullPointerException e) {
+                    commonLib.fail("SMS is not sent, Template name is empty." + e.fillInStackTrace(), true);
+                }
+                try {
+                    assertCheck.append(actions.assertEqual_stringNotNull(pages.getMessageHistoryPage().messageText(1).toLowerCase().trim(), messageContent.toLowerCase().trim(), "Message content is same as set message content."));
+                } catch (NullPointerException e) {
+                    commonLib.fail("SMS is not sent,Message Content is empty." + e.fillInStackTrace(), true);
+                }
+
+                assertCheck.append(actions.assertEqual_boolean(pages.getMessageHistoryPage().isActionBtnEnable(1), true, "Resend SMS icon does not enable"));
+                assertCheck.append(actions.assertEqual_boolean(!pages.getMessageHistoryPage().agentId(1).trim().equalsIgnoreCase("-"), true, pages.getMessageHistoryPage().agentId(1) + " :Agent id must not be empty"));
+                assertCheck.append(actions.assertEqual_boolean(!pages.getMessageHistoryPage().agentName(1).trim().equalsIgnoreCase("-"), true, pages.getMessageHistoryPage().agentName(1) + " :Agent name must not be empty"));
+            } catch (ElementClickInterceptedException | NoSuchElementException | TimeoutException e) {
+                commonLib.fail("Not able to resend SMS: " + e.fillInStackTrace(), true);
             }
-            try {
-                softAssert.assertEquals(pages.getMessageHistoryPage().templateEvent(1).toLowerCase().trim(), templateName.toLowerCase().trim(), "Template name not same as sent template.");
-            } catch (NullPointerException e) {
-                softAssert.fail("SMS is not sent, Template name is empty." + e.getMessage());
-            }
-            try {
-                softAssert.assertEquals(pages.getMessageHistoryPage().messageText(1).toLowerCase().trim(), messageContent.toLowerCase().trim(), "Message content not same as set message content.");
-            } catch (NullPointerException e) {
-                softAssert.fail("SMS is not sent,Message Content is empty." + e.getMessage());
-            }
-            softAssert.assertTrue(pages.getMessageHistoryPage().isActionBtnEnable(1), "Resend SMS icon does not enable");
-            softAssert.assertTrue(!pages.getMessageHistoryPage().agentId(1).trim().equalsIgnoreCase("-"), pages.getMessageHistoryPage().agentId(1) + " :Agent id must not be empty");
-            softAssert.assertTrue(!pages.getMessageHistoryPage().agentName(1).trim().equalsIgnoreCase("-"), pages.getMessageHistoryPage().agentName(1) + " :Agent name must not be empty");
-        } catch (ElementClickInterceptedException | NoSuchElementException | TimeoutException e) {
-            softAssert.fail("Not able to resend SMS: " + e.fillInStackTrace());
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - reSendMessageLog" + e.fillInStackTrace(), true);
         }
-        softAssert.assertAll();
     }
 }

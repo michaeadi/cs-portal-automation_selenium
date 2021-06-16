@@ -67,7 +67,7 @@ public class CustomerProfile extends BasePage {
         List<WebElement> webElements = returnListOfElement(pageElements.pinTags);
         log.info("Size: " + webElements.size());
         for (int i = 1; i <= webElements.size(); i++) {
-            By tagName = By.xpath("//div[@class='sub-header__divide--control']//div[@class=\"sub-header__divide--control--tab ng-star-inserted\"][" + i + "]");
+            By tagName = By.xpath("//div[@class='sub-header__divide--control']//div[@class='sub-header__divide--control--tab ng-star-inserted'][" + i + "]");
             log.info("Text: " + getText(tagName).toLowerCase().trim());
             commonLib.info("Reading pinned tag name: " + getText(tagName));
             strings.add(getText(tagName).toLowerCase().trim());
@@ -77,7 +77,7 @@ public class CustomerProfile extends BasePage {
 
     public void clickPinTag(String text) {
         commonLib.info("Clicking " + text + " Pinned Tag");
-        By tagName = By.xpath("//div[@class=\"sub-header__divide--control--tab ng-star-inserted\" and contains(text(),\"" + text + "\")]");
+        By tagName = By.xpath("//div[@class='sub-header__divide--control--tab ng-star-inserted' and contains(text(),'" + text + "')]");
         clickAndWaitForLoaderToBeRemoved(tagName);
     }
 
@@ -118,7 +118,7 @@ public class CustomerProfile extends BasePage {
     }
 
     public boolean isPinTagVisible(String text) {
-        By tagName = By.xpath("//div[@class=\"sub-header__divide--control--tab ng-star-inserted\" and contains(text(),\"" + text + "\")]");
+        By tagName = By.xpath("//div[@class='sub-header__divide--control--tab ng-star-inserted' and contains(text(),'" + text + "')]");
         commonLib.info("Checking is " + text + " Pinned Tag Visible");
         return isElementVisible(tagName);
     }

@@ -54,7 +54,7 @@ public class ViewCreatedTemplate extends BasePage {
         commonLib.info("Checking Template Present With Name: " + text);
         List<WebElement> list = returnListOfElement(pageElements.allActiveTemplate);
         for (int i = 1; i <= list.size(); i++) {
-            By element = By.xpath("//div[@class=\"sms-managment__card-list--card--sms-template--content--sms-card ng-star-inserted\"][" + i + "]//h6");
+            By element = By.xpath("//div[@class='sms-managment__card-list--card--sms-template--content--sms-card ng-star-inserted'][" + i + "]//h6");
             log.info("Reading Template: " + getText(element));
             if (text.equalsIgnoreCase(getText(element).trim())) {
                 return true;
@@ -64,13 +64,13 @@ public class ViewCreatedTemplate extends BasePage {
     }
 
     public String templateName(int i) {
-        By element = By.xpath("//div[@class=\"sms-managment__card-list--card--sms-template--content--sms-card ng-star-inserted\"][" + i + "]//h6");
+        By element = By.xpath("//div[@class='sms-managment__card-list--card--sms-template--content--sms-card ng-star-inserted'][" + i + "]//h6");
         commonLib.info("Reading Template: " + getText(element));
         return getText(element);
     }
 
     public String templateCategory(int i) {
-        By element = By.xpath("//div[@class=\"sms-managment__card-list--card--sms-template--content--sms-card ng-star-inserted\"][" + i + "]//h5");
+        By element = By.xpath("//div[@class='sms-managment__card-list--card--sms-template--content--sms-card ng-star-inserted'][" + i + "]//h5");
         commonLib.info("Reading Category: " + getText(element));
         return getText(element);
     }
@@ -102,62 +102,62 @@ public class ViewCreatedTemplate extends BasePage {
     }
 
     public String validateActiveStatus(int i) {
-        By status = By.xpath("//div[@class=\"sms-managment__card-list--card--sms-template--content--sms-card ng-star-inserted\"][" + i + "]//div//p[1]");
+        By status = By.xpath("//div[@class='sms-managment__card-list--card--sms-template--content--sms-card ng-star-inserted'][" + i + "]//div//p[1]");
         final String text = getText(status);
         commonLib.info("Read Status: " + text);
         return text;
     }
 
     public String validateDeActiveStatus(int i) {
-        By status = By.xpath("//div[@class=\"sms-managment__card-list--card--sms-template--content--sms-card ng-star-inserted\"][" + i + "]//div//p[2]");
+        By status = By.xpath("//div[@class='sms-managment__card-list--card--sms-template--content--sms-card ng-star-inserted'][" + i + "]//div//p[2]");
         final String text = getText(status);
         commonLib.info("Read Status: " + text);
         return text;
     }
 
     public boolean isTemplateDeActive(int i) {
-        By isDeActive = By.xpath("//div[@class=\"sms-managment__card-list--card--sms-template--content--sms-card deactivate-card ng-star-inserted\"][" + i + "]");
+        By isDeActive = By.xpath("//div[@class='sms-managment__card-list--card--sms-template--content--sms-card deactivate-card ng-star-inserted'][" + i + "]");
         boolean status = isElementVisible(isDeActive);
         log.info("Is template active: " + status);
         return status;
     }
 
     public boolean isDeleteIcon(int i) {
-        By icon = By.xpath("//div[@class=\"sms-managment__card-list--card--sms-template--content--sms-card ng-star-inserted\"][" + i + "]//div//img[@title=\"delete\"]");
+        By icon = By.xpath("//div[@class='sms-managment__card-list--card--sms-template--content--sms-card ng-star-inserted'][" + i + "]//div//img[@title='delete']");
         boolean status = isEnabled(icon);
         log.info("Is delete icon: " + status);
         return status;
     }
 
     public void clickDeleteIcon(int i) {
-        By icon = By.xpath("//div[@class=\"sms-managment__card-list--card--sms-template--content--sms-card ng-star-inserted\"][" + i + "]//div//img[@title=\"delete\"]");
+        By icon = By.xpath("//div[@class='sms-managment__card-list--card--sms-template--content--sms-card ng-star-inserted'][" + i + "]//div//img[@title='delete']");
         commonLib.info("clicking delete icon");
         clickAndWaitForLoaderToBeRemoved(icon);
     }
 
     public boolean isEditIcon(int i) {
-        By icon = By.xpath("//div[@class=\"sms-managment__card-list--card--sms-template--content--sms-card ng-star-inserted\"][" + i + "]//div//img[@title=\"EDIT\"]");
+        By icon = By.xpath("//div[@class='sms-managment__card-list--card--sms-template--content--sms-card ng-star-inserted'][" + i + "]//div//img[@title='EDIT']");
         boolean status = isEnabled(icon);
         log.info("Is edit icon: " + status);
         return status;
     }
 
     public boolean isCommentIcon(int i) {
-        By icon = By.xpath("//div[@class=\"sms-managment__card-list--card--sms-template--content--sms-card ng-star-inserted\"][" + i + "]//div//div//img");
+        By icon = By.xpath("//div[@class='sms-managment__card-list--card--sms-template--content--sms-card ng-star-inserted'][" + i + "]//div//div//img");
         boolean status = isEnabled(icon);
         log.info("Is comment icon: " + status);
         return status;
     }
 
     public String templateLanguage(int i) {
-        By icon = By.xpath("//div[@class=\"sms-managment__card-list--card--sms-template--content--sms-card ng-star-inserted\"][" + i + "]//div[2]//span");
+        By icon = By.xpath("//div[@class='sms-managment__card-list--card--sms-template--content--sms-card ng-star-inserted'][" + i + "]//div[2]//span");
         final String text = getText(icon);
         commonLib.info("Template language: " + text);
         return text;
     }
 
     public void clickToggleButton(int i) {
-        By status = By.xpath("//div[@class=\"sms-managment__card-list--card--sms-template--content--sms-card ng-star-inserted\"][" + i + "]//label//div[1]");
+        By status = By.xpath("//div[@class='sms-managment__card-list--card--sms-template--content--sms-card ng-star-inserted'][" + i + "]//label//div[1]");
         log.info("Clicking toggle button");
         clickAndWaitForLoaderToBeRemoved(status);
     }
