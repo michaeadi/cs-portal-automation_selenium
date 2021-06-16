@@ -10,7 +10,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ViewTemplateTest extends Driver {
@@ -52,7 +51,7 @@ public class ViewTemplateTest extends Driver {
         selUtils.addTestcaseDescription("Validating All Agent Channel displayed", "description");
         SoftAssert softAssert = new SoftAssert();
         pages.getViewCreatedTemplate().clickAgentChannel();
-        ArrayList<String> strings = pages.getViewCreatedTemplate().getAllOptions();
+        List<String> strings = pages.getViewCreatedTemplate().getAllOptions();
         pages.getViewCreatedTemplate().clickOutside();
         DataProviders data = new DataProviders();
         List<String> interactionChannel = data.getInteractionChannelData();
@@ -82,7 +81,7 @@ public class ViewTemplateTest extends Driver {
         SoftAssert softAssert = new SoftAssert();
         try {
             pages.getViewCreatedTemplate().clickRoles();
-            ArrayList<String> strings = pages.getViewCreatedTemplate().getAllOptions();
+            List<String> strings = pages.getViewCreatedTemplate().getAllOptions();
             pages.getViewCreatedTemplate().clickOutside();
             DataProviders data = new DataProviders();
             List<String> agentRoles = data.getRoles();
@@ -113,7 +112,7 @@ public class ViewTemplateTest extends Driver {
         SoftAssert softAssert = new SoftAssert();
         try {
             pages.getViewCreatedTemplate().clickLanguage();
-            ArrayList<String> strings = pages.getViewCreatedTemplate().getAllOptions();
+            List<String> strings = pages.getViewCreatedTemplate().getAllOptions();
             pages.getViewCreatedTemplate().clickOutside();
             DataProviders data = new DataProviders();
             List<String> language = data.getLanguage();

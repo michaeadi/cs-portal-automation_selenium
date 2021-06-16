@@ -28,16 +28,29 @@ public class UtilsMethods extends Driver {
     private static final String TODAY = "Today";
     private static RequestSource api=new RequestSource();
 
+    /**
+     * This method use to add headers
+     * @param key The Key
+     * @param value The Value
+     */
     public static void addHeaders(String key, String value) {
         map.add(new Header(key, value));
     }
 
+    /**
+     * This method use to print response detail
+     * @param response The response object
+     */
     public static void printResponseDetail(Response response) {
         commonLib.info("Then Response : " + response.asString());
         commonLib.info("And Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
         commonLib.info("And Status Code: " + response.getStatusCode());
     }
 
+    /**
+     * This method use to print Get method api request
+     * @param queryable The Request query
+     */
     public static void printGetRequestDetail(QueryableRequestSpecification queryable) {
         commonLib.info("When Request URL: " + queryable.getURI());
         log.info("And Request Headers are  : " + queryable.getHeaders());
@@ -46,12 +59,22 @@ public class UtilsMethods extends Driver {
         }
     }
 
+    /**
+     * This method use to print post method api request
+     * @param queryable The Post Request query
+     */
     public static void printPostRequestDetail(QueryableRequestSpecification queryable) {
         commonLib.info("When Request URL: " + queryable.getURI());
         log.info("And Request Headers are  : " + queryable.getHeaders());
         commonLib.info("And Body is  : " + queryable.getBody().toString());
     }
 
+    /**
+     * This method is used to get date from epoch in given pattern
+     * @param epoch The Epoch
+     * @param pattern The Pattern
+     * @return String The date
+     */
     public static String getDateFromEpoch(long epoch, String pattern) {
         if (epoch == 0) {
             return "-";
@@ -62,6 +85,13 @@ public class UtilsMethods extends Driver {
         }
     }
 
+    /**
+     * This method is used to convert the date to required pattern
+     * @param date The date
+     * @param newPatten The new pattern date format
+     * @param existingPattern The existing pattern date format
+     * @return String The new date
+     */
     public static String getDateFromString(String date, String newPatten, String existingPattern) {
         try {
             Date newDate = new SimpleDateFormat(existingPattern).parse(date);
@@ -73,6 +103,12 @@ public class UtilsMethods extends Driver {
         return "Invalid Date String";
     }
 
+    /**
+     * This method is used to convert given date date into utc time zone
+     * @param date The date
+     * @param pattern The pattern
+     * @return String The String
+     */
     public static String getDateFromStringInUTC(String date, String pattern) {
         try {
             Date newDate = new SimpleDateFormat("dd-MMM-yyyy hh:mm aa").parse(date);
@@ -85,6 +121,12 @@ public class UtilsMethods extends Driver {
         return "Invalid Date String";
     }
 
+    /**
+     * This method used to convert epoch time into UTC date in given pattern
+     * @param epoch The Epoch
+     * @param pattern The pattern
+     * @return String The date in UTC
+     */
     public static String getDateFromEpochInUTC(long epoch, String pattern) {
         Date date = new Date(epoch);
         DateFormat format = new SimpleDateFormat(pattern);
@@ -92,6 +134,12 @@ public class UtilsMethods extends Driver {
         return format.format(date);
     }
 
+    /**
+     * This method used to get time from epoch
+     * @param epoch The epoch
+     * @param pattern The pattern
+     * @return String The String
+     */
     public static String getTimeFromEpoch(long epoch, String pattern) {
         Date date = new Date(epoch);
         Date nearestMinute = DateUtils.round(date, Calendar.MINUTE);
@@ -100,12 +148,12 @@ public class UtilsMethods extends Driver {
     }
 
     /**
+     * This method used to check is first date is less than second date
      * @param historyDateTime first date
      * @param historyDateTime1 second date
      * @param pattern date format pattern
      * @return true/false
      * */
-
     public static boolean isSortOrderDisplay(String historyDateTime, String historyDateTime1, String pattern) {
         DateFormat format = new SimpleDateFormat(pattern);
         final Calendar cal = Calendar.getInstance();
@@ -158,10 +206,10 @@ public class UtilsMethods extends Driver {
     }
 
     /**
+     * This method use to convert milliseconds to hour
      * @param committedSla time in milliseconds
      * @return conversion milliseconds to hour
      * */
-
     public static String convertToHR(String committedSla) {
         long ms = Long.parseLong(committedSla);
         final String valueOf = String.valueOf(TimeUnit.MILLISECONDS.toHours(ms));
@@ -170,6 +218,7 @@ public class UtilsMethods extends Driver {
     }
 
     /**
+     * This method is used to round off up to 2 decimal point
      * @param value value to round off
      * @return value round off up to 2 digit
      * */
@@ -180,23 +229,33 @@ public class UtilsMethods extends Driver {
     }
 
     /**
+     * This method is used to check today date and month is same as given date month and date
      * @param birthDay birth date
      * @param pattern date format in which birth date display
      * @return true/false whether today date same as birth date
      * */
 
     public static Boolean isCustomerBirthday(String birthDay, String pattern) {
-        DateFormat format1 = new SimpleDateFormat(pattern);
+        String d="dd-MM";
+        DateFormat format1 = new SimpleDateFormat(d);
         String today = format1.format(Calendar.getInstance().getTime());
-        return today.equalsIgnoreCase(birthDay);
+        Date customerBirthDate;
+        try {
+            customerBirthDate = new SimpleDateFormat(pattern).parse(birthDay);
+            String customerBday = format1.format(customerBirthDate);
+            return today.equalsIgnoreCase(customerBday);
+        }catch (ParseException e) {
+            commonLib.fail("Not able to parse the customer birth date :"+birthDay,false);
+        }
+        return false;
     }
 
     /**
+     * This method use to check whether user has permission assign or not
      * @param headers auth header
      * @param permissionName permission name to check
      * @return true/false based on user have permission or not
      * */
-
     public static Boolean isUserHasPermission(Headers headers, String permissionName){
         AgentDetailPOJO agentDetailAPI=api.getAgentDetail(headers);
         if(agentDetailAPI.getStatusCode()!=200){

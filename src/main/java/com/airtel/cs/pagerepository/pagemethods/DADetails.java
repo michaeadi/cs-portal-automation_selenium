@@ -338,6 +338,10 @@ public class DADetails extends BasePage {
         clickAndWaitForLoaderToBeRemoved(pageElements.popUpCloseBtn);
     }
 
+    /**
+     * This method is use to enter add new fnf member
+     * @param mobileNumber The mobile number
+     */
     public void enterAddFnfNumber(String mobileNumber){
         commonLib.info("Entering Mobile number: "+mobileNumber);
         enterText(pageElements.addNumber,mobileNumber);

@@ -71,4 +71,10 @@ public class SupervisorTicketListPage {
     public By backButtonDetailPage = By.xpath("//span[text()=' BACK ']");
     public By selectAll=By.xpath("//div[@class='filter-section']//input[@class='supercheck' or @class='supercheck ng-star-inserted']");
     public By closeTabBtn=By.className("close-button");
+    public String ticketRow="//div[@class='container-fluid table-card ng-star-inserted'][";
+    public String queueName="]//ul/li[7]/span[2]";
+    public String optionText="//span[contains(text(),'";
+    public String ticketIdText="]//ul[1]//li[1]//span[2]";
+    public String ticketEscalation="]//span[@class='escalation']";
+    public String selectByOption="//ul[@class='ng-star-inserted']//li[normalize-space()='";
 }

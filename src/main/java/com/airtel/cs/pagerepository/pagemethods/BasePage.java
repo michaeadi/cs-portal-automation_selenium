@@ -240,6 +240,12 @@ public class BasePage extends Driver {
         driver.findElement(element).clear();
     }
 
+    /**
+     * This method use to validate the text present in the list is same or not
+     * @param element The Element location
+     * @param text The text
+     * @return true/false
+     */
     public boolean validateFilter(By element, String text) {
         List<WebElement> list = returnListOfElement(element);
         commonLib.info("Validating Filter");
@@ -253,6 +259,7 @@ public class BasePage extends Driver {
     }
 
     /**
+     * This method is used to get list of element based on element location
      * @param element The element locator
      * @return list of element found using element locator on page
      * */

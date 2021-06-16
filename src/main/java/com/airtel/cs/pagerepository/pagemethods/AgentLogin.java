@@ -15,42 +15,71 @@ public class AgentLogin extends BasePage {
     }
 
 
+    /**
+     * This method is use to check skip button visible or not
+     * @return true/false
+     */
     public boolean checkSkipButton() {
         commonLib.info("Checking Agent Login Page SKIP Button");
         return isEnabled(pageElements.skipBtn);
     }
 
+    /**
+     * This method is use to check submit button visible or not
+     * @return true/false
+     */
     public boolean checkSubmitButton() {
         commonLib.info("Checking Agent Login Page Submit Button");
         return isEnabled(pageElements.submitBtn);
     }
 
+    /**
+     * This method is use to check queue login page displayed or not
+     * @return true/false
+     */
     public boolean isQueueLoginPage() {
         commonLib.info("Supervisor Login Page");
         return isEnabled(pageElements.loginQueueTitle);
     }
 
+    /**
+     * This method used to click open select queue option list
+     */
     public void clickSelectQueue() {
         commonLib.info("Selecting Login Queue");
         clickAndWaitForLoaderToBeRemoved(pageElements.selectQueue);
     }
 
+    /**
+     * This method use to click skip button
+     */
     public void clickSkipBtn() {
         commonLib.info("Clicking on SKIP Button");
         clickAndWaitForLoaderToBeRemoved(pageElements.skipBtn);
     }
 
+    /**
+     * This method use to click submit  button
+     */
     public void clickSubmitBtn() {
         commonLib.info("Clicking on SUBMIT Button");
         clickOutside();
         clickAndWaitForLoaderToBeRemoved(pageElements.submitBtn);
     }
 
+    /**
+     * This method use to select queue based on queue name
+     * @param queueName The Queue Name
+     * @throws InterruptedException
+     */
     public void byQueueName(String queueName) throws InterruptedException {
-        log.info("Selecting Queue : " + queueName);
+        commonLib.info("Selecting Queue : " + queueName);
         selectByText(queueName);
     }
 
+    /**
+     * This method used to select all queue
+     */
     public void selectAllQueue() {
         commonLib.info("Selecting ALL Queue");
         clickAndWaitForLoaderToBeRemoved(pageElements.allQueueOption);

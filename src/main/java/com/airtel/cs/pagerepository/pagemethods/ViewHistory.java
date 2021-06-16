@@ -19,8 +19,11 @@ public class ViewHistory extends BasePage {
         pageElements = PageFactory.initElements(driver, ViewHistoryPage.class);
     }
 
+    /**
+     * This method use to click on interaction tab under view history tab
+     */
     public void clickOnInteractionsTab() {
-        log.info("Clicking on Interactions Tab under view history ");
+        commonLib.info("Clicking on Interactions Tab under view history ");
         waitTillLoaderGetsRemoved();
         clickAndWaitForLoaderToBeRemoved(pageElements.interactionsTab);
     }
@@ -34,11 +37,13 @@ public class ViewHistory extends BasePage {
         return Integer.parseInt(paginationNumber.substring(0, paginationNumber.lastIndexOf(" ")).substring(10, length));
     }
 
-    public FrontendTicketHistory goToTicketHistoryTab() {
-        log.info("Clicking on Ticket History Tab under view history ");
+    /**
+     * This method use to click on ticket history tab under view history tab
+     */
+    public void goToTicketHistoryTab() {
+        commonLib.info("Clicking on Ticket History Tab under view history ");
         waitTillLoaderGetsRemoved();
         clickAndWaitForLoaderToBeRemoved(pageElements.ticketHistory);
-        return new FrontendTicketHistory(driver);
     }
 
     /*
@@ -53,6 +58,9 @@ public class ViewHistory extends BasePage {
         }
     }
 
+    /**
+     * This method use to click on action trail history tab under view history tab
+     */
     public void clickOnActionTrailHistory() {
         if (isVisible(pageElements.actionTrailTab)) {
             commonLib.info("Clicking on Action Trail History Tab under view history");
@@ -62,33 +70,54 @@ public class ViewHistory extends BasePage {
         }
     }
 
+    /**
+     * This method is use to get last created issue code under interaction tab
+     * @return String The value
+     */
     public String getLastCreatedIssueCode() {
         commonLib.info("Getting the issue code of last created FTR interaction ");
         waitTillLoaderGetsRemoved();
         return getText(pageElements.firstIssueCode);
     }
 
+    /**
+     * This method is use to get ftr issue value based on ticket row number
+     * @param index The row number
+     * @return String The value
+     */
     public String ftrIssueValue(int index) {
-        By element = By.xpath("//table[@id=\"fetchInteractionByCustomer\"]//tbody//tr[" + index + "]//td[9]//span//span");
+        By element = By.xpath(pageElements.ticketRows + index + pageElements.ticketIcon);
         String value = driver.findElement(element).getAttribute("title");
-        log.info("Reading Attribute Value: " + value);
+        commonLib.info("Reading Attribute Value: " + value);
         return value;
     }
 
+    /**
+     * This method is use to get ticket id based on ticket row number
+     * @param index The row number
+     * @return String The value
+     */
     public String nftrIssueValue(int index) {
-        By element = By.xpath("//table[@id=\"fetchInteractionByCustomer\"]//tbody//tr[" + index + "]//td[9]//span//span");
+        By element = By.xpath(pageElements.ticketRows + index + pageElements.ticketIcon);
         String value = driver.findElement(element).getAttribute("title");
-        log.info("Reading Attribute Value: " + value);
+        commonLib.info("Reading Attribute Value: " + value);
         return value;
     }
 
 
+    /**
+     * This method is use to click ticket icon based on row number
+     * @param index The row number
+     */
     public void clickTicketIcon(int index) {
-        By element = By.xpath("//table[@id=\"fetchInteractionByCustomer\"]//tbody//tr[" + index + "]//td[9]//span//span");
+        By element = By.xpath(pageElements.ticketRows + index + pageElements.ticketIcon);
         commonLib.info("Clicking on ticket icon");
         clickAndWaitForLoaderToBeRemoved(element);
     }
 
+    /**
+     * This method is use to click on first ticket icon found in ticket list
+     */
     public boolean clickOnTicketIcon() {
         try {
             List<WebElement> list = returnListOfElement(pageElements.allIssue);
@@ -101,19 +130,26 @@ public class ViewHistory extends BasePage {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            log.info("Something went wrong");
+            commonLib.info("Something went wrong");
         }
         commonLib.warning("No any NFTR issue found");
         return false;
     }
 
+    /**
+     * This method use to check view ticket page displayed or not
+     * @return true/false
+     */
     public boolean checkViewTicketPage() {
         commonLib.info("Checking View Ticket Page");
         return isEnabled(pageElements.ticketPageTitle);
     }
 
+    /**
+     * This method is use to click close ticket tab
+     */
     public void clickCloseTicketTab() {
-        log.info("closing ticket tab");
+        commonLib.info("closing ticket tab");
         clickAndWaitForLoaderToBeRemoved(pageElements.closeTicketTab);
     }
 

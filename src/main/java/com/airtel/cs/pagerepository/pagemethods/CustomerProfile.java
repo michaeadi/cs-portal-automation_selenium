@@ -25,18 +25,30 @@ public class CustomerProfile extends BasePage {
         pageElements = PageFactory.initElements(driver, CustomerProfilePage.class);
     }
 
+    /**
+     * This method is used to get first widget title
+     * @return String The value
+     */
     public String getFirstWidgetHeader() {
         final String text = getText(pageElements.firstWidgetHeader);
         commonLib.info("Getting header of 1st Widget : " + text);
         return text;
     }
 
+    /**
+     * This method is use to check send internet setting action visible or not
+     * @return true/false
+     */
     public Boolean isSendInternetSettingTitleVisible() {
         final boolean state = isEnabled(pageElements.sendSettingTitle);
         commonLib.info("Is Send Internet Setting Title Display: " + state);
         return state;
     }
 
+    /**
+     * This method is use to check reset me2u password action visible or not
+     * @return true/false
+     */
     public Boolean isResetME2UPasswordTitle() {
         final boolean state = isEnabled(pageElements.resetME2Title);
         commonLib.info("Is Reset ME2U Password Title Display: " + state);
@@ -44,40 +56,58 @@ public class CustomerProfile extends BasePage {
         return state;
     }
 
+    /**
+     * This method is used to get Second widget title
+     * @return String The value
+     */
     public String getSecondWidgetHeader() {
         final String text = getText(pageElements.secondWidgetHeader);
         commonLib.info("Getting header of 2nd Widget : " + text);
         return text;
     }
 
+    /**
+     * This method is used to get Third widget title
+     * @return String The value
+     */
     public String getThirdWidgetHeader() {
         final String text = getText(pageElements.thirdWidgetHeader);
         commonLib.info("Getting header of 3rd Widget : " + text);
         return text;
     }
 
+    /**
+     * This method is used to get Fourth widget title
+     * @return String The value
+     */
     public String getFourthWidgetHeader() {
         final String text = getText(pageElements.fourthWidgetHeader);
         commonLib.info("Getting header of 4th Widget : " + text);
         return text;
     }
 
+    /**
+     * This method is use to get list of pin tag text
+     * @return List The list of value
+     */
     public List<String> getPinnedTagTexts() {
         List<String> strings = new ArrayList<>();
         List<WebElement> webElements = returnListOfElement(pageElements.pinTags);
-        log.info("Size: " + webElements.size());
         for (int i = 1; i <= webElements.size(); i++) {
-            By tagName = By.xpath("//div[@class='sub-header__divide--control']//div[@class=\"sub-header__divide--control--tab ng-star-inserted\"][" + i + "]");
-            log.info("Text: " + getText(tagName).toLowerCase().trim());
+            By tagName = By.xpath(pageElements.pinTagText + i + "]");
             commonLib.info("Reading pinned tag name: " + getText(tagName));
             strings.add(getText(tagName).toLowerCase().trim());
         }
         return strings;
     }
 
+    /**
+     * This method is use to click pin tag by name
+     * @param text The text name
+     */
     public void clickPinTag(String text) {
         commonLib.info("Clicking " + text + " Pinned Tag");
-        By tagName = By.xpath("//div[@class=\"sub-header__divide--control--tab ng-star-inserted\" and contains(text(),\"" + text + "\")]");
+        By tagName = By.xpath( pageElements.pinTagByName+ text + "')]");
         clickAndWaitForLoaderToBeRemoved(tagName);
     }
 
@@ -94,7 +124,7 @@ public class CustomerProfile extends BasePage {
     }
 
     /*
-    This Methos is used to open the interaction page
+    This Method is used to open the interaction page
      */
     public void clickOnInteractionIcon() {
         if (isVisible(pageElements.interactionIcon)) {
@@ -117,30 +147,44 @@ public class CustomerProfile extends BasePage {
         }
     }
 
+    /**
+     * This method is use to check pin tag visible or not
+     * @param text The text
+     * @return true/false
+     */
     public boolean isPinTagVisible(String text) {
         By tagName = By.xpath("//div[@class=\"sub-header__divide--control--tab ng-star-inserted\" and contains(text(),\"" + text + "\")]");
         commonLib.info("Checking is " + text + " Pinned Tag Visible");
         return isElementVisible(tagName);
     }
 
-    public DADetails clickOnDADetailsTab() {
+    /**
+     * This method is use to click on DA details tab
+     */
+    public void clickOnDADetailsTab() {
         clickAndWaitForLoaderToBeRemoved(pageElements.daDetailsTab);
         commonLib.info("Clicking on DA Details Tab");
-        return new DADetails(driver);
     }
 
-    public MoreRechargeHistory clickOnRechargeHistoryTab() {
+    /**
+     * This method is use to click on more recharge history tab
+     */
+    public void clickOnRechargeHistoryTab() {
         clickAndWaitForLoaderToBeRemoved(pageElements.rechargeHistoryTab);
         commonLib.info("Clicking on Recharge History Tab");
-        return new MoreRechargeHistory(driver);
     }
 
-    public MoreUsageHistory clickOnUsageHistoryTab() {
+    /**
+     * This method is use to click on more usage history tab
+     */
+    public void clickOnUsageHistoryTab() {
         clickAndWaitForLoaderToBeRemoved(pageElements.usageHistoryTab);
         commonLib.info("Clicking on Usage History Tab");
-        return new MoreUsageHistory(driver);
     }
 
+    /**
+     * This method is use to click on action
+     */
     public void clickOnAction() {
         if (isVisible(pageElements.homeActionBtn)) {
             commonLib.info("Clicking on Action drop down");
@@ -150,11 +194,17 @@ public class CustomerProfile extends BasePage {
         }
     }
 
+    /**
+     * This method is use to click open send sms tab
+     */
     public void openSendSMSTab() {
         commonLib.info("Clicking on Send SMS");
         clickAndWaitForLoaderToBeRemoved(pageElements.sendSMSAction);
     }
 
+    /**
+     * This method is use to click send internet setting action
+     */
     public void clickSendInternetSetting() {
         if (isVisible(pageElements.sendSettings)) {
             commonLib.info("Clicking on Send Internet Setting");
@@ -164,6 +214,9 @@ public class CustomerProfile extends BasePage {
         }
     }
 
+    /**
+     * This method is use to click reset me2u action
+     */
     public void clickResetME2U() {
         if (isVisible(pageElements.resetME2UPassword)) {
             commonLib.info("Clicking on Reset ME2U Password");
@@ -173,9 +226,11 @@ public class CustomerProfile extends BasePage {
         }
     }
 
+    /**
+     * This method is use to click cancel button
+     */
     public void clickCancelBtn() {
         if (isVisible(pageElements.cancelBtn)) {
-            //waitTillLoaderGetsRemoved();
             commonLib.info("Going to click on Cancel Button");
             clickWithoutLoader(pageElements.cancelBtn);
             clickContinueButton();
@@ -186,26 +241,43 @@ public class CustomerProfile extends BasePage {
         }
     }
 
+    /**
+     * This method is use to click close button
+     */
     public void clickCloseBtn() {
         commonLib.info("Clicking on Close Button");
         clickAndWaitForLoaderToBeRemoved(pageElements.closeBtn);
     }
 
+    /**
+     * This method is use to open authenticate tab
+     */
     public void openAuthTab() {
         commonLib.info("Opening Authentication tab for : " + getText(pageElements.simBarUnBar));
         clickAndWaitForLoaderToBeRemoved(pageElements.simBarUnBar);
     }
 
+    /**
+     * This method is use to check loan widget display or not
+     * @return true/false
+     */
     public boolean isLoanWidgetDisplay() {
         commonLib.info("Checking Loan Widget Displayed");
         return isEnabled(pageElements.loanWidget);
     }
 
+    /**
+     * This method is use to check customer birthday icon display or not
+     * @return true/false
+     */
     public boolean isCustomerBirthday() {
         commonLib.info("Checking Customer Birthday or not");
         return isEnabled(pageElements.birthdayIcon);
     }
 
+    /**
+     * This method is use to click continue button
+     */
     public void clickContinueButton() {
         commonLib.info("Clicking on Continue button");
         if (isVisible(pageElements.continueBtn)) {
@@ -334,6 +406,10 @@ public class CustomerProfile extends BasePage {
         }
     }
 
+    /**
+     * This method is use to check auth tab opened or not
+     * @return true/false
+     */
     public Boolean isAuthTabOpenedDoAction() {
         boolean tabOpened = false;
         if (isVisible(pageElements.authenticationModal)) {
@@ -345,6 +421,9 @@ public class CustomerProfile extends BasePage {
         return tabOpened;
     }
 
+    /**
+     * This method is use to select auth tab check box
+     */
     public void selectAuthCheckBox() {
         int count = 0;
         final List<WebElement> elementsListfromBy = getElementsListFromBy(pageElements.authCheckBox);
@@ -377,6 +456,9 @@ public class CustomerProfile extends BasePage {
         }
     }
 
+    /**
+     * This method is use to enter comment in issue pop up
+     */
     public void enterCommentIssuePopUp() {
         setTextWithTimeStamp(pageElements.commentBox, "Comment By Automation");
     }

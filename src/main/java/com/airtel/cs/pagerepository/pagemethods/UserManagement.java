@@ -2,7 +2,6 @@ package com.airtel.cs.pagerepository.pagemethods;
 
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -91,22 +90,37 @@ public class UserManagement extends BasePage {
         defaultDriver.close();
     }
 
+    /**
+     * This method use to click update button
+     */
     public void clickUpdateButton() {
         commonLib.info("Clicking on Update Button");
         clickAndWaitForLoaderToBeRemoved(pageElements.updateButton);
     }
 
+    /**
+     * This method use to write bucket size in bucket size field
+     * @param size The bucket size
+     */
     public void setTicketBucketSize(int size) {
         commonLib.info("Setting Current Ticket size : " + size);
         clearInputTag(pageElements.bucketSize);
         enterText(pageElements.bucketSize, String.valueOf(size));
     }
 
+    /**
+     * This method use to get current bucket size of an agent
+     * @return String The Value
+     */
     public String getCurrentTicketBucketSize() {
         commonLib.info("Getting Current Ticket Size : " + getText(pageElements.ticketBucketSize));
         return getText(pageElements.ticketBucketSize);
     }
 
+    /**
+     * This method is use to get all workgroup which is present on UI
+     * @return List The list of workgroup name
+     */
     public ArrayList<String> getWorkflows() {
         List<WebElement> listOfElements = returnListOfElement(pageElements.workflowsOptions);
         log.info("total elements " + listOfElements.size());
@@ -124,6 +138,10 @@ public class UserManagement extends BasePage {
         return strings;
     }
 
+    /**
+     * This method is use to get all queue which is present on UI
+     * @return List The list of queue name
+     */
     public ArrayList<String> getLoginQueues() {
         List<WebElement> listOfElements = returnListOfElement(pageElements.workflowsOptions);
         log.info("total elements " + listOfElements.size());
@@ -140,7 +158,11 @@ public class UserManagement extends BasePage {
         return strings;
     }
 
-    public ArrayList<String> getInteractionChannels() {
+    /**
+     * This method is use to get all interaction channel which is present on UI
+     * @return List The list of interaction channel name
+     */
+    public List<String> getInteractionChannels() {
         List<WebElement> listOfElements = returnListOfElement(pageElements.channelsOptions);
         log.info("List Size: " + listOfElements.size());
         ArrayList<String> strings = new ArrayList<>();
@@ -156,90 +178,99 @@ public class UserManagement extends BasePage {
         return strings;
     }
 
-    public boolean isWorkFlowPresent(String[] strings, String workflow) {
-        boolean isThere = false;
-        log.info(FINDING + workflow + " in workflow List");
-        for (String a : strings) {
-            if (a.equals(workflow)) {
-                isThere = true;
-                log.info(workflow + " is present in work flow List");
-            }
-        }
-        return isThere;
-    }
-
-
+    /**
+     * This method is use to open workgroup list
+     * @throws InterruptedException throw InterruptedException
+     */
     public void openWorkgroupList() throws InterruptedException {
-        List<WebElement> webElements = returnListOfElement(By.xpath("//mat-select[starts-with(@class,'mat-select ng-tns') and @aria-multiselectable=\"true\"]"));
+        List<WebElement> webElements = returnListOfElement(By.xpath(pageElements.list));
         webElements.get(0).click();
         commonLib.info("Opening Work Group Flow List");
         Thread.sleep(1000);
 
     }
 
+    /**
+     * This method is use to open queue list
+     * @throws InterruptedException throw InterruptedException
+     */
     public void openLoginQueueList() throws InterruptedException {
-        List<WebElement> webElements = returnListOfElement(By.xpath("//mat-select[starts-with(@class,'mat-select ng-tns') and @aria-multiselectable=\"true\"]"));
+        List<WebElement> webElements = returnListOfElement(By.xpath(pageElements.list));
         webElements.get(1).click();
         commonLib.info("Opening Login Queue Flow List");
         Thread.sleep(1000);
     }
 
 
-    public boolean isLoginQueuePresent(String[] strings, String workflow) {
-        boolean isThere = false;
-        commonLib.info(FINDING + workflow + " in Login Queue List");
-        for (String a : strings) {
-            if (a.equals(workflow)) {
-                isThere = true;
-                log.info(workflow + " is present in Login Queue List");
-                commonLib.info(workflow + " is present in Login Queue List");
-
-            }
-        }
-        return isThere;
-    }
-
+    /**
+     * This method is use to click edit button
+     */
     public void clickViewEditButton() {
         commonLib.info("Clicking View/Edit button");
         clickAndWaitForLoaderToBeRemoved(pageElements.viewEditButton);
     }
 
+    /**
+     * This method is use to wait until edit page open
+     */
     public void waitUntilEditPageIsOpen() {
         commonLib.info("Waiting Until Edit Profile Page is Loaded");
         waitTillLoaderGetsRemoved();
         wait.until(ExpectedConditions.elementToBeClickable(pageElements.cancelButton));
     }
 
+    /**
+     * This method is use to wait until UM page open
+     */
     public void waitTillUMPageLoaded() {
         commonLib.info("Waiting Until Profile Management Page is Loaded");
         wait.until(ExpectedConditions.visibilityOfElementLocated(pageElements.totalUsersHeading));
     }
 
+    /**
+     * This method use to check is search by auuid field visible or not
+     * @return true/false
+     */
     public boolean isSearchVisible() {
         final boolean state = isEnabled(pageElements.searchAuuid);
         commonLib.info("Checking is Search Auuid Text box is Visible : " + state);
         return state;
     }
 
+    /**
+     * This method is use to search auuid by agent auuid
+     * @param auuid The auuid
+     */
     public void searchAuuid(String auuid) {
         commonLib.info("Writing AUUID to Search auuid Text box : " + auuid);
         enterText(pageElements.searchAuuid, auuid);
     }
 
+    /**
+     * This method is use to click search button
+     */
     public void clickSearchButton() {
         commonLib.info("Clicking on Search Button");
         clickAndWaitForLoaderToBeRemoved(pageElements.searchButton);
     }
 
+    /**
+     * This method is use to wait until search result page open
+     */
     public void waitUntilResultPageIsVisible() {
         waitTillLoaderGetsRemoved();
-        commonLib.info("Waiting Untill Result Page is Loaded");
+        commonLib.info("Waiting Until Result Page is Loaded");
         wait.until(ExpectedConditions.visibilityOfElementLocated(pageElements.searchButton));
     }
 
+    /**
+     * This method is used to check searched auuid visible in list
+     * @param auuid The auuid
+     * @return String The value
+     */
     public String resultIsVisible(String auuid) {
 
-        By title = By.xpath("//div[@title='" + auuid + "']");
+        By title = By.xpath(pageElements.auuid + auuid + "']");
         final boolean visible = isElementVisible(title);
         commonLib.info("Checking is Search Auuid Text box is Visible : " + visible);
         final String text = getText(title);
@@ -247,46 +278,46 @@ public class UserManagement extends BasePage {
         return text;
     }
 
+    /**
+     * This method use to open list of interaction channel
+     */
     public void openListInteractionChannels() throws InterruptedException {
         commonLib.info("Opening Interaction Channel List");
         clickAndWaitForLoaderToBeRemoved(pageElements.interactionChannel);
         Thread.sleep(1000);
     }
 
-    public void pressESCWorkflow() {
-        List<WebElement> webElements = returnListOfElement(By.xpath("//mat-select[starts-with(@class,'mat-select ng-tns') and @aria-multiselectable=\"true\"]"));
-        webElements.get(0).sendKeys(Keys.ESCAPE);
-    }
 
+    /**
+     * This method is use to close options overlay
+     * @throws InterruptedException Throw interrupt exception
+     */
     public void pressESC() throws InterruptedException {
-        driver.findElement(By.xpath("//div[@class=\"cdk-overlay-backdrop cdk-overlay-transparent-backdrop cdk-overlay-backdrop-showing\"]")).click();
+        driver.findElement(By.xpath(pageElements.backButton)).click();
         Thread.sleep(2000);
     }
 
 
-    public boolean isInteractionChannelPresent(String[] strings, String channel) {
-        boolean isThere = false;
-        commonLib.info(FINDING + channel + " in Interaction List");
-        for (String a : strings) {
-            if (a.equals(channel)) {
-                isThere = true;
-                log.info(channel + " is present in interaction Channel List");
-                commonLib.info(channel + " is present in interaction Channel List");
-            }
-        }
-        return isThere;
-    }
-
+    /**
+     * This method is use to click add to user button
+     */
     public void clickAddUserBtn() {
         commonLib.info("Clicking on Add to User Button");
         clickAndWaitForLoaderToBeRemoved(pageElements.addUser);
     }
 
+    /**
+     * This method is use to switch add to user page frame
+     */
     public void switchFrameToAddUser() {
         commonLib.info("Switching Frame");
 
     }
 
+    /**
+     * This method is use to check add user page open or not
+     * @return true/false
+     */
     public boolean checkingAddUser() {
         commonLib.info("Checking Add to User Open");
         return isEnabled(pageElements.addUserPageTitle);

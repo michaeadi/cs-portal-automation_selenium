@@ -119,10 +119,6 @@ public class PageCollection {
         return new MoreRechargeHistory(driver);
     }
 
-    public MoreUsageHistory getMoreUsageHistoryPage() {
-        return new MoreUsageHistory(driver);
-    }
-
     public ProfileManagement getProfileManagement() {
         return new ProfileManagement(driver);
     }

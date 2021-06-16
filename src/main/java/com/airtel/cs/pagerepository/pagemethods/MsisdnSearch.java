@@ -16,24 +16,37 @@ public class MsisdnSearch extends BasePage {
         pageElements = PageFactory.initElements(driver, MsisdnSearchPage.class);
     }
 
+    /**
+     * This method is use to enter number in search field
+     * @param number The Number
+     */
     public void enterNumber(String number) {
         if (isVisible(pageElements.numberSearch)) {
             enterText(pageElements.numberSearch, number);
         } else {
-            log.error("Search box is NOT visible");
+            commonLib.error("Search box is NOT visible");
         }
     }
 
+    /**
+     * This method is use to clear customer number
+     */
     public void clearCustomerNumber() {
         commonLib.info("Clearing Customer Number");
         driver.findElement(pageElements.numberSearch).clear();
     }
 
+    /**
+     * This method is use to click search button
+     */
     public void clickOnSearch() {
         commonLib.info("Clicking on Search Button");
         clickWithoutLoader(pageElements.searchButton);
     }
 
+    /**
+     * This method is use to wait until customer dashboard page load
+     */
     public void waitUntilPageIsLoaded() {
         waitTillLoaderGetsRemoved();
         commonLib.info("Waiting till the Search Page is Loaded");
