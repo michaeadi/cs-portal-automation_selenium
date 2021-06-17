@@ -22,5 +22,10 @@ public class WidgetCommonPage {
     public String searchButton="//input[@data-csautomation-key='searchBtn']";
     public String bottomAuuid="//div[@data-csautomation-key='bottomAuuid']";
     public String middleAuuidAtr="data-auuid";
-
+    public String noResultFoundMsg="//span[@data-csautomation-key='noResultFoundMsg']";
+    public String noResultFoundIcon="//img[@data-csautomation-key='noResultFoundIcon']";
+    public String widgetErrorIcon="//img[@data-csautomation-key='widgetErrorIcon']";
+    public String widgetErrorMsg="//div[@data-csautomation-key='widgetErrorMsg']";
+    public String widgetErrorRefreshBtn="//button[@data-csautomation-key='widgetErrorRefreshButton']";
+    public String widgetAPIErrorMsg="//div[@data-csautomation-key='widgetErrorMsg']";
 }
