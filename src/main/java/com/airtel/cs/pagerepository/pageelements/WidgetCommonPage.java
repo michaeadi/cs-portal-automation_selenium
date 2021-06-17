@@ -13,4 +13,14 @@ public class WidgetCommonPage {
     public String nextBtnDisable="//li[@class='pagination-next disabled ng-star-inserted']";
     public String nextBtnEnable="//li[@class='pagination-next ng-star-inserted']";
     public String paginationCount="//div[@data-csautomation-key='paginationResult']";
+
+    /**
+     * Date Picker
+     */
+    public String datePicker="//input[@data-csautomation-key='datePicker']";
+    public String searchBox="//input[@data-csautomation-key='searchBox']";
+    public String searchButton="//input[@data-csautomation-key='searchBtn']";
+    public String bottomAuuid="//div[@data-csautomation-key='bottomAuuid']";
+    public String middleAuuidAtr="data-auuid";
+
 }
