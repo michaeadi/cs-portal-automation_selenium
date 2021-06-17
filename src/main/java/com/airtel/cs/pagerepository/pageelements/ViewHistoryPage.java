@@ -16,5 +16,7 @@ public class ViewHistoryPage {
     public By sourceApp = By.xpath("//*[@class='bksuper hr']//span[contains(text(),'Source')]");
     public By sourceAppValue = By.xpath("//*[@class='bksuper hr']/li[9]/span[2]");
     public By closeBtn = By.xpath("//*[@class='close-btn']/img");
+    public String ticketRows="//table[@id='fetchInteractionByCustomer']//tbody//tr[";
+    public String ticketIcon="]//td[9]//span//span";
 
 }

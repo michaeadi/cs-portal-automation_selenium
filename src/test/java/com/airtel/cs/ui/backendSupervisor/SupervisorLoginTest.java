@@ -1,19 +1,12 @@
 package com.airtel.cs.ui.backendSupervisor;
 
 import com.airtel.cs.common.actions.BaseActions;
-import com.airtel.cs.commonutils.PassUtils;
-import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
-import com.airtel.cs.commonutils.dataproviders.DataProviders;
-import com.airtel.cs.commonutils.dataproviders.TestDatabean;
+import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pagerepository.pagemethods.SideMenu;
-import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
-import java.lang.reflect.Method;
 import java.util.List;
 
 public class SupervisorLoginTest extends Driver {
@@ -22,80 +15,50 @@ public class SupervisorLoginTest extends Driver {
 
     @BeforeMethod
     public void checkExecution() {
-        if (continueExecutionFA) {
-            assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, true, "Proceeding for test case as user able to login over portal", "Skipping tests because user not able to login into portal or Role does not assign to user"));
-        } else {
-            commonLib.skip("Skipping tests because user not able to login into portal or Role does not assign to user");
-            assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, false, "Skipping tests because user not able to login into portal or Role does not assign to user"));
-            throw new SkipException("Skipping tests because user not able to login into portal or Role does not assign to user");
+        if (!continueExecutionBS) {
+            commonLib.skip("Skipping tests because user NOT able to login Over Portal");
+            throw new SkipException("Skipping tests because user NOT able to login Over Portal");
         }
-        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @DataProviders.User()
-    @Test(priority = 1, description = "Logging IN", dataProvider = "loginData", dataProviderClass = DataProviders.class)
-    public void loggingIN(TestDatabean data) throws InterruptedException {
-        selUtils.addTestcaseDescription("Logging Into Portal with AUUID :  " + data.getLoginAUUID(), "description");
-        SoftAssert softAssert = new SoftAssert();
-        final String value = constants.getValue(ApplicationConstants.DOMAIN_URL);
-        pages.getLoginPage().openBaseURL(value);
-        softAssert.assertEquals(driver.getCurrentUrl(), config.getProperty(evnName + "-baseurl"), "URl isn't as expected");
-        pages.getLoginPage().enterAUUID(data.getLoginAUUID());//*[@id="mat-input-7"]
-        pages.getLoginPage().clickOnSubmitBtn();
-        pages.getLoginPage().enterPassword(PassUtils.decodePassword(data.getPassword()));
-        softAssert.assertTrue(pages.getLoginPage().checkLoginButton(), "Login Button is not enabled even after entering Password");
-        pages.getLoginPage().clickOnVisibleButton();
-        pages.getLoginPage().clickOnVisibleButton();
-        pages.getLoginPage().clickOnLogin();
-        SideMenu sideMenu = new SideMenu(driver);
-        Thread.sleep(20000); // wait for 20 Seconds for Dashboard page In case of slow Network slow
-        if (sideMenu.isSideMenuVisible()) {
-            sideMenu.clickOnSideMenu();
-            if (!sideMenu.isCustomerServicesVisible()) {
-                continueExecutionBS = false;
-                softAssert.fail("Backend Supervisor Dashboard does not Assign to User.Please Assign Role to user.");
-            } else {
-                continueExecutionBS = true;
-            }
-            sideMenu.clickOnSideMenu();
-        } else {
-            continueExecutionBS = false;
-            softAssert.fail("Backend Supervisor Dashboard does Open with user.Check for the ScreenShot.");
+    @Test(priority = 1,groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void openSupervisorDashboard() {
+        try {
+            selUtils.addTestcaseDescription("Open Supervisor Dashboard , Validate agent redirect to ticket List Page", "description");
+            pages.getSideMenuPage().clickOnSideMenu();
+            pages.getSideMenuPage().clickOnUserName();
+            pages.getSideMenuPage().openSupervisorDashboard();
+            assertCheck.append(actions.assertEqual_stringType(driver.getTitle(), constants.getValue(CommonConstants.SUPERVISOR_TICKET_LIST_PAGE_TITLE), "Agent redirect to ticket list page as expected", "Agent does not redirect to ticket list page as expected"));
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - openSupervisorDashboard" + e.fillInStackTrace(), true);
         }
-        softAssert.assertAll();
     }
 
-    @Test(priority = 2, description = "Supervisor Dashboard Login ")
-    public void openSupervisorDashboard(Method method) {
-        selUtils.addTestcaseDescription("Open Supervisor Dashboard", "description");
-        pages.getSideMenuPage().waitTillLoaderGetsRemoved();
-        pages.getSideMenuPage().clickOnSideMenu();
-        pages.getSideMenuPage().clickOnUserName();
-        pages.getSideMenuPage().openSupervisorDashboard();
-        SoftAssert softAssert = new SoftAssert();
-        pages.getSideMenuPage().waitTillLoaderGetsRemoved();
-        Assert.assertEquals(driver.getTitle(), config.getProperty("supervisorTicketListPage"));
-        softAssert.assertAll();
-    }
-
-    @Test(priority = 3, description = "Verify there are Searchable fields options displayed to select from in the Search Dropdown : 1) Ticket Id & 2) MSISDN")
+    @Test(priority = 2,groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openSupervisorDashboard"})
     public void validateTicketSearchOptions() {
-        selUtils.addTestcaseDescription("Validate Search Ticket Option,Verify there are 2 options displayed to select from in the Search Dropdown : 1) Ticket Id & 2) MSISDN", "description");
-        SoftAssert softAssert = new SoftAssert();
-        pages.getSupervisorTicketList().clickTicketOption();
-        List<String> list = pages.getSupervisorTicketList().getListOfSearchOption();
-        softAssert.assertTrue(list.contains(config.getProperty("ticketOption")), config.getProperty("ticketOption") + " option does not found in list.");
-        softAssert.assertTrue(list.contains(config.getProperty("msisdnOption")), config.getProperty("msisdnOption") + " option does not found in list.");
-        pages.getSupervisorTicketList().clickTicketOption();
-        softAssert.assertAll();
+        try {
+            selUtils.addTestcaseDescription("Validate Search Ticket Option,Verify there are 2 options displayed to select from in the Search Dropdown :, 1) Ticket Id,  2) Global Search", "description");
+            pages.getSupervisorTicketList().clickTicketOption();
+            List<String> list = pages.getSupervisorTicketList().getListOfSearchOption();
+            assertCheck.append(actions.assertEqual_boolean(list.contains(constants.getValue(CommonConstants.SEARCH_BY_TICKET_ID)), true, constants.getValue(CommonConstants.SEARCH_BY_TICKET_ID) + " Option shows in list as expected.", constants.getValue(CommonConstants.SEARCH_BY_TICKET_ID) + " option does not found in list."));
+            assertCheck.append(actions.assertEqual_boolean(list.contains(constants.getValue(CommonConstants.SEARCH_BY_GLOBAL_SEARCH)), true, constants.getValue(CommonConstants.SEARCH_BY_GLOBAL_SEARCH) + " Option shows in list as expected.", constants.getValue(CommonConstants.SEARCH_BY_GLOBAL_SEARCH) + " option does not found in list."));
+            pages.getSupervisorTicketList().clickTicketOption();
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - validateTicketSearchOptions" + e.fillInStackTrace(), true);
+        }
     }
 
-    @Test(priority = 4, description = "Validate Supervisor ticket tabs ALL Tickets & My Assigned Tab")
+    @Test(priority = 3,groups = {"SanityTest", "RegressionTest", "ProdTest"},dependsOnMethods = {"openSupervisorDashboard"})
     public void validateSupervisorTabs() {
-        selUtils.addTestcaseDescription("Validate Supervisor ticket tabs(All Tickets & My Assigned Ticket) ", "description");
-        SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(pages.getSupervisorTicketList().isMyAssignedTicketTab(), "My Assigned Tickets Tab does not displayed correctly.");
-        softAssert.assertTrue(pages.getSupervisorTicketList().isAllTicketTab(), "ALL Tickets Tab does not displayed correctly.");
-        softAssert.assertAll();
+        try {
+            selUtils.addTestcaseDescription("Validate Supervisor ticket tabs(All Tickets & My Assigned Ticket),Check ALL Tickets Tab Displayed,Check My Assigned Ticket Tab Displayed ", "description");
+            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isMyAssignedTicketTab(), true, "My Assigned Tickets Tab displayed correctly.", "My Assigned Tickets Tab does not displayed correctly."));
+            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isAllTicketTab(), true, "ALL Tickets Tab displayed correctly.", "ALL Tickets Tab does not displayed correctly."));
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - validateSupervisorTabs" + e.fillInStackTrace(), true);
+        }
     }
 }

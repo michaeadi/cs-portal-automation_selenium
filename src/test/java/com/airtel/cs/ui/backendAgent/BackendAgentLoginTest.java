@@ -34,7 +34,7 @@ public class BackendAgentLoginTest extends Driver {
             assertCheck.append(actions.assertEqual_stringType(driver.getCurrentUrl(), value, "Correct URL Opened", "URl isn't as expected"));
             pages.getLoginPage().enterAUUID(loginAUUID);
             pages.getLoginPage().clickOnSubmitBtn();
-            pages.getLoginPage().enterPassword(PassUtils.decodePassword(constants.getValue(CommonConstants.BA_USER_PASSWROD)));
+            pages.getLoginPage().enterPassword(PassUtils.decodePassword(constants.getValue(CommonConstants.BA_USER_PASSWORD)));
             assertCheck.append(actions.assertEqual_boolean(pages.getLoginPage().checkLoginButton(), true, "Login Button is Enabled", "Login Button is NOT enabled"));
             pages.getLoginPage().clickOnVisibleButton();
             pages.getLoginPage().clickOnVisibleButton();
@@ -82,8 +82,8 @@ public class BackendAgentLoginTest extends Driver {
             assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isWorkGroupName(), true, "Ticket Meta Data Have Workgroup", "Ticket Meta Data Does Not  Have Workgroup"));
             assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isPrioritylabel(), true, "Ticket Meta Data Have Priority", "Ticket Meta Data  Does Not  Have Priority"));
             assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isStateLabel(), true, "Ticket Meta Data Have State", "Ticket Meta Data Does Not  Have State"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isCreationdateLabel(), true, "Ticket Meta Data Have Creation Date", "Ticket Meta Data Does Not Have Creation Date"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isCreatedbyLabel(), true, "Ticket Meta Data Have Created By", "Ticket Meta Data Does Not Have Created By"));
+            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isCreationDateLabel(), true, "Ticket Meta Data Have Creation Date", "Ticket Meta Data Does Not Have Creation Date"));
+            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isCreatedByLabel(), true, "Ticket Meta Data Have Created By", "Ticket Meta Data Does Not Have Created By"));
             assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isQueueLabel(), true, "Ticket Meta Data Have Queue", "Ticket Meta Data Does Not Have Queue"));
             assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isIssueLabel(), true, "Ticket Meta Data Have Issue", "Ticket Meta Data Does Not Have Issue"));
             assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isIssueTypeLabel(), true, "Ticket Meta Data Have Issue Type", "Ticket Meta Data Does Not Have Issue Type"));

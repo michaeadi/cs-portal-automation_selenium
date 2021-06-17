@@ -16,11 +16,13 @@ public class ConstantsUtils implements Cloneable {
     private final Properties prop;
     private static final String USER_DIR = "user.dir";
     private static final String COMMON_CONFIG_FILE_NAME = "commonconfig.properties";
+    private static final String PERMISSION_CONFIG_FILE_NAME = "permission.properties";
     private static final String RESOURCES_PROPERTIES = "/resources/properties/";
     private static final String OPCO_CONFIG_FILE_NAME = System.getProperty("Opco").toLowerCase() + "-" + System.getProperty("Env") + ".properties";
     private static final String OPCO_FILE_PATH = System.getProperty(USER_DIR) + RESOURCES_PROPERTIES + OPCO_CONFIG_FILE_NAME;
-    private static final String PERMISSION_FILE_PATH = System.getProperty(USER_DIR) + RESOURCES_PROPERTIES + COMMON_CONFIG_FILE_NAME;
-    private static final List<String> fileList = Arrays.asList(OPCO_FILE_PATH, PERMISSION_FILE_PATH);
+    private static final String COMMON_FILE_PATH = System.getProperty(USER_DIR) + RESOURCES_PROPERTIES + COMMON_CONFIG_FILE_NAME;
+    private static final String PERMISSION_FILE_PATH = System.getProperty(USER_DIR) + RESOURCES_PROPERTIES + PERMISSION_CONFIG_FILE_NAME;
+    private static final List<String> fileList = Arrays.asList(OPCO_FILE_PATH, PERMISSION_FILE_PATH,COMMON_FILE_PATH);
 
 
     private ConstantsUtils() {

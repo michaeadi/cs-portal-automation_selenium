@@ -8,11 +8,15 @@ public class ApplicationConstants {
     public static final String TARIFF_PLAN_ISSUE_CODE = "cs.tariff.plan.issue.code";
     public static final String UM_LOGIN_URL = "um.login.url";
     public static final String RUN_TARIFF_TEST_CASE = "cs.run.tariff.plan.test.case";
+    public static final String RUN_HLR_WIDGET_TEST_CASE="cs.run.hlr.widget.test.case";
+    public static final String RUN_DISPLAY_OFFER_TEST_CASE="cs.run.display.offer.widget.test.case";
+    public static final String RUN_FNF_WIDGET_TEST_CASE="cs.run.fnf.widget.test.case";
     public static final String WEB_BROWSER = "cs.application.browser";
     public static final String CUSTOMER_MSISDN = "cs.customer.msisdn";
     public static final String AM_CUSTOMER_MSISDN = "cs.am.customer.msisdn";
     public static final String RECHARGE_HISTORY_MSISDN = "cs.recharge.history.msisdn";
     public static final String CURRENT_BALANCE_MSISDN = "cs.current.balance.msisdn";
+    public static final String USAGE_HISTORY_MSISDN = "cs.usage.history.msisdn";
     public static final String DOMAIN_URL = "cs.portal.login.url";
     public static final String APP_NAME = "cs.x.app.name";
     public static final String SERVICE_ID = "cs.x.service.id";
@@ -31,6 +35,12 @@ public class ApplicationConstants {
     public static final String SEND_INTERNET_SETTINGS = "cs.send.internet.settings";
     public static final String RESET_ME2U_PASSWORD = "cs.reset.me2u.password";
     public static final String CRBT_WIDGET = "cs.crbt.widget";
+    public static final String FNF_NEW_MEMBER_MSISDN ="cs.customer.new.member.msisdn";
+    public static final String FIRST_AM_CURRENCY="first.am.currency";
+    public static final String SECOND_AM_CURRENCY="second.am.currency";
+    public static final String BULK_UPDATE_TRANSFER_TO_QUEUE_STATUS="cs.bulk.update.transfer.to.queue.status";
+    public static final String BULK_UPDATE_FROM_QUEUE_NAME="cs.bulk.update.transfer.from.queue.name";
+    public static final String BULK_UPDATE_TO_QUEUE_NAME="cs.bulk.update.transfer.to.queue.name";
 
 
     private ApplicationConstants() {

@@ -24,24 +24,41 @@ public class UsageHistoryWidget extends BasePage {
         as = returnListOfElement(pageElements.rows);
     }
 
+    /**
+     * This method is used to check usage history widget error display or noy
+     * @return true/false
+     */
     public boolean isUsageHistoryErrorVisible() {
         final boolean visible = isElementVisible(pageElements.usageHistoryError);
         commonLib.info("Validating error is visible when there is Error in com.airtel.cs.API : " + visible);
         return visible;
     }
 
-    public String getHeaders(int row) {
-        String header = getText(By.xpath(pageElements.headerRow + row + pageElements.headerText));
-        commonLib.info("Getting header Number " + row + " : " + header);
+    /**
+     * This method use to get header name based on column number
+     * @param column The column number
+     * @return String The value
+     */
+    public String getHeaders(int column) {
+        String header = getText(By.xpath(pageElements.headerRow + column + pageElements.headerText));
+        commonLib.info("Getting header Number " + column + " : " + header);
         return header;
     }
 
+    /**
+     * This method is use to get no result found message
+     * @return String The String
+     */
     public String gettingUsageHistoryNoResultFoundMessage() {
         final String text = getText(pageElements.usageHistoryNoResultFoundMessage);
         commonLib.info("Validating error message when there is no data from com.airtel.cs.API : " + text);
         return text;
     }
 
+    /**
+     * This method is use to check no result found icon visible or not
+     * @return true/false
+     */
     public boolean isUsageHistoryNoResultFoundVisible() {
         final boolean visible = isElementVisible(pageElements.usageHistoryNoResultFound);
         commonLib.info("Validating error is visible when there is no data from com.airtel.cs.API : " + visible);
@@ -49,15 +66,26 @@ public class UsageHistoryWidget extends BasePage {
     }
 
 
+    /**
+     * This method is use to get number of data rows display on UI
+     * @return Integer the count
+     */
     public int getNumberOfRows() {
         return as.size();
     }
 
+    /**
+     * This method is use to check widget menu icon visible or not
+     * @return true/false
+     */
     public boolean isUsageHistoryWidgetMenuVisible() {
         commonLib.info("Checking is Usage History's Menu Visible");
         return isElementVisible(pageElements.menu);
     }
 
+    /**
+     * This method use to click menu button for opening sub tab
+     */
     public void openingMoreDetails() {
         commonLib.info("Opening More under Usage History Widget");
         clickAndWaitForLoaderToBeRemoved(pageElements.menu);
@@ -67,36 +95,49 @@ public class UsageHistoryWidget extends BasePage {
     This Method will give us the header value
      */
     public String getHeaderValue(int row, int column) {
-        String result = null;
+        String result;
         result = getText(By.xpath(pageElements.dataRow + row + pageElements.valueColumns + column + "]"));
         commonLib.info("Reading Value(" + row + "): " + result);
         return result;
     }
 
+    /**
+     * This method use to check widget display or not
+     * @return true/false
+     */
     public boolean isUsageHistoryWidgetIsVisible() {
         commonLib.info("Checking is Usage History Widget Visible");
         return isElementVisible(pageElements.usageHistoryHeader);
     }
 
+    /**
+     * This method use to check date picker display or not
+     * @return true/false
+     */
     public boolean isUsageHistoryDatePickerVisible() {
         commonLib.info("Checking Usage HistoryWidget Date Picker Visibility ");
         return isEnabled(pageElements.usageHistoryDatePicker);
     }
 
-    public WidgetInteraction clickTicketIcon() {
+    /**
+     * This method is use to click ticket icon
+     */
+    public void clickTicketIcon() {
         try {
             commonLib.info("Clicking on Ticket Icon");
             clickAndWaitForLoaderToBeRemoved(pageElements.ticketIcon);
-            return new WidgetInteraction(driver);
         } catch (NoSuchElementException | TimeoutException e) {
             Assert.fail("Ticket Icon does not display on Usage History Widget");
         }
-        return null;
     }
 
+    /**
+     * This method is use to get widget name
+     * @return String The value
+     */
     public String getWidgetTitle() {
         final String text = getText(pageElements.getTitle);
-        log.info("Getting Widget title: " + text);
+        commonLib.info("Getting Widget title: " + text);
         return text.toLowerCase();
     }
 
@@ -105,9 +146,7 @@ public class UsageHistoryWidget extends BasePage {
        UHW = Usage History Widget
         */
     public String getFooterAuuidUHW() {
-        String result = null;
-        result = getText(pageElements.footerUHWAuuid);
-        return result;
+        return getText(pageElements.footerUHWAuuid);
     }
 
     /*
@@ -115,7 +154,7 @@ public class UsageHistoryWidget extends BasePage {
     UHW = Usage History Widget
      */
     public String getMiddleAuuidUHW() {
-        String result = null;
+        String result;
         result = getAttribute(pageElements.middleUHWAuuid, "data-auuid", false);
         return result;
     }
@@ -130,38 +169,10 @@ public class UsageHistoryWidget extends BasePage {
     }
 
 
-    public String getHistoryEndBalance(int rowNumber) {
-        WebElement rowElement = as.get(rowNumber);
-        final String text = rowElement.findElement(pageElements.endBalance).getText();
-        commonLib.info("Getting Usage History End Balance from Row Number " + rowNumber + " : " + text);
-        return text;
-    }
-
-    public String getHistoryStartBalance(int rowNumber) {
-        WebElement rowElement = as.get(rowNumber);
-        final String text = rowElement.findElement(pageElements.startBalance).getText();
-        commonLib.info("Getting Usage History Start Balance from Row Number " + rowNumber + " : " + text);
-        return text;
-    }
-
     public String getHistoryDateTime(int rowNumber) {
         By dateTime = By.xpath(pageElements.dataRow + rowNumber + pageElements.valueColumns +"3]");
         final String text = getText(dateTime);
         commonLib.info("Getting Usage History Date Time from Row Number " + rowNumber + " : " + text);
-        return text;
-    }
-
-    public String getHistoryCharge(int rowNumber) {
-        WebElement rowElement = as.get(rowNumber);
-        final String text = rowElement.findElement(pageElements.charge).getText();
-        commonLib.info("Getting Usage History Charge from Row Number " + rowNumber + " : " + text);
-        return text.replace('+', ' ').trim();
-    }
-
-    public String getHistoryType(int rowNumber) {
-        WebElement rowElement = as.get(rowNumber);
-        final String text = rowElement.findElement(pageElements.type).getText();
-        commonLib.info("Getting Usage History Type from Row Number " + rowNumber + " : " + text);
         return text;
     }
 }

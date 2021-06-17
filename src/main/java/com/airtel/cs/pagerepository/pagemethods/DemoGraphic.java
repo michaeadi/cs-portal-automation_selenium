@@ -23,12 +23,20 @@ public class DemoGraphic extends BasePage {
         pageElements = PageFactory.initElements(driver, DemoGraphicPage.class);
     }
 
+    /**
+     * This method is use to get customer name
+     * @return String The value
+     */
     public String getCustomerName() {
         final String text = getText(pageElements.customerName);
         commonLib.info("Getting Customer Name " + text);
         return text;
     }
 
+    /**
+     * This method is use to get device Compatible
+     * @return String The value
+     */
     public String getDeviceCompatible() {
         String result = null;
         final String src = getAttribute(pageElements.deviceCompatible, "src", false);
@@ -49,24 +57,40 @@ public class DemoGraphic extends BasePage {
         return text.trim();
     }
 
+    /**
+     * This method is use to get customer date of birth
+     * @return String The value
+     */
     public String getCustomerDOB() {
         final String text = getText(pageElements.customerDOB);
         commonLib.info("Getting Customer DOB " + text);
         return text;
     }
 
+    /**
+     * This method is use to get GSM status reason code
+     * @return String The value
+     */
     public String getGSMStatusReasonCode() {
         final String text = getText(pageElements.reasonCode);
         commonLib.info("Getting SIM Status Reason Code " + text);
         return text;
     }
 
+    /**
+     * This method is use to get GSM status modified by
+     * @return String The value
+     */
     public String getGSMStatusModifiedBy() {
         final String text = getText(pageElements.modifiedBy);
         commonLib.info("Getting SIM Status Modified By " + text);
         return text;
     }
 
+    /**
+     * This method is use to get GSM status modified date
+     * @return String The value
+     */
     public String getGSMStatusModifiedDate() {
         String modifiedDate = null;
         final String date = getText(pageElements.modifiedDate);
@@ -76,18 +100,30 @@ public class DemoGraphic extends BasePage {
         return modifiedDate;
     }
 
+    /**
+     * This method is use to get GSM activation date
+     * @return String The value
+     */
     public String getActivationDate() {
         final String text = getText(pageElements.activationDate);
         commonLib.info("Getting Activation Date " + text);
         return text;
     }
 
+    /**
+     * This method is use to get SIM Number
+     * @return String The value
+     */
     public String getSimNumber() {
         final String text = getText(pageElements.simNumber);
         commonLib.info("Getting Sim Number " + text);
         return text;
     }
 
+    /**
+     * This method is use to get SIM Type
+     * @return String The value
+     */
     public String getSimType() {
         String result = null;
         final String src = getAttribute(pageElements.simType, "src", false);
@@ -124,18 +160,30 @@ public class DemoGraphic extends BasePage {
         return result;
     }
 
+    /**
+     * This method is use to get Id type
+     * @return String The value
+     */
     public String getIdType() {
         final String text = getText(pageElements.idType);
         commonLib.info("Getting ID Type " + text);
         return text;
     }
 
+    /**
+     * This method is use to get Id number
+     * @return String The value
+     */
     public String getIdNumber() {
         final String text = getText(pageElements.idNumber);
         commonLib.info("Getting masked ID Number " + text);
         return text;
     }
 
+    /**
+     * This method is use to check PUK info locked or not
+     * @return true/false
+     */
     public boolean isPUKInfoLocked() {
         try {
             final boolean enabled = isEnabled(pageElements.pukLock);
@@ -147,7 +195,10 @@ public class DemoGraphic extends BasePage {
         }
     }
 
-    public void selectPolicyQuestion() throws InterruptedException {
+    /**
+     * This method is use to select minimum number of policy question
+     */
+    public void selectPolicyQuestion() {
         try {
             DataProviders dataProviders = new DataProviders();
             List<AuthTabDataBeans> list = dataProviders.getPolicy();
@@ -159,6 +210,10 @@ public class DemoGraphic extends BasePage {
         }
     }
 
+    /**
+     * This method is use to check VIP flag display or not
+     * @return true/false
+     */
     public boolean isVIP() {
         try {
             boolean check = isEnabled(pageElements.vipFlag);
@@ -170,6 +225,10 @@ public class DemoGraphic extends BasePage {
         }
     }
 
+    /**
+     * This method is use to check birthday icon display or not
+     * @return true/false
+     */
     public boolean isBirthday() {
         try {
             boolean check = isEnabled(pageElements.customerBirthday);
@@ -181,6 +240,10 @@ public class DemoGraphic extends BasePage {
         }
     }
 
+    /**
+     * This method is use to check Airtel anniversary icon display or not
+     * @return true/false
+     */
     public boolean isAirtelAnniversary() {
         try {
             boolean check = isEnabled(pageElements.customerBirthday);
@@ -192,6 +255,10 @@ public class DemoGraphic extends BasePage {
         }
     }
 
+    /**
+     * This method is use to check Airtel money profile icon locked or not
+     * @return true/false
+     */
     public boolean isAirtelMoneyProfileLocked() {
         try {
             final boolean visibility = isElementVisible(pageElements.airtelMoneyLock);
@@ -203,81 +270,135 @@ public class DemoGraphic extends BasePage {
         }
     }
 
+    /**
+     * This method is use to click PUK info locked section
+     */
     public void clickPUKToUnlock() {
         commonLib.info("Clicking Tap to unlock on PUK Info");
         clickAndWaitForLoaderToBeRemoved(pageElements.pukLock);
     }
 
+    /**
+     * This method is use to click Airtel money profile info locked section
+     */
     public void clickAirtelStatusToUnlock() {
         commonLib.info("Clicking Tap to unlock on Airtel Status Info");
         clickAndWaitForLoaderToBeRemoved(pageElements.airtelMoneyLock);
     }
 
+    /**
+     * This method is use to check Airtel money profile widget display
+     * @return true/false
+     */
     public boolean checkAMProfileWidget() {
         commonLib.info("Checking AM Profile Widget Display");
         return isEnabled(pageElements.amProfileWidget);
     }
 
+    /**
+     * This method is use to get data manager status
+     * @return String The value
+     */
     public String getDataManagerStatus() {
         final String attribute = driver.findElement(pageElements.dataManagerStatus).getAttribute("aria-checked");
         commonLib.info("Status of Data Manager Status+ " + attribute);
         return attribute;
     }
 
+    /**
+     * This method is use to get GSM SIM status
+     * @return String The value
+     */
     public String getGSMStatus() {
         final String text = getText(pageElements.gsmStatus);
         commonLib.info("Getting SIM Status: " + text);
         return text;
     }
 
+    /**
+     * This method is use to get AM Account status
+     * @return String The value
+     */
     public String getAccountStatus() {
         final String text = getText(pageElements.accountStatus);
         commonLib.info("Getting AM Profile Account Status: " + text);
         return text;
     }
 
+    /**
+     * This method is use to check GSM SIM status
+     * @return String The value
+     */
     public String getServiceStatus() {
         final String text = getText(pageElements.serviceStatus);
         commonLib.info("Getting Service Status: " + text);
         return text;
     }
 
+    /**
+     * This method is use to get AM Primary Wallet balance
+     * @return String The value
+     */
     public String getWalletBalance() {
         final String text = getText(pageElements.walletBalance);
         commonLib.info("Getting Airtel Money Wallet Balance: " + text);
         return text;
     }
 
+    /**
+     * This method is use to get AM Secondary Wallet balance
+     * @return String The value
+     */
     public String getWalletBalance2() {
         final String text = getText(pageElements.walletBalance2);
         commonLib.info("Getting Airtel Money Wallet Balance: " + text);
         return text;
     }
 
+    /**
+     * This method is use to get AM Registration balance
+     * @return String The value
+     */
     public String getRegistrationStatus() {
         final String text = getText(pageElements.registrationStatus);
         commonLib.info("Getting Airtel Money Registration Status : " + text);
         return text;
     }
 
+    /**
+     * This method is use to get AM Connection Type
+     * @return String The value
+     */
     public String getConnectionType() {
         final String text = getText(pageElements.connectionType);
         commonLib.info("Getting Connection Type: " + text);
         return text;
     }
 
+    /**
+     * This method is use to get Segment
+     * @return String The value
+     */
     public String getSegment() {
         final String text = getText(pageElements.segment);
         commonLib.info("Getting Segment: " + text);
         return text;
     }
 
+    /**
+     * This method is use to get Service class
+     * @return String The value
+     */
     public String getServiceClass() {
         final String text = getText(pageElements.serviceClass);
         commonLib.info("Getting service class: " + text);
         return text;
     }
 
+    /**
+     * This method is use to get Service category
+     * @return String The value
+     */
     public String getServiceCategory() {
         String result = null;
         try {
@@ -289,80 +410,132 @@ public class DemoGraphic extends BasePage {
         return result;
     }
 
+    /**
+     * This method is use to get self-care API downloaded or not
+     * @return String The value
+     */
     public String getAppStatus() {
         final String text = getText(pageElements.appStatus);
         commonLib.info("Getting app Status: " + text);
         return text;
     }
 
+    /**
+     * This method is use to get GSM KYC status
+     * @return String The value
+     */
     public String getGsmKycStatus() {
         final String text = getText(pageElements.gsmKycStatus);
         commonLib.info("Getting Gsm Kyc Status: " + text);
         return text;
     }
 
+    /**
+     * This method is use to get IMEI number
+     * @return String The value
+     */
     public String getIMEINumber() {
         final String text = getText(pageElements.IMEINumber);
         commonLib.info("Getting IMEI Number: " + text);
         return text;
     }
 
+    /**
+     * This method is use to get device type
+     * @return String The value
+     */
     public String getDeviceType() {
         final String text = getText(pageElements.type);
         commonLib.info("Getting Device Type: " + text);
         return text;
     }
 
+    /**
+     * This method is use to get brand name
+     * @return String The value
+     */
     public String getBrand() {
         final String text = getText(pageElements.brand);
         commonLib.info("Getting Device Brand: " + text);
         return text;
     }
 
+    /**
+     * This method is use to get device model name
+     * @return String The value
+     */
     public String getDeviceModel() {
         final String text = getText(pageElements.model);
         commonLib.info("Getting Device model: " + text);
         return text;
     }
 
+    /**
+     * This method is use to get device os
+     * @return String The value
+     */
     public String getDeviceOS() {
         final String text = getText(pageElements.os);
         commonLib.info("Getting Device Operating System Number: " + text);
         return text;
     }
 
+    /**
+     * This method is use to hover on device info icon
+     */
     public void hoverOnDeviceInfoIcon() {
         commonLib.info("Hover on Device Info icon");
         hoverOverElement(pageElements.deviceInfoIcon);
     }
 
+    /**
+     * This method is use to hover on SIM Status info icon
+     */
     public void hoverOnSIMStatusInfoIcon() {
         commonLib.info("Hover on SIM Status Reason Info icon");
         hoverOverElement(pageElements.SIMStatusReason);
     }
 
+    /**
+     * This method is use to hover on Customer info icon
+     */
     public void hoverOnCustomerInfoIcon() {
         commonLib.info("Hover on Customer Info icon");
         hoverOverElement(pageElements.customerInfoIcon);
     }
 
+    /**
+     * This method is use to hover on customer Segment info icon
+     */
     public void hoverOnSegmentInfoIcon() {
         commonLib.info("Hover on Segment Info icon");
         hoverOverElement(pageElements.hoverInfoSegment);
     }
 
+    /**
+     * This method is use to get msisdn error message
+     * @return String The value
+     */
     public String invalidMSISDNError() {
         final String text = getText(pageElements.errorMessage);
         commonLib.info("Message is: " + text);
         return text;
     }
 
+    /**
+     * This method is use to enter msisdn in search box
+     * @param text The text
+     */
     public void enterMSISDN(String text) {
         commonLib.info("Writing MSISDN in Search Box: " + text);
         enterText(pageElements.customerNumberSearchBox, text);
         driver.findElement(pageElements.customerNumberSearchBox).sendKeys(Keys.ENTER);
     }
 
+    /**
+     * This method is use to clear search box
+     * @param size size of char to be remove
+     */
     public void clearSearchBox(int size) {
         commonLib.info("Clearing Search box");
         for (int i = 0; i < size; i++) {
@@ -370,6 +543,9 @@ public class DemoGraphic extends BasePage {
         }
     }
 
+    /**
+     * This method is use to hover on SIM Number info icon
+     */
     public void hoverOnSIMNumberIcon() {
         commonLib.info("Hover on SIM Number Info icon");
         hoverOverElement(pageElements.simNumberInfoIcon);

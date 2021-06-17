@@ -10,6 +10,7 @@ import com.airtel.cs.commonutils.extentreports.ExtentReport;
 import com.airtel.cs.pojo.response.LoginPOJO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.restassured.response.Response;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
@@ -59,13 +60,14 @@ public class PreRequisites extends Driver {
 
     @BeforeSuite(dependsOnMethods = "doLogin")
     public void addTokenToHeaderMap() throws JsonProcessingException {
-        loginAUUID = constants.getValue(CommonConstants.ALL_USER_ROLE_AUUID);
-        final String password = PassUtils.decodePassword(constants.getValue(CommonConstants.ALL_USER_ROLE_PASSWORD));
+        loginAUUID = constants.getValue(CommonConstants.BETA_USER_AUUID);
+        final String password = PassUtils.decodePassword(constants.getValue(CommonConstants.BETA_USER_PASSWORD));
         LoginPOJO req = LoginPOJO.loginBody(loginAUUID, password);
         String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(req);
         map.clear();
         pages.getLoginPage().setApiHeader();
-        LoginPOJO loginPOJO = api.loginPOJO(dtoAsString);
+        final Response response = pages.getLoginPage().loginAPI(dtoAsString);
+        LoginPOJO loginPOJO = response.as(LoginPOJO.class);
         final String accessToken = loginPOJO.getResult().get("accessToken");
         assertCheck.append(actions.assertEqual_stringNotNull(accessToken, "Access Token Fetched Successfully", "Access Token is Null"));
         final String statusCode = loginPOJO.getStatusCode();

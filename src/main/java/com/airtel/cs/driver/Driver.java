@@ -48,7 +48,7 @@ public class Driver {
     protected static final Properties config = new Properties();
     public static String evnName = System.getProperty("Env").toUpperCase();
     public static final StringBuilder TESTCASE_DESCRIPTION_BUILDER = new StringBuilder(); // FOR ADDING TESTCASE DESCRIPTION IN EXTNT REPORTS
-    public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss.SSSZ";
+    public static final String DATE_FORMAT = "yyyy-MM-dd HH-mm-ss.SSSZ";
     public static String excelPath;
     public static List<Header> map = new ArrayList<>();
     public static String token;
@@ -67,6 +67,7 @@ public class Driver {
     public static boolean continueExecutionBA = true;
     public static boolean continueExecutionBS = true;
     public static boolean continueExecutionFA = true;
+    public static boolean continueExecutionBU = true;
     public static String elementName = ""; // FOR PASSING ELEMENT NAMES TO LOGS
     public static String message = null;
     public static final String RUN_TARIFF_TEST_CASE = constants.getValue(ApplicationConstants.RUN_TARIFF_TEST_CASE);
@@ -83,6 +84,7 @@ public class Driver {
     public static String reason;
     public static String loginAUUID;
     public static ObjectMapper objectMapper = new ObjectMapper();
+    public static String download=System.getProperty(USER_DIR) + "\\resources\\excels\\";
 
     public WebDriver getDriver() {
         return driver;
@@ -257,10 +259,11 @@ public class Driver {
         options.addArguments("--window-size=1792,1120");
         options.setHeadless(false);
         Map<String, Object> prefs = new HashMap<>();
-        prefs.put("download.default_directory", excelPath);
+        prefs.put("download.default_directory", download);
         prefs.put("intl.accept_languages", "nl");
         prefs.put("disable-popup-blocking", "true");
         options.setExperimentalOption("prefs", prefs);
+        options.setAcceptInsecureCerts(true);
         options.setCapability("goog:loggingPrefs", loggingprefs);
         options.setCapability(ChromeOptions.CAPABILITY,options);
         driver = new ChromeDriver(options);

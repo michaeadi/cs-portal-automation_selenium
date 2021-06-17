@@ -51,13 +51,28 @@
         </classes>
     </test>
     <test name="Service Profile Widget Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.ServiceProfileWidgetTest"/>
         </classes>
     </test>
+    <test name="Display Offer Widget Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.DisplayOfferWidgetTest"/>
+        </classes>
+    </test>
     <test name="Customer Interactions Test" preserve-order="true">
         <classes>
-            <class name="com.airtel.cs.ui.frontendagent.hometab.WidgetsOptionsTest"/>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.AirtelMoneyMenuPrimaryWidgetTest"/>
         </classes>
     </test>
     <test name="Test Authentication Tab">

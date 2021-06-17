@@ -108,10 +108,7 @@ public class AirtelMoneyTransactionWidgetTest extends Driver {
             } else if (amTransactionHistoryAPI.getResult().getTotalCount() == null) {
                 assertCheck.append(actions.assertEqual_boolean(amTxnWidgetPage.isAirtelMoneyNoResultFoundVisible(), true, "'No Result Found' Icon displayed", "'No Result Found' Icon NOT displayed"));
             } else {
-                int count = amTransactionHistoryAPI.getResult().getTotalCount();
-                if (count > 5) {
-                    count = 5;
-                }
+                int count = Math.min(amTransactionHistoryAPI.getResult().getTotalCount(),5);
                 assertCheck.append(actions.assertEqual_stringType(amTxnWidgetPage.getHeaders(0).toLowerCase().trim(), data.getRow1().toLowerCase().trim(), "Header Name for Row 1 is as expected", "Header Name for Row 1 is not as expected"));
                 assertCheck.append(actions.assertEqual_stringType(amTxnWidgetPage.getHeaders(1).toLowerCase().trim(), data.getRow2().toLowerCase().trim(), "Header Name for Row 2 is as expected", "Header Name for Row 2 is not as expected"));
                 assertCheck.append(actions.assertEqual_stringType(amTxnWidgetPage.getHeaders(2).toLowerCase().trim(), data.getRow3().toLowerCase().trim(), "Header Name for Row 3 is as expected", "Header Name for Row 3 is not as expected"));

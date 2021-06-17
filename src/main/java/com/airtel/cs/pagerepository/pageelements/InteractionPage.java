@@ -26,4 +26,9 @@ public class InteractionPage {
     public By option1st = By.xpath("//mat-option[1]");
     public By noResultFound = By.xpath("//span[text()='No Result Found']");
     public By clickCodeDropDown=By.xpath("//div[@class='mat-select-value']");
+    public String issueField=" //input[@name='q";
+    public String fieldLabel="']//following-sibling::span/label";
+    public String dropDown="]//mat-label";
+    public String mandatorySign="]//span";
+    public String selectDropDown="]//mat-select";
 }

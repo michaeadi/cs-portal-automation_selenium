@@ -47,7 +47,7 @@ public class BackendAgentAddCommentTest extends Driver {
     public void addNewComment() throws InterruptedException {
         try {
             selUtils.addTestcaseDescription("Backend Agent add new comment on ticket", "description");
-            String ticketId = pages.getSupervisorTicketList().getTicketIdvalue();
+            String ticketId = pages.getSupervisorTicketList().getTicketIdValue();
             String comment = "Backend Agent added comment on ticket using automation";
             pages.getSupervisorTicketList().viewTicket();
             assertCheck.append(actions.assertEqual_stringType(ticketId, pages.getViewTicket().getTicketId(), "Verify the searched Ticket fetched Successfully", "Verify the searched Ticket NOT fetched"));
@@ -64,7 +64,7 @@ public class BackendAgentAddCommentTest extends Driver {
     public void validateIssueCommentBS() {
         try {
             selUtils.addTestcaseDescription("Validate issue comment as Backend Agent", "description");
-            assertCheck.append(actions.assertEqual_boolean(pages.getViewTicket().validateCommentType(constants.getValue(CommonConstants.ISSUE_COMMENT)), true, "Issue Comment found on ticket", "Issue Comment does not found on ticket"));
+            assertCheck.append(actions.assertEqual_boolean(pages.getViewTicket().validateCommentType(constants.getValue(CommonConstants.ISSUE_COMMENT_TYPE)), true, "Issue Comment found on ticket", "Issue Comment does not found on ticket"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NotFoundException | TimeoutException | ElementClickInterceptedException e) {
             commonLib.fail("Exception in Method - validateIssueCommentBS", true);

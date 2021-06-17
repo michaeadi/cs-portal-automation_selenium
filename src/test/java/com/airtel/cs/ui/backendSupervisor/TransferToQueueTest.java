@@ -1,9 +1,13 @@
 package com.airtel.cs.ui.backendSupervisor;
 
 import com.airtel.cs.common.actions.BaseActions;
+import com.airtel.cs.commonutils.UtilsMethods;
+import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
+import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.TransferQueueDataBean;
 import com.airtel.cs.driver.Driver;
+import io.restassured.http.Headers;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -11,7 +15,6 @@ import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 public class TransferToQueueTest extends Driver {
 
@@ -19,99 +22,106 @@ public class TransferToQueueTest extends Driver {
 
     @BeforeMethod
     public void checkExecution() {
-        if (continueExecutionFA) {
-            assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, true, "Proceeding for test case as user able to login over portal", "Skipping tests because user not able to login into portal or Role does not assign to user"));
-        } else {
-            commonLib.skip("Skipping tests because user not able to login into portal or Role does not assign to user");
-            assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, false, "Skipping tests because user not able to login into portal or Role does not assign to user"));
-            throw new SkipException("Skipping tests because user not able to login into portal or Role does not assign to user");
+        if (!continueExecutionBS) {
+            commonLib.skip("Skipping tests because user NOT able to login Over Portal");
+            throw new SkipException("Skipping tests because user NOT able to login Over Portal");
+        }
+    }
+
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest"})
+    public void openSupervisorDashboard() {
+        try {
+            selUtils.addTestcaseDescription("Open Supervisor Dashboard , Validate agent redirect to ticket List Page", "description");
+            pages.getSideMenuPage().clickOnSideMenu();
+            pages.getSideMenuPage().clickOnUserName();
+            pages.getSideMenuPage().openSupervisorDashboard();
+            assertCheck.append(actions.assertEqual_stringType(driver.getTitle(), constants.getValue(CommonConstants.SUPERVISOR_TICKET_LIST_PAGE_TITLE), "Agent redirect to ticket list page as expected", "Agent does not redirect to ticket list page as expected"));
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - openSupervisorDashboard" + e.fillInStackTrace(), true);
         }
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 1, description = "Supervisor Dashboard Login ")
-    public void openSupervisorDashboard() {
-        selUtils.addTestcaseDescription("Open Supervisor Dashboard", "description");
-        pages.getSideMenuPage().waitTillLoaderGetsRemoved();
-        pages.getSideMenuPage().clickOnSideMenu();
-        pages.getSideMenuPage().clickOnUserName();
-        pages.getSideMenuPage().openSupervisorDashboard();
-        SoftAssert softAssert = new SoftAssert();
-        pages.getSideMenuPage().waitTillLoaderGetsRemoved();
-        Assert.assertEquals(driver.getTitle(), config.getProperty("supervisorTicketListPage"));
-        softAssert.assertAll();
+    @Test(priority = 2,groups = {"SanityTest", "RegressionTest"})
+    public void isUserHasWorkFlowOverRidePermission(){
+        try {
+            selUtils.addTestcaseDescription("Verify that Service Profile widget should be visible to the logged in agent if HLR permission is enabled in UM, Check User has permission to view HLR Widget Permission", "description");
+            String workflow_override = constants.getValue(PermissionConstants.WORKFLOW_OVERRIDE_PERMISSION);
+            assertCheck.append(actions.assertEqual_boolean(UtilsMethods.isUserHasPermission(new Headers(map), workflow_override),true, "Agent has permission of ticket workflow override as expected", "Agent does not have permission of ticket workflow override as expected"));
+            actions.assertAllFoundFailedAssert(assertCheck);
+        }catch (Exception e){
+            commonLib.fail("Exception in Method - isUserHasHLRPermission" + e.fillInStackTrace(), true);
+        }
     }
 
-    @Test(priority = 2, dataProvider = "TransferQueue", description = "Transfer to queue", enabled = true, dataProviderClass = DataProviders.class)
+    @Test(priority = 3, dataProvider = "TransferQueue", groups = {"SanityTest", "RegressionTest"}, dataProviderClass = DataProviders.class)
     public void transferToQueue(TransferQueueDataBean data) {
-        selUtils.addTestcaseDescription("Transfer to queue", "description");
-        SoftAssert softAssert = new SoftAssert();
-        String ticketId = null;
         try {
-            pages.getSupervisorTicketList().clickFilter();
-            pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
-            pages.getFilterTabPage().scrollToQueueFilter();
-            pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
-            pages.getFilterTabPage().clickQueueFilter();
-            pages.getFilterTabPage().selectQueueByName(data.getFromQueue());
-            pages.getFilterTabPage().clickOutsideFilter();
-            pages.getFilterTabPage().clickApplyFilter();
-            pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
-            Assert.assertEquals(pages.getSupervisorTicketList().getqueueValue().trim().toLowerCase(), data.getFromQueue().toLowerCase().trim(), "Ticket Does not found with Selected State");
-            softAssert.assertTrue(pages.getSupervisorTicketList().validateQueueFilter(data.getFromQueue()), "Queue Filter Does Applied Correctly");
+            selUtils.addTestcaseDescription("Backend Supervisor Transfer to queue,Apply filter with queue name " + data.getFromQueue() +
+                    ",Validate filter applied correctly,Select a ticket and click on transfer to queue button,validate transfer to queue tab display correctly," +
+                    "Click on transfer to queue button with queue name " + data.getToQueue() + ",Validate ticket transfer to new queue successfully. If Transfer anyway flag is true in config sheet then click on transfer anyway otherwise ticket must transfer without fail.", "description");
+            String ticketId = null;
             try {
-                ticketId = pages.getSupervisorTicketList().getTicketIdvalue();
-                pages.getSupervisorTicketList().resetFilter();
-                pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
-                pages.getSupervisorTicketList().writeTicketId(ticketId);
-                pages.getSupervisorTicketList().clickSearchBtn();
-                pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
-                pages.getSupervisorTicketList().clickCheckbox();
+                pages.getSupervisorTicketList().clickFilter();
+                pages.getFilterTabPage().scrollToQueueFilter();
+                pages.getFilterTabPage().clickQueueFilter();
+                pages.getFilterTabPage().selectQueueByName(data.getFromQueue());
+                pages.getFilterTabPage().clickOutsideFilter();
+                pages.getFilterTabPage().clickApplyFilter();
+                Assert.assertEquals(pages.getSupervisorTicketList().getQueueValue().trim().toLowerCase(), data.getFromQueue().toLowerCase().trim(), "Ticket Does not found with Selected State");
+                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().validateQueueFilter(data.getFromQueue()), true, "Queue Filter Does Applied Correctly", "Queue Filter does not applied correctly"));
                 try {
-                    softAssert.assertTrue(pages.getSupervisorTicketList().isAssignToAgent(), "Assign to Agent Button Does Not Available");
-                    softAssert.assertTrue(pages.getSupervisorTicketList().isTransferToQueue(), "Transfer to Queue Button Does Not Available");
-                    pages.getSupervisorTicketList().clickTransfertoQueue();
-                    softAssert.assertTrue(pages.getTransferToQueue().validatePageTitle(), "Page Title Does not Display");
-                    pages.getTransferToQueue().clickTransferQueue(data.getToQueue());
-                } catch (NoSuchElementException | TimeoutException e) {
-                    softAssert.fail("Not able to perform Transfer to Queue: " + e.fillInStackTrace());
-                    pages.getTransferToQueue().clickCloseTab();
-                }
-            } catch (NoSuchElementException | TimeoutException e) {
-                softAssert.fail("No Ticket Found in Selected Queue to perform transfer to queue action" + e.fillInStackTrace());
-            }
-            pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
-            try {
-                Assert.assertEquals(pages.getSupervisorTicketList().getqueueValue().toLowerCase().trim(), data.getToQueue().toLowerCase().trim(), "Ticket Does not Transfer to Selected Queue");
-                pages.getSupervisorTicketList().clearInputBox();
-            } catch (AssertionError f) {
-                f.printStackTrace();
-                commonLib.info("Not able to perform transfer to Queue action: " + pages.getSupervisorTicketList().getTransferErrorMessage());
-                softAssert.assertTrue(pages.getSupervisorTicketList().isCancelBtn(), "Cancel Button does not display.");
-                if (data.getTransferAnyway().equalsIgnoreCase("true")) {
-                    softAssert.assertTrue(pages.getSupervisorTicketList().isTransferAnyWayBtn(), "Transfer Any button does not displayed.");
+                    ticketId = pages.getSupervisorTicketList().getTicketIdValue();
+                    pages.getSupervisorTicketList().resetFilter();
+                    pages.getSupervisorTicketList().writeTicketId(ticketId);
+                    pages.getSupervisorTicketList().clickSearchBtn();
+                    pages.getSupervisorTicketList().clickCheckbox();
                     try {
-                        pages.getSupervisorTicketList().clickTransferAnyWayBtn();
-                        pages.getSupervisorTicketList().writeTicketId(ticketId);
-                        pages.getSupervisorTicketList().clickSearchBtn();
-                        pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
-                        Assert.assertEquals(pages.getSupervisorTicketList().getqueueValue().toLowerCase().trim(), data.getToQueue().toLowerCase().trim(), "Ticket Does not Transfer to Selected Queue");
-                    } catch (NoSuchElementException | TimeoutException g) {
-                        softAssert.fail("Transfer Anyway does not display in case of ticket does not transfer to selected queue.");
-                        pages.getSupervisorTicketList().clickCancelBtn();
+                        assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isAssignToAgent(), true, "Assign to Agent Button Does Available after selecting ticket", "Assign to Agent Button Does Not Available after selecting ticket"));
+                        assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isTransferToQueue(), true, "Transfer to Queue Button Does Available after selecting ticket", "Transfer to Queue Button Does Not Available after selecting ticket"));
+                        pages.getSupervisorTicketList().clickTransfertoQueue();
+                        assertCheck.append(actions.assertEqual_boolean(pages.getTransferToQueue().validatePageTitle(), true, "Transfer to Queue Pop up open as expected", "Transfer to Queue Page Title Does not Display"));
+                        pages.getTransferToQueue().clickTransferQueue(data.getToQueue());
+                    } catch (NoSuchElementException | TimeoutException e) {
+                        commonLib.fail("Not able to perform Transfer to Queue: " + e.fillInStackTrace(), true);
+                        pages.getTransferToQueue().clickCloseTab();
                     }
-                } else {
-                    pages.getSupervisorTicketList().clickCancelBtn();
-                    softAssert.fail("Transfer to queue does not Perform as per config sheet both queue belong to same workgroup.");
+                } catch (NoSuchElementException | TimeoutException e) {
+                    commonLib.fail("No Ticket Found in Selected Queue to perform transfer to queue action" + e.fillInStackTrace(), true);
                 }
+                try {
+                    Assert.assertEquals(pages.getSupervisorTicketList().getQueueValue().toLowerCase().trim(), data.getToQueue().toLowerCase().trim(), "Ticket Does not Transfer to Selected Queue");
+                    pages.getSupervisorTicketList().clearInputBox();
+                } catch (AssertionError f) {
+                    f.printStackTrace();
+                    commonLib.info("Not able to perform transfer to Queue action: " + pages.getSupervisorTicketList().getTransferErrorMessage());
+                    assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isCancelBtn(), true, "Cancel Button display as expected", "Cancel Button does not display."));
+                    if (data.getTransferAnyway().equalsIgnoreCase("true")) {
+                        assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isTransferAnyWayBtn(), true, "Transfer Anyway button does not display as expected", "Transfer Anyway button does not displayed."));
+                        try {
+                            pages.getSupervisorTicketList().clickTransferAnyWayBtn();
+                            pages.getSupervisorTicketList().writeTicketId(ticketId);
+                            pages.getSupervisorTicketList().clickSearchBtn();
+                            Assert.assertEquals(pages.getSupervisorTicketList().getQueueValue().toLowerCase().trim(), data.getToQueue().toLowerCase().trim(), "Ticket Does not Transfer to Selected Queue");
+                        } catch (NoSuchElementException | TimeoutException g) {
+                            commonLib.fail("Transfer Anyway does not display in case of ticket does not transfer to selected queue.", true);
+                            pages.getSupervisorTicketList().clickCancelBtn();
+                        }
+                    } else {
+                        pages.getSupervisorTicketList().clickCancelBtn();
+                        commonLib.fail("Transfer to queue does not Perform as per config sheet both queue belong to same workgroup.", false);
+                    }
+                }
+            } catch (InterruptedException | NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
+                pages.getFilterTabPage().clickOutsideFilter();
+                pages.getFilterTabPage().clickCloseFilter();
+                commonLib.fail("Not able to apply filter " + e.getMessage(), true);
             }
-        } catch (InterruptedException | NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
-            e.printStackTrace();
-            pages.getFilterTabPage().clickOutsideFilter();
-            pages.getFilterTabPage().clickCloseFilter();
-            softAssert.fail("Not able to apply filter " + e.getMessage());
+            pages.getSupervisorTicketList().clearInputBox();
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - transferToQueue" + e.fillInStackTrace(), true);
         }
-        pages.getSupervisorTicketList().clearInputBox();
-        softAssert.assertAll();
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 }

@@ -67,7 +67,7 @@ public class LoginAPITest extends Driver {
     public void testLoginApiWithBackendAgent() throws JsonProcessingException {
         selUtils.addTestcaseDescription("Validate the Login API with Backend Agent valid credentials,Hit the Login API -/auth/api/user-mngmnt/v2/login with valid headers and credentials,Validating Success Message from response", "description");
         final String loginAUUID = constants.getValue(CommonConstants.BA_USER_AUUID);
-        LoginPOJO Req = LoginPOJO.loginBody(loginAUUID, PassUtils.decodePassword(constants.getValue(CommonConstants.BA_USER_PASSWROD)));
+        LoginPOJO Req = LoginPOJO.loginBody(loginAUUID, PassUtils.decodePassword(constants.getValue(CommonConstants.BA_USER_PASSWORD)));
         String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(Req);
         commonLib.info("Validating login api with user : " + loginAUUID);
         try {

@@ -33,7 +33,7 @@ public class AuthTabTest extends Driver {
         }
     }
 
-    @DataProviders.User(userType = "NFTR")
+
     @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void openCustomerInteraction() {
         try {
@@ -82,7 +82,6 @@ public class AuthTabTest extends Driver {
             for (QuestionAnswerKeyDataBeans questionAnswer : config) {
                 final String questionKey = questionAnswer.getQuestionKey();
                 commonLib.info("Question Key: '" + questionKey + "' ; Answer Found in API: '" + authTabConfig.get(questionKey));
-                final String answerKey = questionAnswer.getAnswerKey();
                 if (authTabConfig.get(questionKey) != null) {
                     assertCheck.append(actions.assertEqual_stringType(authTabConfig.get(questionKey), questionAnswer.getAnswerKey(), "Answer Key Validated and is :" + questionKey, "Answer key is not expected for Question: " + questionKey));
                 } else {
@@ -125,12 +124,11 @@ public class AuthTabTest extends Driver {
     }
 
     @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
-    public void validateAuthTab() throws InterruptedException {
+    public void validateAuthTab() {
         try {
             selUtils.addTestcaseDescription("Verify the Authentication tab", "description");
-            if (pages.getDemoGraphicPage().isPUKInfoLocked()) {
-                pages.getDemoGraphicPage().clickPUKToUnlock();
-            }
+            pages.getCustomerProfilePage().clickOnAction();
+            pages.getCustomerProfilePage().openAuthTab();
             DataProviders data = new DataProviders();
             assertCheck.append(actions.assertEqual_boolean(pages.getAuthTabPage().isAuthTabLoad(), true, "Authentication tab loaded correctly", "Authentication tab does not load correctly"));
             Map<String, String> questionList = pages.getAuthTabPage().getQuestionAnswer();
@@ -162,7 +160,6 @@ public class AuthTabTest extends Driver {
     public void validateAuthTabMinQuestion() throws InterruptedException {
         try {
             selUtils.addTestcaseDescription("Verify the Authentication tab Minimum question Configured correctly", "description");
-            DataProviders data = new DataProviders();
             assertCheck.append(actions.assertEqual_boolean(pages.getAuthTabPage().isAuthTabLoad(), true, "Authentication tab loaded correctly", "Authentication tab does not load correctly"));
             assertCheck.append(actions.assertEqual_boolean(pages.getAuthTabPage().isAuthBtnEnable(), false, "Authenticate button in NOT enabled without choosing minimum number of question", "Authenticate button is enable without choosing minimum number of question."));
             pages.getDemoGraphicPage().selectPolicyQuestion();

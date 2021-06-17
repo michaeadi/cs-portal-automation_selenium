@@ -16,4 +16,13 @@ public class MessageHistoryPage {
     public By popUpMessage = By.xpath("//p[@class='error']");
     public By yesBtn = By.xpath("//div[@class='deactivate-popup__content mat-dialog-content']//button[2]");
     public By noBtn = By.xpath("//div[@class='deactivate-popup__content mat-dialog-content']//button[1]");
+    public String messageTypeValue="]//td[1]//b";
+    public String messageSentDate="]//td[2]//p//span[@class='date_time']";
+    public String templateEvent="]//td[3]//p//b";
+    public String messageLanguageValue="]//td[4]//p//b";
+    public String messageText="]//td[5]//p//b";
+    public String agentIdValue="]//td[6]//p//b";
+    public String agentNameValue="]//td[7]//p//span";
+    public String actionBtnEnable="]//td[8]//img";
+    public String actionButtonDisable="]//td[8]//img[@class='disabled-icon']";
 }

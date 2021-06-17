@@ -18,17 +18,28 @@ public class SendSMS extends BasePage {
         pageElements = PageFactory.initElements(driver, SendSMSPage.class);
     }
 
+    /**
+     * This method is use to check send sms page load or not
+     * @return true/false
+     */
     public boolean isPageLoaded() {
         commonLib.info("Checking is Send SMS Page Loaded");
         return isEnabled(pageElements.sendSMSTitle);
     }
 
+    /**
+     * This method use to get customer number
+     * @return String The value
+     */
     public String getCustomerNumber() {
         String text = getText(pageElements.customerNumberText);
         commonLib.info("Reading Customer Number: " + text);
         return text.split("-")[0].trim();
     }
 
+    /**
+     * This method use to select category
+     */
     public void selectCategory() {
         clickAndWaitForLoaderToBeRemoved(pageElements.openCategory);
         final String text = getText(pageElements.selectOption1);
@@ -38,6 +49,10 @@ public class SendSMS extends BasePage {
         clickAndWaitForLoaderToBeRemoved(pageElements.selectOption1);
     }
 
+    /**
+     * This method use to select template name and return the template name
+     * @return String The template name
+     */
     public String selectTemplateName() {
         clickAndWaitForLoaderToBeRemoved(pageElements.openTemplates);
         final String text = getText(pageElements.selectOption1);
@@ -46,49 +61,78 @@ public class SendSMS extends BasePage {
         return text;
     }
 
+    /**
+     * This method use to select language
+     */
     public void selectLanguage() {
         clickAndWaitForLoaderToBeRemoved(pageElements.openLanguage);
         commonLib.info(TEXT + getText(pageElements.selectOption1));
         clickAndWaitForLoaderToBeRemoved(pageElements.selectOption1);
     }
 
+    /**
+     * This method use to get message content
+     * @return String The message content
+     */
     public String getMessageContent() {
         final String text = getText(pageElements.messageContent);
         commonLib.info("Get Message Content: " + text);
         return text.trim();
     }
 
+    /**
+     * This method use to check customer number field display or not
+     * @return true/false
+     */
     public boolean isCustomerNumber() {
         final boolean state = isEnabled(pageElements.customerNumber);
         commonLib.info("IS customer number field displayed: " + state);
         return state;
     }
 
+    /**
+     * This method use to check category field display or not
+     * @return true/false
+     */
     public boolean isCategory() {
         final boolean state = isEnabled(pageElements.openCategory);
         commonLib.info("IS category number field displayed: " + state);
         return state;
     }
 
+    /**
+     * This method use to check template name field display or not
+     * @return true/false
+     */
     public boolean isTemplateName() {
         final boolean state = isEnabled(pageElements.openTemplates);
         commonLib.info("IS template name field displayed: " + state);
         return state;
     }
 
+    /**
+     * This method use to check language field display or not
+     * @return true/false
+     */
     public boolean isLanguage() {
         final boolean state = isEnabled(pageElements.openLanguage);
         commonLib.info("IS language field displayed: " + state);
         return state;
     }
 
+    /**
+     * This method is use to wait till success message display
+     */
     public void waitTillSuccessMessage() {
-        log.info("Waiting for SMS Send Success pop up");
+        commonLib.info("Waiting for SMS Send Success pop up");
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(pageElements.successMessage));
     }
 
+    /**
+     * This method is use to click send sms button and return the status button enable or noy
+     * @return true/false
+     */
     public boolean clickSendSMSBtn() {
-        log.info("Checking Send button");
         if (driver.findElement(pageElements.submitBtn).isEnabled()) {
             commonLib.info("Clicking Send button");
             clickAndWaitForLoaderToBeRemoved(pageElements.submitBtn);
@@ -98,10 +142,18 @@ public class SendSMS extends BasePage {
         }
     }
 
+    /**
+     * This method is use to check send sms button disable or not
+     * @return true/false
+     */
     public boolean isSendBtnDisabled() {
         return !isEnabled(pageElements.sendBtnDisabled);
     }
 
+    /**
+     * This method use to check message content box editable or not
+     * @return true/false
+     */
     public boolean isMessageContentEditable() {
         return isEnabled(pageElements.messageReadOnly);
     }

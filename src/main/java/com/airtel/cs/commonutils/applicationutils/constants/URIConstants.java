@@ -29,8 +29,14 @@ public class URIConstants {
     public static final String TARIFF_AVAILABLE_PLANS = "/cs-gsm-service/v1/tariff/available-plans";
     public static final String TARIFF_CURRENT_PLAN = "/cs-gsm-service/v1/tariff/current-plan";
     public static final String V2_LOGIN = "/auth/api/user-mngmnt/v2/login";
+    public static final String OFFER_DETAILS = "/cs-gsm-service/v1/offer/details";
+    public static final String FRIENDS_FAMILY = "/cs-gsm-service/v1/friendsNfamily/details";
+    public static final String AGENT_PERMISSION = "/sr/api/sr-service/v1/agent/permissions";
+    public static final String FETCH_TICKET_POOL = "/sr/api/sr-service/v1/fetch/ticketpool";
+    public static final String AGENT_DETAILS = "/sr/api/sr-service/v1/agents";
+    public static final String EVENTS_LOG="cs-data-service/v1/event/logs";
 
-    private URIConstants(){
+    private URIConstants() {
 
     }
 }

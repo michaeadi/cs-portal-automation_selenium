@@ -3,46 +3,57 @@ package com.airtel.cs.api;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.URIConstants;
 import com.airtel.cs.commonutils.restutils.RestCommonUtils;
-import com.airtel.cs.pojo.request.AccountBalanceRequest;
-import com.airtel.cs.pojo.request.AccumulatorsRequest;
 import com.airtel.cs.pojo.request.GenericRequest;
-import com.airtel.cs.pojo.request.LoanRequest;
-import com.airtel.cs.pojo.request.MoreTransactionHistoryRequest;
-import com.airtel.cs.pojo.request.RechargeHistoryRequest;
-import com.airtel.cs.pojo.request.RingtonDetailsRequest;
-import com.airtel.cs.pojo.request.SMSHistoryRequest;
-import com.airtel.cs.pojo.request.ServiceProfileRequest;
-import com.airtel.cs.pojo.request.TransactionHistoryRequest;
 import com.airtel.cs.pojo.request.UsageHistoryMenuRequest;
 import com.airtel.cs.pojo.request.UsageHistoryRequest;
+import com.airtel.cs.pojo.request.RechargeHistoryRequest;
+import com.airtel.cs.pojo.request.TransactionHistoryRequest;
+import com.airtel.cs.pojo.request.MoreTransactionHistoryRequest;
+import com.airtel.cs.pojo.request.AccountBalanceRequest;
+import com.airtel.cs.pojo.request.AccumulatorsRequest;
+import com.airtel.cs.pojo.request.SMSHistoryRequest;
 import com.airtel.cs.pojo.request.VoucherSearchRequest;
+import com.airtel.cs.pojo.request.ActionTrailRequest;
+import com.airtel.cs.pojo.request.FetchTicketPool;
+import com.airtel.cs.pojo.request.LoanRequest;
+import com.airtel.cs.pojo.request.RingtonDetailsRequest;
+import com.airtel.cs.pojo.request.ServiceProfileRequest;
+import com.airtel.cs.pojo.request.OfferDetailRequest;
 import com.airtel.cs.pojo.response.AMProfilePOJO;
-import com.airtel.cs.pojo.response.AccountsBalancePOJO;
 import com.airtel.cs.pojo.response.GsmKycPOJO;
-import com.airtel.cs.pojo.response.LoginPOJO;
 import com.airtel.cs.pojo.response.PlansPOJO;
+import com.airtel.cs.pojo.response.UsageHistoryPOJO;
+import com.airtel.cs.pojo.response.LoginPOJO;
 import com.airtel.cs.pojo.response.ProfilePOJO;
 import com.airtel.cs.pojo.response.RechargeHistoryPOJO;
-import com.airtel.cs.pojo.response.UsageHistoryPOJO;
+import com.airtel.cs.pojo.response.AccountsBalancePOJO;
 import com.airtel.cs.pojo.response.accumulators.AccumulatorsPOJO;
+import com.airtel.cs.pojo.response.actiontrail.ActionTrailPOJO;
+import com.airtel.cs.pojo.response.agentpermission.AgentPermission;
+import com.airtel.cs.pojo.response.agents.AgentDetailPOJO;
 import com.airtel.cs.pojo.response.airtelmoney.AirtelMoneyPOJO;
 import com.airtel.cs.pojo.response.clearrefillstatus.RefillStatus;
 import com.airtel.cs.pojo.response.configuration.ConfigurationPOJO;
 import com.airtel.cs.pojo.response.crbt.ActivateRingtone;
 import com.airtel.cs.pojo.response.crbt.Top20Ringtone;
+import com.airtel.cs.pojo.response.friendsfamily.FriendsFamilyPOJO;
 import com.airtel.cs.pojo.response.hlrservice.HLRServicePOJO;
 import com.airtel.cs.pojo.response.kycprofile.KYCProfile;
 import com.airtel.cs.pojo.response.loandetails.Loan;
 import com.airtel.cs.pojo.response.loansummary.Summary;
+import com.airtel.cs.pojo.response.offerdetails.OfferDetailPOJO;
 import com.airtel.cs.pojo.response.smshistory.SMSHistoryPOJO;
 import com.airtel.cs.pojo.response.tariffplan.AvailablePlanPOJO;
 import com.airtel.cs.pojo.response.tariffplan.CurrentPlanPOJO;
 import com.airtel.cs.pojo.response.ticketlist.TicketPOJO;
+import com.airtel.cs.pojo.response.transfertoqueue.TransferToQueuePOJO;
 import com.airtel.cs.pojo.response.vendors.VendorNames;
 import com.airtel.cs.pojo.response.voucher.VoucherSearchPOJO;
+import io.restassured.http.Headers;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Log4j2
@@ -496,4 +507,107 @@ public class RequestSource extends RestCommonUtils {
         }
         return result;
     }
+
+    /**
+     * This Method will hit the API "/cs-gsm-service/v1/offer/details" and return the response
+     *
+     * @param msisdn  The msisdn
+     * @return The Response
+     */
+    public OfferDetailPOJO offerDetailAPITest(String msisdn) {
+        OfferDetailPOJO result = null;
+        try {
+            commonPostMethod(URIConstants.OFFER_DETAILS, new OfferDetailRequest(msisdn,true));
+            result = response.as(OfferDetailPOJO.class);
+        } catch (Exception e) {
+            commonLib.fail("Exception in method - OfferDetailAPITest " + e.getMessage(), false);
+        }
+        return result;
+    }
+
+    /**
+     * This Method will hit the API "/cs-gsm-service/v1/friendsNfamily/details" and return the response
+     *
+     * @param msisdn  The msisdn
+     * @return The Response
+     */
+    public FriendsFamilyPOJO friendsFamilyAPITest(String msisdn) {
+        FriendsFamilyPOJO result = null;
+        try {
+            commonPostMethod(URIConstants.FRIENDS_FAMILY, new GenericRequest(msisdn));
+            result = response.as(FriendsFamilyPOJO.class);
+        } catch (Exception e) {
+            commonLib.fail("Exception in method - friendsAndFamilyAPITest " + e.getMessage(), false);
+        }
+        return result;
+    }
+
+    /**
+     * This Method will hit the API "/sr/api/sr-service/v1/agent/permissions" and return the response
+     *
+     * @return The Response
+     */
+    public AgentPermission transferToQueuePermissionAPI() {
+        AgentPermission result = null;
+        try {
+            commonGetMethod(URIConstants.AGENT_PERMISSION);
+            result = response.as(AgentPermission.class);
+        } catch (Exception e) {
+            commonLib.fail("Exception in method - transferToQueuePermissionAPI " + e.getMessage(), false);
+        }
+        return result;
+    }
+
+    /**
+     * This Method will hit the API "/cs-gsm-service/v1/offer/details" and return the response
+     *
+     * @param ticketId  The ticketId
+     * @param isSupervisor The supervisor or not
+     * @return The Response
+     */
+    public TransferToQueuePOJO fetchTicketPool(List<String> ticketId,Boolean isSupervisor) {
+        TransferToQueuePOJO result = null;
+        try {
+            commonPostMethod(URIConstants.FETCH_TICKET_POOL,new FetchTicketPool(ticketId,isSupervisor));
+            result = response.as(TransferToQueuePOJO.class);
+        } catch (Exception e) {
+            commonLib.fail("Exception in method - fetchTicketPoolAPI " + e.getMessage(), false);
+        }
+        return result;
+    }
+
+    /**
+     * This Method will hit the API "/sr/api/sr-service/v1/agents" and return the response
+     * @param headers The headers contain auth token including common headers
+     * @return The Response
+     */
+    public AgentDetailPOJO getAgentDetail(Headers headers){
+        AgentDetailPOJO result = null;
+        try {
+            commonGetMethod(URIConstants.AGENT_DETAILS,headers);
+            result = response.as(AgentDetailPOJO.class);
+        } catch (Exception e) {
+            commonLib.fail("Exception in method - getAgentDetail " + e.getMessage(), false);
+        }
+        return result;
+    }
+
+    /**
+     * This Method will hit the API "cs-data-service/v1/event/logs" and return the response
+     * @param msisdn The msisdn
+     * @param eventType The event type
+     * @return The Response
+     */
+    public ActionTrailPOJO getEventHistory(String msisdn, String eventType){
+        ActionTrailPOJO result = null;
+        try {
+            commonPostMethod(URIConstants.EVENTS_LOG,new ActionTrailRequest(msisdn,eventType,10,0));
+            result = response.as(ActionTrailPOJO.class);
+        } catch (Exception e) {
+            commonLib.fail("Exception in method - getEventHistory " + e.getMessage(), false);
+        }
+        return result;
+    }
+
+
 }

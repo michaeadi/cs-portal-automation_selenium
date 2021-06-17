@@ -17,11 +17,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import static io.restassured.RestAssured.baseURI;
-import static io.restassured.RestAssured.given;
-
 import java.util.Arrays;
 import java.util.List;
+
+import static io.restassured.RestAssured.baseURI;
+import static io.restassured.RestAssured.given;
 
 @Log4j2
 public class Login extends BasePage {
@@ -34,11 +34,19 @@ public class Login extends BasePage {
         pageElements = PageFactory.initElements(driver, LoginPage.class);
     }
 
+    /**
+     * This method use to check enter auuid field visible or not
+     * @return true/false
+     */
     public boolean isEnterAUUIDFieldVisible() {
         commonLib.info("Checking is Enter AUUID field is Visible");
         return isElementVisible(pageElements.enterAUUID);
     }
 
+    /**
+     * This method use to open url
+     * @param baseURL The URL
+     */
     public void openBaseURL(String baseURL) {
         driver.get(baseURL);
         commonLib.info("Opening URL:- " + baseURL);
@@ -59,10 +67,17 @@ public class Login extends BasePage {
         }
     }
 
+    /**
+     * This method use to enter auuid
+     * @param auuid The auuid
+     */
     public void enterAUUID(String auuid) {
         enterAUUID(auuid, 5);
     }
 
+    /**
+     * This method use to click submit button
+     */
     public void clickOnSubmitBtn() {
         commonLib.info("Clicking on Submit button");
         clickByJavascriptExecutor(pageElements.submitButton);
@@ -83,20 +98,34 @@ public class Login extends BasePage {
         }
     }
 
+    /**
+     * This method use to enter password into password field
+     * @param password The password
+     */
     public void enterPassword(String password) {
         enterPassword(password, 5);
     }
 
+    /**
+     * This method use to check login button enable or not
+     * @return true/false
+     */
     public boolean checkLoginButton() {
         commonLib.info("checking login button is enabled or not");
         return isEnabled(pageElements.submitButton);
     }
 
+    /**
+     * This method is use to click login button
+     */
     public void clickOnLogin() {
         commonLib.info("Going to click on Login button");
         clickAndWaitForLoaderToBeRemoved(pageElements.submitButton);
     }
 
+    /**
+     * This method is use to click hide/show icon in password field
+     */
     public void clickOnVisibleButton() {
         commonLib.info("Going to click on Visible Password Button");
         if (isVisible(pageElements.visiblePassword))
@@ -105,16 +134,18 @@ public class Login extends BasePage {
             commonLib.fail("Exception in method - clickOnVisibleButton", true);
     }
 
-    public String getPasswordText() {
-        commonLib.info("Getting text from Password field ");
-        return getText(pageElements.enterPassword);
-    }
-
+    /**
+     * This method is use to click back button
+     */
     public void clickBackButton() {
         commonLib.info("Clicking on back button");
         clickAndWaitForLoaderToBeRemoved(pageElements.backButton);
     }
 
+    /**
+     * This method is use to check login page display or not
+     * @return true/false
+     */
     public Boolean isLoginPageDisplayed() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(pageElements.enterAuuid));
         return isElementVisible(pageElements.enterAuuid);

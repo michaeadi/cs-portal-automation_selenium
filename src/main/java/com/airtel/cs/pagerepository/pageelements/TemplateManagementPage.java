@@ -33,4 +33,5 @@ public class TemplateManagementPage {
     public By createBtn = By.xpath("//button[contains(text(),'Create')]");
 
     public By message = By.xpath("//mat-dialog-container[@role='dialog']//app-template-modal//div//div//p");
+    public String categoryName="//div[@class='sms-managment__card-list--card--content-area--content ng-star-inserted']//div[@class=sms-managment__card-list--card--content-area--content--sms-card ng-star-inserted][";
 }
