@@ -137,7 +137,7 @@ public class UsageHistoryWidget extends BasePage {
      */
     public String getWidgetTitle() {
         final String text = getText(pageElements.getTitle);
-        log.info("Getting Widget title: " + text);
+        commonLib.info("Getting Widget title: " + text);
         return text.toLowerCase();
     }
 

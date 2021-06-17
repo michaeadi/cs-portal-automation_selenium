@@ -7,6 +7,7 @@ import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
+import com.airtel.cs.commonutils.applicationutils.enums.JavaColors;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
 import com.airtel.cs.pojo.response.actiontrail.ActionTrailPOJO;
@@ -171,7 +172,7 @@ public class FriendsFamilyWidgetTest extends PreRequisites {
                 try {
                     commonLib.pass("Reading Message: " + pages.getTemplateManagement().readResponseMessage());
                 } catch (NoSuchElementException | TimeoutException e) {
-                    commonLib.info("Not able to read Message Pop up: " + e.getMessage());
+                    commonLib.infoColored("Not able to read Message Pop up: " + e.getMessage(), JavaColors.RED,true);
                 }
                 if (pages.getAuthTabPage().isSIMBarPopup()) {
                     commonLib.fail("Get Failure message as pop up does not closed after clicking on submit button. Error Message: " + pages.getAuthTabPage().getErrorMessage(), true);
@@ -251,7 +252,7 @@ public class FriendsFamilyWidgetTest extends PreRequisites {
                         try {
                             commonLib.pass("Reading Message: " + pages.getTemplateManagement().readResponseMessage());
                         } catch (NoSuchElementException | TimeoutException e) {
-                            commonLib.info("Not able to read Message Pop up: " + e.getMessage());
+                            commonLib.infoColored("Not able to read Message Pop up: " + e.getMessage(), JavaColors.RED,true);
                         }
                         if (pages.getAuthTabPage().isSIMBarPopup()) {
                             commonLib.fail("Get Failure message as pop up does not closed after clicking on submit button. Error Message: " + pages.getAuthTabPage().getErrorMessage(), true);

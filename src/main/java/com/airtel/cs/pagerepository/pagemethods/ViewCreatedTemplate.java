@@ -25,7 +25,7 @@ public class ViewCreatedTemplate extends BasePage {
      * @return true/false
      */
     public boolean isViewCreatedTemplate() {
-        log.info("Checking View Created Template Load or Not");
+        commonLib.info("Checking View Created Template Load or Not");
         return isElementVisible(pageElements.template);
     }
 
@@ -33,7 +33,7 @@ public class ViewCreatedTemplate extends BasePage {
      * This method is use to click agent channel
      */
     public void clickAgentChannel() {
-        log.info("Clicking on Agent Channel list");
+        commonLib.info("Clicking on Agent Channel list");
         clickAndWaitForLoaderToBeRemoved(pageElements.agentChannel);
     }
 
@@ -41,7 +41,7 @@ public class ViewCreatedTemplate extends BasePage {
      * This method is use to click agent roles
      */
     public void clickRoles() {
-        log.info("Clicking on Roles list");
+        commonLib.info("Clicking on Roles list");
         clickAndWaitForLoaderToBeRemoved(pageElements.roles);
     }
 
@@ -49,7 +49,7 @@ public class ViewCreatedTemplate extends BasePage {
      * This method is use to click language
      */
     public void clickLanguage() {
-        log.info("Clicking on Language list");
+        commonLib.info("Clicking on Language list");
         clickAndWaitForLoaderToBeRemoved(pageElements.language);
     }
 
@@ -67,7 +67,7 @@ public class ViewCreatedTemplate extends BasePage {
      * @return true/false
      */
     public boolean isSearchByNameAvailable() {
-        log.info("Checking Search by template name field Load or Not");
+        commonLib.info("Checking Search by template name field Load or Not");
         return isElementVisible(pageElements.searchKeyWord);
     }
 
@@ -81,7 +81,6 @@ public class ViewCreatedTemplate extends BasePage {
         List<WebElement> list = returnListOfElement(pageElements.allActiveTemplate);
         for (int i = 1; i <= list.size(); i++) {
             By element = By.xpath(pageElements.templateRow + i + "]//h6");
-            log.info("Reading Template: " + getText(element));
             if (text.equalsIgnoreCase(getText(element).trim())) {
                 return true;
             }
@@ -113,7 +112,7 @@ public class ViewCreatedTemplate extends BasePage {
      * This method is used to click on search icon
      */
     public void clickSearchIcon() {
-        log.info("Clicking on Search Icon");
+        commonLib.info("Clicking on Search Icon");
         clickAndWaitForLoaderToBeRemoved(pageElements.searchIcon);
     }
 
@@ -131,7 +130,7 @@ public class ViewCreatedTemplate extends BasePage {
      */
     public List<String> getAllOptions() {
         List<WebElement> listOfElements = returnListOfElement(pageElements.options);
-        log.info("List Size: " + listOfElements.size());
+        commonLib.info("List Size: " + listOfElements.size());
         ArrayList<String> strings = new ArrayList<>();
         for (WebElement listOfElement : listOfElements) {
             try {
@@ -173,7 +172,7 @@ public class ViewCreatedTemplate extends BasePage {
     public boolean isDeleteIcon(int i) {
         By icon = By.xpath(pageElements.templateRow + i + pageElements.deleteIcon);
         boolean status = isEnabled(icon);
-        log.info("Is delete icon: " + status);
+        commonLib.info("Is delete icon: " + status);
         return status;
     }
 
@@ -195,7 +194,7 @@ public class ViewCreatedTemplate extends BasePage {
     public boolean isEditIcon(int i) {
         By icon = By.xpath(pageElements.templateRow + i + "]//div//img[@title='EDIT']");
         boolean status = isEnabled(icon);
-        log.info("Is edit icon: " + status);
+        commonLib.info("Is edit icon: " + status);
         return status;
     }
 
@@ -207,7 +206,7 @@ public class ViewCreatedTemplate extends BasePage {
     public boolean isCommentIcon(int i) {
         By icon = By.xpath(pageElements.templateRow + i + "]//div//div//img");
         boolean status = isEnabled(icon);
-        log.info("Is comment icon: " + status);
+        commonLib.info("Is comment icon: " + status);
         return status;
     }
 
@@ -227,7 +226,7 @@ public class ViewCreatedTemplate extends BasePage {
      */
     public boolean checkPaginationDisplayed() {
         boolean check = isEnabled(pageElements.pagination);
-        log.info("Is Pagination Available: " + check);
+        commonLib.info("Is Pagination Available: " + check);
         return check;
     }
 
@@ -244,7 +243,6 @@ public class ViewCreatedTemplate extends BasePage {
      */
     public void popUpMessage() {
         String text = getText(pageElements.popUpMessage);
-        log.info("Pop up message: " + text);
         commonLib.info("Pop up message: " + text);
     }
 

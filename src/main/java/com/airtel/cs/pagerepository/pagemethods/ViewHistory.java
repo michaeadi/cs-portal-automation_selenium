@@ -116,7 +116,8 @@ public class ViewHistory extends BasePage {
     }
 
     /**
-     * This method is use to click on first ticket icon found in ticket list
+     * This method is use to click on first ticket icon found in ticket list or not
+     * @return true/false
      */
     public boolean clickOnTicketIcon() {
         try {

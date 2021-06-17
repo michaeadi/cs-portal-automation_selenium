@@ -31,7 +31,6 @@ public class TransferToQueue extends BasePage {
      * @param queueName The Queue name
      */
     public void clickTransferQueue(String queueName) {
-        log.info("Clicking on Transfer to Button");
         By transferQueue = By.xpath( pageElements.option+ queueName + pageElements.transferQueueBtn);
         clickAndWaitForLoaderToBeRemoved(transferQueue);
         commonLib.info("Transferring Ticket to Ticket Pool Name: " + queueName);

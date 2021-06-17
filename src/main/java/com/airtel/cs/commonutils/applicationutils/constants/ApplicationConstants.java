@@ -38,6 +38,9 @@ public class ApplicationConstants {
     public static final String FNF_NEW_MEMBER_MSISDN ="cs.customer.new.member.msisdn";
     public static final String FIRST_AM_CURRENCY="first.am.currency";
     public static final String SECOND_AM_CURRENCY="second.am.currency";
+    public static final String BULK_UPDATE_TRANSFER_TO_QUEUE_STATUS="cs.bulk.update.transfer.to.queue.status";
+    public static final String BULK_UPDATE_FROM_QUEUE_NAME="cs.bulk.update.transfer.from.queue.name";
+    public static final String BULK_UPDATE_TO_QUEUE_NAME="cs.bulk.update.transfer.to.queue.name";
 
 
     private ApplicationConstants() {

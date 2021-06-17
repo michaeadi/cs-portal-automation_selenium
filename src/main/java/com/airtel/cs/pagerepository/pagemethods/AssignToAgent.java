@@ -34,7 +34,7 @@ public class AssignToAgent extends BasePage {
      */
     public String getQueueName() {
         final String text = getText(pageElements.queueName);
-        log.info("Queue Name: " + text);
+        commonLib.info("Queue Name: " + text);
         return text;
     }
 
@@ -65,7 +65,7 @@ public class AssignToAgent extends BasePage {
      */
     public int getAvailableSlot(By element) {
         final String text = getText(element);
-        log.info("Agent Available Slot: " + text);
+        commonLib.info("Agent Available Slot: " + text);
         return Integer.parseInt(text);
     }
 
@@ -75,7 +75,7 @@ public class AssignToAgent extends BasePage {
      */
     public String getAssignedSlot() {
         final String text = getText(pageElements.assignedSlot);
-        log.info("Agent Assigned Slot: " + text);
+        commonLib.info("Agent Assigned Slot: " + text);
         return text;
     }
 
@@ -93,7 +93,7 @@ public class AssignToAgent extends BasePage {
      */
     public String getInfoMessage() {
         final String text = getText(pageElements.infoMessage);
-        log.info("Reading Info Message: " + text);
+        commonLib.info("Reading Info Message: " + text);
         return text;
     }
 
@@ -113,7 +113,6 @@ public class AssignToAgent extends BasePage {
             commonLib.info("Check state: " + getText(agentAUUID).contains(assigneeAUUID));
             if (!getText(agentAUUID).contains(assigneeAUUID)) {
                 By allSlot = By.xpath(pageElements.agentList + i + pageElements.slotCount);
-                log.info(getText(allSlot));
                 try {
                     slot = Integer.parseInt(getText(allSlot));
                 } catch (NumberFormatException e) {

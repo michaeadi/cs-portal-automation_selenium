@@ -65,7 +65,7 @@ public class CurrentBalanceWidget extends BasePage {
     public boolean isCurrentBalanceWidgetMenuVisible() {
         try {
             commonLib.info("Checking is Your Current Balance Widget'Menu Visible");
-            waitVisibility(pageElements.menu);
+            isVisible(pageElements.menu);
             return isElementVisible(pageElements.menu);
         } catch (Exception e) {
             throw new NoSuchElementException("Current Plan widget menu option does not display");
@@ -219,7 +219,7 @@ public class CurrentBalanceWidget extends BasePage {
      */
     public String getWidgetTitle() {
         final String text = getText(pageElements.getTitle);
-        log.info("Getting Widget title: " + text);
+        commonLib.info("Getting Widget title: " + text);
         return text.toLowerCase();
     }
 

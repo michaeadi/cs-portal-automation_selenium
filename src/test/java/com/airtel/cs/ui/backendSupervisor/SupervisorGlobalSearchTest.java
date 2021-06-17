@@ -59,7 +59,7 @@ public class SupervisorGlobalSearchTest extends Driver {
     public void globalSearchTestByInvalidTicket() {
         try {
             selUtils.addTestcaseDescription("Verify Global Search By Invalid Ticket Id,Search with invalid ticket id,validate no result must be displayed.", "description");
-            String ticketId = "987654321012";
+            String ticketId = constants.getValue(CommonConstants.INVALID_TICKET_ID);
             pages.getSupervisorTicketList().writeTicketId(ticketId);
             pages.getSupervisorTicketList().clickSearchBtn();
             assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().noTicketFound(), true, "No Result found Page display for Ticket Number: " + ticketId, "No Result page does not displayed with invalid ticket number: " + ticketId));

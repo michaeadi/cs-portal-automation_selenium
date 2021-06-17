@@ -161,7 +161,7 @@ public class RechargeHistoryWidget extends BasePage {
      */
     public String getWidgetTitle() {
         final String text = getText(pageElements.rechargeHistoryHeader);
-        log.info("Getting Widget title: " + text);
+        commonLib.info("Getting Widget title: " + text);
         return text.toLowerCase();
     }
 

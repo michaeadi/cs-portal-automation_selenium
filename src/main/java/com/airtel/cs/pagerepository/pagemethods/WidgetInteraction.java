@@ -21,52 +21,81 @@ public class WidgetInteraction extends BasePage {
         pageElements = PageFactory.initElements(driver, WidgetInteractionPage.class);
     }
 
+    /**
+     * This method is use to get tab title
+     * @return String The value
+     */
     public String getTabTitle() {
-        final String text = getText(pageElements.heading);
+        String text = getText(pageElements.heading);
         commonLib.info("Reading Interaction Tab title: " + text);
         return text;
     }
 
+    /**
+     * This method is use to check no issue tagged icon display or not
+     * @return String The value
+     */
     public boolean checkNoInteractionTag() {
-        final boolean visible = isElementVisible(pageElements.noInteractionTag);
+        boolean visible = isElementVisible(pageElements.noInteractionTag);
         commonLib.info("Is interaction tagged to widget :" + visible);
         return visible;
     }
 
+    /**
+     * This method is use to write keyword into search box
+     * @param text The text
+     */
     public void writeKeyword(String text) {
         commonLib.info("Search Issue with keyword: " + text);
         enterText(pageElements.searchBox, text);
     }
 
-    public CustomerProfile closeInteractionTab() {
+    /**
+     * This method is use to click close interaction tab icon
+     */
+    public void closeInteractionTab() {
         commonLib.info("Close interaction tab");
         clickAndWaitForLoaderToBeRemoved(pageElements.closeTab);
-        return new CustomerProfile(driver);
     }
 
+    /**
+     * This method is use to get all the issue tagged to widget and display over interaction tab
+     */
     public List<String> getListOfIssue() {
         List<WebElement> list = returnListOfElement(pageElements.listOfIssue);
         List<String> issueList = new ArrayList<>();
         for (int i = 1; i <= list.size(); i++) {
-            By issueLabel = By.xpath("//div[@class=\"bottom-drawer__card-body--intraction-list ng-star-inserted\"][" + i + "]//label");
+            By issueLabel = By.xpath(pageElements.issueLabelList + i + pageElements.issueLabel);
             final String text = getText(issueLabel);
-            log.info("Reading Issue label: " + text);
+            commonLib.info("Reading Issue label: " + text);
             issueList.add(text);
         }
         return issueList;
     }
 
+    /**
+     * This method is use to select issue based on issue label
+     * @param text The issue label
+     */
     public void clickIssueLabel(String text) {
-        By issueLabel = By.xpath("//div[@class=\"bottom-drawer__card-body--intraction-list ng-star-inserted\"]//label[contains(text(),'" + text + "')]");
-        log.info("Clicking Issue Label");
+        By issueLabel = By.xpath(pageElements.issueLabelList+pageElements.labelContains + text + "')]");
+        commonLib.info("Clicking Issue Label");
         clickAndWaitForLoaderToBeRemoved(issueLabel);
     }
 
+    /**
+     * This method is use to write comment into comment box
+     * @param text The comment
+     */
     public void writeComment(String text) {
         commonLib.info("Adding comment : " + text);
         enterText(pageElements.commentBox, text);
     }
 
+    /**
+     * This method use to click submit button return the dashboard page
+     * @return Object The dashboard page
+     */
     public CustomerProfile clickSubmitBtn() {
         commonLib.info("Clicking submit button");
         clickAndWaitForLoaderToBeRemoved(pageElements.submitBtn);
@@ -74,8 +103,11 @@ public class WidgetInteraction extends BasePage {
         return new CustomerProfile(driver);
     }
 
+    /**
+     * This method use to wait until interaction tab closed
+     */
     public void interactionTabClosed() {
-        log.info("Waiting for interaction tab to be closed");
+        commonLib.info("Waiting for interaction tab to be closed");
         wait.until(ExpectedConditions.invisibilityOfElementLocated(pageElements.heading));
     }
 }

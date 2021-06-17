@@ -123,7 +123,6 @@ public class UserManagement extends BasePage {
      */
     public ArrayList<String> getWorkflows() {
         List<WebElement> listOfElements = returnListOfElement(pageElements.workflowsOptions);
-        log.info("total elements " + listOfElements.size());
         ArrayList<String> strings = new ArrayList<>();
         for (WebElement listOfElement : listOfElements) {
             try {
@@ -144,7 +143,6 @@ public class UserManagement extends BasePage {
      */
     public ArrayList<String> getLoginQueues() {
         List<WebElement> listOfElements = returnListOfElement(pageElements.workflowsOptions);
-        log.info("total elements " + listOfElements.size());
         ArrayList<String> strings = new ArrayList<>();
         for (WebElement listOfElement : listOfElements) {
             try {
@@ -164,7 +162,6 @@ public class UserManagement extends BasePage {
      */
     public List<String> getInteractionChannels() {
         List<WebElement> listOfElements = returnListOfElement(pageElements.channelsOptions);
-        log.info("List Size: " + listOfElements.size());
         ArrayList<String> strings = new ArrayList<>();
         for (WebElement listOfElement : listOfElements) {
             try {

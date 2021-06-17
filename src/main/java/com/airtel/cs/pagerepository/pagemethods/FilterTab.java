@@ -290,7 +290,6 @@ public class FilterTab extends BasePage {
             By check = By.xpath(XPATH1 + stateName + "')]");
             try {
                 final boolean checkState = isEnabled(check);
-                log.info("Filter by state name " + stateName + " is: " + checkState);
                 commonLib.info(FILTER_TEXT + stateName + AVAILABLE + checkState);
             } catch (NoSuchElementException | TimeoutException e) {
                 commonLib.fail("State does not mapped Correctly(Check Config): '" + stateName + "' " + e.fillInStackTrace(), true);

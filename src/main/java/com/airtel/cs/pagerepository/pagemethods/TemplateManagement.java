@@ -131,7 +131,7 @@ public class TemplateManagement extends BasePage {
      * This method use to switch to add template category tab from add template tab
      */
     public void switchTabToAddTemplateCategory() {
-        log.info("Switch Tab to Add template category Tab");
+        commonLib.info("Switch Tab to Add template category Tab");
         clickAndWaitForLoaderToBeRemoved(pageElements.addTemplateCategoryBtn);
     }
 
@@ -139,7 +139,7 @@ public class TemplateManagement extends BasePage {
      * This method use to switch to add 'add template' tab from template category tab
      */
     public void switchTabToAddTemplate() {
-        log.info("Switch Tab to Add template category Tab");
+        commonLib.info("Switch Tab to Add template category Tab");
         clickAndWaitForLoaderToBeRemoved(pageElements.addTemplateBtn);
     }
 
@@ -176,9 +176,8 @@ public class TemplateManagement extends BasePage {
     public boolean validateAddedCategoryDisplay(String text) {
         List<WebElement> list = returnListOfElement(pageElements.allCategoryList);
         for (int i = 1; i <= list.size(); i++) {
-            By categoryName = By.xpath("//div[@class='sms-managment__card-list--card--content-area--content ng-star-inserted']//div[@class=\"sms-managment__card-list--card--content-area--content--sms-card ng-star-inserted\"][" + i + "]//h6");
+            By categoryName = By.xpath(pageElements.categoryName + i + "]//h6");
             String name = getText(categoryName);
-            log.info("Reading Category Name: " + name);
             if (name.trim().equalsIgnoreCase(text)) {
                 commonLib.pass("Recent Added Template Category found with name :" + text);
                 return true;
@@ -201,7 +200,6 @@ public class TemplateManagement extends BasePage {
      * This method is use to click template category
      */
     public void clickTemplateCategory() {
-        log.info("Opening Template Category name list");
         commonLib.info("Opening Template Category name list");
         clickAndWaitForLoaderToBeRemoved(pageElements.openCategoryList);
     }

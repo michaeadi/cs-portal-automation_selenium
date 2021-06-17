@@ -68,10 +68,8 @@ public class DisplayOfferWidgetTest extends PreRequisites {
     public void displayOfferHeaderTest(HeaderDataBean headerValues) {
         selUtils.addTestcaseDescription("CSP-63664 : Validate Offers widget header visible and display all the Column name as per config ", "description");
         try {
-            pages.getCurrentBalanceWidgetPage().waitTillLoaderGetsRemoved();
             assertCheck.append(actions.assertEqual_boolean(pages.getCurrentBalanceWidgetPage().isCurrentBalanceWidgetMenuVisible(), true, "Current Balance Widget MENU is visible", "Current Balance Widget Menu is not visible"));
             pages.getCurrentBalanceWidgetPage().openingDADetails();
-            pages.getCustomerProfilePage().waitTillLoaderGetsRemoved();
             assertCheck.append(actions.assertEqual_boolean(pages.getDaDetailsPage().isOfferWidgetDisplay(), true, "Display offer Widget display", "Display offer widget does not display"));
             offerDetailPOJO = api.offerDetailAPITest(customerNumber);
             final int statusCode = offerDetailPOJO.getStatusCode();

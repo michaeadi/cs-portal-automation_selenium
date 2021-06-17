@@ -133,7 +133,6 @@ public class SendSMS extends BasePage {
      * @return true/false
      */
     public boolean clickSendSMSBtn() {
-        log.info("Checking Send button");
         if (driver.findElement(pageElements.submitBtn).isEnabled()) {
             commonLib.info("Clicking Send button");
             clickAndWaitForLoaderToBeRemoved(pageElements.submitBtn);

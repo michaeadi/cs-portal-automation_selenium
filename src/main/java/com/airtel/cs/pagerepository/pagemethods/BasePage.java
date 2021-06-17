@@ -188,7 +188,6 @@ public class BasePage extends Driver {
     public CustomerProfile openingCustomerInteractionDashboard() {
         commonLib.info("Opening Customer Interactions Dashboard");
         clickAndWaitForLoaderToBeRemoved(basePageElements.home);
-        waitTillLoaderGetsRemoved();
         return new CustomerProfile(driver);
     }
 
@@ -215,9 +214,9 @@ public class BasePage extends Driver {
 
 
     public void selectByText(String text) {
-        WebElement elementby = driver.findElement(By.xpath("//span[contains(text(),'" + text + "')]"));
+        WebElement elementby = driver.findElement(By.xpath(basePageElements.spanText+ text + "')]"));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", elementby);
-        driver.findElement(By.xpath("//span[contains(text(),'" + text + "')]")).click();
+        driver.findElement(By.xpath(basePageElements.spanText + text + "')]")).click();
     }
 
     /**
@@ -226,7 +225,7 @@ public class BasePage extends Driver {
      * @return true/false
      * */
     public Boolean isTextVisible(String text) {
-        By elementBy = By.xpath("//span[contains(text(),'" + text.trim() + "')]");
+        By elementBy = By.xpath(basePageElements.spanText + text.trim() + "')]");
         return isElementVisible(elementBy);
     }
 

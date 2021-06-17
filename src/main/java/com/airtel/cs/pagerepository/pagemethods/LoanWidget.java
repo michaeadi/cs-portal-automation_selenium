@@ -14,7 +14,7 @@ public class LoanWidget extends BasePage {
     LoanWidgetPage pageElements;
     List<WebElement> vendors;
     private static final String TEXT1 = "Reading Header: ";
-    private static final String XPATH = "//div[@id='LOAN_SERVICES']//div[@class=\"card__card-header--card-body--table\"]//div[@class=\"card__card-header--card-body--table--data-list ng-star-inserted\"][";
+    private static final String XPATH = "//div[@id='LOAN_SERVICES']//div[@class=card__card-header--card-body--table]//div[@class=card__card-header--card-body--table--data-list ng-star-inserted][";
 
     public LoanWidget(WebDriver driver) {
         super(driver);

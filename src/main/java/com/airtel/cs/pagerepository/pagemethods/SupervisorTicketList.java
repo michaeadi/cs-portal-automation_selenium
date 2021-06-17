@@ -4,14 +4,8 @@ import com.airtel.cs.commonutils.applicationutils.enums.ReportInfoMessageColorLi
 import com.airtel.cs.pagerepository.pageelements.SupervisorTicketListPage;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -120,7 +114,7 @@ public class SupervisorTicketList extends BasePage {
      * */
     public void clickSearchBtn() {
         waitTillLoaderGetsRemoved();
-        wait.until(ExpectedConditions.elementToBeClickable(pageElements.searchTicketBtn));
+        isClickable(pageElements.searchTicketBtn);
         commonLib.info("Clicking on Search Button");
         clickAndWaitForLoaderToBeRemoved(pageElements.searchTicketBtn);
     }
@@ -753,7 +747,6 @@ public class SupervisorTicketList extends BasePage {
     public void clickToOpenTicketFromDashboard() {
         if (isVisible(pageElements.openTicketDetailPage)) {
             clickAndWaitForLoaderToBeRemoved(pageElements.openTicketDetailPage);
-            waitTillLoaderGetsRemoved();
         } else {
             commonLib.error("Ticket Data is NOT available over dashboard");
         }

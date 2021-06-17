@@ -153,7 +153,7 @@ public class CustomerProfile extends BasePage {
      * @return true/false
      */
     public boolean isPinTagVisible(String text) {
-        By tagName = By.xpath("//div[@class=\"sub-header__divide--control--tab ng-star-inserted\" and contains(text(),\"" + text + "\")]");
+        By tagName = By.xpath( pageElements.pinTagByName+ text + "')]");
         commonLib.info("Checking is " + text + " Pinned Tag Visible");
         return isElementVisible(tagName);
     }

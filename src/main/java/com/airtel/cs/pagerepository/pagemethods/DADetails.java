@@ -17,6 +17,7 @@ public class DADetails extends BasePage {
 
     DADetailsPage pageElements;
     List<WebElement> rows;
+    private final String SCROLL_TO_WIDGET_MESSAGE="Not able scroll to the widget";
 
     public DADetails(WebDriver driver) {
         super(driver);
@@ -112,7 +113,7 @@ public class DADetails extends BasePage {
      * */
     public String getWidgetTitle() {
         final String text = getText(pageElements.getTitle);
-        log.info("Getting Widget title: " + text);
+        commonLib.info("Getting Widget title: " + text);
         return text.toLowerCase();
     }
 
@@ -126,7 +127,7 @@ public class DADetails extends BasePage {
             scrollToViewElement(pageElements.getTitle);
         } catch (InterruptedException e) {
             e.printStackTrace();
-            commonLib.info("Not able scroll to the widget");
+            commonLib.fail(SCROLL_TO_WIDGET_MESSAGE,true);
         }
         return status;
     }
@@ -165,7 +166,7 @@ public class DADetails extends BasePage {
             scrollToViewElement(pageElements.getTitle);
         } catch (InterruptedException e) {
             e.printStackTrace();
-            commonLib.info("Not able scroll to the widget");
+            commonLib.fail(SCROLL_TO_WIDGET_MESSAGE,true);
         }
         return  status;
     }
@@ -238,7 +239,7 @@ public class DADetails extends BasePage {
             scrollToViewElement(pageElements.getTitle);
         } catch (InterruptedException e) {
             e.printStackTrace();
-            commonLib.info("Not able scroll to the widget");
+            commonLib.fail(SCROLL_TO_WIDGET_MESSAGE,true);
         }
         return  status;
     }

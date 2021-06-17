@@ -22,6 +22,10 @@ public class ViewTicket extends BasePage {
         pageElements = PageFactory.initElements(driver, ViewTicketPage.class);
     }
 
+    /**
+     *This method is use to get ticket id which view detail page open
+     * @return String The value
+     */
     public String getTicketId() {
 
         final String text = getText(pageElements.ticketIdValue);
@@ -29,17 +33,20 @@ public class ViewTicket extends BasePage {
         return text;
     }
 
-
+    /**
+     *This method is use to select the ticket state by state name and return the same state name in-case of state found other-wise return 'Required state not found
+     * @return String The value
+     */
     public String selectState(String state) throws InterruptedException {
-        log.info("Finding State: " + state);
+        commonLib.info("Finding State: " + state);
         scrollToViewElement(pageElements.submitAs);
         clickAndWaitForLoaderToBeRemoved(pageElements.arrowIcon);
         try {
             List<WebElement> list = returnListOfElement(pageElements.allTicketState);
-            log.info("List Size: " + list.size());
+            commonLib.info("List Size: " + list.size());
             for (int i = 1; i <= list.size(); i++) {
-                By chooseState = By.xpath("//div[@class='cdk-overlay-pane']//mat-option[" + i + "]//span");
-                log.info("State Read: " + getText(chooseState));
+                By chooseState = By.xpath(pageElements.stateOptions + i + pageElements.stateText);
+                commonLib.info("State Read: " + getText(chooseState));
                 if (state.equalsIgnoreCase(getText(chooseState).trim())) {
                     commonLib.info("Selecting State: " + state);
                     clickAndWaitForLoaderToBeRemoved(chooseState);
@@ -59,17 +66,25 @@ public class ViewTicket extends BasePage {
     }
 
 
+    /**
+     * This method is use to get ticket state name
+     * @return String The value
+     */
     public String getStateName() {
         final String text = getText(pageElements.stateName);
-        log.info("State: " + text);
+        commonLib.info("State: " + text);
         return text;
     }
 
+    /**
+     * This method is use to validate comment found in comment section based on comment text
+     * @param text The comment text
+     */
     public void validateAddedComment(String text) {
         try {
             List<WebElement> list = returnListOfElement(pageElements.allComment);
             for (int i = 1; i <= list.size(); i++) {
-                By comment = By.xpath("//table[@class='ng-star-inserted']//tbody//tr[" + i + "]//p");
+                By comment = By.xpath(pageElements.commentSection + i + pageElements.addComment);
                 commonLib.info(READING_COMMENT + getText(comment) + " Is:" + getText(comment).trim().equalsIgnoreCase(text));
                 if (getText(comment).trim().equalsIgnoreCase(text)) {
                     commonLib.pass("Newly added comment found on ticket");
@@ -82,12 +97,17 @@ public class ViewTicket extends BasePage {
         }
     }
 
+    /**
+     * This method is use to validate comment type  found  or not in comment section based on comment type
+     * @param text The comment type
+     * @return true/false
+     */
     public boolean validateCommentType(String text) {
         try {
             List<WebElement> list = returnListOfElement(pageElements.allComment);
             for (int i = 1; i <= list.size(); i++) {
-                By commentType = By.xpath("//table[@class='ng-star-inserted']//tbody//tr[" + i + "]/td/span/span[1]");
-                log.info(READING_COMMENT + getText(commentType) + " Is:" + getText(commentType).trim().equalsIgnoreCase(text));
+                By commentType = By.xpath(pageElements.commentSection + i + pageElements.commentType);
+                commonLib.info(READING_COMMENT + getText(commentType) + " Is:" + getText(commentType).trim().equalsIgnoreCase(text));
                 if (getText(commentType).trim().equalsIgnoreCase(text)) {
                     commonLib.pass("Comment type found on ticket: " + getText(commentType));
                     return true;
@@ -102,49 +122,72 @@ public class ViewTicket extends BasePage {
         }
     }
 
+    /**
+     * This method use to add comment in comment box
+     * @param comment The comment
+     * @throws InterruptedException in-case scroll interrupt
+     */
     public void addComment(String comment) throws InterruptedException {
         scrollToViewElement(pageElements.addCommentBox);
         enterText(pageElements.addCommentBox, comment);
         commonLib.info("Adding comment on ticket:" + comment);
     }
 
+    /**
+     * This method use to click add comment icon in comment section
+     * @throws InterruptedException in-case scroll interrupt
+     */
     public void clickAddButton() throws InterruptedException {
         scrollToViewElement(pageElements.addBtn);
         clickAndWaitForLoaderToBeRemoved(pageElements.addBtn);
         commonLib.info("Clicking on Add comment button");
     }
 
+    /**
+     * This method use to click edit comment icon in comment section
+     */
     public void openEditCommentBox() {
-        log.info("Editing last added comment");
         commonLib.info("Editing last added comment");
         List<WebElement> list = returnListOfElement(pageElements.allComment);
-        By lastAddedComment = By.xpath("//table[@class='ng-star-inserted']/tbody//tr[" + list.size() + "]//td[1]//a[1]//img[1]");
+        By lastAddedComment = By.xpath(pageElements.iconList + list.size() + pageElements.editCommentSection);
         clickAndWaitForLoaderToBeRemoved(lastAddedComment);
     }
 
+    /**
+     * This method use to clear comment box
+     */
     public void clearCommentBox() {
-        log.info("Clearing Comment Box");
+        commonLib.info("Clearing Comment Box");
         clearInputTag(pageElements.addCommentBox);
     }
 
+    /**
+     * This method use to click delete comment icon in comment section
+     */
     public void openDeleteComment() {
-        log.info("Delete last added comment");
         commonLib.info("Deleting last added comment");
         List<WebElement> list = returnListOfElement(pageElements.allComment);
-        By deleteComment = By.xpath("//table[@class='ng-star-inserted']/tbody//tr[" + list.size() + "]//td[1]//a[2]//img[1]");
+        By deleteComment = By.xpath(pageElements.iconList + list.size() + "]//td[1]//a[2]//img[1]");
         clickAndWaitForLoaderToBeRemoved(deleteComment);
     }
 
+    /**
+     * This method use to click continue button on overlay open
+     */
     public void clickContinueButton() {
-        log.info("Clicking on Continue button");
         commonLib.info("Clicking on Continue button");
         clickAndWaitForLoaderToBeRemoved(pageElements.continueBtn);
     }
 
+    /**
+     * This method validate the comment is found or not in comment section
+     * @param text The comment
+     * @return true/false
+     */
     public boolean isCommentDelete(String text) {
         List<WebElement> list = returnListOfElement(pageElements.allComment);
         for (int i = 1; i <= list.size() - 1; i++) {
-            By comment = By.xpath("//table[@class='ng-star-inserted']//tbody//tr[" + i + "]//p");
+            By comment = By.xpath(pageElements.commentSection + i + pageElements.addComment);
             commonLib.info(READING_COMMENT + getText(comment) + " Is:" + getText(comment).trim().equalsIgnoreCase(text));
             if (getText(comment).trim().equalsIgnoreCase(text)) {
                 commonLib.info("Latest comment found on ticket: " + comment);
@@ -156,9 +199,36 @@ public class ViewTicket extends BasePage {
         return true;
     }
 
+    /**
+     * This method use to click back button on overlay open
+     * @throws InterruptedException in-case of scroll interrupt
+     */
     public void clickBackButton() throws InterruptedException {
-        log.info("Clicking Back button");
+        commonLib.info("Clicking Back button");
         scrollToViewElement(pageElements.backButton);
         clickAndWaitForLoaderToBeRemoved(pageElements.backButton);
     }
+
+    /**
+     * This method use to open ticket history log section
+     * @throws InterruptedException in-case of scroll interrupt
+     */
+    public void clickTicketHistoryLog() throws InterruptedException {
+        scrollToViewElement(pageElements.ticketLogTab);
+        clickAndWaitForLoaderToBeRemoved(pageElements.ticketLogTab);
+    }
+
+    /**
+     * This method use to open check ticket bulk update option displayed or not
+     * @param state The state name
+     * @return true/false
+     * @throws InterruptedException in-case of scroll interrupt
+     */
+    public Boolean checkBulkUpdateLogged(String state) throws InterruptedException {
+        By check=By.xpath(pageElements.readLoggedText+state+pageElements.bulkUpdate);
+        scrollToViewElement(check);
+        return isVisible(check);
+    }
+
+
 }

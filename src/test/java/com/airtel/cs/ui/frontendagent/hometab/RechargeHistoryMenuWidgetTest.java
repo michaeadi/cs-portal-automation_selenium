@@ -96,7 +96,6 @@ public class RechargeHistoryMenuWidgetTest extends Driver {
                 commonLib.fail("Not able to validate Correctly more recharge history widget: " + e.fillInStackTrace(), true);
             }
             pages.getMoreRechargeHistoryPage().openingCustomerInteractionDashboard();
-            pages.getMoreRechargeHistoryPage().waitTillLoaderGetsRemoved();
         } catch (Exception e) {
             commonLib.fail("Exception in Method - rechargeHistoryMenuTest" + e.fillInStackTrace(), true);
         }
