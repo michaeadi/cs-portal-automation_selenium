@@ -308,7 +308,7 @@ public class UserManagement extends BasePage {
      */
     public void switchFrameToAddUser() {
         commonLib.info("Switching Frame");
-
+        driver.switchTo().frame(0);
     }
 
     /**

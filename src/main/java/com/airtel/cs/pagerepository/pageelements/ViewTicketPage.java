@@ -23,5 +23,6 @@ public class ViewTicketPage {
     public String addComment= "]//p";
     public String commentType="]/td/span/span[1]";
     public String editCommentSection="]//td[1]//a[1]//img[1]";
+    public String deleteIcon="]//td[1]//a[2]//img[1]";
     public String iconList="//table[@class='ng-star-inserted']/tbody//tr[";
 }

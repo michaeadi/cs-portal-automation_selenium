@@ -15,6 +15,10 @@ public class CRBTWidget extends BasePage {
         pageElements = PageFactory.initElements(driver, CRBTWidgetPage.class);
     }
 
+    /**
+     * This method use to check crbt widget display or not
+     * @return true/false
+     */
     public boolean isCRBTWidgetDisplay() {
         final boolean state = isEnabled(pageElements.titleCRBT);
         commonLib.info("Is CRBT Widget Display: " + state);

@@ -22,4 +22,11 @@ public class ViewCreatedTemplatePage {
     public By yesBtn = By.xpath("//div[@class='cdk-overlay-container']//button[2]");
     public String templateRow="//div[@class='sms-managment__card-list--card--sms-template--content--sms-card ng-star-inserted'][";
     public String deleteIcon="]//div//img[@title='delete']";
+    public String templateName="]//h6";
+    public String templateCategoryName="]//h5";
+    public String templateActiveStatus="]//div//p[1]";
+    public String templateDeActiveStatue="]//div//p[2]";
+    public String editIcon="]//div//img[@title='EDIT']";
+    public String commentIcon="]//div//div//img";
+    public String templateLanguage="]//div[2]//span";
 }

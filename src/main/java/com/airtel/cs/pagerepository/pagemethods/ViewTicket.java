@@ -167,7 +167,7 @@ public class ViewTicket extends BasePage {
     public void openDeleteComment() {
         commonLib.info("Deleting last added comment");
         List<WebElement> list = returnListOfElement(pageElements.allComment);
-        By deleteComment = By.xpath(pageElements.iconList + list.size() + "]//td[1]//a[2]//img[1]");
+        By deleteComment = By.xpath(pageElements.iconList + list.size() + pageElements.deleteIcon);
         clickAndWaitForLoaderToBeRemoved(deleteComment);
     }
 

@@ -4,21 +4,19 @@ import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.PinnedTagsDataBeans;
-import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.driver.Driver;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
 public class PinTagTest extends Driver {
 
     private final BaseActions actions = new BaseActions();
+    final String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
 
     @BeforeMethod
     public void checkExecution() {
@@ -31,14 +29,11 @@ public class PinTagTest extends Driver {
 
     /**
      * This method is used to Open Customer Profile Page with valid MSISDN
-     * @param data
      */
-    @DataProviders.User(userType = "NFTR")
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "loginData", dataProviderClass = DataProviders.class)
-    public void openCustomerInteraction(TestDatabean data) {
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
-            final String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().clickOnUserName();
             pages.getSideMenuPage().openCustomerInteractionPage();
@@ -105,7 +100,7 @@ public class PinTagTest extends Driver {
                 if (pages.getCustomerProfilePage().isPinTagVisible(tagName)) {
                     pages.getCustomerProfilePage().clickPinTag(tagName);
                     pages.getMsisdnSearchPage();
-                    pages.getMsisdnSearchPage().enterNumber(data.getCustomerNumber());
+                    pages.getMsisdnSearchPage().enterNumber(customerNumber);
                     pages.getMsisdnSearchPage().clickOnSearch();
                     assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isCustomerProfilePageLoaded(), true));
                     pages.getCustomerProfilePage().goToViewHistory();

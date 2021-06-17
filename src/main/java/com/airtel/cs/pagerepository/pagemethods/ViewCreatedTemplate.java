@@ -80,7 +80,7 @@ public class ViewCreatedTemplate extends BasePage {
         commonLib.info("Checking Template Present With Name: " + text);
         List<WebElement> list = returnListOfElement(pageElements.allActiveTemplate);
         for (int i = 1; i <= list.size(); i++) {
-            By element = By.xpath(pageElements.templateRow + i + "]//h6");
+            By element = By.xpath(pageElements.templateRow + i + pageElements.templateName);
             if (text.equalsIgnoreCase(getText(element).trim())) {
                 return true;
             }
@@ -94,7 +94,7 @@ public class ViewCreatedTemplate extends BasePage {
      * @return String The value
      */
     public String templateName(int i) {
-        By element = By.xpath(pageElements.templateRow + i + "]//h6");
+        By element = By.xpath(pageElements.templateRow + i + pageElements.templateName);
         commonLib.info("Reading Template: " + getText(element));
         return getText(element);
     }
@@ -104,7 +104,7 @@ public class ViewCreatedTemplate extends BasePage {
      * @param i The index
      */
     public void templateCategory(int i) {
-        By element = By.xpath(pageElements.templateRow + i + "]//h5");
+        By element = By.xpath(pageElements.templateRow + i + pageElements.templateCategoryName);
         commonLib.info("Reading Category: " + getText(element));
     }
 
@@ -149,7 +149,7 @@ public class ViewCreatedTemplate extends BasePage {
      * @param i The index
      */
     public void validateActiveStatus(int i) {
-        By status = By.xpath(pageElements.templateRow + i + "]//div//p[1]");
+        By status = By.xpath(pageElements.templateRow + i + pageElements.templateActiveStatus);
         final String text = getText(status);
         commonLib.info("Read Status: " + text);
     }
@@ -159,7 +159,7 @@ public class ViewCreatedTemplate extends BasePage {
      * @param i The index
      */
     public void validateDeActiveStatus(int i) {
-        By status = By.xpath(pageElements.templateRow + i + "]//div//p[2]");
+        By status = By.xpath(pageElements.templateRow + i +pageElements.templateDeActiveStatue);
         final String text = getText(status);
         commonLib.info("Read Status: " + text);
     }
@@ -192,7 +192,7 @@ public class ViewCreatedTemplate extends BasePage {
      * @return true/false
      */
     public boolean isEditIcon(int i) {
-        By icon = By.xpath(pageElements.templateRow + i + "]//div//img[@title='EDIT']");
+        By icon = By.xpath(pageElements.templateRow + i + pageElements.editIcon);
         boolean status = isEnabled(icon);
         commonLib.info("Is edit icon: " + status);
         return status;
@@ -204,7 +204,7 @@ public class ViewCreatedTemplate extends BasePage {
      * @return true/false
      */
     public boolean isCommentIcon(int i) {
-        By icon = By.xpath(pageElements.templateRow + i + "]//div//div//img");
+        By icon = By.xpath(pageElements.templateRow + i + pageElements.commentIcon);
         boolean status = isEnabled(icon);
         commonLib.info("Is comment icon: " + status);
         return status;
@@ -215,7 +215,7 @@ public class ViewCreatedTemplate extends BasePage {
      * @param i The index
      */
     public void templateLanguage(int i) {
-        By icon = By.xpath(pageElements.templateRow + i + "]//div[2]//span");
+        By icon = By.xpath(pageElements.templateRow + i + pageElements.templateLanguage);
         final String text = getText(icon);
         commonLib.info("Template language: " + text);
     }

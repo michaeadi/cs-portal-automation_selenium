@@ -24,7 +24,6 @@ public class ViewHistory extends BasePage {
      */
     public void clickOnInteractionsTab() {
         commonLib.info("Clicking on Interactions Tab under view history ");
-        waitTillLoaderGetsRemoved();
         clickAndWaitForLoaderToBeRemoved(pageElements.interactionsTab);
     }
 
@@ -42,7 +41,6 @@ public class ViewHistory extends BasePage {
      */
     public void goToTicketHistoryTab() {
         commonLib.info("Clicking on Ticket History Tab under view history ");
-        waitTillLoaderGetsRemoved();
         clickAndWaitForLoaderToBeRemoved(pageElements.ticketHistory);
     }
 
@@ -76,7 +74,6 @@ public class ViewHistory extends BasePage {
      */
     public String getLastCreatedIssueCode() {
         commonLib.info("Getting the issue code of last created FTR interaction ");
-        waitTillLoaderGetsRemoved();
         return getText(pageElements.firstIssueCode);
     }
 
