@@ -59,5 +59,6 @@ public class CommonConstants {
     public static final String TICKET_BULK_UPDATE_CHANGE_STATE_ACTION="cs.bulk.update.change.state.action";
     public static final String TICKET_BULK_UPDATE_ADD_TICKET_COMMENT_ACTION="cs.bulk.update.add.ticket.comment.action";
     public static final String INVALID_TICKET_ID="cs.invalid.ticket.id";
+    public static final String BACKEND_AGENT_TICKET_LIST_PAGE="cs.backend.agent.ticket.list.page";
 
 }

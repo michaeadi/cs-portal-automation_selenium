@@ -443,6 +443,20 @@ public class BasePage extends Driver {
         }
     }
 
+
+    public boolean isVisibleContinueExecution(By webelementBy) {
+        return isVisibleContinueExecution(webelementBy, Integer.parseInt(constants.getValue(ApplicationConstants.GENERAL_WAIT_IN_SEC)));
+    }
+
+    public boolean isVisibleContinueExecution(By webelementBy, int time){
+        elementName = getElementNameFromAirtelByWrapper(webelementBy);
+        Wait<WebDriver> driverWait = getWaitObject(time);
+        WebElement webElement = driverWait.until(ExpectedConditions.visibilityOfElementLocated(webelementBy));
+        return webElement != null;
+
+
+    }
+
     public Wait<WebDriver> getWaitObject(int maxWaitFor) {
         FluentWait fluentWait = null;
         try {

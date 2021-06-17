@@ -47,7 +47,7 @@ public class AgentLogin extends BasePage {
      */
     public void clickSelectQueue() {
         commonLib.info("Selecting Login Queue");
-        clickAndWaitForLoaderToBeRemoved(pageElements.selectQueue);
+        clickWithoutLoader(pageElements.selectQueue);
     }
 
     /**
@@ -82,6 +82,6 @@ public class AgentLogin extends BasePage {
      */
     public void selectAllQueue() {
         commonLib.info("Selecting ALL Queue");
-        clickAndWaitForLoaderToBeRemoved(pageElements.allQueueOption);
+        clickWithoutLoader(pageElements.allQueueOption);
     }
 }

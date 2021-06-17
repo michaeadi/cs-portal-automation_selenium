@@ -210,14 +210,9 @@ public class SideMenu extends BasePage {
         clickAndWaitForLoaderToBeRemoved(pageElements.agentDashboard);
     }
 
-    /**
-     * This method use to check is backend agent dahsboard option display or not
-     * @return true/false
-     */
-    public Boolean isAgentDashboard() {
+    public Boolean isBEAgentDashboard() {
         commonLib.info("Checking Agent Dashboard Visible or not");
-        hoverOverElement(pageElements.customerServices);
-        return isEnabled(pageElements.agentDashboard);
+        return isVisible(pageElements.backendAgentDashboard);
     }
 
     /**
