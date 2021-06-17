@@ -1,6 +1,7 @@
 package com.airtel.cs.ui.backendAgent;
 
 import com.airtel.cs.common.actions.BaseActions;
+import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.TicketStateDataBean;
 import com.airtel.cs.driver.Driver;
@@ -28,11 +29,12 @@ public class BackendAgentUpdateTicketTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Backend Agent Update Ticket", "description");
             commonLib.info("Opening URL");
-            String ticketId = pages.getSupervisorTicketList().getTicketIdvalue();
+            String ticketId = pages.getSupervisorTicketList().getTicketIdValue();
             pages.getSupervisorTicketList().viewTicket();
             assertCheck.append(actions.assertEqual_stringType(ticketId, pages.getViewTicket().getTicketId(), "The searched Ticket fetched Successfully", "The searched Ticket NOT fetched Successfully"));
             DataProviders data = new DataProviders();
-            pages.getViewTicket().selectState(data.ticketStateClosed());
+            String selectStateByConfig=data.getState(constants.getValue(CommonConstants.TICKET_CLOSE_STATE)).get(0).getTicketStateName();
+            pages.getViewTicket().selectState(selectStateByConfig);
             pages.getSupervisorTicketList().writeTicketId(ticketId);
             pages.getSupervisorTicketList().clickSearchBtn();
             assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().noTicketFound(), true, "Backend agent NOT able to see closed ticket", "Backend agent able to see closed ticket"));

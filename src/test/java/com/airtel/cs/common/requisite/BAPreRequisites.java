@@ -45,7 +45,7 @@ public class BAPreRequisites extends Driver {
             } else {
                 assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isSideMenuVisible(), true, "Side Menu Visible", "Side Menu Not Visible"));
                 pages.getSideMenuPage().clickOnSideMenu();
-                assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isAgentDashboard(), true, "Customer Service Visible", "Customer Service Not Visible"));
+                assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isBEAgentDashboard(), true, "Customer Service Visible", "Customer Service Not Visible"));
                 actions.assertAllFoundFailedAssert(assertCheck);
             }
         } catch (Exception e) {
