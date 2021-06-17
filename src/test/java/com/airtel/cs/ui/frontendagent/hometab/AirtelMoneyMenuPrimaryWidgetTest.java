@@ -96,10 +96,10 @@ public class AirtelMoneyMenuPrimaryWidgetTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 2, groups = {"ProdTest"}, dependsOnMethods = {"openCustomerInteractionAPI", "airtelMoneyHistoryMenuHeaderTest"})
+    @Test(priority = 3, groups = {"ProdTest"}, dependsOnMethods = {"openCustomerInteractionAPI", "airtelMoneyHistoryMenuHeaderTest"})
     public void airtelMoneyHistoryMenuTest() {
         try {
-            selUtils.addTestcaseDescription("Validating Airtel Money History's  Menu of User :" + customerNumber, "description");
+            selUtils.addTestcaseDescription("Validating Airtel Money History's  Menu of User :" + customerNumber+"Validate all the data rows displayed as per api response,In case of No result data rows found validate no result found icon displayed,Validate resend sms icon displayed as per api response.", "description");
             try {
                 try {
                     if (StringUtils.equals(MULTI_AM_WALLET, "true")) {
