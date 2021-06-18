@@ -2,7 +2,6 @@ package com.airtel.cs.ui.frontendagent.hometab;
 
 import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.common.actions.BaseActions;
-import com.airtel.cs.common.requisite.PreRequisites;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
@@ -10,6 +9,7 @@ import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.commonutils.applicationutils.enums.JavaColors;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
+import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pojo.response.actiontrail.ActionTrailPOJO;
 import com.airtel.cs.pojo.response.actiontrail.EventResult;
 import com.airtel.cs.pojo.response.friendsfamily.FriendsFamilyPOJO;
@@ -25,7 +25,7 @@ import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 
-public class FriendsFamilyWidgetTest extends PreRequisites {
+public class FriendsFamilyWidgetTest extends Driver {
     public static final String RUN_FNF_WIDGET_TEST_CASE = constants.getValue(ApplicationConstants.RUN_FNF_WIDGET_TEST_CASE);
     private static String customerNumber;
     private final BaseActions actions = new BaseActions();

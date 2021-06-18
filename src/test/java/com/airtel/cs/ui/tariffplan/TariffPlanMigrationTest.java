@@ -1,8 +1,10 @@
 package com.airtel.cs.ui.tariffplan;
 
-import com.airtel.cs.common.requisite.PreRequisites;
+import com.airtel.cs.api.RequestSource;
+import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
+import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pojo.response.MainAccountBalance;
 import com.airtel.cs.pojo.response.tariffplan.AvailablePlanPOJO;
 import com.airtel.cs.pojo.response.tariffplan.CurrentPlanPOJO;
@@ -13,7 +15,10 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 
-public class TariffPlanMigrationTest extends PreRequisites {
+public class TariffPlanMigrationTest extends Driver {
+
+    private final BaseActions actions = new BaseActions();
+    RequestSource api = new RequestSource();
     String currentPlanFromUI;
     MainAccountBalance mainAccountBalanceBeforeMigration;
     String customerNewPlan;
@@ -178,7 +183,7 @@ public class TariffPlanMigrationTest extends PreRequisites {
             pages.getLoginPage().openNewTempBrowserAndLoginInUM();
             pages.getUserManagementPage().removeOrAddPermission(constants.getValue(PermissionConstants.TARIFF_PLAN_MIGRATE_PERMISSION));
             pages.getUserManagementPage().destroyTempBrowser();
-            goAndCheckServiceClassOptionVisible();
+            pages.getTariffPlanPage().goAndCheckServiceClassOptionVisible();
             assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isChangeServiceClassOptionVisible(), false, "Change Service Class Option Should not be visible, As permissions are removed", "Change Service Class Opton is visible and should not be"));
             pages.getCustomerProfilePage().openChangeServiceClassTab();
             assertCheck.append(actions.assertEqual_boolean(pages.getTariffPlanPage().isChangeServiceClassTabOpened(), true, "Service Class (Tariff Plan) Tab Opened Successfully", "Service Class (Tariff Plan) Tab Not Opened"));
@@ -203,7 +208,7 @@ public class TariffPlanMigrationTest extends PreRequisites {
             pages.getLoginPage().openNewTempBrowserAndLoginInUM();
             pages.getUserManagementPage().removeOrAddPermission(constants.getValue(PermissionConstants.TARIFF_PLAN_VIEW_PERMISSION));
             pages.getUserManagementPage().destroyTempBrowser();
-            goAndCheckServiceClassOptionVisible();
+            pages.getTariffPlanPage().goAndCheckServiceClassOptionVisible();
             assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isChangeServiceClassOptionVisible(), false, "Change Service Class Option Should not be visible, As permissions are removed", "Change Service Class Opton is visible and should not be"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {

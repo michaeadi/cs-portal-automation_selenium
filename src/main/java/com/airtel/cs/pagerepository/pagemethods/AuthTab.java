@@ -184,7 +184,7 @@ public class AuthTab extends BasePage {
      * This method is use to choose first reason from dropdown
      */
     public void chooseReason() {
-        commonLib.info("Choosing Reason: " + getText(pageElements.code));
+        commonLib.info("Selecting Reason: " + getText(pageElements.code));
         clickWithoutLoader(pageElements.code);
     }
 
@@ -194,7 +194,7 @@ public class AuthTab extends BasePage {
      */
     public String getReason() {
         final String text = getText(pageElements.code);
-        commonLib.info("Choosing Reason: " + text);
+        commonLib.info("Visible Reason: " + text);
         return text;
     }
 
@@ -239,7 +239,7 @@ public class AuthTab extends BasePage {
     public void clickSubmitBtn() {
         if (isClickable(pageElements.submitBtn)) {
             commonLib.info("Clicking Submit Button");
-            clickAndWaitForLoaderToBeRemoved(pageElements.submitBtn);
+            clickWithoutLoader(pageElements.submitBtn);
         } else {
             commonLib.fail("Exception in Method - clickSubmitBtn", true);
         }
@@ -256,8 +256,8 @@ public class AuthTab extends BasePage {
         } else {
             commonLib.fail("Exception in method - getToastText", true);
             commonLib.info("Going to Close Modal through close Button");
+            clickWithoutLoader(pageElements.closeBtn);
         }
-        clickWithoutLoader(pageElements.closeBtn);
         return result;
     }
 

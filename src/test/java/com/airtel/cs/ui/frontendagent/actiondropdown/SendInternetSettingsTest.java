@@ -4,6 +4,7 @@ import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.driver.Driver;
 import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;
@@ -58,7 +59,7 @@ public class SendInternetSettingsTest extends Driver {
             assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isSendInternetSettingTitleVisible(), true, "Send Internet Setting Tab opened", "Send Internet Setting Tab does NOT opened"));
             pages.getCustomerProfilePage().clickCancelBtn();
             actions.assertAllFoundFailedAssert(assertCheck);
-        } catch (NoSuchElementException | TimeoutException e) {
+        } catch (NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
             pages.getCustomerProfilePage().clickCloseBtn();
             commonLib.fail("Exception in Method :- validateSendInternetSetting" + e.fillInStackTrace(), true);
         }
@@ -79,7 +80,7 @@ public class SendInternetSettingsTest extends Driver {
             final String toastText = pages.getAuthTabPage().getToastText();
             assertCheck.append(actions.assertEqual_stringType(toastText, "Internet Settings has been sent on Customer`s Device.", "Send Internet Settings Message has been sent to customer successfully", "Send Internet Settings Message hasn't been sent to customer ans message is :-" + toastText));
             actions.assertAllFoundFailedAssert(assertCheck);
-        } catch (NoSuchElementException | TimeoutException e) {
+        } catch (NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
             commonLib.fail("Exception in Method - validateSendInternetSetting" + e.fillInStackTrace(), true);
             pages.getCustomerProfilePage().clickOutside();
         }

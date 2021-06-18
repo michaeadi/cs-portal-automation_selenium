@@ -6,6 +6,7 @@ import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.applicationutils.enums.ReportInfoMessageColorList;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
+import com.airtel.cs.commonutils.extentreports.ExtentReport;
 import com.airtel.cs.pagerepository.pageelements.LoginPage;
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
@@ -234,6 +235,41 @@ public class Login extends BasePage {
         commonLib.info("Request Headers are  : " + queryable.getHeaders());
         commonLib.info("Request URL : " + queryable.getURI());
         return request.post("/auth/api/user-mngmnt/v2/login");
+    }
+
+    /*
+   This Method is used to Login in CS Portal Again, after changing the permission over UM
+    */
+    public void loginInCSPortal() throws InterruptedException {
+        doLoginInCSPortal();
+        pages.getSideMenuPage().openCustomerInteractionPage();
+    }
+
+    public void doLoginInCSPortal() {
+        try {
+            ExtentReport.startTest("PreRequisites", "doLogin");
+            selUtils.addTestcaseDescription("Logging Into Portal", "Pre-Requisites");
+            final String value = constants.getValue(ApplicationConstants.DOMAIN_URL);
+            loginAUUID = constants.getValue(CommonConstants.ALL_USER_ROLE_AUUID);
+            pages.getLoginPage().openBaseURL(value);
+            pages.getLoginPage().enterAUUID(loginAUUID);
+            pages.getLoginPage().clickOnSubmitBtn();
+            pages.getLoginPage().enterPassword(PassUtils.decodePassword(constants.getValue(CommonConstants.ALL_USER_ROLE_PASSWORD)));
+            pages.getLoginPage().clickOnVisibleButton();
+            pages.getLoginPage().clickOnVisibleButton();
+            pages.getLoginPage().clickOnLogin();
+            final boolean isGrowlVisible = pages.getGrowl().checkIsGrowlVisible();
+            commonLib.info("Growl was visible or not?:-" + isGrowlVisible);
+            if (isGrowlVisible) {
+                commonLib.fail("Growl Message:- " + pages.getGrowl().getToastContent(), true);
+                continueExecutionFA = false;
+            } else {
+                pages.getSideMenuPage().clickOnSideMenu();
+            }
+        } catch (Exception e) {
+            continueExecutionFA = false;
+            commonLib.fail("Exception in Method - doLogin" + e.fillInStackTrace(), true);
+        }
     }
 }
 

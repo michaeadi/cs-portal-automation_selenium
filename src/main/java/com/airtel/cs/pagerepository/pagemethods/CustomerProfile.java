@@ -188,7 +188,7 @@ public class CustomerProfile extends BasePage {
     public void clickOnAction() {
         if (isVisible(pageElements.homeActionBtn)) {
             commonLib.info("Clicking on Action drop down");
-            clickAndWaitForLoaderToBeRemoved(pageElements.homeActionBtn);
+            clickWithoutLoader(pageElements.homeActionBtn);
         } else {
             commonLib.fail("Exception in method - clickOnAction ", true);
         }

@@ -64,6 +64,51 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.ServiceProfileWidgetTest"/>
         </classes>
     </test>
+    <test name="Airtel Money More detail Widget Test(Primary Widget)" preserve-order="true">
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.AirtelMoneyMenuPrimaryWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Airtel Money More detail Widget Test(Secondary Widget-DRC)" preserve-order="true">
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.AirtelMoneyMenuSecondaryWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Recharge History Menu Widget Test" preserve-order="true">
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.RechargeHistoryMenuWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Recharge History More detail Widget Test" preserve-order="true">
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.DADetailWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Display offer Widget Test" preserve-order="true">
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.DisplayOfferWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Friends and family Widget Test" preserve-order="true">
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.FriendsFamilyWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Accumulator Widget Test" preserve-order="true">
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.AccumulatorWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Usage History Detailed Widget Test" preserve-order="true">
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.UsageHistoryDetailedWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Data Unit Conversion for widget Test" preserve-order="true">
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.DataUnitConversionTest"/>
+        </classes>
+    </test>
     <test name="Test Authentication Tab">
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.demographicwidget.AuthTabTest"/>
@@ -127,16 +172,6 @@
     <test name="Supervisors Login Test">
         <classes>
             <class name="com.airtel.cs.ui.backendSupervisor.SupervisorLoginTest"/>
-        </classes>
-    </test>
-    <test name="api-Regenerate">
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginAPITest">
-                <methods>
-                    <exclude name="testCredOfAdmin"/>
-                    <exclude name="testCredOfBackendAgent"/>
-                </methods>
-            </class>
         </classes>
     </test>
     <test name="Supervisors Global Search Ticket Test">
@@ -242,6 +277,11 @@
     <test name="Logout Test from Backend agent">
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
+        </classes>
+    </test>
+    <test name="BACKEND AGENT Transfer to Queue Test">
+        <classes>
+            <class name="com.airtel.cs.ui.backendAgent.transfertoqueue.TransferToQueueTest"/>
         </classes>
     </test>
     <test name="SIM Bar Unbar Test">
