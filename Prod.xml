@@ -158,7 +158,7 @@
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.backendSupervisor.PRODSupervisorTicketTest"/>
+            <class name="com.airtel.cs.ui.backendSupervisor.SupervisorSearchTicketTest"/>
         </classes>
     </test>
     <test name="Logout Supervisor Test">
