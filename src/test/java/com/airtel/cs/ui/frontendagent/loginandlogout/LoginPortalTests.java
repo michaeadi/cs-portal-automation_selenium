@@ -5,9 +5,16 @@ import com.airtel.cs.commonutils.PassUtils;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.driver.Driver;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.devtools.network.Network;
+import org.openqa.selenium.logging.LogEntries;
+import org.openqa.selenium.logging.LogEntry;
+import org.openqa.selenium.logging.LogType;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import java.util.Date;
 
 public class LoginPortalTests extends Driver {
 
@@ -36,7 +43,7 @@ public class LoginPortalTests extends Driver {
             pages.getLoginPage().clickOnVisibleButton();
             pages.getLoginPage().clickOnVisibleButton();
             pages.getLoginPage().clickOnLogin();
-            /*LogEntries logEntries = driver.manage().logs().get(LogType.PERFORMANCE);
+            LogEntries logEntries = driver.manage().logs().get(LogType.PERFORMANCE);
             for (LogEntry entry : logEntries) {
                 commonLib.info((String.format("%s %s %s\n", new Date(entry.getTimestamp()), entry.getLevel(),
                         entry.getMessage())));
@@ -49,7 +56,7 @@ public class LoginPortalTests extends Driver {
             (netData);
             if (netData.contains("auth/api/user-mngmnt/v2/login")) {
                 //System.out.println(netData);
-            }*/
+            }
             final boolean isGrowlVisible = pages.getGrowl().checkIsGrowlVisible();
             if (isGrowlVisible) {
                 commonLib.fail("Growl Message:- " + pages.getGrowl().getToastContent(), true);

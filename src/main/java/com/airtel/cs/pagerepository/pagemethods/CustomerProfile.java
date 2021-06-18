@@ -7,6 +7,7 @@ import com.airtel.cs.pojo.response.PlansPOJO;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -27,6 +28,7 @@ public class CustomerProfile extends BasePage {
 
     /**
      * This method is used to get first widget title
+     *
      * @return String The value
      */
     public String getFirstWidgetHeader() {
@@ -37,6 +39,7 @@ public class CustomerProfile extends BasePage {
 
     /**
      * This method is use to check send internet setting action visible or not
+     *
      * @return true/false
      */
     public Boolean isSendInternetSettingTitleVisible() {
@@ -47,6 +50,7 @@ public class CustomerProfile extends BasePage {
 
     /**
      * This method is use to check reset me2u password action visible or not
+     *
      * @return true/false
      */
     public Boolean isResetME2UPasswordTitle() {
@@ -58,6 +62,7 @@ public class CustomerProfile extends BasePage {
 
     /**
      * This method is used to get Second widget title
+     *
      * @return String The value
      */
     public String getSecondWidgetHeader() {
@@ -68,6 +73,7 @@ public class CustomerProfile extends BasePage {
 
     /**
      * This method is used to get Third widget title
+     *
      * @return String The value
      */
     public String getThirdWidgetHeader() {
@@ -78,6 +84,7 @@ public class CustomerProfile extends BasePage {
 
     /**
      * This method is used to get Fourth widget title
+     *
      * @return String The value
      */
     public String getFourthWidgetHeader() {
@@ -88,6 +95,7 @@ public class CustomerProfile extends BasePage {
 
     /**
      * This method is use to get list of pin tag text
+     *
      * @return List The list of value
      */
     public List<String> getPinnedTagTexts() {
@@ -103,11 +111,12 @@ public class CustomerProfile extends BasePage {
 
     /**
      * This method is use to click pin tag by name
+     *
      * @param text The text name
      */
     public void clickPinTag(String text) {
         commonLib.info("Clicking " + text + " Pinned Tag");
-        By tagName = By.xpath( pageElements.pinTagByName+ text + "')]");
+        By tagName = By.xpath(pageElements.pinTagByName + text + "')]");
         clickAndWaitForLoaderToBeRemoved(tagName);
     }
 
@@ -116,8 +125,8 @@ public class CustomerProfile extends BasePage {
      */
     public boolean isCustomerProfilePageLoaded() {
         boolean result = false;
-        if (isVisible(pageElements.searchNumber)) {
-            result = isEnabled(pageElements.searchNumber);
+        if (isVisible(pageElements.demographichWidget)) {
+            result = isEnabled(pageElements.demographichWidget);
             commonLib.info("Is Customer Profile Page loaded ? " + result);
         }
         return result;
@@ -149,11 +158,12 @@ public class CustomerProfile extends BasePage {
 
     /**
      * This method is use to check pin tag visible or not
+     *
      * @param text The text
      * @return true/false
      */
     public boolean isPinTagVisible(String text) {
-        By tagName = By.xpath( pageElements.pinTagByName+ text + "')]");
+        By tagName = By.xpath(pageElements.pinTagByName + text + "')]");
         commonLib.info("Checking is " + text + " Pinned Tag Visible");
         return isElementVisible(tagName);
     }
@@ -186,7 +196,7 @@ public class CustomerProfile extends BasePage {
      * This method is use to click on action
      */
     public void clickOnAction() {
-        if (isVisible(pageElements.homeActionBtn)) {
+        if (isVisible(pageElements.homeActionBtn) && isClickable(pageElements.homeActionBtn)) {
             commonLib.info("Clicking on Action drop down");
             clickWithoutLoader(pageElements.homeActionBtn);
         } else {
@@ -259,6 +269,7 @@ public class CustomerProfile extends BasePage {
 
     /**
      * This method is use to check loan widget display or not
+     *
      * @return true/false
      */
     public boolean isLoanWidgetDisplay() {
@@ -268,6 +279,7 @@ public class CustomerProfile extends BasePage {
 
     /**
      * This method is use to check customer birthday icon display or not
+     *
      * @return true/false
      */
     public boolean isCustomerBirthday() {
@@ -295,7 +307,7 @@ public class CustomerProfile extends BasePage {
         try {
             result = elementVisibleWithExplictWait(pageElements.changeServiceClass_btn);
         } catch (Exception e) {
-            log.error("ChangeServiceClass is not visible", e);
+            commonLib.error("ChangeServiceClass is not visible" + e.getMessage(), true);
         }
         return result;
     }
@@ -325,7 +337,7 @@ public class CustomerProfile extends BasePage {
             try {
                 result = elementVisibleWithExplictWait(pageElements.suspendSIM);
             } catch (Exception e) {
-                log.error("Suspend SIM Option is not visible, Exception in Method -isSuspendSIMOptionVisible", e);
+                commonLib.error("Suspend SIM Option is not visible, Exception in Method -isSuspendSIMOptionVisible" + e.getMessage(), true);
             }
         } else {
             commonLib.error("GSM SIM Status is NOT Active and is - " + simStatus);
@@ -358,7 +370,7 @@ public class CustomerProfile extends BasePage {
             try {
                 result = elementVisibleWithExplictWait(pageElements.reactivationSIM);
             } catch (Exception e) {
-                log.error("Reactivation SIM Option is not visible, Exception in Method -isReactivationSIMOptionVisible", e);
+                commonLib.error("Reactivation SIM Option is not visible, Exception in Method -isReactivationSIMOptionVisible" + e.getMessage(), true);
             }
         } else {
             commonLib.error("GSM SIM Status is NOT Suspended and is - " + simStatus);
@@ -374,7 +386,7 @@ public class CustomerProfile extends BasePage {
         try {
             result = elementVisibleWithExplictWait(pageElements.suspendSIM);
         } catch (Exception e) {
-            log.error("Suspend SIM Modal is not Visible, Exception in Method - isSuspendSIMModalOpened", e);
+            commonLib.error("Suspend SIM Modal is not Visible, Exception in Method - isSuspendSIMModalOpened" + e.getMessage(), true);
         }
         return result;
     }
@@ -408,6 +420,7 @@ public class CustomerProfile extends BasePage {
 
     /**
      * This method is use to check auth tab opened or not
+     *
      * @return true/false
      */
     public Boolean isAuthTabOpenedDoAction() {

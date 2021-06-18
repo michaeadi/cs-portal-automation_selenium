@@ -52,15 +52,18 @@ public class SendInternetSettingsTest extends Driver {
 
     @Test(priority = 2, description = "Verify the Send Internet Setting tab is getting closed on click on Cancel Button", dependsOnMethods = "openCustomerInteraction")
     public void validateCancelBtn() {
+        boolean modalOpened = false;
         try {
             selUtils.addTestcaseDescription("Open send internet setting modal from actions drop down, Click on cancel button, Modal should be closed", "description");
             pages.getCustomerProfilePage().clickOnAction();
             pages.getCustomerProfilePage().clickSendInternetSetting();
+            modalOpened = true;
             assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isSendInternetSettingTitleVisible(), true, "Send Internet Setting Tab opened", "Send Internet Setting Tab does NOT opened"));
             pages.getCustomerProfilePage().clickCancelBtn();
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
-            pages.getCustomerProfilePage().clickCloseBtn();
+            if (modalOpened)
+                pages.getCustomerProfilePage().clickCloseBtn();
             commonLib.fail("Exception in Method :- validateSendInternetSetting" + e.fillInStackTrace(), true);
         }
     }
