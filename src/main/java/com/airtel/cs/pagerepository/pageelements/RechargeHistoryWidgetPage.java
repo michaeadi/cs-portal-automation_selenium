@@ -24,5 +24,8 @@ public class RechargeHistoryWidgetPage {
     public By middleRHWAuuid = By.xpath("//div[@id='RECHARGE_HISTORY']");
     public String dataRow = "//div[@id='RECHARGE_HISTORY']//div[contains(@class,'table-data-wrapper')]/div[";
     public String valueColumns = "]//div[contains(@class,'data-list')]/div[";
-
+    public String headerRow="//div[@id='RECHARGE_HISTORY']//div[@class='card__card-header--card-body--table--list-heading ng-star-inserted']/div[";
+    public String headerName="]/span[1]";
+    public String subHeaderName="]/span[2]";
+    public String columnValue= "]/span";
 }

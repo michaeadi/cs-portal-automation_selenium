@@ -83,7 +83,7 @@ public class UserManagementTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validating User Management Edit User : Interaction Channel,Validate all Interaction displayed as per config file.", "description");
             pages.getUserManagementPage().openListInteractionChannels();
-            ArrayList<String> strings = pages.getUserManagementPage().getInteractionChannels();
+            List<String> strings = pages.getUserManagementPage().getInteractionChannels();
             try {
                 pages.getUserManagementPage().pressESC();
             } catch (NoSuchElementException | TimeoutException e) {

@@ -53,19 +53,26 @@ public class BasePage extends Driver {
         basePageElements = new BasePageElements();
     }
 
-
+    /**
+     * This method is use to wait until loader get removed
+     */
     public void waitTillLoaderGetsRemoved() {
         commonLib.info("Waiting for loader to be removed");
         fluentWait.until(ExpectedConditions.invisibilityOfElementLocated(basePageElements.loader));
         commonLib.info("Loader Removed");
     }
 
+    /**
+     * This method is use to wait until overlay get removed
+     */
     public void waitTillOverlayGetsRemoved() {
         commonLib.info("Waiting for overlay to be removed");
         fluentWait.until(ExpectedConditions.invisibilityOfElementLocated(basePageElements.overlay));
         commonLib.info("Overlay Removed");
     }
-
+    /**
+     * This method is use to wait until stream line loader get removed
+     */
     public void waitTillTimeLineGetsRemoved() {
         fluentWait.until(ExpectedConditions.invisibilityOfElementLocated(basePageElements.timeLine));
     }
@@ -106,6 +113,11 @@ public class BasePage extends Driver {
         }
     }
 
+    /**
+     * This method use to scroll to view web element
+     * @param element The element location
+     * @throws InterruptedException in-case throw interrupt exception
+     */
     public void scrollToViewElement(By element) throws InterruptedException {
         WebElement element1 = driver.findElement(element);
         waitVisibility(element);
@@ -113,7 +125,11 @@ public class BasePage extends Driver {
         Thread.sleep(500);
     }
 
-    //Write Text
+    /**
+     * This method is use to enter text into web element
+     * @param elementLocation The element location
+     * @param text The value to write
+     */
     public void enterText(By elementLocation, String text) {
         if (isVisible(elementLocation)) {
             highLighterMethod(elementLocation);
@@ -125,7 +141,11 @@ public class BasePage extends Driver {
         }
     }
 
-    //Read Text
+    /**
+     * This method use to read text present by element location
+     * @param elementLocation The element location
+     * @return String The value
+     */
     public String getText(By elementLocation) {
         waitVisibility(elementLocation);
         highLighterMethod(elementLocation);
@@ -146,7 +166,11 @@ public class BasePage extends Driver {
         }
     }
 
-    //Check the state of element
+    /**
+     * This method is use to check element is enabled or not on a web-page
+     * @param elementLocation The element location
+     * @return true/false
+     */
     public boolean isEnabled(By elementLocation) {
         boolean result = false;
         try {
@@ -159,12 +183,19 @@ public class BasePage extends Driver {
         return result;
     }
 
-    //Wait For Element
+    /**
+     * This method is use to wait until element is visible on a web-page
+     * @param by The element location
+     */
     public void waitVisibility(By by) {
         wait.until(ExpectedConditions.presenceOfElementLocated(by));
         wait.until(ExpectedConditions.visibilityOfElementLocated(by));
     }
 
+    /**
+     * This method use to switch window based on window number
+     * @param windownumber The window number
+     */
     public void waitAndSwitchWindow(int windownumber) {
         wait.until(ExpectedConditions.numberOfWindowsToBe(windownumber));
         ArrayList<String> tabs2 = new ArrayList<>(driver.getWindowHandles());
@@ -186,25 +217,38 @@ public class BasePage extends Driver {
             commonLib.fail("Exception in method - hoverOverElement", true);
     }
 
+    /**
+     * This method use to open home tab
+     * @return Object The customer profile page
+     */
     public CustomerProfile openingCustomerInteractionDashboard() {
         commonLib.info("Opening Customer Interactions Dashboard");
         clickAndWaitForLoaderToBeRemoved(basePageElements.home);
-        waitTillLoaderGetsRemoved();
         return new CustomerProfile(driver);
     }
 
+    /**
+     * This method use to get toast message text appeared on screen
+     * @return String The Value
+     */
     public String getToastMessage() {
         String message = getText(basePageElements.toastMessage);
         commonLib.info(message);
         return message;
     }
 
-    //Switch to parent frame
+    /**
+     * This method use to switch back to parent frame
+     */
     public void switchToParentFrme() {
         driver.switchTo().parentFrame();
     }
 
-    // is element  visible
+    /**
+     * This method use to check element visible or not
+     * @param element The element location
+     * @return true/false
+     */
     public boolean isElementVisible(By element) {
         try {
             return driver.findElement(element).isDisplayed();
@@ -215,10 +259,14 @@ public class BasePage extends Driver {
     }
 
 
+    /**
+     * This method use to click element by given text
+     * @param text The visible text
+     */
     public void selectByText(String text) {
-        WebElement elementby = driver.findElement(By.xpath("//span[contains(text(),'" + text + "')]"));
+        WebElement elementby = driver.findElement(By.xpath(basePageElements.spanText+ text + "')]"));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", elementby);
-        driver.findElement(By.xpath("//span[contains(text(),'" + text + "')]")).click();
+        driver.findElement(By.xpath(basePageElements.spanText + text + "')]")).click();
     }
 
     /**
@@ -227,20 +275,33 @@ public class BasePage extends Driver {
      * @return true/false
      * */
     public Boolean isTextVisible(String text) {
-        By elementBy = By.xpath("//span[contains(text(),'" + text.trim() + "')]");
+        By elementBy = By.xpath(basePageElements.spanText + text.trim() + "')]");
         return isElementVisible(elementBy);
     }
 
+    /**
+     * This method use to click outside the overlay window
+     */
     public void clickOutside() {
         Actions action = new Actions(driver);
         action.moveByOffset(0, 0).click().build().perform();
     }
 
+    /**
+     * This method use to clear input tag content
+     * @param element The element location
+     */
     public void clearInputTag(By element) {
         commonLib.info("Clear Search Box");
         driver.findElement(element).clear();
     }
 
+    /**
+     * This method use to validate the text present in the list is same or not
+     * @param element The Element location
+     * @param text The text
+     * @return true/false
+     */
     public boolean validateFilter(By element, String text) {
         List<WebElement> list = returnListOfElement(element);
         commonLib.info("Validating Filter");
@@ -254,6 +315,7 @@ public class BasePage extends Driver {
     }
 
     /**
+     * This method is used to get list of element based on element location
      * @param element The element locator
      * @return list of element found using element locator on page
      * */
@@ -267,11 +329,25 @@ public class BasePage extends Driver {
         return list;
     }
 
+    /**
+     * This method use to get text from the list of element based on row number
+     * @param elementLocation The element location
+     * @param row The row number
+     * @return String The value
+     */
     public String readTextOnRows(By elementLocation, int row) {
         waitVisibility(elementLocation);
         return driver.findElements(elementLocation).get(row).getText();
     }
 
+    /**
+     * This method use to get text from the list of element based on row number and column number
+     * @param rowLocation The element row location
+     * @param columnLocation The element column location
+     * @param row The row number
+     * @param column The column number
+     * @return String The value
+     */
     public String readOnRowColumn(By rowLocation, By columnLocation, int row, int column) {
         waitVisibility(rowLocation);
         commonLib.info("Row Size: " + driver.findElements(rowLocation).size());
@@ -463,7 +539,6 @@ public class BasePage extends Driver {
             elements = driver.findElements(elementLocation);
         } catch (Exception e) {
             e.getStackTrace();
-
         }
         return elements;
     }

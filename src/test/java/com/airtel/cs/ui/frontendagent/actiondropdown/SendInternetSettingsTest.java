@@ -4,6 +4,7 @@ import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.driver.Driver;
 import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;
@@ -51,15 +52,18 @@ public class SendInternetSettingsTest extends Driver {
 
     @Test(priority = 2, description = "Verify the Send Internet Setting tab is getting closed on click on Cancel Button", dependsOnMethods = "openCustomerInteraction")
     public void validateCancelBtn() {
+        boolean modalOpened = false;
         try {
             selUtils.addTestcaseDescription("Open send internet setting modal from actions drop down, Click on cancel button, Modal should be closed", "description");
             pages.getCustomerProfilePage().clickOnAction();
             pages.getCustomerProfilePage().clickSendInternetSetting();
+            modalOpened = true;
             assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isSendInternetSettingTitleVisible(), true, "Send Internet Setting Tab opened", "Send Internet Setting Tab does NOT opened"));
             pages.getCustomerProfilePage().clickCancelBtn();
             actions.assertAllFoundFailedAssert(assertCheck);
-        } catch (NoSuchElementException | TimeoutException e) {
-            pages.getCustomerProfilePage().clickCloseBtn();
+        } catch (NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
+            if (modalOpened)
+                pages.getCustomerProfilePage().clickCloseBtn();
             commonLib.fail("Exception in Method :- validateSendInternetSetting" + e.fillInStackTrace(), true);
         }
     }
@@ -79,7 +83,7 @@ public class SendInternetSettingsTest extends Driver {
             final String toastText = pages.getAuthTabPage().getToastText();
             assertCheck.append(actions.assertEqual_stringType(toastText, "Internet Settings has been sent on Customer`s Device.", "Send Internet Settings Message has been sent to customer successfully", "Send Internet Settings Message hasn't been sent to customer ans message is :-" + toastText));
             actions.assertAllFoundFailedAssert(assertCheck);
-        } catch (NoSuchElementException | TimeoutException e) {
+        } catch (NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
             commonLib.fail("Exception in Method - validateSendInternetSetting" + e.fillInStackTrace(), true);
             pages.getCustomerProfilePage().clickOutside();
         }

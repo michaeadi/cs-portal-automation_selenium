@@ -30,8 +30,12 @@ public class ClearRefillErrorTest extends Driver {
         }
     }
 
+    /**
+     * This method is used to Open Customer Profile Page with valid MSISDN
+     * @param data
+     */
     @DataProviders.User(userType = "API")
-    @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteractionAPI(TestDatabean data) {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -50,26 +54,28 @@ public class ClearRefillErrorTest extends Driver {
         }
     }
 
-    @Test(priority = 2, dependsOnMethods = "openCustomerInteractionAPI", description = "Validating Clear Refill Clear")
+    /**
+     * This method is used to validate clear refill
+     */
+    @Test(priority = 2, dependsOnMethods = "openCustomerInteractionAPI", groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void clearRefillTest() {
-        selUtils.addTestcaseDescription("Validating Clear Refill Clear: " + customerNumber, "description");
-        SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(pages.getRechargeHistoryWidget().isRechargeHistoryWidgetIsVisible(), "Recharge History Widget is not visible");
-        softAssert.assertTrue(pages.getRechargeHistoryWidget().isRechargeHistoryDatePickerVisible(), "Recharge History Widget's Date Picker is not visible");
+        selUtils.addTestcaseDescription("Validating Clear Refill Test: " + customerNumber, "description");
+        assertCheck.append(actions.assertEqual_boolean(pages.getRechargeHistoryWidget().isRechargeHistoryWidgetIsVisible(), true, "Recharge History Widget is visible", "Recharge History Widget is not visible"));
+        assertCheck.append(actions.assertEqual_boolean(pages.getRechargeHistoryWidget().isRechargeHistoryDatePickerVisible(), true, "Recharge History Widget's Date Picker is visible", "Recharge History Widget's Date Picker is not visible"));
         RefillStatus refillStatus = api.clearRefillTest(customerNumber);
         boolean status = refillStatus.getResponse().getRefilledBarred();
         if (status) {
-            Assert.assertTrue(pages.getRechargeHistoryWidget().isRefillIconEnable(), "Clear Refill Icon does not enable when user bar.");
+            assertCheck.append(actions.assertEqual_boolean(pages.getRechargeHistoryWidget().isRefillIconEnable(), true, "Clear Refill Icon enable when user bar.", "Clear Refill Icon does not enable when user bar."));
             try {
                 pages.getRechargeHistoryWidget().clickRefillIcon();
-                Assert.assertTrue(pages.getRechargeHistoryWidget().checkPopDisplay(), "Confirmation window does not display after clicking on clear Refill Icon.");
+                assertCheck.append(actions.assertEqual_boolean(pages.getRechargeHistoryWidget().checkPopDisplay(), true, "Confirmation window display after clicking on clear Refill Icon.", "Confirmation window does not display after clicking on clear Refill Icon."));
                 pages.getRechargeHistoryWidget().clickNoBtn();
             } catch (NoSuchElementException | TimeoutException e) {
-                softAssert.fail("Not able to perform Clear refill action due to error: " + e.fillInStackTrace());
+                commonLib.fail("Exception in Method - clearRefillTest" + e.fillInStackTrace() , true);
             }
         } else {
-            Assert.assertTrue(pages.getRechargeHistoryWidget().isRefillIconDisable(), "Clear refill icon does not disable when user not barred.");
+            assertCheck.append(actions.assertEqual_boolean(pages.getRechargeHistoryWidget().isRefillIconDisable(), true, "Clear refill icon disable when user not barred.", "Clear refill icon does not disable when user not barred."));
         }
-        softAssert.assertAll();
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 }

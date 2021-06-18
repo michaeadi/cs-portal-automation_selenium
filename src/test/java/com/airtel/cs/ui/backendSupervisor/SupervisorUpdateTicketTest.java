@@ -60,8 +60,9 @@ public class SupervisorUpdateTicketTest extends Driver {
                 try {
                     pages.getSupervisorTicketList().viewTicket();
                     try {
-                        selectedState = pages.getViewTicket().selectState(data.ticketStateClosed());
-                        if (selectedState.equalsIgnoreCase(data.ticketStateClosed())) {
+                        String selectStateByConfig=data.getState(constants.getValue(CommonConstants.TICKET_CLOSE_STATE)).get(0).getTicketStateName();
+                        selectedState = pages.getViewTicket().selectState(selectStateByConfig);
+                        if (selectedState.equalsIgnoreCase(selectStateByConfig)) {
                             pages.getSupervisorTicketList().changeTicketTypeToClosed();
                             pages.getSupervisorTicketList().writeTicketId(Data.getTicketNumber());
                             pages.getSupervisorTicketList().clickSearchBtn();

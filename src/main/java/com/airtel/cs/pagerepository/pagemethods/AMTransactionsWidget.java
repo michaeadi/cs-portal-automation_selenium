@@ -20,13 +20,16 @@ public class AMTransactionsWidget extends BasePage {
         pageElements = PageFactory.initElements(driver, AMTxnWidgetPage.class);
     }
 
-    /*
-    This Method will give us the header value
+    /**
+     * This method use to get data value from AM widget based on row and column
+     * @param row    The row number
+     * @param column The column number
+     * @return String The  data value
      */
     public String getHeaderValue(int row, int column) {
         String result;
         String attribute;
-        result = widgetMethods.getColumnValue(getAMWidgetId(),row,column);
+        result = widgetMethods.getColumnValue(getAMWidgetId(), row, column);
         if (column == 1) {
             String sign = null;
             attribute = getAttribute(By.xpath(pageElements.dataRow + row + pageElements.amountSign + column + pageElements.amountImg), "src", false);
@@ -60,36 +63,57 @@ public class AMTransactionsWidget extends BasePage {
     This Method will give us airtel money currency
      */
     public String gettingAirtelMoneyCurrency() {
-        String result = null;
+        String result;
         result = getText(pageElements.airtelMoneyCurrency);
         result = result.replaceAll("\\s.*", "");
         commonLib.info("Getting Airtel Money Currency from Widget : " + result);
         return result;
     }
 
+    /**
+     * This method is use to get the widget error message
+     * @return String the value
+     */
     public String gettingAMBalanceUnableToFetchMessage() {
         commonLib.info("Getting error Message for unable to fetch AM Money Balance : " + getText(pageElements.airtelMoneyCurrency));
         return getText(pageElements.airtelMoneyBalanceUnableToFetch);
     }
 
+    /**
+     * This method is use to check AM balance error visible when api not able to fetch balance
+     * @return true/false
+     */
     public boolean isAMBalanceUnableToFetch() {
         final boolean elementVisible = isElementVisible(pageElements.airtelMoneyBalanceUnableToFetch);
         commonLib.info("Is error visible on unable to fetch AM Money Balance : " + elementVisible);
         return elementVisible;
     }
 
+    /**
+     * This method is use to get airtel money balance
+     *
+     * @return String The Value
+     */
     public String gettingAirtelMoneyBalance() {
         final String text = getText(pageElements.airtelMoneyBalance);
         commonLib.info("Getting Airtel Money Balance from Widget : " + text);
         return text;
     }
 
+    /**
+     * This method is use to get secondary AM wallet balance
+     *
+     * @return String The String
+     */
     public String gettingAirtelMoneyBalance2() {
         final String text = getText(pageElements.airtelMoneyBalance2);
         commonLib.info("Getting Airtel Money 2nd Balance from Widget : " + text);
         return text;
     }
 
+    /**
+     * This method is use to click ticket icon present on widget
+     */
     public void clickTicketIcon() {
         try {
             commonLib.info("Clicking on Ticket Icon");
@@ -99,9 +123,14 @@ public class AMTransactionsWidget extends BasePage {
         }
     }
 
+    /**
+     * This method use to get title of widget
+     *
+     * @return String The value
+     */
     public String getWidgetTitle() {
         final String text = getText(pageElements.getTitle);
-        log.info("Getting Widget title: " + text);
+        commonLib.info("Getting Widget title: " + text);
         return text.toLowerCase();
     }
 
@@ -117,11 +146,19 @@ public class AMTransactionsWidget extends BasePage {
         return result;
     }
 
+    /**
+     * This method use to click menu button
+     */
     public void clickMenuOption() {
         commonLib.info("Clicking Menu Option");
         clickAndWaitForLoaderToBeRemoved(pageElements.clickMenu);
     }
 
+    /**
+     * This method is use to double click on transaction id
+     * @param row The row Number
+     * @return String The value
+     */
     public String doubleClickOnTransactionId(int row) {
         Actions act = new Actions(driver);
         By id = By.xpath(pageElements.dataRow + row + pageElements.transactionIdColumn);
@@ -133,7 +170,7 @@ public class AMTransactionsWidget extends BasePage {
      * This method is use to get Airtel Money transaction widget unique identifier
      * @return String The Value
      */
-    public String getAMWidgetId(){
+    public String getAMWidgetId() {
         return pageElements.amWidgetId;
     }
 }

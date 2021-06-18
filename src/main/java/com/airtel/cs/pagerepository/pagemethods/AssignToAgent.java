@@ -19,64 +19,100 @@ public class AssignToAgent extends BasePage {
         pageElements = PageFactory.initElements(driver, AssignToAgentPage.class);
     }
 
+    /**
+     * This method is used to check validate page title displayed
+     * @return true/false
+     */
     public boolean validatePageTitle() {
         commonLib.info("Validating Assign to agent Page");
         return isEnabled(pageElements.pageTitle);
     }
 
+    /**
+     * This method is use to get queue name for which tab is opened
+     * @return String The value
+     */
     public String getQueueName() {
         final String text = getText(pageElements.queueName);
-        log.info("Queue Name: " + text);
+        commonLib.info("Queue Name: " + text);
         return text;
     }
 
+    /**
+     * This method use to get agent name
+     * @return String The Value
+     */
     public String getAgentName() {
         final String text = getText(pageElements.agentName);
         commonLib.info("Assigning Ticket to Agent Name: " + text);
         return text;
     }
 
+    /**
+     * This method use to get agent auuid
+     * @return String The Value
+     */
     public String getAgentAuuid() {
         final String text = getText(pageElements.agentAuuid);
         commonLib.info("Assigning Ticket to Agent AUUID: " + text);
         return text;
     }
 
+    /**
+     * This Method is use to get availability slot
+     * @param element The element location
+     * @return Integer the count
+     */
     public int getAvailableSlot(By element) {
         final String text = getText(element);
-        log.info("Agent Available Slot: " + text);
+        commonLib.info("Agent Available Slot: " + text);
         return Integer.parseInt(text);
     }
 
+    /**
+     * This method is used to get assigned slot
+     * @return String The Value
+     */
     public String getAssignedSlot() {
         final String text = getText(pageElements.assignedSlot);
-        log.info("Agent Assigned Slot: " + text);
+        commonLib.info("Agent Assigned Slot: " + text);
         return text;
     }
 
+    /**
+     * This method is use to close assign tab
+     */
     public void closeAssignTab() {
         commonLib.info("Clicking on Close Assign Button");
         clickAndWaitForLoaderToBeRemoved(pageElements.closeTab);
     }
 
+    /**
+     * This method is use to get info message once ticket assign
+     * @return String The value
+     */
     public String getInfoMessage() {
         final String text = getText(pageElements.infoMessage);
-        log.info("Reading Info Message: " + text);
+        commonLib.info("Reading Info Message: " + text);
         return text;
     }
 
+    /**
+     * This method is use to assign ticket to agent based on agent have available slot and tickets not already assigned to same agent
+     * @param assigneeAUUID The assignee auuid
+     * @return String The ticket new assignee auuid
+     * @throws InterruptedException
+     */
     public String ticketAssignedToAgent(String assigneeAUUID) throws InterruptedException {
         int slot;
-        By list = By.xpath("//div[@class=\"pannel-content-area ng-star-inserted\"]/div");
-        List<WebElement> agentList = returnListOfElement(list);
+        List<WebElement> agentList = returnListOfElement(pageElements.agentsCount);
         for (int i = 1; i <= agentList.size(); i++) {
-            By agentAUUID = By.xpath("//div[@class=\"pannel-content-area ng-star-inserted\"]/div[" + i + "]//span[@class=\"auuid yellow\"]");
+            By agentAUUID = By.xpath(pageElements.agentList + i + pageElements.auuidField);
             String auuid = getText(agentAUUID);
-            log.info("Agent AUUID: " + getText(agentAUUID));
-            log.info("Check state: " + getText(agentAUUID).contains(assigneeAUUID));
+            commonLib.info("Agent AUUID: " + getText(agentAUUID));
+            commonLib.info("Check state: " + getText(agentAUUID).contains(assigneeAUUID));
             if (!getText(agentAUUID).contains(assigneeAUUID)) {
-                By allSlot = By.xpath("//div[@class=\"pannel-content-area ng-star-inserted\"]/div[" + i + "]//span[@class=\"slot-count orange\"]");
-                log.info(getText(allSlot));
+                By allSlot = By.xpath(pageElements.agentList + i + pageElements.slotCount);
                 try {
                     slot = Integer.parseInt(getText(allSlot));
                 } catch (NumberFormatException e) {
@@ -85,7 +121,7 @@ public class AssignToAgent extends BasePage {
                 }
                 if (slot > 0) {
                     commonLib.info("Found Agent with Available Slot");
-                    By clickAssignBtn = By.xpath("//div[@class=\"pannel-content-area ng-star-inserted\"]/div[" + i + "]/div[4]/img[1]");
+                    By clickAssignBtn = By.xpath(pageElements.agentList + i + pageElements.tabAssignIcon);
                     scrollToViewElement(clickAssignBtn);
                     clickAndWaitForLoaderToBeRemoved(clickAssignBtn);
                     commonLib.info("Click on Assign to Agent Button");

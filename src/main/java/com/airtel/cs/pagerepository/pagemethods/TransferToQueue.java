@@ -17,18 +17,28 @@ public class TransferToQueue extends BasePage {
         pageElements = PageFactory.initElements(driver, TransferToQueuePage.class);
     }
 
+    /**
+     * This method is use to validate transfer to queue tab title
+     * @return true/false
+     */
     public boolean validatePageTitle() {
         commonLib.info("Validating Transfer to Queue Title");
         return isEnabled(pageElements.pageTitle);
     }
 
+    /**
+     * This method is use to click transfer to queue button based on queue name
+     * @param queueName The Queue name
+     */
     public void clickTransferQueue(String queueName) {
-        log.info("Clicking on Transfer to Button");
-        pageElements.transferQueue = By.xpath("//span[contains(text(),'" + queueName + "')]//ancestor::div[1]//following-sibling::div/img");
-        clickAndWaitForLoaderToBeRemoved(pageElements.transferQueue);
+        By transferQueue = By.xpath( pageElements.option+ queueName + pageElements.transferQueueBtn);
+        clickAndWaitForLoaderToBeRemoved(transferQueue);
         commonLib.info("Transferring Ticket to Ticket Pool Name: " + queueName);
     }
 
+    /**
+     * This method is use to click close tab
+     */
     public void clickCloseTab() {
         commonLib.info("Closing Transfer to Queue Tab");
         clickAndWaitForLoaderToBeRemoved(pageElements.closeTab);

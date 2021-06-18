@@ -24,6 +24,11 @@ public class CRBTWidgetPage {
     public String crbtTableHeader1 = "]/span";
     public String crbtTableValue = "//div[@id='RING_BACK_TUNE']//div[contains(@class,'table-data-wrapper')]//div[";
     public String crbtTableValue1 = "]//div[contains(@class,'table--data-list row-border')]//div[";
+    public String tabHeader="//div[@id='RING_BACK_TUNE']//div[@role='tab'][";
+    public String searchHeader="//div[@id='RING_BACK_TUNE']//div[@class='mat-tab-body-wrapper']//div[@class='card__card-header--card-body--table']//div[@class='card__card-header--card-body--table--list-heading ng-star-inserted']//div[";
+    public String headerText="]/span";
+    public String dataRows="//div[@id='RING_BACK_TUNE']//div[@class='mat-tab-body-wrapper']//div[@class='table-data-wrapper ng-star-inserted']//div[";
+    public String dataColumns="]//div[@class='card__card-header--card-body--table--data-list row-border']//div[";
 
     public String crbtWidgetIdentifier="//div[@data-csautomation-key='RING_BACK_TUNE']";
 }

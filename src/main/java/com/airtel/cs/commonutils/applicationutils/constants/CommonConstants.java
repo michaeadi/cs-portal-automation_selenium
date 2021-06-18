@@ -17,6 +17,7 @@ public class CommonConstants {
     public static final String UI_RECHARGE_HISTORY_PATTERN ="cs.ui.recharge.history.pattern";
     public static final String API_RECHARGE_HISTORY_PATTERN="cs.api.recharge.history.pattern";
     public static final String TICKET_CLOSE_STATE = "cs.close.state";
+    public static final String TICKET_OPEN_STATE = "cs.open.state";
     public static final String SUITE_TYPE = "cs.suite.type";
     public static final String TRANSFER_TO_QUEUE_SHEET = "cs.transfer.to.queue.sheet";
     public static final String TICKET_BULK_UPDATE_SHEET = "cs.ticket.bulk.update.sheet";
@@ -46,12 +47,18 @@ public class CommonConstants {
     public static final String SEARCH_BY_GLOBAL_SEARCH="cs.search.by.global.search";
     public static final String ADD_FNF_ACTION_TYPE="add.fnf.Type";
     public static final String DELETE_FNF_ACTION_TYPE="delete.fnf.Type";
-    public static final String SYSTEM_SMS_TYPE="system.sms.type";
+    public static final String SYSTEM_SMS_TYPE="cs.system.sms.type";
     public static final String MANUAL_SMS_TYPE="manual.sms.type";
-    public static final String TICKET_CREATED_EVENT="ticket.create.event";
+    public static final String TICKET_CREATED_EVENT="cs.ticket.create.event";
     public static final String ISSUE_COMMENT_TYPE="cs.comment.issue.type";
     public static final String ALL_USER_ROLE_NAME="cs.all.user.role.name";
     public static final String ACCUMULATOR_API_TIME_FORMAT="cs.api.accumulator.time.format";
     public static final String ACCUMULATOR_UI_TIME_FORMAT="cs.ui.accumulator.time.format";
+    public static final String TICKET_BULK_UPDATE_MAX_COUNT="cs.max.bulk.ticket.count";
+    public static final String TICKET_BULK_UPDATE_TRANSFER_TO_QUEUE_ACTION="cs.bulk.update.transfer.to.queue.action";
+    public static final String TICKET_BULK_UPDATE_CHANGE_STATE_ACTION="cs.bulk.update.change.state.action";
+    public static final String TICKET_BULK_UPDATE_ADD_TICKET_COMMENT_ACTION="cs.bulk.update.add.ticket.comment.action";
+    public static final String INVALID_TICKET_ID="cs.invalid.ticket.id";
+    public static final String BACKEND_AGENT_TICKET_LIST_PAGE="cs.backend.agent.ticket.list.page";
 
 }

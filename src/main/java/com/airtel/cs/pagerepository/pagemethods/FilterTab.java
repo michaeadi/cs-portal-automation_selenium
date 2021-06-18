@@ -1,5 +1,6 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
+import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.PriorityDataBean;
 import com.airtel.cs.commonutils.dataproviders.TicketStateDataBean;
@@ -29,48 +30,76 @@ public class FilterTab extends BasePage {
         tabElements = PageFactory.initElements(driver, FilterTabPage.class);
     }
 
+    /**
+     * This method is use to click open queue filter list
+     */
     public void clickQueueFilter() {
         clickAndWaitForLoaderToBeRemoved(tabElements.openQueueList);
     }
 
+    /**
+     * This method is use to scroll to queue filter
+     */
     public void scrollToQueueFilter() throws InterruptedException {
         scrollToViewElement(tabElements.showQueueFilter);
     }
 
+    /**
+     * This method is use to click last 7 days filter
+     */
     public void clickLast7DaysFilter() {
         commonLib.info("Clicking on filter by created date - Last 7 days");
         clickAndWaitForLoaderToBeRemoved(tabElements.last7DaysCD);
     }
 
+    /**
+     * This method is use to click last 30 days filter
+     */
     public void clickLast30DaysFilter() {
         commonLib.info("Clicking on filter by created date - Last 30 days");
         clickAndWaitForLoaderToBeRemoved(tabElements.last30DaysCD);
     }
 
-
+    /**
+     * This method is use to select queue option by  queue name
+     * @param queueName Queue name
+     * @throws InterruptedException in-case scroll interrupt
+     */
     public void selectQueueByName(String queueName) throws InterruptedException {
         commonLib.info("Select Queue Filter Name: " + queueName);
-        By queue = By.xpath("//mat-option//span[contains(text(),'" + queueName + "')]");
+        By queue = By.xpath( tabElements.queueOption+ queueName + "')]");
         scrollToViewElement(queue);
         clickAndWaitForLoaderToBeRemoved(queue);
     }
 
+    /**
+     * This method is use to click apply filter button
+     */
     public void clickApplyFilter() {
         commonLib.info("Clicking on APPLY Filter Button");
         clickAndWaitForLoaderToBeRemoved(tabElements.applyFilter);
         waitTillLoaderGetsRemoved();
     }
 
+    /**
+     * This method is use to click outside the filter
+     */
     public void clickOutsideFilter() {
         clickOutside();
     }
 
+    /**
+     * This method is use to click un-assigned filter button
+     */
     public void clickUnAssignedFilter() throws InterruptedException {
         commonLib.info("Apply Filter By Ticket Assignee");
         scrollToViewElement(tabElements.unAssigned);
         clickAndWaitForLoaderToBeRemoved(tabElements.unAssigned);
     }
 
+    /**
+     * This method is use to click open escalation filter icon
+     */
     public void openEscalationFilter() throws InterruptedException {
         commonLib.info("Apply filter by ticket escalation level");
         scrollToViewElement(tabElements.openEscalationFilter);
@@ -78,72 +107,89 @@ public class FilterTab extends BasePage {
         clickAndWaitForLoaderToBeRemoved(tabElements.openEscalationFilter);
     }
 
-    public void selectAllLevel1() {
+    /**
+     * This method is use to check all level 1 escalation checkbox
+     */
+    public void selectAllLevel1() throws InterruptedException {
         commonLib.info("Selecting escalation level 1");
-        try {
             List<WebElement> level1 = returnListOfElement(tabElements.level1Escalation);
             for (WebElement level : level1) {
                 ((JavascriptExecutor) driver).executeScript(SCROLL_SCRIPT, level);
                 Thread.sleep(500);
                 level.click();
             }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
-    public void selectAllLevel2() {
+    /**
+     * This method is use to check all level 2 escalation checkbox
+     */
+    public void selectAllLevel2() throws InterruptedException {
         commonLib.info("Selecting escalation level 2");
-        try {
             List<WebElement> level1 = returnListOfElement(tabElements.level2Escalation);
             for (WebElement level : level1) {
                 ((JavascriptExecutor) driver).executeScript(SCROLL_SCRIPT, level);
                 Thread.sleep(500);
                 level.click();
             }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
-    public void selectAllLevel3() {
+    /**
+     * This method is use to check all level 3 escalation checkbox
+     */
+    public void selectAllLevel3() throws InterruptedException {
         commonLib.info("Selecting escalation level 3");
-        try {
             List<WebElement> level1 = returnListOfElement(tabElements.level3Escalation);
             for (WebElement level : level1) {
                 ((JavascriptExecutor) driver).executeScript(SCROLL_SCRIPT, level);
                 Thread.sleep(500);
                 level.click();
             }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
+    /**
+     * This method is use to check filter by created date available or not
+     * @return true/false
+     */
     public boolean isCreatedByFilter() {
         final boolean state = isEnabled(tabElements.filterCreatedByLabel);
         commonLib.pass("Is filter by created date available :" + state);
         return state;
     }
 
+    /**
+     * This method is use to check filter by closure date available or not
+     * @return true/false
+     */
     public boolean isClosureByFilter() {
         final boolean state = isEnabled(tabElements.filterClosureByLabel);
         commonLib.info("Is filter by Closure date available :" + state);
         return state;
     }
 
+    /**
+     * This method is use to check filter by SLA Due date available or not
+     * @return true/false
+     */
     public boolean isSlaDueDateFilter() {
         final boolean state = isEnabled(tabElements.sLADueDateLabel);
         commonLib.pass("Is filter by SLA due date available :" + state);
         return state;
     }
 
+    /**
+     * This method is use to check filter by Category available or not
+     * @return true/false
+     */
     public boolean isCategoryFilter() {
         final boolean state = isEnabled(tabElements.categoryLabel);
         commonLib.pass("Is filter by issue category available :" + state);
         return state;
     }
 
+    /**
+     * This method is use to check filter by Queue available or not
+     * @return true/false
+     */
     public boolean isQueueFilter() {
         try {
             final boolean state = isEnabled(tabElements.queueLabel);
@@ -154,6 +200,10 @@ public class FilterTab extends BasePage {
         }
     }
 
+    /**
+     * This method is use to check filter by Ticket Assignee name available or not
+     * @return true/false
+     */
     public boolean isTicketByAssigneeFilter() {
         try {
             final boolean state = isEnabled(tabElements.ticketAssigneeLabel);
@@ -164,6 +214,10 @@ public class FilterTab extends BasePage {
         }
     }
 
+    /**
+     * This method is use to check filter by escalated level available or not
+     * @return true/false
+     */
     public boolean isEscalatedLevelFilter() {
         try {
             final boolean state = isEnabled(tabElements.escalatedLevelLabel);
@@ -174,6 +228,10 @@ public class FilterTab extends BasePage {
         }
     }
 
+    /**
+     * This method is use to check filter by ticket state available or not
+     * @return true/false
+     */
     public boolean isStateFilter() {
         try {
             final boolean state = isEnabled(tabElements.stateLabel);
@@ -184,6 +242,10 @@ public class FilterTab extends BasePage {
         }
     }
 
+    /**
+     * This method is use to check filter by ticket priority available or not
+     * @return true/false
+     */
     public boolean isPriorityFilter() {
         try {
             final boolean state = isEnabled(tabElements.priorityLabel);
@@ -194,9 +256,13 @@ public class FilterTab extends BasePage {
         }
     }
 
+    /**
+     * This method is use to validate all open state option visible or not in filter tab
+     * @return true/false
+     */
     public boolean validateOpenStateFilter() {
         DataProviders d = new DataProviders();
-        List<TicketStateDataBean> open = d.getState("open");
+        List<TicketStateDataBean> open = d.getState(constants.getValue(CommonConstants.TICKET_OPEN_STATE));
         boolean flag = true;
         for (TicketStateDataBean state : open) {
             final String stateName = state.getTicketStateName();
@@ -211,17 +277,19 @@ public class FilterTab extends BasePage {
         return flag;
     }
 
-
+    /**
+     * This method is use to validate all close state option visible or not in filter tab
+     * @return true/false
+     */
     public boolean validateCloseStateFilter() {
         DataProviders d = new DataProviders();
-        List<TicketStateDataBean> open = d.getState("Close");
+        List<TicketStateDataBean> open = d.getState(constants.getValue(CommonConstants.TICKET_CLOSE_STATE));
         boolean flag = true;
         for (TicketStateDataBean state : open) {
             final String stateName = state.getTicketStateName();
             By check = By.xpath(XPATH1 + stateName + "')]");
             try {
                 final boolean checkState = isEnabled(check);
-                log.info("Filter by state name " + stateName + " is: " + checkState);
                 commonLib.info(FILTER_TEXT + stateName + AVAILABLE + checkState);
             } catch (NoSuchElementException | TimeoutException e) {
                 commonLib.fail("State does not mapped Correctly(Check Config): '" + stateName + "' " + e.fillInStackTrace(), true);
@@ -232,6 +300,10 @@ public class FilterTab extends BasePage {
     }
 
 
+    /**
+     * This method is use to validate all priority option visible or not in filter tab
+     * @return true/false
+     */
     public boolean validatePriorityFilter() {
         DataProviders d = new DataProviders();
         List<PriorityDataBean> priorityList = d.getPriority();
@@ -249,6 +321,9 @@ public class FilterTab extends BasePage {
         return flag;
     }
 
+    /**
+     * This method use to click close filter
+     */
     public void clickCloseFilter() {
         try {
             commonLib.info("Closing Filter Tab");
@@ -258,6 +333,11 @@ public class FilterTab extends BasePage {
         }
     }
 
+    /**
+     * This method use to select code in filter by category based on issue code
+     * @param code The code
+     * @throws InterruptedException in-case of scroll interrupt
+     */
     public void applyFilterByCategoryCode(String code) throws InterruptedException {
         commonLib.info("Clicking Code Field");
         scrollToViewElement(tabElements.byCode);
@@ -265,7 +345,7 @@ public class FilterTab extends BasePage {
         commonLib.info("Searching category code: " + code);
         enterText(tabElements.searchBox, code);
         waitTillLoaderGetsRemoved();
-        By selectCode = By.xpath("//span[@class='mat-option-text'][contains(text(),'" + code + "')]");
+        By selectCode = By.xpath(tabElements.codeOption + code + "')]");
         clickAndWaitForLoaderToBeRemoved(selectCode);
         commonLib.info("Category Code Selected");
         waitTillLoaderGetsRemoved();
@@ -291,16 +371,23 @@ public class FilterTab extends BasePage {
             clickAndWaitForLoaderToBeRemoved(tabElements.selectCustomerService);
             waitTillLoaderGetsRemoved();
             clickApplyFilter();
-            clearFilterDashbaord();
+            clearFilterDashboard();
         }
     }
 
-    public void clearFilterDashbaord() {
+    /**
+     * This method use to click clear filter button
+     */
+    public void clearFilterDashboard() {
         if (isVisible(tabElements.clearFilterButtonDashboard)) {
             clickAndWaitForLoaderToBeRemoved(tabElements.clearFilterButtonDashboard);
         }
     }
 
+    /**
+     * This method use to check apply filter button enabled or not
+     * @return true/false
+     */
     public Boolean isApplyFilterBtnEnabled() {
         selUtils.clickElementAfterScroll(tabElements.applyFilter);
         return isEnabled(tabElements.applyFilter);

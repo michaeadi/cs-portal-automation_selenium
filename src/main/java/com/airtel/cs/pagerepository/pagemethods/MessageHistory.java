@@ -13,9 +13,8 @@ import java.util.List;
 public class MessageHistory extends BasePage {
 
     MessageHistoryPage pageElements;
-    List<WebElement> list;
     private static final String TEXT1 = "Checking Message Type Column Displayed: ";
-    private static final String XPATH = "//table[@id=\"fetchTicketByCustomer\"]//tbody/tr[";
+    private static final String XPATH = "//table[@id='fetchTicketByCustomer']//tbody/tr[";
     private static final String TEXT = "No Message Found";
 
     public MessageHistory(WebDriver driver) {
@@ -23,71 +22,117 @@ public class MessageHistory extends BasePage {
         pageElements = PageFactory.initElements(driver, MessageHistoryPage.class);
     }
 
+    /**
+     * This method is use to check message type column display or not
+     * @return true/false
+     */
     public boolean isMessageTypeColumn() {
         boolean state = isEnabled(pageElements.messageTypeLabel);
-        log.info(TEXT1 + state);
+        commonLib.info(TEXT1 + state);
         return state;
     }
 
+    /**
+     * This method is use to check message sent date column display or not
+     * @return true/false
+     */
     public boolean isDateSentColumn() {
         boolean state = isEnabled(pageElements.dateSentLabel);
-        log.info(TEXT1 + state);
+        commonLib.info(TEXT1 + state);
         return state;
     }
 
+    /**
+     * This method is use to check template column display or not
+     * @return true/false
+     */
     public boolean isTemplateColumn() {
         boolean state = isEnabled(pageElements.templateLabel);
-        log.info(TEXT1 + state);
+        commonLib.info(TEXT1 + state);
         return state;
     }
 
+    /**
+     * This method is use to check message language column display or not
+     * @return true/false
+     */
     public boolean isMessageLanguageColumn() {
         boolean state = isEnabled(pageElements.messageLanguageLabel);
-        log.info(TEXT1 + state);
+        commonLib.info(TEXT1 + state);
         return state;
     }
 
+    /**
+     * This method is use to check message text column display or not
+     * @return true/false
+     */
     public boolean isMessageTextColumn() {
         boolean state = isEnabled(pageElements.messageTextLabel);
-        log.info(TEXT1 + state);
+        commonLib.info(TEXT1 + state);
         return state;
     }
 
+    /**
+     * This method is use to check agent id column display or not
+     * @return true/false
+     */
     public boolean isAgentIdColumn() {
         boolean state = isEnabled(pageElements.agentIdLabel);
-        log.info(TEXT1 + state);
+        commonLib.info(TEXT1 + state);
         return state;
     }
 
+    /**
+     * This method is use to check agent name column display or not
+     * @return true/false
+     */
     public boolean isAgentNameColumn() {
         boolean state = isEnabled(pageElements.agentNameLabel);
-        log.info(TEXT1 + state);
+        commonLib.info(TEXT1 + state);
         return state;
     }
 
+    /**
+     * This method is use to check action column display or not
+     * @return true/false
+     */
     public boolean isActionColumn() {
         boolean state = isEnabled(pageElements.actionLabel);
-        log.info(TEXT1 + state);
+        commonLib.info(TEXT1 + state);
         return state;
     }
 
+    /**
+     * This method use to get total number of message display
+     * @return Integer The count
+     */
     public int getListSize() {
-        list = returnListOfElement(pageElements.listOfMessage);
-        return getListSize();
+        final List<WebElement> elementsList = getElementsListFromBy(pageElements.listOfMessage);
+        return elementsList.size();
     }
 
+    /**
+     * This method use to get message type column value based on row number
+     * @param i The row number
+     * @return String The value
+     */
     public String messageType(int i) {
         if (i <= getListSize()) {
-            String type = getText(By.xpath(XPATH + i + "]//td[1]//b"));
+            String type = getText(By.xpath(XPATH + i + pageElements.messageTypeValue));
             commonLib.info("Message Type: " + type);
             return type;
         }
         return TEXT;
     }
 
+    /**
+     * This method use to get message sent date column value based on row number
+     * @param i The row number
+     * @return String The value
+     */
     public String sentDate(int i) {
         if (i <= getListSize()) {
-            String type = getText(By.xpath(XPATH + i + "]//td[2]//p//span[@class=\"date_time\"]"));
+            String type = getText(By.xpath(XPATH + i + pageElements.messageSentDate));
             commonLib.info("Sent Date: " + type);
             return type;
         }
@@ -95,91 +140,139 @@ public class MessageHistory extends BasePage {
     }
 
 
+    /**
+     * This method use to get message template event column value based on row number
+     * @param i The row number
+     * @return String The value
+     */
     public String templateEvent(int i) {
         if (i <= getListSize()) {
-            String type = getText(By.xpath(XPATH + i + "]//td[3]//p//b"));
+            String type = getText(By.xpath(XPATH + i + pageElements.templateEvent));
             commonLib.info("Template/Event Name: " + type);
             return type;
         }
         return TEXT;
     }
 
+    /**
+     * This method use to get message language column value based on row number
+     * @param i The row number
+     * @return String The value
+     */
     public String messageLanguage(int i) {
         if (i <= getListSize()) {
-            String type = getText(By.xpath(XPATH + i + "]//td[4]//p//b"));
+            String type = getText(By.xpath(XPATH + i + pageElements.messageLanguageValue));
             commonLib.info("Message language: " + type);
             return type;
         }
         return TEXT;
     }
 
+    /**
+     * This method use to get message text column value based on row number
+     * @param i The row number
+     * @return String The value
+     */
     public String messageText(int i) {
         if (i <= getListSize()) {
-            String type = driver.findElement(By.xpath(XPATH + i + "]//td[5]//p//b")).getAttribute("title");
+            String type = driver.findElement(By.xpath(XPATH + i + pageElements.messageText)).getAttribute("title");
             commonLib.info("Message Text: " + type);
             return type;
         }
         return TEXT;
     }
 
+    /**
+     * This method use to get agent id column value based on row number
+     * @param i The row number
+     * @return String The value
+     */
     public String agentId(int i) {
         if (i <= getListSize()) {
-            String type = getText(By.xpath(XPATH + i + "]//td[6]//p//b"));
+            String type = getText(By.xpath(XPATH + i + pageElements.agentIdValue));
             commonLib.info("Agent Id: " + type);
             return type;
         }
         return TEXT;
     }
 
+    /**
+     * This method use to get agent name column value based on row number
+     * @param i The row number
+     * @return String The value
+     */
     public String agentName(int i) {
         if (i <= getListSize()) {
-            String type = getText(By.xpath(XPATH + i + "]//td[7]//p//span"));
+            String type = getText(By.xpath(XPATH + i + pageElements.agentNameValue));
             commonLib.info("Agent Name: " + type);
             return type;
         }
         return TEXT;
     }
 
+    /**
+     * This method use check action button enable or not
+     * @return true/false
+     */
     public boolean isActionBtnEnable(int i) {
         if (i <= getListSize()) {
-            By actionEnable = By.xpath(XPATH + i + "]//td[8]//img");
+            By actionEnable = By.xpath(XPATH + i + pageElements.actionBtnEnable);
             return isEnabled(actionEnable);
         }
         return false;
     }
 
+    /**
+     * This method use check action button disable or not
+     * @return true/false
+     */
     public boolean isActionBtnDisable(int i) {
         if (i <= getListSize()) {
-            By actionEnable = By.xpath(XPATH + i + "]//td[8]//img[@class=\"disabled-icon\"]");
+            By actionEnable = By.xpath(XPATH + i + pageElements.actionButtonDisable);
             return isEnabled(actionEnable);
         }
         return false;
     }
 
+    /**
+     * This method use click action button
+     */
     public void clickActionBtn(int i) {
         if (i <= getListSize()) {
-            By actionEnable = By.xpath(XPATH + i + "]//td[8]//img");
+            By actionEnable = By.xpath(XPATH + i + pageElements.actionBtnEnable);
             clickAndWaitForLoaderToBeRemoved(actionEnable);
         }
     }
 
-    public String getPopUpTitle() {
+    /**
+     * This method is use to get pop up title
+     */
+    public void getPopUpTitle() {
         final String text = getText(pageElements.popUpTitle);
         commonLib.info("Reading pop title: " + text);
-        return text;
     }
 
+    /**
+     * This method is use to get pop up message
+     * @return String The value
+     */
     public String getPopUpMessage() {
         final String text = getText(pageElements.popUpMessage);
         commonLib.info("Reading pop message: " + text);
         return text;
     }
 
+    /**
+     * This method is use to click yes btn over pop up tab
+     */
     public void clickYesBtn() {
         commonLib.info("Clicking on 'Yes' Button");
         clickAndWaitForLoaderToBeRemoved(pageElements.yesBtn);
     }
 
+    /**
+     * This method is use to click no btn over pop up tab
+     */
     public void clickNoBtn() {
         commonLib.info("Clicking on 'NO' Button");
         clickAndWaitForLoaderToBeRemoved(pageElements.noBtn);

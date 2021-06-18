@@ -19,4 +19,5 @@ public class SideMenuPage {
     public By agentDashboard = By.xpath("//a[contains(text(),'Ticket Dashboard')]");
     public By logout = By.xpath("//span[@class='logout-icon']");
     public By loader = By.xpath("/html/body/app-root/ngx-ui-loader/div[2]");
+    public By backendAgentDashboard = By.xpath("//*[@data-csautomation-key='pageTitle']");
 }

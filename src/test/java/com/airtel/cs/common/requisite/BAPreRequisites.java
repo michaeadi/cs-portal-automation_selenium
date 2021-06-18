@@ -45,7 +45,7 @@ public class BAPreRequisites extends Driver {
             } else {
                 assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isSideMenuVisible(), true, "Side Menu Visible", "Side Menu Not Visible"));
                 pages.getSideMenuPage().clickOnSideMenu();
-                assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isAgentDashboard(), true, "Customer Service Visible", "Customer Service Not Visible"));
+                assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isBEAgentDashboard(), true, "Customer Service Visible", "Customer Service Not Visible"));
                 actions.assertAllFoundFailedAssert(assertCheck);
             }
         } catch (Exception e) {
@@ -98,17 +98,4 @@ public class BAPreRequisites extends Driver {
         pages.getSideMenuPage().openCustomerInteractionPage();
     }
 
-    /*
-    This Method will login in CS Portal and will check the Tariff Plan Option visible or not
-     */
-    public void goAndCheckServiceClassOptionVisible() {
-        try {
-            loginInCSPortal();
-            pages.getMsisdnSearchPage().enterNumber(constants.getValue(ApplicationConstants.TARIFF_PLAN_TEST_NUMBER));
-            pages.getMsisdnSearchPage().clickOnSearch();
-            pages.getCustomerProfilePage().clickOnAction();
-        } catch (Exception e) {
-            commonLib.error("Exception in Method - goAndCheckServiceClassOptionVisible " + e.getMessage());
-        }
-    }
 }

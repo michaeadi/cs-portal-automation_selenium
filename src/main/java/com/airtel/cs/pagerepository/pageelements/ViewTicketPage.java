@@ -13,5 +13,16 @@ public class ViewTicketPage {
     public By allTicketState = By.xpath("//div[@class='cdk-overlay-pane']//mat-option");
     public By continueBtn = By.xpath("//span[contains(text(),'continue')]");
     public By cancelBtn = By.xpath("//button[@class='no-btn mat-button']");
-    public By backButton = By.xpath("//button[@class=\"back mat-button\"]");
+    public By backButton = By.xpath("//button[@class='back mat-button']");
+    public By ticketLogTab=By.xpath("//a[contains(text(),'Ticket Log')]");
+    public String readLoggedText="//p//span[@class='open-state' and contains(text(),'";
+    public String bulkUpdate="')]//following-sibling::span[contains(text(),'Bulk update')]";
+    public String stateOptions="//div[@class='cdk-overlay-pane']//mat-option[";
+    public String stateText="]//span";
+    public String commentSection="//table[@class='ng-star-inserted']//tbody//tr[";
+    public String addComment= "]//p";
+    public String commentType="]/td/span/span[1]";
+    public String editCommentSection="]//td[1]//a[1]//img[1]";
+    public String deleteIcon="]//td[1]//a[2]//img[1]";
+    public String iconList="//table[@class='ng-star-inserted']/tbody//tr[";
 }

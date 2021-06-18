@@ -23,42 +23,7 @@ public class PreRequisites extends Driver {
     ObjectMapper mapper = new ObjectMapper();
     public RequestSource api = new RequestSource();
 
-
     @BeforeSuite
-    public void doLogin() {
-        try {
-            ExtentReport.startTest("PreRequisites", "doLogin");
-            selUtils.addTestcaseDescription("Logging Into Portal", "Pre-Requisites");
-            final String value = constants.getValue(ApplicationConstants.DOMAIN_URL);
-            loginAUUID = constants.getValue(CommonConstants.ALL_USER_ROLE_AUUID);
-            pages.getLoginPage().openBaseURL(value);
-            assertCheck.append(actions.assertEqual_stringType(driver.getCurrentUrl(), value, "Login URL Opened", "Login URL not Opened"));
-            pages.getLoginPage().enterAUUID(loginAUUID);
-            pages.getLoginPage().clickOnSubmitBtn();
-            pages.getLoginPage().enterPassword(PassUtils.decodePassword(constants.getValue(CommonConstants.ALL_USER_ROLE_PASSWORD)));
-            assertCheck.append(actions.assertEqual_boolean(pages.getLoginPage().checkLoginButton(), true, "Login Button is Enabled", "Login Button is not Enabled"));
-            pages.getLoginPage().clickOnVisibleButton();
-            pages.getLoginPage().clickOnVisibleButton();
-            pages.getLoginPage().clickOnLogin();
-            final boolean isGrowlVisible = pages.getGrowl().checkIsGrowlVisible();
-            commonLib.info("Growl was visible or not?:-" + isGrowlVisible);
-            if (isGrowlVisible) {
-                commonLib.fail("Growl Message:- " + pages.getGrowl().getToastContent(), true);
-                continueExecutionFA = false;
-            } else {
-                assertCheck.append(actions.assertEqual_boolean(pages.getUserManagementPage().isUserManagementPageLoaded(), true, "Customer Dashboard Page Loaded Successfully", "Customer Dashboard page NOT Loaded"));
-                assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isSideMenuVisible(), true, "Side Menu Visible", "Side Menu Not Visible"));
-                pages.getSideMenuPage().clickOnSideMenu();
-                assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isCustomerServicesVisible(), true, "Customer Service Visible", "Customer Service Not Visible"));
-                actions.assertAllFoundFailedAssert(assertCheck);
-            }
-        } catch (Exception e) {
-            continueExecutionFA = false;
-            commonLib.fail("Exception in Method - doLogin" + e.fillInStackTrace(), true);
-        }
-    }
-
-    @BeforeSuite(dependsOnMethods = "doLogin")
     public void addTokenToHeaderMap() throws JsonProcessingException {
         loginAUUID = constants.getValue(CommonConstants.BETA_USER_AUUID);
         final String password = PassUtils.decodePassword(constants.getValue(CommonConstants.BETA_USER_PASSWORD));
@@ -78,7 +43,7 @@ public class PreRequisites extends Driver {
         ExtentReport.endTest();
     }
 
-    @AfterSuite(alwaysRun = true)
+    @AfterClass(alwaysRun = true)
     public void doLogout() {
         commonLib.info("Logging Out Of Portal");
         if (pages.getSideMenuPage().isSideMenuVisible()) {
@@ -91,28 +56,6 @@ public class PreRequisites extends Driver {
             actions.assertAllFoundFailedAssert(assertCheck);
         } else {
             commonLib.fail("Side Menu is NOT Visible", true);
-        }
-    }
-
-    /*
-    This Method is used to Login in CS Portal Again, after changing the permission over UM
-     */
-    public void loginInCSPortal() throws InterruptedException {
-        doLogin();
-        pages.getSideMenuPage().openCustomerInteractionPage();
-    }
-
-    /*
-    This Method will login in CS Portal and will check the Tariff Plan Option visible or not
-     */
-    public void goAndCheckServiceClassOptionVisible() {
-        try {
-            loginInCSPortal();
-            pages.getMsisdnSearchPage().enterNumber(constants.getValue(ApplicationConstants.TARIFF_PLAN_TEST_NUMBER));
-            pages.getMsisdnSearchPage().clickOnSearch();
-            pages.getCustomerProfilePage().clickOnAction();
-        } catch (Exception e) {
-            commonLib.error("Exception in Method - goAndCheckServiceClassOptionVisible " + e.getMessage());
         }
     }
 }

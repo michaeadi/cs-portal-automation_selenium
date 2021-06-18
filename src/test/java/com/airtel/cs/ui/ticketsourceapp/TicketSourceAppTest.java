@@ -1,13 +1,16 @@
 package com.airtel.cs.ui.ticketsourceapp;
 
-import com.airtel.cs.common.requisite.PreRequisites;
+import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.commonutils.dataproviders.TransferQueueDataBean;
-import org.jetbrains.annotations.NotNull;
+import com.airtel.cs.driver.Driver;
+import com.sun.istack.NotNull;
 import org.testng.annotations.Test;
 
-public class TicketSourceAppTest extends PreRequisites {
+public class TicketSourceAppTest extends Driver {
+
+    private final BaseActions actions = new BaseActions();
 
     @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void testSourceTitleOpenTicketListing() {

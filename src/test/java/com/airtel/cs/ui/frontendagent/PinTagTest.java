@@ -4,12 +4,10 @@ import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.PinnedTagsDataBeans;
-import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.driver.Driver;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 import java.util.List;
 import java.util.Map;
@@ -18,6 +16,7 @@ import java.util.NoSuchElementException;
 public class PinTagTest extends Driver {
 
     private final BaseActions actions = new BaseActions();
+    final String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
 
     @BeforeMethod
     public void checkExecution() {
@@ -28,12 +27,13 @@ public class PinTagTest extends Driver {
     }
 
 
-    @DataProviders.User(userType = "NFTR")
-    @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
-    public void openCustomerInteraction(TestDatabean data) {
+    /**
+     * This method is used to Open Customer Profile Page with valid MSISDN
+     */
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
-            final String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().clickOnUserName();
             pages.getSideMenuPage().openCustomerInteractionPage();
@@ -49,62 +49,74 @@ public class PinTagTest extends Driver {
     }
 
 
-    @Test(priority = 2, description = "Validating Pinned Tags", dependsOnMethods = "openCustomerInteraction")
+    /**
+     * This method is used to validate all pinned tag
+     */
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
     public void checkALLPinnedTag() {
-        selUtils.addTestcaseDescription("Validating Pinned Tag", "description");
-        SoftAssert softAssert = new SoftAssert();
-        DataProviders data = new DataProviders();
-        Map<String, Boolean> tags = data.getALLPinnedTags();
-        List<String> availableTags = pages.getCustomerProfilePage().getPinnedTagTexts();
         try {
-            for (String s : availableTags) {
-                if (tags.containsKey(s)) {
-                    commonLib.info("Validate " + s + " pinned tag is display correctly");
-                    tags.remove(s);
-                } else {
-                    commonLib.fail(s + " tag must not display on frontend as tag not mention in config sheet.", true);
-                    softAssert.fail(s + " tag should not display on UI as tagged not mention in config sheet.");
+            selUtils.addTestcaseDescription("Validating Pinned Tag", "description");
+            DataProviders data = new DataProviders();
+            Map<String, Boolean> tags = data.getALLPinnedTags();
+            List<String> availableTags = pages.getCustomerProfilePage().getPinnedTagTexts();
+            try {
+                for (String s : availableTags) {
+                    if (tags.containsKey(s)) {
+                        commonLib.info("Validate " + s + " pinned tag is display correctly");
+                        tags.remove(s);
+                    } else {
+                        commonLib.fail(s + " tag must not display on frontend as tag not mention in config sheet.", true);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            if (tags.isEmpty()) {
+                commonLib.pass("All pinned tagged correctly configured and display on UI.");
+            } else {
+                for (Map.Entry mapElement : tags.entrySet()) {
+                    String key = (String) mapElement.getKey();
+                    commonLib.fail(key + " tag does not display on UI but present in config sheet.", true);
                 }
             }
+            // No use of assertCheck here what to do in this case
+            //softAssert.assertAll();
+            actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
-            e.printStackTrace();
+            commonLib.fail("Exception in Method - checkALLPinnedTag()" + e.fillInStackTrace(), true);
         }
-        if (tags.isEmpty()) {
-            commonLib.pass("All pinned tagged correctly configured and display on UI.");
-        } else {
-            for (Map.Entry mapElement : tags.entrySet()) {
-                String key = (String) mapElement.getKey();
-                commonLib.fail(key + " tag does not display on UI but present in config sheet.", true);
-                softAssert.fail(key + " tag does not display on UI but present in config sheet.");
-            }
-        }
-        softAssert.assertAll();
     }
 
-    @Test(priority = 3, description = "SideMenu ", dataProvider = "pinTag", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
+    /**
+     * This method is used to validate issue code for pin tag
+     * @param data
+     */
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "pinTag", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
     public void checkIssueCodeForPinTag(PinnedTagsDataBeans data) {
-        final String tagName = data.getTagName();
-        selUtils.addTestcaseDescription("Validating Pinned Tag : " + tagName, "description");
-        SoftAssert softAssert = new SoftAssert();
         try {
-            if (pages.getCustomerProfilePage().isPinTagVisible(tagName)) {
-                pages.getCustomerProfilePage().clickPinTag(tagName);
-                pages.getMsisdnSearchPage().waitUntilPageIsLoaded();
-                pages.getMsisdnSearchPage().enterNumber(data.getCustomerNumber());
-                pages.getMsisdnSearchPage().clickOnSearch();
-                softAssert.assertTrue(pages.getCustomerProfilePage().isCustomerProfilePageLoaded());
-                pages.getCustomerProfilePage().goToViewHistory();
-                pages.getViewHistory().clickOnInteractionsTab();
-                String issueCode = pages.getViewHistory().getLastCreatedIssueCode();
-                softAssert.assertEquals(issueCode.toLowerCase().trim(), data.getIssueCode().trim().toLowerCase());
-            } else {
-                softAssert.fail(tagName + " Does not display on UI");
+            final String tagName = data.getTagName();
+            selUtils.addTestcaseDescription("Validating Pinned Tag : " + tagName, "description");
+            try {
+                if (pages.getCustomerProfilePage().isPinTagVisible(tagName)) {
+                    pages.getCustomerProfilePage().clickPinTag(tagName);
+                    pages.getMsisdnSearchPage();
+                    pages.getMsisdnSearchPage().enterNumber(customerNumber);
+                    pages.getMsisdnSearchPage().clickOnSearch();
+                    assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isCustomerProfilePageLoaded(), true));
+                    pages.getCustomerProfilePage().goToViewHistory();
+                    pages.getViewHistory().clickOnInteractionsTab();
+                    String issueCode = pages.getViewHistory().getLastCreatedIssueCode();
+                    assertCheck.append(actions.assertEqual_stringType(issueCode.toLowerCase().trim(), data.getIssueCode().trim().toLowerCase(), "Issue code found in view history", "Issue code doesn't found in view history"));
+                } else {
+                    commonLib.fail(tagName + " Does not display on UI", true);
+                }
+            } catch (NoSuchElementException e) {
+                commonLib.fail(tagName + " tag does not display on UI but present in config sheet.", true);
+                e.printStackTrace();
             }
-        } catch (NoSuchElementException e) {
-            commonLib.fail(tagName + " tag does not display on UI but present in config sheet.", true);
-            softAssert.fail(tagName + " tag does not display on UI but present in config sheet.\n" + e.fillInStackTrace());
-            e.printStackTrace();
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - checkIssueCodeForPinTag()" + e.fillInStackTrace(), true);
         }
-        softAssert.assertAll();
     }
 }

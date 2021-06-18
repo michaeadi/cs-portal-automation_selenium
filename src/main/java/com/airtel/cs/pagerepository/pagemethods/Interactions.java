@@ -15,93 +15,145 @@ import java.util.List;
 public class Interactions extends BasePage {
 
     InteractionPage pageElements;
-    private static final String XPATH = "//div[@formarrayname=\"issueDetails\"]//li[";
+    private static final String XPATH = "//div[@formarrayname='issueDetails']//li[";
 
     public Interactions(WebDriver driver) {
         super(driver);
         pageElements = PageFactory.initElements(driver, InteractionPage.class);
     }
 
+    /**
+     * This method is use to click on continue button
+     */
     public void clickOnContinueButton() {
         commonLib.info("clicking on continue button");
-        clickAndWaitForLoaderToBeRemoved(pageElements.continueButton);
+        clickWithoutLoader(pageElements.continueButton);
     }
 
-    public String isDateFieldAvailable() {
-        commonLib.info("Checking is Date Field is available at expected place ");
+    /**
+     * This method is used to get date field label
+     * @return String The value
+     */
+    public String getAvailableDateField() {
+        commonLib.info("Checking is Date Field is available at expected place");
         return getText(pageElements.issueDetails);
     }
 
+    /**
+     * This method used to get date field label + * sign in case field mandatory
+     * @return String The value
+     */
     public String isDateFieldAvailableMandatory() {
         commonLib.info("Is Date Field mandatory: ");
         return getText(pageElements.issueDetails) + getText(pageElements.issueDetailsMandatory);
     }
 
 
+    /**
+     * This method used to get write date into date field
+     * @param date The date
+     */
     public void setDateFieldAvailable(String date) {
         commonLib.info("Writing date to date Field : " + date);
-        By issueDetails = By.xpath("//input[@aria-haspopup=\"true\"]");
+        By issueDetails = By.xpath("//input[@aria-haspopup='true']");
         enterText(issueDetails, date);
     }
 
+    /**
+     * This method is used to get issue detail label based on question number
+     * @param num The number
+     * @return String The value
+     */
     public String getIssueDetailLabel(String num) {
         commonLib.info("Getting the label for issue detail field situated at Position : " + num);
-        By issueDetails = By.xpath(" //input[@name=" + "'q" + num + "']//following-sibling::span/label");
+        By issueDetails = By.xpath( pageElements.issueField+ num + pageElements.fieldLabel);
         return getText(issueDetails);
     }
 
+    /**
+     * This method use to get issue field label of drop down type field based on num
+     * @param num The number
+     * @return String The value
+     */
     public String getIssueDetailLabelDropDown(String num) {
         commonLib.info("Getting the label for issue detail field situated at Position : " + num);
-        By issueDetails = By.xpath(XPATH + num + "]//mat-label");
-        By mandatory = By.xpath(XPATH + num + "]//span");
+        By issueDetails = By.xpath(XPATH + num + pageElements.dropDown);
+        By mandatory = By.xpath(XPATH + num + pageElements.mandatorySign);
         return getText(issueDetails) + getText(mandatory);
     }
 
+    /**
+     * This method is use to write text into input field based on question number
+     * @param num The Number
+     * @param input The text
+     */
     public void setIssueDetailInput(String num, String input) {
         commonLib.info("Writing " + input + " in label for issue detail field situated at Position : " + num);
-        By issueDetails = By.xpath(" //input[@name=" + "'q" + num + "']");
+        By issueDetails = By.xpath(pageElements.issueField + num + "']");
         enterText(issueDetails, input);
     }
 
+    /**
+     * This method is use to select from dropdown based on option number
+     * @param num The Number
+     */
     public void selectIssueDetailInput(String num) {
         commonLib.info("Selecting label for issue detail field situated at Position : " + num);
-        By issueDetails = By.xpath(XPATH + num + "]//mat-select");
+        By issueDetails = By.xpath(XPATH + num + pageElements.selectDropDown);
         clickAndWaitForLoaderToBeRemoved(issueDetails);
         clickAndWaitForLoaderToBeRemoved(pageElements.option1st);
     }
 
-    public void clickOnCode() throws InterruptedException {
-        waitTillLoaderGetsRemoved();
-        Thread.sleep(1000);
-        List<WebElement> listOfElements = returnListOfElement(By.xpath("//div[@class=\"mat-select-value\"]"));
+    /*
+    This Method will open the issue code drop down while creating interaction
+     */
+    public void clickOnCode() {
+        List<WebElement> listOfElements = returnListOfElement(pageElements.clickCodeDropDown);
         listOfElements.get(0).click();
         commonLib.info("clicking on issue code field");
     }
 
+    /**
+     * This method is used to check is search visible or not
+     * @return true/false
+     */
     public boolean isSearchVisible() {
         commonLib.info("Checking is search Visible");
         return isElementVisible(pageElements.search);
     }
 
+    /**
+     * This method is used to write code into search box
+     */
     public void searchCode(String code) {
         commonLib.info("searching issue code " + code);
         enterText(pageElements.search, code);
     }
 
+    /*
+    This Method is used to select issue code
+     */
     public void selectCode(String code) {
         selectByText(code);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(pageElements.loader));
         commonLib.info("selecting issue code " + code);
     }
 
+    /**
+     * This method is used to get issue field value
+     * @return String The value
+     */
     public String getIssue() {
         List<WebElement> listOfElements1 = returnListOfElement(pageElements.issues);
         final String text = listOfElements1.get(1).getText();
         commonLib.info("Getting issue " + text);
         return text;
-
     }
 
+    /**
+     * This method is used to get issue type field value
+     * @return String The value
+     */
     public String getIssueType() {
         List<WebElement> listOfElements1 = returnListOfElement(pageElements.issues);
         final String text = listOfElements1.get(2).getText();
@@ -110,6 +162,10 @@ public class Interactions extends BasePage {
 
     }
 
+    /**
+     * This method is used to get issue sub type field value
+     * @return String The value
+     */
     public String getIssueSubType() {
         List<WebElement> listOfElements1 = returnListOfElement(pageElements.issues);
         final String text = listOfElements1.get(3).getText();
@@ -117,6 +173,10 @@ public class Interactions extends BasePage {
         return text;
     }
 
+    /**
+     * This method is used to get issue sub sub type field value
+     * @return String The value
+     */
     public String getIssueSubSubType() {
         List<WebElement> listOfElements1 = returnListOfElement(pageElements.issues);
         final String text = listOfElements1.get(4).getText();
@@ -124,18 +184,27 @@ public class Interactions extends BasePage {
         return text;
     }
 
+    /**
+     * This method use to write comment into comment box
+     * @param comment The comment
+     */
     public void sendComment(String comment) {
         enterText(pageElements.interactionComment, comment);
         commonLib.info("Adding comment -" + comment);
-
     }
 
+    /**
+     * This method use to click on save button
+     */
     public void clickOnSave() {
         clickAndWaitForLoaderToBeRemoved(pageElements.saveButton);
         commonLib.info("Clicking on save to create Ticket");
-
     }
 
+    /**
+     * This method use to check save button enable or not
+     * @return true/false
+     */
     public boolean isSaveEnable() {
         commonLib.info("Checking is Save button Enabled");
         if (isEnabled(pageElements.saveButton)) {
@@ -145,61 +214,111 @@ public class Interactions extends BasePage {
         }
     }
 
-    public boolean isResolvedFTRDisplayed() {
-        waitVisibility(pageElements.resolvedFTR);
-        final boolean visible = isElementVisible(pageElements.resolvedFTR);
+    /**
+     * This method use to check ticket id visible or not
+     * @return true/false
+     */
+    public boolean isTicketIdVisible() {
+        final boolean visible = isVisible(pageElements.ticketIdOnHeader);
         commonLib.info("Checking is Ticket Number or Ticket Status is Displayed : " + visible);
         return visible;
     }
 
+    /*
+    This Method is used to get the Ticket Number or Ticket Status from header of created ticket
+     */
     public String getResolvedFTRDisplayed() {
-        waitVisibility(pageElements.resolvedFTR);
-        final String text = getText(pageElements.resolvedFTR);
-        commonLib.info("Getting the Ticket Number or Ticket Status  Displayed : " + text);
+        String result = "";
+        if (isVisible(pageElements.ticketIdOnHeader)) {
+            result = getText(pageElements.ticketIdOnHeader);
+            commonLib.info("Getting the Ticket Number or Ticket Status  Displayed : " + result);
+        } else {
+            commonLib.fail("Ticket Number or Ticket Status  NOT Displayed", true);
+        }
+        return result;
+    }
+
+    /**
+     * This method used to close create interaction tab
+     */
+    public void closeInteractions() {
+        if (isClickable(pageElements.closeInteractions)) {
+            clickWithoutLoader(pageElements.closeInteractions);
+            commonLib.info("Closing Interaction Screen");
+        }
+    }
+
+    /*
+    This Methos is used to open the comment box
+     */
+    public void clickCommentIcon() {
+        if (isVisible(pageElements.ticketCommentIcon)) {
+            commonLib.info("Click On Ticket Comment Icon");
+            clickWithoutLoader(pageElements.ticketCommentIcon);
+        } else {
+            commonLib.fail("Ticket Comment Icon is NOT Visible", true);
+        }
+    }
+
+    /*
+    This Method is used to open comment tab from interaction creation tab
+     */
+    public void openAddedComment() {
+        if (isVisible(pageElements.ticketCommentIcon)) {
+            commonLib.info("Click On Ticket Comment Icon");
+            clickWithoutLoader(pageElements.ticketCommentIcon);
+        } else {
+            commonLib.fail("Ticket Comment Icon is NOT Visible", true);
+        }
+    }
+
+    /*
+    This Method is used to add interaction comment in an interaction
+     */
+    public String addInteractionComment() {
+        String text = "Adding Interaction Comment Using Automation";
+        commonLib.info("Going to add Interaction Ticket Comment: " + text);
+        if (isVisible(pageElements.commentBox))
+            enterText(pageElements.commentBox, text);
+        else
+            commonLib.fail("Comment Box is NOT Visible", true);
         return text;
     }
 
-    public CustomerProfile closeInteractions() {
-        wait.until(ExpectedConditions.elementToBeClickable(pageElements.closeInteractions));
-        clickAndWaitForLoaderToBeRemoved(pageElements.closeInteractions);
-        commonLib.info("Closing Interaction Screen");
-        return new CustomerProfile(driver);
-    }
-
-    public void clickCommentIcon() {
-        log.info("Waiting for Comment Ticket Icon");
-        waitVisibility(pageElements.resolvedFTR);
-        commonLib.info("Click On Ticket Comment Icon");
-        clickAndWaitForLoaderToBeRemoved(pageElements.ticketCommentIcon);
-    }
-
-    public void openAddedComment() {
-        waitVisibility(pageElements.ticketCommentIcon);
-        commonLib.info("Click On Ticket Comment Icon");
-        clickAndWaitForLoaderToBeRemoved(pageElements.ticketCommentIcon);
-    }
-
-
-    public void addInteractionComment(String text) {
-        commonLib.info("Adding Interaction Ticket Comment: " + text);
-        enterText(pageElements.commentBox, text);
-    }
-
+    /**
+     * This method is used to get added comment
+     * @return String The value
+     */
     public String getAddedComment() {
-        commonLib.info("Added Comment Validate Successfully");
-        return getText(pageElements.addedComment);
+        String result = "";
+        if (isVisible(pageElements.addCommentBtn)) {
+            commonLib.info("Added Comment Validate Successfully");
+            result = getText(pageElements.addedComment);
+        } else {
+            commonLib.fail("Added Comment is NOT Visibel", true);
+        }
+        return result;
     }
 
+    /**
+     * This method is use to click on save interaction comment button
+     */
     public void saveInteractionComment() {
-        log.info("Clicking Save Comment Button");
+        commonLib.info("Clicking Save Comment Button");
         clickAndWaitForLoaderToBeRemoved(pageElements.addCommentBtn);
     }
 
+    /**
+     * This method is use to click close comment section button
+     */
     public void closeTicketCommentBox() {
-        log.info("Closing Ticket Comment Pop up");
-        clickAndWaitForLoaderToBeRemoved(pageElements.closeCommentTab);
+        commonLib.info("Closing Ticket Comment Pop up");
+        clickWithoutLoader(pageElements.closeCommentTab);
     }
 
+    /**
+     * This method is use to click reset interaction issue
+     */
     public void resetInteractionIssue() {
         commonLib.info("Clicking reset issue details Button");
         clickAndWaitForLoaderToBeRemoved(pageElements.resetBtn);

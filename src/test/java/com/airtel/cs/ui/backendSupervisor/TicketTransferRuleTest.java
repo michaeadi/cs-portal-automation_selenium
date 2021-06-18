@@ -45,13 +45,11 @@ public class TicketTransferRuleTest extends Driver {
             String ticketId = null;
             try {
                 pages.getSupervisorTicketList().clickFilter();
-                pages.getFilterTabPage().waitTillLoaderGetsRemoved();
                 pages.getFilterTabPage().applyFilterByCategoryCode(ruleData.getIssueCode());
                 pages.getFilterTabPage().clickQueueFilter();
                 pages.getFilterTabPage().selectQueueByName(ruleData.getFromQueue());
                 pages.getFilterTabPage().clickOutsideFilter();
                 pages.getFilterTabPage().clickApplyFilter();
-                pages.getFilterTabPage().waitTillLoaderGetsRemoved();
                 try {
                     ticketId = pages.getSupervisorTicketList().getTicketIdValue();
                 } catch (NoSuchElementException | TimeoutException e) {

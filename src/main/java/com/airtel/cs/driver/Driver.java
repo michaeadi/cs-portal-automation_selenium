@@ -21,26 +21,19 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.logging.LogType;
+import org.openqa.selenium.logging.LoggingPreferences;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.*;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
+import java.util.logging.Level;
 
 @Log4j2
 public class Driver {
-
 
     private static final String PATH_DELIMITER = "/";
     private static final String USER_DIR = "user.dir";
@@ -75,6 +68,7 @@ public class Driver {
     public static boolean continueExecutionBA = true;
     public static boolean continueExecutionBS = true;
     public static boolean continueExecutionFA = true;
+    public static boolean continueExecutionBU = true;
     public static String elementName = ""; // FOR PASSING ELEMENT NAMES TO LOGS
     public static String message = null;
     public static final String RUN_TARIFF_TEST_CASE = constants.getValue(ApplicationConstants.RUN_TARIFF_TEST_CASE);
@@ -92,6 +86,7 @@ public class Driver {
     public static String loginAUUID;
     public static ObjectMapper objectMapper = new ObjectMapper();
     public static WidgetCommonMethod widgetMethods;
+    public static String download=System.getProperty(USER_DIR) + "\\resources\\excels\\";
 
     public WebDriver getDriver() {
         return driver;
@@ -261,13 +256,19 @@ public class Driver {
      */
     private static void browserCapabilities() {
         ChromeOptions options = new ChromeOptions();
+        LoggingPreferences loggingprefs = new LoggingPreferences();
+        loggingprefs.enable(LogType.BROWSER, Level.WARNING);
+        loggingprefs.enable(LogType.PERFORMANCE, Level.ALL);
         options.addArguments("--window-size=1792,1120");
-        options.setHeadless(false);
+        options.setHeadless(true);
         Map<String, Object> prefs = new HashMap<>();
-        prefs.put("download.default_directory", excelPath);
+        prefs.put("download.default_directory", download);
         prefs.put("intl.accept_languages", "nl");
         prefs.put("disable-popup-blocking", "true");
         options.setExperimentalOption("prefs", prefs);
+        options.setAcceptInsecureCerts(true);
+        options.setCapability("goog:loggingPrefs", loggingprefs);
+        options.setCapability(ChromeOptions.CAPABILITY,options);
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
     }

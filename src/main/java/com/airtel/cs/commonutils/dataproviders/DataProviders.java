@@ -1,6 +1,5 @@
 package com.airtel.cs.commonutils.dataproviders;
 
-import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.excelutils.WriteTicket;
 import com.airtel.cs.driver.Driver;
@@ -30,8 +29,10 @@ public class DataProviders extends Driver {
     public static Properties config = Driver.config;
     public static List<String> ticketNumbers = new ArrayList<>();
 
-
-    //helper
+    /**
+     * This method used to get all tagged issue detail with all widget
+     * @return
+     */
     public static Map<String, String> getWidgetTaggedIssue() {
         FtrDataExcelToBeanDao dataExcelToBeanDao = new FtrDataExcelToBeanDao();
         List<FtrDataBeans> list =
@@ -89,6 +90,10 @@ public class DataProviders extends Driver {
         return hashMapObj;
     }
 
+    /**
+     * This method use to get interaction channel from config sheet
+     * @return List The list of Interaction Channel
+     */
     public ArrayList<String> getInteractionChannelData() {
         UMDataExcelToBeanDao dataExcelToBeanDao = new UMDataExcelToBeanDao();
         List<UMDataBeans> list =
@@ -102,7 +107,10 @@ public class DataProviders extends Driver {
         return finalList;
     }
 
-
+    /**
+     * This method use to get Workgroup from config sheet
+     * @return List The list of Workgroup
+     */
     public ArrayList<String> getWorkFlowData() {
         UMDataExcelToBeanDao dataExcelToBeanDao = new UMDataExcelToBeanDao();
         List<UMDataBeans> list =
@@ -116,6 +124,10 @@ public class DataProviders extends Driver {
         return finalList;
     }
 
+    /**
+     * This method use to get login queue channel from config sheet
+     * @return List The list of queue
+     */
     public ArrayList<String> getLoginQueueData() {
         UMDataExcelToBeanDao dataExcelToBeanDao = new UMDataExcelToBeanDao();
         List<UMDataBeans> list =
@@ -129,6 +141,10 @@ public class DataProviders extends Driver {
         return finalList;
     }
 
+    /**
+     * This method use to get roles from config sheet
+     * @return List The list of Roles
+     */
     public ArrayList<String> getRoles() {
         TemplateDataExcelToBeanDao templateExcelToBeanDao = new TemplateDataExcelToBeanDao();
         List<TemplateDataBeans> list =
@@ -142,6 +158,10 @@ public class DataProviders extends Driver {
         return finalList;
     }
 
+    /**
+     * This method use to get language from config sheet
+     * @return List The list of language
+     */
     public ArrayList<String> getLanguage() {
         TemplateDataExcelToBeanDao templateExcelToBeanDao = new TemplateDataExcelToBeanDao();
         List<TemplateDataBeans> list =
@@ -167,42 +187,6 @@ public class DataProviders extends Driver {
         return hashMapObj;
     }
 
-    @DataProvider(name = "Ticket State")
-    public Object[][] ticketStateList() {
-        TicketStateToBean ticketStateToBean = new TicketStateToBean();
-        List<TicketStateDataBean> list =
-                ticketStateToBean.getData(excelPath, constants.getValue(CommonConstants.TICKET_STATE_SHEET));
-        List<TicketStateDataBean> closeState = new ArrayList<>();
-        List<TicketStateDataBean> openState = new ArrayList<>();
-        for (TicketStateDataBean state : list) {
-            if (state.getInternalState().equals(constants.getValue(CommonConstants.TICKET_CLOSE_STATE))) {
-                closeState.add(state);
-            } else {
-                openState.add(state);
-            }
-        }
-        Object[][] hashMapObj = new Object[1][1];
-
-        hashMapObj[0][0] = closeState.get(0);
-
-        return hashMapObj;
-    }
-
-    public String ticketStateClosed() {
-        TicketStateToBean ticketStateToBean = new TicketStateToBean();
-        List<TicketStateDataBean> list =
-                ticketStateToBean.getData(excelPath, constants.getValue(CommonConstants.TICKET_STATE_SHEET));
-        List<TicketStateDataBean> closeState = new ArrayList<>();
-        List<TicketStateDataBean> openState = new ArrayList<>();
-        for (TicketStateDataBean state : list) {
-            if (state.getInternalState().equals(constants.getValue(CommonConstants.TICKET_CLOSE_STATE))) {
-                closeState.add(state);
-            } else {
-                openState.add(state);
-            }
-        }
-        return closeState.get(0).getTicketStateName();
-    }
 
     @DataProvider(name = "ticketId")
     public Object[][] getTestData5() {
@@ -301,7 +285,12 @@ public class DataProviders extends Driver {
         return hashMapObj;
     }
 
-    //helper method
+
+    /**
+     * This Method is use to get all state based on internal state
+     * @param stateName The internal state name
+     * @return List The list of state name
+     */
     public List<TicketStateDataBean> getState(String stateName) {
         TicketStateToBean ticketStateToBean = new TicketStateToBean();
         List<TicketStateDataBean> list =
@@ -322,13 +311,19 @@ public class DataProviders extends Driver {
         }
     }
 
-    //helper method
+    /**
+     * This method use to get all priority
+     * @return List The list of priority
+     */
     public List<PriorityDataBean> getPriority() {
         PriorityDataExcelToBeanDao priorityDataBean = new PriorityDataExcelToBeanDao();
         return priorityDataBean.getData(excelPath, constants.getValue(CommonConstants.TICKET_PRIORITY_SHEET));
     }
 
-    //helper method
+    /**
+     * This method is use to get all pin tags
+     * @return MAP The List of all pin tag
+     */
     public Map<String, Boolean> getALLPinnedTags() {
         PinnedTagDataExcelToBeanDao pinnedTag = new PinnedTagDataExcelToBeanDao();
         List<PinnedTagsDataBeans> list =
@@ -363,7 +358,11 @@ public class DataProviders extends Driver {
     }
 
 
-    //helper
+    /**
+     * This method use to get list of all tagged issue details based on widget name
+     * @param widgetName The Widget name
+     * @return MAP The list of all issue
+     */
     public Map<String, String> getListOfIssue(String widgetName) {
         Map<String, String> list = getWidgetTaggedIssue();
         Map<String, String> finalList = new HashMap<>();
@@ -375,6 +374,11 @@ public class DataProviders extends Driver {
         return finalList;
     }
 
+    /**
+     * This method use to get issue code based on issue sub sub type
+     * @param text The issue sub sub type name
+     * @return String The issue code
+     */
     public String getCode(String text) {
         FtrDataExcelToBeanDao dataExcelToBeanDao = new FtrDataExcelToBeanDao();
         List<FtrDataBeans> list =
@@ -406,12 +410,19 @@ public class DataProviders extends Driver {
         return hashMapObj;
     }
 
-    //Get Auth Policy
+    /**
+     * This method use to get all the policy
+     * @return List the list of policies
+     */
     public List<AuthTabDataBeans> getPolicy() {
         AuthTabBeanToExcel authTabBeanToExcel = new AuthTabBeanToExcel();
         return authTabBeanToExcel.getData(excelPath, constants.getValue(CommonConstants.AUTH_POLICY_SHEET));
     }
 
+    /**
+     * This method use to get policy questions
+     * @return List The list of policy question
+     */
     public List<String> getPolicyQuestion() {
         AuthTabBeanToExcel authTabBeanToExcel = new AuthTabBeanToExcel();
         List<AuthTabDataBeans> list =
@@ -438,18 +449,28 @@ public class DataProviders extends Driver {
         return question;
     }
 
+    /**
+     * This method use to get question answer key of auth policy
+     * @return List The list of question/answer key
+     */
     public List<QuestionAnswerKeyDataBeans> getQuestionAnswerKey() {
         QuestionAnswerKeyToExcel authTabBeanToExcel = new QuestionAnswerKeyToExcel();
         return authTabBeanToExcel.getData(excelPath, constants.getValue(CommonConstants.QUESTION_ANSWER_SHEET_NAME));
     }
 
-    //Get Action Tagging
+    /**
+     * This method is used to get list of action tag
+     * @return List The list of action tag
+     */
     public List<ActionTagDataBeans> getActionTag() {
         ActionTagBeanToExcel actionTagDataBeans = new ActionTagBeanToExcel();
         return actionTagDataBeans.getData(excelPath, constants.getValue(CommonConstants.ACTION_TAGGED_SHEET_NAME));
     }
 
-    //Get Voucher Id
+    /**
+     * This method use to get voucher id based on choose environment
+     * @return String The voucher id
+     */
     public String getVoucherId() {
         ActionTagBeanToExcel actionTagDataBeans = new ActionTagBeanToExcel();
         List<ActionTagDataBeans> list =
@@ -466,6 +487,11 @@ public class DataProviders extends Driver {
         return null;
     }
 
+    /**
+     * This method used to get issue detail based on action tag name
+     * @param actionTagName The action tag name
+     * @return List The list of issue detail
+     */
     public List<String> issueDetailReason(String actionTagName) {
         ActionTagBeanToExcel actionTagDataBeans = new ActionTagBeanToExcel();
         List<ActionTagDataBeans> list =
@@ -509,6 +535,11 @@ public class DataProviders extends Driver {
         return hashMapObj;
     }
 
+    /**
+     * This method use to get all the state based on queue name
+     * @param queue The Queue name
+     * @return List The list of all state
+     */
     public List<String> getQueueState(String queue) {
         QueueStateBeanToExcel queueStateBeanToExcel = new QueueStateBeanToExcel();
         List<QueueStateDataBeans> list =
@@ -551,11 +582,20 @@ public class DataProviders extends Driver {
         return allStates;
     }
 
+    /**
+     * This method used to validate that text is not empty and not null
+     * @param text The text
+     * @return true/false
+     */
     public boolean isNull(String text) {
         return text != null && !text.isEmpty();
     }
 
-    //Get ticket layout using issue code
+    /**
+     * This method is used to Get ticket layout using issue code
+     * @param code The issue code
+     * @return List The list of Ticket layout
+     */
     public List<String> getTicketLayout(String code) {
         NftrDataExcelToBeanDao dataExcelToBeanDao = new NftrDataExcelToBeanDao();
         List<NftrDataBeans> list =
@@ -589,28 +629,33 @@ public class DataProviders extends Driver {
         return finalTicketList;
     }
 
-    public boolean writeTicketNumberToExcel() throws IOException {
+    /**
+     * This method use to write tickets id into ticket bulk update excel
+     * @param maxNumberOfTickets The maximum number of ticket to write into excel
+     * @return true/false
+     * @throws IOException in case of excel sheet not found
+     */
+    public boolean writeTicketNumberToExcel(int maxNumberOfTickets) throws IOException {
         WriteTicket objExcelFile = new WriteTicket();
-        File exceldir = new File("excels");
+        File exceldir = new File(download);
         File excel = new File(exceldir, constants.getValue(CommonConstants.TICKET_BULK_UPDATE_SHEET));
         Object[][] list = getTestData5();
         boolean flag = false;
-        int size = list.length;
-        if (size >= 5) {
-            size = 5;
-        }
+        int size = Math.min(list.length,maxNumberOfTickets);
         for (int i = 0; i < size; i++) {
             NftrDataBeans n = (NftrDataBeans) list[i][0];
-            log.info("No:" + n.getTicketNumber());
             String[] valueToWrite = new String[]{n.getTicketNumber()};
             objExcelFile.writeTicketNumber(excel.getAbsolutePath(), "Sheet1", valueToWrite, i + 1);
             flag = true;
             ticketNumbers.add(n.getTicketNumber());
         }
-        log.info("Flag" + flag + ticketNumbers.size());
         return flag;
     }
 
+    /**
+     * This method use to get ticket number which write in ticket bulk update
+     * @return List The list of ticket ids
+     */
     public List<String> getTicketNumbers() {
         return ticketNumbers;
     }

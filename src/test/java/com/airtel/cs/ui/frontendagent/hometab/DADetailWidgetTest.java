@@ -29,7 +29,7 @@ public class DADetailWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 1, description = "Validate Customer Interaction Page")
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void openCustomerInteractionAPI() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");

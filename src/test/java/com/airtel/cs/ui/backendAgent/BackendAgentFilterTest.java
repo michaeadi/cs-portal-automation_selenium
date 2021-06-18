@@ -1,12 +1,15 @@
 package com.airtel.cs.ui.backendAgent;
 
 import com.airtel.cs.common.actions.BaseActions;
+import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.driver.Driver;
+import org.openqa.selenium.ElementClickInterceptedException;
+import org.openqa.selenium.NotFoundException;
+import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 public class BackendAgentFilterTest extends Driver {
 
@@ -14,50 +17,49 @@ public class BackendAgentFilterTest extends Driver {
 
     @BeforeMethod
     public void checkExecution() {
-        if (continueExecutionFA) {
-            assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, true, "Proceeding for test case as user able to login over portal", "Skipping tests because user not able to login into portal or Role does not assign to user"));
-        } else {
-            commonLib.skip("Skipping tests because user not able to login into portal or Role does not assign to user");
-            assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, false, "Skipping tests because user not able to login into portal or Role does not assign to user"));
-            throw new SkipException("Skipping tests because user not able to login into portal or Role does not assign to user");
+        if (!continueExecutionBA) {
+            commonLib.skip("Skipping tests because user NOT able to login Over Portal");
+            throw new SkipException("Skipping tests because user NOT able to login Over Portal");
         }
-        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 1, description = "Backend Agent Queue Login Page")
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest"})
     public void agentQueueLogin() {
-        selUtils.addTestcaseDescription("Backend Agent Login into Queue", "description");
-        SoftAssert softAssert = new SoftAssert();
-        pages.getSideMenuPage().clickOnSideMenu();
-        pages.getSideMenuPage().clickOnUserName();
-        pages.getSideMenuPage().openBackendAgentDashboard();
-        pages.getAgentLoginPage().waitTillLoaderGetsRemoved();
-        softAssert.assertTrue(pages.getAgentLoginPage().isQueueLoginPage());
-        softAssert.assertTrue(pages.getAgentLoginPage().checkSubmitButton());
-        pages.getAgentLoginPage().clickSelectQueue();
-        pages.getAgentLoginPage().selectAllQueue();
-        pages.getAgentLoginPage().clickSubmitBtn();
-        pages.getAgentLoginPage().waitTillLoaderGetsRemoved();
-        Assert.assertEquals(driver.getTitle(), config.getProperty("backendAgentTicketListPage"), "Backend Agent Does not Redirect to Ticket List Page");
-        softAssert.assertAll();
+        try {
+            selUtils.addTestcaseDescription("Backend Agent Login into Queue", "description");
+            pages.getSideMenuPage().clickOnSideMenu();
+            pages.getSideMenuPage().clickOnUserName();
+            pages.getSideMenuPage().openBackendAgentDashboard();
+            assertCheck.append(actions.assertEqual_boolean(pages.getAgentLoginPage().isQueueLoginPage(), true, "Queue Login Page is Visible", "Queue Login Page is NOT Visible"));
+            assertCheck.append(actions.assertEqual_boolean(pages.getAgentLoginPage().checkSubmitButton(), true, "Submit button for login is Enabled", "Submit button for login is NOT Enabled"));
+            pages.getAgentLoginPage().clickSelectQueue();
+            pages.getAgentLoginPage().selectAllQueue();
+            pages.getAgentLoginPage().clickSubmitBtn();
+            Assert.assertEquals(driver.getTitle(), constants.getValue(CommonConstants.BACKEND_AGENT_TICKET_LIST_PAGE), "Backend Agent Does not Redirect to Ticket List Page");
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (NotFoundException | TimeoutException | ElementClickInterceptedException e) {
+            commonLib.fail("Exception in Method - agentQueueLogin", true);
+        }
     }
 
-    @Test(priority = 2, dependsOnMethods = "agentQueueLogin", description = "Validate Filter Tab for Backend Agent")
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest"}, description = "Validate Filter Tab for Backend Agent")
     public void validateFilter() {
-        selUtils.addTestcaseDescription("Validate Filter Tab for Backend Agent", "description");
-        SoftAssert softAssert = new SoftAssert();
-        pages.getSupervisorTicketList().clickFilter();
-        pages.getSupervisorTicketList().waitTillLoaderGetsRemoved();
-        softAssert.assertTrue(pages.getFilterTabPage().isCreatedByFilter(), "Filter by created date does not available");
-        softAssert.assertTrue(pages.getFilterTabPage().isSlaDueDateFilter(), "Filter by SLA due date does not available");
-        softAssert.assertTrue(pages.getFilterTabPage().isCategoryFilter(), "Filter by category does not available");
-        softAssert.assertTrue(pages.getFilterTabPage().isQueueFilter(), "Filter by Queue does not available");
-        softAssert.assertTrue(pages.getFilterTabPage().isEscalatedLevelFilter(), "Filter by ticket escalation level does not available");
-        softAssert.assertTrue(pages.getFilterTabPage().isStateFilter(), "Filter by State Filter does not available");
-        softAssert.assertTrue(pages.getFilterTabPage().validateOpenStateFilter(), "Filter by state name does not display all open state correctly");
-        softAssert.assertTrue(pages.getFilterTabPage().isPriorityFilter(), "Filter by ticket priority does not available");
-        softAssert.assertTrue(pages.getFilterTabPage().validatePriorityFilter(), "Filter by priority does not display all priority correctly");
-        pages.getFilterTabPage().clickCloseFilter();
-        softAssert.assertAll();
+        try {
+            selUtils.addTestcaseDescription("Validate Filter Tab for Backend Agent", "description");
+            pages.getSupervisorTicketList().clickFilter();
+            assertCheck.append(actions.assertEqual_boolean(pages.getFilterTabPage().isCreatedByFilter(), true, "Filter by created date is available", "Filter by created date does NOT available"));
+            assertCheck.append(actions.assertEqual_boolean(pages.getFilterTabPage().isSlaDueDateFilter(), true, "Filter by SLA due date is available", "Filter by SLA due date does NOT available"));
+            assertCheck.append(actions.assertEqual_boolean(pages.getFilterTabPage().isCategoryFilter(), true, "Filter by category is available", "Filter by category does NOT available"));
+            assertCheck.append(actions.assertEqual_boolean(pages.getFilterTabPage().isQueueFilter(), true, "Filter by Queue is available", "Filter by Queue does NOT available"));
+            assertCheck.append(actions.assertEqual_boolean(pages.getFilterTabPage().isEscalatedLevelFilter(), true, "Filter by ticket escalation level is available", "Filter by ticket escalation level does NOT available"));
+            assertCheck.append(actions.assertEqual_boolean(pages.getFilterTabPage().isStateFilter(), true, "Filter by State Filter is available", "Filter by State Filter does NOT available"));
+            assertCheck.append(actions.assertEqual_boolean(pages.getFilterTabPage().validateOpenStateFilter(), true, "Filter by state name is display all open state correctly", "Filter by state name does NOT display all open state correctly"));
+            assertCheck.append(actions.assertEqual_boolean(pages.getFilterTabPage().isPriorityFilter(), true, "Filter by ticket priority is available", "Filter by ticket priority does NOT available"));
+            assertCheck.append(actions.assertEqual_boolean(pages.getFilterTabPage().validatePriorityFilter(), true, "Filter by priority is display all priority correctly", "Filter by priority does NOT display all priority correctly"));
+            pages.getFilterTabPage().clickCloseFilter();
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (NotFoundException | TimeoutException | ElementClickInterceptedException e) {
+            commonLib.fail("Exception in Method - validateFilter", true);
+        }
     }
 }

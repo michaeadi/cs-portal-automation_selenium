@@ -41,8 +41,13 @@ public class VoucherTabTest extends Driver {
         }
     }
 
+    /**
+     * This method is used for login in
+     * @param data
+     * @throws JsonProcessingException
+     */
     @DataProviders.User(userType = "API")
-    @Test(dataProvider = "loginData", dataProviderClass = DataProviders.class, priority = 0)
+    @Test(dataProvider = "loginData", groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProviderClass = DataProviders.class, priority = 0)
     public void loginAPI(TestDatabean data) throws JsonProcessingException {
         selUtils.addTestcaseDescription("Validate the Login API with Beta user,Hit the Login API -/auth/api/user-mngmnt/v2/login with valid headers and credentials,Validating Success Message from response", "description");
         final String loginAUUID = constants.getValue(CommonConstants.BETA_USER_AUUID);
@@ -66,8 +71,12 @@ public class VoucherTabTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
+    /**
+     * This method is used to Open Customer Profile Page with valid MSISDN
+     * @param data
+     */
     @DataProviders.User(userType = "NFTR")
-    @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void openCustomerInteraction(TestDatabean data) {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -86,10 +95,13 @@ public class VoucherTabTest extends Driver {
         }
     }
 
-    @Test(priority = 2, description = "Validate Voucher Search Test", dependsOnMethods = "openCustomerInteraction")
+    /**
+     * This method is used to Validate Voucher Search Test
+     * @throws InterruptedException
+     */
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
     public void voucherSearchTest() throws InterruptedException {
         selUtils.addTestcaseDescription("Validate Voucher Search Test", "description");
-        SoftAssert softAssert = new SoftAssert();
         DataProviders data = new DataProviders();
         String voucherId = data.getVoucherId();
         if (voucherId != null && !voucherId.equals(" ")) {
@@ -101,29 +113,29 @@ public class VoucherTabTest extends Driver {
                 VoucherSearchPOJO voucher = api.voucherSearchTest(voucherId);
                 VoucherDetail voucherDetail = voucher.getResult();
                 if (voucher.getStatusCode() == 200) {
-                    softAssert.assertEquals(pages.getVoucherTab().getSerialValue(), voucherDetail.getVoucherId(), "Voucher Serial number is not same as search voucher id");
-                    softAssert.assertEquals(pages.getVoucherTab().getStatusValue().toLowerCase().trim(), voucherDetail.getStatus().toLowerCase().trim(), "Voucher Status is not same as voucher status received by api");
-                    softAssert.assertEquals(pages.getVoucherTab().getSubStatus().toLowerCase().trim(), voucherDetail.getSubStatus().toLowerCase().trim(), "Voucher Sub Status is not same as voucher Sub Status received by api");
-                    softAssert.assertEquals(pages.getVoucherTab().getRechargeAmt().toLowerCase().trim(), voucherDetail.getRechargeAmount().toLowerCase().trim(), "Voucher Recharge amount is not same as voucher Recharge amount received by api");
-                    softAssert.assertEquals(pages.getVoucherTab().getTimeStamp().toLowerCase().trim(), voucherDetail.getTimestamp().toLowerCase().trim(), "Voucher Time Stamp is not same as voucher Time Stamp received by api");
-                    softAssert.assertEquals(pages.getVoucherTab().getExpiryDate().toLowerCase().trim(), voucherDetail.getExpiryDate().toLowerCase().trim(), "Voucher Expiry date is not same as voucher Expiry date received by api");
+                    assertCheck.append(actions.assertNotEqual_stringType(pages.getVoucherTab().getSerialValue(), voucherDetail.getVoucherId(), "Voucher Serial number is same as search voucher id", "Voucher Serial number is not same as search voucher id"));
+                    assertCheck.append(actions.assertNotEqual_stringType(pages.getVoucherTab().getStatusValue().toLowerCase().trim(), voucherDetail.getStatus().toLowerCase().trim(), "Voucher Status is same as voucher status received by api", "Voucher Status is not same as voucher status received by api"));
+                    assertCheck.append(actions.assertNotEqual_stringType(pages.getVoucherTab().getSubStatus().toLowerCase().trim(), voucherDetail.getSubStatus().toLowerCase().trim(),"Voucher Sub Status is same as voucher Sub Status received by api", "Voucher Sub Status is not same as voucher Sub Status received by api" ));
+                    assertCheck.append(actions.assertNotEqual_stringType(pages.getVoucherTab().getRechargeAmt().toLowerCase().trim(), voucherDetail.getRechargeAmount().toLowerCase().trim(), "Voucher Recharge amount is same as voucher Recharge amount received by api", "Voucher Recharge amount is not same as voucher Recharge amount received by api"));
+                    assertCheck.append(actions.assertNotEqual_stringType(pages.getVoucherTab().getTimeStamp().toLowerCase().trim(), voucherDetail.getTimestamp().toLowerCase().trim(), "Voucher Time Stamp is same as voucher Time Stamp received by api", "Voucher Time Stamp is not same as voucher Time Stamp received by api"));
+                    assertCheck.append(actions.assertNotEqual_stringType(pages.getVoucherTab().getExpiryDate().toLowerCase().trim(), voucherDetail.getExpiryDate().toLowerCase().trim(), "Voucher Expiry date is same as voucher Expiry date received by api", "Voucher Expiry date is not same as voucher Expiry date received by api"));
                     if (voucherDetail.getSubscriberId() != null)
-                        softAssert.assertEquals(pages.getVoucherTab().getSubscriberId().toLowerCase().trim(), voucherDetail.getSubscriberId().toLowerCase().trim(), "Voucher Subscriber Id is not same as voucher Subscriber Id received by api");
-                    softAssert.assertEquals(pages.getVoucherTab().getAgent().toLowerCase().trim(), voucherDetail.getAgent().toLowerCase().trim(), "Voucher Agent not same as voucher Agent received by api");
-                    softAssert.assertEquals(pages.getVoucherTab().getBatchID().toLowerCase().trim(), voucherDetail.getBatchId().toLowerCase().trim(), "Voucher Batch Id not same as voucher Batch Id received by api");
-                    softAssert.assertEquals(pages.getVoucherTab().getVoucherGroup().toLowerCase().trim(), voucherDetail.getVoucherGroup().toLowerCase().trim(), "Voucher group not same as voucher group received by api");
+                        assertCheck.append(actions.assertNotEqual_stringType(pages.getVoucherTab().getSubscriberId().toLowerCase().trim(), voucherDetail.getSubscriberId().toLowerCase().trim(), "Voucher Subscriber Id is same as voucher Subscriber Id received by api", "Voucher Subscriber Id is not same as voucher Subscriber Id received by api"));
+                        assertCheck.append(actions.assertNotEqual_stringType(pages.getVoucherTab().getAgent().toLowerCase().trim(),voucherDetail.getAgent().toLowerCase().trim(), "Voucher Agent same as voucher Agent received by api", "Voucher Agent not same as voucher Agent received by api" ));
+                        assertCheck.append(actions.assertNotEqual_stringType(pages.getVoucherTab().getBatchID().toLowerCase().trim(), voucherDetail.getBatchId().toLowerCase().trim(), "Voucher Batch Id same as voucher Batch Id received by api", "Voucher Batch Id not same as voucher Batch Id received by api"));
+                        assertCheck.append(actions.assertNotEqual_stringType(pages.getVoucherTab().getVoucherGroup().toLowerCase().trim(), voucherDetail.getVoucherGroup().toLowerCase().trim(), "Voucher group same as voucher group received by api", "Voucher group not same as voucher group received by api"));
                     pages.getVoucherTab().clickDoneBtn();
                 } else {
-                    softAssert.fail("com.airtel.cs.API Response is not 200.");
+                    commonLib.fail("com.airtel.cs.API Response is not 200.", true);
                 }
             } catch (TimeoutException | NoSuchElementException e) {
-                Thread.sleep(500);
                 pages.getVoucherTab().clickDoneBtn();
-                softAssert.fail("Not able to validate Voucher tab: " + e.getMessage());
+                commonLib.fail("Not able to validate Voucher tab: " + e.fillInStackTrace(), true);
             }
         } else {
-            softAssert.fail("Voucher Id does not found in config sheet. Please add voucher in sheet.");
+            commonLib.fail("Voucher Id does not found in config sheet. Please add voucher in sheet.", true);
         }
-        softAssert.assertAll();
+
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 }
