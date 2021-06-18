@@ -65,8 +65,14 @@ public class CreateInteractionTest extends Driver {
             selUtils.addTestcaseDescription(" Validating FTR Ticket: " + issueCode, "description");
             pages.getCustomerProfilePage().clickOnInteractionIcon();
             pages.getInteractionsPage().clickOnCode();
-            pages.getInteractionsPage().searchCode(issueCode);
-            pages.getInteractionsPage().selectCode(issueCode);
+            try {
+                pages.getInteractionsPage().searchCode(issueCode);
+                pages.getInteractionsPage().selectCode(issueCode);
+            }catch (NoSuchElementException | TimeoutException e){
+                commonLib.fail("Not able to select code",true);
+                pages.getInteractionsPage().clickOutside();
+                throw new NoSuchElementException("Not able to select code or code not found");
+            }
             commonLib.info("Creating ticket with issue code -" + issueCode);
             assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssue().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), data.getIssue().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue is as expected", "Issue is not as expected "));
             assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssueSubSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), data.getIssueSubSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue sub sub type is as expected", "Issue sub sub type is not as expected "));
@@ -103,8 +109,14 @@ public class CreateInteractionTest extends Driver {
             LocalDateTime now = LocalDateTime.now();
             pages.getCustomerProfilePage().clickOnInteractionIcon();
             pages.getInteractionsPage().clickOnCode();
-            pages.getInteractionsPage().searchCode(issueCode);
-            pages.getInteractionsPage().selectCode(issueCode);
+            try {
+                pages.getInteractionsPage().searchCode(issueCode);
+                pages.getInteractionsPage().selectCode(issueCode);
+            }catch (NoSuchElementException | TimeoutException e){
+                commonLib.fail("Not able to select code",true);
+                pages.getInteractionsPage().clickOutside();
+                throw new NoSuchElementException("Not able to select code or code not found");
+            }
             commonLib.info("Creating ticket with issue code -" + issueCode);
             assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssue().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), data.getIssue().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue is as expected", "Issue is not as expected"));
             assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssueSubSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), data.getIssueSubSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue sub sub type is as expected", "Issue sub sub type is not as expected"));

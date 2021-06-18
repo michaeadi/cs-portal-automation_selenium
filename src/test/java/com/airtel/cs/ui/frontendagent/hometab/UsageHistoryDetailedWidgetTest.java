@@ -51,6 +51,8 @@ public class UsageHistoryDetailedWidgetTest extends Driver {
     public void usageHistoryMenuHeaderTest(HeaderDataBean data) {
         try {
             selUtils.addTestcaseDescription("Validate Usage history menu widget header visible and display all the Column name as per config,validate all the filter displayed,Validate all type of cdr displayed.,Validation Pagination display when data displayed on UI.", "description");
+            pages.getUsageHistoryWidget().openingMoreDetails();
+            Assert.assertTrue(pages.getDetailedUsageHistoryPage().isWidgetDisplay(), "Detailed Usage History Widget does not visible ");
             assertCheck.append(actions.assertEqual_boolean(pages.getDetailedUsageHistoryPage().isFreeCDR(), true, "Free CDR Option does display on UI.", "Free CDR Option does not display on UI."));
             assertCheck.append(actions.assertEqual_boolean(pages.getDetailedUsageHistoryPage().isTypeOfCDR(), true, "Type of CDR Option does display on UI.", "Type of CDR Option does not display on UI."));
             assertCheck.append(actions.assertEqual_boolean(pages.getDetailedUsageHistoryPage().isTodayDateFilter(), true, "Today date filter Option does display on UI.", "Today date filter Option does not display on UI."));
@@ -85,12 +87,11 @@ public class UsageHistoryDetailedWidgetTest extends Driver {
     public void usageHistoryMenuTest() {
         try {
             selUtils.addTestcaseDescription("Validating Usage History's  Menu of User :" + customerNumber + "validate row display data value on UI as per api response.", "description");
-            pages.getUsageHistoryWidget().openingMoreDetails();
             Assert.assertTrue(pages.getDetailedUsageHistoryPage().isWidgetDisplay(), "Detailed Usage History Widget does not visible ");
             try {
                 int size = Math.min(usageHistoryAPI.getTotalCount(), 20);
                 final int statusCode = usageHistoryAPI.getStatusCode();
-                assertCheck.append(actions.assertEqual_intType(statusCode, 200, "Display Offer Widget API success and status code is :" + statusCode, "Display Offer Widget API got failed and status code is :" + statusCode));
+                assertCheck.append(actions.assertEqual_intType(statusCode, 200, "Usage History Widget API success and status code is :" + statusCode, "Usage History Widget API got failed and status code is :" + statusCode));
                 if (statusCode != 200) {
                     commonLib.fail("API is Unable to Get usage history for Customer", false);
                 } else if (usageHistoryAPI.getResult().size() == 0 || usageHistoryAPI.getResult() == null) {
