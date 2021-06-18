@@ -300,8 +300,8 @@
                 <include name="SanityTest"/>
             </run>
         </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.ticketsourceapp.TicketSourceAppTest"/>
-        </classes>
-    </test>
+            <classes>
+                <class name="com.airtel.cs.ui.ticketsourceapp.TicketSourceAppTest"/>
+            </classes>
+        </test>
 </suite>
