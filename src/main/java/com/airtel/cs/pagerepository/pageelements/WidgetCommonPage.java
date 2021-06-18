@@ -15,7 +15,7 @@ public class WidgetCommonPage {
     public String paginationCount="//div[@data-csautomation-key='paginationResult']";
 
     /**
-     * Date Picker
+     * Other item present on widget which common to widgets
      */
     public String datePicker="//input[@data-csautomation-key='datePicker']";
     public String searchBox="//input[@data-csautomation-key='searchBox']";
