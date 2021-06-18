@@ -36,6 +36,7 @@ public class BasePage extends Driver {
     BasePageElements basePageElements;
     public static final RequestSource api = new RequestSource();
     private static final String BREAK_LINE = "</br>";
+    public static WidgetCommonMethod widgetMethods=pages.getWidgetCommonMethod();
 
     //Constructor
     public BasePage(WebDriver driver) {

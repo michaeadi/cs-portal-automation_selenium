@@ -178,4 +178,8 @@ public class CRBTWidget extends BasePage {
         return result;
     }
 
+    public String getCRBTWidgetId(){
+        return pageElements.crbtWidgetIdentifier;
+    }
+
 }

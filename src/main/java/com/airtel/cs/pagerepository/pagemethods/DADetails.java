@@ -435,8 +435,4 @@ public class DADetails extends BasePage {
         return pageElements.accumulatorWidgetIdentifier;
     }
 
-
-
-
-
 }

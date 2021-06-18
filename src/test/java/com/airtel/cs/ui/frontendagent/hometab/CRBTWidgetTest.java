@@ -13,6 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -23,9 +24,10 @@ public class CRBTWidgetTest extends Driver {
     private static String customerNumber = null;
     RequestSource api = new RequestSource();
     private final BaseActions actions = new BaseActions();
+    private String crbtWidgetId;
 
-    @BeforeMethod
-    public void isResetMe2uFeatureEnabled() {
+    @BeforeClass
+    public void isCRBTFeatureEnabled() {
         if (StringUtils.equalsIgnoreCase(constants.getValue(ApplicationConstants.CRBT_WIDGET), "false")) {
             commonLib.skip("CRBT Widget is NOT Enabled for this Opco=" + OPCO);
             throw new SkipException("CRBT Widget is NOT Enabled for this Opco=" + OPCO);
@@ -62,7 +64,8 @@ public class CRBTWidgetTest extends Driver {
     public void testHeaderAndAuuid() {
         try {
             selUtils.addTestcaseDescription("Validate is CRBT Widget Visible,Validate is CRBT Widget Loaded?,Validate Footer and Middle Auuid", "description");
-            assertCheck.append(actions.assertEqual_boolean(pages.getCrbtWidgetPage().isCRBTWidgetDisplay(), true, "CRBT Widget is visible", "CRBT Widget is not visible"));
+            crbtWidgetId=pages.getCrbtWidgetPage().getCRBTWidgetId();
+            assertCheck.append(actions.assertEqual_boolean(widgetMethods.isWidgetVisible(crbtWidgetId), true, "CRBT Widget is visible", "CRBT Widget is not visible"));
             assertCheck.append(actions.assertEqual_boolean(pages.getCrbtWidgetPage().isCRBTHistoryWidgetLoaded(), true, "CRBT Widget Loaded Successfully", "CRBT Widget NOT Loaded Successfully"));
             assertCheck.append(actions.assertEqual_stringType(pages.getCrbtWidgetPage().getFooterAuuidCRBT(), loginAUUID, "Auuid shown at the footer of the CRBT widget and is correct", "Auuid NOT shown at the footer of CRBT widget"));
             assertCheck.append(actions.assertEqual_stringType(pages.getCrbtWidgetPage().getMiddleAuuidCRBT(), loginAUUID, "Auuid shown at the middle of the CRBT widget and is correct", "Auuid NOT shown at the middle of CRBT widget"));

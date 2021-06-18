@@ -20,37 +20,13 @@ public class AMTransactionsWidget extends BasePage {
         pageElements = PageFactory.initElements(driver, AMTxnWidgetPage.class);
     }
 
-    public boolean isAirtelMoneyErrorVisible() {
-        final boolean elementVisible = isElementVisible(pageElements.airtelMoneyError);
-        commonLib.info("Validating error is visible when there is Error in API : " + elementVisible);
-        return elementVisible;
-    }
-
-    public String gettingAirtelMoneyNoResultFoundMessage() {
-        final String text = getText(pageElements.airtelMoneyNoResultFoundMessage);
-        commonLib.info("Validating error msg message when there is no data from API : " + text);
-        return text;
-    }
-
-    public boolean isAirtelMoneyNoResultFoundVisible() {
-        final boolean elementVisible = isElementVisible(pageElements.airtelMoneyNoResultFound);
-        commonLib.info("Validating 'No Result Found' msg is visible :- " + elementVisible);
-        return elementVisible;
-    }
-
-    public String getHeaders(int column) {
-        String header = readTextOnRows(pageElements.headerRows, column);
-        commonLib.info("Getting header Number " + column + " : " + header);
-        return header;
-    }
-
     /*
     This Method will give us the header value
      */
     public String getHeaderValue(int row, int column) {
-        String result = null;
-        String attribute = null;
-        result = getText(By.xpath(pageElements.dataRow + row + pageElements.valueColumns + column + pageElements.columnText));
+        String result;
+        String attribute;
+        result = widgetMethods.getColumnValue(getAMWidgetId(),row,column);
         if (column == 1) {
             String sign = null;
             attribute = getAttribute(By.xpath(pageElements.dataRow + row + pageElements.amountSign + column + pageElements.amountImg), "src", false);
@@ -78,39 +54,6 @@ public class AMTransactionsWidget extends BasePage {
             commonLib.info("Checking is Airtel Money Widget Visible? " + elementVisible);
         }
         return elementVisible;
-    }
-
-    /*
-    This Method will give us footer auuid shown in AM widget
-     */
-    public String getFooterAuuidAM() {
-        String result = null;
-        result = getText(pageElements.footerAMAuuid);
-        return result;
-    }
-
-    /*
-    This Method will give us auuid shown in the middle of the AM modal
-     */
-    public String getMiddleAuuidAM() {
-        String result = null;
-        result = getAttribute(pageElements.middleAMAuuid, "data-auuid", false);
-        return result;
-    }
-
-    /*
-    This Method will get the text of the header
-     */
-    public String getAirtelMoneyTransactionHeaderText() {
-        final String headerText = getText(pageElements.airtelMoneyTransactionHeader);
-        commonLib.info("Airtel Money Widget Header Text is:- " + headerText);
-        return headerText;
-    }
-
-    public boolean isAirtelMoneyWidgetDatePickerVisible() {
-        final By datePicker = pageElements.airtelMoneyDatePicker;
-        commonLib.info("Checking Airtel Money Widget, is Date Picker visible? " + datePicker);
-        return isEnabled(datePicker);
     }
 
     /*
@@ -147,15 +90,13 @@ public class AMTransactionsWidget extends BasePage {
         return text;
     }
 
-    public WidgetInteraction clickTicketIcon() {
+    public void clickTicketIcon() {
         try {
             commonLib.info("Clicking on Ticket Icon");
             clickAndWaitForLoaderToBeRemoved(pageElements.ticketIcon);
-            return new WidgetInteraction(driver);
         } catch (NoSuchElementException | TimeoutException e) {
             Assert.fail("Ticket Icon does not display on AM History Widget");
         }
-        return null;
     }
 
     public String getWidgetTitle() {
@@ -179,27 +120,6 @@ public class AMTransactionsWidget extends BasePage {
     public void clickMenuOption() {
         commonLib.info("Clicking Menu Option");
         clickAndWaitForLoaderToBeRemoved(pageElements.clickMenu);
-    }
-
-    public MoreAMTxnTab openAMHistoryTab() {
-        commonLib.info("Opening AM History Sub Tab");
-        clickAndWaitForLoaderToBeRemoved(pageElements.amHistoryTab);
-        return new MoreAMTxnTab(driver);
-    }
-
-    public Boolean isTransactionIdSearchBoxVisible() {
-        final boolean enabled = isEnabled(pageElements.transactionId);
-        commonLib.info("Checking is Transaction Id Search Box Visible?" + enabled);
-        return enabled;
-    }
-
-    public void writeTransactionId(String id) {
-        enterText(pageElements.transactionId, id);
-    }
-
-    public void clickSearchBtn() {
-        commonLib.info("Clicking on Search Button");
-        clickAndWaitForLoaderToBeRemoved(pageElements.transactionSearchBtn);
     }
 
     public String doubleClickOnTransactionId(int row) {

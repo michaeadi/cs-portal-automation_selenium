@@ -19,7 +19,7 @@ public class AccumulatorWidgetTest extends Driver {
     private static String customerNumber = null;
     private final BaseActions actions = new BaseActions();
     RequestSource api = new RequestSource();
-    private final String accumulatorWidgetIdentifier=pages.getDaDetailsPage().getAccumulatorId();
+    private String accumulatorWidgetIdentifier;
 
     @BeforeMethod
     public void checkExecution() {
@@ -52,6 +52,7 @@ public class AccumulatorWidgetTest extends Driver {
     public void accumulatorDetailsTest(HeaderDataBean Data) {
         try {
             selUtils.addTestcaseDescription("Validating Accumulator Details of User :" + customerNumber, "description");
+            accumulatorWidgetIdentifier=pages.getDaDetailsPage().getAccumulatorId();
             try {
                 assertCheck.append(actions.assertEqual_boolean(pages.getCurrentBalanceWidgetPage().isCurrentBalanceWidgetMenuVisible(), true, "Current Balance Widget MENU visible ", "Current Balance Widget MENU is not visible"));
                 pages.getCurrentBalanceWidgetPage().openingDADetails();

@@ -4,9 +4,10 @@ import com.airtel.cs.pagerepository.pageelements.WidgetCommonPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class WidgetCommonMethod extends BasePage {
-    WidgetCommonPage pageElements;
+    private WidgetCommonPage pageElements;
 
     public WidgetCommonMethod(WebDriver driver) {
         super(driver);
@@ -299,6 +300,21 @@ public class WidgetCommonMethod extends BasePage {
     public String getWidgetTitle(String widgetIdentifier){
      commonLib.info("Reading widget title displayed on ui");
      return getText(By.xpath(widgetIdentifier));
+    }
+
+    /**
+     * This method use to check widget load with api response and no overlay loader present
+     * @param widgetIdentifier The unique widget identifier
+     * @return true/false;
+     */
+    public Boolean isWidgetLoaderRemoved(String widgetIdentifier){
+        boolean result = false;
+        By elementLocation=By.xpath(widgetIdentifier+pageElements.streamLineLoader);
+        if (isElementVisible(elementLocation)) {
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(elementLocation));
+            result = true;
+        }
+        return result;
     }
 
 }

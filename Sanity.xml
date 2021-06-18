@@ -4,11 +4,11 @@
     <listeners>
         <listener class-name="com.airtel.cs.commonutils.listeners.TestListenerMethod"/>
     </listeners>
-    <test name="Test Login API">
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginAPITest"/>
-        </classes>
-    </test>
+<!--    <test name="Test Login API">-->
+<!--        <classes>-->
+<!--            <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginAPITest"/>-->
+<!--        </classes>-->
+<!--    </test>-->
     <test name="Test Login Into Portal With FA">
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginPortalTests"/>

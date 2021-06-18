@@ -25,4 +25,5 @@ public class CRBTWidgetPage {
     public String crbtTableValue = "//div[@id='RING_BACK_TUNE']//div[contains(@class,'table-data-wrapper')]//div[";
     public String crbtTableValue1 = "]//div[contains(@class,'table--data-list row-border')]//div[";
 
+    public String crbtWidgetIdentifier="//div[@data-csautomation-key='RING_BACK_TUNE']";
 }

@@ -28,4 +28,5 @@ public class WidgetCommonPage {
     public String widgetErrorMsg="//div[@data-csautomation-key='widgetErrorMsg']";
     public String widgetErrorRefreshBtn="//button[@data-csautomation-key='widgetErrorRefreshButton']";
     public String widgetAPIErrorMsg="//div[@data-csautomation-key='widgetErrorMsg']";
+    public String streamLineLoader="//div[@data-csautomation-key='streamLineLoader']";
 }
