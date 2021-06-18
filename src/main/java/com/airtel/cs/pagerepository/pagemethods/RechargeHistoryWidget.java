@@ -27,7 +27,7 @@ public class RechargeHistoryWidget extends BasePage{
     }
 
     public String getHeaders(int row) {
-        return pages.getWidgetCommonMethod().getHeaderValue(getUniqueIdentifier(),row);
+        return pages.getWidgetCommonMethod().getHeaderName(getUniqueIdentifier(),row);
     }
 
     public String getSubHeaders(int row) {

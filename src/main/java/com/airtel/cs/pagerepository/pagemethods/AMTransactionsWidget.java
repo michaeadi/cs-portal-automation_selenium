@@ -208,4 +208,12 @@ public class AMTransactionsWidget extends BasePage {
         act.moveToElement(driver.findElement(id)).doubleClick().build().perform();
         return getText(id);
     }
+
+    /**
+     * This method is use to get Airtel Money transaction widget unique identifier
+     * @return String The Value
+     */
+    public String getAMWidgetId(){
+        return pageElements.amWidgetId;
+    }
 }

@@ -132,29 +132,6 @@ public class DADetails extends BasePage {
     }
 
     /**
-     * This method use to get header name of Accumulator Widget
-     * @param column The column number
-     * @return String The header name
-     * */
-    public String getAccumulatorHeaders(int column) {
-        String header = getText(By.xpath(pageElements.accumulatorHeader + column + pageElements.headerValue));
-        commonLib.info("Getting Accumulator header Number " + column + " : " + header);
-        return header;
-    }
-
-    /**
-     * This method use to get data value from Accumulator widget based on row and column
-     * @param row The row number
-     * @param column The column number
-     * @return String The  data value
-     * */
-    public String getValueCorrespondingToAccumulator(int row, int column) {
-        String value = getText(By.xpath(pageElements.accumulatorColumnHeader + row + pageElements.accumulatorColumnValue + column + pageElements.headerValue));
-        commonLib.info("Reading '" + getAccumulatorHeaders(column) + "' = " + value);
-        return value.trim();
-    }
-
-    /**
      * This method use to check whether UC-UT widget display or not
      * @return true/false
      * */
@@ -449,6 +426,15 @@ public class DADetails extends BasePage {
         commonLib.info("Reading Pagination text "+value);
         return value;
     }
+
+    /**
+     * This method is used to get accumulator widget identifier
+     * @return String The value
+     */
+    public String getAccumulatorId(){
+        return pageElements.accumulatorWidgetIdentifier;
+    }
+
 
 
 

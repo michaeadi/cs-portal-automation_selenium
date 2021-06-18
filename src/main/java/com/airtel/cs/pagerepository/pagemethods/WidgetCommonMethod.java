@@ -181,7 +181,7 @@ public class WidgetCommonMethod extends BasePage {
     }
 
     /**
-     * This method use to check is bottom auuid visible text on widget
+     * This method use to check is bottom/footer auuid visible text on widget
      * @param widgetIdentifier The widget unique identifier
      * @return String The login agent AUUID
      */
@@ -278,6 +278,27 @@ public class WidgetCommonMethod extends BasePage {
         commonLib.info("Checking widget refresh icon displayed or not");
         By elementLocation=By.xpath(widgetIdentifier+pageElements.widgetErrorRefreshBtn);
         clickAndWaitForLoaderToBeRemoved(elementLocation);
+    }
+
+    /**
+     * This method is use to check widget visible or not based on widget identifier
+     * @param widgetIdentifier The unique widget identifier
+     * @return true/false
+     */
+    public Boolean isWidgetVisible(String widgetIdentifier){
+        commonLib.info("Checking widget visible or not");
+        By elementLocation=By.xpath(widgetIdentifier);
+        return isElementVisible(elementLocation);
+    }
+
+    /**
+     * This method is use to get widget title text
+     * @param widgetIdentifier The unique widget identifier
+     * @return true/false
+     */
+    public String getWidgetTitle(String widgetIdentifier){
+     commonLib.info("Reading widget title displayed on ui");
+     return getText(By.xpath(widgetIdentifier));
     }
 
 }

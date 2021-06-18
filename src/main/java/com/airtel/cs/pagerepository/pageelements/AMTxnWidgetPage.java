@@ -29,4 +29,6 @@ public class AMTxnWidgetPage {
     public String transactionIdColumn = "]/div/div[4]//span";
     public By footerAMAuuid = By.xpath("//*[@id='AIRTEL_MONEY']//*[@class='auuid-container']");
     public By middleAMAuuid = By.xpath("//*[@id='AIRTEL_MONEY']");
+
+    public String amWidgetId="//div[@data-csautomation-key='AIRTEL_MONEY']";
 }

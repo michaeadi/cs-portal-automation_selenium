@@ -7,6 +7,7 @@ import com.airtel.cs.commonutils.commonlib.CommonLib;
 import com.airtel.cs.commonutils.extentreports.ExtentReport;
 import com.airtel.cs.commonutils.seleniumutils.SeleniumCommonUtils;
 import com.airtel.cs.pagerepository.pagemethods.PageCollection;
+import com.airtel.cs.pagerepository.pagemethods.WidgetCommonMethod;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
@@ -90,6 +91,7 @@ public class Driver {
     public static String reason;
     public static String loginAUUID;
     public static ObjectMapper objectMapper = new ObjectMapper();
+    public static WidgetCommonMethod widgetMethods;
 
     public WebDriver getDriver() {
         return driver;
@@ -158,6 +160,7 @@ public class Driver {
      */
     public static void initializePages() {
         pages = new PageCollection(driver);
+        widgetMethods=pages.getWidgetCommonMethod();
     }
 
     /**
