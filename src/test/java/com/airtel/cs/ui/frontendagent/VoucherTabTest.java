@@ -76,7 +76,6 @@ public class VoucherTabTest extends Driver {
             pages.getRechargeHistoryWidget().writeVoucherId(voucherId);
             pages.getRechargeHistoryWidget().clickSearchBtn();
             try {
-                pages.getVoucherTab().waitTillTimeLineGetsRemoved();
                 Assert.assertTrue(pages.getVoucherTab().isVoucherTabOpen(), "Voucher Id does not found");
                 VoucherSearchPOJO voucher = api.voucherSearchTest(voucherId);
                 VoucherDetail voucherDetail = voucher.getResult();

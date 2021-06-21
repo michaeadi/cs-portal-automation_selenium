@@ -513,6 +513,30 @@ public class BasePage extends Driver {
         }
     }
 
+    /**
+     * CREATED THIS TO BYPASS THE DEFAULT 10 SEC WAIT CAUSED BY ISDISPLAYED METHOD AND  CONTINUE EXECUTION
+     *
+     * @param webelementBy element locator
+     * @return will return true false
+     */
+    public boolean isVisibleContinueExecution(By webelementBy) {
+        return isVisibleContinueExecution(webelementBy, Integer.parseInt(constants.getValue(ApplicationConstants.GENERAL_WAIT_IN_SEC)));
+    }
+
+    /**
+     * This Method will let us know, if element is visible or not and continue execution
+     *
+     * @param webelementBy element lcoator
+     * @param time         time in seconds
+     * @return true/false
+     */
+    public boolean isVisibleContinueExecution(By webelementBy, int time) {
+            elementName = getElementNameFromAirtelByWrapper(webelementBy);
+            Wait<WebDriver> driverWait = getWaitObject(time);
+            WebElement webElement = driverWait.until(ExpectedConditions.visibilityOfElementLocated(webelementBy));
+            return webElement != null;
+    }
+
     public Wait<WebDriver> getWaitObject(int maxWaitFor) {
         FluentWait fluentWait = null;
         try {

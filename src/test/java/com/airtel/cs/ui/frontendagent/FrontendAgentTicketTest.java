@@ -56,12 +56,9 @@ public class FrontendAgentTicketTest extends Driver {
             selUtils.addTestcaseDescription("Validate Ticket Meta Data for Frontend Agent", "description");
             pages.getCustomerProfilePage().goToViewHistory();
             pages.getViewHistory().goToTicketHistoryTab();
-            pages.getFrontendTicketHistoryPage().waitTillLoaderGetsRemoved();
             String ticketId = pages.getFrontendTicketHistoryPage().getTicketId(1);
             pages.getFrontendTicketHistoryPage().writeTicketId(ticketId);
             pages.getFrontendTicketHistoryPage().clickSearchBtn();
-            pages.getFrontendTicketHistoryPage().waitTillLoaderGetsRemoved();
-            Thread.sleep(3000);
             assertCheck.append(actions.assertEqual_stringType(pages.getFrontendTicketHistoryPage().getTicketId(1), ticketId, "Ticket Id same as search ticket id.", "Ticket Id does not same as search ticket id."));
             assertCheck.append(actions.assertEqual_stringNotNull(pages.getFrontendTicketHistoryPage().getTicketPriority(1), "Ticket priority is not null.", "Ticket priority must not be null."));
             assertCheck.append(actions.assertEqual_stringNotNull(pages.getFrontendTicketHistoryPage().getTicketQueue(1), "Ticket Queue is not null.", "Ticket Queue must not be null."));
@@ -83,7 +80,6 @@ public class FrontendAgentTicketTest extends Driver {
             selUtils.addTestcaseDescription("Validate Add to Interaction Icon on Each Ticket", "description");
             pages.getCustomerProfilePage().goToViewHistory();
             pages.getViewHistory().goToTicketHistoryTab();
-            pages.getFrontendTicketHistoryPage();
             final boolean interactionIcon = pages.getFrontendTicketHistoryPage().validateAddToInteractionIcon();
             assertCheck.append(actions.assertEqual_boolean(interactionIcon, true, "Add to interaction Icon found on ticket", "Add to interaction Icon does not found on ticket"));
             if (!interactionIcon) continueExecutionFA = false;
@@ -100,16 +96,10 @@ public class FrontendAgentTicketTest extends Driver {
     public void validateNFTRIssue() {
         try {
             selUtils.addTestcaseDescription("Validate NFTR issue have ticket icon", "description");
-            pages.getCustomerProfilePage().goToViewHistory();
             pages.getViewHistory().clickOnInteractionsTab();
-            pages.getViewHistory();
-            final boolean viewTicketPage = pages.getViewHistory().checkViewTicketPage();
             final boolean clickOnTicketIcon = pages.getViewHistory().clickOnTicketIcon();
             assertCheck.append(actions.assertEqual_boolean(clickOnTicketIcon, true, "NFTR issue found in interaction history tab", "No NFTR issue found in interaction history tab"));
-            pages.getViewHistory().waitTillLoaderGetsRemoved();
-            assertCheck.append(actions.assertEqual_boolean(viewTicketPage, true, "View ticket page open", "View ticket page does not open"));
             pages.getViewHistory().clickCloseTicketTab();
-            if (!clickOnTicketIcon || !viewTicketPage) continueExecutionFA = false;
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - validateNFTRIssue()" + e.fillInStackTrace(), true);
@@ -122,11 +112,9 @@ public class FrontendAgentTicketTest extends Driver {
     @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
     public void validateSendSMSTab() {
         selUtils.addTestcaseDescription("Validating the Send SMS Tab ", "description");
-        pages.getCustomerProfilePage().waitTillLoaderGetsRemoved();
         pages.getCustomerProfilePage().clickOnAction();
         try {
             pages.getCustomerProfilePage().openSendSMSTab();
-            pages.getSendSMS().waitTillLoaderGetsRemoved();
             try {
                 assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isPageLoaded(), true, "Send SMS tab open correctly", "Send SMS tab does not open correctly"));
             } catch (NoSuchElementException | TimeoutException e) {

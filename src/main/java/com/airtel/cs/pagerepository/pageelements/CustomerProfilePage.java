@@ -43,5 +43,5 @@ public class CustomerProfilePage {
     public By modalSuccessFailureMsg = By.xpath("//*[contains(@class,'main-container__body--message')]");
     public String pinTagText = "//div[@class='sub-header__divide--control']//div[@class='sub-header__divide--control--tab ng-star-inserted'][";
     public String pinTagByName = "//div[@class='sub-header__divide--control--tab ng-star-inserted' and contains(text(),'";
-    public By demographichWidget = By.xpath("//*[@class='home-tab-container__short-widgets']");
+    public By homeTabWidget = By.xpath("//*[contains(@class,'sr-navigation')]//*[@class='mat-tab-body-wrapper']");
 }

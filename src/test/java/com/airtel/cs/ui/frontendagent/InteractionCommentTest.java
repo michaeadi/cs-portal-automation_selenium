@@ -50,27 +50,26 @@ public class InteractionCommentTest extends Driver {
     }
 
     @Test(priority = 2, groups = {"SanityTest", "RegressionTest"}, dataProvider = "interactionComment", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
-    public void addInteractionComment(NftrDataBeans data) throws InterruptedException {
-        final String issueCode = data.getIssueCode();
-        selUtils.addTestcaseDescription("Add Interaction Ticket Comment on Ticket" + issueCode, "description");
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-        LocalDateTime now = LocalDateTime.now();
-        commonLib.info(dtf.format(now));
-        pages.getCustomerProfilePage().clickOnInteractionIcon();
-        pages.getInteractionsPage().clickOnCode();
-        pages.getInteractionsPage().searchCode(issueCode);
-        pages.getInteractionsPage().selectCode(issueCode);
-        commonLib.info("Creating ticket with issue code -" + issueCode);
-        commonLib.info(pages.getInteractionsPage().getIssue());
-        assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssue().trim().toLowerCase().replace(" ", ""), data.getIssue().trim().toLowerCase().replace(" ", ""), "Issue is as expected", "Issue is NOT as expected"));
-        commonLib.info(pages.getInteractionsPage().getIssueSubSubType());
-        assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssueSubSubType().trim().toLowerCase().replace(" ", ""), data.getIssueSubSubType().trim().toLowerCase().replace(" ", ""), "Issue sub sub type is as expected", "Issue sub sub type is NOT as expected"));
-        commonLib.info(pages.getInteractionsPage().getIssueType());
-        assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssueType().trim().toLowerCase().replace(" ", ""), data.getIssueType().trim().toLowerCase().replace(" ", ""), "Issue type is as expected", "Issue type is NOT as expected"));
-        commonLib.info(pages.getInteractionsPage().getIssueSubType());
-        assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssueSubType().trim().toLowerCase().replace(" ", ""), data.getIssueSubType().trim().toLowerCase().replace(" ", ""), "Issue sub type is as expected", "Issue sub type is NOT as expected"));
+    public void addInteractionComment(NftrDataBeans data) {
         try {
-
+            final String issueCode = data.getIssueCode();
+            selUtils.addTestcaseDescription("Add Interaction Ticket Comment on Ticket" + issueCode, "description");
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+            LocalDateTime now = LocalDateTime.now();
+            commonLib.info(dtf.format(now));
+            pages.getCustomerProfilePage().clickOnInteractionIcon();
+            pages.getInteractionsPage().clickOnCode();
+            pages.getInteractionsPage().searchCode(issueCode);
+            pages.getInteractionsPage().selectCode(issueCode);
+            commonLib.info("Creating ticket with issue code -" + issueCode);
+            commonLib.info(pages.getInteractionsPage().getIssue());
+            assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssue().trim().toLowerCase().replace(" ", ""), data.getIssue().trim().toLowerCase().replace(" ", ""), "Issue is as expected", "Issue is NOT as expected"));
+            commonLib.info(pages.getInteractionsPage().getIssueSubSubType());
+            assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssueSubSubType().trim().toLowerCase().replace(" ", ""), data.getIssueSubSubType().trim().toLowerCase().replace(" ", ""), "Issue sub sub type is as expected", "Issue sub sub type is NOT as expected"));
+            commonLib.info(pages.getInteractionsPage().getIssueType());
+            assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssueType().trim().toLowerCase().replace(" ", ""), data.getIssueType().trim().toLowerCase().replace(" ", ""), "Issue type is as expected", "Issue type is NOT as expected"));
+            commonLib.info(pages.getInteractionsPage().getIssueSubType());
+            assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssueSubType().trim().toLowerCase().replace(" ", ""), data.getIssueSubType().trim().toLowerCase().replace(" ", ""), "Issue sub type is as expected", "Issue sub type is NOT as expected"));
             final String issueFieldLabel1 = data.getIssueFieldLabel1();
             if (issueFieldLabel1 != null)
                 if (data.getIssueFieldType1().equalsIgnoreCase("Text Box") && !issueFieldLabel1.isEmpty()) {

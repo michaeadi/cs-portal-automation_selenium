@@ -29,7 +29,7 @@ public class ClearRefillErrorTest extends Driver {
     /**
      * This method is used to Open Customer Profile Page with valid MSISDN
      */
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -51,7 +51,7 @@ public class ClearRefillErrorTest extends Driver {
     /**
      * This method is used to validate clear refill
      */
-    @Test(priority = 2, dependsOnMethods = "openCustomerInteraction", groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 2, dependsOnMethods = "openCustomerInteraction", groups = {"SanityTest", "RegressionTest"})
     public void clearRefillTest() {
         selUtils.addTestcaseDescription("Validating Clear Refill Test: " + customerNumber, "description");
         assertCheck.append(actions.assertEqual_boolean(pages.getRechargeHistoryWidget().isRechargeHistoryWidgetIsVisible(), true, "Recharge History Widget is visible", "Recharge History Widget is not visible"));
@@ -68,7 +68,7 @@ public class ClearRefillErrorTest extends Driver {
                 commonLib.fail("Exception in Method - clearRefillTest" + e.fillInStackTrace() , true);
             }
         } else {
-            assertCheck.append(actions.assertEqual_boolean(pages.getRechargeHistoryWidget().isRefillIconDisable(), true, "Clear refill icon disable when user not barred.", "Clear refill icon does not disable when user not barred."));
+            assertCheck.append(actions.assertEqual_boolean(pages.getRechargeHistoryWidget().isRefillIconDisable(), true, "Clear refill icon disable when user not barred.", "`Clear refill icon does not disable when user not barred`."));
         }
         actions.assertAllFoundFailedAssert(assertCheck);
     }

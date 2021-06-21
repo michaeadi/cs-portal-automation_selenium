@@ -123,6 +123,7 @@ public class ViewHistory extends BasePage {
                 if (!nftrIssueValue(i).equalsIgnoreCase("ftr")) {
                     commonLib.info("Clicking on Ticket NFTR ticket icon" + nftrIssueValue(i));
                     clickTicketIcon(i);
+                    waitTillLoaderGetsRemoved();
                     return true;
                 }
             }

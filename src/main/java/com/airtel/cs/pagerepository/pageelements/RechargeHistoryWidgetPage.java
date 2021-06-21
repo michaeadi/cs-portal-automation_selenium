@@ -14,7 +14,7 @@ public class RechargeHistoryWidgetPage {
     public By ticketIcon = By.xpath("//div[@id='RECHARGE_HISTORY']//span/img[@class='interaction-ticket']");
     public By voucherBox = By.xpath("//input[@placeholder='Voucher ID']");
     public By voucherBtn = By.xpath("//input[@placeholder='Voucher ID']//parent::span//button");
-    public By refillIconDisable = By.xpath("//div[@id='RECHARGE_HISTORY']/parent::div//span[2]/span/img[@class='header-action-icon disabled ng-star-inserted']");
+    public By refillIconDisable = By.xpath("//div[@id='RECHARGE_HISTORY']//span/img[@class='header-action-icon disabled ng-star-inserted']");
     public By refillIconClickable = By.xpath("//div[@id='RECHARGE_HISTORY']//parent::div//span[2]/span/img[@class='header-action-icon ng-star-inserted']");
     public By popUpMessage = By.xpath("//div[@class='confirm-block ng-star-inserted']/p");
     public By noActionBtn = By.xpath("//div[@class='confirm-block ng-star-inserted']//button[@class='no-btn']");
