@@ -253,6 +253,7 @@ public class AuthTab extends BasePage {
         String result = null;
         if (isVisible(pageElements.toastModal)) {
             result = getText(pageElements.toastModal);
+            clickWithoutLoader(pageElements.closeBtn);
         } else {
             commonLib.fail("Exception in method - getToastText", true);
             commonLib.info("Going to Close Modal through close Button");

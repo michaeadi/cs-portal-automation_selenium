@@ -82,7 +82,6 @@ public class SendInternetSettingsTest extends Driver {
             pages.getAuthTabPage().clickSubmitBtn();
             final String toastText = pages.getAuthTabPage().getToastText();
             assertCheck.append(actions.assertEqual_stringType(toastText, "Internet Settings has been sent on Customer`s Device.", "Send Internet Settings Message has been sent to customer successfully", "Send Internet Settings Message hasn't been sent to customer ans message is :-" + toastText));
-            pages.getAuthTabPage().clickCancelBtn();
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
             commonLib.fail("Exception in Method - validateSendInternetSetting" + e.fillInStackTrace(), true);
