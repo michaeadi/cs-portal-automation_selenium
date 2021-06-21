@@ -13,7 +13,7 @@ public class DADetailsPage {
     public String daDateTime = "]//div[@class='data-container ng-star-inserted' or @class='slide-toggle red ng-star-inserted'][5]/span";
     public By ticketIcon = By.xpath("//div[@id='DA_ACCOUNTS']//span/img[@class='interaction-ticket']");
     public By getTitle = By.xpath("//div[@id='DA_ACCOUNTS']//span[@class='card__card-header--label']");
-    public String daDesc = "]//div[@class='ng-star-inserted' or @class='slide-toggle red ng-star-inserted'][2]/span";
+    public String daDesc = "]//div[@class='data-container ng-star-inserted' or @class='slide-toggle red ng-star-inserted'][2]/span";
     public String headerRow = "//span[contains(text(),'DA Details')]//ancestor::div[@class='card widget ng-star-inserted']//div[@class='card__card-header--card-body--table--list-heading ng-star-inserted']//div[";
     public String headerValue = "]/span";
     public String valueRow = "//div[@id='DA_ACCOUNTS']//div[@class='table-data-wrapper ng-star-inserted']/div[@class='ng-star-inserted'][";
