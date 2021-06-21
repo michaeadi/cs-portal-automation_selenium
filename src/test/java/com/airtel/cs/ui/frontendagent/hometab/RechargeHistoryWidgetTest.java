@@ -67,7 +67,7 @@ public class RechargeHistoryWidgetTest extends Driver {
     @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
     public void testColumnValueAndAuuid(HeaderDataBean data) {
         try {
-            selUtils.addTestcaseDescription("Validating Recharge History Widget of User :" + customerNumber + ",Validate Recharge History API, Validate Recharge H", "description");
+            selUtils.addTestcaseDescription("Validating Recharge History Widget of User :" + customerNumber + ",Validate Recharge History API Giving Status 200, Validate Recharge History widget header name display correctly as per config,Validate Recharge History widget data value must be same as api response.", "description");
             final RechargeHistoryWidget rechargeHistoryWidget = pages.getRechargeHistoryWidget();
             RechargeHistoryPOJO rechargeHistoryAPI = api.rechargeHistoryAPITest(customerNumber);
             final int statusCode = rechargeHistoryAPI.getStatusCode();
