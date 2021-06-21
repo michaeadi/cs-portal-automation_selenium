@@ -29,9 +29,9 @@ public class SupervisorSearchTicketTest extends Driver {
     private final BaseActions actions = new BaseActions();
     private final DataProviders dataProviders = new DataProviders();
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
-        if (!continueExecutionBS) {
+        if (!(continueExecutionBS && continueExecutionFA)) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
             throw new SkipException("Skipping tests because user NOT able to login Over Portal");
         }
@@ -51,12 +51,12 @@ public class SupervisorSearchTicketTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 2,groups = {"SanityTest", "RegressionTest", "ProdTest"},dependsOnMethods = {"openSupervisorDashboard"})
-    public void validateSupervisorTicketListMetaData(){
-        try{
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openSupervisorDashboard"})
+    public void validateSupervisorTicketListMetaData() {
+        try {
             selUtils.addTestcaseDescription("Validate supervisor tickets Meta Data,Validate that supervisor able to see the ticket list" +
                     ",Validate able to see the ticket meta data 'Ticket Number' 'Workgroup Name' 'Ticket Priority' 'Ticket State' 'Ticket Creation date' 'Ticket Queue' 'Category hierarchy [Issue->Issue Type->Issue Sub Type->Issue Sub Sub Type->Category Code]'", "description");
-            if(pages.getSupervisorTicketList().isTicketIdLabel()) {
+            if (pages.getSupervisorTicketList().isTicketIdLabel()) {
                 assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isTicketIdLabel(), true, "Ticket Meta data have Ticket Id field displayed", "Ticket meta data does not have Ticket Id displayed"));
                 assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isWorkGroupName(), true, "Ticket Meta data have WorkGroup field displayed", "Ticket meta data does not have WorkGroup displayed"));
                 assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isPrioritylabel(), true, "Ticket Meta data have Ticket Priority field displayed", "Ticket meta data does not have Ticket Priority displayed"));
@@ -69,17 +69,17 @@ public class SupervisorSearchTicketTest extends Driver {
                 assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isSubTypeLabel(), true, "Ticket Meta data have Ticket Issue Sub Type field displayed", "Ticket meta data does not have Ticket Issue Sub Type displayed"));
                 assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isSubSubTypeLabel(), true, "Ticket Meta data have Ticket Issue Sub Sub Type field displayed", "Ticket meta data does not have Ticket Issue Sub Sub Type displayed"));
                 assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isCodeLabel(), true, "Ticket Meta data have Ticket Ticket Category Code field displayed", "Ticket meta data does not have Ticket Category Code displayed"));
-            }else{
-                commonLib.fail("Ticket List does not display.",true);
+            } else {
+                commonLib.fail("Ticket List does not display.", true);
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             commonLib.fail("Exception in Method - validateSupervisorTicketListMetaData" + e.fillInStackTrace(), true);
         }
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
 
-    @Test(priority = 3, dataProvider = "ticketId", dataProviderClass = DataProviders.class,groups = {"SanityTest", "RegressionTest", "ProdTest"},dependsOnMethods = {"openSupervisorDashboard"})
+    @Test(priority = 3, dataProvider = "ticketId", dataProviderClass = DataProviders.class, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openSupervisorDashboard"})
     public void supervisorSearchTicket(NftrDataBeans data) {
         try {
             selUtils.addTestcaseDescription("Search Ticket & Validate Ticket Meta Data: " + data.getTicketNumber() + ",Validate that supervisor able to see the ticket list and able to search ticket using ticket id" +
@@ -166,21 +166,21 @@ public class SupervisorSearchTicketTest extends Driver {
                 commonLib.fail("Ticket id search not done for following error: " + e.getMessage(), true);
             }
             pages.getSupervisorTicketList().clearInputBox();
-        }catch (Exception e){
+        } catch (Exception e) {
             commonLib.fail("Exception in Method - supervisorSearchTicket" + e.fillInStackTrace(), true);
         }
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 3,dataProviderClass = DataProviders.class,groups = {"SanityTest", "RegressionTest", "ProdTest"},dependsOnMethods = {"openSupervisorDashboard"})
+    @Test(priority = 4, dataProviderClass = DataProviders.class, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openSupervisorDashboard"})
     public void validateCheckBox() {
         try {
             selUtils.addTestcaseDescription("Validate Check Box,Validate Assign to Agent and Transfer to Queue Option on Open Ticket", "description");
             pages.getSupervisorTicketList().clickCheckbox();
-            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isAssignToAgent(),true,"User have option to perform action assign to agent", "User does not have option to perform action assign to agent"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isTransferToQueue(), true,"User have option to perform action Transfer to Queue ", "User does not have option to perform action Transfer to Queue"));
+            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isAssignToAgent(), true, "User have option to perform action assign to agent", "User does not have option to perform action assign to agent"));
+            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isTransferToQueue(), true, "User have option to perform action Transfer to Queue ", "User does not have option to perform action Transfer to Queue"));
             pages.getSupervisorTicketList().clickCheckbox();
-        }catch (Exception e){
+        } catch (Exception e) {
             commonLib.fail("Exception in Method - validateCheckBox" + e.fillInStackTrace(), true);
         }
         actions.assertAllFoundFailedAssert(assertCheck);

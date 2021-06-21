@@ -29,15 +29,7 @@ public class DisplayOfferWidgetTest extends Driver {
     private OfferDetailPOJO offerDetailPOJO = null;
     public static final String RUN_DISPLAY_OFFER_TEST_CASE = constants.getValue(ApplicationConstants.RUN_DISPLAY_OFFER_TEST_CASE);
 
-    @BeforeClass
-    public void checkServiceProfileFlag() {
-        if (!StringUtils.equals(RUN_DISPLAY_OFFER_TEST_CASE, "true")) {
-            commonLib.skip("Skipping because Run Display Offer widget Test Case Flag Value is - " + RUN_DISPLAY_OFFER_TEST_CASE);
-            throw new SkipException("Skipping because this functionality does not applicable for current Opco");
-        }
-    }
-
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login via API");
@@ -45,7 +37,15 @@ public class DisplayOfferWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 1,groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeClass(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void checkServiceProfileFlag() {
+        if (!StringUtils.equals(RUN_DISPLAY_OFFER_TEST_CASE, "true")) {
+            commonLib.skip("Skipping because Run Display Offer widget Test Case Flag Value is - " + RUN_DISPLAY_OFFER_TEST_CASE);
+            throw new SkipException("Skipping because this functionality does not applicable for current Opco");
+        }
+    }
+
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -64,7 +64,7 @@ public class DisplayOfferWidgetTest extends Driver {
     }
 
     @DataProviders.Table(name = "UC-UT Offer")
-    @Test(priority = 2,groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = {"openCustomerInteraction"})
     public void displayOfferHeaderTest(HeaderDataBean headerValues) {
         selUtils.addTestcaseDescription("CSP-63664 : Validate Offers widget header visible and display all the Column name as per config ", "description");
         try {
@@ -74,9 +74,9 @@ public class DisplayOfferWidgetTest extends Driver {
             offerDetailPOJO = api.offerDetailAPITest(customerNumber);
             final int statusCode = offerDetailPOJO.getStatusCode();
             assertCheck.append(actions.assertEqual_intType(statusCode, 200, "Display Offer Widget API success and status code is :" + statusCode, "Display Offer Widget API got failed and status code is :" + statusCode));
-            if (statusCode!= 200) {
+            if (statusCode != 200) {
                 commonLib.fail("API is Unable to Get Display Offer for Customer", false);
-            } else if(offerDetailPOJO.getResult().size() > 0){
+            } else if (offerDetailPOJO.getResult().size() > 0) {
                 assertCheck.append(actions.assertEqual_stringType(pages.getDaDetailsPage().getDisplayOfferHeader(1).toLowerCase().trim(), headerValues.getRow1().toLowerCase().trim(), "Header Name for Row 1 is as expected", "Header Name for Row 1 is not as expected"));
                 assertCheck.append(actions.assertEqual_stringType(pages.getDaDetailsPage().getDisplayOfferHeader(2).toLowerCase().trim(), headerValues.getRow2().toLowerCase().trim(), "Header Name for Row 2 is as expected", "Header Name for Row 2 is not as expected"));
                 assertCheck.append(actions.assertEqual_stringType(pages.getDaDetailsPage().getDisplayOfferHeader(3).toLowerCase().trim(), headerValues.getRow3().toLowerCase().trim(), "Header Name for Row 3 is as expected", "Header Name for Row 3 is not as expected"));
@@ -86,8 +86,8 @@ public class DisplayOfferWidgetTest extends Driver {
                 assertCheck.append(actions.assertEqual_stringType(pages.getDaDetailsPage().getDisplayOfferHeader(7).toLowerCase().trim(), headerValues.getRow7().toLowerCase().trim(), "Header Name for Row 7 is as expected", "Header Name for Row 7 is not as expected"));
                 assertCheck.append(actions.assertEqual_stringType(pages.getDaDetailsPage().getDisplayOfferHeader(8).toLowerCase().trim(), headerValues.getRow8().toLowerCase().trim(), "Header Name for Row 8 is as expected", "Header Name for Row 8 is not as expected"));
                 assertCheck.append(actions.assertEqual_stringType(pages.getDaDetailsPage().getDisplayOfferHeader(9).toLowerCase().trim(), headerValues.getRow9().toLowerCase().trim(), "Header Name for Row 9 is as expected", "Header Name for Row 9 is not as expected"));
-                assertCheck.append(actions.assertEqual_boolean(pages.getDaDetailsPage().isPaginationAvailable(),true,"Pagination is available on display offer widget as expected.","Pagination is not available on display offer widget as expected"));
-            }else{
+                assertCheck.append(actions.assertEqual_boolean(pages.getDaDetailsPage().isPaginationAvailable(), true, "Pagination is available on display offer widget as expected.", "Pagination is not available on display offer widget as expected"));
+            } else {
                 commonLib.warning("API is unable to get Offer detail");
             }
             actions.assertAllFoundFailedAssert(assertCheck);
@@ -96,14 +96,14 @@ public class DisplayOfferWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProviderClass = DataProviders.class, dependsOnMethods = {"displayOfferHeaderTest"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProviderClass = DataProviders.class, dependsOnMethods = {"displayOfferHeaderTest", "openCustomerInteraction"})
     public void displayOfferWidgetTest() {
         selUtils.addTestcaseDescription("Validate Offers widget Column value display as per API Response ", "description");
         DADetails daDetailsPage = pages.getDaDetailsPage();
         try {
             final int statusCode = offerDetailPOJO.getStatusCode();
             assertCheck.append(actions.assertEqual_intType(statusCode, 200, "Display Offer Widget API success and status code is :" + statusCode, "Display Offer Widget API got failed and status code is :" + statusCode));
-            if (statusCode!= 200) {
+            if (statusCode != 200) {
                 commonLib.fail("API is Unable to Get AM Transaction History for Customer", false);
             } else if (offerDetailPOJO.getResult().size() > 0) {
                 int size = Math.min(offerDetailPOJO.getResult().size(), 5);
@@ -118,7 +118,7 @@ public class DisplayOfferWidgetTest extends Driver {
                     assertCheck.append(actions.matchUiAndAPIResponse(daDetailsPage.getValueCorrespondingToOffer(i + 1, 8), offerDetailPOJO.getResult().get(i).getOfferState(), "Offer State is as expected as API response", "offer State is not expected as API response"));
                     assertCheck.append(actions.matchUiAndAPIResponse(daDetailsPage.getValueCorrespondingToOffer(i + 1, 9), offerDetailPOJO.getResult().get(i).getNoOfDAs(), "Offer No. of DA associated number is as expected as API response", "offer No. of DA associated number is not expected as API response"));
                 }
-            }else{
+            } else {
                 commonLib.warning("API is unable to get Offer detail");
             }
         } catch (Exception e) {
@@ -127,14 +127,14 @@ public class DisplayOfferWidgetTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"displayOfferHeaderTest"})
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"displayOfferHeaderTest", "openCustomerInteraction"})
     public void associatedDAPopUpTest() {
         selUtils.addTestcaseDescription("Validate Associated DA's widget Column value display as per API Response ", "description");
         DADetails daDetailsPage = pages.getDaDetailsPage();
         int size = Math.min(offerDetailPOJO.getResult().size(), 5);
         try {
             for (int i = 0; i < size; i++) {
-                int daSize=offerDetailPOJO.getResult().get(i).getNoOfDAs()!=null ?offerDetailPOJO.getResult().get(i).getNoOfDAs() :-1;
+                int daSize = offerDetailPOJO.getResult().get(i).getNoOfDAs() != null ? offerDetailPOJO.getResult().get(i).getNoOfDAs() : -1;
                 if (daSize > 0) {
                     daDetailsPage.hoverOnTotalDAIds(i + 1, 9);
                     assertCheck.append(actions.assertEqual_boolean(daDetailsPage.isAssociateDAWidgetDisplay(), true, "After hover on Number of DA's Associate widget display as expected", "After hover on Number of DA's Associate widget does not display as expected"));
@@ -147,47 +147,47 @@ public class DisplayOfferWidgetTest extends Driver {
                         assertCheck.append(actions.matchUiAndAPIResponse(daDetailsPage.getValueCorrespondingToOffer(i + 1, 4), UtilsMethods.getDateFromEpochInUTC(Long.parseLong(offerDetailPOJO.getResult().get(i).getAccountInformation().get(j).getDaEndDate()), constants.getValue(CommonConstants.OFFER_DETAILS_TIME_FORMAT)), "Offer Expiry date is as expected as API response", "offer Expiry date is not expected as API response"));
                     }
                     break;
-                }else{
-                    commonLib.infoHighlight("No Associated DA Id's with Offer:- ",String.valueOf(offerDetailPOJO.getResult().get(i).getOfferId()), ReportInfoMessageColorList.RED,true);
+                } else {
+                    commonLib.infoHighlight("No Associated DA Id's with Offer:- ", String.valueOf(offerDetailPOJO.getResult().get(i).getOfferId()), ReportInfoMessageColorList.RED, true);
                 }
             }
             actions.assertAllFoundFailedAssert(assertCheck);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             commonLib.fail("Exception in Method - associatedDAPopUpTest" + e.fillInStackTrace(), true);
         }
     }
 
-    @Test(priority = 5,groups = {"SanityTest", "RegressionTest", "ProdTest"},dependsOnMethods = {"associatedDAPopUpTest"})
-    public void checkPaginationForOfferWidget(){
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"associatedDAPopUpTest", "openCustomerInteraction"})
+    public void checkPaginationForOfferWidget() {
         selUtils.addTestcaseDescription("Validate Offers widget display pagination and agent able to navigate through pagination ", "description");
-        try{
-            int pageSize=Math.min(offerDetailPOJO.getResult().size(),5);
-            String paginationResult="1 - "+pageSize+" of "+offerDetailPOJO.getResult().size()+" Results";
-            assertCheck.append(actions.assertEqual_stringType(pages.getDaDetailsPage().getPaginationText(),paginationResult,"Pagination Count as expected","Pagination count as not expected"));
-            if(offerDetailPOJO.getResult().size()>5){
-                assertCheck.append(actions.assertEqual_boolean(pages.getDaDetailsPage().checkNextBtnEnable(),true,"In pagination next button is enable as result is greater than 5","In Pagination next button is not enable but result is greater than 5."));
+        try {
+            int pageSize = Math.min(offerDetailPOJO.getResult().size(), 5);
+            String paginationResult = "1 - " + pageSize + " of " + offerDetailPOJO.getResult().size() + " Results";
+            assertCheck.append(actions.assertEqual_stringType(pages.getDaDetailsPage().getPaginationText(), paginationResult, "Pagination Count as expected", "Pagination count as not expected"));
+            if (offerDetailPOJO.getResult().size() > 5) {
+                assertCheck.append(actions.assertEqual_boolean(pages.getDaDetailsPage().checkNextBtnEnable(), true, "In pagination next button is enable as result is greater than 5", "In Pagination next button is not enable but result is greater than 5."));
                 pages.getDaDetailsPage().clickNextBtn();
-                assertCheck.append(actions.assertEqual_boolean(pages.getDaDetailsPage().checkPreviousBtnDisable(),false,"In pagination Previous button is enable","In Pagination previous button is not enable"));
+                assertCheck.append(actions.assertEqual_boolean(pages.getDaDetailsPage().checkPreviousBtnDisable(), false, "In pagination Previous button is enable", "In Pagination previous button is not enable"));
                 pages.getDaDetailsPage().clickPreviousBtn();
-                assertCheck.append(actions.assertEqual_stringType(pages.getDaDetailsPage().getPaginationText(),paginationResult,"Pagination Count as expected","Pagination count as not expected"));
-            }else{
-                assertCheck.append(actions.assertEqual_boolean(pages.getDaDetailsPage().checkNextBtnEnable(),false,"In pagination next button is disable as result is <= 5","In Pagination next button is not disable but result is <= 5."));
+                assertCheck.append(actions.assertEqual_stringType(pages.getDaDetailsPage().getPaginationText(), paginationResult, "Pagination Count as expected", "Pagination count as not expected"));
+            } else {
+                assertCheck.append(actions.assertEqual_boolean(pages.getDaDetailsPage().checkNextBtnEnable(), false, "In pagination next button is disable as result is <= 5", "In Pagination next button is not disable but result is <= 5."));
             }
             actions.assertAllFoundFailedAssert(assertCheck);
-        }catch (Exception e){
+        } catch (Exception e) {
             commonLib.fail("Exception in Method - checkPaginationForOfferWidget" + e.fillInStackTrace(), true);
         }
     }
 
-    @Test(priority = 6,groups = {"SanityTest", "RegressionTest", "ProdTest"})
-    public void isUserHasOfferPermission(){
+    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"associatedDAPopUpTest", "openCustomerInteraction"})
+    public void isUserHasOfferPermission() {
         try {
             selUtils.addTestcaseDescription("Verify that necessary permissions are added for offers widget to be displayed.", "description");
             String offer_widget_permission = constants.getValue(PermissionConstants.OFFER_WIDGET_PERMISSION);
             assertCheck.append(actions.assertEqual_boolean(pages.getDaDetailsPage().isOfferWidgetDisplay(), UtilsMethods.isUserHasPermission(new Headers(map), offer_widget_permission), "Display Offer Widget displayed correctly as per user permission", "Display Offer Widget does not display correctly as per user permission"));
             actions.assertAllFoundFailedAssert(assertCheck);
-        }catch (Exception e){
+        } catch (Exception e) {
             commonLib.fail("Exception in Method - isUserHasOfferPermission" + e.fillInStackTrace(), true);
         }
     }

@@ -14,9 +14,9 @@ public class SupervisorFilterTest extends Driver {
 
     private final BaseActions actions = new BaseActions();
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
-        if (!continueExecutionBS) {
+        if (!(continueExecutionBS && continueExecutionFA)) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
             throw new SkipException("Skipping tests because user NOT able to login Over Portal");
         }
@@ -86,7 +86,7 @@ public class SupervisorFilterTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 4,  groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openSupervisorDashboard"})
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openSupervisorDashboard"})
     public void validateResetFilterButton() {
         try {
             selUtils.addTestcaseDescription("Validate Reset filter button available after applying filter,Apply Filter by Created Date,Validate Reset Filter button displayed or not", "description");
@@ -94,7 +94,7 @@ public class SupervisorFilterTest extends Driver {
                 pages.getSupervisorTicketList().clickFilter();
                 pages.getFilterTabPage().clickLast30DaysFilter();
                 pages.getFilterTabPage().clickApplyFilter();
-                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isResetFilter(), true,"Reset Filter button available after applying filter","Reset Filter button Does Not Available"));
+                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isResetFilter(), true, "Reset Filter button available after applying filter", "Reset Filter button Does Not Available"));
                 if (pages.getSupervisorTicketList().isResetFilter()) {
                     pages.getSupervisorTicketList().resetFilter();
 
@@ -102,7 +102,7 @@ public class SupervisorFilterTest extends Driver {
             } catch (NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
                 pages.getFilterTabPage().clickOutsideFilter();
                 pages.getFilterTabPage().clickCloseFilter();
-                commonLib.fail("Not able to apply filter " + e.getMessage(),true);
+                commonLib.fail("Not able to apply filter " + e.getMessage(), true);
             }
         } catch (Exception e) {
             commonLib.fail("Exception in Method - applyFilterByCreatedDate" + e.fillInStackTrace(), true);

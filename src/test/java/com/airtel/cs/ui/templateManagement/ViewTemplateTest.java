@@ -16,7 +16,7 @@ public class ViewTemplateTest extends Driver {
 
     private final BaseActions actions = new BaseActions();
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login via API");
@@ -24,7 +24,7 @@ public class ViewTemplateTest extends Driver {
         }
     }
 
-    @Test(priority = 1, description = "Open Template Management")
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void openTemplateManagement() {
         selUtils.addTestcaseDescription("Open Template Management", "description");
         SoftAssert softAssert = new SoftAssert();
@@ -36,7 +36,7 @@ public class ViewTemplateTest extends Driver {
         softAssert.assertAll();
     }
 
-    @Test(priority = 2, description = "View Created Template Page Loaded", dependsOnMethods = "openTemplateManagement")
+    @Test(priority = 2,groups= {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openTemplateManagement")
     public void openViewCreatedTemplate() {
         selUtils.addTestcaseDescription("View Created Template Page Loaded", "description");
         SoftAssert softAssert = new SoftAssert();
@@ -46,7 +46,7 @@ public class ViewTemplateTest extends Driver {
         softAssert.assertAll();
     }
 
-    @Test(priority = 3, description = "Validating All Agent Channel displayed", dependsOnMethods = "openTemplateManagement")
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openTemplateManagement")
     public void validateAgentChannel() {
         selUtils.addTestcaseDescription("Validating All Agent Channel displayed", "description");
         SoftAssert softAssert = new SoftAssert();
@@ -75,7 +75,7 @@ public class ViewTemplateTest extends Driver {
         softAssert.assertAll();
     }
 
-    @Test(priority = 4, description = "Validating All Agent Roles displayed", dependsOnMethods = "openTemplateManagement")
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openTemplateManagement")
     public void validateRoles() {
         selUtils.addTestcaseDescription("Validating All Agent Roles displayed", "description");
         SoftAssert softAssert = new SoftAssert();
@@ -106,7 +106,7 @@ public class ViewTemplateTest extends Driver {
         softAssert.assertAll();
     }
 
-    @Test(priority = 5, description = "Validating All Language displayed", dependsOnMethods = "openTemplateManagement")
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openTemplateManagement")
     public void validateLanguage() {
         selUtils.addTestcaseDescription("Validating All Language displayed", "description");
         SoftAssert softAssert = new SoftAssert();
@@ -140,7 +140,7 @@ public class ViewTemplateTest extends Driver {
         softAssert.assertAll();
     }
 
-    @Test(priority = 6, description = "Validate template layout", dependsOnMethods = "openTemplateManagement")
+    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openTemplateManagement")
     public void validateTemplateLayout() {
         selUtils.addTestcaseDescription("Validating template layout", "description");
         SoftAssert softAssert = new SoftAssert();
@@ -157,7 +157,7 @@ public class ViewTemplateTest extends Driver {
         softAssert.assertAll();
     }
 
-    @Test(priority = 7, description = "Validate admin able to deactivate/Activate Template", dependsOnMethods = "openTemplateManagement")
+    @Test(priority = 7, groups = {"RegressionTest"}, dependsOnMethods = "openTemplateManagement")
     public void deactivateTemplate() {
         selUtils.addTestcaseDescription("Validate admin able to deactivate/Activate Template", "description");
         SoftAssert softAssert = new SoftAssert();

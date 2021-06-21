@@ -22,7 +22,7 @@ public class InteractionCommentTest extends Driver {
     String ticketNumber = null;
     private final BaseActions actions = new BaseActions();
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -271,7 +271,7 @@ public class InteractionCommentTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = "addInteractionComment")
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"addInteractionComment", "openCustomerInteraction"})
     public void checkSendMessageLog() {
         selUtils.addTestcaseDescription("Check Sent SMS display in message history for System Type", "description");
         pages.getCustomerProfilePage().goToViewHistory();

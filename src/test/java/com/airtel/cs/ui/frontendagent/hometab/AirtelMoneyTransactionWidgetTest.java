@@ -29,7 +29,7 @@ public class AirtelMoneyTransactionWidgetTest extends Driver {
     private final BaseActions actions = new BaseActions();
     RequestSource api = new RequestSource();
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -37,8 +37,8 @@ public class AirtelMoneyTransactionWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 1, description = "Validate Customer Interaction Page")
-    public void openCustomerInteractionAPI() {
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
             customerNumber = constants.getValue(ApplicationConstants.AM_CUSTOMER_MSISDN);
@@ -55,7 +55,7 @@ public class AirtelMoneyTransactionWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 2, dependsOnMethods = {"openCustomerInteractionAPI"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void airtelMoneyHeaderTest() {
         try {
             selUtils.addTestcaseDescription("Validate Airtel Money Header is Visible,Validate Airtel Money Header Text,Validate Date Picker is visible,Validate Transaction Id Search Box is visible", "description");
@@ -71,7 +71,7 @@ public class AirtelMoneyTransactionWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 3, description = "Validating AM Transaction Widget", dependsOnMethods = "openCustomerInteractionAPI")
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
     public void airtelMoneyBalanceTest() {
         try {
             selUtils.addTestcaseDescription("Validating Airtel Money Balance", "description");
@@ -95,7 +95,7 @@ public class AirtelMoneyTransactionWidgetTest extends Driver {
     }
 
     @DataProviders.Table(name = "Airtel Money")
-    @Test(priority = 4, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = {"openCustomerInteractionAPI"})
+    @Test(priority = 4, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void airtelMoneyTransactionHistoryAPITest(HeaderDataBean data) throws IOException, UnsupportedFlavorException {
         try {
             selUtils.addTestcaseDescription("Validate Airtel Money Transaction History API", "description");

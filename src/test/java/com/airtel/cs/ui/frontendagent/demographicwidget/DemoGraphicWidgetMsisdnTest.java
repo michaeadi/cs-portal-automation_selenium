@@ -25,7 +25,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
     private final BaseActions actions = new BaseActions();
     private static String customerNumber = null;
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -329,7 +329,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
         }
     }
 
-    @Test(priority = 9, groups = {"RegressionTest"})
+    @Test(priority = 9, groups = {"RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void invalidMSISDNTest() {
         try {
             selUtils.addTestcaseDescription("Validating the Demographic Information of User with invalid MSISDN : 123456789", "description");

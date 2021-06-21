@@ -18,14 +18,13 @@ public class PinTagTest extends Driver {
     private final BaseActions actions = new BaseActions();
     final String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
             throw new SkipException("Skipping tests because user NOT able to login Over Portal");
         }
     }
-
 
     /**
      * This method is used to Open Customer Profile Page with valid MSISDN

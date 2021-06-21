@@ -23,7 +23,7 @@ public class AirtelMoneyMenuPrimaryWidgetTest extends Driver {
     RequestSource api = new RequestSource();
     private AirtelMoneyPOJO amTransactionHistoryAPI;
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -32,7 +32,7 @@ public class AirtelMoneyMenuPrimaryWidgetTest extends Driver {
     }
 
     @Test(priority = 1, groups = {"ProdTest"})
-    public void openCustomerInteractionAPI() {
+    public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
             customerNumber = constants.getValue(ApplicationConstants.AM_CUSTOMER_MSISDN);
@@ -50,7 +50,7 @@ public class AirtelMoneyMenuPrimaryWidgetTest extends Driver {
     }
 
     @DataProviders.Table(name = "More Airtel Money History")
-    @Test(priority = 2, groups = {"ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = {"openCustomerInteractionAPI"})
+    @Test(priority = 2, groups = {"ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = {"openCustomerInteraction"})
     public void airtelMoneyHistoryMenuHeaderTest(HeaderDataBean data) {
         try {
             selUtils.addTestcaseDescription("Validating Airtel Money History's Header Name  Menu of User :" + customerNumber + ",Validating all the filter display as per config,Validate search by transaction id box displayed as per config.", "description");
@@ -96,7 +96,7 @@ public class AirtelMoneyMenuPrimaryWidgetTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 3, groups = {"ProdTest"}, dependsOnMethods = {"openCustomerInteractionAPI", "airtelMoneyHistoryMenuHeaderTest"})
+    @Test(priority = 3, groups = {"ProdTest"}, dependsOnMethods = {"openCustomerInteraction", "airtelMoneyHistoryMenuHeaderTest"})
     public void airtelMoneyHistoryMenuTest() {
         try {
             selUtils.addTestcaseDescription("Validating Airtel Money History's  Menu of User :" + customerNumber+"Validate all the data rows displayed as per api response,In case of No result data rows found validate no result found icon displayed,Validate resend sms icon displayed as per api response.", "description");

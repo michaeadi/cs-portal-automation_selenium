@@ -1,6 +1,7 @@
 package com.airtel.cs.ui.simbarunbar;
 
 import com.airtel.cs.common.actions.BaseActions;
+import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
@@ -13,26 +14,28 @@ public class SIMBarUnbarPermissionSeparationTest extends Driver {
 
     private final BaseActions actions = new BaseActions();
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login via API");
             throw new SkipException("Skipping tests because user NOT able to login via API");
         }
     }
-
-    @DataProviders.User(userType = "Beta")
-    @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class, groups = {"SanityTest", "RegressionTest", "ProdTest"})
-    public void openCustomerInteraction(TestDatabean data) {
-        selUtils.addTestcaseDescription("Validating the Search for Customer Interactions :" + data.getCustomerNumber(), "description");
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void openCustomerInteraction() {
         try {
+            selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
+            final String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
+            pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().openCustomerInteractionPage();
-            pages.getMsisdnSearchPage().enterNumber(data.getCustomerNumber());
+            pages.getMsisdnSearchPage().enterNumber(customerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();
-            assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isCustomerProfilePageLoaded(), true, "Customer Page Loaded Sucessfully", "Customer Page NOT Loaded"));
+            final boolean pageLoaded = pages.getCustomerProfilePage().isCustomerProfilePageLoaded();
+            assertCheck.append(actions.assertEqual_boolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
+            if (!pageLoaded) continueExecutionFA = false;
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
-            commonLib.fail("Caught exception in Testcase - openCustomerInteraction " + e.getMessage(), true);
+            commonLib.fail("Exception in Method - openCustomerInteraction" + e.fillInStackTrace(), true);
         }
     }
 

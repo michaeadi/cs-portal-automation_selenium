@@ -15,7 +15,7 @@ public class BackendAgentFilterTest extends Driver {
 
     private final BaseActions actions = new BaseActions();
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionBA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -42,7 +42,7 @@ public class BackendAgentFilterTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest"}, description = "Validate Filter Tab for Backend Agent")
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"agentQueueLogin"})
     public void validateFilter() {
         try {
             selUtils.addTestcaseDescription("Validate Filter Tab for Backend Agent", "description");

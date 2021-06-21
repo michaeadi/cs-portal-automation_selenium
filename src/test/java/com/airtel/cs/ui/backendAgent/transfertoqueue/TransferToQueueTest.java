@@ -22,13 +22,13 @@ public class TransferToQueueTest extends BAPreRequisites {
 
     private final BaseActions actions = new BaseActions();
     RequestSource api = new RequestSource();
-    private String ticketId=null;
+    private String ticketId = null;
 
     /**
      * Transfer to queue not working once need to verify one Env Up
      */
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionBA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -55,8 +55,8 @@ public class TransferToQueueTest extends BAPreRequisites {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"})
-    public void agentQueueLogin() throws InterruptedException {
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"verifyPermission"})
+    public void agentQueueLogin() {
         try {
             selUtils.addTestcaseDescription("Backend Agent Login into Queue", "description");
             assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isSideMenuVisible(), true, "Side menu visible as expected", "Side menu visible as not expected"));
@@ -87,7 +87,7 @@ public class TransferToQueueTest extends BAPreRequisites {
         }
     }
 
-    @Test(priority = 4, groups = {"RegressionTest"}, enabled = false)
+    @Test(priority = 4, groups = {"RegressionTest"}, enabled = false, dependsOnMethods = {"verifyPermission", "agentQueueLogin"})
     public void checkTransferToQueueConfig() {
         selUtils.addTestcaseDescription("Verify available queues while 'transfer to queue' over the agent screen ,Validate the queue name which config by admin", "description");
         pages.getSupervisorTicketList().clickCheckbox();
@@ -102,7 +102,7 @@ public class TransferToQueueTest extends BAPreRequisites {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 5, groups = {"SanityTest"})
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"verifyPermission", "agentQueueLogin"})
     public void performSingleTicketTransferToQueue() {
         try {
             selUtils.addTestcaseDescription("Verify that when only one ticket is selected for Transfer to Queue on the Ticket List Page, Validate that transfer to queue option displayed,Click on Transfer to queue option,Validate transfer to queue tab open, click on first queue available,Check error screen visible or not", "description");
@@ -114,9 +114,9 @@ public class TransferToQueueTest extends BAPreRequisites {
                 assertCheck.append(actions.assertEqual_boolean(pages.getTransferToQueue().validatePageTitle(), true, "Transfer to Queue Pop up open as expected", "Transfer to Queue Page Title Does not Display"));
                 String toQueueName = pages.getTransferToQueue().getFirstTransferQueue();
                 pages.getTransferToQueue().clickTransferQueue(toQueueName);
-                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().getTransferSuccessMessage().contains("successfully"),true,"Successmessage displayed after transfer to queue action.","Success message does not displayed after transfer to queue action."));
-                if(pages.getSupervisorTicketList().isCancelBtn()){
-                    commonLib.warning("Not able to perform Transfer to Queue and message displayed: "+pages.getSupervisorTicketList().getTransferErrorMessage());
+                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().getTransferSuccessMessage().contains("successfully"), true, "Successmessage displayed after transfer to queue action.", "Success message does not displayed after transfer to queue action."));
+                if (pages.getSupervisorTicketList().isCancelBtn()) {
+                    commonLib.warning("Not able to perform Transfer to Queue and message displayed: " + pages.getSupervisorTicketList().getTransferErrorMessage());
                     pages.getSupervisorTicketList().clickCancelBtn();
                 }
             } catch (NoSuchElementException | TimeoutException e) {
@@ -129,7 +129,7 @@ public class TransferToQueueTest extends BAPreRequisites {
         }
     }
 
-    @Test(priority = 6, groups = {"SanityTest"})
+    @Test(priority = 6, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"verifyPermission", "agentQueueLogin"})
     public void performMultipleTicketTransferToQueue() {
         try {
             selUtils.addTestcaseDescription("Verify that agent able to select multiple ticket for Transfer to Queue on the Ticket List Page, Validate that transfer to queue option displayed,Click on Transfer to queue option,Validate transfer to queue tab open, click on first queue available,Check error screen visible or not", "description");
@@ -141,9 +141,9 @@ public class TransferToQueueTest extends BAPreRequisites {
                 assertCheck.append(actions.assertEqual_boolean(pages.getTransferToQueue().validatePageTitle(), true, "Transfer to Queue Pop up open as expected", "Transfer to Queue Page Title Does not Display"));
                 String toQueueName = pages.getTransferToQueue().getFirstTransferQueue();
                 pages.getTransferToQueue().clickTransferQueue(toQueueName);
-                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().getTransferSuccessMessage().contains("successfully"),true,"Ticket transfer to queue message successfully displayed","Ticket does not transfer to queue message successfully displayed"));
-                if(pages.getSupervisorTicketList().isCancelBtn()){
-                    commonLib.warning("Not able to perform Transfer to Queue and message displayed: "+pages.getSupervisorTicketList().getTransferErrorMessage());
+                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().getTransferSuccessMessage().contains("successfully"), true, "Ticket transfer to queue message successfully displayed", "Ticket does not transfer to queue message successfully displayed"));
+                if (pages.getSupervisorTicketList().isCancelBtn()) {
+                    commonLib.warning("Not able to perform Transfer to Queue and message displayed: " + pages.getSupervisorTicketList().getTransferErrorMessage());
                     pages.getSupervisorTicketList().clickCancelBtn();
                 }
             } catch (NoSuchElementException | TimeoutException e) {
@@ -156,19 +156,19 @@ public class TransferToQueueTest extends BAPreRequisites {
         }
     }
 
-    @Test(priority = 7,groups = {"SanityTest", "RegressionTest", "ProdTest"})
-    public void isUserHasWorkFlowOverRidePermission(){
+    @Test(priority = 7, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"verifyPermission", "agentQueueLogin"})
+    public void isUserHasWorkFlowOverRidePermission() {
         try {
             selUtils.addTestcaseDescription("Verify that Service Profile widget should be visible to the logged in agent if HLR permission is enabled in UM, Check User has permission to view HLR Widget Permission", "description");
             String workflow_override = constants.getValue(PermissionConstants.WORKFLOW_OVERRIDE_PERMISSION);
-            assertCheck.append(actions.assertEqual_boolean(UtilsMethods.isUserHasPermission(new Headers(map), workflow_override),true, "Agent has permission of ticket workflow override as expected", "Agent does not have permission of ticket workflow override as expected"));
+            assertCheck.append(actions.assertEqual_boolean(UtilsMethods.isUserHasPermission(new Headers(map), workflow_override), true, "Agent has permission of ticket workflow override as expected", "Agent does not have permission of ticket workflow override as expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
-        }catch (Exception e){
+        } catch (Exception e) {
             commonLib.fail("Exception in Method - isUserHasHLRPermission" + e.fillInStackTrace(), true);
         }
     }
 
-    @Test(priority = 8, groups = {"SanityTest"},dependsOnMethods = {"isUserHasWorkFlowOverRidePermission"})
+    @Test(priority = 8, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"isUserHasWorkFlowOverRidePermission", "verifyPermission", "agentQueueLogin"})
     public void validateTransferAnyWay() {
         try {
             selUtils.addTestcaseDescription("Verify that when only one ticket is selected for Transfer to Queue on the Ticket List Page, Validate that transfer to queue option displayed,Click on Transfer to queue option,Validate transfer to queue tab open, click on first queue available,Check error screen visible or not", "description");
@@ -180,11 +180,11 @@ public class TransferToQueueTest extends BAPreRequisites {
                 assertCheck.append(actions.assertEqual_boolean(pages.getTransferToQueue().validatePageTitle(), true, "Transfer to Queue Pop up open as expected", "Transfer to Queue Page Title Does not Display"));
                 String toQueueName = pages.getTransferToQueue().getFirstTransferQueue();
                 pages.getTransferToQueue().clickTransferQueue(toQueueName);
-                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isTransferAnyWayBtn(),true,"Transfer Anyway button display as expected","Transfer Anyway button does not display as expected"));
-                if(pages.getSupervisorTicketList().isTransferAnyWayBtn()){
-                    commonLib.info("Performing Transfer Anyway operation as ticket not transfer to given queue: "+pages.getSupervisorTicketList().getTransferErrorMessage());
+                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isTransferAnyWayBtn(), true, "Transfer Anyway button display as expected", "Transfer Anyway button does not display as expected"));
+                if (pages.getSupervisorTicketList().isTransferAnyWayBtn()) {
+                    commonLib.info("Performing Transfer Anyway operation as ticket not transfer to given queue: " + pages.getSupervisorTicketList().getTransferErrorMessage());
                     pages.getSupervisorTicketList().clickTransferAnyWayBtn();
-                    assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().getTransferSuccessMessage().contains("successfully"),true,"Ticket transfer to queue message successfully displayed","Ticket does not transfer to queue message successfully displayed"));
+                    assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().getTransferSuccessMessage().contains("successfully"), true, "Ticket transfer to queue message successfully displayed", "Ticket does not transfer to queue message successfully displayed"));
                 }
             } catch (NoSuchElementException | TimeoutException e) {
                 commonLib.fail("Not able to perform Transfer to Queue: " + e.fillInStackTrace(), true);
@@ -196,7 +196,7 @@ public class TransferToQueueTest extends BAPreRequisites {
         }
     }
 
-    @Test(priority = 9, dataProvider = "TransferQueue", dataProviderClass = DataProviders.class,enabled = false)
+    @Test(priority = 9, dataProvider = "TransferQueue", dataProviderClass = DataProviders.class, enabled = false, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"verifyPermission", "agentQueueLogin"})
     public void transferToQueue(TransferQueueDataBean data) {
         selUtils.addTestcaseDescription("Backend Agent Transfer to queue", "description");
         String ticketId = null;
@@ -259,6 +259,4 @@ public class TransferToQueueTest extends BAPreRequisites {
         pages.getSupervisorTicketList().clearInputBox();
         actions.assertAllFoundFailedAssert(assertCheck);
     }
-
-
 }

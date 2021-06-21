@@ -24,9 +24,9 @@ public class SupervisorUpdateTicketTest extends Driver {
     private final BaseActions actions = new BaseActions();
     RequestSource api = new RequestSource();
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
-        if (!continueExecutionBS) {
+        if (!(continueExecutionBS && continueExecutionFA)) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
             throw new SkipException("Skipping tests because user NOT able to login Over Portal");
         }
@@ -46,7 +46,7 @@ public class SupervisorUpdateTicketTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "ticketId", dataProviderClass = DataProviders.class)
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "ticketId", dataProviderClass = DataProviders.class, dependsOnMethods = "openSupervisorDashboard")
     public void updateTicket(NftrDataBeans Data) {
         try {
             selUtils.addTestcaseDescription("Update Ticket Id: " + Data.getIssueCode() + ",Search Ticket id which is already created,Open View Ticket Detail page,Select state which mapped to internal state 'Close'," +
@@ -60,7 +60,7 @@ public class SupervisorUpdateTicketTest extends Driver {
                 try {
                     pages.getSupervisorTicketList().viewTicket();
                     try {
-                        String selectStateByConfig=data.getState(constants.getValue(CommonConstants.TICKET_CLOSE_STATE)).get(0).getTicketStateName();
+                        String selectStateByConfig = data.getState(constants.getValue(CommonConstants.TICKET_CLOSE_STATE)).get(0).getTicketStateName();
                         selectedState = pages.getViewTicket().selectState(selectStateByConfig);
                         if (selectedState.equalsIgnoreCase(selectStateByConfig)) {
                             pages.getSupervisorTicketList().changeTicketTypeToClosed();
@@ -99,7 +99,7 @@ public class SupervisorUpdateTicketTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openSupervisorDashboard")
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -116,7 +116,7 @@ public class SupervisorUpdateTicketTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 5, dependsOnMethods = "openCustomerInteraction",groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openSupervisorDashboard")
     public void validateReopenIcon() {
         try {
             if (ticketId != null) {

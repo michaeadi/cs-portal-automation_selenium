@@ -121,7 +121,7 @@ public class Login extends BasePage {
      */
     public void clickOnLogin() {
         commonLib.info("Going to click on Login button");
-        clickAndWaitForLoaderToBeRemoved(pageElements.submitButton);
+        clickWithoutLoader(pageElements.submitButton);
     }
 
     /**

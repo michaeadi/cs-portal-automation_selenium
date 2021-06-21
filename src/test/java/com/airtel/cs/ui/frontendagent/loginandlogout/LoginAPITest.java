@@ -20,14 +20,14 @@ public class LoginAPITest extends Driver {
 
     @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void testLoginAPIWithBetaUser() throws JsonProcessingException {
-        selUtils.addTestcaseDescription("Validate the Login API with Beta user,Hit the Login API -/auth/api/user-mngmnt/v2/login with valid headers and credentials,Validating Success Message from response", "description");
-        final String loginAUUID = constants.getValue(CommonConstants.BETA_USER_AUUID);
-        LoginPOJO Req = LoginPOJO.loginBody(loginAUUID, PassUtils.decodePassword(constants.getValue(CommonConstants.BETA_USER_PASSWORD)));
-        map.clear();
-        pages.getLoginPage().setApiHeader();
-        String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(Req);
-        commonLib.info("Validating login api with user : " + loginAUUID);
         try {
+            selUtils.addTestcaseDescription("Validate the Login API with Beta user,Hit the Login API -/auth/api/user-mngmnt/v2/login with valid headers and credentials,Validating Success Message from response", "description");
+            final String loginAUUID = constants.getValue(CommonConstants.BETA_USER_AUUID);
+            LoginPOJO Req = LoginPOJO.loginBody(loginAUUID, PassUtils.decodePassword(constants.getValue(CommonConstants.BETA_USER_PASSWORD)));
+            map.clear();
+            pages.getLoginPage().setApiHeader();
+            String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(Req);
+            commonLib.info("Validating login api with user : " + loginAUUID);
             final Response response = pages.getLoginPage().loginAPI(dtoAsString);
             String token = "Bearer " + response.jsonPath().getString("result.accessToken");
             map.add(new Header("Authorization", token));
@@ -37,19 +37,19 @@ public class LoginAPITest extends Driver {
             assertCheck.append(actions.assertEqual_stringType(message, "User authenticated successfully", "User authenticated successfully", message));
         } catch (Exception e) {
             continueExecutionAPI = false;
-            commonLib.fail("Exception in Method :- testLoginAPI " + e.fillInStackTrace(), true);
+            commonLib.fail("Exception in Method :- testLoginAPI " + e.fillInStackTrace(), false);
         }
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void testLoginApiWithAllUser() throws JsonProcessingException {
-        selUtils.addTestcaseDescription("Validate the Login API with User Having all the roles,Hit the Login API -/auth/api/user-mngmnt/v2/login with valid headers and credentials,Validating Success Message from response", "description");
-        final String loginAUUID = constants.getValue(CommonConstants.ALL_USER_ROLE_AUUID);
-        LoginPOJO Req = LoginPOJO.loginBody(loginAUUID, PassUtils.decodePassword(constants.getValue(CommonConstants.ALL_USER_ROLE_PASSWORD)));
-        String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(Req);
-        commonLib.info("Validating login api with user : " + loginAUUID);
         try {
+            selUtils.addTestcaseDescription("Validate the Login API with User Having all the roles,Hit the Login API -/auth/api/user-mngmnt/v2/login with valid headers and credentials,Validating Success Message from response", "description");
+            final String loginAUUID = constants.getValue(CommonConstants.ALL_USER_ROLE_AUUID);
+            LoginPOJO Req = LoginPOJO.loginBody(loginAUUID, PassUtils.decodePassword(constants.getValue(CommonConstants.ALL_USER_ROLE_PASSWORD)));
+            String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(Req);
+            commonLib.info("Validating login api with user : " + loginAUUID);
             final Response response = pages.getLoginPage().loginAPI(dtoAsString);
             commonLib.info("Response Body : " + response.asString());
             commonLib.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
@@ -58,19 +58,19 @@ public class LoginAPITest extends Driver {
         } catch (Exception e) {
             continueExecutionFA = false;
             continueExecutionBS = false;
-            commonLib.fail("Exception in Method :- testLoginApiWithAdminUser " + e.fillInStackTrace(), true);
+            commonLib.fail("Exception in Method :- testLoginApiWithAdminUser " + e.fillInStackTrace(), false);
         }
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void testLoginApiWithBackendAgent() throws JsonProcessingException {
-        selUtils.addTestcaseDescription("Validate the Login API with Backend Agent valid credentials,Hit the Login API -/auth/api/user-mngmnt/v2/login with valid headers and credentials,Validating Success Message from response", "description");
-        final String loginAUUID = constants.getValue(CommonConstants.BA_USER_AUUID);
-        LoginPOJO Req = LoginPOJO.loginBody(loginAUUID, PassUtils.decodePassword(constants.getValue(CommonConstants.BA_USER_PASSWORD)));
-        String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(Req);
-        commonLib.info("Validating login api with user : " + loginAUUID);
         try {
+            selUtils.addTestcaseDescription("Validate the Login API with Backend Agent valid credentials,Hit the Login API -/auth/api/user-mngmnt/v2/login with valid headers and credentials,Validating Success Message from response", "description");
+            final String loginAUUID = constants.getValue(CommonConstants.BA_USER_AUUID);
+            LoginPOJO Req = LoginPOJO.loginBody(loginAUUID, PassUtils.decodePassword(constants.getValue(CommonConstants.BA_USER_PASSWORD)));
+            String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(Req);
+            commonLib.info("Validating login api with user : " + loginAUUID);
             final Response response = pages.getLoginPage().loginAPI(dtoAsString);
             commonLib.info("Response Body : " + response.asString());
             commonLib.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
@@ -78,7 +78,7 @@ public class LoginAPITest extends Driver {
             assertCheck.append(actions.assertEqual_stringType(message, "User authenticated successfully", "User authenticated successfully", message));
         } catch (Exception e) {
             continueExecutionBA = false;
-            commonLib.fail("Exception in Method :- testLoginApiWithBackendAgent " + e.fillInStackTrace(), true);
+            commonLib.fail("Exception in Method :- testLoginApiWithBackendAgent " + e.fillInStackTrace(), false);
         }
         actions.assertAllFoundFailedAssert(assertCheck);
     }

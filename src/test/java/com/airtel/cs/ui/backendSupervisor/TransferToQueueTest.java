@@ -20,9 +20,9 @@ public class TransferToQueueTest extends Driver {
 
     private final BaseActions actions = new BaseActions();
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest"})
     public void checkExecution() {
-        if (!continueExecutionBS) {
+        if (!(continueExecutionBS && continueExecutionFA)) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
             throw new SkipException("Skipping tests because user NOT able to login Over Portal");
         }
@@ -42,19 +42,19 @@ public class TransferToQueueTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 2,groups = {"SanityTest", "RegressionTest"})
-    public void isUserHasWorkFlowOverRidePermission(){
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = "openSupervisorDashboard")
+    public void isUserHasWorkFlowOverRidePermission() {
         try {
             selUtils.addTestcaseDescription("Verify that Service Profile widget should be visible to the logged in agent if HLR permission is enabled in UM, Check User has permission to view HLR Widget Permission", "description");
             String workflow_override = constants.getValue(PermissionConstants.WORKFLOW_OVERRIDE_PERMISSION);
-            assertCheck.append(actions.assertEqual_boolean(UtilsMethods.isUserHasPermission(new Headers(map), workflow_override),true, "Agent has permission of ticket workflow override as expected", "Agent does not have permission of ticket workflow override as expected"));
+            assertCheck.append(actions.assertEqual_boolean(UtilsMethods.isUserHasPermission(new Headers(map), workflow_override), true, "Agent has permission of ticket workflow override as expected", "Agent does not have permission of ticket workflow override as expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
-        }catch (Exception e){
+        } catch (Exception e) {
             commonLib.fail("Exception in Method - isUserHasHLRPermission" + e.fillInStackTrace(), true);
         }
     }
 
-    @Test(priority = 3, dataProvider = "TransferQueue", groups = {"SanityTest", "RegressionTest"}, dataProviderClass = DataProviders.class)
+    @Test(priority = 3, dataProvider = "TransferQueue", groups = {"SanityTest", "RegressionTest"}, dataProviderClass = DataProviders.class, dependsOnMethods = "openSupervisorDashboard")
     public void transferToQueue(TransferQueueDataBean data) {
         try {
             selUtils.addTestcaseDescription("Backend Supervisor Transfer to queue,Apply filter with queue name " + data.getFromQueue() +

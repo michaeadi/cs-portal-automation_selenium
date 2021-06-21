@@ -14,15 +14,7 @@ public class ResetME2UPasswordTest extends Driver {
 
     private final BaseActions actions = new BaseActions();
 
-    @BeforeMethod
-    public void isResetMe2uFeatureEnabled() {
-        if (StringUtils.equalsIgnoreCase(constants.getValue(ApplicationConstants.RESET_ME2U_PASSWORD), "false")) {
-            commonLib.skip("Reset Me2u Feature is NOT Enabled for this Opco=" + OPCO);
-            throw new SkipException("Reset Me2u Feature is NOT Enabled for this Opco=" + OPCO);
-        }
-    }
-
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -30,7 +22,15 @@ public class ResetME2UPasswordTest extends Driver {
         }
     }
 
-    @Test(priority = 1, description = "Validate Customer Profile Page")
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void isResetMe2uFeatureEnabled() {
+        if (StringUtils.equalsIgnoreCase(constants.getValue(ApplicationConstants.RESET_ME2U_PASSWORD), "false")) {
+            commonLib.skip("Reset Me2u Feature is NOT Enabled for this Opco=" + OPCO);
+            throw new SkipException("Reset Me2u Feature is NOT Enabled for this Opco=" + OPCO);
+        }
+    }
+
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -48,8 +48,8 @@ public class ResetME2UPasswordTest extends Driver {
         }
     }
 
-    @Test(priority = 2, description = "Verify the Reset ME2U Password tab", dependsOnMethods = "openCustomerInteraction")
-    public void validateResetME2UPassword() {
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
+    public void validateResetME2UCancelBtn() {
         try {
             selUtils.addTestcaseDescription("Open action drop down and click on Reset ME2U Password option,Validate title visible over modal,Close modal by clicking over cancel button", "description");
             pages.getCustomerProfilePage().clickOnAction();
@@ -58,7 +58,7 @@ public class ResetME2UPasswordTest extends Driver {
             pages.getCustomerProfilePage().clickCancelBtn();
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException e) {
-            commonLib.fail("Exception in Method :- validateResetME2UPassword" + e.fillInStackTrace(), true);
+            commonLib.fail("Exception in Method :- validateResetME2UCancelBtn" + e.fillInStackTrace(), true);
         }
     }
 }

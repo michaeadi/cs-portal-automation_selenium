@@ -20,7 +20,7 @@ public class LoginPortalTests extends Driver {
 
     private final BaseActions actions = new BaseActions();
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login via API");
@@ -43,7 +43,7 @@ public class LoginPortalTests extends Driver {
             pages.getLoginPage().clickOnVisibleButton();
             pages.getLoginPage().clickOnVisibleButton();
             pages.getLoginPage().clickOnLogin();
-            LogEntries logEntries = driver.manage().logs().get(LogType.PERFORMANCE);
+           /* LogEntries logEntries = driver.manage().logs().get(LogType.PERFORMANCE);
             for (LogEntry entry : logEntries) {
                 commonLib.info((String.format("%s %s %s\n", new Date(entry.getTimestamp()), entry.getLevel(),
                         entry.getMessage())));
@@ -56,18 +56,24 @@ public class LoginPortalTests extends Driver {
             (netData);
             if (netData.contains("auth/api/user-mngmnt/v2/login")) {
                 //System.out.println(netData);
-            }
+            }*/
             final boolean isGrowlVisible = pages.getGrowl().checkIsGrowlVisible();
             if (isGrowlVisible) {
                 commonLib.fail("Growl Message:- " + pages.getGrowl().getToastContent(), true);
                 continueExecutionFA = false;
+                assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, true, "User Login Successful Over Portal", "User Login Failed Over Portal"));
             } else {
-                assertCheck.append(actions.assertEqual_boolean(pages.getUserManagementPage().isUserManagementPageLoaded(), true, "Customer Dashboard Page Loaded Successfully", "Customer Dashboard page NOT Loaded"));
+                final Boolean userManagementPageLoaded = pages.getUserManagementPage().isUserManagementPageLoaded();
+                assertCheck.append(actions.assertEqual_boolean(userManagementPageLoaded, true, "Customer Dashboard Page Loaded Successfully", "Customer Dashboard page NOT Loaded"));
+                if (!userManagementPageLoaded) {
+                    continueExecutionFA = false;
+                    continueExecutionBU = false;
+                }
             }
-            actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             continueExecutionFA = false;
             commonLib.fail("Exception in Method - testLoginIntoPortal" + e.fillInStackTrace(), true);
         }
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 }

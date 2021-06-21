@@ -24,9 +24,9 @@ public class TicketBulkUpdateTest extends Driver {
     private final BaseActions actions = new BaseActions();
     public static final String BULK_UPDATE_TRANSFER_QUEUE_STATUS = constants.getValue(ApplicationConstants.BULK_UPDATE_TRANSFER_TO_QUEUE_STATUS);
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest"})
     public void checkExecution() {
-        if (!continueExecutionBU) {
+        if (!(continueExecutionFA && continueExecutionBU)) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
             throw new SkipException("Skipping tests because user NOT able to login Over Portal");
         }
@@ -46,7 +46,7 @@ public class TicketBulkUpdateTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest"},dependsOnMethods = {"isUserHasTicketBulkUpdatePermission"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"isUserHasTicketBulkUpdatePermission"})
     public void openTicketBulkUpdate() {
         try {
             selUtils.addTestcaseDescription("Open Ticket Bulk Update Dashboard,Validate Ticket Bulk Update Dashboard Opened", "description");
@@ -205,7 +205,7 @@ public class TicketBulkUpdateTest extends Driver {
         if (!StringUtils.equals(BULK_UPDATE_TRANSFER_QUEUE_STATUS, "true")) {
             commonLib.skip("Skipping because Bulk Operation not allowing while performing transfer to queue action as no two or more queue lies with in same workgroup - " + BULK_UPDATE_TRANSFER_QUEUE_STATUS);
             throw new SkipException("Skipping because this functionality does not applicable for current Opco");
-        }else {
+        } else {
             try {
                 selUtils.addTestcaseDescription("Check user able to upload ticket id from excel,Validate ticket upload from excel is complete,Click on next button and choose transfer to queue operation,Choose queue from the list and confirm the info,Click on submit button and validate ticket transfer to selected queue,Validate Ticket history log logged this entry as ticket update by bulk update.", "description");
                 DataProviders data = new DataProviders();
@@ -285,7 +285,7 @@ public class TicketBulkUpdateTest extends Driver {
             assertCheck.append(actions.assertEqual_boolean(pages.getTicketBulkUpdate().isStatusBarComplete(), true, "Status update for all ticket", "Status not update for all ticket"));
             assertCheck.append(actions.assertEqual_intType(pages.getTicketBulkUpdate().getSuccessCount(), noOfTicket, "Action does Performed on all uploaded ticket", "Action does not Performed on all uploaded ticket"));
             List<String> ticketId = pages.getTicketBulkUpdate().getTicketList();
-            if (pages.getTicketBulkUpdate().getSuccessCount()>0) {
+            if (pages.getTicketBulkUpdate().getSuccessCount() > 0) {
                 pages.getTicketBulkUpdate().clickOkButton();
                 pages.getSideMenuPage().clickOnSideMenu();
                 pages.getSideMenuPage().openSupervisorDashboard();
@@ -297,7 +297,7 @@ public class TicketBulkUpdateTest extends Driver {
                     Assert.assertEquals(pages.getSupervisorTicketList().getTicketIdValue(), ticket, "Search Ticket does not found");
                     pages.getSupervisorTicketList().viewTicket();
                     pages.getViewTicket().clickTicketHistoryLog();
-                    assertCheck.append(actions.assertEqual_boolean(pages.getViewTicket().checkBulkUpdateLogged("Closed"), true, "Bulk update action logged in ticket history log with ticket id: "+ticket, "Bulk update action does not logged in ticket history log with ticket id: "+ticket));
+                    assertCheck.append(actions.assertEqual_boolean(pages.getViewTicket().checkBulkUpdateLogged("Closed"), true, "Bulk update action logged in ticket history log with ticket id: " + ticket, "Bulk update action does not logged in ticket history log with ticket id: " + ticket));
                     pages.getViewTicket().clickBackButton();
                 }
             } else {

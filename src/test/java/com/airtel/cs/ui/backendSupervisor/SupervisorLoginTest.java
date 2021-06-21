@@ -13,15 +13,15 @@ public class SupervisorLoginTest extends Driver {
 
     private final BaseActions actions = new BaseActions();
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
-        if (!continueExecutionBS) {
+        if (!(continueExecutionBS && continueExecutionFA)) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
             throw new SkipException("Skipping tests because user NOT able to login Over Portal");
         }
     }
 
-    @Test(priority = 1,groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void openSupervisorDashboard() {
         try {
             selUtils.addTestcaseDescription("Open Supervisor Dashboard , Validate agent redirect to ticket List Page", "description");
@@ -35,7 +35,7 @@ public class SupervisorLoginTest extends Driver {
         }
     }
 
-    @Test(priority = 2,groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openSupervisorDashboard"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openSupervisorDashboard"})
     public void validateTicketSearchOptions() {
         try {
             selUtils.addTestcaseDescription("Validate Search Ticket Option,Verify there are 2 options displayed to select from in the Search Dropdown :, 1) Ticket Id,  2) Global Search", "description");
@@ -50,7 +50,7 @@ public class SupervisorLoginTest extends Driver {
         }
     }
 
-    @Test(priority = 3,groups = {"SanityTest", "RegressionTest", "ProdTest"},dependsOnMethods = {"openSupervisorDashboard"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openSupervisorDashboard"})
     public void validateSupervisorTabs() {
         try {
             selUtils.addTestcaseDescription("Validate Supervisor ticket tabs(All Tickets & My Assigned Ticket),Check ALL Tickets Tab Displayed,Check My Assigned Ticket Tab Displayed ", "description");

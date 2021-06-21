@@ -21,7 +21,7 @@ public class SendSMSTest extends Driver {
     String customerNumber = null;
     private final BaseActions actions = new BaseActions();
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -31,12 +31,10 @@ public class SendSMSTest extends Driver {
 
     /**
      * This method is used to Open Customer Profile Page with valid MSISDN
-     *
-     * @param data
      */
     @DataProviders.User(userType = "NFTR")
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "loginData", dataProviderClass = DataProviders.class)
-    public void openCustomerInteraction(TestDatabean data) {
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
             final String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
@@ -114,7 +112,7 @@ public class SendSMSTest extends Driver {
     /**
      * This method is used to validate send SMS tab
      */
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "validateSendSMSTab")
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"validateSendSMSTab", "openCustomerInteraction"})
     public void sendSMS() {
         try {
             selUtils.addTestcaseDescription("Validating the Send SMS Tab ", "description");
@@ -237,7 +235,7 @@ public class SendSMSTest extends Driver {
     /**
      * This method is used to Re-Send SMS using action button in message history
      */
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "checkSendMessageLog")
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"checkSendMessageLog", "openCustomerInteraction"})
     public void reSendMessageLog() {
         try {
             selUtils.addTestcaseDescription("Re Send SMS using action button in message history", "description");
@@ -245,7 +243,7 @@ public class SendSMSTest extends Driver {
             try {
                 pages.getMessageHistoryPage().clickActionBtn(1);
                 pages.getMessageHistoryPage().getPopUpTitle();
-                assertCheck.append(actions.assertEqual_boolean(pages.getMessageHistoryPage().getPopUpMessage().contains(customerNumber), true, "Pop up Message tab contain customer number", "Pop up Message tab does not contain customer number" ));
+                assertCheck.append(actions.assertEqual_boolean(pages.getMessageHistoryPage().getPopUpMessage().contains(customerNumber), true, "Pop up Message tab contain customer number", "Pop up Message tab does not contain customer number"));
                 pages.getMessageHistoryPage().clickYesBtn();
                 pages.getMessageHistoryPage().waitTillLoaderGetsRemoved();
                 assertCheck.append(actions.assertEqual_boolean(pages.getMessageHistoryPage().isMessageTypeColumn(), true, "Message Type Column is displayed on UI", "Message Type Column does not display on UI"));

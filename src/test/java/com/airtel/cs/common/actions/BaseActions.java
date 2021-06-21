@@ -59,12 +59,12 @@ public class BaseActions {
 
     public boolean assertAllFoundFailedAssert(StringBuilder AssertResults) {
         // ACTION PENDING - REQUIRE TO CALL THIS TO @AFTERMETHOD
-        if (AssertResults.toString().contains("false") || AssertResults.toString().contains("error")) {
+        if (!AssertResults.toString().contains("true")) {
             Assert.fail("Some Assertions failed in this testcase");
             return true;
         } else
             commonLib.pass("All Assertion Verified and are Passed");
-            return false;
+        return false;
     }
 
     /**
@@ -303,53 +303,56 @@ public class BaseActions {
 
     /**
      * This method use to assert API Response and display value on UI
-     * @param uiValue value display on UI
-     * @param apiValue api response value
+     *
+     * @param uiValue     value display on UI
+     * @param apiValue    api response value
      * @param passMessage in case of both ui and API value same
      * @param failMessage in case of both ui and API value not same
-     * */
-    public Boolean matchUiAndAPIResponse(String uiValue,String apiValue,String passMessage,String failMessage){
-        try{
-            if(apiValue!=null){
+     */
+    public Boolean matchUiAndAPIResponse(String uiValue, String apiValue, String passMessage, String failMessage) {
+        try {
+            if (apiValue != null) {
                 return assertEqual_stringType(uiValue.toLowerCase().trim(), apiValue.toLowerCase().trim(), passMessage, failMessage);
-            }else{
-                return assertEqual_stringType(uiValue,"-",passMessage,failMessage);
+            } else {
+                return assertEqual_stringType(uiValue, "-", passMessage, failMessage);
             }
-        }catch (Exception e){
-            commonLib.fail("Exception : Not able to match ui and api response"+e.fillInStackTrace(),true);
+        } catch (Exception e) {
+            commonLib.fail("Exception : Not able to match ui and api response" + e.fillInStackTrace(), true);
         }
         return false;
     }
 
     /**
      * This method use to assert API Response and display value on UI
-     * @param uiValue value display on UI
-     * @param apiValue api response value
+     *
+     * @param uiValue     value display on UI
+     * @param apiValue    api response value
      * @param passMessage in case of both ui and API value same
      * @param failMessage in case of both ui and API value not same
-     * */
-    public Boolean matchUiAndAPIResponse(String uiValue,Integer apiValue,String passMessage,String failMessage){
-        try{
-            if(apiValue!=null && !uiValue.equalsIgnoreCase("-")){
+     */
+    public Boolean matchUiAndAPIResponse(String uiValue, Integer apiValue, String passMessage, String failMessage) {
+        try {
+            if (apiValue != null && !uiValue.equalsIgnoreCase("-")) {
                 return assertEqual_intType(Integer.parseInt(uiValue), apiValue, passMessage, failMessage);
-            }else{
-                return assertEqual_stringType(uiValue,"-",passMessage,failMessage);
+            } else {
+                return assertEqual_stringType(uiValue, "-", passMessage, failMessage);
             }
-        }catch (Exception e){
-            commonLib.fail("Exception : Not able to match ui and api response"+e.fillInStackTrace(),true);
+        } catch (Exception e) {
+            commonLib.fail("Exception : Not able to match ui and api response" + e.fillInStackTrace(), true);
         }
         return false;
     }
 
     /**
      * This method match the actual and expected string and ignore all the characters except alphabets
-     * @param actual the actual
-     * @param expected the expected
+     *
+     * @param actual      the actual
+     * @param expected    the expected
      * @param passMessage the pass message
      * @param failMessage the fail message
      * @return true/false
      */
-    public Boolean matchStringIgnoreSpecialChar(String actual,String expected,String passMessage,String failMessage){
-        return assertEqual_stringType(actual.replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(),expected.replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(),passMessage,failMessage);
+    public Boolean matchStringIgnoreSpecialChar(String actual, String expected, String passMessage, String failMessage) {
+        return assertEqual_stringType(actual.replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), expected.replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), passMessage, failMessage);
     }
 }

@@ -17,7 +17,7 @@ public class FrontendAgentTicketTest extends Driver {
 
     private final BaseActions actions = new BaseActions();
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -27,11 +27,9 @@ public class FrontendAgentTicketTest extends Driver {
 
     /**
      * This method is used to Open Customer Profile Page with valid MSISDN
-     * @param data
      */
-    @DataProviders.User(userType = "NFTR")
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"} ,dataProvider = "loginData", dataProviderClass = DataProviders.class)
-    public void openCustomerInteraction(TestDatabean data) {
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
             final String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
@@ -51,10 +49,9 @@ public class FrontendAgentTicketTest extends Driver {
 
     /**
      * This method is used to Validate Ticket Meta Data for Frontend Agent
-     * @throws InterruptedException
      */
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"} ,dependsOnMethods = "openCustomerInteraction")
-    public void validateTicket() throws InterruptedException {
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
+    public void validateTicket() {
         try {
             selUtils.addTestcaseDescription("Validate Ticket Meta Data for Frontend Agent", "description");
             pages.getCustomerProfilePage().goToViewHistory();
@@ -80,7 +77,7 @@ public class FrontendAgentTicketTest extends Driver {
     /**
      * This method is used to Validate Add to Interaction Icon on Each Ticket
      */
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"},dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
     public void validateAddToInteraction() {
         try {
             selUtils.addTestcaseDescription("Validate Add to Interaction Icon on Each Ticket", "description");
@@ -94,14 +91,12 @@ public class FrontendAgentTicketTest extends Driver {
         } catch (Exception e) {
             commonLib.fail("Exception in Method - validateAddToInteraction()" + e.fillInStackTrace(), true);
         }
-        /*softAssert.assertTrue(pages.getFrontendTicketHistoryPage().validateAddToInteractionIcon(), "Add to interaction Icon does not found on ticket");
-        softAssert.assertAll();*/
     }
 
     /**
      * This method is used to Validate NFTR issue have ticket icon
      */
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"},dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
     public void validateNFTRIssue() {
         try {
             selUtils.addTestcaseDescription("Validate NFTR issue have ticket icon", "description");
@@ -114,7 +109,7 @@ public class FrontendAgentTicketTest extends Driver {
             pages.getViewHistory().waitTillLoaderGetsRemoved();
             assertCheck.append(actions.assertEqual_boolean(viewTicketPage, true, "View ticket page open", "View ticket page does not open"));
             pages.getViewHistory().clickCloseTicketTab();
-            if(!clickOnTicketIcon || !viewTicketPage) continueExecutionFA = false;
+            if (!clickOnTicketIcon || !viewTicketPage) continueExecutionFA = false;
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - validateNFTRIssue()" + e.fillInStackTrace(), true);
@@ -124,7 +119,7 @@ public class FrontendAgentTicketTest extends Driver {
     /**
      * This method is used to validate send SMS tab
      */
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"},dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
     public void validateSendSMSTab() {
         selUtils.addTestcaseDescription("Validating the Send SMS Tab ", "description");
         pages.getCustomerProfilePage().waitTillLoaderGetsRemoved();
@@ -143,7 +138,7 @@ public class FrontendAgentTicketTest extends Driver {
                 commonLib.fail("Category field does not displayed" + e.fillInStackTrace(), true);
             }
             try {
-                assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isCustomerNumber(), true,"Customer number displayed", "Customer number does not displayed" ));
+                assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isCustomerNumber(), true, "Customer number displayed", "Customer number does not displayed"));
             } catch (NoSuchElementException | TimeoutException e) {
                 commonLib.fail("Customer number does not displayed" + e.fillInStackTrace(), true);
             }
@@ -163,7 +158,7 @@ public class FrontendAgentTicketTest extends Driver {
                 commonLib.fail("Message Content Is Editable" + e.fillInStackTrace(), true);
             }
             try {
-                assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isSendBtnDisabled(), true, "Send SMS button is clickable","Send SMS button is not clickable"));
+                assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isSendBtnDisabled(), true, "Send SMS button is clickable", "Send SMS button is not clickable"));
             } catch (NoSuchElementException | TimeoutException e) {
                 commonLib.fail("Send SMS button is display on UI" + e.fillInStackTrace(), true);
             }

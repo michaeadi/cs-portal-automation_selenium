@@ -1,6 +1,7 @@
 package com.airtel.cs.ui.frontendagent.loginandlogout;
 
 import com.airtel.cs.common.actions.BaseActions;
+import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.driver.Driver;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -13,16 +14,12 @@ public class LogoutTest extends Driver {
 
     private final BaseActions actions = new BaseActions();
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
-        if (continueExecutionFA) {
-            assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, true, "Proceeding for test case as user able to login over portal", "Skipping tests because user not able to login into portal or Role does not assign to user"));
-        } else {
-            commonLib.skip("Skipping tests because user not able to login into portal or Role does not assign to user");
-            assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, false, "Skipping tests because user not able to login into portal or Role does not assign to user"));
-            throw new SkipException("Skipping tests because user not able to login into portal or Role does not assign to user");
+        if (!continueExecutionFA) {
+            commonLib.skip("Skipping tests because user NOT able to login Over Portal");
+            throw new SkipException("Skipping tests because user NOT able to login Over Portal");
         }
-        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
@@ -37,7 +34,9 @@ public class LogoutTest extends Driver {
                 pages.getLoginPage().selectByText("Continue");
             }
         }
-        Assert.assertTrue(pages.getLoginPage().isEnterAUUIDFieldVisible());
-        pages.getLoginPage().waitTillLoaderGetsRemoved();
+        assertCheck.append(actions.assertEqual_boolean(pages.getLoginPage().isEnterAUUIDFieldVisible(), true, "User Logout Successfully", "User NOT Logout from the portal"));
+        final String value = constants.getValue(ApplicationConstants.DOMAIN_URL);
+        assertCheck.append(actions.assertEqual_stringType(driver.getCurrentUrl(), value, "Correct URL Opened", "URl isn't as expected"));
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 }

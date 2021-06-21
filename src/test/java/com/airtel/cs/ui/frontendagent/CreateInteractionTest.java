@@ -31,7 +31,7 @@ public class CreateInteractionTest extends Driver {
     private final BaseActions actions = new BaseActions();
 
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -68,8 +68,8 @@ public class CreateInteractionTest extends Driver {
             try {
                 pages.getInteractionsPage().searchCode(issueCode);
                 pages.getInteractionsPage().selectCode(issueCode);
-            }catch (NoSuchElementException | TimeoutException e){
-                commonLib.fail("Not able to select code",true);
+            } catch (NoSuchElementException | TimeoutException e) {
+                commonLib.fail("Not able to select code", true);
                 pages.getInteractionsPage().clickOutside();
                 throw new NoSuchElementException("Not able to select code or code not found");
             }
@@ -112,8 +112,8 @@ public class CreateInteractionTest extends Driver {
             try {
                 pages.getInteractionsPage().searchCode(issueCode);
                 pages.getInteractionsPage().selectCode(issueCode);
-            }catch (NoSuchElementException | TimeoutException e){
-                commonLib.fail("Not able to select code",true);
+            } catch (NoSuchElementException | TimeoutException e) {
+                commonLib.fail("Not able to select code", true);
                 pages.getInteractionsPage().clickOutside();
                 throw new NoSuchElementException("Not able to select code or code not found");
             }
