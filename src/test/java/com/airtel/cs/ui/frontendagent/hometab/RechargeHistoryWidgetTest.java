@@ -67,7 +67,7 @@ public class RechargeHistoryWidgetTest extends Driver {
     @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
     public void testColumnValueAndAuuid(HeaderDataBean data) {
         try {
-            selUtils.addTestcaseDescription("Validating Recharge History Widget of User :" + customerNumber + "Validate Recharge History API, Validate Recharge H", "description");
+            selUtils.addTestcaseDescription("Validating Recharge History Widget of User :" + customerNumber + ",Validate Recharge History API, Validate Recharge H", "description");
             final RechargeHistoryWidget rechargeHistoryWidget = pages.getRechargeHistoryWidget();
             RechargeHistoryPOJO rechargeHistoryAPI = api.rechargeHistoryAPITest(customerNumber);
             final int statusCode = rechargeHistoryAPI.getStatusCode();

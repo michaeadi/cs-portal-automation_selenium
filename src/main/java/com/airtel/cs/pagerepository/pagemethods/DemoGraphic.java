@@ -25,6 +25,7 @@ public class DemoGraphic extends BasePage {
 
     /**
      * This method is use to get customer name
+     *
      * @return String The value
      */
     public String getCustomerName() {
@@ -35,6 +36,7 @@ public class DemoGraphic extends BasePage {
 
     /**
      * This method is use to get device Compatible
+     *
      * @return String The value
      */
     public String getDeviceCompatible() {
@@ -59,6 +61,7 @@ public class DemoGraphic extends BasePage {
 
     /**
      * This method is use to get customer date of birth
+     *
      * @return String The value
      */
     public String getCustomerDOB() {
@@ -69,6 +72,7 @@ public class DemoGraphic extends BasePage {
 
     /**
      * This method is use to get GSM status reason code
+     *
      * @return String The value
      */
     public String getGSMStatusReasonCode() {
@@ -79,6 +83,7 @@ public class DemoGraphic extends BasePage {
 
     /**
      * This method is use to get GSM status modified by
+     *
      * @return String The value
      */
     public String getGSMStatusModifiedBy() {
@@ -89,6 +94,7 @@ public class DemoGraphic extends BasePage {
 
     /**
      * This method is use to get GSM status modified date
+     *
      * @return String The value
      */
     public String getGSMStatusModifiedDate() {
@@ -102,6 +108,7 @@ public class DemoGraphic extends BasePage {
 
     /**
      * This method is use to get GSM activation date
+     *
      * @return String The value
      */
     public String getActivationDate() {
@@ -112,6 +119,7 @@ public class DemoGraphic extends BasePage {
 
     /**
      * This method is use to get SIM Number
+     *
      * @return String The value
      */
     public String getSimNumber() {
@@ -122,6 +130,7 @@ public class DemoGraphic extends BasePage {
 
     /**
      * This method is use to get SIM Type
+     *
      * @return String The value
      */
     public String getSimType() {
@@ -162,6 +171,7 @@ public class DemoGraphic extends BasePage {
 
     /**
      * This method is use to get Id type
+     *
      * @return String The value
      */
     public String getIdType() {
@@ -172,6 +182,7 @@ public class DemoGraphic extends BasePage {
 
     /**
      * This method is use to get Id number
+     *
      * @return String The value
      */
     public String getIdNumber() {
@@ -182,6 +193,7 @@ public class DemoGraphic extends BasePage {
 
     /**
      * This method is use to check PUK info locked or not
+     *
      * @return true/false
      */
     public boolean isPUKInfoLocked() {
@@ -212,6 +224,7 @@ public class DemoGraphic extends BasePage {
 
     /**
      * This method is use to check VIP flag display or not
+     *
      * @return true/false
      */
     public boolean isVIP() {
@@ -227,6 +240,7 @@ public class DemoGraphic extends BasePage {
 
     /**
      * This method is use to check birthday icon display or not
+     *
      * @return true/false
      */
     public boolean isBirthday() {
@@ -242,6 +256,7 @@ public class DemoGraphic extends BasePage {
 
     /**
      * This method is use to check Airtel anniversary icon display or not
+     *
      * @return true/false
      */
     public boolean isAirtelAnniversary() {
@@ -257,6 +272,7 @@ public class DemoGraphic extends BasePage {
 
     /**
      * This method is use to check Airtel money profile icon locked or not
+     *
      * @return true/false
      */
     public boolean isAirtelMoneyProfileLocked() {
@@ -288,6 +304,7 @@ public class DemoGraphic extends BasePage {
 
     /**
      * This method is use to check Airtel money profile widget display
+     *
      * @return true/false
      */
     public boolean checkAMProfileWidget() {
@@ -297,6 +314,7 @@ public class DemoGraphic extends BasePage {
 
     /**
      * This method is use to get data manager status
+     *
      * @return String The value
      */
     public String getDataManagerStatus() {
@@ -307,6 +325,7 @@ public class DemoGraphic extends BasePage {
 
     /**
      * This method is use to get GSM SIM status
+     *
      * @return String The value
      */
     public String getGSMStatus() {
@@ -317,6 +336,7 @@ public class DemoGraphic extends BasePage {
 
     /**
      * This method is use to get AM Account status
+     *
      * @return String The value
      */
     public String getAccountStatus() {
@@ -327,6 +347,7 @@ public class DemoGraphic extends BasePage {
 
     /**
      * This method is use to check GSM SIM status
+     *
      * @return String The value
      */
     public String getServiceStatus() {
@@ -337,6 +358,7 @@ public class DemoGraphic extends BasePage {
 
     /**
      * This method is use to get AM Primary Wallet balance
+     *
      * @return String The value
      */
     public String getWalletBalance() {
@@ -347,6 +369,7 @@ public class DemoGraphic extends BasePage {
 
     /**
      * This method is use to get AM Secondary Wallet balance
+     *
      * @return String The value
      */
     public String getWalletBalance2() {
@@ -357,6 +380,7 @@ public class DemoGraphic extends BasePage {
 
     /**
      * This method is use to get AM Registration balance
+     *
      * @return String The value
      */
     public String getRegistrationStatus() {
@@ -367,6 +391,7 @@ public class DemoGraphic extends BasePage {
 
     /**
      * This method is use to get AM Connection Type
+     *
      * @return String The value
      */
     public String getConnectionType() {
@@ -377,6 +402,7 @@ public class DemoGraphic extends BasePage {
 
     /**
      * This method is use to get Segment
+     *
      * @return String The value
      */
     public String getSegment() {
@@ -387,6 +413,7 @@ public class DemoGraphic extends BasePage {
 
     /**
      * This method is use to get Service class
+     *
      * @return String The value
      */
     public String getServiceClass() {
@@ -397,13 +424,16 @@ public class DemoGraphic extends BasePage {
 
     /**
      * This method is use to get Service category
+     *
      * @return String The value
      */
     public String getServiceCategory() {
         String result = null;
         try {
-            result = getText(pageElements.serviceCategory);
-            commonLib.info("Getting service Category: " + result);
+            if (isVisible(pageElements.serviceCategory)) {
+                result = getText(pageElements.serviceCategory);
+                commonLib.info("Getting service Category: " + result);
+            }
         } catch (Exception e) {
             commonLib.fail("Exception in method - getServiceCategory", true);
         }
@@ -412,6 +442,7 @@ public class DemoGraphic extends BasePage {
 
     /**
      * This method is use to get self-care API downloaded or not
+     *
      * @return String The value
      */
     public String getAppStatus() {
@@ -422,6 +453,7 @@ public class DemoGraphic extends BasePage {
 
     /**
      * This method is use to get GSM KYC status
+     *
      * @return String The value
      */
     public String getGsmKycStatus() {
@@ -432,6 +464,7 @@ public class DemoGraphic extends BasePage {
 
     /**
      * This method is use to get IMEI number
+     *
      * @return String The value
      */
     public String getIMEINumber() {
@@ -442,6 +475,7 @@ public class DemoGraphic extends BasePage {
 
     /**
      * This method is use to get device type
+     *
      * @return String The value
      */
     public String getDeviceType() {
@@ -452,6 +486,7 @@ public class DemoGraphic extends BasePage {
 
     /**
      * This method is use to get brand name
+     *
      * @return String The value
      */
     public String getBrand() {
@@ -462,6 +497,7 @@ public class DemoGraphic extends BasePage {
 
     /**
      * This method is use to get device model name
+     *
      * @return String The value
      */
     public String getDeviceModel() {
@@ -472,6 +508,7 @@ public class DemoGraphic extends BasePage {
 
     /**
      * This method is use to get device os
+     *
      * @return String The value
      */
     public String getDeviceOS() {
@@ -514,6 +551,7 @@ public class DemoGraphic extends BasePage {
 
     /**
      * This method is use to get msisdn error message
+     *
      * @return String The value
      */
     public String invalidMSISDNError() {
@@ -524,6 +562,7 @@ public class DemoGraphic extends BasePage {
 
     /**
      * This method is use to enter msisdn in search box
+     *
      * @param text The text
      */
     public void enterMSISDN(String text) {
@@ -534,6 +573,7 @@ public class DemoGraphic extends BasePage {
 
     /**
      * This method is use to clear search box
+     *
      * @param size size of char to be remove
      */
     public void clearSearchBox(int size) {

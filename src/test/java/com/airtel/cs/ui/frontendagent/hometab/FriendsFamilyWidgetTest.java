@@ -19,7 +19,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -42,7 +41,7 @@ public class FriendsFamilyWidgetTest extends Driver {
         }
     }
 
-    @BeforeClass(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkServiceProfileFlag() {
         if (!StringUtils.equals(RUN_FNF_WIDGET_TEST_CASE, "true")) {
             commonLib.skip("Skipping because Run Friend & Family widget Test Case Flag Value is - " + RUN_FNF_WIDGET_TEST_CASE);

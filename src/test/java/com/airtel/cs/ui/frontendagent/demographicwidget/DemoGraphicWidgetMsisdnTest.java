@@ -94,9 +94,9 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
     @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testAirtelMoneyProfile() {
         try {
-            selUtils.addTestcaseDescription(
-                    "Verify Airtel Money Profile is locked or unlocked, if locked then verify data, else unlock Airtel Money Profile", "description");
             if (StringUtils.equalsIgnoreCase(constants.getValue(ApplicationConstants.AIRTEL_MONEY_PROFILE), "true")) {
+                selUtils.addTestcaseDescription(
+                        "Verify Airtel Money Profile is locked or unlocked, if locked then verify data, else unlock Airtel Money Profile", "description");
                 assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getMiddleAuuidAMP(), loginAUUID, "Auuid is visible at the middle of the Airtel Money Profile widget and is correct", "Auuid is NOT visible at the middle of the Airtel Money Profile widget"));
                 assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getFooterAuuidAMP(), loginAUUID, "Auuid is visible at the footer of the Airtel Money Profile widget and is correct", "Auuid is NOT visible at the footer of the Airtel Money Profile widget"));
                 ProfilePOJO profileAPI = api.profileAPITest(customerNumber);
@@ -145,7 +145,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                         "Customer's Airtel Money Registration Status not same not as Expected"));
                 actions.assertAllFoundFailedAssert(assertCheck);
             } else {
-                commonLib.info("Airtel Money Profile is Not configured for Opco=" + OPCO);
+                commonLib.skip("Airtel Money Profile is Not configured for Opco=" + OPCO);
             }
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
             commonLib.fail("Exception in method - testAirtelMoneyProfile " + e, true);
@@ -201,10 +201,10 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                     "Customer's SIM Number is as Expected", "Customer's SIM Number is not as Expected"));
             pages.getDemoGraphicPage().hoverOnSIMNumberIcon();
             assertCheck.append(actions
-                    .assertEqual_stringType(pages.getDemoGraphicPage().getPIN1(), kycProfile.getResult().getPin1(), "PIN1 Matched Successfully",
+                    .assertEqual_stringType(pages.getDemoGraphicPage().getPIN1(), kycProfile.getResult().getPin1() == null || kycProfile.getResult().getPin1().equals("") ? "-" : kycProfile.getResult().getPin1(), "PIN1 Matched Successfully",
                             "PIN1 NOT Matched"));
             assertCheck.append(actions
-                    .assertEqual_stringType(pages.getDemoGraphicPage().getPIN2(), kycProfile.getResult().getPin2(), "PIN2 Matched Successfully",
+                    .assertEqual_stringType(pages.getDemoGraphicPage().getPIN2(), kycProfile.getResult().getPin2() == null || kycProfile.getResult().getPin2().equals("") ? "-" : kycProfile.getResult().getPin2(), "PIN2 Matched Successfully",
                             "PIN2 NOT Matched"));
             assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getGSMStatus().toLowerCase().trim(),
                     kycProfile.getResult().getStatus().toLowerCase().trim(), "Customer's SIM Status is as Expected",
@@ -222,7 +222,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                     kycProfile.getResult().getModifiedBy().trim().toLowerCase(), "Customer SIM Status Modified By is as Expected",
                     "Customer SIM Status Modified By is not as Expected"));
             assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getGSMStatusModifiedDate().trim(),
-                    UtilsMethods.getDateFromString(kycProfile.getResult().getModifiedDate(), "dd-MMM-yyy hh:mm", "dd-MMM-yyyy hh:mm"),
+                    UtilsMethods.getDateFromString(kycProfile.getResult().getModifiedDate(), "dd-MMM-yyy HH:mm aa", "dd-MMM-yyyy hh:mm aa").replace("am", "AM").replace("pm", "PM"),
                     "Customer SIM Status, Modified Date is as Expected", "Customer SIM Status, Modified Date is not as Expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
@@ -280,10 +280,11 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
             assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getSegment().toLowerCase().trim(),
                     kycProfile.getResult().getSegment().toLowerCase().trim(), "Customer Segment as expected", "Customer Segment as not expected"));
             pages.getDemoGraphicPage().hoverOnSegmentInfoIcon();
-            assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getServiceCategory().toLowerCase().trim(),
+            final String serviceCategory = pages.getDemoGraphicPage().getServiceCategory();
+            assertCheck.append(actions.assertEqual_stringType(serviceCategory.toLowerCase().trim(),
                     kycProfile.getResult().getServiceCategory() == null || kycProfile.getResult().getServiceCategory().equals("") ?
                             "-" : kycProfile.getResult().getServiceCategory().toLowerCase().trim(), "Customer Service Category as expected",
-                    "Customer Service Category as not expected"));
+                    "Customer Service Category as not expected and is: " + serviceCategory));
             assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getServiceClass().toLowerCase().trim(),
                     kycProfile.getResult().getServiceClass().toLowerCase().trim(), "Customer Service Class as expected",
                     "Customer Service Class as not expected"));

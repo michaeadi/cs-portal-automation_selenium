@@ -7,7 +7,7 @@ public class DemoGraphicPage {
      * Customer Name & DOB & Refresh Icon Element Locator
      * */
     public By customerNumberSearchBox = By.xpath("//input[(@type='text' or @type='search') and @placeholder='Search']");
-    public By customerName = By.xpath("//span[@class='customer-name ng-star-inserted']/span[1]");
+    public By customerName = By.xpath("//app-customer-name/following-sibling::span");
     public By customerDOB = By.xpath("//*[contains(text(),'DOB')]//following-sibling::td/span/span");
     public By customerInfoIcon = By.xpath("//span[@class='customer-name ng-star-inserted']/a");
     public By refreshIcon = By.xpath("//img[@class='refresh-button cursor-pointer']");

@@ -16,7 +16,6 @@ import io.restassured.http.Headers;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.testng.SkipException;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -37,7 +36,7 @@ public class DisplayOfferWidgetTest extends Driver {
         }
     }
 
-    @BeforeClass(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkServiceProfileFlag() {
         if (!StringUtils.equals(RUN_DISPLAY_OFFER_TEST_CASE, "true")) {
             commonLib.skip("Skipping because Run Display Offer widget Test Case Flag Value is - " + RUN_DISPLAY_OFFER_TEST_CASE);

@@ -59,7 +59,7 @@ public class BaseActions {
 
     public boolean assertAllFoundFailedAssert(StringBuilder AssertResults) {
         // ACTION PENDING - REQUIRE TO CALL THIS TO @AFTERMETHOD
-        if (!AssertResults.toString().contains("true")) {
+        if (AssertResults.toString().contains("false")) {
             Assert.fail("Some Assertions failed in this testcase");
             return true;
         } else
@@ -125,7 +125,7 @@ public class BaseActions {
     }
 
     public Boolean assertEqual_intType(int actual, int expected, String passDescription, String failDescription) {
-        return assertEqual_intType(actual, expected, passDescription, failDescription, false);
+        return assertEqual_intType(actual, expected, passDescription, failDescription, true);
     }
 
     /**
@@ -135,7 +135,7 @@ public class BaseActions {
      * @param expected the expected
      */
     public Boolean assertEqual_stringType(String actual, String expected, String passMessage, String failMessage) {
-        return assertEqual_stringType(actual, expected, passMessage, failMessage, false);
+        return assertEqual_stringType(actual, expected, passMessage, failMessage, true);
     }
 
     public Boolean assertEqual_stringType(String actual, String expected, String passMessage, String failMessage, boolean requiredScreenshot) {
@@ -160,7 +160,7 @@ public class BaseActions {
     }
 
     public Boolean assertEqual_stringNotNull(String actual, String passMessage, String failMessage) {
-        return assertEqual_stringNotNull(actual, passMessage, failMessage, false);
+        return assertEqual_stringNotNull(actual, passMessage, failMessage, true);
     }
 
     public Boolean assertEqual_stringNotNull(String actual, String passMessage, String failMessage, boolean requiredScreenshot) {
@@ -180,7 +180,7 @@ public class BaseActions {
     }
 
     public Boolean assertEqual_intNotNull(int actual, String passMessage, String failMessage) {
-        return assertEqual_intNotNull(actual, passMessage, failMessage, false);
+        return assertEqual_intNotNull(actual, passMessage, failMessage, true);
     }
 
     public Boolean assertEqual_intNotNull(int actual, String passMessage, String failMessage, boolean requiredScreenshot) {
