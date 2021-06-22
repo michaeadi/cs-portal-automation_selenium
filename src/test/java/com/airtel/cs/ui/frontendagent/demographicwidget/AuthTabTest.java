@@ -109,8 +109,9 @@ public class AuthTabTest extends Driver {
                 final Boolean isAuthenticated = ls.getIsAuthenticated();
                 commonLib.info(key + " : " + isAuthenticated);
                 for (ActionTagDataBeans at : actionTags) {
+                    if(at.getActionTagName().equalsIgnoreCase(ls.getKey()))
                     if (isAuthenticated != Boolean.parseBoolean(at.getIsAuth())) {
-                        commonLib.fail("Action does not locked but as per config Action must be locked.", true);
+                        commonLib.fail(ls.getKey()+"Action does not locked but as per config Action must be locked.", true);
                         break;
                     } else if (ls.getIsAuthenticated() == Boolean.parseBoolean(at.getIsAuth())) {
                         commonLib.pass("Action Verified " + at.getActionTagName());
@@ -164,7 +165,7 @@ public class AuthTabTest extends Driver {
             assertCheck.append(actions.assertEqual_boolean(pages.getAuthTabPage().isAuthBtnEnable(), false, "Authenticate button in NOT enabled without choosing minimum number of question", "Authenticate button is enable without choosing minimum number of question."));
             pages.getDemoGraphicPage().selectPolicyQuestion();
             assertCheck.append(actions.assertEqual_boolean(pages.getAuthTabPage().isAuthBtnEnable(), true, "Authenticate button is enabled", "Authenticate Button does not enable after choose minimum number of question"));
-            pages.getAuthTabPage().clickCloseBtn();
+            pages.getAuthTabPage().clickAuthBtn();
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method :- validateAuthTabMinQuestion" + e.fillInStackTrace(), true);

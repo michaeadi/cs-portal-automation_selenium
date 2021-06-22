@@ -149,7 +149,7 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.AirtelMoneyMenuSecondaryWidgetTest"/>
         </classes>
     </test>
-    <test name="Recharge History More detail Widget Test" preserve-order="true">
+    <test name="DA detail Widget Test" preserve-order="true">
         <groups>
             <run>
                 <include name="SanityTest"/>

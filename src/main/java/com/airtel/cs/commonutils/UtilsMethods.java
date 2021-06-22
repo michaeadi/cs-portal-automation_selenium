@@ -201,6 +201,7 @@ public class UtilsMethods extends Driver {
             }
         } catch (ParseException e) {
             e.printStackTrace();
+            commonLib.fail("Date Patter does not same as date string Please check date pattern.",false);
             return false;
         }
     }
