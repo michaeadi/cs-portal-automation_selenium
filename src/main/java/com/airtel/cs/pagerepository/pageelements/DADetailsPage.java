@@ -22,7 +22,7 @@ public class DADetailsPage {
      * */
     public String accumulatorHeader="//div[@id='ACCUMULATORS']//div[@class='card__card-header--card-body--table--list-heading ng-star-inserted']//div[";
     public String accumulatorColumnHeader="//div[@id='ACCUMULATORS']//div[@class='table-data-wrapper ng-star-inserted']/div[@class='ng-star-inserted'  or @class='slide-toggle red ng-star-inserted'][";
-    public String accumulatorColumnValue="]//div[@class='ng-star-inserted' or @class='slide-toggle red ng-star-inserted'][";
+    public String accumulatorColumnValue="]//div[@class='data-container ng-star-inserted'][";
     /**
      * Page Elements of UC & UT Offer Widget
      * */

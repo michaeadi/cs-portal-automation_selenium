@@ -11,10 +11,10 @@ public class MoreRechargeHistoryPage {
     public By listOfRecharge = By.xpath("//div[@id='INTERNET_BUNDLES_HISTORY']//div[@class='table-data-wrapper ng-star-inserted']/div[@class='ng-star-inserted']");
 
     public By pagination = By.xpath("//div[@id='INTERNET_BUNDLES_HISTORY']//pagination-template//ul");
-    public By errorMessage = By.xpath("//div[@id='INTERNET_BUNDLES_HISTORY']/div[@class='card__content restricted ng-star-inserted']/descendant::div[@class='no-result-found ng-star-inserted']/span/span");
-    public String headerName="//div[@id='INTERNET_BUNDLES_HISTORY']/div[@class='card__card-header--card-body--table--list-heading ng-star-inserted']//div[";
+    public By errorMessage = By.xpath("//div[@id='INTERNET_BUNDLES_HISTORY']//div[@class='card__content restricted ng-star-inserted']/descendant::div[@class='no-result-found ng-star-inserted']/span/span");
+    public String headerName="//div[@id='INTERNET_BUNDLES_HISTORY']//div[@class='card__card-header--card-body--table--list-heading ng-star-inserted']//div[";
     public String value="]/span";
     public String subHeaderValue="]/span[2]";
     public String columnName="]//div[";
-    public String columnRow="//div[@id='INTERNET_BUNDLES_HISTORY']/div[@class='table-data-wrapper ng-star-inserted']//div[@class='ng-star-inserted'][";
+    public String columnRow="//div[@id='INTERNET_BUNDLES_HISTORY']//div[@class='table-data-wrapper ng-star-inserted']//div[@class='ng-star-inserted'][";
 }

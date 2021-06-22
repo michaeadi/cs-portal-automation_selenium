@@ -9,8 +9,6 @@ import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pojo.response.accumulators.AccumulatorsPOJO;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -51,7 +49,6 @@ public class AccumulatorWidgetTest extends Driver {
     public void accumulatorDetailsTest(HeaderDataBean Data) {
         try {
             selUtils.addTestcaseDescription("Validating Accumulator Details of User :" + customerNumber+",Validate accumulator widget header display as per config,Validate accumulator row data must be displayed as per api response.", "description");
-            try {
                 assertCheck.append(actions.assertEqual_boolean(pages.getCurrentBalanceWidgetPage().isCurrentBalanceWidgetMenuVisible(), true, "Current Balance Widget MENU visible ", "Current Balance Widget MENU is not visible"));
                 pages.getCurrentBalanceWidgetPage().openingDADetails();
                 assertCheck.append(actions.matchUiAndAPIResponse(pages.getDaDetailsPage().getAccumulatorHeaders(1), Data.getRow1(), "Header Name for Row 1 is as expected", "Header Name for Row 1 is not as expected"));
@@ -73,10 +70,6 @@ public class AccumulatorWidgetTest extends Driver {
                 } else {
                     commonLib.fail("API does not able to fetch accumulator details :" + accumulatorAPI.getMessage(),false);
                 }
-            } catch (NoSuchElementException | TimeoutException e) {
-                e.printStackTrace();
-                commonLib.fail("Accumulator details does not display correctly", true);
-            }
         } catch (Exception e) {
             commonLib.fail("Exception in Method - accumulatorDetailsTest" + e.fillInStackTrace(), true);
         }
