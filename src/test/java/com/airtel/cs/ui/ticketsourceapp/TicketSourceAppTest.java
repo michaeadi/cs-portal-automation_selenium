@@ -26,6 +26,7 @@ public class TicketSourceAppTest extends Driver {
     public void testSourceTitleOpenTicketListing() {
         selUtils.addTestcaseDescription("Validation Source App is visible under Supervisor Ticket Listing for OPEN Ticket", "description");
         try {
+            pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().openSupervisorDashboard();
             assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isSourceTitleVisible(), true, "Source Title is visible on Ticket Row Listing Page", "Source Title is NOT visible on Ticket Row Listing Page"));
             assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().checkSourceTitleListingPage(), true, "Source Title Text is not Blank and is - " + pages.getSupervisorTicketList().checkSourceTitleListingPage(), "Source Title Text is Blank"));
