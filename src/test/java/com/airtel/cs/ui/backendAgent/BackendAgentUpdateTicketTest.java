@@ -3,7 +3,6 @@ package com.airtel.cs.ui.backendAgent;
 import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
-import com.airtel.cs.commonutils.dataproviders.TicketStateDataBean;
 import com.airtel.cs.driver.Driver;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NotFoundException;
@@ -25,7 +24,7 @@ public class BackendAgentUpdateTicketTest extends Driver {
     }
 
     @Test(priority = 1, groups = {"SanityTest", "RegressionTest"})
-    public void updateTicket(TicketStateDataBean ticketState) throws InterruptedException {
+    public void updateTicket() throws InterruptedException {
         try {
             selUtils.addTestcaseDescription("Backend Agent Update Ticket", "description");
             commonLib.info("Opening URL");

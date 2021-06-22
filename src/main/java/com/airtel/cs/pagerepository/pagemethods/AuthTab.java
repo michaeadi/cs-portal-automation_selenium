@@ -63,9 +63,9 @@ public class AuthTab extends BasePage {
     public void clickAuthBtn() {
         if (driver.findElement(pageElements.authBtn).isEnabled()) {
             commonLib.info("Clicking on Authenticate button");
-            clickWithoutLoader(pageElements.authBtn);
+            clickAndWaitForLoaderToBeRemoved(pageElements.authBtn);
         } else
-            clickWithoutLoader(pageElements.authCloseBtn);
+            clickAndWaitForLoaderToBeRemoved(pageElements.authCloseBtn);
     }
 
     /*

@@ -6,6 +6,8 @@ import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.commonutils.dataproviders.TransferQueueDataBean;
 import com.airtel.cs.driver.Driver;
 import com.sun.istack.NotNull;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -72,11 +74,17 @@ public class TicketSourceAppTest extends Driver {
             pages.getSupervisorTicketList().clickCheckbox();
             pages.getSupervisorTicketList().clickTransfertoQueue();
             assertCheck.append(actions.assertEqual_boolean(pages.getTransferToQueue().validatePageTitle(), true, "Transfer Ticket To Queue Page Title Matched", "Transfer Ticket To Queue Page Title NOT Matched"));
-            pages.getTransferToQueue().clickTransferQueue(data.getToQueue());
-            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isSourceTitleVisible(), true, "Source Title is visible on Ticket Row Listing Page", "Source Title is NOT visible on Ticket Row Listing Page"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().checkSourceTitleListingPage(), true, "Source Title Text is not Blank and is - " + pages.getSupervisorTicketList().checkSourceTitleListingPage(), "Source Title Text is Blank"));
-            pages.getSupervisorTicketList().clickCancelBtn();
-            actions.assertAllFoundFailedAssert(assertCheck);
+            try {
+                pages.getTransferToQueue().clickTransferQueue(data.getToQueue());
+                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isSourceTitleVisible(), true, "Source Title is visible on Ticket Row Listing Page", "Source Title is NOT visible on Ticket Row Listing Page"));
+                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().checkSourceTitleListingPage(), true, "Source Title Text is not Blank and is - " + pages.getSupervisorTicketList().checkSourceTitleListingPage(), "Source Title Text is Blank"));
+                pages.getSupervisorTicketList().clickCancelBtn();
+                actions.assertAllFoundFailedAssert(assertCheck);
+            }catch (NoSuchElementException | TimeoutException e){
+                commonLib.fail("Not able to validate Source App while doing Transfer To Queue: "+e.getMessage(),true);
+                pages.getTransferToQueue().clickCloseTab();
+
+            }
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - testSourceAppTransferTicketToQueue " + e.getMessage(), true);
         }

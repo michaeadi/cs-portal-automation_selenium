@@ -60,6 +60,7 @@ public class TransferToQueueTest extends BAPreRequisites {
         try {
             selUtils.addTestcaseDescription("Backend Agent Login into Queue", "description");
             assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isSideMenuVisible(), true, "Side menu visible as expected", "Side menu visible as not expected"));
+            pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().openBackendAgentDashboard();
             assertCheck.append(actions.assertEqual_boolean(pages.getAgentLoginPage().isQueueLoginPage(), true, "Backend Agent Queue login page display", "Backend Agent Queue login Page does not display"));
             assertCheck.append(actions.assertEqual_boolean(pages.getAgentLoginPage().checkSubmitButton(), true, "Backend Agent Queue Submit button display", "Backend Agent Queue Submit button does not display"));

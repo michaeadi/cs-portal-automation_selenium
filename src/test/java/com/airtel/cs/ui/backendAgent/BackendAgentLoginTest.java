@@ -1,10 +1,12 @@
 package com.airtel.cs.ui.backendAgent;
 
+import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.PassUtils;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.driver.Driver;
+import com.airtel.cs.pojo.response.ticketlist.TicketPOJO;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.TimeoutException;
@@ -15,6 +17,7 @@ import org.testng.annotations.Test;
 public class BackendAgentLoginTest extends Driver {
 
     private final BaseActions actions = new BaseActions();
+    RequestSource api = new RequestSource();
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
@@ -78,6 +81,7 @@ public class BackendAgentLoginTest extends Driver {
     public void validateTicket() {
         try {
             selUtils.addTestcaseDescription("Backend Agent Validate Ticket List Page", "description");
+            TicketPOJO ticketPOJO = api.ticketMetaDataTest(pages.getSupervisorTicketList().getTicketIdValue());
             assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isTicketIdLabel(), true, "Ticket Meta Data Have Ticket Id", "Ticket Meta Data Does Not Have Ticket Id"));
             assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isWorkGroupName(), true, "Ticket Meta Data Have Workgroup", "Ticket Meta Data Does Not  Have Workgroup"));
             assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isPrioritylabel(), true, "Ticket Meta Data Have Priority", "Ticket Meta Data  Does Not  Have Priority"));
@@ -87,9 +91,13 @@ public class BackendAgentLoginTest extends Driver {
             assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isQueueLabel(), true, "Ticket Meta Data Have Queue", "Ticket Meta Data Does Not Have Queue"));
             assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isIssueLabel(), true, "Ticket Meta Data Have Issue", "Ticket Meta Data Does Not Have Issue"));
             assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isIssueTypeLabel(), true, "Ticket Meta Data Have Issue Type", "Ticket Meta Data Does Not Have Issue Type"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isSubTypeLabel(), true, "Ticket Meta Data Have Issue Sub Type", "Ticket Meta Data Does Not Have Issue Sub Type"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isSubSubTypeLabel(), true, "Ticket Meta Data Have Issue Sub Sub Type", "Ticket Meta Data Does Not Have Issue Sub Sub Type"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isCodeLabel(), true, "Ticket Meta Data Have Code", "Ticket Meta Data Does Not Have Code"));
+            if(ticketPOJO.getResult().getCategoryLevel().size()>3) {
+                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isSubTypeLabel(), true, "Ticket Meta Data Have Issue Sub Type", "Ticket Meta Data Does Not Have Issue Sub Type"));
+                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isSubSubTypeLabel(), true, "Ticket Meta Data Have Issue Sub Sub Type", "Ticket Meta Data Does Not Have Issue Sub Sub Type"));
+                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isCodeLabel(), true, "Ticket Meta Data Have Code", "Ticket Meta Data Does Not Have Code"));
+            }else{
+                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isSubTypeLabel(), true, "Ticket Meta Data Have Code", "Ticket Meta Data Does Not Have Code"));
+            }
             assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().getMSISDN().isEmpty(), false, "MSISDN Can be empty", "MSISDN Can not be empty"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NotFoundException | TimeoutException | ElementClickInterceptedException e) {
