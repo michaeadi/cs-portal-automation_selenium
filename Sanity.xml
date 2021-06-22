@@ -109,6 +109,16 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.RechargeHistoryWidgetTest"/>
         </classes>
     </test>
+    <test name="Recharge History Menu Widget Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.RechargeHistoryMenuWidgetTest"/>
+        </classes>
+    </test>
     <test name="Service Profile Widget Test" preserve-order="true">
         <groups>
             <run>
@@ -137,16 +147,6 @@
         </groups>
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.AirtelMoneyMenuSecondaryWidgetTest"/>
-        </classes>
-    </test>
-    <test name="Recharge History Menu Widget Test" preserve-order="true">
-        <groups>
-            <run>
-                <include name="SanityTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.hometab.RechargeHistoryMenuWidgetTest"/>
         </classes>
     </test>
     <test name="Recharge History More detail Widget Test" preserve-order="true">
@@ -239,6 +239,16 @@
             <class name="com.airtel.cs.ui.frontendagent.CreateInteractionTest"/>
         </classes>
     </test>
+    <test name="Widget Tagged Interaction TEST">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.WidgetTaggedIssueTest"/>
+        </classes>
+    </test>
     <test name="Customer Pinned Tag TEST">
         <groups>
             <run>
@@ -317,16 +327,6 @@
         </groups>
         <classes>
             <class name="com.airtel.cs.ui.ticketBulkUpdate.TicketBulkUpdateTest"/>
-        </classes>
-    </test>
-    <test name="Logout Test">
-        <groups>
-            <run>
-                <include name="SanityTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
         </classes>
     </test>
     <test name="Supervisors Login Test">
@@ -427,6 +427,26 @@
         </groups>
         <classes>
             <class name="com.airtel.cs.ui.backendSupervisor.SupervisorAddCommentTest"/>
+        </classes>
+    </test>
+    <test name="Ticket Transfer Rule Test ">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.backendSupervisor.TicketTransferRuleTest"/>
+        </classes>
+    </test>
+    <test name="Validate Ticket State Queue Mapping">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.backendSupervisor.StateQueueMappingTest"/>
         </classes>
     </test>
     <test name="Logout Supervisor Test">
@@ -537,16 +557,6 @@
         </groups>
         <classes>
             <class name="com.airtel.cs.ui.backendAgent.BackendAgentAddCommentTest"/>
-        </classes>
-    </test>
-    <test name="Logout Test from Backend agent">
-        <groups>
-            <run>
-                <include name="SanityTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
         </classes>
     </test>
     <test name="BACKEND AGENT Transfer to Queue Test">

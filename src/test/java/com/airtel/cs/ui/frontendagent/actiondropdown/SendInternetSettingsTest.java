@@ -50,7 +50,7 @@ public class SendInternetSettingsTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 2, groups = {"RegressionTest"}, dependsOnMethods = "openCustomerInteraction")
     public void validateCancelBtn() {
         boolean modalOpened = false;
         try {
