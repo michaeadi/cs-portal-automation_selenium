@@ -204,11 +204,16 @@ public class TicketSourceAppTest extends Driver {
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().openTicketBulkUpdateDashboard();
             assertCheck.append(actions.assertEqual_boolean(pages.getTicketBulkUpdate().isTicketBulkUpdate(), true, "Ticket Bulk Update Page Opened Successfully", "Ticket Bulk Update page does not open."));
-            pages.getTicketBulkUpdate().clickSelectFilter();
-            pages.getFilterTabPage().clickLast30DaysFilter();
-            pages.getFilterTabPage().clickApplyFilter();
-            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isSourceTitleVisible(), true, "Source Title is visible on Ticket Row Listing Page", "Source Title is NOT visible on Ticket Row Listing Page"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().checkSourceTitleListingPage(), true, "Source Title Text is not Blank and is - " + pages.getSupervisorTicketList().checkSourceTitleListingPage(), "Source Title Text is Blank"));
+            try {
+                pages.getTicketBulkUpdate().clickSelectFilter();
+                pages.getFilterTabPage().clickLast30DaysFilter();
+                pages.getFilterTabPage().clickApplyFilter();
+                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isSourceTitleVisible(), true, "Source Title is visible on Ticket Row Listing Page", "Source Title is NOT visible on Ticket Row Listing Page"));
+                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().checkSourceTitleListingPage(), true, "Source Title Text is not Blank and is - " + pages.getSupervisorTicketList().checkSourceTitleListingPage(), "Source Title Text is Blank"));
+            }catch (NoSuchElementException | TimeoutException e){
+                commonLib.fail("No able to Validate Source App under Bulk Update Tab",true);
+                pages.getTicketBulkUpdate().clickClearFilter();
+            }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - testSourceAppBulkUpdate " + e.getMessage(), true);

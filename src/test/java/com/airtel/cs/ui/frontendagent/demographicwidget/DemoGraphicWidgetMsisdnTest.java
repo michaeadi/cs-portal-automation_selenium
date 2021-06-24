@@ -161,13 +161,14 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
             GsmKycPOJO gsmKycAPI = api.gsmKYCAPITest(customerNumber);
             final int statusCode = gsmKycAPI.getStatusCode();
             assertCheck.append(actions.assertEqual_intType(statusCode, 200, "GSM KYC API Status Code Matched and is :" + statusCode, "GSM KYC API Status Code NOT Matched and is :" + statusCode));
-            assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getCustomerName(), gsmKycAPI.getResult().getName(),
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemoGraphicPage().getCustomerName(), gsmKycAPI.getResult().getName(),
                     "Customer Name is as Expected", "Customer Name is not as Expected"));
             pages.getDemoGraphicPage().hoverOnCustomerInfoIcon();
             final String customerDOB = pages.getDemoGraphicPage().getCustomerDOB();
             assertCheck.append(actions
                     .assertEqual_stringType(customerDOB.trim(), UtilsMethods.getDateFromEpoch(gsmKycAPI.getResult().getDob(), "dd-MMM-yyyy"),
                             "Customer DOB is as Expected", "Customer DOB is not as Expected"));
+            if(!customerDOB.equals("-"))
             if (UtilsMethods.isCustomerBirthday(customerDOB.trim(), "dd-MMM-yyyy")) {
                 commonLib.pass("Today is Customer Birthday");
                 final boolean birthday = pages.getDemoGraphicPage().isBirthday();
