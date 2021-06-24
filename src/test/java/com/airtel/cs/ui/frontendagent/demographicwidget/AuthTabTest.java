@@ -172,7 +172,7 @@ public class AuthTabTest extends Driver {
         }
     }
 
-    @Test(priority = 7, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"validateAuthTabMinQuestion", "openCustomerInteraction"})
+    @Test(priority = 7, groups = {"SanityTest", "RegressionTest","ProdTest"}, dependsOnMethods = {"validateAuthTabMinQuestion", "openCustomerInteraction"})
     public void authCustomer() {
         try {
             selUtils.addTestcaseDescription("Authenticate User", "description");
