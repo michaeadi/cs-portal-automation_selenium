@@ -1,6 +1,7 @@
 package com.airtel.cs.ui.templateManagement;
 
 import com.airtel.cs.common.actions.BaseActions;
+import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pagerepository.pagemethods.TemplateManagement;
 import org.openqa.selenium.NoSuchElementException;
@@ -9,7 +10,6 @@ import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -141,23 +141,23 @@ public class CreateTemplateTest extends Driver {
                     pages.getTemplateManagement().selectOptionFromList(templateCategory);
                 } catch (StaleElementReferenceException e) {
                     commonLib.info("Trying Again to select Agent Channels");
-                    pages.getTemplateManagement().selectOptionFromList(config.getProperty("selectALL"));
+                    pages.getTemplateManagement().selectOptionFromList(constants.getValue(CommonConstants.SELECT_ALL_OPTION_NAME));
                 }
                 pages.getTemplateManagement().writeTemplateName(templateName);
                 pages.getTemplateManagement().clickAgentRole();
                 try {
-                    pages.getTemplateManagement().selectOptionFromList(config.getProperty("selectALL"));
+                    pages.getTemplateManagement().selectOptionFromList(constants.getValue(CommonConstants.SELECT_ALL_OPTION_NAME));
                 } catch (StaleElementReferenceException e) {
                     commonLib.info("Trying Again to select Agent Channels");
-                    pages.getTemplateManagement().selectOptionFromList(config.getProperty("selectALL"));
+                    pages.getTemplateManagement().selectOptionFromList(constants.getValue(CommonConstants.SELECT_ALL_OPTION_NAME));
                 }
                 pages.getTemplateManagement().clickOutside();
                 pages.getTemplateManagement().clickAgentChannels();
                 try {
-                    pages.getTemplateManagement().selectOptionFromList(config.getProperty("selectALL"));
+                    pages.getTemplateManagement().selectOptionFromList(constants.getValue(CommonConstants.SELECT_ALL_OPTION_NAME));
                 } catch (StaleElementReferenceException e) {
                     commonLib.info("Trying Again to select Agent Channels");
-                    pages.getTemplateManagement().selectOptionFromList(config.getProperty("selectALL"));
+                    pages.getTemplateManagement().selectOptionFromList(constants.getValue(CommonConstants.SELECT_ALL_OPTION_NAME));
                 }
                 pages.getTemplateManagement().clickOutside();
                 pages.getTemplateManagement().clickSMSLanguage();

@@ -61,5 +61,6 @@ public class CommonConstants {
     public static final String INVALID_TICKET_ID="cs.invalid.ticket.id";
     public static final String BACKEND_AGENT_TICKET_LIST_PAGE="cs.backend.agent.ticket.list.page";
     public static final String REOPEN_TICKET_STATE_NAME="cs.reopen.state.name";
+    public static final String SELECT_ALL_OPTION_NAME="cs.select.all";
 
 }
