@@ -41,7 +41,7 @@ public class BAPreRequisites extends Driver {
             commonLib.info("Growl was visible or not?:-" + isGrowlVisible);
             if (isGrowlVisible) {
                 commonLib.fail("Growl Message:- " + pages.getGrowl().getToastContent(), true);
-                continueExecutionFA = false;
+                continueExecutionBA = false;
             } else {
                 assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isSideMenuVisible(), true, "Side Menu Visible", "Side Menu Not Visible"));
                 pages.getSideMenuPage().clickOnSideMenu();
@@ -49,7 +49,7 @@ public class BAPreRequisites extends Driver {
                 actions.assertAllFoundFailedAssert(assertCheck);
             }
         } catch (Exception e) {
-            continueExecutionFA = false;
+            continueExecutionBA = false;
             commonLib.fail("Exception in Method - doLogin" + e.fillInStackTrace(), true);
         }
     }

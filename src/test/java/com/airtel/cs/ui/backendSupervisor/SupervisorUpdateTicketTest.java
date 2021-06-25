@@ -53,6 +53,7 @@ public class SupervisorUpdateTicketTest extends Driver {
                     "Click on Submit button,Validate the ticket state changed and agent able to view in closed ticket list.,Validate SMS Sent to customer initiated from application once ticket closed.", "description");
             DataProviders data = new DataProviders();
             String selectedState = null;
+            pages.getSupervisorTicketList().changeTicketTypeToOpen();
             try {
                 pages.getSupervisorTicketList().writeTicketId(Data.getTicketNumber());
                 pages.getSupervisorTicketList().clickSearchBtn();

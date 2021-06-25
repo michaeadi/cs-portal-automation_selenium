@@ -783,7 +783,7 @@ public class SupervisorTicketList extends BasePage {
      * */
     public void clickCloseTab(){
         commonLib.info("Closing the open overlay tab");
-        clickWithoutLoader(pageElements.closeTabBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.closeTabBtn);
     }
 
 }

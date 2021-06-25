@@ -339,16 +339,6 @@
             <class name="com.airtel.cs.ui.simbarunbar.SIMBarUnbarPermissionSeparationTest"/>
         </classes>
     </test>
-    <test name="Supervisors Ticket Bulk Update Test">
-        <groups>
-            <run>
-                <include name="SanityTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.ticketBulkUpdate.TicketBulkUpdateTest"/>
-        </classes>
-    </test>
     <test name="Supervisors Login Test">
         <groups>
             <run>
@@ -467,6 +457,16 @@
         </groups>
         <classes>
             <class name="com.airtel.cs.ui.backendSupervisor.StateQueueMappingTest"/>
+        </classes>
+    </test>
+    <test name="Supervisors Ticket Bulk Update Test">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.ticketBulkUpdate.TicketBulkUpdateTest"/>
         </classes>
     </test>
     <test name="Logout Supervisor Test">

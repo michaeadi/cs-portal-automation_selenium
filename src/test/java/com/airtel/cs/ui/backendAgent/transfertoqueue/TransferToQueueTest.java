@@ -8,6 +8,7 @@ import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.TransferQueueDataBean;
+import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pojo.response.agentpermission.AgentPermission;
 import io.restassured.http.Headers;
 import org.openqa.selenium.ElementClickInterceptedException;
@@ -18,7 +19,7 @@ import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class TransferToQueueTest extends BAPreRequisites {
+public class TransferToQueueTest extends Driver {
 
     private final BaseActions actions = new BaseActions();
     RequestSource api = new RequestSource();
@@ -60,6 +61,7 @@ public class TransferToQueueTest extends BAPreRequisites {
         try {
             selUtils.addTestcaseDescription("Backend Agent Login into Queue", "description");
             assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isSideMenuVisible(), true, "Side menu visible as expected", "Side menu visible as not expected"));
+            pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().openBackendAgentDashboard();
             assertCheck.append(actions.assertEqual_boolean(pages.getAgentLoginPage().isQueueLoginPage(), true, "Backend Agent Queue login page display", "Backend Agent Queue login Page does not display"));
             assertCheck.append(actions.assertEqual_boolean(pages.getAgentLoginPage().checkSubmitButton(), true, "Backend Agent Queue Submit button display", "Backend Agent Queue Submit button does not display"));

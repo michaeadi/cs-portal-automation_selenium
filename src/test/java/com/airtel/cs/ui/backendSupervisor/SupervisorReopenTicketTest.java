@@ -3,7 +3,7 @@ package com.airtel.cs.ui.backendSupervisor;
 import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
-import com.airtel.cs.commonutils.dataproviders.TicketStateDataBean;
+import com.airtel.cs.commonutils.dataproviders.NftrDataBeans;
 import com.airtel.cs.driver.Driver;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -37,14 +37,14 @@ public class SupervisorReopenTicketTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 2, dependsOnMethods = {"openSupervisorDashboard"}, dataProvider = "ReOpenState", groups = {"SanityTest", "RegressionTest"}, dataProviderClass = DataProviders.class)
-    public void reopenTicket(TicketStateDataBean reopen) {
+    @Test(priority = 2, dependsOnMethods = {"openSupervisorDashboard"}, dataProvider = "ticketId", groups = {"SanityTest", "RegressionTest"},dataProviderClass = DataProviders.class)
+    public void reopenTicket(NftrDataBeans data) {
         try {
             selUtils.addTestcaseDescription("Validate Reopen Ticket as Supervisor,Select ticket from closed ticket list,validate reopen comment box pop up open,Add reopen ticket and click on submit button,Validate ticket is re-opened successfully.", "description");
-            String ticketId = null;
             pages.getSupervisorTicketList().changeTicketTypeToClosed();
             try {
-                ticketId = pages.getSupervisorTicketList().getTicketIdValue();
+                pages.getSupervisorTicketList().writeTicketId(data.getTicketNumber());
+                pages.getSupervisorTicketList().clickSearchBtn();
                 pages.getSupervisorTicketList().clickCheckbox();
                 try {
                     assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isReopenBtn(), true, "Reopen button available after clicking checkbox", "Reopen button does not available after clicking checkbox"));
@@ -54,9 +54,9 @@ public class SupervisorReopenTicketTest extends Driver {
                         pages.getSupervisorTicketList().submitReopenReq();
                         try {
                             pages.getSupervisorTicketList().changeTicketTypeToOpen();
-                            pages.getSupervisorTicketList().writeTicketId(ticketId);
+                            pages.getSupervisorTicketList().writeTicketId(data.getTicketNumber());
                             pages.getSupervisorTicketList().clickSearchBtn();
-                            assertCheck.append(actions.assertEqual_stringType(pages.getSupervisorTicketList().getStatevalue().toLowerCase().trim(), reopen.getTicketStateName().toLowerCase().trim(), "Ticket Reopen in Correct state", "Ticket Does Not Reopen in Correct state"));
+                            assertCheck.append(actions.assertEqual_stringType(pages.getSupervisorTicketList().getStatevalue().toLowerCase().trim(), constants.getValue(CommonConstants.REOPEN_TICKET_STATE_NAME).toLowerCase().trim(), "Ticket Reopen in Correct state", "Ticket Does Not Reopen in Correct state"));
                         } catch (NoSuchElementException | TimeoutException e) {
                             commonLib.fail("Ticket does not reopened successfully :" + e.fillInStackTrace(), true);
                         }
@@ -72,6 +72,7 @@ public class SupervisorReopenTicketTest extends Driver {
             }
         } catch (Exception e) {
             commonLib.fail("Exception in Method - reopenTicket" + e.fillInStackTrace(), true);
+            pages.getSupervisorTicketList().clearInputBox();
         }
         actions.assertAllFoundFailedAssert(assertCheck);
     }

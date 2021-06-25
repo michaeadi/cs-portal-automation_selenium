@@ -155,7 +155,7 @@ public class TicketBulkUpdateTest extends Driver {
             }
 
             for (TicketStateDataBean s : openState) {
-                if (!states.contains(s.getTicketStateName().trim().toLowerCase()))
+                if (!states.contains(s.getTicketStateName().trim().toLowerCase()) && !s.getTicketStateName().equalsIgnoreCase(constants.getValue(CommonConstants.REOPEN_TICKET_STATE_NAME)))
                     commonLib.fail(s.getTicketStateName() + " :Ticket State does not display on UI but config in excel", true);
                 states.remove(s.getTicketStateName().trim().toLowerCase());
             }
