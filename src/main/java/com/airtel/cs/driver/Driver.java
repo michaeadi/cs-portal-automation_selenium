@@ -84,7 +84,7 @@ public class Driver {
     public static String reason;
     public static String loginAUUID;
     public static ObjectMapper objectMapper = new ObjectMapper();
-    public static String download=System.getProperty(USER_DIR) + "\\resources\\excels\\";
+    public static String download = System.getProperty(USER_DIR) + "\\resources\\excels\\";
 
     public WebDriver getDriver() {
         return driver;
@@ -197,7 +197,7 @@ public class Driver {
             nftrSheetValue = constants.getValue(CommonConstants.SUITE_TYPE).equals(SUITE_TYPE) ? CommonConstants.SANITY_NFTR_SHEET : CommonConstants.REGRESSION_NFTR_SHEET;
             ftrSheetValue = constants.getValue(CommonConstants.SUITE_TYPE).equals(SUITE_TYPE) ? CommonConstants.SANITY_FTR_SHEET : CommonConstants.REGRESSION_FTR_SHEET;
         } catch (Exception ex) {
-            commonLib.fail(ex.getMessage(), true);
+            commonLib.fail("Exception in Method - reportConfigureBase" + ex.getMessage(), false);
         }
     }
 
@@ -265,7 +265,7 @@ public class Driver {
         options.setExperimentalOption("prefs", prefs);
         options.setAcceptInsecureCerts(true);
         options.setCapability("goog:loggingPrefs", loggingprefs);
-        options.setCapability(ChromeOptions.CAPABILITY,options);
+        options.setCapability(ChromeOptions.CAPABILITY, options);
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
     }

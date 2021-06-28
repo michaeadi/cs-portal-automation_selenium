@@ -3,7 +3,6 @@
 <suite name="Automation Framework CS PORTAl Test Suite" preserve-order="true" allow-return-values="true">
     <listeners>
         <listener class-name="com.airtel.cs.commonutils.listeners.TestListenerMethod"/>
-        <!--        <listener class-name="com.airtel.cs.commonutils.listeners.AnnotationTransformer"/>-->
     </listeners>
     <test name="Test Login API">
         <groups>
@@ -337,25 +336,15 @@
             </class>
         </classes>
     </test>
-    <test name="Validate Ticket Bulk Update Test">
+
+    <test name="SIM Bar Unbar Test">
         <groups>
             <run>
                 <include name="ProdTest"/>
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.ticketBulkUpdate.TicketBulkUpdateTest">
-            </class>
+            <class name="com.airtel.cs.ui.simbarunbar.SIMBarUnbarPermissionSeparationTest"/>
         </classes>
     </test>
-<!--    <test name="SIM Bar Unbar Test">-->
-<!--        <groups>-->
-<!--            <run>-->
-<!--                <include name="ProdTest"/>-->
-<!--            </run>-->
-<!--        </groups>-->
-<!--        <classes>-->
-<!--            <class name="com.airtel.cs.ui.simbarunbar.SIMBarUnbarPermissionSeparationTest"/>-->
-<!--        </classes>-->
-<!--    </test>-->
 </suite>
