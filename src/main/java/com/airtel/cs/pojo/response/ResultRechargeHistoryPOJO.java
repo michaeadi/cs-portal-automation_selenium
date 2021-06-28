@@ -20,5 +20,6 @@ public class ResultRechargeHistoryPOJO {
     String mode;
     String validity;
     String expiryDate;
+    String oldExpiryDate;
     String serialNumber;
 }
