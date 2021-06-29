@@ -23,7 +23,7 @@ public class BackendAgentFilterTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest","ProdTest"})
     public void agentQueueLogin() {
         try {
             selUtils.addTestcaseDescription("Backend Agent Login into Queue", "description");
@@ -42,7 +42,7 @@ public class BackendAgentFilterTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"agentQueueLogin"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest","ProdTest"}, dependsOnMethods = {"agentQueueLogin"})
     public void validateFilter() {
         try {
             selUtils.addTestcaseDescription("Validate Filter Tab for Backend Agent", "description");
