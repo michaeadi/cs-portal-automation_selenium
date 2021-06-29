@@ -12,6 +12,7 @@ import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pojo.response.smshistory.SMSHistoryList;
 import com.airtel.cs.pojo.response.smshistory.SMSHistoryPOJO;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -31,7 +32,7 @@ public class CreateInteractionTest extends Driver {
     private final BaseActions actions = new BaseActions();
 
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest","ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -39,7 +40,7 @@ public class CreateInteractionTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest","ProdTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -58,7 +59,7 @@ public class CreateInteractionTest extends Driver {
     }
 
 
-    @Test(priority = 2, dependsOnMethods = "openCustomerInteraction", groups = {"SanityTest", "RegressionTest"}, dataProvider = "getTestData1", dataProviderClass = DataProviders.class)
+    @Test(priority = 2, dependsOnMethods = "openCustomerInteraction", groups = {"SanityTest", "RegressionTest","ProdTest"}, dataProvider = "getTestData1", dataProviderClass = DataProviders.class)
     public void createInteraction(FtrDataBeans data) throws InterruptedException {
         try {
             final String issueCode = data.getIssueCode();
@@ -85,12 +86,13 @@ public class CreateInteractionTest extends Driver {
             SMSHistoryPOJO smsHistory = api.smsHistoryTest(customerNumber);
             SMSHistoryList list = smsHistory.getResult().get(0);
             commonLib.info("Message Sent after Ticket Creation: " + list.getMessageText());
-            //ToDo RG
-//            assertCheck.append(actions.assertEqual_boolean(list.getMessageText().contains(issueCode), true, "Message sent to customer for same FTR Category for which Issue has been Created", "Message does not sent to customer for same FTR Category for which Issue has been Created"));
-//            assertCheck.append(actions.assertEqual_stringType(list.getSmsType(), constants.getValue(CommonConstants.SYSTEM_SMS_TYPE), "Message type is system", "Message type is not system"));
-//            assertCheck.append(actions.assertEqual_boolean(list.isAction(), false, "Action button is disabled", "Action button is not disabled"));
-//            assertCheck.append(actions.assertEqual_stringType(list.getTemplateName().toLowerCase().trim(), constants.getValue(CommonConstants.TICKET_CREATED_EVENT).toLowerCase().trim(), "Template event is same as defined", "Template event not same as defined"));
-            pages.getInteractionsPage().closeInteractions();
+            if(StringUtils.equalsIgnoreCase(data.getMessageConfigured(), "true")) {
+            assertCheck.append(actions.assertEqual_boolean(list.getMessageText().contains(issueCode), true, "Message sent to customer for same FTR Category for which Issue has been Created", "Message does not sent to customer for same FTR Category for which Issue has been Created"));
+            assertCheck.append(actions.assertEqual_stringType(list.getSmsType(), constants.getValue(CommonConstants.SYSTEM_SMS_TYPE), "Message type is system", "Message type is not system"));
+            assertCheck.append(actions.assertEqual_boolean(list.isAction(), false, "Action button is disabled", "Action button is not disabled"));
+            assertCheck.append(actions.assertEqual_stringType(list.getTemplateName().toLowerCase().trim(), constants.getValue(CommonConstants.TICKET_CREATED_EVENT).toLowerCase().trim(), "Template event is same as defined", "Template event not same as defined"));
+            }
+                pages.getInteractionsPage().closeInteractions();
         } catch (NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
             commonLib.fail("Exception in Method - createInteraction" + e.fillInStackTrace(), true);
             pages.getInteractionsPage().clickOutside();
@@ -99,7 +101,7 @@ public class CreateInteractionTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 3, dependsOnMethods = "openCustomerInteraction", groups = {"SanityTest", "RegressionTest"}, dataProvider = "getTestData2", dataProviderClass = DataProviders.class)
+    @Test(priority = 3, dependsOnMethods = "openCustomerInteraction", groups = {"SanityTest", "RegressionTest","ProdTest"}, dataProvider = "getTestData2", dataProviderClass = DataProviders.class)
     public void CreateNFTRInteraction(NftrDataBeans data) throws InterruptedException, IOException {
         String ticketNumber = null;
         try {

@@ -4,7 +4,7 @@
     <listeners>
         <listener class-name="com.airtel.cs.commonutils.listeners.TestListenerMethod"/>
     </listeners>
-    <test name="Test Login API">
+    <test name="Prod Test Login API">
         <groups>
             <run>
                 <include name="ProdTest"/>
@@ -143,6 +143,16 @@
         </groups>
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.UsageHistoryWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Recharge History Widget Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.RechargeHistoryWidgetTest"/>
         </classes>
     </test>
     <test name="Display Offer Widget Test" preserve-order="true">

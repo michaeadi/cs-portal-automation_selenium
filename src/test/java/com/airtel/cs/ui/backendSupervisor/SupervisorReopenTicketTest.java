@@ -15,7 +15,7 @@ public class SupervisorReopenTicketTest extends Driver {
 
     private final BaseActions actions = new BaseActions();
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest","ProdTest"})
     public void checkExecution() {
         if (!(continueExecutionBS && continueExecutionFA)) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -23,7 +23,7 @@ public class SupervisorReopenTicketTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest","ProdTest"})
     public void openSupervisorDashboard() {
         try {
             selUtils.addTestcaseDescription("Open Supervisor Dashboard , Validate agent redirect to ticket List Page", "description");
@@ -37,7 +37,7 @@ public class SupervisorReopenTicketTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 2, dependsOnMethods = {"openSupervisorDashboard"}, dataProvider = "ticketId", groups = {"SanityTest", "RegressionTest"},dataProviderClass = DataProviders.class)
+    @Test(priority = 2, dependsOnMethods = {"openSupervisorDashboard"}, dataProvider = "ticketId", groups = {"SanityTest", "RegressionTest","ProdTest"},dataProviderClass = DataProviders.class)
     public void reopenTicket(NftrDataBeans data) {
         try {
             selUtils.addTestcaseDescription("Validate Reopen Ticket as Supervisor,Select ticket from closed ticket list,validate reopen comment box pop up open,Add reopen ticket and click on submit button,Validate ticket is re-opened successfully.", "description");
