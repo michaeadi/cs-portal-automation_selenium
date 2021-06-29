@@ -51,7 +51,7 @@ public class DataUnitConversionTest extends Driver {
         Double startBalanceAmount = null;
         Double endBalanceAmount = null;
 
-        UsageHistoryPOJO usageHistoryAPI = api.usageHistoryTest(customerNumber);
+        UsageHistoryPOJO usageHistoryAPI = api.usageHistoryTest(constants.getValue(ApplicationConstants.USAGE_HISTORY_MSISDN));
         if (usageHistoryAPI.getStatusCode() != 200) {
             commonLib.fail("API is unable to give Usage History", false);
         } else if (usageHistoryAPI.getResult().size() == 0 || usageHistoryAPI.getResult() == null) {
@@ -96,7 +96,7 @@ public class DataUnitConversionTest extends Driver {
         String endBalanceUnit = null;
         Double startBalanceAmount = null;
         Double endBalanceAmount = null;
-        UsageHistoryPOJO usageHistoryAPI = api.usageHistoryMenuTest(customerNumber);
+        UsageHistoryPOJO usageHistoryAPI = api.usageHistoryMenuTest(constants.getValue(ApplicationConstants.USAGE_HISTORY_MSISDN));
         if (usageHistoryAPI.getStatusCode() != 200) {
             commonLib.fail("API is unable to give Usage History", false);
         } else if (usageHistoryAPI.getResult().isEmpty() || usageHistoryAPI.getResult() == null) {
@@ -137,7 +137,7 @@ public class DataUnitConversionTest extends Driver {
     @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void rechargeHistoryUnitConversionTest() {
         selUtils.addTestcaseDescription("Validating Recharge History Widget MB to GB Conversion,CSP-63393 Verify that in Recharge History Widget if the data amount is coming MB from ESB com.airtel.cs.API then CS Portal should show the data amount after converting it to GB", "description");
-        RechargeHistoryPOJO rechargeHistoryAPI = api.rechargeHistoryAPITest(customerNumber);
+        RechargeHistoryPOJO rechargeHistoryAPI = api.rechargeHistoryAPITest(constants.getValue(ApplicationConstants.RECHARGE_HISTORY_MSISDN));
         if (rechargeHistoryAPI.getStatusCode() != 200 || rechargeHistoryAPI.getStatus().equalsIgnoreCase("something went wrong")) {
             commonLib.fail("API is unable to give Recharge History", false);
         } else if (rechargeHistoryAPI.getResult().isEmpty() || rechargeHistoryAPI.getResult() == null) {
