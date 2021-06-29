@@ -59,7 +59,7 @@ public class CreateInteractionTest extends Driver {
 
 
     @Test(priority = 2, dependsOnMethods = "openCustomerInteraction", groups = {"SanityTest", "RegressionTest"}, dataProvider = "getTestData1", dataProviderClass = DataProviders.class)
-    public void createInteraction(FtrDataBeans data) throws InterruptedException {
+    public void createInteraction(FtrDataBeans data) {
         try {
             final String issueCode = data.getIssueCode();
             selUtils.addTestcaseDescription(" Validating FTR Ticket: " + issueCode, "description");
@@ -100,7 +100,7 @@ public class CreateInteractionTest extends Driver {
     }
 
     @Test(priority = 3, dependsOnMethods = "openCustomerInteraction", groups = {"SanityTest", "RegressionTest"}, dataProvider = "getTestData2", dataProviderClass = DataProviders.class)
-    public void CreateNFTRInteraction(NftrDataBeans data) throws InterruptedException, IOException {
+    public void CreateNFTRInteraction(NftrDataBeans data) throws IOException {
         String ticketNumber = null;
         try {
             final String issueCode = data.getIssueCode();

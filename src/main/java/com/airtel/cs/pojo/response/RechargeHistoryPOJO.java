@@ -17,7 +17,7 @@ public class RechargeHistoryPOJO {
     int pageNumber;
     int totalCount;
     ArrayList<ResultRechargeHistoryPOJO> result;
-    APIErrors apiErrors;
+    String apiErrors;
     String startDate;
     String endDate;
 }

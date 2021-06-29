@@ -430,10 +430,8 @@ public class DemoGraphic extends BasePage {
     public String getServiceCategory() {
         String result = null;
         try {
-            if (isVisible(pageElements.serviceCategory)) {
-                result = getText(pageElements.serviceCategory);
-                commonLib.info("Getting service Category: " + result);
-            }
+            result = getText(pageElements.serviceCategory);
+            commonLib.info("Getting service Category: " + result);
         } catch (Exception e) {
             commonLib.fail("Exception in method - getServiceCategory", true);
         }

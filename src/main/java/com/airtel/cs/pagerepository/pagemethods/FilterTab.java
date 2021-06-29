@@ -57,7 +57,7 @@ public class FilterTab extends BasePage {
      */
     public void clickLast30DaysFilter() {
         commonLib.info("Clicking on filter by created date - Last 30 days");
-        clickAndWaitForLoaderToBeRemoved(tabElements.last30DaysCD);
+        clickWithoutLoader(tabElements.last30DaysCD);
     }
 
     /**
@@ -78,7 +78,6 @@ public class FilterTab extends BasePage {
     public void clickApplyFilter() {
         commonLib.info("Clicking on APPLY Filter Button");
         clickAndWaitForLoaderToBeRemoved(tabElements.applyFilter);
-        waitTillLoaderGetsRemoved();
     }
 
     /**
@@ -327,7 +326,7 @@ public class FilterTab extends BasePage {
     public void clickCloseFilter() {
         try {
             commonLib.info("Closing Filter Tab");
-            clickAndWaitForLoaderToBeRemoved(tabElements.closeFilter);
+            clickWithoutLoader(tabElements.closeFilter);
         } catch (NoSuchElementException | TimeoutException e) {
             commonLib.info("Close Filter Button does not display");
         }
@@ -357,7 +356,7 @@ public class FilterTab extends BasePage {
     public boolean isSourceFilterPresent() {
         boolean result;
         result = isEnabled(tabElements.sourceLabel);
-        commonLib.pass("Is Source Filter available :" + result);
+        commonLib.info("Is Source Filter available :" + result);
         return result;
     }
 
@@ -367,9 +366,8 @@ public class FilterTab extends BasePage {
     public void selectSourceFilterValue() throws InterruptedException {
         if (isVisible(tabElements.sourceFilterLabel)) {
             scrollToViewElement(tabElements.sourceFilterLabel);
-            clickAndWaitForLoaderToBeRemoved(tabElements.sourceFilterLabel);
-            clickAndWaitForLoaderToBeRemoved(tabElements.selectCustomerService);
-            waitTillLoaderGetsRemoved();
+            clickWithoutLoader(tabElements.sourceFilterLabel);
+            clickWithoutLoader(tabElements.selectCustomerService);
             clickApplyFilter();
             clearFilterDashboard();
         }
