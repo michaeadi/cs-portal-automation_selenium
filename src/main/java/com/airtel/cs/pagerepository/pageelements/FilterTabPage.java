@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 
 public class FilterTabPage {
     public By applyFilter = By.xpath("//button[@class='filter-button mat-button']");
-    public By closeFilter = By.xpath("//span[@class='close-button']");
+    public By closeFilter = By.xpath("//span[@class='close-button']/ancestor::button]");
 
     //Filter By Created date
     public By filterCreatedByLabel = By.xpath("//div[@class='mat-drawer-inner-container']//span[contains(text(),'Filter By Created Date')]");
@@ -59,7 +59,7 @@ public class FilterTabPage {
     //Filter By Source
     public By sourceLabel = By.xpath("//*[@class='filter-naming']//span[contains(text(),'Source')]");
     public By sourceFilterLabel = By.xpath("//*[@formcontrolname='sourceApp']//*[@class='mat-select-arrow']");
-    public By selectCustomerService = By.xpath("//*[contains(text(),' Customer Service ')]");
+    public By selectCustomerService = By.xpath("//*[contains(@class,'mat-select-panel')]//*[contains(text(),' Customer Service ')]");
     public By clearFilterButtonDashboard = By.xpath("//*[text()='Clear Filter']");
 
     public String queueOption="//mat-option//span[contains(text(),'";

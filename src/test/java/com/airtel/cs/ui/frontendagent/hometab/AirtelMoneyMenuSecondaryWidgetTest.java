@@ -13,7 +13,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -33,7 +32,7 @@ public class AirtelMoneyMenuSecondaryWidgetTest extends Driver {
         }
     }
 
-    @BeforeClass(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkServiceProfileFlag() {
         if (!StringUtils.equals(MULTI_AM_WALLET, "true")) {
             commonLib.skip("Skipping because Run AM Secondary widget Test Case Flag Value is - " + MULTI_AM_WALLET);

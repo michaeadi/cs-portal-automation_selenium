@@ -70,6 +70,7 @@ public class ViewHistory extends BasePage {
 
     /**
      * This method is use to get last created issue code under interaction tab
+     *
      * @return String The value
      */
     public String getLastCreatedIssueCode() {
@@ -79,6 +80,7 @@ public class ViewHistory extends BasePage {
 
     /**
      * This method is use to get ftr issue value based on ticket row number
+     *
      * @param index The row number
      * @return String The value
      */
@@ -91,6 +93,7 @@ public class ViewHistory extends BasePage {
 
     /**
      * This method is use to get ticket id based on ticket row number
+     *
      * @param index The row number
      * @return String The value
      */
@@ -104,6 +107,7 @@ public class ViewHistory extends BasePage {
 
     /**
      * This method is use to click ticket icon based on row number
+     *
      * @param index The row number
      */
     public void clickTicketIcon(int index) {
@@ -114,6 +118,7 @@ public class ViewHistory extends BasePage {
 
     /**
      * This method is use to click on first ticket icon found in ticket list or not
+     *
      * @return true/false
      */
     public boolean clickOnTicketIcon() {
@@ -137,6 +142,7 @@ public class ViewHistory extends BasePage {
 
     /**
      * This method use to check view ticket page displayed or not
+     *
      * @return true/false
      */
     public boolean checkViewTicketPage() {
@@ -165,7 +171,10 @@ public class ViewHistory extends BasePage {
     This Method will check Source Title is visible or not under NFTR details page
      */
     public Boolean isSourceAppVisible() {
-        return isVisible(pageElements.sourceApp);
+        boolean result = false;
+        result = isVisible(pageElements.sourceApp);
+        highLighterMethod(pageElements.sourceApp);
+        return result;
     }
 
     /*
