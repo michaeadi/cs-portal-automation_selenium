@@ -251,7 +251,7 @@ public class FriendsFamilyWidgetTest extends Driver {
                         try {
                             commonLib.pass("Reading Message: " + pages.getTemplateManagement().readResponseMessage());
                         } catch (NoSuchElementException | TimeoutException e) {
-                            commonLib.infoColored("Not able to read Message Pop up: " + e.getMessage(), JavaColors.RED, true);
+                            commonLib.infoColored("Not able to read Message Pop up: " + e.getMessage(), JavaColors.BLUE, true);
                         }
                         if (pages.getAuthTabPage().isSIMBarPopup()) {
                             commonLib.fail("Get Failure message as pop up does not closed after clicking on submit button. Error Message: " + pages.getAuthTabPage().getErrorMessage(), true);
