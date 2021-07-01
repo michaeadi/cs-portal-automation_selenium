@@ -178,4 +178,21 @@ public class PageCollection {
     public Growl getGrowl() {
         return new Growl(driver);
     }
+
+    public AccountInformationWidget getAccountInformationWidget() {
+        return new AccountInformationWidget(driver);
+    }
+
+    public PlanAndPackDetailedWidget getPlanAndPackDetailedWidget() {
+        return new PlanAndPackDetailedWidget(driver);
+    }
+
+    public CurrentPlanWidget getCurrentPlanWidget(){
+        return new CurrentPlanWidget(driver);
+    }
+
+    public DetailAccountInfoWidget getDetailAccountInfoWidget(){
+        return new DetailAccountInfoWidget(driver);
+    }
+
 }
