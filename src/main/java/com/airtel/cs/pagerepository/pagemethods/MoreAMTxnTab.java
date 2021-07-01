@@ -23,7 +23,7 @@ public class MoreAMTxnTab extends BasePage {
      */
     public Boolean isNegSignDisplay(int row) {
         By negAmount = By.xpath(pageElements.valueRow + row + pageElements.negSymbol);
-        return isEnabled(negAmount);
+        return getAttribute(negAmount,"src",false).contains("dr.svg");
     }
 
     /**
@@ -33,7 +33,7 @@ public class MoreAMTxnTab extends BasePage {
      */
     public Boolean isPosSignDisplay(int row) {
         By posAmount = By.xpath(pageElements.valueRow + row + pageElements.posSymbol);
-        return isEnabled(posAmount);
+        return getAttribute(posAmount,"src",false).contains("cr.svg");
     }
 
     /**
