@@ -41,6 +41,7 @@ public class ApplicationConstants {
     public static final String BULK_UPDATE_TRANSFER_TO_QUEUE_STATUS="cs.bulk.update.transfer.to.queue.status";
     public static final String BULK_UPDATE_FROM_QUEUE_NAME="cs.bulk.update.transfer.from.queue.name";
     public static final String BULK_UPDATE_TO_QUEUE_NAME="cs.bulk.update.transfer.to.queue.name";
+    public static final String CUSTOMER_POSTPAID_MSISDN = "cs.customer.postpaid.msisdn";
 
 
     private ApplicationConstants() {
