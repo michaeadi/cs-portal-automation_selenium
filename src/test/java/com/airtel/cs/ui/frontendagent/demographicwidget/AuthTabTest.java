@@ -184,6 +184,7 @@ public class AuthTabTest extends Driver {
             assertCheck.append(actions.assertEqual_boolean(pages.getAuthTabPage().isSIMBarPopup(), true, "SIM Bar/Unbar pop up opened", "SIM Bar/Unbar popup does not open"));
             assertCheck.append(actions.assertEqual_boolean(pages.getAuthTabPage().isIssueDetailTitleVisible(), true, "Issue details configured correctly", "Issue Detail does not configured"));
             assertCheck.append(actions.assertEqual_boolean(pages.getAuthTabPage().isSubmitBtnEnable(), false, "Submit button Not enabled without comment", "Submit button enable without adding comment"));
+            pages.getAuthTabPage().fillAllInputField("Automation Testing");
             pages.getAuthTabPage().clickSelectReasonDropDown();
             List<String> reason = pages.getAuthTabPage().getReasonConfig();
             List<String> configReason = data.issueDetailReason("SIM Bar Unbar");

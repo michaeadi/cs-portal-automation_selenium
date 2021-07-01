@@ -12,4 +12,5 @@ public class FtrDataBeans {
     String issueSubSubType;
     String issueCode;
     String widgetName;
+    String messageConfigured;
 }

@@ -54,6 +54,7 @@ public class CommonConstants {
     public static final String ALL_USER_ROLE_NAME="cs.all.user.role.name";
     public static final String ACCUMULATOR_API_TIME_FORMAT="cs.api.accumulator.time.format";
     public static final String ACCUMULATOR_UI_TIME_FORMAT="cs.ui.accumulator.time.format";
+    public static final String APPLICATION_UI_TIME_FORMAT="cs.application.time.format";
     public static final String TICKET_BULK_UPDATE_MAX_COUNT="cs.max.bulk.ticket.count";
     public static final String TICKET_BULK_UPDATE_TRANSFER_TO_QUEUE_ACTION="cs.bulk.update.transfer.to.queue.action";
     public static final String TICKET_BULK_UPDATE_CHANGE_STATE_ACTION="cs.bulk.update.change.state.action";

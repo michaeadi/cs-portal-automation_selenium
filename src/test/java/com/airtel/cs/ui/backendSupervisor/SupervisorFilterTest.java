@@ -91,6 +91,7 @@ public class SupervisorFilterTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validate Reset filter button available after applying filter,Apply Filter by Created Date,Validate Reset Filter button displayed or not", "description");
             try {
+                pages.getSupervisorTicketList().changeTicketTypeToOpen();
                 pages.getSupervisorTicketList().clickFilter();
                 pages.getFilterTabPage().clickLast30DaysFilter();
                 pages.getFilterTabPage().clickApplyFilter();
