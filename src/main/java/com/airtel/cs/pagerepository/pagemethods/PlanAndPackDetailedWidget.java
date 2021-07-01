@@ -10,7 +10,7 @@ import org.openqa.selenium.support.PageFactory;
 public class PlanAndPackDetailedWidget extends BasePage{
 
     PlanAndPackDetailedWidgetPage pageElements;
-    private final String SCROLL_TO_WIDGET_MESSAGE="Not able scroll to the widget";
+    private final String SCROLL_TO_WIDGET_MESSAGE=config.getProperty("scrollToWidgetMessage");
 
     public PlanAndPackDetailedWidget(WebDriver driver) {
         super(driver);

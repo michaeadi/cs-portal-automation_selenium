@@ -595,4 +595,44 @@
             <class name="com.airtel.cs.ui.ticketsourceapp.TicketSourceAppTest"/>
         </classes>
     </test>
+    <test name="Plan and pack Test">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.PlanAndPackDetailedWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Current Plan Test">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.CurrentPlanTest"/>
+        </classes>
+    </test>
+    <test name="Account Information Test">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.AccountInformationWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Detailed Account Information Test">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.DetailAccountInfoTest"/>
+        </classes>
+    </test>
 </suite>
