@@ -14,7 +14,7 @@ import java.util.List;
 public class CurrentPlanWidget extends BasePage {
 
     CurrentPlanWidgetPage pageElements;
-    private final String SCROLL_TO_WIDGET_MESSAGE = "Not able scroll to the widget";
+    private final String SCROLL_TO_WIDGET_MESSAGE=config.getProperty("scrollToWidgetMessage");
     List<WebElement> as;
 
     public CurrentPlanWidget(WebDriver driver) {
@@ -41,8 +41,8 @@ public class CurrentPlanWidget extends BasePage {
     }
 
     /*
-       This Method will give us footer auuid shown in UHW widget
-       UHW = Usage History Widget
+       This Method will give us footer auuid shown in Current plan
+       Current plan
         */
     public String getFooterAuuid() {
         commonLib.info(getText(pageElements.footerUHWAuuid));
@@ -50,8 +50,7 @@ public class CurrentPlanWidget extends BasePage {
     }
 
     /*
-    This Method will give us auuid shown in the middle of the UHW modal
-    UHW = Usage History Widget
+    This Method will give us auuid shown in the middle of the Current plan
      */
     public String getMiddleAuuid() {
         String result;

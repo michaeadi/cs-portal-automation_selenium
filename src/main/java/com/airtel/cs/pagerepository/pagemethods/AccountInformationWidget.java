@@ -12,7 +12,7 @@ public class AccountInformationWidget extends BasePage {
 
     AccountInformationWidgetPage pageElements;
 
-    private final String SCROLL_TO_WIDGET_MESSAGE="Not able scroll to the widget";
+    private final String SCROLL_TO_WIDGET_MESSAGE=config.getProperty("scrollToWidgetMessage");
 
     public AccountInformationWidget(WebDriver driver) {
         super(driver);
@@ -24,7 +24,7 @@ public class AccountInformationWidget extends BasePage {
      * @return true/false
      * */
     public Boolean isAccountInformationWidgetDisplay(){
-        commonLib.info("Checking that Account Information widget is Display");
+        commonLib.info(config.getProperty("accountInfoWidgetDisplay"));
         Boolean status = false;
         try {
             scrollToViewElement(pageElements.getTitle);
@@ -38,7 +38,7 @@ public class AccountInformationWidget extends BasePage {
 
     /*
        This Method will give us footer auuid shown in Account Information widget
-       UHW = Account Information Widget
+       Account Information Widget
         */
     public String getFooterAuuid() {
         commonLib.info(getText(pageElements.footerAuuid));
@@ -47,7 +47,7 @@ public class AccountInformationWidget extends BasePage {
 
     /*
     This Method will give us auuid shown in the middle of the Account Information modal
-    UHW = Account Information Widget
+    Account Information Widget
      */
     public String getMiddleAuuid() {
         String result;
@@ -62,7 +62,7 @@ public class AccountInformationWidget extends BasePage {
      * */
     public Boolean isActionIconVisibleOnAccountInfo() {
         Boolean status=isElementVisible(pageElements.accountInfoDetailed);
-        commonLib.info("Checking more icon is visible on detailed account information: '"+status);
+        commonLib.info(config.getProperty("iconVisibleOnDetailAccInfo") + status);
         return status;
     }
 
