@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 
 public class FilterTabPage {
     public By applyFilter = By.xpath("//button[@class='filter-button mat-button']");
-    public By closeFilter = By.xpath("//span[@class='close-button']/ancestor::button]");
+    public By closeFilter = By.xpath("//span[@class='close-button']/ancestor::button");
 
     //Filter By Created date
     public By filterCreatedByLabel = By.xpath("//div[@class='mat-drawer-inner-container']//span[contains(text(),'Filter By Created Date')]");

@@ -72,6 +72,9 @@ public class FtrDataExcelToBeanDao {
                             case 5:
                                 ftrDataBeans.setWidgetName(cellValue);
                                 break;
+                            case 6:
+                                ftrDataBeans.setMessageConfigured(cellValue);
+                                break;
                             default:
                                 break;
                         }

@@ -4,7 +4,7 @@
     <listeners>
         <listener class-name="com.airtel.cs.commonutils.listeners.TestListenerMethod"/>
     </listeners>
-    <test name="Test Login API">
+    <test name="Prod Test Login API">
         <groups>
             <run>
                 <include name="ProdTest"/>
@@ -42,6 +42,16 @@
         </groups>
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.demographicwidget.DemoGraphicWidgetMsisdnTest"/>
+        </classes>
+    </test>
+    <test name="Airtel Money widget Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.AirtelMoneyTransactionWidgetTest"/>
         </classes>
     </test>
     <test name="Airtel Money Primary Detailed widget Test" preserve-order="true">
@@ -83,6 +93,16 @@
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.demographicwidget.AuthTabTest">
             </class>
+        </classes>
+    </test>
+    <test name="Validate Send Internet Setting Tab Test">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.actiondropdown.SendInternetSettingsTest"/>
         </classes>
     </test>
     <test name="Validate Action Trail Tab Test">
@@ -145,6 +165,16 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.UsageHistoryWidgetTest"/>
         </classes>
     </test>
+    <test name="Recharge History Widget Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.RechargeHistoryWidgetTest"/>
+        </classes>
+    </test>
     <test name="Display Offer Widget Test" preserve-order="true">
         <groups>
             <run>
@@ -183,6 +213,16 @@
         </groups>
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.CRBTWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Create NFTR FTR Tickets TEST">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.CreateInteractionTest"/>
         </classes>
     </test>
     <test name="Source App Test">

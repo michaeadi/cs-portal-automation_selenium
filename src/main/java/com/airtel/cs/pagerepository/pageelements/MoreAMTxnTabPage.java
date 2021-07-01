@@ -19,11 +19,11 @@ public class MoreAMTxnTabPage {
      * */
     public By searchTxnId = By.xpath("//div[@id='AM_TRANSACTION_DETAIL']//parent::div//input[@type='search']");
     public By searchBtn = By.xpath("//div[@id='AM_TRANSACTION_DETAIL']//parent::div//button[@class='search-icon-btn']");
-    public String valueRow = "//div[@id='AM_TRANSACTION_DETAIL']/div[@class='card__content restricted ng-star-inserted']/descendant::div[@class='card__card-header--card-body--table--data-list row-border'][";
+    public String valueRow = "//div[@id='AM_TRANSACTION_DETAIL']/div[@class='card__content restricted ng-star-inserted']/descendant::div[@class='card__card-header--card-body--table--data-list'][";
     public String valueColumns = "]/div[";
     public String columnText = "]//span";
-    public String negSymbol = "]//span[@class='amount-sign db ng-star-inserted']";
-    public String posSymbol = "]//span[@class='amount-sign cr ng-star-inserted']";
+    public String negSymbol = "]//img[@class='sign-icon-before ng-star-inserted']";
+    public String posSymbol = "]//img[@class='sign-icon-before ng-star-inserted']";
     public String headerRow = "//div[@id='AM_TRANSACTION_DETAIL']/div[@class='card__content restricted ng-star-inserted']/descendant::div[@class='card__card-header--card-body--table--list-heading ng-star-inserted']/div";
     public String resendSMS = "//div[@id='AM_TRANSACTION_DETAIL']/div[@class='card__content restricted ng-star-inserted']/descendant::div[@class='card__card-header--card-body--table--data-list row-border'][1]/div[12]//img[1][@class='hide-reversal ng-star-inserted']";
 

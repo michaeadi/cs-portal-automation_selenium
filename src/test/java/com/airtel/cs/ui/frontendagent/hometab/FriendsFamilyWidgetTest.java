@@ -53,7 +53,7 @@ public class FriendsFamilyWidgetTest extends Driver {
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
-            customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
+            customerNumber = constants.getValue(ApplicationConstants.CURRENT_BALANCE_MSISDN);
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().openCustomerInteractionPage();
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
@@ -171,7 +171,7 @@ public class FriendsFamilyWidgetTest extends Driver {
                 try {
                     commonLib.pass("Reading Message: " + pages.getTemplateManagement().readResponseMessage());
                 } catch (NoSuchElementException | TimeoutException e) {
-                    commonLib.infoColored("Not able to read Message Pop up: " + e.getMessage(), JavaColors.RED, true);
+                    commonLib.infoColored("Not able to read Message Pop up: " + e.getMessage(), JavaColors.BLUE, true);
                 }
                 if (pages.getAuthTabPage().isSIMBarPopup()) {
                     commonLib.fail("Get Failure message as pop up does not closed after clicking on submit button. Error Message: " + pages.getAuthTabPage().getErrorMessage(), true);
@@ -251,7 +251,7 @@ public class FriendsFamilyWidgetTest extends Driver {
                         try {
                             commonLib.pass("Reading Message: " + pages.getTemplateManagement().readResponseMessage());
                         } catch (NoSuchElementException | TimeoutException e) {
-                            commonLib.infoColored("Not able to read Message Pop up: " + e.getMessage(), JavaColors.RED, true);
+                            commonLib.infoColored("Not able to read Message Pop up: " + e.getMessage(), JavaColors.BLUE, true);
                         }
                         if (pages.getAuthTabPage().isSIMBarPopup()) {
                             commonLib.fail("Get Failure message as pop up does not closed after clicking on submit button. Error Message: " + pages.getAuthTabPage().getErrorMessage(), true);

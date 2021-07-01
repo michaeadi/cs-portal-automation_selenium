@@ -16,6 +16,8 @@ public class AuthTabPage {
     public By simCloseBtn = By.xpath("//div[@class='main-container__header']//mat-icon");
     public By issueDetails = By.xpath("//div[contains(text(),'Issue Detail:')]");
     public By listOfIssue = By.xpath("//div[@formarrayname='issueDetails']//mat-select");
+    public By listOfFields=By.xpath("//div[@formarrayname='issueDetails']//input");
+    public String questionField="//div[@formarrayname='issueDetails']//input[@name='q";
     public By options = By.xpath("//mat-option");
     public By commentBox = By.xpath("//textarea[@id='interactionComment']");
     public By cancelBtn = By.xpath("//button[@class='no-btn']");
