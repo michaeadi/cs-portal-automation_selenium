@@ -119,7 +119,7 @@ public class RechargeHistoryWidget extends BasePage {
      */
     public boolean isRechargeHistoryWidgetIsVisible() {
         commonLib.info("Checking is Recharge History Widget Visible");
-        return isElementVisible(pageElements.rechargeHistoryHeader);
+        return isEnabled(pageElements.rechargeHistoryHeader);
     }
 
     /*
