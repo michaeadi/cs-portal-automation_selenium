@@ -3,30 +3,30 @@ package com.airtel.cs.api;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.URIConstants;
 import com.airtel.cs.commonutils.restutils.RestCommonUtils;
-import com.airtel.cs.pojo.request.GenericRequest;
-import com.airtel.cs.pojo.request.UsageHistoryMenuRequest;
-import com.airtel.cs.pojo.request.UsageHistoryRequest;
-import com.airtel.cs.pojo.request.RechargeHistoryRequest;
-import com.airtel.cs.pojo.request.TransactionHistoryRequest;
-import com.airtel.cs.pojo.request.MoreTransactionHistoryRequest;
 import com.airtel.cs.pojo.request.AccountBalanceRequest;
 import com.airtel.cs.pojo.request.AccumulatorsRequest;
-import com.airtel.cs.pojo.request.SMSHistoryRequest;
-import com.airtel.cs.pojo.request.VoucherSearchRequest;
 import com.airtel.cs.pojo.request.ActionTrailRequest;
 import com.airtel.cs.pojo.request.FetchTicketPool;
+import com.airtel.cs.pojo.request.GenericRequest;
 import com.airtel.cs.pojo.request.LoanRequest;
-import com.airtel.cs.pojo.request.RingtonDetailsRequest;
-import com.airtel.cs.pojo.request.ServiceProfileRequest;
+import com.airtel.cs.pojo.request.MoreTransactionHistoryRequest;
 import com.airtel.cs.pojo.request.OfferDetailRequest;
+import com.airtel.cs.pojo.request.RechargeHistoryRequest;
+import com.airtel.cs.pojo.request.RingtonDetailsRequest;
+import com.airtel.cs.pojo.request.SMSHistoryRequest;
+import com.airtel.cs.pojo.request.ServiceProfileRequest;
+import com.airtel.cs.pojo.request.TransactionHistoryRequest;
+import com.airtel.cs.pojo.request.UsageHistoryMenuRequest;
+import com.airtel.cs.pojo.request.UsageHistoryRequest;
+import com.airtel.cs.pojo.request.VoucherSearchRequest;
 import com.airtel.cs.pojo.response.AMProfilePOJO;
+import com.airtel.cs.pojo.response.AccountsBalancePOJO;
 import com.airtel.cs.pojo.response.GsmKycPOJO;
-import com.airtel.cs.pojo.response.PlansPOJO;
-import com.airtel.cs.pojo.response.UsageHistoryPOJO;
 import com.airtel.cs.pojo.response.LoginPOJO;
+import com.airtel.cs.pojo.response.PlansPOJO;
 import com.airtel.cs.pojo.response.ProfilePOJO;
 import com.airtel.cs.pojo.response.RechargeHistoryPOJO;
-import com.airtel.cs.pojo.response.AccountsBalancePOJO;
+import com.airtel.cs.pojo.response.UsageHistoryPOJO;
 import com.airtel.cs.pojo.response.accumulators.AccumulatorsPOJO;
 import com.airtel.cs.pojo.response.actiontrail.ActionTrailPOJO;
 import com.airtel.cs.pojo.response.agentpermission.AgentPermission;
@@ -42,6 +42,7 @@ import com.airtel.cs.pojo.response.kycprofile.KYCProfile;
 import com.airtel.cs.pojo.response.loandetails.Loan;
 import com.airtel.cs.pojo.response.loansummary.Summary;
 import com.airtel.cs.pojo.response.offerdetails.OfferDetailPOJO;
+import com.airtel.cs.pojo.response.postpaid.PostpaidAccountInformation;
 import com.airtel.cs.pojo.response.smshistory.SMSHistoryPOJO;
 import com.airtel.cs.pojo.response.tariffplan.AvailablePlanPOJO;
 import com.airtel.cs.pojo.response.tariffplan.CurrentPlanPOJO;
@@ -511,13 +512,13 @@ public class RequestSource extends RestCommonUtils {
     /**
      * This Method will hit the API "/cs-gsm-service/v1/offer/details" and return the response
      *
-     * @param msisdn  The msisdn
+     * @param msisdn The msisdn
      * @return The Response
      */
     public OfferDetailPOJO offerDetailAPITest(String msisdn) {
         OfferDetailPOJO result = null;
         try {
-            commonPostMethod(URIConstants.OFFER_DETAILS, new OfferDetailRequest(msisdn,true));
+            commonPostMethod(URIConstants.OFFER_DETAILS, new OfferDetailRequest(msisdn, true));
             result = response.as(OfferDetailPOJO.class);
         } catch (Exception e) {
             commonLib.fail("Exception in method - OfferDetailAPITest " + e.getMessage(), false);
@@ -528,7 +529,7 @@ public class RequestSource extends RestCommonUtils {
     /**
      * This Method will hit the API "/cs-gsm-service/v1/friendsNfamily/details" and return the response
      *
-     * @param msisdn  The msisdn
+     * @param msisdn The msisdn
      * @return The Response
      */
     public FriendsFamilyPOJO friendsFamilyAPITest(String msisdn) {
@@ -561,14 +562,14 @@ public class RequestSource extends RestCommonUtils {
     /**
      * This Method will hit the API "/cs-gsm-service/v1/offer/details" and return the response
      *
-     * @param ticketId  The ticketId
+     * @param ticketId     The ticketId
      * @param isSupervisor The supervisor or not
      * @return The Response
      */
-    public TransferToQueuePOJO fetchTicketPool(List<String> ticketId,Boolean isSupervisor) {
+    public TransferToQueuePOJO fetchTicketPool(List<String> ticketId, Boolean isSupervisor) {
         TransferToQueuePOJO result = null;
         try {
-            commonPostMethod(URIConstants.FETCH_TICKET_POOL,new FetchTicketPool(ticketId,isSupervisor));
+            commonPostMethod(URIConstants.FETCH_TICKET_POOL, new FetchTicketPool(ticketId, isSupervisor));
             result = response.as(TransferToQueuePOJO.class);
         } catch (Exception e) {
             commonLib.fail("Exception in method - fetchTicketPoolAPI " + e.getMessage(), false);
@@ -578,13 +579,14 @@ public class RequestSource extends RestCommonUtils {
 
     /**
      * This Method will hit the API "/sr/api/sr-service/v1/agents" and return the response
+     *
      * @param headers The headers contain auth token including common headers
      * @return The Response
      */
-    public AgentDetailPOJO getAgentDetail(Headers headers){
+    public AgentDetailPOJO getAgentDetail(Headers headers) {
         AgentDetailPOJO result = null;
         try {
-            commonGetMethod(URIConstants.AGENT_DETAILS,headers);
+            commonGetMethod(URIConstants.AGENT_DETAILS, headers);
             result = response.as(AgentDetailPOJO.class);
         } catch (Exception e) {
             commonLib.fail("Exception in method - getAgentDetail " + e.getMessage(), false);
@@ -594,14 +596,15 @@ public class RequestSource extends RestCommonUtils {
 
     /**
      * This Method will hit the API "cs-data-service/v1/event/logs" and return the response
-     * @param msisdn The msisdn
+     *
+     * @param msisdn    The msisdn
      * @param eventType The event type
      * @return The Response
      */
-    public ActionTrailPOJO getEventHistory(String msisdn, String eventType){
+    public ActionTrailPOJO getEventHistory(String msisdn, String eventType) {
         ActionTrailPOJO result = null;
         try {
-            commonPostMethod(URIConstants.EVENTS_LOG,new ActionTrailRequest(msisdn,eventType,10,0));
+            commonPostMethod(URIConstants.EVENTS_LOG, new ActionTrailRequest(msisdn, eventType, 10, 0));
             result = response.as(ActionTrailPOJO.class);
         } catch (Exception e) {
             commonLib.fail("Exception in method - getEventHistory " + e.getMessage(), false);
@@ -609,5 +612,16 @@ public class RequestSource extends RestCommonUtils {
         return result;
     }
 
+    public PostpaidAccountInformation getPostpaidAccountInformation(String msisdn) {
+        PostpaidAccountInformation result = null;
+        try {
+            queryParam.put("msisdn", msisdn);
+            commonGetMethodWithQueryParam(URIConstants.POSTPAID_ACCOUNT_INFORMATION, queryParam);
+            result = response.as(PostpaidAccountInformation.class);
+        } catch (Exception e) {
+            commonLib.fail("Exception in method - getEventHistory " + e.getMessage(), false);
+        }
+        return result;
+    }
 
 }

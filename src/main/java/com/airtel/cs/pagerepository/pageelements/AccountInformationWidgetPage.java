@@ -17,10 +17,10 @@ public class AccountInformationWidgetPage {
     public By lastMonthBillAmount = By.xpath("");
     public By currentCycle = By.xpath("");
     public By dueDate = By.xpath("");
-    public By lastPaymentMode = By.xpath("");
+    public By lastPaymentMode = By.xpath("//div[text()='Last Payment & Mode ']/following-sibling::div/div");
     public By securityDeposit = By.xpath("");
     public By totalOutstanding = By.xpath("");
-    public By accountNumber = By.xpath("");
+    public By accountNumber = By.xpath("//div[text()='Account No. ']/following-sibling::div/span");
     public By currentCycleFrom = By.xpath("");
     public By currentCycleTo = By.xpath("");
     public By currentCycleBlackBold = By.xpath("");

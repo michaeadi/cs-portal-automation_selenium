@@ -8,6 +8,8 @@ import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pagerepository.pagemethods.AccountInformationWidget;
 import com.airtel.cs.pojo.response.kycprofile.KYCProfile;
+import com.airtel.cs.pojo.response.offerdetails.AccountInformation;
+import com.airtel.cs.pojo.response.postpaid.PostpaidAccountInformation;
 import io.restassured.http.Headers;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -37,7 +39,7 @@ public class AccountInformationWidgetTest extends Driver {
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
-            final String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_POSTPAID_MSISDN);
+            customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_POSTPAID_MSISDN);
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().clickOnUserName();
             pages.getSideMenuPage().openCustomerInteractionPage();
@@ -94,7 +96,6 @@ public class AccountInformationWidgetTest extends Driver {
 
         try {
             selUtils.addTestcaseDescription("Verify that account information widget should be visible to the logged in agent on the basis of connection type and UM permission", "description");
-            final String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_POSTPAID_MSISDN);
             KYCProfile kycProfile = api.kycProfileAPITest(customerNumber);
             final String statusCode = kycProfile.getStatusCode();
             assertCheck.append(actions.assertEqual_stringType(statusCode, "200", "KYC Profile API Status Code Matched and is :" + statusCode, "KYC Profile API Status Code NOT Matched and is :" + statusCode));
@@ -130,10 +131,10 @@ public class AccountInformationWidgetTest extends Driver {
      * This method is used to validate watermarked in the left corner and middle
      * isAccountInformationWidgetDisplay() -- todo
      */
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"})
-    public void accountInformationWatermarkTest(){
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, enabled = false)
+    public void accountInformationWatermarkTest() {
 
-        try{
+        try {
             selUtils.addTestcaseDescription("Validate is Account Information Visible?,Validate footer and middle auuid,Validate Header Text", "description");
             assertCheck.append(actions.assertEqual_boolean(pages.getAccountInformationWidget().isAccountInformationWidgetDisplay(), true, " Account information widget displayed", "Account information widget not displayed"));
             assertCheck.append(actions.assertEqual_stringType(pages.getAccountInformationWidget().getFooterAuuid(), loginAUUID, "Auuid shown at the footer of the Your Account Information widget and is correct", "Auuid NOT shown at the footer of Your Account Information widget"));
@@ -149,14 +150,13 @@ public class AccountInformationWidgetTest extends Driver {
      * To-do
      */
 
-    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"})
-    public void verifyBillCycleAndDueDateInvoiceHistory(){
+    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"}, enabled = false)
+    public void verifyBillCycleAndDueDateInvoiceHistory() {
 
-        try{
+        try {
             selUtils.addTestcaseDescription("Validating Account Information Widget :" + customerNumber, "description");
             final AccountInformationWidget accountInformationWidget = pages.getAccountInformationWidget();
             //assertCheck.append();
-
 
 
         } catch (Exception e) {
@@ -169,27 +169,28 @@ public class AccountInformationWidgetTest extends Driver {
      * To-do
      */
     @Test(priority = 7, groups = {"SanityTest", "RegressionTest", "ProdTest"})
-    public void verifyAccountInfoDetailedIcon(){
+    public void verifyAccountInfoDetailedIcon() {
 
-        try{
-            selUtils.addTestcaseDescription("Validating Account Information Detailed icon :" + customerNumber, "description");
-            assertCheck.append(actions.assertEqual_boolean(pages.getAccountInformationWidget().isActionIconVisibleOnAccountInfo(), true, "Account information detailed icon is visible", "Account information detailed icon is not visible"));
-            /*assertCheck.append(actions.assertEqual_stringType(pages.getAccountInformationWidget().getDueDate(), "", "Due date displays as expected", "Due date not displays as expected"));
+        try {
+            selUtils.addTestcaseDescription("Validating all data points under Account Information widget like Due date And Total Outstanding And Current Cycle And Current Month Unbilled Amount And last Month Bill Amount And Last Payment Mode And Security Deposit And Account Number", "description");
+            PostpaidAccountInformation accountInformation = api.getPostpaidAccountInformation(customerNumber);
+            final Integer statusCode = accountInformation.getStatusCode();
+            assertCheck.append(actions.assertEqual_intType(statusCode, 200, "KYC Profile API Status Code Matched and is :" + statusCode, "KYC Profile API Status Code NOT Matched and is :" + statusCode));
+            /*assertCheck.append(actions.assertEqual_boolean(pages.getAccountInformationWidget().isActionIconVisibleOnAccountInfo(), true, "Account information detailed icon is visible", "Account information detailed icon is not visible"));
+            assertCheck.append(actions.assertEqual_stringType(pages.getAccountInformationWidget().getDueDate(), "", "Due date displays as expected", "Due date not displays as expected"));
             assertCheck.append(actions.assertEqual_stringType(pages.getAccountInformationWidget().getTotalOutstanding(), "", "Total outstanding amount is displays as expected", "Total outstanding amount not  displays as expected"));
             assertCheck.append(actions.assertEqual_stringType(pages.getAccountInformationWidget().getCurrentCycle(), "", "Current Cycle displays as expected", "Current Cycle not displays as expected"));
             assertCheck.append(actions.assertEqual_stringType(pages.getAccountInformationWidget().getCurrentMonthUnBillAmount(), "", "Current month un-bill amount displays as expected", "Current month un-bill amount not displays as expected"));
-            assertCheck.append(actions.assertEqual_stringType(pages.getAccountInformationWidget().getLastMonthBillAmount(), "", "Last month bill amount displays as expected", "Last month bill amount not displays as expected"));
+            assertCheck.append(actions.assertEqual_stringType(pages.getAccountInformationWidget().getLastMonthBillAmount(), "", "Last month bill amount displays as expected", "Last month bill amount not displays as expected"));;*/
             assertCheck.append(actions.assertEqual_stringType(pages.getAccountInformationWidget().getLastPaymentMode(), "", "Last payment mode displays as expected", "Last payment mode not displays as expected"));
-            assertCheck.append(actions.assertEqual_stringType(pages.getAccountInformationWidget().getSecurityDeposit(), "", "Security deposit displays as expected", "Security deposit not displays as expected"));
-            assertCheck.append(actions.assertEqual_stringType(pages.getAccountInformationWidget().getAccountNumber(), "", "Account displays as expected", "Account Number not displays as expected"));
-            */
+            /*assertCheck.append(actions.assertEqual_stringType(pages.getAccountInformationWidget().getSecurityDeposit(), "", "Security deposit displays as expected", "Security deposit not displays as expected"));*/
+            assertCheck.append(actions.assertEqual_stringType(pages.getAccountInformationWidget().getAccountNumber(), "", "Account Number displayed as expected", "Account Number not displayed as expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
 
         } catch (Exception e) {
             commonLib.fail("Exception in Method - verifyAccountInfoDetailedIcon()" + e.fillInStackTrace(), true);
         }
     }
-
 
 
 }

@@ -610,7 +610,7 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.CurrentPlanTest"/>
         </classes>
     </test>-->
-    <!-- <test name="Account Information Test">
+     <test name="Account Information Test">
          <groups>
              <run>
                  <include name="SanityTest"/>
@@ -619,8 +619,8 @@
          <classes>
              <class name="com.airtel.cs.ui.frontendagent.hometab.AccountInformationWidgetTest"/>
          </classes>
-     </test>-->
-    <test name="Detailed Account Information Test">
+     </test>
+    <!--<test name="Detailed Account Information Test">
         <groups>
             <run>
                 <include name="SanityTest"/>
@@ -629,6 +629,6 @@
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.DetailAccountInfoTest"/>
         </classes>
-    </test>
+    </test>-->
 
 </suite>
