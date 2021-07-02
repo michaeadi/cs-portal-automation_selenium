@@ -6,25 +6,20 @@ import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
-import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pagerepository.pagemethods.LoanDetail;
-import com.airtel.cs.pojo.response.loandetails.Loan;
-import com.airtel.cs.pojo.response.loandetails.LoanDetailList;
-import com.airtel.cs.pojo.response.loandetails.LoanHistory;
-import com.airtel.cs.pojo.response.loandetails.LoanRepaymentDetailList;
-import com.airtel.cs.pojo.response.loandetails.LoanRepaymentList;
+import com.airtel.cs.pojo.response.loandetails.*;
 import com.airtel.cs.pojo.response.loansummary.Summary;
 import com.airtel.cs.pojo.response.vendors.HeaderList;
 import com.airtel.cs.pojo.response.vendors.VendorNames;
 import com.airtel.cs.pojo.response.vendors.Vendors;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,6 +31,7 @@ public class LoanWidgetTest extends Driver {
     static String customerNumber;
     RequestSource api = new RequestSource();
     ArrayList<Vendors> vendors;
+    public static final String RUN_LOAN_WIDGET_TEST_CASE = constants.getValue(ApplicationConstants.RUN_LOAN_WIDGET_TESTCASE);
     private final BaseActions actions = new BaseActions();
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
@@ -43,6 +39,14 @@ public class LoanWidgetTest extends Driver {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
             throw new SkipException("Skipping tests because user NOT able to login Over Portal");
+        }
+    }
+
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void checkLoanWidgetFlag() {
+        if (!StringUtils.equals(RUN_LOAN_WIDGET_TEST_CASE, "true")) {
+            commonLib.skip("Skipping because Run Loan widget Test Case Flag Value is - " + RUN_LOAN_WIDGET_TEST_CASE);
+            throw new SkipException("Skipping because this functionality does not applicable for current Opco");
         }
     }
 
