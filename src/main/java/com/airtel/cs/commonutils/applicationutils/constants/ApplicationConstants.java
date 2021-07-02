@@ -41,6 +41,10 @@ public class ApplicationConstants {
     public static final String BULK_UPDATE_TRANSFER_TO_QUEUE_STATUS="cs.bulk.update.transfer.to.queue.status";
     public static final String BULK_UPDATE_FROM_QUEUE_NAME="cs.bulk.update.transfer.from.queue.name";
     public static final String BULK_UPDATE_TO_QUEUE_NAME="cs.bulk.update.transfer.to.queue.name";
+    public static final String RUN_LOAN_WIDGET_TESTCASE="cs.run.loan.widget.test.case";
+    public static final String RUN_RECHARGE_WIDGET_TESTCASE="cs.run.recharge.widget.test.case";
+    public static final String RUN_USAGE_WIDGET_TESTCASE="cs.run.usage.widget.test.case";
+    public static final String RUN_AIRTEL_MONEY_WIDGET_TESTCASE="cs.run.airtel.money.test.case";
     public static final String CUSTOMER_POSTPAID_MSISDN = "cs.customer.postpaid.msisdn";
 
 
