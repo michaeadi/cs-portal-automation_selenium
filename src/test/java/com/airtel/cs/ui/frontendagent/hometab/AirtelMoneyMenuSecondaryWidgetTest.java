@@ -23,6 +23,7 @@ public class AirtelMoneyMenuSecondaryWidgetTest extends Driver {
     String customerNumber;
     RequestSource api = new RequestSource();
     private AirtelMoneyPOJO amTransactionHistoryAPI;
+    public static final String RUN_AIRTEL_MONEY_WIDGET_TEST_CASE = constants.getValue(ApplicationConstants.RUN_AIRTEL_MONEY_WIDGET_TESTCASE);
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
@@ -33,7 +34,15 @@ public class AirtelMoneyMenuSecondaryWidgetTest extends Driver {
     }
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
-    public void checkServiceProfileFlag() {
+    public void checkAirtelMoneyFlag() {
+        if (!StringUtils.equals(RUN_AIRTEL_MONEY_WIDGET_TEST_CASE, "true")) {
+            commonLib.skip("Skipping because Run Airtel Money widget Test Case Flag Value is - " + RUN_AIRTEL_MONEY_WIDGET_TEST_CASE);
+            throw new SkipException("Skipping because this functionality does not applicable for current Opco");
+        }
+    }
+
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void checkMultiWalletFlag() {
         if (!StringUtils.equals(MULTI_AM_WALLET, "true")) {
             commonLib.skip("Skipping because Run AM Secondary widget Test Case Flag Value is - " + MULTI_AM_WALLET);
             throw new SkipException("Skipping because this functionality does not applicable for current Opco");
