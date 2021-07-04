@@ -630,5 +630,15 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.DetailAccountInfoTest"/>
         </classes>
     </test>
+    <test name="Widget Visibility Test By Connection Type">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.widgetvisibility.VisibiltyByCustomerSegment"/>
+        </classes>
+    </test>
 
 </suite>

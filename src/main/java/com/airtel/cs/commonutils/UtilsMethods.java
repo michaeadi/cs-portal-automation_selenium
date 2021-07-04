@@ -2,6 +2,7 @@ package com.airtel.cs.commonutils;
 
 import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.driver.Driver;
+import com.airtel.cs.pojo.response.agents.AgentAttributes;
 import com.airtel.cs.pojo.response.agents.AgentDetailPOJO;
 import com.airtel.cs.pojo.response.agents.Authorities;
 import io.restassured.http.Header;
@@ -271,5 +272,18 @@ public class UtilsMethods extends Driver {
             }
         }
         return false;
+    }
+
+    /**
+     * This method use to get Agent Details
+     * @param headers auth header
+     * @return AgentAttributes
+     * */
+    public static AgentAttributes getAgentDetail(Headers headers){
+        AgentDetailPOJO agentDetail=api.getAgentDetail(headers);
+        if(agentDetail.getStatusCode()!=200){
+            commonLib.fail("Not able to get Agent detail using agent api",false);
+        }
+        return agentDetail.getResult();
     }
 }
