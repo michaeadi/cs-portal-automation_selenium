@@ -21,6 +21,8 @@ public class RestCommonUtils extends Driver {
     private static QueryableRequestSpecification queryable;
     private static RequestSpecification request;
     private static final String APPLICATION_JSON = "application/json";
+    private static final String USING = "Using";
+    private static final String API_FOR_TESTING = " API for Testing";
 
 
     /**
@@ -43,7 +45,7 @@ public class RestCommonUtils extends Driver {
     public static void commonPostMethod(String endPoint, Object body, String url) {
         RestAssuredConfig restAssuredConfig = CurlRestAssuredConfigFactory.createConfig();
         try {
-            commonLib.info("Using " + endPoint + " API for Testing");
+            commonLib.info(USING + endPoint + API_FOR_TESTING);
             baseURI = url;
             Headers headers = new Headers(map);
             request = given()
@@ -80,7 +82,7 @@ public class RestCommonUtils extends Driver {
     public static void commonGetMethodWithQueryParam(String endPoint, Map<String, Object> queryParam, Integer statusCode) {
         try {
             RestAssuredConfig restAssuredConfig = CurlRestAssuredConfigFactory.createConfig();
-            commonLib.info("Using" + endPoint + " API for Testing");
+            commonLib.info(USING + endPoint + API_FOR_TESTING);
             baseURI = baseUrl;
             Headers headers = new Headers(map);
             request = given()
@@ -104,13 +106,13 @@ public class RestCommonUtils extends Driver {
      * @param endPoint send the endPoint
      */
     public static void commonGetMethod(String endPoint) {
-        commonGetMethod(endPoint,new Headers(map));
+        commonGetMethod(endPoint, new Headers(map));
     }
 
-    public static void commonGetMethod(String endPoint,Headers headers) {
+    public static void commonGetMethod(String endPoint, Headers headers) {
         RestAssuredConfig restAssuredConfig = CurlRestAssuredConfigFactory.createConfig();
         try {
-            commonLib.info("Using" + endPoint + "API for Testing");
+            commonLib.info(USING + endPoint + API_FOR_TESTING);
             baseURI = baseUrl;
             request = given().config(restAssuredConfig).headers(headers).contentType(APPLICATION_JSON);
             queryable = SpecificationQuerier.query(request);

@@ -42,7 +42,6 @@ import com.airtel.cs.pojo.response.kycprofile.KYCProfile;
 import com.airtel.cs.pojo.response.loandetails.Loan;
 import com.airtel.cs.pojo.response.loansummary.Summary;
 import com.airtel.cs.pojo.response.offerdetails.OfferDetailPOJO;
-import com.airtel.cs.pojo.response.postpaid.PostpaidAccountInformation;
 import com.airtel.cs.pojo.response.smshistory.SMSHistoryPOJO;
 import com.airtel.cs.pojo.response.tariffplan.AvailablePlanPOJO;
 import com.airtel.cs.pojo.response.tariffplan.CurrentPlanPOJO;
@@ -53,6 +52,8 @@ import com.airtel.cs.pojo.response.voucher.VoucherSearchPOJO;
 import io.restassured.http.Headers;
 import lombok.extern.log4j.Log4j2;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -612,16 +613,24 @@ public class RequestSource extends RestCommonUtils {
         return result;
     }
 
-    public PostpaidAccountInformation getPostpaidAccountInformation(String msisdn) {
-        PostpaidAccountInformation result = null;
+    /**
+     * This Method will hit the API "/cs-gsm-service/v1/postpaid/account/information" and return the response in list
+     *
+     * @param msisdn The msisdn
+     * @return The Response
+     */
+    public List<String> getPostpaidAccountInformation(String msisdn) {
+        String result;
+        List<String> myList = null;
         try {
             queryParam.put("msisdn", msisdn);
             commonGetMethodWithQueryParam(URIConstants.POSTPAID_ACCOUNT_INFORMATION, queryParam);
-            result = response.as(PostpaidAccountInformation.class);
+            result = response.print();
+            myList = new ArrayList<>(Arrays.asList(result.split("data:")));
         } catch (Exception e) {
             commonLib.fail("Exception in method - getEventHistory " + e.getMessage(), false);
         }
-        return result;
+        return myList;
     }
 
 }
