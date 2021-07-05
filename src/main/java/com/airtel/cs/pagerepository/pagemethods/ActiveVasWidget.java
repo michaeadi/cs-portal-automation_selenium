@@ -17,11 +17,10 @@ public class ActiveVasWidget extends BasePage {
     This Method will let us know Active Vas Widget is visible or not
      */
   public boolean isActiveVasWidgetVisible() {
-    boolean elementVisible = false;
-    if (isVisible(pageElements.activeVasTransactionHeader)) {
-      elementVisible = isElementVisible(pageElements.activeVasTransactionHeader);
-      commonLib.info("Checking is Active Vas Widget Visible? " + elementVisible);
+    if (isElementVisible(pageElements.activeVasTransactionHeader)) {
+      commonLib.info("Active Vas Widget is Visible");
+      return true;
     }
-    return elementVisible;
+    return false;
   }
 }

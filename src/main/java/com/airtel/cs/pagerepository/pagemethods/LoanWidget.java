@@ -226,12 +226,11 @@ public class LoanWidget extends BasePage {
      * @return Boolean
      */
     public boolean isLoanServiceWidgetVisible() {
-        boolean elementVisible = false;
-        if (isVisible(pageElements.loanServiceHeader)) {
-            elementVisible = isElementVisible(pageElements.loanServiceHeader);
-            commonLib.info("Checking is LoanService Widget Visible? " + elementVisible);
+        if (isElementVisible(pageElements.loanServiceHeader)) {
+            commonLib.info("LoanService Widget is Visible");
+            return true;
         }
-        return elementVisible;
+        return false;
     }
 }
 
