@@ -235,6 +235,16 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.CRBTWidgetTest"/>
         </classes>
     </test>
+    <test name="Widget Visibility Test By Connection Type">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.widgetvisibility.VisibiltyByCustomerSegment"/>
+        </classes>
+    </test>
     <test name="Create NFTR FTR Tickets TEST">
         <groups>
             <run>
