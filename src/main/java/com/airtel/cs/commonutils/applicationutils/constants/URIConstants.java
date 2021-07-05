@@ -34,7 +34,8 @@ public class URIConstants {
     public static final String AGENT_PERMISSION = "/sr/api/sr-service/v1/agent/permissions";
     public static final String FETCH_TICKET_POOL = "/sr/api/sr-service/v1/fetch/ticketpool";
     public static final String AGENT_DETAILS = "/sr/api/sr-service/v1/agents";
-    public static final String EVENTS_LOG="cs-data-service/v1/event/logs";
+    public static final String EVENTS_LOG = "cs-data-service/v1/event/logs";
+    public static final String POSTPAID_ACCOUNT_INFORMATION = "/cs-gsm-service/v1/postpaid/account/information";
 
     private URIConstants() {
 
