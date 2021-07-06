@@ -1,18 +1,27 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
 import com.airtel.cs.pagerepository.pageelements.AccountInformationWidgetPage;
-import com.airtel.cs.pagerepository.pageelements.DADetailsPage;
 import lombok.extern.log4j.Log4j2;
-import org.openqa.selenium.By;
+import org.apache.commons.lang3.StringUtils;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Log4j2
 public class AccountInformationWidget extends BasePage {
 
     AccountInformationWidgetPage pageElements;
 
-    private final String SCROLL_TO_WIDGET_MESSAGE=config.getProperty("scrollToWidgetMessage");
+    private final String SCROLL_TO_WIDGET_MESSAGE = config.getProperty("scrollToWidgetMessage");
+    private final String STATUS = "status";
+    private final String STATUS_CODE = "statusCode";
 
     public AccountInformationWidget(WebDriver driver) {
         super(driver);
@@ -21,19 +30,20 @@ public class AccountInformationWidget extends BasePage {
 
     /**
      * This method use to check whether account intformation widget display or not
+     *
      * @return true/false
-     * */
-    public Boolean isAccountInformationWidgetDisplay(){
+     */
+    public Boolean isAccountInformationWidgetDisplay() {
         commonLib.info(config.getProperty("accountInfoWidgetDisplay"));
-        Boolean status = false;
+        boolean status = false;
         try {
             scrollToViewElement(pageElements.getTitle);
-            status=isElementVisible(pageElements.getTitle);
+            status = isElementVisible(pageElements.getTitle);
         } catch (InterruptedException e) {
             e.printStackTrace();
-            commonLib.fail(SCROLL_TO_WIDGET_MESSAGE,true);
+            commonLib.fail(SCROLL_TO_WIDGET_MESSAGE, true);
         }
-        return  status;
+        return status;
     }
 
     /*
@@ -58,10 +68,11 @@ public class AccountInformationWidget extends BasePage {
 
     /**
      * This method use to get detailed account information widget more icon displayed or not
+     *
      * @return Boolean The  data value
-     * */
+     */
     public Boolean isActionIconVisibleOnAccountInfo() {
-        Boolean status=isElementVisible(pageElements.accountInfoDetailed);
+        Boolean status = isElementVisible(pageElements.accountInfoDetailed);
         commonLib.info(config.getProperty("iconVisibleOnDetailAccInfo") + status);
         return status;
     }
@@ -86,8 +97,9 @@ public class AccountInformationWidget extends BasePage {
        This Method will give us current cycle
         */
     public String getCurrentCycle() {
-        commonLib.info(getText(pageElements.currentCycle));
-        return getText(pageElements.currentCycle);
+        final String text = getText(pageElements.currentCycle);
+        commonLib.info(text);
+        return text;
     }
 
     /*
@@ -102,33 +114,85 @@ public class AccountInformationWidget extends BasePage {
        This Method will give us Last payment mode
         */
     public String getLastPaymentMode() {
-        commonLib.info(getText(pageElements.lastPaymentMode));
-        return getText(pageElements.lastPaymentMode);
+        String result = null;
+        if (isVisible(pageElements.securityDeposit)) {
+            result = getText(pageElements.lastPaymentMode);
+            commonLib.info("Last Payment Mode is: " + result);
+        } else {
+            commonLib.fail("Last Payment Mode under Account Information Widget is NOT visible", true);
+        }
+        return result;
     }
 
     /*
        This Method will give us security deposit
         */
     public String getSecurityDeposit() {
-        commonLib.info(getText(pageElements.securityDeposit));
-        return getText(pageElements.securityDeposit);
+        String result = null;
+        if (isVisible(pageElements.securityDeposit)) {
+            result = getText(pageElements.securityDeposit);
+            commonLib.info("Security Deposit is: " + result);
+        } else {
+            commonLib.fail("Security Deposit under Account Information Widget is NOT visible", true);
+        }
+        return result;
     }
 
     /*
        This Method will give us security deposit
         */
     public String getTotalOutstanding() {
-        commonLib.info(getText(pageElements.totalOutstanding));
-        return getText(pageElements.totalOutstanding);
+        String result = null;
+        if (isVisible(pageElements.totalOutstanding)) {
+            result = getText(pageElements.totalOutstanding);
+            commonLib.info("Total Outstanding is: " + result);
+        } else {
+            commonLib.fail("Total Outstanding under Account Information Widget is NOT visible", true);
+        }
+        return result;
     }
 
     /*
        This Method will give us account number
         */
     public String getAccountNumber() {
-        commonLib.info(getText(pageElements.accountNumber));
-        return getText(pageElements.accountNumber);
+        String result = null;
+        if (isVisible(pageElements.accountNumber)) {
+            result = getText(pageElements.accountNumber);
+            commonLib.info("Account Number is: " + result);
+        } else {
+            commonLib.fail("Account Number under Account Information Widget is NOT visible", true);
+        }
+        return result;
     }
 
-
+    public String getValue(List<String> list, String rowToSearch, String valueToSearch) throws IOException, ParseException {
+        String result = null;
+        JSONParser parser = new JSONParser();
+        for (String s : list)
+            if (s.contains(rowToSearch)) {
+                JSONObject json = (JSONObject) parser.parse(s);
+                if (valueToSearch.equals(STATUS)) {
+                    result = String.valueOf(json.get(STATUS));
+                    break;
+                } else if (valueToSearch.equals(STATUS_CODE)) {
+                    result = String.valueOf(json.get(STATUS_CODE));
+                    break;
+                } else {
+                    result = json.get("result").toString();
+                    if (StringUtils.contains(String.valueOf(json.get(STATUS_CODE)), "200") && StringUtils.contains(String.valueOf(json.get(STATUS)), "SUCCESS")) {
+                        result = result.substring(1, result.length() - 1).replace("\"", "");
+                        String[] keyValuePairs = result.split(",");
+                        Map<String, String> map = new HashMap<>();
+                        for (String pair : keyValuePairs) {
+                            String[] entry = pair.split(":");
+                            map.put(entry[0].trim(), entry[1].trim());
+                        }
+                        result = map.get(valueToSearch);
+                        break;
+                    }
+                }
+            }
+        return result;
+    }
 }

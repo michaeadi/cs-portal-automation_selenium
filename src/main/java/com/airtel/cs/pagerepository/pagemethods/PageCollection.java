@@ -195,4 +195,8 @@ public class PageCollection {
         return new DetailAccountInfoWidget(driver);
     }
 
+    public ActiveVasWidget getActiveVasWidgetPage() {
+        return new ActiveVasWidget(driver);
+    }
+
 }

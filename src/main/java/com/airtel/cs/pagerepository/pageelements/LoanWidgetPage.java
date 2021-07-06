@@ -7,6 +7,7 @@ public class LoanWidgetPage {
     /*
      * Header Labels
      * */
+    public By loanServiceHeader = By.xpath("//div[@id='LOAN_SERVICES']//span[contains(@class,'widget_header_label')]");
     public By vendor = By.xpath("//div[@id='LOAN_SERVICES']//div[@class='card__card-header--card-body--table--list-heading']//div[1]//span");
     public By loanAmount = By.xpath("//div[@id='LOAN_SERVICES']//div[@class='card__card-header--card-body--table--list-heading']//div[2]//span[1]");
     public By createdOn = By.xpath("//div[@id='LOAN_SERVICES']//div[@class='card__card-header--card-body--table--list-heading']//div[3]//span");

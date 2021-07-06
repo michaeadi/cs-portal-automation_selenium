@@ -620,16 +620,16 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.CurrentPlanTest"/>
         </classes>
     </test>-->
-    <test name="Account Information Test">
-        <groups>
-            <run>
-                <include name="SanityTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.hometab.AccountInformationWidgetTest"/>
-        </classes>
-    </test>
+     <test name="Account Information Test">
+         <groups>
+             <run>
+                 <include name="SanityTest"/>
+             </run>
+         </groups>
+         <classes>
+             <class name="com.airtel.cs.ui.frontendagent.hometab.AccountInformationWidgetTest"/>
+         </classes>
+     </test>
     <!--<test name="Detailed Account Information Test">
         <groups>
             <run>
