@@ -3,6 +3,7 @@ package com.airtel.cs.pagerepository.pageelements;
 import org.openqa.selenium.By;
 
 public class AMTxnWidgetPage {
+    public String reversalIcon="]//img[contains(@src,'reversal')]";
     public By airtelMoneyTransactionHeader = By.xpath("//div[@id='AIRTEL_MONEY']//span[contains(@class,'widget_header_label')]");
     public By airtelMoneyBalance = By.xpath("//*[@id='AIRTEL_MONEY']//span[@class='currency-amount']");
     public By airtelMoneyBalance2 = By.xpath("//div[@class='card__content--money-balance ng-star-inserted']//span[@class='currency ng-star-inserted'][2]//span[@class='currency-amount']");
@@ -29,4 +30,5 @@ public class AMTxnWidgetPage {
     public String transactionIdColumn = "]/div/div[4]//span";
     public By footerAMAuuid = By.xpath("//*[@id='AIRTEL_MONEY']//*[@class='auuid-container']");
     public By middleAMAuuid = By.xpath("//*[@id='AIRTEL_MONEY']");
+    public By reverseLabel = By.xpath("//*[contains(text(),'ID No.')]//following-sibling::td/span");
 }

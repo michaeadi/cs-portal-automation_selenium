@@ -2,8 +2,10 @@ package com.airtel.cs.commonutils;
 
 import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.driver.Driver;
+import com.airtel.cs.pojo.response.agents.AgentAttributes;
 import com.airtel.cs.pojo.response.agents.AgentDetailPOJO;
 import com.airtel.cs.pojo.response.agents.Authorities;
+import com.airtel.cs.pojo.response.agents.RoleDetails;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
@@ -272,4 +274,35 @@ public class UtilsMethods extends Driver {
         }
         return false;
     }
+
+    /**
+     * This method use to check whether user has role assign or not
+     * @param headers auth header
+     * @param role permission name to check
+     * @return true/false based on user have roles or not
+     * */
+    public static Boolean isUserHasRole(Headers headers, List<String> role) {
+        AgentDetailPOJO agentDetailAPI = api.getAgentDetail(headers);
+        if (agentDetailAPI.getStatusCode() != 200) {
+            commonLib.fail("Not able to get Agent detail using agent api", false);
+            return false;
+        } else {
+            List<RoleDetails> allRoles = agentDetailAPI.getResult().getUserDetails().getUserDetails().getRole();
+            return allRoles.stream().anyMatch(role::contains);
+        }
+    }
+
+    /**
+     * This method use to get Agent Details
+     * @param headers auth header
+     * @return AgentAttributes
+     * */
+    public static AgentAttributes getAgentDetail(Headers headers){
+        AgentDetailPOJO agentDetail=api.getAgentDetail(headers);
+        if(agentDetail.getStatusCode()!=200){
+            commonLib.fail("Not able to get Agent detail using agent api",false);
+        }
+        return agentDetail.getResult();
+    }
+
 }

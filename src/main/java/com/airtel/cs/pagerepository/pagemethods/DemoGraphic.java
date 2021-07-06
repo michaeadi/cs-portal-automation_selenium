@@ -5,6 +5,7 @@ import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.pagerepository.pageelements.DemoGraphicPage;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -647,6 +648,15 @@ public class DemoGraphic extends BasePage {
         String result = null;
         result = getText(pageElements.footerAuuidAMP);
         return result;
+    }
+
+    /**
+     * This Method will tell us reset pin icon button is disabled or not
+     */
+    public Boolean isResetPinIconDisable() {
+        final boolean flag = isVisible(pageElements.resetPinIcon);
+        commonLib.info("Checking reset pin icon display or not " + flag);
+        return !flag;
     }
 
 }

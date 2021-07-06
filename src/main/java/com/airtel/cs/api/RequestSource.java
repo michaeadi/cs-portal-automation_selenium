@@ -3,31 +3,10 @@ package com.airtel.cs.api;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.URIConstants;
 import com.airtel.cs.commonutils.restutils.RestCommonUtils;
-import com.airtel.cs.pojo.request.GenericRequest;
-import com.airtel.cs.pojo.request.UsageHistoryMenuRequest;
-import com.airtel.cs.pojo.request.UsageHistoryRequest;
-import com.airtel.cs.pojo.request.RechargeHistoryRequest;
-import com.airtel.cs.pojo.request.TransactionHistoryRequest;
-import com.airtel.cs.pojo.request.MoreTransactionHistoryRequest;
-import com.airtel.cs.pojo.request.AccountBalanceRequest;
-import com.airtel.cs.pojo.request.AccumulatorsRequest;
-import com.airtel.cs.pojo.request.SMSHistoryRequest;
-import com.airtel.cs.pojo.request.VoucherSearchRequest;
-import com.airtel.cs.pojo.request.ActionTrailRequest;
-import com.airtel.cs.pojo.request.FetchTicketPool;
-import com.airtel.cs.pojo.request.LoanRequest;
-import com.airtel.cs.pojo.request.RingtonDetailsRequest;
-import com.airtel.cs.pojo.request.ServiceProfileRequest;
-import com.airtel.cs.pojo.request.OfferDetailRequest;
-import com.airtel.cs.pojo.response.AMProfilePOJO;
-import com.airtel.cs.pojo.response.GsmKycPOJO;
-import com.airtel.cs.pojo.response.PlansPOJO;
-import com.airtel.cs.pojo.response.UsageHistoryPOJO;
-import com.airtel.cs.pojo.response.LoginPOJO;
-import com.airtel.cs.pojo.response.ProfilePOJO;
-import com.airtel.cs.pojo.response.RechargeHistoryPOJO;
-import com.airtel.cs.pojo.response.AccountsBalancePOJO;
+import com.airtel.cs.pojo.request.*;
+import com.airtel.cs.pojo.response.*;
 import com.airtel.cs.pojo.response.accumulators.AccumulatorsPOJO;
+import com.airtel.cs.pojo.response.actionconfig.ActionConfigResponse;
 import com.airtel.cs.pojo.response.actiontrail.ActionTrailPOJO;
 import com.airtel.cs.pojo.response.agentpermission.AgentPermission;
 import com.airtel.cs.pojo.response.agents.AgentDetailPOJO;
@@ -36,6 +15,8 @@ import com.airtel.cs.pojo.response.clearrefillstatus.RefillStatus;
 import com.airtel.cs.pojo.response.configuration.ConfigurationPOJO;
 import com.airtel.cs.pojo.response.crbt.ActivateRingtone;
 import com.airtel.cs.pojo.response.crbt.Top20Ringtone;
+import com.airtel.cs.pojo.response.filedmasking.FieldMaskConfigReponse;
+import com.airtel.cs.pojo.response.filedmasking.FieldMaskConfigs;
 import com.airtel.cs.pojo.response.friendsfamily.FriendsFamilyPOJO;
 import com.airtel.cs.pojo.response.hlrservice.HLRServicePOJO;
 import com.airtel.cs.pojo.response.kycprofile.KYCProfile;
@@ -577,22 +558,6 @@ public class RequestSource extends RestCommonUtils {
     }
 
     /**
-     * This Method will hit the API "/sr/api/sr-service/v1/agents" and return the response
-     * @param headers The headers contain auth token including common headers
-     * @return The Response
-     */
-    public AgentDetailPOJO getAgentDetail(Headers headers){
-        AgentDetailPOJO result = null;
-        try {
-            commonGetMethod(URIConstants.AGENT_DETAILS,headers);
-            result = response.as(AgentDetailPOJO.class);
-        } catch (Exception e) {
-            commonLib.fail("Exception in method - getAgentDetail " + e.getMessage(), false);
-        }
-        return result;
-    }
-
-    /**
      * This Method will hit the API "cs-data-service/v1/event/logs" and return the response
      * @param msisdn The msisdn
      * @param eventType The event type
@@ -609,5 +574,57 @@ public class RequestSource extends RestCommonUtils {
         return result;
     }
 
+    /**
+     * This Method will hit the API "/sr/api/sr-service/v1/agents" and return the response
+     * @param headers The headers contain auth token including common headers
+     * @return The Response
+     */
+    public AgentDetailPOJO getAgentDetail(Headers headers){
+        AgentDetailPOJO result = null;
+        try {
+            commonGetMethod(URIConstants.AGENT_DETAILS,headers);
+            result = response.as(AgentDetailPOJO.class);
+        } catch (Exception e) {
+            commonLib.fail("Exception in method - getAgentDetail " + e.getMessage(), false);
+        }
+        return result;
+    }
 
+    /**
+     * This Method will hit the API "/cs-service/api/cs-service/v1/actions/config" and return the response
+     * @param headers The headers contain auth token including common headers
+     * @return The Response
+     */
+    public ActionConfigResponse getActionConfig(Headers headers){
+        ActionConfigResponse result = null;
+        try {
+            commonGetMethod(URIConstants.ACTION_CONFIG,headers);
+            result = response.as(ActionConfigResponse.class);
+        } catch (Exception e) {
+            commonLib.fail("Exception in method - getAgentDetail " + e.getMessage(), false);
+        }
+        return result;
+    }
+
+    /**
+     * This Method will hit the API "/cs-service/api/cs-service/v1/get/field/mask/config" and return the response
+     * @param actionKey
+     * @return The Response
+     */
+    public FieldMaskConfigs getFieldMaskConfigs(String actionKey) {
+        FieldMaskConfigReponse fieldMaskConfigReponse = null;
+        try {
+            queryParam.put("actionKey", actionKey);
+            commonGetMethodWithQueryParam(URIConstants.GET_FIELD_MASK_CONFIG, queryParam);
+            fieldMaskConfigReponse = response.as(FieldMaskConfigReponse.class);
+            if ("200".equals(fieldMaskConfigReponse.getStatusCode())) {
+                return fieldMaskConfigReponse.getResult();
+            } else {
+                commonLib.fail("Exception in method - getFieldMaskConfigs " + fieldMaskConfigReponse.getStatusCode(), false);
+            }
+        } catch (Exception e) {
+            commonLib.fail("Exception in method - getFieldMaskConfigs " + e.getMessage(), false);
+        }
+        return fieldMaskConfigReponse.getResult();
+    }
 }
