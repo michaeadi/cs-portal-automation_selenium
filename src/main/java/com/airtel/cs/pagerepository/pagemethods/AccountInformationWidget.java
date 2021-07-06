@@ -2,8 +2,17 @@ package com.airtel.cs.pagerepository.pagemethods;
 
 import com.airtel.cs.pagerepository.pageelements.AccountInformationWidgetPage;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.StringUtils;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Log4j2
 public class AccountInformationWidget extends BasePage {
@@ -11,6 +20,8 @@ public class AccountInformationWidget extends BasePage {
     AccountInformationWidgetPage pageElements;
 
     private final String SCROLL_TO_WIDGET_MESSAGE = config.getProperty("scrollToWidgetMessage");
+    private final String STATUS = "status";
+    private final String STATUS_CODE = "statusCode";
 
     public AccountInformationWidget(WebDriver driver) {
         super(driver);
@@ -152,6 +163,36 @@ public class AccountInformationWidget extends BasePage {
         } else {
             commonLib.fail("Account Number under Account Information Widget is NOT visible", true);
         }
+        return result;
+    }
+
+    public String getValue(List<String> list, String rowToSearch, String valueToSearch) throws IOException, ParseException {
+        String result = null;
+        JSONParser parser = new JSONParser();
+        for (String s : list)
+            if (s.contains(rowToSearch)) {
+                JSONObject json = (JSONObject) parser.parse(s);
+                if (valueToSearch.equals(STATUS)) {
+                    result = String.valueOf(json.get(STATUS));
+                    break;
+                } else if (valueToSearch.equals(STATUS_CODE)) {
+                    result = String.valueOf(json.get(STATUS_CODE));
+                    break;
+                } else {
+                    result = json.get("result").toString();
+                    if (StringUtils.contains(String.valueOf(json.get(STATUS_CODE)), "200") && StringUtils.contains(String.valueOf(json.get(STATUS)), "SUCCESS")) {
+                        result = result.substring(1, result.length() - 1).replace("\"", "");
+                        String[] keyValuePairs = result.split(",");
+                        Map<String, String> map = new HashMap<>();
+                        for (String pair : keyValuePairs) {
+                            String[] entry = pair.split(":");
+                            map.put(entry[0].trim(), entry[1].trim());
+                        }
+                        result = map.get(valueToSearch);
+                        break;
+                    }
+                }
+            }
         return result;
     }
 }

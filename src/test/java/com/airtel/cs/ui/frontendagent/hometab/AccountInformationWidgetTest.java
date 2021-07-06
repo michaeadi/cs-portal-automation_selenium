@@ -131,7 +131,7 @@ public class AccountInformationWidgetTest extends Driver {
      * This method is used to validate watermarked in the left corner and middle
      * isAccountInformationWidgetDisplay() -- todo
      */
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, enabled = false)
     public void accountInformationWatermarkTest() {
 
         try {
@@ -174,16 +174,21 @@ public class AccountInformationWidgetTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validating all data points under Account Information widget like Due date And Total Outstanding And Current Cycle And Current Month Unbilled Amount And last Month Bill Amount And Last Payment Mode And Security Deposit And Account Number", "description");
             final List<String> postpaidAccountInformation = api.getPostpaidAccountInformation(customerNumber);
-            assertCheck.append(actions.assertEqual_boolean(postpaidAccountInformation.get(1).contains("200"), true, "KYC Profile API Status Code Matched", "KYC Profile API Status Code NOT Matched"));
+            assertCheck.append(actions.assertEqual_stringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmount", "statusCode"), "200", "Postpaid Account Information API 1 Status Code Matched", "Postpaid Account Information API 1 Status Code NOT Matched"));
+            assertCheck.append(actions.assertEqual_stringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "availableCreditLimit", "statusCode"), "200", "Postpaid Account Information API 2 Status Code Matched", "Postpaid Account Information API 2 Status Code NOT Matched"));
+            assertCheck.append(actions.assertEqual_stringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "lastMonthBilledAmount", "statusCode"), "200", "Postpaid Account Information API 3 Status Code Matched", "Postpaid Account Information API 3 Status Code NOT Matched"));
+            assertCheck.append(actions.assertEqual_stringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "customerAccountNumber", "statusCode"), "200", "Postpaid Account Information API 4 Status Code Matched", "Postpaid Account Information API 4 Status Code NOT Matched"));
+            assertCheck.append(actions.assertEqual_stringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "lastPaymentAmount", "statusCode"), "200", "Postpaid Account Information API 5 Status Code Matched", "Postpaid Account Information API 5 Status Code NOT Matched"));
+            assertCheck.append(actions.assertEqual_stringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "securityDeposit", "statusCode"), "200", "Postpaid Account Information API 6 Status Code Matched", "Postpaid Account Information API 6 Status Code NOT Matched"));
             /*assertCheck.append(actions.assertEqual_boolean(pages.getAccountInformationWidget().isActionIconVisibleOnAccountInfo(), true, "Account information detailed icon is visible", "Account information detailed icon is not visible"));
             assertCheck.append(actions.assertEqual_stringType(pages.getAccountInformationWidget().getDueDate(), "", "Due date displays as expected", "Due date not displays as expected"));
             assertCheck.append(actions.assertEqual_stringType(pages.getAccountInformationWidget().getTotalOutstanding(), "", "Total outstanding amount is displays as expected", "Total outstanding amount not  displays as expected"));
             assertCheck.append(actions.assertEqual_stringType(pages.getAccountInformationWidget().getCurrentCycle(), "", "Current Cycle displays as expected", "Current Cycle not displays as expected"));
             assertCheck.append(actions.assertEqual_stringType(pages.getAccountInformationWidget().getCurrentMonthUnBillAmount(), "", "Current month un-bill amount displays as expected", "Current month un-bill amount not displays as expected"));
             assertCheck.append(actions.assertEqual_stringType(pages.getAccountInformationWidget().getLastMonthBillAmount(), "", "Last month bill amount displays as expected", "Last month bill amount not displays as expected"));;*/
-            assertCheck.append(actions.assertEqual_boolean(postpaidAccountInformation.get(5).contains(pages.getAccountInformationWidget().getLastPaymentMode()), true, "Last payment mode displays as expected", "Last payment mode not displays as expected"));
-            assertCheck.append(actions.assertEqual_boolean(postpaidAccountInformation.get(6).contains(pages.getAccountInformationWidget().getSecurityDeposit()), true, "Security deposit displays as expected", "Security deposit not displays as expected"));
-            assertCheck.append(actions.assertEqual_boolean(postpaidAccountInformation.get(4).contains(pages.getAccountInformationWidget().getAccountNumber()), true, "Account Number displayed as expected", "Account Number not displayed as expected"));
+            assertCheck.append(actions.assertEqual_stringType(pages.getAccountInformationWidget().getLastPaymentMode(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "lastPaymentAmount", "lastPaymentMode"), "Last payment mode displays as expected", "Last payment mode not displays as expected"));
+            assertCheck.append(actions.assertEqual_stringType(pages.getAccountInformationWidget().getSecurityDeposit(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "securityDeposit", "securityDeposit"), "Security deposit displays as expected", "Security deposit not displays as expected"));
+            assertCheck.append(actions.assertEqual_stringType(pages.getAccountInformationWidget().getAccountNumber(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "customerAccountNumber", "customerAccountNumber"), "Account Number displayed as expected", "Account Number not displayed as expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - verifyAccountInfoDetailedIcon()" + e.fillInStackTrace(), true);
