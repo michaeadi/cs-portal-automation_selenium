@@ -7,7 +7,6 @@ import com.airtel.cs.pojo.response.PlansPOJO;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -46,6 +45,22 @@ public class CustomerProfile extends BasePage {
         final boolean state = isEnabled(pageElements.sendSettingTitle);
         commonLib.info("Is Send Internet Setting Title Display: " + state);
         return state;
+    }
+
+    /**
+     *This method use to Open Adjustment tab
+     */
+    public void clickAdjustment(){
+        commonLib.info("Opening Adjustment tab");
+        clickAndWaitForLoaderToBeRemoved(pageElements.adjustmentAction);
+    }
+
+    /**
+     *This method is use to check Adjustment action visible or not
+     */
+    public Boolean checkAdjustmentAction(){
+        commonLib.info("Checking Adjustment action display or not");
+        return isEnabled(pageElements.adjustmentAction);
     }
 
     /**

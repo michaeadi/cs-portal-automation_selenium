@@ -41,6 +41,8 @@ public class ApplicationConstants {
     public static final String BULK_UPDATE_TRANSFER_TO_QUEUE_STATUS="cs.bulk.update.transfer.to.queue.status";
     public static final String BULK_UPDATE_FROM_QUEUE_NAME="cs.bulk.update.transfer.from.queue.name";
     public static final String BULK_UPDATE_TO_QUEUE_NAME="cs.bulk.update.transfer.to.queue.name";
+    public static final String RUN_ADJUSTMENT_TEST_CASE="cs.run.adjustment";
+    public static final String ADJUSTMENT_CURRENCY_UNIT="cs.adjustment.currency.unit";
 
 
     private ApplicationConstants() {

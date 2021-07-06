@@ -87,6 +87,7 @@ public class Driver {
     public static ObjectMapper objectMapper = new ObjectMapper();
     public static WidgetCommonMethod widgetMethods;
     public static String download=System.getProperty(USER_DIR) + "\\resources\\excels\\";
+    public static String authToken;
 
     public WebDriver getDriver() {
         return driver;

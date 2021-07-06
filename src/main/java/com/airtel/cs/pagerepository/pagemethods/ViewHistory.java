@@ -44,6 +44,14 @@ public class ViewHistory extends BasePage {
         clickAndWaitForLoaderToBeRemoved(pageElements.ticketHistory);
     }
 
+    /**
+     * This method use to click on Adjustment history tab under view history tab
+     */
+    public void goToAdjustmentHistoryTab() {
+        commonLib.info("Clicking on Ticket History Tab under view history ");
+        clickAndWaitForLoaderToBeRemoved(pageElements.ticketHistory);
+    }
+
     /*
    With this Method we will route to the Message History tab under view history tab
     */

@@ -14,6 +14,11 @@
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginPortalTests"/>
         </classes>
     </test>
+        <test name="Test Side Menu Options">
+            <classes>
+                <class name="com.airtel.cs.ui.frontendagent.autoadjustment.AdjustmentTabTest"/>
+            </classes>
+        </test>
 <!--    <test name="Test Side Menu Options">-->
 <!--        <classes>-->
 <!--            <class name="com.airtel.cs.ui.frontendagent.leftmenu.SideMenuTests"/>-->

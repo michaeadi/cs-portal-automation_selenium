@@ -60,5 +60,9 @@ public class CommonConstants {
     public static final String TICKET_BULK_UPDATE_ADD_TICKET_COMMENT_ACTION="cs.bulk.update.add.ticket.comment.action";
     public static final String INVALID_TICKET_ID="cs.invalid.ticket.id";
     public static final String BACKEND_AGENT_TICKET_LIST_PAGE="cs.backend.agent.ticket.list.page";
+    public static final String CONSOLE_NETWORK_LOG_EXTRA_INFO_TYPE="console.network.log.extra.info";
+    public static final String ADJUSTMENT_REASON_RECHARGE="cs.adjustment.reason.recharge";
+    public static final String ADJUSTMENT_REASON_USAGE="cs.adjustment.reason.usage";
+    public static final String ADJUSTMENT_REASON_OTHERS="cs.adjustment.reason.others";
 
 }

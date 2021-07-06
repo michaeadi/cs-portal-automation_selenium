@@ -37,6 +37,7 @@ public class BAPreRequisites extends Driver {
             pages.getLoginPage().clickOnVisibleButton();
             pages.getLoginPage().clickOnVisibleButton();
             pages.getLoginPage().clickOnLogin();
+            UtilsMethods.getNewAddHeader();
             final boolean isGrowlVisible = pages.getGrowl().checkIsGrowlVisible();
             commonLib.info("Growl was visible or not?:-" + isGrowlVisible);
             if (isGrowlVisible) {
@@ -54,7 +55,7 @@ public class BAPreRequisites extends Driver {
         }
     }
 
-    @BeforeClass(dependsOnMethods = "doLogin")
+//    @BeforeClass(dependsOnMethods = "doLogin")
     public void addTokenToHeaderMap() throws JsonProcessingException {
         loginAUUID = constants.getValue(CommonConstants.API_BA_USER_AUUID);
         final String password = PassUtils.decodePassword(constants.getValue(CommonConstants.API_BA_USER_PASSWORD));

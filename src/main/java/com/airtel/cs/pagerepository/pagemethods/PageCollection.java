@@ -180,4 +180,6 @@ public class PageCollection {
     }
 
     public WidgetCommonMethod getWidgetCommonMethod(){return new WidgetCommonMethod(driver);}
+
+    public AdjustmentWidget getAdjustmentTabPage(){return new AdjustmentWidget(driver); }
 }

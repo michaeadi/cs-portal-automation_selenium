@@ -29,6 +29,7 @@ import com.airtel.cs.pojo.response.RechargeHistoryPOJO;
 import com.airtel.cs.pojo.response.AccountsBalancePOJO;
 import com.airtel.cs.pojo.response.accumulators.AccumulatorsPOJO;
 import com.airtel.cs.pojo.response.actiontrail.ActionTrailPOJO;
+import com.airtel.cs.pojo.response.adjustmentreason.AdjustmentReasonPOJO;
 import com.airtel.cs.pojo.response.agentpermission.AgentPermission;
 import com.airtel.cs.pojo.response.agents.AgentDetailPOJO;
 import com.airtel.cs.pojo.response.airtelmoney.AirtelMoneyPOJO;
@@ -609,5 +610,19 @@ public class RequestSource extends RestCommonUtils {
         return result;
     }
 
+    /**
+     * This Method will hit the API "/cs-gsm-service/v1/adjustment/mapping?action=" and return the response
+     * @return The Response
+     */
+    public AdjustmentReasonPOJO getAdjustmentReason(){
+        AdjustmentReasonPOJO result = null;
+        try {
+            commonGetMethod(URIConstants.ADJUSTMENT_ACTION);
+            result = response.as(AdjustmentReasonPOJO.class);
+        } catch (Exception e) {
+            commonLib.fail("Exception in method - AdjustmentReasonPOJO " + e.getMessage(), false);
+        }
+        return result;
+    }
 
 }
