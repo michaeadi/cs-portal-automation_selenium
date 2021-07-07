@@ -650,7 +650,7 @@ public class RequestSource extends RestCommonUtils {
             if ("200".equals(fieldMaskConfigReponse.getStatusCode())) {
                 return fieldMaskConfigReponse.getResult();
             } else {
-                commonLib.fail("Exception in method - getFieldMaskConfigs " + fieldMaskConfigReponse.getStatusCode(), false);
+                commonLib.fail("Unable to fetch the response in getFieldMaskConfigs " + fieldMaskConfigReponse.getStatusCode(), false);
             }
         } catch (Exception e) {
             commonLib.fail("Exception in method - getFieldMaskConfigs " + e.getMessage(), false);
