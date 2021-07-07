@@ -88,7 +88,7 @@ public class RechargeHistoryWidgetTest extends Driver {
             } else {
                 int size = rechargeHistoryWidget.getNumberOfRows();
                 if (rechargeHistoryAPI.getResult().size() == 0 || rechargeHistoryAPI.getResult() == null) {
-                    commonLib.warning("Unable to get Last Recharge Details from CS API");
+                    commonLib.warning("Unable txo get Last Recharge Details from CS API");
                     assertCheck.append(actions.assertEqual_boolean(rechargeHistoryWidget.isRechargeHistoryNoResultFoundVisible(), true, "Error Message is Visible", "Error Message is not Visible"));
                     assertCheck.append(actions.assertEqual_stringType(rechargeHistoryWidget.gettingRechargeHistoryNoResultFoundMessage(), "No Result found", "Error Message is as expected", "Error Message is not as expected"));
                 } else {

@@ -255,7 +255,7 @@ public class Driver {
         loggingprefs.enable(LogType.BROWSER, Level.WARNING);
         loggingprefs.enable(LogType.PERFORMANCE, Level.ALL);
         options.addArguments("--window-size=1792,1120");
-        options.setHeadless(true);
+        options.setHeadless(false);
         Map<String, Object> prefs = new HashMap<>();
         prefs.put("download.default_directory", download);
         prefs.put("intl.accept_languages", "nl");

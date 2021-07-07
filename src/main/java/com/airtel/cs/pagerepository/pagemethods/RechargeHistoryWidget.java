@@ -26,6 +26,7 @@ public class RechargeHistoryWidget extends BasePage {
 
     /**
      * This method use to check widget error display or not
+     *
      * @return true/false
      */
     public boolean isRechargeHistoryErrorVisible() {
@@ -36,6 +37,7 @@ public class RechargeHistoryWidget extends BasePage {
 
     /**
      * This method use to get header name based on column number
+     *
      * @param column The column number
      * @return String The value
      */
@@ -47,6 +49,7 @@ public class RechargeHistoryWidget extends BasePage {
 
     /**
      * This method use to get sub header name based on column number
+     *
      * @param column The column number
      * @return String The value
      */
@@ -58,6 +61,7 @@ public class RechargeHistoryWidget extends BasePage {
 
     /**
      * This method is use to get no result found message
+     *
      * @return String The String
      */
     public String gettingRechargeHistoryNoResultFoundMessage() {
@@ -68,6 +72,7 @@ public class RechargeHistoryWidget extends BasePage {
 
     /**
      * This method is use to check no result found icon visible or not
+     *
      * @return true/false
      */
     public boolean isRechargeHistoryNoResultFoundVisible() {
@@ -79,15 +84,24 @@ public class RechargeHistoryWidget extends BasePage {
 
     /**
      * This method is use to get number of data rows display on UI
+     *
      * @return Integer the count
      */
     public int getNumberOfRows() {
-        as = returnListOfElement(pageElements.rows);
-        return as.size();
+        try {
+            if (isVisibleContinueExecution(pageElements.rows)) {
+                as = returnListOfElement(pageElements.rows);
+                return as.size();
+            }
+        } catch (Exception e) {
+            commonLib.warning("No Data is available under Recharge History Widget over CS Portal");
+        }
+        return 0;
     }
 
     /**
      * This method is use to check widget menu icon visible or not
+     *
      * @return true/false
      */
     public boolean isRechargeHistoryWidgetMenuVisible() {
@@ -108,13 +122,14 @@ public class RechargeHistoryWidget extends BasePage {
     */
     public String getHeaderValue(int row, int column) {
         String result;
-        result = getText(By.xpath(pageElements.dataRow + row + pageElements.valueColumns + column +pageElements.columnValue));
+        result = getText(By.xpath(pageElements.dataRow + row + pageElements.valueColumns + column + pageElements.columnValue));
         commonLib.info("Reading Value(" + row + "): " + result);
         return result;
     }
 
     /**
      * This method use to check widget display or not
+     *
      * @return true/false
      */
     public boolean isRechargeHistoryWidgetIsVisible() {
@@ -126,16 +141,12 @@ public class RechargeHistoryWidget extends BasePage {
     This Method will let us know is Recharge History Widget Loaded Successfully or not
      */
     public boolean isRechargeHistoryWidgetLoaded() {
-        boolean result = false;
-        if (isElementVisible(pageElements.widgetLoader)) {
-            wait.until(ExpectedConditions.invisibilityOfElementLocated(pageElements.widgetLoader));
-            result = true;
-        }
-        return result;
+        return wait.until(ExpectedConditions.invisibilityOfElementLocated(pageElements.widgetLoader));
     }
 
     /**
      * This method use to check date picker display or not
+     *
      * @return true/false
      */
     public boolean isRechargeHistoryDatePickerVisible() {
@@ -157,6 +168,7 @@ public class RechargeHistoryWidget extends BasePage {
 
     /**
      * This method is use to get widget name
+     *
      * @return String The value
      */
     public String getWidgetTitle() {
@@ -167,6 +179,7 @@ public class RechargeHistoryWidget extends BasePage {
 
     /**
      * This method is use to write voucher id in voucher id search box
+     *
      * @param id The voucher id
      * @throws InterruptedException in-case scroll interrupt
      */
@@ -186,6 +199,7 @@ public class RechargeHistoryWidget extends BasePage {
 
     /**
      * This method is use to check refill icon disable or not
+     *
      * @return true/false
      */
     public Boolean isRefillIconDisable() {
@@ -196,6 +210,7 @@ public class RechargeHistoryWidget extends BasePage {
 
     /**
      * This method is use to check refill icon enable or not
+     *
      * @return true/false
      */
     public Boolean isRefillIconEnable() {
@@ -214,6 +229,7 @@ public class RechargeHistoryWidget extends BasePage {
 
     /**
      * This method is use to check clear refill pop up display or not
+     *
      * @return true/false
      */
     public boolean checkPopDisplay() {
@@ -234,7 +250,7 @@ public class RechargeHistoryWidget extends BasePage {
        RHW = Recharge History Widget
         */
     public String getFooterAuuidRHW() {
-       return getText(pageElements.footerRHWAuuid);
+        return getText(pageElements.footerRHWAuuid);
     }
 
     /*

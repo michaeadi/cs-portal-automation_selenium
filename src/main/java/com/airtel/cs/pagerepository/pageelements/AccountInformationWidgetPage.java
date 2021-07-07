@@ -7,12 +7,12 @@ public class AccountInformationWidgetPage {
     /**
      * Account Information Widget
      */
-    public By getTitle=By.xpath("//div[data-csautomation-key='POSTPAID_ACCOUNT_INFORMATION']//span[@class='card__card-header--label']");
-    public By footerAuuid = By.xpath("//div[data-csautomation-key='POSTPAID_ACCOUNT_INFORMATION']//*[@class='auuid-container']");
-    public By middleAuuid = By.xpath("//div[data-csautomation-key='POSTPAID_ACCOUNT_INFORMATION']");
+    public By getTitle=By.xpath("//div[@data-csautomation-key='POSTPAID_ACCOUNT_INFORMATION']//span[@class='card__card-header--label']");
+    public By footerAuuid = By.xpath("//div[@data-csautomation-key='POSTPAID_ACCOUNT_INFORMATION']//*[@class='auuid-container']");
+    public By middleAuuid = By.xpath("//div[@data-csautomation-key='POSTPAID_ACCOUNT_INFORMATION']");
     public By progressBarForCreditLimit = By.xpath("");
     public By progressBarRedPortionValue = By.xpath("");
-    public By accountInfoDetailed = By.xpath("//div[data-csautomation-key='POSTPAID_ACCOUNT_INFORMATION']//img[@class='header-action-icon ng-star-inserted']");
+    public By accountInfoDetailed = By.xpath("//div[@data-csautomation-key='POSTPAID_ACCOUNT_INFORMATION']//img[@class='header-action-icon ng-star-inserted']");
     public By currentMonthUnbillAmount = By.xpath("");
     public By lastMonthBillAmount = By.xpath("");
     public By currentCycle = By.xpath("");

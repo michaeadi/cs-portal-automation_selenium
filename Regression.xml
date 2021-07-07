@@ -3,7 +3,6 @@
 <suite name="Automation Framework CS PORTAl Test Suite" preserve-order="true" allow-return-values="true">
     <listeners>
         <listener class-name="com.airtel.cs.commonutils.listeners.TestListenerMethod"/>
-        <!--        <listener class-name="com.airtel.cs.commonutils.listeners.AnnotationTransformer"/>-->
     </listeners>
     <test name="Test Login API">
         <groups>
