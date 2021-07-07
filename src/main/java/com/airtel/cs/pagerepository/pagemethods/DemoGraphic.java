@@ -31,7 +31,7 @@ public class DemoGraphic extends BasePage {
      */
     public String getCustomerName() {
         final String text = getText(pageElements.customerName);
-        commonLib.info("Getting Customer Name " + text);
+        commonLib.info("Getting Customer Name: " + text);
         return text;
     }
 

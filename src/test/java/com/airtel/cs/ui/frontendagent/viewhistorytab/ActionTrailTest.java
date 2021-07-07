@@ -75,7 +75,7 @@ public class ActionTrailTest extends Driver {
             selUtils.addTestcaseDescription("Verify View History tab opened successfully,Verify Action Trail History tab is visible,Validate column's value are visible and correct", "description");
             ActionTrailPOJO actionTrailAPI = api.getEventHistory(customerNumber, "ACTION");
             final int statusCode = actionTrailAPI.getStatusCode();
-            assertCheck.append(actions.assertEqual_intType(statusCode, 200, "Friends & Family Widget API success and status code is :" + statusCode, "Friends & Family Widget API got failed and status code is :" + statusCode));
+            assertCheck.append(actions.assertEqual_intType(statusCode, 200, "Action Trail API success and status code is :" + statusCode, "Action Trail API got failed and status code is :" + statusCode));
             if (statusCode == 200) {
                 int size=Math.min(actionTrailAPI.getTotalCount(),10);
                 for(int i=0;i<size;i++) {
