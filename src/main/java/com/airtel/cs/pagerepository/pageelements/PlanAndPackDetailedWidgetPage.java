@@ -7,12 +7,12 @@ public class PlanAndPackDetailedWidgetPage {
     /**
      * Account Information Widget
      */
-    public By planTitle = By.xpath("//div[@id='PLAN_DETAILS']//span[@class='card__card-header--label']");
-    public By packTitle = By.xpath("//div[@id='ADD_ON_BUNDLE_USAGE']//span[@class='card__card-header--label']");
-    public By footerPackAuuid = By.xpath("//*[@id='ADD_ON_BUNDLE_USAGE']//*[@class='auuid-container']");
-    public By middlePackAuuid = By.xpath("//*[@id='ADD_ON_BUNDLE_USAGE']");
-    public By footerPlanAuuid = By.xpath("//*[@id='PLAN_DETAILS']//*[@class='auuid-container']");
-    public By middlePlanAuuid = By.xpath("//*[@id='PLAN_DETAILS']");
+    public By planTitle = By.xpath("//div[data-csautomation-key='PLAN_DETAILS']//span[@class='card__card-header--label']");
+    public By packTitle = By.xpath("//div[data-csautomation-key='ADD_ON_BUNDLE_USAGE']//span[@class='card__card-header--label']");
+    public By footerPackAuuid = By.xpath("//*[data-csautomation-key='ADD_ON_BUNDLE_USAGE']//*[@class='auuid-container']");
+    public By middlePackAuuid = By.xpath("//*[data-csautomation-key='ADD_ON_BUNDLE_USAGE']");
+    public By footerPlanAuuid = By.xpath("//*[data-csautomation-key='PLAN_DETAILS']//*[@class='auuid-container']");
+    public By middlePlanAuuid = By.xpath("//*[data-csautomation-key='PLAN_DETAILS']");
     public By currentPlanWdiget = By.xpath("//*[text()='Current Plan']");
     public By productName = By.xpath("//*[text()='Product Name']");
     public By category = By.xpath("//*[text()='Category']");
