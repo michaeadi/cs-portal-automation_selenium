@@ -245,6 +245,16 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.widgetvisibility.VisibiltyByCustomerSegment"/>
         </classes>
     </test>
+    <test name="Role Based Masking Test">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.rolebasedmasking.RoleBasedMaskingTest"/>
+        </classes>
+    </test>
     <test name="Create NFTR FTR Tickets TEST">
         <groups>
             <run>

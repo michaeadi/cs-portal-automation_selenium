@@ -669,7 +669,7 @@ public class RequestSource extends RestCommonUtils {
             commonGetMethod(URIConstants.ACTION_CONFIG,headers);
             result = response.as(ActionConfigResponse.class);
         } catch (Exception e) {
-            commonLib.fail("Exception in method - getAgentDetail " + e.getMessage(), false);
+            commonLib.fail("Exception in method - getActionConfig " + e.getMessage(), false);
         }
         return result;
     }
