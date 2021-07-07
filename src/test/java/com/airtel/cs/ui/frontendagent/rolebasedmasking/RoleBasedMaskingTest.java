@@ -110,7 +110,7 @@ public class RoleBasedMaskingTest extends Driver {
         }
       }
     } catch (Exception e) {
-      e.printStackTrace();
+      commonLib.fail("Exception in Method - checkReverseIconDisability" + e.fillInStackTrace(), true);
     }
     actions.assertAllFoundFailedAssert(assertCheck);
 
