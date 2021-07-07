@@ -36,7 +36,7 @@ public class AirtelMoneyMenuSecondaryWidgetTest extends Driver {
     @BeforeClass(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkServiceProfileFlag() {
         if (!StringUtils.equals(MULTI_AM_WALLET, "true")) {
-            commonLib.skip("Skipping because Run AM Secondary widget Test Case Flag Value is - " + MULTI_AM_WALLET);
+            commonLib.skip("Skipping because Airtel Money Detailed Secondary widget(Multi-Wallet) Test Case Flag Value is - " + MULTI_AM_WALLET);
             throw new SkipException("Skipping because this functionality does not applicable for current Opco");
         }
     }

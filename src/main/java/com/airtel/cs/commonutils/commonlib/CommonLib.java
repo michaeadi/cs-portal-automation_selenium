@@ -38,6 +38,11 @@ public class CommonLib extends Driver {
         reporter.showInExtentReport(Status.WARNING, message, false);
     }
 
+    public void warning(String message,boolean requireScreenshot) {
+        LOGGER.warn(message);
+        reporter.showInExtentReport(Status.WARNING, message, true);
+    }
+
     public void skip(String message) {
         LOGGER.warn(message);
         reporter.showInExtentReport(Status.SKIP, message, false);
