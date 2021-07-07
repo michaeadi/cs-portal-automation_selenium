@@ -122,6 +122,8 @@ public class RoleBasedMaskingTest extends Driver {
       selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Reset Pin is diabled/enabled as per CS API response or not", "description");
       Optional<ActionConfigResult> actionConfigResultop = actionConfigResultList.stream()
           .filter(result -> "resetPin".equals(result.getActionKey())).findFirst();
+      String airtelMoneyString = pages.getDemoGraphicPage().getWalletBalance().replaceAll("[^0-9]", "").trim();
+      Integer airtelMoney = StringUtils.isEmpty(airtelMoneyString) ? 0 : Integer.parseInt(airtelMoneyString);
       if (actionConfigResultop.isPresent()) {
         ActionConfigResult actionConfigResult = actionConfigResultop.get();
         pages.getDemoGraphicPage().clickAirtelStatusToUnlock();
@@ -129,8 +131,6 @@ public class RoleBasedMaskingTest extends Driver {
         pages.getAuthTabPage().clickAuthBtn();
         if (hasRole) {
           Condition condition = actionConfigResult.getConditions().get(0);
-          String airtelMoneyString = pages.getDemoGraphicPage().getWalletBalance().replaceAll("[^0-9]", "");
-          Integer airtelMoney = StringUtils.isEmpty(airtelMoneyString) ? 0 : Integer.parseInt(airtelMoneyString);
           if (">=".equals(condition.getOperator()) && airtelMoney >= condition.getThresholdValue()) {
             assertCheck.append(actions.assertEqual_boolean(pages.getDemoGraphicPage().isResetPinIconDisable(), true, "Reset PIN Icon is disable as mentioned in CS API Response", "Reset PIN Icon is not disable as mentioned in CS API Response"));
           } else if ("<".equals(condition.getOperator()) && airtelMoney < condition.getThresholdValue()) {
@@ -146,10 +146,14 @@ public class RoleBasedMaskingTest extends Driver {
       }
 
       FieldMaskConfigs amBalancefieldMaskConfigs = api.getFieldMaskConfigs("amBalance");
-      if (roleDetails.stream().anyMatch(roleName -> amBalancefieldMaskConfigs.getRoles().contains(roleName.getRoleName()))) {
-        assertCheck.append(actions.assertEqual_boolean(pages.getDemoGraphicPage().getWalletBalance().replaceAll("[^0-9]", "").trim().length() == amBalancefieldMaskConfigs.getDigitsVisible(), true, "Airtel Money masking is correct as per user role", "Airtel Money masking is not correct as per user role"));
+      String operator = amBalancefieldMaskConfigs.getOperator();
+      Integer amThresoldValue = StringUtils.isEmpty(amBalancefieldMaskConfigs.getThresholdValue())?0:Integer.parseInt(amBalancefieldMaskConfigs.getThresholdValue());
+      if (roleDetails.stream().anyMatch(roleName -> amBalancefieldMaskConfigs.getRoles().contains(roleName.getRoleName())) && (
+          (">=".equals(operator) && airtelMoney >= amThresoldValue) || ("<".equals(operator) && airtelMoney < amThresoldValue) || (
+              "=".equals(operator) && airtelMoney == amThresoldValue))) {
+          assertCheck.append(actions.assertEqual_boolean(airtelMoneyString.length() == amBalancefieldMaskConfigs.getDigitsVisible(), true, "Airtel Money masking is correct as per user role", "Airtel Money masking is not correct as per user role"));
       } else {
-        assertCheck.append(actions.assertEqual_boolean(pages.getDemoGraphicPage().getWalletBalance().contains("*"), false, "Airtel Money is not masked as per user role", "Airtel Money should not be masked as per user role"));
+        assertCheck.append(actions.assertEqual_boolean(airtelMoneyString.contains("*"), false, "Airtel Money is not masked as per user role", "Airtel Money should not be masked as per user role"));
       }
 
     } catch (Exception e){
