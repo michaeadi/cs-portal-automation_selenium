@@ -31,6 +31,6 @@ public class AMTxnWidgetPage {
     public By middleAMAuuid = By.xpath("//*[@id='AIRTEL_MONEY']");
     public By reverseLabel = By.xpath("//*[contains(text(),'ID No.')]//following-sibling::td/span");
     public String reversalIcon="//div[@data-csautomation-key='AIRTEL_MONEY']//div[contains(@class,'table-data-wrapper')]/div[";
-    public String reversalIcon2="]//img[contains(@src,'reversal')]";
+    public String reversalIcon2="]//span[contains(@class,'disabled')]";
 
 }
