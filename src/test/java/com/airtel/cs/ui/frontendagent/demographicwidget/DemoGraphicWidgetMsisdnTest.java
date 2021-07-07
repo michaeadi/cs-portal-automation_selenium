@@ -168,13 +168,13 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
             assertCheck.append(actions
                     .assertEqual_stringType(customerDOB.trim(), UtilsMethods.getDateFromEpoch(gsmKycAPI.getResult().getDob(), "dd-MMM-yyyy"),
                             "Customer DOB is as Expected", "Customer DOB is not as Expected"));
-            if(!customerDOB.equals("-"))
-            if (UtilsMethods.isCustomerBirthday(customerDOB.trim(), "dd-MMM-yyyy")) {
-                commonLib.pass("Today is Customer Birthday");
-                final boolean birthday = pages.getDemoGraphicPage().isBirthday();
-                assertCheck.append(actions.assertEqual_boolean(birthday, true, "Today is customer birthday and birthday icon displayed",
-                        "Today is customer birthday but birthday Icon NOT displayed"));
-            }
+            if (!customerDOB.equals("-"))
+                if (UtilsMethods.isCustomerBirthday(customerDOB.trim(), "dd-MMM-yyyy")) {
+                    commonLib.pass("Today is Customer Birthday");
+                    final boolean birthday = pages.getDemoGraphicPage().isBirthday();
+                    assertCheck.append(actions.assertEqual_boolean(birthday, true, "Today is customer birthday and birthday icon displayed",
+                            "Today is customer birthday but birthday Icon NOT displayed"));
+                }
             assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getIdType().toLowerCase().trim(),
                     gsmKycAPI.getResult().getIdentificationType() == null || gsmKycAPI.getResult().getIdentificationType().equals("") ?
                             "-" :
@@ -287,7 +287,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                             "-" : kycProfile.getResult().getServiceCategory().toLowerCase().trim(), "Customer Service Category as expected",
                     "Customer Service Category as not expected and is: " + serviceCategory));
             assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getServiceClass().toLowerCase().trim(),
-                    kycProfile.getResult().getServiceClass()==null ?"-":kycProfile.getResult().getServiceClass().toLowerCase().trim(), "Customer Service Class as expected",
+                    kycProfile.getResult().getServiceClass() == null ? "-" : kycProfile.getResult().getServiceClass().toLowerCase().trim(), "Customer Service Class as expected",
                     "Customer Service Class as not expected"));
             if (kycProfile.getResult().getVip()) {
                 assertCheck.append(actions
@@ -323,7 +323,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                     profileAPI.getResult().getModel().toLowerCase().trim(), "Customer device model as expected",
                     "Customer device model as not expected"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemoGraphicPage().getDeviceOS(), profileAPI.getResult().getOs(),
-                     "Customer device OS as expected", "Customer device OS as not expected"));
+                    "Customer device OS as expected", "Customer device OS as not expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
             commonLib.fail("Exception in method - testDeviceInfo " + e, true);
