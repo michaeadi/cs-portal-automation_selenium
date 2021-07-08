@@ -150,7 +150,7 @@ public class BasePage extends Driver {
      * @return String The value
      */
     public String getText(By elementLocation) {
-        String result = null;
+        String result = "";
         if (isVisible(elementLocation)) {
             highLighterMethod(elementLocation);
             result = driver.findElement(elementLocation).getText();

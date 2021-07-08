@@ -78,6 +78,7 @@ public class VisibiltyByCustomerSegment extends Driver {
         pages.getCustomerProfilePage().goToHomeTab();
       }
       if(!"none".equals(connectType)){
+        assertCheck.append(actions.assertEqual_boolean(pages.getUsageHistoryWidget().isUsageHistoryWidgetIsVisible(), true, "Usage History Widget is visible", "Usage History Widget is not visible"));
         assertCheck.append(actions.assertEqual_boolean(pages.getAmTxnWidgetPage().isAirtelMoneyTransactionWidgetVisible(), checkPermission(allPermissions, amTxnHistory_permission), "Airtel Money Transaction Widget is visible", "Airtel Money Transaction Widget is not visible"));
         assertCheck.append(actions.assertEqual_boolean(pages.getServiceClassWidget().isServiceClassWidgetDisplay(), checkPermission(allPermissions, hlr_permission), "Service Profile Widget displayed correctly as per user permission", "Service Profile Widget does not display correctly as per user  "));
         assertCheck.append(actions.assertEqual_boolean(pages.getLoanWidget().isLoanServiceWidgetVisible(), checkPermission(allPermissions, loanService_permission), "Loan Service Widget displayed correctly as per user permission", "Loan Service Widget does not display correctly as per user "));

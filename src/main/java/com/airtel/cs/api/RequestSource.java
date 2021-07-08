@@ -28,6 +28,7 @@ import com.airtel.cs.pojo.response.ProfilePOJO;
 import com.airtel.cs.pojo.response.RechargeHistoryPOJO;
 import com.airtel.cs.pojo.response.UsageHistoryPOJO;
 import com.airtel.cs.pojo.response.accumulators.AccumulatorsPOJO;
+import com.airtel.cs.pojo.response.actionconfig.ActionConfigResponse;
 import com.airtel.cs.pojo.response.actiontrail.ActionTrailPOJO;
 import com.airtel.cs.pojo.response.agentpermission.AgentPermission;
 import com.airtel.cs.pojo.response.agents.AgentDetailPOJO;
@@ -36,6 +37,8 @@ import com.airtel.cs.pojo.response.clearrefillstatus.RefillStatus;
 import com.airtel.cs.pojo.response.configuration.ConfigurationPOJO;
 import com.airtel.cs.pojo.response.crbt.ActivateRingtone;
 import com.airtel.cs.pojo.response.crbt.Top20Ringtone;
+import com.airtel.cs.pojo.response.filedmasking.FieldMaskConfigReponse;
+import com.airtel.cs.pojo.response.filedmasking.FieldMaskConfigs;
 import com.airtel.cs.pojo.response.friendsfamily.FriendsFamilyPOJO;
 import com.airtel.cs.pojo.response.hlrservice.HLRServicePOJO;
 import com.airtel.cs.pojo.response.kycprofile.KYCProfile;
@@ -631,6 +634,44 @@ public class RequestSource extends RestCommonUtils {
             commonLib.fail("Exception in method - getEventHistory " + e.getMessage(), false);
         }
         return myList;
+    }
+
+    /**
+     * This Method will hit the API "/cs-service/api/cs-service/v1/get/field/mask/config" and return the response
+     * @param actionKey
+     * @return The Response
+     */
+    public FieldMaskConfigs getFieldMaskConfigs(String actionKey) {
+        FieldMaskConfigReponse fieldMaskConfigReponse = null;
+        try {
+            queryParam.put("actionKey", actionKey);
+            commonGetMethodWithQueryParam(URIConstants.GET_FIELD_MASK_CONFIG, queryParam);
+            fieldMaskConfigReponse = response.as(FieldMaskConfigReponse.class);
+            if ("200".equals(fieldMaskConfigReponse.getStatusCode())) {
+                return fieldMaskConfigReponse.getResult();
+            } else {
+                commonLib.fail("Unable to fetch the response in getFieldMaskConfigs " + fieldMaskConfigReponse.getStatusCode(), false);
+            }
+        } catch (Exception e) {
+            commonLib.fail("Exception in method - getFieldMaskConfigs " + e.getMessage(), false);
+        }
+        return fieldMaskConfigReponse.getResult();
+    }
+
+    /**
+     * This Method will hit the API "/cs-service/api/cs-service/v1/actions/config" and return the response
+     * @param headers The headers contain auth token including common headers
+     * @return The Response
+     */
+    public ActionConfigResponse getActionConfig(Headers headers){
+        ActionConfigResponse result = null;
+        try {
+            commonGetMethod(URIConstants.ACTION_CONFIG,headers);
+            result = response.as(ActionConfigResponse.class);
+        } catch (Exception e) {
+            commonLib.fail("Exception in method - getActionConfig " + e.getMessage(), false);
+        }
+        return result;
     }
 
 }
