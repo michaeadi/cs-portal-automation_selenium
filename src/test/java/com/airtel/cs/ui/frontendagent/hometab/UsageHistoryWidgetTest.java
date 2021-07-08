@@ -81,7 +81,6 @@ public class UsageHistoryWidgetTest extends Driver {
             UsageHistoryPOJO usageHistoryAPI = api.usageHistoryTest(customerNumber);
             int size = usageHistoryWidget.getNumberOfRows();
             if (usageHistoryAPI.getResult().size() == 0 || usageHistoryAPI.getResult() == null) {
-                commonLib.warning("Unable to get Usage History Details from API");
                 assertCheck.append(actions.assertEqual_boolean(usageHistoryWidget.isUsageHistoryNoResultFoundVisible(), true, "Error Message is Visible", "Error Message is not Visible"));
                 assertCheck.append(actions.assertEqual_stringType(usageHistoryWidget.gettingUsageHistoryNoResultFoundMessage(), "No Result found", "Error Message is as expected", "Error Message is not as expected"));
             } else {

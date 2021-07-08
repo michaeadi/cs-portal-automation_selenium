@@ -104,6 +104,7 @@ public class DemoGraphic extends BasePage {
         final String time = getText(pageElements.modifiedTime);
         modifiedDate = date.concat(" ") + time;
         commonLib.info("Getting SIM Status Modified Date " + modifiedDate);
+        clickOutside();
         return modifiedDate;
     }
 
@@ -189,6 +190,7 @@ public class DemoGraphic extends BasePage {
     public String getIdNumber() {
         final String text = getText(pageElements.idNumber);
         commonLib.info("Getting masked ID Number " + text);
+        clickOutside();
         return text;
     }
 
@@ -431,10 +433,35 @@ public class DemoGraphic extends BasePage {
     public String getServiceCategory() {
         String result = null;
         try {
-            result = getText(pageElements.serviceCategory);
-            commonLib.info("Getting service Category: " + result);
+            if (isVisible(pageElements.serviceCategory)) {
+                result = getText(pageElements.serviceCategory);
+                commonLib.info("Getting service Category: " + result);
+            } else {
+                commonLib.fail("Service Category is NOT visible", true);
+            }
         } catch (Exception e) {
             commonLib.fail("Exception in method - getServiceCategory", true);
+        }
+        return result;
+    }
+
+
+    /**
+     * This method is use to get Sub Segment
+     *
+     * @return String The value
+     */
+    public String getSubSegment() {
+        String result = null;
+        try {
+            if (isVisible(pageElements.subSegment)) {
+                result = getText(pageElements.subSegment);
+                commonLib.info("Getting Sub Segment: " + result);
+            } else {
+                commonLib.fail("Sub Segment is NOT visible", true);
+            }
+        } catch (Exception e) {
+            commonLib.fail("Exception in method - getSubSegment", true);
         }
         return result;
     }
@@ -546,6 +573,7 @@ public class DemoGraphic extends BasePage {
     public void hoverOnSegmentInfoIcon() {
         commonLib.info("Hover on Segment Info icon");
         hoverOverElement(pageElements.hoverInfoSegment);
+        commonLib.hardWait(1);
     }
 
     /**
@@ -607,6 +635,7 @@ public class DemoGraphic extends BasePage {
         String result = null;
         result = getText(pageElements.pin2);
         commonLib.info("PIN2 got from UI is - " + result);
+        clickOutside();
         return result;
     }
 

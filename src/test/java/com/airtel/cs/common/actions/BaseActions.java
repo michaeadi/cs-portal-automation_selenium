@@ -59,7 +59,7 @@ public class BaseActions {
 
     public boolean assertAllFoundFailedAssert(StringBuilder AssertResults) {
         // ACTION PENDING - REQUIRE TO CALL THIS TO @AFTERMETHOD
-        if (AssertResults.toString().contains("false")) {
+        if (AssertResults.toString().equals("") || AssertResults.toString().contains("false")) {
             Assert.fail("Some Assertions failed in this testcase");
             return true;
         } else

@@ -39,7 +39,7 @@ public class AirtelMoneyTransactionWidgetTest extends Driver {
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkAirtelMoneyFlag() {
         if (!StringUtils.equals(RUN_AIRTEL_MONEY_WIDGET_TEST_CASE, "true")) {
-            commonLib.skip("Skipping because Run Airtel Money widget Test Case Flag Value is - " + RUN_AIRTEL_MONEY_WIDGET_TEST_CASE);
+            commonLib.skip("Airtel Money Widget is NOT enabled for this Opco = " + OPCO);
             throw new SkipException("Skipping because this functionality does not applicable for current Opco");
         }
     }
@@ -115,7 +115,7 @@ public class AirtelMoneyTransactionWidgetTest extends Driver {
             } else if (amTransactionHistoryAPI.getResult().getTotalCount() == null) {
                 assertCheck.append(actions.assertEqual_boolean(amTxnWidgetPage.isAirtelMoneyNoResultFoundVisible(), true, "'No Result Found' Icon displayed", "'No Result Found' Icon NOT displayed"));
             } else {
-                int count = Math.min(amTransactionHistoryAPI.getResult().getTotalCount(),5);
+                int count = Math.min(amTransactionHistoryAPI.getResult().getTotalCount(), 5);
                 assertCheck.append(actions.assertEqual_stringType(amTxnWidgetPage.getHeaders(0).toLowerCase().trim(), data.getRow1().toLowerCase().trim(), "Header Name for Row 1 is as expected", "Header Name for Row 1 is not as expected"));
                 assertCheck.append(actions.assertEqual_stringType(amTxnWidgetPage.getHeaders(1).toLowerCase().trim(), data.getRow2().toLowerCase().trim(), "Header Name for Row 2 is as expected", "Header Name for Row 2 is not as expected"));
                 assertCheck.append(actions.assertEqual_stringType(amTxnWidgetPage.getHeaders(2).toLowerCase().trim(), data.getRow3().toLowerCase().trim(), "Header Name for Row 3 is as expected", "Header Name for Row 3 is not as expected"));
@@ -129,8 +129,8 @@ public class AirtelMoneyTransactionWidgetTest extends Driver {
                     assertCheck.append(actions.assertEqual_stringType(amTxnWidgetPage.getHeaderValue(i + 1, 5), amTransactionHistoryAPI.getResult().getData().get(i).getStatus(), "Status is as expected as of CS API response", "Status is not expected as of CS API response"));
                     assertCheck.append(actions.assertEqual_boolean(amTxnWidgetPage.isResendSMS(i + 1), amTransactionHistoryAPI.getResult().getData().get(i).getEnableResendSms(), "Resend SMS Icon is enabled/disabled as mentioned in CS API Response", "Resend SMS Icon does not enable/disable as mentioned in CS API Response"));
                     String id = amTxnWidgetPage.doubleClickOnTransactionId(i + 1);
-                    String message=amTxnWidgetPage.getToastMessage();
-                    assertCheck.append(actions.assertEqual_boolean(message.contains(id),true,"Transaction id copied to clipboard successfully", "Transaction id does not copy to clipboard"));
+                    String message = amTxnWidgetPage.getToastMessage();
+                    assertCheck.append(actions.assertEqual_boolean(message.contains(id), true, "Transaction id copied to clipboard successfully", "Transaction id does not copy to clipboard"));
                 }
             }
             actions.assertAllFoundFailedAssert(assertCheck);
