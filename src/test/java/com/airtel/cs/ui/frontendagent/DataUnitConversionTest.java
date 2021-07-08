@@ -45,17 +45,17 @@ public class DataUnitConversionTest extends Driver {
 
     @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void usageHistoryWidgetTest() {
-        selUtils.addTestcaseDescription("Validating Usage History Widget MB to GB Conversion,CSP-63391 Verify that in Usage History Widget if the data amount is coming MB from ESB com.airtel.cs.API then CS Portal should show the data amount after converting it to GB", "description");
+        selUtils.addTestcaseDescription("Validating Usage History Widget MB to GB Conversion,CSP-63391 Verify that in Usage History Widget if the data amount is coming MB from ESB CS API then CS Portal should show the data amount after converting it to GB", "description");
         String startBalanceUnit = null;
         String endBalanceUnit = null;
         Double startBalanceAmount = null;
         Double endBalanceAmount = null;
 
-        UsageHistoryPOJO usageHistoryAPI = api.usageHistoryTest(customerNumber);
+        UsageHistoryPOJO usageHistoryAPI = api.usageHistoryTest(constants.getValue(ApplicationConstants.USAGE_HISTORY_MSISDN));
         if (usageHistoryAPI.getStatusCode() != 200) {
             commonLib.fail("API is unable to give Usage History", false);
         } else if (usageHistoryAPI.getResult().size() == 0 || usageHistoryAPI.getResult() == null) {
-            commonLib.warning("Unable to get Usage History Details from com.airtel.cs.API");
+            commonLib.warning("Unable to get Usage History Details from CS API");
         } else {
             for (int i = 0; i < usageHistoryAPI.getResult().size(); i++) {
                 if (usageHistoryAPI.getResult().get(i).getStartBalance().equalsIgnoreCase("-")) {
@@ -91,16 +91,16 @@ public class DataUnitConversionTest extends Driver {
 
     @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void usageHistoryMenuWidgetTest() {
-        selUtils.addTestcaseDescription("Validating Usage History Menu Widget MB to GB Conversion,CSP-63392 Verify that in Usage History Detailed Widget if the data amount is coming MB from ESB com.airtel.cs.API then CS Portal should show the data amount after converting it to GB", "description");
+        selUtils.addTestcaseDescription("Validating Usage History Menu Widget MB to GB Conversion,CSP-63392 Verify that in Usage History Detailed Widget if the data amount is coming MB from ESB CS API then CS Portal should show the data amount after converting it to GB", "description");
         String startBalanceUnit = null;
         String endBalanceUnit = null;
         Double startBalanceAmount = null;
         Double endBalanceAmount = null;
-        UsageHistoryPOJO usageHistoryAPI = api.usageHistoryMenuTest(customerNumber);
+        UsageHistoryPOJO usageHistoryAPI = api.usageHistoryMenuTest(constants.getValue(ApplicationConstants.USAGE_HISTORY_MSISDN));
         if (usageHistoryAPI.getStatusCode() != 200) {
             commonLib.fail("API is unable to give Usage History", false);
         } else if (usageHistoryAPI.getResult().isEmpty() || usageHistoryAPI.getResult() == null) {
-            commonLib.warning("Unable to get Usage History Details from com.airtel.cs.API");
+            commonLib.warning("Unable to get Usage History Details from CS API");
         } else {
             for (int i = 0; i < usageHistoryAPI.getResult().size(); i++) {
                 if (usageHistoryAPI.getResult().get(i).getStartBalance().equalsIgnoreCase("-")) {
@@ -137,11 +137,11 @@ public class DataUnitConversionTest extends Driver {
     @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void rechargeHistoryUnitConversionTest() {
         selUtils.addTestcaseDescription("Validating Recharge History Widget MB to GB Conversion,CSP-63393 Verify that in Recharge History Widget if the data amount is coming MB from ESB com.airtel.cs.API then CS Portal should show the data amount after converting it to GB", "description");
-        RechargeHistoryPOJO rechargeHistoryAPI = api.rechargeHistoryAPITest(customerNumber);
+        RechargeHistoryPOJO rechargeHistoryAPI = api.rechargeHistoryAPITest(constants.getValue(ApplicationConstants.RECHARGE_HISTORY_MSISDN));
         if (rechargeHistoryAPI.getStatusCode() != 200 || rechargeHistoryAPI.getStatus().equalsIgnoreCase("something went wrong")) {
             commonLib.fail("API is unable to give Recharge History", false);
         } else if (rechargeHistoryAPI.getResult().isEmpty() || rechargeHistoryAPI.getResult() == null) {
-            commonLib.warning("Unable to get Usage History Details from com.airtel.cs.API");
+            commonLib.warning("Unable to get Usage History Details from CS API");
         } else {
             for (int i = 0; i < rechargeHistoryAPI.getResult().size(); i++) {
                 if (rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getDATA() != null && !rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getDATA().equalsIgnoreCase("0")) {
@@ -162,12 +162,12 @@ public class DataUnitConversionTest extends Driver {
 
     @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void daDetailsUnitConversionTest() {
-        selUtils.addTestcaseDescription("Validating DA Details History Widget MB to GB Conversion,CSP-63396 Verify that in DA Details Widget if the data amount is coming MB from ESB com.airtel.cs.API then CS Portal should show the data amount after converting it to GB", "description");
+        selUtils.addTestcaseDescription("Validating DA Details History Widget MB to GB Conversion,CSP-63396 Verify that in DA Details Widget if the data amount is coming MB from ESB CS API then CS Portal should show the data amount after converting it to GB", "description");
         AccountsBalancePOJO plansAPI = api.balanceAPITest(customerNumber);
         if (plansAPI.getStatusCode() != 200 || plansAPI.getStatus().equalsIgnoreCase("something went wrong")) {
             commonLib.fail("API is unable to give DA Details History", false);
         } else if (plansAPI.getResult().isEmpty() || plansAPI.getResult() == null) {
-            commonLib.warning("Unable to get Usage History Details from com.airtel.cs.API");
+            commonLib.warning("Unable to get Usage History Details from CS API");
         } else {
             for (int i = 0; i < plansAPI.getResult().size(); i++) {
                 if (plansAPI.getResult().get(i).getCurrentDaBalance() != null && !plansAPI.getResult().get(i).getCurrentDaBalance().equalsIgnoreCase("0")) {

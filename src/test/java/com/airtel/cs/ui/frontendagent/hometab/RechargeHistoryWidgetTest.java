@@ -11,6 +11,7 @@ import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pagerepository.pagemethods.RechargeHistoryWidget;
 import com.airtel.cs.pojo.response.RechargeHistoryPOJO;
 import lombok.extern.java.Log;
+import org.apache.commons.lang3.StringUtils;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -20,6 +21,7 @@ public class RechargeHistoryWidgetTest extends Driver {
 
     private static String customerNumber = null;
     private final BaseActions actions = new BaseActions();
+    public static final String RUN_RECHARGE_WIDGET_TEST_CASE = constants.getValue(ApplicationConstants.RUN_RECHARGE_WIDGET_TESTCASE);
     RequestSource api = new RequestSource();
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
@@ -27,6 +29,14 @@ public class RechargeHistoryWidgetTest extends Driver {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
             throw new SkipException("Skipping tests because user NOT able to login Over Portal");
+        }
+    }
+
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void checkRechargeHistoryFlag() {
+        if (!StringUtils.equals(RUN_RECHARGE_WIDGET_TEST_CASE, "true")) {
+            commonLib.skip("Skipping because Run Recharge widget Test Case Flag Value is - " + RUN_RECHARGE_WIDGET_TEST_CASE);
+            throw new SkipException("Skipping because this functionality does not applicable for current Opco");
         }
     }
 

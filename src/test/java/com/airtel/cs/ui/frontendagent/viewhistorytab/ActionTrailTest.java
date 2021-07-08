@@ -1,10 +1,14 @@
 package com.airtel.cs.ui.frontendagent.viewhistorytab;
 
+import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.common.actions.BaseActions;
+import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
+import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
+import com.airtel.cs.pojo.response.actiontrail.ActionTrailPOJO;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;
@@ -15,6 +19,9 @@ public class ActionTrailTest extends Driver {
 
     String comments = "Adding comment using Automation";
     private final BaseActions actions = new BaseActions();
+    RequestSource api = new RequestSource();
+    private static String customerNumber = null;
+
 
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
@@ -29,7 +36,7 @@ public class ActionTrailTest extends Driver {
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
-            final String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
+            customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().openCustomerInteractionPage();
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
@@ -66,12 +73,20 @@ public class ActionTrailTest extends Driver {
     public void validateActionTrailValue() {
         try {
             selUtils.addTestcaseDescription("Verify View History tab opened successfully,Verify Action Trail History tab is visible,Validate column's value are visible and correct", "description");
-            assertCheck.append(actions.assertEqual_stringType(pages.getActionTrailPage().getValue(1, 1).toLowerCase().trim(), "send internet settings", "Action Type Column value displayed Correctly", "Action Type Column Value does not displayed Correctly"));
-            assertCheck.append(actions.assertEqual_stringNotNull(pages.getActionTrailPage().getValue(1, 2).toLowerCase().trim(), "Date & Time Column displayed Correctly", "Date & Time Column does not displayed Correctly"));
-            assertCheck.append(actions.assertEqual_stringType(pages.getActionTrailPage().getValue(1, 3).toLowerCase().trim(), reason.toLowerCase().trim(), "Reason Column displayed Correctly", "Reason Column does not displayed Correctly"));
-            assertCheck.append(actions.assertEqual_stringType(pages.getActionTrailPage().getValue(1, 4), loginAUUID, "Agent Id Column displayed Correctly", "Agent Id Column does not displayed Correctly"));
-            assertCheck.append(actions.assertEqual_stringNotNull(pages.getActionTrailPage().getValue(1, 5).toLowerCase().trim(), "Agent name Column displayed Correctly", "Agent name Column does not displayed in Correctly"));
-            assertCheck.append(actions.assertEqual_stringType(pages.getActionTrailPage().getValue(1, 6).toLowerCase().trim(), comments.toLowerCase().trim(), "Comments Column displayed Correctly", "Comments Column does not displayed in Correctly"));
+            ActionTrailPOJO actionTrailAPI = api.getEventHistory(customerNumber, "ACTION");
+            final int statusCode = actionTrailAPI.getStatusCode();
+            assertCheck.append(actions.assertEqual_intType(statusCode, 200, "Action Trail API success and status code is :" + statusCode, "Action Trail API got failed and status code is :" + statusCode));
+            if (statusCode == 200) {
+                int size=Math.min(actionTrailAPI.getTotalCount(),10);
+                for(int i=0;i<size;i++) {
+                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getActionTrailPage().getValue(i+1, 1), actionTrailAPI.getResult().get(i).getActionType(), "Action Type Column value displayed Correctly", "Action Type Column Value does not displayed Correctly"));
+                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getActionTrailPage().getValue(i+1, 2), UtilsMethods.getDateFromEpoch(new Long(actionTrailAPI.getResult().get(i).getCreatedOn()),constants.getValue(CommonConstants.APPLICATION_UI_TIME_FORMAT)),"Date & Time Column displayed Correctly", "Date & Time Column does not displayed Correctly"));
+                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getActionTrailPage().getValue(i+1, 3) ,actionTrailAPI.getResult().get(i).getReason(), "Reason Column displayed Correctly", "Reason Column does not displayed Correctly"));
+                    assertCheck.append(actions.assertEqual_stringType(pages.getActionTrailPage().getValue(i+1, 4), actionTrailAPI.getResult().get(i).getAgentId(), "Agent Id Column displayed Correctly", "Agent Id Column does not displayed Correctly"));
+                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getActionTrailPage().getValue(i+1, 5),actionTrailAPI.getResult().get(i).getAgentName() ,"Agent name Column displayed Correctly", "Agent name Column does not displayed in Correctly"));
+                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getActionTrailPage().getValue(i+1, 6),actionTrailAPI.getResult().get(i).getComments() , "Comments Column displayed Correctly", "Comments Column does not displayed in Correctly"));
+                }
+            }
         } catch (NoSuchElementException | TimeoutException | IndexOutOfBoundsException e) {
             commonLib.fail("Exception in Method - validateActionTrailValue" + e.fillInStackTrace(), true);
         }

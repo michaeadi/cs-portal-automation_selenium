@@ -8,10 +8,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class rechargeBenefitPOJO {
-    //    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     @JsonProperty("SMS")
     String SMS;
     @JsonProperty("DATA")

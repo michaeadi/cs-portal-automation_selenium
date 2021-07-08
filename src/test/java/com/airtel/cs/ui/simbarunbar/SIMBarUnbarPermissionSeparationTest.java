@@ -45,7 +45,6 @@ public class SIMBarUnbarPermissionSeparationTest extends Driver {
         try {
             pages.getCustomerProfilePage().clickOnAction();
             assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isSuspendSIMOptionVisible(), true, "Suspend SIM Option is Visible under Actions Tab", "Suspend SIM Option is NOT Visible under Actions Tab"));
-            pages.getCustomerProfilePage().clickOnAction();
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - viewSIMBarOption " + e.getMessage(), true);
