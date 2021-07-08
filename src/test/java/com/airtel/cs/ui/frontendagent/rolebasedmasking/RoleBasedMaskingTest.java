@@ -157,7 +157,7 @@ public class RoleBasedMaskingTest extends Driver {
       }
 
     } catch (Exception e){
-      e.printStackTrace();
+      commonLib.fail("Exception in Method - checkResetPinDisabilityAndAmBalanceMasking" + e.fillInStackTrace(), true);
     }
     actions.assertAllFoundFailedAssert(assertCheck);
   }
@@ -175,7 +175,7 @@ public class RoleBasedMaskingTest extends Driver {
       }
 
     } catch (Exception e){
-      e.printStackTrace();
+      commonLib.fail("Exception in Method - checkNationalIdMasking" + e.fillInStackTrace(), true);
     }
     actions.assertAllFoundFailedAssert(assertCheck);
   }
@@ -222,7 +222,7 @@ public class RoleBasedMaskingTest extends Driver {
 
       }
     } catch (Exception e) {
-      e.printStackTrace();
+      commonLib.fail("Exception in Method - checkUsageHistoryMasking" + e.fillInStackTrace(), true);
     }
     actions.assertAllFoundFailedAssert(assertCheck);
   }
