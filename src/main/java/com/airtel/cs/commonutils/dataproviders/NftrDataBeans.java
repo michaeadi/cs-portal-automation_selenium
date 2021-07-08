@@ -69,17 +69,13 @@ public class NftrDataBeans {
     String ticketFieldType7;
     String ticketFieldMandatory7;
 
-    String workgroup1;
-    String sla1;
-    String workgroup2;
-    String sla2;
-    String workgroup3;
-    String sla3;
-    String workgroup4;
-    String sla4;
-    String committedSLA;
-    String assignmentQueue;
-    String priority;
+    String customerVip;
+    String lineType;
+    String customerType;
+    String serviceCategory;
+    String customerSegment;
+    String customerSubSegment;
+    String interactionChannel;
     String ticketNumber;
 
     int rowNum;

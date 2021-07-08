@@ -1,6 +1,9 @@
 package com.airtel.cs.commonutils.dataproviders;
 
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
+import com.airtel.cs.commonutils.dataproviders.rulefile.AssignmentQueueRuleBeanToExcel;
+import com.airtel.cs.commonutils.dataproviders.rulefile.AssignmentQueueRuleDataBeans;
+import com.airtel.cs.commonutils.dataproviders.rulefile.SLARuleFileDataBeans;
 import com.airtel.cs.commonutils.excelutils.WriteTicket;
 import com.airtel.cs.driver.Driver;
 import com.codoid.products.fillo.Connection;
@@ -22,12 +25,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.PriorityQueue;
+import java.util.Collections;
+import java.util.Comparator;
 
 @Log4j2
 public class DataProviders extends Driver {
 
     public static Properties config = Driver.config;
     public static List<String> ticketNumbers = new ArrayList<>();
+    public static List<AssignmentQueueRuleDataBeans> queueRuleFile = null;
+    public static List<SLARuleFileDataBeans> slaRuleFile = null;
 
     /**
      * This method used to get all tagged issue detail with all widget
@@ -751,6 +759,59 @@ public class DataProviders extends Driver {
             }
         }
         return recordSet;
+    }
+
+    /**
+     *This method use to read assignment rule file and save the list of rule into static object queueRuleFile
+     */
+    public static void getAssignmentRuleExcelFile(){
+        AssignmentQueueRuleBeanToExcel assignmentQueue = new AssignmentQueueRuleBeanToExcel();
+        queueRuleFile= assignmentQueue.getData(excelPath, constants.getValue(CommonConstants.TICKET_CREATION_ASSIGNMENT_QUEUE_RULE));
+    }
+
+    /**
+     * This method use to get all the queue rule based on category code from the assignment queue rule list
+     * @param code The category code
+     * @return list of Assignment rules
+     */
+    public PriorityQueue<AssignmentQueueRuleDataBeans> getQueueRuleBasedOnCode(String code){
+        if(queueRuleFile.isEmpty()){
+            getAssignmentRuleExcelFile();
+        }
+        PriorityQueue<AssignmentQueueRuleDataBeans> pq = new PriorityQueue<AssignmentQueueRuleDataBeans>(5,
+                Collections.reverseOrder(Comparator.comparing(AssignmentQueueRuleDataBeans::getRulePriority)));
+        for(AssignmentQueueRuleDataBeans rules:queueRuleFile){
+            if(rules.getCategoryCode().equalsIgnoreCase(code)){
+                pq.add(rules);
+            }
+        }
+        return pq;
+    }
+
+    /**
+     *This method use to read sla rule file and save the list of rule into static object slaRuleFile
+     */
+    public static void getSLARuleExcelFile(){
+        AssignmentQueueRuleBeanToExcel assignmentQueue = new AssignmentQueueRuleBeanToExcel();
+        queueRuleFile= assignmentQueue.getData(excelPath, constants.getValue(CommonConstants.TICKET_CREATION_ASSIGNMENT_QUEUE_RULE));
+    }
+
+    /**
+     * This method use to get all the sla rule based on category code from the sla queue rule list
+     * @param code The category code
+     * @return list of sla rules
+     */
+    public List<SLARuleFileDataBeans> getSLARuleBasedOnCode(String code){
+        List<SLARuleFileDataBeans> ruleQueue = new ArrayList<>();
+        if(slaRuleFile.isEmpty()){
+            getSLARuleExcelFile();
+        }
+        for(SLARuleFileDataBeans rules:slaRuleFile){
+            if(rules.getCategoryCode().equalsIgnoreCase(code)){
+                ruleQueue.add(rules);
+            }
+        }
+        return ruleQueue;
     }
 
 }

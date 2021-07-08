@@ -198,42 +198,29 @@ public class NftrDataExcelToBeanDao {
                                 nftrDataBeans.setTicketFieldMandatory7(cellValue);
                                 break;
                             case 47:
-                                nftrDataBeans.setWorkgroup1(cellValue);
+                                nftrDataBeans.setCustomerVip(cellValue);
                                 break;
                             case 48:
-                                nftrDataBeans.setSla1(cellValue);
+                                nftrDataBeans.setLineType(cellValue);
                                 break;
                             case 49:
-                                nftrDataBeans.setWorkgroup2(cellValue);
+                                nftrDataBeans.setCustomerType(cellValue);
                                 break;
                             case 50:
-                                nftrDataBeans.setSla2(cellValue);
+                                nftrDataBeans.setServiceCategory(cellValue);
                                 break;
                             case 51:
-                                nftrDataBeans.setWorkgroup3(cellValue);
+                                nftrDataBeans.setCustomerSegment(cellValue);
                                 break;
                             case 52:
-                                nftrDataBeans.setSla3(cellValue);
+                                nftrDataBeans.setCustomerSubSegment(cellValue);
                                 break;
                             case 53:
-                                nftrDataBeans.setWorkgroup4(cellValue);
+                                nftrDataBeans.setInteractionChannel(cellValue);
                                 break;
                             case 54:
-                                nftrDataBeans.setSla4(cellValue);
-                                break;
-                            case 55:
-                                nftrDataBeans.setCommittedSLA(cellValue);
-                                break;
-                            case 56:
-                                nftrDataBeans.setAssignmentQueue(cellValue);
-                                break;
-                            case 57:
-                                nftrDataBeans.setPriority(cellValue);
-                                break;
-                            case 58:
                                 nftrDataBeans.setTicketNumber(cellValue);
                                 break;
-
                         }
                     }
                 }

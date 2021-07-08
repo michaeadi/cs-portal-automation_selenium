@@ -64,5 +64,7 @@ public class CommonConstants {
     public static final String ADJUSTMENT_REASON_RECHARGE="cs.adjustment.reason.recharge";
     public static final String ADJUSTMENT_REASON_USAGE="cs.adjustment.reason.usage";
     public static final String ADJUSTMENT_REASON_OTHERS="cs.adjustment.reason.others";
+    public static final String TICKET_CREATION_ASSIGNMENT_QUEUE_RULE="cs.assignment.queue.rule.file";
+    public static final String TICKET_CREATION_SLA_CALCULATION_RULE="cs.sla.calculation.rule.file";
 
 }
