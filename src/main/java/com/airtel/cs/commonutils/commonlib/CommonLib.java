@@ -24,25 +24,57 @@ import java.util.Map;
 import java.util.HashMap;
 
 public class CommonLib extends Driver {
+    /**
+     * This method is use to log the failure message into report
+     * @param message The Message
+     * @param requireScreenshot The screenshot True/False
+     */
     public void fail(String message, boolean requireScreenshot) {
         LOGGER.error(message);
         reporter.showInExtentReport(Status.FAIL, message, requireScreenshot);
     }
 
+    /**
+     * This method is use to log the error message into report
+     * @param message The Message
+     * @param requireScreenshot The screenshot True/False
+     */
     public void error(String message, boolean requireScreenshot) {
         fail(message,requireScreenshot);
     }
 
+    /**
+     * This method is use to log the warning message into report
+     * @param message The Message
+     */
     public void warning(String message) {
-        LOGGER.warn(message);
-        reporter.showInExtentReport(Status.WARNING, message, false);
+        warning(message,false);
     }
 
+    /**
+     * This method is use to log the warning message into report
+     * @param message The Message
+     * @param requireScreenshot The screenshot true/false
+     */
+    public void warning(String message,boolean requireScreenshot) {
+        LOGGER.warn(message);
+        reporter.showInExtentReport(Status.WARNING, message, requireScreenshot);
+    }
+
+    /**
+     * This method is use to log the skip message into report
+     * @param message The Message
+     */
     public void skip(String message) {
         LOGGER.warn(message);
         reporter.showInExtentReport(Status.SKIP, message, false);
     }
 
+    /**
+     * This method use to halt the execution of test cases for specific time with user defined reason
+     * @param time The time in seconds
+     * @param reasonForWait The message
+     */
     public void hardWait(int time, String reasonForWait) {
         try {
             if (!reasonForWait.equals("")) {
@@ -55,14 +87,24 @@ public class CommonLib extends Driver {
         }
     }
 
+    /**
+     * This method use to halt the execution of test cases for specific time without any reason
+     * @param time The time in seconds
+     */
     public void hardWait(int time) {
         hardWait(time, "");
     }
 
+    /**
+     * This method use to halt the execution of test cases for three seconds in-case of time is not specify
+     */
     public void hardWait() {
         hardWait(3);
     }
 
+    /**
+     * This method use to capture browser console log
+     */
     public void captureConsoleLogs() {
         info("Printing Browser Console Logs : ");
         try {
@@ -80,6 +122,9 @@ public class CommonLib extends Driver {
         }
     }
 
+    /**
+     * This method use to get session id from browser console
+     */
     public String getBrowserConsoleInformation() {
         String sessionId = "";
         try {
@@ -103,38 +148,67 @@ public class CommonLib extends Driver {
      * Logs Info tag - This will consist info for all steps happening within
      * test-case
      */
-
     public void infoHighlight(String string1WithoutHighlight, String string2WithHighlight,
                               ReportInfoMessageColorList reportInfoMessageColorList) {
         LOGGER.info(string1WithoutHighlight.concat(string2WithHighlight));
         infoHighlight(string1WithoutHighlight, string2WithHighlight, reportInfoMessageColorList, false);
     }
 
+    /**
+     * Logs Info tag - This will consist info for all steps happening within
+     * test-case
+     */
     public void infoHighlight(String string1WithoutHighlight, String string2WithHighlight,
                               ReportInfoMessageColorList reportInfoMessageColorList, Boolean requiredScreenshot) {
         reporter.showInExtentReportTextHighlight(string1WithoutHighlight, string2WithHighlight,
                 reportInfoMessageColorList, requiredScreenshot);
     }
 
+    /**
+     * Logs Info tag - This will consist info for all steps happening within
+     * test-case
+     */
     public void infoHighlightUnmatchedValue(String itemNamesForComparision, String actualValues,
                                             String expectedValues) {
         reporter.showInExtentReportHighlightUnmatchedValue(itemNamesForComparision, actualValues, expectedValues);
     }
 
-
+    /**
+     * This method used to log the info message into report
+     * @param message The message
+     */
     public void info(String message) {
         info(message, false);
     }
 
+    /**
+     * This method used to log the message into report
+     * @param message The message
+     */
     public void logs(String message) {
         LOGGER.info(message);
     }
 
+    /**
+     * This method used to log the info message into report
+     * @param message The message
+     * @param requireScreenshot The Screenshot True/False
+     */
     public void info(String message, boolean requireScreenshot) {
         LOGGER.info(message);
         reporter.showInExtentReport(Status.INFO, message, requireScreenshot);
     }
 
+    /**
+     * This method used to log the info message into report with different colors
+     * Based on Color Status Message change
+     * Green Color -> represent pass Message
+     * Red Color -> represent fail Message
+     * Other color -> represent info Message
+     * @param message The message
+     * @param javaColors The Color
+     * @param requireScreenshot The Screenshot True/False
+     */
     public void infoColored(String message, JavaColors javaColors, boolean requireScreenshot) {
         LOGGER.info(message);
         if (javaColors.equals(JavaColors.GREEN)) {
@@ -146,11 +220,21 @@ public class CommonLib extends Driver {
         }
     }
 
+    /**
+     * This method used to log the pass message into report
+     * @param message The message
+     */
     public void pass(String message) {
         LOGGER.info(message);
         reporter.showInExtentReport(Status.PASS, message, false);
     }
 
+    /**
+     * This method is used to set the status pass or fail based on status
+     * @param status The status True/False
+     * @param message The Message
+     * @param requireScreenshot The Screenshot True/False
+     */
     public void setStatusInReport(boolean status, String message, boolean requireScreenshot) {
         if (status) {
             LOGGER.info(message);
@@ -161,6 +245,13 @@ public class CommonLib extends Driver {
         }
     }
 
+    /**
+     * This method is used to set the status pass or fail based on status
+     * @param status The status True/False
+     * @param passMessage The pass message
+     * @param failMessage The fail message
+     * @param requireScreenshot The Screenshot True/False
+     */
     public void setStatusInReport(boolean status, String passMessage, String failMessage, boolean requireScreenshot) {
         if (status) {
             LOGGER.info(passMessage);
@@ -171,6 +262,10 @@ public class CommonLib extends Driver {
         }
     }
 
+    /**
+     * This method is use to log the error message into report
+     * @param message The Message
+     */
     public void error(String message) {
         error(message, false);
     }
@@ -194,12 +289,22 @@ public class CommonLib extends Driver {
 
     }
 
+    /**
+     * This method use to get current date and time in format 'yyyy-mm-dd HH:mm:ss'
+     * @return The Date & time
+     */
     public String getNowDateTime() {
         DateFormat df = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
         Date dateobj = new Date();
         return df.format(dateobj);
     }
 
+    /**
+     * This method use to convert String array to string
+     * @param strArr The String Array
+     * @param delimiter The delimiter
+     * @return String the result
+     */
     public String convertStringArrayToString(String[] strArr, String delimiter) {
         StringBuilder sb = new StringBuilder();
         for (String str : strArr) {
@@ -208,6 +313,12 @@ public class CommonLib extends Driver {
         return sb.substring(0, sb.length() - 1);
     }
 
+    /**
+     * This method use to convert String array to string
+     * @param strArr The String Array
+     * @param delimiter The delimiter
+     * @return String the result
+     */
     public String convertStringListToString(List<String> strArr, String delimiter) {
         StringBuilder sb = new StringBuilder();
         for (String str : strArr) {
@@ -216,12 +327,22 @@ public class CommonLib extends Driver {
         return sb.substring(0, sb.length() - 1);
     }
 
+    /**
+     * This method use to get random number between two integer
+     * @param startRange The start range
+     * @param endRange The end range
+     * @return Integer The random number
+     */
     public int getRandomNumberBetweenTwoNumbers(int startRange, int endRange) {
         Random r;
         r = new Random();
         return r.nextInt(endRange - startRange) + startRange;
     }
 
+    /**
+     * This method use to get random number of length 10
+     * @return Integer The random number
+     */
     public long get10DigitRandomNumber() {
         int digitCount = 0;
         long theRandomNum = 0;

@@ -1,5 +1,6 @@
 package com.airtel.cs.pojo.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,8 +11,8 @@ import java.util.ArrayList;
 @Getter
 @Setter
 @ToString
-@JsonInclude(JsonInclude.Include.ALWAYS)
-
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Voice {
     @JsonInclude(JsonInclude.Include.USE_DEFAULTS)
     String balance;

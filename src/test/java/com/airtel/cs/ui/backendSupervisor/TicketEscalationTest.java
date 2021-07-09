@@ -55,7 +55,7 @@ public class TicketEscalationTest extends Driver {
                         assertCheck.append(actions.assertEqual_boolean(symbol.equalsIgnoreCase("!") || symbol.equalsIgnoreCase("!!") || symbol.equalsIgnoreCase("!!!"), true, symbol + " - Ticket Escalation Symbol displayed as ticket escalated.", "Ticket Symbol not displayed correctly"));
                     }
                 } else {
-                    commonLib.warning("No Ticket Found for Selected Filter");
+                    commonLib.warning("No Ticket Found for Selected Filter",true);
                 }
                 pages.getSupervisorTicketList().resetFilter();
             } catch (NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
@@ -85,7 +85,7 @@ public class TicketEscalationTest extends Driver {
                             assertCheck.append(actions.assertEqual_boolean(symbol.equalsIgnoreCase("!"), true, symbol + " - Ticket Escalation Symbol displayed as ticket escalated.", "Ticket Symbol not displayed correctly"));
                         }
                     } else {
-                        commonLib.warning("No Ticket Found for Selected Filter");
+                        commonLib.warning("No Ticket Found for Selected Filter",true);
                     }
 
                 } catch (NoSuchElementException | TimeoutException e) {
@@ -120,7 +120,7 @@ public class TicketEscalationTest extends Driver {
                             assertCheck.append(actions.assertEqual_boolean(symbol.equalsIgnoreCase("!!!"), true, symbol + " - Ticket Escalation Symbol displayed as ticket escalated.", symbol + " - Ticket Symbol not displayed correctly"));
                         }
                     } else {
-                        commonLib.warning("No Ticket Found for Selected Filter");
+                        commonLib.warning("No Ticket Found for Selected Filter",true);
                     }
 
                 } catch (NoSuchElementException | TimeoutException e) {
@@ -156,7 +156,7 @@ public class TicketEscalationTest extends Driver {
                             assertCheck.append(actions.assertEqual_boolean(symbol.equalsIgnoreCase("!!"), true, symbol + " - Ticket Escalation Symbol displayed as ticket escalated.", symbol + " - Ticket Symbol not displayed correctly"));
                         }
                     } else {
-                        commonLib.warning("No Ticket Found for Selected Filter");
+                        commonLib.warning("No Ticket Found for Selected Filter",true);
                     }
 
                 } catch (NoSuchElementException | TimeoutException e) {

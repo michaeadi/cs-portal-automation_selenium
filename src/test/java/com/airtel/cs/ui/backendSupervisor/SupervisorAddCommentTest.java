@@ -61,7 +61,7 @@ public class SupervisorAddCommentTest extends Driver {
                     pages.getViewTicket().clickBackButton();
                 }
             } catch (NoSuchElementException | TimeoutException e) {
-                commonLib.fail("No Ticket Found in open state " + e.fillInStackTrace(), true);
+                commonLib.warning("No Ticket Found in open state " + e.fillInStackTrace(), true);
             }
         } catch (Exception e) {
             commonLib.fail("Exception in Method - addCommentOnTicket" + e.fillInStackTrace(), true);
