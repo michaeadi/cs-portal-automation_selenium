@@ -39,8 +39,8 @@ public class DisplayOfferWidgetTest extends Driver {
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkServiceProfileFlag() {
         if (!StringUtils.equals(RUN_DISPLAY_OFFER_TEST_CASE, "true")) {
-            commonLib.skip("Skipping because Run Display Offer widget Test Case Flag Value is - " + RUN_DISPLAY_OFFER_TEST_CASE);
-            throw new SkipException("Skipping because this functionality does not applicable for current Opco");
+            commonLib.skip("Display Offer Widget is NOT Enabled for this Opco=" + OPCO);
+            throw new SkipException("Display Offer Widget is NOT Enabled for this Opco=" + OPCO);
         }
     }
 

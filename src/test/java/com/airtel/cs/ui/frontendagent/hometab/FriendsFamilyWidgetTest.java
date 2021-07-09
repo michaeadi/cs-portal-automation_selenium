@@ -44,8 +44,8 @@ public class FriendsFamilyWidgetTest extends Driver {
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkServiceProfileFlag() {
         if (!StringUtils.equals(RUN_FNF_WIDGET_TEST_CASE, "true")) {
-            commonLib.skip("Skipping because Run Friend & Family widget Test Case Flag Value is - " + RUN_FNF_WIDGET_TEST_CASE);
-            throw new SkipException("Skipping because this functionality does not applicable for current Opco");
+            commonLib.skip("FNF Widget is NOT Enabled for this Opco=" + OPCO);
+            throw new SkipException("FNF Widget is NOT Enabled for this Opco=" + OPCO);
         }
     }
 

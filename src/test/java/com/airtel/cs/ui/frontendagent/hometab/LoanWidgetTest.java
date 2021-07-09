@@ -45,7 +45,7 @@ public class LoanWidgetTest extends Driver {
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkLoanWidgetFlag() {
         if (!StringUtils.equals(RUN_LOAN_WIDGET_TEST_CASE, "true")) {
-            commonLib.skip("Skipping because Run Loan widget Test Case Flag Value is - " + RUN_LOAN_WIDGET_TEST_CASE);
+            commonLib.skip("Loan Widget is NOT Enabled for this Opco= " + OPCO);
             throw new SkipException("Skipping because this functionality does not applicable for current Opco");
         }
     }

@@ -83,7 +83,7 @@ public class UsageHistoryDetailedWidgetTest extends Driver {
                 assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailedUsageHistoryPage().getHeaders(7), data.getRow7(), "Header Name for Row 7 is as expected", "Header Name for Row 7 is not as expected"));
                 assertCheck.append(actions.assertEqual_boolean(pages.getDetailedUsageHistoryPage().isPagination(), true, "Pagination does display on UI", "Pagination does not display on UI"));
             } else if (usageHistoryAPI.getResult().size() == 0 || usageHistoryAPI.getResult() == null) {
-                commonLib.warning("Unable to get Usage History Details from API");
+                commonLib.warning("No Usage History Found for this MSISDN over the CS Portal");
                 assertCheck.append(actions.assertEqual_boolean(pages.getDetailedUsageHistoryPage().getNoResultFound(), true, "No Result Message & icon Visible", "No Result Message is not Visible"));
             }
         } catch (Exception e) {
@@ -105,7 +105,7 @@ public class UsageHistoryDetailedWidgetTest extends Driver {
                 if (statusCode != 200) {
                     commonLib.fail("API is Unable to Get usage history for Customer", false);
                 } else if (usageHistoryAPI.getResult().size() == 0 || usageHistoryAPI.getResult() == null) {
-                    commonLib.warning("Unable to get Usage History Details from API");
+                    commonLib.warning("No Usage History Found for this MSISDN over the CS Portal");
                     assertCheck.append(actions.assertEqual_boolean(pages.getDetailedUsageHistoryPage().getNoResultFound(), true, "No Result Message & Icon is Visible", "No Result Message is not Visible"));
                 } else {
                     for (int i = 0; i < size; i++) {
