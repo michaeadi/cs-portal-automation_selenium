@@ -1,5 +1,6 @@
 package com.airtel.cs.driver;
 
+import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.ConstantsUtils;
@@ -88,6 +89,7 @@ public class Driver {
     public static WidgetCommonMethod widgetMethods;
     public static String download=System.getProperty(USER_DIR) + "\\resources\\excels\\";
     public static String authToken;
+    public static final BaseActions actions = new BaseActions();
 
     public WebDriver getDriver() {
         return driver;

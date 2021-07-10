@@ -1,6 +1,6 @@
 package com.airtel.cs.ui.ticketsourceapp;
 
-import com.airtel.cs.common.actions.BaseActions;
+import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.commonutils.dataproviders.TransferQueueDataBean;

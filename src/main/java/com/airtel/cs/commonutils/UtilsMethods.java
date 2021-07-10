@@ -2,15 +2,21 @@ package com.airtel.cs.commonutils;
 
 import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
+import com.airtel.cs.commonutils.dataproviders.NftrDataBeans;
+import com.airtel.cs.commonutils.dataproviders.rulefile.AssignmentQueueRuleDataBeans;
+import com.airtel.cs.commonutils.dataproviders.rulefile.SLARuleFileDataBeans;
+import com.airtel.cs.commonutils.expection.RuleNotFoundException;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pojo.response.agents.AgentDetailPOJO;
 import com.airtel.cs.pojo.response.agents.Authorities;
 import com.airtel.cs.pojo.response.consolelog.ChromeNetworkLogPOJO;
+import com.airtel.cs.pojo.response.kycprofile.KYCProfile;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
 import io.restassured.specification.QueryableRequestSpecification;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
@@ -21,10 +27,7 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.TimeZone;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Log4j2
@@ -328,4 +331,159 @@ public class UtilsMethods extends Driver {
             commonLib.fail("Not able to add new token into header as auth token empty",false);
         }
     }
+
+    /**
+     * This method use to get Assignment rule matching ticket meta Info attribute names
+     * @param rules The Assignment rules based on category code
+     * @param ticketMetaInfo The customer attribute names along with ticket meta info
+     * @return AssignmentQueueRuleDataBeans The rule
+     * @throws RuleNotFoundException In-case of no rules found in excel sheet based on category code
+     */
+    public static AssignmentQueueRuleDataBeans getAssignmentRule(PriorityQueue<AssignmentQueueRuleDataBeans> rules, NftrDataBeans ticketMetaInfo) throws RuleNotFoundException {
+            if (CollectionUtils.isNotEmpty(rules)) {
+                Map<String, String> ticketMetaInfoMap = objectMapper.convertValue(ticketMetaInfo, Map.class);
+                    for (AssignmentQueueRuleDataBeans metadataConfigs : rules) {
+                        if(Integer.parseInt(metadataConfigs.getRulePriority())==-1){
+                            return metadataConfigs;
+                        }
+                        if (ticketMetaInfoMap.containsKey(metadataConfigs.getAttributeName()) && metadataConfigs.getAttributeValue()
+                                .contains(ticketMetaInfoMap.get(metadataConfigs.getAttributeName()))) {
+                            return metadataConfigs;
+                        }
+                    }
+            }else{
+                throw new RuleNotFoundException("No Matching rule found in excel sheet with given category code"+ticketMetaInfo.getIssueCode());
+            }
+            return null;
+    }
+
+    /**
+     * This method use to get SLA Calculation rule matching ticket meta Info attribute names
+     * @param rules The Assignment rules based on category code
+     * @param ticketMetaInfo The customer attribute names along with ticket meta info
+     * @return SLARuleFileDataBeans The rule
+     * @throws RuleNotFoundException In-case of no rules found in excel sheet based on category code
+     */
+    public static SLARuleFileDataBeans getSLACalculationRule(List<SLARuleFileDataBeans> rules, NftrDataBeans ticketMetaInfo) throws RuleNotFoundException {
+        SLARuleFileDataBeans defaultRule=null;
+        if (CollectionUtils.isNotEmpty(rules)) {
+            Map<String, String> ticketMetaInfoMap = objectMapper.convertValue(ticketMetaInfo, Map.class);
+                for (SLARuleFileDataBeans metadataConfigs : rules) {
+                    Map<String, String> ticketSLARule = objectMapper.convertValue(metadataConfigs, Map.class);
+                    if (isSLARuleMatch(getSLAOverrideAttrNames(),ticketSLARule,ticketMetaInfoMap)) {
+                        return metadataConfigs;
+                    }
+                    if(Boolean.parseBoolean(metadataConfigs.getDefaultRule())){
+                        defaultRule=metadataConfigs;
+                    }
+            }
+        }else{
+            throw new RuleNotFoundException("No Matching rule found in excel sheet with given category code: "+ticketMetaInfo.getIssueCode());
+        }
+        return defaultRule;
+    }
+
+    /**
+     * This method is use to get empty string in case of the given text is null
+     * @param text The original text
+     * @return String The Value
+     */
+    public static String stringNotNull(String text) {
+        return text==null? "":text;
+    }
+
+    /**
+     * This method use to get SLA Override attributes name
+     * @return List The list of attribute name
+     */
+    public static  List<String> getSLAOverrideAttrNames(){
+        return Arrays.asList(constants.getValue(CommonConstants.CS_SLA_OVERRIDE_ATTRIBUTE_NAMES).split(","));
+    }
+
+    /**
+     * This method use to get SLA Override attributes name & attribute value
+     * @return List The list of attributes
+     */
+    public static  Map<String,String> getSLAOverrideAttrValues(){
+        List<String> valueList=Arrays.asList(constants.getValue(CommonConstants.CS_SLA_OVERRIDE_DEFAULT_ATTRIBUTE_VALUES).split(","));
+        List<String> nameList=getSLAOverrideAttrNames();
+        Map<String,String> valuePair=new HashMap<>();
+        for(int i=0;i<nameList.size();i++){
+            valuePair.put(nameList.get(i),valueList.get(i));
+        }
+        return valuePair;
+    }
+
+    /**
+     * This method is use to check all attribute value present in both ticket SLA rule and ticket meta info
+     * @param attributeNames The attribute names
+     * @param ticketSLARule The ticket SLA Rule
+     * @param ticketMetaInfoMap The ticket meta info
+     * @return true/false
+     */
+    public static boolean isSLARuleMatch(List<String> attributeNames,Map<String, String> ticketSLARule,Map<String, String> ticketMetaInfoMap){
+        for(String attrName:attributeNames){
+            if(!stringNotNull(ticketSLARule.get(attrName)).equalsIgnoreCase(ticketMetaInfoMap.get(attrName))){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static NftrDataBeans setAllCustomerAttribute(String msisdn,String ticketNumber){
+        KYCProfile kycProfile=api.kycProfileAPITest(msisdn);
+        NftrDataBeans nftrDataBeans=new NftrDataBeans();
+        final Integer statusCode = kycProfile.getStatusCode();
+        nftrDataBeans.setTicketNumber(ticketNumber);
+        if(statusCode==200){
+            nftrDataBeans.setCustomerSegment(getCustomerAttribute(kycProfile.getResult().getSegment()));
+            nftrDataBeans.setCustomerSubSegment(getCustomerAttribute(kycProfile.getResult().getSubSegment()));
+            nftrDataBeans.setCustomerType(getCustomerAttribute(kycProfile.getResult().getCustomerType()));
+            nftrDataBeans.setCustomerVip(String.valueOf(kycProfile.getResult().getVip()).toUpperCase());
+            nftrDataBeans.setLineType(getCustomerAttribute(kycProfile.getResult().getLineType()));
+            nftrDataBeans.setServiceCategory(getCustomerAttribute(kycProfile.getResult().getServiceCategory()));
+        }else{
+            NftrDataBeans s=objectMapper.convertValue(getSLAOverrideAttrValues(),NftrDataBeans.class);
+            nftrDataBeans.setCustomerSegment(s.getCustomerSegment());
+            nftrDataBeans.setCustomerSubSegment(s.getCustomerSubSegment());
+            nftrDataBeans.setCustomerType(s.getCustomerType());
+            nftrDataBeans.setCustomerVip(s.getCustomerVip().toUpperCase());
+            nftrDataBeans.setInteractionChannel(s.getInteractionChannel());
+            nftrDataBeans.setLineType(s.getLineType());
+            nftrDataBeans.setServiceCategory(s.getServiceCategory());
+        }
+        return nftrDataBeans;
+    }
+
+    public static String getCustomerAttribute(String attrValue){
+        String value=stringNotNull(attrValue);
+        return value.equals("-") ||attrValue==null?null:attrValue;
+    }
+
+    public static Map<String,String> getWorkGroups(SLARuleFileDataBeans slaRule){
+        Map<String,String> workGroups=new HashMap<>();
+        if (slaRule.getWorkgroup1() != null)
+            workGroups.put(slaRule.getWorkgroup1(), slaRule.getSla1());
+        if (slaRule.getWorkgroup2() != null)
+            workGroups.put(slaRule.getWorkgroup2(), slaRule.getSla2());
+        if (slaRule.getWorkgroup3() != null)
+            workGroups.put(slaRule.getWorkgroup3(), slaRule.getSla3());
+        if (slaRule.getWorkgroup4() != null)
+            workGroups.put(slaRule.getWorkgroup4(), slaRule.getSla4());
+        return workGroups;
+    }
+
+    public static Boolean isValueNegative(String value){
+        return value.charAt(0) == '-';
+    }
+
+    /**
+     * This method used to validate that text is not empty and not null
+     * @param text The text
+     * @return true/false
+     */
+    public static boolean isNull(String text) {
+        return text != null && !text.isEmpty();
+    }
+
 }

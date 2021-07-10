@@ -1,4 +1,4 @@
-package com.airtel.cs.common.actions;
+package com.airtel.cs.commonutils.actions;
 
 import com.airtel.cs.commonutils.commonlib.CommonLib;
 import io.restassured.response.Response;
@@ -55,6 +55,15 @@ public class BaseActions {
             commonLib.fail("Assertion FAILED - " + ex.getMessage() + "-" + failDescription, true);
         }
         return assertFlag;
+    }
+
+
+    public Boolean assertEqual_boolean(boolean actual, boolean expected, String passDescription, String failDescription,boolean isHardAssert){
+        boolean flag=assertEqual_boolean(actual,expected,passDescription,failDescription);
+        if(!flag && isHardAssert){
+            throwHardAssert();
+        }
+        return true;
     }
 
     public boolean assertAllFoundFailedAssert(StringBuilder AssertResults) {
@@ -128,6 +137,14 @@ public class BaseActions {
         return assertEqual_intType(actual, expected, passDescription, failDescription, false);
     }
 
+    public Boolean assertEqual_intType(int actual, int expected, String passDescription, String failDescription,boolean requiredScreenShot,boolean isHardAssert){
+        boolean flag=assertEqual_intType(actual,expected,passDescription,failDescription,requiredScreenShot);
+        if(!flag && isHardAssert){
+            throwHardAssert();
+        }
+        return true;
+    }
+
     /**
      * Verify.
      *
@@ -152,6 +169,14 @@ public class BaseActions {
             commonLib.fail(ex.getMessage() + "{<br />" + failMessage, shouldCapturescreenshot);
         }
         return assertFlag;
+    }
+
+    public Boolean assertEqual_stringType(String actual, String expected, String passDescription, String failDescription,boolean requiredScreenShot,boolean isHardAssert){
+        boolean flag=assertEqual_stringType(actual,expected,passDescription,failDescription,requiredScreenShot);
+        if(!flag && isHardAssert){
+            throwHardAssert();
+        }
+        return true;
     }
 
     public Boolean assertEqual_intType(int actual, int expected) {
@@ -351,5 +376,17 @@ public class BaseActions {
      */
     public Boolean matchStringIgnoreSpecialChar(String actual,String expected,String passMessage,String failMessage){
         return assertEqual_stringType(actual.replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(),expected.replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(),passMessage,failMessage);
+    }
+
+    public Boolean matchUiAndAPIResponse(String actual, String expected, String passDescription, String failDescription,boolean isHardAssert){
+        boolean flag=matchUiAndAPIResponse(actual,expected,passDescription,failDescription);
+        if(!flag && isHardAssert){
+            throwHardAssert();
+        }
+        return true;
+    }
+
+    public void throwHardAssert(){
+        throw new AssertionError("Important::Assertion Failed");
     }
 }

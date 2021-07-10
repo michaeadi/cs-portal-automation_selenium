@@ -49,14 +49,14 @@ public class SLARuleFileBeanToExcel {
 
                     if (cells.getRowNum() > 0) {
                         int columnIndex = cell.getColumnIndex();
-                        String cellValue = fetchValue(cell);
+                        String cellValue = fetchValue(cell)==null?"":fetchValue(cell);
 
                         switch (columnIndex) {
                             case 0:
                                 slaRuleFileDataBeans.setCategoryCode(cellValue);
                                 break;
                             case 1:
-                                slaRuleFileDataBeans.setIsVIP(cellValue);
+                                slaRuleFileDataBeans.setCustomerVip(cellValue);
                                 break;
                             case 2:
                                 slaRuleFileDataBeans.setLineType(cellValue);
@@ -102,6 +102,9 @@ public class SLARuleFileBeanToExcel {
                                 break;
                             case 16:
                                 slaRuleFileDataBeans.setCommittedSLA(cellValue);
+                                break;
+                            case 17:
+                                slaRuleFileDataBeans.setDefaultRule(cellValue);
                                 break;
                         }
                     }

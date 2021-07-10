@@ -1,7 +1,9 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
+import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.enums.ReportInfoMessageColorList;
 import com.airtel.cs.pagerepository.pageelements.SupervisorTicketListPage;
+import com.airtel.cs.pojo.response.ticketlist.IssueDetails;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.*;
@@ -9,10 +11,10 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Log4j2
 public class SupervisorTicketList extends BasePage {
-
 
     SupervisorTicketListPage pageElements;
 
@@ -784,6 +786,29 @@ public class SupervisorTicketList extends BasePage {
     public void clickCloseTab(){
         commonLib.info("Closing the open overlay tab");
         clickWithoutLoader(pageElements.closeTabBtn);
+    }
+
+    public void compareWorkgroupName(Map<String, Long> sla, Map<String, String> workGroups) {
+        for (Map.Entry mapElement : sla.entrySet()) {
+            String key = (String) mapElement.getKey();
+            String value = mapElement.getValue().toString();
+            assertCheck.append(actions.assertEqual_stringType(workGroups.remove(key), key, key + " : workgroup is configured correctly in DB as mentioned in configuration", key + " : workgroup is not configured correctly in DB as mentioned in configuration"));
+            if (!UtilsMethods.isValueNegative(value)) {
+                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isPositiveSLA(), true, "For positive SLA green symbol display", "For positive SLA green symbol does not display"));
+            } else {
+                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isNegativeSLA(), true, "For Negative SLA red symbol display", "For negative SLA red symbol does not display"));
+            }
+        }
+    }
+
+    public void compareTicketLayout(List<IssueDetails> ticketLayout, List<String> configTicketLayout) {
+        if (ticketLayout.size() == 0) {
+            for (IssueDetails layout : ticketLayout) {
+                assertCheck.append(actions.assertEqual_boolean(configTicketLayout.remove(layout.getPlaceHolder().toLowerCase().trim()), true, layout.getPlaceHolder() + " : Ticket Layout configured in database as mention in Config sheet.", layout.getPlaceHolder() + " : Ticket Layout does not configured in database as mention in Config sheet."));
+            }
+        } else {
+            commonLib.pass("No Ticket Layout Config in database");
+        }
     }
 
 }

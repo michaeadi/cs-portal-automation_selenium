@@ -1,7 +1,7 @@
 package com.airtel.cs.ui.frontendagent.demographicwidget;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.common.actions.BaseActions;
+import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.driver.Driver;
@@ -62,8 +62,8 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
             assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getMiddleAuuidDGW(), loginAUUID, "Auuid is visible at the middle of the Demo Graphic Widget and is correct", "Auuid is NOT visible at the middle of the Demo Graphic Widget"));
             assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getFooterAuuidDGW(), loginAUUID, "Auuid is visible at the footer of the Demo Graphic Widget and is correct", "Auuid is NOT visible at the footer of the Demo Graphic Widget"));
             KYCProfile kycProfile = api.kycProfileAPITest(customerNumber);
-            final String statusCode = kycProfile.getStatusCode();
-            assertCheck.append(actions.assertEqual_stringType(statusCode, "200", "KYC Profile API Status Code Matched and is :" + statusCode, "KYC Profile API Status Code NOT Matched and is :" + statusCode));
+            final Integer statusCode = kycProfile.getStatusCode();
+            assertCheck.append(actions.assertEqual_intType(statusCode, 200, "KYC Profile API Status Code Matched and is :" + statusCode, "KYC Profile API Status Code NOT Matched and is :" + statusCode));
             if (pages.getDemoGraphicPage().isPUKInfoLocked()) {
                 try {
                     pages.getDemoGraphicPage().clickPUKToUnlock();
@@ -195,8 +195,8 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                     "Validate SIM Number,Validate Activation date after hovering over SIM Number,Validate GSM Status, Validate data after hovering the GSM status",
                     "description");
             KYCProfile kycProfile = api.kycProfileAPITest(customerNumber);
-            final String statusCode = kycProfile.getStatusCode();
-            assertCheck.append(actions.assertEqual_stringType(statusCode, "200", "KYC Profile API Status Code Matched and is :" + statusCode, "KYC Profile API Status Code NOT Matched and is :" + statusCode));
+            final Integer statusCode = kycProfile.getStatusCode();
+            assertCheck.append(actions.assertEqual_intType(statusCode, 200, "KYC Profile API Status Code Matched and is :" + statusCode, "KYC Profile API Status Code NOT Matched and is :" + statusCode));
             assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getSimNumber().trim(), kycProfile.getResult().getSim(),
                     "Customer's SIM Number is as Expected", "Customer's SIM Number is not as Expected"));
             pages.getDemoGraphicPage().hoverOnSIMNumberIcon();
@@ -237,8 +237,8 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
             PlansPOJO plansAPI = api.accountPlansTest(customerNumber);
             KYCProfile kycProfile = api.kycProfileAPITest(customerNumber);
             ProfilePOJO profileAPI = api.profileAPITest(customerNumber);
-            final String statusCode = kycProfile.getStatusCode();
-            assertCheck.append(actions.assertEqual_stringType(statusCode, "200", "KYC Profile API Status Code Matched and is :" + statusCode, "KYC Profile API Status Code NOT Matched and is :" + statusCode));
+            final Integer statusCode = kycProfile.getStatusCode();
+            assertCheck.append(actions.assertEqual_intType(statusCode, 200, "KYC Profile API Status Code Matched and is :" + statusCode, "KYC Profile API Status Code NOT Matched and is :" + statusCode));
             final int profileAPIStatusCode = profileAPI.getStatusCode();
             assertCheck.append(actions.assertEqual_intType(profileAPIStatusCode, 200, "Profile API Status Code Matched and is :" + profileAPIStatusCode, "Profile API Status Code NOT Matched and is :" + profileAPIStatusCode));
             if (StringUtils.equalsIgnoreCase(constants.getValue(ApplicationConstants.DATA_MANAGER_TOGGLEABLE), "True"))
@@ -271,8 +271,8 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
         selUtils.addTestcaseDescription("Validate Connection Type, Validate Service Category,Validate Segment, Validate Service Class",
                 "description");
         KYCProfile kycProfile = api.kycProfileAPITest(customerNumber);
-        final String statusCode = kycProfile.getStatusCode();
-        assertCheck.append(actions.assertEqual_stringType(statusCode, "200", "KYC Profile API Status Code Matched and is :" + statusCode, "KYC Profile API Status Code NOT Matched and is :" + statusCode));
+        final Integer statusCode = kycProfile.getStatusCode();
+            assertCheck.append(actions.assertEqual_intType(statusCode, 200, "KYC Profile API Status Code Matched and is :" + statusCode, "KYC Profile API Status Code NOT Matched and is :" + statusCode));
         try {
             assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getConnectionType().toLowerCase().trim(),
                     kycProfile.getResult().getLineType().toLowerCase().trim(), "Customer Connection Type is as expected",

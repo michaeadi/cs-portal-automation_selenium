@@ -56,42 +56,24 @@ public class AssignmentQueueRuleBeanToExcel {
                                 queueRuleDataBeans.setCategoryCode(cellValue);
                                 break;
                             case 1:
-                                queueRuleDataBeans.setIsVIP(cellValue);
+                                queueRuleDataBeans.setAttributeName(cellValue);
                                 break;
                             case 2:
-                                queueRuleDataBeans.setLineType(cellValue);
+                                queueRuleDataBeans.setAttributeValue(cellValue);
                                 break;
                             case 3:
-                                queueRuleDataBeans.setCustomerType(cellValue);
-                                break;
-                            case 4:
-                                queueRuleDataBeans.setServiceCategory(cellValue);
-                                break;
-                            case 5:
-                                queueRuleDataBeans.setCustomerSegment(cellValue);
-                                break;
-                            case 6:
-                                queueRuleDataBeans.setCustomerSubSegment(cellValue);
-                                break;
-                            case 7:
-                                queueRuleDataBeans.setInteractionChannel(cellValue);
-                                break;
-                            case 8:
                                 queueRuleDataBeans.setWorkgroupName(cellValue);
                                 break;
-                            case 9:
+                            case 4:
                                 queueRuleDataBeans.setQueueName(cellValue);
                                 break;
-                            case 10:
+                            case 5:
                                 queueRuleDataBeans.setTicketPriority(cellValue);
                                 break;
-                            case 11:
+                            case 6:
                                 queueRuleDataBeans.setTicketState(cellValue);
                                 break;
-                            case 12:
-                                queueRuleDataBeans.setIsDefault(cellValue);
-                                break;
-                            case 13:
+                            case 7:
                                 queueRuleDataBeans.setRulePriority(cellValue);
                                 break;
                         }

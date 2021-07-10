@@ -2,12 +2,14 @@ package com.airtel.cs.commonutils.dataproviders.rulefile;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public class SLARuleFileDataBeans {
     private String categoryCode;
-    private String isVIP;
+    private String customerVip;
     private String lineType;
     private String customerType;
     private String serviceCategory;
@@ -23,4 +25,5 @@ public class SLARuleFileDataBeans {
     private String workgroup4;
     private String sla4;
     private String committedSLA;
+    private String defaultRule;
 }

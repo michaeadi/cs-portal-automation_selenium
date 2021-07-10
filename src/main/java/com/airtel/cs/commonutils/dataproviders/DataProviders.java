@@ -3,6 +3,7 @@ package com.airtel.cs.commonutils.dataproviders;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.rulefile.AssignmentQueueRuleBeanToExcel;
 import com.airtel.cs.commonutils.dataproviders.rulefile.AssignmentQueueRuleDataBeans;
+import com.airtel.cs.commonutils.dataproviders.rulefile.SLARuleFileBeanToExcel;
 import com.airtel.cs.commonutils.dataproviders.rulefile.SLARuleFileDataBeans;
 import com.airtel.cs.commonutils.excelutils.WriteTicket;
 import com.airtel.cs.driver.Driver;
@@ -28,14 +29,15 @@ import java.util.Properties;
 import java.util.PriorityQueue;
 import java.util.Collections;
 import java.util.Comparator;
+import static com.airtel.cs.commonutils.UtilsMethods.isNull;
 
 @Log4j2
 public class DataProviders extends Driver {
 
     public static Properties config = Driver.config;
     public static List<String> ticketNumbers = new ArrayList<>();
-    public static List<AssignmentQueueRuleDataBeans> queueRuleFile = null;
-    public static List<SLARuleFileDataBeans> slaRuleFile = null;
+    public static List<AssignmentQueueRuleDataBeans> queueRuleFile = new ArrayList<>();
+    public static List<SLARuleFileDataBeans> slaRuleFile = new ArrayList<>();
 
     /**
      * This method used to get all tagged issue detail with all widget
@@ -259,8 +261,7 @@ public class DataProviders extends Driver {
         return hashMapObj;
     }
 
-    @DataProvider(name = "ReOpenState")
-    public Object[][] isReOpenState() {
+    public List<TicketStateDataBean> isReOpenState() {
         TicketStateToBean ticketStateToBean = new TicketStateToBean();
         List<TicketStateDataBean> list =
                 ticketStateToBean.getData(excelPath, constants.getValue(CommonConstants.TICKET_STATE_SHEET));
@@ -273,11 +274,7 @@ public class DataProviders extends Driver {
                 reOpen.add(state);
             }
         }
-        Object[][] hashMapObj = new Object[1][1];
-
-        hashMapObj[0][0] = reOpen.get(0);
-
-        return hashMapObj;
+        return  reOpen;
     }
 
     @DataProvider
@@ -591,15 +588,6 @@ public class DataProviders extends Driver {
     }
 
     /**
-     * This method used to validate that text is not empty and not null
-     * @param text The text
-     * @return true/false
-     */
-    public boolean isNull(String text) {
-        return text != null && !text.isEmpty();
-    }
-
-    /**
      * This method is used to Get ticket layout using issue code
      * @param code The issue code
      * @return List The list of Ticket layout
@@ -778,7 +766,7 @@ public class DataProviders extends Driver {
         if(queueRuleFile.isEmpty()){
             getAssignmentRuleExcelFile();
         }
-        PriorityQueue<AssignmentQueueRuleDataBeans> pq = new PriorityQueue<AssignmentQueueRuleDataBeans>(5,
+        PriorityQueue<AssignmentQueueRuleDataBeans> pq = new PriorityQueue<>(5,
                 Collections.reverseOrder(Comparator.comparing(AssignmentQueueRuleDataBeans::getRulePriority)));
         for(AssignmentQueueRuleDataBeans rules:queueRuleFile){
             if(rules.getCategoryCode().equalsIgnoreCase(code)){
@@ -792,8 +780,8 @@ public class DataProviders extends Driver {
      *This method use to read sla rule file and save the list of rule into static object slaRuleFile
      */
     public static void getSLARuleExcelFile(){
-        AssignmentQueueRuleBeanToExcel assignmentQueue = new AssignmentQueueRuleBeanToExcel();
-        queueRuleFile= assignmentQueue.getData(excelPath, constants.getValue(CommonConstants.TICKET_CREATION_ASSIGNMENT_QUEUE_RULE));
+        SLARuleFileBeanToExcel slaRuleFileBeanToExcel = new SLARuleFileBeanToExcel();
+        slaRuleFile= slaRuleFileBeanToExcel.getData(excelPath, constants.getValue(CommonConstants.TICKET_CREATION_SLA_CALCULATION_RULE));
     }
 
     /**
@@ -802,16 +790,16 @@ public class DataProviders extends Driver {
      * @return list of sla rules
      */
     public List<SLARuleFileDataBeans> getSLARuleBasedOnCode(String code){
-        List<SLARuleFileDataBeans> ruleQueue = new ArrayList<>();
+        List<SLARuleFileDataBeans> slaRules = new ArrayList<>();
         if(slaRuleFile.isEmpty()){
             getSLARuleExcelFile();
         }
         for(SLARuleFileDataBeans rules:slaRuleFile){
             if(rules.getCategoryCode().equalsIgnoreCase(code)){
-                ruleQueue.add(rules);
+                slaRules.add(rules);
             }
         }
-        return ruleQueue;
+        return slaRules;
     }
 
 }

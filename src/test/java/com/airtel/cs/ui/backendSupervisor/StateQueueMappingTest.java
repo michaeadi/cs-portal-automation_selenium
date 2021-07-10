@@ -1,7 +1,7 @@
 package com.airtel.cs.ui.backendSupervisor;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.common.actions.BaseActions;
+import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.QueueStateDataBeans;
@@ -71,7 +71,7 @@ public class StateQueueMappingTest extends Driver {
                 //Re-check
                 ticketId = pages.getSupervisorTicketList().getTicketIdValue();
                 TicketPOJO ticketPOJO = api.ticketMetaDataTest(ticketId);
-                ArrayList<QueueStates> assignState = ticketPOJO.getResult().getQueueStates();
+                List<QueueStates> assignState = ticketPOJO.getResult().getQueueStates();
                 List<String> state = new ArrayList<>();
                 List<String> configState = dataProviders.getQueueState(data.getQueue());
                 if (assignState != null)

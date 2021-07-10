@@ -1,7 +1,7 @@
 package com.airtel.cs.ui.frontendagent.autoadjustment;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.common.actions.BaseActions;
+import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
@@ -22,7 +22,7 @@ public class AdjustmentTabTest extends Driver {
     public static final String RUN_ADJUSTMENT_TEST_CASE = constants.getValue(ApplicationConstants.RUN_ADJUSTMENT_TEST_CASE);
     private static String customerNumber;
     private final BaseActions actions = new BaseActions();
-    private final String adjustmentId = pages.getAdjustmentTabPage().getWidgetId();
+    private String adjustmentId;
     RequestSource api = new RequestSource();
 
     @BeforeMethod
@@ -80,6 +80,7 @@ public class AdjustmentTabTest extends Driver {
             selUtils.addTestcaseDescription("Validate both adjustment reason type populated in dropdown after opening adjustment dropdown from action menu,validate recharge action displayed as per api response,validate usage action displayed as per api response,Validate on UI also displayed all the reasons as per api response", "description");
             pages.getCustomerProfilePage().clickOnAction();
             pages.getCustomerProfilePage().clickAdjustment();
+            adjustmentId = pages.getAdjustmentTabPage().getWidgetId();
             assertCheck.append(actions.assertEqual_boolean(widgetMethods.isWidgetVisible(adjustmentId), true, "Adjustment widget display as expected", "Adjustment widget does not display as expected"));
             AdjustmentReasonPOJO reasonAPI = api.getAdjustmentReason();
             assertCheck.append(actions.matchUiAndAPIResponse(reasonAPI.getResult().get(0).getAction(), constants.getValue(CommonConstants.ADJUSTMENT_REASON_RECHARGE), "Recharge Reason found as adjustment reason as expected per api response", "Recharge Reason does not found as adjustment reason as expected per api response"));
