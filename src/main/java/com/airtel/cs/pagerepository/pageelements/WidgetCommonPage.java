@@ -4,7 +4,7 @@ public class WidgetCommonPage {
     public String widgetHeader="//div[@data-csautomation-key='headerRow']//span[@data-csautomation-key='headerName']";
     public String widgetColumnRows="//div[@data-csautomation-key='dataRows']";
     public String widgetColumnValue="//span[@data-csautomation-key='columnValue']";
-    public String menuButton="//span[@data-csautomation-key='menuButton']";
+    public String menuButton="//img[@data-csautomation-key='menuButton']";
     /**
      * Pagination previous next button
      * */
@@ -29,4 +29,5 @@ public class WidgetCommonPage {
     public String widgetErrorRefreshBtn="//button[@data-csautomation-key='widgetErrorRefreshButton']";
     public String widgetAPIErrorMsg="//div[@data-csautomation-key='widgetErrorMsg']";
     public String streamLineLoader="//div[@data-csautomation-key='streamLineLoader']";
+    public String firstQuickAction="//div[@class='quick-action ng-star-inserted']//img[";
 }

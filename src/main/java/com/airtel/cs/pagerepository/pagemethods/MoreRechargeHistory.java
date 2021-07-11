@@ -145,4 +145,8 @@ public class MoreRechargeHistory extends BasePage {
         return rows.size();
     }
 
+    public String getUniqueIdentifier(){
+        return pageElements.widgetIdentifier;
+    }
+
 }

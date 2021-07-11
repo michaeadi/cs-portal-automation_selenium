@@ -12,4 +12,16 @@ public class AdjustmentTabPage {
     public By comments=By.xpath("//textarea[@formcontrolname='description']");
     public By submitBtn=By.xpath("//button[contains(text(),'Submit')]");
     public String adjustmentWidgetTitle="//div[@data-csautomation-key='ADJUSTMENTS_WIDGET']";
+    public By transactionNumber=By.xpath("//input[@formcontrolname='paymentTransactionId']");
+    public String chooseOption="//mat-option[";
+    public String chooseText="//mat-option//span[";
+    public By mainAmount=By.xpath("//input[@formcontrolname='mainAdjustmentAmount']");
+    public By errorMsg=By.xpath("//div[@class='error-block']");
+    public By openDaId=By.xpath("//mat-select[@formcontrolname='daId']");
+    public By openDaUnit=By.xpath("//mat-select[@formcontrolname='daUnit']");
+    public By daAmount=By.xpath("//input[@formcontrolname='measure']");
+    public By popUpTitle=By.xpath("//span[@class='main-container__header--title']");
+    public By yesBtn=By.xpath("//button[@class='yes-btn']");
+    public By noBtn=By.xpath("//button[@class='no-btn']");
+
 }

@@ -36,6 +36,7 @@ public class URIConstants {
     public static final String AGENT_DETAILS = "/sr/api/sr-service/v1/agents";
     public static final String EVENTS_LOG="cs-data-service/v1/event/logs";
     public static final String ADJUSTMENT_ACTION="cs-gsm-service/v1/adjustment/mapping?action=";
+    public static final String ADJUSTMENT_HISTORY="/cs-gsm-service/v1/adjustments";
 
     private URIConstants() {
 

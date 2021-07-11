@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Map;
+import java.util.List;
 
 @Getter
 @Setter
@@ -14,6 +14,6 @@ public class ReasonDetail {
     private String action;
     private String description;
     private String reason;
-    private Map<Integer,String> accountType;
-    private Map<Integer,String> operation;
+    private List<String> accountType;
+    private List<String> operation;
 }

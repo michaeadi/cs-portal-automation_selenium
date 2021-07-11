@@ -29,6 +29,7 @@ import com.airtel.cs.pojo.response.RechargeHistoryPOJO;
 import com.airtel.cs.pojo.response.AccountsBalancePOJO;
 import com.airtel.cs.pojo.response.accumulators.AccumulatorsPOJO;
 import com.airtel.cs.pojo.response.actiontrail.ActionTrailPOJO;
+import com.airtel.cs.pojo.response.adjustmenthistory.AdjustmentHistory;
 import com.airtel.cs.pojo.response.adjustmentreason.AdjustmentReasonPOJO;
 import com.airtel.cs.pojo.response.agentpermission.AgentPermission;
 import com.airtel.cs.pojo.response.agents.AgentDetailPOJO;
@@ -625,4 +626,20 @@ public class RequestSource extends RestCommonUtils {
         return result;
     }
 
+    /**
+     * This Method will hit the API "/cs-gsm-service/v1/adjustments" and return the response
+     *
+     * @param msisdn The msisdn
+     * @return The Response
+     */
+    public AdjustmentHistory getAdjustMentHistory(String msisdn) {
+        AdjustmentHistory result = null;
+        try {
+            commonPostMethod(URIConstants.ADJUSTMENT_HISTORY, new ServiceProfileRequest(msisdn, 5, 1));
+            result = response.as(AdjustmentHistory.class);
+        } catch (Exception e) {
+            commonLib.fail("Exception in method - getServiceProfileWidgetInfo " + e.getMessage(), false);
+        }
+        return result;
+    }
 }

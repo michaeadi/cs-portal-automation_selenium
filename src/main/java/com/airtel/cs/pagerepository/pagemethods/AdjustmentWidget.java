@@ -1,6 +1,9 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
 import com.airtel.cs.pagerepository.pageelements.AdjustmentTabPage;
+import com.airtel.cs.pojo.response.adjustmentreason.AdjustmentReasonPOJO;
+import com.airtel.cs.pojo.response.adjustmentreason.ReasonDetail;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -111,6 +114,15 @@ public class AdjustmentWidget extends BasePage{
     }
 
     /**
+     * This Method is use to get adjustment Transaction number
+     * @return String The value
+     */
+    public String getTransactionNumber(){
+        commonLib.info("Reading Transaction number");
+        return getText(pageElements.transactionNumber);
+    }
+
+    /**
      * This method is use to write comment into comment box
      * @param comment The comment
      */
@@ -134,6 +146,22 @@ public class AdjustmentWidget extends BasePage{
     public void clickSubmitButton(){
         commonLib.info("This method is use to click on submit button");
         clickAndWaitForLoaderToBeRemoved(pageElements.submitBtn);
+    }
+
+    /**
+     * This method is use to click pop up yes button
+     */
+    public void clickYesButton(){
+        commonLib.info("This method is use to click on Yes button");
+        clickAndWaitForLoaderToBeRemoved(pageElements.yesBtn);
+    }
+
+    /**
+     * This method is use to click pop up no button
+     */
+    public void clickNoButton(){
+        commonLib.info("This method is use to click on No button");
+        clickAndWaitForLoaderToBeRemoved(pageElements.noBtn);
     }
 
     /**
@@ -170,6 +198,74 @@ public class AdjustmentWidget extends BasePage{
     public Boolean isCommentBoxVisible(){
         commonLib.info("Checking comment box display or not");
         return isElementVisible(pageElements.comments);
+    }
+
+    public void validateReasonsDetail(List<String> reasons, AdjustmentReasonPOJO reasonPOJO){
+        if (!reasons.isEmpty()) {
+            for (ReasonDetail detail : reasonPOJO.getResult()) {
+                assertCheck.append(actions.assertEqual_boolean(reasons.remove(detail.getReason()),true,detail.getReason() + " reason displayed on UI as per api response",detail.getReason() + " reason does not displayed on UI as per api response"));
+            }
+        } else {
+            commonLib.fail("No Adjustment reason displayed on UI", true);
+        }
+    }
+
+    public String chooseOption(int index){
+        commonLib.info("Choosing Option with index: "+index);
+        final By element= By.xpath(pageElements.chooseOption+index+"]");
+        String chosenOption=getText(element);
+        clickAndWaitForLoaderToBeRemoved(element);
+        return chosenOption;
+    }
+
+    public String getPopUpTitle(){
+        String title=getText(pageElements.popUpTitle);
+        commonLib.info("Reading Pop up title index: "+title);
+        return title;
+    }
+
+    public String chooseOption(String byText){
+        commonLib.info("Choosing Option with text: "+byText);
+        final By element=By.xpath(pageElements.chooseText+"contains(text(),'"+byText+"')]");
+        clickAndWaitForLoaderToBeRemoved(element);
+        return byText;
+    }
+
+    public void enterMainAmount(String amount){
+        commonLib.info("Entering Amount : "+amount);
+        amount=Double.parseDouble(amount)>1.0?"1":amount;
+        enterText(pageElements.mainAmount,amount);
+    }
+
+    public void enterDAAmount(String amount){
+        commonLib.info("Entering Amount : "+amount);
+        amount=Double.parseDouble(amount)>1.0?"1":amount;
+        enterText(pageElements.daAmount,amount);
+    }
+
+    public Boolean isAccessDeniedMsg(){
+        commonLib.info("Checking action denied message displayed");
+        boolean flag=isVisible(pageElements.errorMsg);
+        if(flag){
+            commonLib.info("Reading Access Denied Message : "+getText(pageElements.errorMsg));
+        }
+        return flag;
+    }
+
+    /**
+     * This is method is use to click on select box to open adjustment DA id's dropdown
+     */
+    public void OpenDAType(){
+        commonLib.info("Clicking on Select option to open DA Id's");
+        clickWithoutLoader(pageElements.openDaId);
+    }
+
+    /**
+     * This is method is use to click on select box to open adjustment DA Unit dropdown
+     */
+    public void OpenDAUnit(){
+        commonLib.info("Clicking on Select option to open DA unit's");
+        clickWithoutLoader(pageElements.openDaUnit);
     }
 
 }

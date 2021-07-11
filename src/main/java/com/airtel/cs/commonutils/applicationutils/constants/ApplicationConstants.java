@@ -17,6 +17,7 @@ public class ApplicationConstants {
     public static final String RECHARGE_HISTORY_MSISDN = "cs.recharge.history.msisdn";
     public static final String CURRENT_BALANCE_MSISDN = "cs.current.balance.msisdn";
     public static final String USAGE_HISTORY_MSISDN = "cs.usage.history.msisdn";
+    public static final String ADJUSTMENT_MSISDN = "cs.adjustment.msisdn";
     public static final String DOMAIN_URL = "cs.portal.login.url";
     public static final String APP_NAME = "cs.x.app.name";
     public static final String SERVICE_ID = "cs.x.service.id";

@@ -138,4 +138,10 @@ public class DetailedUsageHistory extends BasePage {
         commonLib.info("Checking No Result Found Message Display");
         return isEnabled(pageElements.noResultIcon);
     }
+
+    public String getWidgetIdentifier(){
+        return pageElements.widgetIdentifier;
+    }
+
+
 }

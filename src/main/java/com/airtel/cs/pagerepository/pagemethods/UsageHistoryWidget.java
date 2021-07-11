@@ -175,4 +175,8 @@ public class UsageHistoryWidget extends BasePage {
         commonLib.info("Getting Usage History Date Time from Row Number " + rowNumber + " : " + text);
         return text;
     }
+
+    public String getWidgetIdentifier(){
+        return pageElements.widgetIdentifier;
+    }
 }

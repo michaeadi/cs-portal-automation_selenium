@@ -499,7 +499,7 @@ public class BasePage extends Driver {
             WebElement webElement = driverWait.until(ExpectedConditions.visibilityOfElementLocated(webelementBy));
             return webElement != null;
         } catch (Exception e) {
-            commonLib.error("Element Not Visible :-" + webelementBy);
+            commonLib.info("Element Not Visible :-" + webelementBy);
             return false;
         }
     }
