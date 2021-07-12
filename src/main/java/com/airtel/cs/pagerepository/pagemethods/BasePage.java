@@ -7,6 +7,7 @@ import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pagerepository.pageelements.AirtelByWrapper;
 import com.airtel.cs.pagerepository.pageelements.BasePageElements;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.JavascriptExecutor;
@@ -137,7 +138,8 @@ public class BasePage extends Driver {
             highLighterMethod(elementLocation);
             driver.findElement(elementLocation).clear();
             driver.findElement(elementLocation).sendKeys(text);
-            commonLib.info("Entering " + text + " to  " + elementLocation.toString());
+            if (!(StringUtils.contains(elementLocation.toString(), "password")))
+                commonLib.info("Entering " + text + " to  " + elementLocation.toString());
         } else {
             commonLib.error("Text box is NOT visible : " + elementLocation);
         }
