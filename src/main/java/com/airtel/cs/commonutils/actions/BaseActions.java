@@ -58,6 +58,17 @@ public class BaseActions {
     }
 
 
+    /**
+     * This method use to assert actual and expected value is same or not and check hard assert to do or not
+     *
+     * @param actual      the actual
+     * @param expected    the expected
+     * @param passDescription the pass message
+     * @param failDescription the fail message
+     * @param isHardAssert the true/false
+     * @return true
+     * @throws AssertionError assertion failed
+     */
     public Boolean assertEqual_boolean(boolean actual, boolean expected, String passDescription, String failDescription,boolean isHardAssert){
         boolean flag=assertEqual_boolean(actual,expected,passDescription,failDescription);
         if(!flag && isHardAssert){
@@ -137,6 +148,17 @@ public class BaseActions {
         return assertEqual_intType(actual, expected, passDescription, failDescription, true);
     }
 
+    /**
+     * This method use to assert actual and expected value is same or not and check hard assert to do or not
+     *
+     * @param actual      the actual
+     * @param expected    the expected
+     * @param passDescription the pass message
+     * @param failDescription the fail message
+     * @param isHardAssert the true/false
+     * @return true
+     * @throws AssertionError assertion failed
+     */
     public Boolean assertEqual_intType(int actual, int expected, String passDescription, String failDescription,boolean requiredScreenShot,boolean isHardAssert){
         boolean flag=assertEqual_intType(actual,expected,passDescription,failDescription,requiredScreenShot);
         if(!flag && isHardAssert){
@@ -171,6 +193,17 @@ public class BaseActions {
         return assertFlag;
     }
 
+    /**
+     * This method use to assert actual and expected value is same or not and check hard assert to do or not
+     *
+     * @param actual      the actual
+     * @param expected    the expected
+     * @param passDescription the pass message
+     * @param failDescription the fail message
+     * @param isHardAssert the true/false
+     * @return true
+     * @throws AssertionError assertion failed
+     */
     public Boolean assertEqual_stringType(String actual, String expected, String passDescription, String failDescription,boolean requiredScreenShot,boolean isHardAssert){
         boolean flag=assertEqual_stringType(actual,expected,passDescription,failDescription,requiredScreenShot);
         if(!flag && isHardAssert){
@@ -381,6 +414,17 @@ public class BaseActions {
         return assertEqual_stringType(actual.replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), expected.replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), passMessage, failMessage);
     }
 
+    /**
+     * This method use to assert API Response and display value on UI and check hard assert to do or not
+     *
+     * @param actual      the actual
+     * @param expected    the expected
+     * @param passDescription the pass message
+     * @param failDescription the fail message
+     * @param isHardAssert the true/false
+     * @return true
+     * @throws AssertionError assertion failed
+     */
     public Boolean matchUiAndAPIResponse(String actual, String expected, String passDescription, String failDescription,boolean isHardAssert){
         boolean flag=matchUiAndAPIResponse(actual,expected,passDescription,failDescription);
         if(!flag && isHardAssert){
@@ -389,6 +433,10 @@ public class BaseActions {
         return true;
     }
 
+    /**
+     *This method is use to throw assertion error
+     * @throws AssertionError assertion failed
+     */
     public void throwHardAssert(){
         throw new AssertionError("Important::Assertion Failed");
     }
