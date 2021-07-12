@@ -3,7 +3,7 @@ package com.airtel.cs.ui.backendSupervisor;
 import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
-import com.airtel.cs.commonutils.dataproviders.TicketTransferRuleDataBean;
+import com.airtel.cs.commonutils.dataproviders.databeans.TicketTransferRuleDataBean;
 import com.airtel.cs.driver.Driver;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;

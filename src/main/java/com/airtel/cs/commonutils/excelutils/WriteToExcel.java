@@ -1,6 +1,6 @@
 package com.airtel.cs.commonutils.excelutils;
 
-import com.airtel.cs.commonutils.dataproviders.NftrDataBeans;
+import com.airtel.cs.commonutils.dataproviders.databeans.NftrDataBeans;
 import com.airtel.cs.commonutils.exceptions.ColumnNotFoundException;
 import com.airtel.cs.driver.Driver;
 import org.apache.poi.ss.usermodel.Cell;

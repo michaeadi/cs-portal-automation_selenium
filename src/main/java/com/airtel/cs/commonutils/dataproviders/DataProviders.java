@@ -1,10 +1,12 @@
 package com.airtel.cs.commonutils.dataproviders;
 
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
-import com.airtel.cs.commonutils.dataproviders.rulefile.AssignmentQueueRuleBeanToExcel;
-import com.airtel.cs.commonutils.dataproviders.rulefile.AssignmentQueueRuleDataBeans;
-import com.airtel.cs.commonutils.dataproviders.rulefile.SLARuleFileBeanToExcel;
-import com.airtel.cs.commonutils.dataproviders.rulefile.SLARuleFileDataBeans;
+import com.airtel.cs.commonutils.dataproviders.beantoexcel.*;
+import com.airtel.cs.commonutils.dataproviders.databeans.*;
+import com.airtel.cs.commonutils.dataproviders.beantoexcel.AssignmentQueueRuleBeanToExcel;
+import com.airtel.cs.commonutils.dataproviders.databeans.AssignmentQueueRuleDataBeans;
+import com.airtel.cs.commonutils.dataproviders.beantoexcel.SLARuleFileBeanToExcel;
+import com.airtel.cs.commonutils.dataproviders.databeans.SLARuleFileDataBeans;
 import com.airtel.cs.commonutils.excelutils.WriteTicket;
 import com.airtel.cs.driver.Driver;
 import com.codoid.products.fillo.Connection;

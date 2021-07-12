@@ -2,9 +2,9 @@ package com.airtel.cs.commonutils;
 
 import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
-import com.airtel.cs.commonutils.dataproviders.NftrDataBeans;
-import com.airtel.cs.commonutils.dataproviders.rulefile.AssignmentQueueRuleDataBeans;
-import com.airtel.cs.commonutils.dataproviders.rulefile.SLARuleFileDataBeans;
+import com.airtel.cs.commonutils.dataproviders.databeans.NftrDataBeans;
+import com.airtel.cs.commonutils.dataproviders.databeans.AssignmentQueueRuleDataBeans;
+import com.airtel.cs.commonutils.dataproviders.databeans.SLARuleFileDataBeans;
 import com.airtel.cs.commonutils.exceptions.RuleNotFoundException;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pojo.response.agents.AgentAttributes;

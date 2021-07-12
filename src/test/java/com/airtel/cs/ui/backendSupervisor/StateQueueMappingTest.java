@@ -4,7 +4,7 @@ import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
-import com.airtel.cs.commonutils.dataproviders.QueueStateDataBeans;
+import com.airtel.cs.commonutils.dataproviders.databeans.QueueStateDataBeans;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pojo.response.ticketlist.QueueStates;
 import com.airtel.cs.pojo.response.ticketlist.TicketPOJO;
