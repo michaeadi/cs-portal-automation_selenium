@@ -77,6 +77,18 @@ public class ViewHistory extends BasePage {
     }
 
     /**
+     * This method use to click on adjustment history tab under view history tab
+     */
+    public void clickOnAdjustmentHistory() {
+        if (isVisible(pageElements.adjustmentHistoryTab)) {
+            commonLib.info("Clicking on adjustment History Tab under view history");
+            clickAndWaitForLoaderToBeRemoved(pageElements.adjustmentHistoryTab);
+        } else {
+            commonLib.fail("Exception in method - clickOnAdjustmentHistory ", true);
+        }
+    }
+
+    /**
      * This method is use to get last created issue code under interaction tab
      * @return String The value
      */
