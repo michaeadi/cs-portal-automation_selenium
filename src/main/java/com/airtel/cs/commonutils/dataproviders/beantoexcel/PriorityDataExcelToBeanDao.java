@@ -14,16 +14,30 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import static com.airtel.cs.driver.Driver.commonLib;
+
 public class PriorityDataExcelToBeanDao {
 
     static DataFormatter dataFormatter;
     static FormulaEvaluator evaluator;
+    private static final String FILE_EXTENSION="xlsx";
 
-    private static String fetchValue(Cell cell) {
+    /**
+     * This method is use to get cell value
+     * @param cell The Cell object
+     * @return String The value
+     */
+    private String fetchValue(Cell cell) {
         evaluator.evaluate(cell);
         return dataFormatter.formatCellValue(cell, evaluator);
     }
 
+    /**
+     * This method is use to get all the  Priority based on file path and sheet name
+     * @param path The file path of .xlsx file name
+     * @param sheetName The sheet name
+     * @return List The Priorities
+     */
     public List<PriorityDataBean> getData(String path, String sheetName) {
 
         List<PriorityDataBean> priorityList = new ArrayList<>();
@@ -31,7 +45,7 @@ public class PriorityDataExcelToBeanDao {
         try {
             file = new FileInputStream(new File(path));
             Workbook workbook;
-            if (path.contains("xlsx")) {
+            if (path.contains(FILE_EXTENSION)) {
                 workbook = new XSSFWorkbook(file);
                 dataFormatter = new DataFormatter();
                 evaluator = new XSSFFormulaEvaluator((XSSFWorkbook) workbook);
@@ -64,8 +78,8 @@ public class PriorityDataExcelToBeanDao {
                     priorityList.add(priorityDataBean);
                 }
             }
-        } catch (IOException | NullPointerException e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            commonLib.fail("Exception found while reading the test data excel sheet with sheet name "+sheetName+". Error Log: "+e.fillInStackTrace(),false);
         }
         return priorityList;
     }
