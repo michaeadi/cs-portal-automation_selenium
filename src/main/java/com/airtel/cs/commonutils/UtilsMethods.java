@@ -5,7 +5,7 @@ import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.NftrDataBeans;
 import com.airtel.cs.commonutils.dataproviders.rulefile.AssignmentQueueRuleDataBeans;
 import com.airtel.cs.commonutils.dataproviders.rulefile.SLARuleFileDataBeans;
-import com.airtel.cs.commonutils.expection.RuleNotFoundException;
+import com.airtel.cs.commonutils.exceptions.RuleNotFoundException;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pojo.response.agents.AgentAttributes;
 import com.airtel.cs.pojo.response.agents.AgentDetailPOJO;

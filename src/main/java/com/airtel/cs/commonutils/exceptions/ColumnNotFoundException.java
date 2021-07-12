@@ -1,4 +1,4 @@
-package com.airtel.cs.commonutils.expection;
+package com.airtel.cs.commonutils.exceptions;
 
 public class ColumnNotFoundException extends Exception {
     private String exceptionMessage;

@@ -1,7 +1,6 @@
 package com.airtel.cs.ui.frontendagent.rolebasedmasking;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.driver.Driver;
@@ -28,7 +27,6 @@ public class RoleBasedMaskingTest extends Driver {
 
   String customerNumber = null;
   RequestSource api = new RequestSource();
-  private final BaseActions actions = new BaseActions();
   private List<RoleDetails> roleDetails = null;
   private Boolean hasRole = null;
   private List<ActionConfigResult> actionConfigResultList = null;
@@ -83,9 +81,9 @@ public class RoleBasedMaskingTest extends Driver {
           AirtelMoneyPOJO amTransactionHistoryAPI = api.transactionHistoryAPITest(customerNumber);
             assertCheck.append(actions.assertEqual_intType(statusCode, 200, "AM Txn API success and status code is :" + statusCode, "AM Txn API got failed and status code is :" + statusCode));
           if (statusCode != 200) {
-              assertCheck.append(actions.assertEqual_boolean(amTxnWidgetPage.isAirtelMoneyErrorVisible(), true, "API and Widget both are showing error message", "API is Giving error But Widget is not showing error Message on API is " + amTransactionHistoryAPI.getMessage()));
+              assertCheck.append(actions.assertEqual_boolean(widgetMethods.isWidgetErrorIconDisplay(amTxnWidgetPage.getAMWidgetId()), true, "API and Widget both are showing error message", "API is Giving error But Widget is not showing error Message on API is " + amTransactionHistoryAPI.getMessage()));
           } else if (amTransactionHistoryAPI.getResult().getTotalCount() == null) {
-              assertCheck.append(actions.assertEqual_boolean(amTxnWidgetPage.isAirtelMoneyNoResultFoundVisible(), true, "'No Result Found' Icon displayed", "'No Result Found' Icon NOT displayed"));
+              assertCheck.append(actions.assertEqual_boolean(widgetMethods.isNoResultFoundIconDisplay(amTxnWidgetPage.getAMWidgetId()), true, "'No Result Found' Icon displayed", "'No Result Found' Icon NOT displayed"));
           } else {
             int count = Math.min(amTransactionHistoryAPI.getResult().getTotalCount(), 5);
             Condition condition = actionConfigResult.getConditions().get(0);
@@ -123,7 +121,7 @@ public class RoleBasedMaskingTest extends Driver {
       Optional<ActionConfigResult> actionConfigResultop = actionConfigResultList.stream()
           .filter(result -> "resetPin".equals(result.getActionKey())).findFirst();
       String airtelMoneyString = pages.getDemoGraphicPage().getWalletBalance().replaceAll("[^0-9]", "").trim();
-      Integer airtelMoney = StringUtils.isEmpty(airtelMoneyString) ? 0 : Integer.parseInt(airtelMoneyString);
+      int airtelMoney = StringUtils.isEmpty(airtelMoneyString) ? 0 : Integer.parseInt(airtelMoneyString);
       if (actionConfigResultop.isPresent()) {
         ActionConfigResult actionConfigResult = actionConfigResultop.get();
         pages.getDemoGraphicPage().clickAirtelStatusToUnlock();
@@ -147,7 +145,7 @@ public class RoleBasedMaskingTest extends Driver {
 
       FieldMaskConfigs amBalancefieldMaskConfigs = api.getFieldMaskConfigs("amBalance");
       String operator = amBalancefieldMaskConfigs.getOperator();
-      Integer amThresoldValue = StringUtils.isEmpty(amBalancefieldMaskConfigs.getThresholdValue())?0:Integer.parseInt(amBalancefieldMaskConfigs.getThresholdValue());
+      int amThresoldValue = StringUtils.isEmpty(amBalancefieldMaskConfigs.getThresholdValue())?0:Integer.parseInt(amBalancefieldMaskConfigs.getThresholdValue());
       if (roleDetails.stream().anyMatch(roleName -> amBalancefieldMaskConfigs.getRoles().contains(roleName.getRoleName())) && (
           (">=".equals(operator) && airtelMoney >= amThresoldValue) || ("<".equals(operator) && airtelMoney < amThresoldValue) || (
               "=".equals(operator) && airtelMoney == amThresoldValue))) {

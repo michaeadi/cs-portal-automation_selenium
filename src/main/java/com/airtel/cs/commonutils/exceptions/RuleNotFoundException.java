@@ -1,4 +1,4 @@
-package com.airtel.cs.commonutils.expection;
+package com.airtel.cs.commonutils.exceptions;
 
 public class RuleNotFoundException extends Exception {
     private String exceptionMessage;
@@ -10,4 +10,10 @@ public class RuleNotFoundException extends Exception {
     public String toString(){
         return exceptionMessage;
     }
+
+    @Override
+    public String getMessage() {
+        return exceptionMessage;
+    }
+
 }

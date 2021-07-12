@@ -1,7 +1,6 @@
 package com.airtel.cs.ui.frontendagent.hometab.widgetvisibility;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
@@ -18,7 +17,6 @@ import java.util.List;
 public class VisibiltyByCustomerSegment extends Driver {
 
   private static String customerNumber = null;
-  private final BaseActions actions = new BaseActions();
   RequestSource api = new RequestSource();
 
   @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
