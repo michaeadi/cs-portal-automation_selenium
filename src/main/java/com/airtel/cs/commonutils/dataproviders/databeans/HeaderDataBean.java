@@ -7,18 +7,18 @@ import lombok.Setter;
 @Setter
 public class HeaderDataBean {
 
-    String tableName;
-    String row1;
-    String row2;
-    String row3;
-    String row4;
-    String row5;
-    String row6;
-    String row7;
-    String row8;
-    String row9;
-    String row10;
-    String row11;
-    String row12;
+    private String tableName;
+    private String row1;
+    private String row2;
+    private String row3;
+    private String row4;
+    private String row5;
+    private String row6;
+    private String row7;
+    private String row8;
+    private String row9;
+    private String row10;
+    private String row11;
+    private String row12;
 
 }
