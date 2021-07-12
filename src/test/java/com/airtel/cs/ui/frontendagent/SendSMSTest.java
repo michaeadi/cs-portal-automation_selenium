@@ -4,7 +4,6 @@ import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
-import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.driver.Driver;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoSuchElementException;
@@ -13,7 +12,6 @@ import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 public class SendSMSTest extends Driver {
 
@@ -115,35 +113,18 @@ public class SendSMSTest extends Driver {
     public void sendSMS() {
         try {
             selUtils.addTestcaseDescription("Validating the Send SMS Tab ", "description");
-            assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isPageLoaded(), true, "Send SMS tab opened correctly","Send SMS tab does not open correctly"));
+            assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isPageLoaded(), true, "Send SMS tab opened correctly", "Send SMS tab does not open correctly"));
             Assert.assertEquals(pages.getSendSMS().getCustomerNumber(), customerNumber, "Customer Number as not same as whose profile opened");
-            try {
-                pages.getSendSMS().selectCategory();
-                try {
-                    templateName = pages.getSendSMS().selectTemplateName();
-                    try {
-                        pages.getSendSMS().selectLanguage();
-                        try {
-                            assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().clickSendSMSBtn(), true, "Send SMS is enabled", "Send SMS does not enabled"));
-                        } catch (NoSuchElementException | TimeoutException e) {
-                            commonLib.fail("Not able to send sms to customer." + e.fillInStackTrace(), true);
-                        }
-                    } catch (NoSuchElementException | TimeoutException e) {
-                        commonLib.fail("Not able to select Language:" + e.fillInStackTrace(), true);
-                        pages.getSendSMS().clickOutside();
-                    }
-                } catch (NoSuchElementException | TimeoutException e) {
-                    commonLib.fail("Not able to select Template Name:" + e.fillInStackTrace(), true);
-                    pages.getSendSMS().clickOutside();
-                }
-            } catch (NoSuchElementException | TimeoutException e) {
-                commonLib.fail("Not able to select category:" + e.fillInStackTrace(), true);
-                pages.getSendSMS().clickOutside();
-            }
-            pages.getSendSMS().clickOutside();
+            pages.getSendSMS().selectCategory();
+            templateName = pages.getSendSMS().selectTemplateName();
+            pages.getSendSMS().selectLanguage();
+            assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().clickSendSMSBtn(), true, "Send SMS is enabled", "Send SMS does not enabled"));
+            assertCheck.append(actions.assertEqual_stringType(pages.getSendSMS().getSendSMSHeaderText(), "SMS Sent", "Send SMS Header Text Matched", "Send SMS Header Text NOT Matched"));
+            assertCheck.append(actions.assertEqual_stringType(pages.getSendSMS().getSMSModalText(), "Message sent successfully to " + customerNumber, "Sens SMS Success Message is Correct", "Sens SMS Success Message is NOT Correct"));
             actions.assertAllFoundFailedAssert(assertCheck);
-        } catch (Exception e) {
+        } catch (NoSuchElementException | TimeoutException e) {
             commonLib.fail("Exception in Method - sendSMS" + e.fillInStackTrace(), true);
+            pages.getSendSMS().clickOutside();
         }
     }
 

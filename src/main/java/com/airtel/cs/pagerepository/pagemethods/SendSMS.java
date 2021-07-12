@@ -5,7 +5,6 @@ import com.airtel.cs.pagerepository.pageelements.SendSMSPage;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 @Log4j2
 public class SendSMS extends BasePage {
@@ -20,6 +19,7 @@ public class SendSMS extends BasePage {
 
     /**
      * This method is use to check send sms page load or not
+     *
      * @return true/false
      */
     public boolean isPageLoaded() {
@@ -29,6 +29,7 @@ public class SendSMS extends BasePage {
 
     /**
      * This method use to get customer number
+     *
      * @return String The value
      */
     public String getCustomerNumber() {
@@ -52,6 +53,7 @@ public class SendSMS extends BasePage {
 
     /**
      * This method use to select template name and return the template name
+     *
      * @return String The template name
      */
     public String selectTemplateName() {
@@ -73,6 +75,7 @@ public class SendSMS extends BasePage {
 
     /**
      * This method use to get message content
+     *
      * @return String The message content
      */
     public String getMessageContent() {
@@ -83,6 +86,7 @@ public class SendSMS extends BasePage {
 
     /**
      * This method use to check customer number field display or not
+     *
      * @return true/false
      */
     public boolean isCustomerNumber() {
@@ -93,6 +97,7 @@ public class SendSMS extends BasePage {
 
     /**
      * This method use to check category field display or not
+     *
      * @return true/false
      */
     public boolean isCategory() {
@@ -103,6 +108,7 @@ public class SendSMS extends BasePage {
 
     /**
      * This method use to check template name field display or not
+     *
      * @return true/false
      */
     public boolean isTemplateName() {
@@ -113,6 +119,7 @@ public class SendSMS extends BasePage {
 
     /**
      * This method use to check language field display or not
+     *
      * @return true/false
      */
     public boolean isLanguage() {
@@ -122,21 +129,14 @@ public class SendSMS extends BasePage {
     }
 
     /**
-     * This method is use to wait till success message display
-     */
-    public void waitTillSuccessMessage() {
-        commonLib.info("Waiting for SMS Send Success pop up");
-        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(pageElements.successMessage));
-    }
-
-    /**
      * This method is use to click send sms button and return the status button enable or noy
+     *
      * @return true/false
      */
     public boolean clickSendSMSBtn() {
         if (driver.findElement(pageElements.submitBtn).isEnabled()) {
             commonLib.info("Clicking Send button");
-            clickAndWaitForLoaderToBeRemoved(pageElements.submitBtn);
+            clickWithoutLoader(pageElements.submitBtn);
             return true;
         } else {
             return false;
@@ -145,6 +145,7 @@ public class SendSMS extends BasePage {
 
     /**
      * This method is use to check send sms button disable or not
+     *
      * @return true/false
      */
     public boolean isSendBtnDisabled() {
@@ -153,10 +154,29 @@ public class SendSMS extends BasePage {
 
     /**
      * This method use to check message content box editable or not
+     *
      * @return true/false
      */
     public boolean isMessageContentEditable() {
         return isEnabled(pageElements.messageReadOnly);
+    }
+
+    /*
+    This Methos id used to get the Send SMS Modal Success/Failure Message
+     */
+    public String getSMSModalText() {
+        String result = "";
+        result = getText(pageElements.successMessage);
+        return result;
+    }
+
+    /*
+    This Method is used to get the send SMS Modal Header Text
+     */
+    public String getSendSMSHeaderText() {
+        String result = "";
+        result = getText(pageElements.sendSMSHeaderText);
+        return result;
     }
 
 }
