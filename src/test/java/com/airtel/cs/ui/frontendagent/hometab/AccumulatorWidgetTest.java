@@ -9,8 +9,6 @@ import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pojo.response.accumulators.AccumulatorsPOJO;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -21,7 +19,7 @@ public class AccumulatorWidgetTest extends Driver {
     RequestSource api = new RequestSource();
     private String accumulatorWidgetIdentifier;
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -30,7 +28,7 @@ public class AccumulatorWidgetTest extends Driver {
     }
 
     @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
-    public void openCustomerInteractionAPI() {
+    public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
             customerNumber = constants.getValue(ApplicationConstants.AM_CUSTOMER_MSISDN);
@@ -48,12 +46,12 @@ public class AccumulatorWidgetTest extends Driver {
     }
 
     @DataProviders.Table(name = "Accumulator")
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI")
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
     public void accumulatorDetailsTest(HeaderDataBean Data) {
         try {
             selUtils.addTestcaseDescription("Validating Accumulator Details of User :" + customerNumber, "description");
             accumulatorWidgetIdentifier=pages.getDaDetailsPage().getAccumulatorId();
-            try {
+            selUtils.addTestcaseDescription("Validating Accumulator Details of User :" + customerNumber+",Validate accumulator widget header display as per config,Validate accumulator row data must be displayed as per api response.", "description");
                 assertCheck.append(actions.assertEqual_boolean(pages.getCurrentBalanceWidgetPage().isCurrentBalanceWidgetMenuVisible(), true, "Current Balance Widget MENU visible ", "Current Balance Widget MENU is not visible"));
                 pages.getCurrentBalanceWidgetPage().openingDADetails();
                 assertCheck.append(actions.matchUiAndAPIResponse(widgetMethods.getHeaderName(accumulatorWidgetIdentifier, 0), Data.getRow1(), "Header Name for Row 1 is as expected", "Header Name for Row 1 is not as expected"));
@@ -75,10 +73,6 @@ public class AccumulatorWidgetTest extends Driver {
                 } else {
                     commonLib.fail("API does not able to fetch accumulator details :" + accumulatorAPI.getMessage(), false);
                 }
-            } catch (NoSuchElementException | TimeoutException e) {
-                e.printStackTrace();
-                commonLib.fail("Accumulator details does not display correctly", true);
-            }
         } catch (Exception e) {
             commonLib.fail("Exception in Method - accumulatorDetailsTest" + e.fillInStackTrace(), true);
         }

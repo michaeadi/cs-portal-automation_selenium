@@ -21,7 +21,7 @@ public class TicketBulkUpdatePage {
     public By backBtn = By.xpath("//button[contains(text(),'BACK')]");
     public By options = By.xpath("//span[@class='mat-option-text']");
     public By popUpCancelBtn = By.xpath("//div[@class='deactivate-popup__button-section mat-dialog-actions']//button[1]");
-    public By popUpContinueBtn = By.xpath("//div[@class='deactivate-popup__button-section mat-dialog-actions']//button[2]");
+    public By popUpContinueBtn = By.xpath("//span[contains(text(),'Continue')]/..");
     public By commentBox = By.xpath("//textarea[@type='textarea']");
     public By confirmAction = By.xpath("//div[@class='tnc customer-checkbox ng-star-inserted']//input");
     public By statueBar = By.xpath("//span[@class='bar-fill-stripes']");
@@ -30,9 +30,10 @@ public class TicketBulkUpdatePage {
     public By errorTicketId = By.xpath("//li[@class='id-section error-bg']//span[2]");
     public By errorTicketMessage = By.xpath("//div[@class='bar-status']//span");
     public By closeFilter = By.xpath("//span[@class='close-button']");
-    public String option="//mat-option[";
-    public String getText="]//span";
-    public By okButton=By.xpath("//div[@class='action']/button");
-    public String ticketRows="//div[@class='container-fluid table-card ng-star-inserted'][";
-    public String ticketIds="]//ul[1]//li[1]//span[2]";
+    public String option = "//mat-option[";
+    public String getText = "]//span";
+    public By okButton = By.xpath("//div[@class='action']/button");
+    public String ticketRows = "//div[@class='container-fluid table-card ng-star-inserted'][";
+    public String ticketIds = "]//ul[1]//li[1]//span[2]";
+    public By sourceTitleTicketRowTicketListing = By.xpath("//*[@class='data-area-full']//span[contains(text(),'Source')]");
 }

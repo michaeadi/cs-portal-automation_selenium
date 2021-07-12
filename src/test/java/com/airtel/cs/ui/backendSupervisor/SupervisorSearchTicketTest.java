@@ -26,9 +26,9 @@ public class SupervisorSearchTicketTest extends Driver {
     private final DataProviders dataProviders = new DataProviders();
     RequestSource api = new RequestSource();
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
-        if (!continueExecutionBS) {
+        if (!(continueExecutionBS && continueExecutionFA)) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
             throw new SkipException("Skipping tests because user NOT able to login Over Portal");
         }
@@ -118,7 +118,7 @@ public class SupervisorSearchTicketTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 3, dataProviderClass = DataProviders.class, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openSupervisorDashboard"})
+    @Test(priority = 4, dataProviderClass = DataProviders.class, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openSupervisorDashboard"})
     public void validateCheckBox() {
         try {
             selUtils.addTestcaseDescription("Validate Check Box,Validate Assign to Agent and Transfer to Queue Option on Open Ticket", "description");

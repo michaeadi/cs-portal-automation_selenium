@@ -22,6 +22,7 @@ public class FrontendTicketHistory extends BasePage {
 
     /**
      * This method is use to get ticket id from list based on index
+     *
      * @param index The index
      * @return String The value
      */
@@ -34,6 +35,7 @@ public class FrontendTicketHistory extends BasePage {
 
     /**
      * This method is use to get ticket priority based on index
+     *
      * @param index The Index
      * @return String The value
      */
@@ -46,6 +48,7 @@ public class FrontendTicketHistory extends BasePage {
 
     /**
      * This method is use to get ticket queue based on index
+     *
      * @param index The Index
      * @return String The value
      */
@@ -58,6 +61,7 @@ public class FrontendTicketHistory extends BasePage {
 
     /**
      * This method is use to get ticket State based on index
+     *
      * @param index The Index
      * @return String The value
      */
@@ -70,6 +74,7 @@ public class FrontendTicketHistory extends BasePage {
 
     /**
      * This method is use to get ticket close date based on index
+     *
      * @param index The Index
      * @return String The value
      */
@@ -82,6 +87,7 @@ public class FrontendTicketHistory extends BasePage {
 
     /**
      * This method is use to get ticket close time based on index
+     *
      * @param index The Index
      * @return String The value
      */
@@ -94,6 +100,7 @@ public class FrontendTicketHistory extends BasePage {
 
     /**
      * This method is use to get ticket created by based on index
+     *
      * @param index The Index
      * @return String The value
      */
@@ -106,6 +113,7 @@ public class FrontendTicketHistory extends BasePage {
 
     /**
      * This method is use to get ticket created date based on index
+     *
      * @param index The Index
      * @return String The value
      */
@@ -118,6 +126,7 @@ public class FrontendTicketHistory extends BasePage {
 
     /**
      * This method is use to get ticket Creation time based on index
+     *
      * @param index The Index
      * @return String The value
      */
@@ -130,6 +139,7 @@ public class FrontendTicketHistory extends BasePage {
 
     /**
      * This method is use to click add to interaction icon based on index
+     *
      * @param index The Index
      */
     public void clickAddToInteraction(int index) {
@@ -140,6 +150,7 @@ public class FrontendTicketHistory extends BasePage {
 
     /**
      * This method is use to check add to interaction icon displayed or not based on index
+     *
      * @param index The Index
      * @return true/false
      */
@@ -152,6 +163,7 @@ public class FrontendTicketHistory extends BasePage {
 
     /**
      * This method is use to check reopen icon displayed or not based on index
+     *
      * @param index The Index
      * @return true/false
      */
@@ -163,6 +175,7 @@ public class FrontendTicketHistory extends BasePage {
 
     /**
      * This method use to click reopen icon based on index
+     *
      * @param index The index
      */
     public void clickReopen(int index) {
@@ -173,6 +186,7 @@ public class FrontendTicketHistory extends BasePage {
 
     /**
      * This method is use to get add to interaction icon based on index
+     *
      * @param index The Index
      * @return String The value
      */
@@ -186,6 +200,7 @@ public class FrontendTicketHistory extends BasePage {
 
     /**
      * This method is use to write ticket id into search box
+     *
      * @param id The ticket id
      */
     public void writeTicketId(String id) {
@@ -203,16 +218,12 @@ public class FrontendTicketHistory extends BasePage {
 
     /**
      * This method is used to check no ticket found icon displayed or not
+     *
      * @return true/false
      */
     public boolean checkNoTicketFound() {
         commonLib.info("Checking Ticket Found or not");
-        try {
-            return isEnabled(pageElements.noTicketFound);
-        } catch (Exception e) {
-            commonLib.info("No Ticket Found: " + false);
-            return false;
-        }
+        return isVisibleContinueExecution(pageElements.noTicketFound, 3);
     }
 
     /**
@@ -225,26 +236,19 @@ public class FrontendTicketHistory extends BasePage {
 
     /**
      * This method use to validate add to interaction icon displayed on each ticket present on page
+     *
      * @return true/false
      */
     public boolean validateAddToInteractionIcon() {
+        boolean result = false;
         try {
-            if (!checkNoTicketFound()) {
-                List<WebElement> list = returnListOfElement(pageElements.allTicket);
-                for (int i = 1; i <= list.size(); i++) {
-                    if (!checkAddToInteraction(i)) {
-                        return false;
-                    }
-                }
-                commonLib.pass("Add to interaction icon present on tickets");
-                return true;
-            }
-
+            commonLib.info("Checking Add To Interaction present or not");
+            result = isVisible(pageElements.addToInteractionIcon);
+            commonLib.pass("Add to interaction icon present on tickets");
         } catch (Exception e) {
-            e.printStackTrace();
+            commonLib.error("Add to interaction icon is not present");
         }
-        commonLib.error("Add to interaction icon does not present on tickets", false);
-        return false;
+        return result;
     }
 
     /**

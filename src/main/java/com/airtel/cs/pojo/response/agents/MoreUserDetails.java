@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class MoreUserDetails {
     private Integer id;
     private Integer auuid;
-    private Integer msisdn;
+    private String msisdn;
     private Boolean active;
     private String firstName;
     private String lastName;

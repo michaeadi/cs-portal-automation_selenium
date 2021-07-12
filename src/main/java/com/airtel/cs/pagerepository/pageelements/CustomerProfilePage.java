@@ -45,4 +45,5 @@ public class CustomerProfilePage {
     public String pinTagByName = "//div[@class='sub-header__divide--control--tab ng-star-inserted' and contains(text(),'";
     public By demographichWidget = By.xpath("//*[@class='home-tab-container__short-widgets']");
     public By adjustmentAction=By.xpath("//button[contains(text(),'Adjustments')]");
+    public By homeTabWidget = By.xpath("//*[contains(@class,'sr-navigation')]//*[@class='mat-tab-body-wrapper']");
 }

@@ -13,7 +13,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -24,16 +23,9 @@ public class AirtelMoneyMenuSecondaryWidgetTest extends Driver {
     String customerNumber;
     RequestSource api = new RequestSource();
     private AirtelMoneyPOJO amTransactionHistoryAPI;
+    public static final String RUN_AIRTEL_MONEY_WIDGET_TEST_CASE = constants.getValue(ApplicationConstants.RUN_AIRTEL_MONEY_WIDGET_TESTCASE);
 
-    @BeforeClass
-    public void checkServiceProfileFlag() {
-        if (!StringUtils.equals(MULTI_AM_WALLET, "true")) {
-            commonLib.skip("Skipping because Run AM Secondary widget Test Case Flag Value is - " + MULTI_AM_WALLET);
-            throw new SkipException("Skipping because this functionality does not applicable for current Opco");
-        }
-    }
-
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -41,8 +33,24 @@ public class AirtelMoneyMenuSecondaryWidgetTest extends Driver {
         }
     }
 
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void checkAirtelMoneyFlag() {
+        if (!StringUtils.equals(RUN_AIRTEL_MONEY_WIDGET_TEST_CASE, "true")) {
+            commonLib.skip("Skipping because Run Airtel Money widget Test Case Flag Value is - " + RUN_AIRTEL_MONEY_WIDGET_TEST_CASE);
+            throw new SkipException("Skipping because this functionality does not applicable for current Opco");
+        }
+    }
+
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void checkMultiWalletFlag() {
+        if (!StringUtils.equals(MULTI_AM_WALLET, "true")) {
+            commonLib.skip("Skipping because Run AM Secondary widget Test Case Flag Value is - " + MULTI_AM_WALLET);
+            throw new SkipException("Skipping because this functionality does not applicable for current Opco");
+        }
+    }
+
     @Test(priority = 1, groups = {"ProdTest"})
-    public void openCustomerInteractionAPI() {
+    public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
             customerNumber = constants.getValue(ApplicationConstants.AM_CUSTOMER_MSISDN);
@@ -60,7 +68,7 @@ public class AirtelMoneyMenuSecondaryWidgetTest extends Driver {
     }
 
     @DataProviders.Table(name = "More Airtel Money History")
-    @Test(priority = 2, groups = {"ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = {"openCustomerInteractionAPI"})
+    @Test(priority = 2, groups = {"ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = {"openCustomerInteraction"})
     public void airtelMoneyHistoryMenuSecondaryWidgetHeaderTest(HeaderDataBean data) {
         try {
             selUtils.addTestcaseDescription("Validating Airtel Money History's Header Name  Menu of User :" + customerNumber + ",Validating all the filter display as per config,Validate search by transaction id box displayed as per config.", "description");
@@ -103,7 +111,7 @@ public class AirtelMoneyMenuSecondaryWidgetTest extends Driver {
     }
 
     @DataProviders.Table(name = "More Airtel Money History")
-    @Test(priority = 3, groups = {"ProdTest"}, dependsOnMethods = {"airtelMoneyHistoryMenuSecondaryWidgetHeaderTest", "openCustomerInteractionAPI"})
+    @Test(priority = 3, groups = {"ProdTest"}, dependsOnMethods = {"airtelMoneyHistoryMenuSecondaryWidgetHeaderTest", "openCustomerInteraction"})
     public void airtelMoneyHistoryMenuSecondaryTest() {
         try {
             selUtils.addTestcaseDescription("Validating Airtel Money History's  Menu Secondary Widget of User :" + customerNumber + "Validate all the row data display on UI as per api response.", "description");

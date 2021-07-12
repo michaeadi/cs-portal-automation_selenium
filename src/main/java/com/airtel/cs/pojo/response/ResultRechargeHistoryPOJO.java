@@ -23,4 +23,5 @@ public class ResultRechargeHistoryPOJO {
     String validity;
     String expiryDate;
     String serialNumber;
+    APIErrors apiErrors;
 }

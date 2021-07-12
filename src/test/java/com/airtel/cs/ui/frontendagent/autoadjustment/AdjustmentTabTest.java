@@ -38,7 +38,7 @@ public class AdjustmentTabTest extends Driver {
     @BeforeMethod
     public void checkAdjustmentFlag() {
         if (!StringUtils.equals(RUN_ADJUSTMENT_TEST_CASE, "true")) {
-            commonLib.skip("Skipping because Run Friend & Family widget Test Case Flag Value is - " + RUN_ADJUSTMENT_TEST_CASE);
+            commonLib.skip("Skipping because Run Adjustment widget Test Case Flag Value is - " + RUN_ADJUSTMENT_TEST_CASE);
             throw new SkipException("Skipping because this functionality does not applicable for current Opco");
         }
     }

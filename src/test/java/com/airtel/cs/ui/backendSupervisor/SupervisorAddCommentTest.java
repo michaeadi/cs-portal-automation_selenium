@@ -16,9 +16,9 @@ public class SupervisorAddCommentTest extends Driver {
 
     private final BaseActions actions = new BaseActions();
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"RegressionTest"})
     public void checkExecution() {
-        if (!continueExecutionBS) {
+        if (!(continueExecutionBS && continueExecutionFA)) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
             throw new SkipException("Skipping tests because user NOT able to login Over Portal");
         }
@@ -69,7 +69,7 @@ public class SupervisorAddCommentTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 3, dependsOnMethods = "addCommentOnTicket", groups = {"RegressionTest"})
+    @Test(priority = 3, dependsOnMethods = {"addCommentOnTicket", "openSupervisorDashboard"}, groups = {"RegressionTest"})
     public void validateIssueComment() {
         try {
             selUtils.addTestcaseDescription("Validate issue comment [Backend Supervisor] found on ticket or not", "description");
@@ -80,7 +80,7 @@ public class SupervisorAddCommentTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 4, dependsOnMethods = "addCommentOnTicket", groups = {"RegressionTest"})
+    @Test(priority = 4, dependsOnMethods = {"addCommentOnTicket", "openSupervisorDashboard"}, groups = {"RegressionTest"})
     public void editComment() {
         try {
             selUtils.addTestcaseDescription("Validate Edit comment as Backend Supervisor", "description");
@@ -96,17 +96,17 @@ public class SupervisorAddCommentTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 5, dependsOnMethods = "addCommentOnTicket", groups = {"RegressionTest"})
+    @Test(priority = 5, dependsOnMethods = {"addCommentOnTicket", "openSupervisorDashboard"}, groups = {"RegressionTest"})
     public void deleteLastAddedComment() {
-        try{
-        selUtils.addTestcaseDescription("Validate Delete comment as Backend Supervisor,Add new comment,Delete latest comment which added previously.", "description");
-        String comment = "Adding Comment to test Delete comment Flow " + LocalDateTime.now();
-        pages.getViewTicket().addComment(comment);
-        pages.getViewTicket().clickAddButton();
-        pages.getViewTicket().validateAddedComment(comment);
-        pages.getViewTicket().openDeleteComment();
-        pages.getViewTicket().clickContinueButton();
-        assertCheck.append(actions.assertEqual_boolean(pages.getViewTicket().isCommentDelete(comment),true, "Deleted comment found does not found on ticket as expected","Deleted comment found on ticket as deleted comment must not found on ticket."));
+        try {
+            selUtils.addTestcaseDescription("Validate Delete comment as Backend Supervisor,Add new comment,Delete latest comment which added previously.", "description");
+            String comment = "Adding Comment to test Delete comment Flow " + LocalDateTime.now();
+            pages.getViewTicket().addComment(comment);
+            pages.getViewTicket().clickAddButton();
+            pages.getViewTicket().validateAddedComment(comment);
+            pages.getViewTicket().openDeleteComment();
+            pages.getViewTicket().clickContinueButton();
+            assertCheck.append(actions.assertEqual_boolean(pages.getViewTicket().isCommentDelete(comment), true, "Deleted comment found does not found on ticket as expected", "Deleted comment found on ticket as deleted comment must not found on ticket."));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - deleteLastAddedComment" + e.fillInStackTrace(), true);
         }

@@ -83,8 +83,8 @@ public class DemoGraphicPage {
     public By segment = By.xpath("//span[contains(text(),'Segment')]//following-sibling::span/span");
     public By hoverInfoSegment = By.xpath("//span[contains(text(),'Segment')]//following-sibling::span//img");
     public By serviceClass = By.xpath("//span[contains(text(),'Service Class')]//following-sibling::span");
-    public By serviceCategory = By.xpath("//*[contains(text(),'Service Category')]//following-sibling::td/span");
-    public By subSegment = By.xpath("//span[contains(text(),'Sub Segment')]//following-sibling::span");
+    public By serviceCategory = By.xpath("//*[contains(text(),'Service Category')]//following-sibling::td");
+    public By subSegment = By.xpath(" //*[contains(text(),'Subsegment')]//following-sibling::td");
     public By appStatus = By.xpath("//span[contains(text(),'App Status')]//following-sibling::span");
     public By gsmKycStatus = By.xpath("//span[contains(text(),'GSM KYC Status')]//following-sibling::span");
 
@@ -113,4 +113,7 @@ public class DemoGraphicPage {
      */
     public By middleAuuidAMP = By.xpath("//*[@id='AM_PROFILE']");
     public By footerAuuidAMP = By.xpath("//*[@id='AM_PROFILE']//*[contains(@class,'auuid-container')]");
+
+    public By resetPinIcon = By.xpath("//img[@class='header-action-icon cursor-pointer']");
+
 }

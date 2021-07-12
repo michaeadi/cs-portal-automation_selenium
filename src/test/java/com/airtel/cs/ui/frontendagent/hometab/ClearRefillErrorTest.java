@@ -4,8 +4,6 @@ package com.airtel.cs.ui.frontendagent.hometab;
 import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
-import com.airtel.cs.commonutils.dataproviders.DataProviders;
-import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pojo.response.clearrefillstatus.RefillStatus;
 import org.openqa.selenium.NoSuchElementException;
@@ -20,7 +18,7 @@ public class ClearRefillErrorTest extends Driver {
     RequestSource api = new RequestSource();
     private final BaseActions actions = new BaseActions();
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -30,14 +28,12 @@ public class ClearRefillErrorTest extends Driver {
 
     /**
      * This method is used to Open Customer Profile Page with valid MSISDN
-     * @param data
      */
-    @DataProviders.User(userType = "API")
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "loginData", dataProviderClass = DataProviders.class)
-    public void openCustomerInteractionAPI(TestDatabean data) {
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest"})
+    public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
-            final String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
+            customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().clickOnUserName();
             pages.getSideMenuPage().openCustomerInteractionPage();
@@ -55,7 +51,7 @@ public class ClearRefillErrorTest extends Driver {
     /**
      * This method is used to validate clear refill
      */
-    @Test(priority = 2, dependsOnMethods = "openCustomerInteractionAPI", groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 2, dependsOnMethods = "openCustomerInteraction", groups = {"SanityTest", "RegressionTest"})
     public void clearRefillTest() {
         selUtils.addTestcaseDescription("Validating Clear Refill Test: " + customerNumber, "description");
         assertCheck.append(actions.assertEqual_boolean(pages.getRechargeHistoryWidget().isRechargeHistoryWidgetIsVisible(), true, "Recharge History Widget is visible", "Recharge History Widget is not visible"));
@@ -72,7 +68,7 @@ public class ClearRefillErrorTest extends Driver {
                 commonLib.fail("Exception in Method - clearRefillTest" + e.fillInStackTrace() , true);
             }
         } else {
-            assertCheck.append(actions.assertEqual_boolean(pages.getRechargeHistoryWidget().isRefillIconDisable(), true, "Clear refill icon disable when user not barred.", "Clear refill icon does not disable when user not barred."));
+            assertCheck.append(actions.assertEqual_boolean(pages.getRechargeHistoryWidget().isRefillIconDisable(), true, "Clear refill icon disable when user not barred.", "`Clear refill icon does not disable when user not barred`."));
         }
         actions.assertAllFoundFailedAssert(assertCheck);
     }

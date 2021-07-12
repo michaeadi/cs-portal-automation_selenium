@@ -132,7 +132,7 @@ public class CustomerProfile extends BasePage {
     public void clickPinTag(String text) {
         commonLib.info("Clicking " + text + " Pinned Tag");
         By tagName = By.xpath(pageElements.pinTagByName + text + "')]");
-        clickAndWaitForLoaderToBeRemoved(tagName);
+        clickWithoutLoader(tagName);
     }
 
     /*
@@ -140,8 +140,8 @@ public class CustomerProfile extends BasePage {
      */
     public boolean isCustomerProfilePageLoaded() {
         boolean result = false;
-        if (isVisible(pageElements.demographichWidget)) {
-            result = isEnabled(pageElements.demographichWidget);
+        if (isVisible(pageElements.homeTabWidget)) {
+            result = isEnabled(pageElements.homeTabWidget);
             commonLib.info("Is Customer Profile Page loaded ? " + result);
         }
         return result;
@@ -225,6 +225,8 @@ public class CustomerProfile extends BasePage {
     public void openSendSMSTab() {
         commonLib.info("Clicking on Send SMS");
         clickAndWaitForLoaderToBeRemoved(pageElements.sendSMSAction);
+        //Hard wait is added here because API to get templates details is not getting hit as we come on the tab
+        commonLib.hardWait(10);
     }
 
     /**

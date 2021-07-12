@@ -10,6 +10,7 @@ import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pagerepository.pagemethods.UsageHistoryWidget;
 import com.airtel.cs.pojo.response.UsageHistoryPOJO;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.StringUtils;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -19,9 +20,10 @@ public class UsageHistoryWidgetTest extends Driver {
 
     private static String customerNumber = null;
     private final BaseActions actions = new BaseActions();
+    public static final String RUN_USAGE_WIDGET_TEST_CASE = constants.getValue(ApplicationConstants.RUN_USAGE_WIDGET_TESTCASE);
     RequestSource api = new RequestSource();
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -29,8 +31,16 @@ public class UsageHistoryWidgetTest extends Driver {
         }
     }
 
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void checkUsageHistoryFlag() {
+        if (!StringUtils.equals(RUN_USAGE_WIDGET_TEST_CASE, "true")) {
+            commonLib.skip("Skipping because Run Usage widget Test Case Flag Value is - " + RUN_USAGE_WIDGET_TEST_CASE);
+            throw new SkipException("Skipping because this functionality does not applicable for current Opco");
+        }
+    }
+
     @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
-    public void openCustomerInteractionAPI() {
+    public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
             customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
@@ -47,7 +57,7 @@ public class UsageHistoryWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteractionAPI")
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
     public void usageHistoryWidgetHeaderTest() {
         try {
             selUtils.addTestcaseDescription("Validate is Usage History Widget Visible?,Validate footer and middle auuid,Validate Header Text", "description");
@@ -62,7 +72,7 @@ public class UsageHistoryWidgetTest extends Driver {
     }
 
     @DataProviders.Table(name = "Usage History")
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI")
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
     public void usageHistoryWidgetTest(HeaderDataBean data) {
         try {
             selUtils.addTestcaseDescription("Validating Usage History Widget of User :" + customerNumber, "description");
@@ -71,7 +81,6 @@ public class UsageHistoryWidgetTest extends Driver {
             UsageHistoryPOJO usageHistoryAPI = api.usageHistoryTest(customerNumber);
             int size = usageHistoryWidget.getNumberOfRows();
             if (usageHistoryAPI.getResult().size() == 0 || usageHistoryAPI.getResult() == null) {
-                commonLib.warning("Unable to get Usage History Details from API");
                 assertCheck.append(actions.assertEqual_boolean(usageHistoryWidget.isUsageHistoryNoResultFoundVisible(), true, "Error Message is Visible", "Error Message is not Visible"));
                 assertCheck.append(actions.assertEqual_stringType(usageHistoryWidget.gettingUsageHistoryNoResultFoundMessage(), "No Result found", "Error Message is as expected", "Error Message is not as expected"));
             } else {

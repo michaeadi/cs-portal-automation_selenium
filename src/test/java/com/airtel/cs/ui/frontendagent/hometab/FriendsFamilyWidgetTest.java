@@ -19,7 +19,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -32,17 +31,9 @@ public class FriendsFamilyWidgetTest extends Driver {
     RequestSource api = new RequestSource();
     private FriendsFamilyPOJO friendsFamilyAPI;
     private final String ADD_FNF_COMMENT = "Adding new msisdn in FNF List using automation";
-    private final String DELETE_FNF_COMMENT="Deleting Newly Added member from FnF List";
+    private final String DELETE_FNF_COMMENT = "Deleting Newly Added member from FnF List";
 
-    @BeforeClass
-    public void checkServiceProfileFlag() {
-        if (!StringUtils.equals(RUN_FNF_WIDGET_TEST_CASE, "true")) {
-            commonLib.skip("Skipping because Run Friend & Family widget Test Case Flag Value is - " + RUN_FNF_WIDGET_TEST_CASE);
-            throw new SkipException("Skipping because this functionality does not applicable for current Opco");
-        }
-    }
-
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -50,11 +41,19 @@ public class FriendsFamilyWidgetTest extends Driver {
         }
     }
 
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void checkServiceProfileFlag() {
+        if (!StringUtils.equals(RUN_FNF_WIDGET_TEST_CASE, "true")) {
+            commonLib.skip("FNF Widget is NOT Enabled for this Opco=" + OPCO);
+            throw new SkipException("FNF Widget is NOT Enabled for this Opco=" + OPCO);
+        }
+    }
+
     @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
-            customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
+            customerNumber = constants.getValue(ApplicationConstants.CURRENT_BALANCE_MSISDN);
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().openCustomerInteractionPage();
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
@@ -146,7 +145,7 @@ public class FriendsFamilyWidgetTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasFriendFamilyPermission"})
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasFriendFamilyPermission", "openCustomerInteraction"})
     public void isUserHasFriendFamilyPermissionToAddMember() {
         try {
             selUtils.addTestcaseDescription("Verify that agent having the UM permission Add FnF should be able to add FnF, Validate the user have permission to add new member, Validate if user has permission then Add member Icon must display on Widget", "description");
@@ -158,7 +157,7 @@ public class FriendsFamilyWidgetTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasFriendFamilyPermissionToAddMember"})
+    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasFriendFamilyPermissionToAddMember", "openCustomerInteraction"})
     public void addMemberToFNF() {
         try {
             selUtils.addTestcaseDescription("Verify for adding a number into Customer's FnF list,Click on Add member Icon, Validate Add member pop up open, validate user have option to add new member,Add new Member into FnF List,Click on Submit button,Validate newly added member show in list,", "description");
@@ -172,7 +171,7 @@ public class FriendsFamilyWidgetTest extends Driver {
                 try {
                     commonLib.pass("Reading Message: " + pages.getTemplateManagement().readResponseMessage());
                 } catch (NoSuchElementException | TimeoutException e) {
-                    commonLib.infoColored("Not able to read Message Pop up: " + e.getMessage(), JavaColors.RED,true);
+                    commonLib.infoColored("Not able to read Message Pop up: " + e.getMessage(), JavaColors.BLUE, true);
                 }
                 if (pages.getAuthTabPage().isSIMBarPopup()) {
                     commonLib.fail("Get Failure message as pop up does not closed after clicking on submit button. Error Message: " + pages.getAuthTabPage().getErrorMessage(), true);
@@ -201,7 +200,7 @@ public class FriendsFamilyWidgetTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 7, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"addMemberToFNF"})
+    @Test(priority = 7, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"addMemberToFNF", "openCustomerInteraction"})
     public void validateActionTabAfterAddFnFMember() {
         try {
             selUtils.addTestcaseDescription("Verify Action trail tab after adding number into Customer's FnF list,Hit action trail event api, Validate action type & comments & agent id", "description");
@@ -222,7 +221,7 @@ public class FriendsFamilyWidgetTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 8, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasFriendFamilyPermission"})
+    @Test(priority = 8, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasFriendFamilyPermission", "openCustomerInteraction"})
     public void isUserHasFriendFamilyPermissionToDeleteMember() {
         try {
             selUtils.addTestcaseDescription("Verify that agent having the UM permission delete FnF should be able to delete FnF, Validate the user have permission to delete existing member, Validate if user has permission then delete member icon must display on Widget", "description");
@@ -234,16 +233,16 @@ public class FriendsFamilyWidgetTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 9,groups = {"SanityTest", "RegressionTest", "ProdTest"},dependsOnMethods = {"isUserHasFriendFamilyPermissionToDeleteMember","validateFriendsFamilyWidget"})
-    public void deleteMemberToFnF(){
+    @Test(priority = 9, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasFriendFamilyPermissionToDeleteMember", "validateFriendsFamilyWidget", "openCustomerInteraction"})
+    public void deleteMemberToFnF() {
         try {
             selUtils.addTestcaseDescription("Verify for adding a number into Customer's FnF list,Click on Add member Icon, Validate Add member pop up open, validate user have option to add new member,Add new Member into FnF List,Click on Submit button,Validate newly added member show in list,", "description");
             ArrayList<FriendsFamilyResponse> fnfInfoAPI = friendsFamilyAPI.getResult().get(0).getFafInformation();
             int size = Math.min(fnfInfoAPI.size(), 5);
-            boolean status=true;
+            boolean status = true;
             for (int i = 0; i < size; i++) {
-                if(pages.getDaDetailsPage().getValueCorrespondingToFriendsFamily(i + 1, 1).equalsIgnoreCase(constants.getValue(ApplicationConstants.FNF_NEW_MEMBER_MSISDN))){
-                    pages.getDaDetailsPage().clickActionIconOnFriendsFamily(i+1);
+                if (pages.getDaDetailsPage().getValueCorrespondingToFriendsFamily(i + 1, 1).equalsIgnoreCase(constants.getValue(ApplicationConstants.FNF_NEW_MEMBER_MSISDN))) {
+                    pages.getDaDetailsPage().clickActionIconOnFriendsFamily(i + 1);
                     try {
                         assertCheck.append(actions.assertEqual_stringType(pages.getDaDetailsPage().getPopUpTitle().toLowerCase().trim(), "delete fnf number", "Open Pop up title as expected", "Open Pop up title as not expected"));
                         pages.getAuthTabPage().enterComment(DELETE_FNF_COMMENT);
@@ -252,7 +251,7 @@ public class FriendsFamilyWidgetTest extends Driver {
                         try {
                             commonLib.pass("Reading Message: " + pages.getTemplateManagement().readResponseMessage());
                         } catch (NoSuchElementException | TimeoutException e) {
-                            commonLib.infoColored("Not able to read Message Pop up: " + e.getMessage(), JavaColors.RED,true);
+                            commonLib.infoColored("Not able to read Message Pop up: " + e.getMessage(), JavaColors.BLUE, true);
                         }
                         if (pages.getAuthTabPage().isSIMBarPopup()) {
                             commonLib.fail("Get Failure message as pop up does not closed after clicking on submit button. Error Message: " + pages.getAuthTabPage().getErrorMessage(), true);
@@ -261,25 +260,25 @@ public class FriendsFamilyWidgetTest extends Driver {
                             boolean flag = true;
                             for (int j = 0; j < friendsFamilyAPI.getResult().get(0).getFafInformation().size(); j++) {
                                 if (friendsFamilyAPI.getResult().get(0).getFafInformation().get(j).getFafNumber().equals(constants.getValue(ApplicationConstants.FNF_NEW_MEMBER_MSISDN))) {
-                                    commonLib.fail("After deleting Newly added Number still showing into FnF List.",true);
+                                    commonLib.fail("After deleting Newly added Number still showing into FnF List.", true);
                                     flag = false;
                                     break;
                                 }
                             }
                             if (flag) {
-                                commonLib.pass(constants.getValue(ApplicationConstants.FNF_NEW_MEMBER_MSISDN)+" :- Remove from FnF List successfully.");
+                                commonLib.pass(constants.getValue(ApplicationConstants.FNF_NEW_MEMBER_MSISDN) + " :- Remove from FnF List successfully.");
                             }
                         }
                     } catch (NoSuchElementException | TimeoutException e) {
                         commonLib.fail("Not able to delete member: " + e.fillInStackTrace(), true);
                         pages.getDaDetailsPage().closePopup();
                     }
-                    status=false;
+                    status = false;
                     break;
                 }
             }
-            if(status){
-                commonLib.fail(constants.getValue(ApplicationConstants.FNF_NEW_MEMBER_MSISDN)+":- MSISDN does not added into FnF List as expected.",true);
+            if (status) {
+                commonLib.fail(constants.getValue(ApplicationConstants.FNF_NEW_MEMBER_MSISDN) + ":- MSISDN does not added into FnF List as expected.", true);
             }
         } catch (Exception e) {
             commonLib.fail("Exception in Method - deleteMemberToFnF" + e.fillInStackTrace(), true);
@@ -287,7 +286,7 @@ public class FriendsFamilyWidgetTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 10, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"addMemberToFNF"})
+    @Test(priority = 10, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"addMemberToFNF", "openCustomerInteraction"})
     public void validateActionTabAfterDeleteFnFMember() {
         try {
             selUtils.addTestcaseDescription("Verify Action trail tab after removing number into Customer's FnF list,Hit action trail event api, Validate action type & comments & agent id", "description");

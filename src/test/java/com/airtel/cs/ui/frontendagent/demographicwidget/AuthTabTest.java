@@ -25,7 +25,7 @@ public class AuthTabTest extends Driver {
     Map<String, String> authTabConfig;
     public BaseActions actions = new BaseActions();
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -109,12 +109,13 @@ public class AuthTabTest extends Driver {
                 final Boolean isAuthenticated = ls.getIsAuthenticated();
                 commonLib.info(key + " : " + isAuthenticated);
                 for (ActionTagDataBeans at : actionTags) {
-                    if (isAuthenticated != Boolean.parseBoolean(at.getIsAuth())) {
-                        commonLib.fail("Action does not locked but as per config Action must be locked.", true);
-                        break;
-                    } else if (ls.getIsAuthenticated() == Boolean.parseBoolean(at.getIsAuth())) {
-                        commonLib.pass("Action Verified " + at.getActionTagName());
-                    }
+                    if (at.getActionTagName().equalsIgnoreCase(ls.getKey()))
+                        if (isAuthenticated != Boolean.parseBoolean(at.getIsAuth())) {
+                            commonLib.fail(ls.getKey() + "Action does not locked but as per config Action must be locked.", true);
+                            break;
+                        } else if (ls.getIsAuthenticated() == Boolean.parseBoolean(at.getIsAuth())) {
+                            commonLib.pass("Action Verified " + at.getActionTagName());
+                        }
                 }
             }
             actions.assertAllFoundFailedAssert(assertCheck);
@@ -125,10 +126,12 @@ public class AuthTabTest extends Driver {
 
     @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
     public void validateAuthTab() {
+        boolean isTabOpened = false;
         try {
             selUtils.addTestcaseDescription("Verify the Authentication tab", "description");
             pages.getCustomerProfilePage().clickOnAction();
             pages.getCustomerProfilePage().openAuthTab();
+            isTabOpened = true;
             DataProviders data = new DataProviders();
             assertCheck.append(actions.assertEqual_boolean(pages.getAuthTabPage().isAuthTabLoad(), true, "Authentication tab loaded correctly", "Authentication tab does not load correctly"));
             Map<String, String> questionList = pages.getAuthTabPage().getQuestionAnswer();
@@ -151,27 +154,29 @@ public class AuthTabTest extends Driver {
                 }
             }
             actions.assertAllFoundFailedAssert(assertCheck);
-        } catch (NoSuchElementException | TimeoutException | AssertionError e) {
+        } catch (NoSuchElementException | TimeoutException | AssertionError |NullPointerException e) {
+            if (isTabOpened)
+                pages.getAuthTabPage().clickCloseBtn();
             commonLib.fail("Exception in Method :- validateAuthTab" + e.fillInStackTrace(), true);
         }
     }
 
-    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
-    public void validateAuthTabMinQuestion() throws InterruptedException {
+    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction", "validateAuthTab"})
+    public void validateAuthTabMinQuestion() {
         try {
             selUtils.addTestcaseDescription("Verify the Authentication tab Minimum question Configured correctly", "description");
             assertCheck.append(actions.assertEqual_boolean(pages.getAuthTabPage().isAuthTabLoad(), true, "Authentication tab loaded correctly", "Authentication tab does not load correctly"));
             assertCheck.append(actions.assertEqual_boolean(pages.getAuthTabPage().isAuthBtnEnable(), false, "Authenticate button in NOT enabled without choosing minimum number of question", "Authenticate button is enable without choosing minimum number of question."));
             pages.getDemoGraphicPage().selectPolicyQuestion();
             assertCheck.append(actions.assertEqual_boolean(pages.getAuthTabPage().isAuthBtnEnable(), true, "Authenticate button is enabled", "Authenticate Button does not enable after choose minimum number of question"));
-            pages.getAuthTabPage().clickCloseBtn();
+            pages.getAuthTabPage().clickAuthBtn();
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method :- validateAuthTabMinQuestion" + e.fillInStackTrace(), true);
         }
     }
 
-    @Test(priority = 7, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = "validateAuthTabMinQuestion")
+    @Test(priority = 7, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction", "validateAuthTabMinQuestion"})
     public void authCustomer() {
         try {
             selUtils.addTestcaseDescription("Authenticate User", "description");
@@ -179,6 +184,7 @@ public class AuthTabTest extends Driver {
             assertCheck.append(actions.assertEqual_boolean(pages.getAuthTabPage().isSIMBarPopup(), true, "SIM Bar/Unbar pop up opened", "SIM Bar/Unbar popup does not open"));
             assertCheck.append(actions.assertEqual_boolean(pages.getAuthTabPage().isIssueDetailTitleVisible(), true, "Issue details configured correctly", "Issue Detail does not configured"));
             assertCheck.append(actions.assertEqual_boolean(pages.getAuthTabPage().isSubmitBtnEnable(), false, "Submit button Not enabled without comment", "Submit button enable without adding comment"));
+            pages.getAuthTabPage().fillAllInputField("Automation Testing");
             pages.getAuthTabPage().clickSelectReasonDropDown();
             List<String> reason = pages.getAuthTabPage().getReasonConfig();
             List<String> configReason = data.issueDetailReason("SIM Bar Unbar");

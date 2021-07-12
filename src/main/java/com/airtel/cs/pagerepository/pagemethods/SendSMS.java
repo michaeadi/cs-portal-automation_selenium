@@ -32,6 +32,7 @@ public class SendSMS extends BasePage {
      * @return String The value
      */
     public String getCustomerNumber() {
+        waitTillLoaderGetsRemoved();
         String text = getText(pageElements.customerNumberText);
         commonLib.info("Reading Customer Number: " + text);
         return text.split("-")[0].trim();
@@ -41,7 +42,7 @@ public class SendSMS extends BasePage {
      * This method use to select category
      */
     public void selectCategory() {
-        clickAndWaitForLoaderToBeRemoved(pageElements.openCategory);
+        clickWithoutLoader(pageElements.openCategory);
         final String text = getText(pageElements.selectOption1);
         commonLib.info("Searching Category with name: " + text);
         enterText(pageElements.searchCategory, text);
@@ -54,7 +55,7 @@ public class SendSMS extends BasePage {
      * @return String The template name
      */
     public String selectTemplateName() {
-        clickAndWaitForLoaderToBeRemoved(pageElements.openTemplates);
+        clickWithoutLoader(pageElements.openTemplates);
         final String text = getText(pageElements.selectOption1);
         commonLib.info(TEXT + text);
         clickAndWaitForLoaderToBeRemoved(pageElements.selectOption1);
@@ -65,7 +66,7 @@ public class SendSMS extends BasePage {
      * This method use to select language
      */
     public void selectLanguage() {
-        clickAndWaitForLoaderToBeRemoved(pageElements.openLanguage);
+        clickWithoutLoader(pageElements.openLanguage);
         commonLib.info(TEXT + getText(pageElements.selectOption1));
         clickAndWaitForLoaderToBeRemoved(pageElements.selectOption1);
     }

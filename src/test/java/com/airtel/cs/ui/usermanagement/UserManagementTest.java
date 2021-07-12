@@ -19,7 +19,7 @@ public class UserManagementTest extends Driver {
     private final BaseActions actions = new BaseActions();
     int currentBucketSize;
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login via API");
@@ -78,7 +78,7 @@ public class UserManagementTest extends Driver {
     }
 
 
-    @Test(priority = 4, dependsOnMethods = "openEditUserPage", groups = {"RegressionTest"})
+    @Test(priority = 4, dependsOnMethods = {"openEditUserPage", "openUserManagementPage"}, groups = {"RegressionTest"})
     public void getInteractionChannel() {
         try {
             selUtils.addTestcaseDescription("Validating User Management Edit User : Interaction Channel,Validate all Interaction displayed as per config file.", "description");
@@ -113,7 +113,7 @@ public class UserManagementTest extends Driver {
     }
 
 
-    @Test(priority = 5, dependsOnMethods = "openEditUserPage", groups = {"RegressionTest"})
+    @Test(priority = 5, dependsOnMethods = {"openEditUserPage", "openUserManagementPage"}, groups = {"RegressionTest"})
     public void getWorkflows() {
         try {
             selUtils.addTestcaseDescription("Validating User Management Edit User : Work Flows,validate all the workgroup display as per config", "description");
@@ -128,7 +128,7 @@ public class UserManagementTest extends Driver {
             List<String> workFlow = data.getWorkFlowData();
             for (String s : strings) {
                 if (workFlow.contains(s)) {
-                    commonLib.infoColored("Validate " + s + " workgroup is display correctly", JavaColors.GREEN,false);
+                    commonLib.infoColored("Validate " + s + " workgroup is display correctly", JavaColors.GREEN, false);
                     workFlow.remove(s);
                 } else {
                     commonLib.fail(s + " workgroup must not display on frontend as tag not mention in config sheet.", false);
@@ -147,7 +147,7 @@ public class UserManagementTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 6, dependsOnMethods = "openEditUserPage", groups = {"RegressionTest"})
+    @Test(priority = 6, dependsOnMethods = {"openEditUserPage", "openUserManagementPage"}, groups = {"RegressionTest"})
     public void getLoginQueue() {
         try {
             selUtils.addTestcaseDescription("Validating User Management Edit User : Login Queue,Validate all the queue must be display as per config file.", "description");
@@ -175,7 +175,7 @@ public class UserManagementTest extends Driver {
                     commonLib.fail(element + " ticketPool does not display on UI but present in config sheet.", true);
                 }
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             commonLib.fail("Exception in Method - getLoginQueue" + e.fillInStackTrace(), true);
         }
         actions.assertAllFoundFailedAssert(assertCheck);
@@ -183,7 +183,7 @@ public class UserManagementTest extends Driver {
     }
 
     @DataProviders.User()
-    @Test(priority = 7, dependsOnMethods = "openEditUserPage", groups = {"RegressionTest"}, dataProvider = "loginData", dataProviderClass = DataProviders.class)
+    @Test(priority = 7, dependsOnMethods = {"openEditUserPage", "openUserManagementPage"}, groups = {"RegressionTest"}, dataProvider = "loginData", dataProviderClass = DataProviders.class)
     public void changeBucketSize() {
         try {
             selUtils.addTestcaseDescription("Validating Bucket Size", "description");
@@ -194,8 +194,8 @@ public class UserManagementTest extends Driver {
             pages.getUserManagementPage().clickSearchButton();
             pages.getUserManagementPage().waitUntilResultPageIsVisible();
             assertCheck.append(actions.assertEqual_stringType(pages.getUserManagementPage().resultIsVisible(CommonConstants.ALL_USER_ROLE_AUUID), CommonConstants.ALL_USER_ROLE_AUUID, "Search using user auuid success and user detail fetched as expected", "Search using user auuid does not complete and user detail does not fetched as expected"));
-            assertCheck.append(actions.assertEqual_intType((Integer.parseInt(pages.getUserManagementPage().getCurrentTicketBucketSize())), currentBucketSize + 1, "Agent bucket size update as expected","Updated Bucket Size is not as Expected"));
-        }catch (Exception e) {
+            assertCheck.append(actions.assertEqual_intType((Integer.parseInt(pages.getUserManagementPage().getCurrentTicketBucketSize())), currentBucketSize + 1, "Agent bucket size update as expected", "Updated Bucket Size is not as Expected"));
+        } catch (Exception e) {
             commonLib.fail("Exception in Method - changeBucketSize" + e.fillInStackTrace(), true);
         }
         actions.assertAllFoundFailedAssert(assertCheck);

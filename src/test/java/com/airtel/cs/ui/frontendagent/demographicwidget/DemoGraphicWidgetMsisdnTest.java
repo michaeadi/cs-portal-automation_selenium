@@ -25,7 +25,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
     private final BaseActions actions = new BaseActions();
     private static String customerNumber = null;
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -94,9 +94,9 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
     @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testAirtelMoneyProfile() {
         try {
-            selUtils.addTestcaseDescription(
-                    "Verify Airtel Money Profile is locked or unlocked, if locked then verify data, else unlock Airtel Money Profile", "description");
             if (StringUtils.equalsIgnoreCase(constants.getValue(ApplicationConstants.AIRTEL_MONEY_PROFILE), "true")) {
+                selUtils.addTestcaseDescription(
+                        "Verify Airtel Money Profile is locked or unlocked, if locked then verify data, else unlock Airtel Money Profile", "description");
                 assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getMiddleAuuidAMP(), loginAUUID, "Auuid is visible at the middle of the Airtel Money Profile widget and is correct", "Auuid is NOT visible at the middle of the Airtel Money Profile widget"));
                 assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getFooterAuuidAMP(), loginAUUID, "Auuid is visible at the footer of the Airtel Money Profile widget and is correct", "Auuid is NOT visible at the footer of the Airtel Money Profile widget"));
                 ProfilePOJO profileAPI = api.profileAPITest(customerNumber);
@@ -145,7 +145,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                         "Customer's Airtel Money Registration Status not same not as Expected"));
                 actions.assertAllFoundFailedAssert(assertCheck);
             } else {
-                commonLib.info("Airtel Money Profile is Not configured for Opco=" + OPCO);
+                commonLib.skip("Airtel Money Profile is Not configured for Opco=" + OPCO);
             }
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
             commonLib.fail("Exception in method - testAirtelMoneyProfile " + e, true);
@@ -161,27 +161,31 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
             GsmKycPOJO gsmKycAPI = api.gsmKYCAPITest(customerNumber);
             final int statusCode = gsmKycAPI.getStatusCode();
             assertCheck.append(actions.assertEqual_intType(statusCode, 200, "GSM KYC API Status Code Matched and is :" + statusCode, "GSM KYC API Status Code NOT Matched and is :" + statusCode));
-            assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getCustomerName(), gsmKycAPI.getResult().getName(),
+            final String customerName = pages.getDemoGraphicPage().getCustomerName();
+            assertCheck.append(actions.matchUiAndAPIResponse(customerName, gsmKycAPI.getResult().getName(),
                     "Customer Name is as Expected", "Customer Name is not as Expected"));
-            pages.getDemoGraphicPage().hoverOnCustomerInfoIcon();
-            final String customerDOB = pages.getDemoGraphicPage().getCustomerDOB();
-            assertCheck.append(actions
-                    .assertEqual_stringType(customerDOB.trim(), UtilsMethods.getDateFromEpoch(gsmKycAPI.getResult().getDob(), "dd-MMM-yyyy"),
-                            "Customer DOB is as Expected", "Customer DOB is not as Expected"));
-            if (UtilsMethods.isCustomerBirthday(customerDOB.trim(), "dd-MMM-yyyy")) {
-                commonLib.pass("Today is Customer Birthday");
-                final boolean birthday = pages.getDemoGraphicPage().isBirthday();
-                assertCheck.append(actions.assertEqual_boolean(birthday, true, "Today is customer birthday and birthday icon displayed",
-                        "Today is customer birthday but birthday Icon NOT displayed"));
+            if (!customerName.contains("Unable to fetch data")) {
+                pages.getDemoGraphicPage().hoverOnCustomerInfoIcon();
+                final String customerDOB = pages.getDemoGraphicPage().getCustomerDOB();
+                assertCheck.append(actions
+                        .assertEqual_stringType(customerDOB.trim(), UtilsMethods.getDateFromEpoch(gsmKycAPI.getResult().getDob(), "dd-MMM-yyyy"),
+                                "Customer DOB is as Expected", "Customer DOB is not as Expected"));
+                if (!customerDOB.equals("-"))
+                    if (UtilsMethods.isCustomerBirthday(customerDOB.trim(), "dd-MMM-yyyy")) {
+                        commonLib.pass("Today is Customer Birthday");
+                        final boolean birthday = pages.getDemoGraphicPage().isBirthday();
+                        assertCheck.append(actions.assertEqual_boolean(birthday, true, "Today is customer birthday and birthday icon displayed",
+                                "Today is customer birthday but birthday Icon NOT displayed"));
+                    }
+                assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getIdType().toLowerCase().trim(),
+                        gsmKycAPI.getResult().getIdentificationType() == null || gsmKycAPI.getResult().getIdentificationType().equals("") ?
+                                "-" :
+                                gsmKycAPI.getResult().getIdentificationType().toLowerCase().trim(), "Customer's ID Type is as Expected",
+                        "Customer's ID Type is not as Expected"));
+                final String customerIdNumber = pages.getDemoGraphicPage().getIdNumber().replace("*", "");
+                assertCheck.append(actions.assertEqual_boolean(StringUtils.contains(gsmKycAPI.getResult().getIdentificationNo(), customerIdNumber), true,
+                        "Customer's ID Number is as Expected", "Customer's ID Number is not as Expected and Expected was :" + customerIdNumber));
             }
-            assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getIdType().trim(),
-                    gsmKycAPI.getResult().getIdentificationType() == null || gsmKycAPI.getResult().getIdentificationType().equals("") ?
-                            "-" :
-                            gsmKycAPI.getResult().getIdentificationType().trim(), "Customer's ID Type is as Expected",
-                    "Customer's ID Type is not as Expected"));
-            final String customerIdNumber = pages.getDemoGraphicPage().getIdNumber().replace("*", "");
-            assertCheck.append(actions.assertEqual_boolean(StringUtils.contains(gsmKycAPI.getResult().getIdentificationNo(), customerIdNumber), true,
-                    "Customer's ID Number is as Expected", "Customer's ID Number is not as Expected and Expected was :" + customerIdNumber));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
             commonLib.fail("Exception in method - testCustomerInfo " + e, true);
@@ -197,33 +201,39 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
             KYCProfile kycProfile = api.kycProfileAPITest(customerNumber);
             final Integer statusCode = kycProfile.getStatusCode();
             assertCheck.append(actions.assertEqual_intType(statusCode, 200, "KYC Profile API Status Code Matched and is :" + statusCode, "KYC Profile API Status Code NOT Matched and is :" + statusCode));
-            assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getSimNumber().trim(), kycProfile.getResult().getSim(),
+            final String simNumber = pages.getDemoGraphicPage().getSimNumber();
+            assertCheck.append(actions.assertEqual_stringType(simNumber.trim(), kycProfile.getResult().getSim(),
                     "Customer's SIM Number is as Expected", "Customer's SIM Number is not as Expected"));
-            pages.getDemoGraphicPage().hoverOnSIMNumberIcon();
-            assertCheck.append(actions
-                    .assertEqual_stringType(pages.getDemoGraphicPage().getPIN1(), kycProfile.getResult().getPin1(), "PIN1 Matched Successfully",
-                            "PIN1 NOT Matched"));
-            assertCheck.append(actions
-                    .assertEqual_stringType(pages.getDemoGraphicPage().getPIN2(), kycProfile.getResult().getPin2(), "PIN2 Matched Successfully",
-                            "PIN2 NOT Matched"));
-            assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getGSMStatus().toLowerCase().trim(),
+            if (!simNumber.contains("Unable to fetch data")) {
+                pages.getDemoGraphicPage().hoverOnSIMNumberIcon();
+                assertCheck.append(actions
+                        .assertEqual_stringType(pages.getDemoGraphicPage().getPIN1(), kycProfile.getResult().getPin1() == null || kycProfile.getResult().getPin1().equals("") ? "-" : kycProfile.getResult().getPin1(), "PIN1 Matched Successfully",
+                                "PIN1 NOT Matched"));
+                assertCheck.append(actions
+                        .assertEqual_stringType(pages.getDemoGraphicPage().getPIN2(), kycProfile.getResult().getPin2() == null || kycProfile.getResult().getPin2().equals("") ? "-" : kycProfile.getResult().getPin2(), "PIN2 Matched Successfully",
+                                "PIN2 NOT Matched"));
+            }
+            final String gsmStatus = pages.getDemoGraphicPage().getGSMStatus();
+            assertCheck.append(actions.assertEqual_stringType(gsmStatus.toLowerCase().trim(),
                     kycProfile.getResult().getStatus().toLowerCase().trim(), "Customer's SIM Status is as Expected",
                     "Customer's SIM Status is not as Expected"));
-            pages.getDemoGraphicPage().hoverOnSIMStatusInfoIcon();
-            assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getActivationDate().trim(),
-                    UtilsMethods.getDateFromEpoch(Long.parseLong(kycProfile.getResult().getActivationDate()), "dd-MMM-yyy"),
-                    "Customer's Activation Date is as Expected", "Customer's Activation Date is not as Expected"));
-            assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getGSMStatusReasonCode().trim().toLowerCase(),
-                    kycProfile.getResult().getReason() == null || kycProfile.getResult().getReason().equals("") ?
-                            "-" :
-                            kycProfile.getResult().getReason().toLowerCase().trim(), "Customer SIM Status Reason is as Expected",
-                    "Customer SIM Status Reason is not as Expected"));
-            assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getGSMStatusModifiedBy().trim().toLowerCase(),
-                    kycProfile.getResult().getModifiedBy().trim().toLowerCase(), "Customer SIM Status Modified By is as Expected",
-                    "Customer SIM Status Modified By is not as Expected"));
-            assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getGSMStatusModifiedDate().trim(),
-                    UtilsMethods.getDateFromString(kycProfile.getResult().getModifiedDate(), "dd-MMM-yyy hh:mm", "dd-MMM-yyyy hh:mm"),
-                    "Customer SIM Status, Modified Date is as Expected", "Customer SIM Status, Modified Date is not as Expected"));
+            if (!gsmStatus.contains("Unable to fetch data")) {
+                pages.getDemoGraphicPage().hoverOnSIMStatusInfoIcon();
+                assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getActivationDate().trim(),
+                        UtilsMethods.getDateFromEpoch(Long.parseLong(kycProfile.getResult().getActivationDate()), "dd-MMM-yyy"),
+                        "Customer's Activation Date is as Expected", "Customer's Activation Date is not as Expected"));
+                assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getGSMStatusReasonCode().trim().toLowerCase(),
+                        kycProfile.getResult().getReason() == null || kycProfile.getResult().getReason().equals("") ?
+                                "-" :
+                                kycProfile.getResult().getReason().toLowerCase().trim(), "Customer SIM Status Reason is as Expected",
+                        "Customer SIM Status Reason is not as Expected"));
+                assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getGSMStatusModifiedBy().trim().toLowerCase(),
+                        kycProfile.getResult().getModifiedBy().trim().toLowerCase(), "Customer SIM Status Modified By is as Expected",
+                        "Customer SIM Status Modified By is not as Expected"));
+                assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getGSMStatusModifiedDate().trim(),
+                        UtilsMethods.getDateFromString(kycProfile.getResult().getModifiedDate(), "dd-MMM-yyy HH:mm aa", "dd-MMM-yyyy hh:mm aa").replace("am", "AM").replace("pm", "PM"),
+                        "Customer SIM Status, Modified Date is as Expected", "Customer SIM Status, Modified Date is not as Expected"));
+            }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
             commonLib.fail("Exception in method - testSIMNumberAndGSMStatus " + e, true);
@@ -268,25 +278,32 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
 
     @Test(priority = 7, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testConnectionTypeServiceCategorySegment() {
-        selUtils.addTestcaseDescription("Validate Connection Type, Validate Service Category,Validate Segment, Validate Service Class",
-                "description");
-        KYCProfile kycProfile = api.kycProfileAPITest(customerNumber);
-        final Integer statusCode = kycProfile.getStatusCode();
-            assertCheck.append(actions.assertEqual_intType(statusCode, 200, "KYC Profile API Status Code Matched and is :" + statusCode, "KYC Profile API Status Code NOT Matched and is :" + statusCode));
         try {
+            selUtils.addTestcaseDescription("Validate Connection Type, Validate Service Category,Validate Segment, Validate Service Class",
+                    "description");
+            KYCProfile kycProfile = api.kycProfileAPITest(customerNumber);
+            final Integer statusCode = kycProfile.getStatusCode();
+            assertCheck.append(actions.assertEqual_intType(statusCode, 200, "KYC Profile API Status Code Matched and is :" + statusCode, "KYC Profile API Status Code NOT Matched and is :" + statusCode));
             assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getConnectionType().toLowerCase().trim(),
                     kycProfile.getResult().getLineType().toLowerCase().trim(), "Customer Connection Type is as expected",
                     "Customer Connection Type as not expected"));
-            assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getSegment().toLowerCase().trim(),
+            final String segment = pages.getDemoGraphicPage().getSegment();
+            assertCheck.append(actions.assertEqual_stringType(segment.toLowerCase().trim(),
                     kycProfile.getResult().getSegment().toLowerCase().trim(), "Customer Segment as expected", "Customer Segment as not expected"));
-            pages.getDemoGraphicPage().hoverOnSegmentInfoIcon();
-            assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getServiceCategory().toLowerCase().trim(),
-                    kycProfile.getResult().getServiceCategory() == null || kycProfile.getResult().getServiceCategory().equals("") ?
-                            "-" : kycProfile.getResult().getServiceCategory().toLowerCase().trim(), "Customer Service Category as expected",
-                    "Customer Service Category as not expected"));
+            if (!segment.contains("Unable to fetch data")) {
+                pages.getDemoGraphicPage().hoverOnSegmentInfoIcon();
+                assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getSubSegment(), kycProfile.getResult().getSubSegment() == null || kycProfile.getResult().getSubSegment().equals("") ? "-" : kycProfile.getResult().getSubSegment(), "Customer Sub Segment as expected",
+                        "Customer Sub Segment as not expected"));
+                final String serviceCategory = pages.getDemoGraphicPage().getServiceCategory();
+                assertCheck.append(actions.assertEqual_stringType(serviceCategory.toLowerCase().trim(),
+                        kycProfile.getResult().getServiceCategory() == null || kycProfile.getResult().getServiceCategory().equals("") ?
+                                "-" : kycProfile.getResult().getServiceCategory().toLowerCase().trim(), "Customer Service Category as expected",
+                        "Customer Service Category as not expected and is: " + serviceCategory));
+            }
             assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getServiceClass().toLowerCase().trim(),
-                    kycProfile.getResult().getServiceClass().toLowerCase().trim(), "Customer Service Class as expected",
+                    kycProfile.getResult().getServiceClass() == null ? "-" : kycProfile.getResult().getServiceClass().toLowerCase().trim(), "Customer Service Class as expected",
                     "Customer Service Class as not expected"));
+
             if (kycProfile.getResult().getVip()) {
                 assertCheck.append(actions
                         .assertEqual_boolean(pages.getDemoGraphicPage().isVIP(), true, "Customer is VIP but Icon displayed as expected",
@@ -320,16 +337,15 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
             assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getDeviceModel().toLowerCase().trim(),
                     profileAPI.getResult().getModel().toLowerCase().trim(), "Customer device model as expected",
                     "Customer device model as not expected"));
-            assertCheck.append(actions.assertEqual_boolean(StringUtils.equalsIgnoreCase(pages.getDemoGraphicPage().getDeviceOS().toLowerCase().trim(), profileAPI.getResult().getOs() == null | profileAPI.getResult().getOs().equals("") ?
-                            "-" : profileAPI.getResult().getOs().toLowerCase().trim()),
-                    true, "Customer device OS as expected", "Customer device OS as not expected"));
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemoGraphicPage().getDeviceOS(), profileAPI.getResult().getOs(),
+                    "Customer device OS as expected", "Customer device OS as not expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
             commonLib.fail("Exception in method - testDeviceInfo " + e, true);
         }
     }
 
-    @Test(priority = 9, groups = {"RegressionTest"})
+    @Test(priority = 9, groups = {"RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void invalidMSISDNTest() {
         try {
             selUtils.addTestcaseDescription("Validating the Demographic Information of User with invalid MSISDN : 123456789", "description");

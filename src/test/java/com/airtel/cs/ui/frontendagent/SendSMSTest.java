@@ -2,6 +2,7 @@ package com.airtel.cs.ui.frontendagent;
 
 import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
+import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.driver.Driver;
@@ -20,7 +21,7 @@ public class SendSMSTest extends Driver {
     String customerNumber = null;
     private final BaseActions actions = new BaseActions();
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -30,15 +31,13 @@ public class SendSMSTest extends Driver {
 
     /**
      * This method is used to Open Customer Profile Page with valid MSISDN
-     *
-     * @param data
      */
     @DataProviders.User(userType = "NFTR")
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "loginData", dataProviderClass = DataProviders.class)
-    public void openCustomerInteraction(TestDatabean data) {
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
-            final String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
+            customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().clickOnUserName();
             pages.getSideMenuPage().openCustomerInteractionPage();
@@ -60,11 +59,9 @@ public class SendSMSTest extends Driver {
     public void validateSendSMSTab() {
         try {
             selUtils.addTestcaseDescription("Validating the Send SMS Tab ", "description");
-            pages.getCustomerProfilePage();
             pages.getCustomerProfilePage().clickOnAction();
             try {
                 pages.getCustomerProfilePage().openSendSMSTab();
-                pages.getSendSMS().waitTillLoaderGetsRemoved();
                 try {
                     assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isPageLoaded(), true, "Send SMS tab open correctly", "Send SMS tab does not open correctly"));
                 } catch (NoSuchElementException | TimeoutException e) {
@@ -96,7 +93,7 @@ public class SendSMSTest extends Driver {
                     commonLib.fail("Message Content Is Editable" + e.fillInStackTrace(), true);
                 }
                 try {
-                    assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isSendBtnDisabled(), true, "Send SMS button is not clickable", "Send SMS button is clickable"));
+                    assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isSendBtnDisabled(), true, "Send SMS button is disabled", "Send SMS button is NOT disabled"));
                 } catch (NoSuchElementException | TimeoutException e) {
                     commonLib.fail("Send SMS button is display on UI" + e.fillInStackTrace(), true);
                 }
@@ -113,25 +110,20 @@ public class SendSMSTest extends Driver {
     /**
      * This method is used to validate send SMS tab
      */
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "validateSendSMSTab")
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"validateSendSMSTab", "openCustomerInteraction"})
     public void sendSMS() {
         try {
             selUtils.addTestcaseDescription("Validating the Send SMS Tab ", "description");
-            assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isPageLoaded(), true, "Send SMS tab does not open correctly"));
+            assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isPageLoaded(), true, "Send SMS tab opened correctly","Send SMS tab does not open correctly"));
             Assert.assertEquals(pages.getSendSMS().getCustomerNumber(), customerNumber, "Customer Number as not same as whose profile opened");
             try {
                 pages.getSendSMS().selectCategory();
-                pages.getSendSMS().waitTillLoaderGetsRemoved();
                 try {
                     templateName = pages.getSendSMS().selectTemplateName();
-                    pages.getSendSMS().waitTillLoaderGetsRemoved();
                     try {
                         pages.getSendSMS().selectLanguage();
-                        pages.getSendSMS().waitTillLoaderGetsRemoved();
                         try {
                             assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().clickSendSMSBtn(), true, "Send SMS is enabled", "Send SMS does not enabled"));
-                            pages.getSendSMS().waitTillSuccessMessage();
-                            pages.getSendSMS().waitTillLoaderGetsRemoved();
                         } catch (NoSuchElementException | TimeoutException e) {
                             commonLib.fail("Not able to send sms to customer." + e.fillInStackTrace(), true);
                         }
@@ -157,14 +149,12 @@ public class SendSMSTest extends Driver {
     /**
      * This method is used to Check Sent SMS display in message history
      */
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = "openCustomerInteraction")
     public void checkSendMessageLog() {
         try {
             selUtils.addTestcaseDescription("Check Sent SMS display in message history ", "description");
             pages.getCustomerProfilePage().goToViewHistory();
-            pages.getViewHistory().waitTillLoaderGetsRemoved();
             pages.getViewHistory().clickOnMessageHistory();
-            pages.getMessageHistoryPage().waitTillLoaderGetsRemoved();
             try {
                 assertCheck.append(actions.assertEqual_boolean(pages.getMessageHistoryPage().isMessageTypeColumn(), true, "Message Type Column is displayed on UI", "Message Type Column does not display on UI"));
             } catch (NoSuchElementException | TimeoutException e) {
@@ -191,17 +181,11 @@ public class SendSMSTest extends Driver {
                 commonLib.fail("Message Text Column does not display on UI:" + e.fillInStackTrace(), true);
             }
             try {
-                assertCheck.append(actions.assertEqual_boolean(pages.getMessageHistoryPage().isMessageTypeColumn(), true, "Message Type Column is displayed on UI", "Message Type Column does not display on UI"));
-            } catch (NoSuchElementException | TimeoutException e) {
-                commonLib.fail("Message Type Column does not display on UI:" + e.fillInStackTrace(), true);
-            }
-            try {
-                assertCheck.append(actions.assertEqual_stringNotNull(pages.getMessageHistoryPage().messageType(1).toLowerCase().trim(), config.getProperty("manualSMSType").toLowerCase().trim(), "Message Type is manual"));
+                assertCheck.append(actions.assertEqual_stringNotNull(pages.getMessageHistoryPage().messageType(1).toLowerCase().trim(), constants.getValue(CommonConstants.MANUAL_SMS_TYPE).toLowerCase().trim(), "Message Type is NOT manual"));
             } catch (NoSuchElementException | TimeoutException e) {
                 commonLib.fail("Message Type is not Display on UI:" + e.fillInStackTrace(), true);
             }
             try {
-
                 assertCheck.append(actions.assertEqual_stringNotNull(pages.getMessageHistoryPage().templateEvent(1).toLowerCase().trim(), templateName.toLowerCase().trim(), "Template name not same as sent template."));
             } catch (NullPointerException e) {
                 commonLib.fail("SMS is not sent, Template name is empty." + e.fillInStackTrace(), true);
@@ -236,20 +220,19 @@ public class SendSMSTest extends Driver {
     /**
      * This method is used to Re-Send SMS using action button in message history
      */
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "checkSendMessageLog")
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"checkSendMessageLog", "openCustomerInteraction"})
     public void reSendMessageLog() {
         try {
             selUtils.addTestcaseDescription("Re Send SMS using action button in message history", "description");
-            pages.getMessageHistoryPage().waitTillLoaderGetsRemoved();
             try {
                 pages.getMessageHistoryPage().clickActionBtn(1);
-                pages.getMessageHistoryPage().getPopUpTitle();
-                assertCheck.append(actions.assertEqual_boolean(pages.getMessageHistoryPage().getPopUpMessage().contains(customerNumber), true, "Pop up Message tab contain customer number", "Pop up Message tab does not contain customer number" ));
+                final String popUpTitle = pages.getMessageHistoryPage().getPopUpTitle();
+                assertCheck.append(actions.assertEqual_stringType(popUpTitle, "Resend Message", "Pop up message matched successully", "Pop up message NOT matched and is: " + popUpTitle));
+                assertCheck.append(actions.assertEqual_boolean(pages.getMessageHistoryPage().getPopUpMessage().contains(customerNumber), true, "Pop up Message tab contain customer number", "Pop up Message tab does not contain customer number"));
                 pages.getMessageHistoryPage().clickYesBtn();
-                pages.getMessageHistoryPage().waitTillLoaderGetsRemoved();
                 assertCheck.append(actions.assertEqual_boolean(pages.getMessageHistoryPage().isMessageTypeColumn(), true, "Message Type Column is displayed on UI", "Message Type Column does not display on UI"));
                 try {
-                    assertCheck.append(actions.assertEqual_stringNotNull(pages.getMessageHistoryPage().messageType(1).toLowerCase().trim(), config.getProperty("manualSMSType").toLowerCase().trim(), "Message Type is not manual"));
+                    assertCheck.append(actions.assertEqual_stringNotNull(pages.getMessageHistoryPage().messageType(1).toLowerCase().trim(), constants.getValue(CommonConstants.MANUAL_SMS_TYPE).toLowerCase().trim(), "Message Type is NOT manual"));
                 } catch (NoSuchElementException | TimeoutException e) {
                     commonLib.fail("Message Type is not Display on UI:" + e.fillInStackTrace(), true);
                 }

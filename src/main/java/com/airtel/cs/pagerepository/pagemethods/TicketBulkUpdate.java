@@ -401,4 +401,13 @@ public class TicketBulkUpdate extends BasePage {
         clickAndWaitForLoaderToBeRemoved(pageElements.okButton);
     }
 
+    /*
+   This Method will be used to check Source Title is visible or not under Bulk update tab Ticket Listing
+    */
+    public Boolean isSourceTitleVisible() {
+        boolean result = false;
+        result =isVisible(pageElements.sourceTitleTicketRowTicketListing);
+        highLighterMethod(pageElements.sourceTitleTicketRowTicketListing);
+        return result;
+    }
 }

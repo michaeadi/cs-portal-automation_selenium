@@ -6,18 +6,14 @@ import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
-import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pagerepository.pagemethods.LoanDetail;
-import com.airtel.cs.pojo.response.loandetails.Loan;
-import com.airtel.cs.pojo.response.loandetails.LoanDetailList;
-import com.airtel.cs.pojo.response.loandetails.LoanHistory;
-import com.airtel.cs.pojo.response.loandetails.LoanRepaymentDetailList;
-import com.airtel.cs.pojo.response.loandetails.LoanRepaymentList;
+import com.airtel.cs.pojo.response.loandetails.*;
 import com.airtel.cs.pojo.response.loansummary.Summary;
 import com.airtel.cs.pojo.response.vendors.HeaderList;
 import com.airtel.cs.pojo.response.vendors.VendorNames;
 import com.airtel.cs.pojo.response.vendors.Vendors;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
@@ -35,9 +31,10 @@ public class LoanWidgetTest extends Driver {
     static String customerNumber;
     RequestSource api = new RequestSource();
     ArrayList<Vendors> vendors;
+    public static final String RUN_LOAN_WIDGET_TEST_CASE = constants.getValue(ApplicationConstants.RUN_LOAN_WIDGET_TESTCASE);
     private final BaseActions actions = new BaseActions();
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -45,14 +42,19 @@ public class LoanWidgetTest extends Driver {
         }
     }
 
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void checkLoanWidgetFlag() {
+        if (!StringUtils.equals(RUN_LOAN_WIDGET_TEST_CASE, "true")) {
+            commonLib.skip("Loan Widget is NOT Enabled for this Opco= " + OPCO);
+            throw new SkipException("Skipping because this functionality does not applicable for current Opco");
+        }
+    }
+
     /**
      * This method is used to Open Customer Profile Page with valid MSISDN
-     *
-     * @param data
      */
-    @DataProviders.User()
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "loginData", dataProviderClass = DataProviders.class)
-    public void openCustomerInteraction(TestDatabean data) {
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
             final String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);

@@ -32,7 +32,7 @@ public class VoucherTabTest extends Driver {
     private final BaseActions actions = new BaseActions();
     ObjectMapper mapper = new ObjectMapper();
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -41,42 +41,10 @@ public class VoucherTabTest extends Driver {
     }
 
     /**
-     * This method is used for login in
-     * @param data
-     * @throws JsonProcessingException
-     */
-    @DataProviders.User(userType = "API")
-    @Test(dataProvider = "loginData", groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProviderClass = DataProviders.class, priority = 0)
-    public void loginAPI(TestDatabean data) throws JsonProcessingException {
-        selUtils.addTestcaseDescription("Validate the Login API with Beta user,Hit the Login API -/auth/api/user-mngmnt/v2/login with valid headers and credentials,Validating Success Message from response", "description");
-        final String loginAUUID = constants.getValue(CommonConstants.BETA_USER_AUUID);
-        LoginPOJO Req = LoginPOJO.loginBody(loginAUUID, PassUtils.decodePassword(constants.getValue(CommonConstants.BETA_USER_PASSWORD)));
-        map.clear();
-        pages.getLoginPage().setApiHeader();
-        String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(Req);
-        commonLib.info("Validating login api with user : " + loginAUUID);
-        try {
-            final Response response = pages.getLoginPage().loginAPI(dtoAsString);
-            String token = "Bearer " + response.jsonPath().getString("result.accessToken");
-            map.add(new Header("Authorization", token));
-            commonLib.info("Response Body : " + response.asString());
-            commonLib.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
-            final String message = response.jsonPath().getString("message");
-            assertCheck.append(actions.assertEqual_stringType(message, "User authenticated successfully", "User authenticated successfully", message));
-        } catch (Exception e) {
-            continueExecutionAPI = false;
-            commonLib.fail("Exception in Method :- testLoginAPI " + e.fillInStackTrace(), true);
-        }
-        actions.assertAllFoundFailedAssert(assertCheck);
-    }
-
-    /**
      * This method is used to Open Customer Profile Page with valid MSISDN
-     * @param data
      */
-    @DataProviders.User(userType = "NFTR")
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "loginData", dataProviderClass = DataProviders.class)
-    public void openCustomerInteraction(TestDatabean data) {
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
             final String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
@@ -107,7 +75,6 @@ public class VoucherTabTest extends Driver {
             pages.getRechargeHistoryWidget().writeVoucherId(voucherId);
             pages.getRechargeHistoryWidget().clickSearchBtn();
             try {
-                pages.getVoucherTab().waitTillTimeLineGetsRemoved();
                 Assert.assertTrue(pages.getVoucherTab().isVoucherTabOpen(), "Voucher Id does not found");
                 VoucherSearchPOJO voucher = api.voucherSearchTest(voucherId);
                 VoucherDetail voucherDetail = voucher.getResult();

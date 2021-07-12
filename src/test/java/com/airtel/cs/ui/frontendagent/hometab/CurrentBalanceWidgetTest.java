@@ -21,7 +21,7 @@ public class CurrentBalanceWidgetTest extends Driver {
     private final BaseActions actions = new BaseActions();
     RequestSource api = new RequestSource();
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -31,7 +31,7 @@ public class CurrentBalanceWidgetTest extends Driver {
 
 
     @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
-    public void openCustomerInteractionAPI() {
+    public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
             customerNumber = constants.getValue(ApplicationConstants.CURRENT_BALANCE_MSISDN);
@@ -48,7 +48,7 @@ public class CurrentBalanceWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void currentBalanceWidgetHeaderTest() {
         try {
             selUtils.addTestcaseDescription("Validate Current Balance Widget is visible, Validate Footer AUUID, Validate Middle AUUID, Validate Widget Header Text", "description");
@@ -62,7 +62,7 @@ public class CurrentBalanceWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void mainAccountBalanceTest() {
         try {
             selUtils.addTestcaseDescription("Validate Main Account Balance,Validate Current Balance Currency,Validate Last Recharge Amount,Validate Last Recharge Date and Time", "description");
@@ -98,7 +98,7 @@ public class CurrentBalanceWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void voiceDataSmsTest() {
         try {
             selUtils.addTestcaseDescription("Validating Current Balance Transaction Widget of User :" + customerNumber, "description");

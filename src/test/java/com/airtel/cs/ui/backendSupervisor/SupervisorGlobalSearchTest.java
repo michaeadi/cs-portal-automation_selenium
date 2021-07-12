@@ -14,9 +14,9 @@ public class SupervisorGlobalSearchTest extends Driver {
 
     private final BaseActions actions = new BaseActions();
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
-        if (!continueExecutionBS) {
+        if (!(continueExecutionBS && continueExecutionFA)) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
             throw new SkipException("Skipping tests because user NOT able to login Over Portal");
         }
@@ -36,7 +36,7 @@ public class SupervisorGlobalSearchTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openSupervisorDashboard"})
     public void globalSearchTestByTicket() {
         try {
             selUtils.addTestcaseDescription("Verify Global Search By Valid Ticket Id,Search By ticket id", "description");
@@ -55,7 +55,7 @@ public class SupervisorGlobalSearchTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 3, groups = {"RegressionTest"})
+    @Test(priority = 3, groups = {"RegressionTest"}, dependsOnMethods = {"openSupervisorDashboard"})
     public void globalSearchTestByInvalidTicket() {
         try {
             selUtils.addTestcaseDescription("Verify Global Search By Invalid Ticket Id,Search with invalid ticket id,validate no result must be displayed.", "description");
@@ -71,7 +71,7 @@ public class SupervisorGlobalSearchTest extends Driver {
     }
 
     @DataProviders.User(userType = "NFTR")
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openSupervisorDashboard"})
     public void globalSearchTestBy() {
         try {
             selUtils.addTestcaseDescription("Verify Global Search By Global Search Option, Search using customer msisdn,validate Result page show ticket with searched msisdn", "description");

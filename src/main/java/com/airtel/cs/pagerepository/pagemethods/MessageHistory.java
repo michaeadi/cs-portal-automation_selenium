@@ -247,9 +247,10 @@ public class MessageHistory extends BasePage {
     /**
      * This method is use to get pop up title
      */
-    public void getPopUpTitle() {
+    public String getPopUpTitle() {
         final String text = getText(pageElements.popUpTitle);
         commonLib.info("Reading pop title: " + text);
+        return text;
     }
 
     /**
@@ -268,6 +269,7 @@ public class MessageHistory extends BasePage {
     public void clickYesBtn() {
         commonLib.info("Clicking on 'Yes' Button");
         clickAndWaitForLoaderToBeRemoved(pageElements.yesBtn);
+        waitTillLoaderGetsRemoved();
     }
 
     /**

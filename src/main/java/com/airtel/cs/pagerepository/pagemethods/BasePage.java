@@ -60,6 +60,7 @@ public class BasePage extends Driver {
         fluentWait.until(ExpectedConditions.invisibilityOfElementLocated(basePageElements.overlay));
         commonLib.info("Overlay Removed");
     }
+
     /**
      * This method is use to wait until stream line loader get removed
      */
@@ -105,6 +106,7 @@ public class BasePage extends Driver {
 
     /**
      * This method use to scroll to view web element
+     *
      * @param element The element location
      * @throws InterruptedException in-case throw interrupt exception
      */
@@ -117,8 +119,9 @@ public class BasePage extends Driver {
 
     /**
      * This method is use to enter text into web element
+     *
      * @param elementLocation The element location
-     * @param text The value to write
+     * @param text            The value to write
      */
     public void enterText(By elementLocation, String text) {
         if (isVisible(elementLocation)) {
@@ -133,13 +136,19 @@ public class BasePage extends Driver {
 
     /**
      * This method use to read text present by element location
+     *
      * @param elementLocation The element location
      * @return String The value
      */
     public String getText(By elementLocation) {
-        waitVisibility(elementLocation);
-        highLighterMethod(elementLocation);
-        return driver.findElement(elementLocation).getText();
+        String result = "";
+        if (isVisible(elementLocation)) {
+            highLighterMethod(elementLocation);
+            result = driver.findElement(elementLocation).getText();
+        } else {
+            commonLib.fail("Exception in Method - getText", true);
+        }
+        return result;
     }
 
     /**
@@ -158,6 +167,7 @@ public class BasePage extends Driver {
 
     /**
      * This method is use to check element is enabled or not on a web-page
+     *
      * @param elementLocation The element location
      * @return true/false
      */
@@ -175,6 +185,7 @@ public class BasePage extends Driver {
 
     /**
      * This method is use to wait until element is visible on a web-page
+     *
      * @param by The element location
      */
     public void waitVisibility(By by) {
@@ -184,6 +195,7 @@ public class BasePage extends Driver {
 
     /**
      * This method use to switch window based on window number
+     *
      * @param windownumber The window number
      */
     public void waitAndSwitchWindow(int windownumber) {
@@ -209,6 +221,7 @@ public class BasePage extends Driver {
 
     /**
      * This method use to open home tab
+     *
      * @return Object The customer profile page
      */
     public CustomerProfile openingCustomerInteractionDashboard() {
@@ -219,6 +232,7 @@ public class BasePage extends Driver {
 
     /**
      * This method use to get toast message text appeared on screen
+     *
      * @return String The Value
      */
     public String getToastMessage() {
@@ -236,6 +250,7 @@ public class BasePage extends Driver {
 
     /**
      * This method use to check element visible or not
+     *
      * @param element The element location
      * @return true/false
      */
@@ -251,19 +266,21 @@ public class BasePage extends Driver {
 
     /**
      * This method use to click element by given text
+     *
      * @param text The visible text
      */
     public void selectByText(String text) {
-        WebElement elementby = driver.findElement(By.xpath(basePageElements.spanText+ text + "')]"));
+        WebElement elementby = driver.findElement(By.xpath(basePageElements.spanText + text + "')]"));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", elementby);
         driver.findElement(By.xpath(basePageElements.spanText + text + "')]")).click();
     }
 
     /**
      * This method used is check whether text visible on UI or not
+     *
      * @param text text to be found on UI
      * @return true/false
-     * */
+     */
     public Boolean isTextVisible(String text) {
         By elementBy = By.xpath(basePageElements.spanText + text.trim() + "')]");
         return isElementVisible(elementBy);
@@ -279,6 +296,7 @@ public class BasePage extends Driver {
 
     /**
      * This method use to clear input tag content
+     *
      * @param element The element location
      */
     public void clearInputTag(By element) {
@@ -288,8 +306,9 @@ public class BasePage extends Driver {
 
     /**
      * This method use to validate the text present in the list is same or not
+     *
      * @param element The Element location
-     * @param text The text
+     * @param text    The text
      * @return true/false
      */
     public boolean validateFilter(By element, String text) {
@@ -306,9 +325,10 @@ public class BasePage extends Driver {
 
     /**
      * This method is used to get list of element based on element location
+     *
      * @param element The element locator
      * @return list of element found using element locator on page
-     * */
+     */
     public List<WebElement> returnListOfElement(By element) {
         List<WebElement> list = new ArrayList<>();
         try {
@@ -321,8 +341,9 @@ public class BasePage extends Driver {
 
     /**
      * This method use to get text from the list of element based on row number
+     *
      * @param elementLocation The element location
-     * @param row The row number
+     * @param row             The row number
      * @return String The value
      */
     public String readTextOnRows(By elementLocation, int row) {
@@ -332,10 +353,11 @@ public class BasePage extends Driver {
 
     /**
      * This method use to get text from the list of element based on row number and column number
-     * @param rowLocation The element row location
+     *
+     * @param rowLocation    The element row location
      * @param columnLocation The element column location
-     * @param row The row number
-     * @param column The column number
+     * @param row            The row number
+     * @param column         The column number
      * @return String The value
      */
     public String readOnRowColumn(By rowLocation, By columnLocation, int row, int column) {
@@ -348,11 +370,11 @@ public class BasePage extends Driver {
     /**
      * @param elementLocation The element locator
      * @return integer The total number of element found on page
-     * */
+     */
 
-    public Integer getSizeOfElement(By elementLocation){
+    public Integer getSizeOfElement(By elementLocation) {
         waitVisibility(elementLocation);
-        int size=driver.findElements(elementLocation).size();
+        int size = driver.findElements(elementLocation).size();
         commonLib.info("Row Size: " + size);
         return size;
     }
@@ -502,6 +524,30 @@ public class BasePage extends Driver {
             commonLib.info("Element Not Visible :-" + webelementBy);
             return false;
         }
+    }
+
+    /**
+     * CREATED THIS TO BYPASS THE DEFAULT 10 SEC WAIT CAUSED BY ISDISPLAYED METHOD AND  CONTINUE EXECUTION
+     *
+     * @param webelementBy element locator
+     * @return will return true false
+     */
+    public boolean isVisibleContinueExecution(By webelementBy) {
+        return isVisibleContinueExecution(webelementBy, Integer.parseInt(constants.getValue(ApplicationConstants.GENERAL_WAIT_IN_SEC)));
+    }
+
+    /**
+     * This Method will let us know, if element is visible or not and continue execution
+     *
+     * @param webelementBy element lcoator
+     * @param time         time in seconds
+     * @return true/false
+     */
+    public boolean isVisibleContinueExecution(By webelementBy, int time) {
+        elementName = getElementNameFromAirtelByWrapper(webelementBy);
+        Wait<WebDriver> driverWait = getWaitObject(time);
+        WebElement webElement = driverWait.until(ExpectedConditions.visibilityOfElementLocated(webelementBy));
+        return webElement != null;
     }
 
     public Wait<WebDriver> getWaitObject(int maxWaitFor) {
@@ -667,7 +713,7 @@ public class BasePage extends Driver {
 
     /**
      * This method use to hover on element and click on that element
-     * */
+     */
     public void hoverAndClick(By elementLocation) {
         Actions actions = new Actions(driver);
         waitVisibility(elementLocation);

@@ -18,14 +18,13 @@ public class PinTagTest extends Driver {
     private final BaseActions actions = new BaseActions();
     final String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
             throw new SkipException("Skipping tests because user NOT able to login Over Portal");
         }
     }
-
 
     /**
      * This method is used to Open Customer Profile Page with valid MSISDN
@@ -79,8 +78,6 @@ public class PinTagTest extends Driver {
                     commonLib.fail(key + " tag does not display on UI but present in config sheet.", true);
                 }
             }
-            // No use of assertCheck here what to do in this case
-            //softAssert.assertAll();
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - checkALLPinnedTag()" + e.fillInStackTrace(), true);
@@ -89,6 +86,7 @@ public class PinTagTest extends Driver {
 
     /**
      * This method is used to validate issue code for pin tag
+     *
      * @param data
      */
     @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "pinTag", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
@@ -102,7 +100,7 @@ public class PinTagTest extends Driver {
                     pages.getMsisdnSearchPage();
                     pages.getMsisdnSearchPage().enterNumber(customerNumber);
                     pages.getMsisdnSearchPage().clickOnSearch();
-                    assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isCustomerProfilePageLoaded(), true));
+                    assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isCustomerProfilePageLoaded(), true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
                     pages.getCustomerProfilePage().goToViewHistory();
                     pages.getViewHistory().clickOnInteractionsTab();
                     String issueCode = pages.getViewHistory().getLastCreatedIssueCode();

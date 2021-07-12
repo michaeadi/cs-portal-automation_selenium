@@ -32,6 +32,7 @@ public class Interactions extends BasePage {
 
     /**
      * This method is used to get date field label
+     *
      * @return String The value
      */
     public String getAvailableDateField() {
@@ -41,6 +42,7 @@ public class Interactions extends BasePage {
 
     /**
      * This method used to get date field label + * sign in case field mandatory
+     *
      * @return String The value
      */
     public String isDateFieldAvailableMandatory() {
@@ -51,6 +53,7 @@ public class Interactions extends BasePage {
 
     /**
      * This method used to get write date into date field
+     *
      * @param date The date
      */
     public void setDateFieldAvailable(String date) {
@@ -61,17 +64,19 @@ public class Interactions extends BasePage {
 
     /**
      * This method is used to get issue detail label based on question number
+     *
      * @param num The number
      * @return String The value
      */
     public String getIssueDetailLabel(String num) {
         commonLib.info("Getting the label for issue detail field situated at Position : " + num);
-        By issueDetails = By.xpath( pageElements.issueField+ num + pageElements.fieldLabel);
+        By issueDetails = By.xpath(pageElements.issueField + num + pageElements.fieldLabel);
         return getText(issueDetails);
     }
 
     /**
      * This method use to get issue field label of drop down type field based on num
+     *
      * @param num The number
      * @return String The value
      */
@@ -84,7 +89,8 @@ public class Interactions extends BasePage {
 
     /**
      * This method is use to write text into input field based on question number
-     * @param num The Number
+     *
+     * @param num   The Number
      * @param input The text
      */
     public void setIssueDetailInput(String num, String input) {
@@ -95,6 +101,7 @@ public class Interactions extends BasePage {
 
     /**
      * This method is use to select from dropdown based on option number
+     *
      * @param num The Number
      */
     public void selectIssueDetailInput(String num) {
@@ -115,6 +122,7 @@ public class Interactions extends BasePage {
 
     /**
      * This method is used to check is search visible or not
+     *
      * @return true/false
      */
     public boolean isSearchVisible() {
@@ -134,13 +142,19 @@ public class Interactions extends BasePage {
     This Method is used to select issue code
      */
     public void selectCode(String code) {
-        selectByText(code);
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(pageElements.loader));
-        commonLib.info("selecting issue code " + code);
+        try {
+            selectByText(code);
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(pageElements.loader));
+            commonLib.info("selecting issue code " + code);
+        } catch (Exception e) {
+            commonLib.fail("Exception in method - selectCode", true);
+            clickOutside();
+        }
     }
 
     /**
      * This method is used to get issue field value
+     *
      * @return String The value
      */
     public String getIssue() {
@@ -152,6 +166,7 @@ public class Interactions extends BasePage {
 
     /**
      * This method is used to get issue type field value
+     *
      * @return String The value
      */
     public String getIssueType() {
@@ -164,6 +179,7 @@ public class Interactions extends BasePage {
 
     /**
      * This method is used to get issue sub type field value
+     *
      * @return String The value
      */
     public String getIssueSubType() {
@@ -175,6 +191,7 @@ public class Interactions extends BasePage {
 
     /**
      * This method is used to get issue sub sub type field value
+     *
      * @return String The value
      */
     public String getIssueSubSubType() {
@@ -186,6 +203,7 @@ public class Interactions extends BasePage {
 
     /**
      * This method use to write comment into comment box
+     *
      * @param comment The comment
      */
     public void sendComment(String comment) {
@@ -203,6 +221,7 @@ public class Interactions extends BasePage {
 
     /**
      * This method use to check save button enable or not
+     *
      * @return true/false
      */
     public boolean isSaveEnable() {
@@ -216,6 +235,7 @@ public class Interactions extends BasePage {
 
     /**
      * This method use to check ticket id visible or not
+     *
      * @return true/false
      */
     public boolean isTicketIdVisible() {
@@ -287,6 +307,7 @@ public class Interactions extends BasePage {
 
     /**
      * This method is used to get added comment
+     *
      * @return String The value
      */
     public String getAddedComment() {

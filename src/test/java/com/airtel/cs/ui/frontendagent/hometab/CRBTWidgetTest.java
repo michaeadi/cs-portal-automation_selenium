@@ -34,11 +34,19 @@ public class CRBTWidgetTest extends Driver {
         }
     }
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
             throw new SkipException("Skipping tests because user NOT able to login Over Portal");
+        }
+    }
+
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void isResetMe2uFeatureEnabled() {
+        if (StringUtils.equalsIgnoreCase(constants.getValue(ApplicationConstants.CRBT_WIDGET), "false")) {
+            commonLib.skip("CRBT Widget is NOT Enabled for this Opco=" + OPCO);
+            throw new SkipException("CRBT Widget is NOT Enabled for this Opco=" + OPCO);
         }
     }
 
@@ -90,9 +98,8 @@ public class CRBTWidgetTest extends Driver {
                         if (!status) {
 
                             assertCheck.append(actions.assertEqual_stringType(message, "Customer haven't subscribed for hello tunes", "Hello Tune Not Subscribed Message Matched Successfully and is :" + message, "Hello Tune Not Subscribed Message NOT Matched and is :" + message));
-                        } else {
-                            //ToDO Pending as Test msisdn is not available
-                        }
+                        }  //ToDO Pending as Test msisdn is not available
+
                     }
                 } else {
                     final String actual = pages.getCrbtWidgetPage().noResultMessage();

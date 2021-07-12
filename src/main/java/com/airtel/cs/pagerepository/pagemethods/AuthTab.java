@@ -1,10 +1,13 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
 
+import com.airtel.cs.commonutils.applicationutils.enums.JavaColors;
 import com.airtel.cs.pagerepository.pageelements.AuthTabPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.ArrayList;
@@ -65,7 +68,7 @@ public class AuthTab extends BasePage {
             commonLib.info("Clicking on Authenticate button");
             clickWithoutLoader(pageElements.authBtn);
         } else
-            clickWithoutLoader(pageElements.authCloseBtn);
+            clickAndWaitForLoaderToBeRemoved(pageElements.authCloseBtn);
     }
 
     /*
@@ -167,6 +170,25 @@ public class AuthTab extends BasePage {
     }
 
     /**
+     * This method use to get total number of input issue fields configured while performing sim bar/unbar action
+     */
+    public Integer getNumberOfInputFieldDisplay(){
+        return returnListOfElement(pageElements.listOfFields).size();
+    }
+
+    public void fillAllInputField(String text){
+        try {
+            int size = getNumberOfInputFieldDisplay();
+            for (int i = 1; i <= size; i++) {
+                By inputField = By.xpath(pageElements.questionField + i + "']");
+                enterText(inputField, text);
+            }
+        }catch (NoSuchElementException | TimeoutException e){
+            commonLib.infoColored("No Issue Field found with input type"+e.getMessage(), JavaColors.BLUE,true);
+        }
+    }
+
+    /**
      * This method use to get all the reason which is configure
      */
     public List<String> getReasonConfig() {
@@ -253,6 +275,7 @@ public class AuthTab extends BasePage {
         String result = null;
         if (isVisible(pageElements.toastModal)) {
             result = getText(pageElements.toastModal);
+            clickWithoutLoader(pageElements.closeBtn);
         } else {
             commonLib.fail("Exception in method - getToastText", true);
             commonLib.info("Going to Close Modal through close Button");

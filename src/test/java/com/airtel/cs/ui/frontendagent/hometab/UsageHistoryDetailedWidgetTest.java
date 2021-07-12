@@ -7,6 +7,7 @@ import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pojo.response.UsageHistoryPOJO;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
@@ -17,10 +18,11 @@ import org.testng.annotations.Test;
 public class UsageHistoryDetailedWidgetTest extends Driver {
     private static String customerNumber = null;
     private final BaseActions actions = new BaseActions();
+    public static final String RUN_USAGE_WIDGET_TEST_CASE = constants.getValue(ApplicationConstants.RUN_USAGE_WIDGET_TESTCASE);
     RequestSource api = new RequestSource();
     private UsageHistoryPOJO usageHistoryAPI;
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -28,8 +30,16 @@ public class UsageHistoryDetailedWidgetTest extends Driver {
         }
     }
 
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void checkUsageHistoryFlag() {
+        if (!StringUtils.equals(RUN_USAGE_WIDGET_TEST_CASE, "true")) {
+            commonLib.skip("Skipping because Run Usage widget Test Case Flag Value is - " + RUN_USAGE_WIDGET_TEST_CASE);
+            throw new SkipException("Skipping because this functionality does not applicable for current Opco");
+        }
+    }
+
     @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
-    public void openCustomerInteractionAPI() {
+    public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
             customerNumber = constants.getValue(ApplicationConstants.USAGE_HISTORY_MSISDN);
@@ -47,7 +57,7 @@ public class UsageHistoryDetailedWidgetTest extends Driver {
     }
 
     @DataProviders.Table(name = "Detailed Usage History")
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI")
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
     public void usageHistoryMenuHeaderTest(HeaderDataBean data) {
         try {
             selUtils.addTestcaseDescription("Validate Usage history menu widget header visible and display all the Column name as per config,validate all the filter displayed,Validate all type of cdr displayed.,Validation Pagination display when data displayed on UI.", "description");
@@ -60,7 +70,7 @@ public class UsageHistoryDetailedWidgetTest extends Driver {
             assertCheck.append(actions.assertEqual_boolean(pages.getDetailedUsageHistoryPage().isLast7DayDateFilter(), true, "Last 7 Days date filter Option does display on UI.", "Last 7 Days date filter Option does not display on UI."));
             usageHistoryAPI = api.usageHistoryMenuTest(customerNumber);
             final int statusCode = usageHistoryAPI.getStatusCode();
-            assertCheck.append(actions.assertEqual_intType(statusCode, 200, "Display Offer Widget API success and status code is :" + statusCode, "Display Offer Widget API got failed and status code is :" + statusCode));
+            assertCheck.append(actions.assertEqual_intType(statusCode, 200, "Usage History Detailed Widget API success and status code is :" + statusCode, "Usage History Detailed Widget API got failed and status code is :" + statusCode));
             if (statusCode != 200) {
                 commonLib.fail("API is Unable to Get usage history for Customer", false);
             } else if (usageHistoryAPI.getResult().size() > 0) {
@@ -73,7 +83,7 @@ public class UsageHistoryDetailedWidgetTest extends Driver {
                 assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailedUsageHistoryPage().getHeaders(7), data.getRow7(), "Header Name for Row 7 is as expected", "Header Name for Row 7 is not as expected"));
                 assertCheck.append(actions.assertEqual_boolean(pages.getDetailedUsageHistoryPage().isPagination(), true, "Pagination does display on UI", "Pagination does not display on UI"));
             } else if (usageHistoryAPI.getResult().size() == 0 || usageHistoryAPI.getResult() == null) {
-                commonLib.warning("Unable to get Usage History Details from API");
+                commonLib.warning("No Usage History Found for this MSISDN over the CS Portal");
                 assertCheck.append(actions.assertEqual_boolean(pages.getDetailedUsageHistoryPage().getNoResultFound(), true, "No Result Message & icon Visible", "No Result Message is not Visible"));
             }
         } catch (Exception e) {
@@ -83,7 +93,7 @@ public class UsageHistoryDetailedWidgetTest extends Driver {
 
 
     @DataProviders.Table(name = "Detailed Usage History")
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteractionAPI", "usageHistoryMenuHeaderTest"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction", "usageHistoryMenuHeaderTest"})
     public void usageHistoryMenuTest() {
         try {
             selUtils.addTestcaseDescription("Validating Usage History's  Menu of User :" + customerNumber + "validate row display data value on UI as per api response.", "description");
@@ -95,14 +105,14 @@ public class UsageHistoryDetailedWidgetTest extends Driver {
                 if (statusCode != 200) {
                     commonLib.fail("API is Unable to Get usage history for Customer", false);
                 } else if (usageHistoryAPI.getResult().size() == 0 || usageHistoryAPI.getResult() == null) {
-                    commonLib.warning("Unable to get Usage History Details from API");
+                    commonLib.warning("No Usage History Found for this MSISDN over the CS Portal");
                     assertCheck.append(actions.assertEqual_boolean(pages.getDetailedUsageHistoryPage().getNoResultFound(), true, "No Result Message & Icon is Visible", "No Result Message is not Visible"));
                 } else {
                     for (int i = 0; i < size; i++) {
                         assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailedUsageHistoryPage().getValueCorrespondingToHeader(i + 1, 1), usageHistoryAPI.getResult().get(i).getType(), " Type received is as expected on row " + i, " Type received is not as expected on row " + i));
                         assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailedUsageHistoryPage().getValueCorrespondingToHeader(i + 1, 2), usageHistoryAPI.getResult().get(i).getDateTime() + "\n" + usageHistoryAPI.getResult().get(i).getTime(), "Date & Time received is as expected on row " + i, "Date & Time received is not as expected on row " + i));
                         assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailedUsageHistoryPage().getValueCorrespondingToHeader(i + 1, 3).trim(), usageHistoryAPI.getResult().get(i).getStartBalance().trim(), "Start Balance received is as expected on row " + i, "Start Balance received is not as expected on row " + i));
-                        assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailedUsageHistoryPage().getValueCorrespondingToHeader(i + 1, 4).trim(), usageHistoryAPI.getResult().get(i).getCharges().trim(), "Charges received is as expected on row " + i, "Charges received is not as expected on row " + i));
+                        assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailedUsageHistoryPage().getValueCorrespondingToHeader(i + 1, 4).trim(), usageHistoryAPI.getResult().get(i).getCharges().replace("-","").trim(), "Charges received is as expected on row " + i, "Charges received is not as expected on row " + i));
                         if (usageHistoryAPI.getResult().get(i).getCharges().charAt(0) == '-') {
                             assertCheck.append(actions.assertEqual_boolean(pages.getDetailedUsageHistoryPage().checkSignDisplay(i + 1), true, "Red Negative Symbol display at row " + i, "Red Negative Symbol does not display at row " + i));
                         }

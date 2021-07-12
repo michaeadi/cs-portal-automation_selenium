@@ -22,8 +22,8 @@ public class DetailedUsageHistoryPage {
     public String headerRow="//div[@data-csautomation-key='DETAILED_USAGE_HISTORY']//div[@class='card__card-header--card-body--table--list-heading ng-star-inserted']//div[";
     public String columnText="]/span";
     public String columnRow="//div[@data-csautomation-key='DETAILED_USAGE_HISTORY']//div[@class='table-data-wrapper ng-star-inserted']/div[@class='ng-star-inserted' or @class='slide-toggle red ng-star-inserted'][";
-    public String columnValue="]//div[@class='ng-star-inserted' or @class='slide-toggle red ng-star-inserted'][";
-    public String checkSign="]//div[@class='ng-star-inserted' or @class='slide-toggle red ng-star-inserted'][4]/img[@class='sign-icon-before ng-star-inserted']";
+    public String columnValue="]//div[@class='data-container ng-star-inserted' or @class='slide-toggle red ng-star-inserted'][";
+    public String checkSign="]//div[@class='data-container ng-star-inserted' or @class='slide-toggle red ng-star-inserted'][4]/img[@class='sign-icon-before ng-star-inserted']";
 
     //Pagination Details
     public By pagination = By.xpath("//div[@data-csautomation-key='DETAILED_USAGE_HISTORY']//div[@class='table-data-wrapper ng-star-inserted']/div[@class='pagination ng-star-inserted']/div[1]");

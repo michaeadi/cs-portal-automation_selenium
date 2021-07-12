@@ -1,8 +1,8 @@
 package com.airtel.cs.ui.frontendagent;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.UtilsMethods;
+import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
@@ -20,7 +20,6 @@ import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -60,7 +59,7 @@ public class CreateInteractionTest extends Driver {
 
 
     @Test(priority = 2, dependsOnMethods = "openCustomerInteraction", groups = {"SanityTest", "RegressionTest","ProdTest"}, dataProvider = "getTestData1", dataProviderClass = DataProviders.class)
-    public void createInteraction(FtrDataBeans data) throws InterruptedException {
+    public void createInteraction(FtrDataBeans data) {
         try {
             final String issueCode = data.getIssueCode();
             selUtils.addTestcaseDescription(" Validating FTR Ticket: " + issueCode, "description");
@@ -101,7 +100,7 @@ public class CreateInteractionTest extends Driver {
     }
 
     @Test(priority = 3, dependsOnMethods = "openCustomerInteraction", groups = {"SanityTest", "RegressionTest","ProdTest"}, dataProvider = "getTestData2", dataProviderClass = DataProviders.class)
-    public void CreateNFTRInteraction(NftrDataBeans data) throws InterruptedException, IOException {
+    public void CreateNFTRInteraction(NftrDataBeans data) {
         try {
             String ticketNumber = null;
             try {
@@ -128,7 +127,7 @@ public class CreateInteractionTest extends Driver {
                 if (issueFieldLabel1 != null)
                     if (data.getIssueFieldType1().equalsIgnoreCase("Text Box") && !issueFieldLabel1.isEmpty()) {
                         commonLib.info(pages.getInteractionsPage().getIssueDetailLabel("1"));
-                        assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssueDetailLabel("1").replace("*", "").trim(), (issueFieldLabel1.replace("*", "").trim()), issueFieldLabel1 + " Label matched", issueFieldLabel1 + " Label does not match"));
+                        assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssueDetailLabel("1").replaceAll("[^a-zA-Z]+", "").trim(), (issueFieldLabel1.replaceAll("[^a-zA-Z]+", "").trim()), issueFieldLabel1 + " Label matched", issueFieldLabel1 + " Label does not match"));
                         if (data.getIssueFieldMandatory1().equalsIgnoreCase("Yes")) {
                             assertCheck.append(actions.assertEqual_boolean(pages.getInteractionsPage().getIssueDetailLabel("1").contains("*"), true, issueFieldLabel1 + "Label is mandatory and contains '*' ", issueFieldLabel1 + "Label is mandatory but doesn't contain '*' "));
                         }
@@ -153,7 +152,7 @@ public class CreateInteractionTest extends Driver {
                 if (issueFieldLabel2 != null)
                     if (data.getIssueFieldType2().equalsIgnoreCase("Text Box") && !issueFieldLabel2.isEmpty()) {
                         commonLib.info(pages.getInteractionsPage().getIssueDetailLabel("2"));
-                        assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssueDetailLabel("2").replace("*", "").trim(), (issueFieldLabel2.replace("*", "").trim()), "Issue Field Label 2 matched", "Issue Field Label 2 NOT matched"));
+                        assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssueDetailLabel("2").replaceAll("[^a-zA-Z]+", "").trim(), (issueFieldLabel2.replaceAll("[^a-zA-Z]+", "").trim()), "Issue Field Label 2 matched", "Issue Field Label 2 NOT matched"));
                         if (data.getIssueFieldMandatory2().equalsIgnoreCase("Yes")) {
                             assertCheck.append(actions.assertEqual_boolean(pages.getInteractionsPage().getIssueDetailLabel("2").contains("*"), true, issueFieldLabel2 + "Label is mandatory and contains '*' ", issueFieldLabel2 + "Label is mandatory but doesn't contain '*' "));
                         }
@@ -178,7 +177,7 @@ public class CreateInteractionTest extends Driver {
                 if (issueFieldLabel3 != null)
                     if (data.getIssueFieldType3().equalsIgnoreCase("Text Box") && !issueFieldLabel3.isEmpty()) {
                         commonLib.info(pages.getInteractionsPage().getIssueDetailLabel("3"));
-                        assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssueDetailLabel("3").replace("*", "").trim(), (issueFieldLabel3.replace("*", "").trim()), "Issue Field Label 3 Matched", "Issue Field Label 3 NOT Matched"));
+                        assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssueDetailLabel("3").replaceAll("[^a-zA-Z]+", "").trim(), (issueFieldLabel3.replaceAll("[^a-zA-Z]+", "").trim()), "Issue Field Label 3 Matched", "Issue Field Label 3 NOT Matched"));
                         if (data.getIssueFieldMandatory3().equalsIgnoreCase("Yes")) {
                             assertCheck.append(actions.assertEqual_boolean(pages.getInteractionsPage().getIssueDetailLabel("3").contains("*"), true, issueFieldLabel3 + "Label is mandatory and contains '*' ", issueFieldLabel3 + "Label is mandatory but doesn't contain '*' "));
                         }
@@ -204,7 +203,7 @@ public class CreateInteractionTest extends Driver {
                 final String issueFieldLabel4 = data.getIssueFieldLabel4();
                 if (issueFieldLabel4 != null)
                     if (data.getIssueFieldType4().equalsIgnoreCase("Text Box") && !issueFieldLabel4.isEmpty()) {
-                        assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssueDetailLabel("4").replace("*", "").trim(), (issueFieldLabel4.replace("*", "").trim()), "Issue Field Label 4 Matched", "Issue Field Label 4 NOT Matched"));
+                        assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssueDetailLabel("4").replaceAll("[^a-zA-Z]+", "").trim(), (issueFieldLabel4.replaceAll("[^a-zA-Z]+", "")), "Issue Field Label 4 Matched", "Issue Field Label 4 NOT Matched"));
                         if (data.getIssueFieldMandatory4().equalsIgnoreCase("Yes")) {
                             assertCheck.append(actions.assertEqual_boolean(pages.getInteractionsPage().getIssueDetailLabel("4").contains("*"), true, issueFieldLabel4 + "Label is mandatory and contains '*' ", issueFieldLabel4 + "Label is mandatory but doesn't contain '*' "));
                         }
@@ -228,7 +227,7 @@ public class CreateInteractionTest extends Driver {
                 if (data.getIssueFieldLabel5() != null)
                     if (data.getIssueFieldType5().equalsIgnoreCase("Text Box") && !data.getIssueFieldLabel5().isEmpty()) {
                         commonLib.info(pages.getInteractionsPage().getIssueDetailLabel("5"));
-                        assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssueDetailLabel("5").replace("*", "").trim(), (data.getIssueFieldLabel5().replace("*", "").trim()), "Issue Field Label 5 Matched", "Issue Field Label 5 NOT Matched"));
+                        assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssueDetailLabel("5").replaceAll("[^a-zA-Z]+", "").trim(), (data.getIssueFieldLabel5().replaceAll("[^a-zA-Z]+", "").trim()), "Issue Field Label 5 Matched", "Issue Field Label 5 NOT Matched"));
                         if (data.getIssueFieldMandatory5().equalsIgnoreCase("Yes")) {
                             assertCheck.append(actions.assertEqual_boolean(pages.getInteractionsPage().getIssueDetailLabel("5").contains("*"), true, data.getIssueFieldLabel5() + "Label is mandatory and contains '*' ", data.getIssueFieldLabel5() + "Label is mandatory but doesn't contain '*' "));
                         }
@@ -252,7 +251,7 @@ public class CreateInteractionTest extends Driver {
                 if (data.getIssueFieldLabel6() != null)
                     if (data.getIssueFieldType6().equalsIgnoreCase("Text Box") && !data.getIssueFieldLabel6().isEmpty()) {
                         commonLib.info(pages.getInteractionsPage().getIssueDetailLabel("6"));
-                        assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssueDetailLabel("6").replace("*", "").trim(), (data.getIssueFieldLabel6().replace("*", "").trim()), "Issue Field Label 6 Matched", "Issue Field Label 6 NOT Matched"));
+                        assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssueDetailLabel("6").replaceAll("[^a-zA-Z]+", "").trim(), (data.getIssueFieldLabel6().replace("*", "").trim()), "Issue Field Label 6 Matched", "Issue Field Label 6 NOT Matched"));
                         if (data.getIssueFieldMandatory6().equalsIgnoreCase("Yes")) {
                             assertCheck.append(actions.assertEqual_boolean(pages.getInteractionsPage().getIssueDetailLabel("6").contains("*"), true, data.getIssueFieldLabel6() + "Label is mandatory and contains '*' ", data.getIssueFieldLabel6() + "Label is mandatory but doesn't contain '*' "));
                         }
@@ -276,7 +275,7 @@ public class CreateInteractionTest extends Driver {
                 if (data.getIssueFieldLabel7() != null)
                     if (data.getIssueFieldType7().equalsIgnoreCase("Text Box") && !data.getIssueFieldLabel7().isEmpty()) {
                         commonLib.info(pages.getInteractionsPage().getIssueDetailLabel("7"));
-                        assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssueDetailLabel("7").replace("*", "").trim(), (data.getIssueFieldLabel7().replace("*", "").trim()), "Issue Field Label 7 Matched", "Issue Field Label 7 NOT Matched"));
+                        assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssueDetailLabel("7").replaceAll("[^a-zA-Z]+", "").trim(), (data.getIssueFieldLabel7().replace("*", "").trim()), "Issue Field Label 7 Matched", "Issue Field Label 7 NOT Matched"));
                         if (data.getIssueFieldMandatory7().equalsIgnoreCase("Yes")) {
                             assertCheck.append(actions.assertEqual_boolean(pages.getInteractionsPage().getIssueDetailLabel("7").contains("*"), true, data.getIssueFieldLabel7() + "Label is mandatory and contains '*' ", data.getIssueFieldLabel7() + "Label is mandatory but doesn't contain '*' "));
                         }

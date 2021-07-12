@@ -16,7 +16,7 @@ public class BackendAgentAddCommentTest extends Driver {
 
     private final BaseActions actions = new BaseActions();
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionBA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -24,7 +24,7 @@ public class BackendAgentAddCommentTest extends Driver {
         }
     }
 
-    @Test(priority = 1, description = "Backend Agent Queue Login Page")
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest"})
     public void agentQueueLogin() {
         try {
             selUtils.addTestcaseDescription("Backend Agent Login into Queue", "description");
@@ -43,7 +43,7 @@ public class BackendAgentAddCommentTest extends Driver {
         }
     }
 
-    @Test(priority = 2, description = "Backend agent add new comment on Ticket", dependsOnMethods = "agentQueueLogin")
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = "agentQueueLogin")
     public void addNewComment() throws InterruptedException {
         try {
             selUtils.addTestcaseDescription("Backend Agent add new comment on ticket", "description");
@@ -60,7 +60,7 @@ public class BackendAgentAddCommentTest extends Driver {
         }
     }
 
-    @Test(priority = 3, dependsOnMethods = "agentQueueLogin", description = "Validate issue comment as Backend Agent")
+    @Test(priority = 3, dependsOnMethods = "agentQueueLogin", groups = {"SanityTest", "RegressionTest"})
     public void validateIssueCommentBS() {
         try {
             selUtils.addTestcaseDescription("Validate issue comment as Backend Agent", "description");
@@ -71,7 +71,7 @@ public class BackendAgentAddCommentTest extends Driver {
         }
     }
 
-    @Test(priority = 4, dependsOnMethods = "addNewComment", description = "Validate Edit comment as Backend Agent")
+    @Test(priority = 4, dependsOnMethods = "addNewComment", groups = {"SanityTest", "RegressionTest"})
     public void editComment() throws InterruptedException {
         try {
             selUtils.addTestcaseDescription("Validate Edit comment as Backend Agent", "description");
@@ -88,7 +88,7 @@ public class BackendAgentAddCommentTest extends Driver {
         }
     }
 
-    @Test(priority = 5, dependsOnMethods = "agentQueueLogin", description = "Validate Delete comment as Backend Agent")
+    @Test(priority = 5, dependsOnMethods = "agentQueueLogin", groups = {"SanityTest", "RegressionTest"})
     public void deleteLastAddedComment() throws InterruptedException {
         try {
             selUtils.addTestcaseDescription("Validate Delete comment as Backend Agent", "description");

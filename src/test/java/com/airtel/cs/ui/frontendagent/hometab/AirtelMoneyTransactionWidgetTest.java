@@ -17,8 +17,6 @@ import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.awt.*;
-import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 
@@ -29,8 +27,9 @@ public class AirtelMoneyTransactionWidgetTest extends Driver {
     private final BaseActions actions = new BaseActions();
     private final String amWidgetId = pages.getAmTxnWidgetPage().getAMWidgetId();
     RequestSource api = new RequestSource();
+    public static final String RUN_AIRTEL_MONEY_WIDGET_TEST_CASE = constants.getValue(ApplicationConstants.RUN_AIRTEL_MONEY_WIDGET_TESTCASE);
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -38,8 +37,16 @@ public class AirtelMoneyTransactionWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 1, description = "Validate Customer Interaction Page")
-    public void openCustomerInteractionAPI() {
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void checkAirtelMoneyFlag() {
+        if (!StringUtils.equals(RUN_AIRTEL_MONEY_WIDGET_TEST_CASE, "true")) {
+            commonLib.skip("Airtel Money Widget is NOT enabled for this Opco = " + OPCO);
+            throw new SkipException("Skipping because this functionality does not applicable for current Opco");
+        }
+    }
+
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
             customerNumber = constants.getValue(ApplicationConstants.AM_CUSTOMER_MSISDN);
@@ -56,7 +63,7 @@ public class AirtelMoneyTransactionWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 2, dependsOnMethods = {"openCustomerInteractionAPI"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void airtelMoneyHeaderTest() {
         try {
             selUtils.addTestcaseDescription("Validate Airtel Money Header is Visible,Validate Airtel Money Header Text,Validate Date Picker is visible,Validate Transaction Id Search Box is visible", "description");
@@ -72,7 +79,7 @@ public class AirtelMoneyTransactionWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 3, description = "Validating AM Transaction Widget", dependsOnMethods = "openCustomerInteractionAPI")
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
     public void airtelMoneyBalanceTest() {
         try {
             selUtils.addTestcaseDescription("Validating Airtel Money Balance", "description");
@@ -96,7 +103,7 @@ public class AirtelMoneyTransactionWidgetTest extends Driver {
     }
 
     @DataProviders.Table(name = "Airtel Money")
-    @Test(priority = 4, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = {"openCustomerInteractionAPI"})
+    @Test(priority = 4, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void airtelMoneyTransactionHistoryAPITest(HeaderDataBean data) throws IOException, UnsupportedFlavorException {
         try {
             selUtils.addTestcaseDescription("Validate Airtel Money Transaction History API", "description");
@@ -123,9 +130,8 @@ public class AirtelMoneyTransactionWidgetTest extends Driver {
                     assertCheck.append(actions.matchUiAndAPIResponse(amTxnWidgetPage.getHeaderValue(i, 4), amTransactionHistoryAPI.getResult().getData().get(i).getStatus(), "Status is as expected as of CS API response", "Status is not expected as of CS API response"));
                     assertCheck.append(actions.assertEqual_boolean(amTxnWidgetPage.isResendSMS(i + 1), amTransactionHistoryAPI.getResult().getData().get(i).getEnableResendSms(), "Resend SMS Icon is enabled/disabled as mentioned in CS API Response", "Resend SMS Icon does not enable/disable as mentioned in CS API Response"));
                     String id = amTxnWidgetPage.doubleClickOnTransactionId(i + 1);
-                    String clipboardText = (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
-                    commonLib.info("Reading Clipboard copied text: " + clipboardText);
-                    assertCheck.append(actions.assertEqual_stringType(id, clipboardText, "Transaction id copied to clipboard successfully", "Transaction id does not copy to clipboard"));
+                    String message = amTxnWidgetPage.getToastMessage();
+                    assertCheck.append(actions.assertEqual_boolean(message.contains(id), true, "Transaction id copied to clipboard successfully", "Transaction id does not copy to clipboard"));
                 }
             }
             actions.assertAllFoundFailedAssert(assertCheck);

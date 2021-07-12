@@ -21,15 +21,15 @@ public class SupervisorReopenTicketTest extends Driver {
     NftrDataBeans ticketMetaData=null;
     DataProviders dataProviders = new DataProviders();
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest","ProdTest"})
     public void checkExecution() {
-        if (!continueExecutionBS) {
+        if (!(continueExecutionBS && continueExecutionFA)) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
             throw new SkipException("Skipping tests because user NOT able to login Over Portal");
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest","ProdTest"})
     public void openSupervisorDashboard() {
         try {
             selUtils.addTestcaseDescription("Open Supervisor Dashboard , Validate agent redirect to ticket List Page", "description");
@@ -74,6 +74,7 @@ public class SupervisorReopenTicketTest extends Driver {
             }
         } catch (Exception e) {
             commonLib.fail("Exception in Method - reopenTicket" + e.fillInStackTrace(), true);
+            pages.getSupervisorTicketList().clearInputBox();
         }
         actions.assertAllFoundFailedAssert(assertCheck);
     }

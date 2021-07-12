@@ -22,8 +22,9 @@ public class AirtelMoneyMenuPrimaryWidgetTest extends Driver {
     String customerNumber;
     RequestSource api = new RequestSource();
     private AirtelMoneyPOJO amTransactionHistoryAPI;
+    public static final String RUN_AIRTEL_MONEY_WIDGET_TEST_CASE = constants.getValue(ApplicationConstants.RUN_AIRTEL_MONEY_WIDGET_TESTCASE);
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -31,8 +32,16 @@ public class AirtelMoneyMenuPrimaryWidgetTest extends Driver {
         }
     }
 
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void checkAirtelMoneyFlag() {
+        if (!StringUtils.equals(RUN_AIRTEL_MONEY_WIDGET_TEST_CASE, "true")) {
+            commonLib.skip("Skipping because Run Airtel Money widget Test Case Flag Value is - " + RUN_AIRTEL_MONEY_WIDGET_TEST_CASE);
+            throw new SkipException("Skipping because this functionality does not applicable for current Opco");
+        }
+    }
+
     @Test(priority = 1, groups = {"ProdTest"})
-    public void openCustomerInteractionAPI() {
+    public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
             customerNumber = constants.getValue(ApplicationConstants.AM_CUSTOMER_MSISDN);
@@ -50,7 +59,7 @@ public class AirtelMoneyMenuPrimaryWidgetTest extends Driver {
     }
 
     @DataProviders.Table(name = "More Airtel Money History")
-    @Test(priority = 2, groups = {"ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = {"openCustomerInteractionAPI"})
+    @Test(priority = 2, groups = {"ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = {"openCustomerInteraction"})
     public void airtelMoneyHistoryMenuHeaderTest(HeaderDataBean data) {
         try {
             selUtils.addTestcaseDescription("Validating Airtel Money History's Header Name  Menu of User :" + customerNumber + ",Validating all the filter display as per config,Validate search by transaction id box displayed as per config.", "description");
@@ -96,7 +105,7 @@ public class AirtelMoneyMenuPrimaryWidgetTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 3, groups = {"ProdTest"}, dependsOnMethods = {"openCustomerInteractionAPI", "airtelMoneyHistoryMenuHeaderTest"})
+    @Test(priority = 3, groups = {"ProdTest"}, dependsOnMethods = {"openCustomerInteraction", "airtelMoneyHistoryMenuHeaderTest"})
     public void airtelMoneyHistoryMenuTest() {
         try {
             selUtils.addTestcaseDescription("Validating Airtel Money History's  Menu of User :" + customerNumber+"Validate all the data rows displayed as per api response,In case of No result data rows found validate no result found icon displayed,Validate resend sms icon displayed as per api response.", "description");
@@ -121,7 +130,7 @@ public class AirtelMoneyMenuPrimaryWidgetTest extends Driver {
                                 } else {
                                     assertCheck.append(actions.assertEqual_boolean(pages.getMoreAMTxnTabPage().isNegSignDisplay(i + 1), true, i + "th Negative Sign does display in case of Amount Debited.", i + "th Negative Sign does not display in case of Amount Debited."));
                                 }
-                                assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getValueCorrespondingToHeader(i + 1, 2), UtilsMethods.getDateFromEpoch(new Long(amTransactionHistoryAPI.getResult().getData().get(i).getTransactionDate()), constants.getValue(CommonConstants.AM_HISTORY_TIME_FORMAT)), i + "th Date is expected as API response.", i + "th Date is not expected as API response."));
+                                assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getValueCorrespondingToHeader(i + 1, 2).replace("\n"," "), UtilsMethods.getDateFromEpochInUTC(new Long(amTransactionHistoryAPI.getResult().getData().get(i).getTransactionDate()), constants.getValue(CommonConstants.AM_HISTORY_TIME_FORMAT)), i + "th Date is expected as API response.", i + "th Date is not expected as API response."));
                                 assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getValueCorrespondingToHeader(i + 1, 3), amTransactionHistoryAPI.getResult().getData().get(i).getService(), i + "th Service name is not expected as API response.", i + "th Service name is not expected as API response."));
                                 assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getValueCorrespondingToHeader(i + 1, 4), amTransactionHistoryAPI.getResult().getData().get(i).getSource(), i + "th Sender MSISDN is expected as API response.", i + "th Sender MSISDN is not expected as API response."));
                                 assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getValueCorrespondingToHeader(i + 1, 5), amTransactionHistoryAPI.getResult().getData().get(i).getMsisdn(), i + "th Receiver MSISDN is expected as API response.", i + "th Receiver MSISDN is not expected as API response."));

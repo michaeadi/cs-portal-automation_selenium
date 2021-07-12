@@ -75,8 +75,6 @@ public class Driver {
     public static final String RUN_TARIFF_TEST_CASE = constants.getValue(ApplicationConstants.RUN_TARIFF_TEST_CASE);
     public static final String HTML_FILE_PATH = System.getProperty(USER_DIR) + "/resources/htmlreport/" + OPCO + "-" + evnName + PATH_DELIMITER;
     public static final String SUITE_TYPE = System.getProperty("suiteType");
-    public static final String EXTENT_REPORT_CONFIG_FILE_LOCATION = System.getProperty(USER_DIR)
-            + "/resources/properties/reportextent-config.xml";
     public static final String CLIENT = System.getProperty("Client").toUpperCase();
     private static String browser = null;
     public static String currentTestCaseName;
@@ -203,7 +201,7 @@ public class Driver {
             nftrSheetValue = constants.getValue(CommonConstants.SUITE_TYPE).equals(SUITE_TYPE) ? CommonConstants.SANITY_NFTR_SHEET : CommonConstants.REGRESSION_NFTR_SHEET;
             ftrSheetValue = constants.getValue(CommonConstants.SUITE_TYPE).equals(SUITE_TYPE) ? CommonConstants.SANITY_FTR_SHEET : CommonConstants.REGRESSION_FTR_SHEET;
         } catch (Exception ex) {
-            commonLib.fail(ex.getMessage(), true);
+            commonLib.fail("Exception in Method - reportConfigureBase" + ex.getMessage(), false);
         }
     }
 
@@ -271,7 +269,7 @@ public class Driver {
         options.setExperimentalOption("prefs", prefs);
         options.setAcceptInsecureCerts(true);
         options.setCapability("goog:loggingPrefs", loggingprefs);
-        options.setCapability(ChromeOptions.CAPABILITY,options);
+        options.setCapability(ChromeOptions.CAPABILITY, options);
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
     }

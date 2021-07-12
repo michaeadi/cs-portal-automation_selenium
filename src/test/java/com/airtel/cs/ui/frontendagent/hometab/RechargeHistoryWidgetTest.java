@@ -11,6 +11,7 @@ import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pagerepository.pagemethods.RechargeHistoryWidget;
 import com.airtel.cs.pojo.response.RechargeHistoryPOJO;
 import lombok.extern.java.Log;
+import org.apache.commons.lang3.StringUtils;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -20,9 +21,10 @@ public class RechargeHistoryWidgetTest extends Driver {
 
     private static String customerNumber = null;
     private final BaseActions actions = new BaseActions();
+    public static final String RUN_RECHARGE_WIDGET_TEST_CASE = constants.getValue(ApplicationConstants.RUN_RECHARGE_WIDGET_TESTCASE);
     RequestSource api = new RequestSource();
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -30,8 +32,16 @@ public class RechargeHistoryWidgetTest extends Driver {
         }
     }
 
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void checkRechargeHistoryFlag() {
+        if (!StringUtils.equals(RUN_RECHARGE_WIDGET_TEST_CASE, "true")) {
+            commonLib.skip("Skipping because Run Recharge widget Test Case Flag Value is - " + RUN_RECHARGE_WIDGET_TEST_CASE);
+            throw new SkipException("Skipping because this functionality does not applicable for current Opco");
+        }
+    }
+
     @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
-    public void openCustomerInteractionAPI() {
+    public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
             customerNumber = constants.getValue(ApplicationConstants.RECHARGE_HISTORY_MSISDN);
@@ -48,7 +58,7 @@ public class RechargeHistoryWidgetTest extends Driver {
         }
     }
 
-//    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteractionAPI")
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
     public void testHeaderAndAuuid() {
         try {
             selUtils.addTestcaseDescription("Validate is Recharge History Widget Visible,Validate is Recharge History Widget Loaded?,Validate Footer and Middle Auuid", "description");
@@ -64,10 +74,10 @@ public class RechargeHistoryWidgetTest extends Driver {
     }
 
     @DataProviders.Table(name = "Recharge History")
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionAPI")
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
     public void testColumnValueAndAuuid(HeaderDataBean data) {
         try {
-            selUtils.addTestcaseDescription("Validating Recharge History Widget of User :" + customerNumber + "Validate Recharge History API, Validate Recharge H", "description");
+            selUtils.addTestcaseDescription("Validating Recharge History Widget of User :" + customerNumber + ",Validate Recharge History API Giving Status 200, Validate Recharge History widget header name display correctly as per config,Validate Recharge History widget data value must be same as api response.", "description");
             final RechargeHistoryWidget rechargeHistoryWidget = pages.getRechargeHistoryWidget();
             RechargeHistoryPOJO rechargeHistoryAPI = api.rechargeHistoryAPITest(customerNumber);
             final int statusCode = rechargeHistoryAPI.getStatusCode();
@@ -78,7 +88,7 @@ public class RechargeHistoryWidgetTest extends Driver {
             } else {
                 int size = rechargeHistoryWidget.getNumberOfRows();
                 if (rechargeHistoryAPI.getResult().size() == 0 || rechargeHistoryAPI.getResult() == null) {
-                    commonLib.warning("Unable to get Last Recharge Details from CS API");
+                    commonLib.warning("Unable txo get Last Recharge Details from CS API");
                     assertCheck.append(actions.assertEqual_boolean(rechargeHistoryWidget.isRechargeHistoryNoResultFoundVisible(), true, "Error Message is Visible", "Error Message is not Visible"));
                     assertCheck.append(actions.assertEqual_stringType(rechargeHistoryWidget.gettingRechargeHistoryNoResultFoundMessage(), "No Result found", "Error Message is as expected", "Error Message is not as expected"));
                 } else {

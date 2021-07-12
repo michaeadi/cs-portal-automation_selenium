@@ -348,7 +348,7 @@ public class SupervisorTicketList extends BasePage {
      * */
     public void clickCheckbox() {
         commonLib.info("Selecting Ticket");
-        clickAndWaitForLoaderToBeRemoved(pageElements.checkBox);
+        clickWithoutLoader(pageElements.checkBox);
     }
 
     /**
@@ -408,7 +408,7 @@ public class SupervisorTicketList extends BasePage {
      * */
     public void changeTicketTypeToClosed() {
         commonLib.info("Switch Ticket State Type to closed");
-        clickAndWaitForLoaderToBeRemoved(pageElements.selectTicketType);
+        clickWithoutLoader(pageElements.selectTicketType);
         clickAndWaitForLoaderToBeRemoved(pageElements.closedTicketType);
     }
 
@@ -728,7 +728,10 @@ public class SupervisorTicketList extends BasePage {
     This Method will be used to check Source Title is visible or not under Ticket Listing
      */
     public Boolean isSourceTitleVisible() {
-        return isVisible(pageElements.sourceTitleTicketRowTicketListing);
+        boolean result = false;
+        result =isVisible(pageElements.sourceTitleTicketRowTicketListing);
+        highLighterMethod(pageElements.sourceTitleTicketRowTicketListing);
+        return result;
     }
 
     /*
@@ -768,7 +771,6 @@ public class SupervisorTicketList extends BasePage {
     public void goBackToTicketListing() {
         if (isVisible(pageElements.backButtonDetailPage)) {
             clickAndWaitForLoaderToBeRemoved(pageElements.backButtonDetailPage);
-            waitTillLoaderGetsRemoved();
         }
     }
 
@@ -785,7 +787,7 @@ public class SupervisorTicketList extends BasePage {
      * */
     public void clickCloseTab(){
         commonLib.info("Closing the open overlay tab");
-        clickWithoutLoader(pageElements.closeTabBtn);
+        clickAndWaitForLoaderToBeRemoved(pageElements.closeTabBtn);
     }
 
     public void compareWorkgroupName(Map<String, Long> sla, Map<String, String> workGroups) {
