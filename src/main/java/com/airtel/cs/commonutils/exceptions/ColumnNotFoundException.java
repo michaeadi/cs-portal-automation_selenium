@@ -10,4 +10,9 @@ public class ColumnNotFoundException extends Exception {
     public String toString(){
         return exceptionMessage;
     }
+
+    @Override
+    public String getMessage() {
+        return exceptionMessage;
+    }
 }
