@@ -23,13 +23,19 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.logging.LogType;
-
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.TimeZone;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.PriorityQueue;
+import java.util.Map;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 @Log4j2
@@ -308,7 +314,7 @@ public class UtilsMethods extends Driver {
         LogEntries logEntries = driver.manage().logs().get(LogType.PERFORMANCE);
         for (LogEntry entry : logEntries) {
             String consoleLog = entry.getMessage();
-            if (consoleLog.contains(constants.getValue(CommonConstants.CONSOLE_NETWORK_LOG_EXTRA_INFO_TYPE)) && consoleLog.contains("Authorization")) {
+            if (consoleLog.contains(constants.getValue(CommonConstants.CONSOLE_NETWORK_LOG_EXTRA_INFO_TYPE)) && consoleLog.contains(constants.getValue(CommonConstants.API_AUTHORIZATION_KEY))) {
                 ChromeNetworkLogPOJO obj = objectMapper.readValue(consoleLog, ChromeNetworkLogPOJO.class);
                 if (!obj.getMessage().getParams().getHeaders().getAuthorization().isEmpty()) {
                     authToken = obj.getMessage().getParams().getHeaders().getAuthorization();
@@ -331,7 +337,7 @@ public class UtilsMethods extends Driver {
             getAuthTokenFromConsole();
             map.clear();
             pages.getLoginPage().setApiHeader();
-            addHeaders("Authorization", authToken);
+            addHeaders(constants.getValue(CommonConstants.API_AUTHORIZATION_KEY), authToken);
         } else {
             commonLib.fail("Not able to add new token into header as auth token empty", false);
         }

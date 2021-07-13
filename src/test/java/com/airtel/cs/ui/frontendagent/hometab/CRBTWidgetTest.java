@@ -13,7 +13,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -26,7 +25,7 @@ public class CRBTWidgetTest extends Driver {
     private final BaseActions actions = new BaseActions();
     private String crbtWidgetId;
 
-    @BeforeClass
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void isCRBTFeatureEnabled() {
         if (StringUtils.equalsIgnoreCase(constants.getValue(ApplicationConstants.CRBT_WIDGET), "false")) {
             commonLib.skip("CRBT Widget is NOT Enabled for this Opco=" + OPCO);
@@ -39,14 +38,6 @@ public class CRBTWidgetTest extends Driver {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
             throw new SkipException("Skipping tests because user NOT able to login Over Portal");
-        }
-    }
-
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
-    public void isResetMe2uFeatureEnabled() {
-        if (StringUtils.equalsIgnoreCase(constants.getValue(ApplicationConstants.CRBT_WIDGET), "false")) {
-            commonLib.skip("CRBT Widget is NOT Enabled for this Opco=" + OPCO);
-            throw new SkipException("CRBT Widget is NOT Enabled for this Opco=" + OPCO);
         }
     }
 

@@ -345,11 +345,28 @@ public class WidgetCommonMethod extends BasePage {
         return result;
     }
 
+    /**
+     * This method is use to check quick action displayed or not for particular row in widget based on widget Identifier
+     * @param widgetIdentifier The unique widget identifier
+     * @param rowNumber The Row number
+     * @param actionNumber The quick action number
+     *                     Example ->
+     *                     Airtel Money have two action 1)Resend SMS and 2)Reverse Transaction.
+     * @return true/false
+     */
     public Boolean isQuickAction(String widgetIdentifier,int rowNumber,int actionNumber) {
         WebElement wb = driver.findElements(By.xpath(widgetIdentifier+pageElements.widgetColumnRows)).get(rowNumber).findElement(By.xpath(pageElements.firstQuickAction+actionNumber+"]"));
         return wb.isEnabled();
     }
 
+    /**
+     * This method is use to click quick action button for particular row in widget based on widget Identifier
+     * @param widgetIdentifier The unique widget identifier
+     * @param rowNumber The Row number
+     * @param actionNumber The quick action number
+     *                     Example ->
+     *                     Airtel Money have two action 1)Resend SMS and 2)Reverse Transaction.
+     */
     public void clickQuickAction(String widgetIdentifier,int rowNumber,int actionNumber) {
         commonLib.info("Clicking on Quick Action");
         WebElement wb = driver.findElements(By.xpath(widgetIdentifier+pageElements.widgetColumnRows)).get(rowNumber).findElement(By.xpath(pageElements.firstQuickAction+actionNumber+"]"));

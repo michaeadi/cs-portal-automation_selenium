@@ -6,7 +6,12 @@ import com.airtel.cs.pagerepository.pageelements.SupervisorTicketListPage;
 import com.airtel.cs.pojo.response.ticketlist.IssueDetails;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
-import org.openqa.selenium.*;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.ArrayList;
@@ -790,6 +795,11 @@ public class SupervisorTicketList extends BasePage {
         clickAndWaitForLoaderToBeRemoved(pageElements.closeTabBtn);
     }
 
+    /**
+     * This method is use to compare all workgroup which are mentioned in Excel sheet displayed on UI or not.
+     * @param sla The API Workgroups
+     * @param workGroups The excel sheet workgroups
+     */
     public void compareWorkgroupName(Map<String, Long> sla, Map<String, String> workGroups) {
         for (Map.Entry mapElement : sla.entrySet()) {
             String key = (String) mapElement.getKey();
@@ -803,6 +813,11 @@ public class SupervisorTicketList extends BasePage {
         }
     }
 
+    /**
+     * This method is use to compare all workgroup which are mentioned in Excel sheet displayed on UI or not.
+     * @param ticketLayout The API ticket layout
+     * @param configTicketLayout The excel sheet ticket layout
+     */
     public void compareTicketLayout(List<IssueDetails> ticketLayout, List<String> configTicketLayout) {
         if (ticketLayout.size() == 0) {
             for (IssueDetails layout : ticketLayout) {

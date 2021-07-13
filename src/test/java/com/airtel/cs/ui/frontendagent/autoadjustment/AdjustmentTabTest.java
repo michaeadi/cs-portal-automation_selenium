@@ -38,7 +38,7 @@ public class AdjustmentTabTest extends Driver {
     @BeforeMethod
     public void checkAdjustmentFlag() {
         if (!StringUtils.equals(RUN_ADJUSTMENT_TEST_CASE, "true")) {
-            commonLib.skip("Skipping because Run Adjustment widget Test Case Flag Value is - " + RUN_ADJUSTMENT_TEST_CASE);
+            commonLib.skip("Adjustment widget is NOT Enabled for this Opco "+OPCO);
             throw new SkipException("Skipping because this functionality does not applicable for current Opco");
         }
     }
@@ -165,7 +165,7 @@ public class AdjustmentTabTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 6, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 6, dependsOnMethods = {"openCustomerInteraction"}, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void isUserHasPermissionAdjustRecharge() {
         try {
             selUtils.addTestcaseDescription("validate that Adjustment Action is displayed for Usage History transactions when necessary permissions are given,Validate User has permission to see action along with transaction.", "description");
@@ -208,7 +208,7 @@ public class AdjustmentTabTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 8, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 8, dependsOnMethods = {"openCustomerInteraction"}, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void isUserHasPermissionCreditTypeAdjustment() {
         try {
             selUtils.addTestcaseDescription("Verify that agent have permission to perform credit type Adjustment Action should be visible to the logged in agent if adjustment permission is enabled in UM, Check User has permission to perform credit type Adjustment.", "description");
@@ -229,7 +229,7 @@ public class AdjustmentTabTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 9, dependsOnMethods = {"openCustomerInteraction", "isUserHasPermissionCreditTypeAdjustment"}, groups = {"SanityTest", "RegressionTest"})
+    @Test(priority = 9, dependsOnMethods = {"openCustomerInteraction", "isUserHasPermissionCreditTypeAdjustment"}, groups = {"RegressionTest"})
     public void performAdjustmentCreditType() {
         try {
             selUtils.addTestcaseDescription("Validate user able to open adjustment tab through home action,Validate agent able to choose fields reason and type and enter comment,Validate admin able to put comment,Validate agent able to click submit button and agent must receive proper success message", "description");
@@ -256,7 +256,7 @@ public class AdjustmentTabTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 10, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 10, dependsOnMethods = {"openCustomerInteraction"},groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void isUserHasPermissionDebitTypeAdjustment() {
         try {
             selUtils.addTestcaseDescription("Verify that agent have permission to perform debit type Adjustment Action should be visible to the logged in agent if adjustment permission is enabled in UM, Check User has permission to perform credit type Adjustment.", "description");
@@ -279,7 +279,7 @@ public class AdjustmentTabTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 11, dependsOnMethods = {"openCustomerInteraction", "isUserHasPermissionDebitTypeAdjustment"}, groups = {"SanityTest", "RegressionTest"})
+    @Test(priority = 11, dependsOnMethods = {"openCustomerInteraction", "isUserHasPermissionDebitTypeAdjustment"}, groups = {"RegressionTest"})
     public void performAdjustmentDebitType() {
         try {
             assertCheck.append(actions.assertEqual_boolean(!pages.getAdjustmentTabPage().isAccessDeniedMsg(), true, "Debit type adjustment permitted by the agent as expected", "Debit type adjustment does not permitted as per user permission", true));

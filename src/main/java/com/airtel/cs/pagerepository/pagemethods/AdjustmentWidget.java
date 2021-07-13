@@ -200,6 +200,11 @@ public class AdjustmentWidget extends BasePage{
         return isElementVisible(pageElements.comments);
     }
 
+    /**
+     * This method is use to validate UI Adjustment reasons and API Adjustment reason is same or not
+     * @param reasons The UI Adjustment Reasons
+     * @param reasonPOJO The API Adjustment Reasons
+     */
     public void validateReasonsDetail(List<String> reasons, AdjustmentReasonPOJO reasonPOJO){
         if (!reasons.isEmpty()) {
             for (ReasonDetail detail : reasonPOJO.getResult()) {
@@ -210,6 +215,11 @@ public class AdjustmentWidget extends BasePage{
         }
     }
 
+    /**
+     * This method is use to choose available option based on index
+     * @param index The index number
+     * @return String The Selected option text
+     */
     public String chooseOption(int index){
         commonLib.info("Choosing Option with index: "+index);
         final By element= By.xpath(pageElements.chooseOption+index+"]");
@@ -218,12 +228,21 @@ public class AdjustmentWidget extends BasePage{
         return chosenOption;
     }
 
+    /**
+     * This method is use to get pop up title
+     * @return String The Value
+     */
     public String getPopUpTitle(){
         String title=getText(pageElements.popUpTitle);
         commonLib.info("Reading Pop up title index: "+title);
         return title;
     }
 
+    /**
+     * This method is use to choose available option based on text
+     * @param byText The text
+     * @return String The Selected option text
+     */
     public String chooseOption(String byText){
         commonLib.info("Choosing Option with text: "+byText);
         final By element=By.xpath(pageElements.chooseText+"contains(text(),'"+byText+"')]");
@@ -231,18 +250,30 @@ public class AdjustmentWidget extends BasePage{
         return byText;
     }
 
+    /**
+     * This method is use to enter main amount value on UI
+     * @param amount The amount
+     */
     public void enterMainAmount(String amount){
         commonLib.info("Entering Amount : "+amount);
         amount=Double.parseDouble(amount)>1.0?"1":amount;
         enterText(pageElements.mainAmount,amount);
     }
 
+    /**
+     * This method is use to enter DA amount value on UI
+     * @param amount The amount
+     */
     public void enterDAAmount(String amount){
         commonLib.info("Entering Amount : "+amount);
         amount=Double.parseDouble(amount)>1.0?"1":amount;
         enterText(pageElements.daAmount,amount);
     }
 
+    /**
+     * This method is use to get access denied message display or not
+     * @return true/false
+     */
     public Boolean isAccessDeniedMsg(){
         commonLib.info("Checking action denied message displayed");
         boolean flag=isVisible(pageElements.errorMsg);

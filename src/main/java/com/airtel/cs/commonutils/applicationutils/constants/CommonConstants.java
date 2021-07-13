@@ -71,5 +71,6 @@ public class CommonConstants {
     public static final String CS_SLA_OVERRIDE_DEFAULT_ATTRIBUTE_VALUES="cs.customer.attribute.default.value";
     public static final String REOPEN_TICKET_STATE_NAME="cs.reopen.state.name";
     public static final String SELECT_ALL_OPTION_NAME="cs.select.all";
+    public static final String API_AUTHORIZATION_KEY="cs.authorization.api.key";
 
 }

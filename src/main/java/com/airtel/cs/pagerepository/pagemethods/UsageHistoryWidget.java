@@ -185,6 +185,11 @@ public class UsageHistoryWidget extends BasePage {
     }
 
 
+    /**
+     * This method use to get date & time from UI based on row number from Usage history widget
+     * @param rowNumber The Row Number
+     * @return String The value
+     */
     public String getHistoryDateTime(int rowNumber) {
         By dateTime = By.xpath(pageElements.dataRow + rowNumber + pageElements.valueColumns + "3]");
         final String text = getText(dateTime);
@@ -192,6 +197,9 @@ public class UsageHistoryWidget extends BasePage {
         return text;
     }
 
+    /**
+     * This method use to get Usage history widget unique identifier
+     */
     public String getWidgetIdentifier(){
         return pageElements.widgetIdentifier;
     }
