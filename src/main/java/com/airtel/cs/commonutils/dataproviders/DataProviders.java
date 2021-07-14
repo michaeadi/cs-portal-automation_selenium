@@ -1,8 +1,36 @@
 package com.airtel.cs.commonutils.dataproviders;
 
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
-import com.airtel.cs.commonutils.dataproviders.beantoexcel.*;
-import com.airtel.cs.commonutils.dataproviders.databeans.*;
+import com.airtel.cs.commonutils.dataproviders.beantoexcel.ActionTagBeanToExcel;
+import com.airtel.cs.commonutils.dataproviders.beantoexcel.FtrDataExcelToBeanDao;
+import com.airtel.cs.commonutils.dataproviders.beantoexcel.TestDataExcelToBeanDao;
+import com.airtel.cs.commonutils.dataproviders.beantoexcel.NftrDataExcelToBeanDao;
+import com.airtel.cs.commonutils.dataproviders.beantoexcel.UMDataExcelToBeanDao;
+import com.airtel.cs.commonutils.dataproviders.beantoexcel.TemplateDataExcelToBeanDao;
+import com.airtel.cs.commonutils.dataproviders.beantoexcel.HeaderDataExcelToBeanDao;
+import com.airtel.cs.commonutils.dataproviders.beantoexcel.PinnedTagDataExcelToBeanDao;
+import com.airtel.cs.commonutils.dataproviders.beantoexcel.TicketTransferRuleDateToExcel;
+import com.airtel.cs.commonutils.dataproviders.beantoexcel.TicketStateToBean;
+import com.airtel.cs.commonutils.dataproviders.beantoexcel.PriorityDataExcelToBeanDao;
+import com.airtel.cs.commonutils.dataproviders.beantoexcel.AuthTabBeanToExcel;
+import com.airtel.cs.commonutils.dataproviders.beantoexcel.QuestionAnswerKeyToExcel;
+import com.airtel.cs.commonutils.dataproviders.beantoexcel.QueueStateBeanToExcel;
+import com.airtel.cs.commonutils.dataproviders.beantoexcel.TransferQueueDataToExcel;
+import com.airtel.cs.commonutils.dataproviders.databeans.TestDatabean;
+import com.airtel.cs.commonutils.dataproviders.databeans.FtrDataBeans;
+import com.airtel.cs.commonutils.dataproviders.databeans.NftrDataBeans;
+import com.airtel.cs.commonutils.dataproviders.databeans.TicketStateDataBean;
+import com.airtel.cs.commonutils.dataproviders.databeans.PinnedTagsDataBeans;
+import com.airtel.cs.commonutils.dataproviders.databeans.HeaderDataBean;
+import com.airtel.cs.commonutils.dataproviders.databeans.TemplateDataBeans;
+import com.airtel.cs.commonutils.dataproviders.databeans.PriorityDataBean;
+import com.airtel.cs.commonutils.dataproviders.databeans.UMDataBeans;
+import com.airtel.cs.commonutils.dataproviders.databeans.TicketTransferRuleDataBean;
+import com.airtel.cs.commonutils.dataproviders.databeans.AuthTabDataBeans;
+import com.airtel.cs.commonutils.dataproviders.databeans.ActionTagDataBeans;
+import com.airtel.cs.commonutils.dataproviders.databeans.QuestionAnswerKeyDataBeans;
+import com.airtel.cs.commonutils.dataproviders.databeans.QueueStateDataBeans;
+import com.airtel.cs.commonutils.dataproviders.databeans.TransferQueueDataBean;
 import com.airtel.cs.commonutils.dataproviders.beantoexcel.AssignmentQueueRuleBeanToExcel;
 import com.airtel.cs.commonutils.dataproviders.databeans.AssignmentQueueRuleDataBeans;
 import com.airtel.cs.commonutils.dataproviders.beantoexcel.SLARuleFileBeanToExcel;
@@ -43,7 +71,7 @@ public class DataProviders extends Driver {
 
     /**
      * This method used to get all tagged issue detail with all widget
-     * @return
+     * @return list of issue
      */
     public static Map<String, String> getWidgetTaggedIssue() {
         FtrDataExcelToBeanDao dataExcelToBeanDao = new FtrDataExcelToBeanDao();
