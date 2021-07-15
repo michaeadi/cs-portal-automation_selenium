@@ -17,6 +17,7 @@ public class ApplicationConstants {
     public static final String RECHARGE_HISTORY_MSISDN = "cs.recharge.history.msisdn";
     public static final String CURRENT_BALANCE_MSISDN = "cs.current.balance.msisdn";
     public static final String USAGE_HISTORY_MSISDN = "cs.usage.history.msisdn";
+    public static final String ADJUSTMENT_MSISDN = "cs.adjustment.msisdn";
     public static final String DOMAIN_URL = "cs.portal.login.url";
     public static final String APP_NAME = "cs.x.app.name";
     public static final String SERVICE_ID = "cs.x.service.id";
@@ -41,6 +42,8 @@ public class ApplicationConstants {
     public static final String BULK_UPDATE_TRANSFER_TO_QUEUE_STATUS="cs.bulk.update.transfer.to.queue.status";
     public static final String BULK_UPDATE_FROM_QUEUE_NAME="cs.bulk.update.transfer.from.queue.name";
     public static final String BULK_UPDATE_TO_QUEUE_NAME="cs.bulk.update.transfer.to.queue.name";
+    public static final String RUN_ADJUSTMENT_TEST_CASE="cs.run.adjustment";
+    public static final String ADJUSTMENT_CURRENCY_UNIT="cs.adjustment.currency.unit";
     public static final String RUN_LOAN_WIDGET_TESTCASE="cs.run.loan.widget.test.case";
     public static final String RUN_RECHARGE_WIDGET_TESTCASE="cs.run.recharge.widget.test.case";
     public static final String RUN_USAGE_WIDGET_TESTCASE="cs.run.usage.widget.test.case";

@@ -23,5 +23,6 @@ public class UsageWidgetPage {
     public By middleUHWAuuid = By.xpath("//*[@data-csautomation-key='USAGE_HISTORY']");
     public String dataRow = "//div[@data-csautomation-key='USAGE_HISTORY']//div[contains(@class,'table-data-wrapper')]/div[";
     public String valueColumns = "]//div[contains(@class,'data-list')]/div[";
+    public String widgetIdentifier="//div[@data-csautomation-key='USAGE_HISTORY']";
 
 }

@@ -22,6 +22,7 @@ public class KYCProfileResult {
     private String segment;
     private String subSegment;
     private String serviceClass;
+    private String customerType;
     private Boolean vip;
     private Boolean gsmAdditionalInfo;
     private String modifiedBy;

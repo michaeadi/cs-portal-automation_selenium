@@ -215,6 +215,26 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.CRBTWidgetTest"/>
         </classes>
     </test>
+    <test name="Adjustment Widget Test">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.autoadjustment.AdjustmentTabTest"/>
+        </classes>
+    </test>
+    <test name="Adjustment History Tab Test">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.viewhistorytab.AdjustmentHistoryTest"/>
+        </classes>
+    </test>
     <test name="Widget Visibility Test By Connection Type">
         <groups>
             <run>
@@ -418,15 +438,15 @@
         </classes>
     </test>
     <test name="Account Information Test">
-         <groups>
-             <run>
-                 <include name="SanityTest"/>
-             </run>
-         </groups>
-         <classes>
-             <class name="com.airtel.cs.ui.frontendagent.hometab.AccountInformationWidgetTest"/>
-         </classes>
-     </test>
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.AccountInformationWidgetTest"/>
+        </classes>
+    </test>
     <test name="Detailed Account Information Test">
         <groups>
             <run>

@@ -12,7 +12,7 @@ import lombok.ToString;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class KYCProfile {
     private String status;
-    private String statusCode;
+    private Integer statusCode;
     private KYCProfileResult result;
     private APIErrors apiErrors;
 }

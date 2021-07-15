@@ -1,7 +1,6 @@
 package com.airtel.cs.ui.frontendagent.hometab;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
@@ -19,8 +18,6 @@ public class PlanAndPackDetailedWidgetTest extends Driver {
 
     private static String customerNumber = null;
     RequestSource api = new RequestSource();
-
-    private final BaseActions actions = new BaseActions();
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
@@ -107,8 +104,8 @@ public class PlanAndPackDetailedWidgetTest extends Driver {
             selUtils.addTestcaseDescription("Verify that plan and pack widget should be visible to the logged in agent on the basis of connection type and UM permission", "description");
             final String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_POSTPAID_MSISDN);
             KYCProfile kycProfile = api.kycProfileAPITest(customerNumber);
-            final String statusCode = kycProfile.getStatusCode();
-            assertCheck.append(actions.assertEqual_stringType(statusCode, "200", "KYC Profile API Status Code Matched and is :" + statusCode, "KYC Profile API Status Code NOT Matched and is :" + statusCode));
+            final Integer statusCode = kycProfile.getStatusCode();
+            assertCheck.append(actions.assertEqual_intType(statusCode, 200, "KYC Profile API Status Code Matched and is :" + statusCode, "KYC Profile API Status Code NOT Matched and is :" + statusCode));
             String connectionType = pages.getDemoGraphicPage().getConnectionType().toUpperCase().trim();
             final boolean umPlanPermission = pages.getPlanAndPackDetailedWidget().isPlanWidgetDisplay();
             final boolean umPackPermission = pages.getPlanAndPackDetailedWidget().isPackWidgetDisplay();

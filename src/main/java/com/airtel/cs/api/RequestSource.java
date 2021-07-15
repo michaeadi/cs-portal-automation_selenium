@@ -30,6 +30,8 @@ import com.airtel.cs.pojo.response.UsageHistoryPOJO;
 import com.airtel.cs.pojo.response.accumulators.AccumulatorsPOJO;
 import com.airtel.cs.pojo.response.actionconfig.ActionConfigResponse;
 import com.airtel.cs.pojo.response.actiontrail.ActionTrailPOJO;
+import com.airtel.cs.pojo.response.adjustmenthistory.AdjustmentHistory;
+import com.airtel.cs.pojo.response.adjustmentreason.AdjustmentReasonPOJO;
 import com.airtel.cs.pojo.response.agentpermission.AgentPermission;
 import com.airtel.cs.pojo.response.agents.AgentDetailPOJO;
 import com.airtel.cs.pojo.response.airtelmoney.AirtelMoneyPOJO;
@@ -600,18 +602,49 @@ public class RequestSource extends RestCommonUtils {
 
     /**
      * This Method will hit the API "cs-data-service/v1/event/logs" and return the response
-     *
-     * @param msisdn    The msisdn
+     * @param msisdn The msisdn
      * @param eventType The event type
      * @return The Response
      */
-    public ActionTrailPOJO getEventHistory(String msisdn, String eventType) {
+    public ActionTrailPOJO getEventHistory(String msisdn, String eventType){
         ActionTrailPOJO result = null;
         try {
-            commonPostMethod(URIConstants.EVENTS_LOG, new ActionTrailRequest(msisdn, eventType, 10, 0));
+            commonPostMethod(URIConstants.EVENTS_LOG,new ActionTrailRequest(msisdn,eventType,10,0));
             result = response.as(ActionTrailPOJO.class);
         } catch (Exception e) {
             commonLib.fail("Exception in method - getEventHistory " + e.getMessage(), false);
+        }
+        return result;
+    }
+
+    /**
+     * This Method will hit the API "/cs-gsm-service/v1/adjustment/mapping?action=" and return the response
+     * @return The Response
+     */
+    public AdjustmentReasonPOJO getAdjustmentReason() {
+        AdjustmentReasonPOJO result = null;
+        try {
+            commonGetMethod(URIConstants.ADJUSTMENT_ACTION);
+            result = response.as(AdjustmentReasonPOJO.class);
+        } catch (Exception e) {
+            commonLib.fail("Exception in method - AdjustmentReasonPOJO " + e.getMessage(), false);
+        }
+        return result;
+    }
+
+    /**
+     * This Method will hit the API "/cs-gsm-service/v1/adjustments" and return the response
+     *
+     * @param msisdn The msisdn
+     * @return The Response
+     */
+    public AdjustmentHistory getAdjustMentHistory(String msisdn) {
+        AdjustmentHistory result = null;
+        try {
+            commonPostMethod(URIConstants.ADJUSTMENT_HISTORY, new ServiceProfileRequest(msisdn, 5, 1));
+            result = response.as(AdjustmentHistory.class);
+        } catch (Exception e) {
+            commonLib.fail("Exception in method - getServiceProfileWidgetInfo " + e.getMessage(), false);
         }
         return result;
     }
@@ -673,5 +706,4 @@ public class RequestSource extends RestCommonUtils {
         }
         return result;
     }
-
 }

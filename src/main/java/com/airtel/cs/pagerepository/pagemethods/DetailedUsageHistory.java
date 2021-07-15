@@ -138,4 +138,14 @@ public class DetailedUsageHistory extends BasePage {
         commonLib.info("Checking No Result Found Message Display");
         return isEnabled(pageElements.noResultIcon);
     }
+
+    /**
+     * This method is use get Widget unique identifier
+     * @return The Unique identifier
+     */
+    public String getWidgetIdentifier(){
+        return pageElements.widgetIdentifier;
+    }
+
+
 }

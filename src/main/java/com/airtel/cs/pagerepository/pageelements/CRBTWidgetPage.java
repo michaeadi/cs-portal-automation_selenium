@@ -30,4 +30,5 @@ public class CRBTWidgetPage {
     public String dataRows="//div[@data-csautomation-key='RING_BACK_TUNE']//div[@class='mat-tab-body-wrapper']//div[@class='table-data-wrapper ng-star-inserted']//div[";
     public String dataColumns="]//div[@class='card__card-header--card-body--table--data-list row-border']//div[";
 
+    public String crbtWidgetIdentifier="//div[@data-csautomation-key='RING_BACK_TUNE']";
 }

@@ -48,6 +48,22 @@ public class CustomerProfile extends BasePage {
     }
 
     /**
+     *This method use to Open Adjustment tab
+     */
+    public void clickAdjustment(){
+        commonLib.info("Opening Adjustment tab");
+        clickAndWaitForLoaderToBeRemoved(pageElements.adjustmentAction);
+    }
+
+    /**
+     *This method is use to check Adjustment action visible or not
+     */
+    public Boolean checkAdjustmentAction(){
+        commonLib.info("Checking Adjustment action display or not");
+        return isEnabled(pageElements.adjustmentAction);
+    }
+
+    /**
      * This method is use to check reset me2u password action visible or not
      *
      * @return true/false

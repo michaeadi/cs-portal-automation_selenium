@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 
 public class CustomerProfilePage {
 
-    public By searchNumber = By.xpath("//input[(@type='text' or @type='search') and @placeholder='Search']");
+    public By searchNumber = By.xpath("//input[@data-csautomation-key='dashBoardSearchBox']");
     public By interactionIcon = By.xpath("//div[@class='sub-header__divide--control--tab']");
     public By actions = By.xpath("//span[@class='action-placeholder']");
     public By simBar = By.xpath("//button[@class='db-action-menu-item mat-menu-item ng-star-inserted']");
@@ -43,5 +43,7 @@ public class CustomerProfilePage {
     public By modalSuccessFailureMsg = By.xpath("//*[contains(@class,'main-container__body--message')]");
     public String pinTagText = "//div[@class='sub-header__divide--control']//div[@class='sub-header__divide--control--tab ng-star-inserted'][";
     public String pinTagByName = "//div[@class='sub-header__divide--control--tab ng-star-inserted' and contains(text(),'";
+    public By demographichWidget = By.xpath("//*[@class='home-tab-container__short-widgets']");
+    public By adjustmentAction=By.xpath("//button[contains(text(),'Adjustments')]");
     public By homeTabWidget = By.xpath("//*[contains(@class,'sr-navigation')]//*[@class='mat-tab-body-wrapper']");
 }

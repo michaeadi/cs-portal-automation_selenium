@@ -1,12 +1,11 @@
 package com.airtel.cs.ui.frontendagent.viewhistorytab;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
-import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
+import com.airtel.cs.commonutils.dataproviders.databeans.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pojo.response.actiontrail.ActionTrailPOJO;
 import org.openqa.selenium.NoSuchElementException;
@@ -18,7 +17,6 @@ import org.testng.annotations.Test;
 public class ActionTrailTest extends Driver {
 
     String comments = "Adding comment using Automation";
-    private final BaseActions actions = new BaseActions();
     RequestSource api = new RequestSource();
     private static String customerNumber = null;
 
@@ -75,7 +73,7 @@ public class ActionTrailTest extends Driver {
             selUtils.addTestcaseDescription("Verify View History tab opened successfully,Verify Action Trail History tab is visible,Validate column's value are visible and correct", "description");
             ActionTrailPOJO actionTrailAPI = api.getEventHistory(customerNumber, "ACTION");
             final int statusCode = actionTrailAPI.getStatusCode();
-            assertCheck.append(actions.assertEqual_intType(statusCode, 200, "Action Trail API success and status code is :" + statusCode, "Action Trail API got failed and status code is :" + statusCode));
+            assertCheck.append(actions.assertEqual_intType(statusCode, 200, "Action Trail API success and status code is :" + statusCode, "Action Trail API got failed and status code is :" + statusCode,true,true));
             if (statusCode == 200) {
                 int size=Math.min(actionTrailAPI.getTotalCount(),10);
                 for(int i=0;i<size;i++) {

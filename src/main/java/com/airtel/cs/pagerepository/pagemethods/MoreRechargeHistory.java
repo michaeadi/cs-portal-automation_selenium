@@ -145,4 +145,12 @@ public class MoreRechargeHistory extends BasePage {
         return rows.size();
     }
 
+    /**
+     * This method is use get Widget unique identifier
+     * @return The Unique identifier
+     */
+    public String getUniqueIdentifier(){
+        return pageElements.widgetIdentifier;
+    }
+
 }
