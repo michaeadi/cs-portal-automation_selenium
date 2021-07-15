@@ -276,7 +276,7 @@ public class AdjustmentWidget extends BasePage{
      */
     public Boolean isAccessDeniedMsg(){
         commonLib.info("Checking action denied message displayed");
-        boolean flag=isVisible(pageElements.errorMsg);
+        boolean flag=isVisibleContinueExecution(pageElements.errorMsg);
         if(flag){
             commonLib.info("Reading Access Denied Message : "+getText(pageElements.errorMsg));
         }
