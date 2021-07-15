@@ -10,7 +10,7 @@ import java.util.ArrayList;
 @Getter
 @Setter
 @ToString
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Result {
     private ArrayList<Vendors> vendors;

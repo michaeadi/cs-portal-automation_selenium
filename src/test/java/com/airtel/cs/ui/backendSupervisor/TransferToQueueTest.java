@@ -87,7 +87,7 @@ public class TransferToQueueTest extends Driver {
                         pages.getTransferToQueue().clickCloseTab();
                     }
                 } catch (NoSuchElementException | TimeoutException e) {
-                    commonLib.fail("No Ticket Found in Selected Queue to perform transfer to queue action" + e.fillInStackTrace(), true);
+                    commonLib.warning("No Ticket Found in Selected Queue to perform transfer to queue action" + e.fillInStackTrace(), true);
                 }
                 try {
                     Assert.assertEquals(pages.getSupervisorTicketList().getQueueValue().toLowerCase().trim(), data.getToQueue().toLowerCase().trim(), "Ticket Does not Transfer to Selected Queue");

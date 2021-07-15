@@ -84,7 +84,7 @@ public class DemoGraphicPage {
     public By hoverInfoSegment = By.xpath("//span[contains(text(),'Segment')]//following-sibling::span//img");
     public By serviceClass = By.xpath("//span[contains(text(),'Service Class')]//following-sibling::span");
     public By serviceCategory = By.xpath("//*[contains(text(),'Service Category')]//following-sibling::td");
-    public By subSegment = By.xpath(" //*[contains(text(),'Subsegment')]//following-sibling::td");
+    public By subSegment = By.xpath("//span[contains(text(),'Sub Segment')]//following-sibling::span");
     public By appStatus = By.xpath("//span[contains(text(),'App Status')]//following-sibling::span");
     public By gsmKycStatus = By.xpath("//span[contains(text(),'GSM KYC Status')]//following-sibling::span");
 

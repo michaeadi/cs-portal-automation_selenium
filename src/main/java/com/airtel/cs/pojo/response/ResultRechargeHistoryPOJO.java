@@ -11,6 +11,7 @@ import lombok.ToString;
 @ToString
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResultRechargeHistoryPOJO {
     String charges;
     String dateTime;
@@ -22,6 +23,7 @@ public class ResultRechargeHistoryPOJO {
     String mode;
     String validity;
     String expiryDate;
+    String oldExpiryDate;
     String serialNumber;
     APIErrors apiErrors;
 }

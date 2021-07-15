@@ -70,7 +70,7 @@ public class SupervisorReopenTicketTest extends Driver {
                     pages.getSupervisorTicketList().closedReopenBox();
                 }
             } catch (NoSuchElementException | TimeoutException e) {
-                commonLib.fail("No Ticket Found with closed State " + e.fillInStackTrace(), true);
+                commonLib.warning("No Ticket Found with closed State " + e.fillInStackTrace(), true);
             }
         } catch (Exception e) {
             commonLib.fail("Exception in Method - reopenTicket" + e.fillInStackTrace(), true);

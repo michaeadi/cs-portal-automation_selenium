@@ -1,6 +1,7 @@
 package com.airtel.cs.pojo.response.ticketlist;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -13,6 +14,7 @@ import java.util.Map;
 @Setter
 @ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class TicketListDetails {
     private String ticketId;
     private String customerSla;

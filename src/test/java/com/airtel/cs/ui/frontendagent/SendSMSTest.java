@@ -125,6 +125,7 @@ public class SendSMSTest extends Driver {
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - sendSMS" + e.fillInStackTrace(), true);
+            pages.getSendSMS().clickOutside();
         }
     }
 

@@ -444,7 +444,6 @@ public class DemoGraphic extends BasePage {
         return result;
     }
 
-
     /**
      * This method is use to get Sub Segment
      *
