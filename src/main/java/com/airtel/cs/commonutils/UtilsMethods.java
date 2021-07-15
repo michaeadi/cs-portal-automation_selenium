@@ -26,14 +26,21 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.logging.LogType;
-
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.TimeZone;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.PriorityQueue;
+import java.util.Map;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
+import java.util.Optional;
 
 @Log4j2
 public class UtilsMethods extends Driver {
