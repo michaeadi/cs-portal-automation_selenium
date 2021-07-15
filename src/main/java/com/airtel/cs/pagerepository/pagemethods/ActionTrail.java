@@ -42,12 +42,20 @@ public class ActionTrail extends BasePage {
         return text;
     }
 
+    public void clickMetaInfoIcon(int row){
+        commonLib.info("Clicking on drop down icon to view meta info");
+        By finalXpath=By.xpath(pageElements.actionTrailRow + row + pageElements.actionTrailColumn+"7]");
+        clickWithoutLoader(finalXpath);
+    }
+
+
     public void assertMetaInfoAfterActionPerformed(String actionKey,EventResult eventResult){
         ActionConfigResult actionConfigResultOP= UtilsMethods.getActionConfigBasedOnKey(actionKey);
         List<MetaInfo> configMetaInfo = actionConfigResultOP.getMetaInfo();
         List<MetaInfo> actionMetaInfo = eventResult.getMetaInfo();
         for(int i=0;i<configMetaInfo.size();i++){
             assertCheck.append(actions.matchUiAndAPIResponse(configMetaInfo.get(i).getLabel(),actionMetaInfo.get(i).getLabel(),actionMetaInfo.get(i).getLabel()+" Meta info stored after action performed as expected",actionMetaInfo.get(i).getLabel()+" Meta info does not stored after action performed as expected"));
+            assertCheck.append(actions.assertEqual_stringNotNull(actionMetaInfo.get(i).getValue(),actionMetaInfo.get(i).getLabel()+" : "+actionMetaInfo.get(i).getValue()+"value recorded as value can not be null",actionMetaInfo.get(i).getLabel()+" : meta info value is null but meta info value is mandatory"));
         }
     }
 }
