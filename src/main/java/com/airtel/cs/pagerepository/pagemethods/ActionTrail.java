@@ -42,9 +42,37 @@ public class ActionTrail extends BasePage {
         return text;
     }
 
+    /**
+     * This Method will give us action trail meta-info table value by providing row and column
+     * @param row The row Number
+     * @param column The Column Number
+     * @return String The value
+     */
+    public String getMetaInfoValue(int row, int column) {
+        String text = getText(By.xpath(pageElements.actionTrailRow + row + pageElements.metaInfoValue + column + "]"));
+        commonLib.info("Value: " + text);
+        return text;
+    }
+
+    /**
+     * This Method will give us action trail meta-info table value by providing row and column
+     * @param row The row Number
+     * @param column The Column Number
+     * @return String The value
+     */
+    public String getMetaInfoLabel(int row, int column) {
+        String text = getText(By.xpath(pageElements.actionTrailRow + row + pageElements.metaInfoLabel + column + "]"));
+        commonLib.info("Value: " + text);
+        return text;
+    }
+
+    /**
+     * This method is use to click down icon to open modal of meta-info based on row number
+     * @param row The row number
+     */
     public void clickMetaInfoIcon(int row){
         commonLib.info("Clicking on drop down icon to view meta info");
-        By finalXpath=By.xpath(pageElements.actionTrailRow + row + pageElements.actionTrailColumn+"7]");
+        By finalXpath=By.xpath(pageElements.actionTrailRow + row + pageElements.metaInfoIcon);
         clickWithoutLoader(finalXpath);
     }
 
