@@ -1,10 +1,13 @@
 package com.airtel.cs.pojo.response.actiontrail;
 
+import com.airtel.cs.pojo.response.actionconfig.MetaInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -18,4 +21,5 @@ public class EventResult {
     private String agentId;
     private String agentName;
     private String comments;
+    private List<MetaInfo> metaInfo;
 }

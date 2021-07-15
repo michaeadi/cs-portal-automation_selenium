@@ -1,8 +1,13 @@
 package com.airtel.cs.ui.frontendagent.actiondropdown;
 
+import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
+import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.driver.Driver;
+import com.airtel.cs.pojo.response.actionconfig.ActionConfigResult;
+import com.airtel.cs.pojo.response.actiontrail.ActionTrailPOJO;
+import com.airtel.cs.pojo.response.actiontrail.EventResult;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoSuchElementException;
@@ -11,10 +16,15 @@ import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.util.List;
+
 public class SendInternetSettingsTest extends Driver {
 
+    private static String customerNumber = null;
     private final BaseActions actions = new BaseActions();
     String comments = "Adding comment using Automation";
+    RequestSource api = new RequestSource();
+    private List<ActionConfigResult> actionConfigResultList = null;
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
@@ -36,7 +46,7 @@ public class SendInternetSettingsTest extends Driver {
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
-            final String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
+            customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().openCustomerInteractionPage();
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
@@ -68,7 +78,7 @@ public class SendInternetSettingsTest extends Driver {
         }
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest","ProdTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
     public void validateSendInternetSetting() {
         try {
             selUtils.addTestcaseDescription("Open send internet setting modal from actions drop down,Validate issue detail title visible,Select reason and enter comment and click on submit button, Validate success message", "description");
@@ -79,11 +89,24 @@ public class SendInternetSettingsTest extends Driver {
             reason = pages.getAuthTabPage().getReason();
             pages.getAuthTabPage().chooseReason();
             pages.getAuthTabPage().enterComment(comments);
+            pages.getAuthTabPage().fillAllInputField(customerNumber);
             pages.getAuthTabPage().clickSubmitBtn();
             final String toastText = pages.getAuthTabPage().getToastText();
             assertCheck.append(actions.assertEqual_stringType(toastText, "Internet Settings has been sent on Customer`s Device.", "Send Internet Settings Message has been sent to customer successfully", "Send Internet Settings Message hasn't been sent to customer ans message is :-" + toastText));
+            ActionTrailPOJO actionTrailAPI = api.getEventHistory(customerNumber, "ACTION");
+            int statusCode = actionTrailAPI.getStatusCode();
+            assertCheck.append(actions.assertEqual_intType(statusCode, 200, "Action Trail API success and status code is :" + statusCode, "Action Trail API got failed and status code is :" + statusCode));
+            EventResult eventResult = actionTrailAPI.getResult().get(0);
+            if (statusCode == 200) {
+                pages.getActionTrailPage().assertMetaInfoAfterActionPerformed(constants.getValue(CommonConstants.SEND_INTERNET_SETTING_ACTION_KEY),eventResult);
+                assertCheck.append(actions.assertEqual_stringNotNull(eventResult.getActionType(), "Action Type of Add FnF as expected", "Action Type of Add FnF as not expected"));
+                assertCheck.append(actions.matchUiAndAPIResponse(eventResult.getComments(), comments, "Comment same as expected.", "Comment same as not expected."));
+                assertCheck.append(actions.matchUiAndAPIResponse(eventResult.getAgentId(), constants.getValue(CommonConstants.ALL_USER_ROLE_AUUID), "Agent id same as expected", "Agent id same as not expected"));
+            } else {
+                commonLib.fail("Not able to fetch action trail event log using API", true);
+            }
             actions.assertAllFoundFailedAssert(assertCheck);
-        } catch (NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
+        } catch (Exception e) {
             commonLib.fail("Exception in Method - validateSendInternetSetting" + e.fillInStackTrace(), true);
             pages.getCustomerProfilePage().clickOutside();
         }

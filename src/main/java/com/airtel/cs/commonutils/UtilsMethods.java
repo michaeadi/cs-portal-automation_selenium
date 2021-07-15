@@ -7,6 +7,8 @@ import com.airtel.cs.commonutils.dataproviders.databeans.AssignmentQueueRuleData
 import com.airtel.cs.commonutils.dataproviders.databeans.SLARuleFileDataBeans;
 import com.airtel.cs.commonutils.exceptions.RuleNotFoundException;
 import com.airtel.cs.driver.Driver;
+import com.airtel.cs.pojo.response.actionconfig.ActionConfigResponse;
+import com.airtel.cs.pojo.response.actionconfig.ActionConfigResult;
 import com.airtel.cs.pojo.response.agents.AgentAttributes;
 import com.airtel.cs.pojo.response.agents.AgentDetailPOJO;
 import com.airtel.cs.pojo.response.agents.Authorities;
@@ -19,23 +21,18 @@ import io.restassured.response.Response;
 import io.restassured.specification.QueryableRequestSpecification;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.logging.LogType;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.TimeZone;
+
+import java.util.*;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.PriorityQueue;
-import java.util.Map;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 @Log4j2
@@ -553,5 +550,29 @@ public class UtilsMethods extends Driver {
             List<RoleDetails> allRoles = agentDetailAPI.getResult().getUserDetails().getUserDetails().getRole();
             return allRoles.stream().anyMatch(role::contains);
         }
+    }
+
+    /**
+     * This method use to get Action config based on action key
+     * @param actionKey The action key
+     * @return Object ActionConfigResult
+     * @throws NullPointerException In-case of no Config found based on given key
+     */
+    public static ActionConfigResult getActionConfigBasedOnKey(String actionKey){
+        int statusCode=0;
+        ActionConfigResponse actionConfigResponse=api.getActionConfig(new Headers(map));
+        if(ObjectUtils.isNotEmpty(actionConfigResponse)){
+            statusCode=actionConfigResponse.getStatusCode();
+        }
+        List<ActionConfigResult>actionConfigResultList = actionConfigResponse.getResult();
+        Optional<ActionConfigResult> actionConfigResultOP = actionConfigResultList.stream()
+                .filter(result -> actionKey.equals(result.getActionKey())).findFirst();
+        assertCheck.append(actions.assertEqual_intType(statusCode, 200, "Action Config API success and status code is :" + statusCode, "Action Config got failed and status code is :" + statusCode));
+        if (actionConfigResultOP.isPresent()) {
+            return actionConfigResultOP.get();
+        }else{
+            commonLib.fail(constants.getValue(CommonConstants.SEND_INTERNET_SETTING_ACTION_KEY)+" action key does not present in config API",false);
+        }
+        throw new NullPointerException("Action key does not found in config API");
     }
 }
