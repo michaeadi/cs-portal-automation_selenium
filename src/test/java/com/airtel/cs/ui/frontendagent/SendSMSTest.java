@@ -123,7 +123,7 @@ public class SendSMSTest extends Driver {
             assertCheck.append(actions.assertEqual_stringType(pages.getSendSMS().getSMSModalText(), "Message sent successfully to " + customerNumber, "Sens SMS Success Message is Correct", "Sens SMS Success Message is NOT Correct"));
             pages.getSendSMS().clickOutside();
             actions.assertAllFoundFailedAssert(assertCheck);
-        } catch (NoSuchElementException | TimeoutException e) {
+        } catch (Exception e) {
             commonLib.fail("Exception in Method - sendSMS" + e.fillInStackTrace(), true);
             pages.getSendSMS().clickOutside();
         }
