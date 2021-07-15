@@ -1,9 +1,15 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
+import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.pagerepository.pageelements.ActionTrailPage;
+import com.airtel.cs.pojo.response.actionconfig.ActionConfigResult;
+import com.airtel.cs.pojo.response.actionconfig.MetaInfo;
+import com.airtel.cs.pojo.response.actiontrail.EventResult;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
+
+import java.util.List;
 
 public class ActionTrail extends BasePage {
     ActionTrailPage pageElements;
@@ -34,5 +40,14 @@ public class ActionTrail extends BasePage {
         String text = getText(By.xpath(pageElements.actionTrailRow + row + pageElements.actionTrailColumn + column + "]"));
         commonLib.info("Value: " + text);
         return text;
+    }
+
+    public void assertMetaInfoAfterActionPerformed(String actionKey,EventResult eventResult){
+        ActionConfigResult actionConfigResultOP= UtilsMethods.getActionConfigBasedOnKey(actionKey);
+        List<MetaInfo> configMetaInfo = actionConfigResultOP.getMetaInfo();
+        List<MetaInfo> actionMetaInfo = eventResult.getMetaInfo();
+        for(int i=0;i<configMetaInfo.size();i++){
+            assertCheck.append(actions.matchUiAndAPIResponse(configMetaInfo.get(i).getLabel(),actionMetaInfo.get(i).getLabel(),actionMetaInfo.get(i).getLabel()+" Meta info stored after action performed as expected",actionMetaInfo.get(i).getLabel()+" Meta info does not stored after action performed as expected"));
+        }
     }
 }

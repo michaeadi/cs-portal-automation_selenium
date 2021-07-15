@@ -18,6 +18,7 @@ public class ActionConfigResult {
   private String actionKey;
   private String categoryId;
   private List<Reason> reasons;
+  private List<MetaInfo> metaInfo;
   private Boolean showPopup;
   private Boolean hasPermission;
   private List<String> roles;
