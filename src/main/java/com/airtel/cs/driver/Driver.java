@@ -1,5 +1,6 @@
 package com.airtel.cs.driver;
 
+import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.ConstantsUtils;
@@ -7,6 +8,7 @@ import com.airtel.cs.commonutils.commonlib.CommonLib;
 import com.airtel.cs.commonutils.extentreports.ExtentReport;
 import com.airtel.cs.commonutils.seleniumutils.SeleniumCommonUtils;
 import com.airtel.cs.pagerepository.pagemethods.PageCollection;
+import com.airtel.cs.pagerepository.pagemethods.WidgetCommonMethod;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
@@ -73,8 +75,6 @@ public class Driver {
     public static final String RUN_TARIFF_TEST_CASE = constants.getValue(ApplicationConstants.RUN_TARIFF_TEST_CASE);
     public static final String HTML_FILE_PATH = System.getProperty(USER_DIR) + "/resources/htmlreport/" + OPCO + "-" + evnName + PATH_DELIMITER;
     public static final String SUITE_TYPE = System.getProperty("suiteType");
-    public static final String EXTENT_REPORT_CONFIG_FILE_LOCATION = System.getProperty(USER_DIR)
-            + "/resources/properties/reportextent-config.xml";
     public static final String CLIENT = System.getProperty("Client").toUpperCase();
     private static String browser = null;
     public static String currentTestCaseName;
@@ -84,7 +84,10 @@ public class Driver {
     public static String reason;
     public static String loginAUUID;
     public static ObjectMapper objectMapper = new ObjectMapper();
-    public static String download = System.getProperty(USER_DIR) + "\\resources\\excels\\";
+    public static WidgetCommonMethod widgetMethods;
+    public static String download=System.getProperty(USER_DIR) + "\\resources\\excels\\";
+    public static String authToken;
+    public static final BaseActions actions = new BaseActions();
 
     public WebDriver getDriver() {
         return driver;
@@ -153,6 +156,7 @@ public class Driver {
      */
     public static void initializePages() {
         pages = new PageCollection(driver);
+        widgetMethods=pages.getWidgetCommonMethod();
     }
 
     /**

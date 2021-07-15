@@ -1,7 +1,6 @@
 package com.airtel.cs.ui.frontendagent;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pojo.response.AccountsBalancePOJO;
@@ -14,7 +13,6 @@ import org.testng.annotations.Test;
 public class DataUnitConversionTest extends Driver {
     static String customerNumber;
     RequestSource api = new RequestSource();
-    public BaseActions actions = new BaseActions();
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
@@ -55,7 +53,7 @@ public class DataUnitConversionTest extends Driver {
         if (usageHistoryAPI.getStatusCode() != 200) {
             commonLib.fail("API is unable to give Usage History", false);
         } else if (usageHistoryAPI.getResult().size() == 0 || usageHistoryAPI.getResult() == null) {
-            commonLib.warning("Unable to get Usage History Details from CS API");
+            commonLib.warning("No Usage History Found for this MSISDN over the CS Portal");
         } else {
             for (int i = 0; i < usageHistoryAPI.getResult().size(); i++) {
                 if (usageHistoryAPI.getResult().get(i).getStartBalance().equalsIgnoreCase("-")) {
@@ -100,7 +98,7 @@ public class DataUnitConversionTest extends Driver {
         if (usageHistoryAPI.getStatusCode() != 200) {
             commonLib.fail("API is unable to give Usage History", false);
         } else if (usageHistoryAPI.getResult().isEmpty() || usageHistoryAPI.getResult() == null) {
-            commonLib.warning("Unable to get Usage History Details from CS API");
+            commonLib.warning("No Usage History Found for this MSISDN over the CS Portal");
         } else {
             for (int i = 0; i < usageHistoryAPI.getResult().size(); i++) {
                 if (usageHistoryAPI.getResult().get(i).getStartBalance().equalsIgnoreCase("-")) {

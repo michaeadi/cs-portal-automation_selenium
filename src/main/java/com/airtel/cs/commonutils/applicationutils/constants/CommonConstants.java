@@ -61,7 +61,16 @@ public class CommonConstants {
     public static final String TICKET_BULK_UPDATE_ADD_TICKET_COMMENT_ACTION="cs.bulk.update.add.ticket.comment.action";
     public static final String INVALID_TICKET_ID="cs.invalid.ticket.id";
     public static final String BACKEND_AGENT_TICKET_LIST_PAGE="cs.backend.agent.ticket.list.page";
+    public static final String CONSOLE_NETWORK_LOG_EXTRA_INFO_TYPE="console.network.log.extra.info";
+    public static final String ADJUSTMENT_REASON_RECHARGE="cs.adjustment.reason.recharge";
+    public static final String ADJUSTMENT_REASON_USAGE="cs.adjustment.reason.usage";
+    public static final String ADJUSTMENT_REASON_OTHERS="cs.adjustment.reason.others";
+    public static final String TICKET_CREATION_ASSIGNMENT_QUEUE_RULE="cs.assignment.queue.rule.file";
+    public static final String TICKET_CREATION_SLA_CALCULATION_RULE="cs.sla.calculation.rule.file";
+    public static final String CS_SLA_OVERRIDE_ATTRIBUTE_NAMES="cs.sla.attribute.names";
+    public static final String CS_SLA_OVERRIDE_DEFAULT_ATTRIBUTE_VALUES="cs.customer.attribute.default.value";
     public static final String REOPEN_TICKET_STATE_NAME="cs.reopen.state.name";
     public static final String SELECT_ALL_OPTION_NAME="cs.select.all";
+    public static final String API_AUTHORIZATION_KEY="cs.authorization.api.key";
 
 }

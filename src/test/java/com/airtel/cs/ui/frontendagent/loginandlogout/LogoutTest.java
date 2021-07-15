@@ -1,6 +1,5 @@
 package com.airtel.cs.ui.frontendagent.loginandlogout;
 
-import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.driver.Driver;
 import org.openqa.selenium.NoSuchElementException;
@@ -11,8 +10,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class LogoutTest extends Driver {
-
-    private final BaseActions actions = new BaseActions();
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {

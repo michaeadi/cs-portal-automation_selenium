@@ -1,7 +1,7 @@
 package com.airtel.cs.ui.tariffplan;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.common.actions.BaseActions;
+import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.driver.Driver;

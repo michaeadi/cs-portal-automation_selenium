@@ -1,11 +1,11 @@
 package com.airtel.cs.ui.frontendagent.hometab;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.common.actions.BaseActions;
+import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
-import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
+import com.airtel.cs.commonutils.dataproviders.databeans.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pagerepository.pagemethods.LoanDetail;
 import com.airtel.cs.pojo.response.loandetails.*;
@@ -45,7 +45,7 @@ public class LoanWidgetTest extends Driver {
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkLoanWidgetFlag() {
         if (!StringUtils.equals(RUN_LOAN_WIDGET_TEST_CASE, "true")) {
-            commonLib.skip("Skipping because Run Loan widget Test Case Flag Value is - " + RUN_LOAN_WIDGET_TEST_CASE);
+            commonLib.skip("Loan Widget is NOT Enabled for this Opco= " + OPCO);
             throw new SkipException("Skipping because this functionality does not applicable for current Opco");
         }
     }

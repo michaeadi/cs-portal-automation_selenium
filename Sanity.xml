@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Automation Framework CS PORTAl Test Suite" preserve-order="true" allow-return-values="true">
+<suite name="Automation Framework CS PORTAl Test Suite" allow-return-values="true">
     <listeners>
         <listener class-name="com.airtel.cs.commonutils.listeners.TestListenerMethod"/>
     </listeners>
@@ -59,7 +59,7 @@
             <class name="com.airtel.cs.ui.frontendagent.viewhistorytab.ActionTrailTest"/>
         </classes>
     </test>
-    <test name="Demo Graphic Widget Test By MSISDN" preserve-order="true">
+    <test name="Demo Graphic Widget Test By MSISDN">
         <groups>
             <run>
                 <include name="SanityTest"/>
@@ -69,7 +69,7 @@
             <class name="com.airtel.cs.ui.frontendagent.demographicwidget.DemoGraphicWidgetMsisdnTest"/>
         </classes>
     </test>
-    <test name="Airtel Money Transaction Widget Test" preserve-order="true">
+    <test name="Airtel Money Transaction Widget Test">
         <groups>
             <run>
                 <include name="SanityTest"/>
@@ -79,7 +79,7 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.AirtelMoneyTransactionWidgetTest"/>
         </classes>
     </test>
-    <test name="Current Balance Widget Test" preserve-order="true">
+    <test name="Current Balance Widget Test">
         <groups>
             <run>
                 <include name="SanityTest"/>
@@ -89,7 +89,7 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.CurrentBalanceWidgetTest"/>
         </classes>
     </test>
-    <test name="Usage History Widget Test" preserve-order="true">
+    <test name="Usage History Widget Test">
         <groups>
             <run>
                 <include name="SanityTest"/>
@@ -99,7 +99,7 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.UsageHistoryWidgetTest"/>
         </classes>
     </test>
-    <test name="Recharge History Widget Test" preserve-order="true">
+    <test name="Recharge History Widget Test">
         <groups>
             <run>
                 <include name="SanityTest"/>
@@ -109,7 +109,7 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.RechargeHistoryWidgetTest"/>
         </classes>
     </test>
-    <test name="Recharge History Menu Widget Test" preserve-order="true">
+    <test name="Recharge History Menu Widget Test">
         <groups>
             <run>
                 <include name="SanityTest"/>
@@ -119,7 +119,7 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.RechargeHistoryMenuWidgetTest"/>
         </classes>
     </test>
-    <test name="Service Profile Widget Test" preserve-order="true">
+    <test name="Service Profile Widget Test">
         <groups>
             <run>
                 <include name="SanityTest"/>
@@ -129,7 +129,7 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.ServiceProfileWidgetTest"/>
         </classes>
     </test>
-    <test name="Airtel Money More detail Widget Test(Primary Widget)" preserve-order="true">
+    <test name="Airtel Money More detail Widget Test(Primary Widget)">
         <groups>
             <run>
                 <include name="SanityTest"/>
@@ -139,7 +139,7 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.AirtelMoneyMenuPrimaryWidgetTest"/>
         </classes>
     </test>
-    <test name="Airtel Money More detail Widget Test(Secondary Widget-DRC)" preserve-order="true">
+    <test name="Airtel Money More detail Widget Test(Secondary Widget-DRC)">
         <groups>
             <run>
                 <include name="SanityTest"/>
@@ -149,7 +149,7 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.AirtelMoneyMenuSecondaryWidgetTest"/>
         </classes>
     </test>
-    <test name="DA detail Widget Test" preserve-order="true">
+    <test name="DA detail Widget Test">
         <groups>
             <run>
                 <include name="SanityTest"/>
@@ -159,7 +159,7 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.DADetailWidgetTest"/>
         </classes>
     </test>
-    <test name="Display offer Widget Test" preserve-order="true">
+    <test name="Display offer Widget Test">
         <groups>
             <run>
                 <include name="SanityTest"/>
@@ -169,7 +169,7 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.DisplayOfferWidgetTest"/>
         </classes>
     </test>
-    <test name="Friends and family Widget Test" preserve-order="true">
+    <test name="Friends and family Widget Test">
         <groups>
             <run>
                 <include name="SanityTest"/>
@@ -179,7 +179,7 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.FriendsFamilyWidgetTest"/>
         </classes>
     </test>
-    <test name="Accumulator Widget Test" preserve-order="true">
+    <test name="Accumulator Widget Test">
         <groups>
             <run>
                 <include name="SanityTest"/>
@@ -189,7 +189,7 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.AccumulatorWidgetTest"/>
         </classes>
     </test>
-    <test name="Usage History Detailed Widget Test" preserve-order="true">
+    <test name="Usage History Detailed Widget Test">
         <groups>
             <run>
                 <include name="SanityTest"/>
@@ -199,7 +199,7 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.UsageHistoryDetailedWidgetTest"/>
         </classes>
     </test>
-    <test name="Data Unit Conversion for widget Test" preserve-order="true">
+    <test name="Data Unit Conversion for widget Test">
         <groups>
             <run>
                 <include name="SanityTest"/>
@@ -227,6 +227,36 @@
         </groups>
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.CRBTWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Adjustment Widget Test">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.autoadjustment.AdjustmentTabTest"/>
+        </classes>
+    </test>
+    <test name="Widget Visibility Test By Connection Type">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.widgetvisibility.VisibiltyByCustomerSegment"/>
+        </classes>
+    </test>
+    <test name="Role Based Masking Test">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.rolebasedmasking.RoleBasedMaskingTest"/>
         </classes>
     </test>
     <test name="Create NFTR FTR Tickets TEST">
@@ -337,6 +367,56 @@
         </groups>
         <classes>
             <class name="com.airtel.cs.ui.simbarunbar.SIMBarUnbarPermissionSeparationTest"/>
+        </classes>
+    </test>
+    <test name="Plan and pack Test">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.PlanAndPackDetailedWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Current Plan Test">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.CurrentPlanTest"/>
+        </classes>
+    </test>
+    <test name="Account Information Test">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.AccountInformationWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Detailed Account Information Test">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.DetailAccountInfoTest"/>
+        </classes>
+    </test>
+    <test name="Adjustment History Tab Test">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.viewhistorytab.AdjustmentHistoryTest"/>
         </classes>
     </test>
     <test name="Supervisors Login Test">

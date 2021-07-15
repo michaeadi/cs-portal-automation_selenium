@@ -37,6 +37,7 @@ public class BasePage extends Driver {
     BasePageElements basePageElements;
     public static final RequestSource api = new RequestSource();
     private static final String BREAK_LINE = "</br>";
+    public static WidgetCommonMethod widgetMethods=pages.getWidgetCommonMethod();
 
     //Constructor
     public BasePage(WebDriver driver) {
@@ -152,7 +153,7 @@ public class BasePage extends Driver {
      * @return String The value
      */
     public String getText(By elementLocation) {
-        String result = null;
+        String result = "";
         if (isVisible(elementLocation)) {
             highLighterMethod(elementLocation);
             result = driver.findElement(elementLocation).getText();
@@ -532,7 +533,7 @@ public class BasePage extends Driver {
             WebElement webElement = driverWait.until(ExpectedConditions.visibilityOfElementLocated(webelementBy));
             return webElement != null;
         } catch (Exception e) {
-            commonLib.error("Element Not Visible :-" + webelementBy);
+            commonLib.info("Element Not Visible :-" + webelementBy);
             return false;
         }
     }

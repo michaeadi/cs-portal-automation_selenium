@@ -1,14 +1,14 @@
 package com.airtel.cs.ui.frontendagent.hometab;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.common.actions.BaseActions;
+import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.commonutils.applicationutils.enums.JavaColors;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
-import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
+import com.airtel.cs.commonutils.dataproviders.databeans.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pojo.response.actiontrail.ActionTrailPOJO;
 import com.airtel.cs.pojo.response.actiontrail.EventResult;
@@ -44,8 +44,8 @@ public class FriendsFamilyWidgetTest extends Driver {
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkServiceProfileFlag() {
         if (!StringUtils.equals(RUN_FNF_WIDGET_TEST_CASE, "true")) {
-            commonLib.skip("Skipping because Run Friend & Family widget Test Case Flag Value is - " + RUN_FNF_WIDGET_TEST_CASE);
-            throw new SkipException("Skipping because this functionality does not applicable for current Opco");
+            commonLib.skip("FNF Widget is NOT Enabled for this Opco=" + OPCO);
+            throw new SkipException("FNF Widget is NOT Enabled for this Opco=" + OPCO);
         }
     }
 

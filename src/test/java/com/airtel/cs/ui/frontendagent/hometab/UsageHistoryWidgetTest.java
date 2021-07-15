@@ -1,11 +1,11 @@
 package com.airtel.cs.ui.frontendagent.hometab;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.common.actions.BaseActions;
+import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
-import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
+import com.airtel.cs.commonutils.dataproviders.databeans.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pagerepository.pagemethods.UsageHistoryWidget;
 import com.airtel.cs.pojo.response.UsageHistoryPOJO;
@@ -81,7 +81,6 @@ public class UsageHistoryWidgetTest extends Driver {
             UsageHistoryPOJO usageHistoryAPI = api.usageHistoryTest(customerNumber);
             int size = usageHistoryWidget.getNumberOfRows();
             if (usageHistoryAPI.getResult().size() == 0 || usageHistoryAPI.getResult() == null) {
-                commonLib.warning("Unable to get Usage History Details from API");
                 assertCheck.append(actions.assertEqual_boolean(usageHistoryWidget.isUsageHistoryNoResultFoundVisible(), true, "Error Message is Visible", "Error Message is not Visible"));
                 assertCheck.append(actions.assertEqual_stringType(usageHistoryWidget.gettingUsageHistoryNoResultFoundMessage(), "No Result found", "Error Message is as expected", "Error Message is not as expected"));
             } else {

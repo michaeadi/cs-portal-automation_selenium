@@ -1,10 +1,8 @@
 package com.airtel.cs.ui.ticketsourceapp;
 
-import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
-import com.airtel.cs.commonutils.dataproviders.TestDatabean;
-import com.airtel.cs.commonutils.dataproviders.TransferQueueDataBean;
+import com.airtel.cs.commonutils.dataproviders.databeans.TransferQueueDataBean;
 import com.airtel.cs.driver.Driver;
 import com.sun.istack.NotNull;
 import org.openqa.selenium.NoSuchElementException;
@@ -15,7 +13,6 @@ import org.testng.annotations.Test;
 
 public class TicketSourceAppTest extends Driver {
 
-    private final BaseActions actions = new BaseActions();
     private static String customerNumber = null;
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
