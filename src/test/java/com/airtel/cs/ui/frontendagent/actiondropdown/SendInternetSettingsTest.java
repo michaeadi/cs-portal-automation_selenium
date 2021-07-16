@@ -60,7 +60,12 @@ public class SendInternetSettingsTest extends Driver {
             pages.getCustomerProfilePage().clickSendInternetSetting();
             modalOpened = true;
             assertCheck.append(actions.assertEqualBoolean(pages.getCustomerProfilePage().isSendInternetSettingTitleVisible(), true, "Send Internet Setting Tab opened", "Send Internet Setting Tab does NOT opened"));
-            pages.getCustomerProfilePage().clickCancelBtn();
+            popup = !pages.getCustomerProfilePage().isSendInternetSettingConfirmMessageVisible();
+            if (popup) {
+                pages.getCustomerProfilePage().clickCancelBtn();
+            } else {
+                pages.getCustomerProfilePage().clickCloseBtn();
+            }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
             if (modalOpened)

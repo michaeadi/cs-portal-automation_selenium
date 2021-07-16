@@ -55,7 +55,12 @@ public class ResetME2UPasswordTest extends Driver {
             pages.getCustomerProfilePage().clickOnAction();
             pages.getCustomerProfilePage().clickResetME2U();
             assertCheck.append(actions.assertEqualBoolean(pages.getCustomerProfilePage().isResetME2UPasswordTitle(), true, "Reset ME2U Password Tab Opened", "Reset ME2U Password Tab Does not open."));
-            pages.getCustomerProfilePage().clickCancelBtn();
+            Boolean popup = !pages.getCustomerProfilePage().isResetME2UPasswordConfirmMessageVisible();
+            if (popup) {
+                pages.getCustomerProfilePage().clickCancelBtn();
+            } else {
+                pages.getCustomerProfilePage().clickCloseBtn();
+            }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException e) {
             commonLib.fail("Exception in Method :- validateResetME2UCancelBtn" + e.fillInStackTrace(), true);
@@ -72,7 +77,7 @@ public class ResetME2UPasswordTest extends Driver {
             if (!popup) {
                 pages.getAuthTabPage().clickYesBtn();
                 final String toastText = pages.getAuthTabPage().getToastText();
-                assertCheck.append(actions.assertEqualBoolean(toastText.toLowerCase().contains("success"), true, "Me2U password has been sent to customer successfully", "Me2U password hasn't been sent to customer"));
+                assertCheck.append(actions.assertEqualBoolean(toastText.toLowerCase().contains("password reset complete and new password sent to customer"), true, "Me2U password has been sent to customer successfully", "Me2U password hasn't been sent to customer"));
                 pages.getCustomerProfilePage().clickCancelBtn();
                 actions.assertAllFoundFailedAssert(assertCheck);
             } else {
