@@ -15,6 +15,7 @@ public class SendInternetSettingsTest extends Driver {
 
     private final BaseActions actions = new BaseActions();
     String comments = "Adding comment using Automation";
+    Boolean popup = true;
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
@@ -74,12 +75,19 @@ public class SendInternetSettingsTest extends Driver {
             selUtils.addTestcaseDescription("Open send internet setting modal from actions drop down,Validate issue detail title visible,Select reason and enter comment and click on submit button, Validate success message", "description");
             pages.getCustomerProfilePage().clickOnAction();
             pages.getCustomerProfilePage().clickSendInternetSetting();
-            assertCheck.append(actions.assertEqual_boolean(pages.getAuthTabPage().isIssueDetailTitleVisible(), true, "Issue Detail Configured", "Issue Detail does not configured"));
-            pages.getAuthTabPage().clickSelectReasonDropDown();
-            reason = pages.getAuthTabPage().getReason();
-            pages.getAuthTabPage().chooseReason();
-            pages.getAuthTabPage().enterComment(comments);
-            pages.getAuthTabPage().clickSubmitBtn();
+            popup = !pages.getCustomerProfilePage().isSendInternetSettingConfirmMessageVisible();
+            if (popup) {
+                assertCheck.append(actions.assertEqual_boolean(pages.getAuthTabPage().isIssueDetailTitleVisible(), true, "Issue Detail Configured", "Issue Detail does not configured"));
+                pages.getAuthTabPage().clickSelectReasonDropDown();
+                reason = pages.getAuthTabPage().getReason();
+                pages.getAuthTabPage().chooseReason();
+                pages.getAuthTabPage().enterComment(comments);
+                pages.getAuthTabPage().clickSubmitBtn();
+                final String toastText = pages.getAuthTabPage().getToastText();
+                assertCheck.append(actions.assertEqual_stringType(toastText, "Internet Settings has been sent on Customer`s Device.", "Send Internet Settings Message has been sent to customer successfully", "Send Internet Settings Message hasn't been sent to customer ans message is :-" + toastText));
+            } else {
+                pages.getAuthTabPage().clickYesBtn();
+            }
             final String toastText = pages.getAuthTabPage().getToastText();
             assertCheck.append(actions.assertEqual_stringType(toastText, "Internet Settings has been sent on Customer`s Device.", "Send Internet Settings Message has been sent to customer successfully", "Send Internet Settings Message hasn't been sent to customer ans message is :-" + toastText));
             actions.assertAllFoundFailedAssert(assertCheck);

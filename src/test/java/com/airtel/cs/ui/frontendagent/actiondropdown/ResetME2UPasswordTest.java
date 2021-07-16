@@ -61,4 +61,25 @@ public class ResetME2UPasswordTest extends Driver {
             commonLib.fail("Exception in Method :- validateResetME2UCancelBtn" + e.fillInStackTrace(), true);
         }
     }
+
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
+    public void validateResetME2UPopupFalse() {
+        try {
+            selUtils.addTestcaseDescription("Open action drop down and click on Reset ME2U Password option,Validate title visible over modal,Close modal by clicking over cancel button", "description");
+            pages.getCustomerProfilePage().clickOnAction();
+            pages.getCustomerProfilePage().clickResetME2U();
+            Boolean popup = !pages.getCustomerProfilePage().isResetME2UPasswordConfirmMessageVisible();
+            if (!popup) {
+                pages.getAuthTabPage().clickYesBtn();
+                final String toastText = pages.getAuthTabPage().getToastText();
+                assertCheck.append(actions.assertEqual_boolean(toastText.toLowerCase().contains("success"), true, "Me2U password has been sent to customer successfully", "Me2U password hasn't been sent to customer"));
+                pages.getCustomerProfilePage().clickCancelBtn();
+                actions.assertAllFoundFailedAssert(assertCheck);
+            } else {
+                pages.getCustomerProfilePage().clickCancelBtn();
+            }
+        } catch (NoSuchElementException | TimeoutException e) {
+            commonLib.fail("Exception in Method :- validateResetME2UPopupFalse" + e.fillInStackTrace(), true);
+        }
+    }
 }

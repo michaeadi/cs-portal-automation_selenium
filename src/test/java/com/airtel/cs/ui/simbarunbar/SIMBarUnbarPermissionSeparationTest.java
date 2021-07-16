@@ -167,4 +167,50 @@ public class SIMBarUnbarPermissionSeparationTest extends Driver {
             commonLib.fail("Caught exception in Testcase - removeBothPermissionFromUM " + e.getMessage(), true);
         }
     }
+
+    @Test(priority = 9, dependsOnMethods = "openCustomerInteraction", groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void suspendSIMPopupFalse() throws InterruptedException {
+        selUtils.addTestcaseDescription("Validate SIM Suspend Action", "description");
+        try {
+            pages.getCustomerProfilePage().clickOnAction();
+            if(pages.getCustomerProfilePage().isSuspendSIMOptionVisible()){
+                pages.getCustomerProfilePage().openSuspendSIMTab();
+                Boolean popup = !pages.getCustomerProfilePage().isSuspendSIMConfirmMessageVisible();
+                if (!popup) {
+                    pages.getAuthTabPage().clickYesBtn();
+                    final String toastText = pages.getAuthTabPage().getToastText();
+                    assertCheck.append(actions.assertEqual_stringType(toastText, "Sim suspend is successful", "Sim suspend is successful", "Sim suspend is unsuccessful :-" + toastText));
+                    pages.getCustomerProfilePage().clickCancelBtn();
+                    actions.assertAllFoundFailedAssert(assertCheck);
+                } else {
+                    pages.getCustomerProfilePage().clickCancelBtn();
+                }
+            }
+        } catch (Exception e) {
+            commonLib.fail("Caught exception in Testcase - suspendSIMPopupFalse " + e.getMessage(), true);
+        }
+    }
+
+    @Test(priority = 10, dependsOnMethods = "openCustomerInteraction", groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void reActivateSIMPopupFalse() {
+        selUtils.addTestcaseDescription("Validate SIM Suspend Action", "description");
+        try {
+            pages.getCustomerProfilePage().clickOnAction();
+            if(pages.getCustomerProfilePage().isReactivationSIMOptionVisible()){
+                pages.getCustomerProfilePage().openSuspendSIMTab();
+                Boolean popup = !pages.getCustomerProfilePage().isReactivateSIMConfirmMessageVisible();
+                if (!popup) {
+                    pages.getAuthTabPage().clickYesBtn();
+                    final String toastText = pages.getAuthTabPage().getToastText();
+                    assertCheck.append(actions.assertEqual_stringType(toastText, "Sim reactivate is successful", "Sim reactivate is successful", "Sim reactivate is unsuccessful :-" + toastText));
+                    pages.getCustomerProfilePage().clickCancelBtn();
+                    actions.assertAllFoundFailedAssert(assertCheck);
+                } else {
+                    pages.getCustomerProfilePage().clickCancelBtn();
+                }
+            }
+        } catch (Exception e) {
+            commonLib.fail("Caught exception in Testcase - reActivateSIMPopupFalse " + e.getMessage(), true);
+        }
+    }
 }

@@ -48,6 +48,17 @@ public class CustomerProfile extends BasePage {
     }
 
     /**
+     * This method is use to check send internet setting confirm message visible or not
+     *
+     * @return true/false
+     */
+    public Boolean isSendInternetSettingConfirmMessageVisible() {
+        final boolean state = isElementVisible(pageElements.sendSettingConfirm);
+        commonLib.info("Is Send Internet Setting Confirm message Display: " + state);
+        return state;
+    }
+
+    /**
      * This method is use to check reset me2u password action visible or not
      *
      * @return true/false
@@ -56,6 +67,17 @@ public class CustomerProfile extends BasePage {
         final boolean state = isEnabled(pageElements.resetME2Title);
         commonLib.info("Is Reset ME2U Password Title Display: " + state);
         waitTillLoaderGetsRemoved();
+        return state;
+    }
+
+    /**
+     * This method is use to check send internet setting confirm message visible or not
+     *
+     * @return true/false
+     */
+    public Boolean isResetME2UPasswordConfirmMessageVisible() {
+        final boolean state = isEnabled(pageElements.resetME2Confirm);
+        commonLib.info("Is Send Internet Setting Confirm message Display: " + state);
         return state;
     }
 
@@ -117,6 +139,8 @@ public class CustomerProfile extends BasePage {
         commonLib.info("Clicking " + text + " Pinned Tag");
         By tagName = By.xpath(pageElements.pinTagByName + text + "')]");
         clickWithoutLoader(tagName);
+        String message = getText(pageElements.popupMessage);
+        commonLib.info("Response is " + message);
     }
 
     /*
@@ -344,6 +368,28 @@ public class CustomerProfile extends BasePage {
             commonLib.error("GSM SIM Status is NOT Active and is - " + simStatus);
         }
         return result;
+    }
+
+    /**
+     * This method is use to check suspend sim confirm message visible or not
+     *
+     * @return true/false
+     */
+    public Boolean isSuspendSIMConfirmMessageVisible() {
+        final boolean state = isEnabled(pageElements.suspendSimConfirm);
+        commonLib.info("Is Send Internet Setting Confirm message Display: " + state);
+        return state;
+    }
+
+    /**
+     * This method is use to check reactivate sim confirm message visible or not
+     *
+     * @return true/false
+     */
+    public Boolean isReactivateSIMConfirmMessageVisible() {
+        final boolean state = isElementVisible(pageElements.reActivateSimConfirm);
+        commonLib.info("Is Send Internet Setting Confirm message Display: " + state);
+        return state;
     }
 
     /*

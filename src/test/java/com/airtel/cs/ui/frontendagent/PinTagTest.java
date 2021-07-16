@@ -97,7 +97,7 @@ public class PinTagTest extends Driver {
             try {
                 if (pages.getCustomerProfilePage().isPinTagVisible(tagName)) {
                     pages.getCustomerProfilePage().clickPinTag(tagName);
-                    pages.getMsisdnSearchPage();
+                    assertCheck.append(actions.assertEqual_boolean(pages.getMsisdnSearchPage().isCustomerSearchPageVisible(), true, "Msisden Search Page Loaded Successfully", "Msisden Search Page NOT Loaded"));
                     pages.getMsisdnSearchPage().enterNumber(customerNumber);
                     pages.getMsisdnSearchPage().clickOnSearch();
                     assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isCustomerProfilePageLoaded(), true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));

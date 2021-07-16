@@ -788,4 +788,30 @@ public class SupervisorTicketList extends BasePage {
         clickAndWaitForLoaderToBeRemoved(pageElements.closeTabBtn);
     }
 
+    /**
+     * This method is use check tickets are vailable
+     * @return Boolean The value
+     */
+    public Boolean checkTicketsAvailability() {
+        if (isVisible(pageElements.ticketAvailable)) {
+            return true;
+        } else {
+            commonLib.error("Ticket Data is NOT available over dashboard");
+        }
+        return false;
+    }
+
+    /**
+     * This method is use check tickets are vailable on InteractionHistory
+     * @return Boolean The value
+     */
+    public Boolean checkTicketsAvailabilityOnInteractionHistory() {
+        if (isVisible(pageElements.ticketOnInteractionHistory)) {
+            return true;
+        } else {
+            commonLib.error("Ticket Data is NOT available over dashboard");
+        }
+        return false;
+    }
+
 }

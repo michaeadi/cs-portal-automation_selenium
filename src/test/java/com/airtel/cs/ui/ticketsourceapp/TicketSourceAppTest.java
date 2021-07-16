@@ -41,6 +41,30 @@ public class TicketSourceAppTest extends Driver {
     }
 
     @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing"})
+    public void testTicketPresentInOpenTab() {
+        selUtils.addTestcaseDescription("Validation Tickets are available under Supervisor Ticket Listing for OPEN Ticket", "description");
+        try {
+            pages.getSupervisorTicketList().changeTicketTypeToOpen();
+            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().checkTicketsAvailability(), true, "Tickets are available under Supervisor Ticket Listing for OPEN Ticket", "Tickets are not available under Supervisor Ticket Listing for OPEN Ticket"));
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            commonLib.fail("Caught exception in Testcase - testTicketPresentInOpenTab " + e.getMessage(), true);
+        }
+    }
+
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing"})
+    public void testTicketPresentInClosedTab() {
+        selUtils.addTestcaseDescription("Validation Tickets are available under Supervisor Ticket Listing for Closed Ticket", "description");
+        try {
+            pages.getSupervisorTicketList().changeTicketTypeToClosed();
+            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().checkTicketsAvailability(), true, "Tickets are available under Supervisor Ticket Listing for Closed Ticket", "Tickets are not available under Supervisor Ticket Listing for Closed Ticket"));
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            commonLib.fail("Caught exception in Testcase - testTicketPresentInClosedTab " + e.getMessage(), true);
+        }
+    }
+
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing","testTicketPresentInOpenTab"})
     public void testSourceAppInFilterOpenTicket() {
         boolean isFilterOpeneed = false;
         try {
@@ -58,7 +82,7 @@ public class TicketSourceAppTest extends Driver {
         }
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing"})
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing","testTicketPresentInOpenTab"})
     public void testSourceAppOpenTicketDetailsPage() {
         try {
             selUtils.addTestcaseDescription("Validate Source App is visible under Supervisor Open Ticket Details Page", "description");
@@ -71,7 +95,7 @@ public class TicketSourceAppTest extends Driver {
         }
     }
 
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest"}, dataProvider = "TransferQueue", dataProviderClass = DataProviders.class, dependsOnMethods = {"testSourceTitleOpenTicketListing"})
+    @Test(priority = 6, groups = {"SanityTest", "RegressionTest"}, dataProvider = "TransferQueue", dataProviderClass = DataProviders.class, dependsOnMethods = {"testSourceTitleOpenTicketListing","testTicketPresentInOpenTab"})
     public void testSourceAppTransferTicketToQueue(@NotNull TransferQueueDataBean data) {
         selUtils.addTestcaseDescription("Validate Source App while doing Transfer To Queue", "description");
         try {
@@ -95,7 +119,7 @@ public class TicketSourceAppTest extends Driver {
 
     }
 
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing"})
+    @Test(priority = 7, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing","testTicketPresentInClosedTab"})
     public void testSourceTitleClosedTicketListing() {
         try {
             selUtils.addTestcaseDescription("Validation Source App is visible under Supervisor Ticket Listing for CLOSED Ticket", "description");
@@ -108,7 +132,7 @@ public class TicketSourceAppTest extends Driver {
         }
     }
 
-    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing"})
+    @Test(priority = 8, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing","testTicketPresentInClosedTab"})
     public void testSourceAppInFilterCloseTicket() {
         try {
             selUtils.addTestcaseDescription("Validate Source App from Filters under Close Type Ticket", "description");
@@ -123,7 +147,7 @@ public class TicketSourceAppTest extends Driver {
         }
     }
 
-    @Test(priority = 7, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing"})
+    @Test(priority = 9, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing","testTicketPresentInClosedTab"})
     public void testSourceAppClosedTicketDetailsPage() {
         try {
             selUtils.addTestcaseDescription("Validate Source App is visible under Supervisor Close Ticket Details Page", "description");
@@ -136,7 +160,7 @@ public class TicketSourceAppTest extends Driver {
         }
     }
 
-    @Test(priority = 8, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing"})
+    @Test(priority = 10, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing"})
     public void testSourceAppInteractionHistory() {
         selUtils.addTestcaseDescription("Validate Source App is visible under view history and then to Interaction tab", "description");
         try {
@@ -158,7 +182,18 @@ public class TicketSourceAppTest extends Driver {
         }
     }
 
-    @Test(priority = 9, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing"})
+    @Test(priority = 11, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing"})
+    public void testTicketPresentInInteractionHistory() {
+        selUtils.addTestcaseDescription("Validation Tickets are available under Interaction History", "description");
+        try {
+            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().checkTicketsAvailabilityOnInteractionHistory(), true, "Tickets are available under Interaction History", "Tickets are not available under Interaction History"));
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            commonLib.fail("Caught exception in Testcase - testTicketPresentInInteractionHistory " + e.getMessage(), true);
+        }
+    }
+
+    @Test(priority = 12, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing","testTicketPresentInInteractionHistory"})
     public void testSourceAppInteractionHistoryDetails() {
         try {
             selUtils.addTestcaseDescription("Validate Source App under NFTR detail page", "description");
@@ -173,7 +208,7 @@ public class TicketSourceAppTest extends Driver {
         }
     }
 
-    @Test(priority = 10, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing"})
+    @Test(priority = 13, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing"})
     public void testSourceAppTicketHistory() {
         try {
             selUtils.addTestcaseDescription("Validate Source App under view history and then to Ticket tab", "description");
@@ -186,7 +221,7 @@ public class TicketSourceAppTest extends Driver {
         }
     }
 
-    @Test(priority = 11, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing"})
+    @Test(priority = 14, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing"})
     public void testSourceAppTicketHistoryDetail() {
         try {
             selUtils.addTestcaseDescription("Validate Source App under view history and then to ticket history detail page", "description");
@@ -201,7 +236,7 @@ public class TicketSourceAppTest extends Driver {
         }
     }
 
-    @Test(priority = 12, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing"})
+    @Test(priority = 15, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing"})
     public void testSourceAppBulkUpdate() {
         boolean isFilterOpened = false;
         try {

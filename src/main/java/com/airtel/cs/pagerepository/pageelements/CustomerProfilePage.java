@@ -44,4 +44,9 @@ public class CustomerProfilePage {
     public String pinTagText = "//div[@class='sub-header__divide--control']//div[@class='sub-header__divide--control--tab ng-star-inserted'][";
     public String pinTagByName = "//div[@class='sub-header__divide--control--tab ng-star-inserted' and contains(text(),'";
     public By homeTabWidget = By.xpath("//*[contains(@class,'sr-navigation')]//*[@class='mat-tab-body-wrapper']");
+    public By popupMessage = By.xpath("//div[@class='tagging-popup ng-star-inserted']/p");
+    public By sendSettingConfirm = By.xpath("//div[contains(@class,'main-container__body')]/p[contains(text(),'Do you wish to send internet settings?')]");
+    public By resetME2Confirm = By.xpath("//div[contains(@class,'main-container__body')]/p[contains(text(),'Do you wish to reset Me2U password?')]");
+    public By suspendSimConfirm = By.xpath("//div[contains(@class,'main-container__body')]/p[contains(text(),'Do you wish to suspend the SIM?')]");
+    public By reActivateSimConfirm = By.xpath("//div[contains(@class,'main-container__body')]/p[contains(text(),'Do you wish to reactivate the SIM?')]");
 }
