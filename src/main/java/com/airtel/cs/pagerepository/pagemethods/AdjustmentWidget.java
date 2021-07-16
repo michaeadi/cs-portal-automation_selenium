@@ -208,7 +208,7 @@ public class AdjustmentWidget extends BasePage{
     public void validateReasonsDetail(List<String> reasons, AdjustmentReasonPOJO reasonPOJO){
         if (!reasons.isEmpty()) {
             for (ReasonDetail detail : reasonPOJO.getResult()) {
-                assertCheck.append(actions.assertEqual_boolean(reasons.remove(detail.getReason()),true,detail.getReason() + " reason displayed on UI as per api response",detail.getReason() + " reason does not displayed on UI as per api response"));
+                assertCheck.append(actions.assertEqualBoolean(reasons.remove(detail.getReason()),true,detail.getReason() + " reason displayed on UI as per api response",detail.getReason() + " reason does not displayed on UI as per api response"));
             }
         } else {
             commonLib.fail("No Adjustment reason displayed on UI", true);

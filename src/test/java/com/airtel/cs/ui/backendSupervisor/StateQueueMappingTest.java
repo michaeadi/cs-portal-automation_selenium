@@ -40,7 +40,7 @@ public class StateQueueMappingTest extends Driver {
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().clickOnUserName();
             pages.getSideMenuPage().openSupervisorDashboard();
-            assertCheck.append(actions.assertEqual_stringType(driver.getTitle(), constants.getValue(CommonConstants.SUPERVISOR_TICKET_LIST_PAGE_TITLE), "Agent redirect to ticket list page as expected", "Agent does not redirect to ticket list page as expected"));
+            assertCheck.append(actions.assertEqualStringType(driver.getTitle(), constants.getValue(CommonConstants.SUPERVISOR_TICKET_LIST_PAGE_TITLE), "Agent redirect to ticket list page as expected", "Agent does not redirect to ticket list page as expected"));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - openSupervisorDashboard" + e.fillInStackTrace(), true);
         }
@@ -60,7 +60,7 @@ public class StateQueueMappingTest extends Driver {
                 pages.getFilterTabPage().selectQueueByName(data.getQueue());
                 pages.getFilterTabPage().clickOutsideFilter();
                 pages.getFilterTabPage().clickApplyFilter();
-                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().validateQueueFilter(data.getQueue()), true, "Queue Filter applied correctly with queue name " + data.getQueue(), "Queue Filter Does Applied Correctly or No Ticket Found"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().validateQueueFilter(data.getQueue()), true, "Queue Filter applied correctly with queue name " + data.getQueue(), "Queue Filter Does Applied Correctly or No Ticket Found"));
             } catch (InterruptedException | NoSuchElementException | TimeoutException e) {
                 pages.getFilterTabPage().clickOutsideFilter();
                 pages.getFilterTabPage().clickCloseFilter();

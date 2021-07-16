@@ -37,7 +37,7 @@ public class VisibiltyByCustomerSegment extends Driver {
       pages.getMsisdnSearchPage().enterNumber(customerNumber);
       pages.getMsisdnSearchPage().clickOnSearch();
       final boolean pageLoaded = pages.getCustomerProfilePage().isCustomerProfilePageLoaded();
-      assertCheck.append(actions.assertEqual_boolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
+      assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
       if (!pageLoaded) continueExecutionFA = false;
       actions.assertAllFoundFailedAssert(assertCheck);
     } catch (Exception e) {
@@ -62,26 +62,26 @@ public class VisibiltyByCustomerSegment extends Driver {
     try {
       selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate All Widgets are according to connection type ", "description");
       List<Authorities> allPermissions =UtilsMethods.getAgentDetail(new Headers(map)).getUserDetails().getUserDetails().getAuthorities();
-      assertCheck.append(actions.assertEqual_stringNotNull(connectType, "Customer Connection Type is not empty", "Customer Connection Type is empty"));
+      assertCheck.append(actions.assertEqualStringNotNull(connectType, "Customer Connection Type is not empty", "Customer Connection Type is empty"));
       if ("prepaid".equals(connectType) || "all".equals(connectType) || "hybrid".equals(connectType)) {
-        assertCheck.append(actions.assertEqual_boolean(pages.getRechargeHistoryWidget().isRechargeHistoryWidgetIsVisible(), true, "Recharge History Widget is visible", "Recharge History Widget is not visible"));
-        assertCheck.append(actions.assertEqual_boolean(pages.getCurrentBalanceWidgetPage().isCurrentBalanceWidgetVisible(), true, "Current Balance Widget is visible", "Current Balance Widget is not visible"));
+        assertCheck.append(actions.assertEqualBoolean(pages.getRechargeHistoryWidget().isRechargeHistoryWidgetIsVisible(), true, "Recharge History Widget is visible", "Recharge History Widget is not visible"));
+        assertCheck.append(actions.assertEqualBoolean(pages.getCurrentBalanceWidgetPage().isCurrentBalanceWidgetVisible(), true, "Current Balance Widget is visible", "Current Balance Widget is not visible"));
       }
       if ("postpaid".equals(connectType) || "all".equals(connectType)) {
-        assertCheck.append(actions.assertEqual_boolean(pages.getAccountInformationWidget().isAccountInformationWidgetDisplay(), checkPermission(allPermissions,accountInfo_permission), "Account Information Widget displayed correctly as per user permission", "Account Information Widget does not display correctly as per user permission"));
-        assertCheck.append(actions.assertEqual_boolean(pages.getCurrentPlanWidget().isCurrentPlanWidgetDisplay(), checkPermission(allPermissions,currentPlan_permission), "Current plan Widget displayed correctly as per user permission", "Current plan Widget does not display correctly as per user permission"));
+        assertCheck.append(actions.assertEqualBoolean(pages.getAccountInformationWidget().isAccountInformationWidgetDisplay(), checkPermission(allPermissions,accountInfo_permission), "Account Information Widget displayed correctly as per user permission", "Account Information Widget does not display correctly as per user permission"));
+        assertCheck.append(actions.assertEqualBoolean(pages.getCurrentPlanWidget().isCurrentPlanWidgetDisplay(), checkPermission(allPermissions,currentPlan_permission), "Current plan Widget displayed correctly as per user permission", "Current plan Widget does not display correctly as per user permission"));
         pages.getPlanAndPackDetailedWidget().openCurrentPlanDetailPage();
-        assertCheck.append(actions.assertEqual_boolean(pages.getPlanAndPackDetailedWidget().isPlanWidgetDisplay(), checkPermission(allPermissions, planAndPackPermission), "Plan Widget displayed correctly as per user permission", "Plan Widget does not display correctly as per user permission"));
-        assertCheck.append(actions.assertEqual_boolean(pages.getPlanAndPackDetailedWidget().isPackWidgetDisplay(), checkPermission(allPermissions, planAndPackPermission), "Pack Widget displayed correctly as per user permission", "Pack Widget does not display correctly as per user permission"));
+        assertCheck.append(actions.assertEqualBoolean(pages.getPlanAndPackDetailedWidget().isPlanWidgetDisplay(), checkPermission(allPermissions, planAndPackPermission), "Plan Widget displayed correctly as per user permission", "Plan Widget does not display correctly as per user permission"));
+        assertCheck.append(actions.assertEqualBoolean(pages.getPlanAndPackDetailedWidget().isPackWidgetDisplay(), checkPermission(allPermissions, planAndPackPermission), "Pack Widget displayed correctly as per user permission", "Pack Widget does not display correctly as per user permission"));
         pages.getCustomerProfilePage().goToHomeTab();
       }
       if(!"none".equals(connectType)){
-        assertCheck.append(actions.assertEqual_boolean(pages.getUsageHistoryWidget().isUsageHistoryWidgetIsVisible(), true, "Usage History Widget is visible", "Usage History Widget is not visible"));
-        assertCheck.append(actions.assertEqual_boolean(pages.getAmTxnWidgetPage().isAirtelMoneyTransactionWidgetVisible(), checkPermission(allPermissions, amTxnHistory_permission), "Airtel Money Transaction Widget is visible", "Airtel Money Transaction Widget is not visible"));
-        assertCheck.append(actions.assertEqual_boolean(pages.getServiceClassWidget().isServiceClassWidgetDisplay(), checkPermission(allPermissions, hlr_permission), "Service Profile Widget displayed correctly as per user permission", "Service Profile Widget does not display correctly as per user  "));
-        assertCheck.append(actions.assertEqual_boolean(pages.getLoanWidget().isLoanServiceWidgetVisible(), checkPermission(allPermissions, loanService_permission), "Loan Service Widget displayed correctly as per user permission", "Loan Service Widget does not display correctly as per user "));
-        assertCheck.append(actions.assertEqual_boolean(pages.getActiveVasWidgetPage().isActiveVasWidgetVisible(), checkPermission(allPermissions, vasDetails_permission), "Active Vas Widget displayed correctly as per user permission", "Active Vas Widget does not display correctly as per user"));
-        assertCheck.append(actions.assertEqual_boolean(pages.getCrbtWidgetPage().isCRBTWidgetDisplay(), checkPermission(allPermissions, ringTone_permission), "CRBT Widget displayed correctly as per user permission", "CRBT Widget does not display correctly as per user"));
+        assertCheck.append(actions.assertEqualBoolean(pages.getUsageHistoryWidget().isUsageHistoryWidgetIsVisible(), true, "Usage History Widget is visible", "Usage History Widget is not visible"));
+        assertCheck.append(actions.assertEqualBoolean(pages.getAmTxnWidgetPage().isAirtelMoneyTransactionWidgetVisible(), checkPermission(allPermissions, amTxnHistory_permission), "Airtel Money Transaction Widget is visible", "Airtel Money Transaction Widget is not visible"));
+        assertCheck.append(actions.assertEqualBoolean(pages.getServiceClassWidget().isServiceClassWidgetDisplay(), checkPermission(allPermissions, hlr_permission), "Service Profile Widget displayed correctly as per user permission", "Service Profile Widget does not display correctly as per user  "));
+        assertCheck.append(actions.assertEqualBoolean(pages.getLoanWidget().isLoanServiceWidgetVisible(), checkPermission(allPermissions, loanService_permission), "Loan Service Widget displayed correctly as per user permission", "Loan Service Widget does not display correctly as per user "));
+        assertCheck.append(actions.assertEqualBoolean(pages.getActiveVasWidgetPage().isActiveVasWidgetVisible(), checkPermission(allPermissions, vasDetails_permission), "Active Vas Widget displayed correctly as per user permission", "Active Vas Widget does not display correctly as per user"));
+        assertCheck.append(actions.assertEqualBoolean(pages.getCrbtWidgetPage().isCRBTWidgetDisplay(), checkPermission(allPermissions, ringTone_permission), "CRBT Widget displayed correctly as per user permission", "CRBT Widget does not display correctly as per user"));
       }
       actions.assertAllFoundFailedAssert(assertCheck);
 

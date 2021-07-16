@@ -37,7 +37,7 @@ public class AccumulatorWidgetTest extends Driver {
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();
             final boolean pageLoaded = pages.getCustomerProfilePage().isCustomerProfilePageLoaded();
-            assertCheck.append(actions.assertEqual_boolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
+            assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
             if (!pageLoaded) continueExecutionFA = false;
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -52,7 +52,7 @@ public class AccumulatorWidgetTest extends Driver {
             selUtils.addTestcaseDescription("Validating Accumulator Details of User :" + customerNumber, "description");
             accumulatorWidgetIdentifier=pages.getDaDetailsPage().getAccumulatorId();
             selUtils.addTestcaseDescription("Validating Accumulator Details of User :" + customerNumber+",Validate accumulator widget header display as per config,Validate accumulator row data must be displayed as per api response.", "description");
-                assertCheck.append(actions.assertEqual_boolean(pages.getCurrentBalanceWidgetPage().isCurrentBalanceWidgetMenuVisible(), true, "Current Balance Widget MENU visible ", "Current Balance Widget MENU is not visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getCurrentBalanceWidgetPage().isCurrentBalanceWidgetMenuVisible(), true, "Current Balance Widget MENU visible ", "Current Balance Widget MENU is not visible"));
                 pages.getCurrentBalanceWidgetPage().openingDADetails();
                 assertCheck.append(actions.matchUiAndAPIResponse(widgetMethods.getHeaderName(accumulatorWidgetIdentifier, 0), Data.getRow1(), "Header Name for Row 1 is as expected", "Header Name for Row 1 is not as expected"));
                 assertCheck.append(actions.matchUiAndAPIResponse(widgetMethods.getHeaderName(accumulatorWidgetIdentifier, 1), Data.getRow2(), "Header Name for Row 2 is as expected", "Header Name for Row 2 is not as expected"));
@@ -60,7 +60,7 @@ public class AccumulatorWidgetTest extends Driver {
                 assertCheck.append(actions.matchUiAndAPIResponse(widgetMethods.getHeaderName(accumulatorWidgetIdentifier, 3), Data.getRow4(), "Header Name for Row 4 is as expected", "Header Name for Row 4 is not as expected"));
                 AccumulatorsPOJO accumulatorAPI = api.accumulatorsAPITest(customerNumber);
                 final int statusCode = accumulatorAPI.getStatusCode();
-                assertCheck.append(actions.assertEqual_intType(statusCode, 200, "AM Profile API success and status code is :" + statusCode, "AM Profile API got failed and status code is :" + statusCode));
+                assertCheck.append(actions.assertEqualIntType(statusCode, 200, "AM Profile API success and status code is :" + statusCode, "AM Profile API got failed and status code is :" + statusCode));
                 if (statusCode == 200) {
                     int size = Math.min(accumulatorAPI.getResult().size(), 5);
                     for (int i = 0; i < size; i++) {

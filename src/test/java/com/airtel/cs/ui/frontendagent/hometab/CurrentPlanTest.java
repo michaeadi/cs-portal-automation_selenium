@@ -41,7 +41,7 @@ public class CurrentPlanTest extends Driver {
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();
             final boolean pageLoaded = pages.getCustomerProfilePage().isCustomerProfilePageLoaded();
-            assertCheck.append(actions.assertEqual_boolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
+            assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
             if (!pageLoaded) continueExecutionFA = false;
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -59,7 +59,7 @@ public class CurrentPlanTest extends Driver {
             selUtils.addTestcaseDescription("Validating the Demographic Information of User with invalid MSISDN : 123456789", "description");
             pages.getDemoGraphicPage().enterMSISDN("123456789");
             assertCheck.append(actions
-                    .assertEqual_stringType(pages.getDemoGraphicPage().invalidMSISDNError(), "Entered customer number is Invalid",
+                    .assertEqualStringType(pages.getDemoGraphicPage().invalidMSISDNError(), "Entered customer number is Invalid",
                             "Error Message Correctly Displayed", "Error Message NOT Displayed Correctly"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -76,7 +76,7 @@ public class CurrentPlanTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Verify that current plan widget should be visible to the logged in agent if current plan permission is enabled in UM, Check User has permission to view current plan Widget Permission", "description");
             String currentPlanPermission = constants.getValue(PermissionConstants.CURRENT_PLAN_WIDGET_PERMISSION);
-            assertCheck.append(actions.assertEqual_boolean(pages.getCurrentPlanWidget().isCurrentPlanWidgetDisplay(), UtilsMethods.isUserHasPermission(new Headers(map), currentPlanPermission), "Current plan Widget displayed correctly as per user permission", "Current plan Widget does not display correctly as per user permission"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getCurrentPlanWidget().isCurrentPlanWidgetDisplay(), UtilsMethods.isUserHasPermission(new Headers(map), currentPlanPermission), "Current plan Widget displayed correctly as per user permission", "Current plan Widget does not display correctly as per user permission"));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - isUserHasPlanAndPackWidgetPermission" + e.fillInStackTrace(), true);
         }
@@ -93,9 +93,9 @@ public class CurrentPlanTest extends Driver {
 
         try {
             selUtils.addTestcaseDescription("Validate is current plan widget Visible?,Validate footer and middle auuid,Validate Header Text", "description");
-            assertCheck.append(actions.assertEqual_boolean(pages.getCurrentPlanWidget().isCurrentPlanWidgetDisplay(), true, " Current Plan widget displayed", "Current Plan widget not displayed"));
-            assertCheck.append(actions.assertEqual_stringType(pages.getCurrentPlanWidget().getFooterAuuid(), loginAUUID, "Auuid shown at the footer of the Your Current Plan widget and is correct", "Auuid NOT shown at the footer of Your Current Plan widget"));
-            assertCheck.append(actions.assertEqual_stringType(pages.getCurrentPlanWidget().getMiddleAuuid(), loginAUUID, "Auuid shown at the middle of the Your Current Plan widget and is correct", "Auuid NOT shown at the middle of Your Current Plan widget"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getCurrentPlanWidget().isCurrentPlanWidgetDisplay(), true, " Current Plan widget displayed", "Current Plan widget not displayed"));
+            assertCheck.append(actions.assertEqualStringType(pages.getCurrentPlanWidget().getFooterAuuid(), loginAUUID, "Auuid shown at the footer of the Your Current Plan widget and is correct", "Auuid NOT shown at the footer of Your Current Plan widget"));
+            assertCheck.append(actions.assertEqualStringType(pages.getCurrentPlanWidget().getMiddleAuuid(), loginAUUID, "Auuid shown at the middle of the Your Current Plan widget and is correct", "Auuid NOT shown at the middle of Your Current Plan widget"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - currentPlanWatermarkTest" + e.fillInStackTrace(), true);
@@ -114,24 +114,24 @@ public class CurrentPlanTest extends Driver {
             final String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_POSTPAID_MSISDN);
             KYCProfile kycProfile = api.kycProfileAPITest(customerNumber);
             final Integer statusCode = kycProfile.getStatusCode();
-            assertCheck.append(actions.assertEqual_intType(statusCode, 200, "KYC Profile API Status Code Matched and is :" + statusCode, "KYC Profile API Status Code NOT Matched and is :" + statusCode));
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "KYC Profile API Status Code Matched and is :" + statusCode, "KYC Profile API Status Code NOT Matched and is :" + statusCode));
             String connectionType = pages.getDemoGraphicPage().getConnectionType().toUpperCase().trim();
             final boolean umPermission = pages.getCurrentPlanWidget().isCurrentPlanWidgetDisplay();
-            assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getConnectionType().toLowerCase().trim(),
+            assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getConnectionType().toLowerCase().trim(),
                     kycProfile.getResult().getLineType().toLowerCase().trim(), "Customer Connection Type is as expected",
                     "Customer Connection Type as not expected"));
             if (connectionType.equalsIgnoreCase("POSTPAID") && umPermission) {
-                assertCheck.append(actions.assertEqual_stringType(connectionType, "POSTPAID", "Valid connection type found", "Invalid connection type found"));
-                assertCheck.append(actions.assertEqual_boolean(pages.getCurrentPlanWidget().isCurrentPlanWidgetDisplay(), true, "User has permission for current plan widget", "User doesn't have permission for current plan widget"));
+                assertCheck.append(actions.assertEqualStringType(connectionType, "POSTPAID", "Valid connection type found", "Invalid connection type found"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getCurrentPlanWidget().isCurrentPlanWidgetDisplay(), true, "User has permission for current plan widget", "User doesn't have permission for current plan widget"));
             } else if (connectionType.equalsIgnoreCase("POSTPAID") && !umPermission) {
-                assertCheck.append(actions.assertEqual_stringType(connectionType, "POSTPAID", "Valid connection type found", "Invalid connection type found"));
-                assertCheck.append(actions.assertEqual_boolean(pages.getCurrentPlanWidget().isCurrentPlanWidgetDisplay(), false, "User has permission for current plan widget", "User doesn't have permission for current plan widget"));
+                assertCheck.append(actions.assertEqualStringType(connectionType, "POSTPAID", "Valid connection type found", "Invalid connection type found"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getCurrentPlanWidget().isCurrentPlanWidgetDisplay(), false, "User has permission for current plan widget", "User doesn't have permission for current plan widget"));
             } else if (connectionType.equalsIgnoreCase("PREPAID") && umPermission) {
-                assertCheck.append(actions.assertEqual_stringType(connectionType, "PREPAID", "Valid connection type found", "Invalid connection type found"));
-                assertCheck.append(actions.assertEqual_boolean(pages.getCurrentPlanWidget().isCurrentPlanWidgetDisplay(), true, "User has permission for current plan widget", "User doesn't have permission for current plan widget"));
+                assertCheck.append(actions.assertEqualStringType(connectionType, "PREPAID", "Valid connection type found", "Invalid connection type found"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getCurrentPlanWidget().isCurrentPlanWidgetDisplay(), true, "User has permission for current plan widget", "User doesn't have permission for current plan widget"));
             } else if (connectionType.equalsIgnoreCase("PREPAID") && !umPermission) {
-                assertCheck.append(actions.assertEqual_stringType(connectionType, "PREPAID", "Valid connection type found", "Invalid connection type found"));
-                assertCheck.append(actions.assertEqual_boolean(pages.getCurrentPlanWidget().isCurrentPlanWidgetDisplay(), false, "User has permission for current plan widget", "User doesn't have permission for current plan widget"));
+                assertCheck.append(actions.assertEqualStringType(connectionType, "PREPAID", "Valid connection type found", "Invalid connection type found"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getCurrentPlanWidget().isCurrentPlanWidgetDisplay(), false, "User has permission for current plan widget", "User doesn't have permission for current plan widget"));
             } else {
                 commonLib.fail(" Current plan widget is not displayed", true);
             }
@@ -157,8 +157,8 @@ public class CurrentPlanTest extends Driver {
             int size = postpaidPack.getPayload().getPacks().size();
             String bundleCount = Integer.toString(size);
             commonLib.info("bundleCount" + bundleCount);*/
-            assertCheck.append(actions.assertEqual_boolean(pages.getCurrentPlanWidget().isPlanNameDisplayedOnCurrentPlanWidget(), true, "Name of the plan is displayed on Current plan widget", "Name of the plan is not displayed on Current plan widget"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getCurrentPlanWidget().isAdditionalBundleOnCurrentPlanWidget(), true, "Additional bundle count visible", "Additional bundle count not visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getCurrentPlanWidget().isPlanNameDisplayedOnCurrentPlanWidget(), true, "Name of the plan is displayed on Current plan widget", "Name of the plan is not displayed on Current plan widget"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getCurrentPlanWidget().isAdditionalBundleOnCurrentPlanWidget(), true, "Additional bundle count visible", "Additional bundle count not visible"));
 
             // To be check again
             //assertCheck.append(actions.assertEqual_stringType(pages.getCurrentPlanWidget().isAdditionalBundleCountOnCurrentPlanWidget(), bundleCount, "Additional bundle count is correct", "Additional bundle count is incorrect"));

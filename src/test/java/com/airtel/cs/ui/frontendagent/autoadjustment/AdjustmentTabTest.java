@@ -61,7 +61,7 @@ public class AdjustmentTabTest extends Driver {
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();
             final boolean pageLoaded = pages.getCustomerProfilePage().isCustomerProfilePageLoaded();
-            assertCheck.append(actions.assertEqual_boolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
+            assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
             if (!pageLoaded) continueExecutionFA = false;
         } catch (Exception e) {
             commonLib.fail("Exception in Method - openCustomerInteraction" + e.fillInStackTrace(), true);
@@ -76,7 +76,7 @@ public class AdjustmentTabTest extends Driver {
             pages.getCustomerProfilePage().clickOnAction();
             String adjustment_permission = constants.getValue(PermissionConstants.ADJUSTMENT_WIDGET_PERMISSION_NAME);
             hasPermission = UtilsMethods.isUserHasPermission(new Headers(map), adjustment_permission);
-            assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().checkAdjustmentAction(), hasPermission, "Adjustment Action displayed correctly as per user permission", "Adjustment Action does not display correctly as per user permission"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getCustomerProfilePage().checkAdjustmentAction(), hasPermission, "Adjustment Action displayed correctly as per user permission", "Adjustment Action does not display correctly as per user permission"));
             pages.getCustomerProfilePage().clickOutside();
         } catch (Exception e) {
             commonLib.fail("Exception in Method - isUserHasPermissionOfAdjustment" + e.fillInStackTrace(), true);
@@ -92,7 +92,7 @@ public class AdjustmentTabTest extends Driver {
             pages.getCustomerProfilePage().clickOnAction();
             pages.getCustomerProfilePage().clickAdjustment();
             adjustmentId = pages.getAdjustmentTabPage().getWidgetId();
-            assertCheck.append(actions.assertEqual_boolean(widgetMethods.isWidgetVisible(adjustmentId), true, "Adjustment widget display as expected", "Adjustment widget does not display as expected"));
+            assertCheck.append(actions.assertEqualBoolean(widgetMethods.isWidgetVisible(adjustmentId), true, "Adjustment widget display as expected", "Adjustment widget does not display as expected"));
             reasonAPI = api.getAdjustmentReason();
             assertCheck.append(actions.matchUiAndAPIResponse(reasonAPI.getResult().get(0).getAction(), constants.getValue(CommonConstants.ADJUSTMENT_REASON_RECHARGE), "Recharge Reason found as adjustment reason as expected per api response", "Recharge Reason does not found as adjustment reason as expected per api response"));
             assertCheck.append(actions.matchUiAndAPIResponse(reasonAPI.getResult().get(1).getAction(), constants.getValue(CommonConstants.ADJUSTMENT_REASON_USAGE), "Usage Reason found as adjustment reason as expected per api response", "Usage Reason does not found as adjustment reason as expected per api response"));
@@ -108,14 +108,14 @@ public class AdjustmentTabTest extends Driver {
     public void ValidateAdjustmentWidgetOnLoad() {
         try {
             selUtils.addTestcaseDescription("Validate the adjustment widget on load of the page,Validate all the input fields displayed as expected,validate submit button is not enable without choosing mandatory fields.", "description");
-            assertCheck.append(actions.assertEqual_boolean(widgetMethods.isWidgetVisible(adjustmentId), true, "Adjustment widget display as expected", "Adjustment widget does not display as expected", true));
-            assertCheck.append(actions.assertEqual_boolean(pages.getAdjustmentTabPage().isAdjustmentReasonVisible(), true, "Adjustment reason type fields display as expected", "Adjustment reason type field does not display as per expected."));
-            assertCheck.append(actions.assertEqual_boolean(pages.getAdjustmentTabPage().isAdjustmentTypeVisible(), true, "Adjustment Type type fields display as expected", "Adjustment type field does not display as per expected."));
-            assertCheck.append(actions.assertEqual_boolean(pages.getAdjustmentTabPage().isAdjustmentAccountTypeVisible(), true, "Adjustment account type fields display as expected", "Adjustment account type field does not display as per expected."));
-            assertCheck.append(actions.assertEqual_boolean(pages.getAdjustmentTabPage().isCommentBoxVisible(), true, "Comment box display as expected", "Comment box does not display as per expected."));
-            assertCheck.append(actions.assertEqual_stringType(pages.getAdjustmentTabPage().getServiceNumber(), customerNumber, "Service number same as customer number as expected adjustment tab open for same msisdn", "Service number not same as customer number as expected adjustment tab  does not open for same msisdn"));
-            assertCheck.append(actions.assertEqual_stringType(pages.getAdjustmentTabPage().getAdjustmentCurrency(), constants.getValue(ApplicationConstants.ADJUSTMENT_CURRENCY_UNIT), "Adjustment currency same as expected", "Adjustment currency same as expected"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getAdjustmentTabPage().isSubmitEnable(), false, "Submit button disabled as expected", "Submit button enable but it must be disable as mandatory fields does not filled as expected"));
+            assertCheck.append(actions.assertEqualBoolean(widgetMethods.isWidgetVisible(adjustmentId), true, "Adjustment widget display as expected", "Adjustment widget does not display as expected", true));
+            assertCheck.append(actions.assertEqualBoolean(pages.getAdjustmentTabPage().isAdjustmentReasonVisible(), true, "Adjustment reason type fields display as expected", "Adjustment reason type field does not display as per expected."));
+            assertCheck.append(actions.assertEqualBoolean(pages.getAdjustmentTabPage().isAdjustmentTypeVisible(), true, "Adjustment Type type fields display as expected", "Adjustment type field does not display as per expected."));
+            assertCheck.append(actions.assertEqualBoolean(pages.getAdjustmentTabPage().isAdjustmentAccountTypeVisible(), true, "Adjustment account type fields display as expected", "Adjustment account type field does not display as per expected."));
+            assertCheck.append(actions.assertEqualBoolean(pages.getAdjustmentTabPage().isCommentBoxVisible(), true, "Comment box display as expected", "Comment box does not display as per expected."));
+            assertCheck.append(actions.assertEqualStringType(pages.getAdjustmentTabPage().getServiceNumber(), customerNumber, "Service number same as customer number as expected adjustment tab open for same msisdn", "Service number not same as customer number as expected adjustment tab  does not open for same msisdn"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAdjustmentTabPage().getAdjustmentCurrency(), constants.getValue(ApplicationConstants.ADJUSTMENT_CURRENCY_UNIT), "Adjustment currency same as expected", "Adjustment currency same as expected"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getAdjustmentTabPage().isSubmitEnable(), false, "Submit button disabled as expected", "Submit button enable but it must be disable as mandatory fields does not filled as expected"));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - ValidateAdjustmentWidgetOnLoad" + e.fillInStackTrace(), true);
         }
@@ -128,19 +128,19 @@ public class AdjustmentTabTest extends Driver {
             selUtils.addTestcaseDescription("validate that Adjustment Action is displayed for Usage History transactions when necessary permissions are given,Validate User has permission to see action along with transaction.", "description");
             pages.getCustomerProfilePage().goToHomeTab();
             widgetMethods.clickMenuButton(pages.getUsageHistoryWidget().getWidgetIdentifier());
-            assertCheck.append(actions.assertEqual_boolean(pages.getDetailedUsageHistoryPage().isWidgetDisplay(), true, "Detailed Usage History Widget visible", "Detailed Usage History Widget does not visible ", true));
+            assertCheck.append(actions.assertEqualBoolean(pages.getDetailedUsageHistoryPage().isWidgetDisplay(), true, "Detailed Usage History Widget visible", "Detailed Usage History Widget does not visible ", true));
             usageHistoryAPI = api.usageHistoryMenuTest(customerNumber);
             final int statusCode = usageHistoryAPI.getStatusCode();
-            assertCheck.append(actions.assertEqual_intType(statusCode, 200, "Usage History Widget API success and status code is :" + statusCode, "Usage History Widget API got failed and status code is :" + statusCode));
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Usage History Widget API success and status code is :" + statusCode, "Usage History Widget API got failed and status code is :" + statusCode));
             if (statusCode != 200) {
                 commonLib.fail("API is Unable to Get usage history for Customer", false);
             } else if (usageHistoryAPI.getResult().size() == 0 || usageHistoryAPI.getResult() == null) {
                 commonLib.warning("Unable to get Usage History Details from API");
-                assertCheck.append(actions.assertEqual_boolean(pages.getDetailedUsageHistoryPage().getNoResultFound(), true, "No Result Message & Icon is Visible", "No Result Message is not Visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getDetailedUsageHistoryPage().getNoResultFound(), true, "No Result Message & Icon is Visible", "No Result Message is not Visible"));
             } else {
                 int size = Math.min(usageHistoryAPI.getTotalCount(), 20);
                 for (int i = 0; i < size; i++) {
-                    assertCheck.append(actions.assertEqual_boolean(widgetMethods.isQuickAction(pages.getDetailedUsageHistoryPage().getWidgetIdentifier(), i, 1), hasPermission, "Usage detailed history widget display adjust action icon as user has permission to permission adjustment", "Usage detailed history widget does not display adjust action icon as expected"));
+                    assertCheck.append(actions.assertEqualBoolean(widgetMethods.isQuickAction(pages.getDetailedUsageHistoryPage().getWidgetIdentifier(), i, 1), hasPermission, "Usage detailed history widget display adjust action icon as user has permission to permission adjustment", "Usage detailed history widget does not display adjust action icon as expected"));
                 }
             }
         } catch (Exception e) {
@@ -154,11 +154,11 @@ public class AdjustmentTabTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validate usage adjustment reason type populated in dropdown after opening adjustment dropdown from usage detailed history widget,validate usage action displayed as per api response,Validate on UI also displayed all the reasons as per api response", "description");
             widgetMethods.clickQuickAction(pages.getDetailedUsageHistoryPage().getWidgetIdentifier(), 0, 1);
-            assertCheck.append(actions.assertEqual_boolean(widgetMethods.isWidgetVisible(adjustmentId), true, "Adjustment widget display as expected", "Adjustment widget does not display as expected", true));
+            assertCheck.append(actions.assertEqualBoolean(widgetMethods.isWidgetVisible(adjustmentId), true, "Adjustment widget display as expected", "Adjustment widget does not display as expected", true));
             List<String> reasons = pages.getAdjustmentTabPage().getAllAdjustmentReason();
-            assertCheck.append(actions.assertEqual_boolean(reasons.remove(reasonAPI.getResult().get(1).getReason()), true, "Usage Reason found as adjustment reason as expected per api response", "Usage Reason does not found as adjustment reason as expected per api response"));
+            assertCheck.append(actions.assertEqualBoolean(reasons.remove(reasonAPI.getResult().get(1).getReason()), true, "Usage Reason found as adjustment reason as expected per api response", "Usage Reason does not found as adjustment reason as expected per api response"));
             assertCheck.append(actions.matchUiAndAPIResponse(reasonAPI.getResult().get(1).getAction(), constants.getValue(CommonConstants.ADJUSTMENT_REASON_USAGE), "Usage Reason type found as adjustment reason as expected per api response", "Usage Reason type does not found as adjustment reason as expected per api response"));
-            assertCheck.append(actions.assertEqual_stringType(usageHistoryAPI.getResult().get(0).getTxnNumber(), pages.getAdjustmentTabPage().getTransactionNumber(), "Transaction Number is same as expected", "Transaction Number is not same as expected"));
+            assertCheck.append(actions.assertEqualStringType(usageHistoryAPI.getResult().get(0).getTxnNumber(), pages.getAdjustmentTabPage().getTransactionNumber(), "Transaction Number is same as expected", "Transaction Number is not same as expected"));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - ValidateAdjustmentWidgetOnLoad" + e.fillInStackTrace(), true);
         }
@@ -171,19 +171,19 @@ public class AdjustmentTabTest extends Driver {
             selUtils.addTestcaseDescription("validate that Adjustment Action is displayed for Usage History transactions when necessary permissions are given,Validate User has permission to see action along with transaction.", "description");
             pages.getCustomerProfilePage().goToHomeTab();
             widgetMethods.clickMenuButton(pages.getRechargeHistoryWidget().getUniqueIdentifier());
-            assertCheck.append(actions.assertEqual_boolean(widgetMethods.isWidgetVisible(pages.getMoreRechargeHistoryPage().getUniqueIdentifier()), true, "Detailed Recharge History Widget visible", "Detailed Recharge History Widget does not visible ", true));
+            assertCheck.append(actions.assertEqualBoolean(widgetMethods.isWidgetVisible(pages.getMoreRechargeHistoryPage().getUniqueIdentifier()), true, "Detailed Recharge History Widget visible", "Detailed Recharge History Widget does not visible ", true));
             rechargeHistoryAPI = api.rechargeHistoryAPITest(customerNumber);
             final int statusCode = rechargeHistoryAPI.getStatusCode();
-            assertCheck.append(actions.assertEqual_intType(statusCode, 200, "Recharge History Widget API success and status code is :" + statusCode, "Recharge History Widget API got failed and status code is :" + statusCode));
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Recharge History Widget API success and status code is :" + statusCode, "Recharge History Widget API got failed and status code is :" + statusCode));
             if (statusCode != 200) {
                 commonLib.fail("API is Unable to Get usage history for Customer", false);
             } else if (usageHistoryAPI.getResult().size() == 0 || usageHistoryAPI.getResult() == null) {
                 commonLib.warning("Unable to get Recharge History Details from API");
-                assertCheck.append(actions.assertEqual_boolean(widgetMethods.isNoResultFoundIconDisplay(pages.getMoreRechargeHistoryPage().getUniqueIdentifier()), true, "No Result Message & Icon is Visible", "No Result Message is not Visible"));
+                assertCheck.append(actions.assertEqualBoolean(widgetMethods.isNoResultFoundIconDisplay(pages.getMoreRechargeHistoryPage().getUniqueIdentifier()), true, "No Result Message & Icon is Visible", "No Result Message is not Visible"));
             } else {
                 int size = Math.min(rechargeHistoryAPI.getTotalCount(), 20);
                 for (int i = 0; i < size; i++) {
-                    assertCheck.append(actions.assertEqual_boolean(widgetMethods.isQuickAction(pages.getMoreRechargeHistoryPage().getUniqueIdentifier(), i, 1), hasPermission, "Recharge detailed history widget display adjust action icon as user has permission to permission adjustment", "Recharge detailed history widget does not display adjust action icon as expected"));
+                    assertCheck.append(actions.assertEqualBoolean(widgetMethods.isQuickAction(pages.getMoreRechargeHistoryPage().getUniqueIdentifier(), i, 1), hasPermission, "Recharge detailed history widget display adjust action icon as user has permission to permission adjustment", "Recharge detailed history widget does not display adjust action icon as expected"));
                 }
             }
         } catch (Exception e) {
@@ -197,9 +197,9 @@ public class AdjustmentTabTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validate usage adjustment reason type populated in dropdown after opening adjustment dropdown from usage detailed history widget,validate usage action displayed as per api response,Validate on UI also displayed all the reasons as per api response", "description");
             widgetMethods.clickQuickAction(pages.getMoreRechargeHistoryPage().getUniqueIdentifier(), 0, 1);
-            assertCheck.append(actions.assertEqual_boolean(widgetMethods.isWidgetVisible(adjustmentId), true, "Adjustment widget display as expected", "Adjustment widget does not display as expected", true));
+            assertCheck.append(actions.assertEqualBoolean(widgetMethods.isWidgetVisible(adjustmentId), true, "Adjustment widget display as expected", "Adjustment widget does not display as expected", true));
             List<String> reasons = pages.getAdjustmentTabPage().getAllAdjustmentReason();
-            assertCheck.append(actions.assertEqual_boolean(reasons.remove(reasonAPI.getResult().get(0).getReason()), true, "Recharge Reason found as adjustment reason as expected per api response", "Recharge Reason does not found as adjustment reason as expected per api response"));
+            assertCheck.append(actions.assertEqualBoolean(reasons.remove(reasonAPI.getResult().get(0).getReason()), true, "Recharge Reason found as adjustment reason as expected per api response", "Recharge Reason does not found as adjustment reason as expected per api response"));
             assertCheck.append(actions.matchUiAndAPIResponse(reasonAPI.getResult().get(0).getAction(), constants.getValue(CommonConstants.ADJUSTMENT_REASON_RECHARGE), "Recharge Reason type found as adjustment reason as expected per api response", "Recharge Reason type does not found as adjustment reason as expected per api response"));
             assertCheck.append(actions.matchUiAndAPIResponse(stringNotNull(rechargeHistoryAPI.getResult().get(0).getTransactionId()), stringNotNull(pages.getAdjustmentTabPage().getTransactionNumber()), "Transaction Number is same as expected", "Transaction Number is not same as expected"));
         } catch (Exception e) {
@@ -215,14 +215,14 @@ public class AdjustmentTabTest extends Driver {
             pages.getCustomerProfilePage().clickOnAction();
             pages.getCustomerProfilePage().clickAdjustment();
             adjustmentId = pages.getAdjustmentTabPage().getWidgetId();
-            assertCheck.append(actions.assertEqual_boolean(widgetMethods.isWidgetVisible(adjustmentId), true, "Adjustment widget display as expected", "Adjustment widget does not display as expected", true));
+            assertCheck.append(actions.assertEqualBoolean(widgetMethods.isWidgetVisible(adjustmentId), true, "Adjustment widget display as expected", "Adjustment widget does not display as expected", true));
             pages.getAdjustmentTabPage().OpenAdjustmentReason();
             adjustmentReason=pages.getAdjustmentTabPage().chooseOption(1);
             pages.getAdjustmentTabPage().OpenAdjustmentType();
             pages.getAdjustmentTabPage().chooseOption("Credit");
             String credit_adjustment_permission = constants.getValue(PermissionConstants.CREDIT_TYPE_ADJUSTMENT_PERMISSION_NAME);
             hasPermission = UtilsMethods.isUserHasPermission(new Headers(map), credit_adjustment_permission);
-            assertCheck.append(actions.assertEqual_boolean(!pages.getAdjustmentTabPage().isAccessDeniedMsg(), hasPermission, "Credit type adjustment permitted correctly as per user permission", "Credit type adjustment permitted correctly as per user permission"));
+            assertCheck.append(actions.assertEqualBoolean(!pages.getAdjustmentTabPage().isAccessDeniedMsg(), hasPermission, "Credit type adjustment permitted correctly as per user permission", "Credit type adjustment permitted correctly as per user permission"));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - isUserHasPermissionCreditTypeAdjustment" + e.fillInStackTrace(), true);
         }
@@ -233,21 +233,21 @@ public class AdjustmentTabTest extends Driver {
     public void performAdjustmentCreditType() {
         try {
             selUtils.addTestcaseDescription("Validate user able to open adjustment tab through home action,Validate agent able to choose fields reason and type and enter comment,Validate admin able to put comment,Validate agent able to click submit button and agent must receive proper success message", "description");
-            assertCheck.append(actions.assertEqual_boolean(!pages.getAdjustmentTabPage().isAccessDeniedMsg(), true, "Credit type adjustment permitted by the agent as expected", "Credit type adjustment does not permitted as per user permission", true));
+            assertCheck.append(actions.assertEqualBoolean(!pages.getAdjustmentTabPage().isAccessDeniedMsg(), true, "Credit type adjustment permitted by the agent as expected", "Credit type adjustment does not permitted as per user permission", true));
             pages.getAdjustmentTabPage().OpenAdjustmentPrepaidAccountType();
             pages.getAdjustmentTabPage().chooseOption("MAIN");
             pages.getAdjustmentTabPage().writeComment("Performing Credit Type Adjustment through automation");
             pages.getAdjustmentTabPage().enterMainAmount("0.00001");
             pages.getAdjustmentTabPage().clickSubmitButton();
-            assertCheck.append(actions.assertEqual_boolean(pages.getAdjustmentTabPage().getPopUpTitle().contains("CREDIT"), true, "Pop up title as per adjustment type", "Pop up title does not as per adjustment type"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getAdjustmentTabPage().getPopUpTitle().contains("CREDIT"), true, "Pop up title as per adjustment type", "Pop up title does not as per adjustment type"));
             pages.getAdjustmentTabPage().clickYesButton();
             AdjustmentHistory adjustmentHistoryAPI = api.getAdjustMentHistory(customerNumber);
             final int statusCode = adjustmentHistoryAPI.getStatusCode();
-            assertCheck.append(actions.assertEqual_intType(statusCode, 200, "Adjustment History API success and status code is :" + statusCode, "Adjustment History API got failed and status code is :" + statusCode, true));
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Adjustment History API success and status code is :" + statusCode, "Adjustment History API got failed and status code is :" + statusCode, true));
             AdjustmentResult result=adjustmentHistoryAPI.getResult().get(0);
             assertCheck.append(actions.matchUiAndAPIResponse(result.getReason(),adjustmentReason,"Adjustment reason same as selected while performing adjustment","Adjustment reason as not selected while performing adjustment"));
-            assertCheck.append(actions.assertEqual_boolean(result.getAdjustmentType().contains("Credit"),true,"Adjustment type same as selected while performing adjustment","Adjustment type not same as selected while performing adjustment"));
-            assertCheck.append(actions.assertEqual_boolean(result.getAccountType().contains("Main"),true,"Adjustment account type same as selected while performing adjustment","Adjustment account type not same as selected while performing adjustment"));
+            assertCheck.append(actions.assertEqualBoolean(result.getAdjustmentType().contains("Credit"),true,"Adjustment type same as selected while performing adjustment","Adjustment type not same as selected while performing adjustment"));
+            assertCheck.append(actions.assertEqualBoolean(result.getAccountType().contains("Main"),true,"Adjustment account type same as selected while performing adjustment","Adjustment account type not same as selected while performing adjustment"));
             assertCheck.append(actions.matchUiAndAPIResponse(result.getAmount(),"0.00001","Adjustment Amount same as selected while performing adjustment","Adjustment Amount as not selected while performing adjustment"));
             assertCheck.append(actions.matchUiAndAPIResponse(result.getComment(),"Performing Credit Type Adjustment through automation","Adjustment Comment same as selected while performing adjustment","Adjustment Comment as not selected while performing adjustment"));
         } catch (Exception e) {
@@ -263,7 +263,7 @@ public class AdjustmentTabTest extends Driver {
             pages.getCustomerProfilePage().clickOnAction();
             pages.getCustomerProfilePage().clickAdjustment();
             adjustmentId = pages.getAdjustmentTabPage().getWidgetId();
-            assertCheck.append(actions.assertEqual_boolean(widgetMethods.isWidgetVisible(adjustmentId), true, "Adjustment widget display as expected", "Adjustment widget does not display as expected", true));
+            assertCheck.append(actions.assertEqualBoolean(widgetMethods.isWidgetVisible(adjustmentId), true, "Adjustment widget display as expected", "Adjustment widget does not display as expected", true));
             if (reasonAPI.getResult().size() > 1) {
                 pages.getAdjustmentTabPage().OpenAdjustmentReason();
                 pages.getAdjustmentTabPage().chooseOption(1);
@@ -272,7 +272,7 @@ public class AdjustmentTabTest extends Driver {
             pages.getAdjustmentTabPage().chooseOption("Debit");
             String debit_adjustment_permission = constants.getValue(PermissionConstants.DEBIT_TYPE_ADJUSTMENT_PERMISSION_NAME);
             hasPermission = UtilsMethods.isUserHasPermission(new Headers(map), debit_adjustment_permission);
-            assertCheck.append(actions.assertEqual_boolean(!pages.getAdjustmentTabPage().isAccessDeniedMsg(), hasPermission, "Debit type adjustment permitted correctly as per user permission", "Debit type adjustment permitted correctly as per user permission"));
+            assertCheck.append(actions.assertEqualBoolean(!pages.getAdjustmentTabPage().isAccessDeniedMsg(), hasPermission, "Debit type adjustment permitted correctly as per user permission", "Debit type adjustment permitted correctly as per user permission"));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - isUserHasPermissionDebitTypeAdjustment" + e.fillInStackTrace(), true);
         }
@@ -282,22 +282,22 @@ public class AdjustmentTabTest extends Driver {
     @Test(priority = 11, dependsOnMethods = {"openCustomerInteraction", "isUserHasPermissionDebitTypeAdjustment"}, groups = {"RegressionTest"})
     public void performAdjustmentDebitType() {
         try {
-            assertCheck.append(actions.assertEqual_boolean(!pages.getAdjustmentTabPage().isAccessDeniedMsg(), true, "Debit type adjustment permitted by the agent as expected", "Debit type adjustment does not permitted as per user permission", true));
+            assertCheck.append(actions.assertEqualBoolean(!pages.getAdjustmentTabPage().isAccessDeniedMsg(), true, "Debit type adjustment permitted by the agent as expected", "Debit type adjustment does not permitted as per user permission", true));
             selUtils.addTestcaseDescription("Validate user able to open adjustment tab through home action,Validate agent able to choose fields reason and type and enter comment,Validate admin able to put comment,Validate agent able to click submit button and agent must receive proper success message", "description");
             pages.getAdjustmentTabPage().OpenAdjustmentPrepaidAccountType();
             pages.getAdjustmentTabPage().chooseOption("MAIN");
             pages.getAdjustmentTabPage().writeComment("Performing debit Type Adjustment through automation");
             pages.getAdjustmentTabPage().enterMainAmount("0.00001");
             pages.getAdjustmentTabPage().clickSubmitButton();
-            assertCheck.append(actions.assertEqual_boolean(pages.getAdjustmentTabPage().getPopUpTitle().contains("DEBIT"), true, "Pop up title as per adjustment type", "Pop up title does not as per adjustment type"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getAdjustmentTabPage().getPopUpTitle().contains("DEBIT"), true, "Pop up title as per adjustment type", "Pop up title does not as per adjustment type"));
             pages.getAdjustmentTabPage().clickYesButton();
             AdjustmentHistory adjustmentHistoryAPI = api.getAdjustMentHistory(customerNumber);
             final int statusCode = adjustmentHistoryAPI.getStatusCode();
-            assertCheck.append(actions.assertEqual_intType(statusCode, 200, "Adjustment History API success and status code is :" + statusCode, "Adjustment History API got failed and status code is :" + statusCode, true));
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Adjustment History API success and status code is :" + statusCode, "Adjustment History API got failed and status code is :" + statusCode, true));
             AdjustmentResult result=adjustmentHistoryAPI.getResult().get(0);
             assertCheck.append(actions.matchUiAndAPIResponse(result.getReason(),adjustmentReason,"Adjustment reason same as selected while performing adjustment","Adjustment reason as not selected while performing adjustment"));
-            assertCheck.append(actions.assertEqual_boolean(result.getAdjustmentType().contains("Debit"),true,"Adjustment type same as selected while performing adjustment","Adjustment type not same as selected while performing adjustment"));
-            assertCheck.append(actions.assertEqual_boolean(result.getAccountType().contains("Main"),true,"Adjustment account type same as selected while performing adjustment","Adjustment account type not same as selected while performing adjustment"));
+            assertCheck.append(actions.assertEqualBoolean(result.getAdjustmentType().contains("Debit"),true,"Adjustment type same as selected while performing adjustment","Adjustment type not same as selected while performing adjustment"));
+            assertCheck.append(actions.assertEqualBoolean(result.getAccountType().contains("Main"),true,"Adjustment account type same as selected while performing adjustment","Adjustment account type not same as selected while performing adjustment"));
             assertCheck.append(actions.matchUiAndAPIResponse(result.getAmount(),"0.00001","Adjustment Amount same as selected while performing adjustment","Adjustment Amount as not selected while performing adjustment"));
             assertCheck.append(actions.matchUiAndAPIResponse(result.getComment(),"Performing debit Type Adjustment through automation","Adjustment Comment same as selected while performing adjustment","Adjustment Comment as not selected while performing adjustment"));
         } catch (Exception e) {

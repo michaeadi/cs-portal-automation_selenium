@@ -43,7 +43,7 @@ public class SendInternetSettingsTest extends Driver {
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();
             final boolean pageLoaded = pages.getCustomerProfilePage().isCustomerProfilePageLoaded();
-            assertCheck.append(actions.assertEqual_boolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
+            assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
             if (!pageLoaded) continueExecutionFA = false;
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -59,7 +59,7 @@ public class SendInternetSettingsTest extends Driver {
             pages.getCustomerProfilePage().clickOnAction();
             pages.getCustomerProfilePage().clickSendInternetSetting();
             modalOpened = true;
-            assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isSendInternetSettingTitleVisible(), true, "Send Internet Setting Tab opened", "Send Internet Setting Tab does NOT opened"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getCustomerProfilePage().isSendInternetSettingTitleVisible(), true, "Send Internet Setting Tab opened", "Send Internet Setting Tab does NOT opened"));
             pages.getCustomerProfilePage().clickCancelBtn();
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
@@ -77,19 +77,19 @@ public class SendInternetSettingsTest extends Driver {
             pages.getCustomerProfilePage().clickSendInternetSetting();
             popup = !pages.getCustomerProfilePage().isSendInternetSettingConfirmMessageVisible();
             if (popup) {
-                assertCheck.append(actions.assertEqual_boolean(pages.getAuthTabPage().isIssueDetailTitleVisible(), true, "Issue Detail Configured", "Issue Detail does not configured"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isIssueDetailTitleVisible(), true, "Issue Detail Configured", "Issue Detail does not configured"));
                 pages.getAuthTabPage().clickSelectReasonDropDown();
                 reason = pages.getAuthTabPage().getReason();
                 pages.getAuthTabPage().chooseReason();
                 pages.getAuthTabPage().enterComment(comments);
                 pages.getAuthTabPage().clickSubmitBtn();
                 final String toastText = pages.getAuthTabPage().getToastText();
-                assertCheck.append(actions.assertEqual_stringType(toastText, "Internet Settings has been sent on Customer`s Device.", "Send Internet Settings Message has been sent to customer successfully", "Send Internet Settings Message hasn't been sent to customer ans message is :-" + toastText));
+                assertCheck.append(actions.assertEqualStringType(toastText, "Internet Settings has been sent on Customer`s Device.", "Send Internet Settings Message has been sent to customer successfully", "Send Internet Settings Message hasn't been sent to customer ans message is :-" + toastText));
             } else {
                 pages.getAuthTabPage().clickYesBtn();
             }
             final String toastText = pages.getAuthTabPage().getToastText();
-            assertCheck.append(actions.assertEqual_stringType(toastText, "Internet Settings has been sent on Customer`s Device.", "Send Internet Settings Message has been sent to customer successfully", "Send Internet Settings Message hasn't been sent to customer ans message is :-" + toastText));
+            assertCheck.append(actions.assertEqualStringType(toastText, "Internet Settings has been sent on Customer`s Device.", "Send Internet Settings Message has been sent to customer successfully", "Send Internet Settings Message hasn't been sent to customer ans message is :-" + toastText));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
             commonLib.fail("Exception in Method - validateSendInternetSetting" + e.fillInStackTrace(), true);

@@ -804,11 +804,11 @@ public class SupervisorTicketList extends BasePage {
         for (Map.Entry mapElement : sla.entrySet()) {
             String key = (String) mapElement.getKey();
             String value = mapElement.getValue().toString();
-            assertCheck.append(actions.assertEqual_stringType(workGroups.remove(key), key, key + " : workgroup is configured correctly in DB as mentioned in configuration", key + " : workgroup is not configured correctly in DB as mentioned in configuration"));
+            assertCheck.append(actions.assertEqualStringType(workGroups.remove(key), key, key + " : workgroup is configured correctly in DB as mentioned in configuration", key + " : workgroup is not configured correctly in DB as mentioned in configuration"));
             if (!UtilsMethods.isValueNegative(value)) {
-                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isPositiveSLA(), true, "For positive SLA green symbol display", "For positive SLA green symbol does not display"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isPositiveSLA(), true, "For positive SLA green symbol display", "For positive SLA green symbol does not display"));
             } else {
-                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isNegativeSLA(), true, "For Negative SLA red symbol display", "For negative SLA red symbol does not display"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isNegativeSLA(), true, "For Negative SLA red symbol display", "For negative SLA red symbol does not display"));
             }
         }
     }
@@ -821,7 +821,7 @@ public class SupervisorTicketList extends BasePage {
     public void compareTicketLayout(List<IssueDetails> ticketLayout, List<String> configTicketLayout) {
         if (ticketLayout.size() == 0) {
             for (IssueDetails layout : ticketLayout) {
-                assertCheck.append(actions.assertEqual_boolean(configTicketLayout.remove(layout.getPlaceHolder().toLowerCase().trim()), true, layout.getPlaceHolder() + " : Ticket Layout configured in database as mention in Config sheet.", layout.getPlaceHolder() + " : Ticket Layout does not configured in database as mention in Config sheet."));
+                assertCheck.append(actions.assertEqualBoolean(configTicketLayout.remove(layout.getPlaceHolder().toLowerCase().trim()), true, layout.getPlaceHolder() + " : Ticket Layout configured in database as mention in Config sheet.", layout.getPlaceHolder() + " : Ticket Layout does not configured in database as mention in Config sheet."));
             }
         } else {
             commonLib.pass("No Ticket Layout Config in database");

@@ -50,7 +50,7 @@ public class RoleBasedMaskingTest extends Driver {
       pages.getMsisdnSearchPage().enterNumber(customerNumber);
       pages.getMsisdnSearchPage().clickOnSearch();
       final boolean pageLoaded = pages.getCustomerProfilePage().isCustomerProfilePageLoaded();
-      assertCheck.append(actions.assertEqual_boolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
+      assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
       if (!pageLoaded) continueExecutionFA = false;
     } catch (Exception e) {
       commonLib.fail("Exception in Method - openCustomerInteraction" + e.fillInStackTrace(), true);
@@ -67,7 +67,7 @@ public class RoleBasedMaskingTest extends Driver {
       if(ObjectUtils.isNotEmpty(actionConfigResponse)){
         statusCode=actionConfigResponse.getStatusCode();
       }
-      assertCheck.append(actions.assertEqual_intType(statusCode, 200, "Action Config API success and status code is :" + statusCode, "Action Config got failed and status code is :" + statusCode));
+      assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Action Config API success and status code is :" + statusCode, "Action Config got failed and status code is :" + statusCode));
       if (statusCode == 200 && ObjectUtils.isNotEmpty(actionConfigResponse.getResult())) {
         actionConfigResultList = actionConfigResponse.getResult();
         Optional<ActionConfigResult> actionConfigResultop = actionConfigResultList.stream()
@@ -79,11 +79,11 @@ public class RoleBasedMaskingTest extends Driver {
           hasRole = roleDetails.stream().anyMatch(roleName -> roles.contains(roleName.getRoleName()));
           final AMTransactionsWidget amTxnWidgetPage = pages.getAmTxnWidgetPage();
           AirtelMoneyPOJO amTransactionHistoryAPI = api.transactionHistoryAPITest(customerNumber);
-            assertCheck.append(actions.assertEqual_intType(statusCode, 200, "AM Txn API success and status code is :" + statusCode, "AM Txn API got failed and status code is :" + statusCode));
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "AM Txn API success and status code is :" + statusCode, "AM Txn API got failed and status code is :" + statusCode));
           if (statusCode != 200) {
-              assertCheck.append(actions.assertEqual_boolean(widgetMethods.isWidgetErrorIconDisplay(amTxnWidgetPage.getAMWidgetId()), true, "API and Widget both are showing error message", "API is Giving error But Widget is not showing error Message on API is " + amTransactionHistoryAPI.getMessage()));
+              assertCheck.append(actions.assertEqualBoolean(widgetMethods.isWidgetErrorIconDisplay(amTxnWidgetPage.getAMWidgetId()), true, "API and Widget both are showing error message", "API is Giving error But Widget is not showing error Message on API is " + amTransactionHistoryAPI.getMessage()));
           } else if (amTransactionHistoryAPI.getResult().getTotalCount() == null) {
-              assertCheck.append(actions.assertEqual_boolean(widgetMethods.isNoResultFoundIconDisplay(amTxnWidgetPage.getAMWidgetId()), true, "'No Result Found' Icon displayed", "'No Result Found' Icon NOT displayed"));
+              assertCheck.append(actions.assertEqualBoolean(widgetMethods.isNoResultFoundIconDisplay(amTxnWidgetPage.getAMWidgetId()), true, "'No Result Found' Icon displayed", "'No Result Found' Icon NOT displayed"));
           } else {
             int count = Math.min(amTransactionHistoryAPI.getResult().getTotalCount(), 5);
             Condition condition = actionConfigResult.getConditions().get(0);
@@ -92,16 +92,16 @@ public class RoleBasedMaskingTest extends Driver {
               Integer amount = StringUtils.isEmpty(amountString) ? 0 : Integer.parseInt(amountString);
               if (hasRole) {
                 if ("<=".equals(condition.getOperator()) && amount <= condition.getThresholdValue()) {
-                    assertCheck.append(actions.assertEqual_boolean(amTxnWidgetPage.isReverseIconEnable(i + 1), false, "Reverse Transaction Icon is disabled as mentioned in CS API Response", "Reverse Transaction  Icon  does not disable as mentioned in CS API Response"));
+                    assertCheck.append(actions.assertEqualBoolean(amTxnWidgetPage.isReverseIconEnable(i + 1), false, "Reverse Transaction Icon is disabled as mentioned in CS API Response", "Reverse Transaction  Icon  does not disable as mentioned in CS API Response"));
                 } else if (">".equals(condition.getOperator()) && amount > condition.getThresholdValue()) {
-                    assertCheck.append(actions.assertEqual_boolean(amTxnWidgetPage.isReverseIconEnable(i + 1), false, "Reverse Transaction Icon is disabled as mentioned in CS API Response", "Reverse Transaction  Icon  does not disable as mentioned in CS API Response"));
+                    assertCheck.append(actions.assertEqualBoolean(amTxnWidgetPage.isReverseIconEnable(i + 1), false, "Reverse Transaction Icon is disabled as mentioned in CS API Response", "Reverse Transaction  Icon  does not disable as mentioned in CS API Response"));
                 } else if ("=".equals(condition.getOperator()) && amount == condition.getThresholdValue()) {
-                    assertCheck.append(actions.assertEqual_boolean(amTxnWidgetPage.isReverseIconEnable(i + 1), false, "Reverse Transaction Icon is disabled as mentioned in CS API Response", "Reverse Transaction  Icon  does not disable as mentioned in CS API Response"));
+                    assertCheck.append(actions.assertEqualBoolean(amTxnWidgetPage.isReverseIconEnable(i + 1), false, "Reverse Transaction Icon is disabled as mentioned in CS API Response", "Reverse Transaction  Icon  does not disable as mentioned in CS API Response"));
                 } else {
-                    assertCheck.append(actions.assertEqual_boolean(amTxnWidgetPage.isReverseIconEnable(i + 1), true, "Reverse Transaction Icon is enabled as mentioned in CS API Response", "Reverse Transaction  Icon  does not enable as mentioned in CS API Response"));
+                    assertCheck.append(actions.assertEqualBoolean(amTxnWidgetPage.isReverseIconEnable(i + 1), true, "Reverse Transaction Icon is enabled as mentioned in CS API Response", "Reverse Transaction  Icon  does not enable as mentioned in CS API Response"));
                 }
               } else {
-                  assertCheck.append(actions.assertEqual_boolean(amTxnWidgetPage.isReverseIconEnable(i + 1), true, "Reverse Transaction Icon is enabled as mentioned in CS API Response", "Reverse Transaction  Icon  does not enable as mentioned in CS API Response"));
+                  assertCheck.append(actions.assertEqualBoolean(amTxnWidgetPage.isReverseIconEnable(i + 1), true, "Reverse Transaction Icon is enabled as mentioned in CS API Response", "Reverse Transaction  Icon  does not enable as mentioned in CS API Response"));
               }
             }
           }
@@ -130,16 +130,16 @@ public class RoleBasedMaskingTest extends Driver {
         if (hasRole) {
           Condition condition = actionConfigResult.getConditions().get(0);
           if (">=".equals(condition.getOperator()) && airtelMoney >= condition.getThresholdValue()) {
-            assertCheck.append(actions.assertEqual_boolean(pages.getDemoGraphicPage().isResetPinIconDisable(), true, "Reset PIN Icon is disable as mentioned in CS API Response", "Reset PIN Icon is not disable as mentioned in CS API Response"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getDemoGraphicPage().isResetPinIconDisable(), true, "Reset PIN Icon is disable as mentioned in CS API Response", "Reset PIN Icon is not disable as mentioned in CS API Response"));
           } else if ("<".equals(condition.getOperator()) && airtelMoney < condition.getThresholdValue()) {
-            assertCheck.append(actions.assertEqual_boolean(pages.getDemoGraphicPage().isResetPinIconDisable(), true, "Reset PIN Icon is disable as mentioned in CS API Response", "Reset PIN Icon is not disable as mentioned in CS API Response"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getDemoGraphicPage().isResetPinIconDisable(), true, "Reset PIN Icon is disable as mentioned in CS API Response", "Reset PIN Icon is not disable as mentioned in CS API Response"));
           } else if ("=".equals(condition.getOperator()) && airtelMoney == condition.getThresholdValue()) {
-            assertCheck.append(actions.assertEqual_boolean(pages.getDemoGraphicPage().isResetPinIconDisable(), true, "Reset PIN Icon is disable as mentioned in CS API Response", "Reset PIN Icon is not disable as mentioned in CS API Response"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getDemoGraphicPage().isResetPinIconDisable(), true, "Reset PIN Icon is disable as mentioned in CS API Response", "Reset PIN Icon is not disable as mentioned in CS API Response"));
           } else {
-            assertCheck.append(actions.assertEqual_boolean(pages.getDemoGraphicPage().isResetPinIconDisable(), false, "Reset PIN Icon is enable as mentioned in CS API Response", "Reset PIN Icon is not enable as mentioned in CS API Response"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getDemoGraphicPage().isResetPinIconDisable(), false, "Reset PIN Icon is enable as mentioned in CS API Response", "Reset PIN Icon is not enable as mentioned in CS API Response"));
           }
         } else {
-          assertCheck.append(actions.assertEqual_boolean(pages.getDemoGraphicPage().isResetPinIconDisable(), false, "Reset PIN Icon is enable as mentioned in CS API Response", "Reset PIN Icon is not enable as mentioned in CS API Response"));
+          assertCheck.append(actions.assertEqualBoolean(pages.getDemoGraphicPage().isResetPinIconDisable(), false, "Reset PIN Icon is enable as mentioned in CS API Response", "Reset PIN Icon is not enable as mentioned in CS API Response"));
         }
       }
 
@@ -149,9 +149,9 @@ public class RoleBasedMaskingTest extends Driver {
       if (roleDetails.stream().anyMatch(roleName -> amBalancefieldMaskConfigs.getRoles().contains(roleName.getRoleName())) && (
           (">=".equals(operator) && airtelMoney >= amThresoldValue) || ("<".equals(operator) && airtelMoney < amThresoldValue) || (
               "=".equals(operator) && airtelMoney == amThresoldValue))) {
-          assertCheck.append(actions.assertEqual_boolean(airtelMoneyString.length() == amBalancefieldMaskConfigs.getDigitsVisible(), true, "Airtel Money masking is correct as per user role", "Airtel Money masking is not correct as per user role"));
+          assertCheck.append(actions.assertEqualBoolean(airtelMoneyString.length() == amBalancefieldMaskConfigs.getDigitsVisible(), true, "Airtel Money masking is correct as per user role", "Airtel Money masking is not correct as per user role"));
       } else {
-        assertCheck.append(actions.assertEqual_boolean(airtelMoneyString.contains("*"), false, "Airtel Money is not masked as per user role", "Airtel Money should not be masked as per user role"));
+        assertCheck.append(actions.assertEqualBoolean(airtelMoneyString.contains("*"), false, "Airtel Money is not masked as per user role", "Airtel Money should not be masked as per user role"));
       }
 
     } catch (Exception e){
@@ -167,9 +167,9 @@ public class RoleBasedMaskingTest extends Driver {
       FieldMaskConfigs nationalIdfieldMaskConfigs = api.getFieldMaskConfigs("nationalId");
       pages.getDemoGraphicPage().hoverOnCustomerInfoIcon();
       if (roleDetails.stream().anyMatch(roleName -> nationalIdfieldMaskConfigs.getRoles().contains(roleName.getRoleName()))) {
-          assertCheck.append(actions.assertEqual_boolean(demographic.getIdNumber().replace("*", "").length()==nationalIdfieldMaskConfigs.getDigitsVisible(), true, "National Id masking is correct as per user role", "National Id masking is not correct as per user role"));
+          assertCheck.append(actions.assertEqualBoolean(demographic.getIdNumber().replace("*", "").length()==nationalIdfieldMaskConfigs.getDigitsVisible(), true, "National Id masking is correct as per user role", "National Id masking is not correct as per user role"));
       } else {
-          assertCheck.append(actions.assertEqual_boolean(demographic.getIdNumber().contains("*"), false, "National Id is not masked as per user role", "National Id should not be masked as per user role"));
+          assertCheck.append(actions.assertEqualBoolean(demographic.getIdNumber().contains("*"), false, "National Id is not masked as per user role", "National Id should not be masked as per user role"));
       }
 
     } catch (Exception e){
@@ -192,30 +192,30 @@ public class RoleBasedMaskingTest extends Driver {
         int row = i + 1;
         if (typeFieldMaskingConfigs.getRoles() != null && !typeFieldMaskingConfigs.getRoles().isEmpty() && roleDetails.stream()
             .anyMatch(roleName -> typeFieldMaskingConfigs.getRoles().contains(roleName.getRoleName()))) {
-          assertCheck.append(actions.assertEqual_intType(usageHistoryWidget.getHeaderValue(row, 1).replace("*", "").length(), typeFieldMaskingConfigs.getDigitsVisible(), "Usage History Type masking is correct as per user role for row " + row, "Usage History Type masking is not correct as per user role for row " + row));
+          assertCheck.append(actions.assertEqualIntType(usageHistoryWidget.getHeaderValue(row, 1).replace("*", "").length(), typeFieldMaskingConfigs.getDigitsVisible(), "Usage History Type masking is correct as per user role for row " + row, "Usage History Type masking is not correct as per user role for row " + row));
         } else {
-          assertCheck.append(actions.assertEqual_boolean(usageHistoryWidget.getHeaderValue(row, 1).contains("*"), false , "Usage History Type is not masked as per user role for row "+ row, "Usage History Type should not be masked as per user role for row "+ row));
+          assertCheck.append(actions.assertEqualBoolean(usageHistoryWidget.getHeaderValue(row, 1).contains("*"), false , "Usage History Type is not masked as per user role for row "+ row, "Usage History Type should not be masked as per user role for row "+ row));
         }
 
         if (chargesfieldMaskConfigs.getRoles() != null && !chargesfieldMaskConfigs.getRoles().isEmpty() && roleDetails.stream()
             .anyMatch(roleName -> chargesfieldMaskConfigs.getRoles().contains(roleName.getRoleName()))) {
-          assertCheck.append(actions.assertEqual_intType(usageHistoryWidget.getHeaderValue(row, 2).replaceAll("[^0-9]", "").trim().length(), chargesfieldMaskConfigs.getDigitsVisible(), "Usage History Charge masking is correct as per user role for row " + row, "Usage History Charge masking is not correct as per user role for row " + row));
+          assertCheck.append(actions.assertEqualIntType(usageHistoryWidget.getHeaderValue(row, 2).replaceAll("[^0-9]", "").trim().length(), chargesfieldMaskConfigs.getDigitsVisible(), "Usage History Charge masking is correct as per user role for row " + row, "Usage History Charge masking is not correct as per user role for row " + row));
         } else {
-          assertCheck.append(actions.assertEqual_boolean(usageHistoryWidget.getHeaderValue(row, 2).contains("*"), false , "Usage History Charge is not masked as per user role for row "+ row, "Usage History Charge should not be masked as per user role for row "+ row));
+          assertCheck.append(actions.assertEqualBoolean(usageHistoryWidget.getHeaderValue(row, 2).contains("*"), false , "Usage History Charge is not masked as per user role for row "+ row, "Usage History Charge should not be masked as per user role for row "+ row));
         }
 
         if (startBalancefieldMaskConfigs.getRoles() != null && !startBalancefieldMaskConfigs.getRoles().isEmpty() && roleDetails.stream()
             .anyMatch(roleName -> startBalancefieldMaskConfigs.getRoles().contains(roleName.getRoleName()))) {
-          assertCheck.append(actions.assertEqual_intType(usageHistoryWidget.getHeaderValue(row, 4).replaceAll("[^0-9]", "").trim().length(), startBalancefieldMaskConfigs.getDigitsVisible() , "Usage History Start Balance masking is correct as per user role for row "+ row, "Usage History Start Balance masking is not correct as per user role for row "+ row));
+          assertCheck.append(actions.assertEqualIntType(usageHistoryWidget.getHeaderValue(row, 4).replaceAll("[^0-9]", "").trim().length(), startBalancefieldMaskConfigs.getDigitsVisible() , "Usage History Start Balance masking is correct as per user role for row "+ row, "Usage History Start Balance masking is not correct as per user role for row "+ row));
         } else {
-          assertCheck.append(actions.assertEqual_boolean(usageHistoryWidget.getHeaderValue(row, 4).contains("*"), false , "Usage History Start Balance is not masked as per user role for row "+ row, "Usage History Start Balance should not be masked as per user role for row "+ row));
+          assertCheck.append(actions.assertEqualBoolean(usageHistoryWidget.getHeaderValue(row, 4).contains("*"), false , "Usage History Start Balance is not masked as per user role for row "+ row, "Usage History Start Balance should not be masked as per user role for row "+ row));
         }
 
         if (endBalancefieldMaskConfigs.getRoles() != null && !endBalancefieldMaskConfigs.getRoles().isEmpty() && roleDetails.stream()
             .anyMatch(roleName -> endBalancefieldMaskConfigs.getRoles().contains(roleName.getRoleName()))) {
-          assertCheck.append(actions.assertEqual_intType(usageHistoryWidget.getHeaderValue(row, 5).replaceAll("[^0-9]", "").trim().length(), endBalancefieldMaskConfigs.getDigitsVisible(), "Usage History End Balance masking is correct as per user role for row " + row, "Usage History End Balance masking is not correct as per user role for row " + row));
+          assertCheck.append(actions.assertEqualIntType(usageHistoryWidget.getHeaderValue(row, 5).replaceAll("[^0-9]", "").trim().length(), endBalancefieldMaskConfigs.getDigitsVisible(), "Usage History End Balance masking is correct as per user role for row " + row, "Usage History End Balance masking is not correct as per user role for row " + row));
         } else {
-          assertCheck.append(actions.assertEqual_boolean(usageHistoryWidget.getHeaderValue(row, 5).contains("*"), false , "Usage History End Balance is not masked as per user role for row "+ row, "Usage History End Balance should not be masked as per user role for row "+ row));
+          assertCheck.append(actions.assertEqualBoolean(usageHistoryWidget.getHeaderValue(row, 5).contains("*"), false , "Usage History End Balance is not masked as per user role for row "+ row, "Usage History End Balance should not be masked as per user role for row "+ row));
         }
 
       }

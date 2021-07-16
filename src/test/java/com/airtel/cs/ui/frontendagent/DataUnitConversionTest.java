@@ -33,7 +33,7 @@ public class DataUnitConversionTest extends Driver {
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();
             final boolean pageLoaded = pages.getCustomerProfilePage().isCustomerProfilePageLoaded();
-            assertCheck.append(actions.assertEqual_boolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
+            assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
             if (!pageLoaded) continueExecutionFA = false;
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {

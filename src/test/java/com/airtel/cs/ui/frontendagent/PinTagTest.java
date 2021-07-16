@@ -39,7 +39,7 @@ public class PinTagTest extends Driver {
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();
             final boolean pageLoaded = pages.getCustomerProfilePage().isCustomerProfilePageLoaded();
-            assertCheck.append(actions.assertEqual_boolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
+            assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
             if (!pageLoaded) continueExecutionFA = false;
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -97,14 +97,14 @@ public class PinTagTest extends Driver {
             try {
                 if (pages.getCustomerProfilePage().isPinTagVisible(tagName)) {
                     pages.getCustomerProfilePage().clickPinTag(tagName);
-                    assertCheck.append(actions.assertEqual_boolean(pages.getMsisdnSearchPage().isCustomerSearchPageVisible(), true, "Msisden Search Page Loaded Successfully", "Msisden Search Page NOT Loaded"));
+                    assertCheck.append(actions.assertEqualBoolean(pages.getMsisdnSearchPage().isCustomerSearchPageVisible(), true, "Msisden Search Page Loaded Successfully", "Msisden Search Page NOT Loaded"));
                     pages.getMsisdnSearchPage().enterNumber(customerNumber);
                     pages.getMsisdnSearchPage().clickOnSearch();
-                    assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isCustomerProfilePageLoaded(), true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
+                    assertCheck.append(actions.assertEqualBoolean(pages.getCustomerProfilePage().isCustomerProfilePageLoaded(), true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
                     pages.getCustomerProfilePage().goToViewHistory();
                     pages.getViewHistory().clickOnInteractionsTab();
                     String issueCode = pages.getViewHistory().getLastCreatedIssueCode();
-                    assertCheck.append(actions.assertEqual_stringType(issueCode.toLowerCase().trim(), data.getIssueCode().trim().toLowerCase(), "Issue code found in view history", "Issue code doesn't found in view history"));
+                    assertCheck.append(actions.assertEqualStringType(issueCode.toLowerCase().trim(), data.getIssueCode().trim().toLowerCase(), "Issue code found in view history", "Issue code doesn't found in view history"));
                 } else {
                     commonLib.fail(tagName + " Does not display on UI", true);
                 }
