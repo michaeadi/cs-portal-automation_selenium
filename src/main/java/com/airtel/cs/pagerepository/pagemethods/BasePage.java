@@ -48,7 +48,7 @@ public class BasePage extends Driver {
         ExpectedCondition<Boolean> expectation = driver1 -> ((JavascriptExecutor) driver1).executeScript("return document.readyState").toString().equals("complete");
         fluentWait = new FluentWait<>(driver)
                 .withTimeout(Duration.ofSeconds(Integer.parseInt(constants.getValue(ApplicationConstants.GENERAL_WAIT_IN_SEC))))
-                .pollingEvery(Duration.ofSeconds(Integer.parseInt(constants.getValue(ApplicationConstants.POOLING_WAIT_IN_SEC))));
+                .pollingEvery(Duration.ofMillis(Integer.parseInt(constants.getValue(ApplicationConstants.POOLING_WAIT_IN_MILLI_SEC))));
         fluentWait.until(expectation);
         wait = new WebDriverWait(driver, Duration.ofSeconds(Integer.parseInt(constants.getValue(ApplicationConstants.GENERAL_WAIT_IN_SEC))));
         basePageElements = new BasePageElements();
