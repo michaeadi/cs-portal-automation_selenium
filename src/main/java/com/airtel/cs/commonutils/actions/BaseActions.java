@@ -186,7 +186,7 @@ public class BaseActions {
             Assert.assertEquals(actual, expected);
             commonLib.pass(passMessage);
             assertFlag = true;
-        } catch (Exception ex) {
+        } catch (Exception | AssertionError ex) {
             commonLib.fail(ex.getMessage() + BREAK + failMessage, shouldCapturescreenshot);
         }
         return assertFlag;
@@ -230,7 +230,7 @@ public class BaseActions {
             Assert.assertNotNull(actual, passMessage);
             commonLib.pass(passMessage);
             assertFlag = true;
-        } catch (Exception ex) {
+        } catch (Exception | AssertionError ex) {
             commonLib.fail(ex.getMessage() + BREAK + failMessage, shouldCapturescreenshot);
         }
         return assertFlag;
@@ -249,7 +249,7 @@ public class BaseActions {
             }
             commonLib.pass(passMessage);
             assertFlag = true;
-        } catch (Exception ex) {
+        } catch (Exception | AssertionError ex) {
             commonLib.fail(ex.getMessage() + BREAK + failMessage, shouldCapturescreenshot);
         }
         return assertFlag;
@@ -267,7 +267,7 @@ public class BaseActions {
             Assert.assertNotEquals(actual, expected, passMessage);
             commonLib.pass(passMessage);
             assertFlag = true;
-        } catch (Exception ex) {
+        } catch (Exception | AssertionError ex) {
             commonLib.fail(ex.getMessage() + BREAK + failMessage, true);
 
         }
@@ -280,7 +280,7 @@ public class BaseActions {
             Assert.assertNotEquals(actual, expected, passMessage);
             commonLib.pass(passMessage);
             assertFlag = true;
-        } catch (Exception ex) {
+        } catch (Exception | AssertionError ex) {
             commonLib.fail(ex.getMessage() + BREAK + failMessage, true);
         }
         return assertFlag;
@@ -319,7 +319,7 @@ public class BaseActions {
             Assert.assertEquals(actual, expected);
             commonLib.pass(passMessage);
             assertFlag = true;
-        } catch (Exception ex) {
+        } catch (Exception | AssertionError ex) {
             commonLib.fail(ex.getMessage() + BREAK + failMessage, shouldCapturescreenshot);
         }
         return assertFlag;
@@ -332,7 +332,7 @@ public class BaseActions {
             Assert.assertEquals(actual, expected);
             commonLib.pass(passMessage);
             assertFlag = true;
-        } catch (Exception ex) {
+        } catch (Exception | AssertionError ex) {
             commonLib.fail(ex.getMessage() + BREAK + failMessage, shouldCapturescreenshot);
         }
         return assertFlag;
@@ -371,7 +371,7 @@ public class BaseActions {
             } else {
                 return assertEqualStringType(uiValue, "-", passMessage, failMessage);
             }
-        } catch (Exception e) {
+        } catch (Exception | AssertionError e) {
             commonLib.fail("Exception : Not able to match ui and api response" + e.fillInStackTrace(), true);
         }
         return false;
@@ -392,7 +392,7 @@ public class BaseActions {
             } else {
                 return assertEqualStringType(uiValue, "-", passMessage, failMessage);
             }
-        } catch (Exception e) {
+        } catch (Exception | AssertionError e) {
             commonLib.fail("Exception : Not able to match ui and api response" + e.fillInStackTrace(), true);
         }
         return false;
