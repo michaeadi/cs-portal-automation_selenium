@@ -4,11 +4,13 @@ import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
+import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.databeans.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pojo.response.actionconfig.MetaInfo;
 import com.airtel.cs.pojo.response.actiontrail.ActionTrailPOJO;
+import io.restassured.http.Headers;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;
@@ -49,8 +51,20 @@ public class ActionTrailTest extends Driver {
         }
     }
 
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    public void isUserHasActionTrailPermission() {
+        try {
+            selUtils.addTestcaseDescription("Verify that Action trail permission should be visible to the logged in agent if action trail permission is enabled in UM, Check User has permission to view Action trail tab", "description");
+            String actionTrail = constants.getValue(PermissionConstants.ACTION_TRAIL_TAB_PERMISSION);
+            assertCheck.append(actions.assertEqual_boolean(true, UtilsMethods.isUserHasPermission(new Headers(map), actionTrail), "Action trail permission displayed correctly as per user permission", "Action trail permission does not display correctly as per user permission"));
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - isUserHasFriendFamilyPermission" + e.fillInStackTrace(), true);
+        }
+        actions.assertAllFoundFailedAssert(assertCheck);
+    }
+
     @DataProviders.Table(name = "Action Trail Tab")
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = {"openCustomerInteraction","isUserHasActionTrailPermission"})
     public void validateActionTrailOpenCorrectly(HeaderDataBean data) {
         try {
             selUtils.addTestcaseDescription("Verify View History tab opened successfully,Verify Action Trail History tab is visible and then click on it,Validate column header name are visible and correct", "description");
@@ -68,7 +82,7 @@ public class ActionTrailTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"validateActionTrailOpenCorrectly"})
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"validateActionTrailOpenCorrectly"})
     public void validateActionTrailValue() {
         try {
             selUtils.addTestcaseDescription("Verify View History tab opened successfully,Verify Action Trail History tab is visible,Validate column's value are visible and correct", "description");
