@@ -205,12 +205,12 @@ public class Login extends BasePage {
             UtilsMethods.addHeaders("Opco", OPCO);
             //for ESB downstream APIs
             UtilsMethods.addHeaders("ASP-OPCO", OPCO);
-            UtilsMethods.addHeaders("ASP-API-Key", "f165e2ae-1210-43ab-acad-3065212bb06e");
-            UtilsMethods.addHeaders("ASP-Consumer-Id", "CF_BE");
-            UtilsMethods.addHeaders("Host", "asp.airtel.co." + OPCO.toLowerCase());
-            UtilsMethods.addHeaders("ASP-Locale", "en-US");
+            UtilsMethods.addHeaders("ASP-API-Key", constants.getValue("asp.api.key"));
+            UtilsMethods.addHeaders("ASP-Consumer-Id", constants.getValue("asp.consumer.id"));
+            UtilsMethods.addHeaders("Host", constants.getValue("asp.host") + OPCO.toLowerCase());
+            UtilsMethods.addHeaders("ASP-Locale", constants.getValue("asp.locale"));
             UtilsMethods.addHeaders("ASP-Req-Timestamp", String.valueOf(System.currentTimeMillis()));
-            UtilsMethods.addHeaders("X-Api-Client", "CMEpbh2Ju");
+            UtilsMethods.addHeaders("X-Api-Client", constants.getValue("hlr.x.api.client"));
         } catch (Exception e) {
             commonLib.error("Exception in Method :- setApiHeader" + e.getMessage());
         }
