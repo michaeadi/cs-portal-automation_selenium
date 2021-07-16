@@ -42,7 +42,7 @@ public class MsisdnSearch extends BasePage {
     public void clickOnSearch() {
         commonLib.info("Clicking on Search Button");
         clickAndWaitForLoaderToBeRemoved(pageElements.searchButton);
-        if(isVisible(pageElements.errorMessage)){
+        if(isElementVisible(pageElements.errorMessage)){
             highLighterMethod(pageElements.errorMessage);
             commonLib.error(driver.findElement(pageElements.errorMessage).getText());
         }
