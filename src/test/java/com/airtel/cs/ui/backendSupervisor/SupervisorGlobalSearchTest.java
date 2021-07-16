@@ -29,7 +29,7 @@ public class SupervisorGlobalSearchTest extends Driver {
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().clickOnUserName();
             pages.getSideMenuPage().openSupervisorDashboard();
-            assertCheck.append(actions.assertEqual_stringType(driver.getTitle(), constants.getValue(CommonConstants.SUPERVISOR_TICKET_LIST_PAGE_TITLE), "Agent redirect to ticket list page as expected", "Agent does not redirect to ticket list page as expected"));
+            assertCheck.append(actions.assertEqualStringType(driver.getTitle(), constants.getValue(CommonConstants.SUPERVISOR_TICKET_LIST_PAGE_TITLE), "Agent redirect to ticket list page as expected", "Agent does not redirect to ticket list page as expected"));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - openSupervisorDashboard" + e.fillInStackTrace(), true);
         }
@@ -44,7 +44,7 @@ public class SupervisorGlobalSearchTest extends Driver {
                 String ticketId = pages.getSupervisorTicketList().getTicketIdValue();
                 pages.getSupervisorTicketList().writeTicketId(ticketId);
                 pages.getSupervisorTicketList().clickSearchBtn();
-                assertCheck.append(actions.assertEqual_stringType(pages.getSupervisorTicketList().getTicketIdValue(), ticketId, "Search Ticket found.", "Search Ticket does not found with Ticket Number: " + ticketId));
+                assertCheck.append(actions.assertEqualStringType(pages.getSupervisorTicketList().getTicketIdValue(), ticketId, "Search Ticket found.", "Search Ticket does not found with Ticket Number: " + ticketId));
             } catch (NoSuchElementException | TimeoutException e) {
                 commonLib.warning("No Ticket Id Found.", true);
             }
@@ -62,7 +62,7 @@ public class SupervisorGlobalSearchTest extends Driver {
             String ticketId = constants.getValue(CommonConstants.INVALID_TICKET_ID);
             pages.getSupervisorTicketList().writeTicketId(ticketId);
             pages.getSupervisorTicketList().clickSearchBtn();
-            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().noTicketFound(), true, "No Result found Page display for Ticket Number: " + ticketId, "No Result page does not displayed with invalid ticket number: " + ticketId));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().noTicketFound(), true, "No Result found Page display for Ticket Number: " + ticketId, "No Result page does not displayed with invalid ticket number: " + ticketId));
             pages.getSupervisorTicketList().clearInputBox();
         } catch (Exception e) {
             commonLib.fail("Exception in Method - globalSearchTestByInvalidTicket" + e.fillInStackTrace(), true);
@@ -81,7 +81,7 @@ public class SupervisorGlobalSearchTest extends Driver {
                 pages.getSupervisorTicketList().clickSearchOptionByTextNoIgnoreCase(constants.getValue(CommonConstants.SEARCH_BY_GLOBAL_SEARCH));
                 pages.getSupervisorTicketList().writeTicketId(msisdn);
                 pages.getSupervisorTicketList().clickSearchBtn();
-                assertCheck.append(actions.assertEqual_stringType(pages.getSupervisorTicketList().getMSISDN(), msisdn, "Ticket found with searched MSISDN", "Ticket does not found By searched MSISDN."));
+                assertCheck.append(actions.assertEqualStringType(pages.getSupervisorTicketList().getMSISDN(), msisdn, "Ticket found with searched MSISDN", "Ticket does not found By searched MSISDN."));
             } catch (NoSuchElementException | TimeoutException e) {
                 commonLib.fail("Not able to validate Global search by Global Search Option.", true);
             }

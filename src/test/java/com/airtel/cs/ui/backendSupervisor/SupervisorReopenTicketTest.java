@@ -36,7 +36,7 @@ public class SupervisorReopenTicketTest extends Driver {
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().clickOnUserName();
             pages.getSideMenuPage().openSupervisorDashboard();
-            assertCheck.append(actions.assertEqual_stringType(driver.getTitle(), constants.getValue(CommonConstants.SUPERVISOR_TICKET_LIST_PAGE_TITLE), "Agent redirect to ticket list page as expected", "Agent does not redirect to ticket list page as expected"));
+            assertCheck.append(actions.assertEqualStringType(driver.getTitle(), constants.getValue(CommonConstants.SUPERVISOR_TICKET_LIST_PAGE_TITLE), "Agent redirect to ticket list page as expected", "Agent does not redirect to ticket list page as expected"));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - openSupervisorDashboard" + e.fillInStackTrace(), true);
         }
@@ -48,7 +48,7 @@ public class SupervisorReopenTicketTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validate Reopen Ticket as Supervisor,Select ticket from closed ticket list,validate reopen comment box pop up open,Add reopen ticket and click on submit button,Validate ticket is re-opened successfully.", "description");
             Object[][] list = dataProviders.getTestData5();
-            assertCheck.append(actions.assertEqual_boolean(list.length>0,true,"Ticket Id found in excel sheet","No Ticket id found in excel sheet",true));
+            assertCheck.append(actions.assertEqualBoolean(list.length>0,true,"Ticket Id found in excel sheet","No Ticket id found in excel sheet",true));
             ticketMetaData = (NftrDataBeans) list[0][0];
             pages.getSupervisorTicketList().changeTicketTypeToClosed();
             try {
@@ -56,7 +56,7 @@ public class SupervisorReopenTicketTest extends Driver {
                 pages.getSupervisorTicketList().clickSearchBtn();
                 assertCheck.append(actions.matchUiAndAPIResponse(pages.getSupervisorTicketList().getTicketIdValue(), ticketMetaData.getTicketNumber(), "Searched Ticket found on UI as expected", "Searched Ticket does not found on UI as expected", true));
                 pages.getSupervisorTicketList().clickCheckbox();
-                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isReopenBtn(), true, "Reopen button available after clicking checkbox", "Reopen button does not available after clicking checkbox",true));
+                assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isReopenBtn(), true, "Reopen button available after clicking checkbox", "Reopen button does not available after clicking checkbox",true));
                 try {
                     pages.getSupervisorTicketList().clickReopenButton();
                     pages.getSupervisorTicketList().addReopenComment("Reopen Comment Using Automation");
@@ -64,7 +64,7 @@ public class SupervisorReopenTicketTest extends Driver {
                     pages.getSupervisorTicketList().changeTicketTypeToOpen();
                     pages.getSupervisorTicketList().writeTicketId(ticketMetaData.getTicketNumber());
                     pages.getSupervisorTicketList().clickSearchBtn();
-                    assertCheck.append(actions.assertEqual_stringType(pages.getSupervisorTicketList().getStatevalue().toLowerCase().trim(), dataProviders.isReOpenState().get(0).getTicketStateName().toLowerCase().trim(), "Ticket Reopen in Correct state", "Ticket Does Not Reopen in Correct state"));
+                    assertCheck.append(actions.assertEqualStringType(pages.getSupervisorTicketList().getStatevalue().toLowerCase().trim(), dataProviders.isReOpenState().get(0).getTicketStateName().toLowerCase().trim(), "Ticket Reopen in Correct state", "Ticket Does Not Reopen in Correct state"));
                 } catch (NoSuchElementException | TimeoutException e) {
                     commonLib.fail("Not able to add Re open comment " + e.fillInStackTrace(), true);
                     pages.getSupervisorTicketList().closedReopenBox();
@@ -92,7 +92,7 @@ public class SupervisorReopenTicketTest extends Driver {
                     "Ticket Priority field value same as expected " + assignmentRule.getTicketPriority(), "Ticket Queue field value not same as expected " + assignmentRule.getTicketPriority()));
             assertCheck.append(actions.matchStringIgnoreSpecialChar(pages.getSupervisorTicketList().getWorkGroupName(), slaRule.getWorkgroup1(),
                     "Ticket Workgroup field value same as expected" + slaRule.getWorkgroup1(), "Ticket Workgroup field value not same as expected " + slaRule.getWorkgroup1()));
-            assertCheck.append(actions.assertEqual_stringType(UtilsMethods.convertToHR(ticketPOJO.getResult().getWorkgroupSla()), slaRule.getSla1(), "Ticket Workgroup SLA reset as expected", "Ticket Workgroup SLA does not reset as expected"));
+            assertCheck.append(actions.assertEqualStringType(UtilsMethods.convertToHR(ticketPOJO.getResult().getWorkgroupSla()), slaRule.getSla1(), "Ticket Workgroup SLA reset as expected", "Ticket Workgroup SLA does not reset as expected"));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - validateSLAAfterReopen" + e.fillInStackTrace(), true);
         }

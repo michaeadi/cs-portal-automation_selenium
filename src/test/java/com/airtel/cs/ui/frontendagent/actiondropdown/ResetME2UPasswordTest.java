@@ -40,7 +40,7 @@ public class ResetME2UPasswordTest extends Driver {
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();
             final boolean pageLoaded = pages.getCustomerProfilePage().isCustomerProfilePageLoaded();
-            assertCheck.append(actions.assertEqual_boolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
+            assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
             if (!pageLoaded) continueExecutionFA = false;
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -54,11 +54,32 @@ public class ResetME2UPasswordTest extends Driver {
             selUtils.addTestcaseDescription("Open action drop down and click on Reset ME2U Password option,Validate title visible over modal,Close modal by clicking over cancel button", "description");
             pages.getCustomerProfilePage().clickOnAction();
             pages.getCustomerProfilePage().clickResetME2U();
-            assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isResetME2UPasswordTitle(), true, "Reset ME2U Password Tab Opened", "Reset ME2U Password Tab Does not open."));
+            assertCheck.append(actions.assertEqualBoolean(pages.getCustomerProfilePage().isResetME2UPasswordTitle(), true, "Reset ME2U Password Tab Opened", "Reset ME2U Password Tab Does not open."));
             pages.getCustomerProfilePage().clickCancelBtn();
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException e) {
             commonLib.fail("Exception in Method :- validateResetME2UCancelBtn" + e.fillInStackTrace(), true);
+        }
+    }
+
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
+    public void validateResetME2UPopupFalse() {
+        try {
+            selUtils.addTestcaseDescription("Open action drop down and click on Reset ME2U Password option,Validate title visible over modal,Close modal by clicking over cancel button", "description");
+            pages.getCustomerProfilePage().clickOnAction();
+            pages.getCustomerProfilePage().clickResetME2U();
+            Boolean popup = !pages.getCustomerProfilePage().isResetME2UPasswordConfirmMessageVisible();
+            if (!popup) {
+                pages.getAuthTabPage().clickYesBtn();
+                final String toastText = pages.getAuthTabPage().getToastText();
+                assertCheck.append(actions.assertEqualBoolean(toastText.toLowerCase().contains("success"), true, "Me2U password has been sent to customer successfully", "Me2U password hasn't been sent to customer"));
+                pages.getCustomerProfilePage().clickCancelBtn();
+                actions.assertAllFoundFailedAssert(assertCheck);
+            } else {
+                pages.getCustomerProfilePage().clickCancelBtn();
+            }
+        } catch (NoSuchElementException | TimeoutException e) {
+            commonLib.fail("Exception in Method :- validateResetME2UPopupFalse" + e.fillInStackTrace(), true);
         }
     }
 }

@@ -35,6 +35,11 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.TimeZone;
 import java.util.PriorityQueue;
 import java.util.Map;
 import java.util.Arrays;
@@ -574,12 +579,53 @@ public class UtilsMethods extends Driver {
         List<ActionConfigResult>actionConfigResultList = actionConfigResponse.getResult();
         Optional<ActionConfigResult> actionConfigResultOP = actionConfigResultList.stream()
                 .filter(result -> actionKey.equals(result.getActionKey())).findFirst();
-        assertCheck.append(actions.assertEqual_intType(statusCode, 200, "Action Config API success and status code is :" + statusCode, "Action Config got failed and status code is :" + statusCode));
+        assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Action Config API success and status code is :" + statusCode, "Action Config got failed and status code is :" + statusCode));
         if (actionConfigResultOP.isPresent()) {
             return actionConfigResultOP.get();
         }else{
             commonLib.fail(constants.getValue(CommonConstants.SEND_INTERNET_SETTING_ACTION_KEY)+" action key does not present in config API",false);
         }
         throw new NullPointerException("Action key does not found in config API");
+    }
+    /**
+     * This method returns endDate in UTC timezone
+     * @param endDate
+     * @return
+     */
+    public static Long getUTCEndDate(Long endDate) {
+        LocalDate endDt = Instant.ofEpochMilli(endDate).atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDateTime ldt = endDt.atTime(LocalTime.MAX).withNano(0);
+        ZonedDateTime zdt = ldt.atZone(ZoneOffset.UTC);
+        DateFormat m_ISO8601Local = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        m_ISO8601Local.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date sd = null;
+        try {
+            sd = m_ISO8601Local.parse(zdt.toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Long endDateEpoch = sd.getTime();
+        return endDateEpoch;
+    }
+
+    /**
+     * This method returns startDate in UTC timezone
+     * @param startDate
+     * @return
+     */
+    public static Long getUTCStartDate(Long startDate) {
+        LocalDate startDt = Instant.ofEpochMilli(startDate).atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDateTime ldt = startDt.atStartOfDay();
+        ZonedDateTime zdt = ldt.atZone(ZoneOffset.UTC);
+        DateFormat m_ISO8601Local = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
+        m_ISO8601Local.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date sd = new Date();
+        try {
+            sd = m_ISO8601Local.parse(zdt.toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Long startDateEpoch = sd.getTime();
+        return startDateEpoch;
     }
 }

@@ -29,11 +29,11 @@ public class BAPreRequisites extends Driver {
             final String value = constants.getValue(ApplicationConstants.DOMAIN_URL);
             loginAUUID = constants.getValue(CommonConstants.BA_USER_AUUID);
             pages.getLoginPage().openBaseURL(value);
-            assertCheck.append(actions.assertEqual_stringType(driver.getCurrentUrl(), value, "Login URL Opened", "Login URL not Opened"));
+            assertCheck.append(actions.assertEqualStringType(driver.getCurrentUrl(), value, "Login URL Opened", "Login URL not Opened"));
             pages.getLoginPage().enterAUUID(loginAUUID);
             pages.getLoginPage().clickOnSubmitBtn();
             pages.getLoginPage().enterPassword(PassUtils.decodePassword(constants.getValue(CommonConstants.BA_USER_PASSWORD)));
-            assertCheck.append(actions.assertEqual_boolean(pages.getLoginPage().checkLoginButton(), true, "Login Button is Enabled", "Login Button is not Enabled"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getLoginPage().checkLoginButton(), true, "Login Button is Enabled", "Login Button is not Enabled"));
             pages.getLoginPage().clickOnVisibleButton();
             pages.getLoginPage().clickOnVisibleButton();
             pages.getLoginPage().clickOnLogin();
@@ -44,9 +44,9 @@ public class BAPreRequisites extends Driver {
                 commonLib.fail("Growl Message:- " + pages.getGrowl().getToastContent(), true);
                 continueExecutionBA = false;
             } else {
-                assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isSideMenuVisible(), true, "Side Menu Visible", "Side Menu Not Visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getSideMenuPage().isSideMenuVisible(), true, "Side Menu Visible", "Side Menu Not Visible"));
                 pages.getSideMenuPage().clickOnSideMenu();
-                assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isBEAgentDashboard(), true, "Customer Service Visible", "Customer Service Not Visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getSideMenuPage().isBEAgentDashboard(), true, "Customer Service Visible", "Customer Service Not Visible"));
                 actions.assertAllFoundFailedAssert(assertCheck);
             }
         } catch (Exception e) {
@@ -66,9 +66,9 @@ public class BAPreRequisites extends Driver {
         final Response response = pages.getLoginPage().loginAPI(dtoAsString);
         LoginPOJO loginPOJO = response.as(LoginPOJO.class);
         final String accessToken = loginPOJO.getResult().get("accessToken");
-        assertCheck.append(actions.assertEqual_stringNotNull(accessToken, "Access Token Fetched Successfully", "Access Token is Null"));
+        assertCheck.append(actions.assertEqualStringNotNull(accessToken, "Access Token Fetched Successfully", "Access Token is Null"));
         final String statusCode = loginPOJO.getStatusCode();
-        assertCheck.append(actions.assertEqual_stringType(statusCode, "200", "Status Code Matched Successfully", "Status code NOT Matched and is :-" + statusCode));
+        assertCheck.append(actions.assertEqualStringType(statusCode, "200", "Status Code Matched Successfully", "Status code NOT Matched and is :-" + statusCode));
         String tokenType = loginPOJO.getResult().get("tokenType");
         token = tokenType + " " + accessToken;
         UtilsMethods.addHeaders("Authorization", token);
@@ -82,9 +82,9 @@ public class BAPreRequisites extends Driver {
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().logout();
             final boolean isGrowlVisible = pages.getGrowl().checkIsGrowlVisible();
-            assertCheck.append(actions.assertEqual_boolean(isGrowlVisible, true, "Growl Visible Successfully", "Growl Not Visible"));
+            assertCheck.append(actions.assertEqualBoolean(isGrowlVisible, true, "Growl Visible Successfully", "Growl Not Visible"));
             final String toastContent = pages.getGrowl().getToastContent();
-            assertCheck.append(actions.assertEqual_stringType(toastContent, "You have successfully logged out", "Logout Successfully", "Logout Operation Failed and Message is :-" + toastContent));
+            assertCheck.append(actions.assertEqualStringType(toastContent, "You have successfully logged out", "Logout Successfully", "Logout Operation Failed and Message is :-" + toastContent));
             actions.assertAllFoundFailedAssert(assertCheck);
         } else {
             commonLib.fail("Side Menu is NOT Visible", true);

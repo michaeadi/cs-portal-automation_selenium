@@ -1,6 +1,7 @@
 package com.airtel.cs.api;
 
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
+import com.airtel.cs.commonutils.applicationutils.constants.ESBURIConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.URIConstants;
 import com.airtel.cs.commonutils.restutils.RestCommonUtils;
 import com.airtel.cs.pojo.request.AccountBalanceRequest;
@@ -69,6 +70,7 @@ public class RequestSource extends RestCommonUtils {
     public static Integer statusCode = null;
     private static final String TARIFF_PLAN_TEST_NUMBER = constants.getValue(ApplicationConstants.TARIFF_PLAN_TEST_NUMBER);
     private static final Map<String, Object> queryParam = new HashMap<>();
+    private ESBRequestSource esbRequestSource = new ESBRequestSource();
 
     /*
     This Method will hit the Available Plan API and returns the response
@@ -80,6 +82,7 @@ public class RequestSource extends RestCommonUtils {
             result = response.as(AvailablePlanPOJO.class);
         } catch (Exception e) {
             commonLib.fail("Exception in method - availablePlanPOJO " + e.getMessage(), false);
+            esbRequestSource.callAvailableTarrifPlan(new GenericRequest(TARIFF_PLAN_TEST_NUMBER));
         }
         return result;
     }
@@ -94,6 +97,7 @@ public class RequestSource extends RestCommonUtils {
             result = response.as(CurrentPlanPOJO.class);
         } catch (Exception e) {
             commonLib.fail("Exception in method - currentPlanPOJO " + e.getMessage(), false);
+            esbRequestSource.callCurrentTarrifPlan(new GenericRequest(TARIFF_PLAN_TEST_NUMBER));
         }
         return result;
     }
@@ -146,6 +150,7 @@ public class RequestSource extends RestCommonUtils {
             result = response.as(ProfilePOJO.class);
         } catch (Exception e) {
             commonLib.fail("Exception in method - profileAPITest " + e.getMessage(), false);
+            esbRequestSource.callprofileESBAPI(msisdn);
         }
         return result;
     }
@@ -165,6 +170,7 @@ public class RequestSource extends RestCommonUtils {
             result = response.as(AMProfilePOJO.class);
         } catch (Exception e) {
             commonLib.fail("Exception in method - amServiceProfileAPITest " + e.getMessage(), false);
+            esbRequestSource.callAmServiceProfileESBAPI(msisdn);
         }
         return result;
     }
@@ -182,6 +188,7 @@ public class RequestSource extends RestCommonUtils {
             result = response.as(GsmKycPOJO.class);
         } catch (Exception e) {
             commonLib.fail("Exception in method - gsmKYCAPITest " + e.getMessage(), false);
+            esbRequestSource.callGsmKycESBAPI(msisdn);
         }
         return result;
     }
@@ -199,6 +206,7 @@ public class RequestSource extends RestCommonUtils {
             result = response.as(PlansPOJO.class);
         } catch (Exception e) {
             commonLib.fail("Exception in method - accountPlansTest " + e.getMessage(), false);
+            esbRequestSource.callAccoountPlanESBAPI(msisdn);
         }
         return result;
     }
@@ -216,6 +224,7 @@ public class RequestSource extends RestCommonUtils {
             result = response.as(UsageHistoryPOJO.class);
         } catch (Exception e) {
             commonLib.fail("Exception in method - usageHistoryTest " + e.getMessage(), false);
+            esbRequestSource.callUsageHistory(new UsageHistoryRequest(msisdn, 5, 1, null, null, null, "More"));
         }
         return result;
     }
@@ -233,6 +242,7 @@ public class RequestSource extends RestCommonUtils {
             result = response.as(UsageHistoryPOJO.class);
         } catch (Exception e) {
             commonLib.fail("Exception in method - usageHistoryTest " + e.getMessage(), false);
+            esbRequestSource.callUsageHistory(new UsageHistoryMenuRequest(msisdn, 5, 1, null, null, null, "More", "FREE"));
         }
         return result;
     }
@@ -250,6 +260,7 @@ public class RequestSource extends RestCommonUtils {
             result = response.as(RechargeHistoryPOJO.class);
         } catch (Exception e) {
             commonLib.fail("Exception in method - rechargeHistoryAPITest " + e.getMessage(), false);
+            esbRequestSource.callRechargeHistory(msisdn,null,null);
         }
         return result;
     }
@@ -267,6 +278,8 @@ public class RequestSource extends RestCommonUtils {
             result = response.as(AirtelMoneyPOJO.class);
         } catch (Exception e) {
             commonLib.fail("Exception in method - transactionHistoryAPITest " + e.getMessage(), false);
+            commonLib.info("Calling ESB APIs");
+            commonPostMethod(constants.getValue(ESBURIConstants.TRANSACTION_HISTORY), new TransactionHistoryRequest(msisdn, 5, 1, null, null));
         }
         return result;
     }
@@ -302,6 +315,9 @@ public class RequestSource extends RestCommonUtils {
             result = response.as(AccountsBalancePOJO.class);
         } catch (Exception e) {
             commonLib.fail("Exception in method - balanceAPITest " + e.getMessage(), false);
+            commonLib.info("Calling ESB APIs");
+            queryParam.put("msisdn", msisdn);
+            commonGetMethodWithQueryParam(constants.getValue(ESBURIConstants.QUERY_BALANCE), queryParam);
         }
         return result;
     }
@@ -354,6 +370,7 @@ public class RequestSource extends RestCommonUtils {
             result = response.as(VoucherSearchPOJO.class);
         } catch (Exception e) {
             commonLib.fail("Exception in method - voucherSearchTest " + e.getMessage(), false);
+            esbRequestSource.callVoucherDetails(voucherId);
         }
         return result;
     }
@@ -368,6 +385,7 @@ public class RequestSource extends RestCommonUtils {
             result = response.as(VendorNames.class);
         } catch (Exception e) {
             commonLib.fail("Exception in method - vendorsNamesTest " + e.getMessage(), false);
+            esbRequestSource.callVendors();
         }
         return result;
     }
@@ -386,6 +404,7 @@ public class RequestSource extends RestCommonUtils {
             result = response.as(Summary.class);
         } catch (Exception e) {
             commonLib.fail("Exception in method - loanSummaryTest " + e.getMessage(), false);
+            esbRequestSource.callLoanSummary(new LoanRequest(msisdn, vendorName));
         }
         return result;
     }
@@ -404,6 +423,7 @@ public class RequestSource extends RestCommonUtils {
             result = response.as(Loan.class);
         } catch (Exception e) {
             commonLib.fail("Exception in method - loanDetailsTest " + e.getMessage(), false);
+            esbRequestSource.callLoanDetails(new LoanRequest(msisdn, vendorName));
         }
         return result;
     }
@@ -421,6 +441,7 @@ public class RequestSource extends RestCommonUtils {
             result = response.as(RefillStatus.class);
         } catch (Exception e) {
             commonLib.fail("Exception in method - clearRefillTest " + e.getMessage(), false);
+            esbRequestSource.callVoucherRefilBarred(msisdn);
         }
         return result;
     }
@@ -440,6 +461,7 @@ public class RequestSource extends RestCommonUtils {
             result = response.as(Top20Ringtone.class);
         } catch (Exception e) {
             commonLib.fail("Exception in method - ringtoneDetailTest " + e.getMessage(), false);
+            esbRequestSource.callRingtoneDetailsTest(msisdn,searchText);
         }
         return result;
     }
@@ -458,6 +480,7 @@ public class RequestSource extends RestCommonUtils {
             result = response.as(ActivateRingtone.class);
         } catch (Exception e) {
             commonLib.fail("Exception in method - activateRingtone " + e.getMessage(), false);
+            esbRequestSource.callActiveRingTone(msisdn);
         }
         return result;
     }
@@ -475,6 +498,7 @@ public class RequestSource extends RestCommonUtils {
             result = response.as(AccumulatorsPOJO.class);
         } catch (Exception e) {
             commonLib.fail("Exception in method - accumulatorsAPITest " + e.getMessage(), false);
+            esbRequestSource.callAccumulatorAPI(msisdn);
         }
         return result;
     }
@@ -492,6 +516,7 @@ public class RequestSource extends RestCommonUtils {
             result = response.as(HLRServicePOJO.class);
         } catch (Exception e) {
             commonLib.fail("Exception in method - getServiceProfileWidgetInfo " + e.getMessage(), false);
+            esbRequestSource.callHLRFetchDetails(msisdn);
         }
         return result;
     }
@@ -528,6 +553,7 @@ public class RequestSource extends RestCommonUtils {
             result = response.as(OfferDetailPOJO.class);
         } catch (Exception e) {
             commonLib.fail("Exception in method - OfferDetailAPITest " + e.getMessage(), false);
+            esbRequestSource.callOfferDetailsAPI(new OfferDetailRequest(msisdn, true));
         }
         return result;
     }
@@ -545,6 +571,7 @@ public class RequestSource extends RestCommonUtils {
             result = response.as(FriendsFamilyPOJO.class);
         } catch (Exception e) {
             commonLib.fail("Exception in method - friendsAndFamilyAPITest " + e.getMessage(), false);
+            esbRequestSource.callFriensFamilyAPI(new GenericRequest(msisdn));
         }
         return result;
     }
@@ -665,6 +692,7 @@ public class RequestSource extends RestCommonUtils {
             myList = new ArrayList<>(Arrays.asList(result.split("data:")));
         } catch (Exception e) {
             commonLib.fail("Exception in method - getEventHistory " + e.getMessage(), false);
+            esbRequestSource.callPostpaidAccountInformation(msisdn);
         }
         return myList;
     }

@@ -31,7 +31,7 @@ public class SupervisorAddCommentTest extends Driver {
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().clickOnUserName();
             pages.getSideMenuPage().openSupervisorDashboard();
-            assertCheck.append(actions.assertEqual_stringType(driver.getTitle(), constants.getValue(CommonConstants.SUPERVISOR_TICKET_LIST_PAGE_TITLE), "Agent redirect to ticket list page as expected", "Agent does not redirect to ticket list page as expected"));
+            assertCheck.append(actions.assertEqualStringType(driver.getTitle(), constants.getValue(CommonConstants.SUPERVISOR_TICKET_LIST_PAGE_TITLE), "Agent redirect to ticket list page as expected", "Agent does not redirect to ticket list page as expected"));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - openSupervisorDashboard" + e.fillInStackTrace(), true);
         }
@@ -73,7 +73,7 @@ public class SupervisorAddCommentTest extends Driver {
     public void validateIssueComment() {
         try {
             selUtils.addTestcaseDescription("Validate issue comment [Backend Supervisor] found on ticket or not", "description");
-            assertCheck.append(actions.assertEqual_boolean(pages.getViewTicket().validateCommentType(constants.getValue(CommonConstants.ISSUE_COMMENT_TYPE)), true, "Issue Comment found on ticket", "Issue Comment does not found on ticket"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getViewTicket().validateCommentType(constants.getValue(CommonConstants.ISSUE_COMMENT_TYPE)), true, "Issue Comment found on ticket", "Issue Comment does not found on ticket"));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - validateIssueComment" + e.fillInStackTrace(), true);
         }
@@ -106,7 +106,7 @@ public class SupervisorAddCommentTest extends Driver {
             pages.getViewTicket().validateAddedComment(comment);
             pages.getViewTicket().openDeleteComment();
             pages.getViewTicket().clickContinueButton();
-            assertCheck.append(actions.assertEqual_boolean(pages.getViewTicket().isCommentDelete(comment), true, "Deleted comment found does not found on ticket as expected", "Deleted comment found on ticket as deleted comment must not found on ticket."));
+            assertCheck.append(actions.assertEqualBoolean(pages.getViewTicket().isCommentDelete(comment), true, "Deleted comment found does not found on ticket as expected", "Deleted comment found on ticket as deleted comment must not found on ticket."));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - deleteLastAddedComment" + e.fillInStackTrace(), true);
         }

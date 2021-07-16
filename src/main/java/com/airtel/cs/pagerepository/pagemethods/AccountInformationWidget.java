@@ -9,7 +9,6 @@ import org.json.simple.parser.ParseException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -157,16 +156,29 @@ public class AccountInformationWidget extends BasePage {
         */
     public String getAccountNumber() {
         String result = null;
+        String elementCss = null;
         if (isVisible(pageElements.accountNumber)) {
             result = getText(pageElements.accountNumber);
             commonLib.info("Account Number is: " + result);
+            elementCss=getAttribute(pageElements.accountNumber,"style",false);
+
         } else {
             commonLib.fail("Account Number under Account Information Widget is NOT visible", true);
         }
         return result;
     }
 
-    public String getValue(List<String> list, String rowToSearch, String valueToSearch) throws IOException, ParseException {
+   /* public String getStyle(By elementLocation, String attributeName, stylePropCss) {
+        var x = document.getElementById(elementLocation);
+        var y="";
+        if (x.currentStyle)
+             y = x.currentStyle[stylePropJs];
+        else if (window.getComputedStyle)
+             y = document.defaultView.getComputedStyle(x,null).getPropertyValue(stylePropCss);
+        return y;
+    }*/
+
+    public String getValue(List<String> list, String rowToSearch, String valueToSearch) throws ParseException {
         String result = null;
         JSONParser parser = new JSONParser();
         for (String s : list)

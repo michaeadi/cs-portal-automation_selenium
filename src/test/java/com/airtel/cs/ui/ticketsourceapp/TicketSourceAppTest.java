@@ -29,8 +29,8 @@ public class TicketSourceAppTest extends Driver {
         try {
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().openSupervisorDashboard();
-            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isSourceTitleVisible(), true, "Source Title is visible on Ticket Row Listing Page", "Source Title is NOT visible on Ticket Row Listing Page"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().checkSourceTitleListingPage(), true, "Source Title Text is not Blank and is - " + pages.getSupervisorTicketList().checkSourceTitleListingPage(), "Source Title Text is Blank"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isSourceTitleVisible(), true, "Source Title is visible on Ticket Row Listing Page", "Source Title is NOT visible on Ticket Row Listing Page"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().checkSourceTitleListingPage(), true, "Source Title Text is not Blank and is - " + pages.getSupervisorTicketList().checkSourceTitleListingPage(), "Source Title Text is Blank"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - testSourceTitleOpenTicketListing " + e.getMessage(), true);
@@ -38,14 +38,38 @@ public class TicketSourceAppTest extends Driver {
     }
 
     @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing"})
+    public void testTicketPresentInOpenTab() {
+        selUtils.addTestcaseDescription("Validation Tickets are available under Supervisor Ticket Listing for OPEN Ticket", "description");
+        try {
+            pages.getSupervisorTicketList().changeTicketTypeToOpen();
+            assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().checkTicketsAvailability(), true, "Tickets are available under Supervisor Ticket Listing for OPEN Ticket", "Tickets are not available under Supervisor Ticket Listing for OPEN Ticket"));
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            commonLib.fail("Caught exception in Testcase - testTicketPresentInOpenTab " + e.getMessage(), true);
+        }
+    }
+
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing"})
+    public void testTicketPresentInClosedTab() {
+        selUtils.addTestcaseDescription("Validation Tickets are available under Supervisor Ticket Listing for Closed Ticket", "description");
+        try {
+            pages.getSupervisorTicketList().changeTicketTypeToClosed();
+            assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().checkTicketsAvailability(), true, "Tickets are available under Supervisor Ticket Listing for Closed Ticket", "Tickets are not available under Supervisor Ticket Listing for Closed Ticket"));
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            commonLib.fail("Caught exception in Testcase - testTicketPresentInClosedTab " + e.getMessage(), true);
+        }
+    }
+
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing","testTicketPresentInOpenTab"})
     public void testSourceAppInFilterOpenTicket() {
         boolean isFilterOpeneed = false;
         try {
             selUtils.addTestcaseDescription("Validate Source App from Filters under open type tickets", "description");
             pages.getSupervisorTicketList().clickFilter();
             isFilterOpeneed = true;
-            assertCheck.append(actions.assertEqual_boolean(pages.getFilterTabPage().isApplyFilterBtnEnabled(), false, "Filter Button is NOT Enabled", "Filter Button is already Enabled"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getFilterTabPage().isSourceFilterPresent(), true, "Filter By Source is available", "Filter By Source is NOT available"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getFilterTabPage().isApplyFilterBtnEnabled(), false, "Filter Button is NOT Enabled", "Filter Button is already Enabled"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getFilterTabPage().isSourceFilterPresent(), true, "Filter By Source is available", "Filter By Source is NOT available"));
             pages.getFilterTabPage().selectSourceFilterValue();
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -55,12 +79,12 @@ public class TicketSourceAppTest extends Driver {
         }
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing"})
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing","testTicketPresentInOpenTab"})
     public void testSourceAppOpenTicketDetailsPage() {
         try {
             selUtils.addTestcaseDescription("Validate Source App is visible under Supervisor Open Ticket Details Page", "description");
             pages.getSupervisorTicketList().clickToOpenTicketFromDashboard();
-            assertCheck.append(actions.assertEqual_stringNotNull(pages.getSupervisorTicketList().checkSourceTitleDetailPage(), "Source Title Is visible under Ticket Details Page", "Source Title Is Blank under Ticket Details Page"));
+            assertCheck.append(actions.assertEqualStringNotNull(pages.getSupervisorTicketList().checkSourceTitleDetailPage(), "Source Title Is visible under Ticket Details Page", "Source Title Is Blank under Ticket Details Page"));
             pages.getSupervisorTicketList().goBackToTicketListing();
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -68,17 +92,17 @@ public class TicketSourceAppTest extends Driver {
         }
     }
 
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest"}, dataProvider = "TransferQueue", dataProviderClass = DataProviders.class, dependsOnMethods = {"testSourceTitleOpenTicketListing"})
+    @Test(priority = 6, groups = {"SanityTest", "RegressionTest"}, dataProvider = "TransferQueue", dataProviderClass = DataProviders.class, dependsOnMethods = {"testSourceTitleOpenTicketListing","testTicketPresentInOpenTab"})
     public void testSourceAppTransferTicketToQueue(@NotNull TransferQueueDataBean data) {
         selUtils.addTestcaseDescription("Validate Source App while doing Transfer To Queue", "description");
         try {
             pages.getSupervisorTicketList().clickCheckbox();
             pages.getSupervisorTicketList().clickTransfertoQueue();
-            assertCheck.append(actions.assertEqual_boolean(pages.getTransferToQueue().validatePageTitle(), true, "Transfer Ticket To Queue Page Title Matched", "Transfer Ticket To Queue Page Title NOT Matched"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getTransferToQueue().validatePageTitle(), true, "Transfer Ticket To Queue Page Title Matched", "Transfer Ticket To Queue Page Title NOT Matched"));
             try {
                 pages.getTransferToQueue().clickTransferQueue(data.getToQueue());
-                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isSourceTitleVisible(), true, "Source Title is visible on Ticket Row Listing Page", "Source Title is NOT visible on Ticket Row Listing Page"));
-                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().checkSourceTitleListingPage(), true, "Source Title Text is not Blank and is - " + pages.getSupervisorTicketList().checkSourceTitleListingPage(), "Source Title Text is Blank"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isSourceTitleVisible(), true, "Source Title is visible on Ticket Row Listing Page", "Source Title is NOT visible on Ticket Row Listing Page"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().checkSourceTitleListingPage(), true, "Source Title Text is not Blank and is - " + pages.getSupervisorTicketList().checkSourceTitleListingPage(), "Source Title Text is Blank"));
                 pages.getSupervisorTicketList().clickCancelBtn();
                 actions.assertAllFoundFailedAssert(assertCheck);
             } catch (NoSuchElementException | TimeoutException e) {
@@ -92,26 +116,26 @@ public class TicketSourceAppTest extends Driver {
 
     }
 
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing"})
+    @Test(priority = 7, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing","testTicketPresentInClosedTab"})
     public void testSourceTitleClosedTicketListing() {
         try {
             selUtils.addTestcaseDescription("Validation Source App is visible under Supervisor Ticket Listing for CLOSED Ticket", "description");
             pages.getSupervisorTicketList().changeTicketTypeToClosed();
-            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isSourceTitleVisible(), true, "Source Title is visible on Ticket Row Listing Page", "Source Title is NOT visible on Ticket Row Listing Page"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().checkSourceTitleListingPage(), true, "Source Title Text is not Blank and is - " + pages.getSupervisorTicketList().checkSourceTitleListingPage(), "Source Title Text is Blank"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isSourceTitleVisible(), true, "Source Title is visible on Ticket Row Listing Page", "Source Title is NOT visible on Ticket Row Listing Page"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().checkSourceTitleListingPage(), true, "Source Title Text is not Blank and is - " + pages.getSupervisorTicketList().checkSourceTitleListingPage(), "Source Title Text is Blank"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - testSourceTitleClosedTicketListing " + e.getMessage(), true);
         }
     }
 
-    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing"})
+    @Test(priority = 8, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing","testTicketPresentInClosedTab"})
     public void testSourceAppInFilterCloseTicket() {
         try {
             selUtils.addTestcaseDescription("Validate Source App from Filters under Close Type Ticket", "description");
             pages.getSupervisorTicketList().clickFilter();
-            assertCheck.append(actions.assertEqual_boolean(pages.getFilterTabPage().isApplyFilterBtnEnabled(), false, "Filter Button is NOT Enabled", "Filter Button is already Enabled"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getFilterTabPage().isSourceFilterPresent(), true, "Filter By Source is available", "Filter By Source is NOT available"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getFilterTabPage().isApplyFilterBtnEnabled(), false, "Filter Button is NOT Enabled", "Filter Button is already Enabled"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getFilterTabPage().isSourceFilterPresent(), true, "Filter By Source is available", "Filter By Source is NOT available"));
             pages.getFilterTabPage().selectSourceFilterValue();
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -120,12 +144,12 @@ public class TicketSourceAppTest extends Driver {
         }
     }
 
-    @Test(priority = 7, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing"})
+    @Test(priority = 9, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing","testTicketPresentInClosedTab"})
     public void testSourceAppClosedTicketDetailsPage() {
         try {
             selUtils.addTestcaseDescription("Validate Source App is visible under Supervisor Close Ticket Details Page", "description");
             pages.getSupervisorTicketList().clickToOpenTicketFromDashboard();
-            assertCheck.append(actions.assertEqual_stringNotNull(pages.getSupervisorTicketList().checkSourceTitleDetailPage(), "Source Title is visible under Ticket Details Page", "Source Title Is Blank under Ticket Details Page"));
+            assertCheck.append(actions.assertEqualStringNotNull(pages.getSupervisorTicketList().checkSourceTitleDetailPage(), "Source Title is visible under Ticket Details Page", "Source Title Is Blank under Ticket Details Page"));
             pages.getSupervisorTicketList().goBackToTicketListing();
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -133,35 +157,46 @@ public class TicketSourceAppTest extends Driver {
         }
     }
 
-    @Test(priority = 8, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing"})
+    @Test(priority = 10, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing"})
     public void testSourceAppInteractionHistory() {
         selUtils.addTestcaseDescription("Validate Source App is visible under view history and then to Interaction tab", "description");
         try {
-            assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isSideMenuVisible(), true, "Side Menu Visible", "Side Menu Not Visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSideMenuPage().isSideMenuVisible(), true, "Side Menu Visible", "Side Menu Not Visible"));
             pages.getSideMenuPage().clickOnSideMenu();
-            assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isCustomerServicesVisible(), true, "Customer Service Visible", "Customer Service Not Visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSideMenuPage().isCustomerServicesVisible(), true, "Customer Service Visible", "Customer Service Not Visible"));
             pages.getSideMenuPage().openCustomerInteractionPage();
             customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();
             final boolean pageLoaded = pages.getCustomerProfilePage().isCustomerProfilePageLoaded();
-            assertCheck.append(actions.assertEqual_boolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
+            assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
             pages.getCustomerProfilePage().goToViewHistory();
-            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isSourceTitleVisible(), true, "Source Title is visible on Ticket Row Listing Page", "Source Title is NOT visible on Ticket Row Listing Page"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().checkSourceTitleListingPage(), true, "Source Title Text is not Blank and is - " + pages.getSupervisorTicketList().checkSourceTitleListingPage(), "Source Title Text is Blank"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isSourceTitleVisible(), true, "Source Title is visible on Ticket Row Listing Page", "Source Title is NOT visible on Ticket Row Listing Page"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().checkSourceTitleListingPage(), true, "Source Title Text is not Blank and is - " + pages.getSupervisorTicketList().checkSourceTitleListingPage(), "Source Title Text is Blank"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - testSourceAppInteractionHistory " + e.getMessage(), true);
         }
     }
 
-    @Test(priority = 9, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing"})
+    @Test(priority = 11, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing"})
+    public void testTicketPresentInInteractionHistory() {
+        selUtils.addTestcaseDescription("Validation Tickets are available under Interaction History", "description");
+        try {
+            assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().checkTicketsAvailabilityOnInteractionHistory(), true, "Tickets are available under Interaction History", "Tickets are not available under Interaction History"));
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            commonLib.fail("Caught exception in Testcase - testTicketPresentInInteractionHistory " + e.getMessage(), true);
+        }
+    }
+
+    @Test(priority = 12, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing","testTicketPresentInInteractionHistory"})
     public void testSourceAppInteractionHistoryDetails() {
         try {
             selUtils.addTestcaseDescription("Validate Source App under NFTR detail page", "description");
             pages.getViewHistory().clickOnTicketIcon();
-            assertCheck.append(actions.assertEqual_boolean(pages.getViewHistory().isSourceAppVisible(), true, "Source App is visible under NFTR Details Page", "Source App is visible under NFTR Details Page"));
-            assertCheck.append(actions.assertEqual_stringNotNull(pages.getViewHistory().getSourceText(), "Source App is visible under NFTR Details Page", "Source App is NOT visible under NFTR Details Page"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getViewHistory().isSourceAppVisible(), true, "Source App is visible under NFTR Details Page", "Source App is visible under NFTR Details Page"));
+            assertCheck.append(actions.assertEqualStringNotNull(pages.getViewHistory().getSourceText(), "Source App is visible under NFTR Details Page", "Source App is NOT visible under NFTR Details Page"));
             pages.getViewHistory().closeInteractionHistoryDetailPage();
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -170,26 +205,26 @@ public class TicketSourceAppTest extends Driver {
         }
     }
 
-    @Test(priority = 10, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing"})
+    @Test(priority = 13, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing"})
     public void testSourceAppTicketHistory() {
         try {
             selUtils.addTestcaseDescription("Validate Source App under view history and then to Ticket tab", "description");
             pages.getViewHistory().goToTicketHistoryTab();
-            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isSourceTitleVisible(), true, "Source Title is visible on Ticket Row Listing Page", "Source Title is NOT visible on Ticket Row Listing Page"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().checkSourceTitleListingPage(), true, "Source Title Text is not Blank and is - " + pages.getSupervisorTicketList().checkSourceTitleListingPage(), "Source Title Text is Blank"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isSourceTitleVisible(), true, "Source Title is visible on Ticket Row Listing Page", "Source Title is NOT visible on Ticket Row Listing Page"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().checkSourceTitleListingPage(), true, "Source Title Text is not Blank and is - " + pages.getSupervisorTicketList().checkSourceTitleListingPage(), "Source Title Text is Blank"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - testSourceAppTicketHistory " + e.getMessage(), true);
         }
     }
 
-    @Test(priority = 11, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing"})
+    @Test(priority = 14, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing"})
     public void testSourceAppTicketHistoryDetail() {
         try {
             selUtils.addTestcaseDescription("Validate Source App under view history and then to ticket history detail page", "description");
             pages.getFrontendTicketHistoryPage().clickToOpenTicketTicketHistory();
-            assertCheck.append(actions.assertEqual_boolean(pages.getViewHistory().isSourceAppVisible(), true, "Source App is visible under NFTR Details Page", "Source App is visible under NFTR Details Page"));
-            assertCheck.append(actions.assertEqual_stringNotNull(pages.getViewHistory().getSourceText(), "Source App is visible under NFTR Details Page", "Source App is NOT visible under NFTR Details Page"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getViewHistory().isSourceAppVisible(), true, "Source App is visible under NFTR Details Page", "Source App is visible under NFTR Details Page"));
+            assertCheck.append(actions.assertEqualStringNotNull(pages.getViewHistory().getSourceText(), "Source App is visible under NFTR Details Page", "Source App is NOT visible under NFTR Details Page"));
             pages.getViewHistory().closeInteractionHistoryDetailPage();
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -198,19 +233,19 @@ public class TicketSourceAppTest extends Driver {
         }
     }
 
-    @Test(priority = 12, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing"})
+    @Test(priority = 15, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"testSourceTitleOpenTicketListing"})
     public void testSourceAppBulkUpdate() {
         boolean isFilterOpened = false;
         try {
             selUtils.addTestcaseDescription("Validate Source App under Bulk Update Tab", "description");
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().openTicketBulkUpdateDashboard();
-            assertCheck.append(actions.assertEqual_boolean(pages.getTicketBulkUpdate().isTicketBulkUpdate(), true, "Ticket Bulk Update Page Opened Successfully", "Ticket Bulk Update page does not open."));
+            assertCheck.append(actions.assertEqualBoolean(pages.getTicketBulkUpdate().isTicketBulkUpdate(), true, "Ticket Bulk Update Page Opened Successfully", "Ticket Bulk Update page does not open."));
             pages.getTicketBulkUpdate().clickSelectFilter();
             pages.getFilterTabPage().clickLast30DaysFilter();
             pages.getFilterTabPage().clickApplyFilter();
-            assertCheck.append(actions.assertEqual_boolean(pages.getTicketBulkUpdate().isSourceTitleVisible(), true, "Source Title is visible on Ticket Row Listing Page", "Source Title is NOT visible on Ticket Row Listing Page"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().checkSourceTitleListingPage(), true, "Source Title Text is not Blank and is - " + pages.getSupervisorTicketList().checkSourceTitleListingPage(), "Source Title Text is Blank"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getTicketBulkUpdate().isSourceTitleVisible(), true, "Source Title is visible on Ticket Row Listing Page", "Source Title is NOT visible on Ticket Row Listing Page"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().checkSourceTitleListingPage(), true, "Source Title Text is not Blank and is - " + pages.getSupervisorTicketList().checkSourceTitleListingPage(), "Source Title Text is Blank"));
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().openSupervisorDashboard();
             pages.getTicketBulkUpdate().clickPopUpContinueBtn();

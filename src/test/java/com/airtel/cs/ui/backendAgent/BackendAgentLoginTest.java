@@ -33,11 +33,11 @@ public class BackendAgentLoginTest extends Driver {
             loginAUUID = constants.getValue(CommonConstants.BA_USER_AUUID);
             final String value = constants.getValue(ApplicationConstants.DOMAIN_URL);
             pages.getLoginPage().openBaseURL(value);
-            assertCheck.append(actions.assertEqual_stringType(driver.getCurrentUrl(), value, "Correct URL Opened", "URl isn't as expected"));
+            assertCheck.append(actions.assertEqualStringType(driver.getCurrentUrl(), value, "Correct URL Opened", "URl isn't as expected"));
             pages.getLoginPage().enterAUUID(loginAUUID);
             pages.getLoginPage().clickOnSubmitBtn();
             pages.getLoginPage().enterPassword(PassUtils.decodePassword(constants.getValue(CommonConstants.BA_USER_PASSWORD)));
-            assertCheck.append(actions.assertEqual_boolean(pages.getLoginPage().checkLoginButton(), true, "Login Button is Enabled", "Login Button is NOT enabled"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getLoginPage().checkLoginButton(), true, "Login Button is Enabled", "Login Button is NOT enabled"));
             pages.getLoginPage().clickOnVisibleButton();
             pages.getLoginPage().clickOnVisibleButton();
             pages.getLoginPage().clickOnLogin();
@@ -47,7 +47,7 @@ public class BackendAgentLoginTest extends Driver {
                 commonLib.fail("Growl Message:- " + pages.getGrowl().getToastContent(), true);
                 continueExecutionBA = false;
             } else {
-                assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isBEAgentDashboard(), true, "Customer Dashboard Page Loaded Successfully", "Customer Dashboard page NOT Loaded"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getSideMenuPage().isBEAgentDashboard(), true, "Customer Dashboard Page Loaded Successfully", "Customer Dashboard page NOT Loaded"));
                 actions.assertAllFoundFailedAssert(assertCheck);
             }
             actions.assertAllFoundFailedAssert(assertCheck);
@@ -62,15 +62,15 @@ public class BackendAgentLoginTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Backend Agent Login into Queue", "description");
             commonLib.info("Opening URL");
-            assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isSideMenuVisible(), true, "Side Menu Visible Successfully", "Side Menu NOT Visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSideMenuPage().isSideMenuVisible(), true, "Side Menu Visible Successfully", "Side Menu NOT Visible"));
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().openBackendAgentDashboard();
-            assertCheck.append(actions.assertEqual_boolean(pages.getAgentLoginPage().isQueueLoginPage(), true, "Queue Login Page is Visible", "Queue Login Page is NOT Visible"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getAgentLoginPage().checkSubmitButton(), true, "Submit button for login is Enabled", "Submit button for login is NOT Enabled"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getAgentLoginPage().isQueueLoginPage(), true, "Queue Login Page is Visible", "Queue Login Page is NOT Visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getAgentLoginPage().checkSubmitButton(), true, "Submit button for login is Enabled", "Submit button for login is NOT Enabled"));
             pages.getAgentLoginPage().clickSelectQueue();
             pages.getAgentLoginPage().selectAllQueue();
             pages.getAgentLoginPage().clickSubmitBtn();
-            assertCheck.append(actions.assertEqual_stringType(driver.getTitle(), constants.getValue(CommonConstants.BACKEND_AGENT_TICKET_LIST_PAGE), "Backend Agent Successfully Redirect to Ticket List Page", "Backend Agent Does not Redirect to Ticket List Page"));
+            assertCheck.append(actions.assertEqualStringType(driver.getTitle(), constants.getValue(CommonConstants.BACKEND_AGENT_TICKET_LIST_PAGE), "Backend Agent Successfully Redirect to Ticket List Page", "Backend Agent Does not Redirect to Ticket List Page"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NotFoundException | TimeoutException | ElementClickInterceptedException e) {
             commonLib.fail("Exception in Method - agentQueueLogin", true);
@@ -82,23 +82,23 @@ public class BackendAgentLoginTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Backend Agent Validate Ticket List Page", "description");
             TicketPOJO ticketPOJO = api.ticketMetaDataTest(pages.getSupervisorTicketList().getTicketIdValue());
-            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isTicketIdLabel(), true, "Ticket Meta Data Have Ticket Id", "Ticket Meta Data Does Not Have Ticket Id"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isWorkGroupName(), true, "Ticket Meta Data Have Workgroup", "Ticket Meta Data Does Not  Have Workgroup"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isPrioritylabel(), true, "Ticket Meta Data Have Priority", "Ticket Meta Data  Does Not  Have Priority"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isStateLabel(), true, "Ticket Meta Data Have State", "Ticket Meta Data Does Not  Have State"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isCreationDateLabel(), true, "Ticket Meta Data Have Creation Date", "Ticket Meta Data Does Not Have Creation Date"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isCreatedByLabel(), true, "Ticket Meta Data Have Created By", "Ticket Meta Data Does Not Have Created By"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isQueueLabel(), true, "Ticket Meta Data Have Queue", "Ticket Meta Data Does Not Have Queue"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isIssueLabel(), true, "Ticket Meta Data Have Issue", "Ticket Meta Data Does Not Have Issue"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isIssueTypeLabel(), true, "Ticket Meta Data Have Issue Type", "Ticket Meta Data Does Not Have Issue Type"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isTicketIdLabel(), true, "Ticket Meta Data Have Ticket Id", "Ticket Meta Data Does Not Have Ticket Id"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isWorkGroupName(), true, "Ticket Meta Data Have Workgroup", "Ticket Meta Data Does Not  Have Workgroup"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isPrioritylabel(), true, "Ticket Meta Data Have Priority", "Ticket Meta Data  Does Not  Have Priority"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isStateLabel(), true, "Ticket Meta Data Have State", "Ticket Meta Data Does Not  Have State"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isCreationDateLabel(), true, "Ticket Meta Data Have Creation Date", "Ticket Meta Data Does Not Have Creation Date"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isCreatedByLabel(), true, "Ticket Meta Data Have Created By", "Ticket Meta Data Does Not Have Created By"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isQueueLabel(), true, "Ticket Meta Data Have Queue", "Ticket Meta Data Does Not Have Queue"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isIssueLabel(), true, "Ticket Meta Data Have Issue", "Ticket Meta Data Does Not Have Issue"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isIssueTypeLabel(), true, "Ticket Meta Data Have Issue Type", "Ticket Meta Data Does Not Have Issue Type"));
             if(ticketPOJO.getResult().getCategoryLevel().size()>3) {
-                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isSubTypeLabel(), true, "Ticket Meta Data Have Issue Sub Type", "Ticket Meta Data Does Not Have Issue Sub Type"));
-                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isSubSubTypeLabel(), true, "Ticket Meta Data Have Issue Sub Sub Type", "Ticket Meta Data Does Not Have Issue Sub Sub Type"));
-                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isCodeLabel(), true, "Ticket Meta Data Have Code", "Ticket Meta Data Does Not Have Code"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isSubTypeLabel(), true, "Ticket Meta Data Have Issue Sub Type", "Ticket Meta Data Does Not Have Issue Sub Type"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isSubSubTypeLabel(), true, "Ticket Meta Data Have Issue Sub Sub Type", "Ticket Meta Data Does Not Have Issue Sub Sub Type"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isCodeLabel(), true, "Ticket Meta Data Have Code", "Ticket Meta Data Does Not Have Code"));
             }else{
-                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isSubTypeLabel(), true, "Ticket Meta Data Have Code", "Ticket Meta Data Does Not Have Code"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isSubTypeLabel(), true, "Ticket Meta Data Have Code", "Ticket Meta Data Does Not Have Code"));
             }
-            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().getMSISDN().isEmpty(), false, "MSISDN Can be empty", "MSISDN Can not be empty"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().getMSISDN().isEmpty(), false, "MSISDN Can be empty", "MSISDN Can not be empty"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NotFoundException | TimeoutException | ElementClickInterceptedException e) {
             commonLib.fail("Exception in Method - validateTicket", true);

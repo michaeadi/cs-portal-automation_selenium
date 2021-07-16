@@ -30,11 +30,11 @@ public class LoginPortalTests extends Driver {
             loginAUUID = constants.getValue(CommonConstants.ALL_USER_ROLE_AUUID);
             final String value = constants.getValue(ApplicationConstants.DOMAIN_URL);
             pages.getLoginPage().openBaseURL(value);
-            assertCheck.append(actions.assertEqual_stringType(driver.getCurrentUrl(), value, "Correct URL Opened", "URl isn't as expected"));
+            assertCheck.append(actions.assertEqualStringType(driver.getCurrentUrl(), value, "Correct URL Opened", "URl isn't as expected"));
             pages.getLoginPage().enterAUUID(loginAUUID);
             pages.getLoginPage().clickOnSubmitBtn();
             pages.getLoginPage().enterPassword(PassUtils.decodePassword(constants.getValue(CommonConstants.ALL_USER_ROLE_PASSWORD)));
-            assertCheck.append(actions.assertEqual_boolean(pages.getLoginPage().checkLoginButton(), true, "Login Button is Enabled", "Login Button is NOT enabled"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getLoginPage().checkLoginButton(), true, "Login Button is Enabled", "Login Button is NOT enabled"));
             pages.getLoginPage().clickOnVisibleButton();
             pages.getLoginPage().clickOnVisibleButton();
             pages.getLoginPage().clickOnLogin();
@@ -43,10 +43,10 @@ public class LoginPortalTests extends Driver {
             if (isGrowlVisible) {
                 commonLib.fail("Growl Message:- " + pages.getGrowl().getToastContent(), true);
                 continueExecutionFA = false;
-                assertCheck.append(actions.assertEqual_boolean(continueExecutionFA, true, "User Login Successful Over Portal", "User Login Failed Over Portal"));
+                assertCheck.append(actions.assertEqualBoolean(continueExecutionFA, true, "User Login Successful Over Portal", "User Login Failed Over Portal"));
             } else {
                 final Boolean userManagementPageLoaded = pages.getUserManagementPage().isUserManagementPageLoaded();
-                assertCheck.append(actions.assertEqual_boolean(userManagementPageLoaded, true, "Customer Dashboard Page Loaded Successfully", "Customer Dashboard page NOT Loaded"));
+                assertCheck.append(actions.assertEqualBoolean(userManagementPageLoaded, true, "Customer Dashboard Page Loaded Successfully", "Customer Dashboard page NOT Loaded"));
                 if (!userManagementPageLoaded) {
                     continueExecutionFA = false;
                     continueExecutionBU = false;

@@ -48,7 +48,7 @@ public class UsageHistoryDetailedWidgetTest extends Driver {
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();
             final boolean pageLoaded = pages.getCustomerProfilePage().isCustomerProfilePageLoaded();
-            assertCheck.append(actions.assertEqual_boolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
+            assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
             if (!pageLoaded) continueExecutionFA = false;
         } catch (Exception e) {
             commonLib.fail("Exception in Method - openCustomerInteraction" + e.fillInStackTrace(), true);
@@ -63,14 +63,14 @@ public class UsageHistoryDetailedWidgetTest extends Driver {
             selUtils.addTestcaseDescription("Validate Usage history menu widget header visible and display all the Column name as per config,validate all the filter displayed,Validate all type of cdr displayed.,Validation Pagination display when data displayed on UI.", "description");
             pages.getUsageHistoryWidget().openingMoreDetails();
             Assert.assertTrue(pages.getDetailedUsageHistoryPage().isWidgetDisplay(), "Detailed Usage History Widget does not visible ");
-            assertCheck.append(actions.assertEqual_boolean(pages.getDetailedUsageHistoryPage().isFreeCDR(), true, "Free CDR Option does display on UI.", "Free CDR Option does not display on UI."));
-            assertCheck.append(actions.assertEqual_boolean(pages.getDetailedUsageHistoryPage().isTypeOfCDR(), true, "Type of CDR Option does display on UI.", "Type of CDR Option does not display on UI."));
-            assertCheck.append(actions.assertEqual_boolean(pages.getDetailedUsageHistoryPage().isTodayDateFilter(), true, "Today date filter Option does display on UI.", "Today date filter Option does not display on UI."));
-            assertCheck.append(actions.assertEqual_boolean(pages.getDetailedUsageHistoryPage().isLast2DayDateFilter(), true, "Last 2 Days date filter Option does display on UI.", "Last 2 Days date filter Option does not display on UI."));
-            assertCheck.append(actions.assertEqual_boolean(pages.getDetailedUsageHistoryPage().isLast7DayDateFilter(), true, "Last 7 Days date filter Option does display on UI.", "Last 7 Days date filter Option does not display on UI."));
+            assertCheck.append(actions.assertEqualBoolean(pages.getDetailedUsageHistoryPage().isFreeCDR(), true, "Free CDR Option does display on UI.", "Free CDR Option does not display on UI."));
+            assertCheck.append(actions.assertEqualBoolean(pages.getDetailedUsageHistoryPage().isTypeOfCDR(), true, "Type of CDR Option does display on UI.", "Type of CDR Option does not display on UI."));
+            assertCheck.append(actions.assertEqualBoolean(pages.getDetailedUsageHistoryPage().isTodayDateFilter(), true, "Today date filter Option does display on UI.", "Today date filter Option does not display on UI."));
+            assertCheck.append(actions.assertEqualBoolean(pages.getDetailedUsageHistoryPage().isLast2DayDateFilter(), true, "Last 2 Days date filter Option does display on UI.", "Last 2 Days date filter Option does not display on UI."));
+            assertCheck.append(actions.assertEqualBoolean(pages.getDetailedUsageHistoryPage().isLast7DayDateFilter(), true, "Last 7 Days date filter Option does display on UI.", "Last 7 Days date filter Option does not display on UI."));
             usageHistoryAPI = api.usageHistoryMenuTest(customerNumber);
             final int statusCode = usageHistoryAPI.getStatusCode();
-            assertCheck.append(actions.assertEqual_intType(statusCode, 200, "Usage History Detailed Widget API success and status code is :" + statusCode, "Usage History Detailed Widget API got failed and status code is :" + statusCode));
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Usage History Detailed Widget API success and status code is :" + statusCode, "Usage History Detailed Widget API got failed and status code is :" + statusCode));
             if (statusCode != 200) {
                 commonLib.fail("API is Unable to Get usage history for Customer", false);
             } else if (usageHistoryAPI.getResult().size() > 0) {
@@ -81,10 +81,10 @@ public class UsageHistoryDetailedWidgetTest extends Driver {
                 assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailedUsageHistoryPage().getHeaders(5), data.getRow5(), "Header Name for Row 5 is as expected", "Header Name for Row 5 is not as expected"));
                 assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailedUsageHistoryPage().getHeaders(6), data.getRow6(), "Header Name for Row 6 is as expected", "Header Name for Row 6 is not as expected"));
                 assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailedUsageHistoryPage().getHeaders(7), data.getRow7(), "Header Name for Row 7 is as expected", "Header Name for Row 7 is not as expected"));
-                assertCheck.append(actions.assertEqual_boolean(pages.getDetailedUsageHistoryPage().isPagination(), true, "Pagination does display on UI", "Pagination does not display on UI"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getDetailedUsageHistoryPage().isPagination(), true, "Pagination does display on UI", "Pagination does not display on UI"));
             } else if (usageHistoryAPI.getResult().size() == 0 || usageHistoryAPI.getResult() == null) {
                 commonLib.warning("No Usage History Found for this MSISDN over the CS Portal");
-                assertCheck.append(actions.assertEqual_boolean(pages.getDetailedUsageHistoryPage().getNoResultFound(), true, "No Result Message & icon Visible", "No Result Message is not Visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getDetailedUsageHistoryPage().getNoResultFound(), true, "No Result Message & icon Visible", "No Result Message is not Visible"));
             }
         } catch (Exception e) {
             commonLib.fail("Exception in Method - usageHistoryMenuHeaderTest" + e.fillInStackTrace(), true);
@@ -101,12 +101,12 @@ public class UsageHistoryDetailedWidgetTest extends Driver {
             try {
                 int size = Math.min(usageHistoryAPI.getTotalCount(), 20);
                 final int statusCode = usageHistoryAPI.getStatusCode();
-                assertCheck.append(actions.assertEqual_intType(statusCode, 200, "Usage History Widget API success and status code is :" + statusCode, "Usage History Widget API got failed and status code is :" + statusCode));
+                assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Usage History Widget API success and status code is :" + statusCode, "Usage History Widget API got failed and status code is :" + statusCode));
                 if (statusCode != 200) {
                     commonLib.fail("API is Unable to Get usage history for Customer", false);
                 } else if (usageHistoryAPI.getResult().size() == 0 || usageHistoryAPI.getResult() == null) {
                     commonLib.warning("No Usage History Found for this MSISDN over the CS Portal");
-                    assertCheck.append(actions.assertEqual_boolean(pages.getDetailedUsageHistoryPage().getNoResultFound(), true, "No Result Message & Icon is Visible", "No Result Message is not Visible"));
+                    assertCheck.append(actions.assertEqualBoolean(pages.getDetailedUsageHistoryPage().getNoResultFound(), true, "No Result Message & Icon is Visible", "No Result Message is not Visible"));
                 } else {
                     for (int i = 0; i < size; i++) {
                         assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailedUsageHistoryPage().getValueCorrespondingToHeader(i + 1, 1), usageHistoryAPI.getResult().get(i).getType(), " Type received is as expected on row " + i, " Type received is not as expected on row " + i));
@@ -114,7 +114,7 @@ public class UsageHistoryDetailedWidgetTest extends Driver {
                         assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailedUsageHistoryPage().getValueCorrespondingToHeader(i + 1, 3).trim(), usageHistoryAPI.getResult().get(i).getStartBalance().trim(), "Start Balance received is as expected on row " + i, "Start Balance received is not as expected on row " + i));
                         assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailedUsageHistoryPage().getValueCorrespondingToHeader(i + 1, 4).trim(), usageHistoryAPI.getResult().get(i).getCharges().replace("-","").trim(), "Charges received is as expected on row " + i, "Charges received is not as expected on row " + i));
                         if (usageHistoryAPI.getResult().get(i).getCharges().charAt(0) == '-') {
-                            assertCheck.append(actions.assertEqual_boolean(pages.getDetailedUsageHistoryPage().checkSignDisplay(i + 1), true, "Red Negative Symbol display at row " + i, "Red Negative Symbol does not display at row " + i));
+                            assertCheck.append(actions.assertEqualBoolean(pages.getDetailedUsageHistoryPage().checkSignDisplay(i + 1), true, "Red Negative Symbol display at row " + i, "Red Negative Symbol does not display at row " + i));
                         }
                         assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailedUsageHistoryPage().getValueCorrespondingToHeader(i + 1, 5), usageHistoryAPI.getResult().get(i).getEndBalance(), "End balance received is as expected on row " + i, "End balance received is not as expected on row " + i));
                         if (usageHistoryAPI.getResult().get(i).getDescription() == null) {

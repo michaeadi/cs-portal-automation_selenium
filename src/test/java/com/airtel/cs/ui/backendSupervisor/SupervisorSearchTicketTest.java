@@ -41,7 +41,7 @@ public class SupervisorSearchTicketTest extends Driver {
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().clickOnUserName();
             pages.getSideMenuPage().openSupervisorDashboard();
-            assertCheck.append(actions.assertEqual_stringType(driver.getTitle(), constants.getValue(CommonConstants.SUPERVISOR_TICKET_LIST_PAGE_TITLE), "Agent redirect to ticket list page as expected", "Agent does not redirect to ticket list page as expected"));
+            assertCheck.append(actions.assertEqualStringType(driver.getTitle(), constants.getValue(CommonConstants.SUPERVISOR_TICKET_LIST_PAGE_TITLE), "Agent redirect to ticket list page as expected", "Agent does not redirect to ticket list page as expected"));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - openSupervisorDashboard" + e.fillInStackTrace(), true);
         }
@@ -54,18 +54,18 @@ public class SupervisorSearchTicketTest extends Driver {
             selUtils.addTestcaseDescription("Validate supervisor tickets Meta Data,Validate that supervisor able to see the ticket list" +
                     ",Validate able to see the ticket meta data 'Ticket Number' 'Workgroup Name' 'Ticket Priority' 'Ticket State' 'Ticket Creation date' 'Ticket Queue' 'Category hierarchy [Issue->Issue Type->Issue Sub Type->Issue Sub Sub Type->Category Code]'", "description");
             if (pages.getSupervisorTicketList().isTicketIdLabel()) {
-                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isTicketIdLabel(), true, "Ticket Meta data have Ticket Id field displayed", "Ticket meta data does not have Ticket Id displayed"));
-                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isWorkGroupName(), true, "Ticket Meta data have WorkGroup field displayed", "Ticket meta data does not have WorkGroup displayed"));
-                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isPrioritylabel(), true, "Ticket Meta data have Ticket Priority field displayed", "Ticket meta data does not have Ticket Priority displayed"));
-                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isStateLabel(), true, "Ticket Meta data have Ticket State field displayed", "Ticket meta data does not have Ticket State displayed"));
-                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isCreationDateLabel(), true, "Ticket Meta data have Ticket Creation date field displayed", "Ticket meta data does not have Ticket Creation date displayed"));
-                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isCreatedByLabel(), true, "Ticket Meta data have Ticket Created By field displayed", "Ticket meta data does not have Ticket Created By displayed"));
-                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isQueueLabel(), true, "Ticket Meta data have Ticket Queue field displayed", "Ticket meta data does not have Ticket Queue displayed"));
-                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isIssueLabel(), true, "Ticket Meta data have Ticket Issue field displayed", "Ticket meta data does not have Ticket Issue displayed"));
-                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isIssueTypeLabel(), true, "Ticket Meta data have Ticket Issue Type field displayed", "Ticket meta data does not have Ticket Issue Type displayed"));
-                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isSubTypeLabel(), true, "Ticket Meta data have Ticket Issue Sub Type field displayed", "Ticket meta data does not have Ticket Issue Sub Type displayed"));
-                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isSubSubTypeLabel(), true, "Ticket Meta data have Ticket Issue Sub Sub Type field displayed", "Ticket meta data does not have Ticket Issue Sub Sub Type displayed"));
-                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isCodeLabel(), true, "Ticket Meta data have Ticket Ticket Category Code field displayed", "Ticket meta data does not have Ticket Category Code displayed"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isTicketIdLabel(), true, "Ticket Meta data have Ticket Id field displayed", "Ticket meta data does not have Ticket Id displayed"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isWorkGroupName(), true, "Ticket Meta data have WorkGroup field displayed", "Ticket meta data does not have WorkGroup displayed"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isPrioritylabel(), true, "Ticket Meta data have Ticket Priority field displayed", "Ticket meta data does not have Ticket Priority displayed"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isStateLabel(), true, "Ticket Meta data have Ticket State field displayed", "Ticket meta data does not have Ticket State displayed"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isCreationDateLabel(), true, "Ticket Meta data have Ticket Creation date field displayed", "Ticket meta data does not have Ticket Creation date displayed"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isCreatedByLabel(), true, "Ticket Meta data have Ticket Created By field displayed", "Ticket meta data does not have Ticket Created By displayed"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isQueueLabel(), true, "Ticket Meta data have Ticket Queue field displayed", "Ticket meta data does not have Ticket Queue displayed"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isIssueLabel(), true, "Ticket Meta data have Ticket Issue field displayed", "Ticket meta data does not have Ticket Issue displayed"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isIssueTypeLabel(), true, "Ticket Meta data have Ticket Issue Type field displayed", "Ticket meta data does not have Ticket Issue Type displayed"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isSubTypeLabel(), true, "Ticket Meta data have Ticket Issue Sub Type field displayed", "Ticket meta data does not have Ticket Issue Sub Type displayed"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isSubSubTypeLabel(), true, "Ticket Meta data have Ticket Issue Sub Sub Type field displayed", "Ticket meta data does not have Ticket Issue Sub Sub Type displayed"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isCodeLabel(), true, "Ticket Meta data have Ticket Ticket Category Code field displayed", "Ticket meta data does not have Ticket Category Code displayed"));
             } else {
                 commonLib.warning("Ticket List does not display.", true);
             }
@@ -99,8 +99,8 @@ public class SupervisorSearchTicketTest extends Driver {
                         "Ticket state field value same as expected " + assignmentRule.getTicketState(), "Ticket state field value not same as expected " + assignmentRule.getTicketState()));
                 assertCheck.append(actions.matchStringIgnoreSpecialChar(pages.getSupervisorTicketList().getWorkGroupName(), slaRule.getWorkgroup1(),
                         "Ticket Workgroup field value same as expected " + slaRule.getWorkgroup1(), "Ticket Workgroup field value not same as expected " + slaRule.getWorkgroup1()));
-                assertCheck.append(actions.assertEqual_stringType(UtilsMethods.convertToHR(ticketPOJO.getResult().getCommittedSla()), slaRule.getCommittedSLA(), "Ticket Committed SLA configured Correctly", "Ticket Committed SLA does not configured Correctly"));
-                assertCheck.append(actions.assertEqual_stringType(pages.getSupervisorTicketList().getMSISDN().trim(), ticketPOJO.getResult().getMsisdn().trim(), "User MSISDN is same as expected", "User MSISDN is not same as expected"));
+                assertCheck.append(actions.assertEqualStringType(UtilsMethods.convertToHR(ticketPOJO.getResult().getCommittedSla()), slaRule.getCommittedSLA(), "Ticket Committed SLA configured Correctly", "Ticket Committed SLA does not configured Correctly"));
+                assertCheck.append(actions.assertEqualStringType(pages.getSupervisorTicketList().getMSISDN().trim(), ticketPOJO.getResult().getMsisdn().trim(), "User MSISDN is same as expected", "User MSISDN is not same as expected"));
                 Map<String, Long> sla = ticketPOJO.getResult().getSla();
                 Map<String, String> workGroups = UtilsMethods.getWorkGroups(slaRule);
                 pages.getSupervisorTicketList().compareWorkgroupName(sla, workGroups);
@@ -123,8 +123,8 @@ public class SupervisorSearchTicketTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validate Check Box,Validate Assign to Agent and Transfer to Queue Option on Open Ticket", "description");
             pages.getSupervisorTicketList().clickCheckbox();
-            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isAssignToAgent(), true, "User have option to perform action assign to agent", "User does not have option to perform action assign to agent"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isTransferToQueue(), true, "User have option to perform action Transfer to Queue ", "User does not have option to perform action Transfer to Queue"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isAssignToAgent(), true, "User have option to perform action assign to agent", "User does not have option to perform action assign to agent"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isTransferToQueue(), true, "User have option to perform action Transfer to Queue ", "User does not have option to perform action Transfer to Queue"));
             pages.getSupervisorTicketList().clickCheckbox();
         } catch (Exception e) {
             commonLib.fail("Exception in Method - validateCheckBox" + e.fillInStackTrace(), true);

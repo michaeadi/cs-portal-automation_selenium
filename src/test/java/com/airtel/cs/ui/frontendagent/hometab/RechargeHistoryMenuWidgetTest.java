@@ -46,7 +46,7 @@ public class RechargeHistoryMenuWidgetTest extends Driver {
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();
             final boolean pageLoaded = pages.getCustomerProfilePage().isCustomerProfilePageLoaded();
-            assertCheck.append(actions.assertEqual_boolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
+            assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
             if (!pageLoaded) continueExecutionFA = false;
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -59,17 +59,17 @@ public class RechargeHistoryMenuWidgetTest extends Driver {
     public void rechargeHistoryMenuTest(HeaderDataBean data) {
         try {
             selUtils.addTestcaseDescription("Validating Recharge History's  Menu of User :" + customerNumber + "validate recharge menu widget display all header display as per config,Validate all the data rows must be display as per api response.", "description");
-            assertCheck.append(actions.assertEqual_boolean(pages.getRechargeHistoryWidget().isRechargeHistoryWidgetMenuVisible(), true, "Recharge History's MENU is visible ", "Recharge History's MENU is not visible "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getRechargeHistoryWidget().isRechargeHistoryWidgetMenuVisible(), true, "Recharge History's MENU is visible ", "Recharge History's MENU is not visible "));
             pages.getRechargeHistoryWidget().openingRechargeHistoryDetails();
-            assertCheck.append(actions.assertEqual_boolean(pages.getMoreRechargeHistoryPage().isDatePickerVisible(), true, "Date Picker is visible as expected", "Date picker is not visible "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getMoreRechargeHistoryPage().isDatePickerVisible(), true, "Date Picker is visible as expected", "Date picker is not visible "));
             RechargeHistoryPOJO rechargeHistoryAPI = api.rechargeHistoryAPITest(customerNumber);
             final int statusCode = rechargeHistoryAPI.getStatusCode();
-            assertCheck.append(actions.assertEqual_intType(statusCode, 200, "Recharge History API status code matched and is: " + statusCode, "Recharge History API status code NOT matched and is: " + statusCode));
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Recharge History API status code matched and is: " + statusCode, "Recharge History API status code NOT matched and is: " + statusCode));
             if (statusCode == 200) {
                 int size = pages.getMoreRechargeHistoryPage().getNumbersOfRows();
                 if (rechargeHistoryAPI.getResult().size() == 0 || rechargeHistoryAPI.getResult() == null) {
                     commonLib.warning("Unable to get DATA History Details from CS API");
-                    assertCheck.append(actions.assertEqual_boolean(pages.getMoreRechargeHistoryPage().getNoResultFound(), true, "No Result icon displayed as expected.", "No Result Message is not Visible"));
+                    assertCheck.append(actions.assertEqualBoolean(pages.getMoreRechargeHistoryPage().getNoResultFound(), true, "No Result icon displayed as expected.", "No Result Message is not Visible"));
                 } else {
                     assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getHeaders(1), data.getRow1(), "Header Name for Row 1 is as expected", "Header Name for Row 1 is not as expected"));
                     assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getHeaders(2), data.getRow2(), "Header Name for Row 2 is as expected", "Header Name for Row 2 is not as expected"));
@@ -98,7 +98,7 @@ public class RechargeHistoryMenuWidgetTest extends Driver {
                         assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i + 1, 9), ((rechargeHistoryAPI.getResult().get(i).getOldExpiryDate() == null) ? "-" : UtilsMethods.getDateFromString(rechargeHistoryAPI.getResult().get(i).getOldExpiryDate(), constants.getValue(CommonConstants.API_RECHARGE_HISTORY_PATTERN), constants.getValue(CommonConstants.API_RECHARGE_HISTORY_PATTERN))), "Old Expiry date received is as expected on row " + i, "Old Expiry date received is not as expected on row " + i));
                         assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i + 1, 10).trim(), ((rechargeHistoryAPI.getResult().get(i).getValidity() == null) ? "-" : rechargeHistoryAPI.getResult().get(i).getValidity()), "Validity received is as expected on row " + i, "Validity received is not as expected on row " + i));
                         if (i != 0) {
-                            assertCheck.append(actions.assertEqual_boolean(UtilsMethods.isSortOrderDisplay(pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i, 2), pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i + 1, 2), constants.getValue(CommonConstants.UI_RECHARGE_HISTORY_PATTERN)), true, "In Sort order display on ui as expected", pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i + 1, 2) + "should not display before " + pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i, 2)));
+                            assertCheck.append(actions.assertEqualBoolean(UtilsMethods.isSortOrderDisplay(pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i, 2), pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i + 1, 2), constants.getValue(CommonConstants.UI_RECHARGE_HISTORY_PATTERN)), true, "In Sort order display on ui as expected", pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i + 1, 2) + "should not display before " + pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i, 2)));
                         }
                     }
                 }

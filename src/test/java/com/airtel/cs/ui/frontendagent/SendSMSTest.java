@@ -40,7 +40,7 @@ public class SendSMSTest extends Driver {
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();
             final boolean pageLoaded = pages.getCustomerProfilePage().isCustomerProfilePageLoaded();
-            assertCheck.append(actions.assertEqual_boolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
+            assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
             if (!pageLoaded) continueExecutionFA = false;
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -57,13 +57,13 @@ public class SendSMSTest extends Driver {
             selUtils.addTestcaseDescription("Validating the Send SMS Tab ", "description");
             pages.getCustomerProfilePage().clickOnAction();
             pages.getCustomerProfilePage().openSendSMSTab();
-            assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isPageLoaded(), true, "Send SMS tab open correctly", "Send SMS tab does not open correctly"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isCategory(), true, "Category field is displayed", "Category field does not displayed"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isCustomerNumber(), true, "Customer number displayed", "Customer number does not displayed"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isLanguage(), true, "Language field is displayed", "Language field does not displayed"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isTemplateName(), true, "Template name field is displayed", "Template name field does not display"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isMessageContentEditable(), true, "Message Content Editable", "Message Content is not Editable"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isSendBtnDisabled(), true, "Send SMS button is disabled", "Send SMS button is NOT disabled"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSendSMS().isPageLoaded(), true, "Send SMS tab open correctly", "Send SMS tab does not open correctly"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSendSMS().isCategory(), true, "Category field is displayed", "Category field does not displayed"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSendSMS().isCustomerNumber(), true, "Customer number displayed", "Customer number does not displayed"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSendSMS().isLanguage(), true, "Language field is displayed", "Language field does not displayed"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSendSMS().isTemplateName(), true, "Template name field is displayed", "Template name field does not display"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSendSMS().isMessageContentEditable(), true, "Message Content Editable", "Message Content is not Editable"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSendSMS().isSendBtnDisabled(), true, "Send SMS button is disabled", "Send SMS button is NOT disabled"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - validateSendSMSTab" + e.fillInStackTrace(), true);
@@ -78,14 +78,14 @@ public class SendSMSTest extends Driver {
     public void sendSMS() {
         try {
             selUtils.addTestcaseDescription("Validating the Send SMS Tab ", "description");
-            assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isPageLoaded(), true, "Send SMS tab opened correctly", "Send SMS tab does not open correctly"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSendSMS().isPageLoaded(), true, "Send SMS tab opened correctly", "Send SMS tab does not open correctly"));
             Assert.assertEquals(pages.getSendSMS().getCustomerNumber(), customerNumber, "Customer Number as not same as whose profile opened");
             pages.getSendSMS().selectCategory();
             templateName = pages.getSendSMS().selectTemplateName();
             pages.getSendSMS().selectLanguage();
-            assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().clickSendSMSBtn(), true, "Send SMS is enabled", "Send SMS does not enabled"));
-            assertCheck.append(actions.assertEqual_stringType(pages.getSendSMS().getSendSMSHeaderText(), "SMS Sent", "Send SMS Header Text Matched", "Send SMS Header Text NOT Matched"));
-            assertCheck.append(actions.assertEqual_stringType(pages.getSendSMS().getSMSModalText(), "Message sent successfully to " + customerNumber, "Sens SMS Success Message is Correct", "Sens SMS Success Message is NOT Correct"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSendSMS().clickSendSMSBtn(), true, "Send SMS is enabled", "Send SMS does not enabled"));
+            assertCheck.append(actions.assertEqualStringType(pages.getSendSMS().getSendSMSHeaderText(), "SMS Sent", "Send SMS Header Text Matched", "Send SMS Header Text NOT Matched"));
+            assertCheck.append(actions.assertEqualStringType(pages.getSendSMS().getSMSModalText(), "Message sent successfully to " + customerNumber, "Sens SMS Success Message is Correct", "Sens SMS Success Message is NOT Correct"));
             pages.getSendSMS().clickOutside();
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -103,18 +103,18 @@ public class SendSMSTest extends Driver {
             selUtils.addTestcaseDescription("Check Sent SMS display in message history ", "description");
             pages.getCustomerProfilePage().goToViewHistory();
             pages.getViewHistory().clickOnMessageHistory();
-            assertCheck.append(actions.assertEqual_boolean(pages.getMessageHistoryPage().isMessageTypeColumn(), true, "Message Type Column is displayed on UI", "Message Type Column does not display on UI"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getMessageHistoryPage().isDateSentColumn(), true, "Date Sent Column is displayed on UI", "Date Sent Column does not display on UI"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getMessageHistoryPage().isTemplateColumn(), true, "Template/Event Column is displayed on UI", "Template/Event Column does not display on UI"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getMessageHistoryPage().isMessageLanguageColumn(), true, "Message Language Column is displayed on UI", "Message Language Column does not display on UI"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getMessageHistoryPage().isMessageTextColumn(), true, "Message Text Column is displayed on UI", "Message Text Column does not display on UI"));
-            assertCheck.append(actions.assertEqual_stringNotNull(pages.getMessageHistoryPage().messageType(1).toLowerCase().trim(), constants.getValue(CommonConstants.MANUAL_SMS_TYPE).toLowerCase().trim(), "Message Type is NOT manual"));
-            assertCheck.append(actions.assertEqual_stringNotNull(pages.getMessageHistoryPage().templateEvent(1).toLowerCase().trim(), templateName.toLowerCase().trim(), "Template name not same as sent template."));
+            assertCheck.append(actions.assertEqualBoolean(pages.getMessageHistoryPage().isMessageTypeColumn(), true, "Message Type Column is displayed on UI", "Message Type Column does not display on UI"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getMessageHistoryPage().isDateSentColumn(), true, "Date Sent Column is displayed on UI", "Date Sent Column does not display on UI"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getMessageHistoryPage().isTemplateColumn(), true, "Template/Event Column is displayed on UI", "Template/Event Column does not display on UI"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getMessageHistoryPage().isMessageLanguageColumn(), true, "Message Language Column is displayed on UI", "Message Language Column does not display on UI"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getMessageHistoryPage().isMessageTextColumn(), true, "Message Text Column is displayed on UI", "Message Text Column does not display on UI"));
+            assertCheck.append(actions.assertEqualStringNotNull(pages.getMessageHistoryPage().messageType(1).toLowerCase().trim(), constants.getValue(CommonConstants.MANUAL_SMS_TYPE).toLowerCase().trim(), "Message Type is NOT manual"));
+            assertCheck.append(actions.assertEqualStringNotNull(pages.getMessageHistoryPage().templateEvent(1).toLowerCase().trim(), templateName.toLowerCase().trim(), "Template name not same as sent template."));
             messageContent = pages.getMessageHistoryPage().messageText(1);
-            assertCheck.append(actions.assertEqual_stringNotNull(messageContent, "Message content is not empty.", "Message content can not be empty."));
-            assertCheck.append(actions.assertEqual_boolean(pages.getMessageHistoryPage().isActionBtnEnable(1), true, "Resend SMS icon does not enable"));
-            assertCheck.append(actions.assertEqual_boolean(!pages.getMessageHistoryPage().agentId(1).trim().equalsIgnoreCase("-"), true, "Agent id must is not empty", "Agent id must not be empty"));
-            assertCheck.append(actions.assertEqual_boolean(!pages.getMessageHistoryPage().agentName(1).trim().equalsIgnoreCase("-"), true, "Agent name is not empty", "Agent name must not be empty"));
+            assertCheck.append(actions.assertEqualStringNotNull(messageContent, "Message content is not empty.", "Message content can not be empty."));
+            assertCheck.append(actions.assertEqualBoolean(pages.getMessageHistoryPage().isActionBtnEnable(1), true, "Resend SMS icon does not enable"));
+            assertCheck.append(actions.assertEqualBoolean(!pages.getMessageHistoryPage().agentId(1).trim().equalsIgnoreCase("-"), true, "Agent id must is not empty", "Agent id must not be empty"));
+            assertCheck.append(actions.assertEqualBoolean(!pages.getMessageHistoryPage().agentName(1).trim().equalsIgnoreCase("-"), true, "Agent name is not empty", "Agent name must not be empty"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - checkSendMessageLog" + e.fillInStackTrace(), true);
@@ -130,16 +130,16 @@ public class SendSMSTest extends Driver {
             selUtils.addTestcaseDescription("Re Send SMS using action button in message history", "description");
             pages.getMessageHistoryPage().clickActionBtn(1);
             final String popUpTitle = pages.getMessageHistoryPage().getPopUpTitle();
-            assertCheck.append(actions.assertEqual_stringType(popUpTitle, "Resend Message", "Pop up message matched successully", "Pop up message NOT matched and is: " + popUpTitle));
-            assertCheck.append(actions.assertEqual_boolean(pages.getMessageHistoryPage().getPopUpMessage().contains(customerNumber), true, "Pop up Message tab contain customer number", "Pop up Message tab does not contain customer number"));
+            assertCheck.append(actions.assertEqualStringType(popUpTitle, "Resend Message", "Pop up message matched successully", "Pop up message NOT matched and is: " + popUpTitle));
+            assertCheck.append(actions.assertEqualBoolean(pages.getMessageHistoryPage().getPopUpMessage().contains(customerNumber), true, "Pop up Message tab contain customer number", "Pop up Message tab does not contain customer number"));
             pages.getMessageHistoryPage().clickYesBtn();
-            assertCheck.append(actions.assertEqual_boolean(pages.getMessageHistoryPage().isMessageTypeColumn(), true, "Message Type Column is displayed on UI", "Message Type Column does not display on UI"));
-            assertCheck.append(actions.assertEqual_stringNotNull(pages.getMessageHistoryPage().messageType(1).toLowerCase().trim(), constants.getValue(CommonConstants.MANUAL_SMS_TYPE).toLowerCase().trim(), "Message Type is NOT manual"));
-            assertCheck.append(actions.assertEqual_stringNotNull(pages.getMessageHistoryPage().templateEvent(1).toLowerCase().trim(), templateName.toLowerCase().trim(), "Template name not same as sent template."));
-            assertCheck.append(actions.assertEqual_stringNotNull(pages.getMessageHistoryPage().messageText(1).toLowerCase().trim(), messageContent.toLowerCase().trim(), "Message content is same as set message content."));
-            assertCheck.append(actions.assertEqual_boolean(pages.getMessageHistoryPage().isActionBtnEnable(1), true, "Resend SMS icon does not enable"));
-            assertCheck.append(actions.assertEqual_boolean(!pages.getMessageHistoryPage().agentId(1).trim().equalsIgnoreCase("-"), true, pages.getMessageHistoryPage().agentId(1) + " :Agent id must not be empty"));
-            assertCheck.append(actions.assertEqual_boolean(!pages.getMessageHistoryPage().agentName(1).trim().equalsIgnoreCase("-"), true, pages.getMessageHistoryPage().agentName(1) + " :Agent name must not be empty"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getMessageHistoryPage().isMessageTypeColumn(), true, "Message Type Column is displayed on UI", "Message Type Column does not display on UI"));
+            assertCheck.append(actions.assertEqualStringNotNull(pages.getMessageHistoryPage().messageType(1).toLowerCase().trim(), constants.getValue(CommonConstants.MANUAL_SMS_TYPE).toLowerCase().trim(), "Message Type is NOT manual"));
+            assertCheck.append(actions.assertEqualStringNotNull(pages.getMessageHistoryPage().templateEvent(1).toLowerCase().trim(), templateName.toLowerCase().trim(), "Template name not same as sent template."));
+            assertCheck.append(actions.assertEqualStringNotNull(pages.getMessageHistoryPage().messageText(1).toLowerCase().trim(), messageContent.toLowerCase().trim(), "Message content is same as set message content."));
+            assertCheck.append(actions.assertEqualBoolean(pages.getMessageHistoryPage().isActionBtnEnable(1), true, "Resend SMS icon does not enable"));
+            assertCheck.append(actions.assertEqualBoolean(!pages.getMessageHistoryPage().agentId(1).trim().equalsIgnoreCase("-"), true, pages.getMessageHistoryPage().agentId(1) + " :Agent id must not be empty"));
+            assertCheck.append(actions.assertEqualBoolean(!pages.getMessageHistoryPage().agentName(1).trim().equalsIgnoreCase("-"), true, pages.getMessageHistoryPage().agentName(1) + " :Agent name must not be empty"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - reSendMessageLog" + e.fillInStackTrace(), true);

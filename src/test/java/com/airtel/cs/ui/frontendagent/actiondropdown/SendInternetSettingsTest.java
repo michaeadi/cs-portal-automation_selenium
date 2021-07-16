@@ -25,6 +25,7 @@ public class SendInternetSettingsTest extends Driver {
     String comments = "Adding comment using Automation";
     RequestSource api = new RequestSource();
     private List<ActionConfigResult> actionConfigResultList = null;
+    Boolean popup = true;
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
@@ -52,7 +53,7 @@ public class SendInternetSettingsTest extends Driver {
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();
             final boolean pageLoaded = pages.getCustomerProfilePage().isCustomerProfilePageLoaded();
-            assertCheck.append(actions.assertEqual_boolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
+            assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
             if (!pageLoaded) continueExecutionFA = false;
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -68,7 +69,7 @@ public class SendInternetSettingsTest extends Driver {
             pages.getCustomerProfilePage().clickOnAction();
             pages.getCustomerProfilePage().clickSendInternetSetting();
             modalOpened = true;
-            assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isSendInternetSettingTitleVisible(), true, "Send Internet Setting Tab opened", "Send Internet Setting Tab does NOT opened"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getCustomerProfilePage().isSendInternetSettingTitleVisible(), true, "Send Internet Setting Tab opened", "Send Internet Setting Tab does NOT opened"));
             pages.getCustomerProfilePage().clickCancelBtn();
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
@@ -84,22 +85,28 @@ public class SendInternetSettingsTest extends Driver {
             selUtils.addTestcaseDescription("Open send internet setting modal from actions drop down,Validate issue detail title visible,Select reason and enter comment and click on submit button, Validate success message", "description");
             pages.getCustomerProfilePage().clickOnAction();
             pages.getCustomerProfilePage().clickSendInternetSetting();
-            assertCheck.append(actions.assertEqual_boolean(pages.getAuthTabPage().isIssueDetailTitleVisible(), true, "Issue Detail Configured", "Issue Detail does not configured"));
-            pages.getAuthTabPage().clickSelectReasonDropDown();
-            reason = pages.getAuthTabPage().getReason();
-            pages.getAuthTabPage().chooseReason();
-            pages.getAuthTabPage().enterComment(comments);
-            pages.getAuthTabPage().fillAllInputField(customerNumber);
-            pages.getAuthTabPage().clickSubmitBtn();
+            popup = !pages.getCustomerProfilePage().isSendInternetSettingConfirmMessageVisible();
+            if (popup) {
+                assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isIssueDetailTitleVisible(), true, "Issue Detail Configured", "Issue Detail does not configured"));
+                pages.getAuthTabPage().clickSelectReasonDropDown();
+                reason = pages.getAuthTabPage().getReason();
+                pages.getAuthTabPage().chooseReason();
+                pages.getAuthTabPage().enterComment(comments);
+                pages.getAuthTabPage().clickSubmitBtn();
+                final String toastText = pages.getAuthTabPage().getToastText();
+                assertCheck.append(actions.assertEqualStringType(toastText, "Internet Settings has been sent on Customer`s Device.", "Send Internet Settings Message has been sent to customer successfully", "Send Internet Settings Message hasn't been sent to customer ans message is :-" + toastText));
+            } else {
+                pages.getAuthTabPage().clickYesBtn();
+            }
             final String toastText = pages.getAuthTabPage().getToastText();
-            assertCheck.append(actions.assertEqual_stringType(toastText, "Internet Settings has been sent on Customer`s Device.", "Send Internet Settings Message has been sent to customer successfully", "Send Internet Settings Message hasn't been sent to customer ans message is :-" + toastText));
+            assertCheck.append(actions.assertEqualStringType(toastText, "Internet Settings has been sent on Customer`s Device.", "Send Internet Settings Message has been sent to customer successfully", "Send Internet Settings Message hasn't been sent to customer ans message is :-" + toastText));
             ActionTrailPOJO actionTrailAPI = api.getEventHistory(customerNumber, "ACTION");
             int statusCode = actionTrailAPI.getStatusCode();
-            assertCheck.append(actions.assertEqual_intType(statusCode, 200, "Action Trail API success and status code is :" + statusCode, "Action Trail API got failed and status code is :" + statusCode));
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Action Trail API success and status code is :" + statusCode, "Action Trail API got failed and status code is :" + statusCode,false,true));
             EventResult eventResult = actionTrailAPI.getResult().get(0);
             if (statusCode == 200) {
                 pages.getActionTrailPage().assertMetaInfoAfterActionPerformed(constants.getValue(CommonConstants.SEND_INTERNET_SETTING_ACTION_KEY),eventResult);
-                assertCheck.append(actions.assertEqual_stringNotNull(eventResult.getActionType(), "Action Type of Add FnF as expected", "Action Type of Add FnF as not expected"));
+                assertCheck.append(actions.assertEqualStringNotNull(eventResult.getActionType(), "Action Type of Add FnF as expected", "Action Type of Add FnF as not expected"));
                 assertCheck.append(actions.matchUiAndAPIResponse(eventResult.getComments(), comments, "Comment same as expected.", "Comment same as not expected."));
                 assertCheck.append(actions.matchUiAndAPIResponse(eventResult.getAgentId(), constants.getValue(CommonConstants.ALL_USER_ROLE_AUUID), "Agent id same as expected", "Agent id same as not expected"));
             } else {

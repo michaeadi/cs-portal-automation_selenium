@@ -28,7 +28,7 @@ public class SIMBarUnbarPermissionSeparationTest extends Driver {
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();
             final boolean pageLoaded = pages.getCustomerProfilePage().isCustomerProfilePageLoaded();
-            assertCheck.append(actions.assertEqual_boolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
+            assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
             if (!pageLoaded) continueExecutionFA = false;
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -41,7 +41,7 @@ public class SIMBarUnbarPermissionSeparationTest extends Driver {
         selUtils.addTestcaseDescription("Validate that SIM Bar Option is Available or not under Actions Tab", "description");
         try {
             pages.getCustomerProfilePage().clickOnAction();
-            assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isSuspendSIMOptionVisible(), true, "Suspend SIM Option is Visible under Actions Tab", "Suspend SIM Option is NOT Visible under Actions Tab"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getCustomerProfilePage().isSuspendSIMOptionVisible(), true, "Suspend SIM Option is Visible under Actions Tab", "Suspend SIM Option is NOT Visible under Actions Tab"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - viewSIMBarOption " + e.getMessage(), true);
@@ -63,7 +63,7 @@ public class SIMBarUnbarPermissionSeparationTest extends Driver {
             pages.getMsisdnSearchPage().enterNumber(data.getCustomerNumber());
             pages.getMsisdnSearchPage().clickOnSearch();
             pages.getCustomerProfilePage().clickOnAction();
-            assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isSuspendSIMOptionVisible(), false, "Suspend SIM Option is NOT Visible under Actions Tab, As permission are removed", "Suspend SIM Option is Visible under Actions Tab"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getCustomerProfilePage().isSuspendSIMOptionVisible(), false, "Suspend SIM Option is NOT Visible under Actions Tab, As permission are removed", "Suspend SIM Option is Visible under Actions Tab"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - removeSuspendPermissionFromUM " + e.getMessage(), true);
@@ -85,7 +85,7 @@ public class SIMBarUnbarPermissionSeparationTest extends Driver {
             pages.getMsisdnSearchPage().enterNumber(data.getCustomerNumber());
             pages.getMsisdnSearchPage().clickOnSearch();
             pages.getCustomerProfilePage().clickOnAction();
-            assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isSuspendSIMOptionVisible(), true, "Suspend SIM Option is Visible under Actions Tab, As permission are there", "Suspend SIM Option is NOT Visible under Actions Tab"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getCustomerProfilePage().isSuspendSIMOptionVisible(), true, "Suspend SIM Option is Visible under Actions Tab, As permission are there", "Suspend SIM Option is NOT Visible under Actions Tab"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - giveSuspendPermissionFromUM " + e.getMessage(), true);
@@ -97,11 +97,11 @@ public class SIMBarUnbarPermissionSeparationTest extends Driver {
         selUtils.addTestcaseDescription("Validate SIM Suspend Action", "description");
         try {
             pages.getCustomerProfilePage().openSuspendSIMTab();
-            assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isAuthTabOpenedDoAction(), true, "Authentication Modal Opened", "Authentication Modal NOT Opened"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isSuspendSIMModalOpened(), true, "Suspend SIM Modal Opened Successfully", "Suspend SIM Modal Not Opened"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getCustomerProfilePage().isAuthTabOpenedDoAction(), true, "Authentication Modal Opened", "Authentication Modal NOT Opened"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getCustomerProfilePage().isSuspendSIMModalOpened(), true, "Suspend SIM Modal Opened Successfully", "Suspend SIM Modal Not Opened"));
             pages.getCustomerProfilePage().doSIMBarAction();
             final String modalText = pages.getCustomerProfilePage().getModalText();
-            assertCheck.append(actions.assertEqual_stringType(modalText, "Sim suspend is successful", "Success Message Matched", "Success Message NOT Matched and is -" + modalText));
+            assertCheck.append(actions.assertEqualStringType(modalText, "Sim suspend is successful", "Success Message Matched", "Success Message NOT Matched and is -" + modalText));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - takeActionSIMSuspend " + e.getMessage(), true);
@@ -113,7 +113,7 @@ public class SIMBarUnbarPermissionSeparationTest extends Driver {
         selUtils.addTestcaseDescription("Validate SIM Reactivation Option is visible or not under action tab", "description");
         try {
             pages.getCustomerProfilePage().clickOnAction();
-            assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isReactivationSIMOptionVisible(), true, "Reactivation SIM Option is Visible under Actions Tab", "Reactivation SIM Option is NOT Visible under Actions Tab"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getCustomerProfilePage().isReactivationSIMOptionVisible(), true, "Reactivation SIM Option is Visible under Actions Tab", "Reactivation SIM Option is NOT Visible under Actions Tab"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - testReactivationSIMOptionIsVisible " + e.getMessage(), true);
@@ -135,7 +135,7 @@ public class SIMBarUnbarPermissionSeparationTest extends Driver {
             pages.getMsisdnSearchPage().enterNumber(data.getCustomerNumber());
             pages.getMsisdnSearchPage().clickOnSearch();
             pages.getCustomerProfilePage().clickOnAction();
-            assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isReactivationSIMOptionVisible(), false, "Reactivation SIM Option is NOT Visible under Actions Tab, As permission are removed", "Reactivation SIM Option is Visible under Actions Tab"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getCustomerProfilePage().isReactivationSIMOptionVisible(), false, "Reactivation SIM Option is NOT Visible under Actions Tab, As permission are removed", "Reactivation SIM Option is Visible under Actions Tab"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - removeReactivationPermissionFromUM " + e.getMessage(), true);
@@ -157,11 +157,57 @@ public class SIMBarUnbarPermissionSeparationTest extends Driver {
             pages.getMsisdnSearchPage().enterNumber(data.getCustomerNumber());
             pages.getMsisdnSearchPage().clickOnSearch();
             pages.getCustomerProfilePage().clickOnAction();
-            assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isReactivationSIMOptionVisible(), false, "Reactivation SIM Option is NOT Visible under Actions Tab, As permission are removed", "Reactivation SIM Option is Visible under Actions Tab"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isSuspendSIMOptionVisible(), false, "Suspend SIM Option is Visible under Actions Tab, As permission are there", "Suspend SIM Option is NOT Visible under Actions Tab"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getCustomerProfilePage().isReactivationSIMOptionVisible(), false, "Reactivation SIM Option is NOT Visible under Actions Tab, As permission are removed", "Reactivation SIM Option is Visible under Actions Tab"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getCustomerProfilePage().isSuspendSIMOptionVisible(), false, "Suspend SIM Option is Visible under Actions Tab, As permission are there", "Suspend SIM Option is NOT Visible under Actions Tab"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - removeBothPermissionFromUM " + e.getMessage(), true);
+        }
+    }
+
+    @Test(priority = 9, dependsOnMethods = "openCustomerInteraction", groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void suspendSIMPopupFalse() throws InterruptedException {
+        selUtils.addTestcaseDescription("Validate SIM Suspend Action", "description");
+        try {
+            pages.getCustomerProfilePage().clickOnAction();
+            if(pages.getCustomerProfilePage().isSuspendSIMOptionVisible()){
+                pages.getCustomerProfilePage().openSuspendSIMTab();
+                Boolean popup = !pages.getCustomerProfilePage().isSuspendSIMConfirmMessageVisible();
+                if (!popup) {
+                    pages.getAuthTabPage().clickYesBtn();
+                    final String toastText = pages.getAuthTabPage().getToastText();
+                    assertCheck.append(actions.assertEqualStringType(toastText, "Sim suspend is successful", "Sim suspend is successful", "Sim suspend is unsuccessful :-" + toastText));
+                    pages.getCustomerProfilePage().clickCancelBtn();
+                    actions.assertAllFoundFailedAssert(assertCheck);
+                } else {
+                    pages.getCustomerProfilePage().clickCancelBtn();
+                }
+            }
+        } catch (Exception e) {
+            commonLib.fail("Caught exception in Testcase - suspendSIMPopupFalse " + e.getMessage(), true);
+        }
+    }
+
+    @Test(priority = 10, dependsOnMethods = "openCustomerInteraction", groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void reActivateSIMPopupFalse() {
+        selUtils.addTestcaseDescription("Validate SIM Suspend Action", "description");
+        try {
+            pages.getCustomerProfilePage().clickOnAction();
+            if(pages.getCustomerProfilePage().isReactivationSIMOptionVisible()){
+                pages.getCustomerProfilePage().openSuspendSIMTab();
+                Boolean popup = !pages.getCustomerProfilePage().isReactivateSIMConfirmMessageVisible();
+                if (!popup) {
+                    pages.getAuthTabPage().clickYesBtn();
+                    final String toastText = pages.getAuthTabPage().getToastText();
+                    assertCheck.append(actions.assertEqualStringType(toastText, "Sim reactivate is successful", "Sim reactivate is successful", "Sim reactivate is unsuccessful :-" + toastText));
+                    pages.getCustomerProfilePage().clickCancelBtn();
+                    actions.assertAllFoundFailedAssert(assertCheck);
+                } else {
+                    pages.getCustomerProfilePage().clickCancelBtn();
+                }
+            }
+        } catch (Exception e) {
+            commonLib.fail("Caught exception in Testcase - reActivateSIMPopupFalse " + e.getMessage(), true);
         }
     }
 }

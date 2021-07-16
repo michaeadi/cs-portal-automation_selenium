@@ -45,7 +45,7 @@ public class AuthTabTest extends Driver {
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();
             final boolean pageLoaded = pages.getCustomerProfilePage().isCustomerProfilePageLoaded();
-            assertCheck.append(actions.assertEqual_boolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
+            assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
             if (!pageLoaded) continueExecutionFA = false;
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -60,12 +60,12 @@ public class AuthTabTest extends Driver {
             ConfigurationPOJO config = api.getConfiguration("authorization_data");
             authTabConfig = config.getResult().getAuthDataConfig();
             final String statusCode = config.getStatusCode();
-            assertCheck.append(actions.assertEqual_stringType(statusCode, "200", "Config API Status Code is as Expected and is :" + statusCode, "Config API Status Code is NOT as Expected and is :" + statusCode));
+            assertCheck.append(actions.assertEqualStringType(statusCode, "200", "Config API Status Code is as Expected and is :" + statusCode, "Config API Status Code is NOT as Expected and is :" + statusCode));
             for (Map.Entry mapElement : authTabConfig.entrySet()) {
                 String key = (String) mapElement.getKey();
                 String value = mapElement.getValue().toString();
                 commonLib.info(key + " :" + value);
-                assertCheck.append(actions.assertEqual_stringNotNull(value, "Question Answer values are present For Question Key :" + key + "and value is :" + value, "For Question Key '" + key + "' value is missing. Please configure the same"));
+                assertCheck.append(actions.assertEqualStringNotNull(value, "Question Answer values are present For Question Key :" + key + "and value is :" + value, "For Question Key '" + key + "' value is missing. Please configure the same"));
             }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -83,7 +83,7 @@ public class AuthTabTest extends Driver {
                 final String questionKey = questionAnswer.getQuestionKey();
                 commonLib.info("Question Key: '" + questionKey + "' ; Answer Found in API: '" + authTabConfig.get(questionKey));
                 if (authTabConfig.get(questionKey) != null) {
-                    assertCheck.append(actions.assertEqual_stringType(authTabConfig.get(questionKey), questionAnswer.getAnswerKey(), "Answer Key Validated and is :" + questionKey, "Answer key is not expected for Question: " + questionKey));
+                    assertCheck.append(actions.assertEqualStringType(authTabConfig.get(questionKey), questionAnswer.getAnswerKey(), "Answer Key Validated and is :" + questionKey, "Answer key is not expected for Question: " + questionKey));
                 } else {
                     commonLib.fail("Question Key does not found in Database but present in config sheet.", true);
                 }
@@ -102,7 +102,7 @@ public class AuthTabTest extends Driver {
             ConfigurationPOJO config = api.getConfiguration("locked_sections_keys");
             List<LockedSection> lockedSection = config.getResult().getLockedSectionsKeysConfig();
             final String statusCode = config.getStatusCode();
-            assertCheck.append(actions.assertEqual_stringType(statusCode, "200", "Config API Status Code is as Expected and is :" + statusCode, "Config API Status Code is NOT as Expected and is :" + statusCode));
+            assertCheck.append(actions.assertEqualStringType(statusCode, "200", "Config API Status Code is as Expected and is :" + statusCode, "Config API Status Code is NOT as Expected and is :" + statusCode));
             List<ActionTagDataBeans> actionTags = dataProviders.getActionTag();
             for (LockedSection ls : lockedSection) {
                 final String key = ls.getKey();
@@ -133,11 +133,11 @@ public class AuthTabTest extends Driver {
             pages.getCustomerProfilePage().openAuthTab();
             isTabOpened = true;
             DataProviders data = new DataProviders();
-            assertCheck.append(actions.assertEqual_boolean(pages.getAuthTabPage().isAuthTabLoad(), true, "Authentication tab loaded correctly", "Authentication tab does not load correctly"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isAuthTabLoad(), true, "Authentication tab loaded correctly", "Authentication tab does not load correctly"));
             Map<String, String> questionList = pages.getAuthTabPage().getQuestionAnswer();
             List<AuthTabDataBeans> list = data.getPolicy();
             List<String> questions = data.getPolicyQuestion();
-            assertCheck.append(actions.assertEqual_stringType(pages.getAuthTabPage().getAuthInstruction().toLowerCase().trim(), list.get(0).getPolicyMessage().toLowerCase().trim(), "Policy Message same as configured", "Policy Message not same as configured"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAuthTabPage().getAuthInstruction().toLowerCase().trim(), list.get(0).getPolicyMessage().toLowerCase().trim(), "Policy Message same as configured", "Policy Message not same as configured"));
             for (String s : questions) {
                 String trim = s.replaceAll("[^a-zA-Z]+", "").toLowerCase().trim();
                 if (!questionList.containsKey(trim)) {
@@ -165,10 +165,10 @@ public class AuthTabTest extends Driver {
     public void validateAuthTabMinQuestion() {
         try {
             selUtils.addTestcaseDescription("Verify the Authentication tab Minimum question Configured correctly", "description");
-            assertCheck.append(actions.assertEqual_boolean(pages.getAuthTabPage().isAuthTabLoad(), true, "Authentication tab loaded correctly", "Authentication tab does not load correctly"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getAuthTabPage().isAuthBtnEnable(), false, "Authenticate button in NOT enabled without choosing minimum number of question", "Authenticate button is enable without choosing minimum number of question."));
+            assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isAuthTabLoad(), true, "Authentication tab loaded correctly", "Authentication tab does not load correctly"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isAuthBtnEnable(), false, "Authenticate button in NOT enabled without choosing minimum number of question", "Authenticate button is enable without choosing minimum number of question."));
             pages.getDemoGraphicPage().selectPolicyQuestion();
-            assertCheck.append(actions.assertEqual_boolean(pages.getAuthTabPage().isAuthBtnEnable(), true, "Authenticate button is enabled", "Authenticate Button does not enable after choose minimum number of question"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isAuthBtnEnable(), true, "Authenticate button is enabled", "Authenticate Button does not enable after choose minimum number of question"));
             pages.getAuthTabPage().clickAuthBtn();
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -181,9 +181,9 @@ public class AuthTabTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Authenticate User", "description");
             DataProviders data = new DataProviders();
-            assertCheck.append(actions.assertEqual_boolean(pages.getAuthTabPage().isSIMBarPopup(), true, "SIM Bar/Unbar pop up opened", "SIM Bar/Unbar popup does not open"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getAuthTabPage().isIssueDetailTitleVisible(), true, "Issue details configured correctly", "Issue Detail does not configured"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getAuthTabPage().isSubmitBtnEnable(), false, "Submit button Not enabled without comment", "Submit button enable without adding comment"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isSIMBarPopup(), true, "SIM Bar/Unbar pop up opened", "SIM Bar/Unbar popup does not open"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isIssueDetailTitleVisible(), true, "Issue details configured correctly", "Issue Detail does not configured"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isSubmitBtnEnable(), false, "Submit button Not enabled without comment", "Submit button enable without adding comment"));
             pages.getAuthTabPage().fillAllInputField("Automation Testing");
             pages.getAuthTabPage().clickSelectReasonDropDown();
             List<String> reason = pages.getAuthTabPage().getReasonConfig();
@@ -200,7 +200,7 @@ public class AuthTabTest extends Driver {
             }
             pages.getAuthTabPage().chooseReason();
             pages.getAuthTabPage().enterComment("Adding comment using Automation");
-            assertCheck.append(actions.assertEqual_boolean(pages.getAuthTabPage().isSubmitBtnEnable(), true, "Submit button does enabled after adding comment", "Submit button does NOT enabled after adding comment"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isSubmitBtnEnable(), true, "Submit button does enabled after adding comment", "Submit button does NOT enabled after adding comment"));
             pages.getAuthTabPage().closeSIMBarPopup();
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException e) {
