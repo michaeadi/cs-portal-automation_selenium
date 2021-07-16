@@ -5,7 +5,7 @@ import com.airtel.cs.commonutils.applicationutils.constants.ESBURIConstants;
 import com.airtel.cs.commonutils.restutils.RestCommonUtils;
 import com.airtel.cs.pojo.request.*;
 import org.apache.commons.lang3.StringUtils;
-import org.json.JSONObject;
+import org.json.simple.JSONObject;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;

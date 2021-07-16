@@ -37,6 +37,7 @@ public class Login extends BasePage {
 
     /**
      * This method use to check enter auuid field visible or not
+     *
      * @return true/false
      */
     public boolean isEnterAUUIDFieldVisible() {
@@ -46,6 +47,7 @@ public class Login extends BasePage {
 
     /**
      * This method use to open url
+     *
      * @param baseURL The URL
      */
     public void openBaseURL(String baseURL) {
@@ -56,11 +58,10 @@ public class Login extends BasePage {
     /**
      * This Method will enter the AUUID once AUUID field is visible
      *
-     * @param auuid      The AUUID
-     * @param timeToWait The wait time
+     * @param auuid The AUUID
      */
-    public void enterAUUID(String auuid, int timeToWait) {
-        if (isVisible(pageElements.enterAUUID, timeToWait)) {
+    public void enterAUUID(String auuid) {
+        if (isVisible(pageElements.enterAUUID) && isClickable(pageElements.enterAUUID)) {
             commonLib.info("Going to enter auuid : " + auuid + " in username");
             enterText(pageElements.enterAUUID, auuid);
         } else {
@@ -68,30 +69,22 @@ public class Login extends BasePage {
         }
     }
 
-    /**
-     * This method use to enter auuid
-     * @param auuid The auuid
-     */
-    public void enterAUUID(String auuid) {
-        enterAUUID(auuid, 5);
-    }
 
     /**
      * This method use to click submit button
      */
     public void clickOnSubmitBtn() {
         commonLib.info("Clicking on Submit button");
-        clickByJavascriptExecutor(pageElements.submitButton);
+        clickAndWaitForLoaderToBeRemoved(pageElements.submitButton);
     }
 
     /**
      * This Method will enter the password once password field is visible
      *
-     * @param password   The password
-     * @param timeToWait The wait time
+     * @param password The password
      */
-    public void enterPassword(String password, int timeToWait) {
-        if (isVisible(pageElements.enterPassword, timeToWait)) {
+    public void enterPassword(String password) {
+        if (isVisible(pageElements.enterPassword) && isClickable(pageElements.enterPassword)) {
             commonLib.info("Going to enter password to Password field");
             enterText(pageElements.enterPassword, password);
         } else {
@@ -100,15 +93,8 @@ public class Login extends BasePage {
     }
 
     /**
-     * This method use to enter password into password field
-     * @param password The password
-     */
-    public void enterPassword(String password) {
-        enterPassword(password, 5);
-    }
-
-    /**
      * This method use to check login button enable or not
+     *
      * @return true/false
      */
     public boolean checkLoginButton() {
@@ -145,6 +131,7 @@ public class Login extends BasePage {
 
     /**
      * This method is use to check login page display or not
+     *
      * @return true/false
      */
     public Boolean isLoginPageDisplayed() {

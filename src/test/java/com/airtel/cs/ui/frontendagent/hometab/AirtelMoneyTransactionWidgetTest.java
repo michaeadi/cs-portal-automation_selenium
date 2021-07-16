@@ -25,7 +25,6 @@ public class AirtelMoneyTransactionWidgetTest extends Driver {
 
     private static String customerNumber = null;
     private final BaseActions actions = new BaseActions();
-    private final String amWidgetId = pages.getAmTxnWidgetPage().getAMWidgetId();
     RequestSource api = new RequestSource();
     public static final String RUN_AIRTEL_MONEY_WIDGET_TEST_CASE = constants.getValue(ApplicationConstants.RUN_AIRTEL_MONEY_WIDGET_TESTCASE);
 
@@ -66,6 +65,7 @@ public class AirtelMoneyTransactionWidgetTest extends Driver {
     @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void airtelMoneyHeaderTest() {
         try {
+            String amWidgetId = pages.getAmTxnWidgetPage().getAMWidgetId();
             selUtils.addTestcaseDescription("Validate Airtel Money Header is Visible,Validate Airtel Money Header Text,Validate Date Picker is visible,Validate Transaction Id Search Box is visible", "description");
             assertCheck.append(actions.assertEqual_boolean(widgetMethods.isWidgetVisible(amWidgetId), true, "Airtel Money Transaction Widget is visible", "Airtel Money Transaction Widget is not visible"));
             assertCheck.append(actions.assertEqual_stringType(widgetMethods.getBottomAuuidText(amWidgetId), loginAUUID, "Auuid shown at the footer of the Airtel Money Txn widget and is correct", "Auuid NOT shown at the footer of Airtel Money Txn widget"));
@@ -110,6 +110,7 @@ public class AirtelMoneyTransactionWidgetTest extends Driver {
             final AMTransactionsWidget amTxnWidgetPage = pages.getAmTxnWidgetPage();
             AirtelMoneyPOJO amTransactionHistoryAPI = api.transactionHistoryAPITest(customerNumber);
             final Integer statusCode = amTransactionHistoryAPI.getStatusCode();
+            String amWidgetId = pages.getAmTxnWidgetPage().getAMWidgetId();
             assertCheck.append(actions.assertEqual_intType(statusCode, 200, "AM Txn API success and status code is :" + statusCode, "AM Txn API got failed and status code is :" + statusCode));
             if (statusCode != 200) {
                 assertCheck.append(actions.assertEqual_boolean(widgetMethods.isWidgetErrorIconDisplay(amWidgetId), true, "API and Widget both are showing error message", "API is Giving error But Widget is not showing error Message on API is " + amTransactionHistoryAPI.getMessage()));
