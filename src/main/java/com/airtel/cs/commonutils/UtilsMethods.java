@@ -1,6 +1,7 @@
 package com.airtel.cs.commonutils;
 
 import com.airtel.cs.api.RequestSource;
+import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.databeans.NftrDataBeans;
 import com.airtel.cs.commonutils.dataproviders.databeans.AssignmentQueueRuleDataBeans;
@@ -23,6 +24,14 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.logging.LogType;
+
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -32,7 +41,6 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.*;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -575,7 +583,7 @@ public class UtilsMethods extends Driver {
         try {
             sd = m_ISO8601Local.parse(zdt.toString());
         } catch (ParseException e) {
-            e.printStackTrace();
+            commonLib.fail( "error in parsing enddate" + e.getMessage(), false);
         }
         Long endDateEpoch = sd.getTime();
         return endDateEpoch;
@@ -596,7 +604,7 @@ public class UtilsMethods extends Driver {
         try {
             sd = m_ISO8601Local.parse(zdt.toString());
         } catch (ParseException e) {
-            e.printStackTrace();
+            commonLib.fail( "error in parsing startdate" + e.getMessage(), false);
         }
         Long startDateEpoch = sd.getTime();
         return startDateEpoch;

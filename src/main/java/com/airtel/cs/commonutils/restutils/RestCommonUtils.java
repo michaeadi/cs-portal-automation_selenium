@@ -47,7 +47,7 @@ public class RestCommonUtils extends Driver {
     public static void commonPostMethod(String endPoint, Object body, String url) {
         RestAssuredConfig restAssuredConfig = CurlRestAssuredConfigFactory.createConfig();
         try {
-            commonLib.info(USING + endPoint + API_FOR_TESTING);
+            commonLib.info(USING + " " + endPoint + " " + API_FOR_TESTING);
             baseURI = url;
             Headers headers = new Headers(map);
             request = given()
@@ -84,7 +84,7 @@ public class RestCommonUtils extends Driver {
     public static void commonGetMethodWithQueryParam(String endPoint, Map<String, Object> queryParam, Integer statusCode) {
         try {
             RestAssuredConfig restAssuredConfig = CurlRestAssuredConfigFactory.createConfig();
-            commonLib.info(USING + endPoint + API_FOR_TESTING);
+            commonLib.info(USING + " " + endPoint + " " + API_FOR_TESTING);
             baseURI = baseUrl;
             Headers headers = new Headers(map);
             request = given()
@@ -119,7 +119,7 @@ public class RestCommonUtils extends Driver {
     public static void commonGetMethod(String endPoint, Headers headers) {
         RestAssuredConfig restAssuredConfig = CurlRestAssuredConfigFactory.createConfig();
         try {
-            commonLib.info(USING + endPoint + API_FOR_TESTING);
+            commonLib.info(USING + " " + endPoint + " " + API_FOR_TESTING);
             baseURI = baseUrl;
             request = given().config(restAssuredConfig).headers(headers).contentType(APPLICATION_JSON);
             queryable = SpecificationQuerier.query(request);

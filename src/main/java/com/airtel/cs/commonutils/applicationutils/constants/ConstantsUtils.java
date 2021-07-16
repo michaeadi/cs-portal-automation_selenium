@@ -22,7 +22,7 @@ public class ConstantsUtils implements Cloneable {
     private static final String OPCO_FILE_PATH = System.getProperty(USER_DIR) + RESOURCES_PROPERTIES + OPCO_CONFIG_FILE_NAME;
     private static final String COMMON_FILE_PATH = System.getProperty(USER_DIR) + RESOURCES_PROPERTIES + COMMON_CONFIG_FILE_NAME;
     private static final String PERMISSION_FILE_PATH = System.getProperty(USER_DIR) + RESOURCES_PROPERTIES + PERMISSION_CONFIG_FILE_NAME;
-    private static final List<String> fileList = Arrays.asList(OPCO_FILE_PATH, PERMISSION_FILE_PATH,COMMON_FILE_PATH);
+    private static final List<String> fileList = Arrays.asList(COMMON_FILE_PATH, PERMISSION_FILE_PATH, OPCO_FILE_PATH);
 
 
     private ConstantsUtils() {
