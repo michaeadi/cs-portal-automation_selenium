@@ -1,18 +1,15 @@
 package com.airtel.cs.ui.simbarunbar;
 
-import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
-import com.airtel.cs.commonutils.dataproviders.TestDatabean;
+import com.airtel.cs.commonutils.dataproviders.databeans.TestDatabean;
 import com.airtel.cs.driver.Driver;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class SIMBarUnbarPermissionSeparationTest extends Driver {
-
-    private final BaseActions actions = new BaseActions();
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {

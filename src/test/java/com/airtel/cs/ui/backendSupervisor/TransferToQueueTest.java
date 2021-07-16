@@ -1,11 +1,11 @@
 package com.airtel.cs.ui.backendSupervisor;
 
-import com.airtel.cs.common.actions.BaseActions;
+import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
-import com.airtel.cs.commonutils.dataproviders.TransferQueueDataBean;
+import com.airtel.cs.commonutils.dataproviders.databeans.TransferQueueDataBean;
 import com.airtel.cs.driver.Driver;
 import io.restassured.http.Headers;
 import org.openqa.selenium.ElementClickInterceptedException;
@@ -87,7 +87,7 @@ public class TransferToQueueTest extends Driver {
                         pages.getTransferToQueue().clickCloseTab();
                     }
                 } catch (NoSuchElementException | TimeoutException e) {
-                    commonLib.fail("No Ticket Found in Selected Queue to perform transfer to queue action" + e.fillInStackTrace(), true);
+                    commonLib.warning("No Ticket Found in Selected Queue to perform transfer to queue action" + e.fillInStackTrace(), true);
                 }
                 try {
                     Assert.assertEquals(pages.getSupervisorTicketList().getQueueValue().toLowerCase().trim(), data.getToQueue().toLowerCase().trim(), "Ticket Does not Transfer to Selected Queue");

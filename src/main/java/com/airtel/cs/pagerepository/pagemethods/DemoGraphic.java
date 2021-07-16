@@ -1,11 +1,10 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
-import com.airtel.cs.commonutils.dataproviders.AuthTabDataBeans;
+import com.airtel.cs.commonutils.dataproviders.databeans.AuthTabDataBeans;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.pagerepository.pageelements.DemoGraphicPage;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -444,7 +443,6 @@ public class DemoGraphic extends BasePage {
         }
         return result;
     }
-
 
     /**
      * This method is use to get Sub Segment

@@ -6,8 +6,8 @@ public class DemoGraphicPage {
     /*
      * Customer Name & DOB & Refresh Icon Element Locator
      * */
-    public By customerNumberSearchBox = By.xpath("//input[(@type='text' or @type='search') and @placeholder='Search']");
-    public By customerName = By.xpath("//app-customer-name/following-sibling::span");
+    public By customerNumberSearchBox = By.xpath("//input[@data-csautomation-key='dashBoardSearchBox']");
+    public By customerName = By.xpath("//span[@class='customer-name ng-star-inserted']/span[1]");
     public By customerDOB = By.xpath("//*[contains(text(),'DOB')]//following-sibling::td/span/span");
     public By customerInfoIcon = By.xpath("//span[@class='customer-name ng-star-inserted']/a");
     public By refreshIcon = By.xpath("//img[@class='refresh-button cursor-pointer']");
@@ -84,7 +84,7 @@ public class DemoGraphicPage {
     public By hoverInfoSegment = By.xpath("//span[contains(text(),'Segment')]//following-sibling::span//img");
     public By serviceClass = By.xpath("//span[contains(text(),'Service Class')]//following-sibling::span");
     public By serviceCategory = By.xpath("//*[contains(text(),'Service Category')]//following-sibling::td");
-    public By subSegment = By.xpath(" //*[contains(text(),'Subsegment')]//following-sibling::td");
+    public By subSegment = By.xpath("//span[contains(text(),'Sub Segment')]//following-sibling::span");
     public By appStatus = By.xpath("//span[contains(text(),'App Status')]//following-sibling::span");
     public By gsmKycStatus = By.xpath("//span[contains(text(),'GSM KYC Status')]//following-sibling::span");
 

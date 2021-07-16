@@ -179,6 +179,11 @@ public class PageCollection {
         return new Growl(driver);
     }
 
+    public WidgetCommonMethod getWidgetCommonMethod(){return new WidgetCommonMethod(driver);}
+
+    public AdjustmentWidget getAdjustmentTabPage(){return new AdjustmentWidget(driver); }
+    public AdjustmentHistory getAdjustmentHistoryPage(){return new AdjustmentHistory(driver); }
+
     public AccountInformationWidget getAccountInformationWidget() {
         return new AccountInformationWidget(driver);
     }
@@ -198,5 +203,4 @@ public class PageCollection {
     public ActiveVasWidget getActiveVasWidgetPage() {
         return new ActiveVasWidget(driver);
     }
-
 }

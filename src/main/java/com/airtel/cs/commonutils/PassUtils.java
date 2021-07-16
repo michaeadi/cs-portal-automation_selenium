@@ -11,5 +11,4 @@ public class PassUtils {
         byte[] decodedBytes = Base64.getDecoder().decode(encodedString);
         return new String(decodedBytes);
     }
-
 }

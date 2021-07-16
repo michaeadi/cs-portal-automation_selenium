@@ -12,7 +12,7 @@ public class DetailedUsageHistoryPage {
     public By typeOfCDR = By.xpath("//div[@data-csautomation-key='DETAILED_USAGE_HISTORY']//form/span[2]");
     public By todayDateFilter = By.xpath("//div[@data-csautomation-key='DETAILED_USAGE_HISTORY']//*//span[contains(text(),'Today')]");
     public By last2DayDateFilter = By.xpath("//div[@data-csautomation-key='DETAILED_USAGE_HISTORY']//*//span[contains(text(),'two days')]");
-    public By last7DayDateFilter = By.xpath("//div[@data-csautomation-key='DETAILED_USAGE_HISTORY']//span[contains(text(),'seven days')]");
+    public By last7DayDateFilter = By.xpath("//div[@data-csautomation-key='DETAILED_USAGE_HISTORY']*//span[contains(text(),'seven days')]");
     public By datePicker = By.xpath("//div[@data-csautomation-key='DETAILED_USAGE_HISTORY']//form/span[4]//input");
 
     /*
@@ -28,5 +28,6 @@ public class DetailedUsageHistoryPage {
     //Pagination Details
     public By pagination = By.xpath("//div[@data-csautomation-key='DETAILED_USAGE_HISTORY']//div[@class='table-data-wrapper ng-star-inserted']/div[@class='pagination ng-star-inserted']/div[1]");
     public By noResultIcon = By.xpath("//div[@data-csautomation-key='DETAILED_USAGE_HISTORY']//div[@class='no-result-found ng-star-inserted']/img");
+    public String widgetIdentifier="//div[@data-csautomation-key='DETAILED_USAGE_HISTORY']";
 
 }

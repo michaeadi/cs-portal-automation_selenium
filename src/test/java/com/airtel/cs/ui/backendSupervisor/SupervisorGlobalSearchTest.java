@@ -1,6 +1,6 @@
 package com.airtel.cs.ui.backendSupervisor;
 
-import com.airtel.cs.common.actions.BaseActions;
+import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.driver.Driver;
@@ -46,7 +46,7 @@ public class SupervisorGlobalSearchTest extends Driver {
                 pages.getSupervisorTicketList().clickSearchBtn();
                 assertCheck.append(actions.assertEqual_stringType(pages.getSupervisorTicketList().getTicketIdValue(), ticketId, "Search Ticket found.", "Search Ticket does not found with Ticket Number: " + ticketId));
             } catch (NoSuchElementException | TimeoutException e) {
-                commonLib.fail("No Ticket Id Found.", true);
+                commonLib.warning("No Ticket Id Found.", true);
             }
             pages.getSupervisorTicketList().clearInputBox();
         } catch (Exception e) {

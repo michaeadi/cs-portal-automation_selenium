@@ -1,29 +1,19 @@
 package com.airtel.cs.ui.frontendagent;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.common.actions.BaseActions;
-import com.airtel.cs.commonutils.PassUtils;
+import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
-import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
-import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pojo.response.LoginPOJO;
 import com.airtel.cs.pojo.response.voucher.VoucherDetail;
 import com.airtel.cs.pojo.response.voucher.VoucherSearchPOJO;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.restassured.http.Header;
-import io.restassured.response.Response;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
-
-import java.util.concurrent.TimeUnit;
 
 import static io.restassured.RestAssured.given;
 

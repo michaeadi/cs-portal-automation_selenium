@@ -21,56 +21,15 @@ public class AMTransactionsWidget extends BasePage {
     }
 
     /**
-     * This method is use to check widget error display or not
-     * @return true/false
-     */
-    public boolean isAirtelMoneyErrorVisible() {
-        final boolean elementVisible = isElementVisible(pageElements.airtelMoneyError);
-        commonLib.info("Validating error is visible when there is Error in API : " + elementVisible);
-        return elementVisible;
-    }
-
-    /**
-     * This method is use to get no result found message
-     * @return String The String
-     */
-    public String gettingAirtelMoneyNoResultFoundMessage() {
-        final String text = getText(pageElements.airtelMoneyNoResultFoundMessage);
-        commonLib.info("Validating error msg message when there is no data from API : " + text);
-        return text;
-    }
-
-    /**
-     * This method is use to check no result found icon visible or not
-     * @return true/false
-     */
-    public boolean isAirtelMoneyNoResultFoundVisible() {
-        final boolean elementVisible = isElementVisible(pageElements.airtelMoneyNoResultFound);
-        commonLib.info("Validating 'No Result Found' msg is visible :- " + elementVisible);
-        return elementVisible;
-    }
-
-    /**
-     * This method use to get header name of AM Widget
-     * @param column The column number
-     * @return String The header name
-     * */
-    public String getHeaders(int column) {
-        String header = readTextOnRows(pageElements.headerRows, column);
-        commonLib.info("Getting header Number " + column + " : " + header);
-        return header;
-    }
-
-    /**
      * This method use to get data value from AM widget based on row and column
-     * @param row The row number
+     * @param row    The row number
      * @param column The column number
      * @return String The  data value
-     * */
+     */
     public String getHeaderValue(int row, int column) {
         String result;
         String attribute;
-        result = getText(By.xpath(pageElements.dataRow + row + pageElements.valueColumns + column + pageElements.columnText));
+        result = widgetMethods.getColumnValue(getAMWidgetId(), row, column);
         if (column == 1) {
             String sign = null;
             attribute = getAttribute(By.xpath(pageElements.dataRow + row + pageElements.amountSign + column + pageElements.amountImg), "src", false);
@@ -98,43 +57,6 @@ public class AMTransactionsWidget extends BasePage {
             commonLib.info("Checking is Airtel Money Widget Visible? " + elementVisible);
         }
         return elementVisible;
-    }
-
-    /*
-    This Method will give us footer auuid shown in AM widget
-     */
-    public String getFooterAuuidAM() {
-        String result;
-        result = getText(pageElements.footerAMAuuid);
-        return result;
-    }
-
-    /*
-    This Method will give us auuid shown in the middle of the AM modal
-     */
-    public String getMiddleAuuidAM() {
-        String result;
-        result = getAttribute(pageElements.middleAMAuuid, "data-auuid", false);
-        return result;
-    }
-
-    /*
-    This Method will get the text of the header
-     */
-    public String getAirtelMoneyTransactionHeaderText() {
-        final String headerText = getText(pageElements.airtelMoneyTransactionHeader);
-        commonLib.info("Airtel Money Widget Header Text is:- " + headerText);
-        return headerText;
-    }
-
-    /**
-     * This method is use to check date picker is visible or not
-     * @return true/false
-     */
-    public boolean isAirtelMoneyWidgetDatePickerVisible() {
-        final By datePicker = pageElements.airtelMoneyDatePicker;
-        commonLib.info("Checking Airtel Money Widget, is Date Picker visible? " + datePicker);
-        return isEnabled(datePicker);
     }
 
     /*
@@ -169,6 +91,7 @@ public class AMTransactionsWidget extends BasePage {
 
     /**
      * This method is use to get airtel money balance
+     *
      * @return String The Value
      */
     public String gettingAirtelMoneyBalance() {
@@ -179,6 +102,7 @@ public class AMTransactionsWidget extends BasePage {
 
     /**
      * This method is use to get secondary AM wallet balance
+     *
      * @return String The String
      */
     public String gettingAirtelMoneyBalance2() {
@@ -201,6 +125,7 @@ public class AMTransactionsWidget extends BasePage {
 
     /**
      * This method use to get title of widget
+     *
      * @return String The value
      */
     public String getWidgetTitle() {
@@ -230,33 +155,8 @@ public class AMTransactionsWidget extends BasePage {
     }
 
     /**
-     * This method is use to check transaction search box visible or not
-     * @return true/false
-     */
-    public Boolean isTransactionIdSearchBoxVisible() {
-        final boolean enabled = isEnabled(pageElements.transactionId);
-        commonLib.info("Checking is Transaction Id Search Box Visible?" + enabled);
-        return enabled;
-    }
-
-    /**
-     * This method is use to write transaction id into transaction id search box
-     */
-    public void writeTransactionId(String id) {
-        enterText(pageElements.transactionId, id);
-    }
-
-    /**
-     * This method is use to click search button
-     */
-    public void clickSearchBtn() {
-        commonLib.info("Clicking on Search Button");
-        clickAndWaitForLoaderToBeRemoved(pageElements.transactionSearchBtn);
-    }
-
-    /**
-     * This method used to double click on transaction id and return the transaction id
-     * @param row The row number
+     * This method is use to double click on transaction id
+     * @param row The row Number
      * @return String The value
      */
     public String doubleClickOnTransactionId(int row) {
@@ -264,6 +164,14 @@ public class AMTransactionsWidget extends BasePage {
         By id = By.xpath(pageElements.dataRow + row + pageElements.transactionIdColumn);
         act.moveToElement(driver.findElement(id)).doubleClick().build().perform();
         return getText(id);
+    }
+
+    /**
+     * This method is use to get Airtel Money transaction widget unique identifier
+     * @return String The Value
+     */
+    public String getAMWidgetId() {
+        return pageElements.amWidgetId;
     }
 
     /**

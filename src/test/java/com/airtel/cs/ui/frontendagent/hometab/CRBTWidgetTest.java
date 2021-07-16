@@ -1,11 +1,11 @@
 package com.airtel.cs.ui.frontendagent.hometab;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.common.actions.BaseActions;
+import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
-import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
+import com.airtel.cs.commonutils.dataproviders.databeans.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pojo.response.crbt.ActivateRingtone;
 import com.airtel.cs.pojo.response.crbt.Top20Ringtone;
@@ -23,20 +23,21 @@ public class CRBTWidgetTest extends Driver {
     private static String customerNumber = null;
     RequestSource api = new RequestSource();
     private final BaseActions actions = new BaseActions();
+    private String crbtWidgetId;
+
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void isCRBTFeatureEnabled() {
+        if (StringUtils.equalsIgnoreCase(constants.getValue(ApplicationConstants.CRBT_WIDGET), "false")) {
+            commonLib.skip("CRBT Widget is NOT Enabled for this Opco=" + OPCO);
+            throw new SkipException("CRBT Widget is NOT Enabled for this Opco=" + OPCO);
+        }
+    }
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
             throw new SkipException("Skipping tests because user NOT able to login Over Portal");
-        }
-    }
-
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
-    public void isResetMe2uFeatureEnabled() {
-        if (StringUtils.equalsIgnoreCase(constants.getValue(ApplicationConstants.CRBT_WIDGET), "false")) {
-            commonLib.skip("CRBT Widget is NOT Enabled for this Opco=" + OPCO);
-            throw new SkipException("CRBT Widget is NOT Enabled for this Opco=" + OPCO);
         }
     }
 
@@ -62,7 +63,8 @@ public class CRBTWidgetTest extends Driver {
     public void testHeaderAndAuuid() {
         try {
             selUtils.addTestcaseDescription("Validate is CRBT Widget Visible,Validate is CRBT Widget Loaded?,Validate Footer and Middle Auuid", "description");
-            assertCheck.append(actions.assertEqual_boolean(pages.getCrbtWidgetPage().isCRBTWidgetDisplay(), true, "CRBT Widget is visible", "CRBT Widget is not visible"));
+            crbtWidgetId=pages.getCrbtWidgetPage().getCRBTWidgetId();
+            assertCheck.append(actions.assertEqual_boolean(widgetMethods.isWidgetVisible(crbtWidgetId), true, "CRBT Widget is visible", "CRBT Widget is not visible"));
             assertCheck.append(actions.assertEqual_boolean(pages.getCrbtWidgetPage().isCRBTHistoryWidgetLoaded(), true, "CRBT Widget Loaded Successfully", "CRBT Widget NOT Loaded Successfully"));
             assertCheck.append(actions.assertEqual_stringType(pages.getCrbtWidgetPage().getFooterAuuidCRBT(), loginAUUID, "Auuid shown at the footer of the CRBT widget and is correct", "Auuid NOT shown at the footer of CRBT widget"));
             assertCheck.append(actions.assertEqual_stringType(pages.getCrbtWidgetPage().getMiddleAuuidCRBT(), loginAUUID, "Auuid shown at the middle of the CRBT widget and is correct", "Auuid NOT shown at the middle of CRBT widget"));

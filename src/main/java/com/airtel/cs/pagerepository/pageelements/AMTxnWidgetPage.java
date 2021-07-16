@@ -27,8 +27,10 @@ public class AMTxnWidgetPage {
     public String resendSMSIcon = "//div[@data-csautomation-key='AIRTEL_MONEY']//div[contains(@class,'table-data-wrapper')]/div[";
     public String resendSMSIcon2 = "]//img[contains(@src,'send')]";
     public String transactionIdColumn = "]/div/div[4]//span";
-    public By footerAMAuuid = By.xpath("//*[data-csautomation-key='AIRTEL_MONEY']//*[@class='auuid-container']");
-    public By middleAMAuuid = By.xpath("//*[data-csautomation-key='AIRTEL_MONEY']");
+    public By footerAMAuuid = By.xpath("//*[@id='AIRTEL_MONEY']//*[@class='auuid-container']");
+    public By middleAMAuuid = By.xpath("//*[@id='AIRTEL_MONEY']");
+
+    public String amWidgetId="//div[@data-csautomation-key='AIRTEL_MONEY']";
   	public By reverseLabel = By.xpath("//*[contains(text(),'ID No.')]//following-sibling::td/span");
     public String reversalIcon="//div[@data-csautomation-key='AIRTEL_MONEY']//div[contains(@class,'table-data-wrapper')]/div[";
     public String reversalIcon2="]//span[contains(@class,'disabled')]";

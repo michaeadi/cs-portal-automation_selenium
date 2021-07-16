@@ -234,6 +234,26 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.CRBTWidgetTest"/>
         </classes>
     </test>
+    <test name="Adjustment Widget Test">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.autoadjustment.AdjustmentTabTest"/>
+        </classes>
+    </test>
+    <test name="Adjustment History Tab Test">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.viewhistorytab.AdjustmentHistoryTest"/>
+        </classes>
+    </test>
     <test name="Widget Visibility Test By Connection Type">
         <groups>
             <run>
@@ -243,7 +263,8 @@
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.widgetvisibility.VisibiltyByCustomerSegment"/>
         </classes>
-    </test>-->
+    </test>
+    -->
     <test name="SIM Bar Unbar Test">
         <groups>
             <run>
@@ -274,7 +295,7 @@
             <class name="com.airtel.cs.ui.ticketsourceapp.TicketSourceAppTest"/>
         </classes>
     </test>
-   <test name="Plan and pack Test">
+    <test name="Plan and pack Test">
         <groups>
             <run>
                 <include name="SanityTest"/>
@@ -313,7 +334,8 @@
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.DetailAccountInfoTest"/>
         </classes>
-    </test>-->
+    </test>
+    -->
     <test name="Create NFTR FTR Tickets TEST">
         <groups>
             <run>

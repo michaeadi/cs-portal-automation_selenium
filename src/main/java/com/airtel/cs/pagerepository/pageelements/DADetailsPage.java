@@ -3,6 +3,12 @@ package com.airtel.cs.pagerepository.pageelements;
 import org.openqa.selenium.By;
 
 public class DADetailsPage {
+
+    /**
+     * Widget Unique Identifier
+     */
+    public String accumulatorWidgetIdentifier="//div[@data-csautomation-key='ACCUMULATORS']";
+
     /**
      * Page Elements of DA Detail Widget
      * */

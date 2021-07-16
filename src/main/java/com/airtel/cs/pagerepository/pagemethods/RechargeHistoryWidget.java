@@ -3,10 +3,10 @@ package com.airtel.cs.pagerepository.pagemethods;
 import com.airtel.cs.pagerepository.pageelements.RechargeHistoryWidgetPage;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
@@ -14,7 +14,7 @@ import org.testng.Assert;
 import java.util.List;
 
 @Log4j2
-public class RechargeHistoryWidget extends BasePage {
+public class RechargeHistoryWidget extends BasePage{
 
     RechargeHistoryWidgetPage pageElements;
     List<WebElement> as;
@@ -42,7 +42,7 @@ public class RechargeHistoryWidget extends BasePage {
      * @return String The value
      */
     public String getHeaders(int column) {
-        String header = getText(By.xpath(pageElements.headerRow + column + pageElements.headerName));
+        String header = pages.getWidgetCommonMethod().getHeaderName(getUniqueIdentifier(),column);
         commonLib.info("Getting header Number " + column + " : " + header);
         return header;
     }
@@ -261,5 +261,9 @@ public class RechargeHistoryWidget extends BasePage {
         String result;
         result = getAttribute(pageElements.middleRHWAuuid, "data-auuid", false);
         return result;
+    }
+
+    public String getUniqueIdentifier(){
+        return pageElements.widgetIdentifier;
     }
 }

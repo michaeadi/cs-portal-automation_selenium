@@ -1,10 +1,10 @@
 package com.airtel.cs.ui.backendSupervisor;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.common.actions.BaseActions;
+import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
-import com.airtel.cs.commonutils.dataproviders.QueueStateDataBeans;
+import com.airtel.cs.commonutils.dataproviders.databeans.QueueStateDataBeans;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pojo.response.ticketlist.QueueStates;
 import com.airtel.cs.pojo.response.ticketlist.TicketPOJO;
@@ -71,7 +71,7 @@ public class StateQueueMappingTest extends Driver {
                 //Re-check
                 ticketId = pages.getSupervisorTicketList().getTicketIdValue();
                 TicketPOJO ticketPOJO = api.ticketMetaDataTest(ticketId);
-                ArrayList<QueueStates> assignState = ticketPOJO.getResult().getQueueStates();
+                List<QueueStates> assignState = ticketPOJO.getResult().getQueueStates();
                 List<String> state = new ArrayList<>();
                 List<String> configState = dataProviders.getQueueState(data.getQueue());
                 if (assignState != null)
@@ -93,7 +93,7 @@ public class StateQueueMappingTest extends Driver {
                     commonLib.fail(s + " :State must be mapped to '" + data.getQueue() + "' as its mention in config.", false);
                 }
             } catch (NoSuchElementException | TimeoutException e) {
-                commonLib.fail("Not able to search Ticket due to following error: " + e.getMessage(), true);
+                commonLib.warning("Not able to search Ticket due to following error: " + e.getMessage(),true);
             }
             pages.getSupervisorTicketList().resetFilter();
         } catch (Exception e) {

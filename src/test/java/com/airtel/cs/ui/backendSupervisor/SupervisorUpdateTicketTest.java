@@ -1,11 +1,11 @@
 package com.airtel.cs.ui.backendSupervisor;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.common.actions.BaseActions;
+import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
-import com.airtel.cs.commonutils.dataproviders.NftrDataBeans;
+import com.airtel.cs.commonutils.dataproviders.databeans.NftrDataBeans;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pojo.response.smshistory.SMSHistoryList;
 import com.airtel.cs.pojo.response.smshistory.SMSHistoryPOJO;
@@ -130,7 +130,7 @@ public class SupervisorUpdateTicketTest extends Driver {
                 pages.getFrontendTicketHistoryPage().getTicketState(1);
                 assertCheck.append(actions.assertEqual_boolean(pages.getFrontendTicketHistoryPage().checkReopen(1), true, "Reopen icon found on closed ticket", "Reopen icon does not found on closed ticket"));
             } else {
-                commonLib.warning("No Ticket Id Closed. SKIP Validate Re-open Icon on Closed Ticket");
+                commonLib.warning("No Ticket Id updated through automation to close state. SKIP Validate Re-open Icon on Closed Ticket");
             }
         } catch (Exception e) {
             commonLib.fail("Exception in Method - validateReopenIcon" + e.fillInStackTrace(), true);
