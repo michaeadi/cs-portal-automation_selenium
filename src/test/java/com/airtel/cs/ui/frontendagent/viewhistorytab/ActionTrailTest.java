@@ -56,7 +56,7 @@ public class ActionTrailTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Verify that Action trail permission should be visible to the logged in agent if action trail permission is enabled in UM, Check User has permission to view Action trail tab", "description");
             String actionTrail = constants.getValue(PermissionConstants.ACTION_TRAIL_TAB_PERMISSION);
-            assertCheck.append(actions.assertEqual_boolean(true, UtilsMethods.isUserHasPermission(new Headers(map), actionTrail), "Action trail permission displayed correctly as per user permission", "Action trail permission does not display correctly as per user permission"));
+            assertCheck.append(actions.assertEqualBoolean(true, UtilsMethods.isUserHasPermission(new Headers(map), actionTrail), "Action trail permission displayed correctly as per user permission", "Action trail permission does not display correctly as per user permission"));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - isUserHasFriendFamilyPermission" + e.fillInStackTrace(), true);
         }
