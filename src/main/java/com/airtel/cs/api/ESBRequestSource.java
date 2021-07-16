@@ -26,37 +26,37 @@ public class ESBRequestSource extends RestCommonUtils {
    */
   public void callprofileESBAPI(String msisdn) {
     try {
-      commonLib.info(ApplicationConstants.DOWNSTREAM_API_CALLING + " - GSM KYC request");
+      commonLib.info(constants.getValue("downstream.api.calling") + " - GSM KYC request");
       queryParam.put("msisdn", msisdn);
       queryParam.put("walletType", "Main");
       commonGetMethodWithQueryParam(constants.getValue("am.profile.service.base.url") + ESBURIConstants.GSM_KYC_REQUEST, queryParam);
       if (response.getStatusCode() != 200) {
-        commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " - GSM KYC request" + response.getStatusCode(), false);
+        commonLib.fail(constants.getValue("downstream.api.error") + " - GSM KYC request" + response.getStatusCode(), false);
       } else {
         commonLib.pass("ESB API GSM KYC request working with data " + response.getBody().prettyPrint());
       }
 
-      commonLib.info(ApplicationConstants.DOWNSTREAM_API_CALLING + " - self care user details");
+      commonLib.info(constants.getValue("downstream.api.calling") + " - self care user details");
       queryParam.put("msisdn", msisdn);
       commonGetMethodWithQueryParam(constants.getValue("gsm.self.care.user.details.api.url") + ESBURIConstants.SELF_CARE_USER_DETAILS,
           queryParam);
       if (response.getStatusCode() != 200) {
-        commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " - self care user details" + response.getStatusCode(), false);
+        commonLib.fail(constants.getValue("downstream.api.error") + " - self care user details" + response.getStatusCode(), false);
       } else {
         commonLib.pass("ESB API self care user details working with data " + response.getBody().prettyPrint());
       }
 
-      commonLib.info(ApplicationConstants.DOWNSTREAM_API_CALLING + " - Device info");
+      commonLib.info(constants.getValue("downstream.api.calling") + " - Device info");
       queryParam.put("msisdn", msisdn);
       commonGetMethodWithQueryParam(constants.getValue("gsm.customer.profile.base.url") + ESBURIConstants.DEVICE_INFO, queryParam);
       if (response.getStatusCode() != 200) {
-        commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " - Device info" + response.getStatusCode(), false);
+        commonLib.fail(constants.getValue("downstream.api.error") + " - Device info" + response.getStatusCode(), false);
       } else {
         commonLib.pass("ESB API Device info working with data " + response.getBody().prettyPrint());
       }
     } catch (Exception exp) {
       commonLib
-          .fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " - Device info/self care user details/GSM KYC request " + exp.getMessage(),
+          .fail(constants.getValue("downstream.api.error") + " - Device info/self care user details/GSM KYC request " + exp.getMessage(),
               false);
     }
   }
@@ -68,17 +68,17 @@ public class ESBRequestSource extends RestCommonUtils {
    */
   public void callAmServiceProfileESBAPI(String msisdn) {
     try {
-      commonLib.info(ApplicationConstants.DOWNSTREAM_API_CALLING + " - KYC request");
+      commonLib.info(constants.getValue("downstream.api.calling") + " - KYC request");
       queryParam.put("msisdn", msisdn);
       queryParam.put("walletType", "Main");
       commonGetMethodWithQueryParam(constants.getValue("am.profile.service.base.url") + ESBURIConstants.GSM_KYC_REQUEST, queryParam);
       if (response.getStatusCode() != 200) {
-        commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " - KYC request" + response.getStatusCode(), false);
+        commonLib.fail(constants.getValue("downstream.api.error") + " - KYC request" + response.getStatusCode(), false);
       } else {
         commonLib.pass("ESB API KYC request working with data " + response.getBody().prettyPrint());
       }
     } catch (Exception exp) {
-      commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " - recharge history/customer profile " + exp.getMessage(), false);
+      commonLib.fail(constants.getValue("downstream.api.error") + " - recharge history/customer profile " + exp.getMessage(), false);
     }
   }
 
@@ -91,18 +91,18 @@ public class ESBRequestSource extends RestCommonUtils {
     try {
       callCustomerProfileV2(msisdn);
 
-      commonLib.info(ApplicationConstants.DOWNSTREAM_API_CALLING + " - gsm kyc");
+      commonLib.info(constants.getValue("downstream.api.calling") + " - gsm kyc");
       JSONObject json = new JSONObject();
       json.put("clientId", constants.getValue("kyc.client.id"));
       json.put("clientSecret", constants.getValue("kyc.client.secret"));
       commonPostMethod(constants.getValue("api.kyc.auth.token.url") + ESBURIConstants.TOKEN, json);
       if (response.getStatusCode() != 200) {
-        commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " -  gsm kyc " + response.getStatusCode(), false);
+        commonLib.fail(constants.getValue("downstream.api.error") + " -  gsm kyc " + response.getStatusCode(), false);
       } else {
         commonLib.pass("ESB API gsm kyc working with data " + response.getBody().prettyPrint());
       }
     } catch (Exception exp) {
-      commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " - recharge history/customer profile " + exp.getMessage(), false);
+      commonLib.fail(constants.getValue("downstream.api.error") + " - recharge history/customer profile " + exp.getMessage(), false);
     }
   }
 
@@ -113,16 +113,16 @@ public class ESBRequestSource extends RestCommonUtils {
    */
   public void callCustomerProfileV2(String msisdn) {
     try {
-      commonLib.info(ApplicationConstants.DOWNSTREAM_API_CALLING + " - customer profile V2");
+      commonLib.info(constants.getValue("downstream.api.calling") + " - customer profile V2");
       queryParam.put("msisdn", msisdn);
       commonGetMethodWithQueryParam(constants.getValue("gsm.customer.profile.base.url") + ESBURIConstants.CUSTOMER_PROFILLE, queryParam);
       if (response.getStatusCode() != 200) {
-        commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " - customer profile V2" + response.getStatusCode(), false);
+        commonLib.fail(constants.getValue("downstream.api.error") + " - customer profile V2" + response.getStatusCode(), false);
       } else {
         commonLib.pass("ESB API customer profile V2 working with data " + response.getBody().prettyPrint());
       }
     } catch (Exception e) {
-      commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " -customer profile V2 " + e.getMessage(), false);
+      commonLib.fail(constants.getValue("downstream.api.error") + " -customer profile V2 " + e.getMessage(), false);
     }
   }
 
@@ -133,11 +133,11 @@ public class ESBRequestSource extends RestCommonUtils {
    */
   public void callAccoountPlanESBAPI(String msisdn) {
     try {
-      commonLib.info(ApplicationConstants.DOWNSTREAM_API_CALLING + " - query balance ");
+      commonLib.info(constants.getValue("downstream.api.calling") + " - query balance ");
       queryParam.put("msisdn", msisdn);
       commonGetMethodWithQueryParam(constants.getValue("gsm.customer.profile.base.url") + ESBURIConstants.QUERY_BALANCE, queryParam);
       if (response.getStatusCode() != 200) {
-        commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " - query balance " + response.getStatusCode(), false);
+        commonLib.fail(constants.getValue("downstream.api.error") + " - query balance " + response.getStatusCode(), false);
       } else {
         commonLib.pass("ESB API query balance working with data " + response.getBody().prettyPrint());
       }
@@ -145,7 +145,7 @@ public class ESBRequestSource extends RestCommonUtils {
           Timestamp.valueOf(LocalDateTime.now().minusDays(60).with(LocalTime.of(0, 0, 0))).toInstant().toEpochMilli());
 
     } catch (Exception exp) {
-      commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " - query balance/recharge history " + exp.getMessage(), false);
+      commonLib.fail(constants.getValue("downstream.api.error") + " - query balance/recharge history " + exp.getMessage(), false);
     }
   }
 
@@ -158,18 +158,18 @@ public class ESBRequestSource extends RestCommonUtils {
    */
   public void callRechargeHistory(String msisdn, Long endDate, Long startDate) {
     try {
-      commonLib.info(ApplicationConstants.DOWNSTREAM_API_CALLING + " - recharge history ");
+      commonLib.info(constants.getValue("downstream.api.calling") + " - recharge history ");
       queryParam.put("msisdn", msisdn);
       queryParam.put("endDate", endDate);
       queryParam.put("startDate", startDate);
       commonGetMethodWithQueryParam(constants.getValue("gsm.customer.profile.base.url") + ESBURIConstants.RECHARGE_HISTORY, queryParam);
       if (response.getStatusCode() != 200) {
-        commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " - recharge history " + response.getStatusCode(), false);
+        commonLib.fail(constants.getValue("downstream.api.error") + " - recharge history " + response.getStatusCode(), false);
       } else {
         commonLib.pass("ESB API recharge history working with data " + response.getBody().prettyPrint());
       }
     } catch (Exception e) {
-      commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " -recharge history " + e.getMessage(), false);
+      commonLib.fail(constants.getValue("downstream.api.error") + " -recharge history " + e.getMessage(), false);
     }
   }
 
@@ -180,18 +180,18 @@ public class ESBRequestSource extends RestCommonUtils {
    */
   public void callVoucherDetails(String voucherId) {
     try {
-      commonLib.info(ApplicationConstants.DOWNSTREAM_API_CALLING + " - voucher details ");
+      commonLib.info(constants.getValue("downstream.api.calling") + " - voucher details ");
       if (StringUtils.isNotBlank(voucherId)) {
         queryParam.put("serial_number", voucherId);
         commonGetMethodWithQueryParam(constants.getValue("voucher.service.base.url") + ESBURIConstants.VOUCHER_DETAIL, queryParam);
       }
       if (response.getStatusCode() != 200) {
-        commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " - voucher details " + response.getStatusCode(), false);
+        commonLib.fail(constants.getValue("downstream.api.error") + " - voucher details " + response.getStatusCode(), false);
       } else {
         commonLib.pass("ESB API voucher details working with data " + response.getBody().prettyPrint());
       }
     } catch (Exception e) {
-      commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " -voucher details " + e.getMessage(), false);
+      commonLib.fail(constants.getValue("downstream.api.error") + " -voucher details " + e.getMessage(), false);
     }
   }
 
@@ -202,16 +202,16 @@ public class ESBRequestSource extends RestCommonUtils {
    */
   public void callVoucherRefilBarred(String msisdn) {
     try {
-      commonLib.info(ApplicationConstants.DOWNSTREAM_API_CALLING + " - voucher refil barred ");
+      commonLib.info(constants.getValue("downstream.api.calling") + " - voucher refil barred ");
       commonPostMethod(constants.getValue("gsm.customer.profile.base.url") + ESBURIConstants.VOUCHER_REFILL_BARRED,
           new GenericRequest(msisdn));
       if (response.getStatusCode() != 200) {
-        commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " - voucher refil barred " + response.getStatusCode(), false);
+        commonLib.fail(constants.getValue("downstream.api.error") + " - voucher refil barred " + response.getStatusCode(), false);
       } else {
         commonLib.pass("ESB API voucher refil barred working with data " + response.getBody().prettyPrint());
       }
     } catch (Exception e) {
-      commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " -voucher refil barred " + e.getMessage(), false);
+      commonLib.fail(constants.getValue("downstream.api.error") + " -voucher refil barred " + e.getMessage(), false);
     }
   }
 
@@ -222,36 +222,36 @@ public class ESBRequestSource extends RestCommonUtils {
    */
   public void callRingtoneDetailsTest(String msisdn, String searchText) {
     try {
-      commonLib.info(ApplicationConstants.DOWNSTREAM_API_CALLING + " -top twenty ringtone");
+      commonLib.info(constants.getValue("downstream.api.calling") + " -top twenty ringtone");
       commonGetMethod(constants.getValue("vas.service.tune.base.url") + ESBURIConstants.TOP_TWENTY_RINGBACK_TONE);
       if (response.getStatusCode() != 200) {
-        commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " -top twenty ringtone" + response.getStatusCode(), false);
+        commonLib.fail(constants.getValue("downstream.api.error") + " -top twenty ringtone" + response.getStatusCode(), false);
       } else {
         commonLib.pass("ESB API top twenty ringtone working with data " + response.getBody().prettyPrint());
       }
 
-      commonLib.info(ApplicationConstants.DOWNSTREAM_API_CALLING + " -search name tune");
+      commonLib.info(constants.getValue("downstream.api.calling") + " -search name tune");
       queryParam.put("msisdn", msisdn);
       queryParam.put("query", searchText);
       commonGetMethodWithQueryParam(constants.getValue("vas.service.tune.base.url") + ESBURIConstants.SEARCH_NAME_TUNE, queryParam);
       if (response.getStatusCode() != 200) {
-        commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " - search name tune" + response.getStatusCode(), false);
+        commonLib.fail(constants.getValue("downstream.api.error") + " - search name tune" + response.getStatusCode(), false);
       } else {
         commonLib.pass("ESB API search name tune working with data " + response.getBody().prettyPrint());
       }
 
-      commonLib.info(ApplicationConstants.DOWNSTREAM_API_CALLING + " -Generic search api");
+      commonLib.info(constants.getValue("downstream.api.calling") + " -Generic search api");
       queryParam.put("msisdn", msisdn);
       queryParam.put("query", searchText);
       commonGetMethodWithQueryParam(constants.getValue("vas.service.tune.base.url") + ESBURIConstants.GENERIC_SEARCH_API, queryParam);
       if (response.getStatusCode() != 200) {
-        commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " - Generic search api" + response.getStatusCode(), false);
+        commonLib.fail(constants.getValue("downstream.api.error") + " - Generic search api" + response.getStatusCode(), false);
       } else {
         commonLib.pass("ESB API Generic search api working with data " + response.getBody().prettyPrint());
       }
     } catch (Exception exp) {
       commonLib.fail(
-          ApplicationConstants.DOWNSTREAM_API_ERROR + " - top twenty ringtone/search name tune/Generic search api " + exp.getMessage(),
+          constants.getValue("downstream.api.error") + " - top twenty ringtone/search name tune/Generic search api " + exp.getMessage(),
           false);
     }
   }
@@ -263,16 +263,16 @@ public class ESBRequestSource extends RestCommonUtils {
    */
   public void callActiveRingTone(String msisdn) {
     try {
-      commonLib.info(ApplicationConstants.DOWNSTREAM_API_CALLING + " - ring back tone list ");
+      commonLib.info(constants.getValue("downstream.api.calling") + " - ring back tone list ");
       queryParam.put("msisdn", msisdn);
       commonGetMethodWithQueryParam(constants.getValue("vas.service.tune.base.url") + ESBURIConstants.RING_BACK_TONE_LIST, queryParam);
       if (response.getStatusCode() != 200) {
-        commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " - ring back tone list " + response.getStatusCode(), false);
+        commonLib.fail(constants.getValue("downstream.api.error") + " - ring back tone list " + response.getStatusCode(), false);
       } else {
         commonLib.pass("ESB API ring back tone list working with data " + response.getBody().prettyPrint());
       }
     } catch (Exception e) {
-      commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " -ring back tone list " + e.getMessage(), false);
+      commonLib.fail(constants.getValue("downstream.api.error") + " -ring back tone list " + e.getMessage(), false);
     }
   }
 
@@ -283,15 +283,15 @@ public class ESBRequestSource extends RestCommonUtils {
    */
   public void callAccumulatorAPI(String msisdn) {
     try {
-      commonLib.info(ApplicationConstants.DOWNSTREAM_API_CALLING + " - accumulatorAPI ");
+      commonLib.info(constants.getValue("downstream.api.calling") + " - accumulatorAPI ");
       commonPostMethod(constants.getValue("gsm.customer.profile.base.url") + ESBURIConstants.GET_ACCUMULATORS, new GenericRequest(msisdn));
       if (response.getStatusCode() != 200) {
-        commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " - accumulatorAPI " + response.getStatusCode(), false);
+        commonLib.fail(constants.getValue("downstream.api.error") + " - accumulatorAPI " + response.getStatusCode(), false);
       } else {
         commonLib.pass("ESB API accumulatorAPI working with data " + response.getBody().prettyPrint());
       }
     } catch (Exception e) {
-      commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " -accumulatorAPI " + e.getMessage(), false);
+      commonLib.fail(constants.getValue("downstream.api.error") + " -accumulatorAPI " + e.getMessage(), false);
     }
   }
 
@@ -302,16 +302,16 @@ public class ESBRequestSource extends RestCommonUtils {
    */
   public void callHLRFetchDetails(String msisdn) {
     try {
-      commonLib.info(ApplicationConstants.DOWNSTREAM_API_CALLING + " - HLR DETAILS ");
+      commonLib.info(constants.getValue("downstream.api.calling") + " - HLR DETAILS ");
       queryParam.put("msisdn", msisdn);
       commonGetMethodWithQueryParam(constants.getValue("hlr.services.profile.url") + ESBURIConstants.HLR_FETCH_DETAILS, queryParam);
       if (response.getStatusCode() != 200) {
-        commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " - HLR DETAILS " + response.getStatusCode(), false);
+        commonLib.fail(constants.getValue("downstream.api.error") + " - HLR DETAILS " + response.getStatusCode(), false);
       } else {
         commonLib.pass("ESB API accumulatorAPI working with data " + response.getBody().prettyPrint());
       }
     } catch (Exception e) {
-      commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " -HLR DETAILS " + e.getMessage(), false);
+      commonLib.fail(constants.getValue("downstream.api.error") + " -HLR DETAILS " + e.getMessage(), false);
     }
   }
 
@@ -322,15 +322,15 @@ public class ESBRequestSource extends RestCommonUtils {
    */
   public void callAvailableTarrifPlan(GenericRequest genericRequest) {
     try {
-      commonLib.info(ApplicationConstants.DOWNSTREAM_API_CALLING + " - available tariff plans ");
+      commonLib.info(constants.getValue("downstream.api.calling") + " - available tariff plans ");
       commonPostMethod(constants.getValue("product.catalog.service.base.url") + ESBURIConstants.TARIFF_AVAILABLE_PLANS, genericRequest);
       if (response.getStatusCode() != 200) {
-        commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " - available tariff plans " + response.getStatusCode(), false);
+        commonLib.fail(constants.getValue("downstream.api.error") + " - available tariff plans " + response.getStatusCode(), false);
       } else {
         commonLib.pass("ESB API available tariff plans working with data " + response.getBody().prettyPrint());
       }
     } catch (Exception e) {
-      commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " -available tariff plans " + e.getMessage(), false);
+      commonLib.fail(constants.getValue("downstream.api.error") + " -available tariff plans " + e.getMessage(), false);
     }
   }
 
@@ -341,15 +341,15 @@ public class ESBRequestSource extends RestCommonUtils {
    */
   public void callCurrentTarrifPlan(GenericRequest genericRequest) {
     try {
-      commonLib.info(ApplicationConstants.DOWNSTREAM_API_CALLING+ " - current tariff plans ");
+      commonLib.info(constants.getValue("downstream.api.calling")+ " - current tariff plans ");
       commonPostMethod(constants.getValue("product.catalog.service.base.url") + ESBURIConstants.TARIFF_CURRENT_PLAN, genericRequest);
       if (response.getStatusCode() != 200) {
-        commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " - current tariff plans " + response.getStatusCode(), false);
+        commonLib.fail(constants.getValue("downstream.api.error") + " - current tariff plans " + response.getStatusCode(), false);
       } else {
         commonLib.pass("ESB API current tariff plans working with data " + response.getBody().prettyPrint());
       }
     } catch (Exception e) {
-      commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " -current tariff plans " + e.getMessage(), false);
+      commonLib.fail(constants.getValue("downstream.api.error") + " -current tariff plans " + e.getMessage(), false);
     }
   }
 
@@ -360,15 +360,15 @@ public class ESBRequestSource extends RestCommonUtils {
    */
   public void callOfferDetailsAPI(OfferDetailRequest offerDetailRequest) {
     try {
-      commonLib.info(ApplicationConstants.DOWNSTREAM_API_CALLING + " - offer details ");
+      commonLib.info(constants.getValue("downstream.api.calling") + " - offer details ");
       commonPostMethod(constants.getValue("subscriber.product.base.url") + ESBURIConstants.OFFER_DETAILS, offerDetailRequest);
       if (response.getStatusCode() != 200) {
-        commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " - offer details " + response.getStatusCode(), false);
+        commonLib.fail(constants.getValue("downstream.api.error") + " - offer details " + response.getStatusCode(), false);
       } else {
         commonLib.pass("ESB API offer details working with data " + response.getBody().prettyPrint());
       }
     } catch (Exception e) {
-      commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " -offer details " + e.getMessage(), false);
+      commonLib.fail(constants.getValue("downstream.api.error") + " -offer details " + e.getMessage(), false);
     }
   }
 
@@ -379,15 +379,15 @@ public class ESBRequestSource extends RestCommonUtils {
    */
   public void callFriensFamilyAPI(GenericRequest genericRequest) {
     try {
-      commonLib.info(ApplicationConstants.DOWNSTREAM_API_CALLING + " - friends and family details ");
+      commonLib.info(constants.getValue("downstream.api.calling") + " - friends and family details ");
       commonPostMethod(constants.getValue("subscriber.product.base.url") + ESBURIConstants.FRIENDS_FAMILY, genericRequest);
       if (response.getStatusCode() != 200) {
-        commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " - friends and family details " + response.getStatusCode(), false);
+        commonLib.fail(constants.getValue("downstream.api.error") + " - friends and family details " + response.getStatusCode(), false);
       } else {
         commonLib.pass("ESB API friends and family details working with data " + response.getBody().prettyPrint());
       }
     } catch (Exception e) {
-      commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " -friends and family details " + e.getMessage(), false);
+      commonLib.fail(constants.getValue("downstream.api.error") + " -friends and family details " + e.getMessage(), false);
     }
   }
 
@@ -398,30 +398,30 @@ public class ESBRequestSource extends RestCommonUtils {
    */
   public void callPostpaidAccountInformation(String msisdn) {
     try {
-      commonLib.info(ApplicationConstants.DOWNSTREAM_API_CALLING + " -get credit limit");
+      commonLib.info(constants.getValue("downstream.api.calling") + " -get credit limit");
       queryParam.put("msisdn", msisdn);
       commonGetMethodWithQueryParam(constants.getValue("gsm.customer.profile.base.url") + ESBURIConstants.GET_CREDIT_LIMIT, queryParam);
       if (response.getStatusCode() != 200) {
-        commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " -get credit limit" + response.getStatusCode(), false);
+        commonLib.fail(constants.getValue("downstream.api.error") + " -get credit limit" + response.getStatusCode(), false);
       } else {
         commonLib.pass("ESB API get credit limit working with data " + response.getBody().prettyPrint());
       }
 
-      commonLib.info(ApplicationConstants.DOWNSTREAM_API_CALLING + " -invoice history");
+      commonLib.info(constants.getValue("downstream.api.calling") + " -invoice history");
       queryParam.put("msisdn", msisdn);
       commonGetMethodWithQueryParam(constants.getValue("gsm.customer.profile.base.url") + ESBURIConstants.INVOICE_HISTORY, queryParam);
       if (response.getStatusCode() != 200) {
-        commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " - invoice history" + response.getStatusCode(), false);
+        commonLib.fail(constants.getValue("downstream.api.error") + " - invoice history" + response.getStatusCode(), false);
       } else {
         commonLib.pass("ESB API invoice history working with data " + response.getBody().prettyPrint());
       }
 
-      commonLib.info(ApplicationConstants.DOWNSTREAM_API_CALLING + " -postpaid bill details");
+      commonLib.info(constants.getValue("downstream.api.calling") + " -postpaid bill details");
       queryParam.put("msisdn", msisdn);
       commonGetMethodWithQueryParam(constants.getValue("gsm.customer.profile.base.url") + ESBURIConstants.POSTPAID_BILL_DETAILS,
           queryParam);
       if (response.getStatusCode() != 200) {
-        commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " - postpaid bill details" + response.getStatusCode(), false);
+        commonLib.fail(constants.getValue("downstream.api.error") + " - postpaid bill details" + response.getStatusCode(), false);
       } else {
         commonLib.pass("ESB API postpaid bill details with data " + response.getBody().prettyPrint());
       }
@@ -429,7 +429,7 @@ public class ESBRequestSource extends RestCommonUtils {
       callCustomerProfileV2(msisdn);
     } catch (Exception exp) {
       commonLib
-          .fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " - get credit limit/invoice history/postpaid bill details " + exp.getMessage(),
+          .fail(constants.getValue("downstream.api.error") + " - get credit limit/invoice history/postpaid bill details " + exp.getMessage(),
               false);
     }
   }
@@ -441,7 +441,7 @@ public class ESBRequestSource extends RestCommonUtils {
    */
   public void callUsageHistory(UsageHistoryMenuRequest usageHistoryMenuRequest) {
     try {
-      commonLib.info(ApplicationConstants.DOWNSTREAM_API_CALLING + " -Usage history");
+      commonLib.info(constants.getValue("downstream.api.calling") + " -Usage history");
       queryParam.put("endDate", UtilsMethods.getUTCEndDate(Timestamp.valueOf(LocalDate.now().atTime(LocalTime.MAX)).getTime()));
       queryParam.put("msisdn", usageHistoryMenuRequest.getMsisdn());
       queryParam.put("sortingOrder", "GSM_USAGE_HISTORY DESC");
@@ -451,12 +451,12 @@ public class ESBRequestSource extends RestCommonUtils {
       }
       commonGetMethodWithQueryParam(constants.getValue("gsm.customer.profile.base.url") + ESBURIConstants.USAGE_HISTORY, queryParam);
       if (response.getStatusCode() != 200) {
-        commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " -Usage history" + response.getStatusCode(), false);
+        commonLib.fail(constants.getValue("downstream.api.error") + " -Usage history" + response.getStatusCode(), false);
       } else {
         commonLib.pass("ESB API Usage history working with data " + response.getBody().prettyPrint());
       }
     } catch (Exception exp) {
-      commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " - Usage history " + exp.getMessage(), false);
+      commonLib.fail(constants.getValue("downstream.api.error") + " - Usage history " + exp.getMessage(), false);
     }
   }
 
@@ -467,7 +467,7 @@ public class ESBRequestSource extends RestCommonUtils {
    */
   public void callUsageHistory(UsageHistoryRequest usageHistoryRequest) {
     try {
-      commonLib.info(ApplicationConstants.DOWNSTREAM_API_CALLING + " -Usage history");
+      commonLib.info(constants.getValue("downstream.api.calling") + " -Usage history");
       queryParam.put("endDate", UtilsMethods.getUTCEndDate(Timestamp.valueOf(LocalDate.now().atTime(LocalTime.MAX)).getTime()));
       queryParam.put("msisdn", usageHistoryRequest.getMsisdn());
       queryParam.put("sortingOrder", "GSM_USAGE_HISTORY DESC");
@@ -475,12 +475,12 @@ public class ESBRequestSource extends RestCommonUtils {
       queryParam.put("cdrType", "PAID");
       commonGetMethodWithQueryParam(constants.getValue("gsm.customer.profile.base.url") + ESBURIConstants.USAGE_HISTORY, queryParam);
       if (response.getStatusCode() != 200) {
-        commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " -Usage history" + response.getStatusCode(), false);
+        commonLib.fail(constants.getValue("downstream.api.error") + " -Usage history" + response.getStatusCode(), false);
       } else {
         commonLib.pass("ESB API Usage history working with data " + response.getBody().prettyPrint());
       }
     } catch (Exception exp) {
-      commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " - Usage history " + exp.getMessage(), false);
+      commonLib.fail(constants.getValue("downstream.api.error") + " - Usage history " + exp.getMessage(), false);
     }
   }
 
@@ -490,15 +490,15 @@ public class ESBRequestSource extends RestCommonUtils {
    */
   public void callVendors() {
     try {
-      commonLib.info(ApplicationConstants.DOWNSTREAM_API_CALLING + " -vendor details");
+      commonLib.info(constants.getValue("downstream.api.calling") + " -vendor details");
       commonGetMethod(constants.getValue("vas.service.loan.base.url") + ESBURIConstants.VENDORS);
       if (response.getStatusCode() != 200) {
-        commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " -vendor details" + response.getStatusCode(), false);
+        commonLib.fail(constants.getValue("downstream.api.error") + " -vendor details" + response.getStatusCode(), false);
       } else {
         commonLib.pass("ESB API vendor details working with data " + response.getBody().prettyPrint());
       }
     } catch (Exception exp) {
-      commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " - vendor details " + exp.getMessage(), false);
+      commonLib.fail(constants.getValue("downstream.api.error") + " - vendor details " + exp.getMessage(), false);
     }
   }
 
@@ -509,15 +509,15 @@ public class ESBRequestSource extends RestCommonUtils {
    */
   public void callLoanSummary(LoanRequest loanRequest) {
     try {
-      commonLib.info(ApplicationConstants.DOWNSTREAM_API_CALLING + " - loan summary ");
+      commonLib.info(constants.getValue("downstream.api.calling") + " - loan summary ");
       commonPostMethod(constants.getValue("vas.service.loan.base.url") + ESBURIConstants.LOAN_SUMMARY, loanRequest);
       if (response.getStatusCode() != 200) {
-        commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " - loan summary " + response.getStatusCode(), false);
+        commonLib.fail(constants.getValue("downstream.api.error") + " - loan summary " + response.getStatusCode(), false);
       } else {
         commonLib.pass("ESB API loan summary working with data " + response.getBody().prettyPrint());
       }
     } catch (Exception e) {
-      commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " -loan summary " + e.getMessage(), false);
+      commonLib.fail(constants.getValue("downstream.api.error") + " -loan summary " + e.getMessage(), false);
     }
   }
 
@@ -528,15 +528,15 @@ public class ESBRequestSource extends RestCommonUtils {
    */
   public void callLoanDetails(LoanRequest loanRequest) {
     try {
-      commonLib.info(ApplicationConstants.DOWNSTREAM_API_CALLING + " - loan details ");
+      commonLib.info(constants.getValue("downstream.api.calling") + " - loan details ");
       commonPostMethod(constants.getValue("vas.service.loan.base.url") + ESBURIConstants.LOAN_DETAILS, loanRequest);
       if (response.getStatusCode() != 200) {
-        commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " - loan details " + response.getStatusCode(), false);
+        commonLib.fail(constants.getValue("downstream.api.error") + " - loan details " + response.getStatusCode(), false);
       } else {
         commonLib.pass("ESB API loan details working with data " + response.getBody().prettyPrint());
       }
     } catch (Exception e) {
-      commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " -loan details " + e.getMessage(), false);
+      commonLib.fail(constants.getValue("downstream.api.error") + " -loan details " + e.getMessage(), false);
     }
   }
 }
