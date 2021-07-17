@@ -137,6 +137,7 @@ public class RequestSource extends RestCommonUtils {
             result = response.as(KYCProfile.class);
         } catch (Exception e) {
             commonLib.fail(constants.getValue("cs.portal.api.error") + " - kycProfileAPITest " + e.getMessage(), false);
+            esbRequestSource.callCustomerProfileV2(msisdn);
         }
         return result;
     }
