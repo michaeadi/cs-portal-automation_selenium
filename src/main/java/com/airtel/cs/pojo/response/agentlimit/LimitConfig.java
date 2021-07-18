@@ -1,4 +1,4 @@
-package com.airtel.cs.pojo.response.agents;
+package com.airtel.cs.pojo.response.agentlimit;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -11,7 +11,11 @@ import lombok.ToString;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class RoleDetails {
-    private String roleName;
-    private String id;
+public class LimitConfig {
+    private String featureKey;
+    private String displayName;
+    private String unit;
+    private Integer dailyLimit;
+    private Integer monthlyLimit;
+    private Integer transactionLimit;
 }

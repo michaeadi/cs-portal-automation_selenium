@@ -239,6 +239,16 @@
             <class name="com.airtel.cs.ui.frontendagent.autoadjustment.AdjustmentTabTest"/>
         </classes>
     </test>
+    <test name="Adjustment Agent Limit Test">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.autoadjustment.AdjustmentAgentLimit"/>
+        </classes>
+    </test>
     <test name="Widget Visibility Test By Connection Type">
         <groups>
             <run>
