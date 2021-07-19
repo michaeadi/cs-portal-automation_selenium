@@ -8,6 +8,7 @@ import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pagerepository.pagemethods.AccountInformationWidget;
 import com.airtel.cs.pojo.response.kycprofile.KYCProfile;
 import io.restassured.http.Headers;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;
@@ -187,6 +188,31 @@ public class AccountInformationWidgetTest extends Driver {
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getLastPaymentMode(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "lastPaymentAmount", "lastPaymentMode"), "Last payment mode displays as expected", "Last payment mode not displays as expected"));
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getSecurityDeposit(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "securityDeposit", "securityDeposit"), "Security deposit displays as expected", "Security deposit not displays as expected"));
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getAccountNumber(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "customerAccountNumber", "customerAccountNumber"), "Account Number displayed as expected", "Account Number not displayed as expected"));
+
+
+            if(!"200".equals(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "tempCreditLimit", "statusCode"))){
+                assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getTempCreditCurrency(), "Unable to Fetch Data", "Message shown Unable to Fetch Data as expected", "Message not shown Unable to Fetch Data as expected"));
+            } else {
+                String tempCreditLimitAPI = pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "tempCreditLimit", "tempCreditLimit");
+                if(StringUtils.isEmpty(tempCreditLimitAPI) ){
+                    assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getTempCreditiLimit(), "-", "Temp credit limit displays as expected", "Temp credit limit not displays as expected"));
+                } else {
+                    Integer tempCreditLimit = Integer.valueOf(pages.getAccountInformationWidget().getTempCreditiLimit());
+                    assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getTempCreditCurrency(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currency", "currency"), "Temp credit currency displays as expected", "Temp credit currency not displays as expected"));
+                    assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getTempCreditiLimit(), tempCreditLimitAPI, "Temp credit limit displays as expected", "Temp credit limit not displays as expected"));
+                    if (tempCreditLimit > 0) {
+                        assertCheck.append(actions.assertEqualBoolean(pages.getAccountInformationWidget().isTempCreditLimitInfoVisible(), true, "Temp credit info icon displays as expected", "Temp credit info icon not displays as expected"));
+                        pages.getAccountInformationWidget().hoverOnTempCreditLimitInfoIcon();
+                        String validTillDate = pages.getAccountInformationWidget().getValidTilldate();
+                        assertCheck.append(actions.assertEqualStringType(validTillDate, pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "billEndDate", "billEndDate"), "Vallid till date is same as bill End date of downstream api", "Vallid till date is not same as bill End date of downstream api"));
+                        assertCheck.append(actions.assertEqualStringType(validTillDate, pages.getAccountInformationWidget().getCurrentCycleEndDate(), "Vallid till date is same as Current Cycle End date as expected", "Vallid till date is not same as Current Cycle End date as expected"));
+                    } else {
+                        assertCheck.append(actions.assertEqualBoolean(pages.getAccountInformationWidget().isTempCreditLimitInfoVisible(), false, "Temp credit info icon not displays as expected", "Temp credit info icon displays as not expected"));
+                    }
+                }
+            }
+
+
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - verifyAccountInfoDetailedIcon()" + e.fillInStackTrace(), true);

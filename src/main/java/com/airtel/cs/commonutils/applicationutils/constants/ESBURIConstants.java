@@ -28,4 +28,5 @@ public class ESBURIConstants {
   public static final String GET_CREDIT_LIMIT = "/api/subscriber-profile/v1/get-credit-limit";
   public static final String INVOICE_HISTORY = "/api/subscriber-profile/v1/invoice-history";
   public static final String POSTPAID_BILL_DETAILS = "/api/subscriber-profile/v1/postpaid-bill-details";
+  public static final String POSTPAID_ACCOUNT_DETAILS = "/api/enterprise-service/v1/accounts/statement";
 }

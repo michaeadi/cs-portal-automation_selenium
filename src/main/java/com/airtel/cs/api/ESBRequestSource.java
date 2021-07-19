@@ -539,4 +539,18 @@ public class ESBRequestSource extends RestCommonUtils {
       commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " -loan details " + e.getMessage(), false);
     }
   }
+
+  public void callPostpaidAccountInfoDetails(AccountDetailRequest accountDetailRequest) {
+    try {
+      commonLib.info(ApplicationConstants.DOWNSTREAM_API_CALLING + " - account details ");
+      commonPostMethod(constants.getValue("postpaid.enterprise.serice.base.url") + ESBURIConstants.POSTPAID_ACCOUNT_DETAILS, accountDetailRequest);
+      if (response.getStatusCode() != 200) {
+        commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " - account details " + response.getStatusCode(), false);
+      } else {
+        commonLib.pass("ESB API account details working with data " + response.getBody().prettyPrint());
+      }
+    } catch (Exception e) {
+      commonLib.fail(ApplicationConstants.DOWNSTREAM_API_ERROR + " -account details " + e.getMessage(), false);
+    }
+  }
 }

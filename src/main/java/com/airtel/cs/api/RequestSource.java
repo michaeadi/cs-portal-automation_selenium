@@ -29,6 +29,7 @@ import com.airtel.cs.pojo.response.PlansPOJO;
 import com.airtel.cs.pojo.response.ProfilePOJO;
 import com.airtel.cs.pojo.response.RechargeHistoryPOJO;
 import com.airtel.cs.pojo.response.UsageHistoryPOJO;
+import com.airtel.cs.pojo.response.accountinfo.AccountDetails;
 import com.airtel.cs.pojo.response.accumulators.AccumulatorsPOJO;
 import com.airtel.cs.pojo.response.actionconfig.ActionConfigResponse;
 import com.airtel.cs.pojo.response.actiontrail.ActionTrailPOJO;
@@ -701,6 +702,24 @@ public class RequestSource extends RestCommonUtils {
             esbRequestSource.callPostpaidAccountInformation(msisdn);
         }
         return myList;
+    }
+
+    /**
+     * This Method will hit the API "/cs-gsm-service/v1/postpaid/account/details" and return the response in list
+     *
+     * @param accountNo
+     * @return The Response
+     */
+    public AccountDetails getAccountInfoDetail(String accountNo) {
+        AccountDetails result = null;
+        try {
+            commonPostMethod(URIConstants.POSTPAID_ACCOUNT_DETAILS, new AccountDetailRequest(accountNo));
+            result = response.as(AccountDetails.class);
+        } catch (Exception e) {
+            commonLib.fail(ApplicationConstants.CS_PORTAL_API_ERROR + " - getAccountInfoDetail " + e.getMessage(), false);
+            esbRequestSource.callPostpaidAccountInfoDetails(new AccountDetailRequest(accountNo));
+        }
+        return result;
     }
 
     /**

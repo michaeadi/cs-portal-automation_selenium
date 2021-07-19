@@ -209,4 +209,72 @@ public class AccountInformationWidget extends BasePage {
             }
         return result;
     }
+
+    /*
+       This Method will give us Temp credit limit
+        */
+    public String getTempCreditiLimit() {
+        String result = null;
+        if (isElementVisible(pageElements.tempCreditLimit)) {
+            result = getText(pageElements.tempCreditLimit);
+            commonLib.info("Temp credit limit is: " + result);
+        } else {
+            commonLib.fail("Temp credit limit under Account Information Widget is NOT visible", true);
+        }
+        return result;
+    }
+
+    /*
+       This Method will give us Temp credit limit currency
+        */
+    public String getTempCreditCurrency() {
+        String result = null;
+        if (isElementVisible(pageElements.tempCreditCurrency)) {
+            result = getText(pageElements.tempCreditCurrency);
+            commonLib.info("Temp credit limit currency is: " + result);
+        } else {
+            commonLib.fail("Temp credit limit currency under Account Information Widget is NOT visible", true);
+        }
+        return result;
+    }
+
+    /*
+       This Method will check if Temp credit limit info icon is visible
+        */
+    public Boolean isTempCreditLimitInfoVisible() {
+        Boolean status = isElementVisible(pageElements.tempCreditLimitInfoIcon);
+        commonLib.info("Temp credit limit info icon visibilty is " + status);
+        return status;
+    }
+
+    /**
+     * This method is use to hover on SIM Status info icon
+     */
+    public void hoverOnTempCreditLimitInfoIcon() {
+        commonLib.info("Hover on SIM Status Reason Info icon");
+        hoverOverElement(pageElements.tempCreditLimitInfoIcon);
+    }
+
+    /*
+       This Method will give us Temp credit limit currency
+        */
+    public String getValidTilldate() {
+        String result = null;
+        if (isElementVisible(pageElements.validTillDate)) {
+            result = getText(pageElements.validTillDate);
+            commonLib.info("Valid Till date is: " + result);
+        } else {
+            commonLib.fail("Valid Till date under Account Information Widget is NOT visible", true);
+        }
+        return result;
+    }
+
+    /*
+       This Method will give us current cycle end date
+        */
+    public String getCurrentCycleEndDate() {
+        final String text = getText(pageElements.currentCycleEndDate);
+        commonLib.info(text);
+        return text;
+    }
 }

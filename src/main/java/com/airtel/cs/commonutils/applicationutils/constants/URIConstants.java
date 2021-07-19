@@ -40,6 +40,7 @@ public class URIConstants {
     public static final String POSTPAID_ACCOUNT_INFORMATION = "/cs-gsm-service/v1/postpaid/account/information";
     public static final String ACTION_CONFIG = "/cs-service/api/cs-service/v1/actions/config";
     public static final String GET_FIELD_MASK_CONFIG = "/cs-service/api/cs-service/v1/get/field/mask/config";
+    public static final String POSTPAID_ACCOUNT_DETAILS = "/cs-gsm-service/v1/postpaid/account/details";
 
     private URIConstants() {
 
