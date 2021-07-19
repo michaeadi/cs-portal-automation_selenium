@@ -7,7 +7,11 @@ import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.model.response.loandetails.*;
+import com.airtel.cs.model.response.loandetails.LoanDetailList;
+import com.airtel.cs.model.response.loandetails.LoanRepaymentDetailList;
+import com.airtel.cs.model.response.loandetails.LoanHistory;
+import com.airtel.cs.model.response.loandetails.Loan;
+import com.airtel.cs.model.response.loandetails.LoanRepaymentList;
 import com.airtel.cs.model.response.loansummary.Summary;
 import com.airtel.cs.model.response.vendors.HeaderList;
 import com.airtel.cs.model.response.vendors.VendorNames;
