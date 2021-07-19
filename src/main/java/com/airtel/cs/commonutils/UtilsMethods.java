@@ -49,6 +49,7 @@ import java.util.Map;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
+import java.util.Collections;
 
 @Log4j2
 public class UtilsMethods extends Driver {
@@ -574,12 +575,12 @@ public class UtilsMethods extends Driver {
      * @return List of agent roles
      */
     public static List<RoleDetails> getUserRoles(Headers headers) {
-        AgentDetailPOJO agentDetailAPI = api.getAgentDetail(headers);
-        if (agentDetailAPI.getStatusCode() != 200) {
-            commonLib.fail("Not able to get Agent detail using agent api", false);
-            return null;
+        AgentAttributes agentResult=getAgentDetail(headers);
+        if (agentResult==null) {
+            commonLib.fail(constants.getValue("cs.agent.detail.failure"), false);
+            return Collections.emptyList();
         } else {
-            return agentDetailAPI.getResult().getUserDetails().getUserDetails().getRole();
+            return agentResult.getUserDetails().getUserDetails().getRole();
         }
     }
 
