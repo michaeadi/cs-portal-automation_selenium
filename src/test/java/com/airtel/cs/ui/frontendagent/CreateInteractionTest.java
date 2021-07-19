@@ -9,8 +9,8 @@ import com.airtel.cs.commonutils.dataproviders.FtrDataBeans;
 import com.airtel.cs.commonutils.dataproviders.NftrDataBeans;
 import com.airtel.cs.commonutils.excelutils.WriteToExcel;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pojo.response.smshistory.SMSHistoryList;
-import com.airtel.cs.pojo.response.smshistory.SMSHistoryPOJO;
+import com.airtel.cs.model.response.smshistory.SMSHistoryList;
+import com.airtel.cs.model.response.smshistory.SMSHistory;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.ElementClickInterceptedException;
@@ -83,13 +83,13 @@ public class CreateInteractionTest extends Driver {
             pages.getInteractionsPage().clickOnSave();
             assertCheck.append(actions.assertEqual_boolean(pages.getInteractionsPage().isTicketIdVisible(), true, "Resolved FTR not display", "Resolved FTR does not display"));
             assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getResolvedFTRDisplayed(), "Resolved FTR", "Resolved FTR displayed", "Resolved FTR does not display"));
-            SMSHistoryPOJO smsHistory = api.smsHistoryTest(customerNumber);
+            SMSHistory smsHistory = api.smsHistoryTest(customerNumber);
             SMSHistoryList list = smsHistory.getResult().get(0);
             commonLib.info("Message Sent after Ticket Creation: " + list.getMessageText());
             if(StringUtils.equalsIgnoreCase(data.getMessageConfigured(), "true")) {
             assertCheck.append(actions.assertEqual_boolean(list.getMessageText().contains(issueCode), true, "Message sent to customer for same FTR Category for which Issue has been Created", "Message does not sent to customer for same FTR Category for which Issue has been Created"));
             assertCheck.append(actions.assertEqual_stringType(list.getSmsType(), constants.getValue(CommonConstants.SYSTEM_SMS_TYPE), "Message type is system", "Message type is not system"));
-            assertCheck.append(actions.assertEqual_boolean(list.isAction(), false, "Action button is disabled", "Action button is not disabled"));
+            assertCheck.append(actions.assertEqual_boolean(list.getAction(), false, "Action button is disabled", "Action button is not disabled"));
             assertCheck.append(actions.assertEqual_stringType(list.getTemplateName().toLowerCase().trim(), constants.getValue(CommonConstants.TICKET_CREATED_EVENT).toLowerCase().trim(), "Template event is same as defined", "Template event not same as defined"));
             }
                 pages.getInteractionsPage().closeInteractions();
@@ -314,13 +314,13 @@ public class CreateInteractionTest extends Driver {
                 commonLib.fail("It's FTR not NFTR", true);
             }
             pages.getInteractionsPage().closeInteractions();
-            SMSHistoryPOJO smsHistory = api.smsHistoryTest(customerNumber);
+            SMSHistory smsHistory = api.smsHistoryTest(customerNumber);
             SMSHistoryList list = smsHistory.getResult().get(0);
             commonLib.info("Message Sent after Ticket Creation: " + list.getMessageText());
             try {
                 assertCheck.append(actions.assertEqual_boolean(list.getMessageText().contains(ticketNumber), true, "Message Sent for same ticket id which has been Created", "Message does not send for same ticket id which has been Created"));
                 assertCheck.append(actions.assertEqual_stringType(list.getSmsType().toLowerCase().trim(), constants.getValue(CommonConstants.SYSTEM_SMS_TYPE).toLowerCase().trim(), "Message type is system", "Message type is not system"));
-                assertCheck.append(actions.assertEqual_boolean(list.isAction(), false, "Action button is disabled", "Action button is NOT disabled"));
+                assertCheck.append(actions.assertEqual_boolean(list.getAction(), false, "Action button is disabled", "Action button is NOT disabled"));
                 assertCheck.append(actions.assertEqual_stringType(list.getTemplateName().toLowerCase().trim(), constants.getValue(CommonConstants.TICKET_CREATED_EVENT).toLowerCase().trim(), "Template event is same as defined", "Template event not same as defined"));
             } catch (NullPointerException e) {
                 commonLib.fail("Not able to validate Message sent to customer or not. " + e.getMessage(), true);

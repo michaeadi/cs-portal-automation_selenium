@@ -5,7 +5,7 @@ import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.applicationutils.enums.JavaColors;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pojo.response.ticketlist.TicketPOJO;
+import com.airtel.cs.model.response.ticketlist.Ticket;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -50,7 +50,7 @@ public class AssignToAgentTicketTest extends Driver {
             String ticketQueue = pages.getSupervisorTicketList().getQueueValue();
             String assigneeAUUID = pages.getSupervisorTicketList().getAssigneeAUUID();
             String ticketId = pages.getSupervisorTicketList().getTicketIdValue();
-            TicketPOJO ticketAPI = api.ticketMetaDataTest(ticketId);
+            Ticket ticketAPI = api.ticketMetaDataTest(ticketId);
             if (ticketAPI.getResult().getAssignee() == null) {
                 assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isNotAssigneeDisplay(), true, "In case of ticket Not Assigned to any agent assignee pan displayed correctly", "In case of ticket Not Assigned to any agent assignee pan does not display correctly"));
             } else {

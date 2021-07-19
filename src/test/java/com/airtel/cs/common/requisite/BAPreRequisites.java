@@ -8,7 +8,7 @@ import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.extentreports.ExtentReport;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pojo.response.LoginPOJO;
+import com.airtel.cs.model.response.login.Login;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.response.Response;
@@ -58,12 +58,12 @@ public class BAPreRequisites extends Driver {
     public void addTokenToHeaderMap() throws JsonProcessingException {
         loginAUUID = constants.getValue(CommonConstants.API_BA_USER_AUUID);
         final String password = PassUtils.decodePassword(constants.getValue(CommonConstants.API_BA_USER_PASSWORD));
-        LoginPOJO req = LoginPOJO.loginBody(loginAUUID, password);
+        Login req = Login.loginBody(loginAUUID, password);
         String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(req);
         map.clear();
         pages.getLoginPage().setApiHeader();
         final Response response = pages.getLoginPage().loginAPI(dtoAsString);
-        LoginPOJO loginPOJO = response.as(LoginPOJO.class);
+        Login loginPOJO = response.as(Login.class);
         final String accessToken = loginPOJO.getResult().get("accessToken");
         assertCheck.append(actions.assertEqual_stringNotNull(accessToken, "Access Token Fetched Successfully", "Access Token is Null"));
         final String statusCode = loginPOJO.getStatusCode();

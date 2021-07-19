@@ -4,9 +4,9 @@ import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pojo.response.AccountsBalancePOJO;
-import com.airtel.cs.pojo.response.RechargeHistoryPOJO;
-import com.airtel.cs.pojo.response.UsageHistoryPOJO;
+import com.airtel.cs.model.response.accounts.AccountsBalance;
+import com.airtel.cs.model.response.rechargehistory.RechargeHistory;
+import com.airtel.cs.model.response.usagehistory.UsageHistory;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -51,7 +51,7 @@ public class DataUnitConversionTest extends Driver {
         Double startBalanceAmount = null;
         Double endBalanceAmount = null;
 
-        UsageHistoryPOJO usageHistoryAPI = api.usageHistoryTest(constants.getValue(ApplicationConstants.USAGE_HISTORY_MSISDN));
+        UsageHistory usageHistoryAPI = api.usageHistoryTest(constants.getValue(ApplicationConstants.USAGE_HISTORY_MSISDN));
         if (usageHistoryAPI.getStatusCode() != 200) {
             commonLib.fail("API is unable to give Usage History", false);
         } else if (usageHistoryAPI.getResult().size() == 0 || usageHistoryAPI.getResult() == null) {
@@ -96,7 +96,7 @@ public class DataUnitConversionTest extends Driver {
         String endBalanceUnit = null;
         Double startBalanceAmount = null;
         Double endBalanceAmount = null;
-        UsageHistoryPOJO usageHistoryAPI = api.usageHistoryMenuTest(constants.getValue(ApplicationConstants.USAGE_HISTORY_MSISDN));
+        UsageHistory usageHistoryAPI = api.usageHistoryMenuTest(constants.getValue(ApplicationConstants.USAGE_HISTORY_MSISDN));
         if (usageHistoryAPI.getStatusCode() != 200) {
             commonLib.fail("API is unable to give Usage History", false);
         } else if (usageHistoryAPI.getResult().isEmpty() || usageHistoryAPI.getResult() == null) {
@@ -137,7 +137,7 @@ public class DataUnitConversionTest extends Driver {
     @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void rechargeHistoryUnitConversionTest() {
         selUtils.addTestcaseDescription("Validating Recharge History Widget MB to GB Conversion,CSP-63393 Verify that in Recharge History Widget if the data amount is coming MB from ESB com.airtel.cs.API then CS Portal should show the data amount after converting it to GB", "description");
-        RechargeHistoryPOJO rechargeHistoryAPI = api.rechargeHistoryAPITest(constants.getValue(ApplicationConstants.RECHARGE_HISTORY_MSISDN));
+        RechargeHistory rechargeHistoryAPI = api.rechargeHistoryAPITest(constants.getValue(ApplicationConstants.RECHARGE_HISTORY_MSISDN));
         if (rechargeHistoryAPI.getStatusCode() != 200 || rechargeHistoryAPI.getStatus().equalsIgnoreCase("something went wrong")) {
             commonLib.fail("API is unable to give Recharge History", false);
         } else if (rechargeHistoryAPI.getResult().isEmpty() || rechargeHistoryAPI.getResult() == null) {
@@ -163,7 +163,7 @@ public class DataUnitConversionTest extends Driver {
     @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void daDetailsUnitConversionTest() {
         selUtils.addTestcaseDescription("Validating DA Details History Widget MB to GB Conversion,CSP-63396 Verify that in DA Details Widget if the data amount is coming MB from ESB CS API then CS Portal should show the data amount after converting it to GB", "description");
-        AccountsBalancePOJO plansAPI = api.balanceAPITest(customerNumber);
+        AccountsBalance plansAPI = api.balanceAPITest(customerNumber);
         if (plansAPI.getStatusCode() != 200 || plansAPI.getStatus().equalsIgnoreCase("something went wrong")) {
             commonLib.fail("API is unable to give DA Details History", false);
         } else if (plansAPI.getResult().isEmpty() || plansAPI.getResult() == null) {

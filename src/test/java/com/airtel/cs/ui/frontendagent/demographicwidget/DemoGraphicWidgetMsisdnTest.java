@@ -5,11 +5,11 @@ import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pojo.response.AMProfilePOJO;
-import com.airtel.cs.pojo.response.GsmKycPOJO;
-import com.airtel.cs.pojo.response.PlansPOJO;
-import com.airtel.cs.pojo.response.ProfilePOJO;
-import com.airtel.cs.pojo.response.kycprofile.KYCProfile;
+import com.airtel.cs.model.response.amprofile.AMProfile;
+import com.airtel.cs.model.response.kycprofile.GsmKyc;
+import com.airtel.cs.model.response.plans.Plans;
+import com.airtel.cs.model.response.kycprofile.Profile;
+import com.airtel.cs.model.response.kycprofile.KYCProfile;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.NoSuchElementException;
@@ -99,8 +99,8 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                         "Verify Airtel Money Profile is locked or unlocked, if locked then verify data, else unlock Airtel Money Profile", "description");
                 assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getMiddleAuuidAMP(), loginAUUID, "Auuid is visible at the middle of the Airtel Money Profile widget and is correct", "Auuid is NOT visible at the middle of the Airtel Money Profile widget"));
                 assertCheck.append(actions.assertEqual_stringType(pages.getDemoGraphicPage().getFooterAuuidAMP(), loginAUUID, "Auuid is visible at the footer of the Airtel Money Profile widget and is correct", "Auuid is NOT visible at the footer of the Airtel Money Profile widget"));
-                ProfilePOJO profileAPI = api.profileAPITest(customerNumber);
-                AMProfilePOJO amProfileAPI = api.amServiceProfileAPITest(customerNumber);
+                Profile profileAPI = api.profileAPITest(customerNumber);
+                AMProfile amProfileAPI = api.amServiceProfileAPITest(customerNumber);
                 final int statusCode = profileAPI.getStatusCode();
                 assertCheck.append(actions.assertEqual_intType(statusCode, 200, "Profile API Status Code Matched and is :" + statusCode, "Profile API Status Code NOT Matched and is :" + statusCode));
                 final int amProfileAPIStatusCode = amProfileAPI.getStatusCode();
@@ -158,7 +158,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
         try {
             selUtils.addTestcaseDescription(
                     "Validate Customer Name,Validate Customer DOB,Validate if Customer has Birthday or Anniversary with Airtel", "description");
-            GsmKycPOJO gsmKycAPI = api.gsmKYCAPITest(customerNumber);
+            GsmKyc gsmKycAPI = api.gsmKYCAPITest(customerNumber);
             final int statusCode = gsmKycAPI.getStatusCode();
             assertCheck.append(actions.assertEqual_intType(statusCode, 200, "GSM KYC API Status Code Matched and is :" + statusCode, "GSM KYC API Status Code NOT Matched and is :" + statusCode));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemoGraphicPage().getCustomerName(), gsmKycAPI.getResult().getName(),
@@ -235,9 +235,9 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
     public void testDataManagerAndDeviceCompatible() {
         try {
             selUtils.addTestcaseDescription("Validate Data Manager Status,Validate Device Compatible", "description");
-            PlansPOJO plansAPI = api.accountPlansTest(customerNumber);
+            Plans plansAPI = api.accountPlansTest(customerNumber);
             KYCProfile kycProfile = api.kycProfileAPITest(customerNumber);
-            ProfilePOJO profileAPI = api.profileAPITest(customerNumber);
+            Profile profileAPI = api.profileAPITest(customerNumber);
             final String statusCode = kycProfile.getStatusCode();
             assertCheck.append(actions.assertEqual_stringType(statusCode, "200", "KYC Profile API Status Code Matched and is :" + statusCode, "KYC Profile API Status Code NOT Matched and is :" + statusCode));
             final int profileAPIStatusCode = profileAPI.getStatusCode();
@@ -306,7 +306,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
         try {
             selUtils.addTestcaseDescription(
                     "Validate Device Info like IMEI Number,Validate data on hover like Device Type Brand Device Model and Device OS", "description");
-            ProfilePOJO profileAPI = api.profileAPITest(customerNumber);
+            Profile profileAPI = api.profileAPITest(customerNumber);
             final int profileAPIStatusCode = profileAPI.getStatusCode();
             assertCheck.append(actions.assertEqual_intType(profileAPIStatusCode, 200, "Profile API Status Code Matched and is :" + profileAPIStatusCode, "Profile API Status Code NOT Matched and is :" + profileAPIStatusCode));
             pages.getDemoGraphicPage().hoverOnDeviceInfoIcon();

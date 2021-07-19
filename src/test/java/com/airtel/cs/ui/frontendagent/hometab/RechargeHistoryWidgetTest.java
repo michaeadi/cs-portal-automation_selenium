@@ -9,7 +9,7 @@ import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pagerepository.pagemethods.RechargeHistoryWidget;
-import com.airtel.cs.pojo.response.RechargeHistoryPOJO;
+import com.airtel.cs.model.response.rechargehistory.RechargeHistory;
 import lombok.extern.java.Log;
 import org.apache.commons.lang3.StringUtils;
 import org.testng.SkipException;
@@ -79,7 +79,7 @@ public class RechargeHistoryWidgetTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validating Recharge History Widget of User :" + customerNumber + ",Validate Recharge History API Giving Status 200, Validate Recharge History widget header name display correctly as per config,Validate Recharge History widget data value must be same as api response.", "description");
             final RechargeHistoryWidget rechargeHistoryWidget = pages.getRechargeHistoryWidget();
-            RechargeHistoryPOJO rechargeHistoryAPI = api.rechargeHistoryAPITest(customerNumber);
+            RechargeHistory rechargeHistoryAPI = api.rechargeHistoryAPITest(customerNumber);
             final int statusCode = rechargeHistoryAPI.getStatusCode();
             assertCheck.append(actions.assertEqual_intType(statusCode, 200, "Recharge History API Status Code Matched and is :" + statusCode, "Recharge History API Status NOT Matched and is :" + statusCode));
             if (statusCode != 200 || rechargeHistoryAPI.getStatus().equalsIgnoreCase("something went wrong")) {
