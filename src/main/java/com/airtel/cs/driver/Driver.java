@@ -177,7 +177,7 @@ public class Driver {
             td.text(Driver.OPCO + "/" + Driver.evnName);
             td = table.select("td[class=reportUrl]").first();
             td.text(MODIFIED_HTML_FILE_PATH);
-            final File f = new File(HTML_FILE_PATH + constants.getValue("emailable.report.name") + ".html");
+            final File f = new File(System.getProperty(USER_DIR) + constants.getValue("emailable.report.path"));
             FileUtils.writeStringToFile(f, doc.outerHtml(), StandardCharsets.UTF_8);
 
         } catch (Exception e) {
