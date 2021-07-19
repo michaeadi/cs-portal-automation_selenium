@@ -7,8 +7,8 @@ import lombok.Data;
 @AllArgsConstructor
 public class UsageHistoryMenuRequest {
     private String msisdn;
-    private int pageSize;
-    private int pageNumber;
+    private Integer pageSize;
+    private Integer pageNumber;
     private String typeFilter;
     private String startDate;
     private String endDate;

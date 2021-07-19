@@ -7,6 +7,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class SMSHistoryRequest {
     private String receiverId;
-    private int pageSize;
-    private int pageNumber;
+    private Integer pageSize;
+    private Integer pageNumber;
 }

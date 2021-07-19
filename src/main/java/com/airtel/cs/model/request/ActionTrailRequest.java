@@ -8,6 +8,6 @@ import lombok.Data;
 public class ActionTrailRequest {
     private String msisdn;
     private String eventType;
-    private int pageSize;
-    private int pageNumber;
+    private Integer pageSize;
+    private Integer pageNumber;
 }

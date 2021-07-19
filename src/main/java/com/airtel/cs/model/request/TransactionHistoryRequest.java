@@ -7,8 +7,8 @@ import lombok.Data;
 @AllArgsConstructor
 public class TransactionHistoryRequest {
     private String msisdn;
-    private int pageSize;
-    private int pageNumber;
+    private Integer pageSize;
+    private Integer pageNumber;
     private String startDate;
     private String endDate;
 }

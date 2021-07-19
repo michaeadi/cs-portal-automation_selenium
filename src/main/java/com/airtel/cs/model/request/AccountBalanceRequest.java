@@ -7,6 +7,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class AccountBalanceRequest {
     private String msisdn;
-    private int pageSize;
-    private int pageNumber;
+    private Integer pageSize;
+    private Integer pageNumber;
 }
