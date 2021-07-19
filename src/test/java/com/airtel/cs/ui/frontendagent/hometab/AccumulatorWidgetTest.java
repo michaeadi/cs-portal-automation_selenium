@@ -8,7 +8,7 @@ import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pojo.response.accumulators.AccumulatorsPOJO;
+import com.airtel.cs.model.response.accumulators.Accumulators;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -55,7 +55,7 @@ public class AccumulatorWidgetTest extends Driver {
                 assertCheck.append(actions.matchUiAndAPIResponse(pages.getDaDetailsPage().getAccumulatorHeaders(2), Data.getRow2(), "Header Name for Row 2 is as expected", "Header Name for Row 2 is not as expected"));
                 assertCheck.append(actions.matchUiAndAPIResponse(pages.getDaDetailsPage().getAccumulatorHeaders(3), Data.getRow3(), "Header Name for Row 3 is as expected", "Header Name for Row 3 is not as expected"));
                 assertCheck.append(actions.matchUiAndAPIResponse(pages.getDaDetailsPage().getAccumulatorHeaders(4), Data.getRow4(), "Header Name for Row 4 is as expected", "Header Name for Row 4 is not as expected"));
-                AccumulatorsPOJO accumulatorAPI = api.accumulatorsAPITest(customerNumber);
+                Accumulators accumulatorAPI = api.accumulatorsAPITest(customerNumber);
                 final int statusCode = accumulatorAPI.getStatusCode();
                 assertCheck.append(actions.assertEqual_intType(statusCode, 200, "AM Profile API success and status code is :" + statusCode, "AM Profile API got failed and status code is :" + statusCode));
                 if (statusCode == 200) {

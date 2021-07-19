@@ -5,7 +5,7 @@ import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pojo.response.clearrefillstatus.RefillStatus;
+import com.airtel.cs.model.response.clearrefillstatus.RefillStatus;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;

@@ -9,8 +9,8 @@ import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pagerepository.pagemethods.AMTransactionsWidget;
-import com.airtel.cs.pojo.response.AMProfilePOJO;
-import com.airtel.cs.pojo.response.airtelmoney.AirtelMoneyPOJO;
+import com.airtel.cs.model.response.amprofile.AMProfile;
+import com.airtel.cs.model.response.airtelmoney.AirtelMoney;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.testng.SkipException;
@@ -83,7 +83,7 @@ public class AirtelMoneyTransactionWidgetTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validating Airtel Money Balance", "description");
             final AMTransactionsWidget amTxnWidgetPage = pages.getAmTxnWidgetPage();
-            AMProfilePOJO amProfileAPI = api.amServiceProfileAPITest(customerNumber);
+            AMProfile amProfileAPI = api.amServiceProfileAPITest(customerNumber);
             final int statusCode = amProfileAPI.getStatusCode();
             assertCheck.append(actions.assertEqual_intType(statusCode, 200, "AM Profile API success and status code is :" + statusCode, "AM Profile API got failed and status code is :" + statusCode));
             if (statusCode == 200) {
@@ -107,7 +107,7 @@ public class AirtelMoneyTransactionWidgetTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validate Airtel Money Transaction History API", "description");
             final AMTransactionsWidget amTxnWidgetPage = pages.getAmTxnWidgetPage();
-            AirtelMoneyPOJO amTransactionHistoryAPI = api.transactionHistoryAPITest(customerNumber);
+            AirtelMoney amTransactionHistoryAPI = api.transactionHistoryAPITest(customerNumber);
             final Integer statusCode = amTransactionHistoryAPI.getStatusCode();
             assertCheck.append(actions.assertEqual_intType(statusCode, 200, "AM Txn API success and status code is :" + statusCode, "AM Txn API got failed and status code is :" + statusCode));
             if (statusCode != 200) {

@@ -9,10 +9,10 @@ import com.airtel.cs.commonutils.dataproviders.TestDatabean;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pagerepository.pagemethods.AuthTab;
 import com.airtel.cs.pagerepository.pagemethods.DemoGraphic;
-import com.airtel.cs.pojo.response.AMProfilePOJO;
-import com.airtel.cs.pojo.response.GsmKycPOJO;
-import com.airtel.cs.pojo.response.ProfilePOJO;
-import com.airtel.cs.pojo.response.kycprofile.KYCProfile;
+import com.airtel.cs.model.response.amprofile.AMProfile;
+import com.airtel.cs.model.response.kycprofile.GsmKyc;
+import com.airtel.cs.model.response.kycprofile.Profile;
+import com.airtel.cs.model.response.kycprofile.KYCProfile;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.annotations.Test;
@@ -57,11 +57,11 @@ public class DemoGraphicWidgetBySIMTest extends Driver {
             final String customerNumber = Data.getCustomerNumber();
             selUtils.addTestcaseDescription("Validating the Demographic Information of User :" + customerNumber, "description");
             DemoGraphic demographic = new DemoGraphic(driver);
-            ProfilePOJO profileAPI = api.profileAPITest(DemoGraphicWidgetBySIMTest.customerNumber);
+            Profile profileAPI = api.profileAPITest(DemoGraphicWidgetBySIMTest.customerNumber);
             KYCProfile kycProfile = api.kycProfileAPITest(DemoGraphicWidgetBySIMTest.customerNumber);
-            GsmKycPOJO gsmKycAPI = api.gsmKYCAPITest(DemoGraphicWidgetBySIMTest.customerNumber);
+            GsmKyc gsmKycAPI = api.gsmKYCAPITest(DemoGraphicWidgetBySIMTest.customerNumber);
             api.accountPlansTest(DemoGraphicWidgetBySIMTest.customerNumber);
-            AMProfilePOJO amProfileAPI = api.amServiceProfileAPITest(DemoGraphicWidgetBySIMTest.customerNumber);
+            AMProfile amProfileAPI = api.amServiceProfileAPITest(DemoGraphicWidgetBySIMTest.customerNumber);
 
             try {
                 if (demographic.isPUKInfoLocked()) {

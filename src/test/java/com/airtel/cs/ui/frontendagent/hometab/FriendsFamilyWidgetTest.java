@@ -10,10 +10,10 @@ import com.airtel.cs.commonutils.applicationutils.enums.JavaColors;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pojo.response.actiontrail.ActionTrailPOJO;
-import com.airtel.cs.pojo.response.actiontrail.EventResult;
-import com.airtel.cs.pojo.response.friendsfamily.FriendsFamilyPOJO;
-import com.airtel.cs.pojo.response.friendsfamily.FriendsFamilyResponse;
+import com.airtel.cs.model.response.actiontrail.ActionTrail;
+import com.airtel.cs.model.response.actiontrail.EventResult;
+import com.airtel.cs.model.response.friendsfamily.FriendsFamily;
+import com.airtel.cs.model.response.friendsfamily.FriendsFamilyResponse;
 import io.restassured.http.Headers;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.NoSuchElementException;
@@ -22,14 +22,14 @@ import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class FriendsFamilyWidgetTest extends Driver {
     public static final String RUN_FNF_WIDGET_TEST_CASE = constants.getValue(ApplicationConstants.RUN_FNF_WIDGET_TEST_CASE);
     private static String customerNumber;
     private final BaseActions actions = new BaseActions();
     RequestSource api = new RequestSource();
-    private FriendsFamilyPOJO friendsFamilyAPI;
+    private FriendsFamily friendsFamilyAPI;
     private final String ADD_FNF_COMMENT = "Adding new msisdn in FNF List using automation";
     private final String DELETE_FNF_COMMENT = "Deleting Newly Added member from FnF List";
 
@@ -124,7 +124,7 @@ public class FriendsFamilyWidgetTest extends Driver {
                     assertCheck.append(actions.assertEqual_boolean(pages.getDaDetailsPage().isFnFNoResultIconDisplay(), true, "Error Message is Visible", "Error Message is not Visible"));
                     assertCheck.append(actions.assertEqual_stringType(pages.getDaDetailsPage().getFnFNoResultMessage(), "No Result found", "Error Message is as expected", "Error Message is not as expected"));
                 } else {
-                    ArrayList<FriendsFamilyResponse> fnfInfoAPI = friendsFamilyAPI.getResult().get(0).getFafInformation();
+                    List<FriendsFamilyResponse> fnfInfoAPI = friendsFamilyAPI.getResult().get(0).getFafInformation();
                     int size = Math.min(fnfInfoAPI.size(), 5);
                     for (int i = 0; i < size; i++) {
                         assertCheck.append(actions.matchUiAndAPIResponse(pages.getDaDetailsPage().getValueCorrespondingToFriendsFamily(i + 1, 1), fnfInfoAPI.get(i).getFafNumber(), "FNF Number is As received in API for row number " + i, "FNF Number is not As received in API for row number " + i));
@@ -204,7 +204,7 @@ public class FriendsFamilyWidgetTest extends Driver {
     public void validateActionTabAfterAddFnFMember() {
         try {
             selUtils.addTestcaseDescription("Verify Action trail tab after adding number into Customer's FnF list,Hit action trail event api, Validate action type & comments & agent id", "description");
-            ActionTrailPOJO actionTrailAPI = api.getEventHistory(customerNumber, "ACTION");
+            ActionTrail actionTrailAPI = api.getEventHistory(customerNumber, "ACTION");
             final int statusCode = actionTrailAPI.getStatusCode();
             assertCheck.append(actions.assertEqual_intType(statusCode, 200, "Friends & Family Widget API success and status code is :" + statusCode, "Friends & Family Widget API got failed and status code is :" + statusCode));
             if (statusCode == 200) {
@@ -237,7 +237,7 @@ public class FriendsFamilyWidgetTest extends Driver {
     public void deleteMemberToFnF() {
         try {
             selUtils.addTestcaseDescription("Verify for adding a number into Customer's FnF list,Click on Add member Icon, Validate Add member pop up open, validate user have option to add new member,Add new Member into FnF List,Click on Submit button,Validate newly added member show in list,", "description");
-            ArrayList<FriendsFamilyResponse> fnfInfoAPI = friendsFamilyAPI.getResult().get(0).getFafInformation();
+            List<FriendsFamilyResponse> fnfInfoAPI = friendsFamilyAPI.getResult().get(0).getFafInformation();
             int size = Math.min(fnfInfoAPI.size(), 5);
             boolean status = true;
             for (int i = 0; i < size; i++) {
@@ -290,7 +290,7 @@ public class FriendsFamilyWidgetTest extends Driver {
     public void validateActionTabAfterDeleteFnFMember() {
         try {
             selUtils.addTestcaseDescription("Verify Action trail tab after removing number into Customer's FnF list,Hit action trail event api, Validate action type & comments & agent id", "description");
-            ActionTrailPOJO actionTrailAPI = api.getEventHistory(customerNumber, "ACTION");
+            ActionTrail actionTrailAPI = api.getEventHistory(customerNumber, "ACTION");
             final int statusCode = actionTrailAPI.getStatusCode();
             assertCheck.append(actions.assertEqual_intType(statusCode, 200, "Friends & Family Widget API success and status code is :" + statusCode, "Friends & Family Widget API got failed and status code is :" + statusCode));
             if (statusCode == 200) {

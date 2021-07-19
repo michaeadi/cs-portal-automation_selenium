@@ -2,8 +2,8 @@ package com.airtel.cs.commonutils;
 
 import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pojo.response.agents.AgentDetailPOJO;
-import com.airtel.cs.pojo.response.agents.Authorities;
+import com.airtel.cs.model.response.agents.AgentDetailAttribute;
+import com.airtel.cs.model.response.agents.Authorities;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
@@ -258,7 +258,7 @@ public class UtilsMethods extends Driver {
      * @return true/false based on user have permission or not
      * */
     public static Boolean isUserHasPermission(Headers headers, String permissionName){
-        AgentDetailPOJO agentDetailAPI=api.getAgentDetail(headers);
+        AgentDetailAttribute agentDetailAPI=api.getAgentDetail(headers);
         if(agentDetailAPI.getStatusCode()!=200){
             commonLib.fail("Not able to get Agent detail using agent api",false);
             return false;

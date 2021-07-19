@@ -9,7 +9,7 @@ import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pagerepository.pagemethods.ServiceClassWidget;
-import com.airtel.cs.pojo.response.hlrservice.HLRServicePOJO;
+import com.airtel.cs.model.response.hlrservice.HLRService;
 import io.restassured.http.Headers;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
@@ -26,7 +26,7 @@ public class ServiceProfileWidgetTest extends Driver {
     private static String customerNumber = null;
     private final BaseActions actions = new BaseActions();
     RequestSource api = new RequestSource();
-    private HLRServicePOJO hlrService;
+    private HLRService hlrService;
     public static final String RUN_HLR_SERVICE_TEST_CASE = constants.getValue(ApplicationConstants.RUN_HLR_WIDGET_TEST_CASE);
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})

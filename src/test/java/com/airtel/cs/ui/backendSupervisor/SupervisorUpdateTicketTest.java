@@ -7,8 +7,8 @@ import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.NftrDataBeans;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pojo.response.smshistory.SMSHistoryList;
-import com.airtel.cs.pojo.response.smshistory.SMSHistoryPOJO;
+import com.airtel.cs.model.response.smshistory.SMSHistoryList;
+import com.airtel.cs.model.response.smshistory.SMSHistory;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -72,7 +72,7 @@ public class SupervisorUpdateTicketTest extends Driver {
                             if (ticketId == null) {
                                 ticketId = Data.getTicketNumber();
                             }
-                            SMSHistoryPOJO smsHistory = api.smsHistoryTest(customerNumber);
+                            SMSHistory smsHistory = api.smsHistoryTest(customerNumber);
                             SMSHistoryList list = smsHistory.getResult().get(0);
                             commonLib.info("Message Sent after closure: " + list.getMessageText());
                             assertCheck.append(actions.assertEqual_boolean(list.getMessageText().contains(Data.getTicketNumber()), true, "Message Sent to customer for same ticket id which has been closed", "Message does not Sent for same ticket id which has been closed"));

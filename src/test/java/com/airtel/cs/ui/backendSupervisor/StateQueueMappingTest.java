@@ -6,8 +6,8 @@ import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.QueueStateDataBeans;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pojo.response.ticketlist.QueueStates;
-import com.airtel.cs.pojo.response.ticketlist.TicketPOJO;
+import com.airtel.cs.model.response.ticketlist.QueueStates;
+import com.airtel.cs.model.response.ticketlist.Ticket;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -70,7 +70,7 @@ public class StateQueueMappingTest extends Driver {
                 Assert.assertEquals(pages.getSupervisorTicketList().getQueueValue().toLowerCase().trim(), data.getQueue().toLowerCase().trim(), "Ticket Does not found with Selected Queue");
                 //Re-check
                 ticketId = pages.getSupervisorTicketList().getTicketIdValue();
-                TicketPOJO ticketPOJO = api.ticketMetaDataTest(ticketId);
+                Ticket ticketPOJO = api.ticketMetaDataTest(ticketId);
                 ArrayList<QueueStates> assignState = ticketPOJO.getResult().getQueueStates();
                 List<String> state = new ArrayList<>();
                 List<String> configState = dataProviders.getQueueState(data.getQueue());

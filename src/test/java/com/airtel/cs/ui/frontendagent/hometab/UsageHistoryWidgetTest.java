@@ -8,7 +8,7 @@ import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pagerepository.pagemethods.UsageHistoryWidget;
-import com.airtel.cs.pojo.response.UsageHistoryPOJO;
+import com.airtel.cs.model.response.usagehistory.UsageHistory;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.testng.SkipException;
@@ -78,7 +78,7 @@ public class UsageHistoryWidgetTest extends Driver {
             selUtils.addTestcaseDescription("Validating Usage History Widget of User :" + customerNumber, "description");
             final UsageHistoryWidget usageHistoryWidget = pages.getUsageHistoryWidget();
             assertCheck.append(actions.assertEqual_boolean(usageHistoryWidget.isUsageHistoryDatePickerVisible(), true, "Usage History Widget's Date Picker is visible", "Usage History Widget's Date Picker is not visible"));
-            UsageHistoryPOJO usageHistoryAPI = api.usageHistoryTest(customerNumber);
+            UsageHistory usageHistoryAPI = api.usageHistoryTest(customerNumber);
             int size = usageHistoryWidget.getNumberOfRows();
             if (usageHistoryAPI.getResult().size() == 0 || usageHistoryAPI.getResult() == null) {
                 commonLib.warning("Unable to get Usage History Details from API");

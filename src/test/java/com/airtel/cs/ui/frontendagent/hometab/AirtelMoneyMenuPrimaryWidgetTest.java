@@ -8,7 +8,7 @@ import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pojo.response.airtelmoney.AirtelMoneyPOJO;
+import com.airtel.cs.model.response.airtelmoney.AirtelMoney;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -21,7 +21,7 @@ public class AirtelMoneyMenuPrimaryWidgetTest extends Driver {
     private final BaseActions actions = new BaseActions();
     String customerNumber;
     RequestSource api = new RequestSource();
-    private AirtelMoneyPOJO amTransactionHistoryAPI;
+    private AirtelMoney amTransactionHistoryAPI;
     public static final String RUN_AIRTEL_MONEY_WIDGET_TEST_CASE = constants.getValue(ApplicationConstants.RUN_AIRTEL_MONEY_WIDGET_TESTCASE);
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})

@@ -7,8 +7,8 @@ import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.NftrDataBeans;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pojo.response.ticketlist.IssueDetails;
-import com.airtel.cs.pojo.response.ticketlist.TicketPOJO;
+import com.airtel.cs.model.response.ticketlist.IssueDetails;
+import com.airtel.cs.model.response.ticketlist.Ticket;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -91,7 +91,7 @@ public class SupervisorSearchTicketTest extends Driver {
                 pages.getSupervisorTicketList().clickSearchBtn();
                 Assert.assertEquals(pages.getSupervisorTicketList().getTicketIdValue(), data.getTicketNumber(), "Search Ticket does not found");
                 try {
-                    TicketPOJO ticketPOJO = api.ticketMetaDataTest(data.getTicketNumber());
+                    Ticket ticketPOJO = api.ticketMetaDataTest(data.getTicketNumber());
                     assertCheck.append(actions.matchStringIgnoreSpecialChar(pages.getSupervisorTicketList().getIssueValue(), data.getIssue(),
                             "Issue Field Value same as expected " + data.getIssue(), "Issue Field Value not same as expected " + data.getIssue()));
                     assertCheck.append(actions.matchStringIgnoreSpecialChar(pages.getSupervisorTicketList().getIssueTypeValue(), data.getIssueType(),

@@ -9,8 +9,8 @@ import com.airtel.cs.commonutils.dataproviders.FtrDataBeans;
 import com.airtel.cs.commonutils.dataproviders.NftrDataBeans;
 import com.airtel.cs.commonutils.excelutils.WriteToExcel;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pojo.response.smshistory.SMSHistoryList;
-import com.airtel.cs.pojo.response.smshistory.SMSHistoryPOJO;
+import com.airtel.cs.model.response.smshistory.SMSHistoryList;
+import com.airtel.cs.model.response.smshistory.SMSHistory;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.ElementClickInterceptedException;
@@ -83,7 +83,7 @@ public class CreateInteractionTest extends Driver {
             pages.getInteractionsPage().clickOnSave();
             assertCheck.append(actions.assertEqual_boolean(pages.getInteractionsPage().isTicketIdVisible(), true, "Resolved FTR not display", "Resolved FTR does not display"));
             assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getResolvedFTRDisplayed(), "Resolved FTR", "Resolved FTR displayed", "Resolved FTR does not display"));
-            SMSHistoryPOJO smsHistory = api.smsHistoryTest(customerNumber);
+            SMSHistory smsHistory = api.smsHistoryTest(customerNumber);
             SMSHistoryList list = smsHistory.getResult().get(0);
             commonLib.info("Message Sent after Ticket Creation: " + list.getMessageText());
             if(StringUtils.equalsIgnoreCase(data.getMessageConfigured(), "true")) {
@@ -314,7 +314,7 @@ public class CreateInteractionTest extends Driver {
                 commonLib.fail("It's FTR not NFTR", true);
             }
             pages.getInteractionsPage().closeInteractions();
-            SMSHistoryPOJO smsHistory = api.smsHistoryTest(customerNumber);
+            SMSHistory smsHistory = api.smsHistoryTest(customerNumber);
             SMSHistoryList list = smsHistory.getResult().get(0);
             commonLib.info("Message Sent after Ticket Creation: " + list.getMessageText());
             try {

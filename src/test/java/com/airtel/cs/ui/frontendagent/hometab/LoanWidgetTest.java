@@ -7,12 +7,12 @@ import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
+import com.airtel.cs.model.response.loandetails.*;
+import com.airtel.cs.model.response.loansummary.Summary;
+import com.airtel.cs.model.response.vendors.HeaderList;
+import com.airtel.cs.model.response.vendors.VendorNames;
+import com.airtel.cs.model.response.vendors.Vendors;
 import com.airtel.cs.pagerepository.pagemethods.LoanDetail;
-import com.airtel.cs.pojo.response.loandetails.*;
-import com.airtel.cs.pojo.response.loansummary.Summary;
-import com.airtel.cs.pojo.response.vendors.HeaderList;
-import com.airtel.cs.pojo.response.vendors.VendorNames;
-import com.airtel.cs.pojo.response.vendors.Vendors;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.TimeoutException;
@@ -22,7 +22,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -30,7 +29,7 @@ public class LoanWidgetTest extends Driver {
 
     static String customerNumber;
     RequestSource api = new RequestSource();
-    ArrayList<Vendors> vendors;
+    List<Vendors> vendors;
     public static final String RUN_LOAN_WIDGET_TEST_CASE = constants.getValue(ApplicationConstants.RUN_LOAN_WIDGET_TESTCASE);
     private final BaseActions actions = new BaseActions();
 
@@ -90,7 +89,7 @@ public class LoanWidgetTest extends Driver {
             /*
              * Checking com.airtel.cs.API Giving valid Response
              * */
-            ArrayList<HeaderList> headers = vendorNames.getResult().getHeaderList();
+            List<HeaderList> headers = vendorNames.getResult().getHeaderList();
             assertCheck.append(actions.assertNotEqual_stringType(headers.get(0).getHeader().toLowerCase().trim(), data.getRow1().toLowerCase().trim(), "Header are same as expected in com.airtel.cs.API(com.airtel.cs.API Response Assert with Excel)", "Header not same as expected in com.airtel.cs.API(com.airtel.cs.API Response Assert with Excel)"));
             assertCheck.append(actions.assertNotEqual_stringType(headers.get(1).getHeader().toLowerCase().trim() + " (" + headers.get(1).getSubHeader().toLowerCase().trim() + ")", data.getRow2().toLowerCase().trim(), "Header are same as expected in com.airtel.cs.API(com.airtel.cs.API Response Assert with Excel)", "Header not same as expected in com.airtel.cs.API(com.airtel.cs.API Response Assert with Excel)"));
             assertCheck.append(actions.assertNotEqual_stringType(headers.get(2).getHeader().toLowerCase().trim(), data.getRow3().toLowerCase().trim(), "Header are same as expected in com.airtel.cs.API(com.airtel.cs.API Response Assert with Excel)", "Header not same as expected in com.airtel.cs.API(com.airtel.cs.API Response Assert with Excel)"));
@@ -182,7 +181,7 @@ public class LoanWidgetTest extends Driver {
                                 /*
                                  * Validating Header name & value displayed on UI with com.airtel.cs.API Response
                                  * */
-                                ArrayList<HeaderList> headerList = loanDetails.getResult().getLoanDetails().getHeaderList();
+                                List<HeaderList> headerList = loanDetails.getResult().getLoanDetails().getHeaderList();
                                 LoanDetailList loanDetailValue = loanDetails.getResult().getLoanDetails().getLoanDetailList().get(0);
                                 for (int j = 0; j < headerList.size(); j++) {
                                     assertCheck.append(actions.assertNotEqual_stringType(loanDetail.getHeaderName(i + 1).toLowerCase().trim(), headerList.get(i).getHeader().toLowerCase().trim(), "Loan Detail Widget Header name at POS(" + (i + 1) + ") is same as in com.airtel.cs.API Response", "Loan Detail Widget Header name at POS(" + (i + 1) + ") not same as in com.airtel.cs.API Response"));
@@ -250,8 +249,8 @@ public class LoanWidgetTest extends Driver {
                                         assertCheck.append(actions.assertNotEqual_stringType(loanDetail.getLoanHistoryHeaderName(6).toLowerCase().trim(), data.getRow6().toLowerCase().trim(), "Loan History Widget Header Name at POS(6) is same as mentioned in excel", "Loan History Widget Header Name at POS(6) not same as mentioned in excel"));
                                         assertCheck.append(actions.assertNotEqual_stringType(loanDetail.getLoanHistoryHeaderName(7).toLowerCase().trim(), data.getRow7().toLowerCase().trim(), "Loan History Widget Header Name at POS(7) is same as mentioned in excel", "Loan History Widget Header Name at POS(7) not same as mentioned in excel"));
                                         LoanHistory loanHistory = loanDetails.getResult().getLoanHistory();
-                                        ArrayList<HeaderList> headerList = loanDetails.getResult().getLoanHistory().getHeaderList();
-                                        ArrayList<LoanRepaymentList> loanRepaymentList = loanHistory.getLoanRepaymentList();
+                                        List<HeaderList> headerList = loanDetails.getResult().getLoanHistory().getHeaderList();
+                                        List<LoanRepaymentList> loanRepaymentList = loanHistory.getLoanRepaymentList();
                                         for (int j = 0; j < headerList.size(); j++) {
 
                                             assertCheck.append(actions.assertNotEqual_stringType(loanDetail.getLoanHistoryHeaderName(j + 1).toLowerCase().trim(), headerList.get(j).getHeader().toLowerCase().trim(), "Loam History widget Header name at POS(" + (j + 1) + ") is same as in com.airtel.cs.API Response", "Loam History widget Header name at POS(" + (j + 1) + ") not same as in com.airtel.cs.API Response"));
@@ -284,11 +283,11 @@ public class LoanWidgetTest extends Driver {
                                                         e.printStackTrace();
                                                         commonLib.fail("Not Able to click Transaction id " + e.fillInStackTrace(), true);
                                                     }
-                                                    ArrayList<HeaderList> recoveryWidgetHeader = loanRepaymentList.get(i).getLoanRepaymentTransaction().getHeaderList();
+                                                    List<HeaderList> recoveryWidgetHeader = loanRepaymentList.get(i).getLoanRepaymentTransaction().getHeaderList();
                                                     for (int k = 0; k < recoveryWidgetHeader.size(); k++) {
                                                         assertCheck.append(actions.assertNotEqual_stringType(loanDetail.getLoanRecoveryHeaderName(m + 1, k + 1).toLowerCase().trim(), recoveryWidgetHeader.get(k).getHeader().toLowerCase().trim(), "Loan Recovery widget header is same as com.airtel.cs.API response at Pos(" + (m + 1) + ")", "Loan Recovery widget header does not same as com.airtel.cs.API response at Pos(" + (m + 1) + ")"));
                                                     }
-                                                    ArrayList<LoanRepaymentDetailList> repaymentList = loanRepaymentList.get(m).getLoanRepaymentTransaction().getLoanRepaymentDetailList();
+                                                    List<LoanRepaymentDetailList> repaymentList = loanRepaymentList.get(m).getLoanRepaymentTransaction().getLoanRepaymentDetailList();
                                                     for (int l = 0; l < repaymentCount; l++) {
                                                         assertCheck.append(actions.assertNotEqual_stringType(loanDetail.getValueCorrespondingToLoanRecoveryHeader(m + 1, l + 1, 1).trim(), repaymentList.get(l).getTransactionId(), "Loan Recovery Transaction id column value is same as com.airtel.cs.API Response for Transaction No.(" + (m + 1) + ") in row POS(" + (l + 1) + ")", "Loan Recovery Transaction id column value does not same as com.airtel.cs.API Response for Transaction No.(" + (m + 1) + ") in row POS(" + (l + 1) + ")"));
                                                         assertCheck.append(actions.assertNotEqual_stringType(loanDetail.getValueCorrespondingToLoanRecoveryHeader(m + 1, l + 1, 2).trim(), UtilsMethods.valueRoundOff(repaymentList.get(l).getAmountRecovered()), "Loan Recovery Amount Recovered column value is same as com.airtel.cs.API Response for Transaction No.(" + (m + 1) + ") in row POS(" + (l + 1) + ")", "Loan Recovery Amount Recovered column value does not same as com.airtel.cs.API Response for Transaction No.(" + (m + 1) + ") in row POS(" + (l + 1) + ")"));

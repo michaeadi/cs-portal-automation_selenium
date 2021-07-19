@@ -8,7 +8,7 @@ import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pojo.response.RechargeHistoryPOJO;
+import com.airtel.cs.model.response.rechargehistory.RechargeHistory;
 import org.apache.commons.lang3.StringUtils;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
@@ -62,7 +62,7 @@ public class RechargeHistoryMenuWidgetTest extends Driver {
             assertCheck.append(actions.assertEqual_boolean(pages.getRechargeHistoryWidget().isRechargeHistoryWidgetMenuVisible(), true, "Recharge History's MENU is visible ", "Recharge History's MENU is not visible "));
             pages.getRechargeHistoryWidget().openingRechargeHistoryDetails();
             assertCheck.append(actions.assertEqual_boolean(pages.getMoreRechargeHistoryPage().isDatePickerVisible(), true, "Date Picker is visible as expected", "Date picker is not visible "));
-            RechargeHistoryPOJO rechargeHistoryAPI = api.rechargeHistoryAPITest(customerNumber);
+            RechargeHistory rechargeHistoryAPI = api.rechargeHistoryAPITest(customerNumber);
             final int statusCode = rechargeHistoryAPI.getStatusCode();
             assertCheck.append(actions.assertEqual_intType(statusCode, 200, "Recharge History API status code matched and is: " + statusCode, "Recharge History API status code NOT matched and is: " + statusCode));
             if (statusCode == 200) {

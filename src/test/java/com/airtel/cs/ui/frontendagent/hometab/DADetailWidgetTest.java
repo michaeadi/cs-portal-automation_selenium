@@ -8,7 +8,7 @@ import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pojo.response.AccountsBalancePOJO;
+import com.airtel.cs.model.response.accounts.AccountsBalance;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;
@@ -60,7 +60,7 @@ public class DADetailWidgetTest extends Driver {
                 assertCheck.append(actions.matchUiAndAPIResponse(pages.getDaDetailsPage().getHeaders(3), data.getRow3(), "Header Name for Row 3 is as expected", "Header Name for Row 3 is not as expected"));
                 assertCheck.append(actions.matchUiAndAPIResponse(pages.getDaDetailsPage().getHeaders(4), data.getRow4(), "Header Name for Row 4 is as expected", "Header Name for Row 4 is not as expected"));
                 assertCheck.append(actions.matchUiAndAPIResponse(pages.getDaDetailsPage().getHeaders(5), data.getRow5(), "Header Name for Row 5 is as expected", "Header Name for Row 5 is not as expected"));
-                AccountsBalancePOJO accountsBalanceAPI = api.balanceAPITest(customerNumber);
+                AccountsBalance accountsBalanceAPI = api.balanceAPITest(customerNumber);
                 final int statusCode = accountsBalanceAPI.getStatusCode();
                 assertCheck.append(actions.assertEqual_intType(statusCode, 200, "AM Profile API success and status code is :" + statusCode, "AM Profile API got failed and status code is :" + statusCode));
                 if (statusCode == 200) {

@@ -8,8 +8,8 @@ import com.airtel.cs.commonutils.dataproviders.AuthTabDataBeans;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.QuestionAnswerKeyDataBeans;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pojo.response.configuration.ConfigurationPOJO;
-import com.airtel.cs.pojo.response.configuration.LockedSection;
+import com.airtel.cs.model.response.configuration.Configuration;
+import com.airtel.cs.model.response.configuration.LockedSection;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;
@@ -57,7 +57,7 @@ public class AuthTabTest extends Driver {
     public void validateAnswerQuestionConfig() {
         try {
             selUtils.addTestcaseDescription("Jira id - CSP-63443,Verify that the answers of the questions in pop up should either show data from configuration or show inline spinner", "description");
-            ConfigurationPOJO config = api.getConfiguration("authorization_data");
+            Configuration config = api.getConfiguration("authorization_data");
             authTabConfig = config.getResult().getAuthDataConfig();
             final String statusCode = config.getStatusCode();
             assertCheck.append(actions.assertEqual_stringType(statusCode, "200", "Config API Status Code is as Expected and is :" + statusCode, "Config API Status Code is NOT as Expected and is :" + statusCode));
@@ -99,7 +99,7 @@ public class AuthTabTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Jira id - CSP-63442,Verify that there is a authorization pop for the actions like SIM Bar Unbar, PIN reset", "description");
             DataProviders dataProviders = new DataProviders();
-            ConfigurationPOJO config = api.getConfiguration("locked_sections_keys");
+            Configuration config = api.getConfiguration("locked_sections_keys");
             List<LockedSection> lockedSection = config.getResult().getLockedSectionsKeysConfig();
             final String statusCode = config.getStatusCode();
             assertCheck.append(actions.assertEqual_stringType(statusCode, "200", "Config API Status Code is as Expected and is :" + statusCode, "Config API Status Code is NOT as Expected and is :" + statusCode));
