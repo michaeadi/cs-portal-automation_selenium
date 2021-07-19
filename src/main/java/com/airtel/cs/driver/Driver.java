@@ -159,6 +159,10 @@ public class Driver {
         createEmailableReport();
     }
 
+    /**
+     * This method is used to create emailable html report
+     *
+     */
     private void createEmailableReport() {
         try {
             String templatePath = System.getProperty("user.dir") + constants.getValue("template.file.path");
