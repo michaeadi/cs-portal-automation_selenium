@@ -34,6 +34,10 @@ import com.airtel.cs.pojo.response.actionconfig.ActionConfigResponse;
 import com.airtel.cs.pojo.response.actiontrail.ActionTrailPOJO;
 import com.airtel.cs.pojo.response.adjustmenthistory.AdjustmentHistory;
 import com.airtel.cs.pojo.response.adjustmentreason.AdjustmentReasonPOJO;
+import com.airtel.cs.pojo.response.agentlimit.AgentLimit;
+import com.airtel.cs.pojo.request.LimitConfigRequest;
+import com.airtel.cs.pojo.request.AgentLimitRequest;
+import com.airtel.cs.pojo.request.SaveAgentLimitRequest;
 import com.airtel.cs.pojo.response.agentpermission.AgentPermission;
 import com.airtel.cs.pojo.response.agents.AgentDetailPOJO;
 import com.airtel.cs.pojo.response.airtelmoney.AirtelMoneyPOJO;
@@ -738,6 +742,43 @@ public class RequestSource extends RestCommonUtils {
             result = response.as(ActionConfigResponse.class);
         } catch (Exception e) {
             commonLib.fail(constants.getValue("cs.portal.api.error") + " - getActionConfig " + e.getMessage(), false);
+        }
+        return result;
+    }
+
+    /**
+     * This Method will hit the API "/cs-service/api/cs-service/v1/limit/configuration" and return the response
+     *
+     * @param roleId The role id
+     * @return The Response
+     */
+    public AgentLimit getAgentLimitConfig(String roleId) {
+        AgentLimit result = null;
+        try {
+            commonPostMethod(URIConstants.AGENT_LIMIT_API, new AgentLimitRequest(roleId));
+            result = response.as(AgentLimit.class);
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - getAgentLimitConfig " + e.getMessage(), false);
+        }
+        return result;
+    }
+
+    /**
+     * This Method will hit the API "/cs-service/api/cs-service/v1/limit/save/configuration" and return the response
+     *
+     * @param roleId The role id
+     * @return The Response
+     */
+    public AgentLimit saveAgentLimit(String roleId,String featureKey,String dailyLimit,String monthlyLimit,String transactionLimit) {
+        AgentLimit result = null;
+        try {
+            LimitConfigRequest limitConfig=new LimitConfigRequest(featureKey,dailyLimit,monthlyLimit,transactionLimit);
+            List<LimitConfigRequest> request=new ArrayList<>();
+            request.add(limitConfig);
+            commonPostMethod(URIConstants.SAVE_AGENT_LIMIT_API, new SaveAgentLimitRequest(roleId,request));
+            result = response.as(AgentLimit.class);
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - saveAgentLimit " + e.getMessage(), false);
         }
         return result;
     }

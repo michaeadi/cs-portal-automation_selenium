@@ -1,25 +1,27 @@
 package com.airtel.cs.commonutils;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
-import com.airtel.cs.commonutils.dataproviders.databeans.NftrDataBeans;
 import com.airtel.cs.commonutils.dataproviders.databeans.AssignmentQueueRuleDataBeans;
+import com.airtel.cs.commonutils.dataproviders.databeans.NftrDataBeans;
 import com.airtel.cs.commonutils.dataproviders.databeans.SLARuleFileDataBeans;
 import com.airtel.cs.commonutils.exceptions.RuleNotFoundException;
 import com.airtel.cs.driver.Driver;
+import com.airtel.cs.pojo.response.agentlimit.AgentLimit;
+import com.airtel.cs.pojo.response.agentlimit.LimitConfig;
 import com.airtel.cs.pojo.response.agents.AgentAttributes;
 import com.airtel.cs.pojo.response.agents.AgentDetailPOJO;
 import com.airtel.cs.pojo.response.agents.Authorities;
+import com.airtel.cs.pojo.response.agents.RoleDetails;
 import com.airtel.cs.pojo.response.consolelog.ChromeNetworkLogPOJO;
 import com.airtel.cs.pojo.response.kycprofile.KYCProfile;
-import com.airtel.cs.pojo.response.agents.RoleDetails;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
 import io.restassured.specification.QueryableRequestSpecification;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
@@ -41,10 +43,7 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.TimeZone;
+import java.util.Optional;
 import java.util.PriorityQueue;
 import java.util.Map;
 import java.util.Arrays;
@@ -545,7 +544,7 @@ public class UtilsMethods extends Driver {
     public static AgentAttributes getAgentDetail(Headers headers) {
         AgentDetailPOJO agentDetail = api.getAgentDetail(headers);
         if (agentDetail.getStatusCode() != 200) {
-            commonLib.fail("Not able to get Agent detail using agent api", false);
+            commonLib.fail(constants.getValue("cs.agent.detail.failure"), false);
         }
         return agentDetail.getResult();
     }
@@ -567,6 +566,7 @@ public class UtilsMethods extends Driver {
             return allRoles.stream().anyMatch(role::contains);
         }
     }
+
 
     /**
      * This method returns endDate in UTC timezone
@@ -608,6 +608,30 @@ public class UtilsMethods extends Driver {
         }
         Long startDateEpoch = sd.getTime();
         return startDateEpoch;
+    }
+
+    /**
+     * This method use to get Agent limit config based on action key and role Id
+     * @param actionKey The action key
+     * @param roleId The role id
+     * @return Object LimitConfig
+     */
+    public static LimitConfig getAgentLimitConfigBasedOnKey(String actionKey,String roleId){
+        int statusCode=0;
+        AgentLimit agentLimitAPI = api.getAgentLimitConfig(roleId);
+        if(ObjectUtils.isNotEmpty(agentLimitAPI)){
+            statusCode=agentLimitAPI.getStatusCode();
+        }
+        List<LimitConfig> limitConfigsList = agentLimitAPI.getResult();
+        Optional<LimitConfig> limitConfigResultOP = limitConfigsList.stream()
+                .filter(result -> actionKey.equals(result.getFeatureKey())).findFirst();
+        assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Agent Limit "+config.getProperty("cs.portal.api.success"), "Agent Limit "+config.getProperty("cs.portal.api.fail") + statusCode));
+        if (limitConfigResultOP.isPresent()) {
+            return limitConfigResultOP.get();
+        }else{
+            commonLib.info(actionKey+config.getProperty("cs.agent.limit.key.not.found"),false);
+        }
+        return null;
     }
 
 }
