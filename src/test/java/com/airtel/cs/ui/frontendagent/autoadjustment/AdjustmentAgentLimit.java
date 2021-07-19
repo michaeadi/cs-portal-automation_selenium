@@ -66,6 +66,7 @@ public class AdjustmentAgentLimit extends Driver {
         } catch (Exception e) {
             commonLib.fail(constants.getValue("cs.portal.test.fail") + " - validateAgentLimitAPI " + e.fillInStackTrace(), true);
         }
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     @Test(priority = 2, groups = "RegressionTest")
@@ -91,6 +92,7 @@ public class AdjustmentAgentLimit extends Driver {
         } catch (Exception e) {
             commonLib.fail(constants.getValue("cs.portal.test.fail") + " - saveAgentLimit " + e.fillInStackTrace(), true);
         }
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     @Test(priority = 3, groups = "RegressionTest")
@@ -108,6 +110,7 @@ public class AdjustmentAgentLimit extends Driver {
         } catch (Exception e) {
             commonLib.fail(constants.getValue("cs.portal.test.fail") + " - saveAgentLimitWithDailyLimitExceedMonthlyLimit " + e.fillInStackTrace(), true);
         }
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     @Test(priority = 4, groups = "RegressionTest")
@@ -125,6 +128,7 @@ public class AdjustmentAgentLimit extends Driver {
         } catch (Exception e) {
             commonLib.fail(constants.getValue("cs.portal.test.fail") + " - saveAgentLimitWithTransactionLimitExceedDailyLimit " + e.fillInStackTrace(), true);
         }
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
 
@@ -143,6 +147,7 @@ public class AdjustmentAgentLimit extends Driver {
         } catch (Exception e) {
             commonLib.fail(constants.getValue("cs.portal.test.fail") + " - saveAgentLimitWithRoleIdNull " + e.fillInStackTrace(), true);
         }
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
 }
