@@ -77,7 +77,7 @@ public class SupervisorUpdateTicketTest extends Driver {
                             commonLib.info("Message Sent after closure: " + list.getMessageText());
                             assertCheck.append(actions.assertEqual_boolean(list.getMessageText().contains(Data.getTicketNumber()), true, "Message Sent to customer for same ticket id which has been closed", "Message does not Sent for same ticket id which has been closed"));
                             assertCheck.append(actions.assertEqual_stringType(list.getSmsType().toLowerCase().trim(), constants.getValue(CommonConstants.SYSTEM_SMS_TYPE).toLowerCase().trim(), "Message type is system", "Message type is not system"));
-                            assertCheck.append(actions.assertEqual_boolean(list.isAction(), false, "Action button is disabled", "Action button is not disabled"));
+                            assertCheck.append(actions.assertEqual_boolean(list.getAction(), false, "Action button is disabled", "Action button is not disabled"));
                             assertCheck.append(actions.assertEqual_stringType((list.getTemplateName().toLowerCase().trim()), constants.getValue(CommonConstants.TICKET_CREATED_EVENT).toLowerCase().trim(), "Template event same as expected.", "Template event not same as expected."));
                         } else {
                             pages.getViewTicket().clickBackButton();

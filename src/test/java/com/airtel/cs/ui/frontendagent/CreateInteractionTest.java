@@ -89,7 +89,7 @@ public class CreateInteractionTest extends Driver {
             if(StringUtils.equalsIgnoreCase(data.getMessageConfigured(), "true")) {
             assertCheck.append(actions.assertEqual_boolean(list.getMessageText().contains(issueCode), true, "Message sent to customer for same FTR Category for which Issue has been Created", "Message does not sent to customer for same FTR Category for which Issue has been Created"));
             assertCheck.append(actions.assertEqual_stringType(list.getSmsType(), constants.getValue(CommonConstants.SYSTEM_SMS_TYPE), "Message type is system", "Message type is not system"));
-            assertCheck.append(actions.assertEqual_boolean(list.isAction(), false, "Action button is disabled", "Action button is not disabled"));
+            assertCheck.append(actions.assertEqual_boolean(list.getAction(), false, "Action button is disabled", "Action button is not disabled"));
             assertCheck.append(actions.assertEqual_stringType(list.getTemplateName().toLowerCase().trim(), constants.getValue(CommonConstants.TICKET_CREATED_EVENT).toLowerCase().trim(), "Template event is same as defined", "Template event not same as defined"));
             }
                 pages.getInteractionsPage().closeInteractions();
@@ -320,7 +320,7 @@ public class CreateInteractionTest extends Driver {
             try {
                 assertCheck.append(actions.assertEqual_boolean(list.getMessageText().contains(ticketNumber), true, "Message Sent for same ticket id which has been Created", "Message does not send for same ticket id which has been Created"));
                 assertCheck.append(actions.assertEqual_stringType(list.getSmsType().toLowerCase().trim(), constants.getValue(CommonConstants.SYSTEM_SMS_TYPE).toLowerCase().trim(), "Message type is system", "Message type is not system"));
-                assertCheck.append(actions.assertEqual_boolean(list.isAction(), false, "Action button is disabled", "Action button is NOT disabled"));
+                assertCheck.append(actions.assertEqual_boolean(list.getAction(), false, "Action button is disabled", "Action button is NOT disabled"));
                 assertCheck.append(actions.assertEqual_stringType(list.getTemplateName().toLowerCase().trim(), constants.getValue(CommonConstants.TICKET_CREATED_EVENT).toLowerCase().trim(), "Template event is same as defined", "Template event not same as defined"));
             } catch (NullPointerException e) {
                 commonLib.fail("Not able to validate Message sent to customer or not. " + e.getMessage(), true);
