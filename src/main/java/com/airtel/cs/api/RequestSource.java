@@ -21,6 +21,7 @@ import com.airtel.cs.pojo.request.TransactionHistoryRequest;
 import com.airtel.cs.pojo.request.UsageHistoryMenuRequest;
 import com.airtel.cs.pojo.request.UsageHistoryRequest;
 import com.airtel.cs.pojo.request.VoucherSearchRequest;
+import com.airtel.cs.pojo.request.AccountDetailRequest;
 import com.airtel.cs.pojo.response.AMProfilePOJO;
 import com.airtel.cs.pojo.response.AccountsBalancePOJO;
 import com.airtel.cs.pojo.response.GsmKycPOJO;
@@ -35,6 +36,10 @@ import com.airtel.cs.pojo.response.actionconfig.ActionConfigResponse;
 import com.airtel.cs.pojo.response.actiontrail.ActionTrailPOJO;
 import com.airtel.cs.pojo.response.adjustmenthistory.AdjustmentHistory;
 import com.airtel.cs.pojo.response.adjustmentreason.AdjustmentReasonPOJO;
+import com.airtel.cs.pojo.response.agentlimit.AgentLimit;
+import com.airtel.cs.pojo.request.LimitConfigRequest;
+import com.airtel.cs.pojo.request.AgentLimitRequest;
+import com.airtel.cs.pojo.request.SaveAgentLimitRequest;
 import com.airtel.cs.pojo.response.agentpermission.AgentPermission;
 import com.airtel.cs.pojo.response.agents.AgentDetailPOJO;
 import com.airtel.cs.pojo.response.airtelmoney.AirtelMoneyPOJO;
@@ -86,7 +91,7 @@ public class RequestSource extends RestCommonUtils {
             commonPostMethod(URIConstants.TARIFF_AVAILABLE_PLANS, new GenericRequest(TARIFF_PLAN_TEST_NUMBER));
             result = response.as(AvailablePlanPOJO.class);
         } catch (Exception e) {
-          commonLib.fail(ApplicationConstants.CS_PORTAL_API_ERROR + " - availablePlanPOJO " + e.getMessage(), false);
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - availablePlanPOJO " + e.getMessage(), false);
             esbRequestSource.callAvailableTarrifPlan(new GenericRequest(TARIFF_PLAN_TEST_NUMBER));
         }
         return result;
@@ -101,7 +106,7 @@ public class RequestSource extends RestCommonUtils {
             commonPostMethod(URIConstants.TARIFF_CURRENT_PLAN, new GenericRequest(TARIFF_PLAN_TEST_NUMBER));
             result = response.as(CurrentPlanPOJO.class);
         } catch (Exception e) {
-            commonLib.fail(ApplicationConstants.CS_PORTAL_API_ERROR + " - currentPlanPOJO " + e.getMessage(), false);
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - currentPlanPOJO " + e.getMessage(), false);
             esbRequestSource.callCurrentTarrifPlan(new GenericRequest(TARIFF_PLAN_TEST_NUMBER));
         }
         return result;
@@ -120,7 +125,7 @@ public class RequestSource extends RestCommonUtils {
             commonPostMethod(URIConstants.V2_LOGIN, body);
             result = response.as(LoginPOJO.class);
         } catch (Exception e) {
-            commonLib.fail(ApplicationConstants.CS_PORTAL_API_ERROR + " - loginPOJO " + e.getMessage(), false);
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - loginPOJO " + e.getMessage(), false);
         }
         return result;
     }
@@ -137,7 +142,8 @@ public class RequestSource extends RestCommonUtils {
             commonPostMethod(URIConstants.KYC_PROFILE, new GenericRequest(msisdn));
             result = response.as(KYCProfile.class);
         } catch (Exception e) {
-            commonLib.fail(ApplicationConstants.CS_PORTAL_API_ERROR + " - kycProfileAPITest " + e.getMessage(), false);
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - kycProfileAPITest " + e.getMessage(), false);
+            esbRequestSource.callCustomerProfileV2(msisdn);
         }
         return result;
     }
@@ -154,7 +160,7 @@ public class RequestSource extends RestCommonUtils {
             commonPostMethod(URIConstants.GSM_PROFILE, new GenericRequest(msisdn));
             result = response.as(ProfilePOJO.class);
         } catch (Exception e) {
-            commonLib.fail(ApplicationConstants.CS_PORTAL_API_ERROR + " - profileAPITest " + e.getMessage(), false);
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - profileAPITest " + e.getMessage(), false);
             esbRequestSource.callprofileESBAPI(msisdn);
         }
         return result;
@@ -174,7 +180,7 @@ public class RequestSource extends RestCommonUtils {
             commonGetMethodWithQueryParam(URIConstants.AM_PROFILE, queryParam);
             result = response.as(AMProfilePOJO.class);
         } catch (Exception e) {
-            commonLib.fail(ApplicationConstants.CS_PORTAL_API_ERROR + " - amServiceProfileAPITest " + e.getMessage(), false);
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - amServiceProfileAPITest " + e.getMessage(), false);
             esbRequestSource.callAmServiceProfileESBAPI(msisdn);
         }
         return result;
@@ -192,7 +198,7 @@ public class RequestSource extends RestCommonUtils {
             commonPostMethod(URIConstants.GSM_KYC, new GenericRequest(msisdn));
             result = response.as(GsmKycPOJO.class);
         } catch (Exception e) {
-            commonLib.fail(ApplicationConstants.CS_PORTAL_API_ERROR + " - gsmKYCAPITest " + e.getMessage(), false);
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - gsmKYCAPITest " + e.getMessage(), false);
             esbRequestSource.callGsmKycESBAPI(msisdn);
         }
         return result;
@@ -210,7 +216,7 @@ public class RequestSource extends RestCommonUtils {
             commonPostMethod(URIConstants.ACCOUNT_PLAN, new GenericRequest(msisdn));
             result = response.as(PlansPOJO.class);
         } catch (Exception e) {
-            commonLib.fail(ApplicationConstants.CS_PORTAL_API_ERROR + " - accountPlansTest " + e.getMessage(), false);
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - accountPlansTest " + e.getMessage(), false);
             esbRequestSource.callAccoountPlanESBAPI(msisdn);
         }
         return result;
@@ -228,7 +234,7 @@ public class RequestSource extends RestCommonUtils {
             commonPostMethod(URIConstants.USAGE_HISTORY, new UsageHistoryRequest(msisdn, 5, 1, null, null, null, "More"));
             result = response.as(UsageHistoryPOJO.class);
         } catch (Exception e) {
-            commonLib.fail(ApplicationConstants.CS_PORTAL_API_ERROR + " - usageHistoryTest " + e.getMessage(), false);
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - usageHistoryTest " + e.getMessage(), false);
             esbRequestSource.callUsageHistory(new UsageHistoryRequest(msisdn, 5, 1, null, null, null, "More"));
         }
         return result;
@@ -246,7 +252,7 @@ public class RequestSource extends RestCommonUtils {
             commonPostMethod(URIConstants.USAGE_HISTORY, new UsageHistoryMenuRequest(msisdn, 5, 1, null, null, null, "More", "FREE"));
             result = response.as(UsageHistoryPOJO.class);
         } catch (Exception e) {
-            commonLib.fail(ApplicationConstants.CS_PORTAL_API_ERROR + " - usageHistoryTest " + e.getMessage(), false);
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - usageHistoryTest " + e.getMessage(), false);
             esbRequestSource.callUsageHistory(new UsageHistoryMenuRequest(msisdn, 5, 1, null, null, null, "More", "FREE"));
         }
         return result;
@@ -264,7 +270,7 @@ public class RequestSource extends RestCommonUtils {
             commonPostMethod(URIConstants.RECHARGE_HISTORY, new RechargeHistoryRequest(msisdn, 5, 1, null, null, null));
             result = response.as(RechargeHistoryPOJO.class);
         } catch (Exception e) {
-            commonLib.fail(ApplicationConstants.CS_PORTAL_API_ERROR + " - rechargeHistoryAPITest " + e.getMessage(), false);
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - rechargeHistoryAPITest " + e.getMessage(), false);
             esbRequestSource
                 .callRechargeHistory(msisdn, UtilsMethods.getUTCEndDate(Timestamp.valueOf(LocalDate.now().atTime(LocalTime.MAX)).getTime()),
                     UtilsMethods.getUTCStartDate(Timestamp.valueOf(LocalDate.now().atStartOfDay().minusDays(14)).getTime()));
@@ -284,7 +290,7 @@ public class RequestSource extends RestCommonUtils {
             commonPostMethod(URIConstants.TRANSACTION_HISTORY, new TransactionHistoryRequest(msisdn, 5, 1, null, null));
             result = response.as(AirtelMoneyPOJO.class);
         } catch (Exception e) {
-            commonLib.fail(ApplicationConstants.CS_PORTAL_API_ERROR + " - transactionHistoryAPITest " + e.getMessage(), false);
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - transactionHistoryAPITest " + e.getMessage(), false);
             commonLib.info("Calling ESB APIs");
             commonPostMethod(constants.getValue("am.transaction.history.api.url") + ESBURIConstants.TRANSACTION_HISTORY, new TransactionHistoryRequest(msisdn, 5, 1, null, null));
         }
@@ -304,7 +310,7 @@ public class RequestSource extends RestCommonUtils {
             commonPostMethod(URIConstants.TRANSACTION_HISTORY, new MoreTransactionHistoryRequest(msisdn, 5, 1, null, null, null, null, currencyType, true));
             result = response.as(AirtelMoneyPOJO.class);
         } catch (Exception e) {
-            commonLib.fail(ApplicationConstants.CS_PORTAL_API_ERROR + " - moreTransactionHistoryAPITest " + e.getMessage(), false);
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - moreTransactionHistoryAPITest " + e.getMessage(), false);
         }
         return result;
     }
@@ -321,7 +327,7 @@ public class RequestSource extends RestCommonUtils {
             commonPostMethod(URIConstants.ACCOUNT_BALANCE, new AccountBalanceRequest(msisdn, 10, 1));
             result = response.as(AccountsBalancePOJO.class);
         } catch (Exception e) {
-            commonLib.fail(ApplicationConstants.CS_PORTAL_API_ERROR + " - balanceAPITest " + e.getMessage(), false);
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - balanceAPITest " + e.getMessage(), false);
             commonLib.info("Calling ESB APIs");
             queryParam.put("msisdn", msisdn);
             commonGetMethodWithQueryParam(constants.getValue("gsm.customer.profile.base.url") + ESBURIConstants.QUERY_BALANCE, queryParam);
@@ -342,7 +348,7 @@ public class RequestSource extends RestCommonUtils {
             commonGetMethodWithQueryParam(URIConstants.SR_FETCH_HISTORY, queryParam);
             result = response.as(TicketPOJO.class);
         } catch (Exception e) {
-            commonLib.fail(ApplicationConstants.CS_PORTAL_API_ERROR + " - ticketMetaDataTest " + e.getMessage(), false);
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - ticketMetaDataTest " + e.getMessage(), false);
         }
         return result;
     }
@@ -359,7 +365,7 @@ public class RequestSource extends RestCommonUtils {
             commonPostMethod(URIConstants.NOTIFICATION_FETCH_HISTORY, new SMSHistoryRequest(msisdn, 10, 0));
             result = response.as(SMSHistoryPOJO.class);
         } catch (Exception e) {
-            commonLib.fail(ApplicationConstants.CS_PORTAL_API_ERROR + " - smsHistoryTest " + e.getMessage(), false);
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - smsHistoryTest " + e.getMessage(), false);
         }
         return result;
     }
@@ -376,7 +382,7 @@ public class RequestSource extends RestCommonUtils {
             commonPostMethod(URIConstants.VOUCHER_DETAILS, new VoucherSearchRequest(voucherId));
             result = response.as(VoucherSearchPOJO.class);
         } catch (Exception e) {
-            commonLib.fail(ApplicationConstants.CS_PORTAL_API_ERROR + " - voucherSearchTest " + e.getMessage(), false);
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - voucherSearchTest " + e.getMessage(), false);
             esbRequestSource.callVoucherDetails(voucherId);
         }
         return result;
@@ -391,7 +397,7 @@ public class RequestSource extends RestCommonUtils {
             commonGetMethod(URIConstants.VENDORS);
             result = response.as(VendorNames.class);
         } catch (Exception e) {
-            commonLib.fail(ApplicationConstants.CS_PORTAL_API_ERROR + " - vendorsNamesTest " + e.getMessage(), false);
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - vendorsNamesTest " + e.getMessage(), false);
             esbRequestSource.callVendors();
         }
         return result;
@@ -410,7 +416,7 @@ public class RequestSource extends RestCommonUtils {
             commonPostMethod(URIConstants.LOAN_SUMMARY, new LoanRequest(msisdn, vendorName));
             result = response.as(Summary.class);
         } catch (Exception e) {
-            commonLib.fail(ApplicationConstants.CS_PORTAL_API_ERROR + " - loanSummaryTest " + e.getMessage(), false);
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - loanSummaryTest " + e.getMessage(), false);
             esbRequestSource.callLoanSummary(new LoanRequest(msisdn, vendorName));
         }
         return result;
@@ -429,7 +435,7 @@ public class RequestSource extends RestCommonUtils {
             commonPostMethod(URIConstants.LOAN_DETAILS, new LoanRequest(msisdn, vendorName));
             result = response.as(Loan.class);
         } catch (Exception e) {
-            commonLib.fail(ApplicationConstants.CS_PORTAL_API_ERROR + " - loanDetailsTest " + e.getMessage(), false);
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - loanDetailsTest " + e.getMessage(), false);
             esbRequestSource.callLoanDetails(new LoanRequest(msisdn, vendorName));
         }
         return result;
@@ -447,7 +453,7 @@ public class RequestSource extends RestCommonUtils {
             commonPostMethod(URIConstants.REFILL_STATUS, new GenericRequest(msisdn));
             result = response.as(RefillStatus.class);
         } catch (Exception e) {
-            commonLib.fail(ApplicationConstants.CS_PORTAL_API_ERROR + " - clearRefillTest " + e.getMessage(), false);
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - clearRefillTest " + e.getMessage(), false);
             esbRequestSource.callVoucherRefilBarred(msisdn);
         }
         return result;
@@ -467,7 +473,7 @@ public class RequestSource extends RestCommonUtils {
             commonPostMethod(URIConstants.SEARCH_TUNES, new RingtonDetailsRequest(msisdn, searchBy, searchText));
             result = response.as(Top20Ringtone.class);
         } catch (Exception e) {
-            commonLib.fail(ApplicationConstants.CS_PORTAL_API_ERROR + " - ringtoneDetailTest " + e.getMessage(), false);
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - ringtoneDetailTest " + e.getMessage(), false);
             esbRequestSource.callRingtoneDetailsTest(msisdn,searchText);
         }
         return result;
@@ -486,7 +492,7 @@ public class RequestSource extends RestCommonUtils {
             commonGetMethodWithQueryParam(URIConstants.FETCH_TUNES, queryParam);
             result = response.as(ActivateRingtone.class);
         } catch (Exception e) {
-            commonLib.fail(ApplicationConstants.CS_PORTAL_API_ERROR + " - activateRingtone " + e.getMessage(), false);
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - activateRingtone " + e.getMessage(), false);
             esbRequestSource.callActiveRingTone(msisdn);
         }
         return result;
@@ -504,7 +510,7 @@ public class RequestSource extends RestCommonUtils {
             commonPostMethod(URIConstants.ACCUMULATORS, new AccumulatorsRequest(msisdn, 5, 1));
             result = response.as(AccumulatorsPOJO.class);
         } catch (Exception e) {
-            commonLib.fail(ApplicationConstants.CS_PORTAL_API_ERROR + " - accumulatorsAPITest " + e.getMessage(), false);
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - accumulatorsAPITest " + e.getMessage(), false);
             esbRequestSource.callAccumulatorAPI(msisdn);
         }
         return result;
@@ -522,7 +528,7 @@ public class RequestSource extends RestCommonUtils {
             commonPostMethod(URIConstants.SERVICE_PROFILE, new ServiceProfileRequest(msisdn, 5, 1));
             result = response.as(HLRServicePOJO.class);
         } catch (Exception e) {
-            commonLib.fail(ApplicationConstants.CS_PORTAL_API_ERROR + " - getServiceProfileWidgetInfo " + e.getMessage(), false);
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - getServiceProfileWidgetInfo " + e.getMessage(), false);
             esbRequestSource.callHLRFetchDetails(msisdn);
         }
         return result;
@@ -542,7 +548,7 @@ public class RequestSource extends RestCommonUtils {
             commonGetMethodWithQueryParam(URIConstants.CONFIGURATIONS, queryParam);
             result = response.as(ConfigurationPOJO.class);
         } catch (Exception e) {
-            commonLib.fail(ApplicationConstants.CS_PORTAL_API_ERROR + " - getConfiguration " + e.getMessage(), false);
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - getConfiguration " + e.getMessage(), false);
         }
         return result;
     }
@@ -559,7 +565,7 @@ public class RequestSource extends RestCommonUtils {
             commonPostMethod(URIConstants.OFFER_DETAILS, new OfferDetailRequest(msisdn, true));
             result = response.as(OfferDetailPOJO.class);
         } catch (Exception e) {
-            commonLib.fail(ApplicationConstants.CS_PORTAL_API_ERROR + " - OfferDetailAPITest " + e.getMessage(), false);
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - OfferDetailAPITest " + e.getMessage(), false);
             esbRequestSource.callOfferDetailsAPI(new OfferDetailRequest(msisdn, true));
         }
         return result;
@@ -577,7 +583,7 @@ public class RequestSource extends RestCommonUtils {
             commonPostMethod(URIConstants.FRIENDS_FAMILY, new GenericRequest(msisdn));
             result = response.as(FriendsFamilyPOJO.class);
         } catch (Exception e) {
-            commonLib.fail(ApplicationConstants.CS_PORTAL_API_ERROR + " - friendsAndFamilyAPITest " + e.getMessage(), false);
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - friendsAndFamilyAPITest " + e.getMessage(), false);
             esbRequestSource.callFriensFamilyAPI(new GenericRequest(msisdn));
         }
         return result;
@@ -594,7 +600,7 @@ public class RequestSource extends RestCommonUtils {
             commonGetMethod(URIConstants.AGENT_PERMISSION);
             result = response.as(AgentPermission.class);
         } catch (Exception e) {
-            commonLib.fail(ApplicationConstants.CS_PORTAL_API_ERROR + " - transferToQueuePermissionAPI " + e.getMessage(), false);
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - transferToQueuePermissionAPI " + e.getMessage(), false);
         }
         return result;
     }
@@ -612,7 +618,7 @@ public class RequestSource extends RestCommonUtils {
             commonPostMethod(URIConstants.FETCH_TICKET_POOL, new FetchTicketPool(ticketId, isSupervisor));
             result = response.as(TransferToQueuePOJO.class);
         } catch (Exception e) {
-            commonLib.fail(ApplicationConstants.CS_PORTAL_API_ERROR + " - fetchTicketPoolAPI " + e.getMessage(), false);
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - fetchTicketPoolAPI " + e.getMessage(), false);
         }
         return result;
     }
@@ -629,7 +635,7 @@ public class RequestSource extends RestCommonUtils {
             commonGetMethod(URIConstants.AGENT_DETAILS, headers);
             result = response.as(AgentDetailPOJO.class);
         } catch (Exception e) {
-            commonLib.fail(ApplicationConstants.CS_PORTAL_API_ERROR + " - getAgentDetail " + e.getMessage(), false);
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - getAgentDetail " + e.getMessage(), false);
         }
         return result;
     }
@@ -646,7 +652,7 @@ public class RequestSource extends RestCommonUtils {
             commonPostMethod(URIConstants.EVENTS_LOG,new ActionTrailRequest(msisdn,eventType,10,0));
             result = response.as(ActionTrailPOJO.class);
         } catch (Exception e) {
-            commonLib.fail(ApplicationConstants.CS_PORTAL_API_ERROR + " - getEventHistory " + e.getMessage(), false);
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - getEventHistory " + e.getMessage(), false);
         }
         return result;
     }
@@ -661,7 +667,7 @@ public class RequestSource extends RestCommonUtils {
             commonGetMethod(URIConstants.ADJUSTMENT_ACTION);
             result = response.as(AdjustmentReasonPOJO.class);
         } catch (Exception e) {
-            commonLib.fail(ApplicationConstants.CS_PORTAL_API_ERROR + " - AdjustmentReasonPOJO " + e.getMessage(), false);
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - AdjustmentReasonPOJO " + e.getMessage(), false);
         }
         return result;
     }
@@ -678,7 +684,7 @@ public class RequestSource extends RestCommonUtils {
             commonPostMethod(URIConstants.ADJUSTMENT_HISTORY, new ServiceProfileRequest(msisdn, 5, 1));
             result = response.as(AdjustmentHistory.class);
         } catch (Exception e) {
-            commonLib.fail(ApplicationConstants.CS_PORTAL_API_ERROR + " - getServiceProfileWidgetInfo " + e.getMessage(), false);
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - getServiceProfileWidgetInfo " + e.getMessage(), false);
         }
         return result;
     }
@@ -698,7 +704,7 @@ public class RequestSource extends RestCommonUtils {
             result = response.print();
             myList = new ArrayList<>(Arrays.asList(result.split("data:")));
         } catch (Exception e) {
-            commonLib.fail(ApplicationConstants.CS_PORTAL_API_ERROR + " - getEventHistory " + e.getMessage(), false);
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - getEventHistory " + e.getMessage(), false);
             esbRequestSource.callPostpaidAccountInformation(msisdn);
         }
         return myList;
@@ -716,7 +722,7 @@ public class RequestSource extends RestCommonUtils {
             commonPostMethod(URIConstants.POSTPAID_ACCOUNT_DETAILS, new AccountDetailRequest(accountNo));
             result = response.as(AccountDetails.class);
         } catch (Exception e) {
-            commonLib.fail(ApplicationConstants.CS_PORTAL_API_ERROR + " - getAccountInfoDetail " + e.getMessage(), false);
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - getAccountInfoDetail " + e.getMessage(), false);
             esbRequestSource.callPostpaidAccountInfoDetails(new AccountDetailRequest(accountNo));
         }
         return result;
@@ -739,7 +745,7 @@ public class RequestSource extends RestCommonUtils {
                 commonLib.fail("Unable to fetch the response in getFieldMaskConfigs " + fieldMaskConfigReponse.getStatusCode(), false);
             }
         } catch (Exception e) {
-            commonLib.fail(ApplicationConstants.CS_PORTAL_API_ERROR + " - getFieldMaskConfigs " + e.getMessage(), false);
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - getFieldMaskConfigs " + e.getMessage(), false);
         }
         return fieldMaskConfigReponse.getResult();
     }
@@ -755,7 +761,44 @@ public class RequestSource extends RestCommonUtils {
             commonGetMethod(URIConstants.ACTION_CONFIG,headers);
             result = response.as(ActionConfigResponse.class);
         } catch (Exception e) {
-            commonLib.fail(ApplicationConstants.CS_PORTAL_API_ERROR + " - getActionConfig " + e.getMessage(), false);
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - getActionConfig " + e.getMessage(), false);
+        }
+        return result;
+    }
+
+    /**
+     * This Method will hit the API "/cs-service/api/cs-service/v1/limit/configuration" and return the response
+     *
+     * @param roleId The role id
+     * @return The Response
+     */
+    public AgentLimit getAgentLimitConfig(String roleId) {
+        AgentLimit result = null;
+        try {
+            commonPostMethod(URIConstants.AGENT_LIMIT_API, new AgentLimitRequest(roleId));
+            result = response.as(AgentLimit.class);
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - getAgentLimitConfig " + e.getMessage(), false);
+        }
+        return result;
+    }
+
+    /**
+     * This Method will hit the API "/cs-service/api/cs-service/v1/limit/save/configuration" and return the response
+     *
+     * @param roleId The role id
+     * @return The Response
+     */
+    public AgentLimit saveAgentLimit(String roleId,String featureKey,String dailyLimit,String monthlyLimit,String transactionLimit) {
+        AgentLimit result = null;
+        try {
+            LimitConfigRequest limitConfig=new LimitConfigRequest(featureKey,dailyLimit,monthlyLimit,transactionLimit);
+            List<LimitConfigRequest> request=new ArrayList<>();
+            request.add(limitConfig);
+            commonPostMethod(URIConstants.SAVE_AGENT_LIMIT_API, new SaveAgentLimitRequest(roleId,request));
+            result = response.as(AgentLimit.class);
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - saveAgentLimit " + e.getMessage(), false);
         }
         return result;
     }
