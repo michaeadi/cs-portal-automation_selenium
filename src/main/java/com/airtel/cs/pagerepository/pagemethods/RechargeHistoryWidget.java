@@ -248,6 +248,11 @@ public class RechargeHistoryWidget extends BasePage {
         return result;
     }
 
+    /**
+     * Recharge history api result present or not
+     * @param rechargeHistoryAPI The Recharge history api
+     * @return true/false
+     */
     public Boolean isResultPresent(RechargeHistory rechargeHistoryAPI){
         final int statusCode = rechargeHistoryAPI.getStatusCode();
         assertCheck.append(actions.assertEqual_intType(statusCode, 200, "Recharge History API status code matched and is: " + statusCode, "Recharge History API status code NOT matched and is: " + statusCode));
