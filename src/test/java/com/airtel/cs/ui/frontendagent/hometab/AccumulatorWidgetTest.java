@@ -1,7 +1,6 @@
 package com.airtel.cs.ui.frontendagent.hometab;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
@@ -15,7 +14,6 @@ import org.testng.annotations.Test;
 
 public class AccumulatorWidgetTest extends Driver {
     private static String customerNumber = null;
-    private final BaseActions actions = new BaseActions();
     RequestSource api = new RequestSource();
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})

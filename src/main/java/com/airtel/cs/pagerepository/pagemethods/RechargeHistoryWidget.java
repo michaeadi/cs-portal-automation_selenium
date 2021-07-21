@@ -265,6 +265,7 @@ public class RechargeHistoryWidget extends BasePage {
                 return true;
             }
         }else{
+            commonLib.fail(rechargeHistoryAPI.getApiErrors(), true);
             return false;
         }
     }

@@ -21,7 +21,6 @@ import java.util.List;
 
 public class DemoGraphicWidgetBySIMTest extends Driver {
     RequestSource api = new RequestSource();
-    private final BaseActions actions = new BaseActions();
     private static String customerNumber = null;
 
     @DataProviders.User()

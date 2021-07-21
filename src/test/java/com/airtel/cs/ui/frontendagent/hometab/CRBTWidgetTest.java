@@ -1,7 +1,6 @@
 package com.airtel.cs.ui.frontendagent.hometab;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
@@ -22,7 +21,6 @@ public class CRBTWidgetTest extends Driver {
 
     private static String customerNumber = null;
     RequestSource api = new RequestSource();
-    private final BaseActions actions = new BaseActions();
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {

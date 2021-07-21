@@ -49,8 +49,7 @@ public class NftrDataExcelToBeanDao {
                 while (cellIterator.hasNext()) {
                     Cell cell = cellIterator.next();
 
-                    if (cells.getRowNum() == 0) {
-                    } else {
+                    if (cells.getRowNum() > 0) {
                         int columnIndex = cell.getColumnIndex();
                         String cellValue = fetchValue(cell);
                         nftrDataBeans.setRowNum((cell.getRowIndex()));
@@ -243,9 +242,7 @@ public class NftrDataExcelToBeanDao {
                     userCredsBeanList.add(nftrDataBeans);
                 }
             }
-        } catch (
-
-                IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return userCredsBeanList;

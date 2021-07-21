@@ -1,6 +1,5 @@
 package com.airtel.cs.ui.frontendagent.leftmenu;
 
-import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.driver.Driver;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NotFoundException;
@@ -10,7 +9,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class SideMenuTests extends Driver {
-    private final BaseActions actions = new BaseActions();
 
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})

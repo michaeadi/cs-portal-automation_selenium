@@ -2,7 +2,6 @@ package com.airtel.cs.ui.frontendagent.hometab;
 
 import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.commonutils.UtilsMethods;
-import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
@@ -31,7 +30,6 @@ public class LoanWidgetTest extends Driver {
 
     public static final String RUN_LOAN_WIDGET_TEST_CASE = constants.getValue(ApplicationConstants.RUN_LOAN_WIDGET_TESTCASE);
     static String customerNumber;
-    private final BaseActions actions = new BaseActions();
     RequestSource api = new RequestSource();
     List<Vendors> vendors;
 

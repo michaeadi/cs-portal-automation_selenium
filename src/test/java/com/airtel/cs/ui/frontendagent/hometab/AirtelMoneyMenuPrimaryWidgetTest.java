@@ -2,7 +2,6 @@ package com.airtel.cs.ui.frontendagent.hometab;
 
 import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.commonutils.UtilsMethods;
-import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
@@ -17,7 +16,6 @@ import org.testng.annotations.Test;
 public class AirtelMoneyMenuPrimaryWidgetTest extends Driver {
     public static final String MULTI_AM_WALLET = constants.getValue(ApplicationConstants.MULTI_WALLET_BALANCE);
     public static final String RUN_AIRTEL_MONEY_WIDGET_TEST_CASE = constants.getValue(ApplicationConstants.RUN_AIRTEL_MONEY_WIDGET_TESTCASE);
-    private final BaseActions actions = new BaseActions();
     String customerNumber;
     RequestSource api = new RequestSource();
     private AirtelMoney amTransactionHistoryAPI;

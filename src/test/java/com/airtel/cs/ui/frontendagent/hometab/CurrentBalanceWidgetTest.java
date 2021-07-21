@@ -1,14 +1,13 @@
 package com.airtel.cs.ui.frontendagent.hometab;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pagerepository.pagemethods.CurrentBalanceWidget;
 import com.airtel.cs.model.response.plans.Plans;
 import com.airtel.cs.model.response.plans.PlansResult;
+import com.airtel.cs.pagerepository.pagemethods.CurrentBalanceWidget;
 import lombok.extern.log4j.Log4j2;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
@@ -18,7 +17,6 @@ import org.testng.annotations.Test;
 public class CurrentBalanceWidgetTest extends Driver {
 
     private static String customerNumber = null;
-    private final BaseActions actions = new BaseActions();
     RequestSource api = new RequestSource();
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})

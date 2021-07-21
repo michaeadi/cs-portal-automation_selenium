@@ -1,16 +1,15 @@
 package com.airtel.cs.ui.frontendagent.hometab;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pagerepository.pagemethods.AMTransactionsWidget;
-import com.airtel.cs.model.response.amprofile.AMProfile;
 import com.airtel.cs.model.response.airtelmoney.AirtelMoney;
+import com.airtel.cs.model.response.amprofile.AMProfile;
+import com.airtel.cs.pagerepository.pagemethods.AMTransactionsWidget;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.testng.SkipException;
@@ -24,7 +23,6 @@ import java.io.IOException;
 public class AirtelMoneyTransactionWidgetTest extends Driver {
 
     private static String customerNumber = null;
-    private final BaseActions actions = new BaseActions();
     RequestSource api = new RequestSource();
     public static final String RUN_AIRTEL_MONEY_WIDGET_TEST_CASE = constants.getValue(ApplicationConstants.RUN_AIRTEL_MONEY_WIDGET_TESTCASE);
 

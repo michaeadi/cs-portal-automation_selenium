@@ -22,7 +22,6 @@ import org.testng.annotations.Test;
 public class DemoGraphicWidgetMsisdnTest extends Driver {
 
     private static String customerNumber = null;
-    private final BaseActions actions = new BaseActions();
     RequestSource api = new RequestSource();
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})

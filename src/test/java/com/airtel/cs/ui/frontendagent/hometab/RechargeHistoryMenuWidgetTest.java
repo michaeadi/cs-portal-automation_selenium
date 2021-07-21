@@ -2,7 +2,6 @@ package com.airtel.cs.ui.frontendagent.hometab;
 
 import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.commonutils.UtilsMethods;
-import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
@@ -17,7 +16,6 @@ import org.testng.annotations.Test;
 public class RechargeHistoryMenuWidgetTest extends Driver {
     public static final String RUN_RECHARGE_WIDGET_TEST_CASE = constants.getValue(ApplicationConstants.RUN_RECHARGE_WIDGET_TESTCASE);
     private static String customerNumber = null;
-    private final BaseActions actions = new BaseActions();
     RequestSource api = new RequestSource();
     private RechargeHistory rechargeHistoryAPI;
 
@@ -62,25 +60,18 @@ public class RechargeHistoryMenuWidgetTest extends Driver {
             selUtils.addTestcaseDescription("Validating Recharge History's  Menu of User :" + customerNumber + "validate recharge menu widget display all header display as per config", "description");
             rechargeHistoryAPI = api.rechargeHistoryAPITest(customerNumber);
             final int statusCode = rechargeHistoryAPI.getStatusCode();
-            if (statusCode == 200) {
-                if (rechargeHistoryAPI.getResult().size() == 0 || rechargeHistoryAPI.getResult() == null) {
-                    commonLib.warning("Unable to get DATA History Details from CS API");
-                    assertCheck.append(actions.assertEqual_boolean(pages.getMoreRechargeHistoryPage().getNoResultFound(), true, "No Result icon displayed as expected.", "No Result Message is not Visible"));
-                } else {
-                    selUtils.addTestcaseDescription("Validating Recharge History's  Menu of User :" + customerNumber + "validate recharge menu widget display all header display as per config", "description");
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getHeaders(1), data.getRow1(), "Header Name for Row 1 is as expected", "Header Name for Row 1 is not as expected"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getHeaders(2), data.getRow2(), "Header Name for Row 2 is as expected", "Header Name for Row 2 is not as expected"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getHeaders(3), data.getRow3(), "Header Name for Row 3 is as expected", "Header Name for Row 3 is not as expected"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getHeaders(4) + pages.getMoreRechargeHistoryPage().getSubHeaders(4).replace("|", ""), data.getRow4().replace("|", ""), "Header Name for Row 4 is as expected", "Header Name for Row 4 is not as expected"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getHeaders(5), data.getRow5(), "Header Name for Row 5 is as expected", "Header Name for Row 5 is not as expected"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getHeaders(6), data.getRow6(), "Header Name for Row 6 is as expected", "Header Name for Row 6 is not as expected"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getHeaders(7), data.getRow7(), "Header Name for Row 7 is as expected", "Header Name for Row 7 is not as expected"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getHeaders(8), data.getRow8(), "Header Name for Row 8 is as expected", "Header Name for Row 8 is not as expected"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getHeaders(9), data.getRow9(), "Header Name for Row 9 is as expected", "Header Name for Row 9 is not as expected"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getHeaders(10), data.getRow10(), "Header Name for Row 10 is as expected", "Header Name for Row 10 is not as expected"));
-                }
-            } else {
-                commonLib.fail(rechargeHistoryAPI.getApiErrors(), true);
+            if (pages.getRechargeHistoryWidget().isResultPresent(rechargeHistoryAPI)) {
+                selUtils.addTestcaseDescription("Validating Recharge History's  Menu of User :" + customerNumber + "validate recharge menu widget display all header display as per config", "description");
+                assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getHeaders(1), data.getRow1(), "Header Name for Row 1 is as expected", "Header Name for Row 1 is not as expected"));
+                assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getHeaders(2), data.getRow2(), "Header Name for Row 2 is as expected", "Header Name for Row 2 is not as expected"));
+                assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getHeaders(3), data.getRow3(), "Header Name for Row 3 is as expected", "Header Name for Row 3 is not as expected"));
+                assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getHeaders(4) + pages.getMoreRechargeHistoryPage().getSubHeaders(4).replace("|", ""), data.getRow4().replace("|", ""), "Header Name for Row 4 is as expected", "Header Name for Row 4 is not as expected"));
+                assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getHeaders(5), data.getRow5(), "Header Name for Row 5 is as expected", "Header Name for Row 5 is not as expected"));
+                assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getHeaders(6), data.getRow6(), "Header Name for Row 6 is as expected", "Header Name for Row 6 is not as expected"));
+                assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getHeaders(7), data.getRow7(), "Header Name for Row 7 is as expected", "Header Name for Row 7 is not as expected"));
+                assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getHeaders(8), data.getRow8(), "Header Name for Row 8 is as expected", "Header Name for Row 8 is not as expected"));
+                assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getHeaders(9), data.getRow9(), "Header Name for Row 9 is as expected", "Header Name for Row 9 is not as expected"));
+                assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getHeaders(10), data.getRow10(), "Header Name for Row 10 is as expected", "Header Name for Row 10 is not as expected"));
             }
         } catch (Exception e) {
             commonLib.fail("Exception in Method - rechargeHistoryHeaderTest" + e.fillInStackTrace(), true);
@@ -118,8 +109,6 @@ public class RechargeHistoryMenuWidgetTest extends Driver {
                         assertCheck.append(actions.assertEqual_boolean(UtilsMethods.isSortOrderDisplay(pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i, 2), pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i + 1, 2), constants.getValue(CommonConstants.UI_RECHARGE_HISTORY_PATTERN)), true, "In Sort order display on ui as expected", pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i + 1, 2) + "should not display before " + pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i, 2)));
                     }
                 }
-            } else {
-                commonLib.fail(rechargeHistoryAPI.getApiErrors(), true);
             }
             pages.getMoreRechargeHistoryPage().openingCustomerInteractionDashboard();
         } catch (Exception e) {

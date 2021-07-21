@@ -1,15 +1,14 @@
 package com.airtel.cs.ui.frontendagent.hometab;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pagerepository.pagemethods.ServiceClassWidget;
 import com.airtel.cs.model.response.hlrservice.HLRService;
+import com.airtel.cs.pagerepository.pagemethods.ServiceClassWidget;
 import io.restassured.http.Headers;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
@@ -24,7 +23,6 @@ import java.util.NoSuchElementException;
 public class ServiceProfileWidgetTest extends Driver {
 
     private static String customerNumber = null;
-    private final BaseActions actions = new BaseActions();
     RequestSource api = new RequestSource();
     private HLRService hlrService;
     public static final String RUN_HLR_SERVICE_TEST_CASE = constants.getValue(ApplicationConstants.RUN_HLR_WIDGET_TEST_CASE);

@@ -1,6 +1,5 @@
 package com.airtel.cs.ui.frontendagent.loginandlogout;
 
-import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.PassUtils;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.driver.Driver;
@@ -14,7 +13,6 @@ import java.util.concurrent.TimeUnit;
 
 public class LoginAPITest extends Driver {
 
-    private final BaseActions actions = new BaseActions();
     ObjectMapper mapper = new ObjectMapper();
 
     @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})

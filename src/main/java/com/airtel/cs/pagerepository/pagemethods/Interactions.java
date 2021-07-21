@@ -9,6 +9,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Log4j2
@@ -344,6 +346,34 @@ public class Interactions extends BasePage {
         commonLib.info("Clicking reset issue details Button");
         clickAndWaitForLoaderToBeRemoved(pageElements.resetBtn);
         waitTillLoaderGetsRemoved();
+    }
+    
+    public void fillIssueFields(String issueFieldLabel1,String fieldType,String fieldMandatory,String questionNumber){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        LocalDateTime now = LocalDateTime.now();
+        if (issueFieldLabel1 != null)
+            if (fieldType.equalsIgnoreCase("Text Box") && !issueFieldLabel1.isEmpty()) {
+                commonLib.info(pages.getInteractionsPage().getIssueDetailLabel(questionNumber));
+                assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssueDetailLabel(questionNumber).replaceAll("[^a-zA-Z]+", "").trim(), (issueFieldLabel1.replaceAll("[^a-zA-Z]+", "").trim()), issueFieldLabel1 + " Label matched", issueFieldLabel1 + " Label does not match"));
+                if (fieldMandatory.equalsIgnoreCase("Yes")) {
+                    assertCheck.append(actions.assertEqual_boolean(pages.getInteractionsPage().getIssueDetailLabel(questionNumber).contains("*"), true, issueFieldLabel1 + "Label is mandatory and contains '*' ", issueFieldLabel1 + "Label is mandatory but doesn't contain '*' "));
+                }
+                pages.getInteractionsPage().setIssueDetailInput(questionNumber, "012345");
+            } else if (fieldType.equalsIgnoreCase("Date") && !issueFieldLabel1.isEmpty()) {
+                commonLib.info(pages.getInteractionsPage().getAvailableDateField());
+                assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getAvailableDateField(), issueFieldLabel1, "Label 1 Matched", "Label 1 NOT Matched"));
+                if (fieldMandatory.equalsIgnoreCase("Yes")) {
+                    assertCheck.append(actions.assertEqual_boolean(pages.getInteractionsPage().isDateFieldAvailableMandatory().contains("*"), true, issueFieldLabel1 + "Label is mandatory and contains '*' ", issueFieldLabel1 + "Label is mandatory but doesn't contain '*' "));
+                }
+                pages.getInteractionsPage().setDateFieldAvailable(dtf.format(now));
+            } else if (fieldType.equalsIgnoreCase("Drop Down") && !issueFieldLabel1.isEmpty()) {
+                commonLib.info(pages.getInteractionsPage().getIssueDetailLabelDropDown(questionNumber));
+                assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssueDetailLabelDropDown(questionNumber).replace("*", "").trim(), (issueFieldLabel1.replace("*", "").trim()), issueFieldLabel1 + "Label matched", issueFieldLabel1 + "Label does not match"));
+                if (fieldMandatory.equalsIgnoreCase("Yes")) {
+                    assertCheck.append(actions.assertEqual_boolean(pages.getInteractionsPage().getIssueDetailLabelDropDown(questionNumber).contains("*"), true, issueFieldLabel1 + "Label is mandatory and contains '*' ", issueFieldLabel1 + "Label is mandatory but doesn't contain '*' "));
+                }
+                pages.getInteractionsPage().selectIssueDetailInput(questionNumber);
+            }
     }
 
 }

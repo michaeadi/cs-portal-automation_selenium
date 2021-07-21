@@ -1,18 +1,13 @@
 package com.airtel.cs.ui.frontendagent;
 
-import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.driver.Driver;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class FrontendAgentTicketTest extends Driver {
-
-    private final BaseActions actions = new BaseActions();
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
@@ -108,48 +103,20 @@ public class FrontendAgentTicketTest extends Driver {
      */
     @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
     public void validateSendSMSTab() {
-        selUtils.addTestcaseDescription("Validating the Send SMS Tab ", "description");
-        pages.getCustomerProfilePage().clickOnAction();
         try {
+            selUtils.addTestcaseDescription("Validating the Send SMS Tab ", "description");
+            pages.getCustomerProfilePage().clickOnAction();
             pages.getCustomerProfilePage().openSendSMSTab();
-            try {
-                assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isPageLoaded(), true, "Send SMS tab open correctly", "Send SMS tab does not open correctly"));
-            } catch (NoSuchElementException | TimeoutException e) {
-                commonLib.fail("Send SMS tab does not open correctly" + e.fillInStackTrace(), true);
-            }
-            try {
-                assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isCategory(), true, "Category field displayed", "Category field does not displayed"));
-            } catch (NoSuchElementException | TimeoutException e) {
-                commonLib.fail("Category field does not displayed" + e.fillInStackTrace(), true);
-            }
-            try {
-                assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isCustomerNumber(), true, "Customer number displayed", "Customer number does not displayed"));
-            } catch (NoSuchElementException | TimeoutException e) {
-                commonLib.fail("Customer number does not displayed" + e.fillInStackTrace(), true);
-            }
-            try {
-                assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isLanguage(), true, "Language field displayed", "Language field does not displayed"));
-            } catch (NoSuchElementException | TimeoutException e) {
-                commonLib.fail("Language field does not displayed" + e.fillInStackTrace(), true);
-            }
-            try {
-                assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isTemplateName(), true, "Template name field display", "Template name field does not display"));
-            } catch (NoSuchElementException | TimeoutException e) {
-                commonLib.fail("Template name field does not displayed" + e.fillInStackTrace(), true);
-            }
-            try {
-                assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isMessageContentEditable(), true, "Message Content Editable", "Message Content is not Editable"));
-            } catch (NoSuchElementException | TimeoutException e) {
-                commonLib.fail("Message Content Is Editable" + e.fillInStackTrace(), true);
-            }
-            try {
-                assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isSendBtnDisabled(), true, "Send SMS button is clickable", "Send SMS button is not clickable"));
-            } catch (NoSuchElementException | TimeoutException e) {
-                commonLib.fail("Send SMS button is display on UI" + e.fillInStackTrace(), true);
-            }
-        } catch (NoSuchElementException | TimeoutException e) {
-            commonLib.fail("Send SMS tab does not open properly" + e.fillInStackTrace(), true);
+            assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isPageLoaded(), true, "Send SMS tab open correctly", "Send SMS tab does not open correctly"));
+            assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isCategory(), true, "Category field displayed", "Category field does not displayed"));
+            assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isCustomerNumber(), true, "Customer number displayed", "Customer number does not displayed"));
+            assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isLanguage(), true, "Language field displayed", "Language field does not displayed"));
+            assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isTemplateName(), true, "Template name field display", "Template name field does not display"));
+            assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isMessageContentEditable(), true, "Message Content Editable", "Message Content is not Editable"));
+            assertCheck.append(actions.assertEqual_boolean(pages.getSendSMS().isSendBtnDisabled(), true, "Send SMS button is clickable", "Send SMS button is not clickable"));
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - validateSendSMSTab()" + e.fillInStackTrace(), true);
         }
-        actions.assertAllFoundFailedAssert(assertCheck);
     }
 }
