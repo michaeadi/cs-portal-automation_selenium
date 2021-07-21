@@ -1,7 +1,6 @@
 package com.airtel.cs.ui.frontendagent.demographicwidget;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.dataproviders.ActionTagDataBeans;
 import com.airtel.cs.commonutils.dataproviders.AuthTabDataBeans;
@@ -23,7 +22,6 @@ public class AuthTabTest extends Driver {
 
     RequestSource api = new RequestSource();
     Map<String, String> authTabConfig;
-    public BaseActions actions = new BaseActions();
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
@@ -61,12 +59,7 @@ public class AuthTabTest extends Driver {
             authTabConfig = config.getResult().getAuthDataConfig();
             final String statusCode = config.getStatusCode();
             assertCheck.append(actions.assertEqual_stringType(statusCode, "200", "Config API Status Code is as Expected and is :" + statusCode, "Config API Status Code is NOT as Expected and is :" + statusCode));
-            for (Map.Entry mapElement : authTabConfig.entrySet()) {
-                String key = (String) mapElement.getKey();
-                String value = mapElement.getValue().toString();
-                commonLib.info(key + " :" + value);
-                assertCheck.append(actions.assertEqual_stringNotNull(value, "Question Answer values are present For Question Key :" + key + "and value is :" + value, "For Question Key '" + key + "' value is missing. Please configure the same"));
-            }
+            pages.getAuthTabPage().isAuthQuestionAsPerConfig(authTabConfig);
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method :- validateAnswerQuestionConfig" + e.fillInStackTrace(), false);
@@ -79,15 +72,7 @@ public class AuthTabTest extends Driver {
             selUtils.addTestcaseDescription("Verify the question Answer as Per Config", "description");
             DataProviders dataProviders = new DataProviders();
             List<QuestionAnswerKeyDataBeans> config = dataProviders.getQuestionAnswerKey();
-            for (QuestionAnswerKeyDataBeans questionAnswer : config) {
-                final String questionKey = questionAnswer.getQuestionKey();
-                commonLib.info("Question Key: '" + questionKey + "' ; Answer Found in API: '" + authTabConfig.get(questionKey));
-                if (authTabConfig.get(questionKey) != null) {
-                    assertCheck.append(actions.assertEqual_stringType(authTabConfig.get(questionKey), questionAnswer.getAnswerKey(), "Answer Key Validated and is :" + questionKey, "Answer key is not expected for Question: " + questionKey));
-                } else {
-                    commonLib.fail("Question Key does not found in Database but present in config sheet.", true);
-                }
-            }
+            pages.getAuthTabPage().isAuthQuestionAnswerKeyAsPerConfig(config,authTabConfig);
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method :- validateAnswerKey" + e.fillInStackTrace(), false);
@@ -104,20 +89,7 @@ public class AuthTabTest extends Driver {
             final String statusCode = config.getStatusCode();
             assertCheck.append(actions.assertEqual_stringType(statusCode, "200", "Config API Status Code is as Expected and is :" + statusCode, "Config API Status Code is NOT as Expected and is :" + statusCode));
             List<ActionTagDataBeans> actionTags = dataProviders.getActionTag();
-            for (LockedSection ls : lockedSection) {
-                final String key = ls.getKey();
-                final Boolean isAuthenticated = ls.getIsAuthenticated();
-                commonLib.info(key + " : " + isAuthenticated);
-                for (ActionTagDataBeans at : actionTags) {
-                    if (at.getActionTagName().equalsIgnoreCase(ls.getKey()))
-                        if (isAuthenticated != Boolean.parseBoolean(at.getIsAuth())) {
-                            commonLib.fail(ls.getKey() + "Action does not locked but as per config Action must be locked.", true);
-                            break;
-                        } else if (ls.getIsAuthenticated() == Boolean.parseBoolean(at.getIsAuth())) {
-                            commonLib.pass("Action Verified " + at.getActionTagName());
-                        }
-                }
-            }
+            pages.getAuthTabPage().isLockedSectionCorrectlyDisplay(lockedSection,actionTags);
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method :- validateLockedSectionStatus" + e.fillInStackTrace(), false);
@@ -138,21 +110,7 @@ public class AuthTabTest extends Driver {
             List<AuthTabDataBeans> list = data.getPolicy();
             List<String> questions = data.getPolicyQuestion();
             assertCheck.append(actions.assertEqual_stringType(pages.getAuthTabPage().getAuthInstruction().toLowerCase().trim(), list.get(0).getPolicyMessage().toLowerCase().trim(), "Policy Message same as configured", "Policy Message not same as configured"));
-            for (String s : questions) {
-                String trim = s.replaceAll("[^a-zA-Z]+", "").toLowerCase().trim();
-                if (!questionList.containsKey(trim)) {
-                    commonLib.fail(s + " :Question must configured on UI as present in config sheet", true);
-                }
-                questionList.remove(trim);
-            }
-            if (questionList.isEmpty()) {
-                commonLib.pass("All Questions correctly configured and display on UI.");
-            } else {
-                for (Map.Entry<String, String> mapElement : questionList.entrySet()) {
-                    commonLib.fail(mapElement.getKey() + " Question Display on UI but does not present in config sheet.", true);
-                    commonLib.fail(mapElement.getKey() + " :Question Display on UI but does not present in config sheet.", true);
-                }
-            }
+            pages.getAuthTabPage().validateAuthQuestion(questionList,questions);
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | AssertionError |NullPointerException e) {
             if (isTabOpened)
@@ -189,14 +147,7 @@ public class AuthTabTest extends Driver {
             List<String> reason = pages.getAuthTabPage().getReasonConfig();
             List<String> configReason = data.issueDetailReason("SIM Bar Unbar");
             for (String s : reason) {
-                if (!configReason.contains(s)) {
-                    commonLib.fail(s + ": Must not configured on UI as not mentioned in config.", true);
-                }
-                configReason.remove(s);
-            }
-
-            for (String s : configReason) {
-                commonLib.fail(s + ": Must configured on UI as mentioned in config.", true);
+                    assertCheck.append(actions.assertEqual_boolean(configReason.remove(s),true,s + ": Must not configured on UI as not mentioned in config.", s + ": Must configured on UI as mentioned in config."));
             }
             pages.getAuthTabPage().chooseReason();
             pages.getAuthTabPage().enterComment("Adding comment using Automation");

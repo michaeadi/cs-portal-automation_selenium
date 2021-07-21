@@ -1,6 +1,5 @@
 package com.airtel.cs.ui.backendSupervisor;
 
-import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.driver.Driver;
 import org.openqa.selenium.ElementClickInterceptedException;
@@ -12,7 +11,6 @@ import org.testng.annotations.Test;
 
 public class TicketEscalationTest extends Driver {
 
-    private final BaseActions actions = new BaseActions();
 
     @BeforeMethod(groups = {"RegressionTest"})
     public void checkExecution() {
@@ -55,7 +53,7 @@ public class TicketEscalationTest extends Driver {
                         assertCheck.append(actions.assertEqual_boolean(symbol.equalsIgnoreCase("!") || symbol.equalsIgnoreCase("!!") || symbol.equalsIgnoreCase("!!!"), true, symbol + " - Ticket Escalation Symbol displayed as ticket escalated.", "Ticket Symbol not displayed correctly"));
                     }
                 } else {
-                    commonLib.warning("No Ticket Found for Selected Filter",true);
+                    commonLib.warning("No Ticket Found for Selected Filter", true);
                 }
                 pages.getSupervisorTicketList().resetFilter();
             } catch (NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
@@ -78,19 +76,13 @@ public class TicketEscalationTest extends Driver {
                 pages.getFilterTabPage().selectAllLevel1();
                 pages.getFilterTabPage().clickOutsideFilter();
                 pages.getFilterTabPage().clickApplyFilter();
-                try {
-                    if (!pages.getSupervisorTicketList().noTicketFound()) {
-                        for (int i = 1; i <= pages.getSupervisorTicketList().getListSize(); i++) {
-                            String symbol = pages.getSupervisorTicketList().getSymbol(i);
-                            assertCheck.append(actions.assertEqual_boolean(symbol.equalsIgnoreCase("!"), true, symbol + " - Ticket Escalation Symbol displayed as ticket escalated.", "Ticket Symbol not displayed correctly"));
-                        }
-                    } else {
-                        commonLib.warning("No Ticket Found for Selected Filter",true);
+                if (!pages.getSupervisorTicketList().noTicketFound()) {
+                    for (int i = 1; i <= pages.getSupervisorTicketList().getListSize(); i++) {
+                        String symbol = pages.getSupervisorTicketList().getSymbol(i);
+                        assertCheck.append(actions.assertEqual_boolean(symbol.equalsIgnoreCase("!"), true, symbol + " - Ticket Escalation Symbol displayed as ticket escalated.", "Ticket Symbol not displayed correctly"));
                     }
-
-                } catch (NoSuchElementException | TimeoutException e) {
-                    commonLib.fail("Ticket Escalation Symbol on ticket does not displayed correctly", true);
-                    e.printStackTrace();
+                } else {
+                    commonLib.warning("No Ticket Found for Selected Filter", true);
                 }
                 pages.getSupervisorTicketList().resetFilter();
             } catch (NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
@@ -113,18 +105,13 @@ public class TicketEscalationTest extends Driver {
                 pages.getFilterTabPage().selectAllLevel3();
                 pages.getFilterTabPage().clickOutsideFilter();
                 pages.getFilterTabPage().clickApplyFilter();
-                try {
-                    if (!pages.getSupervisorTicketList().noTicketFound()) {
-                        for (int i = 1; i <= pages.getSupervisorTicketList().getListSize(); i++) {
-                            String symbol = pages.getSupervisorTicketList().getSymbol(i);
-                            assertCheck.append(actions.assertEqual_boolean(symbol.equalsIgnoreCase("!!!"), true, symbol + " - Ticket Escalation Symbol displayed as ticket escalated.", symbol + " - Ticket Symbol not displayed correctly"));
-                        }
-                    } else {
-                        commonLib.warning("No Ticket Found for Selected Filter",true);
+                if (!pages.getSupervisorTicketList().noTicketFound()) {
+                    for (int i = 1; i <= pages.getSupervisorTicketList().getListSize(); i++) {
+                        String symbol = pages.getSupervisorTicketList().getSymbol(i);
+                        assertCheck.append(actions.assertEqual_boolean(symbol.equalsIgnoreCase("!!!"), true, symbol + " - Ticket Escalation Symbol displayed as ticket escalated.", symbol + " - Ticket Symbol not displayed correctly"));
                     }
-
-                } catch (NoSuchElementException | TimeoutException e) {
-                    commonLib.fail("Ticket Escalation Symbol on ticket not displayed correctly" + e.fillInStackTrace(), true);
+                } else {
+                    commonLib.warning("No Ticket Found for Selected Filter", true);
                 }
                 pages.getSupervisorTicketList().resetFilter();
             } catch (NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
@@ -148,19 +135,13 @@ public class TicketEscalationTest extends Driver {
                 pages.getFilterTabPage().selectAllLevel2();
                 pages.getFilterTabPage().clickOutsideFilter();
                 pages.getFilterTabPage().clickApplyFilter();
-
-                try {
-                    if (!pages.getSupervisorTicketList().noTicketFound()) {
-                        for (int i = 1; i <= pages.getSupervisorTicketList().getListSize(); i++) {
-                            String symbol = pages.getSupervisorTicketList().getSymbol(i);
-                            assertCheck.append(actions.assertEqual_boolean(symbol.equalsIgnoreCase("!!"), true, symbol + " - Ticket Escalation Symbol displayed as ticket escalated.", symbol + " - Ticket Symbol not displayed correctly"));
-                        }
-                    } else {
-                        commonLib.warning("No Ticket Found for Selected Filter",true);
+                if (!pages.getSupervisorTicketList().noTicketFound()) {
+                    for (int i = 1; i <= pages.getSupervisorTicketList().getListSize(); i++) {
+                        String symbol = pages.getSupervisorTicketList().getSymbol(i);
+                        assertCheck.append(actions.assertEqual_boolean(symbol.equalsIgnoreCase("!!"), true, symbol + " - Ticket Escalation Symbol displayed as ticket escalated.", symbol + " - Ticket Symbol not displayed correctly"));
                     }
-
-                } catch (NoSuchElementException | TimeoutException e) {
-                    commonLib.fail("Ticket Escalation Symbol on ticket not displayed correctly" + e.fillInStackTrace(), true);
+                } else {
+                    commonLib.warning("No Ticket Found for Selected Filter", true);
                 }
                 pages.getSupervisorTicketList().resetFilter();
 

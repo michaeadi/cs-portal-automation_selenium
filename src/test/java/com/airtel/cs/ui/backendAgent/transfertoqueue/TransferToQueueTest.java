@@ -1,7 +1,6 @@
 package com.airtel.cs.ui.backendAgent.transfertoqueue;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
@@ -20,7 +19,6 @@ import org.testng.annotations.Test;
 
 public class TransferToQueueTest extends Driver {
 
-    private final BaseActions actions = new BaseActions();
     RequestSource api = new RequestSource();
     private String ticketId = null;
 

@@ -1,4 +1,4 @@
-package com.airtel.cs.common.actions;
+package com.airtel.cs.commonutils.actions;
 
 import com.airtel.cs.commonutils.commonlib.CommonLib;
 import io.restassured.response.Response;

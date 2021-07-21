@@ -1,6 +1,5 @@
 package com.airtel.cs.ui.frontendagent.actiondropdown;
 
-import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.driver.Driver;
 import org.apache.commons.lang3.StringUtils;
@@ -13,7 +12,6 @@ import org.testng.annotations.Test;
 
 public class SendInternetSettingsTest extends Driver {
 
-    private final BaseActions actions = new BaseActions();
     String comments = "Adding comment using Automation";
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})

@@ -272,4 +272,13 @@ public class UtilsMethods extends Driver {
         }
         return false;
     }
+
+    /**
+     * This method is use to check given string first char is Negative sign(-) or not
+     * @param value The value
+     * @return true/false
+     */
+    public static Boolean isValueNegative(String value){
+        return value.charAt(0) == '-';
+    }
 }

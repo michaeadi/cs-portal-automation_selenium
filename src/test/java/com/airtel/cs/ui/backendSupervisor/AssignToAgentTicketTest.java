@@ -1,7 +1,7 @@
 package com.airtel.cs.ui.backendSupervisor;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.common.actions.BaseActions;
+import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.applicationutils.enums.JavaColors;
 import com.airtel.cs.driver.Driver;
@@ -15,7 +15,6 @@ import org.testng.annotations.Test;
 
 public class AssignToAgentTicketTest extends Driver {
 
-    private final BaseActions actions = new BaseActions();
     RequestSource api = new RequestSource();
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest"})
@@ -69,7 +68,6 @@ public class AssignToAgentTicketTest extends Driver {
             }
             pages.getSupervisorTicketList().writeTicketIdSecond(ticketId);
             pages.getSupervisorTicketList().clickSearchBtn();
-
             assertCheck.append(actions.assertEqual_stringType(pages.getSupervisorTicketList().getAssigneeAUUID().trim(), auuid, "Ticket Assigned to new agent correctly", "Ticket does not Assigned to new agent correctly"));
             if (pages.getSupervisorTicketList().getAssigneeAUUID().trim().equalsIgnoreCase(auuid)) {
                 commonLib.infoColored("Ticket unassigned from '" + assigneeAUUID + "' and Ticket Assigned to '" + auuid + "'", JavaColors.GREEN, false);
