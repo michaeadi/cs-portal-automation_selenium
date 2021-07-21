@@ -1,5 +1,6 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
+import com.airtel.cs.model.response.rechargehistory.RechargeHistory;
 import com.airtel.cs.pagerepository.pageelements.RechargeHistoryWidgetPage;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
@@ -246,4 +247,21 @@ public class RechargeHistoryWidget extends BasePage {
         result = getAttribute(pageElements.middleRHWAuuid, "data-auuid", false);
         return result;
     }
+
+    public Boolean isResultPresent(RechargeHistory rechargeHistoryAPI){
+        final int statusCode = rechargeHistoryAPI.getStatusCode();
+        assertCheck.append(actions.assertEqual_intType(statusCode, 200, "Recharge History API status code matched and is: " + statusCode, "Recharge History API status code NOT matched and is: " + statusCode));
+        if (statusCode == 200) {
+            if (rechargeHistoryAPI.getResult().size() == 0 || rechargeHistoryAPI.getResult() == null) {
+                commonLib.warning("Unable to get DATA History Details from CS API");
+                assertCheck.append(actions.assertEqual_boolean(pages.getMoreRechargeHistoryPage().getNoResultFound(), true, "No Result icon displayed as expected.", "No Result Message is not Visible"));
+                return false;
+            } else {
+                return true;
+            }
+        }else{
+            return false;
+        }
+    }
+
 }

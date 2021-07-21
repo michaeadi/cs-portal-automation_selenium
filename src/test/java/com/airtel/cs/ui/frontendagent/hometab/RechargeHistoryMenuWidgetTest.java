@@ -1,8 +1,8 @@
 package com.airtel.cs.ui.frontendagent.hometab;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.UtilsMethods;
+import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
@@ -15,10 +15,11 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class RechargeHistoryMenuWidgetTest extends Driver {
+    public static final String RUN_RECHARGE_WIDGET_TEST_CASE = constants.getValue(ApplicationConstants.RUN_RECHARGE_WIDGET_TESTCASE);
     private static String customerNumber = null;
     private final BaseActions actions = new BaseActions();
-    public static final String RUN_RECHARGE_WIDGET_TEST_CASE = constants.getValue(ApplicationConstants.RUN_RECHARGE_WIDGET_TESTCASE);
     RequestSource api = new RequestSource();
+    private RechargeHistory rechargeHistoryAPI;
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
@@ -56,21 +57,17 @@ public class RechargeHistoryMenuWidgetTest extends Driver {
 
     @DataProviders.Table(name = "More Recharge History")
     @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
-    public void rechargeHistoryMenuTest(HeaderDataBean data) {
+    public void rechargeHistoryHeaderTest(HeaderDataBean data) {
         try {
-            selUtils.addTestcaseDescription("Validating Recharge History's  Menu of User :" + customerNumber + "validate recharge menu widget display all header display as per config,Validate all the data rows must be display as per api response.", "description");
-            assertCheck.append(actions.assertEqual_boolean(pages.getRechargeHistoryWidget().isRechargeHistoryWidgetMenuVisible(), true, "Recharge History's MENU is visible ", "Recharge History's MENU is not visible "));
-            pages.getRechargeHistoryWidget().openingRechargeHistoryDetails();
-            assertCheck.append(actions.assertEqual_boolean(pages.getMoreRechargeHistoryPage().isDatePickerVisible(), true, "Date Picker is visible as expected", "Date picker is not visible "));
-            RechargeHistory rechargeHistoryAPI = api.rechargeHistoryAPITest(customerNumber);
+            selUtils.addTestcaseDescription("Validating Recharge History's  Menu of User :" + customerNumber + "validate recharge menu widget display all header display as per config", "description");
+            rechargeHistoryAPI = api.rechargeHistoryAPITest(customerNumber);
             final int statusCode = rechargeHistoryAPI.getStatusCode();
-            assertCheck.append(actions.assertEqual_intType(statusCode, 200, "Recharge History API status code matched and is: " + statusCode, "Recharge History API status code NOT matched and is: " + statusCode));
             if (statusCode == 200) {
-                int size = pages.getMoreRechargeHistoryPage().getNumbersOfRows();
                 if (rechargeHistoryAPI.getResult().size() == 0 || rechargeHistoryAPI.getResult() == null) {
                     commonLib.warning("Unable to get DATA History Details from CS API");
                     assertCheck.append(actions.assertEqual_boolean(pages.getMoreRechargeHistoryPage().getNoResultFound(), true, "No Result icon displayed as expected.", "No Result Message is not Visible"));
                 } else {
+                    selUtils.addTestcaseDescription("Validating Recharge History's  Menu of User :" + customerNumber + "validate recharge menu widget display all header display as per config", "description");
                     assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getHeaders(1), data.getRow1(), "Header Name for Row 1 is as expected", "Header Name for Row 1 is not as expected"));
                     assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getHeaders(2), data.getRow2(), "Header Name for Row 2 is as expected", "Header Name for Row 2 is not as expected"));
                     assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getHeaders(3), data.getRow3(), "Header Name for Row 3 is as expected", "Header Name for Row 3 is not as expected"));
@@ -81,25 +78,44 @@ public class RechargeHistoryMenuWidgetTest extends Driver {
                     assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getHeaders(8), data.getRow8(), "Header Name for Row 8 is as expected", "Header Name for Row 8 is not as expected"));
                     assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getHeaders(9), data.getRow9(), "Header Name for Row 9 is as expected", "Header Name for Row 9 is not as expected"));
                     assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getHeaders(10), data.getRow10(), "Header Name for Row 10 is as expected", "Header Name for Row 10 is not as expected"));
-                    for (int i = 0; i < size; i++) {
-                        assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i + 1, 1).trim(), rechargeHistoryAPI.getResult().get(i).getCharges().trim(), " Charges received is as expected on row " + i, " Charges received is not as expected on row " + i));
-                        assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i + 1, 2), UtilsMethods.getDateFromString(rechargeHistoryAPI.getResult().get(i).getDateTime(), constants.getValue(CommonConstants.UI_RECHARGE_HISTORY_PATTERN), constants.getValue(CommonConstants.API_RECHARGE_HISTORY_PATTERN)), "Date & Time received is as expected on row " + i, "Date & Time received is not as expected on row " + i));
-                        assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i + 1, 3).replaceAll("[^a-zA-Z]+", ""), rechargeHistoryAPI.getResult().get(i).getBundleName().replaceAll("[^a-zA-Z]+", ""), "Bundle Name received is as expected on row " + i, "Bundle Name received is not as expected on row " + i));
-                        String apiValue = ((rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getVOICE() == null) ? "" : rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getVOICE()) + ((rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getDATA() == null) ? "" : rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getDATA()) + ((rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getSMS() == null) ? "" : rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getSMS());
-                        assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i + 1, 4).replaceAll("[^a-zA-Z0-9]+", ""), apiValue.replaceAll("[^a-zA-Z0-9]+", ""), "Recharge Benefits received is as expected on row " + i, "Recharge Benefits received is not as expected on row " + i));
-                        assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i + 1, 5), rechargeHistoryAPI.getResult().get(i).getStatus().trim().toLowerCase(), "Status received is as expected on row " + i, "Status received is not as expected on row " + i));
-                        assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i + 1, 6), rechargeHistoryAPI.getResult().get(i).getMode(), "Mode of recharge received is as expected on row " + i, "Mode of recharge received is not as expected on row " + i));
-                        if (rechargeHistoryAPI.getResult().get(i).getMode().equalsIgnoreCase("Voucher")) {
-                            assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i + 1, 7).trim(), rechargeHistoryAPI.getResult().get(i).getSerialNumber().trim(), "Serial Number received is as expected on row " + i, "Serial Number received is not as expected on row " + i));
-                        } else {
-                            assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i + 1, 7), "-", "Serial Number received is as expected on row " + i, "Serial Number received is not as expected on row " + i));
-                        }
-                        assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i + 1, 8), ((rechargeHistoryAPI.getResult().get(i).getExpiryDate() == null) ? "-" : UtilsMethods.getDateFromString(rechargeHistoryAPI.getResult().get(i).getExpiryDate(), constants.getValue(CommonConstants.API_RECHARGE_HISTORY_PATTERN), constants.getValue(CommonConstants.API_RECHARGE_HISTORY_PATTERN))), "Expiry date received is as expected on row " + i, "Expiry date received is not as expected on row " + i));
-                        assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i + 1, 9), ((rechargeHistoryAPI.getResult().get(i).getOldExpiryDate() == null) ? "-" : UtilsMethods.getDateFromString(rechargeHistoryAPI.getResult().get(i).getOldExpiryDate(), constants.getValue(CommonConstants.API_RECHARGE_HISTORY_PATTERN), constants.getValue(CommonConstants.API_RECHARGE_HISTORY_PATTERN))), "Old Expiry date received is as expected on row " + i, "Old Expiry date received is not as expected on row " + i));
-                        assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i + 1, 10).trim(), ((rechargeHistoryAPI.getResult().get(i).getValidity() == null) ? "-" : rechargeHistoryAPI.getResult().get(i).getValidity()), "Validity received is as expected on row " + i, "Validity received is not as expected on row " + i));
-                        if (i != 0) {
-                            assertCheck.append(actions.assertEqual_boolean(UtilsMethods.isSortOrderDisplay(pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i, 2), pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i + 1, 2), constants.getValue(CommonConstants.UI_RECHARGE_HISTORY_PATTERN)), true, "In Sort order display on ui as expected", pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i + 1, 2) + "should not display before " + pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i, 2)));
-                        }
+                }
+            } else {
+                commonLib.fail(rechargeHistoryAPI.getApiErrors(), true);
+            }
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - rechargeHistoryHeaderTest" + e.fillInStackTrace(), true);
+        }
+    }
+
+    @DataProviders.Table(name = "More Recharge History")
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = {"openCustomerInteraction", "rechargeHistoryHeaderTest"})
+    public void rechargeHistoryMenuTest(HeaderDataBean data) {
+        try {
+            selUtils.addTestcaseDescription("Validating Recharge History's  Menu of User :" + customerNumber + "validate recharge menu widget display all header display as per config,Validate all the data rows must be display as per api response.", "description");
+            assertCheck.append(actions.assertEqual_boolean(pages.getRechargeHistoryWidget().isRechargeHistoryWidgetMenuVisible(), true, "Recharge History's MENU is visible ", "Recharge History's MENU is not visible "));
+            pages.getRechargeHistoryWidget().openingRechargeHistoryDetails();
+            assertCheck.append(actions.assertEqual_boolean(pages.getMoreRechargeHistoryPage().isDatePickerVisible(), true, "Date Picker is visible as expected", "Date picker is not visible "));
+            rechargeHistoryAPI = api.rechargeHistoryAPITest(customerNumber);
+            if (pages.getRechargeHistoryWidget().isResultPresent(rechargeHistoryAPI)) {
+                int size = pages.getMoreRechargeHistoryPage().getNumbersOfRows();
+                for (int i = 0; i < size; i++) {
+                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i + 1, 1).trim(), rechargeHistoryAPI.getResult().get(i).getCharges().trim(), " Charges received is as expected on row " + i, " Charges received is not as expected on row " + i));
+                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i + 1, 2), UtilsMethods.getDateFromString(rechargeHistoryAPI.getResult().get(i).getDateTime(), constants.getValue(CommonConstants.UI_RECHARGE_HISTORY_PATTERN), constants.getValue(CommonConstants.API_RECHARGE_HISTORY_PATTERN)), "Date & Time received is as expected on row " + i, "Date & Time received is not as expected on row " + i));
+                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i + 1, 3).replaceAll("[^a-zA-Z]+", ""), rechargeHistoryAPI.getResult().get(i).getBundleName().replaceAll("[^a-zA-Z]+", ""), "Bundle Name received is as expected on row " + i, "Bundle Name received is not as expected on row " + i));
+                    String apiValue = ((rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getVOICE() == null) ? "" : rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getVOICE()) + ((rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getDATA() == null) ? "" : rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getDATA()) + ((rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getSMS() == null) ? "" : rechargeHistoryAPI.getResult().get(i).getRechargeBenefit().getSMS());
+                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i + 1, 4).replaceAll("[^a-zA-Z0-9]+", ""), apiValue.replaceAll("[^a-zA-Z0-9]+", ""), "Recharge Benefits received is as expected on row " + i, "Recharge Benefits received is not as expected on row " + i));
+                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i + 1, 5), rechargeHistoryAPI.getResult().get(i).getStatus().trim().toLowerCase(), "Status received is as expected on row " + i, "Status received is not as expected on row " + i));
+                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i + 1, 6), rechargeHistoryAPI.getResult().get(i).getMode(), "Mode of recharge received is as expected on row " + i, "Mode of recharge received is not as expected on row " + i));
+                    if (rechargeHistoryAPI.getResult().get(i).getMode().equalsIgnoreCase("Voucher")) {
+                        assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i + 1, 7).trim(), rechargeHistoryAPI.getResult().get(i).getSerialNumber().trim(), "Serial Number received is as expected on row " + i, "Serial Number received is not as expected on row " + i));
+                    } else {
+                        assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i + 1, 7), "-", "Serial Number received is as expected on row " + i, "Serial Number received is not as expected on row " + i));
+                    }
+                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i + 1, 8), ((rechargeHistoryAPI.getResult().get(i).getExpiryDate() == null) ? "-" : UtilsMethods.getDateFromString(rechargeHistoryAPI.getResult().get(i).getExpiryDate(), constants.getValue(CommonConstants.API_RECHARGE_HISTORY_PATTERN), constants.getValue(CommonConstants.API_RECHARGE_HISTORY_PATTERN))), "Expiry date received is as expected on row " + i, "Expiry date received is not as expected on row " + i));
+                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i + 1, 9), ((rechargeHistoryAPI.getResult().get(i).getOldExpiryDate() == null) ? "-" : UtilsMethods.getDateFromString(rechargeHistoryAPI.getResult().get(i).getOldExpiryDate(), constants.getValue(CommonConstants.API_RECHARGE_HISTORY_PATTERN), constants.getValue(CommonConstants.API_RECHARGE_HISTORY_PATTERN))), "Old Expiry date received is as expected on row " + i, "Old Expiry date received is not as expected on row " + i));
+                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i + 1, 10).trim(), ((rechargeHistoryAPI.getResult().get(i).getValidity() == null) ? "-" : rechargeHistoryAPI.getResult().get(i).getValidity()), "Validity received is as expected on row " + i, "Validity received is not as expected on row " + i));
+                    if (i != 0) {
+                        assertCheck.append(actions.assertEqual_boolean(UtilsMethods.isSortOrderDisplay(pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i, 2), pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i + 1, 2), constants.getValue(CommonConstants.UI_RECHARGE_HISTORY_PATTERN)), true, "In Sort order display on ui as expected", pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i + 1, 2) + "should not display before " + pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i, 2)));
                     }
                 }
             } else {
