@@ -201,7 +201,7 @@ public class AccountInformationWidgetTest extends Driver {
                     assertCheck.append(actions.assertEqualBoolean(pages.getAccountInformationWidget().isTempCreditLimitInfoVisible(), true, "Temp credit info icon displays as expected", "Temp credit info icon not displays as expected"));
                     pages.getAccountInformationWidget().hoverOnTempCreditLimitInfoIcon();
                     String validTillDate = pages.getAccountInformationWidget().getValidTilldate();
-                    assertCheck.append(actions.assertEqualStringType(validTillDate, pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "billEndDate", "billEndDate"), "Vallid till date is same as bill End date of downstream api", "Vallid till date is not same as bill End date of downstream api"));
+                    assertCheck.append(actions.assertEqualStringType(validTillDate, pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "tempCreditValidity", "tempCreditValidity"), "Vallid till date is same as bill End date of downstream api", "Vallid till date is not same as bill End date of downstream api"));
                     assertCheck.append(actions.assertEqualStringType(validTillDate, pages.getAccountInformationWidget().getCurrentCycleEndDate(), "Vallid till date is same as Current Cycle End date as expected", "Vallid till date is not same as Current Cycle End date as expected"));
                 } else {
                     assertCheck.append(actions.assertEqualBoolean(pages.getAccountInformationWidget().isTempCreditLimitInfoVisible(), false, "Temp credit info icon not displays as expected", "Temp credit info icon displays as not expected"));

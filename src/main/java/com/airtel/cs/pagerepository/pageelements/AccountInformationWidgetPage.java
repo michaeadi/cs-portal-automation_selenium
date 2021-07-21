@@ -29,7 +29,7 @@ public class AccountInformationWidgetPage {
     public By tempCreditCurrency = By.xpath("//div[text()='Temp Credit Limit ']/following-sibling::div/span[1]");
     public By tempCreditLimit = By.xpath("//div[text()='Temp Credit Limit ']/following-sibling::div/span[2]");
     public By tempCreditLimitInfoIcon = By.xpath("//div[text()='Temp Credit Limit ']/following-sibling::div/span[3]");
-    public By validTillDate = By.xpath("//*[contains(text(),'Valid Till')]");
-    public By currentCycleEndDate = By.xpath("//div[text()='Current Cycle ']/following-sibling::div/span[3]");
+    public By validTillDate = By.xpath("//div[contains(@class, 'mat-tooltip') and contains(text(),'Valid Till')]");
+    public By currentCycleEndDate = By.xpath("//div[text()='Current Cycle ']/following-sibling::div/span[1]");
 
 }

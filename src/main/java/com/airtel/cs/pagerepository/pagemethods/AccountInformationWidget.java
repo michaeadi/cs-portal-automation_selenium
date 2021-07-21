@@ -258,6 +258,7 @@ public class AccountInformationWidget extends BasePage {
     public void hoverOnTempCreditLimitInfoIcon() {
         commonLib.info("Hover on SIM Status Reason Info icon");
         hoverOverElement(pageElements.tempCreditLimitInfoIcon);
+        commonLib.hardWait(1);
     }
 
     /*
@@ -278,7 +279,7 @@ public class AccountInformationWidget extends BasePage {
        This Method will give us current cycle end date
         */
     public String getCurrentCycleEndDate() {
-        final String text = getText(pageElements.currentCycleEndDate);
+        final String text = getText(pageElements.currentCycleEndDate).split("-")[1].trim();
         commonLib.info(text);
         return text;
     }
