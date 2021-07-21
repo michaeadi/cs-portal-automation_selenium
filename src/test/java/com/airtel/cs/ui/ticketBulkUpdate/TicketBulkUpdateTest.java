@@ -6,7 +6,7 @@ import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
-import com.airtel.cs.commonutils.dataproviders.TicketStateDataBean;
+import com.airtel.cs.commonutils.dataproviders.databeans.TicketStateDataBean;
 import com.airtel.cs.driver.Driver;
 import io.restassured.http.Headers;
 import org.apache.commons.lang3.StringUtils;

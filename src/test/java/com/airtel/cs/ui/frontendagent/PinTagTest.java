@@ -2,7 +2,7 @@ package com.airtel.cs.ui.frontendagent;
 
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
-import com.airtel.cs.commonutils.dataproviders.PinnedTagsDataBeans;
+import com.airtel.cs.commonutils.dataproviders.databeans.PinnedTagsDataBeans;
 import com.airtel.cs.driver.Driver;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;

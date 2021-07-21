@@ -7,7 +7,7 @@ import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.commonutils.applicationutils.enums.JavaColors;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
-import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
+import com.airtel.cs.commonutils.dataproviders.databeans.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.model.response.actiontrail.ActionTrail;
 import com.airtel.cs.model.response.actiontrail.EventResult;

@@ -2,7 +2,7 @@ package com.airtel.cs.pagerepository.pagemethods;
 
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.enums.ReportInfoMessageColorList;
-import com.airtel.cs.commonutils.dataproviders.NftrDataBeans;
+import com.airtel.cs.commonutils.dataproviders.databeans.NftrDataBeans;
 import com.airtel.cs.model.response.ticketlist.IssueDetails;
 import com.airtel.cs.model.response.ticketlist.QueueStates;
 import com.airtel.cs.pagerepository.pageelements.SupervisorTicketListPage;

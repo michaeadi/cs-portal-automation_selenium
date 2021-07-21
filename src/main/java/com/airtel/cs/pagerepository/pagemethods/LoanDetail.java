@@ -1,7 +1,7 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
 import com.airtel.cs.commonutils.UtilsMethods;
-import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
+import com.airtel.cs.commonutils.dataproviders.databeans.HeaderDataBean;
 import com.airtel.cs.model.response.loandetails.LoanRepaymentDetailList;
 import com.airtel.cs.model.response.loandetails.LoanRepaymentList;
 import com.airtel.cs.model.response.vendors.HeaderList;

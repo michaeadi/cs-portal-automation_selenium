@@ -4,7 +4,7 @@ import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
-import com.airtel.cs.commonutils.dataproviders.NftrDataBeans;
+import com.airtel.cs.commonutils.dataproviders.databeans.NftrDataBeans;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.model.response.ticketlist.IssueDetails;
 import com.airtel.cs.model.response.ticketlist.Ticket;

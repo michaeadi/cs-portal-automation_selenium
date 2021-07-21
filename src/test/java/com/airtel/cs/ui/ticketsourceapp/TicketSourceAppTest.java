@@ -3,7 +3,7 @@ package com.airtel.cs.ui.ticketsourceapp;
 import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
-import com.airtel.cs.commonutils.dataproviders.TransferQueueDataBean;
+import com.airtel.cs.commonutils.dataproviders.databeans.TransferQueueDataBean;
 import com.airtel.cs.driver.Driver;
 import com.sun.istack.NotNull;
 import org.openqa.selenium.NoSuchElementException;
