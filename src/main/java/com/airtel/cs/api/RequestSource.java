@@ -716,14 +716,14 @@ public class RequestSource extends RestCommonUtils {
      * @param accountNo
      * @return The Response
      */
-    public AccountDetails getAccountInfoDetail(String accountNo) {
+    public AccountDetails getAccountInfoDetail(String accountNo, Integer pageNumber) {
         AccountDetails result = null;
         try {
-            commonPostMethod(URIConstants.POSTPAID_ACCOUNT_DETAILS, new AccountDetailRequest(accountNo));
+            commonPostMethod(URIConstants.POSTPAID_ACCOUNT_DETAILS, new AccountDetailRequest(accountNo, pageNumber.toString(), "5"));
             result = response.as(AccountDetails.class);
         } catch (Exception e) {
             commonLib.fail(constants.getValue("cs.portal.api.error") + " - getAccountInfoDetail " + e.getMessage(), false);
-            esbRequestSource.callPostpaidAccountInfoDetails(new AccountDetailRequest(accountNo));
+            esbRequestSource.callPostpaidAccountInfoDetails(new AccountDetailRequest(accountNo, pageNumber.toString(), "5"));
         }
         return result;
     }

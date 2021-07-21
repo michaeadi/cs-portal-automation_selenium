@@ -80,7 +80,7 @@ public class Driver {
     public static String elementName = ""; // FOR PASSING ELEMENT NAMES TO LOGS
     public static String message = null;
     public static final String RUN_TARIFF_TEST_CASE = constants.getValue(ApplicationConstants.RUN_TARIFF_TEST_CASE);
-    public static final String HTML_FILE_PATH = System.getProperty(USER_DIR) + "/resources/htmlreport/" + OPCO + "-" + evnName + PATH_DELIMITER;
+    public static final String HTML_FILE_PATH = System.getProperty(USER_DIR) + "/resources/htmlreport/" + OPCO.toLowerCase()+ "-" + evnName.toLowerCase() + PATH_DELIMITER;
     public static String MODIFIED_HTML_FILE_PATH = "";
     public static final String SUITE_TYPE = System.getProperty("suiteType");
     private static String browser = null;

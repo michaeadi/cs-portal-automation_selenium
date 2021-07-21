@@ -47,6 +47,11 @@ public class AccountInformationWidget extends BasePage {
         return status;
     }
 
+    public Boolean isAccountInfoWidgetDisplayWithOutScroll() {
+        commonLib.info(config.getProperty("accountInfoWidgetDisplay"));
+        return isElementVisible(pageElements.getTitle);
+    }
+
     /*
        This Method will give us footer auuid shown in Account Information widget
        Account Information Widget
@@ -73,7 +78,7 @@ public class AccountInformationWidget extends BasePage {
      * @return Boolean The  data value
      */
     public Boolean isActionIconVisibleOnAccountInfo() {
-        Boolean status = isElementVisible(pageElements.accountInfoDetailed);
+        Boolean status = isVisible(pageElements.accountInfoDetailed);
         commonLib.info(config.getProperty("iconVisibleOnDetailAccInfo") + status);
         return status;
     }
@@ -261,7 +266,7 @@ public class AccountInformationWidget extends BasePage {
     public String getValidTilldate() {
         String result = null;
         if (isElementVisible(pageElements.validTillDate)) {
-            result = getText(pageElements.validTillDate);
+            result = getText(pageElements.validTillDate).split("-")[1].trim();
             commonLib.info("Valid Till date is: " + result);
         } else {
             commonLib.fail("Valid Till date under Account Information Widget is NOT visible", true);

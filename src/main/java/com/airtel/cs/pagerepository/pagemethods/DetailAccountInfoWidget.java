@@ -167,4 +167,40 @@ public class DetailAccountInfoWidget extends BasePage {
     public String getTransactionType(int row) {
         return getText(By.xpath(pageElements.transactionType1 + row + pageElements.transactionType2));
     }
+
+    /**
+     * This method is used to check whether next page icon is visible or not
+     * @return
+     */
+    public Boolean nextPageVisible(){
+        Boolean status = isElementVisible(pageElements.clickNext);
+        commonLib.info("Checking Nex page icon is visible: " + status);
+        return status;
+    }
+
+    /**
+     * This method is used to click on next page page
+     * @return
+     */
+    public void clickNextPage() {
+        commonLib.info("Opening More under account information");
+        clickWithoutLoader(pageElements.clickNext);
+    }
+
+    /**
+     * This method use to get toast message
+     * @return String The Value
+     */
+    public String getToastText() {
+        String result = null;
+        if (isVisible(pageElements.toastModal)) {
+            result = getText(pageElements.toastModal);
+            clickWithoutLoader(pageElements.raiseDisputeCloseButton);
+        } else {
+            commonLib.fail("Exception in method - getToastText", true);
+            commonLib.info("Going to Close Modal through close Button");
+            clickWithoutLoader(pageElements.raiseDisputeCloseButton);
+        }
+        return result;
+    }
 }
