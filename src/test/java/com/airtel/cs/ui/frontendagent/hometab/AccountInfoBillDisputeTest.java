@@ -17,6 +17,7 @@ public class AccountInfoBillDisputeTest extends Driver {
   private static String customerNumber = null;
   String comments = "Adding comment using Automation Raise Dispute";
   RequestSource api = new RequestSource();
+  String accountNumber = "";
 
   @BeforeMethod(groups = {"SanityTest", "RegressionTest"})
   public void checkExecution() {
@@ -62,6 +63,7 @@ public class AccountInfoBillDisputeTest extends Driver {
       if (connectionType.equalsIgnoreCase("POSTPAID")) {
         assertCheck.append(actions.assertEqualBoolean(pages.getAccountInformationWidget().isAccountInfoWidgetDisplayWithOutScroll(), accountInfoPermission, "Account Information Widget displayed correctly as per user permission", "Account Information Widget does not display correctly as per user permission"));
         assertCheck.append(actions.assertEqualBoolean(pages.getAccountInformationWidget().isActionIconVisibleOnAccountInfo(), accountInfoPermission, "Account Information Detail Icon displayed correctly as per user permission", "Account Information Detail Icon does not display correctly as per user permission"));
+        accountNumber = pages.getAccountInformationWidget().getAccountNumber();
       }
     } catch (Exception e) {
       commonLib.fail("Exception in Method - isUserHasAccountInformationPermission" + e.fillInStackTrace(), true);
@@ -106,8 +108,9 @@ public class AccountInfoBillDisputeTest extends Driver {
           pages.getAuthTabPage().chooseReason();
           pages.getAuthTabPage().enterComment(comments);
           pages.getAuthTabPage().clickSubmitBtn();
-          final String toastText = pages.getAuthTabPage().getToastText();
-          assertCheck.append(actions.assertEqualStringType(toastText, "Internet Settings has been sent on Customer`s Device.", "Send Internet Settings Message has been sent to customer successfully", "Send Internet Settings Message hasn't been sent to customer ans message is :-" + toastText));
+          final String toastText = acctountDetailsWidget.getToastText();
+          assertCheck.append(actions.assertEqualBoolean(toastText.contains("SR has been successfully raised"), true, "SR has been created successfully as expected", "SR has not been created successfully as expected"));
+          ticketId = toastText.substring(toastText.indexOf("ID") + 6, toastText.indexOf("and") - 1);
           assertCheck.append(actions.assertEqualStringType(acctountDetailsWidget.getAccountInfoDetailWidget().toUpperCase(), "ACCOUNT INFORMATION DETAIL", "Account Information Detail display as expected in detailed account info", "Account Information Detail not display as expected in detailed account info"));
           pages.getCustomerProfilePage().goToViewHistory();
           pages.getViewHistory().clickOnInteractionsTab();
@@ -127,13 +130,6 @@ public class AccountInfoBillDisputeTest extends Driver {
           break;
         }
       }
-      pages.getCustomerProfilePage().goToViewHistory();
-      pages.getViewHistory().goToTicketHistoryTab();
-      String issueCode = pages.getViewHistory().getLastCreatedIssueCode();
-      pages.getViewHistory().clickOnInteractionsTab();
-      issueCode = pages.getViewHistory().getLastCreatedIssueCode();
-//      assertCheck.append(actions.assertEqualStringType(issueCode.toLowerCase().trim(), data.getIssueCode().trim().toLowerCase(), "Issue code found in view history", "Issue code doesn't found in view history"));
-
     } catch (Exception e) {
       commonLib.fail("Exception in Method - verifyAccountInfoDetailsPage" + e.fillInStackTrace(), true);
     }
