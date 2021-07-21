@@ -47,6 +47,11 @@ public class AccountInformationWidget extends BasePage {
         return status;
     }
 
+    /**
+     * This method use to check whether account intformation widget display or not without scrolling
+     *
+     * @return true/false
+     */
     public Boolean isAccountInfoWidgetDisplayWithOutScroll() {
         commonLib.info(config.getProperty("accountInfoWidgetDisplay"));
         return isElementVisible(pageElements.getTitle);

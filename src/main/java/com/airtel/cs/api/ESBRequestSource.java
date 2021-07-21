@@ -540,6 +540,11 @@ public class ESBRequestSource extends RestCommonUtils {
     }
   }
 
+  /**
+   * This Method will hit the ESB APIs related to postpaid account info details
+   *
+   * @param accountDetailRequest
+   */
   public void callPostpaidAccountInfoDetails(AccountDetailRequest accountDetailRequest) {
     try {
       commonLib.info(constants.getValue("downstream.api.calling") + " - account details ");
