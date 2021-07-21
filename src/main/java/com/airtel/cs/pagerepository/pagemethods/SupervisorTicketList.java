@@ -1,14 +1,25 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
+import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.enums.ReportInfoMessageColorList;
+import com.airtel.cs.commonutils.dataproviders.databeans.NftrDataBeans;
+import com.airtel.cs.model.response.ticketlist.IssueDetails;
+import com.airtel.cs.model.response.ticketlist.QueueStates;
 import com.airtel.cs.pagerepository.pageelements.SupervisorTicketListPage;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
-import org.openqa.selenium.*;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Log4j2
 public class SupervisorTicketList extends BasePage {
@@ -786,6 +797,110 @@ public class SupervisorTicketList extends BasePage {
     public void clickCloseTab(){
         commonLib.info("Closing the open overlay tab");
         clickAndWaitForLoaderToBeRemoved(pageElements.closeTabBtn);
+    }
+
+    /**
+     * This method is use to get all the state name from queue state meta info
+     * @param assignState The List of queue state meta info
+     * @return List The list of state name
+     */
+    public List<String> getAssignedStateName(List<QueueStates> assignState){
+        List<String> state=new ArrayList<>();
+        if (assignState != null) {
+            if (assignState.isEmpty()) {
+                return state;
+            }
+            for (QueueStates s : assignState) {
+                commonLib.info("State Mapped in Application DB: " + s.getExternalStateName());
+                state.add(s.getExternalStateName());
+            }
+        }
+        return state;
+    }
+
+    /**
+     * This method is use to validate all the state mapped to ticket queue as per config
+     * @param state The ticket states
+     * @param configState The config states
+     * @param queueName The queue name
+     */
+    public void matchStateName(List<String> state,List<String> configState,String queueName){
+        for (String s : state) {
+            assertCheck.append(actions.assertEqual_boolean(configState.remove(s.toLowerCase().trim()),true,s + " :State must mapped to '" + queueName+ "' as its mention in config.",s + " :State must not mapped to '" + queueName+ "' as its not mention in config."));
+        }
+    }
+
+    /**
+     * This method is use to compare all workgroup which are mentioned in Excel sheet displayed on UI or not.
+     * @param sla The API Workgroups
+     * @param workGroups The excel sheet workgroups
+     */
+    public void compareWorkgroupName(Map<String, Long> sla, Map<String, String> workGroups) {
+        for (Map.Entry mapElement : sla.entrySet()) {
+            String key = (String) mapElement.getKey();
+            String value = mapElement.getValue().toString();
+            assertCheck.append(actions.assertEqual_stringType(workGroups.remove(key), key, key + " : workgroup is configured correctly in DB as mentioned in configuration", key + " : workgroup is not configured correctly in DB as mentioned in configuration"));
+            if (!UtilsMethods.isValueNegative(value)) {
+                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isPositiveSLA(), true, "For positive SLA green symbol display", "For positive SLA green symbol does not display"));
+            } else {
+                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isNegativeSLA(), true, "For Negative SLA red symbol display", "For negative SLA red symbol does not display"));
+            }
+        }
+    }
+
+    /**
+     *This method is use to get workgroup name and sla if workgroup sla not null
+     * @param data The NftrDataBeans Object
+     * @return Map <workgroupName,SLA>
+     */
+    public Map<String, String> getWorkgroupConfig(NftrDataBeans data){
+        Map<String, String> workGroups=new HashMap<>();
+        if (data.getWorkgroup1() != null)
+            workGroups.put(data.getWorkgroup1(), data.getSla1());
+        if (data.getWorkgroup2() != null)
+            workGroups.put(data.getWorkgroup2(), data.getSla2());
+        if (data.getWorkgroup3() != null)
+            workGroups.put(data.getWorkgroup3(), data.getSla3());
+        if (data.getWorkgroup4() != null)
+            workGroups.put(data.getWorkgroup4(), data.getSla4());
+        return workGroups;
+    }
+
+
+    /**
+     * This method is use to compare all workgroup which are mentioned in Excel sheet displayed on UI or not.
+     * @param ticketLayout The API ticket layout
+     * @param configTicketLayout The excel sheet ticket layout
+     */
+    public void compareTicketLayout(List<IssueDetails> ticketLayout, List<String> configTicketLayout) {
+        if (ticketLayout.size() == 0) {
+            for (IssueDetails layout : ticketLayout) {
+                assertCheck.append(actions.assertEqual_boolean(configTicketLayout.remove(layout.getPlaceHolder().toLowerCase().trim()), true, layout.getPlaceHolder() + " : Ticket Layout configured in database as mention in Config sheet.", layout.getPlaceHolder() + " : Ticket Layout does not configured in database as mention in Config sheet."));
+            }
+        } else {
+            commonLib.pass("No Ticket Layout Config in database");
+        }
+    }
+
+    /**
+     * This method is use to transfer ticket to given queue return true if transfer action performed
+     * @param queueName Queue Name
+     * @return true/false
+     */
+    public Boolean transferTicketToSelectedQueue(String queueName){
+        boolean flag=false;
+        try {
+            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isAssignToAgent(), true, "Assign to Agent Button Does Available after selecting ticket", "Assign to Agent Button Does Not Available after selecting ticket"));
+            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isTransferToQueue(), true, "Transfer to Queue Button Does Available after selecting ticket", "Transfer to Queue Button Does Not Available after selecting ticket"));
+            pages.getSupervisorTicketList().clickTransfertoQueue();
+            assertCheck.append(actions.assertEqual_boolean(pages.getTransferToQueue().validatePageTitle(), true, "Transfer to Queue Pop up open as expected", "Transfer to Queue Page Title Does not Display"));
+            pages.getTransferToQueue().clickTransferQueue(queueName);
+            flag=true;
+        } catch (NoSuchElementException | TimeoutException e) {
+            commonLib.fail("Not able to perform Transfer to Queue: " + e.fillInStackTrace(), true);
+            pages.getTransferToQueue().clickCloseTab();
+        }
+        return flag;
     }
 
 }

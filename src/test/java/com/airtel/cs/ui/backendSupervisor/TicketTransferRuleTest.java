@@ -1,9 +1,8 @@
 package com.airtel.cs.ui.backendSupervisor;
 
-import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
-import com.airtel.cs.commonutils.dataproviders.TicketTransferRuleDataBean;
+import com.airtel.cs.commonutils.dataproviders.databeans.TicketTransferRuleDataBean;
 import com.airtel.cs.driver.Driver;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -14,7 +13,6 @@ import org.testng.annotations.Test;
 
 public class TicketTransferRuleTest extends Driver {
 
-    private final BaseActions actions = new BaseActions();
 
     @BeforeMethod
     public void checkExecution() {
@@ -60,15 +58,11 @@ public class TicketTransferRuleTest extends Driver {
                 Assert.assertEquals(ticketId, pages.getViewTicket().getTicketId(), "Verify the searched Ticket fetched Successfully");
                 String selectedState = pages.getViewTicket().selectState(ruleData.getTicketToState());
                 if (!selectedState.equalsIgnoreCase("Required State not found")) {
-                    try {
-                        pages.getSupervisorTicketList().writeTicketId(ticketId);
-                        pages.getSupervisorTicketList().clickSearchBtn();
-                        assertCheck.append(actions.assertEqual_stringType(pages.getSupervisorTicketList().getTicketIdValue(), ticketId, "Search ticket fetched successfully", "Search Ticket Does not Fetched Correctly"));
-                        assertCheck.append(actions.assertEqual_stringType(pages.getSupervisorTicketList().getStatevalue().toLowerCase().trim(), selectedState.toLowerCase().trim(), "Ticket Updated to Selected State " + selectedState, "Ticket Does not Updated to Selected State " + selectedState));
-                        assertCheck.append(actions.assertEqual_stringType(pages.getSupervisorTicketList().getQueueValue().toLowerCase().trim(), ruleData.getToQueue().toLowerCase().trim(), "Ticket updated to correct ticket pool " + ruleData.getToQueue(), "Ticket does not updated to correct ticket pool " + ruleData.getToQueue()));
-                    } catch (TimeoutException | NoSuchElementException e) {
-                        commonLib.fail("Ticket has been transferred to Selected but not able search ticket." + e.fillInStackTrace(), true);
-                    }
+                    pages.getSupervisorTicketList().writeTicketId(ticketId);
+                    pages.getSupervisorTicketList().clickSearchBtn();
+                    assertCheck.append(actions.assertEqual_stringType(pages.getSupervisorTicketList().getTicketIdValue(), ticketId, "Search ticket fetched successfully", "Search Ticket Does not Fetched Correctly"));
+                    assertCheck.append(actions.assertEqual_stringType(pages.getSupervisorTicketList().getStatevalue().toLowerCase().trim(), selectedState.toLowerCase().trim(), "Ticket Updated to Selected State " + selectedState, "Ticket Does not Updated to Selected State " + selectedState));
+                    assertCheck.append(actions.assertEqual_stringType(pages.getSupervisorTicketList().getQueueValue().toLowerCase().trim(), ruleData.getToQueue().toLowerCase().trim(), "Ticket updated to correct ticket pool " + ruleData.getToQueue(), "Ticket does not updated to correct ticket pool " + ruleData.getToQueue()));
                     pages.getSupervisorTicketList().clearInputBox();
                 } else {
                     commonLib.fail("Required State does not mapped to ticket queue. Check config in application db or update opco rule file in excel.", true);

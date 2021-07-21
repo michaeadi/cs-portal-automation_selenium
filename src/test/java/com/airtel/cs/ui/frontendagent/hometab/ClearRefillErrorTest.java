@@ -2,12 +2,9 @@ package com.airtel.cs.ui.frontendagent.hometab;
 
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.model.response.clearrefillstatus.RefillStatus;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -16,7 +13,6 @@ public class ClearRefillErrorTest extends Driver {
 
     static String customerNumber;
     RequestSource api = new RequestSource();
-    private final BaseActions actions = new BaseActions();
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
@@ -53,22 +49,22 @@ public class ClearRefillErrorTest extends Driver {
      */
     @Test(priority = 2, dependsOnMethods = "openCustomerInteraction", groups = {"SanityTest", "RegressionTest"})
     public void clearRefillTest() {
-        selUtils.addTestcaseDescription("Validating Clear Refill Test: " + customerNumber, "description");
-        assertCheck.append(actions.assertEqual_boolean(pages.getRechargeHistoryWidget().isRechargeHistoryWidgetIsVisible(), true, "Recharge History Widget is visible", "Recharge History Widget is not visible"));
-        assertCheck.append(actions.assertEqual_boolean(pages.getRechargeHistoryWidget().isRechargeHistoryDatePickerVisible(), true, "Recharge History Widget's Date Picker is visible", "Recharge History Widget's Date Picker is not visible"));
-        RefillStatus refillStatus = api.clearRefillTest(customerNumber);
-        boolean status = refillStatus.getResponse().getRefilledBarred();
-        if (status) {
-            assertCheck.append(actions.assertEqual_boolean(pages.getRechargeHistoryWidget().isRefillIconEnable(), true, "Clear Refill Icon enable when user bar.", "Clear Refill Icon does not enable when user bar."));
-            try {
+        try {
+            selUtils.addTestcaseDescription("Validating Clear Refill Test: " + customerNumber, "description");
+            assertCheck.append(actions.assertEqual_boolean(pages.getRechargeHistoryWidget().isRechargeHistoryWidgetIsVisible(), true, "Recharge History Widget is visible", "Recharge History Widget is not visible"));
+            assertCheck.append(actions.assertEqual_boolean(pages.getRechargeHistoryWidget().isRechargeHistoryDatePickerVisible(), true, "Recharge History Widget's Date Picker is visible", "Recharge History Widget's Date Picker is not visible"));
+            RefillStatus refillStatus = api.clearRefillTest(customerNumber);
+            boolean status = refillStatus.getResponse().getRefilledBarred();
+            if (status) {
+                assertCheck.append(actions.assertEqual_boolean(pages.getRechargeHistoryWidget().isRefillIconEnable(), true, "Clear Refill Icon enable when user bar.", "Clear Refill Icon does not enable when user bar."));
                 pages.getRechargeHistoryWidget().clickRefillIcon();
                 assertCheck.append(actions.assertEqual_boolean(pages.getRechargeHistoryWidget().checkPopDisplay(), true, "Confirmation window display after clicking on clear Refill Icon.", "Confirmation window does not display after clicking on clear Refill Icon."));
                 pages.getRechargeHistoryWidget().clickNoBtn();
-            } catch (NoSuchElementException | TimeoutException e) {
-                commonLib.fail("Exception in Method - clearRefillTest" + e.fillInStackTrace() , true);
+            } else {
+                assertCheck.append(actions.assertEqual_boolean(pages.getRechargeHistoryWidget().isRefillIconDisable(), true, "Clear refill icon disable when user not barred.", "`Clear refill icon does not disable when user not barred`."));
             }
-        } else {
-            assertCheck.append(actions.assertEqual_boolean(pages.getRechargeHistoryWidget().isRefillIconDisable(), true, "Clear refill icon disable when user not barred.", "`Clear refill icon does not disable when user not barred`."));
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - clearRefillTest" + e.fillInStackTrace(), true);
         }
         actions.assertAllFoundFailedAssert(assertCheck);
     }

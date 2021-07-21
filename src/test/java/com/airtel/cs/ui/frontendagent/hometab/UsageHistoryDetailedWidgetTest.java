@@ -1,10 +1,9 @@
 package com.airtel.cs.ui.frontendagent.hometab;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
-import com.airtel.cs.commonutils.dataproviders.HeaderDataBean;
+import com.airtel.cs.commonutils.dataproviders.databeans.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.model.response.usagehistory.UsageHistory;
 import org.apache.commons.lang3.StringUtils;
@@ -17,7 +16,6 @@ import org.testng.annotations.Test;
 
 public class UsageHistoryDetailedWidgetTest extends Driver {
     private static String customerNumber = null;
-    private final BaseActions actions = new BaseActions();
     public static final String RUN_USAGE_WIDGET_TEST_CASE = constants.getValue(ApplicationConstants.RUN_USAGE_WIDGET_TESTCASE);
     RequestSource api = new RequestSource();
     private UsageHistory usageHistoryAPI;

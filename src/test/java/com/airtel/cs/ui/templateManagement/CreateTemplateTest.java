@@ -1,11 +1,10 @@
 package com.airtel.cs.ui.templateManagement;
 
-import com.airtel.cs.common.actions.BaseActions;
+import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pagerepository.pagemethods.TemplateManagement;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
@@ -53,46 +52,14 @@ public class CreateTemplateTest extends Driver {
     public void validateAddTemplateManagementPage() {
         try {
             selUtils.addTestcaseDescription("Validate Template Management Page", "description");
-            try {
-                assertCheck.append(actions.assertEqual_boolean(pages.getTemplateManagement().isAddTemplateAvailable(), true, "Add Template button is available.", "Add Template button does not available."));
-            } catch (NoSuchElementException | TimeoutException e) {
-                commonLib.fail("Add Template button does not available." + e.fillInStackTrace(), true);
-            }
-            try {
-                assertCheck.append(actions.assertEqual_boolean(pages.getTemplateManagement().isAddTemplateCategoryAvailable(), true, "Add template Category button is available.", "Add template Category button does not available."));
-            } catch (NoSuchElementException | TimeoutException e) {
-                commonLib.fail("Add template Category button does not available." + e.fillInStackTrace(), true);
-            }
-            try {
-                assertCheck.append(actions.assertEqual_boolean(pages.getTemplateManagement().isCategoryAvailable(), true, "Category Label displayed on Template Management Page.", "Category Label does not display on Template Management Page."));
-            } catch (NoSuchElementException | TimeoutException e) {
-                commonLib.fail("Category Label does not display on Template Management Page." + e.fillInStackTrace(), true);
-            }
-            try {
-                assertCheck.append(actions.assertEqual_boolean(pages.getTemplateManagement().isMessageChannelAvailable(), true, "Message Channel Label is displayed on Template Management Page.", "Message Channel Label does not display on Template Management Page."));
-            } catch (NoSuchElementException | TimeoutException e) {
-                commonLib.fail("Message Channel Label does not display on Template Management Page." + e.fillInStackTrace(), true);
-            }
-            try {
-                assertCheck.append(actions.assertEqual_boolean(pages.getTemplateManagement().isTemplateNameAvailable(), true, "Template Name Label displayed on Template Management Page.", "Template Name Label does not display on Template Management Page."));
-            } catch (NoSuchElementException | TimeoutException e) {
-                commonLib.fail("Template Name Label does not display on Template Management Page" + e.fillInStackTrace(), true);
-            }
-            try {
-                assertCheck.append(actions.assertEqual_boolean(pages.getTemplateManagement().isRoleAvailable(), true, "Role Label is displayed on Template Management Page.", "Role Label does not display on Template Management Page."));
-            } catch (NoSuchElementException | TimeoutException e) {
-                commonLib.fail("Role Label does not display on Template Management Page." + e.fillInStackTrace(), true);
-            }
-            try {
-                assertCheck.append(actions.assertEqual_boolean(pages.getTemplateManagement().isAgentChannelAvailable(), true, "Agent channel Label is displayed on Template Management Page.", "Agent channel Label does not display on Template Management Page."));
-            } catch (NoSuchElementException | TimeoutException e) {
-                commonLib.fail("Agent channel Label does not display on Template Management Page." + e.fillInStackTrace(), true);
-            }
-            try {
-                assertCheck.append(actions.assertEqual_boolean(pages.getTemplateManagement().isSMSLanguageAvailable(), true, "SMS Language Label displayed on Template Management Page.", "SMS Language Label does not display on Template Management Page."));
-            } catch (NoSuchElementException | TimeoutException e) {
-                commonLib.fail("SMS Language Label does not display on Template Management Page." + e.fillInStackTrace(), true);
-            }
+            assertCheck.append(actions.assertEqual_boolean(pages.getTemplateManagement().isAddTemplateAvailable(), true, "Add Template button is available.", "Add Template button does not available."));
+            assertCheck.append(actions.assertEqual_boolean(pages.getTemplateManagement().isAddTemplateCategoryAvailable(), true, "Add template Category button is available.", "Add template Category button does not available."));
+            assertCheck.append(actions.assertEqual_boolean(pages.getTemplateManagement().isCategoryAvailable(), true, "Category Label displayed on Template Management Page.", "Category Label does not display on Template Management Page."));
+            assertCheck.append(actions.assertEqual_boolean(pages.getTemplateManagement().isMessageChannelAvailable(), true, "Message Channel Label is displayed on Template Management Page.", "Message Channel Label does not display on Template Management Page."));
+            assertCheck.append(actions.assertEqual_boolean(pages.getTemplateManagement().isTemplateNameAvailable(), true, "Template Name Label displayed on Template Management Page.", "Template Name Label does not display on Template Management Page."));
+            assertCheck.append(actions.assertEqual_boolean(pages.getTemplateManagement().isRoleAvailable(), true, "Role Label is displayed on Template Management Page.", "Role Label does not display on Template Management Page."));
+            assertCheck.append(actions.assertEqual_boolean(pages.getTemplateManagement().isAgentChannelAvailable(), true, "Agent channel Label is displayed on Template Management Page.", "Agent channel Label does not display on Template Management Page."));
+            assertCheck.append(actions.assertEqual_boolean(pages.getTemplateManagement().isSMSLanguageAvailable(), true, "SMS Language Label displayed on Template Management Page.", "SMS Language Label does not display on Template Management Page."));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - validateAddTemplateManagementPage" + e.fillInStackTrace(), true);
@@ -135,46 +102,27 @@ public class CreateTemplateTest extends Driver {
             templateName = "Template " + LocalDateTime.now().format(formating);
             selUtils.addTestcaseDescription("Create Template with name: " + templateName, "description");
             pages.getTemplateManagement().switchTabToAddTemplate();
+            pages.getTemplateManagement().clickTemplateCategory();
+            pages.getTemplateManagement().selectOptionFromList(templateCategory);
+            pages.getTemplateManagement().writeTemplateName(templateName);
+            pages.getTemplateManagement().clickAgentRole();
+            pages.getTemplateManagement().selectOptionFromList(constants.getValue(CommonConstants.SELECT_ALL_OPTION_NAME));
+            pages.getTemplateManagement().clickOutside();
+            pages.getTemplateManagement().clickAgentChannels();
+            pages.getTemplateManagement().selectOptionFromList(constants.getValue(CommonConstants.SELECT_ALL_OPTION_NAME));
+            pages.getTemplateManagement().clickOutside();
+            pages.getTemplateManagement().clickSMSLanguage();
+            pages.getTemplateManagement().selectOptionFromList("English");
+            pages.getTemplateManagement().clickOutside();
+            pages.getTemplateManagement().writeSMSContent("Dear Customer Thank you for choosing Airtel.");
+            assertCheck.append(actions.assertEqual_boolean(pages.getTemplateManagement().clickCreateTemplateBtn(), true, "Create Template button is enabled", "Create Template button does not enabled"));
+            pages.getTemplateManagement().waitTillLoaderGetsRemoved();
             try {
-                pages.getTemplateManagement().clickTemplateCategory();
-                try {
-                    pages.getTemplateManagement().selectOptionFromList(templateCategory);
-                } catch (StaleElementReferenceException e) {
-                    commonLib.info("Trying Again to select Agent Channels");
-                    pages.getTemplateManagement().selectOptionFromList(constants.getValue(CommonConstants.SELECT_ALL_OPTION_NAME));
-                }
-                pages.getTemplateManagement().writeTemplateName(templateName);
-                pages.getTemplateManagement().clickAgentRole();
-                try {
-                    pages.getTemplateManagement().selectOptionFromList(constants.getValue(CommonConstants.SELECT_ALL_OPTION_NAME));
-                } catch (StaleElementReferenceException e) {
-                    commonLib.info("Trying Again to select Agent Channels");
-                    pages.getTemplateManagement().selectOptionFromList(constants.getValue(CommonConstants.SELECT_ALL_OPTION_NAME));
-                }
-                pages.getTemplateManagement().clickOutside();
-                pages.getTemplateManagement().clickAgentChannels();
-                try {
-                    pages.getTemplateManagement().selectOptionFromList(constants.getValue(CommonConstants.SELECT_ALL_OPTION_NAME));
-                } catch (StaleElementReferenceException e) {
-                    commonLib.info("Trying Again to select Agent Channels");
-                    pages.getTemplateManagement().selectOptionFromList(constants.getValue(CommonConstants.SELECT_ALL_OPTION_NAME));
-                }
-                pages.getTemplateManagement().clickOutside();
-                pages.getTemplateManagement().clickSMSLanguage();
-                pages.getTemplateManagement().selectOptionFromList("English");
-                pages.getTemplateManagement().clickOutside();
-                pages.getTemplateManagement().writeSMSContent("Dear Customer Thank you for choosing Airtel.");
-                assertCheck.append(actions.assertEqual_boolean(pages.getTemplateManagement().clickCreateTemplateBtn(), true, "Create Template button is enabled", "Create Template button does not enabled"));
-                pages.getTemplateManagement().waitTillLoaderGetsRemoved();
-                try {
-                    pages.getTemplateManagement().readResponseMessage();
-                } catch (NoSuchElementException | TimeoutException e) {
-                    commonLib.info("Not able to read Message Pop up: " + e.fillInStackTrace());
-                }
-                pages.getTemplateManagement().waitTillOverlayGetsRemoved();
-            } catch (NoSuchElementException | TimeoutException | StaleElementReferenceException e) {
-                commonLib.fail("Create Template does not complete due to error :" + e.fillInStackTrace(), true);
+                pages.getTemplateManagement().readResponseMessage();
+            } catch (NoSuchElementException | TimeoutException e) {
+                commonLib.info("Not able to read Message Pop up: " + e.fillInStackTrace());
             }
+            pages.getTemplateManagement().waitTillOverlayGetsRemoved();
             pages.getTemplateManagement().clickOutside();
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {

@@ -1,9 +1,8 @@
 package com.airtel.cs.ui.frontendagent;
 
-import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
-import com.airtel.cs.commonutils.dataproviders.PinnedTagsDataBeans;
+import com.airtel.cs.commonutils.dataproviders.databeans.PinnedTagsDataBeans;
 import com.airtel.cs.driver.Driver;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
@@ -15,7 +14,6 @@ import java.util.NoSuchElementException;
 
 public class PinTagTest extends Driver {
 
-    private final BaseActions actions = new BaseActions();
     final String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
@@ -58,18 +56,9 @@ public class PinTagTest extends Driver {
             DataProviders data = new DataProviders();
             Map<String, Boolean> tags = data.getALLPinnedTags();
             List<String> availableTags = pages.getCustomerProfilePage().getPinnedTagTexts();
-            try {
                 for (String s : availableTags) {
-                    if (tags.containsKey(s)) {
-                        commonLib.info("Validate " + s + " pinned tag is display correctly");
-                        tags.remove(s);
-                    } else {
-                        commonLib.fail(s + " tag must not display on frontend as tag not mention in config sheet.", true);
-                    }
+                    assertCheck.append(actions.assertEqual_boolean(tags.remove(s)!=null,true,"Validate " + s + " pinned tag is display correctly",s + " tag must not display on frontend as tag not mention in config sheet."));
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
             if (tags.isEmpty()) {
                 commonLib.pass("All pinned tagged correctly configured and display on UI.");
             } else {

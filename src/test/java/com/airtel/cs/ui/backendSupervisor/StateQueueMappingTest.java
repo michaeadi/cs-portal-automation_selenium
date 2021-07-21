@@ -1,10 +1,9 @@
 package com.airtel.cs.ui.backendSupervisor;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.common.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
-import com.airtel.cs.commonutils.dataproviders.QueueStateDataBeans;
+import com.airtel.cs.commonutils.dataproviders.databeans.QueueStateDataBeans;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.model.response.ticketlist.QueueStates;
 import com.airtel.cs.model.response.ticketlist.Ticket;
@@ -16,13 +15,11 @@ import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Log4j2
 public class StateQueueMappingTest extends Driver {
 
-    private final BaseActions actions = new BaseActions();
     RequestSource api = new RequestSource();
 
     @BeforeMethod
@@ -66,35 +63,13 @@ public class StateQueueMappingTest extends Driver {
                 pages.getFilterTabPage().clickCloseFilter();
                 Assert.fail("Not able to apply filter " + e.fillInStackTrace());
             }
-            try {
-                Assert.assertEquals(pages.getSupervisorTicketList().getQueueValue().toLowerCase().trim(), data.getQueue().toLowerCase().trim(), "Ticket Does not found with Selected Queue");
-                //Re-check
-                ticketId = pages.getSupervisorTicketList().getTicketIdValue();
-                Ticket ticketPOJO = api.ticketMetaDataTest(ticketId);
-                ArrayList<QueueStates> assignState = ticketPOJO.getResult().getQueueStates();
-                List<String> state = new ArrayList<>();
-                List<String> configState = dataProviders.getQueueState(data.getQueue());
-                if (assignState != null)
-                    if (!assignState.isEmpty()) {
-                        for (QueueStates s : assignState) {
-                            commonLib.info("State Mapped in Application DB: " + s.getExternalStateName());
-                            state.add(s.getExternalStateName());
-                        }
-                    }
-                for (String s : state) {
-                    commonLib.info("State:" + s);
-                    if (!configState.contains(s.toLowerCase().trim())) {
-                        commonLib.fail(s + " :State must not mapped to '" + data.getQueue() + "' as its not mention in config.", false);
-                    }
-                    configState.remove(s.toLowerCase().trim());
-                }
-
-                for (String s : configState) {
-                    commonLib.fail(s + " :State must be mapped to '" + data.getQueue() + "' as its mention in config.", false);
-                }
-            } catch (NoSuchElementException | TimeoutException e) {
-                commonLib.warning("Not able to search Ticket due to following error: " + e.getMessage(),true);
-            }
+            Assert.assertEquals(pages.getSupervisorTicketList().getQueueValue().toLowerCase().trim(), data.getQueue().toLowerCase().trim(), "Ticket Does not found with Selected Queue");
+            ticketId = pages.getSupervisorTicketList().getTicketIdValue();
+            Ticket ticketPOJO = api.ticketMetaDataTest(ticketId);
+            List<QueueStates> assignState = ticketPOJO.getResult().getQueueStates();
+            List<String> state = pages.getSupervisorTicketList().getAssignedStateName(assignState);
+            List<String> configState = dataProviders.getQueueState(data.getQueue());
+            pages.getSupervisorTicketList().matchStateName(state, configState, data.getQueue());
             pages.getSupervisorTicketList().resetFilter();
         } catch (Exception e) {
             commonLib.fail("Exception in Method - stateQueueTest" + e.fillInStackTrace(), true);
