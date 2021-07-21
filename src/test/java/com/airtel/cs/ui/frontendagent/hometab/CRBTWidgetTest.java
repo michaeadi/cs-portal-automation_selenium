@@ -168,7 +168,7 @@ public class CRBTWidgetTest extends Driver {
                 assertCheck.append(actions.assertEqual_boolean(pages.getCrbtWidgetPage().isNoResultMessage(), true, "No Result message found is case of no ringtone found with search keyword", "No Result message does not in case of no ringtone found with search keyword"));
                 assertCheck.append(actions.assertEqual_boolean(pages.getCrbtWidgetPage().isNoResultImg(), true, "No Result Image found is case of no ringtone found with search keyword", "No Result Image does not in case of no ringtone found with search keyword"));
             }
-        } catch (NoSuchElementException | TimeoutException e) {
+        } catch (Exception e) {
             commonLib.fail("Exception in Method - testSearchTune" + e.fillInStackTrace(), true);
         }
     }
