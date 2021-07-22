@@ -21,4 +21,5 @@ public class ResultProfilePOJO {
     private String os;
     private String airtelMoneyStatus;
     private String serviceStatus;
+    private String appStatus;
 }

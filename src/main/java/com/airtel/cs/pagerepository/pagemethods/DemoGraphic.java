@@ -342,9 +342,12 @@ public class DemoGraphic extends BasePage {
      * @return String The value
      */
     public String getAccountStatus() {
-        final String text = getText(pageElements.accountStatus);
-        commonLib.info("Getting AM Profile Account Status: " + text);
-        return text;
+        String result = "";
+        if (isVisible(pageElements.accountStatus)) {
+            result = getText(pageElements.accountStatus);
+            commonLib.info("Getting AM Profile Account Status: " + result);
+        }
+        return result;
     }
 
     /**
@@ -353,9 +356,12 @@ public class DemoGraphic extends BasePage {
      * @return String The value
      */
     public String getServiceStatus() {
-        final String text = getText(pageElements.serviceStatus);
-        commonLib.info("Getting Service Status: " + text);
-        return text;
+        String result = "";
+        if (isVisible(pageElements.serviceStatus)) {
+            result = getText(pageElements.serviceStatus);
+            commonLib.info("Getting Service Status: " + result);
+        }
+        return result;
     }
 
     /**
@@ -364,9 +370,12 @@ public class DemoGraphic extends BasePage {
      * @return String The value
      */
     public String getWalletBalance() {
-        final String text = getText(pageElements.walletBalance);
-        commonLib.info("Getting Airtel Money Wallet Balance: " + text);
-        return text;
+        String result = "";
+        if (isVisible(pageElements.walletBalance)) {
+            result = getText(pageElements.walletBalance);
+            commonLib.info("Getting Airtel Money Wallet Balance: " + result);
+        }
+        return result;
     }
 
     /**
@@ -386,9 +395,12 @@ public class DemoGraphic extends BasePage {
      * @return String The value
      */
     public String getRegistrationStatus() {
-        final String text = getText(pageElements.registrationStatus);
-        commonLib.info("Getting Airtel Money Registration Status : " + text);
-        return text;
+        String result = "";
+        if (isVisible(pageElements.registrationStatus)) {
+            result = getText(pageElements.registrationStatus);
+            commonLib.info("Getting Airtel Money Registration Status : " + result);
+        }
+        return result;
     }
 
     /**
@@ -452,7 +464,7 @@ public class DemoGraphic extends BasePage {
     public String getSubSegment() {
         String result = null;
         try {
-            if (isVisible(pageElements.subSegment)) {
+            if (isElementVisible(pageElements.subSegment)) {
                 result = getText(pageElements.subSegment);
                 commonLib.info("Getting Sub Segment: " + result);
             } else {
@@ -571,7 +583,7 @@ public class DemoGraphic extends BasePage {
     public void hoverOnSegmentInfoIcon() {
         commonLib.info("Hover on Segment Info icon");
         hoverOverElement(pageElements.hoverInfoSegment);
-        commonLib.hardWait(1);
+        commonLib.hardWait(2);
     }
 
     /**
@@ -684,6 +696,16 @@ public class DemoGraphic extends BasePage {
         final boolean flag = isVisible(pageElements.resetPinIcon);
         commonLib.info("Checking reset pin icon display or not " + flag);
         return !flag;
+    }
+
+    /**
+     * This Method will get the API key value
+     *
+     * @param apiKeyValue the key
+     * @return
+     */
+    public String getKeyValueAPI(String apiKeyValue) {
+        return apiKeyValue == null || apiKeyValue.equals("") ? "-" : apiKeyValue.toLowerCase().trim();
     }
 
 }

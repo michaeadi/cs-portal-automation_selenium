@@ -16,7 +16,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class CurrentPlanTest extends Driver {
-    private static String customerNumber = null;
     RequestSource api = new RequestSource();
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
@@ -34,7 +33,7 @@ public class CurrentPlanTest extends Driver {
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
-            final String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_POSTPAID_MSISDN);
+            String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_POSTPAID_MSISDN);
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().clickOnUserName();
             pages.getSideMenuPage().openCustomerInteractionPage();
@@ -114,7 +113,7 @@ public class CurrentPlanTest extends Driver {
             final String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_POSTPAID_MSISDN);
             KYCProfile kycProfile = api.kycProfileAPITest(customerNumber);
             final Integer statusCode = kycProfile.getStatusCode();
-            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "KYC Profile API Status Code Matched and is :" + statusCode, "KYC Profile API Status Code NOT Matched and is :" + statusCode));
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "KYC Profile API Status Code Matched and is :" + statusCode, "KYC Profile API Status Code NOT Matched and is :" + statusCode, false));
             String connectionType = pages.getDemoGraphicPage().getConnectionType().toUpperCase().trim();
             final boolean umPermission = pages.getCurrentPlanWidget().isCurrentPlanWidgetDisplay();
             assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getConnectionType().toLowerCase().trim(),

@@ -38,7 +38,7 @@ public class BaseActions {
             Assert.assertEquals(actual, expected);
             commonLib.pass(description);
             assertFlag = true;
-        } catch (Exception ex) {
+        } catch (Exception | AssertionError ex) {
             commonLib.fail("Assertion FAILED - " + ex.getMessage(), true);
         }
         return assertFlag;
@@ -50,7 +50,7 @@ public class BaseActions {
             Assert.assertEquals(actual, expected);
             commonLib.pass(passDescription);
             assertFlag = true;
-        } catch (Exception ex) {
+        } catch (Exception | AssertionError ex) {
             commonLib.fail("Assertion FAILED - " + ex.getMessage() + "-" + failDescription, true);
         }
         return assertFlag;
@@ -137,7 +137,7 @@ public class BaseActions {
             Assert.assertEquals(actual, expected);
             commonLib.pass(passDescription);
             assertFlag = true;
-        } catch (Exception ex) {
+        } catch (Exception | AssertionError ex) {
             commonLib.fail(failDescription, requirescreenshots);
         }
         return assertFlag;

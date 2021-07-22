@@ -69,7 +69,7 @@ public class CurrentBalanceWidgetTest extends Driver {
             PlansPOJO plansAPI = api.accountPlansTest(customerNumber);
             PlansResultPOJO result = plansAPI.getResult();
             final int statusCode = plansAPI.getStatusCode();
-            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Plan API Success and status code is :" + statusCode, "Plan API got failed and status code is :" + statusCode));
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Plan API Success and status code is :" + statusCode, "Plan API got failed and status code is :" + statusCode,false));
             if (result.getMainAccountBalance() != null) {
                 final String mainAccountBalance = pages.getCurrentBalanceWidgetPage().gettingMainAccountBalance();
                 assertCheck.append(actions.assertEqualStringType(mainAccountBalance, result.getMainAccountBalance().getBalance(), "Current Balance is as Received in API", "Current Balance is not as Received from API and current balance on ui is : " + mainAccountBalance));
@@ -104,6 +104,8 @@ public class CurrentBalanceWidgetTest extends Driver {
             selUtils.addTestcaseDescription("Validating Current Balance Transaction Widget of User :" + customerNumber, "description");
             final CurrentBalanceWidget currentBalanceWidgetPage = pages.getCurrentBalanceWidgetPage();
             PlansPOJO plansAPI = api.accountPlansTest(customerNumber);
+            final int statusCode = plansAPI.getStatusCode();
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Plan API Success and status code is :" + statusCode, "Plan API got failed and status code is :" + statusCode,false));
             PlansResultPOJO result = plansAPI.getResult();
             if (result.getVoice() != null) {
                 assertCheck.append(actions.assertEqualStringType(currentBalanceWidgetPage.getVoiceExpiryDate(), UtilsMethods.getDateFromEpoch(result.getVoice().getExpireTime(), constants.getValue(CommonConstants.BALANCE_EXPIRY_PATTERN)), "Voice Expiry Date is as Received in API", "Voice Expiry Date is not as Received in API"));
@@ -130,7 +132,7 @@ public class CurrentBalanceWidgetTest extends Driver {
                 assertCheck.append(actions.assertEqualStringType(currentBalanceWidgetPage.getSmsExpiryDate(), UtilsMethods.getDateFromEpoch(result.getSms().getExpireTime(), constants.getValue(CommonConstants.BALANCE_EXPIRY_PATTERN)), "SMS Expiry Date is as Received in API", "SMS Expiry Date is not as Received in API"));
                 assertCheck.append(actions.assertEqualStringType(currentBalanceWidgetPage.getSmsBalance().replace("-", "null"), result.getSms().getBalance(), "SMS Balance is as Received in API", "SMS Balance is not as Received in API"));
             }
-            if (plansAPI.getStatusCode() != 200) {
+            if (statusCode != 200) {
                 commonLib.fail("API unable to get Last recharge and MAIN Balance ", true);
             }
             actions.assertAllFoundFailedAssert(assertCheck);

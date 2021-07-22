@@ -42,9 +42,7 @@ public class RechargeHistoryWidget extends BasePage{
      * @return String The value
      */
     public String getHeaders(int column) {
-        String header = pages.getWidgetCommonMethod().getHeaderName(getUniqueIdentifier(),column);
-        commonLib.info("Getting header Number " + column + " : " + header);
-        return header;
+        return pages.getWidgetCommonMethod().getHeaderName(getUniqueIdentifier(),column);
     }
 
     /**

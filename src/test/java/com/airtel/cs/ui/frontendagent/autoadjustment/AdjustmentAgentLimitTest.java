@@ -17,11 +17,9 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-public class AdjustmentAgentLimit extends Driver {
+public class AdjustmentAgentLimitTest extends Driver {
     public static final String RUN_ADJUSTMENT_TEST_CASE = constants.getValue(ApplicationConstants.RUN_ADJUSTMENT_TEST_CASE);
     RequestSource api = new RequestSource();
-    private Integer transactionLimit = null;
-    private LimitConfig dbLimitConfig = null;
     private String roleId = null;
 
 
@@ -55,8 +53,6 @@ public class AdjustmentAgentLimit extends Driver {
                     assertCheck.append(actions.assertEqualIntNotNull(limitResult.getDailyLimit(), "Daily " + constants.getValue("cs.agent.limit.expected"), "Daily " + constants.getValue("cs.agent.limit.unexpected")));
                     assertCheck.append(actions.assertEqualIntNotNull(limitResult.getMonthlyLimit(), "Monthly " + constants.getValue("cs.agent.limit.expected"), "Monthly " + constants.getValue("cs.agent.limit.unexpected")));
                     assertCheck.append(actions.assertEqualIntNotNull(limitResult.getTransactionLimit(), "Transactional Limit " + constants.getValue("cs.agent.limit.expected"), "Transactional Limit " + constants.getValue("cs.agent.limit.unexpected")));
-                    transactionLimit = limitResult.getTransactionLimit();
-                    dbLimitConfig = limitResult;
                     break;
                 }
             }
@@ -73,22 +69,21 @@ public class AdjustmentAgentLimit extends Driver {
     public void saveAgentLimit() {
         try {
             selUtils.addTestcaseDescription("Verify that limit configuration is successfully saved when valid limit configuration is added in the request for limit save configuration API.", "description");
-                commonLib.info(constants.getValue("cs.agent.limit.configured"));
-                AgentLimit agentLimit = api.saveAgentLimit(roleId, constants.getValue(CommonConstants.ADJUSTMENT_LIMIT_API_KEY), constants.getValue(CommonConstants.AGENT_ADJUSTMENT_DAILY_LIMIT), constants.getValue(CommonConstants.AGENT_ADJUSTMENT_MONTHLY_LIMIT), constants.getValue(CommonConstants.AGENT_ADJUSTMENT_TRANSACTION_LIMIT));
-                int statusCode = 0;
-                if (ObjectUtils.isNotEmpty(agentLimit)) {
-                    statusCode = agentLimit.getStatusCode();
-                }
-                assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Agent Limit " + constants.getValue("cs.portal.api.success"), "Agent Limit " + constants.getValue("cs.portal.api.fail") + statusCode, false, true));
-                LimitConfig limitResult = UtilsMethods.getAgentLimitConfigBasedOnKey(constants.getValue(CommonConstants.ADJUSTMENT_LIMIT_API_KEY), roleId);
-                if (limitResult != null) {
-                    assertCheck.append(actions.assertEqualIntNotNull(limitResult.getDailyLimit(), "Daily " + constants.getValue("cs.agent.limit.expected"), "Daily " + constants.getValue("cs.agent.limit.unexpected")));
-                    assertCheck.append(actions.assertEqualIntNotNull(limitResult.getMonthlyLimit(), "Monthly " + constants.getValue("cs.agent.limit.expected"), "Monthly " + constants.getValue("cs.agent.limit.unexpected")));
-                    assertCheck.append(actions.assertEqualIntNotNull(limitResult.getTransactionLimit(), "Transactional Limit " + constants.getValue("cs.agent.limit.expected"), "Transactional Limit " + constants.getValue("cs.agent.limit.unexpected")));
-                    transactionLimit = limitResult.getTransactionLimit();
-                } else {
-                    commonLib.fail(constants.getValue("cs.agent.limit.not.configured"), false);
-                }
+            commonLib.info(constants.getValue("cs.agent.limit.configured"));
+            AgentLimit agentLimit = api.saveAgentLimit(roleId, constants.getValue(CommonConstants.ADJUSTMENT_LIMIT_API_KEY), constants.getValue(CommonConstants.AGENT_ADJUSTMENT_DAILY_LIMIT), constants.getValue(CommonConstants.AGENT_ADJUSTMENT_MONTHLY_LIMIT), constants.getValue(CommonConstants.AGENT_ADJUSTMENT_TRANSACTION_LIMIT));
+            int statusCode = 0;
+            if (ObjectUtils.isNotEmpty(agentLimit)) {
+                statusCode = agentLimit.getStatusCode();
+            }
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Agent Limit " + constants.getValue("cs.portal.api.success"), "Agent Limit " + constants.getValue("cs.portal.api.fail") + statusCode, false, true));
+            LimitConfig limitResult = UtilsMethods.getAgentLimitConfigBasedOnKey(constants.getValue(CommonConstants.ADJUSTMENT_LIMIT_API_KEY), roleId);
+            if (limitResult != null) {
+                assertCheck.append(actions.assertEqualIntNotNull(limitResult.getDailyLimit(), "Daily " + constants.getValue("cs.agent.limit.expected"), "Daily " + constants.getValue("cs.agent.limit.unexpected")));
+                assertCheck.append(actions.assertEqualIntNotNull(limitResult.getMonthlyLimit(), "Monthly " + constants.getValue("cs.agent.limit.expected"), "Monthly " + constants.getValue("cs.agent.limit.unexpected")));
+                assertCheck.append(actions.assertEqualIntNotNull(limitResult.getTransactionLimit(), "Transactional Limit " + constants.getValue("cs.agent.limit.expected"), "Transactional Limit " + constants.getValue("cs.agent.limit.unexpected")));
+            } else {
+                commonLib.fail(constants.getValue("cs.agent.limit.not.configured"), false);
+            }
         } catch (Exception e) {
             commonLib.fail(constants.getValue("cs.portal.test.fail") + " - saveAgentLimit " + e.fillInStackTrace(), true);
         }
@@ -105,7 +100,7 @@ public class AdjustmentAgentLimit extends Driver {
             if (ObjectUtils.isNotEmpty(agentLimit)) {
                 statusCode = agentLimit.getStatusCode();
             }
-            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Agent Limit " + constants.getValue("cs.portal.api.success"), "Agent Limit " + constants.getValue("cs.portal.api.fail") + statusCode));
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Agent Limit " + constants.getValue("cs.portal.api.success"), "Agent Limit " + constants.getValue("cs.portal.api.fail") + statusCode, false));
             assertCheck.append(actions.matchUiAndAPIResponse(agentLimit.getStatus(), constants.getValue("cs.portal.failed.status"), "Agent Limit " + constants.getValue("cs.portal.api.fail"), "Agent Limit " + constants.getValue("cs.portal.api.success") + statusCode));
         } catch (Exception e) {
             commonLib.fail(constants.getValue("cs.portal.test.fail") + " - saveAgentLimitWithDailyLimitExceedMonthlyLimit " + e.fillInStackTrace(), true);
@@ -123,7 +118,7 @@ public class AdjustmentAgentLimit extends Driver {
             if (ObjectUtils.isNotEmpty(agentLimit)) {
                 statusCode = agentLimit.getStatusCode();
             }
-            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Agent Limit " + constants.getValue("cs.portal.api.success"), "Agent Limit " + constants.getValue("cs.portal.api.fail") + statusCode));
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Agent Limit " + constants.getValue("cs.portal.api.success"), "Agent Limit " + constants.getValue("cs.portal.api.fail") + statusCode, false));
             assertCheck.append(actions.matchUiAndAPIResponse(agentLimit.getStatus(), constants.getValue("cs.portal.failed.status"), "Agent Limit " + constants.getValue("cs.portal.api.fail"), "Agent Limit " + constants.getValue("cs.portal.api.success") + statusCode));
         } catch (Exception e) {
             commonLib.fail(constants.getValue("cs.portal.test.fail") + " - saveAgentLimitWithTransactionLimitExceedDailyLimit " + e.fillInStackTrace(), true);
@@ -142,7 +137,7 @@ public class AdjustmentAgentLimit extends Driver {
             if (ObjectUtils.isNotEmpty(agentLimit)) {
                 statusCode = agentLimit.getStatusCode();
             }
-            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Agent Limit " + constants.getValue("cs.portal.api.success"), "Agent Limit " + constants.getValue("cs.portal.api.fail") + statusCode));
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Agent Limit " + constants.getValue("cs.portal.api.success"), "Agent Limit " + constants.getValue("cs.portal.api.fail") + statusCode, false));
             assertCheck.append(actions.matchUiAndAPIResponse(agentLimit.getStatus(), constants.getValue("cs.portal.failed.status"), "Agent Limit " + constants.getValue("cs.portal.api.fail"), "Agent Limit " + constants.getValue("cs.portal.api.success") + statusCode));
         } catch (Exception e) {
             commonLib.fail(constants.getValue("cs.portal.test.fail") + " - saveAgentLimitWithRoleIdNull " + e.fillInStackTrace(), true);

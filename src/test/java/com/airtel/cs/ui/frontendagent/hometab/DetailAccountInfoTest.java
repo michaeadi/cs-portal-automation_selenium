@@ -14,7 +14,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class DetailAccountInfoTest extends Driver {
-    private static String customerNumber = null;
     RequestSource api = new RequestSource();
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
@@ -33,7 +32,7 @@ public class DetailAccountInfoTest extends Driver {
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
-            final String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_POSTPAID_MSISDN);
+            String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_POSTPAID_MSISDN);
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().clickOnUserName();
             pages.getSideMenuPage().openCustomerInteractionPage();
@@ -93,7 +92,7 @@ public class DetailAccountInfoTest extends Driver {
             final String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_POSTPAID_MSISDN);
             KYCProfile kycProfile = api.kycProfileAPITest(customerNumber);
             final Integer statusCode = kycProfile.getStatusCode();
-            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "KYC Profile API Status Code Matched and is :" + statusCode, "KYC Profile API Status Code NOT Matched and is :" + statusCode));
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "KYC Profile API Status Code Matched and is :" + statusCode, "KYC Profile API Status Code NOT Matched and is :" + statusCode, false));
             String connectionType = pages.getDemoGraphicPage().getConnectionType().toUpperCase().trim();
             final boolean umAccountInformationPermission = pages.getAccountInformationWidget().isAccountInformationWidgetDisplay();
             final boolean umViewBillPermission = pages.getDetailAccountInfoWidget().isDetailedAccountInformationWidgetDisplay();
@@ -117,14 +116,14 @@ public class DetailAccountInfoTest extends Driver {
      * This method is used to show account info detailed icon
      */
     @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"})
-    public void accountInfoIcon(){
-        try{
+    public void accountInfoIcon() {
+        try {
             selUtils.addTestcaseDescription("Verify that detailed account info icon should be visible to the logged in agent", "description");
             assertCheck.append(actions.assertEqualBoolean(pages.getDetailAccountInfoWidget().isActionIconVisibleOnAccountInfo(), true, "Detailed account information icon visible", "Detailed account information icon not visible"));
             pages.getDetailAccountInfoWidget().openAccountInformationDetailPage();
             assertCheck.append(actions.assertEqualStringType(pages.getDetailAccountInfoWidget().getAccountInfoDetailWidget().toUpperCase(), "ACCOUNT INFORMATION DETAIL", "Account Information Detail display as expected in detailed account info", "Account Information Detail not display as expected in detailed account info"));
             actions.assertAllFoundFailedAssert(assertCheck);
-        }catch (NoSuchElementException | TimeoutException | NullPointerException e) {
+        } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
             commonLib.fail("Exception in Method - accountInfoIcon()" + e.fillInStackTrace(), true);
         }
     }

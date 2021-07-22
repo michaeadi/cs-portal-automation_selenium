@@ -86,6 +86,7 @@ public class SupervisorReopenTicketTest extends Driver {
         TicketPOJO ticketPOJO = api.ticketMetaDataTest(ticketMetaData.getTicketNumber());
         AssignmentQueueRuleDataBeans assignmentRule= UtilsMethods.getAssignmentRule(dataProviders.getQueueRuleBasedOnCode(ticketMetaData.getIssueCode()),ticketMetaData);
         SLARuleFileDataBeans slaRule = UtilsMethods.getSLACalculationRule(dataProviders.getSLARuleBasedOnCode(ticketMetaData.getIssueCode()), ticketMetaData);
+            assert assignmentRule != null;
             assertCheck.append(actions.matchStringIgnoreSpecialChar(pages.getSupervisorTicketList().getQueueValue(), assignmentRule.getQueueName(),
                     "Ticket Queue field value same as expected " + assignmentRule.getQueueName(), "Ticket Queue field value not same as expected " + assignmentRule.getQueueName()));
             assertCheck.append(actions.matchStringIgnoreSpecialChar(pages.getSupervisorTicketList().getPriorityValue(), assignmentRule.getTicketPriority(),

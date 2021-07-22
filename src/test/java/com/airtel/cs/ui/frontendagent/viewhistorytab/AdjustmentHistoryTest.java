@@ -31,7 +31,7 @@ public class AdjustmentHistoryTest extends Driver {
     @BeforeMethod
     public void checkAdjustmentFlag() {
         if (!StringUtils.equals(RUN_ADJUSTMENT_TEST_CASE, "true")) {
-            commonLib.skip("Adjustment History Tab is NOT Enabled for this Opco "+OPCO);
+            commonLib.skip("Adjustment History Tab is NOT Enabled for this Opco " + OPCO);
             throw new SkipException("Skipping because this functionality does not applicable for current Opco");
         }
     }
@@ -75,25 +75,25 @@ public class AdjustmentHistoryTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction","validateAdjustmentTabOpenCorrectly"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction", "validateAdjustmentTabOpenCorrectly"})
     public void validateAdjustmentHistoryTab() {
         try {
             selUtils.addTestcaseDescription("Verify View History tab opened successfully,Verify Adjustment History tab is visible,Validate column's value are visible and correct", "description");
             AdjustmentHistory adjustmentHistory = api.getAdjustMentHistory(customerNumber);
             final int statusCode = adjustmentHistory.getStatusCode();
-            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Adjustment History API success and status code is :" + statusCode, "Adjustment History API got failed and status code is :" + statusCode,true,true));
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Adjustment History API success and status code is :" + statusCode, "Adjustment History API got failed and status code is :" + statusCode, false, true));
             if (statusCode == 200) {
-                int size=Math.min(adjustmentHistory.getTotalCount(),10);
-                for(int i=0;i<size;i++) {
-                    AdjustmentResult result=adjustmentHistory.getResult().get(i);
-                    assertCheck.append(actions.assertEqualStringType(pages.getAdjustmentHistoryPage().getValue(i+1,1).toLowerCase().trim(), result.getDate().toLowerCase().trim(), "Date & Time value displayed as expected", "Date & Time value does not display as expected"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getAdjustmentHistoryPage().getValue(i+1,2).toLowerCase().trim(), result.getAdjustmentType().toLowerCase().trim(), "Action Type Column displayed as expected", "Action Type value does not display as expected"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getAdjustmentHistoryPage().getValue(i+1,3).toLowerCase().trim(), result.getReason().toLowerCase().trim(), "Reason value displayed as expected", "Reason value does not display as expected"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getAdjustmentHistoryPage().getValue(i+1,4).toLowerCase().trim(), result.getAccountType().toLowerCase().trim(), "Account Type Id value displayed as expected", "Account Type Id value does not display as expected"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getAdjustmentHistoryPage().getValue(i+1,5).trim(), result.getAmount().trim(), "Amount value Column displayed as expected", "Amount value value does not display as expected"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getAdjustmentHistoryPage().getValue(i+1,6).trim(), result.getAgentId().trim(), "Agent Id value displayed as expected", "Agent Id value does not display as expected"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getAdjustmentHistoryPage().getValue(i+1,7).toLowerCase().trim(), result.getAgentName().toLowerCase().trim(), "Agent name value displayed as expected.", "Agent name value does not display as expected"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getAdjustmentHistoryPage().getValue(i+1,8).toLowerCase().trim(), result.getComment().toLowerCase().trim(), "Comments value displayed as expected", "Comments Column value not display as expected"));
+                int size = Math.min(adjustmentHistory.getTotalCount(), 10);
+                for (int i = 0; i < size; i++) {
+                    AdjustmentResult result = adjustmentHistory.getResult().get(i);
+                    assertCheck.append(actions.assertEqualStringType(pages.getAdjustmentHistoryPage().getValue(i + 1, 1).toLowerCase().trim(), result.getDate().toLowerCase().trim(), "Date & Time value displayed as expected", "Date & Time value does not display as expected"));
+                    assertCheck.append(actions.assertEqualStringType(pages.getAdjustmentHistoryPage().getValue(i + 1, 2).toLowerCase().trim(), result.getAdjustmentType().toLowerCase().trim(), "Action Type Column displayed as expected", "Action Type value does not display as expected"));
+                    assertCheck.append(actions.assertEqualStringType(pages.getAdjustmentHistoryPage().getValue(i + 1, 3).toLowerCase().trim(), result.getReason().toLowerCase().trim(), "Reason value displayed as expected", "Reason value does not display as expected"));
+                    assertCheck.append(actions.assertEqualStringType(pages.getAdjustmentHistoryPage().getValue(i + 1, 4).toLowerCase().trim(), result.getAccountType().toLowerCase().trim(), "Account Type Id value displayed as expected", "Account Type Id value does not display as expected"));
+                    assertCheck.append(actions.assertEqualStringType(pages.getAdjustmentHistoryPage().getValue(i + 1, 5).trim(), result.getAmount().trim(), "Amount value Column displayed as expected", "Amount value value does not display as expected"));
+                    assertCheck.append(actions.assertEqualStringType(pages.getAdjustmentHistoryPage().getValue(i + 1, 6).trim(), result.getAgentId().trim(), "Agent Id value displayed as expected", "Agent Id value does not display as expected"));
+                    assertCheck.append(actions.assertEqualStringType(pages.getAdjustmentHistoryPage().getValue(i + 1, 7).toLowerCase().trim(), result.getAgentName().toLowerCase().trim(), "Agent name value displayed as expected.", "Agent name value does not display as expected"));
+                    assertCheck.append(actions.assertEqualStringType(pages.getAdjustmentHistoryPage().getValue(i + 1, 8).toLowerCase().trim(), result.getComment().toLowerCase().trim(), "Comments value displayed as expected", "Comments Column value not display as expected"));
                 }
             }
         } catch (NoSuchElementException | TimeoutException | IndexOutOfBoundsException e) {

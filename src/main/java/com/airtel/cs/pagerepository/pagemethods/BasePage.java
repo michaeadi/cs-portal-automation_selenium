@@ -37,7 +37,7 @@ public class BasePage extends Driver {
     BasePageElements basePageElements;
     public static final RequestSource api = new RequestSource();
     private static final String BREAK_LINE = "</br>";
-    public static WidgetCommonMethod widgetMethods=pages.getWidgetCommonMethod();
+    public static WidgetCommonMethod widgetMethods = pages.getWidgetCommonMethod();
 
     //Constructor
     public BasePage(WebDriver driver) {
@@ -236,8 +236,8 @@ public class BasePage extends Driver {
      *
      * @return Object The customer profile page
      */
-    public CustomerProfile openingCustomerInteractionDashboard() {
-        commonLib.info("Opening Customer Interactions Dashboard");
+    public CustomerProfile goingBackToHomeTab() {
+        commonLib.info("Going back to Home Tab");
         clickAndWaitForLoaderToBeRemoved(basePageElements.home);
         return new CustomerProfile(driver);
     }
@@ -302,8 +302,9 @@ public class BasePage extends Driver {
      * This method use to click outside the overlay window
      */
     public void clickOutside() {
-        Actions action = new Actions(driver);
-        action.moveByOffset(0, 0).click().build().perform();
+        /*Actions action = new Actions(driver);
+        action.moveByOffset(0, 0).click().build().perform();*/
+        driver.findElement(By.xpath("//body//app-dashboard")).click();
     }
 
     /**
@@ -533,7 +534,7 @@ public class BasePage extends Driver {
             WebElement webElement = driverWait.until(ExpectedConditions.visibilityOfElementLocated(webelementBy));
             return webElement != null;
         } catch (Exception e) {
-            commonLib.fail("Element Not Visible :-" + webelementBy,true);
+            commonLib.fail("Element Not Visible :-" + webelementBy, true);
             return false;
         }
     }

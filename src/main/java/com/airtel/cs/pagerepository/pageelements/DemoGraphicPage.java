@@ -20,7 +20,7 @@ public class DemoGraphicPage {
     /*
      * SIM Number & Device Info
      * */
-    public By simNumber = By.xpath("//span[contains(text(),'SIM Number')]//following-sibling::span/span");
+    public By simNumber = By.xpath("//span[contains(text(),'SIM Number')]//following-sibling::span");
     public By simNumberInfoIcon = By.xpath("//span[contains(text(),'SIM Number')]//following-sibling::span/a");
     public By simType = By.xpath("//*[contains(@class,'simCompatibilityIcon')]");
     public By deviceCompatible = By.xpath("//*[contains(@class,'deviceCompatibilityIcon')]");

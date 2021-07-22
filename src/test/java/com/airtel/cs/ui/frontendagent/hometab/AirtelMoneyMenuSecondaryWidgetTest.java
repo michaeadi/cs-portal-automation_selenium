@@ -25,7 +25,7 @@ public class AirtelMoneyMenuSecondaryWidgetTest extends Driver {
     private AirtelMoneyPOJO amTransactionHistoryAPI;
     public static final String RUN_AIRTEL_MONEY_WIDGET_TEST_CASE = constants.getValue(ApplicationConstants.RUN_AIRTEL_MONEY_WIDGET_TESTCASE);
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -33,7 +33,7 @@ public class AirtelMoneyMenuSecondaryWidgetTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"ProdTest"})
     public void checkAirtelMoneyFlag() {
         if (!StringUtils.equals(RUN_AIRTEL_MONEY_WIDGET_TEST_CASE, "true")) {
             commonLib.skip("Skipping because Multiple Wallet not enabled for this " + OPCO);
@@ -41,7 +41,7 @@ public class AirtelMoneyMenuSecondaryWidgetTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"ProdTest"})
     public void checkMultiWalletFlag() {
         if (!StringUtils.equals(MULTI_AM_WALLET, "true")) {
             commonLib.skip("Skipping because Airtel Multi-Wallet Test Case Flag Value is - " + MULTI_AM_WALLET);
@@ -81,7 +81,7 @@ public class AirtelMoneyMenuSecondaryWidgetTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isSearchTxnIdBoxOnSecondWidget(), true, "TXN ID Box does display on UI.", "TXN ID Box does not display."));
             amTransactionHistoryAPI = api.moreTransactionHistoryAPITest(customerNumber, constants.getValue(ApplicationConstants.SECOND_AM_CURRENCY));
             final int statusCode = amTransactionHistoryAPI.getStatusCode();
-            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Airtel Widget API success and status code is :" + statusCode, "Airtel Widget API got failed and status code is :" + statusCode));
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Airtel Widget API success and status code is :" + statusCode, "Airtel Widget API got failed and status code is :" + statusCode, false));
             if (statusCode != 200) {
                 assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isAirtelMoneyErrorVisibleOnSecondWidget(), true, "API is Giving error and Widget is showing error Message on API is " + amTransactionHistoryAPI.getMessage(), "API is Giving error But Widget is not showing error Message on API is " + amTransactionHistoryAPI.getMessage()));
                 commonLib.fail("API is Unable to Get AM Transaction History for Customer", true);
@@ -119,7 +119,7 @@ public class AirtelMoneyMenuSecondaryWidgetTest extends Driver {
                 try {
                     amTransactionHistoryAPI = api.moreTransactionHistoryAPITest(customerNumber, constants.getValue(ApplicationConstants.SECOND_AM_CURRENCY));
                     final int statusCode = amTransactionHistoryAPI.getStatusCode();
-                    assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Airtel Widget API success and status code is :" + statusCode, "Airtel Widget API got failed and status code is :" + statusCode));
+                    assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Airtel Widget API success and status code is :" + statusCode, "Airtel Widget API got failed and status code is :" + statusCode, false));
                     if (statusCode != 200) {
                         assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isAirtelMoneyErrorVisibleOnSecondWidget(), true, "API is Giving and Widget is showing error Message on API is " + amTransactionHistoryAPI.getMessage(), "API is Giving error But Widget is not showing error Message on API is " + amTransactionHistoryAPI.getMessage()));
                         commonLib.fail("API is Unable to Get AM Transaction History for Customer", false);

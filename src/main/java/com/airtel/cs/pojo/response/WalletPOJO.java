@@ -11,7 +11,7 @@ import lombok.ToString;
 @ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class walletPOJO {
+public class WalletPOJO {
     String balance;
     String currency;
     String accountStatus;

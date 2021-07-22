@@ -74,7 +74,7 @@ public class SendInternetSettingsTest extends Driver {
         }
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest","ProdTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
     public void validateSendInternetSetting() {
         try {
             selUtils.addTestcaseDescription("Open send internet setting modal from actions drop down,Validate issue detail title visible,Select reason and enter comment and click on submit button, Validate success message", "description");
@@ -88,8 +88,6 @@ public class SendInternetSettingsTest extends Driver {
                 pages.getAuthTabPage().chooseReason();
                 pages.getAuthTabPage().enterComment(comments);
                 pages.getAuthTabPage().clickSubmitBtn();
-                final String toastText = pages.getAuthTabPage().getToastText();
-                assertCheck.append(actions.assertEqualStringType(toastText, "Internet Settings has been sent on Customer`s Device.", "Send Internet Settings Message has been sent to customer successfully", "Send Internet Settings Message hasn't been sent to customer ans message is :-" + toastText));
             } else {
                 pages.getAuthTabPage().clickYesBtn();
             }

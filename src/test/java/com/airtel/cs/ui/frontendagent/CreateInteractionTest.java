@@ -317,6 +317,7 @@ public class CreateInteractionTest extends Driver {
                 SMSHistoryList list = smsHistory.getResult().get(0);
                 commonLib.info("Message Sent after Ticket Creation: " + list.getMessageText());
                 try {
+                    assert ticketNumber != null;
                     assertCheck.append(actions.assertEqualBoolean(list.getMessageText().contains(ticketNumber), true, "Message Sent for same ticket id which has been Created", "Message does not send for same ticket id which has been Created"));
                     assertCheck.append(actions.assertEqualStringType(list.getSmsType().toLowerCase().trim(), constants.getValue(CommonConstants.SYSTEM_SMS_TYPE).toLowerCase().trim(), "Message type is system", "Message type is not system"));
                     assertCheck.append(actions.assertEqualBoolean(list.isAction(), false, "Action button is disabled", "Action button is NOT disabled"));

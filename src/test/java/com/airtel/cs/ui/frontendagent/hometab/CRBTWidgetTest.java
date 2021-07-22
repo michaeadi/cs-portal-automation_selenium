@@ -80,7 +80,7 @@ public class CRBTWidgetTest extends Driver {
             selUtils.addTestcaseDescription("Validate My Tunes tab under CRBT Widget", "description");
             ActivateRingtone ringtoneAPI = api.activateRingtone(customerNumber);
             final String statusCode = ringtoneAPI.getStatusCode();
-            assertCheck.append(actions.assertEqualStringType(statusCode, "200", "Ringtone API status code matched and is :" + statusCode, "Ringtone API status code NOT matched and is :" + statusCode));
+            assertCheck.append(actions.assertEqualStringType(statusCode, "200", "Ringtone API status code matched and is :" + statusCode, "Ringtone API status code NOT matched and is :" + statusCode,false));
             String message = ringtoneAPI.getResult().getMessage();
             if (Integer.parseInt(statusCode) == 200) {
                 if (Objects.isNull(ringtoneAPI.getApiErrors())) {
@@ -152,7 +152,7 @@ public class CRBTWidgetTest extends Driver {
             pages.getCrbtWidgetPage().clickOutside();
             Top20Ringtone searchTune = api.ringtoneDetailTest(customerNumber, "namedTune", "h");
             final String statusCode = searchTune.getStatusCode();
-            assertCheck.append(actions.assertEqualStringType(statusCode, "200", "Ringtone Detail API success and status code is :" + statusCode, "Ringtone Detail API is NOT success and status code is :" + statusCode));
+            assertCheck.append(actions.assertEqualStringType(statusCode, "200", "Ringtone Detail API success and status code is :" + statusCode, "Ringtone Detail API is NOT success and status code is :" + statusCode,false));
             if (!StringUtils.equalsIgnoreCase(statusCode, "200")) {
                 commonLib.fail("API Response " + searchTune.getMessage(), true);
                 assertCheck.append(actions.assertEqualBoolean(pages.getCrbtWidgetPage().isWidgetError(), true, "Widget Error displayed as API response is not 200", "Widget Error does not display as api response is not 200."));

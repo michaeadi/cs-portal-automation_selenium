@@ -86,7 +86,7 @@ public class AirtelMoneyTransactionWidgetTest extends Driver {
             final AMTransactionsWidget amTxnWidgetPage = pages.getAmTxnWidgetPage();
             AMProfilePOJO amProfileAPI = api.amServiceProfileAPITest(customerNumber);
             final int statusCode = amProfileAPI.getStatusCode();
-            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "AM Profile API success and status code is :" + statusCode, "AM Profile API got failed and status code is :" + statusCode));
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "AM Profile API success and status code is :" + statusCode, "AM Profile API got failed and status code is :" + statusCode, false));
             if (statusCode == 200) {
                 assertCheck.append(actions.assertEqualStringType(amTxnWidgetPage.gettingAirtelMoneyBalance(), amProfileAPI.getResult().getWallet().get(0).getBalance(), "Customer's Airtel Wallet Balance as Expected", "Customer's Airtel Wallet Balance not same not as Expected"));
                 assertCheck.append(actions.assertEqualStringType(amTxnWidgetPage.gettingAirtelMoneyCurrency(), amProfileAPI.getResult().getWallet().get(0).getCurrency(), "Customer's Currency code as Expected", "Customer's Currency code not same not as Expected"));
@@ -111,7 +111,7 @@ public class AirtelMoneyTransactionWidgetTest extends Driver {
             AirtelMoneyPOJO amTransactionHistoryAPI = api.transactionHistoryAPITest(customerNumber);
             final Integer statusCode = amTransactionHistoryAPI.getStatusCode();
             String amWidgetId = pages.getAmTxnWidgetPage().getAMWidgetId();
-            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "AM Txn API success and status code is :" + statusCode, "AM Txn API got failed and status code is :" + statusCode));
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "AM Txn API success and status code is :" + statusCode, "AM Txn API got failed and status code is :" + statusCode, false));
             if (statusCode != 200) {
                 assertCheck.append(actions.assertEqualBoolean(widgetMethods.isWidgetErrorIconDisplay(amWidgetId), true, "API and Widget both are showing error message", "API is Giving error But Widget is not showing error Message on API is " + amTransactionHistoryAPI.getMessage()));
             } else if (amTransactionHistoryAPI.getResult().getTotalCount() == null) {

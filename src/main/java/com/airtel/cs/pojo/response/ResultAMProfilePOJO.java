@@ -23,7 +23,7 @@ public class ResultAMProfilePOJO {
     boolean userBarred;
     boolean pinSet;
     String dob;
-    ArrayList<walletPOJO> wallet;
+    ArrayList<WalletPOJO> wallet;
 
 
 }

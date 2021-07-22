@@ -72,7 +72,7 @@ public class DisplayOfferWidgetTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getDaDetailsPage().isOfferWidgetDisplay(), true, "Display offer Widget display", "Display offer widget does not display"));
             offerDetailPOJO = api.offerDetailAPITest(customerNumber);
             final int statusCode = offerDetailPOJO.getStatusCode();
-            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Display Offer Widget API success and status code is :" + statusCode, "Display Offer Widget API got failed and status code is :" + statusCode));
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Display Offer Widget API success and status code is :" + statusCode, "Display Offer Widget API got failed and status code is :" + statusCode, false));
             if (statusCode != 200) {
                 commonLib.fail("API is Unable to Get Display Offer for Customer", false);
             } else if (offerDetailPOJO.getResult().size() > 0) {
@@ -101,7 +101,7 @@ public class DisplayOfferWidgetTest extends Driver {
         DADetails daDetailsPage = pages.getDaDetailsPage();
         try {
             final int statusCode = offerDetailPOJO.getStatusCode();
-            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Display Offer Widget API success and status code is :" + statusCode, "Display Offer Widget API got failed and status code is :" + statusCode));
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Display Offer Widget API success and status code is :" + statusCode, "Display Offer Widget API got failed and status code is :" + statusCode, false));
             if (statusCode != 200) {
                 commonLib.fail("API is Unable to Get AM Transaction History for Customer", false);
             } else if (offerDetailPOJO.getResult().size() > 0) {
@@ -152,7 +152,6 @@ public class DisplayOfferWidgetTest extends Driver {
             }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
-            e.printStackTrace();
             commonLib.fail("Exception in Method - associatedDAPopUpTest" + e.fillInStackTrace(), true);
         }
     }

@@ -67,7 +67,7 @@ public class RoleBasedMaskingTest extends Driver {
       if(ObjectUtils.isNotEmpty(actionConfigResponse)){
         statusCode=actionConfigResponse.getStatusCode();
       }
-      assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Action Config API success and status code is :" + statusCode, "Action Config got failed and status code is :" + statusCode));
+      assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Action Config API success and status code is :" + statusCode, "Action Config got failed and status code is :" + statusCode,false));
       if (statusCode == 200 && ObjectUtils.isNotEmpty(actionConfigResponse.getResult())) {
         actionConfigResultList = actionConfigResponse.getResult();
         Optional<ActionConfigResult> actionConfigResultop = actionConfigResultList.stream()
@@ -79,7 +79,7 @@ public class RoleBasedMaskingTest extends Driver {
           hasRole = roleDetails.stream().anyMatch(roleName -> roles.contains(roleName.getRoleName()));
           final AMTransactionsWidget amTxnWidgetPage = pages.getAmTxnWidgetPage();
           AirtelMoneyPOJO amTransactionHistoryAPI = api.transactionHistoryAPITest(customerNumber);
-            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "AM Txn API success and status code is :" + statusCode, "AM Txn API got failed and status code is :" + statusCode));
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "AM Txn API success and status code is :" + statusCode, "AM Txn API got failed and status code is :" + statusCode,false));
           if (statusCode != 200) {
               assertCheck.append(actions.assertEqualBoolean(widgetMethods.isWidgetErrorIconDisplay(amTxnWidgetPage.getAMWidgetId()), true, "API and Widget both are showing error message", "API is Giving error But Widget is not showing error Message on API is " + amTransactionHistoryAPI.getMessage()));
           } else if (amTransactionHistoryAPI.getResult().getTotalCount() == null) {
@@ -89,7 +89,7 @@ public class RoleBasedMaskingTest extends Driver {
             Condition condition = actionConfigResult.getConditions().get(0);
             for (int i = 0; i < count; i++) {
               String amountString = amTxnWidgetPage.getHeaderValue(i + 1, 1).replaceAll("[^\\d.]", "");
-              Integer amount = StringUtils.isEmpty(amountString) ? 0 : Integer.parseInt(amountString);
+              int amount = StringUtils.isEmpty(amountString) ? 0 : Integer.parseInt(amountString);
               if (hasRole) {
                 if ("<=".equals(condition.getOperator()) && amount <= condition.getThresholdValue()) {
                     assertCheck.append(actions.assertEqualBoolean(amTxnWidgetPage.isReverseIconEnable(i + 1), false, "Reverse Transaction Icon is disabled as mentioned in CS API Response", "Reverse Transaction  Icon  does not disable as mentioned in CS API Response"));

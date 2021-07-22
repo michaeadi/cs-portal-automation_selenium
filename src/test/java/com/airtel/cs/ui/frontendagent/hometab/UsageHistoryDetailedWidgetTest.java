@@ -70,7 +70,7 @@ public class UsageHistoryDetailedWidgetTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getDetailedUsageHistoryPage().isLast7DayDateFilter(), true, "Last 7 Days date filter Option does display on UI.", "Last 7 Days date filter Option does not display on UI."));
             usageHistoryAPI = api.usageHistoryMenuTest(customerNumber);
             final int statusCode = usageHistoryAPI.getStatusCode();
-            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Usage History Detailed Widget API success and status code is :" + statusCode, "Usage History Detailed Widget API got failed and status code is :" + statusCode));
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Usage History Detailed Widget API success and status code is :" + statusCode, "Usage History Detailed Widget API got failed and status code is :" + statusCode, false));
             if (statusCode != 200) {
                 commonLib.fail("API is Unable to Get usage history for Customer", false);
             } else if (usageHistoryAPI.getResult().size() > 0) {
@@ -101,7 +101,7 @@ public class UsageHistoryDetailedWidgetTest extends Driver {
             try {
                 int size = Math.min(usageHistoryAPI.getTotalCount(), 20);
                 final int statusCode = usageHistoryAPI.getStatusCode();
-                assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Usage History Widget API success and status code is :" + statusCode, "Usage History Widget API got failed and status code is :" + statusCode));
+                assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Usage History Widget API success and status code is :" + statusCode, "Usage History Widget API got failed and status code is :" + statusCode, false));
                 if (statusCode != 200) {
                     commonLib.fail("API is Unable to Get usage history for Customer", false);
                 } else if (usageHistoryAPI.getResult().size() == 0 || usageHistoryAPI.getResult() == null) {
@@ -112,7 +112,7 @@ public class UsageHistoryDetailedWidgetTest extends Driver {
                         assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailedUsageHistoryPage().getValueCorrespondingToHeader(i + 1, 1), usageHistoryAPI.getResult().get(i).getType(), " Type received is as expected on row " + i, " Type received is not as expected on row " + i));
                         assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailedUsageHistoryPage().getValueCorrespondingToHeader(i + 1, 2), usageHistoryAPI.getResult().get(i).getDateTime() + "\n" + usageHistoryAPI.getResult().get(i).getTime(), "Date & Time received is as expected on row " + i, "Date & Time received is not as expected on row " + i));
                         assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailedUsageHistoryPage().getValueCorrespondingToHeader(i + 1, 3).trim(), usageHistoryAPI.getResult().get(i).getStartBalance().trim(), "Start Balance received is as expected on row " + i, "Start Balance received is not as expected on row " + i));
-                        assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailedUsageHistoryPage().getValueCorrespondingToHeader(i + 1, 4).trim(), usageHistoryAPI.getResult().get(i).getCharges().replace("-","").trim(), "Charges received is as expected on row " + i, "Charges received is not as expected on row " + i));
+                        assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailedUsageHistoryPage().getValueCorrespondingToHeader(i + 1, 4).trim(), usageHistoryAPI.getResult().get(i).getCharges().replace("-", "").trim(), "Charges received is as expected on row " + i, "Charges received is not as expected on row " + i));
                         if (usageHistoryAPI.getResult().get(i).getCharges().charAt(0) == '-') {
                             assertCheck.append(actions.assertEqualBoolean(pages.getDetailedUsageHistoryPage().checkSignDisplay(i + 1), true, "Red Negative Symbol display at row " + i, "Red Negative Symbol does not display at row " + i));
                         }
@@ -131,7 +131,7 @@ public class UsageHistoryDetailedWidgetTest extends Driver {
                 e.printStackTrace();
                 commonLib.fail("Not able to validate Detailed Usage History Completely: " + e.fillInStackTrace(), true);
             }
-            pages.getUsageHistoryWidget().openingCustomerInteractionDashboard();
+            pages.getUsageHistoryWidget().goingBackToHomeTab();
         } catch (Exception e) {
             commonLib.fail("Exception in Method - usageHistoryMenuTest" + e.fillInStackTrace(), true);
         }

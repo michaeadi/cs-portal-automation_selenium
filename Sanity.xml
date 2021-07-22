@@ -129,26 +129,6 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.ServiceProfileWidgetTest"/>
         </classes>
     </test>
-    <test name="Airtel Money More detail Widget Test(Primary Widget)">
-        <groups>
-            <run>
-                <include name="SanityTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.hometab.AirtelMoneyMenuPrimaryWidgetTest"/>
-        </classes>
-    </test>
-    <test name="Airtel Money More detail Widget Test(Secondary Widget-DRC)">
-        <groups>
-            <run>
-                <include name="SanityTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.hometab.AirtelMoneyMenuSecondaryWidgetTest"/>
-        </classes>
-    </test>
     <test name="DA detail Widget Test">
         <groups>
             <run>
@@ -246,7 +226,7 @@
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.frontendagent.autoadjustment.AdjustmentAgentLimit"/>
+            <class name="com.airtel.cs.ui.frontendagent.autoadjustment.AdjustmentAgentLimitTest"/>
         </classes>
     </test>
     <test name="Widget Visibility Test By Connection Type">
@@ -256,7 +236,7 @@
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.frontendagent.hometab.widgetvisibility.VisibiltyByCustomerSegment"/>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.widgetvisibility.VisibilityByCustomerSegmentTest"/>
         </classes>
     </test>
     <test name="Role Based Masking Test">

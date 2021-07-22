@@ -84,6 +84,7 @@ public class SupervisorSearchTicketTest extends Driver {
                     "Validate total committed SLA as per config,Validate SLA for each workgroup of ticket as per config rule.,Validate Customer MSISDN Display correctly.,Check Red symbol display for negative SLA or Check Green Symbol display for positive SLA,Validate ticket layout fetch as per config", "description");
             AssignmentQueueRuleDataBeans assignmentRule=UtilsMethods.getAssignmentRule(dataProviders.getQueueRuleBasedOnCode(data.getIssueCode()),data);
             SLARuleFileDataBeans slaRule = UtilsMethods.getSLACalculationRule(dataProviders.getSLARuleBasedOnCode(data.getIssueCode()), data);
+            assert assignmentRule != null;
             commonLib.pass("AssignMent Rule Found: "+assignmentRule.toString());
             commonLib.pass("SLA Rule Found: "+slaRule.toString());
             try {

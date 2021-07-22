@@ -129,7 +129,7 @@ public class CreateTemplateTest extends Driver {
     @Test(priority = 4, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"addTemplateCategory", "openTemplateManagement"})
     public void createTemplate() {
         try {
-            DateTimeFormatter formating = DateTimeFormatter.ofPattern("MMMM hh0mm");
+            DateTimeFormatter formating = DateTimeFormatter.ofPattern("mmmm hh0mm");
             templateName = "Template " + LocalDateTime.now().format(formating);
             selUtils.addTestcaseDescription("Create Template with name: " + templateName, "description");
             pages.getTemplateManagement().switchTabToAddTemplate();

@@ -8,7 +8,9 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.HashMap;
@@ -116,7 +118,7 @@ public class AccountInformationWidget extends BasePage {
         */
     public String getLastPaymentMode() {
         String result = null;
-        if (isVisible(pageElements.securityDeposit)) {
+        if (isVisible(pageElements.lastPaymentMode)) {
             result = getText(pageElements.lastPaymentMode);
             commonLib.info("Last Payment Mode is: " + result);
         } else {
@@ -158,27 +160,34 @@ public class AccountInformationWidget extends BasePage {
         */
     public String getAccountNumber() {
         String result = null;
-        String elementCss = null;
         if (isVisible(pageElements.accountNumber)) {
             result = getText(pageElements.accountNumber);
             commonLib.info("Account Number is: " + result);
-            elementCss=getAttribute(pageElements.accountNumber,"style",false);
-
+            getStyle(pageElements.accountNumber);
         } else {
             commonLib.fail("Account Number under Account Information Widget is NOT visible", true);
         }
         return result;
     }
 
-   /* public String getStyle(By elementLocation, String attributeName, stylePropCss) {
-        var x = document.getElementById(elementLocation);
-        var y="";
-        if (x.currentStyle)
-             y = x.currentStyle[stylePropJs];
-        else if (window.getComputedStyle)
-             y = document.defaultView.getComputedStyle(x,null).getPropertyValue(stylePropCss);
-        return y;
-    }*/
+    public String getStyle(By elementLocation) {
+        String attributeValue = null;
+        //getElementByXpath(elementLocation);
+        WebElement element = getElementFromBy(elementLocation);
+        JavascriptExecutor executor = (JavascriptExecutor) driver;
+        Object allAttributes = executor.executeScript(
+                "var elem = document.getElementById(element); var css = window.getComputedStyle(elem, null);document.getElementById('demo').innerHTML = 'font-weight:-' +css.getPropertyValue('font-weight')+ 'backgroundColor:-' + css.getPropertyValue('background-color');",
+                element);
+        commonLib.logs(allAttributes.toString());
+        return attributeValue;
+    }
+
+    public String getElementByXpath(By elementLocation) {
+        JavascriptExecutor executor = (JavascriptExecutor) driver;
+        Object allAttributes = executor.executeScript("var elementLocation=+elementLocation;var xpathresult = document.evaluate(elementLocation, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;");
+        return (String) allAttributes;
+    }
+
 
     public String getValue(List<String> list, String rowToSearch, String valueToSearch) throws ParseException {
         String result = null;
@@ -195,7 +204,7 @@ public class AccountInformationWidget extends BasePage {
                 } else {
                     result = json.get("result").toString();
                     if (StringUtils.contains(String.valueOf(json.get(STATUS_CODE)), "200") && StringUtils.contains(String.valueOf(json.get(STATUS)), "SUCCESS")) {
-                        result = result.substring(1, result.length() - 1).replace("\"", "");
+                        result = result.substring(1, result.length() - 1).replace("'", "");
                         String[] keyValuePairs = result.split(",");
                         Map<String, String> map = new HashMap<>();
                         for (String pair : keyValuePairs) {

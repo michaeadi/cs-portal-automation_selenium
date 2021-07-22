@@ -232,7 +232,7 @@
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.frontendagent.autoadjustment.AdjustmentAgentLimit"/>
+            <class name="com.airtel.cs.ui.frontendagent.autoadjustment.AdjustmentAgentLimitTest"/>
         </classes>
     </test>
     <test name="Adjustment History Tab Test">
@@ -252,7 +252,7 @@
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.frontendagent.hometab.widgetvisibility.VisibiltyByCustomerSegment"/>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.widgetvisibility.VisibilityByCustomerSegmentTest"/>
         </classes>
     </test>
     <test name="Role Based Masking Test">

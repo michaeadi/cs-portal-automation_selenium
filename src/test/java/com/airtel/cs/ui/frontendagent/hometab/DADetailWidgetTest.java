@@ -62,7 +62,7 @@ public class DADetailWidgetTest extends Driver {
                 assertCheck.append(actions.matchUiAndAPIResponse(pages.getDaDetailsPage().getHeaders(5), data.getRow5(), "Header Name for Row 5 is as expected", "Header Name for Row 5 is not as expected"));
                 AccountsBalancePOJO accountsBalanceAPI = api.balanceAPITest(customerNumber);
                 final int statusCode = accountsBalanceAPI.getStatusCode();
-                assertCheck.append(actions.assertEqualIntType(statusCode, 200, "AM Profile API success and status code is :" + statusCode, "AM Profile API got failed and status code is :" + statusCode));
+                assertCheck.append(actions.assertEqualIntType(statusCode, 200, "AM Profile API success and status code is :" + statusCode, "AM Profile API got failed and status code is :" + statusCode, false));
                 if (statusCode == 200) {
                     int size = pages.getDaDetailsPage().getNumbersOfRows();
                     if (size > 10) {
@@ -75,10 +75,10 @@ public class DADetailWidgetTest extends Driver {
                         assertCheck.append(actions.matchUiAndAPIResponse(pages.getDaDetailsPage().getDADateTime(i + 1), UtilsMethods.getDateFromEpochInUTC(accountsBalanceAPI.getResult().get(i).getExpiryDate(), constants.getValue(CommonConstants.DA_DETAIL_TIME_FORMAT)), "DA Date Time as received in API on row " + i, "DA Date Time is not as received in API on row " + i));
                         assertCheck.append(actions.matchUiAndAPIResponse(pages.getDaDetailsPage().getDABalance(i + 1), accountsBalanceAPI.getResult().get(i).getCurrentDaBalance(), "DA Current Balance as received in API on row " + i, "DA Current Balance is not as received in API on row " + i));
                         if (i != 0) {
-                            assertCheck.append(actions.assertEqualBoolean(UtilsMethods.isSortOrderDisplay(pages.getDaDetailsPage().getDADateTime(i + 1),pages.getDaDetailsPage().getDADateTime(i), constants.getValue(CommonConstants.DA_DETAIL_TIME_FORMAT)), true, "On UI Data display in sort order as expected.", pages.getDaDetailsPage().getDADateTime(i) + "should not display before " + pages.getDaDetailsPage().getDADateTime(i + 1)));
+                            assertCheck.append(actions.assertEqualBoolean(UtilsMethods.isSortOrderDisplay(pages.getDaDetailsPage().getDADateTime(i + 1), pages.getDaDetailsPage().getDADateTime(i), constants.getValue(CommonConstants.DA_DETAIL_TIME_FORMAT)), true, "On UI Data display in sort order as expected.", pages.getDaDetailsPage().getDADateTime(i) + "should not display before " + pages.getDaDetailsPage().getDADateTime(i + 1)));
                         }
                     }
-                    pages.getDaDetailsPage().openingCustomerInteractionDashboard();
+                    pages.getDaDetailsPage().goingBackToHomeTab();
                 } else {
                     commonLib.fail("API does not able to fetch DA Details", false);
                 }

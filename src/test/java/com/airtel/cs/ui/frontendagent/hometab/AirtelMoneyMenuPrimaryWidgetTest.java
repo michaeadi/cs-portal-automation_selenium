@@ -24,7 +24,7 @@ public class AirtelMoneyMenuPrimaryWidgetTest extends Driver {
     private AirtelMoneyPOJO amTransactionHistoryAPI;
     public static final String RUN_AIRTEL_MONEY_WIDGET_TEST_CASE = constants.getValue(ApplicationConstants.RUN_AIRTEL_MONEY_WIDGET_TESTCASE);
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -32,7 +32,7 @@ public class AirtelMoneyMenuPrimaryWidgetTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"ProdTest"})
     public void checkAirtelMoneyFlag() {
         if (!StringUtils.equals(RUN_AIRTEL_MONEY_WIDGET_TEST_CASE, "true")) {
             commonLib.skip("Skipping because Run Airtel Money widget Test Case Flag Value is - " + RUN_AIRTEL_MONEY_WIDGET_TEST_CASE);
@@ -76,7 +76,7 @@ public class AirtelMoneyMenuPrimaryWidgetTest extends Driver {
                 amTransactionHistoryAPI = api.moreTransactionHistoryAPITest(customerNumber, null);
             }
             final int statusCode = amTransactionHistoryAPI.getStatusCode();
-            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Airtel Widget API success and status code is :" + statusCode, "Airtel Widget API got failed and status code is :" + statusCode));
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Airtel Widget API success and status code is :" + statusCode, "Airtel Widget API got failed and status code is :" + statusCode, false));
             if (statusCode != 200) {
                 assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isAirtelMoneyErrorVisible(), true, "API is Giving error and Widget is showing error Message on API is " + amTransactionHistoryAPI.getMessage(), "API is Giving error But Widget is not showing error Message on API is " + amTransactionHistoryAPI.getMessage()));
                 commonLib.fail("API is Unable to Get AM Transaction History for Customer", true);
@@ -108,7 +108,7 @@ public class AirtelMoneyMenuPrimaryWidgetTest extends Driver {
     @Test(priority = 3, groups = {"ProdTest"}, dependsOnMethods = {"openCustomerInteraction", "airtelMoneyHistoryMenuHeaderTest"})
     public void airtelMoneyHistoryMenuTest() {
         try {
-            selUtils.addTestcaseDescription("Validating Airtel Money History's  Menu of User :" + customerNumber+"Validate all the data rows displayed as per api response,In case of No result data rows found validate no result found icon displayed,Validate resend sms icon displayed as per api response.", "description");
+            selUtils.addTestcaseDescription("Validating Airtel Money History's  Menu of User :" + customerNumber + "Validate all the data rows displayed as per api response,In case of No result data rows found validate no result found icon displayed,Validate resend sms icon displayed as per api response.", "description");
             try {
                 try {
                     if (StringUtils.equals(MULTI_AM_WALLET, "true")) {
@@ -117,7 +117,7 @@ public class AirtelMoneyMenuPrimaryWidgetTest extends Driver {
                         amTransactionHistoryAPI = api.moreTransactionHistoryAPITest(customerNumber, null);
                     }
                     final int statusCode = amTransactionHistoryAPI.getStatusCode();
-                    assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Airtel Widget API success and status code is :" + statusCode, "Airtel Widget API got failed and status code is :" + statusCode));
+                    assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Airtel Widget API success and status code is :" + statusCode, "Airtel Widget API got failed and status code is :" + statusCode, false));
                     if (statusCode != 200) {
                         assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isAirtelMoneyErrorVisible(), true, "API is Giving error and Widget is showing error Message on API is " + amTransactionHistoryAPI.getMessage(), "API is Giving error But Widget is not showing error Message on API is " + amTransactionHistoryAPI.getMessage()));
                         commonLib.fail("API is Unable to Get AM Transaction History for Customer", true);
@@ -130,7 +130,7 @@ public class AirtelMoneyMenuPrimaryWidgetTest extends Driver {
                                 } else {
                                     assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isNegSignDisplay(i + 1), true, i + "th Negative Sign does display in case of Amount Debited.", i + "th Negative Sign does not display in case of Amount Debited."));
                                 }
-                                assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getValueCorrespondingToHeader(i + 1, 2).replace("\n"," "), UtilsMethods.getDateFromEpochInUTC(new Long(amTransactionHistoryAPI.getResult().getData().get(i).getTransactionDate()), constants.getValue(CommonConstants.AM_HISTORY_TIME_FORMAT)), i + "th Date is expected as API response.", i + "th Date is not expected as API response."));
+                                assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getValueCorrespondingToHeader(i + 1, 2).replace("\n", " "), UtilsMethods.getDateFromEpochInUTC(Long.parseLong(amTransactionHistoryAPI.getResult().getData().get(i).getTransactionDate()), constants.getValue(CommonConstants.AM_HISTORY_TIME_FORMAT)), i + "th Date is expected as API response.", i + "th Date is not expected as API response."));
                                 assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getValueCorrespondingToHeader(i + 1, 3), amTransactionHistoryAPI.getResult().getData().get(i).getService(), i + "th Service name is not expected as API response.", i + "th Service name is not expected as API response."));
                                 assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getValueCorrespondingToHeader(i + 1, 4), amTransactionHistoryAPI.getResult().getData().get(i).getSource(), i + "th Sender MSISDN is expected as API response.", i + "th Sender MSISDN is not expected as API response."));
                                 assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getValueCorrespondingToHeader(i + 1, 5), amTransactionHistoryAPI.getResult().getData().get(i).getMsisdn(), i + "th Receiver MSISDN is expected as API response.", i + "th Receiver MSISDN is not expected as API response."));

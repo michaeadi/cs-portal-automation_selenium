@@ -60,7 +60,7 @@ public class AuthTabTest extends Driver {
             ConfigurationPOJO config = api.getConfiguration("authorization_data");
             authTabConfig = config.getResult().getAuthDataConfig();
             final String statusCode = config.getStatusCode();
-            assertCheck.append(actions.assertEqualStringType(statusCode, "200", "Config API Status Code is as Expected and is :" + statusCode, "Config API Status Code is NOT as Expected and is :" + statusCode));
+            assertCheck.append(actions.assertEqualStringType(statusCode, "200", "Config API Status Code is as Expected and is :" + statusCode, "Config API Status Code is NOT as Expected and is :" + statusCode, false));
             for (Map.Entry mapElement : authTabConfig.entrySet()) {
                 String key = (String) mapElement.getKey();
                 String value = mapElement.getValue().toString();
@@ -154,7 +154,7 @@ public class AuthTabTest extends Driver {
                 }
             }
             actions.assertAllFoundFailedAssert(assertCheck);
-        } catch (NoSuchElementException | TimeoutException | AssertionError |NullPointerException e) {
+        } catch (NoSuchElementException | TimeoutException | AssertionError | NullPointerException e) {
             if (isTabOpened)
                 pages.getAuthTabPage().clickCloseBtn();
             commonLib.fail("Exception in Method :- validateAuthTab" + e.fillInStackTrace(), true);
