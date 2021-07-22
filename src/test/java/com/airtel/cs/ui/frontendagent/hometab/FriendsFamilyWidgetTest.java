@@ -239,7 +239,7 @@ public class FriendsFamilyWidgetTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 9, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasFriendFamilyPermissionToDeleteMember", "validateFriendsFamilyWidget", "openCustomerInteraction"})
+    @Test(priority = 9, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasFriendFamilyPermissionToDeleteMember", "validateFriendsFamilyWidget", "openCustomerInteraction","addMemberToFNF"})
     public void deleteMemberToFnF() {
         try {
             selUtils.addTestcaseDescription("Verify for adding a number into Customer's FnF list,Click on Add member Icon, Validate Add member pop up open, validate user have option to add new member,Add new Member into FnF List,Click on Submit button,Validate newly added member show in list,", "description");
@@ -292,7 +292,7 @@ public class FriendsFamilyWidgetTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 10, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"addMemberToFNF", "openCustomerInteraction"})
+    @Test(priority = 10, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"deleteMemberToFnF", "openCustomerInteraction"})
     public void validateActionTabAfterDeleteFnFMember() {
         try {
             selUtils.addTestcaseDescription("Verify Action trail tab after removing number into Customer's FnF list,Hit action trail event api, Validate action type & comments & agent id", "description");
