@@ -38,8 +38,10 @@ public class WidgetCommonMethod extends BasePage {
      * @return String The header name
      */
     public String getColumnValue(String widgetIdentifier, int rowNumber, int columnNumber) {
-        By rowElement = By.xpath(widgetIdentifier + pageElements.widgetColumnRows);
-        String value = readOnRowColumn(rowElement, By.xpath(pageElements.widgetColumnValue), rowNumber, columnNumber);
+        String rowElement = widgetIdentifier +pageElements.rowIdentifier+(rowNumber+1)+"]";
+        String columnElement=pageElements.widgetColumnRows+pageElements.widgetColumnValue;
+        final By elementLocation=By.xpath(rowElement+columnElement);
+        String value = readTextOnRows(elementLocation, columnNumber);
         commonLib.info("Reading Row(" + rowNumber + ") : Column(" + columnNumber + ") = " + value);
         return value;
     }

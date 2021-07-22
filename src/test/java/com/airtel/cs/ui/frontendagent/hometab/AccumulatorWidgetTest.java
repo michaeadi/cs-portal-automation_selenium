@@ -64,10 +64,10 @@ public class AccumulatorWidgetTest extends Driver {
             if (statusCode == 200) {
                 int size = Math.min(accumulatorAPI.getResult().size(), 5);
                 for (int i = 0; i < size; i++) {
-                    assertCheck.append(actions.matchUiAndAPIResponse(widgetMethods.getColumnValue(accumulatorWidgetIdentifier, i+1, 0).trim(), accumulatorAPI.getResult().get(i).getId(), "Accumulator ID as received in API on row " + i, "Accumulator ID is not as received in API on row " + i));
-                    assertCheck.append(actions.matchUiAndAPIResponse(widgetMethods.getColumnValue(accumulatorWidgetIdentifier, i+1, 1).trim(), String.valueOf(accumulatorAPI.getResult().get(i).getValue()), "Accumulator Value as received in API on row " + i, "Accumulator Value is not as received in API on row " + i));
-                    assertCheck.append(actions.matchUiAndAPIResponse(widgetMethods.getColumnValue(accumulatorWidgetIdentifier, i+1, 2).trim(), accumulatorAPI.getResult().get(i).getStartDate() == null ? "-" : UtilsMethods.getDateFromString(accumulatorAPI.getResult().get(i).getStartDate(), constants.getValue(CommonConstants.ACCUMULATOR_UI_TIME_FORMAT), constants.getValue(CommonConstants.ACCUMULATOR_API_TIME_FORMAT)), "Accumulator Start Date as received in API on row " + i, "Accumulator Start Date is not as received in API on row " + i));
-                    assertCheck.append(actions.matchUiAndAPIResponse(widgetMethods.getColumnValue(accumulatorWidgetIdentifier, i+1, 3).trim(), accumulatorAPI.getResult().get(i).getNextResetDate() == null ? "-" : UtilsMethods.getDateFromString(accumulatorAPI.getResult().get(i).getNextResetDate(), constants.getValue(CommonConstants.ACCUMULATOR_UI_TIME_FORMAT), constants.getValue(CommonConstants.ACCUMULATOR_API_TIME_FORMAT)), "Accumulator Next Reset Date Time as received in API on row " + i, "Accumulator Next Reset Date Time is not as received in API on row " + i));
+                    assertCheck.append(actions.matchUiAndAPIResponse(widgetMethods.getColumnValue(accumulatorWidgetIdentifier, i, 0).trim(), accumulatorAPI.getResult().get(i).getId(), "Accumulator ID as received in API on row " + i, "Accumulator ID is not as received in API on row " + i));
+                    assertCheck.append(actions.matchUiAndAPIResponse(widgetMethods.getColumnValue(accumulatorWidgetIdentifier, i, 1).trim(), String.valueOf(accumulatorAPI.getResult().get(i).getValue()), "Accumulator Value as received in API on row " + i, "Accumulator Value is not as received in API on row " + i));
+                    assertCheck.append(actions.matchUiAndAPIResponse(widgetMethods.getColumnValue(accumulatorWidgetIdentifier, i, 2).trim(), accumulatorAPI.getResult().get(i).getStartDate() == null ? "-" : UtilsMethods.getDateFromString(accumulatorAPI.getResult().get(i).getStartDate(), constants.getValue(CommonConstants.ACCUMULATOR_UI_TIME_FORMAT), constants.getValue(CommonConstants.ACCUMULATOR_API_TIME_FORMAT)), "Accumulator Start Date as received in API on row " + i, "Accumulator Start Date is not as received in API on row " + i));
+                    assertCheck.append(actions.matchUiAndAPIResponse(widgetMethods.getColumnValue(accumulatorWidgetIdentifier, i, 3).trim(), accumulatorAPI.getResult().get(i).getNextResetDate() == null ? "-" : UtilsMethods.getDateFromString(accumulatorAPI.getResult().get(i).getNextResetDate(), constants.getValue(CommonConstants.ACCUMULATOR_UI_TIME_FORMAT), constants.getValue(CommonConstants.ACCUMULATOR_API_TIME_FORMAT)), "Accumulator Next Reset Date Time as received in API on row " + i, "Accumulator Next Reset Date Time is not as received in API on row " + i));
                 }
                 pages.getDaDetailsPage().goingBackToHomeTab();
             } else {
@@ -76,5 +76,6 @@ public class AccumulatorWidgetTest extends Driver {
         } catch (Exception e) {
             commonLib.fail("Exception in Method - accumulatorDetailsTest" + e.fillInStackTrace(), true);
         }
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 }
