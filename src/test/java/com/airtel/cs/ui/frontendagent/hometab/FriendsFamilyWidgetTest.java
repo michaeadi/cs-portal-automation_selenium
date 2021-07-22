@@ -196,7 +196,6 @@ public class FriendsFamilyWidgetTest extends Driver {
                     pages.getAuthTabPage().clickCancelBtn();
                     pages.getCustomerProfilePage().clickContinueButton();
                 }
-                //ToDo RG
             } catch (NoSuchElementException | TimeoutException e) {
                 commonLib.fail("Not able to add new number: " + e.fillInStackTrace(), true);
                 pages.getDaDetailsPage().closePopup();
