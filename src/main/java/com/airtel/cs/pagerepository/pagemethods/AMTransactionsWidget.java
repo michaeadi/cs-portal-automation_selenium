@@ -178,12 +178,12 @@ public class AMTransactionsWidget extends BasePage {
      * This Method will tell us reverse icon button is enabled or not
      */
     public Boolean isReverseIconEnable(int row) {
-        if (!isElementVisible(By.xpath(pageElements.reversalIcon + row + pageElements.reversalIcon2))) {
-            return true;
-        } else {
-            commonLib.info("Reverse Transaction Icon not present");
-        }
-        return false;
+        boolean result = false;
+        final String attribute = getAttribute(By.xpath(pageElements.reversalIcon + row + pageElements.reversalIcon2), "class", false);
+        commonLib.info(attribute);
+        if (!attribute.contains("disabled"))
+            result = true;
+        return result;
     }
 
 }

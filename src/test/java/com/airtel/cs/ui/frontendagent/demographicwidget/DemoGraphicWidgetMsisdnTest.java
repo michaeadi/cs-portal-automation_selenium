@@ -1,15 +1,20 @@
 package com.airtel.cs.ui.frontendagent.demographicwidget;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.UtilsMethods;
+import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pojo.response.AMProfilePOJO;
 import com.airtel.cs.pojo.response.GsmKycPOJO;
 import com.airtel.cs.pojo.response.PlansPOJO;
 import com.airtel.cs.pojo.response.ProfilePOJO;
+import com.airtel.cs.pojo.response.actionconfig.ActionConfigResult;
+import com.airtel.cs.pojo.response.actionconfig.Condition;
+import com.airtel.cs.pojo.response.agents.RoleDetails;
+import com.airtel.cs.pojo.response.filedmasking.FieldMaskConfigs;
 import com.airtel.cs.pojo.response.kycprofile.KYCProfile;
+import io.restassured.http.Headers;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.NoSuchElementException;
@@ -18,8 +23,7 @@ import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.Locale;
-import java.util.Objects;
+import java.util.List;
 
 @Log4j2
 public class DemoGraphicWidgetMsisdnTest extends Driver {
@@ -132,10 +136,6 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                 assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getServiceStatus().toLowerCase().trim(),
                         pages.getDemoGraphicPage().getKeyValueAPI(profileAPI.getResult().getServiceStatus()), "Customer's Airtel Money Service Status is as Expected",
                         "Customer's Airtel Money Service Status is not as Expected"));
-                assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getWalletBalance().toUpperCase().trim(),
-                        amProfileAPI.getResult().getWallet().get(0).getCurrency().toUpperCase() + " " + amProfileAPI.getResult().getWallet().get(0)
-                                .getBalance(), "Customer's Airtel Wallet Balance & Currency code as Expected",
-                        "Customer's Airtel Wallet Balance & Currency code not same not as Expected"));
                 if (StringUtils.equalsIgnoreCase(constants.getValue(ApplicationConstants.MULTI_WALLET_BALANCE), "true")) {
                     assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getWalletBalance2().toUpperCase().trim(),
                             pages.getDemoGraphicPage().getKeyValueAPI(amProfileAPI.getResult().getWallet().get(1).getCurrency().toUpperCase()) + " " + pages.getDemoGraphicPage().getKeyValueAPI(amProfileAPI.getResult().getWallet()
@@ -145,6 +145,43 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                 assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getRegistrationStatus().toLowerCase().trim(),
                         pages.getDemoGraphicPage().getKeyValueAPI(amProfileAPI.getResult().getRegStatus()), "Customer's Airtel Money Registration Status as Expected",
                         "Customer's Airtel Money Registration Status not same not as Expected"));
+
+
+                ActionConfigResult actionConfigResult = api.getActionConfig(new Headers(map), "resetPin");
+                String airtelMoneyString = pages.getDemoGraphicPage().getWalletBalance().replaceAll("[^0-9]", "").trim();
+                int airtelMoney = StringUtils.isEmpty(airtelMoneyString) ? 0 : Integer.parseInt(airtelMoneyString);
+                List<String> actionConfigRoles = actionConfigResult.getRoles();
+                List<RoleDetails> agentRoles = UtilsMethods.getAgentDetail(new Headers(map)).getUserDetails().getUserDetails()
+                    .getRole();
+                Boolean hasRole = agentRoles.stream().anyMatch(roleName -> actionConfigRoles.contains(roleName.getRoleName()));
+                Condition condition = actionConfigResult.getConditions().get(0);
+                String operator = condition.getOperator();
+                Integer thresholdValue = condition.getThresholdValue();
+                if (hasRole && (">=".equals(operator) && airtelMoney >= thresholdValue
+                    || "<".equals(operator) && airtelMoney < thresholdValue || "=".equals(operator) && airtelMoney == thresholdValue
+                    || "<=".equals(operator) && airtelMoney <= thresholdValue || ">".equals(operator) && airtelMoney > thresholdValue)) {
+                    assertCheck.append(actions.assertEqualBoolean(pages.getDemoGraphicPage().isResetPinIconDisable(), true, "Reset PIN Icon is disable as mentioned in CS API Response", "Reset PIN Icon is not disable as mentioned in CS API Response"));
+                } else {
+                    assertCheck.append(actions.assertEqualBoolean(pages.getDemoGraphicPage().isResetPinIconDisable(), false, "Reset PIN Icon is enable as mentioned in CS API Response", "Reset PIN Icon is not enable as mentioned in CS API Response"));
+                }
+
+
+                FieldMaskConfigs amBalancefieldMaskConfigs = api.getFieldMaskConfigs("amBalance");
+                operator = amBalancefieldMaskConfigs.getOperator();
+                int amThresoldValue = StringUtils.isEmpty(amBalancefieldMaskConfigs.getThresholdValue()) ? 0 : Integer.parseInt(amBalancefieldMaskConfigs.getThresholdValue());
+                hasRole = agentRoles.stream().anyMatch(roleName -> amBalancefieldMaskConfigs.getRoles().contains(roleName.getRoleName()));
+                if (hasRole && ((">=".equals(operator) && airtelMoney >= amThresoldValue) || ("<".equals(operator)
+                    && airtelMoney < amThresoldValue) || ("=".equals(operator) && airtelMoney == amThresoldValue) || ("<=".equals(operator)
+                    && airtelMoney <= amThresoldValue) || (">".equals(operator) && airtelMoney > amThresoldValue))) {
+                    assertCheck.append(actions.assertEqualBoolean(airtelMoneyString.length() == amBalancefieldMaskConfigs.getDigitsVisible(), true, "Airtel Money masking is correct as per user role", "Airtel Money masking is not correct as per user role"));
+                } else {
+                    assertCheck.append(actions.assertEqualBoolean(airtelMoneyString.contains("*"), false, "Airtel Money is not masked as per user role", "Airtel Money should not be masked as per user role"));
+                    assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getWalletBalance().toUpperCase().trim(),
+                        amProfileAPI.getResult().getWallet().get(0).getCurrency().toUpperCase() + " " + amProfileAPI.getResult().getWallet().get(0)
+                            .getBalance(), "Customer's Airtel Wallet Balance & Currency code as Expected",
+                        "Customer's Airtel Wallet Balance & Currency code not same not as Expected"));
+                }
+
                 actions.assertAllFoundFailedAssert(assertCheck);
             } else {
                 commonLib.skip("Airtel Money Profile is Not configured for Opco=" + OPCO);
@@ -169,6 +206,9 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
             if (!customerName.contains("Unable to fetch data")) {
                 pages.getDemoGraphicPage().hoverOnCustomerInfoIcon();
                 final String customerDOB = pages.getDemoGraphicPage().getCustomerDOB();
+                final String customerIdNumber = pages.getDemoGraphicPage().getIdNumber().replace("*", "");
+                pages.getDemoGraphicPage().hoverOnCustomerInfoIcon();
+                final String idType = pages.getDemoGraphicPage().getIdType().toLowerCase().trim();
                 assertCheck.append(actions
                         .assertEqualStringType(customerDOB.trim(), pages.getDemoGraphicPage().getKeyValueAPI(UtilsMethods.getDateFromEpoch(gsmKycAPI.getResult().getDob(), "dd-MMM-yyyy")),
                                 "Customer DOB is as Expected", "Customer DOB is not as Expected"));
@@ -179,12 +219,23 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                         assertCheck.append(actions.assertEqualBoolean(birthday, true, "Today is customer birthday and birthday icon displayed",
                                 "Today is customer birthday but birthday Icon NOT displayed"));
                     }
-                assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getIdType().toLowerCase().trim(),
-                        pages.getDemoGraphicPage().getKeyValueAPI(gsmKycAPI.getResult().getIdentificationType()), "Customer's ID Type is as Expected",
-                        "Customer's ID Type is not as Expected"));
-                final String customerIdNumber = pages.getDemoGraphicPage().getIdNumber().replace("*", "");
-                assertCheck.append(actions.assertEqualBoolean(StringUtils.contains(gsmKycAPI.getResult().getIdentificationNo(), customerIdNumber), true,
+                assertCheck.append(actions
+                    .assertEqualStringType(idType, pages.getDemoGraphicPage().getKeyValueAPI(gsmKycAPI.getResult().getIdentificationType()),
+                        "Customer's ID Type is as Expected", "Customer's ID Type is not as Expected"));
+
+                FieldMaskConfigs nationalIdfieldMaskConfigs = api.getFieldMaskConfigs("nationalId");
+                List<RoleDetails> agentRoles = UtilsMethods.getAgentDetail(new Headers(map)).getUserDetails().getUserDetails()
+                    .getRole();
+                Boolean hasRole =  agentRoles.stream().anyMatch(roleName -> nationalIdfieldMaskConfigs.getRoles().contains(roleName.getRoleName()));
+                if (hasRole) {
+                    assertCheck.append(actions.assertEqualBoolean(customerIdNumber.length()==nationalIdfieldMaskConfigs.getDigitsVisible(), true, "National Id masking is correct as per user role", "National Id masking is not correct as per user role"));
+                } else {
+                    assertCheck.append(actions.assertEqualBoolean(pages.getDemoGraphicPage().getIdNumber().contains("*"), false, "National Id is not masked as per user role", "National Id should not be masked as per user role"));
+                    assertCheck.append(actions.assertEqualBoolean(StringUtils.contains(gsmKycAPI.getResult().getIdentificationNo(), customerIdNumber), true,
                         "Customer's ID Number is as Expected", "Customer's ID Number is not as Expected and Expected was :" + customerIdNumber));
+                }
+
+
             }
             assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getGsmKycStatus(), pages.getDemoGraphicPage().getKeyValueAPI(gsmKycAPI.getResult().getGsm()),
                     "Customer's GSM KYC Status is as Expected", "Customer's GSM KYC Status is not as Expected"));

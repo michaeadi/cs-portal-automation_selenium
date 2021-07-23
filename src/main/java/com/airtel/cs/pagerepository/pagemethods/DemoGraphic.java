@@ -1,7 +1,7 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
-import com.airtel.cs.commonutils.dataproviders.databeans.AuthTabDataBeans;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
+import com.airtel.cs.commonutils.dataproviders.databeans.AuthTabDataBeans;
 import com.airtel.cs.pagerepository.pageelements.DemoGraphicPage;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
@@ -693,9 +693,12 @@ public class DemoGraphic extends BasePage {
      * This Method will tell us reset pin icon button is disabled or not
      */
     public Boolean isResetPinIconDisable() {
-        final boolean flag = isVisible(pageElements.resetPinIcon);
-        commonLib.info("Checking reset pin icon display or not " + flag);
-        return !flag;
+        boolean result = false;
+        final String attribute = getAttribute(pageElements.resetPinIcon, "class", false);
+        commonLib.info(attribute);
+        if (attribute.contains("disabled"))
+            result = true;
+        return result;
     }
 
     /**

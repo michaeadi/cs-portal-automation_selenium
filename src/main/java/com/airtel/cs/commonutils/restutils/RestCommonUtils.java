@@ -60,6 +60,7 @@ public class RestCommonUtils extends Driver {
             commonLib.info(getRequestCurl(queryable.getURI(), queryable.getHeaders(), body));
             UtilsMethods.printResponseDetail(response);
         } catch (Exception | AssertionError e) {
+            commonLib.info(getRequestCurl(queryable.getURI(), queryable.getHeaders(), body));
             commonLib.fail("Caught exception in Testcase - commonPostMethod " + e.getMessage(), false);
         }
     }
@@ -94,12 +95,12 @@ public class RestCommonUtils extends Driver {
             commonLib.info("Query Param Map:-" + queryParam.toString());
             queryParam.forEach(request::queryParam);
             queryable = SpecificationQuerier.query(request);
+            commonLib.info(getRequestCurl(queryable.getURI(), queryable.getHeaders(), null));
             response = request.get(endPoint).then().assertThat().statusCode(statusCode).extract().response();
             StringBuilder stringBuilder = new StringBuilder("?");
             queryParam.forEach((k, v) -> stringBuilder.append(k).append("=").append(v).append("&"));
             endPoint += stringBuilder.toString();
             endPoint.substring(0, endPoint.length() - 1);
-            commonLib.info(getRequestCurl(queryable.getURI(), queryable.getHeaders(), null));
             UtilsMethods.printResponseDetail(response);
         } catch (Exception | AssertionError e) {
             commonLib.fail("Caught exception in Testcase - commonGetMethodWithQueryParam " + e.getMessage(), false);
@@ -122,8 +123,8 @@ public class RestCommonUtils extends Driver {
             baseURI = baseUrl;
             request = given().config(restAssuredConfig).headers(headers).contentType(APPLICATION_JSON);
             queryable = SpecificationQuerier.query(request);
-            response = request.get(endPoint);
             commonLib.info(getRequestCurl(queryable.getURI(), queryable.getHeaders(), null));
+            response = request.get(endPoint);
             UtilsMethods.printResponseDetail(response);
         } catch (Exception | AssertionError e) {
             commonLib.fail("Caught exception in Testcase - commonGetMethod " + e.getMessage(), false);
