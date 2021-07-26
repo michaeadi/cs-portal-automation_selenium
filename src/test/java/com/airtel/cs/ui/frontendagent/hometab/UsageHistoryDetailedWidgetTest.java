@@ -10,7 +10,6 @@ import com.airtel.cs.pojo.response.UsageHistoryPOJO;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
-import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -62,7 +61,7 @@ public class UsageHistoryDetailedWidgetTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validate Usage history menu widget header visible and display all the Column name as per config,validate all the filter displayed,Validate all type of cdr displayed.,Validation Pagination display when data displayed on UI.", "description");
             pages.getUsageHistoryWidget().openingMoreDetails();
-            Assert.assertTrue(pages.getDetailedUsageHistoryPage().isWidgetDisplay(), "Detailed Usage History Widget does not visible ");
+            assertCheck.append(actions.assertEqualBoolean(pages.getDetailedUsageHistoryPage().isWidgetDisplay(),true, "Detailed Usage History Widget visible ","Detailed Usage History Widget does not visible ",true));
             assertCheck.append(actions.assertEqualBoolean(pages.getDetailedUsageHistoryPage().isFreeCDR(), true, "Free CDR Option does display on UI.", "Free CDR Option does not display on UI."));
             assertCheck.append(actions.assertEqualBoolean(pages.getDetailedUsageHistoryPage().isTypeOfCDR(), true, "Type of CDR Option does display on UI.", "Type of CDR Option does not display on UI."));
             assertCheck.append(actions.assertEqualBoolean(pages.getDetailedUsageHistoryPage().isTodayDateFilter(), true, "Today date filter Option does display on UI.", "Today date filter Option does not display on UI."));
@@ -97,7 +96,7 @@ public class UsageHistoryDetailedWidgetTest extends Driver {
     public void usageHistoryMenuTest() {
         try {
             selUtils.addTestcaseDescription("Validating Usage History's  Menu of User :" + customerNumber + "validate row display data value on UI as per api response.", "description");
-            Assert.assertTrue(pages.getDetailedUsageHistoryPage().isWidgetDisplay(), "Detailed Usage History Widget does not visible ");
+            assertCheck.append(actions.assertEqualBoolean(pages.getDetailedUsageHistoryPage().isWidgetDisplay(),true, "Detailed Usage History Widget visible ","Detailed Usage History Widget does not visible ",true));
             try {
                 int size = Math.min(usageHistoryAPI.getTotalCount(), 20);
                 final int statusCode = usageHistoryAPI.getStatusCode();
