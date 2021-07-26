@@ -1,0 +1,11 @@
+package com.airtel.cs.commonutils.dataproviders.databeans;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class TemplateDataBeans {
+    String roles;
+    String language;
+}
