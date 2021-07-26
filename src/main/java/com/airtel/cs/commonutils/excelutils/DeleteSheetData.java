@@ -134,12 +134,6 @@ public class DeleteSheetData {
                 i--;
             }
         }
-//        for (int j = 1; j < sheet.getLastRowNum(); j++) {
-//            System.out.println(sheet.getLastRowNum());
-//            sheet.removeRow(sheet.getRow(j));
-//
-//
-//        }
 
         //Close input stream
 
