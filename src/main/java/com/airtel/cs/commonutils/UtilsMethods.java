@@ -276,14 +276,8 @@ public class UtilsMethods extends Driver {
             return false;
         } else {
             List<Authorities> allPermissions = agentDetailAPI.getResult().getUserDetails().getUserDetails().getAuthorities();
-            allPermissions.stream().anyMatch(Authorities ->Authorities.getAuthority().equalsIgnoreCase(permissionName));
-            for (Authorities permission : allPermissions) {
-                if (permission.getAuthority().equalsIgnoreCase(permissionName)) {
-                    return true;
-                }
-            }
+            return allPermissions.stream().anyMatch(authorities ->authorities.getAuthority().equalsIgnoreCase(permissionName));
         }
-        return false;
     }
 
     /**
