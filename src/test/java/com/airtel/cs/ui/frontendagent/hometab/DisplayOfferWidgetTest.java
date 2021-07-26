@@ -1,8 +1,8 @@
 package com.airtel.cs.ui.frontendagent.hometab;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.UtilsMethods;
+import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
@@ -22,11 +22,11 @@ import org.testng.annotations.Test;
 @Log4j2
 public class DisplayOfferWidgetTest extends Driver {
 
+    public static final String RUN_DISPLAY_OFFER_TEST_CASE = constants.getValue(ApplicationConstants.RUN_DISPLAY_OFFER_TEST_CASE);
     private static String customerNumber;
     private final BaseActions actions = new BaseActions();
     RequestSource api = new RequestSource();
     private OfferDetailPOJO offerDetailPOJO = null;
-    public static final String RUN_DISPLAY_OFFER_TEST_CASE = constants.getValue(ApplicationConstants.RUN_DISPLAY_OFFER_TEST_CASE);
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
@@ -128,10 +128,13 @@ public class DisplayOfferWidgetTest extends Driver {
 
     @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"displayOfferHeaderTest", "openCustomerInteraction"})
     public void associatedDAPopUpTest() {
-        selUtils.addTestcaseDescription("Validate Associated DA's widget Column value display as per API Response ", "description");
-        DADetails daDetailsPage = pages.getDaDetailsPage();
-        int size = Math.min(offerDetailPOJO.getResult().size(), 5);
         try {
+            selUtils.addTestcaseDescription("Validate Associated DA's widget Column value display as per API Response ", "description");
+            DADetails daDetailsPage = pages.getDaDetailsPage();
+            int size = Math.min(offerDetailPOJO.getResult().size(), 5);
+            if (size <= 0) {
+                commonLib.warning("API is unable to get Offer detail");
+            }
             for (int i = 0; i < size; i++) {
                 int daSize = offerDetailPOJO.getResult().get(i).getNoOfDAs() != null ? offerDetailPOJO.getResult().get(i).getNoOfDAs() : -1;
                 if (daSize > 0) {
