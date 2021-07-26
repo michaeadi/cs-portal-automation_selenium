@@ -444,7 +444,7 @@ public class ESBRequestSource extends RestCommonUtils {
       commonLib.info(constants.getValue("downstream.api.calling") + " -Usage history");
       queryParam.put("endDate", UtilsMethods.getUTCEndDate(Timestamp.valueOf(LocalDate.now().atTime(LocalTime.MAX)).getTime()));
       queryParam.put("msisdn", usageHistoryMenuRequest.getMsisdn());
-      queryParam.put("sortingOrder", "GSM_USAGE_HISTORY DESC");
+      queryParam.put("sortingOrder", "DESC");
       queryParam.put("startDate", UtilsMethods.getUTCStartDate(Timestamp.valueOf(LocalDate.now().atStartOfDay().minusDays(3)).getTime()));
       if (!StringUtils.isEmpty(usageHistoryMenuRequest.getCdrTypeFilter()) && (usageHistoryMenuRequest.getCdrTypeFilter().equals("FREE"))) {
         queryParam.put("cdrType", "BOTH");
@@ -470,7 +470,7 @@ public class ESBRequestSource extends RestCommonUtils {
       commonLib.info(constants.getValue("downstream.api.calling") + " -Usage history");
       queryParam.put("endDate", UtilsMethods.getUTCEndDate(Timestamp.valueOf(LocalDate.now().atTime(LocalTime.MAX)).getTime()));
       queryParam.put("msisdn", usageHistoryRequest.getMsisdn());
-      queryParam.put("sortingOrder", "GSM_USAGE_HISTORY DESC");
+      queryParam.put("sortingOrder", "DESC");
       queryParam.put("startDate", UtilsMethods.getUTCStartDate(Timestamp.valueOf(LocalDate.now().atStartOfDay().minusDays(3)).getTime()));
       queryParam.put("cdrType", "PAID");
       commonGetMethodWithQueryParam(constants.getValue("gsm.customer.profile.base.url") + ESBURIConstants.USAGE_HISTORY, queryParam);

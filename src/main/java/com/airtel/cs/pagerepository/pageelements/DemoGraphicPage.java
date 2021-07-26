@@ -114,6 +114,6 @@ public class DemoGraphicPage {
     public By middleAuuidAMP = By.xpath("//*[@id='AM_PROFILE']");
     public By footerAuuidAMP = By.xpath("//*[@id='AM_PROFILE']//*[contains(@class,'auuid-container')]");
 
-    public By resetPinIcon = By.xpath("//img[@class='header-action-icon cursor-pointer']");
+    public By resetPinIcon = By.xpath("//img[@class='header-action-icon cursor-pointer']/ancestor::span[contains(@class,'disabled')]");
 
 }
