@@ -617,7 +617,7 @@ public class DataProviders extends Driver {
      * @param text The text
      * @return true/false
      */
-    public boolean isNull(String text) {
+    public static boolean isNull(String text) {
         return text != null && !text.isEmpty();
     }
 

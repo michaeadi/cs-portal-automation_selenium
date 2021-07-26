@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
+import static com.airtel.cs.commonutils.dataproviders.DataProviders.isNull;
+
 @Log4j2
 public class UtilsMethods extends Driver {
 
@@ -274,6 +276,7 @@ public class UtilsMethods extends Driver {
             return false;
         } else {
             List<Authorities> allPermissions = agentDetailAPI.getResult().getUserDetails().getUserDetails().getAuthorities();
+            allPermissions.stream().anyMatch(Authorities ->Authorities.getAuthority().equalsIgnoreCase(permissionName));
             for (Authorities permission : allPermissions) {
                 if (permission.getAuthority().equalsIgnoreCase(permissionName)) {
                     return true;
@@ -290,6 +293,6 @@ public class UtilsMethods extends Driver {
      * @return true/false
      */
     public static Boolean isValueNegative(String value) {
-        return value.charAt(0) == '-';
+        return !isNull(value) && value.trim().charAt(0) == '-';
     }
 }
