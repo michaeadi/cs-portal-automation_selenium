@@ -112,14 +112,14 @@ public class BaseActions {
      * @param actual
      * @param expected
      */
-    public Boolean assertEqual_intType(int actual, int expected, String passDescription, String failDescription, boolean requirescreenshots) {
+    public Boolean assertEqual_intType(int actual, int expected, String passDescription, String failDescription, boolean requiredScreenshots) {
         assertFlag = false;
         try {
             Assert.assertEquals(actual, expected);
             commonLib.pass(passDescription);
             assertFlag = true;
         } catch (Throwable ex) {
-            commonLib.fail(failDescription, requirescreenshots);
+            commonLib.fail(failDescription, requiredScreenshots);
         }
         return assertFlag;
     }
@@ -140,16 +140,12 @@ public class BaseActions {
 
     public Boolean assertEqual_stringType(String actual, String expected, String passMessage, String failMessage, boolean requiredScreenshot) {
         assertFlag = false;
-        boolean shouldCapturescreenshot = true;
         try {
-            if (!requiredScreenshot) {
-                shouldCapturescreenshot = false;
-            }
             Assert.assertEquals(actual, expected);
             commonLib.pass(passMessage);
             assertFlag = true;
         } catch (Throwable ex) {
-            commonLib.fail(ex.getMessage() + "{<br />" + failMessage, shouldCapturescreenshot);
+            commonLib.fail(ex.getMessage() + "{<br />" + failMessage, requiredScreenshot);
         }
         return assertFlag;
     }
@@ -165,16 +161,12 @@ public class BaseActions {
 
     public Boolean assertEqual_stringNotNull(String actual, String passMessage, String failMessage, boolean requiredScreenshot) {
         assertFlag = false;
-        boolean shouldCapturescreenshot = true;
         try {
-            if (!requiredScreenshot) {
-                shouldCapturescreenshot = false;
-            }
             Assert.assertNotNull(actual, passMessage);
             commonLib.pass(passMessage);
             assertFlag = true;
         } catch (Throwable ex) {
-            commonLib.fail(ex.getMessage() + "{<br />" + failMessage, shouldCapturescreenshot);
+            commonLib.fail(ex.getMessage() + "{<br />" + failMessage, requiredScreenshot);
         }
         return assertFlag;
     }
@@ -185,15 +177,11 @@ public class BaseActions {
 
     public Boolean assertEqual_intNotNull(int actual, String passMessage, String failMessage, boolean requiredScreenshot) {
         assertFlag = false;
-        boolean shouldCapturescreenshot = true;
         try {
-            if (!requiredScreenshot) {
-                shouldCapturescreenshot = false;
-            }
             commonLib.pass(passMessage);
             assertFlag = true;
         } catch (Throwable ex) {
-            commonLib.fail(ex.getMessage() + "{<br />" + failMessage, shouldCapturescreenshot);
+            commonLib.fail(ex.getMessage() + "{<br />" + failMessage, requiredScreenshot);
         }
         return assertFlag;
     }
@@ -259,26 +247,24 @@ public class BaseActions {
 
     public Boolean assertEqual_stringStatusCode(String actual, String expected, String passMessage, String failMessage) {
         assertFlag = false;
-        boolean shouldCapturescreenshot = false;
         try {
             Assert.assertEquals(actual, expected);
             commonLib.pass(passMessage);
             assertFlag = true;
         } catch (Throwable ex) {
-            commonLib.fail(ex.getMessage() + "{<br />" + failMessage, shouldCapturescreenshot);
+            commonLib.fail(ex.getMessage() + "{<br />" + failMessage, false);
         }
         return assertFlag;
     }
 
     public Boolean assertEqual_intergerStatusCode(int actual, int expected, String passMessage, String failMessage) {
         assertFlag = false;
-        boolean shouldCapturescreenshot = false;
         try {
             Assert.assertEquals(actual, expected);
             commonLib.pass(passMessage);
             assertFlag = true;
         } catch (Throwable ex) {
-            commonLib.fail(ex.getMessage() + "{<br />" + failMessage, shouldCapturescreenshot);
+            commonLib.fail(ex.getMessage() + "{<br />" + failMessage, false);
         }
         return assertFlag;
     }
