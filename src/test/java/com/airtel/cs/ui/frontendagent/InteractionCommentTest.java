@@ -1,6 +1,5 @@
 package com.airtel.cs.ui.frontendagent;
 
-import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
@@ -20,7 +19,6 @@ import java.time.format.DateTimeFormatter;
 public class InteractionCommentTest extends Driver {
 
     String ticketNumber = null;
-    private final BaseActions actions = new BaseActions();
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
@@ -70,178 +68,13 @@ public class InteractionCommentTest extends Driver {
             assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getIssueType().trim().toLowerCase().replace(" ", ""), data.getIssueType().trim().toLowerCase().replace(" ", ""), "Issue type is as expected", "Issue type is NOT as expected"));
             commonLib.info(pages.getInteractionsPage().getIssueSubType());
             assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getIssueSubType().trim().toLowerCase().replace(" ", ""), data.getIssueSubType().trim().toLowerCase().replace(" ", ""), "Issue sub type is as expected", "Issue sub type is NOT as expected"));
-            final String issueFieldLabel1 = data.getIssueFieldLabel1();
-            if (issueFieldLabel1 != null)
-                if (data.getIssueFieldType1().equalsIgnoreCase("Text Box") && !issueFieldLabel1.isEmpty()) {
-                    commonLib.info(pages.getInteractionsPage().getIssueDetailLabel("1"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getIssueDetailLabel("1").replaceAll("[^a-zA-Z]+", "").trim(), (issueFieldLabel1.replaceAll("[^a-zA-Z]+", "").trim()), issueFieldLabel1 + " Label matched", issueFieldLabel1 + " Label does not match"));
-                    if (data.getIssueFieldMandatory1().equalsIgnoreCase("Yes")) {
-                        assertCheck.append(actions.assertEqualBoolean(pages.getInteractionsPage().getIssueDetailLabel("1").contains("*"), true, issueFieldLabel1 + "Label is mandatory and contains '*' ", issueFieldLabel1 + "Label is mandatory but doesn't contain '*' "));
-                    }
-                    pages.getInteractionsPage().setIssueDetailInput("1", "012345");
-                } else if (data.getIssueFieldType1().equalsIgnoreCase("Date") && !issueFieldLabel1.isEmpty()) {
-                    commonLib.info(pages.getInteractionsPage().getAvailableDateField());
-                    assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getAvailableDateField(), issueFieldLabel1, "Label 1 Matched", "Label 1 NOT Matched"));
-                    if (data.getIssueFieldMandatory1().equalsIgnoreCase("Yes")) {
-                        assertCheck.append(actions.assertEqualBoolean(pages.getInteractionsPage().isDateFieldAvailableMandatory().contains("*"), true, issueFieldLabel1 + "Label is mandatory and contains '*' ", issueFieldLabel1 + "Label is mandatory but doesn't contain '*' "));
-                    }
-                    pages.getInteractionsPage().setDateFieldAvailable(dtf.format(now));
-                } else if (data.getIssueFieldType1().equalsIgnoreCase("Drop Down") && !issueFieldLabel1.isEmpty()) {
-                    commonLib.info(pages.getInteractionsPage().getIssueDetailLabelDropDown("1"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getIssueDetailLabelDropDown("1").replace("*", "").trim(), (issueFieldLabel1.replace("*", "").trim()), issueFieldLabel1 + "Label matched", issueFieldLabel1 + "Label does not match"));
-                    if (data.getIssueFieldMandatory1().equalsIgnoreCase("Yes")) {
-                        assertCheck.append(actions.assertEqualBoolean(pages.getInteractionsPage().getIssueDetailLabelDropDown("1").contains("*"), true, issueFieldLabel1 + "Label is mandatory and contains '*' ", issueFieldLabel1 + "Label is mandatory but doesn't contain '*' "));
-                    }
-                    pages.getInteractionsPage().selectIssueDetailInput("1");
-                }
-
-            final String issueFieldLabel2 = data.getIssueFieldLabel2();
-            if (issueFieldLabel2 != null)
-                if (data.getIssueFieldType2().equalsIgnoreCase("Text Box") && !issueFieldLabel2.isEmpty()) {
-                    commonLib.info(pages.getInteractionsPage().getIssueDetailLabel("2"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getIssueDetailLabel("2").replaceAll("[^a-zA-Z]+", "").trim(), (issueFieldLabel2.replaceAll("[^a-zA-Z]+", "").trim()), "Issue Field Label 2 matched", "Issue Field Label 2 NOT matched"));
-                    if (data.getIssueFieldMandatory2().equalsIgnoreCase("Yes")) {
-                        assertCheck.append(actions.assertEqualBoolean(pages.getInteractionsPage().getIssueDetailLabel("2").contains("*"), true, issueFieldLabel2 + "Label is mandatory and contains '*' ", issueFieldLabel2 + "Label is mandatory but doesn't contain '*' "));
-                    }
-                    pages.getInteractionsPage().setIssueDetailInput("2", "012345");
-                } else if (data.getIssueFieldType2().equalsIgnoreCase("Date") && !issueFieldLabel2.isEmpty()) {
-                    commonLib.info(pages.getInteractionsPage().getAvailableDateField());
-                    assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getAvailableDateField(), issueFieldLabel2, "Issue Field Label 2 Matched", "Issue Field Label 2 NOT Matched"));
-                    if (data.getIssueFieldMandatory2().equalsIgnoreCase("Yes")) {
-                        assertCheck.append(actions.assertEqualBoolean(pages.getInteractionsPage().isDateFieldAvailableMandatory().contains("*"), true, issueFieldLabel2 + "Label is mandatory and contains '*' ", issueFieldLabel2 + "Label is mandatory but doesn't contain '*' "));
-                    }
-                    pages.getInteractionsPage().setDateFieldAvailable(dtf.format(now));
-                } else if (data.getIssueFieldType2().equalsIgnoreCase("Drop Down") && !issueFieldLabel2.isEmpty()) {
-                    commonLib.info(pages.getInteractionsPage().getIssueDetailLabelDropDown("2"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getIssueDetailLabelDropDown("2").replace("*", "").trim(), (issueFieldLabel2.replace("*", "").trim()), "Issue Field Label 2 Matched", "Issue Field Label 2 NOT Matched"));
-                    if (data.getIssueFieldMandatory2().equalsIgnoreCase("Yes")) {
-                        assertCheck.append(actions.assertEqualBoolean(pages.getInteractionsPage().getIssueDetailLabelDropDown("2").contains("*"), true, issueFieldLabel2 + "Label is mandatory and contains '*' ", issueFieldLabel2 + "Label is mandatory but doesn't contain '*' "));
-                    }
-                    pages.getInteractionsPage().selectIssueDetailInput("2");
-                }
-
-            final String issueFieldLabel3 = data.getIssueFieldLabel3();
-            if (issueFieldLabel3 != null)
-                if (data.getIssueFieldType3().equalsIgnoreCase("Text Box") && !issueFieldLabel3.isEmpty()) {
-                    commonLib.info(pages.getInteractionsPage().getIssueDetailLabel("3"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getIssueDetailLabel("3").replaceAll("[^a-zA-Z]+", "").trim(), (issueFieldLabel3.replaceAll("[^a-zA-Z]+", "").trim()), "Issue Field Label 3 Matched", "Issue Field Label 3 NOT Matched"));
-                    if (data.getIssueFieldMandatory3().equalsIgnoreCase("Yes")) {
-                        assertCheck.append(actions.assertEqualBoolean(pages.getInteractionsPage().getIssueDetailLabel("3").contains("*"), true, issueFieldLabel3 + "Label is mandatory and contains '*' ", issueFieldLabel3 + "Label is mandatory but doesn't contain '*' "));
-                    }
-                    pages.getInteractionsPage().setIssueDetailInput("3", "012345");
-                } else if (data.getIssueFieldType3().equalsIgnoreCase("Date") && !issueFieldLabel3.isEmpty()) {
-                    commonLib.info(pages.getInteractionsPage().getAvailableDateField());
-                    assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getAvailableDateField(), issueFieldLabel3, "Issue Field Label 3 Matched", "Issue Field Label 3 NOT Matched"));
-                    if (data.getIssueFieldMandatory3().equalsIgnoreCase("Yes")) {
-                        assertCheck.append(actions.assertEqualBoolean(pages.getInteractionsPage().isDateFieldAvailableMandatory().contains("*"), true, issueFieldLabel3 + "Label is mandatory and contains '*' ", issueFieldLabel3 + "Label is mandatory but doesn't contain '*' "));
-                    }
-                    pages.getInteractionsPage().setDateFieldAvailable(dtf.format(now));
-
-                } else if (data.getIssueFieldType3().equalsIgnoreCase("Drop Down") && !issueFieldLabel3.isEmpty()) {
-                    commonLib.info(pages.getInteractionsPage().getIssueDetailLabelDropDown("3"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getIssueDetailLabelDropDown("3").replace("*", "").trim(), (issueFieldLabel3.replace("*", "").trim()), "Issue Field Label 3 Matched", "Issue Field Label 3 NOT Matched"));
-                    if (data.getIssueFieldMandatory3().equalsIgnoreCase("Yes")) {
-                        assertCheck.append(actions.assertEqualBoolean(pages.getInteractionsPage().getIssueDetailLabelDropDown("3").contains("*"), true, issueFieldLabel3 + "Label is mandatory and contains '*' ", issueFieldLabel3 + "Label is mandatory but doesn't contain '*' "));
-                    }
-                    pages.getInteractionsPage().selectIssueDetailInput("3");
-                }
-
-            commonLib.info("Field Type-4 : " + data.getIssueFieldType4());
-            final String issueFieldLabel4 = data.getIssueFieldLabel4();
-            if (issueFieldLabel4 != null)
-                if (data.getIssueFieldType4().equalsIgnoreCase("Text Box") && !issueFieldLabel4.isEmpty()) {
-                    assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getIssueDetailLabel("4").replaceAll("[^a-zA-Z]+", "").trim(), (issueFieldLabel4.replaceAll("[^a-zA-Z]+", "")), "Issue Field Label 4 Matched", "Issue Field Label 4 NOT Matched"));
-                    if (data.getIssueFieldMandatory4().equalsIgnoreCase("Yes")) {
-                        assertCheck.append(actions.assertEqualBoolean(pages.getInteractionsPage().getIssueDetailLabel("4").contains("*"), true, issueFieldLabel4 + "Label is mandatory and contains '*' ", issueFieldLabel4 + "Label is mandatory but doesn't contain '*' "));
-                    }
-                    pages.getInteractionsPage().setIssueDetailInput("4", "012345");
-                } else if (data.getIssueFieldType4().equalsIgnoreCase("Date") && !issueFieldLabel4.isEmpty()) {
-                    commonLib.info(pages.getInteractionsPage().getAvailableDateField());
-                    assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getAvailableDateField(), issueFieldLabel4, "Issue Field Label 4 Matched", "Issue Field Label 4 NOT Matched"));
-                    if (data.getIssueFieldMandatory4().equalsIgnoreCase("Yes")) {
-                        assertCheck.append(actions.assertEqualBoolean(pages.getInteractionsPage().isDateFieldAvailableMandatory().contains("*"), true, issueFieldLabel4 + "Label is mandatory and contains '*' ", issueFieldLabel4 + "Label is mandatory but doesn't contain '*' "));
-                    }
-                    pages.getInteractionsPage().setDateFieldAvailable(dtf.format(now));
-                } else if (data.getIssueFieldType4().equalsIgnoreCase("Drop Down") && !issueFieldLabel4.isEmpty()) {
-                    commonLib.info(pages.getInteractionsPage().getIssueDetailLabelDropDown("4"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getIssueDetailLabelDropDown("4").replace("*", "").trim(), (issueFieldLabel4.replace("*", "").trim()), "Issue Field Label 4 Matched", "Issue Field Label 4 NOT Matched"));
-                    if (data.getIssueFieldMandatory4().equalsIgnoreCase("Yes")) {
-                        assertCheck.append(actions.assertEqualBoolean(pages.getInteractionsPage().getIssueDetailLabelDropDown("4").contains("*"), true, issueFieldLabel4 + "Label is mandatory and contains '*' ", issueFieldLabel4 + "Label is mandatory but doesn't contain '*' "));
-                    }
-                    pages.getInteractionsPage().selectIssueDetailInput("4");
-                }
-
-            if (data.getIssueFieldLabel5() != null)
-                if (data.getIssueFieldType5().equalsIgnoreCase("Text Box") && !data.getIssueFieldLabel5().isEmpty()) {
-                    commonLib.info(pages.getInteractionsPage().getIssueDetailLabel("5"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getIssueDetailLabel("5").replaceAll("[^a-zA-Z]+", "").trim(), (data.getIssueFieldLabel5().replaceAll("[^a-zA-Z]+", "").trim()), "Issue Field Label 5 Matched", "Issue Field Label 5 NOT Matched"));
-                    if (data.getIssueFieldMandatory5().equalsIgnoreCase("Yes")) {
-                        assertCheck.append(actions.assertEqualBoolean(pages.getInteractionsPage().getIssueDetailLabel("5").contains("*"), true, data.getIssueFieldLabel5() + "Label is mandatory and contains '*' ", data.getIssueFieldLabel5() + "Label is mandatory but doesn't contain '*' "));
-                    }
-                    pages.getInteractionsPage().setIssueDetailInput("5", "012345");
-                } else if (data.getIssueFieldType5().equalsIgnoreCase("Date") && !data.getIssueFieldLabel5().isEmpty()) {
-                    commonLib.info(pages.getInteractionsPage().getAvailableDateField());
-                    assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getAvailableDateField(), (data.getIssueFieldLabel5()), "Issue Field Label 5 Matched", "Issue Field Label 5 NOT Matched"));
-                    if (data.getIssueFieldMandatory5().equalsIgnoreCase("Yes")) {
-                        assertCheck.append(actions.assertEqualBoolean(pages.getInteractionsPage().isDateFieldAvailableMandatory().contains("*"), true, data.getIssueFieldLabel5() + "Label is mandatory and contains '*'", data.getIssueFieldLabel5() + "Label is mandatory but doesn't contain '*' "));
-                    }
-                    pages.getInteractionsPage().setDateFieldAvailable(dtf.format(now));
-                } else if (data.getIssueFieldType5().equalsIgnoreCase("Drop Down") && !data.getIssueFieldLabel5().isEmpty()) {
-                    commonLib.info(pages.getInteractionsPage().getIssueDetailLabelDropDown("5"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getIssueDetailLabelDropDown("5").replace("*", "").trim(), (data.getIssueFieldLabel5().replace("*", "").trim()), "Issue Field Label 5 Matched", "Issue Field Label 5 NOT Matched"));
-                    if (data.getIssueFieldMandatory5().equalsIgnoreCase("Yes")) {
-                        assertCheck.append(actions.assertEqualBoolean(pages.getInteractionsPage().getIssueDetailLabelDropDown("5").contains("*"), true, data.getIssueFieldLabel5() + "Label is mandatory and contains '*'", data.getIssueFieldLabel5() + "Label is mandatory but doesn't contain '*' "));
-                    }
-                    pages.getInteractionsPage().selectIssueDetailInput("5");
-                }
-
-            if (data.getIssueFieldLabel6() != null)
-                if (data.getIssueFieldType6().equalsIgnoreCase("Text Box") && !data.getIssueFieldLabel6().isEmpty()) {
-                    commonLib.info(pages.getInteractionsPage().getIssueDetailLabel("6"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getIssueDetailLabel("6").replaceAll("[^a-zA-Z]+", "").trim(), (data.getIssueFieldLabel6().replace("*", "").trim()), "Issue Field Label 6 Matched", "Issue Field Label 6 NOT Matched"));
-                    if (data.getIssueFieldMandatory6().equalsIgnoreCase("Yes")) {
-                        assertCheck.append(actions.assertEqualBoolean(pages.getInteractionsPage().getIssueDetailLabel("6").contains("*"), true, data.getIssueFieldLabel6() + "Label is mandatory and contains '*' ", data.getIssueFieldLabel6() + "Label is mandatory but doesn't contain '*' "));
-                    }
-                    pages.getInteractionsPage().setIssueDetailInput("6", "012345");
-                } else if (data.getIssueFieldType6().equalsIgnoreCase("Date") && !data.getIssueFieldLabel6().isEmpty()) {
-                    commonLib.info(pages.getInteractionsPage().getAvailableDateField());
-                    assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getAvailableDateField(), (data.getIssueFieldLabel6()), "Issue Field Label 6 Matched", "Issue Field Label 6 NOT Matched"));
-                    if (data.getIssueFieldMandatory6().equalsIgnoreCase("Yes")) {
-                        assertCheck.append(actions.assertEqualBoolean(pages.getInteractionsPage().isDateFieldAvailableMandatory().contains("*"), true, data.getIssueFieldLabel6() + "Label is mandatory and contains '*' ", data.getIssueFieldLabel6() + "Label is mandatory but doesn't contain '*' "));
-                    }
-                    pages.getInteractionsPage().setDateFieldAvailable(dtf.format(now));
-                } else if (data.getIssueFieldType6().equalsIgnoreCase("Drop Down") && !data.getIssueFieldLabel6().isEmpty()) {
-                    commonLib.info(pages.getInteractionsPage().getIssueDetailLabelDropDown("6"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getIssueDetailLabelDropDown("6").replace("*", "").trim(), (data.getIssueFieldLabel6().replace("*", "").trim()), "Issue Field Label 6 Matched", "Issue Field Label 6 NOT Matched"));
-                    if (data.getIssueFieldMandatory6().equalsIgnoreCase("Yes")) {
-                        assertCheck.append(actions.assertEqualBoolean(pages.getInteractionsPage().getIssueDetailLabelDropDown("6").contains("*"), true, data.getIssueFieldLabel6() + "Label is mandatory and contains '*' ", data.getIssueFieldLabel6() + "Label is mandatory but doesn't contain '*' "));
-                    }
-                    pages.getInteractionsPage().selectIssueDetailInput("6");
-                }
-
-            if (data.getIssueFieldLabel7() != null)
-                if (data.getIssueFieldType7().equalsIgnoreCase("Text Box") && !data.getIssueFieldLabel7().isEmpty()) {
-                    commonLib.info(pages.getInteractionsPage().getIssueDetailLabel("7"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getIssueDetailLabel("7").replaceAll("[^a-zA-Z]+", "").trim(), (data.getIssueFieldLabel7().replace("*", "").trim()), "Issue Field Label 7 Matched", "Issue Field Label 7 NOT Matched"));
-                    if (data.getIssueFieldMandatory7().equalsIgnoreCase("Yes")) {
-                        assertCheck.append(actions.assertEqualBoolean(pages.getInteractionsPage().getIssueDetailLabel("7").contains("*"), true, data.getIssueFieldLabel7() + "Label is mandatory and contains '*' ", data.getIssueFieldLabel7() + "Label is mandatory but doesn't contain '*' "));
-                    }
-                    pages.getInteractionsPage().setIssueDetailInput("7", "012345");
-                } else if (data.getIssueFieldType7().equalsIgnoreCase("Date") && !data.getIssueFieldLabel7().isEmpty()) {
-                    commonLib.info(pages.getInteractionsPage().getAvailableDateField());
-                    assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getAvailableDateField(), (data.getIssueFieldLabel7()), "Issue Field Label 7 Matched", "Issue Field Label 7 NOT Matched"));
-                    if (data.getIssueFieldMandatory7().equalsIgnoreCase("Yes")) {
-                        assertCheck.append(actions.assertEqualBoolean(pages.getInteractionsPage().isDateFieldAvailableMandatory().contains("*"), true, data.getIssueFieldLabel7() + "Label is mandatory and contains '*' ", data.getIssueFieldLabel7() + "Label is mandatory but doesn't contain '*' "));
-                    }
-                    pages.getInteractionsPage().setDateFieldAvailable(dtf.format(now));
-                } else if (data.getIssueFieldType7().equalsIgnoreCase("Drop Down") && !data.getIssueFieldLabel7().isEmpty()) {
-                    commonLib.info(pages.getInteractionsPage().getIssueDetailLabelDropDown("7"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getIssueDetailLabelDropDown("7").replace("*", "").trim(), (data.getIssueFieldLabel7().replace("*", "").trim()), "Issue Field Label 7 Matched", "Issue Field Label 7 NOT Matched"));
-                    if (data.getIssueFieldMandatory7().equalsIgnoreCase("Yes")) {
-                        assertCheck.append(actions.assertEqualBoolean(pages.getInteractionsPage().getIssueDetailLabelDropDown("7").contains("*"), true, data.getIssueFieldLabel7() + "Label is mandatory and contains '*' ", data.getIssueFieldLabel7() + "Label is mandatory but doesn't contain '*' "));
-                    }
-                    pages.getInteractionsPage().selectIssueDetailInput("7");
-                }
+            pages.getInteractionsPage().fillIssueFields(data.getIssueFieldLabel1(), data.getIssueFieldType1(), data.getIssueFieldMandatory1(), "1");
+            pages.getInteractionsPage().fillIssueFields(data.getIssueFieldLabel2(), data.getIssueFieldType2(), data.getIssueFieldMandatory2(), "2");
+            pages.getInteractionsPage().fillIssueFields(data.getIssueFieldLabel3(), data.getIssueFieldType3(), data.getIssueFieldMandatory3(), "3");
+            pages.getInteractionsPage().fillIssueFields(data.getIssueFieldLabel4(), data.getIssueFieldType4(), data.getIssueFieldMandatory4(), "4");
+            pages.getInteractionsPage().fillIssueFields(data.getIssueFieldLabel5(), data.getIssueFieldType5(), data.getIssueFieldMandatory5(), "5");
+            pages.getInteractionsPage().fillIssueFields(data.getIssueFieldLabel6(), data.getIssueFieldType6(), data.getIssueFieldMandatory6(), "6");
+            pages.getInteractionsPage().fillIssueFields(data.getIssueFieldLabel7(), data.getIssueFieldType7(), data.getIssueFieldMandatory7(), "7");
             pages.getInteractionsPage().sendComment("Automation Suite");
             Assert.assertTrue(pages.getInteractionsPage().isSaveEnable());
             pages.getInteractionsPage().clickOnSave();

@@ -4,8 +4,8 @@ import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pojo.response.actionconfig.ActionConfigResult;
-import com.airtel.cs.pojo.response.parentcategory.Category;
+import com.airtel.cs.model.response.actionconfig.ActionConfigResult;
+import com.airtel.cs.model.response.parentcategory.Category;
 import io.restassured.http.Headers;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.ElementClickInterceptedException;
@@ -25,7 +25,7 @@ public class SendInternetSettingsTest extends Driver {
     Boolean popup = true;
     RequestSource api = new RequestSource();
 
-  @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");

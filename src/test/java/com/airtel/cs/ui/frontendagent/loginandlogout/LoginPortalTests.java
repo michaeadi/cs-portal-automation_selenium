@@ -1,6 +1,5 @@
 package com.airtel.cs.ui.frontendagent.loginandlogout;
 
-import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.PassUtils;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
@@ -12,7 +11,6 @@ import org.testng.annotations.Test;
 
 public class LoginPortalTests extends Driver {
 
-    private final BaseActions actions = new BaseActions();
     String auth;
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})

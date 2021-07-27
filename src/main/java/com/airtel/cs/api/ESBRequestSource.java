@@ -1,10 +1,13 @@
 package com.airtel.cs.api;
 
 import com.airtel.cs.commonutils.UtilsMethods;
-import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.ESBURIConstants;
 import com.airtel.cs.commonutils.restutils.RestCommonUtils;
-import com.airtel.cs.pojo.request.*;
+import com.airtel.cs.model.request.GenericRequest;
+import com.airtel.cs.model.request.LoanRequest;
+import com.airtel.cs.model.request.OfferDetailRequest;
+import com.airtel.cs.model.request.UsageHistoryMenuRequest;
+import com.airtel.cs.model.request.UsageHistoryRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONObject;
 

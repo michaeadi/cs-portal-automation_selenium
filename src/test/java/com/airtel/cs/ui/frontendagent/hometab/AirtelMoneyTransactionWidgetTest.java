@@ -2,18 +2,17 @@ package com.airtel.cs.ui.frontendagent.hometab;
 
 import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.commonutils.UtilsMethods;
-import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.databeans.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
+import com.airtel.cs.model.response.airtelmoney.AirtelMoney;
+import com.airtel.cs.model.response.amprofile.AMProfile;
 import com.airtel.cs.pagerepository.pagemethods.AMTransactionsWidget;
-import com.airtel.cs.pojo.response.AMProfilePOJO;
-import com.airtel.cs.pojo.response.actionconfig.ActionConfigResult;
-import com.airtel.cs.pojo.response.actionconfig.Condition;
-import com.airtel.cs.pojo.response.agents.RoleDetails;
-import com.airtel.cs.pojo.response.airtelmoney.AirtelMoneyPOJO;
+import com.airtel.cs.model.response.actionconfig.ActionConfigResult;
+import com.airtel.cs.model.response.actionconfig.Condition;
+import com.airtel.cs.model.response.agents.RoleDetails;
 import io.restassured.http.Headers;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
@@ -29,7 +28,6 @@ import java.util.List;
 public class AirtelMoneyTransactionWidgetTest extends Driver {
 
     private static String customerNumber = null;
-    private final BaseActions actions = new BaseActions();
     RequestSource api = new RequestSource();
     public static final String RUN_AIRTEL_MONEY_WIDGET_TEST_CASE = constants.getValue(ApplicationConstants.RUN_AIRTEL_MONEY_WIDGET_TESTCASE);
 
@@ -89,7 +87,7 @@ public class AirtelMoneyTransactionWidgetTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validating Airtel Money Balance", "description");
             final AMTransactionsWidget amTxnWidgetPage = pages.getAmTxnWidgetPage();
-            AMProfilePOJO amProfileAPI = api.amServiceProfileAPITest(customerNumber);
+            AMProfile amProfileAPI = api.amServiceProfileAPITest(customerNumber);
             final int statusCode = amProfileAPI.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "AM Profile API success and status code is :" + statusCode, "AM Profile API got failed and status code is :" + statusCode, false));
             if (statusCode == 200) {
@@ -113,7 +111,7 @@ public class AirtelMoneyTransactionWidgetTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validate Airtel Money Transaction History API", "description");
             final AMTransactionsWidget amTxnWidgetPage = pages.getAmTxnWidgetPage();
-            AirtelMoneyPOJO amTransactionHistoryAPI = api.transactionHistoryAPITest(customerNumber);
+            AirtelMoney amTransactionHistoryAPI = api.transactionHistoryAPITest(customerNumber);
             final Integer statusCode = amTransactionHistoryAPI.getStatusCode();
             String amWidgetId = pages.getAmTxnWidgetPage().getAMWidgetId();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "AM Txn API success and status code is :" + statusCode, "AM Txn API got failed and status code is :" + statusCode, false));

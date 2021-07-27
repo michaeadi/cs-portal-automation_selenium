@@ -18,7 +18,6 @@ public class DeleteSheetData {
 
     boolean isEmpty(Row row) {
         try {
-            System.out.println(row.getCell(0).getStringCellValue());
             if (row.getLastCellNum() < 0) {
                 return false;
             }
@@ -58,7 +57,6 @@ public class DeleteSheetData {
 
 
         for (int i = 0; i < sheet.getLastRowNum(); i++) {
-//            System.out.println(i);
             if (isEmpty(sheet.getRow(i))) {
                 sheet.shiftRows(i + 1, sheet.getLastRowNum(), -1);
                 i--;//Adjusts the sweep in accordance to a row removal
@@ -134,12 +132,6 @@ public class DeleteSheetData {
                 i--;
             }
         }
-//        for (int j = 1; j < sheet.getLastRowNum(); j++) {
-//            System.out.println(sheet.getLastRowNum());
-//            sheet.removeRow(sheet.getRow(j));
-//
-//
-//        }
 
         //Close input stream
 

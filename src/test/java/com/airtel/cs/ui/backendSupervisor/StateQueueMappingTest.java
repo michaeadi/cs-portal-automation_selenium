@@ -1,28 +1,24 @@
 package com.airtel.cs.ui.backendSupervisor;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.databeans.QueueStateDataBeans;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pojo.response.ticketlist.QueueStates;
-import com.airtel.cs.pojo.response.ticketlist.TicketPOJO;
+import com.airtel.cs.model.response.ticketlist.QueueStates;
+import com.airtel.cs.model.response.ticketlist.Ticket;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
-import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Log4j2
 public class StateQueueMappingTest extends Driver {
 
-    private final BaseActions actions = new BaseActions();
     RequestSource api = new RequestSource();
 
     @BeforeMethod
@@ -64,37 +60,15 @@ public class StateQueueMappingTest extends Driver {
             } catch (InterruptedException | NoSuchElementException | TimeoutException e) {
                 pages.getFilterTabPage().clickOutsideFilter();
                 pages.getFilterTabPage().clickCloseFilter();
-                Assert.fail("Not able to apply filter " + e.fillInStackTrace());
+                throw new AssertionError("Not able to apply filter correctly");
             }
-            try {
-                Assert.assertEquals(pages.getSupervisorTicketList().getQueueValue().toLowerCase().trim(), data.getQueue().toLowerCase().trim(), "Ticket Does not found with Selected Queue");
-                //Re-check
-                ticketId = pages.getSupervisorTicketList().getTicketIdValue();
-                TicketPOJO ticketPOJO = api.ticketMetaDataTest(ticketId);
-                List<QueueStates> assignState = ticketPOJO.getResult().getQueueStates();
-                List<String> state = new ArrayList<>();
-                List<String> configState = dataProviders.getQueueState(data.getQueue());
-                if (assignState != null)
-                    if (!assignState.isEmpty()) {
-                        for (QueueStates s : assignState) {
-                            commonLib.info("State Mapped in Application DB: " + s.getExternalStateName());
-                            state.add(s.getExternalStateName());
-                        }
-                    }
-                for (String s : state) {
-                    commonLib.info("State:" + s);
-                    if (!configState.contains(s.toLowerCase().trim())) {
-                        commonLib.fail(s + " :State must not mapped to '" + data.getQueue() + "' as its not mention in config.", false);
-                    }
-                    configState.remove(s.toLowerCase().trim());
-                }
-
-                for (String s : configState) {
-                    commonLib.fail(s + " :State must be mapped to '" + data.getQueue() + "' as its mention in config.", false);
-                }
-            } catch (NoSuchElementException | TimeoutException e) {
-                commonLib.warning("Not able to search Ticket due to following error: " + e.getMessage(),true);
-            }
+            assertCheck.append(actions.assertEqualStringType(pages.getSupervisorTicketList().getQueueValue().toLowerCase().trim(), data.getQueue().toLowerCase().trim(), "Ticket Does found with Selected Queue","Ticket Does not found with Selected Queue",true,true));
+            ticketId = pages.getSupervisorTicketList().getTicketIdValue();
+            Ticket ticketPOJO = api.ticketMetaDataTest(ticketId);
+            List<QueueStates> assignState = ticketPOJO.getResult().getQueueStates();
+            List<String> state = pages.getSupervisorTicketList().getAssignedStateName(assignState);
+            List<String> configState = dataProviders.getQueueState(data.getQueue());
+            pages.getSupervisorTicketList().matchStateName(state, configState, data.getQueue());
             pages.getSupervisorTicketList().resetFilter();
         } catch (Exception e) {
             commonLib.fail("Exception in Method - stateQueueTest" + e.fillInStackTrace(), true);

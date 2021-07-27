@@ -101,8 +101,7 @@ public class AMTransactionsWidget extends BasePage {
     }
 
     /**
-     * This method is use to get secondary AM wallet balance
-     *
+     * This method is use to get secondary AM Wallet balance
      * @return String The String
      */
     public String gettingAirtelMoneyBalance2() {

@@ -7,11 +7,11 @@ import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pojo.response.RechargeHistoryPOJO;
-import com.airtel.cs.pojo.response.UsageHistoryPOJO;
-import com.airtel.cs.pojo.response.adjustmenthistory.AdjustmentHistory;
-import com.airtel.cs.pojo.response.adjustmenthistory.AdjustmentResult;
-import com.airtel.cs.pojo.response.adjustmentreason.AdjustmentReasonPOJO;
+import com.airtel.cs.model.response.adjustmenthistory.AdjustmentHistory;
+import com.airtel.cs.model.response.adjustmenthistory.AdjustmentResult;
+import com.airtel.cs.model.response.adjustmentreason.AdjustmentReasonPOJO;
+import com.airtel.cs.model.response.rechargehistory.RechargeHistory;
+import com.airtel.cs.model.response.usagehistory.UsageHistory;
 import io.restassured.http.Headers;
 import org.apache.commons.lang3.StringUtils;
 import org.testng.SkipException;
@@ -31,8 +31,8 @@ public class AdjustmentTabTest extends Driver {
     RequestSource api = new RequestSource();
     private String adjustmentId;
     private AdjustmentReasonPOJO reasonAPI;
-    private UsageHistoryPOJO usageHistoryAPI;
-    private RechargeHistoryPOJO rechargeHistoryAPI;
+    private UsageHistory usageHistoryAPI;
+    private RechargeHistory rechargeHistoryAPI;
     private static String adjustmentReason;
 
     @BeforeMethod

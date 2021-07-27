@@ -8,8 +8,8 @@ import com.airtel.cs.commonutils.dataproviders.databeans.NftrDataBeans;
 import com.airtel.cs.commonutils.dataproviders.databeans.AssignmentQueueRuleDataBeans;
 import com.airtel.cs.commonutils.dataproviders.databeans.SLARuleFileDataBeans;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pojo.response.ticketlist.IssueDetails;
-import com.airtel.cs.pojo.response.ticketlist.TicketPOJO;
+import com.airtel.cs.model.response.ticketlist.IssueDetails;
+import com.airtel.cs.model.response.ticketlist.Ticket;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -53,6 +53,7 @@ public class SupervisorSearchTicketTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validate supervisor tickets Meta Data,Validate that supervisor able to see the ticket list" +
                     ",Validate able to see the ticket meta data 'Ticket Number' 'Workgroup Name' 'Ticket Priority' 'Ticket State' 'Ticket Creation date' 'Ticket Queue' 'Category hierarchy [Issue->Issue Type->Issue Sub Type->Issue Sub Sub Type->Category Code]'", "description");
+            Ticket ticketPOJO = api.ticketMetaDataTest(pages.getSupervisorTicketList().getTicketIdValue());
             if (pages.getSupervisorTicketList().isTicketIdLabel()) {
                 assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isTicketIdLabel(), true, "Ticket Meta data have Ticket Id field displayed", "Ticket meta data does not have Ticket Id displayed"));
                 assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isWorkGroupName(), true, "Ticket Meta data have WorkGroup field displayed", "Ticket meta data does not have WorkGroup displayed"));
@@ -63,9 +64,13 @@ public class SupervisorSearchTicketTest extends Driver {
                 assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isQueueLabel(), true, "Ticket Meta data have Ticket Queue field displayed", "Ticket meta data does not have Ticket Queue displayed"));
                 assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isIssueLabel(), true, "Ticket Meta data have Ticket Issue field displayed", "Ticket meta data does not have Ticket Issue displayed"));
                 assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isIssueTypeLabel(), true, "Ticket Meta data have Ticket Issue Type field displayed", "Ticket meta data does not have Ticket Issue Type displayed"));
-                assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isSubTypeLabel(), true, "Ticket Meta data have Ticket Issue Sub Type field displayed", "Ticket meta data does not have Ticket Issue Sub Type displayed"));
-                assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isSubSubTypeLabel(), true, "Ticket Meta data have Ticket Issue Sub Sub Type field displayed", "Ticket meta data does not have Ticket Issue Sub Sub Type displayed"));
-                assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isCodeLabel(), true, "Ticket Meta data have Ticket Ticket Category Code field displayed", "Ticket meta data does not have Ticket Category Code displayed"));
+                if (ticketPOJO.getResult().getCategoryLevel().size() > 3) {
+                    assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isSubTypeLabel(), true, "Ticket Meta Data Have Issue Sub Type", "Ticket Meta Data Does Not Have Issue Sub Type"));
+                    assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isSubSubTypeLabel(), true, "Ticket Meta Data Have Issue Sub Sub Type", "Ticket Meta Data Does Not Have Issue Sub Sub Type"));
+                    assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isCodeLabel(), true, "Ticket Meta Data Have Code", "Ticket Meta Data Does Not Have Code"));
+                } else {
+                    assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isSubTypeLabel(), true, "Ticket Meta Data Have Code", "Ticket Meta Data Does Not Have Code"));
+                }
             } else {
                 commonLib.warning("Ticket List does not display.", true);
             }
@@ -91,7 +96,7 @@ public class SupervisorSearchTicketTest extends Driver {
                 pages.getSupervisorTicketList().writeTicketId(data.getTicketNumber());
                 pages.getSupervisorTicketList().clickSearchBtn();
                 assertCheck.append(actions.matchUiAndAPIResponse(pages.getSupervisorTicketList().getTicketIdValue(), data.getTicketNumber(), "Searched Ticket found on UI as expected","Searched Ticket does not found on UI as expected",true));
-                TicketPOJO ticketPOJO = api.ticketMetaDataTest(data.getTicketNumber());
+                Ticket ticketPOJO = api.ticketMetaDataTest(data.getTicketNumber());
                 assertCheck.append(actions.matchStringIgnoreSpecialChar(pages.getSupervisorTicketList().getQueueValue(), assignmentRule.getQueueName(),
                         "Ticket Queue field value same as expected " + assignmentRule.getQueueName(), "Ticket Queue field value not same as expected " + assignmentRule.getQueueName()));
                 assertCheck.append(actions.matchStringIgnoreSpecialChar(pages.getSupervisorTicketList().getPriorityValue(), assignmentRule.getTicketPriority(),

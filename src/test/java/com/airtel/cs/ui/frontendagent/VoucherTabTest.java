@@ -5,17 +5,14 @@ import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pojo.response.voucher.VoucherDetail;
-import com.airtel.cs.pojo.response.voucher.VoucherSearchPOJO;
+import com.airtel.cs.model.response.voucher.VoucherDetail;
+import com.airtel.cs.model.response.voucher.VoucherSearch;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
-import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import static io.restassured.RestAssured.given;
 
 public class VoucherTabTest extends Driver {
 
@@ -66,8 +63,8 @@ public class VoucherTabTest extends Driver {
             pages.getRechargeHistoryWidget().writeVoucherId(voucherId);
             pages.getRechargeHistoryWidget().clickSearchBtn();
             try {
-                Assert.assertTrue(pages.getVoucherTab().isVoucherTabOpen(), "Voucher Id does not found");
-                VoucherSearchPOJO voucher = api.voucherSearchTest(voucherId);
+                assertCheck.append(actions.assertEqualBoolean(pages.getVoucherTab().isVoucherTabOpen(),true, "Voucher Id does found","Voucher Id does not found",true));
+                VoucherSearch voucher = api.voucherSearchTest(voucherId);
                 VoucherDetail voucherDetail = voucher.getResult();
                 if (voucher.getStatusCode() == 200) {
                     assertCheck.append(actions.assertNotEqualStringType(pages.getVoucherTab().getSerialValue(), voucherDetail.getVoucherId(), "Voucher Serial number is same as search voucher id", "Voucher Serial number is not same as search voucher id"));

@@ -1,16 +1,15 @@
 package com.airtel.cs.ui.frontendagent.hometab;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.databeans.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
+import com.airtel.cs.model.response.usagehistory.UsageHistory;
 import com.airtel.cs.pagerepository.pagemethods.UsageHistoryWidget;
-import com.airtel.cs.pojo.response.UsageHistoryPOJO;
-import com.airtel.cs.pojo.response.agents.RoleDetails;
-import com.airtel.cs.pojo.response.filedmasking.FieldMaskConfigs;
+import com.airtel.cs.model.response.agents.RoleDetails;
+import com.airtel.cs.model.response.filedmasking.FieldMaskConfigs;
 import io.restassured.http.Headers;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.collections4.CollectionUtils;
@@ -25,7 +24,6 @@ import java.util.List;
 public class UsageHistoryWidgetTest extends Driver {
 
     private static String customerNumber = null;
-    private final BaseActions actions = new BaseActions();
     public static final String RUN_USAGE_WIDGET_TEST_CASE = constants.getValue(ApplicationConstants.RUN_USAGE_WIDGET_TESTCASE);
     RequestSource api = new RequestSource();
 
@@ -84,7 +82,7 @@ public class UsageHistoryWidgetTest extends Driver {
             selUtils.addTestcaseDescription("Validating Usage History Widget of User :" + customerNumber, "description");
             final UsageHistoryWidget usageHistoryWidget = pages.getUsageHistoryWidget();
             assertCheck.append(actions.assertEqualBoolean(usageHistoryWidget.isUsageHistoryDatePickerVisible(), true, "Usage History Widget's Date Picker is visible", "Usage History Widget's Date Picker is not visible"));
-            UsageHistoryPOJO usageHistoryAPI = api.usageHistoryTest(customerNumber);
+            UsageHistory usageHistoryAPI = api.usageHistoryTest(customerNumber);
             int size = usageHistoryWidget.getNumberOfRows();
             if (usageHistoryAPI.getResult().size() == 0 || usageHistoryAPI.getResult() == null) {
                 assertCheck.append(actions.assertEqualBoolean(usageHistoryWidget.isUsageHistoryNoResultFoundVisible(), true, "Error Message is Visible", "Error Message is not Visible"));
