@@ -6,8 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PinnedTagsDataBeans {
-    private String tagName;
-    private String available;
-    private String issueCode;
-    private String customerNumber;
+    String tagName;
+    String available;
+    String issueCode;
+    String customerNumber;
 }

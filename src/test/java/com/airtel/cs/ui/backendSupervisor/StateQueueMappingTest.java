@@ -10,6 +10,7 @@ import com.airtel.cs.model.response.ticketlist.Ticket;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
+import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -36,7 +37,7 @@ public class StateQueueMappingTest extends Driver {
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().clickOnUserName();
             pages.getSideMenuPage().openSupervisorDashboard();
-            assertCheck.append(actions.assertEqualStringType(driver.getTitle(), constants.getValue(CommonConstants.SUPERVISOR_TICKET_LIST_PAGE_TITLE), "Agent redirect to ticket list page as expected", "Agent does not redirect to ticket list page as expected"));
+            assertCheck.append(actions.assertEqual_stringType(driver.getTitle(), constants.getValue(CommonConstants.SUPERVISOR_TICKET_LIST_PAGE_TITLE), "Agent redirect to ticket list page as expected", "Agent does not redirect to ticket list page as expected"));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - openSupervisorDashboard" + e.fillInStackTrace(), true);
         }
@@ -56,13 +57,13 @@ public class StateQueueMappingTest extends Driver {
                 pages.getFilterTabPage().selectQueueByName(data.getQueue());
                 pages.getFilterTabPage().clickOutsideFilter();
                 pages.getFilterTabPage().clickApplyFilter();
-                assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().validateQueueFilter(data.getQueue()), true, "Queue Filter applied correctly with queue name " + data.getQueue(), "Queue Filter Does Applied Correctly or No Ticket Found"));
+                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().validateQueueFilter(data.getQueue()), true, "Queue Filter applied correctly with queue name " + data.getQueue(), "Queue Filter Does Applied Correctly or No Ticket Found"));
             } catch (InterruptedException | NoSuchElementException | TimeoutException e) {
                 pages.getFilterTabPage().clickOutsideFilter();
                 pages.getFilterTabPage().clickCloseFilter();
-                throw new AssertionError("Not able to apply filter correctly");
+                Assert.fail("Not able to apply filter " + e.fillInStackTrace());
             }
-            assertCheck.append(actions.assertEqualStringType(pages.getSupervisorTicketList().getQueueValue().toLowerCase().trim(), data.getQueue().toLowerCase().trim(), "Ticket Does found with Selected Queue","Ticket Does not found with Selected Queue",true,true));
+            Assert.assertEquals(pages.getSupervisorTicketList().getQueueValue().toLowerCase().trim(), data.getQueue().toLowerCase().trim(), "Ticket Does not found with Selected Queue");
             ticketId = pages.getSupervisorTicketList().getTicketIdValue();
             Ticket ticketPOJO = api.ticketMetaDataTest(ticketId);
             List<QueueStates> assignState = ticketPOJO.getResult().getQueueStates();

@@ -6,11 +6,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class FtrDataBeans {
-    private String issue;
-    private String issueType;
-    private String issueSubType;
-    private String issueSubSubType;
-    private String issueCode;
-    private String widgetName;
-    private String messageConfigured;
+    String issue;
+    String issueType;
+    String issueSubType;
+    String issueSubSubType;
+    String issueCode;
+    String widgetName;
+    String messageConfigured;
 }

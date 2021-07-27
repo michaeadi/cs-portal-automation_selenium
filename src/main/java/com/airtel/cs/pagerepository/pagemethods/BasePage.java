@@ -37,7 +37,6 @@ public class BasePage extends Driver {
     BasePageElements basePageElements;
     public static final RequestSource api = new RequestSource();
     private static final String BREAK_LINE = "</br>";
-    public static WidgetCommonMethod widgetMethods = pages.getWidgetCommonMethod();
 
     //Constructor
     public BasePage(WebDriver driver) {
@@ -48,7 +47,7 @@ public class BasePage extends Driver {
         ExpectedCondition<Boolean> expectation = driver1 -> ((JavascriptExecutor) driver1).executeScript("return document.readyState").toString().equals("complete");
         fluentWait = new FluentWait<>(driver)
                 .withTimeout(Duration.ofSeconds(Integer.parseInt(constants.getValue(ApplicationConstants.GENERAL_WAIT_IN_SEC))))
-                .pollingEvery(Duration.ofMillis(Integer.parseInt(constants.getValue(ApplicationConstants.POOLING_WAIT_IN_MILLI_SEC))));
+                .pollingEvery(Duration.ofSeconds(Integer.parseInt(constants.getValue(ApplicationConstants.POOLING_WAIT_IN_SEC))));
         fluentWait.until(expectation);
         wait = new WebDriverWait(driver, Duration.ofSeconds(Integer.parseInt(constants.getValue(ApplicationConstants.GENERAL_WAIT_IN_SEC))));
         basePageElements = new BasePageElements();
@@ -153,7 +152,7 @@ public class BasePage extends Driver {
      * @return String The value
      */
     public String getText(By elementLocation) {
-        String result = "";
+        String result = null;
         if (isVisible(elementLocation)) {
             highLighterMethod(elementLocation);
             result = driver.findElement(elementLocation).getText();
@@ -236,8 +235,8 @@ public class BasePage extends Driver {
      *
      * @return Object The customer profile page
      */
-    public CustomerProfile goingBackToHomeTab() {
-        commonLib.info("Going back to Home Tab");
+    public CustomerProfile openingCustomerInteractionDashboard() {
+        commonLib.info("Opening Customer Interactions Dashboard");
         clickAndWaitForLoaderToBeRemoved(basePageElements.home);
         return new CustomerProfile(driver);
     }
@@ -302,9 +301,8 @@ public class BasePage extends Driver {
      * This method use to click outside the overlay window
      */
     public void clickOutside() {
-        /*Actions action = new Actions(driver);
-        action.moveByOffset(0, 0).click().build().perform();*/
-        driver.findElement(By.xpath("//body//app-dashboard")).click();
+        Actions action = new Actions(driver);
+        action.moveByOffset(0, 0).click().build().perform();
     }
 
     /**
@@ -534,7 +532,7 @@ public class BasePage extends Driver {
             WebElement webElement = driverWait.until(ExpectedConditions.visibilityOfElementLocated(webelementBy));
             return webElement != null;
         } catch (Exception e) {
-            commonLib.fail("Element Not Visible :-" + webelementBy, true);
+            commonLib.error("Element Not Visible :-" + webelementBy);
             return false;
         }
     }

@@ -29,7 +29,7 @@ public class TicketTransferRuleTest extends Driver {
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().clickOnUserName();
             pages.getSideMenuPage().openSupervisorDashboard();
-            assertCheck.append(actions.assertEqualStringType(driver.getTitle(), constants.getValue(CommonConstants.SUPERVISOR_TICKET_LIST_PAGE_TITLE), "Agent redirect to ticket list page as expected", "Agent does not redirect to ticket list page as expected"));
+            assertCheck.append(actions.assertEqual_stringType(driver.getTitle(), constants.getValue(CommonConstants.SUPERVISOR_TICKET_LIST_PAGE_TITLE), "Agent redirect to ticket list page as expected", "Agent does not redirect to ticket list page as expected"));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - openSupervisorDashboard" + e.fillInStackTrace(), true);
         }
@@ -58,15 +58,11 @@ public class TicketTransferRuleTest extends Driver {
                 Assert.assertEquals(ticketId, pages.getViewTicket().getTicketId(), "Verify the searched Ticket fetched Successfully");
                 String selectedState = pages.getViewTicket().selectState(ruleData.getTicketToState());
                 if (!selectedState.equalsIgnoreCase("Required State not found")) {
-                    try {
-                        pages.getSupervisorTicketList().writeTicketId(ticketId);
-                        pages.getSupervisorTicketList().clickSearchBtn();
-                        assertCheck.append(actions.assertEqualStringType(pages.getSupervisorTicketList().getTicketIdValue(), ticketId, "Search ticket fetched successfully", "Search Ticket Does not Fetched Correctly"));
-                        assertCheck.append(actions.assertEqualStringType(pages.getSupervisorTicketList().getStatevalue().toLowerCase().trim(), selectedState.toLowerCase().trim(), "Ticket Updated to Selected State " + selectedState, "Ticket Does not Updated to Selected State " + selectedState));
-                        assertCheck.append(actions.assertEqualStringType(pages.getSupervisorTicketList().getQueueValue().toLowerCase().trim(), ruleData.getToQueue().toLowerCase().trim(), "Ticket updated to correct ticket pool " + ruleData.getToQueue(), "Ticket does not updated to correct ticket pool " + ruleData.getToQueue()));
-                    } catch (TimeoutException | NoSuchElementException e) {
-                        commonLib.fail("Ticket has been transferred to Selected but not able search ticket." + e.fillInStackTrace(), true);
-                    }
+                    pages.getSupervisorTicketList().writeTicketId(ticketId);
+                    pages.getSupervisorTicketList().clickSearchBtn();
+                    assertCheck.append(actions.assertEqual_stringType(pages.getSupervisorTicketList().getTicketIdValue(), ticketId, "Search ticket fetched successfully", "Search Ticket Does not Fetched Correctly"));
+                    assertCheck.append(actions.assertEqual_stringType(pages.getSupervisorTicketList().getStatevalue().toLowerCase().trim(), selectedState.toLowerCase().trim(), "Ticket Updated to Selected State " + selectedState, "Ticket Does not Updated to Selected State " + selectedState));
+                    assertCheck.append(actions.assertEqual_stringType(pages.getSupervisorTicketList().getQueueValue().toLowerCase().trim(), ruleData.getToQueue().toLowerCase().trim(), "Ticket updated to correct ticket pool " + ruleData.getToQueue(), "Ticket does not updated to correct ticket pool " + ruleData.getToQueue()));
                     pages.getSupervisorTicketList().clearInputBox();
                 } else {
                     commonLib.fail("Required State does not mapped to ticket queue. Check config in application db or update opco rule file in excel.", true);

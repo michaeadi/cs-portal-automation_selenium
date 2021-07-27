@@ -6,6 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TemplateDataBeans {
-    private String roles;
-    private String language;
+    String roles;
+    String language;
 }

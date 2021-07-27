@@ -20,7 +20,7 @@ public class AirtelMoneyMenuPrimaryWidgetTest extends Driver {
     RequestSource api = new RequestSource();
     private AirtelMoney amTransactionHistoryAPI;
 
-    @BeforeMethod(groups = {"ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -28,7 +28,7 @@ public class AirtelMoneyMenuPrimaryWidgetTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkAirtelMoneyFlag() {
         if (!StringUtils.equals(RUN_AIRTEL_MONEY_WIDGET_TEST_CASE, "true")) {
             commonLib.skip("Skipping because Run Airtel Money widget Test Case Flag Value is - " + RUN_AIRTEL_MONEY_WIDGET_TEST_CASE);
@@ -46,7 +46,7 @@ public class AirtelMoneyMenuPrimaryWidgetTest extends Driver {
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();
             final boolean pageLoaded = pages.getCustomerProfilePage().isCustomerProfilePageLoaded();
-            assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
+            assertCheck.append(actions.assertEqual_boolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
             if (!pageLoaded) continueExecutionFA = false;
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -60,21 +60,21 @@ public class AirtelMoneyMenuPrimaryWidgetTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validating Airtel Money History's Header Name  Menu of User :" + customerNumber + ",Validating all the filter display as per config,Validate search by transaction id box displayed as per config.", "description");
             pages.getAmTxnWidgetPage().clickMenuOption();
-            assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isAMMenuHistoryTabDisplay(), true, "AM More Primary transaction widget display as expected", "AM More Primary transaction widget does not display as expected"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isTodayFilterTab(), true, "Today Filter does display on UI.", "Today Filter does not display."));
-            assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isTodayFilterTab(), true, "Last Two Days Filter does display on UI.", "Last Two Days Filter does not display."));
-            assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isTodayFilterTab(), true, "Last Seven Days Filter does display on UI.", "Last Seven Days Filter does not display."));
-            assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isTodayFilterTab(), true, "Date Range Filter does display on UI.", "Date Range Filter does not display."));
-            assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isSearchTxnIdBox(), true, "TXN ID Box does display on UI.", "TXN ID Box does not display."));
+            assertCheck.append(actions.assertEqual_boolean(pages.getMoreAMTxnTabPage().isAMMenuHistoryTabDisplay(), true, "AM More Primary transaction widget display as expected", "AM More Primary transaction widget does not display as expected"));
+            assertCheck.append(actions.assertEqual_boolean(pages.getMoreAMTxnTabPage().isTodayFilterTab(), true, "Today Filter does display on UI.", "Today Filter does not display."));
+            assertCheck.append(actions.assertEqual_boolean(pages.getMoreAMTxnTabPage().isTodayFilterTab(), true, "Last Two Days Filter does display on UI.", "Last Two Days Filter does not display."));
+            assertCheck.append(actions.assertEqual_boolean(pages.getMoreAMTxnTabPage().isTodayFilterTab(), true, "Last Seven Days Filter does display on UI.", "Last Seven Days Filter does not display."));
+            assertCheck.append(actions.assertEqual_boolean(pages.getMoreAMTxnTabPage().isTodayFilterTab(), true, "Date Range Filter does display on UI.", "Date Range Filter does not display."));
+            assertCheck.append(actions.assertEqual_boolean(pages.getMoreAMTxnTabPage().isSearchTxnIdBox(), true, "TXN ID Box does display on UI.", "TXN ID Box does not display."));
             if (StringUtils.equals(MULTI_AM_WALLET, "true")) {
                 amTransactionHistoryAPI = api.moreTransactionHistoryAPITest(customerNumber, constants.getValue(ApplicationConstants.FIRST_AM_CURRENCY));
             } else {
                 amTransactionHistoryAPI = api.moreTransactionHistoryAPITest(customerNumber, null);
             }
             final int statusCode = amTransactionHistoryAPI.getStatusCode();
-            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Airtel Widget API success and status code is :" + statusCode, "Airtel Widget API got failed and status code is :" + statusCode, false));
+            assertCheck.append(actions.assertEqual_intType(statusCode, 200, "Airtel Widget API success and status code is :" + statusCode, "Airtel Widget API got failed and status code is :" + statusCode));
             if (statusCode != 200) {
-                assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isAirtelMoneyErrorVisible(), true, "API is Giving error and Widget is showing error Message on API is " + amTransactionHistoryAPI.getMessage(), "API is Giving error But Widget is not showing error Message on API is " + amTransactionHistoryAPI.getMessage()));
+                assertCheck.append(actions.assertEqual_boolean(pages.getMoreAMTxnTabPage().isAirtelMoneyErrorVisible(), true, "API is Giving error and Widget is showing error Message on API is " + amTransactionHistoryAPI.getMessage(), "API is Giving error But Widget is not showing error Message on API is " + amTransactionHistoryAPI.getMessage()));
                 commonLib.fail("API is Unable to Get AM Transaction History for Customer", true);
             } else {
                 int count = Math.min(amTransactionHistoryAPI.getResult().getTotalCount(), 10);
@@ -92,7 +92,7 @@ public class AirtelMoneyMenuPrimaryWidgetTest extends Driver {
                     assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getHeaders(11), data.getRow11(), "Header Name for Row 11 is as expected", "Header Name for Row 11 is not as expected"));
                     assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getHeaders(12), data.getRow12(), "Header Name for Row 12 is as expected", "Header Name for Row 12 is not as expected"));
                 } else {
-                    assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isAirtelMoneyNoResultFoundVisible(), true, "No Result Found Icon does display on UI.", "No Result Found Icon does not display on UI."));
+                    assertCheck.append(actions.assertEqual_boolean(pages.getMoreAMTxnTabPage().isAirtelMoneyNoResultFoundVisible(), true, "No Result Found Icon does display on UI.", "No Result Found Icon does not display on UI."));
                 }
             }
         } catch (Exception e) {
@@ -111,18 +111,18 @@ public class AirtelMoneyMenuPrimaryWidgetTest extends Driver {
                 amTransactionHistoryAPI = api.moreTransactionHistoryAPITest(customerNumber, null);
             }
             final int statusCode = amTransactionHistoryAPI.getStatusCode();
-            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Airtel Widget API success and status code is :" + statusCode, "Airtel Widget API got failed and status code is :" + statusCode));
+            assertCheck.append(actions.assertEqual_intType(statusCode, 200, "Airtel Widget API success and status code is :" + statusCode, "Airtel Widget API got failed and status code is :" + statusCode));
             if (statusCode != 200) {
-                assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isAirtelMoneyErrorVisible(), true, "API is Giving error and Widget is showing error Message on API is " + amTransactionHistoryAPI.getMessage(), "API is Giving error But Widget is not showing error Message on API is " + amTransactionHistoryAPI.getMessage()));
+                assertCheck.append(actions.assertEqual_boolean(pages.getMoreAMTxnTabPage().isAirtelMoneyErrorVisible(), true, "API is Giving error and Widget is showing error Message on API is " + amTransactionHistoryAPI.getMessage(), "API is Giving error But Widget is not showing error Message on API is " + amTransactionHistoryAPI.getMessage()));
                 commonLib.fail("API is Unable to Get AM Transaction History for Customer", true);
             } else {
                 int count = Math.min(amTransactionHistoryAPI.getResult().getTotalCount(), 10);
                 if (count > 0) {
                     for (int i = 0; i < count; i++) {
                         if (amTransactionHistoryAPI.getResult().getData().get(i).getAmount().charAt(0) == '+') {
-                            assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isPosSignDisplay(i + 1), true, i + "th Positive Sign does display in case of Amount Credited.", i + "th Positive Sign does not display in case of Amount Credited."));
+                            assertCheck.append(actions.assertEqual_boolean(pages.getMoreAMTxnTabPage().isPosSignDisplay(i + 1), true, i + "th Positive Sign does display in case of Amount Credited.", i + "th Positive Sign does not display in case of Amount Credited."));
                         } else {
-                            assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isNegSignDisplay(i + 1), true, i + "th Negative Sign does display in case of Amount Debited.", i + "th Negative Sign does not display in case of Amount Debited."));
+                            assertCheck.append(actions.assertEqual_boolean(pages.getMoreAMTxnTabPage().isNegSignDisplay(i + 1), true, i + "th Negative Sign does display in case of Amount Debited.", i + "th Negative Sign does not display in case of Amount Debited."));
                         }
                         assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getValueCorrespondingToHeader(i + 1, 2).replace("\n", " "), UtilsMethods.getDateFromEpochInUTC(new Long(amTransactionHistoryAPI.getResult().getData().get(i).getTransactionDate()), constants.getValue(CommonConstants.AM_HISTORY_TIME_FORMAT)), i + "th Date is expected as API response.", i + "th Date is not expected as API response."));
                         assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getValueCorrespondingToHeader(i + 1, 3), amTransactionHistoryAPI.getResult().getData().get(i).getService(), i + "th Service name is not expected as API response.", i + "th Service name is not expected as API response."));
@@ -135,11 +135,11 @@ public class AirtelMoneyMenuPrimaryWidgetTest extends Driver {
                         assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getValueCorrespondingToHeader(i + 1, 10), amTransactionHistoryAPI.getResult().getData().get(i).getBalanceAfter(), i + "th Post-balance is expected as API response.", i + "th Post-balance is not expected as API response."));
                         assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getValueCorrespondingToHeader(i + 1, 11), amTransactionHistoryAPI.getResult().getData().get(i).getStatus(), i + "th Status is expected as API response.", i + "th Status is not expected as API response."));
                         if (amTransactionHistoryAPI.getResult().getData().get(i).getEnableResendSms()) {
-                            assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isResendSMS(), true, "Resend SMS Icon does enable as mentioned in API Response.", "Resend SMS Icon does not enable as mentioned in API Response."));
+                            assertCheck.append(actions.assertEqual_boolean(pages.getMoreAMTxnTabPage().isResendSMS(), true, "Resend SMS Icon does enable as mentioned in API Response.", "Resend SMS Icon does not enable as mentioned in API Response."));
                         }
                     }
                 } else {
-                    assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isAirtelMoneyNoResultFoundVisible(), true, "No Result Found Icon does display on UI.", "No Result Found Icon does not display on UI."));
+                    assertCheck.append(actions.assertEqual_boolean(pages.getMoreAMTxnTabPage().isAirtelMoneyNoResultFoundVisible(), true, "No Result Found Icon does display on UI.", "No Result Found Icon does not display on UI."));
                 }
             }
         } catch (Exception e) {

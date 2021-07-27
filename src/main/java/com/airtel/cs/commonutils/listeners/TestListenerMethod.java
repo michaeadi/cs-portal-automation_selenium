@@ -1,6 +1,8 @@
 package com.airtel.cs.commonutils.listeners;
 
+import com.airtel.cs.commonutils.extentreports.ExtentReport;
 import com.airtel.cs.driver.Driver;
+import com.aventstack.extentreports.Status;
 import lombok.extern.log4j.Log4j2;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
@@ -13,11 +15,6 @@ import java.lang.reflect.Field;
 
 @Log4j2
 public class TestListenerMethod extends TestListenerAdapter {
-
-    public static Integer totalTest = 0;
-    public static Integer passedTest = 0;
-    public static Integer failedTest = 0;
-    public static Integer skippedTest = 0;
 
     private static String getTestMethodName(ITestResult iTestResult) {
         return iTestResult.getMethod().getConstructorOrMethod().getName();
@@ -33,22 +30,18 @@ public class TestListenerMethod extends TestListenerAdapter {
 
     @Override
     public void onTestStart(ITestResult iTestResult) {
-        totalTest++;
     }
 
     @Override
     public void onTestSuccess(ITestResult iTestResult) {
-        passedTest++;
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
-        failedTest++;
     }
 
     @Override
     public void onTestSkipped(ITestResult tr) {
-        skippedTest++;
        /* try {
             String className = tr.getMethod().getInstance().getClass().getName();
             int idx = className.lastIndexOf('.');

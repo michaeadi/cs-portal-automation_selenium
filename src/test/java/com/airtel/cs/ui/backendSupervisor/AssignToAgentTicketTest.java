@@ -1,6 +1,7 @@
 package com.airtel.cs.ui.backendSupervisor;
 
 import com.airtel.cs.api.RequestSource;
+import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.applicationutils.enums.JavaColors;
 import com.airtel.cs.driver.Driver;
@@ -31,7 +32,7 @@ public class AssignToAgentTicketTest extends Driver {
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().clickOnUserName();
             pages.getSideMenuPage().openSupervisorDashboard();
-            assertCheck.append(actions.assertEqualStringType(driver.getTitle(), constants.getValue(CommonConstants.SUPERVISOR_TICKET_LIST_PAGE_TITLE), "Agent redirect to ticket list page as expected", "Agent does not redirect to ticket list page as expected"));
+            assertCheck.append(actions.assertEqual_stringType(driver.getTitle(), constants.getValue(CommonConstants.SUPERVISOR_TICKET_LIST_PAGE_TITLE), "Agent redirect to ticket list page as expected", "Agent does not redirect to ticket list page as expected"));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - openSupervisorDashboard" + e.fillInStackTrace(), true);
         }
@@ -50,14 +51,14 @@ public class AssignToAgentTicketTest extends Driver {
             String ticketId = pages.getSupervisorTicketList().getTicketIdValue();
             Ticket ticketAPI = api.ticketMetaDataTest(ticketId);
             if (ticketAPI.getResult().getAssignee() == null) {
-                assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isNotAssigneeDisplay(), true, "In case of ticket Not Assigned to any agent assignee pan displayed correctly", "In case of ticket Not Assigned to any agent assignee pan does not display correctly"));
+                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isNotAssigneeDisplay(), true, "In case of ticket Not Assigned to any agent assignee pan displayed correctly", "In case of ticket Not Assigned to any agent assignee pan does not display correctly"));
             } else {
-                assertCheck.append(actions.assertEqualStringType(pages.getSupervisorTicketList().getAssigneeName().toLowerCase().trim(), ticketAPI.getResult().getAssignee().toLowerCase().trim(), "In case of ticket Assigned to any agent assignee pan displayed correctly", "In case of ticket Assigned to any agent assignee pan does not display on UI Correctly."));
+                assertCheck.append(actions.assertEqual_stringType(pages.getSupervisorTicketList().getAssigneeName().toLowerCase().trim(), ticketAPI.getResult().getAssignee().toLowerCase().trim(), "In case of ticket Assigned to any agent assignee pan displayed correctly", "In case of ticket Assigned to any agent assignee pan does not display on UI Correctly."));
             }
             pages.getSupervisorTicketList().clickCheckbox();
             pages.getSupervisorTicketList().clickAssigntoAgent();
-            assertCheck.append(actions.assertEqualBoolean(pages.getAssignToAgentPage().validatePageTitle(), true, "Assign to Agent tab Open as expected", "Assign to Agent tab does not open as expected"));
-            assertCheck.append(actions.assertEqualStringType(pages.getAssignToAgentPage().getQueueName(), ticketQueue, "Assign to Agent tab Queue does not Open Correctly", "Assign to Agent tab Queue does not Open Correctly"));
+            assertCheck.append(actions.assertEqual_boolean(pages.getAssignToAgentPage().validatePageTitle(), true, "Assign to Agent tab Open as expected", "Assign to Agent tab does not open as expected"));
+            assertCheck.append(actions.assertEqual_stringType(pages.getAssignToAgentPage().getQueueName(), ticketQueue, "Assign to Agent tab Queue does not Open Correctly", "Assign to Agent tab Queue does not Open Correctly"));
             try {
                 auuid = pages.getAssignToAgentPage().ticketAssignedToAgent(assigneeAUUID).trim();
             } catch (ElementClickInterceptedException | NoSuchElementException | TimeoutException e) {
@@ -67,7 +68,7 @@ public class AssignToAgentTicketTest extends Driver {
             }
             pages.getSupervisorTicketList().writeTicketIdSecond(ticketId);
             pages.getSupervisorTicketList().clickSearchBtn();
-            assertCheck.append(actions.assertEqualStringType(pages.getSupervisorTicketList().getAssigneeAUUID().trim(), auuid, "Ticket Assigned to new agent correctly", "Ticket does not Assigned to new agent correctly"));
+            assertCheck.append(actions.assertEqual_stringType(pages.getSupervisorTicketList().getAssigneeAUUID().trim(), auuid, "Ticket Assigned to new agent correctly", "Ticket does not Assigned to new agent correctly"));
             if (pages.getSupervisorTicketList().getAssigneeAUUID().trim().equalsIgnoreCase(auuid)) {
                 commonLib.infoColored("Ticket unassigned from '" + assigneeAUUID + "' and Ticket Assigned to '" + auuid + "'", JavaColors.GREEN, false);
                 commonLib.pass("Validated Ticket is Assigned to User Successfully");

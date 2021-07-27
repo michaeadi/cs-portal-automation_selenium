@@ -1,5 +1,6 @@
 package com.airtel.cs.ui.templateManagement;
 
+import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pagerepository.pagemethods.TemplateManagement;
@@ -16,6 +17,7 @@ public class CreateTemplateTest extends Driver {
 
     static String templateCategory;
     static String templateName;
+    private final BaseActions actions = new BaseActions();
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
@@ -35,7 +37,7 @@ public class CreateTemplateTest extends Driver {
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().clickOnUserName();
             pages.getSideMenuPage().openTemplateManagementPage();
-            assertCheck.append(actions.assertEqualBoolean(pages.getTemplateManagement().isPageLoaded(), true, "Template Management Module load", "Template Management Module does not load"));
+            assertCheck.append(actions.assertEqual_boolean(pages.getTemplateManagement().isPageLoaded(), true, "Template Management Module load", "Template Management Module does not load"));
             pages.getTemplateManagement();
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -50,14 +52,14 @@ public class CreateTemplateTest extends Driver {
     public void validateAddTemplateManagementPage() {
         try {
             selUtils.addTestcaseDescription("Validate Template Management Page", "description");
-            assertCheck.append(actions.assertEqualBoolean(pages.getTemplateManagement().isAddTemplateAvailable(), true, "Add Template button is available.", "Add Template button does not available."));
-            assertCheck.append(actions.assertEqualBoolean(pages.getTemplateManagement().isAddTemplateCategoryAvailable(), true, "Add template Category button is available.", "Add template Category button does not available."));
-            assertCheck.append(actions.assertEqualBoolean(pages.getTemplateManagement().isCategoryAvailable(), true, "Category Label displayed on Template Management Page.", "Category Label does not display on Template Management Page."));
-            assertCheck.append(actions.assertEqualBoolean(pages.getTemplateManagement().isMessageChannelAvailable(), true, "Message Channel Label is displayed on Template Management Page.", "Message Channel Label does not display on Template Management Page."));
-            assertCheck.append(actions.assertEqualBoolean(pages.getTemplateManagement().isTemplateNameAvailable(), true, "Template Name Label displayed on Template Management Page.", "Template Name Label does not display on Template Management Page."));
-            assertCheck.append(actions.assertEqualBoolean(pages.getTemplateManagement().isRoleAvailable(), true, "Role Label is displayed on Template Management Page.", "Role Label does not display on Template Management Page."));
-            assertCheck.append(actions.assertEqualBoolean(pages.getTemplateManagement().isAgentChannelAvailable(), true, "Agent channel Label is displayed on Template Management Page.", "Agent channel Label does not display on Template Management Page."));
-            assertCheck.append(actions.assertEqualBoolean(pages.getTemplateManagement().isSMSLanguageAvailable(), true, "SMS Language Label displayed on Template Management Page.", "SMS Language Label does not display on Template Management Page."));
+            assertCheck.append(actions.assertEqual_boolean(pages.getTemplateManagement().isAddTemplateAvailable(), true, "Add Template button is available.", "Add Template button does not available."));
+            assertCheck.append(actions.assertEqual_boolean(pages.getTemplateManagement().isAddTemplateCategoryAvailable(), true, "Add template Category button is available.", "Add template Category button does not available."));
+            assertCheck.append(actions.assertEqual_boolean(pages.getTemplateManagement().isCategoryAvailable(), true, "Category Label displayed on Template Management Page.", "Category Label does not display on Template Management Page."));
+            assertCheck.append(actions.assertEqual_boolean(pages.getTemplateManagement().isMessageChannelAvailable(), true, "Message Channel Label is displayed on Template Management Page.", "Message Channel Label does not display on Template Management Page."));
+            assertCheck.append(actions.assertEqual_boolean(pages.getTemplateManagement().isTemplateNameAvailable(), true, "Template Name Label displayed on Template Management Page.", "Template Name Label does not display on Template Management Page."));
+            assertCheck.append(actions.assertEqual_boolean(pages.getTemplateManagement().isRoleAvailable(), true, "Role Label is displayed on Template Management Page.", "Role Label does not display on Template Management Page."));
+            assertCheck.append(actions.assertEqual_boolean(pages.getTemplateManagement().isAgentChannelAvailable(), true, "Agent channel Label is displayed on Template Management Page.", "Agent channel Label does not display on Template Management Page."));
+            assertCheck.append(actions.assertEqual_boolean(pages.getTemplateManagement().isSMSLanguageAvailable(), true, "SMS Language Label displayed on Template Management Page.", "SMS Language Label does not display on Template Management Page."));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - validateAddTemplateManagementPage" + e.fillInStackTrace(), true);
@@ -82,7 +84,7 @@ public class CreateTemplateTest extends Driver {
             } catch (NoSuchElementException | TimeoutException e) {
                 commonLib.info("Not able to read Message Pop up: " + e.fillInStackTrace());
             }
-            assertCheck.append(actions.assertEqualBoolean(templateManagement.validateAddedCategoryDisplay(templateCategory), true, "Added Category is displayed in list", "Added Category does not display in list"));
+            assertCheck.append(actions.assertEqual_boolean(templateManagement.validateAddedCategoryDisplay(templateCategory), true, "Added Category is displayed in list", "Added Category does not display in list"));
             templateManagement.waitTillOverlayGetsRemoved();
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -96,7 +98,7 @@ public class CreateTemplateTest extends Driver {
     @Test(priority = 4, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = {"addTemplateCategory", "openTemplateManagement"})
     public void createTemplate() {
         try {
-            DateTimeFormatter formating = DateTimeFormatter.ofPattern("mmmm hh0mm");
+            DateTimeFormatter formating = DateTimeFormatter.ofPattern("MMMM hh0mm");
             templateName = "Template " + LocalDateTime.now().format(formating);
             selUtils.addTestcaseDescription("Create Template with name: " + templateName, "description");
             pages.getTemplateManagement().switchTabToAddTemplate();
@@ -113,7 +115,8 @@ public class CreateTemplateTest extends Driver {
             pages.getTemplateManagement().selectOptionFromList("English");
             pages.getTemplateManagement().clickOutside();
             pages.getTemplateManagement().writeSMSContent("Dear Customer Thank you for choosing Airtel.");
-            assertCheck.append(actions.assertEqualBoolean(pages.getTemplateManagement().clickCreateTemplateBtn(), true, "Create Template button is enabled", "Create Template button does not enabled"));
+            assertCheck.append(actions.assertEqual_boolean(pages.getTemplateManagement().clickCreateTemplateBtn(), true, "Create Template button is enabled", "Create Template button does not enabled"));
+            pages.getTemplateManagement().waitTillLoaderGetsRemoved();
             try {
                 pages.getTemplateManagement().readResponseMessage();
             } catch (NoSuchElementException | TimeoutException e) {
@@ -138,7 +141,7 @@ public class CreateTemplateTest extends Driver {
             pages.getViewCreatedTemplate().writeSearchKeyword(templateName);
             pages.getViewCreatedTemplate().clickSearchIcon();
             pages.getViewCreatedTemplate().waitTillTimeLineGetsRemoved();
-            assertCheck.append(actions.assertEqualBoolean(pages.getViewCreatedTemplate().isTemplatePresent(templateName), true, "Recent Created template with name '" + templateName + "' found in list.", "Recent Created template with name '" + templateName + "' not found in list."));
+            assertCheck.append(actions.assertEqual_boolean(pages.getViewCreatedTemplate().isTemplatePresent(templateName), true, "Recent Created template with name '" + templateName + "' found in list.", "Recent Created template with name '" + templateName + "' not found in list."));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - addTemplateCategory" + e.fillInStackTrace(), true);

@@ -37,7 +37,7 @@ public class PinTagTest extends Driver {
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();
             final boolean pageLoaded = pages.getCustomerProfilePage().isCustomerProfilePageLoaded();
-            assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
+            assertCheck.append(actions.assertEqual_boolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
             if (!pageLoaded) continueExecutionFA = false;
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -57,7 +57,7 @@ public class PinTagTest extends Driver {
             Map<String, Boolean> tags = data.getALLPinnedTags();
             List<String> availableTags = pages.getCustomerProfilePage().getPinnedTagTexts();
                 for (String s : availableTags) {
-                    assertCheck.append(actions.assertEqualBoolean(tags.remove(s)!=null,true,"Validate " + s + " pinned tag is display correctly",s + " tag must not display on frontend as tag not mention in config sheet."));
+                    assertCheck.append(actions.assertEqual_boolean(tags.remove(s)!=null,true,"Validate " + s + " pinned tag is display correctly",s + " tag must not display on frontend as tag not mention in config sheet."));
                 }
             if (tags.isEmpty()) {
                 commonLib.pass("All pinned tagged correctly configured and display on UI.");
@@ -86,14 +86,14 @@ public class PinTagTest extends Driver {
             try {
                 if (pages.getCustomerProfilePage().isPinTagVisible(tagName)) {
                     pages.getCustomerProfilePage().clickPinTag(tagName);
-                    assertCheck.append(actions.assertEqualBoolean(pages.getMsisdnSearchPage().isCustomerSearchPageVisible(), true, "Msisden Search Page Loaded Successfully", "Msisden Search Page NOT Loaded"));
+                    pages.getMsisdnSearchPage();
                     pages.getMsisdnSearchPage().enterNumber(customerNumber);
                     pages.getMsisdnSearchPage().clickOnSearch();
-                    assertCheck.append(actions.assertEqualBoolean(pages.getCustomerProfilePage().isCustomerProfilePageLoaded(), true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
+                    assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isCustomerProfilePageLoaded(), true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
                     pages.getCustomerProfilePage().goToViewHistory();
                     pages.getViewHistory().clickOnInteractionsTab();
                     String issueCode = pages.getViewHistory().getLastCreatedIssueCode();
-                    assertCheck.append(actions.assertEqualStringType(issueCode.toLowerCase().trim(), data.getIssueCode().trim().toLowerCase(), "Issue code found in view history", "Issue code doesn't found in view history"));
+                    assertCheck.append(actions.assertEqual_stringType(issueCode.toLowerCase().trim(), data.getIssueCode().trim().toLowerCase(), "Issue code found in view history", "Issue code doesn't found in view history"));
                 } else {
                     commonLib.fail(tagName + " Does not display on UI", true);
                 }

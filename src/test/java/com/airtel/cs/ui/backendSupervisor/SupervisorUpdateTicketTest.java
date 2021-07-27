@@ -11,6 +11,7 @@ import com.airtel.cs.model.response.smshistory.SMSHistoryList;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
+import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -36,7 +37,7 @@ public class SupervisorUpdateTicketTest extends Driver {
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().clickOnUserName();
             pages.getSideMenuPage().openSupervisorDashboard();
-            assertCheck.append(actions.assertEqualStringType(driver.getTitle(), constants.getValue(CommonConstants.SUPERVISOR_TICKET_LIST_PAGE_TITLE), "Agent redirect to ticket list page as expected", "Agent does not redirect to ticket list page as expected"));
+            assertCheck.append(actions.assertEqual_stringType(driver.getTitle(), constants.getValue(CommonConstants.SUPERVISOR_TICKET_LIST_PAGE_TITLE), "Agent redirect to ticket list page as expected", "Agent does not redirect to ticket list page as expected"));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - openSupervisorDashboard" + e.fillInStackTrace(), true);
         }
@@ -53,33 +54,37 @@ public class SupervisorUpdateTicketTest extends Driver {
             pages.getSupervisorTicketList().changeTicketTypeToOpen();
             pages.getSupervisorTicketList().writeTicketId(Data.getTicketNumber());
             pages.getSupervisorTicketList().clickSearchBtn();
-            assertCheck.append(actions.assertEqualStringType(pages.getSupervisorTicketList().getTicketIdValue(), Data.getTicketNumber(), "Search Ticket does found","Search Ticket does not found",true,true));
-            pages.getSupervisorTicketList().viewTicket();
+            Assert.assertEquals(pages.getSupervisorTicketList().getTicketIdValue(), Data.getTicketNumber(), "Search Ticket does not found");
             try {
-                String selectStateByConfig = data.getState(constants.getValue(CommonConstants.TICKET_CLOSE_STATE)).get(0).getTicketStateName();
-                selectedState = pages.getViewTicket().selectState(selectStateByConfig);
-                if (selectedState.equalsIgnoreCase(selectStateByConfig)) {
-                    pages.getSupervisorTicketList().changeTicketTypeToClosed();
-                    pages.getSupervisorTicketList().writeTicketId(Data.getTicketNumber());
-                    pages.getSupervisorTicketList().clickSearchBtn();
-                    assertCheck.append(actions.assertEqualStringType(pages.getSupervisorTicketList().getTicketIdValue(), Data.getTicketNumber(), "Search ticket fetched correctly", "Search Ticket Does not Fetched Correctly",true,true));
-                    assertCheck.append(actions.assertEqualStringType(pages.getSupervisorTicketList().getStatevalue(), selectedState, "Ticket Does Updated to Selected State","Ticket Does not Updated to Selected State",true,true));
-                    if (ticketId == null) {
-                        ticketId = Data.getTicketNumber();
+                pages.getSupervisorTicketList().viewTicket();
+                try {
+                    String selectStateByConfig = data.getState(constants.getValue(CommonConstants.TICKET_CLOSE_STATE)).get(0).getTicketStateName();
+                    selectedState = pages.getViewTicket().selectState(selectStateByConfig);
+                    if (selectedState.equalsIgnoreCase(selectStateByConfig)) {
+                        pages.getSupervisorTicketList().changeTicketTypeToClosed();
+                        pages.getSupervisorTicketList().writeTicketId(Data.getTicketNumber());
+                        pages.getSupervisorTicketList().clickSearchBtn();
+                        assertCheck.append(actions.assertEqual_stringType(pages.getSupervisorTicketList().getTicketIdValue(), Data.getTicketNumber(), "Search ticket fetched correctly", "Search Ticket Does not Fetched Correctly"));
+                        Assert.assertEquals(pages.getSupervisorTicketList().getStatevalue(), selectedState, "Ticket Does not Updated to Selected State");
+                        if (ticketId == null) {
+                            ticketId = Data.getTicketNumber();
+                        }
+                        SMSHistory smsHistory = api.smsHistoryTest(customerNumber);
+                        SMSHistoryList list = smsHistory.getResult().get(0);
+                        commonLib.info("Message Sent after closure: " + list.getMessageText());
+                        assertCheck.append(actions.assertEqual_boolean(list.getMessageText().contains(Data.getTicketNumber()), true, "Message Sent to customer for same ticket id which has been closed", "Message does not Sent for same ticket id which has been closed"));
+                        assertCheck.append(actions.assertEqual_stringType(list.getSmsType().toLowerCase().trim(), constants.getValue(CommonConstants.SYSTEM_SMS_TYPE).toLowerCase().trim(), "Message type is system", "Message type is not system"));
+                        assertCheck.append(actions.assertEqual_boolean(list.getAction(), false, "Action button is disabled", "Action button is not disabled"));
+                        assertCheck.append(actions.assertEqual_stringType((list.getTemplateName().toLowerCase().trim()), constants.getValue(CommonConstants.TICKET_CREATED_EVENT).toLowerCase().trim(), "Template event same as expected.", "Template event not same as expected."));
+                    } else {
+                        pages.getViewTicket().clickBackButton();
                     }
-                    SMSHistory smsHistory = api.smsHistoryTest(customerNumber);
-                    SMSHistoryList list = smsHistory.getResult().get(0);
-                    commonLib.info("Message Sent after closure: " + list.getMessageText());
-                    assertCheck.append(actions.assertEqualBoolean(list.getMessageText().contains(Data.getTicketNumber()), true, "Message Sent to customer for same ticket id which has been closed", "Message does not Sent for same ticket id which has been closed"));
-                    assertCheck.append(actions.assertEqualStringType(list.getSmsType().toLowerCase().trim(), constants.getValue(CommonConstants.SYSTEM_SMS_TYPE).toLowerCase().trim(), "Message type is system", "Message type is not system"));
-                    assertCheck.append(actions.assertEqualBoolean(list.getAction(), false, "Action button is disabled", "Action button is not disabled"));
-                    assertCheck.append(actions.assertEqualStringType((list.getTemplateName().toLowerCase().trim()), constants.getValue(CommonConstants.TICKET_CREATED_EVENT).toLowerCase().trim(), "Template event same as expected.", "Template event not same as expected."));
-                } else {
+                } catch (TimeoutException | NoSuchElementException | ElementClickInterceptedException e) {
+                    commonLib.fail("Update Ticket does not complete due to error :" + e.fillInStackTrace(), true);
                     pages.getViewTicket().clickBackButton();
                 }
-            } catch (AssertionError | TimeoutException | NoSuchElementException | ElementClickInterceptedException e) {
-                commonLib.fail("Update Ticket does not complete due to error :" + e.fillInStackTrace(), true);
-                pages.getViewTicket().clickBackButton();
+            } catch (TimeoutException | NoSuchElementException | AssertionError e) {
+                commonLib.fail("Ticket id search not done due to following error: " + e.getMessage(), true);
             }
             pages.getSupervisorTicketList().clearInputBox();
             pages.getSupervisorTicketList().changeTicketTypeToOpen();
@@ -98,7 +103,7 @@ public class SupervisorUpdateTicketTest extends Driver {
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();
             final boolean pageLoaded = pages.getCustomerProfilePage().isCustomerProfilePageLoaded();
-            assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
+            assertCheck.append(actions.assertEqual_boolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
             if (!pageLoaded) continueExecutionFA = false;
         } catch (Exception e) {
             commonLib.fail("Exception in Method - openCustomerInteraction" + e.fillInStackTrace(), true);
@@ -115,9 +120,9 @@ public class SupervisorUpdateTicketTest extends Driver {
                 pages.getViewHistory().goToTicketHistoryTab();
                 pages.getFrontendTicketHistoryPage().writeTicketId(ticketId);
                 pages.getFrontendTicketHistoryPage().clickSearchBtn();
-                assertCheck.append(actions.assertEqualStringType(pages.getFrontendTicketHistoryPage().getTicketId(1), ticketId, "Ticket Id does same as search ticket id.", "Ticket Id does not same as search ticket id."));
+                assertCheck.append(actions.assertEqual_stringType(pages.getFrontendTicketHistoryPage().getTicketId(1), ticketId, "Ticket Id does same as search ticket id.", "Ticket Id does not same as search ticket id."));
                 pages.getFrontendTicketHistoryPage().getTicketState(1);
-                assertCheck.append(actions.assertEqualBoolean(pages.getFrontendTicketHistoryPage().checkReopen(1), true, "Reopen icon found on closed ticket", "Reopen icon does not found on closed ticket"));
+                assertCheck.append(actions.assertEqual_boolean(pages.getFrontendTicketHistoryPage().checkReopen(1), true, "Reopen icon found on closed ticket", "Reopen icon does not found on closed ticket"));
             } else {
                 commonLib.warning("No Ticket Id updated through automation to close state. SKIP Validate Re-open Icon on Closed Ticket");
             }

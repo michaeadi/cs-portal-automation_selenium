@@ -220,17 +220,5 @@ public class LoanWidget extends BasePage {
         }
         return vendorNames;
     }
-
-    /**
-     * This Method will let us know Loan Service Widget is visible or not
-     * @return Boolean
-     */
-    public boolean isLoanServiceWidgetVisible() {
-        if (isElementVisible(pageElements.loanServiceHeader)) {
-            commonLib.info("LoanService Widget is Visible");
-            return true;
-        }
-        return false;
-    }
 }
 

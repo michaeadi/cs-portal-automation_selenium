@@ -21,11 +21,11 @@ public class UsageHistoryWidget extends BasePage {
     public UsageHistoryWidget(WebDriver driver) {
         super(driver);
         pageElements = PageFactory.initElements(driver, UsageWidgetPage.class);
+        as = returnListOfElement(pageElements.rows);
     }
 
     /**
      * This method is used to check usage history widget error display or noy
-     *
      * @return true/false
      */
     public boolean isUsageHistoryErrorVisible() {
@@ -36,7 +36,6 @@ public class UsageHistoryWidget extends BasePage {
 
     /**
      * This method use to get header name based on column number
-     *
      * @param column The column number
      * @return String The value
      */
@@ -48,7 +47,6 @@ public class UsageHistoryWidget extends BasePage {
 
     /**
      * This method is use to get no result found message
-     *
      * @return String The String
      */
     public String gettingUsageHistoryNoResultFoundMessage() {
@@ -59,7 +57,6 @@ public class UsageHistoryWidget extends BasePage {
 
     /**
      * This method is use to check no result found icon visible or not
-     *
      * @return true/false
      */
     public boolean isUsageHistoryNoResultFoundVisible() {
@@ -71,24 +68,14 @@ public class UsageHistoryWidget extends BasePage {
 
     /**
      * This method is use to get number of data rows display on UI
-     *
      * @return Integer the count
      */
     public int getNumberOfRows() {
-        try {
-            if (isVisibleContinueExecution(pageElements.rows)) {
-                as = returnListOfElement(pageElements.rows);
-                return as.size();
-            }
-        } catch (Exception e) {
-            commonLib.warning("No Data is available under Usage History Widget over CS Portal");
-        }
-        return 0;
+        return as.size();
     }
 
     /**
      * This method is use to check widget menu icon visible or not
-     *
      * @return true/false
      */
     public boolean isUsageHistoryWidgetMenuVisible() {
@@ -116,7 +103,6 @@ public class UsageHistoryWidget extends BasePage {
 
     /**
      * This method use to check widget display or not
-     *
      * @return true/false
      */
     public boolean isUsageHistoryWidgetIsVisible() {
@@ -126,7 +112,6 @@ public class UsageHistoryWidget extends BasePage {
 
     /**
      * This method use to check date picker display or not
-     *
      * @return true/false
      */
     public boolean isUsageHistoryDatePickerVisible() {
@@ -148,7 +133,6 @@ public class UsageHistoryWidget extends BasePage {
 
     /**
      * This method is use to get widget name
-     *
      * @return String The value
      */
     public String getWidgetTitle() {
@@ -185,22 +169,10 @@ public class UsageHistoryWidget extends BasePage {
     }
 
 
-    /**
-     * This method use to get date & time from UI based on row number from Usage history widget
-     * @param rowNumber The Row Number
-     * @return String The value
-     */
     public String getHistoryDateTime(int rowNumber) {
-        By dateTime = By.xpath(pageElements.dataRow + rowNumber + pageElements.valueColumns + "3]");
+        By dateTime = By.xpath(pageElements.dataRow + rowNumber + pageElements.valueColumns +"3]");
         final String text = getText(dateTime);
         commonLib.info("Getting Usage History Date Time from Row Number " + rowNumber + " : " + text);
         return text;
-    }
-
-    /**
-     * This method use to get Usage history widget unique identifier
-     */
-    public String getWidgetIdentifier(){
-        return pageElements.widgetIdentifier;
     }
 }

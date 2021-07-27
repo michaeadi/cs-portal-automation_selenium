@@ -44,14 +44,6 @@ public class ViewHistory extends BasePage {
         clickAndWaitForLoaderToBeRemoved(pageElements.ticketHistory);
     }
 
-    /**
-     * This method use to click on Adjustment history tab under view history tab
-     */
-    public void goToAdjustmentHistoryTab() {
-        commonLib.info("Clicking on Ticket History Tab under view history ");
-        clickAndWaitForLoaderToBeRemoved(pageElements.ticketHistory);
-    }
-
     /*
    With this Method we will route to the Message History tab under view history tab
     */
@@ -73,18 +65,6 @@ public class ViewHistory extends BasePage {
             clickAndWaitForLoaderToBeRemoved(pageElements.actionTrailTab);
         } else {
             commonLib.fail("Exception in method - clickOnActionTrailHistory ", true);
-        }
-    }
-
-    /**
-     * This method use to click on adjustment history tab under view history tab
-     */
-    public void clickOnAdjustmentHistory() {
-        if (isVisible(pageElements.adjustmentHistoryTab)) {
-            commonLib.info("Clicking on adjustment History Tab under view history");
-            clickAndWaitForLoaderToBeRemoved(pageElements.adjustmentHistoryTab);
-        } else {
-            commonLib.fail("Exception in method - clickOnAdjustmentHistory ", true);
         }
     }
 

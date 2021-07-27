@@ -77,6 +77,4 @@ public class SupervisorTicketListPage {
     public String ticketIdText="]//ul[1]//li[1]//span[2]";
     public String ticketEscalation="]//span[@class='escalation']";
     public String selectByOption="//ul[@class='ng-star-inserted']//li[normalize-space()='";
-    public By ticketAvailable = By.xpath("//div[@class='super-ticket-list ng-star-inserted']");
-    public By ticketOnInteractionHistory = By.xpath("//div[@class='agent-list-container ng-star-inserted']");
 }

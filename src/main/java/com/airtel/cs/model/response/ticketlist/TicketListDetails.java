@@ -7,7 +7,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 @Getter
@@ -31,11 +30,11 @@ public class TicketListDetails {
     private String closedDate;
     private String issueId;
     private String agentId;
-    private List<Comments> comments;
-    private List<QueueStates> queueStates;
-    private List<IssueDetails> issueDetails;
-    private List<Interactions> interactions;
-    private List<IssueDetails> ticketDetails;
+    private ArrayList<Comments> comments;
+    private ArrayList<QueueStates> queueStates;
+    private ArrayList<IssueDetails> issueDetails;
+    private ArrayList<Interactions> interactions;
+    private ArrayList<IssueDetails> ticketDetails;
     private String committedSla;
     private String actionPerformed;
     private String expectedClosureDate;

@@ -31,7 +31,6 @@ public class CommonLib extends Driver {
      */
     public void fail(String message, boolean requireScreenshot) {
         LOGGER.error(message);
-        assertCheck.append(false);
         reporter.showInExtentReport(Status.FAIL, message, requireScreenshot);
     }
 

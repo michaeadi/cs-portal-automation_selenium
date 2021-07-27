@@ -6,5 +6,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PriorityDataBean {
-    private String ticketPriority;
+    String ticketPriority;
 }
