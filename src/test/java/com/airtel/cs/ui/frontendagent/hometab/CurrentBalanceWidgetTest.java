@@ -1,14 +1,13 @@
 package com.airtel.cs.ui.frontendagent.hometab;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.driver.Driver;
+import com.airtel.cs.model.response.plans.Plans;
+import com.airtel.cs.model.response.plans.PlansResult;
 import com.airtel.cs.pagerepository.pagemethods.CurrentBalanceWidget;
-import com.airtel.cs.pojo.response.PlansPOJO;
-import com.airtel.cs.pojo.response.PlansResultPOJO;
 import lombok.extern.log4j.Log4j2;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
@@ -18,7 +17,6 @@ import org.testng.annotations.Test;
 public class CurrentBalanceWidgetTest extends Driver {
 
     private static String customerNumber = null;
-    private final BaseActions actions = new BaseActions();
     RequestSource api = new RequestSource();
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
@@ -66,8 +64,8 @@ public class CurrentBalanceWidgetTest extends Driver {
     public void mainAccountBalanceTest() {
         try {
             selUtils.addTestcaseDescription("Validate Main Account Balance,Validate Current Balance Currency,Validate Last Recharge Amount,Validate Last Recharge Date and Time", "description");
-            PlansPOJO plansAPI = api.accountPlansTest(customerNumber);
-            PlansResultPOJO result = plansAPI.getResult();
+            Plans plansAPI = api.accountPlansTest(customerNumber);
+            PlansResult result = plansAPI.getResult();
             final int statusCode = plansAPI.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Plan API Success and status code is :" + statusCode, "Plan API got failed and status code is :" + statusCode,false));
             if (result.getMainAccountBalance() != null) {
@@ -103,10 +101,10 @@ public class CurrentBalanceWidgetTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validating Current Balance Transaction Widget of User :" + customerNumber, "description");
             final CurrentBalanceWidget currentBalanceWidgetPage = pages.getCurrentBalanceWidgetPage();
-            PlansPOJO plansAPI = api.accountPlansTest(customerNumber);
+            Plans plansAPI = api.accountPlansTest(customerNumber);
             final int statusCode = plansAPI.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Plan API Success and status code is :" + statusCode, "Plan API got failed and status code is :" + statusCode,false));
-            PlansResultPOJO result = plansAPI.getResult();
+            PlansResult result = plansAPI.getResult();
             if (result.getVoice() != null) {
                 assertCheck.append(actions.assertEqualStringType(currentBalanceWidgetPage.getVoiceExpiryDate(), UtilsMethods.getDateFromEpoch(result.getVoice().getExpireTime(), constants.getValue(CommonConstants.BALANCE_EXPIRY_PATTERN)), "Voice Expiry Date is as Received in API", "Voice Expiry Date is not as Received in API"));
                 assertCheck.append(actions.assertEqualStringType(currentBalanceWidgetPage.getVoiceBalance().replace("-", "null"), result.getVoice().getBalance(), "Voice Balance is as Received in API", "Voice Balance is not as Received in API"));

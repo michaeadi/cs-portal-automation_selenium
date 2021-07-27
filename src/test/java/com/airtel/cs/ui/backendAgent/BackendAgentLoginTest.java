@@ -6,7 +6,7 @@ import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pojo.response.ticketlist.TicketPOJO;
+import com.airtel.cs.model.response.ticketlist.Ticket;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.TimeoutException;
@@ -81,7 +81,7 @@ public class BackendAgentLoginTest extends Driver {
     public void validateTicket() {
         try {
             selUtils.addTestcaseDescription("Backend Agent Validate Ticket List Page", "description");
-            TicketPOJO ticketPOJO = api.ticketMetaDataTest(pages.getSupervisorTicketList().getTicketIdValue());
+            Ticket ticketPOJO = api.ticketMetaDataTest(pages.getSupervisorTicketList().getTicketIdValue());
             assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isTicketIdLabel(), true, "Ticket Meta Data Have Ticket Id", "Ticket Meta Data Does Not Have Ticket Id"));
             assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isWorkGroupName(), true, "Ticket Meta Data Have Workgroup", "Ticket Meta Data Does Not  Have Workgroup"));
             assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isPrioritylabel(), true, "Ticket Meta Data Have Priority", "Ticket Meta Data  Does Not  Have Priority"));

@@ -10,8 +10,8 @@ import com.airtel.cs.commonutils.applicationutils.enums.ReportInfoMessageColorLi
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.databeans.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
+import com.airtel.cs.model.response.offerdetails.OfferDetail;
 import com.airtel.cs.pagerepository.pagemethods.DADetails;
-import com.airtel.cs.pojo.response.offerdetails.OfferDetailPOJO;
 import io.restassured.http.Headers;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
@@ -24,9 +24,8 @@ public class DisplayOfferWidgetTest extends Driver {
 
     public static final String RUN_DISPLAY_OFFER_TEST_CASE = constants.getValue(ApplicationConstants.RUN_DISPLAY_OFFER_TEST_CASE);
     private static String customerNumber;
-    private final BaseActions actions = new BaseActions();
     RequestSource api = new RequestSource();
-    private OfferDetailPOJO offerDetailPOJO = null;
+    private OfferDetail offerDetailPOJO = null;
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {

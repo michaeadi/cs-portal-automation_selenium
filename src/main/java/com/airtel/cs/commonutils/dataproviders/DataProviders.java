@@ -59,7 +59,6 @@ import java.util.Properties;
 import java.util.PriorityQueue;
 import java.util.Collections;
 import java.util.Comparator;
-import static com.airtel.cs.commonutils.UtilsMethods.isNull;
 
 @Log4j2
 public class DataProviders extends Driver {
@@ -615,6 +614,15 @@ public class DataProviders extends Driver {
             }
         }
         return allStates;
+    }
+
+    /**
+     * This method used to validate that text is not empty and not null
+     * @param text The text
+     * @return true/false
+     */
+    public static boolean isNull(String text) {
+        return text != null && !text.isEmpty();
     }
 
     /**

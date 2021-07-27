@@ -1,21 +1,19 @@
 package com.airtel.cs.ui.frontendagent.hometab;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.databeans.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pojo.response.accumulators.AccumulatorsPOJO;
+import com.airtel.cs.model.response.accumulators.Accumulators;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class AccumulatorWidgetTest extends Driver {
     private static String customerNumber = null;
-    private final BaseActions actions = new BaseActions();
     RequestSource api = new RequestSource();
     private String accumulatorWidgetIdentifier;
 
@@ -58,7 +56,7 @@ public class AccumulatorWidgetTest extends Driver {
             assertCheck.append(actions.matchUiAndAPIResponse(widgetMethods.getHeaderName(accumulatorWidgetIdentifier, 1), Data.getRow2(), "Header Name for Row 2 is as expected", "Header Name for Row 2 is not as expected"));
             assertCheck.append(actions.matchUiAndAPIResponse(widgetMethods.getHeaderName(accumulatorWidgetIdentifier, 2), Data.getRow3(), "Header Name for Row 3 is as expected", "Header Name for Row 3 is not as expected"));
             assertCheck.append(actions.matchUiAndAPIResponse(widgetMethods.getHeaderName(accumulatorWidgetIdentifier, 3), Data.getRow4(), "Header Name for Row 4 is as expected", "Header Name for Row 4 is not as expected"));
-            AccumulatorsPOJO accumulatorAPI = api.accumulatorsAPITest(customerNumber);
+            Accumulators accumulatorAPI = api.accumulatorsAPITest(customerNumber);
             final int statusCode = accumulatorAPI.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "AM Profile API success and status code is :" + statusCode, "AM Profile API got failed and status code is :" + statusCode, false));
             if (statusCode == 200) {

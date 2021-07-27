@@ -1,14 +1,13 @@
 package com.airtel.cs.ui.frontendagent.hometab;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.databeans.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pojo.response.crbt.ActivateRingtone;
-import com.airtel.cs.pojo.response.crbt.Top20Ringtone;
+import com.airtel.cs.model.response.crbt.ActivateRingtone;
+import com.airtel.cs.model.response.crbt.Top20Ringtone;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -22,7 +21,6 @@ public class CRBTWidgetTest extends Driver {
 
     private static String customerNumber = null;
     RequestSource api = new RequestSource();
-    private final BaseActions actions = new BaseActions();
     private String crbtWidgetId;
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
@@ -170,7 +168,7 @@ public class CRBTWidgetTest extends Driver {
                 assertCheck.append(actions.assertEqualBoolean(pages.getCrbtWidgetPage().isNoResultMessage(), true, "No Result message found is case of no ringtone found with search keyword", "No Result message does not in case of no ringtone found with search keyword"));
                 assertCheck.append(actions.assertEqualBoolean(pages.getCrbtWidgetPage().isNoResultImg(), true, "No Result Image found is case of no ringtone found with search keyword", "No Result Image does not in case of no ringtone found with search keyword"));
             }
-        } catch (NoSuchElementException | TimeoutException e) {
+        } catch (Exception e) {
             commonLib.fail("Exception in Method - testSearchTune" + e.fillInStackTrace(), true);
         }
     }

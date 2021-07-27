@@ -7,14 +7,14 @@ import com.airtel.cs.commonutils.dataproviders.databeans.NftrDataBeans;
 import com.airtel.cs.commonutils.dataproviders.databeans.SLARuleFileDataBeans;
 import com.airtel.cs.commonutils.exceptions.RuleNotFoundException;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pojo.response.agentlimit.AgentLimit;
-import com.airtel.cs.pojo.response.agentlimit.LimitConfig;
-import com.airtel.cs.pojo.response.agents.AgentAttributes;
-import com.airtel.cs.pojo.response.agents.AgentDetailPOJO;
-import com.airtel.cs.pojo.response.agents.Authorities;
-import com.airtel.cs.pojo.response.agents.RoleDetails;
-import com.airtel.cs.pojo.response.consolelog.ChromeNetworkLogPOJO;
-import com.airtel.cs.pojo.response.kycprofile.KYCProfile;
+import com.airtel.cs.model.response.agentlimit.AgentLimit;
+import com.airtel.cs.model.response.agentlimit.LimitConfig;
+import com.airtel.cs.model.response.agents.AgentAttributes;
+import com.airtel.cs.model.response.agents.AgentDetailAttribute;
+import com.airtel.cs.model.response.agents.Authorities;
+import com.airtel.cs.model.response.agents.RoleDetails;
+import com.airtel.cs.model.response.consolelog.ChromeNetworkLog;
+import com.airtel.cs.model.response.kycprofile.KYCProfile;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
@@ -27,6 +27,11 @@ import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.logging.LogType;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -34,20 +39,15 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
-import java.util.TimeZone;
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.DecimalFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.Map;
 import java.util.Optional;
 import java.util.PriorityQueue;
-import java.util.Map;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 @Log4j2
@@ -141,14 +141,15 @@ public class UtilsMethods extends Driver {
     /**
      * This method is used to convert given date date into utc time zone
      *
-     * @param date    The date
-     * @param pattern The pattern
+     * @param date The date
+     * @param existingPattern The existing pattern
+     * @param newPattern The new pattern
      * @return String The String
      */
-    public static String getDateFromStringInUTC(String date, String pattern) {
+    public static String getDateFromStringInUTC(String date, String existingPattern, String newPattern) {
         try {
-            Date newDate = new SimpleDateFormat("dd-MMM-yyyy hh:mm aa").parse(date);
-            DateFormat format = new SimpleDateFormat(pattern);
+            Date newDate = new SimpleDateFormat(existingPattern).parse(date);
+            DateFormat format = new SimpleDateFormat(newPattern);
             format.setTimeZone(TimeZone.getTimeZone("Etc/UTC"));
             return format.format(newDate);
         } catch (ParseException e) {
@@ -186,6 +187,25 @@ public class UtilsMethods extends Driver {
     }
 
     /**
+     * This method is use to replace day name with date based on
+     * @param historyDateTime The date & Time with day name
+     * @param pattern The new Pattern
+     * @param amount The Today - number of days
+     * @param dayName The day name
+     * @return String The date
+     */
+    public static String getTimeFromStringBasedOnDay(String historyDateTime, String pattern, Integer amount, String dayName) {
+        final Calendar cal = Calendar.getInstance();
+        String pattern1 = pattern.split("hh")[0].trim();
+        DateFormat format1 = new SimpleDateFormat(pattern1);
+        cal.add(Calendar.DATE, amount);
+        String replaceDate = format1.format(cal.getTime());
+        historyDateTime = historyDateTime.replace(dayName, replaceDate);
+        commonLib.info(historyDateTime + " :" + replaceDate);
+        return historyDateTime;
+    }
+
+    /**
      * This method used to check is first date is less than second date
      *
      * @param historyDateTime  first date
@@ -195,39 +215,15 @@ public class UtilsMethods extends Driver {
      */
     public static boolean isSortOrderDisplay(String historyDateTime, String historyDateTime1, String pattern) {
         DateFormat format = new SimpleDateFormat(pattern);
-        final Calendar cal = Calendar.getInstance();
         try {
-            if (historyDateTime.contains(YESTERDAY)) {
-                String pattern1 = pattern.split("hh")[0].trim();
-                DateFormat format1 = new SimpleDateFormat(pattern1);
-                cal.add(Calendar.DATE, -1);
-                String yesterday = format1.format(cal.getTime());
-                historyDateTime = historyDateTime.replace(YESTERDAY, yesterday);
-                commonLib.info(historyDateTime + " :" + yesterday);
-            }
-
-            if (historyDateTime1.contains(YESTERDAY)) {
-                String pattern1 = pattern.split("hh")[0].trim();
-                DateFormat format1 = new SimpleDateFormat(pattern1);
-                cal.add(Calendar.DATE, -1);
-                String yesterday = format1.format(cal.getTime());
-                historyDateTime1 = historyDateTime1.replace(YESTERDAY, yesterday);
-                commonLib.info(historyDateTime1 + " :" + yesterday);
-            }
-
-            if (historyDateTime.contains(TODAY)) {
-                String pattern1 = pattern.split("hh")[0].trim();
-                DateFormat format1 = new SimpleDateFormat(pattern1);
-                String today = format1.format(Calendar.getInstance().getTime());
-                historyDateTime = historyDateTime.replace(TODAY, today);
-            }
-
-            if (historyDateTime1.contains(TODAY)) {
-                String pattern1 = pattern.split("hh")[0].trim();
-                DateFormat format1 = new SimpleDateFormat(pattern1);
-                String today = format1.format(Calendar.getInstance().getTime());
-                historyDateTime1 = historyDateTime1.replace(TODAY, today);
-            }
+            if (historyDateTime.contains(YESTERDAY))
+                historyDateTime = getTimeFromStringBasedOnDay(historyDateTime, pattern, -1, YESTERDAY);
+            if (historyDateTime1.contains(YESTERDAY))
+                historyDateTime1 = getTimeFromStringBasedOnDay(historyDateTime1, pattern, -1, YESTERDAY);
+            if (historyDateTime.contains(TODAY))
+                historyDateTime = getTimeFromStringBasedOnDay(historyDateTime, pattern, 0, TODAY);
+            if (historyDateTime1.contains(TODAY))
+                historyDateTime1 = getTimeFromStringBasedOnDay(historyDateTime1, pattern, 0, TODAY);
 
             Date date1 = format.parse(historyDateTime);
             Date date2 = format.parse(historyDateTime1);
@@ -301,19 +297,24 @@ public class UtilsMethods extends Driver {
      * @return true/false based on user have permission or not
      */
     public static Boolean isUserHasPermission(Headers headers, String permissionName) {
-        AgentDetailPOJO agentDetailAPI = api.getAgentDetail(headers);
+        AgentDetailAttribute agentDetailAPI = api.getAgentDetail(headers);
         if (agentDetailAPI.getStatusCode() != 200) {
             commonLib.fail("Not able to get Agent detail using agent api", false);
             return false;
         } else {
             List<Authorities> allPermissions = agentDetailAPI.getResult().getUserDetails().getUserDetails().getAuthorities();
-            for (Authorities permission : allPermissions) {
-                if (permission.getAuthority().equalsIgnoreCase(permissionName)) {
-                    return true;
-                }
-            }
+            return allPermissions.stream().anyMatch(authorities ->authorities.getAuthority().equalsIgnoreCase(permissionName));
         }
-        return false;
+    }
+
+    /**
+     * This method is use to check given string first char is Negative sign(-) or not
+     *
+     * @param value The value
+     * @return true/false
+     */
+    public static Boolean isValueNegative(String value) {
+        return !isNull(value) && value.trim().charAt(0) == '-';
     }
 
     /**
@@ -327,7 +328,7 @@ public class UtilsMethods extends Driver {
         for (LogEntry entry : logEntries) {
             String consoleLog = entry.getMessage();
             if (consoleLog.contains(constants.getValue(CommonConstants.CONSOLE_NETWORK_LOG_EXTRA_INFO_TYPE)) && consoleLog.contains(constants.getValue(CommonConstants.API_AUTHORIZATION_KEY))) {
-                ChromeNetworkLogPOJO obj = objectMapper.readValue(consoleLog, ChromeNetworkLogPOJO.class);
+                ChromeNetworkLog obj = objectMapper.readValue(consoleLog, ChromeNetworkLog.class);
                 if (!obj.getMessage().getParams().getHeaders().getAuthorization().isEmpty()) {
                     authToken = obj.getMessage().getParams().getHeaders().getAuthorization();
                     commonLib.pass("Token: " + authToken);
@@ -518,15 +519,6 @@ public class UtilsMethods extends Driver {
     }
 
     /**
-     * This method is use to check given string first char is Negative sign(-) or not
-     * @param value The value
-     * @return true/false
-     */
-    public static Boolean isValueNegative(String value){
-        return value.charAt(0) == '-';
-    }
-
-    /**
      * This method used to validate that text is not empty and not null
      * @param text The text
      * @return true/false
@@ -542,7 +534,7 @@ public class UtilsMethods extends Driver {
      * @return AgentAttributes
      */
     public static AgentAttributes getAgentDetail(Headers headers) {
-        AgentDetailPOJO agentDetail = api.getAgentDetail(headers);
+        AgentDetailAttribute agentDetail = api.getAgentDetail(headers);
         if (agentDetail.getStatusCode() != 200) {
             commonLib.fail(constants.getValue("cs.agent.detail.failure"), false);
         }
@@ -557,7 +549,7 @@ public class UtilsMethods extends Driver {
      * @return true/false based on user have roles or not
      */
     public static Boolean isUserHasRole(Headers headers, List<String> role) {
-        AgentDetailPOJO agentDetailAPI = api.getAgentDetail(headers);
+        AgentDetailAttribute agentDetailAPI = api.getAgentDetail(headers);
         if (agentDetailAPI.getStatusCode() != 200) {
             commonLib.fail("Not able to get Agent detail using agent api", false);
             return false;
@@ -616,7 +608,7 @@ public class UtilsMethods extends Driver {
      * @param roleId The role id
      * @return Object LimitConfig
      */
-    public static LimitConfig getAgentLimitConfigBasedOnKey(String actionKey,String roleId){
+    public static LimitConfig getAgentLimitConfigBasedOnKey(String actionKey, String roleId){
         int statusCode=0;
         AgentLimit agentLimitAPI = api.getAgentLimitConfig(roleId);
         if(ObjectUtils.isNotEmpty(agentLimitAPI)){

@@ -2,6 +2,9 @@ package com.airtel.cs.pagerepository.pagemethods;
 
 
 import com.airtel.cs.commonutils.applicationutils.enums.JavaColors;
+import com.airtel.cs.commonutils.dataproviders.databeans.ActionTagDataBeans;
+import com.airtel.cs.commonutils.dataproviders.databeans.QuestionAnswerKeyDataBeans;
+import com.airtel.cs.model.response.configuration.LockedSection;
 import com.airtel.cs.pagerepository.pageelements.AuthTabPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -306,5 +309,79 @@ public class AuthTab extends BasePage {
         commonLib.info("Reading Error Message Display over Pop up: "+text);
         return text;
     }
+
+    /**
+     * This method is used to check all the action is should display auth pop true/false status configuration is per Opco request
+     * @param lockedSection The DB Configuration
+     * @param actionTags The Excel configuration
+     */
+    public void isLockedSectionCorrectlyDisplay(List<LockedSection> lockedSection,List<ActionTagDataBeans> actionTags){
+        for (LockedSection ls : lockedSection) {
+            final String key = ls.getKey();
+            final boolean isAuthenticated = ls.getIsAuthenticated();
+            commonLib.info(key + " : " + isAuthenticated);
+            for (ActionTagDataBeans at : actionTags) {
+                if (at.getActionTagName().equalsIgnoreCase(ls.getKey()))
+                    if (isAuthenticated == Boolean.parseBoolean(at.getIsAuth()) && ls.getIsAuthenticated() == Boolean.parseBoolean(at.getIsAuth()) ) {
+                            commonLib.pass("Action Verified " + at.getActionTagName());
+                    } else {
+                        commonLib.fail(ls.getKey() + "Action does not locked but as per config Action must be locked.", true);
+                        break;
+                    }
+            }
+        }
+    }
+
+    /**
+     * This method is use to check all the questions answer key in auth tab as per configuration
+     * @param config The expected config
+     * @param authTabConfig The Actual Config
+     */
+    public void isAuthQuestionAnswerKeyAsPerConfig(List<QuestionAnswerKeyDataBeans> config,Map<String, String> authTabConfig){
+        for (QuestionAnswerKeyDataBeans questionAnswer : config) {
+            final String questionKey = questionAnswer.getQuestionKey();
+            commonLib.info("Question Key: '" + questionKey + "' ; Answer Found in API: '" + authTabConfig.get(questionKey));
+            if (authTabConfig.get(questionKey) != null) {
+                assertCheck.append(actions.assertEqual_stringType(authTabConfig.get(questionKey), questionAnswer.getAnswerKey(), "Answer Key Validated and is :" + questionKey, "Answer key is not expected for Question: " + questionKey));
+            } else {
+                commonLib.fail("Question Key does not found in Database but present in config sheet.", true);
+            }
+        }
+    }
+
+    /**
+     * This method is use to check all the questions key in auth tab answer value can not be null
+     * @param authTabConfig The Actual Config
+     */
+    public void isAuthQuestionAsPerConfig(Map<String, String> authTabConfig){
+        for (Map.Entry mapElement : authTabConfig.entrySet()) {
+            String key = (String) mapElement.getKey();
+            String value = mapElement.getValue().toString();
+            commonLib.info(key + " :" + value);
+            assertCheck.append(actions.assertEqual_stringNotNull(value, "Question Answer values are present For Question Key :" + key + "and value is :" + value, "For Question Key '" + key + "' value is missing. Please configure the same"));
+        }
+    }
+
+    /**
+     * This method is use to check GSM Policy Questions configured correctly as per config
+     * @param questionList The expected questions
+     * @param questions The Actual Questions
+     */
+    public void validateAuthQuestion(Map<String, String> questionList,List<String> questions){
+        for (String s : questions) {
+            String trim = s.replaceAll("[^a-zA-Z]+", "").toLowerCase().trim();
+            if (!questionList.containsKey(trim)) {
+                commonLib.fail(s + " :Question must configured on UI as present in config sheet", true);
+            }
+            questionList.remove(trim);
+        }
+        if (questionList.isEmpty()) {
+            commonLib.pass("All Questions correctly configured and display on UI.");
+        } else {
+            for (Map.Entry<String, String> mapElement : questionList.entrySet())
+                commonLib.fail(mapElement.getKey() + " Question Display on UI but does not present in config sheet.", true);
+        }
+    }
+
 
 }
