@@ -13,4 +13,5 @@ import lombok.ToString;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RoleDetails {
     private String roleName;
+    private String id;
 }

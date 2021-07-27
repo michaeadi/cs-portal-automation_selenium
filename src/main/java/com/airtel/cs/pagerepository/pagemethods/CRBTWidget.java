@@ -261,4 +261,12 @@ public class CRBTWidget extends BasePage {
         return result;
     }
 
+    /**
+     * This method is use get CRBT Widget unique identifier
+     * @return The Unique identifier
+     */
+    public String getCRBTWidgetId(){
+        return pageElements.crbtWidgetIdentifier;
+    }
+
 }

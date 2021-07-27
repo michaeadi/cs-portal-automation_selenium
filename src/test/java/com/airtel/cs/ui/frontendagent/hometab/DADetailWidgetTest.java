@@ -37,7 +37,7 @@ public class DADetailWidgetTest extends Driver {
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();
             final boolean pageLoaded = pages.getCustomerProfilePage().isCustomerProfilePageLoaded();
-            assertCheck.append(actions.assertEqual_boolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
+            assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
             if (!pageLoaded) continueExecutionFA = false;
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -51,7 +51,7 @@ public class DADetailWidgetTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validating DA Details of User :" + customerNumber, "description");
             try {
-                assertCheck.append(actions.assertEqual_boolean(pages.getCurrentBalanceWidgetPage().isCurrentBalanceWidgetMenuVisible(), true, "Current Balance Widget MENU visible ", "Current Balance Widget MENU is not visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getCurrentBalanceWidgetPage().isCurrentBalanceWidgetMenuVisible(), true, "Current Balance Widget MENU visible ", "Current Balance Widget MENU is not visible"));
                 pages.getCurrentBalanceWidgetPage().openingDADetails();
                 assertCheck.append(actions.matchUiAndAPIResponse(pages.getDaDetailsPage().getHeaders(1), data.getRow1(), "Header Name for Row 1 is as expected", "Header Name for Row 1 is not as expected"));
                 assertCheck.append(actions.matchUiAndAPIResponse(pages.getDaDetailsPage().getHeaders(2), data.getRow2(), "Header Name for Row 2 is as expected", "Header Name for Row 2 is not as expected"));
@@ -60,7 +60,7 @@ public class DADetailWidgetTest extends Driver {
                 assertCheck.append(actions.matchUiAndAPIResponse(pages.getDaDetailsPage().getHeaders(5), data.getRow5(), "Header Name for Row 5 is as expected", "Header Name for Row 5 is not as expected"));
                 AccountsBalance accountsBalanceAPI = api.balanceAPITest(customerNumber);
                 final int statusCode = accountsBalanceAPI.getStatusCode();
-                assertCheck.append(actions.assertEqual_intType(statusCode, 200, "AM Profile API success and status code is :" + statusCode, "AM Profile API got failed and status code is :" + statusCode));
+                assertCheck.append(actions.assertEqualIntType(statusCode, 200, "AM Profile API success and status code is :" + statusCode, "AM Profile API got failed and status code is :" + statusCode, false));
                 if (statusCode == 200) {
                     int size = pages.getDaDetailsPage().getNumbersOfRows();
                     if (size > 10) {
@@ -73,10 +73,10 @@ public class DADetailWidgetTest extends Driver {
                         assertCheck.append(actions.matchUiAndAPIResponse(pages.getDaDetailsPage().getDADateTime(i + 1), UtilsMethods.getDateFromEpochInUTC(accountsBalanceAPI.getResult().get(i).getExpiryDate(), constants.getValue(CommonConstants.DA_DETAIL_TIME_FORMAT)), "DA Date Time as received in API on row " + i, "DA Date Time is not as received in API on row " + i));
                         assertCheck.append(actions.matchUiAndAPIResponse(pages.getDaDetailsPage().getDABalance(i + 1), accountsBalanceAPI.getResult().get(i).getCurrentDaBalance(), "DA Current Balance as received in API on row " + i, "DA Current Balance is not as received in API on row " + i));
                         if (i != 0) {
-                            assertCheck.append(actions.assertEqual_boolean(UtilsMethods.isSortOrderDisplay(pages.getDaDetailsPage().getDADateTime(i + 1),pages.getDaDetailsPage().getDADateTime(i), constants.getValue(CommonConstants.DA_DETAIL_TIME_FORMAT)), true, "On UI Data display in sort order as expected.", pages.getDaDetailsPage().getDADateTime(i) + "should not display before " + pages.getDaDetailsPage().getDADateTime(i + 1)));
+                            assertCheck.append(actions.assertEqualBoolean(UtilsMethods.isSortOrderDisplay(pages.getDaDetailsPage().getDADateTime(i + 1), pages.getDaDetailsPage().getDADateTime(i), constants.getValue(CommonConstants.DA_DETAIL_TIME_FORMAT)), true, "On UI Data display in sort order as expected.", pages.getDaDetailsPage().getDADateTime(i) + "should not display before " + pages.getDaDetailsPage().getDADateTime(i + 1)));
                         }
                     }
-                    pages.getDaDetailsPage().openingCustomerInteractionDashboard();
+                    pages.getDaDetailsPage().goingBackToHomeTab();
                 } else {
                     commonLib.fail("API does not able to fetch DA Details", false);
                 }

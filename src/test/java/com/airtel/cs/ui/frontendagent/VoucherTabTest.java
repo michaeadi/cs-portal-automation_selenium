@@ -10,12 +10,9 @@ import com.airtel.cs.model.response.voucher.VoucherSearch;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
-import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import static io.restassured.RestAssured.given;
 
 public class VoucherTabTest extends Driver {
 
@@ -45,7 +42,7 @@ public class VoucherTabTest extends Driver {
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();
             final boolean pageLoaded = pages.getCustomerProfilePage().isCustomerProfilePageLoaded();
-            assertCheck.append(actions.assertEqual_boolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
+            assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
             if (!pageLoaded) continueExecutionFA = false;
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -66,21 +63,21 @@ public class VoucherTabTest extends Driver {
             pages.getRechargeHistoryWidget().writeVoucherId(voucherId);
             pages.getRechargeHistoryWidget().clickSearchBtn();
             try {
-                Assert.assertTrue(pages.getVoucherTab().isVoucherTabOpen(), "Voucher Id does not found");
+                assertCheck.append(actions.assertEqualBoolean(pages.getVoucherTab().isVoucherTabOpen(),true, "Voucher Id does found","Voucher Id does not found",true));
                 VoucherSearch voucher = api.voucherSearchTest(voucherId);
                 VoucherDetail voucherDetail = voucher.getResult();
                 if (voucher.getStatusCode() == 200) {
-                    assertCheck.append(actions.assertNotEqual_stringType(pages.getVoucherTab().getSerialValue(), voucherDetail.getVoucherId(), "Voucher Serial number is same as search voucher id", "Voucher Serial number is not same as search voucher id"));
-                    assertCheck.append(actions.assertNotEqual_stringType(pages.getVoucherTab().getStatusValue().toLowerCase().trim(), voucherDetail.getStatus().toLowerCase().trim(), "Voucher Status is same as voucher status received by api", "Voucher Status is not same as voucher status received by api"));
-                    assertCheck.append(actions.assertNotEqual_stringType(pages.getVoucherTab().getSubStatus().toLowerCase().trim(), voucherDetail.getSubStatus().toLowerCase().trim(),"Voucher Sub Status is same as voucher Sub Status received by api", "Voucher Sub Status is not same as voucher Sub Status received by api" ));
-                    assertCheck.append(actions.assertNotEqual_stringType(pages.getVoucherTab().getRechargeAmt().toLowerCase().trim(), voucherDetail.getRechargeAmount().toLowerCase().trim(), "Voucher Recharge amount is same as voucher Recharge amount received by api", "Voucher Recharge amount is not same as voucher Recharge amount received by api"));
-                    assertCheck.append(actions.assertNotEqual_stringType(pages.getVoucherTab().getTimeStamp().toLowerCase().trim(), voucherDetail.getTimestamp().toLowerCase().trim(), "Voucher Time Stamp is same as voucher Time Stamp received by api", "Voucher Time Stamp is not same as voucher Time Stamp received by api"));
-                    assertCheck.append(actions.assertNotEqual_stringType(pages.getVoucherTab().getExpiryDate().toLowerCase().trim(), voucherDetail.getExpiryDate().toLowerCase().trim(), "Voucher Expiry date is same as voucher Expiry date received by api", "Voucher Expiry date is not same as voucher Expiry date received by api"));
+                    assertCheck.append(actions.assertNotEqualStringType(pages.getVoucherTab().getSerialValue(), voucherDetail.getVoucherId(), "Voucher Serial number is same as search voucher id", "Voucher Serial number is not same as search voucher id"));
+                    assertCheck.append(actions.assertNotEqualStringType(pages.getVoucherTab().getStatusValue().toLowerCase().trim(), voucherDetail.getStatus().toLowerCase().trim(), "Voucher Status is same as voucher status received by api", "Voucher Status is not same as voucher status received by api"));
+                    assertCheck.append(actions.assertNotEqualStringType(pages.getVoucherTab().getSubStatus().toLowerCase().trim(), voucherDetail.getSubStatus().toLowerCase().trim(),"Voucher Sub Status is same as voucher Sub Status received by api", "Voucher Sub Status is not same as voucher Sub Status received by api" ));
+                    assertCheck.append(actions.assertNotEqualStringType(pages.getVoucherTab().getRechargeAmt().toLowerCase().trim(), voucherDetail.getRechargeAmount().toLowerCase().trim(), "Voucher Recharge amount is same as voucher Recharge amount received by api", "Voucher Recharge amount is not same as voucher Recharge amount received by api"));
+                    assertCheck.append(actions.assertNotEqualStringType(pages.getVoucherTab().getTimeStamp().toLowerCase().trim(), voucherDetail.getTimestamp().toLowerCase().trim(), "Voucher Time Stamp is same as voucher Time Stamp received by api", "Voucher Time Stamp is not same as voucher Time Stamp received by api"));
+                    assertCheck.append(actions.assertNotEqualStringType(pages.getVoucherTab().getExpiryDate().toLowerCase().trim(), voucherDetail.getExpiryDate().toLowerCase().trim(), "Voucher Expiry date is same as voucher Expiry date received by api", "Voucher Expiry date is not same as voucher Expiry date received by api"));
                     if (voucherDetail.getSubscriberId() != null)
-                        assertCheck.append(actions.assertNotEqual_stringType(pages.getVoucherTab().getSubscriberId().toLowerCase().trim(), voucherDetail.getSubscriberId().toLowerCase().trim(), "Voucher Subscriber Id is same as voucher Subscriber Id received by api", "Voucher Subscriber Id is not same as voucher Subscriber Id received by api"));
-                        assertCheck.append(actions.assertNotEqual_stringType(pages.getVoucherTab().getAgent().toLowerCase().trim(),voucherDetail.getAgent().toLowerCase().trim(), "Voucher Agent same as voucher Agent received by api", "Voucher Agent not same as voucher Agent received by api" ));
-                        assertCheck.append(actions.assertNotEqual_stringType(pages.getVoucherTab().getBatchID().toLowerCase().trim(), voucherDetail.getBatchId().toLowerCase().trim(), "Voucher Batch Id same as voucher Batch Id received by api", "Voucher Batch Id not same as voucher Batch Id received by api"));
-                        assertCheck.append(actions.assertNotEqual_stringType(pages.getVoucherTab().getVoucherGroup().toLowerCase().trim(), voucherDetail.getVoucherGroup().toLowerCase().trim(), "Voucher group same as voucher group received by api", "Voucher group not same as voucher group received by api"));
+                        assertCheck.append(actions.assertNotEqualStringType(pages.getVoucherTab().getSubscriberId().toLowerCase().trim(), voucherDetail.getSubscriberId().toLowerCase().trim(), "Voucher Subscriber Id is same as voucher Subscriber Id received by api", "Voucher Subscriber Id is not same as voucher Subscriber Id received by api"));
+                        assertCheck.append(actions.assertNotEqualStringType(pages.getVoucherTab().getAgent().toLowerCase().trim(),voucherDetail.getAgent().toLowerCase().trim(), "Voucher Agent same as voucher Agent received by api", "Voucher Agent not same as voucher Agent received by api" ));
+                        assertCheck.append(actions.assertNotEqualStringType(pages.getVoucherTab().getBatchID().toLowerCase().trim(), voucherDetail.getBatchId().toLowerCase().trim(), "Voucher Batch Id same as voucher Batch Id received by api", "Voucher Batch Id not same as voucher Batch Id received by api"));
+                        assertCheck.append(actions.assertNotEqualStringType(pages.getVoucherTab().getVoucherGroup().toLowerCase().trim(), voucherDetail.getVoucherGroup().toLowerCase().trim(), "Voucher group same as voucher group received by api", "Voucher group not same as voucher group received by api"));
                     pages.getVoucherTab().clickDoneBtn();
                 } else {
                     commonLib.fail("com.airtel.cs.API Response is not 200.", true);

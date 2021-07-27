@@ -354,23 +354,23 @@ public class Interactions extends BasePage {
         if (issueFieldLabel1 != null)
             if (fieldType.equalsIgnoreCase("Text Box") && !issueFieldLabel1.isEmpty()) {
                 commonLib.info(pages.getInteractionsPage().getIssueDetailLabel(questionNumber));
-                assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssueDetailLabel(questionNumber).replaceAll("[^a-zA-Z]+", "").trim(), (issueFieldLabel1.replaceAll("[^a-zA-Z]+", "").trim()), issueFieldLabel1 + " Label matched", issueFieldLabel1 + " Label does not match"));
+                assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getIssueDetailLabel(questionNumber).replaceAll("[^a-zA-Z]+", "").trim(), (issueFieldLabel1.replaceAll("[^a-zA-Z]+", "").trim()), issueFieldLabel1 + " Label matched", issueFieldLabel1 + " Label does not match"));
                 if (fieldMandatory.equalsIgnoreCase("Yes")) {
-                    assertCheck.append(actions.assertEqual_boolean(pages.getInteractionsPage().getIssueDetailLabel(questionNumber).contains("*"), true, issueFieldLabel1 + "Label is mandatory and contains '*' ", issueFieldLabel1 + "Label is mandatory but doesn't contain '*' "));
+                    assertCheck.append(actions.assertEqualBoolean(pages.getInteractionsPage().getIssueDetailLabel(questionNumber).contains("*"), true, issueFieldLabel1 + "Label is mandatory and contains '*' ", issueFieldLabel1 + "Label is mandatory but doesn't contain '*' "));
                 }
                 pages.getInteractionsPage().setIssueDetailInput(questionNumber, "012345");
             } else if (fieldType.equalsIgnoreCase("Date") && !issueFieldLabel1.isEmpty()) {
                 commonLib.info(pages.getInteractionsPage().getAvailableDateField());
-                assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getAvailableDateField(), issueFieldLabel1, "Label 1 Matched", "Label 1 NOT Matched"));
+                assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getAvailableDateField(), issueFieldLabel1, "Label 1 Matched", "Label 1 NOT Matched"));
                 if (fieldMandatory.equalsIgnoreCase("Yes")) {
-                    assertCheck.append(actions.assertEqual_boolean(pages.getInteractionsPage().isDateFieldAvailableMandatory().contains("*"), true, issueFieldLabel1 + "Label is mandatory and contains '*' ", issueFieldLabel1 + "Label is mandatory but doesn't contain '*' "));
+                    assertCheck.append(actions.assertEqualBoolean(pages.getInteractionsPage().isDateFieldAvailableMandatory().contains("*"), true, issueFieldLabel1 + "Label is mandatory and contains '*' ", issueFieldLabel1 + "Label is mandatory but doesn't contain '*' "));
                 }
                 pages.getInteractionsPage().setDateFieldAvailable(dtf.format(now));
             } else if (fieldType.equalsIgnoreCase("Drop Down") && !issueFieldLabel1.isEmpty()) {
                 commonLib.info(pages.getInteractionsPage().getIssueDetailLabelDropDown(questionNumber));
-                assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssueDetailLabelDropDown(questionNumber).replace("*", "").trim(), (issueFieldLabel1.replace("*", "").trim()), issueFieldLabel1 + "Label matched", issueFieldLabel1 + "Label does not match"));
+                assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getIssueDetailLabelDropDown(questionNumber).replace("*", "").trim(), (issueFieldLabel1.replace("*", "").trim()), issueFieldLabel1 + "Label matched", issueFieldLabel1 + "Label does not match"));
                 if (fieldMandatory.equalsIgnoreCase("Yes")) {
-                    assertCheck.append(actions.assertEqual_boolean(pages.getInteractionsPage().getIssueDetailLabelDropDown(questionNumber).contains("*"), true, issueFieldLabel1 + "Label is mandatory and contains '*' ", issueFieldLabel1 + "Label is mandatory but doesn't contain '*' "));
+                    assertCheck.append(actions.assertEqualBoolean(pages.getInteractionsPage().getIssueDetailLabelDropDown(questionNumber).contains("*"), true, issueFieldLabel1 + "Label is mandatory and contains '*' ", issueFieldLabel1 + "Label is mandatory but doesn't contain '*' "));
                 }
                 pages.getInteractionsPage().selectIssueDetailInput(questionNumber);
             }

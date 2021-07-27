@@ -27,7 +27,7 @@ public class SupervisorFilterTest extends Driver {
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().clickOnUserName();
             pages.getSideMenuPage().openSupervisorDashboard();
-            assertCheck.append(actions.assertEqual_stringType(driver.getTitle(), constants.getValue(CommonConstants.SUPERVISOR_TICKET_LIST_PAGE_TITLE), "Agent redirect to ticket list page as expected", "Agent does not redirect to ticket list page as expected"));
+            assertCheck.append(actions.assertEqualStringType(driver.getTitle(), constants.getValue(CommonConstants.SUPERVISOR_TICKET_LIST_PAGE_TITLE), "Agent redirect to ticket list page as expected", "Agent does not redirect to ticket list page as expected"));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - openSupervisorDashboard" + e.fillInStackTrace(), true);
         }
@@ -42,16 +42,16 @@ public class SupervisorFilterTest extends Driver {
                     "filter by priority must be display, validate all value in open state must be displayed,Validate all value in priority must be displayed. ", "description");
             pages.getSupervisorTicketList().changeTicketTypeToOpen();
             pages.getSupervisorTicketList().clickFilter();
-            assertCheck.append(actions.assertEqual_boolean(pages.getFilterTabPage().isCreatedByFilter(), true, "Filter by created date available", "Filter by created date does not available"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getFilterTabPage().isSlaDueDateFilter(), true, "Filter by SLA due date available", "Filter by SLA due date does not available"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getFilterTabPage().isCategoryFilter(), true, "Filter by category available", "Filter by category does not available"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getFilterTabPage().isQueueFilter(), true, "Filter by Queue available", "Filter by Queue does not available"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getFilterTabPage().isTicketByAssigneeFilter(), true, "Filter by Ticket assignee name available", "Filter by Ticket assignee name does not available"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getFilterTabPage().isEscalatedLevelFilter(), true, "Filter by ticket escalation level available", "Filter by ticket escalation level does not available"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getFilterTabPage().isStateFilter(), true, "Filter by State Filter available", "Filter by State Filter does not available"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getFilterTabPage().validateOpenStateFilter(), true, "Filter by state name display all open state correctly", "Filter by state name does not display all open state correctly"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getFilterTabPage().isPriorityFilter(), true, "Filter by ticket priority available", "Filter by ticket priority does not available"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getFilterTabPage().validatePriorityFilter(), true, "Filter by priority display all priority correctly", "Filter by priority does not display all priority correctly"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getFilterTabPage().isCreatedByFilter(), true, "Filter by created date available", "Filter by created date does not available"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getFilterTabPage().isSlaDueDateFilter(), true, "Filter by SLA due date available", "Filter by SLA due date does not available"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getFilterTabPage().isCategoryFilter(), true, "Filter by category available", "Filter by category does not available"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getFilterTabPage().isQueueFilter(), true, "Filter by Queue available", "Filter by Queue does not available"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getFilterTabPage().isTicketByAssigneeFilter(), true, "Filter by Ticket assignee name available", "Filter by Ticket assignee name does not available"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getFilterTabPage().isEscalatedLevelFilter(), true, "Filter by ticket escalation level available", "Filter by ticket escalation level does not available"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getFilterTabPage().isStateFilter(), true, "Filter by State Filter available", "Filter by State Filter does not available"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getFilterTabPage().validateOpenStateFilter(), true, "Filter by state name display all open state correctly", "Filter by state name does not display all open state correctly"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getFilterTabPage().isPriorityFilter(), true, "Filter by ticket priority available", "Filter by ticket priority does not available"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getFilterTabPage().validatePriorityFilter(), true, "Filter by priority display all priority correctly", "Filter by priority does not display all priority correctly"));
             pages.getFilterTabPage().clickCloseFilter();
         } catch (Exception e) {
             commonLib.fail("Exception in Method - validateOpenFilterTab" + e.fillInStackTrace(), true);
@@ -67,16 +67,16 @@ public class SupervisorFilterTest extends Driver {
                     "filter by priority must be display, validate all value in open state must be displayed,Validate all value in priority must be displayed. ", "description");
             pages.getSupervisorTicketList().changeTicketTypeToClosed();
             pages.getSupervisorTicketList().clickFilter();
-            assertCheck.append(actions.assertEqual_boolean(pages.getFilterTabPage().isClosureByFilter(), true, "Filter by closure date available", "Filter by closure date does not available"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getFilterTabPage().isSlaDueDateFilter(), true, "Filter by SLA due date available", "Filter by SLA due date does not available"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getFilterTabPage().isCategoryFilter(), true, "Filter by category available", "Filter by category does not available"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getFilterTabPage().isQueueFilter(), true, "Filter by Queue available", "Filter by Queue does not available"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getFilterTabPage().isTicketByAssigneeFilter(), true, "Filter by Ticket assignee name available", "Filter by Ticket assignee name does not available"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getFilterTabPage().isEscalatedLevelFilter(), true, "Filter by ticket escalation level available", "Filter by ticket escalation level does not available"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getFilterTabPage().isStateFilter(), true, "Filter by State Filter available", "Filter by State Filter does not available"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getFilterTabPage().validateCloseStateFilter(), true, "Filter by state name display all open state correctly", "Filter by state name does not display all open state correctly"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getFilterTabPage().isPriorityFilter(), true, "Filter by ticket priority available", "Filter by ticket priority does not available"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getFilterTabPage().validatePriorityFilter(), true, "Filter by priority display all priority correctly", "Filter by priority does not display all priority correctly"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getFilterTabPage().isClosureByFilter(), true, "Filter by closure date available", "Filter by closure date does not available"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getFilterTabPage().isSlaDueDateFilter(), true, "Filter by SLA due date available", "Filter by SLA due date does not available"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getFilterTabPage().isCategoryFilter(), true, "Filter by category available", "Filter by category does not available"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getFilterTabPage().isQueueFilter(), true, "Filter by Queue available", "Filter by Queue does not available"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getFilterTabPage().isTicketByAssigneeFilter(), true, "Filter by Ticket assignee name available", "Filter by Ticket assignee name does not available"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getFilterTabPage().isEscalatedLevelFilter(), true, "Filter by ticket escalation level available", "Filter by ticket escalation level does not available"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getFilterTabPage().isStateFilter(), true, "Filter by State Filter available", "Filter by State Filter does not available"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getFilterTabPage().validateCloseStateFilter(), true, "Filter by state name display all open state correctly", "Filter by state name does not display all open state correctly"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getFilterTabPage().isPriorityFilter(), true, "Filter by ticket priority available", "Filter by ticket priority does not available"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getFilterTabPage().validatePriorityFilter(), true, "Filter by priority display all priority correctly", "Filter by priority does not display all priority correctly"));
             pages.getFilterTabPage().clickCloseFilter();
         } catch (Exception e) {
             commonLib.fail("Exception in Method - validateClosedFilterTab" + e.fillInStackTrace(), true);
@@ -93,7 +93,7 @@ public class SupervisorFilterTest extends Driver {
                 pages.getSupervisorTicketList().clickFilter();
                 pages.getFilterTabPage().clickLast30DaysFilter();
                 pages.getFilterTabPage().clickApplyFilter();
-                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isResetFilter(), true, "Reset Filter button available after applying filter", "Reset Filter button Does Not Available"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isResetFilter(), true, "Reset Filter button available after applying filter", "Reset Filter button Does Not Available"));
                 if (pages.getSupervisorTicketList().isResetFilter()) {
                     pages.getSupervisorTicketList().resetFilter();
 

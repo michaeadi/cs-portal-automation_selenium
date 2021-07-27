@@ -29,12 +29,12 @@ public class BackendAgentAddCommentTest extends Driver {
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().clickOnUserName();
             pages.getSideMenuPage().openBackendAgentDashboard();
-            assertCheck.append(actions.assertEqual_boolean(pages.getAgentLoginPage().isQueueLoginPage(), true, "Queue Login Page is Visible", "Queue Login Page is NOT Visible"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getAgentLoginPage().checkSubmitButton(), true, "Submit button for login is Enabled", "Submit button for login is NOT Enabled"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getAgentLoginPage().isQueueLoginPage(), true, "Queue Login Page is Visible", "Queue Login Page is NOT Visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getAgentLoginPage().checkSubmitButton(), true, "Submit button for login is Enabled", "Submit button for login is NOT Enabled"));
             pages.getAgentLoginPage().clickSelectQueue();
             pages.getAgentLoginPage().selectAllQueue();
             pages.getAgentLoginPage().clickSubmitBtn();
-            assertCheck.append(actions.assertEqual_stringType(driver.getTitle(), constants.getValue(CommonConstants.BACKEND_AGENT_TICKET_LIST_PAGE), "Backend Agent Redirected to Ticket List Page Successfully", "Backend Agent Does not Redirect to Ticket List Page"));
+            assertCheck.append(actions.assertEqualStringType(driver.getTitle(), constants.getValue(CommonConstants.BACKEND_AGENT_TICKET_LIST_PAGE), "Backend Agent Redirected to Ticket List Page Successfully", "Backend Agent Does not Redirect to Ticket List Page"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NotFoundException | TimeoutException | ElementClickInterceptedException e) {
             commonLib.fail("Exception in Method - agentQueueLogin", true);
@@ -48,7 +48,7 @@ public class BackendAgentAddCommentTest extends Driver {
             String ticketId = pages.getSupervisorTicketList().getTicketIdValue();
             String comment = "Backend Agent added comment on ticket using automation";
             pages.getSupervisorTicketList().viewTicket();
-            assertCheck.append(actions.assertEqual_stringType(ticketId, pages.getViewTicket().getTicketId(), "Verify the searched Ticket fetched Successfully", "Verify the searched Ticket NOT fetched"));
+            assertCheck.append(actions.assertEqualStringType(ticketId, pages.getViewTicket().getTicketId(), "Verify the searched Ticket fetched Successfully", "Verify the searched Ticket NOT fetched"));
             pages.getViewTicket().addComment(comment);
             pages.getViewTicket().clickAddButton();
             pages.getViewTicket().validateAddedComment(comment);
@@ -62,7 +62,7 @@ public class BackendAgentAddCommentTest extends Driver {
     public void validateIssueCommentBS() {
         try {
             selUtils.addTestcaseDescription("Validate issue comment as Backend Agent", "description");
-            assertCheck.append(actions.assertEqual_boolean(pages.getViewTicket().validateCommentType(constants.getValue(CommonConstants.ISSUE_COMMENT_TYPE)), true, "Issue Comment found on ticket", "Issue Comment does not found on ticket"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getViewTicket().validateCommentType(constants.getValue(CommonConstants.ISSUE_COMMENT_TYPE)), true, "Issue Comment found on ticket", "Issue Comment does not found on ticket"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NotFoundException | TimeoutException | ElementClickInterceptedException e) {
             commonLib.fail("Exception in Method - validateIssueCommentBS", true);
@@ -97,7 +97,7 @@ public class BackendAgentAddCommentTest extends Driver {
             pages.getViewTicket().validateAddedComment(comment);
             pages.getViewTicket().openDeleteComment();
             pages.getViewTicket().clickContinueButton();
-            assertCheck.append(actions.assertEqual_boolean(pages.getViewTicket().isCommentDelete(comment), true, "Deleted comment NOT found on ticket", "Deleted comment found on ticket"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getViewTicket().isCommentDelete(comment), true, "Deleted comment NOT found on ticket", "Deleted comment found on ticket"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NotFoundException | TimeoutException | ElementClickInterceptedException e) {
             commonLib.fail("Exception in Method - deleteLastAddedComment", true);

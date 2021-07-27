@@ -6,8 +6,8 @@ public class DemoGraphicPage {
     /*
      * Customer Name & DOB & Refresh Icon Element Locator
      * */
-    public By customerNumberSearchBox = By.xpath("//input[(@type='text' or @type='search') and @placeholder='Search']");
-    public By customerName = By.xpath("//app-customer-name/following-sibling::span");
+    public By customerNumberSearchBox = By.xpath("//input[@data-csautomation-key='dashBoardSearchBox']");
+    public By customerName = By.xpath("//span[@class='customer-name ng-star-inserted']/span[1]");
     public By customerDOB = By.xpath("//*[contains(text(),'DOB')]//following-sibling::td/span/span");
     public By customerInfoIcon = By.xpath("//span[@class='customer-name ng-star-inserted']/a");
     public By refreshIcon = By.xpath("//img[@class='refresh-button cursor-pointer']");
@@ -20,7 +20,7 @@ public class DemoGraphicPage {
     /*
      * SIM Number & Device Info
      * */
-    public By simNumber = By.xpath("//span[contains(text(),'SIM Number')]//following-sibling::span/span");
+    public By simNumber = By.xpath("//span[contains(text(),'SIM Number')]//following-sibling::span");
     public By simNumberInfoIcon = By.xpath("//span[contains(text(),'SIM Number')]//following-sibling::span/a");
     public By simType = By.xpath("//*[contains(@class,'simCompatibilityIcon')]");
     public By deviceCompatible = By.xpath("//*[contains(@class,'deviceCompatibilityIcon')]");
@@ -113,4 +113,7 @@ public class DemoGraphicPage {
      */
     public By middleAuuidAMP = By.xpath("//*[@id='AM_PROFILE']");
     public By footerAuuidAMP = By.xpath("//*[@id='AM_PROFILE']//*[contains(@class,'auuid-container')]");
+
+    public By resetPinIcon = By.xpath("//img[@class='header-action-icon cursor-pointer']/ancestor::span[contains(@class,'disabled')]");
+
 }

@@ -21,4 +21,5 @@ public class ResultProfile {
     private String os;
     private String airtelMoneyStatus;
     private String serviceStatus;
+    private String appStatus;
 }

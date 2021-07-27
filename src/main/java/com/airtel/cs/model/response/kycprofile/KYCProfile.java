@@ -14,7 +14,7 @@ import lombok.ToString;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class KYCProfile {
     private String status;
-    private String statusCode;
+    private Integer statusCode;
     private KYCProfileResult result;
     private APIErrors apiErrors;
 }
