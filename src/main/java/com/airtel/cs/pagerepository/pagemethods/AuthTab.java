@@ -342,7 +342,7 @@ public class AuthTab extends BasePage {
             final String questionKey = questionAnswer.getQuestionKey();
             commonLib.info("Question Key: '" + questionKey + "' ; Answer Found in API: '" + authTabConfig.get(questionKey));
             if (authTabConfig.get(questionKey) != null) {
-                assertCheck.append(actions.assertEqual_stringType(authTabConfig.get(questionKey), questionAnswer.getAnswerKey(), "Answer Key Validated and is :" + questionKey, "Answer key is not expected for Question: " + questionKey));
+                assertCheck.append(actions.assertEqualStringType(authTabConfig.get(questionKey), questionAnswer.getAnswerKey(), "Answer Key Validated and is :" + questionKey, "Answer key is not expected for Question: " + questionKey));
             } else {
                 commonLib.fail("Question Key does not found in Database but present in config sheet.", true);
             }
@@ -358,7 +358,7 @@ public class AuthTab extends BasePage {
             String key = (String) mapElement.getKey();
             String value = mapElement.getValue().toString();
             commonLib.info(key + " :" + value);
-            assertCheck.append(actions.assertEqual_stringNotNull(value, "Question Answer values are present For Question Key :" + key + "and value is :" + value, "For Question Key '" + key + "' value is missing. Please configure the same"));
+            assertCheck.append(actions.assertEqualStringNotNull(value, "Question Answer values are present For Question Key :" + key + "and value is :" + value, "For Question Key '" + key + "' value is missing. Please configure the same"));
         }
     }
 

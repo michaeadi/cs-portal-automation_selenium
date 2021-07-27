@@ -6,8 +6,8 @@ import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.driver.Driver;
+import com.airtel.cs.model.response.kycprofile.KYCProfile;
 import com.airtel.cs.pagerepository.pagemethods.CurrentPlanWidget;
-import com.airtel.cs.pojo.response.kycprofile.KYCProfile;
 import io.restassured.http.Headers;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
