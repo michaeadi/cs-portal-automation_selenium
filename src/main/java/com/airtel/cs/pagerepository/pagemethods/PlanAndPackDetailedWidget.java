@@ -4,12 +4,16 @@ import com.airtel.cs.pagerepository.pageelements.PlanAndPackDetailedWidgetPage;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+
+import java.util.List;
 
 @Log4j2
 public class PlanAndPackDetailedWidget extends BasePage{
 
     PlanAndPackDetailedWidgetPage pageElements;
+    List<WebElement> rows;
     private final String SCROLL_TO_WIDGET_MESSAGE=config.getProperty("scrollToWidgetMessage");
 
     public PlanAndPackDetailedWidget(WebDriver driver) {
@@ -200,9 +204,144 @@ public class PlanAndPackDetailedWidget extends BasePage{
 
     /*
     This Method will return true/false depending upon checkbox under Active Packs Tab is checked or unchecked
-     */
+     *//*
     public Boolean isCheckBoxChecked() {
         return getAttributeBoolean(pageElements.activePackCheckbox, "aria-checked");
+    }*/
+
+    /**
+     * This method use to get total number of checkbox display
+     * @return Integer The Size
+     */
+    public int getWidgetRowsSize() {
+        List<WebElement> widgetsRowsElements = returnListOfElement(pageElements.checkboxInActivePack);
+        final int size = widgetsRowsElements.size();
+        commonLib.info("Getting number of checkbox : " + size);
+        return size;
+    }
+
+    /**
+     * This method use to check checkbox is visible or not
+     * @return true/false
+     * */
+    public Boolean isCheckboxDisplay(){
+        commonLib.info("Checking that checkbox Display");
+        Boolean status = false;
+        try {
+            scrollToViewElement(pageElements.checkboxInActivePack);
+            status=isElementVisible(pageElements.checkboxInActivePack);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            commonLib.fail(SCROLL_TO_WIDGET_MESSAGE,true);
+        }
+        return  status;
+    }
+
+    /**
+     * This method use to get total number of checkbox display
+     * @return Integer The Size
+     */
+    public int getActivePackOnPM() {
+        List<WebElement> widgetsRowsElements = returnListOfElement(pageElements.activePackWidgetOnPM);
+        final int size = widgetsRowsElements.size();
+        commonLib.info("Getting number of checkbox : " + size);
+        return size;
+    }
+
+    /**
+     * This method use to get header name from profile management
+     * @param column The column number
+     * @return String The header name
+     * */
+    public String getHeaders(int column) {
+        String header = readTextOnRows(pageElements.activePackWidgetOnPM, column);
+        commonLib.info("Getting header Number " + column + " : " + header);
+        return header;
+    }
+
+    /*
+       This Method will give us unable to fetch value for plan detail
+        */
+    public String getPlanDetailUnableToFetch() {
+        commonLib.info(getText(pageElements.planDetailUnableToFetch));
+        return getText(pageElements.planDetailUnableToFetch);
+    }
+
+    /*
+       This Method will give us unable to fetch value for pack detail
+        */
+    public String getPackDetailUnableToFetch() {
+        commonLib.info(getText(pageElements.packDetailUnableToFetch));
+        return getText(pageElements.packDetailUnableToFetch);
+    }
+
+    /**
+     * This method use to get header name of add on bundle widget
+     * @param column
+     * @return
+     */
+    public String getPackHeaders(int column) {
+        String header = getText(By.xpath(pageElements.packDetailsHeaderRow + column + pageElements.packDetailsHeaderValue));
+        commonLib.info("Getting Pack header Number " + column + " : " + header);
+        return header;
+    }
+
+    /**
+     * This method use to get total number of add on bundles present on UI
+     * */
+    public int getNumbersOfRows() {
+        rows = returnListOfElement(pageElements.rows);
+        return rows.size();
+    }
+
+    /**
+     * This method use to get product name from plan detail detail widget
+     * */
+    public String getProdName(int rowNumber) {
+        By productName = By.xpath(pageElements.valueRow + rowNumber + pageElements.productNameValue);
+        final String text = getText(productName);
+        commonLib.info("Getting product name from Row Number " + rowNumber + " : " + text);
+        return text;
+    }
+
+    /**
+     * This method use to get category from plan detail detail widget
+     * */
+    public String getCategory(int rowNumber) {
+        By category = By.xpath(pageElements.valueRow + rowNumber + pageElements.categoryValue);
+        final String text = getText(category);
+        commonLib.info("Getting category name from Row Number " + rowNumber + " : " + text);
+        return text;
+    }
+
+    /**
+     * This method use to get benefit from plan detail detail widget
+     * */
+    public String getBenefit(int rowNumber) {
+        By benefit = By.xpath(pageElements.valueRow + rowNumber + pageElements.benefitValue);
+        final String text = getText(benefit);
+        commonLib.info("Getting benefit  from Row Number " + rowNumber + " : " + text);
+        return text;
+    }
+
+    /**
+     * This method use to get used value from plan detail detail widget
+     * */
+    public String getUsed(int rowNumber) {
+        By used = By.xpath(pageElements.valueRow + rowNumber + pageElements.usedValue);
+        final String text = getText(used);
+        commonLib.info("Getting used from Row Number " + rowNumber + " : " + text);
+        return text;
+    }
+
+    /**
+     * This method use to get available value from plan detail detail widget
+     * */
+    public String getAvailable(int rowNumber) {
+        By available = By.xpath(pageElements.valueRow + rowNumber + pageElements.availableValue);
+        final String text = getText(available);
+        commonLib.info("Getting available from Row Number " + rowNumber + " : " + text);
+        return text;
     }
 
 

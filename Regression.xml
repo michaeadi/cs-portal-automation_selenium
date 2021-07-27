@@ -287,7 +287,7 @@
     <test name="Plan and pack Test">
         <groups>
             <run>
-                <include name="SanityTest"/>
+                <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>
@@ -297,7 +297,7 @@
     <test name="Current Plan Test">
         <groups>
             <run>
-                <include name="SanityTest"/>
+                <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>
@@ -307,7 +307,7 @@
     <test name="Account Information Test">
         <groups>
             <run>
-                <include name="SanityTest"/>
+                <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>
@@ -317,11 +317,21 @@
     <test name="Detailed Account Information Test">
         <groups>
             <run>
-                <include name="SanityTest"/>
+                <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.DetailAccountInfoTest"/>
+        </classes>
+    </test>
+    <test name="Detailed Account Information - View Bill Test">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.DetailAccountInfoViewBillTest"/>
         </classes>
     </test>
     <test name="Create NFTR FTR Tickets TEST">

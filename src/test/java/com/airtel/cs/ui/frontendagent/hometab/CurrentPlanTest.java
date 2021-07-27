@@ -1,22 +1,29 @@
 package com.airtel.cs.ui.frontendagent.hometab;
 
+import com.airtel.cs.api.ESBRequestSource;
 import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.model.response.kycprofile.KYCProfile;
 import com.airtel.cs.pagerepository.pagemethods.CurrentPlanWidget;
+import com.airtel.cs.model.response.Bundle;
+import com.airtel.cs.model.response.PlanPackESBResponse;
+import com.airtel.cs.model.response.Usage;
+import com.airtel.cs.model.response.kycprofile.KYCProfile;
 import io.restassured.http.Headers;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import java.util.Arrays;
+import java.util.List;
 
 public class CurrentPlanTest extends Driver {
     RequestSource api = new RequestSource();
+    ESBRequestSource apiEsb = new ESBRequestSource();
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
@@ -33,7 +40,7 @@ public class CurrentPlanTest extends Driver {
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
-            String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_POSTPAID_MSISDN);
+            final String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_POSTPAID_MSISDN);
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().clickOnUserName();
             pages.getSideMenuPage().openCustomerInteractionPage();
@@ -48,29 +55,11 @@ public class CurrentPlanTest extends Driver {
         }
     }
 
-    /**
-     * This method is used to validate MSISDN
-     */
-
-    @Test(priority = 2, groups = {"RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
-    public void invalidMSISDNTest() {
-        try {
-            selUtils.addTestcaseDescription("Validating the Demographic Information of User with invalid MSISDN : 123456789", "description");
-            pages.getDemoGraphicPage().enterMSISDN("123456789");
-            assertCheck.append(actions
-                    .assertEqualStringType(pages.getDemoGraphicPage().invalidMSISDNError(), "Entered customer number is Invalid",
-                            "Error Message Correctly Displayed", "Error Message NOT Displayed Correctly"));
-            actions.assertAllFoundFailedAssert(assertCheck);
-        } catch (Exception e) {
-            commonLib.fail("Exception in Method - invalidMSISDNTest" + e.fillInStackTrace(), true);
-        }
-    }
 
     /**
      * This method is used to check whether user has permission for Current Plan Widget
-     * isCurrentPlanWidgetDisplay() - todo
      */
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void isUserHasCurrentPlanWidgetPermission() {
         try {
             selUtils.addTestcaseDescription("Verify that current plan widget should be visible to the logged in agent if current plan permission is enabled in UM, Check User has permission to view current plan Widget Permission", "description");
@@ -84,10 +73,9 @@ public class CurrentPlanTest extends Driver {
 
     /**
      * This method is used to validate watermarked in the left corner and middle
-     * isCurrentPlanWidgetDisplay() -- todo
      */
 
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasCurrentPlanWidgetPermission"})
     public void currentPlanWatermarkTest() {
 
         try {
@@ -105,13 +93,12 @@ public class CurrentPlanTest extends Driver {
      * This method is used to show current plan widget on the basis of connection type and UM permission
      */
 
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasCurrentPlanWidgetPermission"})
     public void connectionTypeAndUMPermissionTest() {
 
         try {
             selUtils.addTestcaseDescription("Verify that current plan widget should be visible to the logged in agent on the basis of connection type and UM permission", "description");
-            final String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_POSTPAID_MSISDN);
-            KYCProfile kycProfile = api.kycProfileAPITest(customerNumber);
+            KYCProfile kycProfile = api.kycProfileAPITest(constants.getValue(ApplicationConstants.CUSTOMER_POSTPAID_MSISDN));
             final Integer statusCode = kycProfile.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "KYC Profile API Status Code Matched and is :" + statusCode, "KYC Profile API Status Code NOT Matched and is :" + statusCode, false));
             String connectionType = pages.getDemoGraphicPage().getConnectionType().toUpperCase().trim();
@@ -145,34 +132,69 @@ public class CurrentPlanTest extends Driver {
      * This method is used to validate plan name and additional bundle count on current widgets
      */
 
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasCurrentPlanWidgetPermission"})
     public void currentPlanWidgetDisplay() {
         try {
+            selUtils.addTestcaseDescription("Validate plan and pack names", "description");
             final CurrentPlanWidget currentPlanWidget = pages.getCurrentPlanWidget();
-
-            /*final String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
-            PostpaidPack postpaidPack = api.postpaidPackTest(customerNumber);
-            // additional bundle should be displayed as per response of the ESB API my-packs
-            int size = postpaidPack.getPayload().getPacks().size();
-            String bundleCount = Integer.toString(size);
-            commonLib.info("bundleCount" + bundleCount);*/
             assertCheck.append(actions.assertEqualBoolean(pages.getCurrentPlanWidget().isPlanNameDisplayedOnCurrentPlanWidget(), true, "Name of the plan is displayed on Current plan widget", "Name of the plan is not displayed on Current plan widget"));
             assertCheck.append(actions.assertEqualBoolean(pages.getCurrentPlanWidget().isAdditionalBundleOnCurrentPlanWidget(), true, "Additional bundle count visible", "Additional bundle count not visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getPlanAndPackDetailedWidget().isActionIconVisibleOnCurrentPlan(), true, "Action icon visible", "Action icon not visible"));
 
-            // To be check again
-            //assertCheck.append(actions.assertEqual_stringType(pages.getCurrentPlanWidget().isAdditionalBundleCountOnCurrentPlanWidget(), bundleCount, "Additional bundle count is correct", "Additional bundle count is incorrect"));
+            /**
+             * Calling CS API for current plan
+             */
+            final List<String> postpaidCurrentPlan = api.getPostpaidCurrentPlan(constants.getValue(ApplicationConstants.CUSTOMER_POSTPAID_MSISDN));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidCurrentPlan, "additionalBundles", "statusCode"), "200", "Postpaid Current Plan API 1 Status Code Matched", "Postpaid Current Plan API 1 Status Code NOT Matched"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidCurrentPlan, "planName", "statusCode"), "200", "Postpaid Current Plan API 2 Status Code Matched", "Postpaid Current Plan API 2 Status Code NOT Matched"));
+
+
+            /**
+             * Calling ESB API for current plan
+             */
+            PlanPackESBResponse planPackESBResponse = apiEsb.planPackResponse(constants.getValue(ApplicationConstants.CUSTOMER_POSTPAID_MSISDN));
+            final String esbStatus = planPackESBResponse.getStatus();
+            List<Bundle> bundles = null;
+            List<Usage> usageList = null;
+            String bundleName = null;
+            String category = null;
+            String benefit = null;
+            String unit = null;
+            String used = null;
+            String available = null;
+            if (esbStatus.trim().equalsIgnoreCase("200")) {
+                bundles = planPackESBResponse.getAddonUsage().getBundles();
+                for (Bundle bndl : bundles) {
+                    bundleName = bndl.getBundleName();
+                    commonLib.info("bundleName : " + bundleName);
+                    usageList = bndl.getUsageList();
+                    for (Usage usg : usageList) {
+                        category = usg.getCategory();
+                        benefit = usg.getBenefit();
+                        unit = usg.getUnit();
+                        used = usg.getUsed();
+                        available = usg.getAvailable();
+                        commonLib.info("category : " + category);
+                        commonLib.info("benefit : " + benefit);
+                        commonLib.info("unit : " + unit);
+                        commonLib.info("used : " + used);
+                        commonLib.info("available : " + available);
+
+                    }
+                }
+
+            }
 
             actions.assertAllFoundFailedAssert(assertCheck);
-        } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
+        } catch (Exception e) {
             commonLib.fail("Exception in Method - currentPlanWidgetDisplay" + e.fillInStackTrace(), true);
         }
     }
 
     /**
      * This method is used to validate widgets in profile management
-     * to-do
      */
-    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasCurrentPlanWidgetPermission"})
     public void currentPlanProfileManagement() {
         try {
             selUtils.addTestcaseDescription("Validating widgets in profile management", "description");
@@ -180,9 +202,36 @@ public class CurrentPlanTest extends Driver {
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().openProfileManagementPage();
             pages.getProfileManagement().viewRoleWithName(constants.getValue(CommonConstants.ALL_USER_ROLE_NAME));
+            assertCheck.append(actions.assertEqualBoolean(pages.getProfileManagement().isEditPageLoaded(), true, "Profile Management edit role config page open as expected", "Profile Management edit role config page open does not as expected"));
 
+            int size = pages.getProfileManagement().getWidgetRowsSize();
+            widgets = new String[size];
+            for (int i = 1; i <= size; i++) {
+                widgets[i - 1] = pages.getProfileManagement().getWidgetNameForOrder(i);
+                commonLib.info("Widget name : " + pages.getProfileManagement().getWidgetNameForOrder(i));
+                if (pages.getProfileManagement().getWidgetNameForOrder(i).trim().equalsIgnoreCase("Postpaid Current Plan")) {
+                    assertCheck.append(actions.assertEqualStringType(pages.getProfileManagement().getWidgetNameForOrder(i).trim().toUpperCase(), "POSTPAID CURRENT PLAN", "Current plan visible in profile management", "Current plan is not visible in profile management"));
 
-            //actions.assertAllFoundFailedAssert(assertCheck);
+                    if (pages.getProfileManagement().isCheckboxEnable(i - 1).equalsIgnoreCase("true")) {
+                        assertCheck.append(actions.assertEqualStringType(pages.getProfileManagement().isCheckboxEnable(i - 1).toLowerCase().trim(), "true", "Postpaid current plan widget enabled as expected", "Postpaid current plan widget doesn't enabled as expected"));
+
+                    } else {
+                        pages.getProfileManagement().clickOnCheckbox(i - 1);
+                        pages.getProfileManagement().clickingSubmitButton();
+                        break;
+                    }
+
+                    assertCheck.append(actions.assertEqualBoolean(pages.getProfileManagement().isMovingUpButtonEnable(i), true, "Moving up button is enable", "Moving up button is not enable"));
+                    pages.getProfileManagement().clickingUpButton(i);
+                    assertCheck.append(actions.assertEqualBoolean(pages.getProfileManagement().isMovingDownButtonEnable(i), true, "Moving down button is enable", "Moving down button is not enable"));
+                    pages.getProfileManagement().clickingDownButton(i);
+                    assertCheck.append(actions.assertEqualBoolean(pages.getProfileManagement().isSubmitButtonEnable(), true, "Submit button enable as expected", "Submit button does not enable as expected"));
+                    pages.getProfileManagement().clickingSubmitButton();
+                    break;
+
+                }
+            }
+
 
         } catch (Exception e) {
             commonLib.fail("Exception in Method - currentPlanProfileManagement" + e.fillInStackTrace(), true);
