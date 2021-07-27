@@ -21,6 +21,8 @@ import com.airtel.cs.pojo.request.TransactionHistoryRequest;
 import com.airtel.cs.pojo.request.UsageHistoryMenuRequest;
 import com.airtel.cs.pojo.request.UsageHistoryRequest;
 import com.airtel.cs.pojo.request.VoucherSearchRequest;
+import com.airtel.cs.pojo.request.TicketSearchRequest;
+import com.airtel.cs.pojo.request.TicketSearchCriteria;
 import com.airtel.cs.pojo.response.AMProfilePOJO;
 import com.airtel.cs.pojo.response.AccountsBalancePOJO;
 import com.airtel.cs.pojo.response.GsmKycPOJO;
@@ -54,6 +56,8 @@ import com.airtel.cs.pojo.response.kycprofile.KYCProfile;
 import com.airtel.cs.pojo.response.loandetails.Loan;
 import com.airtel.cs.pojo.response.loansummary.Summary;
 import com.airtel.cs.pojo.response.offerdetails.OfferDetailPOJO;
+import com.airtel.cs.pojo.response.parentcategory.Category;
+import com.airtel.cs.pojo.response.parentcategory.ParentCategoryResponse;
 import com.airtel.cs.pojo.response.smshistory.SMSHistoryPOJO;
 import com.airtel.cs.pojo.response.tariffplan.AvailablePlanPOJO;
 import com.airtel.cs.pojo.response.tariffplan.CurrentPlanPOJO;
@@ -68,12 +72,8 @@ import org.apache.commons.lang3.ObjectUtils;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Log4j2
 public class RequestSource extends RestCommonUtils {
@@ -872,6 +872,49 @@ public class RequestSource extends RestCommonUtils {
             result = response.as(AgentLimit.class);
         } catch (Exception e) {
             commonLib.fail(constants.getValue("cs.portal.api.error") + " - saveAgentLimit " + e.getMessage(), false);
+        }
+        return result;
+    }
+
+    /**
+     * This Method will hit the API "/sr/api/sr-service/v1/parent/categories" and return the response
+     *
+     * @param id
+     * @return The Response
+     */
+    public TreeMap<String, List<Category>> getParentCategory(Long id) {
+        ParentCategoryResponse parentCategoryResponse = null;
+        TreeMap<String, List<Category>> result = null;
+        try {
+            queryParam.put("id", id);
+            commonGetMethodWithQueryParam(URIConstants.GET_PARENT_CATEGORY_V1, queryParam);
+            parentCategoryResponse = response.as(ParentCategoryResponse.class);
+            if (parentCategoryResponse.getStatusCode() == 200 && ObjectUtils.isNotEmpty(parentCategoryResponse.getResult())) {
+                result = parentCategoryResponse.getResult().entrySet().stream()
+                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> newValue, TreeMap::new));
+            }
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - getParentCategory " + e.getMessage(), false);
+        }
+        return result;
+    }
+
+    /**
+     * This Method will hit the API "/sr/api/sr-service/v1/tickets" and return the response
+     *
+     * @param msisdn
+     * @return The Response
+     */
+    public Integer getTicketHistoryStatusCode(String msisdn) {
+        Integer result = null;
+        try {
+            Map<String, String> clientInfo = new HashMap<>();
+            clientInfo.put("msisdn", msisdn);
+            TicketSearchRequest ticketSearchRequest = new TicketSearchRequest(new TicketSearchCriteria(clientInfo));
+            commonPostMethod(URIConstants.GET_TICKET_HISTORY_V1, ticketSearchRequest);
+            result = response.getStatusCode();
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - getTicketHistoryStatusCode " + e.getMessage(), false);
         }
         return result;
     }

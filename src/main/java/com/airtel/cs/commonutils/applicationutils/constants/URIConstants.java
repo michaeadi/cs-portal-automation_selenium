@@ -40,8 +40,10 @@ public class URIConstants {
     public static final String POSTPAID_ACCOUNT_INFORMATION = "/cs-gsm-service/v1/postpaid/account/information";
     public static final String ACTION_CONFIG = "/cs-service/api/cs-service/v1/actions/config";
     public static final String GET_FIELD_MASK_CONFIG = "/cs-service/api/cs-service/v1/get/field/mask/config";
-    public static final String AGENT_LIMIT_API="/cs-service/api/cs-service/v1/limit/configuration";
-    public static final String SAVE_AGENT_LIMIT_API="/cs-service/api/cs-service/v1/limit/save/configuration";
+    public static final String AGENT_LIMIT_API = "/cs-service/api/cs-service/v1/limit/configuration";
+    public static final String SAVE_AGENT_LIMIT_API = "/cs-service/api/cs-service/v1/limit/save/configuration";
+    public static final String GET_PARENT_CATEGORY_V1 = "/sr/api/sr-service/v1/parent/categories";
+    public static final String GET_TICKET_HISTORY_V1 = "/sr/api/sr-service/v1/tickets";
 
     private URIConstants() {
 
