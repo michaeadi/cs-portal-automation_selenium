@@ -307,14 +307,14 @@ public class RequestSource extends RestCommonUtils {
             result = response.as(RechargeHistory.class);
             if (result.getStatusCode() != 200) {
                 esbRequestSource.callRechargeHistory(msisdn,
-                    UtilsMethods.getUTCEndDate(Timestamp.valueOf(LocalDate.now().atTime(LocalTime.MAX)).getTime()),
-                    UtilsMethods.getUTCStartDate(Timestamp.valueOf(LocalDate.now().atStartOfDay().minusDays(14)).getTime()));
+                        UtilsMethods.getUTCEndDate(Timestamp.valueOf(LocalDate.now().atTime(LocalTime.MAX)).getTime()),
+                        UtilsMethods.getUTCStartDate(Timestamp.valueOf(LocalDate.now().atStartOfDay().minusDays(14)).getTime()));
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue("cs.portal.api.error") + " - rechargeHistoryAPITest " + e.getMessage(), false);
             esbRequestSource
-                .callRechargeHistory(msisdn, UtilsMethods.getUTCEndDate(Timestamp.valueOf(LocalDate.now().atTime(LocalTime.MAX)).getTime()),
-                    UtilsMethods.getUTCStartDate(Timestamp.valueOf(LocalDate.now().atStartOfDay().minusDays(14)).getTime()));
+                    .callRechargeHistory(msisdn, UtilsMethods.getUTCEndDate(Timestamp.valueOf(LocalDate.now().atTime(LocalTime.MAX)).getTime()),
+                            UtilsMethods.getUTCStartDate(Timestamp.valueOf(LocalDate.now().atStartOfDay().minusDays(14)).getTime()));
         }
         return result;
     }
@@ -836,7 +836,7 @@ public class RequestSource extends RestCommonUtils {
             if (statusCode == 200 && ObjectUtils.isNotEmpty(actionConfigResponse.getResult())) {
                 List<ActionConfigResult> actionConfigResultList = actionConfigResponse.getResult();
                 Optional<ActionConfigResult> actionConfigResultop = actionConfigResultList.stream()
-                    .filter(result -> actionName.equals(result.getActionKey())).findFirst();
+                        .filter(result -> actionName.equals(result.getActionKey())).findFirst();
                 if (actionConfigResultop.isPresent()) {
                     actionConfigResult = actionConfigResultop.get();
                 }
