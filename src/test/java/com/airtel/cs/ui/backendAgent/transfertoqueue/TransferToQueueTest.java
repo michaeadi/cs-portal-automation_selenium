@@ -40,10 +40,10 @@ public class TransferToQueueTest extends Driver {
             selUtils.addTestcaseDescription("Verify the permission for transfer to queue given to backend agent", "description");
             AgentPermission agentPermission = api.transferToQueuePermissionAPI();
             final int statusCode = agentPermission.getStatusCode();
-            assertCheck.append(actions.assertEqual_intType(statusCode, 200, "Agent Permission API success and status code is :" + statusCode, "Agent Permission API got failed and status code is :" + statusCode));
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Agent Permission API success and status code is :" + statusCode, "Agent Permission API got failed and status code is :" + statusCode));
             String transfer_to_Queue_permission = constants.getValue(PermissionConstants.TRANSFER_QUEUE_PERMISSION);
             if (statusCode == 200) {
-                assertCheck.append(actions.assertEqual_boolean(agentPermission.getResult().hasTransferToQueuePermission, UtilsMethods.isUserHasPermission(new Headers(map), transfer_to_Queue_permission), "Agent have permission to perform action transfer to queue", "Agent does not have permission to perform action transfer to queue"));
+                assertCheck.append(actions.assertEqualBoolean(agentPermission.getResult().hasTransferToQueuePermission, UtilsMethods.isUserHasPermission(new Headers(map), transfer_to_Queue_permission), "Agent have permission to perform action transfer to queue", "Agent does not have permission to perform action transfer to queue"));
             } else {
                 commonLib.fail("Agent Permission API failed.", false);
             }
@@ -57,16 +57,16 @@ public class TransferToQueueTest extends Driver {
     public void agentQueueLogin() {
         try {
             selUtils.addTestcaseDescription("Backend Agent Login into Queue", "description");
-            assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isSideMenuVisible(), true, "Side menu visible as expected", "Side menu visible as not expected"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSideMenuPage().isSideMenuVisible(), true, "Side menu visible as expected", "Side menu visible as not expected"));
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().openBackendAgentDashboard();
-            assertCheck.append(actions.assertEqual_boolean(pages.getAgentLoginPage().isQueueLoginPage(), true, "Backend Agent Queue login page display", "Backend Agent Queue login Page does not display"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getAgentLoginPage().checkSubmitButton(), true, "Backend Agent Queue Submit button display", "Backend Agent Queue Submit button does not display"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getAgentLoginPage().isQueueLoginPage(), true, "Backend Agent Queue login page display", "Backend Agent Queue login Page does not display"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getAgentLoginPage().checkSubmitButton(), true, "Backend Agent Queue Submit button display", "Backend Agent Queue Submit button does not display"));
             pages.getAgentLoginPage().clickSelectQueue();
             pages.getAgentLoginPage().selectAllQueue();
             pages.getAgentLoginPage().clickOutside();
             pages.getAgentLoginPage().clickSubmitBtn();
-            assertCheck.append(actions.assertEqual_stringType(driver.getTitle(), constants.getValue(CommonConstants.BACKEND_TICKET_LIST_PAGE_TITLE), "Backend Agent Redirect to Ticket List Page", "Backend Agent Does not Redirect to Ticket List Page"));
+            assertCheck.append(actions.assertEqualStringType(driver.getTitle(), constants.getValue(CommonConstants.BACKEND_TICKET_LIST_PAGE_TITLE), "Backend Agent Redirect to Ticket List Page", "Backend Agent Does not Redirect to Ticket List Page"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - agentQueueLogin" + e.fillInStackTrace(), true);
@@ -78,7 +78,7 @@ public class TransferToQueueTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Backend Agent Select Ticket the from list , Validate the user able to view transfer to queue option", "description");
             pages.getSupervisorTicketList().clickCheckbox();
-            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isTransferToQueue(), true, "Transfer to Queue Option Visible to agent after selecting ticket as expected.", "Transfer to Queue Option is not Visible to agent after selecting ticket as expected."));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isTransferToQueue(), true, "Transfer to Queue Option Visible to agent after selecting ticket as expected.", "Transfer to Queue Option is not Visible to agent after selecting ticket as expected."));
             pages.getSupervisorTicketList().clickCheckbox();
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -90,7 +90,7 @@ public class TransferToQueueTest extends Driver {
     public void checkTransferToQueueConfig() {
         selUtils.addTestcaseDescription("Verify available queues while 'transfer to queue' over the agent screen ,Validate the queue name which config by admin", "description");
         pages.getSupervisorTicketList().clickCheckbox();
-        assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isTransferToQueue(), true, "Agent have permission to transfer to queue and option visible after selecting ticket", "Agent have permission to transfer to queue but option does not visible after selecting ticket"));
+        assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isTransferToQueue(), true, "Agent have permission to transfer to queue and option visible after selecting ticket", "Agent have permission to transfer to queue but option does not visible after selecting ticket"));
         pages.getSupervisorTicketList().clickTransfertoQueue();
         /**
          *
@@ -107,13 +107,13 @@ public class TransferToQueueTest extends Driver {
             selUtils.addTestcaseDescription("Verify that when only one ticket is selected for Transfer to Queue on the Ticket List Page, Validate that transfer to queue option displayed,Click on Transfer to queue option,Validate transfer to queue tab open, click on first queue available,Check error screen visible or not", "description");
             ticketId = pages.getSupervisorTicketList().getTicketIdValue();
             pages.getSupervisorTicketList().clickCheckbox();
-            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isTransferToQueue(), true, "Agent have permission to transfer to queue and option visible after selecting ticket", "Agent have permission to transfer to queue but option does not visible after selecting ticket"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isTransferToQueue(), true, "Agent have permission to transfer to queue and option visible after selecting ticket", "Agent have permission to transfer to queue but option does not visible after selecting ticket"));
             try {
                 pages.getSupervisorTicketList().clickTransfertoQueue();
-                assertCheck.append(actions.assertEqual_boolean(pages.getTransferToQueue().validatePageTitle(), true, "Transfer to Queue Pop up open as expected", "Transfer to Queue Page Title Does not Display"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getTransferToQueue().validatePageTitle(), true, "Transfer to Queue Pop up open as expected", "Transfer to Queue Page Title Does not Display"));
                 String toQueueName = pages.getTransferToQueue().getFirstTransferQueue();
                 pages.getTransferToQueue().clickTransferQueue(toQueueName);
-                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().getTransferSuccessMessage().contains("successfully"), true, "Successmessage displayed after transfer to queue action.", "Success message does not displayed after transfer to queue action."));
+                assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().getTransferSuccessMessage().contains("successfully"), true, "Successmessage displayed after transfer to queue action.", "Success message does not displayed after transfer to queue action."));
                 if (pages.getSupervisorTicketList().isCancelBtn()) {
                     commonLib.warning("Not able to perform Transfer to Queue and message displayed: " + pages.getSupervisorTicketList().getTransferErrorMessage());
                     pages.getSupervisorTicketList().clickCancelBtn();
@@ -134,13 +134,13 @@ public class TransferToQueueTest extends Driver {
             selUtils.addTestcaseDescription("Verify that agent able to select multiple ticket for Transfer to Queue on the Ticket List Page, Validate that transfer to queue option displayed,Click on Transfer to queue option,Validate transfer to queue tab open, click on first queue available,Check error screen visible or not", "description");
             ticketId = pages.getSupervisorTicketList().getTicketIdValue();
             pages.getSupervisorTicketList().clickSelectAll();
-            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isTransferToQueue(), true, "Agent have permission to transfer to queue and option visible after selecting ticket", "Agent have permission to transfer to queue but option does not visible after selecting ticket"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isTransferToQueue(), true, "Agent have permission to transfer to queue and option visible after selecting ticket", "Agent have permission to transfer to queue but option does not visible after selecting ticket"));
             try {
                 pages.getSupervisorTicketList().clickTransfertoQueue();
-                assertCheck.append(actions.assertEqual_boolean(pages.getTransferToQueue().validatePageTitle(), true, "Transfer to Queue Pop up open as expected", "Transfer to Queue Page Title Does not Display"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getTransferToQueue().validatePageTitle(), true, "Transfer to Queue Pop up open as expected", "Transfer to Queue Page Title Does not Display"));
                 String toQueueName = pages.getTransferToQueue().getFirstTransferQueue();
                 pages.getTransferToQueue().clickTransferQueue(toQueueName);
-                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().getTransferSuccessMessage().contains("successfully"), true, "Ticket transfer to queue message successfully displayed", "Ticket does not transfer to queue message successfully displayed"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().getTransferSuccessMessage().contains("successfully"), true, "Ticket transfer to queue message successfully displayed", "Ticket does not transfer to queue message successfully displayed"));
                 if (pages.getSupervisorTicketList().isCancelBtn()) {
                     commonLib.warning("Not able to perform Transfer to Queue and message displayed: " + pages.getSupervisorTicketList().getTransferErrorMessage());
                     pages.getSupervisorTicketList().clickCancelBtn();
@@ -160,7 +160,7 @@ public class TransferToQueueTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Verify that Service Profile widget should be visible to the logged in agent if HLR permission is enabled in UM, Check User has permission to view HLR Widget Permission", "description");
             String workflow_override = constants.getValue(PermissionConstants.WORKFLOW_OVERRIDE_PERMISSION);
-            assertCheck.append(actions.assertEqual_boolean(UtilsMethods.isUserHasPermission(new Headers(map), workflow_override), true, "Agent has permission of ticket workflow override as expected", "Agent does not have permission of ticket workflow override as expected"));
+            assertCheck.append(actions.assertEqualBoolean(UtilsMethods.isUserHasPermission(new Headers(map), workflow_override), true, "Agent has permission of ticket workflow override as expected", "Agent does not have permission of ticket workflow override as expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - isUserHasHLRPermission" + e.fillInStackTrace(), true);
@@ -173,17 +173,17 @@ public class TransferToQueueTest extends Driver {
             selUtils.addTestcaseDescription("Verify that when only one ticket is selected for Transfer to Queue on the Ticket List Page, Validate that transfer to queue option displayed,Click on Transfer to queue option,Validate transfer to queue tab open, click on first queue available,Check error screen visible or not", "description");
             ticketId = pages.getSupervisorTicketList().getTicketIdValue();
             pages.getSupervisorTicketList().clickCheckbox();
-            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isTransferToQueue(), true, "Agent have permission to transfer to queue and option visible after selecting ticket", "Agent have permission to transfer to queue but option does not visible after selecting ticket"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isTransferToQueue(), true, "Agent have permission to transfer to queue and option visible after selecting ticket", "Agent have permission to transfer to queue but option does not visible after selecting ticket"));
             try {
                 pages.getSupervisorTicketList().clickTransfertoQueue();
-                assertCheck.append(actions.assertEqual_boolean(pages.getTransferToQueue().validatePageTitle(), true, "Transfer to Queue Pop up open as expected", "Transfer to Queue Page Title Does not Display"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getTransferToQueue().validatePageTitle(), true, "Transfer to Queue Pop up open as expected", "Transfer to Queue Page Title Does not Display"));
                 String toQueueName = pages.getTransferToQueue().getFirstTransferQueue();
                 pages.getTransferToQueue().clickTransferQueue(toQueueName);
-                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isTransferAnyWayBtn(), true, "Transfer Anyway button display as expected", "Transfer Anyway button does not display as expected"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isTransferAnyWayBtn(), true, "Transfer Anyway button display as expected", "Transfer Anyway button does not display as expected"));
                 if (pages.getSupervisorTicketList().isTransferAnyWayBtn()) {
                     commonLib.info("Performing Transfer Anyway operation as ticket not transfer to given queue: " + pages.getSupervisorTicketList().getTransferErrorMessage());
                     pages.getSupervisorTicketList().clickTransferAnyWayBtn();
-                    assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().getTransferSuccessMessage().contains("successfully"), true, "Ticket transfer to queue message successfully displayed", "Ticket does not transfer to queue message successfully displayed"));
+                    assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().getTransferSuccessMessage().contains("successfully"), true, "Ticket transfer to queue message successfully displayed", "Ticket does not transfer to queue message successfully displayed"));
                 }
             } catch (NoSuchElementException | TimeoutException e) {
                 commonLib.fail("Not able to perform Transfer to Queue: " + e.fillInStackTrace(), true);
@@ -207,7 +207,7 @@ public class TransferToQueueTest extends Driver {
             pages.getFilterTabPage().clickOutsideFilter();
             pages.getFilterTabPage().clickApplyFilter();
             Assert.assertEquals(pages.getSupervisorTicketList().getQueueValue().trim().toLowerCase(), data.getFromQueue().toLowerCase().trim(), "Ticket Does not found with Selected State");
-            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().validateQueueFilter(data.getFromQueue()), true, "Queue Filter Does Applied Correctly", "Queue Filter does not applied correctly"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().validateQueueFilter(data.getFromQueue()), true, "Queue Filter Does Applied Correctly", "Queue Filter does not applied correctly"));
             try {
                 ticketId = pages.getSupervisorTicketList().getTicketIdValue();
                 pages.getSupervisorTicketList().resetFilter();
@@ -215,10 +215,10 @@ public class TransferToQueueTest extends Driver {
                 pages.getSupervisorTicketList().clickSearchBtn();
                 pages.getSupervisorTicketList().clickCheckbox();
                 try {
-                    assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isAssignToAgent(), true, "Assign to Agent Button Does Available after selecting ticket", "Assign to Agent Button Does Not Available after selecting ticket"));
-                    assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isTransferToQueue(), true, "Transfer to Queue Button Does Available after selecting ticket", "Transfer to Queue Button Does Not Available after selecting ticket"));
+                    assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isAssignToAgent(), true, "Assign to Agent Button Does Available after selecting ticket", "Assign to Agent Button Does Not Available after selecting ticket"));
+                    assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isTransferToQueue(), true, "Transfer to Queue Button Does Available after selecting ticket", "Transfer to Queue Button Does Not Available after selecting ticket"));
                     pages.getSupervisorTicketList().clickTransfertoQueue();
-                    assertCheck.append(actions.assertEqual_boolean(pages.getTransferToQueue().validatePageTitle(), true, "Transfer to Queue Pop up open as expected", "Transfer to Queue Page Title Does not Display"));
+                    assertCheck.append(actions.assertEqualBoolean(pages.getTransferToQueue().validatePageTitle(), true, "Transfer to Queue Pop up open as expected", "Transfer to Queue Page Title Does not Display"));
                     pages.getTransferToQueue().clickTransferQueue(data.getToQueue());
                 } catch (NoSuchElementException | TimeoutException e) {
                     commonLib.fail("Not able to perform Transfer to Queue: " + e.fillInStackTrace(), true);
@@ -233,9 +233,9 @@ public class TransferToQueueTest extends Driver {
             } catch (AssertionError f) {
                 f.printStackTrace();
                 commonLib.info("Not able to perform transfer to Queue action: " + pages.getSupervisorTicketList().getTransferErrorMessage());
-                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isCancelBtn(), true, "Cancel Button display as expected", "Cancel Button does not display."));
+                assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isCancelBtn(), true, "Cancel Button display as expected", "Cancel Button does not display."));
                 if (data.getTransferAnyway().equalsIgnoreCase("true")) {
-                    assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isTransferAnyWayBtn(), true, "Transfer Anyway button does not display as expected", "Transfer Anyway button does not displayed."));
+                    assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isTransferAnyWayBtn(), true, "Transfer Anyway button does not display as expected", "Transfer Anyway button does not displayed."));
                     try {
                         pages.getSupervisorTicketList().clickTransferAnyWayBtn();
                         pages.getSupervisorTicketList().writeTicketId(ticketId);

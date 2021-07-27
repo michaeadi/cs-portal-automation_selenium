@@ -31,7 +31,7 @@ public class LoginAPITest extends Driver {
             commonLib.info("Response Body : " + response.asString());
             commonLib.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
             final String message = response.jsonPath().getString("message");
-            assertCheck.append(actions.assertEqual_stringType(message, "User authenticated successfully", "User authenticated successfully", message, false));
+            assertCheck.append(actions.assertEqualStringType(message, "User authenticated successfully", "User authenticated successfully", message, false));
         } catch (Exception e) {
             continueExecutionAPI = false;
             commonLib.fail("Exception in Method :- testLoginAPI " + e.fillInStackTrace(), false);
@@ -51,7 +51,7 @@ public class LoginAPITest extends Driver {
             commonLib.info("Response Body : " + response.asString());
             commonLib.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
             final String message = response.jsonPath().getString("message");
-            assertCheck.append(actions.assertEqual_stringType(message, "User authenticated successfully", "User authenticated successfully", message, false));
+            assertCheck.append(actions.assertEqualStringType(message, "User authenticated successfully", "User authenticated successfully", message, false));
         } catch (Exception e) {
             continueExecutionFA = false;
             continueExecutionBS = false;
@@ -72,7 +72,7 @@ public class LoginAPITest extends Driver {
             commonLib.info("Response Body : " + response.asString());
             commonLib.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
             final String message = response.jsonPath().getString("message");
-            assertCheck.append(actions.assertEqual_stringType(message, "User authenticated successfully", "User authenticated successfully", message, false));
+            assertCheck.append(actions.assertEqualStringType(message, "User authenticated successfully", "User authenticated successfully", message, false));
         } catch (Exception e) {
             continueExecutionBA = false;
             commonLib.fail("Exception in Method :- testLoginApiWithBackendAgent " + e.fillInStackTrace(), false);

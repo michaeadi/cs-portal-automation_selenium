@@ -33,7 +33,7 @@ public class DataUnitConversionTest extends Driver {
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();
             final boolean pageLoaded = pages.getCustomerProfilePage().isCustomerProfilePageLoaded();
-            assertCheck.append(actions.assertEqual_boolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
+            assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
             if (!pageLoaded) continueExecutionFA = false;
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -53,7 +53,7 @@ public class DataUnitConversionTest extends Driver {
         if (usageHistoryAPI.getStatusCode() != 200) {
             commonLib.fail("API is unable to give Usage History", false);
         } else if (usageHistoryAPI.getResult().size() == 0 || usageHistoryAPI.getResult() == null) {
-            commonLib.warning("Unable to get Usage History Details from CS API");
+            commonLib.warning("No Usage History Found for this MSISDN over the CS Portal");
         } else {
             for (int i = 0; i < usageHistoryAPI.getResult().size(); i++) {
                 if (usageHistoryAPI.getResult().get(i).getStartBalance().equalsIgnoreCase("-")) {
@@ -98,7 +98,7 @@ public class DataUnitConversionTest extends Driver {
         if (usageHistoryAPI.getStatusCode() != 200) {
             commonLib.fail("API is unable to give Usage History", false);
         } else if (usageHistoryAPI.getResult().isEmpty() || usageHistoryAPI.getResult() == null) {
-            commonLib.warning("Unable to get Usage History Details from CS API");
+            commonLib.warning("No Usage History Found for this MSISDN over the CS Portal");
         } else {
             for (int i = 0; i < usageHistoryAPI.getResult().size(); i++) {
                 if (usageHistoryAPI.getResult().get(i).getStartBalance().equalsIgnoreCase("-")) {

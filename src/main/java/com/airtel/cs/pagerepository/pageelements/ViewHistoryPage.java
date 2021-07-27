@@ -12,6 +12,7 @@ public class ViewHistoryPage {
     public By closeTicketTab = By.xpath("//button[@class='close-btn']//img");
     public By messageHistory = By.xpath("//div[contains(text(),'Message')]");
     public By actionTrailTab = By.xpath("//div[contains(text(),'Action')]");
+    public By adjustmentHistoryTab = By.xpath("//div[contains(text(),'Adjustment')]");
     public By paginationDetails = By.xpath("//*[contains(@class,'pagination-details')]");
     public By sourceApp = By.xpath("//*[@class='bksuper hr']//span[contains(text(),'Source')]");
     public By sourceAppValue = By.xpath("//*[@class='bksuper hr']/li[9]/span[2]");

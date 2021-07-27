@@ -5,6 +5,7 @@ import com.airtel.cs.pagerepository.pageelements.SendSMSPage;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 @Log4j2
 public class SendSMS extends BasePage {
@@ -126,6 +127,14 @@ public class SendSMS extends BasePage {
         final boolean state = isEnabled(pageElements.openLanguage);
         commonLib.info("IS language field displayed: " + state);
         return state;
+    }
+
+    /**
+     * This method is use to wait till success message display
+     */
+    public void waitTillSuccessMessage() {
+        commonLib.info("Waiting for SMS Send Success pop up");
+        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(pageElements.successMessage));
     }
 
     /**

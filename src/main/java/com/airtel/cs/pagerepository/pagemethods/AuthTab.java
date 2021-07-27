@@ -271,6 +271,19 @@ public class AuthTab extends BasePage {
     }
 
     /**
+     * This method use to click Yes button
+     */
+    public void clickYesBtn() {
+        if (isClickable(pageElements.submitYesBtn)) {
+            commonLib.info("Clicking Yes Button");
+            clickWithoutLoader(pageElements.submitYesBtn);
+        } else {
+            commonLib.fail("Exception in Method - clickYesBtn", true);
+        }
+    }
+
+
+    /**
      * This method use to get toast message
      * @return String The Value
      */

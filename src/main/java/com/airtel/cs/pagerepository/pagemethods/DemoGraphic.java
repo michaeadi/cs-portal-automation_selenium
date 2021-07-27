@@ -1,7 +1,7 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
-import com.airtel.cs.commonutils.dataproviders.databeans.AuthTabDataBeans;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
+import com.airtel.cs.commonutils.dataproviders.databeans.AuthTabDataBeans;
 import com.airtel.cs.pagerepository.pageelements.DemoGraphicPage;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
@@ -103,6 +103,7 @@ public class DemoGraphic extends BasePage {
         final String time = getText(pageElements.modifiedTime);
         modifiedDate = date.concat(" ") + time;
         commonLib.info("Getting SIM Status Modified Date " + modifiedDate);
+        clickOutside();
         return modifiedDate;
     }
 
@@ -188,6 +189,7 @@ public class DemoGraphic extends BasePage {
     public String getIdNumber() {
         final String text = getText(pageElements.idNumber);
         commonLib.info("Getting masked ID Number " + text);
+        clickOutside();
         return text;
     }
 
@@ -340,9 +342,12 @@ public class DemoGraphic extends BasePage {
      * @return String The value
      */
     public String getAccountStatus() {
-        final String text = getText(pageElements.accountStatus);
-        commonLib.info("Getting AM Profile Account Status: " + text);
-        return text;
+        String result = "";
+        if (isVisible(pageElements.accountStatus)) {
+            result = getText(pageElements.accountStatus);
+            commonLib.info("Getting AM Profile Account Status: " + result);
+        }
+        return result;
     }
 
     /**
@@ -351,9 +356,12 @@ public class DemoGraphic extends BasePage {
      * @return String The value
      */
     public String getServiceStatus() {
-        final String text = getText(pageElements.serviceStatus);
-        commonLib.info("Getting Service Status: " + text);
-        return text;
+        String result = "";
+        if (isVisible(pageElements.serviceStatus)) {
+            result = getText(pageElements.serviceStatus);
+            commonLib.info("Getting Service Status: " + result);
+        }
+        return result;
     }
 
     /**
@@ -362,9 +370,12 @@ public class DemoGraphic extends BasePage {
      * @return String The value
      */
     public String getWalletBalance() {
-        final String text = getText(pageElements.walletBalance);
-        commonLib.info("Getting Airtel Money Wallet Balance: " + text);
-        return text;
+        String result = "";
+        if (isVisible(pageElements.walletBalance)) {
+            result = getText(pageElements.walletBalance);
+            commonLib.info("Getting Airtel Money Wallet Balance: " + result);
+        }
+        return result;
     }
 
     /**
@@ -384,9 +395,12 @@ public class DemoGraphic extends BasePage {
      * @return String The value
      */
     public String getRegistrationStatus() {
-        final String text = getText(pageElements.registrationStatus);
-        commonLib.info("Getting Airtel Money Registration Status : " + text);
-        return text;
+        String result = "";
+        if (isVisible(pageElements.registrationStatus)) {
+            result = getText(pageElements.registrationStatus);
+            commonLib.info("Getting Airtel Money Registration Status : " + result);
+        }
+        return result;
     }
 
     /**
@@ -434,7 +448,7 @@ public class DemoGraphic extends BasePage {
                 result = getText(pageElements.serviceCategory);
                 commonLib.info("Getting service Category: " + result);
             } else {
-                commonLib.fail("Service Category is NOT visisble", true);
+                commonLib.fail("Service Category is NOT visible", true);
             }
         } catch (Exception e) {
             commonLib.fail("Exception in method - getServiceCategory", true);
@@ -442,6 +456,25 @@ public class DemoGraphic extends BasePage {
         return result;
     }
 
+    /**
+     * This method is use to get Sub Segment
+     *
+     * @return String The value
+     */
+    public String getSubSegment() {
+        String result = null;
+        try {
+            if (isElementVisible(pageElements.subSegment)) {
+                result = getText(pageElements.subSegment);
+                commonLib.info("Getting Sub Segment: " + result);
+            } else {
+                commonLib.fail("Sub Segment is NOT visible", true);
+            }
+        } catch (Exception e) {
+            commonLib.fail("Exception in method - getSubSegment", true);
+        }
+        return result;
+    }
 
     /**
      * This method is use to get self-care API downloaded or not
@@ -550,6 +583,7 @@ public class DemoGraphic extends BasePage {
     public void hoverOnSegmentInfoIcon() {
         commonLib.info("Hover on Segment Info icon");
         hoverOverElement(pageElements.hoverInfoSegment);
+        commonLib.hardWait(2);
     }
 
     /**
@@ -611,6 +645,7 @@ public class DemoGraphic extends BasePage {
         String result = null;
         result = getText(pageElements.pin2);
         commonLib.info("PIN2 got from UI is - " + result);
+        clickOutside();
         return result;
     }
 
@@ -652,6 +687,28 @@ public class DemoGraphic extends BasePage {
         String result = null;
         result = getText(pageElements.footerAuuidAMP);
         return result;
+    }
+
+    /**
+     * This Method will tell us reset pin icon button is disabled or not
+     */
+    public Boolean isResetPinIconDisable() {
+        boolean result = false;
+        final String attribute = getAttribute(pageElements.resetPinIcon, "class", false);
+        commonLib.info(attribute);
+        if (attribute.contains("disabled"))
+            result = true;
+        return result;
+    }
+
+    /**
+     * This Method will get the API key value
+     *
+     * @param apiKeyValue the key
+     * @return
+     */
+    public String getKeyValueAPI(String apiKeyValue) {
+        return apiKeyValue == null || apiKeyValue.equals("") ? "-" : apiKeyValue.toLowerCase().trim();
     }
 
 }

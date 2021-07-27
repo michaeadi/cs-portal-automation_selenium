@@ -1,6 +1,7 @@
 package com.airtel.cs.ui.frontendagent;
 
 import com.airtel.cs.api.RequestSource;
+import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
@@ -45,7 +46,7 @@ public class CreateInteractionTest extends Driver {
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();
             final boolean pageLoaded = pages.getCustomerProfilePage().isCustomerProfilePageLoaded();
-            assertCheck.append(actions.assertEqual_boolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
+            assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
             if (!pageLoaded) continueExecutionFA = false;
         } catch (Exception e) {
             commonLib.fail("Exception in Method - openCustomerInteraction" + e.fillInStackTrace(), true);
@@ -55,7 +56,7 @@ public class CreateInteractionTest extends Driver {
 
 
     @Test(priority = 2, dependsOnMethods = "openCustomerInteraction", groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "getTestData1", dataProviderClass = DataProviders.class)
-    public void createInteraction(FtrDataBeans data) throws InterruptedException {
+    public void createInteraction(FtrDataBeans data) {
         try {
             final String issueCode = data.getIssueCode();
             selUtils.addTestcaseDescription(" Validating FTR Ticket: " + issueCode, "description");
@@ -70,22 +71,22 @@ public class CreateInteractionTest extends Driver {
                 throw new NoSuchElementException("Not able to select code or code not found");
             }
             commonLib.info("Creating ticket with issue code -" + issueCode);
-            assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssue().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), data.getIssue().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue is as expected", "Issue is not as expected "));
-            assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssueSubSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), data.getIssueSubSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue sub sub type is as expected", "Issue sub sub type is not as expected "));
-            assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssueType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), data.getIssueType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue type is as expected", "Issue type is not as expected"));
-            assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssueSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), data.getIssueSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue sub type is as expected", "Issue sub type is not as expected "));
+            assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getIssue().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), data.getIssue().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue is as expected", "Issue is not as expected "));
+            assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getIssueSubSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), data.getIssueSubSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue sub sub type is as expected", "Issue sub sub type is not as expected "));
+            assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getIssueType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), data.getIssueType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue type is as expected", "Issue type is not as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getIssueSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), data.getIssueSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue sub type is as expected", "Issue sub type is not as expected "));
             pages.getInteractionsPage().sendComment("Automation Suite");
             pages.getInteractionsPage().clickOnSave();
-            assertCheck.append(actions.assertEqual_boolean(pages.getInteractionsPage().isTicketIdVisible(), true, "Resolved FTR not display", "Resolved FTR does not display"));
-            assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getResolvedFTRDisplayed(), "Resolved FTR", "Resolved FTR displayed", "Resolved FTR does not display"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getInteractionsPage().isTicketIdVisible(), true, "Resolved FTR not display", "Resolved FTR does not display"));
+            assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getResolvedFTRDisplayed(), "Resolved FTR", "Resolved FTR displayed", "Resolved FTR does not display"));
             SMSHistory smsHistory = api.smsHistoryTest(customerNumber);
             SMSHistoryList list = smsHistory.getResult().get(0);
             commonLib.info("Message Sent after Ticket Creation: " + list.getMessageText());
             if (StringUtils.equalsIgnoreCase(data.getMessageConfigured(), "true")) {
-                assertCheck.append(actions.assertEqual_boolean(list.getMessageText().contains(issueCode), true, "Message sent to customer for same FTR Category for which Issue has been Created", "Message does not sent to customer for same FTR Category for which Issue has been Created"));
-                assertCheck.append(actions.assertEqual_stringType(list.getSmsType(), constants.getValue(CommonConstants.SYSTEM_SMS_TYPE), "Message type is system", "Message type is not system"));
-                assertCheck.append(actions.assertEqual_boolean(list.getAction(), false, "Action button is disabled", "Action button is not disabled"));
-                assertCheck.append(actions.assertEqual_stringType(list.getTemplateName().toLowerCase().trim(), constants.getValue(CommonConstants.TICKET_CREATED_EVENT).toLowerCase().trim(), "Template event is same as defined", "Template event not same as defined"));
+                assertCheck.append(actions.assertEqualBoolean(list.getMessageText().contains(issueCode), true, "Message sent to customer for same FTR Category for which Issue has been Created", "Message does not sent to customer for same FTR Category for which Issue has been Created"));
+                assertCheck.append(actions.assertEqualStringType(list.getSmsType(), constants.getValue(CommonConstants.SYSTEM_SMS_TYPE), "Message type is system", "Message type is not system"));
+                assertCheck.append(actions.assertEqualBoolean(list.getAction(), false, "Action button is disabled", "Action button is not disabled"));
+                assertCheck.append(actions.assertEqualStringType(list.getTemplateName().toLowerCase().trim(), constants.getValue(CommonConstants.TICKET_CREATED_EVENT).toLowerCase().trim(), "Template event is same as defined", "Template event not same as defined"));
             }
             pages.getInteractionsPage().closeInteractions();
         } catch (NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
@@ -113,10 +114,10 @@ public class CreateInteractionTest extends Driver {
                 throw new NoSuchElementException("Not able to select code or code not found");
             }
             commonLib.info("Creating ticket with issue code -" + issueCode);
-            assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssue().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), data.getIssue().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue is as expected", "Issue is not as expected"));
-            assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssueSubSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), data.getIssueSubSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue sub sub type is as expected", "Issue sub sub type is not as expected"));
-            assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssueType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), data.getIssueType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue type is as expected", "Issue type is not as expected"));
-            assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssueSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), data.getIssueSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue sub type is as expected", "Issue sub type is not as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getIssue().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), data.getIssue().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue is as expected", "Issue is not as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getIssueSubSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), data.getIssueSubSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue sub sub type is as expected", "Issue sub sub type is not as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getIssueType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), data.getIssueType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue type is as expected", "Issue type is not as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getIssueSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), data.getIssueSubType().replaceAll("[^a-zA-Z]+", "").toLowerCase().trim(), "Issue sub type is as expected", "Issue sub type is not as expected"));
             pages.getInteractionsPage().fillIssueFields(data.getIssueFieldLabel1(), data.getIssueFieldType1(), data.getIssueFieldMandatory1(), "1");
             pages.getInteractionsPage().fillIssueFields(data.getIssueFieldLabel2(), data.getIssueFieldType2(), data.getIssueFieldMandatory2(), "2");
             pages.getInteractionsPage().fillIssueFields(data.getIssueFieldLabel3(), data.getIssueFieldType3(), data.getIssueFieldMandatory3(), "3");
@@ -124,10 +125,9 @@ public class CreateInteractionTest extends Driver {
             pages.getInteractionsPage().fillIssueFields(data.getIssueFieldLabel5(), data.getIssueFieldType5(), data.getIssueFieldMandatory5(), "5");
             pages.getInteractionsPage().fillIssueFields(data.getIssueFieldLabel6(), data.getIssueFieldType6(), data.getIssueFieldMandatory6(), "6");
             pages.getInteractionsPage().fillIssueFields(data.getIssueFieldLabel7(), data.getIssueFieldType7(), data.getIssueFieldMandatory7(), "7");
-            pages.getInteractionsPage().sendComment("Automation Suite");
-            assertCheck.append(actions.assertEqual_boolean(pages.getInteractionsPage().isSaveEnable(), true, "Save Button Enabled Successfully", "Save Button NOT Enabled"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getInteractionsPage().isSaveEnable(), true, "Save Button Enabled Successfully", "Save Button NOT Enabled"));
             pages.getInteractionsPage().clickOnSave();
-            assertCheck.append(actions.assertEqual_boolean(pages.getInteractionsPage().isTicketIdVisible(), true, "Ticket Id Visible Successfully over Header", "Ticket Id NOT Visible over Header"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getInteractionsPage().isTicketIdVisible(), true, "Ticket Id Visible Successfully over Header", "Ticket Id NOT Visible over Header"));
             commonLib.info(pages.getInteractionsPage().getResolvedFTRDisplayed());
             String[] valueToWrite;
             if (!pages.getInteractionsPage().getResolvedFTRDisplayed().contains("Resolved FTR")) {
@@ -136,8 +136,8 @@ public class CreateInteractionTest extends Driver {
                 valueToWrite = new String[]{ticketNumber};
                 WriteToExcel objExcelFile = new WriteToExcel();
                 commonLib.info("Ticket Number:You " + data.getRowNum());
-                objExcelFile.writeTicketNumber(excelPath, constants.getValue(nftrSheetValue), valueToWrite, data.getRowNum());
-                commonLib.info("Ticket Number Written to Excel " + valueToWrite[0]);
+                objExcelFile.writeTicketMetaInfo(excelPath, constants.getValue(nftrSheetValue), UtilsMethods.setAllCustomerAttribute(customerNumber, ticketNumber), data.getRowNum());
+                commonLib.pass("Ticket Number Written to Excel " + valueToWrite[0]);
             } else {
                 commonLib.fail("It's FTR not NFTR", true);
             }
@@ -145,11 +145,12 @@ public class CreateInteractionTest extends Driver {
             SMSHistory smsHistory = api.smsHistoryTest(customerNumber);
             SMSHistoryList list = smsHistory.getResult().get(0);
             commonLib.info("Message Sent after Ticket Creation: " + list.getMessageText());
-            assertCheck.append(actions.assertEqual_boolean(list.getMessageText().contains(ticketNumber), true, "Message Sent for same ticket id which has been Created", "Message does not send for same ticket id which has been Created"));
-            assertCheck.append(actions.assertEqual_stringType(list.getSmsType().toLowerCase().trim(), constants.getValue(CommonConstants.SYSTEM_SMS_TYPE).toLowerCase().trim(), "Message type is system", "Message type is not system"));
-            assertCheck.append(actions.assertEqual_boolean(list.getAction(), false, "Action button is disabled", "Action button is NOT disabled"));
-            assertCheck.append(actions.assertEqual_stringType(list.getTemplateName().toLowerCase().trim(), constants.getValue(CommonConstants.TICKET_CREATED_EVENT).toLowerCase().trim(), "Template event is same as defined", "Template event not same as defined"));
-        } catch (NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
+            assert ticketNumber != null;
+            assertCheck.append(actions.assertEqualBoolean(list.getMessageText().contains(ticketNumber), true, "Message Sent for same ticket id which has been Created", "Message does not send for same ticket id which has been Created"));
+            assertCheck.append(actions.assertEqualStringType(list.getSmsType().toLowerCase().trim(), constants.getValue(CommonConstants.SYSTEM_SMS_TYPE).toLowerCase().trim(), "Message type is system", "Message type is not system"));
+            assertCheck.append(actions.assertEqualBoolean(list.getAction(), false, "Action button is disabled", "Action button is NOT disabled"));
+            assertCheck.append(actions.assertEqualStringType(list.getTemplateName().toLowerCase().trim(), constants.getValue(CommonConstants.TICKET_CREATED_EVENT).toLowerCase().trim(), "Template event is same as defined", "Template event not same as defined"));
+        } catch (Exception e) {
             commonLib.fail("Exception in Method - CreateNFTRInteraction" + e.fillInStackTrace(), true);
             pages.getInteractionsPage().closeInteractions();
             pages.getInteractionsPage().clickOnContinueButton();

@@ -7,8 +7,8 @@ import lombok.Setter;
 @Setter
 public class TicketStateDataBean {
 
-    String ticketStateName;
-    String internalState;
-    String isReopenState;
+    private String ticketStateName;
+    private String internalState;
+    private String isReopenState;
 
 }
