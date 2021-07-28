@@ -68,6 +68,7 @@ public class CommonConstants {
     public static final String TICKET_CREATION_ASSIGNMENT_QUEUE_RULE="cs.assignment.queue.rule.file";
     public static final String TICKET_CREATION_SLA_CALCULATION_RULE="cs.sla.calculation.rule.file";
     public static final String CS_SLA_OVERRIDE_ATTRIBUTE_NAMES="cs.sla.attribute.names";
+    public static final String CS_SLA_ANY_ATTRIBUTE_NAME="cs.sla.any.attribute.name";
     public static final String CS_SLA_OVERRIDE_DEFAULT_ATTRIBUTE_VALUES="cs.customer.attribute.default.value";
     public static final String REOPEN_TICKET_STATE_NAME="cs.reopen.state.name";
     public static final String SELECT_ALL_OPTION_NAME="cs.select.all";

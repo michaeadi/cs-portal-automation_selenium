@@ -451,7 +451,7 @@ public class UtilsMethods extends Driver {
      */
     public static boolean isSLARuleMatch(List<String> attributeNames, Map<String, String> ticketSLARule, Map<String, String> ticketMetaInfoMap) {
         for (String attrName : attributeNames) {
-            if (!stringNotNull(ticketSLARule.get(attrName)).equalsIgnoreCase(ticketMetaInfoMap.get(attrName))) {
+            if (!stringNotNull(ticketSLARule.get(attrName)).equalsIgnoreCase(ticketMetaInfoMap.get(attrName)) || !stringNotNull(ticketSLARule.get(attrName)).equalsIgnoreCase(constants.getValue(CommonConstants.CS_SLA_ANY_ATTRIBUTE_NAME)) ) {
                 return false;
             }
         }
