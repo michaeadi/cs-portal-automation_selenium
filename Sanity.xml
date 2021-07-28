@@ -19,7 +19,7 @@
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginPortalTests"/>
         </classes>
     </test>
-    <!--<test name="Test Side Menu Options">
+    <test name="Test Side Menu Options">
         <groups>
             <run>
                 <include name="SanityTest"/>
@@ -398,7 +398,7 @@
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.DetailAccountInfoTest"/>
         </classes>
-    </test> -->
+    </test>
     <test name="Detailed Account Information - View Bill Test">
         <groups>
             <run>
@@ -409,7 +409,7 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.DetailAccountInfoViewBillTest"/>
         </classes>
     </test>
-    <!-- <test name="Adjustment History Tab Test">
+    <test name="Adjustment History Tab Test">
         <groups>
             <run>
                 <include name="SanityTest"/>
@@ -668,5 +668,5 @@
         <classes>
             <class name="com.airtel.cs.ui.backendAgent.transfertoqueue.TransferToQueueTest"/>
         </classes>
-    </test>-->
+    </test>
 </suite>

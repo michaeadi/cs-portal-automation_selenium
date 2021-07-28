@@ -9,7 +9,12 @@ import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.model.request.PaymentRequest;
-import com.airtel.cs.model.response.*;
+import com.airtel.cs.model.response.PaymentHistory;
+import com.airtel.cs.model.response.CreditLimitResponse;
+import com.airtel.cs.model.response.InvoiceHistoryResponse;
+import com.airtel.cs.model.response.PaymentResponse;
+import com.airtel.cs.model.response.Payment;
+import com.airtel.cs.model.response.PostpaidBillDetailsResponse;
 import com.airtel.cs.model.response.customeprofile.CustomerProfileResponse;
 import com.airtel.cs.model.response.kycprofile.KYCProfile;
 import io.restassured.http.Headers;
@@ -463,24 +468,5 @@ public class AccountInformationWidgetTest extends Driver {
             commonLib.fail("Exception in Method - currentPlanProfileManagement" + e.fillInStackTrace(), true);
         }
     }
-
-    /**
-     * This method is used to validate MSISDN
-     */
-
-    @Test(priority = 11, groups = {"SanityTest", "RegressionTest", "ProdTest"})
-    public void invalidMSISDNTest() {
-        try {
-            selUtils.addTestcaseDescription("Validating the Demographic Information of User with invalid MSISDN : 123456789", "description");
-            pages.getDemoGraphicPage().enterMSISDN(constants.getValue(ApplicationConstants.CUSTOMER_POSTPAID_MSISDN));
-            assertCheck.append(actions
-                    .assertEqualStringType(pages.getDemoGraphicPage().invalidMSISDNError(), "Entered customer number is Invalid",
-                            "Error Message Correctly Displayed", "Error Message NOT Displayed Correctly"));
-            actions.assertAllFoundFailedAssert(assertCheck);
-        } catch (Exception e) {
-            commonLib.fail("Exception in Method - invalidMSISDNTest" + e.fillInStackTrace(), true);
-        }
-    }
-
 
 }

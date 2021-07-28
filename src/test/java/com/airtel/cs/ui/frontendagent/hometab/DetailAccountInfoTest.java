@@ -209,60 +209,15 @@ public class DetailAccountInfoTest extends Driver {
             PostpaidAccountDetailResponse accountDetailResponse = api.accountDetailResponse(accountNo);
             final String status = accountDetailResponse.getStatus();
             if (status.trim().equalsIgnoreCase("SUCCESS")) {
-                int size = pages.getDetailAccountInfoWidget().getNumbersOfRows();
-                if (size > 5) {
-                    size = 5;
-                }
-                for (int i = 0; i < size; i++) {
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailAccountInfoWidget().dateFormat(pages.getDetailAccountInfoWidget().getDateTimeValue(i + 1)), accountDetailResponse.getResult().get(i).getDateTime(), "Date and time display as received in API on row", "Date and time is not display as received in API on row"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailAccountInfoWidget().getTypeValue(i + 1), accountDetailResponse.getResult().get(i).getTransactionType(), "Transaction type display as received in API on row", "Transaction type is not display as received in API on row"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailAccountInfoWidget().getStatusValue(i + 1), accountDetailResponse.getResult().get(i).getStatus(), "Status display as received in API on row", "Status is not display as received in API on row"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailAccountInfoWidget().getRefNoValue(i + 1), accountDetailResponse.getResult().get(i).getReferenceNo(), "Reference number display as received in API on row", "Reference number is not display as received in API on row"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailAccountInfoWidget().getBillAmountValue(i + 1).equals("-") ? "" : pages.getDetailAccountInfoWidget().getBillAmountValue(i + 1) , accountDetailResponse.getResult().get(i).getBillAmount(), "Bill amount display as received in API on row", "Bill amount is not display as received in API on row"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailAccountInfoWidget().getAmountRecValue(i + 1).equals("-") ? "" : pages.getDetailAccountInfoWidget().getAmountRecValue(i + 1), accountDetailResponse.getResult().get(i).getAmntReceived(), "Amount received display as received in API on row", "Amount received is not display as received in API on row"));
-
-                    if(pages.getDetailAccountInfoWidget().getTypeValue(i + 1).equalsIgnoreCase("INVOICE")){
-                        assertCheck.append(actions.assertEqualStringType(pages.getDetailAccountInfoWidget().getAmount(pages.getDetailAccountInfoWidget().getBillAmountValue(i + 1)), accountStatementResponse.getResponse().getStatements().get(i).getTransactionAmountDebit() , "Bill Amount (INVOICE) is displayed as per ESB TransactionAmountDebit", "Bill Amount (INVOICE) is not displayed as per ESB TransactionAmountDebit" ));
-                    }
-
-                    if(pages.getDetailAccountInfoWidget().getTypeValue(i + 1).equalsIgnoreCase("ADJUSTMENT") && !pages.getDetailAccountInfoWidget().getBillAmountValue(i + 1).equalsIgnoreCase("-")){
-                        assertCheck.append(actions.assertEqualStringType(pages.getDetailAccountInfoWidget().getAmount(pages.getDetailAccountInfoWidget().getBillAmountValue(i + 1)), accountStatementResponse.getResponse().getStatements().get(i).getTransactionAmountDebit() , "Bill Amount (ADJUSTMENT) is displayed as per ESB TransactionAmountDebit", "Bill Amount (ADJUSTMENT) is not displayed as per ESB TransactionAmountDebit" ));
-                    }
-
-                    if(pages.getDetailAccountInfoWidget().getTypeValue(i + 1).equalsIgnoreCase("ADJUSTMENT") && !pages.getDetailAccountInfoWidget().getBillAmountValue(i + 1).equalsIgnoreCase("-")){
-                        assertCheck.append(actions.assertEqualStringType(pages.getDetailAccountInfoWidget().getAmount(pages.getDetailAccountInfoWidget().getAmountRecValue(i + 1)), accountStatementResponse.getResponse().getStatements().get(i).getTransactionAmountCredit() , "Amount received (ADJUSTMENT) is displayed as per ESB TransactionAmountDebit", "Amount received (ADJUSTMENT) is not displayed as per ESB TransactionAmountDebit" ));
-                    }
-                }
+                pages.getDetailAccountInfoWidget().callingAccountDetailAPI(accountDetailResponse, accountStatementResponse);
             } else {
                 commonLib.fail("API does not able to fetch account statement", false);
             }
 
 
             if (status.trim().equalsIgnoreCase("SUCCESS")) {
-                List<Result> result = accountDetailResponse.getResult();
-                String txnType = null;
-                for (Result res : result) {
-                    txnType = res.getTransactionType().toUpperCase();
-                    switch (txnType) {
-                        case "INVOICE":
-                            assertCheck.append(actions.assertEqualStringType(txnType.trim().toUpperCase(), "INVOICE", "Transaction type should be INVOICE and is visible correctly", "Transaction type should be INVOICE and is not visible correctly"));
-                            break;
-                        case "PAYMENT":
-                            assertCheck.append(actions.assertEqualStringType(txnType.trim().toUpperCase(), "PAYMENT", "Transaction type should be PAYMENT and is visible correctly", "Transaction type should be PAYMENT and is not visible correctly"));
-                            break;
-                        case "ADJUSTMENT":
-                            assertCheck.append(actions.assertEqualStringType(txnType.trim().toUpperCase(), "ADJUSTMENT", "Transaction type should be ADJUSTMENT and is visible correctly", "Transaction type should be ADJUSTMENT and is not visible correctly"));
-                            break;
-                        case "REJECTED":
-                            assertCheck.append(actions.assertEqualStringType(txnType.trim().toUpperCase(), "REJECTED", "Transaction type should be REJECTED and is visible correctly", "Transaction type should be REJECTED and is not visible correctly"));
-                            break;
-                        default:
-                            commonLib.info("Transaction type should be Invoice/Payment/Adjustment/Rejected");
-                    }
-
-                }
+                pages.getDetailAccountInfoWidget().txnTypeAssertion(accountDetailResponse);
             }
-
 
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {

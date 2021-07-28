@@ -3,8 +3,19 @@ package com.airtel.cs.api;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ESBURIConstants;
 import com.airtel.cs.commonutils.restutils.RestCommonUtils;
-import com.airtel.cs.model.request.*;
-import com.airtel.cs.model.response.*;
+import com.airtel.cs.model.request.GenericRequest;
+import com.airtel.cs.model.request.OfferDetailRequest;
+import com.airtel.cs.model.request.UsageHistoryMenuRequest;
+import com.airtel.cs.model.request.UsageHistoryRequest;
+import com.airtel.cs.model.request.LoanRequest;
+import com.airtel.cs.model.request.StatementRequest;
+import com.airtel.cs.model.request.PaymentRequest;
+import com.airtel.cs.model.request.AccountDetailRequest;
+import com.airtel.cs.model.response.CreditLimitResponse;
+import com.airtel.cs.model.response.PostpaidBillDetailsResponse;
+import com.airtel.cs.model.response.PlanPackESBResponse;
+import com.airtel.cs.model.response.InvoiceHistoryResponse;
+import com.airtel.cs.model.response.PaymentResponse;
 import com.airtel.cs.model.response.customeprofile.CustomerProfileResponse;
 import com.airtel.cs.model.response.postpaid.AccountStatementResponse;
 import org.apache.commons.lang3.StringUtils;
@@ -544,7 +555,7 @@ public class ESBRequestSource extends RestCommonUtils {
 
 
   /**
-   * This method is used to call customer profile v2 api "http://172.23.36.206:30002/api/subscriber-profile/v2/customer-profile"
+   * This method is used to call customer profile v2 api "/api/subscriber-profile/v2/customer-profile"
    * @param msisdn
    * @return
    */
@@ -561,7 +572,7 @@ public class ESBRequestSource extends RestCommonUtils {
   }
 
   /**
-   * This method is used to call invoice history v2 api "http://172.23.36.206:30002/api/subscriber-profile/v1/invoice-history"
+   * This method is used to call invoice history v2 api "/api/subscriber-profile/v1/invoice-history"
    * @param msisdn
    * @return
    */
@@ -579,7 +590,7 @@ public class ESBRequestSource extends RestCommonUtils {
 
 
   /**
-   * This method is used to call invoice history v2 api "http://172.23.36.206:30002/api/subscriber-profile/v1/postpaid-bill-details"
+   * This method is used to call invoice history v2 api "/api/subscriber-profile/v1/postpaid-bill-details"
    * @param msisdn
    * @return
    */
@@ -599,7 +610,7 @@ public class ESBRequestSource extends RestCommonUtils {
 
 
   /**
-   * This method is used to call get usage api "http://172.27.18.120:30002/api/subscriber-profile/v1/get-usage"
+   * This method is used to call get usage api "/api/subscriber-profile/v1/get-usage"
    * @param msisdn
    * @return
    */
@@ -617,7 +628,7 @@ public class ESBRequestSource extends RestCommonUtils {
 
 
   /**
-   * This method is used to call account payment api "http://172.23.36.206:30138/api/enterprise-service/v1/accounts/payments"
+   * This method is used to call account payment api "/api/enterprise-service/v1/accounts/payments"
    * @param paymentRequest
    * @return
    */
@@ -633,7 +644,7 @@ public class ESBRequestSource extends RestCommonUtils {
   }
 
   /**
-   * This method is used to call account payment api "http://172.23.36.206:30138/api/enterprise-service/v1/accounts/statement"
+   * This method is used to call account payment api "/api/enterprise-service/v1/accounts/statement"
    * @param paymentRequest
    * @return
    */
@@ -650,7 +661,7 @@ public class ESBRequestSource extends RestCommonUtils {
 
 
   /**
-   * This method is used to call credit limit api api "http://172.23.36.206:30002/api/subscriber-profile/v1/get-credit-limit"
+   * This method is used to call credit limit api api "/api/subscriber-profile/v1/get-credit-limit"
    * @param msisdn
    * @return
    */

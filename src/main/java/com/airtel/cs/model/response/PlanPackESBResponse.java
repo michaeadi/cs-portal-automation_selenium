@@ -1,5 +1,6 @@
 package com.airtel.cs.model.response;
 
+import com.airtel.cs.model.response.planpack.AddonUsage;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;

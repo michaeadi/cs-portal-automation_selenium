@@ -7,10 +7,10 @@ import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.driver.Driver;
+import com.airtel.cs.model.response.planpack.Bundle;
+import com.airtel.cs.model.response.planpack.Usage;
 import com.airtel.cs.pagerepository.pagemethods.CurrentPlanWidget;
-import com.airtel.cs.model.response.Bundle;
 import com.airtel.cs.model.response.PlanPackESBResponse;
-import com.airtel.cs.model.response.Usage;
 import com.airtel.cs.model.response.kycprofile.KYCProfile;
 import io.restassured.http.Headers;
 import org.openqa.selenium.NoSuchElementException;
@@ -18,7 +18,7 @@ import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import java.util.Arrays;
+
 import java.util.List;
 
 public class CurrentPlanTest extends Driver {

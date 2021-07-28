@@ -1,4 +1,4 @@
-package com.airtel.cs.model.response;
+package com.airtel.cs.model.response.planpack;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -9,6 +9,7 @@ import java.util.List;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class AddonUsage {
-    public List<Bundle> bundles = null;
+public class Bundle {
+    public String bundleName;
+    public List<Usage> usageList = null;
 }
