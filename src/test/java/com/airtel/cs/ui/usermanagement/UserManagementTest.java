@@ -64,7 +64,7 @@ public class UserManagementTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validating User Management Edit Page", "description");
             pages.getUserManagementPage().waitTillLoaderGetsRemoved();
-            pages.getUserManagementPage().searchAuuid(CommonConstants.ALL_USER_ROLE_AUUID);
+            pages.getUserManagementPage().searchAuuid(constants.getValue(CommonConstants.ALL_USER_ROLE_AUUID));
             pages.getUserManagementPage().clickSearchButton();
             pages.getUserManagementPage().waitUntilResultPageIsVisible();
             assertCheck.append(actions.assertEqualStringType(pages.getUserManagementPage().resultIsVisible(CommonConstants.ALL_USER_ROLE_AUUID), CommonConstants.ALL_USER_ROLE_AUUID, "Search using user auuid success and user detail fetched as expected", "Search using user auuid does not complete and user detail does not fetched as expected"));

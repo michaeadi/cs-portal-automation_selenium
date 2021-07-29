@@ -24,4 +24,5 @@ public class APIErrors {
     private String activationDate;
     private String serviceCategory;
     private String status;
+    private String voucherDetail;
 }

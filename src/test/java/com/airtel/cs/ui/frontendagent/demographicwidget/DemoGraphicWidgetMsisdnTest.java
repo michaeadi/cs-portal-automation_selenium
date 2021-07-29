@@ -24,6 +24,8 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
+import static com.airtel.cs.commonutils.UtilsMethods.stringNotNull;
+
 @Log4j2
 public class DemoGraphicWidgetMsisdnTest extends Driver {
 
@@ -206,7 +208,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                 final String customerDOB = pages.getDemoGraphicPage().getCustomerDOB();
                 final String customerIdNumber = pages.getDemoGraphicPage().getIdNumber().replace("*", "");
                 pages.getDemoGraphicPage().hoverOnCustomerInfoIcon();
-                final String idType = pages.getDemoGraphicPage().getIdType().toLowerCase().trim();
+                final String idType = stringNotNull(pages.getDemoGraphicPage().getIdType()).toLowerCase().trim();
                 assertCheck.append(actions
                         .assertEqualStringType(customerDOB.trim(), pages.getDemoGraphicPage().getKeyValueAPI(UtilsMethods.getDateFromEpoch(gsmKycAPI.getResult().getDob(), "dd-MMM-yyyy")),
                                 "Customer DOB is as Expected", "Customer DOB is not as Expected"));
@@ -268,7 +270,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                         pages.getDemoGraphicPage().getKeyValueAPI(kycProfile.getResult().getModifiedBy().trim().toLowerCase()), "Customer SIM Status Modified By is as Expected",
                         "Customer SIM Status Modified By is not as Expected"));
                 assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getGSMStatusModifiedDate().trim(),
-                        UtilsMethods.getDateFromString(kycProfile.getResult().getModifiedDate(), "dd-MMM-yyy HH:mm aa", "dd-MMM-yyyy hh:mm aa").replace("am", "AM").replace("pm", "PM"),
+                        kycProfile.getResult().getModifiedDate(),
                         "Customer SIM Status, Modified Date is as Expected", "Customer SIM Status, Modified Date is not as Expected"));
             }
             final String simNumber = pages.getDemoGraphicPage().getSimNumber();

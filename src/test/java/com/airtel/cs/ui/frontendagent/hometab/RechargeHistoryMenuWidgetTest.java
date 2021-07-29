@@ -57,9 +57,10 @@ public class RechargeHistoryMenuWidgetTest extends Driver {
     @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
     public void rechargeHistoryHeaderTest(HeaderDataBean data) {
         try {
-            selUtils.addTestcaseDescription("Validating Recharge History's  Menu of User :" + customerNumber + "validate recharge menu widget display all header display as per config", "description");
+            selUtils.addTestcaseDescription("Validating Recharge History's  Menu of User :" + customerNumber + ",validate recharge menu widget display all header display as per config", "description");
             rechargeHistoryAPI = api.rechargeHistoryAPITest(customerNumber);
-            final int statusCode = rechargeHistoryAPI.getStatusCode();
+            widgetMethods.clickMenuButton(pages.getRechargeHistoryWidget().getUniqueIdentifier());
+            assertCheck.append(actions.assertEqualBoolean(widgetMethods.isWidgetVisible(pages.getMoreRechargeHistoryPage().getUniqueIdentifier()), true, "Recharge History's MENU is visible ", "Recharge History's MENU is not visible ",true));
             if (pages.getRechargeHistoryWidget().isResultPresent(rechargeHistoryAPI)) {
                 selUtils.addTestcaseDescription("Validating Recharge History's  Menu of User :" + customerNumber + "validate recharge menu widget display all header display as per config", "description");
                 assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getHeaders(1), data.getRow1(), "Header Name for Row 1 is as expected", "Header Name for Row 1 is not as expected"));
@@ -76,6 +77,7 @@ public class RechargeHistoryMenuWidgetTest extends Driver {
         } catch (Exception e) {
             commonLib.fail("Exception in Method - rechargeHistoryHeaderTest" + e.fillInStackTrace(), true);
         }
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     @DataProviders.Table(name = "More Recharge History")
@@ -83,8 +85,7 @@ public class RechargeHistoryMenuWidgetTest extends Driver {
     public void rechargeHistoryMenuTest(HeaderDataBean data) {
         try {
             selUtils.addTestcaseDescription("Validating Recharge History's  Menu of User :" + customerNumber + "validate recharge menu widget display all header display as per config,Validate all the data rows must be display as per api response.", "description");
-            assertCheck.append(actions.assertEqualBoolean(pages.getRechargeHistoryWidget().isRechargeHistoryWidgetMenuVisible(), true, "Recharge History's MENU is visible ", "Recharge History's MENU is not visible "));
-            pages.getRechargeHistoryWidget().openingRechargeHistoryDetails();
+            assertCheck.append(actions.assertEqualBoolean(widgetMethods.isWidgetVisible(pages.getMoreRechargeHistoryPage().getUniqueIdentifier()), true, "Recharge History's MENU is visible ", "Recharge History's MENU is not visible ",true));
             assertCheck.append(actions.assertEqualBoolean(pages.getMoreRechargeHistoryPage().isDatePickerVisible(), true, "Date Picker is visible as expected", "Date picker is not visible "));
             rechargeHistoryAPI = api.rechargeHistoryAPITest(customerNumber);
             if (pages.getRechargeHistoryWidget().isResultPresent(rechargeHistoryAPI)) {

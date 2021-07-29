@@ -6,13 +6,12 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.List;
-
 @ToString
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class AdditionalDetails {
-    private List<InteractionChannel> interactionChannel;
+public class InteractionChannel {
+    private Integer id;
+    private String name;
 }

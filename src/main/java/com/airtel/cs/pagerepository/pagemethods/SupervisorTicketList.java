@@ -836,7 +836,7 @@ public class SupervisorTicketList extends BasePage {
         for (Map.Entry mapElement : sla.entrySet()) {
             String key = (String) mapElement.getKey();
             String value = mapElement.getValue().toString();
-            assertCheck.append(actions.assertEqualStringType(workGroups.remove(key), key, key + " : workgroup is configured correctly in DB as mentioned in configuration", key + " : workgroup is not configured correctly in DB as mentioned in configuration"));
+            assertCheck.append(actions.assertEqualStringNotNull(workGroups.remove(key), key + " : workgroup is configured correctly in DB as mentioned in configuration", key + " : workgroup is not configured correctly in DB as mentioned in configuration"));
             if (!UtilsMethods.isValueNegative(value)) {
                 assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isPositiveSLA(), true, "For positive SLA green symbol display", "For positive SLA green symbol does not display"));
             } else {
@@ -847,13 +847,12 @@ public class SupervisorTicketList extends BasePage {
 
 
     /**
->>>>>>> c502d495e6a6e0e3bbb5d0d4a6ae191e773471e7
      * This method is use to compare all workgroup which are mentioned in Excel sheet displayed on UI or not.
      * @param ticketLayout The API ticket layout
      * @param configTicketLayout The excel sheet ticket layout
      */
     public void compareTicketLayout(List<IssueDetails> ticketLayout, List<String> configTicketLayout) {
-        if (!ticketLayout.isEmpty()) {
+        if (ticketLayout!=null && !ticketLayout.isEmpty()) {
             for (IssueDetails layout : ticketLayout) {
                 assertCheck.append(actions.assertEqualBoolean(configTicketLayout.remove(layout.getPlaceHolder().toLowerCase().trim()), true, layout.getPlaceHolder() + " : Ticket Layout configured in database as mention in Config sheet.", layout.getPlaceHolder() + " : Ticket Layout does not configured in database as mention in Config sheet."));
             }

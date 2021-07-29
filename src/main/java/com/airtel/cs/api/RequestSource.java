@@ -435,7 +435,7 @@ public class RequestSource extends RestCommonUtils {
         try {
             commonPostMethod(URIConstants.VOUCHER_DETAILS, new VoucherSearchRequest(voucherId));
             result = response.as(VoucherSearch.class);
-            if (result.getStatusCode() != 200) {
+            if (result.getStatusCode() != 200 || result.getApiErrors().getVoucherDetail().equalsIgnoreCase(constants.getValue("cs.voucher.detail.downstream.api.error"))) {
                 esbRequestSource.callVoucherDetails(voucherId);
             }
         } catch (Exception e) {
