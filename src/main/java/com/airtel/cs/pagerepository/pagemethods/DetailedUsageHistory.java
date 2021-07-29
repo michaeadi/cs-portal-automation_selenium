@@ -153,7 +153,7 @@ public class DetailedUsageHistory extends BasePage {
      */
     public boolean isUnableToFetch() {
         final boolean elementVisible = isElementVisible(pageElements.unableToFetch);
-        commonLib.info("Is error visible on unable to fetch detailed user history : " + elementVisible);
+        commonLib.info(constants.getValue("usage.history.unabletofetch") + ":" + elementVisible);
         return elementVisible;
     }
 
