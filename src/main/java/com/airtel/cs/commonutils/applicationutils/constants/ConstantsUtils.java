@@ -18,13 +18,16 @@ public class ConstantsUtils implements Cloneable {
     private static final String COMMON_CONFIG_FILE_NAME = "commonconfig.properties";
     private static final String PERMISSION_CONFIG_FILE_NAME = "permission.properties";
     private static final String MESSAGE_CONFIG_FILE_NAME = "messages.properties";
+    private static final String ASSERT_MESSAGE_CONFIG_FILE_NAME = "assertion_message.properties";
     private static final String RESOURCES_PROPERTIES = "/resources/properties/";
     private static final String OPCO_CONFIG_FILE_NAME = System.getProperty("Opco").toLowerCase() + "-" + System.getProperty("Env") + ".properties";
     private static final String OPCO_FILE_PATH = System.getProperty(USER_DIR) + RESOURCES_PROPERTIES + OPCO_CONFIG_FILE_NAME;
     private static final String COMMON_FILE_PATH = System.getProperty(USER_DIR) + RESOURCES_PROPERTIES + COMMON_CONFIG_FILE_NAME;
     private static final String PERMISSION_FILE_PATH = System.getProperty(USER_DIR) + RESOURCES_PROPERTIES + PERMISSION_CONFIG_FILE_NAME;
     private static final String MESSAGE_FILE_PATH = System.getProperty(USER_DIR) + RESOURCES_PROPERTIES + MESSAGE_CONFIG_FILE_NAME;
-    private static final List<String> fileList = Arrays.asList(COMMON_FILE_PATH, PERMISSION_FILE_PATH, MESSAGE_FILE_PATH, OPCO_FILE_PATH);
+    private static final String ASSERT_MESSAGE_FILE_PATH = System.getProperty(USER_DIR) + RESOURCES_PROPERTIES + ASSERT_MESSAGE_CONFIG_FILE_NAME;
+    private static final List<String> fileList = Arrays
+        .asList(COMMON_FILE_PATH, PERMISSION_FILE_PATH, MESSAGE_FILE_PATH, ASSERT_MESSAGE_FILE_PATH, OPCO_FILE_PATH);
 
 
     private ConstantsUtils() {

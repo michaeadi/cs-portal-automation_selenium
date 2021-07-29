@@ -57,9 +57,9 @@ public class FrontendAgentTicketTest extends Driver {
             pages.getViewHistory().goToTicketHistoryTab();
             Integer statusCode = api.getTicketHistoryStatusCode(constants.getValue(ApplicationConstants.CUSTOMER_MSISDN));
             if (statusCode != 200) {
-                commonLib.fail("API is Unable to Get ticket history for Customer", false);
+                commonLib.fail(constants.getValue("cs.get.ticket.history.api.error"), false);
                 if (statusCode == 500) {
-                    assertCheck.append(actions.assertEqualBoolean(pages.getFrontendTicketHistoryPage().isUnableToFetch(),true, "Ticket History Error widget visible ","Ticket History Error widget does not visible ",true));
+                    assertCheck.append(actions.assertEqualBoolean(pages.getFrontendTicketHistoryPage().isUnableToFetch(),true, constants.getValue("ticket.history.error.widget.visible"),constants.getValue("ticket.history.error.widget.not.visible"),true));
                 }
             } else {
                 String ticketId = pages.getFrontendTicketHistoryPage().getTicketId(1);
@@ -89,9 +89,9 @@ public class FrontendAgentTicketTest extends Driver {
             pages.getViewHistory().goToTicketHistoryTab();
             Integer statusCode = api.getTicketHistoryStatusCode(constants.getValue(ApplicationConstants.CUSTOMER_MSISDN));
             if (statusCode != 200) {
-                commonLib.fail("API is Unable to Get ticket history for Customer", false);
+                commonLib.fail(constants.getValue("cs.get.ticket.history.api.error"), false);
                 if (statusCode == 500) {
-                    assertCheck.append(actions.assertEqualBoolean(pages.getFrontendTicketHistoryPage().isUnableToFetch(),true, "Ticket History Error widget visible ","Ticket History Error widget does not visible ",true));
+                    assertCheck.append(actions.assertEqualBoolean(pages.getFrontendTicketHistoryPage().isUnableToFetch(),true, constants.getValue("ticket.history.error.widget.visible"),constants.getValue("ticket.history.error.widget.not.visible"),true));
                 }
             } else {
                 final boolean interactionIcon = pages.getFrontendTicketHistoryPage().validateAddToInteractionIcon();
