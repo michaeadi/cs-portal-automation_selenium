@@ -66,7 +66,7 @@ public class WidgetTaggedIssueTest extends Driver {
                             pages.getViewHistory().clickOnInteractionsTab();
                             String issueCode = pages.getViewHistory().getLastCreatedIssueCode();
                             softAssert.assertEquals(issueCode.toLowerCase().trim(), data.getCode(s).trim().toLowerCase());
-                            pages.getViewHistory().openingCustomerInteractionDashboard();
+                            pages.getViewHistory().goingBackToHomeTab();
                             softAssert.assertTrue(pages.getCustomerProfilePage().isCustomerProfilePageLoaded());
                             pages.getCurrentBalanceWidgetPage().clickTicketIcon();
                             widgetName = pages.getCurrentBalanceWidgetPage().getWidgetTitle();
@@ -128,7 +128,7 @@ public class WidgetTaggedIssueTest extends Driver {
                             pages.getViewHistory().clickOnInteractionsTab();
                             String issueCode = pages.getViewHistory().getLastCreatedIssueCode();
                             softAssert.assertEquals(issueCode.toLowerCase().trim(), data.getCode(s).trim().toLowerCase(), "Issue code for category label " + s + " does not configured correctly.");
-                            pages.getViewHistory().openingCustomerInteractionDashboard();
+                            pages.getViewHistory().goingBackToHomeTab();
                             softAssert.assertTrue(pages.getCustomerProfilePage().isCustomerProfilePageLoaded());
                             pages.getRechargeHistoryWidget().clickTicketIcon();
                             widgetName = pages.getRechargeHistoryWidget().getWidgetTitle();
@@ -190,7 +190,7 @@ public class WidgetTaggedIssueTest extends Driver {
                             pages.getViewHistory().clickOnInteractionsTab();
                             String issueCode = pages.getViewHistory().getLastCreatedIssueCode();
                             softAssert.assertEquals(issueCode.toLowerCase().trim(), data.getCode(s).trim().toLowerCase(), "Issue code not as expected");
-                            pages.getViewHistory().openingCustomerInteractionDashboard();
+                            pages.getViewHistory().goingBackToHomeTab();
                             softAssert.assertTrue(pages.getCustomerProfilePage().isCustomerProfilePageLoaded());
                             pages.getUsageHistoryWidget().clickTicketIcon();
                             widgetName = pages.getUsageHistoryWidget().getWidgetTitle();
@@ -252,7 +252,7 @@ public class WidgetTaggedIssueTest extends Driver {
                             pages.getViewHistory().clickOnInteractionsTab();
                             String issueCode = pages.getViewHistory().getLastCreatedIssueCode();
                             softAssert.assertEquals(issueCode.toLowerCase().trim(), data.getCode(s).trim().toLowerCase());
-                            pages.getViewHistory().openingCustomerInteractionDashboard();
+                            pages.getViewHistory().goingBackToHomeTab();
                             softAssert.assertTrue(pages.getCustomerProfilePage().isCustomerProfilePageLoaded());
                             pages.getAmTxnWidgetPage().clickTicketIcon();
                             widgetName = pages.getAmTxnWidgetPage().getWidgetTitle();
@@ -348,7 +348,7 @@ public class WidgetTaggedIssueTest extends Driver {
             } finally {
                 pages.getWidgetInteraction().closeInteractionTab();
             }
-            pages.getDaDetailsPage().openingCustomerInteractionDashboard();
+            pages.getDaDetailsPage().goingBackToHomeTab();
 
         } catch (Exception e) {
             e.printStackTrace();

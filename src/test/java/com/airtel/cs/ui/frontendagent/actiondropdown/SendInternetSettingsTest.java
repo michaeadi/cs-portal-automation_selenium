@@ -1,6 +1,5 @@
 package com.airtel.cs.ui.frontendagent.actiondropdown;
 
-import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.driver.Driver;
 import org.apache.commons.lang3.StringUtils;
@@ -13,7 +12,6 @@ import org.testng.annotations.Test;
 
 public class SendInternetSettingsTest extends Driver {
 
-    private final BaseActions actions = new BaseActions();
     String comments = "Adding comment using Automation";
     Boolean popup = true;
 
@@ -60,7 +58,12 @@ public class SendInternetSettingsTest extends Driver {
             pages.getCustomerProfilePage().clickSendInternetSetting();
             modalOpened = true;
             assertCheck.append(actions.assertEqualBoolean(pages.getCustomerProfilePage().isSendInternetSettingTitleVisible(), true, "Send Internet Setting Tab opened", "Send Internet Setting Tab does NOT opened"));
-            pages.getCustomerProfilePage().clickCancelBtn();
+            popup = !pages.getCustomerProfilePage().isSendInternetSettingConfirmMessageVisible();
+            if (popup) {
+                pages.getCustomerProfilePage().clickCancelBtn();
+            } else {
+                pages.getCustomerProfilePage().clickCloseBtn();
+            }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
             if (modalOpened)
@@ -69,7 +72,7 @@ public class SendInternetSettingsTest extends Driver {
         }
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest","ProdTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
     public void validateSendInternetSetting() {
         try {
             selUtils.addTestcaseDescription("Open send internet setting modal from actions drop down,Validate issue detail title visible,Select reason and enter comment and click on submit button, Validate success message", "description");
@@ -83,8 +86,6 @@ public class SendInternetSettingsTest extends Driver {
                 pages.getAuthTabPage().chooseReason();
                 pages.getAuthTabPage().enterComment(comments);
                 pages.getAuthTabPage().clickSubmitBtn();
-                final String toastText = pages.getAuthTabPage().getToastText();
-                assertCheck.append(actions.assertEqualStringType(toastText, "Internet Settings has been sent on Customer`s Device.", "Send Internet Settings Message has been sent to customer successfully", "Send Internet Settings Message hasn't been sent to customer ans message is :-" + toastText));
             } else {
                 pages.getAuthTabPage().clickYesBtn();
             }

@@ -1,14 +1,13 @@
 package com.airtel.cs.ui.frontendagent.hometab;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.databeans.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pojo.response.crbt.ActivateRingtone;
-import com.airtel.cs.pojo.response.crbt.Top20Ringtone;
+import com.airtel.cs.model.response.crbt.ActivateRingtone;
+import com.airtel.cs.model.response.crbt.Top20Ringtone;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -22,7 +21,6 @@ public class CRBTWidgetTest extends Driver {
 
     private static String customerNumber = null;
     RequestSource api = new RequestSource();
-    private final BaseActions actions = new BaseActions();
     private String crbtWidgetId;
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
@@ -80,7 +78,7 @@ public class CRBTWidgetTest extends Driver {
             selUtils.addTestcaseDescription("Validate My Tunes tab under CRBT Widget", "description");
             ActivateRingtone ringtoneAPI = api.activateRingtone(customerNumber);
             final String statusCode = ringtoneAPI.getStatusCode();
-            assertCheck.append(actions.assertEqualStringType(statusCode, "200", "Ringtone API status code matched and is :" + statusCode, "Ringtone API status code NOT matched and is :" + statusCode));
+            assertCheck.append(actions.assertEqualStringType(statusCode, "200", "Ringtone API status code matched and is :" + statusCode, "Ringtone API status code NOT matched and is :" + statusCode,false));
             String message = ringtoneAPI.getResult().getMessage();
             if (Integer.parseInt(statusCode) == 200) {
                 if (Objects.isNull(ringtoneAPI.getApiErrors())) {
@@ -152,7 +150,7 @@ public class CRBTWidgetTest extends Driver {
             pages.getCrbtWidgetPage().clickOutside();
             Top20Ringtone searchTune = api.ringtoneDetailTest(customerNumber, "namedTune", "h");
             final String statusCode = searchTune.getStatusCode();
-            assertCheck.append(actions.assertEqualStringType(statusCode, "200", "Ringtone Detail API success and status code is :" + statusCode, "Ringtone Detail API is NOT success and status code is :" + statusCode));
+            assertCheck.append(actions.assertEqualStringType(statusCode, "200", "Ringtone Detail API success and status code is :" + statusCode, "Ringtone Detail API is NOT success and status code is :" + statusCode,false));
             if (!StringUtils.equalsIgnoreCase(statusCode, "200")) {
                 commonLib.fail("API Response " + searchTune.getMessage(), true);
                 assertCheck.append(actions.assertEqualBoolean(pages.getCrbtWidgetPage().isWidgetError(), true, "Widget Error displayed as API response is not 200", "Widget Error does not display as api response is not 200."));
@@ -170,7 +168,7 @@ public class CRBTWidgetTest extends Driver {
                 assertCheck.append(actions.assertEqualBoolean(pages.getCrbtWidgetPage().isNoResultMessage(), true, "No Result message found is case of no ringtone found with search keyword", "No Result message does not in case of no ringtone found with search keyword"));
                 assertCheck.append(actions.assertEqualBoolean(pages.getCrbtWidgetPage().isNoResultImg(), true, "No Result Image found is case of no ringtone found with search keyword", "No Result Image does not in case of no ringtone found with search keyword"));
             }
-        } catch (NoSuchElementException | TimeoutException e) {
+        } catch (Exception e) {
             commonLib.fail("Exception in Method - testSearchTune" + e.fillInStackTrace(), true);
         }
     }

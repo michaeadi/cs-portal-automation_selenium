@@ -7,7 +7,7 @@ import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.databeans.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pojo.response.actiontrail.ActionTrailPOJO;
+import com.airtel.cs.model.response.actiontrail.ActionTrail;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;
@@ -71,14 +71,14 @@ public class ActionTrailTest extends Driver {
     public void validateActionTrailValue() {
         try {
             selUtils.addTestcaseDescription("Verify View History tab opened successfully,Verify Action Trail History tab is visible,Validate column's value are visible and correct", "description");
-            ActionTrailPOJO actionTrailAPI = api.getEventHistory(customerNumber, "ACTION");
+            ActionTrail actionTrailAPI = api.getEventHistory(customerNumber, "ACTION");
             final int statusCode = actionTrailAPI.getStatusCode();
-            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Action Trail API success and status code is :" + statusCode, "Action Trail API got failed and status code is :" + statusCode,true,true));
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Action Trail API success and status code is :" + statusCode, "Action Trail API got failed and status code is :" + statusCode,false,true));
             if (statusCode == 200) {
                 int size=Math.min(actionTrailAPI.getTotalCount(),10);
                 for(int i=0;i<size;i++) {
                     assertCheck.append(actions.matchUiAndAPIResponse(pages.getActionTrailPage().getValue(i+1, 1), actionTrailAPI.getResult().get(i).getActionType(), "Action Type Column value displayed Correctly", "Action Type Column Value does not displayed Correctly"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getActionTrailPage().getValue(i+1, 2), UtilsMethods.getDateFromEpoch(new Long(actionTrailAPI.getResult().get(i).getCreatedOn()),constants.getValue(CommonConstants.APPLICATION_UI_TIME_FORMAT)),"Date & Time Column displayed Correctly", "Date & Time Column does not displayed Correctly"));
+                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getActionTrailPage().getValue(i+1, 2), UtilsMethods.getDateFromEpoch(Long.valueOf(actionTrailAPI.getResult().get(i).getCreatedOn()),constants.getValue(CommonConstants.APPLICATION_UI_TIME_FORMAT)),"Date & Time Column displayed Correctly", "Date & Time Column does not displayed Correctly"));
                     assertCheck.append(actions.matchUiAndAPIResponse(pages.getActionTrailPage().getValue(i+1, 3) ,actionTrailAPI.getResult().get(i).getReason(), "Reason Column displayed Correctly", "Reason Column does not displayed Correctly"));
                     assertCheck.append(actions.assertEqualStringType(pages.getActionTrailPage().getValue(i+1, 4), actionTrailAPI.getResult().get(i).getAgentId(), "Agent Id Column displayed Correctly", "Agent Id Column does not displayed Correctly"));
                     assertCheck.append(actions.matchUiAndAPIResponse(pages.getActionTrailPage().getValue(i+1, 5),actionTrailAPI.getResult().get(i).getAgentName() ,"Agent name Column displayed Correctly", "Agent name Column does not displayed in Correctly"));
