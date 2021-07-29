@@ -73,6 +73,9 @@ public class CommonConstants {
     public static final String REOPEN_TICKET_STATE_NAME="cs.reopen.state.name";
     public static final String SELECT_ALL_OPTION_NAME="cs.select.all";
     public static final String API_AUTHORIZATION_KEY="cs.authorization.api.key";
+    public static final String SEND_INTERNET_SETTING_ACTION_KEY="cs.send.internet.setting";
+    public static final String ADD_FNF_ACTION_KEY="cs.add.fnf.key";
+    public static final String REMOVE_FNF_ACTION_KEY="cs.remove.fnf.key";
     public static final String PAYMENT_REQUEST_LIMIT = "paymentRequest.limit";
     public static final String PAYMENT_REQUEST_OFFSET = "paymentRequest.offset";
     public static final String PAGE_NO = "planpack.request.page.no";
@@ -81,5 +84,4 @@ public class CommonConstants {
     public static final String AGENT_ADJUSTMENT_DAILY_LIMIT="cs.agent.adjustment.daily.limit";
     public static final String AGENT_ADJUSTMENT_MONTHLY_LIMIT="cs.agent.adjustment.monthly.limit";
     public static final String AGENT_ADJUSTMENT_TRANSACTION_LIMIT="cs.agent.adjustment.transaction.limit";
-
 }

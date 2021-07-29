@@ -1,10 +1,12 @@
 package com.airtel.cs.ui.frontendagent.actiondropdown;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
+import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.model.response.actionconfig.ActionConfigResult;
+import com.airtel.cs.model.response.actiontrail.ActionTrail;
+import com.airtel.cs.model.response.actiontrail.EventResult;
 import com.airtel.cs.model.response.parentcategory.Category;
 import io.restassured.http.Headers;
 import org.apache.commons.lang3.StringUtils;
@@ -20,10 +22,10 @@ import java.util.TreeMap;
 
 public class SendInternetSettingsTest extends Driver {
 
-    private final BaseActions actions = new BaseActions();
+    private static String customerNumber = null;
     String comments = "Adding comment using Automation";
-    Boolean popup = true;
     RequestSource api = new RequestSource();
+    Boolean popup = true;
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
@@ -45,7 +47,7 @@ public class SendInternetSettingsTest extends Driver {
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
-            final String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
+            customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().openCustomerInteractionPage();
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
@@ -53,10 +55,10 @@ public class SendInternetSettingsTest extends Driver {
             final boolean pageLoaded = pages.getCustomerProfilePage().isCustomerProfilePageLoaded();
             assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
             if (!pageLoaded) continueExecutionFA = false;
-            actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - openCustomerInteraction" + e.fillInStackTrace(), true);
         }
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     @Test(priority = 2, groups = {"RegressionTest"}, dependsOnMethods = "openCustomerInteraction")
@@ -74,12 +76,12 @@ public class SendInternetSettingsTest extends Driver {
             } else {
                 pages.getCustomerProfilePage().clickCloseBtn();
             }
-            actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
             if (modalOpened)
                 pages.getCustomerProfilePage().clickCloseBtn();
             commonLib.fail("Exception in Method :- validateSendInternetSetting" + e.fillInStackTrace(), true);
         }
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
@@ -102,20 +104,32 @@ public class SendInternetSettingsTest extends Driver {
             }
             final String toastText = pages.getAuthTabPage().getToastText();
             assertCheck.append(actions.assertEqualStringType(toastText, "Internet Settings has been sent on Customer`s Device.", "Send Internet Settings Message has been sent to customer successfully", "Send Internet Settings Message hasn't been sent to customer ans message is :-" + toastText));
-            if (StringUtils.isNotEmpty(actionConfigResult.getCategoryId())) {
-              TreeMap<String, List<Category>> categoryMap = api.getParentCategory(Long.parseLong(actionConfigResult.getCategoryId()));
-              String categoryCode = categoryMap.get(categoryMap.lastKey()).get(0).getCategoryName();
-              commonLib.info("Category code is : " + categoryCode);
-              pages.getCustomerProfilePage().goToViewHistory();
-              pages.getViewHistory().clickOnInteractionsTab();
-              String code = pages.getViewHistory().getLastCreatedIssueCode();
-              assertCheck.append(actions.assertEqualStringType(code.trim(), categoryCode, constants.getValue("category.interaction.found"),
-                  constants.getValue("category.interaction.not.found")));
+            ActionTrail actionTrailAPI = api.getEventHistory(customerNumber, "ACTION");
+            int statusCode = actionTrailAPI.getStatusCode();
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Action Trail API success and status code is :" + statusCode, "Action Trail API got failed and status code is :" + statusCode, false, true));
+            EventResult eventResult = actionTrailAPI.getResult().get(0);
+            if (statusCode == 200) {
+                pages.getActionTrailPage().assertMetaInfoAfterActionPerformed(constants.getValue(CommonConstants.SEND_INTERNET_SETTING_ACTION_KEY), eventResult);
+                assertCheck.append(actions.assertEqualStringNotNull(eventResult.getActionType(), "Action Type of Add FnF as expected", "Action Type of Add FnF as not expected"));
+                assertCheck.append(actions.matchUiAndAPIResponse(eventResult.getComments(), comments, "Comment same as expected.", "Comment same as not expected."));
+                assertCheck.append(actions.matchUiAndAPIResponse(eventResult.getAgentId(), constants.getValue(CommonConstants.ALL_USER_ROLE_AUUID), "Agent id same as expected", "Agent id same as not expected"));
+            } else {
+                commonLib.fail("Not able to fetch action trail event log using API", true);
             }
-            actions.assertAllFoundFailedAssert(assertCheck);
-        } catch (NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
+            if (StringUtils.isNotEmpty(actionConfigResult.getCategoryId())) {
+                TreeMap<String, List<Category>> categoryMap = api.getParentCategory(Long.parseLong(actionConfigResult.getCategoryId()));
+                String categoryCode = categoryMap.get(categoryMap.lastKey()).get(0).getCategoryName();
+                commonLib.info("Category code is : " + categoryCode);
+                pages.getCustomerProfilePage().goToViewHistory();
+                pages.getViewHistory().clickOnInteractionsTab();
+                String code = pages.getViewHistory().getLastCreatedIssueCode();
+                assertCheck.append(actions.assertEqualStringType(code.trim(), categoryCode, constants.getValue("category.interaction.found"),
+                        constants.getValue("category.interaction.not.found")));
+            }
+        } catch (Exception e) {
             commonLib.fail("Exception in Method - validateSendInternetSetting" + e.fillInStackTrace(), true);
             pages.getCustomerProfilePage().clickOutside();
         }
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 }
