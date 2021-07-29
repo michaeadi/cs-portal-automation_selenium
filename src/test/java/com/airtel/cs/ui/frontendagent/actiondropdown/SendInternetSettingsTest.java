@@ -108,8 +108,8 @@ public class SendInternetSettingsTest extends Driver {
               pages.getCustomerProfilePage().goToViewHistory();
               pages.getViewHistory().clickOnInteractionsTab();
               String code = pages.getViewHistory().getLastCreatedIssueCode();
-              assertCheck.append(actions.assertEqualStringType(code.trim(), categoryCode, "Category code found in view history Interaction tab",
-                  "Category code doesn't found in view history interaction tab"));
+              assertCheck.append(actions.assertEqualStringType(code.trim(), categoryCode, constants.getValue("category.interaction.found"),
+                  constants.getValue("category.interaction.not.found")));
             }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {

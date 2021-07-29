@@ -1,6 +1,5 @@
 package com.airtel.cs.pojo.response.parentcategory;
 
-import com.airtel.cs.pojo.response.filedmasking.FieldMaskConfigs;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;

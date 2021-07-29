@@ -264,7 +264,7 @@ public class FrontendTicketHistory extends BasePage {
      */
     public boolean isUnableToFetch() {
         final boolean elementVisible = isElementVisible(pageElements.unableToFetch);
-        commonLib.info("Is error visible on unable to fetch ticket history : " + elementVisible);
+        commonLib.info(constants.getValue("ticket.history.unabletofetch") + ":" + elementVisible);
         return elementVisible;
     }
 }
