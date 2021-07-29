@@ -217,10 +217,10 @@ public class AccountInformationWidget extends BasePage {
         String attributeValue = null;
         //getElementByXpath(elementLocation);
         WebElement element = getElementFromBy(elementLocation);
+        final String id = getAttribute(elementLocation, "id", false);
         JavascriptExecutor executor = (JavascriptExecutor) driver;
         Object allAttributes = executor.executeScript(
-                "var elem = document.getElementById(element); var css = window.getComputedStyle(elem, null);document.getElementById('demo').innerHTML = 'font-weight:-' +css.getPropertyValue('font-weight')+ 'backgroundColor:-' + css.getPropertyValue('background-color');",
-                element);
+                "var elem = document.getElementById(id); var css = window.getComputedStyle(elem, null);console.log(css);");
         commonLib.logs(allAttributes.toString());
         return attributeValue;
     }
