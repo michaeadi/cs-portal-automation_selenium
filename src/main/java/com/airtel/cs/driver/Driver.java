@@ -185,7 +185,7 @@ public class Driver {
             FileUtils.writeStringToFile(f, doc.outerHtml(), StandardCharsets.UTF_8);
 
         } catch (Exception e) {
-            System.out.println("Error when writing report file:\n" + e.toString());
+            commonLib.fail("Exception in Method - createEmailableReport" + e.getMessage(), false);
         }
     }
 

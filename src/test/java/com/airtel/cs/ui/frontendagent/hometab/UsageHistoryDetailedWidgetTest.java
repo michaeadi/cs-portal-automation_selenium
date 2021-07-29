@@ -69,7 +69,10 @@ public class UsageHistoryDetailedWidgetTest extends Driver {
             final int statusCode = usageHistoryAPI.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Usage History Detailed Widget API success and status code is :" + statusCode, "Usage History Detailed Widget API got failed and status code is :" + statusCode, false));
             if (statusCode != 200) {
-                commonLib.fail("API is Unable to Get usage history for Customer", false);
+                commonLib.fail(constants.getValue("cs.get.usage.history.api.error"), false);
+                if(statusCode == 500){
+                    assertCheck.append(actions.assertEqualBoolean(pages.getDetailedUsageHistoryPage().isUnableToFetch(),true, constants.getValue("usage.history.error.widget.visible"),constants.getValue("usage.history.error.widget.not.visible"),true));
+                }
             } else if (usageHistoryAPI.getResult().size() > 0) {
                 assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailedUsageHistoryPage().getHeaders(1), data.getRow1(), "Header Name for Row 1 is as expected", "Header Name for Row 1 is not as expected"));
                 assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailedUsageHistoryPage().getHeaders(2), data.getRow2(), "Header Name for Row 2 is as expected", "Header Name for Row 2 is not as expected"));
@@ -100,7 +103,10 @@ public class UsageHistoryDetailedWidgetTest extends Driver {
                 final int statusCode = usageHistoryAPI.getStatusCode();
                 assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Usage History Widget API success and status code is :" + statusCode, "Usage History Widget API got failed and status code is :" + statusCode, false));
                 if (statusCode != 200) {
-                    commonLib.fail("API is Unable to Get usage history for Customer", false);
+                    commonLib.fail(constants.getValue("cs.get.usage.history.api.error"), false);
+                    if(statusCode == 500){
+                        assertCheck.append(actions.assertEqualBoolean(pages.getDetailedUsageHistoryPage().isUnableToFetch(),true, constants.getValue("usage.history.error.widget.visible"),constants.getValue("usage.history.error.widget.not.visible"),true));
+                    }
                 } else if (usageHistoryAPI.getResult().size() == 0 || usageHistoryAPI.getResult() == null) {
                     commonLib.warning("No Usage History Found for this MSISDN over the CS Portal");
                     assertCheck.append(actions.assertEqualBoolean(pages.getDetailedUsageHistoryPage().getNoResultFound(), true, "No Result Message & Icon is Visible", "No Result Message is not Visible"));

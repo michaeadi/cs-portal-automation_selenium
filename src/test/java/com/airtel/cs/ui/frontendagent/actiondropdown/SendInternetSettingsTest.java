@@ -1,7 +1,12 @@
 package com.airtel.cs.ui.frontendagent.actiondropdown;
 
+import com.airtel.cs.api.RequestSource;
+import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.driver.Driver;
+import com.airtel.cs.model.response.actionconfig.ActionConfigResult;
+import com.airtel.cs.model.response.parentcategory.Category;
+import io.restassured.http.Headers;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoSuchElementException;
@@ -10,10 +15,15 @@ import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.util.List;
+import java.util.TreeMap;
+
 public class SendInternetSettingsTest extends Driver {
 
+    private final BaseActions actions = new BaseActions();
     String comments = "Adding comment using Automation";
     Boolean popup = true;
+    RequestSource api = new RequestSource();
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
@@ -79,6 +89,7 @@ public class SendInternetSettingsTest extends Driver {
             pages.getCustomerProfilePage().clickOnAction();
             pages.getCustomerProfilePage().clickSendInternetSetting();
             popup = !pages.getCustomerProfilePage().isSendInternetSettingConfirmMessageVisible();
+            ActionConfigResult actionConfigResult = api.getActionConfig(new Headers(map), "sendInternetSettings");
             if (popup) {
                 assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isIssueDetailTitleVisible(), true, "Issue Detail Configured", "Issue Detail does not configured"));
                 pages.getAuthTabPage().clickSelectReasonDropDown();
@@ -91,6 +102,16 @@ public class SendInternetSettingsTest extends Driver {
             }
             final String toastText = pages.getAuthTabPage().getToastText();
             assertCheck.append(actions.assertEqualStringType(toastText, "Internet Settings has been sent on Customer`s Device.", "Send Internet Settings Message has been sent to customer successfully", "Send Internet Settings Message hasn't been sent to customer ans message is :-" + toastText));
+            if (StringUtils.isNotEmpty(actionConfigResult.getCategoryId())) {
+              TreeMap<String, List<Category>> categoryMap = api.getParentCategory(Long.parseLong(actionConfigResult.getCategoryId()));
+              String categoryCode = categoryMap.get(categoryMap.lastKey()).get(0).getCategoryName();
+              commonLib.info("Category code is : " + categoryCode);
+              pages.getCustomerProfilePage().goToViewHistory();
+              pages.getViewHistory().clickOnInteractionsTab();
+              String code = pages.getViewHistory().getLastCreatedIssueCode();
+              assertCheck.append(actions.assertEqualStringType(code.trim(), categoryCode, constants.getValue("category.interaction.found"),
+                  constants.getValue("category.interaction.not.found")));
+            }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
             commonLib.fail("Exception in Method - validateSendInternetSetting" + e.fillInStackTrace(), true);
