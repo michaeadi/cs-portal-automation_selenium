@@ -5,28 +5,7 @@ import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants
 import com.airtel.cs.commonutils.applicationutils.constants.ESBURIConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.URIConstants;
 import com.airtel.cs.commonutils.restutils.RestCommonUtils;
-import com.airtel.cs.model.request.GenericRequest;
-import com.airtel.cs.model.request.RechargeHistoryRequest;
-import com.airtel.cs.model.request.UsageHistoryMenuRequest;
-import com.airtel.cs.model.request.UsageHistoryRequest;
-import com.airtel.cs.model.request.TransactionHistoryRequest;
-import com.airtel.cs.model.request.MoreTransactionHistoryRequest;
-import com.airtel.cs.model.request.AccountBalanceRequest;
-import com.airtel.cs.model.request.LoanRequest;
-import com.airtel.cs.model.request.RingtonDetailsRequest;
-import com.airtel.cs.model.request.VoucherSearchRequest;
-import com.airtel.cs.model.request.SMSHistoryRequest;
-import com.airtel.cs.model.request.AccumulatorsRequest;
-import com.airtel.cs.model.request.OfferDetailRequest;
-import com.airtel.cs.model.request.AccountDetailRequest;
-import com.airtel.cs.model.request.ServiceProfileRequest;
-import com.airtel.cs.model.request.PostpaidAccountDetailRequest;
-import com.airtel.cs.model.request.ActionTrailRequest;
-import com.airtel.cs.model.request.FetchTicketPoolRequest;
-import com.airtel.cs.model.request.PlanPackRequest;
-import com.airtel.cs.model.request.SaveAgentLimitRequest;
-import com.airtel.cs.model.request.LimitConfigRequest;
-import com.airtel.cs.model.request.AgentLimitRequest;
+import com.airtel.cs.model.request.*;
 import com.airtel.cs.model.response.PlanPackResponse;
 import com.airtel.cs.model.response.accountinfo.AccountDetails;
 import com.airtel.cs.model.response.accounts.AccountsBalance;
@@ -58,6 +37,7 @@ import com.airtel.cs.model.response.login.Login;
 import com.airtel.cs.model.response.offerdetails.OfferDetail;
 import com.airtel.cs.model.response.plans.Plans;
 import com.airtel.cs.model.response.postpaid.PostpaidAccountDetailResponse;
+import com.airtel.cs.model.response.postpaid.enterprise.AccountStatementCSResponse;
 import com.airtel.cs.model.response.rechargehistory.RechargeHistory;
 import com.airtel.cs.model.response.smshistory.SMSHistory;
 import com.airtel.cs.model.response.tariffplan.AvailablePlan;
@@ -954,4 +934,23 @@ public class RequestSource extends RestCommonUtils {
         }
         return result;
     }
+
+    /**
+     * This Method will hit the API "/cs-gsm-service/v1/postpaid/msisdn/details" and return the response in list
+     *
+     * @param accountNo
+     * @return The Response
+     */
+    public AccountStatementCSResponse accountStatementCSResponse(String accountNo, Integer pageNumber) {
+        AccountStatementCSResponse result = null;
+        try {
+            commonPostMethod(URIConstants.POSTPAID_ACCOUNT_MSISDN_DETAILS, new AccountStatementReq(accountNo, pageNumber.toString(), "5"));
+            result = response.as(AccountStatementCSResponse.class);
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - getAccountInfoDetail " + e.getMessage(), false);
+            esbRequestSource.callPostpaidAccountInfoDetails(new AccountDetailRequest(accountNo, pageNumber.toString(), "5"));
+        }
+        return result;
+    }
+
 }

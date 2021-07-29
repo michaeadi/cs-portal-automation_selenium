@@ -209,7 +209,7 @@ public class DetailAccountInfoTest extends Driver {
             PostpaidAccountDetailResponse accountDetailResponse = api.accountDetailResponse(accountNo);
             final String status = accountDetailResponse.getStatus();
             if (status.trim().equalsIgnoreCase("SUCCESS")) {
-                pages.getDetailAccountInfoWidget().callingAccountDetailAPI(accountDetailResponse, accountStatementResponse);
+                pages.getDetailAccountInfoWidget().accountDetailResponseAssertions(accountDetailResponse, accountStatementResponse);
             } else {
                 commonLib.fail("API does not able to fetch account statement", false);
             }
