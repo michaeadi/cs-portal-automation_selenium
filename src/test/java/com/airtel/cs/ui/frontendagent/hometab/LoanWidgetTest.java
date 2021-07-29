@@ -33,10 +33,6 @@ public class LoanWidgetTest extends Driver {
     RequestSource api = new RequestSource();
     List<Vendors> vendors;
 
-    {
-        commonLib.warning("No Vendor Found in Loan Service Widget");
-    }
-
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {

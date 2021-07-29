@@ -254,8 +254,8 @@ public class TicketBulkUpdateTest extends Driver {
             selUtils.addTestcaseDescription("Check user able to upload ticket id from excel,Validate ticket upload from excel is complete,Click on next button and choose Change state operation,Choose State from the list and confirm the info,Click on submit button and validate ticket transfer to selected state,Validate Ticket history log logged this entry as ticket update by bulk update.", "description");
             DataProviders data = new DataProviders();
             int noOfTicket = 1;
-            Assert.assertTrue(pages.getTicketBulkUpdate().fileDownload(), "Ticket Upload Template does not download.Please check Excels/BulkUploadTemplate.xlsx downloaded");
-            Assert.assertTrue(data.writeTicketNumberToExcel(noOfTicket), "No Ticket Found to write in Excel");
+            assertCheck.append(actions.assertEqualBoolean(pages.getTicketBulkUpdate().fileDownload(),true, "Ticket Upload Template file download.Please check Excels/BulkUploadTemplate.xlsx downloaded","Ticket Upload Template does not download.Please check Excels/BulkUploadTemplate.xlsx downloaded",true));
+            assertCheck.append(actions.assertEqualBoolean(data.writeTicketNumberToExcel(noOfTicket),true, "Ticket Found to write in Excel","No Ticket Found to write in Excel",true));
             pages.getTicketBulkUpdate().addFile();
             final boolean isGrowlVisible = pages.getGrowl().checkIsGrowlVisible();
             if (isGrowlVisible) {

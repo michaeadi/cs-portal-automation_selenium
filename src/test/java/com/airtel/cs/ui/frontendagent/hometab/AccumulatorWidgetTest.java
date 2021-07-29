@@ -15,7 +15,6 @@ import org.testng.annotations.Test;
 public class AccumulatorWidgetTest extends Driver {
     private static String customerNumber = null;
     RequestSource api = new RequestSource();
-    private String accumulatorWidgetIdentifier;
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
@@ -48,7 +47,7 @@ public class AccumulatorWidgetTest extends Driver {
     public void accumulatorDetailsTest(HeaderDataBean Data) {
         try {
             selUtils.addTestcaseDescription("Validating Accumulator Details of User :" + customerNumber, "description");
-            accumulatorWidgetIdentifier = pages.getDaDetailsPage().getAccumulatorId();
+            String accumulatorWidgetIdentifier = pages.getDaDetailsPage().getAccumulatorId();
             selUtils.addTestcaseDescription("Validating Accumulator Details of User :" + customerNumber + ",Validate accumulator widget header display as per config,Validate accumulator row data must be displayed as per api response.", "description");
             assertCheck.append(actions.assertEqualBoolean(pages.getCurrentBalanceWidgetPage().isCurrentBalanceWidgetMenuVisible(), true, "Current Balance Widget MENU visible ", "Current Balance Widget MENU is not visible"));
             pages.getCurrentBalanceWidgetPage().openingDADetails();

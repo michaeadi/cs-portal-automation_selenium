@@ -24,6 +24,8 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
+import static com.airtel.cs.commonutils.UtilsMethods.stringNotNull;
+
 @Log4j2
 public class DemoGraphicWidgetMsisdnTest extends Driver {
 
@@ -203,10 +205,10 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                     "Customer Name is as Expected", "Customer Name is not as Expected"));
             if (!customerName.contains("Unable to fetch data")) {
                 pages.getDemoGraphicPage().hoverOnCustomerInfoIcon();
-                final String customerDOB = pages.getDemoGraphicPage().getCustomerDOB();
+                final String customerDOB = pages.getDemoGraphicPage().getCustomerDOB().toLowerCase();
                 final String customerIdNumber = pages.getDemoGraphicPage().getIdNumber().replace("*", "");
                 pages.getDemoGraphicPage().hoverOnCustomerInfoIcon();
-                final String idType = pages.getDemoGraphicPage().getIdType().toLowerCase().trim();
+                final String idType = stringNotNull(pages.getDemoGraphicPage().getIdType()).toLowerCase().trim();
                 assertCheck.append(actions
                         .assertEqualStringType(customerDOB.trim(), pages.getDemoGraphicPage().getKeyValueAPI(UtilsMethods.getDateFromEpoch(gsmKycAPI.getResult().getDob(), "dd-MMM-yyyy")),
                                 "Customer DOB is as Expected", "Customer DOB is not as Expected"));
@@ -235,7 +237,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
 
 
             }
-            assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getGsmKycStatus(), pages.getDemoGraphicPage().getKeyValueAPI(gsmKycAPI.getResult().getGsm()),
+            assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getGsmKycStatus().toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(gsmKycAPI.getResult().getGsm()),
                     "Customer's GSM KYC Status is as Expected", "Customer's GSM KYC Status is not as Expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
@@ -268,7 +270,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                         pages.getDemoGraphicPage().getKeyValueAPI(kycProfile.getResult().getModifiedBy().trim().toLowerCase()), "Customer SIM Status Modified By is as Expected",
                         "Customer SIM Status Modified By is not as Expected"));
                 assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getGSMStatusModifiedDate().trim(),
-                        UtilsMethods.getDateFromString(kycProfile.getResult().getModifiedDate(), "dd-MMM-yyy HH:mm aa", "dd-MMM-yyyy hh:mm aa").replace("am", "AM").replace("pm", "PM"),
+                        kycProfile.getResult().getModifiedDate(),
                         "Customer SIM Status, Modified Date is as Expected", "Customer SIM Status, Modified Date is not as Expected"));
             }
             final String simNumber = pages.getDemoGraphicPage().getSimNumber();
@@ -388,7 +390,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
             assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getAppStatus().toLowerCase().trim(),
                     pages.getDemoGraphicPage().getKeyValueAPI(profileAPI.getResult().getAppStatus()), "App Status as expected",
                     "App Status as not expected"));
-
+            actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
             commonLib.fail("Exception in method - testServiceClassAndAppStatus " + e, true);
         }

@@ -817,7 +817,7 @@ public class DataProviders extends Driver {
     /**
      *This method use to read sla rule file and save the list of rule into static object slaRuleFile
      */
-    public static void getSLARuleExcelFile(){
+    public static void setSLARuleExcelFile(){
         SLARuleFileBeanToExcel slaRuleFileBeanToExcel = new SLARuleFileBeanToExcel();
         slaRuleFile= slaRuleFileBeanToExcel.getData(excelPath, constants.getValue(CommonConstants.TICKET_CREATION_SLA_CALCULATION_RULE));
     }
@@ -830,7 +830,7 @@ public class DataProviders extends Driver {
     public List<SLARuleFileDataBeans> getSLARuleBasedOnCode(String code){
         List<SLARuleFileDataBeans> slaRules = new ArrayList<>();
         if(slaRuleFile.isEmpty()){
-            getSLARuleExcelFile();
+            setSLARuleExcelFile();
         }
         for(SLARuleFileDataBeans rules:slaRuleFile){
             if(rules.getCategoryCode().equalsIgnoreCase(code)){
