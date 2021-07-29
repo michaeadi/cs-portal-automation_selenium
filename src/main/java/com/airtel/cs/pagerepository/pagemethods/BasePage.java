@@ -304,9 +304,14 @@ public class BasePage extends Driver {
     public void clickOutside() {
         Actions action = new Actions(driver);
         action.moveByOffset(0, 0).click().build().perform();
-//        driver.findElement(By.xpath("//body//app-dashboard")).click();
-        // TODO: 7/28/2021 Ashwani Create new method as its breaking test-cases
+    }
 
+    /*
+    This Method will click outside over frontend agent dashboard
+     */
+    public void clickFEDashboardOutside() {
+        //Todo @Ashwani dashboardBody element does not created in BasePageElement.Class
+        clickWithoutLoader(basePageElements.dashboardBody);
     }
 
     /**
