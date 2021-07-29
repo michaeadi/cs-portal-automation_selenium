@@ -95,4 +95,22 @@ public class CurrentPlanWidget extends BasePage {
         return as.size();
     }
 
+    /**
+     * This method will return boolean value true if found decimal value upto 2
+     *
+     * @param input_string
+     * @return
+     */
+    public static boolean getDecimalValue(String input_string) throws ArrayIndexOutOfBoundsException {
+
+        boolean flag = false;
+        if (!input_string.equalsIgnoreCase("-")) {
+            String[] result = input_string.split("\\.");
+            if (result[1].length() == 2) {
+                flag = true;
+            }
+        }
+        return flag;
+    }
+
 }

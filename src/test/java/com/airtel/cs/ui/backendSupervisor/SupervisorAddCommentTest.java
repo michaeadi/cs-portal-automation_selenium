@@ -1,6 +1,5 @@
 package com.airtel.cs.ui.backendSupervisor;
 
-import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.driver.Driver;
 import org.openqa.selenium.TimeoutException;
@@ -13,8 +12,6 @@ import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
 
 public class SupervisorAddCommentTest extends Driver {
-
-    private final BaseActions actions = new BaseActions();
 
     @BeforeMethod(groups = {"RegressionTest"})
     public void checkExecution() {
@@ -45,17 +42,13 @@ public class SupervisorAddCommentTest extends Driver {
             pages.getSupervisorTicketList().changeTicketTypeToOpen();
             try {
                 String ticketId = pages.getSupervisorTicketList().getTicketIdValue();
-                String comment = "Supervisor added comment on ticket using automation";
                 try {
                     pages.getSupervisorTicketList().viewTicket();
                     Assert.assertEquals(ticketId, pages.getViewTicket().getTicketId(), "Verify the searched Ticket fetched Successfully");
-                    try {
-                        pages.getViewTicket().addComment(comment);
-                        pages.getViewTicket().clickAddButton();
-                        pages.getViewTicket().validateAddedComment(comment);
-                    } catch (NoSuchElementException | TimeoutException e) {
-                        commonLib.fail("Not able to add comment on ticket :" + e.fillInStackTrace(), true);
-                    }
+                    String comment = "Supervisor added comment on ticket using automation";
+                    pages.getViewTicket().addComment(comment);
+                    pages.getViewTicket().clickAddButton();
+                    pages.getViewTicket().validateAddedComment(comment);
                 } catch (NoSuchElementException | TimeoutException e) {
                     commonLib.fail("Not able to view ticket properly: " + e.fillInStackTrace(), true);
                     pages.getViewTicket().clickBackButton();

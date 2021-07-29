@@ -1,6 +1,5 @@
 package com.airtel.cs.ui.frontendagent;
 
-import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
@@ -12,7 +11,6 @@ import org.testng.annotations.Test;
 
 public class SendSMSTest extends Driver {
 
-    private final BaseActions actions = new BaseActions();
     String templateName = null;
     String messageContent = null;
     String customerNumber = null;
@@ -57,7 +55,7 @@ public class SendSMSTest extends Driver {
             selUtils.addTestcaseDescription("Validating the Send SMS Tab ", "description");
             pages.getCustomerProfilePage().clickOnAction();
             pages.getCustomerProfilePage().openSendSMSTab();
-            assertCheck.append(actions.assertEqualBoolean(pages.getSendSMS().isPageLoaded(), true, "Send SMS tab open correctly", "Send SMS tab does not open correctly"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSendSMS().isPageLoaded(), true, "Send SMS tab open correctly", "Send SMS tab does not open correctly",true));
             assertCheck.append(actions.assertEqualBoolean(pages.getSendSMS().isCategory(), true, "Category field is displayed", "Category field does not displayed"));
             assertCheck.append(actions.assertEqualBoolean(pages.getSendSMS().isCustomerNumber(), true, "Customer number displayed", "Customer number does not displayed"));
             assertCheck.append(actions.assertEqualBoolean(pages.getSendSMS().isLanguage(), true, "Language field is displayed", "Language field does not displayed"));
@@ -87,11 +85,11 @@ public class SendSMSTest extends Driver {
             assertCheck.append(actions.assertEqualStringType(pages.getSendSMS().getSendSMSHeaderText(), "SMS Sent", "Send SMS Header Text Matched", "Send SMS Header Text NOT Matched"));
             assertCheck.append(actions.assertEqualStringType(pages.getSendSMS().getSMSModalText(), "Message sent successfully to " + customerNumber, "Sens SMS Success Message is Correct", "Sens SMS Success Message is NOT Correct"));
             pages.getSendSMS().clickOutside();
-            actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - sendSMS" + e.fillInStackTrace(), true);
             pages.getSendSMS().clickOutside();
         }
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     /**
@@ -115,10 +113,10 @@ public class SendSMSTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getMessageHistoryPage().isActionBtnEnable(1), true, "Resend SMS icon does not enable"));
             assertCheck.append(actions.assertEqualBoolean(!pages.getMessageHistoryPage().agentId(1).trim().equalsIgnoreCase("-"), true, "Agent id must is not empty", "Agent id must not be empty"));
             assertCheck.append(actions.assertEqualBoolean(!pages.getMessageHistoryPage().agentName(1).trim().equalsIgnoreCase("-"), true, "Agent name is not empty", "Agent name must not be empty"));
-            actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
-            commonLib.fail("Exception in Method - checkSendMessageLog" + e.fillInStackTrace(), true);
+            commonLib.fail("Exception in Method - checkSendMessageLog " + e.fillInStackTrace(), true);
         }
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     /**
@@ -140,9 +138,9 @@ public class SendSMSTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getMessageHistoryPage().isActionBtnEnable(1), true, "Resend SMS icon does not enable"));
             assertCheck.append(actions.assertEqualBoolean(!pages.getMessageHistoryPage().agentId(1).trim().equalsIgnoreCase("-"), true, pages.getMessageHistoryPage().agentId(1) + " :Agent id must not be empty"));
             assertCheck.append(actions.assertEqualBoolean(!pages.getMessageHistoryPage().agentName(1).trim().equalsIgnoreCase("-"), true, pages.getMessageHistoryPage().agentName(1) + " :Agent name must not be empty"));
-            actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - reSendMessageLog" + e.fillInStackTrace(), true);
         }
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 }

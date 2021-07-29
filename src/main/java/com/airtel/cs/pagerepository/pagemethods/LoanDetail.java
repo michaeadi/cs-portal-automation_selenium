@@ -1,5 +1,10 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
+import com.airtel.cs.commonutils.UtilsMethods;
+import com.airtel.cs.commonutils.dataproviders.databeans.HeaderDataBean;
+import com.airtel.cs.model.response.loandetails.LoanRepaymentDetailList;
+import com.airtel.cs.model.response.loandetails.LoanRepaymentList;
+import com.airtel.cs.model.response.vendors.HeaderList;
 import com.airtel.cs.pagerepository.pageelements.LoanDetailPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -162,6 +167,47 @@ public class LoanDetail extends BasePage {
         clickAndWaitForLoaderToBeRemoved(pageElements.closeTab);
         clickAndWaitForLoaderToBeRemoved(pageElements.homeTab);
     }
+
+    /**
+     * This method used to validate loan recovery Widget based on repayment count
+     * @param repaymentCount The repayment count
+     * @param loanRepaymentList The Loan Repayment list
+     * @param loanRowNumber The loan Row number
+     * @throws InterruptedException
+     */
+    public void validateLoanRecoveryWidget(int repaymentCount,List<LoanRepaymentList> loanRepaymentList,int loanRowNumber,int i) throws InterruptedException {
+        if (repaymentCount > 0) {
+            clickTransactionId(loanRowNumber + 1);
+            List<HeaderList> recoveryWidgetHeader = loanRepaymentList.get(i).getLoanRepaymentTransaction().getHeaderList();
+            for (int k = 0; k < recoveryWidgetHeader.size(); k++) {
+                assertCheck.append(actions.assertEqualStringType(getLoanRecoveryHeaderName(loanRowNumber + 1, k + 1).toLowerCase().trim(), recoveryWidgetHeader.get(k).getHeader().toLowerCase().trim(), "Loan Recovery widget header is same as com.airtel.cs.API response at Pos(" + (loanRowNumber + 1) + ")", "Loan Recovery widget header does not same as com.airtel.cs.API response at Pos(" + (loanRowNumber + 1) + ")"));
+            }
+            List<LoanRepaymentDetailList> repaymentList = loanRepaymentList.get(loanRowNumber).getLoanRepaymentTransaction().getLoanRepaymentDetailList();
+            for (int l = 0; l < repaymentCount; l++) {
+                assertCheck.append(actions.assertEqualStringType(getValueCorrespondingToLoanRecoveryHeader(loanRowNumber + 1, l + 1, 1).trim(), repaymentList.get(l).getTransactionId(), "Loan Recovery Transaction id column value is same as com.airtel.cs.API Response for Transaction No.(" + (loanRowNumber + 1) + ") in row POS(" + (l + 1) + ")", "Loan Recovery Transaction id column value does not same as com.airtel.cs.API Response for Transaction No.(" + (loanRowNumber + 1) + ") in row POS(" + (l + 1) + ")"));
+                assertCheck.append(actions.assertEqualStringType(getValueCorrespondingToLoanRecoveryHeader(loanRowNumber + 1, l + 1, 2).trim(), UtilsMethods.valueRoundOff(repaymentList.get(l).getAmountRecovered()), "Loan Recovery Amount Recovered column value is same as com.airtel.cs.API Response for Transaction No.(" + (loanRowNumber + 1) + ") in row POS(" + (l + 1) + ")", "Loan Recovery Amount Recovered column value does not same as com.airtel.cs.API Response for Transaction No.(" + (loanRowNumber + 1) + ") in row POS(" + (l + 1) + ")"));
+                assertCheck.append(actions.assertEqualStringType(getValueCorrespondingToLoanRecoveryHeader(loanRowNumber + 1, l + 1, 3).toLowerCase().trim(), repaymentList.get(l).getRecoveryMethod().toLowerCase().trim(), "Loan Recovery method column value is same as com.airtel.cs.API Response for Transaction No.(" + (loanRowNumber + 1) + ") in row POS(" + (l + 1) + ")", "Loan Recovery method column value does not same as com.airtel.cs.API Response for Transaction No.(" + (loanRowNumber + 1) + ") in row POS(" + (l + 1) + ")"));
+                assertCheck.append(actions.assertEqualStringType(getValueCorrespondingToLoanRecoveryHeader(loanRowNumber + 1, l + 1, 4), UtilsMethods.getDateFromEpochInUTC(Long.valueOf(repaymentList.get(l).getDateRecovered()), recoveryWidgetHeader.get(3).getDateFormat() + " " + recoveryWidgetHeader.get(3).getTimeFormat()), "Loan Recovery Date Recovered column value is same as com.airtel.cs.API Response for Transaction No.(" + (loanRowNumber + 1) + ") in row POS(" + (l + 1) + ")", "Loan Recovery Date Recovered column value does not same as com.airtel.cs.API Response for Transaction No.(" + (loanRowNumber + 1) + ") in row POS(" + (l + 1) + ")"));
+            }
+
+        }
+    }
+
+    /**
+     * This method is use to validate loan widget header name displayed correctly on UI or not
+     * @param data The Header data bean
+     */
+    public void validateLoanHistoryHeaderName(HeaderDataBean data){
+        assertCheck.append(actions.assertEqualStringType(getLoanHistoryHeaderName(1).toLowerCase().trim(), data.getRow1().toLowerCase().trim(), "Loan History Widget Header Name at POS(1) is same as mentioned in excel", "Loan History Widget Header Name at POS(1) not same as mentioned in excel"));
+        assertCheck.append(actions.assertEqualStringType(getLoanHistoryHeaderName(2).toLowerCase().trim(), data.getRow2().toLowerCase().trim(), "Loan History Widget Header Name at POS(2) is same as mentioned in excel", "Loan History Widget Header Name at POS(2) not same as mentioned in excel"));
+        assertCheck.append(actions.assertEqualStringType(getLoanHistoryHeaderName(3).toLowerCase().trim(), data.getRow3().toLowerCase().trim(), "Loan History Widget Header Name at POS(3) is same as mentioned in excel", "Loan History Widget Header Name at POS(3) not same as mentioned in excel"));
+        assertCheck.append(actions.assertEqualStringType(getLoanHistoryHeaderName(4).toLowerCase().trim(), data.getRow4().toLowerCase().trim(), "Loan History Widget Header Name at POS(4) is same as mentioned in excel", "Loan History Widget Header Name at POS(4) not same as mentioned in excel"));
+        assertCheck.append(actions.assertEqualStringType(getLoanHistoryHeaderName(5).toLowerCase().trim(), data.getRow5().toLowerCase().trim(), "Loan History Widget Header Name at POS(5) is same as mentioned in excel", "Loan History Widget Header Name at POS(5) not same as mentioned in excel"));
+        assertCheck.append(actions.assertEqualStringType(getLoanHistoryHeaderName(6).toLowerCase().trim(), data.getRow6().toLowerCase().trim(), "Loan History Widget Header Name at POS(6) is same as mentioned in excel", "Loan History Widget Header Name at POS(6) not same as mentioned in excel"));
+        assertCheck.append(actions.assertEqualStringType(getLoanHistoryHeaderName(7).toLowerCase().trim(), data.getRow7().toLowerCase().trim(), "Loan History Widget Header Name at POS(7) is same as mentioned in excel", "Loan History Widget Header Name at POS(7) not same as mentioned in excel"));
+    }
+
+
 
 
 }

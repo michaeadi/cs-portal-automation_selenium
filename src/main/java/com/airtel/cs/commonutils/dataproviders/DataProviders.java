@@ -59,7 +59,6 @@ import java.util.Properties;
 import java.util.PriorityQueue;
 import java.util.Collections;
 import java.util.Comparator;
-import static com.airtel.cs.commonutils.UtilsMethods.isNull;
 
 @Log4j2
 public class DataProviders extends Driver {
@@ -618,6 +617,15 @@ public class DataProviders extends Driver {
     }
 
     /**
+     * This method used to validate that text is not empty and not null
+     * @param text The text
+     * @return true/false
+     */
+    public static boolean isNull(String text) {
+        return text != null && !text.isEmpty();
+    }
+
+    /**
      * This method is used to Get ticket layout using issue code
      * @param code The issue code
      * @return List The list of Ticket layout
@@ -809,7 +817,7 @@ public class DataProviders extends Driver {
     /**
      *This method use to read sla rule file and save the list of rule into static object slaRuleFile
      */
-    public static void getSLARuleExcelFile(){
+    public static void setSLARuleExcelFile(){
         SLARuleFileBeanToExcel slaRuleFileBeanToExcel = new SLARuleFileBeanToExcel();
         slaRuleFile= slaRuleFileBeanToExcel.getData(excelPath, constants.getValue(CommonConstants.TICKET_CREATION_SLA_CALCULATION_RULE));
     }
@@ -822,7 +830,7 @@ public class DataProviders extends Driver {
     public List<SLARuleFileDataBeans> getSLARuleBasedOnCode(String code){
         List<SLARuleFileDataBeans> slaRules = new ArrayList<>();
         if(slaRuleFile.isEmpty()){
-            getSLARuleExcelFile();
+            setSLARuleExcelFile();
         }
         for(SLARuleFileDataBeans rules:slaRuleFile){
             if(rules.getCategoryCode().equalsIgnoreCase(code)){

@@ -1,6 +1,5 @@
 package com.airtel.cs.ui.frontendagent.actiondropdown;
 
-import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.driver.Driver;
 import org.apache.commons.lang3.StringUtils;
@@ -12,7 +11,7 @@ import org.testng.annotations.Test;
 
 public class ResetME2UPasswordTest extends Driver {
 
-    private final BaseActions actions = new BaseActions();
+    boolean popup = true;
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
@@ -55,7 +54,12 @@ public class ResetME2UPasswordTest extends Driver {
             pages.getCustomerProfilePage().clickOnAction();
             pages.getCustomerProfilePage().clickResetME2U();
             assertCheck.append(actions.assertEqualBoolean(pages.getCustomerProfilePage().isResetME2UPasswordTitle(), true, "Reset ME2U Password Tab Opened", "Reset ME2U Password Tab Does not open."));
-            pages.getCustomerProfilePage().clickCancelBtn();
+            popup = !pages.getCustomerProfilePage().isResetME2UPasswordConfirmMessageVisible();
+            if (popup) {
+                pages.getCustomerProfilePage().clickCancelBtn();
+            } else {
+                pages.getCustomerProfilePage().clickCloseBtn();
+            }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException e) {
             commonLib.fail("Exception in Method :- validateResetME2UCancelBtn" + e.fillInStackTrace(), true);
@@ -68,11 +72,11 @@ public class ResetME2UPasswordTest extends Driver {
             selUtils.addTestcaseDescription("Open action drop down and click on Reset ME2U Password option,Validate title visible over modal,Close modal by clicking over cancel button", "description");
             pages.getCustomerProfilePage().clickOnAction();
             pages.getCustomerProfilePage().clickResetME2U();
-            Boolean popup = !pages.getCustomerProfilePage().isResetME2UPasswordConfirmMessageVisible();
+            popup = !pages.getCustomerProfilePage().isResetME2UPasswordConfirmMessageVisible();
             if (!popup) {
                 pages.getAuthTabPage().clickYesBtn();
                 final String toastText = pages.getAuthTabPage().getToastText();
-                assertCheck.append(actions.assertEqualBoolean(toastText.toLowerCase().contains("success"), true, "Me2U password has been sent to customer successfully", "Me2U password hasn't been sent to customer"));
+                assertCheck.append(actions.assertEqualBoolean(toastText.toLowerCase().contains("password reset complete and new password sent to customer"), true, "Me2U password has been sent to customer successfully", "Me2U password hasn't been sent to customer"));
                 pages.getCustomerProfilePage().clickCancelBtn();
                 actions.assertAllFoundFailedAssert(assertCheck);
             } else {

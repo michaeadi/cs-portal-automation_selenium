@@ -172,17 +172,17 @@ public class SIMBarUnbarPermissionSeparationTest extends Driver {
             pages.getCustomerProfilePage().clickOnAction();
             if(pages.getCustomerProfilePage().isSuspendSIMOptionVisible()){
                 pages.getCustomerProfilePage().openSuspendSIMTab();
-                Boolean popup = !pages.getCustomerProfilePage().isSuspendSIMConfirmMessageVisible();
+                boolean popup = !pages.getCustomerProfilePage().isSuspendSIMConfirmMessageVisible();
                 if (!popup) {
                     pages.getAuthTabPage().clickYesBtn();
                     final String toastText = pages.getAuthTabPage().getToastText();
                     assertCheck.append(actions.assertEqualStringType(toastText, "Sim suspend is successful", "Sim suspend is successful", "Sim suspend is unsuccessful :-" + toastText));
                     pages.getCustomerProfilePage().clickCancelBtn();
-                    actions.assertAllFoundFailedAssert(assertCheck);
                 } else {
                     pages.getCustomerProfilePage().clickCancelBtn();
                 }
             }
+            actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - suspendSIMPopupFalse " + e.getMessage(), true);
         }
@@ -195,17 +195,17 @@ public class SIMBarUnbarPermissionSeparationTest extends Driver {
             pages.getCustomerProfilePage().clickOnAction();
             if(pages.getCustomerProfilePage().isReactivationSIMOptionVisible()){
                 pages.getCustomerProfilePage().openSuspendSIMTab();
-                Boolean popup = !pages.getCustomerProfilePage().isReactivateSIMConfirmMessageVisible();
+                boolean popup = !pages.getCustomerProfilePage().isReactivateSIMConfirmMessageVisible();
                 if (!popup) {
                     pages.getAuthTabPage().clickYesBtn();
                     final String toastText = pages.getAuthTabPage().getToastText();
                     assertCheck.append(actions.assertEqualStringType(toastText, "Sim reactivate is successful", "Sim reactivate is successful", "Sim reactivate is unsuccessful :-" + toastText));
                     pages.getCustomerProfilePage().clickCancelBtn();
-                    actions.assertAllFoundFailedAssert(assertCheck);
                 } else {
                     pages.getCustomerProfilePage().clickCancelBtn();
                 }
             }
+            actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - reActivateSIMPopupFalse " + e.getMessage(), true);
         }

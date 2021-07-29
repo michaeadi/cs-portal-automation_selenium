@@ -6,6 +6,7 @@ import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.ConstantsUtils;
 import com.airtel.cs.commonutils.commonlib.CommonLib;
 import com.airtel.cs.commonutils.extentreports.ExtentReport;
+import com.airtel.cs.commonutils.listeners.TestListenerMethod;
 import com.airtel.cs.commonutils.seleniumutils.SeleniumCommonUtils;
 import com.airtel.cs.pagerepository.pagemethods.PageCollection;
 import com.airtel.cs.pagerepository.pagemethods.WidgetCommonMethod;
@@ -17,7 +18,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import io.restassured.http.Header;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.io.FileUtils;
 import org.joda.time.LocalDateTime;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -28,8 +33,10 @@ import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.logging.Level;
 
@@ -74,8 +81,8 @@ public class Driver {
     public static String message = null;
     public static final String RUN_TARIFF_TEST_CASE = constants.getValue(ApplicationConstants.RUN_TARIFF_TEST_CASE);
     public static final String HTML_FILE_PATH = System.getProperty(USER_DIR) + "/resources/htmlreport/" + OPCO + "-" + evnName + PATH_DELIMITER;
+    public static String MODIFIED_HTML_FILE_PATH = "";
     public static final String SUITE_TYPE = System.getProperty("suiteType");
-    public static final String CLIENT = System.getProperty("Client").toUpperCase();
     private static String browser = null;
     public static String currentTestCaseName;
     public static String currentClassName;
@@ -143,11 +150,42 @@ public class Driver {
     }
 
     @AfterSuite(alwaysRun = true)
-    public void closeReporting() {
+    public void closeReporting(ITestContext iTestContext) {
         ExtentReport.endTest();
         driver.close();
         if (driver != null) {
             driver.quit();
+        }
+        createEmailableReport();
+    }
+
+    /**
+     * This method is used to create emailable html report
+     *
+     */
+    private void createEmailableReport() {
+        try {
+            String templatePath = System.getProperty("user.dir") + constants.getValue("template.file.path");
+            File input = new File(templatePath);
+            Document doc = Jsoup.parse(input, "UTF-8");
+            Element table = doc.select("table.table-bordered").first();
+            Element td = table.select("td[class=total]").first();
+            td.text(Integer.toString(TestListenerMethod.totalTest));
+            td = table.select("td[class=pass]").first();
+            td.text(Integer.toString(TestListenerMethod.passedTest));
+            td = table.select("td[class=fail]").first();
+            td.text(Integer.toString(TestListenerMethod.failedTest));
+            td = table.select("td[class=skip]").first();
+            td.text(Integer.toString(TestListenerMethod.skippedTest));
+            td = table.select("td[class=opcoEnv]").first();
+            td.text(Driver.OPCO + "/" + Driver.evnName);
+            td = table.select("td[class=reportUrl]").first();
+            td.text(MODIFIED_HTML_FILE_PATH);
+            final File f = new File(System.getProperty(USER_DIR) + constants.getValue("emailable.report.path"));
+            FileUtils.writeStringToFile(f, doc.outerHtml(), StandardCharsets.UTF_8);
+
+        } catch (Exception e) {
+            System.out.println("Error when writing report file:\n" + e.toString());
         }
     }
 
@@ -186,11 +224,10 @@ public class Driver {
             } else if (currentClassName.toLowerCase().contains("ui")) {
                 reportTitle = "_CSPortalScenarios_";
             }
-            String modifiedHtmlfilePath;
-            modifiedHtmlfilePath = HTML_FILE_PATH + SUITE_TYPE + reportTitle + dateTime.toString(DATE_FORMAT) + ".html";
+            MODIFIED_HTML_FILE_PATH = HTML_FILE_PATH + SUITE_TYPE + reportTitle + dateTime.toString(DATE_FORMAT) + ".html";
             browser = constants.getValue(ApplicationConstants.WEB_BROWSER);
             extent = new ExtentReports();
-            spark = new ExtentSparkReporter(modifiedHtmlfilePath);
+            spark = new ExtentSparkReporter(MODIFIED_HTML_FILE_PATH);
             extent.attachReporter(spark);
             spark.config().setDocumentTitle("Airtel Africa CS Automation");
             spark.config().setReportName("Automation Report -" + OPCO + " CS Portal");

@@ -1,10 +1,10 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
 import com.airtel.cs.commonutils.UtilsMethods;
+import com.airtel.cs.model.response.actiontrail.EventResult;
 import com.airtel.cs.pagerepository.pageelements.ActionTrailPage;
-import com.airtel.cs.pojo.response.actionconfig.ActionConfigResult;
-import com.airtel.cs.pojo.response.actionconfig.MetaInfo;
-import com.airtel.cs.pojo.response.actiontrail.EventResult;
+import com.airtel.cs.model.response.actionconfig.ActionConfigResult;
+import com.airtel.cs.model.response.actionconfig.MetaInfo;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
@@ -77,7 +77,12 @@ public class ActionTrail extends BasePage {
     }
 
 
-    public void assertMetaInfoAfterActionPerformed(String actionKey,EventResult eventResult){
+    /**
+     * This method is use to assert meta info after action performed
+     * @param actionKey The Action name
+     * @param eventResult The Event Result API Response
+     */
+    public void assertMetaInfoAfterActionPerformed(String actionKey, EventResult eventResult){
         ActionConfigResult actionConfigResultOP= UtilsMethods.getActionConfigBasedOnKey(actionKey);
         List<MetaInfo> configMetaInfo = actionConfigResultOP.getMetaInfo();
         List<MetaInfo> actionMetaInfo = eventResult.getMetaInfo();

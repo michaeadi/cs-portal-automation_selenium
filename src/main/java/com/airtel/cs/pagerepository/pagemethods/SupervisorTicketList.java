@@ -2,8 +2,9 @@ package com.airtel.cs.pagerepository.pagemethods;
 
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.enums.ReportInfoMessageColorList;
+import com.airtel.cs.model.response.ticketlist.IssueDetails;
+import com.airtel.cs.model.response.ticketlist.QueueStates;
 import com.airtel.cs.pagerepository.pageelements.SupervisorTicketListPage;
-import com.airtel.cs.pojo.response.ticketlist.IssueDetails;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.NoSuchElementException;
@@ -796,6 +797,37 @@ public class SupervisorTicketList extends BasePage {
     }
 
     /**
+     * This method is use to get all the state name from queue state meta info
+     * @param assignState The List of queue state meta info
+     * @return List The list of state name
+     */
+    public List<String> getAssignedStateName(List<QueueStates> assignState){
+        List<String> state=new ArrayList<>();
+        if (assignState != null) {
+            if (assignState.isEmpty()) {
+                return state;
+            }
+            for (QueueStates s : assignState) {
+                commonLib.info("State Mapped in Application DB: " + s.getExternalStateName());
+                state.add(s.getExternalStateName());
+            }
+        }
+        return state;
+    }
+
+    /**
+     * This method is use to validate all the state mapped to ticket queue as per config
+     * @param state The ticket states
+     * @param configState The config states
+     * @param queueName The queue name
+     */
+    public void matchStateName(List<String> state,List<String> configState,String queueName){
+        for (String s : state) {
+            assertCheck.append(actions.assertEqualBoolean(configState.remove(s.toLowerCase().trim()),true,s + " :State must mapped to '" + queueName+ "' as its mention in config.",s + " :State must not mapped to '" + queueName+ "' as its not mention in config."));
+        }
+    }
+
+    /**
      * This method is use to compare all workgroup which are mentioned in Excel sheet displayed on UI or not.
      * @param sla The API Workgroups
      * @param workGroups The excel sheet workgroups
@@ -804,7 +836,7 @@ public class SupervisorTicketList extends BasePage {
         for (Map.Entry mapElement : sla.entrySet()) {
             String key = (String) mapElement.getKey();
             String value = mapElement.getValue().toString();
-            assertCheck.append(actions.assertEqualStringType(workGroups.remove(key), key, key + " : workgroup is configured correctly in DB as mentioned in configuration", key + " : workgroup is not configured correctly in DB as mentioned in configuration"));
+            assertCheck.append(actions.assertEqualStringNotNull(workGroups.remove(key), key + " : workgroup is configured correctly in DB as mentioned in configuration", key + " : workgroup is not configured correctly in DB as mentioned in configuration"));
             if (!UtilsMethods.isValueNegative(value)) {
                 assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isPositiveSLA(), true, "For positive SLA green symbol display", "For positive SLA green symbol does not display"));
             } else {
@@ -813,13 +845,14 @@ public class SupervisorTicketList extends BasePage {
         }
     }
 
+
     /**
      * This method is use to compare all workgroup which are mentioned in Excel sheet displayed on UI or not.
      * @param ticketLayout The API ticket layout
      * @param configTicketLayout The excel sheet ticket layout
      */
     public void compareTicketLayout(List<IssueDetails> ticketLayout, List<String> configTicketLayout) {
-        if (ticketLayout.size() == 0) {
+        if (ticketLayout!=null && !ticketLayout.isEmpty()) {
             for (IssueDetails layout : ticketLayout) {
                 assertCheck.append(actions.assertEqualBoolean(configTicketLayout.remove(layout.getPlaceHolder().toLowerCase().trim()), true, layout.getPlaceHolder() + " : Ticket Layout configured in database as mention in Config sheet.", layout.getPlaceHolder() + " : Ticket Layout does not configured in database as mention in Config sheet."));
             }
@@ -827,7 +860,6 @@ public class SupervisorTicketList extends BasePage {
             commonLib.pass("No Ticket Layout Config in database");
         }
     }
-
 
 
     /**
@@ -854,6 +886,26 @@ public class SupervisorTicketList extends BasePage {
             commonLib.error("Ticket Data is NOT available over dashboard");
         }
         return false;
+    }
+    /**
+     * This method is use to transfer ticket to given queue return true if transfer action performed
+     * @param queueName Queue Name
+     * @return true/false
+     */
+    public Boolean transferTicketToSelectedQueue(String queueName){
+        boolean flag=false;
+        try {
+            assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isAssignToAgent(), true, "Assign to Agent Button Does Available after selecting ticket", "Assign to Agent Button Does Not Available after selecting ticket"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isTransferToQueue(), true, "Transfer to Queue Button Does Available after selecting ticket", "Transfer to Queue Button Does Not Available after selecting ticket"));
+            pages.getSupervisorTicketList().clickTransfertoQueue();
+            assertCheck.append(actions.assertEqualBoolean(pages.getTransferToQueue().validatePageTitle(), true, "Transfer to Queue Pop up open as expected", "Transfer to Queue Page Title Does not Display"));
+            pages.getTransferToQueue().clickTransferQueue(queueName);
+            flag=true;
+        } catch (NoSuchElementException | TimeoutException e) {
+            commonLib.fail("Not able to perform Transfer to Queue: " + e.fillInStackTrace(), true);
+            pages.getTransferToQueue().clickCloseTab();
+        }
+        return flag;
     }
 
 }

@@ -1,6 +1,5 @@
 package com.airtel.cs.ui.backendAgent;
 
-import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.driver.Driver;
@@ -13,7 +12,6 @@ import org.testng.annotations.Test;
 
 public class BackendAgentUpdateTicketTest extends Driver {
 
-    private final BaseActions actions = new BaseActions();
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
