@@ -103,7 +103,7 @@ public class DemoGraphic extends BasePage {
         final String time = getText(pageElements.modifiedTime);
         modifiedDate = date.concat(" ") + time;
         commonLib.info("Getting SIM Status Modified Date " + modifiedDate);
-        clickOutside();
+        clickFEDashboardOutside();
         return modifiedDate;
     }
 
@@ -189,7 +189,7 @@ public class DemoGraphic extends BasePage {
     public String getIdNumber() {
         final String text = getText(pageElements.idNumber);
         commonLib.info("Getting masked ID Number " + text);
-        clickOutside();
+        clickFEDashboardOutside();
         return text;
     }
 
@@ -645,7 +645,7 @@ public class DemoGraphic extends BasePage {
         String result = null;
         result = getText(pageElements.pin2);
         commonLib.info("PIN2 got from UI is - " + result);
-        clickOutside();
+        clickFEDashboardOutside();
         return result;
     }
 

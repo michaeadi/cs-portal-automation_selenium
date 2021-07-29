@@ -6,6 +6,7 @@ import com.airtel.cs.commonutils.applicationutils.constants.ESBURIConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.URIConstants;
 import com.airtel.cs.commonutils.restutils.RestCommonUtils;
 import com.airtel.cs.model.request.AccountBalanceRequest;
+import com.airtel.cs.model.request.AccountDetailRequest;
 import com.airtel.cs.model.request.AccumulatorsRequest;
 import com.airtel.cs.model.request.ActionTrailRequest;
 import com.airtel.cs.model.request.AgentLimitRequest;
@@ -15,6 +16,8 @@ import com.airtel.cs.model.request.LimitConfigRequest;
 import com.airtel.cs.model.request.LoanRequest;
 import com.airtel.cs.model.request.MoreTransactionHistoryRequest;
 import com.airtel.cs.model.request.OfferDetailRequest;
+import com.airtel.cs.model.request.PlanPackRequest;
+import com.airtel.cs.model.request.PostpaidAccountDetailRequest;
 import com.airtel.cs.model.request.RechargeHistoryRequest;
 import com.airtel.cs.model.request.RingtonDetailsRequest;
 import com.airtel.cs.model.request.SMSHistoryRequest;
@@ -26,6 +29,8 @@ import com.airtel.cs.model.request.TransactionHistoryRequest;
 import com.airtel.cs.model.request.UsageHistoryMenuRequest;
 import com.airtel.cs.model.request.UsageHistoryRequest;
 import com.airtel.cs.model.request.VoucherSearchRequest;
+import com.airtel.cs.model.response.PlanPackResponse;
+import com.airtel.cs.model.response.accountinfo.AccountDetails;
 import com.airtel.cs.model.response.accounts.AccountsBalance;
 import com.airtel.cs.model.response.accumulators.Accumulators;
 import com.airtel.cs.model.response.actionconfig.ActionConfigResponse;
@@ -56,6 +61,7 @@ import com.airtel.cs.model.response.offerdetails.OfferDetail;
 import com.airtel.cs.model.response.parentcategory.Category;
 import com.airtel.cs.model.response.parentcategory.ParentCategoryResponse;
 import com.airtel.cs.model.response.plans.Plans;
+import com.airtel.cs.model.response.postpaid.PostpaidAccountDetailResponse;
 import com.airtel.cs.model.response.rechargehistory.RechargeHistory;
 import com.airtel.cs.model.response.smshistory.SMSHistory;
 import com.airtel.cs.model.response.tariffplan.AvailablePlan;
@@ -796,7 +802,7 @@ public class RequestSource extends RestCommonUtils {
 
     /**
      * This Method will hit the API "/cs-service/api/cs-service/v1/get/field/mask/config" and return the response
-     * @param actionKey
+     * @param actionKey The action key
      * @return The Response
      */
     public FieldMaskConfigs getFieldMaskConfigs(String actionKey) {
@@ -878,6 +884,79 @@ public class RequestSource extends RestCommonUtils {
             result = response.as(AgentLimit.class);
         } catch (Exception e) {
             commonLib.fail(constants.getValue("cs.portal.api.error") + " - saveAgentLimit " + e.getMessage(), false);
+        }
+        return result;
+    }
+
+    /**
+     * This Method will hit the API "/cs-gsm-service/v1/postpaid/currentplan" and return the response in list
+     *
+     * @param msisdn The msisdn
+     * @return The Response
+     */
+    public List<String> getPostpaidCurrentPlan(String msisdn) {
+        String result;
+        List<String> myList = null;
+        try {
+            queryParam.put("msisdn", msisdn);
+            commonGetMethodWithQueryParam(URIConstants.CURRENT_PLAN, queryParam);
+            result = response.print();
+            myList = new ArrayList<>(Arrays.asList(result.split("data:")));
+        } catch (Exception e) {
+            commonLib.fail("Exception in method - getPostpaidCurrentPlan " + e.getMessage(), false);
+        }
+        return myList;
+    }
+
+    /**
+     * This Method will hit the API "/cs-gsm-service/v1/postpaid/plan-pack/details" and return the response
+     *
+     * @param planPackRequest The REQUEST OBJ
+     * @return The Response
+     */
+    public PlanPackResponse getPlanPack(PlanPackRequest planPackRequest) {
+        PlanPackResponse result = null;
+        try {
+
+            commonPostMethod(URIConstants.PLAN_AND_PACK, planPackRequest);
+            result = response.as(PlanPackResponse.class);
+        } catch (Exception e) {
+            commonLib.fail("Exception in method - getPlanPack " + e.getMessage(), false);
+        }
+        return result;
+    }
+
+    /**
+     * This Method will hit the API "/cs-gsm-service/v1/postpaid/account/details" and return the response
+     *
+     * @param accountNumber The msisdn
+     * @return The Response
+     */
+    public PostpaidAccountDetailResponse accountDetailResponse(String accountNumber) {
+        PostpaidAccountDetailResponse result = null;
+        try {
+            commonPostMethod(URIConstants.POSTPAID_ACCOUNT_DETAILS, new PostpaidAccountDetailRequest(accountNumber, null, null, "1", "5" ));
+            result = response.as(PostpaidAccountDetailResponse.class);
+        } catch (Exception e) {
+            commonLib.fail("Exception in method - accountDetailResponse " + e.getMessage(), false);
+        }
+        return result;
+    }
+
+    /**
+     * This Method will hit the API "/cs-gsm-service/v1/postpaid/account/details" and return the response in list
+     *
+     * @param accountNo
+     * @return The Response
+     */
+    public AccountDetails getAccountInfoDetail(String accountNo, Integer pageNumber) {
+        AccountDetails result = null;
+        try {
+            commonPostMethod(URIConstants.POSTPAID_ACCOUNT_DETAILS, new AccountDetailRequest(accountNo, pageNumber.toString(), "5"));
+            result = response.as(AccountDetails.class);
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - getAccountInfoDetail " + e.getMessage(), false);
+            esbRequestSource.callPostpaidAccountInfoDetails(new AccountDetailRequest(accountNo, pageNumber.toString(), "5"));
         }
         return result;
     }

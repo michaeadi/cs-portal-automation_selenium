@@ -302,9 +302,15 @@ public class BasePage extends Driver {
      * This method use to click outside the overlay window
      */
     public void clickOutside() {
-        /*Actions action = new Actions(driver);
-        action.moveByOffset(0, 0).click().build().perform();*/
-        driver.findElement(By.xpath("//body//app-dashboard")).click();
+        Actions action = new Actions(driver);
+        action.moveByOffset(0, 0).click().build().perform();
+    }
+
+    /*
+    This Method will click outside over frontend agent dashboard
+     */
+    public void clickFEDashboardOutside() {
+        clickWithoutLoader(basePageElements.dashboardBody);
     }
 
     /**
