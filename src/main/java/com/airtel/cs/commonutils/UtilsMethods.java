@@ -451,7 +451,7 @@ public class UtilsMethods extends Driver {
      */
     public static boolean isSLARuleMatch(List<String> attributeNames, Map<String, String> ticketSLARule, Map<String, String> ticketMetaInfoMap) {
         for (String attrName : attributeNames) {
-            if (!stringNotNull(ticketSLARule.get(attrName)).equalsIgnoreCase(ticketMetaInfoMap.get(attrName))) {
+            if (!stringNotNull(ticketSLARule.get(attrName)).equalsIgnoreCase(ticketMetaInfoMap.get(attrName)) && !stringNotNull(ticketSLARule.get(attrName)).equalsIgnoreCase(constants.getValue(CommonConstants.CS_SLA_ANY_ATTRIBUTE_NAME)) ) {
                 return false;
             }
         }
@@ -470,6 +470,9 @@ public class UtilsMethods extends Driver {
         NftrDataBeans nftrDataBeans = new NftrDataBeans();
         final Integer statusCode = kycProfile.getStatusCode();
         nftrDataBeans.setTicketNumber(ticketNumber);
+        NftrDataBeans s = objectMapper.convertValue(getSLAOverrideAttrValues(), NftrDataBeans.class);
+        String interactionChannel=getAgentDetail(new Headers(map)).getAdditionalDetails().getInteractionChannel().get(0).getName();
+        interactionChannel=interactionChannel==null?s.getInteractionChannel():interactionChannel;
         if (statusCode == 200) {
             nftrDataBeans.setCustomerSegment(getCustomerAttribute(kycProfile.getResult().getSegment()));
             nftrDataBeans.setCustomerSubSegment(getCustomerAttribute(kycProfile.getResult().getSubSegment()));
@@ -478,15 +481,14 @@ public class UtilsMethods extends Driver {
             nftrDataBeans.setLineType(getCustomerAttribute(kycProfile.getResult().getLineType()));
             nftrDataBeans.setServiceCategory(getCustomerAttribute(kycProfile.getResult().getServiceCategory()));
         } else {
-            NftrDataBeans s = objectMapper.convertValue(getSLAOverrideAttrValues(), NftrDataBeans.class);
             nftrDataBeans.setCustomerSegment(s.getCustomerSegment());
             nftrDataBeans.setCustomerSubSegment(s.getCustomerSubSegment());
             nftrDataBeans.setCustomerType(s.getCustomerType());
             nftrDataBeans.setCustomerVip(s.getCustomerVip().toUpperCase());
-            nftrDataBeans.setInteractionChannel(s.getInteractionChannel());
             nftrDataBeans.setLineType(s.getLineType());
             nftrDataBeans.setServiceCategory(s.getServiceCategory());
         }
+        nftrDataBeans.setInteractionChannel(interactionChannel);
         return nftrDataBeans;
     }
 
