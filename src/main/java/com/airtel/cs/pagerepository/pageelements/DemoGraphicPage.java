@@ -116,4 +116,7 @@ public class DemoGraphicPage {
 
     public By resetPinIcon = By.xpath("//img[@class='header-action-icon cursor-pointer']/ancestor::span[contains(@class,'disabled')]");
 
+    public By dashboardBody = By.xpath("//body//app-dashboard");
+
+
 }
