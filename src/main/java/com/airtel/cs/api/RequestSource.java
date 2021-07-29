@@ -13,6 +13,7 @@ import com.airtel.cs.model.request.TransactionHistoryRequest;
 import com.airtel.cs.model.request.MoreTransactionHistoryRequest;
 import com.airtel.cs.model.request.AccountBalanceRequest;
 import com.airtel.cs.model.request.LoanRequest;
+import com.airtel.cs.model.request.AccountStatementReq;
 import com.airtel.cs.model.request.RingtonDetailsRequest;
 import com.airtel.cs.model.request.VoucherSearchRequest;
 import com.airtel.cs.model.request.SMSHistoryRequest;
@@ -58,6 +59,7 @@ import com.airtel.cs.model.response.login.Login;
 import com.airtel.cs.model.response.offerdetails.OfferDetail;
 import com.airtel.cs.model.response.plans.Plans;
 import com.airtel.cs.model.response.postpaid.PostpaidAccountDetailResponse;
+import com.airtel.cs.model.response.postpaid.enterprise.AccountStatementCSResponse;
 import com.airtel.cs.model.response.rechargehistory.RechargeHistory;
 import com.airtel.cs.model.response.smshistory.SMSHistory;
 import com.airtel.cs.model.response.tariffplan.AvailablePlan;
@@ -954,4 +956,23 @@ public class RequestSource extends RestCommonUtils {
         }
         return result;
     }
+
+    /**
+     * This Method will hit the API "/cs-gsm-service/v1/postpaid/msisdn/details" and return the response in list
+     *
+     * @param accountNo
+     * @return The Response
+     */
+    public AccountStatementCSResponse accountStatementCSResponse(String accountNo, Integer pageNumber) {
+        AccountStatementCSResponse result = null;
+        try {
+            commonPostMethod(URIConstants.POSTPAID_ACCOUNT_MSISDN_DETAILS, new AccountStatementReq(accountNo, pageNumber.toString(), "5"));
+            result = response.as(AccountStatementCSResponse.class);
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - getAccountInfoDetail " + e.getMessage(), false);
+            esbRequestSource.callPostpaidAccountInfoDetails(new AccountDetailRequest(accountNo, pageNumber.toString(), "5"));
+        }
+        return result;
+    }
+
 }
