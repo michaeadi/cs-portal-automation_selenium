@@ -1,6 +1,7 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
 import com.airtel.cs.pagerepository.pageelements.AccountInformationWidgetPage;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONObject;
@@ -9,7 +10,6 @@ import org.json.simple.parser.ParseException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
 import java.io.IOException;
@@ -28,9 +28,10 @@ public class AccountInformationWidget extends BasePage {
 
     AccountInformationWidgetPage pageElements;
 
-    private final String SCROLL_TO_WIDGET_MESSAGE = config.getProperty("scrollToWidgetMessage");
-    private final String STATUS = "status";
-    private final String STATUS_CODE = "statusCode";
+    private final String scrollToWidgetMessage = config.getProperty("scrollToWidgetMessage");
+    private final String status = "status";
+    private final String statusCode = "statusCode";
+    Map<String, Object> styleMap;
 
     public AccountInformationWidget(WebDriver driver) {
         super(driver);
@@ -50,7 +51,7 @@ public class AccountInformationWidget extends BasePage {
             status = isElementVisible(pageElements.getTitle);
         } catch (InterruptedException e) {
             e.printStackTrace();
-            commonLib.fail(SCROLL_TO_WIDGET_MESSAGE, true);
+            commonLib.fail(scrollToWidgetMessage, true);
         }
         return status;
     }
@@ -81,8 +82,7 @@ public class AccountInformationWidget extends BasePage {
      * @return Boolean The  data value
      */
     public Boolean isActionIconVisibleOnAccountInfo() {
-        Boolean status = isElementVisible(pageElements.accountInfoDetailed);
-        return status;
+        return isElementVisible(pageElements.accountInfoDetailed);
     }
 
     /*
@@ -213,39 +213,59 @@ public class AccountInformationWidget extends BasePage {
         return result;
     }
 
-    public String getStyle(By elementLocation) {
+    /*
+    This Method will let us know is account number is bold or not
+     */
+    public String getAccountNumberStyle() {
+        String result = "";
+        getStyle(pageElements.accountNumber);
+        final Object fontWeight = styleMap.get("font-weight");
+        int i = (Integer) fontWeight;
+        if (i > 600)
+            result = "Bold";
+        else
+            result = "Not Bold";
+        return result;
+    }
+
+    /**
+     * This Method will let us know the computed css style for a particular webelement
+     *
+     * @param elementLocation the element
+     * @return computed css
+     */
+    public Map<String, Object> getStyle(By elementLocation) {
         String attributeValue = null;
-        //getElementByXpath(elementLocation);
-        WebElement element = getElementFromBy(elementLocation);
+        final String id = getAttribute(elementLocation, "id", false);
+        String idnew = "var elem = document.getElementById('%s'); ";
         JavascriptExecutor executor = (JavascriptExecutor) driver;
         Object allAttributes = executor.executeScript(
-                "var elem = document.getElementById(element); var css = window.getComputedStyle(elem, null);document.getElementById('demo').innerHTML = 'font-weight:-' +css.getPropertyValue('font-weight')+ 'backgroundColor:-' + css.getPropertyValue('background-color');",
-                element);
+                "var items={};" +
+                        String.format(idnew, id) +
+                        "var css = window.getComputedStyle(elem, null);" +
+                        "items={'font-weight':css.getPropertyValue('font-weight'),'font-color':css.getPropertyValue('color')}; return items;");
+        ObjectMapper m = new ObjectMapper();
+        styleMap = m.convertValue(attributeValue, Map.class);
         commonLib.logs(allAttributes.toString());
-        return attributeValue;
+        return styleMap;
     }
 
-    public String getElementByXpath(By elementLocation) {
-        JavascriptExecutor executor = (JavascriptExecutor) driver;
-        Object allAttributes = executor.executeScript("var elementLocation=+elementLocation;var xpathresult = document.evaluate(elementLocation, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;");
-        return (String) allAttributes;
-    }
-
+    //ToDO Ashwani to refactor this with webtestclient
     public String getValue(List<String> list, String rowToSearch, String valueToSearch) throws IOException, ParseException {
         String result = null;
         JSONParser parser = new JSONParser();
         for (String s : list)
             if (s.contains(rowToSearch)) {
                 JSONObject json = (JSONObject) parser.parse(s);
-                if (valueToSearch.equals(STATUS)) {
-                    result = String.valueOf(json.get(STATUS));
+                if (valueToSearch.equals(status)) {
+                    result = String.valueOf(json.get(status));
                     break;
-                } else if (valueToSearch.equals(STATUS_CODE)) {
-                    result = String.valueOf(json.get(STATUS_CODE));
+                } else if (valueToSearch.equals(statusCode)) {
+                    result = String.valueOf(json.get(statusCode));
                     break;
                 } else {
                     result = json.get("result").toString();
-                    if (StringUtils.contains(String.valueOf(json.get(STATUS_CODE)), "200") && StringUtils.contains(String.valueOf(json.get(STATUS)), "SUCCESS")) {
+                    if (StringUtils.contains(String.valueOf(json.get(statusCode)), "200") && StringUtils.contains(String.valueOf(json.get(status)), "SUCCESS")) {
                         result = result.substring(1, result.length() - 1).replace("'", "");
                         String[] keyValuePairs = result.split(",");
                         Map<String, String> map = new HashMap<>();
@@ -338,7 +358,7 @@ public class AccountInformationWidget extends BasePage {
     /**
      * This method is used to get email ID from demographic widget
      *
-     * @return
+     * @return the email id
      */
     public String getEmailId() {
         commonLib.info(getText(pageElements.emailId));
@@ -348,7 +368,7 @@ public class AccountInformationWidget extends BasePage {
     /**
      * This method is used to get email ID from demographic widget
      *
-     * @return
+     * @return the message
      */
     public String getUnableToFetch() {
         commonLib.info(getText(pageElements.unableToFetch));
@@ -358,23 +378,21 @@ public class AccountInformationWidget extends BasePage {
     /**
      * This method will return round off value up-to two decimal in string format
      *
-     * @param input_string
-     * @return
+     * @param inputString input string
+     * @return the result
      */
-    public static String getTwoDecimalValue(String input_string) {
+    public static String getTwoDecimalValue(String inputString) {
         DecimalFormat df = new DecimalFormat("0.00");
-        double value = Double.parseDouble(input_string);
-        double input = value;
-        String result = df.format(input);
-        return result;
+        double input = Double.parseDouble(inputString);
+        return df.format(input);
     }
 
     /**
      * This method is used to convert date from long to string
      *
-     * @param epoch
-     * @param pattern
-     * @return
+     * @param epoch   epoc value
+     * @param pattern date pattern
+     * @return the result
      */
     public static String getDateFromEpoch(long epoch, String pattern) {
         if (epoch == 0) {
@@ -389,24 +407,23 @@ public class AccountInformationWidget extends BasePage {
     /**
      * This method is used to get cycle difference in months
      *
-     * @param str1
-     * @param str2
-     * @return
+     * @param str1 date 1
+     * @param str2 date 2
+     * @return the difference
      */
     public static String getDateDiffInMonths(String str1, String str2) {
         long monthsBetween = ChronoUnit.MONTHS.between(
                 LocalDate.parse(str1).withDayOfMonth(1),
                 LocalDate.parse(str2).withDayOfMonth(1));
-        String result = Long.toString(monthsBetween);
-        return result;
+        return Long.toString(monthsBetween);
 
     }
 
     /**
      * This method will give us date
      *
-     * @param str
-     * @return
+     * @param str the string
+     * @return the substring
      */
     public static String firstTwo(String str) {
 
@@ -420,14 +437,14 @@ public class AccountInformationWidget extends BasePage {
     /**
      * This method will return boolean value true if found decimal value upto 2
      *
-     * @param input_string
-     * @return
+     * @param inputString the input string
+     * @return the result
      */
-    public static boolean getDecimalValue(String input_string) throws ArrayIndexOutOfBoundsException {
+    public static boolean getDecimalValue(String inputString) throws ArrayIndexOutOfBoundsException {
 
         boolean flag = false;
-        if (!input_string.equalsIgnoreCase("-")) {
-            String[] result = input_string.split("\\.");
+        if (!inputString.equalsIgnoreCase("-")) {
+            String[] result = inputString.split("\\.");
             if (result[1].length() == 2) {
                 flag = true;
             }
