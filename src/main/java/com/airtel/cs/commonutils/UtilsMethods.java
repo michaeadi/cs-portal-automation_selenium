@@ -7,6 +7,7 @@ import com.airtel.cs.commonutils.dataproviders.databeans.NftrDataBeans;
 import com.airtel.cs.commonutils.dataproviders.databeans.SLARuleFileDataBeans;
 import com.airtel.cs.commonutils.exceptions.RuleNotFoundException;
 import com.airtel.cs.driver.Driver;
+import com.airtel.cs.model.response.actionconfig.ActionConfigResult;
 import com.airtel.cs.model.response.agentlimit.AgentLimit;
 import com.airtel.cs.model.response.agentlimit.LimitConfig;
 import com.airtel.cs.model.response.agents.AgentAttributes;
@@ -15,6 +16,7 @@ import com.airtel.cs.model.response.agents.Authorities;
 import com.airtel.cs.model.response.agents.RoleDetails;
 import com.airtel.cs.model.response.consolelog.ChromeNetworkLog;
 import com.airtel.cs.model.response.kycprofile.KYCProfile;
+import com.airtel.cs.model.response.actionconfig.ActionConfigResponse;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
@@ -562,6 +564,21 @@ public class UtilsMethods extends Driver {
     }
 
 
+    /**
+     * This method use to get Action config based on action key
+     * @param actionKey The action key
+     * @return Object ActionConfigResult
+     * @throws NullPointerException In-case of no Config found based on given key
+     */
+    public static ActionConfigResult getActionConfigBasedOnKey(String actionKey){
+        ActionConfigResult actionConfigResponse=api.getActionConfig(new Headers(map),actionKey);
+        if (actionConfigResponse!=null) {
+            return actionConfigResponse;
+        }else{
+            commonLib.fail(constants.getValue(CommonConstants.SEND_INTERNET_SETTING_ACTION_KEY)+" action key does not present in config API",false);
+        }
+        throw new NullPointerException("Action key does not found in config API");
+    }
     /**
      * This method returns endDate in UTC timezone
      * @param endDate

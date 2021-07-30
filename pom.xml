@@ -8,7 +8,7 @@
     </properties>
     <groupId>com.airtel.africa.automation</groupId>
     <artifactId>CS_PORTAL_AUTOMATION</artifactId>
-    <version>1.15</version>
+    <version>1.16</version>
 
     <repositories>
         <repository>
