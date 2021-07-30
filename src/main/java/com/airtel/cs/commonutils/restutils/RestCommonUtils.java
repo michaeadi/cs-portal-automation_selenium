@@ -57,9 +57,10 @@ public class RestCommonUtils extends Driver {
                     .contentType(APPLICATION_JSON);
             response = request.post(endPoint);
             queryable = SpecificationQuerier.query(request);
-            commonLib.info(getRequestCurl(queryable.getURI(),queryable.getHeaders(),body));
+            commonLib.info(getRequestCurl(queryable.getURI(), queryable.getHeaders(), body));
             UtilsMethods.printResponseDetail(response);
-        } catch (Exception e) {
+        } catch (Exception | AssertionError e) {
+            commonLib.info(getRequestCurl(queryable.getURI(), queryable.getHeaders(), body));
             commonLib.fail("Caught exception in Testcase - commonPostMethod " + e.getMessage(), false);
         }
     }
@@ -94,15 +95,14 @@ public class RestCommonUtils extends Driver {
             commonLib.info("Query Param Map:-" + queryParam.toString());
             queryParam.forEach(request::queryParam);
             queryable = SpecificationQuerier.query(request);
+            commonLib.info(getRequestCurl(queryable.getURI(), queryable.getHeaders(), null));
             response = request.get(endPoint).then().assertThat().statusCode(statusCode).extract().response();
-
             StringBuilder stringBuilder = new StringBuilder("?");
             queryParam.forEach((k, v) -> stringBuilder.append(k).append("=").append(v).append("&"));
             endPoint += stringBuilder.toString();
             endPoint.substring(0, endPoint.length() - 1);
-            commonLib.info(getRequestCurl(queryable.getURI(), queryable.getHeaders(), null));
             UtilsMethods.printResponseDetail(response);
-        } catch (Exception e) {
+        } catch (Exception | AssertionError e) {
             commonLib.fail("Caught exception in Testcase - commonGetMethodWithQueryParam " + e.getMessage(), false);
         }
     }
@@ -123,10 +123,10 @@ public class RestCommonUtils extends Driver {
             baseURI = baseUrl;
             request = given().config(restAssuredConfig).headers(headers).contentType(APPLICATION_JSON);
             queryable = SpecificationQuerier.query(request);
-            response = request.get(endPoint);
             commonLib.info(getRequestCurl(queryable.getURI(), queryable.getHeaders(), null));
+            response = request.get(endPoint);
             UtilsMethods.printResponseDetail(response);
-        } catch (Exception e) {
+        } catch (Exception | AssertionError e) {
             commonLib.fail("Caught exception in Testcase - commonGetMethod " + e.getMessage(), false);
         }
     }
@@ -135,17 +135,15 @@ public class RestCommonUtils extends Driver {
      * This Method is used to get the curl of http request
      *
      * @param endPoint send the endPoint
-     * @param body
-     * @param headers
+     * @param body     the body
+     * @param headers  the headers
      * @return String
      */
-    public static String getRequestCurl(String endPoint, Headers headers, Object body){
+    public static String getRequestCurl(String endPoint, Headers headers, Object body) {
         StringBuilder stringBuilder = new StringBuilder("curl '");
         stringBuilder.append(endPoint).append("' ");
-        headers.forEach(header->{
-            stringBuilder.append("-H '").append(header.getName()).append(": ").append(header.getValue()).append("' ");
-        });
-        if(ObjectUtils.isNotEmpty(body)){
+        headers.forEach(header -> stringBuilder.append("-H '").append(header.getName()).append(": ").append(header.getValue()).append("' "));
+        if (ObjectUtils.isNotEmpty(body)) {
             stringBuilder.append("--data-raw '").append(new Gson().toJson(body)).append("' ");
         }
         return stringBuilder.append("--compressed --insecure").toString();

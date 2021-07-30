@@ -2,8 +2,8 @@ package com.airtel.cs.pagerepository.pagemethods;
 
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.pagerepository.pageelements.CustomerProfilePage;
-import com.airtel.cs.pojo.response.MainAccountBalance;
-import com.airtel.cs.pojo.response.PlansPOJO;
+import com.airtel.cs.model.response.plans.MainAccountBalance;
+import com.airtel.cs.model.response.plans.Plans;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
@@ -466,7 +466,7 @@ public class CustomerProfile extends BasePage {
     This Method wil return us the main account balance or air time for a MSISDN
      */
     public MainAccountBalance getMainAccountBalance() {
-        PlansPOJO plansAPI = api.accountPlansTest(TARIFF_PLAN_TEST_NUMBER);
+        Plans plansAPI = api.accountPlansTest(TARIFF_PLAN_TEST_NUMBER);
         return plansAPI.getResult().getMainAccountBalance();
     }
 

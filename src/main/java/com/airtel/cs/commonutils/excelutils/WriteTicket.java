@@ -20,17 +20,10 @@ public class WriteTicket {
         FileInputStream inputStream = new FileInputStream(file);
 
         Workbook book = new XSSFWorkbook(inputStream);
-
-//Read excel sheet by sheet name
-
+        //Read excel sheet by sheet name
         Sheet sheet = book.getSheet(sheetName);
         Row row;
         row = sheet.getRow(rowNum);
-
-//        System.out.println("-----------------------" + row.getLastCellNum());
-        //Fill data in row
-//        System.out.println(row.getRowNum());
-
         if (row == null) {
             row = sheet.createRow(rowNum);
         }
@@ -45,11 +38,6 @@ public class WriteTicket {
             cell.setCellValue(dataToWrite[0]);
 
         }
-//        System.out.println(cell.getColumnIndex());
-//        System.out.println(cell.getRowIndex());
-//        cell.setCellValue(dataToWrite[0]);
-
-
         //Close input stream
 
         inputStream.close();

@@ -129,26 +129,6 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.ServiceProfileWidgetTest"/>
         </classes>
     </test>
-    <test name="Airtel Money More detail Widget Test(Primary Widget)">
-        <groups>
-            <run>
-                <include name="SanityTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.hometab.AirtelMoneyMenuPrimaryWidgetTest"/>
-        </classes>
-    </test>
-    <test name="Airtel Money More detail Widget Test(Secondary Widget-DRC)">
-        <groups>
-            <run>
-                <include name="SanityTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.hometab.AirtelMoneyMenuSecondaryWidgetTest"/>
-        </classes>
-    </test>
     <test name="DA detail Widget Test">
         <groups>
             <run>
@@ -246,7 +226,7 @@
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.frontendagent.autoadjustment.AdjustmentAgentLimit"/>
+            <class name="com.airtel.cs.ui.frontendagent.autoadjustment.AdjustmentAgentLimitTest"/>
         </classes>
     </test>
     <test name="Widget Visibility Test By Connection Type">
@@ -256,17 +236,7 @@
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.frontendagent.hometab.widgetvisibility.VisibiltyByCustomerSegment"/>
-        </classes>
-    </test>
-    <test name="Role Based Masking Test">
-        <groups>
-            <run>
-                <include name="SanityTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.rolebasedmasking.RoleBasedMaskingTest"/>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.widgetvisibility.VisibilityByCustomerSegmentTest"/>
         </classes>
     </test>
     <test name="Create NFTR FTR Tickets TEST">
@@ -389,7 +359,7 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.PlanAndPackDetailedWidgetTest"/>
         </classes>
     </test>
-    <test name="Current Plan Test">
+     <test name="Current Plan Test">
         <groups>
             <run>
                 <include name="SanityTest"/>
@@ -417,6 +387,16 @@
         </groups>
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.DetailAccountInfoTest"/>
+        </classes>
+    </test>
+    <test name="Detailed Account Information - View Bill Test">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.DetailAccountInfoViewBillTest"/>
         </classes>
     </test>
     <test name="Adjustment History Tab Test">

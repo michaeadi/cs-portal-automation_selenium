@@ -7,11 +7,11 @@ import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pojo.response.RechargeHistoryPOJO;
-import com.airtel.cs.pojo.response.UsageHistoryPOJO;
-import com.airtel.cs.pojo.response.adjustmenthistory.AdjustmentHistory;
-import com.airtel.cs.pojo.response.adjustmenthistory.AdjustmentResult;
-import com.airtel.cs.pojo.response.adjustmentreason.AdjustmentReasonPOJO;
+import com.airtel.cs.model.response.adjustmenthistory.AdjustmentHistory;
+import com.airtel.cs.model.response.adjustmenthistory.AdjustmentResult;
+import com.airtel.cs.model.response.adjustmentreason.AdjustmentReasonPOJO;
+import com.airtel.cs.model.response.rechargehistory.RechargeHistory;
+import com.airtel.cs.model.response.usagehistory.UsageHistory;
 import io.restassured.http.Headers;
 import org.apache.commons.lang3.StringUtils;
 import org.testng.SkipException;
@@ -31,14 +31,14 @@ public class AdjustmentTabTest extends Driver {
     RequestSource api = new RequestSource();
     private String adjustmentId;
     private AdjustmentReasonPOJO reasonAPI;
-    private UsageHistoryPOJO usageHistoryAPI;
-    private RechargeHistoryPOJO rechargeHistoryAPI;
+    private UsageHistory usageHistoryAPI;
+    private RechargeHistory rechargeHistoryAPI;
     private static String adjustmentReason;
 
     @BeforeMethod
     public void checkAdjustmentFlag() {
         if (!StringUtils.equals(RUN_ADJUSTMENT_TEST_CASE, "true")) {
-            commonLib.skip("Adjustment widget is NOT Enabled for this Opco "+OPCO);
+            commonLib.skip("Adjustment widget is NOT Enabled for this Opco " + OPCO);
             throw new SkipException("Skipping because this functionality does not applicable for current Opco");
         }
     }
@@ -131,7 +131,7 @@ public class AdjustmentTabTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getDetailedUsageHistoryPage().isWidgetDisplay(), true, "Detailed Usage History Widget visible", "Detailed Usage History Widget does not visible ", true));
             usageHistoryAPI = api.usageHistoryMenuTest(customerNumber);
             final int statusCode = usageHistoryAPI.getStatusCode();
-            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Usage History Widget API success and status code is :" + statusCode, "Usage History Widget API got failed and status code is :" + statusCode));
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Usage History Widget API success and status code is :" + statusCode, "Usage History Widget API got failed and status code is :" + statusCode, false));
             if (statusCode != 200) {
                 commonLib.fail("API is Unable to Get usage history for Customer", false);
             } else if (usageHistoryAPI.getResult().size() == 0 || usageHistoryAPI.getResult() == null) {
@@ -174,7 +174,7 @@ public class AdjustmentTabTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(widgetMethods.isWidgetVisible(pages.getMoreRechargeHistoryPage().getUniqueIdentifier()), true, "Detailed Recharge History Widget visible", "Detailed Recharge History Widget does not visible ", true));
             rechargeHistoryAPI = api.rechargeHistoryAPITest(customerNumber);
             final int statusCode = rechargeHistoryAPI.getStatusCode();
-            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Recharge History Widget API success and status code is :" + statusCode, "Recharge History Widget API got failed and status code is :" + statusCode));
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Recharge History Widget API success and status code is :" + statusCode, "Recharge History Widget API got failed and status code is :" + statusCode, false));
             if (statusCode != 200) {
                 commonLib.fail("API is Unable to Get usage history for Customer", false);
             } else if (usageHistoryAPI.getResult().size() == 0 || usageHistoryAPI.getResult() == null) {
@@ -217,7 +217,7 @@ public class AdjustmentTabTest extends Driver {
             adjustmentId = pages.getAdjustmentTabPage().getWidgetId();
             assertCheck.append(actions.assertEqualBoolean(widgetMethods.isWidgetVisible(adjustmentId), true, "Adjustment widget display as expected", "Adjustment widget does not display as expected", true));
             pages.getAdjustmentTabPage().OpenAdjustmentReason();
-            adjustmentReason=pages.getAdjustmentTabPage().chooseOption(1);
+            adjustmentReason = pages.getAdjustmentTabPage().chooseOption(1);
             pages.getAdjustmentTabPage().OpenAdjustmentType();
             pages.getAdjustmentTabPage().chooseOption("Credit");
             String credit_adjustment_permission = constants.getValue(PermissionConstants.CREDIT_TYPE_ADJUSTMENT_PERMISSION_NAME);
@@ -243,20 +243,20 @@ public class AdjustmentTabTest extends Driver {
             pages.getAdjustmentTabPage().clickYesButton();
             AdjustmentHistory adjustmentHistoryAPI = api.getAdjustMentHistory(customerNumber);
             final int statusCode = adjustmentHistoryAPI.getStatusCode();
-            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Adjustment History API success and status code is :" + statusCode, "Adjustment History API got failed and status code is :" + statusCode, true));
-            AdjustmentResult result=adjustmentHistoryAPI.getResult().get(0);
-            assertCheck.append(actions.matchUiAndAPIResponse(result.getReason(),adjustmentReason,"Adjustment reason same as selected while performing adjustment","Adjustment reason as not selected while performing adjustment"));
-            assertCheck.append(actions.assertEqualBoolean(result.getAdjustmentType().contains("Credit"),true,"Adjustment type same as selected while performing adjustment","Adjustment type not same as selected while performing adjustment"));
-            assertCheck.append(actions.assertEqualBoolean(result.getAccountType().contains("Main"),true,"Adjustment account type same as selected while performing adjustment","Adjustment account type not same as selected while performing adjustment"));
-            assertCheck.append(actions.matchUiAndAPIResponse(result.getAmount(),"0.00001","Adjustment Amount same as selected while performing adjustment","Adjustment Amount as not selected while performing adjustment"));
-            assertCheck.append(actions.matchUiAndAPIResponse(result.getComment(),"Performing Credit Type Adjustment through automation","Adjustment Comment same as selected while performing adjustment","Adjustment Comment as not selected while performing adjustment"));
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Adjustment History API success and status code is :" + statusCode, "Adjustment History API got failed and status code is :" + statusCode, false));
+            AdjustmentResult result = adjustmentHistoryAPI.getResult().get(0);
+            assertCheck.append(actions.matchUiAndAPIResponse(result.getReason(), adjustmentReason, "Adjustment reason same as selected while performing adjustment", "Adjustment reason as not selected while performing adjustment"));
+            assertCheck.append(actions.assertEqualBoolean(result.getAdjustmentType().contains("Credit"), true, "Adjustment type same as selected while performing adjustment", "Adjustment type not same as selected while performing adjustment"));
+            assertCheck.append(actions.assertEqualBoolean(result.getAccountType().contains("Main"), true, "Adjustment account type same as selected while performing adjustment", "Adjustment account type not same as selected while performing adjustment"));
+            assertCheck.append(actions.matchUiAndAPIResponse(result.getAmount(), "0.00001", "Adjustment Amount same as selected while performing adjustment", "Adjustment Amount as not selected while performing adjustment"));
+            assertCheck.append(actions.matchUiAndAPIResponse(result.getComment(), "Performing Credit Type Adjustment through automation", "Adjustment Comment same as selected while performing adjustment", "Adjustment Comment as not selected while performing adjustment"));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - performAdjustmentCreditType" + e.fillInStackTrace(), true);
         }
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 10, dependsOnMethods = {"openCustomerInteraction"},groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 10, dependsOnMethods = {"openCustomerInteraction"}, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void isUserHasPermissionDebitTypeAdjustment() {
         try {
             selUtils.addTestcaseDescription("Verify that agent have permission to perform debit type Adjustment Action should be visible to the logged in agent if adjustment permission is enabled in UM, Check User has permission to perform credit type Adjustment.", "description");
@@ -293,13 +293,13 @@ public class AdjustmentTabTest extends Driver {
             pages.getAdjustmentTabPage().clickYesButton();
             AdjustmentHistory adjustmentHistoryAPI = api.getAdjustMentHistory(customerNumber);
             final int statusCode = adjustmentHistoryAPI.getStatusCode();
-            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Adjustment History API success and status code is :" + statusCode, "Adjustment History API got failed and status code is :" + statusCode, true));
-            AdjustmentResult result=adjustmentHistoryAPI.getResult().get(0);
-            assertCheck.append(actions.matchUiAndAPIResponse(result.getReason(),adjustmentReason,"Adjustment reason same as selected while performing adjustment","Adjustment reason as not selected while performing adjustment"));
-            assertCheck.append(actions.assertEqualBoolean(result.getAdjustmentType().contains("Debit"),true,"Adjustment type same as selected while performing adjustment","Adjustment type not same as selected while performing adjustment"));
-            assertCheck.append(actions.assertEqualBoolean(result.getAccountType().contains("Main"),true,"Adjustment account type same as selected while performing adjustment","Adjustment account type not same as selected while performing adjustment"));
-            assertCheck.append(actions.matchUiAndAPIResponse(result.getAmount(),"0.00001","Adjustment Amount same as selected while performing adjustment","Adjustment Amount as not selected while performing adjustment"));
-            assertCheck.append(actions.matchUiAndAPIResponse(result.getComment(),"Performing debit Type Adjustment through automation","Adjustment Comment same as selected while performing adjustment","Adjustment Comment as not selected while performing adjustment"));
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Adjustment History API success and status code is :" + statusCode, "Adjustment History API got failed and status code is :" + statusCode, false));
+            AdjustmentResult result = adjustmentHistoryAPI.getResult().get(0);
+            assertCheck.append(actions.matchUiAndAPIResponse(result.getReason(), adjustmentReason, "Adjustment reason same as selected while performing adjustment", "Adjustment reason as not selected while performing adjustment"));
+            assertCheck.append(actions.assertEqualBoolean(result.getAdjustmentType().contains("Debit"), true, "Adjustment type same as selected while performing adjustment", "Adjustment type not same as selected while performing adjustment"));
+            assertCheck.append(actions.assertEqualBoolean(result.getAccountType().contains("Main"), true, "Adjustment account type same as selected while performing adjustment", "Adjustment account type not same as selected while performing adjustment"));
+            assertCheck.append(actions.matchUiAndAPIResponse(result.getAmount(), "0.00001", "Adjustment Amount same as selected while performing adjustment", "Adjustment Amount as not selected while performing adjustment"));
+            assertCheck.append(actions.matchUiAndAPIResponse(result.getComment(), "Performing debit Type Adjustment through automation", "Adjustment Comment same as selected while performing adjustment", "Adjustment Comment as not selected while performing adjustment"));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - performAdjustmentCreditType" + e.fillInStackTrace(), true);
         }

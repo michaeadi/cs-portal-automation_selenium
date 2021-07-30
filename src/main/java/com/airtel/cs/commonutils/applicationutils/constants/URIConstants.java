@@ -42,7 +42,11 @@ public class URIConstants {
     public static final String GET_FIELD_MASK_CONFIG = "/cs-service/api/cs-service/v1/get/field/mask/config";
     public static final String AGENT_LIMIT_API="/cs-service/api/cs-service/v1/limit/configuration";
     public static final String SAVE_AGENT_LIMIT_API="/cs-service/api/cs-service/v1/limit/save/configuration";
+    public static final String PLAN_AND_PACK = "/cs-gsm-service/v1/postpaid/plan-pack/details";
+    public static final String CURRENT_PLAN = "/cs-gsm-service/v1/postpaid/currentplan";
     public static final String POSTPAID_ACCOUNT_DETAILS = "/cs-gsm-service/v1/postpaid/account/details";
+    public static final String GET_PARENT_CATEGORY_V1 = "/sr/api/sr-service/v1/parent/categories";
+    public static final String GET_TICKET_HISTORY_V1 = "/sr/api/sr-service/v1/tickets";
 
     private URIConstants() {
 

@@ -1,6 +1,5 @@
 package com.airtel.cs.ui.ticketBulkUpdate;
 
-import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
@@ -21,10 +20,9 @@ import java.util.List;
 
 public class TicketBulkUpdateTest extends Driver {
 
-    private final BaseActions actions = new BaseActions();
     public static final String BULK_UPDATE_TRANSFER_QUEUE_STATUS = constants.getValue(ApplicationConstants.BULK_UPDATE_TRANSFER_TO_QUEUE_STATUS);
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest","ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!(continueExecutionFA && continueExecutionBU)) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -32,7 +30,7 @@ public class TicketBulkUpdateTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest","ProdTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void isUserHasTicketBulkUpdatePermission() {
         try {
             selUtils.addTestcaseDescription("Validate have permission to perform validate Ticket Bulk Update operation", "description");
@@ -46,7 +44,7 @@ public class TicketBulkUpdateTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest","ProdTest"}, dependsOnMethods = {"isUserHasTicketBulkUpdatePermission"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasTicketBulkUpdatePermission"})
     public void openTicketBulkUpdate() {
         try {
             selUtils.addTestcaseDescription("Open Ticket Bulk Update Dashboard,Validate Ticket Bulk Update Dashboard Opened", "description");
@@ -61,7 +59,7 @@ public class TicketBulkUpdateTest extends Driver {
         }
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest","ProdTest"}, dependsOnMethods = "openTicketBulkUpdate")
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openTicketBulkUpdate")
     public void maxTicketSelectTest() {
         try {
             selUtils.addTestcaseDescription("Verify that max" + constants.getValue(CommonConstants.TICKET_BULK_UPDATE_MAX_COUNT) + "Tickets to be allowed to be bulk updated in one go,Select Filter with date duration last 30 days and apply filter,Validate the max ticket message display or not.", "description");
@@ -81,11 +79,7 @@ public class TicketBulkUpdateTest extends Driver {
                 pages.getTicketBulkUpdate().clickCloseFilter();
             }
             assertCheck.append(actions.assertEqualBoolean(pages.getTicketBulkUpdate().isClearFilterButton(), true, "Clear Filter button display after selecting filter.", "Clear Filter button does not display after selecting filter."));
-            try {
-                assertCheck.append(actions.assertEqualStringType(pages.getTicketBulkUpdate().getMaxSelectMessage().replaceAll("[^0-9]+", "").trim(), constants.getValue(CommonConstants.TICKET_BULK_UPDATE_MAX_COUNT), "Max Ticket bulk update message displayed", "Max Ticket bulk update message not displayed"));
-            } catch (NoSuchElementException | TimeoutException e) {
-                commonLib.fail("Max count error does not display after selecting filter.", true);
-            }
+            assertCheck.append(actions.assertEqualStringType(pages.getTicketBulkUpdate().getMaxSelectMessage().replaceAll("[^0-9]+", "").trim(), constants.getValue(CommonConstants.TICKET_BULK_UPDATE_MAX_COUNT), "Max Ticket bulk update message displayed", "Max Ticket bulk update message not displayed"));
             pages.getTicketBulkUpdate().clickClearFilter();
         } catch (Exception e) {
             commonLib.fail("Exception in Method - maxTicketSelectTest" + e.fillInStackTrace(), true);
@@ -93,7 +87,7 @@ public class TicketBulkUpdateTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest","ProdTest"}, dependsOnMethods = "openTicketBulkUpdate")
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openTicketBulkUpdate")
     public void uploadTicketFromExcelTest() {
         try {
             selUtils.addTestcaseDescription("Check user able to upload ticket id from excel,Validate total number of tickets updated in list must be same as total number of ticket upload.", "description");
@@ -123,7 +117,7 @@ public class TicketBulkUpdateTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest","ProdTest"}, dependsOnMethods = "uploadTicketFromExcelTest")
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "uploadTicketFromExcelTest")
     public void bulkOptionTest() {
         try {
             selUtils.addTestcaseDescription("Validate Bulk option test,Validate transfer to queue,Change state,Add comment Action field must be displayed,Validate all the queue displayed as per config,Validate all the Open & closed state displayed.", "description");
@@ -175,7 +169,7 @@ public class TicketBulkUpdateTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 6, groups = {"SanityTest", "RegressionTest","ProdTest"}, dependsOnMethods = "uploadTicketFromExcelTest")
+    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "uploadTicketFromExcelTest")
     public void bulkAddCommentTest() {
         try {
             selUtils.addTestcaseDescription("Add comment on ticket using bulk update feature,Select add comment option,Add new comment,Click on confirm action,Click on next button and validate all the ticket  update correctly.", "description");
@@ -186,12 +180,8 @@ public class TicketBulkUpdateTest extends Driver {
             pages.getTicketBulkUpdate().clickNextBtn();
             assertCheck.append(actions.assertEqualBoolean(pages.getTicketBulkUpdate().isStatusBarComplete(), true, "Status update for all ticket", "Status not update for all ticket"));
             assertCheck.append(actions.assertEqualIntType(pages.getTicketBulkUpdate().getErrorTicketCount(), Integer.parseInt(pages.getTicketBulkUpdate().getErrorCount()), "Error Ticket count does displayed correctly", "Error Ticket count does not displayed correctly"));
-            try {
-                String[] array = pages.getTicketBulkUpdate().getUpdatedMessage().replaceAll("[^0-9\\s]+", "").trim().split(" ");
-                size = Integer.parseInt(array[0]) - pages.getTicketBulkUpdate().getErrorTicketCount();
-            } catch (NumberFormatException e) {
-                commonLib.fail("Not able to read message properly " + e.fillInStackTrace(), true);
-            }
+            String[] array = pages.getTicketBulkUpdate().getUpdatedMessage().replaceAll("[^0-9\\s]+", "").trim().split(" ");
+            size = Integer.parseInt(array[0]) - pages.getTicketBulkUpdate().getErrorTicketCount();
             assertCheck.append(actions.assertEqualIntType(pages.getTicketBulkUpdate().getSuccessCount(), size, "Action does Performed on all uploaded ticket", "Action does not Performed on all uploaded ticket"));
             pages.getTicketBulkUpdate().clickOkButton();
         } catch (Exception e) {
@@ -200,7 +190,7 @@ public class TicketBulkUpdateTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 7, groups = {"SanityTest", "RegressionTest","ProdTest"}, dependsOnMethods = "openTicketBulkUpdate")
+    @Test(priority = 7, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openTicketBulkUpdate")
     public void uploadTicketFromExcelAndTransferToQueueTest() {
         if (!StringUtils.equals(BULK_UPDATE_TRANSFER_QUEUE_STATUS, "true")) {
             commonLib.skip("Skipping because Bulk Operation not allowing while performing transfer to queue action as no two or more queue lies with in same workgroup - " + BULK_UPDATE_TRANSFER_QUEUE_STATUS);
@@ -258,14 +248,14 @@ public class TicketBulkUpdateTest extends Driver {
         }
     }
 
-    @Test(priority = 8, groups = {"SanityTest", "RegressionTest","ProdTest"}, dependsOnMethods = "openTicketBulkUpdate")
+    @Test(priority = 8, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openTicketBulkUpdate")
     public void uploadTicketFromExcelAndChangeStateTest() {
         try {
             selUtils.addTestcaseDescription("Check user able to upload ticket id from excel,Validate ticket upload from excel is complete,Click on next button and choose Change state operation,Choose State from the list and confirm the info,Click on submit button and validate ticket transfer to selected state,Validate Ticket history log logged this entry as ticket update by bulk update.", "description");
             DataProviders data = new DataProviders();
             int noOfTicket = 1;
-            Assert.assertTrue(pages.getTicketBulkUpdate().fileDownload(), "Ticket Upload Template does not download.Please check Excels/BulkUploadTemplate.xlsx downloaded");
-            Assert.assertTrue(data.writeTicketNumberToExcel(noOfTicket), "No Ticket Found to write in Excel");
+            assertCheck.append(actions.assertEqualBoolean(pages.getTicketBulkUpdate().fileDownload(),true, "Ticket Upload Template file download.Please check Excels/BulkUploadTemplate.xlsx downloaded","Ticket Upload Template does not download.Please check Excels/BulkUploadTemplate.xlsx downloaded",true));
+            assertCheck.append(actions.assertEqualBoolean(data.writeTicketNumberToExcel(noOfTicket),true, "Ticket Found to write in Excel","No Ticket Found to write in Excel",true));
             pages.getTicketBulkUpdate().addFile();
             final boolean isGrowlVisible = pages.getGrowl().checkIsGrowlVisible();
             if (isGrowlVisible) {

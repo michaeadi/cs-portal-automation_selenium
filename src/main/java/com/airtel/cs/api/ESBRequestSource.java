@@ -1,10 +1,23 @@
 package com.airtel.cs.api;
 
 import com.airtel.cs.commonutils.UtilsMethods;
-import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.ESBURIConstants;
 import com.airtel.cs.commonutils.restutils.RestCommonUtils;
-import com.airtel.cs.pojo.request.*;
+import com.airtel.cs.model.request.AccountDetailRequest;
+import com.airtel.cs.model.request.GenericRequest;
+import com.airtel.cs.model.request.LoanRequest;
+import com.airtel.cs.model.request.OfferDetailRequest;
+import com.airtel.cs.model.request.PaymentRequest;
+import com.airtel.cs.model.request.StatementRequest;
+import com.airtel.cs.model.request.UsageHistoryMenuRequest;
+import com.airtel.cs.model.request.UsageHistoryRequest;
+import com.airtel.cs.model.response.CreditLimitResponse;
+import com.airtel.cs.model.response.InvoiceHistoryResponse;
+import com.airtel.cs.model.response.PaymentResponse;
+import com.airtel.cs.model.response.PlanPackESBResponse;
+import com.airtel.cs.model.response.PostpaidBillDetailsResponse;
+import com.airtel.cs.model.response.customeprofile.CustomerProfileResponse;
+import com.airtel.cs.model.response.postpaid.AccountStatementResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONObject;
 
@@ -39,7 +52,7 @@ public class ESBRequestSource extends RestCommonUtils {
       commonLib.info(constants.getValue("downstream.api.calling") + " - self care user details");
       queryParam.put("msisdn", msisdn);
       commonGetMethodWithQueryParam(constants.getValue("gsm.self.care.user.details.api.url") + ESBURIConstants.SELF_CARE_USER_DETAILS,
-          queryParam);
+              queryParam);
       if (response.getStatusCode() != 200) {
         commonLib.fail(constants.getValue("downstream.api.error") + " - self care user details" + response.getStatusCode(), false);
       } else {
@@ -56,8 +69,8 @@ public class ESBRequestSource extends RestCommonUtils {
       }
     } catch (Exception exp) {
       commonLib
-          .fail(constants.getValue("downstream.api.error") + " - Device info/self care user details/GSM KYC request " + exp.getMessage(),
-              false);
+              .fail(constants.getValue("downstream.api.error") + " - Device info/self care user details/GSM KYC request " + exp.getMessage(),
+                      false);
     }
   }
 
@@ -142,7 +155,7 @@ public class ESBRequestSource extends RestCommonUtils {
         commonLib.pass("ESB API query balance working with data " + response.getBody().prettyPrint());
       }
       callRechargeHistory(msisdn, Timestamp.valueOf(LocalDateTime.now()).toInstant().toEpochMilli(),
-          Timestamp.valueOf(LocalDateTime.now().minusDays(60).with(LocalTime.of(0, 0, 0))).toInstant().toEpochMilli());
+              Timestamp.valueOf(LocalDateTime.now().minusDays(60).with(LocalTime.of(0, 0, 0))).toInstant().toEpochMilli());
 
     } catch (Exception exp) {
       commonLib.fail(constants.getValue("downstream.api.error") + " - query balance/recharge history " + exp.getMessage(), false);
@@ -204,7 +217,7 @@ public class ESBRequestSource extends RestCommonUtils {
     try {
       commonLib.info(constants.getValue("downstream.api.calling") + " - voucher refil barred ");
       commonPostMethod(constants.getValue("gsm.customer.profile.base.url") + ESBURIConstants.VOUCHER_REFILL_BARRED,
-          new GenericRequest(msisdn));
+              new GenericRequest(msisdn));
       if (response.getStatusCode() != 200) {
         commonLib.fail(constants.getValue("downstream.api.error") + " - voucher refil barred " + response.getStatusCode(), false);
       } else {
@@ -251,8 +264,8 @@ public class ESBRequestSource extends RestCommonUtils {
       }
     } catch (Exception exp) {
       commonLib.fail(
-          constants.getValue("downstream.api.error") + " - top twenty ringtone/search name tune/Generic search api " + exp.getMessage(),
-          false);
+              constants.getValue("downstream.api.error") + " - top twenty ringtone/search name tune/Generic search api " + exp.getMessage(),
+              false);
     }
   }
 
@@ -419,7 +432,7 @@ public class ESBRequestSource extends RestCommonUtils {
       commonLib.info(constants.getValue("downstream.api.calling") + " -postpaid bill details");
       queryParam.put("msisdn", msisdn);
       commonGetMethodWithQueryParam(constants.getValue("gsm.customer.profile.base.url") + ESBURIConstants.POSTPAID_BILL_DETAILS,
-          queryParam);
+              queryParam);
       if (response.getStatusCode() != 200) {
         commonLib.fail(constants.getValue("downstream.api.error") + " - postpaid bill details" + response.getStatusCode(), false);
       } else {
@@ -429,8 +442,8 @@ public class ESBRequestSource extends RestCommonUtils {
       callCustomerProfileV2(msisdn);
     } catch (Exception exp) {
       commonLib
-          .fail(constants.getValue("downstream.api.error") + " - get credit limit/invoice history/postpaid bill details " + exp.getMessage(),
-              false);
+              .fail(constants.getValue("downstream.api.error") + " - get credit limit/invoice history/postpaid bill details " + exp.getMessage(),
+                      false);
     }
   }
 
@@ -539,6 +552,128 @@ public class ESBRequestSource extends RestCommonUtils {
       commonLib.fail(constants.getValue("downstream.api.error") + " -loan details " + e.getMessage(), false);
     }
   }
+
+
+  /**
+   * This method is used to call customer profile v2 api "/api/subscriber-profile/v2/customer-profile"
+   * @param msisdn
+   * @return
+   */
+  public CustomerProfileResponse customerProfileResponse(String msisdn){
+    CustomerProfileResponse result = null;
+    try{
+      queryParam.put("msisdn", msisdn);
+      commonGetMethodWithQueryParam(constants.getValue("gsm.customer.profile.base.url")+ESBURIConstants.CUSTOMER_PROFILE_V2, queryParam);
+      result = response.as(CustomerProfileResponse.class);
+    } catch (Exception e) {
+      commonLib.fail("Exception in method - customerProfileResponse " + e.getMessage(), false);
+    }
+    return result;
+  }
+
+  /**
+   * This method is used to call invoice history v2 api "/api/subscriber-profile/v1/invoice-history"
+   * @param msisdn
+   * @return
+   */
+  public InvoiceHistoryResponse invoiceHistoryResponse(String msisdn){
+    InvoiceHistoryResponse result = null;
+    try{
+      queryParam.put("msisdn", msisdn);
+      commonGetMethodWithQueryParam(constants.getValue("gsm.customer.profile.base.url")+ESBURIConstants.INVOICE_HISTORY_V1, queryParam);
+      result = response.as(InvoiceHistoryResponse.class);
+    } catch (Exception e) {
+      commonLib.fail("Exception in method - invoiceHistoryResponse " + e.getMessage(), false);
+    }
+    return result;
+  }
+
+
+  /**
+   * This method is used to call invoice history v2 api "/api/subscriber-profile/v1/postpaid-bill-details"
+   * @param msisdn
+   * @return
+   */
+  public PostpaidBillDetailsResponse postpaidBillDetailsResponse(String msisdn){
+    PostpaidBillDetailsResponse result = null;
+    try{
+      queryParam.put("msisdn", msisdn);
+      commonGetMethodWithQueryParam(constants.getValue("gsm.customer.profile.base.url")+ESBURIConstants.POSTPAID_BILL_DETAIL_V1, queryParam);
+      result = response.as(PostpaidBillDetailsResponse.class);
+    } catch (Exception e) {
+      commonLib.fail("Exception in method - postpaidBillDetailsResponse " + e.getMessage(), false);
+    }
+    return result;
+  }
+
+  /**
+   * This method is used to call get usage api "/api/subscriber-profile/v1/get-usage"
+   * @param msisdn
+   * @return
+   */
+  public PlanPackESBResponse planPackResponse(String msisdn){
+    PlanPackESBResponse result = null;
+    try{
+      queryParam.put("msisdn", msisdn);
+      commonGetMethodWithQueryParam(constants.getValue("gsm.customer.profile.base.url")+ESBURIConstants.GET_USAGE, queryParam);
+      result = response.as(PlanPackESBResponse.class);
+    } catch (Exception e) {
+      commonLib.fail("Exception in method - planPackResponse " + e.getMessage(), false);
+    }
+    return result;
+  }
+
+
+  /**
+   * This method is used to call account payment api "/api/enterprise-service/v1/accounts/payments"
+   * @param paymentRequest
+   * @return
+   */
+  public PaymentResponse paymentResponse(PaymentRequest paymentRequest){
+    PaymentResponse result = null;
+    try{
+      commonPostMethod(constants.getValue("api.enterprise.service.base.url")+ESBURIConstants.ACCOUNT_PAYMENT, paymentRequest);
+      result = response.as(PaymentResponse.class);
+    } catch (Exception e) {
+      commonLib.fail("Exception in method - paymentResponse " + e.getMessage(), false);
+    }
+    return result;
+  }
+
+  /**
+   * This method is used to call account payment api "/api/enterprise-service/v1/accounts/statement"
+   * @param paymentRequest
+   * @return
+   */
+  public AccountStatementResponse accountStatementResponse(StatementRequest paymentRequest){
+    AccountStatementResponse result = null;
+    try{
+      commonPostMethod(constants.getValue("api.enterprise.service.base.url")+ESBURIConstants.ACCOUNT_STATEMENT, paymentRequest);
+      result = response.as(AccountStatementResponse.class);
+    } catch (Exception e) {
+      commonLib.fail("Exception in method - paymentResponse " + e.getMessage(), false);
+    }
+    return result;
+  }
+
+
+  /**
+   * This method is used to call credit limit api api "/api/subscriber-profile/v1/get-credit-limit"
+   * @param msisdn
+   * @return
+   */
+  public CreditLimitResponse creditLimitResponse(String msisdn){
+    CreditLimitResponse result = null;
+    try{
+      queryParam.put("msisdn", msisdn);
+      commonGetMethodWithQueryParam(constants.getValue("gsm.customer.profile.base.url")+ESBURIConstants.CREDIT_LIMIT, queryParam);
+      result = response.as(CreditLimitResponse.class);
+    } catch (Exception e) {
+      commonLib.fail("Exception in method - creditLimitResponse " + e.getMessage(), false);
+    }
+    return result;
+  }
+
 
   /**
    * This Method will hit the ESB APIs related to postpaid account info details

@@ -1,8 +1,8 @@
 package com.airtel.cs.ui.frontendagent.hometab;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.UtilsMethods;
+import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
@@ -10,8 +10,8 @@ import com.airtel.cs.commonutils.applicationutils.enums.ReportInfoMessageColorLi
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.databeans.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
+import com.airtel.cs.model.response.offerdetails.OfferDetail;
 import com.airtel.cs.pagerepository.pagemethods.DADetails;
-import com.airtel.cs.pojo.response.offerdetails.OfferDetailPOJO;
 import io.restassured.http.Headers;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
@@ -22,11 +22,10 @@ import org.testng.annotations.Test;
 @Log4j2
 public class DisplayOfferWidgetTest extends Driver {
 
-    private static String customerNumber;
-    private final BaseActions actions = new BaseActions();
-    RequestSource api = new RequestSource();
-    private OfferDetailPOJO offerDetailPOJO = null;
     public static final String RUN_DISPLAY_OFFER_TEST_CASE = constants.getValue(ApplicationConstants.RUN_DISPLAY_OFFER_TEST_CASE);
+    private static String customerNumber;
+    RequestSource api = new RequestSource();
+    private OfferDetail offerDetailPOJO = null;
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
@@ -72,7 +71,7 @@ public class DisplayOfferWidgetTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getDaDetailsPage().isOfferWidgetDisplay(), true, "Display offer Widget display", "Display offer widget does not display"));
             offerDetailPOJO = api.offerDetailAPITest(customerNumber);
             final int statusCode = offerDetailPOJO.getStatusCode();
-            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Display Offer Widget API success and status code is :" + statusCode, "Display Offer Widget API got failed and status code is :" + statusCode));
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Display Offer Widget API success and status code is :" + statusCode, "Display Offer Widget API got failed and status code is :" + statusCode, false));
             if (statusCode != 200) {
                 commonLib.fail("API is Unable to Get Display Offer for Customer", false);
             } else if (offerDetailPOJO.getResult().size() > 0) {
@@ -101,7 +100,7 @@ public class DisplayOfferWidgetTest extends Driver {
         DADetails daDetailsPage = pages.getDaDetailsPage();
         try {
             final int statusCode = offerDetailPOJO.getStatusCode();
-            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Display Offer Widget API success and status code is :" + statusCode, "Display Offer Widget API got failed and status code is :" + statusCode));
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Display Offer Widget API success and status code is :" + statusCode, "Display Offer Widget API got failed and status code is :" + statusCode, false));
             if (statusCode != 200) {
                 commonLib.fail("API is Unable to Get AM Transaction History for Customer", false);
             } else if (offerDetailPOJO.getResult().size() > 0) {
@@ -128,10 +127,13 @@ public class DisplayOfferWidgetTest extends Driver {
 
     @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"displayOfferHeaderTest", "openCustomerInteraction"})
     public void associatedDAPopUpTest() {
-        selUtils.addTestcaseDescription("Validate Associated DA's widget Column value display as per API Response ", "description");
-        DADetails daDetailsPage = pages.getDaDetailsPage();
-        int size = Math.min(offerDetailPOJO.getResult().size(), 5);
         try {
+            selUtils.addTestcaseDescription("Validate Associated DA's widget Column value display as per API Response ", "description");
+            DADetails daDetailsPage = pages.getDaDetailsPage();
+            int size = Math.min(offerDetailPOJO.getResult().size(), 5);
+            if (size <= 0) {
+                commonLib.warning("API is unable to get Offer detail");
+            }
             for (int i = 0; i < size; i++) {
                 int daSize = offerDetailPOJO.getResult().get(i).getNoOfDAs() != null ? offerDetailPOJO.getResult().get(i).getNoOfDAs() : -1;
                 if (daSize > 0) {
@@ -152,7 +154,6 @@ public class DisplayOfferWidgetTest extends Driver {
             }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
-            e.printStackTrace();
             commonLib.fail("Exception in Method - associatedDAPopUpTest" + e.fillInStackTrace(), true);
         }
     }

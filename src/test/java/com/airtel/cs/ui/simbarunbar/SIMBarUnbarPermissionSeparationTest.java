@@ -172,7 +172,7 @@ public class SIMBarUnbarPermissionSeparationTest extends Driver {
             pages.getCustomerProfilePage().clickOnAction();
             if(pages.getCustomerProfilePage().isSuspendSIMOptionVisible()){
                 pages.getCustomerProfilePage().openSuspendSIMTab();
-                Boolean popup = !pages.getCustomerProfilePage().isSuspendSIMConfirmMessageVisible();
+                boolean popup = !pages.getCustomerProfilePage().isSuspendSIMConfirmMessageVisible();
                 if (!popup) {
                     pages.getAuthTabPage().clickYesBtn();
                     final String toastText = pages.getAuthTabPage().getToastText();
@@ -195,7 +195,7 @@ public class SIMBarUnbarPermissionSeparationTest extends Driver {
             pages.getCustomerProfilePage().clickOnAction();
             if(pages.getCustomerProfilePage().isReactivationSIMOptionVisible()){
                 pages.getCustomerProfilePage().openSuspendSIMTab();
-                Boolean popup = !pages.getCustomerProfilePage().isReactivateSIMConfirmMessageVisible();
+                boolean popup = !pages.getCustomerProfilePage().isReactivateSIMConfirmMessageVisible();
                 if (!popup) {
                     pages.getAuthTabPage().clickYesBtn();
                     final String toastText = pages.getAuthTabPage().getToastText();

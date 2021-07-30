@@ -6,7 +6,7 @@ import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants
 import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pagerepository.pagemethods.DetailAccountInfoWidget;
-import com.airtel.cs.pojo.response.accountinfo.AccountDetails;
+import com.airtel.cs.model.response.accountinfo.AccountDetails;
 import io.restassured.http.Headers;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
@@ -82,7 +82,7 @@ public class AccountInfoBillDisputeTest extends Driver {
       acctountDetailsWidget.openAccountInformationDetailPage();
       assertCheck.append(actions.assertEqualStringType(acctountDetailsWidget.getAccountInfoDetailWidget().toUpperCase(), "ACCOUNT INFORMATION DETAIL", "Account Information Detail display as expected in detailed account info", "Account Information Detail not display as expected in detailed account info"));
       final Boolean umViewBillPermission = UtilsMethods
-          .isUserHasPermission(new Headers(map), constants.getValue(PermissionConstants.VIEW_POSTPAID_BILL));
+          .isUserHasPermission(new Headers(map), constants.getValue(PermissionConstants.BILL_DISPUTE));
       AccountDetails accountDetails = api.getAccountInfoDetail(accountNumber, 1);
       int size = accountDetails.getTotalCount() > 5 ? 5 : accountDetails.getTotalCount();
       int totalCount = accountDetails.getTotalCount();

@@ -1,16 +1,19 @@
 package com.airtel.cs.ui.frontendagent.hometab;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.databeans.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
+import com.airtel.cs.model.response.airtelmoney.AirtelMoney;
+import com.airtel.cs.model.response.amprofile.AMProfile;
 import com.airtel.cs.pagerepository.pagemethods.AMTransactionsWidget;
-import com.airtel.cs.pojo.response.AMProfilePOJO;
-import com.airtel.cs.pojo.response.airtelmoney.AirtelMoneyPOJO;
+import com.airtel.cs.model.response.actionconfig.ActionConfigResult;
+import com.airtel.cs.model.response.actionconfig.Condition;
+import com.airtel.cs.model.response.agents.RoleDetails;
+import io.restassured.http.Headers;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.testng.SkipException;
@@ -19,12 +22,12 @@ import org.testng.annotations.Test;
 
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
+import java.util.List;
 
 @Log4j2
 public class AirtelMoneyTransactionWidgetTest extends Driver {
 
     private static String customerNumber = null;
-    private final BaseActions actions = new BaseActions();
     RequestSource api = new RequestSource();
     public static final String RUN_AIRTEL_MONEY_WIDGET_TEST_CASE = constants.getValue(ApplicationConstants.RUN_AIRTEL_MONEY_WIDGET_TESTCASE);
 
@@ -84,9 +87,9 @@ public class AirtelMoneyTransactionWidgetTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validating Airtel Money Balance", "description");
             final AMTransactionsWidget amTxnWidgetPage = pages.getAmTxnWidgetPage();
-            AMProfilePOJO amProfileAPI = api.amServiceProfileAPITest(customerNumber);
+            AMProfile amProfileAPI = api.amServiceProfileAPITest(customerNumber);
             final int statusCode = amProfileAPI.getStatusCode();
-            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "AM Profile API success and status code is :" + statusCode, "AM Profile API got failed and status code is :" + statusCode));
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "AM Profile API success and status code is :" + statusCode, "AM Profile API got failed and status code is :" + statusCode, false));
             if (statusCode == 200) {
                 assertCheck.append(actions.assertEqualStringType(amTxnWidgetPage.gettingAirtelMoneyBalance(), amProfileAPI.getResult().getWallet().get(0).getBalance(), "Customer's Airtel Wallet Balance as Expected", "Customer's Airtel Wallet Balance not same not as Expected"));
                 assertCheck.append(actions.assertEqualStringType(amTxnWidgetPage.gettingAirtelMoneyCurrency(), amProfileAPI.getResult().getWallet().get(0).getCurrency(), "Customer's Currency code as Expected", "Customer's Currency code not same not as Expected"));
@@ -108,10 +111,10 @@ public class AirtelMoneyTransactionWidgetTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validate Airtel Money Transaction History API", "description");
             final AMTransactionsWidget amTxnWidgetPage = pages.getAmTxnWidgetPage();
-            AirtelMoneyPOJO amTransactionHistoryAPI = api.transactionHistoryAPITest(customerNumber);
+            AirtelMoney amTransactionHistoryAPI = api.transactionHistoryAPITest(customerNumber);
             final Integer statusCode = amTransactionHistoryAPI.getStatusCode();
             String amWidgetId = pages.getAmTxnWidgetPage().getAMWidgetId();
-            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "AM Txn API success and status code is :" + statusCode, "AM Txn API got failed and status code is :" + statusCode));
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "AM Txn API success and status code is :" + statusCode, "AM Txn API got failed and status code is :" + statusCode, false));
             if (statusCode != 200) {
                 assertCheck.append(actions.assertEqualBoolean(widgetMethods.isWidgetErrorIconDisplay(amWidgetId), true, "API and Widget both are showing error message", "API is Giving error But Widget is not showing error Message on API is " + amTransactionHistoryAPI.getMessage()));
             } else if (amTransactionHistoryAPI.getResult().getTotalCount() == null) {
@@ -123,8 +126,27 @@ public class AirtelMoneyTransactionWidgetTest extends Driver {
                 assertCheck.append(actions.matchUiAndAPIResponse(widgetMethods.getHeaderName(amWidgetId, 2), data.getRow3(), "Header Name for Row 3 is as expected", "Header Name for Row 3 is not as expected"));
                 assertCheck.append(actions.matchUiAndAPIResponse(widgetMethods.getHeaderName(amWidgetId, 3), data.getRow4(), "Header Name for Row 4 is as expected", "Header Name for Row 4 is not as expected"));
                 assertCheck.append(actions.matchUiAndAPIResponse(widgetMethods.getHeaderName(amWidgetId, 4), data.getRow5(), "Header Name for Row 5 is as expected", "Header Name for Row 5 is not as expected"));
+
+                ActionConfigResult actionConfigResult = api.getActionConfig(new Headers(map), "reverseTransaction");
+                List<String> actionConfigRoles = actionConfigResult.getRoles();
+                List<RoleDetails> agentRoles = UtilsMethods.getAgentDetail(new Headers(map)).getUserDetails().getUserDetails()
+                    .getRole();
                 for (int i = 0; i < count; i++) {
-                    assertCheck.append(actions.matchUiAndAPIResponse(amTxnWidgetPage.getHeaderValue(i, 0), amTransactionHistoryAPI.getResult().getData().get(i).getAmount(), "Amount is as expected as of CS API response", "Amount is not expected as of CS API response"));
+                    Boolean hasRole = agentRoles.stream().anyMatch(roleName -> actionConfigRoles.contains(roleName.getRoleName()));
+                    Condition condition = actionConfigResult.getConditions().get(0);
+                    String amountString = amTxnWidgetPage.getHeaderValue(i, 0).replaceAll("[^\\d.]", "");
+                    String operator = condition.getOperator();
+                    Integer thresholdValue = condition.getThresholdValue();
+                    int amount = StringUtils.isEmpty(amountString) ? 0 : Integer.parseInt(amountString);
+                    if (hasRole && (">=".equals(operator) && amount >= thresholdValue
+                        || "<".equals(operator) && amount < thresholdValue || "=".equals(operator) && amount == thresholdValue
+                        || "<=".equals(operator) && amount <= thresholdValue || ">".equals(operator) && amount > thresholdValue)) {
+                        assertCheck.append(actions.assertEqualBoolean(amTxnWidgetPage.isReverseIconEnable(i + 1), false, "Reverse Transaction Icon is disabled as mentioned in CS API Response", "Reverse Transaction  Icon  does not disable as mentioned in CS API Response"));
+                    } else {
+                        assertCheck.append(actions.assertEqualBoolean(amTxnWidgetPage.isReverseIconEnable(i + 1), true, "Reverse Transaction Icon is enabled as mentioned in CS API Response", "Reverse Transaction  Icon  does not enable as mentioned in CS API Response"));
+                        assertCheck.append(actions.matchUiAndAPIResponse(amTxnWidgetPage.getHeaderValue(i, 0), amTransactionHistoryAPI.getResult().getData().get(i).getAmount(), "Amount is as expected as of CS API response", "Amount is not expected as of CS API response"));
+                    }
+
                     assertCheck.append(actions.matchUiAndAPIResponse(amTxnWidgetPage.getHeaderValue(i, 1), amTransactionHistoryAPI.getResult().getData().get(i).getMsisdn(), "Receiver MSISDN is as expected as of CS API response", "Receiver MSISDN is not expected as of CS API response"));
                     assertCheck.append(actions.matchUiAndAPIResponse(amTxnWidgetPage.getHeaderValue(i, 2), UtilsMethods.getDateFromEpochInUTC(Long.parseLong(amTransactionHistoryAPI.getResult().getData().get(i).getTransactionDate()), constants.getValue(CommonConstants.AM_HISTORY_TIME_FORMAT)), "Date is as expected as of CS API response", "Date is not expected as of CS API response"));
                     assertCheck.append(actions.matchUiAndAPIResponse(amTxnWidgetPage.getHeaderValue(i, 3), amTransactionHistoryAPI.getResult().getData().get(i).getTransactionId(), "Transaction Id is as expected as of CS API response", "Transaction Id is not expected as of CS API response"));

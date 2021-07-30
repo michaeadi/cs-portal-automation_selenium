@@ -1,14 +1,13 @@
 package com.airtel.cs.ui.backendAgent.transfertoqueue;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.databeans.TransferQueueDataBean;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.pojo.response.agentpermission.AgentPermission;
+import com.airtel.cs.model.response.agentpermission.AgentPermission;
 import io.restassured.http.Headers;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoSuchElementException;
@@ -20,7 +19,6 @@ import org.testng.annotations.Test;
 
 public class TransferToQueueTest extends Driver {
 
-    private final BaseActions actions = new BaseActions();
     RequestSource api = new RequestSource();
     private String ticketId = null;
 

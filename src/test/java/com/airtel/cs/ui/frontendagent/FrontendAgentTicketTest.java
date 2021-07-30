@@ -1,5 +1,6 @@
 package com.airtel.cs.ui.frontendagent;
 
+import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
@@ -13,6 +14,7 @@ import org.testng.annotations.Test;
 public class FrontendAgentTicketTest extends Driver {
 
     private final BaseActions actions = new BaseActions();
+    RequestSource api = new RequestSource();
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
@@ -53,15 +55,23 @@ public class FrontendAgentTicketTest extends Driver {
             selUtils.addTestcaseDescription("Validate Ticket Meta Data for Frontend Agent", "description");
             pages.getCustomerProfilePage().goToViewHistory();
             pages.getViewHistory().goToTicketHistoryTab();
-            String ticketId = pages.getFrontendTicketHistoryPage().getTicketId(1);
-            pages.getFrontendTicketHistoryPage().writeTicketId(ticketId);
-            pages.getFrontendTicketHistoryPage().clickSearchBtn();
-            assertCheck.append(actions.assertEqualStringType(pages.getFrontendTicketHistoryPage().getTicketId(1), ticketId, "Ticket Id same as search ticket id.", "Ticket Id does not same as search ticket id."));
-            assertCheck.append(actions.assertEqualStringNotNull(pages.getFrontendTicketHistoryPage().getTicketPriority(1), "Ticket priority is not null.", "Ticket priority must not be null."));
-            assertCheck.append(actions.assertEqualStringNotNull(pages.getFrontendTicketHistoryPage().getTicketQueue(1), "Ticket Queue is not null.", "Ticket Queue must not be null."));
-            assertCheck.append(actions.assertEqualStringNotNull(pages.getFrontendTicketHistoryPage().getSourceApp(1), "Source App is not empty.", "Source App can not be empty."));
-            if (ticketId != null)
-                actions.assertAllFoundFailedAssert(assertCheck);
+            Integer statusCode = api.getTicketHistoryStatusCode(constants.getValue(ApplicationConstants.CUSTOMER_MSISDN));
+            if (statusCode != 200) {
+                commonLib.fail(constants.getValue("cs.get.ticket.history.api.error"), false);
+                if (statusCode == 500) {
+                    assertCheck.append(actions.assertEqualBoolean(pages.getFrontendTicketHistoryPage().isUnableToFetch(),true, constants.getValue("ticket.history.error.widget.visible"),constants.getValue("ticket.history.error.widget.not.visible"),true));
+                }
+            } else {
+                String ticketId = pages.getFrontendTicketHistoryPage().getTicketId(1);
+                pages.getFrontendTicketHistoryPage().writeTicketId(ticketId);
+                pages.getFrontendTicketHistoryPage().clickSearchBtn();
+                assertCheck.append(actions.assertEqualStringType(pages.getFrontendTicketHistoryPage().getTicketId(1), ticketId, "Ticket Id same as search ticket id.", "Ticket Id does not same as search ticket id."));
+                assertCheck.append(actions.assertEqualStringNotNull(pages.getFrontendTicketHistoryPage().getTicketPriority(1), "Ticket priority is not null.", "Ticket priority must not be null."));
+                assertCheck.append(actions.assertEqualStringNotNull(pages.getFrontendTicketHistoryPage().getTicketQueue(1), "Ticket Queue is not null.", "Ticket Queue must not be null."));
+                assertCheck.append(actions.assertEqualStringNotNull(pages.getFrontendTicketHistoryPage().getSourceApp(1), "Source App is not empty.", "Source App can not be empty."));
+                if (ticketId != null)
+                    actions.assertAllFoundFailedAssert(assertCheck);
+            }
         } catch (Exception e) {
             commonLib.fail("Exception in Method - validateTicket()" + e.fillInStackTrace(), true);
         }
@@ -77,9 +87,17 @@ public class FrontendAgentTicketTest extends Driver {
             selUtils.addTestcaseDescription("Validate Add to Interaction Icon on Each Ticket", "description");
             pages.getCustomerProfilePage().goToViewHistory();
             pages.getViewHistory().goToTicketHistoryTab();
-            final boolean interactionIcon = pages.getFrontendTicketHistoryPage().validateAddToInteractionIcon();
-            assertCheck.append(actions.assertEqualBoolean(interactionIcon, true, "Add to interaction Icon found on ticket", "Add to interaction Icon does not found on ticket"));
-            if (!interactionIcon) continueExecutionFA = false;
+            Integer statusCode = api.getTicketHistoryStatusCode(constants.getValue(ApplicationConstants.CUSTOMER_MSISDN));
+            if (statusCode != 200) {
+                commonLib.fail(constants.getValue("cs.get.ticket.history.api.error"), false);
+                if (statusCode == 500) {
+                    assertCheck.append(actions.assertEqualBoolean(pages.getFrontendTicketHistoryPage().isUnableToFetch(),true, constants.getValue("ticket.history.error.widget.visible"),constants.getValue("ticket.history.error.widget.not.visible"),true));
+                }
+            } else {
+                final boolean interactionIcon = pages.getFrontendTicketHistoryPage().validateAddToInteractionIcon();
+                assertCheck.append(actions.assertEqualBoolean(interactionIcon, true, "Add to interaction Icon found on ticket", "Add to interaction Icon does not found on ticket"));
+                if (!interactionIcon) continueExecutionFA = false;
+            }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - validateAddToInteraction()" + e.fillInStackTrace(), true);
@@ -108,48 +126,20 @@ public class FrontendAgentTicketTest extends Driver {
      */
     @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
     public void validateSendSMSTab() {
-        selUtils.addTestcaseDescription("Validating the Send SMS Tab ", "description");
-        pages.getCustomerProfilePage().clickOnAction();
         try {
+            selUtils.addTestcaseDescription("Validating the Send SMS Tab ", "description");
+            pages.getCustomerProfilePage().clickOnAction();
             pages.getCustomerProfilePage().openSendSMSTab();
-            try {
-                assertCheck.append(actions.assertEqualBoolean(pages.getSendSMS().isPageLoaded(), true, "Send SMS tab open correctly", "Send SMS tab does not open correctly"));
-            } catch (NoSuchElementException | TimeoutException e) {
-                commonLib.fail("Send SMS tab does not open correctly" + e.fillInStackTrace(), true);
-            }
-            try {
-                assertCheck.append(actions.assertEqualBoolean(pages.getSendSMS().isCategory(), true, "Category field displayed", "Category field does not displayed"));
-            } catch (NoSuchElementException | TimeoutException e) {
-                commonLib.fail("Category field does not displayed" + e.fillInStackTrace(), true);
-            }
-            try {
-                assertCheck.append(actions.assertEqualBoolean(pages.getSendSMS().isCustomerNumber(), true, "Customer number displayed", "Customer number does not displayed"));
-            } catch (NoSuchElementException | TimeoutException e) {
-                commonLib.fail("Customer number does not displayed" + e.fillInStackTrace(), true);
-            }
-            try {
-                assertCheck.append(actions.assertEqualBoolean(pages.getSendSMS().isLanguage(), true, "Language field displayed", "Language field does not displayed"));
-            } catch (NoSuchElementException | TimeoutException e) {
-                commonLib.fail("Language field does not displayed" + e.fillInStackTrace(), true);
-            }
-            try {
-                assertCheck.append(actions.assertEqualBoolean(pages.getSendSMS().isTemplateName(), true, "Template name field display", "Template name field does not display"));
-            } catch (NoSuchElementException | TimeoutException e) {
-                commonLib.fail("Template name field does not displayed" + e.fillInStackTrace(), true);
-            }
-            try {
-                assertCheck.append(actions.assertEqualBoolean(pages.getSendSMS().isMessageContentEditable(), true, "Message Content Editable", "Message Content is not Editable"));
-            } catch (NoSuchElementException | TimeoutException e) {
-                commonLib.fail("Message Content Is Editable" + e.fillInStackTrace(), true);
-            }
-            try {
-                assertCheck.append(actions.assertEqualBoolean(pages.getSendSMS().isSendBtnDisabled(), true, "Send SMS button is clickable", "Send SMS button is not clickable"));
-            } catch (NoSuchElementException | TimeoutException e) {
-                commonLib.fail("Send SMS button is display on UI" + e.fillInStackTrace(), true);
-            }
-        } catch (NoSuchElementException | TimeoutException e) {
-            commonLib.fail("Send SMS tab does not open properly" + e.fillInStackTrace(), true);
+            assertCheck.append(actions.assertEqualBoolean(pages.getSendSMS().isPageLoaded(), true, "Send SMS tab open correctly", "Send SMS tab does not open correctly",true));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSendSMS().isCategory(), true, "Category field displayed", "Category field does not displayed"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSendSMS().isCustomerNumber(), true, "Customer number displayed", "Customer number does not displayed"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSendSMS().isLanguage(), true, "Language field displayed", "Language field does not displayed"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSendSMS().isTemplateName(), true, "Template name field display", "Template name field does not display"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSendSMS().isMessageContentEditable(), true, "Message Content Editable", "Message Content is not Editable"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSendSMS().isSendBtnDisabled(), true, "Send SMS button is clickable", "Send SMS button is not clickable"));
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - validateSendSMSTab()" + e.fillInStackTrace(), true);
         }
-        actions.assertAllFoundFailedAssert(assertCheck);
     }
 }

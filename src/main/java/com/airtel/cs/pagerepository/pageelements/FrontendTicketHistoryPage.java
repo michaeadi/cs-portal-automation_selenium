@@ -22,5 +22,7 @@ public class FrontendTicketHistoryPage {
     public String reOpenIcon = "]//td[8]//span[1]//a[2]//img";
     public String ticketSourceApp = "]//td[8]/p";
     public By addToInteractionIcon = By.xpath("//*[@title='Add to Interaction']");
+    public By unableToFetch = By.xpath("");
+
 }
 

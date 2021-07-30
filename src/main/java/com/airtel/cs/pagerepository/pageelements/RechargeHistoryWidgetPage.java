@@ -4,10 +4,10 @@ import org.openqa.selenium.By;
 
 public class RechargeHistoryWidgetPage {
     public String widgetIdentifier="//div[@data-csautomation-key='RECHARGE_HISTORY']";
-    public By rechargeHistoryDatePicker = By.xpath("//div[@id='RECHARGE_HISTORY']//input[@name='dateRange']");
-    public By rechargeHistoryHeader = By.xpath("//div[@id='RECHARGE_HISTORY']//span[@class='card__card-header--label']");
-    public By rows = By.xpath("//div[@id='RECHARGE_HISTORY']//parent::div//following-sibling::div[@class='card__content restricted ng-star-inserted']//div[@class='table-data-wrapper ng-star-inserted']//div[@class='card__card-header--card-body--table--data-list row-border']");
-    public By menu = By.xpath("//div[@id='RECHARGE_HISTORY']//span/img[@class='header-action-icon ng-star-inserted']");
+    public By rechargeHistoryDatePicker = By.xpath("//div[@data-csautomation-key='RECHARGE_HISTORY']//input[@name='dateRange']");
+    public By rechargeHistoryHeader = By.xpath("//div[@data-csautomation-key='RECHARGE_HISTORY']//span[@class='card__card-header--label']");
+    public By rows = By.xpath("//div[@data-csautomation-key='RECHARGE_HISTORY']//parent::div//following-sibling::div[@class='card__content restricted ng-star-inserted']//div[@class='table-data-wrapper ng-star-inserted']//div[@class='card__card-header--card-body--table--data-list row-border']");
+    public By menu = By.xpath("//div[@data-csautomation-key='RECHARGE_HISTORY']//span/img[@class='header-action-icon ng-star-inserted']");
     public By more = By.xpath("//button[text()='Recharge History']");
     public By rechargeHistoryNoResultFound = By.xpath("//div[@data-csautomation-key='RECHARGE_HISTORY']/div[@class='card__content restricted ng-star-inserted']/descendant::div[@class='no-result-found ng-star-inserted']/img");
     public By rechargeHistoryNoResultFoundMessage = By.xpath("//div[@data-csautomation-key='RECHARGE_HISTORY']/div[@class='card__content restricted ng-star-inserted']/descendant::div[@class='no-result-found ng-star-inserted']/span/span");
