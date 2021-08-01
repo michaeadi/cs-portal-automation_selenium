@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 
 public class LogoutTest extends Driver {
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -19,7 +19,7 @@ public class LogoutTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void logout() {
         selUtils.addTestcaseDescription("Logging Out Of Portal", "description");
         if (pages.getSideMenuPage().isSideMenuVisible()) {

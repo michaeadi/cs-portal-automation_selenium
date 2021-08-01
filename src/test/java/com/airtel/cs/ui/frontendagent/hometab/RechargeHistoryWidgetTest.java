@@ -21,7 +21,7 @@ public class RechargeHistoryWidgetTest extends Driver {
     public static final String RUN_RECHARGE_WIDGET_TEST_CASE = constants.getValue(ApplicationConstants.RUN_RECHARGE_WIDGET_TESTCASE);
     RequestSource api = new RequestSource();
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -29,7 +29,7 @@ public class RechargeHistoryWidgetTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void checkRechargeHistoryFlag() {
         if (!StringUtils.equals(RUN_RECHARGE_WIDGET_TEST_CASE, "true")) {
             commonLib.skip("Skipping because Run Recharge widget Test Case Flag Value is - " + RUN_RECHARGE_WIDGET_TEST_CASE);
@@ -37,7 +37,7 @@ public class RechargeHistoryWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -55,7 +55,7 @@ public class RechargeHistoryWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
     public void testHeaderAndAuuid() {
         try {
             selUtils.addTestcaseDescription("Validate is Recharge History Widget Visible,Validate is Recharge History Widget Loaded?,Validate Footer and Middle Auuid", "description");

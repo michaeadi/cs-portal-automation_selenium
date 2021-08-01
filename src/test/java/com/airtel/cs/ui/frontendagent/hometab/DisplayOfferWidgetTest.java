@@ -2,7 +2,6 @@ package com.airtel.cs.ui.frontendagent.hometab;
 
 import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.commonutils.UtilsMethods;
-import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
@@ -27,7 +26,7 @@ public class DisplayOfferWidgetTest extends Driver {
     RequestSource api = new RequestSource();
     private OfferDetail offerDetailPOJO = null;
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login via API");
@@ -35,7 +34,7 @@ public class DisplayOfferWidgetTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void checkServiceProfileFlag() {
         if (!StringUtils.equals(RUN_DISPLAY_OFFER_TEST_CASE, "true")) {
             commonLib.skip("Display Offer Widget is NOT Enabled for this Opco=" + OPCO);
@@ -43,7 +42,7 @@ public class DisplayOfferWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -62,7 +61,7 @@ public class DisplayOfferWidgetTest extends Driver {
     }
 
     @DataProviders.Table(name = "UC-UT Offer")
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = {"openCustomerInteraction"})
     public void displayOfferHeaderTest(HeaderDataBean headerValues) {
         selUtils.addTestcaseDescription("CSP-63664 : Validate Offers widget header visible and display all the Column name as per config ", "description");
         try {

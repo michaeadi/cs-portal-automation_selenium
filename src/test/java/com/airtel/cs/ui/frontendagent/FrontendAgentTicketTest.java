@@ -3,15 +3,13 @@ package com.airtel.cs.ui.frontendagent;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.driver.Driver;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class FrontendAgentTicketTest extends Driver {
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -22,7 +20,7 @@ public class FrontendAgentTicketTest extends Driver {
     /**
      * This method is used to Open Customer Profile Page with valid MSISDN
      */
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -44,7 +42,7 @@ public class FrontendAgentTicketTest extends Driver {
     /**
      * This method is used to Validate Ticket Meta Data for Frontend Agent
      */
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
     public void validateTicket() {
         try {
             selUtils.addTestcaseDescription("Validate Ticket Meta Data for Frontend Agent", "description");
@@ -68,7 +66,7 @@ public class FrontendAgentTicketTest extends Driver {
     /**
      * This method is used to Validate Add to Interaction Icon on Each Ticket
      */
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
     public void validateAddToInteraction() {
         try {
             selUtils.addTestcaseDescription("Validate Add to Interaction Icon on Each Ticket", "description");
@@ -86,7 +84,7 @@ public class FrontendAgentTicketTest extends Driver {
     /**
      * This method is used to Validate NFTR issue have ticket icon
      */
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
     public void validateNFTRIssue() {
         try {
             selUtils.addTestcaseDescription("Validate NFTR issue have ticket icon", "description");
@@ -103,7 +101,7 @@ public class FrontendAgentTicketTest extends Driver {
     /**
      * This method is used to validate send SMS tab
      */
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
     public void validateSendSMSTab() {
         try {
             selUtils.addTestcaseDescription("Validating the Send SMS Tab ", "description");

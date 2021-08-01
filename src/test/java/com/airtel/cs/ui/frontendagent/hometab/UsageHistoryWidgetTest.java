@@ -27,7 +27,7 @@ public class UsageHistoryWidgetTest extends Driver {
     public static final String RUN_USAGE_WIDGET_TEST_CASE = constants.getValue(ApplicationConstants.RUN_USAGE_WIDGET_TESTCASE);
     RequestSource api = new RequestSource();
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -35,7 +35,7 @@ public class UsageHistoryWidgetTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void checkUsageHistoryFlag() {
         if (!StringUtils.equals(RUN_USAGE_WIDGET_TEST_CASE, "true")) {
             commonLib.skip("Skipping because Run Usage widget Test Case Flag Value is - " + RUN_USAGE_WIDGET_TEST_CASE);
@@ -43,7 +43,7 @@ public class UsageHistoryWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -61,7 +61,7 @@ public class UsageHistoryWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
     public void usageHistoryWidgetHeaderTest() {
         try {
             selUtils.addTestcaseDescription("Validate is Usage History Widget Visible?,Validate footer and middle auuid,Validate Header Text", "description");

@@ -20,7 +20,7 @@ public class AirtelMoneyMenuPrimaryWidgetTest extends Driver {
     RequestSource api = new RequestSource();
     private AirtelMoney amTransactionHistoryAPI;
 
-    @BeforeMethod(groups = {"ProdTest"})
+    @BeforeMethod(groups = {"ProdTest","SmokeTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -28,7 +28,7 @@ public class AirtelMoneyMenuPrimaryWidgetTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"ProdTest"})
+    @BeforeMethod(groups = {"ProdTest","SmokeTest"})
     public void checkAirtelMoneyFlag() {
         if (!StringUtils.equals(RUN_AIRTEL_MONEY_WIDGET_TEST_CASE, "true")) {
             commonLib.skip("Skipping because Run Airtel Money widget Test Case Flag Value is - " + RUN_AIRTEL_MONEY_WIDGET_TEST_CASE);
@@ -36,7 +36,7 @@ public class AirtelMoneyMenuPrimaryWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"ProdTest"})
+    @Test(priority = 1, groups = {"ProdTest","SmokeTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -55,7 +55,7 @@ public class AirtelMoneyMenuPrimaryWidgetTest extends Driver {
     }
 
     @DataProviders.Table(name = "More Airtel Money History")
-    @Test(priority = 2, groups = {"ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 2, groups = {"ProdTest","SmokeTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = {"openCustomerInteraction"})
     public void airtelMoneyHistoryMenuHeaderTest(HeaderDataBean data) {
         try {
             selUtils.addTestcaseDescription("Validating Airtel Money History's Header Name  Menu of User :" + customerNumber + ",Validating all the filter display as per config,Validate search by transaction id box displayed as per config.", "description");

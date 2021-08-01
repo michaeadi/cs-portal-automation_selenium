@@ -33,7 +33,7 @@ public class LoanWidgetTest extends Driver {
     RequestSource api = new RequestSource();
     List<Vendors> vendors;
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -41,7 +41,7 @@ public class LoanWidgetTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void checkLoanWidgetFlag() {
         if (!StringUtils.equals(RUN_LOAN_WIDGET_TEST_CASE, "true")) {
             commonLib.skip("Loan Widget is NOT Enabled for this Opco= " + OPCO);
@@ -52,7 +52,7 @@ public class LoanWidgetTest extends Driver {
     /**
      * This method is used to Open Customer Profile Page with valid MSISDN
      */
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -77,7 +77,7 @@ public class LoanWidgetTest extends Driver {
      * @param data
      */
     @DataProviders.Table(name = "Loan Services")
-    @Test(priority = 2, dependsOnMethods = "openCustomerInteraction", groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
+    @Test(priority = 2, dependsOnMethods = "openCustomerInteraction", groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class)
     public void validateLoanWidgetLayout(HeaderDataBean data) {
         try {
             selUtils.addTestcaseDescription("Validating Loan Service Widget layout", "description");

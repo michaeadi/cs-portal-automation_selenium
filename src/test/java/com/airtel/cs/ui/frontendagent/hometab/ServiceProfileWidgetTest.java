@@ -27,7 +27,7 @@ public class ServiceProfileWidgetTest extends Driver {
     private HLRService hlrService;
     public static final String RUN_HLR_SERVICE_TEST_CASE = constants.getValue(ApplicationConstants.RUN_HLR_WIDGET_TEST_CASE);
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login via API");
@@ -35,7 +35,7 @@ public class ServiceProfileWidgetTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void checkServiceProfileFlag() {
         if (!StringUtils.equals(RUN_HLR_SERVICE_TEST_CASE, "true")) {
             commonLib.skip("Skipping because Run service profile widget Test Case Flag Value is - " + RUN_TARIFF_TEST_CASE);
@@ -44,7 +44,7 @@ public class ServiceProfileWidgetTest extends Driver {
     }
 
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -62,7 +62,7 @@ public class ServiceProfileWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void isUserHasHLRPermission() {
         try {
             selUtils.addTestcaseDescription("Verify that Service Profile widget should be visible to the logged in agent if HLR permission is enabled in UM, Check User has permission to view HLR Widget Permission", "description");
@@ -74,7 +74,7 @@ public class ServiceProfileWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 3, groups = {"RegressionTest"}, enabled = false, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 3, groups = {"RegressionTest","SmokeTest"}, enabled = false, dependsOnMethods = {"openCustomerInteraction"})
     public void userHasNoHLRPermission() {
         try {
             selUtils.addTestcaseDescription("Verify that Service Profile widget should not be visible to the logged in agent if HLR permission is disabled in UM", "description");
@@ -91,7 +91,7 @@ public class ServiceProfileWidgetTest extends Driver {
 
 
     @DataProviders.Table(name = "Service Profile")
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = {"openCustomerInteraction"})
     public void validateServiceProfileWidget(HeaderDataBean data) {
         try {
             selUtils.addTestcaseDescription("Verify Service Profile Widget with customer number: " + customerNumber + ",Check Service Profile giving response without fail,Validate widget header display as per config,Validate widget data detail as per api response", "description");

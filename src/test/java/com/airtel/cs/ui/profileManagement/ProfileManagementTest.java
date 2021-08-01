@@ -15,7 +15,7 @@ public class ProfileManagementTest extends Driver {
 
     private final BaseActions actions = new BaseActions();
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login via API");
@@ -23,7 +23,7 @@ public class ProfileManagementTest extends Driver {
         }
     }
 
-    @Test(priority = 1,groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 1,groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void openProfileManagementPage() {
         try {
             selUtils.addTestcaseDescription("Validating Profile Management with Validating Filter and Columns Present", "description");

@@ -467,4 +467,305 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.DetailAccountInfoViewBillTest"/>
         </classes>
     </test>
+    <test name="Prod Test Login With Advisor Supervisor">
+        <groups>
+            <run>
+                <include name="SmokeTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginPortalTests"/>
+        </classes>
+    </test>
+    <test name="Test Side Menu Options">
+        <groups>
+            <run>
+                <include name="SmokeTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.leftmenu.SideMenuTests"/>
+        </classes>
+    </test>
+    <test name="Demo Graphic Widget Test By MSISDN" preserve-order="true">
+        <groups>
+            <run>
+                <include name="SmokeTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.demographicwidget.DemoGraphicWidgetMsisdnTest"/>
+        </classes>
+    </test>
+    <test name="Airtel Money widget Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="SmokeTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.AirtelMoneyTransactionWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Airtel Money Primary Detailed widget Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="SmokeTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.AirtelMoneyMenuPrimaryWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Airtel Money Secondary Detailed widget Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="SmokeTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.AirtelMoneyMenuSecondaryWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Recharge History Detailed Page Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="SmokeTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.RechargeHistoryMenuWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Validate Action Trail Tab Test">
+        <groups>
+            <run>
+                <include name="SmokeTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.viewhistorytab.ActionTrailTest"/>
+        </classes>
+    </test>
+    <test name="Validate Frontend Agent Ticket Page">
+        <groups>
+            <run>
+                <include name="SmokeTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.FrontendAgentTicketTest"/>
+        </classes>
+    </test>
+    <test name="Service Profile Widget Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="SmokeTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.ServiceProfileWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Usage History Detailed Widget Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="SmokeTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.UsageHistoryDetailedWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Usage History Widget Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="SmokeTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.UsageHistoryWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Recharge History Widget Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="SmokeTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.RechargeHistoryWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Display Offer Widget Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="SmokeTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.DisplayOfferWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Friend and Family Offer Widget Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="SmokeTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.FriendsFamilyWidgetTest"/>
+        </classes>
+    </test>
+    <test name="DA detail Widget Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="SmokeTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.DADetailWidgetTest"/>
+        </classes>
+    </test>
+    <test name="CRBT Widget Test">
+        <groups>
+            <run>
+                <include name="SmokeTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.CRBTWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Create NFTR FTR Tickets TEST">
+        <groups>
+            <run>
+                <include name="SmokeTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.CreateInteractionTest"/>
+        </classes>
+    </test>
+    <test name="Supervisors Login Test">
+        <groups>
+            <run>
+                <include name="SmokeTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.backendSupervisor.SupervisorLoginTest"/>
+        </classes>
+    </test>
+    <test name="Supervisors Validate Filter Option ">
+        <groups>
+            <run>
+                <include name="SmokeTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.backendSupervisor.SupervisorFilterTest"/>
+        </classes>
+    </test>
+    <test name="Supervisors Ticket Bulk Update Test">
+        <groups>
+            <run>
+                <include name="SmokeTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.ticketBulkUpdate.TicketBulkUpdateTest"/>
+        </classes>
+    </test>
+    <test name="Logout Supervisor Test">
+        <groups>
+            <run>
+                <include name="SmokeTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
+        </classes>
+    </test>
+    <test name="LOGIN TO BACKEND AGENT">
+        <groups>
+            <run>
+                <include name="SmokeTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.backendAgent.BackendAgentLoginTest"/>
+        </classes>
+    </test>
+    <test name="Logout Test from Backend agent">
+        <groups>
+            <run>
+                <include name="SmokeTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
+        </classes>
+    </test>
+    <test name="Login Admin Test">
+        <groups>
+            <run>
+                <include name="SmokeTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginPortalTests"/>
+        </classes>
+    </test>
+    <test name="Create Template Test">
+        <groups>
+            <run>
+                <include name="SmokeTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.templateManagement.CreateTemplateTest">
+            </class>
+        </classes>
+    </test>
+    <test name="View Template Test">
+        <groups>
+            <run>
+                <include name="SmokeTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.templateManagement.ViewTemplateTest"/>
+        </classes>
+    </test>
+    <test name="UserManagement Test">
+        <groups>
+            <run>
+                <include name="SmokeTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.usermanagement.UserManagementTest"/>
+        </classes>
+    </test>
+    <test name="Profile Management Test">
+        <groups>
+            <run>
+                <include name="SmokeTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.profileManagement.ProfileManagementTest"/>
+        </classes>
+    </test>
+    <test name="Logout Test from ADMIN/SUPERVISOR">
+        <groups>
+            <run>
+                <include name="SmokeTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
+        </classes>
+    </test>
 </suite>

@@ -19,7 +19,7 @@ public class RechargeHistoryMenuWidgetTest extends Driver {
     RequestSource api = new RequestSource();
     private RechargeHistory rechargeHistoryAPI;
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -27,7 +27,7 @@ public class RechargeHistoryMenuWidgetTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void checkRechargeHistoryFlag() {
         if (!StringUtils.equals(RUN_RECHARGE_WIDGET_TEST_CASE, "true")) {
             commonLib.skip("Skipping because Run Recharge widget Test Case Flag Value is - " + RUN_RECHARGE_WIDGET_TEST_CASE);
@@ -35,7 +35,7 @@ public class RechargeHistoryMenuWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -54,7 +54,7 @@ public class RechargeHistoryMenuWidgetTest extends Driver {
     }
 
     @DataProviders.Table(name = "More Recharge History")
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
     public void rechargeHistoryHeaderTest(HeaderDataBean data) {
         try {
             selUtils.addTestcaseDescription("Validating Recharge History's  Menu of User :" + customerNumber + ",validate recharge menu widget display all header display as per config", "description");

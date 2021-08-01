@@ -23,7 +23,7 @@ public class CRBTWidgetTest extends Driver {
     RequestSource api = new RequestSource();
     private String crbtWidgetId;
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void isCRBTFeatureEnabled() {
         if (StringUtils.equalsIgnoreCase(constants.getValue(ApplicationConstants.CRBT_WIDGET), "false")) {
             commonLib.skip("CRBT Widget is NOT Enabled for this Opco=" + OPCO);
@@ -31,7 +31,7 @@ public class CRBTWidgetTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -39,7 +39,7 @@ public class CRBTWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -57,7 +57,7 @@ public class CRBTWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
     public void testHeaderAndAuuid() {
         try {
             selUtils.addTestcaseDescription("Validate is CRBT Widget Visible,Validate is CRBT Widget Loaded?,Validate Footer and Middle Auuid", "description");
