@@ -83,4 +83,5 @@ public class SupervisorTicketListPage {
     public By popUpTitle=By.xpath("//h1[contains(text(),' Select Queue ')]");
     public By loginQueueName=By.xpath("//label[@formarrayname='queues' and contains(text(),'CS Test Automation')]");
     public By agentLoggedInQueue=By.xpath("//span[contains(text(),'CS Test Automation')]");
+    public By continueBtn=By.xpath("//span[contains(text(),'Continue')]");
 }

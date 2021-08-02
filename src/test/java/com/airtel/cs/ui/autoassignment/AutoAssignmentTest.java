@@ -4,7 +4,6 @@ import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
-import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.model.response.agents.AdditionalDetails;
 import com.airtel.cs.model.response.tickethistorylog.TicketHistoryLog;
@@ -46,7 +45,7 @@ public class AutoAssignmentTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 2, dependsOnMethods = "openCustomerInteraction", groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "getTestData2", dataProviderClass = DataProviders.class)
+    @Test(priority = 2, dependsOnMethods = {"openCustomerInteraction"}, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void CreateNFTRInteraction() {
         String ticketNumber = null;
         try {
@@ -87,7 +86,7 @@ public class AutoAssignmentTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"},dependsOnMethods = {"openCustomerInteraction","CreateNFTRInteraction"})
     public void openSupervisorDashboard() {
         try {
             selUtils.addTestcaseDescription("Open Supervisor Dashboard , Validate agent redirect to ticket List Page", "description");
@@ -101,13 +100,14 @@ public class AutoAssignmentTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 4,groups ={"SanityTest", "RegressionTest", "ProdTest"} )
+    @Test(priority = 4,groups ={"SanityTest", "RegressionTest", "ProdTest"},dependsOnMethods = {"openCustomerInteraction","openSupervisorDashboard","CreateNFTRInteraction"} )
     public void loginIntoTestAutomationQueue(){
         try {
             selUtils.addTestcaseDescription("Validate Agent Login into queue button display,click on login into queue button,validate queue login pop up display,Click on Test queue name", "description");
             pages.getSupervisorTicketList().clickLoginQueueButton();
             assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isLoginPopup(),true,"Login into queue pop up display as expected","Login into queue pop up does not display as expected",true));
             pages.getSupervisorTicketList().clickQueueLogin();
+            pages.getSupervisorTicketList().clickContinueButton();
             assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isAgentLoggedIntoQueue(),true,"Agent Login into queue as expected","Agent does not Login into queue as expected",true));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - loginIntoTestAutomationQueue" + e.fillInStackTrace(), true);
@@ -115,11 +115,10 @@ public class AutoAssignmentTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 5,groups ={"SanityTest", "RegressionTest", "ProdTest"} )
+    @Test(priority = 5,groups ={"SanityTest", "RegressionTest", "ProdTest"},dependsOnMethods = {"openCustomerInteraction","openSupervisorDashboard","CreateNFTRInteraction","loginIntoTestAutomationQueue"} )
     public void validateTicketAutoAssigned(){
         try {
             selUtils.addTestcaseDescription("Validate Agent Login into queue,Validate ticket assigned to login agent", "description");
-            pages.getSupervisorTicketList().wait(1000);
             pages.getSupervisorTicketList().clickRefreshBtn();
             String ticketId=constants.getValue(CommonConstants.AUTO_ASSIGNMENT_TICKET_ID);
             pages.getSupervisorTicketList().changeTicketTypeToOpen();

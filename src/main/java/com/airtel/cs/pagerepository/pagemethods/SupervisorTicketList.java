@@ -932,7 +932,7 @@ public class SupervisorTicketList extends BasePage {
     public void clickQueueLogin() throws InterruptedException {
         commonLib.info("Clicking on Login queue");
         scrollToViewElement(pageElements.loginQueueName);
-        clickWithoutLoader(pageElements.loginQueueName);
+        clickAndWaitForLoaderToBeRemoved(pageElements.loginQueueName);
     }
 
     /**
@@ -950,6 +950,14 @@ public class SupervisorTicketList extends BasePage {
     public void clickRefreshBtn(){
         commonLib.info("Refresh the page");
         clickAndWaitForLoaderToBeRemoved(pageElements.pageRefreshBtn);
+    }
+
+    /**
+     * This method is use to click on Continue button
+     */
+    public void clickContinueButton() {
+        commonLib.info("Clicking on Continue Button");
+        clickWithoutLoader(pageElements.continueBtn);
     }
 
 
