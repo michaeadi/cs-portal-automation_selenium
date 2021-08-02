@@ -664,4 +664,14 @@
             <class name="com.airtel.cs.ui.backendAgent.transfertoqueue.TransferToQueueTest"/>
         </classes>
     </test>
+    <test name="Linked MSISDN to Account Number Test">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.LinkedMsisdnToAccountNoTest"/>
+        </classes>
+    </test>
 </suite>

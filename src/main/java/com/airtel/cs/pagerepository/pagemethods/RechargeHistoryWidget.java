@@ -32,7 +32,7 @@ public class RechargeHistoryWidget extends BasePage{
      */
     public boolean isRechargeHistoryErrorVisible() {
         final boolean visible = isElementVisible(pageElements.rechargeHistoryError);
-        commonLib.info("Validating error is visible when there is Error in com.airtel.cs.API : " + visible);
+        commonLib.info("Validating error is visible when there is Error in CS API : " + visible);
         return visible;
     }
 
