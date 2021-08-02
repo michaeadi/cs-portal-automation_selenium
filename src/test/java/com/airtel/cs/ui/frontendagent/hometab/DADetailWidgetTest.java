@@ -53,14 +53,12 @@ public class DADetailWidgetTest extends Driver {
             try {
                 assertCheck.append(actions.assertEqualBoolean(pages.getCurrentBalanceWidgetPage().isCurrentBalanceWidgetMenuVisible(), true, "Current Balance Widget MENU visible ", "Current Balance Widget MENU is not visible"));
                 pages.getCurrentBalanceWidgetPage().openingDADetails();
+                assertCheck.append(actions.assertEqualBoolean(widgetMethods.isWidgetVisible(pages.getDaDetailsPage().getDAWidgetIdentifier()), true, "DA Detail Widget MENU visible ", "DA Detail Widget MENU is not visible",true));
                 AccountsBalance accountsBalanceAPI = api.balanceAPITest(customerNumber);
                 final int statusCode = accountsBalanceAPI.getStatusCode();
                 assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Da Details API success and status code is :" + statusCode, "Da Details API got failed and status code is :" + statusCode, false));
-                if (statusCode == 200) {
-                    int size = pages.getDaDetailsPage().getNumbersOfRows();
-                    if (size > 10) {
-                        size = 10;
-                    }
+                if (statusCode == 200 && accountsBalanceAPI.getResult().size()>0) {
+                    int size = Math.min(pages.getDaDetailsPage().getNumbersOfRows(),10);
                     for (int i = 0; i < data.getHeaderName().size(); i++) {
                         assertCheck.append(actions.matchUiAndAPIResponse(pages.getDaDetailsPage().getHeaders(i+1), data.getHeaderName().get(i), "Header Name for Row " + (i + 1) + " is as expected", "Header Name for Row " + (i + 1) + " is not as expected"));
                     }
