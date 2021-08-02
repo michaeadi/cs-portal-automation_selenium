@@ -517,7 +517,7 @@
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginPortalTests"/>
         </classes>
     </test>
-    <test name="Test Side Menu Options">
+    <test name="Test Side Menu Options-Smoke Testing">
         <groups>
             <run>
                 <include name="SmokeTest"/>
