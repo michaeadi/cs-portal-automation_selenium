@@ -61,11 +61,8 @@ public class DADetailWidgetTest extends Driver {
                 AccountsBalance accountsBalanceAPI = api.balanceAPITest(customerNumber);
                 final int statusCode = accountsBalanceAPI.getStatusCode();
                 assertCheck.append(actions.assertEqualIntType(statusCode, 200, "AM Profile API success and status code is :" + statusCode, "AM Profile API got failed and status code is :" + statusCode, false));
-                if (statusCode == 200) {
-                    int size = pages.getDaDetailsPage().getNumbersOfRows();
-                    if (size > 10) {
-                        size = 10;
-                    }
+                if (statusCode == 200 && accountsBalanceAPI.getResult().size()>0) {
+                    int size = Math.min(pages.getDaDetailsPage().getNumbersOfRows(),10);
                     for (int i = 0; i < size; i++) {
                         assertCheck.append(actions.matchUiAndAPIResponse(pages.getDaDetailsPage().getDAId(i + 1), accountsBalanceAPI.getResult().get(i).getDaId(), "DA ID display as received in API on row " + i, "DA ID is not as received in com.airtel.cs.API on row " + i));
                         assertCheck.append(actions.matchUiAndAPIResponse(pages.getDaDetailsPage().getDADescription(i + 1).trim(), accountsBalanceAPI.getResult().get(i).getDaDesc(), "DA Description as received in API on row " + i, "DA Description is not as received in API on row " + i));
