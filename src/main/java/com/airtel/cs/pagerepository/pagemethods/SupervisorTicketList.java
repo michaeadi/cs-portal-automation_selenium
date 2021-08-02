@@ -908,4 +908,49 @@ public class SupervisorTicketList extends BasePage {
         return flag;
     }
 
+    /**
+     * This method use to click on agent queue login button
+     */
+    public void clickLoginQueueButton(){
+        commonLib.info("Clicking on Login into Queue Button");
+        clickWithoutLoader(pageElements.loginIntoQueue);
+    }
+
+    /**
+     * This method use to check whether login into queue pop up open or not
+     * @return true/false
+     */
+    public Boolean isLoginPopup(){
+        commonLib.info("Checking login into queue pop up open");
+        return isVisible(pageElements.popUpTitle);
+    }
+
+    /**
+     * This method is use to click on queue name with test queue name
+     * @throws InterruptedException throw in-case of queue name not found or scroll interrupt
+     */
+    public void clickQueueLogin() throws InterruptedException {
+        commonLib.info("Clicking on Login queue");
+        scrollToViewElement(pageElements.loginQueueName);
+        clickWithoutLoader(pageElements.loginQueueName);
+    }
+
+    /**
+     * This method use to check whether agent login into queue successful or not
+     * @return true/false
+     */
+    public Boolean isAgentLoggedIntoQueue(){
+        commonLib.info("Checking agent login into queue or not");
+        return isVisible(pageElements.agentLoggedInQueue);
+    }
+
+    /**
+     * This method use to click refresh button
+     */
+    public void clickRefreshBtn(){
+        commonLib.info("Refresh the page");
+        clickAndWaitForLoaderToBeRemoved(pageElements.pageRefreshBtn);
+    }
+
+
 }

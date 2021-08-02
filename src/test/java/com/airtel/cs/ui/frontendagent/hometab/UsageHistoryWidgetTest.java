@@ -6,10 +6,10 @@ import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.databeans.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.model.response.usagehistory.UsageHistory;
-import com.airtel.cs.pagerepository.pagemethods.UsageHistoryWidget;
 import com.airtel.cs.model.response.agents.RoleDetails;
 import com.airtel.cs.model.response.filedmasking.FieldMaskConfigs;
+import com.airtel.cs.model.response.usagehistory.UsageHistory;
+import com.airtel.cs.pagerepository.pagemethods.UsageHistoryWidget;
 import io.restassured.http.Headers;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.collections4.CollectionUtils;
@@ -23,11 +23,11 @@ import java.util.List;
 @Log4j2
 public class UsageHistoryWidgetTest extends Driver {
 
-    private static String customerNumber = null;
     public static final String RUN_USAGE_WIDGET_TEST_CASE = constants.getValue(ApplicationConstants.RUN_USAGE_WIDGET_TESTCASE);
+    private static String customerNumber = null;
     RequestSource api = new RequestSource();
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -35,7 +35,7 @@ public class UsageHistoryWidgetTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void checkUsageHistoryFlag() {
         if (!StringUtils.equals(RUN_USAGE_WIDGET_TEST_CASE, "true")) {
             commonLib.skip("Skipping because Run Usage widget Test Case Flag Value is - " + RUN_USAGE_WIDGET_TEST_CASE);
@@ -43,7 +43,7 @@ public class UsageHistoryWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -61,7 +61,7 @@ public class UsageHistoryWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
     public void usageHistoryWidgetHeaderTest() {
         try {
             selUtils.addTestcaseDescription("Validate is Usage History Widget Visible?,Validate footer and middle auuid,Validate Header Text", "description");
@@ -88,11 +88,9 @@ public class UsageHistoryWidgetTest extends Driver {
                 assertCheck.append(actions.assertEqualBoolean(usageHistoryWidget.isUsageHistoryNoResultFoundVisible(), true, "Error Message is Visible", "Error Message is not Visible"));
                 assertCheck.append(actions.assertEqualStringType(usageHistoryWidget.gettingUsageHistoryNoResultFoundMessage(), "No Result found", "Error Message is as expected", "Error Message is not as expected"));
             } else {
-                assertCheck.append(actions.assertEqualStringType(usageHistoryWidget.getHeaders(1).toLowerCase().trim(), data.getRow1().toLowerCase().trim(), "Header Name for Row 1 is as expected", "Header Name for Row 1 is not as expected"));
-                assertCheck.append(actions.assertEqualStringType(usageHistoryWidget.getHeaders(2).toLowerCase().trim(), data.getRow2().toLowerCase().trim(), "Header Name for Row 2 is as expected", "Header Name for Row 2 is not as expected"));
-                assertCheck.append(actions.assertEqualStringType(usageHistoryWidget.getHeaders(3).toLowerCase().trim(), data.getRow3().toLowerCase().trim(), "Header Name for Row 3 is as expected", "Header Name for Row 3 is not as expected"));
-                assertCheck.append(actions.assertEqualStringType(usageHistoryWidget.getHeaders(4).toLowerCase().trim(), data.getRow4().toLowerCase().trim(), "Header Name for Row 4 is as expected", "Header Name for Row 4 is not as expected"));
-                assertCheck.append(actions.assertEqualStringType(usageHistoryWidget.getHeaders(5).toLowerCase().trim(), data.getRow5().toLowerCase().trim(), "Header Name for Row 5 is as expected", "Header Name for Row 5 is not as expected"));
+                for (int i = 0; i < data.getHeaderName().size(); i++) {
+                    assertCheck.append(actions.matchUiAndAPIResponse(usageHistoryWidget.getHeaders(i + 1), data.getHeaderName().get(i), "Header Name for Row " + (i + 1) + " is as expected", "Header Name for Row " + (i + 1) + " is not as expected"));
+                }
                 FieldMaskConfigs chargesfieldMaskConfigs = api.getFieldMaskConfigs("usageCdrCharges");
                 FieldMaskConfigs startBalancefieldMaskConfigs = api.getFieldMaskConfigs("usageCdrStartBalance");
                 FieldMaskConfigs endBalancefieldMaskConfigs = api.getFieldMaskConfigs("usageCdrEndBalance");
@@ -102,31 +100,31 @@ public class UsageHistoryWidgetTest extends Driver {
                 for (int i = 0; i < size; i++) {
                     int row = i + 1;
                     if (CollectionUtils.isNotEmpty(typeFieldMaskingConfigs.getRoles()) && roleDetails.stream()
-                        .anyMatch(roleName -> typeFieldMaskingConfigs.getRoles().contains(roleName.getRoleName()))) {
+                            .anyMatch(roleName -> typeFieldMaskingConfigs.getRoles().contains(roleName.getRoleName()))) {
                         assertCheck.append(actions.assertEqualIntType(usageHistoryWidget.getHeaderValue(row, 1).replace("*", "").length(), typeFieldMaskingConfigs.getDigitsVisible(), "Usage History Type masking is correct as per user role for row " + row, "Usage History Type masking is not correct as per user role for row " + row));
                     } else {
-                        assertCheck.append(actions.assertEqualBoolean(usageHistoryWidget.getHeaderValue(row, 1).contains("*"), false , "Usage History Type is not masked as per user role for row "+ row, "Usage History Type should not be masked as per user role for row "+ row));
+                        assertCheck.append(actions.assertEqualBoolean(usageHistoryWidget.getHeaderValue(row, 1).contains("*"), false, "Usage History Type is not masked as per user role for row " + row, "Usage History Type should not be masked as per user role for row " + row));
                         assertCheck.append(actions.assertEqualStringType(usageHistoryWidget.getHeaderValue(row, 1), usageHistoryAPI.getResult().get(i).getType(), "Usage History Type is As received in CS API for row number " + row, "Usage History Type is not As received in CS API for row number " + row));
                     }
                     if (CollectionUtils.isNotEmpty(chargesfieldMaskConfigs.getRoles()) && roleDetails.stream()
-                        .anyMatch(roleName -> chargesfieldMaskConfigs.getRoles().contains(roleName.getRoleName()))) {
+                            .anyMatch(roleName -> chargesfieldMaskConfigs.getRoles().contains(roleName.getRoleName()))) {
                         assertCheck.append(actions.assertEqualIntType(usageHistoryWidget.getHeaderValue(row, 2).replaceAll("[^0-9]", "").trim().length(), chargesfieldMaskConfigs.getDigitsVisible(), "Usage History Charge masking is correct as per user role for row " + row, "Usage History Charge masking is not correct as per user role for row " + row));
                     } else {
-                        assertCheck.append(actions.assertEqualBoolean(usageHistoryWidget.getHeaderValue(row, 2).contains("*"), false , "Usage History Charge is not masked as per user role for row "+ row, "Usage History Charge should not be masked as per user role for row "+ row));
+                        assertCheck.append(actions.assertEqualBoolean(usageHistoryWidget.getHeaderValue(row, 2).contains("*"), false, "Usage History Charge is not masked as per user role for row " + row, "Usage History Charge should not be masked as per user role for row " + row));
                         assertCheck.append(actions.assertEqualStringType(usageHistoryWidget.getHeaderValue(row, 2).replaceAll("[^0-9]", "").trim(), usageHistoryAPI.getResult().get(i).getCharges().replaceAll("[^0-9]", ""), "Usage History Charge is As received in CS API for row number " + row, "Usage History Charge is not As received in CS API for row number " + row));
                     }
                     if (CollectionUtils.isNotEmpty(startBalancefieldMaskConfigs.getRoles()) && roleDetails.stream()
-                        .anyMatch(roleName -> startBalancefieldMaskConfigs.getRoles().contains(roleName.getRoleName()))) {
-                        assertCheck.append(actions.assertEqualIntType(usageHistoryWidget.getHeaderValue(row, 4).replaceAll("[^0-9]", "").trim().length(), startBalancefieldMaskConfigs.getDigitsVisible() , "Usage History Start Balance masking is correct as per user role for row "+ row, "Usage History Start Balance masking is not correct as per user role for row "+ row));
+                            .anyMatch(roleName -> startBalancefieldMaskConfigs.getRoles().contains(roleName.getRoleName()))) {
+                        assertCheck.append(actions.assertEqualIntType(usageHistoryWidget.getHeaderValue(row, 4).replaceAll("[^0-9]", "").trim().length(), startBalancefieldMaskConfigs.getDigitsVisible(), "Usage History Start Balance masking is correct as per user role for row " + row, "Usage History Start Balance masking is not correct as per user role for row " + row));
                     } else {
-                        assertCheck.append(actions.assertEqualBoolean(usageHistoryWidget.getHeaderValue(row, 4).contains("*"), false , "Usage History Start Balance is not masked as per user role for row "+ row, "Usage History Start Balance should not be masked as per user role for row "+ row));
+                        assertCheck.append(actions.assertEqualBoolean(usageHistoryWidget.getHeaderValue(row, 4).contains("*"), false, "Usage History Start Balance is not masked as per user role for row " + row, "Usage History Start Balance should not be masked as per user role for row " + row));
                         assertCheck.append(actions.assertEqualStringType(usageHistoryWidget.getHeaderValue(row, 4), usageHistoryAPI.getResult().get(i).getStartBalance(), "Usage History Start Balance  is As received in CS API for row number " + row, "Usage History Start Balance  is not As received in CS API for row number " + row));
                     }
                     if (CollectionUtils.isNotEmpty(endBalancefieldMaskConfigs.getRoles()) && roleDetails.stream()
-                        .anyMatch(roleName -> endBalancefieldMaskConfigs.getRoles().contains(roleName.getRoleName()))) {
+                            .anyMatch(roleName -> endBalancefieldMaskConfigs.getRoles().contains(roleName.getRoleName()))) {
                         assertCheck.append(actions.assertEqualIntType(usageHistoryWidget.getHeaderValue(row, 5).replaceAll("[^0-9]", "").trim().length(), endBalancefieldMaskConfigs.getDigitsVisible(), "Usage History End Balance masking is correct as per user role for row " + row, "Usage History End Balance masking is not correct as per user role for row " + row));
                     } else {
-                        assertCheck.append(actions.assertEqualBoolean(usageHistoryWidget.getHeaderValue(row, 5).contains("*"), false , "Usage History End Balance is not masked as per user role for row "+ row, "Usage History End Balance should not be masked as per user role for row "+ row));
+                        assertCheck.append(actions.assertEqualBoolean(usageHistoryWidget.getHeaderValue(row, 5).contains("*"), false, "Usage History End Balance is not masked as per user role for row " + row, "Usage History End Balance should not be masked as per user role for row " + row));
                         assertCheck.append(actions.assertEqualStringType(usageHistoryWidget.getHeaderValue(row, 5), usageHistoryAPI.getResult().get(i).getEndBalance(), "Usage History End Balance is As received in CS API for row number " + row, "Usage History End Balance is not As received in CS API for row number " + row));
                     }
                     assertCheck.append(actions.assertEqualStringType(usageHistoryWidget.getHeaderValue(row, 3), usageHistoryAPI.getResult().get(i).getDateTime() + "\n" + usageHistoryAPI.getResult().get(i).getTime(), "Usage History Date Time is As received in CS API for row number " + row, "Usage History Date Time is not As received in CS API for row number " + row));

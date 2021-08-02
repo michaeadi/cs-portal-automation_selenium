@@ -17,11 +17,11 @@ import org.testng.annotations.Test;
 @Log
 public class RechargeHistoryWidgetTest extends Driver {
 
-    private static String customerNumber = null;
     public static final String RUN_RECHARGE_WIDGET_TEST_CASE = constants.getValue(ApplicationConstants.RUN_RECHARGE_WIDGET_TESTCASE);
+    private static String customerNumber = null;
     RequestSource api = new RequestSource();
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -29,7 +29,7 @@ public class RechargeHistoryWidgetTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void checkRechargeHistoryFlag() {
         if (!StringUtils.equals(RUN_RECHARGE_WIDGET_TEST_CASE, "true")) {
             commonLib.skip("Skipping because Run Recharge widget Test Case Flag Value is - " + RUN_RECHARGE_WIDGET_TEST_CASE);
@@ -37,7 +37,7 @@ public class RechargeHistoryWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -55,7 +55,7 @@ public class RechargeHistoryWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
     public void testHeaderAndAuuid() {
         try {
             selUtils.addTestcaseDescription("Validate is Recharge History Widget Visible,Validate is Recharge History Widget Loaded?,Validate Footer and Middle Auuid", "description");
@@ -89,11 +89,11 @@ public class RechargeHistoryWidgetTest extends Driver {
                     assertCheck.append(actions.assertEqualBoolean(rechargeHistoryWidget.isRechargeHistoryNoResultFoundVisible(), true, "Error Message is Visible", "Error Message is not Visible"));
                     assertCheck.append(actions.assertEqualStringType(rechargeHistoryWidget.gettingRechargeHistoryNoResultFoundMessage(), "No Result found", "Error Message is as expected", "Error Message is not as expected"));
                 } else {
-                    assertCheck.append(actions.assertEqualStringType(rechargeHistoryWidget.getHeaders(0).trim() + " " + rechargeHistoryWidget.getSubHeaders(1).trim(), data.getRow1().trim(), "Header Name for Row 1 is as expected", "Header Name for Row 1 is not as expected"));
-                    assertCheck.append(actions.assertEqualStringType(rechargeHistoryWidget.getHeaders(1).trim(), data.getRow2().trim(), "Header Name for Row 2 is as expected", "Header Name for Row 2 is not as expected"));
-                    assertCheck.append(actions.assertEqualStringType(rechargeHistoryWidget.getHeaders(2).trim(), data.getRow3().trim(), "Header Name for Row 3 is as expected", "Header Name for Row 3 is not as expected"));
-                    assertCheck.append(actions.assertEqualStringType(rechargeHistoryWidget.getHeaders(3).trim() + rechargeHistoryWidget.getSubHeaders(4).trim().replace("|", ""), data.getRow4().replace("|", "").trim(), "Header Name for Row 4 is as expected", "Header Name for Row 4 is not as expected"));
-                    assertCheck.append(actions.assertEqualStringType(rechargeHistoryWidget.getHeaders(4).trim(), data.getRow5().trim(), "Header Name for Row 5 is as expected", "Header Name for Row 5 is not as expected"));
+                    assertCheck.append(actions.assertEqualStringType(rechargeHistoryWidget.getHeaders(0).trim() + " " + rechargeHistoryWidget.getSubHeaders(1).trim(), data.getHeaderName().get(0).trim(), "Header Name for Row 1 is as expected", "Header Name for Row 1 is not as expected"));
+                    assertCheck.append(actions.assertEqualStringType(rechargeHistoryWidget.getHeaders(1).trim(), data.getHeaderName().get(1).trim(), "Header Name for Row 2 is as expected", "Header Name for Row 2 is not as expected"));
+                    assertCheck.append(actions.assertEqualStringType(rechargeHistoryWidget.getHeaders(2).trim(), data.getHeaderName().get(2), "Header Name for Row 3 is as expected", "Header Name for Row 3 is not as expected"));
+                    assertCheck.append(actions.assertEqualStringType(rechargeHistoryWidget.getHeaders(3).trim() + rechargeHistoryWidget.getSubHeaders(4).trim().replace("|", ""), data.getHeaderName().get(3).trim(), "Header Name for Row 4 is as expected", "Header Name for Row 4 is not as expected"));
+                    assertCheck.append(actions.assertEqualStringType(rechargeHistoryWidget.getHeaders(4).trim(), data.getHeaderName().get(4).trim(), "Header Name for Row 5 is as expected", "Header Name for Row 5 is not as expected"));
                     for (int i = 0; i < size; i++) {
                         int row = i + 1;
                         assertCheck.append(actions.assertEqualStringType(rechargeHistoryWidget.getHeaderValue(row, 1), rechargeHistoryAPI.getResult().get(i).getCharges(), "Recharge History Charge is As received in CS API for row number " + row, "Recharge History Charge is not As received in CS API for row number " + row));

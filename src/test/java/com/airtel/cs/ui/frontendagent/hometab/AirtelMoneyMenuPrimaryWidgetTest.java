@@ -79,18 +79,9 @@ public class AirtelMoneyMenuPrimaryWidgetTest extends Driver {
             } else {
                 int count = Math.min(amTransactionHistoryAPI.getResult().getTotalCount(), 10);
                 if (count > 0) {
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getHeaders(1), data.getRow1(), "Header Name for Row 1 is as expected", "Header Name for Row 1 is not as expected"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getHeaders(2), data.getRow2(), "Header Name for Row 2 is as expected", "Header Name for Row 2 is not as expected"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getHeaders(3), data.getRow3(), "Header Name for Row 3 is as expected", "Header Name for Row 3 is not as expected"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getHeaders(4), data.getRow4(), "Header Name for Row 4 is as expected", "Header Name for Row 4 is not as expected"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getHeaders(5), data.getRow5(), "Header Name for Row 5 is as expected", "Header Name for Row 5 is not as expected"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getHeaders(6), data.getRow6(), "Header Name for Row 6 is as expected", "Header Name for Row 6 is not as expected"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getHeaders(7), data.getRow7(), "Header Name for Row 7 is as expected", "Header Name for Row 7 is not as expected"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getHeaders(8), data.getRow8(), "Header Name for Row 8 is as expected", "Header Name for Row 8 is not as expected"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getHeaders(9), data.getRow9(), "Header Name for Row 9 is as expected", "Header Name for Row 9 is not as expected"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getHeaders(10), data.getRow10(), "Header Name for Row 10 is as expected", "Header Name for Row 10 is not as expected"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getHeaders(11), data.getRow11(), "Header Name for Row 11 is as expected", "Header Name for Row 11 is not as expected"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getHeaders(12), data.getRow12(), "Header Name for Row 12 is as expected", "Header Name for Row 12 is not as expected"));
+                    for(int i=0;i<data.getHeaderName().size();i++){
+                        assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getHeaders(i+1), data.getHeaderName().get(i), "Header Name for Row "+(i+1)+" is as expected", "Header Name for Row "+(i+1)+" is not as expected"));
+                    }
                 } else {
                     assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isAirtelMoneyNoResultFoundVisible(), true, "No Result Found Icon does display on UI.", "No Result Found Icon does not display on UI."));
                 }

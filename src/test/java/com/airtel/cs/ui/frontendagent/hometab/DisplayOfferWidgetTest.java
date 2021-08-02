@@ -26,7 +26,7 @@ public class DisplayOfferWidgetTest extends Driver {
     RequestSource api = new RequestSource();
     private OfferDetail offerDetailPOJO = null;
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login via API");
@@ -34,7 +34,7 @@ public class DisplayOfferWidgetTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void checkServiceProfileFlag() {
         if (!StringUtils.equals(RUN_DISPLAY_OFFER_TEST_CASE, "true")) {
             commonLib.skip("Display Offer Widget is NOT Enabled for this Opco=" + OPCO);
@@ -42,7 +42,7 @@ public class DisplayOfferWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -61,7 +61,7 @@ public class DisplayOfferWidgetTest extends Driver {
     }
 
     @DataProviders.Table(name = "UC-UT Offer")
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = {"openCustomerInteraction"})
     public void displayOfferHeaderTest(HeaderDataBean headerValues) {
         selUtils.addTestcaseDescription("CSP-63664 : Validate Offers widget header visible and display all the Column name as per config ", "description");
         try {
@@ -74,16 +74,9 @@ public class DisplayOfferWidgetTest extends Driver {
             if (statusCode != 200) {
                 commonLib.fail("API is Unable to Get Display Offer for Customer", false);
             } else if (offerDetailPOJO.getResult().size() > 0) {
-                assertCheck.append(actions.assertEqualStringType(pages.getDaDetailsPage().getDisplayOfferHeader(1).toLowerCase().trim(), headerValues.getRow1().toLowerCase().trim(), "Header Name for Row 1 is as expected", "Header Name for Row 1 is not as expected"));
-                assertCheck.append(actions.assertEqualStringType(pages.getDaDetailsPage().getDisplayOfferHeader(2).toLowerCase().trim(), headerValues.getRow2().toLowerCase().trim(), "Header Name for Row 2 is as expected", "Header Name for Row 2 is not as expected"));
-                assertCheck.append(actions.assertEqualStringType(pages.getDaDetailsPage().getDisplayOfferHeader(3).toLowerCase().trim(), headerValues.getRow3().toLowerCase().trim(), "Header Name for Row 3 is as expected", "Header Name for Row 3 is not as expected"));
-                assertCheck.append(actions.assertEqualStringType(pages.getDaDetailsPage().getDisplayOfferHeader(4).toLowerCase().trim(), headerValues.getRow4().toLowerCase().trim(), "Header Name for Row 4 is as expected", "Header Name for Row 4 is not as expected"));
-                assertCheck.append(actions.assertEqualStringType(pages.getDaDetailsPage().getDisplayOfferHeader(5).toLowerCase().trim(), headerValues.getRow5().toLowerCase().trim(), "Header Name for Row 5 is as expected", "Header Name for Row 5 is not as expected"));
-                assertCheck.append(actions.assertEqualStringType(pages.getDaDetailsPage().getDisplayOfferHeader(6).toLowerCase().trim(), headerValues.getRow6().toLowerCase().trim(), "Header Name for Row 6 is as expected", "Header Name for Row 6 is not as expected"));
-                assertCheck.append(actions.assertEqualStringType(pages.getDaDetailsPage().getDisplayOfferHeader(7).toLowerCase().trim(), headerValues.getRow7().toLowerCase().trim(), "Header Name for Row 7 is as expected", "Header Name for Row 7 is not as expected"));
-                assertCheck.append(actions.assertEqualStringType(pages.getDaDetailsPage().getDisplayOfferHeader(8).toLowerCase().trim(), headerValues.getRow8().toLowerCase().trim(), "Header Name for Row 8 is as expected", "Header Name for Row 8 is not as expected"));
-                assertCheck.append(actions.assertEqualStringType(pages.getDaDetailsPage().getDisplayOfferHeader(9).toLowerCase().trim(), headerValues.getRow9().toLowerCase().trim(), "Header Name for Row 9 is as expected", "Header Name for Row 9 is not as expected"));
-                assertCheck.append(actions.assertEqualBoolean(pages.getDaDetailsPage().isPaginationAvailable(), true, "Pagination is available on display offer widget as expected.", "Pagination is not available on display offer widget as expected"));
+                for (int i = 0; i < headerValues.getHeaderName().size(); i++) {
+                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getDaDetailsPage().getDisplayOfferHeader(i + 1), headerValues.getHeaderName().get(i), "Header Name for Row " + (i + 1) + " is as expected", "Header Name for Row " + (i + 1) + " is not as expected"));
+                }
             } else {
                 commonLib.warning("API is unable to get Offer detail");
             }

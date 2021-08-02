@@ -43,7 +43,7 @@ public class SupervisorTicketListPage {
     public By openTicketType = By.xpath("//span[contains(text(),' Open ') and @class='mat-option-text']");
     public By closedTicketType = By.xpath("//span[contains(text(),' Closed ') and @class='mat-option-text']");
     public By selectFilterBtn = By.xpath("//span[contains(text(),'Select Filter')]");
-    public By pageRefreshBtn = By.xpath("//span[contains(text(),'Refresh ')]");
+    public By pageRefreshBtn = By.xpath("//img[@class='refresh-image']");
     public By noResultFound = By.xpath("//body//mat-error//p[1]");
     public By resetFilterButton = By.xpath("//div[@class='clear-filter-btn']//button");
     public By reOpenBtn = By.xpath("//li[1]//button[1]");
@@ -79,4 +79,8 @@ public class SupervisorTicketListPage {
     public String selectByOption="//ul[@class='ng-star-inserted']//li[normalize-space()='";
     public By ticketAvailable = By.xpath("//div[@class='super-ticket-list ng-star-inserted']");
     public By ticketOnInteractionHistory = By.xpath("//div[@class='agent-list-container ng-star-inserted']");
+    public By loginIntoQueue=By.xpath("//span[contains(text(),'Login as Agent')]");
+    public By popUpTitle=By.xpath("//h1[contains(text(),' Select Queue ')]");
+    public By loginQueueName=By.xpath("//label[@formarrayname='queues' and contains(text(),'CS Test Automation')]");
+    public By agentLoggedInQueue=By.xpath("//span[contains(text(),'CS Test Automation')]");
 }

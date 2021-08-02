@@ -55,12 +55,9 @@ public class ActionTrailTest extends Driver {
             selUtils.addTestcaseDescription("Verify View History tab opened successfully,Verify Action Trail History tab is visible and then click on it,Validate column header name are visible and correct", "description");
             pages.getCustomerProfilePage().goToViewHistory();
             pages.getViewHistory().clickOnActionTrailHistory();
-            assertCheck.append(actions.assertEqualStringType(pages.getActionTrailPage().getHeaderValue(0).toLowerCase().trim(), data.getRow1().toLowerCase().trim(), "Action Type Column displayed in header", "Action Type Column does not display in header"));
-            assertCheck.append(actions.assertEqualStringType(pages.getActionTrailPage().getHeaderValue(1).toLowerCase().trim(), data.getRow2().toLowerCase().trim(), "Date & Time Column displayed in header", "Date & Time Column does not display in header"));
-            assertCheck.append(actions.assertEqualStringType(pages.getActionTrailPage().getHeaderValue(2).toLowerCase().trim(), data.getRow3().toLowerCase().trim(), "Reason Column displayed in header", "Reason Column does not display in header"));
-            assertCheck.append(actions.assertEqualStringType(pages.getActionTrailPage().getHeaderValue(3).toLowerCase().trim(), data.getRow4().toLowerCase().trim(), "Agent Id Column displayed in header", "Agent Id Column does not display in header"));
-            assertCheck.append(actions.assertEqualStringType(pages.getActionTrailPage().getHeaderValue(4).toLowerCase().trim(), data.getRow5().toLowerCase().trim(), "Agent name Column displayed in header.", "Agent name Column does not display in header"));
-            assertCheck.append(actions.assertEqualStringType(pages.getActionTrailPage().getHeaderValue(5).toLowerCase().trim(), data.getRow6().toLowerCase().trim(), "Comments Column displayed in header", "Comments Column does not display in header"));
+            for(int i=0;i<data.getHeaderName().size();i++){
+                assertCheck.append(actions.matchUiAndAPIResponse(pages.getActionTrailPage().getHeaderValue(i), data.getHeaderName().get(i), "Header Name for Row "+(i+1)+" is as expected", "Header Name for Row "+(i+1)+" is not as expected"));
+            }
         } catch (NoSuchElementException | TimeoutException e) {
             commonLib.fail("Exception in Method - validateActionTrailOpenCorrectly" + e.fillInStackTrace(), true);
         }

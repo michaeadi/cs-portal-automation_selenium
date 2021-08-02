@@ -58,6 +58,10 @@ public class ConstantsUtils implements Cloneable {
         return prop.getProperty(key);
     }
 
+    public void setValue(String key,String value) {
+        prop.setProperty(key,value);
+    }
+
     @Override
     public Object clone() throws CloneNotSupportedException {
         return super.clone();

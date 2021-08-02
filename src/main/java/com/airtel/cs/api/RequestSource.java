@@ -62,6 +62,7 @@ import com.airtel.cs.model.response.rechargehistory.RechargeHistory;
 import com.airtel.cs.model.response.smshistory.SMSHistory;
 import com.airtel.cs.model.response.tariffplan.AvailablePlan;
 import com.airtel.cs.model.response.tariffplan.CurrentPlan;
+import com.airtel.cs.model.response.tickethistorylog.TicketHistoryLog;
 import com.airtel.cs.model.response.ticketlist.Ticket;
 import com.airtel.cs.model.response.transfertoqueue.TransferToQueue;
 import com.airtel.cs.model.response.usagehistory.UsageHistory;
@@ -951,6 +952,24 @@ public class RequestSource extends RestCommonUtils {
         } catch (Exception e) {
             commonLib.fail(constants.getValue("cs.portal.api.error") + " - getAccountInfoDetail " + e.getMessage(), false);
             esbRequestSource.callPostpaidAccountInfoDetails(new AccountDetailRequest(accountNo, pageNumber.toString(), "5"));
+        }
+        return result;
+    }
+
+    /**
+     * This Method will hit the API "/sr/api/sr-service/v1/fetch/ticket/history/log" and return the response
+     *
+     * @param ticketId The ticket id
+     * @return The Response
+     */
+    public TicketHistoryLog getTicketHistoryLog(String ticketId) {
+        TicketHistoryLog result = null;
+        try {
+            queryParam.put("id", ticketId);
+            commonGetMethodWithQueryParam(URIConstants.TICKET_HISTORY_LOG, queryParam);
+            result = response.as(TicketHistoryLog.class);
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - getTicketHistoryLog " + e.getMessage(), false);
         }
         return result;
     }

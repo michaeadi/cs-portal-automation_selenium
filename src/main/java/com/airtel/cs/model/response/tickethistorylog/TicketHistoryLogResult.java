@@ -1,20 +1,18 @@
-package com.airtel.cs.model.response.agents;
+package com.airtel.cs.model.response.tickethistorylog;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.util.List;
 
-@ToString
 @Getter
 @Setter
+@NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class AdditionalDetails {
-    private List<InteractionChannel> interactionChannel;
-    private Integer id;
-    private String name;
+public class TicketHistoryLogResult {
+    private List<TicketHistoryLogList> ticketInteractionComments;
 }

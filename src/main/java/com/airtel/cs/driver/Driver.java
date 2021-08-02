@@ -77,6 +77,7 @@ public class Driver {
     public static boolean continueExecutionBS = true;
     public static boolean continueExecutionFA = true;
     public static boolean continueExecutionBU = true;
+    public static boolean continueUnAssignment=false;
     public static String elementName = ""; // FOR PASSING ELEMENT NAMES TO LOGS
     public static String message = null;
     public static final String RUN_TARIFF_TEST_CASE = constants.getValue(ApplicationConstants.RUN_TARIFF_TEST_CASE);

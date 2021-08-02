@@ -23,7 +23,7 @@ public class CRBTWidgetTest extends Driver {
     RequestSource api = new RequestSource();
     private String crbtWidgetId;
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void isCRBTFeatureEnabled() {
         if (StringUtils.equalsIgnoreCase(constants.getValue(ApplicationConstants.CRBT_WIDGET), "false")) {
             commonLib.skip("CRBT Widget is NOT Enabled for this Opco=" + OPCO);
@@ -31,7 +31,7 @@ public class CRBTWidgetTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -39,7 +39,7 @@ public class CRBTWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -57,11 +57,11 @@ public class CRBTWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
     public void testHeaderAndAuuid() {
         try {
             selUtils.addTestcaseDescription("Validate is CRBT Widget Visible,Validate is CRBT Widget Loaded?,Validate Footer and Middle Auuid", "description");
-            crbtWidgetId=pages.getCrbtWidgetPage().getCRBTWidgetId();
+            crbtWidgetId = pages.getCrbtWidgetPage().getCRBTWidgetId();
             assertCheck.append(actions.assertEqualBoolean(widgetMethods.isWidgetVisible(crbtWidgetId), true, "CRBT Widget is visible", "CRBT Widget is not visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.getCrbtWidgetPage().isCRBTHistoryWidgetLoaded(), true, "CRBT Widget Loaded Successfully", "CRBT Widget NOT Loaded Successfully"));
             assertCheck.append(actions.assertEqualStringType(pages.getCrbtWidgetPage().getFooterAuuidCRBT(), loginAUUID, "Auuid shown at the footer of the CRBT widget and is correct", "Auuid NOT shown at the footer of CRBT widget"));
@@ -78,7 +78,7 @@ public class CRBTWidgetTest extends Driver {
             selUtils.addTestcaseDescription("Validate My Tunes tab under CRBT Widget", "description");
             ActivateRingtone ringtoneAPI = api.activateRingtone(customerNumber);
             final String statusCode = ringtoneAPI.getStatusCode();
-            assertCheck.append(actions.assertEqualStringType(statusCode, "200", "Ringtone API status code matched and is :" + statusCode, "Ringtone API status code NOT matched and is :" + statusCode,false));
+            assertCheck.append(actions.assertEqualStringType(statusCode, "200", "Ringtone API status code matched and is :" + statusCode, "Ringtone API status code NOT matched and is :" + statusCode, false));
             String message = ringtoneAPI.getResult().getMessage();
             if (Integer.parseInt(statusCode) == 200) {
                 if (Objects.isNull(ringtoneAPI.getApiErrors())) {
@@ -116,9 +116,9 @@ public class CRBTWidgetTest extends Driver {
                 commonLib.fail("com.airtel.cs.API Response " + top20Tune.getMessage(), true);
                 assertCheck.append(actions.assertEqualBoolean(pages.getCrbtWidgetPage().isWidgetError(), true, "Widget Error displayed as api response is not 200", "Widget Error does not display as api response is not 200."));
             } else if (top20Tune.getTotalCount() > 0) {
-                assertCheck.append(actions.assertEqualStringType(pages.getCrbtWidgetPage().getTop20Header(1).trim().toLowerCase(), data.getRow1().trim().toLowerCase(), "Header name for Search tab is same as expected at POS-1", "Header name for Search tab not same as expected at POS-1"));
-                assertCheck.append(actions.assertEqualStringType(pages.getCrbtWidgetPage().getTop20Header(2).trim().toLowerCase(), data.getRow2().trim().toLowerCase(), "Header name for Search tab is same as expected at POS-2", "Header name for Search tab not same as expected at POS-2"));
-                assertCheck.append(actions.assertEqualStringType(pages.getCrbtWidgetPage().getTop20Header(3).trim().toLowerCase(), data.getRow3().trim().toLowerCase(), "Header name for Search tab is same as expected at POS-3", "Header name for Search tab not same as expected at POS-3"));
+                for (int i = 0; i < data.getHeaderName().size(); i++) {
+                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getCrbtWidgetPage().getTop20Header(i + 1), data.getHeaderName().get(i), "Header Name for Search tab is On Column " + (i + 1) + " is as expected", "Header Name for Search tab is On Column " + (i + 1) + " is not as expected"));
+                }
                 int size = Math.min(top20Tune.getTotalCount(), 5);
                 for (int i = 0; i < size; i++) {
                     assertCheck.append(actions.assertEqualStringType(pages.getCrbtWidgetPage().getValueTop20(i + 1, 1).trim().toLowerCase(), (top20Tune.getResult().get(i).getName() + top20Tune.getResult().get(i).getSinger()).toLowerCase().trim(), "Name is same as expected in CS API response", "Name is not same as expected in CS API response"));
@@ -150,14 +150,14 @@ public class CRBTWidgetTest extends Driver {
             pages.getCrbtWidgetPage().clickOutside();
             Top20Ringtone searchTune = api.ringtoneDetailTest(customerNumber, "namedTune", "h");
             final String statusCode = searchTune.getStatusCode();
-            assertCheck.append(actions.assertEqualStringType(statusCode, "200", "Ringtone Detail API success and status code is :" + statusCode, "Ringtone Detail API is NOT success and status code is :" + statusCode,false));
+            assertCheck.append(actions.assertEqualStringType(statusCode, "200", "Ringtone Detail API success and status code is :" + statusCode, "Ringtone Detail API is NOT success and status code is :" + statusCode, false));
             if (!StringUtils.equalsIgnoreCase(statusCode, "200")) {
                 commonLib.fail("API Response " + searchTune.getMessage(), true);
                 assertCheck.append(actions.assertEqualBoolean(pages.getCrbtWidgetPage().isWidgetError(), true, "Widget Error displayed as API response is not 200", "Widget Error does not display as api response is not 200."));
             } else if (searchTune.getTotalCount() > 0) {
-                assertCheck.append(actions.assertEqualStringType(pages.getCrbtWidgetPage().getSearchHeader(1).trim().toLowerCase(), data.getRow1().trim().toLowerCase(), "Header name for search tab same as expected at POS-1", "Header name for Search tab not same as expected at POS-1"));
-                assertCheck.append(actions.assertEqualStringType(pages.getCrbtWidgetPage().getSearchHeader(2).trim().toLowerCase(), data.getRow2().trim().toLowerCase(), "Header name for serach tab same as expected at POS-2", "Header name for Search tab not same as expected at POS-2"));
-                assertCheck.append(actions.assertEqualStringType(pages.getCrbtWidgetPage().getSearchHeader(3).trim().toLowerCase(), data.getRow3().trim().toLowerCase(), "Header name for search tab same as expected at POS-3", "Header name for Search tab not same as expected at POS-3"));
+                for (int i = 0; i < data.getHeaderName().size(); i++) {
+                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getCrbtWidgetPage().getSearchHeader(i + 1), data.getHeaderName().get(i), "Header Name for Search tab is On Column " + (i + 1) + " is as expected", "Header Name for Search tab is On Column " + (i + 1) + " is not as expected"));
+                }
                 int size = Math.min(searchTune.getTotalCount(), 5);
                 for (int i = 0; i < size; i++) {
                     assertCheck.append(actions.assertEqualStringType(pages.getCrbtWidgetPage().getValueSearch(i + 1, 1).replaceAll("\n", " "), (searchTune.getResult().get(i).getName() + " " + searchTune.getResult().get(i).getSinger()), "Name is same as expected in CS API response", "Name is not same as expected in CS API response"));
