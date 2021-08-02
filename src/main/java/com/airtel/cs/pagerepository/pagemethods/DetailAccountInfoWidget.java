@@ -453,7 +453,7 @@ public class DetailAccountInfoWidget extends BasePage {
      * @return
      */
     public String getBillDisputeNumber() {
-        commonLib.info(getText(pageElements.billNumber));
+        commonLib.info(getAttribute(pageElements.billNumber, "value", false));
         return getText(pageElements.billNumber);
     }
 
@@ -462,17 +462,8 @@ public class DetailAccountInfoWidget extends BasePage {
      * @return
      */
     public String getBillDisputeAccountNumber() {
-        commonLib.info(getText(pageElements.accountNumber));
+        commonLib.info(getAttribute(pageElements.accountNumber,"value", false));
         return getText(pageElements.accountNumber);
-    }
-
-    /**
-     * This method is used to get Bill Date and Time
-     * @return
-     */
-    public String getBillDisputeDateTime() {
-        commonLib.info(getText(pageElements.billDateTime));
-        return getText(pageElements.billDateTime);
     }
 
     /**
@@ -480,7 +471,7 @@ public class DetailAccountInfoWidget extends BasePage {
      * @return
      */
     public String getBillDisputeStatus() {
-        commonLib.info(getText(pageElements.billStatus));
+        commonLib.info(getAttribute(pageElements.billStatus,"value", false));
         return getText(pageElements.billStatus);
     }
 

@@ -98,10 +98,10 @@ public class AccountInfoBillDisputeTest extends Driver {
           pages.getCustomerProfilePage().clickCancelBtnWithOutContinue();
           acctountDetailsWidget.openBillDisputePage(row);
 
-//          assertCheck.append(actions.assertEqualStringType(acctountDetailsWidget.getBillDisputeDetailsHeader().toUpperCase(), "RAISE DISPUTE", "Bill Dispute page display as expected", "Bill Dispute page doesnot not display as expected"));
-//          assertCheck.append(actions.assertEqualStringType(acctountDetailsWidget.getBillDisputeNumber(), billNumber, "Bill Number visible same as account info details", "Bill Number not visible as expected"));
-//          assertCheck.append(actions.assertEqualStringType(acctountDetailsWidget.getBillDisputeAccountNumber(), accountNumber, "Account Number visible same as account info details", "Account Number not visible  as expected"));
-//          assertCheck.append(actions.assertEqualStringType(acctountDetailsWidget.getBillDisputeStatus(), billStatus, "Bill Status visible same as account info details", "Bill Status not visible as expected as expected"));
+          assertCheck.append(actions.assertEqualStringType(acctountDetailsWidget.getBillDisputeDetailsHeader().toUpperCase(), "RAISE DISPUTE", "Bill Dispute page display as expected", "Bill Dispute page doesnot not display as expected"));
+          assertCheck.append(actions.assertEqualStringType(acctountDetailsWidget.getBillDisputeNumber(), billNumber, "Bill Number visible same as account info details", "Bill Number not visible as expected"));
+          assertCheck.append(actions.assertEqualStringType(acctountDetailsWidget.getBillDisputeAccountNumber(), accountNumber, "Account Number visible same as account info details", "Account Number not visible  as expected"));
+          assertCheck.append(actions.assertEqualStringType(acctountDetailsWidget.getBillDisputeStatus(), billStatus, "Bill Status visible same as account info details", "Bill Status not visible as expected as expected"));
 
           pages.getAuthTabPage().clickSelectReasonDropDown();
           reason = pages.getAuthTabPage().getReason();
