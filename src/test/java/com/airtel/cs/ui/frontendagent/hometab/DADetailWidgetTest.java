@@ -53,16 +53,18 @@ public class DADetailWidgetTest extends Driver {
             try {
                 assertCheck.append(actions.assertEqualBoolean(pages.getCurrentBalanceWidgetPage().isCurrentBalanceWidgetMenuVisible(), true, "Current Balance Widget MENU visible ", "Current Balance Widget MENU is not visible"));
                 pages.getCurrentBalanceWidgetPage().openingDADetails();
-                assertCheck.append(actions.matchUiAndAPIResponse(pages.getDaDetailsPage().getHeaders(1), data.getRow1(), "Header Name for Row 1 is as expected", "Header Name for Row 1 is not as expected"));
-                assertCheck.append(actions.matchUiAndAPIResponse(pages.getDaDetailsPage().getHeaders(2), data.getRow2(), "Header Name for Row 2 is as expected", "Header Name for Row 2 is not as expected"));
-                assertCheck.append(actions.matchUiAndAPIResponse(pages.getDaDetailsPage().getHeaders(3), data.getRow3(), "Header Name for Row 3 is as expected", "Header Name for Row 3 is not as expected"));
-                assertCheck.append(actions.matchUiAndAPIResponse(pages.getDaDetailsPage().getHeaders(4), data.getRow4(), "Header Name for Row 4 is as expected", "Header Name for Row 4 is not as expected"));
-                assertCheck.append(actions.matchUiAndAPIResponse(pages.getDaDetailsPage().getHeaders(5), data.getRow5(), "Header Name for Row 5 is as expected", "Header Name for Row 5 is not as expected"));
+                assertCheck.append(actions.assertEqualBoolean(widgetMethods.isWidgetVisible(pages.getDaDetailsPage().getDAWidgetIdentifier()), true, "DA Detail Widget visible ", "DA Detail Widget is not visible",true));
                 AccountsBalance accountsBalanceAPI = api.balanceAPITest(customerNumber);
                 final int statusCode = accountsBalanceAPI.getStatusCode();
                 assertCheck.append(actions.assertEqualIntType(statusCode, 200, "AM Profile API success and status code is :" + statusCode, "AM Profile API got failed and status code is :" + statusCode, false));
                 if (statusCode == 200 && accountsBalanceAPI.getResult().size()>0) {
                     int size = Math.min(pages.getDaDetailsPage().getNumbersOfRows(),10);
+                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getDaDetailsPage().getHeaders(1), data.getRow1(), "Header Name for Row 1 is as expected", "Header Name for Row 1 is not as expected"));
+                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getDaDetailsPage().getHeaders(2), data.getRow2(), "Header Name for Row 2 is as expected", "Header Name for Row 2 is not as expected"));
+                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getDaDetailsPage().getHeaders(3), data.getRow3(), "Header Name for Row 3 is as expected", "Header Name for Row 3 is not as expected"));
+                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getDaDetailsPage().getHeaders(4), data.getRow4(), "Header Name for Row 4 is as expected", "Header Name for Row 4 is not as expected"));
+                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getDaDetailsPage().getHeaders(5), data.getRow5(), "Header Name for Row 5 is as expected", "Header Name for Row 5 is not as expected"));
+                    commonLib.info(constants.getValue("cs.total.number.rows")+" "+size);
                     for (int i = 0; i < size; i++) {
                         assertCheck.append(actions.matchUiAndAPIResponse(pages.getDaDetailsPage().getDAId(i + 1), accountsBalanceAPI.getResult().get(i).getDaId(), "DA ID display as received in API on row " + i, "DA ID is not as received in com.airtel.cs.API on row " + i));
                         assertCheck.append(actions.matchUiAndAPIResponse(pages.getDaDetailsPage().getDADescription(i + 1).trim(), accountsBalanceAPI.getResult().get(i).getDaDesc(), "DA Description as received in API on row " + i, "DA Description is not as received in API on row " + i));

@@ -8,6 +8,7 @@ public class DADetailsPage {
      * Widget Unique Identifier
      */
     public String accumulatorWidgetIdentifier = "//div[@data-csautomation-key='ACCUMULATORS']";
+    public String daDetailWidgetIdentifier="//div[@data-csautomation-key='DA_ACCOUNTS']";
 
     /**
      * Page Elements of DA Detail Widget
