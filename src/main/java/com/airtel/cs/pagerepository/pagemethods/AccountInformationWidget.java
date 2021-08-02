@@ -1,14 +1,10 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
 import com.airtel.cs.pagerepository.pageelements.AccountInformationWidgetPage;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
-import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
@@ -161,13 +157,25 @@ public class AccountInformationWidget extends BasePage {
         */
     public String getSecurityDeposit() {
         String result = null;
-        if (isVisible(pageElements.securityDeposit)) {
-            result = getText(pageElements.securityDeposit);
+        if (isVisible(pageElements.securityDepositValue)) {
+            result = getText(pageElements.securityDepositValue);
+            String[] twoDecimal = result.split("\\.");
+            if (twoDecimal[1].length() == 2)
+                commonLib.pass("Security Deposit value is upto 2 decimal over UI");
+            else
+                commonLib.fail("Security Deposit value NOT upto 2 decimal", true);
             commonLib.info("Security Deposit on UI is: " + result);
         } else {
             commonLib.fail("Security Deposit under Account Information Widget is NOT visible", true);
         }
         return result;
+    }
+
+    /*
+    This Method will return the color for Security Deposit Data Point
+     */
+    public String getSecurityDepositCurrencyStyle() {
+        return selUtils.getDataPointColor(pageElements.securityDepositCurrency);
     }
 
     /*
@@ -206,48 +214,10 @@ public class AccountInformationWidget extends BasePage {
         if (isVisible(pageElements.accountNumber)) {
             result = getText(pageElements.accountNumber);
             commonLib.info("Account Number on UI is: " + result);
-            getStyle(pageElements.accountNumber);
         } else {
             commonLib.fail("Account Number under Account Information Widget is NOT visible", true);
         }
         return result;
-    }
-
-    /*
-    This Method will let us know is account number is bold or not
-     */
-    public String getAccountNumberStyle() {
-        String result = "";
-        getStyle(pageElements.accountNumber);
-        final Object fontWeight = styleMap.get("font-weight");
-        int i = (Integer) fontWeight;
-        if (i > 600)
-            result = "Bold";
-        else
-            result = "Not Bold";
-        return result;
-    }
-
-    /**
-     * This Method will let us know the computed css style for a particular webelement
-     *
-     * @param elementLocation the element
-     * @return computed css
-     */
-    public Map<String, Object> getStyle(By elementLocation) {
-        String attributeValue = null;
-        final String id = getAttribute(elementLocation, "id", false);
-        String idnew = "var elem = document.getElementById('%s'); ";
-        JavascriptExecutor executor = (JavascriptExecutor) driver;
-        Object allAttributes = executor.executeScript(
-                "var items={};" +
-                        String.format(idnew, id) +
-                        "var css = window.getComputedStyle(elem, null);" +
-                        "items={'font-weight':css.getPropertyValue('font-weight'),'font-color':css.getPropertyValue('color')}; return items;");
-        ObjectMapper m = new ObjectMapper();
-        styleMap = m.convertValue(attributeValue, Map.class);
-        commonLib.logs(allAttributes.toString());
-        return styleMap;
     }
 
     //ToDO Ashwani to refactor this with webtestclient
@@ -265,19 +235,18 @@ public class AccountInformationWidget extends BasePage {
                     break;
                 } else {
                     result = json.get("result").toString();
-                    if (StringUtils.contains(String.valueOf(json.get(statusCode)), "200") && StringUtils.contains(String.valueOf(json.get(status)), "SUCCESS")) {
-                        result = result.substring(1, result.length() - 1).replace("'", "");
-                        String[] keyValuePairs = result.split(",");
-                        Map<String, String> map = new HashMap<>();
-                        for (String pair : keyValuePairs) {
-                            String[] entry = pair.split(":");
-                            map.put(entry[0].trim(), entry[1].trim());
-                        }
-                        result = map.get(valueToSearch);
-                        break;
+                    result = result.substring(1, result.length() - 1).replace("\"", "");
+                    String[] keyValuePairs = result.split(",");
+                    Map<String, String> map = new HashMap<>();
+                    for (String pair : keyValuePairs) {
+                        String[] entry = pair.split(":");
+                        map.put(entry[0].trim(), entry[1].trim());
                     }
+                    result = map.get(valueToSearch);
+                    break;
                 }
             }
+        result = result == null || result.equals("") ? "-" : result.toLowerCase().trim();
         return result;
     }
 
@@ -450,6 +419,30 @@ public class AccountInformationWidget extends BasePage {
             }
         }
         return flag;
+    }
+
+    /*
+   This Method will let us know is account number is bold or not
+    */
+    public String getAccountNumberStyle() {
+        String result = "";
+        if (isElementVisible(pageElements.accountNumber)) {
+            result = selUtils.getDataPointFontWeight(pageElements.accountNumber);
+        }
+        return result;
+    }
+
+    /*
+  This Method will let us know is last payment mode is bold or not
+   */
+    public String getLastPaymentModeStyle() {
+        String result = "";
+        if (isElementVisible(pageElements.lastPaymentMode) && !getText(pageElements.lastPaymentMode).equalsIgnoreCase("-"))
+            result = selUtils.getDataPointFontWeight(pageElements.lastPaymentMode);
+        else
+            commonLib.warning("Last Payment Mode value is not available, so can not verify BOLD characterstics");
+        return result;
+
     }
 
 }
