@@ -26,6 +26,8 @@ import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Objects;
 
@@ -36,6 +38,7 @@ public class AccountInformationWidgetTest extends Driver {
     ESBRequestSource apiEsb = new ESBRequestSource();
     public static Response response;
     private final BaseActions actions = new BaseActions();
+    List<String> postpaidAccountInformation;
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
@@ -348,26 +351,62 @@ public class AccountInformationWidgetTest extends Driver {
         }
     }
 
+    @Test(priority = 7, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    public void verifyAccountNumber() throws IOException, ParseException {
+        try {
+            selUtils.addTestcaseDescription("Validate if Account Number Visible?, Validate Account Number is Bolder", "description");
+            postpaidAccountInformation = api.getPostpaidAccountInformation(customerNumber);
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "customerAccountNumber", "statusCode"), "200", "Status Code for Postpaid Account Information API to get AccountNumber Matched", "Status Code for Postpaid Account Information API to get AccountNumber NOT Matched", false));
+            final String accountNumber = pages.getAccountInformationWidget().getAccountNumber();
+            assertCheck.append(actions.assertEqualStringType(accountNumber, pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "customerAccountNumber", "customerAccountNumber"), "Account Number displayed as expected and is :" + accountNumber, "Account Number not displayed as expected and is :" + accountNumber));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getAccountNumberStyle(), "Bold", "Account Number is in Bold State", "Account Number NOT in Bold state"));
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - verifyAccountNumber()" + e.fillInStackTrace(), true);
+        }
+        actions.assertAllFoundFailedAssert(assertCheck);
+    }
+
+    @Test(priority = 8, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    public void verifySecurityDeposit() {
+        try {
+            selUtils.addTestcaseDescription("Validate Security Deposit is visible,Validate Security Deposit Currency Color,Validate upto 2 places after decimal", "description");
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "securityDeposit", "statusCode"), "200", "Status Code for Postpaid Account Information API to get Security Deposit Matched", "Status Code for Postpaid Account Information API to get Security Deposit NOT Matched", false));
+            final String securityDeposit = pages.getAccountInformationWidget().getSecurityDeposit();
+            assertCheck.append(actions.assertEqualStringType(securityDeposit, pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "securityDeposit", "securityDeposit"), "Security deposit displays as expected and is :" + securityDeposit, "Security deposit NOT displays as expected and is :" + securityDeposit));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getSecurityDepositCurrencyStyle(), "#ed1c24", "Color for Security Deposit Currency Data Point Matched", "Color for Security Deposit Currency Data Point NOT Matched"));
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - verifySecurityDeposit()" + e.fillInStackTrace(), true);
+        }
+        actions.assertAllFoundFailedAssert(assertCheck);
+    }
+
+    @Test(priority = 9, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    public void verifyLastPaymentMode() throws IOException, ParseException {
+        try {
+            selUtils.addTestcaseDescription("Validate Last Payment Mode is visible", "description");
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "lastPaymentAmount", "statusCode"), "200", "Status Code for Postpaid Account Information API to get Last Payment Mode Matched", "Status Code for Postpaid Account Information API to get Last Payment Mode NOT Matched", false));
+            final String lastPaymentMode = pages.getAccountInformationWidget().getLastPaymentMode();
+            assertCheck.append(actions.assertEqualStringType(lastPaymentMode, pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "lastPaymentMode", "lastPaymentMode"), "Last payment mode displays as expected and is :" + lastPaymentMode, "Last payment mode not displays as expected and is :" + lastPaymentMode));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getLastPaymentModeStyle(), "Bold", "Last Payment Mode is in Bold State", "Last Payment Mode NOT in Bold state"));
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - verifyLastPaymentMode()" + e.fillInStackTrace(), true);
+        }
+        actions.assertAllFoundFailedAssert(assertCheck);
+    }
+
     /**
      * This method is used to validate account information detail icon
      */
-    @Test(priority = 7, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    @Test(priority = 10, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
     public void verifyAccountInfoDetailedIcon() {
 
         try {
             selUtils.addTestcaseDescription("Validating all data points under Account Information widget like Due date And Total Outstanding And Current Cycle And Current Month Unbilled Amount And last Month Bill Amount And Last Payment Mode And Security Deposit And Account Number", "description");
-            final List<String> postpaidAccountInformation = api.getPostpaidAccountInformation(customerNumber);
-            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmount", "statusCode"), "200", "Postpaid Account Information API 1 Status Code Matched", "Postpaid Account Information API 1 Status Code NOT Matched"));
-            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "availableCreditLimit", "statusCode"), "200", "Postpaid Account Information API 2 Status Code Matched", "Postpaid Account Information API 2 Status Code NOT Matched"));
-            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "lastMonthBilledAmount", "statusCode"), "200", "Postpaid Account Information API 3 Status Code Matched", "Postpaid Account Information API 3 Status Code NOT Matched"));
-            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "customerAccountNumber", "statusCode"), "200", "Postpaid Account Information API 4 Status Code Matched", "Postpaid Account Information API 4 Status Code NOT Matched"));
-            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "lastPaymentAmount", "statusCode"), "200", "Postpaid Account Information API 5 Status Code Matched", "Postpaid Account Information API 5 Status Code NOT Matched"));
-            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "securityDeposit", "statusCode"), "200", "Postpaid Account Information API 6 Status Code Matched", "Postpaid Account Information API 6 Status Code NOT Matched"));
-
-            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getSecurityDeposit(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "securityDeposit", "securityDeposit"), "Security deposit displays as expected", "Security deposit not displays as expected"));
-            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getAccountNumber(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "customerAccountNumber", "customerAccountNumber"), "Account Number displayed as expected", "Account Number not displayed as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmount", "statusCode"), "200", "Postpaid Account Information API 1 Status Code Matched", "Postpaid Account Information API 1 Status Code NOT Matched", false));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "availableCreditLimit", "statusCode"), "200", "Postpaid Account Information API 2 Status Code Matched", "Postpaid Account Information API 2 Status Code NOT Matched", false));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "lastMonthBilledAmount", "statusCode"), "200", "Postpaid Account Information API 3 Status Code Matched", "Postpaid Account Information API 3 Status Code NOT Matched", false));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "customerAccountNumber", "statusCode"), "200", "Postpaid Account Information API 4 Status Code Matched", "Postpaid Account Information API 4 Status Code NOT Matched", false));
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getTotalOutstanding(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "totalOutstandingAmount", "totalOutstandingAmount"), "Total outstanding amount displays as expected", "Total outstanding amount not displays as expected"));
-            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getLastPaymentMode(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "lastPaymentMode", "lastPaymentMode"), "Last payment mode displays as expected", "Last payment mode not displays as expected"));
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getCurrentMonthUnBillAmount(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmount", "currentMonthUnbilledAmount"), "Current month un-billed amount displays as expected", "Current month un-billed amount not displays as expected"));
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getDueDate(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "dueDate", "dueDate"), "Due date displays as expected", "Due date not displays as expected"));
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getCurrentCycle(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentCycle", "currentCycle"), "Current cycle displays as expected", "Current cycle not displays as expected"));
@@ -427,7 +466,7 @@ public class AccountInformationWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 9, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 11, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void decimalCountOnUI() {
         try {
             selUtils.addTestcaseDescription("Validating the decimal values upto 2", "description");
@@ -445,7 +484,7 @@ public class AccountInformationWidgetTest extends Driver {
     /**
      * This method is used to validate widgets in profile management
      */
-    @Test(priority = 10, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    @Test(priority = 12, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
     public void accountInfoProfileManagement() {
         try {
             selUtils.addTestcaseDescription("Validating widgets in profile management", "description");

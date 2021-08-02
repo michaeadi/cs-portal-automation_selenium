@@ -7,6 +7,7 @@ import com.airtel.cs.commonutils.applicationutils.constants.URIConstants;
 import com.airtel.cs.commonutils.restutils.RestCommonUtils;
 import com.airtel.cs.model.request.AccountBalanceRequest;
 import com.airtel.cs.model.request.AccountDetailRequest;
+import com.airtel.cs.model.request.AccountStatementReq;
 import com.airtel.cs.model.request.AccumulatorsRequest;
 import com.airtel.cs.model.request.ActionTrailRequest;
 import com.airtel.cs.model.request.AgentLimitRequest;
@@ -62,6 +63,7 @@ import com.airtel.cs.model.response.parentcategory.Category;
 import com.airtel.cs.model.response.parentcategory.ParentCategoryResponse;
 import com.airtel.cs.model.response.plans.Plans;
 import com.airtel.cs.model.response.postpaid.PostpaidAccountDetailResponse;
+import com.airtel.cs.model.response.postpaid.enterprise.AccountStatementCSResponse;
 import com.airtel.cs.model.response.rechargehistory.RechargeHistory;
 import com.airtel.cs.model.response.smshistory.SMSHistory;
 import com.airtel.cs.model.response.tariffplan.AvailablePlan;
@@ -311,14 +313,14 @@ public class RequestSource extends RestCommonUtils {
             result = response.as(RechargeHistory.class);
             if (result.getStatusCode() != 200) {
                 esbRequestSource.callRechargeHistory(msisdn,
-                    UtilsMethods.getUTCEndDate(Timestamp.valueOf(LocalDate.now().atTime(LocalTime.MAX)).getTime()),
-                    UtilsMethods.getUTCStartDate(Timestamp.valueOf(LocalDate.now().atStartOfDay().minusDays(14)).getTime()));
+                        UtilsMethods.getUTCEndDate(Timestamp.valueOf(LocalDate.now().atTime(LocalTime.MAX)).getTime()),
+                        UtilsMethods.getUTCStartDate(Timestamp.valueOf(LocalDate.now().atStartOfDay().minusDays(14)).getTime()));
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue("cs.portal.api.error") + " - rechargeHistoryAPITest " + e.getMessage(), false);
             esbRequestSource
-                .callRechargeHistory(msisdn, UtilsMethods.getUTCEndDate(Timestamp.valueOf(LocalDate.now().atTime(LocalTime.MAX)).getTime()),
-                    UtilsMethods.getUTCStartDate(Timestamp.valueOf(LocalDate.now().atStartOfDay().minusDays(14)).getTime()));
+                    .callRechargeHistory(msisdn, UtilsMethods.getUTCEndDate(Timestamp.valueOf(LocalDate.now().atTime(LocalTime.MAX)).getTime()),
+                            UtilsMethods.getUTCStartDate(Timestamp.valueOf(LocalDate.now().atStartOfDay().minusDays(14)).getTime()));
         }
         return result;
     }
@@ -858,7 +860,7 @@ public class RequestSource extends RestCommonUtils {
             if (statusCode == 200 && ObjectUtils.isNotEmpty(actionConfigResponse.getResult())) {
                 List<ActionConfigResult> actionConfigResultList = actionConfigResponse.getResult();
                 Optional<ActionConfigResult> actionConfigResultop = actionConfigResultList.stream()
-                    .filter(result -> actionName.equals(result.getActionKey())).findFirst();
+                        .filter(result -> actionName.equals(result.getActionKey())).findFirst();
                 if (actionConfigResultop.isPresent()) {
                     actionConfigResult = actionConfigResultop.get();
                 }
@@ -980,6 +982,22 @@ public class RequestSource extends RestCommonUtils {
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue("cs.portal.api.error") + " - getParentCategory " + e.getMessage(), false);
+        }
+        return result;
+    }
+     /** This Method will hit the API "/cs-gsm-service/v1/postpaid/msisdn/details" and return the response in list
+     *
+     * @param accountNo
+     * @return The Response
+     */
+    public AccountStatementCSResponse accountStatementCSResponse(String accountNo, Integer pageNumber) {
+        AccountStatementCSResponse result = null;
+        try {
+            commonPostMethod(URIConstants.POSTPAID_ACCOUNT_MSISDN_DETAILS, new AccountStatementReq(accountNo, pageNumber.toString(), "5"));
+            result = response.as(AccountStatementCSResponse.class);
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - getAccountInfoDetail " + e.getMessage(), false);
+            esbRequestSource.callPostpaidAccountInfoDetails(new AccountDetailRequest(accountNo, pageNumber.toString(), "5"));
         }
         return result;
     }

@@ -10,9 +10,9 @@ public class DetailedUsageHistoryPage {
      * */
     public By freeCDR = By.xpath("//div[@data-csautomation-key='DETAILED_USAGE_HISTORY']//form/span[1]//label/span");
     public By typeOfCDR = By.xpath("//div[@data-csautomation-key='DETAILED_USAGE_HISTORY']//form/span[2]");
-    public By todayDateFilter = By.xpath("//div[@data-csautomation-key='DETAILED_USAGE_HISTORY']//*//span[contains(text(),'Today')]");
-    public By last2DayDateFilter = By.xpath("//div[@data-csautomation-key='DETAILED_USAGE_HISTORY']//*//span[contains(text(),'two days')]");
-    public By last7DayDateFilter = By.xpath("//div[@data-csautomation-key='DETAILED_USAGE_HISTORY']*//span[contains(text(),'seven days')]");
+    public By todayDateFilter = By.xpath("//div[@data-csautomation-key='DETAILED_USAGE_HISTORY']//span[contains(text(),'Today')]");
+    public By last2DayDateFilter = By.xpath("//div[@data-csautomation-key='DETAILED_USAGE_HISTORY']//span[contains(text(),'two days')]");
+    public By last7DayDateFilter = By.xpath("//div[@data-csautomation-key='DETAILED_USAGE_HISTORY']//span[contains(text(),'seven days')]");
     public By datePicker = By.xpath("//div[@data-csautomation-key='DETAILED_USAGE_HISTORY']//form/span[4]//input");
 
     /*

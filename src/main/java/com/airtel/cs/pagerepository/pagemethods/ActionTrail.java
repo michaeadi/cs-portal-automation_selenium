@@ -20,7 +20,8 @@ public class ActionTrail extends BasePage {
     }
 
     /**
-     *This method will be use to read widget header name based on column number
+     * This method will be use to read widget header name based on column number
+     *
      * @param column The column number
      * @return String The value
      */
@@ -32,7 +33,8 @@ public class ActionTrail extends BasePage {
 
     /**
      * This Method will give us action trail table value by providing row and column
-     * @param row The row Number
+     *
+     * @param row    The row Number
      * @param column The Column Number
      * @return String The value
      */
