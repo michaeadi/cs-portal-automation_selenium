@@ -5,28 +5,29 @@ import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants
 import com.airtel.cs.commonutils.applicationutils.constants.ESBURIConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.URIConstants;
 import com.airtel.cs.commonutils.restutils.RestCommonUtils;
+import com.airtel.cs.model.request.AccountBalanceRequest;
+import com.airtel.cs.model.request.AccountDetailRequest;
+import com.airtel.cs.model.request.AccountStatementReq;
+import com.airtel.cs.model.request.AccumulatorsRequest;
+import com.airtel.cs.model.request.ActionTrailRequest;
+import com.airtel.cs.model.request.AgentLimitRequest;
+import com.airtel.cs.model.request.FetchTicketPoolRequest;
 import com.airtel.cs.model.request.GenericRequest;
+import com.airtel.cs.model.request.LimitConfigRequest;
+import com.airtel.cs.model.request.LoanRequest;
+import com.airtel.cs.model.request.MoreTransactionHistoryRequest;
+import com.airtel.cs.model.request.OfferDetailRequest;
+import com.airtel.cs.model.request.PlanPackRequest;
+import com.airtel.cs.model.request.PostpaidAccountDetailRequest;
 import com.airtel.cs.model.request.RechargeHistoryRequest;
+import com.airtel.cs.model.request.RingtonDetailsRequest;
+import com.airtel.cs.model.request.SMSHistoryRequest;
+import com.airtel.cs.model.request.SaveAgentLimitRequest;
+import com.airtel.cs.model.request.ServiceProfileRequest;
+import com.airtel.cs.model.request.TransactionHistoryRequest;
 import com.airtel.cs.model.request.UsageHistoryMenuRequest;
 import com.airtel.cs.model.request.UsageHistoryRequest;
-import com.airtel.cs.model.request.TransactionHistoryRequest;
-import com.airtel.cs.model.request.MoreTransactionHistoryRequest;
-import com.airtel.cs.model.request.AccountBalanceRequest;
-import com.airtel.cs.model.request.LoanRequest;
-import com.airtel.cs.model.request.RingtonDetailsRequest;
 import com.airtel.cs.model.request.VoucherSearchRequest;
-import com.airtel.cs.model.request.SMSHistoryRequest;
-import com.airtel.cs.model.request.AccumulatorsRequest;
-import com.airtel.cs.model.request.OfferDetailRequest;
-import com.airtel.cs.model.request.AccountDetailRequest;
-import com.airtel.cs.model.request.ServiceProfileRequest;
-import com.airtel.cs.model.request.PostpaidAccountDetailRequest;
-import com.airtel.cs.model.request.ActionTrailRequest;
-import com.airtel.cs.model.request.FetchTicketPoolRequest;
-import com.airtel.cs.model.request.PlanPackRequest;
-import com.airtel.cs.model.request.SaveAgentLimitRequest;
-import com.airtel.cs.model.request.LimitConfigRequest;
-import com.airtel.cs.model.request.AgentLimitRequest;
 import com.airtel.cs.model.response.PlanPackResponse;
 import com.airtel.cs.model.response.accountinfo.AccountDetails;
 import com.airtel.cs.model.response.accounts.AccountsBalance;
@@ -58,6 +59,7 @@ import com.airtel.cs.model.response.login.Login;
 import com.airtel.cs.model.response.offerdetails.OfferDetail;
 import com.airtel.cs.model.response.plans.Plans;
 import com.airtel.cs.model.response.postpaid.PostpaidAccountDetailResponse;
+import com.airtel.cs.model.response.postpaid.enterprise.AccountStatementCSResponse;
 import com.airtel.cs.model.response.rechargehistory.RechargeHistory;
 import com.airtel.cs.model.response.smshistory.SMSHistory;
 import com.airtel.cs.model.response.tariffplan.AvailablePlan;
@@ -85,9 +87,9 @@ import java.util.Optional;
 @Log4j2
 public class RequestSource extends RestCommonUtils {
 
-    public static Integer statusCode = null;
     private static final String TARIFF_PLAN_TEST_NUMBER = constants.getValue(ApplicationConstants.TARIFF_PLAN_TEST_NUMBER);
     private static final Map<String, Object> queryParam = new HashMap<>();
+    public static Integer statusCode = null;
     private ESBRequestSource esbRequestSource = new ESBRequestSource();
 
     /*
@@ -306,14 +308,14 @@ public class RequestSource extends RestCommonUtils {
             result = response.as(RechargeHistory.class);
             if (result.getStatusCode() != 200) {
                 esbRequestSource.callRechargeHistory(msisdn,
-                    UtilsMethods.getUTCEndDate(Timestamp.valueOf(LocalDate.now().atTime(LocalTime.MAX)).getTime()),
-                    UtilsMethods.getUTCStartDate(Timestamp.valueOf(LocalDate.now().atStartOfDay().minusDays(14)).getTime()));
+                        UtilsMethods.getUTCEndDate(Timestamp.valueOf(LocalDate.now().atTime(LocalTime.MAX)).getTime()),
+                        UtilsMethods.getUTCStartDate(Timestamp.valueOf(LocalDate.now().atStartOfDay().minusDays(14)).getTime()));
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue("cs.portal.api.error") + " - rechargeHistoryAPITest " + e.getMessage(), false);
             esbRequestSource
-                .callRechargeHistory(msisdn, UtilsMethods.getUTCEndDate(Timestamp.valueOf(LocalDate.now().atTime(LocalTime.MAX)).getTime()),
-                    UtilsMethods.getUTCStartDate(Timestamp.valueOf(LocalDate.now().atStartOfDay().minusDays(14)).getTime()));
+                    .callRechargeHistory(msisdn, UtilsMethods.getUTCEndDate(Timestamp.valueOf(LocalDate.now().atTime(LocalTime.MAX)).getTime()),
+                            UtilsMethods.getUTCStartDate(Timestamp.valueOf(LocalDate.now().atStartOfDay().minusDays(14)).getTime()));
         }
         return result;
     }
@@ -537,11 +539,11 @@ public class RequestSource extends RestCommonUtils {
             commonPostMethod(URIConstants.SEARCH_TUNES, new RingtonDetailsRequest(msisdn, searchBy, searchText));
             result = response.as(Top20Ringtone.class);
             if (!"200".equals(result.getStatusCode())) {
-                esbRequestSource.callRingtoneDetailsTest(msisdn,searchText);
+                esbRequestSource.callRingtoneDetailsTest(msisdn, searchText);
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue("cs.portal.api.error") + " - ringtoneDetailTest " + e.getMessage(), false);
-            esbRequestSource.callRingtoneDetailsTest(msisdn,searchText);
+            esbRequestSource.callRingtoneDetailsTest(msisdn, searchText);
         }
         return result;
     }
@@ -579,7 +581,7 @@ public class RequestSource extends RestCommonUtils {
         try {
             commonPostMethod(URIConstants.ACCUMULATORS, new AccumulatorsRequest(msisdn, 5, 1));
             result = response.as(Accumulators.class);
-            if (result.getStatusCode()==200) {
+            if (result.getStatusCode() == 200) {
                 esbRequestSource.callAccumulatorAPI(msisdn);
             }
         } catch (Exception e) {
@@ -697,7 +699,7 @@ public class RequestSource extends RestCommonUtils {
     public TransferToQueue fetchTicketPool(List<String> ticketId, Boolean isSupervisor) {
         TransferToQueue result = null;
         try {
-            commonPostMethod(URIConstants.FETCH_TICKET_POOL,new FetchTicketPoolRequest(ticketId,isSupervisor));
+            commonPostMethod(URIConstants.FETCH_TICKET_POOL, new FetchTicketPoolRequest(ticketId, isSupervisor));
             result = response.as(TransferToQueue.class);
         } catch (Exception e) {
             commonLib.fail(constants.getValue("cs.portal.api.error") + " - fetchTicketPoolAPI " + e.getMessage(), false);
@@ -711,10 +713,10 @@ public class RequestSource extends RestCommonUtils {
      * @param headers The headers contain auth token including common headers
      * @return The Response
      */
-    public AgentDetailAttribute getAgentDetail(Headers headers){
+    public AgentDetailAttribute getAgentDetail(Headers headers) {
         AgentDetailAttribute result = null;
         try {
-            commonGetMethod(URIConstants.AGENT_DETAILS,headers);
+            commonGetMethod(URIConstants.AGENT_DETAILS, headers);
             result = response.as(AgentDetailAttribute.class);
         } catch (Exception e) {
             commonLib.fail(constants.getValue("cs.portal.api.error") + " - getAgentDetail " + e.getMessage(), false);
@@ -724,14 +726,15 @@ public class RequestSource extends RestCommonUtils {
 
     /**
      * This Method will hit the API "cs-data-service/v1/event/logs" and return the response
-     * @param msisdn The msisdn
+     *
+     * @param msisdn    The msisdn
      * @param eventType The event type
      * @return The Response
      */
-    public ActionTrail getEventHistory(String msisdn, String eventType){
+    public ActionTrail getEventHistory(String msisdn, String eventType) {
         ActionTrail result = null;
         try {
-            commonPostMethod(URIConstants.EVENTS_LOG,new ActionTrailRequest(msisdn,eventType,10,0));
+            commonPostMethod(URIConstants.EVENTS_LOG, new ActionTrailRequest(msisdn, eventType, 10, 0));
             result = response.as(ActionTrail.class);
         } catch (Exception e) {
             commonLib.fail(constants.getValue("cs.portal.api.error") + " - getEventHistory " + e.getMessage(), false);
@@ -741,6 +744,7 @@ public class RequestSource extends RestCommonUtils {
 
     /**
      * This Method will hit the API "/cs-gsm-service/v1/adjustment/mapping?action=" and return the response
+     *
      * @return The Response
      */
     public AdjustmentReasonPOJO getAdjustmentReason() {
@@ -797,6 +801,7 @@ public class RequestSource extends RestCommonUtils {
 
     /**
      * This Method will hit the API "/cs-service/api/cs-service/v1/get/field/mask/config" and return the response
+     *
      * @param actionKey The action key
      * @return The Response
      */
@@ -819,7 +824,8 @@ public class RequestSource extends RestCommonUtils {
 
     /**
      * This Method will hit the API "/cs-service/api/cs-service/v1/actions/config" and return the response
-     * @param headers The headers contain auth token including common headers
+     *
+     * @param headers    The headers contain auth token including common headers
      * @param actionName The action tag name
      * @return The Response
      */
@@ -835,7 +841,7 @@ public class RequestSource extends RestCommonUtils {
             if (statusCode == 200 && ObjectUtils.isNotEmpty(actionConfigResponse.getResult())) {
                 List<ActionConfigResult> actionConfigResultList = actionConfigResponse.getResult();
                 Optional<ActionConfigResult> actionConfigResultop = actionConfigResultList.stream()
-                    .filter(result -> actionName.equals(result.getActionKey())).findFirst();
+                        .filter(result -> actionName.equals(result.getActionKey())).findFirst();
                 if (actionConfigResultop.isPresent()) {
                     actionConfigResult = actionConfigResultop.get();
                 }
@@ -869,13 +875,13 @@ public class RequestSource extends RestCommonUtils {
      * @param roleId The role id
      * @return The Response
      */
-    public AgentLimit saveAgentLimit(String roleId,String featureKey,String dailyLimit,String monthlyLimit,String transactionLimit) {
+    public AgentLimit saveAgentLimit(String roleId, String featureKey, String dailyLimit, String monthlyLimit, String transactionLimit) {
         AgentLimit result = null;
         try {
-            LimitConfigRequest limitConfig=new LimitConfigRequest(featureKey,dailyLimit,monthlyLimit,transactionLimit);
-            List<LimitConfigRequest> request=new ArrayList<>();
+            LimitConfigRequest limitConfig = new LimitConfigRequest(featureKey, dailyLimit, monthlyLimit, transactionLimit);
+            List<LimitConfigRequest> request = new ArrayList<>();
             request.add(limitConfig);
-            commonPostMethod(URIConstants.SAVE_AGENT_LIMIT_API, new SaveAgentLimitRequest(roleId,request));
+            commonPostMethod(URIConstants.SAVE_AGENT_LIMIT_API, new SaveAgentLimitRequest(roleId, request));
             result = response.as(AgentLimit.class);
         } catch (Exception e) {
             commonLib.fail(constants.getValue("cs.portal.api.error") + " - saveAgentLimit " + e.getMessage(), false);
@@ -930,7 +936,7 @@ public class RequestSource extends RestCommonUtils {
     public PostpaidAccountDetailResponse accountDetailResponse(String accountNumber) {
         PostpaidAccountDetailResponse result = null;
         try {
-            commonPostMethod(URIConstants.POSTPAID_ACCOUNT_DETAILS, new PostpaidAccountDetailRequest(accountNumber, null, null, "1", "5" ));
+            commonPostMethod(URIConstants.POSTPAID_ACCOUNT_DETAILS, new PostpaidAccountDetailRequest(accountNumber, null, null, "1", "5"));
             result = response.as(PostpaidAccountDetailResponse.class);
         } catch (Exception e) {
             commonLib.fail("Exception in method - accountDetailResponse " + e.getMessage(), false);
@@ -973,4 +979,23 @@ public class RequestSource extends RestCommonUtils {
         }
         return result;
     }
+
+    /**
+     * This Method will hit the API "/cs-gsm-service/v1/postpaid/msisdn/details" and return the response in list
+     *
+     * @param accountNo The account number
+     * @return The Response
+     */
+    public AccountStatementCSResponse accountStatementCSResponse(String accountNo, Integer pageNumber) {
+        AccountStatementCSResponse result = null;
+        try {
+            commonPostMethod(URIConstants.POSTPAID_ACCOUNT_MSISDN_DETAILS, new AccountStatementReq(accountNo, pageNumber.toString(), "5"));
+            result = response.as(AccountStatementCSResponse.class);
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - getAccountInfoDetail " + e.getMessage(), false);
+            esbRequestSource.callPostpaidAccountInfoDetails(new AccountDetailRequest(accountNo, pageNumber.toString(), "5"));
+        }
+        return result;
+    }
+
 }

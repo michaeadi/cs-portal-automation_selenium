@@ -147,5 +147,15 @@ public class DetailedUsageHistory extends BasePage {
         return pageElements.widgetIdentifier;
     }
 
+    /**
+     * This method is use to check Usage history error visible when api not able to fetch data
+     * @return true/false
+     */
+    public boolean isUnableToFetch() {
+        final boolean elementVisible = isElementVisible(pageElements.unableToFetch);
+        commonLib.info(constants.getValue("usage.history.unabletofetch") + ":" + elementVisible);
+        return elementVisible;
+    }
+
 
 }

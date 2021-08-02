@@ -497,6 +497,16 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.DetailAccountInfoViewBillTest"/>
         </classes>
     </test>
+    <test name="Linked MSISDN to Account Number Test">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.LinkedMsisdnToAccountNoTest"/>
+        </classes>
+    </test>
     <test name="Prod Test Login With Advisor Supervisor">
         <groups>
             <run>

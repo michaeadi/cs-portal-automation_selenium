@@ -205,7 +205,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                     "Customer Name is as Expected", "Customer Name is not as Expected"));
             if (!customerName.contains("Unable to fetch data")) {
                 pages.getDemoGraphicPage().hoverOnCustomerInfoIcon();
-                final String customerDOB = pages.getDemoGraphicPage().getCustomerDOB();
+                final String customerDOB = pages.getDemoGraphicPage().getCustomerDOB().toLowerCase();
                 final String customerIdNumber = pages.getDemoGraphicPage().getIdNumber().replace("*", "");
                 pages.getDemoGraphicPage().hoverOnCustomerInfoIcon();
                 final String idType = stringNotNull(pages.getDemoGraphicPage().getIdType()).toLowerCase().trim();
@@ -237,7 +237,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
 
 
             }
-            assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getGsmKycStatus(), pages.getDemoGraphicPage().getKeyValueAPI(gsmKycAPI.getResult().getGsm()),
+            assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getGsmKycStatus().toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(gsmKycAPI.getResult().getGsm()),
                     "Customer's GSM KYC Status is as Expected", "Customer's GSM KYC Status is not as Expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
@@ -390,7 +390,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
             assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getAppStatus().toLowerCase().trim(),
                     pages.getDemoGraphicPage().getKeyValueAPI(profileAPI.getResult().getAppStatus()), "App Status as expected",
                     "App Status as not expected"));
-
+            actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
             commonLib.fail("Exception in method - testServiceClassAndAppStatus " + e, true);
         }

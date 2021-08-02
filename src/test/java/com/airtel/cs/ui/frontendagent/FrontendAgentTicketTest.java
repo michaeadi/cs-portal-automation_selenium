@@ -81,6 +81,7 @@ public class FrontendAgentTicketTest extends Driver {
         }
     }
 
+
     /**
      * This method is used to Validate NFTR issue have ticket icon
      */

@@ -1,7 +1,10 @@
 package com.airtel.cs.ui.frontendagent.actiondropdown;
 
+import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.driver.Driver;
+import com.airtel.cs.pojo.response.parentcategory.Category;
+import io.restassured.http.Headers;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoSuchElementException;
@@ -10,12 +13,16 @@ import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.util.List;
+import java.util.TreeMap;
+
 public class SendInternetSettingsTest extends Driver {
 
+    private final BaseActions actions = new BaseActions();
     String comments = "Adding comment using Automation";
     Boolean popup = true;
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+  @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");

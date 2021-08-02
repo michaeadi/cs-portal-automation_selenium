@@ -258,4 +258,13 @@ public class FrontendTicketHistory extends BasePage {
         clickAndWaitForLoaderToBeRemoved(pageElements.ticketRow);
     }
 
+    /**
+     * This method is use to check Ticket history error visible when api not able to fetch data
+     * @return true/false
+     */
+    public boolean isUnableToFetch() {
+        final boolean elementVisible = isElementVisible(pageElements.unableToFetch);
+        commonLib.info(constants.getValue("ticket.history.unabletofetch") + ":" + elementVisible);
+        return elementVisible;
+    }
 }

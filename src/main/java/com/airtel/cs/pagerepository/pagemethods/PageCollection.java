@@ -204,4 +204,5 @@ public class PageCollection {
         return new ActiveVasWidget(driver);
     }
     public DetailAccountInfoViewBillWidget getDetailAccountInfoViewBillWidget() {return new DetailAccountInfoViewBillWidget(driver);}
+    public LinkedMsisdnToAccountNoWidget getLinkedMsisdnToAccountNoWidget() {return new LinkedMsisdnToAccountNoWidget(driver);}
 }

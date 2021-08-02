@@ -711,4 +711,11 @@ public class DemoGraphic extends BasePage {
         return apiKeyValue == null || apiKeyValue.equals("") ? "-" : apiKeyValue.toLowerCase().trim();
     }
 
+    /*
+ This Method will click outside over frontend agent dashboard
+  */
+    public void clickFEDashboardOutside() {
+        clickWithoutLoader(pageElements.dashboardBody);
+    }
+
 }

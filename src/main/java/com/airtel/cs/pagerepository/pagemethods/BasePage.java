@@ -306,14 +306,6 @@ public class BasePage extends Driver {
         action.moveByOffset(0, 0).click().build().perform();
     }
 
-    /*
-    This Method will click outside over frontend agent dashboard
-     */
-    public void clickFEDashboardOutside() {
-        //Todo @Ashwani dashboardBody element does not created in BasePageElement.Class
-        clickWithoutLoader(basePageElements.dashboardBody);
-    }
-
     /**
      * This method use to clear input tag content
      *

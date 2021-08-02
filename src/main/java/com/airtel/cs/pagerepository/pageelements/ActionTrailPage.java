@@ -7,4 +7,7 @@ public class ActionTrailPage {
     public By detailRow = By.xpath("//tbody/tr");
     public String actionTrailRow = "//app-action-trail-logging//tbody/tr[";
     public String actionTrailColumn = "]/td[";
+    public String metaInfoValue="]//p[";
+    public String metaInfoLabel="]//label[";
+    public String metaInfoIcon="]/td[7]/span";
 }

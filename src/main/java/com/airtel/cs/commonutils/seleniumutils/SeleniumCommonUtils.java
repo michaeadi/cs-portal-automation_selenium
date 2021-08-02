@@ -3,6 +3,8 @@ package com.airtel.cs.commonutils.seleniumutils;
 
 import com.airtel.cs.commonutils.applicationutils.constants.ConstantsUtils;
 import com.airtel.cs.driver.Driver;
+import com.airtel.cs.pagerepository.pagemethods.BasePage;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -10,16 +12,19 @@ import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 
 import java.time.Duration;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 public class SeleniumCommonUtils extends Driver {
 
-    private static final String BREAK_LINE= "</br>";
+    private static final String BREAK_LINE = "</br>";
+    private static Map<String, String> styleMap;
 
     public SeleniumCommonUtils() {
         constants = ConstantsUtils.getInstance();
@@ -165,5 +170,57 @@ public class SeleniumCommonUtils extends Driver {
             commonLib.error("Not able to find out elements");
         }
         return element;
+    }
+
+    /**
+     * This Method will let us know the computed css style for a particular webelement
+     *
+     * @param elementLocation the element
+     * @return computed css
+     */
+    public Map<String, String> getStyle(By elementLocation) {
+        BasePage basePage = new BasePage(driver);
+        final String id = basePage.getAttribute(elementLocation, "id", false);
+        String idnew = "var elem = document.getElementById('%s'); ";
+        JavascriptExecutor executor = (JavascriptExecutor) driver;
+        Object allAttributes = executor.executeScript(
+                "var items={};" +
+                        String.format(idnew, id) +
+                        "var css = window.getComputedStyle(elem, null);" +
+                        "items={'font-weight':css.getPropertyValue('font-weight'),'font-color':css.getPropertyValue('color')}; return items;");
+        ObjectMapper m = new ObjectMapper();
+        styleMap = m.convertValue(allAttributes, Map.class);
+        commonLib.info("Style is: " + allAttributes.toString());
+        return styleMap;
+    }
+
+    /**
+     * This Method will return us the font weight of a webelement
+     *
+     * @param elementLocation the webelement location
+     * @return the font-weight
+     */
+    public String getDataPointFontWeight(By elementLocation) {
+        String result = "";
+        final Map<String, String> style = getStyle(elementLocation);
+        int i = Integer.parseInt(style.get("font-weight"));
+        if (i > 600)
+            result = "Bold";
+        else
+            result = "Not Bold";
+        return result;
+    }
+
+    /**
+     * This Method will return us color of a webelement
+     *
+     * @param elementLocation the webelement location
+     * @return the color
+     */
+    public String getDataPointColor(By elementLocation) {
+        String result = "";
+        final Map<String, String> style = getStyle(elementLocation);
+        result = Color.fromString(style.get("font-color")).asHex();
+        return result;
     }
 }
