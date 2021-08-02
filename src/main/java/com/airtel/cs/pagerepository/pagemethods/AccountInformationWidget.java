@@ -2,13 +2,13 @@ package com.airtel.cs.pagerepository.pagemethods;
 
 import com.airtel.cs.pagerepository.pageelements.AccountInformationWidgetPage;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -220,8 +220,7 @@ public class AccountInformationWidget extends BasePage {
         return result;
     }
 
-    //ToDO Ashwani to refactor this with webtestclient
-    public String getValue(List<String> list, String rowToSearch, String valueToSearch) throws IOException, ParseException {
+    public String getValue(List<String> list, String rowToSearch, String valueToSearch) throws ParseException {
         String result = null;
         JSONParser parser = new JSONParser();
         for (String s : list)
@@ -235,15 +234,17 @@ public class AccountInformationWidget extends BasePage {
                     break;
                 } else {
                     result = json.get("result").toString();
-                    result = result.substring(1, result.length() - 1).replace("\"", "");
-                    String[] keyValuePairs = result.split(",");
-                    Map<String, String> map = new HashMap<>();
-                    for (String pair : keyValuePairs) {
-                        String[] entry = pair.split(":");
-                        map.put(entry[0].trim(), entry[1].trim());
+                    if (StringUtils.contains(String.valueOf(json.get(statusCode)), "200") && StringUtils.contains(String.valueOf(json.get(status)), "SUCCESS")) {
+                        result = result.substring(1, result.length() - 1).replace("\"", "");
+                        String[] keyValuePairs = result.split(",");
+                        Map<String, String> map = new HashMap<>();
+                        for (String pair : keyValuePairs) {
+                            String[] entry = pair.split(":");
+                            map.put(entry[0].trim(), entry[1].trim());
+                        }
+                        result = map.get(valueToSearch);
+                        break;
                     }
-                    result = map.get(valueToSearch);
-                    break;
                 }
             }
         result = result == null || result.equals("") ? "-" : result.toLowerCase().trim();
@@ -307,9 +308,9 @@ public class AccountInformationWidget extends BasePage {
      * @return Boolean The  data value
      */
     public Boolean isOthersTabVisible() {
-        Boolean status = isElementVisible(pageElements.othersTab);
-        commonLib.info("Checking others tab is visible on demographic widget: '" + status);
-        return status;
+        Boolean visible = isElementVisible(pageElements.othersTab);
+        commonLib.info("Checking others tab is visible on demographic widget: '" + visible);
+        return visible;
     }
 
     /**
@@ -347,7 +348,7 @@ public class AccountInformationWidget extends BasePage {
     /**
      * This method will return round off value up-to two decimal in string format
      *
-     * @param inputString input string
+     * @param inputString inputString input string
      * @return the result
      */
     public static String getTwoDecimalValue(String inputString) {

@@ -27,7 +27,7 @@ public class SendInternetSettingsTest extends Driver {
     RequestSource api = new RequestSource();
     Boolean popup = true;
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+  @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");

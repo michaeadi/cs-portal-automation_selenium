@@ -712,8 +712,8 @@ public class DemoGraphic extends BasePage {
     }
 
     /*
-    This Method will click outside over frontend agent dashboard
-     */
+ This Method will click outside over frontend agent dashboard
+  */
     public void clickFEDashboardOutside() {
         clickWithoutLoader(pageElements.dashboardBody);
     }

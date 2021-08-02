@@ -37,4 +37,5 @@ public class ESBURIConstants {
   public static final String GET_USAGE = "/api/subscriber-profile/v1/get-usage";
   public static final String ACCOUNT_STATEMENT = "/api/enterprise-service/v1/accounts/statement";
   public static final String POSTPAID_ACCOUNT_DETAILS = "/api/enterprise-service/v1/accounts/statement";
+  public static final String POSTPAID_ACCOUNTS_LINE = "/api/enterprise-service/v1/accounts/lines";
 }

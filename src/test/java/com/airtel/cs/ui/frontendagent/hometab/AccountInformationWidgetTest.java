@@ -19,7 +19,6 @@ import com.airtel.cs.model.response.customeprofile.CustomerProfileResponse;
 import com.airtel.cs.model.response.kycprofile.KYCProfile;
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
-import org.json.simple.parser.ParseException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;
@@ -27,6 +26,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Objects;
 
@@ -396,7 +396,7 @@ public class AccountInformationWidgetTest extends Driver {
     /**
      * This method is used to validate account information detail icon
      */
-    @Test(priority = 10, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"}, enabled = false)
+    @Test(priority = 10, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
     public void verifyAccountInfoDetailedIcon() {
 
         try {
@@ -404,6 +404,7 @@ public class AccountInformationWidgetTest extends Driver {
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmount", "statusCode"), "200", "Postpaid Account Information API 1 Status Code Matched", "Postpaid Account Information API 1 Status Code NOT Matched", false));
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "availableCreditLimit", "statusCode"), "200", "Postpaid Account Information API 2 Status Code Matched", "Postpaid Account Information API 2 Status Code NOT Matched", false));
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "lastMonthBilledAmount", "statusCode"), "200", "Postpaid Account Information API 3 Status Code Matched", "Postpaid Account Information API 3 Status Code NOT Matched", false));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "customerAccountNumber", "statusCode"), "200", "Postpaid Account Information API 4 Status Code Matched", "Postpaid Account Information API 4 Status Code NOT Matched", false));
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getTotalOutstanding(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "totalOutstandingAmount", "totalOutstandingAmount"), "Total outstanding amount displays as expected", "Total outstanding amount not displays as expected"));
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getCurrentMonthUnBillAmount(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmount", "currentMonthUnbilledAmount"), "Current month un-billed amount displays as expected", "Current month un-billed amount not displays as expected"));
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getDueDate(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "dueDate", "dueDate"), "Due date displays as expected", "Due date not displays as expected"));
@@ -445,7 +446,7 @@ public class AccountInformationWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 11, groups = {"SanityTest", "RegressionTest", "ProdTest"}, enabled = false)
+    @Test(priority = 11, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void decimalCountOnUI() {
         try {
             selUtils.addTestcaseDescription("Validating the decimal values upto 2", "description");
@@ -463,7 +464,7 @@ public class AccountInformationWidgetTest extends Driver {
     /**
      * This method is used to validate widgets in profile management
      */
-    @Test(priority = 12, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"}, enabled = true)
+    @Test(priority = 12, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
     public void accountInfoProfileManagement() {
         try {
             selUtils.addTestcaseDescription("Validating widgets in profile management", "description");
