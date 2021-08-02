@@ -50,7 +50,6 @@ public class LoginPortalTests extends Driver {
     public void testLoginIntoPortal() {
         try {
             selUtils.addTestcaseDescription("Logging Into Portal with valid All user credentials, Validating opened url,validating login button is getting enabled,Validating dashboard page opened successfully or not?", "description");
-            loginAUUID = constants.getValue(CommonConstants.ALL_USER_ROLE_AUUID);
             final String value = constants.getValue(ApplicationConstants.DOMAIN_URL);
             pages.getLoginPage().openBaseURL(value);
             assertCheck.append(actions.assertEqualStringType(driver.getCurrentUrl(), value, "Correct URL Opened", "URl isn't as expected"));
