@@ -803,6 +803,24 @@ public class RequestSource extends RestCommonUtils {
     }
 
     /**
+     * This Method will hit the API "/cs-gsm-service/v1/postpaid/account/details" and return the response in list
+     *
+     * @param accountNo
+     * @return The Response
+     */
+    public AccountDetails getAccountInfoDetail(String accountNo, Integer pageNumber) {
+        AccountDetails result = null;
+        try {
+            commonPostMethod(URIConstants.POSTPAID_ACCOUNT_DETAILS, new AccountDetailRequest(accountNo, pageNumber.toString(), "5"));
+            result = response.as(AccountDetails.class);
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue("cs.portal.api.error") + " - getAccountInfoDetail " + e.getMessage(), false);
+            esbRequestSource.callPostpaidAccountInfoDetails(new AccountDetailRequest(accountNo, pageNumber.toString(), "5"));
+        }
+        return result;
+    }
+
+    /**
      * This Method will hit the API "/cs-service/api/cs-service/v1/get/field/mask/config" and return the response
      * @param actionKey The action key
      * @return The Response
@@ -941,24 +959,6 @@ public class RequestSource extends RestCommonUtils {
             result = response.as(PostpaidAccountDetailResponse.class);
         } catch (Exception e) {
             commonLib.fail("Exception in method - accountDetailResponse " + e.getMessage(), false);
-        }
-        return result;
-    }
-
-    /**
-     * This Method will hit the API "/cs-gsm-service/v1/postpaid/account/details" and return the response in list
-     *
-     * @param accountNo
-     * @return The Response
-     */
-    public AccountDetails getAccountInfoDetail(String accountNo, Integer pageNumber) {
-        AccountDetails result = null;
-        try {
-            commonPostMethod(URIConstants.POSTPAID_ACCOUNT_DETAILS, new AccountDetailRequest(accountNo, pageNumber.toString(), "5"));
-            result = response.as(AccountDetails.class);
-        } catch (Exception e) {
-            commonLib.fail(constants.getValue("cs.portal.api.error") + " - getAccountInfoDetail " + e.getMessage(), false);
-            esbRequestSource.callPostpaidAccountInfoDetails(new AccountDetailRequest(accountNo, pageNumber.toString(), "5"));
         }
         return result;
     }

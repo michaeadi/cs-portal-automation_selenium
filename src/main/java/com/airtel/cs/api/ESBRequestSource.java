@@ -3,20 +3,20 @@ package com.airtel.cs.api;
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ESBURIConstants;
 import com.airtel.cs.commonutils.restutils.RestCommonUtils;
+import com.airtel.cs.model.request.AccountDetailRequest;
+import com.airtel.cs.model.request.AccountLineRequest;
 import com.airtel.cs.model.request.GenericRequest;
+import com.airtel.cs.model.request.LoanRequest;
 import com.airtel.cs.model.request.OfferDetailRequest;
+import com.airtel.cs.model.request.PaymentRequest;
+import com.airtel.cs.model.request.StatementRequest;
 import com.airtel.cs.model.request.UsageHistoryMenuRequest;
 import com.airtel.cs.model.request.UsageHistoryRequest;
-import com.airtel.cs.model.request.LoanRequest;
-import com.airtel.cs.model.request.AccountLineRequest;
-import com.airtel.cs.model.request.StatementRequest;
-import com.airtel.cs.model.request.PaymentRequest;
-import com.airtel.cs.model.request.AccountDetailRequest;
 import com.airtel.cs.model.response.CreditLimitResponse;
-import com.airtel.cs.model.response.PostpaidBillDetailsResponse;
-import com.airtel.cs.model.response.PlanPackESBResponse;
 import com.airtel.cs.model.response.InvoiceHistoryResponse;
 import com.airtel.cs.model.response.PaymentResponse;
+import com.airtel.cs.model.response.PlanPackESBResponse;
+import com.airtel.cs.model.response.PostpaidBillDetailsResponse;
 import com.airtel.cs.model.response.customeprofile.CustomerProfileResponse;
 import com.airtel.cs.model.response.postpaid.AccountStatementResponse;
 import com.airtel.cs.model.response.postpaid.enterprise.AccountLinesResponse;
@@ -607,9 +607,6 @@ public class ESBRequestSource extends RestCommonUtils {
     }
     return result;
   }
-
-
-
 
   /**
    * This method is used to call get usage api "/api/subscriber-profile/v1/get-usage"

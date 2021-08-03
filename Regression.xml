@@ -414,6 +414,16 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.LoanWidgetTest"/>
         </classes>
     </test>
+    <test name="Raise Bill dispute">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.AccountInfoBillDisputeTest"/>
+        </classes>
+    </test>
     <test name="Supervisors Login Test">
         <groups>
             <run>

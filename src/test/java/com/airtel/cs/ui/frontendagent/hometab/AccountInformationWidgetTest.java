@@ -18,6 +18,7 @@ import com.airtel.cs.model.response.PostpaidBillDetailsResponse;
 import com.airtel.cs.model.response.customeprofile.CustomerProfileResponse;
 import com.airtel.cs.model.response.kycprofile.KYCProfile;
 import io.restassured.http.Headers;
+import org.apache.commons.lang3.StringUtils;
 import io.restassured.response.Response;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -440,6 +441,25 @@ public class AccountInformationWidgetTest extends Driver {
             assertCheck.append(actions.assertEqualStringType(availCreditLimit, pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "availableCreditLimit", "availableCreditLimit"), "Available Credit limit is displayed as expected", "Available Credit limit is not displayed as expected"));
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getTwoDecimalValue(usedCreditLimitOnProgressBar), usedCreditLimitCalculated, "Red portion of the progress bar denotes the Used Credit Limit is displayed as expected", "Red portion of the progress bar denotes the Used Credit Limit is not displayed as expected"));
             assertCheck.append(actions.assertEqualStringType(availCreditLimitUI, availCreditLimitCalculated, "Non-Red portion of the progress bar denotes the Used Credit Limit is displayed as expected", "Non-Red portion of the progress bar denotes the Used Credit Limit is not displayed as expected"));
+
+            String tempCreditLimitAPI = pages.getAccountInformationWidget()
+                .getValue(postpaidAccountInformation, "tempCreditLimit", "tempCreditLimit");
+            if (StringUtils.isEmpty(tempCreditLimitAPI)) {
+                assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getTempCreditiLimit(), "-", "Temp credit limit displays as expected", "Temp credit limit not displays as expected"));
+            } else {
+                Double tempCreditLimit = Double.parseDouble(pages.getAccountInformationWidget().getTempCreditiLimit());
+                assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getTempCreditCurrency(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currency", "currency"), "Temp credit currency displays as expected", "Temp credit currency not displays as expected"));
+                assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getTempCreditiLimit(), tempCreditLimitAPI, "Temp credit limit displays as expected", "Temp credit limit not displays as expected"));
+                if (tempCreditLimit > 0) {
+                    assertCheck.append(actions.assertEqualBoolean(pages.getAccountInformationWidget().isTempCreditLimitInfoVisible(), true, "Temp credit info icon displays as expected", "Temp credit info icon not displays as expected"));
+                    pages.getAccountInformationWidget().hoverOnTempCreditLimitInfoIcon();
+                    String validTillDate = pages.getAccountInformationWidget().getValidTilldate();
+                    assertCheck.append(actions.assertEqualStringType(validTillDate, pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "tempCreditValidity", "tempCreditValidity"), "Vallid till date is same as bill End date of downstream api", "Vallid till date is not same as bill End date of downstream api"));
+                    assertCheck.append(actions.assertEqualStringType(validTillDate, pages.getAccountInformationWidget().getCurrentCycleEndDate(), "Vallid till date is same as Current Cycle End date as expected", "Vallid till date is not same as Current Cycle End date as expected"));
+                } else {
+                    assertCheck.append(actions.assertEqualBoolean(pages.getAccountInformationWidget().isTempCreditLimitInfoVisible(), false, "Temp credit info icon not displays as expected", "Temp credit info icon displays as not expected"));
+                }
+            }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - verifyAccountInfoDetailedIcon()" + e.fillInStackTrace(), true);
