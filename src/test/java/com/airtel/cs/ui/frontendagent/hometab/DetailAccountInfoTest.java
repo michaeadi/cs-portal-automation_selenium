@@ -206,6 +206,7 @@ public class DetailAccountInfoTest extends Driver {
             if (status.trim().equalsIgnoreCase("SUCCESS")) {
                 pages.getDetailAccountInfoWidget().accountDetailResponseAssertions(accountDetailResponse, accountStatementResponse);
             } else {
+                assertCheck.append(actions.assertEqualStringType(pages.getDetailAccountInfoWidget().getUnableToFetch().toLowerCase(), "unable to fetch data", "Unable to fetch displays correctly", "Unable to fetch not displays correctly"));
                 commonLib.fail("API does not able to fetch account statement", false);
             }
 
