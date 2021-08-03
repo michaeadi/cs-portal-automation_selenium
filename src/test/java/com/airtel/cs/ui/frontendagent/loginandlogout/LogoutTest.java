@@ -34,6 +34,7 @@ public class LogoutTest extends Driver {
         assertCheck.append(actions.assertEqualBoolean(pages.getLoginPage().isEnterAUUIDFieldVisible(), true, "User Logout Successfully", "User NOT Logout from the portal"));
         final String value = constants.getValue(ApplicationConstants.DOMAIN_URL);
         assertCheck.append(actions.assertEqualStringType(driver.getCurrentUrl(), value, "Correct URL Opened", "URl isn't as expected"));
+        pages.getLoginPage().clearConsoleErrors();
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 }
