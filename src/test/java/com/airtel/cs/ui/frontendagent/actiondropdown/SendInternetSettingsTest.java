@@ -98,12 +98,13 @@ public class SendInternetSettingsTest extends Driver {
                 reason = pages.getAuthTabPage().getReason();
                 pages.getAuthTabPage().chooseReason();
                 pages.getAuthTabPage().enterComment(comments);
+                pages.getAuthTabPage().fillAllInputField("Automation Testing");
                 pages.getAuthTabPage().clickSubmitBtn();
             } else {
                 pages.getAuthTabPage().clickYesBtn();
             }
             final String toastText = pages.getAuthTabPage().getToastText();
-            assertCheck.append(actions.assertEqualStringType(toastText, "Internet Settings has been sent on Customer`s Device.", "Send Internet Settings Message has been sent to customer successfully", "Send Internet Settings Message hasn't been sent to customer ans message is :-" + toastText));
+            assertCheck.append(actions.assertEqualStringType(toastText, "Internet Settings has been sent on Customer`s Device.", "Send Internet Settings Message has been sent to customer successfully", "Send Internet Settings Message hasn't been sent to customer ans message is :-" + toastText,true,true));
             ActionTrail actionTrailAPI = api.getEventHistory(customerNumber, "ACTION");
             int statusCode = actionTrailAPI.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Action Trail API success and status code is :" + statusCode, "Action Trail API got failed and status code is :" + statusCode, false, true));
