@@ -135,7 +135,7 @@ public class CurrentPlanTest extends Driver {
     @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasCurrentPlanWidgetPermission"})
     public void currentPlanWidgetDisplay() {
         try {
-            selUtils.addTestcaseDescription("Validate plan and pack names", "description");
+            selUtils.addTestcaseDescription("Validate current plan widget", "description");
             final CurrentPlanWidget currentPlanWidget = pages.getCurrentPlanWidget();
             assertCheck.append(actions.assertEqualBoolean(pages.getCurrentPlanWidget().isPlanNameDisplayedOnCurrentPlanWidget(), true, "Name of the plan is displayed on Current plan widget", "Name of the plan is not displayed on Current plan widget"));
             assertCheck.append(actions.assertEqualBoolean(pages.getCurrentPlanWidget().isAdditionalBundleOnCurrentPlanWidget(), true, "Additional bundle count visible", "Additional bundle count not visible"));
@@ -162,8 +162,11 @@ public class CurrentPlanTest extends Driver {
             String unit = null;
             String used = null;
             String available = null;
+            String count = null;
             if (esbStatus.trim().equalsIgnoreCase("200")) {
                 bundles = planPackESBResponse.getAddonUsage().getBundles();
+                count = pages.getCurrentPlanWidget().isAdditionalBundleCountOnCurrentPlanWidget();
+                assertCheck.append(actions.assertEqualStringType(count, pages.getCurrentPlanWidget().isAdditionalBundleCountOnCurrentPlanWidget(), "Count is showing as expected", "Count is not showing as expected"));
                 for (Bundle bndl : bundles) {
                     bundleName = bndl.getBundleName();
                     commonLib.info("bundleName : " + bundleName);

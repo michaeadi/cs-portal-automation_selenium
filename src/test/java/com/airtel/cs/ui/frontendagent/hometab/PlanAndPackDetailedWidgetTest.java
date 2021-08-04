@@ -169,7 +169,6 @@ public class PlanAndPackDetailedWidgetTest extends Driver {
                     assertCheck.append(actions.matchUiAndAPIResponse(pages.getPlanAndPackDetailedWidget().getBenefit(i + 1), planPackResponse.getResult().getPackUsageDTO().get(i).getBenefit(), "Benefit value display as received in API on row" + i, "Benefit not display as received in API on row" + i));
                     assertCheck.append(actions.matchUiAndAPIResponse(pages.getPlanAndPackDetailedWidget().getUsed(i + 1), planPackResponse.getResult().getPackUsageDTO().get(i).getUsed(), "Used value display as received in API on row" + i, "Used not display as received in API on row" + i));
                     assertCheck.append(actions.matchUiAndAPIResponse(pages.getPlanAndPackDetailedWidget().getAvailable(i + 1), planPackResponse.getResult().getPackUsageDTO().get(i).getAvailable(), "Available value display as received in API on row" + i, "Available value not display as received in API on row" + i));
-
                 }
             }else {
                 commonLib.fail("API does not able to fetch Plan Details", false);

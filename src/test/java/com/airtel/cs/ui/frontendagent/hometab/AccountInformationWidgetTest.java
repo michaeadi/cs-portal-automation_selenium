@@ -333,11 +333,11 @@ public class AccountInformationWidgetTest extends Driver {
             CustomerProfileResponse customerProfileResponse = apiEsb.customerProfileResponse(customerNumber);
             final String status = customerProfileResponse.getStatus();
             if (status.trim().equalsIgnoreCase("ACTIVE")) {
-                commonLib.info("Email from esb: " + customerProfileResponse.getEmail().trim());
-                commonLib.info("Email on portal : " + pages.getAccountInformationWidget().getEmailId());
-                commonLib.info("Unable : " + pages.getAccountInformationWidget().getUnableToFetch().toLowerCase());
-                assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getEmailId(), customerProfileResponse.getEmail().trim(), "Email ID display as per ESB response", "Email ID display is not as per ESB response"));
-                //assertCheck.append(actions.assertEqualStringType(pages.getPostpaidEmailIDWidget().getUnableToFetch().toLowerCase(), "unable to fetch", "Unable to fetch display correctly", "Unable to fetch not display correctly"));
+                if (Objects.nonNull(pages.getAccountInformationWidget().getEmailId()) && !pages.getAccountInformationWidget().getEmailId().isEmpty() ) {
+                    commonLib.info("Email from esb: " + customerProfileResponse.getEmail().trim());
+                    commonLib.info("Email on portal : " + pages.getAccountInformationWidget().getEmailId());
+                    assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getEmailId(), customerProfileResponse.getEmail().trim(), "Email ID display as per ESB response", "Email ID display is not as per ESB response"));
+                }
             } else if (status.trim().equalsIgnoreCase("500")) {
                 commonLib.info("Internal server error");
             } else {
@@ -393,10 +393,49 @@ public class AccountInformationWidgetTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
+
+    /**
+     * This method is used to validate currency on account info widget
+     */
+    @Test(priority = 10, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    public void verifyCurrency() {
+        try {
+            selUtils.addTestcaseDescription("Validating currency on account information widget", "description");
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getTotalCreditLmtCurrencyStyle(), "#ed1c24", "Color for Total Credit Limit Currency Data Point Matched", "Color for Total Credit Limit Currency Data Point NOT Matched"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getAvlCreditLmtCurrencyStyle(), "#ed1c24", "Color for Available Credit Limit Currency Data Point Matched", "Color for Available Credit Limit Currency Data Point NOT Matched"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getCurrentMonthUnbillCurrencyStyle(), "#ed1c24", "Color for Current Month Un-billed Currency Data Point Matched", "Color for Current Month Un-billed Currency Data Point NOT Matched"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getLastMonthBillAmountCurrencyStyle(), "#ed1c24", "Color for Last Month Bill amount Currency Data Point Matched", "Color for Last Month Bill amount Currency Data Point NOT Matched"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getLastPaymentModeCurrencyStyle(), "#ed1c24", "Color for Last payment mode Currency Data Point Matched", "Color for Last payment mode Currency Data Point NOT Matched"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getTotalOutstandingCurrencyStyle(), "#ed1c24", "Color for Total outstanding Currency Data Point Matched", "Color for Total outstanding Currency Data Point NOT Matched"));
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - verifyCurrency()" + e.fillInStackTrace(), true);
+        }
+        actions.assertAllFoundFailedAssert(assertCheck);
+    }
+
+    /**
+     * This method is used to validate bold text
+     */
+    @Test(priority = 11, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    public void verifyBoldText(){
+        try {
+            selUtils.addTestcaseDescription("Validating font family on account information widget", "description");
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getTtlCreditLimitNumberStyle(), "Bold", "Total Credit Limit is in Bold State", "Total Credit Limit NOT in Bold state"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getAvlCreditLimitNumberStyle(), "Bold", "Available Credit Limit is in Bold State", "Available Credit Limit NOT in Bold state"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getTotalOutstandingLimitNumberStyle(), "Bold", "Total outstanding is in Bold State", "Total outstanding NOT in Bold state"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getDueDateNumberStyle(), "Bold", "Due date is in Bold State", "Due date NOT in Bold state"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getCurrentCycleNumberStyle(), "Bold", "Current cycle is in Bold State", "Current cycle NOT in Bold state"));
+
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - verifyBoldText()" + e.fillInStackTrace(), true);
+        }
+        actions.assertAllFoundFailedAssert(assertCheck);
+    }
+
     /**
      * This method is used to validate account information detail icon
      */
-    @Test(priority = 10, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    @Test(priority = 12, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
     public void verifyAccountInfoDetailedIcon() {
 
         try {
@@ -446,7 +485,7 @@ public class AccountInformationWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 11, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 13, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void decimalCountOnUI() {
         try {
             selUtils.addTestcaseDescription("Validating the decimal values upto 2", "description");
@@ -464,7 +503,7 @@ public class AccountInformationWidgetTest extends Driver {
     /**
      * This method is used to validate widgets in profile management
      */
-    @Test(priority = 12, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    @Test(priority = 14, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
     public void accountInfoProfileManagement() {
         try {
             selUtils.addTestcaseDescription("Validating widgets in profile management", "description");

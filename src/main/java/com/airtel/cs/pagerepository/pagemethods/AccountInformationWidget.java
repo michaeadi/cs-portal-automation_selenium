@@ -449,5 +449,106 @@ public class AccountInformationWidget extends BasePage {
 
     }
 
+    /*
+    This Method will return the color for Total Credit Limit Data Point
+     */
+    public String getTotalCreditLmtCurrencyStyle() {
+        return selUtils.getDataPointColor(pageElements.totalCreditLimitCurrency);
+    }
+
+    /*
+    This Method will return the color for Available Credit Limit Data Point
+     */
+    public String getAvlCreditLmtCurrencyStyle() {
+        return selUtils.getDataPointColor(pageElements.availCreditLimitCurrency);
+    }
+
+    /*
+    This Method will return the color for Last month bill amount Data Point
+     */
+    public String getLastMonthBillAmountCurrencyStyle() {
+        return selUtils.getDataPointColor(pageElements.lastMonthBillAmountCurrency);
+    }
+
+    /*
+    This Method will return the color for Total Outstanding Data Point
+     */
+    public String getTotalOutstandingCurrencyStyle() {
+        return selUtils.getDataPointColor(pageElements.totalOutstandingCurrency);
+    }
+
+    /*
+    This Method will return the color for Last Payment Mode Data Point
+     */
+    public String getLastPaymentModeCurrencyStyle() {
+        return selUtils.getDataPointColor(pageElements.lastPaymentModeCurrency);
+    }
+
+    /*
+    This Method will return the color for Current Month Un-billed Data Point
+     */
+    public String getCurrentMonthUnbillCurrencyStyle() {
+        return selUtils.getDataPointColor(pageElements.currentMonthUnbillCurrency);
+    }
+
+    /*
+   This Method will let us know is Total credit limit is bold or not
+    */
+    public String getTtlCreditLimitNumberStyle() {
+        String result = "";
+        if (isElementVisible(pageElements.totalCreditLimit) && !getText(pageElements.totalCreditLimit).equalsIgnoreCase("-")) {
+            result = selUtils.getDataPointFontWeight(pageElements.totalCreditLimit);
+        }else
+            commonLib.warning("Total credit limit value is not available, so can not verify BOLD characteristics");
+        return result;
+    }
+
+    /*
+   This Method will let us know is available credit limit is bold or not
+    */
+    public String getAvlCreditLimitNumberStyle() {
+        String result = "";
+        if (isElementVisible(pageElements.availableCreditLimit) && !getText(pageElements.availableCreditLimit).equalsIgnoreCase("-")) {
+            result = selUtils.getDataPointFontWeight(pageElements.availableCreditLimit);
+        }else
+            commonLib.warning("Available credit limit value is not available, so can not verify BOLD characteristics");
+        return result;
+    }
+
+    /*
+   This Method will let us know is total outstanding is bold or not
+    */
+    public String getTotalOutstandingLimitNumberStyle() {
+        String result = "";
+        if (isElementVisible(pageElements.totalOutstanding) && !getText(pageElements.totalOutstanding).equalsIgnoreCase("-")) {
+            result = selUtils.getDataPointFontWeight(pageElements.totalOutstanding);
+        }else
+            commonLib.warning("Total outstanding value is not available, so can not verify BOLD characteristics");
+        return result;
+    }
+
+    /*
+   This Method will let us know is due date is bold or not
+    */
+    public String getDueDateNumberStyle() {
+        String result = "";
+        if (isElementVisible(pageElements.dueDate) && !getText(pageElements.dueDate).equalsIgnoreCase("-")) {
+            result = selUtils.getDataPointFontWeight(pageElements.dueDate);
+        } else
+            commonLib.warning("Due Date value is not available, so can not verify BOLD characteristics");
+        return result;
+    }
+
+    /*
+   This Method will let us know is current cycle is bold or not
+    */
+    public String getCurrentCycleNumberStyle() {
+        String result = "";
+        if (isElementVisible(pageElements.currentCycle) && !getText(pageElements.currentCycle).equalsIgnoreCase("-")) {
+            result = selUtils.getDataPointFontWeight(pageElements.currentCycle);
+        }else
+            commonLib.warning("Current Cycle value is not available, so can not verify BOLD characteristics");
+        return result;
+    }
 
 }
