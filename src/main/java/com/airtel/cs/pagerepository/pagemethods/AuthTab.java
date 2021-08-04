@@ -13,6 +13,8 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.PageFactory;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -180,11 +182,17 @@ public class AuthTab extends BasePage {
     }
 
     public void fillAllInputField(String text){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        LocalDateTime now = LocalDateTime.now();
         try {
             int size = getNumberOfInputFieldDisplay();
             for (int i = 1; i <= size; i++) {
-                By inputField = By.xpath(pageElements.questionField + i + "']");
-                enterText(inputField, text);
+                try {
+                    By inputField = By.xpath(pageElements.questionField + i + "']");
+                    enterText(inputField, text);
+                }catch (NoSuchElementException | TimeoutException e){
+                    pages.getInteractionsPage().setDateFieldAvailable(dtf.format(now));
+                }
             }
         }catch (NoSuchElementException | TimeoutException e){
             commonLib.infoColored("No Issue Field found with input type"+e.getMessage(), JavaColors.BLUE,true);
