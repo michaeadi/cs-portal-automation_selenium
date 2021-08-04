@@ -61,6 +61,11 @@ public class ConstantsUtils implements Cloneable {
         return prop.getProperty(key);
     }
 
+    /**
+     * This method is use to set value in properties file based on key
+     * @param key The key
+     * @param value The value
+     */
     public void setValue(String key,String value) {
         prop.setProperty(key,value);
     }
