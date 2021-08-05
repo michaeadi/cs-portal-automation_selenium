@@ -25,8 +25,8 @@ public class AccountInformationWidgetPage {
     public By availableCreditLimit = By.xpath("//div[text()='Available Credit Limit']/following-sibling::div/span[2]");
     public By currentCycle = By.xpath("//div[text()='Current Cycle']/following-sibling::div/span");
     public By lastMonthBillDate = By.xpath("//div[text()='Last Month Billed Amount']/following-sibling::div/span[3]//span");
-    public By othersTab = By.xpath("//div[@class='card__content restricted no-header-height ng-star-inserted']/mat-tab-group/mat-tab-header/div[2]/div[1]/div[1]/div[2]/div[1]");
-    public By emailId = By.xpath("//div[@id='GSM_PROFILE']/div[1]/mat-tab-group/div[1]/mat-tab-body[2]/div[1]/div[1]/div[1]//span[2]//span");
+    public By othersTab = By.xpath("//*[contains(text(),'Others')]");
+    public By emailId = By.xpath("//span[contains(text(),'Email Id')]//following-sibling::span/span");
     public By unableToFetch = By.xpath("//div[@id='GSM_PROFILE']/div[1]/mat-tab-group/div[1]/mat-tab-body[2]/div[1]/div[1]/div[1]//span[2]");
 
     public By totalCreditLimitCurrency = By.xpath("//div[contains(text(),'Total Credit Limit')]/following-sibling::div/span[1]");
