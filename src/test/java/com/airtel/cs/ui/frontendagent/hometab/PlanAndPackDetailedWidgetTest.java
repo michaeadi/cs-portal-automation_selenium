@@ -28,6 +28,7 @@ public class PlanAndPackDetailedWidgetTest extends Driver {
 
     RequestSource api = new RequestSource();
     ESBRequestSource apiEsb = new ESBRequestSource();
+    String customerNumber = null;
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
@@ -44,7 +45,7 @@ public class PlanAndPackDetailedWidgetTest extends Driver {
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
-            String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_POSTPAID_MSISDN);
+            customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_POSTPAID_MSISDN);
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().clickOnUserName();
             pages.getSideMenuPage().openCustomerInteractionPage();
@@ -109,7 +110,7 @@ public class PlanAndPackDetailedWidgetTest extends Driver {
 
         try {
             selUtils.addTestcaseDescription("Verify that plan and pack widget should be visible to the logged in agent on the basis of connection type and UM permission", "description");
-            final String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_POSTPAID_MSISDN);
+            customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_POSTPAID_MSISDN);
             KYCProfile kycProfile = api.kycProfileAPITest(customerNumber);
             final Integer statusCode = kycProfile.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "KYC Profile API Status Code Matched and is :" + statusCode, "KYC Profile API Status Code NOT Matched and is :" + statusCode, false));
@@ -141,12 +142,12 @@ public class PlanAndPackDetailedWidgetTest extends Driver {
     public void addOnBundleColumnNames(HeaderDataBean data) {
         try {
             selUtils.addTestcaseDescription("Validate add on bundles widget column name", "description");
-            final String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_POSTPAID_MSISDN);
+            customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_POSTPAID_MSISDN);
             PlanPackRequest planPackRequest = new PlanPackRequest();
             planPackRequest.setMsisdn(customerNumber);
             planPackRequest.setPageNumber(constants.getValue(CommonConstants.PAGE_NO));
             planPackRequest.setPageSize(constants.getValue(CommonConstants.PAGE_SIZE));
-
+            assertCheck.append(actions.assertEqualStringType(pages.getPlanAndPackDetailedWidget().getActivePacks(), "ACTIVE PACKS", "Active pack tab visible", "Active pack tab not visible"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getPlanAndPackDetailedWidget().getPackHeaders(1), data.getRow1(), "Header Name for Row 1 is as expected", "Header Name for Row 1 is not as expected"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getPlanAndPackDetailedWidget().getPackHeaders(2), data.getRow2(), "Header Name for Row 2 is as expected", "Header Name for Row 2 is not as expected"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getPlanAndPackDetailedWidget().getPackHeaders(3), data.getRow3(), "Header Name for Row 3 is as expected", "Header Name for Row 3 is not as expected"));
@@ -155,7 +156,7 @@ public class PlanAndPackDetailedWidgetTest extends Driver {
             /**
              * Calling plan details api CS-PORTAL
              */
-            PlanPackResponse planPackResponse = api.getPlanPack(planPackRequest);
+            PlanPackResponse planPackResponse = api.getPlanPack(planPackRequest, customerNumber);
             final String status = planPackResponse.getStatusCode().trim();
             assertCheck.append(actions.assertEqualStringType(status, "200", "Plan and pack details api called successfully", "Plan and pack details api not called successfully"));
             if (status.equalsIgnoreCase("200")) {
@@ -179,48 +180,6 @@ public class PlanAndPackDetailedWidgetTest extends Driver {
                 assertCheck.append(actions.assertEqualStringType(pages.getPlanAndPackDetailedWidget().getPackDetailUnableToFetch().trim(), "Unable to fetch data", "Unable to fetch data displayed correctly for pack details", "Unable to fetch data is not displayed correctly for pack details"));
             }
 
-            /**
-             * Calling subscriber profile api get-usage
-             */
-            PlanPackESBResponse planPackESBResponse = apiEsb.planPackResponse(customerNumber);
-            final String esbStatus = planPackESBResponse.getStatus();
-            List<Bundle> bundles = null;
-            List<Usage> usageList = null;
-            String bundleName = null;
-            String category = null;
-            String benefit = null;
-            String unit = null;
-            String used = null;
-            String available = null;
-            if (esbStatus.trim().equalsIgnoreCase("200")) {
-                bundles = planPackESBResponse.getAddonUsage().getBundles();
-                for (Bundle bndl : bundles) {
-                    bundleName = bndl.getBundleName();
-                    commonLib.info("bundleName : " + bundleName);
-                    usageList = bndl.getUsageList();
-                    for (Usage usg : usageList) {
-                        category = usg.getCategory();
-                        benefit = usg.getBenefit();
-                        unit = usg.getUnit();
-                        used = usg.getUsed();
-                        available = usg.getAvailable();
-                        commonLib.info("category : " + category);
-                        commonLib.info("benefit : " + benefit);
-                        commonLib.info("unit : " + unit);
-                        commonLib.info("used : " + used);
-                        commonLib.info("available : " + available);
-
-                    }
-                }
-
-            }
-
-            assertCheck.append(actions.assertEqualStringType(pages.getPlanAndPackDetailedWidget().getProductName(), "Product Name", "Column name displayed and is correct", "Column name displayed and is not correct"));
-            assertCheck.append(actions.assertEqualStringType(pages.getPlanAndPackDetailedWidget().getBenefit(), "Benefit", "Column name displayed and is correct", "Column name displayed and is not correct"));
-            assertCheck.append(actions.assertEqualStringType(pages.getPlanAndPackDetailedWidget().getAvailable(), "Available", "Column name displayed and is correct", "Column name displayed and is not correct"));
-            assertCheck.append(actions.assertEqualStringType(pages.getPlanAndPackDetailedWidget().getUsed(), "Used", "Column name displayed and is correct", "Column name displayed and is not correct"));
-            assertCheck.append(actions.assertEqualStringType(pages.getPlanAndPackDetailedWidget().getCategory(), "Category", "Column name displayed and is correct", "Column name displayed and is not correct"));
-            //assertCheck.append(actions.assertEqualStringType(pages.getPlanAndPackDetailedWidget().getActivePacks(), "ACTIVE PACKS", "Active pack tab visible", "Active pack tab not visible"));
             int size = pages.getPlanAndPackDetailedWidget().getWidgetRowsSize();
             if (size > 0) {
                 assertCheck.append(actions.assertEqualBoolean(pages.getPlanAndPackDetailedWidget().isCheckboxDisplay(), true, "Checkbox visible in active packs", "Checkbox is not visible in active packs"));
