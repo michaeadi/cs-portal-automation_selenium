@@ -17,7 +17,7 @@ public class CreateTemplateTest extends Driver {
     static String templateCategory;
     static String templateName;
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login via API");
@@ -28,7 +28,7 @@ public class CreateTemplateTest extends Driver {
     /**
      * This method is used to open template management
      */
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void openTemplateManagement() {
         try {
             selUtils.addTestcaseDescription("Open Template Management", "description");
@@ -46,7 +46,7 @@ public class CreateTemplateTest extends Driver {
     /**
      * This method is used to validate template management page
      */
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openTemplateManagement")
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dependsOnMethods = "openTemplateManagement")
     public void validateAddTemplateManagementPage() {
         try {
             selUtils.addTestcaseDescription("Validate Template Management Page", "description");

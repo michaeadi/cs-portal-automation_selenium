@@ -12,8 +12,9 @@ import org.testng.annotations.Test;
 public class LoginPortalTests extends Driver {
 
     String auth;
+    private static String password=null;
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login via API");
@@ -21,17 +22,40 @@ public class LoginPortalTests extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 1,groups = {"SmokeTest"})
+    public void setCredForSmokeTest(){
+        try {
+            selUtils.addTestcaseDescription("Setup credentials For Logging Into Portal with Advisor Supervisor User", "description");
+            loginAUUID = constants.getValue(CommonConstants.ADVISOR_USER_ROLE_AUUID);
+            commonLib.pass(constants.getValue("cs.portal.cred.setup")+" : "+loginAUUID);
+            password = constants.getValue(CommonConstants.ADVISOR_USER_ROLE_PASSWORD);
+        }catch (Exception e){
+            commonLib.fail(constants.getValue("cs.portal.test.fail") + " - setCredForSmokeTest " + e.fillInStackTrace(), true);
+        }
+    }
+
+    @Test(priority = 2,groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void setCredForTest(){
+        try {
+            selUtils.addTestcaseDescription("Setup credentials For Logging Into Portal with Beta User", "description");
+            loginAUUID = constants.getValue(CommonConstants.ALL_USER_ROLE_AUUID);
+            commonLib.pass(constants.getValue("cs.portal.cred.setup")+" : "+loginAUUID);
+            password = constants.getValue(CommonConstants.ALL_USER_ROLE_PASSWORD);
+        }catch (Exception e){
+            commonLib.fail(constants.getValue("cs.portal.test.fail") + " - setCredForTest " + e.fillInStackTrace(), true);
+        }
+    }
+
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void testLoginIntoPortal() {
         try {
             selUtils.addTestcaseDescription("Logging Into Portal with valid All user credentials, Validating opened url,validating login button is getting enabled,Validating dashboard page opened successfully or not?", "description");
-            loginAUUID = constants.getValue(CommonConstants.ALL_USER_ROLE_AUUID);
             final String value = constants.getValue(ApplicationConstants.DOMAIN_URL);
             pages.getLoginPage().openBaseURL(value);
             assertCheck.append(actions.assertEqualStringType(driver.getCurrentUrl(), value, "Correct URL Opened", "URl isn't as expected"));
             pages.getLoginPage().enterAUUID(loginAUUID);
             pages.getLoginPage().clickOnSubmitBtn();
-            pages.getLoginPage().enterPassword(PassUtils.decodePassword(constants.getValue(CommonConstants.ALL_USER_ROLE_PASSWORD)));
+            pages.getLoginPage().enterPassword(PassUtils.decodePassword(password));
             assertCheck.append(actions.assertEqualBoolean(pages.getLoginPage().checkLoginButton(), true, "Login Button is Enabled", "Login Button is NOT enabled"));
             pages.getLoginPage().clickOnVisibleButton();
             pages.getLoginPage().clickOnVisibleButton();

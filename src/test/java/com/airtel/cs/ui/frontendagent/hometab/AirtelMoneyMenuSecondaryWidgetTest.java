@@ -21,7 +21,7 @@ public class AirtelMoneyMenuSecondaryWidgetTest extends Driver {
     RequestSource api = new RequestSource();
     private AirtelMoney amTransactionHistoryAPI;
 
-    @BeforeMethod(groups = {"ProdTest"})
+    @BeforeMethod(groups = {"ProdTest","SmokeTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -29,7 +29,7 @@ public class AirtelMoneyMenuSecondaryWidgetTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"ProdTest"})
+    @BeforeMethod(groups = {"ProdTest","SmokeTest"})
     public void checkAirtelMoneyFlag() {
         if (!StringUtils.equals(RUN_AIRTEL_MONEY_WIDGET_TEST_CASE, "true")) {
             commonLib.skip("Skipping because Multiple Wallet not enabled for this " + OPCO);
@@ -37,7 +37,7 @@ public class AirtelMoneyMenuSecondaryWidgetTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"ProdTest"})
+    @BeforeMethod(groups = {"ProdTest","SmokeTest"})
     public void checkMultiWalletFlag() {
         if (!StringUtils.equals(MULTI_AM_WALLET, "true")) {
             commonLib.skip("Skipping because Airtel Multi-Wallet Test Case Flag Value is - " + MULTI_AM_WALLET);
@@ -45,7 +45,7 @@ public class AirtelMoneyMenuSecondaryWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"ProdTest"})
+    @Test(priority = 1, groups = {"ProdTest","SmokeTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -64,7 +64,7 @@ public class AirtelMoneyMenuSecondaryWidgetTest extends Driver {
     }
 
     @DataProviders.Table(name = "More Airtel Money History")
-    @Test(priority = 2, groups = {"ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 2, groups = {"ProdTest","SmokeTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = {"openCustomerInteraction"})
     public void airtelMoneyHistoryMenuSecondaryWidgetHeaderTest(HeaderDataBean data) {
         try {
             selUtils.addTestcaseDescription("Validating Airtel Money History's Header Name  Menu of User :" + customerNumber + ",Validating all the filter display as per config,Validate search by transaction id box displayed as per config.", "description");
@@ -84,18 +84,9 @@ public class AirtelMoneyMenuSecondaryWidgetTest extends Driver {
             } else {
                 int count = Math.min(amTransactionHistoryAPI.getResult().getTotalCount(), 10);
                 if (count > 0) {
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getHeadersOnSecondWidget(1), data.getRow1(), "Header Name for Row 1 is as expected", "Header Name for Row 1 is not as expected"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getHeadersOnSecondWidget(2), data.getRow2(), "Header Name for Row 2 is as expected", "Header Name for Row 2 is not as expected"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getHeadersOnSecondWidget(3), data.getRow3(), "Header Name for Row 3 is as expected", "Header Name for Row 3 is not as expected"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getHeadersOnSecondWidget(4), data.getRow4(), "Header Name for Row 4 is as expected", "Header Name for Row 4 is not as expected"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getHeadersOnSecondWidget(5), data.getRow5(), "Header Name for Row 5 is as expected", "Header Name for Row 5 is not as expected"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getHeadersOnSecondWidget(6), data.getRow6(), "Header Name for Row 6 is as expected", "Header Name for Row 6 is not as expected"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getHeadersOnSecondWidget(7), data.getRow7(), "Header Name for Row 7 is as expected", "Header Name for Row 7 is not as expected"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getHeadersOnSecondWidget(8), data.getRow8(), "Header Name for Row 8 is as expected", "Header Name for Row 8 is not as expected"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getHeadersOnSecondWidget(9), data.getRow9(), "Header Name for Row 9 is as expected", "Header Name for Row 9 is not as expected"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getHeadersOnSecondWidget(10), data.getRow10(), "Header Name for Row 10 is as expected", "Header Name for Row 10 is not as expected"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getHeadersOnSecondWidget(11), data.getRow11(), "Header Name for Row 11 is as expected", "Header Name for Row 11 is not as expected"));
-                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getHeadersOnSecondWidget(12), data.getRow12(), "Header Name for Row 12 is as expected", "Header Name for Row 12 is not as expected"));
+                    for(int i=0;i<data.getHeaderName().size();i++){
+                        assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getHeadersOnSecondWidget(i+1), data.getHeaderName().get(i), "Header Name for Row "+(i+1)+" is as expected", "Header Name for Row "+(i+1)+" is not as expected"));
+                    }
                 } else {
                     assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isAirtelMoneyNoResultFoundVisibleOnSecondWidget(), true, "No Result Found Icon does display on UI.", "No Result Found Icon does not display on UI."));
                 }

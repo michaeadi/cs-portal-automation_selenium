@@ -2,8 +2,8 @@ package com.airtel.cs.commonutils.applicationutils.constants;
 
 public class CommonConstants {
 
-    public static final String BETA_USER_AUUID = "cs.beta.user.role.auuid";
-    public static final String BETA_USER_PASSWORD = "cs.beta.user.role.password";
+    public static final String ADVISOR_USER_ROLE_AUUID = "cs.advisor.user.role.auuid";
+    public static final String ADVISOR_USER_ROLE_PASSWORD = "cs.advisor.user.role.password";
     public static final String ALL_USER_ROLE_AUUID = "cs.all.user.role.auuid";
     public static final String ALL_USER_ROLE_PASSWORD = "cs.all.user.role.password";
     public static final String BA_USER_AUUID = "cs.backendagent.role.auuid";
@@ -81,5 +81,9 @@ public class CommonConstants {
     public static final String AGENT_ADJUSTMENT_DAILY_LIMIT="cs.agent.adjustment.daily.limit";
     public static final String AGENT_ADJUSTMENT_MONTHLY_LIMIT="cs.agent.adjustment.monthly.limit";
     public static final String AGENT_ADJUSTMENT_TRANSACTION_LIMIT="cs.agent.adjustment.transaction.limit";
+    public static final String AUTO_ASSIGNMENT_CATEGORY_HIERARCHY="cs.category.hierarchy.auto.assignment";
+    public static final String AUTO_ASSIGNMENT_TICKET_ID="cs.auto.assignment.ticket.id";
+    public static final String AUTO_ASSIGNMENT_EVENT_NAME="cs.auto.assigned.event.name";
+    public static final String AUTO_UN_ASSIGNMENT_EVENT_NAME="cs.auto.unassigned.event.name";
 
 }

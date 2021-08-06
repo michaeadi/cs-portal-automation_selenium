@@ -147,14 +147,9 @@ public class DetailAccountInfoTest extends Driver {
             selUtils.addTestcaseDescription("Verify that detailed account info icon should be visible to the logged in agent", "description");
             assertCheck.append(actions.assertEqualStringType(pages.getDetailAccountInfoWidget().getAccountInfoDetailWidget().toUpperCase(), "ACCOUNT INFORMATION DETAIL", "Account Information Detail display as expected in detailed account info", "Account Information Detail not display as expected in detailed account info"));
             assertCheck.append(actions.assertEqualStringType(pages.getDetailAccountInfoWidget().getAccountInfoTab().toUpperCase(), "ACCOUNT INFO", "Account Info tab display as expected in detailed account info", "Account Info tab not display as expected in detailed account info"));
-
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailAccountInfoWidget().getPackHeaders(1), data.getRow1(), "Header Name for Row 1 is as expected", "Header Name for Row 1 is not as expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailAccountInfoWidget().getPackHeaders(2), data.getRow2(), "Header Name for Row 2 is as expected", "Header Name for Row 2 is not as expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailAccountInfoWidget().getPackHeaders(3), data.getRow3(), "Header Name for Row 3 is as expected", "Header Name for Row 3 is not as expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailAccountInfoWidget().getPackHeaders(4), data.getRow4(), "Header Name for Row 4 is as expected", "Header Name for Row 4 is not as expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailAccountInfoWidget().getPackHeaders(5), data.getRow5(), "Header Name for Row 5 is as expected", "Header Name for Row 5 is not as expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailAccountInfoWidget().getPackHeaders(6), data.getRow6(), "Header Name for Row 6 is as expected", "Header Name for Row 6 is not as expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailAccountInfoWidget().getPackHeaders(7), data.getRow7(), "Header Name for Row 7 is as expected", "Header Name for Row 7 is not as expected"));
+            for (int i = 0; i < data.getHeaderName().size(); i++) {
+                assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailAccountInfoWidget().getPackHeaders(i + 1), data.getHeaderName().get(i), "Header Name for Row " + (i + 1) + " is as expected", "Header Name for Row " + (i + 1) + " is not as expected"));
+            }
             int noOfCheckBox = pages.getDetailAccountInfoWidget().getWidgetRowsSize();
             if (noOfCheckBox > 0) {
                 assertCheck.append(actions.assertEqualBoolean(pages.getDetailAccountInfoWidget().isCheckboxDisplay(), true, "Checkbox visible in account info tab", "Checkbox is not visible in account info tab"));

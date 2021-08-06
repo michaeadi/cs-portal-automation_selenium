@@ -314,8 +314,9 @@ public class WidgetCommonMethod extends BasePage {
      * @param widgetIdentifier The unique widget identifier
      * @return true/false
      */
-    public Boolean isWidgetVisible(String widgetIdentifier) {
+    public Boolean isWidgetVisible(String widgetIdentifier) throws InterruptedException {
         commonLib.info("Checking widget visible or not");
+        scrollToViewElement(By.xpath(widgetIdentifier));
         By elementLocation = By.xpath(widgetIdentifier);
         return isElementVisible(elementLocation);
     }

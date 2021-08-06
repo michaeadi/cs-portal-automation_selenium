@@ -31,7 +31,7 @@ public class FriendsFamilyWidgetTest extends Driver {
     private final String ADD_FNF_COMMENT = "Adding new msisdn in FNF List using automation";
     private final String DELETE_FNF_COMMENT = "Deleting Newly Added member from FnF List";
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -39,7 +39,7 @@ public class FriendsFamilyWidgetTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void checkServiceProfileFlag() {
         if (!StringUtils.equals(RUN_FNF_WIDGET_TEST_CASE, "true")) {
             commonLib.skip("FNF Widget is NOT Enabled for this Opco=" + OPCO);
@@ -47,7 +47,7 @@ public class FriendsFamilyWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -66,7 +66,7 @@ public class FriendsFamilyWidgetTest extends Driver {
     }
 
     @DataProviders.Table(name = "Friends and Family")
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
     public void friendFamilyHeaderTest(HeaderDataBean headerValues) {
         selUtils.addTestcaseDescription("Validate Friend and Family widget header visible and display all the Column name as per config,Validate Header Name Same as mentioned in config sheet.", "description");
         try {
@@ -81,12 +81,9 @@ public class FriendsFamilyWidgetTest extends Driver {
                 assertCheck.append(actions.assertEqualBoolean(pages.getDaDetailsPage().isFnFWidgetErrorDisplay(), true, "API and Widget both are showing error message", "API is Giving error But Widget is not showing error Message on API is " + friendsFamilyAPI.getMessage()));
                 commonLib.fail("API is Unable to Get friends & Family History for Customer", false);
             } else if (friendsFamilyAPI.getResult().get(0).getFafInformation().size() > 0) {
-                assertCheck.append(actions.assertEqualStringType(pages.getDaDetailsPage().getFriendsFamilyHeaders(1).toLowerCase().trim(), headerValues.getRow1().toLowerCase().trim(), "Header Name for Row 1 is as expected", "Header Name for Row 1 is not as expected"));
-                assertCheck.append(actions.assertEqualStringType(pages.getDaDetailsPage().getFriendsFamilyHeaders(2).toLowerCase().trim(), headerValues.getRow2().toLowerCase().trim(), "Header Name for Row 2 is as expected", "Header Name for Row 2 is not as expected"));
-                assertCheck.append(actions.assertEqualStringType(pages.getDaDetailsPage().getFriendsFamilyHeaders(3).toLowerCase().trim(), headerValues.getRow3().toLowerCase().trim(), "Header Name for Row 3 is as expected", "Header Name for Row 3 is not as expected"));
-                assertCheck.append(actions.assertEqualStringType(pages.getDaDetailsPage().getFriendsFamilyHeaders(4).toLowerCase().trim(), headerValues.getRow4().toLowerCase().trim(), "Header Name for Row 4 is as expected", "Header Name for Row 4 is not as expected"));
-                assertCheck.append(actions.assertEqualStringType(pages.getDaDetailsPage().getFriendsFamilyHeaders(5).toLowerCase().trim(), headerValues.getRow5().toLowerCase().trim(), "Header Name for Row 5 is as expected", "Header Name for Row 5 is not as expected"));
-                assertCheck.append(actions.assertEqualStringType(pages.getDaDetailsPage().getFriendsFamilyHeaders(6).toLowerCase().trim(), headerValues.getRow6().toLowerCase().trim(), "Header Name for Row 6 is as expected", "Header Name for Row 6 is not as expected"));
+                for (int i = 0; i < headerValues.getHeaderName().size(); i++) {
+                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getDaDetailsPage().getFriendsFamilyHeaders(i + 1), headerValues.getHeaderName().get(i), "Header Name for Row " + (i + 1) + " is as expected", "Header Name for Row " + (i + 1) + " is not as expected"));
+                }
             } else {
                 assertCheck.append(actions.assertEqualBoolean(pages.getDaDetailsPage().isFnFNoResultIconDisplay(), true, "API and Widget both are showing No Result found Icon", "API is Giving no result But Widget is not showing no result found icon"));
             }
