@@ -25,7 +25,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
 public class LinkedMsisdnToAccountNoTest extends Driver {
@@ -127,17 +126,9 @@ public class LinkedMsisdnToAccountNoTest extends Driver {
             assertCheck.append(actions.assertEqualStringType(pages.getLinkedMsisdnToAccountNoWidget().getMiddleAuuid(), loginAUUID, "Auuid shown at the middle of the linked msisdn widget and is correct", "Auuid NOT shown at the middle of Your linked msisdn widget"));
             assertCheck.append(actions.assertEqualStringType(pages.getLinkedMsisdnToAccountNoWidget().getAccountInfoTab().toUpperCase(), "ACCOUNT INFO", "Account Info tab display as expected in detailed account info", "Account Info tab not display as expected in detailed account info"));
             assertCheck.append(actions.assertEqualStringType(pages.getLinkedMsisdnToAccountNoWidget().getAccountInfoDetailWidget().toUpperCase(), "LINKED MSISDN", "Linked MSISDN display as expected in detailed account info", "Linked MSISDN not display as expected in detailed account info"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getLinkedMsisdnToAccountNoWidget().getPackHeaders(1), data.getRow1(), "Header Name for Row 1 is as expected", "Header Name for Row 1 is not as expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getLinkedMsisdnToAccountNoWidget().getPackHeaders(2), data.getRow2(), "Header Name for Row 2 is as expected", "Header Name for Row 2 is not as expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getLinkedMsisdnToAccountNoWidget().getPackHeaders(3), data.getRow3(), "Header Name for Row 3 is as expected", "Header Name for Row 3 is not as expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getLinkedMsisdnToAccountNoWidget().getPackHeaders(4), data.getRow4(), "Header Name for Row 4 is as expected", "Header Name for Row 4 is not as expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getLinkedMsisdnToAccountNoWidget().getPackHeaders(5), data.getRow5(), "Header Name for Row 5 is as expected", "Header Name for Row 5 is not as expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getLinkedMsisdnToAccountNoWidget().getPackHeaders(6), data.getRow6(), "Header Name for Row 6 is as expected", "Header Name for Row 6 is not as expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getLinkedMsisdnToAccountNoWidget().getPackHeaders(7), data.getRow7(), "Header Name for Row 7 is as expected", "Header Name for Row 7 is not as expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getLinkedMsisdnToAccountNoWidget().getPackHeaders(8), data.getRow8(), "Header Name for Row 8 is as expected", "Header Name for Row 8 is not as expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getLinkedMsisdnToAccountNoWidget().getPackHeaders(9), data.getRow9(), "Header Name for Row 9 is as expected", "Header Name for Row 9 is not as expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getLinkedMsisdnToAccountNoWidget().getPackHeaders(10), data.getRow10(), "Header Name for Row 10 is as expected", "Header Name for Row 10 is not as expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getLinkedMsisdnToAccountNoWidget().getPackHeaders(11), data.getRow11(), "Header Name for Row 11 is as expected", "Header Name for Row 11 is not as expected"));
+            for(int i=0;i<data.getHeaderName().size();i++){
+                assertCheck.append(actions.matchUiAndAPIResponse(pages.getLinkedMsisdnToAccountNoWidget().getPackHeaders(i+1), data.getHeaderName().get(i), "Header Name for Row "+(i+1)+" is as expected", "Header Name for Row "+(i+1)+" is not as expected"));
+            }
             assertCheck.append(actions.assertEqualBoolean(pages.getLinkedMsisdnToAccountNoWidget().getSearchMsisdnChkBox(), true, "Searched msisdn checkbox in Linked Msisdn Table is visible", "Searched msisdn checkbox in Linked Msisdn Table is not visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.getLinkedMsisdnToAccountNoWidget().getCheckboxAccountInfo(), true, "Checkbox for account information details visible", "Checkbox for account information details not visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.getLinkedMsisdnToAccountNoWidget().getCheckboxLinkedMsisdn(), true, "Checkbox for linked msisdn is visible", "Checkbox for linked msisdn is not visible"));

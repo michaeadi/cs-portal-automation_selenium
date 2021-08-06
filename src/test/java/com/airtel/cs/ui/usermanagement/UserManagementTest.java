@@ -19,7 +19,7 @@ public class UserManagementTest extends Driver {
     private final BaseActions actions = new BaseActions();
     int currentBucketSize;
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login via API");
@@ -27,7 +27,7 @@ public class UserManagementTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void openUserManagementPage() {
         try {
             selUtils.addTestcaseDescription("Validating User Management", "description");
@@ -41,7 +41,7 @@ public class UserManagementTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 2, dependsOnMethods = {"openUserManagementPage"}, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 2, dependsOnMethods = {"openUserManagementPage"}, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void validateAddToUser() {
         try {
             selUtils.addTestcaseDescription("Validating Add to User Management page,Click on Add To User button,Validate Add new user page displayed,Navigate back to Single Screen and validate user management module open.", "description");

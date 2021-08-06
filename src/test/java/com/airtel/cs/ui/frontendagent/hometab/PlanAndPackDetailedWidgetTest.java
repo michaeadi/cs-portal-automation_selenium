@@ -10,11 +10,8 @@ import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.databeans.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.model.request.PlanPackRequest;
-import com.airtel.cs.model.response.PlanPackESBResponse;
 import com.airtel.cs.model.response.PlanPackResponse;
 import com.airtel.cs.model.response.kycprofile.KYCProfile;
-import com.airtel.cs.model.response.planpack.Bundle;
-import com.airtel.cs.model.response.planpack.Usage;
 import io.restassured.http.Headers;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -147,12 +144,14 @@ public class PlanAndPackDetailedWidgetTest extends Driver {
             planPackRequest.setMsisdn(customerNumber);
             planPackRequest.setPageNumber(constants.getValue(CommonConstants.PAGE_NO));
             planPackRequest.setPageSize(constants.getValue(CommonConstants.PAGE_SIZE));
+
             assertCheck.append(actions.assertEqualStringType(pages.getPlanAndPackDetailedWidget().getActivePacks(), "ACTIVE PACKS", "Active pack tab visible", "Active pack tab not visible"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getPlanAndPackDetailedWidget().getPackHeaders(1), data.getRow1(), "Header Name for Row 1 is as expected", "Header Name for Row 1 is not as expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getPlanAndPackDetailedWidget().getPackHeaders(2), data.getRow2(), "Header Name for Row 2 is as expected", "Header Name for Row 2 is not as expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getPlanAndPackDetailedWidget().getPackHeaders(3), data.getRow3(), "Header Name for Row 3 is as expected", "Header Name for Row 3 is not as expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getPlanAndPackDetailedWidget().getPackHeaders(4), data.getRow4(), "Header Name for Row 4 is as expected", "Header Name for Row 4 is not as expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getPlanAndPackDetailedWidget().getPackHeaders(5), data.getRow5(), "Header Name for Row 5 is as expected", "Header Name for Row 5 is not as expected"));
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getPlanAndPackDetailedWidget().getPackHeaders(1), data.getHeaderName().get(0), "Header Name for Row 1 is as expected", "Header Name for Row 1 is not as expected"));
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getPlanAndPackDetailedWidget().getPackHeaders(2), data.getHeaderName().get(1), "Header Name for Row 2 is as expected", "Header Name for Row 2 is not as expected"));
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getPlanAndPackDetailedWidget().getPackHeaders(3), data.getHeaderName().get(2), "Header Name for Row 3 is as expected", "Header Name for Row 3 is not as expected"));
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getPlanAndPackDetailedWidget().getPackHeaders(4), data.getHeaderName().get(3), "Header Name for Row 4 is as expected", "Header Name for Row 4 is not as expected"));
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getPlanAndPackDetailedWidget().getPackHeaders(5), data.getHeaderName().get(4), "Header Name for Row 5 is as expected", "Header Name for Row 5 is not as expected"));
+
             /**
              * Calling plan details api CS-PORTAL
              */

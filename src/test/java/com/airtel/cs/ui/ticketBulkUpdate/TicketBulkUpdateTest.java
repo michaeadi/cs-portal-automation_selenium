@@ -22,7 +22,7 @@ public class TicketBulkUpdateTest extends Driver {
 
     public static final String BULK_UPDATE_TRANSFER_QUEUE_STATUS = constants.getValue(ApplicationConstants.BULK_UPDATE_TRANSFER_TO_QUEUE_STATUS);
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void checkExecution() {
         if (!(continueExecutionFA && continueExecutionBU)) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -30,7 +30,7 @@ public class TicketBulkUpdateTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void isUserHasTicketBulkUpdatePermission() {
         try {
             selUtils.addTestcaseDescription("Validate have permission to perform validate Ticket Bulk Update operation", "description");
@@ -44,7 +44,7 @@ public class TicketBulkUpdateTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasTicketBulkUpdatePermission"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dependsOnMethods = {"isUserHasTicketBulkUpdatePermission"})
     public void openTicketBulkUpdate() {
         try {
             selUtils.addTestcaseDescription("Open Ticket Bulk Update Dashboard,Validate Ticket Bulk Update Dashboard Opened", "description");

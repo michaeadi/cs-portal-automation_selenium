@@ -440,4 +440,12 @@ public class DADetails extends BasePage {
         return pageElements.accumulatorWidgetIdentifier;
     }
 
+    /**
+     * This method is used to get DA widget identifier
+     * @return String The value
+     */
+    public String getDAWidgetIdentifier(){
+        return pageElements.daDetailWidgetIdentifier;
+    }
+
 }
