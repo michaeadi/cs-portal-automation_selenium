@@ -15,6 +15,7 @@ import com.airtel.cs.model.response.kycprofile.Profile;
 import com.airtel.cs.model.response.plans.Plans;
 import io.restassured.http.Headers;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -153,7 +154,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                 List<String> actionConfigRoles = actionConfigResult.getRoles();
                 List<RoleDetails> agentRoles = UtilsMethods.getAgentDetail(new Headers(map)).getUserDetails().getUserDetails()
                         .getRole();
-                boolean hasRole = agentRoles.stream().anyMatch(roleName -> actionConfigRoles.contains(roleName.getRoleName()));
+                boolean hasRole = ObjectUtils.isNotEmpty(actionConfigRoles) && agentRoles.stream().anyMatch(roleName -> actionConfigRoles.contains(roleName.getRoleName()));
                 Condition condition = actionConfigResult.getConditions().get(0);
                 String operator = condition.getOperator();
                 Integer thresholdValue = condition.getThresholdValue();
@@ -169,7 +170,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                 FieldMaskConfigs amBalancefieldMaskConfigs = api.getFieldMaskConfigs("amBalance");
                 operator = amBalancefieldMaskConfigs.getOperator();
                 int amThresoldValue = StringUtils.isEmpty(amBalancefieldMaskConfigs.getThresholdValue()) ? 0 : Integer.parseInt(amBalancefieldMaskConfigs.getThresholdValue());
-                hasRole = agentRoles.stream().anyMatch(roleName -> amBalancefieldMaskConfigs.getRoles().contains(roleName.getRoleName()));
+                hasRole = ObjectUtils.isNotEmpty(amBalancefieldMaskConfigs.getRoles()) && agentRoles.stream().anyMatch(roleName -> amBalancefieldMaskConfigs.getRoles().contains(roleName.getRoleName()));
                 if (hasRole && ((">=".equals(operator) && airtelMoney >= amThresoldValue) || ("<".equals(operator)
                         && airtelMoney < amThresoldValue) || ("=".equals(operator) && airtelMoney == amThresoldValue) || ("<=".equals(operator)
                         && airtelMoney <= amThresoldValue) || (">".equals(operator) && airtelMoney > amThresoldValue))) {
@@ -230,7 +231,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                 FieldMaskConfigs nationalIdfieldMaskConfigs = api.getFieldMaskConfigs("nationalId");
                 List<RoleDetails> agentRoles = UtilsMethods.getAgentDetail(new Headers(map)).getUserDetails().getUserDetails()
                         .getRole();
-                boolean hasRole = agentRoles.stream().anyMatch(roleName -> nationalIdfieldMaskConfigs.getRoles().contains(roleName.getRoleName()));
+                boolean hasRole = ObjectUtils.isNotEmpty(nationalIdfieldMaskConfigs.getRoles()) && agentRoles.stream().anyMatch(roleName -> nationalIdfieldMaskConfigs.getRoles().contains(roleName.getRoleName()));
                 if (hasRole) {
                     assertCheck.append(actions.assertEqualBoolean(customerIdNumber.length() == nationalIdfieldMaskConfigs.getDigitsVisible(), true, "National Id masking is correct as per user role", "National Id masking is not correct as per user role"));
                 } else {

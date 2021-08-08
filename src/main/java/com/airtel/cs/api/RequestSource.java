@@ -83,6 +83,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 @Log4j2
@@ -814,7 +815,7 @@ public class RequestSource extends RestCommonUtils {
             queryParam.put("actionKey", actionKey);
             commonGetMethodWithQueryParam(URIConstants.GET_FIELD_MASK_CONFIG, queryParam);
             fieldMaskConfigReponse = response.as(FieldMaskConfigReponse.class);
-            if ("200".equals(fieldMaskConfigReponse.getStatusCode())) {
+            if ("200".equals(fieldMaskConfigReponse.getStatusCode()) && Objects.nonNull(fieldMaskConfigReponse.getResult())) {
                 return fieldMaskConfigReponse.getResult();
             } else {
                 commonLib.fail("Unable to fetch the response in getFieldMaskConfigs " + fieldMaskConfigReponse.getStatusCode(), false);
@@ -848,6 +849,8 @@ public class RequestSource extends RestCommonUtils {
                 if (actionConfigResultop.isPresent()) {
                     actionConfigResult = actionConfigResultop.get();
                 }
+            } else {
+                actionConfigResult = new ActionConfigResult();
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue("cs.portal.api.error") + " - getActionConfig " + e.getMessage(), false);
