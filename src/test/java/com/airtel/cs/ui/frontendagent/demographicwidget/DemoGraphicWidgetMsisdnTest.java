@@ -23,6 +23,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.List;
+import java.util.Objects;
 
 import static com.airtel.cs.commonutils.UtilsMethods.stringNotNull;
 
@@ -32,7 +33,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
     private static String customerNumber = null;
     RequestSource api = new RequestSource();
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -40,7 +41,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not",
@@ -61,7 +62,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testPukDetails() {
         try {
             selUtils.addTestcaseDescription(
@@ -72,21 +73,19 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
             final Integer statusCode = kycProfile.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "KYC Profile API Status Code Matched and is :" + statusCode, "KYC Profile API Status Code NOT Matched and is :" + statusCode, false));
             if (pages.getDemoGraphicPage().isPUKInfoLocked()) {
-                try {
-                    pages.getDemoGraphicPage().clickPUKToUnlock();
-                    assertCheck.append(actions
-                            .assertEqualBoolean(pages.getAuthTabPage().isAuthTabLoad(), true, "Authentication tab loaded correctly",
-                                    "Authentication tab does not load correctly"));
-                    pages.getDemoGraphicPage().selectPolicyQuestion();
-                    assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isAuthBtnEnable(), true,
-                            "Authenticate Button enabled after minimum number of question chosen",
-                            "Authenticate Button does not enable after choose minimum number of question"));
-                    pages.getAuthTabPage().clickAuthBtn();
-                    assertCheck.append(actions.assertEqualStringType(pages.getAuthTabPage().getWidgetUnlockMessage(), "Unlocking the widget", "Unlock Widget, Successfully", "Unlock Widget, Un-Successful"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getAuthTabPage().getToastMessage(), "Customer response saved successfully", "Toast Message Matched Successfully", "Toast Message NOT Matched"));
-                } catch (Exception e) {
-                    pages.getAuthTabPage().clickCloseBtn();
-                }
+
+                pages.getDemoGraphicPage().clickPUKToUnlock();
+                assertCheck.append(actions
+                        .assertEqualBoolean(pages.getAuthTabPage().isAuthTabLoad(), true, "Authentication tab loaded correctly",
+                                "Authentication tab does not load correctly"));
+                pages.getDemoGraphicPage().selectPolicyQuestion();
+                assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isAuthBtnEnable(), true,
+                        "Authenticate Button enabled after minimum number of question chosen",
+                        "Authenticate Button does not enable after choose minimum number of question"));
+                pages.getAuthTabPage().clickAuthBtn();
+                assertCheck.append(actions.assertEqualStringType(pages.getAuthTabPage().getWidgetUnlockMessage(), "Unlocking the widget", "Unlock Widget, Successfully", "Unlock Widget, Un-Successful"));
+                assertCheck.append(actions.assertEqualStringType(pages.getAuthTabPage().getToastMessage(), "Customer response saved successfully", "Toast Message Matched Successfully", "Toast Message NOT Matched"));
+
             }
             assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getPUK1().trim(), kycProfile.getResult().getPuk().get(0).getValue(),
                     "Customer's PUK1 Number is as Expected", "Customer's PUK1 Number is not as Expected"));
@@ -95,10 +94,11 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
             commonLib.fail("Exception in method - testPukDetails " + e, true);
+            pages.getAuthTabPage().clickCloseBtn();
         }
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testAirtelMoneyProfile() {
         try {
             if (StringUtils.equalsIgnoreCase(constants.getValue(ApplicationConstants.AIRTEL_MONEY_PROFILE), "true")) {
@@ -152,14 +152,14 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                 int airtelMoney = StringUtils.isEmpty(airtelMoneyString) ? 0 : Integer.parseInt(airtelMoneyString);
                 List<String> actionConfigRoles = actionConfigResult.getRoles();
                 List<RoleDetails> agentRoles = UtilsMethods.getAgentDetail(new Headers(map)).getUserDetails().getUserDetails()
-                    .getRole();
-                Boolean hasRole = agentRoles.stream().anyMatch(roleName -> actionConfigRoles.contains(roleName.getRoleName()));
+                        .getRole();
+                boolean hasRole = agentRoles.stream().anyMatch(roleName -> actionConfigRoles.contains(roleName.getRoleName()));
                 Condition condition = actionConfigResult.getConditions().get(0);
                 String operator = condition.getOperator();
                 Integer thresholdValue = condition.getThresholdValue();
                 if (hasRole && (">=".equals(operator) && airtelMoney >= thresholdValue
-                    || "<".equals(operator) && airtelMoney < thresholdValue || "=".equals(operator) && airtelMoney == thresholdValue
-                    || "<=".equals(operator) && airtelMoney <= thresholdValue || ">".equals(operator) && airtelMoney > thresholdValue)) {
+                        || "<".equals(operator) && airtelMoney < thresholdValue || "=".equals(operator) && airtelMoney == thresholdValue
+                        || "<=".equals(operator) && airtelMoney <= thresholdValue || ">".equals(operator) && airtelMoney > thresholdValue)) {
                     assertCheck.append(actions.assertEqualBoolean(pages.getDemoGraphicPage().isResetPinIconDisable(), true, "Reset PIN Icon is disable as mentioned in CS API Response", "Reset PIN Icon is not disable as mentioned in CS API Response"));
                 } else {
                     assertCheck.append(actions.assertEqualBoolean(pages.getDemoGraphicPage().isResetPinIconDisable(), false, "Reset PIN Icon is enable as mentioned in CS API Response", "Reset PIN Icon is not enable as mentioned in CS API Response"));
@@ -171,15 +171,15 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                 int amThresoldValue = StringUtils.isEmpty(amBalancefieldMaskConfigs.getThresholdValue()) ? 0 : Integer.parseInt(amBalancefieldMaskConfigs.getThresholdValue());
                 hasRole = agentRoles.stream().anyMatch(roleName -> amBalancefieldMaskConfigs.getRoles().contains(roleName.getRoleName()));
                 if (hasRole && ((">=".equals(operator) && airtelMoney >= amThresoldValue) || ("<".equals(operator)
-                    && airtelMoney < amThresoldValue) || ("=".equals(operator) && airtelMoney == amThresoldValue) || ("<=".equals(operator)
-                    && airtelMoney <= amThresoldValue) || (">".equals(operator) && airtelMoney > amThresoldValue))) {
+                        && airtelMoney < amThresoldValue) || ("=".equals(operator) && airtelMoney == amThresoldValue) || ("<=".equals(operator)
+                        && airtelMoney <= amThresoldValue) || (">".equals(operator) && airtelMoney > amThresoldValue))) {
                     assertCheck.append(actions.assertEqualBoolean(airtelMoneyString.length() == amBalancefieldMaskConfigs.getDigitsVisible(), true, "Airtel Money masking is correct as per user role", "Airtel Money masking is not correct as per user role"));
                 } else {
                     assertCheck.append(actions.assertEqualBoolean(airtelMoneyString.contains("*"), false, "Airtel Money is not masked as per user role", "Airtel Money should not be masked as per user role"));
                     assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getWalletBalance().toUpperCase().trim(),
-                        amProfileAPI.getResult().getWallet().get(0).getCurrency().toUpperCase() + " " + amProfileAPI.getResult().getWallet().get(0)
-                            .getBalance(), "Customer's Airtel Wallet Balance & Currency code as Expected",
-                        "Customer's Airtel Wallet Balance & Currency code not same not as Expected"));
+                            amProfileAPI.getResult().getWallet().get(0).getCurrency().toUpperCase() + " " + amProfileAPI.getResult().getWallet().get(0)
+                                    .getBalance(), "Customer's Airtel Wallet Balance & Currency code as Expected",
+                            "Customer's Airtel Wallet Balance & Currency code not same not as Expected"));
                 }
 
                 actions.assertAllFoundFailedAssert(assertCheck);
@@ -192,7 +192,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
 
     }
 
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testCustomerInfoAndGSMKYCStatus() {
         try {
             selUtils.addTestcaseDescription(
@@ -207,11 +207,15 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                 pages.getDemoGraphicPage().hoverOnCustomerInfoIcon();
                 final String customerDOB = pages.getDemoGraphicPage().getCustomerDOB().toLowerCase();
                 final String customerIdNumber = pages.getDemoGraphicPage().getIdNumber().replace("*", "");
-                pages.getDemoGraphicPage().hoverOnCustomerInfoIcon();
                 final String idType = stringNotNull(pages.getDemoGraphicPage().getIdType()).toLowerCase().trim();
-                assertCheck.append(actions
-                        .assertEqualStringType(customerDOB.trim(), pages.getDemoGraphicPage().getKeyValueAPI(UtilsMethods.getDateFromEpoch(gsmKycAPI.getResult().getDob(), "dd-MMM-yyyy")),
-                                "Customer DOB is as Expected", "Customer DOB is not as Expected"));
+                final Long dob = gsmKycAPI.getResult().getDob();
+                if (!Objects.isNull(dob))
+                    assertCheck.append(actions
+                            .assertEqualStringType(customerDOB.trim(), pages.getDemoGraphicPage().getKeyValueAPI(UtilsMethods.getDateFromEpoch(dob, "dd-MMM-yyyy")),
+                                    "Customer DOB is as Expected", "Customer DOB is not as Expected"));
+                else
+                    assertCheck.append(actions
+                            .assertEqualStringType(customerDOB.trim(), pages.getDemoGraphicPage().getKeyValueAPI(String.valueOf(dob)), "Customer DOB is as Expected", "Customer DOB is not as Expected"));
                 if (!customerDOB.equals("-"))
                     if (UtilsMethods.isCustomerBirthday(customerDOB.trim(), "dd-MMM-yyyy")) {
                         commonLib.pass("Today is Customer Birthday");
@@ -220,19 +224,19 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                                 "Today is customer birthday but birthday Icon NOT displayed"));
                     }
                 assertCheck.append(actions
-                    .assertEqualStringType(idType, pages.getDemoGraphicPage().getKeyValueAPI(gsmKycAPI.getResult().getIdentificationType()),
-                        "Customer's ID Type is as Expected", "Customer's ID Type is not as Expected"));
+                        .assertEqualStringType(idType, pages.getDemoGraphicPage().getKeyValueAPI(gsmKycAPI.getResult().getIdentificationType()),
+                                "Customer's ID Type is as Expected", "Customer's ID Type is not as Expected"));
 
                 FieldMaskConfigs nationalIdfieldMaskConfigs = api.getFieldMaskConfigs("nationalId");
                 List<RoleDetails> agentRoles = UtilsMethods.getAgentDetail(new Headers(map)).getUserDetails().getUserDetails()
-                    .getRole();
-                Boolean hasRole =  agentRoles.stream().anyMatch(roleName -> nationalIdfieldMaskConfigs.getRoles().contains(roleName.getRoleName()));
+                        .getRole();
+                boolean hasRole = agentRoles.stream().anyMatch(roleName -> nationalIdfieldMaskConfigs.getRoles().contains(roleName.getRoleName()));
                 if (hasRole) {
-                    assertCheck.append(actions.assertEqualBoolean(customerIdNumber.length()==nationalIdfieldMaskConfigs.getDigitsVisible(), true, "National Id masking is correct as per user role", "National Id masking is not correct as per user role"));
+                    assertCheck.append(actions.assertEqualBoolean(customerIdNumber.length() == nationalIdfieldMaskConfigs.getDigitsVisible(), true, "National Id masking is correct as per user role", "National Id masking is not correct as per user role"));
                 } else {
                     assertCheck.append(actions.assertEqualBoolean(pages.getDemoGraphicPage().getIdNumber().contains("*"), false, "National Id is not masked as per user role", "National Id should not be masked as per user role"));
                     assertCheck.append(actions.assertEqualBoolean(StringUtils.contains(gsmKycAPI.getResult().getIdentificationNo(), customerIdNumber), true,
-                        "Customer's ID Number is as Expected", "Customer's ID Number is not as Expected and Expected was :" + customerIdNumber));
+                            "Customer's ID Number is as Expected", "Customer's ID Number is not as Expected and Expected was :" + customerIdNumber));
                 }
 
 
@@ -245,7 +249,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
         }
     }
 
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testGSMStatusAndSIMNumber() {
         try {
             selUtils.addTestcaseDescription(
@@ -292,7 +296,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
         }
     }
 
-    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testDeviceCompatible() {
         try {
             selUtils.addTestcaseDescription("Validate Device Compatible", "description");
@@ -314,7 +318,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
         }
     }
 
-    @Test(priority = 7, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 7, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testDeviceInfo() {
         try {
             selUtils.addTestcaseDescription(
@@ -343,7 +347,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
         }
     }
 
-    @Test(priority = 8, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 8, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testConnectionTypeServiceCategorySegment() {
         try {
             selUtils.addTestcaseDescription("Validate Connection Type, Validate Service Category,Validate Segment, Validate Service Class",
@@ -378,14 +382,15 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
 
     }
 
-    @Test(priority = 9, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 9, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testServiceClassAndAppStatus() {
         try {
             selUtils.addTestcaseDescription("Validate Service Class, Validate App Status", "description");
             KYCProfile kycProfile = api.kycProfileAPITest(customerNumber);
             Profile profileAPI = api.profileAPITest(customerNumber);
+            final String serviceClass = kycProfile.getResult().getServiceClass();
             assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getServiceClass().toLowerCase().trim(),
-                    pages.getDemoGraphicPage().getKeyValueAPI(kycProfile.getResult().getServiceClass()), "Customer Service Class as expected",
+                    pages.getDemoGraphicPage().getKeyValueAPI(String.valueOf(serviceClass)), "Customer Service Class as expected",
                     "Customer Service Class as not expected"));
             assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getAppStatus().toLowerCase().trim(),
                     pages.getDemoGraphicPage().getKeyValueAPI(profileAPI.getResult().getAppStatus()), "App Status as expected",
@@ -397,14 +402,14 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
     }
 
 
-    @Test(priority = 10, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 10, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testDataManager() {
         try {
             selUtils.addTestcaseDescription("Validate Data Manager,Validate Data Manager Status", "description");
             Plans plansAPI = api.accountPlansTest(customerNumber);
             final int statusCode = plansAPI.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Plan API Status Code Matched and is :" + statusCode, "Plan API Status Code NOT Matched and is :" + statusCode, false));
-            final String dataManager = pages.getDemoGraphicPage().getKeyValueAPI(plansAPI.getResult().getDataManager());
+            final String dataManager = pages.getDemoGraphicPage().getKeyValueAPI(String.valueOf(plansAPI.getResult().getDataManager()));
             if (StringUtils.equalsIgnoreCase(constants.getValue(ApplicationConstants.DATA_MANAGER_TOGGLEABLE), "True"))
                 if (pages.getDemoGraphicPage().getDataManagerStatus().equalsIgnoreCase("true"))
                     assertCheck.append(actions.assertEqualStringType("on", dataManager.toLowerCase().trim(),
@@ -414,10 +419,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                             "Customer's Data Manager Status is as Expected", "Customer's Data Manager Status is not as Expected"));
             else
                 assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getDataManagerValue(),
-                        dataManager == null || dataManager.equals("") ?
-                                "-" :
-                                dataManager.toLowerCase().trim(), "Data Manager Value is as Expected",
-                        "Data Manager Value is NOT as Expected"));
+                        dataManager, "Data Manager Value is as Expected", "Data Manager Value is NOT as Expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
             commonLib.fail("Exception in method - testDataManager " + e, true);
