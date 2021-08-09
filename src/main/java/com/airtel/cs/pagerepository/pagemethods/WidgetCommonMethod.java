@@ -329,7 +329,7 @@ public class WidgetCommonMethod extends BasePage {
      */
     public String getWidgetTitle(String widgetIdentifier) {
         commonLib.info("Reading widget title displayed on ui");
-        return getText(By.xpath(widgetIdentifier));
+        return getText(By.xpath(widgetIdentifier+pageElements.widgetLabel));
     }
 
     /**

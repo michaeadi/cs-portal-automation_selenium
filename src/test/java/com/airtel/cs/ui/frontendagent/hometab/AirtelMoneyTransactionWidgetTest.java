@@ -73,7 +73,7 @@ public class AirtelMoneyTransactionWidgetTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(widgetMethods.isWidgetVisible(amWidgetId), true, "Airtel Money Transaction Widget is visible", "Airtel Money Transaction Widget is not visible"));
             assertCheck.append(actions.assertEqualStringType(widgetMethods.getBottomAuuidText(amWidgetId), loginAUUID, "Auuid shown at the footer of the Airtel Money Txn widget and is correct", "Auuid NOT shown at the footer of Airtel Money Txn widget"));
             assertCheck.append(actions.assertEqualStringType(widgetMethods.getMiddleAuuidText(amWidgetId), loginAUUID, "Auuid shown at the middle of the Airtel Money Txn widget and is correct", "Auuid NOT shown at the middle of Airtel Money Txn widget"));
-            assertCheck.append(actions.assertEqualStringType(widgetMethods.getWidgetTitle(amWidgetId), "AM TRANSACTIONS", "Airtel Money Widget Header Text Matched", "Airtel Money Widget Header Text NOT Matched"));
+            assertCheck.append(actions.assertEqualStringType(widgetMethods.getWidgetTitle(amWidgetId), constants.getValue(CommonConstants.AIRTEL_MONEY_WIDGET_TITLE), "Airtel Money Widget Header Text Matched", "Airtel Money Widget Header Text NOT Matched"));
             assertCheck.append(actions.assertEqualBoolean(widgetMethods.checkDatePickerVisible(amWidgetId), true, "Airtel Money Transaction Widget's Date Picker is visible", "Airtel Money Transaction Widget's Date Picker is not visible"));
             assertCheck.append(actions.assertEqualBoolean(widgetMethods.checkSearchBoxVisible(amWidgetId), true, "Transaction Id Search Box displayed on UI", "Transaction Id Search Box does not displayed on UI"));
             actions.assertAllFoundFailedAssert(assertCheck);
