@@ -137,20 +137,18 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                 assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getServiceStatus().toLowerCase().trim(),
                         pages.getDemoGraphicPage().getKeyValueAPI(profileAPI.getResult().getServiceStatus()), "Customer's Airtel Money Service Status is as Expected",
                         "Customer's Airtel Money Service Status is not as Expected"));
+                assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getRegistrationStatus().toLowerCase().trim(),
+                        pages.getDemoGraphicPage().getKeyValueAPI(amProfileAPI.getResult().getRegStatus()), "Customer's Airtel Money Registration Status as Expected",
+                        "Customer's Airtel Money Registration Status not same not as Expected"));
                 if (StringUtils.equalsIgnoreCase(constants.getValue(ApplicationConstants.MULTI_WALLET_BALANCE), "true")) {
-                    assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getWalletBalance2().toUpperCase().trim(),
+                    assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getWalletBalance2().toLowerCase().trim(),
                             pages.getDemoGraphicPage().getKeyValueAPI(amProfileAPI.getResult().getWallet().get(1).getCurrency().toUpperCase()) + " " + pages.getDemoGraphicPage().getKeyValueAPI(amProfileAPI.getResult().getWallet()
                                     .get(1).getBalance()), "Customer's Airtel Wallet Balance & Currency code as Expected",
                             "Customer's Airtel Wallet Balance & Currency code not same not as Expected"));
                 }
-                assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getRegistrationStatus().toLowerCase().trim(),
-                        pages.getDemoGraphicPage().getKeyValueAPI(amProfileAPI.getResult().getRegStatus()), "Customer's Airtel Money Registration Status as Expected",
-                        "Customer's Airtel Money Registration Status not same not as Expected"));
-
-
-                ActionConfigResult actionConfigResult = api.getActionConfig(new Headers(map), "resetPin");
                 String airtelMoneyString = pages.getDemoGraphicPage().getWalletBalance().replaceAll("[^0-9]", "").trim();
                 int airtelMoney = StringUtils.isEmpty(airtelMoneyString) ? 0 : Integer.parseInt(airtelMoneyString);
+                ActionConfigResult actionConfigResult = api.getActionConfig(new Headers(map), "resetPin");
                 List<String> actionConfigRoles = actionConfigResult.getRoles();
                 List<RoleDetails> agentRoles = UtilsMethods.getAgentDetail(new Headers(map)).getUserDetails().getUserDetails()
                         .getRole();
@@ -224,9 +222,8 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                         assertCheck.append(actions.assertEqualBoolean(birthday, true, "Today is customer birthday and birthday icon displayed",
                                 "Today is customer birthday but birthday Icon NOT displayed"));
                     }
-                assertCheck.append(actions
-                        .assertEqualStringType(idType, pages.getDemoGraphicPage().getKeyValueAPI(gsmKycAPI.getResult().getIdentificationType()),
-                                "Customer's ID Type is as Expected", "Customer's ID Type is not as Expected"));
+                assertCheck.append(actions.assertEqualStringType(idType, pages.getDemoGraphicPage().getKeyValueAPI(gsmKycAPI.getResult().getIdentificationType()),
+                        "Customer's ID Type is as Expected", "Customer's ID Type is not as Expected"));
 
                 FieldMaskConfigs nationalIdfieldMaskConfigs = api.getFieldMaskConfigs("nationalId");
                 List<RoleDetails> agentRoles = UtilsMethods.getAgentDetail(new Headers(map)).getUserDetails().getUserDetails()
