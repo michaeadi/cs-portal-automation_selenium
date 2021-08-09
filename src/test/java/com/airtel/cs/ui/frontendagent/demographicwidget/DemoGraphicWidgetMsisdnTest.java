@@ -177,7 +177,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                     assertCheck.append(actions.assertEqualBoolean(airtelMoneyString.length() == amBalancefieldMaskConfigs.getDigitsVisible(), true, "Airtel Money masking is correct as per user role", "Airtel Money masking is not correct as per user role"));
                 } else {
                     assertCheck.append(actions.assertEqualBoolean(airtelMoneyString.contains("*"), false, "Airtel Money is not masked as per user role", "Airtel Money should not be masked as per user role"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getWalletBalance().toUpperCase().trim(),
+                    assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getWalletBalance().toLowerCase().trim(),
                             amProfileAPI.getResult().getWallet().get(0).getCurrency().toUpperCase() + " " + amProfileAPI.getResult().getWallet().get(0)
                                     .getBalance(), "Customer's Airtel Wallet Balance & Currency code as Expected",
                             "Customer's Airtel Wallet Balance & Currency code not same not as Expected"));
