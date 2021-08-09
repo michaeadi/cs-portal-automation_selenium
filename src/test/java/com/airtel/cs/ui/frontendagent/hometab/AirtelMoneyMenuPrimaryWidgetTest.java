@@ -20,7 +20,7 @@ public class AirtelMoneyMenuPrimaryWidgetTest extends Driver {
     RequestSource api = new RequestSource();
     private AirtelMoney amTransactionHistoryAPI;
 
-    @BeforeMethod(groups = {"ProdTest","SmokeTest"})
+    @BeforeMethod(groups = {"ProdTest", "SmokeTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -28,7 +28,7 @@ public class AirtelMoneyMenuPrimaryWidgetTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"ProdTest","SmokeTest"})
+    @BeforeMethod(groups = {"ProdTest", "SmokeTest"})
     public void checkAirtelMoneyFlag() {
         if (!StringUtils.equals(RUN_AIRTEL_MONEY_WIDGET_TEST_CASE, "true")) {
             commonLib.skip("Skipping because Run Airtel Money widget Test Case Flag Value is - " + RUN_AIRTEL_MONEY_WIDGET_TEST_CASE);
@@ -36,7 +36,7 @@ public class AirtelMoneyMenuPrimaryWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"ProdTest","SmokeTest"})
+    @Test(priority = 1, groups = {"ProdTest", "SmokeTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -55,7 +55,7 @@ public class AirtelMoneyMenuPrimaryWidgetTest extends Driver {
     }
 
     @DataProviders.Table(name = "More Airtel Money History")
-    @Test(priority = 2, groups = {"ProdTest","SmokeTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 2, groups = {"ProdTest", "SmokeTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = {"openCustomerInteraction"})
     public void airtelMoneyHistoryMenuHeaderTest(HeaderDataBean data) {
         try {
             selUtils.addTestcaseDescription("Validating Airtel Money History's Header Name  Menu of User :" + customerNumber + ",Validating all the filter display as per config,Validate search by transaction id box displayed as per config.", "description");
@@ -76,14 +76,14 @@ public class AirtelMoneyMenuPrimaryWidgetTest extends Driver {
             if (statusCode != 200) {
                 assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isAirtelMoneyErrorVisible(), true, "API is Giving error and Widget is showing error Message on API is " + amTransactionHistoryAPI.getMessage(), "API is Giving error But Widget is not showing error Message on API is " + amTransactionHistoryAPI.getMessage()));
                 commonLib.fail("API is Unable to Get AM Transaction History for Customer", true);
+            } else if (amTransactionHistoryAPI.getResult().getTotalCount() == null) {
+                assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isAirtelMoneyNoResultFoundVisible(), true, "No Result Found Icon does display on UI.", "No Result Found Icon does not display on UI."));
             } else {
                 int count = Math.min(amTransactionHistoryAPI.getResult().getTotalCount(), 10);
                 if (count > 0) {
-                    for(int i=0;i<data.getHeaderName().size();i++){
-                        assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getHeaders(i+1), data.getHeaderName().get(i), "Header Name for Row "+(i+1)+" is as expected", "Header Name for Row "+(i+1)+" is not as expected"));
+                    for (int i = 0; i < data.getHeaderName().size(); i++) {
+                        assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getHeaders(i + 1), data.getHeaderName().get(i), "Header Name for Row " + (i + 1) + " is as expected", "Header Name for Row " + (i + 1) + " is not as expected"));
                     }
-                } else {
-                    assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isAirtelMoneyNoResultFoundVisible(), true, "No Result Found Icon does display on UI.", "No Result Found Icon does not display on UI."));
                 }
             }
         } catch (Exception e) {
@@ -106,6 +106,8 @@ public class AirtelMoneyMenuPrimaryWidgetTest extends Driver {
             if (statusCode != 200) {
                 assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isAirtelMoneyErrorVisible(), true, "API is Giving error and Widget is showing error Message on API is " + amTransactionHistoryAPI.getMessage(), "API is Giving error But Widget is not showing error Message on API is " + amTransactionHistoryAPI.getMessage()));
                 commonLib.fail("API is Unable to Get AM Transaction History for Customer", true);
+            } else if (amTransactionHistoryAPI.getResult().getTotalCount() == null) {
+                assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isAirtelMoneyNoResultFoundVisible(), true, "No Result Found Icon does display on UI.", "No Result Found Icon does not display on UI."));
             } else {
                 int count = Math.min(amTransactionHistoryAPI.getResult().getTotalCount(), 10);
                 if (count > 0) {
@@ -116,7 +118,7 @@ public class AirtelMoneyMenuPrimaryWidgetTest extends Driver {
                             assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isNegSignDisplay(i + 1), true, i + "th Negative Sign does display in case of Amount Debited.", i + "th Negative Sign does not display in case of Amount Debited."));
                         }
                         assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getValueCorrespondingToHeader(i + 1, 2).replace("\n", " "), UtilsMethods.getDateFromEpochInUTC(new Long(amTransactionHistoryAPI.getResult().getData().get(i).getTransactionDate()), constants.getValue(CommonConstants.AM_HISTORY_TIME_FORMAT)), i + "th Date is expected as API response.", i + "th Date is not expected as API response."));
-                        assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getValueCorrespondingToHeader(i + 1, 3), amTransactionHistoryAPI.getResult().getData().get(i).getService(), i + "th Service name is not expected as API response.", i + "th Service name is not expected as API response.",true));
+                        assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getValueCorrespondingToHeader(i + 1, 3), amTransactionHistoryAPI.getResult().getData().get(i).getService(), i + "th Service name is not expected as API response.", i + "th Service name is not expected as API response.", true));
                         assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getValueCorrespondingToHeader(i + 1, 4), amTransactionHistoryAPI.getResult().getData().get(i).getSource(), i + "th Sender MSISDN is expected as API response.", i + "th Sender MSISDN is not expected as API response."));
                         assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getValueCorrespondingToHeader(i + 1, 5), amTransactionHistoryAPI.getResult().getData().get(i).getMsisdn(), i + "th Receiver MSISDN is expected as API response.", i + "th Receiver MSISDN is not expected as API response."));
                         assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getValueCorrespondingToHeader(i + 1, 6), amTransactionHistoryAPI.getResult().getData().get(i).getSecondPartyName(), i + "th Beneficiary name is expected as API response.", i + "th Beneficiary name is not expected as API response."));
@@ -129,8 +131,6 @@ public class AirtelMoneyMenuPrimaryWidgetTest extends Driver {
                             assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isResendSMS(), true, "Resend SMS Icon does enable as mentioned in API Response.", "Resend SMS Icon does not enable as mentioned in API Response."));
                         }
                     }
-                } else {
-                    assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isAirtelMoneyNoResultFoundVisible(), true, "No Result Found Icon does display on UI.", "No Result Found Icon does not display on UI."));
                 }
             }
         } catch (Exception e) {

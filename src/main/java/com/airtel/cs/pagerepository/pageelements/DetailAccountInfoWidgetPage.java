@@ -28,4 +28,5 @@ public class DetailAccountInfoWidgetPage {
     public String refNoValue = "]//div[@class='data-container ng-star-inserted' or @class='slide-toggle red ng-star-inserted'][4]/span";
     public String billAmountValue = "]//div[@class='data-container ng-star-inserted' or @class='slide-toggle red ng-star-inserted'][5]/span";
     public String amountRecValue = "]//div[@class='data-container ng-star-inserted' or @class='slide-toggle red ng-star-inserted'][6]/span";
+    public By unableToFetch = By.xpath("//div[@data-csautomation-key='POSTPAID_ACCOUNT_INFO_DETAIL']/div[1]/mat-tab-group/div[1]/mat-tab-body[2]/div[1]/div[1]/div[1]//span[2]");
 }
