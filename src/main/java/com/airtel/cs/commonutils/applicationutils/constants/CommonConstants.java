@@ -85,5 +85,6 @@ public class CommonConstants {
     public static final String AUTO_ASSIGNMENT_TICKET_ID="cs.auto.assignment.ticket.id";
     public static final String AUTO_ASSIGNMENT_EVENT_NAME="cs.auto.assigned.event.name";
     public static final String AUTO_UN_ASSIGNMENT_EVENT_NAME="cs.auto.unassigned.event.name";
+    public static final String AIRTEL_MONEY_WIDGET_TITLE="cs.portal.airtel.money.widget.title";
 
 }
