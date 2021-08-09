@@ -21,7 +21,7 @@ public class AirtelMoneyMenuSecondaryWidgetTest extends Driver {
     RequestSource api = new RequestSource();
     private AirtelMoney amTransactionHistoryAPI;
 
-    @BeforeMethod(groups = {"ProdTest","SmokeTest"})
+    @BeforeMethod(groups = {"ProdTest", "SmokeTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -29,7 +29,7 @@ public class AirtelMoneyMenuSecondaryWidgetTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"ProdTest","SmokeTest"})
+    @BeforeMethod(groups = {"ProdTest", "SmokeTest"})
     public void checkAirtelMoneyFlag() {
         if (!StringUtils.equals(RUN_AIRTEL_MONEY_WIDGET_TEST_CASE, "true")) {
             commonLib.skip("Skipping because Multiple Wallet not enabled for this " + OPCO);
@@ -37,7 +37,7 @@ public class AirtelMoneyMenuSecondaryWidgetTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"ProdTest","SmokeTest"})
+    @BeforeMethod(groups = {"ProdTest", "SmokeTest"})
     public void checkMultiWalletFlag() {
         if (!StringUtils.equals(MULTI_AM_WALLET, "true")) {
             commonLib.skip("Skipping because Airtel Multi-Wallet Test Case Flag Value is - " + MULTI_AM_WALLET);
@@ -45,7 +45,7 @@ public class AirtelMoneyMenuSecondaryWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"ProdTest","SmokeTest"})
+    @Test(priority = 1, groups = {"ProdTest", "SmokeTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -63,8 +63,8 @@ public class AirtelMoneyMenuSecondaryWidgetTest extends Driver {
         }
     }
 
-    @DataProviders.Table(name = "More Airtel Money History")
-    @Test(priority = 2, groups = {"ProdTest","SmokeTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = {"openCustomerInteraction"})
+    @DataProviders.Table(name = "More Airtel Money Secondary History")
+    @Test(priority = 2, groups = {"ProdTest", "SmokeTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = {"openCustomerInteraction"})
     public void airtelMoneyHistoryMenuSecondaryWidgetHeaderTest(HeaderDataBean data) {
         try {
             selUtils.addTestcaseDescription("Validating Airtel Money History's Header Name  Menu of User :" + customerNumber + ",Validating all the filter display as per config,Validate search by transaction id box displayed as per config.", "description");
@@ -81,14 +81,15 @@ public class AirtelMoneyMenuSecondaryWidgetTest extends Driver {
             if (statusCode != 200) {
                 assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isAirtelMoneyErrorVisibleOnSecondWidget(), true, "API is Giving error and Widget is showing error Message on API is " + amTransactionHistoryAPI.getMessage(), "API is Giving error But Widget is not showing error Message on API is " + amTransactionHistoryAPI.getMessage()));
                 commonLib.fail("API is Unable to Get AM Transaction History for Customer", true);
+            } else if (amTransactionHistoryAPI.getResult().getTotalCount() == null) {
+                assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isAirtelMoneyNoResultFoundVisibleOnSecondWidget(), true, "No Result Found Icon does display on UI.", "No Result Found Icon does not display on UI."));
+
             } else {
                 int count = Math.min(amTransactionHistoryAPI.getResult().getTotalCount(), 10);
                 if (count > 0) {
-                    for(int i=0;i<data.getHeaderName().size();i++){
-                        assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getHeadersOnSecondWidget(i+1), data.getHeaderName().get(i), "Header Name for Row "+(i+1)+" is as expected", "Header Name for Row "+(i+1)+" is not as expected"));
+                    for (int i = 0; i < data.getHeaderName().size(); i++) {
+                        assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreAMTxnTabPage().getHeadersOnSecondWidget(i + 1), data.getHeaderName().get(i), "Header Name for Row " + (i + 1) + " is as expected", "Header Name for Row " + (i + 1) + " is not as expected"));
                     }
-                } else {
-                    assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isAirtelMoneyNoResultFoundVisibleOnSecondWidget(), true, "No Result Found Icon does display on UI.", "No Result Found Icon does not display on UI."));
                 }
             }
         } catch (Exception e) {
@@ -108,6 +109,8 @@ public class AirtelMoneyMenuSecondaryWidgetTest extends Driver {
             if (statusCode != 200) {
                 assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isAirtelMoneyErrorVisibleOnSecondWidget(), true, "API is Giving and Widget is showing error Message on API is " + amTransactionHistoryAPI.getMessage(), "API is Giving error But Widget is not showing error Message on API is " + amTransactionHistoryAPI.getMessage()));
                 commonLib.fail("API is Unable to Get AM Transaction History for Customer", false);
+            } else if (amTransactionHistoryAPI.getResult().getTotalCount() == null) {
+                assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isAirtelMoneyNoResultFoundVisibleOnSecondWidget(), true, "No Result Found Icon does display on UI.", "No Result Found Icon does not display on UI."));
             } else {
                 int count = Math.min(amTransactionHistoryAPI.getResult().getTotalCount(), 10);
                 if (count > 0) {
@@ -131,8 +134,6 @@ public class AirtelMoneyMenuSecondaryWidgetTest extends Driver {
                             assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isResendSMSOnSecondWidget(), true, "Resend SMS Icon does enable as mentioned in API Response.", "Resend SMS Icon does not enable as mentioned in API Response."));
                         }
                     }
-                } else {
-                    assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isAirtelMoneyNoResultFoundVisibleOnSecondWidget(), true, "No Result Found Icon does display on UI.", "No Result Found Icon does not display on UI."));
                 }
             }
         } catch (Exception e) {

@@ -146,6 +146,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                                     .get(1).getBalance()), "Customer's Airtel Wallet Balance & Currency code as Expected",
                             "Customer's Airtel Wallet Balance & Currency code not same not as Expected"));
                 }
+                //ToDo Sachin getWallerBalance() - assertion is not there
                 String airtelMoneyString = pages.getDemoGraphicPage().getWalletBalance().replaceAll("[^0-9]", "").trim();
                 int airtelMoney = StringUtils.isEmpty(airtelMoneyString) ? 0 : Integer.parseInt(airtelMoneyString);
                 ActionConfigResult actionConfigResult = api.getActionConfig(new Headers(map), "resetPin");
@@ -153,6 +154,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                 List<RoleDetails> agentRoles = UtilsMethods.getAgentDetail(new Headers(map)).getUserDetails().getUserDetails()
                         .getRole();
                 boolean hasRole = ObjectUtils.isNotEmpty(actionConfigRoles) && agentRoles.stream().anyMatch(roleName -> actionConfigRoles.contains(roleName.getRoleName()));
+                //ToDo Sachin this is getting failed - null pointer exception
                 Condition condition = actionConfigResult.getConditions().get(0);
                 String operator = condition.getOperator();
                 Integer thresholdValue = condition.getThresholdValue();
@@ -232,12 +234,11 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                 if (hasRole) {
                     assertCheck.append(actions.assertEqualBoolean(customerIdNumber.length() == nationalIdfieldMaskConfigs.getDigitsVisible(), true, "National Id masking is correct as per user role", "National Id masking is not correct as per user role"));
                 } else {
+                    pages.getDemoGraphicPage().hoverOnCustomerInfoIcon();
                     assertCheck.append(actions.assertEqualBoolean(pages.getDemoGraphicPage().getIdNumber().contains("*"), false, "National Id is not masked as per user role", "National Id should not be masked as per user role"));
                     assertCheck.append(actions.assertEqualBoolean(StringUtils.contains(gsmKycAPI.getResult().getIdentificationNo(), customerIdNumber), true,
                             "Customer's ID Number is as Expected", "Customer's ID Number is not as Expected and Expected was :" + customerIdNumber));
                 }
-
-
             }
             assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getGsmKycStatus().toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(gsmKycAPI.getResult().getGsm()),
                     "Customer's GSM KYC Status is as Expected", "Customer's GSM KYC Status is not as Expected"));
