@@ -11,6 +11,7 @@ import com.airtel.cs.model.request.AccountStatementReq;
 import com.airtel.cs.model.request.AccumulatorsRequest;
 import com.airtel.cs.model.request.ActionTrailRequest;
 import com.airtel.cs.model.request.AgentLimitRequest;
+import com.airtel.cs.model.request.ConfigurationRequest;
 import com.airtel.cs.model.request.FetchTicketPoolRequest;
 import com.airtel.cs.model.request.GenericRequest;
 import com.airtel.cs.model.request.LimitConfigRequest;
@@ -44,8 +45,9 @@ import com.airtel.cs.model.response.agentpermission.AgentPermission;
 import com.airtel.cs.model.response.agents.AgentDetailAttribute;
 import com.airtel.cs.model.response.airtelmoney.AirtelMoney;
 import com.airtel.cs.model.response.amprofile.AMProfile;
+import com.airtel.cs.model.response.authconfiguration.Configuration;
 import com.airtel.cs.model.response.clearrefillstatus.RefillStatus;
-import com.airtel.cs.model.response.configuration.Configuration;
+import com.airtel.cs.model.response.configurationapi.ConfigurationList;
 import com.airtel.cs.model.response.crbt.ActivateRingtone;
 import com.airtel.cs.model.response.crbt.Top20Ringtone;
 import com.airtel.cs.model.response.filedmasking.FieldMaskConfigReponse;
@@ -1031,4 +1033,21 @@ public class RequestSource extends RestCommonUtils {
         }
         return result;
     }
+
+    /**
+     * This Method will hit the API "/cs-gsm-service/v1/postpaid/msisdn/details" and return the response in list
+     *
+     * @return The Response
+     */
+    public ConfigurationList getAllConfiguration(Integer pageSize,Integer pageNumber) {
+        ConfigurationList result = null;
+        try {
+            commonPostMethod(URIConstants.GET_CONFIGURATION_API, new ConfigurationRequest(pageNumber,pageSize));
+            result = response.as(ConfigurationList.class);
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getAllConfiguration " + e.getMessage(), false);
+        }
+        return result;
+    }
+
 }

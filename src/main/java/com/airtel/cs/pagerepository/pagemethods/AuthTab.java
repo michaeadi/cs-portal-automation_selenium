@@ -4,7 +4,7 @@ package com.airtel.cs.pagerepository.pagemethods;
 import com.airtel.cs.commonutils.applicationutils.enums.JavaColors;
 import com.airtel.cs.commonutils.dataproviders.databeans.ActionTagDataBeans;
 import com.airtel.cs.commonutils.dataproviders.databeans.QuestionAnswerKeyDataBeans;
-import com.airtel.cs.model.response.configuration.LockedSection;
+import com.airtel.cs.model.response.authconfiguration.LockedSection;
 import com.airtel.cs.pagerepository.pageelements.AuthTabPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

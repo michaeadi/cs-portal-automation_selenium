@@ -1,4 +1,4 @@
-package com.airtel.cs.model.response.configuration;
+package com.airtel.cs.model.response.configurationapi;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -6,14 +6,13 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@ToString
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Configuration {
-    private String message;
+@ToString
+public class ConfigurationList {
     private String status;
     private String statusCode;
-    private ConfigResult result;
+    private ConfigurationResult result;
 }

@@ -48,6 +48,7 @@ public class URIConstants {
     public static final String CURRENT_PLAN = "/cs-gsm-service/v1/postpaid/currentplan";
     public static final String POSTPAID_ACCOUNT_DETAILS = "/cs-gsm-service/v1/postpaid/account/details";
     public static final String POSTPAID_ACCOUNT_MSISDN_DETAILS = "/cs-gsm-service/v1/postpaid/msisdn/details";
+    public static final String GET_CONFIGURATION_API="/cs-cs-service/api/cs-service/v1/config";
 
     private URIConstants() {
 
