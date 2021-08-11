@@ -50,6 +50,7 @@ public class TariffPlanMigrationTest extends Driver {
     public void openCustomerInteraction() {
         selUtils.addTestcaseDescription("Validating the Search for Customer Interactions :" + TARIFF_PLAN_TEST_NUMBER, "description");
         try {
+            pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().openCustomerInteractionPage();
             pages.getMsisdnSearchPage().enterNumber(TARIFF_PLAN_TEST_NUMBER);
             pages.getMsisdnSearchPage().clickOnSearch();
@@ -86,7 +87,7 @@ public class TariffPlanMigrationTest extends Driver {
             currentPlanFromUI = pages.getTariffPlanPage().getCurrentPlan();
             final AvailablePlan availablePlanPOJO = api.availablePlanPOJO();
             final CurrentPlan currentPlanPOJO = api.currentPlanPOJO();
-            final String currentPlanNameFromAPI = (String) currentPlanPOJO.getResult().get("planName");
+            final String currentPlanNameFromAPI = currentPlanPOJO.getResult().getPlan().getPlanName();
             assertCheck.append(actions.assertEqualStringType(currentPlanFromUI, currentPlanNameFromAPI, "Current Plan Value Matched with UI values", "API Current Plan Values not Matched with UI values and are UI Current Plan is -" + currentPlanFromUI + "and API Current Plan is -" + currentPlanNameFromAPI));
             assertCheck.append(actions.assertEqualBoolean(pages.getTariffPlanPage().isCheckBoxChecked(), true, "Checkbox is Checked By default", "Checkbox is not Checked by Default"));
             //assertCheck.append(actions.assertEqual_stringType(currentPlanFromUI, pages.getTariffPlanPage().getCurrentPlanDetailsHeader(), "Current Plan Name Matched with Header name of the Plan Details", "Current Plan Name NOT Matched with Header name of the Plan Details"));
@@ -123,8 +124,8 @@ public class TariffPlanMigrationTest extends Driver {
         selUtils.addTestcaseDescription("Validate new Plan Details from Drop Down List", "description");
         try {
             pages.getTariffPlanPage().openIssueDetailsModal();
-            assertCheck.append(actions.assertEqualBoolean(pages.getTariffPlanPage().isIssueDetailModalOpened(), true, "Issue Modal Pop Up Opened After Click on Migrate Btn", "Issue Modal Popup NOT Opened After CLick on Migrate Btn"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getTariffPlanPage().isCommentBoxVisible(), true, "Comment Box is visible", "Comment Box is NOT Visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getTariffPlanPage().isIssueDetailModalOpened(), true, "Issue Modal Pop Up Opened After Click on Migrate Btn", "Issue Modal Popup NOT Opened After CLick on Migrate Btn",true));
+            assertCheck.append(actions.assertEqualBoolean(pages.getTariffPlanPage().isCommentBoxVisible(), true, "Comment Box is visible", "Comment Box is NOT Visible",true));
             assertCheck.append(actions.assertEqualBoolean(pages.getTariffPlanPage().isSelectReasonVisible(), true, "Issue Details Reason is Visible", "Issue Detail Reason is NOT Visisble"));
             assertCheck.append(actions.assertEqualBoolean(pages.getTariffPlanPage().isCancelBtnVisisble(), true, "Cancel Btn Visible Over Issue Detail Popup", "Cancel Btn NOT Visible Over Issue Detail Popup"));
             assertCheck.append(actions.assertEqualBoolean(pages.getTariffPlanPage().isSubmitBtnVisible(), true, "Submit Btn Visible Over Issue Detail Popup", "Submit Btn NOT Visible Over Issue Detail PopUp"));
@@ -146,7 +147,7 @@ public class TariffPlanMigrationTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getTariffPlanPage().changePlan(), true, "Plan Changed Successfully", "Plan Not Changed"));
             assertCheck.append(actions.assertEqualStringType(pages.getTariffPlanPage().getModalText(), "Plan Changed Successfully", "Success Message Matched", "Success Message NOT Found and is -" + pages.getTariffPlanPage().getModalText()));
             final CurrentPlan currentPlanPOJO = api.currentPlanPOJO();
-            final String currentPlanNameFromAPI = (String) currentPlanPOJO.getResult().get("planName");
+            final String currentPlanNameFromAPI = currentPlanPOJO.getResult().getPlan().getPlanName();
             assertCheck.append(actions.assertEqualStringType(customerNewPlan, currentPlanNameFromAPI, "Plan Changed Successfully", "Plan Name Mismatched"));
             assertCheck.append(actions.assertEqualStringType(pages.getCustomerProfilePage().goAndCheckFTRCreatedorNot(), TARIFF_PLAN_ISSUE_CODE, "FTR Ticket Created", "FTR Ticket NOT Created"));
             interactionCountAfterMigration = pages.getViewHistoryPOM().getRowCount();
