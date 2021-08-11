@@ -10,7 +10,7 @@
     <artifactId>CS_PORTAL_AUTOMATION</artifactId>
     <version>1.16</version>
 
-<!--    <repositories>
+    <repositories>
         <repository>
             <id>central</id>
             <name>Central Repository</name>
@@ -34,7 +34,7 @@
                 <updatePolicy>always</updatePolicy>
             </releases>
         </pluginRepository>
-    </pluginRepositories>-->
+    </pluginRepositories>
     <dependencies>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
