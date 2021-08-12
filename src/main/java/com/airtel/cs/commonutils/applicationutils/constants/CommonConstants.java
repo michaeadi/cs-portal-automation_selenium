@@ -84,4 +84,5 @@ public class CommonConstants {
     public static final String AGENT_ADJUSTMENT_DAILY_LIMIT="cs.agent.adjustment.daily.limit";
     public static final String AGENT_ADJUSTMENT_MONTHLY_LIMIT="cs.agent.adjustment.monthly.limit";
     public static final String AGENT_ADJUSTMENT_TRANSACTION_LIMIT="cs.agent.adjustment.transaction.limit";
+    public static final String ISSUE="issue";
 }

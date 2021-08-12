@@ -32,4 +32,6 @@ public class LoanWidgetPage {
     public String dueTimeValue="]//div[@class='show-error-message ng-star-inserted'][5]//span[@class='time ng-star-inserted']";
     public String vendorNameValue="//div[@data-csautomation-key='LOAN_SERVICES']//div[@class='card__card-header--card-body--table']//span[contains(text(),'";
     public String message="//div[@data-csautomation-key='LOAN_SERVICES']//div[@class='card__card-header--card-body--table']//span[contains(text(),'";
+
+    public By loanWidget = By.xpath("//div[@data-csautomation-key='LOAN_SERVICES']//span[@class='card__card-header--label']");
 }

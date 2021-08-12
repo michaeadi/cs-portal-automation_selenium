@@ -46,7 +46,22 @@ public class ViewTemplateTest extends Driver {
         softAssert.assertAll();
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openTemplateManagement")
+    @Test(priority = 3,groups= {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openTemplateManagement")
+    public void validateEditTemplate(){
+        try{
+            selUtils.addTestcaseDescription("Edit Template Page", "description");
+            pages.getViewCreatedTemplate().clickOnEditBtn();
+            pages.getViewCreatedTemplate().clickOnSMSBtn();
+            pages.getViewCreatedTemplate().writeSMSContent("FR");
+            assertCheck.append(actions.assertEqualBoolean(pages.getViewCreatedTemplate().isUpadateBtnEnabled(), true, "Update button on update template is enabled", "Update button on update template is not enabled"));
+            pages.getViewCreatedTemplate().clickOnCancelBtn();
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - validateEditTemplate" + e.fillInStackTrace(), true);
+        }
+    }
+
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openTemplateManagement")
     public void validateAgentChannel() {
         selUtils.addTestcaseDescription("Validating All Agent Channel displayed", "description");
         SoftAssert softAssert = new SoftAssert();
@@ -75,7 +90,7 @@ public class ViewTemplateTest extends Driver {
         softAssert.assertAll();
     }
 
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openTemplateManagement")
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openTemplateManagement")
     public void validateRoles() {
         selUtils.addTestcaseDescription("Validating All Agent Roles displayed", "description");
         SoftAssert softAssert = new SoftAssert();
@@ -106,7 +121,7 @@ public class ViewTemplateTest extends Driver {
         softAssert.assertAll();
     }
 
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openTemplateManagement")
+    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openTemplateManagement")
     public void validateLanguage() {
         selUtils.addTestcaseDescription("Validating All Language displayed", "description");
         SoftAssert softAssert = new SoftAssert();
@@ -140,7 +155,7 @@ public class ViewTemplateTest extends Driver {
         softAssert.assertAll();
     }
 
-    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openTemplateManagement")
+    @Test(priority = 7, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openTemplateManagement")
     public void validateTemplateLayout() {
         selUtils.addTestcaseDescription("Validating template layout", "description");
         SoftAssert softAssert = new SoftAssert();
@@ -157,7 +172,7 @@ public class ViewTemplateTest extends Driver {
         softAssert.assertAll();
     }
 
-    @Test(priority = 7, groups = {"RegressionTest"}, dependsOnMethods = "openTemplateManagement")
+    @Test(priority = 8, groups = {"RegressionTest"}, dependsOnMethods = "openTemplateManagement")
     public void deactivateTemplate() {
         selUtils.addTestcaseDescription("Validate admin able to deactivate/Activate Template", "description");
         SoftAssert softAssert = new SoftAssert();

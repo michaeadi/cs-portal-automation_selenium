@@ -29,4 +29,12 @@ public class ViewCreatedTemplatePage {
     public String editIcon="]//div//img[@title='EDIT']";
     public String commentIcon="]//div//div//img";
     public String templateLanguage="]//div[2]//span";
+
+    public By editTempBtn = By.xpath("//img[@title='EDIT']");
+    public By smsContentFrench = By.xpath("//div[contains(text(),'French')]");
+    public By smsTextArea = By.xpath("//div//textarea[@formcontrolname='body']");
+    public By updateBtn = By.xpath("//button[contains(text(),'Update')]");
+    public By cancelBtn = By.xpath("//button[contains(text(),'Cancel')]");
+
+
 }
