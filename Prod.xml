@@ -335,6 +335,76 @@
             <class name="com.airtel.cs.ui.ticketsourceapp.TicketSourceAppTest"/>
         </classes>
     </test>
+    <test name="SIM Bar Unbar Test">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.simbarunbar.SIMBarUnbarPermissionSeparationTest"/>
+        </classes>
+    </test>
+    <test name="Account Information Test">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.AccountInformationWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Detailed Account Information Test">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.DetailAccountInfoTest"/>
+        </classes>
+    </test>
+    <test name="Detailed Account Information - View Bill Test">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.DetailAccountInfoViewBillTest"/>
+        </classes>
+    </test>
+    <test name="Linked MSISDN to Account Number Test">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.LinkedMsisdnToAccountNoTest"/>
+        </classes>
+    </test>
+    <test name="Current Plan Test">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.CurrentPlanTest"/>
+        </classes>
+    </test>
+    <test name="Plan and pack Test">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.PlanAndPackDetailedWidgetTest"/>
+        </classes>
+    </test>
     <test name="Supervisors Login Test">
         <groups>
             <run>
@@ -466,78 +536,6 @@
             </class>
         </classes>
     </test>
-
-    <test name="SIM Bar Unbar Test">
-        <groups>
-            <run>
-                <include name="ProdTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.simbarunbar.SIMBarUnbarPermissionSeparationTest"/>
-        </classes>
-    </test>
-    <test name="Plan and pack Test">
-        <groups>
-            <run>
-                <include name="ProdTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.hometab.PlanAndPackDetailedWidgetTest"/>
-        </classes>
-    </test>
-    <test name="Current Plan Test">
-        <groups>
-            <run>
-                <include name="ProdTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.hometab.CurrentPlanTest"/>
-        </classes>
-    </test>
-    <test name="Account Information Test">
-        <groups>
-            <run>
-                <include name="ProdTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.hometab.AccountInformationWidgetTest"/>
-        </classes>
-    </test>
-    <test name="Detailed Account Information Test">
-        <groups>
-            <run>
-                <include name="ProdTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.hometab.DetailAccountInfoTest"/>
-        </classes>
-    </test>
-    <test name="Detailed Account Information - View Bill Test">
-        <groups>
-            <run>
-                <include name="ProdTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.hometab.DetailAccountInfoViewBillTest"/>
-        </classes>
-    </test>
-    <test name="Linked MSISDN to Account Number Test">
-        <groups>
-            <run>
-                <include name="ProdTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.hometab.LinkedMsisdnToAccountNoTest"/>
-        </classes>
-    </test>
-<!--    Advisor Supervisor Login for Smoke Testing-->
     <test name="Prod Test Login With Advisor Supervisor">
         <groups>
             <run>

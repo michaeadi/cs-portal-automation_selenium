@@ -15,6 +15,7 @@ import com.airtel.cs.model.response.amprofile.AMProfile;
 import com.airtel.cs.pagerepository.pagemethods.AMTransactionsWidget;
 import io.restassured.http.Headers;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
@@ -129,15 +130,17 @@ public class AirtelMoneyTransactionWidgetTest extends Driver {
                 List<RoleDetails> agentRoles = UtilsMethods.getAgentDetail(new Headers(map)).getUserDetails().getUserDetails().getRole();
                 for (int i = 0; i < count; i++) {
                     boolean hasRole = agentRoles.stream().anyMatch(roleName -> actionConfigRoles.contains(roleName.getRoleName()));
-                    Condition condition = actionConfigResult.getConditions().get(0);
-                    String amountString = amTxnWidgetPage.getHeaderValue(i, 0).replaceAll("[^\\d.]", "");
-                    String operator = condition.getOperator();
-                    Integer thresholdValue = condition.getThresholdValue();
-                    int amount = StringUtils.isEmpty(amountString) ? 0 : Integer.parseInt(amountString);
-                    if (hasRole && (">=".equals(operator) && amount >= thresholdValue
-                            || "<".equals(operator) && amount < thresholdValue || "=".equals(operator) && amount == thresholdValue
-                            || "<=".equals(operator) && amount <= thresholdValue || ">".equals(operator) && amount > thresholdValue)) {
-                        assertCheck.append(actions.assertEqualBoolean(amTxnWidgetPage.isReverseIconEnable(i + 1), false, "Reverse Transaction Icon is disabled as mentioned in CS API Response", "Reverse Transaction  Icon  does not disable as mentioned in CS API Response"));
+                    if (ObjectUtils.isNotEmpty(actionConfigResult.getConditions())) {
+                        Condition condition = actionConfigResult.getConditions().get(0);
+                        String amountString = amTxnWidgetPage.getHeaderValue(i, 0).replaceAll("[^\\d.]", "");
+                        String operator = condition.getOperator();
+                        Integer thresholdValue = condition.getThresholdValue();
+                        int amount = StringUtils.isEmpty(amountString) ? 0 : Integer.parseInt(amountString);
+                        if (hasRole && (">=".equals(operator) && amount >= thresholdValue
+                                || "<".equals(operator) && amount < thresholdValue || "=".equals(operator) && amount == thresholdValue
+                                || "<=".equals(operator) && amount <= thresholdValue || ">".equals(operator) && amount > thresholdValue)) {
+                            assertCheck.append(actions.assertEqualBoolean(amTxnWidgetPage.isReverseIconEnable(i + 1), false, "Reverse Transaction Icon is disabled as mentioned in CS API Response", "Reverse Transaction  Icon  does not disable as mentioned in CS API Response"));
+                        }
                     } else {
                         assertCheck.append(actions.assertEqualBoolean(amTxnWidgetPage.isReverseIconEnable(i + 1), true, "Reverse Transaction Icon is enabled as mentioned in CS API Response", "Reverse Transaction  Icon  does not enable as mentioned in CS API Response"));
                         assertCheck.append(actions.matchUiAndAPIResponse(amTxnWidgetPage.getHeaderValue(i, 0), amTransactionHistoryAPI.getResult().getData().get(i).getAmount(), "Amount is as expected as of CS API response", "Amount is not expected as of CS API response"));

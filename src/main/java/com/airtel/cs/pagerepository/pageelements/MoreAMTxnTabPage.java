@@ -40,7 +40,7 @@ public class MoreAMTxnTabPage {
 
     public By searchTxnIdSec = By.xpath("//div[@data-csautomation-key='AM_TRANSACTION_DETAIL_SECONDARY']//parent::div//input[@type='search']");
     public By searchBtnSec = By.xpath("//div[@data-csautomation-key='AM_TRANSACTION_DETAIL_SECONDARY']//parent::div//button[@class='search-icon-btn']");
-    public String valueRowSec = "//div[@data-csautomation-key='AM_TRANSACTION_DETAIL_SECONDARY']/div[@class='card__content restricted ng-star-inserted']/descendant::div[@class='card__card-header--card-body--table--data-list row-border'][";
+    public String valueRowSec = "//div[@data-csautomation-key='AM_TRANSACTION_DETAIL_SECONDARY']/descendant::div[@class='card__card-header--card-body--table--data-list'][";
     public String headerRowSec = "//div[@data-csautomation-key='AM_TRANSACTION_DETAIL_SECONDARY']/div[@class='card__content restricted ng-star-inserted']/descendant::div[@class='card__card-header--card-body--table--list-heading ng-star-inserted']/div";
     public String resendSMSSec = "//div[@data-csautomation-key='AM_TRANSACTION_DETAIL_SECONDARY']/div[@class='card__content restricted ng-star-inserted']/descendant::div[@class='card__card-header--card-body--table--data-list row-border'][1]/div[12]//img[1][@class='hide-reversal ng-star-inserted']";
 

@@ -20,9 +20,8 @@ public class ServiceClassWidget extends BasePage {
      * @return true/false
      */
     public boolean isServiceClassWidgetDisplay() {
-        final boolean state = isEnabled(pageElements.title);
-        commonLib.info("Is Service Class Widget Display: " + state);
-        return state;
+        commonLib.info("Checking is Service Class Widget Visible");
+        return isEnabled(pageElements.serviceProfileWidgetHeader);
     }
 
     /**
@@ -31,11 +30,11 @@ public class ServiceClassWidget extends BasePage {
      * @param column The column number
      * @return String The header name
      */
-    public String getHeaders(int column) {
-        String header = getText(By.xpath(pageElements.title + pageElements.headerRow + column + pageElements.headerValue));
+    /*public String getHeaders(int column) {
+        String header = getText(By.xpath(pageElements.widgetIdentifier + pageElements.headerRow + column + pageElements.headerValue));
         commonLib.info("Getting header Name at Row- " + column + " : " + header);
         return header;
-    }
+    }*/
 
     /**
      * This method use to get data value from widget based on row and column
@@ -45,8 +44,8 @@ public class ServiceClassWidget extends BasePage {
      * @return String The  data value
      */
     public String getValueCorrespondingToServiceProfile(int row, int column) {
-        String value = getText(By.xpath(pageElements.title + pageElements.offerColumnHeader + row + pageElements.offerColumnValue + column + pageElements.headerValue));
-        commonLib.info("Reading '" + getHeaders(column) + "' = " + value);
+        String value = getText(By.xpath(pageElements.widgetIdentifier + pageElements.offerColumnHeader + row + pageElements.offerColumnValue + column + pageElements.headerValue));
+        commonLib.info("Reading '" + getHeaders(column - 1) + "' = " + value);
         return value.trim();
     }
 
@@ -57,7 +56,7 @@ public class ServiceClassWidget extends BasePage {
      * @return true/false
      */
     public Boolean getServiceStatus(int row) {
-        By status = By.xpath(pageElements.serviceStatus + row + pageElements.toggleBtn);
+        By status = By.xpath(pageElements.serviceStatus + row + pageElements.toggleBtnStatus);
         return Boolean.valueOf(driver.findElement(status).getAttribute("aria-checked"));
     }
 
@@ -65,7 +64,7 @@ public class ServiceClassWidget extends BasePage {
      * This method used to click service status
      */
     public void clickServiceStatus(int row) {
-        By status = By.xpath(pageElements.serviceStatus + row + pageElements.toggleBtn);
+        By status = By.xpath(pageElements.widgetIdentifier + pageElements.serviceStatus + row + pageElements.toggleBtn);
         clickAndWaitForLoaderToBeRemoved(status);
     }
 
@@ -73,7 +72,7 @@ public class ServiceClassWidget extends BasePage {
      * This method used to get no result found message display on widget
      */
     public String gettingServiceProfileNoResultFoundMessage() {
-        final String text = getText(By.xpath(pageElements.title + pageElements.noResultFoundMessage));
+        final String text = getText(By.xpath(pageElements.widgetIdentifier + pageElements.noResultFoundMessage));
         commonLib.info("Validating error message when there is no data from com.airtel.cs.API : " + text);
         return text;
     }
@@ -84,7 +83,7 @@ public class ServiceClassWidget extends BasePage {
      * @return true/false
      */
     public boolean isServiceProfileNoResultFoundVisible() {
-        final boolean visible = isElementVisible(By.xpath(pageElements.title + pageElements.noResultFoundIcon));
+        final boolean visible = isElementVisible(By.xpath(pageElements.widgetIdentifier + pageElements.noResultFoundIcon));
         commonLib.info("Validating error is visible when there is no data from com.airtel.cs.API : " + visible);
         return visible;
     }
@@ -93,7 +92,7 @@ public class ServiceClassWidget extends BasePage {
      * This method use to check widget error display or not
      */
     public boolean isServiceProfileErrorVisible() {
-        final boolean visible = isElementVisible(By.xpath(pageElements.title + pageElements.unableToFetch));
+        final boolean visible = isElementVisible(By.xpath(pageElements.widgetIdentifier + pageElements.unableToFetch));
         commonLib.info("Validating error is visible when there is Error in com.airtel.cs.API : " + visible);
         return visible;
     }
@@ -173,7 +172,7 @@ public class ServiceClassWidget extends BasePage {
      */
     public Boolean checkPreviousBtnDisable() {
         commonLib.info("Checking in Pagination previous button is disable or not in offer widget");
-        return isElementVisible(By.xpath(pageElements.title + pageElements.previousBtnDisable));
+        return isElementVisible(By.xpath(pageElements.widgetIdentifier + pageElements.previousBtnDisable));
     }
 
     /**
@@ -181,7 +180,7 @@ public class ServiceClassWidget extends BasePage {
      */
     public Boolean checkNextBtnEnable() {
         commonLib.info("Checking in Pagination next button is disable or not in offer widget");
-        return isElementVisible(By.xpath(pageElements.title + pageElements.nextBtnEnable));
+        return isElementVisible(By.xpath(pageElements.widgetIdentifier + pageElements.nextBtnEnable));
     }
 
     /**
@@ -189,7 +188,7 @@ public class ServiceClassWidget extends BasePage {
      */
     public void clickNextBtn() {
         commonLib.info("Clicking Next button in pagination");
-        clickWithoutLoader(By.xpath(pageElements.title + pageElements.nextBtnEnable));
+        clickWithoutLoader(By.xpath(pageElements.widgetIdentifier + pageElements.nextBtnEnable));
     }
 
     /**
@@ -197,7 +196,7 @@ public class ServiceClassWidget extends BasePage {
      */
     public void clickPreviousBtn() {
         commonLib.info("Clicking Previous button in pagination");
-        clickWithoutLoader(By.xpath(pageElements.title + pageElements.previousBtnEnable));
+        clickWithoutLoader(By.xpath(pageElements.widgetIdentifier + pageElements.previousBtnEnable));
     }
 
     /**
@@ -205,7 +204,7 @@ public class ServiceClassWidget extends BasePage {
      * Example : 1 - 5 of 7 Results
      */
     public String getPaginationText() {
-        String value = getText(By.xpath(pageElements.title + pageElements.paginationCount)).trim();
+        String value = getText(By.xpath(pageElements.widgetIdentifier + pageElements.paginationCount)).trim();
         commonLib.info("Reading Pagination text " + value);
         return value;
     }
@@ -214,7 +213,17 @@ public class ServiceClassWidget extends BasePage {
      * This method use to get service class widget unique identifier
      * @return String The value
      */
-    public String getUniqueIdentifier(){
-        return pageElements.uniqueWidgetIdentifier;
+    public String getUniqueIdentifier() {
+        return pageElements.widgetIdentifier;
+    }
+
+    /**
+     * This method use to get header name based on column number
+     *
+     * @param column The column number
+     * @return String The value
+     */
+    public String getHeaders(int column) {
+        return pages.getWidgetCommonMethod().getHeaderName(getUniqueIdentifier(), column);
     }
 }

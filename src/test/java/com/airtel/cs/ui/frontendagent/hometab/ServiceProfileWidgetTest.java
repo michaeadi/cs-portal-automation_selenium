@@ -100,7 +100,7 @@ public class ServiceProfileWidgetTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(serviceClassWidget.isServiceClassWidgetDisplay(), true, "Service Profile Widget displayed correctly", "Service Profile Widget does not display correctly"));
             hlrService = api.getServiceProfileWidgetInfo(customerNumber);
             final int statusCode = hlrService.getStatusCode();
-            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "HLR Service Profile Profile API success and status code is :" + statusCode, "HLR Service Profile API got failed and status code is :" + statusCode, false));
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "HLR Service Profile API success and status code is :" + statusCode, "HLR Service Profile API got failed and status code is :" + statusCode, false));
             if (statusCode == 200) {
                 if (hlrService.getResult().isEmpty() || hlrService.getResult() == null) {
                     commonLib.warning("Unable to get Last Service Profile from API");
@@ -114,8 +114,10 @@ public class ServiceProfileWidgetTest extends Driver {
                     for (int i = 0; i < size; i++) {
                         assertCheck.append(actions.assertEqualStringType(serviceClassWidget.getValueCorrespondingToServiceProfile(i + 1, 1), hlrService.getResult().get(i).getServiceName(), "Service Name is As received in API for row number " + i, "Service Name is not As received in API for row number " + i,true,true));
                         assertCheck.append(actions.assertEqualStringType(serviceClassWidget.getValueCorrespondingToServiceProfile(i + 1, 2), hlrService.getResult().get(i).getServiceDesc(), "Service desc is As received in API for row number " + i, "Service desc is not As received in API for row number " + i));
-                        assertCheck.append(actions.assertEqualStringType(serviceClassWidget.getValueCorrespondingToServiceProfile(i + 1, 3), hlrService.getResult().get(i).getHlrCodes().get(0), "HLR Code is As received in API for row number " + i, "HLR Code is not As received in API for row number " + i));
-                        assertCheck.append(actions.assertEqualStringType(serviceClassWidget.getValueCorrespondingToServiceProfile(i + 1, 4), hlrService.getResult().get(i).getHlrCodeDetails().get(0), "HLR code details is As received in API for row number " + i, "HLR code details is not As received in API for row number " + i));
+                        if (hlrService.getResult().get(i).getHlrCodes().size() > 0)
+                            assertCheck.append(actions.assertEqualStringType(serviceClassWidget.getValueCorrespondingToServiceProfile(i + 1, 3), hlrService.getResult().get(i).getHlrCodes().get(0), "HLR Code is As received in API for row number " + i, "HLR Code is not As received in API for row number " + i));
+                        if (hlrService.getResult().get(i).getHlrCodeDetails().size() > 0)
+                            assertCheck.append(actions.assertEqualStringType(serviceClassWidget.getValueCorrespondingToServiceProfile(i + 1, 4), hlrService.getResult().get(i).getHlrCodeDetails().get(0), "HLR code details is As received in API for row number " + i, "HLR code details is not As received in API for row number " + i));
                         if (hlrService.getResult().get(i).getType().equalsIgnoreCase("Action")) {
                             if (hlrService.getResult().get(i).getServiceStatus().equalsIgnoreCase("enabled")) {
                                 assertCheck.append(actions.assertEqualBoolean(serviceClassWidget.getServiceStatus(i + 1), true, "Service Status is as expected", "Service Status is not as expected"));
@@ -167,7 +169,7 @@ public class ServiceProfileWidgetTest extends Driver {
             final ServiceClassWidget serviceClassWidget = pages.getServiceClassWidget();
             boolean flag = true;
             final int statusCode = hlrService.getStatusCode();
-            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "HLR Service Profile Profile API success and status code is :" + statusCode, "HLR Service Profile API got failed and status code is :" + statusCode, false));
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "HLR Service Profile API success and status code is :" + statusCode, "HLR Service Profile API got failed and status code is :" + statusCode, false));
             if (statusCode == 200) {
                 if (hlrService.getResult().isEmpty() || hlrService.getResult() == null) {
                     commonLib.warning("Unable to get Last Service Profile from API");
@@ -209,7 +211,7 @@ public class ServiceProfileWidgetTest extends Driver {
             final ServiceClassWidget serviceClassWidget = pages.getServiceClassWidget();
             boolean flag = true;
             final int statusCode = hlrService.getStatusCode();
-            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "HLR Service Profile Profile API success and status code is :" + statusCode, "HLR Service Profile API got failed and status code is :" + statusCode, false));
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "HLR Service Profile API success and status code is :" + statusCode, "HLR Service Profile API got failed and status code is :" + statusCode, false));
             if (statusCode == 200) {
                 if (hlrService.getResult().isEmpty() || hlrService.getResult() == null) {
                     commonLib.warning("Unable to get Last Service Profile from API");
