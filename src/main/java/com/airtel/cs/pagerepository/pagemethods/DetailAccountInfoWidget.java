@@ -391,4 +391,166 @@ public class DetailAccountInfoWidget extends BasePage {
     }
 
 
+    /**
+     * This method is used to validate account detail api and account statement response
+     * @param accountDetailResponse
+     * @param accountStatementResponse
+     */
+    public static void accountDetailResponseAssertions(PostpaidAccountDetailResponse accountDetailResponse, AccountStatementResponse accountStatementResponse){
+        {
+            int size = pages.getDetailAccountInfoWidget().getNumbersOfRows();
+            if (size > 5) {
+                size = 5;
+            }
+            for (int i = 0; i < size; i++) {
+                assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailAccountInfoWidget().dateFormat(pages.getDetailAccountInfoWidget().getDateTimeValue(i + 1)), accountDetailResponse.getResult().get(i).getDateTime(), "Date and time display as received in API on row", "Date and time is not display as received in API on row"));
+                assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailAccountInfoWidget().getTypeValue(i + 1), accountDetailResponse.getResult().get(i).getTransactionType(), "Transaction type display as received in API on row", "Transaction type is not display as received in API on row"));
+                assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailAccountInfoWidget().getStatusValue(i + 1), accountDetailResponse.getResult().get(i).getStatus(), "Status display as received in API on row", "Status is not display as received in API on row"));
+                assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailAccountInfoWidget().getRefNoValue(i + 1), accountDetailResponse.getResult().get(i).getReferenceNo(), "Reference number display as received in API on row", "Reference number is not display as received in API on row"));
+                assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailAccountInfoWidget().getBillAmountValue(i + 1).equals("-") ? "" : pages.getDetailAccountInfoWidget().getBillAmountValue(i + 1) , accountDetailResponse.getResult().get(i).getBillAmount(), "Bill amount display as received in API on row", "Bill amount is not display as received in API on row"));
+                assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailAccountInfoWidget().getAmountRecValue(i + 1).equals("-") ? "" : pages.getDetailAccountInfoWidget().getAmountRecValue(i + 1), accountDetailResponse.getResult().get(i).getAmntReceived(), "Amount received display as received in API on row", "Amount received is not display as received in API on row"));
+
+                if(pages.getDetailAccountInfoWidget().getTypeValue(i + 1).equalsIgnoreCase("INVOICE")){
+                    assertCheck.append(actions.assertEqualStringType(pages.getDetailAccountInfoWidget().getAmount(pages.getDetailAccountInfoWidget().getBillAmountValue(i + 1)), accountStatementResponse.getResponse().getStatements().get(i).getTransactionAmountDebit() , "Bill Amount (INVOICE) is displayed as per ESB TransactionAmountDebit", "Bill Amount (INVOICE) is not displayed as per ESB TransactionAmountDebit" ));
+                }
+
+                if(pages.getDetailAccountInfoWidget().getTypeValue(i + 1).equalsIgnoreCase("ADJUSTMENT") && !pages.getDetailAccountInfoWidget().getBillAmountValue(i + 1).equalsIgnoreCase("-")){
+                    assertCheck.append(actions.assertEqualStringType(pages.getDetailAccountInfoWidget().getAmount(pages.getDetailAccountInfoWidget().getBillAmountValue(i + 1)), accountStatementResponse.getResponse().getStatements().get(i).getTransactionAmountDebit() , "Bill Amount (ADJUSTMENT) is displayed as per ESB TransactionAmountDebit", "Bill Amount (ADJUSTMENT) is not displayed as per ESB TransactionAmountDebit" ));
+                }
+
+                if(pages.getDetailAccountInfoWidget().getTypeValue(i + 1).equalsIgnoreCase("ADJUSTMENT") && !pages.getDetailAccountInfoWidget().getBillAmountValue(i + 1).equalsIgnoreCase("-")){
+                    assertCheck.append(actions.assertEqualStringType(pages.getDetailAccountInfoWidget().getAmount(pages.getDetailAccountInfoWidget().getAmountRecValue(i + 1)), accountStatementResponse.getResponse().getStatements().get(i).getTransactionAmountCredit() , "Amount received (ADJUSTMENT) is displayed as per ESB TransactionAmountDebit", "Amount received (ADJUSTMENT) is not displayed as per ESB TransactionAmountDebit" ));
+                }
+            }
+        }
+    }
+
+    /**
+     * This method is used to check account information widget in detail account info
+     * @return
+     */
+    public Boolean isBillDisputeDisplay(int row) {
+        Boolean status = isElementVisible(By.xpath(pageElements.billDisputIcon + row + pageElements.billDisputIcon2));
+        commonLib.info("Checking Bill dispute thumb icon is visible on detailed account information: '" + status);
+        return status;
+    }
+
+    /**
+     * This method is used to open Bill dispute page
+     * @return
+     */
+    public void openBillDisputePage(int row) {
+        commonLib.info("Opening Bill dispute page");
+        if(isVisible(By.xpath(pageElements.billDisputIcon + row + pageElements.billDisputIcon2))){
+            clickAndWaitForLoaderToBeRemoved(By.xpath(pageElements.billDisputIcon + row + pageElements.billDisputIcon2));
+        }else{
+            commonLib.error("Unable to open Bill dispute page");
+        }
+    }
+
+    /**
+     * This method is used to check account information widget in detail account info
+     * @return
+     */
+    public String getBillDisputeDetailsHeader() {
+        commonLib.info(getText(pageElements.billDisputHeader));
+        return getText(pageElements.billDisputHeader);
+    }
+
+
+    /**
+     * This method is used to get Bill Number
+     * @return
+     */
+    public String getBillDisputeNumber() {
+        commonLib.info(getAttribute(pageElements.billNumber, "value", false));
+        return getText(pageElements.billNumber);
+    }
+
+    /**
+     * This method is used to get Account Number
+     * @return
+     */
+    public String getBillDisputeAccountNumber() {
+        commonLib.info(getAttribute(pageElements.accountNumber,"value", false));
+        return getText(pageElements.accountNumber);
+    }
+
+    /**
+     * This method is used to get Bill status
+     * @return
+     */
+    public String getBillDisputeStatus() {
+        commonLib.info(getAttribute(pageElements.billStatus,"value", false));
+        return getText(pageElements.billStatus);
+    }
+
+    /**
+     * This method is used to get Bill Number on Account Info details page
+     * @return
+     */
+    public String getBillNumber(int row) {
+        return getText(By.xpath(pageElements.billNumber1 + row + pageElements.billNumber2));
+    }
+
+    /**
+     * This method is used to get Bill DateTime on Account Info details page
+     * @return
+     */
+    public String getBillDateTime(int row) {
+        return getText(By.xpath(pageElements.billDateTime1 + row + pageElements.billDateTime2));
+    }
+
+    /**
+     * This method is used to get Bill Status on Account Info details page
+     * @return
+     */
+    public String getBillStatus(int row) {
+        return getText(By.xpath(pageElements.billStatus1 + row + pageElements.billStatus2));
+    }
+
+    /**
+     * This method is used to get Bill Status on Account Info details page
+     * @return
+     */
+    public String getTransactionType(int row) {
+        return getText(By.xpath(pageElements.transactionType1 + row + pageElements.transactionType2));
+    }
+
+    /**
+     * This method is used to check whether next page icon is visible or not
+     * @return
+     */
+    public Boolean nextPageVisible(){
+        Boolean status = isElementVisible(pageElements.clickNext);
+        commonLib.info("Checking Nex page icon is visible: " + status);
+        return status;
+    }
+
+    /**
+     * This method is used to click on next page page
+     * @return
+     */
+    public void clickNextPage() {
+        commonLib.info("Opening More under account information");
+        clickWithoutLoader(pageElements.clickNext);
+    }
+
+    /**
+     * This method use to get toast message
+     * @return String The Value
+     */
+    public String getToastText() {
+        String result = null;
+        if (isVisible(pageElements.toastModal)) {
+            result = getText(pageElements.toastModal);
+            clickWithoutLoader(pageElements.raiseDisputeCloseButton);
+        } else {
+            commonLib.fail("Exception in method - getToastText", true);
+            commonLib.info("Going to Close Modal through close Button");
+            clickWithoutLoader(pageElements.raiseDisputeCloseButton);
+        }
+        return result;
+    }
+
 }

@@ -210,6 +210,7 @@ public class FriendsFamilyWidgetTest extends Driver {
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Friends & Family Widget API success and status code is :" + statusCode, "Friends & Family Widget API got failed and status code is :" + statusCode, false));
             if (statusCode == 200) {
                 EventResult actionResultAPI = actionTrailAPI.getResult().get(0);
+                pages.getActionTrailPage().assertMetaInfoAfterActionPerformed(constants.getValue(CommonConstants.ADD_FNF_ACTION_KEY),actionResultAPI);
                 assertCheck.append(actions.matchUiAndAPIResponse(actionResultAPI.getActionType(), constants.getValue(CommonConstants.ADD_FNF_ACTION_TYPE), "Action Type of Add FnF as expected", "Action Type of Add FnF as not expected"));
                 assertCheck.append(actions.matchUiAndAPIResponse(actionResultAPI.getComments(), ADD_FNF_COMMENT, "Comment same as expected.", "Comment same as not expected."));
                 assertCheck.append(actions.matchUiAndAPIResponse(actionResultAPI.getAgentId(), constants.getValue(CommonConstants.ALL_USER_ROLE_AUUID), "Agent id same as expected", "Agent id same as not expected"));
@@ -296,6 +297,7 @@ public class FriendsFamilyWidgetTest extends Driver {
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Friends & Family Widget API success and status code is :" + statusCode, "Friends & Family Widget API got failed and status code is :" + statusCode, false));
             if (statusCode == 200) {
                 EventResult actionResultAPI = actionTrailAPI.getResult().get(0);
+                pages.getActionTrailPage().assertMetaInfoAfterActionPerformed(constants.getValue(CommonConstants.REMOVE_FNF_ACTION_KEY),actionResultAPI);
                 assertCheck.append(actions.matchUiAndAPIResponse(actionResultAPI.getActionType(), constants.getValue(CommonConstants.DELETE_FNF_ACTION_TYPE), "Action Type of Remove FnF as expected", "Action Type of Remove FnF as not expected"));
                 assertCheck.append(actions.matchUiAndAPIResponse(actionResultAPI.getComments(), DELETE_FNF_COMMENT, "Comment same as expected.", "Comment same as not expected."));
                 assertCheck.append(actions.matchUiAndAPIResponse(actionResultAPI.getAgentId(), constants.getValue(CommonConstants.ALL_USER_ROLE_AUUID), "Agent id same as expected", "Agent id same as not expected"));

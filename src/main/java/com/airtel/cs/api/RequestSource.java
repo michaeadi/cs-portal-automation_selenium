@@ -6,24 +6,14 @@ import com.airtel.cs.commonutils.applicationutils.constants.ESBURIConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.URIConstants;
 import com.airtel.cs.commonutils.restutils.RestCommonUtils;
 import com.airtel.cs.model.request.*;
-import com.airtel.cs.model.request.AccountBalanceRequest;
-import com.airtel.cs.model.request.AccountDetailRequest;
-import com.airtel.cs.model.request.AccountStatementReq;
-import com.airtel.cs.model.request.AccumulatorsRequest;
-import com.airtel.cs.model.request.ActionTrailRequest;
-import com.airtel.cs.model.request.AgentLimitRequest;
-import com.airtel.cs.model.request.FetchTicketPoolRequest;
 import com.airtel.cs.model.request.GenericRequest;
-import com.airtel.cs.model.request.LimitConfigRequest;
 import com.airtel.cs.model.request.LoanRequest;
 import com.airtel.cs.model.request.MoreTransactionHistoryRequest;
 import com.airtel.cs.model.request.OfferDetailRequest;
-import com.airtel.cs.model.request.PlanPackRequest;
 import com.airtel.cs.model.request.PostpaidAccountDetailRequest;
 import com.airtel.cs.model.request.RechargeHistoryRequest;
 import com.airtel.cs.model.request.RingtonDetailsRequest;
 import com.airtel.cs.model.request.SMSHistoryRequest;
-import com.airtel.cs.model.request.SaveAgentLimitRequest;
 import com.airtel.cs.model.request.ServiceProfileRequest;
 import com.airtel.cs.model.request.TransactionHistoryRequest;
 import com.airtel.cs.model.request.UsageHistoryMenuRequest;
@@ -58,6 +48,8 @@ import com.airtel.cs.model.response.loandetails.Loan;
 import com.airtel.cs.model.response.loansummary.Summary;
 import com.airtel.cs.model.response.login.Login;
 import com.airtel.cs.model.response.offerdetails.OfferDetail;
+import com.airtel.cs.model.response.parentcategory.Category;
+import com.airtel.cs.model.response.parentcategory.ParentCategoryResponse;
 import com.airtel.cs.model.response.plans.Plans;
 import com.airtel.cs.model.response.postpaid.PostpaidAccountDetailResponse;
 import com.airtel.cs.model.response.postpaid.enterprise.AccountStatementCSResponse;
@@ -85,6 +77,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 @Log4j2
 public class RequestSource extends RestCommonUtils {
@@ -814,7 +808,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public FieldMaskConfigs getFieldMaskConfigs(String actionKey) {
-        FieldMaskConfigReponse fieldMaskConfigReponse;
+        FieldMaskConfigReponse fieldMaskConfigReponse = null;
         try {
             queryParam.put("actionKey", actionKey);
             commonGetMethodWithQueryParam(URIConstants.GET_FIELD_MASK_CONFIG, queryParam);
@@ -966,7 +960,7 @@ public class RequestSource extends RestCommonUtils {
     /**
      * This Method will hit the API "/cs-gsm-service/v1/postpaid/account/details" and return the response in list
      *
-     * @param accountNo The account number
+     * @param accountNo The Account Number
      * @return The Response
      */
     public AccountDetails getAccountInfoDetail(String accountNo, Integer pageNumber) {
@@ -1005,7 +999,7 @@ public class RequestSource extends RestCommonUtils {
     /**
      * This Method will hit the API "/cs-gsm-service/v1/postpaid/msisdn/details" and return the response in list
      *
-     * @param accountNo The account number
+     * @param accountNo The Account Number
      * @return The Response
      */
     public AccountStatementCSResponse accountStatementCSResponse(String accountNo, Integer pageNumber) {
@@ -1023,4 +1017,23 @@ public class RequestSource extends RestCommonUtils {
         return result;
     }
 
+    /**
+     * This Method will hit the API "/sr/api/sr-service/v1/tickets" and return the response
+     *
+     * @param msisdn The MSISDN
+     * @return The Response
+     */
+    public Integer getTicketHistoryStatusCode(String msisdn) {
+        Integer result = null;
+        try {
+            Map<String, String> clientInfo = new HashMap<>();
+            clientInfo.put(MSISDN, msisdn);
+            TicketSearchRequest ticketSearchRequest = new TicketSearchRequest(new TicketSearchCriteria(clientInfo));
+            commonPostMethod(URIConstants.GET_TICKET_HISTORY_V1, ticketSearchRequest);
+            result = response.getStatusCode();
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getTicketHistoryStatusCode " + e.getMessage(), false);
+        }
+        return result;
+    }
 }

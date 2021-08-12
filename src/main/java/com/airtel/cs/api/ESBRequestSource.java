@@ -4,8 +4,13 @@ import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ESBURIConstants;
 import com.airtel.cs.commonutils.applicationutils.enums.JavaColors;
 import com.airtel.cs.commonutils.restutils.RestCommonUtils;
+import com.airtel.cs.model.request.AccountDetailRequest;
+import com.airtel.cs.model.request.AccountLineRequest;
 import com.airtel.cs.model.request.GenericRequest;
+import com.airtel.cs.model.request.LoanRequest;
 import com.airtel.cs.model.request.OfferDetailRequest;
+import com.airtel.cs.model.request.PaymentRequest;
+import com.airtel.cs.model.request.StatementRequest;
 import com.airtel.cs.model.request.UsageHistoryMenuRequest;
 import com.airtel.cs.model.request.UsageHistoryRequest;
 import com.airtel.cs.model.request.LoanRequest;
@@ -18,6 +23,8 @@ import com.airtel.cs.model.response.PostpaidBillDetailsResponse;
 import com.airtel.cs.model.response.PlanPackESBResponse;
 import com.airtel.cs.model.response.InvoiceHistoryResponse;
 import com.airtel.cs.model.response.PaymentResponse;
+import com.airtel.cs.model.response.PlanPackESBResponse;
+import com.airtel.cs.model.response.PostpaidBillDetailsResponse;
 import com.airtel.cs.model.response.customeprofile.CustomerProfileResponse;
 import com.airtel.cs.model.response.postpaid.AccountStatementResponse;
 import com.airtel.cs.model.response.postpaid.enterprise.AccountLinesResponse;
@@ -48,21 +55,22 @@ public class ESBRequestSource extends RestCommonUtils {
 
 
     /**
-     * This Method will hit the ESB APIs related to profile api
+     * This Method will hit the Downstream APIs related to profile api
      *
      * @param msisdn The msisdn
      */
     public void callprofileESBAPI(String msisdn) {
         try {
-            commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + " - GSM KYC request", JavaColors.GREEN, false);
+            commonLib.info(constants.getValue(DOWNSTREAM_API_CALLING) + " - GSM KYC request");
             queryParam.put(MSISDN, msisdn);
             queryParam.put("walletType", "Main");
             commonGetMethodWithQueryParam(constants.getValue("am.profile.service.base.url") + ESBURIConstants.GSM_KYC_REQUEST, queryParam);
             if (response.getStatusCode() != 200) {
                 commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " - GSM KYC request" + response.getStatusCode(), false);
             } else {
-                commonLib.pass("ESB API GSM KYC request working with data " + response.getBody().prettyPrint());
+                commonLib.pass("Downstream API GSM KYC request working Fine and response is: " + response.getBody().prettyPrint());
             }
+
 
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + " - self care user details", JavaColors.GREEN, false);
             queryParam.put(MSISDN, msisdn);
@@ -71,7 +79,7 @@ public class ESBRequestSource extends RestCommonUtils {
             if (response.getStatusCode() != 200) {
                 commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " - self care user details" + response.getStatusCode(), false);
             } else {
-                commonLib.pass("ESB API self care user details working with data " + response.getBody().prettyPrint());
+                commonLib.pass("Downstream API self care user details working with data " + response.getBody().prettyPrint());
             }
 
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + " - Device info", JavaColors.GREEN, false);
@@ -80,7 +88,7 @@ public class ESBRequestSource extends RestCommonUtils {
             if (response.getStatusCode() != 200) {
                 commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " - Device info" + response.getStatusCode(), false);
             } else {
-                commonLib.pass("ESB API Device info working with data " + response.getBody().prettyPrint());
+                commonLib.pass("Downstream API Device info working with data " + response.getBody().prettyPrint());
             }
         } catch (Exception exp) {
             commonLib
@@ -90,7 +98,7 @@ public class ESBRequestSource extends RestCommonUtils {
     }
 
     /**
-     * This Method will hit the ESB APIs related to am service profile
+     * This Method will hit the Downstream APIs related to am service profile
      *
      * @param msisdn The msisdn
      */
@@ -103,7 +111,7 @@ public class ESBRequestSource extends RestCommonUtils {
             if (response.getStatusCode() != 200) {
                 commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " - KYC request" + response.getStatusCode(), false);
             } else {
-                commonLib.pass("ESB API KYC request working with data " + response.getBody().prettyPrint());
+                commonLib.pass("Downstream API KYC request working with data " + response.getBody().prettyPrint());
             }
         } catch (Exception exp) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " - recharge history/customer profile " + exp.getMessage(), false);
@@ -111,7 +119,7 @@ public class ESBRequestSource extends RestCommonUtils {
     }
 
     /**
-     * This Method will hit the  ESB APIs related to gsm kyc
+     * This Method will hit the  Downstream APIs related to gsm kyc
      *
      * @param msisdn The msisdn
      */
@@ -135,7 +143,7 @@ public class ESBRequestSource extends RestCommonUtils {
     }
 
     /**
-     * This Method will hit the ESB APIs related to customer profile V2
+     * This Method will hit the Downstream APIs related to customer profile V2
      *
      * @param msisdn The msisdn
      */
@@ -147,7 +155,7 @@ public class ESBRequestSource extends RestCommonUtils {
             if (response.getStatusCode() != 200) {
                 commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " - customer profile V2" + response.getStatusCode(), false);
             } else {
-                commonLib.pass("ESB API customer profile V2 working with data " + response.getBody().prettyPrint());
+                commonLib.pass("Downstream API customer profile V2 working with data " + response.getBody().prettyPrint());
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " -customer profile V2 " + e.getMessage(), false);
@@ -155,7 +163,7 @@ public class ESBRequestSource extends RestCommonUtils {
     }
 
     /**
-     * This Method will hit the ESB APIs related to account plans
+     * This Method will hit the Downstream APIs related to account plans
      *
      * @param msisdn The msisdn
      */
@@ -167,7 +175,7 @@ public class ESBRequestSource extends RestCommonUtils {
             if (response.getStatusCode() != 200) {
                 commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " - query balance " + response.getStatusCode(), false);
             } else {
-                commonLib.pass("ESB API query balance working with data " + response.getBody().prettyPrint());
+                commonLib.pass("Downstream API query balance working with data " + response.getBody().prettyPrint());
             }
             callRechargeHistory(msisdn, Timestamp.valueOf(LocalDateTime.now()).toInstant().toEpochMilli(),
                     Timestamp.valueOf(LocalDateTime.now().minusDays(60).with(LocalTime.of(0, 0, 0))).toInstant().toEpochMilli());
@@ -178,7 +186,7 @@ public class ESBRequestSource extends RestCommonUtils {
     }
 
     /**
-     * This Method will hit the ESB APIs related to recharge history
+     * This Method will hit the Downstream APIs related to recharge history
      *
      * @param msisdn    The msisdn
      * @param endDate   The end date
@@ -194,7 +202,7 @@ public class ESBRequestSource extends RestCommonUtils {
             if (response.getStatusCode() != 200) {
                 commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " - recharge history " + response.getStatusCode(), false);
             } else {
-                commonLib.pass("ESB API recharge history working with data " + response.getBody().prettyPrint());
+                commonLib.pass("Downstream API recharge history working with data " + response.getBody().prettyPrint());
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " -recharge history " + e.getMessage(), false);
@@ -202,7 +210,7 @@ public class ESBRequestSource extends RestCommonUtils {
     }
 
     /**
-     * This Method will hit the ESB APIs related to voucher details
+     * This Method will hit the Downstream APIs related to voucher details
      *
      * @param voucherId The voucher id
      */
@@ -216,7 +224,7 @@ public class ESBRequestSource extends RestCommonUtils {
             if (response.getStatusCode() != 200) {
                 commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " - voucher details " + response.getStatusCode(), false);
             } else {
-                commonLib.pass("ESB API voucher details working with data " + response.getBody().prettyPrint());
+                commonLib.pass("Downstream API voucher details working with data " + response.getBody().prettyPrint());
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " -voucher details " + e.getMessage(), false);
@@ -224,7 +232,7 @@ public class ESBRequestSource extends RestCommonUtils {
     }
 
     /**
-     * This Method will hit the ESB APIs related to voucher refil barred
+     * This Method will hit the Downstream APIs related to voucher refil barred
      *
      * @param msisdn The msisdn
      */
@@ -236,7 +244,7 @@ public class ESBRequestSource extends RestCommonUtils {
             if (response.getStatusCode() != 200) {
                 commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " - voucher refil barred " + response.getStatusCode(), false);
             } else {
-                commonLib.pass("ESB API voucher refil barred working with data " + response.getBody().prettyPrint());
+                commonLib.pass("Downstream API voucher refil barred working with data " + response.getBody().prettyPrint());
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " -voucher refil barred " + e.getMessage(), false);
@@ -244,7 +252,7 @@ public class ESBRequestSource extends RestCommonUtils {
     }
 
     /**
-     * This Method will hit the ESB APIs related to voucher refil barred
+     * This Method will hit the Downstream APIs related to voucher refil barred
      *
      * @param msisdn The msisdn
      */
@@ -255,7 +263,7 @@ public class ESBRequestSource extends RestCommonUtils {
             if (response.getStatusCode() != 200) {
                 commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " -top twenty ringtone" + response.getStatusCode(), false);
             } else {
-                commonLib.pass("ESB API top twenty ringtone working with data " + response.getBody().prettyPrint());
+                commonLib.pass("Downstream API top twenty ringtone working with data " + response.getBody().prettyPrint());
             }
 
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + " -search name tune", JavaColors.GREEN, false);
@@ -265,7 +273,7 @@ public class ESBRequestSource extends RestCommonUtils {
             if (response.getStatusCode() != 200) {
                 commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " - search name tune" + response.getStatusCode(), false);
             } else {
-                commonLib.pass("ESB API search name tune working with data " + response.getBody().prettyPrint());
+                commonLib.pass("Downstream API search name tune working with data " + response.getBody().prettyPrint());
             }
 
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + " -Generic search api", JavaColors.GREEN, false);
@@ -275,7 +283,7 @@ public class ESBRequestSource extends RestCommonUtils {
             if (response.getStatusCode() != 200) {
                 commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " - Generic search api" + response.getStatusCode(), false);
             } else {
-                commonLib.pass("ESB API Generic search api working with data " + response.getBody().prettyPrint());
+                commonLib.pass("Downstream API Generic search api working with data " + response.getBody().prettyPrint());
             }
         } catch (Exception exp) {
             commonLib.fail(
@@ -285,7 +293,7 @@ public class ESBRequestSource extends RestCommonUtils {
     }
 
     /**
-     * This Method will hit the ESB APIs related to ring back tone list
+     * This Method will hit the Downstream APIs related to ring back tone list
      *
      * @param msisdn The msisdn
      */
@@ -297,7 +305,7 @@ public class ESBRequestSource extends RestCommonUtils {
             if (response.getStatusCode() != 200) {
                 commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " - ring back tone list " + response.getStatusCode(), false);
             } else {
-                commonLib.pass("ESB API ring back tone list working with data " + response.getBody().prettyPrint());
+                commonLib.pass("Downstream API ring back tone list working with data " + response.getBody().prettyPrint());
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " -ring back tone list " + e.getMessage(), false);
@@ -305,7 +313,7 @@ public class ESBRequestSource extends RestCommonUtils {
     }
 
     /**
-     * This Method will hit the ESB APIs related to accumulatorAPI
+     * This Method will hit the Downstream APIs related to accumulatorAPI
      *
      * @param msisdn The msisdn
      */
@@ -316,7 +324,7 @@ public class ESBRequestSource extends RestCommonUtils {
             if (response.getStatusCode() != 200) {
                 commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " - accumulatorAPI " + response.getStatusCode(), false);
             } else {
-                commonLib.pass("ESB API accumulatorAPI working with data " + response.getBody().prettyPrint());
+                commonLib.pass("Downstream API accumulatorAPI working with data " + response.getBody().prettyPrint());
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " -accumulatorAPI " + e.getMessage(), false);
@@ -324,7 +332,7 @@ public class ESBRequestSource extends RestCommonUtils {
     }
 
     /**
-     * This Method will hit the ESB APIs related to HLR DETAILS
+     * This Method will hit the Downstream APIs related to HLR DETAILS
      *
      * @param msisdn The msisdn
      */
@@ -336,7 +344,7 @@ public class ESBRequestSource extends RestCommonUtils {
             if (response.getStatusCode() != 200) {
                 commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " - HLR DETAILS " + response.getStatusCode(), false);
             } else {
-                commonLib.pass("ESB API accumulatorAPI working with data " + response.getBody().prettyPrint());
+                commonLib.pass("Downstream API accumulatorAPI working with data " + response.getBody().prettyPrint());
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " -HLR DETAILS " + e.getMessage(), false);
@@ -344,7 +352,7 @@ public class ESBRequestSource extends RestCommonUtils {
     }
 
     /**
-     * This Method will hit the ESB APIs related to available tariff plans
+     * This Method will hit the Downstream APIs related to available tariff plans
      *
      * @param genericRequest The generic request
      */
@@ -355,7 +363,7 @@ public class ESBRequestSource extends RestCommonUtils {
             if (response.getStatusCode() != 200) {
                 commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " - available tariff plans " + response.getStatusCode(), false);
             } else {
-                commonLib.pass("ESB API available tariff plans working with data " + response.getBody().prettyPrint());
+                commonLib.pass("Downstream API available tariff plans working with data " + response.getBody().prettyPrint());
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " -available tariff plans " + e.getMessage(), false);
@@ -363,7 +371,7 @@ public class ESBRequestSource extends RestCommonUtils {
     }
 
     /**
-     * This Method will hit the ESB APIs related to current tariff plans
+     * This Method will hit the Downstream APIs related to current tariff plans
      *
      * @param genericRequest The generic request
      */
@@ -374,7 +382,7 @@ public class ESBRequestSource extends RestCommonUtils {
             if (response.getStatusCode() != 200) {
                 commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " - current tariff plans " + response.getStatusCode(), false);
             } else {
-                commonLib.pass("ESB API current tariff plans working with data " + response.getBody().prettyPrint());
+                commonLib.pass("Downstream API current tariff plans working with data " + response.getBody().prettyPrint());
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " -current tariff plans " + e.getMessage(), false);
@@ -382,7 +390,7 @@ public class ESBRequestSource extends RestCommonUtils {
     }
 
     /**
-     * This Method will hit the ESB APIs related to offer details
+     * This Method will hit the Downstream APIs related to offer details
      *
      * @param offerDetailRequest The offer detail request
      */
@@ -393,7 +401,7 @@ public class ESBRequestSource extends RestCommonUtils {
             if (response.getStatusCode() != 200) {
                 commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " - offer details " + response.getStatusCode(), false);
             } else {
-                commonLib.pass("ESB API offer details working with data " + response.getBody().prettyPrint());
+                commonLib.pass("Downstream API offer details working with data " + response.getBody().prettyPrint());
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " -offer details " + e.getMessage(), false);
@@ -401,7 +409,7 @@ public class ESBRequestSource extends RestCommonUtils {
     }
 
     /**
-     * This Method will hit the ESB APIs related to friends and family details
+     * This Method will hit the Downstream APIs related to friends and family details
      *
      * @param genericRequest The generic request
      */
@@ -412,7 +420,7 @@ public class ESBRequestSource extends RestCommonUtils {
             if (response.getStatusCode() != 200) {
                 commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " - friends and family details " + response.getStatusCode(), false);
             } else {
-                commonLib.pass("ESB API friends and family details working with data " + response.getBody().prettyPrint());
+                commonLib.pass("Downstream API friends and family details working with data " + response.getBody().prettyPrint());
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " -friends and family details " + e.getMessage(), false);
@@ -420,7 +428,7 @@ public class ESBRequestSource extends RestCommonUtils {
     }
 
     /**
-     * This Method will hit the ESB APIs related to postpaid account info
+     * This Method will hit the Downstream APIs related to postpaid account info
      *
      * @param msisdn The msisdn
      */
@@ -432,7 +440,7 @@ public class ESBRequestSource extends RestCommonUtils {
             if (response.getStatusCode() != 200) {
                 commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " -get credit limit" + response.getStatusCode(), false);
             } else {
-                commonLib.pass("ESB API get credit limit working with data " + response.getBody().prettyPrint());
+                commonLib.pass("Downstream API get credit limit working with data " + response.getBody().prettyPrint());
             }
 
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + " -invoice history", JavaColors.GREEN, false);
@@ -441,7 +449,7 @@ public class ESBRequestSource extends RestCommonUtils {
             if (response.getStatusCode() != 200) {
                 commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " - invoice history" + response.getStatusCode(), false);
             } else {
-                commonLib.pass("ESB API invoice history working with data " + response.getBody().prettyPrint());
+                commonLib.pass("Downstream API invoice history working with data " + response.getBody().prettyPrint());
             }
 
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + " -postpaid bill details", JavaColors.GREEN, false);
@@ -451,7 +459,7 @@ public class ESBRequestSource extends RestCommonUtils {
             if (response.getStatusCode() != 200) {
                 commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " - postpaid bill details" + response.getStatusCode(), false);
             } else {
-                commonLib.pass("ESB API postpaid bill details with data " + response.getBody().prettyPrint());
+                commonLib.pass("Downstream API postpaid bill details with data " + response.getBody().prettyPrint());
             }
 
             callCustomerProfileV2(msisdn);
@@ -485,7 +493,7 @@ public class ESBRequestSource extends RestCommonUtils {
     }
 
     /**
-     * This Method will hit the ESB APIs related to postpaid account info
+     * This Method will hit the Downstream APIs related to postpaid account info
      *
      * @param msisdn The msisdn
      */
@@ -508,7 +516,7 @@ public class ESBRequestSource extends RestCommonUtils {
     }
 
     /**
-     * This Method will hit the ESB APIs related to postpaid account info
+     * This Method will hit the Downstream APIs related to postpaid account info
      *
      * @param msisdn The msisdn
      */
@@ -532,7 +540,7 @@ public class ESBRequestSource extends RestCommonUtils {
 
 
     /**
-     * This Method will hit the ESB APIs related to postpaid account info
+     * This Method will hit the Downstream APIs related to postpaid account info
      *
      * @param customerAccountNumber The customer account number
      */
@@ -565,7 +573,7 @@ public class ESBRequestSource extends RestCommonUtils {
     }
 
     /**
-     * This Method will hit the ESB APIs related to postpaid account info
+     * This Method will hit the Downstream APIs related to postpaid account info
      *
      * @param accountNumber The account number
      */
@@ -589,7 +597,7 @@ public class ESBRequestSource extends RestCommonUtils {
     }
 
     /**
-     * This Method will hit the ESB APIs related to Usage history
+     * This Method will hit the Downstream APIs related to Usage history
      *
      * @param usageHistoryMenuRequest The Usage history request
      */
@@ -615,7 +623,7 @@ public class ESBRequestSource extends RestCommonUtils {
     }
 
     /**
-     * This Method will hit the ESB APIs related to Usage history
+     * This Method will hit the Downstream APIs related to Usage history
      *
      * @param usageHistoryRequest The Usage history request
      */
@@ -631,7 +639,7 @@ public class ESBRequestSource extends RestCommonUtils {
             if (response.getStatusCode() != 200) {
                 commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + USAGE_HISTORY + response.getStatusCode(), false);
             } else {
-                commonLib.pass("ESB API Usage history working with data " + response.getBody().prettyPrint());
+                commonLib.pass("Downstream API Usage history working with data " + response.getBody().prettyPrint());
             }
         } catch (Exception exp) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " - Usage history " + exp.getMessage(), false);
@@ -639,7 +647,7 @@ public class ESBRequestSource extends RestCommonUtils {
     }
 
     /**
-     * This Method will hit the ESB APIs related to vendor details
+     * This Method will hit the Downstream APIs related to vendor details
      */
     public void callVendors() {
         try {
@@ -648,7 +656,7 @@ public class ESBRequestSource extends RestCommonUtils {
             if (response.getStatusCode() != 200) {
                 commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " -vendor details" + response.getStatusCode(), false);
             } else {
-                commonLib.pass("ESB API vendor details working with data " + response.getBody().prettyPrint());
+                commonLib.pass("Downstream API vendor details working with data " + response.getBody().prettyPrint());
             }
         } catch (Exception exp) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " - vendor details " + exp.getMessage(), false);
@@ -675,7 +683,7 @@ public class ESBRequestSource extends RestCommonUtils {
     }
 
     /**
-     * This Method will hit the ESB APIs related to loan details
+     * This Method will hit the Downstream APIs related to loan details
      *
      * @param loanRequest The loan request
      */
@@ -686,7 +694,7 @@ public class ESBRequestSource extends RestCommonUtils {
             if (response.getStatusCode() != 200) {
                 commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " - loan details " + response.getStatusCode(), false);
             } else {
-                commonLib.pass("ESB API loan details working with data " + response.getBody().prettyPrint());
+                commonLib.pass("Downstream API loan details working with data " + response.getBody().prettyPrint());
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " -loan details " + e.getMessage(), false);
@@ -824,7 +832,7 @@ public class ESBRequestSource extends RestCommonUtils {
 
 
     /**
-     * This Method will hit the ESB APIs related to postpaid account info details
+     * This Method will hit the Downstream APIs related to postpaid account info details
      *
      * @param accountDetailRequest The account details request
      */
@@ -835,7 +843,7 @@ public class ESBRequestSource extends RestCommonUtils {
             if (response.getStatusCode() != 200) {
                 commonLib.fail(constants.getValue(DOWNSTREAM_API_CALLING) + " - account details " + response.getStatusCode(), false);
             } else {
-                commonLib.pass("ESB API account details working with data " + response.getBody().prettyPrint());
+                commonLib.pass("Downstream API account details working with data " + response.getBody().prettyPrint());
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_CALLING) + " -account details " + e.getMessage(), false);

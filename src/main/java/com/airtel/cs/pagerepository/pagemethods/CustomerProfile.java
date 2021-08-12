@@ -294,6 +294,14 @@ public class CustomerProfile extends BasePage {
     }
 
     /**
+     * This method is use to click cancel button without continue button
+     */
+    public void clickCancelBtnWithOutContinue() {
+        commonLib.info("Clicking on Close Button");
+        clickAndWaitForLoaderToBeRemoved(pageElements.cancelBtn);
+    }
+
+    /**
      * This method is use to click close button
      */
     public void clickCloseBtn() {

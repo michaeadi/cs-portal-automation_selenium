@@ -28,6 +28,12 @@ public class AccountInformationWidgetPage {
     public By othersTab = By.xpath("//*[contains(text(),'Others')]");
     public By emailId = By.xpath("//span[contains(text(),'Email Id')]//following-sibling::span/span");
     public By unableToFetch = By.xpath("//div[@id='GSM_PROFILE']/div[1]/mat-tab-group/div[1]/mat-tab-body[2]/div[1]/div[1]/div[1]//span[2]");
+    public By tempCreditCurrency = By.xpath("//div[text()='Temp Credit Limit ']/following-sibling::div/span[1]");
+    public By tempCreditLimit = By.xpath("//div[text()='Temp Credit Limit ']/following-sibling::div/span[2]");
+    public By tempCreditLimitInfoIcon = By.xpath("//div[text()='Temp Credit Limit ']/following-sibling::div/span[3]");
+    public By validTillDate = By.xpath("//div[contains(@class, 'mat-tooltip') and contains(text(),'Valid Till')]");
+    public By currentCycleEndDate = By.xpath("//div[text()='Current Cycle ']/following-sibling::div/span[1]");
+
 
     public By totalCreditLimitCurrency = By.xpath("//div[contains(text(),'Total Credit Limit')]/following-sibling::div/span[1]");
     public By availCreditLimitCurrency = By.xpath("//div[contains(text(),'Available Credit Limit')]/following-sibling::div/span[1]");

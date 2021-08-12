@@ -1,6 +1,6 @@
 package com.airtel.cs.model.response.actiontrail;
 
-import com.airtel.cs.pojo.response.actionconfig.MetaInfo;
+import com.airtel.cs.model.response.actionconfig.MetaInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;

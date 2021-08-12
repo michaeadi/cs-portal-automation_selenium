@@ -48,15 +48,23 @@ public class FrontendAgentTicketTest extends Driver {
             selUtils.addTestcaseDescription("Validate Ticket Meta Data for Frontend Agent", "description");
             pages.getCustomerProfilePage().goToViewHistory();
             pages.getViewHistory().goToTicketHistoryTab();
-            String ticketId = pages.getFrontendTicketHistoryPage().getTicketId(1);
-            pages.getFrontendTicketHistoryPage().writeTicketId(ticketId);
-            pages.getFrontendTicketHistoryPage().clickSearchBtn();
-            assertCheck.append(actions.assertEqualStringType(pages.getFrontendTicketHistoryPage().getTicketId(1), ticketId, "Ticket Id same as search ticket id.", "Ticket Id does not same as search ticket id."));
-            assertCheck.append(actions.assertEqualStringNotNull(pages.getFrontendTicketHistoryPage().getTicketPriority(1), "Ticket priority is not null.", "Ticket priority must not be null."));
-            assertCheck.append(actions.assertEqualStringNotNull(pages.getFrontendTicketHistoryPage().getTicketQueue(1), "Ticket Queue is not null.", "Ticket Queue must not be null."));
-            assertCheck.append(actions.assertEqualStringNotNull(pages.getFrontendTicketHistoryPage().getSourceApp(1), "Source App is not empty.", "Source App can not be empty."));
-            if (ticketId != null)
-                actions.assertAllFoundFailedAssert(assertCheck);
+            Integer statusCode = api.getTicketHistoryStatusCode(constants.getValue(ApplicationConstants.CUSTOMER_MSISDN));
+            if (statusCode != 200) {
+                commonLib.fail(constants.getValue("cs.get.ticket.history.api.error"), false);
+                if (statusCode == 500) {
+                    assertCheck.append(actions.assertEqualBoolean(pages.getFrontendTicketHistoryPage().isUnableToFetch(),true, constants.getValue("ticket.history.error.widget.visible"),constants.getValue("ticket.history.error.widget.not.visible"),true));
+                }
+            } else {
+                String ticketId = pages.getFrontendTicketHistoryPage().getTicketId(1);
+                pages.getFrontendTicketHistoryPage().writeTicketId(ticketId);
+                pages.getFrontendTicketHistoryPage().clickSearchBtn();
+                assertCheck.append(actions.assertEqualStringType(pages.getFrontendTicketHistoryPage().getTicketId(1), ticketId, "Ticket Id same as search ticket id.", "Ticket Id does not same as search ticket id."));
+                assertCheck.append(actions.assertEqualStringNotNull(pages.getFrontendTicketHistoryPage().getTicketPriority(1), "Ticket priority is not null.", "Ticket priority must not be null."));
+                assertCheck.append(actions.assertEqualStringNotNull(pages.getFrontendTicketHistoryPage().getTicketQueue(1), "Ticket Queue is not null.", "Ticket Queue must not be null."));
+                assertCheck.append(actions.assertEqualStringNotNull(pages.getFrontendTicketHistoryPage().getSourceApp(1), "Source App is not empty.", "Source App can not be empty."));
+                if (ticketId != null)
+                    actions.assertAllFoundFailedAssert(assertCheck);
+            }
         } catch (Exception e) {
             commonLib.fail("Exception in Method - validateTicket()" + e.fillInStackTrace(), true);
         }
@@ -72,9 +80,17 @@ public class FrontendAgentTicketTest extends Driver {
             selUtils.addTestcaseDescription("Validate Add to Interaction Icon on Each Ticket", "description");
             pages.getCustomerProfilePage().goToViewHistory();
             pages.getViewHistory().goToTicketHistoryTab();
-            final boolean interactionIcon = pages.getFrontendTicketHistoryPage().validateAddToInteractionIcon();
-            assertCheck.append(actions.assertEqualBoolean(interactionIcon, true, "Add to interaction Icon found on ticket", "Add to interaction Icon does not found on ticket"));
-            if (!interactionIcon) continueExecutionFA = false;
+            Integer statusCode = api.getTicketHistoryStatusCode(constants.getValue(ApplicationConstants.CUSTOMER_MSISDN));
+            if (statusCode != 200) {
+                commonLib.fail(constants.getValue("cs.get.ticket.history.api.error"), false);
+                if (statusCode == 500) {
+                    assertCheck.append(actions.assertEqualBoolean(pages.getFrontendTicketHistoryPage().isUnableToFetch(),true, constants.getValue("ticket.history.error.widget.visible"),constants.getValue("ticket.history.error.widget.not.visible"),true));
+                }
+            } else {
+                final boolean interactionIcon = pages.getFrontendTicketHistoryPage().validateAddToInteractionIcon();
+                assertCheck.append(actions.assertEqualBoolean(interactionIcon, true, "Add to interaction Icon found on ticket", "Add to interaction Icon does not found on ticket"));
+                if (!interactionIcon) continueExecutionFA = false;
+            }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - validateAddToInteraction()" + e.fillInStackTrace(), true);

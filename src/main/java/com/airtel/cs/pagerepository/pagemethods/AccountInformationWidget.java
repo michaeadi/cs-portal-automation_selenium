@@ -6,13 +6,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -31,6 +27,7 @@ public class AccountInformationWidget extends BasePage {
     private final String scrollToWidgetMessage = config.getProperty("scrollToWidgetMessage");
     private final String status = "status";
     private final String statusCode = "statusCode";
+    Map<String, Object> styleMap;
 
     public AccountInformationWidget(WebDriver driver) {
         super(driver);
@@ -53,6 +50,16 @@ public class AccountInformationWidget extends BasePage {
             commonLib.fail(scrollToWidgetMessage, true);
         }
         return status;
+    }
+
+    /**
+     * This method use to check whether account intformation widget display or not without scrolling
+     *
+     * @return true/false
+     */
+    public Boolean isAccountInfoWidgetDisplayWithOutScroll() {
+        commonLib.info(config.getProperty("accountInfoWidgetDisplay"));
+        return isElementVisible(pageElements.getTitle);
     }
 
     /*
@@ -81,7 +88,9 @@ public class AccountInformationWidget extends BasePage {
      * @return Boolean The  data value
      */
     public Boolean isActionIconVisibleOnAccountInfo() {
-        return isElementVisible(pageElements.accountInfoDetailed);
+        Boolean status = isElementVisible(pageElements.accountInfoDetailed);
+        commonLib.info(config.getProperty("iconVisibleOnDetailAccInfo") + status);
+        return status;
     }
 
     /*
@@ -223,7 +232,7 @@ public class AccountInformationWidget extends BasePage {
         return result;
     }
 
-    public String getValue(List<String> list, String rowToSearch, String valueToSearch) throws IOException, ParseException {
+    public String getValue(List<String> list, String rowToSearch, String valueToSearch) throws ParseException {
         String result = null;
         JSONParser parser = new JSONParser();
         for (String s : list)
@@ -549,6 +558,75 @@ public class AccountInformationWidget extends BasePage {
         }else
             commonLib.warning("Current Cycle value is not available, so can not verify BOLD characteristics");
         return result;
+    }
+
+    /*
+       This Method will give us Temp credit limit
+        */
+    public String getTempCreditiLimit() {
+        String result = null;
+        if (isElementVisible(pageElements.tempCreditLimit)) {
+            result = getText(pageElements.tempCreditLimit);
+            commonLib.info("Temp credit limit is: " + result);
+        } else {
+            commonLib.fail("Temp credit limit under Account Information Widget is NOT visible", true);
+        }
+        return result;
+    }
+
+    /*
+       This Method will give us Temp credit limit currency
+        */
+    public String getTempCreditCurrency() {
+        String result = null;
+        if (isElementVisible(pageElements.tempCreditCurrency)) {
+            result = getText(pageElements.tempCreditCurrency);
+            commonLib.info("Temp credit limit currency is: " + result);
+        } else {
+            commonLib.fail("Temp credit limit currency under Account Information Widget is NOT visible", true);
+        }
+        return result;
+    }
+
+    /*
+       This Method will check if Temp credit limit info icon is visible
+        */
+    public Boolean isTempCreditLimitInfoVisible() {
+        Boolean status = isElementVisible(pageElements.tempCreditLimitInfoIcon);
+        commonLib.info("Temp credit limit info icon visibilty is " + status);
+        return status;
+    }
+
+    /**
+     * This method is use to hover on SIM Status info icon
+     */
+    public void hoverOnTempCreditLimitInfoIcon() {
+        commonLib.info("Hover on SIM Status Reason Info icon");
+        hoverOverElement(pageElements.tempCreditLimitInfoIcon);
+        commonLib.hardWait(1);
+    }
+
+    /*
+       This Method will give us Temp credit limit currency
+        */
+    public String getValidTilldate() {
+        String result = null;
+        if (isElementVisible(pageElements.validTillDate)) {
+            result = getText(pageElements.validTillDate).split("-")[1].trim();
+            commonLib.info("Valid Till date is: " + result);
+        } else {
+            commonLib.fail("Valid Till date under Account Information Widget is NOT visible", true);
+        }
+        return result;
+    }
+
+    /*
+       This Method will give us current cycle end date
+        */
+    public String getCurrentCycleEndDate() {
+        final String text = getText(pageElements.currentCycleEndDate).split("-")[1].trim();
+        commonLib.info(text);
+        return text;
     }
 
 }

@@ -5,8 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class AccountDetailRequest {
-  private String accountNo;
-  private String pageNumber;
-  private String pageSize;
+public class TicketSearchRequest {
+
+  private TicketSearchCriteria ticketSearchCriteria;
 }
