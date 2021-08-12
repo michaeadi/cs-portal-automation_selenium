@@ -149,7 +149,7 @@ public class DemoGraphicWidgetBySIMTest extends Driver {
             }
             try {
                 demographic.hoverOnSIMNumberIcon();
-                assertCheck.append(actions.assertEqualStringType(demographic.getActivationDate().trim(), UtilsMethods.getDateFromEpoch(Long.parseLong(kycProfile.getResult().getActivationDate()), "dd-MMM-yyy"), "Customer's Activation Date is as Expected", "Customer's Activation Date is not as Expected"));
+                assertCheck.append(actions.assertEqualStringType(demographic.getActivationDate().trim(), UtilsMethods.getDateFromEpoch(kycProfile.getResult().getActivationDate(), "dd-MMM-yyy"), "Customer's Activation Date is as Expected", "Customer's Activation Date is not as Expected"));
             } catch (NoSuchElementException | TimeoutException | NumberFormatException | NullPointerException e) {
                 commonLib.fail("Customer's Activation Date is not visible" + e.getCause(), true);
             }

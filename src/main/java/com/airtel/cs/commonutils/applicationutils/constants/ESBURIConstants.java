@@ -38,4 +38,6 @@ public class ESBURIConstants {
   public static final String ACCOUNT_STATEMENT = "/api/enterprise-service/v1/accounts/statement";
   public static final String POSTPAID_ACCOUNT_DETAILS = "/api/enterprise-service/v1/accounts/statement";
   public static final String POSTPAID_ACCOUNTS_LINE = "/api/enterprise-service/v1/accounts/lines";
+  public static final String MY_PLAN = "/api/subscriber-profile/v1/fetch/my-plans";
+  public static final String MY_PACK = "/api/subscriber-profile/v1/fetch/my-packs";
 }

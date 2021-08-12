@@ -1,6 +1,7 @@
 package com.airtel.cs.commonutils.restutils;
 
 import com.airtel.cs.commonutils.UtilsMethods;
+import com.airtel.cs.commonutils.applicationutils.enums.JavaColors;
 import com.airtel.cs.driver.Driver;
 import com.github.dzieciou.testing.curl.CurlRestAssuredConfigFactory;
 import com.google.gson.Gson;
@@ -23,7 +24,7 @@ public class RestCommonUtils extends Driver {
     private static QueryableRequestSpecification queryable;
     private static RequestSpecification request;
     private static final String APPLICATION_JSON = "application/json";
-    private static final String USING = "Using";
+    private static final String CALLING_CS_API_USING = "Calling CS API Using";
     private static final String API_FOR_TESTING = " API for Testing";
 
 
@@ -47,7 +48,7 @@ public class RestCommonUtils extends Driver {
     public static void commonPostMethod(String endPoint, Object body, String url) {
         RestAssuredConfig restAssuredConfig = CurlRestAssuredConfigFactory.createConfig();
         try {
-            commonLib.info(USING + " " + endPoint + " " + API_FOR_TESTING);
+            commonLib.infoColored(CALLING_CS_API_USING + " " + endPoint + " " + API_FOR_TESTING, JavaColors.BLUE, false);
             baseURI = url;
             Headers headers = new Headers(map);
             request = given()
@@ -66,26 +67,15 @@ public class RestCommonUtils extends Driver {
     }
 
     /**
-     * This Method is used to hit the API which are suing GET Method with Query Params
+     * This Method is used to hit the API which are using GET Method with Query Params and status Code
      *
      * @param endPoint   send the endPoint
      * @param queryParam send query param used for API
      */
     public static void commonGetMethodWithQueryParam(String endPoint, Map<String, Object> queryParam) {
-        commonGetMethodWithQueryParam(endPoint, queryParam, 200);
-    }
-
-    /**
-     * This Method is used to hit the API which are using GET Method with Query Params and status Code
-     *
-     * @param endPoint   send the endPoint
-     * @param queryParam send query param used for API
-     * @param statusCode send status code which you want from this API
-     */
-    public static void commonGetMethodWithQueryParam(String endPoint, Map<String, Object> queryParam, Integer statusCode) {
         try {
             RestAssuredConfig restAssuredConfig = CurlRestAssuredConfigFactory.createConfig();
-            commonLib.info(USING + " " + endPoint + " " + API_FOR_TESTING);
+            commonLib.infoColored(CALLING_CS_API_USING + " " + endPoint + " " + API_FOR_TESTING, JavaColors.BLUE, false);
             baseURI = baseUrl;
             Headers headers = new Headers(map);
             request = given()
@@ -96,7 +86,7 @@ public class RestCommonUtils extends Driver {
             queryParam.forEach(request::queryParam);
             queryable = SpecificationQuerier.query(request);
             commonLib.info(getRequestCurl(queryable.getURI(), queryable.getHeaders(), null));
-            response = request.get(endPoint).then().assertThat().statusCode(statusCode).extract().response();
+            response = request.get(endPoint);
             StringBuilder stringBuilder = new StringBuilder("?");
             queryParam.forEach((k, v) -> stringBuilder.append(k).append("=").append(v).append("&"));
             endPoint += stringBuilder.toString();
@@ -119,7 +109,7 @@ public class RestCommonUtils extends Driver {
     public static void commonGetMethod(String endPoint, Headers headers) {
         RestAssuredConfig restAssuredConfig = CurlRestAssuredConfigFactory.createConfig();
         try {
-            commonLib.info(USING + " " + endPoint + " " + API_FOR_TESTING);
+            commonLib.infoColored(CALLING_CS_API_USING + " " + endPoint + " " + API_FOR_TESTING, JavaColors.BLUE, false);
             baseURI = baseUrl;
             request = given().config(restAssuredConfig).headers(headers).contentType(APPLICATION_JSON);
             queryable = SpecificationQuerier.query(request);

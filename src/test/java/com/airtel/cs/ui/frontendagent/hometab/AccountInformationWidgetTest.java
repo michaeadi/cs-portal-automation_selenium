@@ -39,6 +39,8 @@ public class AccountInformationWidgetTest extends Driver {
     public static Response response;
     private final BaseActions actions = new BaseActions();
     List<String> postpaidAccountInformation;
+    String customerAccountNumber = null;
+    PaymentRequest paymentRequest = new PaymentRequest();
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
@@ -147,120 +149,9 @@ public class AccountInformationWidgetTest extends Driver {
      * This method is used to call validate UI parameter values with ESB response
      */
     @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
-    public void verifyESBParamWithUI() {
+    public void callingESBCustomerProfileAPI() {
         try {
-            selUtils.addTestcaseDescription("Validate UI parameter values with ESB response", "description");
-
-
-            List<PaymentHistory> paymentHistory = null;
-            String totalOutStanding = null;
-            String totalUnbilled = null;
-            String customerAccountNumber = null;
-
-            /**
-             * Calling credit limit api to get total and available credit limit
-             */
-            String totatCreditLimit = null;
-            String availableCreditLimit = null;
-            double ttlCrdtLmt = 0l;
-            double avlCrdtLmt = 0l;
-            double ttlCrdtLmtUI = 0l;
-            double avlCrdtLmtUI = 0l;
-            double usedCreditLimit = 0l;
-            double usedCreditLimitUI = 0l;
-            String usdCreditLmt = null;
-            String usdCreditLmtUI = null;
-            CreditLimitResponse creditLimitResponse = apiEsb.creditLimitResponse(customerNumber);
-            final String creditLimitStatus = creditLimitResponse.getStatus();
-            commonLib.info("creditLimitStatus" + creditLimitStatus);
-            if (creditLimitStatus.trim().equalsIgnoreCase("200")) {
-                totatCreditLimit = pages.getAccountInformationWidget().getTwoDecimalValue(creditLimitResponse.getTotalCreditLimit());
-                availableCreditLimit = pages.getAccountInformationWidget().getTwoDecimalValue(creditLimitResponse.getAvailableCreditLimit());
-                commonLib.info("totatCreditLimit : " + totatCreditLimit);
-                commonLib.info("availableCreditLimit : " + availableCreditLimit);
-                ttlCrdtLmt = Double.parseDouble(totatCreditLimit);
-                avlCrdtLmt = Double.parseDouble(availableCreditLimit);
-                ttlCrdtLmtUI = Double.parseDouble(pages.getAccountInformationWidget().getTotalCreditLimit());
-                avlCrdtLmtUI = Double.parseDouble(pages.getAccountInformationWidget().getAvailCreditLimit());
-                usedCreditLimit = ttlCrdtLmt - avlCrdtLmt;
-                usedCreditLimitUI = ttlCrdtLmtUI - avlCrdtLmtUI;
-                usdCreditLmt = String.valueOf(usedCreditLimit);
-                usdCreditLmtUI = String.valueOf(usedCreditLimitUI);
-                assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getAvailCreditLimit(), availableCreditLimit, "Available credit limit displayed as per ESB response", "Available credit limit not displayed as per ESB response"));
-                assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getTotalCreditLimit(), totatCreditLimit, "Total credit limit displayed as per ESB response", "Total credit limit displayed as per ESB response"));
-                assertCheck.append(actions.assertEqualStringType(usdCreditLmt, usdCreditLmtUI, "Used credit limit is displayed as pe ESB response", "Used credit limit is not displayed as pe ESB response"));
-            } else if (creditLimitStatus.trim().equalsIgnoreCase("500")) {
-                commonLib.info("Internal server error");
-            } else {
-                commonLib.info("Credit Limit downstream api not working");
-            }
-
-
-            /**
-             * Calling Invoice History api to get invoice due date and invoice date
-             */
-            String invoiceDueDate = null;
-            String invoiceDate = null;
-            String currentInvoice = null;
-            String billStartDate = null;
-            String billEndDate = null;
-            String startDate = null;
-            String endDate = null;
-            String months = null;
-            String firstDat = null;
-            String endDat = null;
-            InvoiceHistoryResponse invoiceHistoryResponse = apiEsb.invoiceHistoryResponse(customerNumber);
-            final String invoiceHistoryStatus = invoiceHistoryResponse.getStatus();
-            commonLib.info("invoiceHistoryStatus" + invoiceHistoryStatus);
-            if (invoiceHistoryStatus.trim().equalsIgnoreCase("200")) {
-                paymentHistory = invoiceHistoryResponse.getPaymentHistory();
-                for (PaymentHistory ph : paymentHistory) {
-                    invoiceDueDate = pages.getAccountInformationWidget().getDateFromEpoch(ph.getInvoiceDueDate(), "dd MMM yyyy");
-                    invoiceDate = pages.getAccountInformationWidget().getDateFromEpoch(ph.getInvoiceDate(), "dd MMM yyyy");
-                    currentInvoice = pages.getAccountInformationWidget().getTwoDecimalValue(ph.getCurrentInvoice());
-                    billStartDate = pages.getAccountInformationWidget().getDateFromEpoch(ph.getBillStartDate(), "dd MMM yyyy");
-                    billEndDate = pages.getAccountInformationWidget().getDateFromEpoch(ph.getBillEndDate(), "dd MMM yyyy");
-                    startDate = pages.getAccountInformationWidget().getDateFromEpoch(ph.getBillStartDate(), "yyyy-MM-dd");
-                    endDate = pages.getAccountInformationWidget().getDateFromEpoch(ph.getBillEndDate(), "yyyy-MM-dd");
-                    months = pages.getAccountInformationWidget().getDateDiffInMonths(startDate, endDate);
-                    firstDat = pages.getAccountInformationWidget().firstTwo(billStartDate);
-                    endDat = pages.getAccountInformationWidget().firstTwo(billEndDate);
-                    commonLib.info("invoiceDueDate : " + invoiceDueDate);
-                    commonLib.info("invoiceDate : " + invoiceDate);
-                    commonLib.info("currentInvoice : " + currentInvoice);
-                    commonLib.info("billStartDate : " + billStartDate);
-                    commonLib.info("billEndDate : " + billEndDate);
-                    commonLib.info("firstDat : " + firstDat);
-                    commonLib.info("endDat : " + endDat);
-
-                }
-                assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getDueDate(), invoiceDueDate, "Due date is displayed as per ESB response", "Due date is not displayed as per ESB response"));
-                assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getLastMonthBillDate(), invoiceDate, "Last month bill date is displayed as per ESB response", "Last month bill date is not displayed as per ESB response"));
-                assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getCurrentCycle(), billStartDate + " - " + billEndDate, "Bill cycle displayed as per ESB response", "Bill cycle not displayed as per ESB response"));
-                assertCheck.append(actions.assertEqualStringType(months, "1", "Postpaid plan validity is 1 month", "Postpaid plan validity is 1 month"));
-                assertCheck.append(actions.assertEqualStringType(firstDat, endDat, "Same cycle goes every month", "Same cycle doesn't goes every month"));
-            } else if (invoiceHistoryStatus.trim().equalsIgnoreCase("500")) {
-                commonLib.info("Internal server error");
-            } else {
-                commonLib.info("Invoice History downstream api not working");
-            }
-
-            /**
-             * Calling Postpaid Bill Details api to get total outstanding
-             */
-            PostpaidBillDetailsResponse postpaidBillDetailsResponse = apiEsb.postpaidBillDetailsResponse(customerNumber);
-            if (Objects.nonNull(postpaidBillDetailsResponse.getInvoiceDetails())) {
-                totalOutStanding = pages.getAccountInformationWidget().getTwoDecimalValue(postpaidBillDetailsResponse.getInvoiceDetails().getTotalOutstanding());
-                totalUnbilled = pages.getAccountInformationWidget().getTwoDecimalValue(postpaidBillDetailsResponse.getInvoiceDetails().getTotalUnbilled());
-                commonLib.info("totalOutStanding : " + totalOutStanding);
-                commonLib.info("totalUnbilled : " + totalUnbilled);
-                assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getTotalOutstanding(), totalOutStanding, "Total outstanding displayed as per ESB response", "Total outstanding not displayed as per ESB response"));
-                assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getCurrentMonthUnBillAmount(), totalUnbilled, "Total unbilled amount displayed as per ESB response", "Total unbilled amount not displayed as per ESB response"));
-            } else if (Objects.isNull(postpaidBillDetailsResponse.getInvoiceDetails())) {
-                commonLib.info("Internal server error");
-            } else {
-                commonLib.info("Postpaid Bill Details downstream api not working");
-            }
+            selUtils.addTestcaseDescription("Calling customer profile api to get customer account number", "description");
 
             /**
              * Calling customer profile api to get customer account number
@@ -280,37 +171,11 @@ public class AccountInformationWidgetTest extends Driver {
             /**
              * Setting payment request object
              */
-            PaymentRequest paymentRequest = new PaymentRequest();
+
             paymentRequest.setAccountNo(customerAccountNumber);
             paymentRequest.setLimit(constants.getValue(CommonConstants.PAYMENT_REQUEST_LIMIT));
             paymentRequest.setOffset(constants.getValue(CommonConstants.PAYMENT_REQUEST_OFFSET));
 
-            /**
-             * Calling enterprise-service/ esb account/payment api to get  payment amount, currency & payment date
-             */
-            List<Payment> payment = null;
-            String paymentAmt = null;
-            String currency = null;
-            String paymentDate = null;
-            PaymentResponse paymentResponse = apiEsb.paymentResponse(paymentRequest);
-            final String accountPaymentStatus = paymentResponse.getStatus();
-            if (accountPaymentStatus.trim().equalsIgnoreCase("200")) {
-                payment = paymentResponse.getResponse().getPayments();
-                for (Payment p : payment) {
-                    paymentAmt = p.getPaymentAmount();
-                    currency = p.getCurrency();
-                    paymentDate = p.getPaymentDate();
-                    commonLib.info("paymentAmt : " + paymentAmt);
-                    commonLib.info("currency : " + currency);
-                    commonLib.info("paymentDate : " + paymentDate);
-                }
-            } else if (accountPaymentStatus.trim().equalsIgnoreCase("400")) {
-                commonLib.info("Bad request from the customer");
-            } else if (accountPaymentStatus.trim().equalsIgnoreCase("401")) {
-                commonLib.info("Unauthorised request");
-            } else {
-                commonLib.info("account/payment downstream api not working");
-            }
 
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -322,7 +187,7 @@ public class AccountInformationWidgetTest extends Driver {
     /**
      * This method is used to validate other tab and email id
      */
-    @Test(priority = 6, groups = {"SanityTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    @Test(priority = 6, groups = {"SanityTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"}, enabled = false)
     public void otherTabDisplay() {
         try {
             selUtils.addTestcaseDescription("Verify that Other tab and email id should be visible", "description");
@@ -334,11 +199,11 @@ public class AccountInformationWidgetTest extends Driver {
             CustomerProfileResponse customerProfileResponse = apiEsb.customerProfileResponse(customerNumber);
             final String status = customerProfileResponse.getStatus();
             if (status.trim().equalsIgnoreCase("ACTIVE")) {
-                commonLib.info("Email from esb: " + customerProfileResponse.getEmail().trim());
-                commonLib.info("Email on portal : " + pages.getAccountInformationWidget().getEmailId());
-                commonLib.info("Unable : " + pages.getAccountInformationWidget().getUnableToFetch().toLowerCase());
-                assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getEmailId(), customerProfileResponse.getEmail().trim(), "Email ID display as per ESB response", "Email ID display is not as per ESB response"));
-                //assertCheck.append(actions.assertEqualStringType(pages.getPostpaidEmailIDWidget().getUnableToFetch().toLowerCase(), "unable to fetch", "Unable to fetch display correctly", "Unable to fetch not display correctly"));
+                if (Objects.nonNull(pages.getAccountInformationWidget().getEmailId()) && !pages.getAccountInformationWidget().getEmailId().isEmpty() ) {
+                    commonLib.info("Email from esb: " + customerProfileResponse.getEmail().trim());
+                    commonLib.info("Email on portal : " + pages.getAccountInformationWidget().getEmailId());
+                    assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getEmailId(), customerProfileResponse.getEmail().trim(), "Email ID display as per ESB response", "Email ID display is not as per ESB response"));
+                }
             } else if (status.trim().equalsIgnoreCase("500")) {
                 commonLib.info("Internal server error");
             } else {
@@ -355,7 +220,7 @@ public class AccountInformationWidgetTest extends Driver {
     public void verifyAccountNumber() throws IOException, ParseException {
         try {
             selUtils.addTestcaseDescription("Validate if Account Number Visible?, Validate Account Number is Bolder", "description");
-            postpaidAccountInformation = api.getPostpaidAccountInformation(customerNumber);
+            postpaidAccountInformation = api.getPostpaidAccountInformation(customerNumber, customerAccountNumber, paymentRequest);
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "customerAccountNumber", "statusCode"), "200", "Status Code for Postpaid Account Information API to get AccountNumber Matched", "Status Code for Postpaid Account Information API to get AccountNumber NOT Matched", false));
             final String accountNumber = pages.getAccountInformationWidget().getAccountNumber();
             assertCheck.append(actions.assertEqualStringType(accountNumber, pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "customerAccountNumber", "customerAccountNumber"), "Account Number displayed as expected and is :" + accountNumber, "Account Number not displayed as expected and is :" + accountNumber));
@@ -394,23 +259,63 @@ public class AccountInformationWidgetTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
+
+    /**
+     * This method is used to validate currency on account info widget
+     */
+    @Test(priority = 10, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    public void verifyCurrency() {
+        try {
+            selUtils.addTestcaseDescription("Validating currency on account information widget", "description");
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getTotalCreditLmtCurrencyStyle(), "#ed1c24", "Color for Total Credit Limit Currency Data Point Matched", "Color for Total Credit Limit Currency Data Point NOT Matched"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getAvlCreditLmtCurrencyStyle(), "#ed1c24", "Color for Available Credit Limit Currency Data Point Matched", "Color for Available Credit Limit Currency Data Point NOT Matched"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getCurrentMonthUnbillCurrencyStyle(), "#ed1c24", "Color for Current Month Un-billed Currency Data Point Matched", "Color for Current Month Un-billed Currency Data Point NOT Matched"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getLastMonthBillAmountCurrencyStyle(), "#ed1c24", "Color for Last Month Bill amount Currency Data Point Matched", "Color for Last Month Bill amount Currency Data Point NOT Matched"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getLastPaymentModeCurrencyStyle(), "#ed1c24", "Color for Last payment mode Currency Data Point Matched", "Color for Last payment mode Currency Data Point NOT Matched"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getTotalOutstandingCurrencyStyle(), "#ed1c24", "Color for Total outstanding Currency Data Point Matched", "Color for Total outstanding Currency Data Point NOT Matched"));
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - verifyCurrency()" + e.fillInStackTrace(), true);
+        }
+        actions.assertAllFoundFailedAssert(assertCheck);
+    }
+
+    /**
+     * This method is used to validate bold text
+     */
+    @Test(priority = 11, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    public void verifyBoldText(){
+        try {
+            selUtils.addTestcaseDescription("Validating font family on account information widget", "description");
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getTtlCreditLimitNumberStyle(), "Bold", "Total Credit Limit is in Bold State", "Total Credit Limit NOT in Bold state"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getAvlCreditLimitNumberStyle(), "Bold", "Available Credit Limit is in Bold State", "Available Credit Limit NOT in Bold state"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getTotalOutstandingLimitNumberStyle(), "Bold", "Total outstanding is in Bold State", "Total outstanding NOT in Bold state"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getDueDateNumberStyle(), "Bold", "Due date is in Bold State", "Due date NOT in Bold state"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getCurrentCycleNumberStyle(), "Bold", "Current cycle is in Bold State", "Current cycle NOT in Bold state"));
+
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - verifyBoldText()" + e.fillInStackTrace(), true);
+        }
+        actions.assertAllFoundFailedAssert(assertCheck);
+    }
+
     /**
      * This method is used to validate account information detail icon
      */
-    @Test(priority = 10, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    @Test(priority = 12, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
     public void verifyAccountInfoDetailedIcon() {
 
         try {
             selUtils.addTestcaseDescription("Validating all data points under Account Information widget like Due date And Total Outstanding And Current Cycle And Current Month Unbilled Amount And last Month Bill Amount And Last Payment Mode And Security Deposit And Account Number", "description");
-            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmount", "statusCode"), "200", "Postpaid Account Information API 1 Status Code Matched", "Postpaid Account Information API 1 Status Code NOT Matched", false));
-            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "availableCreditLimit", "statusCode"), "200", "Postpaid Account Information API 2 Status Code Matched", "Postpaid Account Information API 2 Status Code NOT Matched", false));
-            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "lastMonthBilledAmount", "statusCode"), "200", "Postpaid Account Information API 3 Status Code Matched", "Postpaid Account Information API 3 Status Code NOT Matched", false));
-            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "customerAccountNumber", "statusCode"), "200", "Postpaid Account Information API 4 Status Code Matched", "Postpaid Account Information API 4 Status Code NOT Matched", false));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmount", "statusCode"), "200", "Postpaid Account Information API 1 Status Code Matched", "Postpaid Account Information API 1 Status Code NOT Matched"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "availableCreditLimit", "statusCode"), "200", "Postpaid Account Information API 2 Status Code Matched", "Postpaid Account Information API 2 Status Code NOT Matched"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "lastMonthBilledAmount", "statusCode"), "200", "Postpaid Account Information API 3 Status Code Matched", "Postpaid Account Information API 3 Status Code NOT Matched"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "customerAccountNumber", "statusCode"), "200", "Postpaid Account Information API 4 Status Code Matched", "Postpaid Account Information API 4 Status Code NOT Matched"));
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getTotalOutstanding(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "totalOutstandingAmount", "totalOutstandingAmount"), "Total outstanding amount displays as expected", "Total outstanding amount not displays as expected"));
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getCurrentMonthUnBillAmount(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmount", "currentMonthUnbilledAmount"), "Current month un-billed amount displays as expected", "Current month un-billed amount not displays as expected"));
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getDueDate(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "dueDate", "dueDate"), "Due date displays as expected", "Due date not displays as expected"));
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getCurrentCycle(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentCycle", "currentCycle"), "Current cycle displays as expected", "Current cycle not displays as expected"));
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getLastMonthBillAmount(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "lastMonthBilledAmount", "lastMonthBilledAmount"), "Last month bill amount displays as expected", "Last month bill amount not displays as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getLastMonthBillDate(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "dueDate", "dueDate"), "Last month bill date displays as expected", "Last month bill date not displays as expected"));
 
             String totalCreditLimit = pages.getAccountInformationWidget().getTotalCreditLimit();
             double ttlCreditLmt = Double.parseDouble(totalCreditLimit);
@@ -419,9 +324,6 @@ public class AccountInformationWidgetTest extends Driver {
             avlCreditLmt = Double.parseDouble(availCreditLimit);
             double creditLimitUsed = 0.00d;
             creditLimitUsed = ttlCreditLmt - avlCreditLmt;
-            String crdtLmt = String.valueOf(creditLimitUsed);
-            crdtLmt = pages.getAccountInformationWidget().getTwoDecimalValue(crdtLmt);
-            commonLib.info("Credit limit used is : " + crdtLmt);
 
             String creditLmtUsedFromUI = pages.getAccountInformationWidget().getCreditLmtUsed();
             double creditLimitUsedUIValue = Double.parseDouble(creditLmtUsedFromUI);
@@ -436,10 +338,10 @@ public class AccountInformationWidgetTest extends Driver {
 
             String availCreditLimitUI = String.valueOf(avlCreditLmt);
             String availCreditLimitCalculated = String.valueOf(availCreditLmt);
-
+            commonLib.info("usedCreditLimitCalculated : " + usedCreditLimitCalculated);
             assertCheck.append(actions.assertEqualStringType(totalCreditLimit, pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "totalCreditLimit", "totalCreditLimit"), "Progress bar that denotes Total Credit limit is displayed as expected", "Progress bar that denotes Total Credit limit not displayed as expected"));
             assertCheck.append(actions.assertEqualStringType(availCreditLimit, pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "availableCreditLimit", "availableCreditLimit"), "Available Credit limit is displayed as expected", "Available Credit limit is not displayed as expected"));
-            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getTwoDecimalValue(usedCreditLimitOnProgressBar), usedCreditLimitCalculated, "Red portion of the progress bar denotes the Used Credit Limit is displayed as expected", "Red portion of the progress bar denotes the Used Credit Limit is not displayed as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getTwoDecimalValue(usedCreditLimitOnProgressBar), pages.getAccountInformationWidget().getTwoDecimalValue(usedCreditLimitCalculated), "Red portion of the progress bar denotes the Used Credit Limit is displayed as expected", "Red portion of the progress bar denotes the Used Credit Limit is not displayed as expected"));
             assertCheck.append(actions.assertEqualStringType(availCreditLimitUI, availCreditLimitCalculated, "Non-Red portion of the progress bar denotes the Used Credit Limit is displayed as expected", "Non-Red portion of the progress bar denotes the Used Credit Limit is not displayed as expected"));
 
             String tempCreditLimitAPI = pages.getAccountInformationWidget()
@@ -466,7 +368,7 @@ public class AccountInformationWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 11, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 13, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void decimalCountOnUI() {
         try {
             selUtils.addTestcaseDescription("Validating the decimal values upto 2", "description");
@@ -484,7 +386,7 @@ public class AccountInformationWidgetTest extends Driver {
     /**
      * This method is used to validate widgets in profile management
      */
-    @Test(priority = 12, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    @Test(priority = 14, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
     public void accountInfoProfileManagement() {
         try {
             selUtils.addTestcaseDescription("Validating widgets in profile management", "description");

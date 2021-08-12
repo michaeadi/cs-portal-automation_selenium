@@ -1,6 +1,7 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
 import com.airtel.cs.model.response.postpaid.enterprise.Line;
+import com.airtel.cs.model.response.postpaid.enterprise.MsisdnDetail;
 import com.airtel.cs.pagerepository.pageelements.LinkedMsisdnToAccountNoPage;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
@@ -194,11 +195,11 @@ public class LinkedMsisdnToAccountNoWidget extends BasePage{
 
     /**
      * This method is used to check duplicate msisdn in list
-     * @param lines
+     * @param msisdnDetailList
      * @return
      */
-    public boolean areAllDistinct(List<Line> lines) {
-        return lines.stream().map(Line::getMsisdn).distinct().count() == lines.size();
+    public boolean areAllDistinct(List<MsisdnDetail> msisdnDetailList) {
+        return msisdnDetailList.stream().map(MsisdnDetail::getMsisdn).distinct().count() == msisdnDetailList.size();
     }
 
     /**

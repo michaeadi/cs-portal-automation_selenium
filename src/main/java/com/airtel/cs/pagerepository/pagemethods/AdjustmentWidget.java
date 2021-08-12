@@ -101,7 +101,7 @@ public class AdjustmentWidget extends BasePage{
      */
     public String getServiceNumber(){
         commonLib.info("Reading Service number");
-        return getText(pageElements.serviceNumber);
+        return getAttribute(pageElements.serviceNumber,"value",false);
     }
 
     /**
@@ -110,7 +110,7 @@ public class AdjustmentWidget extends BasePage{
      */
     public String getAdjustmentCurrency(){
         commonLib.info("Reading adjustment currency");
-        return getText(pageElements.adjustmentCurrency);
+        return getAttribute(pageElements.adjustmentCurrency,"value",false);
     }
 
     /**

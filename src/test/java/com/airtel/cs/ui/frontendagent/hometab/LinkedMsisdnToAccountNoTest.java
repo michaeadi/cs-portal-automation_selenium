@@ -16,6 +16,7 @@ import com.airtel.cs.model.response.kycprofile.KYCProfile;
 import com.airtel.cs.model.response.postpaid.enterprise.AccountLinesResponse;
 import com.airtel.cs.model.response.postpaid.enterprise.AccountStatementCSResponse;
 import com.airtel.cs.model.response.postpaid.enterprise.Line;
+import com.airtel.cs.model.response.postpaid.enterprise.MsisdnDetail;
 import io.restassured.http.Headers;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -24,7 +25,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
 public class LinkedMsisdnToAccountNoTest extends Driver {
@@ -126,17 +126,9 @@ public class LinkedMsisdnToAccountNoTest extends Driver {
             assertCheck.append(actions.assertEqualStringType(pages.getLinkedMsisdnToAccountNoWidget().getMiddleAuuid(), loginAUUID, "Auuid shown at the middle of the linked msisdn widget and is correct", "Auuid NOT shown at the middle of Your linked msisdn widget"));
             assertCheck.append(actions.assertEqualStringType(pages.getLinkedMsisdnToAccountNoWidget().getAccountInfoTab().toUpperCase(), "ACCOUNT INFO", "Account Info tab display as expected in detailed account info", "Account Info tab not display as expected in detailed account info"));
             assertCheck.append(actions.assertEqualStringType(pages.getLinkedMsisdnToAccountNoWidget().getAccountInfoDetailWidget().toUpperCase(), "LINKED MSISDN", "Linked MSISDN display as expected in detailed account info", "Linked MSISDN not display as expected in detailed account info"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getLinkedMsisdnToAccountNoWidget().getPackHeaders(1), data.getRow1(), "Header Name for Row 1 is as expected", "Header Name for Row 1 is not as expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getLinkedMsisdnToAccountNoWidget().getPackHeaders(2), data.getRow2(), "Header Name for Row 2 is as expected", "Header Name for Row 2 is not as expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getLinkedMsisdnToAccountNoWidget().getPackHeaders(3), data.getRow3(), "Header Name for Row 3 is as expected", "Header Name for Row 3 is not as expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getLinkedMsisdnToAccountNoWidget().getPackHeaders(4), data.getRow4(), "Header Name for Row 4 is as expected", "Header Name for Row 4 is not as expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getLinkedMsisdnToAccountNoWidget().getPackHeaders(5), data.getRow5(), "Header Name for Row 5 is as expected", "Header Name for Row 5 is not as expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getLinkedMsisdnToAccountNoWidget().getPackHeaders(6), data.getRow6(), "Header Name for Row 6 is as expected", "Header Name for Row 6 is not as expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getLinkedMsisdnToAccountNoWidget().getPackHeaders(7), data.getRow7(), "Header Name for Row 7 is as expected", "Header Name for Row 7 is not as expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getLinkedMsisdnToAccountNoWidget().getPackHeaders(8), data.getRow8(), "Header Name for Row 8 is as expected", "Header Name for Row 8 is not as expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getLinkedMsisdnToAccountNoWidget().getPackHeaders(9), data.getRow9(), "Header Name for Row 9 is as expected", "Header Name for Row 9 is not as expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getLinkedMsisdnToAccountNoWidget().getPackHeaders(10), data.getRow10(), "Header Name for Row 10 is as expected", "Header Name for Row 10 is not as expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getLinkedMsisdnToAccountNoWidget().getPackHeaders(11), data.getRow11(), "Header Name for Row 11 is as expected", "Header Name for Row 11 is not as expected"));
+            for(int i=0;i<data.getHeaderName().size();i++){
+                assertCheck.append(actions.matchUiAndAPIResponse(pages.getLinkedMsisdnToAccountNoWidget().getPackHeaders(i+1), data.getHeaderName().get(i), "Header Name for Row "+(i+1)+" is as expected", "Header Name for Row "+(i+1)+" is not as expected"));
+            }
             assertCheck.append(actions.assertEqualBoolean(pages.getLinkedMsisdnToAccountNoWidget().getSearchMsisdnChkBox(), true, "Searched msisdn checkbox in Linked Msisdn Table is visible", "Searched msisdn checkbox in Linked Msisdn Table is not visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.getLinkedMsisdnToAccountNoWidget().getCheckboxAccountInfo(), true, "Checkbox for account information details visible", "Checkbox for account information details not visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.getLinkedMsisdnToAccountNoWidget().getCheckboxLinkedMsisdn(), true, "Checkbox for linked msisdn is visible", "Checkbox for linked msisdn is not visible"));
@@ -154,64 +146,13 @@ public class LinkedMsisdnToAccountNoTest extends Driver {
      * This method is used to call esb api's
      */
     @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"userWithAccountInfoWidgetPermission"})
-    public void esbAPICall() {
+    public void esbAPICallToGetAccountNumber() {
         /**
          * Calling v2/customer-profile API to fetch account number
          */
         CustomerProfileResponse customerProfileResponse = apiEsb.customerProfileResponse(constants.getValue(ApplicationConstants.CUSTOMER_POSTPAID_MSISDN));
         accountNo = customerProfileResponse.getCustomerAccountNumber();
         commonLib.info("Account number : " + accountNo);
-
-        /**
-         * Setting account line request
-         */
-        AccountLineRequest accountLineRequest = new AccountLineRequest();
-        accountLineRequest.setAccountNo(accountNo);
-
-        /**
-         * Calling esb api "/api/enterprise-service/v1/accounts/lines"
-         */
-        AccountLinesResponse accountLinesResponse = apiEsb.accountLinesResponse(accountLineRequest);
-        List<Line> lines = null;
-        String msisdn = null;
-        String acctNo = null;
-        final String accountLineStatus = accountLinesResponse.getStatus();
-        if (accountLineStatus.equalsIgnoreCase("200")) {
-            int row = pages.getLinkedMsisdnToAccountNoWidget().getNumbersOfRows();
-            if (row > 5) {
-                row = 5;
-            }
-            for (int i = 0; i < row; i++) {
-                assertCheck.append(actions.matchUiAndAPIResponse(pages.getLinkedMsisdnToAccountNoWidget().getMsisdn(i + 1), accountLinesResponse.getResponse().getLines().get(i).getMsisdn(), "Msisdn on UI is visible as per esb response", "Msisdn on UI is not visible as per esb response"));
-                assertCheck.append(actions.matchUiAndAPIResponse(pages.getLinkedMsisdnToAccountNoWidget().getSim(i + 1), accountLinesResponse.getResponse().getLines().get(i).getSimSerialNumber(), "Sim no. on UI is visible as per esb response", "Sim no. on UI is not visible as per esb response"));
-                assertCheck.append(actions.matchUiAndAPIResponse(pages.getLinkedMsisdnToAccountNoWidget().getLineType(i + 1), accountLinesResponse.getResponse().getLines().get(i).getLineType(), "Line Type on UI is visible as per esb response", "Line Type on UI is not visible as per esb response"));
-                assertCheck.append(actions.matchUiAndAPIResponse(pages.getLinkedMsisdnToAccountNoWidget().getPaymentLvl(i + 1), accountLinesResponse.getResponse().getLines().get(i).getPaymentLevel(), "Payment Level on UI is visible as per esb response", "Payment Level on UI is not visible as per esb response"));
-                assertCheck.append(actions.matchUiAndAPIResponse(pages.getLinkedMsisdnToAccountNoWidget().getGsmStatus(i + 1), accountLinesResponse.getResponse().getLines().get(i).getStatus(), "Status on UI is visible as per esb response", "Status on UI is not visible as per esb response"));
-                assertCheck.append(actions.matchUiAndAPIResponse(pages.getLinkedMsisdnToAccountNoWidget().getVip(i + 1).toUpperCase(), accountLinesResponse.getResponse().getLines().get(i).getVip().equals("false") ? "NO" : "YES", "Vip on UI is visible as per esb response", "Vip on UI is not visible as per esb response"));
-                assertCheck.append(actions.matchUiAndAPIResponse(pages.getLinkedMsisdnToAccountNoWidget().getCug(i + 1).toUpperCase(), accountLinesResponse.getResponse().getLines().get(i).getCug().equals("false") ? "NO" : "YES", "Cug on UI is visible as per esb response", "Cug on UI is not visible as per esb response"));
-                assertCheck.append(actions.matchUiAndAPIResponse(pages.getLinkedMsisdnToAccountNoWidget().getDnd(i + 1).toUpperCase(), accountLinesResponse.getResponse().getLines().get(i).getDnd().equals("false") ? "NO" : "YES", "Dnd on UI is visible as per esb response", "Dnd on UI is not visible as per esb response"));
-                assertCheck.append(actions.assertEqualStringType(pages.getLinkedMsisdnToAccountNoWidget().firstWord(pages.getLinkedMsisdnToAccountNoWidget().getCurrentUsageLimit(i + 1)), constants.getValue("currency"), "Currency on current usage limit is as expected", "Currency on current usage limit is not expected"));
-                assertCheck.append(actions.assertEqualStringType(pages.getLinkedMsisdnToAccountNoWidget().firstWord(pages.getLinkedMsisdnToAccountNoWidget().getSecurityDep(i + 1)), constants.getValue("currency"), "Currency on security deposit is as expected", "Currency on security deposit is not expected"));
-            }
-            lines = accountLinesResponse.response.getLines();
-            Boolean msisdnFlag = pages.getLinkedMsisdnToAccountNoWidget().areAllDistinct(lines);
-            assertCheck.append(actions.assertEqualBoolean(msisdnFlag, true, "All MSISDN'S are unique", "All MSISDN'S are not unique"));
-            for (Line ln : lines) {
-                msisdn = ln.getMsisdn();
-                acctNo = ln.getAccountNo();
-                if (!Objects.isNull(msisdn) && !Objects.isNull(acctNo)) {
-                    assertCheck.append(actions.assertEqualStringType(msisdn, ln.getMsisdn().trim(), "MSISDN: " + ln.getMsisdn().trim() + " is linked with Account Number : " + accountNo.trim(), "MSISDN: " + ln.getMsisdn().trim() + " is not linked with Account Number : " + accountNo.trim()));
-                }
-            }
-
-        } else if (accountLineStatus.trim().equalsIgnoreCase("400")) {
-            commonLib.info("Bad request from the customer");
-        } else if (accountLineStatus.trim().equalsIgnoreCase("401")) {
-            commonLib.info("Unauthorised request");
-        } else {
-            commonLib.info("account/lines downstream api not working");
-        }
-
 
     }
 
@@ -221,8 +162,14 @@ public class LinkedMsisdnToAccountNoTest extends Driver {
          * Calling CS api
          */
         AccountStatementCSResponse accountStatementCSResponse = api.accountStatementCSResponse(accountNo, 1);
+        List<MsisdnDetail> msisdnDetailList = null;
+        String msisdn = null;
+        String acctNo = null;
         final String accountStatementStatus = accountStatementCSResponse.getStatus();
         if (accountStatementStatus.equalsIgnoreCase("SUCCESS")) {
+            msisdnDetailList = accountStatementCSResponse.result.getMsisdnDetailList();
+            Boolean msisdnFlag = pages.getLinkedMsisdnToAccountNoWidget().areAllDistinct(msisdnDetailList);
+            assertCheck.append(actions.assertEqualBoolean(msisdnFlag, true, "All MSISDN'S are unique", "All MSISDN'S are not unique"));
             int row = pages.getLinkedMsisdnToAccountNoWidget().getNumbersOfRows();
             if (row > 5) {
                 row = 5;
@@ -236,6 +183,13 @@ public class LinkedMsisdnToAccountNoTest extends Driver {
                 assertCheck.append(actions.matchUiAndAPIResponse(pages.getLinkedMsisdnToAccountNoWidget().getVip(i + 1), accountStatementCSResponse.getResult().getMsisdnDetailList().get(i).getVip(), "VIP on UI is visible as per response", "VIP on UI is not visible as per response"));
                 assertCheck.append(actions.matchUiAndAPIResponse(pages.getLinkedMsisdnToAccountNoWidget().getCug(i + 1), accountStatementCSResponse.getResult().getMsisdnDetailList().get(i).getCug(), "CUG on UI is visible as per response", "CUG on UI is not visible as per response"));
                 assertCheck.append(actions.matchUiAndAPIResponse(pages.getLinkedMsisdnToAccountNoWidget().getDnd(i + 1), accountStatementCSResponse.getResult().getMsisdnDetailList().get(i).getDnd(), "DND on UI is visible as per response", "DND on UI is not visible as per response"));
+
+                if (!pages.getLinkedMsisdnToAccountNoWidget().firstWord(pages.getLinkedMsisdnToAccountNoWidget().getCurrentUsageLimit(i + 1)).equalsIgnoreCase("-") && !pages.getLinkedMsisdnToAccountNoWidget().firstWord(pages.getLinkedMsisdnToAccountNoWidget().getCurrentUsageLimit(i + 1)).isEmpty()) {
+                    assertCheck.append(actions.assertEqualStringType(pages.getLinkedMsisdnToAccountNoWidget().firstWord(pages.getLinkedMsisdnToAccountNoWidget().getCurrentUsageLimit(i + 1)), constants.getValue("currency"), "Currency on current usage limit is as expected", "Currency on current usage limit is not expected"));
+                }
+                if (!pages.getLinkedMsisdnToAccountNoWidget().firstWord(pages.getLinkedMsisdnToAccountNoWidget().getSecurityDep(i + 1)).equalsIgnoreCase("-") && !pages.getLinkedMsisdnToAccountNoWidget().firstWord(pages.getLinkedMsisdnToAccountNoWidget().getSecurityDep(i + 1)).isEmpty()) {
+                    assertCheck.append(actions.assertEqualStringType(pages.getLinkedMsisdnToAccountNoWidget().firstWord(pages.getLinkedMsisdnToAccountNoWidget().getSecurityDep(i + 1)), constants.getValue("currency"), "Currency on security deposit is as expected", "Currency on security deposit is not expected"));
+                }
             }
         }
         pages.getLinkedMsisdnToAccountNoWidget().isPaginationRightMoveEnable();

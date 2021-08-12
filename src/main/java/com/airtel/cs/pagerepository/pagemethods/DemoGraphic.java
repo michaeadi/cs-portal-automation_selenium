@@ -9,6 +9,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.util.Strings;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -178,6 +179,7 @@ public class DemoGraphic extends BasePage {
     public String getIdType() {
         final String text = getText(pageElements.idType);
         commonLib.info("Getting ID Type " + text);
+        clickFEDashboardOutside();
         return text;
     }
 
@@ -189,7 +191,6 @@ public class DemoGraphic extends BasePage {
     public String getIdNumber() {
         final String text = getText(pageElements.idNumber);
         commonLib.info("Getting masked ID Number " + text);
-        clickFEDashboardOutside();
         return text;
     }
 
@@ -447,6 +448,7 @@ public class DemoGraphic extends BasePage {
             if (isVisible(pageElements.serviceCategory)) {
                 result = getText(pageElements.serviceCategory);
                 commonLib.info("Getting service Category: " + result);
+                clickFEDashboardOutside();
             } else {
                 commonLib.fail("Service Category is NOT visible", true);
             }
@@ -583,7 +585,7 @@ public class DemoGraphic extends BasePage {
     public void hoverOnSegmentInfoIcon() {
         commonLib.info("Hover on Segment Info icon");
         hoverOverElement(pageElements.hoverInfoSegment);
-        commonLib.hardWait(2);
+        //commonLib.hardWait(2);
     }
 
     /**
@@ -705,10 +707,10 @@ public class DemoGraphic extends BasePage {
      * This Method will get the API key value
      *
      * @param apiKeyValue the key
-     * @return
+     * @return the result
      */
     public String getKeyValueAPI(String apiKeyValue) {
-        return apiKeyValue == null || apiKeyValue.equals("") ? "-" : apiKeyValue.toLowerCase().trim();
+        return "null".equals(apiKeyValue) || apiKeyValue.equals("") ? "-" : apiKeyValue.toLowerCase().trim();
     }
 
     /*

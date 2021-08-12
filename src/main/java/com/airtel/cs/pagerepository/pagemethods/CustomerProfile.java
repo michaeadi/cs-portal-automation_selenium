@@ -163,6 +163,7 @@ public class CustomerProfile extends BasePage {
     This Method will tell us customer profile page loaded or not?
      */
     public boolean isCustomerProfilePageLoaded() {
+        waitTillLoaderGetsRemoved();
         boolean result = false;
         if (isVisible(pageElements.homeTabWidget)) {
             result = isEnabled(pageElements.homeTabWidget);

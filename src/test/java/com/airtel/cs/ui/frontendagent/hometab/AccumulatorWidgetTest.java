@@ -16,7 +16,7 @@ public class AccumulatorWidgetTest extends Driver {
     private static String customerNumber = null;
     RequestSource api = new RequestSource();
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -24,7 +24,7 @@ public class AccumulatorWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -43,18 +43,17 @@ public class AccumulatorWidgetTest extends Driver {
     }
 
     @DataProviders.Table(name = "Accumulator")
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
-    public void accumulatorDetailsTest(HeaderDataBean Data) {
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
+    public void accumulatorDetailsTest(HeaderDataBean data) {
         try {
             selUtils.addTestcaseDescription("Validating Accumulator Details of User :" + customerNumber, "description");
             String accumulatorWidgetIdentifier = pages.getDaDetailsPage().getAccumulatorId();
             selUtils.addTestcaseDescription("Validating Accumulator Details of User :" + customerNumber + ",Validate accumulator widget header display as per config,Validate accumulator row data must be displayed as per api response.", "description");
             assertCheck.append(actions.assertEqualBoolean(pages.getCurrentBalanceWidgetPage().isCurrentBalanceWidgetMenuVisible(), true, "Current Balance Widget MENU visible ", "Current Balance Widget MENU is not visible"));
             pages.getCurrentBalanceWidgetPage().openingDADetails();
-            assertCheck.append(actions.matchUiAndAPIResponse(widgetMethods.getHeaderName(accumulatorWidgetIdentifier, 0), Data.getRow1(), "Header Name for Row 1 is as expected", "Header Name for Row 1 is not as expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(widgetMethods.getHeaderName(accumulatorWidgetIdentifier, 1), Data.getRow2(), "Header Name for Row 2 is as expected", "Header Name for Row 2 is not as expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(widgetMethods.getHeaderName(accumulatorWidgetIdentifier, 2), Data.getRow3(), "Header Name for Row 3 is as expected", "Header Name for Row 3 is not as expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(widgetMethods.getHeaderName(accumulatorWidgetIdentifier, 3), Data.getRow4(), "Header Name for Row 4 is as expected", "Header Name for Row 4 is not as expected"));
+            for(int i=0;i<data.getHeaderName().size();i++){
+                assertCheck.append(actions.matchUiAndAPIResponse(widgetMethods.getHeaderName(accumulatorWidgetIdentifier, i), data.getHeaderName().get(i), "Header Name for Row "+(i+1)+" is as expected", "Header Name for Row "+(i+1)+" is not as expected"));
+            }
             Accumulators accumulatorAPI = api.accumulatorsAPITest(customerNumber);
             final int statusCode = accumulatorAPI.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "AM Profile API success and status code is :" + statusCode, "AM Profile API got failed and status code is :" + statusCode, false));

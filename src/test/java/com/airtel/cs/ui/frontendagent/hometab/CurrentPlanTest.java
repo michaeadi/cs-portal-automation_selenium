@@ -135,8 +135,7 @@ public class CurrentPlanTest extends Driver {
     @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasCurrentPlanWidgetPermission"})
     public void currentPlanWidgetDisplay() {
         try {
-            selUtils.addTestcaseDescription("Validate plan and pack names", "description");
-            final CurrentPlanWidget currentPlanWidget = pages.getCurrentPlanWidget();
+            selUtils.addTestcaseDescription("Validate current plan widget", "description");
             assertCheck.append(actions.assertEqualBoolean(pages.getCurrentPlanWidget().isPlanNameDisplayedOnCurrentPlanWidget(), true, "Name of the plan is displayed on Current plan widget", "Name of the plan is not displayed on Current plan widget"));
             assertCheck.append(actions.assertEqualBoolean(pages.getCurrentPlanWidget().isAdditionalBundleOnCurrentPlanWidget(), true, "Additional bundle count visible", "Additional bundle count not visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.getPlanAndPackDetailedWidget().isActionIconVisibleOnCurrentPlan(), true, "Action icon visible", "Action icon not visible"));
@@ -147,43 +146,8 @@ public class CurrentPlanTest extends Driver {
             final List<String> postpaidCurrentPlan = api.getPostpaidCurrentPlan(constants.getValue(ApplicationConstants.CUSTOMER_POSTPAID_MSISDN));
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidCurrentPlan, "additionalBundles", "statusCode"), "200", "Postpaid Current Plan API 1 Status Code Matched", "Postpaid Current Plan API 1 Status Code NOT Matched"));
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidCurrentPlan, "planName", "statusCode"), "200", "Postpaid Current Plan API 2 Status Code Matched", "Postpaid Current Plan API 2 Status Code NOT Matched"));
-
-
-            /**
-             * Calling ESB API for current plan
-             */
-            PlanPackESBResponse planPackESBResponse = apiEsb.planPackResponse(constants.getValue(ApplicationConstants.CUSTOMER_POSTPAID_MSISDN));
-            final String esbStatus = planPackESBResponse.getStatus();
-            List<Bundle> bundles = null;
-            List<Usage> usageList = null;
-            String bundleName = null;
-            String category = null;
-            String benefit = null;
-            String unit = null;
-            String used = null;
-            String available = null;
-            if (esbStatus.trim().equalsIgnoreCase("200")) {
-                bundles = planPackESBResponse.getAddonUsage().getBundles();
-                for (Bundle bndl : bundles) {
-                    bundleName = bndl.getBundleName();
-                    commonLib.info("bundleName : " + bundleName);
-                    usageList = bndl.getUsageList();
-                    for (Usage usg : usageList) {
-                        category = usg.getCategory();
-                        benefit = usg.getBenefit();
-                        unit = usg.getUnit();
-                        used = usg.getUsed();
-                        available = usg.getAvailable();
-                        commonLib.info("category : " + category);
-                        commonLib.info("benefit : " + benefit);
-                        commonLib.info("unit : " + unit);
-                        commonLib.info("used : " + used);
-                        commonLib.info("available : " + available);
-
-                    }
-                }
-
-            }
+            String count = pages.getCurrentPlanWidget().isAdditionalBundleCountOnCurrentPlanWidget();
+            assertCheck.append(actions.assertEqualStringType(count, pages.getCurrentPlanWidget().isAdditionalBundleCountOnCurrentPlanWidget(), "Count is showing as expected", "Count is not showing as expected"));
 
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
