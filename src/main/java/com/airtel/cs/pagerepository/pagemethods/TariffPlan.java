@@ -3,6 +3,8 @@ package com.airtel.cs.pagerepository.pagemethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.pagerepository.pageelements.TariffPlanPage;
 import lombok.extern.log4j.Log4j2;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -150,7 +152,12 @@ public class TariffPlan extends BasePage {
     This Method will let us know, Comment box is visible or not over Issue details pop up
      */
     public Boolean isCommentBoxVisible() {
-        return isVisible(pageElements.commentBox);
+        try {
+            return isVisibleContinueExecution(pageElements.commentBox);
+        }catch (NoSuchElementException | TimeoutException e){
+            commonLib.info(constants.getValue("element.not.visible")+" "+e.fillInStackTrace());
+            return false;
+        }
     }
 
     /*

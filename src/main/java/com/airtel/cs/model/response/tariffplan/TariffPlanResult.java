@@ -9,8 +9,7 @@ import lombok.Setter;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CurrentPlan {
-    private String status;
-    private Integer statusCode;
-    private TariffPlanResult result;
+public class TariffPlanResult {
+    private String serviceClass;
+    private PlanResult plan;
 }

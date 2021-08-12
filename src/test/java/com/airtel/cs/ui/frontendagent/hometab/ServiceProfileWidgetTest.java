@@ -109,10 +109,10 @@ public class ServiceProfileWidgetTest extends Driver {
                 } else {
                     int size = Math.min(hlrService.getTotalCount(), 5);
                     for (int i = 0; i < data.getHeaderName().size(); i++) {
-                        assertCheck.append(actions.assertEqualStringType(serviceClassWidget.getHeaders(i), data.getHeaderName().get(i), "Header Name for Row " + (i + 1) + " is as expected", "Header Name for Row " + (i + 1) + " is not as expected"));
+                        assertCheck.append(actions.matchUiAndAPIResponse(widgetMethods.getHeaderName(pages.getServiceClassWidget().getUniqueIdentifier(),i), data.getHeaderName().get(i), "Header Name for Row " + (i + 1) + " is as expected", "Header Name for Row " + (i + 1) + " is not as expected",true));
                     }
                     for (int i = 0; i < size; i++) {
-                        assertCheck.append(actions.assertEqualStringType(serviceClassWidget.getValueCorrespondingToServiceProfile(i + 1, 1), hlrService.getResult().get(i).getServiceName(), "Service Name is As received in API for row number " + i, "Service Name is not As received in API for row number " + i));
+                        assertCheck.append(actions.assertEqualStringType(serviceClassWidget.getValueCorrespondingToServiceProfile(i + 1, 1), hlrService.getResult().get(i).getServiceName(), "Service Name is As received in API for row number " + i, "Service Name is not As received in API for row number " + i,true,true));
                         assertCheck.append(actions.assertEqualStringType(serviceClassWidget.getValueCorrespondingToServiceProfile(i + 1, 2), hlrService.getResult().get(i).getServiceDesc(), "Service desc is As received in API for row number " + i, "Service desc is not As received in API for row number " + i));
                         if (hlrService.getResult().get(i).getHlrCodes().size() > 0)
                             assertCheck.append(actions.assertEqualStringType(serviceClassWidget.getValueCorrespondingToServiceProfile(i + 1, 3), hlrService.getResult().get(i).getHlrCodes().get(0), "HLR Code is As received in API for row number " + i, "HLR Code is not As received in API for row number " + i));

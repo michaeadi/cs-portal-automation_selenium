@@ -210,9 +210,8 @@ public class ServiceClassWidget extends BasePage {
     }
 
     /**
-     * This method is use to get Recharge widget unique identifier
-     *
-     * @return String The Value
+     * This method use to get service class widget unique identifier
+     * @return String The value
      */
     public String getUniqueIdentifier() {
         return pageElements.widgetIdentifier;

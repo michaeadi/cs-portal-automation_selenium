@@ -32,7 +32,42 @@ public class AutoUnAssignmentTest extends Driver {
         }
     }
 
-    @Test(priority = 1,groups ={"SanityTest", "RegressionTest", "ProdTest","SmokeTest"} )
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest","PositiveFlowUnAssignment"})
+    public void openSupervisorDashboard() {
+        try {
+            selUtils.addTestcaseDescription("Open Supervisor Dashboard , Validate agent redirect to ticket List Page", "description");
+            pages.getSideMenuPage().clickOnSideMenu();
+            pages.getSideMenuPage().clickOnUserName();
+            pages.getSideMenuPage().openSupervisorDashboard();
+            assertCheck.append(actions.assertEqualStringType(driver.getTitle(), constants.getValue(CommonConstants.SUPERVISOR_TICKET_LIST_PAGE_TITLE), "Agent redirect to ticket list page as expected", "Agent does not redirect to ticket list page as expected"));
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - openSupervisorDashboard" + e.fillInStackTrace(), true);
+        }
+        actions.assertAllFoundFailedAssert(assertCheck);
+    }
+
+    @Test(priority = 2,groups ={"SanityTest", "RegressionTest","SmokeTest","PositiveFlowUnAssignment"},dependsOnMethods = {"openSupervisorDashboard"})
+    public void validateTicketAutoNotUnAssigned(){
+        try {
+            selUtils.addTestcaseDescription("Validate Agent have already assigned a ticket, Validate Agent login into portal before X hour then Ticket must not be unassigned from agent bucket. ", "description");
+            String ticketId=constants.getValue(CommonConstants.AUTO_ASSIGNMENT_TICKET_ID);
+            pages.getSupervisorTicketList().changeTicketTypeToOpen();
+            pages.getSupervisorTicketList().writeTicketId(ticketId);
+            pages.getSupervisorTicketList().clickSearchBtn();
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getSupervisorTicketList().getTicketIdValue(), ticketId, "Searched Ticket found on UI as expected","Searched Ticket does not found on UI as expected",true));
+            assertCheck.append(actions.assertEqualStringType(pages.getSupervisorTicketList().getAssigneeAUUID(),loginAUUID,"Ticket auto assigned to Login Agent","Ticket does not auto assigned to Login Agent",true));
+            TicketHistoryLog ticketHistoryLog=api.getTicketHistoryLog(ticketId);
+            final Integer statusCode = ticketHistoryLog.getStatusCode();
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Ticket History log API Status Code Matched and is :" + statusCode, "Ticket History log Status Code NOT Matched and is :" + statusCode,false));
+            TicketHistoryLogList ticketHistoryLogList=ticketHistoryLog.getResult().getTicketInteractionComments().get(ticketHistoryLog.getResult().getTicketInteractionComments().size()-1);
+            assertCheck.append(actions.assertNotEqualStringType(ticketHistoryLogList.getEvent(),constants.getValue(CommonConstants.AUTO_UN_ASSIGNMENT_EVENT_NAME),"Ticket auto un-assigned from user by auto un-assignment event does not occurred as user login into portal before x hour.","Ticket auto un-assigned from user by auto un-assignment event regardless of agent login into portal before x hour."));
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - validateTicketAutoUnAssigned" + e.fillInStackTrace(), true);
+        }
+        actions.assertAllFoundFailedAssert(assertCheck);
+    }
+
+    @Test(priority = 2,groups ={"SanityTest", "RegressionTest", "ProdTest","SmokeTest"} )
     public void validateTicketAutoUnAssigned(){
         try {
             selUtils.addTestcaseDescription("Validate Agent Login into queue,Validate ticket assigned to login agent", "description");
