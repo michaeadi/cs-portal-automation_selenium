@@ -28,4 +28,6 @@ public class ServiceClassWidgetPage {
     public String nextBtnEnable = "//li[@class='pagination-next ng-star-inserted']";
     public String paginationCount = "//*[@class='pagination-details']";
     public By servicePagination = By.xpath("//div[@data-csautomation-key='SERVICE_PROFILE']//div[@class='pagination ng-star-inserted']");
+
+    public String uniqueWidgetIdentifier="//div[@data-csautomation-key='SERVICE_PROFILE']";
 }

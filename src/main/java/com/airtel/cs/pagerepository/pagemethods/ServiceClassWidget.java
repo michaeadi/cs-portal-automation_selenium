@@ -209,4 +209,12 @@ public class ServiceClassWidget extends BasePage {
         commonLib.info("Reading Pagination text " + value);
         return value;
     }
+
+    /**
+     * This method use to get service class widget unique identifier
+     * @return String The value
+     */
+    public String getUniqueIdentifier(){
+        return pageElements.uniqueWidgetIdentifier;
+    }
 }
