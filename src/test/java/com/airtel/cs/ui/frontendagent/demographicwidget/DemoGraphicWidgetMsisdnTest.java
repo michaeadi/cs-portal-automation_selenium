@@ -154,14 +154,16 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                 List<RoleDetails> agentRoles = UtilsMethods.getAgentDetail(new Headers(map)).getUserDetails().getUserDetails()
                         .getRole();
                 boolean hasRole = ObjectUtils.isNotEmpty(actionConfigRoles) && agentRoles.stream().anyMatch(roleName -> actionConfigRoles.contains(roleName.getRoleName()));
-                //ToDo Sachin this is getting failed - null pointer exception
-                Condition condition = actionConfigResult.getConditions().get(0);
-                String operator = condition.getOperator();
-                Integer thresholdValue = condition.getThresholdValue();
-                if (hasRole && (">=".equals(operator) && airtelMoney >= thresholdValue
-                        || "<".equals(operator) && airtelMoney < thresholdValue || "=".equals(operator) && airtelMoney == thresholdValue
-                        || "<=".equals(operator) && airtelMoney <= thresholdValue || ">".equals(operator) && airtelMoney > thresholdValue)) {
-                    assertCheck.append(actions.assertEqualBoolean(pages.getDemoGraphicPage().isResetPinIconDisable(), true, "Reset PIN Icon is disable as mentioned in CS API Response", "Reset PIN Icon is not disable as mentioned in CS API Response"));
+                String operator;
+                if (ObjectUtils.isNotEmpty(actionConfigResult.getConditions())) {
+                    Condition condition = actionConfigResult.getConditions().get(0);
+                    operator = condition.getOperator();
+                    Integer thresholdValue = condition.getThresholdValue();
+                    if (hasRole && (">=".equals(operator) && airtelMoney >= thresholdValue
+                            || "<".equals(operator) && airtelMoney < thresholdValue || "=".equals(operator) && airtelMoney == thresholdValue
+                            || "<=".equals(operator) && airtelMoney <= thresholdValue || ">".equals(operator) && airtelMoney > thresholdValue)) {
+                        assertCheck.append(actions.assertEqualBoolean(pages.getDemoGraphicPage().isResetPinIconDisable(), true, "Reset PIN Icon is disable as mentioned in CS API Response", "Reset PIN Icon is not disable as mentioned in CS API Response"));
+                    }
                 } else {
                     assertCheck.append(actions.assertEqualBoolean(pages.getDemoGraphicPage().isResetPinIconDisable(), false, "Reset PIN Icon is enable as mentioned in CS API Response", "Reset PIN Icon is not enable as mentioned in CS API Response"));
                 }
