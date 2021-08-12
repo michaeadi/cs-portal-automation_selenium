@@ -237,7 +237,6 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                     assertCheck.append(actions.assertEqualBoolean(customerIdNumber.length() == nationalIdfieldMaskConfigs.getDigitsVisible(), true, "National Id masking is correct as per user role", "National Id masking is not correct as per user role"));
                 } else {
                     pages.getDemoGraphicPage().hoverOnCustomerInfoIcon();
-                    assertCheck.append(actions.assertEqualBoolean(pages.getDemoGraphicPage().getIdNumber().contains("*"), false, "National Id is not masked as per user role", "National Id should not be masked as per user role"));
                     assertCheck.append(actions.assertEqualBoolean(StringUtils.contains(gsmKycAPI.getResult().getIdentificationNo(), customerIdNumber), true,
                             "Customer's ID Number is as Expected", "Customer's ID Number is not as Expected and Expected was :" + customerIdNumber));
                 }
@@ -260,13 +259,11 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
             final Integer statusCode = kycProfile.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "KYC Profile API Status Code Matched and is :" + statusCode, "KYC Profile API Status Code NOT Matched and is :" + statusCode, false));
             final String gsmStatus = pages.getDemoGraphicPage().getGSMStatus();
-            assertCheck.append(actions.assertEqualStringType(gsmStatus.toLowerCase().trim(),
-                    kycProfile.getResult().getStatus().toLowerCase().trim(), "Customer's SIM Status is as Expected",
-                    "Customer's SIM Status is not as Expected"));
+            assertCheck.append(actions.assertEqualStringType(gsmStatus.toLowerCase().trim(), kycProfile.getResult().getStatus().toLowerCase().trim(), "Customer's SIM Status is as Expected", "Customer's SIM Status is not as Expected"));
             if (!gsmStatus.contains("Unable to fetch data")) {
                 pages.getDemoGraphicPage().hoverOnSIMStatusInfoIcon();
                 assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getActivationDate().trim(),
-                        UtilsMethods.getDateFromEpoch(Long.parseLong(kycProfile.getResult().getActivationDate()), "dd-MMM-yyy"),
+                        UtilsMethods.getDateFromEpoch(kycProfile.getResult().getActivationDate(), "dd-MMM-yyy"),
                         "Customer's Activation Date is as Expected", "Customer's Activation Date is not as Expected"));
                 assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getGSMStatusReasonCode().trim().toLowerCase(),
                         pages.getDemoGraphicPage().getKeyValueAPI(kycProfile.getResult().getReason()), "Customer SIM Status Reason is as Expected",
