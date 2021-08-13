@@ -36,4 +36,15 @@ public class TicketBulkUpdatePage {
     public String ticketRows = "//div[@class='container-fluid table-card ng-star-inserted'][";
     public String ticketIds = "]//ul[1]//li[1]//span[2]";
     public By sourceTitleTicketRowTicketListing = By.xpath("//*[@class='data-area-full']//span[contains(text(),'Source')]");
+
+    public By issueDropDownCategory = By.xpath("//div[@formarrayname='category']/div[3]//div[@class='mat-select-value']/span");
+    public By searchButtonDropDownCategory = By.xpath("//input[@placeholder='Search']");
+    public By issueType = By.xpath("//div[@formarrayname='category']/div[4]//div[@class='mat-select-value']/span");
+    public By dateDurationCD = By.xpath("//mat-radio-group[@formcontrolname='days']/mat-radio-button[3]/label/div[2]/span[2]");
+    public By startDateCD = By.xpath("//input[@formcontrolname='startDate']");
+    public By endDateCD = By.xpath("//input[@formcontrolname='endDate']");
+    public By resetFilter = By.xpath("//span[contains(text(),' Reset Filters ')]");
+    public By endDateNotLessThanStartDate = By.xpath("//div[@class='filter-box']//mat-error");
+    public By applyFilter = By.xpath("//button[@class='filter-button mat-button']");
+
 }

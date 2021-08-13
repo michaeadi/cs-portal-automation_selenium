@@ -352,6 +352,16 @@ public class DetailAccountInfoWidget extends BasePage {
     }
 
     /**
+     * This method is used to get email ID from demographic widget
+     *
+     * @return the message
+     */
+    public String getUnableToFetch() {
+        commonLib.info(getText(pageElements.unableToFetch));
+        return getText(pageElements.unableToFetch);
+    }
+
+    /**
      * This method is used to validate transaction type from account detail api response
      * @param accountDetailResponse
      */

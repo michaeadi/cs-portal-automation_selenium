@@ -62,7 +62,7 @@ public class DemoGraphicPage {
     public By SIMStatusReason = By.xpath("//span[contains(text(),'GSM Status')]//following-sibling::span/a");
     public By accountStatus = By.xpath("//span[contains(text(),'Account Status')]//following-sibling::span");
     public By serviceStatus = By.xpath("//span[contains(text(),'Service Status')]//following-sibling::span");
-    public By walletBalance = By.xpath("//span[contains(text(),'Wallet Balance')]//following-sibling::span");
+    public By walletBalance = By.xpath("//span[contains(text(),'Wallet Balance')]//following-sibling::span/span/div[1]");
     public By walletBalance2 = By.xpath("//span[contains(text(),'Wallet Balance')]//following-sibling::span/span/div[2]");
     public By registrationStatus = By.xpath("//span[contains(text(),'Registration Status')]//following-sibling::span");
 
@@ -84,7 +84,7 @@ public class DemoGraphicPage {
     public By hoverInfoSegment = By.xpath("//span[contains(text(),'Segment')]//following-sibling::span//img");
     public By serviceClass = By.xpath("//span[contains(text(),'Service Class')]//following-sibling::span");
     public By serviceCategory = By.xpath("//*[contains(text(),'Service Category')]//following-sibling::td");
-    public By subSegment = By.xpath("//span[contains(text(),'Sub Segment')]//following-sibling::span");
+    public By subSegment = By.xpath("//*[contains(text(),' Subsegment ')]//following-sibling::td");
     public By appStatus = By.xpath("//span[contains(text(),'App Status')]//following-sibling::span");
     public By gsmKycStatus = By.xpath("//span[contains(text(),'GSM KYC Status')]//following-sibling::span");
 

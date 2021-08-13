@@ -5,8 +5,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Map;
-
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -14,5 +12,5 @@ import java.util.Map;
 public class CurrentPlan {
     private String status;
     private Integer statusCode;
-    private Map<String, Object> result;
+    private TariffPlanResult result;
 }

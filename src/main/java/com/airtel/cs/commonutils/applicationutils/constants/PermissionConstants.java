@@ -33,6 +33,7 @@ public class PermissionConstants {
     public static final String RINGTONE_WIDGET_PERMISSION="ringtone.detail.widget.permission";
     public static final String ACTION_TRAIL_TAB_PERMISSION="action.trail.tab.permission";
 
+
     private PermissionConstants() {
         throw new IllegalStateException();
     }

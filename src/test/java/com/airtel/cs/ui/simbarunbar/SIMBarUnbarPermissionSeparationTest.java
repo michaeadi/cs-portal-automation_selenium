@@ -92,7 +92,7 @@ public class SIMBarUnbarPermissionSeparationTest extends Driver {
         }
     }
 
-    @Test(priority = 5, dependsOnMethods = "giveSuspendPermissionFromUM", groups = {"RegressionTest"})
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest"})
     public void takeActionSIMSuspend() {
         selUtils.addTestcaseDescription("Validate SIM Suspend Action", "description");
         try {
@@ -101,7 +101,7 @@ public class SIMBarUnbarPermissionSeparationTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getCustomerProfilePage().isSuspendSIMModalOpened(), true, "Suspend SIM Modal Opened Successfully", "Suspend SIM Modal Not Opened"));
             pages.getCustomerProfilePage().doSIMBarAction();
             final String modalText = pages.getCustomerProfilePage().getModalText();
-            assertCheck.append(actions.assertEqualStringType(modalText, "Sim suspend is successful", "Success Message Matched", "Success Message NOT Matched and is -" + modalText));
+            assertCheck.append(actions.assertEqualStringType(modalText, "Sim suspend is successful and issue logged", "Success Message Matched", "Success Message NOT Matched and is -" + modalText));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - takeActionSIMSuspend " + e.getMessage(), true);

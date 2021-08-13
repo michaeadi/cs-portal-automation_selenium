@@ -46,4 +46,5 @@ public class DetailAccountInfoWidgetPage {
     public By clickNext = By.xpath("//div[@data-csautomation-key='POSTPAID_ACCOUNT_INFO_DETAIL']//li[contains(@class,'pagination-next')]");
     public By raiseDisputeCloseButton = By.xpath("//app-modal-success-failure//following-sibling::mat-icon[contains(text(),'close')]");
     public By toastModal = By.xpath("//div[contains(@class,'main-container__body--message')]");
+    public By unableToFetch = By.xpath("//div[@data-csautomation-key='POSTPAID_ACCOUNT_INFO_DETAIL']/div[1]/mat-tab-group/div[1]/mat-tab-body[2]/div[1]/div[1]/div[1]//span[2]");
 }

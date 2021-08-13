@@ -147,14 +147,9 @@ public class DetailAccountInfoTest extends Driver {
             selUtils.addTestcaseDescription("Verify that detailed account info icon should be visible to the logged in agent", "description");
             assertCheck.append(actions.assertEqualStringType(pages.getDetailAccountInfoWidget().getAccountInfoDetailWidget().toUpperCase(), "ACCOUNT INFORMATION DETAIL", "Account Information Detail display as expected in detailed account info", "Account Information Detail not display as expected in detailed account info"));
             assertCheck.append(actions.assertEqualStringType(pages.getDetailAccountInfoWidget().getAccountInfoTab().toUpperCase(), "ACCOUNT INFO", "Account Info tab display as expected in detailed account info", "Account Info tab not display as expected in detailed account info"));
-
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailAccountInfoWidget().getPackHeaders(1), data.getRow1(), "Header Name for Row 1 is as expected", "Header Name for Row 1 is not as expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailAccountInfoWidget().getPackHeaders(2), data.getRow2(), "Header Name for Row 2 is as expected", "Header Name for Row 2 is not as expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailAccountInfoWidget().getPackHeaders(3), data.getRow3(), "Header Name for Row 3 is as expected", "Header Name for Row 3 is not as expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailAccountInfoWidget().getPackHeaders(4), data.getRow4(), "Header Name for Row 4 is as expected", "Header Name for Row 4 is not as expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailAccountInfoWidget().getPackHeaders(5), data.getRow5(), "Header Name for Row 5 is as expected", "Header Name for Row 5 is not as expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailAccountInfoWidget().getPackHeaders(6), data.getRow6(), "Header Name for Row 6 is as expected", "Header Name for Row 6 is not as expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailAccountInfoWidget().getPackHeaders(7), data.getRow7(), "Header Name for Row 7 is as expected", "Header Name for Row 7 is not as expected"));
+            for (int i = 0; i < data.getHeaderName().size(); i++) {
+                assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailAccountInfoWidget().getPackHeaders(i + 1), data.getHeaderName().get(i), "Header Name for Row " + (i + 1) + " is as expected", "Header Name for Row " + (i + 1) + " is not as expected"));
+            }
             int noOfCheckBox = pages.getDetailAccountInfoWidget().getWidgetRowsSize();
             if (noOfCheckBox > 0) {
                 assertCheck.append(actions.assertEqualBoolean(pages.getDetailAccountInfoWidget().isCheckboxDisplay(), true, "Checkbox visible in account info tab", "Checkbox is not visible in account info tab"));
@@ -175,37 +170,38 @@ public class DetailAccountInfoTest extends Driver {
             statementRequest.setAccountNo(accountNo);
 
             /**
-             * Calling enterprise-service/ esb account/payment api to get  payment amount, currency & payment date
-             */
-            List<Statement> statement = null;
-            String transactionAmountDebit = null;
-            String transactionAmountCredit = null;
-            AccountStatementResponse accountStatementResponse = apiEsb.accountStatementResponse(statementRequest);
-            final String accountStatementStatus = accountStatementResponse.getStatus();
-            if (accountStatementStatus.trim().equalsIgnoreCase("200")) {
-                statement = accountStatementResponse.getResponse().getStatements();
-                for (Statement s : statement) {
-                    transactionAmountDebit = s.getTransactionAmountDebit();
-                    transactionAmountCredit = s.getTransactionAmountCredit();
-                    commonLib.info("transactionAmountDebit : " + transactionAmountDebit);
-                    commonLib.info("transactionAmountCredit : " + transactionAmountCredit);
-                }
-            } else if (accountStatementStatus.trim().equalsIgnoreCase("400")) {
-                commonLib.info("Bad request from the customer");
-            } else if (accountStatementStatus.trim().equalsIgnoreCase("401")) {
-                commonLib.info("Unauthorised request");
-            } else {
-                commonLib.info("account/statement downstream api not working");
-            }
-
-            /**
              * Calling v1/postpaid/account/details API
              */
             PostpaidAccountDetailResponse accountDetailResponse = api.accountDetailResponse(accountNo);
             final String status = accountDetailResponse.getStatus();
             if (status.trim().equalsIgnoreCase("SUCCESS")) {
-                pages.getDetailAccountInfoWidget().accountDetailResponseAssertions(accountDetailResponse, accountStatementResponse);
+                int size = pages.getDetailAccountInfoWidget().getNumbersOfRows();
+                if (size > 5) {
+                    size = 5;
+                }
+                for (int i = 0; i < size; i++) {
+                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailAccountInfoWidget().dateFormat(pages.getDetailAccountInfoWidget().getDateTimeValue(i + 1)), accountDetailResponse.getResult().get(i).getDateTime(), "Date and time display as received in API on row", "Date and time is not display as received in API on row"));
+                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailAccountInfoWidget().getTypeValue(i + 1), accountDetailResponse.getResult().get(i).getTransactionType(), "Transaction type display as received in API on row", "Transaction type is not display as received in API on row"));
+                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailAccountInfoWidget().getStatusValue(i + 1), accountDetailResponse.getResult().get(i).getStatus(), "Status display as received in API on row", "Status is not display as received in API on row"));
+                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailAccountInfoWidget().getRefNoValue(i + 1), accountDetailResponse.getResult().get(i).getReferenceNo(), "Reference number display as received in API on row", "Reference number is not display as received in API on row"));
+                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailAccountInfoWidget().getBillAmountValue(i + 1).equals("-") ? "" : pages.getDetailAccountInfoWidget().getBillAmountValue(i + 1), accountDetailResponse.getResult().get(i).getBillAmount(), "Bill amount display as received in API on row", "Bill amount is not display as received in API on row"));
+                    assertCheck.append(actions.matchUiAndAPIResponse(pages.getDetailAccountInfoWidget().getAmountRecValue(i + 1).equals("-") ? "" : pages.getDetailAccountInfoWidget().getAmountRecValue(i + 1), accountDetailResponse.getResult().get(i).getAmntReceived(), "Amount received display as received in API on row", "Amount received is not display as received in API on row"));
+
+                    if (pages.getDetailAccountInfoWidget().getTypeValue(i + 1).equalsIgnoreCase("INVOICE")) {
+                        assertCheck.append(actions.assertEqualStringType(pages.getDetailAccountInfoWidget().getBillAmountValue(i + 1), accountDetailResponse.getResult().get(i).getBillAmount(), "Bill Amount (INVOICE) is displayed as per ESB TransactionAmountDebit", "Bill Amount (INVOICE) is not displayed as per ESB TransactionAmountDebit"));
+                    }
+
+                    if (pages.getDetailAccountInfoWidget().getTypeValue(i + 1).equalsIgnoreCase("ADJUSTMENT") && !pages.getDetailAccountInfoWidget().getBillAmountValue(i + 1).equalsIgnoreCase("-")) {
+                        assertCheck.append(actions.assertEqualStringType(pages.getDetailAccountInfoWidget().getBillAmountValue(i + 1), accountDetailResponse.getResult().get(i).getAmntReceived(), "Bill Amount (ADJUSTMENT) is displayed as per ESB TransactionAmountDebit", "Bill Amount (ADJUSTMENT) is not displayed as per ESB TransactionAmountDebit"));
+                    }
+
+                    if (pages.getDetailAccountInfoWidget().getTypeValue(i + 1).equalsIgnoreCase("ADJUSTMENT") && !pages.getDetailAccountInfoWidget().getBillAmountValue(i + 1).equalsIgnoreCase("-")) {
+                        assertCheck.append(actions.assertEqualStringType(pages.getDetailAccountInfoWidget().getAmountRecValue(i + 1), accountDetailResponse.getResult().get(i).getAmntReceived(), "Amount received (ADJUSTMENT) is displayed as per ESB TransactionAmountDebit", "Amount received (ADJUSTMENT) is not displayed as per ESB TransactionAmountDebit"));
+                    }
+                }
+
             } else {
+                assertCheck.append(actions.assertEqualStringType(pages.getDetailAccountInfoWidget().getUnableToFetch().toLowerCase(), "unable to fetch data", "Unable to fetch displays correctly", "Unable to fetch not displays correctly"));
                 commonLib.fail("API does not able to fetch account statement", false);
             }
 

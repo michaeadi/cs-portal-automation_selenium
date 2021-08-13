@@ -18,7 +18,7 @@ public class BackendAgentLoginTest extends Driver {
 
     RequestSource api = new RequestSource();
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest","SmokeTest"})
     public void checkExecution() {
         if (!continueExecutionBA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -26,7 +26,7 @@ public class BackendAgentLoginTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest","SmokeTest"})
     public void testBALoginInPortal() {
         try {
             selUtils.addTestcaseDescription("Logging Into Portal with Backend user credentials, Validating opened url,validating login button is getting enabled,Validating dashboard page opened successfully or not?", "description");
@@ -57,7 +57,7 @@ public class BackendAgentLoginTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "testBALoginInPortal")
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dependsOnMethods = "testBALoginInPortal")
     public void agentQueueLogin() {
         try {
             selUtils.addTestcaseDescription("Backend Agent Login into Queue", "description");
@@ -77,7 +77,7 @@ public class BackendAgentLoginTest extends Driver {
         }
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = "testBALoginInPortal")
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest","SmokeTest","ProdTest"}, dependsOnMethods = "testBALoginInPortal")
     public void validateTicket() {
         try {
             selUtils.addTestcaseDescription("Backend Agent Validate Ticket List Page", "description");

@@ -1,6 +1,7 @@
 package com.airtel.cs.pagerepository.pageelements;
 
 public class WidgetCommonPage {
+    public String widgetLabel="//span[@class='widget_header_label']";
     public String widgetHeader="//div[@data-csautomation-key='headerRow']//span[@data-csautomation-key='headerName']";
     public String rowIdentifier="//div[@class='table-data-wrapper ng-star-inserted']//div[";
     public String widgetColumnRows="//div[@data-csautomation-key='dataRows']";

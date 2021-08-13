@@ -50,10 +50,13 @@ public class TariffPlanMigrationTest extends Driver {
     public void openCustomerInteraction() {
         selUtils.addTestcaseDescription("Validating the Search for Customer Interactions :" + TARIFF_PLAN_TEST_NUMBER, "description");
         try {
+            pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().openCustomerInteractionPage();
             pages.getMsisdnSearchPage().enterNumber(TARIFF_PLAN_TEST_NUMBER);
             pages.getMsisdnSearchPage().clickOnSearch();
-            assertCheck.append(actions.assertEqualBoolean(pages.getCustomerProfilePage().isCustomerProfilePageLoaded(), true, "Customer Page Loaded Sucessfully", "Customer Page NOT Loaded"));
+            final boolean pageLoaded = pages.getCustomerProfilePage().isCustomerProfilePageLoaded();
+            assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
+            if (!pageLoaded) continueExecutionFA = false;
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - openCustomerInteraction " + e.getMessage(), true);
@@ -86,7 +89,7 @@ public class TariffPlanMigrationTest extends Driver {
             currentPlanFromUI = pages.getTariffPlanPage().getCurrentPlan();
             final AvailablePlan availablePlanPOJO = api.availablePlanPOJO();
             final CurrentPlan currentPlanPOJO = api.currentPlanPOJO();
-            final String currentPlanNameFromAPI = (String) currentPlanPOJO.getResult().get("planName");
+            final String currentPlanNameFromAPI = currentPlanPOJO.getResult().getPlan().getPlanName();
             assertCheck.append(actions.assertEqualStringType(currentPlanFromUI, currentPlanNameFromAPI, "Current Plan Value Matched with UI values", "API Current Plan Values not Matched with UI values and are UI Current Plan is -" + currentPlanFromUI + "and API Current Plan is -" + currentPlanNameFromAPI));
             assertCheck.append(actions.assertEqualBoolean(pages.getTariffPlanPage().isCheckBoxChecked(), true, "Checkbox is Checked By default", "Checkbox is not Checked by Default"));
             //assertCheck.append(actions.assertEqual_stringType(currentPlanFromUI, pages.getTariffPlanPage().getCurrentPlanDetailsHeader(), "Current Plan Name Matched with Header name of the Plan Details", "Current Plan Name NOT Matched with Header name of the Plan Details"));
@@ -120,19 +123,23 @@ public class TariffPlanMigrationTest extends Driver {
 
     @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "testSelectPlanOtherThanCurrentPlan")
     public void testIssueDetailsPopUp() {
-        selUtils.addTestcaseDescription("Validate new Plan Details from Drop Down List", "description");
+        selUtils.addTestcaseDescription("Validate Issue pop up open or not after clicking on migrate,Validate Issue Detail pop up opened", "description");
         try {
             pages.getTariffPlanPage().openIssueDetailsModal();
-            assertCheck.append(actions.assertEqualBoolean(pages.getTariffPlanPage().isIssueDetailModalOpened(), true, "Issue Modal Pop Up Opened After Click on Migrate Btn", "Issue Modal Popup NOT Opened After CLick on Migrate Btn"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getTariffPlanPage().isCommentBoxVisible(), true, "Comment Box is visible", "Comment Box is NOT Visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getTariffPlanPage().isSelectReasonVisible(), true, "Issue Details Reason is Visible", "Issue Detail Reason is NOT Visisble"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getTariffPlanPage().isCancelBtnVisisble(), true, "Cancel Btn Visible Over Issue Detail Popup", "Cancel Btn NOT Visible Over Issue Detail Popup"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getTariffPlanPage().isSubmitBtnVisible(), true, "Submit Btn Visible Over Issue Detail Popup", "Submit Btn NOT Visible Over Issue Detail PopUp"));
-            pages.getTariffPlanPage().clickCancelBtn();
-            assertCheck.append(actions.assertEqualBoolean(pages.getTariffPlanPage().isIssueDetailModalOpened(), false, "Modal got Closed Successfully", "Modal NOT Closed"));
-            pages.getTariffPlanPage().enterDetailsIssuePopup();
-            assertCheck.append(actions.assertEqualBoolean(pages.getTariffPlanPage().isSubmitEnabled(), true, "Submit Btn Enabled"));
-            assertCheck.append(actions.assertEqualStringType(pages.getTariffPlanPage().getNoteTextIssueDetailsPopUp(), "Changing your service plan will cost 100.0 NGN. Please inform to customer before proceeding.", "Note Message Matched", "Note Message NOT Matched"));
+            if(pages.getTariffPlanPage().isCommentBoxVisible()) {
+                assertCheck.append(actions.assertEqualBoolean(pages.getTariffPlanPage().isIssueDetailModalOpened(), true, "Issue Modal Pop Up Opened After Click on Migrate Btn", "Issue Modal Popup NOT Opened After CLick on Migrate Btn", true));
+                assertCheck.append(actions.assertEqualBoolean(pages.getTariffPlanPage().isCommentBoxVisible(), true, "Comment Box is visible", "Comment Box is NOT Visible", true));
+                assertCheck.append(actions.assertEqualBoolean(pages.getTariffPlanPage().isSelectReasonVisible(), true, "Issue Details Reason is Visible", "Issue Detail Reason is NOT Visisble"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getTariffPlanPage().isCancelBtnVisisble(), true, "Cancel Btn Visible Over Issue Detail Popup", "Cancel Btn NOT Visible Over Issue Detail Popup"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getTariffPlanPage().isSubmitBtnVisible(), true, "Submit Btn Visible Over Issue Detail Popup", "Submit Btn NOT Visible Over Issue Detail PopUp"));
+                pages.getTariffPlanPage().clickCancelBtn();
+                assertCheck.append(actions.assertEqualBoolean(pages.getTariffPlanPage().isIssueDetailModalOpened(), false, "Modal got Closed Successfully", "Modal NOT Closed"));
+                pages.getTariffPlanPage().enterDetailsIssuePopup();
+                assertCheck.append(actions.assertEqualBoolean(pages.getTariffPlanPage().isSubmitEnabled(), true, "Submit Btn Enabled"));
+                assertCheck.append(actions.assertEqualStringType(pages.getTariffPlanPage().getNoteTextIssueDetailsPopUp(), "Changing your service plan will cost 100.0 NGN. Please inform to customer before proceeding.", "Note Message Matched", "Note Message NOT Matched"));
+            }else{
+                commonLib.info("No Issue Detail pop up opened");
+            }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - testIssueDetailsPopUp " + e.getMessage(), true);
@@ -146,7 +153,7 @@ public class TariffPlanMigrationTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getTariffPlanPage().changePlan(), true, "Plan Changed Successfully", "Plan Not Changed"));
             assertCheck.append(actions.assertEqualStringType(pages.getTariffPlanPage().getModalText(), "Plan Changed Successfully", "Success Message Matched", "Success Message NOT Found and is -" + pages.getTariffPlanPage().getModalText()));
             final CurrentPlan currentPlanPOJO = api.currentPlanPOJO();
-            final String currentPlanNameFromAPI = (String) currentPlanPOJO.getResult().get("planName");
+            final String currentPlanNameFromAPI = currentPlanPOJO.getResult().getPlan().getPlanName();
             assertCheck.append(actions.assertEqualStringType(customerNewPlan, currentPlanNameFromAPI, "Plan Changed Successfully", "Plan Name Mismatched"));
             assertCheck.append(actions.assertEqualStringType(pages.getCustomerProfilePage().goAndCheckFTRCreatedorNot(), TARIFF_PLAN_ISSUE_CODE, "FTR Ticket Created", "FTR Ticket NOT Created"));
             interactionCountAfterMigration = pages.getViewHistoryPOM().getRowCount();

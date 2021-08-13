@@ -19,8 +19,8 @@ public class LoginAPITest extends Driver {
     public void testLoginAPIWithBetaUser() {
         try {
             selUtils.addTestcaseDescription("Validate the Login API with Beta user,Hit the Login API -/auth/api/user-mngmnt/v2/login with valid headers and credentials,Validating Success Message from response", "description");
-            final String loginAUUID = constants.getValue(CommonConstants.BETA_USER_AUUID);
-            Login Req = Login.loginBody(loginAUUID, PassUtils.decodePassword(constants.getValue(CommonConstants.BETA_USER_PASSWORD)));
+            final String loginAUUID = constants.getValue(CommonConstants.ADVISOR_USER_ROLE_AUUID);
+            Login Req = Login.loginBody(loginAUUID, PassUtils.decodePassword(constants.getValue(CommonConstants.ADVISOR_USER_ROLE_PASSWORD)));
             map.clear();
             pages.getLoginPage().setApiHeader();
             String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(Req);

@@ -22,8 +22,8 @@ public class PreRequisites extends Driver {
 
     @BeforeSuite
     public void addTokenToHeaderMap() throws JsonProcessingException {
-        loginAUUID = constants.getValue(CommonConstants.BETA_USER_AUUID);
-        final String password = PassUtils.decodePassword(constants.getValue(CommonConstants.BETA_USER_PASSWORD));
+        loginAUUID = constants.getValue(CommonConstants.ADVISOR_USER_ROLE_AUUID);
+        final String password = PassUtils.decodePassword(constants.getValue(CommonConstants.ADVISOR_USER_ROLE_PASSWORD));
         Login req = Login.loginBody(loginAUUID, password);
         String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(req);
         map.clear();
