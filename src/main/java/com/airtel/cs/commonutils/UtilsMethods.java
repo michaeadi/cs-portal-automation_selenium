@@ -348,12 +348,10 @@ public class UtilsMethods extends Driver {
      */
     public static void getNewAddHeader() throws IOException {
         getAuthTokenFromConsole();
-        if (authToken != null && !authToken.isEmpty()) {
-            getAuthTokenFromConsole();
-            map.clear();
-            pages.getLoginPage().setApiHeader();
-            addHeaders(constants.getValue(CommonConstants.API_AUTHORIZATION_KEY), authToken);
-        } else {
+        map.clear();
+        pages.getLoginPage().setApiHeader();
+        addHeaders(constants.getValue(CommonConstants.API_AUTHORIZATION_KEY), authToken);
+        if (authToken == null && authToken.isEmpty()) {
             commonLib.fail("Not able to add new token into header as auth token empty", false);
         }
     }
@@ -644,5 +642,22 @@ public class UtilsMethods extends Driver {
         }
         return null;
     }
+
+    /**
+     * This method use to get category hierarchy for auto assignment/un-assignment
+     * @return List The list of String
+     */
+    public static List<String> getCategoryHierarchy(){
+        return Arrays.asList(constants.getValue(CommonConstants.AUTO_ASSIGNMENT_CATEGORY_HIERARCHY).split(","));
+    }
+
+    /**
+     * This method use to write ticket id in properties file
+     * @param ticketId The ticket id
+     */
+    public static void setAutoAssignmentTicketId(String ticketId){
+        constants.setValue(CommonConstants.AUTO_ASSIGNMENT_TICKET_ID,ticketId);
+    }
+
 
 }

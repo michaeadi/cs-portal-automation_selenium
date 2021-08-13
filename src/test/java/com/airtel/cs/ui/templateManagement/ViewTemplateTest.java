@@ -16,7 +16,7 @@ public class ViewTemplateTest extends Driver {
 
     private final BaseActions actions = new BaseActions();
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login via API");
@@ -24,7 +24,7 @@ public class ViewTemplateTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void openTemplateManagement() {
         selUtils.addTestcaseDescription("Open Template Management", "description");
         SoftAssert softAssert = new SoftAssert();
@@ -36,7 +36,7 @@ public class ViewTemplateTest extends Driver {
         softAssert.assertAll();
     }
 
-    @Test(priority = 2,groups= {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openTemplateManagement")
+    @Test(priority = 2,groups= {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dependsOnMethods = "openTemplateManagement")
     public void openViewCreatedTemplate() {
         selUtils.addTestcaseDescription("View Created Template Page Loaded", "description");
         SoftAssert softAssert = new SoftAssert();

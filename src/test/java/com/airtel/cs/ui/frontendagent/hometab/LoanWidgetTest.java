@@ -35,7 +35,7 @@ public class LoanWidgetTest extends Driver {
     RequestSource api = new RequestSource();
     List<Vendors> vendors;
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -43,7 +43,7 @@ public class LoanWidgetTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void checkLoanWidgetFlag() {
         if (!StringUtils.equals(RUN_LOAN_WIDGET_TEST_CASE, "true")) {
             commonLib.skip("Loan Widget is NOT Enabled for this Opco= " + OPCO);
@@ -54,7 +54,7 @@ public class LoanWidgetTest extends Driver {
     /**
      * This method is used to Open Customer Profile Page with valid MSISDN
      */
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -107,11 +107,10 @@ public class LoanWidgetTest extends Driver {
              * Checking API Giving valid Response
              * */
             List<HeaderList> headers = vendorNames.getResult().getHeaderList();
-            assertCheck.append(actions.assertEqualStringType(headers.get(0).getHeader().toLowerCase().trim(), data.getRow1().toLowerCase().trim(), "Header are same as expected in com.airtel.cs.API(com.airtel.cs.API Response Assert with Excel)", "Header not same as expected in com.airtel.cs.API(com.airtel.cs.API Response Assert with Excel)"));
-            assertCheck.append(actions.assertEqualStringType(headers.get(1).getHeader().toLowerCase().trim() + " (" + headers.get(1).getSubHeader().toLowerCase().trim() + ")", data.getRow2().toLowerCase().trim(), "Header are same as expected in com.airtel.cs.API(com.airtel.cs.API Response Assert with Excel)", "Header not same as expected in com.airtel.cs.API(com.airtel.cs.API Response Assert with Excel)"));
-            assertCheck.append(actions.assertEqualStringType(headers.get(2).getHeader().toLowerCase().trim(), data.getRow3().toLowerCase().trim(), "Header are same as expected in com.airtel.cs.API(com.airtel.cs.API Response Assert with Excel)", "Header not same as expected in com.airtel.cs.API(com.airtel.cs.API Response Assert with Excel)"));
-            assertCheck.append(actions.assertEqualStringType(headers.get(3).getHeader().toLowerCase().trim(), data.getRow4().toLowerCase().trim(), "Header are same as expected in com.airtel.cs.API(com.airtel.cs.API Response Assert with Excel)", "Header not same as expected in com.airtel.cs.API(com.airtel.cs.API Response Assert with Excel)"));
-            assertCheck.append(actions.assertEqualStringType(headers.get(4).getHeader().toLowerCase().trim(), data.getRow5().toLowerCase().trim(), "Header are same as expected in com.airtel.cs.API(com.airtel.cs.API Response Assert with Excel)", "Header not same as expected in com.airtel.cs.API(com.airtel.cs.API Response Assert with Excel)"));
+            for (int i = 0; i < data.getHeaderName().size(); i++) {
+                String headerName=i==1?headers.get(1).getHeader().toLowerCase().trim() + " (" + headers.get(1).getSubHeader().toLowerCase().trim() + ")":headers.get(i).getHeader();
+                assertCheck.append(actions.matchUiAndAPIResponse(headerName, data.getHeaderName().get(i), "Header Name for Row " + (i + 1) + " is as expected", "Header Name for Row " + (i + 1) + " is not as expected"));
+            }
 
             /*
              * Checking header displayed on UI
@@ -184,11 +183,9 @@ public class LoanWidgetTest extends Driver {
                             /*
                              * Validating Header name displayed on UI with Config present in Excel
                              * */
-                            assertCheck.append(actions.assertEqualStringType(loanDetail.getHeaderName(1).toLowerCase().trim(), data.getRow1().toLowerCase().trim(), "Header name is same as defined in excel at pos(1)", "Header name not same as defined in excel at pos(1)"));
-                            assertCheck.append(actions.assertEqualStringType(loanDetail.getHeaderName(2).toLowerCase().trim(), data.getRow2().toLowerCase().trim(), "Header name is same as defined in excel pos(2)", "Header name not same as defined in excel pos(2)"));
-                            assertCheck.append(actions.assertEqualStringType(loanDetail.getHeaderName(3).toLowerCase().trim(), data.getRow3().toLowerCase().trim(), "Header name is same as defined in excel pos(3)", "Header name not same as defined in excel pos(3)"));
-                            assertCheck.append(actions.assertEqualStringType(loanDetail.getHeaderName(4).toLowerCase().trim(), data.getRow4().toLowerCase().trim(), "Header name is same as defined in excel pos(4)", "Header name not same as defined in excel pos(4)"));
-                            assertCheck.append(actions.assertEqualStringType(loanDetail.getHeaderName(5).toLowerCase().trim(), data.getRow5().toLowerCase().trim(), "Header name is same as defined in excel pos(5)", "Header name not same as defined in excel pos(5)"));
+                            for (int startIndex = 0; startIndex < data.getHeaderName().size(); i++) {
+                                assertCheck.append(actions.matchUiAndAPIResponse(loanDetail.getHeaderName(startIndex+1), data.getHeaderName().get(startIndex), "Header Name for Row " + (i + 1) + " is as expected", "Header Name for Row " + (i + 1) + " is not as expected"));
+                            }
                             /*
                              * Validating Header name & value displayed on UI with com.airtel.cs.API Response
                              * */

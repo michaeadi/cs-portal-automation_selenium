@@ -5,27 +5,16 @@ import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants
 import com.airtel.cs.commonutils.applicationutils.constants.ESBURIConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.URIConstants;
 import com.airtel.cs.commonutils.restutils.RestCommonUtils;
-import com.airtel.cs.model.request.AccountBalanceRequest;
-import com.airtel.cs.model.request.AccountDetailRequest;
-import com.airtel.cs.model.request.AccountStatementReq;
-import com.airtel.cs.model.request.AccumulatorsRequest;
-import com.airtel.cs.model.request.ActionTrailRequest;
-import com.airtel.cs.model.request.AgentLimitRequest;
-import com.airtel.cs.model.request.FetchTicketPoolRequest;
+import com.airtel.cs.model.request.*;
 import com.airtel.cs.model.request.GenericRequest;
-import com.airtel.cs.model.request.LimitConfigRequest;
 import com.airtel.cs.model.request.LoanRequest;
 import com.airtel.cs.model.request.MoreTransactionHistoryRequest;
 import com.airtel.cs.model.request.OfferDetailRequest;
-import com.airtel.cs.model.request.PlanPackRequest;
 import com.airtel.cs.model.request.PostpaidAccountDetailRequest;
 import com.airtel.cs.model.request.RechargeHistoryRequest;
 import com.airtel.cs.model.request.RingtonDetailsRequest;
 import com.airtel.cs.model.request.SMSHistoryRequest;
-import com.airtel.cs.model.request.SaveAgentLimitRequest;
 import com.airtel.cs.model.request.ServiceProfileRequest;
-import com.airtel.cs.model.request.TicketSearchCriteria;
-import com.airtel.cs.model.request.TicketSearchRequest;
 import com.airtel.cs.model.request.TransactionHistoryRequest;
 import com.airtel.cs.model.request.UsageHistoryMenuRequest;
 import com.airtel.cs.model.request.UsageHistoryRequest;
@@ -68,6 +57,7 @@ import com.airtel.cs.model.response.rechargehistory.RechargeHistory;
 import com.airtel.cs.model.response.smshistory.SMSHistory;
 import com.airtel.cs.model.response.tariffplan.AvailablePlan;
 import com.airtel.cs.model.response.tariffplan.CurrentPlan;
+import com.airtel.cs.model.response.tickethistorylog.TicketHistoryLog;
 import com.airtel.cs.model.response.ticketlist.Ticket;
 import com.airtel.cs.model.response.transfertoqueue.TransferToQueue;
 import com.airtel.cs.model.response.usagehistory.UsageHistory;
@@ -85,6 +75,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
@@ -92,14 +83,14 @@ import java.util.stream.Collectors;
 @Log4j2
 public class RequestSource extends RestCommonUtils {
 
-    public static Integer statusCode = null;
     private static final String TARIFF_PLAN_TEST_NUMBER = constants.getValue(ApplicationConstants.TARIFF_PLAN_TEST_NUMBER);
     private static final Map<String, Object> queryParam = new HashMap<>();
+    public static Integer statusCode = null;
     private ESBRequestSource esbRequestSource = new ESBRequestSource();
-    private static final String CS_PORTAL_API_ERROR = "cs.portal.api.error";
     private static final String MSISDN = "msisdn";
+    private static final String CS_PORTAL_API_ERROR = "cs.portal.api.error";
     private static final String AM_TRANSACTION_HISTORY_API_URL = "am.transaction.history.api.url";
-    private static final String CALLING_ESB_API = "Calling ESB APIs";
+    private static final String CALLING_ESB_APIS = "Calling ESB APIs";
 
     /*
     This Method will hit the Available Plan API and returns the response
@@ -345,7 +336,7 @@ public class RequestSource extends RestCommonUtils {
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - transactionHistoryAPITest " + e.getMessage(), false);
-            commonLib.info(CALLING_ESB_API);
+            commonLib.info(CALLING_ESB_APIS);
             commonPostMethod(constants.getValue(AM_TRANSACTION_HISTORY_API_URL) + ESBURIConstants.TRANSACTION_HISTORY, new TransactionHistoryRequest(msisdn, 5, 1, null, null));
         }
         return result;
@@ -382,13 +373,13 @@ public class RequestSource extends RestCommonUtils {
             result = response.as(AccountsBalance.class);
             if (result.getStatusCode() != 200) {
                 commonPostMethod(constants.getValue(AM_TRANSACTION_HISTORY_API_URL) + ESBURIConstants.TRANSACTION_HISTORY, new TransactionHistoryRequest(msisdn, 5, 1, null, null));
-                commonLib.info(CALLING_ESB_API);
+                commonLib.info(CALLING_ESB_APIS);
                 queryParam.put(MSISDN, msisdn);
                 commonGetMethodWithQueryParam(constants.getValue("gsm.customer.profile.base.url") + ESBURIConstants.QUERY_BALANCE, queryParam);
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - balanceAPITest " + e.getMessage(), false);
-            commonLib.info(CALLING_ESB_API);
+            commonLib.info(CALLING_ESB_APIS);
             queryParam.put(MSISDN, msisdn);
             commonGetMethodWithQueryParam(constants.getValue("gsm.customer.profile.base.url") + ESBURIConstants.QUERY_BALANCE, queryParam);
         }
@@ -790,7 +781,7 @@ public class RequestSource extends RestCommonUtils {
      * @param msisdn The msisdn
      * @return The Response
      */
-    public List<String> getPostpaidAccountInformation(String msisdn) {
+    public List<String> getPostpaidAccountInformation(String msisdn, String customerAccountNumber, PaymentRequest paymentRequest) {
         String result;
         List<String> myList = null;
         try {
@@ -799,6 +790,7 @@ public class RequestSource extends RestCommonUtils {
             result = response.print();
             if (response.getStatusCode() != 200) {
                 esbRequestSource.callPostpaidAccountInformation(msisdn);
+                esbRequestSource.callPostPaidAPI(customerAccountNumber, paymentRequest);
             }
             myList = new ArrayList<>(Arrays.asList(result.split("data:")));
         } catch (Exception e) {
@@ -808,23 +800,6 @@ public class RequestSource extends RestCommonUtils {
         return myList;
     }
 
-    /**
-     * This Method will hit the API "/cs-gsm-service/v1/postpaid/account/details" and return the response in list
-     *
-     * @param accountNo The Account No.
-     * @return The Response
-     */
-    public AccountDetails getAccountInfoDetail(String accountNo, Integer pageNumber) {
-        AccountDetails result = null;
-        try {
-            commonPostMethod(URIConstants.POSTPAID_ACCOUNT_DETAILS, new AccountDetailRequest(accountNo, pageNumber.toString(), "5"));
-            result = response.as(AccountDetails.class);
-        } catch (Exception e) {
-            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getAccountInfoDetail " + e.getMessage(), false);
-            esbRequestSource.callPostpaidAccountInfoDetails(new AccountDetailRequest(accountNo, pageNumber.toString(), "5"));
-        }
-        return result;
-    }
 
     /**
      * This Method will hit the API "/cs-service/api/cs-service/v1/get/field/mask/config" and return the response
@@ -838,7 +813,7 @@ public class RequestSource extends RestCommonUtils {
             queryParam.put("actionKey", actionKey);
             commonGetMethodWithQueryParam(URIConstants.GET_FIELD_MASK_CONFIG, queryParam);
             fieldMaskConfigReponse = response.as(FieldMaskConfigReponse.class);
-            if ("200".equals(fieldMaskConfigReponse.getStatusCode())) {
+            if ("200".equals(fieldMaskConfigReponse.getStatusCode()) && Objects.nonNull(fieldMaskConfigReponse.getResult())) {
                 return fieldMaskConfigReponse.getResult();
             } else {
                 commonLib.fail("Unable to fetch the response in getFieldMaskConfigs " + fieldMaskConfigReponse.getStatusCode(), false);
@@ -872,6 +847,8 @@ public class RequestSource extends RestCommonUtils {
                 if (actionConfigResultop.isPresent()) {
                     actionConfigResult = actionConfigResultop.get();
                 }
+            } else {
+                actionConfigResult = new ActionConfigResult();
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getActionConfig " + e.getMessage(), false);
@@ -929,6 +906,10 @@ public class RequestSource extends RestCommonUtils {
             queryParam.put(MSISDN, msisdn);
             commonGetMethodWithQueryParam(URIConstants.CURRENT_PLAN, queryParam);
             result = response.print();
+            if (response.getStatusCode() != 200) {
+                esbRequestSource.callingPlanAPI(msisdn);
+                esbRequestSource.callingPackAPI(msisdn);
+            }
             myList = new ArrayList<>(Arrays.asList(result.split("data:")));
         } catch (Exception e) {
             commonLib.fail("Exception in method - getPostpaidCurrentPlan " + e.getMessage(), false);
@@ -942,12 +923,14 @@ public class RequestSource extends RestCommonUtils {
      * @param planPackRequest The REQUEST OBJ
      * @return The Response
      */
-    public PlanPackResponse getPlanPack(PlanPackRequest planPackRequest) {
+    public PlanPackResponse getPlanPack(PlanPackRequest planPackRequest, String msisdn) {
         PlanPackResponse result = null;
         try {
-
             commonPostMethod(URIConstants.PLAN_AND_PACK, planPackRequest);
             result = response.as(PlanPackResponse.class);
+            if (response.getStatusCode() != 200) {
+                esbRequestSource.callingGetUsageAPI(msisdn);
+            }
         } catch (Exception e) {
             commonLib.fail("Exception in method - getPlanPack " + e.getMessage(), false);
         }
@@ -965,6 +948,9 @@ public class RequestSource extends RestCommonUtils {
         try {
             commonPostMethod(URIConstants.POSTPAID_ACCOUNT_DETAILS, new PostpaidAccountDetailRequest(accountNumber, null, null, "1", "5"));
             result = response.as(PostpaidAccountDetailResponse.class);
+            if (response.getStatusCode() != 200) {
+                esbRequestSource.callingAccountStatementAPI(accountNumber);
+            }
         } catch (Exception e) {
             commonLib.fail("Exception in method - accountDetailResponse " + e.getMessage(), false);
         }
@@ -972,24 +958,40 @@ public class RequestSource extends RestCommonUtils {
     }
 
     /**
-     * This Method will hit the API "/sr/api/sr-service/v1/parent/categories" and return the response
+     * This Method will hit the API "/cs-gsm-service/v1/postpaid/account/details" and return the response in list
      *
-     * @param id The Id
+     * @param accountNo The Account Number
      * @return The Response
      */
-    public TreeMap<String, List<Category>> getParentCategory(Long id) {
-        ParentCategoryResponse parentCategoryResponse = null;
-        TreeMap<String, List<Category>> result = null;
+    public AccountDetails getAccountInfoDetail(String accountNo, Integer pageNumber) {
+        AccountDetails result = null;
         try {
-            queryParam.put("id", id);
-            commonGetMethodWithQueryParam(URIConstants.GET_PARENT_CATEGORY_V1, queryParam);
-            parentCategoryResponse = response.as(ParentCategoryResponse.class);
-            if (parentCategoryResponse.getStatusCode() == 200 && ObjectUtils.isNotEmpty(parentCategoryResponse.getResult())) {
-                result = parentCategoryResponse.getResult().entrySet().stream()
-                        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> newValue, TreeMap::new));
+            commonPostMethod(URIConstants.POSTPAID_ACCOUNT_DETAILS, new AccountDetailRequest(accountNo, pageNumber.toString(), "5"));
+            result = response.as(AccountDetails.class);
+            if (response.getStatusCode() != 200) {
+                esbRequestSource.callingAccountStatementAPI(accountNo);
             }
         } catch (Exception e) {
-            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getParentCategory " + e.getMessage(), false);
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getAccountInfoDetail " + e.getMessage(), false);
+            esbRequestSource.callPostpaidAccountInfoDetails(new AccountDetailRequest(accountNo, pageNumber.toString(), "5"));
+        }
+        return result;
+    }
+
+    /**
+     * This Method will hit the API "/sr/api/sr-service/v1/fetch/ticket/history/log" and return the response
+     *
+     * @param ticketId The ticket id
+     * @return The Response
+     */
+    public TicketHistoryLog getTicketHistoryLog(String ticketId) {
+        TicketHistoryLog result = null;
+        try {
+            queryParam.put("id", ticketId);
+            commonGetMethodWithQueryParam(URIConstants.TICKET_HISTORY_LOG, queryParam);
+            result = response.as(TicketHistoryLog.class);
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getTicketHistoryLog " + e.getMessage(), false);
         }
         return result;
     }
@@ -997,7 +999,7 @@ public class RequestSource extends RestCommonUtils {
     /**
      * This Method will hit the API "/cs-gsm-service/v1/postpaid/msisdn/details" and return the response in list
      *
-     * @param accountNo The Account No.
+     * @param accountNo The Account Number
      * @return The Response
      */
     public AccountStatementCSResponse accountStatementCSResponse(String accountNo, Integer pageNumber) {
@@ -1005,8 +1007,11 @@ public class RequestSource extends RestCommonUtils {
         try {
             commonPostMethod(URIConstants.POSTPAID_ACCOUNT_MSISDN_DETAILS, new AccountStatementReq(accountNo, pageNumber.toString(), "5"));
             result = response.as(AccountStatementCSResponse.class);
+            if (response.getStatusCode() != 200) {
+                esbRequestSource.callingAccountStatementAPI(accountNo);
+            }
         } catch (Exception e) {
-            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getAccountInfoDetail " + e.getMessage(), false);
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getAccountStatementDetails " + e.getMessage(), false);
             esbRequestSource.callPostpaidAccountInfoDetails(new AccountDetailRequest(accountNo, pageNumber.toString(), "5"));
         }
         return result;

@@ -35,7 +35,7 @@ public class AdjustmentTabTest extends Driver {
     private RechargeHistory rechargeHistoryAPI;
     private static String adjustmentReason;
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void checkAdjustmentFlag() {
         if (!StringUtils.equals(RUN_ADJUSTMENT_TEST_CASE, "true")) {
             commonLib.skip("Adjustment widget is NOT Enabled for this Opco " + OPCO);
@@ -43,7 +43,7 @@ public class AdjustmentTabTest extends Driver {
         }
     }
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");

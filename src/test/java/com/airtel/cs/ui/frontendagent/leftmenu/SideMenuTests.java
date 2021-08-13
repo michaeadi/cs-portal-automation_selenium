@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 public class SideMenuTests extends Driver {
 
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -19,7 +19,7 @@ public class SideMenuTests extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void testSideMenuOption() {
         try {
             selUtils.addTestcaseDescription("Validating Side Menu Options, Validating all options are visible as per permission given", "description");

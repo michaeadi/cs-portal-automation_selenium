@@ -16,6 +16,7 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -733,5 +734,14 @@ public class BasePage extends Driver {
         actions.moveToElement(target).build().perform();
     }
 
+    /**
+     * This method use to clear console log
+     */
+    public void clearConsoleErrors(){
+        JavascriptExecutor js = (JavascriptExecutor)getDriver();
+        String script = "console.clear();";
+        js.executeScript(script);
+        getDriver().manage().logs().get(LogType.PERFORMANCE).getAll();
+    }
 
 }
