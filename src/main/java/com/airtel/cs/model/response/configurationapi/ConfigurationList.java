@@ -13,6 +13,7 @@ import lombok.ToString;
 @ToString
 public class ConfigurationList {
     private String status;
-    private String statusCode;
+    private Integer statusCode;
+    private String message;
     private ConfigurationResult result;
 }

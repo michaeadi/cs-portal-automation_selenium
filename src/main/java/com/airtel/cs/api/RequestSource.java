@@ -12,6 +12,7 @@ import com.airtel.cs.model.request.AccumulatorsRequest;
 import com.airtel.cs.model.request.ActionTrailRequest;
 import com.airtel.cs.model.request.AgentLimitRequest;
 import com.airtel.cs.model.request.ConfigurationRequest;
+import com.airtel.cs.model.request.CreateConfigAttributes;
 import com.airtel.cs.model.request.FetchTicketPoolRequest;
 import com.airtel.cs.model.request.GenericRequest;
 import com.airtel.cs.model.request.LimitConfigRequest;
@@ -1043,6 +1044,54 @@ public class RequestSource extends RestCommonUtils {
         ConfigurationList result = null;
         try {
             commonPostMethod(URIConstants.GET_CONFIGURATION_API, new ConfigurationRequest(pageNumber,pageSize));
+            result = response.as(ConfigurationList.class);
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getAllConfiguration " + e.getMessage(), false);
+        }
+        return result;
+    }
+
+    /**
+     * This Method will hit the API "/cs-gsm-service/v1/postpaid/msisdn/details" and return the response in list
+     *
+     * @return The Response
+     */
+    public ConfigurationList createConfig(String key,String value) {
+        ConfigurationList result = null;
+        try {
+            commonPostMethod(URIConstants.CREATE_CONFIGURATION_API, Arrays.asList(new CreateConfigAttributes(OPCO,key,value)));
+            result = response.as(ConfigurationList.class);
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getAllConfiguration " + e.getMessage(), false);
+        }
+        return result;
+    }
+
+    /**
+     * This Method will hit the API "/cs-gsm-service/v1/postpaid/msisdn/details" and return the response in list
+     *
+     * @return The Response
+     */
+    public ConfigurationList deleteConfig(String key) {
+        ConfigurationList result = null;
+        try {
+            commonPostMethod(URIConstants.DELETE_CONFIGURATION_API, new CreateConfigAttributes(null,key,null));
+            result = response.as(ConfigurationList.class);
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getAllConfiguration " + e.getMessage(), false);
+        }
+        return result;
+    }
+
+    /**
+     * This Method will hit the API "/cs-gsm-service/v1/postpaid/msisdn/details" and return the response in list
+     *
+     * @return The Response
+     */
+    public ConfigurationList updateConfig(String key,String value) {
+        ConfigurationList result = null;
+        try {
+            commonPostMethod(URIConstants.UPDATE_CONFIGURATION_API, new CreateConfigAttributes(OPCO,key,value));
             result = response.as(ConfigurationList.class);
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getAllConfiguration " + e.getMessage(), false);
