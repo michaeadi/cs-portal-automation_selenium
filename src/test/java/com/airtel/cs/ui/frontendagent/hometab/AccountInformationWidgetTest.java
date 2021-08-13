@@ -39,6 +39,7 @@ public class AccountInformationWidgetTest extends Driver {
     public static Response response;
     private final BaseActions actions = new BaseActions();
     List<String> postpaidAccountInformation;
+    String comments = "Adding comment using Automation";
     String customerAccountNumber = null;
     PaymentRequest paymentRequest = new PaymentRequest();
 
@@ -383,10 +384,71 @@ public class AccountInformationWidgetTest extends Driver {
         }
     }
 
+    @Test(priority = 14, groups = {"SanityTest", "RegressionTest", "ProdTest"},dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    public void validateRaiseSRButton(){
+        try {
+            selUtils.addTestcaseDescription("Validating Total Credit limit have SR Icon must be visible,After clicking on SR Icon Validate Issue pop modal opened,Validate Account number field displayed,validate Comment box displayed,validate submit button disabled as mandatory field does not filled,Validate Cancel button displayed", "description");
+            assertCheck.append(actions.assertEqualBoolean(pages.getAccountInformationWidget().isSRIconDisplay(),true,constants.getValue("cs.account.information.sr.icon.found"),constants.getValue("cs.account.information.sr.icon.not.found"),true));
+            String accountNumber=pages.getAccountInformationWidget().getAccountNumber();
+            pages.getAccountInformationWidget().clickSRRaiseIcon();
+            boolean modalOpen=pages.getAccountInformationWidget().isIssueDetailPopUpDisplay();
+            if(modalOpen) {
+                assertCheck.append(actions.assertEqualBoolean(modalOpen, true, constants.getValue("create.sr.popup.open"), constants.getValue("create.sr.popup.not.open")));
+                assertCheck.append(actions.matchUiAndAPIResponse(accountNumber,pages.getAccountInformationWidget().getAccountNumberFromIssuePopup(),constants.getValue("account.number.equal"),constants.getValue("account.number.not.equal")));
+                assertCheck.append(actions.assertEqualBoolean(pages.getTariffPlanPage().isCommentBoxVisible(),true,constants.getValue("comment.box.visible"),constants.getValue("comment.box.not.visible")));
+                assertCheck.append(actions.assertEqualBoolean(pages.getAccountInformationWidget().isEnterAmount(),true,constants.getValue("enter.amount.field.display"),constants.getValue("enter.amount.field.not.display")));
+                assertCheck.append(actions.assertEqualBoolean(pages.getTariffPlanPage().isSubmitEnabled(),false,constants.getValue("submit.button.disabled"),constants.getValue("submit.button.enabled")));
+                assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isCancelBtnEnable(),true,constants.getValue("cancel.button.display"),constants.getValue("cancel.button.not.display")));
+                pages.getAccountInformationWidget().clickClosePopup();
+            }else{
+                commonLib.fail(constants.getValue("create.sr.popup.not.open"),true);
+            }
+        }catch (Exception e){
+            commonLib.fail("Exception in Method - currentPlanProfileManagement" + e.fillInStackTrace(), true);
+        }
+        actions.assertAllFoundFailedAssert(assertCheck);
+    }
+
+    @Test(priority = 15, groups = {"RegressionTest"},dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    public void createSRUsingRaiseSRButton(){
+        try {
+            selUtils.addTestcaseDescription("Validating Total Credit limit have SR Icon must be visible,After clicking on SR Icon Issue detail pop up open,Validate user able to enter amount,Validate user able to add comment, Validate Submit button enabled,Validate after clicking on submit button Success message displayed,Validate ticket id and expected closure date displayed.", "description");
+            assertCheck.append(actions.assertEqualBoolean(pages.getAccountInformationWidget().isSRIconDisplay(),true,constants.getValue("cs.account.information.sr.icon.found"),constants.getValue("cs.account.information.sr.icon.not.found"),true));
+            String accountNumber=pages.getAccountInformationWidget().getAccountNumber();
+            pages.getAccountInformationWidget().clickSRRaiseIcon();
+            boolean modalOpen=pages.getAccountInformationWidget().isIssueDetailPopUpDisplay();
+            if(modalOpen) {
+                if(accountNumber==null){
+                    pages.getAccountInformationWidget().enterAccountNumberInPopUp("12345678");
+                }
+                pages.getAccountInformationWidget().writeAmount("10");
+                pages.getAuthTabPage().clickSelectReasonDropDown();
+                pages.getAuthTabPage().chooseReason();
+                pages.getAuthTabPage().enterComment(comments);
+                assertCheck.append(actions.assertEqualBoolean(pages.getTariffPlanPage().isSubmitEnabled(),true,constants.getValue("submit.button.enabled"),constants.getValue("submit.button.disabled")));
+                pages.getTariffPlanPage().clickSubmitBtn();
+                String successMessage=pages.getAccountInformationWidget().getSuccessMessage();
+                commonLib.pass(successMessage);
+                String ticketId=successMessage.split(" is ")[1].split(" and ")[0];
+                String expectedClosureDate=successMessage.split(" is ")[2];
+                assertCheck.append(actions.assertEqualStringNotNull(ticketId,"Ticket Number Displayed: "+ticketId,"Ticket Number does not displayed"));
+                assertCheck.append(actions.assertEqualStringNotNull(expectedClosureDate,"Expected Closure Date Displayed: "+expectedClosureDate,"Expected Closure Date does not displayed"));
+                pages.getAccountInformationWidget().clickClosePopup();
+            }else{
+                commonLib.fail(constants.getValue("create.sr.popup.not.open"),true);
+            }
+        }catch (Exception e){
+            if(pages.getAccountInformationWidget().isIssueDetailPopUpDisplay())
+                pages.getAccountInformationWidget().clickClosePopup();
+            commonLib.fail("Exception in Method - currentPlanProfileManagement" + e.fillInStackTrace(), true);
+        }
+        actions.assertAllFoundFailedAssert(assertCheck);
+    }
+
     /**
      * This method is used to validate widgets in profile management
      */
-    @Test(priority = 14, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    @Test(priority = 16, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
     public void accountInfoProfileManagement() {
         try {
             selUtils.addTestcaseDescription("Validating widgets in profile management", "description");

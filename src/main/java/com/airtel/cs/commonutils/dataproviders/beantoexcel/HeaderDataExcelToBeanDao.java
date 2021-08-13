@@ -28,7 +28,7 @@ public class HeaderDataExcelToBeanDao {
 
     DataFormatter dataFormatter;
     FormulaEvaluator evaluator;
-    private static final String FILE_EXTENSION = "xlsx";
+    private static final String XLSX_FILE_EXTENSION = "xlsx";
     private static final Integer START_INDEX = 0;
     private static final Integer END_INDEX = 12;
 
@@ -58,7 +58,7 @@ public class HeaderDataExcelToBeanDao {
         try {
             file = new FileInputStream(new File(path));
             Workbook workbook;
-            if (path.contains(FILE_EXTENSION)) {
+            if (path.contains(XLSX_FILE_EXTENSION)) {
                 workbook = new XSSFWorkbook(file);
                 dataFormatter = new DataFormatter();
                 evaluator = new XSSFFormulaEvaluator((XSSFWorkbook) workbook);

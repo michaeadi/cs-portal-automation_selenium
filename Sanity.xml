@@ -116,7 +116,7 @@
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.frontendagent.hometab.RechargeHistoryMenuWidgetTest"/>
+            <class name="com.airtel.cs.ui.configurationtest.ConfigurationListTest"/>
         </classes>
     </test>
     <test name="Service Profile Widget Test">
@@ -427,6 +427,16 @@
         </groups>
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.AccountInfoBillDisputeTest"/>
+        </classes>
+    </test>
+    <test name="Validate Create Configuration API">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.configurationtest.ConfigurationListTest"/>
         </classes>
     </test>
     <test name="Supervisors Login Test">

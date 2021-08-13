@@ -5,16 +5,30 @@ import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants
 import com.airtel.cs.commonutils.applicationutils.constants.ESBURIConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.URIConstants;
 import com.airtel.cs.commonutils.restutils.RestCommonUtils;
-import com.airtel.cs.model.request.*;
+import com.airtel.cs.model.request.AccountBalanceRequest;
+import com.airtel.cs.model.request.AccountDetailRequest;
+import com.airtel.cs.model.request.AccountStatementReq;
+import com.airtel.cs.model.request.AccumulatorsRequest;
+import com.airtel.cs.model.request.ActionTrailRequest;
+import com.airtel.cs.model.request.AgentLimitRequest;
+import com.airtel.cs.model.request.ConfigurationRequest;
+import com.airtel.cs.model.request.CreateConfigAttributes;
+import com.airtel.cs.model.request.FetchTicketPoolRequest;
 import com.airtel.cs.model.request.GenericRequest;
+import com.airtel.cs.model.request.LimitConfigRequest;
 import com.airtel.cs.model.request.LoanRequest;
 import com.airtel.cs.model.request.MoreTransactionHistoryRequest;
 import com.airtel.cs.model.request.OfferDetailRequest;
+import com.airtel.cs.model.request.PaymentRequest;
+import com.airtel.cs.model.request.PlanPackRequest;
 import com.airtel.cs.model.request.PostpaidAccountDetailRequest;
 import com.airtel.cs.model.request.RechargeHistoryRequest;
 import com.airtel.cs.model.request.RingtonDetailsRequest;
 import com.airtel.cs.model.request.SMSHistoryRequest;
+import com.airtel.cs.model.request.SaveAgentLimitRequest;
 import com.airtel.cs.model.request.ServiceProfileRequest;
+import com.airtel.cs.model.request.TicketSearchCriteria;
+import com.airtel.cs.model.request.TicketSearchRequest;
 import com.airtel.cs.model.request.TransactionHistoryRequest;
 import com.airtel.cs.model.request.UsageHistoryMenuRequest;
 import com.airtel.cs.model.request.UsageHistoryRequest;
@@ -33,8 +47,9 @@ import com.airtel.cs.model.response.agentpermission.AgentPermission;
 import com.airtel.cs.model.response.agents.AgentDetailAttribute;
 import com.airtel.cs.model.response.airtelmoney.AirtelMoney;
 import com.airtel.cs.model.response.amprofile.AMProfile;
+import com.airtel.cs.model.response.authconfiguration.Configuration;
 import com.airtel.cs.model.response.clearrefillstatus.RefillStatus;
-import com.airtel.cs.model.response.configuration.Configuration;
+import com.airtel.cs.model.response.configurationapi.ConfigurationList;
 import com.airtel.cs.model.response.crbt.ActivateRingtone;
 import com.airtel.cs.model.response.crbt.Top20Ringtone;
 import com.airtel.cs.model.response.filedmasking.FieldMaskConfigReponse;
@@ -48,8 +63,6 @@ import com.airtel.cs.model.response.loandetails.Loan;
 import com.airtel.cs.model.response.loansummary.Summary;
 import com.airtel.cs.model.response.login.Login;
 import com.airtel.cs.model.response.offerdetails.OfferDetail;
-import com.airtel.cs.model.response.parentcategory.Category;
-import com.airtel.cs.model.response.parentcategory.ParentCategoryResponse;
 import com.airtel.cs.model.response.plans.Plans;
 import com.airtel.cs.model.response.postpaid.PostpaidAccountDetailResponse;
 import com.airtel.cs.model.response.postpaid.enterprise.AccountStatementCSResponse;
@@ -77,8 +90,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.TreeMap;
-import java.util.stream.Collectors;
 
 @Log4j2
 public class RequestSource extends RestCommonUtils {
@@ -1036,4 +1047,69 @@ public class RequestSource extends RestCommonUtils {
         }
         return result;
     }
+
+    /**
+     * This Method will hit the API "/api/cs-service/v1/config" and return the response in list
+     *
+     * @return The Response
+     */
+    public ConfigurationList getAllConfiguration(Integer pageSize,Integer pageNumber) {
+        ConfigurationList result = null;
+        try {
+            commonPostMethod(URIConstants.GET_CONFIGURATION_API, new ConfigurationRequest(pageNumber,pageSize));
+            result = response.as(ConfigurationList.class);
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getAllConfiguration " + e.getMessage(), false);
+        }
+        return result;
+    }
+
+    /**
+     * This Method will hit the API "/api/cs-service/v1/create/config" and return the response in list
+     *
+     * @return The Response
+     */
+    public ConfigurationList createConfig(String key,String value) {
+        ConfigurationList result = null;
+        try {
+            commonPostMethod(URIConstants.CREATE_CONFIGURATION_API, Arrays.asList(new CreateConfigAttributes(OPCO,key,value)));
+            result = response.as(ConfigurationList.class);
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getAllConfiguration " + e.getMessage(), false);
+        }
+        return result;
+    }
+
+    /**
+     * This Method will hit the API "/api/cs-service/v1/delete/config" and return the response in list
+     *
+     * @return The Response
+     */
+    public ConfigurationList deleteConfig(String key) {
+        ConfigurationList result = null;
+        try {
+            commonPostMethod(URIConstants.DELETE_CONFIGURATION_API, new CreateConfigAttributes(null,key,null));
+            result = response.as(ConfigurationList.class);
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getAllConfiguration " + e.getMessage(), false);
+        }
+        return result;
+    }
+
+    /**
+     * This Method will hit the API "/api/cs-service/v1/update/config" and return the response in list
+     *
+     * @return The Response
+     */
+    public ConfigurationList updateConfig(String key,String value) {
+        ConfigurationList result = null;
+        try {
+            commonPostMethod(URIConstants.UPDATE_CONFIGURATION_API, new CreateConfigAttributes(OPCO,key,value));
+            result = response.as(ConfigurationList.class);
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getAllConfiguration " + e.getMessage(), false);
+        }
+        return result;
+    }
+
 }

@@ -1,4 +1,4 @@
-package com.airtel.cs.model.response.configuration;
+package com.airtel.cs.model.response.configurationapi;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -6,13 +6,16 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@ToString
+import java.util.List;
+
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class LockedSection {
-    private String key;
-    private Integer policyId;
-    private Boolean isAuthenticated;
+@ToString
+public class ConfigurationResult {
+    private Integer pageSize;
+    private Integer pageNumber;
+    private Integer totalCount;
+    private List<ConfigurationAttributes> result;
 }

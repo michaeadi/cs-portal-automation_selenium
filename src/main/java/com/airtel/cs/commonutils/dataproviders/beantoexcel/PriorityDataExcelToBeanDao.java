@@ -20,7 +20,7 @@ public class PriorityDataExcelToBeanDao {
 
     static DataFormatter dataFormatter;
     static FormulaEvaluator evaluator;
-    private static final String FILE_EXTENSION="xlsx";
+    private static final String XLSX_FILE_EXTENSION="xlsx";
 
     /**
      * This method is use to get cell value
@@ -45,7 +45,7 @@ public class PriorityDataExcelToBeanDao {
         try {
             file = new FileInputStream(new File(path));
             Workbook workbook;
-            if (path.contains(FILE_EXTENSION)) {
+            if (path.contains(XLSX_FILE_EXTENSION)) {
                 workbook = new XSSFWorkbook(file);
                 dataFormatter = new DataFormatter();
                 evaluator = new XSSFFormulaEvaluator((XSSFWorkbook) workbook);

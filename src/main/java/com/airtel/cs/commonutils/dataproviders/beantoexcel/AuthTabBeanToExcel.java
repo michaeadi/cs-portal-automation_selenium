@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -25,7 +26,9 @@ public class AuthTabBeanToExcel {
 
     DataFormatter dataFormatter;
     FormulaEvaluator evaluator;
-    private static final String FILE_EXTENSION="xlsx";
+    private static final String XLSX_FILE_EXTENSION="xlsx";
+    private static final Integer START_INDEX = 2;
+    private static final Integer END_INDEX = 12;
 
     /**
      * This method is use to get cell value
@@ -46,11 +49,12 @@ public class AuthTabBeanToExcel {
     public List<AuthTabDataBeans> getData(String path, String sheetName) {
 
         List<AuthTabDataBeans> userCredsBeanList = new ArrayList<>();
+        List<String> questions = new ArrayList<>();
         FileInputStream file;
         try {
             file = new FileInputStream(new File(path));
             Workbook workbook;
-            if (path.contains(FILE_EXTENSION)) {
+            if (path.contains(XLSX_FILE_EXTENSION)) {
                 workbook = new XSSFWorkbook(file);
                 dataFormatter = new DataFormatter();
                 evaluator = new XSSFFormulaEvaluator((XSSFWorkbook) workbook);
@@ -72,6 +76,10 @@ public class AuthTabBeanToExcel {
                         int columnIndex = cell.getColumnIndex();
                         String cellValue = fetchValue(cell);
 
+                        if (columnIndex > START_INDEX && columnIndex <= END_INDEX) {
+                            questions.add(cellValue);
+                        }
+
                         switch (columnIndex) {
                             case 0:
                                 authTabDataBeans.setPolicyName(cellValue);
@@ -82,36 +90,6 @@ public class AuthTabBeanToExcel {
                             case 2:
                                 authTabDataBeans.setMinAnswer(cellValue);
                                 break;
-                            case 3:
-                                authTabDataBeans.setQ1(cellValue);
-                                break;
-                            case 4:
-                                authTabDataBeans.setQ2(cellValue);
-                                break;
-                            case 5:
-                                authTabDataBeans.setQ3(cellValue);
-                                break;
-                            case 6:
-                                authTabDataBeans.setQ4(cellValue);
-                                break;
-                            case 7:
-                                authTabDataBeans.setQ5(cellValue);
-                                break;
-                            case 8:
-                                authTabDataBeans.setQ6(cellValue);
-                                break;
-                            case 9:
-                                authTabDataBeans.setQ7(cellValue);
-                                break;
-                            case 10:
-                                authTabDataBeans.setQ8(cellValue);
-                                break;
-                            case 11:
-                                authTabDataBeans.setQ9(cellValue);
-                                break;
-                            case 12:
-                                authTabDataBeans.setQ10(cellValue);
-                                break;
                             default:
                                 break;
                         }
@@ -120,7 +98,10 @@ public class AuthTabBeanToExcel {
 
 
                 if (cells.getRowNum() != 0) {
+                    questions.removeAll(Arrays.asList("", null));
+                    authTabDataBeans.setQuestions(questions);
                     userCredsBeanList.add(authTabDataBeans);
+                    questions=new ArrayList<>();
                 }
             }
         } catch (IOException e) {
