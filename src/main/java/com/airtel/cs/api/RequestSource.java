@@ -1036,7 +1036,7 @@ public class RequestSource extends RestCommonUtils {
     }
 
     /**
-     * This Method will hit the API "/cs-gsm-service/v1/postpaid/msisdn/details" and return the response in list
+     * This Method will hit the API "/api/cs-service/v1/config" and return the response in list
      *
      * @return The Response
      */
@@ -1052,7 +1052,7 @@ public class RequestSource extends RestCommonUtils {
     }
 
     /**
-     * This Method will hit the API "/cs-gsm-service/v1/postpaid/msisdn/details" and return the response in list
+     * This Method will hit the API "/api/cs-service/v1/create/config" and return the response in list
      *
      * @return The Response
      */
@@ -1068,7 +1068,7 @@ public class RequestSource extends RestCommonUtils {
     }
 
     /**
-     * This Method will hit the API "/cs-gsm-service/v1/postpaid/msisdn/details" and return the response in list
+     * This Method will hit the API "/api/cs-service/v1/delete/config" and return the response in list
      *
      * @return The Response
      */
@@ -1084,7 +1084,7 @@ public class RequestSource extends RestCommonUtils {
     }
 
     /**
-     * This Method will hit the API "/cs-gsm-service/v1/postpaid/msisdn/details" and return the response in list
+     * This Method will hit the API "/api/cs-service/v1/update/config" and return the response in list
      *
      * @return The Response
      */
