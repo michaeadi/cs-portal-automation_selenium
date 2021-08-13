@@ -61,6 +61,14 @@ public class FilterTab extends BasePage {
     }
 
     /**
+     * This method is use to click date duration
+     */
+    public void clickDateDurationFilter() {
+        commonLib.info("Clicking on filter by created date - date duration");
+        clickWithoutLoader(tabElements.dateDuration);
+    }
+
+    /**
      * This method is use to select queue option by  queue name
      * @param queueName Queue name
      * @throws InterruptedException in-case scroll interrupt

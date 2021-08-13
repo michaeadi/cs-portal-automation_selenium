@@ -8,7 +8,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
 import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class TicketBulkUpdate extends BasePage {
@@ -409,5 +414,107 @@ public class TicketBulkUpdate extends BasePage {
         result =isVisible(pageElements.sourceTitleTicketRowTicketListing);
         highLighterMethod(pageElements.sourceTitleTicketRowTicketListing);
         return result;
+    }
+
+    /**
+     * Clicking on issue drop down -- dateDurationCD
+     */
+    public void clickIssueOnCatDropDown() {
+        commonLib.info("Clicking issue filter");
+        clickAndWaitForLoaderToBeRemoved(pageElements.issueDropDownCategory);
+    }
+
+
+    /**
+     * This method is used to enter issue in category drop down
+     * @param issue
+     */
+    public void enterIssue(String issue) {
+        if (isVisible(pageElements.searchButtonDropDownCategory)) {
+            enterText(pageElements.searchButtonDropDownCategory, issue);
+        } else {
+            commonLib.error("Search box is NOT visible");
+        }
+    }
+
+    /**
+     * Clicking on issue type filter
+     */
+    public Boolean clickingOnIssueType() {
+        boolean result = false;
+        result =isVisible(pageElements.issueType);
+        return result;
+    }
+
+    /**
+     * This method is used to get current date
+     */
+    public String getCurrentDate(){
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
+
+    /**
+     * This method is used to enter start date
+     * @param date
+     */
+    public void enterCurrentStartDate(String date) {
+        if (isVisible(pageElements.startDateCD)) {
+            enterText(pageElements.startDateCD, date);
+        } else {
+            commonLib.error("Unable to enter start date");
+        }
+    }
+
+    /**
+     * This method is used to enter end date
+     * @param date
+     */
+    public void enterCurrentEndDate(String date) {
+        if (isVisible(pageElements.endDateCD)) {
+            enterText(pageElements.endDateCD, date);
+        } else {
+            commonLib.error("Unable to enter end date");
+        }
+    }
+
+    /**
+     * This method is used to click on reset filter
+     */
+    public void clickResetFilterButton() {
+        commonLib.info("Clicking reset filter");
+        clickAndWaitForLoaderToBeRemoved(pageElements.resetFilter);
+    }
+
+    /**
+     * This method is used to get previous day date
+     * @return
+     */
+    public static String getPreviousDayDate(){
+        Calendar cal  = Calendar.getInstance();
+        //subtracting a day
+        cal.add(Calendar.DATE, -1);
+        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+        String result = s.format(new Date(cal.getTimeInMillis()));
+        return result;
+    }
+
+    /**
+     * This method is used to get error message
+     * @return
+     */
+    public String getErrorMsg() {
+        final String text = getText(pageElements.endDateNotLessThanStartDate);
+        commonLib.info("End date can not be less than start date: " + text);
+        return text;
+    }
+
+    /**
+     * This method is used to click on apply filter button
+     */
+    public void clickApplyFilterButton() {
+        commonLib.info("Clicking apply filter");
+        clickAndWaitForLoaderToBeRemoved(pageElements.applyFilter);
     }
 }

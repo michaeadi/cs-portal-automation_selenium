@@ -64,4 +64,6 @@ public class FilterTabPage {
 
     public String queueOption="//mat-option//span[contains(text(),'";
     public String codeOption="//span[@class='mat-option-text'][contains(text(),'";
+
+    public By dateDuration = By.xpath("//mat-radio-group[@formcontrolname='days']/mat-radio-button[3]/label/div[2]/span[2]");
 }
