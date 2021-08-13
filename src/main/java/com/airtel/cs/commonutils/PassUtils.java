@@ -12,7 +12,4 @@ public class PassUtils {
         return new String(decodedBytes);
     }
 
-    public static void main(String[] args) {
-
-    }
 }

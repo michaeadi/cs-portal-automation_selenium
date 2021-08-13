@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
@@ -525,6 +526,103 @@ public class AccountInformationWidget extends BasePage {
         final String text = getText(pageElements.currentCycleEndDate).split("-")[1].trim();
         commonLib.info(text);
         return text;
+    }
+
+    /**
+     * This method is use to check raise SR icon display or not
+     * @return true/false
+     */
+    public Boolean isSRIconDisplay(){
+        commonLib.info("Checking SR Icon Display or not");
+        return isVisible(pageElements.raiseSRIcon);
+    }
+
+    /**
+     * This method is use to click raise sr icon
+     */
+    public void clickSRRaiseIcon(){
+        commonLib.info("clicking raise SR icon");
+        clickAndWaitForLoaderToBeRemoved(pageElements.raiseSRIcon);
+    }
+
+    /**
+     * This method is use to check raise SR Issue detail pop up display or not
+     * @return true/false
+     */
+    public Boolean isIssueDetailPopUpDisplay(){
+        commonLib.info("Checking Issue Pop up Display or not");
+        return isVisibleContinueExecution(pageElements.popupTitle);
+    }
+
+    /**
+     * This method is use to read success pop up message
+     * @return String The Value
+     */
+    public String getSuccessMessage(){
+        commonLib.info("Reading success message");
+        return getText(By.xpath(pageElements.successMessage));
+    }
+
+    /**
+     * This method is use to click close icon button of open popup
+     */
+    public void clickClosePopup(){
+        commonLib.info("Closing Open Modal");
+        clickWithoutLoader(pageElements.closePopup);
+    }
+
+    /**
+     * This method use to get account number from issue field pop up
+     * @return String The value
+     */
+    public String getAccountNumberFromIssuePopup(){
+        commonLib.info("Reading Account Number from issue pop up");
+        return getAttribute(pageElements.accountNumberInput,"value",false);
+    }
+
+    /**
+     * This method is use to enter account number
+     * @param accountNumber The Account Number
+     */
+    public void enterAccountNumberInPopUp(String accountNumber){
+        commonLib.info("Entering Account Number as account number not fetched from UI or API");
+        enterText(pageElements.accountNumberInput,accountNumber);
+    }
+
+    /**
+     * This method use to get Ticket number from issue field pop up
+     * @return String The value
+     */
+    public String getTicketId(){
+        commonLib.info("Reading Ticket Id from issue pop up");
+        return getText(pageElements.ticketId);
+    }
+
+    /**
+     * This method use to get Expected Closure Date from issue field pop up
+     * @return String The value
+     */
+    public String getExpectedClosureDate(){
+        commonLib.info("Reading Expected Closure Date from issue pop up");
+        return getText(pageElements.expectedClosureDate);
+    }
+
+    /**
+     * This method is use to check enter amount field display or not
+     * @return true/false
+     */
+    public Boolean isEnterAmount(){
+        commonLib.info("Checking Amount field display or not");
+        return isVisible(pageElements.amountField);
+    }
+
+    /**
+     * This method is use to enter amount into amount field
+     * @param amount The Amount
+     */
+    public void writeAmount(String amount){
+        commonLib.info("Entering Amount");
+        enterText(pageElements.amountField,amount);
     }
 
 }
