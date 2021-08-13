@@ -461,17 +461,7 @@ public class DataProviders extends Driver {
         AuthTabBeanToExcel authTabBeanToExcel = new AuthTabBeanToExcel();
         List<AuthTabDataBeans> list =
                 authTabBeanToExcel.getData(excelPath, constants.getValue(CommonConstants.AUTH_POLICY_SHEET));
-        List<String> question = new ArrayList<>();
-        question.add(list.get(0).getQ1());
-        question.add(list.get(0).getQ2());
-        question.add(list.get(0).getQ3());
-        question.add(list.get(0).getQ4());
-        question.add(list.get(0).getQ5());
-        question.add(list.get(0).getQ6());
-        question.add(list.get(0).getQ7());
-        question.add(list.get(0).getQ8());
-        question.add(list.get(0).getQ9());
-        question.add(list.get(0).getQ10());
+        List<String> question = list.get(0).getQuestions();
 
         while (question.contains(null)) {
             question.remove(null);
