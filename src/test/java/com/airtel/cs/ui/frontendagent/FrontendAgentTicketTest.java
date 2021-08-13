@@ -1,5 +1,6 @@
 package com.airtel.cs.ui.frontendagent;
 
+import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.dataproviders.DataProviders;
 import com.airtel.cs.driver.Driver;
@@ -8,6 +9,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class FrontendAgentTicketTest extends Driver {
+
+    RequestSource api = new RequestSource();
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void checkExecution() {
