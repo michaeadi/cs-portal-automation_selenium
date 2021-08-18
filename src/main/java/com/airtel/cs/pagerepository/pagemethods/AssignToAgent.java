@@ -21,6 +21,7 @@ public class AssignToAgent extends BasePage {
 
     /**
      * This method is used to check validate page title displayed
+     *
      * @return true/false
      */
     public boolean validatePageTitle() {
@@ -30,6 +31,7 @@ public class AssignToAgent extends BasePage {
 
     /**
      * This method is use to get queue name for which tab is opened
+     *
      * @return String The value
      */
     public String getQueueName() {
@@ -40,6 +42,7 @@ public class AssignToAgent extends BasePage {
 
     /**
      * This method use to get agent name
+     *
      * @return String The Value
      */
     public String getAgentName() {
@@ -50,6 +53,7 @@ public class AssignToAgent extends BasePage {
 
     /**
      * This method use to get agent auuid
+     *
      * @return String The Value
      */
     public String getAgentAuuid() {
@@ -60,6 +64,7 @@ public class AssignToAgent extends BasePage {
 
     /**
      * This Method is use to get availability slot
+     *
      * @param element The element location
      * @return Integer the count
      */
@@ -71,6 +76,7 @@ public class AssignToAgent extends BasePage {
 
     /**
      * This method is used to get assigned slot
+     *
      * @return String The Value
      */
     public String getAssignedSlot() {
@@ -89,6 +95,7 @@ public class AssignToAgent extends BasePage {
 
     /**
      * This method is use to get info message once ticket assign
+     *
      * @return String The value
      */
     public String getInfoMessage() {
@@ -99,6 +106,7 @@ public class AssignToAgent extends BasePage {
 
     /**
      * This method is use to assign ticket to agent based on agent have available slot and tickets not already assigned to same agent
+     *
      * @param assigneeAUUID The assignee auuid
      * @return String The ticket new assignee auuid
      * @throws InterruptedException
@@ -132,6 +140,21 @@ public class AssignToAgent extends BasePage {
         commonLib.warning("No User have Available Slot");
         closeAssignTab();
         return "No Agent Available";
+    }
+
+    /*
+    This Method will tell us if there is any negative bucket present or not there over supervisor screen
+     */
+    public Boolean checkNegativeBucket() {
+        boolean isNegBucketSize = false;
+        final List<WebElement> agentAvailableSlot = getElementsListFromBy(pageElements.allAvailableSlot);
+        for (WebElement webElement : agentAvailableSlot) {
+            if (webElement.getText().contains("-")) {
+                isNegBucketSize = true;
+                commonLib.fail("Bucket size is in negative", true);
+            }
+        }
+        return isNegBucketSize;
     }
 
 }

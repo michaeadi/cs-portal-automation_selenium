@@ -21,12 +21,21 @@ import java.util.List;
 public class TicketBulkUpdateTest extends Driver {
 
     public static final String BULK_UPDATE_TRANSFER_QUEUE_STATUS = constants.getValue(ApplicationConstants.BULK_UPDATE_TRANSFER_TO_QUEUE_STATUS);
+    public static boolean continueExecTicketBulkUpdateTC = true;
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void checkExecution() {
         if (!(continueExecutionFA && continueExecutionBU)) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
             throw new SkipException("Skipping tests because user NOT able to login Over Portal");
+        }
+    }
+
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void checkBulkUpdateExecution() {
+        if (!continueExecTicketBulkUpdateTC) {
+            commonLib.skip("Skipping tests because there some error at bulk update page");
+            throw new SkipException("Skipping tests because there some error at bulk update page");
         }
     }
 
@@ -52,7 +61,10 @@ public class TicketBulkUpdateTest extends Driver {
             pages.getSideMenuPage().openTicketBulkUpdateDashboard();
             final boolean pageLoaded = pages.getTicketBulkUpdate().isTicketBulkUpdate();
             assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Ticket bulk update Page Loaded Successfully", "Ticket bulk update Page NOT Loaded"));
-            if (!pageLoaded) continueExecutionBU = false;
+            if (!pageLoaded) continueExecTicketBulkUpdateTC = false;
+            final Boolean filterVisible = pages.getTicketBulkUpdate().isFilterVisible();
+            assertCheck.append(actions.assertEqualBoolean(filterVisible, true, "Filters are available over bulk update screen", "Filters are NOT available over bulk update screen"));
+            if (filterVisible) continueExecTicketBulkUpdateTC = false;
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - openTicketBulkUpdate" + e.fillInStackTrace(), true);
@@ -302,8 +314,8 @@ public class TicketBulkUpdateTest extends Driver {
             selUtils.addTestcaseDescription("Check user able to upload ticket id from excel,Validate ticket upload from excel is complete,Click on next button and choose Change state operation,Choose State from the list and confirm the info,Click on submit button and validate ticket transfer to selected state,Validate Ticket history log logged this entry as ticket update by bulk update.", "description");
             DataProviders data = new DataProviders();
             int noOfTicket = 1;
-            assertCheck.append(actions.assertEqualBoolean(pages.getTicketBulkUpdate().fileDownload(), true, "Ticket Upload Template file download.Please check Excels/BulkUploadTemplate.xlsx downloaded", "Ticket Upload Template does not download.Please check Excels/BulkUploadTemplate.xlsx downloaded", true));
-            assertCheck.append(actions.assertEqualBoolean(data.writeTicketNumberToExcel(noOfTicket), true, "Ticket Found to write in Excel", "No Ticket Found to write in Excel", true));
+            assertCheck.append(actions.assertEqualBoolean(pages.getTicketBulkUpdate().fileDownload(),true, "Ticket Upload Template file download.Please check Excels/BulkUploadTemplate.xlsx downloaded","Ticket Upload Template does not download.Please check Excels/BulkUploadTemplate.xlsx downloaded",true));
+            assertCheck.append(actions.assertEqualBoolean(data.writeTicketNumberToExcel(noOfTicket),true, "Ticket Found to write in Excel","No Ticket Found to write in Excel",true));
             pages.getTicketBulkUpdate().addFile();
             final boolean isGrowlVisible = pages.getGrowl().checkIsGrowlVisible();
             if (isGrowlVisible) {

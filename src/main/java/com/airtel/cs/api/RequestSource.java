@@ -969,6 +969,29 @@ public class RequestSource extends RestCommonUtils {
     }
 
     /**
+     * This Method will hit the API "/sr/api/sr-service/v1/parent/categories" and return the response
+     *
+     * @param id The Id
+     * @return The Response
+     */
+    public TreeMap<String, List<Category>> getParentCategory(Long id) {
+        ParentCategoryResponse parentCategoryResponse = null;
+        TreeMap<String, List<Category>> result = null;
+        try {
+            queryParam.put("id", id);
+            commonGetMethodWithQueryParam(URIConstants.GET_PARENT_CATEGORY_V1, queryParam);
+            parentCategoryResponse = response.as(ParentCategoryResponse.class);
+            if (parentCategoryResponse.getStatusCode() == 200 && ObjectUtils.isNotEmpty(parentCategoryResponse.getResult())) {
+                result = parentCategoryResponse.getResult().entrySet().stream()
+                        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> newValue, TreeMap::new));
+            }
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getParentCategory " + e.getMessage(), false);
+        }
+        return result;
+    }
+
+    /**
      * This Method will hit the API "/cs-gsm-service/v1/postpaid/account/details" and return the response in list
      *
      * @param accountNo The Account Number

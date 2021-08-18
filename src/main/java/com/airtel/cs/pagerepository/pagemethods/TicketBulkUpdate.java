@@ -28,6 +28,7 @@ public class TicketBulkUpdate extends BasePage {
 
     /**
      * This method is use to check ticket bulk update page display or not
+     *
      * @return true/false
      */
     public boolean isTicketBulkUpdate() {
@@ -46,6 +47,7 @@ public class TicketBulkUpdate extends BasePage {
 
     /**
      * This method is use to check select filter option available or not
+     *
      * @return true/false
      */
     public boolean isSelectFilter() {
@@ -55,6 +57,7 @@ public class TicketBulkUpdate extends BasePage {
 
     /**
      * This method use to get transfer to queue Action name
+     *
      * @return String The value
      */
     public String getTransferToQueueOption() {
@@ -65,6 +68,7 @@ public class TicketBulkUpdate extends BasePage {
 
     /**
      * This method use to get change state Action name
+     *
      * @return String The value
      */
     public String getChangeStateOption() {
@@ -75,6 +79,7 @@ public class TicketBulkUpdate extends BasePage {
 
     /**
      * This method use to get add ticket comment Action name
+     *
      * @return String The value
      */
     public String getTicketCommentOption() {
@@ -117,6 +122,7 @@ public class TicketBulkUpdate extends BasePage {
 
     /**
      * This method is use to check next button enable or not
+     *
      * @return true/false
      */
     public boolean isNextBtnEnable() {
@@ -136,7 +142,7 @@ public class TicketBulkUpdate extends BasePage {
      * This method use to upload  excel file to upload excel field present on UI
      */
     public void addFile() {
-        String excelPath=download+constants.getValue(CommonConstants.TICKET_BULK_UPDATE_SHEET);
+        String excelPath = download + constants.getValue(CommonConstants.TICKET_BULK_UPDATE_SHEET);
         commonLib.info("File adding:" + excelPath);
         WebElement addFile = driver.findElement(pageElements.uploadFile);
         addFile.sendKeys(excelPath);
@@ -144,6 +150,7 @@ public class TicketBulkUpdate extends BasePage {
 
     /**
      * This method is use to download the file , file will download using download button present on Ui if does not already exist
+     *
      * @return true/false The file readable or not
      * @throws InterruptedException in-case download take more time
      */
@@ -161,6 +168,7 @@ public class TicketBulkUpdate extends BasePage {
 
     /**
      * This method is use to get error message
+     *
      * @return String The value
      */
     public String getErrorMessage() {
@@ -171,6 +179,7 @@ public class TicketBulkUpdate extends BasePage {
 
     /**
      * This method is use to get max count error message
+     *
      * @return String The value
      */
     public String getMaxSelectMessage() {
@@ -187,6 +196,15 @@ public class TicketBulkUpdate extends BasePage {
         clickAndWaitForLoaderToBeRemoved(pageElements.selectFilter);
     }
 
+    /*
+    This method is use to check filters are available or not over bulk update screen
+     */
+    public Boolean isFilterVisible() {
+        commonLib.info("Checking filter is available");
+        return isElementVisible(pageElements.selectFilter);
+    }
+
+
     /**
      * This method is use to click clear filter button
      */
@@ -197,6 +215,7 @@ public class TicketBulkUpdate extends BasePage {
 
     /**
      * This method is use to check clear filter button visible or not
+     *
      * @return true/false
      */
     public Boolean isClearFilterButton() {
@@ -206,6 +225,7 @@ public class TicketBulkUpdate extends BasePage {
 
     /**
      * This method is use to delete file and return the status file deleted or not
+     *
      * @return true/false
      */
     public boolean deleteFile() {
@@ -222,6 +242,7 @@ public class TicketBulkUpdate extends BasePage {
 
     /**
      * This method is use to get all ticket ids
+     *
      * @return List The list of ticket id's
      */
     public List<String> getTicketList() {
@@ -236,6 +257,7 @@ public class TicketBulkUpdate extends BasePage {
 
     /**
      * This method is use to get all queue ids
+     *
      * @return List The list of queue name
      */
     public List<String> getQueue() {
@@ -255,35 +277,38 @@ public class TicketBulkUpdate extends BasePage {
     /**
      * This method is use to click transfer to queue option
      */
-    public void clickSelectTransferToQueue(){
+    public void clickSelectTransferToQueue() {
         commonLib.info("Clicking on Select transfer to queue");
         clickAndWaitForLoaderToBeRemoved(pageElements.selectTransferToQueue);
     }
 
     /**
      * This method is use to select queue name based on index and get the queue name which selected
+     *
      * @param i The index
      * @return String The queue name
      */
-    public String selectOptionAndGetQueueName(int i){
+    public String selectOptionAndGetQueueName(int i) {
         By queue = By.xpath(pageElements.option + i + pageElements.getText);
-        String text=getText(queue);
-        commonLib.info("Selecting Option with Queue Name: "+text);
+        String text = getText(queue);
+        commonLib.info("Selecting Option with Queue Name: " + text);
         clickWithoutLoader(queue);
         return text;
     }
 
     /**
      * This method is used to select option by name
+     *
      * @param text the name
      */
-    public void selectOptionByName(String text){
+    public void selectOptionByName(String text) {
         commonLib.info("Selecting ticket option");
         selectByText(text);
     }
 
     /**
      * This method is use to get all state name
+     *
      * @return List The list of state name
      */
     public List<String> getState() {
@@ -311,7 +336,7 @@ public class TicketBulkUpdate extends BasePage {
     /**
      * This method is use to open select state options
      */
-    public void clickSelectStateOption(){
+    public void clickSelectStateOption() {
         commonLib.info("Clicking on Select state option");
         clickAndWaitForLoaderToBeRemoved(pageElements.selectChangeState);
     }
@@ -334,6 +359,7 @@ public class TicketBulkUpdate extends BasePage {
 
     /**
      * This method is use write comment into comment box
+     *
      * @param comment The comment box
      */
     public void addComment(String comment) {
@@ -351,6 +377,7 @@ public class TicketBulkUpdate extends BasePage {
 
     /**
      * This method is use to check status bar complete
+     *
      * @return true/false
      */
     public boolean isStatusBarComplete() {
@@ -360,6 +387,7 @@ public class TicketBulkUpdate extends BasePage {
 
     /**
      * This method is use to get message after action performed
+     *
      * @return String The message
      */
     public String getUpdatedMessage() {
@@ -370,6 +398,7 @@ public class TicketBulkUpdate extends BasePage {
 
     /**
      * This method is use to get success count of ticket updated
+     *
      * @return Integer The count
      */
     public Integer getSuccessCount() {
@@ -379,6 +408,7 @@ public class TicketBulkUpdate extends BasePage {
 
     /**
      * This method is use to get error count of ticket not updated
+     *
      * @return Integer The count
      */
     public String getErrorCount() {
@@ -388,6 +418,7 @@ public class TicketBulkUpdate extends BasePage {
 
     /**
      * This method is use to get count of error icon displayed and ticket not updated
+     *
      * @return Integer The count
      */
     public int getErrorTicketCount() {
@@ -401,7 +432,7 @@ public class TicketBulkUpdate extends BasePage {
     /**
      * This method is use to click ok button
      */
-    public void clickOkButton(){
+    public void clickOkButton() {
         commonLib.info("Clicking on Ok Button");
         clickAndWaitForLoaderToBeRemoved(pageElements.okButton);
     }
@@ -411,7 +442,7 @@ public class TicketBulkUpdate extends BasePage {
     */
     public Boolean isSourceTitleVisible() {
         boolean result = false;
-        result =isVisible(pageElements.sourceTitleTicketRowTicketListing);
+        result = isVisible(pageElements.sourceTitleTicketRowTicketListing);
         highLighterMethod(pageElements.sourceTitleTicketRowTicketListing);
         return result;
     }

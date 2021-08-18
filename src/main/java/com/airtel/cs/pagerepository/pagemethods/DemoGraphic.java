@@ -332,8 +332,11 @@ public class DemoGraphic extends BasePage {
      * @return String The value
      */
     public String getGSMStatus() {
-        final String text = getText(pageElements.gsmStatus);
-        commonLib.info("Getting SIM Status: " + text);
+        String text = "";
+        if (isVisible(pageElements.gsmStatus)) {
+            text = getText(pageElements.gsmStatus);
+            commonLib.info("Getting SIM Status: " + text);
+        }
         return text;
     }
 

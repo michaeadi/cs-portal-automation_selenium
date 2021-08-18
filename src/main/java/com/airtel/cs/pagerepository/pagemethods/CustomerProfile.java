@@ -382,15 +382,10 @@ public class CustomerProfile extends BasePage {
      */
     public Boolean isSuspendSIMOptionVisible() {
         boolean result = false;
-        final String simStatus = pages.getDemoGraphicPage().getGSMStatus();
-        if (StringUtils.equalsIgnoreCase(simStatus, "Active")) {
-            try {
-                result = elementVisibleWithExplictWait(pageElements.suspendSIM);
-            } catch (Exception e) {
-                commonLib.error("Suspend SIM Option is not visible, Exception in Method -isSuspendSIMOptionVisible" + e.getMessage(), true);
-            }
-        } else {
-            commonLib.error("GSM SIM Status is NOT Active and is - " + simStatus);
+        try {
+            result = isElementVisible(pageElements.suspendSIM);
+        } catch (Exception e) {
+            commonLib.error("Exception in Method -isSuspendSIMOptionVisible" + e.getMessage(), true);
         }
         return result;
     }
@@ -426,9 +421,7 @@ public class CustomerProfile extends BasePage {
                 clickAndWaitForLoaderToBeRemoved(pageElements.suspendSIM);
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            message = message + "</br>" + e.getMessage();
-            commonLib.fail(message, true);
+            commonLib.fail(message + "</br>" + e.getMessage(), true);
         }
     }
 
@@ -437,15 +430,10 @@ public class CustomerProfile extends BasePage {
      */
     public Boolean isReactivationSIMOptionVisible() {
         boolean result = false;
-        final String simStatus = pages.getDemoGraphicPage().getGSMStatus();
-        if (StringUtils.equalsIgnoreCase(simStatus, "Suspended")) {
-            try {
-                result = elementVisibleWithExplictWait(pageElements.reactivationSIM);
-            } catch (Exception e) {
-                commonLib.error("Reactivation SIM Option is not visible, Exception in Method -isReactivationSIMOptionVisible" + e.getMessage(), true);
-            }
-        } else {
-            commonLib.error("GSM SIM Status is NOT Suspended and is - " + simStatus);
+        try {
+            result = isElementVisible(pageElements.reactivationSIM);
+        } catch (Exception e) {
+            commonLib.error("Exception in Method -isReactivationSIMOptionVisible" + e.getMessage(), true);
         }
         return result;
     }
