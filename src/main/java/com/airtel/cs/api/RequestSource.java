@@ -106,6 +106,7 @@ public class RequestSource extends RestCommonUtils {
     private static final String CS_PORTAL_API_ERROR = "cs.portal.api.error";
     private static final String AM_TRANSACTION_HISTORY_API_URL = "am.transaction.history.api.url";
     private static final String CALLING_ESB_APIS = "Calling ESB APIs";
+    private static final String GET_ALL_CONFIGURATION = " - getAllConfiguration ";
 
     /*
     This Method will hit the Available Plan API and returns the response
@@ -194,11 +195,11 @@ public class RequestSource extends RestCommonUtils {
             commonPostMethod(URIConstants.GSM_PROFILE, new GenericRequest(msisdn));
             result = response.as(Profile.class);
             if (result.getStatusCode() != 200) {
-                esbRequestSource.callprofileESBAPI(msisdn);
+                esbRequestSource.callProfileESBAPI(msisdn);
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - profileAPITest " + e.getMessage(), false);
-            esbRequestSource.callprofileESBAPI(msisdn);
+            esbRequestSource.callProfileESBAPI(msisdn);
         }
         return result;
     }
@@ -259,11 +260,11 @@ public class RequestSource extends RestCommonUtils {
             commonPostMethod(URIConstants.ACCOUNT_PLAN, new GenericRequest(msisdn));
             result = response.as(Plans.class);
             if (result.getStatusCode() != 200) {
-                esbRequestSource.callAccoountPlanESBAPI(msisdn);
+                esbRequestSource.callAccountPlanESBAPI(msisdn);
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - accountPlansTest " + e.getMessage(), false);
-            esbRequestSource.callAccoountPlanESBAPI(msisdn);
+            esbRequestSource.callAccountPlanESBAPI(msisdn);
         }
         return result;
     }
@@ -1080,13 +1081,13 @@ public class RequestSource extends RestCommonUtils {
      *
      * @return The Response
      */
-    public ConfigurationList getAllConfiguration(Integer pageSize,Integer pageNumber) {
+    public ConfigurationList getAllConfiguration(Integer pageSize, Integer pageNumber) {
         ConfigurationList result = null;
         try {
-            commonPostMethod(URIConstants.GET_CONFIGURATION_API, new ConfigurationRequest(pageNumber,pageSize));
+            commonPostMethod(URIConstants.GET_CONFIGURATION_API, new ConfigurationRequest(pageNumber, pageSize));
             result = response.as(ConfigurationList.class);
         } catch (Exception e) {
-            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getAllConfiguration " + e.getMessage(), false);
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + GET_ALL_CONFIGURATION + e.getMessage(), false);
         }
         return result;
     }
@@ -1096,13 +1097,13 @@ public class RequestSource extends RestCommonUtils {
      *
      * @return The Response
      */
-    public ConfigurationList createConfig(String key,String value) {
+    public ConfigurationList createConfig(String key, String value) {
         ConfigurationList result = null;
         try {
-            commonPostMethod(URIConstants.CREATE_CONFIGURATION_API, Arrays.asList(new CreateConfigAttributes(OPCO,key,value)));
+            commonPostMethod(URIConstants.CREATE_CONFIGURATION_API, Arrays.asList(new CreateConfigAttributes(OPCO, key, value)));
             result = response.as(ConfigurationList.class);
         } catch (Exception e) {
-            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getAllConfiguration " + e.getMessage(), false);
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + GET_ALL_CONFIGURATION + e.getMessage(), false);
         }
         return result;
     }
@@ -1115,10 +1116,10 @@ public class RequestSource extends RestCommonUtils {
     public ConfigurationList deleteConfig(String key) {
         ConfigurationList result = null;
         try {
-            commonPostMethod(URIConstants.DELETE_CONFIGURATION_API, new CreateConfigAttributes(null,key,null));
+            commonPostMethod(URIConstants.DELETE_CONFIGURATION_API, new CreateConfigAttributes(null, key, null));
             result = response.as(ConfigurationList.class);
         } catch (Exception e) {
-            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getAllConfiguration " + e.getMessage(), false);
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + GET_ALL_CONFIGURATION + e.getMessage(), false);
         }
         return result;
     }
@@ -1128,13 +1129,13 @@ public class RequestSource extends RestCommonUtils {
      *
      * @return The Response
      */
-    public ConfigurationList updateConfig(String key,String value) {
+    public ConfigurationList updateConfig(String key, String value) {
         ConfigurationList result = null;
         try {
-            commonPostMethod(URIConstants.UPDATE_CONFIGURATION_API, new CreateConfigAttributes(OPCO,key,value));
+            commonPostMethod(URIConstants.UPDATE_CONFIGURATION_API, new CreateConfigAttributes(OPCO, key, value));
             result = response.as(ConfigurationList.class);
         } catch (Exception e) {
-            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getAllConfiguration " + e.getMessage(), false);
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + GET_ALL_CONFIGURATION + e.getMessage(), false);
         }
         return result;
     }

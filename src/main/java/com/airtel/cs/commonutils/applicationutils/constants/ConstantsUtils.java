@@ -27,7 +27,7 @@ public class ConstantsUtils implements Cloneable {
     private static final String MESSAGE_FILE_PATH = System.getProperty(USER_DIR) + RESOURCES_PROPERTIES + MESSAGE_CONFIG_FILE_NAME;
     private static final String ASSERT_MESSAGE_FILE_PATH = System.getProperty(USER_DIR) + RESOURCES_PROPERTIES + ASSERT_MESSAGE_CONFIG_FILE_NAME;
     private static final List<String> fileList = Arrays
-        .asList(COMMON_FILE_PATH, PERMISSION_FILE_PATH, MESSAGE_FILE_PATH, ASSERT_MESSAGE_FILE_PATH, OPCO_FILE_PATH);
+            .asList(COMMON_FILE_PATH, PERMISSION_FILE_PATH, MESSAGE_FILE_PATH, ASSERT_MESSAGE_FILE_PATH, OPCO_FILE_PATH);
 
 
     private ConstantsUtils() {
@@ -59,6 +59,7 @@ public class ConstantsUtils implements Cloneable {
 
     /**
      * This method use to get value from properties file based on key
+     *
      * @param key The key
      * @return String The value
      */
@@ -68,11 +69,12 @@ public class ConstantsUtils implements Cloneable {
 
     /**
      * This method is use to set value in properties file based on key
-     * @param key The key
+     *
+     * @param key   The key
      * @param value The value
      */
-    public void setValue(String key,String value) {
-        prop.setProperty(key,value);
+    public final void setValue(String key, String value) {
+        prop.setProperty(key, value);
     }
 
     @Override
