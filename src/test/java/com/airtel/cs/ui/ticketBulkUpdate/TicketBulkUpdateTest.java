@@ -1,7 +1,6 @@
 package com.airtel.cs.ui.ticketBulkUpdate;
 
 import com.airtel.cs.commonutils.UtilsMethods;
-import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
@@ -22,9 +21,8 @@ import java.util.List;
 public class TicketBulkUpdateTest extends Driver {
 
     public static final String BULK_UPDATE_TRANSFER_QUEUE_STATUS = constants.getValue(ApplicationConstants.BULK_UPDATE_TRANSFER_TO_QUEUE_STATUS);
-    private final BaseActions actions = new BaseActions();
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void checkExecution() {
         if (!(continueExecutionFA && continueExecutionBU)) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -32,13 +30,13 @@ public class TicketBulkUpdateTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void isUserHasTicketBulkUpdatePermission() {
         try {
             selUtils.addTestcaseDescription("Validate have permission to perform validate Ticket Bulk Update operation", "description");
             String ticket_bulk_permission = constants.getValue(PermissionConstants.TICKET_BULK_UPDATE_ACTION_PERMISSION);
             pages.getSideMenuPage().clickOnSideMenu();
-            assertCheck.append(actions.assertEqual_boolean(pages.getSideMenuPage().isTicketBulkUpdateVisible(), UtilsMethods.isUserHasPermission(new Headers(map), ticket_bulk_permission), "User have permission to perform ticket bulk update as expected", "User does not have permission to perform ticket bulk update as expected"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSideMenuPage().isTicketBulkUpdateVisible(), UtilsMethods.isUserHasPermission(new Headers(map), ticket_bulk_permission), "User have permission to perform ticket bulk update as expected", "User does not have permission to perform ticket bulk update as expected"));
             pages.getSideMenuPage().clickOnSideMenu();
         } catch (Exception e) {
             commonLib.fail("Exception in Method - isUserHasTicketBulkUpdatePermission" + e.fillInStackTrace(), true);
@@ -46,14 +44,14 @@ public class TicketBulkUpdateTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasTicketBulkUpdatePermission"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dependsOnMethods = {"isUserHasTicketBulkUpdatePermission"})
     public void openTicketBulkUpdate() {
         try {
             selUtils.addTestcaseDescription("Open Ticket Bulk Update Dashboard,Validate Ticket Bulk Update Dashboard Opened", "description");
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().openTicketBulkUpdateDashboard();
             final boolean pageLoaded = pages.getTicketBulkUpdate().isTicketBulkUpdate();
-            assertCheck.append(actions.assertEqual_boolean(pageLoaded, true, "Ticket bulk update Page Loaded Successfully", "Ticket bulk update Page NOT Loaded"));
+            assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Ticket bulk update Page Loaded Successfully", "Ticket bulk update Page NOT Loaded"));
             if (!pageLoaded) continueExecutionBU = false;
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -80,8 +78,8 @@ public class TicketBulkUpdateTest extends Driver {
                 commonLib.fail("Not able to apply filter: " + e.fillInStackTrace(), true);
                 pages.getTicketBulkUpdate().clickCloseFilter();
             }
-            assertCheck.append(actions.assertEqual_boolean(pages.getTicketBulkUpdate().isClearFilterButton(), true, "Clear Filter button display after selecting filter.", "Clear Filter button does not display after selecting filter."));
-            assertCheck.append(actions.assertEqual_stringType(pages.getTicketBulkUpdate().getMaxSelectMessage().replaceAll("[^0-9]+", "").trim(), constants.getValue(CommonConstants.TICKET_BULK_UPDATE_MAX_COUNT), "Max Ticket bulk update message displayed", "Max Ticket bulk update message not displayed"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getTicketBulkUpdate().isClearFilterButton(), true, "Clear Filter button display after selecting filter.", "Clear Filter button does not display after selecting filter."));
+            assertCheck.append(actions.assertEqualStringType(pages.getTicketBulkUpdate().getMaxSelectMessage().replaceAll("[^0-9]+", "").trim(), constants.getValue(CommonConstants.TICKET_BULK_UPDATE_MAX_COUNT), "Max Ticket bulk update message displayed", "Max Ticket bulk update message not displayed"));
             pages.getTicketBulkUpdate().clickClearFilter();
         } catch (Exception e) {
             commonLib.fail("Exception in Method - maxTicketSelectTest" + e.fillInStackTrace(), true);
@@ -110,9 +108,9 @@ public class TicketBulkUpdateTest extends Driver {
             uploadTickets.removeAll(addedTicket);
             int size = uploadedSize - uploadTickets.size();
             String[] newString = pages.getTicketBulkUpdate().getErrorMessage().replaceAll("[^0-9\\s]+", "").trim().split(" ");
-            assertCheck.append(actions.assertEqual_stringType(newString[0], String.valueOf(size), "Uploaded ticket count as expected", "Uploaded ticket miscount"));
-            assertCheck.append(actions.assertEqual_stringType(newString[newString.length - 1], String.valueOf(uploadedSize), "Total number of ticket is same as expected", "Total number of ticket is not same as expected"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getTicketBulkUpdate().deleteFile(), true, "File deleted", "File not deleted"));
+            assertCheck.append(actions.assertEqualStringType(newString[0], String.valueOf(size), "Uploaded ticket count as expected", "Uploaded ticket miscount"));
+            assertCheck.append(actions.assertEqualStringType(newString[newString.length - 1], String.valueOf(uploadedSize), "Total number of ticket is same as expected", "Total number of ticket is not same as expected"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getTicketBulkUpdate().deleteFile(), true, "File deleted", "File not deleted"));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - uploadTicketFromExcelTest" + e.fillInStackTrace(), true);
         }
@@ -125,10 +123,10 @@ public class TicketBulkUpdateTest extends Driver {
             selUtils.addTestcaseDescription("Validate Bulk option test,Validate transfer to queue,Change state,Add comment Action field must be displayed,Validate all the queue displayed as per config,Validate all the Open & closed state displayed.", "description");
             DataProviders data = new DataProviders();
             pages.getTicketBulkUpdate().clickNextBtn();
-            assertCheck.append(actions.assertEqual_stringType(pages.getTicketBulkUpdate().getTransferToQueueOption(), constants.getValue(CommonConstants.TICKET_BULK_UPDATE_TRANSFER_TO_QUEUE_ACTION), "Transfer to Queue action present on UI", "Transfer to Queue does not present on UI"));
-            assertCheck.append(actions.assertEqual_stringType(pages.getTicketBulkUpdate().getChangeStateOption(), constants.getValue(CommonConstants.TICKET_BULK_UPDATE_CHANGE_STATE_ACTION), "Change State action present on UI", "Change State does not present on UI"));
-            assertCheck.append(actions.assertEqual_stringType(pages.getTicketBulkUpdate().getTicketCommentOption(), constants.getValue(CommonConstants.TICKET_BULK_UPDATE_ADD_TICKET_COMMENT_ACTION), "Add Ticket comment action present on UI", "Add Ticket comment does not present on UI"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getTicketBulkUpdate().isNextBtnEnable(), false, "Next Button does not enable before choosing operation", "Next Button enable without choosing operation"));
+            assertCheck.append(actions.assertEqualStringType(pages.getTicketBulkUpdate().getTransferToQueueOption(), constants.getValue(CommonConstants.TICKET_BULK_UPDATE_TRANSFER_TO_QUEUE_ACTION), "Transfer to Queue action present on UI", "Transfer to Queue does not present on UI"));
+            assertCheck.append(actions.assertEqualStringType(pages.getTicketBulkUpdate().getChangeStateOption(), constants.getValue(CommonConstants.TICKET_BULK_UPDATE_CHANGE_STATE_ACTION), "Change State action present on UI", "Change State does not present on UI"));
+            assertCheck.append(actions.assertEqualStringType(pages.getTicketBulkUpdate().getTicketCommentOption(), constants.getValue(CommonConstants.TICKET_BULK_UPDATE_ADD_TICKET_COMMENT_ACTION), "Add Ticket comment action present on UI", "Add Ticket comment does not present on UI"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getTicketBulkUpdate().isNextBtnEnable(), false, "Next Button does not enable before choosing operation", "Next Button enable without choosing operation"));
             List<String> loginQueue = data.getLoginQueueData();
             List<String> queues = pages.getTicketBulkUpdate().getQueue();
             List<TicketStateDataBean> openState = data.getState(constants.getValue(CommonConstants.TICKET_OPEN_STATE));
@@ -180,11 +178,11 @@ public class TicketBulkUpdateTest extends Driver {
             pages.getTicketBulkUpdate().addComment("Adding Comment using Automation for Bulk Update option test. Please Ignore this comment");
             pages.getTicketBulkUpdate().clickConfirmAction();
             pages.getTicketBulkUpdate().clickNextBtn();
-            assertCheck.append(actions.assertEqual_boolean(pages.getTicketBulkUpdate().isStatusBarComplete(), true, "Status update for all ticket", "Status not update for all ticket"));
-            assertCheck.append(actions.assertEqual_intType(pages.getTicketBulkUpdate().getErrorTicketCount(), Integer.parseInt(pages.getTicketBulkUpdate().getErrorCount()), "Error Ticket count does displayed correctly", "Error Ticket count does not displayed correctly"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getTicketBulkUpdate().isStatusBarComplete(), true, "Status update for all ticket", "Status not update for all ticket"));
+            assertCheck.append(actions.assertEqualIntType(pages.getTicketBulkUpdate().getErrorTicketCount(), Integer.parseInt(pages.getTicketBulkUpdate().getErrorCount()), "Error Ticket count does displayed correctly", "Error Ticket count does not displayed correctly"));
             String[] array = pages.getTicketBulkUpdate().getUpdatedMessage().replaceAll("[^0-9\\s]+", "").trim().split(" ");
             size = Integer.parseInt(array[0]) - pages.getTicketBulkUpdate().getErrorTicketCount();
-            assertCheck.append(actions.assertEqual_intType(pages.getTicketBulkUpdate().getSuccessCount(), size, "Action does Performed on all uploaded ticket", "Action does not Performed on all uploaded ticket"));
+            assertCheck.append(actions.assertEqualIntType(pages.getTicketBulkUpdate().getSuccessCount(), size, "Action does Performed on all uploaded ticket", "Action does not Performed on all uploaded ticket"));
             pages.getTicketBulkUpdate().clickOkButton();
         } catch (Exception e) {
             commonLib.fail("Exception in Method - bulkAddCommentTest" + e.fillInStackTrace(), true);
@@ -213,21 +211,21 @@ public class TicketBulkUpdateTest extends Driver {
                     }
                 }
                 pages.getTicketBulkUpdate().clickNextBtn();
-                assertCheck.append(actions.assertEqual_stringType(pages.getTicketBulkUpdate().getTransferToQueueOption(), constants.getValue(CommonConstants.TICKET_BULK_UPDATE_TRANSFER_TO_QUEUE_ACTION), "Transfer to Queue action present on UI", "Transfer to Queue does not present on UI"));
+                assertCheck.append(actions.assertEqualStringType(pages.getTicketBulkUpdate().getTransferToQueueOption(), constants.getValue(CommonConstants.TICKET_BULK_UPDATE_TRANSFER_TO_QUEUE_ACTION), "Transfer to Queue action present on UI", "Transfer to Queue does not present on UI"));
                 pages.getTicketBulkUpdate().clickTransferToQueueOption();
                 pages.getTicketBulkUpdate().clickSelectTransferToQueue();
                 pages.getTicketBulkUpdate().selectByText(constants.getValue(ApplicationConstants.BULK_UPDATE_TO_QUEUE_NAME));
                 pages.getTicketBulkUpdate().clickOutside();
                 pages.getTicketBulkUpdate().clickConfirmAction();
                 pages.getTicketBulkUpdate().clickNextBtn();
-                assertCheck.append(actions.assertEqual_boolean(pages.getTicketBulkUpdate().isStatusBarComplete(), true, "Status update for all ticket", "Status not update for all ticket"));
-                assertCheck.append(actions.assertEqual_intType(pages.getTicketBulkUpdate().getSuccessCount(), noOfTicket, "Action does Performed on all uploaded ticket", "Action does not Performed on all uploaded ticket"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getTicketBulkUpdate().isStatusBarComplete(), true, "Status update for all ticket", "Status not update for all ticket"));
+                assertCheck.append(actions.assertEqualIntType(pages.getTicketBulkUpdate().getSuccessCount(), noOfTicket, "Action does Performed on all uploaded ticket", "Action does not Performed on all uploaded ticket"));
                 List<String> ticketId = pages.getTicketBulkUpdate().getTicketList();
                 if (pages.getTicketBulkUpdate().getSuccessCount() > 0) {
                     pages.getTicketBulkUpdate().clickOkButton();
                     pages.getSideMenuPage().clickOnSideMenu();
                     pages.getSideMenuPage().openSupervisorDashboard();
-                    assertCheck.append(actions.assertEqual_stringType(driver.getTitle(), constants.getValue(CommonConstants.SUPERVISOR_TICKET_LIST_PAGE_TITLE), "Agent redirect to ticket list page as expected", "Agent does not redirect to ticket list page as expected"));
+                    assertCheck.append(actions.assertEqualStringType(driver.getTitle(), constants.getValue(CommonConstants.SUPERVISOR_TICKET_LIST_PAGE_TITLE), "Agent redirect to ticket list page as expected", "Agent does not redirect to ticket list page as expected"));
                     for (String ticket : ticketId) {
                         pages.getSupervisorTicketList().changeTicketTypeToClosed();
                         pages.getSupervisorTicketList().writeTicketId(ticket);
@@ -235,14 +233,14 @@ public class TicketBulkUpdateTest extends Driver {
                         Assert.assertEquals(pages.getSupervisorTicketList().getTicketIdValue(), ticket, "Search Ticket does not found");
                         pages.getSupervisorTicketList().viewTicket();
                         pages.getViewTicket().clickTicketHistoryLog();
-                        assertCheck.append(actions.assertEqual_boolean(pages.getViewTicket().checkBulkUpdateLogged("Transferred"), true, "Bulk update action logged in ticket history log with ticket id: " + ticket, "Bulk update action does not logged in ticket history log with ticket id: " + ticket));
+                        assertCheck.append(actions.assertEqualBoolean(pages.getViewTicket().checkBulkUpdateLogged("Transferred"), true, "Bulk update action logged in ticket history log with ticket id: " + ticket, "Bulk update action does not logged in ticket history log with ticket id: " + ticket));
                         pages.getViewTicket().clickBackButton();
                     }
                 } else {
                     commonLib.fail("No Tickets update through bulk update", true);
                     pages.getTicketBulkUpdate().clickOkButton();
                 }
-                assertCheck.append(actions.assertEqual_boolean(pages.getTicketBulkUpdate().deleteFile(), true, "File deleted", "File not deleted"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getTicketBulkUpdate().deleteFile(), true, "File deleted", "File not deleted"));
             } catch (Exception e) {
                 commonLib.fail("Exception in Method - uploadTicketFromExcelAndTransferToQueueTest" + e.fillInStackTrace(), true);
             }
@@ -256,8 +254,8 @@ public class TicketBulkUpdateTest extends Driver {
             selUtils.addTestcaseDescription("Check user able to upload ticket id from excel,Validate ticket upload from excel is complete,Click on next button and choose Change state operation,Choose State from the list and confirm the info,Click on submit button and validate ticket transfer to selected state,Validate Ticket history log logged this entry as ticket update by bulk update.", "description");
             DataProviders data = new DataProviders();
             int noOfTicket = 1;
-            Assert.assertTrue(pages.getTicketBulkUpdate().fileDownload(), "Ticket Upload Template does not download.Please check Excels/BulkUploadTemplate.xlsx downloaded");
-            Assert.assertTrue(data.writeTicketNumberToExcel(noOfTicket), "No Ticket Found to write in Excel");
+            assertCheck.append(actions.assertEqualBoolean(pages.getTicketBulkUpdate().fileDownload(),true, "Ticket Upload Template file download.Please check Excels/BulkUploadTemplate.xlsx downloaded","Ticket Upload Template does not download.Please check Excels/BulkUploadTemplate.xlsx downloaded",true));
+            assertCheck.append(actions.assertEqualBoolean(data.writeTicketNumberToExcel(noOfTicket),true, "Ticket Found to write in Excel","No Ticket Found to write in Excel",true));
             pages.getTicketBulkUpdate().addFile();
             final boolean isGrowlVisible = pages.getGrowl().checkIsGrowlVisible();
             if (isGrowlVisible) {
@@ -267,21 +265,21 @@ public class TicketBulkUpdateTest extends Driver {
                 }
             }
             pages.getTicketBulkUpdate().clickNextBtn();
-            assertCheck.append(actions.assertEqual_stringType(pages.getTicketBulkUpdate().getTransferToQueueOption(), constants.getValue(CommonConstants.TICKET_BULK_UPDATE_TRANSFER_TO_QUEUE_ACTION), "Transfer to Queue action present on UI", "Transfer to Queue does not present on UI"));
+            assertCheck.append(actions.assertEqualStringType(pages.getTicketBulkUpdate().getTransferToQueueOption(), constants.getValue(CommonConstants.TICKET_BULK_UPDATE_TRANSFER_TO_QUEUE_ACTION), "Transfer to Queue action present on UI", "Transfer to Queue does not present on UI"));
             pages.getTicketBulkUpdate().clickTicketStateOption();
             pages.getTicketBulkUpdate().clickSelectStateOption();
             pages.getTicketBulkUpdate().selectOptionByName("Closed");
             pages.getTicketBulkUpdate().clickOutside();
             pages.getTicketBulkUpdate().clickConfirmAction();
             pages.getTicketBulkUpdate().clickNextBtn();
-            assertCheck.append(actions.assertEqual_boolean(pages.getTicketBulkUpdate().isStatusBarComplete(), true, "Status update for all ticket", "Status not update for all ticket"));
-            assertCheck.append(actions.assertEqual_intType(pages.getTicketBulkUpdate().getSuccessCount(), noOfTicket, "Action does Performed on all uploaded ticket", "Action does not Performed on all uploaded ticket"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getTicketBulkUpdate().isStatusBarComplete(), true, "Status update for all ticket", "Status not update for all ticket"));
+            assertCheck.append(actions.assertEqualIntType(pages.getTicketBulkUpdate().getSuccessCount(), noOfTicket, "Action does Performed on all uploaded ticket", "Action does not Performed on all uploaded ticket"));
             List<String> ticketId = pages.getTicketBulkUpdate().getTicketList();
             if (pages.getTicketBulkUpdate().getSuccessCount() > 0) {
                 pages.getTicketBulkUpdate().clickOkButton();
                 pages.getSideMenuPage().clickOnSideMenu();
                 pages.getSideMenuPage().openSupervisorDashboard();
-                assertCheck.append(actions.assertEqual_stringType(driver.getTitle(), constants.getValue(CommonConstants.SUPERVISOR_TICKET_LIST_PAGE_TITLE), "Agent redirect to ticket list page as expected", "Agent does not redirect to ticket list page as expected"));
+                assertCheck.append(actions.assertEqualStringType(driver.getTitle(), constants.getValue(CommonConstants.SUPERVISOR_TICKET_LIST_PAGE_TITLE), "Agent redirect to ticket list page as expected", "Agent does not redirect to ticket list page as expected"));
                 for (String ticket : ticketId) {
                     pages.getSupervisorTicketList().changeTicketTypeToClosed();
                     pages.getSupervisorTicketList().writeTicketId(ticket);
@@ -289,14 +287,14 @@ public class TicketBulkUpdateTest extends Driver {
                     Assert.assertEquals(pages.getSupervisorTicketList().getTicketIdValue(), ticket, "Search Ticket does not found");
                     pages.getSupervisorTicketList().viewTicket();
                     pages.getViewTicket().clickTicketHistoryLog();
-                    assertCheck.append(actions.assertEqual_boolean(pages.getViewTicket().checkBulkUpdateLogged("Closed"), true, "Bulk update action logged in ticket history log with ticket id: " + ticket, "Bulk update action does not logged in ticket history log with ticket id: " + ticket));
+                    assertCheck.append(actions.assertEqualBoolean(pages.getViewTicket().checkBulkUpdateLogged("Closed"), true, "Bulk update action logged in ticket history log with ticket id: " + ticket, "Bulk update action does not logged in ticket history log with ticket id: " + ticket));
                     pages.getViewTicket().clickBackButton();
                 }
             } else {
                 commonLib.fail("No Tickets update through bulk update", true);
                 pages.getTicketBulkUpdate().clickOkButton();
             }
-            assertCheck.append(actions.assertEqual_boolean(pages.getTicketBulkUpdate().deleteFile(), true, "File deleted", "File not deleted"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getTicketBulkUpdate().deleteFile(), true, "File deleted", "File not deleted"));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - uploadTicketFromExcelAndChangeStateTest" + e.fillInStackTrace(), true);
         }

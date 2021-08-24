@@ -138,4 +138,24 @@ public class DetailedUsageHistory extends BasePage {
         commonLib.info("Checking No Result Found Message Display");
         return isEnabled(pageElements.noResultIcon);
     }
+
+    /**
+     * This method is use get Widget unique identifier
+     * @return The Unique identifier
+     */
+    public String getWidgetIdentifier(){
+        return pageElements.widgetIdentifier;
+    }
+
+    /**
+     * This method is use to check Usage history error visible when api not able to fetch data
+     * @return true/false
+     */
+    public boolean isUnableToFetch() {
+        final boolean elementVisible = isElementVisible(pageElements.unableToFetch);
+        commonLib.info(constants.getValue("usage.history.unabletofetch") + ":" + elementVisible);
+        return elementVisible;
+    }
+
+
 }

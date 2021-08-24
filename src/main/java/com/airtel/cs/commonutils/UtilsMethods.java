@@ -1,27 +1,54 @@
 package com.airtel.cs.commonutils;
 
 import com.airtel.cs.api.RequestSource;
+import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
+import com.airtel.cs.commonutils.dataproviders.databeans.AssignmentQueueRuleDataBeans;
+import com.airtel.cs.commonutils.dataproviders.databeans.NftrDataBeans;
+import com.airtel.cs.commonutils.dataproviders.databeans.SLARuleFileDataBeans;
+import com.airtel.cs.commonutils.exceptions.RuleNotFoundException;
 import com.airtel.cs.driver.Driver;
+import com.airtel.cs.model.response.agentlimit.AgentLimit;
+import com.airtel.cs.model.response.agentlimit.LimitConfig;
+import com.airtel.cs.model.response.agents.AgentAttributes;
 import com.airtel.cs.model.response.agents.AgentDetailAttribute;
 import com.airtel.cs.model.response.agents.Authorities;
+import com.airtel.cs.model.response.agents.RoleDetails;
+import com.airtel.cs.model.response.consolelog.ChromeNetworkLog;
+import com.airtel.cs.model.response.kycprofile.KYCProfile;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
 import io.restassured.specification.QueryableRequestSpecification;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.time.DateUtils;
+import org.openqa.selenium.logging.LogEntries;
+import org.openqa.selenium.logging.LogEntry;
+import org.openqa.selenium.logging.LogType;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.PriorityQueue;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
-
-import static com.airtel.cs.commonutils.dataproviders.DataProviders.isNull;
 
 @Log4j2
 public class UtilsMethods extends Driver {
@@ -114,9 +141,9 @@ public class UtilsMethods extends Driver {
     /**
      * This method is used to convert given date date into utc time zone
      *
-     * @param date            The date
+     * @param date The date
      * @param existingPattern The existing pattern
-     * @param newPattern      The new pattern
+     * @param newPattern The new pattern
      * @return String The String
      */
     public static String getDateFromStringInUTC(String date, String existingPattern, String newPattern) {
@@ -289,4 +316,331 @@ public class UtilsMethods extends Driver {
     public static Boolean isValueNegative(String value) {
         return !isNull(value) && value.trim().charAt(0) == '-';
     }
+
+    /**
+     * This method use to read authorization token from netwpork console log
+     *
+     * @return String The Auth Token
+     * @throws IOException throw in-case of not able to read input stream properly
+     */
+    public static String getAuthTokenFromConsole() throws IOException {
+        LogEntries logEntries = driver.manage().logs().get(LogType.PERFORMANCE);
+        for (LogEntry entry : logEntries) {
+            String consoleLog = entry.getMessage();
+            if (consoleLog.contains(constants.getValue(CommonConstants.CONSOLE_NETWORK_LOG_EXTRA_INFO_TYPE)) && consoleLog.contains(constants.getValue(CommonConstants.API_AUTHORIZATION_KEY))) {
+                ChromeNetworkLog obj = objectMapper.readValue(consoleLog, ChromeNetworkLog.class);
+                if (!obj.getMessage().getParams().getHeaders().getAuthorization().isEmpty()) {
+                    authToken = obj.getMessage().getParams().getHeaders().getAuthorization();
+                    commonLib.pass("Token: " + authToken);
+                    break;
+                }
+            }
+        }
+        return authToken;
+    }
+
+    /**
+     * This method use to override existing headers value with new value which fetch from console log
+     *
+     * @throws IOException throw in-case of not able to read input stream properly
+     */
+    public static void getNewAddHeader() throws IOException {
+        getAuthTokenFromConsole();
+        map.clear();
+        pages.getLoginPage().setApiHeader();
+        addHeaders(constants.getValue(CommonConstants.API_AUTHORIZATION_KEY), authToken);
+        if (authToken == null && authToken.isEmpty()) {
+            commonLib.fail("Not able to add new token into header as auth token empty", false);
+        }
+    }
+
+    /**
+     * This method use to get Assignment rule matching ticket meta Info attribute names
+     *
+     * @param rules          The Assignment rules based on category code
+     * @param ticketMetaInfo The customer attribute names along with ticket meta info
+     * @return AssignmentQueueRuleDataBeans The rule
+     * @throws RuleNotFoundException In-case of no rules found in excel sheet based on category code
+     */
+    public static AssignmentQueueRuleDataBeans getAssignmentRule(PriorityQueue<AssignmentQueueRuleDataBeans> rules, NftrDataBeans ticketMetaInfo) throws RuleNotFoundException {
+        if (CollectionUtils.isNotEmpty(rules)) {
+            Map<String, String> ticketMetaInfoMap = objectMapper.convertValue(ticketMetaInfo, Map.class);
+            for (AssignmentQueueRuleDataBeans metadataConfigs : rules) {
+                if (Integer.parseInt(metadataConfigs.getRulePriority()) == -1) {
+                    return metadataConfigs;
+                }
+                if (ticketMetaInfoMap.containsKey(metadataConfigs.getAttributeName()) && metadataConfigs.getAttributeValue()
+                        .contains(ticketMetaInfoMap.get(metadataConfigs.getAttributeName()))) {
+                    return metadataConfigs;
+                }
+            }
+        } else {
+            throw new RuleNotFoundException("No Matching rule found in excel sheet with given category code" + ticketMetaInfo.getIssueCode());
+        }
+        return null;
+    }
+
+    /**
+     * This method use to get SLA Calculation rule matching ticket meta Info attribute names
+     *
+     * @param rules          The Assignment rules based on category code
+     * @param ticketMetaInfo The customer attribute names along with ticket meta info
+     * @return SLARuleFileDataBeans The rule
+     * @throws RuleNotFoundException In-case of no rules found in excel sheet based on category code
+     */
+    public static SLARuleFileDataBeans getSLACalculationRule(List<SLARuleFileDataBeans> rules, NftrDataBeans ticketMetaInfo) throws RuleNotFoundException {
+        SLARuleFileDataBeans defaultRule = null;
+        if (CollectionUtils.isNotEmpty(rules)) {
+            Map<String, String> ticketMetaInfoMap = objectMapper.convertValue(ticketMetaInfo, Map.class);
+            for (SLARuleFileDataBeans metadataConfigs : rules) {
+                Map<String, String> ticketSLARule = objectMapper.convertValue(metadataConfigs, Map.class);
+                if (isSLARuleMatch(getSLAOverrideAttrNames(), ticketSLARule, ticketMetaInfoMap)) {
+                    return metadataConfigs;
+                }
+                if (Boolean.parseBoolean(metadataConfigs.getDefaultRule())) {
+                    defaultRule = metadataConfigs;
+                }
+            }
+        } else {
+            throw new RuleNotFoundException("No Matching rule found in excel sheet with given category code: " + ticketMetaInfo.getIssueCode());
+        }
+        return defaultRule;
+    }
+
+    /**
+     * This method is use to get empty string in case of the given text is null
+     *
+     * @param text The original text
+     * @return String The Value
+     */
+    public static String stringNotNull(String text) {
+        return text == null ? "" : text;
+    }
+
+    /**
+     * This method use to get SLA Override attributes name
+     *
+     * @return List The list of attribute name
+     */
+    public static List<String> getSLAOverrideAttrNames() {
+        return Arrays.asList(constants.getValue(CommonConstants.CS_SLA_OVERRIDE_ATTRIBUTE_NAMES).split(","));
+    }
+
+    /**
+     * This method use to get SLA Override attributes name & attribute value
+     * @return List The list of attributes
+     */
+    public static Map<String, String> getSLAOverrideAttrValues() {
+        List<String> valueList = Arrays.asList(constants.getValue(CommonConstants.CS_SLA_OVERRIDE_DEFAULT_ATTRIBUTE_VALUES).split(","));
+        List<String> nameList = getSLAOverrideAttrNames();
+        Map<String, String> valuePair = new HashMap<>();
+        for (int i = 0; i < nameList.size(); i++) {
+            valuePair.put(nameList.get(i), valueList.get(i));
+        }
+        return valuePair;
+    }
+
+    /**
+     * This method is use to check all attribute value present in both ticket SLA rule and ticket meta info
+     * @param attributeNames The attribute names
+     * @param ticketSLARule The ticket SLA Rule
+     * @param ticketMetaInfoMap The ticket meta info
+     * @return true/false
+     */
+    public static boolean isSLARuleMatch(List<String> attributeNames, Map<String, String> ticketSLARule, Map<String, String> ticketMetaInfoMap) {
+        for (String attrName : attributeNames) {
+            if (!stringNotNull(ticketSLARule.get(attrName)).equalsIgnoreCase(ticketMetaInfoMap.get(attrName)) && !stringNotNull(ticketSLARule.get(attrName)).equalsIgnoreCase(constants.getValue(CommonConstants.CS_SLA_ANY_ATTRIBUTE_NAME)) ) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * This method is use to get ticket meta-info based on customer msisdn from KYC Profile API for SLA Calculation
+     * Customer info is not able to fetch from KYC profile api than set default value for required parameter
+     * @param msisdn The msisdn
+     * @param ticketNumber The ticket number
+     * @return NftrDataBeans object
+     */
+    public static NftrDataBeans setAllCustomerAttribute(String msisdn, String ticketNumber) {
+        KYCProfile kycProfile = api.kycProfileAPITest(msisdn);
+        NftrDataBeans nftrDataBeans = new NftrDataBeans();
+        final Integer statusCode = kycProfile.getStatusCode();
+        nftrDataBeans.setTicketNumber(ticketNumber);
+        NftrDataBeans s = objectMapper.convertValue(getSLAOverrideAttrValues(), NftrDataBeans.class);
+        String interactionChannel=getAgentDetail(new Headers(map)).getAdditionalDetails().getInteractionChannel().get(0).getName();
+        interactionChannel=interactionChannel==null?s.getInteractionChannel():interactionChannel;
+        if (statusCode == 200) {
+            nftrDataBeans.setCustomerSegment(getCustomerAttribute(kycProfile.getResult().getSegment()));
+            nftrDataBeans.setCustomerSubSegment(getCustomerAttribute(kycProfile.getResult().getSubSegment()));
+            nftrDataBeans.setCustomerType(getCustomerAttribute(kycProfile.getResult().getCustomerType()));
+            nftrDataBeans.setCustomerVip(String.valueOf(kycProfile.getResult().getVip()).toUpperCase());
+            nftrDataBeans.setLineType(getCustomerAttribute(kycProfile.getResult().getLineType()));
+            nftrDataBeans.setServiceCategory(getCustomerAttribute(kycProfile.getResult().getServiceCategory()));
+        } else {
+            nftrDataBeans.setCustomerSegment(s.getCustomerSegment());
+            nftrDataBeans.setCustomerSubSegment(s.getCustomerSubSegment());
+            nftrDataBeans.setCustomerType(s.getCustomerType());
+            nftrDataBeans.setCustomerVip(s.getCustomerVip().toUpperCase());
+            nftrDataBeans.setLineType(s.getLineType());
+            nftrDataBeans.setServiceCategory(s.getServiceCategory());
+        }
+        nftrDataBeans.setInteractionChannel(interactionChannel);
+        return nftrDataBeans;
+    }
+
+    /**
+     * This method is used to get null string if given string is null or '-'
+     * @param attrValue The value
+     * @return String The value
+     */
+    public static String getCustomerAttribute(String attrValue) {
+        String value = stringNotNull(attrValue);
+        return value.equals("-") || attrValue == null ? null : attrValue;
+    }
+
+    /**
+     * This method is use to get SLA Workgroup name and time from rule
+     * @param slaRule The SLA Rule
+     * @return Map<Workgroup,SLA>
+     */
+    public static Map<String, String> getWorkGroups(SLARuleFileDataBeans slaRule) {
+        Map<String, String> workGroups = new HashMap<>();
+        if (slaRule.getWorkgroup1() != null)
+            workGroups.put(slaRule.getWorkgroup1(), slaRule.getSla1());
+        if (slaRule.getWorkgroup2() != null)
+            workGroups.put(slaRule.getWorkgroup2(), slaRule.getSla2());
+        if (slaRule.getWorkgroup3() != null)
+            workGroups.put(slaRule.getWorkgroup3(), slaRule.getSla3());
+        if (slaRule.getWorkgroup4() != null)
+            workGroups.put(slaRule.getWorkgroup4(), slaRule.getSla4());
+        return workGroups;
+    }
+
+    /**
+     * This method used to validate that text is not empty and not null
+     * @param text The text
+     * @return true/false
+     */
+    public static boolean isNull(String text) {
+        return text != null && !text.isEmpty();
+    }
+
+    /**
+     * This method use to get Agent Details
+     *
+     * @param headers auth header
+     * @return AgentAttributes
+     */
+    public static AgentAttributes getAgentDetail(Headers headers) {
+        AgentDetailAttribute agentDetail = api.getAgentDetail(headers);
+        if (agentDetail.getStatusCode() != 200) {
+            commonLib.fail(constants.getValue("cs.agent.detail.failure"), false);
+        }
+        return agentDetail.getResult();
+    }
+
+    /**
+     * This method use to check whether user has role assign or not
+     *
+     * @param headers auth header
+     * @param role    permission name to check
+     * @return true/false based on user have roles or not
+     */
+    public static Boolean isUserHasRole(Headers headers, List<String> role) {
+        AgentDetailAttribute agentDetailAPI = api.getAgentDetail(headers);
+        if (agentDetailAPI.getStatusCode() != 200) {
+            commonLib.fail("Not able to get Agent detail using agent api", false);
+            return false;
+        } else {
+            List<RoleDetails> allRoles = agentDetailAPI.getResult().getUserDetails().getUserDetails().getRole();
+            return allRoles.stream().anyMatch(role::contains);
+        }
+    }
+
+
+    /**
+     * This method returns endDate in UTC timezone
+     * @param endDate
+     * @return
+     */
+    public static Long getUTCEndDate(Long endDate) {
+        LocalDate endDt = Instant.ofEpochMilli(endDate).atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDateTime ldt = endDt.atTime(LocalTime.MAX).withNano(0);
+        ZonedDateTime zdt = ldt.atZone(ZoneOffset.UTC);
+        DateFormat m_ISO8601Local = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        m_ISO8601Local.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date sd = null;
+        try {
+            sd = m_ISO8601Local.parse(zdt.toString());
+        } catch (ParseException e) {
+            commonLib.fail( "error in parsing enddate" + e.getMessage(), false);
+        }
+        Long endDateEpoch = sd.getTime();
+        return endDateEpoch;
+    }
+
+    /**
+     * This method returns startDate in UTC timezone
+     * @param startDate
+     * @return
+     */
+    public static Long getUTCStartDate(Long startDate) {
+        LocalDate startDt = Instant.ofEpochMilli(startDate).atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDateTime ldt = startDt.atStartOfDay();
+        ZonedDateTime zdt = ldt.atZone(ZoneOffset.UTC);
+        DateFormat m_ISO8601Local = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
+        m_ISO8601Local.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date sd = new Date();
+        try {
+            sd = m_ISO8601Local.parse(zdt.toString());
+        } catch (ParseException e) {
+            commonLib.fail( "error in parsing startdate" + e.getMessage(), false);
+        }
+        Long startDateEpoch = sd.getTime();
+        return startDateEpoch;
+    }
+
+    /**
+     * This method use to get Agent limit config based on action key and role Id
+     * @param actionKey The action key
+     * @param roleId The role id
+     * @return Object LimitConfig
+     */
+    public static LimitConfig getAgentLimitConfigBasedOnKey(String actionKey, String roleId){
+        int statusCode=0;
+        AgentLimit agentLimitAPI = api.getAgentLimitConfig(roleId);
+        if(ObjectUtils.isNotEmpty(agentLimitAPI)){
+            statusCode=agentLimitAPI.getStatusCode();
+        }
+        List<LimitConfig> limitConfigsList = agentLimitAPI.getResult();
+        Optional<LimitConfig> limitConfigResultOP = limitConfigsList.stream()
+                .filter(result -> actionKey.equals(result.getFeatureKey())).findFirst();
+        assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Agent Limit "+config.getProperty("cs.portal.api.success"), "Agent Limit "+config.getProperty("cs.portal.api.fail") + statusCode));
+        if (limitConfigResultOP.isPresent()) {
+            return limitConfigResultOP.get();
+        }else{
+            commonLib.info(actionKey+config.getProperty("cs.agent.limit.key.not.found"),false);
+        }
+        return null;
+    }
+
+    /**
+     * This method use to get category hierarchy for auto assignment/un-assignment
+     * @return List The list of String
+     */
+    public static List<String> getCategoryHierarchy(){
+        return Arrays.asList(constants.getValue(CommonConstants.AUTO_ASSIGNMENT_CATEGORY_HIERARCHY).split(","));
+    }
+
+    /**
+     * This method use to write ticket id in properties file
+     * @param ticketId The ticket id
+     */
+    public static void setAutoAssignmentTicketId(String ticketId){
+        constants.setValue(CommonConstants.AUTO_ASSIGNMENT_TICKET_ID,ticketId);
+    }
+
+
 }

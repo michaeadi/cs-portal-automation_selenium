@@ -20,6 +20,17 @@ public class PermissionConstants {
     public static final String FRIENDS_FAMILY_ADD_MEMBER_UM="friends.family.widget.add.member.description";
     public static final String FRIENDS_FAMILY_DELETE_MEMBER_UM="friends.family.widget.delete.member.description";
     public static final String TICKET_BULK_UPDATE_ACTION_PERMISSION="ticket.bulk.update.action";
+    public static final String ADJUSTMENT_WIDGET_PERMISSION_NAME="adjustment_widget.permission";
+    public static final String CREDIT_TYPE_ADJUSTMENT_PERMISSION_NAME="credit.type.adjustment.permission";
+    public static final String DEBIT_TYPE_ADJUSTMENT_PERMISSION_NAME="debit.type.adjustment.permission";
+    public static final String CURRENT_PLAN_WIDGET_PERMISSION="current.plan";
+    public static final String ACCOUNT_INFORMATION_WIDGET_PERMISSION="account.info";
+    public static final String VIEW_POSTPAID_BILL="view.bill";
+    public static final String VAS_DETAILS_WIDGET_PERMISSION="vas.details.widget.permission";
+    public static final String AM_TXNHISTORY_WIDGET_PERMISSION="am.txnhistory.widget.permission";
+    public static final String LOAN_SERVICE_WIDGET_PERMISSION="loan.service.widget.permission";
+    public static final String RINGTONE_WIDGET_PERMISSION="ringtone.detail.widget.permission";
+    public static final String ACTION_TRAIL_TAB_PERMISSION="action.trail.tab.permission";
 
     private PermissionConstants() {
         throw new IllegalStateException();

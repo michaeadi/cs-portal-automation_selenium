@@ -31,4 +31,5 @@ public class AuthTabPage {
     public String answer="]//span[2]";
     public String authTabCheckBox="//*[@class='main-container__body--left--wrapper ng-star-inserted'][";
     public String checkBox="]//mat-checkbox";
+    public By submitYesBtn = By.xpath("//button[@class='yes-btn']");
 }

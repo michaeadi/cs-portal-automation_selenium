@@ -3,7 +3,12 @@ package com.airtel.cs.commonutils.dataproviders.beantoexcel;
 import com.airtel.cs.commonutils.dataproviders.databeans.NftrDataBeans;
 import org.apache.poi.hssf.usermodel.HSSFFormulaEvaluator;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.FormulaEvaluator;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -14,17 +19,31 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import static com.airtel.cs.driver.Driver.commonLib;
+
 
 public class NftrDataExcelToBeanDao {
 
     static DataFormatter dataFormatter;
     static FormulaEvaluator evaluator;
+    private static final String XLSX_FILE_EXTENSION="xlsx";
 
-    private static String fetchValue(Cell cell) {
+    /**
+     * This method is use to get cell value
+     * @param cell The Cell object
+     * @return String The value
+     */
+    private String fetchValue(Cell cell) {
         evaluator.evaluate(cell);
         return dataFormatter.formatCellValue(cell, evaluator);
     }
 
+    /**
+     * This method is use to get all the  NFTR Category Config policy based on file path and sheet name
+     * @param path The file path of .xlsx file name
+     * @param sheetName The sheet name
+     * @return List The Config
+     */
     public List<NftrDataBeans> getData(String path, String sheetName) {
 
         List<NftrDataBeans> userCredsBeanList = new ArrayList<>();
@@ -32,7 +51,7 @@ public class NftrDataExcelToBeanDao {
         try {
             file = new FileInputStream(new File(path));
             Workbook workbook;
-            if (path.contains("xlsx")) {
+            if (path.contains(XLSX_FILE_EXTENSION)) {
                 workbook = new XSSFWorkbook(file);
                 dataFormatter = new DataFormatter();
                 evaluator = new XSSFFormulaEvaluator((XSSFWorkbook) workbook);
@@ -198,42 +217,29 @@ public class NftrDataExcelToBeanDao {
                                 nftrDataBeans.setTicketFieldMandatory7(cellValue);
                                 break;
                             case 47:
-                                nftrDataBeans.setWorkgroup1(cellValue);
+                                nftrDataBeans.setCustomerVip(cellValue);
                                 break;
                             case 48:
-                                nftrDataBeans.setSla1(cellValue);
+                                nftrDataBeans.setLineType(cellValue);
                                 break;
                             case 49:
-                                nftrDataBeans.setWorkgroup2(cellValue);
+                                nftrDataBeans.setCustomerType(cellValue);
                                 break;
                             case 50:
-                                nftrDataBeans.setSla2(cellValue);
+                                nftrDataBeans.setServiceCategory(cellValue);
                                 break;
                             case 51:
-                                nftrDataBeans.setWorkgroup3(cellValue);
+                                nftrDataBeans.setCustomerSegment(cellValue);
                                 break;
                             case 52:
-                                nftrDataBeans.setSla3(cellValue);
+                                nftrDataBeans.setCustomerSubSegment(cellValue);
                                 break;
                             case 53:
-                                nftrDataBeans.setWorkgroup4(cellValue);
+                                nftrDataBeans.setInteractionChannel(cellValue);
                                 break;
                             case 54:
-                                nftrDataBeans.setSla4(cellValue);
-                                break;
-                            case 55:
-                                nftrDataBeans.setCommittedSLA(cellValue);
-                                break;
-                            case 56:
-                                nftrDataBeans.setAssignmentQueue(cellValue);
-                                break;
-                            case 57:
-                                nftrDataBeans.setPriority(cellValue);
-                                break;
-                            case 58:
                                 nftrDataBeans.setTicketNumber(cellValue);
                                 break;
-
                         }
                     }
                 }
@@ -244,7 +250,7 @@ public class NftrDataExcelToBeanDao {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            commonLib.fail("Exception found while reading the test data excel sheet with sheet name "+sheetName+". Error Log: "+e.fillInStackTrace(),false);
         }
         return userCredsBeanList;
     }

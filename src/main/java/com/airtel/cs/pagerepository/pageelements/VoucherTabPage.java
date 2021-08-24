@@ -24,5 +24,5 @@ public class VoucherTabPage {
     public By batchIdValue = By.xpath("//div[@class='agent']//div[2]//span[2]");
     public By voucherGroupLabel = By.xpath("//div[@class='agent']//div[3]//span[1]");
     public By voucherGroupValue = By.xpath("//div[@class='agent']//div[3]//span[2]");
-    public By doneBtn = By.xpath("//button//span[contains(text(),'Done')]");
+    public By doneBtn = By.xpath("//div[@class='action-btn-area']//button[contains(text(),'Done')]");
 }

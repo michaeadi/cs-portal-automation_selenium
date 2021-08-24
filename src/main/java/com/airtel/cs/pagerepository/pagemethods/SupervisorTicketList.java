@@ -2,28 +2,25 @@ package com.airtel.cs.pagerepository.pagemethods;
 
 import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.enums.ReportInfoMessageColorList;
-import com.airtel.cs.commonutils.dataproviders.databeans.NftrDataBeans;
 import com.airtel.cs.model.response.ticketlist.IssueDetails;
 import com.airtel.cs.model.response.ticketlist.QueueStates;
 import com.airtel.cs.pagerepository.pageelements.SupervisorTicketListPage;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Log4j2
 public class SupervisorTicketList extends BasePage {
-
 
     SupervisorTicketListPage pageElements;
 
@@ -826,7 +823,7 @@ public class SupervisorTicketList extends BasePage {
      */
     public void matchStateName(List<String> state,List<String> configState,String queueName){
         for (String s : state) {
-            assertCheck.append(actions.assertEqual_boolean(configState.remove(s.toLowerCase().trim()),true,s + " :State must mapped to '" + queueName+ "' as its mention in config.",s + " :State must not mapped to '" + queueName+ "' as its not mention in config."));
+            assertCheck.append(actions.assertEqualBoolean(configState.remove(s.toLowerCase().trim()),true,s + " :State must mapped to '" + queueName+ "' as its mention in config.",s + " :State must not mapped to '" + queueName+ "' as its not mention in config."));
         }
     }
 
@@ -839,31 +836,13 @@ public class SupervisorTicketList extends BasePage {
         for (Map.Entry mapElement : sla.entrySet()) {
             String key = (String) mapElement.getKey();
             String value = mapElement.getValue().toString();
-            assertCheck.append(actions.assertEqual_stringType(workGroups.remove(key), key, key + " : workgroup is configured correctly in DB as mentioned in configuration", key + " : workgroup is not configured correctly in DB as mentioned in configuration"));
+            assertCheck.append(actions.assertEqualStringNotNull(workGroups.remove(key), key + " : workgroup is configured correctly in DB as mentioned in configuration", key + " : workgroup is not configured correctly in DB as mentioned in configuration"));
             if (!UtilsMethods.isValueNegative(value)) {
-                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isPositiveSLA(), true, "For positive SLA green symbol display", "For positive SLA green symbol does not display"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isPositiveSLA(), true, "For positive SLA green symbol display", "For positive SLA green symbol does not display"));
             } else {
-                assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isNegativeSLA(), true, "For Negative SLA red symbol display", "For negative SLA red symbol does not display"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isNegativeSLA(), true, "For Negative SLA red symbol display", "For negative SLA red symbol does not display"));
             }
         }
-    }
-
-    /**
-     *This method is use to get workgroup name and sla if workgroup sla not null
-     * @param data The NftrDataBeans Object
-     * @return Map <workgroupName,SLA>
-     */
-    public Map<String, String> getWorkgroupConfig(NftrDataBeans data){
-        Map<String, String> workGroups=new HashMap<>();
-        if (data.getWorkgroup1() != null)
-            workGroups.put(data.getWorkgroup1(), data.getSla1());
-        if (data.getWorkgroup2() != null)
-            workGroups.put(data.getWorkgroup2(), data.getSla2());
-        if (data.getWorkgroup3() != null)
-            workGroups.put(data.getWorkgroup3(), data.getSla3());
-        if (data.getWorkgroup4() != null)
-            workGroups.put(data.getWorkgroup4(), data.getSla4());
-        return workGroups;
     }
 
 
@@ -873,15 +852,41 @@ public class SupervisorTicketList extends BasePage {
      * @param configTicketLayout The excel sheet ticket layout
      */
     public void compareTicketLayout(List<IssueDetails> ticketLayout, List<String> configTicketLayout) {
-        if (ticketLayout.size() == 0) {
+        if (ticketLayout!=null && !ticketLayout.isEmpty()) {
             for (IssueDetails layout : ticketLayout) {
-                assertCheck.append(actions.assertEqual_boolean(configTicketLayout.remove(layout.getPlaceHolder().toLowerCase().trim()), true, layout.getPlaceHolder() + " : Ticket Layout configured in database as mention in Config sheet.", layout.getPlaceHolder() + " : Ticket Layout does not configured in database as mention in Config sheet."));
+                assertCheck.append(actions.assertEqualBoolean(configTicketLayout.remove(layout.getPlaceHolder().toLowerCase().trim()), true, layout.getPlaceHolder() + " : Ticket Layout configured in database as mention in Config sheet.", layout.getPlaceHolder() + " : Ticket Layout does not configured in database as mention in Config sheet."));
             }
         } else {
             commonLib.pass("No Ticket Layout Config in database");
         }
     }
 
+
+    /**
+     * This method is use check tickets are vailable
+     * @return Boolean The value
+     */
+    public Boolean checkTicketsAvailability() {
+        if (isVisible(pageElements.ticketAvailable)) {
+            return true;
+        } else {
+            commonLib.error("Ticket Data is NOT available over dashboard");
+        }
+        return false;
+    }
+
+    /**
+     * This method is use check tickets are vailable on InteractionHistory
+     * @return Boolean The value
+     */
+    public Boolean checkTicketsAvailabilityOnInteractionHistory() {
+        if (isVisible(pageElements.ticketOnInteractionHistory)) {
+            return true;
+        } else {
+            commonLib.error("Ticket Data is NOT available over dashboard");
+        }
+        return false;
+    }
     /**
      * This method is use to transfer ticket to given queue return true if transfer action performed
      * @param queueName Queue Name
@@ -890,10 +895,10 @@ public class SupervisorTicketList extends BasePage {
     public Boolean transferTicketToSelectedQueue(String queueName){
         boolean flag=false;
         try {
-            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isAssignToAgent(), true, "Assign to Agent Button Does Available after selecting ticket", "Assign to Agent Button Does Not Available after selecting ticket"));
-            assertCheck.append(actions.assertEqual_boolean(pages.getSupervisorTicketList().isTransferToQueue(), true, "Transfer to Queue Button Does Available after selecting ticket", "Transfer to Queue Button Does Not Available after selecting ticket"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isAssignToAgent(), true, "Assign to Agent Button Does Available after selecting ticket", "Assign to Agent Button Does Not Available after selecting ticket"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isTransferToQueue(), true, "Transfer to Queue Button Does Available after selecting ticket", "Transfer to Queue Button Does Not Available after selecting ticket"));
             pages.getSupervisorTicketList().clickTransfertoQueue();
-            assertCheck.append(actions.assertEqual_boolean(pages.getTransferToQueue().validatePageTitle(), true, "Transfer to Queue Pop up open as expected", "Transfer to Queue Page Title Does not Display"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getTransferToQueue().validatePageTitle(), true, "Transfer to Queue Pop up open as expected", "Transfer to Queue Page Title Does not Display"));
             pages.getTransferToQueue().clickTransferQueue(queueName);
             flag=true;
         } catch (NoSuchElementException | TimeoutException e) {
@@ -902,5 +907,58 @@ public class SupervisorTicketList extends BasePage {
         }
         return flag;
     }
+
+    /**
+     * This method use to click on agent queue login button
+     */
+    public void clickLoginQueueButton(){
+        commonLib.info("Clicking on Login into Queue Button");
+        clickWithoutLoader(pageElements.loginIntoQueue);
+    }
+
+    /**
+     * This method use to check whether login into queue pop up open or not
+     * @return true/false
+     */
+    public Boolean isLoginPopup(){
+        commonLib.info("Checking login into queue pop up open");
+        return isVisible(pageElements.popUpTitle);
+    }
+
+    /**
+     * This method is use to click on queue name with test queue name
+     * @throws InterruptedException throw in-case of queue name not found or scroll interrupt
+     */
+    public void clickQueueLogin() throws InterruptedException {
+        commonLib.info("Clicking on Login queue");
+        scrollToViewElement(pageElements.loginQueueName);
+        clickAndWaitForLoaderToBeRemoved(pageElements.loginQueueName);
+    }
+
+    /**
+     * This method use to check whether agent login into queue successful or not
+     * @return true/false
+     */
+    public Boolean isAgentLoggedIntoQueue(){
+        commonLib.info("Checking agent login into queue or not");
+        return isVisible(pageElements.agentLoggedInQueue);
+    }
+
+    /**
+     * This method use to click refresh button
+     */
+    public void clickRefreshBtn(){
+        commonLib.info("Refresh the page");
+        clickAndWaitForLoaderToBeRemoved(pageElements.pageRefreshBtn);
+    }
+
+    /**
+     * This method is use to click on Continue button
+     */
+    public void clickContinueButton() {
+        commonLib.info("Clicking on Continue Button");
+        clickWithoutLoader(pageElements.continueBtn);
+    }
+
 
 }

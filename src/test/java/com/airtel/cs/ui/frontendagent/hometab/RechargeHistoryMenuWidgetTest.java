@@ -19,7 +19,7 @@ public class RechargeHistoryMenuWidgetTest extends Driver {
     RequestSource api = new RequestSource();
     private RechargeHistory rechargeHistoryAPI;
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -27,7 +27,7 @@ public class RechargeHistoryMenuWidgetTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void checkRechargeHistoryFlag() {
         if (!StringUtils.equals(RUN_RECHARGE_WIDGET_TEST_CASE, "true")) {
             commonLib.skip("Skipping because Run Recharge widget Test Case Flag Value is - " + RUN_RECHARGE_WIDGET_TEST_CASE);
@@ -35,7 +35,7 @@ public class RechargeHistoryMenuWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -45,7 +45,7 @@ public class RechargeHistoryMenuWidgetTest extends Driver {
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();
             final boolean pageLoaded = pages.getCustomerProfilePage().isCustomerProfilePageLoaded();
-            assertCheck.append(actions.assertEqual_boolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
+            assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
             if (!pageLoaded) continueExecutionFA = false;
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -54,28 +54,26 @@ public class RechargeHistoryMenuWidgetTest extends Driver {
     }
 
     @DataProviders.Table(name = "More Recharge History")
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dataProvider = "HeaderData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteraction")
     public void rechargeHistoryHeaderTest(HeaderDataBean data) {
         try {
-            selUtils.addTestcaseDescription("Validating Recharge History's  Menu of User :" + customerNumber + "validate recharge menu widget display all header display as per config", "description");
+            selUtils.addTestcaseDescription("Validating Recharge History's  Menu of User :" + customerNumber + ",validate recharge menu widget display all header display as per config", "description");
             rechargeHistoryAPI = api.rechargeHistoryAPITest(customerNumber);
-            final int statusCode = rechargeHistoryAPI.getStatusCode();
+            widgetMethods.clickMenuButton(pages.getRechargeHistoryWidget().getUniqueIdentifier());
+            assertCheck.append(actions.assertEqualBoolean(widgetMethods.isWidgetVisible(pages.getMoreRechargeHistoryPage().getUniqueIdentifier()), true, "Recharge History's MENU is visible ", "Recharge History's MENU is not visible ", true));
             if (pages.getRechargeHistoryWidget().isResultPresent(rechargeHistoryAPI)) {
                 selUtils.addTestcaseDescription("Validating Recharge History's  Menu of User :" + customerNumber + "validate recharge menu widget display all header display as per config", "description");
-                assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getHeaders(1), data.getRow1(), "Header Name for Row 1 is as expected", "Header Name for Row 1 is not as expected"));
-                assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getHeaders(2), data.getRow2(), "Header Name for Row 2 is as expected", "Header Name for Row 2 is not as expected"));
-                assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getHeaders(3), data.getRow3(), "Header Name for Row 3 is as expected", "Header Name for Row 3 is not as expected"));
-                assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getHeaders(4) + pages.getMoreRechargeHistoryPage().getSubHeaders(4).replace("|", ""), data.getRow4().replace("|", ""), "Header Name for Row 4 is as expected", "Header Name for Row 4 is not as expected"));
-                assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getHeaders(5), data.getRow5(), "Header Name for Row 5 is as expected", "Header Name for Row 5 is not as expected"));
-                assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getHeaders(6), data.getRow6(), "Header Name for Row 6 is as expected", "Header Name for Row 6 is not as expected"));
-                assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getHeaders(7), data.getRow7(), "Header Name for Row 7 is as expected", "Header Name for Row 7 is not as expected"));
-                assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getHeaders(8), data.getRow8(), "Header Name for Row 8 is as expected", "Header Name for Row 8 is not as expected"));
-                assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getHeaders(9), data.getRow9(), "Header Name for Row 9 is as expected", "Header Name for Row 9 is not as expected"));
-                assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getHeaders(10), data.getRow10(), "Header Name for Row 10 is as expected", "Header Name for Row 10 is not as expected"));
+
+                for (int i = 0; i < data.getHeaderName().size(); i++) {
+                    String headerName = i == 3 ? pages.getMoreRechargeHistoryPage().getHeaders(i + 1) + pages.getMoreRechargeHistoryPage().getSubHeaders(4).replace("|", "") : pages.getMoreRechargeHistoryPage().getHeaders(i + 1);
+                    assertCheck.append(actions.matchUiAndAPIResponse(headerName, data.getHeaderName().get(i).replace("|", ""), "Header Name for Row " + (i + 1) + " is as expected", "Header Name for Row " + (i + 1) + " is not as expected"));
+                }
+
             }
         } catch (Exception e) {
             commonLib.fail("Exception in Method - rechargeHistoryHeaderTest" + e.fillInStackTrace(), true);
         }
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     @DataProviders.Table(name = "More Recharge History")
@@ -83,9 +81,8 @@ public class RechargeHistoryMenuWidgetTest extends Driver {
     public void rechargeHistoryMenuTest(HeaderDataBean data) {
         try {
             selUtils.addTestcaseDescription("Validating Recharge History's  Menu of User :" + customerNumber + "validate recharge menu widget display all header display as per config,Validate all the data rows must be display as per api response.", "description");
-            assertCheck.append(actions.assertEqual_boolean(pages.getRechargeHistoryWidget().isRechargeHistoryWidgetMenuVisible(), true, "Recharge History's MENU is visible ", "Recharge History's MENU is not visible "));
-            pages.getRechargeHistoryWidget().openingRechargeHistoryDetails();
-            assertCheck.append(actions.assertEqual_boolean(pages.getMoreRechargeHistoryPage().isDatePickerVisible(), true, "Date Picker is visible as expected", "Date picker is not visible "));
+            assertCheck.append(actions.assertEqualBoolean(widgetMethods.isWidgetVisible(pages.getMoreRechargeHistoryPage().getUniqueIdentifier()), true, "Recharge History's MENU is visible ", "Recharge History's MENU is not visible ", true));
+            assertCheck.append(actions.assertEqualBoolean(pages.getMoreRechargeHistoryPage().isDatePickerVisible(), true, "Date Picker is visible as expected", "Date picker is not visible "));
             rechargeHistoryAPI = api.rechargeHistoryAPITest(customerNumber);
             if (pages.getRechargeHistoryWidget().isResultPresent(rechargeHistoryAPI)) {
                 int size = pages.getMoreRechargeHistoryPage().getNumbersOfRows();
@@ -106,11 +103,11 @@ public class RechargeHistoryMenuWidgetTest extends Driver {
                     assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i + 1, 9), ((rechargeHistoryAPI.getResult().get(i).getOldExpiryDate() == null) ? "-" : UtilsMethods.getDateFromString(rechargeHistoryAPI.getResult().get(i).getOldExpiryDate(), constants.getValue(CommonConstants.API_RECHARGE_HISTORY_PATTERN), constants.getValue(CommonConstants.API_RECHARGE_HISTORY_PATTERN))), "Old Expiry date received is as expected on row " + i, "Old Expiry date received is not as expected on row " + i));
                     assertCheck.append(actions.matchUiAndAPIResponse(pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i + 1, 10).trim(), ((rechargeHistoryAPI.getResult().get(i).getValidity() == null) ? "-" : rechargeHistoryAPI.getResult().get(i).getValidity()), "Validity received is as expected on row " + i, "Validity received is not as expected on row " + i));
                     if (i != 0) {
-                        assertCheck.append(actions.assertEqual_boolean(UtilsMethods.isSortOrderDisplay(pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i, 2), pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i + 1, 2), constants.getValue(CommonConstants.UI_RECHARGE_HISTORY_PATTERN)), true, "In Sort order display on ui as expected", pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i + 1, 2) + "should not display before " + pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i, 2)));
+                        assertCheck.append(actions.assertEqualBoolean(UtilsMethods.isSortOrderDisplay(pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i, 2), pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i + 1, 2), constants.getValue(CommonConstants.UI_RECHARGE_HISTORY_PATTERN)), true, "In Sort order display on ui as expected", pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i + 1, 2) + "should not display before " + pages.getMoreRechargeHistoryPage().getValueCorrespondingToRechargeHeader(i, 2)));
                     }
                 }
             }
-            pages.getMoreRechargeHistoryPage().openingCustomerInteractionDashboard();
+            pages.getMoreRechargeHistoryPage().goingBackToHomeTab();
         } catch (Exception e) {
             commonLib.fail("Exception in Method - rechargeHistoryMenuTest" + e.fillInStackTrace(), true);
         }

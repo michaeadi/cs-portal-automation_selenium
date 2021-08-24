@@ -5,6 +5,7 @@ import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.SkipException;
 
 @Log4j2
 public class MsisdnSearch extends BasePage {
@@ -18,6 +19,7 @@ public class MsisdnSearch extends BasePage {
 
     /**
      * This method is use to enter number in search field
+     *
      * @param number The Number
      */
     public void enterNumber(String number) {
@@ -41,7 +43,17 @@ public class MsisdnSearch extends BasePage {
      */
     public void clickOnSearch() {
         commonLib.info("Clicking on Search Button");
-        clickAndWaitForLoaderToBeRemoved(pageElements.searchButton);
+        clickWithoutLoader(pageElements.searchButton);
+        final boolean isGrowlVisible = pages.getGrowl().checkIsDashboardGrowlVisible();
+        if (!isGrowlVisible) {
+            if (isElementVisible(pageElements.errorMessage)) {
+                highLighterMethod(pageElements.errorMessage);
+                commonLib.error(driver.findElement(pageElements.errorMessage).getText());
+            }
+        } else {
+            commonLib.fail("Growl Message:- " + pages.getGrowl().getDashboardToastMessage(), true);
+            throw new SkipException("Growl Message Displayed");
+        }
     }
 
     /**

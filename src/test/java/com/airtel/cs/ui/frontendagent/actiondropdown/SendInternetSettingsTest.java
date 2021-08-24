@@ -1,7 +1,10 @@
 package com.airtel.cs.ui.frontendagent.actiondropdown;
 
+import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.driver.Driver;
+import com.airtel.cs.pojo.response.parentcategory.Category;
+import io.restassured.http.Headers;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoSuchElementException;
@@ -10,11 +13,16 @@ import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.util.List;
+import java.util.TreeMap;
+
 public class SendInternetSettingsTest extends Driver {
 
+    private final BaseActions actions = new BaseActions();
     String comments = "Adding comment using Automation";
+    Boolean popup = true;
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+  @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -40,7 +48,7 @@ public class SendInternetSettingsTest extends Driver {
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();
             final boolean pageLoaded = pages.getCustomerProfilePage().isCustomerProfilePageLoaded();
-            assertCheck.append(actions.assertEqual_boolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
+            assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
             if (!pageLoaded) continueExecutionFA = false;
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -56,8 +64,13 @@ public class SendInternetSettingsTest extends Driver {
             pages.getCustomerProfilePage().clickOnAction();
             pages.getCustomerProfilePage().clickSendInternetSetting();
             modalOpened = true;
-            assertCheck.append(actions.assertEqual_boolean(pages.getCustomerProfilePage().isSendInternetSettingTitleVisible(), true, "Send Internet Setting Tab opened", "Send Internet Setting Tab does NOT opened"));
-            pages.getCustomerProfilePage().clickCancelBtn();
+            assertCheck.append(actions.assertEqualBoolean(pages.getCustomerProfilePage().isSendInternetSettingTitleVisible(), true, "Send Internet Setting Tab opened", "Send Internet Setting Tab does NOT opened"));
+            popup = !pages.getCustomerProfilePage().isSendInternetSettingConfirmMessageVisible();
+            if (popup) {
+                pages.getCustomerProfilePage().clickCancelBtn();
+            } else {
+                pages.getCustomerProfilePage().clickCloseBtn();
+            }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
             if (modalOpened)
@@ -66,20 +79,25 @@ public class SendInternetSettingsTest extends Driver {
         }
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest","ProdTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
     public void validateSendInternetSetting() {
         try {
             selUtils.addTestcaseDescription("Open send internet setting modal from actions drop down,Validate issue detail title visible,Select reason and enter comment and click on submit button, Validate success message", "description");
             pages.getCustomerProfilePage().clickOnAction();
             pages.getCustomerProfilePage().clickSendInternetSetting();
-            assertCheck.append(actions.assertEqual_boolean(pages.getAuthTabPage().isIssueDetailTitleVisible(), true, "Issue Detail Configured", "Issue Detail does not configured"));
-            pages.getAuthTabPage().clickSelectReasonDropDown();
-            reason = pages.getAuthTabPage().getReason();
-            pages.getAuthTabPage().chooseReason();
-            pages.getAuthTabPage().enterComment(comments);
-            pages.getAuthTabPage().clickSubmitBtn();
+            popup = !pages.getCustomerProfilePage().isSendInternetSettingConfirmMessageVisible();
+            if (popup) {
+                assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isIssueDetailTitleVisible(), true, "Issue Detail Configured", "Issue Detail does not configured"));
+                pages.getAuthTabPage().clickSelectReasonDropDown();
+                reason = pages.getAuthTabPage().getReason();
+                pages.getAuthTabPage().chooseReason();
+                pages.getAuthTabPage().enterComment(comments);
+                pages.getAuthTabPage().clickSubmitBtn();
+            } else {
+                pages.getAuthTabPage().clickYesBtn();
+            }
             final String toastText = pages.getAuthTabPage().getToastText();
-            assertCheck.append(actions.assertEqual_stringType(toastText, "Internet Settings has been sent on Customer`s Device.", "Send Internet Settings Message has been sent to customer successfully", "Send Internet Settings Message hasn't been sent to customer ans message is :-" + toastText));
+            assertCheck.append(actions.assertEqualStringType(toastText, "Internet Settings has been sent on Customer`s Device.", "Send Internet Settings Message has been sent to customer successfully", "Send Internet Settings Message hasn't been sent to customer ans message is :-" + toastText));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
             commonLib.fail("Exception in Method - validateSendInternetSetting" + e.fillInStackTrace(), true);

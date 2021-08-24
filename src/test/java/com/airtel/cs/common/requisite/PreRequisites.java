@@ -22,8 +22,8 @@ public class PreRequisites extends Driver {
 
     @BeforeSuite
     public void addTokenToHeaderMap() throws JsonProcessingException {
-        loginAUUID = constants.getValue(CommonConstants.BETA_USER_AUUID);
-        final String password = PassUtils.decodePassword(constants.getValue(CommonConstants.BETA_USER_PASSWORD));
+        loginAUUID = constants.getValue(CommonConstants.ADVISOR_USER_ROLE_AUUID);
+        final String password = PassUtils.decodePassword(constants.getValue(CommonConstants.ADVISOR_USER_ROLE_PASSWORD));
         Login req = Login.loginBody(loginAUUID, password);
         String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(req);
         map.clear();
@@ -31,9 +31,9 @@ public class PreRequisites extends Driver {
         final Response response = pages.getLoginPage().loginAPI(dtoAsString);
         Login loginPOJO = response.as(Login.class);
         final String accessToken = loginPOJO.getResult().get("accessToken");
-        assertCheck.append(actions.assertEqual_stringNotNull(accessToken, "Access Token Fetched Successfully", "Access Token is Null"));
+        assertCheck.append(actions.assertEqualStringNotNull(accessToken, "Access Token Fetched Successfully", "Access Token is Null"));
         final String statusCode = loginPOJO.getStatusCode();
-        assertCheck.append(actions.assertEqual_stringType(statusCode, "200", "Status Code Matched Successfully", "Status code NOT Matched and is :-" + statusCode));
+        assertCheck.append(actions.assertEqualStringType(statusCode, "200", "Status Code Matched Successfully", "Status code NOT Matched and is :-" + statusCode));
         String tokenType = loginPOJO.getResult().get("tokenType");
         token = tokenType + " " + accessToken;
         UtilsMethods.addHeaders("Authorization", token);
@@ -47,9 +47,9 @@ public class PreRequisites extends Driver {
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().logout();
             final boolean isGrowlVisible = pages.getGrowl().checkIsGrowlVisible();
-            assertCheck.append(actions.assertEqual_boolean(isGrowlVisible, true, "Growl Visible Successfully", "Growl Not Visible"));
+            assertCheck.append(actions.assertEqualBoolean(isGrowlVisible, true, "Growl Visible Successfully", "Growl Not Visible"));
             final String toastContent = pages.getGrowl().getToastContent();
-            assertCheck.append(actions.assertEqual_stringType(toastContent, "You have successfully logged out", "Logout Successfully", "Logout Operation Failed and Message is :-" + toastContent));
+            assertCheck.append(actions.assertEqualStringType(toastContent, "You have successfully logged out", "Logout Successfully", "Logout Operation Failed and Message is :-" + toastContent));
             actions.assertAllFoundFailedAssert(assertCheck);
         } else {
             commonLib.fail("Side Menu is NOT Visible", true);

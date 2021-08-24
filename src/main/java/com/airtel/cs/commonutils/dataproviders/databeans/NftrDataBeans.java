@@ -2,86 +2,84 @@ package com.airtel.cs.commonutils.dataproviders.databeans;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public class NftrDataBeans {
 
-    String issue;
-    String issueType;
-    String issueSubType;
-    String issueSubSubType;
-    String issueCode;
+    private String issue;
+    private String issueType;
+    private String issueSubType;
+    private String issueSubSubType;
+    private String issueCode;
 
-    String issueFieldLabel1;
-    String issueFieldType1;
-    String issueFieldMandatory1;
+    private String issueFieldLabel1;
+    private String issueFieldType1;
+    private String issueFieldMandatory1;
 
-    String issueFieldLabel2;
-    String issueFieldType2;
-    String issueFieldMandatory2;
+    private String issueFieldLabel2;
+    private String issueFieldType2;
+    private String issueFieldMandatory2;
 
-    String issueFieldLabel3;
-    String issueFieldType3;
-    String issueFieldMandatory3;
+    private String issueFieldLabel3;
+    private String issueFieldType3;
+    private String issueFieldMandatory3;
 
-    String issueFieldLabel4;
-    String issueFieldType4;
-    String issueFieldMandatory4;
+    private String issueFieldLabel4;
+    private String issueFieldType4;
+    private String issueFieldMandatory4;
 
-    String issueFieldLabel5;
-    String issueFieldType5;
-    String issueFieldMandatory5;
+    private String issueFieldLabel5;
+    private String issueFieldType5;
+    private String issueFieldMandatory5;
 
-    String issueFieldLabel6;
-    String issueFieldType6;
-    String issueFieldMandatory6;
+    private String issueFieldLabel6;
+    private String issueFieldType6;
+    private String issueFieldMandatory6;
 
-    String issueFieldLabel7;
-    String issueFieldType7;
-    String issueFieldMandatory7;
+    private String issueFieldLabel7;
+    private String issueFieldType7;
+    private String issueFieldMandatory7;
 
-    String ticketFieldLabel1;
-    String ticketFieldType1;
-    String ticketFieldMandatory1;
+    private String ticketFieldLabel1;
+    private String ticketFieldType1;
+    private String ticketFieldMandatory1;
 
-    String ticketFieldLabel2;
-    String ticketFieldType2;
-    String ticketFieldMandatory2;
+    private String ticketFieldLabel2;
+    private String ticketFieldType2;
+    private String ticketFieldMandatory2;
 
-    String ticketFieldLabel3;
-    String ticketFieldType3;
-    String ticketFieldMandatory3;
+    private String ticketFieldLabel3;
+    private String ticketFieldType3;
+    private String ticketFieldMandatory3;
 
-    String ticketFieldLabel4;
-    String ticketFieldType4;
-    String ticketFieldMandatory4;
+    private String ticketFieldLabel4;
+    private String ticketFieldType4;
+    private String ticketFieldMandatory4;
 
-    String ticketFieldLabel5;
-    String ticketFieldType5;
-    String ticketFieldMandatory5;
+    private String ticketFieldLabel5;
+    private String ticketFieldType5;
+    private String ticketFieldMandatory5;
 
-    String ticketFieldLabel6;
-    String ticketFieldType6;
-    String ticketFieldMandatory6;
+    private String ticketFieldLabel6;
+    private String ticketFieldType6;
+    private String ticketFieldMandatory6;
 
-    String ticketFieldLabel7;
-    String ticketFieldType7;
-    String ticketFieldMandatory7;
+    private String ticketFieldLabel7;
+    private String ticketFieldType7;
+    private String ticketFieldMandatory7;
 
-    String workgroup1;
-    String sla1;
-    String workgroup2;
-    String sla2;
-    String workgroup3;
-    String sla3;
-    String workgroup4;
-    String sla4;
-    String committedSLA;
-    String assignmentQueue;
-    String priority;
-    String ticketNumber;
+    private String customerVip;
+    private String lineType;
+    private String customerType;
+    private String serviceCategory;
+    private String customerSegment;
+    private String customerSubSegment;
+    private String interactionChannel;
+    private String ticketNumber;
 
-    int rowNum;
+    Integer rowNum;
 
 }

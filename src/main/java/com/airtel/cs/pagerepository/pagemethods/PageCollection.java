@@ -178,4 +178,31 @@ public class PageCollection {
     public Growl getGrowl() {
         return new Growl(driver);
     }
+
+    public WidgetCommonMethod getWidgetCommonMethod(){return new WidgetCommonMethod(driver);}
+
+    public AdjustmentWidget getAdjustmentTabPage(){return new AdjustmentWidget(driver); }
+    public AdjustmentHistory getAdjustmentHistoryPage(){return new AdjustmentHistory(driver); }
+
+    public AccountInformationWidget getAccountInformationWidget() {
+        return new AccountInformationWidget(driver);
+    }
+
+    public PlanAndPackDetailedWidget getPlanAndPackDetailedWidget() {
+        return new PlanAndPackDetailedWidget(driver);
+    }
+
+    public CurrentPlanWidget getCurrentPlanWidget(){
+        return new CurrentPlanWidget(driver);
+    }
+
+    public DetailAccountInfoWidget getDetailAccountInfoWidget(){
+        return new DetailAccountInfoWidget(driver);
+    }
+
+    public ActiveVasWidget getActiveVasWidgetPage() {
+        return new ActiveVasWidget(driver);
+    }
+    public DetailAccountInfoViewBillWidget getDetailAccountInfoViewBillWidget() {return new DetailAccountInfoViewBillWidget(driver);}
+    public LinkedMsisdnToAccountNoWidget getLinkedMsisdnToAccountNoWidget() {return new LinkedMsisdnToAccountNoWidget(driver);}
 }

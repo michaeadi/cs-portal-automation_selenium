@@ -2,8 +2,8 @@ package com.airtel.cs.commonutils.applicationutils.constants;
 
 public class CommonConstants {
 
-    public static final String BETA_USER_AUUID = "cs.beta.user.role.auuid";
-    public static final String BETA_USER_PASSWORD = "cs.beta.user.role.password";
+    public static final String ADVISOR_USER_ROLE_AUUID = "cs.advisor.user.role.auuid";
+    public static final String ADVISOR_USER_ROLE_PASSWORD = "cs.advisor.user.role.password";
     public static final String ALL_USER_ROLE_AUUID = "cs.all.user.role.auuid";
     public static final String ALL_USER_ROLE_PASSWORD = "cs.all.user.role.password";
     public static final String BA_USER_AUUID = "cs.backendagent.role.auuid";
@@ -61,7 +61,30 @@ public class CommonConstants {
     public static final String TICKET_BULK_UPDATE_ADD_TICKET_COMMENT_ACTION="cs.bulk.update.add.ticket.comment.action";
     public static final String INVALID_TICKET_ID="cs.invalid.ticket.id";
     public static final String BACKEND_AGENT_TICKET_LIST_PAGE="cs.backend.agent.ticket.list.page";
+    public static final String CONSOLE_NETWORK_LOG_EXTRA_INFO_TYPE="console.network.log.extra.info";
+    public static final String ADJUSTMENT_REASON_RECHARGE="cs.adjustment.reason.recharge";
+    public static final String ADJUSTMENT_REASON_USAGE="cs.adjustment.reason.usage";
+    public static final String ADJUSTMENT_REASON_OTHERS="cs.adjustment.reason.others";
+    public static final String TICKET_CREATION_ASSIGNMENT_QUEUE_RULE="cs.assignment.queue.rule.file";
+    public static final String TICKET_CREATION_SLA_CALCULATION_RULE="cs.sla.calculation.rule.file";
+    public static final String CS_SLA_OVERRIDE_ATTRIBUTE_NAMES="cs.sla.attribute.names";
+    public static final String CS_SLA_ANY_ATTRIBUTE_NAME="cs.sla.any.attribute.name";
+    public static final String CS_SLA_OVERRIDE_DEFAULT_ATTRIBUTE_VALUES="cs.customer.attribute.default.value";
     public static final String REOPEN_TICKET_STATE_NAME="cs.reopen.state.name";
     public static final String SELECT_ALL_OPTION_NAME="cs.select.all";
+    public static final String API_AUTHORIZATION_KEY="cs.authorization.api.key";
+    public static final String PAYMENT_REQUEST_LIMIT = "paymentRequest.limit";
+    public static final String PAYMENT_REQUEST_OFFSET = "paymentRequest.offset";
+    public static final String PAGE_NO = "planpack.request.page.no";
+    public static final String PAGE_SIZE = "planpack.request.page.size";
+    public static final String ADJUSTMENT_LIMIT_API_KEY="cs.adjustment.limit.api.key";
+    public static final String AGENT_ADJUSTMENT_DAILY_LIMIT="cs.agent.adjustment.daily.limit";
+    public static final String AGENT_ADJUSTMENT_MONTHLY_LIMIT="cs.agent.adjustment.monthly.limit";
+    public static final String AGENT_ADJUSTMENT_TRANSACTION_LIMIT="cs.agent.adjustment.transaction.limit";
+    public static final String AUTO_ASSIGNMENT_CATEGORY_HIERARCHY="cs.category.hierarchy.auto.assignment";
+    public static final String AUTO_ASSIGNMENT_TICKET_ID="cs.auto.assignment.ticket.id";
+    public static final String AUTO_ASSIGNMENT_EVENT_NAME="cs.auto.assigned.event.name";
+    public static final String AUTO_UN_ASSIGNMENT_EVENT_NAME="cs.auto.unassigned.event.name";
+    public static final String AIRTEL_MONEY_WIDGET_TITLE="cs.portal.airtel.money.widget.title";
 
 }

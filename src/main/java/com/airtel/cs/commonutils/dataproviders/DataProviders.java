@@ -2,35 +2,39 @@ package com.airtel.cs.commonutils.dataproviders;
 
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.beantoexcel.ActionTagBeanToExcel;
-import com.airtel.cs.commonutils.dataproviders.beantoexcel.AuthTabBeanToExcel;
 import com.airtel.cs.commonutils.dataproviders.beantoexcel.FtrDataExcelToBeanDao;
-import com.airtel.cs.commonutils.dataproviders.beantoexcel.HeaderDataExcelToBeanDao;
+import com.airtel.cs.commonutils.dataproviders.beantoexcel.TestDataExcelToBeanDao;
 import com.airtel.cs.commonutils.dataproviders.beantoexcel.NftrDataExcelToBeanDao;
+import com.airtel.cs.commonutils.dataproviders.beantoexcel.UMDataExcelToBeanDao;
+import com.airtel.cs.commonutils.dataproviders.beantoexcel.TemplateDataExcelToBeanDao;
+import com.airtel.cs.commonutils.dataproviders.beantoexcel.HeaderDataExcelToBeanDao;
 import com.airtel.cs.commonutils.dataproviders.beantoexcel.PinnedTagDataExcelToBeanDao;
+import com.airtel.cs.commonutils.dataproviders.beantoexcel.TicketTransferRuleDateToExcel;
+import com.airtel.cs.commonutils.dataproviders.beantoexcel.TicketStateToBean;
 import com.airtel.cs.commonutils.dataproviders.beantoexcel.PriorityDataExcelToBeanDao;
+import com.airtel.cs.commonutils.dataproviders.beantoexcel.AuthTabBeanToExcel;
 import com.airtel.cs.commonutils.dataproviders.beantoexcel.QuestionAnswerKeyToExcel;
 import com.airtel.cs.commonutils.dataproviders.beantoexcel.QueueStateBeanToExcel;
-import com.airtel.cs.commonutils.dataproviders.beantoexcel.TemplateDataExcelToBeanDao;
-import com.airtel.cs.commonutils.dataproviders.beantoexcel.TestDataExcelToBeanDao;
-import com.airtel.cs.commonutils.dataproviders.beantoexcel.TicketStateToBean;
-import com.airtel.cs.commonutils.dataproviders.beantoexcel.TicketTransferRuleDateToExcel;
 import com.airtel.cs.commonutils.dataproviders.beantoexcel.TransferQueueDataToExcel;
-import com.airtel.cs.commonutils.dataproviders.beantoexcel.UMDataExcelToBeanDao;
-import com.airtel.cs.commonutils.dataproviders.databeans.ActionTagDataBeans;
-import com.airtel.cs.commonutils.dataproviders.databeans.AuthTabDataBeans;
+import com.airtel.cs.commonutils.dataproviders.databeans.TestDatabean;
 import com.airtel.cs.commonutils.dataproviders.databeans.FtrDataBeans;
-import com.airtel.cs.commonutils.dataproviders.databeans.HeaderDataBean;
 import com.airtel.cs.commonutils.dataproviders.databeans.NftrDataBeans;
+import com.airtel.cs.commonutils.dataproviders.databeans.TicketStateDataBean;
 import com.airtel.cs.commonutils.dataproviders.databeans.PinnedTagsDataBeans;
+import com.airtel.cs.commonutils.dataproviders.databeans.HeaderDataBean;
+import com.airtel.cs.commonutils.dataproviders.databeans.TemplateDataBeans;
 import com.airtel.cs.commonutils.dataproviders.databeans.PriorityDataBean;
+import com.airtel.cs.commonutils.dataproviders.databeans.UMDataBeans;
+import com.airtel.cs.commonutils.dataproviders.databeans.TicketTransferRuleDataBean;
+import com.airtel.cs.commonutils.dataproviders.databeans.AuthTabDataBeans;
+import com.airtel.cs.commonutils.dataproviders.databeans.ActionTagDataBeans;
 import com.airtel.cs.commonutils.dataproviders.databeans.QuestionAnswerKeyDataBeans;
 import com.airtel.cs.commonutils.dataproviders.databeans.QueueStateDataBeans;
-import com.airtel.cs.commonutils.dataproviders.databeans.TemplateDataBeans;
-import com.airtel.cs.commonutils.dataproviders.databeans.TestDatabean;
-import com.airtel.cs.commonutils.dataproviders.databeans.TicketStateDataBean;
-import com.airtel.cs.commonutils.dataproviders.databeans.TicketTransferRuleDataBean;
 import com.airtel.cs.commonutils.dataproviders.databeans.TransferQueueDataBean;
-import com.airtel.cs.commonutils.dataproviders.databeans.UMDataBeans;
+import com.airtel.cs.commonutils.dataproviders.beantoexcel.AssignmentQueueRuleBeanToExcel;
+import com.airtel.cs.commonutils.dataproviders.databeans.AssignmentQueueRuleDataBeans;
+import com.airtel.cs.commonutils.dataproviders.beantoexcel.SLARuleFileBeanToExcel;
+import com.airtel.cs.commonutils.dataproviders.databeans.SLARuleFileDataBeans;
 import com.airtel.cs.commonutils.excelutils.WriteTicket;
 import com.airtel.cs.driver.Driver;
 import com.codoid.products.fillo.Connection;
@@ -52,16 +56,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.PriorityQueue;
+import java.util.Collections;
+import java.util.Comparator;
 
 @Log4j2
 public class DataProviders extends Driver {
 
     public static Properties config = Driver.config;
     public static List<String> ticketNumbers = new ArrayList<>();
+    public static List<AssignmentQueueRuleDataBeans> queueRuleFile = new ArrayList<>();
+    public static List<SLARuleFileDataBeans> slaRuleFile = new ArrayList<>();
 
     /**
      * This method used to get all tagged issue detail with all widget
-     * @return
+     * @return list of issue
      */
     public static Map<String, String> getWidgetTaggedIssue() {
         FtrDataExcelToBeanDao dataExcelToBeanDao = new FtrDataExcelToBeanDao();
@@ -281,8 +290,7 @@ public class DataProviders extends Driver {
         return hashMapObj;
     }
 
-    @DataProvider(name = "ReOpenState")
-    public Object[][] isReOpenState() {
+    public List<TicketStateDataBean> isReOpenState() {
         TicketStateToBean ticketStateToBean = new TicketStateToBean();
         List<TicketStateDataBean> list =
                 ticketStateToBean.getData(excelPath, constants.getValue(CommonConstants.TICKET_STATE_SHEET));
@@ -295,11 +303,7 @@ public class DataProviders extends Driver {
                 reOpen.add(state);
             }
         }
-        Object[][] hashMapObj = new Object[1][1];
-
-        hashMapObj[0][0] = reOpen.get(0);
-
-        return hashMapObj;
+        return  reOpen;
     }
 
     @DataProvider
@@ -457,17 +461,7 @@ public class DataProviders extends Driver {
         AuthTabBeanToExcel authTabBeanToExcel = new AuthTabBeanToExcel();
         List<AuthTabDataBeans> list =
                 authTabBeanToExcel.getData(excelPath, constants.getValue(CommonConstants.AUTH_POLICY_SHEET));
-        List<String> question = new ArrayList<>();
-        question.add(list.get(0).getQ1());
-        question.add(list.get(0).getQ2());
-        question.add(list.get(0).getQ3());
-        question.add(list.get(0).getQ4());
-        question.add(list.get(0).getQ5());
-        question.add(list.get(0).getQ6());
-        question.add(list.get(0).getQ7());
-        question.add(list.get(0).getQ8());
-        question.add(list.get(0).getQ9());
-        question.add(list.get(0).getQ10());
+        List<String> question = list.get(0).getQuestions();
 
         while (question.contains(null)) {
             question.remove(null);
@@ -781,6 +775,59 @@ public class DataProviders extends Driver {
             }
         }
         return recordSet;
+    }
+
+    /**
+     *This method use to read assignment rule file and save the list of rule into static object queueRuleFile
+     */
+    public static void getAssignmentRuleExcelFile(){
+        AssignmentQueueRuleBeanToExcel assignmentQueue = new AssignmentQueueRuleBeanToExcel();
+        queueRuleFile= assignmentQueue.getData(excelPath, constants.getValue(CommonConstants.TICKET_CREATION_ASSIGNMENT_QUEUE_RULE));
+    }
+
+    /**
+     * This method use to get all the queue rule based on category code from the assignment queue rule list
+     * @param code The category code
+     * @return list of Assignment rules
+     */
+    public PriorityQueue<AssignmentQueueRuleDataBeans> getQueueRuleBasedOnCode(String code){
+        if(queueRuleFile.isEmpty()){
+            getAssignmentRuleExcelFile();
+        }
+        PriorityQueue<AssignmentQueueRuleDataBeans> pq = new PriorityQueue<>(5,
+                Collections.reverseOrder(Comparator.comparing(AssignmentQueueRuleDataBeans::getRulePriority)));
+        for(AssignmentQueueRuleDataBeans rules:queueRuleFile){
+            if(rules.getCategoryCode().equalsIgnoreCase(code)){
+                pq.add(rules);
+            }
+        }
+        return pq;
+    }
+
+    /**
+     *This method use to read sla rule file and save the list of rule into static object slaRuleFile
+     */
+    public static void setSLARuleExcelFile(){
+        SLARuleFileBeanToExcel slaRuleFileBeanToExcel = new SLARuleFileBeanToExcel();
+        slaRuleFile= slaRuleFileBeanToExcel.getData(excelPath, constants.getValue(CommonConstants.TICKET_CREATION_SLA_CALCULATION_RULE));
+    }
+
+    /**
+     * This method use to get all the sla rule based on category code from the sla queue rule list
+     * @param code The category code
+     * @return list of sla rules
+     */
+    public List<SLARuleFileDataBeans> getSLARuleBasedOnCode(String code){
+        List<SLARuleFileDataBeans> slaRules = new ArrayList<>();
+        if(slaRuleFile.isEmpty()){
+            setSLARuleExcelFile();
+        }
+        for(SLARuleFileDataBeans rules:slaRuleFile){
+            if(rules.getCategoryCode().equalsIgnoreCase(code)){
+                slaRules.add(rules);
+            }
+        }
+        return slaRules;
     }
 
 }

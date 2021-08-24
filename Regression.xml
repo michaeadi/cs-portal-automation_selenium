@@ -3,7 +3,6 @@
 <suite name="Automation Framework CS PORTAl Test Suite" preserve-order="true" allow-return-values="true">
     <listeners>
         <listener class-name="com.airtel.cs.commonutils.listeners.TestListenerMethod"/>
-        <!--        <listener class-name="com.airtel.cs.commonutils.listeners.AnnotationTransformer"/>-->
     </listeners>
     <test name="Test Login API">
         <groups>
@@ -65,7 +64,7 @@
             <class name="com.airtel.cs.ui.frontendagent.viewhistorytab.ActionTrailTest"/>
         </classes>
     </test>
-    <test name="Demo Graphic Widget Test By MSISDN" preserve-order="true">
+    <test name="Validate Demo Graphic Widget By MSISDN" preserve-order="true">
         <groups>
             <run>
                 <include name="RegressionTest"/>
@@ -75,7 +74,7 @@
             <class name="com.airtel.cs.ui.frontendagent.demographicwidget.DemoGraphicWidgetMsisdnTest"/>
         </classes>
     </test>
-    <test name="Airtel Money Transaction Widget Test" preserve-order="true">
+    <test name="Validate Airtel Money Transaction Widget" preserve-order="true">
         <groups>
             <run>
                 <include name="RegressionTest"/>
@@ -85,7 +84,7 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.AirtelMoneyTransactionWidgetTest"/>
         </classes>
     </test>
-    <test name="Current Balance Widget Test" preserve-order="true">
+    <test name="Validate Current Balance Widget" preserve-order="true">
         <groups>
             <run>
                 <include name="RegressionTest"/>
@@ -95,7 +94,7 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.CurrentBalanceWidgetTest"/>
         </classes>
     </test>
-    <test name="Usage History Widget Test" preserve-order="true">
+    <test name="Validate Usage History Widget" preserve-order="true">
         <groups>
             <run>
                 <include name="RegressionTest"/>
@@ -105,7 +104,7 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.UsageHistoryWidgetTest"/>
         </classes>
     </test>
-    <test name="Recharge History Widget Test" preserve-order="true">
+    <test name="Validate Recharge History Widget" preserve-order="true">
         <groups>
             <run>
                 <include name="RegressionTest"/>
@@ -115,7 +114,7 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.RechargeHistoryWidgetTest"/>
         </classes>
     </test>
-    <test name="Recharge History Menu Widget Test" preserve-order="true">
+    <test name="Validate Recharge History Menu Widget" preserve-order="true">
         <groups>
             <run>
                 <include name="RegressionTest"/>
@@ -125,7 +124,7 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.RechargeHistoryMenuWidgetTest"/>
         </classes>
     </test>
-    <test name="Service Profile Widget Test" preserve-order="true">
+    <test name="Validate Service Profile Widget Test" preserve-order="true">
         <groups>
             <run>
                 <include name="RegressionTest"/>
@@ -135,27 +134,7 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.ServiceProfileWidgetTest"/>
         </classes>
     </test>
-    <test name="Customer Interactions Test" preserve-order="true">
-        <groups>
-            <run>
-                <include name="RegressionTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.hometab.AirtelMoneyMenuPrimaryWidgetTest"/>
-        </classes>
-    </test>
-    <test name="Airtel Money More detail Widget Test(Secondary Widget-DRC)" preserve-order="true">
-        <groups>
-            <run>
-                <include name="RegressionTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.hometab.AirtelMoneyMenuSecondaryWidgetTest"/>
-        </classes>
-    </test>
-    <test name="Recharge History More detail Widget Test" preserve-order="true">
+    <test name="More Option of Your Current Plan Widget - Validate DA Detail" preserve-order="true">
         <groups>
             <run>
                 <include name="RegressionTest"/>
@@ -165,7 +144,7 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.DADetailWidgetTest"/>
         </classes>
     </test>
-    <test name="Display Offer Widget Test" preserve-order="true">
+    <test name="More Option of Your Current Plan Widget - Validate Display Offer Widget" preserve-order="true">
         <groups>
             <run>
                 <include name="RegressionTest"/>
@@ -175,7 +154,7 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.DisplayOfferWidgetTest"/>
         </classes>
     </test>
-    <test name="Friends and family Widget Test" preserve-order="true">
+    <test name="More Option of Your Current Plan Widget - Validate Friends and family Widget" preserve-order="true">
         <groups>
             <run>
                 <include name="RegressionTest"/>
@@ -185,7 +164,7 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.FriendsFamilyWidgetTest"/>
         </classes>
     </test>
-    <test name="Accumulator Widget Test" preserve-order="true">
+    <test name="More Option of Your Current Plan Widget - Validate Accumulator Widget" preserve-order="true">
         <groups>
             <run>
                 <include name="RegressionTest"/>
@@ -233,6 +212,116 @@
         </groups>
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.CRBTWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Adjustment Widget Test">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.autoadjustment.AdjustmentTabTest"/>
+        </classes>
+    </test>
+    <test name="Adjustment Agent Limit Test">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.autoadjustment.AdjustmentAgentLimitTest"/>
+        </classes>
+    </test>
+    <test name="Adjustment History Tab Test">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.viewhistorytab.AdjustmentHistoryTest"/>
+        </classes>
+    </test>
+    <test name="Widget Visibility Test By Connection Type">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.widgetvisibility.VisibilityByCustomerSegmentTest"/>
+        </classes>
+    </test>
+    <test name="SIM Bar Unbar Test">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.simbarunbar.SIMBarUnbarPermissionSeparationTest"/>
+        </classes>
+    </test>
+    <test name="Source App Test">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.ticketsourceapp.TicketSourceAppTest"/>
+        </classes>
+    </test>
+    <test name="Plan and pack Test">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.PlanAndPackDetailedWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Current Plan Test">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.CurrentPlanTest"/>
+        </classes>
+    </test>
+    <test name="Account Information Test">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.AccountInformationWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Detailed Account Information Test">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.DetailAccountInfoTest"/>
+        </classes>
+    </test>
+    <test name="Detailed Account Information - View Bill Test">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.DetailAccountInfoViewBillTest"/>
         </classes>
     </test>
     <test name="Create NFTR FTR Tickets TEST">
@@ -323,16 +412,6 @@
         </groups>
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.LoanWidgetTest"/>
-        </classes>
-    </test>
-    <test name="Supervisors Ticket Bulk Update Test">
-        <groups>
-            <run>
-                <include name="RegressionTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.ticketBulkUpdate.TicketBulkUpdateTest"/>
         </classes>
     </test>
     <test name="Supervisors Login Test">
@@ -455,6 +534,16 @@
             <class name="com.airtel.cs.ui.backendSupervisor.StateQueueMappingTest"/>
         </classes>
     </test>
+    <test name="Supervisors Ticket Bulk Update Test">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.ticketBulkUpdate.TicketBulkUpdateTest"/>
+        </classes>
+    </test>
     <test name="Logout Supervisor Test">
         <groups>
             <run>
@@ -575,24 +664,14 @@
             <class name="com.airtel.cs.ui.backendAgent.transfertoqueue.TransferToQueueTest"/>
         </classes>
     </test>
-    <test name="SIM Bar Unbar Test">
+    <test name="Linked MSISDN to Account Number Test">
         <groups>
             <run>
                 <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.simbarunbar.SIMBarUnbarPermissionSeparationTest"/>
-        </classes>
-    </test>
-    <test name="Source App Test">
-        <groups>
-            <run>
-                <include name="RegressionTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.ticketsourceapp.TicketSourceAppTest"/>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.LinkedMsisdnToAccountNoTest"/>
         </classes>
     </test>
 </suite>

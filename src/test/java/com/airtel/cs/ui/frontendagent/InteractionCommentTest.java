@@ -39,7 +39,7 @@ public class InteractionCommentTest extends Driver {
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();
             final boolean pageLoaded = pages.getCustomerProfilePage().isCustomerProfilePageLoaded();
-            assertCheck.append(actions.assertEqual_boolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
+            assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
             if (!pageLoaded) continueExecutionFA = false;
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -61,13 +61,13 @@ public class InteractionCommentTest extends Driver {
             pages.getInteractionsPage().selectCode(issueCode);
             commonLib.info("Creating ticket with issue code -" + issueCode);
             commonLib.info(pages.getInteractionsPage().getIssue());
-            assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssue().trim().toLowerCase().replace(" ", ""), data.getIssue().trim().toLowerCase().replace(" ", ""), "Issue is as expected", "Issue is NOT as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getIssue().trim().toLowerCase().replace(" ", ""), data.getIssue().trim().toLowerCase().replace(" ", ""), "Issue is as expected", "Issue is NOT as expected"));
             commonLib.info(pages.getInteractionsPage().getIssueSubSubType());
-            assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssueSubSubType().trim().toLowerCase().replace(" ", ""), data.getIssueSubSubType().trim().toLowerCase().replace(" ", ""), "Issue sub sub type is as expected", "Issue sub sub type is NOT as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getIssueSubSubType().trim().toLowerCase().replace(" ", ""), data.getIssueSubSubType().trim().toLowerCase().replace(" ", ""), "Issue sub sub type is as expected", "Issue sub sub type is NOT as expected"));
             commonLib.info(pages.getInteractionsPage().getIssueType());
-            assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssueType().trim().toLowerCase().replace(" ", ""), data.getIssueType().trim().toLowerCase().replace(" ", ""), "Issue type is as expected", "Issue type is NOT as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getIssueType().trim().toLowerCase().replace(" ", ""), data.getIssueType().trim().toLowerCase().replace(" ", ""), "Issue type is as expected", "Issue type is NOT as expected"));
             commonLib.info(pages.getInteractionsPage().getIssueSubType());
-            assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getIssueSubType().trim().toLowerCase().replace(" ", ""), data.getIssueSubType().trim().toLowerCase().replace(" ", ""), "Issue sub type is as expected", "Issue sub type is NOT as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getIssueSubType().trim().toLowerCase().replace(" ", ""), data.getIssueSubType().trim().toLowerCase().replace(" ", ""), "Issue sub type is as expected", "Issue sub type is NOT as expected"));
             pages.getInteractionsPage().fillIssueFields(data.getIssueFieldLabel1(), data.getIssueFieldType1(), data.getIssueFieldMandatory1(), "1");
             pages.getInteractionsPage().fillIssueFields(data.getIssueFieldLabel2(), data.getIssueFieldType2(), data.getIssueFieldMandatory2(), "2");
             pages.getInteractionsPage().fillIssueFields(data.getIssueFieldLabel3(), data.getIssueFieldType3(), data.getIssueFieldMandatory3(), "3");
@@ -78,7 +78,7 @@ public class InteractionCommentTest extends Driver {
             pages.getInteractionsPage().sendComment("Automation Suite");
             Assert.assertTrue(pages.getInteractionsPage().isSaveEnable());
             pages.getInteractionsPage().clickOnSave();
-            assertCheck.append(actions.assertEqual_boolean(pages.getInteractionsPage().isTicketIdVisible(), true, "Ticket Id is Visible", "Ticket Id is NOT Visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getInteractionsPage().isTicketIdVisible(), true, "Ticket Id is Visible", "Ticket Id is NOT Visible"));
             commonLib.info(pages.getInteractionsPage().getResolvedFTRDisplayed());
             if (!pages.getInteractionsPage().getResolvedFTRDisplayed().contains("Resolved FTR")) {
                 ticketNumber = pages.getInteractionsPage().getResolvedFTRDisplayed();
@@ -86,7 +86,7 @@ public class InteractionCommentTest extends Driver {
                 final String comment = pages.getInteractionsPage().addInteractionComment();
                 pages.getInteractionsPage().saveInteractionComment();
                 pages.getInteractionsPage().openAddedComment();
-                assertCheck.append(actions.assertEqual_stringType(pages.getInteractionsPage().getAddedComment().toLowerCase().trim(), comment.toLowerCase().trim(), "Agent Added Interaction Ticket comment matched", "Agent Added Interaction Ticket comment does not matched"));
+                assertCheck.append(actions.assertEqualStringType(pages.getInteractionsPage().getAddedComment().toLowerCase().trim(), comment.toLowerCase().trim(), "Agent Added Interaction Ticket comment matched", "Agent Added Interaction Ticket comment does not matched"));
             } else {
                 commonLib.fail("It's FTR not NFTR", true);
             }
@@ -103,17 +103,17 @@ public class InteractionCommentTest extends Driver {
         selUtils.addTestcaseDescription("Check Sent SMS display in message history for System Type", "description");
         pages.getCustomerProfilePage().goToViewHistory();
         pages.getViewHistory().clickOnMessageHistory();
-        assertCheck.append(actions.assertEqual_boolean(pages.getMessageHistoryPage().isMessageTypeColumn(), true, "Message Type Column is display on UI", "Message Type Column does not display on UI"));
-        assertCheck.append(actions.assertEqual_boolean(pages.getMessageHistoryPage().isDateSentColumn(), true, "Date Sent Column is display on UI", "Date Sent Column does not display on UI"));
-        assertCheck.append(actions.assertEqual_boolean(pages.getMessageHistoryPage().isTemplateColumn(), true, "Template/Event Column ist display on UI", "Template/Event Column does not display on UI"));
-        assertCheck.append(actions.assertEqual_boolean(pages.getMessageHistoryPage().isMessageLanguageColumn(), true, "Message Language Column is display on UI", "Message Language Column does not display on UI"));
-        assertCheck.append(actions.assertEqual_boolean(pages.getMessageHistoryPage().isMessageTextColumn(), true, "Message Text Column is display on UI", "Message Text Column does not display on UI"));
-        assertCheck.append(actions.assertEqual_stringType(pages.getMessageHistoryPage().messageType(1).toLowerCase().trim(), constants.getValue(CommonConstants.SYSTEM_SMS_TYPE).toLowerCase().trim(), "Message Type is system", "Message Type is not system"));
-        assertCheck.append(actions.assertEqual_stringType(pages.getMessageHistoryPage().templateEvent(1).toLowerCase().trim(), constants.getValue(CommonConstants.TICKET_CREATED_EVENT).toLowerCase().trim(), "Template event is same as defined", "Template event not same as defined"));
-        assertCheck.append(actions.assertEqual_boolean(pages.getMessageHistoryPage().messageText(1).contains(ticketNumber), true, "Message content is same as set message content", "Message content not same as set message content"));
-        assertCheck.append(actions.assertEqual_boolean(pages.getMessageHistoryPage().isActionBtnDisable(1), true, "Resend SMS icon is disable", "Resend SMS icon does not disable"));
-        assertCheck.append(actions.assertEqual_boolean(pages.getMessageHistoryPage().agentId(1).trim().equalsIgnoreCase("-"), true, "Agent id is empty", "Agent id does not empty"));
-        assertCheck.append(actions.assertEqual_boolean(pages.getMessageHistoryPage().agentName(1).trim().equalsIgnoreCase("-"), true, "Agent name is empty", "Agent name does not empty"));
+        assertCheck.append(actions.assertEqualBoolean(pages.getMessageHistoryPage().isMessageTypeColumn(), true, "Message Type Column is display on UI", "Message Type Column does not display on UI"));
+        assertCheck.append(actions.assertEqualBoolean(pages.getMessageHistoryPage().isDateSentColumn(), true, "Date Sent Column is display on UI", "Date Sent Column does not display on UI"));
+        assertCheck.append(actions.assertEqualBoolean(pages.getMessageHistoryPage().isTemplateColumn(), true, "Template/Event Column ist display on UI", "Template/Event Column does not display on UI"));
+        assertCheck.append(actions.assertEqualBoolean(pages.getMessageHistoryPage().isMessageLanguageColumn(), true, "Message Language Column is display on UI", "Message Language Column does not display on UI"));
+        assertCheck.append(actions.assertEqualBoolean(pages.getMessageHistoryPage().isMessageTextColumn(), true, "Message Text Column is display on UI", "Message Text Column does not display on UI"));
+        assertCheck.append(actions.assertEqualStringType(pages.getMessageHistoryPage().messageType(1).toLowerCase().trim(), constants.getValue(CommonConstants.SYSTEM_SMS_TYPE).toLowerCase().trim(), "Message Type is system", "Message Type is not system"));
+        assertCheck.append(actions.assertEqualStringType(pages.getMessageHistoryPage().templateEvent(1).toLowerCase().trim(), constants.getValue(CommonConstants.TICKET_CREATED_EVENT).toLowerCase().trim(), "Template event is same as defined", "Template event not same as defined"));
+        assertCheck.append(actions.assertEqualBoolean(pages.getMessageHistoryPage().messageText(1).contains(ticketNumber), true, "Message content is same as set message content", "Message content not same as set message content"));
+        assertCheck.append(actions.assertEqualBoolean(pages.getMessageHistoryPage().isActionBtnDisable(1), true, "Resend SMS icon is disable", "Resend SMS icon does not disable"));
+        assertCheck.append(actions.assertEqualBoolean(pages.getMessageHistoryPage().agentId(1).trim().equalsIgnoreCase("-"), true, "Agent id is empty", "Agent id does not empty"));
+        assertCheck.append(actions.assertEqualBoolean(pages.getMessageHistoryPage().agentName(1).trim().equalsIgnoreCase("-"), true, "Agent name is empty", "Agent name does not empty"));
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 }

@@ -14,7 +14,6 @@ public class LoanWidget extends BasePage {
     LoanWidgetPage pageElements;
     List<WebElement> vendors;
     private static final String TEXT1 = "Reading Header: ";
-    private static final String XPATH = "//div[@id='LOAN_SERVICES']//div[@class='card__card-header--card-body--table']//div[@class='card__card-header--card-body--table--data-list ng-star-inserted'][";
     public LoanWidget(WebDriver driver) {
         super(driver);
         pageElements = PageFactory.initElements(driver, LoanWidgetPage.class);
@@ -86,7 +85,7 @@ public class LoanWidget extends BasePage {
      * @return String The value
      */
     public String getVendorName(int i) {
-        By name = By.xpath(XPATH + i + pageElements.vendorName);
+        By name = By.xpath(pageElements.loanServiceValue + i + pageElements.vendorName);
         final String text = getText(name);
         commonLib.info("Reading Vendor Name: " + text);
         return text.trim();
@@ -98,7 +97,7 @@ public class LoanWidget extends BasePage {
      * @return String The value
      */
     public String getLoanAmount(int i) {
-        By amount = By.xpath(XPATH + i + pageElements.loanAmountValue);
+        By amount = By.xpath(pageElements.loanServiceValue + i + pageElements.loanAmountValue);
         final String text = getText(amount);
         commonLib.info("Reading Loan Amount: " + text);
         return text.trim();
@@ -110,7 +109,7 @@ public class LoanWidget extends BasePage {
      * @return String The value
      */
     public String getDateCreatedOn(int i) {
-        By name = By.xpath(XPATH + i +pageElements.createdOnDateValue );
+        By name = By.xpath(pageElements.loanServiceValue + i +pageElements.createdOnDateValue );
         final String text = getText(name);
         commonLib.info("Reading Date Created on: " + text);
         return text.trim();
@@ -122,7 +121,7 @@ public class LoanWidget extends BasePage {
      * @return String The value
      */
     public String getTimeCreatedOn(int i) {
-        By name = By.xpath(XPATH + i + pageElements.createdOnTimeValue);
+        By name = By.xpath(pageElements.loanServiceValue + i + pageElements.createdOnTimeValue);
         final String text = getText(name);
         commonLib.info("Reading Time Created on: " + text);
         return text.trim();
@@ -134,7 +133,7 @@ public class LoanWidget extends BasePage {
      * @return String The value
      */
     public String getOutstandingAmount(int i) {
-        By name = By.xpath(XPATH + i + pageElements.outStandingAmountValue);
+        By name = By.xpath(pageElements.loanServiceValue + i + pageElements.outStandingAmountValue);
         final String text = getText(name);
         commonLib.info("Reading Current Outstanding amount: " + text);
         return text.trim();
@@ -146,7 +145,7 @@ public class LoanWidget extends BasePage {
      * @return String The value
      */
     public String getDueDate(int i) {
-        By name = By.xpath(XPATH + i + pageElements.dueDateValue);
+        By name = By.xpath(pageElements.loanServiceValue + i + pageElements.dueDateValue);
         final String text = getText(name);
         commonLib.info("Reading Due Date on: " + text);
         return text.trim();
@@ -158,7 +157,7 @@ public class LoanWidget extends BasePage {
      * @return String The value
      */
     public String getTimeDueDate(int i) {
-        By name = By.xpath(XPATH + i + pageElements.dueTimeValue);
+        By name = By.xpath(pageElements.loanServiceValue + i + pageElements.dueTimeValue);
         final String text = getText(name);
         commonLib.info("Reading Due Time on: " + text);
         return text.trim();
@@ -194,7 +193,7 @@ public class LoanWidget extends BasePage {
      * @return LoanDetail page
      */
     public LoanDetail clickVendorName(int i) {
-        By name = By.xpath(XPATH + i + pageElements.vendorName);
+        By name = By.xpath(pageElements.loanServiceValue + i + pageElements.vendorName);
         commonLib.info("Clicking Vendor Name");
         clickAndWaitForLoaderToBeRemoved(name);
         return new LoanDetail(driver);
@@ -219,6 +218,18 @@ public class LoanWidget extends BasePage {
             vendorNames.add(getVendorName(i + 1).trim());
         }
         return vendorNames;
+    }
+
+    /**
+     * This Method will let us know Loan Service Widget is visible or not
+     * @return Boolean
+     */
+    public boolean isLoanServiceWidgetVisible() {
+        if (isElementVisible(pageElements.loanServiceHeader)) {
+            commonLib.info("LoanService Widget is Visible");
+            return true;
+        }
+        return false;
     }
 }
 

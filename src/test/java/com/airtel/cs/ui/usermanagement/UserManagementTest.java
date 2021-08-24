@@ -19,7 +19,7 @@ public class UserManagementTest extends Driver {
     private final BaseActions actions = new BaseActions();
     int currentBucketSize;
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login via API");
@@ -27,32 +27,32 @@ public class UserManagementTest extends Driver {
         }
     }
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void openUserManagementPage() {
         try {
             selUtils.addTestcaseDescription("Validating User Management", "description");
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().openUserManagementPage();
             pages.getUserManagementPage().waitTillUMPageLoaded();
-            assertCheck.append(actions.assertEqual_boolean(pages.getUserManagementPage().isSearchVisible(), true, "User management module open as expected", "User management module does not open as expected"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getUserManagementPage().isSearchVisible(), true, "User management module open as expected", "User management module does not open as expected"));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - openUserManagementPage" + e.fillInStackTrace(), true);
         }
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 2, dependsOnMethods = {"openUserManagementPage"}, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 2, dependsOnMethods = {"openUserManagementPage"}, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void validateAddToUser() {
         try {
             selUtils.addTestcaseDescription("Validating Add to User Management page,Click on Add To User button,Validate Add new user page displayed,Navigate back to Single Screen and validate user management module open.", "description");
             pages.getUserManagementPage().clickAddUserBtn();
             pages.getUserManagementPage().switchFrameToAddUser();
-            assertCheck.append(actions.assertEqual_boolean(pages.getUserManagementPage().checkingAddUser(), true, "Add user into UM Portal page displayed as expected", "Add to user page does not open"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getUserManagementPage().checkingAddUser(), true, "Add user into UM Portal page displayed as expected", "Add to user page does not open"));
             pages.getUserManagementPage().switchToParentFrme();
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().openUserManagementPage();
             pages.getUserManagementPage().waitTillUMPageLoaded();
-            assertCheck.append(actions.assertEqual_boolean(pages.getUserManagementPage().isSearchVisible(), true, "User management module open as expected", "User management module does not open as expected"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getUserManagementPage().isSearchVisible(), true, "User management module open as expected", "User management module does not open as expected"));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - validateAddToUser" + e.fillInStackTrace(), true);
         }
@@ -64,10 +64,10 @@ public class UserManagementTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validating User Management Edit Page", "description");
             pages.getUserManagementPage().waitTillLoaderGetsRemoved();
-            pages.getUserManagementPage().searchAuuid(CommonConstants.ALL_USER_ROLE_AUUID);
+            pages.getUserManagementPage().searchAuuid(constants.getValue(CommonConstants.ALL_USER_ROLE_AUUID));
             pages.getUserManagementPage().clickSearchButton();
             pages.getUserManagementPage().waitUntilResultPageIsVisible();
-            assertCheck.append(actions.assertEqual_stringType(pages.getUserManagementPage().resultIsVisible(CommonConstants.ALL_USER_ROLE_AUUID), CommonConstants.ALL_USER_ROLE_AUUID, "Search using user auuid success and user detail fetched as expected", "Search using user auuid does not complete and user detail does not fetched as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getUserManagementPage().resultIsVisible(CommonConstants.ALL_USER_ROLE_AUUID), CommonConstants.ALL_USER_ROLE_AUUID, "Search using user auuid success and user detail fetched as expected", "Search using user auuid does not complete and user detail does not fetched as expected"));
             currentBucketSize = Integer.parseInt(pages.getUserManagementPage().getCurrentTicketBucketSize());
             pages.getUserManagementPage().clickViewEditButton();
             pages.getUserManagementPage().waitUntilEditPageIsOpen();
@@ -193,8 +193,8 @@ public class UserManagementTest extends Driver {
             pages.getUserManagementPage().searchAuuid(CommonConstants.ALL_USER_ROLE_AUUID);
             pages.getUserManagementPage().clickSearchButton();
             pages.getUserManagementPage().waitUntilResultPageIsVisible();
-            assertCheck.append(actions.assertEqual_stringType(pages.getUserManagementPage().resultIsVisible(CommonConstants.ALL_USER_ROLE_AUUID), CommonConstants.ALL_USER_ROLE_AUUID, "Search using user auuid success and user detail fetched as expected", "Search using user auuid does not complete and user detail does not fetched as expected"));
-            assertCheck.append(actions.assertEqual_intType((Integer.parseInt(pages.getUserManagementPage().getCurrentTicketBucketSize())), currentBucketSize + 1, "Agent bucket size update as expected", "Updated Bucket Size is not as Expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getUserManagementPage().resultIsVisible(CommonConstants.ALL_USER_ROLE_AUUID), CommonConstants.ALL_USER_ROLE_AUUID, "Search using user auuid success and user detail fetched as expected", "Search using user auuid does not complete and user detail does not fetched as expected"));
+            assertCheck.append(actions.assertEqualIntType((Integer.parseInt(pages.getUserManagementPage().getCurrentTicketBucketSize())), currentBucketSize + 1, "Agent bucket size update as expected", "Updated Bucket Size is not as Expected"));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - changeBucketSize" + e.fillInStackTrace(), true);
         }
