@@ -81,6 +81,7 @@ import com.airtel.cs.model.response.parentcategory.ParentCategoryResponse;
 import io.restassured.http.Headers;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -280,11 +281,19 @@ public class RequestSource extends RestCommonUtils {
             commonPostMethod(URIConstants.USAGE_HISTORY, new UsageHistoryRequest(msisdn, 5, 1, null, null, null, "More"));
             result = response.as(UsageHistory.class);
             if (result.getStatusCode() != 200) {
-                esbRequestSource.callUsageHistory(new UsageHistoryRequest(msisdn, 5, 1, null, null, null, "More"));
+                if (StringUtils.equals(constants.getValue(ApplicationConstants.TEST_V3_USAGE_HISTORY), "true")) {
+                    esbRequestSource.callV3UsageHistory(new UsageHistoryMenuRequest(msisdn, 5, 1, null, null, null, "More", "PAID"));
+                } else {
+                    esbRequestSource.callUsageHistory(new UsageHistoryRequest(msisdn, 5, 1, null, null, null, "More"));
+                }
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - usageHistoryTest " + e.getMessage(), false);
-            esbRequestSource.callUsageHistory(new UsageHistoryRequest(msisdn, 5, 1, null, null, null, "More"));
+            if (StringUtils.equals(constants.getValue(ApplicationConstants.TEST_V3_USAGE_HISTORY), "true")) {
+                esbRequestSource.callV3UsageHistory(new UsageHistoryMenuRequest(msisdn, 5, 1, null, null, null, "More", "PAID"));
+            } else {
+                esbRequestSource.callUsageHistory(new UsageHistoryRequest(msisdn, 5, 1, null, null, null, "More"));
+            }
         }
         return result;
     }
@@ -301,12 +310,19 @@ public class RequestSource extends RestCommonUtils {
             commonPostMethod(URIConstants.USAGE_HISTORY, new UsageHistoryMenuRequest(msisdn, 5, 1, null, null, null, "More", "FREE"));
             result = response.as(UsageHistory.class);
             if (result.getStatusCode() != 200) {
-                esbRequestSource.callUsageHistory(new UsageHistoryMenuRequest(msisdn, 5, 1, null, null, null, "More", "FREE"));
+                if (StringUtils.equals(constants.getValue(ApplicationConstants.TEST_V3_USAGE_HISTORY), "false")) {
+                    esbRequestSource.callUsageHistory(new UsageHistoryMenuRequest(msisdn, 5, 1, null, null, null, "More", "FREE"));
+                } else {
+                    esbRequestSource.callV3UsageHistory(new UsageHistoryMenuRequest(msisdn, 5, 1, null, null, null, "More", "FREE"));
+                }
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - usageHistoryTest " + e.getMessage(), false);
-            esbRequestSource.callUsageHistory(new UsageHistoryMenuRequest(msisdn, 5, 1, null, null, null, "More", "FREE"));
-        }
+            if (StringUtils.equals(constants.getValue(ApplicationConstants.TEST_V3_USAGE_HISTORY), "false")) {
+                esbRequestSource.callUsageHistory(new UsageHistoryMenuRequest(msisdn, 5, 1, null, null, null, "More", "FREE"));
+            } else {
+                esbRequestSource.callV3UsageHistory(new UsageHistoryMenuRequest(msisdn, 5, 1, null, null, null, "More", "FREE"));
+            }        }
         return result;
     }
 

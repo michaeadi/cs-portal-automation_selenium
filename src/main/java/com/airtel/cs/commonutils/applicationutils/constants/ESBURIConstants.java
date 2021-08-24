@@ -2,6 +2,7 @@ package com.airtel.cs.commonutils.applicationutils.constants;
 
 public class ESBURIConstants {
   public static final String USAGE_HISTORY = "/api/subscriber-profile/v1/usage";
+  public static final String V3_USAGE_HISTORY = "/api/subscriber-transaction/v3/usage";
   public static final String RECHARGE_HISTORY = "/api/subscriber-profile/v1/customer/service/recharge-history";
   public static final String CUSTOMER_PROFILLE = "/api/subscriber-profile/v2/customer-profile";
   public static final String TOKEN = "/api/authorization/token";

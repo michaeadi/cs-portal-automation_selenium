@@ -1,6 +1,7 @@
 package com.airtel.cs.api;
 
 import com.airtel.cs.commonutils.UtilsMethods;
+import com.airtel.cs.commonutils.applicationutils.constants.ConstantsUtils;
 import com.airtel.cs.commonutils.applicationutils.constants.ESBURIConstants;
 import com.airtel.cs.commonutils.applicationutils.enums.JavaColors;
 import com.airtel.cs.commonutils.restutils.RestCommonUtils;
@@ -13,14 +14,8 @@ import com.airtel.cs.model.request.PaymentRequest;
 import com.airtel.cs.model.request.StatementRequest;
 import com.airtel.cs.model.request.UsageHistoryMenuRequest;
 import com.airtel.cs.model.request.UsageHistoryRequest;
-import com.airtel.cs.model.request.LoanRequest;
-import com.airtel.cs.model.request.AccountLineRequest;
-import com.airtel.cs.model.request.StatementRequest;
-import com.airtel.cs.model.request.PaymentRequest;
-import com.airtel.cs.model.request.AccountDetailRequest;
+import com.airtel.cs.model.request.UsageRequestV3DTO;
 import com.airtel.cs.model.response.CreditLimitResponse;
-import com.airtel.cs.model.response.PostpaidBillDetailsResponse;
-import com.airtel.cs.model.response.PlanPackESBResponse;
 import com.airtel.cs.model.response.InvoiceHistoryResponse;
 import com.airtel.cs.model.response.PaymentResponse;
 import com.airtel.cs.model.response.PlanPackESBResponse;
@@ -45,6 +40,7 @@ public class ESBRequestSource extends RestCommonUtils {
     private static final String DOWNSTREAM_API_ERROR = "downstream.api.error";
     private static final String MSISDN = "msisdn";
     private static final String GSM_CUSTOMER_PROFILE_BASE_URL = "gsm.customer.profile.base.url";
+    private static final String SUBS_TRANSACTION_SERVICE_BASE_URL = "subscriber.transaction.base.url";
     private static final String END_DATE = "endDate";
     private static final String START_DATE = "startDate";
     private static final String VAS_SERVICE_TUNE_BASE_URL = "vas.service.tune.base.url";
@@ -619,6 +615,34 @@ public class ESBRequestSource extends RestCommonUtils {
             }
         } catch (Exception exp) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " - Usage history " + exp.getMessage(), false);
+        }
+    }
+
+    /**
+     * This Method will hit the V3 Downstream APIs related to Usage history
+     *
+     * @param usageHistoryMenuRequest The Usage history request
+     */
+    public void callV3UsageHistory(UsageHistoryMenuRequest usageHistoryMenuRequest) {
+        try {
+            commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + USAGE_HISTORY, JavaColors.GREEN, false);
+            UsageRequestV3DTO v3RequestDTO = new UsageRequestV3DTO();
+            v3RequestDTO.setEndDate(UtilsMethods.getUTCEndDate(Timestamp.valueOf(LocalDate.now().atTime(LocalTime.MAX)).getTime()));
+            v3RequestDTO.setMsisdn(usageHistoryMenuRequest.getMsisdn());
+            v3RequestDTO.setStartDate(UtilsMethods.getUTCStartDate(Timestamp.valueOf(LocalDate.now().atStartOfDay().minusDays(3)).getTime()));
+            v3RequestDTO.setNumberOfRecords(20);
+            v3RequestDTO.setOffset(0);
+            if (!StringUtils.isEmpty(usageHistoryMenuRequest.getCdrTypeFilter()) && (usageHistoryMenuRequest.getCdrTypeFilter().equals("FREE"))) {
+                v3RequestDTO.setCdrType("BOTH");
+            }
+            commonPostMethod(constants.getValue(SUBS_TRANSACTION_SERVICE_BASE_URL) + ESBURIConstants.V3_USAGE_HISTORY, v3RequestDTO);
+            if (response.getStatusCode() != 200) {
+                commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + USAGE_HISTORY + response.getStatusCode(), false);
+            } else {
+                commonLib.pass("ESB API Usage history V3 working with data " + response.getBody().prettyPrint());
+            }
+        } catch (Exception exp) {
+            commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " - Usage history V3 " + exp.getMessage(), false);
         }
     }
 
