@@ -1,7 +1,6 @@
 package com.airtel.cs.api;
 
 import com.airtel.cs.commonutils.UtilsMethods;
-import com.airtel.cs.commonutils.applicationutils.constants.ConstantsUtils;
 import com.airtel.cs.commonutils.applicationutils.constants.ESBURIConstants;
 import com.airtel.cs.commonutils.applicationutils.enums.JavaColors;
 import com.airtel.cs.commonutils.restutils.RestCommonUtils;
@@ -83,6 +82,9 @@ public class ESBRequestSource extends RestCommonUtils {
     private static final String SELF_CARE_USER_DETAILS = " - self care user details";
     private static final String DEVICE_INFO = " - Device info";
     private static final String EXCEPTION_IN_METHOD = "Exception in method -";
+    public static final String FREE = "FREE";
+    public static final String BOTH = "BOTH";
+    public static final String USAGE_HISTORY_V3 = " - Usage history V3 ";
 
 
     /**
@@ -552,13 +554,13 @@ public class ESBRequestSource extends RestCommonUtils {
             v3RequestDTO.setStartDate(UtilsMethods.getUTCStartDate(Timestamp.valueOf(LocalDate.now().atStartOfDay().minusDays(3)).getTime()));
             v3RequestDTO.setNumberOfRecords(20);
             v3RequestDTO.setOffset(0);
-            if (!StringUtils.isEmpty(usageHistoryMenuRequest.getCdrTypeFilter()) && (usageHistoryMenuRequest.getCdrTypeFilter().equals("FREE"))) {
-                v3RequestDTO.setCdrType("BOTH");
+            if (!StringUtils.isEmpty(usageHistoryMenuRequest.getCdrTypeFilter()) && (usageHistoryMenuRequest.getCdrTypeFilter().equals(FREE))) {
+                v3RequestDTO.setCdrType(BOTH);
             }
             commonPostMethod(constants.getValue(SUBS_TRANSACTION_SERVICE_BASE_URL) + ESBURIConstants.V3_USAGE_HISTORY, v3RequestDTO);
             checkDownstreamAPI(response.getStatusCode(), USAGE_HISTORY, "Downstream API Usage history V3 working with data");
         } catch (Exception exp) {
-            commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + " - Usage history V3 " + exp.getMessage(), false);
+            commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + USAGE_HISTORY_V3 + exp.getMessage(), false);
         }
     }
 
