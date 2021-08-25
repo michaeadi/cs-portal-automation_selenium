@@ -49,6 +49,7 @@ public class ApplicationConstants {
     public static final String RUN_USAGE_WIDGET_TESTCASE="cs.run.usage.widget.test.case";
     public static final String RUN_AIRTEL_MONEY_WIDGET_TESTCASE="cs.run.airtel.money.test.case";
     public static final String CUSTOMER_POSTPAID_MSISDN = "cs.customer.postpaid.msisdn";
+    public static final String TEST_V3_USAGE_HISTORY = "v3.usage.history.enabled";
 
 
     private ApplicationConstants() {
