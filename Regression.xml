@@ -424,6 +424,16 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.AccountInfoBillDisputeTest"/>
         </classes>
     </test>
+    <test name="Enterprise Account Info Widget">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.EnterpriseAccountInfoWidgetTest"/>
+        </classes>
+    </test>
     <test name="Validate Create Configuration API">
         <groups>
             <run>

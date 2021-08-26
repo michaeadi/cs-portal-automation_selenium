@@ -58,11 +58,11 @@ public class RestCommonUtils extends Driver {
                     .contentType(APPLICATION_JSON);
             response = request.post(endPoint);
             queryable = SpecificationQuerier.query(request);
-            commonLib.info(getRequestCurl(queryable.getURI(), queryable.getHeaders(), body));
             UtilsMethods.printResponseDetail(response);
         } catch (Exception | AssertionError e) {
-            commonLib.info(getRequestCurl(queryable.getURI(), queryable.getHeaders(), body));
             commonLib.fail("Caught exception in Testcase - commonPostMethod " + e.getMessage(), false);
+        } finally {
+            commonLib.info(getRequestCurl(queryable.getURI(), queryable.getHeaders(), body));
         }
     }
 
@@ -85,7 +85,6 @@ public class RestCommonUtils extends Driver {
             commonLib.info("Query Param Map:-" + queryParam.toString());
             queryParam.forEach(request::queryParam);
             queryable = SpecificationQuerier.query(request);
-            commonLib.info(getRequestCurl(queryable.getURI(), queryable.getHeaders(), null));
             response = request.get(endPoint);
             StringBuilder stringBuilder = new StringBuilder("?");
             queryParam.forEach((k, v) -> stringBuilder.append(k).append("=").append(v).append("&"));
@@ -94,6 +93,8 @@ public class RestCommonUtils extends Driver {
             UtilsMethods.printResponseDetail(response);
         } catch (Exception | AssertionError e) {
             commonLib.fail("Caught exception in Testcase - commonGetMethodWithQueryParam " + e.getMessage(), false);
+        } finally {
+            commonLib.info(getRequestCurl(queryable.getURI(), queryable.getHeaders(), null));
         }
     }
 
@@ -113,11 +114,12 @@ public class RestCommonUtils extends Driver {
             baseURI = baseUrl;
             request = given().config(restAssuredConfig).headers(headers).contentType(APPLICATION_JSON);
             queryable = SpecificationQuerier.query(request);
-            commonLib.info(getRequestCurl(queryable.getURI(), queryable.getHeaders(), null));
             response = request.get(endPoint);
             UtilsMethods.printResponseDetail(response);
         } catch (Exception | AssertionError e) {
             commonLib.fail("Caught exception in Testcase - commonGetMethod " + e.getMessage(), false);
+        } finally {
+            commonLib.info(getRequestCurl(queryable.getURI(), queryable.getHeaders(), null));
         }
     }
 
