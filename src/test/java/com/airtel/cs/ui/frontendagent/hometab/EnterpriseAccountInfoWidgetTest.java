@@ -51,7 +51,7 @@ public class EnterpriseAccountInfoWidgetTest extends Driver {
   /**
    * This method is used to hit enterprise account details api
    */
-  @Test(priority = 1, groups = { "SanityTest", "RegressionTest", "ProdTest" })
+  @Test(priority = 2, groups = { "SanityTest", "RegressionTest", "ProdTest" })
   public void accountDetailCSandDownstreamAPITest() {
     try {
       selUtils.addTestcaseDescription("Verify that enterprise account details api is working", "description");
