@@ -713,7 +713,7 @@ public class DemoGraphic extends BasePage {
      * @return the result
      */
     public String getKeyValueAPI(String apiKeyValue) {
-        return "null".equals(apiKeyValue) || apiKeyValue.equals("") ? "-" : apiKeyValue.toLowerCase().trim();
+        return "null".equals(apiKeyValue) || ("").equalsIgnoreCase(apiKeyValue) || apiKeyValue == null ? "-" : apiKeyValue.toLowerCase().trim();
     }
 
     /*

@@ -842,6 +842,7 @@ public class RequestSource extends RestCommonUtils {
     public FieldMaskConfigs getFieldMaskConfigs(String actionKey) {
         FieldMaskConfigReponse fieldMaskConfigReponse = null;
         try {
+            queryParam.clear();
             queryParam.put("actionKey", actionKey);
             commonGetMethodWithQueryParam(URIConstants.GET_FIELD_MASK_CONFIG, queryParam);
             fieldMaskConfigReponse = response.as(FieldMaskConfigReponse.class);

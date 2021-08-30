@@ -15,7 +15,7 @@ import java.util.ArrayList;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class KYCProfileResult {
 
-    private Long activationDate;
+    private String activationDate;
     private String sim;
     private String simType;
     private String status;

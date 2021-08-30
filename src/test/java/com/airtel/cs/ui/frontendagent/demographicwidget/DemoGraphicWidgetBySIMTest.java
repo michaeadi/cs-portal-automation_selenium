@@ -132,7 +132,7 @@ public class DemoGraphicWidgetBySIMTest extends Driver {
             }
             try {
                 demographic.hoverOnCustomerInfoIcon();
-                assertCheck.append(actions.assertEqualStringType(demographic.getCustomerDOB().trim(), UtilsMethods.getDateFromEpoch(gsmKycAPI.getResult().getDob(), "dd-MMM-yyyy"), "Customer DOB is as Expected", "Customer DOB is not as Expected"));
+                assertCheck.append(actions.assertEqualStringType(demographic.getCustomerDOB().trim(), String.valueOf(gsmKycAPI.getResult().getDob()), "Customer DOB is as Expected", "Customer DOB is not as Expected"));
             } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
                 commonLib.fail("Customer DOB is not visible or null" + e.getCause(), true);
             }
@@ -149,7 +149,7 @@ public class DemoGraphicWidgetBySIMTest extends Driver {
             }
             try {
                 demographic.hoverOnSIMNumberIcon();
-                assertCheck.append(actions.assertEqualStringType(demographic.getActivationDate().trim(), UtilsMethods.getDateFromEpoch(kycProfile.getResult().getActivationDate(), "dd-MMM-yyy"), "Customer's Activation Date is as Expected", "Customer's Activation Date is not as Expected"));
+                assertCheck.append(actions.assertEqualStringType(demographic.getActivationDate().trim(), kycProfile.getResult().getActivationDate(), "Customer's Activation Date is as Expected", "Customer's Activation Date is not as Expected"));
             } catch (NoSuchElementException | TimeoutException | NumberFormatException | NullPointerException e) {
                 commonLib.fail("Customer's Activation Date is not visible" + e.getCause(), true);
             }
