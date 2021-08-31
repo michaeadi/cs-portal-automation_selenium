@@ -53,8 +53,9 @@ public class URIConstants {
     public static final String CREATE_CONFIGURATION_API="/api/cs-service/v1/create/config";
     public static final String DELETE_CONFIGURATION_API="/api/cs-service/v1/delete/config";
     public static final String UPDATE_CONFIGURATION_API="/api/cs-service/v1/update/config";
+    public static final String ENTERPRISE_ACCOUNT_SEARCH = "/cs-gsm-service/v1/enterprise/search";
 
-    private URIConstants() {
+  private URIConstants() {
 
     }
 }

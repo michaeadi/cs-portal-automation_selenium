@@ -52,6 +52,7 @@ import com.airtel.cs.model.response.clearrefillstatus.RefillStatus;
 import com.airtel.cs.model.response.configurationapi.ConfigurationList;
 import com.airtel.cs.model.response.crbt.ActivateRingtone;
 import com.airtel.cs.model.response.crbt.Top20Ringtone;
+import com.airtel.cs.model.response.enterprise.EnterpriseAccountSearchResponse;
 import com.airtel.cs.model.response.filedmasking.FieldMaskConfigReponse;
 import com.airtel.cs.model.response.filedmasking.FieldMaskConfigs;
 import com.airtel.cs.model.response.friendsfamily.FriendsFamily;
@@ -1155,6 +1156,32 @@ public class RequestSource extends RestCommonUtils {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + GET_ALL_CONFIGURATION + e.getMessage(), false);
         }
         return result;
+    }
+
+    /**
+     * This Method will hit the API "/cs-gsm-service/v1/enterprise/search" and return the response in list
+     *
+     * @param type
+     * @param val
+     * @return The Response
+     */
+    public Integer getEnterpriseSearchAccount(String type, String val) {
+        Integer statusCode=null;
+        EnterpriseAccountSearchResponse result = null;
+        try {
+            queryParam.put("type", type);
+            queryParam.put("val", val);
+            commonGetMethodWithQueryParam(URIConstants.ENTERPRISE_ACCOUNT_SEARCH, queryParam);
+            statusCode = response.getStatusCode();
+            result = response.as(EnterpriseAccountSearchResponse.class);
+            if (response.getStatusCode() != 200 || result.getStatusCode() != 200) {
+                esbRequestSource.callEnterPriseSearchAccount(type, val);
+            }
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getEnterpriseSearchAccount " + e.getMessage(), false);
+            esbRequestSource.callEnterPriseSearchAccount(type, val);
+        }
+        return statusCode;
     }
 
 }
