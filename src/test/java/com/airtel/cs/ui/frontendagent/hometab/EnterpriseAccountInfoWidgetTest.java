@@ -4,7 +4,6 @@ import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.model.request.PaymentRequest;
-import com.airtel.cs.model.response.accountinfo.AccountDetails;
 import org.apache.commons.lang3.StringUtils;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
@@ -45,29 +44,6 @@ public class EnterpriseAccountInfoWidgetTest extends Driver {
       }
     } catch (Exception e) {
       commonLib.fail("Exception in Method - accountInfoCSandDownstreamAPITest" + e.fillInStackTrace(), true);
-    }
-  }
-
-  /**
-   * This method is used to hit enterprise account details api
-   */
-  @Test(priority = 2, groups = { "SanityTest", "RegressionTest", "ProdTest" })
-  public void accountDetailCSandDownstreamAPITest() {
-    try {
-      selUtils.addTestcaseDescription("Verify that enterprise account details api is working", "description");
-      String accountNo = constants.getValue("enterprise.Account.No");
-      if(StringUtils.isNotEmpty(accountNo)){
-        AccountDetails accountDetails = api.getEnterpriseAccountInfoDetail(accountNo);
-        final int accountDetailsStatusCode = accountDetails.getStatusCode();
-        assertCheck.append(actions.assertEqualIntType(accountDetailsStatusCode, 200,
-            "Enterprise account details API Status Code Matched and is :" + accountDetailsStatusCode,
-            "Enterprise account details API Status Code NOT Matched and is :" + accountDetailsStatusCode, false));
-        actions.assertAllFoundFailedAssert(assertCheck);
-      } else {
-        commonLib.info("Account No not found");
-      }
-    } catch (Exception e) {
-      commonLib.fail("Exception in Method - accountDetailCSandDownstreamAPITest" + e.fillInStackTrace(), true);
     }
   }
 }

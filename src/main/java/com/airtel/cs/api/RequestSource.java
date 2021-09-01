@@ -1179,26 +1179,4 @@ public class RequestSource extends RestCommonUtils {
         }
         return statusCode;
     }
-
-    /**
-     * This Method will hit the API "/cs-gsm-service/v1/enterprise/postpaid/account/details" and return the response in list
-     *
-     * @param accountNo The Account Number
-     * @return The Response
-     */
-    public AccountDetails getEnterpriseAccountInfoDetail(String accountNo) {
-        AccountDetails result = null;
-        try {
-            commonPostMethod(URIConstants.ENTERPRISE_POSTPAID_ACCOUNT_DETAILS,
-                new AccountDetailRequest(accountNo, "1", "5"));
-            result = response.as(AccountDetails.class);
-            if (response.getStatusCode() != 200) {
-                esbRequestSource.callingAccountStatementAPI(accountNo);
-            }
-        } catch (Exception e) {
-            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getEnterpriseAccountInfoDetail " + e.getMessage(), false);
-            esbRequestSource.callPostpaidAccountInfoDetails(new AccountDetailRequest(accountNo, "1", "5"));
-        }
-        return result;
-    }
 }
