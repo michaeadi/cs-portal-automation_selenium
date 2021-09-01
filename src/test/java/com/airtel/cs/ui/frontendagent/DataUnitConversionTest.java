@@ -6,9 +6,14 @@ import com.airtel.cs.driver.Driver;
 import com.airtel.cs.model.response.accounts.AccountsBalance;
 import com.airtel.cs.model.response.rechargehistory.RechargeHistory;
 import com.airtel.cs.model.response.usagehistory.UsageHistory;
+import org.apache.commons.lang3.StringUtils;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 public class DataUnitConversionTest extends Driver {
     static String customerNumber;
@@ -69,18 +74,23 @@ public class DataUnitConversionTest extends Driver {
                     endBalanceUnit = usageHistoryAPI.getResult().get(i).getEndBalance().split(" ")[1];
                     endBalanceAmount = Double.parseDouble(usageHistoryAPI.getResult().get(i).getEndBalance().split(" ")[0]);
                 }
-                if (startBalanceUnit != null) {
-                    if (endBalanceUnit != null) {
-                        if (!startBalanceUnit.equalsIgnoreCase(endBalanceUnit)) {
-                            commonLib.fail("Start Balance and End Balance Unit is not same. Both must be same.", true);
-                        } else if ((startBalanceUnit.equalsIgnoreCase("MB") && startBalanceAmount > 1024) || endBalanceAmount > 1024) {
-                            commonLib.fail("MB to GB conversion does not done Correctly. Start Balance" + usageHistoryAPI.getResult().get(i).getStartBalance() + " " + usageHistoryAPI.getResult().get(i).getEndBalance(), true);
-                        } else {
-                            commonLib.pass("MB to GB conversion done Correctly. Start Balance" + usageHistoryAPI.getResult().get(i).getStartBalance() + " " + usageHistoryAPI.getResult().get(i).getEndBalance());
-                        }
-                    } else {
-                        commonLib.fail("Start Balance is not empty but End Balance is Empty. Some Issue with data. Please verify", true);
-                    }
+                if (Objects.nonNull(startBalanceUnit)) {
+                    assertCheck.append(actions.assertEqualStringNotNull(endBalanceUnit, "End balance unit is correct",
+                            "Start Balance is not null but End balance unit is null", true));
+                }
+                assertCheck.append(actions.assertEqualBoolean(StringUtils.equals(startBalanceUnit, endBalanceUnit), true,
+                        "Start Balance and End Balance Unit is same.", "Start Balance and End Balance Unit is not same. Both must be same."));
+                if (Objects.nonNull(startBalanceAmount) && startBalanceAmount > 1024) {
+                    assertCheck.append(actions.assertEqualBoolean("GB".equalsIgnoreCase(startBalanceUnit), true,
+                            "MB to GB conversion done Correctly for start balance.",
+                            "MB to GB conversion does not done Correctly for start balance. Start Balance : " + usageHistoryAPI.getResult().get(i).getStartBalance()
+                            + " End Balance :  " + usageHistoryAPI.getResult().get(i).getEndBalance()));
+                }
+                if (Objects.nonNull(endBalanceAmount) && endBalanceAmount > 1024) {
+                    assertCheck.append(actions.assertEqualBoolean("GB".equalsIgnoreCase(endBalanceUnit), true,
+                            "MB to GB conversion done Correctly for end balance.",
+                            "MB to GB conversion does not done Correctly for end balance. Start Balance : " + usageHistoryAPI.getResult().get(i).getStartBalance()
+                                    + " End Balance :  " + usageHistoryAPI.getResult().get(i).getEndBalance()));
                 }
             }
         }
@@ -114,18 +124,23 @@ public class DataUnitConversionTest extends Driver {
                     endBalanceUnit = usageHistoryAPI.getResult().get(i).getEndBalance().split(" ")[1];
                     endBalanceAmount = Double.parseDouble(usageHistoryAPI.getResult().get(i).getEndBalance().split(" ")[0]);
                 }
-                if (startBalanceUnit != null) {
-                    if (endBalanceUnit != null) {
-                        if (!startBalanceUnit.equalsIgnoreCase(endBalanceUnit)) {
-                            commonLib.fail("Start Balance and End Balance Unit is not same. Both must be same.", true);
-                        } else if ((startBalanceUnit.equalsIgnoreCase("MB") && startBalanceAmount > 1024) || endBalanceAmount > 1024) {
-                            commonLib.fail("MB to GB conversion does not done Correctly. Start Balance" + usageHistoryAPI.getResult().get(i).getStartBalance() + " " + usageHistoryAPI.getResult().get(i).getEndBalance(), true);
-                        } else {
-                            commonLib.pass("MB to GB conversion done Correctly. Start Balance" + usageHistoryAPI.getResult().get(i).getStartBalance() + " " + usageHistoryAPI.getResult().get(i).getEndBalance());
-                        }
-                    } else {
-                        commonLib.fail("Start Balance is not empty but End Balance is Empty. Some Issue with data. Please verify", true);
-                    }
+                if (Objects.nonNull(startBalanceUnit)) {
+                    assertCheck.append(actions.assertEqualStringNotNull(endBalanceUnit, "End balance unit is correct",
+                            "Start Balance is not null but End balance unit is null", true));
+                }
+                assertCheck.append(actions.assertEqualBoolean(StringUtils.equals(startBalanceUnit, endBalanceUnit), true,
+                        "Start Balance and End Balance Unit is same.", "Start Balance and End Balance Unit is not same. Both must be same."));
+                if (Objects.nonNull(startBalanceAmount) && startBalanceAmount > 1024) {
+                    assertCheck.append(actions.assertEqualBoolean("GB".equalsIgnoreCase(startBalanceUnit), true,
+                            "MB to GB conversion done Correctly for start balance.",
+                            "MB to GB conversion does not done Correctly for start balance. Start Balance : " + usageHistoryAPI.getResult().get(i).getStartBalance()
+                                    + " End Balance :  " + usageHistoryAPI.getResult().get(i).getEndBalance()));
+                }
+                if (Objects.nonNull(endBalanceAmount) && endBalanceAmount > 1024) {
+                    assertCheck.append(actions.assertEqualBoolean("GB".equalsIgnoreCase(endBalanceUnit), true,
+                            "MB to GB conversion done Correctly for end balance.",
+                            "MB to GB conversion does not done Correctly for end balance. Start Balance : " + usageHistoryAPI.getResult().get(i).getStartBalance()
+                                    + " End Balance :  " + usageHistoryAPI.getResult().get(i).getEndBalance()));
                 }
             }
         }
