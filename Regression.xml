@@ -424,16 +424,6 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.AccountInfoBillDisputeTest"/>
         </classes>
     </test>
-    <test name="Enterprise Search Account">
-        <groups>
-            <run>
-                <include name="RegressionTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.hometab.EnterpriseAccountSearchTest"/>
-        </classes>
-    </test>
     <test name="Validate Create Configuration API">
         <groups>
             <run>
@@ -702,6 +692,16 @@
         </groups>
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.LinkedMsisdnToAccountNoTest"/>
+        </classes>
+    </test>-->
+    <test name="Enterprise Search Account">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.EnterpriseAccountSearchTest"/>
         </classes>
     </test>
 </suite>

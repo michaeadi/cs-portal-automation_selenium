@@ -428,7 +428,7 @@
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.AccountInfoBillDisputeTest"/>
         </classes>
-    </test>-->
+    </test>&ndash;&gt;
     <test name="Enterprise Search Account">
         <groups>
             <run>
@@ -697,6 +697,16 @@
         </groups>
         <classes>
             <class name="com.airtel.cs.ui.backendAgent.transfertoqueue.TransferToQueueTest"/>
+        </classes>
+    </test>
+    <test name="Enterprise Search Account">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.EnterpriseAccountSearchTest"/>
         </classes>
     </test>
 </suite>
