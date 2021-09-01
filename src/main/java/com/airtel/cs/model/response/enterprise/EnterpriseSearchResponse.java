@@ -8,7 +8,6 @@ import lombok.ToString;
 import java.io.Serializable;
 
 @Data
-@ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class EnterpriseSearchResponse implements Serializable {
@@ -18,8 +17,8 @@ public class EnterpriseSearchResponse implements Serializable {
    */
   private static final long serialVersionUID = -271224857376133876L;
 
-  public EnterpriseAccount enterpriseAccount;
-  public EnterpriseContactPerson enterpriseContactPerson;
-  public EnterpriseKAM kam;
+  private EnterpriseAccount enterpriseAccount;
+  private EnterpriseContactPerson enterpriseContactPerson;
+  private EnterpriseKAM kam;
 
 }

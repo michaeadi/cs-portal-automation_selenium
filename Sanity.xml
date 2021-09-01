@@ -428,16 +428,6 @@
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.AccountInfoBillDisputeTest"/>
         </classes>
-    </test>&ndash;&gt;
-    <test name="Enterprise Search Account">
-        <groups>
-            <run>
-                <include name="SanityTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.hometab.EnterpriseAccountSearchTest"/>
-        </classes>
     </test>
     <test name="Validate Create Configuration API">
         <groups>
