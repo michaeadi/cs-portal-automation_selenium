@@ -867,6 +867,38 @@
             <class name="com.airtel.cs.ui.configurationtest.ConfigurationListTest"/>
         </classes>
     </test>
+    <test name="Logout Test from ADMIN/SUPERVISOR-Smoke Testing">
+        <groups>
+            <run>
+                <include name="SmokeTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
+        </classes>
+    </test>
+
+    <!--Enterprise test cases starts from here-->
+    <test name="Prod Test Login With Enterprise">
+        <groups>
+            <run>
+                <include name="SmokeTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginPortalTests"/>
+        </classes>
+    </test>
+    <test name="Enterprise Account Info Widget">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.EnterpriseAccountInfoWidgetTest"/>
+        </classes>
+    </test>
     <test name="Enterprise Search Account">
         <groups>
             <run>
