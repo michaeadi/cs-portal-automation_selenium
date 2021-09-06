@@ -7,12 +7,14 @@ import com.airtel.cs.commonutils.applicationutils.constants.URIConstants;
 import com.airtel.cs.commonutils.restutils.RestCommonUtils;
 import com.airtel.cs.model.request.AccountBalanceRequest;
 import com.airtel.cs.model.request.AccountDetailRequest;
+import com.airtel.cs.model.request.AccountLinesRequest;
 import com.airtel.cs.model.request.AccountStatementReq;
 import com.airtel.cs.model.request.AccumulatorsRequest;
 import com.airtel.cs.model.request.ActionTrailRequest;
 import com.airtel.cs.model.request.AgentLimitRequest;
 import com.airtel.cs.model.request.ConfigurationRequest;
 import com.airtel.cs.model.request.CreateConfigAttributes;
+import com.airtel.cs.model.request.EnterpriseLinkedServiceRequest;
 import com.airtel.cs.model.request.FetchTicketPoolRequest;
 import com.airtel.cs.model.request.GenericRequest;
 import com.airtel.cs.model.request.LimitConfigRequest;
@@ -1177,6 +1179,35 @@ public class RequestSource extends RestCommonUtils {
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getEnterprisePostpaidAccountInformation " + e.getMessage(), false);
             esbRequestSource.callEnterPrisePostpaidAccountInformation(accountNo, paymentRequest);
+        }
+        return statusCode;
+    }
+
+    /**
+     * This Method will hit the API "/cs-gsm-service/v1/enterprise/linked/services" and return the response in list
+     *
+     * @param linkedServiceRequest
+     * @return The Response
+     */
+    public Integer getEnterpriseLinkedServices(EnterpriseLinkedServiceRequest linkedServiceRequest) {
+        Integer statusCode=null;
+        AccountLinesRequest accountLinesRequest = new AccountLinesRequest();
+        accountLinesRequest.setAccountNo(linkedServiceRequest.getAccountNo());
+        accountLinesRequest.setMsisdn(linkedServiceRequest.getMsisdn());
+        accountLinesRequest.setLineType(linkedServiceRequest.getLineType());
+        List<String> serviceTypeList = new ArrayList<>();
+        if (StringUtils.isNotBlank(linkedServiceRequest.getServiceType()))
+            serviceTypeList.add(linkedServiceRequest.getServiceType());
+        accountLinesRequest.setServiceTypes(serviceTypeList);
+        try {
+            commonPostMethod(URIConstants.ENTERPRISE_LINKED_SERVICES, linkedServiceRequest);
+            statusCode = response.getStatusCode();
+            if (response.getStatusCode() != 200) {
+                esbRequestSource.callEnterPrisePostpaidAccountInformation(accountLinesRequest);
+            }
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getEnterpriseLinkedServices " + e.getMessage(), false);
+            esbRequestSource.callEnterPrisePostpaidAccountInformation(accountLinesRequest);
         }
         return statusCode;
     }

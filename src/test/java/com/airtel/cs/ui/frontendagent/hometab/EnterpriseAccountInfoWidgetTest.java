@@ -28,7 +28,7 @@ public class EnterpriseAccountInfoWidgetTest extends Driver {
   public void accountInfoCSandDownstreamAPITest() {
     try {
       selUtils.addTestcaseDescription("Verify that enterprise account info api is working", "description");
-      String accountNo = constants.getValue("enterprise.Account.No");
+      String accountNo = constants.getValue("enterprise.account.number");
       if(StringUtils.isNotEmpty(accountNo)){
         PaymentRequest paymentRequest = new PaymentRequest();
         paymentRequest.setAccountNo(accountNo);

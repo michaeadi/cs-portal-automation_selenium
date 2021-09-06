@@ -6,6 +6,8 @@ import com.airtel.cs.commonutils.applicationutils.enums.JavaColors;
 import com.airtel.cs.commonutils.restutils.RestCommonUtils;
 import com.airtel.cs.model.request.AccountDetailRequest;
 import com.airtel.cs.model.request.AccountLineRequest;
+import com.airtel.cs.model.request.AccountLinesRequest;
+import com.airtel.cs.model.request.EnterpriseLinkedServiceRequest;
 import com.airtel.cs.model.request.GenericRequest;
 import com.airtel.cs.model.request.InvoiceDetailRequest;
 import com.airtel.cs.model.request.LoanRequest;
@@ -68,6 +70,7 @@ public class ESBRequestSource extends RestCommonUtils {
     private static final String FRIENDS_AND_FAMILY_DETAILS = " - friends and family details ";
     private static final String GET_CREDIT_LIMIT = " -get credit limit ";
     private static final String INVOICE_HISTORY = " -invoice history ";
+    private static final String ENTERPRISE_ACCOUNT_LINES = " -enterprise account lines ";
     private static final String POSTPAID_BILL_DETAILS = " -postpaid bill details ";
     private static final String MY_PLAN = " - my-plan ";
     private static final String MY_PACK = " - my-pack";
@@ -815,6 +818,25 @@ public class ESBRequestSource extends RestCommonUtils {
             commonLib
                 .fail(constants.getValue(DOWNSTREAM_API_ERROR) + INVOICE_HISTORY + SLASH + ACCOUNT_PAYMENTS + exp.getMessage(),
                     false);
+        }
+    }
+
+    /**
+     * This Method will hit the Downstream APIs related to enterprise linked services details
+     *
+     * @param accountLinesRequest
+     */
+    public void callEnterPrisePostpaidAccountInformation(AccountLinesRequest accountLinesRequest) {
+        try {
+
+            commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + ENTERPRISE_ACCOUNT_LINES, JavaColors.GREEN, false);
+            commonPostMethod(constants.getValue("postpaid.enterprise.serice.base.url") + ESBURIConstants.ENTERPRISE_ACCOUNT_LINES,
+                accountLinesRequest);
+            checkDownstreamAPI(response.getStatusCode(), ENTERPRISE_ACCOUNT_LINES,
+                "Downstream API enterprise account lines working with data ");
+
+        } catch (Exception exp) {
+            commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + ENTERPRISE_ACCOUNT_LINES + exp.getMessage(), false);
         }
     }
 
