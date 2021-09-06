@@ -7,6 +7,7 @@ import com.airtel.cs.commonutils.restutils.RestCommonUtils;
 import com.airtel.cs.model.request.AccountDetailRequest;
 import com.airtel.cs.model.request.AccountLineRequest;
 import com.airtel.cs.model.request.GenericRequest;
+import com.airtel.cs.model.request.InvoiceDetailRequest;
 import com.airtel.cs.model.request.LoanRequest;
 import com.airtel.cs.model.request.OfferDetailRequest;
 import com.airtel.cs.model.request.PaymentRequest;
@@ -38,6 +39,7 @@ public class ESBRequestSource extends RestCommonUtils {
     private static final String DOWNSTREAM_API_CALLING = "downstream.api.calling";
     private static final String DOWNSTREAM_API_ERROR = "downstream.api.error";
     private static final String MSISDN = "msisdn";
+    private static final String ACCOUNT_NO = "accountNo";
     private static final String GSM_CUSTOMER_PROFILE_BASE_URL = "gsm.customer.profile.base.url";
     private static final String SUBS_TRANSACTION_SERVICE_BASE_URL = "subscriber.transaction.base.url";
     private static final String END_DATE = "endDate";
@@ -787,6 +789,33 @@ public class ESBRequestSource extends RestCommonUtils {
             commonLib.fail(EXCEPTION_IN_METHOD + "accountLineResponse " + e.getMessage(), false);
         }
         return result;
+    }
+
+    /**
+     * This Method will hit the Downstream APIs related to enterprise postpaid account info
+     *
+     * @param accountNo The msisdn
+     * @param paymentRequest
+     */
+    public void callEnterPrisePostpaidAccountInformation(String accountNo, PaymentRequest paymentRequest) {
+        try {
+
+            commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + INVOICE_HISTORY, JavaColors.GREEN, false);
+            queryParam.put(ACCOUNT_NO, accountNo);
+            commonPostMethod(constants.getValue("postpaid.enterprise.serice.base.url") + ESBURIConstants.ENTERPRISE_INVOICE_HISTORY,
+                new InvoiceDetailRequest(accountNo));
+            checkDownstreamAPI(response.getStatusCode(), INVOICE_HISTORY, "Downstream API invoice history working with data ");
+
+            commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + ACCOUNT_PAYMENTS, JavaColors.GREEN, false);
+            commonPostMethod(constants.getValue("postpaid.enterprise.serice.base.url") + ESBURIConstants.ACCOUNT_PAYMENT,
+                paymentRequest);
+            checkDownstreamAPI(response.getStatusCode(), ACCOUNT_PAYMENTS, "Downstream API account payments with data ");
+
+        } catch (Exception exp) {
+            commonLib
+                .fail(constants.getValue(DOWNSTREAM_API_ERROR) + INVOICE_HISTORY + SLASH + ACCOUNT_PAYMENTS + exp.getMessage(),
+                    false);
+        }
     }
 
 }

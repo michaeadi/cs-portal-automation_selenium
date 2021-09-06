@@ -104,6 +104,7 @@ public class RequestSource extends RestCommonUtils {
     public static Integer statusCode = null;
     private ESBRequestSource esbRequestSource = new ESBRequestSource();
     private static final String MSISDN = "msisdn";
+    private static final String ACCOUNT_NO = "accountNo";
     private static final String CS_PORTAL_API_ERROR = "cs.portal.api.error";
     private static final String AM_TRANSACTION_HISTORY_API_URL = "am.transaction.history.api.url";
     private static final String CALLING_ESB_APIS = "Calling ESB APIs";
@@ -1157,4 +1158,26 @@ public class RequestSource extends RestCommonUtils {
         return result;
     }
 
+    /**
+     * This Method will hit the API "/cs-gsm-service/v1/enterprise/postpaid/account/information" and return the response in list
+     *
+     * @param accountNo The msisdn
+     * @param paymentRequest
+     * @return The Response
+     */
+    public Integer getEnterprisePostpaidAccountInformation(String accountNo, PaymentRequest paymentRequest) {
+        Integer statusCode=null;
+        try {
+            queryParam.put(ACCOUNT_NO, accountNo);
+            commonGetMethodWithQueryParam(URIConstants.ENTERPRISE_POSTPAID_ACCOUNT_INFORMATION, queryParam);
+            statusCode = response.getStatusCode();
+            if (response.getStatusCode() != 200) {
+                esbRequestSource.callEnterPrisePostpaidAccountInformation(accountNo, paymentRequest);
+            }
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getEnterprisePostpaidAccountInformation " + e.getMessage(), false);
+            esbRequestSource.callEnterPrisePostpaidAccountInformation(accountNo, paymentRequest);
+        }
+        return statusCode;
+    }
 }
