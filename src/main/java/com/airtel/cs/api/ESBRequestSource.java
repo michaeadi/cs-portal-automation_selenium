@@ -8,6 +8,7 @@ import com.airtel.cs.model.request.AccountDetailRequest;
 import com.airtel.cs.model.request.AccountLineRequest;
 import com.airtel.cs.model.request.AccountLinesRequest;
 import com.airtel.cs.model.request.EnterpriseLinkedServiceRequest;
+import com.airtel.cs.model.request.EnterpriseAccountRequest;
 import com.airtel.cs.model.request.GenericRequest;
 import com.airtel.cs.model.request.InvoiceDetailRequest;
 import com.airtel.cs.model.request.LoanRequest;
@@ -90,6 +91,9 @@ public class ESBRequestSource extends RestCommonUtils {
     public static final String FREE = "FREE";
     public static final String BOTH = "BOTH";
     public static final String USAGE_HISTORY_V3 = " - Usage history V3 ";
+    private static final String ENTERPRISE_SEARCH = " -enterprise account search ";
+    public static final String ENTERPRISE_ACCOUNT_NUMBER = "enterpriseAccountNumber";
+    public static final String CORPORATE_CUSTOMER_NUMBER = "corporateCustomerNumber";
 
 
     /**
@@ -792,6 +796,39 @@ public class ESBRequestSource extends RestCommonUtils {
             commonLib.fail(EXCEPTION_IN_METHOD + "accountLineResponse " + e.getMessage(), false);
         }
         return result;
+    }
+
+    /**
+     * This Method will hit the Downstream APIs related to enterprise search account
+     *
+     * @param type
+     * @param number
+     */
+    public void callEnterPriseSearchAccount(String type, String number) {
+        try {
+
+            commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + ENTERPRISE_SEARCH, JavaColors.GREEN, false);
+            EnterpriseAccountRequest enterpriseAccountRequest = new EnterpriseAccountRequest();
+            enterpriseAccountRequest.setAccountNo(number);
+            switch (type) {
+                case ENTERPRISE_ACCOUNT_NUMBER:
+                    enterpriseAccountRequest.setAccountNo(number);
+                    break;
+                case CORPORATE_CUSTOMER_NUMBER:
+                    enterpriseAccountRequest.setCustMobileNo(number);
+                    break;
+                default:
+                    enterpriseAccountRequest.setAccountNo(number);
+            }
+            commonPostMethod(constants.getValue("api.enterprise.service.base.url.mocked") + ESBURIConstants.ENTERPRISE_SEARCH_ACCOUNT,
+                enterpriseAccountRequest);
+            checkDownstreamAPI(response.getStatusCode(), ENTERPRISE_SEARCH, "Downstream API Enterprise account working with data ");
+
+        } catch (Exception exp) {
+            commonLib
+                .fail(constants.getValue(DOWNSTREAM_API_ERROR) + ENTERPRISE_SEARCH  + exp.getMessage(),
+                    false);
+        }
     }
 
     /**

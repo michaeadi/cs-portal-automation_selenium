@@ -733,4 +733,14 @@
         </classes>
     </test>
 
+    <test name="Enterprise Search Account">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.EnterpriseAccountSearchTest"/>
+        </classes>
+    </test>
 </suite>
