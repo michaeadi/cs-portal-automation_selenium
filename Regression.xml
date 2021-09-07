@@ -736,4 +736,14 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.EnterpriseAccountSearchTest"/>
         </classes>
     </test>
+    <test name="Enterprise Linked Service">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.EnterpriseLinkedServicesTest"/>
+        </classes>
+    </test>
 </suite>

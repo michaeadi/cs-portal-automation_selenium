@@ -43,4 +43,5 @@ public class ESBURIConstants {
   public static final String MY_PACK = "/api/subscriber-profile/v1/fetch/my-packs";
   public static final String ENTERPRISE_SEARCH_ACCOUNT = "/api/enterprise-service/v1/accounts";
   public static final String ENTERPRISE_INVOICE_HISTORY = "/api/enterprise-service/v1/accounts/invoices";
+  public static final String ENTERPRISE_ACCOUNT_LINES = "/api/enterprise-service/v1/accounts/lines";
 }

@@ -722,6 +722,16 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.EnterpriseAccountInfoWidgetTest"/>
         </classes>
     </test>
+    <test name="Enterprise Linked Service">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.EnterpriseLinkedServicesTest"/>
+        </classes>
+    </test>
 
     <test name="Enterprise Search Account">
         <groups>
