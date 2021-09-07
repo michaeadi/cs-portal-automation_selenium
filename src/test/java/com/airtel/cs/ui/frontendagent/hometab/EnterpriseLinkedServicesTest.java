@@ -1,6 +1,7 @@
 package com.airtel.cs.ui.frontendagent.hometab;
 
 import com.airtel.cs.api.RequestSource;
+import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.model.request.EnterpriseLinkedServiceRequest;
 import org.apache.commons.lang3.StringUtils;
@@ -31,8 +32,8 @@ public class EnterpriseLinkedServicesTest extends Driver {
       if(StringUtils.isNotEmpty(accountNo)){
         EnterpriseLinkedServiceRequest enterpriseLinkedServiceRequest = new EnterpriseLinkedServiceRequest();
         enterpriseLinkedServiceRequest.setAccountNo(accountNo);
-        enterpriseLinkedServiceRequest.setLineType("POSTPAID");
-        enterpriseLinkedServiceRequest.setServiceType("MOBILE");
+        enterpriseLinkedServiceRequest.setLineType(CommonConstants.POSTPAID);
+        enterpriseLinkedServiceRequest.setServiceType(CommonConstants.MOBILE);
         Integer statusCode = api.getEnterpriseLinkedServices(enterpriseLinkedServiceRequest);
         assertCheck.append(actions.assertEqualIntType(statusCode, 200,
             "Enterprise linked services  API Status Code Matched and is :" + statusCode,
