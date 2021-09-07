@@ -11,9 +11,6 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AccountLinesRequest {
-    /**
-     * This is a postpaid linked msisdn request class for API call
-     */
     private static final long serialVersionUID = 7392829029566524407L;
 
     private String accountNo;

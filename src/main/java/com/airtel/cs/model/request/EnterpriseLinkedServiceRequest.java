@@ -11,9 +11,6 @@ import java.io.Serializable;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class EnterpriseLinkedServiceRequest implements Serializable {
 
-  /**
-   * This is a postpaid linked msisdn request class for API call
-   */
   private static final long serialVersionUID = -889979218386937934L;
 
   private String accountNo;
