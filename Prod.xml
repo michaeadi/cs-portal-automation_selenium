@@ -14,7 +14,7 @@
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginAPITest"/>
         </classes>
     </test>
-    <test name="Prod Test Login With Advisor Supervisor-To check Auto-Assignment">
+    <!--<test name="Prod Test Login With Advisor Supervisor-To check Auto-Assignment">
         <groups>
             <run>
                 <include name="SmokeTest"/>
@@ -73,7 +73,7 @@
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
         </classes>
-    </test>
+    </test>-->
     <test name="Test Login Into Portal With FA">
         <groups>
             <run>
@@ -84,7 +84,7 @@
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginPortalTests"/>
         </classes>
     </test>
-    <test name="Test Side Menu Options">
+    <!--<test name="Test Side Menu Options">
         <groups>
             <run>
                 <include name="ProdTest"/>
@@ -143,7 +143,7 @@
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.RechargeHistoryMenuWidgetTest"/>
         </classes>
-    </test>
+    </test>-->
     <test name="Validate Authentication tab">
         <groups>
             <run>
@@ -155,7 +155,7 @@
             </class>
         </classes>
     </test>
-    <test name="Validate Send Internet Setting Tab Test">
+    <!--<test name="Validate Send Internet Setting Tab Test">
         <groups>
             <run>
                 <include name="ProdTest"/>
@@ -866,5 +866,5 @@
         <classes>
             <class name="com.airtel.cs.ui.configurationtest.ConfigurationListTest"/>
         </classes>
-    </test>
+    </test>-->
 </suite>
