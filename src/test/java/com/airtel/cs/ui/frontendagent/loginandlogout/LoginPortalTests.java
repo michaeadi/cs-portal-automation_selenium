@@ -23,26 +23,26 @@ public class LoginPortalTests extends Driver {
     }
 
     @Test(priority = 1,groups = {"SmokeTest"})
-    public void setCredForSmokeTest(){
+    public void getLoginUserCredForSmokeTest(){
         try {
             selUtils.addTestcaseDescription("Setup credentials For Logging Into Portal with Advisor Supervisor User", "description");
             loginAUUID = constants.getValue(CommonConstants.ADVISOR_USER_ROLE_AUUID);
             commonLib.pass(constants.getValue("cs.portal.cred.setup")+" : "+loginAUUID);
             password = constants.getValue(CommonConstants.ADVISOR_USER_ROLE_PASSWORD);
         }catch (Exception e){
-            commonLib.fail(constants.getValue("cs.portal.test.fail") + " - setCredForSmokeTest " + e.fillInStackTrace(), true);
+            commonLib.fail(constants.getValue("cs.portal.test.fail") + " - getLoginUserCredForSmokeTest " + e.fillInStackTrace(), true);
         }
     }
 
     @Test(priority = 2,groups = {"SanityTest", "RegressionTest", "ProdTest"})
-    public void setCredForTest(){
+    public void getLoginUserCredForAllTest(){
         try {
             selUtils.addTestcaseDescription("Setup credentials For Logging Into Portal with Beta User", "description");
             loginAUUID = constants.getValue(CommonConstants.ALL_USER_ROLE_AUUID);
             commonLib.pass(constants.getValue("cs.portal.cred.setup")+" : "+loginAUUID);
             password = constants.getValue(CommonConstants.ALL_USER_ROLE_PASSWORD);
         }catch (Exception e){
-            commonLib.fail(constants.getValue("cs.portal.test.fail") + " - setCredForTest " + e.fillInStackTrace(), true);
+            commonLib.fail(constants.getValue("cs.portal.test.fail") + " - getLoginUserCredForAllTest " + e.fillInStackTrace(), true);
         }
     }
 

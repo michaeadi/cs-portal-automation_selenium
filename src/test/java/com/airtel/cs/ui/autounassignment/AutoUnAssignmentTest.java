@@ -16,7 +16,7 @@ public class AutoUnAssignmentTest extends Driver {
 
     RequestSource api = new RequestSource();
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest","PositiveFlowUnAssignment"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -24,7 +24,7 @@ public class AutoUnAssignmentTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest","PositiveFlowUnAssignment"})
     public void checkToRunUnAssignment() {
         if (!continueUnAssignment) {
             commonLib.skip("Skipping tests because ticket does not assigned to user");
