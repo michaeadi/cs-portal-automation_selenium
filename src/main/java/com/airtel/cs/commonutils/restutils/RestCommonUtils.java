@@ -24,7 +24,7 @@ public class RestCommonUtils extends Driver {
     private static QueryableRequestSpecification queryable;
     private static RequestSpecification request;
     private static final String APPLICATION_JSON = "application/json";
-    private static final String CALLING_CS_API_USING = "Calling CS API Using";
+    private static final String CALLING_API_USING = "Calling API Using";
     private static final String API_FOR_TESTING = " API for Testing";
 
 
@@ -48,7 +48,7 @@ public class RestCommonUtils extends Driver {
     public static void commonPostMethod(String endPoint, Object body, String url) {
         RestAssuredConfig restAssuredConfig = CurlRestAssuredConfigFactory.createConfig();
         try {
-            commonLib.infoColored(CALLING_CS_API_USING + " " + endPoint + " " + API_FOR_TESTING, JavaColors.BLUE, false);
+            commonLib.infoColored(CALLING_API_USING + " " + endPoint + " " + API_FOR_TESTING, JavaColors.BLUE, false);
             baseURI = url;
             Headers headers = new Headers(map);
             request = given()
@@ -75,7 +75,7 @@ public class RestCommonUtils extends Driver {
     public static void commonGetMethodWithQueryParam(String endPoint, Map<String, Object> queryParam) {
         try {
             RestAssuredConfig restAssuredConfig = CurlRestAssuredConfigFactory.createConfig();
-            commonLib.infoColored(CALLING_CS_API_USING + " " + endPoint + " " + API_FOR_TESTING, JavaColors.BLUE, false);
+            commonLib.infoColored(CALLING_API_USING + " " + endPoint + " " + API_FOR_TESTING, JavaColors.BLUE, false);
             baseURI = baseUrl;
             Headers headers = new Headers(map);
             request = given()
@@ -110,7 +110,7 @@ public class RestCommonUtils extends Driver {
     public static void commonGetMethod(String endPoint, Headers headers) {
         RestAssuredConfig restAssuredConfig = CurlRestAssuredConfigFactory.createConfig();
         try {
-            commonLib.infoColored(CALLING_CS_API_USING + " " + endPoint + " " + API_FOR_TESTING, JavaColors.BLUE, false);
+            commonLib.infoColored(CALLING_API_USING + " " + endPoint + " " + API_FOR_TESTING, JavaColors.BLUE, false);
             baseURI = baseUrl;
             request = given().config(restAssuredConfig).headers(headers).contentType(APPLICATION_JSON);
             queryable = SpecificationQuerier.query(request);

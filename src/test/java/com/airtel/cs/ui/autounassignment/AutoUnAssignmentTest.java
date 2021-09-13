@@ -31,6 +31,13 @@ public class AutoUnAssignmentTest extends Driver {
             throw new SkipException("Skipping tests because ticket does not assigned to user");
         }
     }
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
+    public void checkIfTicketIdPresent() {
+        if (Boolean.valueOf(constants.getValue(String.valueOf(CommonConstants.AUTO_ASSIGNMENT_TICKET_ID==null)))) {
+            commonLib.skip("Skipping tests because ticket does not assigned to user");
+            throw new SkipException("Skipping tests because ticket does not assigned to user");
+        }
+    }
 
     @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest","PositiveFlowUnAssignment"})
     public void openSupervisorDashboard() {
@@ -67,7 +74,7 @@ public class AutoUnAssignmentTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 2,groups ={"SanityTest", "RegressionTest", "ProdTest","SmokeTest"} )
+    @Test(priority = 3,groups ={"SanityTest", "RegressionTest", "ProdTest","SmokeTest"} )
     public void validateTicketAutoUnAssigned(){
         try {
             selUtils.addTestcaseDescription("Validate Agent Login into queue,Validate ticket assigned to login agent", "description");
