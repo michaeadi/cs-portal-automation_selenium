@@ -7,7 +7,6 @@ import com.airtel.cs.commonutils.restutils.RestCommonUtils;
 import com.airtel.cs.model.request.AccountDetailRequest;
 import com.airtel.cs.model.request.AccountLineRequest;
 import com.airtel.cs.model.request.AccountLinesRequest;
-import com.airtel.cs.model.request.EnterpriseLinkedServiceRequest;
 import com.airtel.cs.model.request.EnterpriseAccountRequest;
 import com.airtel.cs.model.request.GenericRequest;
 import com.airtel.cs.model.request.InvoiceDetailRequest;
@@ -94,6 +93,7 @@ public class ESBRequestSource extends RestCommonUtils {
     private static final String ENTERPRISE_SEARCH = " -enterprise account search ";
     public static final String ENTERPRISE_ACCOUNT_NUMBER = "enterpriseAccountNumber";
     public static final String CORPORATE_CUSTOMER_NUMBER = "corporateCustomerNumber";
+    public static final String AM_PROFILE_DETAILS = " -am profile and wallet deatils";
 
 
     /**
@@ -877,4 +877,22 @@ public class ESBRequestSource extends RestCommonUtils {
         }
     }
 
+    /**
+     * This Method will hit the Downstream APIs related to users am profile and wallet details
+     *
+     * @param msisdn
+     */
+    public void callUsersAMProfile(String msisdn) {
+        try {
+
+            commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + AM_PROFILE_DETAILS, JavaColors.GREEN, false);
+            queryParam.put(MSISDN, msisdn);
+            commonGetMethodWithQueryParam(constants.getValue(GSM_CUSTOMER_PROFILE_BASE_URL) + ESBURIConstants.AM_PROFILE_USERS, queryParam);
+            checkDownstreamAPI(response.getStatusCode(), AM_PROFILE_DETAILS,
+                "Downstream API am profile and wallet details working with data ");
+
+        } catch (Exception exp) {
+            commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + AM_PROFILE_DETAILS + exp.getMessage(), false);
+        }
+    }
 }
