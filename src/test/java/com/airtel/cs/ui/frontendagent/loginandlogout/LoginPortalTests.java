@@ -62,19 +62,24 @@ public class LoginPortalTests extends Driver {
             pages.getLoginPage().clickOnLogin();
             final boolean isGrowlVisible = pages.getGrowl().checkIsGrowlVisible();
             UtilsMethods.getNewAddHeader();
-            if (isGrowlVisible) {
+            if (isGrowlVisible)
+            {
                 commonLib.fail("Growl Message:- " + pages.getGrowl().getToastContent(), true);
                 continueExecutionFA = false;
                 assertCheck.append(actions.assertEqualBoolean(continueExecutionFA, true, "User Login Successful Over Portal", "User Login Failed Over Portal"));
-            } else {
+            }
+            else {
                 final Boolean userManagementPageLoaded = pages.getUserManagementPage().isUserManagementPageLoaded();
                 assertCheck.append(actions.assertEqualBoolean(userManagementPageLoaded, true, "Customer Dashboard Page Loaded Successfully", "Customer Dashboard page NOT Loaded"));
-                if (!userManagementPageLoaded) {
+                if (!userManagementPageLoaded)
+                {
                     continueExecutionFA = false;
                     continueExecutionBU = false;
                 }
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             continueExecutionFA = false;
             commonLib.fail("Exception in Method - testLoginIntoPortal" + e.fillInStackTrace(), true);
         }

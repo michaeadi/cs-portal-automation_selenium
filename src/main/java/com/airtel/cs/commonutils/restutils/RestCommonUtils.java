@@ -24,7 +24,7 @@ public class RestCommonUtils extends Driver {
     private static QueryableRequestSpecification queryable;
     private static RequestSpecification request;
     private static final String APPLICATION_JSON = "application/json";
-    private static final String CALLING_API_USING = "Calling API Using";
+    private static final String CALLING_CS_API_USING = "Calling CS API Using";
     private static final String API_FOR_TESTING = " API for Testing";
 
 

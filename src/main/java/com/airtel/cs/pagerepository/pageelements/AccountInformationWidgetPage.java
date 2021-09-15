@@ -13,16 +13,16 @@ public class AccountInformationWidgetPage {
     public By progressBarForCreditLimit = By.xpath("//div[@class='postpaid-container ng-star-inserted']/div[2]/progress");
     public By accountInfoDetailed = By.xpath("//div[@data-csautomation-key='POSTPAID_ACCOUNT_INFORMATION']//img[@class='header-action-icon ng-star-inserted']");
     public By currentMonthUnbillAmount = By.xpath("//div[text()='Current Month Unbilled']/following-sibling::div/span[2]");
-    public By lastMonthBillAmount = By.xpath("//div[text()='Last Month Billed Amount']/following-sibling::div/span[2]");
+    public By lastMonthBillAmount = By.xpath("//span[@id='lastMonthBilledAmount']");
 
     public By dueDate = By.xpath("//div[text()='Due Date']/following-sibling::div/span");
     public By lastPaymentMode = By.xpath("//div[contains(text(),'Last Payment & Mode')]/following-sibling::div/div/span");
     public By securityDepositValue = By.xpath("//div[contains(text(),'Security Deposit')]/following-sibling::div/span[2]");
     public By securityDepositCurrency = By.xpath("//div[contains(text(),'Security Deposit')]/following-sibling::div/span[1]");
-    public By totalOutstanding = By.xpath("//div[text()='Total Outstanding']/following-sibling::div/span[2]");
+    public By totalOutstanding = By.xpath("//span[@id='totalOutstandingAmount']");
     public By accountNumber = By.xpath("//div[contains(text(),'Account No.')]/following-sibling::div/span");
-    public By totalCreditLimit = By.xpath("//div[text()='Total Credit Limit']/following-sibling::div/span[2]");
-    public By availableCreditLimit = By.xpath("//div[text()='Available Credit Limit']/following-sibling::div/span[2]");
+    public By totalCreditLimit = By.xpath("//span[@id='totalCreditLimit']");
+    public By availableCreditLimit = By.xpath("//span[@id='availableCreditLimit']");
     public By currentCycle = By.xpath("//div[text()='Current Cycle']/following-sibling::div/span");
     public By lastMonthBillDate = By.xpath("//div[text()='Last Month Billed Amount']/following-sibling::div/span[3]//span");
     public By othersTab = By.xpath("//*[contains(text(),'Others')]");
