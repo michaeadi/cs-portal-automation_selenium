@@ -211,6 +211,7 @@ public class Login extends BasePage {
             UtilsMethods.addHeaders("ASP-Locale", constants.getValue("asp.locale"));
             UtilsMethods.addHeaders("ASP-Req-Timestamp", String.valueOf(System.currentTimeMillis()));
             UtilsMethods.addHeaders("X-Api-Client", constants.getValue("hlr.x.api.client"));
+            UtilsMethods.addHeaders("X-CLIENT-ID", constants.getValue("am.profile.x.client.id"));
         } catch (Exception e) {
             commonLib.error("Exception in Method :- setApiHeader" + e.getMessage());
         }

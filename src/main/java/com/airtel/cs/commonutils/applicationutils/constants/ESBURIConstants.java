@@ -6,7 +6,7 @@ public class ESBURIConstants {
   public static final String RECHARGE_HISTORY = "/api/subscriber-profile/v1/customer/service/recharge-history";
   public static final String CUSTOMER_PROFILLE = "/api/subscriber-profile/v2/customer-profile";
   public static final String TOKEN = "/api/authorization/token";
-  public static final String GSM_KYC_REQUEST = "/api/am-profile/v1/kycrequest";
+  public static final String GSM_KYC_REQUEST = "/api/am-profile/v1/users";
   public static final String SELF_CARE_USER_DETAILS = "/selfcare/user-mngmnt/v1/get-selfcare-user-details";
   public static final String DEVICE_INFO = "/api/subscriber-profile/v1/deviceInfo";
   public static final String TRANSACTION_HISTORY = "/api/am-send-money/v1/transaction-history-details";
@@ -44,5 +44,4 @@ public class ESBURIConstants {
   public static final String ENTERPRISE_SEARCH_ACCOUNT = "/api/enterprise-service/v1/accounts";
   public static final String ENTERPRISE_INVOICE_HISTORY = "/api/enterprise-service/v1/accounts/invoices";
   public static final String ENTERPRISE_ACCOUNT_LINES = "/api/enterprise-service/v1/accounts/lines";
-  public static final String AM_PROFILE_USERS = "/api/am-profile/v1/users";
 }

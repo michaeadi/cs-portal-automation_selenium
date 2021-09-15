@@ -1239,26 +1239,4 @@ public class RequestSource extends RestCommonUtils {
         return statusCode;
     }
 
-    /**
-     * This Method will hit the API "/cs-gsm-service/v1/enterprise/postpaid/account/information" and return the response in list
-     *
-     * @param msisdn
-     * @return The Response
-     */
-    public Integer getAMProfileAndWalletDetails(String msisdn) {
-        Integer statusCode=null;
-        try {
-            queryParam.put(MSISDN, msisdn);
-            queryParam.put("walletType", "Main");
-            commonGetMethodWithQueryParam(URIConstants.AM_PROFILE, queryParam);
-            statusCode = response.getStatusCode();
-            if (response.getStatusCode() != 200) {
-                esbRequestSource.callUsersAMProfile(msisdn);
-            }
-        } catch (Exception e) {
-            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - amServiceProfileAPITest " + e.getMessage(), false);
-            esbRequestSource.callUsersAMProfile(msisdn);
-        }
-        return statusCode;
-    }
 }

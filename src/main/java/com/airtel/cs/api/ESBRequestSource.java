@@ -877,22 +877,4 @@ public class ESBRequestSource extends RestCommonUtils {
         }
     }
 
-    /**
-     * This Method will hit the Downstream APIs related to users am profile and wallet details
-     *
-     * @param msisdn
-     */
-    public void callUsersAMProfile(String msisdn) {
-        try {
-
-            commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + AM_PROFILE_DETAILS, JavaColors.GREEN, false);
-            queryParam.put(MSISDN, msisdn);
-            commonGetMethodWithQueryParam(constants.getValue(GSM_CUSTOMER_PROFILE_BASE_URL) + ESBURIConstants.AM_PROFILE_USERS, queryParam);
-            checkDownstreamAPI(response.getStatusCode(), AM_PROFILE_DETAILS,
-                "Downstream API am profile and wallet details working with data ");
-
-        } catch (Exception exp) {
-            commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + AM_PROFILE_DETAILS + exp.getMessage(), false);
-        }
-    }
 }
