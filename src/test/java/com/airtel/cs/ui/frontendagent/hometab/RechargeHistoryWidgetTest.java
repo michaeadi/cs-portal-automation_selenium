@@ -92,7 +92,7 @@ public class RechargeHistoryWidgetTest extends Driver {
                     assertCheck.append(actions.assertEqualStringType(rechargeHistoryWidget.getHeaders(0).trim() + " " + rechargeHistoryWidget.getSubHeaders(1).trim(), data.getHeaderName().get(0).trim(), "Header Name for Row 1 is as expected", "Header Name for Row 1 is not as expected"));
                     assertCheck.append(actions.assertEqualStringType(rechargeHistoryWidget.getHeaders(1).trim(), data.getHeaderName().get(1).trim(), "Header Name for Row 2 is as expected", "Header Name for Row 2 is not as expected"));
                     assertCheck.append(actions.assertEqualStringType(rechargeHistoryWidget.getHeaders(2).trim(), data.getHeaderName().get(2), "Header Name for Row 3 is as expected", "Header Name for Row 3 is not as expected"));
-                    assertCheck.append(actions.assertEqualStringType(rechargeHistoryWidget.getHeaders(3).trim() + rechargeHistoryWidget.getSubHeaders(4).trim().replace("|", ""), data.getHeaderName().get(3).trim(), "Header Name for Row 4 is as expected", "Header Name for Row 4 is not as expected"));
+                    assertCheck.append(actions.assertEqualStringType(rechargeHistoryWidget.getHeaders(3).trim() + rechargeHistoryWidget.getSubHeaders(4).trim().replace(" ", "|"), data.getHeaderName().get(3).trim(), "Header Name for Row 4 is as expected", "Header Name for Row 4 is not as expected"));
                     assertCheck.append(actions.assertEqualStringType(rechargeHistoryWidget.getHeaders(4).trim(), data.getHeaderName().get(4).trim(), "Header Name for Row 5 is as expected", "Header Name for Row 5 is not as expected"));
                     for (int i = 0; i < size; i++) {
                         int row = i + 1;

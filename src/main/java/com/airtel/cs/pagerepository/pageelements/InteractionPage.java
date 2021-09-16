@@ -18,7 +18,7 @@ public class InteractionPage {
     public By issueDetails = By.xpath("//input[@aria-haspopup='true']//following-sibling::span/label//mat-label");
     public By issueDetailsMandatory = By.xpath("//input[@aria-haspopup='true']//following-sibling::span/label//span");
     public By ticketCommentIcon = By.className("comment-text");
-    public By commentBox = By.xpath("//textarea[@placeholder='Add Comment...']");
+    public By commentBox = By.xpath("//textarea[@placeholder='Leave a Comment *']");
     public By addCommentBtn = By.xpath("//div[@class='footer']/button");
     public By addedComment = By.xpath("//div[@class='comment-detail ng-star-inserted']");
     public By closeCommentTab = By.xpath("//div[@class='header-close']");
