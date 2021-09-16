@@ -351,7 +351,7 @@ public class UtilsMethods extends Driver {
         map.clear();
         pages.getLoginPage().setApiHeader();
         addHeaders(constants.getValue(CommonConstants.API_AUTHORIZATION_KEY), authToken);
-        if (authToken == null && authToken.isEmpty()) {
+        if (authToken == null || authToken.isEmpty()) {
             commonLib.fail("Not able to add new token into header as auth token empty", false);
         }
     }

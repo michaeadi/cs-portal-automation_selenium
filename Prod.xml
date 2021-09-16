@@ -73,7 +73,7 @@
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
         </classes>
-    </test>-->
+    </test>
     <test name="Test Login Into Portal With FA">
         <groups>
             <run>
@@ -143,7 +143,7 @@
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.RechargeHistoryMenuWidgetTest"/>
         </classes>
-    </test>-->
+    </test>
     <test name="Validate Authentication tab">
         <groups>
             <run>
@@ -866,5 +866,5 @@
         <classes>
             <class name="com.airtel.cs.ui.configurationtest.ConfigurationListTest"/>
         </classes>
-    </test>-->
+    </test>
 </suite>
