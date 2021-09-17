@@ -15,7 +15,7 @@ public class ConfigurationListTest extends Driver {
     public void getConfigurationListWithValidateReq(){
         try{
             selUtils.addTestcaseDescription("Validate get configuration API with valid request, Status Code must be 200,Result size must be equal to page size","description");
-            Integer pageSize=10;
+            int pageSize=10;
             Integer pageNumber=0;
             ConfigurationList configurationListTest=api.getAllConfiguration(pageSize,pageNumber);
             Integer statusCode=configurationListTest.getStatusCode();

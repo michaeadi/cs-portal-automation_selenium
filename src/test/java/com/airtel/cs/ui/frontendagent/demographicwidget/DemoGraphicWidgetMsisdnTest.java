@@ -212,7 +212,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                 final String customerDOB = pages.getDemoGraphicPage().getCustomerDOB().toLowerCase();
                 final String customerIdNumber = pages.getDemoGraphicPage().getIdNumber().replace("*", "");
                 final String idType = stringNotNull(pages.getDemoGraphicPage().getIdType()).toLowerCase().trim();
-                final String dob = gsmKycAPI.getResult().getDob().substring(0,11);
+                final String dob = gsmKycAPI.getResult().getDob().substring(0, 11);
                 if (!Objects.isNull(dob))
                     assertCheck.append(actions
                             .assertEqualStringType(customerDOB.trim(), pages.getDemoGraphicPage().getKeyValueAPI(dob), "Customer DOB is as Expected", "Customer DOB is not as Expected"));
@@ -262,7 +262,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
             assertCheck.append(actions.assertEqualStringType(gsmStatus.toLowerCase().trim(), kycProfile.getResult().getStatus().toLowerCase().trim(), "Customer's SIM Status is as Expected", "Customer's SIM Status is not as Expected"));
             if (!gsmStatus.contains("Unable to fetch data")) {
                 pages.getDemoGraphicPage().hoverOnSIMStatusInfoIcon();
-                assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getActivationDate().trim(), kycProfile.getResult().getActivationDate(),
+                assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getActivationDate().trim(), UtilsMethods.getDateFromEpoch(Long.parseLong(kycProfile.getResult().getActivationDate()), "dd-MMM-yyy"),
                         "Customer's Activation Date is as Expected", "Customer's Activation Date is not as Expected"));
                 assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getGSMStatusReasonCode().trim().toLowerCase(),
                         pages.getDemoGraphicPage().getKeyValueAPI(kycProfile.getResult().getReason()), "Customer SIM Status Reason is as Expected",
