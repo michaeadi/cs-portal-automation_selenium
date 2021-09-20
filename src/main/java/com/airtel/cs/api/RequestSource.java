@@ -17,6 +17,7 @@ import com.airtel.cs.model.request.CreateConfigAttributes;
 import com.airtel.cs.model.request.EnterpriseLinkedServiceRequest;
 import com.airtel.cs.model.request.FetchTicketPoolRequest;
 import com.airtel.cs.model.request.GenericRequest;
+import com.airtel.cs.model.request.InteractionHistoryRequest;
 import com.airtel.cs.model.request.LimitConfigRequest;
 import com.airtel.cs.model.request.LoanRequest;
 import com.airtel.cs.model.request.MoreTransactionHistoryRequest;
@@ -108,6 +109,7 @@ public class RequestSource extends RestCommonUtils {
     private ESBRequestSource esbRequestSource = new ESBRequestSource();
     private static final String MSISDN = "msisdn";
     private static final String ACCOUNT_NO = "accountNo";
+    private static final String ACCOUNT_ID = "accountId";
     private static final String CS_PORTAL_API_ERROR = "cs.portal.api.error";
     private static final String AM_TRANSACTION_HISTORY_API_URL = "am.transaction.history.api.url";
     private static final String CALLING_ESB_APIS = "Calling ESB APIs";
@@ -770,7 +772,9 @@ public class RequestSource extends RestCommonUtils {
     public ActionTrail getEventHistory(String msisdn, String eventType) {
         ActionTrail result = null;
         try {
-            commonPostMethod(URIConstants.EVENTS_LOG, new ActionTrailRequest(msisdn, eventType, 10, 0));
+            Map<String, String> clientInfo = new HashMap<>();
+            clientInfo.put(MSISDN,msisdn);
+            commonPostMethod(URIConstants.EVENTS_LOG, new ActionTrailRequest(msisdn, eventType, 10, 0,clientInfo));
             result = response.as(ActionTrail.class);
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getEventHistory " + e.getMessage(), false);
@@ -1235,6 +1239,95 @@ public class RequestSource extends RestCommonUtils {
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getEnterpriseLinkedServices " + e.getMessage(), false);
             esbRequestSource.callEnterPrisePostpaidAccountInformation(accountLinesRequest);
+        }
+        return statusCode;
+    }
+
+
+    /**
+     * This Method will hit the API "cs-data-service/v1/event/logs" in case of Enterprise and return the response
+     *
+     * @param eventType
+     * @param accountNo
+     * @return The Response
+     */
+    public Integer getEnterpriseEventHistory(String eventType, String accountNo) {
+        Integer statusCode=null;
+        try {
+            Map<String, String> clientInfo = new HashMap<>();
+            clientInfo.put(ACCOUNT_ID, accountNo);
+            UtilsMethods.replaceHeader("sr-client-id", constants.getValue(ApplicationConstants.ENTERPRISE_SR_CLIENT_ID));
+            commonPostMethod(URIConstants.EVENTS_LOG, new ActionTrailRequest("",eventType, 10, 0,clientInfo));
+            statusCode = response.getStatusCode();
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getEnterpriseEventHistory " + e.getMessage(), false);
+        } finally {
+            UtilsMethods.replaceHeader("sr-client-id", constants.getValue(ApplicationConstants.SR_CLIENT_ID));
+        }
+        return statusCode;
+    }
+
+    /**
+     * This Method will hit the API "/sr/api/sr-service/v1/issue/history" in case of Enterprise and return the response
+     *
+     * @param accountNo
+     * @return The Response
+     */
+    public Integer getEnterpriseInteractionHistory(String accountNo) {
+        Integer statusCode=null;
+        try {
+            Map<String, String> clientInfo = new HashMap<>();
+            clientInfo.put(ACCOUNT_ID, accountNo);
+            UtilsMethods.replaceHeader("sr-client-id", constants.getValue(ApplicationConstants.ENTERPRISE_SR_CLIENT_ID));
+            commonPostMethod(URIConstants.ENTERPRISE_INTERACTION_HISTORY, new InteractionHistoryRequest(clientInfo,0,10));
+            statusCode = response.getStatusCode();
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getEnterpriseInteractionHistory " + e.getMessage(), false);
+        } finally {
+            UtilsMethods.replaceHeader("sr-client-id", constants.getValue(ApplicationConstants.SR_CLIENT_ID));
+        }
+        return statusCode;
+    }
+
+    /**
+     * This Method will hit the API "/sr/api/sr-service/v1/tickets" in case of Enterprise and return the response
+     *
+     * @param accountNo
+     * @return The Response
+     */
+    public Integer getEnterpriseTicketHistory(String accountNo) {
+        Integer statusCode=null;
+        try {
+            Map<String, String> clientInfo = new HashMap<>();
+            clientInfo.put(ACCOUNT_ID, accountNo);
+            TicketSearchRequest ticketSearchRequest = new TicketSearchRequest(new TicketSearchCriteria(clientInfo));
+            UtilsMethods.replaceHeader("sr-client-id", constants.getValue(ApplicationConstants.ENTERPRISE_SR_CLIENT_ID));
+            commonPostMethod(URIConstants.GET_TICKET_HISTORY_V1, ticketSearchRequest);
+            statusCode = response.getStatusCode();
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getEnterpriseTicketHistory " + e.getMessage(), false);
+        } finally {
+            UtilsMethods.replaceHeader("sr-client-id", constants.getValue(ApplicationConstants.SR_CLIENT_ID));
+        }
+        return statusCode;
+    }
+
+    /**
+     * This Method will hit the API "/cs-notification-service/v1/fetch/history" in case of Enterprise and return the response
+     *
+     * @param accountNo
+     * @return The Response
+     */
+    public Integer getEnterpriseMessageHistory(String accountNo) {
+        Integer statusCode=null;
+        try {
+            UtilsMethods.replaceHeader("sr-client-id", constants.getValue(ApplicationConstants.ENTERPRISE_SR_CLIENT_ID));
+            commonPostMethod(URIConstants.NOTIFICATION_FETCH_HISTORY, new SMSHistoryRequest(accountNo, 10, 0));
+            statusCode = response.getStatusCode();
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getEnterpriseMessageHistory " + e.getMessage(), false);
+        } finally {
+            UtilsMethods.replaceHeader("sr-client-id", constants.getValue(ApplicationConstants.SR_CLIENT_ID));
         }
         return statusCode;
     }

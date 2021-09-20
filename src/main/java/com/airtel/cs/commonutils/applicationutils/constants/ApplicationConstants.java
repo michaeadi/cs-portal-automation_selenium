@@ -5,6 +5,7 @@ public class ApplicationConstants {
     public static final String UM_API_BASE = "cs.um.api.base";
     public static final String TARIFF_PLAN_TEST_NUMBER = "cs.tariff.plan.customer.number";
     public static final String SR_CLIENT_ID = "sr.client.id";
+    public static final String ENTERPRISE_SR_CLIENT_ID = "enterprise.sr.client.id";
     public static final String TARIFF_PLAN_ISSUE_CODE = "cs.tariff.plan.issue.code";
     public static final String UM_LOGIN_URL = "um.login.url";
     public static final String RUN_TARIFF_TEST_CASE = "cs.run.tariff.plan.test.case";
@@ -50,7 +51,6 @@ public class ApplicationConstants {
     public static final String RUN_AIRTEL_MONEY_WIDGET_TESTCASE="cs.run.airtel.money.test.case";
     public static final String CUSTOMER_POSTPAID_MSISDN = "cs.customer.postpaid.msisdn";
     public static final String TEST_V3_USAGE_HISTORY = "v3.usage.history.enabled";
-
 
     private ApplicationConstants() {
         throw new IllegalStateException();

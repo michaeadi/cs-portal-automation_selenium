@@ -743,4 +743,45 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.EnterpriseAccountSearchTest"/>
         </classes>
     </test>
+
+    <test name="Enterprise Action Trail">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.viewhistorytab.EnterpriseActionTrailTest"/>
+        </classes>
+    </test>
+    <test name="Enterprise Interaction History">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.viewhistorytab.EnterpriseInteractionHistoryTest"/>
+        </classes>
+    </test>
+    <test name="Enterprise Message History">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.viewhistorytab.EnterpriseMessageHistoryTest"/>
+        </classes>
+    </test>
+    <test name="Enterprise Ticket History">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.viewhistorytab.EnterpriseTicketHistoryTest"/>
+        </classes>
+    </test>
 </suite>
