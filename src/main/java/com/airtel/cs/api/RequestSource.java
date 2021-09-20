@@ -1243,7 +1243,6 @@ public class RequestSource extends RestCommonUtils {
         return statusCode;
     }
 
-
     /**
      * This Method will hit the API "cs-data-service/v1/event/logs" in case of Enterprise and return the response
      *
