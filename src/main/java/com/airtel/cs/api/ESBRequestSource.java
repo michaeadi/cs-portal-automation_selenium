@@ -7,7 +7,6 @@ import com.airtel.cs.commonutils.restutils.RestCommonUtils;
 import com.airtel.cs.model.request.AccountDetailRequest;
 import com.airtel.cs.model.request.AccountLineRequest;
 import com.airtel.cs.model.request.AccountLinesRequest;
-import com.airtel.cs.model.request.EnterpriseLinkedServiceRequest;
 import com.airtel.cs.model.request.EnterpriseAccountRequest;
 import com.airtel.cs.model.request.GenericRequest;
 import com.airtel.cs.model.request.InvoiceDetailRequest;
@@ -94,6 +93,7 @@ public class ESBRequestSource extends RestCommonUtils {
     private static final String ENTERPRISE_SEARCH = " -enterprise account search ";
     public static final String ENTERPRISE_ACCOUNT_NUMBER = "enterpriseAccountNumber";
     public static final String CORPORATE_CUSTOMER_NUMBER = "corporateCustomerNumber";
+    public static final String AM_PROFILE_DETAILS = " -am profile and wallet deatils";
 
 
     /**
