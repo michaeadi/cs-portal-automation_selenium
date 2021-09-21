@@ -203,6 +203,7 @@ public class Login extends BasePage {
             UtilsMethods.addHeaders("x-channel", constants.getValue(ApplicationConstants.CHANNEL_ID));
             UtilsMethods.addHeaders("x-app-version", constants.getValue(ApplicationConstants.APP_VERSION));
             UtilsMethods.addHeaders("Opco", OPCO);
+            UtilsMethods.addHeaders("sr-client-id", constants.getValue(ApplicationConstants.SR_CLIENT_ID));
             //for ESB downstream APIs
             UtilsMethods.addHeaders("ASP-OPCO", OPCO);
             UtilsMethods.addHeaders("ASP-API-Key", constants.getValue("asp.api.key"));
