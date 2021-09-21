@@ -210,4 +210,24 @@ public class ViewHistory extends BasePage {
     public void closeInteractionHistoryDetailPage() {
         clickAndWaitForLoaderToBeRemoved(pageElements.closeBtn);
     }
+
+    /**
+     * This method is use to get last created comment under interaction tab
+     *
+     * @return String The value
+     */
+    public String getLastCreatedComment() {
+        commonLib.info("Getting the comment of last created FTR interaction ");
+        return getText(pageElements.firstComment);
+    }
+
+    /**
+     * This method is use to get last created ticket id under ticket tab
+     *
+     * @return String The value
+     */
+    public String getLastTicketId() {
+        commonLib.info("Getting the ticket id of last created ticket ");
+        return getText(pageElements.firstTicketId);
+    }
 }

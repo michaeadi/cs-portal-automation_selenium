@@ -1,4 +1,4 @@
-package com.airtel.cs.pojo.request;
+package com.airtel.cs.model.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

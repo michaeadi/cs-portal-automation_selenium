@@ -274,5 +274,46 @@ public class ViewCreatedTemplate extends BasePage {
         clickAndWaitForLoaderToBeRemoved(pageElements.noBtn);
     }
 
+    /**
+     * This method is used to click edit button
+     */
+    public void clickOnEditBtn() {
+        commonLib.info("Clicking 'Edit' Button");
+        clickAndWaitForLoaderToBeRemoved(pageElements.editTempBtn);
+    }
+
+    /**
+     * This method is used to click on frech sms button
+     */
+    public void clickOnSMSBtn() {
+        commonLib.info("Clicking 'French' SMS content");
+        clickAndWaitForLoaderToBeRemoved(pageElements.smsContentFrench);
+    }
+
+    /**
+     * THis method is used to write sms content
+     * @param text
+     */
+    public void writeSMSContent(String text) {
+        commonLib.info("SMS Content: " + text);
+        enterText(pageElements.smsTextArea, text);
+    }
+
+    /**
+     * This method is used to validate update button is enable or not
+     * @return
+     */
+    public Boolean isUpadateBtnEnabled() {
+        selUtils.clickElementAfterScroll(pageElements.updateBtn);
+        return isEnabled(pageElements.updateBtn);
+    }
+
+    /**
+     * This method is used to click on cancel button
+     */
+    public void clickOnCancelBtn() {
+        commonLib.info("Clicking on cancel button");
+        clickAndWaitForLoaderToBeRemoved(pageElements.cancelBtn);
+    }
 
 }

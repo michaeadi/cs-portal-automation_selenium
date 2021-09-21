@@ -9,16 +9,11 @@ import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.model.request.PaymentRequest;
-import com.airtel.cs.model.response.PaymentHistory;
-import com.airtel.cs.model.response.CreditLimitResponse;
-import com.airtel.cs.model.response.InvoiceHistoryResponse;
-import com.airtel.cs.model.response.PaymentResponse;
-import com.airtel.cs.model.response.Payment;
-import com.airtel.cs.model.response.PostpaidBillDetailsResponse;
 import com.airtel.cs.model.response.customeprofile.CustomerProfileResponse;
 import com.airtel.cs.model.response.kycprofile.KYCProfile;
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;
@@ -38,6 +33,7 @@ public class AccountInformationWidgetTest extends Driver {
     public static Response response;
     private final BaseActions actions = new BaseActions();
     List<String> postpaidAccountInformation;
+    String comments = "Adding comment using Automation";
     String customerAccountNumber = null;
     PaymentRequest paymentRequest = new PaymentRequest();
 
@@ -93,7 +89,6 @@ public class AccountInformationWidgetTest extends Driver {
      */
     @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
     public void connectionTypeAndUMPermissionTest() {
-
         try {
             selUtils.addTestcaseDescription("Verify that account information widget should be visible to the logged in agent on the basis of connection type and UM permission", "description");
             KYCProfile kycProfile = api.kycProfileAPITest(customerNumber);
@@ -198,7 +193,7 @@ public class AccountInformationWidgetTest extends Driver {
             CustomerProfileResponse customerProfileResponse = apiEsb.customerProfileResponse(customerNumber);
             final String status = customerProfileResponse.getStatus();
             if (status.trim().equalsIgnoreCase("ACTIVE")) {
-                if (Objects.nonNull(pages.getAccountInformationWidget().getEmailId()) && !pages.getAccountInformationWidget().getEmailId().isEmpty() ) {
+                if (Objects.nonNull(pages.getAccountInformationWidget().getEmailId()) && !pages.getAccountInformationWidget().getEmailId().isEmpty()) {
                     commonLib.info("Email from esb: " + customerProfileResponse.getEmail().trim());
                     commonLib.info("Email on portal : " + pages.getAccountInformationWidget().getEmailId());
                     assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getEmailId(), customerProfileResponse.getEmail().trim(), "Email ID display as per ESB response", "Email ID display is not as per ESB response"));
@@ -282,7 +277,7 @@ public class AccountInformationWidgetTest extends Driver {
      * This method is used to validate bold text
      */
     @Test(priority = 11, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
-    public void verifyBoldText(){
+    public void verifyBoldText() {
         try {
             selUtils.addTestcaseDescription("Validating font family on account information widget", "description");
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getTtlCreditLimitNumberStyle(), "Bold", "Total Credit Limit is in Bold State", "Total Credit Limit NOT in Bold state"));
@@ -342,6 +337,25 @@ public class AccountInformationWidgetTest extends Driver {
             assertCheck.append(actions.assertEqualStringType(availCreditLimit, pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "availableCreditLimit", "availableCreditLimit"), "Available Credit limit is displayed as expected", "Available Credit limit is not displayed as expected"));
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getTwoDecimalValue(usedCreditLimitOnProgressBar), pages.getAccountInformationWidget().getTwoDecimalValue(usedCreditLimitCalculated), "Red portion of the progress bar denotes the Used Credit Limit is displayed as expected", "Red portion of the progress bar denotes the Used Credit Limit is not displayed as expected"));
             assertCheck.append(actions.assertEqualStringType(availCreditLimitUI, availCreditLimitCalculated, "Non-Red portion of the progress bar denotes the Used Credit Limit is displayed as expected", "Non-Red portion of the progress bar denotes the Used Credit Limit is not displayed as expected"));
+
+            String tempCreditLimitAPI = pages.getAccountInformationWidget()
+                    .getValue(postpaidAccountInformation, "tempCreditLimit", "tempCreditLimit");
+            if (StringUtils.isEmpty(tempCreditLimitAPI)) {
+                assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getTempCreditiLimit(), "-", "Temp credit limit displays as expected", "Temp credit limit not displays as expected"));
+            } else {
+                double tempCreditLimit = Double.parseDouble(pages.getAccountInformationWidget().getTempCreditiLimit());
+                assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getTempCreditCurrency(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currency", "currency"), "Temp credit currency displays as expected", "Temp credit currency not displays as expected"));
+                assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getTempCreditiLimit(), tempCreditLimitAPI, "Temp credit limit displays as expected", "Temp credit limit not displays as expected"));
+                if (tempCreditLimit > 0) {
+                    assertCheck.append(actions.assertEqualBoolean(pages.getAccountInformationWidget().isTempCreditLimitInfoVisible(), true, "Temp credit info icon displays as expected", "Temp credit info icon not displays as expected"));
+                    pages.getAccountInformationWidget().hoverOnTempCreditLimitInfoIcon();
+                    String validTillDate = pages.getAccountInformationWidget().getValidTilldate();
+                    assertCheck.append(actions.assertEqualStringType(validTillDate, pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "tempCreditValidity", "tempCreditValidity"), "Vallid till date is same as bill End date of downstream api", "Vallid till date is not same as bill End date of downstream api"));
+                    assertCheck.append(actions.assertEqualStringType(validTillDate, pages.getAccountInformationWidget().getCurrentCycleEndDate(), "Vallid till date is same as Current Cycle End date as expected", "Vallid till date is not same as Current Cycle End date as expected"));
+                } else {
+                    assertCheck.append(actions.assertEqualBoolean(pages.getAccountInformationWidget().isTempCreditLimitInfoVisible(), false, "Temp credit info icon not displays as expected", "Temp credit info icon displays as not expected"));
+                }
+            }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - verifyAccountInfoDetailedIcon()" + e.fillInStackTrace(), true);
@@ -363,10 +377,71 @@ public class AccountInformationWidgetTest extends Driver {
         }
     }
 
+    @Test(priority = 14, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    public void validateRaiseSRButton() {
+        try {
+            selUtils.addTestcaseDescription("Validating Total Credit limit have SR Icon must be visible,After clicking on SR Icon Validate Issue pop modal opened,Validate Account number field displayed,validate Comment box displayed,validate submit button disabled as mandatory field does not filled,Validate Cancel button displayed", "description");
+            assertCheck.append(actions.assertEqualBoolean(pages.getAccountInformationWidget().isSRIconDisplay(), true, constants.getValue("cs.account.information.sr.icon.found"), constants.getValue("cs.account.information.sr.icon.not.found"), true));
+            String accountNumber = pages.getAccountInformationWidget().getAccountNumber();
+            pages.getAccountInformationWidget().clickSRRaiseIcon();
+            boolean modalOpen = pages.getAccountInformationWidget().isIssueDetailPopUpDisplay();
+            if (modalOpen) {
+                assertCheck.append(actions.assertEqualBoolean(modalOpen, true, constants.getValue("create.sr.popup.open"), constants.getValue("create.sr.popup.not.open")));
+                assertCheck.append(actions.matchUiAndAPIResponse(accountNumber, pages.getAccountInformationWidget().getAccountNumberFromIssuePopup(), constants.getValue("account.number.equal"), constants.getValue("account.number.not.equal")));
+                assertCheck.append(actions.assertEqualBoolean(pages.getTariffPlanPage().isCommentBoxVisible(), true, constants.getValue("comment.box.visible"), constants.getValue("comment.box.not.visible")));
+                assertCheck.append(actions.assertEqualBoolean(pages.getAccountInformationWidget().isEnterAmount(), true, constants.getValue("enter.amount.field.display"), constants.getValue("enter.amount.field.not.display")));
+                assertCheck.append(actions.assertEqualBoolean(pages.getTariffPlanPage().isSubmitEnabled(), false, constants.getValue("submit.button.disabled"), constants.getValue("submit.button.enabled")));
+                assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isCancelBtnEnable(), true, constants.getValue("cancel.button.display"), constants.getValue("cancel.button.not.display")));
+                pages.getAccountInformationWidget().clickClosePopup();
+            } else {
+                commonLib.fail(constants.getValue("create.sr.popup.not.open"), true);
+            }
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - currentPlanProfileManagement" + e.fillInStackTrace(), true);
+        }
+        actions.assertAllFoundFailedAssert(assertCheck);
+    }
+
+    @Test(priority = 15, groups = {"RegressionTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    public void createSRUsingRaiseSRButton() {
+        try {
+            selUtils.addTestcaseDescription("Validating Total Credit limit have SR Icon must be visible,After clicking on SR Icon Issue detail pop up open,Validate user able to enter amount,Validate user able to add comment, Validate Submit button enabled,Validate after clicking on submit button Success message displayed,Validate ticket id and expected closure date displayed.", "description");
+            assertCheck.append(actions.assertEqualBoolean(pages.getAccountInformationWidget().isSRIconDisplay(), true, constants.getValue("cs.account.information.sr.icon.found"), constants.getValue("cs.account.information.sr.icon.not.found"), true));
+            String accountNumber = pages.getAccountInformationWidget().getAccountNumber();
+            pages.getAccountInformationWidget().clickSRRaiseIcon();
+            boolean modalOpen = pages.getAccountInformationWidget().isIssueDetailPopUpDisplay();
+            if (modalOpen) {
+                if (accountNumber == null) {
+                    pages.getAccountInformationWidget().enterAccountNumberInPopUp("12345678");
+                }
+                pages.getAccountInformationWidget().writeAmount("10");
+                pages.getAuthTabPage().clickSelectReasonDropDown();
+                pages.getAuthTabPage().chooseReason();
+                pages.getAuthTabPage().enterComment(comments);
+                assertCheck.append(actions.assertEqualBoolean(pages.getTariffPlanPage().isSubmitEnabled(), true, constants.getValue("submit.button.enabled"), constants.getValue("submit.button.disabled")));
+                pages.getTariffPlanPage().clickSubmitBtn();
+                String successMessage = pages.getAccountInformationWidget().getSuccessMessage();
+                commonLib.pass(successMessage);
+                String ticketId = successMessage.split(" is ")[1].split(" and ")[0];
+                String expectedClosureDate = successMessage.split(" is ")[2];
+                assertCheck.append(actions.assertEqualStringNotNull(ticketId, "Ticket Number Displayed: " + ticketId, "Ticket Number does not displayed"));
+                assertCheck.append(actions.assertEqualStringNotNull(expectedClosureDate, "Expected Closure Date Displayed: " + expectedClosureDate, "Expected Closure Date does not displayed"));
+                pages.getAccountInformationWidget().clickClosePopup();
+            } else {
+                commonLib.fail(constants.getValue("create.sr.popup.not.open"), true);
+            }
+        } catch (Exception e) {
+            if (pages.getAccountInformationWidget().isIssueDetailPopUpDisplay())
+                pages.getAccountInformationWidget().clickClosePopup();
+            commonLib.fail("Exception in Method - currentPlanProfileManagement" + e.fillInStackTrace(), true);
+        }
+        actions.assertAllFoundFailedAssert(assertCheck);
+    }
+
     /**
      * This method is used to validate widgets in profile management
      */
-    @Test(priority = 14, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    @Test(priority = 16, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
     public void accountInfoProfileManagement() {
         try {
             selUtils.addTestcaseDescription("Validating widgets in profile management", "description");

@@ -332,8 +332,11 @@ public class DemoGraphic extends BasePage {
      * @return String The value
      */
     public String getGSMStatus() {
-        final String text = getText(pageElements.gsmStatus);
-        commonLib.info("Getting SIM Status: " + text);
+        String text = "";
+        if (isVisible(pageElements.gsmStatus)) {
+            text = getText(pageElements.gsmStatus);
+            commonLib.info("Getting SIM Status: " + text);
+        }
         return text;
     }
 
@@ -710,7 +713,7 @@ public class DemoGraphic extends BasePage {
      * @return the result
      */
     public String getKeyValueAPI(String apiKeyValue) {
-        return "null".equals(apiKeyValue) || apiKeyValue.equals("") ? "-" : apiKeyValue.toLowerCase().trim();
+        return "null".equals(apiKeyValue) || ("").equalsIgnoreCase(apiKeyValue) || apiKeyValue == null ? "-" : apiKeyValue.toLowerCase().trim();
     }
 
     /*

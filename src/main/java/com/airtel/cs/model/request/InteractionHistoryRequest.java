@@ -1,4 +1,4 @@
-package com.airtel.cs.pojo.request;
+package com.airtel.cs.model.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,8 @@ import java.util.Map;
 
 @Data
 @AllArgsConstructor
-public class TicketSearchCriteria {
-
+public class InteractionHistoryRequest {
   private Map<String, String> clientInfo;
+  private Integer pageNumber;
+  private Integer pageSize;
 }

@@ -7,12 +7,17 @@ import com.airtel.cs.commonutils.applicationutils.constants.URIConstants;
 import com.airtel.cs.commonutils.restutils.RestCommonUtils;
 import com.airtel.cs.model.request.AccountBalanceRequest;
 import com.airtel.cs.model.request.AccountDetailRequest;
+import com.airtel.cs.model.request.AccountLinesRequest;
 import com.airtel.cs.model.request.AccountStatementReq;
 import com.airtel.cs.model.request.AccumulatorsRequest;
 import com.airtel.cs.model.request.ActionTrailRequest;
 import com.airtel.cs.model.request.AgentLimitRequest;
+import com.airtel.cs.model.request.ConfigurationRequest;
+import com.airtel.cs.model.request.CreateConfigAttributes;
+import com.airtel.cs.model.request.EnterpriseLinkedServiceRequest;
 import com.airtel.cs.model.request.FetchTicketPoolRequest;
 import com.airtel.cs.model.request.GenericRequest;
+import com.airtel.cs.model.request.InteractionHistoryRequest;
 import com.airtel.cs.model.request.LimitConfigRequest;
 import com.airtel.cs.model.request.LoanRequest;
 import com.airtel.cs.model.request.MoreTransactionHistoryRequest;
@@ -25,6 +30,8 @@ import com.airtel.cs.model.request.RingtonDetailsRequest;
 import com.airtel.cs.model.request.SMSHistoryRequest;
 import com.airtel.cs.model.request.SaveAgentLimitRequest;
 import com.airtel.cs.model.request.ServiceProfileRequest;
+import com.airtel.cs.model.request.TicketSearchCriteria;
+import com.airtel.cs.model.request.TicketSearchRequest;
 import com.airtel.cs.model.request.TransactionHistoryRequest;
 import com.airtel.cs.model.request.UsageHistoryMenuRequest;
 import com.airtel.cs.model.request.UsageHistoryRequest;
@@ -43,10 +50,12 @@ import com.airtel.cs.model.response.agentpermission.AgentPermission;
 import com.airtel.cs.model.response.agents.AgentDetailAttribute;
 import com.airtel.cs.model.response.airtelmoney.AirtelMoney;
 import com.airtel.cs.model.response.amprofile.AMProfile;
+import com.airtel.cs.model.response.authconfiguration.Configuration;
 import com.airtel.cs.model.response.clearrefillstatus.RefillStatus;
-import com.airtel.cs.model.response.configuration.Configuration;
+import com.airtel.cs.model.response.configurationapi.ConfigurationList;
 import com.airtel.cs.model.response.crbt.ActivateRingtone;
 import com.airtel.cs.model.response.crbt.Top20Ringtone;
+import com.airtel.cs.model.response.enterprise.EnterpriseAccountSearchResponse;
 import com.airtel.cs.model.response.filedmasking.FieldMaskConfigReponse;
 import com.airtel.cs.model.response.filedmasking.FieldMaskConfigs;
 import com.airtel.cs.model.response.friendsfamily.FriendsFamily;
@@ -71,9 +80,12 @@ import com.airtel.cs.model.response.transfertoqueue.TransferToQueue;
 import com.airtel.cs.model.response.usagehistory.UsageHistory;
 import com.airtel.cs.model.response.vendors.VendorNames;
 import com.airtel.cs.model.response.voucher.VoucherSearch;
+import com.airtel.cs.model.response.parentcategory.Category;
+import com.airtel.cs.model.response.parentcategory.ParentCategoryResponse;
 import io.restassured.http.Headers;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -85,6 +97,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.*;
 
 @Log4j2
 public class RequestSource extends RestCommonUtils {
@@ -94,9 +108,12 @@ public class RequestSource extends RestCommonUtils {
     public static Integer statusCode = null;
     private ESBRequestSource esbRequestSource = new ESBRequestSource();
     private static final String MSISDN = "msisdn";
+    private static final String ACCOUNT_NO = "accountNo";
+    private static final String ACCOUNT_ID = "accountId";
     private static final String CS_PORTAL_API_ERROR = "cs.portal.api.error";
     private static final String AM_TRANSACTION_HISTORY_API_URL = "am.transaction.history.api.url";
     private static final String CALLING_ESB_APIS = "Calling ESB APIs";
+    private static final String GET_ALL_CONFIGURATION = " - getAllConfiguration ";
 
     /*
     This Method will hit the Available Plan API and returns the response
@@ -185,11 +202,11 @@ public class RequestSource extends RestCommonUtils {
             commonPostMethod(URIConstants.GSM_PROFILE, new GenericRequest(msisdn));
             result = response.as(Profile.class);
             if (result.getStatusCode() != 200) {
-                esbRequestSource.callprofileESBAPI(msisdn);
+                esbRequestSource.callProfileESBAPI(msisdn);
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - profileAPITest " + e.getMessage(), false);
-            esbRequestSource.callprofileESBAPI(msisdn);
+            esbRequestSource.callProfileESBAPI(msisdn);
         }
         return result;
     }
@@ -250,11 +267,11 @@ public class RequestSource extends RestCommonUtils {
             commonPostMethod(URIConstants.ACCOUNT_PLAN, new GenericRequest(msisdn));
             result = response.as(Plans.class);
             if (result.getStatusCode() != 200) {
-                esbRequestSource.callAccoountPlanESBAPI(msisdn);
+                esbRequestSource.callAccountPlanESBAPI(msisdn);
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - accountPlansTest " + e.getMessage(), false);
-            esbRequestSource.callAccoountPlanESBAPI(msisdn);
+            esbRequestSource.callAccountPlanESBAPI(msisdn);
         }
         return result;
     }
@@ -271,11 +288,19 @@ public class RequestSource extends RestCommonUtils {
             commonPostMethod(URIConstants.USAGE_HISTORY, new UsageHistoryRequest(msisdn, 5, 1, null, null, null, "More"));
             result = response.as(UsageHistory.class);
             if (result.getStatusCode() != 200) {
-                esbRequestSource.callUsageHistory(new UsageHistoryRequest(msisdn, 5, 1, null, null, null, "More"));
+                if (StringUtils.equals(constants.getValue(ApplicationConstants.TEST_V3_USAGE_HISTORY), "true")) {
+                    esbRequestSource.callV3UsageHistory(new UsageHistoryMenuRequest(msisdn, 5, 1, null, null, null, "More", "PAID"));
+                } else {
+                    esbRequestSource.callUsageHistory(new UsageHistoryRequest(msisdn, 5, 1, null, null, null, "More"));
+                }
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - usageHistoryTest " + e.getMessage(), false);
-            esbRequestSource.callUsageHistory(new UsageHistoryRequest(msisdn, 5, 1, null, null, null, "More"));
+            if (StringUtils.equals(constants.getValue(ApplicationConstants.TEST_V3_USAGE_HISTORY), "true")) {
+                esbRequestSource.callV3UsageHistory(new UsageHistoryMenuRequest(msisdn, 5, 1, null, null, null, "More", "PAID"));
+            } else {
+                esbRequestSource.callUsageHistory(new UsageHistoryRequest(msisdn, 5, 1, null, null, null, "More"));
+            }
         }
         return result;
     }
@@ -292,12 +317,19 @@ public class RequestSource extends RestCommonUtils {
             commonPostMethod(URIConstants.USAGE_HISTORY, new UsageHistoryMenuRequest(msisdn, 5, 1, null, null, null, "More", "FREE"));
             result = response.as(UsageHistory.class);
             if (result.getStatusCode() != 200) {
-                esbRequestSource.callUsageHistory(new UsageHistoryMenuRequest(msisdn, 5, 1, null, null, null, "More", "FREE"));
+                if (StringUtils.equals(constants.getValue(ApplicationConstants.TEST_V3_USAGE_HISTORY), "false")) {
+                    esbRequestSource.callUsageHistory(new UsageHistoryMenuRequest(msisdn, 5, 1, null, null, null, "More", "FREE"));
+                } else {
+                    esbRequestSource.callV3UsageHistory(new UsageHistoryMenuRequest(msisdn, 5, 1, null, null, null, "More", "FREE"));
+                }
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - usageHistoryTest " + e.getMessage(), false);
-            esbRequestSource.callUsageHistory(new UsageHistoryMenuRequest(msisdn, 5, 1, null, null, null, "More", "FREE"));
-        }
+            if (StringUtils.equals(constants.getValue(ApplicationConstants.TEST_V3_USAGE_HISTORY), "false")) {
+                esbRequestSource.callUsageHistory(new UsageHistoryMenuRequest(msisdn, 5, 1, null, null, null, "More", "FREE"));
+            } else {
+                esbRequestSource.callV3UsageHistory(new UsageHistoryMenuRequest(msisdn, 5, 1, null, null, null, "More", "FREE"));
+            }        }
         return result;
     }
 
@@ -740,7 +772,9 @@ public class RequestSource extends RestCommonUtils {
     public ActionTrail getEventHistory(String msisdn, String eventType) {
         ActionTrail result = null;
         try {
-            commonPostMethod(URIConstants.EVENTS_LOG, new ActionTrailRequest(msisdn, eventType, 10, 0));
+            Map<String, String> clientInfo = new HashMap<>();
+            clientInfo.put(MSISDN,msisdn);
+            commonPostMethod(URIConstants.EVENTS_LOG, new ActionTrailRequest(msisdn, eventType, 10, 0,clientInfo));
             result = response.as(ActionTrail.class);
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getEventHistory " + e.getMessage(), false);
@@ -814,8 +848,9 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public FieldMaskConfigs getFieldMaskConfigs(String actionKey) {
-        FieldMaskConfigReponse fieldMaskConfigReponse;
+        FieldMaskConfigReponse fieldMaskConfigReponse = null;
         try {
+            queryParam.clear();
             queryParam.put("actionKey", actionKey);
             commonGetMethodWithQueryParam(URIConstants.GET_FIELD_MASK_CONFIG, queryParam);
             fieldMaskConfigReponse = response.as(FieldMaskConfigReponse.class);
@@ -964,9 +999,32 @@ public class RequestSource extends RestCommonUtils {
     }
 
     /**
+     * This Method will hit the API "/sr/api/sr-service/v1/parent/categories" and return the response
+     *
+     * @param id The Id
+     * @return The Response
+     */
+    public TreeMap<String, List<Category>> getParentCategory(Long id) {
+        ParentCategoryResponse parentCategoryResponse = null;
+        TreeMap<String, List<Category>> result = null;
+        try {
+            queryParam.put("id", id);
+            commonGetMethodWithQueryParam(URIConstants.GET_PARENT_CATEGORY_V1, queryParam);
+            parentCategoryResponse = response.as(ParentCategoryResponse.class);
+            if (parentCategoryResponse.getStatusCode() == 200 && ObjectUtils.isNotEmpty(parentCategoryResponse.getResult())) {
+                result = parentCategoryResponse.getResult().entrySet().stream()
+                        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> newValue, TreeMap::new));
+            }
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getParentCategory " + e.getMessage(), false);
+        }
+        return result;
+    }
+
+    /**
      * This Method will hit the API "/cs-gsm-service/v1/postpaid/account/details" and return the response in list
      *
-     * @param accountNo The account number
+     * @param accountNo The Account Number
      * @return The Response
      */
     public AccountDetails getAccountInfoDetail(String accountNo, Integer pageNumber) {
@@ -1005,7 +1063,7 @@ public class RequestSource extends RestCommonUtils {
     /**
      * This Method will hit the API "/cs-gsm-service/v1/postpaid/msisdn/details" and return the response in list
      *
-     * @param accountNo The account number
+     * @param accountNo The Account Number
      * @return The Response
      */
     public AccountStatementCSResponse accountStatementCSResponse(String accountNo, Integer pageNumber) {
@@ -1023,4 +1081,253 @@ public class RequestSource extends RestCommonUtils {
         return result;
     }
 
+    /**
+     * This Method will hit the API "/sr/api/sr-service/v1/tickets" and return the response
+     *
+     * @param msisdn The MSISDN
+     * @return The Response
+     */
+    public Integer getTicketHistoryStatusCode(String msisdn) {
+        Integer result = null;
+        try {
+            Map<String, String> clientInfo = new HashMap<>();
+            clientInfo.put(MSISDN, msisdn);
+            TicketSearchRequest ticketSearchRequest = new TicketSearchRequest(new TicketSearchCriteria(clientInfo));
+            commonPostMethod(URIConstants.GET_TICKET_HISTORY_V1, ticketSearchRequest);
+            result = response.getStatusCode();
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getTicketHistoryStatusCode " + e.getMessage(), false);
+        }
+        return result;
+    }
+
+    /**
+     * This Method will hit the API "/api/cs-service/v1/config" and return the response in list
+     *
+     * @return The Response
+     */
+    public ConfigurationList getAllConfiguration(Integer pageSize, Integer pageNumber) {
+        ConfigurationList result = null;
+        try {
+            commonPostMethod(URIConstants.GET_CONFIGURATION_API, new ConfigurationRequest(pageNumber, pageSize));
+            result = response.as(ConfigurationList.class);
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + GET_ALL_CONFIGURATION + e.getMessage(), false);
+        }
+        return result;
+    }
+
+    /**
+     * This Method will hit the API "/api/cs-service/v1/create/config" and return the response in list
+     *
+     * @return The Response
+     */
+    public ConfigurationList createConfig(String key, String value) {
+        ConfigurationList result = null;
+        try {
+            commonPostMethod(URIConstants.CREATE_CONFIGURATION_API, Arrays.asList(new CreateConfigAttributes(OPCO, key, value)));
+            result = response.as(ConfigurationList.class);
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + GET_ALL_CONFIGURATION + e.getMessage(), false);
+        }
+        return result;
+    }
+
+    /**
+     * This Method will hit the API "/api/cs-service/v1/delete/config" and return the response in list
+     *
+     * @return The Response
+     */
+    public ConfigurationList deleteConfig(String key) {
+        ConfigurationList result = null;
+        try {
+            commonPostMethod(URIConstants.DELETE_CONFIGURATION_API, new CreateConfigAttributes(null, key, null));
+            result = response.as(ConfigurationList.class);
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + GET_ALL_CONFIGURATION + e.getMessage(), false);
+        }
+        return result;
+    }
+
+    /**
+     * This Method will hit the API "/api/cs-service/v1/update/config" and return the response in list
+     *
+     * @return The Response
+     */
+    public ConfigurationList updateConfig(String key, String value) {
+        ConfigurationList result = null;
+        try {
+            commonPostMethod(URIConstants.UPDATE_CONFIGURATION_API, new CreateConfigAttributes(OPCO, key, value));
+            result = response.as(ConfigurationList.class);
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + GET_ALL_CONFIGURATION + e.getMessage(), false);
+        }
+        return result;
+    }
+
+    /**
+     * This Method will hit the API "/cs-gsm-service/v1/enterprise/postpaid/account/information" and return the response in list
+     *
+     * @param accountNo The msisdn
+     * @param paymentRequest
+     * @return The Response
+     */
+    public Integer getEnterprisePostpaidAccountInformation(String accountNo, PaymentRequest paymentRequest) {
+        Integer statusCode=null;
+        try {
+            queryParam.put(ACCOUNT_NO, accountNo);
+            commonGetMethodWithQueryParam(URIConstants.ENTERPRISE_POSTPAID_ACCOUNT_INFORMATION, queryParam);
+            statusCode = response.getStatusCode();
+            if (response.getStatusCode() != 200) {
+                esbRequestSource.callEnterPrisePostpaidAccountInformation(accountNo, paymentRequest);
+            }
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getEnterprisePostpaidAccountInformation " + e.getMessage(), false);
+            esbRequestSource.callEnterPrisePostpaidAccountInformation(accountNo, paymentRequest);
+        }
+        return statusCode;
+    }
+    /**
+     * This Method will hit the API "/cs-gsm-service/v1/enterprise/search" and return the response in list
+     *
+     * @param type
+     * @param val
+     * @return The Response
+     */
+    public Integer getEnterpriseSearchAccount(String type, String val) {
+        Integer statusCode=null;
+        EnterpriseAccountSearchResponse result = null;
+        try {
+            queryParam.put("type", type);
+            queryParam.put("val", val);
+            commonGetMethodWithQueryParam(URIConstants.ENTERPRISE_ACCOUNT_SEARCH, queryParam);
+            statusCode = response.getStatusCode();
+            result = response.as(EnterpriseAccountSearchResponse.class);
+            if (response.getStatusCode() != 200 || result.getStatusCode() != 200) {
+                esbRequestSource.callEnterPriseSearchAccount(type, val);
+            }
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getEnterpriseSearchAccount " + e.getMessage(), false);
+            esbRequestSource.callEnterPriseSearchAccount(type, val);
+        }
+        return statusCode;
+    }
+
+
+    /**
+     * This Method will hit the API "/cs-gsm-service/v1/enterprise/linked/services" and return the response in list
+     *
+     * @param linkedServiceRequest
+     * @return The Response
+     */
+    public Integer getEnterpriseLinkedServices(EnterpriseLinkedServiceRequest linkedServiceRequest) {
+        Integer statusCode=null;
+        AccountLinesRequest accountLinesRequest = new AccountLinesRequest();
+        accountLinesRequest.setAccountNo(linkedServiceRequest.getAccountNo());
+        accountLinesRequest.setMsisdn(linkedServiceRequest.getMsisdn());
+        accountLinesRequest.setLineType(linkedServiceRequest.getLineType());
+        List<String> serviceTypeList = new ArrayList<>();
+        if (StringUtils.isNotBlank(linkedServiceRequest.getServiceType()))
+            serviceTypeList.add(linkedServiceRequest.getServiceType());
+        accountLinesRequest.setServiceTypes(serviceTypeList);
+        try {
+            commonPostMethod(URIConstants.ENTERPRISE_LINKED_SERVICES, linkedServiceRequest);
+            statusCode = response.getStatusCode();
+            if (response.getStatusCode() != 200) {
+                esbRequestSource.callEnterPrisePostpaidAccountInformation(accountLinesRequest);
+            }
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getEnterpriseLinkedServices " + e.getMessage(), false);
+            esbRequestSource.callEnterPrisePostpaidAccountInformation(accountLinesRequest);
+        }
+        return statusCode;
+    }
+
+    /**
+     * This Method will hit the API "cs-data-service/v1/event/logs" in case of Enterprise and return the response
+     *
+     * @param eventType
+     * @param accountNo
+     * @return The Response
+     */
+    public Integer getEnterpriseEventHistory(String eventType, String accountNo) {
+        Integer statusCode=null;
+        try {
+            Map<String, String> clientInfo = new HashMap<>();
+            clientInfo.put(ACCOUNT_ID, accountNo);
+            UtilsMethods.replaceHeader("sr-client-id", constants.getValue(ApplicationConstants.ENTERPRISE_SR_CLIENT_ID));
+            commonPostMethod(URIConstants.EVENTS_LOG, new ActionTrailRequest("",eventType, 10, 0,clientInfo));
+            statusCode = response.getStatusCode();
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getEnterpriseEventHistory " + e.getMessage(), false);
+        } finally {
+            UtilsMethods.replaceHeader("sr-client-id", constants.getValue(ApplicationConstants.SR_CLIENT_ID));
+        }
+        return statusCode;
+    }
+
+    /**
+     * This Method will hit the API "/sr/api/sr-service/v1/issue/history" in case of Enterprise and return the response
+     *
+     * @param accountNo
+     * @return The Response
+     */
+    public Integer getEnterpriseInteractionHistory(String accountNo) {
+        Integer statusCode=null;
+        try {
+            Map<String, String> clientInfo = new HashMap<>();
+            clientInfo.put(ACCOUNT_ID, accountNo);
+            UtilsMethods.replaceHeader("sr-client-id", constants.getValue(ApplicationConstants.ENTERPRISE_SR_CLIENT_ID));
+            commonPostMethod(URIConstants.ENTERPRISE_INTERACTION_HISTORY, new InteractionHistoryRequest(clientInfo,0,10));
+            statusCode = response.getStatusCode();
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getEnterpriseInteractionHistory " + e.getMessage(), false);
+        } finally {
+            UtilsMethods.replaceHeader("sr-client-id", constants.getValue(ApplicationConstants.SR_CLIENT_ID));
+        }
+        return statusCode;
+    }
+
+    /**
+     * This Method will hit the API "/sr/api/sr-service/v1/tickets" in case of Enterprise and return the response
+     *
+     * @param accountNo
+     * @return The Response
+     */
+    public Integer getEnterpriseTicketHistory(String accountNo) {
+        Integer statusCode=null;
+        try {
+            Map<String, String> clientInfo = new HashMap<>();
+            clientInfo.put(ACCOUNT_ID, accountNo);
+            TicketSearchRequest ticketSearchRequest = new TicketSearchRequest(new TicketSearchCriteria(clientInfo));
+            UtilsMethods.replaceHeader("sr-client-id", constants.getValue(ApplicationConstants.ENTERPRISE_SR_CLIENT_ID));
+            commonPostMethod(URIConstants.GET_TICKET_HISTORY_V1, ticketSearchRequest);
+            statusCode = response.getStatusCode();
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getEnterpriseTicketHistory " + e.getMessage(), false);
+        } finally {
+            UtilsMethods.replaceHeader("sr-client-id", constants.getValue(ApplicationConstants.SR_CLIENT_ID));
+        }
+        return statusCode;
+    }
+
+    /**
+     * This Method will hit the API "/cs-notification-service/v1/fetch/history" in case of Enterprise and return the response
+     *
+     * @param accountNo
+     * @return The Response
+     */
+    public Integer getEnterpriseMessageHistory(String accountNo) {
+        Integer statusCode=null;
+        try {
+            UtilsMethods.replaceHeader("sr-client-id", constants.getValue(ApplicationConstants.ENTERPRISE_SR_CLIENT_ID));
+            commonPostMethod(URIConstants.NOTIFICATION_FETCH_HISTORY, new SMSHistoryRequest(accountNo, 10, 0));
+            statusCode = response.getStatusCode();
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getEnterpriseMessageHistory " + e.getMessage(), false);
+        } finally {
+            UtilsMethods.replaceHeader("sr-client-id", constants.getValue(ApplicationConstants.SR_CLIENT_ID));
+        }
+        return statusCode;
+    }
 }

@@ -77,11 +77,11 @@ public class Driver {
     public static boolean continueExecutionBS = true;
     public static boolean continueExecutionFA = true;
     public static boolean continueExecutionBU = true;
-    public static boolean continueUnAssignment=false;
+    public static boolean continueUnAssignment = false;
     public static String elementName = ""; // FOR PASSING ELEMENT NAMES TO LOGS
     public static String message = null;
     public static final String RUN_TARIFF_TEST_CASE = constants.getValue(ApplicationConstants.RUN_TARIFF_TEST_CASE);
-    public static final String HTML_FILE_PATH = System.getProperty(USER_DIR) + "/resources/htmlreport/" + OPCO + "-" + evnName + PATH_DELIMITER;
+    public static final String HTML_FILE_PATH = System.getProperty(USER_DIR) + "/resources/htmlreport/" + OPCO.toLowerCase() + "-" + evnName.toLowerCase() + PATH_DELIMITER;
     public static String MODIFIED_HTML_FILE_PATH = "";
     public static final String SUITE_TYPE = System.getProperty("suiteType");
     private static String browser = null;
@@ -93,7 +93,7 @@ public class Driver {
     public static String loginAUUID;
     public static ObjectMapper objectMapper = new ObjectMapper();
     public static WidgetCommonMethod widgetMethods;
-    public static String download=System.getProperty(USER_DIR) + "\\resources\\excels\\";
+    public static String download = System.getProperty(USER_DIR) + "\\resources\\excels\\";
     public static String authToken;
     public static final BaseActions actions = new BaseActions();
 
@@ -162,7 +162,6 @@ public class Driver {
 
     /**
      * This method is used to create emailable html report
-     *
      */
     private void createEmailableReport() {
         try {
@@ -195,7 +194,7 @@ public class Driver {
      */
     public static void initializePages() {
         pages = new PageCollection(driver);
-        widgetMethods=pages.getWidgetCommonMethod();
+        widgetMethods = pages.getWidgetCommonMethod();
     }
 
     /**

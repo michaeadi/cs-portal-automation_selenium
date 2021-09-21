@@ -22,6 +22,20 @@ public class BackendAgentUpdateTicketTest extends Driver {
     }
 
     @Test(priority = 1, groups = {"SanityTest", "RegressionTest"})
+    public void openSupervisorDashboard() {
+        try {
+            selUtils.addTestcaseDescription("Open Supervisor Dashboard , Validate agent redirect to ticket List Page", "description");
+            pages.getSideMenuPage().clickOnSideMenu();
+            pages.getSideMenuPage().clickOnUserName();
+            pages.getSideMenuPage().openSupervisorDashboard();
+            assertCheck.append(actions.assertEqualStringType(driver.getTitle(), constants.getValue(CommonConstants.SUPERVISOR_TICKET_LIST_PAGE_TITLE), "Agent redirect to ticket list page as expected", "Agent does not redirect to ticket list page as expected"));
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - openSupervisorDashboard" + e.fillInStackTrace(), true);
+        }
+        actions.assertAllFoundFailedAssert(assertCheck);
+    }
+
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest"})
     public void updateTicket() throws InterruptedException {
         try {
             selUtils.addTestcaseDescription("Backend Agent Update Ticket", "description");

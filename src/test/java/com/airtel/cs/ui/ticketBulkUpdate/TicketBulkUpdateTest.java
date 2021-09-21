@@ -21,12 +21,21 @@ import java.util.List;
 public class TicketBulkUpdateTest extends Driver {
 
     public static final String BULK_UPDATE_TRANSFER_QUEUE_STATUS = constants.getValue(ApplicationConstants.BULK_UPDATE_TRANSFER_TO_QUEUE_STATUS);
+    public static boolean continueExecTicketBulkUpdateTC = true;
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void checkExecution() {
         if (!(continueExecutionFA && continueExecutionBU)) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
             throw new SkipException("Skipping tests because user NOT able to login Over Portal");
+        }
+    }
+
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void checkBulkUpdateExecution() {
+        if (!continueExecTicketBulkUpdateTC) {
+            commonLib.skip("Skipping tests because there some error at bulk update page");
+            throw new SkipException("Skipping tests because there some error at bulk update page");
         }
     }
 
@@ -52,7 +61,10 @@ public class TicketBulkUpdateTest extends Driver {
             pages.getSideMenuPage().openTicketBulkUpdateDashboard();
             final boolean pageLoaded = pages.getTicketBulkUpdate().isTicketBulkUpdate();
             assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Ticket bulk update Page Loaded Successfully", "Ticket bulk update Page NOT Loaded"));
-            if (!pageLoaded) continueExecutionBU = false;
+            if (!pageLoaded) continueExecTicketBulkUpdateTC = false;
+            final Boolean filterVisible = pages.getTicketBulkUpdate().isFilterVisible();
+            assertCheck.append(actions.assertEqualBoolean(filterVisible, true, "Filters are available over bulk update screen", "Filters are NOT available over bulk update screen"));
+            if (filterVisible) continueExecTicketBulkUpdateTC = false;
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - openTicketBulkUpdate" + e.fillInStackTrace(), true);
@@ -60,6 +72,54 @@ public class TicketBulkUpdateTest extends Driver {
     }
 
     @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openTicketBulkUpdate")
+    public void validateIssueTypeOnCategoryDropDown() {
+        try {
+            selUtils.addTestcaseDescription("validate issue type on category drop down is visisble or not", "description");
+            pages.getTicketBulkUpdate().clickSelectFilter();
+            pages.getTicketBulkUpdate().clickIssueOnCatDropDown();
+            pages.getTicketBulkUpdate().enterIssue(constants.getValue(CommonConstants.ISSUE));
+            assertCheck.append(actions.assertEqualBoolean(pages.getTicketBulkUpdate().clickingOnIssueType(), true, "Issue type visible as expected", "Issue type not visible as expected"));
+            pages.getTicketBulkUpdate().clickResetFilterButton();
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - validateStartDateEndDate" + e.fillInStackTrace(), true);
+        }
+    }
+
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openTicketBulkUpdate")
+    public void validateStartEndSameDate() {
+        try {
+            selUtils.addTestcaseDescription("validate same start date and end date in date duration", "description");
+            String start_date = pages.getTicketBulkUpdate().getCurrentDate();
+            String end_date = pages.getTicketBulkUpdate().getCurrentDate();
+            pages.getTicketBulkUpdate().enterCurrentStartDate(start_date);
+            pages.getTicketBulkUpdate().enterCurrentEndDate(end_date);
+            assertCheck.append(actions.assertEqualBoolean(pages.getFilterTabPage().isApplyFilterBtnEnabled(), true, "Filter button enabled", "Filter button not enabled"));
+            pages.getTicketBulkUpdate().clickResetFilterButton();
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - validateStartEndSameDate" + e.fillInStackTrace(), true);
+        }
+    }
+
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openTicketBulkUpdate")
+    public void validateDateRange() {
+        try {
+            selUtils.addTestcaseDescription("validating date range end date can not be previous date", "description");
+            String start_date = pages.getTicketBulkUpdate().getCurrentDate();
+            String end_dt = pages.getTicketBulkUpdate().getPreviousDayDate();
+            pages.getTicketBulkUpdate().enterCurrentStartDate(start_date);
+            pages.getTicketBulkUpdate().enterCurrentEndDate(end_dt);
+            pages.getTicketBulkUpdate().clickApplyFilterButton();
+            assertCheck.append(actions.assertEqualStringType(pages.getTicketBulkUpdate().getErrorMsg(), "* Start date is required field, it can't be Null, Blank, or Future Date", "End date can not be less than start date error message displays as expected", "End date can not be less than start date error message is not displays as expected"));
+            pages.getTicketBulkUpdate().clickCloseFilter();
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - validateStartEndSameDate" + e.fillInStackTrace(), true);
+        }
+    }
+
+    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openTicketBulkUpdate")
     public void maxTicketSelectTest() {
         try {
             selUtils.addTestcaseDescription("Verify that max" + constants.getValue(CommonConstants.TICKET_BULK_UPDATE_MAX_COUNT) + "Tickets to be allowed to be bulk updated in one go,Select Filter with date duration last 30 days and apply filter,Validate the max ticket message display or not.", "description");
@@ -70,7 +130,7 @@ public class TicketBulkUpdateTest extends Driver {
                 final boolean isGrowlVisible = pages.getGrowl().checkIsGrowlVisible();
                 if (isGrowlVisible) {
                     String message = pages.getGrowl().getToastContent();
-                    if (message.equalsIgnoreCase("Bad Gateway") || message.contains("Unknown Error")) {
+                    if (message.equalsIgnoreCase("Bad Gateway") || message.contains("Unknown Error") || message.equalsIgnoreCase("Something went wrong")) {
                         commonLib.fail("Toast Message Appeared as api failed: " + message, true);
                     }
                 }
@@ -87,7 +147,7 @@ public class TicketBulkUpdateTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openTicketBulkUpdate")
+    @Test(priority = 7, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openTicketBulkUpdate")
     public void uploadTicketFromExcelTest() {
         try {
             selUtils.addTestcaseDescription("Check user able to upload ticket id from excel,Validate total number of tickets updated in list must be same as total number of ticket upload.", "description");
@@ -117,7 +177,7 @@ public class TicketBulkUpdateTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "uploadTicketFromExcelTest")
+    @Test(priority = 8, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "uploadTicketFromExcelTest")
     public void bulkOptionTest() {
         try {
             selUtils.addTestcaseDescription("Validate Bulk option test,Validate transfer to queue,Change state,Add comment Action field must be displayed,Validate all the queue displayed as per config,Validate all the Open & closed state displayed.", "description");
@@ -169,7 +229,7 @@ public class TicketBulkUpdateTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "uploadTicketFromExcelTest")
+    @Test(priority = 9, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "uploadTicketFromExcelTest")
     public void bulkAddCommentTest() {
         try {
             selUtils.addTestcaseDescription("Add comment on ticket using bulk update feature,Select add comment option,Add new comment,Click on confirm action,Click on next button and validate all the ticket  update correctly.", "description");
@@ -190,7 +250,7 @@ public class TicketBulkUpdateTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 7, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openTicketBulkUpdate")
+    @Test(priority = 10, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openTicketBulkUpdate")
     public void uploadTicketFromExcelAndTransferToQueueTest() {
         if (!StringUtils.equals(BULK_UPDATE_TRANSFER_QUEUE_STATUS, "true")) {
             commonLib.skip("Skipping because Bulk Operation not allowing while performing transfer to queue action as no two or more queue lies with in same workgroup - " + BULK_UPDATE_TRANSFER_QUEUE_STATUS);
@@ -248,7 +308,7 @@ public class TicketBulkUpdateTest extends Driver {
         }
     }
 
-    @Test(priority = 8, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openTicketBulkUpdate")
+    @Test(priority = 11, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openTicketBulkUpdate")
     public void uploadTicketFromExcelAndChangeStateTest() {
         try {
             selUtils.addTestcaseDescription("Check user able to upload ticket id from excel,Validate ticket upload from excel is complete,Click on next button and choose Change state operation,Choose State from the list and confirm the info,Click on submit button and validate ticket transfer to selected state,Validate Ticket history log logged this entry as ticket update by bulk update.", "description");

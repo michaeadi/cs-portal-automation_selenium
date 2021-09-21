@@ -57,6 +57,7 @@ public class AssignToAgentTicketTest extends Driver {
             pages.getSupervisorTicketList().clickCheckbox();
             pages.getSupervisorTicketList().clickAssigntoAgent();
             assertCheck.append(actions.assertEqualBoolean(pages.getAssignToAgentPage().validatePageTitle(), true, "Assign to Agent tab Open as expected", "Assign to Agent tab does not open as expected"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getAssignToAgentPage().checkNegativeBucket(), false, "Agent bucket size in not in negative", "Agent bucket size in in Negative, Please check manually once"));
             assertCheck.append(actions.assertEqualStringType(pages.getAssignToAgentPage().getQueueName(), ticketQueue, "Assign to Agent tab Queue does not Open Correctly", "Assign to Agent tab Queue does not Open Correctly"));
             try {
                 auuid = pages.getAssignToAgentPage().ticketAssignedToAgent(assigneeAUUID).trim();

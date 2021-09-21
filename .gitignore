@@ -25,7 +25,6 @@ CS_PORTAL.ipr
 CS_PORTAL.iws
 cs-portal-automation_selenium1.iml
 sr-servicetest.iml
-/resources/htmlreport
 /resources/screenshots
 .classpath
 .project

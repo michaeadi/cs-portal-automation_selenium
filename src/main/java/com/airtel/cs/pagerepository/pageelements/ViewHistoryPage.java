@@ -19,5 +19,6 @@ public class ViewHistoryPage {
     public By closeBtn = By.xpath("//*[@class='close-btn']/img");
     public String ticketRows="//table[@id='fetchInteractionByCustomer']//tbody//tr[";
     public String ticketIcon="]//td[9]//span//span";
-
+    public By firstComment = By.xpath("//tbody/tr[1]/td[8]/p");
+    public By firstTicketId = By.xpath("//tbody/tr[1]/td[1]/p");
 }

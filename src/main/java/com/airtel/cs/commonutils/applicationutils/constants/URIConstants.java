@@ -49,6 +49,14 @@ public class URIConstants {
     public static final String POSTPAID_ACCOUNT_DETAILS = "/cs-gsm-service/v1/postpaid/account/details";
     public static final String TICKET_HISTORY_LOG="/sr/api/sr-service/v1/fetch/ticket/history/log";
     public static final String POSTPAID_ACCOUNT_MSISDN_DETAILS = "/cs-gsm-service/v1/postpaid/msisdn/details";
+    public static final String GET_CONFIGURATION_API="/api/cs-service/v1/config";
+    public static final String CREATE_CONFIGURATION_API="/api/cs-service/v1/create/config";
+    public static final String DELETE_CONFIGURATION_API="/api/cs-service/v1/delete/config";
+    public static final String UPDATE_CONFIGURATION_API="/api/cs-service/v1/update/config";
+    public static final String ENTERPRISE_POSTPAID_ACCOUNT_INFORMATION="/cs-gsm-service/v1/enterprise/accounts";
+    public static final String ENTERPRISE_ACCOUNT_SEARCH = "/cs-gsm-service/v1/enterprise/search";
+    public static final String ENTERPRISE_LINKED_SERVICES="/cs-gsm-service/v1/enterprise/linked/services";
+    public static final String ENTERPRISE_INTERACTION_HISTORY="/sr/api/sr-service/v1/issue/history";
 
     private URIConstants() {
 

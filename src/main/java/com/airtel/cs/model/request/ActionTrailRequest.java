@@ -3,6 +3,8 @@ package com.airtel.cs.model.request;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.Map;
+
 @Data
 @AllArgsConstructor
 public class ActionTrailRequest {
@@ -10,4 +12,5 @@ public class ActionTrailRequest {
     private String eventType;
     private Integer pageSize;
     private Integer pageNumber;
+    private Map<String, String> clientInfo;
 }

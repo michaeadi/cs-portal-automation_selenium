@@ -1,4 +1,4 @@
-package com.airtel.cs.model.response.configuration;
+package com.airtel.cs.model.response.parentcategory;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -11,8 +11,9 @@ import lombok.ToString;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class LockedSection {
-    private String key;
-    private Integer policyId;
-    private Boolean isAuthenticated;
+public class Category {
+
+  private Long id;
+  private String categoryName;
+  private int level;
 }

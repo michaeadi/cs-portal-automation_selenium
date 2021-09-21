@@ -14,6 +14,7 @@ import com.airtel.cs.model.response.kycprofile.KYCProfile;
 import com.airtel.cs.model.response.kycprofile.Profile;
 import com.airtel.cs.model.response.plans.Plans;
 import io.restassured.http.Headers;
+import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -23,6 +24,7 @@ import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -63,7 +65,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"}, enabled = false)
     public void testPukDetails() {
         try {
             selUtils.addTestcaseDescription(
@@ -99,7 +101,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
         }
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"}, enabled = false)
     public void testAirtelMoneyProfile() {
         try {
             if (StringUtils.equalsIgnoreCase(constants.getValue(ApplicationConstants.AIRTEL_MONEY_PROFILE), "true")) {
@@ -132,21 +134,21 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                     }
                 }
                 assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getAccountStatus().toLowerCase().trim(),
-                        pages.getDemoGraphicPage().getKeyValueAPI(profileAPI.getResult().getAirtelMoneyStatus()), "Customer's Airtel Money Status is as Expected",
+                        pages.getDemoGraphicPage().getKeyValueAPI(amProfileAPI.getResult().getAccountStatus()), "Customer's Airtel Money Status is as Expected",
                         "Customer's Airtel Money Status is not as Expected"));
                 assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getServiceStatus().toLowerCase().trim(),
-                        pages.getDemoGraphicPage().getKeyValueAPI(profileAPI.getResult().getServiceStatus()), "Customer's Airtel Money Service Status is as Expected",
+                        pages.getDemoGraphicPage().getKeyValueAPI(amProfileAPI.getResult().getServiceStatus()), "Customer's Airtel Money Service Status is as Expected",
                         "Customer's Airtel Money Service Status is not as Expected"));
                 assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getRegistrationStatus().toLowerCase().trim(),
                         pages.getDemoGraphicPage().getKeyValueAPI(amProfileAPI.getResult().getRegStatus()), "Customer's Airtel Money Registration Status as Expected",
                         "Customer's Airtel Money Registration Status not same not as Expected"));
                 if (StringUtils.equalsIgnoreCase(constants.getValue(ApplicationConstants.MULTI_WALLET_BALANCE), "true")) {
                     assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getWalletBalance2().toLowerCase().trim(),
-                            pages.getDemoGraphicPage().getKeyValueAPI(amProfileAPI.getResult().getWallet().get(1).getCurrency().toUpperCase()) + " " + pages.getDemoGraphicPage().getKeyValueAPI(amProfileAPI.getResult().getWallet()
+                            pages.getDemoGraphicPage().getKeyValueAPI(amProfileAPI.getResult().getWallets().get(1).getCurrency().toUpperCase()) + " " + pages.getDemoGraphicPage().getKeyValueAPI(amProfileAPI.getResult().getWallets()
                                     .get(1).getBalance()), "Customer's Airtel Wallet Balance & Currency code as Expected",
                             "Customer's Airtel Wallet Balance & Currency code not same not as Expected"));
                 }
-                //ToDo Sachin getWallerBalance() - assertion is not there
+
                 String airtelMoneyString = pages.getDemoGraphicPage().getWalletBalance().replaceAll("[^0-9]", "").trim();
                 int airtelMoney = StringUtils.isEmpty(airtelMoneyString) ? 0 : Integer.parseInt(airtelMoneyString);
                 ActionConfigResult actionConfigResult = api.getActionConfig(new Headers(map), "resetPin");
@@ -168,19 +170,18 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                     assertCheck.append(actions.assertEqualBoolean(pages.getDemoGraphicPage().isResetPinIconDisable(), false, "Reset PIN Icon is enable as mentioned in CS API Response", "Reset PIN Icon is not enable as mentioned in CS API Response"));
                 }
 
-
-                FieldMaskConfigs amBalancefieldMaskConfigs = api.getFieldMaskConfigs("amBalance");
-                operator = amBalancefieldMaskConfigs.getOperator();
-                int amThresoldValue = StringUtils.isEmpty(amBalancefieldMaskConfigs.getThresholdValue()) ? 0 : Integer.parseInt(amBalancefieldMaskConfigs.getThresholdValue());
-                hasRole = ObjectUtils.isNotEmpty(amBalancefieldMaskConfigs.getRoles()) && agentRoles.stream().anyMatch(roleName -> amBalancefieldMaskConfigs.getRoles().contains(roleName.getRoleName()));
-                if (hasRole && ((">=".equals(operator) && airtelMoney >= amThresoldValue) || ("<".equals(operator)
-                        && airtelMoney < amThresoldValue) || ("=".equals(operator) && airtelMoney == amThresoldValue) || ("<=".equals(operator)
-                        && airtelMoney <= amThresoldValue) || (">".equals(operator) && airtelMoney > amThresoldValue))) {
-                    assertCheck.append(actions.assertEqualBoolean(airtelMoneyString.length() == amBalancefieldMaskConfigs.getDigitsVisible(), true, "Airtel Money masking is correct as per user role", "Airtel Money masking is not correct as per user role"));
+                FieldMaskConfigs amBalanceFieldMaskConfigs = api.getFieldMaskConfigs("amBalance");
+                operator = amBalanceFieldMaskConfigs.getOperator();
+                int amThresholdValue = StringUtils.isEmpty(amBalanceFieldMaskConfigs.getThresholdValue()) ? 0 : Integer.parseInt(amBalanceFieldMaskConfigs.getThresholdValue());
+                hasRole = ObjectUtils.isNotEmpty(amBalanceFieldMaskConfigs.getRoles()) && agentRoles.stream().anyMatch(roleName -> amBalanceFieldMaskConfigs.getRoles().contains(roleName.getRoleName()));
+                if (hasRole && ((">=".equals(operator) && airtelMoney >= amThresholdValue) || ("<".equals(operator)
+                        && airtelMoney < amThresholdValue) || ("=".equals(operator) && airtelMoney == amThresholdValue) || ("<=".equals(operator)
+                        && airtelMoney <= amThresholdValue) || (">".equals(operator) && airtelMoney > amThresholdValue))) {
+                    assertCheck.append(actions.assertEqualBoolean(airtelMoneyString.length() == amBalanceFieldMaskConfigs.getDigitsVisible(), true, "Airtel Money masking is correct as per user role", "Airtel Money masking is not correct as per user role"));
                 } else {
                     assertCheck.append(actions.assertEqualBoolean(airtelMoneyString.contains("*"), false, "Airtel Money is not masked as per user role", "Airtel Money should not be masked as per user role"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getWalletBalance().toLowerCase().trim(),
-                            amProfileAPI.getResult().getWallet().get(0).getCurrency().toUpperCase() + " " + amProfileAPI.getResult().getWallet().get(0)
+                    assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getWalletBalance(),
+                            amProfileAPI.getResult().getWallets().get(0).getCurrency().toUpperCase() + " " + amProfileAPI.getResult().getWallets().get(0)
                                     .getBalance(), "Customer's Airtel Wallet Balance & Currency code as Expected",
                             "Customer's Airtel Wallet Balance & Currency code not same not as Expected"));
                 }
@@ -211,11 +212,10 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                 final String customerDOB = pages.getDemoGraphicPage().getCustomerDOB().toLowerCase();
                 final String customerIdNumber = pages.getDemoGraphicPage().getIdNumber().replace("*", "");
                 final String idType = stringNotNull(pages.getDemoGraphicPage().getIdType()).toLowerCase().trim();
-                final Long dob = gsmKycAPI.getResult().getDob();
+                final String dob = gsmKycAPI.getResult().getDob().substring(0,11);
                 if (!Objects.isNull(dob))
                     assertCheck.append(actions
-                            .assertEqualStringType(customerDOB.trim(), pages.getDemoGraphicPage().getKeyValueAPI(UtilsMethods.getDateFromEpoch(dob, "dd-MMM-yyyy")),
-                                    "Customer DOB is as Expected", "Customer DOB is not as Expected"));
+                            .assertEqualStringType(customerDOB.trim(), pages.getDemoGraphicPage().getKeyValueAPI(dob), "Customer DOB is as Expected", "Customer DOB is not as Expected"));
                 else
                     assertCheck.append(actions
                             .assertEqualStringType(customerDOB.trim(), pages.getDemoGraphicPage().getKeyValueAPI(String.valueOf(dob)), "Customer DOB is as Expected", "Customer DOB is not as Expected"));
@@ -262,8 +262,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
             assertCheck.append(actions.assertEqualStringType(gsmStatus.toLowerCase().trim(), kycProfile.getResult().getStatus().toLowerCase().trim(), "Customer's SIM Status is as Expected", "Customer's SIM Status is not as Expected"));
             if (!gsmStatus.contains("Unable to fetch data")) {
                 pages.getDemoGraphicPage().hoverOnSIMStatusInfoIcon();
-                assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getActivationDate().trim(),
-                        UtilsMethods.getDateFromEpoch(kycProfile.getResult().getActivationDate(), "dd-MMM-yyy"),
+                assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getActivationDate().trim(), kycProfile.getResult().getActivationDate(),
                         "Customer's Activation Date is as Expected", "Customer's Activation Date is not as Expected"));
                 assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getGSMStatusReasonCode().trim().toLowerCase(),
                         pages.getDemoGraphicPage().getKeyValueAPI(kycProfile.getResult().getReason()), "Customer SIM Status Reason is as Expected",
