@@ -44,4 +44,5 @@ public class ESBURIConstants {
   public static final String ENTERPRISE_SEARCH_ACCOUNT = "/api/enterprise-service/v1/accounts";
   public static final String ENTERPRISE_INVOICE_HISTORY = "/api/enterprise-service/v1/accounts/invoices";
   public static final String ENTERPRISE_ACCOUNT_LINES = "/api/enterprise-service/v1/accounts/lines";
+  public static final String ENTERPRISE_PAYMENT_HISTORY = "/api/enterprise-service/v1/accounts/payments";
 }

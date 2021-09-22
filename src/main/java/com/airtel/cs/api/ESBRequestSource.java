@@ -12,6 +12,7 @@ import com.airtel.cs.model.request.GenericRequest;
 import com.airtel.cs.model.request.InvoiceDetailRequest;
 import com.airtel.cs.model.request.LoanRequest;
 import com.airtel.cs.model.request.OfferDetailRequest;
+import com.airtel.cs.model.request.PaymentHistoryESBRequest;
 import com.airtel.cs.model.request.PaymentRequest;
 import com.airtel.cs.model.request.StatementRequest;
 import com.airtel.cs.model.request.UsageHistoryMenuRequest;
@@ -94,6 +95,7 @@ public class ESBRequestSource extends RestCommonUtils {
     public static final String ENTERPRISE_ACCOUNT_NUMBER = "enterpriseAccountNumber";
     public static final String CORPORATE_CUSTOMER_NUMBER = "corporateCustomerNumber";
     public static final String AM_PROFILE_DETAILS = " -am profile and wallet deatils";
+    public static final String ENTERPRISE_PAYMENT_HISTORY = "-enterprise payment history";
 
 
     /**
@@ -871,6 +873,26 @@ public class ESBRequestSource extends RestCommonUtils {
                 accountLinesRequest);
             checkDownstreamAPI(response.getStatusCode(), ENTERPRISE_ACCOUNT_LINES,
                 "Downstream API enterprise account lines working with data ");
+
+        } catch (Exception exp) {
+            commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + ENTERPRISE_ACCOUNT_LINES + exp.getMessage(), false);
+        }
+    }
+
+
+    /**
+     * This Method will hit the Downstream APIs related to enterprise payment history detail
+     *
+     * @param paymentHistoryESBRequest
+     */
+    public void callEnterPrisePaymentHistory(PaymentHistoryESBRequest paymentHistoryESBRequest) {
+        try {
+
+            commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + ENTERPRISE_PAYMENT_HISTORY, JavaColors.GREEN, false);
+            commonPostMethod(constants.getValue("postpaid.enterprise.serice.base.url") + ESBURIConstants.ENTERPRISE_PAYMENT_HISTORY,
+                paymentHistoryESBRequest);
+            checkDownstreamAPI(response.getStatusCode(), ENTERPRISE_ACCOUNT_LINES,
+                "Downstream API enterprise payment history working with data ");
 
         } catch (Exception exp) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + ENTERPRISE_ACCOUNT_LINES + exp.getMessage(), false);

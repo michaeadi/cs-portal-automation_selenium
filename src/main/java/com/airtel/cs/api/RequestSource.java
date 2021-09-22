@@ -22,6 +22,8 @@ import com.airtel.cs.model.request.LimitConfigRequest;
 import com.airtel.cs.model.request.LoanRequest;
 import com.airtel.cs.model.request.MoreTransactionHistoryRequest;
 import com.airtel.cs.model.request.OfferDetailRequest;
+import com.airtel.cs.model.request.PaymentHistoryESBRequest;
+import com.airtel.cs.model.request.PaymentHistoryRequest;
 import com.airtel.cs.model.request.PaymentRequest;
 import com.airtel.cs.model.request.PlanPackRequest;
 import com.airtel.cs.model.request.PostpaidAccountDetailRequest;
@@ -1330,4 +1332,31 @@ public class RequestSource extends RestCommonUtils {
         }
         return statusCode;
     }
+
+    /**
+     * his Method will hit the API "/cs-gsm-service/v1/enterprise/payment/history" in case of Enterprise and return the response
+     * @param paymentHistoryRequest
+     * @param paymentHistoryESBRequest
+     * @return
+     */
+    public Integer getEnterprisePaymentHistory(PaymentHistoryRequest paymentHistoryRequest, PaymentHistoryESBRequest paymentHistoryESBRequest) {
+        Integer statusCode=null;
+        try {
+            UtilsMethods.replaceHeader("sr-client-id", constants.getValue(ApplicationConstants.ENTERPRISE_SR_CLIENT_ID));
+            commonPostMethod(URIConstants.ENTERPRISE_PAYMENT_HISTORY,paymentHistoryRequest );
+            statusCode = response.getStatusCode();
+            if (response.getStatusCode() != 200) {
+                esbRequestSource.callEnterPrisePaymentHistory(paymentHistoryESBRequest);
+            }
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getEnterprisePaymentHistory " + e.getMessage(), false);
+            esbRequestSource.callEnterPrisePaymentHistory(paymentHistoryESBRequest);
+        } finally {
+            UtilsMethods.replaceHeader("sr-client-id", constants.getValue(ApplicationConstants.SR_CLIENT_ID));
+        }
+        return statusCode;
+    }
+
+
+
 }

@@ -57,6 +57,7 @@ public class URIConstants {
     public static final String ENTERPRISE_ACCOUNT_SEARCH = "/cs-gsm-service/v1/enterprise/search";
     public static final String ENTERPRISE_LINKED_SERVICES="/cs-gsm-service/v1/enterprise/linked/services";
     public static final String ENTERPRISE_INTERACTION_HISTORY="/sr/api/sr-service/v1/issue/history";
+    public static final String ENTERPRISE_PAYMENT_HISTORY = "/cs-gsm-service/v1/enterprise/payment/history";
 
     private URIConstants() {
 

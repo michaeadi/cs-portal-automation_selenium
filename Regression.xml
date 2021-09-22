@@ -786,4 +786,14 @@
             <class name="com.airtel.cs.ui.frontendagent.viewhistorytab.EnterpriseTicketHistoryTest"/>
         </classes>
     </test>
+    <test name="Enterprise Payment  History">
+        <groups>
+            <run>
+                <include name=" RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.EnterprisePaymentHistoryTest"/>
+        </classes>
+    </test>
 </suite>
