@@ -1,5 +1,4 @@
 # Created by .ignore support plugin (hsz.mobi)
-/target/classes
 /ExtentReports
 /logs
 CS_PORTAL.iml
@@ -17,9 +16,6 @@ CS_PORTAL.iml
 .idea/shelf/
 .idea/workspace.xml
 .idea
-/target/generated-sources/
-/target/maven-status/
-/target
 /logs`
 CS_PORTAL.ipr
 CS_PORTAL.iws
