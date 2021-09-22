@@ -789,7 +789,7 @@
     <test name="Enterprise Payment  History">
         <groups>
             <run>
-                <include name="SanityTest"/>
+                <include name=" RegressionTest"/>
             </run>
         </groups>
         <classes>
