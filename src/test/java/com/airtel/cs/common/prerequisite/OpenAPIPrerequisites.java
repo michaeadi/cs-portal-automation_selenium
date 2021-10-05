@@ -7,8 +7,10 @@ import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.model.request.issue.IssueDetails;
 import com.airtel.cs.model.request.openapi.category.ParentCategoryOpenApiRequest;
+import com.airtel.cs.model.request.openapi.comment.CommentOpenApiResponse;
 import com.airtel.cs.model.request.openapi.interactionissue.InteractionIssueOpenApiRequest;
 import com.airtel.cs.model.request.openapi.interactionissue.IssueLayoutOpenRequest;
+import io.restassured.http.Header;
 import org.apache.commons.lang3.StringUtils;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -42,6 +44,7 @@ public class OpenAPIPrerequisites extends Driver {
         baseURI = umBaseUrl;
         Token = "Bearer " + datatPoints.get(0);
         restUtils.clearValidHeaderMap();
+        map.clear();
         restUtils.addHeaders("Opco", OPCO);
         restUtils.addHeaders("Authorization", Token);
     }
@@ -145,6 +148,19 @@ public class OpenAPIPrerequisites extends Driver {
             ticketId = interactionIssueOpenApiRequest.getResult().getIssues().get(0).getTicket().getTicketId();
         }
         return ticketId;
+    }
+
+    /*
+    This Method is used to get the comment id for Open API by hitting the create comment open API
+     */
+    public Long getOpenApiCommentId() {
+        Long commentId = null;
+        map.add(new Header("sr-client-id", "3"));
+        CommentOpenApiResponse commentOpenApiResponse = api.createCommentOpenApiPOJO(getOpenApiTicketId());
+        if (commentOpenApiResponse.getStatusCode() == 200) {
+            commentId = commentOpenApiResponse.getResult().getId();
+        }
+        return commentId;
     }
 
     /*

@@ -64,6 +64,9 @@ public class URIConstants {
     public static final String TICKET_STATS = "/api/sr-service/v1/ticket/stats";
     public static final String INTERACTION_ISSUE = "/api/sr-service/v1/interactions/issue";
     public static final String OPEN_API_INTERACTION_ISSUE = "/api/sr-service/v1/openapi/interactions/issue";
+    public static final String OPEN_API_CREATE_COMMENT = "/api/sr-service/v1/openapi/comment";
+    public static final String OPEN_API_UPDATE_COMMENT = "/api/sr-service/v1/openapi/update/comment";
+    public static final String OPEN_API_DELETE_COMMENT = "/api/sr-service/v1/openapi/delete/comment";
     public static final String OPEN_API_CLIENT_CONFIG = "/api/sr-service/v1/openapi/clients/config";
     public static final String OPEN_API_FETCH_TICKET = "/api/sr-service/v1/openapi/fetch/ticket";
     public static final String OPEN_API_FETCH_TICKET_HISTORY_LOG = "/api/sr-service/v1/openapi/fetch/ticket/history/log";

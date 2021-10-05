@@ -65,6 +65,7 @@ public class Driver {
     public static List<Header> map = new ArrayList<>();
     public static String token;
     public static String baseUrl;
+    public static String srBaseUrl;
     public static String umBaseUrl;
     public static StringBuilder assertCheck;
     public static final ExtentReport reporter = new ExtentReport();
@@ -269,6 +270,7 @@ public class Driver {
             evnName = "PROD";
         }
         baseUrl = constants.getValue(ApplicationConstants.API_BASE);
+        srBaseUrl = constants.getValue(ApplicationConstants.SR_API_BASE);
         umBaseUrl = constants.getValue(ApplicationConstants.UM_API_BASE);
         loginURL = constants.getValue(ApplicationConstants.UM_LOGIN_URL);
         assertCheck = new StringBuilder(); // @ THIS WILL EMPTY ASSERT STRING-BUILDER BEFORE EACH TEST

@@ -48,6 +48,7 @@ import com.airtel.cs.model.request.openapi.category.ChildCategoryOpenApiRequest;
 import com.airtel.cs.model.request.openapi.category.FirstLastOpenApiRequest;
 import com.airtel.cs.model.request.openapi.category.ParentCategoryOpenApiRequest;
 import com.airtel.cs.model.request.openapi.clientconfig.ClientConfigOpenApiRequest;
+import com.airtel.cs.model.request.openapi.comment.CommentOpenApiResponse;
 import com.airtel.cs.model.request.openapi.interactionissue.InteractionIssueOpenApiRequest;
 import com.airtel.cs.model.request.openapi.interactionissue.IssueLayoutOpenRequest;
 import com.airtel.cs.model.request.openapi.ticket.SearchTicketOpenRequest;
@@ -147,6 +148,7 @@ public class RequestSource extends RestCommonUtils {
     private static QueryableRequestSpecification queryable;
     private static final String CREATED_BY = "API Automation";
     private static final String COMMENT = "Automation Test";
+    private static final String UPDATE_COMMENT = "Automation Test Updated";
     private static final String CLOSURE_COMMENT = "Automation Closure Ticket Test";
     private static final String AGENT_ID = constants.getValue(ApplicationConstants.AGENT_ID);
     private static final String AGENT_NAME = constants.getValue(ApplicationConstants.AGENT_NAME);
@@ -1236,6 +1238,33 @@ public class RequestSource extends RestCommonUtils {
         body = "{\"interaction\":{\"createdBy\":\"" + CREATED_BY + "\",\"finalSubmit\":false,\"clientInfo\":{" + clientConfig + "}},\"issues\":[{\"comment\":\"" + COMMENT + "\",\"createdBy\":\"" + CREATED_BY + "\",\"issueDetails\":[" + issueDetails + "],\"categoryHierarchy\":[" + categoryIds + "]}]}";
         commonPostMethod(URIConstants.OPEN_API_INTERACTION_ISSUE, map, body);
         return response.as(InteractionIssueOpenApiRequest.class);
+    }
+
+    /*
+    This Method is used to hit the "/api/sr-service/v1/openapi/comment" API and get the response
+     */
+    public CommentOpenApiResponse createCommentOpenApiPOJO(String ticketId) {
+        body = "{\"ticketId\":\"" + ticketId + "\",\"agentId\":" + AGENT_ID + ",\"agentName\":\"" + AGENT_NAME + "\",\"comment\":\"" + COMMENT + "\"}";
+        commonPostMethod(URIConstants.OPEN_API_CREATE_COMMENT, body, srBaseUrl);
+        return RestCommonUtils.response.as(CommentOpenApiResponse.class);
+    }
+
+    /*
+    This Method is used to hit the "/api/sr-service/v1/openapi/update/comment" API and get the response
+     */
+    public CommentOpenApiResponse updateCommentOpenApiPOJO(Long commentId) {
+        body = "{\"id\":" + commentId + ",\"comment\":\"" + UPDATE_COMMENT + "\",\"agentId\":" + AGENT_ID + "}";
+        commonPostMethod(URIConstants.OPEN_API_UPDATE_COMMENT, body, srBaseUrl);
+        return RestCommonUtils.response.as(CommentOpenApiResponse.class);
+    }
+
+    /*
+    This Method is used to hit the "/api/sr-service/v1/openapi/delete/comment" API and get the response
+     */
+    public CommentOpenApiResponse deleteCommentOpenApiPOJO(Long commentId) {
+        body = "{\"agentId\":" + AGENT_ID + ",\"id\":" + commentId + "}";
+        commonPostMethod(URIConstants.OPEN_API_DELETE_COMMENT, body, srBaseUrl);
+        return RestCommonUtils.response.as(CommentOpenApiResponse.class);
     }
 
     /*

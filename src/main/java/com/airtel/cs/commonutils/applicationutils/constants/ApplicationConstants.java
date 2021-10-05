@@ -28,6 +28,7 @@ public class ApplicationConstants {
     public static final String CHANNEL_ID = "cs.x.channel";
     public static final String APP_VERSION = "cs.x.app.version";
     public static final String API_BASE = "cs.api.base";
+    public static final String SR_API_BASE = "sr.api.base";
     public static final String GENERAL_WAIT_IN_SEC = "cs.general.wait.in.seconds";
     public static final String POOLING_WAIT_IN_MILLI_SEC = "cs.pooling.wait.in.milliseconds";
     public static final String DATA_MANAGER_TOGGLEABLE = "cs.data.manager.toggleable";
