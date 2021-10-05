@@ -69,6 +69,17 @@ public class UtilsMethods extends Driver {
     }
 
     /**
+     * This method use to replace headers
+     *
+     * @param key   The Key
+     * @param value The Value
+     */
+    public static void replaceHeader(String key, String value) {
+        map.removeIf((Header header) -> key.equals(header.getName()));
+        addHeaders("sr-client-id", value);
+    }
+
+    /**
      * This method use to print response detail
      *
      * @param response The response object

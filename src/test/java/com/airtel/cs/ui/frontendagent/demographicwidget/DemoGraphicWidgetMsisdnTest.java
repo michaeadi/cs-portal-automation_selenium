@@ -132,17 +132,17 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                     }
                 }
                 assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getAccountStatus().toLowerCase().trim(),
-                        pages.getDemoGraphicPage().getKeyValueAPI(profileAPI.getResult().getAirtelMoneyStatus()), "Customer's Airtel Money Status is as Expected",
+                        pages.getDemoGraphicPage().getKeyValueAPI(amProfileAPI.getResult().getAccountStatus()), "Customer's Airtel Money Status is as Expected",
                         "Customer's Airtel Money Status is not as Expected"));
                 assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getServiceStatus().toLowerCase().trim(),
-                        pages.getDemoGraphicPage().getKeyValueAPI(profileAPI.getResult().getServiceStatus()), "Customer's Airtel Money Service Status is as Expected",
+                        pages.getDemoGraphicPage().getKeyValueAPI(amProfileAPI.getResult().getServiceStatus()), "Customer's Airtel Money Service Status is as Expected",
                         "Customer's Airtel Money Service Status is not as Expected"));
                 assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getRegistrationStatus().toLowerCase().trim(),
                         pages.getDemoGraphicPage().getKeyValueAPI(amProfileAPI.getResult().getRegStatus()), "Customer's Airtel Money Registration Status as Expected",
                         "Customer's Airtel Money Registration Status not same not as Expected"));
                 if (StringUtils.equalsIgnoreCase(constants.getValue(ApplicationConstants.MULTI_WALLET_BALANCE), "true")) {
                     assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getWalletBalance2().toLowerCase().trim(),
-                            pages.getDemoGraphicPage().getKeyValueAPI(amProfileAPI.getResult().getWallet().get(1).getCurrency().toUpperCase()) + " " + pages.getDemoGraphicPage().getKeyValueAPI(amProfileAPI.getResult().getWallet()
+                            pages.getDemoGraphicPage().getKeyValueAPI(amProfileAPI.getResult().getWallets().get(1).getCurrency().toUpperCase()) + " " + pages.getDemoGraphicPage().getKeyValueAPI(amProfileAPI.getResult().getWallets()
                                     .get(1).getBalance()), "Customer's Airtel Wallet Balance & Currency code as Expected",
                             "Customer's Airtel Wallet Balance & Currency code not same not as Expected"));
                 }
@@ -179,7 +179,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                 } else {
                     assertCheck.append(actions.assertEqualBoolean(airtelMoneyString.contains("*"), false, "Airtel Money is not masked as per user role", "Airtel Money should not be masked as per user role"));
                     assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getWalletBalance(),
-                            amProfileAPI.getResult().getWallet().get(0).getCurrency().toUpperCase() + " " + amProfileAPI.getResult().getWallet().get(0)
+                            amProfileAPI.getResult().getWallets().get(0).getCurrency().toUpperCase() + " " + amProfileAPI.getResult().getWallets().get(0)
                                     .getBalance(), "Customer's Airtel Wallet Balance & Currency code as Expected",
                             "Customer's Airtel Wallet Balance & Currency code not same not as Expected"));
                 }
