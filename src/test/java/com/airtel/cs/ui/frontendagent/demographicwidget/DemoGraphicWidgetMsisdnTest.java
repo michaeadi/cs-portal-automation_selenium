@@ -1,7 +1,7 @@
 package com.airtel.cs.ui.frontendagent.demographicwidget;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.commonutils.UtilsMethods;
+import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.model.response.actionconfig.ActionConfigResult;
@@ -14,7 +14,6 @@ import com.airtel.cs.model.response.kycprofile.KYCProfile;
 import com.airtel.cs.model.response.kycprofile.Profile;
 import com.airtel.cs.model.response.plans.Plans;
 import io.restassured.http.Headers;
-import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -24,11 +23,10 @@ import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-import static com.airtel.cs.commonutils.UtilsMethods.stringNotNull;
+import static com.airtel.cs.commonutils.utils.UtilsMethods.stringNotNull;
 
 @Log4j2
 public class DemoGraphicWidgetMsisdnTest extends Driver {

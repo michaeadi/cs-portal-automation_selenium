@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Automation Framework CS PORTAl Test Suite" preserve-order="true" allow-return-values="true">
     <listeners>
         <listener class-name="com.airtel.cs.commonutils.listeners.TestListenerMethod"/>
@@ -24,7 +24,7 @@
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginPortalTests"/>
         </classes>
     </test>
-    <!--<test name="Test Side Menu Options">
+<!--    <test name="Test Side Menu Options">
         <groups>
             <run>
                 <include name="RegressionTest"/>
@@ -63,7 +63,7 @@
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.viewhistorytab.ActionTrailTest"/>
         </classes>
-    </test>
+    </test>-->
     <test name="Validate Demo Graphic Widget By MSISDN" preserve-order="true">
         <groups>
             <run>
@@ -74,7 +74,7 @@
             <class name="com.airtel.cs.ui.frontendagent.demographicwidget.DemoGraphicWidgetMsisdnTest"/>
         </classes>
     </test>
-    <test name="Validate Airtel Money Transaction Widget" preserve-order="true">
+   <!-- <test name="Validate Airtel Money Transaction Widget" preserve-order="true">
         <groups>
             <run>
                 <include name="RegressionTest"/>
@@ -253,7 +253,7 @@
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.widgetvisibility.VisibilityByCustomerSegmentTest"/>
         </classes>
-    </test>-->
+    </test>
     <test name="SIM Bar Unbar Test">
         <groups>
             <run>
@@ -264,7 +264,7 @@
             <class name="com.airtel.cs.ui.simbarunbar.SIMBarUnbarPermissionSeparationTest"/>
         </classes>
     </test>
-    <!--<test name="Source App Test">
+    <test name="Source App Test">
         <groups>
             <run>
                 <include name="RegressionTest"/>

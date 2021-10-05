@@ -1,8 +1,8 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
-import com.airtel.cs.commonutils.UtilsMethods;
+import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.enums.ReportInfoMessageColorList;
-import com.airtel.cs.model.response.ticketlist.IssueDetails;
+import com.airtel.cs.model.request.issue.IssueDetails;
 import com.airtel.cs.model.response.ticketlist.QueueStates;
 import com.airtel.cs.pagerepository.pageelements.SupervisorTicketListPage;
 import lombok.extern.log4j.Log4j2;

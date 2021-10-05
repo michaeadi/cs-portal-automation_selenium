@@ -240,6 +240,43 @@ public class NftrDataExcelToBeanDao {
                             case 54:
                                 nftrDataBeans.setTicketNumber(cellValue);
                                 break;
+                            case 55:
+                                nftrDataBeans.setWorkgroup1(cellValue);
+                                break;
+                            case 56:
+                                nftrDataBeans.setSla1(cellValue);
+                                break;
+                            case 57:
+                                nftrDataBeans.setWorkgroup2(cellValue);
+                                break;
+                            case 58:
+                                nftrDataBeans.setSla2(cellValue);
+                                break;
+                            case 59:
+                                nftrDataBeans.setWorkgroup3(cellValue);
+                                break;
+                            case 60:
+                                nftrDataBeans.setSla3(cellValue);
+                                break;
+                            case 61:
+                                nftrDataBeans.setWorkgroup4(cellValue);
+                                break;
+                            case 62:
+                                nftrDataBeans.setSla4(cellValue);
+                                break;
+                            case 63:
+                                nftrDataBeans.setCommittedSLA(cellValue);
+                                break;
+                            case 64:
+                                nftrDataBeans.setAssignmentQueue(cellValue);
+                                break;
+                            case 65:
+                                nftrDataBeans.setPriority(cellValue);
+                                break;
+                            case 66:
+                                nftrDataBeans.setState(cellValue);
+                                break;
+
                         }
                     }
                 }

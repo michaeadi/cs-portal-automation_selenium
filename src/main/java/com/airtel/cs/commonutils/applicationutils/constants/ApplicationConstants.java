@@ -50,6 +50,34 @@ public class ApplicationConstants {
     public static final String RUN_AIRTEL_MONEY_WIDGET_TESTCASE="cs.run.airtel.money.test.case";
     public static final String CUSTOMER_POSTPAID_MSISDN = "cs.customer.postpaid.msisdn";
     public static final String TEST_V3_USAGE_HISTORY = "v3.usage.history.enabled";
+    public static final String APP_ENV_NAME = "automation.app.env";
+    public static final String APP_BUILD_VERSION = "automation.app.buildversion";
+    public static final String X_CLIENT_ID = "sr.x.client.id";
+    public static final String X_CHANNEL = "sr.x.channel";
+    public static final String BASE_LOGIN_URL = "sr.base.login.url";
+    public static final String LOGIN_SHEET_NAME = "sr.login.sheet.name";
+    public static final String POOLING_WAIT_IN_SEC = "sr.pooling.wait";
+    public static final String CLIENT_CONFIG = "sr.client.config";
+    public static final String OPEN_API_LOGIN_SHEET = "sr.open.api.login.sheet.name";
+    public static final String OPEN_API_CATEGORY_ID = "sr.open.api.category.id";
+    public static final String OPEN_API_CHILD_CATEGORY_ID = "sr.open.api.child.category.id";
+    public static final String OPEN_API_CLIENT_CONFIG = "sr.open.api.client.config";
+    public static final String SANITY_NFTR_SHEET = "sr.sanity.nftr.sheet";
+    public static final String SANITY_FTR_SHEET = "sr.sanity.ftr.sheet";
+    public static final String REGRESSION_NFTR_SHEET = "sr.regression.nftr.sheet";
+    public static final String REGRESSION_FTR_SHEET = "sr.regression.ftr.sheet";
+    public static final String SUITE_TYPE = "sr.suite.type";
+    public static final String LABEL_TEXTAREA_CATEGORY_ID = "sr.label.textarea.category.id";
+    public static final String AGENT_ID = "sr.agent.id";
+    public static final String AGENT_NAME = "sr.agent.name";
+    public static final String TICKET_POOL_ID = "sr.ticket.pool.id";
+    public static final String INVALID_TOKEN = "sr.invalid.token";
+    public static final String UPDATED_BY = "sr.updated.by";
+    public static final String EXTERNAL_CLOSED_STATE_ID ="sr.external.closed.state.id";
+    public static final String PAGE_SIZE="sr.page.size";
+    public static final String PAGE_NUMBER="sr.page.number";
+    public static final String TICKET_POOL_IDS="sr.ticket.pool.ids";
+    public static final String EXTERNAL_STATE_IDS="sr.external.state.ids";
 
 
     private ApplicationConstants() {

@@ -3,7 +3,7 @@ package com.airtel.cs.ui.frontendagent;
 import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
-import com.airtel.cs.commonutils.dataproviders.DataProviders;
+import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.model.response.voucher.VoucherDetail;
 import com.airtel.cs.model.response.voucher.VoucherSearch;
@@ -12,7 +12,7 @@ import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import static com.airtel.cs.commonutils.UtilsMethods.stringNotNull;
+import static com.airtel.cs.commonutils.utils.UtilsMethods.stringNotNull;
 
 public class VoucherTabTest extends Driver {
 

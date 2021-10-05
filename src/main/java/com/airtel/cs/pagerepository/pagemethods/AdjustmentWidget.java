@@ -1,7 +1,7 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
 import com.airtel.cs.pagerepository.pageelements.AdjustmentTabPage;
-import com.airtel.cs.model.response.adjustmentreason.AdjustmentReasonPOJO;
+import com.airtel.cs.model.response.adjustmentreason.AdjustmentReasonRequest;
 import com.airtel.cs.model.response.adjustmentreason.ReasonDetail;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -205,7 +205,7 @@ public class AdjustmentWidget extends BasePage{
      * @param reasons The UI Adjustment Reasons
      * @param reasonPOJO The API Adjustment Reasons
      */
-    public void validateReasonsDetail(List<String> reasons, AdjustmentReasonPOJO reasonPOJO){
+    public void validateReasonsDetail(List<String> reasons, AdjustmentReasonRequest reasonPOJO){
         if (!reasons.isEmpty()) {
             for (ReasonDetail detail : reasonPOJO.getResult()) {
                 assertCheck.append(actions.assertEqualBoolean(reasons.remove(detail.getReason()),true,detail.getReason() + " reason displayed on UI as per api response",detail.getReason() + " reason does not displayed on UI as per api response"));

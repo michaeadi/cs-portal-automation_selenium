@@ -1,5 +1,6 @@
 package com.airtel.cs.driver;
 
+import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
@@ -7,6 +8,7 @@ import com.airtel.cs.commonutils.applicationutils.constants.ConstantsUtils;
 import com.airtel.cs.commonutils.commonlib.CommonLib;
 import com.airtel.cs.commonutils.extentreports.ExtentReport;
 import com.airtel.cs.commonutils.listeners.TestListenerMethod;
+import com.airtel.cs.commonutils.restutils.RestCommonUtils;
 import com.airtel.cs.commonutils.seleniumutils.SeleniumCommonUtils;
 import com.airtel.cs.pagerepository.pagemethods.PageCollection;
 import com.airtel.cs.pagerepository.pagemethods.WidgetCommonMethod;
@@ -46,6 +48,7 @@ public class Driver {
     private static final String PATH_DELIMITER = "/";
     private static final String USER_DIR = "user.dir";
     public static final String OPCO = System.getProperty("Opco").toUpperCase();
+    public static final String CLIENT = System.getProperty("Client").toUpperCase();
     public static WebDriver driver;
     public static WebDriver defaultDriver = null;
     public static WebDriver tempDriver = null;
@@ -96,6 +99,11 @@ public class Driver {
     public static String download = System.getProperty(USER_DIR) + "\\resources\\excels\\";
     public static String authToken;
     public static final BaseActions actions = new BaseActions();
+    public static final RestCommonUtils restUtils = new RestCommonUtils();
+    public static final RequestSource api = new RequestSource();
+    public static boolean isSelfcareNOTConfigured = false;
+    public static List<Header> validHeaderList = new ArrayList<>();
+    public static List<Header> invalidHeaderList = new ArrayList<>();
 
     public WebDriver getDriver() {
         return driver;

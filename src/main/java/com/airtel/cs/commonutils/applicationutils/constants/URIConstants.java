@@ -2,6 +2,9 @@ package com.airtel.cs.commonutils.applicationutils.constants;
 
 public class URIConstants {
 
+    /**
+     *  CS URI Constants
+     */
     public static final String ACCOUNT_PLAN = "/cs-gsm-service/v1/account/plans";
     public static final String USAGE_HISTORY = "/cs-gsm-service/v1/usage/history";
     public static final String GSM_AM_PROFILE = "/cs-gsm-service/v1/am/profile";
@@ -53,6 +56,37 @@ public class URIConstants {
     public static final String CREATE_CONFIGURATION_API="/api/cs-service/v1/create/config";
     public static final String DELETE_CONFIGURATION_API="/api/cs-service/v1/delete/config";
     public static final String UPDATE_CONFIGURATION_API="/api/cs-service/v1/update/config";
+
+    /**
+     * SR URI Constants
+     */
+
+    public static final String TICKET_STATS = "/api/sr-service/v1/ticket/stats";
+    public static final String INTERACTION_ISSUE = "/api/sr-service/v1/interactions/issue";
+    public static final String OPEN_API_INTERACTION_ISSUE = "/api/sr-service/v1/openapi/interactions/issue";
+    public static final String OPEN_API_CLIENT_CONFIG = "/api/sr-service/v1/openapi/clients/config";
+    public static final String OPEN_API_FETCH_TICKET = "/api/sr-service/v1/openapi/fetch/ticket";
+    public static final String OPEN_API_FETCH_TICKET_HISTORY_LOG = "/api/sr-service/v1/openapi/fetch/ticket/history/log";
+    public static final String OPEN_API_SEARCH_TICKET = "/api/sr-service/v1/openapi/tickets";
+    public static final String OPEN_API_ISSUE_LAYOUT = "/api/sr-service/v1/openapi/layout";
+    public static final String OPEN_API_CHILD_CATEGORY = "/api/sr-service/v1/openapi/child/categories";
+    public static final String OPEN_API_PARENT_CATEGORY = "/api/sr-service/v1/openapi/parent/categories";
+    public static final String OPEN_API_FIRST_LAST = "/api/sr-service/v1/openapi/firstlast/categories";
+    public static final String REOPEN_TICKET = "/api/sr-service/v1/ticket/reopen";
+    public static final String FETCH_TICKET = "/api/sr-service/v1/fetch/ticket";
+    public static final String ISSUE_HISTORY = "/api/sr-service/v1/issue/history";
+    public static final String CREATE_ISSUE = "/api/sr-service/v1/issue";
+    public static final String FETCH_TICKET_HISTORY_LOG = "/api/sr-service/v1/fetch/ticket/history/log";
+    public static final String DEACTIVATE_CLIENT_CONFIG = "/api/sr-service/v1/deactivate/clients/config";
+    public static final String CLIENT_CONFIG = "/api/sr-service/v1/clients/config";
+    public static final String CREATE_INTERACTION = "/api/sr-service/v1/interactions";
+    public static final String ISSUE_LAYOUT = "/api/sr-service/v1/layout";
+    public static final String PARENT_CATEGORY = "/api/sr-service/v1/parent/categories";
+    public static final String FIRST_LAST = "/api/sr-service/v1/firstlast/categories";
+    public static final String CONFIGURED_CLIENTS = "/api/sr-service/v1/client/fields";
+    public static final String UPDATE_TICKET = "/api/sr-service/v1/update/ticket";
+    public static final String TICKETS_BY_AGENT = "/api/sr-service/v1/tickets/agent";
+    public static final String TICKET_HISTORY = "/api/sr-service/v1/tickets";
 
     private URIConstants() {
 

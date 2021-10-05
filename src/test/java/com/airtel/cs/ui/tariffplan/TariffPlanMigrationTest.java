@@ -87,8 +87,8 @@ public class TariffPlanMigrationTest extends Driver {
         selUtils.addTestcaseDescription("Validate Customer Current Plan Details under Service Class Tab", "description");
         try {
             currentPlanFromUI = pages.getTariffPlanPage().getCurrentPlan();
-            final AvailablePlan availablePlanPOJO = api.availablePlanPOJO();
-            final CurrentPlan currentPlanPOJO = api.currentPlanPOJO();
+            final AvailablePlan availablePlanPOJO = api.availablePlanRequest();
+            final CurrentPlan currentPlanPOJO = api.currentPlanRequest();
             final String currentPlanNameFromAPI = currentPlanPOJO.getResult().getPlan().getPlanName();
             assertCheck.append(actions.assertEqualStringType(currentPlanFromUI, currentPlanNameFromAPI, "Current Plan Value Matched with UI values", "API Current Plan Values not Matched with UI values and are UI Current Plan is -" + currentPlanFromUI + "and API Current Plan is -" + currentPlanNameFromAPI));
             assertCheck.append(actions.assertEqualBoolean(pages.getTariffPlanPage().isCheckBoxChecked(), true, "Checkbox is Checked By default", "Checkbox is not Checked by Default"));
@@ -152,7 +152,7 @@ public class TariffPlanMigrationTest extends Driver {
         try {
             assertCheck.append(actions.assertEqualBoolean(pages.getTariffPlanPage().changePlan(), true, "Plan Changed Successfully", "Plan Not Changed"));
             assertCheck.append(actions.assertEqualStringType(pages.getTariffPlanPage().getModalText(), "Plan Changed Successfully", "Success Message Matched", "Success Message NOT Found and is -" + pages.getTariffPlanPage().getModalText()));
-            final CurrentPlan currentPlanPOJO = api.currentPlanPOJO();
+            final CurrentPlan currentPlanPOJO = api.currentPlanRequest();
             final String currentPlanNameFromAPI = currentPlanPOJO.getResult().getPlan().getPlanName();
             assertCheck.append(actions.assertEqualStringType(customerNewPlan, currentPlanNameFromAPI, "Plan Changed Successfully", "Plan Name Mismatched"));
             assertCheck.append(actions.assertEqualStringType(pages.getCustomerProfilePage().goAndCheckFTRCreatedorNot(), TARIFF_PLAN_ISSUE_CODE, "FTR Ticket Created", "FTR Ticket NOT Created"));

@@ -4,8 +4,6 @@
         <Console name="LogToConsole" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36}(%L) - %msg%n"/>
         </Console>
-
-
         <RollingFile name="RollingFile" fileName="logs/app.log"
                      filePattern="logs/app-%d{yyyy-MM-dd}-%i.log">
             <PatternLayout>
@@ -17,18 +15,6 @@
             </Policies>
             <DefaultRolloverStrategy max="100"/>
         </RollingFile>
-        <!--        <RollingRandomAccessFile name="LogToRollingRandomAccessFile" fileName="logs/app_${current.date}.log"-->
-        <!--                                 filePattern="logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">-->
-        <!--            <PatternLayout>-->
-        <!--                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>-->
-        <!--            </PatternLayout>-->
-        <!--            <Policies>-->
-        <!--                <TimeBasedTriggeringPolicy/>-->
-        <!--                <SizeBasedTriggeringPolicy size="1 MB"/>-->
-        <!--            </Policies>-->
-        <!--            <DefaultRolloverStrategy max="10"/>-->
-        <!--        </RollingRandomAccessFile>-->
-
     </Appenders>
     <Loggers>
         <!-- avoid duplicated logs with additivity=false -->

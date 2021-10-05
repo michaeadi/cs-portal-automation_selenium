@@ -11,8 +11,6 @@ import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 
 public class DataUnitConversionTest extends Driver {

@@ -1,5 +1,6 @@
 package com.airtel.cs.model.response.ticketlist;
 
+import com.airtel.cs.model.request.issue.IssueDetails;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
