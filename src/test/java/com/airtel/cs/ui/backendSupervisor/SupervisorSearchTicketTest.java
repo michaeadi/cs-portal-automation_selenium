@@ -1,14 +1,14 @@
 package com.airtel.cs.ui.backendSupervisor;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.commonutils.UtilsMethods;
+import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
-import com.airtel.cs.commonutils.dataproviders.DataProviders;
+import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.databeans.NftrDataBeans;
 import com.airtel.cs.commonutils.dataproviders.databeans.AssignmentQueueRuleDataBeans;
 import com.airtel.cs.commonutils.dataproviders.databeans.SLARuleFileDataBeans;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.model.response.ticketlist.IssueDetails;
+import com.airtel.cs.model.request.issue.IssueDetails;
 import com.airtel.cs.model.response.ticketlist.Ticket;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.NoSuchElementException;

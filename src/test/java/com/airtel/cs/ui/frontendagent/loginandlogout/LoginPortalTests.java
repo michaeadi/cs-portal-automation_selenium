@@ -1,7 +1,7 @@
 package com.airtel.cs.ui.frontendagent.loginandlogout;
 
-import com.airtel.cs.commonutils.PassUtils;
-import com.airtel.cs.commonutils.UtilsMethods;
+import com.airtel.cs.commonutils.utils.PassUtils;
+import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.driver.Driver;
@@ -23,26 +23,26 @@ public class LoginPortalTests extends Driver {
     }
 
     @Test(priority = 1,groups = {"SmokeTest"})
-    public void setCredForSmokeTest(){
+    public void getLoginUserCredForSmokeTest(){
         try {
             selUtils.addTestcaseDescription("Setup credentials For Logging Into Portal with Advisor Supervisor User", "description");
             loginAUUID = constants.getValue(CommonConstants.ADVISOR_USER_ROLE_AUUID);
             commonLib.pass(constants.getValue("cs.portal.cred.setup")+" : "+loginAUUID);
             password = constants.getValue(CommonConstants.ADVISOR_USER_ROLE_PASSWORD);
         }catch (Exception e){
-            commonLib.fail(constants.getValue("cs.portal.test.fail") + " - setCredForSmokeTest " + e.fillInStackTrace(), true);
+            commonLib.fail(constants.getValue("cs.portal.test.fail") + " - getLoginUserCredForSmokeTest " + e.fillInStackTrace(), true);
         }
     }
 
     @Test(priority = 2,groups = {"SanityTest", "RegressionTest", "ProdTest"})
-    public void setCredForTest(){
+    public void getLoginUserCredForAllTest(){
         try {
             selUtils.addTestcaseDescription("Setup credentials For Logging Into Portal with Beta User", "description");
             loginAUUID = constants.getValue(CommonConstants.ALL_USER_ROLE_AUUID);
             commonLib.pass(constants.getValue("cs.portal.cred.setup")+" : "+loginAUUID);
             password = constants.getValue(CommonConstants.ALL_USER_ROLE_PASSWORD);
         }catch (Exception e){
-            commonLib.fail(constants.getValue("cs.portal.test.fail") + " - setCredForTest " + e.fillInStackTrace(), true);
+            commonLib.fail(constants.getValue("cs.portal.test.fail") + " - getLoginUserCredForAllTest " + e.fillInStackTrace(), true);
         }
     }
 
@@ -62,19 +62,24 @@ public class LoginPortalTests extends Driver {
             pages.getLoginPage().clickOnLogin();
             final boolean isGrowlVisible = pages.getGrowl().checkIsGrowlVisible();
             UtilsMethods.getNewAddHeader();
-            if (isGrowlVisible) {
+            if (isGrowlVisible)
+            {
                 commonLib.fail("Growl Message:- " + pages.getGrowl().getToastContent(), true);
                 continueExecutionFA = false;
                 assertCheck.append(actions.assertEqualBoolean(continueExecutionFA, true, "User Login Successful Over Portal", "User Login Failed Over Portal"));
-            } else {
+            }
+            else {
                 final Boolean userManagementPageLoaded = pages.getUserManagementPage().isUserManagementPageLoaded();
                 assertCheck.append(actions.assertEqualBoolean(userManagementPageLoaded, true, "Customer Dashboard Page Loaded Successfully", "Customer Dashboard page NOT Loaded"));
-                if (!userManagementPageLoaded) {
+                if (!userManagementPageLoaded)
+                {
                     continueExecutionFA = false;
                     continueExecutionBU = false;
                 }
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             continueExecutionFA = false;
             commonLib.fail("Exception in Method - testLoginIntoPortal" + e.fillInStackTrace(), true);
         }

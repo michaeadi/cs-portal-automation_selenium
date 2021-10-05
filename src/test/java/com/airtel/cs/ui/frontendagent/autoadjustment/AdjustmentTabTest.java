@@ -1,7 +1,7 @@
 package com.airtel.cs.ui.frontendagent.autoadjustment;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.commonutils.UtilsMethods;
+import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
@@ -9,7 +9,7 @@ import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.model.response.adjustmenthistory.AdjustmentHistory;
 import com.airtel.cs.model.response.adjustmenthistory.AdjustmentResult;
-import com.airtel.cs.model.response.adjustmentreason.AdjustmentReasonPOJO;
+import com.airtel.cs.model.response.adjustmentreason.AdjustmentReasonRequest;
 import com.airtel.cs.model.response.rechargehistory.RechargeHistory;
 import com.airtel.cs.model.response.usagehistory.UsageHistory;
 import io.restassured.http.Headers;
@@ -20,7 +20,7 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-import static com.airtel.cs.commonutils.UtilsMethods.stringNotNull;
+import static com.airtel.cs.commonutils.utils.UtilsMethods.stringNotNull;
 
 public class AdjustmentTabTest extends Driver {
 
@@ -30,7 +30,7 @@ public class AdjustmentTabTest extends Driver {
     private final BaseActions actions = new BaseActions();
     RequestSource api = new RequestSource();
     private String adjustmentId;
-    private AdjustmentReasonPOJO reasonAPI;
+    private AdjustmentReasonRequest reasonAPI;
     private UsageHistory usageHistoryAPI;
     private RechargeHistory rechargeHistoryAPI;
     private static String adjustmentReason;

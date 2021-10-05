@@ -1,10 +1,10 @@
 package com.airtel.cs.ui.simbarunbar;
 
-import com.airtel.cs.commonutils.UtilsMethods;
+import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
-import com.airtel.cs.commonutils.dataproviders.DataProviders;
-import com.airtel.cs.commonutils.dataproviders.databeans.TestDatabean;
+import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
+import com.airtel.cs.commonutils.dataproviders.databeans.TestDataBean;
 import com.airtel.cs.driver.Driver;
 import io.restassured.http.Headers;
 import org.apache.commons.lang3.StringUtils;
@@ -150,7 +150,7 @@ public class SIMBarUnbarPermissionSeparationTest extends Driver {
 
     @DataProviders.User(userType = "Beta")
     @Test(priority = 7, dependsOnMethods = "testReactivationSIMOptionIsVisible", dataProvider = "loginData", dataProviderClass = DataProviders.class, groups = {"RegressionTest"})
-    public void removeReactivationPermissionFromUM(TestDatabean data) throws InterruptedException {
+    public void removeReactivationPermissionFromUM(TestDataBean data) throws InterruptedException {
         selUtils.addTestcaseDescription("Validate that if the logged in user do NOT have permission to do Reactivation Action", "description");
         /* LOGIN IN TEMPORARY BROWSER AS PER TESTCASE REQUIREMENT -
          *  - WITH UM CREDENTIALS */
@@ -172,7 +172,7 @@ public class SIMBarUnbarPermissionSeparationTest extends Driver {
 
     @DataProviders.User(userType = "Beta")
     @Test(priority = 8, dependsOnMethods = "testReactivationSIMOptionIsVisible", dataProvider = "loginData", dataProviderClass = DataProviders.class, groups = {"RegressionTest"})
-    public void removeBothPermissionFromUM(TestDatabean data) throws InterruptedException {
+    public void removeBothPermissionFromUM(TestDataBean data) throws InterruptedException {
         selUtils.addTestcaseDescription("Validate that if the logged in user do NOT have permission to do Reactivation Action", "description");
         /* LOGIN IN TEMPORARY BROWSER AS PER TESTCASE REQUIREMENT -
          *  - WITH UM CREDENTIALS */

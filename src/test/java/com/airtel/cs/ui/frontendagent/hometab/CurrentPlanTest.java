@@ -2,15 +2,11 @@ package com.airtel.cs.ui.frontendagent.hometab;
 
 import com.airtel.cs.api.ESBRequestSource;
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.commonutils.UtilsMethods;
+import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.model.response.planpack.Bundle;
-import com.airtel.cs.model.response.planpack.Usage;
-import com.airtel.cs.pagerepository.pagemethods.CurrentPlanWidget;
-import com.airtel.cs.model.response.PlanPackESBResponse;
 import com.airtel.cs.model.response.kycprofile.KYCProfile;
 import io.restassured.http.Headers;
 import org.openqa.selenium.NoSuchElementException;

@@ -1,6 +1,6 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
-import com.airtel.cs.commonutils.UtilsMethods;
+import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.model.response.actiontrail.EventResult;
 import com.airtel.cs.pagerepository.pageelements.ActionTrailPage;
 import com.airtel.cs.model.response.actionconfig.ActionConfigResult;

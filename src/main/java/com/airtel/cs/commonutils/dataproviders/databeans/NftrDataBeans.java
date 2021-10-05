@@ -82,4 +82,21 @@ public class NftrDataBeans {
 
     Integer rowNum;
 
+    private String issueFieldLabel8;
+    private String issueFieldType8;
+    private String issueFieldMandatory8;
+
+    private String workgroup1;
+    private String sla1;
+    private String workgroup2;
+    private String sla2;
+    private String workgroup3;
+    private String sla3;
+    private String workgroup4;
+    private String sla4;
+    private String committedSLA;
+    private String assignmentQueue;
+    private String priority;
+    private String state;
+
 }

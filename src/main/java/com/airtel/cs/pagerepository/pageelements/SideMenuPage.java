@@ -8,7 +8,7 @@ public class SideMenuPage {
     public By visi = By.xpath("/html/body/app-root/ngx-ui-loader/div[2]");
     public By userName = By.xpath("//*[@class='ellipsis']");
     public By adminSettings = By.xpath("//mat-list-item//span[contains(text(),'Admin')]");
-    public By customerServices = By.xpath("//mat-list-item//span[contains(text(),'Customer')]/..");
+    public By customerServices = By.xpath("//mat-list-item//span[contains(text(),'Customer')]");
     public By caseManagement = By.xpath("//mat-list-item//span[contains(text(),'Case')]");
     public By userManagement = By.xpath("//a[contains(text(),'User management') or contains(text(),'User Management')]");
     public By profileManagement = By.xpath("//a[contains(text(),'Profile Management')]");

@@ -1,19 +1,32 @@
 package com.airtel.cs.commonutils.restutils;
 
-import com.airtel.cs.commonutils.UtilsMethods;
+import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
+import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.enums.JavaColors;
 import com.airtel.cs.driver.Driver;
 import com.github.dzieciou.testing.curl.CurlRestAssuredConfigFactory;
 import com.google.gson.Gson;
 import io.restassured.config.RestAssuredConfig;
+import io.restassured.http.Header;
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
 import io.restassured.specification.QueryableRequestSpecification;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.SpecificationQuerier;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.time.DateUtils;
 
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
@@ -124,6 +137,27 @@ public class RestCommonUtils extends Driver {
     }
 
     /**
+     * This Method is used to hit the API which are using GET Method
+     *
+     * @param endPoint send the endPoint
+     * @param map      send headers used for API
+     */
+    public static void commonGetMethod(String endPoint, List<Header> map) {
+        try {
+            commonLib.info("Using" + endPoint + "API for Testing");
+            baseURI = baseUrl;
+            Headers headers = new Headers(map);
+            request = given().headers(headers).contentType(APPLICATION_JSON);
+            queryable = SpecificationQuerier.query(request);
+            response = request.get(endPoint);
+            restUtils.printGetRequestDetail(queryable);
+            restUtils.printResponseDetail(response);
+        } catch (Exception e) {
+            commonLib.fail("Caught exception in Testcase - commonGetMethod " + e.getMessage(), false);
+        }
+    }
+
+    /**
      * This Method is used to get the curl of http request
      *
      * @param endPoint send the endPoint
@@ -139,5 +173,116 @@ public class RestCommonUtils extends Driver {
             stringBuilder.append("--data-raw '").append(new Gson().toJson(body)).append("' ");
         }
         return stringBuilder.append("--compressed --insecure").toString();
+    }
+
+    public String getDateFromEpoch(long epoch, String pattern) {
+        Date date = new Date(epoch);
+        DateFormat format = new SimpleDateFormat(pattern);
+        return format.format(date);
+    }
+
+    public String getDateFromString(String date, String pattern) {
+        try {
+            Date newDate = new SimpleDateFormat("dd-MMM-yyyy hh:mm aa").parse(date);
+            DateFormat format = new SimpleDateFormat(pattern);
+            return format.format(newDate);
+        } catch (ParseException e) {
+            printFailLog("Not able to parse the date: " + date + " " + e.fillInStackTrace());
+        }
+        return "Invalid Date String";
+    }
+
+    public String getDateFromStringInUTC(String date, String pattern) {
+        try {
+            Date newDate = new SimpleDateFormat("dd-MMM-yyyy hh:mm aa").parse(date);
+            DateFormat format = new SimpleDateFormat(pattern);
+            format.setTimeZone(TimeZone.getTimeZone("Etc/UTC"));
+            return format.format(newDate);
+        } catch (ParseException e) {
+            printFailLog("Not able to parse the date: " + date + " " + e.fillInStackTrace());
+        }
+        return "Invalid Date String";
+    }
+
+    public String getDateFromEpochInUTC(long epoch, String pattern) {
+        Date date = new Date(epoch);
+        DateFormat format = new SimpleDateFormat(pattern);
+        format.setTimeZone(TimeZone.getTimeZone("Etc/UTC"));
+        return format.format(date);
+    }
+
+
+    public String getTimeFromEpoch(long epoch, String pattern) {
+        Date date = new Date(epoch);
+        Date nearestMinute = DateUtils.round(date, Calendar.MINUTE);
+        DateFormat format1 = new SimpleDateFormat(pattern);
+        return format1.format(nearestMinute);
+    }
+
+    public String convertToHR(String committedSla) {
+        long ms = Long.parseLong(committedSla);
+        commonLib.info("Converting SLA: " + committedSla + " to " + (TimeUnit.MILLISECONDS.toHours(ms)));
+        return String.valueOf(TimeUnit.MILLISECONDS.toHours(ms));
+    }
+
+    public void printInfoLog(String message) {
+        commonLib.info(message);
+    }
+
+    public void printFailLog(String message) {
+        commonLib.error(message);
+        commonLib.fail(message, false);
+    }
+
+    public void printPassLog(String message) {
+        commonLib.info(message);
+    }
+
+    public void printWarningLog(String message) {
+        commonLib.warning(message);
+    }
+
+    public String valueRoundOff(Double value) {
+        DecimalFormat df = new DecimalFormat("###.##");
+        return df.format(value);
+    }
+
+    public List<Header> invalidToken() {
+        List<Header> map1 = new ArrayList<>();
+        map1.add(new Header("Opco", OPCO));
+        map1.add(new Header("Authorization", "Bearer " + constants.getValue(ApplicationConstants.INVALID_TOKEN)));
+        return map1;
+    }
+
+    public void addHeaders(String key, String value) {
+        validHeaderList.add(new Header(key, value));
+    }
+
+    public void printResponseDetail(Response response) {
+        printInfoLog("Then Response is -: " + response.asString());
+        printInfoLog("Response time is: " + response.getTimeIn(TimeUnit.SECONDS) + " s");
+        printInfoLog("Status Code is: " + response.getStatusCode());
+    }
+
+    public void printGetRequestDetail(QueryableRequestSpecification queryable) {
+        printInfoLog("When Request URL: " + queryable.getURI());
+        printInfoLog("Request Headers are  : " + "\n" + queryable.getHeaders());
+        if (!(queryable.getQueryParams().toString() == null || queryable.getQueryParams().toString().equals("{}"))) {
+            printInfoLog("Query Parameter is  : " + queryable.getQueryParams().toString());
+        }
+    }
+
+    public void printPostRequestDetail(QueryableRequestSpecification queryable) {
+        printInfoLog("When Request URL: " + queryable.getURI());
+        printInfoLog("And Request Headers are  : " + queryable.getHeaders());
+        printInfoLog("And Body is  : " + queryable.getBody().toString());
+    }
+
+    public void clearValidHeaderMap() {
+        validHeaderList.clear();
+    }
+
+    public void clearInvalidHeaderMap() {
+        invalidHeaderList.clear();
     }
 }

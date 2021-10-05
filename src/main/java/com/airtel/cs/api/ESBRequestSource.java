@@ -1,9 +1,9 @@
 package com.airtel.cs.api;
 
-import com.airtel.cs.commonutils.UtilsMethods;
+import com.airtel.cs.commonutils.restutils.RestCommonUtils;
+import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ESBURIConstants;
 import com.airtel.cs.commonutils.applicationutils.enums.JavaColors;
-import com.airtel.cs.commonutils.restutils.RestCommonUtils;
 import com.airtel.cs.model.request.AccountDetailRequest;
 import com.airtel.cs.model.request.AccountLineRequest;
 import com.airtel.cs.model.request.AccountLinesRequest;

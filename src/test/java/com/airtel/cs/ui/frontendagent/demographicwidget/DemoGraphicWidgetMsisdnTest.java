@@ -1,7 +1,7 @@
 package com.airtel.cs.ui.frontendagent.demographicwidget;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.commonutils.UtilsMethods;
+import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.model.response.actionconfig.ActionConfigResult;
@@ -14,7 +14,6 @@ import com.airtel.cs.model.response.kycprofile.KYCProfile;
 import com.airtel.cs.model.response.kycprofile.Profile;
 import com.airtel.cs.model.response.plans.Plans;
 import io.restassured.http.Headers;
-import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -24,11 +23,10 @@ import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-import static com.airtel.cs.commonutils.UtilsMethods.stringNotNull;
+import static com.airtel.cs.commonutils.utils.UtilsMethods.stringNotNull;
 
 @Log4j2
 public class DemoGraphicWidgetMsisdnTest extends Driver {
@@ -212,7 +210,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                 final String customerDOB = pages.getDemoGraphicPage().getCustomerDOB().toLowerCase();
                 final String customerIdNumber = pages.getDemoGraphicPage().getIdNumber().replace("*", "");
                 final String idType = stringNotNull(pages.getDemoGraphicPage().getIdType()).toLowerCase().trim();
-                final String dob = gsmKycAPI.getResult().getDob().substring(0,11);
+                final String dob = gsmKycAPI.getResult().getDob().substring(0, 11);
                 if (!Objects.isNull(dob))
                     assertCheck.append(actions
                             .assertEqualStringType(customerDOB.trim(), pages.getDemoGraphicPage().getKeyValueAPI(dob), "Customer DOB is as Expected", "Customer DOB is not as Expected"));
@@ -262,7 +260,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
             assertCheck.append(actions.assertEqualStringType(gsmStatus.toLowerCase().trim(), kycProfile.getResult().getStatus().toLowerCase().trim(), "Customer's SIM Status is as Expected", "Customer's SIM Status is not as Expected"));
             if (!gsmStatus.contains("Unable to fetch data")) {
                 pages.getDemoGraphicPage().hoverOnSIMStatusInfoIcon();
-                assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getActivationDate().trim(), kycProfile.getResult().getActivationDate(),
+                assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getActivationDate().trim(), UtilsMethods.getDateFromEpoch(Long.parseLong(kycProfile.getResult().getActivationDate()), "dd-MMM-yyy"),
                         "Customer's Activation Date is as Expected", "Customer's Activation Date is not as Expected"));
                 assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getGSMStatusReasonCode().trim().toLowerCase(),
                         pages.getDemoGraphicPage().getKeyValueAPI(kycProfile.getResult().getReason()), "Customer SIM Status Reason is as Expected",

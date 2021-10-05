@@ -1,6 +1,6 @@
 package com.airtel.cs.commonutils.dataproviders.beantoexcel;
 
-import com.airtel.cs.commonutils.dataproviders.databeans.TestDatabean;
+import com.airtel.cs.commonutils.dataproviders.databeans.TestDataBean;
 import org.apache.poi.hssf.usermodel.HSSFFormulaEvaluator;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.DataFormatter;
@@ -44,9 +44,9 @@ public class TestDataExcelToBeanDao {
      * @param sheetName The sheet name
      * @return List The user cred
      */
-    public List<TestDatabean> getData(String path, String sheetName) {
+    public List<TestDataBean> getData(String path, String sheetName) {
 
-        List<TestDatabean> userCredsBeanList = new ArrayList<>();
+        List<TestDataBean> userCredsBeanList = new ArrayList<>();
         FileInputStream file;
         try {
             file = new FileInputStream(new File(path));
@@ -64,7 +64,7 @@ public class TestDataExcelToBeanDao {
             Sheet sheet = workbook.getSheet(sheetName);
 
             for (Row cells : sheet) {
-                TestDatabean testDatabean = new TestDatabean();
+                TestDataBean testDatabean = new TestDataBean();
                 Iterator<Cell> cellIterator = cells.cellIterator();
                 while (cellIterator.hasNext()) {
                     Cell cell = cellIterator.next();

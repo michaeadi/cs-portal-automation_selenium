@@ -1,10 +1,10 @@
 package com.airtel.cs.ui.frontendagent.demographicwidget;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.commonutils.UtilsMethods;
+import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.commonutils.dataproviders.databeans.AuthTabDataBeans;
-import com.airtel.cs.commonutils.dataproviders.DataProviders;
-import com.airtel.cs.commonutils.dataproviders.databeans.TestDatabean;
+import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
+import com.airtel.cs.commonutils.dataproviders.databeans.TestDataBean;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pagerepository.pagemethods.AuthTab;
 import com.airtel.cs.pagerepository.pagemethods.DemoGraphic;
@@ -24,7 +24,7 @@ public class DemoGraphicWidgetBySIMTest extends Driver {
 
     @DataProviders.User()
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class, enabled = false)
-    public void openCustomerInteractionBySIM(TestDatabean Data) {
+    public void openCustomerInteractionBySIM(TestDataBean Data) {
         try {
             selUtils.addTestcaseDescription("Validating the Search for Customer Interactions By Using SIM Number :" + Data.getSimNumber(), "description");
             pages.getSideMenuPage().clickOnSideMenu();
@@ -50,7 +50,7 @@ public class DemoGraphicWidgetBySIMTest extends Driver {
 
     @DataProviders.User()
     @Test(priority = 2, description = "Validating Demographic Info", dataProvider = "loginData", dataProviderClass = DataProviders.class, dependsOnMethods = "openCustomerInteractionBySIM", enabled = false)
-    public void validateDemographicInformationBySIMNumber(TestDatabean Data) {
+    public void validateDemographicInformationBySIMNumber(TestDataBean Data) {
         try {
             final String customerNumber = Data.getCustomerNumber();
             selUtils.addTestcaseDescription("Validating the Demographic Information of User :" + customerNumber, "description");

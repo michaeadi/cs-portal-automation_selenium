@@ -247,7 +247,7 @@ public class BaseActions {
             if (!requiredScreenshot) {
                 shouldCapturescreenshot = false;
             }
-            if(actual!=null) {
+            if (actual != null) {
                 commonLib.pass(passMessage);
                 assertFlag = true;
             }
@@ -439,5 +439,25 @@ public class BaseActions {
      */
     public void throwHardAssert() {
         throw new AssertionError("Important::Assertion Failed");
+    }
+
+    public Boolean assertEqualBooleanNotNull(Boolean actual, String passMessage, String failMessage) {
+        return assertEqualBooleanNotNull(actual, passMessage, failMessage, false);
+    }
+
+    public Boolean assertEqualBooleanNotNull(Boolean actual, String passMessage, String failMessage, boolean requiredScreenshot) {
+        assertFlag = false;
+        boolean shouldCapturescreenshot = true;
+        try {
+            if (!requiredScreenshot) {
+                shouldCapturescreenshot = false;
+            }
+            Assert.assertNotNull(actual, passMessage);
+            commonLib.pass(passMessage);
+            assertFlag = true;
+        } catch (Throwable ex) {
+            commonLib.fail(ex.getMessage() + BREAK + failMessage, shouldCapturescreenshot);
+        }
+        return assertFlag;
     }
 }

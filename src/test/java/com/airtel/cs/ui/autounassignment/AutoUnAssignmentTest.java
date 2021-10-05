@@ -1,7 +1,7 @@
 package com.airtel.cs.ui.autounassignment;
 
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.commonutils.UtilsMethods;
+import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.model.response.agents.AdditionalDetails;
@@ -16,7 +16,7 @@ public class AutoUnAssignmentTest extends Driver {
 
     RequestSource api = new RequestSource();
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest","PositiveFlowUnAssignment"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -24,9 +24,16 @@ public class AutoUnAssignmentTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest","PositiveFlowUnAssignment"})
     public void checkToRunUnAssignment() {
         if (!continueUnAssignment) {
+            commonLib.skip("Skipping tests because ticket does not assigned to user");
+            throw new SkipException("Skipping tests because ticket does not assigned to user");
+        }
+    }
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
+    public void checkIfTicketIdPresent() {
+        if (Boolean.valueOf(constants.getValue(String.valueOf(CommonConstants.AUTO_ASSIGNMENT_TICKET_ID==null)))) {
             commonLib.skip("Skipping tests because ticket does not assigned to user");
             throw new SkipException("Skipping tests because ticket does not assigned to user");
         }
@@ -67,7 +74,7 @@ public class AutoUnAssignmentTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 2,groups ={"SanityTest", "RegressionTest", "ProdTest","SmokeTest"} )
+    @Test(priority = 3,groups ={"SanityTest", "RegressionTest", "ProdTest","SmokeTest"} )
     public void validateTicketAutoUnAssigned(){
         try {
             selUtils.addTestcaseDescription("Validate Agent Login into queue,Validate ticket assigned to login agent", "description");

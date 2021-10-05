@@ -2,20 +2,17 @@ package com.airtel.cs.ui.frontendagent.hometab;
 
 import com.airtel.cs.api.ESBRequestSource;
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.commonutils.UtilsMethods;
+import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
-import com.airtel.cs.commonutils.dataproviders.DataProviders;
+import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.databeans.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.model.request.AccountLineRequest;
 import com.airtel.cs.model.response.customeprofile.CustomerProfileResponse;
 import com.airtel.cs.model.response.kycprofile.KYCProfile;
-import com.airtel.cs.model.response.postpaid.enterprise.AccountLinesResponse;
 import com.airtel.cs.model.response.postpaid.enterprise.AccountStatementCSResponse;
-import com.airtel.cs.model.response.postpaid.enterprise.Line;
 import com.airtel.cs.model.response.postpaid.enterprise.MsisdnDetail;
 import io.restassured.http.Headers;
 import org.openqa.selenium.NoSuchElementException;
@@ -25,7 +22,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.List;
-import java.util.Objects;
 
 public class LinkedMsisdnToAccountNoTest extends Driver {
 

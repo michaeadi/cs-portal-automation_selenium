@@ -1,7 +1,7 @@
 package com.airtel.cs.ui.frontendagent;
 
-import com.airtel.cs.commonutils.dataproviders.DataProviders;
-import com.airtel.cs.commonutils.dataproviders.databeans.TestDatabean;
+import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
+import com.airtel.cs.commonutils.dataproviders.databeans.TestDataBean;
 import com.airtel.cs.driver.Driver;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
@@ -24,7 +24,7 @@ public class WidgetTaggedIssueTest extends Driver {
 
     @DataProviders.User(userType = "NFTR")
     @Test(priority = 1, description = "Validate Customer Interaction Page", dataProvider = "loginData", dataProviderClass = DataProviders.class)
-    public void openCustomerInteraction(TestDatabean data) {
+    public void openCustomerInteraction(TestDataBean data) {
         final String customerNumber = data.getCustomerNumber();
         selUtils.addTestcaseDescription("Validating the Search forCustomer Interactions :" + customerNumber, "description");
         SoftAssert softAssert = new SoftAssert();
