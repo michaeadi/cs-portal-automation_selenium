@@ -28,7 +28,7 @@ public class CreateClientConfigTest extends ApiPrerequisites {
             commonLib.fail(" Create Client Config API Response is not expected. Expected 200 but found " + createConfig.getStatusCode(), false);
         } else {
             for (ConfigResponse clientConfigResult : createConfig.getResult()) {
-                assertCheck.append(actions.assertEqualStringType(clientConfigResult.getClient().toUpperCase().trim(), config.getProperty(CLIENT + "-Client").toUpperCase().trim(), "Config created for same client","Config does not created for same client"));
+                assertCheck.append(actions.assertEqualStringType(clientConfigResult.getClient().toUpperCase().trim(), CLIENT.toUpperCase().trim(), "Config created for same client","Config does not created for same client"));
                 assertCheck.append(actions.assertEqualBooleanNotNull(clientConfigResult.getFieldName() != null, "Field name can be empty","Field name can not be empty"));
             }
         }

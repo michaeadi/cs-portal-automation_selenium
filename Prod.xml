@@ -847,16 +847,6 @@
             <class name="com.airtel.cs.ui.profileManagement.ProfileManagementTest"/>
         </classes>
     </test>
-    <test name="Logout Test from ADMIN/SUPERVISOR-Smoke Testing">
-        <groups>
-            <run>
-                <include name="SmokeTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
-        </classes>
-    </test>
     <test name="Validate Create Configuration API">
         <groups>
             <run>

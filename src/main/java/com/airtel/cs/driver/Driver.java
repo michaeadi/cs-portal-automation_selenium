@@ -48,7 +48,6 @@ public class Driver {
     private static final String PATH_DELIMITER = "/";
     private static final String USER_DIR = "user.dir";
     public static final String OPCO = System.getProperty("Opco").toUpperCase();
-    public static final String CLIENT = System.getProperty("Client").toUpperCase();
     public static WebDriver driver;
     public static WebDriver defaultDriver = null;
     public static WebDriver tempDriver = null;
