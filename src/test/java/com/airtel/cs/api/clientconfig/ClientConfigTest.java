@@ -15,7 +15,7 @@ public class ClientConfigTest extends ApiPrerequisites {
         ClientConfigRequest getConfig = api.getClientConfig(validHeaderList);
         assertCheck.append(actions.assertEqualStringType(getConfig.getStatusCode(), "200", "Then API Response Status Code must be 200", "Search Client Config API Response is not expected. Expected 200 and found \" + getConfig.getStatusCode()"));
         for (ConfigResponse result : getConfig.getResult()) {
-            assertCheck.append(actions.assertEqualStringType(result.getClient().toUpperCase().trim(), config.getProperty(CLIENT + "-Client").toUpperCase().trim(), "Client name is same as User-Client.", "Client name is not same as User-Client."));
+            assertCheck.append(actions.assertEqualStringType(result.getClient().toUpperCase().trim(), CLIENT.toUpperCase().trim(), "Client name is same as User-Client.", "Client name is not same as User-Client."));
             assertCheck.append(actions.assertEqualStringNotNull(result.getFieldName(), "Field Name Can not be Empty for for any client config", ""));
             assertCheck.append(actions.assertEqualBooleanNotNull(result.getIsActive(), "Is Active Field is not empty", "Is Active Field Can not be Empty for for any client config"));
             assertCheck.append(actions.assertEqualBooleanNotNull(result.getMandatory(), "Mandatory Field is not empty", "Mandatory Field Can not be Empty for for any client config"));
