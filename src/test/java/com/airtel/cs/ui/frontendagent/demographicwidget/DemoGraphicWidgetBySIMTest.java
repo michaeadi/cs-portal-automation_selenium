@@ -165,7 +165,7 @@ public class DemoGraphicWidgetBySIMTest extends Driver {
             }
             if (!evnName.equalsIgnoreCase("NG")) {
                 try {
-                    assertCheck.append(actions.assertEqualStringType(demographic.getWalletBalance().toUpperCase().trim(), amProfileAPI.getResult().getWallets().get(0).getCurrency().toUpperCase() + " " + amProfileAPI.getResult().getWallets().get(0).getBalance(), "Customer's Airtel Wallet Balance & Currency code as Expected", "Customer's Airtel Wallet Balance & Currency code not same not as Expected"));
+                    assertCheck.append(actions.assertEqualStringType(demographic.getWalletBalance().toUpperCase().trim(), amProfileAPI.getResult().getWallet().get(0).getCurrency().toUpperCase() + " " + amProfileAPI.getResult().getWallet().get(0).getBalance(), "Customer's Airtel Wallet Balance & Currency code as Expected", "Customer's Airtel Wallet Balance & Currency code not same not as Expected"));
                 } catch (NoSuchElementException | TimeoutException e) {
                     commonLib.fail("Customer's Airtel Money Wallet Balance is not visible" + e.getCause(), true);
                 }

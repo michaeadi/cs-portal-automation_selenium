@@ -2,6 +2,7 @@ package com.airtel.cs.common.prerequisite;
 
 
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
+import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.utils.PassUtils;
 import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
@@ -16,6 +17,7 @@ import com.airtel.cs.model.request.issue.IssueDetails;
 import com.airtel.cs.model.request.layout.IssueLayoutRequest;
 import com.airtel.cs.commonutils.dataproviders.databeans.ClientConfigDataBean;
 import com.airtel.cs.model.request.login.LoginRequest;
+import com.airtel.cs.model.response.login.Login;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.apache.commons.lang3.StringUtils;
@@ -57,12 +59,12 @@ public class ApiPrerequisites extends Driver {
     @BeforeClass
     public void loginAPI() throws Exception {
         recordset = DataProviders.readExcelSheet(excelPath, constants.getValue(ApplicationConstants.LOGIN_SHEET_NAME));
-        List<String> datatPoints = DataProviders.getScenarioDetailsFromExcelSheetColumnWise(recordset, "API", "userType", Arrays.asList("loginAuuid", "password"));
-        LoginRequest Req = LoginRequest.loginBody(datatPoints.get(0), PassUtils.decodePassword(datatPoints.get(1)));
+        final String password = PassUtils.decodePassword(constants.getValue(CommonConstants.ADVISOR_USER_ROLE_PASSWORD));
+        Login req = Login.loginBody(constants.getValue(CommonConstants.ADVISOR_USER_ROLE_AUUID), password);
         validHeaderList.clear();
         restUtils.addHeaders("x-client-id", CLIENT_ID);
         restUtils.addHeaders("x-channel", CHANNEL);
-        String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(Req);
+        String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(req);
         LoginRequest loginPOJO = api.loginRequest(validHeaderList, dtoAsString);
         String accessToken = loginPOJO.getResult().get("accessToken");
         String tokenType = loginPOJO.getResult().get("tokenType");

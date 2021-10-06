@@ -17,17 +17,19 @@ import java.util.ArrayList;
 public class ResultAMProfile {
 
     private String accountStatus;
-    private String regStatus;
     private String walletType;
     private String grade;
+    private BarDetails barDetails;
+    private String serviceStatus;
+    private String message;
     private String firstName;
     private String lastName;
-    private String dob;
-    private BarDetails barDetails;
-    private ArrayList<Wallet> wallets;
+    private String regStatus;
+    private String msisdn;
     private String isPinReset;
-    private boolean pinSet;
     private boolean userBarred;
-    private String serviceStatus;
+    private boolean pinSet;
+    private String dob;
+    private ArrayList<Wallet> wallet;
 
 }

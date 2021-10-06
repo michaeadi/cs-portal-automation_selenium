@@ -66,6 +66,8 @@ public class Driver {
     public static String token;
     public static String baseUrl;
     public static String umBaseUrl;
+    public static String srBaseUrl;
+    public static String srUMBaseUrl;
     public static StringBuilder assertCheck;
     public static final ExtentReport reporter = new ExtentReport();
     public static final SeleniumCommonUtils selUtils = new SeleniumCommonUtils();
@@ -271,6 +273,8 @@ public class Driver {
         baseUrl = constants.getValue(ApplicationConstants.API_BASE);
         umBaseUrl = constants.getValue(ApplicationConstants.UM_API_BASE);
         loginURL = constants.getValue(ApplicationConstants.UM_LOGIN_URL);
+        srBaseUrl=constants.getValue(ApplicationConstants.SR_API_BASE);
+        srUMBaseUrl=constants.getValue(ApplicationConstants.SR_UM_API_BASE);
         assertCheck = new StringBuilder(); // @ THIS WILL EMPTY ASSERT STRING-BUILDER BEFORE EACH TEST
     }
 
