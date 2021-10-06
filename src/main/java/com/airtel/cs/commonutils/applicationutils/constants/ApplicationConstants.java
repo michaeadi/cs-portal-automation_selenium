@@ -68,6 +68,8 @@ public class ApplicationConstants {
     public static final String REGRESSION_NFTR_SHEET = "sr.regression.nftr.sheet";
     public static final String REGRESSION_FTR_SHEET = "sr.regression.ftr.sheet";
     public static final String SUITE_TYPE = "sr.suite.type";
+    public static final String SR_API_BASE="sr.api.base";
+    public static final String SR_UM_API_BASE="sr.um.api.base";
     public static final String LABEL_TEXTAREA_CATEGORY_ID = "sr.label.textarea.category.id";
     public static final String AGENT_ID = "sr.agent.id";
     public static final String AGENT_NAME = "sr.agent.name";

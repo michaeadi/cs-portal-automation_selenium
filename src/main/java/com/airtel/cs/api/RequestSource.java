@@ -1,10 +1,11 @@
 package com.airtel.cs.api;
 
-import com.airtel.cs.commonutils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.ESBURIConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.URIConstants;
+import com.airtel.cs.commonutils.dataproviders.databeans.TestDataBean;
 import com.airtel.cs.commonutils.restutils.RestCommonUtils;
+import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.model.request.AccountBalanceRequest;
 import com.airtel.cs.model.request.AccountDetailRequest;
 import com.airtel.cs.model.request.AccountLinesRequest;
@@ -62,7 +63,7 @@ import com.airtel.cs.model.request.tickethistory.TicketHistoryRequest;
 import com.airtel.cs.model.request.tickethistorylog.TicketHistoryLogRequest;
 import com.airtel.cs.model.request.ticketlist.TicketListRequest;
 import com.airtel.cs.model.request.ticketreopen.ReopenTicketRequest;
-import com.airtel.cs.model.request.ticketstats.TicketStatsRequest;
+import com.airtel.cs.model.request.ticketstats.TicketStatsResponse;
 import com.airtel.cs.model.request.updateticket.CloseTicketRequest;
 import com.airtel.cs.model.response.PlanPackResponse;
 import com.airtel.cs.model.response.accountinfo.AccountDetails;
@@ -115,6 +116,7 @@ import io.restassured.http.Headers;
 import io.restassured.response.Response;
 import io.restassured.specification.QueryableRequestSpecification;
 import io.restassured.specification.RequestSpecification;
+import io.restassured.specification.SpecificationQuerier;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -827,7 +829,9 @@ public class RequestSource extends RestCommonUtils {
     public ActionTrail getEventHistory(String msisdn, String eventType) {
         ActionTrail result = null;
         try {
-            commonPostMethod(URIConstants.EVENTS_LOG, new ActionTrailRequest(msisdn, eventType, 10, 0));
+            Map<String, String> clientInfo = new HashMap<>();
+            clientInfo.put(MSISDN, msisdn);
+            commonPostMethod(URIConstants.EVENTS_LOG, new ActionTrailRequest(msisdn, eventType, 10, 0, clientInfo));
             result = response.as(ActionTrail.class);
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getEventHistory " + e.getMessage(), false);
@@ -1178,7 +1182,7 @@ public class RequestSource extends RestCommonUtils {
     public ConfigurationList createConfig(String key, String value) {
         ConfigurationList result = null;
         try {
-            commonPostMethod(URIConstants.CREATE_CONFIGURATION_API, Arrays.asList(new CreateConfigAttributes(OPCO, key, value)));
+            commonPostMethod(URIConstants.CREATE_CONFIGURATION_API, Collections.singletonList(new CreateConfigAttributes(OPCO, key, value)));
             result = response.as(ConfigurationList.class);
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + GET_ALL_CONFIGURATION + e.getMessage(), false);
@@ -1218,16 +1222,28 @@ public class RequestSource extends RestCommonUtils {
         return result;
     }
 
-    public TicketStatsRequest ticketStatsRequest(String clientConfig, List<Header> map) {
+    /**
+     * This Method will hit the API "/api/sr-service/v1/ticket/stats" and return the response
+     *
+     * @param clientConfig the client config
+     * @param map          the map
+     * @return the result
+     */
+    public TicketStatsResponse ticketStatsRequest(String clientConfig, List<Header> map) {
         body = "{\"ticketSearchCriteria\":{\"clientInfo\":{" + clientConfig + "}}}";
         commonPostMethod(URIConstants.TICKET_STATS, map, body);
-        return response.as(TicketStatsRequest.class);
+        return response.as(TicketStatsResponse.class);
     }
 
-    public TicketStatsRequest ticketStatsWithFilterRequest(String clientConfig, List<Header> map) {
+    /**
+     * @param clientConfig
+     * @param map
+     * @return
+     */
+    public TicketStatsResponse ticketStatsWithFilterRequest(String clientConfig, List<Header> map) {
         body = "{\"ticketSearchCriteria\":{\"clientInfo\":{" + clientConfig + "},\"fromDate\":null,\"toDate\":null,\"ticketId\":null,\"days\":null,\"stateIds\":[1,2,3,4,5]}}";
         commonPostMethod(URIConstants.TICKET_STATS, map, body);
-        return response.as(TicketStatsRequest.class);
+        return response.as(TicketStatsResponse.class);
     }
 
     public InteractionIssueRequest createInteractionIssue(List<Header> map, String clientConfig, String issueDetails, String categoryIds) {
@@ -1249,7 +1265,7 @@ public class RequestSource extends RestCommonUtils {
     This Method is used to hit the "/api/sr-service/v1/openapi/clients/config" API and get the response
      */
     public ClientConfigOpenApiRequest clientWithoutUMRequest(List<Header> map) {
-        commonGetMethod(URIConstants.OPEN_API_CLIENT_CONFIG,map);
+        commonGetMethod(URIConstants.OPEN_API_CLIENT_CONFIG, map);
         return response.as(ClientConfigOpenApiRequest.class);
     }
 
@@ -1319,7 +1335,7 @@ public class RequestSource extends RestCommonUtils {
     This Method is used to hit the "/api/sr-service/v1/openapi/firstlast/categories" API and get the response
      */
     public FirstLastOpenApiRequest firstLastOpenApiRequest(List<Header> map) {
-        commonGetMethod(URIConstants.OPEN_API_FIRST_LAST,map);
+        commonGetMethod(URIConstants.OPEN_API_FIRST_LAST, map);
         return response.as(FirstLastOpenApiRequest.class);
     }
 
@@ -1416,7 +1432,7 @@ public class RequestSource extends RestCommonUtils {
     This Method is used to hit the "/api/user-mngmnt/v2/login" and get the response
      */
     public LoginRequest loginRequest(List<Header> map, String body) {
-        baseURI = umBaseUrl;
+        baseURI = srUMBaseUrl;
         Headers headers = new Headers(map);
         request = given()
                 .headers(headers)
@@ -1481,15 +1497,16 @@ public class RequestSource extends RestCommonUtils {
         body = "{\"pageNumber\":" + PAGE_NUMBER + ",\"pageSize\":" + PAGE_SIZE + ",\"ticketSearchCriteria\":{\"clientInfo\":{" + clientConfig + "},\"categoryIds\":[" + categoryIds + "]}}";
         return ticketHistoryRequest(map, body);
     }
+
     /**
      * This Method will hit the API "/cs-gsm-service/v1/enterprise/postpaid/account/information" and return the response in list
      *
-     * @param accountNo The msisdn
+     * @param accountNo      The msisdn
      * @param paymentRequest
      * @return The Response
      */
     public Integer getEnterprisePostpaidAccountInformation(String accountNo, PaymentRequest paymentRequest) {
-        Integer statusCode=null;
+        Integer statusCode = null;
         try {
             queryParam.put(ACCOUNT_NO, accountNo);
             commonGetMethodWithQueryParam(URIConstants.ENTERPRISE_POSTPAID_ACCOUNT_INFORMATION, queryParam);
@@ -1503,6 +1520,7 @@ public class RequestSource extends RestCommonUtils {
         }
         return statusCode;
     }
+
     /**
      * This Method will hit the API "/cs-gsm-service/v1/enterprise/search" and return the response in list
      *
@@ -1511,7 +1529,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public Integer getEnterpriseSearchAccount(String type, String val) {
-        Integer statusCode=null;
+        Integer statusCode = null;
         EnterpriseAccountSearchResponse result = null;
         try {
             queryParam.put("type", type);
@@ -1537,7 +1555,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public Integer getEnterpriseLinkedServices(EnterpriseLinkedServiceRequest linkedServiceRequest) {
-        Integer statusCode=null;
+        Integer statusCode = null;
         AccountLinesRequest accountLinesRequest = new AccountLinesRequest();
         accountLinesRequest.setAccountNo(linkedServiceRequest.getAccountNo());
         accountLinesRequest.setMsisdn(linkedServiceRequest.getMsisdn());
@@ -1567,12 +1585,12 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public Integer getEnterpriseEventHistory(String eventType, String accountNo) {
-        Integer statusCode=null;
+        Integer statusCode = null;
         try {
             Map<String, String> clientInfo = new HashMap<>();
             clientInfo.put(ACCOUNT_ID, accountNo);
             UtilsMethods.replaceHeader("sr-client-id", constants.getValue(ApplicationConstants.ENTERPRISE_SR_CLIENT_ID));
-            commonPostMethod(URIConstants.EVENTS_LOG, new ActionTrailRequest("",eventType, 10, 0,clientInfo));
+            commonPostMethod(URIConstants.EVENTS_LOG, new ActionTrailRequest("", eventType, 10, 0, clientInfo));
             statusCode = response.getStatusCode();
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getEnterpriseEventHistory " + e.getMessage(), false);
@@ -1589,12 +1607,12 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public Integer getEnterpriseInteractionHistory(String accountNo) {
-        Integer statusCode=null;
+        Integer statusCode = null;
         try {
             Map<String, String> clientInfo = new HashMap<>();
             clientInfo.put(ACCOUNT_ID, accountNo);
             UtilsMethods.replaceHeader("sr-client-id", constants.getValue(ApplicationConstants.ENTERPRISE_SR_CLIENT_ID));
-            commonPostMethod(URIConstants.ENTERPRISE_INTERACTION_HISTORY, new InteractionHistoryRequest(clientInfo,0,10));
+            commonPostMethod(URIConstants.ENTERPRISE_INTERACTION_HISTORY, new InteractionHistoryRequest(clientInfo, 0, 10));
             statusCode = response.getStatusCode();
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getEnterpriseInteractionHistory " + e.getMessage(), false);
@@ -1611,7 +1629,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public Integer getEnterpriseTicketHistory(String accountNo) {
-        Integer statusCode=null;
+        Integer statusCode = null;
         try {
             Map<String, String> clientInfo = new HashMap<>();
             clientInfo.put(ACCOUNT_ID, accountNo);
@@ -1634,7 +1652,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public Integer getEnterpriseMessageHistory(String accountNo) {
-        Integer statusCode=null;
+        Integer statusCode = null;
         try {
             UtilsMethods.replaceHeader("sr-client-id", constants.getValue(ApplicationConstants.ENTERPRISE_SR_CLIENT_ID));
             commonPostMethod(URIConstants.NOTIFICATION_FETCH_HISTORY, new SMSHistoryRequest(accountNo, 10, 0));
@@ -1649,15 +1667,16 @@ public class RequestSource extends RestCommonUtils {
 
     /**
      * his Method will hit the API "/cs-gsm-service/v1/enterprise/payment/history" in case of Enterprise and return the response
+     *
      * @param paymentHistoryRequest
      * @param paymentHistoryESBRequest
      * @return
      */
     public Integer getEnterprisePaymentHistory(PaymentHistoryRequest paymentHistoryRequest, PaymentHistoryESBRequest paymentHistoryESBRequest) {
-        Integer statusCode=null;
+        Integer statusCode = null;
         try {
             UtilsMethods.replaceHeader("sr-client-id", constants.getValue(ApplicationConstants.ENTERPRISE_SR_CLIENT_ID));
-            commonPostMethod(URIConstants.ENTERPRISE_PAYMENT_HISTORY,paymentHistoryRequest );
+            commonPostMethod(URIConstants.ENTERPRISE_PAYMENT_HISTORY, paymentHistoryRequest);
             statusCode = response.getStatusCode();
             if (response.getStatusCode() != 200) {
                 esbRequestSource.callEnterPrisePaymentHistory(paymentHistoryESBRequest);
@@ -1670,7 +1689,6 @@ public class RequestSource extends RestCommonUtils {
         }
         return statusCode;
     }
-
 
 
 }
