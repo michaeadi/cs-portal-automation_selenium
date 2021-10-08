@@ -73,6 +73,7 @@ public class ApiPrerequisites extends Driver {
         restUtils.clearValidHeaderMap();
         restUtils.addHeaders("Opco", OPCO);
         restUtils.addHeaders("Authorization", Token);
+        restUtils.addHeaders("sr-client-id", constants.getValue(CommonConstants.CS_SR_CLIENT_ID));
     }
 
     /*

@@ -1231,7 +1231,7 @@ public class RequestSource extends RestCommonUtils {
      */
     public TicketStatsResponse ticketStatsRequest(String clientConfig, List<Header> map) {
         body = "{\"ticketSearchCriteria\":{\"clientInfo\":{" + clientConfig + "}}}";
-        commonPostMethod(URIConstants.TICKET_STATS, map, body);
+        commonPostMethod(URIConstants.TICKET_STATS, map, body, srBaseUrl);
         return response.as(TicketStatsResponse.class);
     }
 
@@ -1242,13 +1242,13 @@ public class RequestSource extends RestCommonUtils {
      */
     public TicketStatsResponse ticketStatsWithFilterRequest(String clientConfig, List<Header> map) {
         body = "{\"ticketSearchCriteria\":{\"clientInfo\":{" + clientConfig + "},\"fromDate\":null,\"toDate\":null,\"ticketId\":null,\"days\":null,\"stateIds\":[1,2,3,4,5]}}";
-        commonPostMethod(URIConstants.TICKET_STATS, map, body);
+        commonPostMethod(URIConstants.TICKET_STATS, map, body, srBaseUrl);
         return response.as(TicketStatsResponse.class);
     }
 
     public InteractionIssueRequest createInteractionIssue(List<Header> map, String clientConfig, String issueDetails, String categoryIds) {
         body = "{\"interaction\":{\"createdBy\":\"" + CREATED_BY + "\",\"finalSubmit\":false,\"clientInfo\":{" + clientConfig + "}},\"issues\":[{\"comment\":\"" + COMMENT + "\",\"createdBy\":\"" + CREATED_BY + "\",\"issueDetails\":[" + issueDetails + "],\"categoryHierarchy\":[" + categoryIds + "]}]}";
-        commonPostMethod(URIConstants.INTERACTION_ISSUE, map, body);
+        commonPostMethod(URIConstants.INTERACTION_ISSUE, map, body, srBaseUrl);
         return response.as(InteractionIssueRequest.class);
     }
 
@@ -1257,7 +1257,7 @@ public class RequestSource extends RestCommonUtils {
      */
     public InteractionIssueOpenApiRequest interactionIssueOpenApiRequest(List<Header> map, String clientConfig, String issueDetails, String categoryIds) {
         body = "{\"interaction\":{\"createdBy\":\"" + CREATED_BY + "\",\"finalSubmit\":false,\"clientInfo\":{" + clientConfig + "}},\"issues\":[{\"comment\":\"" + COMMENT + "\",\"createdBy\":\"" + CREATED_BY + "\",\"issueDetails\":[" + issueDetails + "],\"categoryHierarchy\":[" + categoryIds + "]}]}";
-        commonPostMethod(URIConstants.OPEN_API_INTERACTION_ISSUE, map, body);
+        commonPostMethod(URIConstants.OPEN_API_INTERACTION_ISSUE, map, body, srBaseUrl);
         return response.as(InteractionIssueOpenApiRequest.class);
     }
 
@@ -1265,7 +1265,7 @@ public class RequestSource extends RestCommonUtils {
     This Method is used to hit the "/api/sr-service/v1/openapi/clients/config" API and get the response
      */
     public ClientConfigOpenApiRequest clientWithoutUMRequest(List<Header> map) {
-        commonGetMethod(URIConstants.OPEN_API_CLIENT_CONFIG, map);
+        commonGetMethod(URIConstants.OPEN_API_CLIENT_CONFIG, map, srBaseUrl);
         return response.as(ClientConfigOpenApiRequest.class);
     }
 
@@ -1300,7 +1300,7 @@ public class RequestSource extends RestCommonUtils {
      */
     public SearchTicketOpenRequest searchTicketOpenRequest(List<Header> map, String clientConfig) {
         body = "{\"pageNumber\":0,\"pageSize\":10,\"ticketSearchCriteria\":{\"clientInfo\":{" + clientConfig + "}}}";
-        commonPostMethod(URIConstants.OPEN_API_SEARCH_TICKET, map, body);
+        commonPostMethod(URIConstants.OPEN_API_SEARCH_TICKET, map, body, srBaseUrl);
         return response.as(SearchTicketOpenRequest.class);
     }
 
@@ -1309,7 +1309,7 @@ public class RequestSource extends RestCommonUtils {
      */
     public IssueLayoutOpenRequest issueLayoutOpenRequest(List<Header> map, String categoryId) {
         body = "{\"layoutConfigType\":\"Issue\",\"categoryId\":" + categoryId + "}";
-        commonPostMethod(URIConstants.OPEN_API_ISSUE_LAYOUT, map, body);
+        commonPostMethod(URIConstants.OPEN_API_ISSUE_LAYOUT, map, body, srBaseUrl);
         return response.as(IssueLayoutOpenRequest.class);
     }
 
@@ -1318,7 +1318,7 @@ public class RequestSource extends RestCommonUtils {
      */
     public ChildCategoryOpenApiRequest childCategoryOpenApiRequest(List<Header> map, Integer categoryId) {
         body = "{\"id\":" + categoryId + "}";
-        commonPostMethod(URIConstants.OPEN_API_CHILD_CATEGORY, map, body);
+        commonPostMethod(URIConstants.OPEN_API_CHILD_CATEGORY, map, body, srBaseUrl);
         return response.as(ChildCategoryOpenApiRequest.class);
     }
 
@@ -1335,13 +1335,13 @@ public class RequestSource extends RestCommonUtils {
     This Method is used to hit the "/api/sr-service/v1/openapi/firstlast/categories" API and get the response
      */
     public FirstLastOpenApiRequest firstLastOpenApiRequest(List<Header> map) {
-        commonGetMethod(URIConstants.OPEN_API_FIRST_LAST, map);
+        commonGetMethod(URIConstants.OPEN_API_FIRST_LAST, map, srBaseUrl);
         return response.as(FirstLastOpenApiRequest.class);
     }
 
     public ReopenTicketRequest reopenTicket(List<Header> map, String ticketIds) {
         body = "{ \"agentId\": " + AGENT_ID + ", \"agentName\": \"" + AGENT_NAME + "\", \"comment\": \"" + COMMENT + "\", \"ticketIdList\": [\"" + ticketIds + "\"], \"ticketPoolId\": " + TICKET_POOL_ID + " }";
-        commonPostMethod(URIConstants.REOPEN_TICKET, map, body);
+        commonPostMethod(URIConstants.REOPEN_TICKET, map, body, srBaseUrl);
         return response.as(ReopenTicketRequest.class);
     }
 
@@ -1353,13 +1353,13 @@ public class RequestSource extends RestCommonUtils {
 
     public IssueHistoryRequest getIssueHistory(List<Header> map, String clientConfig, String ticketId) {
         body = "{\"pageNumber\":0,\"ticketId\":\"" + ticketId + "\",\"pageSize\":10,\"clientInfo\":{" + clientConfig + "}}";
-        commonPostMethod(URIConstants.ISSUE_HISTORY, map, body);
+        commonPostMethod(URIConstants.ISSUE_HISTORY, map, body, srBaseUrl);
         return response.as(IssueHistoryRequest.class);
     }
 
     public CreateIssueRequest createIssue(List<Header> map, String interactionId, String issueDetails, String categoryIds) {
         body = "{\"interactionId\":\"" + interactionId + "\",\"comment\":\"" + COMMENT + "\",\"createdBy\":\"" + CREATED_BY + "\",\"issueDetails\":[" + issueDetails + "],\"categoryHierarchy\":[" + categoryIds + "]}";
-        commonPostMethod(URIConstants.CREATE_ISSUE, map, body);
+        commonPostMethod(URIConstants.CREATE_ISSUE, map, body, srBaseUrl);
         return response.as(CreateIssueRequest.class);
     }
 
@@ -1375,31 +1375,31 @@ public class RequestSource extends RestCommonUtils {
 
     public ClientDeactivateRequest deActivateClientConfig(List<Header> map, Integer id) {
         body = "{\"id\":" + id + "}";
-        commonPostMethod(URIConstants.DEACTIVATE_CLIENT_CONFIG, map, body);
+        commonPostMethod(URIConstants.DEACTIVATE_CLIENT_CONFIG, map, body, srBaseUrl);
 
         return response.as(ClientDeactivateRequest.class);
     }
 
     public ClientConfigRequest createClientConfig(List<Header> map, String clientConfig) {
         body = "{\"clientConfig\":[" + clientConfig + "]}";
-        commonPostMethod(URIConstants.CLIENT_CONFIG, map, body);
+        commonPostMethod(URIConstants.CLIENT_CONFIG, map, body, srBaseUrl);
         return response.as(ClientConfigRequest.class);
     }
 
     public InteractionRequest createInteraction(List<Header> map, String clientConfig) {
         body = "{\"createdBy\": \"" + CREATED_BY + "\",\"finalSubmit\": " + FINAL_SUBMIT + ",\"clientInfo\":{" + clientConfig + "}}";
-        commonPostMethod(URIConstants.CREATE_INTERACTION, map, body);
+        commonPostMethod(URIConstants.CREATE_INTERACTION, map, body, srBaseUrl);
         return response.as(InteractionRequest.class);
     }
 
     public ClientConfigRequest getClientConfig(List<Header> map) {
-        commonGetMethod(URIConstants.CLIENT_CONFIG, map);
+        commonGetMethod(URIConstants.CLIENT_CONFIG, map, srBaseUrl);
         return response.as(ClientConfigRequest.class);
     }
 
     public IssueLayoutRequest getLayoutConfiguration(List<Header> map, Integer categoryId) {
         body = "{\"layoutConfigType\":\"Issue\",\"categoryId\":" + categoryId + "}";
-        commonPostMethod(URIConstants.ISSUE_LAYOUT, map, body);
+        commonPostMethod(URIConstants.ISSUE_LAYOUT, map, body, srBaseUrl);
         return response.as(IssueLayoutRequest.class);
     }
 
@@ -1414,7 +1414,7 @@ public class RequestSource extends RestCommonUtils {
     }
 
     public CategoryHierarchyRequest firstLastCategoryHierarchyTest(List<Header> map) {
-        commonGetMethod(URIConstants.FIRST_LAST, map);
+        commonGetMethod(URIConstants.FIRST_LAST, map, srBaseUrl);
         return response.as(CategoryHierarchyRequest.class);
     }
 
@@ -1424,7 +1424,7 @@ public class RequestSource extends RestCommonUtils {
      * @return response of the API
      */
     public AllConfiguredClientRequest allConfiguredClientRequest(List<Header> map) {
-        commonGetMethod(URIConstants.CONFIGURED_CLIENTS, map);
+        commonGetMethod(URIConstants.CONFIGURED_CLIENTS, map, srBaseUrl);
         return response.as(AllConfiguredClientRequest.class);
     }
 
@@ -1449,13 +1449,13 @@ public class RequestSource extends RestCommonUtils {
      * @return response of the API
      */
     public Integer allConfigureRequestWithInvalidMethod(List<Header> map) {
-        commonPostMethod(URIConstants.CONFIGURED_CLIENTS, map, "");
+        commonPostMethod(URIConstants.CONFIGURED_CLIENTS, map, "", srBaseUrl);
         return response.getStatusCode();
     }
 
     public CloseTicketRequest closeTicket(List<Header> map, String ticketId, String interactionId) {
         body = "{\"agentId\":" + AGENT_ID + ",\"updatedBy\":" + UPDATED_BY + ",\"stateId\":" + STATE_ID + ",\"ticketId\":\"" + ticketId + "\",\"comment\":[{\"ticketPoolId\":" + TICKET_POOL_ID + ",\"agentName\":\"" + AGENT_NAME + "\",\"comment\":\"" + CLOSURE_COMMENT + "\",\"commentType\":\"\",\"agentId\":" + AGENT_ID + ",\"interactionId\":" + interactionId + "}],\"ticketPoolId\":" + TICKET_POOL_ID + "}";
-        commonPostMethod(URIConstants.UPDATE_TICKET, map, body);
+        commonPostMethod(URIConstants.UPDATE_TICKET, map, body, srBaseUrl);
         return response.as(CloseTicketRequest.class);
     }
 
@@ -1465,12 +1465,12 @@ public class RequestSource extends RestCommonUtils {
 
     public TicketListRequest ticketListRequest(List<Header> map, String pageSize, String pageNumber, String stateId) {
         body = "{\"agentId\":" + AGENT_ID + ",\"pageNumber\":" + pageNumber + ",\"pageSize\":" + pageSize + ",\"ticketPoolIds\":[" + TICKET_POOL_IDS + "],\"fromDate\":null,\"toDate\":null,\"slaFromDate\":null,\"slaToDate\":null,\"ticketAssigneeId\":null,\"stateIds\":[" + stateId + "],\"priorityIds\":[],\"workGroupEscalationIds\":null,\"categoryIds\":null}";
-        commonPostMethod(URIConstants.TICKETS_BY_AGENT, map, body);
+        commonPostMethod(URIConstants.TICKETS_BY_AGENT, map, body, srBaseUrl);
         return response.as(TicketListRequest.class);
     }
 
     public TicketHistoryRequest ticketHistoryRequest(List<Header> map, String body) {
-        commonPostMethod(URIConstants.TICKET_HISTORY, map, body);
+        commonPostMethod(URIConstants.TICKET_HISTORY, map, body, srBaseUrl);
         return response.as(TicketHistoryRequest.class);
     }
 
