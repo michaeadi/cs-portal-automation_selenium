@@ -85,7 +85,7 @@ public class SendInternetSettingsTest extends Driver {
     }
 
     @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
-    public void validateSendInternetSetting() {
+    public void         validateSendInternetSetting() {
         try {
             selUtils.addTestcaseDescription("Open send internet setting modal from actions drop down,Validate issue detail title visible,Select reason and enter comment and click on submit button, Validate success message", "description");
             pages.getCustomerProfilePage().clickOnAction();

@@ -4,13 +4,17 @@ import org.openqa.selenium.By;
 
 public class DemoGraphicPage {
     /*
-     * Customer Name & DOB & Refresh Icon Element Locator
+     * Customer Name ,DOB , SearchButton & Refresh Icon Element Locator
      * */
-    public By customerNumberSearchBox = By.xpath("//input[@data-csautomation-key='dashBoardSearchBox']");
+    public By msisdnDashboardSearchBox = By.xpath("//input[@data-csautomation-key='dashBoardSearchBox']");
+    public By msisdnSearchBox = By.xpath("//input[@data-csautomation-key='msisdnSearchBox']");
     public By customerName = By.xpath("//span[@class='customer-name ng-star-inserted']/span[1]");
     public By customerDOB = By.xpath("//*[contains(text(),'DOB')]//following-sibling::td/span/span");
     public By customerInfoIcon = By.xpath("//span[@class='customer-name ng-star-inserted']/a");
     public By refreshIcon = By.xpath("//img[@class='refresh-button cursor-pointer']");
+    public By searchButton=By.xpath("//button[@analyticskey='dashboardMsisdnSearch']");
+    public By dashboardSearchErrorMessage=By.xpath("//span[contains(text(),'Invalid Mobile Number')]");
+
 
     /*
      * Activation Date & Time No longer required in newer version
@@ -41,13 +45,23 @@ public class DemoGraphicPage {
     public By pukLock = By.xpath("//span[contains(text(),'PUK')]//parent::div//span[contains(text(),'Tap to unlock')]");
     public By airtelMoneyLock = By.xpath("//div[@id='AM_PROFILE']//div[contains(text(),'Tap to unlock')]");
     public By amProfileWidget = By.xpath("//div[@id='AM_PROFILE']");
-    public By airtelStatus = By.xpath(
-            "//div[@class='customer-details']//div[@class='container-fluid cusomer-profile-detail']/div//div[6]//span[contains(text(),'Tap to unlock')]");
+    public By authenticate = By.xpath("//span[contains(text(),'Authenticate')]");
+    public By airtelStatus = By.xpath("//div[@class='customer-details']//div[@class='container-fluid cusomer-profile-detail']/div//div[6]//span[contains(text(),'Tap to unlock')]");
     /*
      * PUK1 & PUK2
      * */
     public By puk1 = By.xpath("//span[contains(text(),'PUK1')]//following-sibling::span");
     public By puk2 = By.xpath("//span[contains(text(),'PUK2')]//following-sibling::span");
+
+    /*
+    Actions button and Sim Bar Unbar
+     */
+
+    public By Actions=By.xpath("//span[contains(text(),'Actions')]");
+    public By suspendSim= By.xpath("//button[contains(text(),'Suspend SIM')]");
+    public By reactivateSim= By.xpath("//button[contains(text(),'Reactivate SIM')]");
+
+
 
     /*
      * Data Manager on & off

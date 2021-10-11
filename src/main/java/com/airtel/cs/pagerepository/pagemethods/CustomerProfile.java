@@ -5,10 +5,11 @@ import com.airtel.cs.pagerepository.pageelements.CustomerProfilePage;
 import com.airtel.cs.model.response.plans.MainAccountBalance;
 import com.airtel.cs.model.response.plans.Plans;
 import lombok.extern.log4j.Log4j2;
-import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.ArrayList;
@@ -46,6 +47,7 @@ public class CustomerProfile extends BasePage {
         commonLib.info("Is Send Internet Setting Title Display: " + state);
         return state;
     }
+
 
     /**
      * This method use to Open Adjustment tab
@@ -243,6 +245,20 @@ public class CustomerProfile extends BasePage {
             commonLib.fail("Exception in method - clickOnAction ", true);
         }
     }
+    /**
+     * This method use to get list of all linked numbers
+     * @return
+
+    public List<WebElement> getLinkedNumbers() {
+        List<WebElement> list = returnListOfElement(pageElements.hbbLinkedNumbers);
+        for (int i = 1; i <= list.size(); i++) {
+            String text = getText(By.xpath("//mat-option[" + i + "]//span"));
+            reason.add(text.trim());
+        }
+        return list;
+    }
+     */
+
 
     /**
      * This method is use to click open send sms tab

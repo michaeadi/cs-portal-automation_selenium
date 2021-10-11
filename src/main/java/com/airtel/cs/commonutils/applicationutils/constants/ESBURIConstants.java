@@ -41,4 +41,5 @@ public class ESBURIConstants {
   public static final String POSTPAID_ACCOUNTS_LINE = "/api/enterprise-service/v1/accounts/lines";
   public static final String MY_PLAN = "/api/subscriber-profile/v1/fetch/my-plans";
   public static final String MY_PACK = "/api/subscriber-profile/v1/fetch/my-packs";
+  public static final String HBB_LINKED_ACCOUNT_DETAILS="/api/linked-account-orchestrator/v1/account/detail";
 }

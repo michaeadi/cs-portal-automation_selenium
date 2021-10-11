@@ -22,6 +22,19 @@ public class MsisdnSearch extends BasePage {
      *
      * @param number The Number
      */
+    public void enterNumberOnDashboardSearch(String number) {
+        if (isVisible(pageElements.numberDashboardSearchBox)) {
+            enterText(pageElements.numberDashboardSearchBox, number);
+        } else {
+            commonLib.error("Search box is NOT visible");
+        }
+    }
+
+    /**
+     * This method is use to enter number in search field
+     *
+     * @param number The Number
+     */
     public void enterNumber(String number) {
         if (isVisible(pageElements.numberSearch)) {
             enterText(pageElements.numberSearch, number);
@@ -31,7 +44,7 @@ public class MsisdnSearch extends BasePage {
     }
 
     /**
-     * This method is use to clear customer number
+     * This method is used to clear customer number
      */
     public void clearCustomerNumber() {
         commonLib.info("Clearing Customer Number");
@@ -39,7 +52,15 @@ public class MsisdnSearch extends BasePage {
     }
 
     /**
-     * This method is use to click search button
+     * This method is used to clear customer number from Dashboard Search Box
+     */
+    public void clearDashboardCustomerNumber() {
+        commonLib.info("Clearing Customer Number");
+        driver.findElement(pageElements.numberDashboardSearchBox).clear();
+    }
+
+    /**
+     * This method is used to click search button
      */
     public void clickOnSearch() {
         commonLib.info("Clicking on Search Button");

@@ -14,6 +14,9 @@ public class ApplicationConstants {
     public static final String WEB_BROWSER = "cs.application.browser";
     public static final String CUSTOMER_MSISDN = "cs.customer.msisdn";
     public static final String AM_CUSTOMER_MSISDN = "cs.am.customer.msisdn";
+    public static final String HBB_CUSTOMER_MSISDN = "cs.hbb.customer.msisdn";
+    public static final String HBB_NON_AIRTEL_CUSTOMER_MSISDN= "cs.hbb.non.airtel.customer.msisdn";
+    public static final String HBB_ALTERNATE_MSISDN= "cs.hbb.alternate.msisdn";
     public static final String RECHARGE_HISTORY_MSISDN = "cs.recharge.history.msisdn";
     public static final String CURRENT_BALANCE_MSISDN = "cs.current.balance.msisdn";
     public static final String USAGE_HISTORY_MSISDN = "cs.usage.history.msisdn";
@@ -50,6 +53,8 @@ public class ApplicationConstants {
     public static final String RUN_AIRTEL_MONEY_WIDGET_TESTCASE="cs.run.airtel.money.test.case";
     public static final String CUSTOMER_POSTPAID_MSISDN = "cs.customer.postpaid.msisdn";
     public static final String TEST_V3_USAGE_HISTORY = "v3.usage.history.enabled";
+    public static final String PREPAID_NUMBER = "cs.prepaid.number";
+    public static final String CUSTOMER_PREPAID_MSISDN = "cs.customer.prepaid.msisdn";
     public static final String APP_ENV_NAME = "automation.app.env";
     public static final String APP_BUILD_VERSION = "automation.app.buildversion";
     public static final String X_CLIENT_ID = "sr.x.client.id";

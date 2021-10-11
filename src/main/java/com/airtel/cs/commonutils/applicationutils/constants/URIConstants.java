@@ -9,6 +9,7 @@ public class URIConstants {
     public static final String USAGE_HISTORY = "/cs-gsm-service/v1/usage/history";
     public static final String GSM_AM_PROFILE = "/cs-gsm-service/v1/am/profile";
     public static final String GSM_KYC = "/cs-gsm-service/v1/gsm/kyc";
+
     public static final String GSM_PROFILE = "/cs-gsm-service/v1/profile";
     public static final String KYC_PROFILE = "/cs-gsm-service/v1/kyc/profile";
     public static final String AM_PROFILE = "/cs-am-service/v1/profile";
@@ -56,12 +57,15 @@ public class URIConstants {
     public static final String CREATE_CONFIGURATION_API="/api/cs-service/v1/create/config";
     public static final String DELETE_CONFIGURATION_API="/api/cs-service/v1/delete/config";
     public static final String UPDATE_CONFIGURATION_API="/api/cs-service/v1/update/config";
+    public static final String GET_HBB_LINKED_ACCOUNTS_API="/cs-gsm-service/v1/hbb/linked/accounts";
+
 
     /**
      * SR URI Constants
      */
 
     public static final String TICKET_STATS = "/api/sr-service/v1/ticket/stats";
+    public static final String HBB_USER = "/api/user-service/user/v1/details";
     public static final String INTERACTION_ISSUE = "/api/sr-service/v1/interactions/issue";
     public static final String OPEN_API_INTERACTION_ISSUE = "/api/sr-service/v1/openapi/interactions/issue";
     public static final String OPEN_API_CLIENT_CONFIG = "/api/sr-service/v1/openapi/clients/config";

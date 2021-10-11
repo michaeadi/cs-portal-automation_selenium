@@ -39,6 +39,7 @@ import com.airtel.cs.model.request.clientconfig.AllConfiguredClientRequest;
 import com.airtel.cs.model.request.clientconfig.ClientConfigRequest;
 import com.airtel.cs.model.request.clientconfig.ClientDeactivateRequest;
 import com.airtel.cs.model.request.createissue.CreateIssueRequest;
+import com.airtel.cs.model.request.hbb.HbbLinkedAccountsRequest;
 import com.airtel.cs.model.request.interaction.InteractionRequest;
 import com.airtel.cs.model.request.interactionissue.InteractionIssueRequest;
 import com.airtel.cs.model.request.issuehistory.IssueHistoryRequest;
@@ -82,6 +83,8 @@ import com.airtel.cs.model.response.crbt.Top20Ringtone;
 import com.airtel.cs.model.response.filedmasking.FieldMaskConfigReponse;
 import com.airtel.cs.model.response.filedmasking.FieldMaskConfigs;
 import com.airtel.cs.model.response.friendsfamily.FriendsFamily;
+import com.airtel.cs.model.response.hbb.HbbLinkedAccountsResponse;
+import com.airtel.cs.model.response.hbbuserdetails.HbbUserDetails;
 import com.airtel.cs.model.response.hlrservice.HLRService;
 import com.airtel.cs.model.response.kycprofile.GsmKyc;
 import com.airtel.cs.model.response.kycprofile.KYCProfile;
@@ -161,6 +164,8 @@ public class RequestSource extends RestCommonUtils {
     private static final String APPLICATION_JSON = "application/json";
     private static final String FINAL_SUBMIT = "false";
     private static final TestDataBean TEST_DATA_BEAN = new TestDataBean();
+    private static final String CHANNEL="channel";
+    public static final String LINKED_ACCOUNT_ORCHESTRATOR=" - linked account orchestrator";
 
     /*
     This Method will hit the Available Plan API and returns the response
@@ -292,6 +297,26 @@ public class RequestSource extends RestCommonUtils {
         try {
             commonPostMethod(URIConstants.GSM_KYC, new GenericRequest(msisdn));
             result = response.as(GsmKyc.class);
+            if (result.getStatusCode() != 200) {
+                esbRequestSource.callGsmKycESBAPI(msisdn);
+            }
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - gsmKYCAPITest " + e.getMessage(), false);
+            esbRequestSource.callGsmKycESBAPI(msisdn);
+        }
+        return result;
+    }
+    /**
+     * This Method will hit the API "/api/user-service/user/v1/details" and return the response
+     *
+     * @param msisdn The msisdn
+     * @return The Response
+     */
+    public HbbUserDetails hbbUserDetailsTest(String msisdn) {
+        HbbUserDetails result = null;
+        try {
+            commonPostMethod(URIConstants.HBB_USER, new GenericRequest(msisdn));
+            result = response.as(HbbUserDetails.class);
             if (result.getStatusCode() != 200) {
                 esbRequestSource.callGsmKycESBAPI(msisdn);
             }
@@ -1474,4 +1499,27 @@ public class RequestSource extends RestCommonUtils {
         body = "{\"pageNumber\":" + PAGE_NUMBER + ",\"pageSize\":" + PAGE_SIZE + ",\"ticketSearchCriteria\":{\"clientInfo\":{" + clientConfig + "},\"categoryIds\":[" + categoryIds + "]}}";
         return ticketHistoryRequest(map, body);
     }
-}
+
+    /**
+     * This method is used to get hbb linked accounts response from CS API
+     * @param msisdn The msisdn
+     * @return The response
+     */
+
+    public HbbLinkedAccountsResponse getLinkedHbbNumber(String msisdn)
+    {
+        HbbLinkedAccountsResponse result = null;
+        try {
+            commonPostMethod(URIConstants.GET_HBB_LINKED_ACCOUNTS_API, new HbbLinkedAccountsRequest(msisdn,false));
+            result = response.as(HbbLinkedAccountsResponse.class);
+            if (result.getStatusCode() != 200) {
+                esbRequestSource.hbbLinkedAccount(CHANNEL,msisdn);
+            }
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + LINKED_ACCOUNT_ORCHESTRATOR + e.getMessage(), false);
+        }
+        return result;
+    }
+    }
+
+
