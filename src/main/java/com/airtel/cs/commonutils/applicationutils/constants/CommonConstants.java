@@ -85,10 +85,12 @@ public class CommonConstants {
     public static final String AGENT_ADJUSTMENT_MONTHLY_LIMIT="cs.agent.adjustment.monthly.limit";
     public static final String AGENT_ADJUSTMENT_TRANSACTION_LIMIT="cs.agent.adjustment.transaction.limit";
     public static final String ISSUE="issue";
+    public static final String POSTPAID = "POSTPAID";
+    public static final String MOBILE = "MOBILE";
     public static final String AUTO_ASSIGNMENT_CATEGORY_HIERARCHY="cs.category.hierarchy.auto.assignment";
     public static final String AUTO_ASSIGNMENT_TICKET_ID="cs.auto.assignment.ticket.id";
     public static final String AUTO_ASSIGNMENT_EVENT_NAME="cs.auto.assigned.event.name";
     public static final String AUTO_UN_ASSIGNMENT_EVENT_NAME="cs.auto.unassigned.event.name";
     public static final String AIRTEL_MONEY_WIDGET_TITLE="cs.portal.airtel.money.widget.title";
-
+    public static final String CS_SR_CLIENT_ID = "cs.sr.client.id";
 }

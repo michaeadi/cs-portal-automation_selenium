@@ -6,9 +6,13 @@ import com.airtel.cs.commonutils.applicationutils.constants.ESBURIConstants;
 import com.airtel.cs.commonutils.applicationutils.enums.JavaColors;
 import com.airtel.cs.model.request.AccountDetailRequest;
 import com.airtel.cs.model.request.AccountLineRequest;
+import com.airtel.cs.model.request.AccountLinesRequest;
+import com.airtel.cs.model.request.EnterpriseAccountRequest;
 import com.airtel.cs.model.request.GenericRequest;
+import com.airtel.cs.model.request.InvoiceDetailRequest;
 import com.airtel.cs.model.request.LoanRequest;
 import com.airtel.cs.model.request.OfferDetailRequest;
+import com.airtel.cs.model.request.PaymentHistoryESBRequest;
 import com.airtel.cs.model.request.PaymentRequest;
 import com.airtel.cs.model.request.StatementRequest;
 import com.airtel.cs.model.request.UsageHistoryMenuRequest;
@@ -38,6 +42,7 @@ public class ESBRequestSource extends RestCommonUtils {
     private static final String DOWNSTREAM_API_CALLING = "downstream.api.calling";
     private static final String DOWNSTREAM_API_ERROR = "downstream.api.error";
     private static final String MSISDN = "msisdn";
+    private static final String ACCOUNT_NO = "accountNo";
     private static final String GSM_CUSTOMER_PROFILE_BASE_URL = "gsm.customer.profile.base.url";
     private static final String SUBS_TRANSACTION_SERVICE_BASE_URL = "subscriber.transaction.base.url";
     private static final String END_DATE = "endDate";
@@ -66,6 +71,7 @@ public class ESBRequestSource extends RestCommonUtils {
     private static final String FRIENDS_AND_FAMILY_DETAILS = " - friends and family details ";
     private static final String GET_CREDIT_LIMIT = " -get credit limit ";
     private static final String INVOICE_HISTORY = " -invoice history ";
+    private static final String ENTERPRISE_ACCOUNT_LINES = " -enterprise account lines ";
     private static final String POSTPAID_BILL_DETAILS = " -postpaid bill details ";
     private static final String MY_PLAN = " - my-plan ";
     private static final String MY_PACK = " - my-pack";
@@ -86,6 +92,11 @@ public class ESBRequestSource extends RestCommonUtils {
     public static final String BOTH = "BOTH";
     public static final String USAGE_HISTORY_V3 = " - Usage history V3 ";
     public static final String LINKED_ACCOUNT_ORCHESTRATOR=" - linked account orchestrator";
+    private static final String ENTERPRISE_SEARCH = " -enterprise account search ";
+    public static final String ENTERPRISE_ACCOUNT_NUMBER = "enterpriseAccountNumber";
+    public static final String CORPORATE_CUSTOMER_NUMBER = "corporateCustomerNumber";
+    public static final String AM_PROFILE_DETAILS = " -am profile and wallet deatils";
+    public static final String ENTERPRISE_PAYMENT_HISTORY = "-enterprise payment history";
 
 
     /**
@@ -806,4 +817,104 @@ public class ESBRequestSource extends RestCommonUtils {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + LINKED_ACCOUNT_ORCHESTRATOR+ e.getMessage(), false);
         }
     }
+
+    /**
+     * This Method will hit the Downstream APIs related to enterprise search account
+     *
+     * @param type
+     * @param number
+     */
+    public void callEnterPriseSearchAccount(String type, String number) {
+        try {
+
+            commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + ENTERPRISE_SEARCH, JavaColors.GREEN, false);
+            EnterpriseAccountRequest enterpriseAccountRequest = new EnterpriseAccountRequest();
+            enterpriseAccountRequest.setAccountNo(number);
+            switch (type) {
+                case ENTERPRISE_ACCOUNT_NUMBER:
+                    enterpriseAccountRequest.setAccountNo(number);
+                    break;
+                case CORPORATE_CUSTOMER_NUMBER:
+                    enterpriseAccountRequest.setCustMobileNo(number);
+                    break;
+                default:
+                    enterpriseAccountRequest.setAccountNo(number);
+            }
+            commonPostMethod(constants.getValue("api.enterprise.service.base.url.mocked") + ESBURIConstants.ENTERPRISE_SEARCH_ACCOUNT,
+                enterpriseAccountRequest);
+            checkDownstreamAPI(response.getStatusCode(), ENTERPRISE_SEARCH, "Downstream API Enterprise account working with data ");
+
+        } catch (Exception exp) {
+            commonLib
+                .fail(constants.getValue(DOWNSTREAM_API_ERROR) + ENTERPRISE_SEARCH  + exp.getMessage(),
+                    false);
+        }
+    }
+
+    /**
+     * This Method will hit the Downstream APIs related to enterprise postpaid account info
+     *
+     * @param accountNo The msisdn
+     * @param paymentRequest
+     */
+    public void callEnterPrisePostpaidAccountInformation(String accountNo, PaymentRequest paymentRequest) {
+        try {
+
+            commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + INVOICE_HISTORY, JavaColors.GREEN, false);
+            queryParam.put(ACCOUNT_NO, accountNo);
+            commonPostMethod(constants.getValue("postpaid.enterprise.serice.base.url") + ESBURIConstants.ENTERPRISE_INVOICE_HISTORY,
+                new InvoiceDetailRequest(accountNo));
+            checkDownstreamAPI(response.getStatusCode(), INVOICE_HISTORY, "Downstream API invoice history working with data ");
+
+            commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + ACCOUNT_PAYMENTS, JavaColors.GREEN, false);
+            commonPostMethod(constants.getValue("postpaid.enterprise.serice.base.url") + ESBURIConstants.ACCOUNT_PAYMENT,
+                paymentRequest);
+            checkDownstreamAPI(response.getStatusCode(), ACCOUNT_PAYMENTS, "Downstream API account payments with data ");
+
+        } catch (Exception exp) {
+            commonLib
+                .fail(constants.getValue(DOWNSTREAM_API_ERROR) + INVOICE_HISTORY + SLASH + ACCOUNT_PAYMENTS + exp.getMessage(),
+                    false);
+        }
+    }
+
+    /**
+     * This Method will hit the Downstream APIs related to enterprise linked services details
+     *
+     * @param accountLinesRequest
+     */
+    public void callEnterPrisePostpaidAccountInformation(AccountLinesRequest accountLinesRequest) {
+        try {
+
+            commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + ENTERPRISE_ACCOUNT_LINES, JavaColors.GREEN, false);
+            commonPostMethod(constants.getValue("postpaid.enterprise.serice.base.url") + ESBURIConstants.ENTERPRISE_ACCOUNT_LINES,
+                accountLinesRequest);
+            checkDownstreamAPI(response.getStatusCode(), ENTERPRISE_ACCOUNT_LINES,
+                "Downstream API enterprise account lines working with data ");
+
+        } catch (Exception exp) {
+            commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + ENTERPRISE_ACCOUNT_LINES + exp.getMessage(), false);
+        }
+    }
+
+
+    /**
+     * This Method will hit the Downstream APIs related to enterprise payment history detail
+     *
+     * @param paymentHistoryESBRequest
+     */
+    public void callEnterPrisePaymentHistory(PaymentHistoryESBRequest paymentHistoryESBRequest) {
+        try {
+
+            commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + ENTERPRISE_PAYMENT_HISTORY, JavaColors.GREEN, false);
+            commonPostMethod(constants.getValue("postpaid.enterprise.serice.base.url") + ESBURIConstants.ENTERPRISE_PAYMENT_HISTORY,
+                paymentHistoryESBRequest);
+            checkDownstreamAPI(response.getStatusCode(), ENTERPRISE_ACCOUNT_LINES,
+                "Downstream API enterprise payment history working with data ");
+
+        } catch (Exception exp) {
+            commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + ENTERPRISE_ACCOUNT_LINES + exp.getMessage(), false);
+        }
+    }
+
 }

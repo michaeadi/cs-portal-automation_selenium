@@ -1,17 +1,12 @@
 package com.airtel.cs.model.request.ticketstats;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
-@Getter
-@Setter
-@JsonIgnoreProperties(ignoreUnknown = true)
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@Data
+@AllArgsConstructor
 public class TicketStatsRequest {
-    private String status;
-    private Integer statusCode;
-    private String message;
-    private TicketStatsResult result;
+    private String opco;
+    private String key;
+    private String value;
 }
