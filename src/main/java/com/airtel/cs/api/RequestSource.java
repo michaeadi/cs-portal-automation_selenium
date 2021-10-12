@@ -113,7 +113,6 @@ import com.airtel.cs.model.response.parentcategory.Category;
 import com.airtel.cs.model.response.parentcategory.ParentCategoryResponse;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
-import io.restassured.response.Response;
 import io.restassured.specification.QueryableRequestSpecification;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.SpecificationQuerier;
@@ -152,7 +151,6 @@ public class RequestSource extends RestCommonUtils {
     private static final String CALLING_ESB_APIS = "Calling ESB APIs";
     private static final String GET_ALL_CONFIGURATION = " - getAllConfiguration ";
     private static RequestSpecification request;
-    private static Response response;
     private static QueryableRequestSpecification queryable;
     private static final String CREATED_BY = "API Automation";
     private static final String COMMENT = "Automation Test";
