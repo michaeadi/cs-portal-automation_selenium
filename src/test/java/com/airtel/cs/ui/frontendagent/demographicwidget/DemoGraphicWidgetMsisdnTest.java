@@ -1,9 +1,12 @@
 package com.airtel.cs.ui.frontendagent.demographicwidget;
 
+import com.airtel.cs.api.ESBRequestSource;
 import com.airtel.cs.api.RequestSource;
+import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.driver.Driver;
+import com.airtel.cs.model.request.GenericRequest;
 import com.airtel.cs.model.response.actionconfig.ActionConfigResult;
 import com.airtel.cs.model.response.actionconfig.Condition;
 import com.airtel.cs.model.response.agents.RoleDetails;
@@ -13,6 +16,7 @@ import com.airtel.cs.model.response.kycprofile.GsmKyc;
 import com.airtel.cs.model.response.kycprofile.KYCProfile;
 import com.airtel.cs.model.response.kycprofile.Profile;
 import com.airtel.cs.model.response.plans.Plans;
+import com.airtel.cs.model.response.serviceclassrateplan.ServiceClassRatePlanResponseDTO;
 import io.restassured.http.Headers;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.ObjectUtils;
@@ -33,6 +37,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
 
     private static String customerNumber = null;
     RequestSource api = new RequestSource();
+    ESBRequestSource apiEsb = new ESBRequestSource();
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void checkExecution() {
@@ -434,6 +439,43 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - invalidMSISDNTest" + e.fillInStackTrace(), true);
+        }
+    }
+
+    @Test(priority = 12, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    public void callingESBServiceClassRatePlanAPI() {
+        try {
+            selUtils.addTestcaseDescription("Calling service class rate plan api to get service class and rate plan name", "description");
+            customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
+            GenericRequest genericRequest = new GenericRequest(customerNumber);
+            ServiceClassRatePlanResponseDTO serviceClassRatePlanResponseDTO = apiEsb.callServiceClassRatePlan(genericRequest);
+
+            final String serviceClassRatePlanStatus = serviceClassRatePlanResponseDTO.getStatus();
+            assertCheck.append(actions.assertEqualStringType(serviceClassRatePlanStatus, "200", "Status Code Matched and is " + serviceClassRatePlanStatus, "Response not matched and statusCode is:- " + serviceClassRatePlanStatus));
+
+            final String message = serviceClassRatePlanResponseDTO.getMessage();
+            assertCheck.append(actions.assertEqualStringType(message, "Success", message, "Failure or Some Assertion Failed"));
+
+            if (serviceClassRatePlanStatus.equals("200")) {
+                String serviceClassAndRatePlan = CommonConstants.EMPTY_STRING;
+                if (Objects.nonNull(serviceClassRatePlanResponseDTO.getResponse())) {
+                    if (Objects.nonNull(serviceClassRatePlanResponseDTO.getResponse().getServiceClass())) {
+                        serviceClassAndRatePlan = serviceClassRatePlanResponseDTO.getResponse().getServiceClass();
+                    }
+                    if (Objects.nonNull(serviceClassRatePlanResponseDTO.getResponse().getRatePlanName())) {
+                        serviceClassAndRatePlan += CommonConstants.HYPHEN + serviceClassRatePlanResponseDTO.getResponse().getRatePlanName();
+                    }
+                }
+                commonLib.info("service class and rate plan from esb: " + serviceClassAndRatePlan);
+            } else if (serviceClassRatePlanStatus.equals("500")) {
+                commonLib.info("Internal server error");
+            } else {
+                commonLib.info("service class rate plan downstream api not working");
+            }
+
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - verifyESBParamWithUI" + e.fillInStackTrace(), true);
         }
     }
 

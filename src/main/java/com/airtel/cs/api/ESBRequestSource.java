@@ -26,6 +26,7 @@ import com.airtel.cs.model.response.PostpaidBillDetailsResponse;
 import com.airtel.cs.model.response.customeprofile.CustomerProfileResponse;
 import com.airtel.cs.model.response.postpaid.AccountStatementResponse;
 import com.airtel.cs.model.response.postpaid.enterprise.AccountLinesResponse;
+import com.airtel.cs.model.response.serviceclassrateplan.ServiceClassRatePlanResponseDTO;
 import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONObject;
 
@@ -50,6 +51,7 @@ public class ESBRequestSource extends RestCommonUtils {
     private static final String VAS_SERVICE_TUNE_BASE_URL = "vas.service.tune.base.url";
     private static final String API_ENTERPRISE_SERVICE_BASE_URL = "api.enterprise.service.base.url";
     private static final String VAS_SERVICE_LOAN_BASE_URL = "vas.service.loan.base.url";
+    private static final String SUBSCRIBER_PRODUCT_BASE_URL = "subscriber.product.base.url";
     private static final String USAGE_HISTORY = " -Usage history ";
     private static final String ENTERPRISE_SERVICE_BASE_URL = "enterprise.service.base.url";
     private static final String GSM_KYC = " - gsm kyc";
@@ -636,6 +638,23 @@ public class ESBRequestSource extends RestCommonUtils {
         } catch (Exception e) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + LOAN_DETAILS + e.getMessage(), false);
         }
+    }
+
+    /**
+     * Call service class rate plan service class rate plan response dto.
+     *
+     * @param genericRequest the generic request
+     * @return the service class rate plan response dto
+     */
+    public ServiceClassRatePlanResponseDTO callServiceClassRatePlan(GenericRequest genericRequest) {
+        ServiceClassRatePlanResponseDTO serviceClassRatePlanResponseDTO = null;
+        try {
+            commonPostMethod(constants.getValue(SUBSCRIBER_PRODUCT_BASE_URL) + ESBURIConstants.SERVICE_CLASS_RATE_PLAN, genericRequest);
+            serviceClassRatePlanResponseDTO = response.as(ServiceClassRatePlanResponseDTO.class);
+        } catch (Exception e) {
+            commonLib.fail(EXCEPTION_IN_METHOD + " serviceClassRatePlanResponse " + e.getMessage(), false);
+        }
+        return serviceClassRatePlanResponseDTO;
     }
 
 
