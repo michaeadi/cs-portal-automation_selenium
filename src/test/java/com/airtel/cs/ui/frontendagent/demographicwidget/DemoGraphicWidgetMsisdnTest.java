@@ -443,7 +443,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
     }
 
     @Test(priority = 12, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
-    public void callingESBServiceClassRatePlanAPI() {
+    public void esbServiceClassRatePlanAPI() {
         try {
             selUtils.addTestcaseDescription("Calling service class rate plan api to get service class and rate plan name", "description");
             customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
