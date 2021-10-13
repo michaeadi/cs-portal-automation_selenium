@@ -48,7 +48,7 @@ import com.airtel.cs.model.request.openapi.category.ChildCategoryOpenApiRequest;
 import com.airtel.cs.model.request.openapi.category.FirstLastOpenApiRequest;
 import com.airtel.cs.model.request.openapi.category.ParentCategoryOpenApiRequest;
 import com.airtel.cs.model.request.openapi.clientconfig.ClientConfigOpenApiRequest;
-import com.airtel.cs.model.request.openapi.comment.CommentOpenApiResponse;
+import com.airtel.cs.model.request.openapi.comment.CommentOpenApiRequest;
 import com.airtel.cs.model.request.openapi.interactionissue.InteractionIssueOpenApiRequest;
 import com.airtel.cs.model.request.openapi.interactionissue.IssueLayoutOpenRequest;
 import com.airtel.cs.model.request.openapi.ticket.SearchTicketOpenRequest;
@@ -91,6 +91,9 @@ import com.airtel.cs.model.response.loandetails.Loan;
 import com.airtel.cs.model.response.loansummary.Summary;
 import com.airtel.cs.model.response.login.Login;
 import com.airtel.cs.model.response.offerdetails.OfferDetail;
+import com.airtel.cs.model.response.openapi.comment.CommentOpenApiResponse;
+import com.airtel.cs.model.response.parentcategory.Category;
+import com.airtel.cs.model.response.parentcategory.ParentCategoryResponse;
 import com.airtel.cs.model.response.plans.Plans;
 import com.airtel.cs.model.response.postpaid.PostpaidAccountDetailResponse;
 import com.airtel.cs.model.response.postpaid.enterprise.AccountStatementCSResponse;
@@ -147,8 +150,8 @@ public class RequestSource extends RestCommonUtils {
     private static Response response;
     private static QueryableRequestSpecification queryable;
     private static final String CREATED_BY = "API Automation";
-    private static final String COMMENT = "Automation Test";
-    private static final String UPDATE_COMMENT = "Automation Test Updated";
+    public static final String COMMENT = "Automation Test";
+    public static final String UPDATE_COMMENT = "Automation Test Updated";
     private static final String CLOSURE_COMMENT = "Automation Closure Ticket Test";
     private static final String AGENT_ID = constants.getValue(ApplicationConstants.AGENT_ID);
     private static final String AGENT_NAME = constants.getValue(ApplicationConstants.AGENT_NAME);
@@ -1244,8 +1247,12 @@ public class RequestSource extends RestCommonUtils {
     This Method is used to hit the "/api/sr-service/v1/openapi/comment" API and get the response
      */
     public CommentOpenApiResponse createCommentOpenApiPOJO(String ticketId) {
-        body = "{\"ticketId\":\"" + ticketId + "\",\"agentId\":" + AGENT_ID + ",\"agentName\":\"" + AGENT_NAME + "\",\"comment\":\"" + COMMENT + "\"}";
-        commonPostMethod(URIConstants.OPEN_API_CREATE_COMMENT, body, srBaseUrl);
+        CommentOpenApiRequest commentOpenApiRequest = new CommentOpenApiRequest();
+        commentOpenApiRequest.setTicketId(ticketId);
+        commentOpenApiRequest.setAgentId(Long.parseLong(AGENT_ID));
+        commentOpenApiRequest.setAgentName(AGENT_NAME);
+        commentOpenApiRequest.setComment(COMMENT);
+        commonPostMethod(URIConstants.OPEN_API_CREATE_COMMENT, commentOpenApiRequest, srBaseUrl);
         return RestCommonUtils.response.as(CommentOpenApiResponse.class);
     }
 
@@ -1253,8 +1260,11 @@ public class RequestSource extends RestCommonUtils {
     This Method is used to hit the "/api/sr-service/v1/openapi/update/comment" API and get the response
      */
     public CommentOpenApiResponse updateCommentOpenApiPOJO(Long commentId) {
-        body = "{\"id\":" + commentId + ",\"comment\":\"" + UPDATE_COMMENT + "\",\"agentId\":" + AGENT_ID + "}";
-        commonPostMethod(URIConstants.OPEN_API_UPDATE_COMMENT, body, srBaseUrl);
+        CommentOpenApiRequest commentOpenApiRequest = new CommentOpenApiRequest();
+        commentOpenApiRequest.setId(commentId);
+        commentOpenApiRequest.setComment(UPDATE_COMMENT);
+        commentOpenApiRequest.setAgentId(Long.parseLong(AGENT_ID));
+        commonPostMethod(URIConstants.OPEN_API_UPDATE_COMMENT, commentOpenApiRequest, srBaseUrl);
         return RestCommonUtils.response.as(CommentOpenApiResponse.class);
     }
 
@@ -1262,8 +1272,10 @@ public class RequestSource extends RestCommonUtils {
     This Method is used to hit the "/api/sr-service/v1/openapi/delete/comment" API and get the response
      */
     public CommentOpenApiResponse deleteCommentOpenApiPOJO(Long commentId) {
-        body = "{\"agentId\":" + AGENT_ID + ",\"id\":" + commentId + "}";
-        commonPostMethod(URIConstants.OPEN_API_DELETE_COMMENT, body, srBaseUrl);
+        CommentOpenApiRequest commentOpenApiRequest = new CommentOpenApiRequest();
+        commentOpenApiRequest.setId(commentId);
+        commentOpenApiRequest.setAgentId(Long.parseLong(AGENT_ID));
+        commonPostMethod(URIConstants.OPEN_API_DELETE_COMMENT, commentOpenApiRequest, srBaseUrl);
         return RestCommonUtils.response.as(CommentOpenApiResponse.class);
     }
 

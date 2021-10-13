@@ -4,13 +4,13 @@ import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.dataproviders.databeans.ClientConfigDataBean;
 import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
+import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.model.request.issue.IssueDetails;
 import com.airtel.cs.model.request.openapi.category.ParentCategoryOpenApiRequest;
-import com.airtel.cs.model.request.openapi.comment.CommentOpenApiResponse;
 import com.airtel.cs.model.request.openapi.interactionissue.InteractionIssueOpenApiRequest;
 import com.airtel.cs.model.request.openapi.interactionissue.IssueLayoutOpenRequest;
-import io.restassured.http.Header;
+import com.airtel.cs.model.response.openapi.comment.CommentOpenApiResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -155,7 +155,7 @@ public class OpenAPIPrerequisites extends Driver {
      */
     public Long getOpenApiCommentId() {
         Long commentId = null;
-        map.add(new Header("sr-client-id", "3"));
+        UtilsMethods.addHeaders("sr-client-id", constants.getValue(ApplicationConstants.SR_CLIENT_ID));
         CommentOpenApiResponse commentOpenApiResponse = api.createCommentOpenApiPOJO(getOpenApiTicketId());
         if (commentOpenApiResponse.getStatusCode() == 200) {
             commentId = commentOpenApiResponse.getResult().getId();

@@ -1,4 +1,4 @@
-package com.airtel.cs.model.request.openapi.comment;
+package com.airtel.cs.model.response.openapi.comment;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -9,10 +9,13 @@ import lombok.Setter;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CommentOpenApiResponse {
+public class CommentResponse {
 
-  private String message;
-  private String status;
-  private Integer statusCode;
-  private CommentResponse result;
+  private Long id;
+  private String comment;
+  private String commentType;
+  private Long agentId;
+  private String agentName;
+  private Long createdOn;
+  private Long updatedOn;
 }

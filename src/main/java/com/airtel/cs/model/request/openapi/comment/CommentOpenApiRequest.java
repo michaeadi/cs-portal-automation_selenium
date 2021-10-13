@@ -9,13 +9,11 @@ import lombok.Setter;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CommentResponse {
+public class CommentOpenApiRequest {
 
   private Long id;
-  private String comment;
-  private String commentType;
+  private String ticketId;
   private Long agentId;
   private String agentName;
-  private Long createdOn;
-  private Long updatedOn;
+  private String comment;
 }
