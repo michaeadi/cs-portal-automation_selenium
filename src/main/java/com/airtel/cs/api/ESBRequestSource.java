@@ -57,6 +57,7 @@ public class ESBRequestSource extends RestCommonUtils {
     private static final String GSM_KYC = " - gsm kyc";
     private static final String KYC_REQUEST = " - KYC request";
     private static final String CUSTOMER_PROFILE_V2 = " - customer profile V2 ";
+    private static final String SERVICE_CLASS_RATE_PLAN = " - service class rate plan ";
     private static final String QUERY_BALANCE = " - query balance ";
     private static final String RECHARGE_HISTORY = " - recharge history ";
     private static final String VOUCHER_DETAILS = " - voucher details ";
@@ -194,6 +195,25 @@ public class ESBRequestSource extends RestCommonUtils {
         } catch (Exception e) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + CUSTOMER_PROFILE_V2 + e.getMessage(), false);
         }
+    }
+
+    /**
+     * Call service class rate plan service class rate plan response dto.
+     *
+     * @param genericRequest the generic request
+     * @return the service class rate plan response dto
+     */
+    public ServiceClassRatePlanResponseDTO callServiceClassRatePlan(GenericRequest genericRequest) {
+        ServiceClassRatePlanResponseDTO serviceClassRatePlanResponseDTO = null;
+        try {
+            commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + SERVICE_CLASS_RATE_PLAN, JavaColors.GREEN, false);
+            commonPostMethod(constants.getValue(SUBSCRIBER_PRODUCT_BASE_URL) + ESBURIConstants.SERVICE_CLASS_RATE_PLAN, genericRequest);
+            serviceClassRatePlanResponseDTO = response.as(ServiceClassRatePlanResponseDTO.class);
+            checkDownstreamAPI(response.getStatusCode(), SERVICE_CLASS_RATE_PLAN, "Downstream API service class rate plan working with data ");
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + SERVICE_CLASS_RATE_PLAN + e.getMessage(), false);
+        }
+        return serviceClassRatePlanResponseDTO;
     }
 
     /**
@@ -638,23 +658,6 @@ public class ESBRequestSource extends RestCommonUtils {
         } catch (Exception e) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + LOAN_DETAILS + e.getMessage(), false);
         }
-    }
-
-    /**
-     * Call service class rate plan service class rate plan response dto.
-     *
-     * @param genericRequest the generic request
-     * @return the service class rate plan response dto
-     */
-    public ServiceClassRatePlanResponseDTO callServiceClassRatePlan(GenericRequest genericRequest) {
-        ServiceClassRatePlanResponseDTO serviceClassRatePlanResponseDTO = null;
-        try {
-            commonPostMethod(constants.getValue(SUBSCRIBER_PRODUCT_BASE_URL) + ESBURIConstants.SERVICE_CLASS_RATE_PLAN, genericRequest);
-            serviceClassRatePlanResponseDTO = response.as(ServiceClassRatePlanResponseDTO.class);
-        } catch (Exception e) {
-            commonLib.fail(EXCEPTION_IN_METHOD + " serviceClassRatePlanResponse " + e.getMessage(), false);
-        }
-        return serviceClassRatePlanResponseDTO;
     }
 
 

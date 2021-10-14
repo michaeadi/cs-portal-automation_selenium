@@ -11,6 +11,7 @@ import com.airtel.cs.model.response.actionconfig.ActionConfigResult;
 import com.airtel.cs.model.response.actionconfig.Condition;
 import com.airtel.cs.model.response.agents.RoleDetails;
 import com.airtel.cs.model.response.amprofile.AMProfile;
+import com.airtel.cs.model.response.customeprofile.CustomerDetailsResponse;
 import com.airtel.cs.model.response.filedmasking.FieldMaskConfigs;
 import com.airtel.cs.model.response.kycprofile.GsmKyc;
 import com.airtel.cs.model.response.kycprofile.KYCProfile;
@@ -37,7 +38,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
 
     private static String customerNumber = null;
     RequestSource api = new RequestSource();
-    ESBRequestSource apiEsb = new ESBRequestSource();
+    ESBRequestSource esbRequestSource = new ESBRequestSource();
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void checkExecution() {
@@ -401,6 +402,35 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
         }
     }
 
+    @Test(priority = 12, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void testServiceClassRatePlanAPI() {
+        try {
+            selUtils.addTestcaseDescription("Validate Service Class and Rate Plan", "description");
+            final String msisdn = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
+            List<String> customerDetails = api.searchAPITest(msisdn);
+
+            ServiceClassRatePlanResponseDTO serviceClassRatePlanResponseDTO = esbRequestSource.callServiceClassRatePlan(new GenericRequest(msisdn));
+            String expectedServiceClass = CommonConstants.EMPTY_STRING;
+            if (Objects.nonNull(serviceClassRatePlanResponseDTO.getResponse())) {
+                if (Objects.nonNull(serviceClassRatePlanResponseDTO.getResponse().getServiceClass())) {
+                    expectedServiceClass = serviceClassRatePlanResponseDTO.getResponse().getServiceClass();
+                }
+                if (Objects.nonNull(serviceClassRatePlanResponseDTO.getResponse().getRatePlanName())) {
+                    expectedServiceClass += CommonConstants.HYPHEN + serviceClassRatePlanResponseDTO.getResponse().getRatePlanName();
+                }
+            }
+
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(customerDetails, "customerAccountNumber", "statusCode"), "200", "Status Code for Postpaid Account Information API to get AccountNumber Matched", "Status Code for Postpaid Account Information API to get AccountNumber NOT Matched", false));
+            final String accountNumber = pages.getAccountInformationWidget().getAccountNumber();
+            assertCheck.append(actions.assertEqualStringType(accountNumber, pages.getAccountInformationWidget().getValue(customerDetails, "customerAccountNumber", "customerAccountNumber"), "Account Number displayed as expected and is :" + accountNumber, "Account Number not displayed as expected and is :" + accountNumber));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getAccountNumberStyle(), "Bold", "Account Number is in Bold State", "Account Number NOT in Bold state"));
+
+        } catch (Exception e) {
+            commonLib.fail("Exception in method - testServiceClassRatePlanAPI " + e.fillInStackTrace(), true);
+        }
+        actions.assertAllFoundFailedAssert(assertCheck);
+    }
+
 
     @Test(priority = 10, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testDataManager() {
@@ -439,43 +469,6 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - invalidMSISDNTest" + e.fillInStackTrace(), true);
-        }
-    }
-
-    @Test(priority = 12, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
-    public void esbServiceClassRatePlanAPI() {
-        try {
-            selUtils.addTestcaseDescription("Calling service class rate plan api to get service class and rate plan name", "description");
-            customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
-            GenericRequest genericRequest = new GenericRequest(customerNumber);
-            ServiceClassRatePlanResponseDTO serviceClassRatePlanResponseDTO = apiEsb.callServiceClassRatePlan(genericRequest);
-
-            final String serviceClassRatePlanStatus = serviceClassRatePlanResponseDTO.getStatus();
-            assertCheck.append(actions.assertEqualStringType(serviceClassRatePlanStatus, "200", "Status Code Matched and is " + serviceClassRatePlanStatus, "Response not matched and statusCode is:- " + serviceClassRatePlanStatus));
-
-            final String message = serviceClassRatePlanResponseDTO.getMessage();
-            assertCheck.append(actions.assertEqualStringType(message, "Success", message, "Failure or Some Assertion Failed"));
-
-            if (serviceClassRatePlanStatus.equals("200")) {
-                String serviceClassAndRatePlan = CommonConstants.EMPTY_STRING;
-                if (Objects.nonNull(serviceClassRatePlanResponseDTO.getResponse())) {
-                    if (Objects.nonNull(serviceClassRatePlanResponseDTO.getResponse().getServiceClass())) {
-                        serviceClassAndRatePlan = serviceClassRatePlanResponseDTO.getResponse().getServiceClass();
-                    }
-                    if (Objects.nonNull(serviceClassRatePlanResponseDTO.getResponse().getRatePlanName())) {
-                        serviceClassAndRatePlan += CommonConstants.HYPHEN + serviceClassRatePlanResponseDTO.getResponse().getRatePlanName();
-                    }
-                }
-                commonLib.info("service class and rate plan from esb: " + serviceClassAndRatePlan);
-            } else if (serviceClassRatePlanStatus.equals("500")) {
-                commonLib.info("Internal server error");
-            } else {
-                commonLib.info("service class rate plan downstream api not working");
-            }
-
-            actions.assertAllFoundFailedAssert(assertCheck);
-        } catch (Exception e) {
-            commonLib.fail("Exception in Method - verifyESBParamWithUI" + e.fillInStackTrace(), true);
         }
     }
 

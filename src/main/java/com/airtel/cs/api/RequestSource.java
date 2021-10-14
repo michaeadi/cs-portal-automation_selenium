@@ -96,6 +96,8 @@ import com.airtel.cs.model.response.loandetails.Loan;
 import com.airtel.cs.model.response.loansummary.Summary;
 import com.airtel.cs.model.response.login.Login;
 import com.airtel.cs.model.response.offerdetails.OfferDetail;
+import com.airtel.cs.model.response.parentcategory.Category;
+import com.airtel.cs.model.response.parentcategory.ParentCategoryResponse;
 import com.airtel.cs.model.response.plans.Plans;
 import com.airtel.cs.model.response.postpaid.PostpaidAccountDetailResponse;
 import com.airtel.cs.model.response.postpaid.enterprise.AccountStatementCSResponse;
@@ -145,6 +147,9 @@ public class RequestSource extends RestCommonUtils {
     public static Integer statusCode = null;
     private ESBRequestSource esbRequestSource = new ESBRequestSource();
     private static final String MSISDN = "msisdn";
+    private static final String MSISDN_CAPS = "MSISDN";
+    private static final String TYPE = "type";
+    private static final String NUMBER = "number";
     private static final String ACCOUNT_NO = "accountNo";
     private static final String ACCOUNT_ID = "accountId";
     private static final String CS_PORTAL_API_ERROR = "cs.portal.api.error";
@@ -244,6 +249,27 @@ public class RequestSource extends RestCommonUtils {
             esbRequestSource.callCustomerProfileV2(msisdn);
         }
         return result;
+    }
+
+
+    public List<String> searchAPITest(String msisdn) {
+        String result;
+        List<String> myList = null;
+        try {
+            queryParam.put(TYPE, MSISDN_CAPS);
+            queryParam.put(NUMBER, msisdn);
+            baseUrl = constants.getValue(ApplicationConstants.GSM_API_BASE);
+            commonGetMethodWithQueryParam(URIConstants.SEARCH, queryParam);
+            result = response.print();
+            if (response.getStatusCode() != 200) {
+                esbRequestSource.callServiceClassRatePlan(new GenericRequest(msisdn));
+            }
+            myList = new ArrayList<>(Arrays.asList(result.split("data:")));
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - searchAPITest " + e.getMessage(), false);
+            esbRequestSource.callServiceClassRatePlan(new GenericRequest(msisdn));
+        }
+        return myList;
     }
 
     /**
