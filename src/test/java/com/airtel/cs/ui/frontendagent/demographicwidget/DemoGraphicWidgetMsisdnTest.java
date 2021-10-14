@@ -402,36 +402,6 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
         }
     }
 
-    @Test(priority = 12, groups = {"SanityTest", "RegressionTest", "ProdTest"})
-    public void testServiceClassRatePlanAPI() {
-        try {
-            selUtils.addTestcaseDescription("Validate Service Class and Rate Plan", "description");
-            final String msisdn = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
-            List<String> customerDetails = api.searchAPITest(msisdn);
-
-            ServiceClassRatePlanResponseDTO serviceClassRatePlanResponseDTO = esbRequestSource.callServiceClassRatePlan(new GenericRequest(msisdn));
-            String expectedServiceClass = CommonConstants.EMPTY_STRING;
-            if (Objects.nonNull(serviceClassRatePlanResponseDTO.getResponse())) {
-                if (Objects.nonNull(serviceClassRatePlanResponseDTO.getResponse().getServiceClass())) {
-                    expectedServiceClass = serviceClassRatePlanResponseDTO.getResponse().getServiceClass();
-                }
-                if (Objects.nonNull(serviceClassRatePlanResponseDTO.getResponse().getRatePlanName())) {
-                    expectedServiceClass += CommonConstants.HYPHEN + serviceClassRatePlanResponseDTO.getResponse().getRatePlanName();
-                }
-            }
-
-            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(customerDetails, "customerAccountNumber", "statusCode"), "200", "Status Code for Postpaid Account Information API to get AccountNumber Matched", "Status Code for Postpaid Account Information API to get AccountNumber NOT Matched", false));
-            final String accountNumber = pages.getAccountInformationWidget().getAccountNumber();
-            assertCheck.append(actions.assertEqualStringType(accountNumber, pages.getAccountInformationWidget().getValue(customerDetails, "customerAccountNumber", "customerAccountNumber"), "Account Number displayed as expected and is :" + accountNumber, "Account Number not displayed as expected and is :" + accountNumber));
-            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getAccountNumberStyle(), "Bold", "Account Number is in Bold State", "Account Number NOT in Bold state"));
-
-        } catch (Exception e) {
-            commonLib.fail("Exception in method - testServiceClassRatePlanAPI " + e.fillInStackTrace(), true);
-        }
-        actions.assertAllFoundFailedAssert(assertCheck);
-    }
-
-
     @Test(priority = 10, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testDataManager() {
         try {
@@ -470,6 +440,35 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
         } catch (Exception e) {
             commonLib.fail("Exception in Method - invalidMSISDNTest" + e.fillInStackTrace(), true);
         }
+    }
+
+    @Test(priority = 12, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void testServiceClassRatePlanAPI() {
+        try {
+            selUtils.addTestcaseDescription("Validate Service Class and Rate Plan", "description");
+            final String msisdn = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
+            List<String> customerDetails = api.searchAPITest(msisdn);
+
+            ServiceClassRatePlanResponseDTO serviceClassRatePlanResponseDTO = esbRequestSource.callServiceClassRatePlan(new GenericRequest(msisdn));
+            String expectedServiceClass = CommonConstants.EMPTY_STRING;
+            if (Objects.nonNull(serviceClassRatePlanResponseDTO.getResponse())) {
+                if (Objects.nonNull(serviceClassRatePlanResponseDTO.getResponse().getServiceClass())) {
+                    expectedServiceClass = serviceClassRatePlanResponseDTO.getResponse().getServiceClass();
+                }
+                if (Objects.nonNull(serviceClassRatePlanResponseDTO.getResponse().getRatePlanName())) {
+                    expectedServiceClass += CommonConstants.HYPHEN + serviceClassRatePlanResponseDTO.getResponse().getRatePlanName();
+                }
+            }
+
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(customerDetails, "customerAccountNumber", "statusCode"), "200", "Status Code for Postpaid Account Information API to get AccountNumber Matched", "Status Code for Postpaid Account Information API to get AccountNumber NOT Matched", false));
+            final String accountNumber = pages.getAccountInformationWidget().getAccountNumber();
+            assertCheck.append(actions.assertEqualStringType(accountNumber, pages.getAccountInformationWidget().getValue(customerDetails, "customerAccountNumber", "customerAccountNumber"), "Account Number displayed as expected and is :" + accountNumber, "Account Number not displayed as expected and is :" + accountNumber));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getAccountNumberStyle(), "Bold", "Account Number is in Bold State", "Account Number NOT in Bold state"));
+
+        } catch (Exception e) {
+            commonLib.fail("Exception in method - testServiceClassRatePlanAPI " + e.fillInStackTrace(), true);
+        }
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
 }
