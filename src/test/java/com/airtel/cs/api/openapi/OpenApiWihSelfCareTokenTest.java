@@ -195,7 +195,7 @@ public class OpenApiWihSelfCareTokenTest extends OpenAPIPrerequisites {
         try {
             selUtils.addTestcaseDescription("API is - v1/openapi/comment, This API will create the comment on ticket", "description");
             UtilsMethods.addHeaders("sr-client-id", constants.getValue(ApplicationConstants.SR_CLIENT_ID));
-            CommentOpenApiResponse commentOpenApiResponse = api.createCommentOpenApiPOJO(getOpenApiTicketId());
+            CommentOpenApiResponse commentOpenApiResponse = api.createCommentOpenApi(getOpenApiTicketId());
             final Integer statusCode = commentOpenApiResponse.getStatusCode();
             assertCheck.append(actions.assertEqualIntergerStatusCode(statusCode, 200, "Status Code Matched and is " + statusCode, "Response not matched and statusCode is:- " + statusCode));
             final String message = commentOpenApiResponse.getMessage();
@@ -213,7 +213,7 @@ public class OpenApiWihSelfCareTokenTest extends OpenAPIPrerequisites {
         try {
             selUtils.addTestcaseDescription("API is - v1/openapi/update/comment, This API will update the comment on ticket", "description");
             UtilsMethods.addHeaders("sr-client-id", constants.getValue(ApplicationConstants.SR_CLIENT_ID));
-            CommentOpenApiResponse commentOpenApiResponse = api.updateCommentOpenApiPOJO(getOpenApiCommentId());
+            CommentOpenApiResponse commentOpenApiResponse = api.updateCommentOpenApi(getOpenApiCommentId());
             final Integer statusCode = commentOpenApiResponse.getStatusCode();
             assertCheck.append(actions.assertEqualIntergerStatusCode(statusCode, 200, "Status Code Matched and is " + statusCode, "Response not matched and statusCode is:- " + statusCode));
             final String message = commentOpenApiResponse.getMessage();
@@ -231,7 +231,7 @@ public class OpenApiWihSelfCareTokenTest extends OpenAPIPrerequisites {
         try {
             selUtils.addTestcaseDescription("API is - v1/openapi/delete/comment, This API will delete the comment from ticket", "description");
             UtilsMethods.addHeaders("sr-client-id", constants.getValue(ApplicationConstants.SR_CLIENT_ID));
-            CommentOpenApiResponse commentOpenApiResponse = api.deleteCommentOpenApiPOJO(getOpenApiCommentId());
+            CommentOpenApiResponse commentOpenApiResponse = api.deleteCommentOpenApi(getOpenApiCommentId());
             final Integer statusCode = commentOpenApiResponse.getStatusCode();
             assertCheck.append(actions.assertEqualIntergerStatusCode(statusCode, 200, "Status Code Matched and is " + statusCode, "Response not matched and statusCode is:- " + statusCode));
             final String message = commentOpenApiResponse.getMessage();

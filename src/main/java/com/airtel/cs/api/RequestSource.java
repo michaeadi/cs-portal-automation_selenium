@@ -1246,7 +1246,7 @@ public class RequestSource extends RestCommonUtils {
     /*
     This Method is used to hit the "/api/sr-service/v1/openapi/comment" API and get the response
      */
-    public CommentOpenApiResponse createCommentOpenApiPOJO(String ticketId) {
+    public CommentOpenApiResponse createCommentOpenApi(String ticketId) {
         CommentOpenApiRequest commentOpenApiRequest = new CommentOpenApiRequest();
         commentOpenApiRequest.setTicketId(ticketId);
         commentOpenApiRequest.setAgentId(Long.parseLong(AGENT_ID));
@@ -1259,7 +1259,7 @@ public class RequestSource extends RestCommonUtils {
     /*
     This Method is used to hit the "/api/sr-service/v1/openapi/update/comment" API and get the response
      */
-    public CommentOpenApiResponse updateCommentOpenApiPOJO(Long commentId) {
+    public CommentOpenApiResponse updateCommentOpenApi(Long commentId) {
         CommentOpenApiRequest commentOpenApiRequest = new CommentOpenApiRequest();
         commentOpenApiRequest.setId(commentId);
         commentOpenApiRequest.setComment(UPDATE_COMMENT);
@@ -1271,7 +1271,7 @@ public class RequestSource extends RestCommonUtils {
     /*
     This Method is used to hit the "/api/sr-service/v1/openapi/delete/comment" API and get the response
      */
-    public CommentOpenApiResponse deleteCommentOpenApiPOJO(Long commentId) {
+    public CommentOpenApiResponse deleteCommentOpenApi(Long commentId) {
         CommentOpenApiRequest commentOpenApiRequest = new CommentOpenApiRequest();
         commentOpenApiRequest.setId(commentId);
         commentOpenApiRequest.setAgentId(Long.parseLong(AGENT_ID));

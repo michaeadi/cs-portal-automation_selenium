@@ -156,7 +156,7 @@ public class OpenAPIPrerequisites extends Driver {
     public Long getOpenApiCommentId() {
         Long commentId = null;
         UtilsMethods.addHeaders("sr-client-id", constants.getValue(ApplicationConstants.SR_CLIENT_ID));
-        CommentOpenApiResponse commentOpenApiResponse = api.createCommentOpenApiPOJO(getOpenApiTicketId());
+        CommentOpenApiResponse commentOpenApiResponse = api.createCommentOpenApi(getOpenApiTicketId());
         if (commentOpenApiResponse.getStatusCode() == 200) {
             commentId = commentOpenApiResponse.getResult().getId();
         }
