@@ -655,29 +655,6 @@ public class DemoGraphic extends BasePage {
             throw new SkipException("Growl Message Displayed");
         }
     }
-    /**
-     * This method is used to clear search box
-     *
-     * @param size size of char to be remove
-     */
-    public void clearSearchBox(int size) {
-        commonLib.info("Clearing Search box");
-        for (int i = 0; i < size; i++) {
-            driver.findElement(pageElements.msisdnSearchBox).sendKeys(Keys.BACK_SPACE);
-        }
-    }
-
-    /**
-     * This method is used to clear search box of dashboard page
-     *
-     * @param size size of char to be remove
-     */
-    public void clearSearchBoxDashboard(int size) {
-        commonLib.info("Clearing Search box");
-        for (int i = 0; i < size; i++) {
-            driver.findElement(pageElements.msisdnDashboardSearchBox).sendKeys(Keys.BACK_SPACE);
-        }
-    }
 
     /**
      * This method is used to hover on SIM Number info icon

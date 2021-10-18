@@ -2,6 +2,7 @@ package com.airtel.cs.pagerepository.pagemethods;
 
 import com.airtel.cs.pagerepository.pageelements.MsisdnSearchPage;
 import lombok.extern.log4j.Log4j2;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -18,7 +19,7 @@ public class MsisdnSearch extends BasePage {
     }
 
     /**
-     * This method is use to enter number in search field
+     * This method is use to enter number in dashboard search box
      *
      * @param number The Number
      */
@@ -41,22 +42,6 @@ public class MsisdnSearch extends BasePage {
         } else {
             commonLib.error("Search box is NOT visible");
         }
-    }
-
-    /**
-     * This method is used to clear customer number
-     */
-    public void clearCustomerNumber() {
-        commonLib.info("Clearing Customer Number");
-        driver.findElement(pageElements.numberSearch).clear();
-    }
-
-    /**
-     * This method is used to clear customer number from Dashboard Search Box
-     */
-    public void clearDashboardCustomerNumber() {
-        commonLib.info("Clearing Customer Number");
-        driver.findElement(pageElements.numberDashboardSearchBox).clear();
     }
 
     /**
@@ -92,4 +77,14 @@ public class MsisdnSearch extends BasePage {
     public Boolean isCustomerSearchPageVisible() {
         return isVisible(pageElements.numberSearch);
     }
+
+
+    /**
+     * This method is use to clear searchbox
+     */
+    public void clearCustomerNumber() {
+        commonLib.info("Clearing search box :");
+        driver.findElement(pageElements.numberSearch).clear();
+    }
+
 }

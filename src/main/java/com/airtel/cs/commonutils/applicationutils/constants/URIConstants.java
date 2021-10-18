@@ -9,7 +9,6 @@ public class URIConstants {
     public static final String USAGE_HISTORY = "/cs-gsm-service/v1/usage/history";
     public static final String GSM_AM_PROFILE = "/cs-gsm-service/v1/am/profile";
     public static final String GSM_KYC = "/cs-gsm-service/v1/gsm/kyc";
-
     public static final String GSM_PROFILE = "/cs-gsm-service/v1/profile";
     public static final String KYC_PROFILE = "/cs-gsm-service/v1/kyc/profile";
     public static final String AM_PROFILE = "/cs-am-service/v1/profile";
@@ -58,6 +57,7 @@ public class URIConstants {
     public static final String DELETE_CONFIGURATION_API="/api/cs-service/v1/delete/config";
     public static final String UPDATE_CONFIGURATION_API="/api/cs-service/v1/update/config";
     public static final String GET_HBB_LINKED_ACCOUNTS_API="/cs-gsm-service/v1/hbb/linked/accounts";
+    public static final String NOTIFICATION_SERVICE_API="/cs-notification-service/v1/send/notification";
 
     public static final String ENTERPRISE_POSTPAID_ACCOUNT_INFORMATION="/cs-gsm-service/v1/enterprise/accounts";
     public static final String ENTERPRISE_ACCOUNT_SEARCH = "/cs-gsm-service/v1/enterprise/search";

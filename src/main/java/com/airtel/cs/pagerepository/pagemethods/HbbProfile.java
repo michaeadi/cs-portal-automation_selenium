@@ -1,18 +1,22 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
+import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
+import com.airtel.cs.commonutils.dataproviders.databeans.NftrDataBeans;
+import com.airtel.cs.commonutils.excelutils.WriteToExcel;
+import com.airtel.cs.commonutils.utils.UtilsMethods;
+import com.airtel.cs.model.response.smshistory.SMSHistory;
+import com.airtel.cs.model.response.smshistory.SMSHistoryList;
 import com.airtel.cs.pagerepository.pageelements.CustomerProfilePage;
 import com.airtel.cs.model.response.plans.MainAccountBalance;
 import com.airtel.cs.model.response.plans.Plans;
 import com.airtel.cs.pagerepository.pageelements.HbbProfilePage;
 import lombok.extern.log4j.Log4j2;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +34,7 @@ public class HbbProfile extends BasePage{
      *
      * @return true/false
      */
-    public Boolean issCurrentPlanVisible() {
+    public Boolean isCurrentPlanVisible() {
         final boolean state = (isElementVisible(pageElements.currentPlan)&&isElementVisible(pageElements.currentPlanMore));
         commonLib.info("Is Current Plan Widget and more icon visible: " + state);
         return state;
@@ -66,27 +70,6 @@ public class HbbProfile extends BasePage{
         commonLib.info("Is Service Profile Widget visible: " + state);
         return state;
     }
-    /**
-     * This method is use to check hbb profile visible or not
-     *
-     * @return true/false
-     */
-   /* public Boolean isCurrentPlanVisible() {
-        final boolean state = isElementVisible(pageElements.currentPlan);
-        commonLib.info("Is Current Plan Widget visible: " + state);
-        return state;
-    }
-    /**
-     * This method is use to check hbb profile visible or not
-     *
-     * @return true/false
-     */
-    /*public Boolean isCurrentPlanVisible() {
-        final boolean state = isElementVisible(pageElements.currentPlan);
-        commonLib.info("Is Current Plan Widget visible: " + state);
-        return state;
-    }
-    */
 
     /**
      * This method is use to check hbb profile visible or not
@@ -249,20 +232,6 @@ public class HbbProfile extends BasePage{
     }
 
     /**
-     * This method is use to move to HBB Profile from GSM Profile
-     *
-     *
-     * */
-
-    public void moveToHbb()
-    {
-        Actions actions = new Actions(driver);
-        actions.moveToElement((WebElement) pageElements.gsmProfile);
-        actions.moveToElement((WebElement) pageElements.hbbProfile);
-        actions.click().build().perform();
-    }
-
-    /**
      * This method is use to check purple line visibility under hbb tab
      *
      *  @return true/false
@@ -332,7 +301,7 @@ public class HbbProfile extends BasePage{
         commonLib.info("Is GSM Profile visible along with AM Profile : " + state);
         return state;
     }
-    /*
+    /**
       This Method will give us footer auuid shown in Current plan
       Current plan
        */
@@ -341,7 +310,7 @@ public class HbbProfile extends BasePage{
         return getText(pageElements.hbbMiddleAuid);
     }
 
-    /*
+    /**
     This Method will give us auuid shown in the middle of the Current plan
      */
     public String getMiddleAuuid() {
@@ -351,4 +320,192 @@ public class HbbProfile extends BasePage{
         return result;
     }
 
+    /**
+     * This method is use to get customer name of Hbb User
+     *
+     * @return String The value
+     */
+    public String getUserName() {
+        final String text = getText(pageElements.hbbUserName);
+        commonLib.info("Getting User Name " + text);
+        return text;
+    }
+    /**
+     * This method is use to get alternate number of Hbb User
+     *
+     * @return String The value
+     */
+    public String getAlternateNumber() {
+        final String text = getText(pageElements.hbbAlternateNumber);
+        commonLib.info("Getting Alternate Number" + text);
+        return text;
+    }
+    /**
+     * This method is use to get Email id  of Hbb User
+     *
+     * @return String The value
+     */
+    public String getEmailId() {
+        final String text = getText(pageElements.hbbEmailId);
+        commonLib.info("Getting Email id  " + text);
+        return text;
+    }
+
+    /**
+     * This method is use to enter msisdn in search box of non airtel msisdn page
+     *
+     * @param text The text
+     */
+    public void searchNonAirtelMsisdnBox(String text) {
+        if(isVisible(pageElements.searchNonAirtel)) {
+            commonLib.info("Writing MSISDN in Search Box: " + text);
+            enterText(pageElements.searchNonAirtel, text);
+            driver.findElement(pageElements.searchNonAirtel).sendKeys(Keys.ENTER);
+        }
+        else {
+            commonLib.error("Search box is NOT visible");
+        }
+    }
+
+    /**
+     * This method is use for invalid msisdn for Non Airtel Page
+     * @return  true/false
+     */
+    public Boolean isErrorDisplayed() {
+        final boolean state = (isElementVisible(pageElements.nonAirtelMsisdnError));
+        commonLib.info("Is error displayed for invalid msisdn " + state);
+        return state;
+    }
+
+    /**
+     * This method is use for first Name visibility
+     * @return  true/false
+     */
+    public Boolean firstName() {
+        final boolean state = (isElementVisible(pageElements.firstName));
+        commonLib.info("Is first Name is visible" + state);
+        return state;
+    }
+    /**
+     * This method is use for last Name visibility
+     * @return  true/false
+     */
+    public Boolean lastName() {
+        final boolean state = (isElementVisible(pageElements.lastName));
+        commonLib.info("Is last Name is visible" + state);
+        return state;
+    }
+    /**
+     * This method is use for middle Name visibility
+     * @return  true/false
+     */
+    public Boolean middleName() {
+        final boolean state = (isElementVisible(pageElements.middleName));
+        commonLib.info("Is middle name visible " + state);
+        return state;
+    }
+    /**
+     * This method is use for last Name visibility
+     * @return  true/false
+     */
+    public Boolean userName() {
+        final boolean state = (isElementVisible(pageElements.userName));
+        commonLib.info("Is user Name visible" + state);
+        return state;
+    }
+
+    /**
+     * This method is use for last Name visibility
+     * @return  true/false
+     */
+    public Boolean emailID() {
+        final boolean state = (isElementVisible(pageElements.emailId));
+        commonLib.info("Is email ID visible" + state);
+        return state;
+    }
+    /**
+     * This method is use for DOB visibility
+     * @return  true/false
+     */
+    public Boolean dob() {
+        final boolean state = (isElementVisible(pageElements.dob));
+        commonLib.info("Is dob visible" + state);
+        return state;
+    }
+
+    /**
+     * This method is use for GSM Profile Visibility
+     * @return  true/false
+     */
+    public Boolean isGSMProfileVisible() {
+        final boolean state = (isElementVisible(pageElements.gsmProfile));
+        commonLib.info("Is gsm profile visible " + state);
+        return state;
+    }
+
+    /**
+     * This method is use to check invalid msisdn text
+     */
+    public String getInvalidText() {
+        final String text = getText(pageElements.nonAirtelMsisdnError);
+        commonLib.info("Invalid Msisdn error: " + text);
+        return text;
+    }
+
+    /**
+     * This method is used to open customer interaction from side menu
+     */
+
+    public void openCustomerInteraction(String text)
+    {
+        pages.getSideMenuPage().clickOnSideMenu();
+        pages.getSideMenuPage().openCustomerInteractionPage();
+        pages.getMsisdnSearchPage().enterNumber(text);
+        pages.getMsisdnSearchPage().clickOnSearch();
+    }
+
+    /**
+     * This method is used to create interaction
+     */
+
+    public void createNFTRInteraction() {
+        String ticketNumber = null;
+        String customerNumber = constants.getValue(ApplicationConstants.HBB_CUSTOMER_MSISDN);
+        try {
+            final String issueCode = UtilsMethods.getCategoryHierarchy().get(4);
+            selUtils.addTestcaseDescription("Creating NFTR issue " + issueCode, "description");
+            pages.getCustomerProfilePage().clickOnInteractionIcon();
+            pages.getInteractionsPage().clickOnCode();
+            try {
+                pages.getInteractionsPage().searchCode(issueCode);
+                pages.getInteractionsPage().selectCode(issueCode);
+            } catch (NoSuchElementException | TimeoutException e) {
+                commonLib.fail("Not able to select code", true);
+                pages.getInteractionsPage().clickOutside();
+                throw new NoSuchElementException("Not able to select code or code not found");
+            }
+            commonLib.info("Creating ticket with issue code -" + issueCode);
+            pages.getInteractionsPage().sendComment(constants.getValue("cs.automation.comment"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getInteractionsPage().isSaveEnable(), true, "Save Button Enabled Successfully", "Save Button NOT Enabled"));
+            pages.getInteractionsPage().clickOnSave();
+            assertCheck.append(actions.assertEqualBoolean(pages.getInteractionsPage().isTicketIdVisible(), true, "Ticket Id Visible Successfully over Header", "Ticket Id NOT Visible over Header"));
+            commonLib.info(pages.getInteractionsPage().getResolvedFTRDisplayed());
+            String[] valueToWrite;
+            if (!pages.getInteractionsPage().getResolvedFTRDisplayed().contains("Resolved FTR")) {
+                ticketNumber = pages.getInteractionsPage().getResolvedFTRDisplayed();
+                commonLib.info("Ticket Number:ME " + ticketNumber);
+                valueToWrite = new String[]{ticketNumber};
+                UtilsMethods.setAutoAssignmentTicketId(valueToWrite[0]);
+                commonLib.pass("Ticket Number Written into properties file " + valueToWrite[0]);
+            } else {
+                commonLib.fail("It's FTR not NFTR", true);
+            }
+            pages.getInteractionsPage().closeInteractions();
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - CreateNFTRInteraction" + e.fillInStackTrace(), true);
+            pages.getInteractionsPage().closeInteractions();
+            pages.getInteractionsPage().clickOnContinueButton();
+        }
+        actions.assertAllFoundFailedAssert(assertCheck);
+    }
 }

@@ -28,13 +28,13 @@ public class CreateIssueTest extends ApiPrerequisites {
         }
     }
 
-    @Test(priority = 2, description = "Validate API Response Test is Successful", dataProvider = "NFTRIssue", dataProviderClass = DataProviders.class, groups = {"SanityTest", "RegressionTest"})
+    /*@Test(priority = 2, description = "Validate API Response Test is Successful", dataProvider = "NFTRIssue", dataProviderClass = DataProviders.class, groups = {"SanityTest", "RegressionTest"})
     public void createNFTRIssueWithValidTest(NftrDataBeans list) {
         selUtils.addTestcaseDescription("Validate Create issue /v1/issue API With Category Id: " + getClientCode(list), "description");
         setLastCategoryIntoMap();
         validCategoryId = ids.get(getClientCode(list).toLowerCase().trim());
         ClientConfigDataBean clientConfig = data.getClientConfig().get(0);
-        CreateIssueRequest interactionIssue = api.createIssue(validHeaderList, getInteractionId(), getIssueDetails(validCategoryId), getCategoryHierarchy(clientConfig, validCategoryId));
+        CreateIssueRequest interactionIssue = api.createIssue(validHeaderList, getInteractionId(), getIssueDetails(validCategoryId), getCategoryHierarchy(clientConfig, validCategoryId) ,);
         assertCheck.append(actions.assertEqualIntType(interactionIssue.getStatusCode(), 200, "Status Code Matched", "Status Code Not Matched and is - " + interactionIssue.getStatusCode()));
         assertCheck.append(actions.assertEqualStringType(interactionIssue.getMessage(), config.getProperty("interactionCreated"), "API message Matched", "API message is not as expected"));
         actions.assertAllFoundFailedAssert(assertCheck);
@@ -47,7 +47,7 @@ public class CreateIssueTest extends ApiPrerequisites {
             setLastCategoryIntoMap();
             validCategoryId = ids.get(getClientCode(list).toLowerCase().trim());
             ClientConfigDataBean clientConfig = data.getClientConfig().get(0);
-            CreateIssueRequest interactionIssue = api.createIssue(validHeaderList, getInteractionId(), getIssueDetails(validCategoryId), getCategoryHierarchy(clientConfig, validCategoryId));
+            CreateIssueRequest interactionIssue = api.createIssue(validHeaderList, getInteractionId(), getIssueDetails(validCategoryId), getCategoryHierarchy(clientConfig, validCategoryId) ,isHBBProfile);
             assertCheck.append(actions.assertEqualIntType(interactionIssue.getStatusCode(), 200, "Status Code Matched", "Status Code Not Matched and is - " + interactionIssue.getStatusCode()));
             assertCheck.append(actions.assertEqualStringType(interactionIssue.getMessage(), config.getProperty("interactionCreated"), "API message Matched", "API message is not as expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
@@ -70,5 +70,5 @@ public class CreateIssueTest extends ApiPrerequisites {
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - createFTRIssueWithInValidTokenTest " + e.getMessage(), false);
         }
-    }
+    }*/
 }

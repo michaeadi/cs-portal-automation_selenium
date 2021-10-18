@@ -48,7 +48,6 @@ public class CustomerProfile extends BasePage {
         return state;
     }
 
-
     /**
      * This method use to Open Adjustment tab
      */
@@ -245,20 +244,6 @@ public class CustomerProfile extends BasePage {
             commonLib.fail("Exception in method - clickOnAction ", true);
         }
     }
-    /**
-     * This method use to get list of all linked numbers
-     * @return
-
-    public List<WebElement> getLinkedNumbers() {
-        List<WebElement> list = returnListOfElement(pageElements.hbbLinkedNumbers);
-        for (int i = 1; i <= list.size(); i++) {
-            String text = getText(By.xpath("//mat-option[" + i + "]//span"));
-            reason.add(text.trim());
-        }
-        return list;
-    }
-     */
-
 
     /**
      * This method is use to click open send sms tab

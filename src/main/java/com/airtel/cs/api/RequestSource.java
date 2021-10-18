@@ -45,6 +45,8 @@ import com.airtel.cs.model.request.clientconfig.ClientConfigRequest;
 import com.airtel.cs.model.request.clientconfig.ClientDeactivateRequest;
 import com.airtel.cs.model.request.createissue.CreateIssueRequest;
 import com.airtel.cs.model.request.hbb.HbbLinkedAccountsRequest;
+import com.airtel.cs.model.request.hbb.NotificationServiceRequest;
+import com.airtel.cs.model.request.hbb.ReceiverID;
 import com.airtel.cs.model.request.interaction.InteractionRequest;
 import com.airtel.cs.model.request.interactionissue.InteractionIssueRequest;
 import com.airtel.cs.model.request.issuehistory.IssueHistoryRequest;
@@ -90,7 +92,8 @@ import com.airtel.cs.model.response.filedmasking.FieldMaskConfigReponse;
 import com.airtel.cs.model.response.filedmasking.FieldMaskConfigs;
 import com.airtel.cs.model.response.friendsfamily.FriendsFamily;
 import com.airtel.cs.model.response.hbb.HbbLinkedAccountsResponse;
-import com.airtel.cs.model.response.hbbuserdetails.HbbUserDetails;
+import com.airtel.cs.model.response.hbb.HbbUserDetailsResponse;
+import com.airtel.cs.model.response.hbb.NotificationServiceResponse;
 import com.airtel.cs.model.response.hlrservice.HLRService;
 import com.airtel.cs.model.response.kycprofile.GsmKyc;
 import com.airtel.cs.model.response.kycprofile.KYCProfile;
@@ -144,6 +147,7 @@ public class RequestSource extends RestCommonUtils {
 
     private static final String TARIFF_PLAN_TEST_NUMBER = constants.getValue(ApplicationConstants.TARIFF_PLAN_TEST_NUMBER);
     private static final Map<String, Object> queryParam = new HashMap<>();
+    private static final String NOTIFICATION_SERVICE_API =" - notification service for SMS ";
     public static Integer statusCode = null;
     private ESBRequestSource esbRequestSource = new ESBRequestSource();
     private static final String MSISDN = "msisdn";
@@ -320,11 +324,11 @@ public class RequestSource extends RestCommonUtils {
      * @param msisdn The msisdn
      * @return The Response
      */
-    public HbbUserDetails hbbUserDetailsTest(String msisdn) {
-        HbbUserDetails result = null;
+    public HbbUserDetailsResponse hbbUserDetailsTest(String msisdn) {
+        HbbUserDetailsResponse result = null;
         try {
             commonPostMethod(URIConstants.HBB_USER, new GenericRequest(msisdn));
-            result = response.as(HbbUserDetails.class);
+            result = response.as(HbbUserDetailsResponse.class);
             if (result.getStatusCode() != 200) {
                 esbRequestSource.callGsmKycESBAPI(msisdn);
             }
@@ -1381,8 +1385,8 @@ public class RequestSource extends RestCommonUtils {
         return response.as(IssueHistoryRequest.class);
     }
 
-    public CreateIssueRequest createIssue(List<Header> map, String interactionId, String issueDetails, String categoryIds) {
-        body = "{\"interactionId\":\"" + interactionId + "\",\"comment\":\"" + COMMENT + "\",\"createdBy\":\"" + CREATED_BY + "\",\"issueDetails\":[" + issueDetails + "],\"categoryHierarchy\":[" + categoryIds + "]}";
+    public CreateIssueRequest createIssue(List<Header> map, String interactionId, String issueDetails, String categoryIds, Boolean isHBBProfile) {
+        body = "{\"interactionId\":\"" + interactionId + "\",\"comment\":\"" + COMMENT + "\",\"createdBy\":\"" + CREATED_BY + "\",\"issueDetails\":[" + issueDetails + "],\"categoryHierarchy\":[" + categoryIds + "] , \"isHBBProfile\":{" + isHBBProfile + "}}";
         commonPostMethod(URIConstants.CREATE_ISSUE, map, body, srBaseUrl);
         return response.as(CreateIssueRequest.class);
     }
@@ -1539,6 +1543,24 @@ public class RequestSource extends RestCommonUtils {
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + LINKED_ACCOUNT_ORCHESTRATOR + e.getMessage(), false);
+        }
+        return result;
+    }
+
+    /**
+     * This method will hit the api /cs-notification-service/v1/send/notification and return the response
+     * @param
+     * @return The response
+     */
+
+    public NotificationServiceResponse getNotificationService(String templateIdentifier, String body, String languageCode, String searchId, String sendNotificationType, String templateSourceApp, String templateChannel, List<ReceiverID> receiverId)
+    {
+        NotificationServiceResponse result = null;
+        try {
+            commonPostMethod(URIConstants.NOTIFICATION_SERVICE_API, new NotificationServiceRequest(templateIdentifier,body,languageCode,searchId,sendNotificationType,templateSourceApp,templateChannel,receiverId));
+            result = response.as(NotificationServiceResponse.class);
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + NOTIFICATION_SERVICE_API + e.getMessage(), false);
         }
         return result;
     }

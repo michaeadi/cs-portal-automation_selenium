@@ -25,4 +25,6 @@ public class SMSHistoryList {
     private Boolean action;
     private String templateChannel;
     private String templateIdentifier;
+    private String alternateNumber;
+
 }

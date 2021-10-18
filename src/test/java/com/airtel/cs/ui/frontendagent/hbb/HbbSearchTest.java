@@ -2,15 +2,21 @@ package com.airtel.cs.ui.frontendagent.hbb;
 
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.driver.Driver;
+import com.airtel.cs.model.response.hbb.HbbLinkedAccountsResponse;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.util.List;
+
+import static com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants.HBB_ALTERNATE_MSISDN;
+import static com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants.HBB_INVALID_MSISDN;
 
 
 public class HbbSearchTest extends Driver{
 
-    private  static String hbbCustomerNumber, hbbNonAirtelCustomerNumber = null;
+    private  static String hbbCustomerNumber, hbbAlternateNumber,hbbNonAirtelCustomerNumber,invalidMsisdn = null;
+    private String value;
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
@@ -50,24 +56,8 @@ public class HbbSearchTest extends Driver{
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
-    public void validateHBBTab() {
-        try {
-            selUtils.addTestcaseDescription("Validate Hbb Tab", "description");
-            pages.getMsisdnSearchPage().clearDashboardCustomerNumber();
-            pages.getMsisdnSearchPage().enterNumberOnDashboardSearch(constants.getValue("cs.hbb.alternate.msisdn"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isHBBTabVisible(), true, "HBB Tab is displayed", "HBB Tab is not displayed"));
-            pages.getHbbProfilePage().clickOnHbbTab();
-            assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isPurpleLineVisible(), true, "Purple line is visible under HBB", "Purple line is not visible under HBB "));
-            assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isHbbDisplayedNextToGSM(), true, "HBB tab is displayed next to GSM Profile","HBB tab is not displayed next to GSM Profile"));
-        } catch (Exception e) {
-            commonLib.fail("Exception in Method - validateHBBTab " + e.fillInStackTrace(), true);
-        }
-        actions.assertAllFoundFailedAssert(assertCheck);
 
-    }
-
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void hbbNonAirtelMsisdnSearch() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -77,10 +67,10 @@ public class HbbSearchTest extends Driver{
             pages.getMsisdnSearchPage().enterNumber(hbbNonAirtelCustomerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();
             final boolean pageLoaded = pages.getHbbProfilePage().ishbbPageForNonAirtelNo();
-            assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "HBB Page Loaded Successfully", "HBB Page NOT Loaded"));
+            assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "HBB Page for Non Airtel Msisdn Loaded Successfully", "HBB Page for Non Airtel Msisdn not Loaded"));
             final boolean titleVisible = pages.getHbbProfilePage().isHBBCustomerInteractionTitleVisible();
             assertCheck.append(actions.assertEqualBoolean(titleVisible, true, "Customer Interaction Title visible", "Customer Interaction Title is not visible"));
-            final String msisdnVisible = pages.getHbbProfilePage().getMsisdin();
+            final String msisdnVisible = pages.getHbbProfilePage().getAttribute(pages.getHbbProfilePage().pageElements.searchNonAirtel, value,false);
             assertCheck.append(actions.assertEqualStringType(msisdnVisible,hbbNonAirtelCustomerNumber  , "Non Airtel msisdn is visible", "Non Airtel msisdn is not visible"));
 
         } catch (Exception e) {
@@ -88,18 +78,43 @@ public class HbbSearchTest extends Driver{
         }
         actions.assertAllFoundFailedAssert(assertCheck);
     }
-    @Test(priority = 4, groups = {"SanityTest","RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
-    public void invalidHbbMsisdn() {
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
+    public void validateHBBTab() {
         try {
-            selUtils.addTestcaseDescription("Validating Search By HBB with invalid MSISDN : 754304rty", "description");
-            pages.getMsisdnSearchPage().clearDashboardCustomerNumber();
-            pages.getDemoGraphicPage().enterMSISDN(constants.getValue("cs.hbb.invalid.msisdn"));
-            pages.getDemoGraphicPage().waitTillLoaderGetsRemoved();
-            assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().invalidMSISDNError(), "Invalid Mobile Number",
-                    "Error Message Correctly Displayed", "Error Message NOT Displayed Correctly"));
-            actions.assertAllFoundFailedAssert(assertCheck);
+            selUtils.addTestcaseDescription("Validate Hbb Tab", "description");
+            hbbAlternateNumber = constants.getValue(ApplicationConstants.HBB_ALTERNATE_MSISDN);
+            pages.getHbbProfilePage().searchNonAirtelMsisdnBox(hbbAlternateNumber);
+            pages.getHbbProfilePage().hardWait(10);
+            Boolean tabVisibility=pages.getHbbProfilePage().isHBBTabVisible();
+            assertCheck.append(actions.assertEqualBoolean(tabVisibility, true, "HBB Tab is displayed", "HBB Tab is not displayed"));
+            if(tabVisibility==true) {
+                pages.getHbbProfilePage().clickOnHbbTab();
+                assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isPurpleLineVisible(), true, "Purple line is visible under HBB", "Purple line is not visible under HBB "));
+            }
+            assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isHbbDisplayedNextToGSM(), true, "HBB tab is displayed next to GSM Profile","HBB tab is not displayed next to GSM Profile"));
         } catch (Exception e) {
-            commonLib.fail("Exception in Method - invalidHbbMSISDNTest" + e.fillInStackTrace(), true);
+            commonLib.fail("Exception in Method - validateHBBTab " + e.fillInStackTrace(), true);
         }
+        actions.assertAllFoundFailedAssert(assertCheck);
+
+    }
+
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
+    public void hbbLinkedNumbers() {
+        try {
+            selUtils.addTestcaseDescription("Validating list of hbb numbers in case they are linked with alternate number ", "description");
+            pages.getHbbProfilePage().clickOnHbbTab();
+            HbbLinkedAccountsResponse hbbLinkedNumbers = api.getLinkedHbbNumber(hbbCustomerNumber);
+            Integer statusCode = hbbLinkedNumbers.getStatusCode();
+            List listOfLinkedNumbers = hbbLinkedNumbers.getResult();
+            Integer count = listOfLinkedNumbers.size();
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "HBB Linked Numbers  API Status Code Matched and is :" + statusCode, "HBB Linked Numbers  Status Code NOT Matched and is :" + statusCode, false));
+            assertCheck.append(actions.assertEqualIntType(pages.getHbbProfilePage().getHbbLinkedNumbers(), count, "Count of HBB Linked Numbers is correct:" + count, "Count of HBB Linked Numbers is incorrect:" + count, false));
+        }
+        catch (Exception e) {
+            commonLib.fail("Exception in Method - hbbLinkedNumbers" + e.fillInStackTrace(), true);
+        }
+        actions.assertAllFoundFailedAssert(assertCheck);
+
     }
 }

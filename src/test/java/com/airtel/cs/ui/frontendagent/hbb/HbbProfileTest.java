@@ -1,11 +1,13 @@
 package com.airtel.cs.ui.frontendagent.hbb;
 
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
-import com.airtel.cs.model.response.hbbuserdetails.HbbUserDetails;
+import com.airtel.cs.model.response.hbb.HbbUserDetailsResponse;
 import org.testng.SkipException;
 import com.airtel.cs.driver.Driver;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import static com.airtel.cs.commonutils.utils.UtilsMethods.stringNotNull;
 
 public class HbbProfileTest  extends Driver {
     private static String hbbCustomerNumber = null;
@@ -76,14 +78,21 @@ public class HbbProfileTest  extends Driver {
         try {
             selUtils.addTestcaseDescription(
                     "Validate User Name,Alternate Number,Email id and Device Type", "description");
-            HbbUserDetails hbbUser = api.hbbUserDetailsTest(hbbCustomerNumber);
+            HbbUserDetailsResponse hbbUser = api.hbbUserDetailsTest(hbbCustomerNumber);
             final int statusCode = hbbUser.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Hbb User Details Status Code Matched and is :" + statusCode, "Hbb User Details Code NOT Matched and is :" + statusCode, false));
-            final String customerName = pages.getDemoGraphicPage().getCustomerName();
-            assertCheck.append(actions.matchUiAndAPIResponse(customerName, hbbUser.getResult().getName(),
-                    "Customer Name is as Expected", "Customer Name is not as Expected"));
+            final String userName = pages.getHbbProfilePage().getUserName();
+            final String alternateNumber = pages.getHbbProfilePage().getAlternateNumber();
+            final String emailId = pages.getHbbProfilePage().getEmailId();
+            assertCheck.append(actions.matchUiAndAPIResponse(userName, hbbUser.getResult().getUserName(),
+                    "User Name is as Expected", "User Name is not as Expected"));
+            assertCheck.append(actions.matchUiAndAPIResponse(alternateNumber, String.valueOf(hbbUser.getResult().getAlternateMsisdnList()),
+                    "Alternate Msisdn is as Expected", "Alternate Msisdn  is not as Expected"));
+            assertCheck.append(actions.matchUiAndAPIResponse(emailId, hbbUser.getResult().getEmail(),
+                    "Email id  is as Expected", "Email id is not as Expected"));
+
         } catch (Exception e) {
-            commonLib.fail("Exception in Method - validateHbbProfile " + e.fillInStackTrace(), true);
+            commonLib.fail("Exception in Method - testHbbProfile " + e.fillInStackTrace(), true);
         }
         actions.assertAllFoundFailedAssert(assertCheck);
     }
@@ -93,7 +102,7 @@ public class HbbProfileTest  extends Driver {
         try {
             selUtils.addTestcaseDescription(
                     "Validating Sim Bar/Unbar status according to GSM status ", "description");
-            HbbUserDetails hbbUser = api.hbbUserDetailsTest(hbbCustomerNumber);
+            HbbUserDetailsResponse hbbUser = api.hbbUserDetailsTest(hbbCustomerNumber);
             String status = pages.getDemoGraphicPage().getGSMStatus();
             if (status.equals("Active"))
                 assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isSuspendSIMVisible(), true, "When GSM status is Active , Suspend SIM option is visible  ", "When GSM status is Active , Suspend SIM option is not visible"));

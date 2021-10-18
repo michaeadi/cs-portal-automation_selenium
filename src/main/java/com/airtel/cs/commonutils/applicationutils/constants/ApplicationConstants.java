@@ -16,6 +16,7 @@ public class ApplicationConstants {
     public static final String CUSTOMER_MSISDN = "cs.customer.msisdn";
     public static final String AM_CUSTOMER_MSISDN = "cs.am.customer.msisdn";
     public static final String HBB_CUSTOMER_MSISDN = "cs.hbb.customer.msisdn";
+    public static final String HBB_INVALID_MSISDN="cs.hbb.invalid.msisdn";
     public static final String HBB_NON_AIRTEL_CUSTOMER_MSISDN= "cs.hbb.non.airtel.customer.msisdn";
     public static final String HBB_ALTERNATE_MSISDN= "cs.hbb.alternate.msisdn";
     public static final String RECHARGE_HISTORY_MSISDN = "cs.recharge.history.msisdn";
