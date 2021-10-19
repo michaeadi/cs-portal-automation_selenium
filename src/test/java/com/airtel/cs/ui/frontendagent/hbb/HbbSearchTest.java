@@ -57,7 +57,7 @@ public class HbbSearchTest extends Driver{
     }
 
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "SmokeTest","ProdTest"})
     public void hbbNonAirtelMsisdnSearch() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -99,7 +99,7 @@ public class HbbSearchTest extends Driver{
 
     }
 
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 5, groups = {"SanityTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
     public void hbbLinkedNumbers() {
         try {
             selUtils.addTestcaseDescription("Validating list of hbb numbers in case they are linked with alternate number ", "description");

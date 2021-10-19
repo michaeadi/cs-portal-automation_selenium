@@ -14,7 +14,7 @@ public class HbbWidgetsVisibilityTest extends Driver {
     private static String hbbCustomerNumber = null;
     private static String adjustmentReason;
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -23,7 +23,7 @@ public class HbbWidgetsVisibilityTest extends Driver {
     }
 
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -80,7 +80,7 @@ public class HbbWidgetsVisibilityTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 4, dependsOnMethods = {"openCustomerInteraction"}, groups = {"RegressionTest"})
+    @Test(priority = 4, dependsOnMethods = {"openCustomerInteraction"}, groups = {"RegressionTest","SanityTest","ProdTest"})
     public void validateAdjustmentCreditType() {
         try {
             selUtils.addTestcaseDescription("Validate user able to open adjustment tab through home action,Validate agent able to choose fields reason and type and enter comment,Validate admin able to put comment,Validate agent able to click submit button and agent must receive proper success message", "description");
@@ -112,7 +112,7 @@ public class HbbWidgetsVisibilityTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 5, dependsOnMethods = {"openCustomerInteraction"}, groups = {"RegressionTest"})
+    @Test(priority = 5, dependsOnMethods = {"openCustomerInteraction"}, groups = {"RegressionTest","ProdTest","SanityTest"})
     public void validateAdjustmentDebitType() {
         try {
             assertCheck.append(actions.assertEqualBoolean(!pages.getAdjustmentTabPage().isAccessDeniedMsg(), true, "Debit type adjustment permitted by the agent as expected", "Debit type adjustment does not permitted as per user permission", true));

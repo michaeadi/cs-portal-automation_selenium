@@ -16,7 +16,7 @@ public class HbbNonAirtelMsisdnTest extends Driver{
 
     private  String hbbNumber, hbbNonAirtelCustomerNumber , hbbInvalidNumber,hbbAlternateNumber, prepaidNumber,postpaidNumber= null;
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -25,7 +25,7 @@ public class HbbNonAirtelMsisdnTest extends Driver{
     }
 
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");

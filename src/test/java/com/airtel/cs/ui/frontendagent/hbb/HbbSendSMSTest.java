@@ -52,13 +52,13 @@ public class HbbSendSMSTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest","SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
     public void sendSMS() {
         try {
             selUtils.addTestcaseDescription("Validating the Send SMS Tab ", "description");
             assertCheck.append(actions.assertEqualBoolean(pages.getSendSMS().isPageLoaded(), true, "Send SMS tab opened correctly", "Send SMS tab does not open correctly"));
             HbbUserDetailsResponse hbbUser = api.hbbUserDetailsTest(hbbCustomerNumber);
-            Assert.assertEquals(pages.getSendSMS().getCustomerNumberHbb(), hbbUser.getResult().getAlternateMsisdn(), "Alternate number is pre-filled in place of the MSISDN");
+            Assert.assertEquals(pages.getSendSMS().getCustomerNumberHbb(), String.valueOf(hbbUser.getResult().getAlternateMsisdnList()), "Alternate number is pre-filled in place of the MSISDN");
             pages.getSendSMS().selectCategory();
             templateName = pages.getSendSMS().selectTemplateName();
             pages.getSendSMS().selectLanguage();
@@ -76,7 +76,7 @@ public class HbbSendSMSTest extends Driver {
     /**
      * This method is used to Check Sent SMS display in message history
      */
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 3, groups = {"SanityTest", "ProdTest","RegressionTest"}, dependsOnMethods = "openCustomerInteraction")
     public void checkSendMessageLog() {
         try {
             selUtils.addTestcaseDescription("Check Sent SMS display in message history ", "description");
@@ -132,6 +132,7 @@ public class HbbSendSMSTest extends Driver {
                     "Validating parameters in notification service API", "description");
             HbbUserDetailsResponse hbbUser = api.hbbUserDetailsTest(hbbCustomerNumber);
             String searchId=hbbCustomerNumber;
+            List<ReceiverID> receiverIds=null;
             /*List<ReceiverID> receiverIds=hbbUser.getResult().getAlternateMsisdnList();*/
             NotificationServiceResponse notificationService= api.getNotificationService("1_GGCS6Mrd_1632734159995","test", "FR",searchId,"SMS","Customer_Service","SMS",receiverIds);
             final int statusCode = notificationService.getStatusCode();

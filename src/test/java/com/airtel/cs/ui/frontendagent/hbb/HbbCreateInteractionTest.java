@@ -46,7 +46,7 @@ public class HbbCreateInteractionTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void createInteractionSMSTest() {
         try {
             selUtils.addTestcaseDescription("Create interaction , check its entry in View History > SMS Tab", "description");

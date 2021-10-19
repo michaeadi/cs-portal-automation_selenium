@@ -12,7 +12,7 @@ import static com.airtel.cs.commonutils.utils.UtilsMethods.stringNotNull;
 public class HbbProfileTest  extends Driver {
     private static String hbbCustomerNumber = null;
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -21,7 +21,7 @@ public class HbbProfileTest  extends Driver {
     }
 
 
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "SmokeTest","ProdTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
@@ -39,7 +39,7 @@ public class HbbProfileTest  extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 2, groups = {"SanityTest", "ProdTest", "SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
     public void validateLockUnlockOption() {
         try {
             selUtils.addTestcaseDescription("Validating Customer Authentication functionality (Lock/Unlock)", "description");
@@ -97,7 +97,7 @@ public class HbbProfileTest  extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testSimBarUnbar() {
         try {
             selUtils.addTestcaseDescription(
