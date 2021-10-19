@@ -19,7 +19,7 @@
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginPortalTests"/>
         </classes>
     </test>
-    <!--<test name="Test Side Menu Options">
+    <test name="Test Side Menu Options">
         <groups>
             <run>
                 <include name="SanityTest"/>
@@ -59,99 +59,7 @@
             <class name="com.airtel.cs.ui.frontendagent.viewhistorytab.ActionTrailTest"/>
         </classes>
     </test>-->
-    
-     <!--<test name="Validate HBB Profile">
-        <groups>
-            <run>
-                <include name="SanityTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.hbb.HbbSearchTest"/>
-        </classes>
-    </test>
-    <test name="Validate Hbb Search on Dashboard Page ">
-        <groups>
-            <run>
-                <include name="SanityTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.hbb.HbbDashboardSearchTest"/>
-        </classes>
-    </test>-->
-    <test name="Validate hbb Widgets Visibility ">
-        <groups>
-            <run>
-                <include name="SanityTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.hbb.HbbWidgetsVisibilityTest"/>
-        </classes>
-    </test>
-    <test name="Validating Hbb Profile ">
-        <groups>
-            <run>
-                <include name="SanityTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.hbb.HbbProfileTest"/>
-        </classes>
-    </test>
-    <test name="Validate Hbb GSM Profile ">
-        <groups>
-            <run>
-                <include name="SanityTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.hbb.HbbGsmProfileTest"/>
-        </classes>
-    </test>
-    <test name="Validating Hbb View History ">
-        <groups>
-            <run>
-                <include name="SanityTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.hbb.HbbViewHistory"/>
-        </classes>
-    </test>
-    <test name="Validating Hbb Send SMS ">
-        <groups>
-            <run>
-                <include name="SanityTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.hbb.HbbSendSMSTest"/>
-        </classes>
-    </test>
-    <test name="Validating Creating Interaction for HBB ">
-        <groups>
-            <run>
-                <include name="SanityTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.hbb.HbbCreateInteractionTest"/>
-        </classes>
-    </test>
-    <test name="Validating Non Airtel Msisdn Msisdn ">
-        <groups>
-            <run>
-                <include name="SanityTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.hbb.HbbNonAirtelMsisdnTest"/>
-        </classes>
-    </test>
-    
-   <!-- <test name="Demo Graphic Widget Test By MSISDN">
+    <test name="Demo Graphic Widget Test By MSISDN">
         <groups>
             <run>
                 <include name="SanityTest"/>
@@ -209,6 +117,96 @@
         </groups>
         <classes>
             <class name="com.airtel.cs.ui.configurationtest.ConfigurationListTest"/>
+        </classes>
+    </test>
+    <test name="Validate HBB Profile">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hbb.HbbSearchTest"/>
+        </classes>
+    </test>
+    <test name="Validate Hbb Search on Dashboard Page ">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hbb.HbbDashboardSearchTest"/>
+        </classes>
+    </test>
+    <test name="Validating Hbb Profile ">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hbb.HbbProfileTest"/>
+        </classes>
+    </test>
+    <test name="Validate hbb Widgets Visibility ">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hbb.HbbWidgetsVisibilityTest"/>
+        </classes>
+    </test>
+    <test name="Validate Hbb GSM Profile ">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hbb.HbbGsmProfileTest"/>
+        </classes>
+    </test>
+    <test name="Validating Hbb View History ">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hbb.HbbViewHistory"/>
+        </classes>
+    </test>
+    <test name="Validating Hbb Send SMS ">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hbb.HbbSendSMSTest"/>
+        </classes>
+    </test>
+    <test name="Validating Creating Interaction for HBB ">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hbb.HbbCreateInteractionTest"/>
+        </classes>
+    </test>
+    <test name="Validating Non Airtel Msisdn Msisdn ">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hbb.HbbNonAirtelMsisdnTest"/>
         </classes>
     </test>
     <test name="Service Profile Widget Test">
@@ -793,8 +791,8 @@
         </classes>
     </test>
 
-    <!-Enterprise test cases starts from here-->
-    <!--<test name="Test Login Into Portal With Enterprise">
+    !-Enterprise test cases starts from here-->
+    <test name="Test Login Into Portal With Enterprise">
         <groups>
             <run>
                 <include name="SanityTest"/>
@@ -885,5 +883,5 @@
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.EnterprisePaymentHistoryTest"/>
         </classes>
-    </test>-->
+    </test>
 </suite>
