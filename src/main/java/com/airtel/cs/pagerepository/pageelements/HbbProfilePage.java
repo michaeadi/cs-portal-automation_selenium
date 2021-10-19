@@ -25,9 +25,6 @@ public class HbbProfilePage {
     public By interactionHistory = By.xpath("//div[@class='history-page']//div[contains(text(),'Interaction')]");
     public By nonAirtelMsisdnError=By.xpath("//span[contains(text(),'Invalid Mobile Number')]");
 
-
-
-
     /*
      * Hbb Customer Name ,Alternate No., Email id and Device Type Element Locator
      * */
