@@ -23,9 +23,7 @@ public class CustomerProfilePage {
     public By simBarUnBar = By.xpath("//div[@class='mat-menu-content']//button[1]");
     public By sendSettings = By.xpath("//button[text()=' Send Internet Settings ']");
     public By resetME2UPassword = By.xpath("//div[@class='mat-menu-content']//button[contains(text(),'Reset Me2U Password')]");
-
     public By sendSettingTitle = By.xpath("//span[contains(text(),'Send Internet Settings')]");
-
     public By resetME2Title = By.xpath("//span[contains(text(),'Reset Me2U Password')]");
     public By cancelBtn = By.xpath("//button[@class='no-btn']");
     public By closeBtn = By.xpath("//following-sibling::mat-icon[contains(text(),'close')]");

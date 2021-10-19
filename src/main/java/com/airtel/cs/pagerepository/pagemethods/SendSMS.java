@@ -41,7 +41,7 @@ public class SendSMS extends BasePage {
     }
 
     /**
-     * This method use to get customer in case of HBB
+     * This method use to get customer no. in case of HBB
      *
      * @return String The value
      */
