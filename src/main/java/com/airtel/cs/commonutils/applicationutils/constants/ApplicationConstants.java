@@ -82,6 +82,8 @@ public class ApplicationConstants {
     public static final String PAGE_NUMBER = "sr.page.number";
     public static final String TICKET_POOL_IDS = "sr.ticket.pool.ids";
     public static final String EXTERNAL_STATE_IDS = "sr.external.state.ids";
+    public static final String IS_SERVICE_CLS_ENABLED = "service.class.rate.plan.api.enabled";
+    public static final String CURRENT_PLAN_API_CALL = "current.plan.api.call";
 
     private ApplicationConstants() {
         throw new IllegalStateException();

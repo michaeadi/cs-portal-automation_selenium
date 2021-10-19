@@ -157,7 +157,7 @@ public class RequestSource extends RestCommonUtils {
     private static final String CALLING_ESB_APIS = "Calling ESB APIs";
     private static final String GET_ALL_CONFIGURATION = " - getAllConfiguration ";
     private static RequestSpecification request;
-    private static Response response;
+    //private static Response response;
     private static QueryableRequestSpecification queryable;
     private static final String CREATED_BY = "API Automation";
     private static final String COMMENT = "Automation Test";
@@ -258,7 +258,6 @@ public class RequestSource extends RestCommonUtils {
         try {
             queryParam.put(TYPE, MSISDN_CAPS);
             queryParam.put(NUMBER, msisdn);
-            baseUrl = constants.getValue(ApplicationConstants.GSM_API_BASE);
             commonGetMethodWithQueryParam(URIConstants.SEARCH, queryParam);
             result = response.print();
             if (response.getStatusCode() != 200) {

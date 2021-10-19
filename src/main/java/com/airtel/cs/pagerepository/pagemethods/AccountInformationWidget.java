@@ -1,6 +1,7 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
 import com.airtel.cs.pagerepository.pageelements.AccountInformationWidgetPage;
+import com.google.gson.JsonObject;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONObject;
@@ -8,6 +9,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.json.Json;
 import org.openqa.selenium.support.PageFactory;
 
 import java.text.DateFormat;
@@ -15,10 +17,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Log4j2
 public class AccountInformationWidget extends BasePage {
@@ -247,7 +246,7 @@ public class AccountInformationWidget extends BasePage {
                     break;
                 } else {
                     result = json.get("result").toString();
-                    if (StringUtils.contains(String.valueOf(json.get(statusCode)), "200") || StringUtils.contains(String.valueOf(json.get(statusCode)), "400") && StringUtils.contains(String.valueOf(json.get(status)), "SUCCESS")) {
+                    if ((StringUtils.contains(String.valueOf(json.get(statusCode)), "200") || StringUtils.contains(String.valueOf(json.get(statusCode)), "400")) && StringUtils.contains(String.valueOf(json.get(status)), "SUCCESS")) {
                         result = result.substring(1, result.length() - 1).replace("\"", "");
                         String[] keyValuePairs = result.split(",");
                         Map<String, String> map = new HashMap<>();
@@ -725,6 +724,40 @@ public class AccountInformationWidget extends BasePage {
     public void writeAmount(String amount){
         commonLib.info("Entering Amount");
         enterText(pageElements.amountField,amount);
+    }
+
+    /**
+     *  This method is used for flux api response
+     *  rowKeyToSearch :: keyword you want to search
+     *  rowValueToSearch :: keyword(that you wanna search) value equal to this value
+     *  attributeKey :: want to get particular value basis on key
+     * @param list
+     * @param rowKeyToSearch
+     * @param rowValueToSearch
+     * @param attributeKey
+     * @return
+     * @throws ParseException
+     */
+    public String getValue(List<String> list, String rowKeyToSearch, String rowValueToSearch, String attributeKey) throws ParseException {
+        Map<String,String> resultMap = new HashMap<>();
+        String result =null;
+        JSONParser parser = new JSONParser();
+        for (String s : list) {
+            if (StringUtils.isNotEmpty(s) && s.contains(rowKeyToSearch)) {
+                JSONObject json = (JSONObject) parser.parse(s);
+                if (StringUtils.contains(String.valueOf(json.get(statusCode)), "200") && StringUtils.contains(String.valueOf(json.get(status)), "SUCCESS")
+                        && Objects.nonNull(json.get("result")) && ((JSONObject) json.get("result")).get(rowKeyToSearch).equals(rowValueToSearch)) {
+                    result = json.get("result").toString();
+                    result = result.substring(1, result.length() - 1).replace("\"", "");
+                    String[] keyValuePairs = result.split(",");
+                    for (String pair : keyValuePairs) {
+                        String[] entry = pair.split(":");
+                        resultMap.put(entry[0].trim(), entry[1].trim());
+                    }
+                }
+            }
+        }
+        return resultMap.getOrDefault(attributeKey , "-");
     }
 
 }

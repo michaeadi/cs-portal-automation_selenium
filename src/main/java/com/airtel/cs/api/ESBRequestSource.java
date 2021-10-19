@@ -1,5 +1,6 @@
 package com.airtel.cs.api;
 
+import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.restutils.RestCommonUtils;
 import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ESBURIConstants;
@@ -36,6 +37,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class ESBRequestSource extends RestCommonUtils {
 
@@ -203,17 +205,29 @@ public class ESBRequestSource extends RestCommonUtils {
      * @param genericRequest the generic request
      * @return the service class rate plan response dto
      */
-    public ServiceClassRatePlanResponseDTO callServiceClassRatePlan(GenericRequest genericRequest) {
+    public void callServiceClassRatePlan(GenericRequest genericRequest) {
         ServiceClassRatePlanResponseDTO serviceClassRatePlanResponseDTO = null;
         try {
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + SERVICE_CLASS_RATE_PLAN, JavaColors.GREEN, false);
             commonPostMethod(constants.getValue(SUBSCRIBER_PRODUCT_BASE_URL) + ESBURIConstants.SERVICE_CLASS_RATE_PLAN, genericRequest);
             serviceClassRatePlanResponseDTO = response.as(ServiceClassRatePlanResponseDTO.class);
             checkDownstreamAPI(response.getStatusCode(), SERVICE_CLASS_RATE_PLAN, "Downstream API service class rate plan working with data ");
+            if(response.getStatusCode() == 200 && Objects.nonNull(serviceClassRatePlanResponseDTO) && Objects.nonNull(serviceClassRatePlanResponseDTO.getResponse())){
+                if(Boolean.valueOf(constants.getValue(ApplicationConstants.IS_SERVICE_CLS_ENABLED)) ){
+                        assertCheck.append(actions.assertEqualStringNotNull(serviceClassRatePlanResponseDTO.getResponse().getServiceClass(),"getting Service Class from ESB", "unable to fetch service class from ESB", false));
+                        assertCheck.append(actions.assertEqualStringNotNull(serviceClassRatePlanResponseDTO.getResponse().getRatePlanName(),"getting rate plan from ESB", "unable to fetch rate plan from ESB", false));
+                }else{
+                    if(Boolean.valueOf(constants.getValue(ApplicationConstants.CURRENT_PLAN_API_CALL)) && "NG".equalsIgnoreCase(OPCO)){
+                        assertCheck.append(actions.assertEqualStringNotNull(serviceClassRatePlanResponseDTO.getResponse().getServiceClass(),"getting Service Class from ESB", "unable to fetch service class from ESB", false));
+                        assertCheck.append(actions.assertEqualStringNotNull(serviceClassRatePlanResponseDTO.getResponse().getRatePlanName(),"getting rate plan from ESB", "unable to fetch rate plan from ESB", false));
+                    }else{
+                        assertCheck.append(actions.assertEqualStringNotNull(serviceClassRatePlanResponseDTO.getResponse().getServiceClass(),"getting Service Class from ESB", "unable to fetch service class from ESB", false));
+                    }
+                }
+            }
         } catch (Exception e) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + SERVICE_CLASS_RATE_PLAN + e.getMessage(), false);
         }
-        return serviceClassRatePlanResponseDTO;
     }
 
     /**
