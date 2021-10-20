@@ -157,7 +157,6 @@ public class RequestSource extends RestCommonUtils {
     private static final String CALLING_ESB_APIS = "Calling ESB APIs";
     private static final String GET_ALL_CONFIGURATION = " - getAllConfiguration ";
     private static RequestSpecification request;
-    //private static Response response;
     private static QueryableRequestSpecification queryable;
     private static final String CREATED_BY = "API Automation";
     private static final String COMMENT = "Automation Test";
@@ -251,7 +250,11 @@ public class RequestSource extends RestCommonUtils {
         return result;
     }
 
-
+    /**
+     * This method is used to test service class and rate plan CS API
+     * @param msisdn
+     * @return
+     */
     public List<String> searchAPITest(String msisdn) {
         String result;
         List<String> myList = null;

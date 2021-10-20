@@ -448,7 +448,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
             selUtils.addTestcaseDescription("Validate Service Class and Rate Plan", "description");
             final String msisdn = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
             List<String> customerDetails = api.searchAPITest(msisdn);
-            assertCheck.append(actions.assertEqualStringNotNull(pages.getAccountInformationWidget().getValue(customerDetails, "eventType", "KYC", "serviceClass"),"Service Class and Rate Plan test case pass", "Service Class and Rate Plan test case fail", false));
+            assertCheck.append(actions.assertEqualStringNotNull(pages.getAccountInformationWidget().getValue(customerDetails, "KYC",  "serviceClass"),"Service Class and Rate Plan test case pass", "Service Class and Rate Plan test case fail", false));
         } catch (Exception e) {
             commonLib.fail("Exception in method - testServiceClassRatePlanAPI " + e.fillInStackTrace(), true);
         }

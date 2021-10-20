@@ -17,7 +17,11 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 @Log4j2
 public class AccountInformationWidget extends BasePage {
@@ -724,40 +728,6 @@ public class AccountInformationWidget extends BasePage {
     public void writeAmount(String amount){
         commonLib.info("Entering Amount");
         enterText(pageElements.amountField,amount);
-    }
-
-    /**
-     *  This method is used for flux api response
-     *  rowKeyToSearch :: keyword you want to search
-     *  rowValueToSearch :: keyword(that you wanna search) value equal to this value
-     *  attributeKey :: want to get particular value basis on key
-     * @param list
-     * @param rowKeyToSearch
-     * @param rowValueToSearch
-     * @param attributeKey
-     * @return
-     * @throws ParseException
-     */
-    public String getValue(List<String> list, String rowKeyToSearch, String rowValueToSearch, String attributeKey) throws ParseException {
-        Map<String,String> resultMap = new HashMap<>();
-        String result =null;
-        JSONParser parser = new JSONParser();
-        for (String s : list) {
-            if (StringUtils.isNotEmpty(s) && s.contains(rowKeyToSearch)) {
-                JSONObject json = (JSONObject) parser.parse(s);
-                if (StringUtils.contains(String.valueOf(json.get(statusCode)), "200") && StringUtils.contains(String.valueOf(json.get(status)), "SUCCESS")
-                        && Objects.nonNull(json.get("result")) && ((JSONObject) json.get("result")).get(rowKeyToSearch).equals(rowValueToSearch)) {
-                    result = json.get("result").toString();
-                    result = result.substring(1, result.length() - 1).replace("\"", "");
-                    String[] keyValuePairs = result.split(",");
-                    for (String pair : keyValuePairs) {
-                        String[] entry = pair.split(":");
-                        resultMap.put(entry[0].trim(), entry[1].trim());
-                    }
-                }
-            }
-        }
-        return resultMap.getOrDefault(attributeKey , "-");
     }
 
 }
