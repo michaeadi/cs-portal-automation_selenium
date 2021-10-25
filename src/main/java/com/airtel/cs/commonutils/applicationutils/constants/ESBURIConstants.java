@@ -15,6 +15,7 @@ public class ESBURIConstants {
   public static final String VENDORS = "/api/vas-service/v1/loan/vendors";
   public static final String LOAN_SUMMARY = "/api/vas-service/v1/loan/summary";
   public static final String LOAN_DETAILS = "/api/vas-service/v1/loan/loan-details";
+  public static final String SERVICE_CLASS_RATE_PLAN = "/api/subscriber-product/v1/fetch/service-class-rate-plan";
   public static final String VOUCHER_REFILL_BARRED = "/api/subscriber-profile/v1/voucher-refill-barred";
   public static final String TOP_TWENTY_RINGBACK_TONE = "/api/ring-back-tones/v1/top-twenty-ring-back-tone-list";
   public static final String SEARCH_NAME_TUNE = "/api/ring-back-tones/v1/search-name-tune";

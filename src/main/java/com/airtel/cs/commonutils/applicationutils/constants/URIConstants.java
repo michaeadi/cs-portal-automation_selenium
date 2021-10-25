@@ -11,6 +11,7 @@ public class URIConstants {
     public static final String GSM_KYC = "/cs-gsm-service/v1/gsm/kyc";
     public static final String GSM_PROFILE = "/cs-gsm-service/v1/profile";
     public static final String KYC_PROFILE = "/cs-gsm-service/v1/kyc/profile";
+    public static final String SEARCH = "/api/cs-gsm-service/v1/search";
     public static final String AM_PROFILE = "/cs-am-service/v1/profile";
     public static final String RECHARGE_HISTORY = "/cs-gsm-service/v1/recharge/history";
     public static final String BUNDLE_RECHARGE_HISTORY = "/cs-gsm-service/v1/bundle/recharge/history";
