@@ -43,10 +43,10 @@ import com.airtel.cs.model.request.categoryhierarchy.CategoryHierarchyRequest;
 import com.airtel.cs.model.request.clientconfig.AllConfiguredClientRequest;
 import com.airtel.cs.model.request.clientconfig.ClientConfigRequest;
 import com.airtel.cs.model.request.clientconfig.ClientDeactivateRequest;
-import com.airtel.cs.model.request.createissue.CreateIssueRequest;
+import com.airtel.cs.model.response.createissue.CreateIssueResponse;
 import com.airtel.cs.model.request.hbb.HbbLinkedAccountsRequest;
 import com.airtel.cs.model.request.hbb.NotificationServiceRequest;
-import com.airtel.cs.model.request.hbb.ReceiverID;
+import com.airtel.cs.model.request.hbb.ReceiverId;
 import com.airtel.cs.model.request.interaction.InteractionRequest;
 import com.airtel.cs.model.request.interactionissue.InteractionIssueRequest;
 import com.airtel.cs.model.request.issuehistory.IssueHistoryRequest;
@@ -178,6 +178,7 @@ public class RequestSource extends RestCommonUtils {
     private static final TestDataBean TEST_DATA_BEAN = new TestDataBean();
     private static final String CHANNEL="channel";
     public static final String LINKED_ACCOUNT_ORCHESTRATOR=" - linked account orchestrator";
+    public static final String CREATE_ISSUE=" - create issue";
 
     /*
     This Method will hit the Available Plan API and returns the response
@@ -1385,10 +1386,21 @@ public class RequestSource extends RestCommonUtils {
         return response.as(IssueHistoryRequest.class);
     }
 
-    public CreateIssueRequest createIssue(List<Header> map, String interactionId, String issueDetails, String categoryIds, Boolean isHBBProfile) {
-        body = "{\"interactionId\":\"" + interactionId + "\",\"comment\":\"" + COMMENT + "\",\"createdBy\":\"" + CREATED_BY + "\",\"issueDetails\":[" + issueDetails + "],\"categoryHierarchy\":[" + categoryIds + "] , \"isHBBProfile\":{" + isHBBProfile + "}}";
+   /* public CreateIssueResponse createIssue(String interactionId, IssueDetails issueDetails, String createdBy, String comment, CategoryHierarchy category, MetaInfo metainfo) {
+        CreateIssueResponse result=null;
+        try{
+            commonPostMethod(URIConstants.CREATE_ISSUE, new CreateIssueRequest(interactionId,issueDetails,createdBy,comment,category,metainfo));
+            result = response.as(CreateIssueResponse.class);
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + CREATE_ISSUE + e.getMessage(), false);
+        }
+
+    }*/
+
+    public CreateIssueResponse createIssue(List<Header> map, String interactionId, String issueDetails, String categoryIds) {
+        body = "{\"interactionId\":\"" + interactionId + "\",\"comment\":\"" + COMMENT + "\",\"createdBy\":\"" + CREATED_BY + "\",\"issueDetails\":[" + issueDetails + "],\"categoryHierarchy\":[" + categoryIds + "] }";
         commonPostMethod(URIConstants.CREATE_ISSUE, map, body, srBaseUrl);
-        return response.as(CreateIssueRequest.class);
+        return response.as(CreateIssueResponse.class);
     }
 
     public TicketHistoryLogRequest getTicketHistoryLog(List<Header> map, String ticketId) {
@@ -1547,13 +1559,21 @@ public class RequestSource extends RestCommonUtils {
         return result;
     }
 
+
     /**
      * This method will hit the api /cs-notification-service/v1/send/notification and return the response
-     * @param
+     * @param templateIdentifier
+     * @param body
+     * @param  languageCode
+     * @param searchId
+     * @param sendNotificationType
+     * @param templateSourceApp
+     * @param  templateChannel,
+     * @param  receiverId
      * @return The response
      */
 
-    public NotificationServiceResponse getNotificationService(String templateIdentifier, String body, String languageCode, String searchId, String sendNotificationType, String templateSourceApp, String templateChannel, List<ReceiverID> receiverId)
+    public NotificationServiceResponse getNotificationService(String templateIdentifier, String body, String languageCode, String searchId, String sendNotificationType, String templateSourceApp, String templateChannel, List<ReceiverId> receiverId)
     {
         NotificationServiceResponse result = null;
         try {
