@@ -60,7 +60,7 @@ public class HbbNonAirtelMsisdnTest extends Driver{
     }
 
     @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
-    public void NonAirtelMsisdnSearch() {
+    public void nonAirtelMsisdnSearch() {
         try {
             selUtils.addTestcaseDescription("Validating Non Airtel Msisin Page by entering invalid number,hbb Number, Alternate Number ", "description");
             hbbInvalidNumber = constants.getValue(ApplicationConstants.HBB_INVALID_MSISDN);

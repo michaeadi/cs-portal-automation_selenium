@@ -1,5 +1,6 @@
 package com.airtel.cs.model.request.hbb;
 
+import com.airtel.cs.model.response.hbb.AlternateMsisdn;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -15,7 +16,7 @@ public class NotificationServiceRequest {
     private String templateChannel;
     private String templateSourceApp;
     private String sendNotificationType;
-    private List<ReceiverID> receiverId;
+    private List<ReceiverId> receiverId;
 
 
 }

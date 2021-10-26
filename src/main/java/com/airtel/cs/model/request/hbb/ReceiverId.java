@@ -7,6 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ReceiverID {
+public class ReceiverId {
     private String receiverId;
 }

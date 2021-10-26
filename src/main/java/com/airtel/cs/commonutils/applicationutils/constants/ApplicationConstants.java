@@ -87,6 +87,8 @@ public class ApplicationConstants {
     public static final String PAGE_NUMBER = "sr.page.number";
     public static final String TICKET_POOL_IDS = "sr.ticket.pool.ids";
     public static final String EXTERNAL_STATE_IDS = "sr.external.state.ids";
+    public static final String INVALID_MSISDN = "invalid.msisdn";
+    public static final String ALTERNATE_EMAIL = "alternate.email";
 
     private ApplicationConstants() {
         throw new IllegalStateException();

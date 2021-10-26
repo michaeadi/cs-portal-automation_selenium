@@ -1,24 +1,14 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
-import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
-import com.airtel.cs.commonutils.dataproviders.databeans.NftrDataBeans;
-import com.airtel.cs.commonutils.excelutils.WriteToExcel;
 import com.airtel.cs.commonutils.utils.UtilsMethods;
-import com.airtel.cs.model.response.smshistory.SMSHistory;
-import com.airtel.cs.model.response.smshistory.SMSHistoryList;
-import com.airtel.cs.pagerepository.pageelements.CustomerProfilePage;
-import com.airtel.cs.model.response.plans.MainAccountBalance;
-import com.airtel.cs.model.response.plans.Plans;
 import com.airtel.cs.pagerepository.pageelements.HbbProfilePage;
 import lombok.extern.log4j.Log4j2;
-import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.NoSuchElementException;
 
 @Log4j2
 public class HbbProfile extends BasePage{
@@ -453,6 +443,14 @@ public class HbbProfile extends BasePage{
     }
 
     /**
+     * This method is use to hover on search box on non airtel msisdn page
+     */
+    public void hoverOnSearchBox() {
+        commonLib.info("Hover on SIM Status Reason Info icon");
+        hoverOverElement(pageElements.searchNonAirtel);
+    }
+
+    /**
      * This method is used to open customer interaction from side menu
      */
 
@@ -464,6 +462,233 @@ public class HbbProfile extends BasePage{
         pages.getMsisdnSearchPage().clickOnSearch();
     }
 
+    /**
+     * This method is use to click on call to Action icon of Alternate Number
+     */
+    public void clickOnCallToAction() {
+        if (isVisible(pageElements.callToActionIcon) && isClickable(pageElements.callToActionIcon))
+        {commonLib.info("Clicking on Call to Action");
+            clickAndWaitForLoaderToBeRemoved(pageElements.callToActionIcon);
+        } else {
+            commonLib.fail("Exception in method - clickOnCallToAction ", true);
+        }
+    }
+
+    /**
+     * This method is use to click on edit icon for alternate number
+     */
+    public void clickOnEditIconAlternateNo() {
+        if (isVisible(pageElements.editIconNumber) && isClickable(pageElements.editIconNumber))
+        {commonLib.info("Clicking on Edit Icon");
+            clickAndWaitForLoaderToBeRemoved(pageElements.editIconNumber);
+        } else {
+            commonLib.fail("Exception in method - clickOnEditIconAlternateNo ", true);
+        }
+    }
+
+    /**
+     * This method is use to click on edit icon for email id
+     */
+    public void clickOnEditIconEmail() {
+        if (isVisible(pageElements.editEmailIcon) && isClickable(pageElements.editEmailIcon))
+        {commonLib.info("Clicking on Edit Icon");
+            clickAndWaitForLoaderToBeRemoved(pageElements.editEmailIcon);
+        } else {
+            commonLib.fail("Exception in method - clickOnEditIconEmail ", true);
+        }
+    }
+
+    /**
+     * This method is use to check call to action icon visibility for Alternate Number
+     *
+     * @return true/false
+     */
+    public Boolean isCallToActionVisible() {
+        final boolean state = isElementVisible(pageElements.callToActionIcon);
+        commonLib.info("Is Call to Action Visible : " + state);
+        return state;
+    }
+    /**
+     * This method is use to check edit icon visibility for Email id
+     *
+     * @return true/false
+     */
+    public Boolean isEmailEditIconVisible() {
+        final boolean state = isElementVisible(pageElements.callToActionIcon);
+        commonLib.info("Is Edit Icon Visible : " + state);
+        return state;
+    }
+    /**
+     * This method is use to check edit icon visibility for Alternate No.
+     *
+     * @return true/false
+     */
+    public Boolean isAlternateNoEditIconVisible() {
+        final boolean state = isElementVisible(pageElements.callToActionIcon);
+        commonLib.info("Is edit Icon Visible : " + state);
+        return state;
+    }
+
+    /**
+     * This method is use to check edit alternate number pop up
+     *
+     * @return true/false
+     */
+    public Boolean isEditAlternatePopUpVisible(){
+        final boolean state = isElementVisible(pageElements.editAlternatePopUp);
+        commonLib.info("Is edit Pop up Vsisble" + state);
+        return state;
+    }
+
+    /**
+     * This method is use to check edit alternate number label visible
+     *
+     * @return true/false
+     */
+    public Boolean isEnterAlternateNoVisible(){
+        final boolean state = isElementVisible(pageElements.enterAlternateNo);
+        commonLib.info("Is edit Alternate number label Vsisble" + state);
+        return state;
+    }
+
+    /**
+     * This method is use to check error message visible on entering invalid msisdn in enter alternate no field
+     *
+     * @return true/false
+     */
+    public Boolean isErrorMessageVisible(){
+        final boolean state = isElementVisible(pageElements.enterAlternateNo);
+        commonLib.info("Is error message Vsisble" + state);
+        return state;
+    }
+
+    /**
+     * This method is use to check submit button disable or not
+     *
+     * @return true/false
+     */
+    public boolean isSubmitBtnDisabled() {
+        return isEnabled(pageElements.submitButton);
+    }
+
+
+    /**
+     * This method is use to check select reason dropdown
+     *
+     * @return true/false
+     */
+    public Boolean isSelectReasonVisible(){
+        final boolean state = isElementVisible(pageElements.selectReason);
+        commonLib.info("Is select reason dropdown  Visible" + state);
+        return state;
+    }
+
+    /**
+     * This method is use to check enter comment field
+     * @return true/false
+     */
+    public Boolean isEnterCommentVisible(){
+        final boolean state = isElementVisible(pageElements.enterComment);
+        commonLib.info("Is enter comment visible" + state);
+        return state;
+    }
+    /**
+     * This method is use to check visibility of cancel button
+     * @return true/false
+     */
+    public Boolean isCancelButtonVisible(){
+        final boolean state = isElementVisible(pageElements.cancelButton);
+        commonLib.info("Is cancel button visible" + state);
+        return state;
+
+    }
+
+    public void clickCancelButton()
+    {if (isVisible(pageElements.hbbProfile) && isClickable(pageElements.submitButton)) {
+        commonLib.info("Clicking on Cancel");
+        clickWithoutLoader(pageElements.cancelButton);
+    } else {
+        commonLib.fail("Exception in method - clickCancelButton ", true);
+    }
+    }
+
+    /**
+     * This method is use to check enter comment
+     * @return true/false
+     */
+    public Boolean isSuccessPopUpVisible(){
+        final boolean state = isElementVisible(pageElements.confirmationPopUp);
+        commonLib.info("Is confirmation Pop Up visible" + state);
+        return state;
+
+    }
+
+    /**
+     * This method is use to check email Validation
+     * @return true/false
+     */
+    public Boolean isRedLineVisible(){
+        final boolean state = isElementVisible(pageElements.emailValidation);
+        commonLib.info("Is red line visible after entering invalid email id" + state);
+        return state;
+
+    }
+
+    /**
+     * This method is use to get text of alternate no.
+     *
+     * @return true/false
+     */
+    public String getEnterAlternateNoText() {
+        final String text = getText(pageElements.enterAlternateNoText);
+        commonLib.info("Getting Alternate Number" + text);
+        return text;
+    }
+
+    /**
+     * This method is use to write comment into comment box
+     * @param text The comment
+     */
+    public void enterComment(String text) {
+        commonLib.info("Writing comment into comment box: " + text);
+        enterText(pageElements.enterComment, text);
+    }
+    /**
+     * This method is use to click on Submit Button
+     */
+    public void clickOnSubmit() {
+        if (isVisible(pageElements.hbbProfile) && isClickable(pageElements.submitButton)) {
+            commonLib.info("Clicking on Submit");
+            clickWithoutLoader(pageElements.submitButton);
+        } else {
+            commonLib.fail("Exception in method - clickOnHbbProfile ", true);
+        }
+    }
+
+    /**
+     * This method is use to enter msisdn in enter alternate field  of edit alternate pop up
+     *
+     * @param text The text
+     */
+    public void enterMsisdnAlternateNo(String text) {
+        if(isVisible(pageElements.enterAlternateNoText)) {
+            commonLib.info("Writing MSISDN in Enter Alternate Number: " + text);
+            enterText(pageElements.enterAlternateNoText, text);
+        }
+        else {
+            commonLib.error("Enter Alternate Number is not visible");
+        }
+    }
+    /**
+     * This method is use to get text of success message
+     *
+     * @return true/false
+     */
+    public String getSuccessText() {
+        final String text = getText(pageElements.confirmationPopUp);
+        commonLib.info("Getting success pop up" + text);
+        return text;
+    }
     /**
      * This method is used to create interaction
      */

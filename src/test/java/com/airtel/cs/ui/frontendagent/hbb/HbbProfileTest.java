@@ -7,8 +7,6 @@ import com.airtel.cs.driver.Driver;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import static com.airtel.cs.commonutils.utils.UtilsMethods.stringNotNull;
-
 public class HbbProfileTest  extends Driver {
     private static String hbbCustomerNumber = null;
 

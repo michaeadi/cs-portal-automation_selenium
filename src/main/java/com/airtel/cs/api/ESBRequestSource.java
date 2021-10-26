@@ -97,6 +97,7 @@ public class ESBRequestSource extends RestCommonUtils {
     public static final String CORPORATE_CUSTOMER_NUMBER = "corporateCustomerNumber";
     public static final String AM_PROFILE_DETAILS = " -am profile and wallet deatils";
     public static final String ENTERPRISE_PAYMENT_HISTORY = "-enterprise payment history";
+    private Object CustomerProfileResponse;
 
 
     /**
@@ -184,7 +185,7 @@ public class ESBRequestSource extends RestCommonUtils {
      *
      * @param msisdn The msisdn
      */
-    public void callCustomerProfileV2(String msisdn) {
+    public  void callCustomerProfileV2(String msisdn) {
         try {
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + CUSTOMER_PROFILE_V2, JavaColors.GREEN, false);
             queryParam.put(MSISDN, msisdn);

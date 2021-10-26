@@ -1,4 +1,5 @@
 package com.airtel.cs.model.response.customeprofile;
+import com.airtel.cs.model.response.hbb.HbbUserDetailsResult;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
@@ -35,4 +36,6 @@ public class CustomerProfileResponse {
     public String email;
     public String error;
     public String message;
+    private Integer statusCode;
+
 }
