@@ -693,9 +693,9 @@ public class HbbProfile extends BasePage{
      * This method is used to create interaction
      */
 
-    public void createNFTRInteraction() {
+    public void createNFTRInteraction(String customerNumber) {
         String ticketNumber = null;
-        String customerNumber = constants.getValue(ApplicationConstants.HBB_CUSTOMER_MSISDN);
+      customerNumber = constants.getValue(ApplicationConstants.HBB_CUSTOMER_MSISDN);
         try {
             final String issueCode = UtilsMethods.getCategoryHierarchy().get(4);
             selUtils.addTestcaseDescription("Creating NFTR issue " + issueCode, "description");

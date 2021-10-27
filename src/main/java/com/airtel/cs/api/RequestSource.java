@@ -43,6 +43,10 @@ import com.airtel.cs.model.request.categoryhierarchy.CategoryHierarchyRequest;
 import com.airtel.cs.model.request.clientconfig.AllConfiguredClientRequest;
 import com.airtel.cs.model.request.clientconfig.ClientConfigRequest;
 import com.airtel.cs.model.request.clientconfig.ClientDeactivateRequest;
+import com.airtel.cs.model.request.issue.CategoryHierarchy;
+import com.airtel.cs.model.request.issue.CreateIssueRequest;
+import com.airtel.cs.model.request.issue.IssueDetails;
+import com.airtel.cs.model.request.issue.MetaInfo;
 import com.airtel.cs.model.response.createissue.CreateIssueResponse;
 import com.airtel.cs.model.request.hbb.HbbLinkedAccountsRequest;
 import com.airtel.cs.model.request.hbb.NotificationServiceRequest;
@@ -1386,7 +1390,7 @@ public class RequestSource extends RestCommonUtils {
         return response.as(IssueHistoryRequest.class);
     }
 
-   /* public CreateIssueResponse createIssue(String interactionId, IssueDetails issueDetails, String createdBy, String comment, CategoryHierarchy category, MetaInfo metainfo) {
+   public CreateIssueResponse createIssue(String interactionId, IssueDetails issueDetails, String createdBy, String comment, CategoryHierarchy category, MetaInfo metainfo) {
         CreateIssueResponse result=null;
         try{
             commonPostMethod(URIConstants.CREATE_ISSUE, new CreateIssueRequest(interactionId,issueDetails,createdBy,comment,category,metainfo));
@@ -1394,8 +1398,8 @@ public class RequestSource extends RestCommonUtils {
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + CREATE_ISSUE + e.getMessage(), false);
         }
-
-    }*/
+       return result;
+    }
 
     public CreateIssueResponse createIssue(List<Header> map, String interactionId, String issueDetails, String categoryIds) {
         body = "{\"interactionId\":\"" + interactionId + "\",\"comment\":\"" + COMMENT + "\",\"createdBy\":\"" + CREATED_BY + "\",\"issueDetails\":[" + issueDetails + "],\"categoryHierarchy\":[" + categoryIds + "] }";

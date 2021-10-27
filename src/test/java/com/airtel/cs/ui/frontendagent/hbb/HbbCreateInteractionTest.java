@@ -50,15 +50,28 @@ public class HbbCreateInteractionTest extends Driver {
     public void createInteractionSMSTest() {
         try {
             selUtils.addTestcaseDescription("Create interaction , check its entry in View History > SMS Tab", "description");
-            pages.getHbbProfilePage().createNFTRInteraction();
+            pages.getHbbProfilePage().createNFTRInteraction(customerNumber);
             pages.getCustomerProfilePage().goToViewHistory();
             pages.getViewHistory().clickOnMessageHistory();
             SMSHistory historyResponse = api.smsHistoryTest(customerNumber);
-            pages.getSupervisorTicketList().changeTicketTypeToClosed();
             assertCheck.append(actions.matchUiAndAPIResponse(customerNumber, historyResponse.getResult().get(0).getAlternateNumber(),
                     "Ticket Creation SMS is sent on Alternate Number", "Ticket Creation SMS is not sent on Alternate Number"));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - createInteractionSMSTest" + e.fillInStackTrace(), true);
+        }
+        actions.assertAllFoundFailedAssert(assertCheck);
+    }
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void openSupervisorDashboard() {
+        try {
+            selUtils.addTestcaseDescription("Open Supervisor Dashboard for closing ticket", "description");
+            pages.getSideMenuPage().clickOnSideMenu();
+            pages.getSideMenuPage().clickOnUserName();
+            pages.getSideMenuPage().openSupervisorDashboard();
+            assertCheck.append(actions.assertEqualStringType(driver.getTitle(), constants.getValue(CommonConstants.SUPERVISOR_TICKET_LIST_PAGE_TITLE), "Agent redirect to ticket list page as expected", "Agent does not redirect to ticket list page as expected"));
+            pages.getSupervisorTicketList().changeTicketTypeToClosed();
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - openSupervisorDashboard" + e.fillInStackTrace(), true);
         }
         actions.assertAllFoundFailedAssert(assertCheck);
     }

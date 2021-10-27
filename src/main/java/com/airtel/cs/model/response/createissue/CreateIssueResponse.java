@@ -1,4 +1,4 @@
-package com.airtel.cs.model.request.createissue;
+package com.airtel.cs.model.response.createissue;
 
 import com.airtel.cs.model.response.interactionissue.InteractionIssueResult;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CreateIssueRequest {
+public class CreateIssueResponse {
     private String message;
     private String status;
     private Integer statusCode;

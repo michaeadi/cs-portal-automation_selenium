@@ -4,7 +4,8 @@ import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.model.request.hbb.ReceiverID;
+import com.airtel.cs.model.request.hbb.ReceiverId;
+import com.airtel.cs.model.response.hbb.AlternateMsisdn;
 import com.airtel.cs.model.response.hbb.HbbUserDetailsResponse;
 import com.airtel.cs.model.response.hbb.NotificationServiceResponse;
 import org.testng.Assert;
@@ -12,14 +13,11 @@ import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public class HbbSendSMSTest extends Driver {
 
-    String templateName = null;
-    String messageContent = null;
-    String hbbCustomerNumber = null;
+    String templateName ,messageContent ,hbbCustomerNumber = null;
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void checkExecution() {
@@ -29,9 +27,6 @@ public class HbbSendSMSTest extends Driver {
         }
     }
 
-    /**
-     * This method is used to Open Customer Profile Page with valid MSISDN
-     */
     @DataProviders.User(userType = "NFTR")
     @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void openCustomerInteraction() {
@@ -125,15 +120,15 @@ public class HbbSendSMSTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testManualSMS() {
         try {
             selUtils.addTestcaseDescription(
                     "Validating parameters in notification service API", "description");
             HbbUserDetailsResponse hbbUser = api.hbbUserDetailsTest(hbbCustomerNumber);
             String searchId=hbbCustomerNumber;
-            List<ReceiverID> receiverIds=null;
-            /*List<ReceiverID> receiverIds=hbbUser.getResult().getAlternateMsisdnList();*/
+            List<AlternateMsisdn> receiverIds=null;
+             receiverIds=hbbUser.getResult().getAlternateMsisdnList();
             NotificationServiceResponse notificationService= api.getNotificationService("1_GGCS6Mrd_1632734159995","test", "FR",searchId,"SMS","Customer_Service","SMS",receiverIds);
             final int statusCode = notificationService.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Notification Service API  Status Code Matched and is :" + statusCode, "Notification Service API  Status Code Matched " + statusCode, false));
