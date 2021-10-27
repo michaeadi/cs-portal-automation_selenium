@@ -56,13 +56,9 @@ public class DemoGraphicPage {
     /*
     Actions button and Sim Bar Unbar
      */
-
     public By Actions=By.xpath("//span[contains(text(),'Actions')]");
     public By suspendSim= By.xpath("//button[contains(text(),'Suspend SIM')]");
     public By reactivateSim= By.xpath("//button[contains(text(),'Reactivate SIM')]");
-
-
-
     /*
      * Data Manager on & off
      * */
@@ -127,8 +123,6 @@ public class DemoGraphicPage {
      */
     public By middleAuuidAMP = By.xpath("//*[@id='AM_PROFILE']");
     public By footerAuuidAMP = By.xpath("//*[@id='AM_PROFILE']//*[contains(@class,'auuid-container')]");
-
     public By resetPinIcon = By.xpath("//img[@class='header-action-icon cursor-pointer']/ancestor::span");
-
     public By dashboardBody = By.xpath("//body//app-dashboard");
 }

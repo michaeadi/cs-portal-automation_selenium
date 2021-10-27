@@ -67,8 +67,8 @@ public class DemoGraphic extends BasePage {
         return result;
     }
 
-    /*
-    This Method will be used to get the value for data manager under demographic widget
+    /**
+    *This Method will be used to get the value for data manager under demographic widget
      */
     public String getDataManagerValue() {
         commonLib.info("Going to get Data Manger value");
