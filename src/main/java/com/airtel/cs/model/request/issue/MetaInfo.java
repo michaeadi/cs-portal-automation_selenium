@@ -22,10 +22,4 @@ public class MetaInfo {
     private String customerType;
     private String interactionChannel1;
     private String isHBBProfile;
-
-
-
-
-
-
 }

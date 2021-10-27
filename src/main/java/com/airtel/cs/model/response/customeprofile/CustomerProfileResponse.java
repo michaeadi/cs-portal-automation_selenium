@@ -37,5 +37,4 @@ public class CustomerProfileResponse {
     public String error;
     public String message;
     private Integer statusCode;
-
 }
