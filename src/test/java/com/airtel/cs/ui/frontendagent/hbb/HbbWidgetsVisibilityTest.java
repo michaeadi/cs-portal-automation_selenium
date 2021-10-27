@@ -21,8 +21,6 @@ public class HbbWidgetsVisibilityTest extends Driver {
             throw new SkipException("Skipping tests because user NOT able to login Over Portal");
         }
     }
-
-
     @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void openCustomerInteraction() {
         try {
@@ -56,10 +54,10 @@ public class HbbWidgetsVisibilityTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isSendSmsVisible(), true, "Send SMS is visible  ", "Send SMS is not visible"));
 
             selUtils.addTestcaseDescription("Validating footer Auuid and middle Auuid", "description");
-            /*assertCheck.append(actions.assertEqualStringType(pages.getHbbProfilePage().getFooterAuuid(), loginAUUID, "Auuid shown at the footer of Hbb Profile and is correct", "Auuid not shown at the footer of Hbb Profile"));
-            assertCheck.append(actions.assertEqualStringType(pages.getHbbProfilePage().getMiddleAuuid(), loginAUUID, "Auuid shown at the middle of Hbb Profile and is correct", "Auuid not shown at the footer of Hbb Profile"));*/
+            assertCheck.append(actions.assertEqualStringType(pages.getHbbProfilePage().getFooterAuuid(), loginAUUID, "Auuid shown at the footer of Hbb Profile and is correct", "Auuid not shown at the footer of Hbb Profile"));
+            assertCheck.append(actions.assertEqualStringType(pages.getHbbProfilePage().getMiddleAuuid(), loginAUUID, "Auuid shown at the middle of Hbb Profile and is correct", "Auuid not shown at the footer of Hbb Profile"));
         } catch (Exception e) {
-            commonLib.fail("Exception in Method - validateHbbProfile " + e.fillInStackTrace(), true);
+            commonLib.fail("Exception in Method - widgetsVisibility" + e.fillInStackTrace(), true);
         }
         actions.assertAllFoundFailedAssert(assertCheck);
     }
@@ -75,7 +73,7 @@ public class HbbWidgetsVisibilityTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(widgetMethods.isWidgetVisible(pages.getDaDetailsPage().getAccumulatorId()), true, "Accumulators  Table is  visible ", "Accumulators Table is not visible", true));
             assertCheck.append(actions.assertEqualBoolean(widgetMethods.isWidgetVisible(pages.getDaDetailsPage().getOfferWidgetIdentifier()), true, "Offer Table is  visible ", "Offer Table is not visible", true));
         } catch (Exception e) {
-            commonLib.fail("Exception in Method - validateHbbProfile " + e.fillInStackTrace(), true);
+            commonLib.fail("Exception in Method - daDetailsTest" + e.fillInStackTrace(), true);
         }
         actions.assertAllFoundFailedAssert(assertCheck);
     }
@@ -107,7 +105,7 @@ public class HbbWidgetsVisibilityTest extends Driver {
                 assertCheck.append(actions.matchUiAndAPIResponse(result.getComment(), "Performing Credit Type Adjustment through automation", "Adjustment Comment same as selected while performing adjustment", "Adjustment Comment as not selected while performing adjustment"));
             }
         } catch (Exception e) {
-            commonLib.fail("Exception in Method - performAdjustmentCreditType" + e.fillInStackTrace(), true);
+            commonLib.fail("Exception in Method - validateAdjustmentCreditType" + e.fillInStackTrace(), true);
         }
         actions.assertAllFoundFailedAssert(assertCheck);
     }
@@ -137,7 +135,7 @@ public class HbbWidgetsVisibilityTest extends Driver {
             assertCheck.append(actions.matchUiAndAPIResponse(result.getAmount(), "0.00001", "Adjustment Amount same as selected while performing adjustment", "Adjustment Amount as not selected while performing adjustment"));
             assertCheck.append(actions.matchUiAndAPIResponse(result.getComment(), "Performing debit Type Adjustment through automation", "Adjustment Comment same as selected while performing adjustment", "Adjustment Comment as not selected while performing adjustment"));
 }       } catch (Exception e) {
-            commonLib.fail("Exception in Method - performAdjustmentCreditType" + e.fillInStackTrace(), true);
+            commonLib.fail("Exception in Method - validateAdjustmentDebitType" + e.fillInStackTrace(), true);
         }
         actions.assertAllFoundFailedAssert(assertCheck);
     }

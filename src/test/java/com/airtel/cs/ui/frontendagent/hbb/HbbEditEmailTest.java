@@ -18,7 +18,7 @@ public class HbbEditEmailTest {
 
     public class HbbEditAlternateNoTest extends Driver {
 
-        private String hbbCustomerNumber, msisdn = null;
+        private String hbbCustomerNumber = null;
 
         @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
         public void checkExecution() {
@@ -58,8 +58,8 @@ public class HbbEditEmailTest {
             actions.assertAllFoundFailedAssert(assertCheck);
         }
 
-        @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "SmokeTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction", "isUserHasEditAlternateMsisdnPermission"})
-        public void ValidateEditIcon() {
+        @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction", "isUserHasEditEmailPermission"})
+        public void validateEditIcon() {
             try {
                 selUtils.addTestcaseDescription("Validating edit option fields ", "description");
                 Boolean profileVisibility = pages.getHbbProfilePage().isHBBProfileVisible();
@@ -79,16 +79,17 @@ public class HbbEditEmailTest {
                     pages.getHbbProfilePage().clickCancelButton();
                     assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isEditAlternatePopUpVisible(), false, "Edit Alternate Pop up is not visible after clicking on Cancel button", "Edit Alternate Pop up is still visible after clicking on Cancel button"));
                     assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isHBBProfileVisible(), false, "Hbb Panel is visible after clicking Cancel button", "Hbb Panel is not visible after clicking Cancel button"));
-
                 }
+                else
+                    commonLib.fail("Hbb Profile is not visible", true);
             } catch (Exception e) {
-                commonLib.fail("Exception in Method - openCustomerInteraction" + e.fillInStackTrace(), true);
+                commonLib.fail("Exception in Method - ValidateEditIcon" + e.fillInStackTrace(), true);
             }
             actions.assertAllFoundFailedAssert(assertCheck);
         }
 
-        @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "SmokeTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction", "isUserHasEditAlternateMsisdnPermission"})
-        public void editingAlternateNo() {
+        @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction", "isUserHasEditAlternateMsisdnPermission"})
+        public void validateEditAlternateNo() {
             try {
                 selUtils.addTestcaseDescription("Performing operation on edit iocn ", "description");
                 String alternateEmail = constants.getValue(ApplicationConstants.ALTERNATE_EMAIL);
@@ -104,15 +105,15 @@ public class HbbEditEmailTest {
                         assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isSuccessPopUpVisible(), true, "Success Popup visible after editing alternate number", "Success Popup not visible after editing alternate number"));
                         assertCheck.append(actions.assertEqualStringType(pages.getHbbProfilePage().getSuccessText(), successText, "Success text is  displayed correctly", "Success text is not displayed correctly"));
                     }
-
-                }
+                }else
+                    commonLib.fail("Hbb Profile is not visible", true);
             } catch (Exception e) {
-                commonLib.fail("Exception in Method - openCustomerInteraction" + e.fillInStackTrace(), true);
+                commonLib.fail("Exception in Method - ValidateEditAlternateNo" + e.fillInStackTrace(), true);
             }
             actions.assertAllFoundFailedAssert(assertCheck);
         }
 
-        @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
+        @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
         public void validateEntryInActionTrail() {
             try {
                 selUtils.addTestcaseDescription("Verify View History tab opened successfully,Verify Action Trail History tab is visible,Validate column's value are visible and correct", "description");
@@ -143,7 +144,7 @@ public class HbbEditEmailTest {
                     }
                 }
             } catch (NoSuchElementException | TimeoutException | IndexOutOfBoundsException e) {
-                commonLib.fail("Exception in Method - validateActionTrailValue" + e.fillInStackTrace(), true);
+                commonLib.fail("Exception in Method - ValidateEntryInActionTrail" + e.fillInStackTrace(), true);
             }
             actions.assertAllFoundFailedAssert(assertCheck);
         }

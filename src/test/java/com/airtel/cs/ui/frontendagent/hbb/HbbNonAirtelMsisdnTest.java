@@ -43,7 +43,7 @@ public class HbbNonAirtelMsisdnTest extends Driver{
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
     public void hbbCustomerInfoTest() {
         try {
             selUtils.addTestcaseDescription("Validating HBB Customer Information  ", "description");
@@ -80,14 +80,14 @@ public class HbbNonAirtelMsisdnTest extends Driver{
             assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isGSMProfileVisible(), true, "HBB Tab is displayed", "HBB Tab is not displayed"));
         }
             catch (Exception e) {
-                commonLib.fail("Exception in Method - hbbNonAirtelMsisdnSearch" + e.fillInStackTrace(), true);
+                commonLib.fail("Exception in Method - NonAirtelMsisdnSearch" + e.fillInStackTrace(), true);
             }
             actions.assertAllFoundFailedAssert(assertCheck);
 
         }
 
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
-    public void NonAirtelMsisdnPrePostNoSearch() {
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
+    public void nonAirtelMsisdnPrePostNoSearch() {
         try {
             selUtils.addTestcaseDescription("Validating Non Airtel Msisin Page by entering prepaid and post number ", "description");
             prepaidNumber= constants.getValue(ApplicationConstants.CUSTOMER_PREPAID_MSISDN);

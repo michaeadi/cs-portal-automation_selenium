@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+        <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Automation Framework CS PORTAl Test Suite" allow-return-values="true">
     <listeners>
         <listener class-name="com.airtel.cs.commonutils.listeners.TestListenerMethod"/>
@@ -58,7 +58,7 @@
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.viewhistorytab.ActionTrailTest"/>
         </classes>
-    </test>-->
+    </test>
     <test name="Demo Graphic Widget Test By MSISDN">
         <groups>
             <run>
@@ -179,16 +179,6 @@
             <class name="com.airtel.cs.ui.frontendagent.hbb.HbbViewHistory"/>
         </classes>
     </test>
-    <test name="Validating Hbb Send SMS ">
-        <groups>
-            <run>
-                <include name="SanityTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.hbb.HbbSendSMSTest"/>
-        </classes>
-    </test>
     <test name="Validating Creating Interaction for HBB ">
         <groups>
             <run>
@@ -207,6 +197,36 @@
         </groups>
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hbb.HbbNonAirtelMsisdnTest"/>
+        </classes>
+    </test>
+    <test name="Validating Hbb Send SMS ">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hbb.HbbSendSMSTest"/>
+        </classes>
+    </test>
+    <test name="Validating Edit Email for HBB ">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hbb.HbbEditEmailTest"/>
+        </classes>
+    </test>
+    <test name="Validating Edit Alternate No. for Alternate No. ">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hbb.HbbEditAlternateNoTest"/>
         </classes>
     </test>
     <test name="Service Profile Widget Test">

@@ -122,7 +122,7 @@ public class HbbViewHistory extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isTicketHistoryVisible(), true, "Ticket History tab successfully displayed ", " Interaction History is not displayed"));
             assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isInteractionHistoryVisible(), true, "Interaction tab is successfully displayed ", "Interaction History is not displayed"));
         } catch (Exception e) {
-            commonLib.fail("Exception in Method - validate " + e.fillInStackTrace(), true);
+            commonLib.fail("Exception in Method - validateViewHistoryOptions " + e.fillInStackTrace(), true);
         }
         actions.assertAllFoundFailedAssert(assertCheck);
 
