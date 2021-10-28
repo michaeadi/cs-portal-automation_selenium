@@ -1,5 +1,6 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
+import com.airtel.cs.pagerepository.pageelements.HbbProfilePage;
 import org.openqa.selenium.WebDriver;
 
 public class PageCollection {
@@ -29,6 +30,10 @@ public class PageCollection {
 
     public CustomerProfile getCustomerProfilePage() {
         return new CustomerProfile(driver);
+    }
+
+    public HbbProfile getHbbProfilePage() {
+        return new HbbProfile(driver);
     }
 
     public TariffPlan getTariffPlanPage() {
@@ -82,6 +87,7 @@ public class PageCollection {
     public DADetails getDaDetailsPage() {
         return new DADetails(driver);
     }
+
 
     public DetailedUsageHistory getDetailedUsageHistoryPage() {
         return new DetailedUsageHistory(driver);

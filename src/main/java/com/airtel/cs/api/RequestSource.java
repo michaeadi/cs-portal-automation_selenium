@@ -43,7 +43,14 @@ import com.airtel.cs.model.request.categoryhierarchy.CategoryHierarchyRequest;
 import com.airtel.cs.model.request.clientconfig.AllConfiguredClientRequest;
 import com.airtel.cs.model.request.clientconfig.ClientConfigRequest;
 import com.airtel.cs.model.request.clientconfig.ClientDeactivateRequest;
-import com.airtel.cs.model.request.createissue.CreateIssueRequest;
+import com.airtel.cs.model.request.issue.CategoryHierarchy;
+import com.airtel.cs.model.request.issue.CreateIssueRequest;
+import com.airtel.cs.model.request.issue.IssueDetails;
+import com.airtel.cs.model.request.issue.MetaInfo;
+import com.airtel.cs.model.response.createissue.CreateIssueResponse;
+import com.airtel.cs.model.request.hbb.HbbLinkedAccountsRequest;
+import com.airtel.cs.model.request.hbb.NotificationServiceRequest;
+import com.airtel.cs.model.request.hbb.ReceiverId;
 import com.airtel.cs.model.request.interaction.InteractionRequest;
 import com.airtel.cs.model.request.interactionissue.InteractionIssueRequest;
 import com.airtel.cs.model.request.issuehistory.IssueHistoryRequest;
@@ -88,6 +95,9 @@ import com.airtel.cs.model.response.enterprise.EnterpriseAccountSearchResponse;
 import com.airtel.cs.model.response.filedmasking.FieldMaskConfigReponse;
 import com.airtel.cs.model.response.filedmasking.FieldMaskConfigs;
 import com.airtel.cs.model.response.friendsfamily.FriendsFamily;
+import com.airtel.cs.model.response.hbb.HbbLinkedAccountsResponse;
+import com.airtel.cs.model.response.hbb.HbbUserDetailsResponse;
+import com.airtel.cs.model.response.hbb.NotificationServiceResponse;
 import com.airtel.cs.model.response.hlrservice.HLRService;
 import com.airtel.cs.model.response.kycprofile.GsmKyc;
 import com.airtel.cs.model.response.kycprofile.KYCProfile;
@@ -118,7 +128,6 @@ import io.restassured.http.Headers;
 import io.restassured.response.Response;
 import io.restassured.specification.QueryableRequestSpecification;
 import io.restassured.specification.RequestSpecification;
-import io.restassured.specification.SpecificationQuerier;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -144,6 +153,7 @@ public class RequestSource extends RestCommonUtils {
 
     private static final String TARIFF_PLAN_TEST_NUMBER = constants.getValue(ApplicationConstants.TARIFF_PLAN_TEST_NUMBER);
     private static final Map<String, Object> queryParam = new HashMap<>();
+    private static final String NOTIFICATION_SERVICE_API =" - notification service for SMS ";
     public static Integer statusCode = null;
     private ESBRequestSource esbRequestSource = new ESBRequestSource();
     private static final String MSISDN = "msisdn";
@@ -174,6 +184,9 @@ public class RequestSource extends RestCommonUtils {
     private static final String APPLICATION_JSON = "application/json";
     private static final String FINAL_SUBMIT = "false";
     private static final TestDataBean TEST_DATA_BEAN = new TestDataBean();
+    private static final String CHANNEL="channel";
+    public static final String LINKED_ACCOUNT_ORCHESTRATOR=" - linked account orchestrator";
+    public static final String CREATE_ISSUE=" - create issue";
 
     /*
     This Method will hit the Available Plan API and returns the response
@@ -329,6 +342,26 @@ public class RequestSource extends RestCommonUtils {
         try {
             commonPostMethod(URIConstants.GSM_KYC, new GenericRequest(msisdn));
             result = response.as(GsmKyc.class);
+            if (result.getStatusCode() != 200) {
+                esbRequestSource.callGsmKycESBAPI(msisdn);
+            }
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - gsmKYCAPITest " + e.getMessage(), false);
+            esbRequestSource.callGsmKycESBAPI(msisdn);
+        }
+        return result;
+    }
+    /**
+     * This Method will hit the API "/api/user-service/user/v1/details" and return the response
+     *
+     * @param msisdn The msisdn
+     * @return The Response
+     */
+    public HbbUserDetailsResponse hbbUserDetailsTest(String msisdn) {
+        HbbUserDetailsResponse result = null;
+        try {
+            commonPostMethod(URIConstants.HBB_USER, new GenericRequest(msisdn));
+            result = response.as(HbbUserDetailsResponse.class);
             if (result.getStatusCode() != 200) {
                 esbRequestSource.callGsmKycESBAPI(msisdn);
             }
@@ -1385,10 +1418,21 @@ public class RequestSource extends RestCommonUtils {
         return response.as(IssueHistoryRequest.class);
     }
 
-    public CreateIssueRequest createIssue(List<Header> map, String interactionId, String issueDetails, String categoryIds) {
-        body = "{\"interactionId\":\"" + interactionId + "\",\"comment\":\"" + COMMENT + "\",\"createdBy\":\"" + CREATED_BY + "\",\"issueDetails\":[" + issueDetails + "],\"categoryHierarchy\":[" + categoryIds + "]}";
+   public CreateIssueResponse createIssue(String interactionId, IssueDetails issueDetails, String createdBy, String comment, CategoryHierarchy category, MetaInfo metainfo) {
+        CreateIssueResponse result=null;
+        try{
+            commonPostMethod(URIConstants.CREATE_ISSUE, new CreateIssueRequest());
+            result = response.as(CreateIssueResponse.class);
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + CREATE_ISSUE + e.getMessage(), false);
+        }
+       return result;
+    }
+
+    public CreateIssueResponse createIssue(List<Header> map, String interactionId, String issueDetails, String categoryIds) {
+        body = "{\"interactionId\":\"" + interactionId + "\",\"comment\":\"" + COMMENT + "\",\"createdBy\":\"" + CREATED_BY + "\",\"issueDetails\":[" + issueDetails + "],\"categoryHierarchy\":[" + categoryIds + "] }";
         commonPostMethod(URIConstants.CREATE_ISSUE, map, body, srBaseUrl);
-        return response.as(CreateIssueRequest.class);
+        return response.as(CreateIssueResponse.class);
     }
 
     public TicketHistoryLogRequest getTicketHistoryLog(List<Header> map, String ticketId) {
@@ -1524,6 +1568,51 @@ public class RequestSource extends RestCommonUtils {
     public TicketHistoryRequest ticketHistoryWithCategoryFilter(List<Header> map, String clientConfig, String categoryIds) {
         body = "{\"pageNumber\":" + PAGE_NUMBER + ",\"pageSize\":" + PAGE_SIZE + ",\"ticketSearchCriteria\":{\"clientInfo\":{" + clientConfig + "},\"categoryIds\":[" + categoryIds + "]}}";
         return ticketHistoryRequest(map, body);
+    }
+
+    /**
+     * This method is used to get hbb linked accounts response from CS API
+     * @param msisdn The msisdn
+     * @return The response
+     */
+
+    public HbbLinkedAccountsResponse getLinkedHbbNumber(String msisdn)
+    {
+        HbbLinkedAccountsResponse result = null;
+        try {
+            commonPostMethod(URIConstants.GET_HBB_LINKED_ACCOUNTS_API, new HbbLinkedAccountsRequest(msisdn,false));
+            result = response.as(HbbLinkedAccountsResponse.class);
+            if (result.getStatusCode() != 200) {
+                esbRequestSource.hbbLinkedAccount(CHANNEL,msisdn);
+            }
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + LINKED_ACCOUNT_ORCHESTRATOR + e.getMessage(), false);
+        }
+        return result;
+    }
+    /**
+     * This method will hit the api /cs-notification-service/v1/send/notification and return the response
+     * @param templateIdentifier
+     * @param body
+     * @param  languageCode
+     * @param searchId
+     * @param sendNotificationType
+     * @param templateSourceApp
+     * @param  templateChannel,
+     * @param  receiverId
+     * @return The response
+     */
+
+    public NotificationServiceResponse getNotificationService(String templateIdentifier, String body, String languageCode, String searchId, String sendNotificationType, String templateSourceApp, String templateChannel, List<ReceiverId> receiverId)
+    {
+        NotificationServiceResponse result = null;
+        try {
+            commonPostMethod(URIConstants.NOTIFICATION_SERVICE_API, new NotificationServiceRequest(templateIdentifier,body,languageCode,searchId,sendNotificationType,templateSourceApp,templateChannel,receiverId));
+            result = response.as(NotificationServiceResponse.class);
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + NOTIFICATION_SERVICE_API + e.getMessage(), false);
+        }
+        return result;
     }
 
     /**

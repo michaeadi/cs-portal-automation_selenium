@@ -15,6 +15,10 @@ public class ApplicationConstants {
     public static final String WEB_BROWSER = "cs.application.browser";
     public static final String CUSTOMER_MSISDN = "cs.customer.msisdn";
     public static final String AM_CUSTOMER_MSISDN = "cs.am.customer.msisdn";
+    public static final String HBB_CUSTOMER_MSISDN = "cs.hbb.customer.msisdn";
+    public static final String HBB_INVALID_MSISDN="cs.hbb.invalid.msisdn";
+    public static final String HBB_NON_AIRTEL_CUSTOMER_MSISDN= "cs.hbb.non.airtel.customer.msisdn";
+    public static final String HBB_ALTERNATE_MSISDN= "cs.hbb.alternate.msisdn";
     public static final String RECHARGE_HISTORY_MSISDN = "cs.recharge.history.msisdn";
     public static final String CURRENT_BALANCE_MSISDN = "cs.current.balance.msisdn";
     public static final String USAGE_HISTORY_MSISDN = "cs.usage.history.msisdn";
@@ -29,7 +33,6 @@ public class ApplicationConstants {
     public static final String CHANNEL_ID = "cs.x.channel";
     public static final String APP_VERSION = "cs.x.app.version";
     public static final String API_BASE = "cs.api.base";
-    public static final String GSM_API_BASE = "gsm.api.base";
     public static final String GENERAL_WAIT_IN_SEC = "cs.general.wait.in.seconds";
     public static final String POOLING_WAIT_IN_MILLI_SEC = "cs.pooling.wait.in.milliseconds";
     public static final String DATA_MANAGER_TOGGLEABLE = "cs.data.manager.toggleable";
@@ -52,6 +55,8 @@ public class ApplicationConstants {
     public static final String RUN_AIRTEL_MONEY_WIDGET_TESTCASE = "cs.run.airtel.money.test.case";
     public static final String CUSTOMER_POSTPAID_MSISDN = "cs.customer.postpaid.msisdn";
     public static final String TEST_V3_USAGE_HISTORY = "v3.usage.history.enabled";
+    public static final String PREPAID_NUMBER = "cs.prepaid.number";
+    public static final String CUSTOMER_PREPAID_MSISDN = "cs.customer.prepaid.msisdn";
     public static final String APP_ENV_NAME = "automation.app.env";
     public static final String APP_BUILD_VERSION = "automation.app.buildversion";
     public static final String X_CLIENT_ID = "sr.x.client.id";
@@ -82,6 +87,8 @@ public class ApplicationConstants {
     public static final String PAGE_NUMBER = "sr.page.number";
     public static final String TICKET_POOL_IDS = "sr.ticket.pool.ids";
     public static final String EXTERNAL_STATE_IDS = "sr.external.state.ids";
+    public static final String INVALID_MSISDN = "invalid.msisdn";
+    public static final String ALTERNATE_EMAIL = "alternate.email";
     public static final String IS_SERVICE_CLS_ENABLED = "service.class.rate.plan.api.enabled";
     public static final String CURRENT_PLAN_API_CALL = "current.plan.api.call";
 

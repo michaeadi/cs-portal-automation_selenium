@@ -96,11 +96,13 @@ public class ESBRequestSource extends RestCommonUtils {
     public static final String FREE = "FREE";
     public static final String BOTH = "BOTH";
     public static final String USAGE_HISTORY_V3 = " - Usage history V3 ";
+    public static final String LINKED_ACCOUNT_ORCHESTRATOR=" - linked account orchestrator";
     private static final String ENTERPRISE_SEARCH = " -enterprise account search ";
     public static final String ENTERPRISE_ACCOUNT_NUMBER = "enterpriseAccountNumber";
     public static final String CORPORATE_CUSTOMER_NUMBER = "corporateCustomerNumber";
     public static final String AM_PROFILE_DETAILS = " -am profile and wallet deatils";
     public static final String ENTERPRISE_PAYMENT_HISTORY = "-enterprise payment history";
+    private Object CustomerProfileResponse;
 
 
     /**
@@ -188,7 +190,7 @@ public class ESBRequestSource extends RestCommonUtils {
      *
      * @param msisdn The msisdn
      */
-    public void callCustomerProfileV2(String msisdn) {
+    public  void callCustomerProfileV2(String msisdn) {
         try {
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + CUSTOMER_PROFILE_V2, JavaColors.GREEN, false);
             queryParam.put(MSISDN, msisdn);
@@ -834,6 +836,23 @@ public class ESBRequestSource extends RestCommonUtils {
             commonLib.fail(EXCEPTION_IN_METHOD + "accountLineResponse " + e.getMessage(), false);
         }
         return result;
+    }
+
+    /**
+     * This method is used to call downstream api for hbb linked account details
+     * @param channel the channel for ex. PORTAL
+     * @param msisdn  the msisdn
+     */
+    public void hbbLinkedAccount(String channel, String msisdn) {
+        try {
+            commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + LINKED_ACCOUNT_ORCHESTRATOR, JavaColors.GREEN, false);
+            queryParam.put("channel",channel);
+            queryParam.put("msisdn",msisdn);
+            commonGetMethodWithQueryParam(constants.getValue("hbb.linked.account.orchestrator.base.url") + ESBURIConstants.HBB_LINKED_ACCOUNT_DETAILS, queryParam);
+            checkDownstreamAPI(response.getStatusCode(), LINKED_ACCOUNT_ORCHESTRATOR, "Downstream API for hbb linked accounts orchestrator working fine with data ");
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + LINKED_ACCOUNT_ORCHESTRATOR+ e.getMessage(), false);
+        }
     }
 
     /**
