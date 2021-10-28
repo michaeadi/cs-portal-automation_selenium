@@ -29,12 +29,14 @@ public class HbbProfilePage {
     public By editEmailIcon=By.xpath("//div[contains(@style,'97')]//img[contains(@src,'edit')]");
     public By editAlternatePopUp=By.xpath("//div[contains(@class,'sim-suspend')]");
     public By enterAlternateNoText=By.xpath("//input[contains(@class,'mat-input')]");
-    public By enterAlternateNo=By.xpath("//label[contains(text(),'Enter')]");
+    public By enterAlternateNo=By.xpath("//label[contains(text(),'Enter Alternate No.  *')]");
+    public By enterAlternateEmail=By.xpath("//label[contains(text(),'Enter Email Id  *')]");
     public By invalidErrorMessage=By.xpath("//span[contains(text(),'Invalid entry')]");
     public By submitButton=By.xpath("//span[contains(text(),'Submit')]");
     public By cancelButton=By.xpath("//span[contains(text(),'Cancel')]");
     public By selectReason=By.xpath("//label[contains(text(),'Select')]");
-    public By enterComment=By.xpath("//span[contains(text(),'Comment')]");
+    public By enterComment=By.xpath("//span[contains(text(),'Enter Comment')]");
+    public By asteriskVisible=By.xpath("//span[contains(text(),'Enter Comment')]//following-sibling::span[2]");
     public By customerRequest=By.xpath("//span[contains(text(),'Customer Request')]");
     public By confirmationPopUp=By.xpath("//span[contains(text(),'Customer Request')]");
     public By emailValidation=By.xpath("//label[contains(text(),'Enter Email Id')]//following-sibling::input[@aria-invalid='true']");

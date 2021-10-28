@@ -66,13 +66,14 @@ public class HbbEditEmailTest {
                 if (profileVisibility == true) {
                     pages.getHbbProfilePage().clickOnEditIconAlternateNo();
                     assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isEditAlternatePopUpVisible(), true, "Edit Alternate Number Popup visible", "Edit Alternate Number Popup not visible"));
-                    assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isEnterAlternateNoVisible(), true, "Enter Alternate no. is visible", "Enter Alternate no is  not visible"));
+                    assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isEnterEmailIdVisible(), true, "Enter Alternate no. is visible", "Enter Alternate no is  not visible"));
                     assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isEmailEditIconVisible(), true, "Edit icon visible", "Edit icon not visible"));
                     String inValidEmail = "abcgmail.com";
                     pages.getHbbProfilePage().enterMsisdnAlternateNo(inValidEmail);
                     assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isRedLineVisible(), true, "Red line is displayed after entering invalid email", "Red line is not displayed after entering invalid email"));
                     assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isSubmitBtnDisabled(), true, "Submit button is disabled", "Submit button is not disabled"));
                     assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isEnterCommentVisible(), true, "Enter comment is visible", "Enter comment is not visible"));
+                    assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isAsteriskVisible(), true, "Enter comment is mandatory field", "Enter comment is not mandatory field"));
                     assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isSelectReasonVisible(), true, "Select reason is visible", "Select reason is visible"));
                     assertCheck.append(actions.assertEqualStringType(pages.getHbbProfilePage().getEmailId(), pages.getHbbProfilePage().getEnterAlternateNoText(), "Alternate number is auto populated in Enter Alternate Number field", "Alternate number is not auto populated in Enter Alternate Number field"));
                     assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isCancelButtonVisible(), true, "Cancel button is displayed", "Cancel button is not displayed"));
@@ -88,7 +89,7 @@ public class HbbEditEmailTest {
             actions.assertAllFoundFailedAssert(assertCheck);
         }
 
-        @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction", "isUserHasEditAlternateMsisdnPermission"})
+        @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction", "isUserHasEditEmailPermission"})
         public void validateEditAlternateNo() {
             try {
                 selUtils.addTestcaseDescription("Performing operation on edit iocn ", "description");
