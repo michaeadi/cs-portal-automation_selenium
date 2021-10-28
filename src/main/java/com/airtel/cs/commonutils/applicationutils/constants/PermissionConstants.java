@@ -32,7 +32,8 @@ public class PermissionConstants {
     public static final String LOAN_SERVICE_WIDGET_PERMISSION="loan.service.widget.permission";
     public static final String RINGTONE_WIDGET_PERMISSION="ringtone.detail.widget.permission";
     public static final String ACTION_TRAIL_TAB_PERMISSION="action.trail.tab.permission";
-
+    public static final String ALTERNATE_NUMBER_EDIT_ICON_PERMISSION="alternate.number.edit.icon.permission";
+    public static final String EMAIL_EDIT_ICON_PERMISSION="email.edit.icon.permission";
 
     private PermissionConstants() {
         throw new IllegalStateException();

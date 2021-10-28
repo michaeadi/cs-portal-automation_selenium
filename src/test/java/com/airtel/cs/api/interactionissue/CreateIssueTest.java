@@ -6,7 +6,7 @@ import com.airtel.cs.commonutils.dataproviders.databeans.ClientConfigDataBean;
 import com.airtel.cs.commonutils.dataproviders.databeans.FtrDataBeans;
 import com.airtel.cs.commonutils.dataproviders.databeans.NftrDataBeans;
 import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
-import com.airtel.cs.model.request.createissue.CreateIssueRequest;
+import com.airtel.cs.model.response.createissue.CreateIssueResponse;
 import com.airtel.cs.model.request.interaction.InteractionRequest;
 import org.testng.annotations.Test;
 
@@ -34,7 +34,7 @@ public class CreateIssueTest extends ApiPrerequisites {
         setLastCategoryIntoMap();
         validCategoryId = ids.get(getClientCode(list).toLowerCase().trim());
         ClientConfigDataBean clientConfig = data.getClientConfig().get(0);
-        CreateIssueRequest interactionIssue = api.createIssue(validHeaderList, getInteractionId(), getIssueDetails(validCategoryId), getCategoryHierarchy(clientConfig, validCategoryId));
+        CreateIssueResponse interactionIssue = api.createIssue(validHeaderList, getInteractionId(), getIssueDetails(validCategoryId), getCategoryHierarchy(clientConfig, validCategoryId));
         assertCheck.append(actions.assertEqualIntType(interactionIssue.getStatusCode(), 200, "Status Code Matched", "Status Code Not Matched and is - " + interactionIssue.getStatusCode()));
         assertCheck.append(actions.assertEqualStringType(interactionIssue.getMessage(), config.getProperty("interactionCreated"), "API message Matched", "API message is not as expected"));
         actions.assertAllFoundFailedAssert(assertCheck);
@@ -47,7 +47,7 @@ public class CreateIssueTest extends ApiPrerequisites {
             setLastCategoryIntoMap();
             validCategoryId = ids.get(getClientCode(list).toLowerCase().trim());
             ClientConfigDataBean clientConfig = data.getClientConfig().get(0);
-            CreateIssueRequest interactionIssue = api.createIssue(validHeaderList, getInteractionId(), getIssueDetails(validCategoryId), getCategoryHierarchy(clientConfig, validCategoryId));
+            CreateIssueResponse interactionIssue = api.createIssue(validHeaderList, getInteractionId(), getIssueDetails(validCategoryId), getCategoryHierarchy(clientConfig, validCategoryId));
             assertCheck.append(actions.assertEqualIntType(interactionIssue.getStatusCode(), 200, "Status Code Matched", "Status Code Not Matched and is - " + interactionIssue.getStatusCode()));
             assertCheck.append(actions.assertEqualStringType(interactionIssue.getMessage(), config.getProperty("interactionCreated"), "API message Matched", "API message is not as expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
@@ -63,7 +63,7 @@ public class CreateIssueTest extends ApiPrerequisites {
             setLastCategoryIntoMap();
             validCategoryId = ids.get(getClientCode(list).toLowerCase().trim());
             ClientConfigDataBean clientConfig = data.getClientConfig().get(0);
-            CreateIssueRequest interactionIssue = api.createIssue(restUtils.invalidToken(), getInteractionId(), getIssueDetails(validCategoryId), getCategoryHierarchy(clientConfig, validCategoryId));
+            CreateIssueResponse interactionIssue = api.createIssue(restUtils.invalidToken(), getInteractionId(), getIssueDetails(validCategoryId), getCategoryHierarchy(clientConfig, validCategoryId));
             assertCheck.append(actions.assertEqualStringType(interactionIssue.getStatus(), "401", "Status Matched Successfully", "Status Not Matched and is - " + interactionIssue.getStatus()));
             assertCheck.append(actions.assertEqualStringType(interactionIssue.getMessage(), config.getProperty("unauthorized"), "API Response Message Matched", "API Response Message as not expected"));
             actions.assertAllFoundFailedAssert(assertCheck);

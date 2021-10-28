@@ -17,5 +17,6 @@ public class SendSMSPage {
     public By messageReadOnly = By.xpath("//textarea[@readonly='true']");
     public By sendBtnDisabled = By.xpath("//button[@class='disabled-send-button']");
     public By customerNumberText = By.xpath("//span[contains(text(),'- Primary Number')]");
+    public By hbbAlternateNumberText=By.xpath("//span[contains(text(),'- Alternate Number')]");
     public By sendSMSHeaderText = By.xpath("//app-template-modal//h1");
 }
