@@ -192,7 +192,6 @@ public class HbbProfile extends BasePage{
     }
     /**
      * This method is used to check Suspend SIM visibility
-     *
      * @return true/false
      */
     public Boolean isSuspendSIMVisible() {
@@ -202,9 +201,8 @@ public class HbbProfile extends BasePage{
     }
     /**
        * This method is used to check Reactivate SIM Visibility
-     *
-             * @return true/false
-             */
+      * @return true/false
+     */
     public Boolean isReactivateSimVisible() {
         final Boolean state =isVisible(pageElements.reactivateSIM);
         commonLib.info("Is Reactivate SIM option visible: " + state);
@@ -212,7 +210,6 @@ public class HbbProfile extends BasePage{
     }
     /**
      * This method is used to check Ticket History
-     *
      * @return true/false
      */
     public Boolean isTicketHistoryVisible() {
@@ -280,10 +277,8 @@ public class HbbProfile extends BasePage{
 
     }
 
-
     /**
      * This method is use to check gsm profile visibility along with am profile
-     *
      *  @return true/false
      * */
     public Boolean isGSMAMProfileVisible() {
@@ -552,6 +547,17 @@ public class HbbProfile extends BasePage{
     }
 
     /**
+     * This method is use to check edit alternate id label visible
+     *
+     * @return true/false
+     */
+    public Boolean isEnterEmailIdVisible(){
+        final boolean state = isElementVisible(pageElements.enterAlternateEmail);
+        commonLib.info("Is edit Alternate email label Vsisble" + state);
+        return state;
+    }
+
+    /**
      * This method is use to check error message visible on entering invalid msisdn in enter alternate no field
      *
      * @return true/false
@@ -590,6 +596,16 @@ public class HbbProfile extends BasePage{
     public Boolean isEnterCommentVisible(){
         final boolean state = isElementVisible(pageElements.enterComment);
         commonLib.info("Is enter comment visible" + state);
+        return state;
+    }
+
+    /**
+     * This method is use to check that enter comment field is mandatory or not
+     * @return true/false
+     */
+    public Boolean isAsteriskVisible(){
+        final boolean state = isElementVisible(pageElements.asteriskVisible);
+        commonLib.info("Is asterisk symbol visible" + state);
         return state;
     }
     /**
