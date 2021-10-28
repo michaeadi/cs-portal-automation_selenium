@@ -1,5 +1,6 @@
 package com.airtel.cs.api;
 
+import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.restutils.RestCommonUtils;
 import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ESBURIConstants;
@@ -26,6 +27,7 @@ import com.airtel.cs.model.response.PostpaidBillDetailsResponse;
 import com.airtel.cs.model.response.customeprofile.CustomerProfileResponse;
 import com.airtel.cs.model.response.postpaid.AccountStatementResponse;
 import com.airtel.cs.model.response.postpaid.enterprise.AccountLinesResponse;
+import com.airtel.cs.model.response.serviceclassrateplan.ServiceClassRatePlanResponseDTO;
 import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONObject;
 
@@ -35,6 +37,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class ESBRequestSource extends RestCommonUtils {
 
@@ -50,11 +53,13 @@ public class ESBRequestSource extends RestCommonUtils {
     private static final String VAS_SERVICE_TUNE_BASE_URL = "vas.service.tune.base.url";
     private static final String API_ENTERPRISE_SERVICE_BASE_URL = "api.enterprise.service.base.url";
     private static final String VAS_SERVICE_LOAN_BASE_URL = "vas.service.loan.base.url";
+    private static final String SUBSCRIBER_PRODUCT_BASE_URL = "subscriber.product.base.url";
     private static final String USAGE_HISTORY = " -Usage history ";
     private static final String ENTERPRISE_SERVICE_BASE_URL = "enterprise.service.base.url";
     private static final String GSM_KYC = " - gsm kyc";
     private static final String KYC_REQUEST = " - KYC request";
     private static final String CUSTOMER_PROFILE_V2 = " - customer profile V2 ";
+    private static final String SERVICE_CLASS_RATE_PLAN = " - service class rate plan ";
     private static final String QUERY_BALANCE = " - query balance ";
     private static final String RECHARGE_HISTORY = " - recharge history ";
     private static final String VOUCHER_DETAILS = " - voucher details ";
@@ -193,6 +198,37 @@ public class ESBRequestSource extends RestCommonUtils {
             checkDownstreamAPI(response.getStatusCode(), CUSTOMER_PROFILE_V2, "Downstream API customer profile V2 working with data ");
         } catch (Exception e) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + CUSTOMER_PROFILE_V2 + e.getMessage(), false);
+        }
+    }
+
+    /**
+     * Call service class rate plan service class rate plan response dto.
+     *
+     * @param genericRequest the generic request
+     * @return the service class rate plan response dto
+     */
+    public void callServiceClassRatePlan(GenericRequest genericRequest) {
+        ServiceClassRatePlanResponseDTO serviceClassRatePlanResponseDTO = null;
+        try {
+            commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + SERVICE_CLASS_RATE_PLAN, JavaColors.GREEN, false);
+            commonPostMethod(constants.getValue(SUBSCRIBER_PRODUCT_BASE_URL) + ESBURIConstants.SERVICE_CLASS_RATE_PLAN, genericRequest);
+            serviceClassRatePlanResponseDTO = response.as(ServiceClassRatePlanResponseDTO.class);
+            checkDownstreamAPI(response.getStatusCode(), SERVICE_CLASS_RATE_PLAN, "Downstream API service class rate plan working with data ");
+            if(response.getStatusCode() == 200 && Objects.nonNull(serviceClassRatePlanResponseDTO) && Objects.nonNull(serviceClassRatePlanResponseDTO.getResponse())){
+                if(Boolean.valueOf(constants.getValue(ApplicationConstants.IS_SERVICE_CLS_ENABLED)) ){
+                        assertCheck.append(actions.assertEqualStringNotNull(serviceClassRatePlanResponseDTO.getResponse().getServiceClass(),"getting Service Class from ESB", "unable to fetch service class from ESB", false));
+                        assertCheck.append(actions.assertEqualStringNotNull(serviceClassRatePlanResponseDTO.getResponse().getRatePlanName(),"getting rate plan from ESB", "unable to fetch rate plan from ESB", false));
+                }else{
+                    if(Boolean.valueOf(constants.getValue(ApplicationConstants.CURRENT_PLAN_API_CALL)) && "NG".equalsIgnoreCase(OPCO)){
+                        assertCheck.append(actions.assertEqualStringNotNull(serviceClassRatePlanResponseDTO.getResponse().getServiceClass(),"getting Service Class from ESB", "unable to fetch service class from ESB", false));
+                        assertCheck.append(actions.assertEqualStringNotNull(serviceClassRatePlanResponseDTO.getResponse().getRatePlanName(),"getting rate plan from ESB", "unable to fetch rate plan from ESB", false));
+                    }else{
+                        assertCheck.append(actions.assertEqualStringNotNull(serviceClassRatePlanResponseDTO.getResponse().getServiceClass(),"getting Service Class from ESB", "unable to fetch service class from ESB", false));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + SERVICE_CLASS_RATE_PLAN + e.getMessage(), false);
         }
     }
 
