@@ -1393,7 +1393,7 @@ public class RequestSource extends RestCommonUtils {
    public CreateIssueResponse createIssue(String interactionId, IssueDetails issueDetails, String createdBy, String comment, CategoryHierarchy category, MetaInfo metainfo) {
         CreateIssueResponse result=null;
         try{
-            commonPostMethod(URIConstants.CREATE_ISSUE, new CreateIssueRequest(interactionId,issueDetails,createdBy,comment,category,metainfo));
+            commonPostMethod(URIConstants.CREATE_ISSUE, new CreateIssueRequest());
             result = response.as(CreateIssueResponse.class);
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + CREATE_ISSUE + e.getMessage(), false);
@@ -1562,8 +1562,6 @@ public class RequestSource extends RestCommonUtils {
         }
         return result;
     }
-
-
     /**
      * This method will hit the api /cs-notification-service/v1/send/notification and return the response
      * @param templateIdentifier

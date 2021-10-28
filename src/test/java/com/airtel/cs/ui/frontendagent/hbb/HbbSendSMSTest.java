@@ -120,7 +120,7 @@ public class HbbSendSMSTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
+   /* @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testManualSMS() {
         try {
             selUtils.addTestcaseDescription(
@@ -136,7 +136,7 @@ public class HbbSendSMSTest extends Driver {
             commonLib.fail("Exception in Method - testHbbProfile " + e.fillInStackTrace(), true);
         }
         actions.assertAllFoundFailedAssert(assertCheck);
-    }
+    }*/
 }
 
 
