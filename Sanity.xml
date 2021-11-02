@@ -692,7 +692,7 @@
     <test name="Open API Testing" preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="SanityTest"/>
             </run>
         </groups>
         <classes>
