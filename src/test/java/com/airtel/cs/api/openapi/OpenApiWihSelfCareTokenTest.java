@@ -207,23 +207,6 @@ public class OpenApiWihSelfCareTokenTest extends OpenAPIPrerequisites {
         }
     }
 
-    @Test(priority = 14, description = "Add Comment on Ticket With Opco and locale headers", groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "testSelfcareConfigured")
-    public void testCreateCommentWithOpcoAndLocaleHeader() {
-        try {
-            selUtils.addTestcaseDescription("API is - v1/openapi/comment, This API will create the comment on ticket", "description");
-            CommentOpenApiResponse commentOpenApiResponse = api.createCommentOpenApi(getOpenApiTicketId());
-            final Integer statusCode = commentOpenApiResponse.getStatusCode();
-            assertCheck.append(actions.assertEqualIntergerStatusCode(statusCode, 200, "Status Code Matched and is " + statusCode, "Response not matched and statusCode is:- " + statusCode));
-            final String message = commentOpenApiResponse.getMessage();
-            assertCheck.append(actions.assertEqualStringType(message, "Comment added successfully", message, "Comment not created or Some Assertion Failed"));
-            final String comment = commentOpenApiResponse.getResult().getComment();
-            assertCheck.append(actions.assertEqualStringType(comment, RequestSource.COMMENT, message, "Comment not matched or Some Assertion Failed"));
-            actions.assertAllFoundFailedAssert(assertCheck);
-        } catch (Exception e) {
-            commonLib.fail("Caught exception in Testcase - testCreateComment " + e.getMessage(), false);
-        }
-    }
-
     @Test(priority = 12, description = "Update Comment on Ticket", groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "testSelfcareConfigured")
     public void testUpdateComment() {
         try {
@@ -253,6 +236,23 @@ public class OpenApiWihSelfCareTokenTest extends OpenAPIPrerequisites {
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - testDeleteComment " + e.getMessage(), false);
+        }
+    }
+
+    @Test(priority = 14, description = "Add Comment on Ticket With Opco and locale headers", groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "testSelfcareConfigured")
+    public void testCreateCommentWithOpcoAndLocaleHeader() {
+        try {
+            selUtils.addTestcaseDescription("API is - v1/openapi/comment, This API will create the comment on ticket", "description");
+            CommentOpenApiResponse commentOpenApiResponse = api.createCommentOpenApi(getOpenApiTicketId());
+            final Integer statusCode = commentOpenApiResponse.getStatusCode();
+            assertCheck.append(actions.assertEqualIntergerStatusCode(statusCode, 200, "Status Code Matched and is " + statusCode, "Response not matched and statusCode is:- " + statusCode));
+            final String message = commentOpenApiResponse.getMessage();
+            assertCheck.append(actions.assertEqualStringType(message, "Comment added successfully", message, "Comment not created or Some Assertion Failed"));
+            final String comment = commentOpenApiResponse.getResult().getComment();
+            assertCheck.append(actions.assertEqualStringType(comment, RequestSource.COMMENT, message, "Comment not matched or Some Assertion Failed"));
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            commonLib.fail("Caught exception in Testcase - testCreateComment " + e.getMessage(), false);
         }
     }
 }
