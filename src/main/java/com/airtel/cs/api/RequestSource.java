@@ -147,7 +147,7 @@ public class RequestSource extends RestCommonUtils {
     private static final String CALLING_ESB_APIS = "Calling ESB APIs";
     private static final String GET_ALL_CONFIGURATION = " - getAllConfiguration ";
     private static RequestSpecification request;
-    private static Response response;
+//    private static Response response;
     private static QueryableRequestSpecification queryable;
     private static final String CREATED_BY = "API Automation";
     public static final String COMMENT = "Automation Test";
@@ -1239,7 +1239,7 @@ public class RequestSource extends RestCommonUtils {
      */
     public InteractionIssueOpenApiRequest interactionIssueOpenApiRequest(List<Header> map, String clientConfig, String issueDetails, String categoryIds) {
         body = "{\"interaction\":{\"createdBy\":\"" + CREATED_BY + "\",\"finalSubmit\":false,\"clientInfo\":{" + clientConfig + "}},\"issues\":[{\"comment\":\"" + COMMENT + "\",\"createdBy\":\"" + CREATED_BY + "\",\"issueDetails\":[" + issueDetails + "],\"categoryHierarchy\":[" + categoryIds + "]}]}";
-        commonPostMethod(URIConstants.OPEN_API_INTERACTION_ISSUE, map, body);
+        commonPostMethod(URIConstants.OPEN_API_INTERACTION_ISSUE, body, srBaseUrl);
         return response.as(InteractionIssueOpenApiRequest.class);
     }
 
@@ -1327,7 +1327,7 @@ public class RequestSource extends RestCommonUtils {
      */
     public IssueLayoutOpenRequest issueLayoutOpenRequest(List<Header> map, String categoryId) {
         body = "{\"layoutConfigType\":\"Issue\",\"categoryId\":" + categoryId + "}";
-        commonPostMethod(URIConstants.OPEN_API_ISSUE_LAYOUT, map, body);
+        commonPostMethod(URIConstants.OPEN_API_ISSUE_LAYOUT, body, srBaseUrl);
         return response.as(IssueLayoutOpenRequest.class);
     }
 
@@ -1345,6 +1345,7 @@ public class RequestSource extends RestCommonUtils {
      */
     public ParentCategoryOpenApiRequest parentCategoryOpenApiRequest(List<Header> map, String categoryId) {
         queryParam.put("id", categoryId);
+        baseUrl = srBaseUrl;
         commonGetMethodWithQueryParam(URIConstants.OPEN_API_PARENT_CATEGORY, queryParam);
         return response.as(ParentCategoryOpenApiRequest.class);
     }

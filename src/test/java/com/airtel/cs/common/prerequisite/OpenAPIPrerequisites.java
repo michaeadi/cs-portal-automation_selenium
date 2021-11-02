@@ -31,6 +31,8 @@ public class OpenAPIPrerequisites extends Driver {
     public static Map<String, Integer> ids = new HashMap<>();
     private static String Token;
     private static final String OPCO = System.getProperty("Opco").toUpperCase();
+    private static final String SR_CLIENT_ID = System.getProperty("srClientId");
+    private static final String LOCALE = System.getProperty("locale").toLowerCase();
 
 
     /*
@@ -47,6 +49,8 @@ public class OpenAPIPrerequisites extends Driver {
         map.clear();
         restUtils.addHeaders("Opco", OPCO);
         restUtils.addHeaders("Authorization", Token);
+        restUtils.addHeaders("sr-client-id", SR_CLIENT_ID);
+        restUtils.addHeaders("locale", LOCALE);
     }
 
     /*
@@ -155,7 +159,6 @@ public class OpenAPIPrerequisites extends Driver {
      */
     public Long getOpenApiCommentId() {
         Long commentId = null;
-        UtilsMethods.addHeaders("sr-client-id", constants.getValue(ApplicationConstants.SR_CLIENT_ID));
         CommentOpenApiResponse commentOpenApiResponse = api.createCommentOpenApi(getOpenApiTicketId());
         if (commentOpenApiResponse.getStatusCode() == 200) {
             commentId = commentOpenApiResponse.getResult().getId();
