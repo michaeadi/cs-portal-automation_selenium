@@ -15,6 +15,7 @@ public class ESBURIConstants {
   public static final String VENDORS = "/api/vas-service/v1/loan/vendors";
   public static final String LOAN_SUMMARY = "/api/vas-service/v1/loan/summary";
   public static final String LOAN_DETAILS = "/api/vas-service/v1/loan/loan-details";
+  public static final String SERVICE_CLASS_RATE_PLAN = "/api/subscriber-product/v1/fetch/service-class-rate-plan";
   public static final String VOUCHER_REFILL_BARRED = "/api/subscriber-profile/v1/voucher-refill-barred";
   public static final String TOP_TWENTY_RINGBACK_TONE = "/api/ring-back-tones/v1/top-twenty-ring-back-tone-list";
   public static final String SEARCH_NAME_TUNE = "/api/ring-back-tones/v1/search-name-tune";
@@ -41,4 +42,9 @@ public class ESBURIConstants {
   public static final String POSTPAID_ACCOUNTS_LINE = "/api/enterprise-service/v1/accounts/lines";
   public static final String MY_PLAN = "/api/subscriber-profile/v1/fetch/my-plans";
   public static final String MY_PACK = "/api/subscriber-profile/v1/fetch/my-packs";
+  public static final String HBB_LINKED_ACCOUNT_DETAILS="/api/linked-account-orchestrator/v1/account/detail";
+  public static final String ENTERPRISE_SEARCH_ACCOUNT = "/api/enterprise-service/v1/accounts";
+  public static final String ENTERPRISE_INVOICE_HISTORY = "/api/enterprise-service/v1/accounts/invoices";
+  public static final String ENTERPRISE_ACCOUNT_LINES = "/api/enterprise-service/v1/accounts/lines";
+  public static final String ENTERPRISE_PAYMENT_HISTORY = "/api/enterprise-service/v1/accounts/payments";
 }

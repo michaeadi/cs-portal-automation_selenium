@@ -11,6 +11,7 @@ public class URIConstants {
     public static final String GSM_KYC = "/cs-gsm-service/v1/gsm/kyc";
     public static final String GSM_PROFILE = "/cs-gsm-service/v1/profile";
     public static final String KYC_PROFILE = "/cs-gsm-service/v1/kyc/profile";
+    public static final String SEARCH = "/api/cs-gsm-service/v1/search";
     public static final String AM_PROFILE = "/cs-am-service/v1/profile";
     public static final String RECHARGE_HISTORY = "/cs-gsm-service/v1/recharge/history";
     public static final String BUNDLE_RECHARGE_HISTORY = "/cs-gsm-service/v1/bundle/recharge/history";
@@ -56,12 +57,21 @@ public class URIConstants {
     public static final String CREATE_CONFIGURATION_API="/api/cs-service/v1/create/config";
     public static final String DELETE_CONFIGURATION_API="/api/cs-service/v1/delete/config";
     public static final String UPDATE_CONFIGURATION_API="/api/cs-service/v1/update/config";
+    public static final String GET_HBB_LINKED_ACCOUNTS_API="/cs-gsm-service/v1/hbb/linked/accounts";
+    public static final String NOTIFICATION_SERVICE_API="/cs-notification-service/v1/send/notification";
+
+    public static final String ENTERPRISE_POSTPAID_ACCOUNT_INFORMATION="/cs-gsm-service/v1/enterprise/accounts";
+    public static final String ENTERPRISE_ACCOUNT_SEARCH = "/cs-gsm-service/v1/enterprise/search";
+    public static final String ENTERPRISE_LINKED_SERVICES="/cs-gsm-service/v1/enterprise/linked/services";
+    public static final String ENTERPRISE_INTERACTION_HISTORY="/sr/api/sr-service/v1/issue/history";
+    public static final String ENTERPRISE_PAYMENT_HISTORY = "/cs-gsm-service/v1/enterprise/payment/history";
 
     /**
      * SR URI Constants
      */
 
     public static final String TICKET_STATS = "/api/sr-service/v1/ticket/stats";
+    public static final String HBB_USER = "/api/user-service/user/v1/details";
     public static final String INTERACTION_ISSUE = "/api/sr-service/v1/interactions/issue";
     public static final String OPEN_API_INTERACTION_ISSUE = "/api/sr-service/v1/openapi/interactions/issue";
     public static final String OPEN_API_CREATE_COMMENT = "/api/sr-service/v1/openapi/comment";

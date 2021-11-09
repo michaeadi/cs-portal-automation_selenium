@@ -1,6 +1,7 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
 import com.airtel.cs.pagerepository.pageelements.AccountInformationWidgetPage;
+import com.google.gson.JsonObject;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONObject;
@@ -8,6 +9,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.json.Json;
 import org.openqa.selenium.support.PageFactory;
 
 import java.text.DateFormat;
@@ -19,6 +21,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Log4j2
 public class AccountInformationWidget extends BasePage {
@@ -247,7 +250,7 @@ public class AccountInformationWidget extends BasePage {
                     break;
                 } else {
                     result = json.get("result").toString();
-                    if (StringUtils.contains(String.valueOf(json.get(statusCode)), "200") || StringUtils.contains(String.valueOf(json.get(statusCode)), "400") && StringUtils.contains(String.valueOf(json.get(status)), "SUCCESS")) {
+                    if ((StringUtils.contains(String.valueOf(json.get(statusCode)), "200") || StringUtils.contains(String.valueOf(json.get(statusCode)), "400")) && StringUtils.contains(String.valueOf(json.get(status)), "SUCCESS")) {
                         result = result.substring(1, result.length() - 1).replace("\"", "");
                         String[] keyValuePairs = result.split(",");
                         Map<String, String> map = new HashMap<>();

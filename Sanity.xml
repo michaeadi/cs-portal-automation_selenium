@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+        <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Automation Framework CS PORTAl Test Suite" allow-return-values="true">
     <listeners>
         <listener class-name="com.airtel.cs.commonutils.listeners.TestListenerMethod"/>
@@ -117,6 +117,116 @@
         </groups>
         <classes>
             <class name="com.airtel.cs.ui.configurationtest.ConfigurationListTest"/>
+        </classes>
+    </test>
+    <test name="Validate HBB Profile">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hbb.HbbSearchTest"/>
+        </classes>
+    </test>
+    <test name="Validate Hbb Search on Dashboard Page ">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hbb.HbbDashboardSearchTest"/>
+        </classes>
+    </test>
+    <test name="Validating Hbb Profile ">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hbb.HbbProfileTest"/>
+        </classes>
+    </test>
+    <test name="Validate hbb Widgets Visibility ">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hbb.HbbWidgetsVisibilityTest"/>
+        </classes>
+    </test>
+    <test name="Validate Hbb GSM Profile ">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hbb.HbbGsmProfileTest"/>
+        </classes>
+    </test>
+    <test name="Validating Hbb View History ">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hbb.HbbViewHistory"/>
+        </classes>
+    </test>
+    <test name="Validating Creating Interaction for HBB ">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hbb.HbbCreateInteractionTest"/>
+        </classes>
+    </test>
+    <test name="Validating Non Airtel Msisdn Msisdn ">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hbb.HbbNonAirtelMsisdnTest"/>
+        </classes>
+    </test>
+    <test name="Validating Hbb Send SMS ">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hbb.HbbSendSMSTest"/>
+        </classes>
+    </test>
+    <test name="Validating Edit Email for HBB ">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hbb.HbbEditEmailTest"/>
+        </classes>
+    </test>
+    <test name="Validating Edit Alternate No. for Alternate No. ">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hbb.HbbEditAlternateNoTest"/>
         </classes>
     </test>
     <test name="Service Profile Widget Test">
@@ -687,6 +797,111 @@
         </groups>
         <classes>
             <class name="com.airtel.cs.ui.backendAgent.transfertoqueue.TransferToQueueTest"/>
+        </classes>
+    </test>
+
+    <test name="Logout Test from Backend Agent">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
+        </classes>
+    </test>
+
+    !-Enterprise test cases starts from here-->
+    <test name="Test Login Into Portal With Enterprise">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginPortalTests"/>
+        </classes>
+    </test>
+    <test name="Enterprise Account Info Widget">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.EnterpriseAccountInfoWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Enterprise Linked Service">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.EnterpriseLinkedServicesTest"/>
+        </classes>
+    </test>
+
+    <test name="Enterprise Search Account">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.EnterpriseAccountSearchTest"/>
+        </classes>
+    </test>
+
+    <test name="Enterprise Action Trail">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.viewhistorytab.EnterpriseActionTrailTest"/>
+        </classes>
+    </test>
+    <test name="Enterprise Interaction History">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.viewhistorytab.EnterpriseInteractionHistoryTest"/>
+        </classes>
+    </test>
+    <test name="Enterprise Message History">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.viewhistorytab.EnterpriseMessageHistoryTest"/>
+        </classes>
+    </test>
+    <test name="Enterprise Ticket History">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.viewhistorytab.EnterpriseTicketHistoryTest"/>
+        </classes>
+    </test>
+    <test name="Enterprise Payment  History">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.EnterprisePaymentHistoryTest"/>
         </classes>
     </test>
     <test name="Open API Testing" preserve-order="true">

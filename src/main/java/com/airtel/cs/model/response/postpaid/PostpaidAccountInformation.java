@@ -1,4 +1,4 @@
-package com.airtel.cs.pojo.response.postpaid;
+package com.airtel.cs.model.response.postpaid;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

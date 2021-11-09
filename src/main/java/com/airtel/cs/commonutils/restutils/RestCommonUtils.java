@@ -48,7 +48,7 @@ public class RestCommonUtils extends Driver {
      * @param body     body of the api
      */
     public static void commonPostMethod(String endPoint, Object body) {
-        commonPostMethod(endPoint, body, baseUrl);
+        commonPostMethod(endPoint, map, body, baseUrl);
     }
 
     /**
@@ -58,7 +58,7 @@ public class RestCommonUtils extends Driver {
      * @param body     body of the api
      * @param url      http url
      */
-    public static void commonPostMethod(String endPoint, Object body, String url) {
+    public static void commonPostMethod(String endPoint, List<Header> map, Object body, String url) {
         RestAssuredConfig restAssuredConfig = CurlRestAssuredConfigFactory.createConfig();
         try {
             commonLib.infoColored(CALLING_CS_API_USING + " " + endPoint + " " + API_FOR_TESTING, JavaColors.BLUE, false);
@@ -142,10 +142,10 @@ public class RestCommonUtils extends Driver {
      * @param endPoint send the endPoint
      * @param map      send headers used for API
      */
-    public static void commonGetMethod(String endPoint, List<Header> map) {
+    public static void commonGetMethod(String endPoint, List<Header> map, String url) {
         try {
             commonLib.info("Using" + endPoint + "API for Testing");
-            baseURI = baseUrl;
+            baseURI = url;
             Headers headers = new Headers(map);
             request = given().headers(headers).contentType(APPLICATION_JSON);
             queryable = SpecificationQuerier.query(request);
