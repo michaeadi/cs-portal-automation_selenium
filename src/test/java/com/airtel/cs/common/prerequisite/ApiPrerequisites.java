@@ -135,13 +135,26 @@ public class ApiPrerequisites extends Driver {
      * @return category id
      */
     public String getLastCategoryId(Integer validCategoryId) {
-        String lastCategoryId;
+      String lastCategoryId;
+      Integer id = getLastCategory(validCategoryId).getId();
+      lastCategoryId = "{\"id\":" + id + "}";
+      return lastCategoryId;
+    }
+    
+    /**
+     * This Method will extract the last category from parent category API
+     *
+     * @param validCategoryId category id
+     * @return category id
+     */
+    public CategoryHierarchy getLastCategory(Integer validCategoryId) {
+        
         ClientConfigDataBean clientConfig = data.getClientConfig().get(0);
         CategoryHierarchyRequest parentCategoryId = api.getParentCategoryId(validHeaderList, validCategoryId);
         assertCheck.append(actions.assertEqualIntType(parentCategoryId.getStatusCode(), 200));
-        Integer id = parentCategoryId.getResult().get(String.valueOf(clientConfig.getLastCategoryLevel())).get(0).getId();
-        lastCategoryId = "{\"id\":" + id + "}";
-        return lastCategoryId;
+        CategoryHierarchy category = parentCategoryId.getResult().get(String.valueOf(clientConfig.getLastCategoryLevel())).get(0);
+        
+        return category;
     }
 
     /**
