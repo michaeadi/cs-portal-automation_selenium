@@ -1,18 +1,23 @@
 package com.airtel.cs.ui.frontendagent.demographicwidget;
 
+import com.airtel.cs.api.ESBRequestSource;
 import com.airtel.cs.api.RequestSource;
+import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.driver.Driver;
+import com.airtel.cs.model.request.GenericRequest;
 import com.airtel.cs.model.response.actionconfig.ActionConfigResult;
 import com.airtel.cs.model.response.actionconfig.Condition;
 import com.airtel.cs.model.response.agents.RoleDetails;
 import com.airtel.cs.model.response.amprofile.AMProfile;
+import com.airtel.cs.model.response.customeprofile.CustomerDetailsResponse;
 import com.airtel.cs.model.response.filedmasking.FieldMaskConfigs;
 import com.airtel.cs.model.response.kycprofile.GsmKyc;
 import com.airtel.cs.model.response.kycprofile.KYCProfile;
 import com.airtel.cs.model.response.kycprofile.Profile;
 import com.airtel.cs.model.response.plans.Plans;
+import com.airtel.cs.model.response.serviceclassrateplan.ServiceClassRatePlanResponseDTO;
 import io.restassured.http.Headers;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.ObjectUtils;
@@ -33,6 +38,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
 
     private static String customerNumber = null;
     RequestSource api = new RequestSource();
+    ESBRequestSource esbRequestSource = new ESBRequestSource();
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void checkExecution() {
@@ -396,7 +402,6 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
         }
     }
 
-
     @Test(priority = 10, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testDataManager() {
         try {
@@ -435,6 +440,19 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
         } catch (Exception e) {
             commonLib.fail("Exception in Method - invalidMSISDNTest" + e.fillInStackTrace(), true);
         }
+    }
+
+    @Test(priority = 12, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void testServiceClassRatePlanAPI() {
+        try {
+            selUtils.addTestcaseDescription("Validate Service Class and Rate Plan", "description");
+            final String msisdn = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
+            List<String> customerDetails = api.searchAPITest(msisdn);
+            assertCheck.append(actions.assertEqualStringNotNull(pages.getAccountInformationWidget().getValue(customerDetails, "KYC",  "serviceClass"),"Service Class and Rate Plan test case pass", "Service Class and Rate Plan test case fail", false));
+        } catch (Exception e) {
+            commonLib.fail("Exception in method - testServiceClassRatePlanAPI " + e.fillInStackTrace(), true);
+        }
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
 }

@@ -58,6 +58,7 @@ import com.airtel.cs.model.request.openapi.interactionissue.IssueLayoutOpenReque
 import com.airtel.cs.model.request.openapi.ticket.SearchTicketOpenRequest;
 import com.airtel.cs.model.request.openapi.ticket.TicketHistoryLogOpenRequest;
 import com.airtel.cs.model.request.openapi.ticket.TicketSearchByTicketIdOpenRequest;
+import com.airtel.cs.model.request.ticketAssign.TicketAssignResponse;
 import com.airtel.cs.model.request.ticketdetail.TicketRequest;
 import com.airtel.cs.model.request.tickethistory.TicketHistoryRequest;
 import com.airtel.cs.model.request.tickethistorylog.TicketHistoryLogRequest;
@@ -96,6 +97,8 @@ import com.airtel.cs.model.response.loandetails.Loan;
 import com.airtel.cs.model.response.loansummary.Summary;
 import com.airtel.cs.model.response.login.Login;
 import com.airtel.cs.model.response.offerdetails.OfferDetail;
+import com.airtel.cs.model.response.parentcategory.Category;
+import com.airtel.cs.model.response.parentcategory.ParentCategoryResponse;
 import com.airtel.cs.model.response.plans.Plans;
 import com.airtel.cs.model.response.postpaid.PostpaidAccountDetailResponse;
 import com.airtel.cs.model.response.postpaid.enterprise.AccountStatementCSResponse;
@@ -109,13 +112,10 @@ import com.airtel.cs.model.response.transfertoqueue.TransferToQueue;
 import com.airtel.cs.model.response.usagehistory.UsageHistory;
 import com.airtel.cs.model.response.vendors.VendorNames;
 import com.airtel.cs.model.response.voucher.VoucherSearch;
-import com.airtel.cs.model.response.parentcategory.Category;
-import com.airtel.cs.model.response.parentcategory.ParentCategoryResponse;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
 import io.restassured.specification.QueryableRequestSpecification;
 import io.restassured.specification.RequestSpecification;
-import io.restassured.specification.SpecificationQuerier;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -144,6 +144,9 @@ public class RequestSource extends RestCommonUtils {
     public static Integer statusCode = null;
     private ESBRequestSource esbRequestSource = new ESBRequestSource();
     private static final String MSISDN = "msisdn";
+    private static final String MSISDN_CAPS = "MSISDN";
+    private static final String TYPE = "type";
+    private static final String NUMBER = "number";
     private static final String ACCOUNT_NO = "accountNo";
     private static final String ACCOUNT_ID = "accountId";
     private static final String CS_PORTAL_API_ERROR = "cs.portal.api.error";
@@ -242,6 +245,30 @@ public class RequestSource extends RestCommonUtils {
             esbRequestSource.callCustomerProfileV2(msisdn);
         }
         return result;
+    }
+
+    /**
+     * This method is used to test service class and rate plan CS API
+     * @param msisdn
+     * @return
+     */
+    public List<String> searchAPITest(String msisdn) {
+        String result;
+        List<String> myList = null;
+        try {
+            queryParam.put(TYPE, MSISDN_CAPS);
+            queryParam.put(NUMBER, msisdn);
+            commonGetMethodWithQueryParam(URIConstants.SEARCH, queryParam);
+            result = response.print();
+            if (response.getStatusCode() != 200) {
+                esbRequestSource.callServiceClassRatePlan(new GenericRequest(msisdn));
+            }
+            myList = new ArrayList<>(Arrays.asList(result.split("data:")));
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - searchAPITest " + e.getMessage(), false);
+            esbRequestSource.callServiceClassRatePlan(new GenericRequest(msisdn));
+        }
+        return myList;
     }
 
     /**
@@ -1232,6 +1259,21 @@ public class RequestSource extends RestCommonUtils {
         commonPostMethod(URIConstants.TICKET_STATS, map, body, srBaseUrl);
         return response.as(TicketStatsResponse.class);
     }
+    
+    /**
+     * This Method will hit the API "/api/sr-service/v1/assign/ticket" and return the response
+     *
+     * @param clientConfig the client config
+     * @param map          the map
+     * @return the result
+     */
+    public TicketAssignResponse ticketAssignRequest(String agentId,String ticketId,List<Header> map) {
+        body = "{\"agentId\":"+agentId+",\"ticketId\":[\""+ticketId+"\"]}";
+        commonPostMethod(URIConstants.ASSIGN_TICKET, map, body, srBaseUrl);
+        return response.as(TicketAssignResponse.class);
+    }
+    
+    
 
     /**
      * @param clientConfig
@@ -1495,7 +1537,45 @@ public class RequestSource extends RestCommonUtils {
         body = "{\"pageNumber\":" + PAGE_NUMBER + ",\"pageSize\":" + PAGE_SIZE + ",\"ticketSearchCriteria\":{\"clientInfo\":{" + clientConfig + "},\"categoryIds\":[" + categoryIds + "]}}";
         return ticketHistoryRequest(map, body);
     }
+    
+    /*
+    This Methos is used to hit the "/api/sr-service/v1/tickets" with category filter and get the response
+     */
+    public TicketHistoryRequest ticketHistoryWithCategoryLevelAndValue(List<Header> map, String clientConfig, int categoryLevel,String categoryLevelValues) {
+        body = "{\"pageNumber\":" + PAGE_NUMBER + ",\"pageSize\":" + PAGE_SIZE + ",\"ticketSearchCriteria\":{\"clientInfo\":{" + clientConfig + "},\"categoryLevel\": "+categoryLevel+",\"categoryLevelValues\":[" + categoryLevelValues + "]}}";
+        return ticketHistoryRequest(map, body);
+    }
+    
+    public TicketHistoryRequest ticketHistoryWithAssigenedTicketPool(List<Header> map, String clientConfig,String assignedQueues) {
+      body = "{\"pageNumber\":" + PAGE_NUMBER + ",\"pageSize\":" + PAGE_SIZE + ",\"ticketSearchCriteria\":{\"clientInfo\":{" + clientConfig + "},\"assignedQueues\":[ \""+assignedQueues+"\"]}}";
+      return ticketHistoryRequest(map, body);
+  }
+    public TicketHistoryRequest ticketHistoryWithCustomerSLABreached(List<Header> map, String clientConfig,boolean customerSLABreached) {
+      body = "{\"pageNumber\":" + PAGE_NUMBER + ",\"pageSize\":" + PAGE_SIZE + ",\"ticketSearchCriteria\":{\"clientInfo\":{" + clientConfig + "},\"customerSlaBreached\":"+customerSLABreached+"}}";
+      return ticketHistoryRequest(map, body);
+    }
+    
+    public TicketHistoryRequest ticketHistoryWithAssigneeName(List<Header> map, String clientConfig,String assigneeName) {
+      body = "{\"pageNumber\":" + PAGE_NUMBER + ",\"pageSize\":" + PAGE_SIZE + ",\"ticketSearchCriteria\":{\"clientInfo\":{" + clientConfig + "},\"assigneeNames\":[\""+assigneeName+"\"]}}";
+      return ticketHistoryRequest(map, body);
+    }
+    
+    public TicketHistoryRequest ticketHistoryWithAssigneeId(List<Header> map, String clientConfig,String assigneeId) {
+      body = "{\"pageNumber\":" + PAGE_NUMBER + ",\"pageSize\":" + PAGE_SIZE + ",\"ticketSearchCriteria\":{\"clientInfo\":{" + clientConfig + "},\"assigneeIds\":[\""+assigneeId+"\"]}}";
+      return ticketHistoryRequest(map, body);
+    }
 
+    public TicketHistoryRequest ticketHistoryWithWorkgroupSLABreached(List<Header> map, String clientConfig,boolean workgroupSLABreached) {
+      body = "{\"pageNumber\":" + PAGE_NUMBER + ",\"pageSize\":" + PAGE_SIZE + ",\"ticketSearchCriteria\":{\"clientInfo\":{" + clientConfig + "},\"customerSlaBreached\":"+workgroupSLABreached+"}}";
+      return ticketHistoryRequest(map, body);
+    }
+    
+    public TicketHistoryRequest ticketHistoryWithIssueDetails(List<Header> map, String clientConfig,String fieldName,String fieldValue) {
+      body = "{\"pageNumber\":" + PAGE_NUMBER + ",\"pageSize\":5,\"ticketSearchCriteria\":{\"clientInfo\":{" + clientConfig + "},\"issueFields\":[{\"fieldName\":\""+fieldName+"\",\"fieldValues\":[\""+fieldValue+"\"],\"searchType\":\"CONTAINS\"}]}}";
+      return ticketHistoryRequest(map, body);
+    }
+    
+    
     /**
      * This Method will hit the API "/cs-gsm-service/v1/enterprise/postpaid/account/information" and return the response in list
      *

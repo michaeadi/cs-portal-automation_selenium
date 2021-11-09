@@ -96,13 +96,11 @@ public class RestCommonUtils extends Driver {
                     .headers(headers)
                     .contentType(APPLICATION_JSON);
             commonLib.info("Query Param Map:-" + queryParam.toString());
-            queryParam.forEach(request::queryParam);
             
             StringBuilder stringBuilder = new StringBuilder("?");
             queryParam.forEach((k, v) -> stringBuilder.append(k).append("=").append(v).append("&"));
             endPoint += stringBuilder.toString();
             endPoint.substring(0, endPoint.length() - 1);
-            
             queryable = SpecificationQuerier.query(request);
             response = request.get(endPoint);
             

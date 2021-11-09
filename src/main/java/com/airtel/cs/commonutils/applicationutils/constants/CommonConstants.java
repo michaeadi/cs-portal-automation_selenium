@@ -93,4 +93,8 @@ public class CommonConstants {
     public static final String AUTO_UN_ASSIGNMENT_EVENT_NAME="cs.auto.unassigned.event.name";
     public static final String AIRTEL_MONEY_WIDGET_TITLE="cs.portal.airtel.money.widget.title";
     public static final String CS_SR_CLIENT_ID = "cs.sr.client.id";
+
+    public static final String HYPHEN = "-";
+    public static final String EMPTY_STRING = "";
+    public static final String AGENT_DETAILS_RULE_SHEET = "cs.agent.details.rule.sheet";
 }

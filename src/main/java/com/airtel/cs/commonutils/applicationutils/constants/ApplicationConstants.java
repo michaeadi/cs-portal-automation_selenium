@@ -29,6 +29,7 @@ public class ApplicationConstants {
     public static final String CHANNEL_ID = "cs.x.channel";
     public static final String APP_VERSION = "cs.x.app.version";
     public static final String API_BASE = "cs.api.base";
+    public static final String GSM_API_BASE = "gsm.api.base";
     public static final String GENERAL_WAIT_IN_SEC = "cs.general.wait.in.seconds";
     public static final String POOLING_WAIT_IN_MILLI_SEC = "cs.pooling.wait.in.milliseconds";
     public static final String DATA_MANAGER_TOGGLEABLE = "cs.data.manager.toggleable";
@@ -81,6 +82,8 @@ public class ApplicationConstants {
     public static final String PAGE_NUMBER = "sr.page.number";
     public static final String TICKET_POOL_IDS = "sr.ticket.pool.ids";
     public static final String EXTERNAL_STATE_IDS = "sr.external.state.ids";
+    public static final String IS_SERVICE_CLS_ENABLED = "service.class.rate.plan.api.enabled";
+    public static final String CURRENT_PLAN_API_CALL = "current.plan.api.call";
 
     private ApplicationConstants() {
         throw new IllegalStateException();
