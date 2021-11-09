@@ -11,6 +11,7 @@ import com.airtel.cs.model.response.voucher.VoucherDetail;
 import com.airtel.cs.model.response.voucher.VoucherRechargeResponse;
 import com.airtel.cs.model.response.voucher.VoucherSearch;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.restassured.response.Response;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -98,20 +99,30 @@ public class VoucherTabTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    /**
+     * Osc voucher recharge test.
+     */
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "voucherSearchTest")
     public void oscVoucherRechargeTest() {
         try {
             selUtils.addTestcaseDescription("Validate OSC Voucher Recharge Test", "description");
+            DataProviders data = new DataProviders();
+            String voucherId = data.getVoucherId();
             VoucherRechargeRequest voucherRechargeRequest = new VoucherRechargeRequest();
-            voucherRechargeRequest.setVoucherNumber("000704509219635");
-            voucherRechargeRequest.setDamagedPin("123489238923");
+            voucherRechargeRequest.setVoucherNumber(voucherId);
             voucherRechargeRequest.setKey(CommonConstants.RECHARGE);
             voucherRechargeRequest.setMsisdn(constants.getValue(ApplicationConstants.CUSTOMER_MSISDN));
-            VoucherRechargeResponse response = api.voucherRechargeTest(voucherRechargeRequest);
-            final Integer statusCode = response.getStatusCode();
-            assertCheck.append(actions.assertEqualIntergerStatusCode(statusCode, 3001, "Status Code Matched and is " + statusCode, "Response not matched and statusCode is:- " + statusCode));
-            final String message = response.getMessage();
-            assertCheck.append(actions.assertEqualStringType(message, "Invalid damaged pin length or character, first level validation failed.", message, "Voucher recharge error or Some Assertion Failed"));
+            Response response = api.voucherRechargeTest(voucherRechargeRequest);
+            final int statusCode = response.getStatusCode();
+            VoucherRechargeResponse voucherRechargeResponse = response.as(VoucherRechargeResponse.class);
+            final String message = voucherRechargeResponse.getMessage();
+            final String status = voucherRechargeResponse.getStatus();
+            if (statusCode == 200) {
+                assertCheck.append(actions.assertEqualStringNotNull(message, "Voucher message null check pass" , "Voucher message null check fail"));
+                assertCheck.append(actions.assertEqualStringNotNull(status, "Voucher status null check pass" , "Voucher status null check fail"));
+            } else {
+                commonLib.fail("Voucher Recharge API Response is not 200.", true);
+            }
         } catch (Exception e) {
             commonLib.fail(constants.getValue("cs.portal.test.fail") + " oscVoucherRechargeTest " + e.fillInStackTrace(), true);
         }

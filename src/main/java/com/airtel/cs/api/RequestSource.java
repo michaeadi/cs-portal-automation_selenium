@@ -600,19 +600,23 @@ public class RequestSource extends RestCommonUtils {
         return result;
     }
 
-    public VoucherRechargeResponse voucherRechargeTest(VoucherRechargeRequest voucherRechargeRequest) {
-        VoucherRechargeResponse result = null;
+    /**
+     * Voucher recharge test response.
+     *
+     * @param voucherRechargeRequest the voucher recharge request
+     * @return the response
+     */
+    public Response voucherRechargeTest(VoucherRechargeRequest voucherRechargeRequest) {
         try {
             commonPostMethod(URIConstants.OVERSCRATCH_RECHARGE, voucherRechargeRequest);
-            result = response.as(VoucherRechargeResponse.class);
             if (response.getStatusCode() != 200) {
-                esbRequestSource.callOscRefill();
+                esbRequestSource.callOscRefill(voucherRechargeRequest.getVoucherNumber());
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - voucherRechargeTest " + e.getMessage(), false);
-            esbRequestSource.callOscRefill();
+            esbRequestSource.callOscRefill(voucherRechargeRequest.getVoucherNumber());
         }
-        return result;
+        return response;
     }
 
     /*

@@ -291,14 +291,18 @@ public class ESBRequestSource extends RestCommonUtils {
         }
     }
 
-    public void callOscRefill() {
+    /**
+     * Call osc refill.
+     *
+     * @param voucherNumber the voucher number
+     */
+    public void callOscRefill(String voucherNumber) {
         try {
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + OSC_REFILL, JavaColors.GREEN, false);
             OSCRefillRequest oscRefillRequest = new OSCRefillRequest();
-            oscRefillRequest.setVoucherSerialNumber("000704509219635");
+            oscRefillRequest.setVoucherSerialNumber(voucherNumber);
             oscRefillRequest.setMsisdn(constants.getValue(ApplicationConstants.CUSTOMER_MSISDN));
-            oscRefillRequest.setDamagedPin("1234");
-            oscRefillRequest.setIsDamagedPinAvailable(true);
+            oscRefillRequest.setIsDamagedPinAvailable(false);
             commonPostMethod(constants.getValue(VOUCHER_SERVICE_BASE_URL) + ESBURIConstants.OSC_REFILL, oscRefillRequest);
             checkDownstreamAPI(response.getStatusCode(), OSC_REFILL, "Downstream API osc refill working with data ");
         } catch (Exception e) {
