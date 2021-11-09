@@ -96,4 +96,5 @@ public class CommonConstants {
 
     public static final String HYPHEN = "-";
     public static final String EMPTY_STRING = "";
+    public static final String RECHARGE = "recharge";
 }
