@@ -3,9 +3,12 @@ package com.airtel.cs.ui.frontendagent;
 import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
+import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
 import com.airtel.cs.driver.Driver;
+import com.airtel.cs.model.request.VoucherRechargeRequest;
 import com.airtel.cs.model.response.voucher.VoucherDetail;
+import com.airtel.cs.model.response.voucher.VoucherRechargeResponse;
 import com.airtel.cs.model.response.voucher.VoucherSearch;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.testng.SkipException;
@@ -92,6 +95,26 @@ public class VoucherTabTest extends Driver {
             commonLib.fail(constants.getValue("cs.portal.test.fail") + " voucherSearchTest" + e.fillInStackTrace(), true);
         }
 
+        actions.assertAllFoundFailedAssert(assertCheck);
+    }
+
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void oscVoucherRechargeTest() {
+        try {
+            selUtils.addTestcaseDescription("Validate OSC Voucher Recharge Test", "description");
+            VoucherRechargeRequest voucherRechargeRequest = new VoucherRechargeRequest();
+            voucherRechargeRequest.setVoucherNumber("000704509219635");
+            voucherRechargeRequest.setDamagedPin("123489238923");
+            voucherRechargeRequest.setKey(CommonConstants.RECHARGE);
+            voucherRechargeRequest.setMsisdn(constants.getValue(ApplicationConstants.CUSTOMER_MSISDN));
+            VoucherRechargeResponse response = api.voucherRechargeTest(voucherRechargeRequest);
+            final Integer statusCode = response.getStatusCode();
+            assertCheck.append(actions.assertEqualIntergerStatusCode(statusCode, 3001, "Status Code Matched and is " + statusCode, "Response not matched and statusCode is:- " + statusCode));
+            final String message = response.getMessage();
+            assertCheck.append(actions.assertEqualStringType(message, "Invalid damaged pin length or character, first level validation failed.", message, "Voucher recharge error or Some Assertion Failed"));
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue("cs.portal.test.fail") + " oscVoucherRechargeTest " + e.fillInStackTrace(), true);
+        }
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 }
