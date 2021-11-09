@@ -10,12 +10,16 @@ import com.airtel.cs.commonutils.dataproviders.databeans.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.model.response.actionconfig.MetaInfo;
 import com.airtel.cs.model.response.actiontrail.ActionTrail;
+import com.airtel.cs.model.response.actiontrail.EventResult;
 import io.restassured.http.Headers;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ActionTrailTest extends Driver {
 
@@ -105,6 +109,32 @@ public class ActionTrailTest extends Driver {
                         }
                         pages.getActionTrailPage().clickMetaInfoIcon(i+1);
                     }
+                }
+            }
+        } catch (NoSuchElementException | TimeoutException | IndexOutOfBoundsException e) {
+            commonLib.fail("Exception in Method - validateActionTrailValue" + e.fillInStackTrace(), true);
+        }
+        actions.assertAllFoundFailedAssert(assertCheck);
+    }
+
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"validateActionTrailOpenCorrectly"})
+    public void validateRechargeActionTrailValue() {
+        try {
+            selUtils.addTestcaseDescription("validateRechargeActionTrailValue", "description");
+            ActionTrail actionTrailAPI = api.getEventHistory(customerNumber, "ACTION");
+            final int statusCode = actionTrailAPI.getStatusCode();
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Action Trail API success and status code is :" + statusCode, "Action Trail API got failed and status code is :" + statusCode,false,true));
+            if (statusCode == 200) {
+                List<EventResult> responseList= actionTrailAPI.getResult().stream().filter(ele -> "OSC Recharge".equalsIgnoreCase(ele.getActionType())).collect(Collectors.toList());
+                if(!responseList.isEmpty() && responseList.size() > 0) {
+                    List<MetaInfo> metaInfoList = responseList.get(0).getMetaInfo();
+                    if(!metaInfoList.isEmpty() && metaInfoList.size() == 3){
+                        assertCheck.append(actions.assertEqualStringNotNull(metaInfoList.get(0).getValue(), "MetaInfo "+ metaInfoList.get(0).getLabel() + "param null check pass" , "MetaInfo "+ metaInfoList.get(0).getLabel() + " param null check fail"));
+                        assertCheck.append(actions.assertEqualStringNotNull(metaInfoList.get(1).getValue(), "MetaInfo "+ metaInfoList.get(1).getLabel() + "param null check pass" , "MetaInfo "+ metaInfoList.get(1).getLabel() + " param null check fail"));
+                        assertCheck.append(actions.assertEqualStringNotNull(metaInfoList.get(2).getValue(), "MetaInfo " + metaInfoList.get(2).getLabel() +" param null check pass" , "MetaInfo "+ metaInfoList.get(2).getLabel() + " param null check fail"));
+                    }
+                }else{
+                    commonLib.pass("No response found for action type OSC recharge in response list");
                 }
             }
         } catch (NoSuchElementException | TimeoutException | IndexOutOfBoundsException e) {
