@@ -26,6 +26,7 @@ CS_PORTAL.iws
 cs-portal-automation_selenium1.iml
 sr-servicetest.iml
 /resources/screenshots
+/resources/htmlreport
 .classpath
 .project
 *.iml

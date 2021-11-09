@@ -41,6 +41,18 @@ public class SendSMS extends BasePage {
     }
 
     /**
+     * This method use to get customer no. in case of HBB
+     *
+     * @return String The value
+     */
+    public String getCustomerNumberHbb() {
+        waitTillLoaderGetsRemoved();
+        String text = getText(pageElements.hbbAlternateNumberText);
+        commonLib.info("Reading Customer Number: " + text);
+        return text.split("-")[0].trim();
+    }
+
+    /**
      * This method use to select category
      */
     public void selectCategory() {
