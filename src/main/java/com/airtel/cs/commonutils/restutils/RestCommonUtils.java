@@ -257,6 +257,7 @@ public class RestCommonUtils extends Driver {
 
     public void addHeaders(String key, String value) {
         validHeaderList.add(new Header(key, value));
+        map.add(new Header(key, value));
     }
 
     public void printResponseDetail(Response response) {
