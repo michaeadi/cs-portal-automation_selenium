@@ -4,11 +4,13 @@ import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.dataproviders.databeans.ClientConfigDataBean;
 import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
+import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.model.request.issue.IssueDetails;
 import com.airtel.cs.model.request.openapi.category.ParentCategoryOpenApiRequest;
 import com.airtel.cs.model.request.openapi.interactionissue.InteractionIssueOpenApiRequest;
 import com.airtel.cs.model.request.openapi.interactionissue.IssueLayoutOpenRequest;
+import com.airtel.cs.model.response.openapi.comment.CommentOpenApiResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -29,6 +31,8 @@ public class OpenAPIPrerequisites extends Driver {
     public static Map<String, Integer> ids = new HashMap<>();
     private static String Token;
     private static final String OPCO = System.getProperty("Opco").toUpperCase();
+    private static final String SR_CLIENT_ID = System.getProperty("srClientId");
+    private static final String LOCALE = System.getProperty("locale").toLowerCase();
 
 
     /*
@@ -42,8 +46,11 @@ public class OpenAPIPrerequisites extends Driver {
         baseURI = umBaseUrl;
         Token = "Bearer " + datatPoints.get(0);
         restUtils.clearValidHeaderMap();
+        map.clear();
         restUtils.addHeaders("Opco", OPCO);
         restUtils.addHeaders("Authorization", Token);
+        restUtils.addHeaders("sr-client-id", SR_CLIENT_ID);
+        restUtils.addHeaders("locale", LOCALE);
     }
 
     /*
@@ -145,6 +152,18 @@ public class OpenAPIPrerequisites extends Driver {
             ticketId = interactionIssueOpenApiRequest.getResult().getIssues().get(0).getTicket().getTicketId();
         }
         return ticketId;
+    }
+
+    /*
+    This Method is used to get the comment id for Open API by hitting the create comment open API
+     */
+    public Long getOpenApiCommentId() {
+        Long commentId = null;
+        CommentOpenApiResponse commentOpenApiResponse = api.createCommentOpenApi(getOpenApiTicketId());
+        if (commentOpenApiResponse.getStatusCode() == 200) {
+            commentId = commentOpenApiResponse.getResult().getId();
+        }
+        return commentId;
     }
 
     /*

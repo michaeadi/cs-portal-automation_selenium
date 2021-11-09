@@ -64,8 +64,8 @@ public class Driver {
     public static List<Header> map = new ArrayList<>();
     public static String token;
     public static String baseUrl;
-    public static String umBaseUrl;
     public static String srBaseUrl;
+    public static String umBaseUrl;
     public static String srUMBaseUrl;
     public static StringBuilder assertCheck;
     public static final ExtentReport reporter = new ExtentReport();
