@@ -71,6 +71,7 @@ public class DataProviders extends Driver {
     public static List<AssignmentQueueRuleDataBeans> queueRuleFile = new ArrayList<>();
     public static List<SLARuleFileDataBeans> slaRuleFile = new ArrayList<>();
     List<FtrDataBeans> ftrDataBeans;
+    List<NftrDataBeans> nftrDataBeansList;
     List<ClientConfigDataBean> clientConfigDataBeans;
 
     /**
@@ -113,24 +114,6 @@ public class DataProviders extends Driver {
         Object[][] hashMapObj = new Object[list.size()][1];
         for (int i = 0; i < list.size(); i++) {
             hashMapObj[i][0] = list.get(i);
-        }
-        return hashMapObj;
-    }
-
-    @DataProvider
-    public Object[][] getTestData2() {
-        NftrDataExcelToBeanDao dataExcelToBeanDao = new NftrDataExcelToBeanDao();
-        List<NftrDataBeans> list =
-                dataExcelToBeanDao.getData(excelPath, constants.getValue(nftrSheetValue));
-        List<NftrDataBeans> finalList = new ArrayList<>();
-        for (NftrDataBeans l : list) {
-            if (l.getIssueCode() != null && !l.getIssueCode().isEmpty()) {
-                finalList.add(l);
-            }
-        }
-        Object[][] hashMapObj = new Object[finalList.size()][1];
-        for (int i = 0; i < finalList.size(); i++) {
-            hashMapObj[i][0] = finalList.get(i);
         }
         return hashMapObj;
     }
@@ -903,4 +886,22 @@ public class DataProviders extends Driver {
         return hashMapObj;
     }
 
+    @DataProvider(name = "NFTRIssue")
+    public Object[][] getTestData2() {
+        NftrDataExcelToBeanDao credsExcelToBeanDao = new NftrDataExcelToBeanDao();
+        File excel = new File(excelPath);
+        nftrDataBeansList = credsExcelToBeanDao.getData(excel.getAbsolutePath(), constants.getValue(nftrSheetValue));
+
+        List<NftrDataBeans> finalList = new ArrayList<>();
+        for (NftrDataBeans l : nftrDataBeansList) {
+            if (l.getIssue() != null && (!l.getIssue().isEmpty())) {
+                finalList.add(l);
+            }
+        }
+        Object[][] hashMapObj = new Object[finalList.size()][1];
+        for (int i = 0; i < finalList.size(); i++) {
+            hashMapObj[i][0] = finalList.get(i);
+        }
+        return hashMapObj;
+    }
 }

@@ -48,7 +48,6 @@ public class Driver {
     private static final String PATH_DELIMITER = "/";
     private static final String USER_DIR = "user.dir";
     public static final String OPCO = System.getProperty("Opco").toUpperCase();
-    public static final String CLIENT = System.getProperty("Client").toUpperCase();
     public static WebDriver driver;
     public static WebDriver defaultDriver = null;
     public static WebDriver tempDriver = null;
@@ -67,6 +66,7 @@ public class Driver {
     public static String baseUrl;
     public static String srBaseUrl;
     public static String umBaseUrl;
+    public static String srUMBaseUrl;
     public static StringBuilder assertCheck;
     public static final ExtentReport reporter = new ExtentReport();
     public static final SeleniumCommonUtils selUtils = new SeleniumCommonUtils();
@@ -270,9 +270,10 @@ public class Driver {
             evnName = "PROD";
         }
         baseUrl = constants.getValue(ApplicationConstants.API_BASE);
-        srBaseUrl = constants.getValue(ApplicationConstants.SR_API_BASE);
         umBaseUrl = constants.getValue(ApplicationConstants.UM_API_BASE);
         loginURL = constants.getValue(ApplicationConstants.UM_LOGIN_URL);
+        srBaseUrl=constants.getValue(ApplicationConstants.SR_API_BASE);
+        srUMBaseUrl=constants.getValue(ApplicationConstants.SR_UM_API_BASE);
         assertCheck = new StringBuilder(); // @ THIS WILL EMPTY ASSERT STRING-BUILDER BEFORE EACH TEST
     }
 

@@ -9,6 +9,8 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.SkipException;
+import org.testng.util.Strings;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -34,6 +36,22 @@ public class DemoGraphic extends BasePage {
         return text;
     }
 
+    /*
+    Methods are used to get Hbb User Details
+     */
+
+    /**
+     * This method is use to get customer name
+     *
+     * @return String The value
+     */
+    public String getHbbCustomerName() {
+        final String text = getText(pageElements.customerName);
+        commonLib.info("Getting Customer Name: " + text);
+        return text;
+    }
+
+
     /**
      * This method is use to get device Compatible
      *
@@ -49,8 +67,8 @@ public class DemoGraphic extends BasePage {
         return result;
     }
 
-    /*
-    This Method will be used to get the value for data manager under demographic widget
+    /**
+    *This Method will be used to get the value for data manager under demographic widget
      */
     public String getDataManagerValue() {
         commonLib.info("Going to get Data Manger value");
@@ -294,6 +312,14 @@ public class DemoGraphic extends BasePage {
     public void clickPUKToUnlock() {
         commonLib.info("Clicking Tap to unlock on PUK Info");
         clickAndWaitForLoaderToBeRemoved(pageElements.pukLock);
+    }
+
+    /**
+     * This method is use to click PUK info locked section
+     */
+    public void clickPUKTAuthenticate() {
+        commonLib.info("Clicking on Authenticate tab after selecting minimum number of questions");
+        clickAndWaitForLoaderToBeRemoved(pageElements.authenticate);
     }
 
     /**
@@ -596,36 +622,42 @@ public class DemoGraphic extends BasePage {
      * @return String The value
      */
     public String invalidMSISDNError() {
-        final String text = getText(pageElements.errorMessage);
+        final String text = getText(pageElements.dashboardSearchErrorMessage);
         commonLib.info("Message is: " + text);
         return text;
     }
 
     /**
-     * This method is use to enter msisdn in search box
+     * This method is use to enter msisdn in search box of the customer dashboard page
      *
      * @param text The text
      */
     public void enterMSISDN(String text) {
         commonLib.info("Writing MSISDN in Search Box: " + text);
-        enterText(pageElements.customerNumberSearchBox, text);
-        driver.findElement(pageElements.customerNumberSearchBox).sendKeys(Keys.ENTER);
+        enterText(pageElements.msisdnDashboardSearchBox, text);
+        driver.findElement(pageElements.msisdnDashboardSearchBox).sendKeys(Keys.ENTER);
     }
 
     /**
-     * This method is use to clear search box
-     *
-     * @param size size of char to be remove
+     * This method is use to click search button on dashboard page
      */
-    public void clearSearchBox(int size) {
-        commonLib.info("Clearing Search box");
-        for (int i = 0; i < size; i++) {
-            driver.findElement(pageElements.customerNumberSearchBox).sendKeys(Keys.BACK_SPACE);
+    public void clickOnDashboardSearch() {
+        commonLib.info("Clicking on Search Button");
+        clickWithoutLoader(pageElements.searchButton);
+        final boolean isGrowlVisible = pages.getGrowl().checkIsDashboardGrowlVisible();
+        if (!isGrowlVisible) {
+            if (isElementVisible(pageElements.dashboardSearchErrorMessage)) {
+                highLighterMethod(pageElements.dashboardSearchErrorMessage);
+                commonLib.error(driver.findElement(pageElements.dashboardSearchErrorMessage).getText());
+            }
+        } else {
+            commonLib.fail("Growl Message:- " + pages.getGrowl().getDashboardToastMessage(), true);
+            throw new SkipException("Growl Message Displayed");
         }
     }
 
     /**
-     * This method is use to hover on SIM Number info icon
+     * This method is used to hover on SIM Number info icon
      */
     public void hoverOnSIMNumberIcon() {
         commonLib.info("Hover on SIM Number Info icon");
