@@ -121,7 +121,6 @@ public class ActionTrailTest extends Driver {
     public void validateRechargeActionTrailValue() {
         try {
             selUtils.addTestcaseDescription("validateRechargeActionTrailValue", "description");
-            customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
             ActionTrail actionTrailAPI = api.getEventHistory(customerNumber, "ACTION");
             final int statusCode = actionTrailAPI.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Action Trail API success and status code is :" + statusCode, "Action Trail API got failed and status code is :" + statusCode,false,true));
@@ -130,9 +129,9 @@ public class ActionTrailTest extends Driver {
                 if(!responseList.isEmpty() && responseList.size() > 0) {
                     List<MetaInfo> metaInfoList = responseList.get(0).getMetaInfo();
                     if(!metaInfoList.isEmpty() && metaInfoList.size() == 3){
-                        assertCheck.append(actions.assertEqualStringNotNull(metaInfoList.get(0).getValue(), "MetaInfo first param null check pass" , "MetaInfo first param null check fail"));
-                        assertCheck.append(actions.assertEqualStringNotNull(metaInfoList.get(1).getValue(), "MetaInfo second param null check pass" , "MetaInfo second param null check fail"));
-                        assertCheck.append(actions.assertEqualStringNotNull(metaInfoList.get(2).getValue(), "MetaInfo third param null check pass" , "MetaInfo third param null check fail"));
+                        assertCheck.append(actions.assertEqualStringNotNull(metaInfoList.get(0).getValue(), "MetaInfo "+ metaInfoList.get(0).getLabel() + "param null check pass" , "MetaInfo "+ metaInfoList.get(0).getLabel() + " param null check fail"));
+                        assertCheck.append(actions.assertEqualStringNotNull(metaInfoList.get(1).getValue(), "MetaInfo "+ metaInfoList.get(1).getLabel() + "param null check pass" , "MetaInfo "+ metaInfoList.get(1).getLabel() + " param null check fail"));
+                        assertCheck.append(actions.assertEqualStringNotNull(metaInfoList.get(2).getValue(), "MetaInfo " + metaInfoList.get(2).getLabel() +" param null check pass" , "MetaInfo "+ metaInfoList.get(2).getLabel() + " param null check fail"));
                     }
                 }else{
                     commonLib.pass("No response found for action type OSC recharge in response list");
