@@ -23,6 +23,7 @@ import com.airtel.cs.model.request.LimitConfigRequest;
 import com.airtel.cs.model.request.LoanRequest;
 import com.airtel.cs.model.request.MoreTransactionHistoryRequest;
 import com.airtel.cs.model.request.OfferDetailRequest;
+import com.airtel.cs.model.request.VoucherRechargeRequest;
 import com.airtel.cs.model.request.PaymentHistoryESBRequest;
 import com.airtel.cs.model.request.PaymentHistoryRequest;
 import com.airtel.cs.model.request.PaymentRequest;
@@ -122,6 +123,7 @@ import com.airtel.cs.model.response.ticketlist.Ticket;
 import com.airtel.cs.model.response.transfertoqueue.TransferToQueue;
 import com.airtel.cs.model.response.usagehistory.UsageHistory;
 import com.airtel.cs.model.response.vendors.VendorNames;
+import com.airtel.cs.model.response.voucher.VoucherRechargeResponse;
 import com.airtel.cs.model.response.voucher.VoucherSearch;
 import com.airtel.cs.model.response.parentcategory.Category;
 import com.airtel.cs.model.response.parentcategory.ParentCategoryResponse;
@@ -599,6 +601,25 @@ public class RequestSource extends RestCommonUtils {
             esbRequestSource.callVoucherDetails(voucherId);
         }
         return result;
+    }
+
+    /**
+     * Voucher recharge test response.
+     *
+     * @param voucherRechargeRequest the voucher recharge request
+     * @return the response
+     */
+    public Response voucherRechargeTest(VoucherRechargeRequest voucherRechargeRequest) {
+        try {
+            commonPostMethod(URIConstants.OVERSCRATCH_RECHARGE, voucherRechargeRequest);
+            if (response.getStatusCode() != 200) {
+                esbRequestSource.callOscRefill(voucherRechargeRequest.getVoucherNumber());
+            }
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - voucherRechargeTest " + e.getMessage(), false);
+            esbRequestSource.callOscRefill(voucherRechargeRequest.getVoucherNumber());
+        }
+        return response;
     }
 
     /*

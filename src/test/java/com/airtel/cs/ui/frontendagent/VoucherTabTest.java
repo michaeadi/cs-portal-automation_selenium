@@ -3,11 +3,15 @@ package com.airtel.cs.ui.frontendagent;
 import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
+import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
 import com.airtel.cs.driver.Driver;
+import com.airtel.cs.model.request.VoucherRechargeRequest;
 import com.airtel.cs.model.response.voucher.VoucherDetail;
+import com.airtel.cs.model.response.voucher.VoucherRechargeResponse;
 import com.airtel.cs.model.response.voucher.VoucherSearch;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.restassured.response.Response;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -92,6 +96,36 @@ public class VoucherTabTest extends Driver {
             commonLib.fail(constants.getValue("cs.portal.test.fail") + " voucherSearchTest" + e.fillInStackTrace(), true);
         }
 
+        actions.assertAllFoundFailedAssert(assertCheck);
+    }
+
+    /**
+     * Osc voucher recharge test.
+     */
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "voucherSearchTest")
+    public void oscVoucherRechargeTest() {
+        try {
+            selUtils.addTestcaseDescription("Validate OSC Voucher Recharge Test", "description");
+            DataProviders data = new DataProviders();
+            String voucherId = data.getVoucherId();
+            VoucherRechargeRequest voucherRechargeRequest = new VoucherRechargeRequest();
+            voucherRechargeRequest.setVoucherNumber(voucherId);
+            voucherRechargeRequest.setKey(CommonConstants.RECHARGE);
+            voucherRechargeRequest.setMsisdn(constants.getValue(ApplicationConstants.CUSTOMER_MSISDN));
+            Response response = api.voucherRechargeTest(voucherRechargeRequest);
+            final int statusCode = response.getStatusCode();
+            VoucherRechargeResponse voucherRechargeResponse = response.as(VoucherRechargeResponse.class);
+            final String message = voucherRechargeResponse.getMessage();
+            final String status = voucherRechargeResponse.getStatus();
+            if (statusCode == 200) {
+                assertCheck.append(actions.assertEqualStringNotNull(message, "Voucher message null check pass" , "Voucher message null check fail"));
+                assertCheck.append(actions.assertEqualStringNotNull(status, "Voucher status null check pass" , "Voucher status null check fail"));
+            } else {
+                commonLib.fail("Voucher Recharge API Response is not 200.", true);
+            }
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue("cs.portal.test.fail") + " oscVoucherRechargeTest " + e.fillInStackTrace(), true);
+        }
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 }
