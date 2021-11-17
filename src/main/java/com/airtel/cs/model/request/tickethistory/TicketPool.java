@@ -12,6 +12,6 @@ import lombok.Setter;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class TicketPool {
 
-  private String ticketPoolName;
+  private String queueName;
   private String workgroupName;
 }

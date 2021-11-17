@@ -64,10 +64,17 @@ public class RestCommonUtils extends Driver {
             commonLib.infoColored(CALLING_CS_API_USING + " " + endPoint + " " + API_FOR_TESTING, JavaColors.BLUE, false);
             baseURI = url;
             Headers headers = new Headers(map);
+            String finalbody="";
+            
+            if (body instanceof String)
+              finalbody = (String) body;
+            else
+              finalbody = objectMapper.writeValueAsString(body);
+            
             request = given()
                     .config(restAssuredConfig)
                     .headers(headers)
-                    .body(body)
+                    .body(finalbody)
                     .contentType(APPLICATION_JSON);
             response = request.post(endPoint);
             queryable = SpecificationQuerier.query(request);

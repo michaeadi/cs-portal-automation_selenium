@@ -10,7 +10,6 @@ import com.airtel.cs.commonutils.dataproviders.databeans.NftrDataBeans;
 import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
 import com.airtel.cs.model.request.interactionissue.InteractionIssueRequest;
 import com.airtel.cs.model.request.issue.CategoryHierarchy;
-import com.airtel.cs.model.request.issue.IssueDetails;
 import com.airtel.cs.model.request.layout.IssueLayoutRequest;
 import com.airtel.cs.model.request.ticketAssign.TicketAssignResponse;
 import com.airtel.cs.model.request.ticketdetail.TicketRequest;
@@ -21,14 +20,13 @@ import java.util.List;
 import java.util.Objects;
 
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.testng.annotations.Test;
 
 public class TicketHistoryTest extends ApiPrerequisites {
  
   InteractionIssueRequest interactionIssue;
   CategoryHierarchy category;
-  TicketRequest ticketPOJO;
+  TicketRequest ticketDetails;
   
   /**
    * This method is used to prepare Ticket related required for test cases.
@@ -41,7 +39,7 @@ public class TicketHistoryTest extends ApiPrerequisites {
       interactionIssue = api.createInteractionIssue(validHeaderList, getValidClientConfig(MSISDN), getIssueDetails(validCategoryId),
           "{\"id\":" + category.getId() + "}");
       
-      ticketPOJO = api.getTicketDetailById(validHeaderList, interactionIssue.getResult().getIssues().get(0).getTicket().getTicketId());
+      ticketDetails = api.getTicketDetailById(validHeaderList, interactionIssue.getResult().getIssues().get(0).getTicket().getTicketId());
       
     }
   }
@@ -85,7 +83,7 @@ public class TicketHistoryTest extends ApiPrerequisites {
             selUtils.addTestcaseDescription("Validate /api/sr-service/v1/tickets with Category Filter, Verify the response", "description");
             setLastCategoryIntoMap();
             validCategoryId = ids.get(getClientCode(list).toLowerCase().trim());
-            final TicketHistoryRequest ticketHistoryWithCategoryFilter = api.ticketHistoryWithCategoryFilter(validHeaderList, getValidClientConfig(MSISDN), getLastCategoryId(validCategoryId).split(":")[1].replaceAll("[(){}]",""));
+            final TicketHistoryRequest ticketHistoryWithCategoryFilter = api.ticketHistoryWithCategoryFilter(validHeaderList, getLastCategoryId(validCategoryId).split(":")[1].replaceAll("[(){}]",""));
             final Integer statusCode = ticketHistoryWithCategoryFilter.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Status Code Matched", "Status Code Not Matched and is -" + statusCode));
             final String sourceApp = ticketHistoryWithCategoryFilter.getResult().get(0).getSourceApp();
@@ -96,14 +94,14 @@ public class TicketHistoryTest extends ApiPrerequisites {
         }
     }
     
-    @Test(priority = 3, dataProvider = "NFTRIssue", dataProviderClass = DataProviders.class, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 4, dataProvider = "NFTRIssue", dataProviderClass = DataProviders.class, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void testTicketHistoryWithCategoryLevelAndValue(NftrDataBeans list) {
         try {
             selUtils.addTestcaseDescription("Validate /api/sr-service/v1/tickets with Category Level and Value Filter, Verify the response", "description");
             setLastCategoryIntoMap();
             validCategoryId = ids.get(getClientCode(list).toLowerCase().trim());
             prepareTicketData(list);
-            final TicketHistoryRequest ticketHistoryWithCategoryFilter = api.ticketHistoryWithCategoryLevelAndValue(validHeaderList, getValidClientConfig(MSISDN), category.getLevel(), "\""+category.getCategoryName()+"\"");
+            final TicketHistoryRequest ticketHistoryWithCategoryFilter = api.ticketHistoryWithCategoryLevelAndValue(validHeaderList, category.getLevel(),category.getCategoryName());
             
             final Integer statusCode = ticketHistoryWithCategoryFilter.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Status Code Matched", "Status Code Not Matched and is -" + statusCode));
@@ -141,7 +139,7 @@ public class TicketHistoryTest extends ApiPrerequisites {
         }
     }
     
-    @Test(priority = 3, dataProvider = "NFTRIssue", dataProviderClass = DataProviders.class, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 5, dataProvider = "NFTRIssue", dataProviderClass = DataProviders.class, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void testTicketHistoryWithAssigenedTicketPool(NftrDataBeans list) {
         try {
             selUtils.addTestcaseDescription("Validate /api/sr-service/v1/tickets with assigned Ticket pool Filter, Verify the response", "description");
@@ -149,8 +147,8 @@ public class TicketHistoryTest extends ApiPrerequisites {
             validCategoryId = ids.get(getClientCode(list).toLowerCase().trim());
             prepareTicketData(list);
             
-            String ticketPoolName=ticketPOJO.getResult().getTicketPool().getTicketPoolName();
-            final TicketHistoryRequest ticketHistory = api.ticketHistoryWithAssigenedTicketPool(validHeaderList, getValidClientConfig(MSISDN),ticketPoolName );
+            String ticketPoolName=ticketDetails.getResult().getQueue().getQueueName();
+            final TicketHistoryRequest ticketHistory = api.ticketHistoryWithAssigenedTicketPool(validHeaderList,ticketPoolName);
             
             final Integer statusCode = ticketHistory.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Status Code Matched", "Status Code Not Matched and is -" + statusCode));
@@ -162,8 +160,8 @@ public class TicketHistoryTest extends ApiPrerequisites {
 
               for (TicketHistoryResult ticket : ticketHistory.getResult()) {
 
-                if (Objects.nonNull(ticket.getTicketPool())
-                    && !ticketPoolName.equalsIgnoreCase(ticket.getTicketPool().getTicketPoolName())) {
+                if (Objects.nonNull(ticket.getQueue())
+                    && !ticketPoolName.equalsIgnoreCase(ticket.getQueue().getQueueName())) {
                   isTicketPoolSame = false;
                 }
               }
@@ -179,12 +177,12 @@ public class TicketHistoryTest extends ApiPrerequisites {
         }
     }
     
-    @Test(priority = 3, dataProvider = "NFTRIssue", dataProviderClass = DataProviders.class, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 6, dataProvider = "NFTRIssue", dataProviderClass = DataProviders.class, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void testTicketHistoryWithCustomerSLABreached(NftrDataBeans list) {
         try {
             selUtils.addTestcaseDescription("Validate /api/sr-service/v1/tickets with Customer SLA breached Filter, Verify the response", "description");
             
-            final TicketHistoryRequest ticketHistoryWithFilter = api.ticketHistoryWithCustomerSLABreached(validHeaderList, getValidClientConfig(MSISDN),true);
+            final TicketHistoryRequest ticketHistoryWithFilter = api.ticketHistoryWithCustomerSLABreached(validHeaderList,true);
             
             final Integer statusCode = ticketHistoryWithFilter.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Status Code Matched", "Status Code Not Matched and is -" + statusCode));
@@ -208,7 +206,7 @@ public class TicketHistoryTest extends ApiPrerequisites {
               isCustomerSLABreachedSame = false;
             }
             
-            final TicketHistoryRequest ticketHistoryWithFilter2 = api.ticketHistoryWithCustomerSLABreached(validHeaderList, getValidClientConfig(MSISDN),false);
+            final TicketHistoryRequest ticketHistoryWithFilter2 = api.ticketHistoryWithCustomerSLABreached(validHeaderList,false);
             
             if (Objects.nonNull(ticketHistoryWithFilter2)
                 && CollectionUtils.isNotEmpty(ticketHistoryWithFilter2.getResult())) {
@@ -232,12 +230,12 @@ public class TicketHistoryTest extends ApiPrerequisites {
         }
     }
     
-    @Test(priority = 3, dataProvider = "NFTRIssue", dataProviderClass = DataProviders.class, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 7, dataProvider = "NFTRIssue", dataProviderClass = DataProviders.class, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void testTicketHistoryWithWorkgroupSLABreached(NftrDataBeans list) {
         try {
             selUtils.addTestcaseDescription("Validate /api/sr-service/v1/tickets with Workgorup SLA breached Filter, Verify the response", "description");
             
-            final TicketHistoryRequest ticketHistoryWithFilter = api.ticketHistoryWithWorkgroupSLABreached(validHeaderList, getValidClientConfig(MSISDN),true);
+            final TicketHistoryRequest ticketHistoryWithFilter = api.ticketHistoryWithWorkgroupSLABreached(validHeaderList,true);
             
             final Integer statusCode = ticketHistoryWithFilter.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Status Code Matched", "Status Code Not Matched and is -" + statusCode));
@@ -251,7 +249,7 @@ public class TicketHistoryTest extends ApiPrerequisites {
 
               for (TicketHistoryResult ticket : ticketHistoryWithFilter.getResult()) {
 
-                if (Objects.isNull(ticket.isWorkgroupSlaBreached()) || Boolean.FALSE.equals(ticket.isCustomerSlaBreached())) {
+                if (Objects.isNull(ticket.isWorkgroupSlaBreached()) || Boolean.FALSE.equals(ticket.isWorkgroupSlaBreached())) {
                   isWorkgroupSLABreachedSame = false;
                   break;
                 }
@@ -261,14 +259,14 @@ public class TicketHistoryTest extends ApiPrerequisites {
               isWorkgroupSLABreachedSame = false;
             }
             
-            final TicketHistoryRequest ticketHistoryWithFilter2 = api.ticketHistoryWithWorkgroupSLABreached(validHeaderList, getValidClientConfig(MSISDN),false);
+            final TicketHistoryRequest ticketHistoryWithFilter2 = api.ticketHistoryWithWorkgroupSLABreached(validHeaderList,false);
             
             if (Objects.nonNull(ticketHistoryWithFilter2)
                 && CollectionUtils.isNotEmpty(ticketHistoryWithFilter2.getResult())) {
 
               for (TicketHistoryResult ticket : ticketHistoryWithFilter2.getResult()) {
 
-                if (Objects.isNull(ticket.isWorkgroupSlaBreached()) || Boolean.TRUE.equals(ticket.isCustomerSlaBreached())) {
+                if (Objects.isNull(ticket.isWorkgroupSlaBreached()) || Boolean.TRUE.equals(ticket.isWorkgroupSlaBreached())) {
                   isWorkgroupSLABreachedSame = false;
                   break;
                 }
@@ -285,7 +283,7 @@ public class TicketHistoryTest extends ApiPrerequisites {
         }
     }
     
-    @Test(priority = 3, dataProvider = "NFTRIssue", dataProviderClass = DataProviders.class, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 8, dataProvider = "NFTRIssue", dataProviderClass = DataProviders.class, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void testTicketHistoryWithAssigneName(NftrDataBeans list) {
         try {
             selUtils.addTestcaseDescription("Validate /api/sr-service/v1/tickets with Assignee Name Filter, Verify the response", "description");
@@ -300,12 +298,11 @@ public class TicketHistoryTest extends ApiPrerequisites {
             
             if (CollectionUtils.isNotEmpty(agents)) {
 
-              TicketAssignResponse response =api.ticketAssignRequest(agents.get(0).getAgentId(), ticketPOJO.getResult().getTicketId(), validHeaderList);
+              TicketAssignResponse response =api.ticketAssignRequest(agents.get(0).getAgentId(), ticketDetails.getResult().getTicketId(), validHeaderList);
               
               String assigneeName = agents.get(0).getAgentName();
               
-              final TicketHistoryRequest ticketHistoryWithFilter = api.ticketHistoryWithAssigneeName(validHeaderList,
-                  getValidClientConfig(MSISDN), assigneeName);
+              final TicketHistoryRequest ticketHistoryWithFilter = api.ticketHistoryWithAssigneeName(validHeaderList, assigneeName);
 
               final Integer statusCode = ticketHistoryWithFilter.getStatusCode();
               assertCheck.append(
@@ -340,7 +337,7 @@ public class TicketHistoryTest extends ApiPrerequisites {
         }
     }
     
-    @Test(priority = 3, dataProvider = "NFTRIssue", dataProviderClass = DataProviders.class, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 9, dataProvider = "NFTRIssue", dataProviderClass = DataProviders.class, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void testTicketHistoryWithAssigneId(NftrDataBeans list) {
         try {
             selUtils.addTestcaseDescription("Validate /api/sr-service/v1/tickets with Assignee Id Filter, Verify the response", "description");
@@ -355,12 +352,11 @@ public class TicketHistoryTest extends ApiPrerequisites {
             
             if (CollectionUtils.isNotEmpty(agents)) {
 
-              TicketAssignResponse resposne =api.ticketAssignRequest(agents.get(0).getAgentId(), ticketPOJO.getResult().getTicketId(), validHeaderList);
+              TicketAssignResponse resposne =api.ticketAssignRequest(agents.get(0).getAgentId(), ticketDetails.getResult().getTicketId(), validHeaderList);
               
               String assigneeID = agents.get(0).getAgentAuuid();
               
-              final TicketHistoryRequest ticketHistoryWithFilter = api.ticketHistoryWithAssigneeId(validHeaderList,
-                  getValidClientConfig(MSISDN), assigneeID);
+              final TicketHistoryRequest ticketHistoryWithFilter = api.ticketHistoryWithAssigneeId(validHeaderList, assigneeID);
 
               final Integer statusCode = ticketHistoryWithFilter.getStatusCode();
               assertCheck.append(
@@ -395,7 +391,7 @@ public class TicketHistoryTest extends ApiPrerequisites {
         }
     }
     
-    @Test(priority = 3, dataProvider = "NFTRIssue", dataProviderClass = DataProviders.class, groups = { "SanityTest", "RegressionTest",
+    @Test(priority = 10, dataProvider = "NFTRIssue", dataProviderClass = DataProviders.class, groups = { "SanityTest", "RegressionTest",
         "ProdTest" })
     public void testTicketHistoryWithIssueField(NftrDataBeans list) {
       try {
@@ -406,41 +402,15 @@ public class TicketHistoryTest extends ApiPrerequisites {
         prepareTicketData(list);
 
         IssueLayoutRequest layoutConfiguration = api.getLayoutConfiguration(validHeaderList, validCategoryId);
-        String fieldName = "";
-        String fieldValue = "";
+        StringBuilder fieldName = new StringBuilder();
+        StringBuilder fieldValue = new StringBuilder();
+  
+        getFieldValueAndName(layoutConfiguration, fieldName, fieldValue);
 
-        if (layoutConfiguration.getStatusCode() == 200) {
-          if (!(layoutConfiguration.getResult() == null)) {
-            if (!(layoutConfiguration.getResult().isEmpty())) {
-              for (IssueDetails s : layoutConfiguration.getResult()) {
-               
-                if (StringUtils.equalsIgnoreCase(s.getFieldType(), "text")
-                    && (Objects.nonNull(s.getPattern()) && s.getPattern().contains("/"))) {
-                  fieldValue = "1111";
-                } else if ("text".equalsIgnoreCase(s.getFieldType()) && StringUtils.isBlank(s.getPattern())) {
-                  fieldValue = "test";
-                } else if ("number".equalsIgnoreCase(s.getFieldType())) {
-                  fieldValue = "1001";
-                } else if ("select".equalsIgnoreCase(s.getFieldType())) {
-                  fieldValue = s.getFieldOptions().get(0);
-                } else {
-                  fieldValue = "test";
-                }
-                fieldName = s.getPlaceHolder();
-                break;
-
-              }
-            }
-          }
-        } else {
-          commonLib.fail("v1/layout API Response is not 200 and is -" + layoutConfiguration.getStatusCode(), false);
-        }
-
-        final String fieldNameFinal=fieldName;
-        final String fieldValueFinal=fieldValue;
+        final String fieldNameFinal=fieldName.toString();
+        final String fieldValueFinal=fieldValue.toString();
         
-        final TicketHistoryRequest ticketHistoryWithFilter = api.ticketHistoryWithIssueDetails(validHeaderList,
-            getValidClientConfig(MSISDN), fieldName, fieldValue);
+        final TicketHistoryRequest ticketHistoryWithFilter = api.ticketHistoryWithIssueDetails(validHeaderList, fieldNameFinal, fieldValueFinal);
 
         final Integer statusCode = ticketHistoryWithFilter.getStatusCode();
         assertCheck
@@ -474,5 +444,6 @@ public class TicketHistoryTest extends ApiPrerequisites {
         commonLib.fail("Caught exception in Testcase - testTicketHistoryWithCategoryFilter " + e.getMessage(), false);
       }
     }
+
     
 }

@@ -16,7 +16,7 @@ public class TicketHistoryResult {
     private String sourceApp;
     private int issueId;
     private List<CategoryLevel> categoryLevel;
-    private TicketPool ticketPool;
+    private TicketPool queue;
     private boolean customerSlaBreached;
     private boolean workgroupSlaBreached;
     private Long agentId;
