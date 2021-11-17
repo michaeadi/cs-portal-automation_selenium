@@ -277,4 +277,44 @@ public class ApiPrerequisites extends Driver {
         restUtils.addHeaders("Opco", OPCO);
         restUtils.addHeaders("Authorization", Token);
     }
+    
+    /**
+     * This method is used to generate Field value and field name for Issue details.
+     * @param layoutConfiguration
+     * @param fieldName
+     * @param fieldValue
+     */
+    public void getFieldValueAndName(IssueLayoutRequest layoutConfiguration, StringBuilder fieldName, StringBuilder fieldValue) {
+      String value="";
+      String Name="";
+      if (layoutConfiguration.getStatusCode() == 200) {
+        if (!(layoutConfiguration.getResult() == null)) {
+          if (!(layoutConfiguration.getResult().isEmpty())) {
+            for (IssueDetails s : layoutConfiguration.getResult()) {
+             
+              if (StringUtils.equalsIgnoreCase(s.getFieldType(), "text")
+                  && (Objects.nonNull(s.getPattern()) && s.getPattern().contains("/"))) {
+                value = "1111";
+              } else if ("text".equalsIgnoreCase(s.getFieldType()) && StringUtils.isBlank(s.getPattern())) {
+                value = "test";
+              } else if ("number".equalsIgnoreCase(s.getFieldType())) {
+                value = "1001";
+              } else if ("select".equalsIgnoreCase(s.getFieldType())) {
+                value = s.getFieldOptions().get(0);
+              } else {
+                value = "test";
+              }
+              Name = s.getPlaceHolder();
+              break;
+
+            }
+          }
+        }
+      } else {
+        commonLib.fail("v1/layout API Response is not 200 and is -" + layoutConfiguration.getStatusCode(), false);
+      }
+      
+      fieldName.append(Name);
+      fieldValue.append(value);
+    }
 }
