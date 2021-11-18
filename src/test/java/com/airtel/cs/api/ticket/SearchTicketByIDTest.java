@@ -24,7 +24,7 @@ public class SearchTicketByIDTest extends ApiPrerequisites {
             assertCheck.append(actions.assertEqualIntType(ticketPOJO.getStatusCode(), 200, "Status Code Matched Succesfully", "Status code Not Matched and is - " + ticketPOJO.getStatusCode()));
             final String sourceApp = ticketPOJO.getResult().getSourceApp();
             assertCheck.append(actions.assertEqualStringNotNull(sourceApp, "Source App is not null and is -" + sourceApp, "Source App is null in the request and is -" + sourceApp));
-            assertCheck.append(actions.assertEqualStringType(ticketPOJO.getResult().getTicketPool().getTicketPoolName().toLowerCase().trim(), Data.getAssignmentQueue().toLowerCase().trim(),
+            assertCheck.append(actions.assertEqualStringType(ticketPOJO.getResult().getQueue().getQueueName().toLowerCase().trim(), Data.getAssignmentQueue().toLowerCase().trim(),
                     "Ticket Pool Validated Successfully", "Ticket pool Does Not Validated"));
             assertCheck.append(actions.assertEqualStringType(ticketPOJO.getResult().getState().getExternalStateName().toLowerCase().trim(), Data.getState().toLowerCase().trim(),
                     "Ticket State Validated Successfully", "Ticket State Does Not Validated"));
