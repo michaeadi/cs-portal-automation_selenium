@@ -3,6 +3,8 @@ package com.airtel.cs.api;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.ESBURIConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.URIConstants;
+import com.airtel.cs.commonutils.dataproviders.databeans.IssueFields;
+import com.airtel.cs.commonutils.dataproviders.databeans.SearchType;
 import com.airtel.cs.commonutils.dataproviders.databeans.TestDataBean;
 import com.airtel.cs.commonutils.restutils.RestCommonUtils;
 import com.airtel.cs.commonutils.utils.UtilsMethods;
@@ -66,6 +68,7 @@ import com.airtel.cs.model.request.openapi.interactionissue.IssueLayoutOpenReque
 import com.airtel.cs.model.request.openapi.ticket.SearchTicketOpenRequest;
 import com.airtel.cs.model.request.openapi.ticket.TicketHistoryLogOpenRequest;
 import com.airtel.cs.model.request.openapi.ticket.TicketSearchByTicketIdOpenRequest;
+import com.airtel.cs.model.request.ticketAssign.TicketAssignResponse;
 import com.airtel.cs.model.request.ticketdetail.TicketRequest;
 import com.airtel.cs.model.request.tickethistory.TicketHistoryRequest;
 import com.airtel.cs.model.request.tickethistorylog.TicketHistoryLogRequest;
@@ -123,11 +126,8 @@ import com.airtel.cs.model.response.transfertoqueue.TransferToQueue;
 import com.airtel.cs.model.response.usagehistory.UsageHistory;
 import com.airtel.cs.model.response.vendors.VendorNames;
 import com.airtel.cs.model.response.voucher.VoucherSearch;
-import com.airtel.cs.model.response.parentcategory.Category;
-import com.airtel.cs.model.response.parentcategory.ParentCategoryResponse;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
-import io.restassured.response.Response;
 import io.restassured.specification.QueryableRequestSpecification;
 import io.restassured.specification.RequestSpecification;
 import lombok.extern.log4j.Log4j2;
@@ -1298,6 +1298,21 @@ public class RequestSource extends RestCommonUtils {
         commonPostMethod(URIConstants.TICKET_STATS, map, body, srBaseUrl);
         return response.as(TicketStatsResponse.class);
     }
+    
+    /**
+     * This Method will hit the API "/api/sr-service/v1/assign/ticket" and return the response
+     *
+     * @param clientConfig the client config
+     * @param map          the map
+     * @return the result
+     */
+    public TicketAssignResponse ticketAssignRequest(String agentId,String ticketId,List<Header> map) {
+        body = "{\"agentId\":"+agentId+",\"ticketId\":[\""+ticketId+"\"]}";
+        commonPostMethod(URIConstants.ASSIGN_TICKET, map, body, srBaseUrl);
+        return response.as(TicketAssignResponse.class);
+    }
+    
+    
 
     /**
      * @param clientConfig
@@ -1581,7 +1596,7 @@ public class RequestSource extends RestCommonUtils {
         return response.as(TicketListRequest.class);
     }
 
-    public TicketHistoryRequest ticketHistoryRequest(List<Header> map, String body) {
+    public TicketHistoryRequest ticketHistoryRequest(List<Header> map, TicketSearchRequest body) {
         commonPostMethod(URIConstants.TICKET_HISTORY, map, body, srBaseUrl);
         return response.as(TicketHistoryRequest.class);
     }
@@ -1590,26 +1605,156 @@ public class RequestSource extends RestCommonUtils {
     This Method is used to hit the "/api/sr-service/v1/tickets" with filter and get the response
      */
     public TicketHistoryRequest ticketHistoryWithFilterRequest(List<Header> map, String clientConfig, String ticketId) {
-        body = "{\"pageNumber\":" + PAGE_NUMBER + ",\"pageSize\":" + PAGE_SIZE + ",\"ticketSearchCriteria\":{\"clientInfo\":{" + clientConfig + "},\"fromDate\":null,\"toDate\":null,\"stateIds\":[" + EXTERNAL_STATE_IDS + "],\"categoryIds\":null,\"days\":10}}";
-        return ticketHistoryRequest(map, body);
+        TicketSearchRequest request=new TicketSearchRequest();
+        TicketSearchCriteria ticketSearchCriteria= new TicketSearchCriteria();
+        ticketSearchCriteria.setTicketId(ticketId);
+        request.setTicketSearchCriteria(ticketSearchCriteria);
+        return ticketHistoryRequest(map, request);
+        
     }
 
     /*
     This Method is used to hit the "/api/sr-service/v1/tickets" without filters and get the response
      */
     public TicketHistoryRequest ticketHistoryWithoutFilter(List<Header> map, String clientConfig) {
-        body = "{\"pageNumber\":" + PAGE_NUMBER + ",\"pageSize\":" + PAGE_SIZE + ",\"ticketSearchCriteria\":{\"clientInfo\":{" + clientConfig + "}}}";
-        return ticketHistoryRequest(map, body);
+        TicketSearchRequest request=new TicketSearchRequest();
+        TicketSearchCriteria ticketSearchCriteria= new TicketSearchCriteria();
+        request.setTicketSearchCriteria(ticketSearchCriteria);
+        return ticketHistoryRequest(map, request);
     }
 
     /*
     This Methos is used to hit the "/api/sr-service/v1/tickets" with category filter and get the response
      */
-    public TicketHistoryRequest ticketHistoryWithCategoryFilter(List<Header> map, String clientConfig, String categoryIds) {
-        body = "{\"pageNumber\":" + PAGE_NUMBER + ",\"pageSize\":" + PAGE_SIZE + ",\"ticketSearchCriteria\":{\"clientInfo\":{" + clientConfig + "},\"categoryIds\":[" + categoryIds + "]}}";
-        return ticketHistoryRequest(map, body);
+    public TicketHistoryRequest ticketHistoryWithCategoryFilter(List<Header> map,String categoryIds) {
+       
+        TicketSearchRequest request=new TicketSearchRequest();
+        TicketSearchCriteria ticketSearchCriteria= new TicketSearchCriteria();
+        ArrayList<Long> categories=new ArrayList<Long>();
+        for(String s:categoryIds.split(","))
+        {
+          categories.add(Long.valueOf(s));
+        }
+        ticketSearchCriteria.setCategoryIds(categories);
+        request.setTicketSearchCriteria(ticketSearchCriteria);
+        return ticketHistoryRequest(map, request);
+    }
+    
+    /*
+    This Methos is used to hit the "/api/sr-service/v1/tickets" with category level and value filter and get the response
+     */
+    public TicketHistoryRequest ticketHistoryWithCategoryLevelAndValue(List<Header> map, int categoryLevel,String categoryLevelValues) {
+        TicketSearchRequest request=new TicketSearchRequest();
+        TicketSearchCriteria ticketSearchCriteria= new TicketSearchCriteria();
+
+        ArrayList<String> categories=new ArrayList<String>();
+        for(String s:categoryLevelValues.split(","))
+        {
+          categories.add(s);
+        }
+        ticketSearchCriteria.setCategoryLevel(categoryLevel);
+        ticketSearchCriteria.setCategoryLevelValues(categories);
+        request.setTicketSearchCriteria(ticketSearchCriteria);
+        return ticketHistoryRequest(map, request);
+    }
+    
+    /*
+    This Methos is used to hit the "/api/sr-service/v1/tickets" with Assigned Ticket pool filter and get the response
+     */
+    public TicketHistoryRequest ticketHistoryWithAssigenedTicketPool(List<Header> map,String assignedQueues) {
+      TicketSearchRequest request=new TicketSearchRequest();
+      TicketSearchCriteria ticketSearchCriteria= new TicketSearchCriteria();
+
+      ArrayList<String> queues=new ArrayList<String>();
+      for(String s:assignedQueues.split(","))
+      {
+        queues.add(s);
+      }
+      ticketSearchCriteria.setAssignedQueues(queues);
+      
+      request.setTicketSearchCriteria(ticketSearchCriteria);
+      return ticketHistoryRequest(map, request);
+  }
+    
+    /*
+    This Methos is used to hit the "/api/sr-service/v1/tickets" with customer sla breached filter and get the response
+     */
+    public TicketHistoryRequest ticketHistoryWithCustomerSLABreached(List<Header> map,boolean customerSLABreached) {
+      TicketSearchRequest request=new TicketSearchRequest();
+      TicketSearchCriteria ticketSearchCriteria= new TicketSearchCriteria();
+      ticketSearchCriteria.setCustomerSlaBreached(customerSLABreached);
+      request.setTicketSearchCriteria(ticketSearchCriteria);
+      return ticketHistoryRequest(map, request);
+    }
+    
+    /*
+    This Methos is used to hit the "/api/sr-service/v1/tickets" with assigneeName filter and get the response
+     */
+    public TicketHistoryRequest ticketHistoryWithAssigneeName(List<Header> map,String assigneeName) {
+      TicketSearchRequest request=new TicketSearchRequest();
+      TicketSearchCriteria ticketSearchCriteria= new TicketSearchCriteria();
+
+      ArrayList<String> names=new ArrayList<String>();
+      for(String s:assigneeName.split(","))
+      {
+        names.add(s);
+      }
+      ticketSearchCriteria.setAssigneeNames(names);
+      request.setTicketSearchCriteria(ticketSearchCriteria);
+      return ticketHistoryRequest(map, request);
+    }
+    
+    /*
+    This Methos is used to hit the "/api/sr-service/v1/tickets" with assigneeId filter and get the response
+     */
+    public TicketHistoryRequest ticketHistoryWithAssigneeId(List<Header> map,String assigneeId) {
+      TicketSearchRequest request=new TicketSearchRequest();
+      TicketSearchCriteria ticketSearchCriteria= new TicketSearchCriteria();
+
+      ArrayList<String> ids=new ArrayList<String>();
+      for(String s:assigneeId.split(","))
+      {
+        ids.add(s);
+      }
+      ticketSearchCriteria.setAssigneeIds(ids);
+      
+      request.setTicketSearchCriteria(ticketSearchCriteria);
+      return ticketHistoryRequest(map, request);
     }
 
+    /*
+    This Methos is used to hit the "/api/sr-service/v1/tickets" with workgroupslaBreached filter and get the response
+     */
+    public TicketHistoryRequest ticketHistoryWithWorkgroupSLABreached(List<Header> map,boolean workgroupSLABreached) {
+      TicketSearchRequest request=new TicketSearchRequest();
+      TicketSearchCriteria ticketSearchCriteria= new TicketSearchCriteria();
+      ticketSearchCriteria.setWorkgroupSlaBreached(workgroupSLABreached);
+      request.setTicketSearchCriteria(ticketSearchCriteria);
+      return ticketHistoryRequest(map, request);
+    }
+    
+    /*
+    This Methos is used to hit the "/api/sr-service/v1/tickets" with issue Details filter and get the response
+     */
+    public TicketHistoryRequest ticketHistoryWithIssueDetails(List<Header> map,String fieldName,String fieldValue) {
+      TicketSearchRequest request=new TicketSearchRequest();
+      TicketSearchCriteria ticketSearchCriteria= new TicketSearchCriteria();
+      IssueFields field=new IssueFields();
+      field.setFieldName(fieldName);
+      
+      List<Object> values=new ArrayList<Object>();
+      for(String s:fieldValue.split(","))
+      {
+        values.add(s);
+      }
+      
+      field.setFieldValues(values);
+      field.setSearchType(SearchType.CONTAINS);
+      request.setTicketSearchCriteria(ticketSearchCriteria);
+      return ticketHistoryRequest(map, request);
+    }
+    
+    
     /**
      * This method is used to get hbb linked accounts response from CS API
      * @param msisdn The msisdn
