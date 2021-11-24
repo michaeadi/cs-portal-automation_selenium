@@ -1,0 +1,1 @@
+package com.airtel.cs.model.request.openapi.interactionissue;  public class InteractionIssueResponse { }

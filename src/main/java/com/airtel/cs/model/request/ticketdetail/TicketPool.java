@@ -12,8 +12,7 @@ import java.util.ArrayList;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class TicketPool {
-    private String ticketPoolName;
-
+    private String queueName;
     private boolean active;
 
     private int id;

@@ -3,6 +3,8 @@ package com.airtel.cs.api;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.ESBURIConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.URIConstants;
+import com.airtel.cs.commonutils.dataproviders.databeans.IssueFields;
+import com.airtel.cs.commonutils.dataproviders.databeans.SearchType;
 import com.airtel.cs.commonutils.dataproviders.databeans.TestDataBean;
 import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.restutils.RestCommonUtils;
@@ -44,10 +46,8 @@ import com.airtel.cs.model.request.categoryhierarchy.CategoryHierarchyRequest;
 import com.airtel.cs.model.request.clientconfig.AllConfiguredClientRequest;
 import com.airtel.cs.model.request.clientconfig.ClientConfigRequest;
 import com.airtel.cs.model.request.clientconfig.ClientDeactivateRequest;
-import com.airtel.cs.model.request.createissue.CreateIssueRequest;
 import com.airtel.cs.model.request.interaction.InteractionRequest;
-import com.airtel.cs.model.request.ticketstats.TicketStatsRequest;
-import com.airtel.cs.model.response.interactionissue.InteractionIssueResponse;
+import com.airtel.cs.model.request.interactionissue.InteractionIssueRequest;
 import com.airtel.cs.model.request.issuehistory.IssueHistoryRequest;
 import com.airtel.cs.model.request.layout.IssueLayoutRequest;
 import com.airtel.cs.model.request.login.LoginRequest;
@@ -55,11 +55,13 @@ import com.airtel.cs.model.request.openapi.category.ChildCategoryOpenApiRequest;
 import com.airtel.cs.model.request.openapi.category.FirstLastOpenApiRequest;
 import com.airtel.cs.model.request.openapi.category.ParentCategoryOpenApiRequest;
 import com.airtel.cs.model.request.openapi.clientconfig.ClientConfigOpenApiRequest;
+import com.airtel.cs.model.request.openapi.comment.CommentOpenApiRequest;
 import com.airtel.cs.model.request.openapi.interactionissue.InteractionIssueOpenApiRequest;
 import com.airtel.cs.model.request.openapi.interactionissue.IssueLayoutOpenRequest;
 import com.airtel.cs.model.request.openapi.ticket.SearchTicketOpenRequest;
 import com.airtel.cs.model.request.openapi.ticket.TicketHistoryLogOpenRequest;
 import com.airtel.cs.model.request.openapi.ticket.TicketSearchByTicketIdOpenRequest;
+import com.airtel.cs.model.request.ticketAssign.TicketAssignResponse;
 import com.airtel.cs.model.request.ticketdetail.TicketRequest;
 import com.airtel.cs.model.request.tickethistory.TicketHistoryRequest;
 import com.airtel.cs.model.request.tickethistorylog.TicketHistoryLogRequest;
@@ -90,6 +92,9 @@ import com.airtel.cs.model.response.enterprise.EnterpriseAccountSearchResponse;
 import com.airtel.cs.model.response.filedmasking.FieldMaskConfigReponse;
 import com.airtel.cs.model.response.filedmasking.FieldMaskConfigs;
 import com.airtel.cs.model.response.friendsfamily.FriendsFamily;
+import com.airtel.cs.model.response.hbb.HbbLinkedAccountsResponse;
+import com.airtel.cs.model.response.hbb.HbbUserDetailsResponse;
+import com.airtel.cs.model.response.hbb.NotificationServiceResponse;
 import com.airtel.cs.model.response.hlrservice.HLRService;
 import com.airtel.cs.model.request.ticketstats.TicketStatsTicketSearchCriteria;
 import com.airtel.cs.model.response.kycprofile.GsmKyc;
@@ -99,6 +104,9 @@ import com.airtel.cs.model.response.loandetails.Loan;
 import com.airtel.cs.model.response.loansummary.Summary;
 import com.airtel.cs.model.response.login.Login;
 import com.airtel.cs.model.response.offerdetails.OfferDetail;
+import com.airtel.cs.model.response.openapi.comment.CommentOpenApiResponse;
+import com.airtel.cs.model.response.parentcategory.Category;
+import com.airtel.cs.model.response.parentcategory.ParentCategoryResponse;
 import com.airtel.cs.model.response.plans.Plans;
 import com.airtel.cs.model.response.postpaid.PostpaidAccountDetailResponse;
 import com.airtel.cs.model.response.postpaid.enterprise.AccountStatementCSResponse;
@@ -119,6 +127,7 @@ import io.restassured.http.Headers;
 import io.restassured.response.Response;
 import io.restassured.specification.QueryableRequestSpecification;
 import io.restassured.specification.RequestSpecification;
+import io.restassured.specification.SpecificationQuerier;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -144,9 +153,13 @@ public class RequestSource extends RestCommonUtils {
 
     private static final String TARIFF_PLAN_TEST_NUMBER = constants.getValue(ApplicationConstants.TARIFF_PLAN_TEST_NUMBER);
     private static final Map<String, Object> queryParam = new HashMap<>();
+    private static final String NOTIFICATION_SERVICE_API =" - notification service for SMS ";
     public static Integer statusCode = null;
     private ESBRequestSource esbRequestSource = new ESBRequestSource();
     private static final String MSISDN = "msisdn";
+    private static final String MSISDN_CAPS = "MSISDN";
+    private static final String TYPE = "type";
+    private static final String NUMBER = "number";
     private static final String ACCOUNT_NO = "accountNo";
     private static final String ACCOUNT_ID = "accountId";
     private static final String CS_PORTAL_API_ERROR = "cs.portal.api.error";
@@ -156,7 +169,8 @@ public class RequestSource extends RestCommonUtils {
     private static RequestSpecification request;
     private static QueryableRequestSpecification queryable;
     private static final String CREATED_BY = "API Automation";
-    private static final String COMMENT = "Automation Test";
+    public static final String COMMENT = "Automation Test";
+    public static final String UPDATE_COMMENT = "Automation Test Updated";
     private static final String CLOSURE_COMMENT = "Automation Closure Ticket Test";
     private static final String AGENT_ID = constants.getValue(ApplicationConstants.AGENT_ID);
     private static final String AGENT_NAME = constants.getValue(ApplicationConstants.AGENT_NAME);
@@ -173,6 +187,9 @@ public class RequestSource extends RestCommonUtils {
     private static final TestDataBean TEST_DATA_BEAN = new TestDataBean();
     private static Map<String, String> clientInfo = new HashMap<>();
     private static TicketStatsTicketSearchCriteria ticketSearchCreteria = new TicketStatsTicketSearchCriteria();
+    private static final String CHANNEL="channel";
+    public static final String LINKED_ACCOUNT_ORCHESTRATOR=" - linked account orchestrator";
+    public static final String CREATE_ISSUE=" - create issue";
 
     /*
     This Method will hit the Available Plan API and returns the response
@@ -250,6 +267,30 @@ public class RequestSource extends RestCommonUtils {
     }
 
     /**
+     * This method is used to test service class and rate plan CS API
+     * @param msisdn
+     * @return
+     */
+    public List<String> searchAPITest(String msisdn) {
+        String result;
+        List<String> myList = null;
+        try {
+            queryParam.put(TYPE, MSISDN_CAPS);
+            queryParam.put(NUMBER, msisdn);
+            commonGetMethodWithQueryParam(URIConstants.SEARCH, queryParam);
+            result = response.print();
+            if (response.getStatusCode() != 200) {
+                esbRequestSource.callServiceClassRatePlan(new GenericRequest(msisdn));
+            }
+            myList = new ArrayList<>(Arrays.asList(result.split("data:")));
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - searchAPITest " + e.getMessage(), false);
+            esbRequestSource.callServiceClassRatePlan(new GenericRequest(msisdn));
+        }
+        return myList;
+    }
+
+    /**
      * This Method will hit the API "/cs-gsm-service/v1/profile" and return the response
      *
      * @param msisdn The msisdn
@@ -304,6 +345,26 @@ public class RequestSource extends RestCommonUtils {
         try {
             commonPostMethod(URIConstants.GSM_KYC, new GenericRequest(msisdn));
             result = response.as(GsmKyc.class);
+            if (result.getStatusCode() != 200) {
+                esbRequestSource.callGsmKycESBAPI(msisdn);
+            }
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - gsmKYCAPITest " + e.getMessage(), false);
+            esbRequestSource.callGsmKycESBAPI(msisdn);
+        }
+        return result;
+    }
+    /**
+     * This Method will hit the API "/api/user-service/user/v1/details" and return the response
+     *
+     * @param msisdn The msisdn
+     * @return The Response
+     */
+    public HbbUserDetailsResponse hbbUserDetailsTest(String msisdn) {
+        HbbUserDetailsResponse result = null;
+        try {
+            commonPostMethod(URIConstants.HBB_USER, new GenericRequest(msisdn));
+            result = response.as(HbbUserDetailsResponse.class);
             if (result.getStatusCode() != 200) {
                 esbRequestSource.callGsmKycESBAPI(msisdn);
             }
@@ -1248,6 +1309,21 @@ public class RequestSource extends RestCommonUtils {
     }
 
     /**
+     * This Method will hit the API "/api/sr-service/v1/assign/ticket" and return the response
+     *
+     * @param clientConfig the client config
+     * @param map          the map
+     * @return the result
+     */
+    public TicketAssignResponse ticketAssignRequest(String agentId,String ticketId,List<Header> map) {
+        body = "{\"agentId\":"+agentId+",\"ticketId\":[\""+ticketId+"\"]}";
+        commonPostMethod(URIConstants.ASSIGN_TICKET, map, body, srBaseUrl);
+        return response.as(TicketAssignResponse.class);
+    }
+
+
+
+    /**
      * This Method is used to hit the "/api/sr-service/v1/ticket/stats" and get the response
      *
      * @param clientConfig the clientConfig
@@ -1279,6 +1355,42 @@ public class RequestSource extends RestCommonUtils {
         body = "{\"interaction\":{\"createdBy\":\"" + CREATED_BY + "\",\"finalSubmit\":false,\"clientInfo\":{" + clientConfig + "}},\"issues\":[{\"comment\":\"" + COMMENT + "\",\"createdBy\":\"" + CREATED_BY + "\",\"issueDetails\":[" + issueDetails + "],\"categoryHierarchy\":[" + categoryIds + "]}]}";
         commonPostMethod(URIConstants.OPEN_API_INTERACTION_ISSUE, map, body, srBaseUrl);
         return response.as(InteractionIssueOpenApiRequest.class);
+    }
+
+    /*
+    This Method is used to hit the "/api/sr-service/v1/openapi/comment" API and get the response
+     */
+    public CommentOpenApiResponse createCommentOpenApi(String ticketId) {
+        CommentOpenApiRequest commentOpenApiRequest = new CommentOpenApiRequest();
+        commentOpenApiRequest.setTicketId(ticketId);
+        commentOpenApiRequest.setAgentId(Long.parseLong(AGENT_ID));
+        commentOpenApiRequest.setAgentName(AGENT_NAME);
+        commentOpenApiRequest.setComment(COMMENT);
+        commonPostMethod(URIConstants.OPEN_API_CREATE_COMMENT, map, commentOpenApiRequest, srBaseUrl);
+        return RestCommonUtils.response.as(CommentOpenApiResponse.class);
+    }
+
+    /*
+    This Method is used to hit the "/api/sr-service/v1/openapi/update/comment" API and get the response
+     */
+    public CommentOpenApiResponse updateCommentOpenApi(Long commentId) {
+        CommentOpenApiRequest commentOpenApiRequest = new CommentOpenApiRequest();
+        commentOpenApiRequest.setId(commentId);
+        commentOpenApiRequest.setComment(UPDATE_COMMENT);
+        commentOpenApiRequest.setAgentId(Long.parseLong(AGENT_ID));
+        commonPostMethod(URIConstants.OPEN_API_UPDATE_COMMENT, map, commentOpenApiRequest, srBaseUrl);
+        return RestCommonUtils.response.as(CommentOpenApiResponse.class);
+    }
+
+    /*
+    This Method is used to hit the "/api/sr-service/v1/openapi/delete/comment" API and get the response
+     */
+    public CommentOpenApiResponse deleteCommentOpenApi(Long commentId) {
+        CommentOpenApiRequest commentOpenApiRequest = new CommentOpenApiRequest();
+        commentOpenApiRequest.setId(commentId);
+        commentOpenApiRequest.setAgentId(Long.parseLong(AGENT_ID));
+        commonPostMethod(URIConstants.OPEN_API_DELETE_COMMENT, map, commentOpenApiRequest, srBaseUrl);
+        return RestCommonUtils.response.as(CommentOpenApiResponse.class);
     }
 
     /*
@@ -1347,6 +1459,7 @@ public class RequestSource extends RestCommonUtils {
      */
     public ParentCategoryOpenApiRequest parentCategoryOpenApiRequest(List<Header> map, String categoryId) {
         queryParam.put("id", categoryId);
+        baseUrl = srBaseUrl;
         commonGetMethodWithQueryParam(URIConstants.OPEN_API_PARENT_CATEGORY, queryParam);
         return response.as(ParentCategoryOpenApiRequest.class);
     }
@@ -1377,10 +1490,21 @@ public class RequestSource extends RestCommonUtils {
         return response.as(IssueHistoryRequest.class);
     }
 
-    public CreateIssueRequest createIssue(List<Header> map, String interactionId, String issueDetails, String categoryIds) {
-        body = "{\"interactionId\":\"" + interactionId + "\",\"comment\":\"" + COMMENT + "\",\"createdBy\":\"" + CREATED_BY + "\",\"issueDetails\":[" + issueDetails + "],\"categoryHierarchy\":[" + categoryIds + "]}";
+   public CreateIssueResponse createIssue(String interactionId, IssueDetails issueDetails, String createdBy, String comment, CategoryHierarchy category, MetaInfo metainfo) {
+        CreateIssueResponse result=null;
+        try{
+            commonPostMethod(URIConstants.CREATE_ISSUE, new CreateIssueRequest());
+            result = response.as(CreateIssueResponse.class);
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + CREATE_ISSUE + e.getMessage(), false);
+        }
+       return result;
+    }
+
+    public CreateIssueResponse createIssue(List<Header> map, String interactionId, String issueDetails, String categoryIds) {
+        body = "{\"interactionId\":\"" + interactionId + "\",\"comment\":\"" + COMMENT + "\",\"createdBy\":\"" + CREATED_BY + "\",\"issueDetails\":[" + issueDetails + "],\"categoryHierarchy\":[" + categoryIds + "] }";
         commonPostMethod(URIConstants.CREATE_ISSUE, map, body, srBaseUrl);
-        return response.as(CreateIssueRequest.class);
+        return response.as(CreateIssueResponse.class);
     }
 
     public TicketHistoryLogRequest getTicketHistoryLog(List<Header> map, String ticketId) {
@@ -1489,7 +1613,7 @@ public class RequestSource extends RestCommonUtils {
         return response.as(TicketListRequest.class);
     }
 
-    public TicketHistoryRequest ticketHistoryRequest(List<Header> map, String body) {
+    public TicketHistoryRequest ticketHistoryRequest(List<Header> map, TicketSearchRequest body) {
         commonPostMethod(URIConstants.TICKET_HISTORY, map, body, srBaseUrl);
         return response.as(TicketHistoryRequest.class);
     }
@@ -1498,24 +1622,199 @@ public class RequestSource extends RestCommonUtils {
     This Method is used to hit the "/api/sr-service/v1/tickets" with filter and get the response
      */
     public TicketHistoryRequest ticketHistoryWithFilterRequest(List<Header> map, String clientConfig, String ticketId) {
-        body = "{\"pageNumber\":" + PAGE_NUMBER + ",\"pageSize\":" + PAGE_SIZE + ",\"ticketSearchCriteria\":{\"clientInfo\":{" + clientConfig + "},\"fromDate\":null,\"toDate\":null,\"stateIds\":[" + EXTERNAL_STATE_IDS + "],\"categoryIds\":null,\"days\":10}}";
-        return ticketHistoryRequest(map, body);
+        TicketSearchRequest request=new TicketSearchRequest();
+        TicketSearchCriteria ticketSearchCriteria= new TicketSearchCriteria();
+        ticketSearchCriteria.setTicketId(ticketId);
+        request.setTicketSearchCriteria(ticketSearchCriteria);
+        return ticketHistoryRequest(map, request);
+
     }
 
     /*
     This Method is used to hit the "/api/sr-service/v1/tickets" without filters and get the response
      */
     public TicketHistoryRequest ticketHistoryWithoutFilter(List<Header> map, String clientConfig) {
-        body = "{\"pageNumber\":" + PAGE_NUMBER + ",\"pageSize\":" + PAGE_SIZE + ",\"ticketSearchCriteria\":{\"clientInfo\":{" + clientConfig + "}}}";
-        return ticketHistoryRequest(map, body);
+        TicketSearchRequest request=new TicketSearchRequest();
+        TicketSearchCriteria ticketSearchCriteria= new TicketSearchCriteria();
+        request.setTicketSearchCriteria(ticketSearchCriteria);
+        return ticketHistoryRequest(map, request);
     }
 
     /*
     This Methos is used to hit the "/api/sr-service/v1/tickets" with category filter and get the response
      */
-    public TicketHistoryRequest ticketHistoryWithCategoryFilter(List<Header> map, String clientConfig, String categoryIds) {
-        body = "{\"pageNumber\":" + PAGE_NUMBER + ",\"pageSize\":" + PAGE_SIZE + ",\"ticketSearchCriteria\":{\"clientInfo\":{" + clientConfig + "},\"categoryIds\":[" + categoryIds + "]}}";
-        return ticketHistoryRequest(map, body);
+    public TicketHistoryRequest ticketHistoryWithCategoryFilter(List<Header> map,String categoryIds) {
+
+        TicketSearchRequest request=new TicketSearchRequest();
+        TicketSearchCriteria ticketSearchCriteria= new TicketSearchCriteria();
+        ArrayList<Long> categories=new ArrayList<Long>();
+        for(String s:categoryIds.split(","))
+        {
+          categories.add(Long.valueOf(s));
+        }
+        ticketSearchCriteria.setCategoryIds(categories);
+        request.setTicketSearchCriteria(ticketSearchCriteria);
+        return ticketHistoryRequest(map, request);
+    }
+
+    /*
+    This Methos is used to hit the "/api/sr-service/v1/tickets" with category level and value filter and get the response
+     */
+    public TicketHistoryRequest ticketHistoryWithCategoryLevelAndValue(List<Header> map, int categoryLevel,String categoryLevelValues) {
+        TicketSearchRequest request=new TicketSearchRequest();
+        TicketSearchCriteria ticketSearchCriteria= new TicketSearchCriteria();
+
+        ArrayList<String> categories=new ArrayList<String>();
+        for(String s:categoryLevelValues.split(","))
+        {
+          categories.add(s);
+        }
+        ticketSearchCriteria.setCategoryLevel(categoryLevel);
+        ticketSearchCriteria.setCategoryLevelValues(categories);
+        request.setTicketSearchCriteria(ticketSearchCriteria);
+        return ticketHistoryRequest(map, request);
+    }
+
+    /*
+    This Methos is used to hit the "/api/sr-service/v1/tickets" with Assigned Ticket pool filter and get the response
+     */
+    public TicketHistoryRequest ticketHistoryWithAssigenedTicketPool(List<Header> map,String assignedQueues) {
+      TicketSearchRequest request=new TicketSearchRequest();
+      TicketSearchCriteria ticketSearchCriteria= new TicketSearchCriteria();
+
+      ArrayList<String> queues=new ArrayList<String>();
+      for(String s:assignedQueues.split(","))
+      {
+        queues.add(s);
+      }
+      ticketSearchCriteria.setAssignedQueues(queues);
+
+      request.setTicketSearchCriteria(ticketSearchCriteria);
+      return ticketHistoryRequest(map, request);
+  }
+
+    /*
+    This Methos is used to hit the "/api/sr-service/v1/tickets" with customer sla breached filter and get the response
+     */
+    public TicketHistoryRequest ticketHistoryWithCustomerSLABreached(List<Header> map,boolean customerSLABreached) {
+      TicketSearchRequest request=new TicketSearchRequest();
+      TicketSearchCriteria ticketSearchCriteria= new TicketSearchCriteria();
+      ticketSearchCriteria.setCustomerSlaBreached(customerSLABreached);
+      request.setTicketSearchCriteria(ticketSearchCriteria);
+      return ticketHistoryRequest(map, request);
+    }
+
+    /*
+    This Methos is used to hit the "/api/sr-service/v1/tickets" with assigneeName filter and get the response
+     */
+    public TicketHistoryRequest ticketHistoryWithAssigneeName(List<Header> map,String assigneeName) {
+      TicketSearchRequest request=new TicketSearchRequest();
+      TicketSearchCriteria ticketSearchCriteria= new TicketSearchCriteria();
+
+      ArrayList<String> names=new ArrayList<String>();
+      for(String s:assigneeName.split(","))
+      {
+        names.add(s);
+      }
+      ticketSearchCriteria.setAssigneeNames(names);
+      request.setTicketSearchCriteria(ticketSearchCriteria);
+      return ticketHistoryRequest(map, request);
+    }
+
+    /*
+    This Methos is used to hit the "/api/sr-service/v1/tickets" with assigneeId filter and get the response
+     */
+    public TicketHistoryRequest ticketHistoryWithAssigneeId(List<Header> map,String assigneeId) {
+      TicketSearchRequest request=new TicketSearchRequest();
+      TicketSearchCriteria ticketSearchCriteria= new TicketSearchCriteria();
+
+      ArrayList<String> ids=new ArrayList<String>();
+      for(String s:assigneeId.split(","))
+      {
+        ids.add(s);
+      }
+      ticketSearchCriteria.setAssigneeIds(ids);
+
+      request.setTicketSearchCriteria(ticketSearchCriteria);
+      return ticketHistoryRequest(map, request);
+    }
+
+    /*
+    This Methos is used to hit the "/api/sr-service/v1/tickets" with workgroupslaBreached filter and get the response
+     */
+    public TicketHistoryRequest ticketHistoryWithWorkgroupSLABreached(List<Header> map,boolean workgroupSLABreached) {
+      TicketSearchRequest request=new TicketSearchRequest();
+      TicketSearchCriteria ticketSearchCriteria= new TicketSearchCriteria();
+      ticketSearchCriteria.setWorkgroupSlaBreached(workgroupSLABreached);
+      request.setTicketSearchCriteria(ticketSearchCriteria);
+      return ticketHistoryRequest(map, request);
+    }
+
+    /*
+    This Methos is used to hit the "/api/sr-service/v1/tickets" with issue Details filter and get the response
+     */
+    public TicketHistoryRequest ticketHistoryWithIssueDetails(List<Header> map,String fieldName,String fieldValue) {
+      TicketSearchRequest request=new TicketSearchRequest();
+      TicketSearchCriteria ticketSearchCriteria= new TicketSearchCriteria();
+      IssueFields field=new IssueFields();
+      field.setFieldName(fieldName);
+
+      List<Object> values=new ArrayList<Object>();
+      for(String s:fieldValue.split(","))
+      {
+        values.add(s);
+      }
+
+      field.setFieldValues(values);
+      field.setSearchType(SearchType.CONTAINS);
+      request.setTicketSearchCriteria(ticketSearchCriteria);
+      return ticketHistoryRequest(map, request);
+    }
+
+
+    /**
+     * This method is used to get hbb linked accounts response from CS API
+     * @param msisdn The msisdn
+     * @return The response
+     */
+
+    public HbbLinkedAccountsResponse getLinkedHbbNumber(String msisdn)
+    {
+        HbbLinkedAccountsResponse result = null;
+        try {
+            commonPostMethod(URIConstants.GET_HBB_LINKED_ACCOUNTS_API, new HbbLinkedAccountsRequest(msisdn,false));
+            result = response.as(HbbLinkedAccountsResponse.class);
+            if (result.getStatusCode() != 200) {
+                esbRequestSource.hbbLinkedAccount(CHANNEL,msisdn);
+            }
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + LINKED_ACCOUNT_ORCHESTRATOR + e.getMessage(), false);
+        }
+        return result;
+    }
+    /**
+     * This method will hit the api /cs-notification-service/v1/send/notification and return the response
+     * @param templateIdentifier
+     * @param body
+     * @param  languageCode
+     * @param searchId
+     * @param sendNotificationType
+     * @param templateSourceApp
+     * @param  templateChannel,
+     * @param  receiverId
+     * @return The response
+     */
+
+    public NotificationServiceResponse getNotificationService(String templateIdentifier, String body, String languageCode, String searchId, String sendNotificationType, String templateSourceApp, String templateChannel, List<ReceiverId> receiverId)
+    {
+        NotificationServiceResponse result = null;
+        try {
+            commonPostMethod(URIConstants.NOTIFICATION_SERVICE_API, new NotificationServiceRequest(templateIdentifier,body,languageCode,searchId,sendNotificationType,templateSourceApp,templateChannel,receiverId));
+            result = response.as(NotificationServiceResponse.class);
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + NOTIFICATION_SERVICE_API + e.getMessage(), false);
+        }
+        return result;
     }
 
     /**
