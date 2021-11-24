@@ -2,7 +2,7 @@ package com.airtel.cs.api.ticket;
 
 
 import com.airtel.cs.common.prerequisite.ApiPrerequisites;
-import com.airtel.cs.model.request.ticketstats.TicketStatsResponse;
+import com.airtel.cs.model.response.ticketstats.TicketStatsResponse;
 import org.testng.annotations.Test;
 
 public class TicketStatsTest extends ApiPrerequisites {
@@ -11,7 +11,7 @@ public class TicketStatsTest extends ApiPrerequisites {
     public void testTicketStatsWithValidTokenMsisdn() {
         try {
             selUtils.addTestcaseDescription("Validate v1/ticket/stats with valid Token and Msisdn", "description");
-            TicketStatsResponse ticketStatsRequest = api.ticketStatsRequest(getValidClientConfig(MSISDN), validHeaderList);
+            TicketStatsResponse ticketStatsRequest = api.ticketStatsRequest(MSISDN, validHeaderList);
             assertCheck.append(actions.assertEqualStringType(ticketStatsRequest.getMessage(), "Ticket statistics fetched successfully", "Ticket statistics fetched successfully", "Ticket Response Not Fetched - " + ticketStatsRequest.getMessage()));
             assertCheck.append(actions.assertEqualIntType(ticketStatsRequest.getStatusCode(), 200, "Status Code Mathced", "Status Code Not Matched - " + ticketStatsRequest.getStatusCode()));
             actions.assertAllFoundFailedAssert(assertCheck);
@@ -24,7 +24,7 @@ public class TicketStatsTest extends ApiPrerequisites {
     public void testTicketStatsWithInvalidToken() {
         try {
             selUtils.addTestcaseDescription("Validate v1/ticket/stats with invalid Token", "description");
-            TicketStatsResponse ticketStatsRequest = api.ticketStatsRequest(getValidClientConfig(MSISDN), restUtils.invalidToken());
+            TicketStatsResponse ticketStatsRequest = api.ticketStatsRequest(MSISDN, restUtils.invalidToken());
             assertCheck.append(actions.assertEqualStringType(ticketStatsRequest.getMessage(), "Unauthorized", "Ticket Response Message Matched successfully", "Ticket Response Not Fetched - " + ticketStatsRequest.getMessage()));
             assertCheck.append(actions.assertEqualStringType(ticketStatsRequest.getStatus(), "401", "Status Code Mathced", "Status Code Not Matched and is - " + ticketStatsRequest.getStatus()));
             actions.assertAllFoundFailedAssert(assertCheck);

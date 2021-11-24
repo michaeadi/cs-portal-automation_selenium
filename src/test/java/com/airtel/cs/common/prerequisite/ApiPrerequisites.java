@@ -1,13 +1,14 @@
 package com.airtel.cs.common.prerequisite;
 
 
+import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
-import com.airtel.cs.commonutils.utils.PassUtils;
-import com.airtel.cs.commonutils.actions.BaseActions;
-import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
+import com.airtel.cs.commonutils.dataproviders.databeans.ClientConfigDataBean;
 import com.airtel.cs.commonutils.dataproviders.databeans.FtrDataBeans;
 import com.airtel.cs.commonutils.dataproviders.databeans.NftrDataBeans;
+import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
+import com.airtel.cs.commonutils.utils.PassUtils;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.model.request.categoryhierarchy.CategoryHierarchyRequest;
 import com.airtel.cs.model.request.interaction.InteractionRequest;
@@ -15,14 +16,11 @@ import com.airtel.cs.model.request.interactionissue.InteractionIssueRequest;
 import com.airtel.cs.model.request.issue.CategoryHierarchy;
 import com.airtel.cs.model.request.issue.IssueDetails;
 import com.airtel.cs.model.request.layout.IssueLayoutRequest;
-import com.airtel.cs.commonutils.dataproviders.databeans.ClientConfigDataBean;
 import com.airtel.cs.model.request.login.LoginRequest;
 import com.airtel.cs.model.response.login.Login;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.apache.commons.lang3.StringUtils;
 import org.testng.annotations.BeforeClass;
-
 
 import java.util.ArrayList;
 import java.util.Arrays;

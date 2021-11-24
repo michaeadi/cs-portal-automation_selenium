@@ -1,6 +1,7 @@
 package com.airtel.cs.commonutils.restutils;
 
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
+import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.enums.JavaColors;
 import com.airtel.cs.driver.Driver;
@@ -258,7 +259,7 @@ public class RestCommonUtils extends Driver {
     public List<Header> invalidToken() {
         List<Header> map1 = new ArrayList<>();
         map1.add(new Header("Opco", OPCO));
-        map1.add(new Header("Authorization", "Bearer " + constants.getValue(ApplicationConstants.INVALID_TOKEN)));
+        map1.add(new Header("Authorization", "Bearer " + constants.getValue(CommonConstants.INVALID_TOKEN)));
         return map1;
     }
 

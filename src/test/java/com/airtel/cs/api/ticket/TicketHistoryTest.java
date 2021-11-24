@@ -27,22 +27,22 @@ public class TicketHistoryTest extends ApiPrerequisites {
   InteractionIssueRequest interactionIssue;
   CategoryHierarchy category;
   TicketRequest ticketDetails;
-  
-  /**
-   * This method is used to prepare Ticket related required for test cases.
-   * @param list
-   */
-  public void prepareTicketData(NftrDataBeans list) {
 
-    if (Objects.isNull(interactionIssue)) {
-      category= getLastCategory(validCategoryId);
-      interactionIssue = api.createInteractionIssue(validHeaderList, getValidClientConfig(MSISDN), getIssueDetails(validCategoryId),
-          "{\"id\":" + category.getId() + "}");
-      
-      ticketDetails = api.getTicketDetailById(validHeaderList, interactionIssue.getResult().getIssues().get(0).getTicket().getTicketId());
-      
+    /**
+     * This method is used to prepare Ticket related required for test cases.
+     * @param list
+     */
+    public void prepareTicketData(NftrDataBeans list) {
+
+        if (Objects.isNull(interactionIssue)) {
+            category= getLastCategory(validCategoryId);
+            interactionIssue = api.createInteractionIssue(validHeaderList, getValidClientConfig(MSISDN), getIssueDetails(validCategoryId),
+                    "{\"id\":" + category.getId() + "}");
+
+            ticketDetails = api.getTicketDetailById(validHeaderList, interactionIssue.getResult().getIssues().get(0).getTicket().getTicketId());
+
+        }
     }
-  }
 
     @Test(priority = 1, dataProvider = "NFTRIssue", dataProviderClass = DataProviders.class, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void testTicketHistoryValid(NftrDataBeans list) {
