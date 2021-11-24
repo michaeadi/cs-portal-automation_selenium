@@ -6,7 +6,5 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class TicketStatsRequest {
-    private String opco;
-    private String key;
-    private String value;
+    private TicketStatsTicketSearchCriteria ticketSearchCriteria;
 }

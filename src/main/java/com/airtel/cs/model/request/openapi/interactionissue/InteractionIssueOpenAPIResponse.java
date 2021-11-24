@@ -1,21 +1,17 @@
-package com.airtel.cs.model.request.ticketdetail;
+package com.airtel.cs.model.request.openapi.interactionissue;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class TicketPool {
-    private String queueName;
-    private boolean active;
-
-    private int id;
-
-    private ArrayList<ExternalStates> externalStates;
+public class InteractionIssueOpenAPIResponse {
+    private InteractionResponse interaction;
+    private List<IssueTicketDTO> issues;
 }

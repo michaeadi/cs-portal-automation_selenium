@@ -1,6 +1,7 @@
 package com.airtel.cs.commonutils.restutils;
 
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
+import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.enums.JavaColors;
 import com.airtel.cs.driver.Driver;
@@ -64,10 +65,17 @@ public class RestCommonUtils extends Driver {
             commonLib.infoColored(CALLING_CS_API_USING + " " + endPoint + " " + API_FOR_TESTING, JavaColors.BLUE, false);
             baseURI = url;
             Headers headers = new Headers(map);
+            String finalbody="";
+            
+            if (body instanceof String)
+              finalbody = (String) body;
+            else
+              finalbody = objectMapper.writeValueAsString(body);
+            
             request = given()
                     .config(restAssuredConfig)
                     .headers(headers)
-                    .body(objectMapper.writeValueAsString(body))
+                    .body(finalbody)
                     .contentType(APPLICATION_JSON);
             response = request.post(endPoint);
             queryable = SpecificationQuerier.query(request);
@@ -90,19 +98,20 @@ public class RestCommonUtils extends Driver {
             RestAssuredConfig restAssuredConfig = CurlRestAssuredConfigFactory.createConfig();
             commonLib.infoColored(CALLING_CS_API_USING + " " + endPoint + " " + API_FOR_TESTING, JavaColors.BLUE, false);
             baseURI = baseUrl;
-            Headers headers = new Headers(map);
+            Headers headers = new Headers(validHeaderList);
             request = given()
                     .config(restAssuredConfig)
                     .headers(headers)
                     .contentType(APPLICATION_JSON);
             commonLib.info("Query Param Map:-" + queryParam.toString());
-            queryParam.forEach(request::queryParam);
-            queryable = SpecificationQuerier.query(request);
-            response = request.get(endPoint);
+            
             StringBuilder stringBuilder = new StringBuilder("?");
             queryParam.forEach((k, v) -> stringBuilder.append(k).append("=").append(v).append("&"));
             endPoint += stringBuilder.toString();
             endPoint.substring(0, endPoint.length() - 1);
+            queryable = SpecificationQuerier.query(request);
+            response = request.get(endPoint);
+            
             UtilsMethods.printResponseDetail(response);
         } catch (Exception | AssertionError e) {
             commonLib.fail("Caught exception in Testcase - commonGetMethodWithQueryParam " + e.getMessage(), false);
@@ -250,7 +259,7 @@ public class RestCommonUtils extends Driver {
     public List<Header> invalidToken() {
         List<Header> map1 = new ArrayList<>();
         map1.add(new Header("Opco", OPCO));
-        map1.add(new Header("Authorization", "Bearer " + constants.getValue(ApplicationConstants.INVALID_TOKEN)));
+        map1.add(new Header("Authorization", "Bearer " + constants.getValue(CommonConstants.INVALID_TOKEN)));
         return map1;
     }
 

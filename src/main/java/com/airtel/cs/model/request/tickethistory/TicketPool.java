@@ -1,7 +1,8 @@
-package com.airtel.cs.model.request.ticketstats;
+package com.airtel.cs.model.request.tickethistory;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +10,8 @@ import lombok.Setter;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class TicketStatsResult {
-    private Integer openTicketCount;
-    private Integer closedTicketCount;
+public class TicketPool {
+
+  private String queueName;
+  private String workgroupName;
 }

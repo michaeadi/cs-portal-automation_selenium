@@ -22,7 +22,7 @@ public class TicketListDetails {
     private StateRequest state;
     private String createdOn;
     private String workgroupSla;
-    private TicketPool ticketPool;
+    private TicketPool queue;
     private String workGroup;
     private ArrayList<CategoryLevel> categoryLevel;
     private String agentName;

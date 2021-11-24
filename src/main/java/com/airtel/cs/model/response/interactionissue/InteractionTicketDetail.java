@@ -1,4 +1,4 @@
-package com.airtel.cs.model.request.interactionissue;
+package com.airtel.cs.model.response.interactionissue;
 
 import com.airtel.cs.model.request.issue.PriorityDetail;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

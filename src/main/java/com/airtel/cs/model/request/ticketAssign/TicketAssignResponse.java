@@ -1,21 +1,18 @@
-package com.airtel.cs.model.request.ticketdetail;
+package com.airtel.cs.model.request.ticketAssign;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.ArrayList;
 
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class TicketPool {
-    private String queueName;
-    private boolean active;
+public class TicketAssignResponse {
 
-    private int id;
-
-    private ArrayList<ExternalStates> externalStates;
+  private String status;
+  private Integer statusCode;
+  private String message;
 }
