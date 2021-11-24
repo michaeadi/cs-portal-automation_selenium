@@ -1,13 +1,14 @@
 package com.airtel.cs.common.prerequisite;
 
 
+import com.airtel.cs.commonutils.actions.BaseActions;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
-import com.airtel.cs.commonutils.utils.PassUtils;
-import com.airtel.cs.commonutils.actions.BaseActions;
-import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
+import com.airtel.cs.commonutils.dataproviders.databeans.ClientConfigDataBean;
 import com.airtel.cs.commonutils.dataproviders.databeans.FtrDataBeans;
 import com.airtel.cs.commonutils.dataproviders.databeans.NftrDataBeans;
+import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
+import com.airtel.cs.commonutils.utils.PassUtils;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.model.request.categoryhierarchy.CategoryHierarchyRequest;
 import com.airtel.cs.model.request.interaction.InteractionRequest;
@@ -15,14 +16,11 @@ import com.airtel.cs.model.request.interactionissue.InteractionIssueRequest;
 import com.airtel.cs.model.request.issue.CategoryHierarchy;
 import com.airtel.cs.model.request.issue.IssueDetails;
 import com.airtel.cs.model.request.layout.IssueLayoutRequest;
-import com.airtel.cs.commonutils.dataproviders.databeans.ClientConfigDataBean;
 import com.airtel.cs.model.request.login.LoginRequest;
 import com.airtel.cs.model.response.login.Login;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.apache.commons.lang3.StringUtils;
 import org.testng.annotations.BeforeClass;
-
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -135,13 +133,26 @@ public class ApiPrerequisites extends Driver {
      * @return category id
      */
     public String getLastCategoryId(Integer validCategoryId) {
-        String lastCategoryId;
+      String lastCategoryId;
+      Integer id = getLastCategory(validCategoryId).getId();
+      lastCategoryId = "{\"id\":" + id + "}";
+      return lastCategoryId;
+    }
+    
+    /**
+     * This Method will extract the last category from parent category API
+     *
+     * @param validCategoryId category id
+     * @return category id
+     */
+    public CategoryHierarchy getLastCategory(Integer validCategoryId) {
+        
         ClientConfigDataBean clientConfig = data.getClientConfig().get(0);
         CategoryHierarchyRequest parentCategoryId = api.getParentCategoryId(validHeaderList, validCategoryId);
         assertCheck.append(actions.assertEqualIntType(parentCategoryId.getStatusCode(), 200));
-        Integer id = parentCategoryId.getResult().get(String.valueOf(clientConfig.getLastCategoryLevel())).get(0).getId();
-        lastCategoryId = "{\"id\":" + id + "}";
-        return lastCategoryId;
+        CategoryHierarchy category = parentCategoryId.getResult().get(String.valueOf(clientConfig.getLastCategoryLevel())).get(0);
+        
+        return category;
     }
 
     /**
@@ -263,5 +274,45 @@ public class ApiPrerequisites extends Driver {
         restUtils.clearValidHeaderMap();
         restUtils.addHeaders("Opco", OPCO);
         restUtils.addHeaders("Authorization", Token);
+    }
+    
+    /**
+     * This method is used to generate Field value and field name for Issue details.
+     * @param layoutConfiguration
+     * @param fieldName
+     * @param fieldValue
+     */
+    public void getFieldValueAndName(IssueLayoutRequest layoutConfiguration, StringBuilder fieldName, StringBuilder fieldValue) {
+      String value="";
+      String Name="";
+      if (layoutConfiguration.getStatusCode() == 200) {
+        if (!(layoutConfiguration.getResult() == null)) {
+          if (!(layoutConfiguration.getResult().isEmpty())) {
+            for (IssueDetails s : layoutConfiguration.getResult()) {
+             
+              if (StringUtils.equalsIgnoreCase(s.getFieldType(), "text")
+                  && (Objects.nonNull(s.getPattern()) && s.getPattern().contains("/"))) {
+                value = "1111";
+              } else if ("text".equalsIgnoreCase(s.getFieldType()) && StringUtils.isBlank(s.getPattern())) {
+                value = "test";
+              } else if ("number".equalsIgnoreCase(s.getFieldType())) {
+                value = "1001";
+              } else if ("select".equalsIgnoreCase(s.getFieldType())) {
+                value = s.getFieldOptions().get(0);
+              } else {
+                value = "test";
+              }
+              Name = s.getPlaceHolder();
+              break;
+
+            }
+          }
+        }
+      } else {
+        commonLib.fail("v1/layout API Response is not 200 and is -" + layoutConfiguration.getStatusCode(), false);
+      }
+      
+      fieldName.append(Name);
+      fieldValue.append(value);
     }
 }

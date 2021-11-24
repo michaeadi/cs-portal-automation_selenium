@@ -250,7 +250,7 @@ public class AccountInformationWidget extends BasePage {
                     break;
                 } else {
                     result = json.get("result").toString();
-                    if ((StringUtils.contains(String.valueOf(json.get(statusCode)), "200") || StringUtils.contains(String.valueOf(json.get(statusCode)), "400")) && StringUtils.contains(String.valueOf(json.get(status)), "SUCCESS")) {
+                    if (StringUtils.contains(String.valueOf(json.get(statusCode)), "200") || StringUtils.contains(String.valueOf(json.get(statusCode)), "400") && StringUtils.contains(String.valueOf(json.get(status)), "SUCCESS")) {
                         result = result.substring(1, result.length() - 1).replace("\"", "");
                         String[] keyValuePairs = result.split(",");
                         Map<String, String> map = new HashMap<>();
