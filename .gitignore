@@ -17,15 +17,13 @@ CS_PORTAL.iml
 .idea/shelf/
 .idea/workspace.xml
 .idea
-/target/generated-sources/
-/target/maven-status/
-/target
 /logs`
 CS_PORTAL.ipr
 CS_PORTAL.iws
 cs-portal-automation_selenium1.iml
 sr-servicetest.iml
 /resources/screenshots
+/resources/htmlreport
 .classpath
 .project
 *.iml

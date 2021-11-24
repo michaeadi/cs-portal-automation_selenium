@@ -1,4 +1,4 @@
-package com.airtel.cs.model.request.ticketstats;
+package com.airtel.cs.model.response.ticketstats;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -9,7 +9,9 @@ import lombok.Setter;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class TicketStatsResult {
-    private Integer openTicketCount;
-    private Integer closedTicketCount;
+public class TicketStatsResponse {
+    private String status;
+    private Integer statusCode;
+    private String message;
+    private TicketStatsResult result;
 }

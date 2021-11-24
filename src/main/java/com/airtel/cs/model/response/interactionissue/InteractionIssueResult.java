@@ -1,6 +1,5 @@
 package com.airtel.cs.model.response.interactionissue;
 
-import com.airtel.cs.model.request.interactionissue.InteractionTicketDetail;
 import com.airtel.cs.model.request.issue.IssueDetail;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

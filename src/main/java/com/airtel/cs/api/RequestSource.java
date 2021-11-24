@@ -4,6 +4,7 @@ import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants
 import com.airtel.cs.commonutils.applicationutils.constants.ESBURIConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.URIConstants;
 import com.airtel.cs.commonutils.dataproviders.databeans.TestDataBean;
+import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.restutils.RestCommonUtils;
 import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.model.request.AccountBalanceRequest;
@@ -45,7 +46,8 @@ import com.airtel.cs.model.request.clientconfig.ClientConfigRequest;
 import com.airtel.cs.model.request.clientconfig.ClientDeactivateRequest;
 import com.airtel.cs.model.request.createissue.CreateIssueRequest;
 import com.airtel.cs.model.request.interaction.InteractionRequest;
-import com.airtel.cs.model.request.interactionissue.InteractionIssueRequest;
+import com.airtel.cs.model.request.ticketstats.TicketStatsRequest;
+import com.airtel.cs.model.response.interactionissue.InteractionIssueResponse;
 import com.airtel.cs.model.request.issuehistory.IssueHistoryRequest;
 import com.airtel.cs.model.request.layout.IssueLayoutRequest;
 import com.airtel.cs.model.request.login.LoginRequest;
@@ -63,7 +65,7 @@ import com.airtel.cs.model.request.tickethistory.TicketHistoryRequest;
 import com.airtel.cs.model.request.tickethistorylog.TicketHistoryLogRequest;
 import com.airtel.cs.model.request.ticketlist.TicketListRequest;
 import com.airtel.cs.model.request.ticketreopen.ReopenTicketRequest;
-import com.airtel.cs.model.request.ticketstats.TicketStatsResponse;
+import com.airtel.cs.model.response.ticketstats.TicketStatsResponse;
 import com.airtel.cs.model.request.updateticket.CloseTicketRequest;
 import com.airtel.cs.model.response.PlanPackResponse;
 import com.airtel.cs.model.response.accountinfo.AccountDetails;
@@ -89,6 +91,7 @@ import com.airtel.cs.model.response.filedmasking.FieldMaskConfigReponse;
 import com.airtel.cs.model.response.filedmasking.FieldMaskConfigs;
 import com.airtel.cs.model.response.friendsfamily.FriendsFamily;
 import com.airtel.cs.model.response.hlrservice.HLRService;
+import com.airtel.cs.model.request.ticketstats.TicketStatsTicketSearchCriteria;
 import com.airtel.cs.model.response.kycprofile.GsmKyc;
 import com.airtel.cs.model.response.kycprofile.KYCProfile;
 import com.airtel.cs.model.response.kycprofile.Profile;
@@ -116,7 +119,6 @@ import io.restassured.http.Headers;
 import io.restassured.response.Response;
 import io.restassured.specification.QueryableRequestSpecification;
 import io.restassured.specification.RequestSpecification;
-import io.restassured.specification.SpecificationQuerier;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -152,7 +154,6 @@ public class RequestSource extends RestCommonUtils {
     private static final String CALLING_ESB_APIS = "Calling ESB APIs";
     private static final String GET_ALL_CONFIGURATION = " - getAllConfiguration ";
     private static RequestSpecification request;
-    private static Response response;
     private static QueryableRequestSpecification queryable;
     private static final String CREATED_BY = "API Automation";
     private static final String COMMENT = "Automation Test";
@@ -170,6 +171,8 @@ public class RequestSource extends RestCommonUtils {
     private static final String APPLICATION_JSON = "application/json";
     private static final String FINAL_SUBMIT = "false";
     private static final TestDataBean TEST_DATA_BEAN = new TestDataBean();
+    private static Map<String, String> clientInfo = new HashMap<>();
+    private static TicketStatsTicketSearchCriteria ticketSearchCreteria = new TicketStatsTicketSearchCriteria();
 
     /*
     This Method will hit the Available Plan API and returns the response
@@ -1225,31 +1228,48 @@ public class RequestSource extends RestCommonUtils {
     /**
      * This Method will hit the API "/api/sr-service/v1/ticket/stats" and return the response
      *
-     * @param clientConfig the client config
-     * @param map          the map
-     * @return the result
+     * @param rowKeyword the row to be search in excel sheet
+     * @param map        the headers
+     * @return the response
      */
-    public TicketStatsResponse ticketStatsRequest(String clientConfig, List<Header> map) {
-        body = "{\"ticketSearchCriteria\":{\"clientInfo\":{" + clientConfig + "}}}";
-        commonPostMethod(URIConstants.TICKET_STATS, map, body, srBaseUrl);
-        return response.as(TicketStatsResponse.class);
+    public TicketStatsResponse ticketStatsRequest(String rowKeyword, List<Header> map) {
+        TicketStatsResponse result = null;
+        recordset = DataProviders.readExcelSheet(excelPath, constants.getValue(ApplicationConstants.CLIENT_CONFIG));
+        List<String> fromExcelSheetColumnWise = DataProviders.getScenarioDetailsFromExcelSheetColumnWise(recordset, rowKeyword, "Field Name", Collections.singletonList("Value"));
+        clientInfo.put(MSISDN, fromExcelSheetColumnWise.get(0));
+        ticketSearchCreteria.setClientInfo(clientInfo);
+        try {
+            commonPostMethod(URIConstants.TICKET_STATS, map, new TicketStatsRequest(ticketSearchCreteria), srBaseUrl);
+            result = response.as(TicketStatsResponse.class);
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - ticketStatsRequest " + e.getMessage(), false);
+        }
+        return result;
     }
 
     /**
-     * @param clientConfig
-     * @param map
-     * @return
+     * This Method is used to hit the "/api/sr-service/v1/ticket/stats" and get the response
+     *
+     * @param clientConfig the clientConfig
+     * @param map          the map/header
+     * @return the response
      */
     public TicketStatsResponse ticketStatsWithFilterRequest(String clientConfig, List<Header> map) {
-        body = "{\"ticketSearchCriteria\":{\"clientInfo\":{" + clientConfig + "},\"fromDate\":null,\"toDate\":null,\"ticketId\":null,\"days\":null,\"stateIds\":[1,2,3,4,5]}}";
-        commonPostMethod(URIConstants.TICKET_STATS, map, body, srBaseUrl);
-        return response.as(TicketStatsResponse.class);
+
+        TicketStatsResponse result = null;
+        try {
+            commonPostMethod(URIConstants.TICKET_STATS, map, new TicketStatsRequest(new TicketStatsTicketSearchCriteria(clientConfig, null, null, null, null, EXTERNAL_STATE_IDS)), srBaseUrl);
+            result = response.as(TicketStatsResponse.class);
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - ticketStatsWithFilterRequest " + e.getMessage(), false);
+        }
+        return result;
     }
 
-    public InteractionIssueRequest createInteractionIssue(List<Header> map, String clientConfig, String issueDetails, String categoryIds) {
+    public InteractionIssueResponse createInteractionIssue(List<Header> map, String clientConfig, String issueDetails, String categoryIds) {
         body = "{\"interaction\":{\"createdBy\":\"" + CREATED_BY + "\",\"finalSubmit\":false,\"clientInfo\":{" + clientConfig + "}},\"issues\":[{\"comment\":\"" + COMMENT + "\",\"createdBy\":\"" + CREATED_BY + "\",\"issueDetails\":[" + issueDetails + "],\"categoryHierarchy\":[" + categoryIds + "]}]}";
         commonPostMethod(URIConstants.INTERACTION_ISSUE, map, body, srBaseUrl);
-        return response.as(InteractionIssueRequest.class);
+        return response.as(InteractionIssueResponse.class);
     }
 
     /*

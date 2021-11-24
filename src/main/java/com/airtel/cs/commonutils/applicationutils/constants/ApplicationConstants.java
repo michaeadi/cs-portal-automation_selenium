@@ -74,7 +74,6 @@ public class ApplicationConstants {
     public static final String AGENT_ID = "sr.agent.id";
     public static final String AGENT_NAME = "sr.agent.name";
     public static final String TICKET_POOL_ID = "sr.ticket.pool.id";
-    public static final String INVALID_TOKEN = "sr.invalid.token";
     public static final String UPDATED_BY = "sr.updated.by";
     public static final String EXTERNAL_CLOSED_STATE_ID = "sr.external.closed.state.id";
     public static final String PAGE_SIZE = "sr.page.size";

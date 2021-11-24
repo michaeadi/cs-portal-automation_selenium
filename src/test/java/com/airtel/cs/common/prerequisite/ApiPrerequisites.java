@@ -11,7 +11,7 @@ import com.airtel.cs.commonutils.dataproviders.databeans.NftrDataBeans;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.model.request.categoryhierarchy.CategoryHierarchyRequest;
 import com.airtel.cs.model.request.interaction.InteractionRequest;
-import com.airtel.cs.model.request.interactionissue.InteractionIssueRequest;
+import com.airtel.cs.model.response.interactionissue.InteractionIssueResponse;
 import com.airtel.cs.model.request.issue.CategoryHierarchy;
 import com.airtel.cs.model.request.issue.IssueDetails;
 import com.airtel.cs.model.request.layout.IssueLayoutRequest;
@@ -103,7 +103,7 @@ public class ApiPrerequisites extends Driver {
      */
     public String getTicketId(Integer validCategoryId, ClientConfigDataBean clientConfig) {
         String ticketId = null;
-        InteractionIssueRequest interactionIssue = api.createInteractionIssue(validHeaderList, getValidClientConfig(MSISDN), getIssueDetails(validCategoryId), getCategoryHierarchy(clientConfig, validCategoryId));
+        InteractionIssueResponse interactionIssue = api.createInteractionIssue(validHeaderList, getValidClientConfig(MSISDN), getIssueDetails(validCategoryId), getCategoryHierarchy(clientConfig, validCategoryId));
         if (interactionIssue.getStatusCode() == 200) {
             ticketId = interactionIssue.getResult().getIssues().get(0).getTicket().getTicketId();
         }

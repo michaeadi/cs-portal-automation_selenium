@@ -1,4 +1,4 @@
-package com.airtel.cs.model.request.openapi.interactionissue;
+package com.airtel.cs.model.response.interactionissue;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -11,7 +11,6 @@ import java.util.List;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class InteractionIssueResponse {
-    private InteractionResponse interaction;
-    private List<IssueTicketDTO> issues;
+public class InteractionIssue {
+    public List<InteractionIssueResult> issues;
 }
