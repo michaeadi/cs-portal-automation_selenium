@@ -12,6 +12,7 @@ import com.airtel.cs.model.request.EnterpriseAccountRequest;
 import com.airtel.cs.model.request.GenericRequest;
 import com.airtel.cs.model.request.InvoiceDetailRequest;
 import com.airtel.cs.model.request.LoanRequest;
+import com.airtel.cs.model.request.OSCRefillRequest;
 import com.airtel.cs.model.request.OfferDetailRequest;
 import com.airtel.cs.model.request.PaymentHistoryESBRequest;
 import com.airtel.cs.model.request.PaymentRequest;
@@ -47,6 +48,7 @@ public class ESBRequestSource extends RestCommonUtils {
     private static final String MSISDN = "msisdn";
     private static final String ACCOUNT_NO = "accountNo";
     private static final String GSM_CUSTOMER_PROFILE_BASE_URL = "gsm.customer.profile.base.url";
+    private static final String VOUCHER_SERVICE_BASE_URL = "voucher.service.base.url";
     private static final String SUBS_TRANSACTION_SERVICE_BASE_URL = "subscriber.transaction.base.url";
     private static final String END_DATE = "endDate";
     private static final String START_DATE = "startDate";
@@ -63,6 +65,7 @@ public class ESBRequestSource extends RestCommonUtils {
     private static final String QUERY_BALANCE = " - query balance ";
     private static final String RECHARGE_HISTORY = " - recharge history ";
     private static final String VOUCHER_DETAILS = " - voucher details ";
+    private static final String OSC_REFILL = " - osc refill ";
     private static final String VOUCHER_REFILL_BARRED = " -voucher refill barred ";
     private static final String TOP_TWENTY_RINGTONE = " -top twenty ringtone ";
     private static final String SEARCH_NAME_TUNE = " -search name tune ";
@@ -285,6 +288,25 @@ public class ESBRequestSource extends RestCommonUtils {
             checkDownstreamAPI(response.getStatusCode(), VOUCHER_DETAILS, "Downstream API voucher details working with data ");
         } catch (Exception e) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + VOUCHER_DETAILS + e.getMessage(), false);
+        }
+    }
+
+    /**
+     * Call osc refill.
+     *
+     * @param voucherNumber the voucher number
+     */
+    public void callOscRefill(String voucherNumber) {
+        try {
+            commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + OSC_REFILL, JavaColors.GREEN, false);
+            OSCRefillRequest oscRefillRequest = new OSCRefillRequest();
+            oscRefillRequest.setVoucherSerialNumber(voucherNumber);
+            oscRefillRequest.setMsisdn(constants.getValue(ApplicationConstants.CUSTOMER_MSISDN));
+            oscRefillRequest.setIsDamagedPinAvailable(false);
+            commonPostMethod(constants.getValue(VOUCHER_SERVICE_BASE_URL) + ESBURIConstants.OSC_REFILL, oscRefillRequest);
+            checkDownstreamAPI(response.getStatusCode(), OSC_REFILL, "Downstream API osc refill working with data ");
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + OSC_REFILL + e.getMessage(), false);
         }
     }
 

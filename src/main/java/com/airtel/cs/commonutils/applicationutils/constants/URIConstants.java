@@ -20,6 +20,7 @@ public class URIConstants {
     public static final String SR_FETCH_HISTORY = "/sr/api/sr-service/v1/fetch/ticket";
     public static final String NOTIFICATION_FETCH_HISTORY = "/cs-notification-service/v1/fetch/history";
     public static final String VOUCHER_DETAILS = "/cs-gsm-service/v1/voucher/detail";
+    public static final String OVERSCRATCH_RECHARGE = "/cs-gsm-service/v1/voucher/overscratch/recharge";
     public static final String VENDORS = "/cs-vas-service/v1/vendors";
     public static final String LOAN_SUMMARY = "/cs-vas-service/v1/loan/summary";
     public static final String LOAN_DETAILS = "/cs-vas-service/v1/loan/details";
