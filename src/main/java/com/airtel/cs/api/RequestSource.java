@@ -6,6 +6,7 @@ import com.airtel.cs.commonutils.applicationutils.constants.URIConstants;
 import com.airtel.cs.commonutils.dataproviders.databeans.IssueFields;
 import com.airtel.cs.commonutils.dataproviders.databeans.SearchType;
 import com.airtel.cs.commonutils.dataproviders.databeans.TestDataBean;
+import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.restutils.RestCommonUtils;
 import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.model.request.AccountBalanceRequest;
@@ -45,16 +46,15 @@ import com.airtel.cs.model.request.categoryhierarchy.CategoryHierarchyRequest;
 import com.airtel.cs.model.request.clientconfig.AllConfiguredClientRequest;
 import com.airtel.cs.model.request.clientconfig.ClientConfigRequest;
 import com.airtel.cs.model.request.clientconfig.ClientDeactivateRequest;
-import com.airtel.cs.model.request.issue.CategoryHierarchy;
-import com.airtel.cs.model.request.issue.CreateIssueRequest;
-import com.airtel.cs.model.request.issue.IssueDetails;
-import com.airtel.cs.model.request.issue.MetaInfo;
-import com.airtel.cs.model.response.createissue.CreateIssueResponse;
 import com.airtel.cs.model.request.hbb.HbbLinkedAccountsRequest;
 import com.airtel.cs.model.request.hbb.NotificationServiceRequest;
 import com.airtel.cs.model.request.hbb.ReceiverId;
 import com.airtel.cs.model.request.interaction.InteractionRequest;
 import com.airtel.cs.model.request.interactionissue.InteractionIssueRequest;
+import com.airtel.cs.model.request.issue.CategoryHierarchy;
+import com.airtel.cs.model.request.issue.CreateIssueRequest;
+import com.airtel.cs.model.request.issue.IssueDetails;
+import com.airtel.cs.model.request.issue.MetaInfo;
 import com.airtel.cs.model.request.issuehistory.IssueHistoryRequest;
 import com.airtel.cs.model.request.layout.IssueLayoutRequest;
 import com.airtel.cs.model.request.login.LoginRequest;
@@ -74,7 +74,8 @@ import com.airtel.cs.model.request.tickethistory.TicketHistoryRequest;
 import com.airtel.cs.model.request.tickethistorylog.TicketHistoryLogRequest;
 import com.airtel.cs.model.request.ticketlist.TicketListRequest;
 import com.airtel.cs.model.request.ticketreopen.ReopenTicketRequest;
-import com.airtel.cs.model.request.ticketstats.TicketStatsResponse;
+import com.airtel.cs.model.request.ticketstats.TicketStatsRequest;
+import com.airtel.cs.model.request.ticketstats.TicketStatsTicketSearchCriteria;
 import com.airtel.cs.model.request.updateticket.CloseTicketRequest;
 import com.airtel.cs.model.response.PlanPackResponse;
 import com.airtel.cs.model.response.accountinfo.AccountDetails;
@@ -95,6 +96,7 @@ import com.airtel.cs.model.response.clearrefillstatus.RefillStatus;
 import com.airtel.cs.model.response.configurationapi.ConfigurationList;
 import com.airtel.cs.model.response.crbt.ActivateRingtone;
 import com.airtel.cs.model.response.crbt.Top20Ringtone;
+import com.airtel.cs.model.response.createissue.CreateIssueResponse;
 import com.airtel.cs.model.response.enterprise.EnterpriseAccountSearchResponse;
 import com.airtel.cs.model.response.filedmasking.FieldMaskConfigReponse;
 import com.airtel.cs.model.response.filedmasking.FieldMaskConfigs;
@@ -122,6 +124,7 @@ import com.airtel.cs.model.response.tariffplan.AvailablePlan;
 import com.airtel.cs.model.response.tariffplan.CurrentPlan;
 import com.airtel.cs.model.response.tickethistorylog.TicketHistoryLog;
 import com.airtel.cs.model.response.ticketlist.Ticket;
+import com.airtel.cs.model.response.ticketstats.TicketStatsResponse;
 import com.airtel.cs.model.response.transfertoqueue.TransferToQueue;
 import com.airtel.cs.model.response.usagehistory.UsageHistory;
 import com.airtel.cs.model.response.vendors.VendorNames;
@@ -139,13 +142,14 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
-import java.util.*;
 
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
@@ -155,7 +159,7 @@ public class RequestSource extends RestCommonUtils {
 
     private static final String TARIFF_PLAN_TEST_NUMBER = constants.getValue(ApplicationConstants.TARIFF_PLAN_TEST_NUMBER);
     private static final Map<String, Object> queryParam = new HashMap<>();
-    private static final String NOTIFICATION_SERVICE_API =" - notification service for SMS ";
+    private static final String NOTIFICATION_SERVICE_API = " - notification service for SMS ";
     public static Integer statusCode = null;
     private ESBRequestSource esbRequestSource = new ESBRequestSource();
     private static final String MSISDN = "msisdn";
@@ -187,9 +191,11 @@ public class RequestSource extends RestCommonUtils {
     private static final String APPLICATION_JSON = "application/json";
     private static final String FINAL_SUBMIT = "false";
     private static final TestDataBean TEST_DATA_BEAN = new TestDataBean();
-    private static final String CHANNEL="channel";
-    public static final String LINKED_ACCOUNT_ORCHESTRATOR=" - linked account orchestrator";
-    public static final String CREATE_ISSUE=" - create issue";
+    private static Map<String, String> clientInfo = new HashMap<>();
+    private static TicketStatsTicketSearchCriteria ticketSearchCreteria = new TicketStatsTicketSearchCriteria();
+    private static final String CHANNEL = "channel";
+    public static final String LINKED_ACCOUNT_ORCHESTRATOR = " - linked account orchestrator";
+    public static final String CREATE_ISSUE = " - create issue";
 
     /*
     This Method will hit the Available Plan API and returns the response
@@ -268,6 +274,7 @@ public class RequestSource extends RestCommonUtils {
 
     /**
      * This method is used to test service class and rate plan CS API
+     *
      * @param msisdn
      * @return
      */
@@ -354,6 +361,7 @@ public class RequestSource extends RestCommonUtils {
         }
         return result;
     }
+
     /**
      * This Method will hit the API "/api/user-service/user/v1/details" and return the response
      *
@@ -1289,40 +1297,55 @@ public class RequestSource extends RestCommonUtils {
     /**
      * This Method will hit the API "/api/sr-service/v1/ticket/stats" and return the response
      *
-     * @param clientConfig the client config
-     * @param map          the map
-     * @return the result
+     * @param rowKeyword the row to be search in excel sheet
+     * @param map        the headers
+     * @return the response
      */
-    public TicketStatsResponse ticketStatsRequest(String clientConfig, List<Header> map) {
-        body = "{\"ticketSearchCriteria\":{\"clientInfo\":{" + clientConfig + "}}}";
-        commonPostMethod(URIConstants.TICKET_STATS, map, body, srBaseUrl);
-        return response.as(TicketStatsResponse.class);
+    public TicketStatsResponse ticketStatsRequest(String rowKeyword, List<Header> map) {
+        TicketStatsResponse result = null;
+        recordset = DataProviders.readExcelSheet(excelPath, constants.getValue(ApplicationConstants.CLIENT_CONFIG));
+        List<String> fromExcelSheetColumnWise = DataProviders.getScenarioDetailsFromExcelSheetColumnWise(recordset, rowKeyword, "Field Name", Collections.singletonList("Value"));
+        clientInfo.put(MSISDN, fromExcelSheetColumnWise.get(0));
+        ticketSearchCreteria.setClientInfo(clientInfo);
+        try {
+            commonPostMethod(URIConstants.TICKET_STATS, map, new TicketStatsRequest(ticketSearchCreteria), srBaseUrl);
+            result = response.as(TicketStatsResponse.class);
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - ticketStatsRequest " + e.getMessage(), false);
+        }
+        return result;
     }
-    
+
     /**
      * This Method will hit the API "/api/sr-service/v1/assign/ticket" and return the response
      *
-     * @param clientConfig the client config
-     * @param map          the map
+     * @param map the map
      * @return the result
      */
-    public TicketAssignResponse ticketAssignRequest(String agentId,String ticketId,List<Header> map) {
-        body = "{\"agentId\":"+agentId+",\"ticketId\":[\""+ticketId+"\"]}";
+    public TicketAssignResponse ticketAssignRequest(String agentId, String ticketId, List<Header> map) {
+        body = "{\"agentId\":" + agentId + ",\"ticketId\":[\"" + ticketId + "\"]}";
         commonPostMethod(URIConstants.ASSIGN_TICKET, map, body, srBaseUrl);
         return response.as(TicketAssignResponse.class);
     }
-    
-    
+
 
     /**
-     * @param clientConfig
-     * @param map
-     * @return
+     * This Method is used to hit the "/api/sr-service/v1/ticket/stats" and get the response
+     *
+     * @param clientConfig the clientConfig
+     * @param map          the map/header
+     * @return the response
      */
     public TicketStatsResponse ticketStatsWithFilterRequest(String clientConfig, List<Header> map) {
-        body = "{\"ticketSearchCriteria\":{\"clientInfo\":{" + clientConfig + "},\"fromDate\":null,\"toDate\":null,\"ticketId\":null,\"days\":null,\"stateIds\":[1,2,3,4,5]}}";
-        commonPostMethod(URIConstants.TICKET_STATS, map, body, srBaseUrl);
-        return response.as(TicketStatsResponse.class);
+
+        TicketStatsResponse result = null;
+        try {
+            commonPostMethod(URIConstants.TICKET_STATS, map, new TicketStatsRequest(new TicketStatsTicketSearchCriteria(clientConfig, null, null, null, null, EXTERNAL_STATE_IDS)), srBaseUrl);
+            result = response.as(TicketStatsResponse.class);
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - ticketStatsWithFilterRequest " + e.getMessage(), false);
+        }
+        return result;
     }
 
     public InteractionIssueRequest createInteractionIssue(List<Header> map, String clientConfig, String issueDetails, String categoryIds) {
@@ -1473,15 +1496,15 @@ public class RequestSource extends RestCommonUtils {
         return response.as(IssueHistoryRequest.class);
     }
 
-   public CreateIssueResponse createIssue(String interactionId, IssueDetails issueDetails, String createdBy, String comment, CategoryHierarchy category, MetaInfo metainfo) {
-        CreateIssueResponse result=null;
-        try{
+    public CreateIssueResponse createIssue(String interactionId, IssueDetails issueDetails, String createdBy, String comment, CategoryHierarchy category, MetaInfo metainfo) {
+        CreateIssueResponse result = null;
+        try {
             commonPostMethod(URIConstants.CREATE_ISSUE, new CreateIssueRequest());
             result = response.as(CreateIssueResponse.class);
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + CREATE_ISSUE + e.getMessage(), false);
         }
-       return result;
+        return result;
     }
 
     public CreateIssueResponse createIssue(List<Header> map, String interactionId, String issueDetails, String categoryIds) {
@@ -1605,20 +1628,20 @@ public class RequestSource extends RestCommonUtils {
     This Method is used to hit the "/api/sr-service/v1/tickets" with filter and get the response
      */
     public TicketHistoryRequest ticketHistoryWithFilterRequest(List<Header> map, String clientConfig, String ticketId) {
-        TicketSearchRequest request=new TicketSearchRequest();
-        TicketSearchCriteria ticketSearchCriteria= new TicketSearchCriteria();
+        TicketSearchRequest request = new TicketSearchRequest();
+        TicketSearchCriteria ticketSearchCriteria = new TicketSearchCriteria();
         ticketSearchCriteria.setTicketId(ticketId);
         request.setTicketSearchCriteria(ticketSearchCriteria);
         return ticketHistoryRequest(map, request);
-        
+
     }
 
     /*
     This Method is used to hit the "/api/sr-service/v1/tickets" without filters and get the response
      */
     public TicketHistoryRequest ticketHistoryWithoutFilter(List<Header> map, String clientConfig) {
-        TicketSearchRequest request=new TicketSearchRequest();
-        TicketSearchCriteria ticketSearchCriteria= new TicketSearchCriteria();
+        TicketSearchRequest request = new TicketSearchRequest();
+        TicketSearchCriteria ticketSearchCriteria = new TicketSearchCriteria();
         request.setTicketSearchCriteria(ticketSearchCriteria);
         return ticketHistoryRequest(map, request);
     }
@@ -1626,155 +1649,150 @@ public class RequestSource extends RestCommonUtils {
     /*
     This Methos is used to hit the "/api/sr-service/v1/tickets" with category filter and get the response
      */
-    public TicketHistoryRequest ticketHistoryWithCategoryFilter(List<Header> map,String categoryIds) {
-       
-        TicketSearchRequest request=new TicketSearchRequest();
-        TicketSearchCriteria ticketSearchCriteria= new TicketSearchCriteria();
-        ArrayList<Long> categories=new ArrayList<Long>();
-        for(String s:categoryIds.split(","))
-        {
-          categories.add(Long.valueOf(s));
+    public TicketHistoryRequest ticketHistoryWithCategoryFilter(List<Header> map, String categoryIds) {
+
+        TicketSearchRequest request = new TicketSearchRequest();
+        TicketSearchCriteria ticketSearchCriteria = new TicketSearchCriteria();
+        ArrayList<Long> categories = new ArrayList<Long>();
+        for (String s : categoryIds.split(",")) {
+            categories.add(Long.valueOf(s));
         }
         ticketSearchCriteria.setCategoryIds(categories);
         request.setTicketSearchCriteria(ticketSearchCriteria);
         return ticketHistoryRequest(map, request);
     }
-    
+
     /*
     This Methos is used to hit the "/api/sr-service/v1/tickets" with category level and value filter and get the response
      */
-    public TicketHistoryRequest ticketHistoryWithCategoryLevelAndValue(List<Header> map, int categoryLevel,String categoryLevelValues) {
-        TicketSearchRequest request=new TicketSearchRequest();
-        TicketSearchCriteria ticketSearchCriteria= new TicketSearchCriteria();
+    public TicketHistoryRequest ticketHistoryWithCategoryLevelAndValue(List<Header> map, int categoryLevel, String categoryLevelValues) {
+        TicketSearchRequest request = new TicketSearchRequest();
+        TicketSearchCriteria ticketSearchCriteria = new TicketSearchCriteria();
 
-        ArrayList<String> categories=new ArrayList<String>();
-        for(String s:categoryLevelValues.split(","))
-        {
-          categories.add(s);
+        ArrayList<String> categories = new ArrayList<String>();
+        for (String s : categoryLevelValues.split(",")) {
+            categories.add(s);
         }
         ticketSearchCriteria.setCategoryLevel(categoryLevel);
         ticketSearchCriteria.setCategoryLevelValues(categories);
         request.setTicketSearchCriteria(ticketSearchCriteria);
         return ticketHistoryRequest(map, request);
     }
-    
+
     /*
     This Methos is used to hit the "/api/sr-service/v1/tickets" with Assigned Ticket pool filter and get the response
      */
-    public TicketHistoryRequest ticketHistoryWithAssigenedTicketPool(List<Header> map,String assignedQueues) {
-      TicketSearchRequest request=new TicketSearchRequest();
-      TicketSearchCriteria ticketSearchCriteria= new TicketSearchCriteria();
+    public TicketHistoryRequest ticketHistoryWithAssigenedTicketPool(List<Header> map, String assignedQueues) {
+        TicketSearchRequest request = new TicketSearchRequest();
+        TicketSearchCriteria ticketSearchCriteria = new TicketSearchCriteria();
 
-      ArrayList<String> queues=new ArrayList<String>();
-      for(String s:assignedQueues.split(","))
-      {
-        queues.add(s);
-      }
-      ticketSearchCriteria.setAssignedQueues(queues);
-      
-      request.setTicketSearchCriteria(ticketSearchCriteria);
-      return ticketHistoryRequest(map, request);
-  }
-    
+        ArrayList<String> queues = new ArrayList<String>();
+        for (String s : assignedQueues.split(",")) {
+            queues.add(s);
+        }
+        ticketSearchCriteria.setAssignedQueues(queues);
+
+        request.setTicketSearchCriteria(ticketSearchCriteria);
+        return ticketHistoryRequest(map, request);
+    }
+
     /*
     This Methos is used to hit the "/api/sr-service/v1/tickets" with customer sla breached filter and get the response
      */
-    public TicketHistoryRequest ticketHistoryWithCustomerSLABreached(List<Header> map,boolean customerSLABreached) {
-      TicketSearchRequest request=new TicketSearchRequest();
-      TicketSearchCriteria ticketSearchCriteria= new TicketSearchCriteria();
-      ticketSearchCriteria.setCustomerSlaBreached(customerSLABreached);
-      request.setTicketSearchCriteria(ticketSearchCriteria);
-      return ticketHistoryRequest(map, request);
+    public TicketHistoryRequest ticketHistoryWithCustomerSLABreached(List<Header> map, boolean customerSLABreached) {
+        TicketSearchRequest request = new TicketSearchRequest();
+        TicketSearchCriteria ticketSearchCriteria = new TicketSearchCriteria();
+        ticketSearchCriteria.setCustomerSlaBreached(customerSLABreached);
+        request.setTicketSearchCriteria(ticketSearchCriteria);
+        return ticketHistoryRequest(map, request);
     }
-    
+
     /*
     This Methos is used to hit the "/api/sr-service/v1/tickets" with assigneeName filter and get the response
      */
-    public TicketHistoryRequest ticketHistoryWithAssigneeName(List<Header> map,String assigneeName) {
-      TicketSearchRequest request=new TicketSearchRequest();
-      TicketSearchCriteria ticketSearchCriteria= new TicketSearchCriteria();
+    public TicketHistoryRequest ticketHistoryWithAssigneeName(List<Header> map, String assigneeName) {
+        TicketSearchRequest request = new TicketSearchRequest();
+        TicketSearchCriteria ticketSearchCriteria = new TicketSearchCriteria();
 
-      ArrayList<String> names=new ArrayList<String>();
-      for(String s:assigneeName.split(","))
-      {
-        names.add(s);
-      }
-      ticketSearchCriteria.setAssigneeNames(names);
-      request.setTicketSearchCriteria(ticketSearchCriteria);
-      return ticketHistoryRequest(map, request);
+        ArrayList<String> names = new ArrayList<String>();
+        for (String s : assigneeName.split(",")) {
+            names.add(s);
+        }
+        ticketSearchCriteria.setAssigneeNames(names);
+        request.setTicketSearchCriteria(ticketSearchCriteria);
+        return ticketHistoryRequest(map, request);
     }
-    
+
     /*
     This Methos is used to hit the "/api/sr-service/v1/tickets" with assigneeId filter and get the response
      */
-    public TicketHistoryRequest ticketHistoryWithAssigneeId(List<Header> map,String assigneeId) {
-      TicketSearchRequest request=new TicketSearchRequest();
-      TicketSearchCriteria ticketSearchCriteria= new TicketSearchCriteria();
+    public TicketHistoryRequest ticketHistoryWithAssigneeId(List<Header> map, String assigneeId) {
+        TicketSearchRequest request = new TicketSearchRequest();
+        TicketSearchCriteria ticketSearchCriteria = new TicketSearchCriteria();
 
-      ArrayList<String> ids=new ArrayList<String>();
-      for(String s:assigneeId.split(","))
-      {
-        ids.add(s);
-      }
-      ticketSearchCriteria.setAssigneeIds(ids);
-      
-      request.setTicketSearchCriteria(ticketSearchCriteria);
-      return ticketHistoryRequest(map, request);
+        ArrayList<String> ids = new ArrayList<String>();
+        for (String s : assigneeId.split(",")) {
+            ids.add(s);
+        }
+        ticketSearchCriteria.setAssigneeIds(ids);
+
+        request.setTicketSearchCriteria(ticketSearchCriteria);
+        return ticketHistoryRequest(map, request);
     }
 
     /*
     This Methos is used to hit the "/api/sr-service/v1/tickets" with workgroupslaBreached filter and get the response
      */
-    public TicketHistoryRequest ticketHistoryWithWorkgroupSLABreached(List<Header> map,boolean workgroupSLABreached) {
-      TicketSearchRequest request=new TicketSearchRequest();
-      TicketSearchCriteria ticketSearchCriteria= new TicketSearchCriteria();
-      ticketSearchCriteria.setWorkgroupSlaBreached(workgroupSLABreached);
-      request.setTicketSearchCriteria(ticketSearchCriteria);
-      return ticketHistoryRequest(map, request);
+    public TicketHistoryRequest ticketHistoryWithWorkgroupSLABreached(List<Header> map, boolean workgroupSLABreached) {
+        TicketSearchRequest request = new TicketSearchRequest();
+        TicketSearchCriteria ticketSearchCriteria = new TicketSearchCriteria();
+        ticketSearchCriteria.setWorkgroupSlaBreached(workgroupSLABreached);
+        request.setTicketSearchCriteria(ticketSearchCriteria);
+        return ticketHistoryRequest(map, request);
     }
-    
+
     /*
     This Methos is used to hit the "/api/sr-service/v1/tickets" with issue Details filter and get the response
      */
-    public TicketHistoryRequest ticketHistoryWithIssueDetails(List<Header> map,String fieldName,String fieldValue) {
-      TicketSearchRequest request=new TicketSearchRequest();
-      TicketSearchCriteria ticketSearchCriteria= new TicketSearchCriteria();
-      IssueFields field=new IssueFields();
-      field.setFieldName(fieldName);
-      
-      List<Object> values=new ArrayList<Object>();
-      for(String s:fieldValue.split(","))
-      {
-        values.add(s);
-      }
-      
-      field.setFieldValues(values);
-      field.setSearchType(SearchType.CONTAINS);
-      request.setTicketSearchCriteria(ticketSearchCriteria);
-      return ticketHistoryRequest(map, request);
+    public TicketHistoryRequest ticketHistoryWithIssueDetails(List<Header> map, String fieldName, String fieldValue) {
+        TicketSearchRequest request = new TicketSearchRequest();
+        TicketSearchCriteria ticketSearchCriteria = new TicketSearchCriteria();
+        IssueFields field = new IssueFields();
+        field.setFieldName(fieldName);
+
+        List<Object> values = new ArrayList<Object>();
+        for (String s : fieldValue.split(",")) {
+            values.add(s);
+        }
+
+        field.setFieldValues(values);
+        field.setSearchType(SearchType.CONTAINS);
+        request.setTicketSearchCriteria(ticketSearchCriteria);
+        return ticketHistoryRequest(map, request);
     }
-    
-    
+
+
     /**
      * This method is used to get hbb linked accounts response from CS API
+     *
      * @param msisdn The msisdn
      * @return The response
      */
 
-    public HbbLinkedAccountsResponse getLinkedHbbNumber(String msisdn)
-    {
+    public HbbLinkedAccountsResponse getLinkedHbbNumber(String msisdn) {
         HbbLinkedAccountsResponse result = null;
         try {
-            commonPostMethod(URIConstants.GET_HBB_LINKED_ACCOUNTS_API, new HbbLinkedAccountsRequest(msisdn,false));
+            commonPostMethod(URIConstants.GET_HBB_LINKED_ACCOUNTS_API, new HbbLinkedAccountsRequest(msisdn, false));
             result = response.as(HbbLinkedAccountsResponse.class);
             if (result.getStatusCode() != 200) {
-                esbRequestSource.hbbLinkedAccount(CHANNEL,msisdn);
+                esbRequestSource.hbbLinkedAccount(CHANNEL, msisdn);
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + LINKED_ACCOUNT_ORCHESTRATOR + e.getMessage(), false);
         }
         return result;
     }
+
     /**
      * This method will hit the api /cs-notification-service/v1/send/notification and return the response
      * @param templateIdentifier

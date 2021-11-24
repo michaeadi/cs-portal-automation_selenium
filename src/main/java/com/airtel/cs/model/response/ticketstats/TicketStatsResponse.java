@@ -1,17 +1,17 @@
-package com.airtel.cs.model.request.openapi.interactionissue;
+package com.airtel.cs.model.response.ticketstats;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class InteractionIssueResponse {
-    private InteractionResponse interaction;
-    private List<IssueTicketDTO> issues;
+public class TicketStatsResponse {
+    private String status;
+    private Integer statusCode;
+    private String message;
+    private TicketStatsResult result;
 }
