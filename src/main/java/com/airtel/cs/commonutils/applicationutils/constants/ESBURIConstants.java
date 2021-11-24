@@ -12,6 +12,7 @@ public class ESBURIConstants {
   public static final String TRANSACTION_HISTORY = "/api/am-send-money/v1/transaction-history-details";
   public static final String QUERY_BALANCE = "/api/subscriber-profile/v2/query-balance";
   public static final String VOUCHER_DETAIL = "/api/vs/v1/voucher-detail";
+  public static final String OSC_REFILL = "/api/vs/v1/osc-refill";
   public static final String VENDORS = "/api/vas-service/v1/loan/vendors";
   public static final String LOAN_SUMMARY = "/api/vas-service/v1/loan/summary";
   public static final String LOAN_DETAILS = "/api/vas-service/v1/loan/loan-details";

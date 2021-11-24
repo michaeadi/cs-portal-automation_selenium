@@ -98,4 +98,5 @@ public class CommonConstants {
     public static final String HYPHEN = "-";
     public static final String EMPTY_STRING = "";
     public static final String AGENT_DETAILS_RULE_SHEET = "cs.agent.details.rule.sheet";
+    public static final String RECHARGE = "recharge";
 }
