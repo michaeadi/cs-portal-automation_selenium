@@ -448,4 +448,12 @@ public class DADetails extends BasePage {
         return pageElements.daDetailWidgetIdentifier;
     }
 
+    /**
+     * This method is used to get Offers widget identifier
+     * @return String The value
+     */
+    public String getOfferWidgetIdentifier(){
+        return pageElements.displayOfferTitle;
+    }
+
 }

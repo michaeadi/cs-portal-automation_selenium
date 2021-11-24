@@ -796,4 +796,14 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.EnterprisePaymentHistoryTest"/>
         </classes>
     </test>
+    <test name="Open API Testing" preserve-order="true">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.api.openapi.OpenApiWihSelfCareTokenTest"/>
+        </classes>
+    </test>
 </suite>
