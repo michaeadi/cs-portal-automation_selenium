@@ -20,4 +20,7 @@ public class IssueDetails {
     private String placeHolder;
     private String fieldValue;
     private List<String> fieldOptions;
+    private boolean isAutoFilled;
+    private boolean editablePostFill;
+    private boolean editableOnError;
 }
