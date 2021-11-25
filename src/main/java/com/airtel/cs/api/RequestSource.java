@@ -79,6 +79,7 @@ import com.airtel.cs.model.request.ticketstats.TicketStatsRequest;
 import com.airtel.cs.model.request.ticketstats.TicketStatsTicketSearchCriteria;
 import com.airtel.cs.model.request.updateticket.CloseTicketRequest;
 import com.airtel.cs.model.response.PlanPackResponse;
+import io.restassured.response.Response;
 import com.airtel.cs.model.response.accountinfo.AccountDetails;
 import com.airtel.cs.model.response.accounts.AccountsBalance;
 import com.airtel.cs.model.response.accumulators.Accumulators;
@@ -2032,4 +2033,13 @@ public class RequestSource extends RestCommonUtils {
     }
 
 
+    /**
+     * This method is used to fetch v2 layout configuration based on request
+     * @param map
+     * @param body
+     */
+    public IssueLayoutRequest getV2LayoutConfiguration(List<Header> map, Object body) {
+        commonPostMethod(URIConstants.V2_LAYOUT_CONFIG, map, body, srBaseUrl);
+        return response.as(IssueLayoutRequest.class);
+    }
 }
