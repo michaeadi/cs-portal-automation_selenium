@@ -102,7 +102,7 @@ public class URIConstants {
     public static final String TICKETS_BY_AGENT = "/api/sr-service/v1/tickets/agent";
     public static final String TICKET_HISTORY = "/api/sr-service/v1/tickets";
     public static final String ASSIGN_TICKET = "/api/sr-service/v1/assign/ticket";
-
+    public static final String V2_LAYOUT_CONFIG = "/api/sr-service/v2/layout";
     private URIConstants() {
 
     }

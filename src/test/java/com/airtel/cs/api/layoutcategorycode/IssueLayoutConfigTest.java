@@ -5,8 +5,14 @@ import com.airtel.cs.common.prerequisite.ApiPrerequisites;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.dataproviders.databeans.NftrDataBeans;
 import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
+import com.airtel.cs.model.request.issue.IssueDetails;
 import com.airtel.cs.model.request.layout.IssueLayoutRequest;
+import com.airtel.cs.model.request.layout.V2LayoutRequest;
 import org.testng.annotations.Test;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 public class IssueLayoutConfigTest extends ApiPrerequisites {
 
@@ -101,4 +107,25 @@ public class IssueLayoutConfigTest extends ApiPrerequisites {
             commonLib.fail("Caught exception in Testcase - testLabelTextAreaSupportIssueLayout " + e.getMessage(), false);
         }
     }
+
+    @Test(priority = 5, description = "Validate API Response Test is Successful", groups = {"SanityTest", "RegressionTest","ProdTest"})
+    public void v2LayoutAPITest() {
+        try {
+            selUtils.addTestcaseDescription("Validate /v2/layout API ", "description");
+            String categoryID=constants.getValue(ApplicationConstants.CATEGORY_ID);
+            String actionKey=  constants.getValue(ApplicationConstants.ACTION_KEY);
+            String layoutConfigType =  constants.getValue(ApplicationConstants.LAYOUT_CONFIG_TYPE);
+            V2LayoutRequest objV2LayoutRequest=new V2LayoutRequest(categoryID,layoutConfigType,actionKey);
+            IssueLayoutRequest response=api.getV2LayoutConfiguration(validHeaderList,objV2LayoutRequest);
+            if(response.getStatusCode() == 200 && Objects.nonNull(response) && Objects.nonNull(response.getResult())){
+                List<IssueDetails> issueResponseList=response.getResult();
+                commonLib.pass("/v2/layout/API Pass with result: "+issueResponseList);
+            }
+            assertCheck.append(actions.assertEqualStringType(response.getStatus(), "200", "Status Code Matched", "API Response is not 200 as expected"));
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            commonLib.fail("Caught exception in Testcase - categoryLayoutTest " + e.getMessage(), false);
+        }
+    }
+
 }
