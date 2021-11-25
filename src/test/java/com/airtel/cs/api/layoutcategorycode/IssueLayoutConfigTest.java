@@ -121,6 +121,8 @@ public class IssueLayoutConfigTest extends ApiPrerequisites {
                 List<IssueDetails> issueResponseList=response.getResult();
                 commonLib.pass("/v2/layout/API Pass with result: "+issueResponseList);
             }
+            assertCheck.append(actions.assertEqualStringType(response.getStatus(), "200", "Status Code Matched", "API Response is not 200 as expected"));
+            actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - categoryLayoutTest " + e.getMessage(), false);
         }
