@@ -256,10 +256,14 @@ public class AccountInformationWidget extends BasePage {
                         Map<String, String> map = new HashMap<>();
                         for (String pair : keyValuePairs) {
                             String[] entry = pair.split(":");
-                            map.put(entry[0].trim(), entry[1].trim());
+                            if (entry.length >= 2) {
+                                map.put(entry[0].trim(), entry[1].trim());
+                            }
                         }
                         result = map.get(valueToSearch);
-                        break;
+                        if (Objects.nonNull(result)) {
+                            break;
+                        }
                     }
                 }
             }
