@@ -57,6 +57,7 @@ import com.airtel.cs.model.request.issue.CreateIssueRequest;
 import com.airtel.cs.model.request.issue.IssueDetails;
 import com.airtel.cs.model.request.issue.MetaInfo;
 import com.airtel.cs.model.request.issuehistory.IssueHistoryRequest;
+import com.airtel.cs.model.request.layout.AutofillConfigsResponse;
 import com.airtel.cs.model.request.layout.IssueLayoutRequest;
 import com.airtel.cs.model.request.login.LoginRequest;
 import com.airtel.cs.model.request.openapi.category.ChildCategoryOpenApiRequest;
@@ -168,6 +169,9 @@ public class RequestSource extends RestCommonUtils {
     private static final String MSISDN = "msisdn";
     private static final String MSISDN_CAPS = "MSISDN";
     private static final String TYPE = "type";
+    private static final String LAYOUT_CONFIG_TYPE = "layoutConfigType";
+    private static final String CATEGORY_ID = "categoryId";
+    private static final String INPUT_FIELDS = "inputFields";
     private static final String NUMBER = "number";
     private static final String ACCOUNT_NO = "accountNo";
     private static final String ACCOUNT_ID = "accountId";
@@ -296,6 +300,37 @@ public class RequestSource extends RestCommonUtils {
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - searchAPITest " + e.getMessage(), false);
             esbRequestSource.callServiceClassRatePlan(new GenericRequest(msisdn));
+        }
+        return myList;
+    }
+
+    /**
+     * Auto fill api test list.
+     *
+     * @param layoutConfigType the layout config type
+     * @param categoryId the category id
+     * @param inputFields the input fields
+     * @param msisdn
+     * @return the list
+     */
+    public List<String> autoFillAPITest(String layoutConfigType, String categoryId, String inputFields, String msisdn) {
+        String result;
+        List<String> myList = null;
+        try {
+            queryParam.put(LAYOUT_CONFIG_TYPE, layoutConfigType);
+            queryParam.put(CATEGORY_ID, categoryId);
+            queryParam.put(INPUT_FIELDS, inputFields);
+            baseUrl = srBaseUrl;
+            commonGetMethodWithQueryParam(URIConstants.AUTOFILL_ISSUE_FIELD, queryParam);
+            result = response.print();
+            myList = new ArrayList<>(Arrays.asList(result.split("data:")));
+        } catch (Exception e) {
+            queryParam.clear();
+            queryParam.put(CATEGORY_ID, categoryId);
+            commonGetMethodWithQueryParam(URIConstants.AUTOFILL_CONFIGS, queryParam);
+            AutofillConfigsResponse autofillConfigsResponse = response.as(AutofillConfigsResponse.class);
+            esbRequestSource.callWebhookApisForAutofill(autofillConfigsResponse.getResult(), msisdn);
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - autoFillAPITest " + e.getMessage(), false);
         }
         return myList;
     }

@@ -90,6 +90,11 @@ public class ApplicationConstants {
     public static final String ALTERNATE_EMAIL = "alternate.email";
     public static final String IS_SERVICE_CLS_ENABLED = "service.class.rate.plan.api.enabled";
     public static final String CURRENT_PLAN_API_CALL = "current.plan.api.call";
+    public static final String CATEGORY_ID="category.id";
+    public static final String LAYOUT_CONFIG_TYPE="layout.config.type";
+    public static final String ACTION_KEY="action.key";
+    public static final String POST_METHOD = "POST";
+    public static final String GET_METHOD = "GET";
 
     private ApplicationConstants() {
         throw new IllegalStateException();
