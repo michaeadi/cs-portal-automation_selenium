@@ -93,6 +93,8 @@ public class ApplicationConstants {
     public static final String CATEGORY_ID="category.id";
     public static final String LAYOUT_CONFIG_TYPE="layout.config.type";
     public static final String ACTION_KEY="action.key";
+    public static final String POST_METHOD = "POST";
+    public static final String GET_METHOD = "GET";
 
     private ApplicationConstants() {
         throw new IllegalStateException();
