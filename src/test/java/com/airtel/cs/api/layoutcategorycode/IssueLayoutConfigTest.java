@@ -3,6 +3,7 @@ package com.airtel.cs.api.layoutcategorycode;
 
 import com.airtel.cs.common.prerequisite.ApiPrerequisites;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
+import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.databeans.NftrDataBeans;
 import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
 import com.airtel.cs.model.request.issue.IssueDetails;
@@ -126,6 +127,22 @@ public class IssueLayoutConfigTest extends ApiPrerequisites {
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - categoryLayoutTest " + e.getMessage(), false);
         }
+    }
+
+    @Test(priority = 6, description = "Validate API Response Test is Successful", groups = { "SanityTest", "RegressionTest", "ProdTest" })
+    public void autoFillIssueFieldAPITest() {
+        try {
+            selUtils.addTestcaseDescription("Validate /v1/autofilled/layout API ", "description");
+            String layoutConfigType = constants.getValue(ApplicationConstants.LAYOUT_CONFIG_TYPE);
+            String categoryId = constants.getValue(ApplicationConstants.CATEGORY_ID);
+            String msisdn = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
+            String inputFields = MSISDN + CommonConstants.COLON + msisdn;
+            List<String> autoFillResponse = api.autoFillAPITest(layoutConfigType, categoryId, inputFields, msisdn);
+            assertCheck.append(actions.assertEqualStringNotNull(pages.getAccountInformationWidget().getValue(autoFillResponse, "isAutoFilled",  "fieldValue"),"autofill issue field test case pass", "autofill issue field test case fail", false));
+        } catch (Exception e) {
+            commonLib.fail("Caught exception in Testcase - autoFillIssueFieldAPITest " + e.getMessage(), false);
+        }
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
 }
