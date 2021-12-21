@@ -135,8 +135,9 @@ public class IssueLayoutConfigTest extends ApiPrerequisites {
             selUtils.addTestcaseDescription("Validate /v1/autofilled/layout API ", "description");
             String layoutConfigType = constants.getValue(ApplicationConstants.LAYOUT_CONFIG_TYPE);
             String categoryId = constants.getValue(ApplicationConstants.CATEGORY_ID);
-            String inputFields = MSISDN + CommonConstants.COLON + constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
-            List<String> autoFillResponse = api.autoFillAPITest(layoutConfigType, categoryId, inputFields);
+            String msisdn = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
+            String inputFields = MSISDN + CommonConstants.COLON + msisdn;
+            List<String> autoFillResponse = api.autoFillAPITest(layoutConfigType, categoryId, inputFields, msisdn);
             assertCheck.append(actions.assertEqualStringNotNull(pages.getAccountInformationWidget().getValue(autoFillResponse, "isAutoFilled",  "fieldValue"),"autofill issue field test case pass", "autofill issue field test case fail", false));
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - autoFillIssueFieldAPITest " + e.getMessage(), false);

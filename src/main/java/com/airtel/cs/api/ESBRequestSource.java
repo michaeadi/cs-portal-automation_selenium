@@ -20,6 +20,7 @@ import com.airtel.cs.model.request.StatementRequest;
 import com.airtel.cs.model.request.UsageHistoryMenuRequest;
 import com.airtel.cs.model.request.UsageHistoryRequest;
 import com.airtel.cs.model.request.UsageRequestV3DTO;
+import com.airtel.cs.model.request.layout.FieldsConfigDTO;
 import com.airtel.cs.model.response.CreditLimitResponse;
 import com.airtel.cs.model.response.InvoiceHistoryResponse;
 import com.airtel.cs.model.response.PaymentResponse;
@@ -29,6 +30,7 @@ import com.airtel.cs.model.response.customeprofile.CustomerProfileResponse;
 import com.airtel.cs.model.response.postpaid.AccountStatementResponse;
 import com.airtel.cs.model.response.postpaid.enterprise.AccountLinesResponse;
 import com.airtel.cs.model.response.serviceclassrateplan.ServiceClassRatePlanResponseDTO;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONObject;
 
@@ -37,6 +39,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -307,6 +310,33 @@ public class ESBRequestSource extends RestCommonUtils {
             checkDownstreamAPI(response.getStatusCode(), OSC_REFILL, "Downstream API osc refill working with data ");
         } catch (Exception e) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + OSC_REFILL + e.getMessage(), false);
+        }
+    }
+
+    /**
+     * Call webhook apis for autofill.
+     *
+     * @param fieldsConfigDTOS the fields config dtos
+     * @param msisdn the msisdn
+     */
+    public void callWebhookApisForAutofill(List<FieldsConfigDTO> fieldsConfigDTOS, String msisdn) {
+        try {
+            if (CollectionUtils.isNotEmpty(fieldsConfigDTOS)) {
+                for (FieldsConfigDTO fieldsConfigDTO : fieldsConfigDTOS) {
+                    commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + fieldsConfigDTO.getWebhookUrl(), JavaColors.GREEN, false);
+                    if (fieldsConfigDTO.getMethodType().equalsIgnoreCase(ApplicationConstants.POST_METHOD)) {
+                        GenericRequest genericRequest = new GenericRequest(msisdn);
+                        commonPostMethod(fieldsConfigDTO.getWebhookUrl(), genericRequest);
+                    } else if (fieldsConfigDTO.getMethodType().equalsIgnoreCase(ApplicationConstants.GET_METHOD)) {
+                        queryParam.clear();
+                        queryParam.put(MSISDN, msisdn);
+                        commonGetMethodWithQueryParam(fieldsConfigDTO.getWebhookUrl(), queryParam);
+                    }
+                    checkDownstreamAPI(response.getStatusCode(), fieldsConfigDTO.getWebhookUrl(), "Downstream Webhook API working with data ");
+                }
+            }
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + e.getMessage(), false);
         }
     }
 
