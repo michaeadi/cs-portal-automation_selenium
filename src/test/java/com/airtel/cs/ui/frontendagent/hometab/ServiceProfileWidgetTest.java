@@ -7,6 +7,8 @@ import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.databeans.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
+import com.airtel.cs.model.response.hlrservice.HLROrderHistoryRequest;
+import com.airtel.cs.model.response.hlrservice.HLROrderHistoryResponse;
 import com.airtel.cs.model.response.hlrservice.HLRService;
 import com.airtel.cs.pagerepository.pagemethods.ServiceClassWidget;
 import io.restassured.http.Headers;
@@ -340,6 +342,37 @@ public class ServiceProfileWidgetTest extends Driver {
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - changeServiceStatusTestToUNBarred" + e.fillInStackTrace(), true);
+        }
+    }
+
+    @Test(priority = 10, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    public void hlrOrderHistoryTest() {
+        try {
+            selUtils.addTestcaseDescription("Validate HLR Order History Test ", "description");
+            HLROrderHistoryRequest request = new HLROrderHistoryRequest();
+            request.setMsisdn(constants.getValue(ApplicationConstants.CUSTOMER_MSISDN));
+            request.setPageNumber(0);
+            request.setPageSize(10);
+            HLROrderHistoryResponse response = api.getHLROrderHistory(request);
+            final int statusCode = response.getStatusCode();
+            assertCheck.append(actions.assertEqualIntType(statusCode, 200, "HLR Order History API success and status code is :" + statusCode, "HLR Order History API got failed and status code is :" + statusCode, false));
+            final String status = response.getStatus();
+            final int pageNumber = response.getPageNumber();
+            final int pageSize = response.getPageSize();
+            final Integer totalCount = response.getTotalCount();
+            final int resultSize = response.getResult().size();
+            if (statusCode == 200) {
+                assertCheck.append(actions.assertEqualStringNotNull(status, "HLR Order History API status null check pass" , "HLR Order History API status null check fail"));
+                assertCheck.append(actions.assertEqualIntType(pageNumber, request.getPageNumber(), "HLR Order History API pageNumber is matched and pageNumber is : " + pageNumber, "HLR Order History API pageNumber is not matched and pageNumber is : " + pageNumber, false));
+                assertCheck.append(actions.assertEqualIntType(pageSize, request.getPageSize(), "HLR Order History API pageSize is matched and pageSize is : " + pageSize, "HLR Order History API pageSize is not matched and pageSize is : " + pageSize, false));
+                assertCheck.append(actions.assertEqualIntNotNull(totalCount, "HLR Order History API totalCount null check pass", "HLR Order History API totalCount null check fail"));
+                assertCheck.append(actions.assertEqualIntType(resultSize, request.getPageSize(), "HLR Order History API resultSize is matched and resultSize is : " + resultSize, "HLR Order History API resultSize is not matched and resultSize is : " + resultSize, false));
+            } else {
+                commonLib.fail("HLR Order History API Response is not 200", true);
+            }
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - hlrOrderHistoryTest " + e.fillInStackTrace(), true);
         }
     }
 }
