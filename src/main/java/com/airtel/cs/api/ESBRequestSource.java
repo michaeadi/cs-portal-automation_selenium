@@ -51,6 +51,7 @@ public class ESBRequestSource extends RestCommonUtils {
     private static final String MSISDN = "msisdn";
     private static final String ACCOUNT_NO = "accountNo";
     private static final String GSM_CUSTOMER_PROFILE_BASE_URL = "gsm.customer.profile.base.url";
+    private static final String CUSTOMER_STATUS_SERVICE_BASE_URL = "customer.status.service.base.url";
     private static final String VOUCHER_SERVICE_BASE_URL = "voucher.service.base.url";
     private static final String SUBS_TRANSACTION_SERVICE_BASE_URL = "subscriber.transaction.base.url";
     private static final String END_DATE = "endDate";
@@ -76,6 +77,7 @@ public class ESBRequestSource extends RestCommonUtils {
     private static final String RING_BACK_TONE_LIST = " - ring back tone list ";
     private static final String ACCUMULATOR_API = " - accumulatorAPI ";
     private static final String HLR_DETAILS = " - HLR DETAILS ";
+    private static final String HLR_ORDER_HISTORY = " - HLR ORDER HISTORY ";
     private static final String AVAILABLE_TARIFF_PLANS = " - available tariff plans ";
     private static final String CURRENT_TARIFF_PLANS = " - current tariff plans ";
     private static final String OFFER_DETAILS = " - offer details ";
@@ -427,6 +429,23 @@ public class ESBRequestSource extends RestCommonUtils {
             checkDownstreamAPI(response.getStatusCode(), HLR_DETAILS, "Downstream API accumulatorAPI working with data ");
         } catch (Exception e) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + HLR_DETAILS + e.getMessage(), false);
+        }
+    }
+
+    /**
+     * Call hlr order history.
+     *
+     * @param msisdn the msisdn
+     */
+    public void callHLROrderHistory(String msisdn) {
+        try {
+            commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + HLR_ORDER_HISTORY, JavaColors.GREEN, false);
+            queryParam.put(MSISDN, msisdn);
+            commonGetMethodWithQueryParam(constants.getValue(CUSTOMER_STATUS_SERVICE_BASE_URL) + ESBURIConstants.HLR_ORDER_HISTORY,
+                queryParam);
+            checkDownstreamAPI(response.getStatusCode(), HLR_ORDER_HISTORY, "Downstream API HLR Order History working with data ");
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + HLR_ORDER_HISTORY + e.getMessage(), false);
         }
     }
 

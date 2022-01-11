@@ -24,6 +24,7 @@ public class ESBURIConstants {
   public static final String RING_BACK_TONE_LIST = "/api/ring-back-tones/v1/ring-back-tone-list";
   public static final String GET_ACCUMULATORS = "/api/subscriber-profile/v1/get-accumulators";
   public static final String HLR_FETCH_DETAILS = "/ps/v1/hlr/fetch-details";
+  public static final String HLR_ORDER_HISTORY = "/customer-status/atomic/generic/search";
   public static final String TARIFF_AVAILABLE_PLANS = "/api/bundle-service/v1/tariff/available-plans";
   public static final String TARIFF_CURRENT_PLAN = "/api/bundle-service/v1/tariff/current-plan";
   public static final String OFFER_DETAILS = "/api/subscriber-product/v1/customer/service/getOffers";
