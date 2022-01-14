@@ -31,6 +31,7 @@ public class URIConstants {
     public static final String FETCH_TUNES = "/cs-vas-service/v1/fetch/tunes";
     public static final String ACCUMULATORS = "/cs-gsm-service/v1/accumulators";
     public static final String SERVICE_PROFILE = "/cs-gsm-service/v1/hlr/service/profiles";
+    public static final String HLR_ORDER_HISTORY_V1 = "/cs-gsm-service/v1/hlr/order/history";
     public static final String AUTH_USER = "/cs-service/api/cs-service/v1/auth/user";
     public static final String CONFIGURATIONS = "/cs-service/api/cs-service/v1/configurations";
     public static final String TARIFF_AVAILABLE_PLANS = "/cs-gsm-service/v1/tariff/available-plans";
