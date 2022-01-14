@@ -80,6 +80,8 @@ import com.airtel.cs.model.request.ticketstats.TicketStatsRequest;
 import com.airtel.cs.model.request.ticketstats.TicketStatsTicketSearchCriteria;
 import com.airtel.cs.model.request.updateticket.CloseTicketRequest;
 import com.airtel.cs.model.response.PlanPackResponse;
+import com.airtel.cs.model.response.hlrservice.HLROrderHistoryRequest;
+import com.airtel.cs.model.response.hlrservice.HLROrderHistoryResponse;
 import io.restassured.response.Response;
 import com.airtel.cs.model.response.accountinfo.AccountDetails;
 import com.airtel.cs.model.response.accounts.AccountsBalance;
@@ -832,6 +834,27 @@ public class RequestSource extends RestCommonUtils {
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getServiceProfileWidgetInfo " + e.getMessage(), false);
             esbRequestSource.callHLRFetchDetails(msisdn);
+        }
+        return result;
+    }
+
+    /**
+     * Gets hlr order history.
+     *
+     * @param request the request
+     * @return the hlr order history
+     */
+    public HLROrderHistoryResponse getHLROrderHistory(HLROrderHistoryRequest request) {
+        HLROrderHistoryResponse result = null;
+        try {
+            commonPostMethod(URIConstants.HLR_ORDER_HISTORY_V1, request);
+            result = response.as(HLROrderHistoryResponse.class);
+            if (result.getStatusCode() != 200) {
+                esbRequestSource.callHLROrderHistory(request.getMsisdn());
+            }
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getHLROrderHistory " + e.getMessage(), false);
+            esbRequestSource.callHLROrderHistory(request.getMsisdn());
         }
         return result;
     }
