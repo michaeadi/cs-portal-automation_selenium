@@ -1,9 +1,8 @@
 package com.airtel.cs.commonutils.restutils;
 
-import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
-import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.enums.JavaColors;
+import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.driver.Driver;
 import com.github.dzieciou.testing.curl.CurlRestAssuredConfigFactory;
 import com.google.gson.Gson;
@@ -93,15 +92,15 @@ public class RestCommonUtils extends Driver {
      * @param endPoint   send the endPoint
      * @param queryParam send query param used for API
      */
-    public static void commonGetMethodWithQueryParam(String endPoint, Map<String, Object> queryParam) {
+    public static void commonGetMethodWithQueryParam(String endPoint, Map<String, Object> queryParam, List<Header> headers) {
         try {
             RestAssuredConfig restAssuredConfig = CurlRestAssuredConfigFactory.createConfig();
             commonLib.infoColored(CALLING_CS_API_USING + " " + endPoint + " " + API_FOR_TESTING, JavaColors.BLUE, false);
             baseURI = baseUrl;
-            Headers headers = new Headers(validHeaderList);
+            Headers header = new Headers(headers);
             request = given()
                     .config(restAssuredConfig)
-                    .headers(headers)
+                    .headers(header)
                     .contentType(APPLICATION_JSON);
             commonLib.info("Query Param Map:-" + queryParam.toString());
             
