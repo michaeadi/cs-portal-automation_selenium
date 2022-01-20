@@ -205,6 +205,8 @@ public class RequestSource extends RestCommonUtils {
     private static final String CHANNEL = "channel";
     public static final String LINKED_ACCOUNT_ORCHESTRATOR = " - linked account orchestrator";
     public static final String CREATE_ISSUE = " - create issue";
+    public static final String SR_CLIENT_ID = "sr-client-id";
+
 
     /*
     This Method will hit the Available Plan API and returns the response
@@ -293,7 +295,7 @@ public class RequestSource extends RestCommonUtils {
         try {
             queryParam.put(TYPE, MSISDN_CAPS);
             queryParam.put(NUMBER, msisdn);
-            commonGetMethodWithQueryParam(URIConstants.SEARCH, queryParam);
+            commonGetMethodWithQueryParam(URIConstants.SEARCH, queryParam, map);
             result = response.print();
             if (response.getStatusCode() != 200) {
                 esbRequestSource.callServiceClassRatePlan(new GenericRequest(msisdn));
@@ -310,8 +312,8 @@ public class RequestSource extends RestCommonUtils {
      * Auto fill api test list.
      *
      * @param layoutConfigType the layout config type
-     * @param categoryId the category id
-     * @param inputFields the input fields
+     * @param categoryId       the category id
+     * @param inputFields      the input fields
      * @param msisdn
      * @return the list
      */
@@ -323,13 +325,13 @@ public class RequestSource extends RestCommonUtils {
             queryParam.put(CATEGORY_ID, categoryId);
             queryParam.put(INPUT_FIELDS, inputFields);
             baseUrl = srBaseUrl;
-            commonGetMethodWithQueryParam(URIConstants.AUTOFILL_ISSUE_FIELD, queryParam);
+            commonGetMethodWithQueryParam(URIConstants.AUTOFILL_ISSUE_FIELD, queryParam, validHeaderList);
             result = response.print();
             myList = new ArrayList<>(Arrays.asList(result.split("data:")));
         } catch (Exception e) {
             queryParam.clear();
             queryParam.put(CATEGORY_ID, categoryId);
-            commonGetMethodWithQueryParam(URIConstants.AUTOFILL_CONFIGS, queryParam);
+            commonGetMethodWithQueryParam(URIConstants.AUTOFILL_CONFIGS, queryParam, validHeaderList);
             AutofillConfigsResponse autofillConfigsResponse = response.as(AutofillConfigsResponse.class);
             esbRequestSource.callWebhookApisForAutofill(autofillConfigsResponse.getResult(), msisdn);
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - autoFillAPITest " + e.getMessage(), false);
@@ -369,7 +371,7 @@ public class RequestSource extends RestCommonUtils {
         try {
             queryParam.put(MSISDN, msisdn);
             queryParam.put("walletType", "Main");
-            commonGetMethodWithQueryParam(URIConstants.AM_PROFILE, queryParam);
+            commonGetMethodWithQueryParam(URIConstants.AM_PROFILE, queryParam, map);
             result = response.as(AMProfile.class);
             if (result.getStatusCode() != 200) {
                 esbRequestSource.callAmServiceProfileESBAPI(msisdn);
@@ -582,13 +584,13 @@ public class RequestSource extends RestCommonUtils {
                 commonPostMethod(constants.getValue(AM_TRANSACTION_HISTORY_API_URL) + ESBURIConstants.TRANSACTION_HISTORY, new TransactionHistoryRequest(msisdn, 5, 1, null, null));
                 commonLib.info(CALLING_ESB_APIS);
                 queryParam.put(MSISDN, msisdn);
-                commonGetMethodWithQueryParam(constants.getValue("gsm.customer.profile.base.url") + ESBURIConstants.QUERY_BALANCE, queryParam);
+                commonGetMethodWithQueryParam(constants.getValue("gsm.customer.profile.base.url") + ESBURIConstants.QUERY_BALANCE, queryParam, map);
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - balanceAPITest " + e.getMessage(), false);
             commonLib.info(CALLING_ESB_APIS);
             queryParam.put(MSISDN, msisdn);
-            commonGetMethodWithQueryParam(constants.getValue("gsm.customer.profile.base.url") + ESBURIConstants.QUERY_BALANCE, queryParam);
+            commonGetMethodWithQueryParam(constants.getValue("gsm.customer.profile.base.url") + ESBURIConstants.QUERY_BALANCE, queryParam, map);
         }
         return result;
     }
@@ -603,7 +605,7 @@ public class RequestSource extends RestCommonUtils {
         Ticket result = null;
         try {
             queryParam.put("id", ticketId);
-            commonGetMethodWithQueryParam(URIConstants.SR_FETCH_HISTORY, queryParam);
+            commonGetMethodWithQueryParam(URIConstants.SR_FETCH_HISTORY, queryParam, map);
             result = response.as(Ticket.class);
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - ticketMetaDataTest " + e.getMessage(), false);
@@ -784,7 +786,7 @@ public class RequestSource extends RestCommonUtils {
         ActivateRingtone result = null;
         try {
             queryParam.put(MSISDN, msisdn);
-            commonGetMethodWithQueryParam(URIConstants.FETCH_TUNES, queryParam);
+            commonGetMethodWithQueryParam(URIConstants.FETCH_TUNES, queryParam, map);
             result = response.as(ActivateRingtone.class);
             if (!"200".equals(result.getStatusCode())) {
                 esbRequestSource.callActiveRingTone(msisdn);
@@ -870,7 +872,7 @@ public class RequestSource extends RestCommonUtils {
         try {
             queryParam.put("keys", key);
             queryParam.put("opco", OPCO);
-            commonGetMethodWithQueryParam(URIConstants.CONFIGURATIONS, queryParam);
+            commonGetMethodWithQueryParam(URIConstants.CONFIGURATIONS, queryParam, map);
             result = response.as(Configuration.class);
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getConfiguration " + e.getMessage(), false);
@@ -1035,7 +1037,7 @@ public class RequestSource extends RestCommonUtils {
         List<String> myList = null;
         try {
             queryParam.put(MSISDN, msisdn);
-            commonGetMethodWithQueryParam(URIConstants.POSTPAID_ACCOUNT_INFORMATION, queryParam);
+            commonGetMethodWithQueryParam(URIConstants.POSTPAID_ACCOUNT_INFORMATION, queryParam, map);
             result = response.print();
             if (response.getStatusCode() != 200) {
                 esbRequestSource.callPostpaidAccountInformation(msisdn);
@@ -1061,7 +1063,7 @@ public class RequestSource extends RestCommonUtils {
         try {
             queryParam.clear();
             queryParam.put("actionKey", actionKey);
-            commonGetMethodWithQueryParam(URIConstants.GET_FIELD_MASK_CONFIG, queryParam);
+            commonGetMethodWithQueryParam(URIConstants.GET_FIELD_MASK_CONFIG, queryParam, map);
             fieldMaskConfigReponse = response.as(FieldMaskConfigReponse.class);
             if ("200".equals(fieldMaskConfigReponse.getStatusCode()) && Objects.nonNull(fieldMaskConfigReponse.getResult())) {
                 return fieldMaskConfigReponse.getResult();
@@ -1154,7 +1156,7 @@ public class RequestSource extends RestCommonUtils {
         List<String> myList = null;
         try {
             queryParam.put(MSISDN, msisdn);
-            commonGetMethodWithQueryParam(URIConstants.CURRENT_PLAN, queryParam);
+            commonGetMethodWithQueryParam(URIConstants.CURRENT_PLAN, queryParam, map);
             result = response.print();
             if (response.getStatusCode() != 200) {
                 esbRequestSource.callingPlanAPI(msisdn);
@@ -1218,7 +1220,7 @@ public class RequestSource extends RestCommonUtils {
         TreeMap<String, List<Category>> result = null;
         try {
             queryParam.put("id", id);
-            commonGetMethodWithQueryParam(URIConstants.GET_PARENT_CATEGORY_V1, queryParam);
+            commonGetMethodWithQueryParam(URIConstants.GET_PARENT_CATEGORY_V1, queryParam, map);
             parentCategoryResponse = response.as(ParentCategoryResponse.class);
             if (parentCategoryResponse.getStatusCode() == 200 && ObjectUtils.isNotEmpty(parentCategoryResponse.getResult())) {
                 result = parentCategoryResponse.getResult().entrySet().stream()
@@ -1261,7 +1263,7 @@ public class RequestSource extends RestCommonUtils {
         TicketHistoryLog result = null;
         try {
             queryParam.put("id", ticketId);
-            commonGetMethodWithQueryParam(URIConstants.TICKET_HISTORY_LOG, queryParam);
+            commonGetMethodWithQueryParam(URIConstants.TICKET_HISTORY_LOG, queryParam, map);
             result = response.as(TicketHistoryLog.class);
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getTicketHistoryLog " + e.getMessage(), false);
@@ -1496,7 +1498,7 @@ public class RequestSource extends RestCommonUtils {
 
     public TicketSearchByTicketIdOpenRequest ticketSearchByTicketIdOpenRequest(List<Header> map, String ticketId, Integer statusCode) {
         queryParam.put("id", ticketId);
-        commonGetMethodWithQueryParam(URIConstants.OPEN_API_FETCH_TICKET, queryParam);
+        commonGetMethodWithQueryParam(URIConstants.OPEN_API_FETCH_TICKET, queryParam, validHeaderList);
         return response.as(TicketSearchByTicketIdOpenRequest.class);
     }
 
@@ -1509,7 +1511,7 @@ public class RequestSource extends RestCommonUtils {
 
     public TicketHistoryLogOpenRequest ticketHistoryLogOpenRequest(List<Header> map, String ticketId, Integer statusCode) {
         queryParam.put("id", ticketId);
-        commonGetMethodWithQueryParam(URIConstants.OPEN_API_FETCH_TICKET_HISTORY_LOG, queryParam);
+        commonGetMethodWithQueryParam(URIConstants.OPEN_API_FETCH_TICKET_HISTORY_LOG, queryParam, validHeaderList);
         return response.as(TicketHistoryLogOpenRequest.class);
     }
 
@@ -1546,7 +1548,7 @@ public class RequestSource extends RestCommonUtils {
     public ParentCategoryOpenApiRequest parentCategoryOpenApiRequest(List<Header> map, String categoryId) {
         queryParam.put("id", categoryId);
         baseUrl = srBaseUrl;
-        commonGetMethodWithQueryParam(URIConstants.OPEN_API_PARENT_CATEGORY, queryParam);
+        commonGetMethodWithQueryParam(URIConstants.OPEN_API_PARENT_CATEGORY, queryParam, validHeaderList);
         return response.as(ParentCategoryOpenApiRequest.class);
     }
 
@@ -1566,7 +1568,7 @@ public class RequestSource extends RestCommonUtils {
 
     public TicketRequest getTicketDetailById(List<Header> map, String ticketId) {
         queryParam.put("id", ticketId);
-        commonGetMethodWithQueryParam(URIConstants.FETCH_TICKET, queryParam);
+        commonGetMethodWithQueryParam(URIConstants.FETCH_TICKET, queryParam, validHeaderList);
         return response.as(TicketRequest.class);
     }
 
@@ -1599,7 +1601,7 @@ public class RequestSource extends RestCommonUtils {
 
     public TicketHistoryLogRequest getTicketHistoryLog(List<Header> map, String ticketId, Integer statusCode) {
         queryParam.put("id", ticketId);
-        commonGetMethodWithQueryParam(URIConstants.FETCH_TICKET_HISTORY_LOG, queryParam);
+        commonGetMethodWithQueryParam(URIConstants.FETCH_TICKET_HISTORY_LOG, queryParam, validHeaderList);
         return response.as(TicketHistoryLogRequest.class);
     }
 
@@ -1635,7 +1637,7 @@ public class RequestSource extends RestCommonUtils {
 
     public CategoryHierarchyRequest getParentCategoryId(List<Header> map, Integer categoryId, Integer statusCode) {
         queryParam.put("id", String.valueOf(categoryId));
-        commonGetMethodWithQueryParam(URIConstants.PARENT_CATEGORY, queryParam);
+        commonGetMethodWithQueryParam(URIConstants.PARENT_CATEGORY, queryParam, validHeaderList);
         return response.as(CategoryHierarchyRequest.class);
     }
 
@@ -1875,22 +1877,22 @@ public class RequestSource extends RestCommonUtils {
 
     /**
      * This method will hit the api /cs-notification-service/v1/send/notification and return the response
+     *
      * @param templateIdentifier
      * @param body
-     * @param  languageCode
+     * @param languageCode
      * @param searchId
      * @param sendNotificationType
      * @param templateSourceApp
-     * @param  templateChannel,
-     * @param  receiverId
+     * @param templateChannel,
+     * @param receiverId
      * @return The response
      */
 
-    public NotificationServiceResponse getNotificationService(String templateIdentifier, String body, String languageCode, String searchId, String sendNotificationType, String templateSourceApp, String templateChannel, List<ReceiverId> receiverId)
-    {
+    public NotificationServiceResponse getNotificationService(String templateIdentifier, String body, String languageCode, String searchId, String sendNotificationType, String templateSourceApp, String templateChannel, List<ReceiverId> receiverId) {
         NotificationServiceResponse result = null;
         try {
-            commonPostMethod(URIConstants.NOTIFICATION_SERVICE_API, new NotificationServiceRequest(templateIdentifier,body,languageCode,searchId,sendNotificationType,templateSourceApp,templateChannel,receiverId));
+            commonPostMethod(URIConstants.NOTIFICATION_SERVICE_API, new NotificationServiceRequest(templateIdentifier, body, languageCode, searchId, sendNotificationType, templateSourceApp, templateChannel, receiverId));
             result = response.as(NotificationServiceResponse.class);
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + NOTIFICATION_SERVICE_API + e.getMessage(), false);
@@ -1909,7 +1911,7 @@ public class RequestSource extends RestCommonUtils {
         Integer statusCode = null;
         try {
             queryParam.put(ACCOUNT_NO, accountNo);
-            commonGetMethodWithQueryParam(URIConstants.ENTERPRISE_POSTPAID_ACCOUNT_INFORMATION, queryParam);
+            commonGetMethodWithQueryParam(URIConstants.ENTERPRISE_POSTPAID_ACCOUNT_INFORMATION, queryParam, map);
             statusCode = response.getStatusCode();
             if (response.getStatusCode() != 200) {
                 esbRequestSource.callEnterPrisePostpaidAccountInformation(accountNo, paymentRequest);
@@ -1934,7 +1936,7 @@ public class RequestSource extends RestCommonUtils {
         try {
             queryParam.put("type", type);
             queryParam.put("val", val);
-            commonGetMethodWithQueryParam(URIConstants.ENTERPRISE_ACCOUNT_SEARCH, queryParam);
+            commonGetMethodWithQueryParam(URIConstants.ENTERPRISE_ACCOUNT_SEARCH, queryParam, map);
             statusCode = response.getStatusCode();
             result = response.as(EnterpriseAccountSearchResponse.class);
             if (response.getStatusCode() != 200 || result.getStatusCode() != 200) {
@@ -1989,13 +1991,13 @@ public class RequestSource extends RestCommonUtils {
         try {
             Map<String, String> clientInfo = new HashMap<>();
             clientInfo.put(ACCOUNT_ID, accountNo);
-            UtilsMethods.replaceHeader("sr-client-id", constants.getValue(ApplicationConstants.ENTERPRISE_SR_CLIENT_ID));
+            UtilsMethods.replaceHeader(SR_CLIENT_ID, constants.getValue(ApplicationConstants.ENTERPRISE_SR_CLIENT_ID));
             commonPostMethod(URIConstants.EVENTS_LOG, new ActionTrailRequest("", eventType, 10, 0, clientInfo));
             statusCode = response.getStatusCode();
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getEnterpriseEventHistory " + e.getMessage(), false);
         } finally {
-            UtilsMethods.replaceHeader("sr-client-id", constants.getValue(ApplicationConstants.SR_CLIENT_ID));
+            UtilsMethods.replaceHeader(SR_CLIENT_ID, constants.getValue(ApplicationConstants.SR_CLIENT_ID));
         }
         return statusCode;
     }
@@ -2011,13 +2013,13 @@ public class RequestSource extends RestCommonUtils {
         try {
             Map<String, String> clientInfo = new HashMap<>();
             clientInfo.put(ACCOUNT_ID, accountNo);
-            UtilsMethods.replaceHeader("sr-client-id", constants.getValue(ApplicationConstants.ENTERPRISE_SR_CLIENT_ID));
+            UtilsMethods.replaceHeader(SR_CLIENT_ID, constants.getValue(ApplicationConstants.ENTERPRISE_SR_CLIENT_ID));
             commonPostMethod(URIConstants.ENTERPRISE_INTERACTION_HISTORY, new InteractionHistoryRequest(clientInfo, 0, 10));
             statusCode = response.getStatusCode();
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getEnterpriseInteractionHistory " + e.getMessage(), false);
         } finally {
-            UtilsMethods.replaceHeader("sr-client-id", constants.getValue(ApplicationConstants.SR_CLIENT_ID));
+            UtilsMethods.replaceHeader(SR_CLIENT_ID, constants.getValue(ApplicationConstants.SR_CLIENT_ID));
         }
         return statusCode;
     }
@@ -2034,13 +2036,13 @@ public class RequestSource extends RestCommonUtils {
             Map<String, String> clientInfo = new HashMap<>();
             clientInfo.put(ACCOUNT_ID, accountNo);
             TicketSearchRequest ticketSearchRequest = new TicketSearchRequest(new TicketSearchCriteria(clientInfo));
-            UtilsMethods.replaceHeader("sr-client-id", constants.getValue(ApplicationConstants.ENTERPRISE_SR_CLIENT_ID));
+            UtilsMethods.replaceHeader(SR_CLIENT_ID, constants.getValue(ApplicationConstants.ENTERPRISE_SR_CLIENT_ID));
             commonPostMethod(URIConstants.GET_TICKET_HISTORY_V1, ticketSearchRequest);
             statusCode = response.getStatusCode();
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getEnterpriseTicketHistory " + e.getMessage(), false);
         } finally {
-            UtilsMethods.replaceHeader("sr-client-id", constants.getValue(ApplicationConstants.SR_CLIENT_ID));
+            UtilsMethods.replaceHeader(SR_CLIENT_ID, constants.getValue(ApplicationConstants.SR_CLIENT_ID));
         }
         return statusCode;
     }
@@ -2054,13 +2056,13 @@ public class RequestSource extends RestCommonUtils {
     public Integer getEnterpriseMessageHistory(String accountNo) {
         Integer statusCode = null;
         try {
-            UtilsMethods.replaceHeader("sr-client-id", constants.getValue(ApplicationConstants.ENTERPRISE_SR_CLIENT_ID));
+            UtilsMethods.replaceHeader(SR_CLIENT_ID, constants.getValue(ApplicationConstants.ENTERPRISE_SR_CLIENT_ID));
             commonPostMethod(URIConstants.NOTIFICATION_FETCH_HISTORY, new SMSHistoryRequest(accountNo, 10, 0));
             statusCode = response.getStatusCode();
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getEnterpriseMessageHistory " + e.getMessage(), false);
         } finally {
-            UtilsMethods.replaceHeader("sr-client-id", constants.getValue(ApplicationConstants.SR_CLIENT_ID));
+            UtilsMethods.replaceHeader(SR_CLIENT_ID, constants.getValue(ApplicationConstants.SR_CLIENT_ID));
         }
         return statusCode;
     }
@@ -2075,7 +2077,7 @@ public class RequestSource extends RestCommonUtils {
     public Integer getEnterprisePaymentHistory(PaymentHistoryRequest paymentHistoryRequest, PaymentHistoryESBRequest paymentHistoryESBRequest) {
         Integer statusCode = null;
         try {
-            UtilsMethods.replaceHeader("sr-client-id", constants.getValue(ApplicationConstants.ENTERPRISE_SR_CLIENT_ID));
+            UtilsMethods.replaceHeader(SR_CLIENT_ID, constants.getValue(ApplicationConstants.ENTERPRISE_SR_CLIENT_ID));
             commonPostMethod(URIConstants.ENTERPRISE_PAYMENT_HISTORY, paymentHistoryRequest);
             statusCode = response.getStatusCode();
             if (response.getStatusCode() != 200) {
@@ -2085,7 +2087,7 @@ public class RequestSource extends RestCommonUtils {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getEnterprisePaymentHistory " + e.getMessage(), false);
             esbRequestSource.callEnterPrisePaymentHistory(paymentHistoryESBRequest);
         } finally {
-            UtilsMethods.replaceHeader("sr-client-id", constants.getValue(ApplicationConstants.SR_CLIENT_ID));
+            UtilsMethods.replaceHeader(SR_CLIENT_ID, constants.getValue(ApplicationConstants.SR_CLIENT_ID));
         }
         return statusCode;
     }
@@ -2093,8 +2095,9 @@ public class RequestSource extends RestCommonUtils {
 
     /**
      * This method is used to fetch v2 layout configuration based on request
-     * @param map
-     * @param body
+     *
+     * @param map  the header
+     * @param body the request body
      */
     public IssueLayoutRequest getV2LayoutConfiguration(List<Header> map, Object body) {
         commonPostMethod(URIConstants.V2_LAYOUT_CONFIG, map, body, srBaseUrl);
