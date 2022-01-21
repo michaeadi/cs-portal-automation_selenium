@@ -108,9 +108,10 @@ public class ESBRequestSource extends RestCommonUtils {
     private static final String ENTERPRISE_SEARCH = " -enterprise account search ";
     public static final String ENTERPRISE_ACCOUNT_NUMBER = "enterpriseAccountNumber";
     public static final String CORPORATE_CUSTOMER_NUMBER = "corporateCustomerNumber";
-    public static final String AM_PROFILE_DETAILS = " -am profile and wallet deatils";
     public static final String ENTERPRISE_PAYMENT_HISTORY = "-enterprise payment history";
-    private Object CustomerProfileResponse;
+    public static final String POSTPAID_ENTERPRISE_SERVICE_BASE_URL = "postpaid.enterprise.serice.base.url";
+    public static final String GETTING_SERVICE_CLASS_FROM_ESB = "getting Service Class from ESB";
+    public static final String UNABLE_TO_FETCH_SERVICE_CLASS_FROM_ESB = "unable to fetch service class from ESB";
 
 
     /**
@@ -213,7 +214,6 @@ public class ESBRequestSource extends RestCommonUtils {
      * Call service class rate plan service class rate plan response dto.
      *
      * @param genericRequest the generic request
-     * @return the service class rate plan response dto
      */
     public void callServiceClassRatePlan(GenericRequest genericRequest) {
         ServiceClassRatePlanResponseDTO serviceClassRatePlanResponseDTO = null;
@@ -223,15 +223,15 @@ public class ESBRequestSource extends RestCommonUtils {
             serviceClassRatePlanResponseDTO = response.as(ServiceClassRatePlanResponseDTO.class);
             checkDownstreamAPI(response.getStatusCode(), SERVICE_CLASS_RATE_PLAN, "Downstream API service class rate plan working with data ");
             if (response.getStatusCode() == 200 && Objects.nonNull(serviceClassRatePlanResponseDTO) && Objects.nonNull(serviceClassRatePlanResponseDTO.getResponse())) {
-                if (Boolean.valueOf(constants.getValue(ApplicationConstants.IS_SERVICE_CLS_ENABLED))) {
-                    assertCheck.append(actions.assertEqualStringNotNull(serviceClassRatePlanResponseDTO.getResponse().getServiceClass(), "getting Service Class from ESB", "unable to fetch service class from ESB", false));
+                if (Boolean.parseBoolean(constants.getValue(ApplicationConstants.IS_SERVICE_CLS_ENABLED))) {
+                    assertCheck.append(actions.assertEqualStringNotNull(serviceClassRatePlanResponseDTO.getResponse().getServiceClass(), GETTING_SERVICE_CLASS_FROM_ESB, UNABLE_TO_FETCH_SERVICE_CLASS_FROM_ESB, false));
                     assertCheck.append(actions.assertEqualStringNotNull(serviceClassRatePlanResponseDTO.getResponse().getRatePlanName(), "getting rate plan from ESB", "unable to fetch rate plan from ESB", false));
                 } else {
-                    if (Boolean.valueOf(constants.getValue(ApplicationConstants.CURRENT_PLAN_API_CALL)) && "NG".equalsIgnoreCase(OPCO)) {
-                        assertCheck.append(actions.assertEqualStringNotNull(serviceClassRatePlanResponseDTO.getResponse().getServiceClass(), "getting Service Class from ESB", "unable to fetch service class from ESB", false));
+                    if (Boolean.parseBoolean(constants.getValue(ApplicationConstants.CURRENT_PLAN_API_CALL)) && "NG".equalsIgnoreCase(OPCO)) {
+                        assertCheck.append(actions.assertEqualStringNotNull(serviceClassRatePlanResponseDTO.getResponse().getServiceClass(), GETTING_SERVICE_CLASS_FROM_ESB, UNABLE_TO_FETCH_SERVICE_CLASS_FROM_ESB, false));
                         assertCheck.append(actions.assertEqualStringNotNull(serviceClassRatePlanResponseDTO.getResponse().getRatePlanName(), "getting rate plan from ESB", "unable to fetch rate plan from ESB", false));
                     } else {
-                        assertCheck.append(actions.assertEqualStringNotNull(serviceClassRatePlanResponseDTO.getResponse().getServiceClass(), "getting Service Class from ESB", "unable to fetch service class from ESB", false));
+                        assertCheck.append(actions.assertEqualStringNotNull(serviceClassRatePlanResponseDTO.getResponse().getServiceClass(), GETTING_SERVICE_CLASS_FROM_ESB, UNABLE_TO_FETCH_SERVICE_CLASS_FROM_ESB, false));
                     }
                 }
             }
@@ -288,7 +288,7 @@ public class ESBRequestSource extends RestCommonUtils {
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + VOUCHER_DETAILS, JavaColors.GREEN, false);
             if (StringUtils.isNotBlank(voucherId)) {
                 queryParam.put("serial_number", voucherId);
-                commonGetMethodWithQueryParam(constants.getValue("voucher.service.base.url") + ESBURIConstants.VOUCHER_DETAIL, queryParam, map);
+                commonGetMethodWithQueryParam(constants.getValue(VOUCHER_SERVICE_BASE_URL) + ESBURIConstants.VOUCHER_DETAIL, queryParam, map);
             }
             checkDownstreamAPI(response.getStatusCode(), VOUCHER_DETAILS, "Downstream API voucher details working with data ");
         } catch (Exception e) {
@@ -487,7 +487,7 @@ public class ESBRequestSource extends RestCommonUtils {
     public void callOfferDetailsAPI(OfferDetailRequest offerDetailRequest) {
         try {
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + OFFER_DETAILS, JavaColors.GREEN, false);
-            commonPostMethod(constants.getValue("subscriber.product.base.url") + ESBURIConstants.OFFER_DETAILS, offerDetailRequest);
+            commonPostMethod(constants.getValue(SUBSCRIBER_PRODUCT_BASE_URL) + ESBURIConstants.OFFER_DETAILS, offerDetailRequest);
             checkDownstreamAPI(response.getStatusCode(), OFFER_DETAILS, "Downstream API offer details working with data ");
         } catch (Exception e) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + OFFER_DETAILS + e.getMessage(), false);
@@ -502,7 +502,7 @@ public class ESBRequestSource extends RestCommonUtils {
     public void callFriensFamilyAPI(GenericRequest genericRequest) {
         try {
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + FRIENDS_AND_FAMILY_DETAILS, JavaColors.GREEN, false);
-            commonPostMethod(constants.getValue("subscriber.product.base.url") + ESBURIConstants.FRIENDS_FAMILY, genericRequest);
+            commonPostMethod(constants.getValue(SUBSCRIBER_PRODUCT_BASE_URL) + ESBURIConstants.FRIENDS_FAMILY, genericRequest);
             checkDownstreamAPI(response.getStatusCode(), FRIENDS_AND_FAMILY_DETAILS, "Downstream API friends and family details working with data ");
         } catch (Exception e) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + FRIENDS_AND_FAMILY_DETAILS + e.getMessage(), false);
@@ -885,7 +885,7 @@ public class ESBRequestSource extends RestCommonUtils {
     public void callPostpaidAccountInfoDetails(AccountDetailRequest accountDetailRequest) {
         try {
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + ACCOUNT_DETAILS, JavaColors.GREEN, false);
-            commonPostMethod(constants.getValue("postpaid.enterprise.serice.base.url") + ESBURIConstants.POSTPAID_ACCOUNT_DETAILS, accountDetailRequest);
+            commonPostMethod(constants.getValue(POSTPAID_ENTERPRISE_SERVICE_BASE_URL) + ESBURIConstants.POSTPAID_ACCOUNT_DETAILS, accountDetailRequest);
             checkDownstreamAPI(response.getStatusCode(), ACCOUNT_DETAILS, "Downstream API account details working with data ");
         } catch (Exception e) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_CALLING) + ACCOUNT_DETAILS + e.getMessage(), false);
@@ -919,7 +919,7 @@ public class ESBRequestSource extends RestCommonUtils {
         try {
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + LINKED_ACCOUNT_ORCHESTRATOR, JavaColors.GREEN, false);
             queryParam.put("channel", channel);
-            queryParam.put("msisdn", msisdn);
+            queryParam.put(MSISDN, msisdn);
             commonGetMethodWithQueryParam(constants.getValue("hbb.linked.account.orchestrator.base.url") + ESBURIConstants.HBB_LINKED_ACCOUNT_DETAILS, queryParam, map);
             checkDownstreamAPI(response.getStatusCode(), LINKED_ACCOUNT_ORCHESTRATOR, "Downstream API for hbb linked accounts orchestrator working fine with data ");
         } catch (Exception e) {
@@ -930,8 +930,8 @@ public class ESBRequestSource extends RestCommonUtils {
     /**
      * This Method will hit the Downstream APIs related to enterprise search account
      *
-     * @param type
-     * @param number
+     * @param type   the number type
+     * @param number the number
      */
     public void callEnterPriseSearchAccount(String type, String number) {
         try {
@@ -964,19 +964,19 @@ public class ESBRequestSource extends RestCommonUtils {
      * This Method will hit the Downstream APIs related to enterprise postpaid account info
      *
      * @param accountNo      The msisdn
-     * @param paymentRequest
+     * @param paymentRequest the payment request
      */
     public void callEnterPrisePostpaidAccountInformation(String accountNo, PaymentRequest paymentRequest) {
         try {
 
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + INVOICE_HISTORY, JavaColors.GREEN, false);
             queryParam.put(ACCOUNT_NO, accountNo);
-            commonPostMethod(constants.getValue("postpaid.enterprise.serice.base.url") + ESBURIConstants.ENTERPRISE_INVOICE_HISTORY,
+            commonPostMethod(constants.getValue(POSTPAID_ENTERPRISE_SERVICE_BASE_URL) + ESBURIConstants.ENTERPRISE_INVOICE_HISTORY,
                     new InvoiceDetailRequest(accountNo));
             checkDownstreamAPI(response.getStatusCode(), INVOICE_HISTORY, "Downstream API invoice history working with data ");
 
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + ACCOUNT_PAYMENTS, JavaColors.GREEN, false);
-            commonPostMethod(constants.getValue("postpaid.enterprise.serice.base.url") + ESBURIConstants.ACCOUNT_PAYMENT,
+            commonPostMethod(constants.getValue(POSTPAID_ENTERPRISE_SERVICE_BASE_URL) + ESBURIConstants.ACCOUNT_PAYMENT,
                     paymentRequest);
             checkDownstreamAPI(response.getStatusCode(), ACCOUNT_PAYMENTS, "Downstream API account payments with data ");
 
@@ -990,13 +990,13 @@ public class ESBRequestSource extends RestCommonUtils {
     /**
      * This Method will hit the Downstream APIs related to enterprise linked services details
      *
-     * @param accountLinesRequest
+     * @param accountLinesRequest the account lines request
      */
     public void callEnterPrisePostpaidAccountInformation(AccountLinesRequest accountLinesRequest) {
         try {
 
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + ENTERPRISE_ACCOUNT_LINES, JavaColors.GREEN, false);
-            commonPostMethod(constants.getValue("postpaid.enterprise.serice.base.url") + ESBURIConstants.ENTERPRISE_ACCOUNT_LINES,
+            commonPostMethod(constants.getValue(POSTPAID_ENTERPRISE_SERVICE_BASE_URL) + ESBURIConstants.ENTERPRISE_ACCOUNT_LINES,
                     accountLinesRequest);
             checkDownstreamAPI(response.getStatusCode(), ENTERPRISE_ACCOUNT_LINES,
                     "Downstream API enterprise account lines working with data ");
@@ -1010,13 +1010,13 @@ public class ESBRequestSource extends RestCommonUtils {
     /**
      * This Method will hit the Downstream APIs related to enterprise payment history detail
      *
-     * @param paymentHistoryESBRequest
+     * @param paymentHistoryESBRequest the payment history esb request
      */
     public void callEnterPrisePaymentHistory(PaymentHistoryESBRequest paymentHistoryESBRequest) {
         try {
 
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + ENTERPRISE_PAYMENT_HISTORY, JavaColors.GREEN, false);
-            commonPostMethod(constants.getValue("postpaid.enterprise.serice.base.url") + ESBURIConstants.ENTERPRISE_PAYMENT_HISTORY,
+            commonPostMethod(constants.getValue(POSTPAID_ENTERPRISE_SERVICE_BASE_URL) + ESBURIConstants.ENTERPRISE_PAYMENT_HISTORY,
                     paymentHistoryESBRequest);
             checkDownstreamAPI(response.getStatusCode(), ENTERPRISE_ACCOUNT_LINES,
                     "Downstream API enterprise payment history working with data ");
