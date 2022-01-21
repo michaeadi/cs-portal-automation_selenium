@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.airtel.cs.commonutils.utils.UtilsMethods.stringNotNull;
+import static java.lang.Long.parseLong;
 
 @Log4j2
 public class DemoGraphicWidgetMsisdnTest extends Driver {
@@ -266,7 +267,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
             assertCheck.append(actions.assertEqualStringType(gsmStatus.toLowerCase().trim(), kycProfile.getResult().getStatus().toLowerCase().trim(), "Customer's SIM Status is as Expected", "Customer's SIM Status is not as Expected"));
             if (!gsmStatus.contains("Unable to fetch data")) {
                 pages.getDemoGraphicPage().hoverOnSIMStatusInfoIcon();
-                assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getActivationDate().trim(), UtilsMethods.getDateFromEpoch(Long.parseLong(kycProfile.getResult().getActivationDate()), "dd-MMM-yyy"),
+                assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getActivationDate().trim(), kycProfile.getResult().getActivationDate(),
                         "Customer's Activation Date is as Expected", "Customer's Activation Date is not as Expected"));
                 assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getGSMStatusReasonCode().trim().toLowerCase(),
                         pages.getDemoGraphicPage().getKeyValueAPI(kycProfile.getResult().getReason()), "Customer SIM Status Reason is as Expected",
@@ -364,8 +365,8 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
                     pages.getDemoGraphicPage().getKeyValueAPI(kycProfile.getResult().getSegment().toLowerCase().trim()), "Customer Segment as expected", "Customer Segment as not expected"));
             if (!segment.contains("Unable to fetch data")) {
                 pages.getDemoGraphicPage().hoverOnSegmentInfoIcon();
-                assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getSubSegment(), pages.getDemoGraphicPage().getKeyValueAPI(kycProfile.getResult().getSubSegment()), "Customer Sub Segment as expected",
-                        "Customer Sub Segment as not expected"));
+                assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getSubSegment().toLowerCase().trim(), pages.getDemoGraphicPage().getKeyValueAPI(kycProfile.getResult().getSubSegment().toLowerCase().trim()), "Customer Sub Segment as expected", "Customer Sub Segment as not expected")
+                );
                 final String serviceCategory = pages.getDemoGraphicPage().getServiceCategory();
                 assertCheck.append(actions.assertEqualStringType(serviceCategory.toLowerCase().trim(),
                         pages.getDemoGraphicPage().getKeyValueAPI(kycProfile.getResult().getServiceCategory()), "Customer Service Category as expected",
