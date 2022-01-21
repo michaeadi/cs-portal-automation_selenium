@@ -21,7 +21,7 @@ import java.util.Map;
 public class AuthTabTest extends Driver {
 
     RequestSource api = new RequestSource();
-    Map<String, String> authTabConfig;
+    Map<String, Object> authTabConfig;
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
