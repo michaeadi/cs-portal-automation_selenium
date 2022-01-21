@@ -334,7 +334,7 @@ public class AuthTab extends BasePage {
                     if (isAuthenticated == Boolean.parseBoolean(at.getIsAuth()) && ls.getIsAuthenticated() == Boolean.parseBoolean(at.getIsAuth()) ) {
                             commonLib.pass("Action Verified " + at.getActionTagName());
                     } else {
-                        commonLib.fail(ls.getKey() + " Action is not locked over UI but as per excle configuration Action must be locked.", true);
+                        commonLib.fail(ls.getKey() + "Action does not locked but as per config Action must be locked.", true);
                         break;
                     }
             }
