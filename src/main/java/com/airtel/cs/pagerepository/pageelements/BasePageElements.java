@@ -9,5 +9,4 @@ public class BasePageElements {
     public By home = By.xpath("//*[text()='HOME']");
     public By toastMessage = By.xpath("//app-toast-component/p");
     public String spanText = "//span[contains(text(),'";
-    public By blankArea=By.xpath("//body");
 }
