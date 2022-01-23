@@ -31,4 +31,5 @@ public class CRBTWidgetPage {
     public String dataColumns="]//div[@class='card__card-header--card-body--table--data-list row-border']//div[";
 
     public String crbtWidgetIdentifier="//div[@data-csautomation-key='RING_BACK_TUNE']";
+    public By actionTab =By.xpath("//div[@data-csautomation-key='RING_BACK_TUNE']//div[@class='mat-tab-body-wrapper']//div[@class='quick-action-header ng-star-inserted']");
 }

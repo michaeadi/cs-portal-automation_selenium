@@ -269,4 +269,14 @@ public class CRBTWidget extends BasePage {
         return pageElements.crbtWidgetIdentifier;
     }
 
+    /**
+     * This method is use to check my Action tab IN Top 20 Tunes is visible or not
+     * @return true/false
+     */
+    public boolean isActionTabVisible() {
+        final boolean state = isEnabled(pageElements.actionTab);
+        commonLib.info("Is Action Tab Displayed : " + state);
+        return state;
+    }
+
 }
