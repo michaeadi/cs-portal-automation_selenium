@@ -743,5 +743,4 @@ public class BasePage extends Driver {
         js.executeScript(script);
         getDriver().manage().logs().get(LogType.PERFORMANCE).getAll();
     }
-
 }
