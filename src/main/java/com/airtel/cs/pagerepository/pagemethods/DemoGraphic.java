@@ -753,7 +753,4 @@ public class DemoGraphic extends BasePage {
     public void clickFEDashboardOutside() {
         clickWithoutLoader(pageElements.dashboardBody);
     }
-
-
-
 }
