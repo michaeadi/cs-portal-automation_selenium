@@ -155,9 +155,10 @@ public class CRBTWidgetTest extends Driver {
                 commonLib.fail("API Response " + searchTune.getMessage(), true);
                 assertCheck.append(actions.assertEqualBoolean(pages.getCrbtWidgetPage().isWidgetError(), true, "Widget Error displayed as API response is not 200", "Widget Error does not display as api response is not 200."));
             } else if (searchTune.getTotalCount() > 0) {
-                for (int i = 0; i < data.getHeaderName().size(); i++) {
+                for (int i = 0; i < data.getHeaderName().size()-1; i++) {
                     assertCheck.append(actions.matchUiAndAPIResponse(pages.getCrbtWidgetPage().getSearchHeader(i + 1), data.getHeaderName().get(i), "Header Name for Search tab is On Column " + (i + 1) + " is as expected", "Header Name for Search tab is On Column " + (i + 1) + " is not as expected"));
                 }
+                assertCheck.append(actions.assertEqualBoolean(pages.getCrbtWidgetPage().isActionTabVisible(), true, "Action tab is visible in the header", "Action tab is visible in the header "));
                 int size = Math.min(searchTune.getTotalCount(), 5);
                 for (int i = 0; i < size; i++) {
                     assertCheck.append(actions.assertEqualStringType(pages.getCrbtWidgetPage().getValueSearch(i + 1, 1).replaceAll("\n", " "), (searchTune.getResult().get(i).getName() + " " + searchTune.getResult().get(i).getSinger()), "Name is same as expected in CS API response", "Name is not same as expected in CS API response"));
