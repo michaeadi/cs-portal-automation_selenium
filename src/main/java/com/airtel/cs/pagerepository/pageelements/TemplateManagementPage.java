@@ -13,6 +13,7 @@ public class TemplateManagementPage {
     public By roleLabel = By.xpath("//label[contains(text(),'Role')]");
     public By agentChannelLabel = By.xpath("//label[contains(text(),'Agents Channel')]");
     public By smsLanguageLabel = By.xpath("//label[contains(text(),'SMS Language')]");
+    public By emailLanguageLabel=By.xpath("//label[contains(text(),'EMAIL Language')]");
     public By smsContentLabel = By.xpath("//label[contains(text(),'SMS Content')]");
     public By selectedLanguages = By.xpath("//mat-tab-group[@class='teatarea mat-tab-group mat-primary ng-star-inserted']//div[@class='mat-tab-label-container']//div[@role='tab']");
 
@@ -34,4 +35,8 @@ public class TemplateManagementPage {
 
     public By message = By.xpath("//mat-dialog-container[@role='dialog']//app-template-modal//div//div//p");
     public String categoryName="//div[@class='sms-managment__card-list--card--content-area--content ng-star-inserted']//div[@class=sms-managment__card-list--card--content-area--content--sms-card ng-star-inserted][";
+    public By checkBox=By.xpath("//div[@class='customer-checkbox']//label[@class='ng-star-inserted']");
+    public By smsCheckBox=By.xpath("//label[contains(text(),'SMS')]//input[@type='checkbox']");
+    public By emailCheckBox=By.xpath("//label[contains(text(),'EMAIL')]//input[@type='checkbox']");
+
 }
