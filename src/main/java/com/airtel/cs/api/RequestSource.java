@@ -293,6 +293,7 @@ public class RequestSource extends RestCommonUtils {
         String result;
         List<String> myList = null;
         try {
+            queryParam.clear();
             queryParam.put(TYPE, MSISDN_CAPS);
             queryParam.put(NUMBER, msisdn);
             commonGetMethodWithQueryParam(URIConstants.SEARCH, queryParam, map);
