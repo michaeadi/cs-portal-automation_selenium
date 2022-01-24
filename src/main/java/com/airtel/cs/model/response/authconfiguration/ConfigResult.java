@@ -15,6 +15,6 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ConfigResult {
-    private Map<String,String> authDataConfig;
+    private Map<String,Object> authDataConfig;
     private List<LockedSection> lockedSectionsKeysConfig;
 }

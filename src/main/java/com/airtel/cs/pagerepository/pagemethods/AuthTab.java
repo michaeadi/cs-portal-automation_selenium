@@ -345,12 +345,12 @@ public class AuthTab extends BasePage {
      * @param config The expected config
      * @param authTabConfig The Actual Config
      */
-    public void isAuthQuestionAnswerKeyAsPerConfig(List<QuestionAnswerKeyDataBeans> config,Map<String, String> authTabConfig){
+    public void isAuthQuestionAnswerKeyAsPerConfig(List<QuestionAnswerKeyDataBeans> config,Map<String, Object> authTabConfig){
         for (QuestionAnswerKeyDataBeans questionAnswer : config) {
             final String questionKey = questionAnswer.getQuestionKey();
             commonLib.info("Question Key: '" + questionKey + "' ; Answer Found in API: '" + authTabConfig.get(questionKey));
             if (authTabConfig.get(questionKey) != null) {
-                assertCheck.append(actions.assertEqualStringType(authTabConfig.get(questionKey), questionAnswer.getAnswerKey(), "Answer Key Validated and is :" + questionKey, "Answer key is not expected for Question: " + questionKey));
+                assertCheck.append(actions.assertEqualStringType((String) authTabConfig.get(questionKey), questionAnswer.getAnswerKey(), "Answer Key Validated and is :" + questionKey, "Answer key is not expected for Question: " + questionKey));
             } else {
                 commonLib.fail("Question Key does not found in Database but present in config sheet.", true);
             }
@@ -361,7 +361,7 @@ public class AuthTab extends BasePage {
      * This method is use to check all the questions key in auth tab answer value can not be null
      * @param authTabConfig The Actual Config
      */
-    public void isAuthQuestionAsPerConfig(Map<String, String> authTabConfig){
+    public void isAuthQuestionAsPerConfig(Map<String, Object> authTabConfig){
         for (Map.Entry mapElement : authTabConfig.entrySet()) {
             String key = (String) mapElement.getKey();
             String value = mapElement.getValue().toString();
