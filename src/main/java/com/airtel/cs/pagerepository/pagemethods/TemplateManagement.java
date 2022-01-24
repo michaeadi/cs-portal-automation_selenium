@@ -73,7 +73,7 @@ public class TemplateManagement extends BasePage {
      */
     public boolean isCategoryAvailable() {
         final boolean visible = isElementVisible(pageElements.categoryLabel);
-        commonLib.info("Checking Category label displayed on the 'Add Template' tab, when the Customer channel is selected as 'SMS'." + visible);
+        commonLib.info("Checking Category label displayed on the 'Add Template' tab, when the Customer channel is selected as 'SMS': " + visible);
         return visible;
     }
 
@@ -83,7 +83,7 @@ public class TemplateManagement extends BasePage {
      */
     public boolean isMessageChannelAvailable() {
         final boolean visible = isElementVisible(pageElements.messageChannelLabel);
-        commonLib.info("Checking 'Message Channel' label displayed on the 'Add Template' tab, when the Customer channel is selected as 'SMS'." + visible);
+        commonLib.info("Checking 'Message Channel' label displayed on the 'Add Template' tab, when the Customer channel is selected as 'SMS': " + visible);
         return visible;
     }
 
@@ -93,7 +93,7 @@ public class TemplateManagement extends BasePage {
      */
     public boolean isTemplateNameAvailable() {
         final boolean visible = isElementVisible(pageElements.templateNameLabel);
-        commonLib.info("Checking 'Template name' label displayed on the 'Add Template' tab, when the Customer channel is selected as 'SMS'." + visible);
+        commonLib.info("Checking 'Template name' label displayed on the 'Add Template' tab, when the Customer channel is selected as 'SMS': " + visible);
         return visible;
     }
 
@@ -103,7 +103,7 @@ public class TemplateManagement extends BasePage {
      */
     public boolean isRoleAvailable() {
         final boolean visible = isElementVisible(pageElements.roleLabel);
-        commonLib.info("Checking 'Role' label displayed on the 'Add Template' tab, when the Customer channel is selected as 'SMS'." + visible);
+        commonLib.info("Checking 'Role' label displayed on the 'Add Template' tab, when the Customer channel is selected as 'SMS': " + visible);
         return visible;
     }
 
@@ -113,7 +113,7 @@ public class TemplateManagement extends BasePage {
      */
     public boolean isAgentChannelAvailable() {
         final boolean visible = isElementVisible(pageElements.agentChannelLabel);
-        commonLib.info("Checking 'Agent Channel' label displayed on the 'Add Template' tab, when the Customer channel is selected as 'SMS'." + visible);
+        commonLib.info("Checking 'Agent Channel' label displayed on the 'Add Template' tab, when the Customer channel is selected as 'SMS' : " + visible);
         return visible;
     }
 
@@ -123,7 +123,7 @@ public class TemplateManagement extends BasePage {
      */
     public boolean isSMSLanguageAvailable() {
         final boolean visible = isElementVisible(pageElements.smsLanguageLabel);
-        commonLib.info("Checking 'SMS Language' label displayed on the 'Add Template' tab, when the Customer channel is selected as 'SMS'." + visible);
+        commonLib.info("Checking 'SMS Language' label displayed on the 'Add Template' tab, when the Customer channel is selected as 'SMS': " + visible);
         return visible;
     }
 
@@ -259,5 +259,42 @@ public class TemplateManagement extends BasePage {
         String text = (String) js.executeScript("return arguments[0].innerHTML", driver.findElement(pageElements.message));
         commonLib.info("Response: " + text);
         return text;
+    }
+
+    /**
+     *This method is used to return the number of message channels
+     */
+    public Integer checkNoOfChannels()
+    {
+        List<WebElement> list = returnListOfElement(pageElements.checkBox);
+        return list.size();
+    }
+
+    /**
+     * This method is used enable SMS in Message Channel
+     */
+    public void clickSMSCheckBox()
+    {
+        commonLib.info("Enabling SMS checkbox ");
+        clickWithoutLoader(pageElements.smsCheckBox);
+    }
+
+    /**
+     * This method is used enable EMAIL in Message Channel
+     */
+    public void clickEmailCheckBox()
+    {
+        commonLib.info("Enabling Email checkbox ");
+        clickWithoutLoader(pageElements.emailCheckBox);
+    }
+
+    /**
+     * This method is used to check whether Email Language  is displayed or not in Add Template
+     */
+    public Boolean isEmailLanguageVisible()
+    {
+        Boolean visible=isElementVisible(pageElements.emailLanguageLabel);
+        commonLib.info("Checking 'EMAIL Language' label is displayed on the 'Add Template' tab, when the Customer channel is selected as 'EMAIL' : " + visible);
+        return visible;
     }
 }

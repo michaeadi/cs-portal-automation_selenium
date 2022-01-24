@@ -11,7 +11,7 @@ public class UsageWidgetPage {
     public By dateTime = By.xpath("div[3]/span[@class='date_time ng-star-inserted']");
     public By startBalance = By.xpath("div[4]/span[@class='ng-star-inserted']");
     public By endBalance = By.xpath("div[5]/span[@class='ng-star-inserted']");
-    public By menu = By.xpath("//div[@data-csautomation-key='USAGE_HISTORY']//img[@class='header-action-icon ng-star-inserted']");
+    public By menu = By.xpath("//div[@data-csautomation-key='USAGE_HISTORY']//img[@data-csautomation-key='menuButton']");
     public By usageHistoryNoResultFound = By.xpath("//div[@data-csautomation-key='USAGE_HISTORY']//div[@class='no-result-found ng-star-inserted']//img");
     public By usageHistoryNoResultFoundMessage = By.xpath("//div[@data-csautomation-key='USAGE_HISTORY']//span[contains(text(),'No Result found')]");
     public By usageHistoryError = By.xpath("//div[@data-csautomation-key='USAGE_HISTORY']/div[@class='card__content restricted ng-star-inserted']/descendant::div[@class='widget-error apiMsgBlock ng-star-inserted'][1]");

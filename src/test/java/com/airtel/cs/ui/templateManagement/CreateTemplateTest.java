@@ -57,6 +57,14 @@ public class CreateTemplateTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getTemplateManagement().isTemplateNameAvailable(), true, "Template Name Label displayed on Template Management Page.", "Template Name Label does not display on Template Management Page."));
             assertCheck.append(actions.assertEqualBoolean(pages.getTemplateManagement().isRoleAvailable(), true, "Role Label is displayed on Template Management Page.", "Role Label does not display on Template Management Page."));
             assertCheck.append(actions.assertEqualBoolean(pages.getTemplateManagement().isAgentChannelAvailable(), true, "Agent channel Label is displayed on Template Management Page.", "Agent channel Label does not display on Template Management Page."));
+            Integer number =pages.getTemplateManagement().checkNoOfChannels();
+            if(number>1) {
+                pages.getTemplateManagement().clickSMSCheckBox();
+                assertCheck.append((actions.assertEqualBoolean(pages.getTemplateManagement().isSMSLanguageAvailable(),true,"SMS Language Label displayed on Template Management Page", "SMS Language Label isn't displayed  on Template Management Page")));
+                pages.getTemplateManagement().clickEmailCheckBox();
+                assertCheck.append((actions.assertEqualBoolean(pages.getTemplateManagement().isEmailLanguageVisible(),true,"Email Language Label displayed on Template Management Page", "Email Language Label isn't displayed  on Template Management Page")));
+            }
+            else
             assertCheck.append(actions.assertEqualBoolean(pages.getTemplateManagement().isSMSLanguageAvailable(), true, "SMS Language Label displayed on Template Management Page.", "SMS Language Label does not display on Template Management Page."));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
