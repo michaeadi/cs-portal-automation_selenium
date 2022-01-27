@@ -7,6 +7,7 @@ import com.airtel.cs.commonutils.dataproviders.databeans.AuthTabDataBeans;
 import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.databeans.QuestionAnswerKeyDataBeans;
 import com.airtel.cs.driver.Driver;
+import com.airtel.cs.model.response.authconfiguration.AuthDataConfigResult;
 import com.airtel.cs.model.response.authconfiguration.Configuration;
 import com.airtel.cs.model.response.authconfiguration.LockedSection;
 import org.openqa.selenium.NoSuchElementException;
@@ -21,7 +22,7 @@ import java.util.Map;
 public class AuthTabTest extends Driver {
 
     RequestSource api = new RequestSource();
-    Map<String, Object> authTabConfig;
+    Map<String, AuthDataConfigResult> authTabConfig;
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
