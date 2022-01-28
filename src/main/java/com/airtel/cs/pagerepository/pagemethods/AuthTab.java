@@ -4,6 +4,7 @@ package com.airtel.cs.pagerepository.pagemethods;
 import com.airtel.cs.commonutils.applicationutils.enums.JavaColors;
 import com.airtel.cs.commonutils.dataproviders.databeans.ActionTagDataBeans;
 import com.airtel.cs.commonutils.dataproviders.databeans.QuestionAnswerKeyDataBeans;
+import com.airtel.cs.model.response.authconfiguration.AuthDataConfigResult;
 import com.airtel.cs.model.response.authconfiguration.LockedSection;
 import com.airtel.cs.pagerepository.pageelements.AuthTabPage;
 import org.openqa.selenium.By;
@@ -333,7 +334,7 @@ public class AuthTab extends BasePage {
                     if (isAuthenticated == Boolean.parseBoolean(at.getIsAuth()) && ls.getIsAuthenticated() == Boolean.parseBoolean(at.getIsAuth()) ) {
                             commonLib.pass("Action Verified " + at.getActionTagName());
                     } else {
-                        commonLib.fail(ls.getKey() + "Action does not locked but as per config Action must be locked.", true);
+                        commonLib.fail(ls.getKey() + " Action is not locked over UI but as per excle configuration Action must be locked.", true);
                         break;
                     }
             }
@@ -345,12 +346,12 @@ public class AuthTab extends BasePage {
      * @param config The expected config
      * @param authTabConfig The Actual Config
      */
-    public void isAuthQuestionAnswerKeyAsPerConfig(List<QuestionAnswerKeyDataBeans> config,Map<String, Object> authTabConfig){
+    public void isAuthQuestionAnswerKeyAsPerConfig(List<QuestionAnswerKeyDataBeans> config,Map<String, AuthDataConfigResult> authTabConfig){
         for (QuestionAnswerKeyDataBeans questionAnswer : config) {
             final String questionKey = questionAnswer.getQuestionKey();
             commonLib.info("Question Key: '" + questionKey + "' ; Answer Found in API: '" + authTabConfig.get(questionKey));
             if (authTabConfig.get(questionKey) != null) {
-                assertCheck.append(actions.assertEqualStringType((String) authTabConfig.get(questionKey), questionAnswer.getAnswerKey(), "Answer Key Validated and is :" + questionKey, "Answer key is not expected for Question: " + questionKey));
+                assertCheck.append(actions.assertEqualStringType(authTabConfig.get(questionKey).getXpath(), questionAnswer.getAnswerKey(), "Answer Key Validated and is :" + questionKey, "Answer key is not expected for Question: " + questionKey));
             } else {
                 commonLib.fail("Question Key does not found in Database but present in config sheet.", true);
             }
@@ -361,7 +362,7 @@ public class AuthTab extends BasePage {
      * This method is use to check all the questions key in auth tab answer value can not be null
      * @param authTabConfig The Actual Config
      */
-    public void isAuthQuestionAsPerConfig(Map<String, Object> authTabConfig){
+    public void isAuthQuestionAsPerConfig(Map<String, AuthDataConfigResult> authTabConfig){
         for (Map.Entry mapElement : authTabConfig.entrySet()) {
             String key = (String) mapElement.getKey();
             String value = mapElement.getValue().toString();
