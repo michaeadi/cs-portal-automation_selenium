@@ -51,4 +51,5 @@ public class CustomerProfilePage {
     public By resetME2Confirm = By.xpath("//div[contains(@class,'main-container__body')]/p[contains(text(),'Do you wish to reset Me2U password?')]");
     public By suspendSimConfirm = By.xpath("//div[contains(@class,'main-container__body')]/p[contains(text(),'Do you wish to suspend the SIM?')]");
     public By reActivateSimConfirm = By.xpath("//div[contains(@class,'main-container__body')]/p[contains(text(),'Do you wish to reactivate the SIM?')]");
+    public By crossIcon=By.xpath("//mat-icon[contains(text(),'close')]");
 }

@@ -164,9 +164,9 @@ public class ServiceProfileWidgetTest extends Driver {
     @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void validateUserHasPermissionToBar() {
         try {
-            selUtils.addTestcaseDescription("Verify that agent having the UM permission HLR Service All Bar should be able to bar any of the unbarred service, Validate Pop up window after clicking on action button", "description");
+            selUtils.addTestcaseDescription("Verify that agent having the UM permission should be able to bar any of the unbarred service, Validate Pop up window after clicking on action button", "description");
             String hlr_permission = constants.getValue(PermissionConstants.HLR_WIDGET_BAR_PERMISSION);
-            assertCheck.append(actions.assertEqualBoolean(UtilsMethods.isUserHasPermission(new Headers(map), hlr_permission), true, "User have permission to bar service as expected", "User does not have permission to bar service as expected."));
+            assertCheck.append(actions.assertEqualBoolean(UtilsMethods.isUserHasPermission(new Headers(map), hlr_permission), true, "User has permission to bar service as expected", "User does not has permission to bar service as expected."));
             int size = Math.min(hlrService.getTotalCount(), 5);
             final ServiceClassWidget serviceClassWidget = pages.getServiceClassWidget();
             boolean flag = true;
@@ -206,9 +206,9 @@ public class ServiceProfileWidgetTest extends Driver {
     @Test(priority = 7, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void validateUserHasPermissionToUnBar() {
         try {
-            selUtils.addTestcaseDescription("Verify that agent having the UM permission HLR Service All Bar should be able to bar any of the unbarred service, Validate Pop up window after clicking on action button", "description");
+            selUtils.addTestcaseDescription("Verify that agent having the UM permission should be able to unbar any of the barred service, Validate Pop up window after clicking on action button", "description");
             String hlr_permission = constants.getValue(PermissionConstants.HLR_WIDGET_UNBAR_PERMISSION);
-            assertCheck.append(actions.assertEqualBoolean(UtilsMethods.isUserHasPermission(new Headers(map), hlr_permission), true, "User have permission to bar service as expected", "User does not have permission to bar service as expected."));
+            assertCheck.append(actions.assertEqualBoolean(UtilsMethods.isUserHasPermission(new Headers(map), hlr_permission), true, "User has permission to bar service as expected", "User does not has permission to bar service as expected."));
             int size = Math.min(hlrService.getTotalCount(), 5);
             final ServiceClassWidget serviceClassWidget = pages.getServiceClassWidget();
             boolean flag = true;
@@ -248,9 +248,9 @@ public class ServiceProfileWidgetTest extends Driver {
     @Test(priority = 8, groups = {"RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void changeServiceStatusTestToBarred() {
         try {
-            selUtils.addTestcaseDescription("Verify that on barring any service, the HLR widget should refresh and show the the particular service has been barred.", "description");
+            selUtils.addTestcaseDescription("Verify that on barring any service, the HLR widget should refresh and show that the particular service has been barred.", "description");
             String hlr_permission = constants.getValue(PermissionConstants.HLR_WIDGET_UNBAR_PERMISSION);
-            assertCheck.append(actions.assertEqualBoolean(UtilsMethods.isUserHasPermission(new Headers(map), hlr_permission), true, "User have permission to bar service as expected", "User does not have permission to bar service as expected."));
+            assertCheck.append(actions.assertEqualBoolean(UtilsMethods.isUserHasPermission(new Headers(map), hlr_permission), true, "User has permission to bar service as expected", "User does not has permission to bar service as expected."));
             int size = Math.min(hlrService.getTotalCount(), 5);
             final ServiceClassWidget serviceClassWidget = pages.getServiceClassWidget();
             boolean flag = true;

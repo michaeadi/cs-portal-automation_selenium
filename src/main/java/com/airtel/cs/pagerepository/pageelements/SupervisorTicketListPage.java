@@ -52,7 +52,7 @@ public class SupervisorTicketListPage {
     public By closeReopenCommentBox = By.xpath("//button[@class='close-btn']");
     public By redDot = By.xpath("//span[@class='reddot ng-star-inserted']");
     public By greenDot = By.xpath("//span[@class='greendot ng-star-inserted']");
-    public By assigneeAUUID = By.xpath("//div[contains(@class,'assignee-agent')]/p/span");
+    public By assigneeAUUID = By.xpath("//div[contains(@class,'assignee-agent')]/p/span[3]");
     public By assigneeName = By.xpath("//div[@class='service-request']//div[1]//div[1]//div[2]//div[2]//p[1]//span[2]");
     public By allTicket = By.xpath("//div[@class='container-fluid table-card ng-star-inserted']");
     public By searchOptionBtn = By.xpath("//div[@class='options']");
