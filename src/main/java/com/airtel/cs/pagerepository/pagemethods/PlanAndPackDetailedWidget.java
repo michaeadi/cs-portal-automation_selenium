@@ -238,7 +238,7 @@ public class PlanAndPackDetailedWidget extends BasePage{
     }
 
     /**
-     * This method use to get total number of checkbox display
+     * This method use to get total number of tabs present in Roles permission list
      * @return Integer The Size
      */
     public int getActivePackOnPM() {

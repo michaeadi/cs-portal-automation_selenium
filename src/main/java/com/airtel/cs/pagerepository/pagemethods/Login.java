@@ -247,11 +247,11 @@ public class Login extends BasePage {
             ExtentReport.startTest("PreRequisites", "doLogin");
             selUtils.addTestcaseDescription("Logging Into Portal", "Pre-Requisites");
             final String value = constants.getValue(ApplicationConstants.DOMAIN_URL);
-            loginAUUID = constants.getValue(CommonConstants.ALL_USER_ROLE_AUUID);
+            loginAUUID = constants.getValue(CommonConstants.BETA_USER_ROLE_AUUID);
             pages.getLoginPage().openBaseURL(value);
             pages.getLoginPage().enterAUUID(loginAUUID);
             pages.getLoginPage().clickOnSubmitBtn();
-            pages.getLoginPage().enterPassword(PassUtils.decodePassword(constants.getValue(CommonConstants.ALL_USER_ROLE_PASSWORD)));
+            pages.getLoginPage().enterPassword(PassUtils.decodePassword(constants.getValue(CommonConstants.BETA_USER_ROLE_PASSWORD)));
             pages.getLoginPage().clickOnVisibleButton();
             pages.getLoginPage().clickOnVisibleButton();
             pages.getLoginPage().clickOnLogin();

@@ -43,8 +43,8 @@ public class LoginAPITest extends Driver {
     public void testLoginApiWithAllUser() {
         try {
             selUtils.addTestcaseDescription("Validate the Login API with User Having all the roles,Hit the Login API -/auth/api/user-mngmnt/v2/login with valid headers and credentials,Validating Success Message from response", "description");
-            final String loginAUUID = constants.getValue(CommonConstants.ALL_USER_ROLE_AUUID);
-            Login Req = Login.loginBody(loginAUUID, PassUtils.decodePassword(constants.getValue(CommonConstants.ALL_USER_ROLE_PASSWORD)));
+            final String loginAUUID = constants.getValue(CommonConstants.BETA_USER_ROLE_AUUID);
+            Login Req = Login.loginBody(loginAUUID, PassUtils.decodePassword(constants.getValue(CommonConstants.BETA_USER_ROLE_PASSWORD)));
             String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(Req);
             commonLib.info("Validating login api with user : " + loginAUUID);
             final Response response = pages.getLoginPage().loginAPI(dtoAsString);

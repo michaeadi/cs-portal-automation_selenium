@@ -37,8 +37,12 @@ public class RestCommonUtils extends Driver {
     private static QueryableRequestSpecification queryable;
     private static RequestSpecification request;
     private static final String APPLICATION_JSON = "application/json";
-    private static final String CALLING_CS_API_USING = "Calling CS API Using";
-    private static final String API_FOR_TESTING = " API for Testing";
+    private static final String CALLING_CS_API = "Calling CS API";
+    private static final String FOR_TESTING = "for Testing ";
+    private static final String USING_AUUID="using auuid ";
+    private static final String TOKEN ="'s token";
+
+
 
 
     /**
@@ -61,7 +65,7 @@ public class RestCommonUtils extends Driver {
     public static void commonPostMethod(String endPoint, List<Header> map, Object body, String url) {
         RestAssuredConfig restAssuredConfig = CurlRestAssuredConfigFactory.createConfig();
         try {
-            commonLib.infoColored(CALLING_CS_API_USING + " " + endPoint + " " + API_FOR_TESTING, JavaColors.BLUE, false);
+            commonLib.infoColored(CALLING_CS_API + " " + endPoint + " " +FOR_TESTING  + USING_AUUID + loginAUUID + TOKEN, JavaColors.BLUE, false);
             baseURI = url;
             Headers headers = new Headers(map);
             String finalbody="";
@@ -95,7 +99,7 @@ public class RestCommonUtils extends Driver {
     public static void commonGetMethodWithQueryParam(String endPoint, Map<String, Object> queryParam, List<Header> headers) {
         try {
             RestAssuredConfig restAssuredConfig = CurlRestAssuredConfigFactory.createConfig();
-            commonLib.infoColored(CALLING_CS_API_USING + " " + endPoint + " " + API_FOR_TESTING, JavaColors.BLUE, false);
+            commonLib.infoColored(CALLING_CS_API + " " + endPoint + " " + FOR_TESTING + USING_AUUID + loginAUUID + TOKEN, JavaColors.BLUE, false);
             baseURI = baseUrl;
             Headers header = new Headers(headers);
             request = given()
@@ -131,7 +135,7 @@ public class RestCommonUtils extends Driver {
     public static void commonGetMethod(String endPoint, Headers headers) {
         RestAssuredConfig restAssuredConfig = CurlRestAssuredConfigFactory.createConfig();
         try {
-            commonLib.infoColored(CALLING_CS_API_USING + " " + endPoint + " " + API_FOR_TESTING, JavaColors.BLUE, false);
+            commonLib.infoColored(CALLING_CS_API + " " + endPoint + " " + FOR_TESTING + USING_AUUID + loginAUUID + TOKEN, JavaColors.BLUE, false);
             baseURI = baseUrl;
             request = given().config(restAssuredConfig).headers(headers).contentType(APPLICATION_JSON);
             queryable = SpecificationQuerier.query(request);
@@ -152,7 +156,7 @@ public class RestCommonUtils extends Driver {
      */
     public static void commonGetMethod(String endPoint, List<Header> map, String url) {
         try {
-            commonLib.info("Using" + endPoint + "API for Testing");
+            commonLib.info("Calling " + " " + endPoint + " " + "API for Testing" + " " + USING_AUUID + loginAUUID + TOKEN);
             baseURI = url;
             Headers headers = new Headers(map);
             request = given().headers(headers).contentType(APPLICATION_JSON);

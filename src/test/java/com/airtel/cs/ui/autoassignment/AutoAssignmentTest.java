@@ -70,7 +70,7 @@ public class AutoAssignmentTest extends Driver {
             String[] valueToWrite;
             if (!pages.getInteractionsPage().getResolvedFTRDisplayed().contains("Resolved FTR")) {
                 ticketNumber = pages.getInteractionsPage().getResolvedFTRDisplayed();
-                commonLib.info("Ticket Number:ME " + ticketNumber);
+                commonLib.info("Ticket Number:" + ticketNumber);
                 valueToWrite = new String[]{ticketNumber};
                 UtilsMethods.setAutoAssignmentTicketId(valueToWrite[0]);
                 commonLib.pass("Ticket Number Written into properties file " + valueToWrite[0]);

@@ -76,7 +76,7 @@ public class TransferToQueueTest extends Driver {
     @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"verifyPermission", "agentQueueLogin"})
     public void checkTransferToQueueVisible() {
         try {
-            selUtils.addTestcaseDescription("Backend Agent Select Ticket the from list , Validate the user able to view transfer to queue option", "description");
+            selUtils.addTestcaseDescription("Backend Agent selects the ticket from list , Validate the user able to view transfer to queue option", "description");
             pages.getSupervisorTicketList().clickCheckbox();
             assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isTransferToQueue(), true, "Transfer to Queue Option Visible to agent after selecting ticket as expected.", "Transfer to Queue Option is not Visible to agent after selecting ticket as expected."));
             pages.getSupervisorTicketList().clickCheckbox();
