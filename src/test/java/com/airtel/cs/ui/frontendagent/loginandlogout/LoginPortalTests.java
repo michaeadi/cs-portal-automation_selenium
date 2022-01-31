@@ -38,9 +38,9 @@ public class LoginPortalTests extends Driver {
     public void getLoginUserCredForAllTest(){
         try {
             selUtils.addTestcaseDescription("Setup credentials For Logging Into Portal with Beta User", "description");
-            loginAUUID = constants.getValue(CommonConstants.ALL_USER_ROLE_AUUID);
+            loginAUUID = constants.getValue(CommonConstants.BETA_USER_ROLE_AUUID);
             commonLib.pass(constants.getValue("cs.portal.cred.setup")+" : "+loginAUUID);
-            password = constants.getValue(CommonConstants.ALL_USER_ROLE_PASSWORD);
+            password = constants.getValue(CommonConstants.BETA_USER_ROLE_PASSWORD);
         }catch (Exception e){
             commonLib.fail(constants.getValue("cs.portal.test.fail") + " - getLoginUserCredForAllTest " + e.fillInStackTrace(), true);
         }

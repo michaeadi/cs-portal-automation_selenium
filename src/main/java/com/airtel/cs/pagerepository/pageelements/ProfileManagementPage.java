@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 public class ProfileManagementPage {
     public By totalProfileHeading = By.xpath("//span[text()='Total Profiles']");
     public By rows = By.xpath("//tr[@class='agent-list-container__agent-list--list-row ng-star-inserted']");
-    public By pageloadcheck = By.xpath("//div[contains(text(),'Widget Name')]");
+    public By pageLoadCheck = By.xpath("//div[contains(text(),'Widget Name')]");
     public By roleName = By.xpath("td[1]/span");
     public By viewEditButton = By.xpath("td[5]/span/div/div/img");
     public By profileConfigurationStatus = By.xpath("td[2]/span");

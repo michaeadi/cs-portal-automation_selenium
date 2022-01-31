@@ -1,6 +1,5 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
-import com.airtel.cs.model.response.postpaid.enterprise.Line;
 import com.airtel.cs.model.response.postpaid.enterprise.MsisdnDetail;
 import com.airtel.cs.pagerepository.pageelements.LinkedMsisdnToAccountNoPage;
 import lombok.extern.log4j.Log4j2;
@@ -412,8 +411,8 @@ public class LinkedMsisdnToAccountNoWidget extends BasePage{
      * This method use to get total number of checkbox display
      * @return Integer The Size
      */
-    public int getActivePackOnPM() {
-        List<WebElement> widgetsRowsElements = returnListOfElement(pageElements.activePackWidgetOnPM);
+    public int getTotalWidgetsInPM() {
+        List<WebElement> widgetsRowsElements = returnListOfElement(pageElements.totalWidgetsInPm);
         final int size = widgetsRowsElements.size();
         commonLib.info("Getting number of checkbox : " + size);
         return size;

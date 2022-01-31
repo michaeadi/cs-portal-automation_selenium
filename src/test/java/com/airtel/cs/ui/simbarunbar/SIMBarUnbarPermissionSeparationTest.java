@@ -6,6 +6,7 @@ import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.databeans.TestDataBean;
 import com.airtel.cs.driver.Driver;
+import com.airtel.cs.model.response.hlrservice.HLRService;
 import io.restassured.http.Headers;
 import org.apache.commons.lang3.StringUtils;
 import org.testng.SkipException;
@@ -16,6 +17,7 @@ public class SIMBarUnbarPermissionSeparationTest extends Driver {
 
     private static boolean SIM_BAR_UNBAR_CONTINUE_EXECUTION = true;
     private String customerNumber;
+    private String simStatus;
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
@@ -56,14 +58,15 @@ public class SIMBarUnbarPermissionSeparationTest extends Driver {
     public void viewSIMBarUnbarOption() {
         selUtils.addTestcaseDescription("Validate that SIM Bar Option is Available or not under Actions Tab", "description");
         try {
-            pages.getCustomerProfilePage().clickOnAction();
-            final String simStatus = pages.getDemoGraphicPage().getGSMStatus();
+             simStatus = pages.getDemoGraphicPage().getGSMStatus();
             if (StringUtils.equalsIgnoreCase(simStatus, "Suspended")) {
                 String simUnBar_permission = constants.getValue(PermissionConstants.SIM_UNBAR_PERMISSION);
+                pages.getCustomerProfilePage().clickOnAction();
                 assertCheck.append(actions.assertEqualBoolean(pages.getCustomerProfilePage().isReactivationSIMOptionVisible(), UtilsMethods.isUserHasPermission(new Headers(map), simUnBar_permission), "Reactivation SIM Option is Visible under Actions Tab", "Reactivation SIM Option is NOT Visible under Actions Tab"));
                 pages.getDemoGraphicPage().clickOutside();
             } else if (StringUtils.equalsIgnoreCase(simStatus, "Active")) {
                 String simBar_permission = constants.getValue(PermissionConstants.SIM_BAR_PERMISSION);
+                pages.getCustomerProfilePage().clickOnAction();
                 assertCheck.append(actions.assertEqualBoolean(pages.getCustomerProfilePage().isSuspendSIMOptionVisible(), UtilsMethods.isUserHasPermission(new Headers(map), simBar_permission), "Suspend SIM Option is Visible under Actions Tab as per user permission", "Suspend SIM Option is NOT Visible under Actions Tab as per user permission"));
                 pages.getDemoGraphicPage().clickOutside();
             } else if (StringUtils.equalsIgnoreCase(simStatus, "Reactivation_required")) {
@@ -197,7 +200,8 @@ public class SIMBarUnbarPermissionSeparationTest extends Driver {
     public void suspendSIMPopupFalse() throws InterruptedException {
         selUtils.addTestcaseDescription("Validate SIM Suspend Action", "description");
         try {
-            pages.getCustomerProfilePage().clickOnAction();
+            if(StringUtils.equalsIgnoreCase(simStatus, "Active")){
+                pages.getCustomerProfilePage().clickOnAction();
             if (pages.getCustomerProfilePage().isSuspendSIMOptionVisible()) {
                 pages.getCustomerProfilePage().openSuspendSIMTab();
                 boolean popup = !pages.getCustomerProfilePage().isSuspendSIMConfirmMessageVisible();
@@ -205,21 +209,38 @@ public class SIMBarUnbarPermissionSeparationTest extends Driver {
                     pages.getAuthTabPage().clickYesBtn();
                     final String toastText = pages.getAuthTabPage().getToastText();
                     assertCheck.append(actions.assertEqualStringType(toastText, "Sim suspend is successful", "Sim suspend is successful", "Sim suspend is unsuccessful :-" + toastText));
-                    pages.getCustomerProfilePage().clickCancelBtn();
+                    pages.getCustomerProfilePage().clickCrossIcon();
+                    if(StringUtils.equalsIgnoreCase(toastText,"Sim suspend is successful"))
+                    {
+                        HLRService hlrService = api.getServiceProfileWidgetInfo(customerNumber);
+                        Integer size=hlrService.getTotalCount();
+                        for (int i = 0; i < size; i++) {
+                        if(StringUtils.equalsIgnoreCase(hlrService.getResult().get(i).getServiceName(),"VOICE OUTGOING"))
+                            assertCheck.append(actions.assertEqualStringType(hlrService.getResult().get(i).getServiceStatus(),"ENABLED", "VOICE OUTGOING  is barred as expected ", "VOICE OUTGOING is not barred as expected"));
+                        if(StringUtils.equalsIgnoreCase(hlrService.getResult().get(i).getServiceName(),"VOICE INCOMING"))
+                                assertCheck.append(actions.assertEqualStringType(hlrService.getResult().get(i).getServiceStatus(),"ENABLED", "VOICE OUTGOING  is barred as expected ", "VOICE OUTGOING is not barred as expected"));
+                        if(StringUtils.equalsIgnoreCase(hlrService.getResult().get(i).getServiceName(),"SMS OUTGOING"))
+                                assertCheck.append(actions.assertEqualStringType(hlrService.getResult().get(i).getServiceStatus(),"ENABLED", "VOICE OUTGOING  is barred as expected ", "VOICE OUTGOING is not barred as expected"));
+                        }
+                    }
                 } else {
                     pages.getCustomerProfilePage().clickCancelBtn();
                 }
             }
             actions.assertAllFoundFailedAssert(assertCheck);
-        } catch (Exception e) {
+        } else
+            commonLib.pass("SIM suspend action can't be performed as its status is " + simStatus );
+        }
+        catch (Exception e) {
             commonLib.fail("Exception in Testcase - suspendSIMPopupFalse " + e.getMessage(), true);
         }
     }
 
     @Test(priority = 10, dependsOnMethods = "openCustomerInteraction", groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void reActivateSIMPopupFalse() {
-        selUtils.addTestcaseDescription("Validate SIM Suspend Action", "description");
+        selUtils.addTestcaseDescription("Validate SIM Reactivate Action", "description");
         try {
+            if(StringUtils.equalsIgnoreCase(simStatus, "Suspended")){
             pages.getCustomerProfilePage().clickOnAction();
             if (pages.getCustomerProfilePage().isReactivationSIMOptionVisible()) {
                 pages.getCustomerProfilePage().openSuspendSIMTab();
@@ -228,12 +249,14 @@ public class SIMBarUnbarPermissionSeparationTest extends Driver {
                     pages.getAuthTabPage().clickYesBtn();
                     final String toastText = pages.getAuthTabPage().getToastText();
                     assertCheck.append(actions.assertEqualStringType(toastText, "Sim reactivate is successful", "Sim reactivate is successful", "Sim reactivate is unsuccessful :-" + toastText));
-                    pages.getCustomerProfilePage().clickCancelBtn();
+                    pages.getCustomerProfilePage().clickCrossIcon();
                 } else {
                     pages.getCustomerProfilePage().clickCancelBtn();
                 }
             }
             actions.assertAllFoundFailedAssert(assertCheck);
+        } else
+                commonLib.pass("SIM Reactivate action can't be performed as its status is " + simStatus );
         } catch (Exception e) {
             commonLib.fail("Exception in Testcase - reActivateSIMPopupFalse " + e.getMessage(), true);
         }

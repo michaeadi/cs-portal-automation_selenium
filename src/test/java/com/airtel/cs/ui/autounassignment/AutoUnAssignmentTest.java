@@ -25,20 +25,19 @@ public class AutoUnAssignmentTest extends Driver {
     }
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest","PositiveFlowUnAssignment"})
-    public void checkToRunUnAssignment() {
+    public void autoUnAssignmentRunCheck() {
         if (!continueUnAssignment) {
-            commonLib.skip("Skipping tests because ticket does not assigned to user");
-            throw new SkipException("Skipping tests because ticket does not assigned to user");
+            commonLib.skip("Skipping tests because Ticket AutoAssignment is failed . Please check AutoAssignment Test case .");
+            throw new SkipException("Skipping tests because Ticket AutoAssignment is failed . Please check AutoAssignment Test case .");
         }
     }
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
-    public void checkIfTicketIdPresent() {
+    public void ticketIdPresentCheck() {
         if (Boolean.valueOf(constants.getValue(String.valueOf(CommonConstants.AUTO_ASSIGNMENT_TICKET_ID==null)))) {
-            commonLib.skip("Skipping tests because ticket does not assigned to user");
-            throw new SkipException("Skipping tests because ticket does not assigned to user");
+            commonLib.skip("Skipping tests because ticket id is not present");
+            throw new SkipException("Skipping tests because ticket id is not present");
         }
     }
-
     @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest","PositiveFlowUnAssignment"})
     public void openSupervisorDashboard() {
         try {
@@ -67,9 +66,9 @@ public class AutoUnAssignmentTest extends Driver {
             final Integer statusCode = ticketHistoryLog.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Ticket History log API Status Code Matched and is :" + statusCode, "Ticket History log Status Code NOT Matched and is :" + statusCode,false));
             TicketHistoryLogList ticketHistoryLogList=ticketHistoryLog.getResult().getTicketInteractionComments().get(ticketHistoryLog.getResult().getTicketInteractionComments().size()-1);
-            assertCheck.append(actions.assertNotEqualStringType(ticketHistoryLogList.getEvent(),constants.getValue(CommonConstants.AUTO_UN_ASSIGNMENT_EVENT_NAME),"Ticket auto un-assigned from user by auto un-assignment event does not occurred as user login into portal before x hour.","Ticket auto un-assigned from user by auto un-assignment event regardless of agent login into portal before x hour."));
+            assertCheck.append(actions.assertNotEqualStringType(ticketHistoryLogList.getEvent(),constants.getValue(CommonConstants.AUTO_UN_ASSIGNMENT_EVENT_NAME),"Ticket auto un-assigned from user by auto un-assignment event not occurred as user logged into portal before x hour.","Ticket auto un-assigned from user by auto un-assignment event regardless of agent logged into portal before x hour."));
         } catch (Exception e) {
-            commonLib.fail("Exception in Method - validateTicketAutoUnAssigned" + e.fillInStackTrace(), true);
+            commonLib.fail("Exception in Method - validateTicketAutoNotUnAssigned" + e.fillInStackTrace(), true);
         }
         actions.assertAllFoundFailedAssert(assertCheck);
     }
@@ -86,7 +85,7 @@ public class AutoUnAssignmentTest extends Driver {
             AdditionalDetails agentDetails= UtilsMethods.getAgentDetail(new Headers(map)).getAdditionalDetails();
             assertCheck.append(actions.assertEqualIntType(ticketHistoryLogList.getAgentId(),agentDetails.getId(),"Agent id same as expected","Agent id does not same as expected"));
             assertCheck.append(actions.matchUiAndAPIResponse(ticketHistoryLogList.getAssignTo(),agentDetails.getName(),"Agent name same as expected","Agent name does not same as expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(ticketHistoryLogList.getEvent(),constants.getValue(CommonConstants.AUTO_UN_ASSIGNMENT_EVENT_NAME),"Ticket auto un-assigned from user by auto un-assignment event","Ticket does not auto un-assigned from user by auto un-assignment event"));
+            assertCheck.append(actions.matchUiAndAPIResponse(ticketHistoryLogList.getEvent(),constants.getValue(CommonConstants.AUTO_UN_ASSIGNMENT_EVENT_NAME),"Ticket auto un-assigned from user by auto un-assignment event","Ticket is not auto un-assigned from user by auto un-assignment event"));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - validateTicketAutoUnAssigned" + e.fillInStackTrace(), true);
         }

@@ -47,6 +47,6 @@ public class LinkedMsisdnToAccountNoPage {
 
     public By prevPageArrow = By.xpath("//div[@data-csautomation-key='POSTPAID_LINKED_MSISDN']//li[@class='pagination-previous disabled ng-star-inserted']");
     public By nextPageArrow = By.xpath("//div[@data-csautomation-key='POSTPAID_LINKED_MSISDN']//li[@class='pagination-next disabled ng-star-inserted']");
-    public By activePackWidgetOnPM = By.xpath("//div[@class='mat-tab-labels']/div/div");
+    public By totalWidgetsInPm = By.xpath("//div[@class='mat-tab-labels']/div/div");
 
 }

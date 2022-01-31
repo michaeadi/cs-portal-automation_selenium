@@ -392,24 +392,24 @@ public class CustomerProfile extends BasePage {
     }
 
     /**
-     * This method is use to check suspend sim confirm message visible or not
+     * This method is used to check suspend sim confirm message visible or not
      *
      * @return true/false
      */
     public Boolean isSuspendSIMConfirmMessageVisible() {
         final boolean state = isEnabled(pageElements.suspendSimConfirm);
-        commonLib.info("Is Send Internet Setting Confirm message Display: " + state);
+        commonLib.info("Is SIM Suspend Confirm message Display: " + state);
         return state;
     }
 
     /**
-     * This method is use to check reactivate sim confirm message visible or not
+     * This method is used to check reactivate sim confirm message visible or not
      *
      * @return true/false
      */
     public Boolean isReactivateSIMConfirmMessageVisible() {
         final boolean state = isElementVisible(pageElements.reActivateSimConfirm);
-        commonLib.info("Is Send Internet Setting Confirm message Display: " + state);
+        commonLib.info("Is SIM Activate Confirm message Display: " + state);
         return state;
     }
 
@@ -558,5 +558,17 @@ public class CustomerProfile extends BasePage {
    */
     public String getModalText() {
         return getText(pageElements.modalSuccessFailureMsg);
+    }
+
+    /**
+     * This method is used to click the cross icon of confirmation message window
+     */
+    public void clickCrossIcon() {
+        commonLib.info("Clicking on Cross Icon");
+        if (isVisible(pageElements.crossIcon)) {
+            clickAndWaitForLoaderToBeRemoved(pageElements.crossIcon);
+        } else {
+            commonLib.fail("Exception in method - clickCrossIcon", true);
+        }
     }
 }
