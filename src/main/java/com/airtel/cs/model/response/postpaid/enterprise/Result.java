@@ -10,5 +10,5 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Result {
-    public List<MsisdnDetail> msisdnDetailList =null;
+    public List<MsisdnDetail> msisdnDetailList = null;
 }
