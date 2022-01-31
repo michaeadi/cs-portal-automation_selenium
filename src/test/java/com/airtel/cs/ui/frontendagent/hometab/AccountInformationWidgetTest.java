@@ -23,6 +23,7 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 public class AccountInformationWidgetTest extends Driver {
@@ -242,11 +243,16 @@ public class AccountInformationWidgetTest extends Driver {
     @Test(priority = 9, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
     public void verifyLastPaymentMode() throws IOException, ParseException {
         try {
-            selUtils.addTestcaseDescription("Validate Last Payment Mode is visible", "description");
+            selUtils.addTestcaseDescription("Validate Last Payment Mode, Date and Amount are visible", "description");
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "lastPaymentAmount", "statusCode"), "200", "Status Code for Postpaid Account Information API to get Last Payment Mode Matched", "Status Code for Postpaid Account Information API to get Last Payment Mode NOT Matched", false));
             final String lastPaymentMode = pages.getAccountInformationWidget().getLastPaymentMode();
             assertCheck.append(actions.assertEqualStringType(lastPaymentMode, pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "lastPaymentMode", "lastPaymentMode"), "Last payment mode displays as expected and is :" + lastPaymentMode, "Last payment mode not displays as expected and is :" + lastPaymentMode));
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getLastPaymentModeStyle(), "Bold", "Last Payment Mode is in Bold State", "Last Payment Mode NOT in Bold state"));
+            final String lastPaymentAmount=pages.getAccountInformationWidget().getLastPaymentAmount();
+            assertCheck.append(actions.assertEqualStringType(lastPaymentAmount,pages.getAccountInformationWidget().getValue(postpaidAccountInformation,"lastPaymentAmount","lastPaymentAmount"),"Last Payment amount displayed as expected and is :" + lastPaymentAmount, "Last Payment amount not displayed as expected and is : " + lastPaymentAmount));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getLastPaymentAmountStyle(), "Bold", "Last Payment Amount is in Bold State", "Last Payment Amount is  NOT in Bold state"));
+            final String lastPaymentDate=pages.getAccountInformationWidget().getLastPaymentDate();
+            assertCheck.append(actions.assertEqualStringType(lastPaymentDate,pages.getAccountInformationWidget().getValue(postpaidAccountInformation,"lastPaymentDate","lastPaymentDate"),"Last Payment date displayed as expected and is :" + lastPaymentDate, "Last Payment date not displayed as expected and is : " + lastPaymentDate));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - verifyLastPaymentMode()" + e.fillInStackTrace(), true);
         }
@@ -344,14 +350,14 @@ public class AccountInformationWidgetTest extends Driver {
                 assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getTempCreditiLimit(), "-", "Temp credit limit displays as expected", "Temp credit limit not displays as expected"));
             } else {
                 double tempCreditLimit = Double.parseDouble(pages.getAccountInformationWidget().getTempCreditiLimit());
-                assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getTempCreditCurrency(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currency", "currency"), "Temp credit currency displays as expected", "Temp credit currency not displays as expected"));
+                assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getTempCreditCurrency().toLowerCase(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currency", "currency").toLowerCase(), "Temp credit currency displays as expected", "Temp credit currency not displays as expected"));
                 assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getTempCreditiLimit(), tempCreditLimitAPI, "Temp credit limit displays as expected", "Temp credit limit not displays as expected"));
                 if (tempCreditLimit > 0) {
                     assertCheck.append(actions.assertEqualBoolean(pages.getAccountInformationWidget().isTempCreditLimitInfoVisible(), true, "Temp credit info icon displays as expected", "Temp credit info icon not displays as expected"));
                     pages.getAccountInformationWidget().hoverOnTempCreditLimitInfoIcon();
                     String validTillDate = pages.getAccountInformationWidget().getValidTilldate();
-                    assertCheck.append(actions.assertEqualStringType(validTillDate, pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "tempCreditValidity", "tempCreditValidity"), "Vallid till date is same as bill End date of downstream api", "Vallid till date is not same as bill End date of downstream api"));
-                    assertCheck.append(actions.assertEqualStringType(validTillDate, pages.getAccountInformationWidget().getCurrentCycleEndDate(), "Vallid till date is same as Current Cycle End date as expected", "Vallid till date is not same as Current Cycle End date as expected"));
+                    assertCheck.append(actions.assertEqualStringType(validTillDate, pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "tempCreditValidity", "tempCreditValidity"), "Validate till date is same as bill End date of downstream api", "Vallid till date is not same as bill End date of downstream api"));
+                    assertCheck.append(actions.assertEqualStringType(validTillDate, pages.getAccountInformationWidget().getCurrentCycleEndDate(), "Validate till date is same as Current Cycle End date as expected", "Validate till date is not same as Current Cycle End date as expected"));
                 } else {
                     assertCheck.append(actions.assertEqualBoolean(pages.getAccountInformationWidget().isTempCreditLimitInfoVisible(), false, "Temp credit info icon not displays as expected", "Temp credit info icon displays as not expected"));
                 }
@@ -365,7 +371,7 @@ public class AccountInformationWidgetTest extends Driver {
     @Test(priority = 13, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void decimalCountOnUI() {
         try {
-            selUtils.addTestcaseDescription("Validating the decimal values upto 2", "description");
+            selUtils.addTestcaseDescription("Validating the decimal values up to 2", "description");
             assertCheck.append(actions.assertEqualBoolean(pages.getAccountInformationWidget().getDecimalValue(pages.getAccountInformationWidget().getTotalCreditLimit()), true, "Decimal value for credit limit on UI is 2", "Decimal value for credit limit on UI is not 2"));
             assertCheck.append(actions.assertEqualBoolean(pages.getAccountInformationWidget().getDecimalValue(pages.getAccountInformationWidget().getAvailCreditLimit()), true, "Decimal value for available credit limit on UI is 2", "Decimal value for available credit limit on UI is not 2"));
             assertCheck.append(actions.assertEqualBoolean(pages.getAccountInformationWidget().getDecimalValue(pages.getAccountInformationWidget().getSecurityDeposit()), true, "Decimal value for security deposit on UI is 2", "Decimal value for security deposit on UI is not 2"));

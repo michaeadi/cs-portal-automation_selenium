@@ -734,4 +734,48 @@ public class AccountInformationWidget extends BasePage {
         enterText(pageElements.amountField,amount);
     }
 
+    /**
+     * This method will give us LastPayment Amount
+     * @return
+     */
+    public String getLastPaymentAmount() {
+        String result = null;
+        if (isVisible(pageElements.lastPaymentAmount)) {
+            result = getText(pageElements.lastPaymentAmount);
+            commonLib.info("Last Payment Amount on UI is: " + result);
+        } else {
+            commonLib.fail("Last Payment Amount under Account Information Widget is NOT visible", true);
+        }
+        return result;
+    }
+
+    /**
+     * This method will give us LastPayment Date
+     * @return
+     */
+    public String getLastPaymentDate() {
+        String result = null;
+        if (isVisible(pageElements.lastPaymentDate)) {
+            result = getText(pageElements.lastPaymentDate);
+            commonLib.info("Last Payment Date on UI is: " + result);
+        } else {
+            commonLib.fail("Last Payment Date under Account Information Widget is NOT visible", true);
+        }
+        return result;
+    }
+
+    /**
+     * This Method will tell that last payment amount is bold or not
+     * @return
+     */
+    public String getLastPaymentAmountStyle() {
+        String result = "";
+        if (isElementVisible(pageElements.lastPaymentAmount) && !getText(pageElements.lastPaymentAmount).equalsIgnoreCase("-"))
+            result = selUtils.getDataPointFontWeight(pageElements.lastPaymentAmount);
+        else
+            commonLib.warning("Last Payment Amount value is not available, so can not verify BOLD characterstics");
+        return result;
+
+    }
+
 }

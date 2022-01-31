@@ -34,18 +34,18 @@ public class TicketBulkUpdateTest extends Driver {
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkBulkUpdateExecution() {
         if (!continueExecTicketBulkUpdateTC) {
-            commonLib.skip("Skipping tests because there some error at bulk update page");
-            throw new SkipException("Skipping tests because there some error at bulk update page");
+            commonLib.skip("Skipping tests because there are some errors at bulk update page");
+            throw new SkipException("Skipping tests because there are some errors at bulk update page");
         }
     }
 
     @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
     public void isUserHasTicketBulkUpdatePermission() {
         try {
-            selUtils.addTestcaseDescription("Validate have permission to perform validate Ticket Bulk Update operation", "description");
+            selUtils.addTestcaseDescription("Validate user has permission to perform validate Ticket Bulk Update operation", "description");
             String ticket_bulk_permission = constants.getValue(PermissionConstants.TICKET_BULK_UPDATE_ACTION_PERMISSION);
             pages.getSideMenuPage().clickOnSideMenu();
-            assertCheck.append(actions.assertEqualBoolean(pages.getSideMenuPage().isTicketBulkUpdateVisible(), UtilsMethods.isUserHasPermission(new Headers(map), ticket_bulk_permission), "User have permission to perform ticket bulk update as expected", "User does not have permission to perform ticket bulk update as expected"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSideMenuPage().isTicketBulkUpdateVisible(), UtilsMethods.isUserHasPermission(new Headers(map), ticket_bulk_permission), "User has permission to perform ticket bulk update as expected", "User does not has permission to perform ticket bulk update as expected"));
             pages.getSideMenuPage().clickOnSideMenu();
         } catch (Exception e) {
             commonLib.fail("Exception in Method - isUserHasTicketBulkUpdatePermission" + e.fillInStackTrace(), true);

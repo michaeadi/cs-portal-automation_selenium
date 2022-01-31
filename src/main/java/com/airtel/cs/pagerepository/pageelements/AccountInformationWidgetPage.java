@@ -12,10 +12,10 @@ public class AccountInformationWidgetPage {
     public By middleAuuid = By.xpath("//div[@data-csautomation-key='POSTPAID_ACCOUNT_INFORMATION']");
     public By progressBarForCreditLimit = By.xpath("//div[@class='postpaid-container ng-star-inserted']/div[2]/progress");
     public By accountInfoDetailed = By.xpath("//div[@data-csautomation-key='POSTPAID_ACCOUNT_INFORMATION']//img[@class='header-action-icon ng-star-inserted']");
-    public By currentMonthUnbillAmount = By.xpath("//div[text()='Current Month Unbilled']/following-sibling::div/span[2]");
+    public By currentMonthUnbillAmount = By.xpath("//span[@id='currentMonthUnbilledAmount']");
     public By lastMonthBillAmount = By.xpath("//span[@id='lastMonthBilledAmount']");
 
-    public By dueDate = By.xpath("//div[text()='Due Date']/following-sibling::div/span");
+    public By dueDate = By.xpath("//span[@id='dueDate']");
     public By lastPaymentMode = By.xpath("//div[contains(text(),'Last Payment & Mode')]/following-sibling::div/div/span");
     public By securityDepositValue = By.xpath("//div[contains(text(),'Security Deposit')]/following-sibling::div/span[2]");
     public By securityDepositCurrency = By.xpath("//div[contains(text(),'Security Deposit')]/following-sibling::div/span[1]");
@@ -23,8 +23,8 @@ public class AccountInformationWidgetPage {
     public By accountNumber = By.xpath("//div[contains(text(),'Account No.')]/following-sibling::div/span");
     public By totalCreditLimit = By.xpath("//span[@id='totalCreditLimit']");
     public By availableCreditLimit = By.xpath("//span[@id='availableCreditLimit']");
-    public By currentCycle = By.xpath("//div[text()='Current Cycle']/following-sibling::div/span");
-    public By lastMonthBillDate = By.xpath("//div[text()='Last Month Billed Amount']/following-sibling::div/span[3]//span");
+    public By currentCycle = By.xpath("//span[@id='currentCycle']");
+    public By lastMonthBillDate = By.xpath("//div[contains(text(),'Last Month Billed Amount')]//following-sibling::div/span[3]/span");
     public By othersTab = By.xpath("//*[contains(text(),'Others')]");
     public By emailId = By.xpath("//span[contains(text(),'Email Id')]//following-sibling::span/span");
     public By unableToFetch = By.xpath("//div[@id='GSM_PROFILE']/div[1]/mat-tab-group/div[1]/mat-tab-body[2]/div[1]/div[1]/div[1]//span[2]");
@@ -34,6 +34,8 @@ public class AccountInformationWidgetPage {
     public By validTillDate = By.xpath("//div[contains(@class, 'mat-tooltip') and contains(text(),'Valid Till')]");
     public By currentCycleEndDate = By.xpath("//div[text()='Current Cycle ']/following-sibling::div/span[1]");
     public By raiseSRIcon=By.xpath("//div[contains(text(),'Temp Credit Limit')]//img");
+    public By lastPaymentDate = By.xpath("//div[contains(text(),'Last Payment & Mode')]/following-sibling::div/span[3]/span");
+    public By lastPaymentAmount = By.xpath("//span[@id='lastPaymentAmount']");
 
     /**
      * Issue Detail Pop up

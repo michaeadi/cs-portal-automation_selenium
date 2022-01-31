@@ -210,7 +210,7 @@ public class LinkedMsisdnToAccountNoTest extends Driver {
 
             pages.getProfileManagement().viewRoleWithName(constants.getValue(CommonConstants.ALL_USER_ROLE_NAME));
             assertCheck.append(actions.assertEqualBoolean(pages.getProfileManagement().isEditPageLoaded(), true, "Profile Management edit role config page open as expected", "Profile Management edit role config page open does not as expected"));
-            int size = pages.getLinkedMsisdnToAccountNoWidget().getActivePackOnPM();
+            int size = pages.getLinkedMsisdnToAccountNoWidget().getTotalWidgetsInPM();
             if (size > 0) {
                 for (int i = 1; i <= size; i++) {
                     if (pages.getLinkedMsisdnToAccountNoWidget().getHeaders(i).equalsIgnoreCase("ACCOUNT INFO")) {

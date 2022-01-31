@@ -113,7 +113,7 @@ public class SendInternetSettingsTest extends Driver {
                 pages.getActionTrailPage().assertMetaInfoAfterActionPerformed(constants.getValue(CommonConstants.SEND_INTERNET_SETTING_ACTION_KEY), eventResult);
                 assertCheck.append(actions.assertEqualStringNotNull(eventResult.getActionType(), "Action Type of Add FnF as expected", "Action Type of Add FnF as not expected"));
                 assertCheck.append(actions.matchUiAndAPIResponse(eventResult.getComments(), comments, "Comment same as expected.", "Comment same as not expected."));
-                assertCheck.append(actions.matchUiAndAPIResponse(eventResult.getAgentId(), constants.getValue(CommonConstants.ALL_USER_ROLE_AUUID), "Agent id same as expected", "Agent id same as not expected"));
+                assertCheck.append(actions.matchUiAndAPIResponse(eventResult.getAgentId(), constants.getValue(CommonConstants.BETA_USER_ROLE_AUUID), "Agent id same as expected", "Agent id same as not expected"));
             } else {
                 commonLib.fail("Not able to fetch action trail event log using API", true);
             }
