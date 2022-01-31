@@ -375,15 +375,4 @@ public class ServiceProfileWidgetTest extends Driver {
             commonLib.fail("Exception in Method - hlrOrderHistoryTest " + e.fillInStackTrace(), true);
         }
     }
-
-    public void hlrorderTest()
-    {
-        try{
-            selUtils.addTestcaseDescription("Validating status of the services after Suspending SIM", "description");
-
-        }catch (Exception e){
-            commonLib.fail("Exception in Method - hlrorder " + e.fillInStackTrace(), true);
-        }
-    }
-
 }
