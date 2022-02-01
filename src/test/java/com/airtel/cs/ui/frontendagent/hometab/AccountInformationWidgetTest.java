@@ -260,6 +260,24 @@ public class AccountInformationWidgetTest extends Driver {
     }
 
 
+    @Test(priority = 10 , groups ={"SanityTest","RegressionTest","ProdTest"}, dependsOnMethods ={"isUserHasAccountInformationPermission"})
+    public void verifyUnbilledAmount() {
+        try {
+            selUtils.addTestcaseDescription("Validate Unbilled Amount Should be Bifurcated in Data, Voice, SMS, Data ","description");
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmount", "statusCode"), "200", "Postpaid Account Information API 1 Status Code Matched", "Postpaid Account Information API 1 Status Code NOT Matched"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getCurrentMonthUnBillAmountForCalls(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmountForCalls", "currentMonthUnbilledAmountForCalls"), "Current month un-billed amount for calls displays as expected", "Current month un-billed amount for calls not displays as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getCurrentMonthUnBillAmountForSms(),  pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmountForSms", "currentMonthUnbilledAmountForSms"), "Current month un-billed amount for sms displays  as expected", "Current month un-billed amount for sms not displays as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getCurrentMonthUnBillAmountForData(),  pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmountForData", "currentMonthUnbilledAmountForData"), "Current month un-billed amount for data displays as expected", "Current month un-billed amount for data not displays as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getCurrentMonthUnBillAmountForOthers(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmountForOthers", "currentMonthUnbilledAmountForOthers"), "Current month un-billed amount for others displays as expected", "Current month un-billed amount for others not displays as expected"));
+
+        }catch (Exception e) {
+            commonLib.fail("Exception in Method - verifyUnbilledAmount()" + e.fillInStackTrace(), true);
+        }
+    }
+
+
+
+
     /**
      * This method is used to validate currency on account info widget
      */

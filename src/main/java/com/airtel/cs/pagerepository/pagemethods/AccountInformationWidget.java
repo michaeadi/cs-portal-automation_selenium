@@ -778,4 +778,62 @@ public class AccountInformationWidget extends BasePage {
 
     }
 
+
+
+    /*
+       This Method will give us Current Month Un-bill Amount For Calls
+        */
+    public String getCurrentMonthUnBillAmountForCalls() {
+        String result = null;
+        if (isVisible(pageElements.currentMonthUnbillAmountForCalls)) {
+            result = getText(pageElements.currentMonthUnbillAmountForCalls);
+            commonLib.info("Current month un-bill amount for calls on UI is: " + result);
+        } else {
+            commonLib.fail("Current month un-bill amount for calls under Account Information Widget is NOT visible", true);
+        }
+        return result;
+    }
+    /*
+          This Method will give us Current Month Un-bill Amount For SMS
+           */
+    public String getCurrentMonthUnBillAmountForSms() {
+        String result = null;
+        if (isVisible(pageElements.currentMonthUnbillAmountForSms)) {
+            result = getText(pageElements.currentMonthUnbillAmountForSms);
+            commonLib.info("Current month un-bill amount for Sms on UI is: " + result);
+        } else {
+            commonLib.fail("Current month un-bill amount for Sms under Account Information Widget is NOT visible", true);
+        }
+        return result;
+    }
+
+    /*
+      This Method will give us Current Month Un-bill Amount  For Data
+       */
+    public String getCurrentMonthUnBillAmountForData() {
+        String result = null;
+        if (isVisible(pageElements.currentMonthUnbillAmountForData)) {
+            result = getText(pageElements.currentMonthUnbillAmountForData);
+            commonLib.info("Current month un-bill amount for Data on UI is: " + result);
+        } else {
+            commonLib.fail("Current month un-bill amount for Data under Account Information Widget is NOT visible", true);
+        }
+        return result;
+    }
+
+    /*
+      This Method will give us Current Month Un-bill Amount FOR OTHERS
+       */
+    public String getCurrentMonthUnBillAmountForOthers() {
+        String result = null;
+        if (isVisible(pageElements.currentMonthUnbillAmountForOthers)) {
+            result = getText(pageElements.currentMonthUnbillAmountForOthers);
+            commonLib.info("Current month un-bill amount for others on UI is: " + result);
+        } else {
+            commonLib.fail("Current month un-bill amount for others under Account Information Widget is NOT visible", true);
+        }
+        return result;
+    }
+
+
 }
