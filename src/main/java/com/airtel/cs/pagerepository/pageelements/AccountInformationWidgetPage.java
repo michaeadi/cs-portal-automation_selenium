@@ -36,6 +36,10 @@ public class AccountInformationWidgetPage {
     public By raiseSRIcon=By.xpath("//div[contains(text(),'Temp Credit Limit')]//img");
     public By lastPaymentDate = By.xpath("//div[contains(text(),'Last Payment & Mode')]/following-sibling::div/span[3]/span");
     public By lastPaymentAmount = By.xpath("//span[@id='lastPaymentAmount']");
+    public By currentMonthUnbillAmountForCalls = By.xpath("//div[contains(@class,'unbilled-amount-category')]//span[contains(text(),'Calls')]");
+    public By currentMonthUnbillAmountForSms = By.xpath("//div[contains(@class,'unbilled-amount-category')]//span[contains(text(),'SMS')]");
+    public By currentMonthUnbillAmountForData = By.xpath("//div[contains(@class,'unbilled-amount-category')]//span[contains(text(),'Data')]");
+    public By currentMonthUnbillAmountForOthers = By.xpath("//div[contains(@class,'unbilled-amount-category')]//span[contains(text(),'Others')]");
 
     /**
      * Issue Detail Pop up
