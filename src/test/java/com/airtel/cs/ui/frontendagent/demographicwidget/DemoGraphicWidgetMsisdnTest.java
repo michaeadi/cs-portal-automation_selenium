@@ -201,7 +201,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
 
     }
 
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"}, enabled = false)
     public void testCustomerInfoAndGSMKYCStatus() {
         try {
             selUtils.addTestcaseDescription(
@@ -254,7 +254,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
         }
     }
 
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"}, enabled = false)
     public void testGSMStatusAndSIMNumber() {
         try {
             selUtils.addTestcaseDescription(
@@ -298,7 +298,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
         }
     }
 
-    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"}, enabled = false)
     public void testDeviceCompatible() {
         try {
             selUtils.addTestcaseDescription("Validate Device Compatible", "description");
@@ -320,7 +320,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
         }
     }
 
-    @Test(priority = 7, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 7, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"}, enabled = false)
     public void testDeviceInfo() {
         try {
             selUtils.addTestcaseDescription(
@@ -349,7 +349,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
         }
     }
 
-    @Test(priority = 8, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 8, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"}, enabled = false)
     public void testConnectionTypeServiceCategorySegment() {
         try {
             selUtils.addTestcaseDescription("Validate Connection Type, Validate Service Category,Validate Segment, Validate Service Class",
@@ -384,7 +384,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
 
     }
 
-    @Test(priority = 9, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 9, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"}, enabled = false)
     public void testServiceClassAndAppStatus() {
         try {
             selUtils.addTestcaseDescription("Validate Service Class, Validate App Status", "description");
@@ -403,7 +403,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
         }
     }
 
-    @Test(priority = 10, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 10, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"}, enabled = false)
     public void testDataManager() {
         try {
             selUtils.addTestcaseDescription("Validate Data Manager,Validate Data Manager Status", "description");
@@ -428,7 +428,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
 
     }
 
-    @Test(priority = 11, groups = {"RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 11, groups = {"RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"}, enabled = false)
     public void invalidMSISDNTest() {
         try {
             selUtils.addTestcaseDescription("Validating the Demographic Information of User with invalid MSISDN : 123456789", "description");
