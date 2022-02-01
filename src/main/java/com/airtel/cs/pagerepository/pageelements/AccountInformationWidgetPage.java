@@ -12,7 +12,6 @@ public class AccountInformationWidgetPage {
     public By middleAuuid = By.xpath("//div[@data-csautomation-key='POSTPAID_ACCOUNT_INFORMATION']");
     public By progressBarForCreditLimit = By.xpath("//div[@class='postpaid-container ng-star-inserted']/div[2]/progress");
     public By accountInfoDetailed = By.xpath("//div[@data-csautomation-key='POSTPAID_ACCOUNT_INFORMATION']//img[@class='header-action-icon ng-star-inserted']");
-    public By currentMonthUnbillAmount = By.xpath("//span[@id='currentMonthUnbilledAmount']");
     public By lastMonthBillAmount = By.xpath("//span[@id='lastMonthBilledAmount']");
 
     public By dueDate = By.xpath("//span[@id='dueDate']");

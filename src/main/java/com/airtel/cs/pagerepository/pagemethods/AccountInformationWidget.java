@@ -111,19 +111,6 @@ public class AccountInformationWidget extends BasePage {
         return result;
     }
 
-    /*
-       This Method will give us Current Month Un-bill Amount
-        */
-    public String getCurrentMonthUnBillAmount() {
-        String result = null;
-        if (isVisible(pageElements.currentMonthUnbillAmount)) {
-            result = getText(pageElements.currentMonthUnbillAmount);
-            commonLib.info("Current month un-bill amount on UI is: " + result);
-        } else {
-            commonLib.fail("Current month un-bill amount under Account Information Widget is NOT visible", true);
-        }
-        return result;
-    }
 
     /*
        This Method will give us current cycle
