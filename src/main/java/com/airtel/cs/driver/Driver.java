@@ -319,7 +319,7 @@ public class Driver {
         LoggingPreferences loggingprefs = new LoggingPreferences();
         loggingprefs.enable(LogType.BROWSER, Level.WARNING);
         loggingprefs.enable(LogType.PERFORMANCE, Level.ALL);
-        options.addArguments("--window-size=1792,1120", "--verbose", "--disable-dev-shm-usage");
+        options.addArguments("--no-sandbox", "--window-size=1792,1120", "--verbose", "--disable-dev-shm-usage");
         options.setHeadless(true);
         Map<String, Object> prefs = new HashMap<>();
         prefs.put("download.default_directory", download);
