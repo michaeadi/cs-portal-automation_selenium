@@ -238,8 +238,11 @@ public class Driver {
             try {
                 System.out.println("Inside try ");
                 extent = new ExtentReports();
+                System.out.println("Inside extent ");
                 spark = new ExtentSparkReporter(MODIFIED_HTML_FILE_PATH);
+                System.out.println("Inside spark ");
                 extent.attachReporter(spark);
+                System.out.println("Inside attachReporter ");
                 spark.config().setDocumentTitle("Airtel Africa CS Automation");
             } catch (Exception e) {
                 System.out.println("Initialize extent " + e.getMessage());
