@@ -235,10 +235,16 @@ public class Driver {
             }
             MODIFIED_HTML_FILE_PATH = HTML_FILE_PATH + SUITE_TYPE + reportTitle + dateTime.toString(DATE_FORMAT) + ".html";
             browser = constants.getValue(ApplicationConstants.WEB_BROWSER);
-            extent = new ExtentReports();
-            spark = new ExtentSparkReporter(MODIFIED_HTML_FILE_PATH);
-            extent.attachReporter(spark);
-            spark.config().setDocumentTitle("Airtel Africa CS Automation");
+            try {
+                System.out.println("Inside try ");
+                extent = new ExtentReports();
+                spark = new ExtentSparkReporter(MODIFIED_HTML_FILE_PATH);
+                extent.attachReporter(spark);
+                spark.config().setDocumentTitle("Airtel Africa CS Automation");
+            } catch (Exception e) {
+                System.out.println("Initialize extent " + e.getMessage());
+            }
+            System.out.println("Outside try ");
             spark.config().setReportName("Automation Report -" + OPCO + " CS Portal");
             extent.setSystemInfo("Application Environment ", OPCO + " " + evnName);
             extent.setSystemInfo("Execution Browser ", browser.toUpperCase());
@@ -246,8 +252,10 @@ public class Driver {
             extent.setSystemInfo("Suite Type", SUITE_TYPE.toUpperCase());
             nftrSheetValue = constants.getValue(CommonConstants.SUITE_TYPE).equals(SUITE_TYPE) ? CommonConstants.SANITY_NFTR_SHEET : CommonConstants.REGRESSION_NFTR_SHEET;
             ftrSheetValue = constants.getValue(CommonConstants.SUITE_TYPE).equals(SUITE_TYPE) ? CommonConstants.SANITY_FTR_SHEET : CommonConstants.REGRESSION_FTR_SHEET;
+            System.out.println("Method reportConfigureBase Outside");
         } catch (Exception ex) {
-            commonLib.fail("Exception in Method - reportConfigureBase" + ex.getMessage(), false);
+            System.out.println("Exception in Method - reportConfigureBase" + ex.getMessage());
+            commonLib.fail("Exception in Method - reportConfigureBase " + ex.getMessage(), false);
         }
     }
 
