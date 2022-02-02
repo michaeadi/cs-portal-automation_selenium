@@ -37,7 +37,7 @@
         <pluginRepository>
             <id>central</id>
             <name>Central Repository</name>
-            <url>http://insecure.repo1.maven.org/maven2</url>
+            <url>http://172.23.12.160:8081/repository/airtel-maven-central/</url>
             <layout>default</layout>
             <snapshots>
                 <enabled>false</enabled>
