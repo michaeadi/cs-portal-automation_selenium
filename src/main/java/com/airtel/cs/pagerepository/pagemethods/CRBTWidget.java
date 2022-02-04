@@ -221,7 +221,7 @@ public class CRBTWidget extends BasePage {
      * This method is use to click top 20 tab
      */
     public void clickTop20Tab() {
-        commonLib.info("Clicking on Top 20 Tab.");
+        commonLib.info("Clicking on Top 20 Tunes Tab.");
         clickAndWaitForLoaderToBeRemoved(pageElements.top20TuneTab);
     }
 
