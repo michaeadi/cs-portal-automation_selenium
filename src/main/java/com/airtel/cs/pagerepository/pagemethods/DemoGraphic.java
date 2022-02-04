@@ -742,4 +742,13 @@ public class DemoGraphic extends BasePage {
     public void clickFEDashboardOutside() {
         clickWithoutLoader(pageElements.dashboardBody);
     }
+
+  /**
+   * This method is used to click on Others tab
+   */
+
+   public void clickOthers()
+   { commonLib.pass("Clicking on Others tab ");
+    clickWithoutLoader(pageElements.others);
+   }
 }

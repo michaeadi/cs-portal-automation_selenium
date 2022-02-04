@@ -28,6 +28,7 @@ public class ServiceProfileWidgetTest extends Driver {
     private static String customerNumber = null;
     RequestSource api = new RequestSource();
     private HLRService hlrService;
+    private ServiceClassWidget serviceClassWidget;
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void checkExecution() {
@@ -144,19 +145,24 @@ public class ServiceProfileWidgetTest extends Driver {
     public void checkPaginationForHLRWidget() {
         selUtils.addTestcaseDescription("Validate Offers widget display pagination and agent able to navigate through pagination, Validate Pagination counting display correctly, validate User able to click on next button if rows >5,After navigate tp next page user able to navigate back using previous button ", "description");
         try {
-            String paginationResult = "1 - 5 of " + hlrService.getResult().size() + " Results";
-            assertCheck.append(actions.assertEqualStringType(pages.getServiceClassWidget().getPaginationText(), paginationResult, "Pagination Count as expected", "Pagination count as not expected"));
-            if (hlrService.getResult().size() > 5) {
-                assertCheck.append(actions.assertEqualBoolean(pages.getServiceClassWidget().checkNextBtnEnable(), true, "In pagination next button is enable as result is greater than 5", "In Pagination next button is not enable but result is greater than 5."));
-                pages.getServiceClassWidget().clickNextBtn();
-                assertCheck.append(actions.assertEqualBoolean(pages.getServiceClassWidget().checkPreviousBtnDisable(), false, "In pagination Previous button is enable", "In Pagination previous button is not enable"));
-                pages.getServiceClassWidget().clickPreviousBtn();
+            serviceClassWidget = pages.getServiceClassWidget();
+            String paginationResult=null;
+            if (hlrService.getResult().isEmpty() || hlrService.getResult() == null)
+                assertCheck.append(actions.assertEqualStringType(serviceClassWidget.gettingServiceProfileNoResultFoundMessage(), "No Results found", "Error Message is as expected", "Error Message is not as expected"));
+            else {
+                paginationResult = "1 - 5 of " + hlrService.getResult().size() + " Results";
                 assertCheck.append(actions.assertEqualStringType(pages.getServiceClassWidget().getPaginationText(), paginationResult, "Pagination Count as expected", "Pagination count as not expected"));
-            } else {
-                assertCheck.append(actions.assertEqualBoolean(pages.getServiceClassWidget().checkNextBtnEnable(), false, "In pagination next button is disable as result is <= 5", "In Pagination next button is not disable but result is <= 5."));
-            }
-            actions.assertAllFoundFailedAssert(assertCheck);
-        } catch (Exception e) {
+                if (hlrService.getResult().size() > 5) {
+                    assertCheck.append(actions.assertEqualBoolean(pages.getServiceClassWidget().checkNextBtnEnable(), true, "In pagination next button is enable as result is greater than 5", "In Pagination next button is not enable but result is greater than 5."));
+                    pages.getServiceClassWidget().clickNextBtn();
+                    assertCheck.append(actions.assertEqualBoolean(pages.getServiceClassWidget().checkPreviousBtnDisable(), false, "In pagination Previous button is enable", "In Pagination previous button is not enable"));
+                    pages.getServiceClassWidget().clickPreviousBtn();
+                    assertCheck.append(actions.assertEqualStringType(pages.getServiceClassWidget().getPaginationText(), paginationResult, "Pagination Count as expected", "Pagination count as not expected"));
+                } else {
+                    assertCheck.append(actions.assertEqualBoolean(pages.getServiceClassWidget().checkNextBtnEnable(), false, "In pagination next button is disable as result is <= 5", "In Pagination next button is not disable but result is <= 5."));
+                }
+            }actions.assertAllFoundFailedAssert(assertCheck);
+        }catch (Exception e) {
             commonLib.fail("Exception in Method - checkPaginationForHLRWidget" + e.fillInStackTrace(), true);
         }
     }
@@ -252,7 +258,7 @@ public class ServiceProfileWidgetTest extends Driver {
             String hlr_permission = constants.getValue(PermissionConstants.HLR_WIDGET_UNBAR_PERMISSION);
             assertCheck.append(actions.assertEqualBoolean(UtilsMethods.isUserHasPermission(new Headers(map), hlr_permission), true, "User has permission to bar service as expected", "User does not has permission to bar service as expected."));
             int size = Math.min(hlrService.getTotalCount(), 5);
-            final ServiceClassWidget serviceClassWidget = pages.getServiceClassWidget();
+             serviceClassWidget = pages.getServiceClassWidget();
             boolean flag = true;
             final int statusCode = hlrService.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "HLR Service Profile Profile API success and status code is :" + statusCode, "HLR Service Profile API got failed and status code is :" + statusCode, false));
@@ -349,6 +355,8 @@ public class ServiceProfileWidgetTest extends Driver {
     public void hlrOrderHistoryTest() {
         try {
             selUtils.addTestcaseDescription("Validate HLR Order History Test ", "description");
+            if (hlrService.getResult().isEmpty() || hlrService.getResult() == null)
+                assertCheck.append(actions.assertEqualStringType(serviceClassWidget.gettingServiceProfileNoResultFoundMessage(), "No Results found", "Error Message is as expected", "Error Message is not as expected"));
             HLROrderHistoryRequest request = new HLROrderHistoryRequest();
             request.setMsisdn(constants.getValue(ApplicationConstants.CUSTOMER_MSISDN));
             request.setPageNumber(0);

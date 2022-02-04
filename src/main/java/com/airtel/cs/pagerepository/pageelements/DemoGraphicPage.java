@@ -14,6 +14,7 @@ public class DemoGraphicPage {
     public By refreshIcon = By.xpath("//img[@class='refresh-button cursor-pointer']");
     public By searchButton=By.xpath("//button[@analyticskey='dashboardMsisdnSearch']");
     public By dashboardSearchErrorMessage=By.xpath("//span[contains(text(),'Invalid Mobile Number')]");
+    public By others=By.xpath("//div[contains(text(),'Others')]");
 
 
     /*

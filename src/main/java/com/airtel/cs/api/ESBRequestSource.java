@@ -115,7 +115,7 @@ public class ESBRequestSource extends RestCommonUtils {
     public static final String INGRESS_DOWNSTREAM_BASE_URL_2 = "." + OPCO.toLowerCase() + "." + evnName.toLowerCase();
     private static final String INGRESS_DOWNSTREAM_BASE_URL_3 = constants.getValue("ingress.downstream.base.url2");
     public static final String INGRESS_DOWNSTREAM_BASE_URL = INGRESS_DOWNSTREAM_BASE_URL_1 + INGRESS_DOWNSTREAM_BASE_URL_2 + INGRESS_DOWNSTREAM_BASE_URL_3;
-
+    
     /**
      * This method is used to test the downstream API
      *
@@ -141,7 +141,7 @@ public class ESBRequestSource extends RestCommonUtils {
             commonLib.info(constants.getValue(DOWNSTREAM_API_CALLING) + GSM_KYC_REQUEST);
             queryParam.put(MSISDN, msisdn);
             queryParam.put("walletType", "Main");
-            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.GSM_KYC_REQUEST, queryParam, map);
+            commonGetMethodWithQueryParam( INGRESS_DOWNSTREAM_BASE_URL+ ESBURIConstants.GSM_KYC_REQUEST, queryParam, map);
             checkDownstreamAPI(response.getStatusCode(), GSM_KYC_REQUEST, "Downstream API GSM KYC request working Fine and response is: ");
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + SELF_CARE_USER_DETAILS, JavaColors.GREEN, false);
             queryParam.put(MSISDN, msisdn);
