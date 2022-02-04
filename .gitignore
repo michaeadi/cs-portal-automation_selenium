@@ -29,3 +29,6 @@ sr-servicetest.iml
 *.iml
 /src/main/java/com/airtel/cs/commonutils/PassUtils.java
 /resources/testresultsummary/emailableReport.html
+.DS_Store
+resources/.DS_Store
+target/
