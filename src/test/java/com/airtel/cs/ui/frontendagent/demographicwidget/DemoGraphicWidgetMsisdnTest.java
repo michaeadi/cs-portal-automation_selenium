@@ -446,9 +446,6 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
             Configuration config = api.getConfiguration("customerDemographicDetailsWidgets");
             String name=config.getResult().getCustomerDemographicDetailsWidgets().get(0).getWidgetConfig().getTabs().get(0).getCustomDetails().get(0).get(0).getDisplayName();
             String info=config.getResult().getCustomerDemographicDetailsWidgets().get(0).getWidgetConfig().getTabs().get(0).getCustomDetails().get(0).get(0).getIcon().getInfoToBeShown().get(0).getHeader();
-
-
-
         } catch (Exception e) {
             commonLib.fail("Exception in method - testEmailId" + e.fillInStackTrace(), true);
         }
