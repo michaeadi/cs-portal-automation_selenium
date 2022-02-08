@@ -1,3 +1,5 @@
+
+
 package com.airtel.cs.ui.frontendagent.demographicwidget;
 
 import com.airtel.cs.api.ESBRequestSource;
@@ -11,7 +13,6 @@ import com.airtel.cs.model.response.actionconfig.ActionConfigResult;
 import com.airtel.cs.model.response.actionconfig.Condition;
 import com.airtel.cs.model.response.agents.RoleDetails;
 import com.airtel.cs.model.response.amprofile.AMProfile;
-import com.airtel.cs.model.response.authconfiguration.Configuration;
 import com.airtel.cs.model.response.customeprofile.CustomerDetailsResponse;
 import com.airtel.cs.model.response.filedmasking.FieldMaskConfigs;
 import com.airtel.cs.model.response.kycprofile.GsmKyc;
@@ -41,7 +42,6 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
     private static String customerNumber = null;
     RequestSource api = new RequestSource();
     ESBRequestSource esbRequestSource = new ESBRequestSource();
-    KYCProfile kycProfile;
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void checkExecution() {
@@ -72,24 +72,30 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"}, enabled = false)
     public void testPukDetails() {
         try {
             selUtils.addTestcaseDescription(
                     "Verify Auuid shown in middle and at the footer of the demographic widget, Verify PUK is locked or unlocked, If Locked then verify data, else unlock PUK details, Validate PUK1 and PUK2", "description");
             assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getMiddleAuuidDGW(), loginAUUID, "Auuid is visible at the middle of the Demo Graphic Widget and is correct", "Auuid is NOT visible at the middle of the Demo Graphic Widget"));
             assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getFooterAuuidDGW(), loginAUUID, "Auuid is visible at the footer of the Demo Graphic Widget and is correct", "Auuid is NOT visible at the footer of the Demo Graphic Widget"));
-            kycProfile = api.kycProfileAPITest(customerNumber);
+            KYCProfile kycProfile = api.kycProfileAPITest(customerNumber);
             final Integer statusCode = kycProfile.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "KYC Profile API Status Code Matched and is :" + statusCode, "KYC Profile API Status Code NOT Matched and is :" + statusCode, false));
             if (pages.getDemoGraphicPage().isPUKInfoLocked()) {
+
                 pages.getDemoGraphicPage().clickPUKToUnlock();
-                assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isAuthTabLoad(), true, "Authentication tab loaded correctly", "Authentication tab does not load correctly"));
+                assertCheck.append(actions
+                        .assertEqualBoolean(pages.getAuthTabPage().isAuthTabLoad(), true, "Authentication tab loaded correctly",
+                                "Authentication tab does not load correctly"));
                 pages.getDemoGraphicPage().selectPolicyQuestion();
-                assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isAuthBtnEnable(), true, "Authenticate Button enabled after minimum number of question chosen", "Authenticate Button does not enable after choose minimum number of question"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isAuthBtnEnable(), true,
+                        "Authenticate Button enabled after minimum number of question chosen",
+                        "Authenticate Button does not enable after choose minimum number of question"));
                 pages.getAuthTabPage().clickAuthBtn();
                 assertCheck.append(actions.assertEqualStringType(pages.getAuthTabPage().getWidgetUnlockMessage(), "Unlocking the widget", "Unlock Widget, Successfully", "Unlock Widget, Un-Successful"));
                 assertCheck.append(actions.assertEqualStringType(pages.getAuthTabPage().getToastMessage(), "Customer response saved successfully", "Toast Message Matched Successfully", "Toast Message NOT Matched"));
+
             }
             assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getPUK1().trim(), kycProfile.getResult().getPuk().get(0).getValue(),
                     "Customer's PUK1 Number is as Expected", "Customer's PUK1 Number is not as Expected"));
@@ -102,7 +108,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
         }
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"}, enabled = false)
     public void testAirtelMoneyProfile() {
         try {
             if (StringUtils.equalsIgnoreCase(constants.getValue(ApplicationConstants.AIRTEL_MONEY_PROFILE), "true")) {
@@ -197,7 +203,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
 
     }
 
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"}, enabled = false)
     public void testCustomerInfoAndGSMKYCStatus() {
         try {
             selUtils.addTestcaseDescription(
@@ -250,7 +256,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
         }
     }
 
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"}, enabled = false)
     public void testGSMStatusAndSIMNumber() {
         try {
             selUtils.addTestcaseDescription(
@@ -294,7 +300,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
         }
     }
 
-    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"}, enabled = false)
     public void testDeviceCompatible() {
         try {
             selUtils.addTestcaseDescription("Validate Device Compatible", "description");
@@ -316,7 +322,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
         }
     }
 
-    @Test(priority = 7, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 7, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"}, enabled = false)
     public void testDeviceInfo() {
         try {
             selUtils.addTestcaseDescription(
@@ -345,7 +351,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
         }
     }
 
-    @Test(priority = 8, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 8, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"}, enabled = false)
     public void testConnectionTypeServiceCategorySegment() {
         try {
             selUtils.addTestcaseDescription("Validate Connection Type, Validate Service Category,Validate Segment, Validate Service Class",
@@ -380,7 +386,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
 
     }
 
-    @Test(priority = 9, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 9, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"}, enabled = false)
     public void testServiceClassAndAppStatus() {
         try {
             selUtils.addTestcaseDescription("Validate Service Class, Validate App Status", "description");
@@ -399,7 +405,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
         }
     }
 
-    @Test(priority = 10, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 10, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"}, enabled = false)
     public void testDataManager() {
         try {
             selUtils.addTestcaseDescription("Validate Data Manager,Validate Data Manager Status", "description");
@@ -407,39 +413,24 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
             final int statusCode = plansAPI.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Plan API Status Code Matched and is :" + statusCode, "Plan API Status Code NOT Matched and is :" + statusCode, false));
             final String dataManager = pages.getDemoGraphicPage().getKeyValueAPI(String.valueOf(plansAPI.getResult().getDataManager()));
-            String connectionType = kycProfile.getResult().getLineType().toLowerCase().trim();
-            Boolean value = (StringUtils.equalsIgnoreCase(connectionType, "Postpaid") || StringUtils.equalsIgnoreCase(connectionType, "Prepaid"));
-            if (StringUtils.equalsIgnoreCase(constants.getValue(ApplicationConstants.DATA_MANAGER_TOGGLEABLE), "True")) {
-                if (value == true)
-                    pages.getDemoGraphicPage().clickOthers();
+            if (StringUtils.equalsIgnoreCase(constants.getValue(ApplicationConstants.DATA_MANAGER_TOGGLEABLE), "True"))
                 if (pages.getDemoGraphicPage().getDataManagerStatus().equalsIgnoreCase("true"))
-                    assertCheck.append(actions.assertEqualStringType("on", dataManager.toLowerCase().trim(), "Customer's Data Manager Status is as Expected", "Customer's Data Manager Status is not as Expected"));
+                    assertCheck.append(actions.assertEqualStringType("on", dataManager.toLowerCase().trim(),
+                            "Customer's Data Manager Status is as Expected", "Customer's Data Manager Status is not as Expected"));
                 else
-                    assertCheck.append(actions.assertEqualStringType("off", dataManager.toLowerCase().trim(), "Customer's Data Manager Status is as Expected", "Customer's Data Manager Status is not as Expected"));
-            }
+                    assertCheck.append(actions.assertEqualStringType("off", dataManager.toLowerCase().trim(),
+                            "Customer's Data Manager Status is as Expected", "Customer's Data Manager Status is not as Expected"));
             else
-                assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getDataManagerValue(), dataManager, "Data Manager Value is as Expected", "Data Manager Value is NOT as Expected"));
-        actions.assertAllFoundFailedAssert(assertCheck);
+                assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getDataManagerValue(),
+                        dataManager, "Data Manager Value is as Expected", "Data Manager Value is NOT as Expected"));
+            actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
             commonLib.fail("Exception in method - testDataManager " + e, true);
         }
 
     }
 
-    @Test(priority = 11, groups = {"SanityTest", "RegressionTest", "ProdTest"})
-    public void testServiceClassRatePlanAPI() {
-        try {
-            selUtils.addTestcaseDescription("Validate Service Class and Rate Plan", "description");
-            final String msisdn = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
-            List<String> customerDetails = api.searchAPITest(msisdn);
-            assertCheck.append(actions.assertEqualStringNotNull(pages.getAccountInformationWidget().getValue(customerDetails, "KYC", "serviceClass"), "Service Class and Rate Plan test case pass", "Service Class and Rate Plan test case fail", false));
-            actions.assertAllFoundFailedAssert(assertCheck);
-        } catch (Exception e) {
-            commonLib.fail("Exception in method - testServiceClassRatePlanAPI " + e.fillInStackTrace(), true);
-        }
-    }
-
-    @Test(priority = 12, groups = {"RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 11, groups = {"RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"}, enabled = false)
     public void invalidMSISDNTest() {
         try {
             selUtils.addTestcaseDescription("Validating the Demographic Information of User with invalid MSISDN : 123456789", "description");
@@ -453,4 +444,18 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
             commonLib.fail("Exception in Method - invalidMSISDNTest" + e.fillInStackTrace(), true);
         }
     }
+
+    @Test(priority = 12, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void testServiceClassRatePlanAPI() {
+        try {
+            selUtils.addTestcaseDescription("Validate Service Class and Rate Plan", "description");
+            final String msisdn = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
+            List<String> customerDetails = api.searchAPITest(msisdn);
+            assertCheck.append(actions.assertEqualStringNotNull(pages.getAccountInformationWidget().getValue(customerDetails, "KYC",  "serviceClass"),"Service Class and Rate Plan test case pass", "Service Class and Rate Plan test case fail", false));
+        } catch (Exception e) {
+            commonLib.fail("Exception in method - testServiceClassRatePlanAPI " + e.fillInStackTrace(), true);
+        }
+        actions.assertAllFoundFailedAssert(assertCheck);
+    }
+
 }
