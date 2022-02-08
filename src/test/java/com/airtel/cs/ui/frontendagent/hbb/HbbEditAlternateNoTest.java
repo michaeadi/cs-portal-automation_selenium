@@ -110,6 +110,7 @@ public class HbbEditAlternateNoTest extends Driver {
                 assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isSelectReasonVisible(), true, "Select reason is visible", "Select reason is visible"));
                 assertCheck.append(actions.assertEqualStringType(pages.getHbbProfilePage().getAlternateNumber(), pages.getHbbProfilePage().getEnterAlternateNoText(), "Alternate number is auto populated in Enter Alternate Number field", "Alternate number is not auto populated in Enter Alternate Number field"));
                 assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isCancelButtonVisible(), true, "Cancel button is displayed", "Cancel button is not displayed"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isSubmitBtnDisabled(), true, "Submit button is disabled", "Submit button is not disabled"));
                 pages.getHbbProfilePage().clickCancelButton();
                 assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isEditAlternatePopUpVisible(), false, "Edit Alternate Pop up is not visible after clicking on Cancel button", "Edit Alternate Pop up is still visible after clicking on Cancel button"));
                 assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isHBBProfileVisible(), false, "Hbb Panel is visible after clicking Cancel button", "Hbb Panel is not visible after clicking Cancel button"));
@@ -125,7 +126,7 @@ public class HbbEditAlternateNoTest extends Driver {
     @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction", "isUserHasEditAlternateMsisdnPermission"})
     public void validateEditAlternateNo() {
         try {
-            selUtils.addTestcaseDescription("Performing operation on edit iocn ", "description");
+            selUtils.addTestcaseDescription("Performing operation on edit icon ", "description");
             String validNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
             String successText = "Request for Alternate Number Updating has been successfully submitted. Link has been sent to customer's email id for validation.";
             Boolean profileVisibility = pages.getHbbProfilePage().isHBBProfileVisible();
@@ -133,19 +134,16 @@ public class HbbEditAlternateNoTest extends Driver {
                 pages.getHbbProfilePage().clickOnEditIconAlternateNo();
                 pages.getHbbProfilePage().enterMsisdnAlternateNo(validNumber);
                 pages.getHbbProfilePage().enterComment("Automation Testing");
-                assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isSubmitBtnDisabled(), true, "Submit button is disabled", "Submit button is not disabled"));
-                if (pages.getHbbProfilePage().isSubmitBtnDisabled() == true) {
-                    pages.getHbbProfilePage().clickOnSubmit();
-                    assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isSuccessPopUpVisible(), true, "Success Popup visible after editing alternate number", "Success Popup not visible after editing alternate number"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getHbbProfilePage().getSuccessText(), successText, "Success text is  displayed correctly", "Success text is not displayed correctly"));
-                }
-            }else{
+                pages.getHbbProfilePage().clickOnSubmit();
+                assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isSuccessPopUpVisible(), true, "Success Popup visible after editing alternate number", "Success Popup not visible after editing alternate number"));
+                assertCheck.append(actions.assertEqualStringType(pages.getHbbProfilePage().getSuccessText(), successText, "Success text is  displayed correctly", "Success text is not displayed correctly"));
+                } else{
                 commonLib.fail("Hbb Profile is not visible", true);
             }
+        actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - ValidateEditAlternateNo" + e.fillInStackTrace(), true);
         }
-        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})

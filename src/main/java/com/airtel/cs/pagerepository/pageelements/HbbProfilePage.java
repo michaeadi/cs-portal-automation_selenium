@@ -38,7 +38,8 @@ public class HbbProfilePage {
     public By enterComment=By.xpath("//span[contains(text(),'Enter Comment')]");
     public By asteriskVisible=By.xpath("//span[contains(text(),'Enter Comment')]//following-sibling::span[2]");
     public By customerRequest=By.xpath("//span[contains(text(),'Customer Request')]");
-    public By confirmationPopUp=By.xpath("//span[contains(text(),'Customer Request')]");
+    public By confirmationPopUp=By.xpath("//div[@class='main-container']");
+    public By successMessage=By.xpath("//div[contains(@class,'main-container__body--message')]");
     public By emailValidation=By.xpath("//label[contains(text(),'Enter Email Id')]//following-sibling::input[@aria-invalid='true']");
 
     /*
