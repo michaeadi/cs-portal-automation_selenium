@@ -185,17 +185,10 @@ public class PageCollection {
         return new Growl(driver);
     }
 
-    public WidgetCommonMethod getWidgetCommonMethod() {
-        return new WidgetCommonMethod(driver);
-    }
+    public WidgetCommonMethod getWidgetCommonMethod(){return new WidgetCommonMethod(driver);}
 
-    public AdjustmentWidget getAdjustmentTabPage() {
-        return new AdjustmentWidget(driver);
-    }
-
-    public AdjustmentHistory getAdjustmentHistoryPage() {
-        return new AdjustmentHistory(driver);
-    }
+    public AdjustmentWidget getAdjustmentTabPage(){return new AdjustmentWidget(driver); }
+    public AdjustmentHistory getAdjustmentHistoryPage(){return new AdjustmentHistory(driver); }
 
     public AccountInformationWidget getAccountInformationWidget() {
         return new AccountInformationWidget(driver);
@@ -205,11 +198,11 @@ public class PageCollection {
         return new PlanAndPackDetailedWidget(driver);
     }
 
-    public CurrentPlanWidget getCurrentPlanWidget() {
+    public CurrentPlanWidget getCurrentPlanWidget(){
         return new CurrentPlanWidget(driver);
     }
 
-    public DetailAccountInfoWidget getDetailAccountInfoWidget() {
+    public DetailAccountInfoWidget getDetailAccountInfoWidget(){
         return new DetailAccountInfoWidget(driver);
     }
 
@@ -217,16 +210,10 @@ public class PageCollection {
         return new ActiveVasWidget(driver);
     }
 
-    public DetailAccountInfoViewBillWidget getDetailAccountInfoViewBillWidget() {
-        return new DetailAccountInfoViewBillWidget(driver);
-    }
+    public DetailAccountInfoViewBillWidget getDetailAccountInfoViewBillWidget() {return new DetailAccountInfoViewBillWidget(driver);}
 
-    public LinkedMsisdnToAccountNoWidget getLinkedMsisdnToAccountNoWidget() {
-        return new LinkedMsisdnToAccountNoWidget(driver);
-    }
+    public LinkedMsisdnToAccountNoWidget getLinkedMsisdnToAccountNoWidget() {return new LinkedMsisdnToAccountNoWidget(driver);}
 
-    public BasePage getBasePage() {
-        return new BasePage(driver);
-    }
+    public DetailAccountSendBill getDetailAccountSendBill() { return new DetailAccountSendBill(driver);}
 
 }
