@@ -765,8 +765,6 @@ public class AccountInformationWidget extends BasePage {
 
     }
 
-
-
     /*
        This Method will give us Current Month Un-bill Amount For Calls
         */
@@ -821,6 +819,4 @@ public class AccountInformationWidget extends BasePage {
         }
         return result;
     }
-
-
 }

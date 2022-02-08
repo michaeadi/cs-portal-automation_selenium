@@ -275,9 +275,6 @@ public class AccountInformationWidgetTest extends Driver {
         }
     }
 
-
-
-
     /**
      * This method is used to validate currency on account info widget
      */
