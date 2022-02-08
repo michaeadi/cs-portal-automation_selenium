@@ -439,47 +439,6 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
         }
     }
 
-    @Test(priority = 12, groups = {"SanityTest", "RegressionTest", "ProdTest"})
-    public void testEmailId() {
-        try {
-            selUtils.addTestcaseDescription("Validate Email Id","description");
-            Configuration config = api.getConfiguration("customerDemographicDetailsWidgets");
-            String name=config.getResult().getCustomerDemographicDetailsWidgets().get(0).getWidgetConfig().getTabs().get(0).getCustomDetails().get(0).get(0).getDisplayName();
-            String info=config.getResult().getCustomerDemographicDetailsWidgets().get(0).getWidgetConfig().getTabs().get(0).getCustomDetails().get(0).get(0).getIcon().getInfoToBeShown().get(0).getHeader();
-
-
-
-        } catch (Exception e) {
-            commonLib.fail("Exception in method - testEmailId" + e.fillInStackTrace(), true);
-        }
-    }
-
-    @Test(priority = 13, groups = {"RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"}, enabled = false)
-    @Test(priority = 11, groups = {"SanityTest", "RegressionTest", "ProdTest"})
-    public void testServiceClassRatePlanAPI() {
-        try {
-            selUtils.addTestcaseDescription("Validate Service Class and Rate Plan", "description");
-            final String msisdn = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
-            List<String> customerDetails = api.searchAPITest(msisdn);
-            assertCheck.append(actions.assertEqualStringNotNull(pages.getAccountInformationWidget().getValue(customerDetails, "KYC", "serviceClass"), "Service Class and Rate Plan test case pass", "Service Class and Rate Plan test case fail", false));
-            actions.assertAllFoundFailedAssert(assertCheck);
-        } catch (Exception e) {
-            commonLib.fail("Exception in method - testServiceClassRatePlanAPI " + e.fillInStackTrace(), true);
-        }
-    }
-
-    @Test(priority = 12, groups = {"SanityTest", "RegressionTest", "ProdTest"})
-    public void testEmailId() {
-        try {
-            selUtils.addTestcaseDescription("Validate Email Id","description");
-            Configuration config = api.getConfiguration("customerDemographicDetailsWidgets");
-            String name=config.getResult().getCustomerDemographicDetailsWidgets().get(0).getWidgetConfig().getTabs().get(0).getCustomDetails().get(0).get(0).getDisplayName();
-            String info=config.getResult().getCustomerDemographicDetailsWidgets().get(0).getWidgetConfig().getTabs().get(0).getCustomDetails().get(0).get(0).getIcon().getInfoToBeShown().get(0).getHeader();
-        } catch (Exception e) {
-            commonLib.fail("Exception in method - testEmailId" + e.fillInStackTrace(), true);
-        }
-    }
-
     @Test(priority = 13, groups = {"RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"}, enabled = false)
     public void invalidMSISDNTest() {
         try {
