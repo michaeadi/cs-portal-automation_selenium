@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 
 public class DetailAccountInfoViewBillWidgetPage {
     public By getTitle = By.xpath("//div[@data-csautomation-key='POSTPAID_ACCOUNT_INFO_DETAIL']//span[@class='card__card-header--label']");
-    public By accountInfoIcon = By.xpath("//div[@data-csautomation-key='POSTPAID_ACCOUNT_INFORMATION']//img[@class='header-action-icon ng-star-inserted']");
+    public By accountInfoIcon = By.xpath("//div[@data-csautomation-key='POSTPAID_ACCOUNT_INFORMATION']//img[@data-csautomation-key='menuButton']");
     public By accountInfoDetailWidget = By.xpath("//div[@data-csautomation-key='POSTPAID_ACCOUNT_INFO_DETAIL']//span[@class='card__card-header--label']");
     public By accountInfo = By.xpath("//div[@class='mat-tab-label-content']//span[contains(text(),'Account Info')]");
     public By pdf = By.xpath("//div[@class='pdf-container ng-star-inserted']//simple-pdf-viewer/div[1]");
