@@ -273,6 +273,7 @@ public class AccountInformationWidgetTest extends Driver {
         }catch (Exception e) {
             commonLib.fail("Exception in Method - verifyUnbilledAmount()" + e.fillInStackTrace(), true);
         }
+        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     /**
