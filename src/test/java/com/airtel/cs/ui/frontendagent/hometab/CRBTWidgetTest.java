@@ -63,7 +63,7 @@ public class CRBTWidgetTest extends Driver {
             selUtils.addTestcaseDescription("Validate is CRBT Widget Visible,Validate is CRBT Widget Loaded?,Validate Footer and Middle Auuid", "description");
             crbtWidgetId = pages.getCrbtWidgetPage().getCRBTWidgetId();
             assertCheck.append(actions.assertEqualBoolean(widgetMethods.isWidgetVisible(crbtWidgetId), true, "CRBT Widget is visible", "CRBT Widget is not visible"));
-            //assertCheck.append(actions.assertEqualBoolean(pages.getCrbtWidgetPage().isCRBTHistoryWidgetLoaded(), true, "CRBT Widget Loaded Successfully", "CRBT Widget NOT Loaded Successfully"));//
+            assertCheck.append(actions.assertEqualBoolean(pages.getCrbtWidgetPage().isCRBTHistoryWidgetLoaded(), true, "CRBT Widget Loaded Successfully", "CRBT Widget NOT Loaded Successfully"));//
             assertCheck.append(actions.assertEqualStringType(pages.getCrbtWidgetPage().getFooterAuuidCRBT(), loginAUUID, "Auuid shown at the footer of the CRBT widget and is correct", "Auuid NOT shown at the footer of CRBT widget"));
             assertCheck.append(actions.assertEqualStringType(pages.getCrbtWidgetPage().getMiddleAuuidCRBT(), loginAUUID, "Auuid shown at the middle of the CRBT widget and is correct", "Auuid NOT shown at the middle of CRBT widget"));
             actions.assertAllFoundFailedAssert(assertCheck);
@@ -110,7 +110,7 @@ public class CRBTWidgetTest extends Driver {
             selUtils.addTestcaseDescription("Validate top 20 tunes tab, Validate top 20 tune CS API,", "description");
             pages.getCrbtWidgetPage().clickTop20Tab();
             Top20Ringtone top20Tune = api.ringtoneDetailTest(customerNumber, "topTwenty", null);
-            //pages.getCrbtWidgetPage().waitTillTimeLineGetsRemoved();
+            pages.getCrbtWidgetPage().waitTillTimeLineGetsRemoved();
             if (!top20Tune.getStatusCode().equalsIgnoreCase("200")) {
                 commonLib.fail("com.airtel.cs.API Response " + top20Tune.getMessage(), true);
                 assertCheck.append(actions.assertEqualBoolean(pages.getCrbtWidgetPage().isWidgetError(), true, "Widget Error displayed as api response is not 200", "Widget Error does not display as api response is not 200."));

@@ -6,6 +6,12 @@ public class DetailAccountSendBillPage {
 
     public String sendBill1 = "//div[@data-csautomation-key='POSTPAID_ACCOUNT_INFO_DETAIL']//div[contains(@class,'table-data-wrapper')]/div[";
     public String sendBill2 = "]//img[contains(@src,'send')]";
+    public By unableToFetchError=By.xpath("//div[@data-csautomation-key='POSTPAID_ACCOUNT_INFO_DETAIL']//h3[contains(text(),'Unable to Fetch Data')]");
+    public By demographicEmail=By.xpath("//span[contains(text(),'Email Id')]//following-sibling::span");
+
+    /*
+    Issue Detail Pop up
+     */
     public By issueDetailPopUp=By.xpath("//span[contains(text(),'Send Postpaid')]");
     public By billNumberLabel=By.xpath("//label[contains(text(),'Bill Number *')]");
     public By emailIDLabel=By.xpath("//label[contains(text(),'Email ID *')]");
@@ -13,8 +19,6 @@ public class DetailAccountSendBillPage {
     public By emailID=By.xpath("//input[@id='mat-input-19']");
     public By commentBoxLabel=By.xpath("//div[contains(@class, 'issue-comment--label')]");
     public By selectReasonLabel=By.xpath("//label[contains(text(),'Select Reason *')]");
-    public By demographicEmail=By.xpath("//span[contains(text(),'Email Id')]//following-sibling::span");
-    public By unableToFetchError=By.xpath("//div[@data-csautomation-key='POSTPAID_ACCOUNT_INFO_DETAIL']//h3[contains(text(),'Unable to Fetch Data')]");
     public By submitButton =By.xpath("//button[contains(text(),'Submit')]");
     public By cancelButton =By.xpath("//button[contains(text(),'Cancel')]");
     public By continueButton=By.xpath("//span[contains(text(),'continue')]");
@@ -38,7 +42,7 @@ public class DetailAccountSendBillPage {
     public By actionTrail=By.xpath("//div[contains(text(),'Action Trail')]");
     public By actionTrailLatestDropdown=By.xpath("//span[contains(@class,'cursor')]");
     public By actionTrailBillNo=By.xpath("//div[@id='collapseTwo']/div/form/ul/li[2]/p");
-    public By actionTrailEmailId=By.xpath("");
+    public By actionTrailEmailId=By.xpath("//div[@id='collapseTwo']/div/form/ul/li[2]/p[2]");
     public By actionType=By.xpath("//tr[contains(@class,'agent-list--list-row')][1]//td[1]");
     public By reason=By.xpath("//tr[contains(@class,'agent-list--list-row')][1]//td[3]");
     public By comment=By.xpath("//tr[contains(@class,'agent-list--list-row')][1]//td[6]");
