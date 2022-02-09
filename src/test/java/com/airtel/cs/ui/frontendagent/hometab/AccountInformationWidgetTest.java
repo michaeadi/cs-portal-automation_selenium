@@ -260,10 +260,26 @@ public class AccountInformationWidgetTest extends Driver {
     }
 
 
+    @Test(priority = 10 , groups ={"SanityTest","RegressionTest","ProdTest"}, dependsOnMethods ={"isUserHasAccountInformationPermission"})
+    public void verifyUnbilledAmount() {
+        try {
+            selUtils.addTestcaseDescription("Validate Unbilled Amount Should be Bifurcated in Data, Voice, SMS, Data ","description");
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmount", "statusCode"), "200", "Postpaid Account Information API 1 Status Code Matched", "Postpaid Account Information API 1 Status Code NOT Matched"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getCurrentMonthUnBillAmountForCalls(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmountForCalls", "currentMonthUnbilledAmountForCalls"), "Current month un-billed amount for calls displays as expected", "Current month un-billed amount for calls not displays as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getCurrentMonthUnBillAmountForSms(),  pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmountForSms", "currentMonthUnbilledAmountForSms"), "Current month un-billed amount for sms displays  as expected", "Current month un-billed amount for sms not displays as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getCurrentMonthUnBillAmountForData(),  pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmountForData", "currentMonthUnbilledAmountForData"), "Current month un-billed amount for data displays as expected", "Current month un-billed amount for data not displays as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getCurrentMonthUnBillAmountForOthers(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmountForOthers", "currentMonthUnbilledAmountForOthers"), "Current month un-billed amount for others displays as expected", "Current month un-billed amount for others not displays as expected"));
+
+        }catch (Exception e) {
+            commonLib.fail("Exception in Method - verifyUnbilledAmount()" + e.fillInStackTrace(), true);
+        }
+        actions.assertAllFoundFailedAssert(assertCheck);
+    }
+
     /**
      * This method is used to validate currency on account info widget
      */
-    @Test(priority = 10, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    @Test(priority = 11, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
     public void verifyCurrency() {
         try {
             selUtils.addTestcaseDescription("Validating currency on account information widget", "description");
@@ -282,7 +298,7 @@ public class AccountInformationWidgetTest extends Driver {
     /**
      * This method is used to validate bold text
      */
-    @Test(priority = 11, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    @Test(priority = 12, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
     public void verifyBoldText() {
         try {
             selUtils.addTestcaseDescription("Validating font family on account information widget", "description");
@@ -301,17 +317,15 @@ public class AccountInformationWidgetTest extends Driver {
     /**
      * This method is used to validate account information detail icon
      */
-    @Test(priority = 12, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    @Test(priority = 13, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
     public void verifyAccountInfoDetailedIcon() {
 
         try {
             selUtils.addTestcaseDescription("Validating all data points under Account Information widget like Due date And Total Outstanding And Current Cycle And Current Month Unbilled Amount And last Month Bill Amount And Last Payment Mode And Security Deposit And Account Number", "description");
-            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmount", "statusCode"), "200", "Postpaid Account Information API 1 Status Code Matched", "Postpaid Account Information API 1 Status Code NOT Matched"));
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "availableCreditLimit", "statusCode"), "200", "Postpaid Account Information API 2 Status Code Matched", "Postpaid Account Information API 2 Status Code NOT Matched"));
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "lastMonthBilledAmount", "statusCode"), "200", "Postpaid Account Information API 3 Status Code Matched", "Postpaid Account Information API 3 Status Code NOT Matched"));
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "customerAccountNumber", "statusCode"), "200", "Postpaid Account Information API 4 Status Code Matched", "Postpaid Account Information API 4 Status Code NOT Matched"));
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getTotalOutstanding(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "totalOutstandingAmount", "totalOutstandingAmount"), "Total outstanding amount displays as expected", "Total outstanding amount not displays as expected"));
-            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getCurrentMonthUnBillAmount(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmount", "currentMonthUnbilledAmount"), "Current month un-billed amount displays as expected", "Current month un-billed amount not displays as expected"));
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getDueDate(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "dueDate", "dueDate"), "Due date displays as expected", "Due date not displays as expected"));
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getCurrentCycle(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentCycle", "currentCycle"), "Current cycle displays as expected", "Current cycle not displays as expected"));
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getLastMonthBillAmount(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "lastMonthBilledAmount", "lastMonthBilledAmount"), "Last month bill amount displays as expected", "Last month bill amount not displays as expected"));
@@ -368,7 +382,7 @@ public class AccountInformationWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 13, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 14, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void decimalCountOnUI() {
         try {
             selUtils.addTestcaseDescription("Validating the decimal values up to 2", "description");
@@ -383,7 +397,7 @@ public class AccountInformationWidgetTest extends Driver {
         }
     }
 
-    @Test(priority = 14, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    @Test(priority = 15, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
     public void validateRaiseSRButton() {
         try {
             selUtils.addTestcaseDescription("Validating Total Credit limit have SR Icon must be visible,After clicking on SR Icon Validate Issue pop modal opened,Validate Account number field displayed,validate Comment box displayed,validate submit button disabled as mandatory field does not filled,Validate Cancel button displayed", "description");
@@ -408,7 +422,7 @@ public class AccountInformationWidgetTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 15, groups = {"RegressionTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    @Test(priority = 16, groups = {"RegressionTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
     public void createSRUsingRaiseSRButton() {
         try {
             selUtils.addTestcaseDescription("Validating Total Credit limit have SR Icon must be visible,After clicking on SR Icon Issue detail pop up open,Validate user able to enter amount,Validate user able to add comment, Validate Submit button enabled,Validate after clicking on submit button Success message displayed,Validate ticket id and expected closure date displayed.", "description");
@@ -447,7 +461,7 @@ public class AccountInformationWidgetTest extends Driver {
     /**
      * This method is used to validate widgets in profile management
      */
-    @Test(priority = 16, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    @Test(priority = 17, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
     public void accountInfoProfileManagement() {
         try {
             selUtils.addTestcaseDescription("Validating widgets in profile management", "description");

@@ -12,7 +12,6 @@ public class AccountInformationWidgetPage {
     public By middleAuuid = By.xpath("//div[@data-csautomation-key='POSTPAID_ACCOUNT_INFORMATION']");
     public By progressBarForCreditLimit = By.xpath("//div[@class='postpaid-container ng-star-inserted']/div[2]/progress");
     public By accountInfoDetailed = By.xpath("//div[@data-csautomation-key='POSTPAID_ACCOUNT_INFORMATION']//img[@class='header-action-icon ng-star-inserted']");
-    public By currentMonthUnbillAmount = By.xpath("//span[@id='currentMonthUnbilledAmount']");
     public By lastMonthBillAmount = By.xpath("//span[@id='lastMonthBilledAmount']");
 
     public By dueDate = By.xpath("//span[@id='dueDate']");
@@ -36,6 +35,10 @@ public class AccountInformationWidgetPage {
     public By raiseSRIcon=By.xpath("//div[contains(text(),'Temp Credit Limit')]//img");
     public By lastPaymentDate = By.xpath("//div[contains(text(),'Last Payment & Mode')]/following-sibling::div/span[3]/span");
     public By lastPaymentAmount = By.xpath("//span[@id='lastPaymentAmount']");
+    public By currentMonthUnbillAmountForCalls = By.xpath("//div[contains(@class,'unbilled-amount-category')]//span[contains(text(),'Calls')]");
+    public By currentMonthUnbillAmountForSms = By.xpath("//div[contains(@class,'unbilled-amount-category')]//span[contains(text(),'SMS')]");
+    public By currentMonthUnbillAmountForData = By.xpath("//div[contains(@class,'unbilled-amount-category')]//span[contains(text(),'Data')]");
+    public By currentMonthUnbillAmountForOthers = By.xpath("//div[contains(@class,'unbilled-amount-category')]//span[contains(text(),'Others')]");
 
     /**
      * Issue Detail Pop up
