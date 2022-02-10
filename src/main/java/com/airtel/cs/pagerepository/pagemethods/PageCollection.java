@@ -205,11 +205,11 @@ public class PageCollection {
         return new PlanAndPackDetailedWidget(driver);
     }
 
-    public CurrentPlanWidget getCurrentPlanWidget() {
+    public CurrentPlanWidget getCurrentPlanWidget(){
         return new CurrentPlanWidget(driver);
     }
 
-    public DetailAccountInfoWidget getDetailAccountInfoWidget() {
+    public DetailAccountInfoWidget getDetailAccountInfoWidget(){
         return new DetailAccountInfoWidget(driver);
     }
 

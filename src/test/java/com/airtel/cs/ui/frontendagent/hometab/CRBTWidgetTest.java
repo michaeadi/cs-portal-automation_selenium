@@ -83,12 +83,11 @@ public class CRBTWidgetTest extends Driver {
             if (Integer.parseInt(statusCode) == 200) {
                 if (Objects.isNull(ringtoneAPI.getApiErrors())) {
                     if (Objects.nonNull(ringtoneAPI.getResult())) {
-                        boolean status = ringtoneAPI.getResult().getIsHelloTunesSubscribed();
-                        if (!status) {
-
-                            assertCheck.append(actions.assertEqualStringType(message, "Customer haven't subscribed for hello tunes", "Hello Tune Not Subscribed Message Matched Successfully and is :" + message, "Hello Tune Not Subscribed Message NOT Matched and is :" + message));
-                        }  //ToDO Pending as Test msisdn is not available
-
+                        if (StringUtils.equalsIgnoreCase(message,"Customer haven't subscribed for hello tunes"))
+                            assertCheck.append(actions.assertEqualStringType(message, "Customer haven't subscribed for hello tunes", "Hello Tune Not Subscribed message matched successfully and is :" + message, "Hello Tune Not Subscribed message NOT matched and is :" + message));
+                        if (StringUtils.equalsIgnoreCase(message,"Subscriber activation is pending."))
+                            assertCheck.append(actions.assertEqualStringType(message, "Subscriber activation is pending.", "Subscriber activation pending message matched successfully and is :" + message, "Subscriber activation pending message NOT Matched and is :" + message));
+                        //ToDO Pending as Test msisdn is not available
                     }
                 } else {
                     final String actual = pages.getCrbtWidgetPage().noResultMessage();

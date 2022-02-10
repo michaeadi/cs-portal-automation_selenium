@@ -1,23 +1,22 @@
+
+
 package com.airtel.cs.ui.frontendagent.demographicwidget;
 
 import com.airtel.cs.api.ESBRequestSource;
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.model.request.GenericRequest;
 import com.airtel.cs.model.response.actionconfig.ActionConfigResult;
 import com.airtel.cs.model.response.actionconfig.Condition;
 import com.airtel.cs.model.response.agents.RoleDetails;
 import com.airtel.cs.model.response.amprofile.AMProfile;
-import com.airtel.cs.model.response.customeprofile.CustomerDetailsResponse;
+import com.airtel.cs.model.response.authconfiguration.Configuration;
 import com.airtel.cs.model.response.filedmasking.FieldMaskConfigs;
 import com.airtel.cs.model.response.kycprofile.GsmKyc;
 import com.airtel.cs.model.response.kycprofile.KYCProfile;
 import com.airtel.cs.model.response.kycprofile.Profile;
 import com.airtel.cs.model.response.plans.Plans;
-import com.airtel.cs.model.response.serviceclassrateplan.ServiceClassRatePlanResponseDTO;
 import io.restassured.http.Headers;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.ObjectUtils;
@@ -52,8 +51,7 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
     @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void openCustomerInteraction() {
         try {
-            selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not",
-                    "description");
+            selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
             customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().openCustomerInteractionPage();
@@ -73,15 +71,15 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
     @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"}, enabled = false)
     public void testPukDetails() {
         try {
-            selUtils.addTestcaseDescription(
-                    "Verify Auuid shown in middle and at the footer of the demographic widget, Verify PUK is locked or unlocked, If Locked then verify data, else unlock PUK details, Validate PUK1 and PUK2", "description");
+            selUtils.addTestcaseDescription("Verify Auuid shown in middle and at the footer of the demographic widget, Verify PUK is locked or unlocked, If Locked then verify data, else unlock PUK details, Validate PUK1 and PUK2", "description");
             assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getMiddleAuuidDGW(), loginAUUID, "Auuid is visible at the middle of the Demo Graphic Widget and is correct", "Auuid is NOT visible at the middle of the Demo Graphic Widget"));
             assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getFooterAuuidDGW(), loginAUUID, "Auuid is visible at the footer of the Demo Graphic Widget and is correct", "Auuid is NOT visible at the footer of the Demo Graphic Widget"));
             KYCProfile kycProfile = api.kycProfileAPITest(customerNumber);
             final Integer statusCode = kycProfile.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "KYC Profile API Status Code Matched and is :" + statusCode, "KYC Profile API Status Code NOT Matched and is :" + statusCode, false));
+            Configuration config =api.getConfiguration("customerDemographicDetailsWidgets");
+            pages.getDemoGraphicPage().checkConfiguration(config,");
             if (pages.getDemoGraphicPage().isPUKInfoLocked()) {
-
                 pages.getDemoGraphicPage().clickPUKToUnlock();
                 assertCheck.append(actions
                         .assertEqualBoolean(pages.getAuthTabPage().isAuthTabLoad(), true, "Authentication tab loaded correctly",
@@ -206,6 +204,8 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
         try {
             selUtils.addTestcaseDescription(
                     "Validate Customer Name,Validate Customer DOB,Validate if Customer has Birthday or Anniversary with Airtel, Validate GSM KYC Status", "description");
+            Configuration config =api.getConfiguration("customerDemographicDetailsWidgets");
+            pages.getDemoGraphicPage().checkConfiguration(config,"GSM KYC Status");
             GsmKyc gsmKycAPI = api.gsmKYCAPITest(customerNumber);
             final int statusCode = gsmKycAPI.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "GSM KYC API Status Code Matched and is :" + statusCode, "GSM KYC API Status Code NOT Matched and is :" + statusCode, false));
@@ -354,6 +354,8 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validate Connection Type, Validate Service Category,Validate Segment, Validate Service Class",
                     "description");
+            Configuration config =api.getConfiguration("customerDemographicDetailsWidgets");
+            pages.getDemoGraphicPage().checkConfiguration(config,"Connection Type");
             KYCProfile kycProfile = api.kycProfileAPITest(customerNumber);
             final Integer statusCode = kycProfile.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "KYC Profile API Status Code Matched and is :" + statusCode, "KYC Profile API Status Code NOT Matched and is :" + statusCode, false));
@@ -407,6 +409,8 @@ public class DemoGraphicWidgetMsisdnTest extends Driver {
     public void testDataManager() {
         try {
             selUtils.addTestcaseDescription("Validate Data Manager,Validate Data Manager Status", "description");
+            Configuration config =api.getConfiguration("customerDemographicDetailsWidgets");
+            pages.getDemoGraphicPage().checkConfiguration(config,"Data Manager");
             Plans plansAPI = api.accountPlansTest(customerNumber);
             final int statusCode = plansAPI.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Plan API Status Code Matched and is :" + statusCode, "Plan API Status Code NOT Matched and is :" + statusCode, false));

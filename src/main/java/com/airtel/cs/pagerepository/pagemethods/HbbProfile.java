@@ -701,7 +701,7 @@ public class HbbProfile extends BasePage{
      * @return true/false
      */
     public String getSuccessText() {
-        final String text = getText(pageElements.confirmationPopUp);
+        final String text = getText(pageElements.successMessage);
         commonLib.info("Getting success pop up" + text);
         return text;
     }

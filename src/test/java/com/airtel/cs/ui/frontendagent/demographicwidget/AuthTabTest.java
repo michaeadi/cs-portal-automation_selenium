@@ -56,7 +56,7 @@ public class AuthTabTest extends Driver {
     public void validateAnswerQuestionConfig() {
         try {
             selUtils.addTestcaseDescription("Jira id - CSP-63443,Verify that the answers of the questions in pop up should either show data from configuration or show inline spinner", "description");
-            Configuration config = api.getConfiguration("authorization_data");
+            Configuration config = api.getConfiguration("authorization_data",lineType);
             authTabConfig = config.getResult().getAuthDataConfig();
             final String statusCode = config.getStatusCode();
             assertCheck.append(actions.assertEqualStringType(statusCode, "200", "Config API Status Code is as Expected and is :" + statusCode, "Config API Status Code is NOT as Expected and is :" + statusCode));
@@ -85,7 +85,7 @@ public class AuthTabTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Jira id - CSP-63442,Verify that there is a authorization pop for the actions like SIM Bar Unbar, PIN reset", "description");
             DataProviders dataProviders = new DataProviders();
-            Configuration config = api.getConfiguration("locked_sections_keys");
+            Configuration config = api.getConfiguration("locked_sections_keys",lineType);
             List<LockedSection> lockedSection = config.getResult().getLockedSectionsKeysConfig();
             final String statusCode = config.getStatusCode();
             assertCheck.append(actions.assertEqualStringType(statusCode, "200", "Config API Status Code is as Expected and is :" + statusCode, "Config API Status Code is NOT as Expected and is :" + statusCode));
