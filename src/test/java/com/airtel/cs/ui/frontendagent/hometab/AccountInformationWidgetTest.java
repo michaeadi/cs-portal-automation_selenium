@@ -88,7 +88,7 @@ public class AccountInformationWidgetTest extends Driver {
     /**
      * This method is used to show account information widget on the basis of connection type and UM permission
      */
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"},enabled = false)
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
     public void connectionTypeAndUMPermissionTest() {
         try {
             selUtils.addTestcaseDescription("Verify that account information widget should be visible to the logged in agent on the basis of connection type and UM permission", "description");
@@ -143,7 +143,7 @@ public class AccountInformationWidgetTest extends Driver {
     /**
      * This method is used to call validate UI parameter values with ESB response
      */
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"},enabled = false)
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
     public void callingESBCustomerProfileAPI() {
         try {
             selUtils.addTestcaseDescription("Calling customer profile api to get customer account number", "description");
@@ -182,7 +182,7 @@ public class AccountInformationWidgetTest extends Driver {
     /**
      * This method is used to validate other tab and email id
      */
-    @Test(priority = 6, groups = {"SanityTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"}, enabled = false)
+    @Test(priority = 6, groups = {"SanityTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
     public void otherTabDisplay() {
         try {
             selUtils.addTestcaseDescription("Verify that Other tab and email id should be visible", "description");
@@ -226,7 +226,7 @@ public class AccountInformationWidgetTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 8, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"},enabled = false)
+    @Test(priority = 8, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
     public void verifySecurityDeposit() {
         try {
             selUtils.addTestcaseDescription("Validate Security Deposit is visible,Validate Security Deposit Currency Color,Validate upto 2 places after decimal", "description");
@@ -240,7 +240,7 @@ public class AccountInformationWidgetTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 9, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"},enabled = false)
+    @Test(priority = 9, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
     public void verifyLastPaymentMode() throws IOException, ParseException {
         try {
             selUtils.addTestcaseDescription("Validate Last Payment Mode, Date and Amount are visible", "description");
