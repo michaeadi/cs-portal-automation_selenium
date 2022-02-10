@@ -88,7 +88,7 @@ public class AccountInformationWidgetTest extends Driver {
     /**
      * This method is used to show account information widget on the basis of connection type and UM permission
      */
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"},enabled = false)
     public void connectionTypeAndUMPermissionTest() {
         try {
             selUtils.addTestcaseDescription("Verify that account information widget should be visible to the logged in agent on the basis of connection type and UM permission", "description");
@@ -126,7 +126,7 @@ public class AccountInformationWidgetTest extends Driver {
     /**
      * This method is used to validate watermarked in the left corner and middle
      */
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"},enabled = false)
     public void accountInformationWatermarkTest() {
 
         try {
@@ -143,7 +143,7 @@ public class AccountInformationWidgetTest extends Driver {
     /**
      * This method is used to call validate UI parameter values with ESB response
      */
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"},enabled = false)
     public void callingESBCustomerProfileAPI() {
         try {
             selUtils.addTestcaseDescription("Calling customer profile api to get customer account number", "description");
@@ -226,7 +226,7 @@ public class AccountInformationWidgetTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 8, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    @Test(priority = 8, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"},enabled = false)
     public void verifySecurityDeposit() {
         try {
             selUtils.addTestcaseDescription("Validate Security Deposit is visible,Validate Security Deposit Currency Color,Validate upto 2 places after decimal", "description");
@@ -240,7 +240,7 @@ public class AccountInformationWidgetTest extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 9, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
+    @Test(priority = 9, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"},enabled = false)
     public void verifyLastPaymentMode() throws IOException, ParseException {
         try {
             selUtils.addTestcaseDescription("Validate Last Payment Mode, Date and Amount are visible", "description");
@@ -265,10 +265,10 @@ public class AccountInformationWidgetTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validate Unbilled Amount Should be Bifurcated in Data, Voice, SMS, Data ","description");
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmount", "statusCode"), "200", "Postpaid Account Information API 1 Status Code Matched", "Postpaid Account Information API 1 Status Code NOT Matched"));
-            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getCurrentMonthUnBillAmountForCalls(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmountForCalls", "currentMonthUnbilledAmountForCalls"), "Current month un-billed amount for calls displays as expected", "Current month un-billed amount for calls not displays as expected"));
-            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getCurrentMonthUnBillAmountForSms(),  pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmountForSms", "currentMonthUnbilledAmountForSms"), "Current month un-billed amount for sms displays  as expected", "Current month un-billed amount for sms not displays as expected"));
-            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getCurrentMonthUnBillAmountForData(),  pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmountForData", "currentMonthUnbilledAmountForData"), "Current month un-billed amount for data displays as expected", "Current month un-billed amount for data not displays as expected"));
-            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getCurrentMonthUnBillAmountForOthers(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmountForOthers", "currentMonthUnbilledAmountForOthers"), "Current month un-billed amount for others displays as expected", "Current month un-billed amount for others not displays as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getBasePage().getKeyValueAPI(pages.getAccountInformationWidget().getCurrentMonthUnBillAmountForCalls()), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmountForCalls", "unbilledCalls"), "Current month un-billed amount for calls displays as expected", "Current month un-billed amount for calls not displays as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getBasePage().getKeyValueAPI(pages.getAccountInformationWidget().getCurrentMonthUnBillAmountForSms()),  pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmountForSms", "unbilledSMS"), "Current month un-billed amount for sms displays  as expected", "Current month un-billed amount for sms not displays as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getBasePage().getKeyValueAPI(pages.getAccountInformationWidget().getCurrentMonthUnBillAmountForData()),  pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmountForData", "unbilledData"), "Current month un-billed amount for data displays as expected", "Current month un-billed amount for data not displays as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getBasePage().getKeyValueAPI(pages.getAccountInformationWidget().getCurrentMonthUnBillAmountForOthers()), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmountForOthers", "unbilledOthers"), "Current month un-billed amount for others displays as expected", "Current month un-billed amount for others not displays as expected"));
 
         }catch (Exception e) {
             commonLib.fail("Exception in Method - verifyUnbilledAmount()" + e.fillInStackTrace(), true);

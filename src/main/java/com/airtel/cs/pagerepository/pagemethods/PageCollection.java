@@ -211,4 +211,7 @@ public class PageCollection {
     }
     public DetailAccountInfoViewBillWidget getDetailAccountInfoViewBillWidget() {return new DetailAccountInfoViewBillWidget(driver);}
     public LinkedMsisdnToAccountNoWidget getLinkedMsisdnToAccountNoWidget() {return new LinkedMsisdnToAccountNoWidget(driver);}
+
+    public BasePage getBasePage() {return new BasePage(driver);}
+
 }
