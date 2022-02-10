@@ -229,4 +229,7 @@ public class PageCollection {
         return new BasePage(driver);
     }
 
+    public DetailAccountSendBill getDetailAccountSendBill() {
+        return new DetailAccountSendBill(driver);
+    }
 }

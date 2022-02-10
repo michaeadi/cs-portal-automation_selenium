@@ -782,4 +782,26 @@ public class DemoGraphic extends BasePage {
             commonLib.fail("Exception in method - " + e.fillInStackTrace(), true);
         }
     }
+
+    /**
+     * This method is use to get Email ID
+     *
+     * @return String The value
+     */
+    public String getEmail() {
+        final String text = getText(pageElements.email);
+        commonLib.info("Getting email id " + text);
+        return text;
+    }
+
+    /**
+     * This method is use to get Account number
+     *
+     * @return String The value
+     */
+    public String getAccountNumber() {
+        final String text = getText(pageElements.accountNumber);
+        commonLib.info("Getting account number " + text);
+        return text;
+    }
 }
