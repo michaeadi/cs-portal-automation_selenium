@@ -185,10 +185,17 @@ public class PageCollection {
         return new Growl(driver);
     }
 
-    public WidgetCommonMethod getWidgetCommonMethod(){return new WidgetCommonMethod(driver);}
+    public WidgetCommonMethod getWidgetCommonMethod() {
+        return new WidgetCommonMethod(driver);
+    }
 
-    public AdjustmentWidget getAdjustmentTabPage(){return new AdjustmentWidget(driver); }
-    public AdjustmentHistory getAdjustmentHistoryPage(){return new AdjustmentHistory(driver); }
+    public AdjustmentWidget getAdjustmentTabPage() {
+        return new AdjustmentWidget(driver);
+    }
+
+    public AdjustmentHistory getAdjustmentHistoryPage() {
+        return new AdjustmentHistory(driver);
+    }
 
     public AccountInformationWidget getAccountInformationWidget() {
         return new AccountInformationWidget(driver);
@@ -210,10 +217,16 @@ public class PageCollection {
         return new ActiveVasWidget(driver);
     }
 
-    public DetailAccountInfoViewBillWidget getDetailAccountInfoViewBillWidget() {return new DetailAccountInfoViewBillWidget(driver);}
+    public DetailAccountInfoViewBillWidget getDetailAccountInfoViewBillWidget() {
+        return new DetailAccountInfoViewBillWidget(driver);
+    }
 
-    public LinkedMsisdnToAccountNoWidget getLinkedMsisdnToAccountNoWidget() {return new LinkedMsisdnToAccountNoWidget(driver);}
+    public LinkedMsisdnToAccountNoWidget getLinkedMsisdnToAccountNoWidget() {
+        return new LinkedMsisdnToAccountNoWidget(driver);
+    }
 
-    public DetailAccountSendBill getDetailAccountSendBill() { return new DetailAccountSendBill(driver);}
+    public BasePage getBasePage() {
+        return new BasePage(driver);
+    }
 
 }

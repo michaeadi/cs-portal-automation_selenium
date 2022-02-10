@@ -724,17 +724,6 @@ public class DemoGraphic extends BasePage {
             result = true;
         return result;
     }
-
-    /**
-     * This Method will get the API key value
-     *
-     * @param apiKeyValue the key
-     * @return the result
-     */
-    public String getKeyValueAPI(String apiKeyValue) {
-        return "null".equals(apiKeyValue) || ("").equalsIgnoreCase(apiKeyValue) || apiKeyValue == null ? "-" : apiKeyValue.toLowerCase().trim();
-    }
-
     /*
  This Method will click outside over frontend agent dashboard
   */

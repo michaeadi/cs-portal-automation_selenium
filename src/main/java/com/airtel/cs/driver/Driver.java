@@ -236,19 +236,10 @@ public class Driver {
             }
             MODIFIED_HTML_FILE_PATH = HTML_FILE_PATH + SUITE_TYPE + reportTitle + dateTime.toString(DATE_FORMAT) + ".html";
             browser = constants.getValue(ApplicationConstants.WEB_BROWSER);
-            try {
-                System.out.println("Inside try ");
-                extent = new ExtentReports();
-                System.out.println("Inside extent ");
-                spark = new ExtentSparkReporter(MODIFIED_HTML_FILE_PATH);
-                System.out.println("Inside spark ");
-                extent.attachReporter(spark);
-                System.out.println("Inside attachReporter ");
-                spark.config().setDocumentTitle("Airtel Africa CS Automation");
-            } catch (Exception e) {
-                System.out.println("Initialize extent " + e.getMessage());
-            }
-            System.out.println("Outside try ");
+            extent = new ExtentReports();
+            spark = new ExtentSparkReporter(MODIFIED_HTML_FILE_PATH);
+            extent.attachReporter(spark);
+            spark.config().setDocumentTitle("Airtel Africa CS Automation");
             spark.config().setReportName("Automation Report -" + OPCO + " CS Portal");
             extent.setSystemInfo("Application Environment ", OPCO + " " + evnName);
             extent.setSystemInfo("Execution Browser ", browser.toUpperCase());
@@ -256,9 +247,7 @@ public class Driver {
             extent.setSystemInfo("Suite Type", SUITE_TYPE.toUpperCase());
             nftrSheetValue = constants.getValue(CommonConstants.SUITE_TYPE).equals(SUITE_TYPE) ? CommonConstants.SANITY_NFTR_SHEET : CommonConstants.REGRESSION_NFTR_SHEET;
             ftrSheetValue = constants.getValue(CommonConstants.SUITE_TYPE).equals(SUITE_TYPE) ? CommonConstants.SANITY_FTR_SHEET : CommonConstants.REGRESSION_FTR_SHEET;
-            System.out.println("Method reportConfigureBase Outside");
         } catch (Exception ex) {
-            System.out.println("Exception in Method - reportConfigureBase" + ex.getMessage());
             commonLib.fail("Exception in Method - reportConfigureBase " + ex.getMessage(), false);
         }
     }
@@ -284,8 +273,8 @@ public class Driver {
         baseUrl = constants.getValue(ApplicationConstants.API_BASE);
         umBaseUrl = constants.getValue(ApplicationConstants.UM_API_BASE);
         loginURL = constants.getValue(ApplicationConstants.UM_LOGIN_URL);
-        srBaseUrl=constants.getValue(ApplicationConstants.SR_API_BASE);
-        srUMBaseUrl=constants.getValue(ApplicationConstants.SR_UM_API_BASE);
+        srBaseUrl = constants.getValue(ApplicationConstants.SR_API_BASE);
+        srUMBaseUrl = constants.getValue(ApplicationConstants.SR_UM_API_BASE);
         assertCheck = new StringBuilder(); // @ THIS WILL EMPTY ASSERT STRING-BUILDER BEFORE EACH TEST
     }
 
@@ -297,7 +286,9 @@ public class Driver {
             switch (browser) {
                 case "chrome":
                     WebDriverManager.chromedriver().setup();
+                    System.out.println("Chrome setup done");
                     browserCapabilities();
+                    System.out.println("Browser setup done");
                     break;
                 case "firefox":
                     WebDriverManager.firefoxdriver().setup();
@@ -320,7 +311,7 @@ public class Driver {
         LoggingPreferences loggingprefs = new LoggingPreferences();
         loggingprefs.enable(LogType.BROWSER, Level.WARNING);
         loggingprefs.enable(LogType.PERFORMANCE, Level.ALL);
-        options.addArguments("--no-sandbox", "--window-size=1792,1120", "--verbose", "--disable-dev-shm-usage");
+        options.addArguments("--window-size=1792,1120");
         options.setHeadless(true);
         Map<String, Object> prefs = new HashMap<>();
         prefs.put("download.default_directory", download);
@@ -330,7 +321,9 @@ public class Driver {
         options.setAcceptInsecureCerts(true);
         options.setCapability("goog:loggingPrefs", loggingprefs);
         options.setCapability(ChromeOptions.CAPABILITY, options);
+        System.out.println("In driver");
         driver = new ChromeDriver(options);
+        System.out.println("In maximize");
         driver.manage().window().maximize();
     }
 
