@@ -263,7 +263,7 @@ public class AccountInformationWidgetTest extends Driver {
     @Test(priority = 10 , groups ={"SanityTest","RegressionTest","ProdTest"}, dependsOnMethods ={"isUserHasAccountInformationPermission"})
     public void verifyUnbilledAmount() {
         try {
-            selUtils.addTestcaseDescription("Validate Unbilled Amount Should be Bifurcated in Data, Voice, SMS, Data ","description");
+            selUtils.addTestcaseDescription("Validate Unbilled Amount For Calls, Validate Unbilled Amount For Sms, Validate Unbilled Amount For Data, Validate Unbilled Amount For Others ","description");
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmount", "statusCode"), "200", "Postpaid Account Information API 1 Status Code Matched", "Postpaid Account Information API 1 Status Code NOT Matched"));
             assertCheck.append(actions.assertEqualStringType(pages.getBasePage().getKeyValueAPI(pages.getAccountInformationWidget().getCurrentMonthUnBillAmountForCalls()), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmountForCalls", "unbilledCalls"), "Current month un-billed amount for calls displays as expected", "Current month un-billed amount for calls not displays as expected"));
             assertCheck.append(actions.assertEqualStringType(pages.getBasePage().getKeyValueAPI(pages.getAccountInformationWidget().getCurrentMonthUnBillAmountForSms()),  pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmountForSms", "unbilledSMS"), "Current month un-billed amount for sms displays  as expected", "Current month un-billed amount for sms not displays as expected"));
