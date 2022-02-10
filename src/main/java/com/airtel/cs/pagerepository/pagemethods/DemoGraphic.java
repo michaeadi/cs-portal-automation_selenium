@@ -2,6 +2,10 @@ package com.airtel.cs.pagerepository.pagemethods;
 
 import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.databeans.AuthTabDataBeans;
+import com.airtel.cs.model.response.authconfiguration.Configuration;
+import com.airtel.cs.model.response.authconfiguration.CustomDetails;
+import com.airtel.cs.model.response.authconfiguration.CustomerDemographicSection;
+import com.airtel.cs.model.response.authconfiguration.Tabs;
 import com.airtel.cs.pagerepository.pageelements.DemoGraphicPage;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
@@ -10,7 +14,6 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.SkipException;
-import org.testng.util.Strings;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -36,21 +39,6 @@ public class DemoGraphic extends BasePage {
         return text;
     }
 
-    /*
-    Methods are used to get Hbb User Details
-     */
-
-    /**
-     * This method is use to get customer name
-     *
-     * @return String The value
-     */
-    public String getHbbCustomerName() {
-        final String text = getText(pageElements.customerName);
-        commonLib.info("Getting Customer Name: " + text);
-        return text;
-    }
-
 
     /**
      * This method is use to get device Compatible
@@ -68,7 +56,7 @@ public class DemoGraphic extends BasePage {
     }
 
     /**
-    *This Method will be used to get the value for data manager under demographic widget
+     * This Method will be used to get the value for data manager under demographic widget
      */
     public String getDataManagerValue() {
         commonLib.info("Going to get Data Manger value");
@@ -754,12 +742,55 @@ public class DemoGraphic extends BasePage {
         clickWithoutLoader(pageElements.dashboardBody);
     }
 
-  /**
-   * This method is used to click on Others tab
-   */
+    /**
+     * This method is used to click on Others tab
+     */
+    public void clickOthersTab() {
+        commonLib.pass("Going to click on Others Tab");
+        clickWithoutLoader(pageElements.othersTab);
+    }
 
-   public void clickOthers()
-   { commonLib.pass("Clicking on Others tab ");
-    clickWithoutLoader(pageElements.others);
-   }
+    /**
+     * This method is used to click on GSM tab
+     */
+    public void clickGSMTab() {
+        commonLib.pass("Going to click on GSM Tab");
+        clickWithoutLoader(pageElements.gsmTab);
+    }
+
+    public void checkConfiguration(Configuration config, String label) {
+        try {
+            commonLib.info("Checking configuration");
+            List<CustomerDemographicSection> customerDemographic = config.getResult().getCustomerDemographicDetailsWidgets();
+            int flag = 0;
+            for (int z = 0; z < customerDemographic.size(); z++) {
+                List<Tabs> tabsList = customerDemographic.get(z).getWidgetConfig().getTabs();
+                for (int i = 0; i < tabsList.size(); i++) {
+                    for (int j = 0; j < tabsList.size(); j++) {
+                        List<CustomDetails> customDetail = tabsList.get(i).getCustomDetails().get(j);
+                        for (int x = 0; x < customDetail.size(); x++) {
+                            String displayName = customDetail.get(x).getDisplayName();
+                            if (displayName.equalsIgnoreCase(label) && i == 0) {
+                                clickGSMTab();
+                                flag++;
+                                break;
+                            } else if (displayName.equalsIgnoreCase(label) && i == 1) {
+                                clickOthersTab();
+                                flag++;
+                                break;
+                            }
+                        }
+                        if (flag > 0)
+                            break;
+                    }
+                    if (flag > 0)
+                        break;
+                }
+                if (flag > 0)
+                    break;
+            }
+        } catch (Exception e) {
+            commonLib.fail("Exception in method - " + e.fillInStackTrace(), true);
+        }
+    }
 }
