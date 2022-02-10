@@ -5,6 +5,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
+import static com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants.COMMENT;
+
 public class DetailAccountSendBill extends BasePage {
 
     DetailAccountSendBillPage pageElements;
@@ -50,7 +52,6 @@ public class DetailAccountSendBill extends BasePage {
     public Boolean isSelectReasonVisible() {
         Boolean status = isVisible(pageElements.selectReasonLabel);
         commonLib.pass("Select Reason is visible : " + status);
-        ;
         return status;
     }
 
@@ -69,7 +70,6 @@ public class DetailAccountSendBill extends BasePage {
     public Boolean isEmailIDVisible() {
         Boolean status = isVisible(pageElements.emailIDLabel);
         commonLib.pass("Email ID is visible : " + status);
-        ;
         return status;
     }
 
@@ -89,14 +89,13 @@ public class DetailAccountSendBill extends BasePage {
         String billNumber = getText(pageElements.billNumber);
         commonLib.pass("Bill Number : " + billNumber);
         return billNumber;
-
     }
 
     /**
      * This method is used to get pre-populated email id
      */
-    public String getEmailId() {
-        String emailID = getText(pageElements.emailID);
+    public String getPrePopulatedEmailId() {
+        String emailID = getText(pageElements.prePopulatedEmailID);
         commonLib.pass("Email ID : " + emailID);
         return emailID;
 
@@ -106,6 +105,7 @@ public class DetailAccountSendBill extends BasePage {
      * This method is used to split bill number
      */
     public String splitBillNumber(String billNumber) {
+        commonLib.info("Splitting Bill Number");
         String arr[] = billNumber.split(":", 2);
         return arr[1];
 
@@ -118,6 +118,7 @@ public class DetailAccountSendBill extends BasePage {
      */
     public String getCustomerEmail() {
         final String text = getText(pageElements.demographicEmail);
+        commonLib.info("Getting email id " + text);
         return text;
     }
 
@@ -172,7 +173,8 @@ public class DetailAccountSendBill extends BasePage {
      * This method is used to click on Continue of cancel confirmation message
      */
     public void clickOnContinue() {
-        if (isVisible(pageElements.continueButton)) ;
+        commonLib.info("Clicking on continue button of cancel confirmation message");
+        if (isVisible(pageElements.continueButton));
         clickWithoutLoader((pageElements.continueButton));
     }
 
@@ -180,7 +182,8 @@ public class DetailAccountSendBill extends BasePage {
      * This method is used to click on Cancel of cancel confirmation message
      */
     public void clickOnCancel() {
-        if (isVisible(pageElements.cancel)) ;
+        commonLib.info("Clicking on continue button of cancel confirmation message");
+        if (isVisible(pageElements.cancel));
         clickWithoutLoader((pageElements.cancel));
     }
 
@@ -189,6 +192,7 @@ public class DetailAccountSendBill extends BasePage {
      */
     public Boolean isCancelConfirmMessageVisible() {
         Boolean status = isVisible(pageElements.cancelConfirmMessage);
+        commonLib.info("Is cancel confirm message visible : " + status);
         return status;
     }
 
@@ -196,8 +200,8 @@ public class DetailAccountSendBill extends BasePage {
      * This method is used to click on select reason
      */
     public void clickOnSelectReason() {
-
-        if (isVisible(pageElements.selectReason)) ;
+        commonLib.info("Going to click Select Reason");
+        if (isVisible(pageElements.selectReason));
         clickWithoutLoader((pageElements.selectReason));
     }
 
@@ -206,7 +210,7 @@ public class DetailAccountSendBill extends BasePage {
      */
     public void selectReason() {
         commonLib.info("Going to select reason : Customer Request");
-        if (isVisible(pageElements.selectReasonFromDropdown)) ;
+        if (isVisible(pageElements.selectReasonFromDropdown));
         clickWithoutLoader((pageElements.selectReasonFromDropdown));
     }
 
@@ -226,7 +230,9 @@ public class DetailAccountSendBill extends BasePage {
      * @return true/false
      */
     public boolean isSubmitBtnDisabled() {
-        return isEnabled(pageElements.submitButton);
+       Boolean status=isEnabled(pageElements.submitButton);
+        commonLib.info("Is submit button disabled " + status);
+        return status;
     }
 
     /**
@@ -242,7 +248,7 @@ public class DetailAccountSendBill extends BasePage {
     }
 
     /**
-     * This method is use to get text of success message
+     * This method is used to get text of success message
      *
      * @return text
      */
@@ -257,37 +263,31 @@ public class DetailAccountSendBill extends BasePage {
      */
     public void clickCrossIcon() {
         commonLib.info("Going to click cross icon");
-        if (isVisible(pageElements.crossIcon)) ;
+        if (isVisible(pageElements.crossIcon));
         clickWithoutLoader((pageElements.crossIcon));
     }
 
     /**
-     * This method route to Home Tab of Customer Dashboard Page
+     * This method route and click Home Tab of Customer Dashboard Page
      */
-    public void goToHomeTab() {
+    public void clickHomeTab() {
+        commonLib.info("Going to click Home tab");
         clickAndWaitForLoaderToBeRemoved(pageElements.homePage);
     }
 
     /**
-     * This method is used to get Bill Number on Account Info details page
-     *
-     * @return
+     * This method will route and click view history
      */
-    public String getBillNumber(int row) {
-        return getText(By.xpath(pageElements.billNumber1 + row + pageElements.billNumber2));
-    }
-
-    /**
-     * This method will route to view history
-     */
-    public void goToViewHistoryTab() {
+    public void clickViewHistoryTab() {
+        commonLib.info("Going to click View History tab");
         clickAndWaitForLoaderToBeRemoved(pageElements.viewHistory);
     }
 
     /**
-     * This method will route to action trail
+     * This method will route and click action trail
      */
-    public void goActionTrailTab() {
+    public void clickActionTrailTab() {
+        commonLib.info("Going to click Action Trail tab");
         clickAndWaitForLoaderToBeRemoved(pageElements.actionTrail);
     }
 
@@ -295,6 +295,7 @@ public class DetailAccountSendBill extends BasePage {
      * This method will click on dropdown icon of action trail tab
      */
     public void clickingOnDropDown() {
+        commonLib.info("Going to click Action Trail's dropdown");
         clickAndWaitForLoaderToBeRemoved(pageElements.actionTrailLatestDropdown);
     }
 
@@ -354,7 +355,9 @@ public class DetailAccountSendBill extends BasePage {
      * @return true/false
      */
     public boolean isSendBillDisabled(int row) {
-        return isEnabled(By.xpath(pageElements.sendBill1 + row + pageElements.sendBill2));
+       Boolean status=isEnabled(By.xpath(pageElements.sendBill1 + row + pageElements.sendBill2));
+        commonLib.info("Is send bill icon disabled : " + status);
+        return status;
     }
 
     /**
@@ -365,8 +368,28 @@ public class DetailAccountSendBill extends BasePage {
     public String getSendBillIconText(int row) {
         commonLib.info("Hovering over Send Bill Icon");
         hoverOverElement(By.xpath(pageElements.sendBill1 + row + pageElements.sendBill2));
-        String text =getText(pageElements.hoverSendBill);
-        return text;
+        return getText(pageElements.hoverSendBill);
     }
 
+    /**
+     * This method is used to perform send Bill action by selecting reason and comment
+     * @param row
+     */
+    public void performSendBill(int row) {
+        commonLib.info("Going to perform Send Bill Action");
+        pages.getDetailAccountSendBill().clickOnSendBill(row);
+        pages.getDetailAccountSendBill().selectReason();
+        pages.getDetailAccountSendBill().enterComment(COMMENT);
+        pages.getDetailAccountSendBill().clickOnSubmitButton();
+    }
+
+    /**
+     * This method is used to go to Action Trail tab
+     */
+    public void goToActionTrail() {
+        commonLib.info("Going to click Action Trail tab");
+        pages.getDetailAccountSendBill().clickHomeTab();
+        pages.getDetailAccountSendBill().clickViewHistoryTab();
+        pages.getDetailAccountSendBill().clickActionTrailTab();
+    }
 }
