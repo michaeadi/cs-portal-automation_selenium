@@ -182,7 +182,7 @@ public class AccountInformationWidgetTest extends Driver {
     /**
      * This method is used to validate other tab and email id
      */
-    @Test(priority = 6, groups = {"SanityTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"}, enabled = false)
+    @Test(priority = 6, groups = {"SanityTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
     public void otherTabDisplay() {
         try {
             selUtils.addTestcaseDescription("Verify that Other tab and email id should be visible", "description");
@@ -263,12 +263,12 @@ public class AccountInformationWidgetTest extends Driver {
     @Test(priority = 10 , groups ={"SanityTest","RegressionTest","ProdTest"}, dependsOnMethods ={"isUserHasAccountInformationPermission"})
     public void verifyUnbilledAmount() {
         try {
-            selUtils.addTestcaseDescription("Validate Unbilled Amount Should be Bifurcated in Data, Voice, SMS, Data ","description");
+            selUtils.addTestcaseDescription("Validate Unbilled Amount For Calls, Validate Unbilled Amount For Sms, Validate Unbilled Amount For Data, Validate Unbilled Amount For Others ","description");
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmount", "statusCode"), "200", "Postpaid Account Information API 1 Status Code Matched", "Postpaid Account Information API 1 Status Code NOT Matched"));
-            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getCurrentMonthUnBillAmountForCalls(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmountForCalls", "currentMonthUnbilledAmountForCalls"), "Current month un-billed amount for calls displays as expected", "Current month un-billed amount for calls not displays as expected"));
-            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getCurrentMonthUnBillAmountForSms(),  pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmountForSms", "currentMonthUnbilledAmountForSms"), "Current month un-billed amount for sms displays  as expected", "Current month un-billed amount for sms not displays as expected"));
-            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getCurrentMonthUnBillAmountForData(),  pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmountForData", "currentMonthUnbilledAmountForData"), "Current month un-billed amount for data displays as expected", "Current month un-billed amount for data not displays as expected"));
-            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getCurrentMonthUnBillAmountForOthers(), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmountForOthers", "currentMonthUnbilledAmountForOthers"), "Current month un-billed amount for others displays as expected", "Current month un-billed amount for others not displays as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getBasePage().getKeyValueAPI(pages.getAccountInformationWidget().getCurrentMonthUnBillAmountForCalls()), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmountForCalls", "unbilledCalls"), "Current month un-billed amount for calls displays as expected", "Current month un-billed amount for calls not displays as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getBasePage().getKeyValueAPI(pages.getAccountInformationWidget().getCurrentMonthUnBillAmountForSms()),  pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmountForSms", "unbilledSMS"), "Current month un-billed amount for sms displays  as expected", "Current month un-billed amount for sms not displays as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getBasePage().getKeyValueAPI(pages.getAccountInformationWidget().getCurrentMonthUnBillAmountForData()),  pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmountForData", "unbilledData"), "Current month un-billed amount for data displays as expected", "Current month un-billed amount for data not displays as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getBasePage().getKeyValueAPI(pages.getAccountInformationWidget().getCurrentMonthUnBillAmountForOthers()), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmountForOthers", "unbilledOthers"), "Current month un-billed amount for others displays as expected", "Current month un-billed amount for others not displays as expected"));
 
         }catch (Exception e) {
             commonLib.fail("Exception in Method - verifyUnbilledAmount()" + e.fillInStackTrace(), true);
