@@ -306,29 +306,30 @@ public class Driver {
     This Method is used to set the browser capabilities
      */
     private static void browserCapabilities() {
-        System.out.println("In browserCapabilities");
-        System.out.println("In options");
         ChromeOptions options = new ChromeOptions();
-        System.out.println("In loggingprefs");
         LoggingPreferences loggingprefs = new LoggingPreferences();
-        System.out.println("In WARNING");
         loggingprefs.enable(LogType.BROWSER, Level.WARNING);
-        System.out.println("In ALL");
         loggingprefs.enable(LogType.PERFORMANCE, Level.ALL);
-        System.out.println("In Sandbox");
         options.addArguments("--no-sandbox", "--window-size=1792,1120", "--verbose", "--disable-dev-shm-usage");
-        System.out.println("In headless");
         options.setHeadless(true);
-        System.out.println("In prefs");
         Map<String, Object> prefs = new HashMap<>();
+        System.out.println("In default_directory");
         prefs.put("download.default_directory", download);
+        System.out.println("In nl");
         prefs.put("intl.accept_languages", "nl");
+        System.out.println("In popup");
         prefs.put("disable-popup-blocking", "true");
+        System.out.println("In prefs");
         options.setExperimentalOption("prefs", prefs);
+        System.out.println("In setAcceptInsecureCerts");
         options.setAcceptInsecureCerts(true);
+        System.out.println("In goog:loggingPrefs");
         options.setCapability("goog:loggingPrefs", loggingprefs);
+        System.out.println("In ChromeOptions.CAPABILITY");
         options.setCapability(ChromeOptions.CAPABILITY, options);
+        System.out.println("In driver");
         driver = new ChromeDriver(options);
+        System.out.println("In maximize");
         driver.manage().window().maximize();
     }
 
