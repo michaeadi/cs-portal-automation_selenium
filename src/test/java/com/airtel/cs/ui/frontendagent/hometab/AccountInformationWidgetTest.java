@@ -126,7 +126,7 @@ public class AccountInformationWidgetTest extends Driver {
     /**
      * This method is used to validate watermarked in the left corner and middle
      */
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"},enabled = false)
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
     public void accountInformationWatermarkTest() {
 
         try {
