@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.List;
 @ToString
 @Getter
 @Setter
@@ -15,5 +14,5 @@ import java.util.List;
 public class CustomDetails {
     private String key;
     private String displayName;
-    private Icon icon;
+    private HoverIcon icon;
 }

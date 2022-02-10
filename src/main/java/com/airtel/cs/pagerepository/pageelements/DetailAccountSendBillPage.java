@@ -15,8 +15,8 @@ public class DetailAccountSendBillPage {
     public By issueDetailPopUp=By.xpath("//span[contains(text(),'Send Postpaid')]");
     public By billNumberLabel=By.xpath("//label[contains(text(),'Bill Number *')]");
     public By emailIDLabel=By.xpath("//label[contains(text(),'Email ID *')]");
-    public By billNumber=By.xpath("//input[@id='mat-input-18']");
-    public By emailID=By.xpath("//input[@id='mat-input-19']");
+    public By billNumber=By.xpath("//label[contains(text(),'Bill Number *')]//following-sibling::input");
+    public By prePopulatedEmailID =By.xpath("//label[contains(text(),'Email ID *')]//following-sibling::input");
     public By commentBoxLabel=By.xpath("//div[contains(@class, 'issue-comment--label')]");
     public By selectReasonLabel=By.xpath("//label[contains(text(),'Select Reason *')]");
     public By submitButton =By.xpath("//button[contains(text(),'Submit')]");
@@ -36,14 +36,12 @@ public class DetailAccountSendBillPage {
     Action Trail tab
      */
     public By homePage=By.xpath("//span[contains(text(),'HOME')]");
-    public String billNumber1;
-    public String billNumber2;
     public By viewHistory=By.xpath("//span[contains(text(),'VIEW HISTORY')]");
     public By actionTrail=By.xpath("//div[contains(text(),'Action Trail')]");
     public By actionTrailLatestDropdown=By.xpath("//span[contains(@class,'cursor')]");
     public By actionTrailBillNo=By.xpath("//div[@id='collapseTwo']/div/form/ul/li[2]/p");
     public By actionTrailEmailId=By.xpath("//div[@id='collapseTwo']/div/form/ul/li[2]/p[2]");
-    public By actionType=By.xpath("//tr[contains(@class,'agent-list--list-row')][1]//td[1]");
-    public By reason=By.xpath("//tr[contains(@class,'agent-list--list-row')][1]//td[3]");
-    public By comment=By.xpath("//tr[contains(@class,'agent-list--list-row')][1]//td[6]");
+    public By actionType=By.xpath("//div[@class='agent-list-container']/table/tbody/tr/td[1]");
+    public By reason=By.xpath("//div[@class='agent-list-container']/table/tbody/tr/td[3]");
+    public By comment=By.xpath("//div[@class='agent-list-container']/table/tbody/tr/td[6]");
 }
