@@ -5,12 +5,12 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.List;
 @ToString
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Icon {
-    public List<Info> infoToBeShown;
+public class InfoToBeShown {
+    private String key;
+    private String header;
 }
