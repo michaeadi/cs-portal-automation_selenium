@@ -105,6 +105,7 @@ public class Driver {
     public static boolean isSelfcareNOTConfigured = false;
     public static List<Header> validHeaderList = new ArrayList<>();
     public static List<Header> invalidHeaderList = new ArrayList<>();
+    public static String lineType;
 
     public WebDriver getDriver() {
         return driver;
