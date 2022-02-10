@@ -22,22 +22,22 @@
             <url>http://172.23.12.160:8081/repository/airtel-maven-central/</url>
         </snapshotRepository>
     </distributionManagement>
-    <repositories>
+    <!--<repositories>
         <repository>
             <id>central</id>
             <name>Central Repository</name>
-            <url>http://insecure.repo1.maven.org/maven2</url>
+            <url>http://172.23.12.160:8081/repository/airtel-maven-central/</url>
             <layout>default</layout>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
         </repository>
-    </repositories>
-    <pluginRepositories>
+    </repositories>-->
+    <!--<pluginRepositories>
         <pluginRepository>
             <id>central</id>
             <name>Central Repository</name>
-            <url>http://insecure.repo1.maven.org/maven2</url>
+            <url>http://172.23.12.160:8081/repository/airtel-maven-central/</url>
             <layout>default</layout>
             <snapshots>
                 <enabled>false</enabled>
@@ -46,7 +46,7 @@
                 <updatePolicy>always</updatePolicy>
             </releases>
         </pluginRepository>
-    </pluginRepositories>
+    </pluginRepositories>-->
     <dependencies>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
@@ -190,7 +190,7 @@
         <dependency>
             <groupId>com.aventstack</groupId>
             <artifactId>extentreports</artifactId>
-            <version>5.0.8</version>
+            <version>5.0.9</version>
         </dependency>
 
 
