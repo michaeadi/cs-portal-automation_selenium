@@ -307,12 +307,19 @@ public class Driver {
      */
     private static void browserCapabilities() {
         System.out.println("In browserCapabilities");
+        System.out.println("In options");
         ChromeOptions options = new ChromeOptions();
+        System.out.println("In loggingprefs");
         LoggingPreferences loggingprefs = new LoggingPreferences();
+        System.out.println("In WARNING");
         loggingprefs.enable(LogType.BROWSER, Level.WARNING);
+        System.out.println("In ALL");
         loggingprefs.enable(LogType.PERFORMANCE, Level.ALL);
+        System.out.println("In Sandbox");
         options.addArguments("--no-sandbox", "--window-size=1792,1120", "--verbose", "--disable-dev-shm-usage");
+        System.out.println("In headless");
         options.setHeadless(true);
+        System.out.println("In prefs");
         Map<String, Object> prefs = new HashMap<>();
         prefs.put("download.default_directory", download);
         prefs.put("intl.accept_languages", "nl");
