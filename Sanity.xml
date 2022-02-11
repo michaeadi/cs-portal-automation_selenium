@@ -59,14 +59,34 @@
             <class name="com.airtel.cs.ui.frontendagent.viewhistorytab.ActionTrailTest"/>
         </classes>
     </test>
-    <test name="Demo Graphic Widget Test By MSISDN">
+    <test name="Demo Graphic Widget Test By Prepaid MSISDN" preserve-order="true">
         <groups>
             <run>
-                <include name="SanityTest"/>
+                <include name="ProdTest"/>
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.frontendagent.demographicwidget.DemoGraphicWidgetMsisdnTest"/>
+            <class name="com.airtel.cs.ui.frontendagent.demographicwidget.DemoGraphicWidgetPrepaidMsisdnTest"/>
+        </classes>
+    </test>
+    <test name="Demo Graphic Widget Test By Postpaid MSISDN" preserve-order="true">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.demographicwidget.DemoGraphicWidgetPostpaidMsisdnTest"/>
+        </classes>
+    </test>
+    <test name="Demo Graphic Widget Test By Hybrid MSISDN" preserve-order="true">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.demographicwidget.DemoGraphicWidgetHybridMsisdnTest"/>
         </classes>
     </test>
     <test name="Airtel Money Transaction Widget Test">
