@@ -75,8 +75,7 @@ public class DemoGraphicWidgetPostpaidMsisdnTest extends Driver {
     @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void getConnectionType() {
         try {
-            selUtils.addTestcaseDescription("Getting Connection type of passed msisdn", "description");
-            customerNumber = "780690206";
+            selUtils.addTestcaseDescription("Validate KYC Profile , Getting Connection Type ", "description");
             kycProfile = api.kycProfileAPITest(customerNumber);
             final Integer statusCode = kycProfile.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "KYC Profile API Status Code Matched and is :" + statusCode, "KYC Profile API Status Code NOT Matched and is :" + statusCode, false));
@@ -401,20 +400,7 @@ public class DemoGraphicWidgetPostpaidMsisdnTest extends Driver {
         }
     }
 
-    @Test(priority = 15, groups = {"RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
-    public void invalidMSISDNTest() {
-        try {
-            selUtils.addTestcaseDescription("Validating the Demographic Information of User with invalid MSISDN : 123456789", "description");
-            pages.getDemoGraphicPage().enterMSISDN(constants.getValue("cs.invalid.msisdn"));
-            pages.getDemoGraphicPage().waitTillLoaderGetsRemoved();
-            assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().invalidMSISDNError(), "Entered customer number is Invalid", "Error Message Correctly Displayed", "Error Message NOT Displayed Correctly"));
-            actions.assertAllFoundFailedAssert(assertCheck);
-        } catch (Exception e) {
-            commonLib.fail("Exception in Method - invalidMSISDNTest" + e.fillInStackTrace(), true);
-        }
-    }
-
-    @Test(priority = 16, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 15, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void testServiceClassRatePlanAPI() {
         try {
             selUtils.addTestcaseDescription("Validate Service Class and Rate Plan", "description");
@@ -425,7 +411,19 @@ public class DemoGraphicWidgetPostpaidMsisdnTest extends Driver {
         } catch (Exception e) {
             commonLib.fail("Exception in method - testServiceClassRatePlanAPI " + e.fillInStackTrace(), true);
         }
+    }
 
+    @Test(priority = 16, groups = {"RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    public void invalidMSISDNTest() {
+        try {
+            selUtils.addTestcaseDescription("Validating the Demographic Information of User with invalid MSISDN : 123456789", "description");
+            pages.getDemoGraphicPage().enterMSISDN(constants.getValue("cs.invalid.msisdn"));
+            pages.getDemoGraphicPage().waitTillLoaderGetsRemoved();
+            assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().invalidMSISDNError(), "Entered customer number is Invalid", "Error Message Correctly Displayed", "Error Message NOT Displayed Correctly"));
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - invalidMSISDNTest" + e.fillInStackTrace(), true);
+        }
     }
 }
 
