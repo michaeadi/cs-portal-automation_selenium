@@ -14,7 +14,7 @@
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginAPITest"/>
         </classes>
     </test>
-   <test name="Prod Test Login With Advisor Supervisor-To check Auto-Assignment">
+   <!--<test name="Prod Test Login With Advisor Supervisor-To check Auto-Assignment">
         <groups>
             <run>
                 <include name="SmokeTest"/>
@@ -94,14 +94,34 @@
             <class name="com.airtel.cs.ui.frontendagent.leftmenu.SideMenuTests"/>
         </classes>
     </test>
-    <test name="Demo Graphic Widget Test By MSISDN" preserve-order="true">
+    <test name="Demo Graphic Widget Test By Prepaid MSISDN" preserve-order="true">
         <groups>
             <run>
                 <include name="ProdTest"/>
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.frontendagent.demographicwidget.DemoGraphicWidgetMsisdnTest"/>
+            <class name="com.airtel.cs.ui.frontendagent.demographicwidget.DemoGraphicWidgetPrepaidMsisdnTest"/>
+        </classes>
+    </test>
+    <test name="Demo Graphic Widget Test By Postpaid MSISDN" preserve-order="true">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.demographicwidget.DemoGraphicWidgetPostpaidMsisdnTest"/>
+        </classes>
+    </test>
+    <test name="Demo Graphic Widget Test By Hybrid MSISDN" preserve-order="true">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.demographicwidget.DemoGraphicWidgetHybridMsisdnTest"/>
         </classes>
     </test>
     <test name="Airtel Money widget Test" preserve-order="true">
@@ -877,7 +897,6 @@
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
         </classes>
     </test>
-
     //Enterprise test cases starts from here//
     <test name="Prod Test Login With Enterprise">
         <groups>

@@ -747,6 +747,9 @@ public class DemoGraphic extends BasePage {
         clickWithoutLoader(pageElements.gsmTab);
     }
 
+    /**
+     * This method is used to check configuration of passed label
+     */
     public void checkConfiguration(Configuration config, String label) {
         try {
             commonLib.info("Checking configuration");
@@ -784,7 +787,7 @@ public class DemoGraphic extends BasePage {
     }
 
     /**
-     * This method is use to get Email ID
+     * This method is usd to get Email ID
      *
      * @return String The value
      */
@@ -795,7 +798,7 @@ public class DemoGraphic extends BasePage {
     }
 
     /**
-     * This method is use to get Account number
+     * This method is used to get Account number
      *
      * @return String The value
      */

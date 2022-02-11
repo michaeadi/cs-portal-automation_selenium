@@ -866,6 +866,7 @@ public class RequestSource extends RestCommonUtils {
      * This Method will hit the API "/cs-service/api/cs-service/v1/configurations" and return the response
      *
      * @param key The key
+     * @param lineType The lineType
      * @return The Response
      */
     public Configuration getConfiguration(String key, String lineType) {
@@ -873,7 +874,7 @@ public class RequestSource extends RestCommonUtils {
         try {
             queryParam.put("keys", key);
             queryParam.put("opco", OPCO);
-            queryParam.put("lineType", lineType);
+            queryParam.put("lineType",lineType);
             commonGetMethodWithQueryParam(URIConstants.CONFIGURATIONS, queryParam, map);
             result = response.as(Configuration.class);
         } catch (Exception e) {

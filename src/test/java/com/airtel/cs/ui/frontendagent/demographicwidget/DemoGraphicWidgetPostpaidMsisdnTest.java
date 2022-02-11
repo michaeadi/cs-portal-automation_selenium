@@ -57,7 +57,8 @@ public class DemoGraphicWidgetPostpaidMsisdnTest extends Driver {
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
-            customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
+            //customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
+            customerNumber = "780690206";
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().openCustomerInteractionPage();
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
@@ -76,13 +77,14 @@ public class DemoGraphicWidgetPostpaidMsisdnTest extends Driver {
     public void getConnectionType() {
         try {
             selUtils.addTestcaseDescription("Getting Connection type of passed msisdn", "description");
+            customerNumber = "780690206";
             kycProfile = api.kycProfileAPITest(customerNumber);
             final Integer statusCode = kycProfile.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "KYC Profile API Status Code Matched and is :" + statusCode, "KYC Profile API Status Code NOT Matched and is :" + statusCode, false));
             lineType = kycProfile.getResult().getLineType().toLowerCase().trim();
             config = api.getConfiguration("customerDemographicDetailsWidgets", lineType);
-            commonLib.info("connection type is :" + lineType);
             actions.assertAllFoundFailedAssert(assertCheck);
+            commonLib.info("connection type is :" + lineType);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - getConnectionType" + e.fillInStackTrace(), true);
         }
