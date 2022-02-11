@@ -57,8 +57,7 @@ public class DemoGraphicWidgetPostpaidMsisdnTest extends Driver {
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
-            //customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
-            customerNumber = "780690206";
+            customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_POSTPAID_MSISDN);
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().openCustomerInteractionPage();
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
@@ -84,7 +83,6 @@ public class DemoGraphicWidgetPostpaidMsisdnTest extends Driver {
             lineType = kycProfile.getResult().getLineType().toLowerCase().trim();
             config = api.getConfiguration("customerDemographicDetailsWidgets", lineType);
             actions.assertAllFoundFailedAssert(assertCheck);
-            commonLib.info("connection type is :" + lineType);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - getConnectionType" + e.fillInStackTrace(), true);
         }
@@ -103,8 +101,7 @@ public class DemoGraphicWidgetPostpaidMsisdnTest extends Driver {
             final String customerName = pages.getDemoGraphicPage().getCustomerName();
             assertCheck.append(actions.matchUiAndAPIResponse(customerName, gsmKycAPI.getResult().getName(), "Customer Name is as Expected", "Customer Name is not as Expected"));
             pages.getDemoGraphicPage().checkConfiguration(config, "GSM KYC Status");
-            assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getGsmKycStatus().toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(gsmKycAPI.getResult().getGsm()),
-                    "Customer's GSM KYC Status is as Expected", "Customer's GSM KYC Status is not as Expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getGsmKycStatus().toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(gsmKycAPI.getResult().getGsm()), "Customer's GSM KYC Status is as Expected", "Customer's GSM KYC Status is not as Expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
             commonLib.fail("Exception in method - testCustomerNameAndGsmKYCStatus " + e, true);
@@ -143,7 +140,7 @@ public class DemoGraphicWidgetPostpaidMsisdnTest extends Driver {
                     assertCheck.append(actions.assertEqualBoolean(StringUtils.contains(gsmKycAPI.getResult().getIdentificationNo(), customerIdNumber), true,
                             "Customer's ID Number is as Expected", "Customer's ID Number is not as Expected and Expected was :" + customerIdNumber));
                 }
-            }
+            }actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in method - testCustomerDetails" + e.fillInStackTrace(), true);
         }
@@ -326,6 +323,7 @@ public class DemoGraphicWidgetPostpaidMsisdnTest extends Driver {
             pages.getDemoGraphicPage().checkConfiguration(config, "Account Number");
             final String accountNumber = pages.getAccountInformationWidget().getValue(customerDetails, "KYC", "customerAccountNumber");
             assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getAccountNumber(), accountNumber, "Customer's Account Number  is as expected", "Customer's Account number is not as expected"));
+            actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in method - testEmailIdAndAccountNumber" + e.fillInStackTrace(), true);
         }
