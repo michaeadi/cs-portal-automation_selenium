@@ -324,7 +324,7 @@ public class DemoGraphicWidgetHybridMsisdnTest extends Driver{
         }
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction", "getConnectionType"})
+    @Test(priority = 14, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction", "getConnectionType"})
     public void testAirtelMoneyProfile() {
         try {
             if (StringUtils.equalsIgnoreCase(constants.getValue(ApplicationConstants.AIRTEL_MONEY_PROFILE), "true")) {
