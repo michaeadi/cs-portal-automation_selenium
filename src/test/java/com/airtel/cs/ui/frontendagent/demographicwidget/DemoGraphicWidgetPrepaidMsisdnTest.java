@@ -420,4 +420,4 @@ public class DemoGraphicWidgetPrepaidMsisdnTest extends Driver {
             commonLib.fail("Exception in method - testServiceClassRatePlanAPI " + e.fillInStackTrace(), true);
         }
 
-    }
+}
