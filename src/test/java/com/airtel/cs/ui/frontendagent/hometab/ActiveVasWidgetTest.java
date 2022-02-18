@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-public class ActiveVASWidgetTest extends Driver {
+public class ActiveVasWidgetTest extends Driver {
 
     public static final String RUN_VAS_WIDGET_TEST_CASE = constants.getValue(ApplicationConstants.RUN_VAS_WIDGET_TESTCASE);
     private static String customerNumber=null;
