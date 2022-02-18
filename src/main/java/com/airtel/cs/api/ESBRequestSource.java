@@ -1009,7 +1009,7 @@ public class ESBRequestSource extends RestCommonUtils {
 
 
     /**
-     * This Method will hit the Downstream APIs related to enterprise payment history detail
+     * This Method will hit the Downstream API related to enterprise payment history detail
      *
      * @param paymentHistoryESBRequest the payment history esb request
      */
@@ -1026,13 +1026,12 @@ public class ESBRequestSource extends RestCommonUtils {
     }
 
     /**
-     * This Method will hit the Downstream APIs related to enterprise payment history detail
+     * This Method will hit the Downstream API of Active Vas
      *
      * @param   activeVasESBRequest the active vas esb request
      */
     public void callActiveVAS(ActiveVasRequest activeVasESBRequest) {
         try {
-
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + ACTIVE_VAS, JavaColors.GREEN, false);
             commonPostMethod(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.ACTIVE_VAS,activeVasESBRequest);
             checkDownstreamAPI(response.getStatusCode(), ACTIVE_VAS, "Downstream API Active Vas working with data ");
