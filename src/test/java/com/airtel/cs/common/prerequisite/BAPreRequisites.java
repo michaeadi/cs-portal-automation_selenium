@@ -62,7 +62,7 @@ public class BAPreRequisites extends Driver {
         Login req = Login.loginBody(loginAUUID, password);
         String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(req);
         map.clear();
-        pages.getLoginPage().setApiHeader();
+        pages.getLoginPage().setCsAndDownstreamApiHeader();
         final Response response = pages.getLoginPage().loginAPI(dtoAsString);
         Login loginPOJO = response.as(Login.class);
         final String accessToken = loginPOJO.getResult().get("accessToken");

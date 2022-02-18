@@ -37,7 +37,7 @@ public class RestCommonUtils extends Driver {
     private static QueryableRequestSpecification queryable;
     private static RequestSpecification request;
     private static final String APPLICATION_JSON = "application/json";
-    private static final String CALLING_CS_API = "Calling CS API";
+    private static final String CALLING_API = "Calling API";
     private static final String FOR_TESTING = "for Testing ";
     private static final String USING_AUUID="using auuid ";
     private static final String TOKEN ="'s token";
@@ -65,7 +65,7 @@ public class RestCommonUtils extends Driver {
     public static void commonPostMethod(String endPoint, List<Header> map, Object body, String url) {
         RestAssuredConfig restAssuredConfig = CurlRestAssuredConfigFactory.createConfig();
         try {
-            commonLib.infoColored(CALLING_CS_API + " " + endPoint + " " +FOR_TESTING  + USING_AUUID + loginAUUID + TOKEN, JavaColors.BLUE, false);
+            commonLib.infoColored(CALLING_API + " " + endPoint + " " +FOR_TESTING  + USING_AUUID + loginAUUID + TOKEN, JavaColors.BLUE, false);
             baseURI = url;
             Headers headers = new Headers(map);
             String finalbody="";
@@ -99,7 +99,7 @@ public class RestCommonUtils extends Driver {
     public static void commonGetMethodWithQueryParam(String endPoint, Map<String, Object> queryParam, List<Header> headers) {
         try {
             RestAssuredConfig restAssuredConfig = CurlRestAssuredConfigFactory.createConfig();
-            commonLib.infoColored(CALLING_CS_API + " " + endPoint + " " + FOR_TESTING + USING_AUUID + loginAUUID + TOKEN, JavaColors.BLUE, false);
+            commonLib.infoColored(CALLING_API + " " + endPoint + " " + FOR_TESTING + USING_AUUID + loginAUUID + TOKEN, JavaColors.BLUE, false);
             baseURI = baseUrl;
             Headers header = new Headers(headers);
             request = given()
@@ -135,7 +135,7 @@ public class RestCommonUtils extends Driver {
     public static void commonGetMethod(String endPoint, Headers headers) {
         RestAssuredConfig restAssuredConfig = CurlRestAssuredConfigFactory.createConfig();
         try {
-            commonLib.infoColored(CALLING_CS_API + " " + endPoint + " " + FOR_TESTING + USING_AUUID + loginAUUID + TOKEN, JavaColors.BLUE, false);
+            commonLib.infoColored(CALLING_API + " " + endPoint + " " + FOR_TESTING + USING_AUUID + loginAUUID + TOKEN, JavaColors.BLUE, false);
             baseURI = baseUrl;
             request = given().config(restAssuredConfig).headers(headers).contentType(APPLICATION_JSON);
             queryable = SpecificationQuerier.query(request);

@@ -192,7 +192,7 @@ public class Login extends BasePage {
     /*
     This Method is used to set headers
      */
-    public void setApiHeader() {
+    public void setCsAndDownstreamApiHeader() {
         try {
             UtilsMethods.addHeaders("x-app-name", constants.getValue(ApplicationConstants.APP_NAME));
             UtilsMethods.addHeaders("x-service-id", constants.getValue(ApplicationConstants.SERVICE_ID));
