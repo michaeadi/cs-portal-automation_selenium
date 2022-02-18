@@ -22,7 +22,7 @@ public class LoginAPITest extends Driver {
             final String loginAUUID = constants.getValue(CommonConstants.ADVISOR_USER_ROLE_AUUID);
             Login Req = Login.loginBody(loginAUUID, PassUtils.decodePassword(constants.getValue(CommonConstants.ADVISOR_USER_ROLE_PASSWORD)));
             map.clear();
-            pages.getLoginPage().setApiHeader();
+            pages.getLoginPage().setCsAndDownstreamApiHeader();
             String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(Req);
             commonLib.info("Validating login api with user : " + loginAUUID);
             final Response response = pages.getLoginPage().loginAPI(dtoAsString);

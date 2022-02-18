@@ -21,6 +21,7 @@ import com.airtel.cs.model.request.UsageHistoryMenuRequest;
 import com.airtel.cs.model.request.UsageHistoryRequest;
 import com.airtel.cs.model.request.UsageRequestV3DTO;
 import com.airtel.cs.model.request.layout.FieldsConfigDTO;
+import com.airtel.cs.model.request.vas.ActiveVasRequest;
 import com.airtel.cs.model.response.CreditLimitResponse;
 import com.airtel.cs.model.response.InvoiceHistoryResponse;
 import com.airtel.cs.model.response.PaymentResponse;
@@ -115,6 +116,7 @@ public class ESBRequestSource extends RestCommonUtils {
     public static final String INGRESS_DOWNSTREAM_BASE_URL_2 = "." + OPCO.toLowerCase() + "." + evnName.toLowerCase();
     private static final String INGRESS_DOWNSTREAM_BASE_URL_3 = constants.getValue("ingress.downstream.base.url2");
     public static final String INGRESS_DOWNSTREAM_BASE_URL = INGRESS_DOWNSTREAM_BASE_URL_1 + INGRESS_DOWNSTREAM_BASE_URL_2 + INGRESS_DOWNSTREAM_BASE_URL_3;
+    public static final String ACTIVE_VAS = "- active vas";
 
     /**
      * This method is used to test the downstream API
@@ -956,8 +958,7 @@ public class ESBRequestSource extends RestCommonUtils {
             checkDownstreamAPI(response.getStatusCode(), ENTERPRISE_SEARCH, "Downstream API Enterprise account working with data ");
 
         } catch (Exception exp) {
-            commonLib
-                    .fail(constants.getValue(DOWNSTREAM_API_ERROR) + ENTERPRISE_SEARCH + exp.getMessage(),
+            commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + ENTERPRISE_SEARCH + exp.getMessage(),
                             false);
         }
     }
@@ -983,9 +984,7 @@ public class ESBRequestSource extends RestCommonUtils {
             checkDownstreamAPI(response.getStatusCode(), ACCOUNT_PAYMENTS, "Downstream API account payments with data ");
 
         } catch (Exception exp) {
-            commonLib
-                    .fail(constants.getValue(DOWNSTREAM_API_ERROR) + INVOICE_HISTORY + SLASH + ACCOUNT_PAYMENTS + exp.getMessage(),
-                            false);
+            commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + INVOICE_HISTORY + SLASH + ACCOUNT_PAYMENTS + exp.getMessage(), false);
         }
     }
 
@@ -1018,13 +1017,27 @@ public class ESBRequestSource extends RestCommonUtils {
         try {
 
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + ENTERPRISE_PAYMENT_HISTORY, JavaColors.GREEN, false);
-            commonPostMethod(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.ENTERPRISE_PAYMENT_HISTORY,
-                    paymentHistoryESBRequest);
-            checkDownstreamAPI(response.getStatusCode(), ENTERPRISE_ACCOUNT_LINES,
-                    "Downstream API enterprise payment history working with data ");
+            commonPostMethod(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.ENTERPRISE_PAYMENT_HISTORY, paymentHistoryESBRequest);
+            checkDownstreamAPI(response.getStatusCode(), ENTERPRISE_PAYMENT_HISTORY, "Downstream API enterprise payment history working with data ");
 
         } catch (Exception exp) {
-            commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + ENTERPRISE_ACCOUNT_LINES + exp.getMessage(), false);
+            commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + ENTERPRISE_PAYMENT_HISTORY + exp.getMessage(), false);
+        }
+    }
+
+    /**
+     * This Method will hit the Downstream APIs related to enterprise payment history detail
+     *
+     * @param   activeVasESBRequest the active vas esb request
+     */
+    public void callActiveVAS(ActiveVasRequest activeVasESBRequest) {
+        try {
+
+            commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + ACTIVE_VAS, JavaColors.GREEN, false);
+            commonPostMethod(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.ACTIVE_VAS,activeVasESBRequest);
+            checkDownstreamAPI(response.getStatusCode(), ACTIVE_VAS, "Downstream API Active Vas working with data ");
+        } catch (Exception exp) {
+            commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + ACTIVE_VAS + exp.getMessage(), false);
         }
     }
 
