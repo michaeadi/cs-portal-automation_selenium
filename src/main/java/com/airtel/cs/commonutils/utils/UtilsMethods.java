@@ -359,7 +359,7 @@ public class UtilsMethods extends Driver {
     public static void getNewAddHeader() throws IOException {
         getAuthTokenFromConsole();
         map.clear();
-        pages.getLoginPage().setApiHeader();
+        pages.getLoginPage().setCsAndDownstreamApiHeader();
         addHeaders(constants.getValue(CommonConstants.API_AUTHORIZATION_KEY), authToken);
         if (authToken == null || authToken.isEmpty()) {
             commonLib.fail("Not able to add new token into header as auth token empty", false);

@@ -100,4 +100,7 @@ public class CommonConstants {
     public static final String COLON = ":";
     public static final String AGENT_DETAILS_RULE_SHEET = "cs.agent.details.rule.sheet";
     public static final String RECHARGE = "recharge";
+    public static final String ACTIVE_VAS_LAST_RECHARGED_DATE_PATTERN="cs.active.vas.last.recharged.date.pattern";
+    public static final String ACTIVE_VAS_START_DATE_PATTERN="cs.active.vas.start.date.pattern";
+    public static final String ACTIVE_VAS_RENEWAL_DATE_PATTERN="cs.active.vas.renewal.date.pattern";
 }

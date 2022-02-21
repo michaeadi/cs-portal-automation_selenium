@@ -3,6 +3,7 @@ package com.airtel.cs.api;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.ESBURIConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.URIConstants;
+import com.airtel.cs.commonutils.applicationutils.enums.JavaColors;
 import com.airtel.cs.commonutils.dataproviders.databeans.IssueFields;
 import com.airtel.cs.commonutils.dataproviders.databeans.SearchType;
 import com.airtel.cs.commonutils.dataproviders.databeans.TestDataBean;
@@ -79,6 +80,7 @@ import com.airtel.cs.model.request.ticketreopen.ReopenTicketRequest;
 import com.airtel.cs.model.request.ticketstats.TicketStatsRequest;
 import com.airtel.cs.model.request.ticketstats.TicketStatsTicketSearchCriteria;
 import com.airtel.cs.model.request.updateticket.CloseTicketRequest;
+import com.airtel.cs.model.request.vas.ActiveVasRequest;
 import com.airtel.cs.model.response.PlanPackResponse;
 import com.airtel.cs.model.response.hlrservice.HLROrderHistoryRequest;
 import com.airtel.cs.model.response.hlrservice.HLROrderHistoryResponse;
@@ -133,7 +135,6 @@ import com.airtel.cs.model.response.ticketstats.TicketStatsResponse;
 import com.airtel.cs.model.response.transfertoqueue.TransferToQueue;
 import com.airtel.cs.model.response.usagehistory.UsageHistory;
 import com.airtel.cs.model.response.vendors.VendorNames;
-import com.airtel.cs.model.response.voucher.VoucherRechargeResponse;
 import com.airtel.cs.model.response.voucher.VoucherSearch;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
@@ -157,6 +158,7 @@ import java.util.Optional;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
+import static com.airtel.cs.commonutils.applicationutils.constants.URIConstants.*;
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 
@@ -197,7 +199,6 @@ public class RequestSource extends RestCommonUtils {
     private static final String PAGE_NUMBER = constants.getValue(ApplicationConstants.PAGE_NUMBER);
     private static final String TICKET_POOL_IDS = constants.getValue(ApplicationConstants.TICKET_POOL_IDS);
     private String body = null;
-    private static final String APPLICATION_JSON = "application/json";
     private static final String FINAL_SUBMIT = "false";
     private static final TestDataBean TEST_DATA_BEAN = new TestDataBean();
     private static Map<String, String> clientInfo = new HashMap<>();
@@ -206,12 +207,73 @@ public class RequestSource extends RestCommonUtils {
     public static final String LINKED_ACCOUNT_ORCHESTRATOR = " - linked account orchestrator";
     public static final String CREATE_ISSUE = " - create issue";
     public static final String SR_CLIENT_ID = "sr-client-id";
+    private static final String CALLING_CS_API = "cs.api.calling";
+    private static final String TARIFF_AVAILABLE_PLAN = "tariff available plan";
+    private static final String TARIFF_CURRENT_PLAN = "tariff current plan";
+    public static final String V2_LOGIN = "v2 login ";
+    public static final String SEARCH = "search ";
+    public static final String KYC_PROFILE = "kyc profile ";
+    public static final String OFFER_DETAILS = "offer details";
+    public static final String FRIENDS_FAMILY = "friends and family";
+    public static final String AGENT_PERMISSION = "agent permission";
+    public static final String FETCH_TICKET_POOL = "fetch ticket pool";
+    public static final String AGENT_DETAILS = "agent details";
+    public static final String EVENTS_LOG="event logs";
+    public static final String ADJUSTMENT_ACTION="adjustment action";
+    public static final String ADJUSTMENT_HISTORY="adjustment history ";
+    public static final String POSTPAID_ACCOUNT_INFORMATION = "postpaid account information";
+    public static final String ACTION_CONFIG = "action config";
+    public static final String GET_FIELD_MASK_CONFIG = "get field mask config";
+    public static final String AGENT_LIMIT_API = "agent limit api ";
+    public static final String SAVE_AGENT_LIMIT_API = "save agent limit api";
+    public static final String GET_PARENT_CATEGORY_V1 = "get parent category v1";
+    public static final String GET_TICKET_HISTORY_V1 = " ticket history v1 ";
+    public static final String PLAN_AND_PACK = "plan and pack";
+    public static final String CURRENT_PLAN = "current pan ";
+    public static final String POSTPAID_ACCOUNT_DETAILS = "postpaid account details";
+    public static final String TICKET_HISTORY_LOG="ticket history log";
+    public static final String POSTPAID_ACCOUNT_MSISDN_DETAILS = "postpaid account msisdn details";
+    public static final String GET_CONFIGURATION_API="configuration api";
+    public static final String CREATE_CONFIGURATION_API="create configuration api";
+    public static final String DELETE_CONFIGURATION_API="delete configuration api ";
+    public static final String UPDATE_CONFIGURATION_API="update configuration api ";
+    public static final String GET_HBB_LINKED_ACCOUNTS_API="hbb linked accounts ";
+    public static final String AUTOFILL_ISSUE_FIELD="autofill issue field";
+    public static final String ENTERPRISE_POSTPAID_ACCOUNT_INFORMATION="enterprise postpaid information";
+    public static final String ENTERPRISE_ACCOUNT_SEARCH = "enterprise account search";
+    public static final String ENTERPRISE_LINKED_SERVICES="enterprise linked services";
+    public static final String ENTERPRISE_INTERACTION_HISTORY="enterprise interaction history";
+    public static final String ENTERPRISE_PAYMENT_HISTORY = "enterprise payment history";
+    public static final String AUTOFILL_CONFIGS = "autofill configs v1";
+    public static final String AM_PROFILE = "am profile";
+    public static final String RECHARGE_HISTORY = "recharge history";
+    public static final String BUNDLE_RECHARGE_HISTORY = "bundle recharge history";
+    public static final String TRANSACTION_HISTORY = "transaction history";
+    public static final String ACCOUNT_BALANCE = "accounts balance";
+    public static final String SR_FETCH_HISTORY = "fetch ticket";
+    public static final String NOTIFICATION_FETCH_HISTORY = "notification fetch history";
+    public static final String VOUCHER_DETAILS = "voucher detail";
+    public static final String OVERSCRATCH_RECHARGE = "overscratch recharge";
+    public static final String VENDORS = " v1 vendors";
+    public static final String LOAN_SUMMARY = "loan summary";
+    public static final String LOAN_DETAILS = "loan details";
+    public static final String REFILL_STATUS = "refill status";
+    public static final String SEARCH_TUNES = "search tunes";
+    public static final String FETCH_TUNES = "fetch tunes";
+    public static final String ACCUMULATORS = "accumulators v1";
+    public static final String SERVICE_PROFILE = "hlr service profiles";
+    public static final String HLR_ORDER_HISTORY_V1 = "hlr order history v1";
+    public static final String AUTH_USER = "v1 auth user";
+    public static final String CONFIGURATIONS = "v1 configurations";
+    public static final String GSM_PROFILE = "gsm profile";
+    public static final String GSM_KYC = "gsm kyc";
 
 
     /*
     This Method will hit the Available Plan API and returns the response
      */
     public AvailablePlan availablePlanRequest() {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + TARIFF_AVAILABLE_PLAN, JavaColors.GREEN, false);
         AvailablePlan result = null;
         try {
             commonPostMethod(URIConstants.TARIFF_AVAILABLE_PLANS, new GenericRequest(TARIFF_PLAN_TEST_NUMBER));
@@ -230,6 +292,7 @@ public class RequestSource extends RestCommonUtils {
     This Method will hit the Current Plan API and returns the response
      */
     public CurrentPlan currentPlanRequest() {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + TARIFF_CURRENT_PLAN, JavaColors.GREEN, false);
         CurrentPlan result = null;
         try {
             commonPostMethod(URIConstants.TARIFF_CURRENT_PLAN, new GenericRequest(TARIFF_PLAN_TEST_NUMBER));
@@ -251,6 +314,7 @@ public class RequestSource extends RestCommonUtils {
      * @return response
      */
     public Login loginRequest(String body) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + V2_LOGIN, JavaColors.GREEN, false);
         Login result = null;
         try {
             commonLib.info("Logging in Using Login API for getting TOKEN with user");
@@ -269,6 +333,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public KYCProfile kycProfileAPITest(String msisdn) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + KYC_PROFILE, JavaColors.GREEN, false);
         KYCProfile result = null;
         try {
             commonPostMethod(URIConstants.KYC_PROFILE, new GenericRequest(msisdn));
@@ -284,12 +349,13 @@ public class RequestSource extends RestCommonUtils {
     }
 
     /**
-     * This method is used to test service class and rate plan CS API
+     * This method will hit CS API /api/cs-gsm-service/v1/search and return the response
      *
      * @param msisdn
      * @return
      */
     public List<String> searchAPITest(String msisdn) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         String result;
         List<String> myList = null;
         try {
@@ -319,6 +385,7 @@ public class RequestSource extends RestCommonUtils {
      * @return the list
      */
     public List<String> autoFillAPITest(String layoutConfigType, String categoryId, String inputFields, String msisdn) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + AUTOFILL_ISSUE_FIELD, JavaColors.GREEN, false);
         String result;
         List<String> myList = null;
         try {
@@ -347,6 +414,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public Profile profileAPITest(String msisdn) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + GSM_PROFILE, JavaColors.GREEN, false);
         Profile result = null;
         try {
             commonPostMethod(URIConstants.GSM_PROFILE, new GenericRequest(msisdn));
@@ -368,6 +436,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public AMProfile amServiceProfileAPITest(String msisdn) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + AM_PROFILE, JavaColors.GREEN, false);
         AMProfile result = null;
         try {
             queryParam.put(MSISDN, msisdn);
@@ -391,6 +460,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public GsmKyc gsmKYCAPITest(String msisdn) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + GSM_KYC, JavaColors.GREEN, false);
         GsmKyc result = null;
         try {
             commonPostMethod(URIConstants.GSM_KYC, new GenericRequest(msisdn));
@@ -412,9 +482,10 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public HbbUserDetailsResponse hbbUserDetailsTest(String msisdn) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + HBB_USER, JavaColors.GREEN, false);
         HbbUserDetailsResponse result = null;
         try {
-            commonPostMethod(URIConstants.HBB_USER, new GenericRequest(msisdn));
+            commonPostMethod(HBB_USER, new GenericRequest(msisdn));
             result = response.as(HbbUserDetailsResponse.class);
             if (result.getStatusCode() != 200) {
                 esbRequestSource.callGsmKycESBAPI(msisdn);
@@ -433,9 +504,10 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public Plans accountPlansTest(String msisdn) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) +ACCOUNT_PLAN , JavaColors.GREEN, false);
         Plans result = null;
         try {
-            commonPostMethod(URIConstants.ACCOUNT_PLAN, new GenericRequest(msisdn));
+            commonPostMethod(ACCOUNT_PLAN, new GenericRequest(msisdn));
             result = response.as(Plans.class);
             if (result.getStatusCode() != 200) {
                 esbRequestSource.callAccountPlanESBAPI(msisdn);
@@ -454,6 +526,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public UsageHistory usageHistoryTest(String msisdn) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         UsageHistory result = null;
         try {
             commonPostMethod(URIConstants.USAGE_HISTORY, new UsageHistoryRequest(msisdn, 5, 1, null, null, null, "More"));
@@ -483,6 +556,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public UsageHistory usageHistoryMenuTest(String msisdn) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         UsageHistory result = null;
         try {
             commonPostMethod(URIConstants.USAGE_HISTORY, new UsageHistoryMenuRequest(msisdn, 5, 1, null, null, null, "More", "FREE"));
@@ -512,19 +586,18 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response,"
      */
     public RechargeHistory rechargeHistoryAPITest(String msisdn) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         RechargeHistory result = null;
         try {
             commonPostMethod(URIConstants.RECHARGE_HISTORY, new RechargeHistoryRequest(msisdn, 5, 1, null, null, null));
             result = response.as(RechargeHistory.class);
             if (result.getStatusCode() != 200) {
-                esbRequestSource.callRechargeHistory(msisdn,
-                        UtilsMethods.getUTCEndDate(Timestamp.valueOf(LocalDate.now().atTime(LocalTime.MAX)).getTime()),
+                esbRequestSource.callRechargeHistory(msisdn, UtilsMethods.getUTCEndDate(Timestamp.valueOf(LocalDate.now().atTime(LocalTime.MAX)).getTime()),
                         UtilsMethods.getUTCStartDate(Timestamp.valueOf(LocalDate.now().atStartOfDay().minusDays(14)).getTime()));
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - rechargeHistoryAPITest " + e.getMessage(), false);
-            esbRequestSource
-                    .callRechargeHistory(msisdn, UtilsMethods.getUTCEndDate(Timestamp.valueOf(LocalDate.now().atTime(LocalTime.MAX)).getTime()),
+            esbRequestSource.callRechargeHistory(msisdn, UtilsMethods.getUTCEndDate(Timestamp.valueOf(LocalDate.now().atTime(LocalTime.MAX)).getTime()),
                             UtilsMethods.getUTCStartDate(Timestamp.valueOf(LocalDate.now().atStartOfDay().minusDays(14)).getTime()));
         }
         return result;
@@ -537,6 +610,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public AirtelMoney transactionHistoryAPITest(String msisdn) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         AirtelMoney result = null;
         try {
             commonPostMethod(URIConstants.TRANSACTION_HISTORY, new TransactionHistoryRequest(msisdn, 5, 1, null, null));
@@ -560,6 +634,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public AirtelMoney moreTransactionHistoryAPITest(String msisdn, String currencyType) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         AirtelMoney result = null;
         try {
             commonPostMethod(URIConstants.TRANSACTION_HISTORY, new MoreTransactionHistoryRequest(msisdn, 5, 1, null, null, null, null, currencyType, true));
@@ -577,6 +652,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public AccountsBalance balanceAPITest(String msisdn) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         AccountsBalance result = null;
         try {
             commonPostMethod(URIConstants.ACCOUNT_BALANCE, new AccountBalanceRequest(msisdn, 10, 1));
@@ -603,6 +679,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public Ticket ticketMetaDataTest(String ticketId) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         Ticket result = null;
         try {
             queryParam.put("id", ticketId);
@@ -621,6 +698,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public SMSHistory smsHistoryTest(String msisdn) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         SMSHistory result = null;
         try {
             commonPostMethod(URIConstants.NOTIFICATION_FETCH_HISTORY, new SMSHistoryRequest(msisdn, 10, 0));
@@ -638,6 +716,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public VoucherSearch voucherSearchTest(String voucherId) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         VoucherSearch result = null;
         try {
             commonPostMethod(URIConstants.VOUCHER_DETAILS, new VoucherSearchRequest(voucherId));
@@ -659,6 +738,7 @@ public class RequestSource extends RestCommonUtils {
      * @return the response
      */
     public Response voucherRechargeTest(VoucherRechargeRequest voucherRechargeRequest) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         try {
             commonPostMethod(URIConstants.OVERSCRATCH_RECHARGE, voucherRechargeRequest);
             if (response.getStatusCode() != 200) {
@@ -675,6 +755,7 @@ public class RequestSource extends RestCommonUtils {
     This Method will hit the API "/cs-vas-service/v1/vendors" and return the response
      */
     public VendorNames vendorsNamesTest() {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         VendorNames result = null;
         try {
             commonGetMethod(URIConstants.VENDORS);
@@ -697,6 +778,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public Summary loanSummaryTest(String msisdn, String vendorName) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         Summary result = null;
         try {
             commonPostMethod(URIConstants.LOAN_SUMMARY, new LoanRequest(msisdn, vendorName));
@@ -719,6 +801,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public Loan loanDetailsTest(String msisdn, String vendorName) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         Loan result = null;
         try {
             commonPostMethod(URIConstants.LOAN_DETAILS, new LoanRequest(msisdn, vendorName));
@@ -740,6 +823,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public RefillStatus clearRefillTest(String msisdn) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         RefillStatus result = null;
         try {
             commonPostMethod(URIConstants.REFILL_STATUS, new GenericRequest(msisdn));
@@ -763,6 +847,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public Top20Ringtone ringtoneDetailTest(String msisdn, String searchBy, String searchText) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         Top20Ringtone result = null;
         try {
             commonPostMethod(URIConstants.SEARCH_TUNES, new RingtonDetailsRequest(msisdn, searchBy, searchText));
@@ -784,6 +869,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public ActivateRingtone activateRingtone(String msisdn) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         ActivateRingtone result = null;
         try {
             queryParam.put(MSISDN, msisdn);
@@ -806,6 +892,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public Accumulators accumulatorsAPITest(String msisdn) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         Accumulators result = null;
         try {
             commonPostMethod(URIConstants.ACCUMULATORS, new AccumulatorsRequest(msisdn, 5, 1));
@@ -827,6 +914,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public HLRService getServiceProfileWidgetInfo(String msisdn) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         HLRService result = null;
         try {
             commonPostMethod(URIConstants.SERVICE_PROFILE, new ServiceProfileRequest(msisdn, 5, 1));
@@ -842,12 +930,13 @@ public class RequestSource extends RestCommonUtils {
     }
 
     /**
-     * Gets hlr order history.
      *
+     *This method is used to hit the api "/cs-gsm-service/v1/hlr/order/history"
      * @param request the request
      * @return the hlr order history
      */
     public HLROrderHistoryResponse getHLROrderHistory(HLROrderHistoryRequest request) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         HLROrderHistoryResponse result = null;
         try {
             commonPostMethod(URIConstants.HLR_ORDER_HISTORY_V1, request);
@@ -865,16 +954,17 @@ public class RequestSource extends RestCommonUtils {
     /**
      * This Method will hit the API "/cs-service/api/cs-service/v1/configurations" and return the response
      *
-     * @param key The key
+     * @param key      The key
      * @param lineType The lineType
      * @return The Response
      */
     public Configuration getConfiguration(String key, String lineType) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         Configuration result = null;
         try {
             queryParam.put("keys", key);
             queryParam.put("opco", OPCO);
-            queryParam.put("lineType",lineType);
+            queryParam.put("lineType", lineType);
             commonGetMethodWithQueryParam(URIConstants.CONFIGURATIONS, queryParam, map);
             result = response.as(Configuration.class);
         } catch (Exception e) {
@@ -890,6 +980,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public OfferDetail offerDetailAPITest(String msisdn) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         OfferDetail result = null;
         try {
             commonPostMethod(URIConstants.OFFER_DETAILS, new OfferDetailRequest(msisdn, true));
@@ -911,6 +1002,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public FriendsFamily friendsFamilyAPITest(String msisdn) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         FriendsFamily result = null;
         try {
             commonPostMethod(URIConstants.FRIENDS_FAMILY, new GenericRequest(msisdn));
@@ -931,6 +1023,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public AgentPermission transferToQueuePermissionAPI() {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + AGENT_PERMISSION, JavaColors.GREEN, false);
         AgentPermission result = null;
         try {
             commonGetMethod(URIConstants.AGENT_PERMISSION);
@@ -949,6 +1042,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public TransferToQueue fetchTicketPool(List<String> ticketId, Boolean isSupervisor) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         TransferToQueue result = null;
         try {
             commonPostMethod(URIConstants.FETCH_TICKET_POOL, new FetchTicketPoolRequest(ticketId, isSupervisor));
@@ -966,6 +1060,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public AgentDetailAttribute getAgentDetail(Headers headers) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         AgentDetailAttribute result = null;
         try {
             commonGetMethod(URIConstants.AGENT_DETAILS, headers);
@@ -984,6 +1079,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public ActionTrail getEventHistory(String msisdn, String eventType) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         ActionTrail result = null;
         try {
             Map<String, String> clientInfo = new HashMap<>();
@@ -1002,6 +1098,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public AdjustmentReasonRequest getAdjustmentReason() {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         AdjustmentReasonRequest result = null;
         try {
             commonGetMethod(URIConstants.ADJUSTMENT_ACTION);
@@ -1019,6 +1116,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public AdjustmentHistory getAdjustMentHistory(String msisdn) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         AdjustmentHistory result = null;
         try {
             commonPostMethod(URIConstants.ADJUSTMENT_HISTORY, new ServiceProfileRequest(msisdn, 5, 1));
@@ -1036,6 +1134,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public List<String> getPostpaidAccountInformation(String msisdn, String customerAccountNumber, PaymentRequest paymentRequest) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         String result;
         List<String> myList = null;
         try {
@@ -1062,6 +1161,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public FieldMaskConfigs getFieldMaskConfigs(String actionKey) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         FieldMaskConfigReponse fieldMaskConfigReponse = null;
         try {
             queryParam.clear();
@@ -1087,6 +1187,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public ActionConfigResult getActionConfig(Headers headers, String actionName) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         ActionConfigResponse actionConfigResponse;
         ActionConfigResult actionConfigResult = null;
         try {
@@ -1118,6 +1219,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public AgentLimit getAgentLimitConfig(String roleId) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         AgentLimit result = null;
         try {
             commonPostMethod(URIConstants.AGENT_LIMIT_API, new AgentLimitRequest(roleId));
@@ -1135,6 +1237,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public AgentLimit saveAgentLimit(String roleId, String featureKey, String dailyLimit, String monthlyLimit, String transactionLimit) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         AgentLimit result = null;
         try {
             LimitConfigRequest limitConfig = new LimitConfigRequest(featureKey, dailyLimit, monthlyLimit, transactionLimit);
@@ -1155,6 +1258,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public List<String> getPostpaidCurrentPlan(String msisdn) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         String result;
         List<String> myList = null;
         try {
@@ -1179,6 +1283,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public PlanPackResponse getPlanPack(PlanPackRequest planPackRequest, String msisdn) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         PlanPackResponse result = null;
         try {
             commonPostMethod(URIConstants.PLAN_AND_PACK, planPackRequest);
@@ -1199,6 +1304,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public PostpaidAccountDetailResponse accountDetailResponse(String accountNumber) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         PostpaidAccountDetailResponse result = null;
         try {
             commonPostMethod(URIConstants.POSTPAID_ACCOUNT_DETAILS, new PostpaidAccountDetailRequest(accountNumber, null, null, "1", "5"));
@@ -1219,6 +1325,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public TreeMap<String, List<Category>> getParentCategory(Long id) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         ParentCategoryResponse parentCategoryResponse = null;
         TreeMap<String, List<Category>> result = null;
         try {
@@ -1242,6 +1349,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public AccountDetails getAccountInfoDetail(String accountNo, Integer pageNumber) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         AccountDetails result = null;
         try {
             commonPostMethod(URIConstants.POSTPAID_ACCOUNT_DETAILS, new AccountDetailRequest(accountNo, pageNumber.toString(), "5"));
@@ -1263,6 +1371,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public TicketHistoryLog getTicketHistoryLog(String ticketId) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         TicketHistoryLog result = null;
         try {
             queryParam.put("id", ticketId);
@@ -1281,6 +1390,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public AccountStatementCSResponse accountStatementCSResponse(String accountNo, Integer pageNumber) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         AccountStatementCSResponse result = null;
         try {
             commonPostMethod(URIConstants.POSTPAID_ACCOUNT_MSISDN_DETAILS, new AccountStatementReq(accountNo, pageNumber.toString(), "5"));
@@ -1302,6 +1412,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public Integer getTicketHistoryStatusCode(String msisdn) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         Integer result = null;
         try {
             Map<String, String> clientInfo = new HashMap<>();
@@ -1321,6 +1432,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public ConfigurationList getAllConfiguration(Integer pageSize, Integer pageNumber) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         ConfigurationList result = null;
         try {
             commonPostMethod(URIConstants.GET_CONFIGURATION_API, new ConfigurationRequest(pageNumber, pageSize));
@@ -1337,6 +1449,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public ConfigurationList createConfig(String key, String value) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         ConfigurationList result = null;
         try {
             commonPostMethod(URIConstants.CREATE_CONFIGURATION_API, Collections.singletonList(new CreateConfigAttributes(OPCO, key, value)));
@@ -1353,6 +1466,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public ConfigurationList deleteConfig(String key) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         ConfigurationList result = null;
         try {
             commonPostMethod(URIConstants.DELETE_CONFIGURATION_API, new CreateConfigAttributes(null, key, null));
@@ -1369,6 +1483,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public ConfigurationList updateConfig(String key, String value) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         ConfigurationList result = null;
         try {
             commonPostMethod(URIConstants.UPDATE_CONFIGURATION_API, new CreateConfigAttributes(OPCO, key, value));
@@ -1387,6 +1502,7 @@ public class RequestSource extends RestCommonUtils {
      * @return the response
      */
     public TicketStatsResponse ticketStatsRequest(String rowKeyword, List<Header> map) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         TicketStatsResponse result = null;
         recordset = DataProviders.readExcelSheet(excelPath, constants.getValue(ApplicationConstants.CLIENT_CONFIG));
         List<String> fromExcelSheetColumnWise = DataProviders.getScenarioDetailsFromExcelSheetColumnWise(recordset, rowKeyword, "Field Name", Collections.singletonList("Value"));
@@ -1408,6 +1524,7 @@ public class RequestSource extends RestCommonUtils {
      * @return the result
      */
     public TicketAssignResponse ticketAssignRequest(String agentId, String ticketId, List<Header> map) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         body = "{\"agentId\":" + agentId + ",\"ticketId\":[\"" + ticketId + "\"]}";
         commonPostMethod(URIConstants.ASSIGN_TICKET, map, body, srBaseUrl);
         return response.as(TicketAssignResponse.class);
@@ -1422,7 +1539,7 @@ public class RequestSource extends RestCommonUtils {
      * @return the response
      */
     public TicketStatsResponse ticketStatsWithFilterRequest(String clientConfig, List<Header> map) {
-
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         TicketStatsResponse result = null;
         try {
             commonPostMethod(URIConstants.TICKET_STATS, map, new TicketStatsRequest(new TicketStatsTicketSearchCriteria(clientConfig, null, null, null, null, EXTERNAL_STATE_IDS)), srBaseUrl);
@@ -1434,6 +1551,7 @@ public class RequestSource extends RestCommonUtils {
     }
 
     public InteractionIssueRequest createInteractionIssue(List<Header> map, String clientConfig, String issueDetails, String categoryIds) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         body = "{\"interaction\":{\"createdBy\":\"" + CREATED_BY + "\",\"finalSubmit\":false,\"clientInfo\":{" + clientConfig + "}},\"issues\":[{\"comment\":\"" + COMMENT + "\",\"createdBy\":\"" + CREATED_BY + "\",\"issueDetails\":[" + issueDetails + "],\"categoryHierarchy\":[" + categoryIds + "]}]}";
         commonPostMethod(URIConstants.INTERACTION_ISSUE, map, body, srBaseUrl);
         return response.as(InteractionIssueRequest.class);
@@ -1443,6 +1561,7 @@ public class RequestSource extends RestCommonUtils {
     This Method is used to hit the "/api/sr-service/v1/openapi/interactions/issue" API and get the response
      */
     public InteractionIssueOpenApiRequest interactionIssueOpenApiRequest(List<Header> map, String clientConfig, String issueDetails, String categoryIds) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         body = "{\"interaction\":{\"createdBy\":\"" + CREATED_BY + "\",\"finalSubmit\":false,\"clientInfo\":{" + clientConfig + "}},\"issues\":[{\"comment\":\"" + COMMENT + "\",\"createdBy\":\"" + CREATED_BY + "\",\"issueDetails\":[" + issueDetails + "],\"categoryHierarchy\":[" + categoryIds + "]}]}";
         commonPostMethod(URIConstants.OPEN_API_INTERACTION_ISSUE, map, body, srBaseUrl);
         return response.as(InteractionIssueOpenApiRequest.class);
@@ -1452,6 +1571,7 @@ public class RequestSource extends RestCommonUtils {
     This Method is used to hit the "/api/sr-service/v1/openapi/comment" API and get the response
      */
     public CommentOpenApiResponse createCommentOpenApi(String ticketId) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         CommentOpenApiRequest commentOpenApiRequest = new CommentOpenApiRequest();
         commentOpenApiRequest.setTicketId(ticketId);
         commentOpenApiRequest.setAgentId(Long.parseLong(AGENT_ID));
@@ -1465,6 +1585,7 @@ public class RequestSource extends RestCommonUtils {
     This Method is used to hit the "/api/sr-service/v1/openapi/update/comment" API and get the response
      */
     public CommentOpenApiResponse updateCommentOpenApi(Long commentId) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         CommentOpenApiRequest commentOpenApiRequest = new CommentOpenApiRequest();
         commentOpenApiRequest.setId(commentId);
         commentOpenApiRequest.setComment(UPDATE_COMMENT);
@@ -1477,6 +1598,7 @@ public class RequestSource extends RestCommonUtils {
     This Method is used to hit the "/api/sr-service/v1/openapi/delete/comment" API and get the response
      */
     public CommentOpenApiResponse deleteCommentOpenApi(Long commentId) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         CommentOpenApiRequest commentOpenApiRequest = new CommentOpenApiRequest();
         commentOpenApiRequest.setId(commentId);
         commentOpenApiRequest.setAgentId(Long.parseLong(AGENT_ID));
@@ -1488,6 +1610,7 @@ public class RequestSource extends RestCommonUtils {
     This Method is used to hit the "/api/sr-service/v1/openapi/clients/config" API and get the response
      */
     public ClientConfigOpenApiRequest clientWithoutUMRequest(List<Header> map) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         commonGetMethod(URIConstants.OPEN_API_CLIENT_CONFIG, map, srBaseUrl);
         return response.as(ClientConfigOpenApiRequest.class);
     }
@@ -1496,10 +1619,12 @@ public class RequestSource extends RestCommonUtils {
     This Method is used to hit the "/api/sr-service/v1/openapi/fetch/ticket" API and get the response
      */
     public TicketSearchByTicketIdOpenRequest ticketSearchByTicketIdOpenRequest(List<Header> map, String ticketId) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         return ticketSearchByTicketIdOpenRequest(map, ticketId, 200);
     }
 
     public TicketSearchByTicketIdOpenRequest ticketSearchByTicketIdOpenRequest(List<Header> map, String ticketId, Integer statusCode) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         queryParam.put("id", ticketId);
         commonGetMethodWithQueryParam(URIConstants.OPEN_API_FETCH_TICKET, queryParam, validHeaderList);
         return response.as(TicketSearchByTicketIdOpenRequest.class);
@@ -1509,10 +1634,12 @@ public class RequestSource extends RestCommonUtils {
     This Methos is used to hit the "/api/sr-service/v1/openapi/fetch/ticket/history/log" API and get the response
      */
     public TicketHistoryLogOpenRequest ticketHistoryLogOpenRequest(List<Header> map, String ticketId) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         return ticketHistoryLogOpenRequest(map, ticketId, 200);
     }
 
     public TicketHistoryLogOpenRequest ticketHistoryLogOpenRequest(List<Header> map, String ticketId, Integer statusCode) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         queryParam.put("id", ticketId);
         commonGetMethodWithQueryParam(URIConstants.OPEN_API_FETCH_TICKET_HISTORY_LOG, queryParam, validHeaderList);
         return response.as(TicketHistoryLogOpenRequest.class);
@@ -1522,6 +1649,7 @@ public class RequestSource extends RestCommonUtils {
     This Method is used to hit the "/api/sr-service/v1/openapi/tickets" API and get the response
      */
     public SearchTicketOpenRequest searchTicketOpenRequest(List<Header> map, String clientConfig) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         body = "{\"pageNumber\":0,\"pageSize\":10,\"ticketSearchCriteria\":{\"clientInfo\":{" + clientConfig + "}}}";
         commonPostMethod(URIConstants.OPEN_API_SEARCH_TICKET, map, body, srBaseUrl);
         return response.as(SearchTicketOpenRequest.class);
@@ -1531,6 +1659,7 @@ public class RequestSource extends RestCommonUtils {
     This Method is used to hit the "/api/sr-service/v1/openapi/layout" API and get the response
      */
     public IssueLayoutOpenRequest issueLayoutOpenRequest(List<Header> map, String categoryId) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         body = "{\"layoutConfigType\":\"Issue\",\"categoryId\":" + categoryId + "}";
         commonPostMethod(URIConstants.OPEN_API_ISSUE_LAYOUT, map, body, srBaseUrl);
         return response.as(IssueLayoutOpenRequest.class);
@@ -1540,6 +1669,7 @@ public class RequestSource extends RestCommonUtils {
     This Method is used to hit the "/api/sr-service/v1/openapi/child/categories" and get the response
      */
     public ChildCategoryOpenApiRequest childCategoryOpenApiRequest(List<Header> map, Integer categoryId) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         body = "{\"id\":" + categoryId + "}";
         commonPostMethod(URIConstants.OPEN_API_CHILD_CATEGORY, map, body, srBaseUrl);
         return response.as(ChildCategoryOpenApiRequest.class);
@@ -1549,6 +1679,7 @@ public class RequestSource extends RestCommonUtils {
     This Method is used to hit the "/api/sr-service/v1/openapi/parent/categories" the API and get the response
      */
     public ParentCategoryOpenApiRequest parentCategoryOpenApiRequest(List<Header> map, String categoryId) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         queryParam.put("id", categoryId);
         baseUrl = srBaseUrl;
         commonGetMethodWithQueryParam(URIConstants.OPEN_API_PARENT_CATEGORY, queryParam, validHeaderList);
@@ -1559,29 +1690,34 @@ public class RequestSource extends RestCommonUtils {
     This Method is used to hit the "/api/sr-service/v1/openapi/firstlast/categories" API and get the response
      */
     public FirstLastOpenApiRequest firstLastOpenApiRequest(List<Header> map) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         commonGetMethod(URIConstants.OPEN_API_FIRST_LAST, map, srBaseUrl);
         return response.as(FirstLastOpenApiRequest.class);
     }
 
     public ReopenTicketRequest reopenTicket(List<Header> map, String ticketIds) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         body = "{ \"agentId\": " + AGENT_ID + ", \"agentName\": \"" + AGENT_NAME + "\", \"comment\": \"" + COMMENT + "\", \"ticketIdList\": [\"" + ticketIds + "\"], \"ticketPoolId\": " + TICKET_POOL_ID + " }";
         commonPostMethod(URIConstants.REOPEN_TICKET, map, body, srBaseUrl);
         return response.as(ReopenTicketRequest.class);
     }
 
     public TicketRequest getTicketDetailById(List<Header> map, String ticketId) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         queryParam.put("id", ticketId);
         commonGetMethodWithQueryParam(URIConstants.FETCH_TICKET, queryParam, validHeaderList);
         return response.as(TicketRequest.class);
     }
 
     public IssueHistoryRequest getIssueHistory(List<Header> map, String clientConfig, String ticketId) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         body = "{\"pageNumber\":0,\"ticketId\":\"" + ticketId + "\",\"pageSize\":10,\"clientInfo\":{" + clientConfig + "}}";
         commonPostMethod(URIConstants.ISSUE_HISTORY, map, body, srBaseUrl);
         return response.as(IssueHistoryRequest.class);
     }
 
     public CreateIssueResponse createIssue(String interactionId, IssueDetails issueDetails, String createdBy, String comment, CategoryHierarchy category, MetaInfo metainfo) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         CreateIssueResponse result = null;
         try {
             commonPostMethod(URIConstants.CREATE_ISSUE, new CreateIssueRequest());
@@ -1593,22 +1729,26 @@ public class RequestSource extends RestCommonUtils {
     }
 
     public CreateIssueResponse createIssue(List<Header> map, String interactionId, String issueDetails, String categoryIds) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         body = "{\"interactionId\":\"" + interactionId + "\",\"comment\":\"" + COMMENT + "\",\"createdBy\":\"" + CREATED_BY + "\",\"issueDetails\":[" + issueDetails + "],\"categoryHierarchy\":[" + categoryIds + "] }";
         commonPostMethod(URIConstants.CREATE_ISSUE, map, body, srBaseUrl);
         return response.as(CreateIssueResponse.class);
     }
 
     public TicketHistoryLogRequest getTicketHistoryLog(List<Header> map, String ticketId) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         return getTicketHistoryLog(map, ticketId, 200);
     }
 
     public TicketHistoryLogRequest getTicketHistoryLog(List<Header> map, String ticketId, Integer statusCode) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         queryParam.put("id", ticketId);
         commonGetMethodWithQueryParam(URIConstants.FETCH_TICKET_HISTORY_LOG, queryParam, validHeaderList);
         return response.as(TicketHistoryLogRequest.class);
     }
 
     public ClientDeactivateRequest deActivateClientConfig(List<Header> map, Integer id) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         body = "{\"id\":" + id + "}";
         commonPostMethod(URIConstants.DEACTIVATE_CLIENT_CONFIG, map, body, srBaseUrl);
 
@@ -1616,39 +1756,46 @@ public class RequestSource extends RestCommonUtils {
     }
 
     public ClientConfigRequest createClientConfig(List<Header> map, String clientConfig) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         body = "{\"clientConfig\":[" + clientConfig + "]}";
         commonPostMethod(URIConstants.CLIENT_CONFIG, map, body, srBaseUrl);
         return response.as(ClientConfigRequest.class);
     }
 
     public InteractionRequest createInteraction(List<Header> map, String clientConfig) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         body = "{\"createdBy\": \"" + CREATED_BY + "\",\"finalSubmit\": " + FINAL_SUBMIT + ",\"clientInfo\":{" + clientConfig + "}}";
         commonPostMethod(URIConstants.CREATE_INTERACTION, map, body, srBaseUrl);
         return response.as(InteractionRequest.class);
     }
 
     public ClientConfigRequest getClientConfig(List<Header> map) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         commonGetMethod(URIConstants.CLIENT_CONFIG, map, srBaseUrl);
         return response.as(ClientConfigRequest.class);
     }
 
     public IssueLayoutRequest getLayoutConfiguration(List<Header> map, Integer categoryId) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         body = "{\"layoutConfigType\":\"Issue\",\"categoryId\":" + categoryId + "}";
         commonPostMethod(URIConstants.ISSUE_LAYOUT, map, body, srBaseUrl);
         return response.as(IssueLayoutRequest.class);
     }
 
     public CategoryHierarchyRequest getParentCategoryId(List<Header> map, Integer categoryId, Integer statusCode) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         queryParam.put("id", String.valueOf(categoryId));
         commonGetMethodWithQueryParam(URIConstants.PARENT_CATEGORY, queryParam, validHeaderList);
         return response.as(CategoryHierarchyRequest.class);
     }
 
     public CategoryHierarchyRequest getParentCategoryId(List<Header> map, Integer categoryId) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         return getParentCategoryId(map, categoryId, 200);
     }
 
     public CategoryHierarchyRequest firstLastCategoryHierarchyTest(List<Header> map) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         commonGetMethod(URIConstants.FIRST_LAST, map, srBaseUrl);
         return response.as(CategoryHierarchyRequest.class);
     }
@@ -1659,6 +1806,7 @@ public class RequestSource extends RestCommonUtils {
      * @return response of the API
      */
     public AllConfiguredClientRequest allConfiguredClientRequest(List<Header> map) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         commonGetMethod(URIConstants.CONFIGURED_CLIENTS, map, srBaseUrl);
         return response.as(AllConfiguredClientRequest.class);
     }
@@ -1667,12 +1815,13 @@ public class RequestSource extends RestCommonUtils {
     This Method is used to hit the "/api/user-mngmnt/v2/login" and get the response
      */
     public LoginRequest loginRequest(List<Header> map, String body) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         baseURI = srUMBaseUrl;
         Headers headers = new Headers(map);
         request = given()
                 .headers(headers)
                 .body(body)
-                .contentType(APPLICATION_JSON);
+                .contentType(constants.getValue(ApplicationConstants.APPLICATION_JSON));
         response = request.post("/api/user-mngmnt/v2/login");
         return response.as(LoginRequest.class);
     }
@@ -1684,27 +1833,32 @@ public class RequestSource extends RestCommonUtils {
      * @return response of the API
      */
     public Integer allConfigureRequestWithInvalidMethod(List<Header> map) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         commonPostMethod(URIConstants.CONFIGURED_CLIENTS, map, "", srBaseUrl);
         return response.getStatusCode();
     }
 
     public CloseTicketRequest closeTicket(List<Header> map, String ticketId, String interactionId) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         body = "{\"agentId\":" + AGENT_ID + ",\"updatedBy\":" + UPDATED_BY + ",\"stateId\":" + STATE_ID + ",\"ticketId\":\"" + ticketId + "\",\"comment\":[{\"ticketPoolId\":" + TICKET_POOL_ID + ",\"agentName\":\"" + AGENT_NAME + "\",\"comment\":\"" + CLOSURE_COMMENT + "\",\"commentType\":\"\",\"agentId\":" + AGENT_ID + ",\"interactionId\":" + interactionId + "}],\"ticketPoolId\":" + TICKET_POOL_ID + "}";
         commonPostMethod(URIConstants.UPDATE_TICKET, map, body, srBaseUrl);
         return response.as(CloseTicketRequest.class);
     }
 
     public TicketListRequest ticketListRequest(List<Header> map) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         return ticketListRequest(map, PAGE_SIZE, PAGE_NUMBER, STATE_ID);
     }
 
     public TicketListRequest ticketListRequest(List<Header> map, String pageSize, String pageNumber, String stateId) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         body = "{\"agentId\":" + AGENT_ID + ",\"pageNumber\":" + pageNumber + ",\"pageSize\":" + pageSize + ",\"ticketPoolIds\":[" + TICKET_POOL_IDS + "],\"fromDate\":null,\"toDate\":null,\"slaFromDate\":null,\"slaToDate\":null,\"ticketAssigneeId\":null,\"stateIds\":[" + stateId + "],\"priorityIds\":[],\"workGroupEscalationIds\":null,\"categoryIds\":null}";
         commonPostMethod(URIConstants.TICKETS_BY_AGENT, map, body, srBaseUrl);
         return response.as(TicketListRequest.class);
     }
 
     public TicketHistoryRequest ticketHistoryRequest(List<Header> map, TicketSearchRequest body) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         commonPostMethod(URIConstants.TICKET_HISTORY, map, body, srBaseUrl);
         return response.as(TicketHistoryRequest.class);
     }
@@ -1713,6 +1867,7 @@ public class RequestSource extends RestCommonUtils {
     This Method is used to hit the "/api/sr-service/v1/tickets" with filter and get the response
      */
     public TicketHistoryRequest ticketHistoryWithFilterRequest(List<Header> map, String clientConfig, String ticketId) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         TicketSearchRequest request = new TicketSearchRequest();
         TicketSearchCriteria ticketSearchCriteria = new TicketSearchCriteria();
         ticketSearchCriteria.setTicketId(ticketId);
@@ -1725,6 +1880,7 @@ public class RequestSource extends RestCommonUtils {
     This Method is used to hit the "/api/sr-service/v1/tickets" without filters and get the response
      */
     public TicketHistoryRequest ticketHistoryWithoutFilter(List<Header> map, String clientConfig) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         TicketSearchRequest request = new TicketSearchRequest();
         TicketSearchCriteria ticketSearchCriteria = new TicketSearchCriteria();
         request.setTicketSearchCriteria(ticketSearchCriteria);
@@ -1735,6 +1891,7 @@ public class RequestSource extends RestCommonUtils {
     This Methos is used to hit the "/api/sr-service/v1/tickets" with category filter and get the response
      */
     public TicketHistoryRequest ticketHistoryWithCategoryFilter(List<Header> map, String categoryIds) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
 
         TicketSearchRequest request = new TicketSearchRequest();
         TicketSearchCriteria ticketSearchCriteria = new TicketSearchCriteria();
@@ -1751,6 +1908,7 @@ public class RequestSource extends RestCommonUtils {
     This Methos is used to hit the "/api/sr-service/v1/tickets" with category level and value filter and get the response
      */
     public TicketHistoryRequest ticketHistoryWithCategoryLevelAndValue(List<Header> map, int categoryLevel, String categoryLevelValues) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         TicketSearchRequest request = new TicketSearchRequest();
         TicketSearchCriteria ticketSearchCriteria = new TicketSearchCriteria();
 
@@ -1768,6 +1926,7 @@ public class RequestSource extends RestCommonUtils {
     This Methos is used to hit the "/api/sr-service/v1/tickets" with Assigned Ticket pool filter and get the response
      */
     public TicketHistoryRequest ticketHistoryWithAssigenedTicketPool(List<Header> map, String assignedQueues) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         TicketSearchRequest request = new TicketSearchRequest();
         TicketSearchCriteria ticketSearchCriteria = new TicketSearchCriteria();
 
@@ -1785,6 +1944,7 @@ public class RequestSource extends RestCommonUtils {
     This Methos is used to hit the "/api/sr-service/v1/tickets" with customer sla breached filter and get the response
      */
     public TicketHistoryRequest ticketHistoryWithCustomerSLABreached(List<Header> map, boolean customerSLABreached) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         TicketSearchRequest request = new TicketSearchRequest();
         TicketSearchCriteria ticketSearchCriteria = new TicketSearchCriteria();
         ticketSearchCriteria.setCustomerSlaBreached(customerSLABreached);
@@ -1796,6 +1956,7 @@ public class RequestSource extends RestCommonUtils {
     This Methos is used to hit the "/api/sr-service/v1/tickets" with assigneeName filter and get the response
      */
     public TicketHistoryRequest ticketHistoryWithAssigneeName(List<Header> map, String assigneeName) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         TicketSearchRequest request = new TicketSearchRequest();
         TicketSearchCriteria ticketSearchCriteria = new TicketSearchCriteria();
 
@@ -1812,6 +1973,7 @@ public class RequestSource extends RestCommonUtils {
     This Methos is used to hit the "/api/sr-service/v1/tickets" with assigneeId filter and get the response
      */
     public TicketHistoryRequest ticketHistoryWithAssigneeId(List<Header> map, String assigneeId) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         TicketSearchRequest request = new TicketSearchRequest();
         TicketSearchCriteria ticketSearchCriteria = new TicketSearchCriteria();
 
@@ -1829,6 +1991,7 @@ public class RequestSource extends RestCommonUtils {
     This Methos is used to hit the "/api/sr-service/v1/tickets" with workgroupslaBreached filter and get the response
      */
     public TicketHistoryRequest ticketHistoryWithWorkgroupSLABreached(List<Header> map, boolean workgroupSLABreached) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         TicketSearchRequest request = new TicketSearchRequest();
         TicketSearchCriteria ticketSearchCriteria = new TicketSearchCriteria();
         ticketSearchCriteria.setWorkgroupSlaBreached(workgroupSLABreached);
@@ -1840,6 +2003,7 @@ public class RequestSource extends RestCommonUtils {
     This Methos is used to hit the "/api/sr-service/v1/tickets" with issue Details filter and get the response
      */
     public TicketHistoryRequest ticketHistoryWithIssueDetails(List<Header> map, String fieldName, String fieldValue) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         TicketSearchRequest request = new TicketSearchRequest();
         TicketSearchCriteria ticketSearchCriteria = new TicketSearchCriteria();
         IssueFields field = new IssueFields();
@@ -1865,6 +2029,7 @@ public class RequestSource extends RestCommonUtils {
      */
 
     public HbbLinkedAccountsResponse getLinkedHbbNumber(String msisdn) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         HbbLinkedAccountsResponse result = null;
         try {
             commonPostMethod(URIConstants.GET_HBB_LINKED_ACCOUNTS_API, new HbbLinkedAccountsRequest(msisdn, false));
@@ -1893,6 +2058,7 @@ public class RequestSource extends RestCommonUtils {
      */
 
     public NotificationServiceResponse getNotificationService(String templateIdentifier, String body, String languageCode, String searchId, String sendNotificationType, String templateSourceApp, String templateChannel, List<ReceiverId> receiverId) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         NotificationServiceResponse result = null;
         try {
             commonPostMethod(URIConstants.NOTIFICATION_SERVICE_API, new NotificationServiceRequest(templateIdentifier, body, languageCode, searchId, sendNotificationType, templateSourceApp, templateChannel, receiverId));
@@ -1911,6 +2077,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public Integer getEnterprisePostpaidAccountInformation(String accountNo, PaymentRequest paymentRequest) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         Integer statusCode = null;
         try {
             queryParam.put(ACCOUNT_NO, accountNo);
@@ -1934,6 +2101,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public Integer getEnterpriseSearchAccount(String type, String val) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         Integer statusCode = null;
         EnterpriseAccountSearchResponse result = null;
         try {
@@ -1960,6 +2128,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public Integer getEnterpriseLinkedServices(EnterpriseLinkedServiceRequest linkedServiceRequest) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         Integer statusCode = null;
         AccountLinesRequest accountLinesRequest = new AccountLinesRequest();
         accountLinesRequest.setAccountNo(linkedServiceRequest.getAccountNo());
@@ -1990,6 +2159,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public Integer getEnterpriseEventHistory(String eventType, String accountNo) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         Integer statusCode = null;
         try {
             Map<String, String> clientInfo = new HashMap<>();
@@ -2012,6 +2182,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public Integer getEnterpriseInteractionHistory(String accountNo) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         Integer statusCode = null;
         try {
             Map<String, String> clientInfo = new HashMap<>();
@@ -2034,6 +2205,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public Integer getEnterpriseTicketHistory(String accountNo) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         Integer statusCode = null;
         try {
             Map<String, String> clientInfo = new HashMap<>();
@@ -2057,6 +2229,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public Integer getEnterpriseMessageHistory(String accountNo) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         Integer statusCode = null;
         try {
             UtilsMethods.replaceHeader(SR_CLIENT_ID, constants.getValue(ApplicationConstants.ENTERPRISE_SR_CLIENT_ID));
@@ -2078,6 +2251,7 @@ public class RequestSource extends RestCommonUtils {
      * @return
      */
     public Integer getEnterprisePaymentHistory(PaymentHistoryRequest paymentHistoryRequest, PaymentHistoryESBRequest paymentHistoryESBRequest) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         Integer statusCode = null;
         try {
             UtilsMethods.replaceHeader(SR_CLIENT_ID, constants.getValue(ApplicationConstants.ENTERPRISE_SR_CLIENT_ID));
@@ -2103,7 +2277,34 @@ public class RequestSource extends RestCommonUtils {
      * @param body the request body
      */
     public IssueLayoutRequest getV2LayoutConfiguration(List<Header> map, Object body) {
-        commonPostMethod(URIConstants.V2_LAYOUT_CONFIG, map, body, srBaseUrl);
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) +V2_LAYOUT_CONFIG , JavaColors.GREEN, false);
+        commonPostMethod(V2_LAYOUT_CONFIG, map, body, srBaseUrl);
         return response.as(IssueLayoutRequest.class);
     }
+
+
+    /**
+     * This method is used to hit the API "/cs-vas-service/v1/subscriptions/history" and return the response
+     */
+    public List<String> getVasSubscriptionHistory(String msisdn) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + VAS_SUBSCRIPTION_HISTORY, JavaColors.GREEN, false);
+        String result = null;
+        List<String> myList = null;
+        try {
+            queryParam.put("activeVAS", "true");
+            queryParam.put("msisdn", msisdn);
+            commonGetMethodWithQueryParam(VAS_SUBSCRIPTION_HISTORY, queryParam, map);
+            result = response.print();
+            if (response.getStatusCode() != 200) {
+                esbRequestSource.callActiveVAS(new ActiveVasRequest(msisdn, true));
+            }
+            myList = new ArrayList<>(Arrays.asList(result.split("data:")));
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " -getVasSubscriptionHistory " + e.getMessage(), false);
+            esbRequestSource.callActiveVAS(new ActiveVasRequest(msisdn, true));
+        }
+        return myList;
+
+    }
+
 }

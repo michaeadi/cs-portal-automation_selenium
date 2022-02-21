@@ -259,6 +259,16 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.ServiceProfileWidgetTest"/>
         </classes>
     </test>
+    <test name="Service Profile Detail Widget Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.ServiceProfileDetailWidgetTest"/>
+        </classes>
+    </test>
     <test name="DA detail Widget Test">
         <groups>
             <run>
@@ -337,6 +347,16 @@
         </groups>
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.CRBTWidgetTest"/>
+        </classes>
+    </test>
+    <test name="Active Vas Widget Test">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.ActiveVasWidgetTest"/>
         </classes>
     </test>
     <test name="Adjustment Widget Test">
