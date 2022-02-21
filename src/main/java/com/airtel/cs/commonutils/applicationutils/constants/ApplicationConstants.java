@@ -96,6 +96,7 @@ public class ApplicationConstants {
     public static final String POST_METHOD = "POST";
     public static final String GET_METHOD = "GET";
     public static final String COMMENT="comment";
+    public static final String CUSTOMER_HYBRID_MSISDN = "cs.customer.hybrid.msisdn";
 
     private ApplicationConstants() {
         throw new IllegalStateException();

@@ -230,7 +230,7 @@ public class DetailAccountSendBill extends BasePage {
      * @return true/false
      */
     public boolean isSubmitBtnDisabled() {
-       Boolean status=isEnabled(pageElements.submitButton);
+        Boolean status=isEnabled(pageElements.submitButton);
         commonLib.info("Is submit button disabled " + status);
         return status;
     }
@@ -355,7 +355,7 @@ public class DetailAccountSendBill extends BasePage {
      * @return true/false
      */
     public boolean isSendBillDisabled(int row) {
-       Boolean status=isEnabled(By.xpath(pageElements.sendBill1 + row + pageElements.sendBill2));
+        Boolean status=isEnabled(By.xpath(pageElements.sendBill1 + row + pageElements.sendBill2));
         commonLib.info("Is send bill icon disabled : " + status);
         return status;
     }

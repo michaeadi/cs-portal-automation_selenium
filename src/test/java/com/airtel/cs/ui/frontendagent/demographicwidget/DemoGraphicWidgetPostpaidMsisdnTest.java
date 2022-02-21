@@ -263,7 +263,7 @@ public class DemoGraphicWidgetPostpaidMsisdnTest extends Driver {
                 assertCheck.append(actions.assertEqualStringType(serviceCategory.toLowerCase().trim(), pages.getDemoGraphicPage().getKeyValueAPI(kycProfile.getResult().getServiceCategory()), "Customer Service Category as expected", "Customer Service Category as not expected and is: " + serviceCategory));
             }
             if (kycProfile.getResult().getVip()) {
-                assertCheck.append(actions.assertEqualBoolean(pages.getDemoGraphicPage().isVIP(), true, "Customer is VIP but Icon displayed as expected", "Customer is VIP but Icon does not display as expected"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getDemoGraphicPage().isVIP(), true, "Customer is VIP and Icon displayed as expected", "Customer is VIP but Icon does not display as expected"));
             }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {

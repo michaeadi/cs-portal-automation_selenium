@@ -57,7 +57,7 @@ public class DetailAccountSendBillTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validate whether user has Account Information Widget Permission ", "description");
             String account_info_permission = constants.getValue(PermissionConstants.ACCOUNT_INFORMATION_WIDGET_PERMISSION);
-            Boolean isPermissionEnable = UtilsMethods.isUserHasPermission(new Headers(map), account_info_permission);
+            isPermissionEnable = UtilsMethods.isUserHasPermission(new Headers(map), account_info_permission);
             assertCheck.append(actions.assertEqualBoolean(isPermissionEnable, true, "Logged in user has Account Information Widget permission", "Logged in user doesn't have Account Information Widget permission"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
