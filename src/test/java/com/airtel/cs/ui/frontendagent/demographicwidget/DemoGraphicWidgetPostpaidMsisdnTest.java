@@ -427,7 +427,7 @@ public class DemoGraphicWidgetPostpaidMsisdnTest extends Driver {
     }
 
     @Test(priority = 17, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction", "getConnectionType"})
-    public void testCustomerPreferenceLanguage() {
+    public void testCustomerPreferenceLanguage()  {
         try {
             selUtils.addTestcaseDescription("Validate Customer Preference Language", "description");
             pages.getDemoGraphicPage().checkConfiguration(config, "customerPreferenceLanguage");

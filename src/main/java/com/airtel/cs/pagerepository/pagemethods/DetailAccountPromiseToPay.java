@@ -121,8 +121,13 @@ public class DetailAccountPromiseToPay extends BasePage {
 
     public void performPromiseToPay(int row) {
     }
-
+    /**
+     * This method is used to click on cross icon of success pop up
+     */
     public void clickCrossIcon() {
+        commonLib.info("Going to click cross icon");
+        if (isVisible(pageElements.crossIcon)) ;
+        clickWithoutLoader((pageElements.crossIcon));
     }
 
     public String getSuccessText() {
@@ -135,4 +140,6 @@ public class DetailAccountPromiseToPay extends BasePage {
     }
 
 
+    public boolean isCancelConfirmMessageVisible() {
+    }
 }

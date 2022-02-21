@@ -100,7 +100,6 @@ public class DetailAccountPromiseToPayTest extends Driver {
             else {
                 int totalCount = accountDetails.getTotalCount();
                 int size = accountDetails.getTotalCount() > 5 ? 5 : totalCount;
-                String EmailID = pages.getDetailAccountPromiseToPay().getCustomerEmail().trim();
                 for (int row = 0; row < size; row++) {
                     String transactionType = accountDetails.getResult().get(row).getTransactionType();
                     String billNo = accountDetails.getResult().get(row).getReferenceNo();
