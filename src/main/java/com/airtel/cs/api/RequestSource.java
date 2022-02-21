@@ -485,7 +485,7 @@ public class RequestSource extends RestCommonUtils {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + HBB_USER, JavaColors.GREEN, false);
         HbbUserDetailsResponse result = null;
         try {
-            commonPostMethod(URIConstants.HBB_USER, new GenericRequest(msisdn));
+            commonPostMethod(HBB_USER, new GenericRequest(msisdn));
             result = response.as(HbbUserDetailsResponse.class);
             if (result.getStatusCode() != 200) {
                 esbRequestSource.callGsmKycESBAPI(msisdn);
@@ -507,7 +507,7 @@ public class RequestSource extends RestCommonUtils {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) +ACCOUNT_PLAN , JavaColors.GREEN, false);
         Plans result = null;
         try {
-            commonPostMethod(URIConstants.ACCOUNT_PLAN, new GenericRequest(msisdn));
+            commonPostMethod(ACCOUNT_PLAN, new GenericRequest(msisdn));
             result = response.as(Plans.class);
             if (result.getStatusCode() != 200) {
                 esbRequestSource.callAccountPlanESBAPI(msisdn);
@@ -930,8 +930,8 @@ public class RequestSource extends RestCommonUtils {
     }
 
     /**
-     * Gets hlr order history.
      *
+     *This method is used to hit the api "/cs-gsm-service/v1/hlr/order/history"
      * @param request the request
      * @return the hlr order history
      */
@@ -2278,7 +2278,7 @@ public class RequestSource extends RestCommonUtils {
      */
     public IssueLayoutRequest getV2LayoutConfiguration(List<Header> map, Object body) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) +V2_LAYOUT_CONFIG , JavaColors.GREEN, false);
-        commonPostMethod(URIConstants.V2_LAYOUT_CONFIG, map, body, srBaseUrl);
+        commonPostMethod(V2_LAYOUT_CONFIG, map, body, srBaseUrl);
         return response.as(IssueLayoutRequest.class);
     }
 
@@ -2306,4 +2306,5 @@ public class RequestSource extends RestCommonUtils {
         return myList;
 
     }
+
 }
