@@ -103,4 +103,6 @@ public class CommonConstants {
     public static final String ACTIVE_VAS_LAST_RECHARGED_DATE_PATTERN="cs.active.vas.last.recharged.date.pattern";
     public static final String ACTIVE_VAS_START_DATE_PATTERN="cs.active.vas.start.date.pattern";
     public static final String ACTIVE_VAS_RENEWAL_DATE_PATTERN="cs.active.vas.renewal.date.pattern";
+    public static final String HLR_ORDER_HISTORY_DATE_PATTERN="cs.hlr.order.history.date.pattern";
+    public static final String HLR_ORDER_HISTORY_TIME_PATTERN="cs.hlr.order.history.time.pattern";
 }
