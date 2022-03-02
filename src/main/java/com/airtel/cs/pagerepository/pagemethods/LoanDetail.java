@@ -17,7 +17,7 @@ public class LoanDetail extends BasePage {
 
     private static final String TEXT1 = "Reading Header Name: ";
     private static final String TEXT2 = "Reading '";
-    private static final String XPATH1 = "//div[@id='LOAN_HISTORY']//div[2]//div[@class='card__card-header--card-body--table--data-list innertable-area ng-star-inserted'][";
+    private static final String XPATH1 = "//div[@data-csautomation-key='LOAN_HISTORY']//div[2]//div[@class='card__card-header--card-body--table--data-list innertable-area ng-star-inserted'][";
     LoanDetailPage pageElements;
     List<WebElement> ls;
     List<WebElement> hls;

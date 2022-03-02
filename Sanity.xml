@@ -99,6 +99,16 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.AirtelMoneyTransactionWidgetTest"/>
         </classes>
     </test>
+    <test name="Airtel Money Detailed Widget Test">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.am.AmTcpLimitsTest"/>
+        </classes>
+    </test>
     <test name="Current Balance Widget Test">
         <groups>
             <run>
@@ -468,7 +478,7 @@
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.ClearRefillErrorTest"/>
         </classes>
-    </test>
+    </test>-->
     <test name="Loan Widget Test">
         <groups>
             <run>
@@ -961,7 +971,7 @@
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.api.openapi.OpenApiWihSelfCareTokenTest"/>
+            <class name="com.airtel.cs.api.openapi.OpenApiWithSelfCareTokenTest"/>
         </classes>
     </test>
 </suite>

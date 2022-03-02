@@ -117,6 +117,7 @@ public class ESBRequestSource extends RestCommonUtils {
     private static final String INGRESS_DOWNSTREAM_BASE_URL_3 = constants.getValue("ingress.downstream.base.url2");
     public static final String INGRESS_DOWNSTREAM_BASE_URL = INGRESS_DOWNSTREAM_BASE_URL_1 + INGRESS_DOWNSTREAM_BASE_URL_2 + INGRESS_DOWNSTREAM_BASE_URL_3;
     public static final String ACTIVE_VAS = "- active vas";
+    public static final String TCP_LIMIT = "- Tcp Limit";
 
     /**
      * This method is used to test the downstream API
@@ -727,10 +728,16 @@ public class ESBRequestSource extends RestCommonUtils {
      * @param loanRequest The loan request
      */
     public void callLoanSummary(LoanRequest loanRequest) {
+        String endPoint = null;
         try {
-            commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + LOAN_SUMMARY, JavaColors.GREEN, false);
-            commonPostMethod(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.LOAN_SUMMARY, loanRequest);
-            checkDownstreamAPI(response.getStatusCode(), LOAN_SUMMARY, "Downstream API loan summary working with data ");
+            if ((constants.getValue(ApplicationConstants.ESB_LOAN_API_VERSION).equalsIgnoreCase("v2")))
+                endPoint = ESBURIConstants.LOAN_SUMMARY_V2;
+            else
+                endPoint = ESBURIConstants.LOAN_SUMMARY;
+            commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + endPoint, JavaColors.GREEN, false);
+            commonPostMethod(INGRESS_DOWNSTREAM_BASE_URL + endPoint, loanRequest);
+            checkDownstreamAPI(response.getStatusCode(), endPoint, "Downstream API loan summary working with data ");
+
         } catch (Exception e) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + LOAN_SUMMARY + e.getMessage(), false);
         }
@@ -742,9 +749,14 @@ public class ESBRequestSource extends RestCommonUtils {
      * @param loanRequest The loan request
      */
     public void callLoanDetails(LoanRequest loanRequest) {
+        String endPoint = null;
         try {
-            commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + LOAN_DETAILS, JavaColors.GREEN, false);
-            commonPostMethod(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.LOAN_DETAILS, loanRequest);
+            if ((constants.getValue(ApplicationConstants.ESB_LOAN_API_VERSION).equalsIgnoreCase("v2")))
+                endPoint = ESBURIConstants.LOAN_DETAILS_V2;
+            else
+                endPoint = ESBURIConstants.LOAN_DETAILS;
+            commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + endPoint, JavaColors.GREEN, false);
+            commonPostMethod(INGRESS_DOWNSTREAM_BASE_URL + endPoint, loanRequest);
             checkDownstreamAPI(response.getStatusCode(), LOAN_DETAILS, "Downstream API loan details working with data ");
         } catch (Exception e) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + LOAN_DETAILS + e.getMessage(), false);
@@ -1037,6 +1049,19 @@ public class ESBRequestSource extends RestCommonUtils {
             checkDownstreamAPI(response.getStatusCode(), ACTIVE_VAS, "Downstream API Active Vas working with data ");
         } catch (Exception exp) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + ACTIVE_VAS + exp.getMessage(), false);
+        }
+    }
+
+    /**
+     * This Method will hit the Downstream API of Tcp Limits API
+     */
+    public void callTcpLimits(String tcpId) {
+        try {
+            commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) , JavaColors.GREEN, false);
+            commonGetMethod(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.TCP_LIMITS+SLASH+tcpId);
+            checkDownstreamAPI(response.getStatusCode(), TCP_LIMIT, "Downstream API of TCP Limits working with data ");
+        } catch (Exception exp) {
+            commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + TCP_LIMIT + exp.getMessage(), false);
         }
     }
 

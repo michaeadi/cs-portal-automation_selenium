@@ -43,7 +43,7 @@ public class LoanWidget extends BasePage {
      * This method use to loan credit on date from header
      * @return String The value
      */
-    public String getCreatedON() {
+    public String getCreditedOn() {
         final String text = getText(pageElements.createdOn);
         commonLib.info(TEXT1 + text);
         return text.trim();
@@ -230,6 +230,17 @@ public class LoanWidget extends BasePage {
             return true;
         }
         return false;
+    }
+
+    /**
+     * This method is used to get no result found message
+     *
+     * @return String The String
+     */
+    public String getNoResultFoundMessage() {
+        final String text = getText(pageElements.noResultFoundMessage);
+        commonLib.info("Getting error message when there is no data available in Active Vas for the msisdn " + text);
+        return text;
     }
 }
 
