@@ -8,7 +8,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.util.ArrayList;
-
+import java.util.List;
 @Getter
 @Setter
 @ToString
@@ -30,6 +30,6 @@ public class ResultAMProfile {
     private boolean userBarred;
     private boolean pinSet;
     private String dob;
-    private ArrayList<Wallet> wallet;
+    private List<Wallet> wallets;
 
 }

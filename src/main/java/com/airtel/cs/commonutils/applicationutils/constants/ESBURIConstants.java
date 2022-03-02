@@ -50,4 +50,7 @@ public class ESBURIConstants {
   public static final String ENTERPRISE_ACCOUNT_LINES = "/api/enterprise-service/v1/accounts/lines";
   public static final String ENTERPRISE_PAYMENT_HISTORY = "/api/enterprise-service/v1/accounts/payments";
   public static final String ACTIVE_VAS = "/api/vass-service/v1/msisdn";
+  public static final String LOAN_SUMMARY_V2 = "/api/loan-service/v2/summary";
+  public static final String LOAN_DETAILS_V2 = "/api/loan-service/v2/transactions";
+  public static final String TCP_LIMITS = "/api/am-profile/v1/transfer-profiles";
 }

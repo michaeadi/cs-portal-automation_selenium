@@ -241,4 +241,8 @@ public class PageCollection {
         return new ServiceProfileDetailWidget(driver);
     }
 
+    public AmTcpLimits getAmTcpLimits() {
+        return new AmTcpLimits(driver);
+    }
+
 }
