@@ -20,6 +20,4 @@ public class Result {
     private String userType;
     private Bearer bearer;
     private Payer payer;
-
-
 }

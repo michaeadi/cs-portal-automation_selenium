@@ -66,7 +66,7 @@ public class AmTcpLimitsTest extends Driver {
     /**
      * This method is used to Open Tcp Limits
      */
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
     public void openTcpLimits() {
         try {
             selUtils.addTestcaseDescription("Validate all AM Transactions Widget visible ot not ,Open detailed page of Am Transactions widget , Open TCP Limits", "description");
