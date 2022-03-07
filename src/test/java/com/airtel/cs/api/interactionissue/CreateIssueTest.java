@@ -21,7 +21,7 @@ public class CreateIssueTest extends ApiPrerequisites {
             selUtils.addTestcaseDescription("Create Interaction using /v1/interactions API with valid Request", "description");
             InteractionRequest interaction = api.createInteraction(validHeaderList, getValidClientConfig(MSISDN));
             assertCheck.append(actions.assertEqualStringType(interaction.getStatusCode(), "200", "Status Code Matched", "Status Code not Matched and is - " + interaction.getStatusCode()));
-            assertCheck.append(actions.assertEqualStringType(interaction.getMessage(), config.getProperty("interactionCreated"), "Response Message Matched Successfully", "Response Message Not Matched and is - " + interaction.getMessage()));
+            assertCheck.append(actions.assertEqualStringType(interaction.getMessage(), constants.getValue("interactionCreated"), "Response Message Matched Successfully", "Response Message Not Matched and is - " + interaction.getMessage()));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - createInteraction " + e.getMessage(), false);
@@ -36,7 +36,7 @@ public class CreateIssueTest extends ApiPrerequisites {
         ClientConfigDataBean clientConfig = data.getClientConfig().get(0);
         CreateIssueResponse interactionIssue = api.createIssue(validHeaderList, getInteractionId(), getIssueDetails(validCategoryId), getCategoryHierarchy(clientConfig, validCategoryId));
         assertCheck.append(actions.assertEqualIntType(interactionIssue.getStatusCode(), 200, "Status Code Matched", "Status Code Not Matched and is - " + interactionIssue.getStatusCode()));
-        assertCheck.append(actions.assertEqualStringType(interactionIssue.getMessage(), config.getProperty("interactionCreated"), "API message Matched", "API message is not as expected"));
+        assertCheck.append(actions.assertEqualStringType(interactionIssue.getMessage(), constants.getValue("interactionCreated"), "API message Matched", "API message is not as expected"));
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
@@ -49,7 +49,7 @@ public class CreateIssueTest extends ApiPrerequisites {
             ClientConfigDataBean clientConfig = data.getClientConfig().get(0);
             CreateIssueResponse interactionIssue = api.createIssue(validHeaderList, getInteractionId(), getIssueDetails(validCategoryId), getCategoryHierarchy(clientConfig, validCategoryId));
             assertCheck.append(actions.assertEqualIntType(interactionIssue.getStatusCode(), 200, "Status Code Matched", "Status Code Not Matched and is - " + interactionIssue.getStatusCode()));
-            assertCheck.append(actions.assertEqualStringType(interactionIssue.getMessage(), config.getProperty("interactionCreated"), "API message Matched", "API message is not as expected"));
+            assertCheck.append(actions.assertEqualStringType(interactionIssue.getMessage(), constants.getValue("interactionCreated"), "API message Matched", "API message is not as expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - createFTRIssueWithValidTest " + e.getMessage(), false);
@@ -65,7 +65,7 @@ public class CreateIssueTest extends ApiPrerequisites {
             ClientConfigDataBean clientConfig = data.getClientConfig().get(0);
             CreateIssueResponse interactionIssue = api.createIssue(restUtils.invalidToken(), getInteractionId(), getIssueDetails(validCategoryId), getCategoryHierarchy(clientConfig, validCategoryId));
             assertCheck.append(actions.assertEqualStringType(interactionIssue.getStatus(), "401", "Status Matched Successfully", "Status Not Matched and is - " + interactionIssue.getStatus()));
-            assertCheck.append(actions.assertEqualStringType(interactionIssue.getMessage(), config.getProperty("unauthorized"), "API Response Message Matched", "API Response Message as not expected"));
+            assertCheck.append(actions.assertEqualStringType(interactionIssue.getMessage(), constants.getValue("unauthorized"), "API Response Message Matched", "API Response Message as not expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - createFTRIssueWithInValidTokenTest " + e.getMessage(), false);

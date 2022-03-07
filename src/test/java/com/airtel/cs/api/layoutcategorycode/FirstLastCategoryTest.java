@@ -64,7 +64,7 @@ public class FirstLastCategoryTest extends ApiPrerequisites {
             selUtils.addTestcaseDescription("Validate /v1/firstlast/categories API With Invalid Request", "Validate /v1/firstlast/categories API With Invalid Request");
             CategoryHierarchyRequest firstLastCategory = api.firstLastCategoryHierarchyTest(restUtils.invalidToken());
             assertCheck.append(actions.assertEqualStringType(firstLastCategory.getStatus(), "401", "Status Matched", "Status Not Matched and is - " + firstLastCategory.getStatus()));
-            assertCheck.append(actions.assertEqualStringType(firstLastCategory.getMessage(), config.getProperty("unauthorized"), "API Response Message as expected", "API Response Message as not expected and is - " + firstLastCategory.getMessage()));
+            assertCheck.append(actions.assertEqualStringType(firstLastCategory.getMessage(), constants.getValue("unauthorized"), "API Response Message as expected", "API Response Message as not expected and is - " + firstLastCategory.getMessage()));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - firstLastCategoryInvalidTokenTest " + e.getMessage(), false);

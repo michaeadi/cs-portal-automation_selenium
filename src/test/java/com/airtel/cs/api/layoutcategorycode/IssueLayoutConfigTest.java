@@ -28,7 +28,7 @@ public class IssueLayoutConfigTest extends ApiPrerequisites {
             validCategoryId = ids.get(getClientCode(list).toLowerCase().trim());
             IssueLayoutRequest layoutConfiguration = api.getLayoutConfiguration(validHeaderList, validCategoryId);
             if (layoutConfiguration.getStatusCode() == 200) {
-                assertCheck.append(actions.assertEqualStringType(layoutConfiguration.getMessage(), config.getProperty("layoutFetched"), "Response Message Matched Successfully", "Response not Matched and is - " + layoutConfiguration.getMessage()));
+                assertCheck.append(actions.assertEqualStringType(layoutConfiguration.getMessage(), constants.getValue("layoutFetched"), "Response Message Matched Successfully", "Response not Matched and is - " + layoutConfiguration.getMessage()));
                 if (layoutConfiguration.getResult() != null)
                     for (int i = 0; i < layoutConfiguration.getResult().size(); i++) {
                         switch (i) {
@@ -75,7 +75,7 @@ public class IssueLayoutConfigTest extends ApiPrerequisites {
             validCategoryId = ids.get(getClientCode(list).toLowerCase().trim());
             IssueLayoutRequest layoutConfiguration = api.getLayoutConfiguration(restUtils.invalidToken(), validCategoryId);
             assertCheck.append(actions.assertEqualStringType(layoutConfiguration.getStatus(), "401", "Status Code Matched", "API Response is not 401 as expected"));
-            assertCheck.append(actions.assertEqualStringType(layoutConfiguration.getMessage(), config.getProperty("unauthorized"), "Response Message Matched Successfully", "API Response Message as not expected"));
+            assertCheck.append(actions.assertEqualStringType(layoutConfiguration.getMessage(), constants.getValue("unauthorized"), "Response Message Matched Successfully", "API Response Message as not expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - getCategoryLayoutInvalidTokenTest " + e.getMessage(), false);
@@ -88,7 +88,7 @@ public class IssueLayoutConfigTest extends ApiPrerequisites {
             selUtils.addTestcaseDescription("Validate /v1/layout API With valid Token and Invalid Category Id", "description");
             IssueLayoutRequest layoutConfiguration = api.getLayoutConfiguration(validHeaderList, 0);
             assertCheck.append(actions.assertEqualIntType(layoutConfiguration.getStatusCode(), 200, "Status Code Matched", "Status Code Not Matched and is - " + layoutConfiguration.getStatusCode()));
-            assertCheck.append(actions.assertEqualStringType(layoutConfiguration.getMessage(), config.getProperty("layoutFetched"), "Response Message Matched Successfully", "API Response Message as not expected"));
+            assertCheck.append(actions.assertEqualStringType(layoutConfiguration.getMessage(), constants.getValue("layoutFetched"), "Response Message Matched Successfully", "API Response Message as not expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - geCategoryLayoutInvalidRequestTest " + e.getMessage(), false);

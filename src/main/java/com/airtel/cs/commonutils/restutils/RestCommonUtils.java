@@ -166,6 +166,8 @@ public class RestCommonUtils extends Driver {
             restUtils.printResponseDetail(response);
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - commonGetMethod " + e.getMessage(), false);
+        }finally {
+            commonLib.info(getRequestCurl(queryable.getURI(), queryable.getHeaders(), null));
         }
     }
 

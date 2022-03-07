@@ -49,7 +49,7 @@ public class CreateClientConfigTest extends ApiPrerequisites {
         }
         ClientConfigRequest createConfig = api.createClientConfig(restUtils.invalidToken(), validClientInfo);
         if (Integer.parseInt(createConfig.getStatus()) == 401) {
-            assertCheck.append(actions.assertEqualStringType(createConfig.getMessage(), config.getProperty("unauthorized"), "API Response Message is as expected", "API Response Message is as NOT expected"));
+            assertCheck.append(actions.assertEqualStringType(createConfig.getMessage(), constants.getValue("unauthorized"), "API Response Message is as expected", "API Response Message is as NOT expected"));
         } else {
             commonLib.fail(" API Response is not 401 as expected.", false);
         }
@@ -86,7 +86,7 @@ public class CreateClientConfigTest extends ApiPrerequisites {
         restUtils.printInfoLog("And Request API with Invalid Request(Field Name Parameter Missing)");
         if (createConfig.getStatus().equalsIgnoreCase("2902")) {
             restUtils.printInfoLog("Then API Response Status Code must be 2902");
-            assertCheck.append(actions.assertEqualStringType(createConfig.getMessage(), config.getProperty("invalidRequestWithClient"), "API Response Message is as expected","API Response Message NOT as expected"));
+            assertCheck.append(actions.assertEqualStringType(createConfig.getMessage(), constants.getValue("invalidRequestWithClient"), "API Response Message is as expected","API Response Message NOT as expected"));
         } else {
             restUtils.printFailLog("Then API Response Status Code is not 2902 as expected. API Response is " + createConfig.getStatus());
             commonLib.fail(" API Response is not 2902 as expected.", false);

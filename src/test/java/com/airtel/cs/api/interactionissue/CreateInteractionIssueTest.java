@@ -32,7 +32,7 @@ public class CreateInteractionIssueTest extends ApiPrerequisites {
             validCategoryId = ids.get(getClientCode(list).toLowerCase().trim());
             InteractionIssueRequest interactionIssue = api.createInteractionIssue(validHeaderList, getValidClientConfig(MSISDN), getIssueDetails(validCategoryId), getLastCategoryId(validCategoryId));
             assertCheck.append(actions.assertEqualIntType(interactionIssue.getStatusCode(), 200, "Status Code Matched", "Status Code Not Matched and is - " + interactionIssue.getStatusCode()));
-            assertCheck.append(actions.assertEqualStringType(interactionIssue.getMessage(), config.getProperty("interactionCreated"), "Response Message Matched", "Response Message not Matched"));
+            assertCheck.append(actions.assertEqualStringType(interactionIssue.getMessage(), constants.getValue("interactionCreated"), "Response Message Matched", "Response Message not Matched"));
             if (interactionIssue.getResult().getIssues().get(0).getTicket() != null && interactionIssue.getResult().getIssues().get(0).getTicket().getTicketId() != null) {
                 String ticket_number = interactionIssue.getResult().getIssues().get(0).getTicket().getTicketId();
                 commonLib.info("Ticket Number:ME " + ticket_number);
@@ -60,7 +60,7 @@ public class CreateInteractionIssueTest extends ApiPrerequisites {
             validCategoryId = ids.get(getClientCode(list).toLowerCase().trim());
             InteractionIssueRequest interactionIssue = api.createInteractionIssue(validHeaderList, getValidClientConfig(MSISDN), getIssueDetails(validCategoryId), getLastCategoryId(validCategoryId));
             assertCheck.append(actions.assertEqualIntType(interactionIssue.getStatusCode(), 200, "Status Code Matched Successfully", "Status Code Not Matched and is - " + interactionIssue.getStatusCode()));
-            assertCheck.append(actions.assertEqualStringType(interactionIssue.getMessage(), config.getProperty("interactionCreated"), "Response Message Matched Successfully", "API message is not same as expected"));
+            assertCheck.append(actions.assertEqualStringType(interactionIssue.getMessage(), constants.getValue("interactionCreated"), "Response Message Matched Successfully", "API message is not same as expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - createFTRIssueWithValidTest " + e.getMessage(), false);
@@ -75,7 +75,7 @@ public class CreateInteractionIssueTest extends ApiPrerequisites {
             validCategoryId = ids.get(getClientCode(list).toLowerCase().trim());
             InteractionIssueRequest interactionIssue = api.createInteractionIssue(restUtils.invalidToken(), getValidClientConfig(MSISDN), getIssueDetails(validCategoryId), getLastCategoryId(validCategoryId));
             assertCheck.append(actions.assertEqualStringType(interactionIssue.getStatus(), "401", "Status Code Matched Successfully", "Status Code Not Matched and is - " + interactionIssue.getStatusCode()));
-            assertCheck.append(actions.assertEqualStringType(interactionIssue.getMessage(), config.getProperty("unauthorized"), "Response Message Matched Successfully", "API Response Message as not expected"));
+            assertCheck.append(actions.assertEqualStringType(interactionIssue.getMessage(), constants.getValue("unauthorized"), "Response Message Matched Successfully", "API Response Message as not expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - createFTRIssueWithInValidTokenTest " + e.getMessage(), false);
@@ -91,7 +91,7 @@ public class CreateInteractionIssueTest extends ApiPrerequisites {
             validCategoryId = ids.get(getClientCode(list).toLowerCase().trim());
             InteractionIssueRequest interactionIssue = api.createInteractionIssue(validHeaderList, getValidClientConfig(MSISDN), getIssueDetails(validCategoryId), getLastCategoryId(validCategoryId));
             assertCheck.append(actions.assertEqualIntType(interactionIssue.getStatusCode(), 200, "Status Code Matched", "Status Code Not Matched and is - " + interactionIssue.getStatusCode()));
-            assertCheck.append(actions.assertEqualStringType(interactionIssue.getMessage(), config.getProperty("interactionCreated"), "Response Message Matched", "Response Message not Matched"));
+            assertCheck.append(actions.assertEqualStringType(interactionIssue.getMessage(), constants.getValue("interactionCreated"), "Response Message Matched", "Response Message not Matched"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - testInteractionIssueApiWithLastCategoryId " + e.getMessage(), false);
