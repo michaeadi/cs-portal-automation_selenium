@@ -15,6 +15,7 @@ import lombok.ToString;
 public class Wallet {
     private String balance;
     private String currency;
+    private String tcpId;
 
     @JsonProperty("wallet_type")
     private String walletType;
@@ -32,4 +33,5 @@ public class Wallet {
 
     @JsonProperty("total_credit")
     private String totalCredit;
+
 }

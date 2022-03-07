@@ -44,6 +44,7 @@ import com.airtel.cs.model.request.TransactionHistoryRequest;
 import com.airtel.cs.model.request.UsageHistoryMenuRequest;
 import com.airtel.cs.model.request.UsageHistoryRequest;
 import com.airtel.cs.model.request.VoucherSearchRequest;
+import com.airtel.cs.model.request.am.TcpLimitsRequest;
 import com.airtel.cs.model.request.categoryhierarchy.CategoryHierarchyRequest;
 import com.airtel.cs.model.request.clientconfig.AllConfiguredClientRequest;
 import com.airtel.cs.model.request.clientconfig.ClientConfigRequest;
@@ -82,8 +83,10 @@ import com.airtel.cs.model.request.ticketstats.TicketStatsTicketSearchCriteria;
 import com.airtel.cs.model.request.updateticket.CloseTicketRequest;
 import com.airtel.cs.model.request.vas.ActiveVasRequest;
 import com.airtel.cs.model.response.PlanPackResponse;
+import com.airtel.cs.model.response.am.TcpLimitsResponse;
 import com.airtel.cs.model.response.hlrservice.HLROrderHistoryRequest;
 import com.airtel.cs.model.response.hlrservice.HLROrderHistoryResponse;
+import com.airtel.cs.model.response.loansummary.LoanSummaryResponse;
 import io.restassured.response.Response;
 import com.airtel.cs.model.response.accountinfo.AccountDetails;
 import com.airtel.cs.model.response.accounts.AccountsBalance;
@@ -267,6 +270,10 @@ public class RequestSource extends RestCommonUtils {
     public static final String CONFIGURATIONS = "v1 configurations";
     public static final String GSM_PROFILE = "gsm profile";
     public static final String GSM_KYC = "gsm kyc";
+    private static final String INGRESS_OPEN_API_BASE_URL_1 = constants.getValue("ingress.open.api.base.url1");
+    public static final String INGRESS_OPEN_API_BASE_URL_2 = "." + OPCO.toLowerCase() + "." + evnName.toLowerCase();
+    private static final String INGRESS_OPEN_API_BASE_URL_3 = constants.getValue("ingress.open.api.base.url2");
+    public static final String INGRESS_OPEN_API_BASE_URL = INGRESS_OPEN_API_BASE_URL_1 + INGRESS_OPEN_API_BASE_URL_2 + INGRESS_OPEN_API_BASE_URL_3;
 
 
     /*
@@ -777,12 +784,12 @@ public class RequestSource extends RestCommonUtils {
      * @param vendorName The vendorName
      * @return The Response
      */
-    public Summary loanSummaryTest(String msisdn, String vendorName) {
+    public LoanSummaryResponse loanSummaryTest(String msisdn, String vendorName) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
-        Summary result = null;
+        LoanSummaryResponse result = null;
         try {
             commonPostMethod(URIConstants.LOAN_SUMMARY, new LoanRequest(msisdn, vendorName));
-            result = response.as(Summary.class);
+            result = response.as(LoanSummaryResponse.class);
             if (!"200".equals(result.getStatusCode())) {
                 esbRequestSource.callLoanSummary(new LoanRequest(msisdn, vendorName));
             }
@@ -1563,7 +1570,7 @@ public class RequestSource extends RestCommonUtils {
     public InteractionIssueOpenApiRequest interactionIssueOpenApiRequest(List<Header> map, String clientConfig, String issueDetails, String categoryIds) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         body = "{\"interaction\":{\"createdBy\":\"" + CREATED_BY + "\",\"finalSubmit\":false,\"clientInfo\":{" + clientConfig + "}},\"issues\":[{\"comment\":\"" + COMMENT + "\",\"createdBy\":\"" + CREATED_BY + "\",\"issueDetails\":[" + issueDetails + "],\"categoryHierarchy\":[" + categoryIds + "]}]}";
-        commonPostMethod(URIConstants.OPEN_API_INTERACTION_ISSUE, map, body, srBaseUrl);
+        commonPostMethod(INGRESS_OPEN_API_BASE_URL + URIConstants.OPEN_API_INTERACTION_ISSUE, map, body, srBaseUrl);
         return response.as(InteractionIssueOpenApiRequest.class);
     }
 
@@ -1577,7 +1584,7 @@ public class RequestSource extends RestCommonUtils {
         commentOpenApiRequest.setAgentId(Long.parseLong(AGENT_ID));
         commentOpenApiRequest.setAgentName(AGENT_NAME);
         commentOpenApiRequest.setComment(COMMENT);
-        commonPostMethod(URIConstants.OPEN_API_CREATE_COMMENT, map, commentOpenApiRequest, srBaseUrl);
+        commonPostMethod(INGRESS_OPEN_API_BASE_URL + URIConstants.OPEN_API_CREATE_COMMENT, map, commentOpenApiRequest, srBaseUrl);
         return RestCommonUtils.response.as(CommentOpenApiResponse.class);
     }
 
@@ -1590,7 +1597,7 @@ public class RequestSource extends RestCommonUtils {
         commentOpenApiRequest.setId(commentId);
         commentOpenApiRequest.setComment(UPDATE_COMMENT);
         commentOpenApiRequest.setAgentId(Long.parseLong(AGENT_ID));
-        commonPostMethod(URIConstants.OPEN_API_UPDATE_COMMENT, map, commentOpenApiRequest, srBaseUrl);
+        commonPostMethod(INGRESS_OPEN_API_BASE_URL + URIConstants.OPEN_API_UPDATE_COMMENT, map, commentOpenApiRequest, srBaseUrl);
         return RestCommonUtils.response.as(CommentOpenApiResponse.class);
     }
 
@@ -1602,7 +1609,7 @@ public class RequestSource extends RestCommonUtils {
         CommentOpenApiRequest commentOpenApiRequest = new CommentOpenApiRequest();
         commentOpenApiRequest.setId(commentId);
         commentOpenApiRequest.setAgentId(Long.parseLong(AGENT_ID));
-        commonPostMethod(URIConstants.OPEN_API_DELETE_COMMENT, map, commentOpenApiRequest, srBaseUrl);
+        commonPostMethod(INGRESS_OPEN_API_BASE_URL + URIConstants.OPEN_API_DELETE_COMMENT, map, commentOpenApiRequest, srBaseUrl);
         return RestCommonUtils.response.as(CommentOpenApiResponse.class);
     }
 
@@ -1611,7 +1618,7 @@ public class RequestSource extends RestCommonUtils {
      */
     public ClientConfigOpenApiRequest clientWithoutUMRequest(List<Header> map) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
-        commonGetMethod(URIConstants.OPEN_API_CLIENT_CONFIG, map, srBaseUrl);
+        commonGetMethod(INGRESS_OPEN_API_BASE_URL + URIConstants.OPEN_API_CLIENT_CONFIG, map, srBaseUrl);
         return response.as(ClientConfigOpenApiRequest.class);
     }
 
@@ -1626,7 +1633,7 @@ public class RequestSource extends RestCommonUtils {
     public TicketSearchByTicketIdOpenRequest ticketSearchByTicketIdOpenRequest(List<Header> map, String ticketId, Integer statusCode) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         queryParam.put("id", ticketId);
-        commonGetMethodWithQueryParam(URIConstants.OPEN_API_FETCH_TICKET, queryParam, validHeaderList);
+        commonGetMethodWithQueryParam(INGRESS_OPEN_API_BASE_URL + URIConstants.OPEN_API_FETCH_TICKET, queryParam, validHeaderList);
         return response.as(TicketSearchByTicketIdOpenRequest.class);
     }
 
@@ -1641,7 +1648,7 @@ public class RequestSource extends RestCommonUtils {
     public TicketHistoryLogOpenRequest ticketHistoryLogOpenRequest(List<Header> map, String ticketId, Integer statusCode) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         queryParam.put("id", ticketId);
-        commonGetMethodWithQueryParam(URIConstants.OPEN_API_FETCH_TICKET_HISTORY_LOG, queryParam, validHeaderList);
+        commonGetMethodWithQueryParam(INGRESS_OPEN_API_BASE_URL + URIConstants.OPEN_API_FETCH_TICKET_HISTORY_LOG, queryParam, validHeaderList);
         return response.as(TicketHistoryLogOpenRequest.class);
     }
 
@@ -1651,7 +1658,7 @@ public class RequestSource extends RestCommonUtils {
     public SearchTicketOpenRequest searchTicketOpenRequest(List<Header> map, String clientConfig) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         body = "{\"pageNumber\":0,\"pageSize\":10,\"ticketSearchCriteria\":{\"clientInfo\":{" + clientConfig + "}}}";
-        commonPostMethod(URIConstants.OPEN_API_SEARCH_TICKET, map, body, srBaseUrl);
+        commonPostMethod(INGRESS_OPEN_API_BASE_URL + URIConstants.OPEN_API_SEARCH_TICKET, map, body, srBaseUrl);
         return response.as(SearchTicketOpenRequest.class);
     }
 
@@ -1661,7 +1668,7 @@ public class RequestSource extends RestCommonUtils {
     public IssueLayoutOpenRequest issueLayoutOpenRequest(List<Header> map, String categoryId) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         body = "{\"layoutConfigType\":\"Issue\",\"categoryId\":" + categoryId + "}";
-        commonPostMethod(URIConstants.OPEN_API_ISSUE_LAYOUT, map, body, srBaseUrl);
+        commonPostMethod(INGRESS_OPEN_API_BASE_URL + URIConstants.OPEN_API_ISSUE_LAYOUT, map, body, srBaseUrl);
         return response.as(IssueLayoutOpenRequest.class);
     }
 
@@ -1671,7 +1678,7 @@ public class RequestSource extends RestCommonUtils {
     public ChildCategoryOpenApiRequest childCategoryOpenApiRequest(List<Header> map, Integer categoryId) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         body = "{\"id\":" + categoryId + "}";
-        commonPostMethod(URIConstants.OPEN_API_CHILD_CATEGORY, map, body, srBaseUrl);
+        commonPostMethod(INGRESS_OPEN_API_BASE_URL + URIConstants.OPEN_API_CHILD_CATEGORY, map, body, srBaseUrl);
         return response.as(ChildCategoryOpenApiRequest.class);
     }
 
@@ -1682,7 +1689,7 @@ public class RequestSource extends RestCommonUtils {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         queryParam.put("id", categoryId);
         baseUrl = srBaseUrl;
-        commonGetMethodWithQueryParam(URIConstants.OPEN_API_PARENT_CATEGORY, queryParam, validHeaderList);
+        commonGetMethodWithQueryParam(INGRESS_OPEN_API_BASE_URL + URIConstants.OPEN_API_PARENT_CATEGORY, queryParam, validHeaderList);
         return response.as(ParentCategoryOpenApiRequest.class);
     }
 
@@ -1691,7 +1698,7 @@ public class RequestSource extends RestCommonUtils {
      */
     public FirstLastOpenApiRequest firstLastOpenApiRequest(List<Header> map) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
-        commonGetMethod(URIConstants.OPEN_API_FIRST_LAST, map, srBaseUrl);
+        commonGetMethod(INGRESS_OPEN_API_BASE_URL + URIConstants.OPEN_API_FIRST_LAST, map, srBaseUrl);
         return response.as(FirstLastOpenApiRequest.class);
     }
 
@@ -1815,13 +1822,13 @@ public class RequestSource extends RestCommonUtils {
     This Method is used to hit the "/api/user-mngmnt/v2/login" and get the response
      */
     public LoginRequest loginRequest(List<Header> map, String body) {
-        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
+        //commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         baseURI = srUMBaseUrl;
         Headers headers = new Headers(map);
         request = given()
                 .headers(headers)
                 .body(body)
-                .contentType(constants.getValue(ApplicationConstants.APPLICATION_JSON));
+                .contentType((ApplicationConstants.APPLICATION_JSON));
         response = request.post("/api/user-mngmnt/v2/login");
         return response.as(LoginRequest.class);
     }
@@ -2305,6 +2312,28 @@ public class RequestSource extends RestCommonUtils {
         }
         return myList;
 
+    }
+
+    /**
+     * This Method will hit the API "/cs-am-service/v1/tcplimits" and return the response
+     *
+     * @param msisdn The msisdn
+     * @return The Response
+     */
+    public TcpLimitsResponse getTcpLimits(String msisdn, String tcpId) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
+        TcpLimitsResponse result = null;
+        try {
+            commonPostMethod(TCP_LIMITS, new TcpLimitsRequest(msisdn,tcpId));
+            result = response.as(TcpLimitsResponse.class);
+            if (response.getStatusCode() != 200) {
+                esbRequestSource.callTcpLimits(tcpId);
+            }
+        } catch (Exception e) {
+            commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getTcpLimits " + e.getMessage(), false);
+            esbRequestSource.callTcpLimits(tcpId);
+        }
+        return result;
     }
 
 }

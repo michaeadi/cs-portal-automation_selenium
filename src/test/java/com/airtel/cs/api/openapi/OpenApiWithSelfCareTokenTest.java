@@ -17,7 +17,7 @@ import com.airtel.cs.model.response.openapi.comment.CommentOpenApiResponse;
 import org.testng.SkipException;
 import org.testng.annotations.Test;
 
-public class OpenApiWihSelfCareTokenTest extends OpenAPIPrerequisites {
+public class OpenApiWithSelfCareTokenTest extends OpenAPIPrerequisites {
 
 
     @Test(priority = 0, groups = {"SanityTest", "RegressionTest", "ProdTest"})

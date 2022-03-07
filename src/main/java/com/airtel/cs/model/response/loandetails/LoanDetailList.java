@@ -14,9 +14,9 @@ import lombok.ToString;
 public class LoanDetailList {
     private Double totalLoanEligibility;
     private Integer countOfEvents;
-    private Double totalLoanAmount;
-    private Double loanPaid;
-    private Double remainingBalance;
+    private String totalLoanAmount;
+    private String loanPaid;
+    private String remainingBalance;
     private String loanId;
     private String dueDate;
 }

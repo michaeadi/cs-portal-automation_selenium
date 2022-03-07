@@ -100,6 +100,15 @@ public class ApplicationConstants {
     public static final String RUN_VAS_WIDGET_TESTCASE = "cs.run.vas.widget.test.case";
     public static final String ACTIVE_VAS_MSISDN = "cs.active.vas.msisdn";
     public static final String APPLICATION_JSON = "application/json";
+    public static final String ESB_LOAN_API_VERSION = "esb.loan.api.version";
+    public static final String RUN_TCP_LIMIT_TESTCASE = "cs.run.tcp.limit.test.case";
+    public static final String TCP_LIMIT_WEB_BEARER ="cs.run.tcp.limit.web.test";
+    public static final String TCP_LIMIT_USSD_BEARER ="cs.run.tcp.limit.ussd.test";
+    public static final String TCP_LIMIT_IVR_BEARER ="cs.run.tcp.limit.ivr.test";
+    public static final String TCP_LIMIT_BANK_BEARER ="cs.run.tcp.limit.bank.test";
+    public static final String TCP_LIMIT_ALL_BEARER ="cs.run.tcp.limit.all.test";
+    public static final String TCP_LIMIT_WEBSERVICE_BEARER ="cs.run.tcp.limit.webservice.test";
+    public static final String TCP_LIMIT_STK_BEARER ="cs.run.tcp.limit.stk.test";
 
     private ApplicationConstants() {
         throw new IllegalStateException();

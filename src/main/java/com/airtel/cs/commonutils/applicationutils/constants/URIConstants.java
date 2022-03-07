@@ -70,6 +70,8 @@ public class URIConstants {
     public static final String ENTERPRISE_INTERACTION_HISTORY="/sr/api/sr-service/v1/issue/history";
     public static final String ENTERPRISE_PAYMENT_HISTORY = "/cs-gsm-service/v1/enterprise/payment/history";
     public static final String VAS_SUBSCRIPTION_HISTORY="/cs-vas-service/v1/subscriptions/history";
+    public static final String TCP_LIMITS="/cs-am-service/v1/tcplimits";
+
 
     /**
      * SR URI Constants
