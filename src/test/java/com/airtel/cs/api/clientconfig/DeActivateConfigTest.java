@@ -50,7 +50,7 @@ class DeActivateConfigTest extends ApiPrerequisites {
             Assert.fail("Client Config does not found in API Response");
         }
         if (Integer.parseInt(deActivateConfig.getStatus()) == 401) {
-            assertCheck.append(actions.assertEqualStringType(deActivateConfig.getMessage(), config.getProperty("unauthorized"), "API Response Message is as expected", "API Response Message NOT as expected"));
+            assertCheck.append(actions.assertEqualStringType(deActivateConfig.getMessage(), constants.getValue("unauthorized"), "API Response Message is as expected", "API Response Message NOT as expected"));
         } else {
             commonLib.fail("API Response is not 401 as expected.", false);
         }
@@ -63,7 +63,7 @@ class DeActivateConfigTest extends ApiPrerequisites {
         ClientDeactivateRequest deActivateConfig = null;
         deActivateConfig = api.deActivateClientConfig(validHeaderList, 9999);
         if (Integer.parseInt(deActivateConfig.getStatusCode()) == 2900) {
-            assertCheck.append(actions.assertEqualStringType(deActivateConfig.getMessage(), config.getProperty("configNotPresent"), "API Response Message is as expected", "API Response Message NOT as expected"));
+            assertCheck.append(actions.assertEqualStringType(deActivateConfig.getMessage(), constants.getValue("configNotPresent"), "API Response Message is as expected", "API Response Message NOT as expected"));
         } else {
             commonLib.fail("API Response is not 401 as expected.", false);
         }

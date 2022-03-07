@@ -20,4 +20,5 @@ public class CategoryHierarchy {
     private Boolean commentable;
     private Boolean active;
     private String categoryName; //Used for Issue History
+    private Boolean isLastLevel;
 }

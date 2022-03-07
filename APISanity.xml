@@ -51,7 +51,7 @@
     </test>
     <test name="Open API Test- With CS Token">
         <classes>
-            <class name="com.airtel.cs.api.openapi.OpenApiWihCSTokenTest"/>
+            <class name="com.airtel.cs.api.openapi.OpenApiWithCSTokenTest"/>
         </classes>
     </test>
     <test name="Open API Test- Client Without Um">
@@ -61,7 +61,7 @@
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.api.openapi.OpenApiWihSelfCareTokenTest"/>
+            <class name="com.airtel.cs.api.openapi.OpenApiWithSelfCareTokenTest"/>
         </classes>
     </test>
     <test name="Ticket Stats API">

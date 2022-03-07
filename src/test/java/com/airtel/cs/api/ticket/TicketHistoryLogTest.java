@@ -22,7 +22,7 @@ public class TicketHistoryLogTest extends ApiPrerequisites {
                 assertCheck.append(actions.assertEqualStringType(historyLog.getResult().getTicketInteractionComments().get(0).getType().toLowerCase(), "interaction", "First event during ticket creation is interaction", "First event during ticket creation is not interaction"));
                 assertCheck.append(actions.assertEqualStringType(historyLog.getResult().getTicketInteractionComments().get(1).getType().toLowerCase(), "issue", "Second event during ticket creation is Issue", "Second event during ticket creation is not Issue"));
                 assertCheck.append(actions.assertEqualStringType(historyLog.getResult().getTicketInteractionComments().get(2).getType().toLowerCase(), "ticket", "Second event during ticket creation is Issue", "Second event during ticket creation is not Issue"));
-                assertCheck.append(actions.assertEqualStringType(historyLog.getMessage(), config.getProperty("fetchedHistoryLog"), "API response message is same as expected", "API response message is not same as expected"));
+                assertCheck.append(actions.assertEqualStringType(historyLog.getMessage(), constants.getValue("fetchedHistoryLog"), "API response message is same as expected", "API response message is not same as expected"));
             }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -49,7 +49,7 @@ public class TicketHistoryLogTest extends ApiPrerequisites {
             selUtils.addTestcaseDescription("Validate Get /v1/clients/config API with invalid Ticket Number and valid Token", "description");
             TicketHistoryLogRequest historyLog = api.getTicketHistoryLog(validHeaderList, "98102000001");
             assertCheck.append(actions.assertEqualIntType(historyLog.getStatusCode(), 5006, "API Response Status Code as Expected - 5006", "Get Ticket History Log API Response is not expected. Expected 5006 and found " + historyLog.getStatusCode()));
-            assertCheck.append(actions.assertEqualStringType(historyLog.getMessage(), config.getProperty("noTicketFound"), "API response message is same as expected", "API response message is not same as expected"));
+            assertCheck.append(actions.assertEqualStringType(historyLog.getMessage(), constants.getValue("noTicketFound"), "API response message is same as expected", "API response message is not same as expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - getHistoryLogInvalidTicketNumberTest " + e.getMessage(), false);

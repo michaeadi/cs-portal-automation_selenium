@@ -28,7 +28,7 @@ public class InteractionCreateTest extends ApiPrerequisites {
         if (Integer.parseInt(interaction.getStatusCode()) != 200) {
             commonLib.fail("Create Interaction API Response is not expected. Expected 200 and found " + interaction.getStatusCode(), false);
         } else {
-            assertCheck.append(actions.assertEqualStringType(interaction.getMessage(), config.getProperty("interactionCreated"), "API Response Message is as expected", "API Response Message NOT as expected"));
+            assertCheck.append(actions.assertEqualStringType(interaction.getMessage(), constants.getValue("interactionCreated"), "API Response Message is as expected", "API Response Message NOT as expected"));
         }
         actions.assertAllFoundFailedAssert(assertCheck);
     }
@@ -49,7 +49,7 @@ public class InteractionCreateTest extends ApiPrerequisites {
         InteractionRequest interaction = api.createInteraction(validHeaderList, invalidClientInfo);
         if (Integer.parseInt(interaction.getStatusCode()) == 2902) {
             restUtils.printInfoLog("Then API Response Status Code must be 2902");
-            assertCheck.append(actions.assertEqualStringType(interaction.getMessage(), config.getProperty("invalidRequestWithClient"), "API Response Message is as expected", "API Response Message NOT as expected"));
+            assertCheck.append(actions.assertEqualStringType(interaction.getMessage(), constants.getValue("invalidRequestWithClient"), "API Response Message is as expected", "API Response Message NOT as expected"));
         } else {
             restUtils.printFailLog("Then API Response Status Code is not 2902 as expected and found " + interaction.getStatusCode());
             commonLib.fail("API Response is not 2902 as expected.", false);
@@ -72,7 +72,7 @@ public class InteractionCreateTest extends ApiPrerequisites {
         InteractionRequest interaction = api.createInteraction(restUtils.invalidToken(), validClientInfo);
         if (Integer.parseInt(interaction.getStatus()) == 401) {
             restUtils.printInfoLog("Then API Response Status Code must be 401");
-            assertCheck.append(actions.assertEqualStringType(interaction.getMessage(), config.getProperty("unauthorized"), "API Response Message is as expected", "API Response Message NOT as expected"));
+            assertCheck.append(actions.assertEqualStringType(interaction.getMessage(), constants.getValue("unauthorized"), "API Response Message is as expected", "API Response Message NOT as expected"));
         } else {
             restUtils.printFailLog("Then API Response Status Code is not 401 as expected and found " + interaction.getStatus());
             commonLib.fail("API Response is not 401 as expected.", false);
@@ -95,7 +95,7 @@ public class InteractionCreateTest extends ApiPrerequisites {
         InteractionRequest interaction = api.createInteraction(validHeaderList, validClientInfo);
         if (Integer.parseInt(interaction.getStatusCode()) == 2901) {
             restUtils.printInfoLog("Then API Response Status Code must be 2901");
-            assertCheck.append(actions.assertEqualStringType(interaction.getMessage(), config.getProperty("mandatoryFieldMissing"), "API Response Message is as expected", "API Response Message NOT as expected"));
+            assertCheck.append(actions.assertEqualStringType(interaction.getMessage(), constants.getValue("mandatoryFieldMissing"), "API Response Message is as expected", "API Response Message NOT as expected"));
         } else {
             restUtils.printFailLog("Then API Response Status Code is not 2901 as expected and found " + interaction.getStatusCode());
             commonLib.fail("API Response is not 2902 as expected.", false);

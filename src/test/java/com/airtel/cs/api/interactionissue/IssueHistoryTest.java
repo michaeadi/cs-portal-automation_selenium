@@ -34,7 +34,7 @@ public class IssueHistoryTest extends ApiPrerequisites {
             selUtils.addTestcaseDescription("Validate /v1/issue/history API with Invalid Token", "description");
             IssueHistoryRequest issueHistory = api.getIssueHistory(restUtils.invalidToken(), getValidClientConfig(MSISDN), "");
             assertCheck.append(actions.assertEqualStringType(issueHistory.getStatus(), "401", "Status Code Matched", "Status Code Not Matched and is - " + issueHistory.getStatusCode()));
-            assertCheck.append(actions.assertEqualStringType(issueHistory.getMessage(), config.getProperty("unauthorized"), "Response Message Matched", "API Response Message as not expected - " + issueHistory.getMessage()));
+            assertCheck.append(actions.assertEqualStringType(issueHistory.getMessage(), constants.getValue("unauthorized"), "Response Message Matched", "API Response Message as not expected - " + issueHistory.getMessage()));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - fetchIssueHistoryWithInValidToken " + e.getMessage(), false);
