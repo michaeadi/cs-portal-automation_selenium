@@ -75,7 +75,7 @@ public class ReopenTicketTest extends ApiPrerequisites {
                 validTicketId = "\"910121001031\"";
                 ReopenTicketRequest reopenTicket = api.reopenTicket(validHeaderList, validTicketId);
                 assertCheck.append(actions.assertEqualIntType(reopenTicket.getStatusCode(), 1500, "API Response Code as Expected and is 1500", "Ticket Can not be reopened. API Response is not expected. Expected 1500 and found " + reopenTicket.getStatusCode()));
-                assertCheck.append(actions.assertEqualStringType(reopenTicket.getResult().getReopenedTicketList().get(0).getMessage(), config.getProperty("noTicketFound"), "API Message is As Expected", "API message is not as expected"));
+                assertCheck.append(actions.assertEqualStringType(reopenTicket.getResult().getReopenedTicketList().get(0).getMessage(), constants.getValue("noTicketFound"), "API Message is As Expected", "API message is not as expected"));
             }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {

@@ -11,6 +11,7 @@ import com.airtel.cs.model.response.loandetails.Loan;
 import com.airtel.cs.model.response.loandetails.LoanDetailList;
 import com.airtel.cs.model.response.loandetails.LoanHistory;
 import com.airtel.cs.model.response.loandetails.LoanRepaymentList;
+import com.airtel.cs.model.response.loansummary.LoanSummaryResponse;
 import com.airtel.cs.model.response.loansummary.Summary;
 import com.airtel.cs.model.response.vendors.HeaderList;
 import com.airtel.cs.model.response.vendors.VendorNames;
@@ -31,11 +32,12 @@ import java.util.NoSuchElementException;
 public class LoanWidgetTest extends Driver {
 
     public static final String RUN_LOAN_WIDGET_TEST_CASE = constants.getValue(ApplicationConstants.RUN_LOAN_WIDGET_TESTCASE);
-    static String customerNumber;
+     String customerNumber;
     RequestSource api = new RequestSource();
     List<Vendors> vendors;
+    LoanSummaryResponse summary;
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -43,7 +45,7 @@ public class LoanWidgetTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void checkLoanWidgetFlag() {
         if (!StringUtils.equals(RUN_LOAN_WIDGET_TEST_CASE, "true")) {
             commonLib.skip("Loan Widget is NOT Enabled for this Opco= " + OPCO);
@@ -54,11 +56,11 @@ public class LoanWidgetTest extends Driver {
     /**
      * This method is used to Open Customer Profile Page with valid MSISDN
      */
-    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
-            final String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
+            customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().clickOnUserName();
             pages.getSideMenuPage().openCustomerInteractionPage();
@@ -81,7 +83,7 @@ public class LoanWidgetTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Verify that user has loan service permission is enabled in UM, Check User has permission to view loan service Widget Permission", "description");
             String loanServicePermission = constants.getValue(PermissionConstants.LOAN_SERVICE_WIDGET_PERMISSION);
-            assertCheck.append(actions.assertEqualBoolean(pages.getLoanWidget().isLoanServiceWidgetVisible(), UtilsMethods.isUserHasPermission(new Headers(map), loanServicePermission), "Loan service Widget displayed correctly as per user permission", "Loan service Widget does not display correctly as per user permission"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getLoanWidget().isLoanServiceWidgetVisible(), UtilsMethods.isUserHasPermission(loanServicePermission), "Loan service Widget displayed correctly as per user permission", "Loan service Widget does not display correctly as per user permission"));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - isUserHasLoanWidgetPermission" + e.fillInStackTrace(), true);
         }
@@ -99,27 +101,23 @@ public class LoanWidgetTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validating Loan Service Widget layout", "description");
             VendorNames vendorNames = api.vendorsNamesTest();
-            vendors = vendorNames.getResult().getVendors();
-            for (Vendors v : vendors) {
-                commonLib.info("Loan Services: " + v.getVendorName());
-            }
             /*
              * Checking API Giving valid Response
-             * */
+             */
             List<HeaderList> headers = vendorNames.getResult().getHeaderList();
             for (int i = 0; i < data.getHeaderName().size(); i++) {
-                String headerName=i==1?headers.get(1).getHeader().toLowerCase().trim() + " (" + headers.get(1).getSubHeader().toLowerCase().trim() + ")":headers.get(i).getHeader();
+                String headerName = i == 1 ? headers.get(1).getHeader().toLowerCase().trim() + " (" + headers.get(1).getSubHeader().toLowerCase().trim() + ")" : headers.get(i).getHeader();
                 assertCheck.append(actions.matchUiAndAPIResponse(headerName, data.getHeaderName().get(i), "Header Name for Row " + (i + 1) + " is as expected", "Header Name for Row " + (i + 1) + " is not as expected"));
             }
 
             /*
              * Checking header displayed on UI
-             * */
-            assertCheck.append(actions.assertNotEqualStringType(headers.get(0).getHeader().toLowerCase().trim(), pages.getLoanWidget().getVendor().toLowerCase().trim(), "Header are same as expected on UI(com.airtel.cs.API Response Assert with UI)", "Header not same as expected on UI(com.airtel.cs.API Response Assert with UI)"));
-            assertCheck.append(actions.assertNotEqualStringType(headers.get(1).getHeader().toLowerCase().trim() + " (" + headers.get(1).getSubHeader().toLowerCase().trim() + ")", pages.getLoanWidget().getLoanAmount().toLowerCase().trim() + " (" + pages.getLoanWidget().getCurrencyType().toLowerCase().trim() + ")", "Header are same as expected on UI(com.airtel.cs.API Response Assert with UI)", "Header not same as expected on UI(com.airtel.cs.API Response Assert with UI)"));
-            assertCheck.append(actions.assertNotEqualStringType(headers.get(2).getHeader().toLowerCase().trim(), pages.getLoanWidget().getCreatedON().toLowerCase().trim(), "Header are same as expected on UI(com.airtel.cs.API Response Assert with UI)", "Header not same as expected on UI(com.airtel.cs.API Response Assert with UI)"));
-            assertCheck.append(actions.assertNotEqualStringType(headers.get(3).getHeader().toLowerCase().trim(), pages.getLoanWidget().getCurrentOutstanding().toLowerCase().trim(), "Header are same as expected on UI(com.airtel.cs.API Response Assert with UI)", "Header not same as expected on UI(com.airtel.cs.API Response Assert with UI)"));
-            assertCheck.append(actions.assertNotEqualStringType(headers.get(4).getHeader().toLowerCase().trim(), pages.getLoanWidget().getDueDate().toLowerCase().trim(), "Header are same as expected on UI(com.airtel.cs.API Response Assert with UI)", "Header not same as expected on UI(com.airtel.cs.API Response Assert with UI)"));
+             */
+            assertCheck.append(actions.assertEqualStringType(headers.get(0).getHeader().toLowerCase().trim(), pages.getLoanWidget().getVendor().toLowerCase().trim(), "Header is same as expected on UI", "Header is  not same as expected on UI"));
+            assertCheck.append(actions.assertEqualStringType(headers.get(1).getHeader().toLowerCase().trim() + " (" + headers.get(1).getSubHeader().toLowerCase().trim() + ")", pages.getLoanWidget().getLoanAmount().toLowerCase().trim() + " (" + pages.getLoanWidget().getCurrencyType().toLowerCase().trim() + ")", "Header is same as expected on UI", "Header is not same as expected on UI"));
+            assertCheck.append(actions.assertEqualStringType(headers.get(2).getHeader().toLowerCase().trim(), pages.getLoanWidget().getCreditedOn().toLowerCase().trim(), "Header is same as expected on UI", "Header is not same as expected on UI"));
+            assertCheck.append(actions.assertEqualStringType(headers.get(3).getHeader().toLowerCase().trim(), pages.getLoanWidget().getCurrentOutstanding().toLowerCase().trim(), "Header is same as expected on UI", "Header is not same as expected on UI"));
+            assertCheck.append(actions.assertEqualStringType(headers.get(4).getHeader().toLowerCase().trim(), pages.getLoanWidget().getDueDate().toLowerCase().trim(), "Header is same as expected on UI", "Header is not same as expected on UI"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - validateLoanWidgetLayout" + e.fillInStackTrace(), true);
@@ -139,12 +137,15 @@ public class LoanWidgetTest extends Driver {
             selUtils.addTestcaseDescription("Validating Loan Service Widget:" + customerNumber, "description");
             if (pages.getLoanWidget().getSize() > 0) {
                 for (int i = 1; i <= pages.getLoanWidget().getSize(); i++) {
-                    Summary summary = api.loanSummaryTest(customerNumber, pages.getLoanWidget().getVendorName(i).trim());
-                    if (!summary.getStatusCode().equalsIgnoreCase("200") | summary.getStatus().equalsIgnoreCase("Failure")) {
-                        assertCheck.append(actions.assertEqualBoolean(pages.getLoanWidget().checkMessageDisplay(summary.getMessage()), true, summary.getMessage() + " :Message does not display"));
+                    summary = api.loanSummaryTest(customerNumber, pages.getLoanWidget().getVendorName(i).trim());
+                    if (!summary.getStatus().equalsIgnoreCase("SUCCESS") && summary.getResult().getMessage().equalsIgnoreCase("Customer has no transactions")) {
+                        assertCheck.append(actions.assertEqualStringType(pages.getLoanWidget().getNoResultFoundMessage(), "No Result found", "Error Message is as expected", "Error Message is not as expected"));
                     } else {
-                        assertCheck.append(actions.assertNotEqualStringType(pages.getLoanWidget().getLoanAmount(i), UtilsMethods.valueRoundOff(summary.getResult().getLoanAmount()), "Loan amount are same as com.airtel.cs.API Response", "Loan amount not same as com.airtel.cs.API Response"));
-                        assertCheck.append(actions.assertNotEqualStringType(pages.getLoanWidget().getOutstandingAmount(i), UtilsMethods.valueRoundOff(summary.getResult().getCurrentOutstanding().getValue()), "Current Outstanding amount is same as com.airtel.cs.API Response", "Current Outstanding amount not same as com.airtel.cs.API Response"));
+                        for (int j = 0; j < summary.getResult().getSummary().size(); j++) {
+                            assertCheck.append(actions.assertNotEqualStringType(pages.getLoanWidget().getLoanAmount(i), summary.getResult().getSummary().get(j).getLoanAmount(), "Loan amount are same as API Response", "Loan amount not same as API Response"));
+                            assertCheck.append(actions.assertNotEqualStringType(pages.getLoanWidget().getOutstandingAmount(i), summary.getResult().getSummary().get(j).getCurrentOutstanding().getValue(), "Current Outstanding amount is same as API Response", "Current Outstanding amount not same as API Response"));
+
+                        }
                     }
                 }
             } else {
@@ -154,8 +155,8 @@ public class LoanWidgetTest extends Driver {
         } catch (Exception e) {
             commonLib.fail("Exception in Method - validateLoanWidget" + e.fillInStackTrace(), true);
         }
-    }
 
+}
     /**
      * This method is used to Validate Loan Detail Widget
      *
@@ -170,21 +171,21 @@ public class LoanWidgetTest extends Driver {
             selUtils.addTestcaseDescription("Validate Loan Detail Widget", "description");
             LoanDetail loanDetail = null;
             List<String> vendorNameList = pages.getLoanWidget().getVendorNamesList();
-            if (vendorNameList.size() > 0) {
-                for (int i = 1; i <= vendorNameList.size(); i++) {
-                    String vendorName = vendorNameList.get(i - 1).trim();
-                    Summary summary = api.loanSummaryTest(customerNumber, vendorName);
+            if (pages.getLoanWidget().getSize() > 0) {
+                for (int i = 1; i <= pages.getLoanWidget().getSize(); i++) {
+                    String vendorName = pages.getLoanWidget().getVendorName(i).trim();
+                    summary = api.loanSummaryTest(customerNumber, vendorName);
                     if (summary.getStatusCode().equalsIgnoreCase("200")) {
                         loanDetail = pages.getLoanWidget().clickVendorName(i);
                         loanDetail.waitTillLoaderGetsRemoved();
                         try {
-                            Assert.assertTrue(loanDetail.isLoanDetailWidgetDisplay(), "Loan Detail Widget not display");
+                            Assert.assertTrue(loanDetail.isLoanDetailWidgetDisplay(), "Loan Detail Widget  displayed");
                             Loan loanDetails = api.loanDetailsTest(customerNumber, vendorName);
                             /*
                              * Validating Header name displayed on UI with Config present in Excel
                              * */
-                            for (int startIndex = 0; startIndex < data.getHeaderName().size(); i++) {
-                                assertCheck.append(actions.matchUiAndAPIResponse(loanDetail.getHeaderName(startIndex+1), data.getHeaderName().get(startIndex), "Header Name for Row " + (i + 1) + " is as expected", "Header Name for Row " + (i + 1) + " is not as expected"));
+                            for (int startIndex = 0; startIndex < data.getHeaderName().size(); startIndex++) {
+                                assertCheck.append(actions.matchUiAndAPIResponse(loanDetail.getHeaderName(startIndex+1).toLowerCase().trim() , data.getHeaderName().get(startIndex).toLowerCase().trim(), "Header Name for Row " + (startIndex + 1) + " is as expected", "Header Name for Row " + (startIndex + 1) + " is not as expected"));
                             }
                             /*
                              * Validating Header name & value displayed on UI with com.airtel.cs.API Response
@@ -192,13 +193,15 @@ public class LoanWidgetTest extends Driver {
                             List<HeaderList> headerList = loanDetails.getResult().getLoanDetails().getHeaderList();
                             LoanDetailList loanDetailValue = loanDetails.getResult().getLoanDetails().getLoanDetailList().get(0);
                             for (int j = 0; j < headerList.size(); j++) {
-                                assertCheck.append(actions.assertEqualStringType(loanDetail.getHeaderName(i + 1).toLowerCase().trim(), headerList.get(i).getHeader().toLowerCase().trim(), "Loan Detail Widget Header name at POS(" + (i + 1) + ") is same as in com.airtel.cs.API Response", "Loan Detail Widget Header name at POS(" + (i + 1) + ") not same as in com.airtel.cs.API Response"));
+                                assertCheck.append(actions.assertEqualStringType(loanDetail.getHeaderName(j + 1).toLowerCase().trim(), headerList.get(j).getHeader().toLowerCase().trim(), "Loan Detail Widget Header name at POS(" + (j + 1) + ") is same as in com.airtel.cs.API Response", "Loan Detail Widget Header name at POS(" + (j + 1) + ") not same as in com.airtel.cs.API Response"));
                             }
-                            assertCheck.append(actions.assertEqualStringType(loanDetail.getValueCorrespondingToHeader(1).trim(), UtilsMethods.valueRoundOff(loanDetailValue.getTotalLoanEligibility()), "Total Loan Eligibility Value is same as com.airtel.cs.API Response", "Total Loan Eligibility Value not same as com.airtel.cs.API Response"));
-                            assertCheck.append(actions.assertEqualStringType(loanDetail.getValueCorrespondingToHeader(2).trim(), String.valueOf(loanDetailValue.getCountOfEvents()), "Number of Loan Taken Value is same as com.airtel.cs.API Response", "Number of Loan Taken Value not same as com.airtel.cs.API Response"));
-                            assertCheck.append(actions.assertEqualStringType(loanDetail.getValueCorrespondingToHeader(3).trim(), UtilsMethods.valueRoundOff(loanDetailValue.getTotalLoanAmount()), "Total Loan amount Value is same as com.airtel.cs.API Response", "Total Loan amount Value not same as com.airtel.cs.API Response"));
-                            assertCheck.append(actions.assertEqualStringType(loanDetail.getValueCorrespondingToHeader(4).trim(), UtilsMethods.valueRoundOff(loanDetailValue.getLoanPaid()), "Total Loan Paid value is same as com.airtel.cs.API Response", "Total Loan Paid value not same as com.airtel.cs.API Response"));
-                            assertCheck.append(actions.assertEqualStringType(loanDetail.getValueCorrespondingToHeader(5).trim(), UtilsMethods.valueRoundOff(loanDetailValue.getRemainingBalance()), "Total Current Outstanding value is same as com.airtel.cs.API Response", "Total Current Outstanding value not same as com.airtel.cs.API Response"));
+                            assertCheck.append(actions.assertEqualStringType(loanDetail.getValueCorrespondingToHeader(1).trim(), loanDetailValue.getLoanId(), "Loan Id  Value is same as com.airtel.cs.API Response", "Loan Id Value not same as com.airtel.cs.API Response"));
+                            if(loanDetailValue.getTotalLoanEligibility()==null)
+                            assertCheck.append(actions.assertEqualStringType(loanDetail.getValueCorrespondingToHeader(2).trim(), "-", "Total Loan Eligibility Value is same as API Response", "Total Loan Eligibility Value not same as API Response"));
+                            assertCheck.append(actions.assertEqualStringType(loanDetail.getValueCorrespondingToHeader(3).trim(), String.valueOf(loanDetailValue.getCountOfEvents()), "Number of Loan Taken Value is same as API Response", "Number of Loan Taken Value not same as API Response"));
+                            assertCheck.append(actions.assertEqualStringType(loanDetail.getValueCorrespondingToHeader(4).trim(), UtilsMethods.valueRoundOff(Double.parseDouble(loanDetailValue.getTotalLoanAmount())), "Total Loan amount Value is same as API Response", "Total Loan amount Value not same as API Response"));
+                            assertCheck.append(actions.assertEqualStringType(loanDetail.getValueCorrespondingToHeader(5).trim(), UtilsMethods.valueRoundOff(Double.parseDouble(loanDetailValue.getLoanPaid())), "Total Loan Paid value is same as API Response", "Total Loan Paid value not same as API Response"));
+                            assertCheck.append(actions.assertEqualStringType(loanDetail.getValueCorrespondingToHeader(6).trim(), UtilsMethods.valueRoundOff(Double.parseDouble(loanDetailValue.getRemainingBalance())), "Total Remaining Balance value is same as API Response", "Total Remaining Balance value not same as API Response"));
                         } catch (NoSuchElementException | TimeoutException | AssertionError e) {
                             commonLib.fail("Loan detail Widget does not open properly: " + e.fillInStackTrace(), true);
                             loanDetail.clickCloseTab();
@@ -207,7 +210,7 @@ public class LoanWidgetTest extends Driver {
                 }
                 assert loanDetail != null;
                 loanDetail.clickCloseTab();
-            } else {
+           } else {
                 commonLib.warning("No Vendor Found in Loan Service Widget");
             }
             actions.assertAllFoundFailedAssert(assertCheck);
@@ -233,7 +236,7 @@ public class LoanWidgetTest extends Driver {
             if (pages.getLoanWidget().getSize() > 0) {
                 for (int i = 1; i <= pages.getLoanWidget().getSize(); i++) {
                     String vendorName = pages.getLoanWidget().getVendorName(i).trim();
-                    Summary summary = api.loanSummaryTest(customerNumber, vendorName);
+                   summary = api.loanSummaryTest(customerNumber, vendorName);
                     if (summary.getStatusCode().equalsIgnoreCase("200")) {
                         loanDetail = pages.getLoanWidget().clickVendorName(i);
                         loanDetail.waitTillLoaderGetsRemoved();
@@ -249,13 +252,15 @@ public class LoanWidgetTest extends Driver {
                             }
                             int count = Math.min(loanRepaymentList.size(),5);
                             for (int m = 0; m < count; m++) {
-                                assertCheck.append(actions.assertEqualStringType(loanDetail.getValueCorrespondingToLoanHistoryHeader(m + 1, 1).trim(), loanRepaymentList.get(m).getId(), "Loan Transaction id is same as com.airtel.cs.API response in Row" + (m + 1), "Loan Transaction id not same as com.airtel.cs.API response in Row" + (m + 1)));
-                                assertCheck.append(actions.assertEqualStringType(loanDetail.getValueCorrespondingToLoanHistoryHeader(m + 1, 2).trim(), UtilsMethods.valueRoundOff(loanRepaymentList.get(m).getAmountCredited()), "Loan Amount Credited is same as com.airtel.cs.API response in Row" + (m + 1), "Loan Amount Credited not same as com.airtel.cs.API response in Row" + (m + 1)));
-                                assertCheck.append(actions.assertEqualStringType(loanDetail.getValueCorrespondingToLoanHistoryHeader(m + 1, 3).trim(), UtilsMethods.valueRoundOff(loanRepaymentList.get(m).getServiceCharge()), "Loan Service charge is same as com.airtel.cs.API response in Row" + (m + 1), "Loan Service charge not same as com.airtel.cs.API response in Row" + (m + 1)));
-                                assertCheck.append(actions.assertEqualStringType(loanDetail.getValueCorrespondingToLoanHistoryHeader(m + 1, 4).trim(), UtilsMethods.valueRoundOff(loanRepaymentList.get(m).getRecovered()), "Loan Recovered Amount is same as com.airtel.cs.API response in Row" + (m + 1), "Loan Recovered Amount not same as com.airtel.cs.API response in Row" + (m + 1)));
-                                assertCheck.append(actions.assertEqualStringType(loanDetail.getValueCorrespondingToLoanHistoryHeader(m + 1, 5).trim().toLowerCase(), loanRepaymentList.get(m).getLoanChannel().toLowerCase().trim(), "Loan channel is same as com.airtel.cs.API response in Row" + (m + 1), "Loan channel not same as com.airtel.cs.API response in Row" + (m + 1)));
-                                assertCheck.append(actions.assertEqualStringType(loanDetail.getValueCorrespondingToLoanHistoryHeader(m + 1, 6).trim().toLowerCase(), loanRepaymentList.get(m).getLoanType().toLowerCase().trim(), "Loan Type is same as com.airtel.cs.API response in Row" + (m + 1), "Loan Type not same as com.airtel.cs.API response in Row" + (m + 1)));
-                                assertCheck.append(actions.assertEqualStringType(loanDetail.getValueCorrespondingToLoanHistoryHeader(m + 1, 7).trim(), UtilsMethods.getDateFromEpochInUTC(Long.valueOf(loanRepaymentList.get(m).getDateCreated()), headerList.get(6).getDateFormat() + " " + headerList.get(6).getTimeFormat()), "Loan Date Created is same as com.airtel.cs.API response in Row" + (m + 1), "Loan Date Created not same as com.airtel.cs.API response in Row" + (m + 1)));
+                                assertCheck.append(actions.assertEqualStringType(loanDetail.getValueCorrespondingToLoanHistoryHeader(m + 1, 1).trim(), loanRepaymentList.get(m).getId(), "Loan Transaction id is same as API response in Row" + (m + 1), "Loan Transaction id not same as API response in Row" + (m + 1)));
+                                assertCheck.append(actions.assertEqualStringType(loanDetail.getValueCorrespondingToLoanHistoryHeader(m + 1, 2).trim(), UtilsMethods.valueRoundOff(loanRepaymentList.get(m).getAmountCredited()), "Loan Amount Credited is same as API response in Row" + (m + 1), "Loan Amount Credited not same as API response in Row" + (m + 1)));
+                                assertCheck.append(actions.assertEqualStringType(loanDetail.getValueCorrespondingToLoanHistoryHeader(m + 1, 3).trim(), UtilsMethods.valueRoundOff(loanRepaymentList.get(m).getServiceCharge()), "Loan Service charge is same as API response in Row" + (m + 1), "Loan Service charge not same as API response in Row" + (m + 1)));
+                                assertCheck.append(actions.assertEqualStringType(loanDetail.getValueCorrespondingToLoanHistoryHeader(m + 1, 4).trim(), UtilsMethods.valueRoundOff(loanRepaymentList.get(m).getRecovered()), "Loan Recovered Amount is same as API response in Row" + (m + 1), "Loan Recovered Amount not same as API response in Row" + (m + 1)));
+                                if(loanRepaymentList.get(m).getLoanChannel()==null)
+                                assertCheck.append(actions.assertEqualStringType(loanDetail.getValueCorrespondingToLoanHistoryHeader(m + 1, 5).trim().toLowerCase(), "-", "Loan channel is same as API response in Row" + (m + 1), "Loan channel not same as API response in Row" + (m + 1)));
+                                if(loanRepaymentList.get(m).getLoanType()==null)
+                                assertCheck.append(actions.assertEqualStringType(loanDetail.getValueCorrespondingToLoanHistoryHeader(m + 1, 6).trim().toLowerCase(), "-", "Loan Type is same as API response in Row" + (m + 1), "Loan Type not same as API response in Row" + (m + 1)));
+                                assertCheck.append(actions.assertEqualStringType(loanDetail.getValueCorrespondingToLoanHistoryHeader(m + 1, 7).trim(), UtilsMethods.getDateFromEpochInUTC(Long.valueOf(loanRepaymentList.get(m).getDateCreated()), headerList.get(6).getDateFormat() + " " + headerList.get(6).getTimeFormat()), "Loan Date Created is same as API response in Row" + (m + 1), "Loan Date Created not same as API response in Row" + (m + 1)));
                                 /*
                                  * Loan Recovery Widget Opened
                                  * */

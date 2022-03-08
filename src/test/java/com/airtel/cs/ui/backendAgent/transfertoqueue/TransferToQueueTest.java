@@ -43,7 +43,7 @@ public class TransferToQueueTest extends Driver {
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Agent Permission API success and status code is :" + statusCode, "Agent Permission API got failed and status code is :" + statusCode));
             String transfer_to_Queue_permission = constants.getValue(PermissionConstants.TRANSFER_QUEUE_PERMISSION);
             if (statusCode == 200) {
-                assertCheck.append(actions.assertEqualBoolean(agentPermission.getResult().hasTransferToQueuePermission, UtilsMethods.isUserHasPermission(new Headers(map), transfer_to_Queue_permission), "Agent have permission to perform action transfer to queue", "Agent does not have permission to perform action transfer to queue"));
+                assertCheck.append(actions.assertEqualBoolean(agentPermission.getResult().hasTransferToQueuePermission, UtilsMethods.isUserHasPermission(transfer_to_Queue_permission), "Agent have permission to perform action transfer to queue", "Agent does not have permission to perform action transfer to queue"));
             } else {
                 commonLib.fail("Agent Permission API failed.", false);
             }
@@ -160,7 +160,7 @@ public class TransferToQueueTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Verify that Service Profile widget should be visible to the logged in agent if HLR permission is enabled in UM, Check User has permission to view HLR Widget Permission", "description");
             String workflow_override = constants.getValue(PermissionConstants.WORKFLOW_OVERRIDE_PERMISSION);
-            assertCheck.append(actions.assertEqualBoolean(UtilsMethods.isUserHasPermission(new Headers(map), workflow_override), true, "Agent has permission of ticket workflow override as expected", "Agent does not have permission of ticket workflow override as expected"));
+            assertCheck.append(actions.assertEqualBoolean(UtilsMethods.isUserHasPermission(workflow_override), true, "Agent has permission of ticket workflow override as expected", "Agent does not have permission of ticket workflow override as expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - isUserHasHLRPermission" + e.fillInStackTrace(), true);

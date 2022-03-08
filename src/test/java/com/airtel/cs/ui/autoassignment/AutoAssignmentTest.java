@@ -130,7 +130,7 @@ public class AutoAssignmentTest extends Driver {
             final Integer statusCode = ticketHistoryLog.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Ticket History log API Status Code Matched and is :" + statusCode, "Ticket History log Status Code NOT Matched and is :" + statusCode));
             TicketHistoryLogList ticketHistoryLogList = ticketHistoryLog.getResult().getTicketInteractionComments().get(ticketHistoryLog.getResult().getTicketInteractionComments().size() - 1);
-            AdditionalDetails agentDetails = UtilsMethods.getAgentDetail(new Headers(map)).getAdditionalDetails();
+            AdditionalDetails agentDetails = UtilsMethods.getAgentDetail().getAdditionalDetails();
             assertCheck.append(actions.matchUiAndAPIResponse(ticketHistoryLogList.getEvent(), constants.getValue(CommonConstants.AUTO_ASSIGNMENT_EVENT_NAME), "Ticket assigned to user by auto assignment", "Ticket does not assigned to user by auto assignment", true));
             assertCheck.append(actions.assertEqualIntType(ticketHistoryLogList.getAgentId(), agentDetails.getId(), "Agent id same as expected", "Agent id does not same as expected"));
             assertCheck.append(actions.matchUiAndAPIResponse(ticketHistoryLogList.getAssignTo(), agentDetails.getName(), "Agent name same as expected", "Agent name does not same as expected"));

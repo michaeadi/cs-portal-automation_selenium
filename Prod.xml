@@ -14,7 +14,7 @@
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginAPITest"/>
         </classes>
     </test>
-   <test name="Prod Test Login With Advisor Supervisor-To check Auto-Assignment">
+  <test name="Prod Test Login With Advisor Supervisor-To check Auto-Assignment">
         <groups>
             <run>
                 <include name="SmokeTest"/>
@@ -73,7 +73,7 @@
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
         </classes>
-    </test>
+    </test>-->
     <test name="Test Login Into Portal With FA">
         <groups>
             <run>
@@ -94,7 +94,7 @@
             <class name="com.airtel.cs.ui.frontendagent.leftmenu.SideMenuTests"/>
         </classes>
     </test>
-    <test name="Demo Graphic Widget Test By Prepaid MSISDN" preserve-order="true">
+  <test name="Demo Graphic Widget Test By Prepaid MSISDN" preserve-order="true">
         <groups>
             <run>
                 <include name="ProdTest"/>
@@ -214,6 +214,16 @@
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.ServiceProfileWidgetTest"/>
         </classes>
+    </test>-->
+    <test name="Service Profile Detail Widget Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.ServiceProfileDetailWidgetTest"/>
+        </classes>
     </test>
     <test name="Usage History Detailed Widget Test" preserve-order="true">
         <groups>
@@ -295,6 +305,16 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.CRBTWidgetTest"/>
         </classes>
     </test>
+    <test name="Active Vas Widget Test">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.hometab.ActiveVasWidgetTest"/>
+        </classes>
+    </test>
     <test name="Raise Bill dispute">
         <groups>
             <run>
@@ -374,7 +394,7 @@
         <classes>
             <class name="com.airtel.cs.ui.simbarunbar.SIMBarUnbarPermissionSeparationTest"/>
         </classes>
-    </test>
+    </test>-->
     <test name="Account Information Test">
         <groups>
             <run>
@@ -596,14 +616,34 @@
             <class name="com.airtel.cs.ui.frontendagent.leftmenu.SideMenuTests"/>
         </classes>
     </test>
-    <test name="Demo Graphic Widget Test By MSISDN-Smoke Testing" preserve-order="true">
+    <test name="Demo Graphic Widget Test By Prepaid MSISDN-Smoke Testing" preserve-order="true">
         <groups>
             <run>
-                <include name="SmokeTest"/>
+                <include name="ProdTest"/>
             </run>
         </groups>
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.demographicwidget.DemoGraphicWidgetPrepaidMsisdnTest"/>
+        </classes>
+    </test>
+    <test name="Demo Graphic Widget Test By Postpaid MSISDN-Smoke Testing" preserve-order="true">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.demographicwidget.DemoGraphicWidgetPostpaidMsisdnTest"/>
+        </classes>
+    </test>
+    <test name="Demo Graphic Widget Test By Hybrid MSISDN-Smoke Testing" preserve-order="true">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.demographicwidget.DemoGraphicWidgetHybridMsisdnTest"/>
         </classes>
     </test>
     <test name="Airtel Money widget Test-Smoke Testing" preserve-order="true">
@@ -897,7 +937,6 @@
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
         </classes>
     </test>
-
     //Enterprise test cases starts from here//
     <test name="Prod Test Login With Enterprise">
         <groups>
@@ -996,7 +1035,7 @@
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.api.openapi.OpenApiWihSelfCareTokenTest"/>
+            <class name="com.airtel.cs.api.openapi.OpenApiWithSelfCareTokenTest"/>
         </classes>
     </test>
 </suite>

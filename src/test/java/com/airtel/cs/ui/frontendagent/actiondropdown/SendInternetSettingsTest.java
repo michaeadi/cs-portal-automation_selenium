@@ -18,6 +18,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.List;
+import java.util.SortedMap;
 import java.util.TreeMap;
 
 public class SendInternetSettingsTest extends Driver {
@@ -27,7 +28,7 @@ public class SendInternetSettingsTest extends Driver {
     RequestSource api = new RequestSource();
     Boolean popup = true;
 
-  @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -91,7 +92,7 @@ public class SendInternetSettingsTest extends Driver {
             pages.getCustomerProfilePage().clickOnAction();
             pages.getCustomerProfilePage().clickSendInternetSetting();
             popup = !pages.getCustomerProfilePage().isSendInternetSettingConfirmMessageVisible();
-            ActionConfigResult actionConfigResult = api.getActionConfig(new Headers(map), "sendInternetSettings");
+            ActionConfigResult actionConfigResult = api.getActionConfig("sendInternetSettings");
             if (popup) {
                 assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isIssueDetailTitleVisible(), true, "Issue Detail Configured", "Issue Detail does not configured"));
                 pages.getAuthTabPage().clickSelectReasonDropDown();
@@ -104,7 +105,7 @@ public class SendInternetSettingsTest extends Driver {
                 pages.getAuthTabPage().clickYesBtn();
             }
             final String toastText = pages.getAuthTabPage().getToastText();
-            assertCheck.append(actions.assertEqualStringType(toastText, "Internet Settings has been sent on Customer`s Device.", "Send Internet Settings Message has been sent to customer successfully", "Send Internet Settings Message hasn't been sent to customer ans message is :-" + toastText,true,true));
+            assertCheck.append(actions.assertEqualStringType(toastText, "Internet Settings has been sent on Customer`s Device.", "Send Internet Settings Message has been sent to customer successfully", "Send Internet Settings Message hasn't been sent to customer ans message is :-" + toastText, true, true));
             ActionTrail actionTrailAPI = api.getEventHistory(customerNumber, "ACTION");
             int statusCode = actionTrailAPI.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Action Trail API success and status code is :" + statusCode, "Action Trail API got failed and status code is :" + statusCode, false, true));
@@ -118,7 +119,7 @@ public class SendInternetSettingsTest extends Driver {
                 commonLib.fail("Not able to fetch action trail event log using API", true);
             }
             if (StringUtils.isNotEmpty(actionConfigResult.getCategoryId())) {
-                TreeMap<String, List<Category>> categoryMap = api.getParentCategory(Long.parseLong(actionConfigResult.getCategoryId()));
+                SortedMap<String, List<Category>> categoryMap = api.getParentCategory(Long.parseLong(actionConfigResult.getCategoryId()));
                 String categoryCode = categoryMap.get(categoryMap.lastKey()).get(0).getCategoryName();
                 commonLib.info("Category code is : " + categoryCode);
                 pages.getCustomerProfilePage().goToViewHistory();

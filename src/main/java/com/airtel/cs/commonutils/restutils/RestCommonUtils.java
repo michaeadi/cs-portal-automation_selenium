@@ -37,16 +37,14 @@ public class RestCommonUtils extends Driver {
     private static QueryableRequestSpecification queryable;
     private static RequestSpecification request;
     private static final String APPLICATION_JSON = "application/json";
-    private static final String CALLING_CS_API = "Calling CS API";
+    private static final String CALLING_API = "Calling API";
     private static final String FOR_TESTING = "for Testing ";
-    private static final String USING_AUUID="using auuid ";
-    private static final String TOKEN ="'s token";
-
-
+    private static final String USING_AUUID = "using auuid ";
+    private static final String TOKEN = "'s token";
 
 
     /**
-     * This Method will hit the API with POST Method
+     * This Method will hit the CS API with POST Method
      *
      * @param endPoint endpoint
      * @param body     body of the api
@@ -56,7 +54,7 @@ public class RestCommonUtils extends Driver {
     }
 
     /**
-     * This Method will hit the API with POST Method
+     * This Method will hit the SR API with POST Method
      *
      * @param endPoint endpoint
      * @param body     body of the api
@@ -65,16 +63,16 @@ public class RestCommonUtils extends Driver {
     public static void commonPostMethod(String endPoint, List<Header> map, Object body, String url) {
         RestAssuredConfig restAssuredConfig = CurlRestAssuredConfigFactory.createConfig();
         try {
-            commonLib.infoColored(CALLING_CS_API + " " + endPoint + " " +FOR_TESTING  + USING_AUUID + loginAUUID + TOKEN, JavaColors.BLUE, false);
+            commonLib.infoColored(CALLING_API + " " + endPoint + " " + FOR_TESTING + USING_AUUID + loginAUUID + TOKEN, JavaColors.BLUE, false);
             baseURI = url;
             Headers headers = new Headers(map);
-            String finalbody="";
-            
+            String finalbody = "";
+
             if (body instanceof String)
-              finalbody = (String) body;
+                finalbody = (String) body;
             else
-              finalbody = objectMapper.writeValueAsString(body);
-            
+                finalbody = objectMapper.writeValueAsString(body);
+
             request = given()
                     .config(restAssuredConfig)
                     .headers(headers)
@@ -91,30 +89,40 @@ public class RestCommonUtils extends Driver {
     }
 
     /**
-     * This Method is used to hit the API which are using GET Method with Query Params and status Code
+     * This method is used to hit CS Portal API which are using GET Method with Query Params and status Code
+     *
+     * @param endPoint   the endpoint
+     * @param queryParam the query param
+     */
+    public static void commonGetMethodWithQueryParam(String endPoint, Map<String, Object> queryParam) {
+        commonGetMethodWithQueryParam(endPoint, queryParam, map, baseUrl);
+    }
+
+    /**
+     * This Method is used to hit the SR API which are using GET Method with Query Params and status Code
      *
      * @param endPoint   send the endPoint
      * @param queryParam send query param used for API
      */
-    public static void commonGetMethodWithQueryParam(String endPoint, Map<String, Object> queryParam, List<Header> headers) {
+    public static void commonGetMethodWithQueryParam(String endPoint, Map<String, Object> queryParam, List<Header> headers, String url) {
         try {
             RestAssuredConfig restAssuredConfig = CurlRestAssuredConfigFactory.createConfig();
-            commonLib.infoColored(CALLING_CS_API + " " + endPoint + " " + FOR_TESTING + USING_AUUID + loginAUUID + TOKEN, JavaColors.BLUE, false);
-            baseURI = baseUrl;
+            commonLib.infoColored(CALLING_API + " " + endPoint + " " + FOR_TESTING + USING_AUUID + loginAUUID + TOKEN, JavaColors.BLUE, false);
+            baseURI = url;
             Headers header = new Headers(headers);
             request = given()
                     .config(restAssuredConfig)
                     .headers(header)
                     .contentType(APPLICATION_JSON);
             commonLib.info("Query Param Map:-" + queryParam.toString());
-            
+
             StringBuilder stringBuilder = new StringBuilder("?");
             queryParam.forEach((k, v) -> stringBuilder.append(k).append("=").append(v).append("&"));
             endPoint += stringBuilder.toString();
             endPoint.substring(0, endPoint.length() - 1);
             queryable = SpecificationQuerier.query(request);
             response = request.get(endPoint);
-            
+
             UtilsMethods.printResponseDetail(response);
         } catch (Exception | AssertionError e) {
             commonLib.fail("Caught exception in Testcase - commonGetMethodWithQueryParam " + e.getMessage(), false);
@@ -124,32 +132,16 @@ public class RestCommonUtils extends Driver {
     }
 
     /**
-     * This Method is used to hit the API which are using GET Method
+     * This method is used to hit CS Portal API which are using GET Method
      *
-     * @param endPoint send the endPoint
+     * @param endPoint the endpoint
      */
     public static void commonGetMethod(String endPoint) {
-        commonGetMethod(endPoint, new Headers(map));
-    }
-
-    public static void commonGetMethod(String endPoint, Headers headers) {
-        RestAssuredConfig restAssuredConfig = CurlRestAssuredConfigFactory.createConfig();
-        try {
-            commonLib.infoColored(CALLING_CS_API + " " + endPoint + " " + FOR_TESTING + USING_AUUID + loginAUUID + TOKEN, JavaColors.BLUE, false);
-            baseURI = baseUrl;
-            request = given().config(restAssuredConfig).headers(headers).contentType(APPLICATION_JSON);
-            queryable = SpecificationQuerier.query(request);
-            response = request.get(endPoint);
-            UtilsMethods.printResponseDetail(response);
-        } catch (Exception | AssertionError e) {
-            commonLib.fail("Caught exception in Testcase - commonGetMethod " + e.getMessage(), false);
-        } finally {
-            commonLib.info(getRequestCurl(queryable.getURI(), queryable.getHeaders(), null));
-        }
+        commonGetMethod(endPoint, map, baseUrl);
     }
 
     /**
-     * This Method is used to hit the API which are using GET Method
+     * This Method is used to hit the SR API which are using GET Method
      *
      * @param endPoint send the endPoint
      * @param map      send headers used for API
@@ -166,6 +158,8 @@ public class RestCommonUtils extends Driver {
             restUtils.printResponseDetail(response);
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - commonGetMethod " + e.getMessage(), false);
+        } finally {
+            commonLib.info(getRequestCurl(queryable.getURI(), queryable.getHeaders(), null));
         }
     }
 

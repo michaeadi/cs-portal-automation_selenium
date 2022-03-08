@@ -92,10 +92,10 @@ public class AirtelMoneyTransactionWidgetTest extends Driver {
             final int statusCode = amProfileAPI.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "AM Profile API success and status code is :" + statusCode, "AM Profile API got failed and status code is :" + statusCode, false));
             if (statusCode == 200) {
-                assertCheck.append(actions.assertEqualStringType(amTxnWidgetPage.gettingAirtelMoneyBalance(), amProfileAPI.getResult().getWallet().get(0).getBalance(), "Customer's Airtel Wallet Balance as Expected", "Customer's Airtel Wallet Balance not same not as Expected"));
-                assertCheck.append(actions.assertEqualStringType(amTxnWidgetPage.gettingAirtelMoneyCurrency(), amProfileAPI.getResult().getWallet().get(0).getCurrency(), "Customer's Currency code as Expected", "Customer's Currency code not same not as Expected"));
+                assertCheck.append(actions.assertEqualStringType(amTxnWidgetPage.gettingAirtelMoneyBalance(), amProfileAPI.getResult().getWallets().get(0).getBalance(), "Customer's Airtel Wallet Balance as Expected", "Customer's Airtel Wallet Balance not same not as Expected"));
+                assertCheck.append(actions.assertEqualStringType(amTxnWidgetPage.gettingAirtelMoneyCurrency(), amProfileAPI.getResult().getWallets().get(0).getCurrency(), "Customer's Currency code as Expected", "Customer's Currency code not same not as Expected"));
                 if (StringUtils.equalsIgnoreCase(constants.getValue(ApplicationConstants.MULTI_WALLET_BALANCE), "true")) {
-                    assertCheck.append(actions.assertEqualStringType(amTxnWidgetPage.gettingAirtelMoneyBalance2(), amProfileAPI.getResult().getWallet().get(1).getBalance(), "Customer's Airtel Wallet2 Balance & Currency code as Expected", "Customer's Airtel Wallet2 Balance & Currency code not same not as Expected"));
+                    assertCheck.append(actions.assertEqualStringType(amTxnWidgetPage.gettingAirtelMoneyBalance2(), amProfileAPI.getResult().getWallets().get(1).getBalance(), "Customer's Airtel Wallet2 Balance & Currency code as Expected", "Customer's Airtel Wallet2 Balance & Currency code not same not as Expected"));
                 }
             } else {
                 commonLib.fail("API is Unable to Get AM Profile for Customer", false);
@@ -125,9 +125,9 @@ public class AirtelMoneyTransactionWidgetTest extends Driver {
                 for (int i = 0; i < data.getHeaderName().size(); i++) {
                     assertCheck.append(actions.matchUiAndAPIResponse(widgetMethods.getHeaderName(amWidgetId, i), data.getHeaderName().get(i), "Header Name for Row " + (i + 1) + " is as expected", "Header Name for Row " + (i + 1) + " is not as expected"));
                 }
-                ActionConfigResult actionConfigResult = api.getActionConfig(new Headers(map), "reverseTransaction");
+                ActionConfigResult actionConfigResult = api.getActionConfig("reverseTransaction");
                 List<String> actionConfigRoles = actionConfigResult.getRoles();
-                List<RoleDetails> agentRoles = UtilsMethods.getAgentDetail(new Headers(map)).getUserDetails().getUserDetails().getRole();
+                List<RoleDetails> agentRoles = UtilsMethods.getAgentDetail().getUserDetails().getUserDetails().getRole();
                 for (int i = 0; i < count; i++) {
                     boolean hasRole = agentRoles.stream().anyMatch(roleName -> actionConfigRoles.contains(roleName.getRoleName()));
                     if (ObjectUtils.isNotEmpty(actionConfigResult.getConditions())) {

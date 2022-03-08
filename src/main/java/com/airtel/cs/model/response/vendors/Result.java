@@ -14,6 +14,5 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Result {
-    private List<Vendors> vendors;
     private List<HeaderList> headerList;
 }

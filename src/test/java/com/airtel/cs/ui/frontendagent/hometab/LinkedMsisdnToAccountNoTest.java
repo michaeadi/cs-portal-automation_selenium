@@ -71,7 +71,7 @@ public class LinkedMsisdnToAccountNoTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Verify that account information widget should be visible to the logged in agent if account info permission is enabled in UM, Check User has permission to view account information Widget Permission", "description");
             String accountInfo_permission = constants.getValue(PermissionConstants.ACCOUNT_INFORMATION_WIDGET_PERMISSION);
-            assertCheck.append(actions.assertEqualBoolean(pages.getLinkedMsisdnToAccountNoWidget().isAccountInformationWidgetDisplay(), UtilsMethods.isUserHasPermission(new Headers(map), accountInfo_permission), "Logged in user has Account Information Widget permission", "Logged in user doesn't have Account Information Widget permission"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getLinkedMsisdnToAccountNoWidget().isAccountInformationWidgetDisplay(), UtilsMethods.isUserHasPermission(accountInfo_permission), "Logged in user has Account Information Widget permission", "Logged in user doesn't have Account Information Widget permission"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
             commonLib.fail("Exception in Method - userWithAccountInfoWidgetPermission()" + e.fillInStackTrace(), true);

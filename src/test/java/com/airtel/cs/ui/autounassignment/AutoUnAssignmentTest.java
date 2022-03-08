@@ -82,7 +82,7 @@ public class AutoUnAssignmentTest extends Driver {
             final Integer statusCode = ticketHistoryLog.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Ticket History log API Status Code Matched and is :" + statusCode, "Ticket History log Status Code NOT Matched and is :" + statusCode,false));
             TicketHistoryLogList ticketHistoryLogList=ticketHistoryLog.getResult().getTicketInteractionComments().get(ticketHistoryLog.getResult().getTicketInteractionComments().size()-1);
-            AdditionalDetails agentDetails= UtilsMethods.getAgentDetail(new Headers(map)).getAdditionalDetails();
+            AdditionalDetails agentDetails= UtilsMethods.getAgentDetail().getAdditionalDetails();
             assertCheck.append(actions.assertEqualIntType(ticketHistoryLogList.getAgentId(),agentDetails.getId(),"Agent id same as expected","Agent id does not same as expected"));
             assertCheck.append(actions.matchUiAndAPIResponse(ticketHistoryLogList.getAssignTo(),agentDetails.getName(),"Agent name same as expected","Agent name does not same as expected"));
             assertCheck.append(actions.matchUiAndAPIResponse(ticketHistoryLogList.getEvent(),constants.getValue(CommonConstants.AUTO_UN_ASSIGNMENT_EVENT_NAME),"Ticket auto un-assigned from user by auto un-assignment event","Ticket is not auto un-assigned from user by auto un-assignment event"));

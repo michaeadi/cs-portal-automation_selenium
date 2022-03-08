@@ -60,7 +60,7 @@ public class CurrentPlanTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Verify that current plan widget should be visible to the logged in agent if current plan permission is enabled in UM, Check User has permission to view current plan Widget Permission", "description");
             String currentPlanPermission = constants.getValue(PermissionConstants.CURRENT_PLAN_WIDGET_PERMISSION);
-            assertCheck.append(actions.assertEqualBoolean(pages.getCurrentPlanWidget().isCurrentPlanWidgetDisplay(), UtilsMethods.isUserHasPermission(new Headers(map), currentPlanPermission), "Current plan Widget displayed correctly as per user permission", "Current plan Widget does not display correctly as per user permission"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getCurrentPlanWidget().isCurrentPlanWidgetDisplay(), UtilsMethods.isUserHasPermission(currentPlanPermission), "Current plan Widget displayed correctly as per user permission", "Current plan Widget does not display correctly as per user permission"));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - isUserHasPlanAndPackWidgetPermission" + e.fillInStackTrace(), true);
         }

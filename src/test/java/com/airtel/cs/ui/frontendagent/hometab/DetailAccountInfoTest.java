@@ -97,7 +97,7 @@ public class DetailAccountInfoTest extends Driver {
             String detailedAccountInfo_permission = constants.getValue(PermissionConstants.VIEW_POSTPAID_BILL);
             assertCheck.append(actions.assertEqualBoolean(pages.getDetailAccountInfoWidget().isActionIconVisibleOnAccountInfo(), true, "Detailed account information icon visible", "Detailed account information icon not visible"));
             pages.getDetailAccountInfoWidget().openAccountInformationDetailPage();
-            assertCheck.append(actions.assertEqualBoolean(pages.getDetailAccountInfoWidget().isDetailedAccountInformationWidgetDisplay(), UtilsMethods.isUserHasPermission(new Headers(map), detailedAccountInfo_permission), "Detailed Account Information Widget displayed correctly as per user permission", "Detailed Account Information Widget does not display correctly as per user permission"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getDetailAccountInfoWidget().isDetailedAccountInformationWidgetDisplay(), UtilsMethods.isUserHasPermission(detailedAccountInfo_permission), "Detailed Account Information Widget displayed correctly as per user permission", "Detailed Account Information Widget does not display correctly as per user permission"));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - isUserHasDetailedAccountInformationPermission" + e.fillInStackTrace(), true);
         }

@@ -95,7 +95,7 @@ public class UsageHistoryWidgetTest extends Driver {
                 FieldMaskConfigs startBalancefieldMaskConfigs = api.getFieldMaskConfigs("usageCdrStartBalance");
                 FieldMaskConfigs endBalancefieldMaskConfigs = api.getFieldMaskConfigs("usageCdrEndBalance");
                 FieldMaskConfigs typeFieldMaskingConfigs = api.getFieldMaskConfigs("usageCdrType");
-                List<RoleDetails> roleDetails = UtilsMethods.getAgentDetail(new Headers(map)).getUserDetails().getUserDetails().getRole();
+                List<RoleDetails> roleDetails = UtilsMethods.getAgentDetail().getUserDetails().getUserDetails().getRole();
 
                 for (int i = 0; i < size; i++) {
                     int row = i + 1;

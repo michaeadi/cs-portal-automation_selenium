@@ -87,9 +87,9 @@ public class ParentCategoryTest extends ApiPrerequisites {
     public void getParentCategoryInvalidTokenTest() {
         try {
             selUtils.addTestcaseDescription("Validate /v1/parent/categories API With Invalid Token and Valid Category Id", "description");
-            CategoryHierarchyRequest parentCategory = api.getParentCategoryId(restUtils.invalidToken(), validCategoryId,401);
+            CategoryHierarchyRequest parentCategory = api.getParentCategoryId(restUtils.invalidToken(), validCategoryId);
             assertCheck.append(actions.assertEqualStringType(parentCategory.getStatus(), "401", "Status Matched", "Status Not Matched and is - " + parentCategory.getStatus()));
-            assertCheck.append(actions.assertEqualStringType(parentCategory.getMessage(), config.getProperty("unauthorized"), "API Response Message Matched", "API Response Message not as expected and is - " + parentCategory.getMessage()));
+            assertCheck.append(actions.assertEqualStringType(parentCategory.getMessage(), constants.getValue("unauthorized"), "API Response Message Matched", "API Response Message not as expected and is - " + parentCategory.getMessage()));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - getParentCategoryInvalidTokenTest " + e.getMessage(), false);

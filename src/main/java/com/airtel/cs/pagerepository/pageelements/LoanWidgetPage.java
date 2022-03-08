@@ -33,5 +33,6 @@ public class LoanWidgetPage {
     public String vendorNameValue="//div[@data-csautomation-key='LOAN_SERVICES']//div[@class='card__card-header--card-body--table']//span[contains(text(),'";
     public String message="//div[@data-csautomation-key='LOAN_SERVICES']//div[@class='card__card-header--card-body--table']//span[contains(text(),'";
     public By loanWidget = By.xpath("//div[@data-csautomation-key='LOAN_SERVICES']//span[@class='card__card-header--label']");
-    public String loanServiceValue = "//div[@id='LOAN_SERVICES']//div[@class='card__card-header--card-body--table']//div[@class='card__card-header--card-body--table--data-list ng-star-inserted'][";
+    public String loanServiceValue = "//div[@data-csautomation-key='LOAN_SERVICES']//div[@class='card__card-header--card-body--table']//div[@class='card__card-header--card-body--table--data-list ng-star-inserted'][";
+    public By noResultFoundMessage = By.xpath("//div[@data-csautomation-key='LOAN_SERVICES']//span[contains(text(),'No Result found')]");
 }

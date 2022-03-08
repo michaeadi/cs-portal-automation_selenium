@@ -6,7 +6,7 @@ import com.airtel.cs.model.request.openapi.clientconfig.ClientConfigOpenApiReque
 import org.apache.commons.lang3.StringUtils;
 import org.testng.annotations.Test;
 
-public class OpenApiWihCSTokenTest extends ApiPrerequisites {
+public class OpenApiWithCSTokenTest extends ApiPrerequisites {
     /*
     CWUM = Client without UM
      */
