@@ -57,7 +57,7 @@ public class HbbEditAlternateNoTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Verify that alternate no. edit icon should be visible to the logged in agent if permission is enabled in UM, Check User has permission to edit alternate no", "description");
             String editIcon_permission = constants.getValue(PermissionConstants.ALTERNATE_NUMBER_EDIT_ICON_PERMISSION);
-            assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isAlternateNoEditIconVisible(), UtilsMethods.isUserHasPermission(new Headers(map), editIcon_permission), "Edit Icon displayed correctly as per user permission", "Edit Icon does not display correctly as per user permission"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isAlternateNoEditIconVisible(), UtilsMethods.isUserHasPermission(editIcon_permission), "Edit Icon displayed correctly as per user permission", "Edit Icon does not display correctly as per user permission"));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - isUserHasEditAlternateMsisdnPermission" + e.fillInStackTrace(), true);
         }
@@ -69,7 +69,7 @@ public class HbbEditAlternateNoTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validating call to Action options", "description");
             Boolean profileVisibility = pages.getHbbProfilePage().isHBBProfileVisible();
-            if (profileVisibility == true) {
+            if (profileVisibility) {
                 assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isCallToActionVisible(), true, "Call to Action icon visible", "Call to Action icon not visible"));
                 assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isAlternateNoEditIconVisible(), true, "Edit icon visible", "Edit icon not visible"));
                 assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isEmailEditIconVisible(), true, "Edit icon visible", "Edit icon not visible"));
@@ -130,7 +130,7 @@ public class HbbEditAlternateNoTest extends Driver {
             String validNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
             String successText = "Request for Alternate Number Updating has been successfully submitted. Link has been sent to customer's email id for validation.";
             Boolean profileVisibility = pages.getHbbProfilePage().isHBBProfileVisible();
-            if (profileVisibility == true) {
+            if (profileVisibility) {
                 pages.getHbbProfilePage().clickOnEditIconAlternateNo();
                 pages.getHbbProfilePage().enterMsisdnAlternateNo(validNumber);
                 pages.getHbbProfilePage().enterComment("Automation Testing");

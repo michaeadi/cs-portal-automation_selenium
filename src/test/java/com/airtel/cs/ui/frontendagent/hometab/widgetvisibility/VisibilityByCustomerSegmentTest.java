@@ -59,7 +59,7 @@ public class VisibilityByCustomerSegmentTest extends Driver {
         String planAndPackPermission = constants.getValue(PermissionConstants.CURRENT_PLAN_WIDGET_PERMISSION);
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate All Widgets are according to connection type ", "description");
-            List<Authorities> allPermissions = UtilsMethods.getAgentDetail(new Headers(map)).getUserDetails().getUserDetails().getAuthorities();
+            List<Authorities> allPermissions = UtilsMethods.getAgentDetail().getUserDetails().getUserDetails().getAuthorities();
             assertCheck.append(actions.assertEqualStringNotNull(connectType, "Customer Connection Type is not empty", "Customer Connection Type is empty"));
             if ("prepaid".equals(connectType) || "all".equals(connectType) || "hybrid".equals(connectType)) {
                 assertCheck.append(actions.assertEqualBoolean(pages.getRechargeHistoryWidget().isRechargeHistoryWidgetIsVisible(), true, "Recharge History Widget is visible", "Recharge History Widget is not visible"));

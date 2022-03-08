@@ -63,7 +63,7 @@ public class ServiceProfileDetailWidgetTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validate whether user has Service Profile Widget Permission ", "description");
             String permission = constants.getValue(PermissionConstants.HLR_WIDGET_PERMISSION);
-            isPermissionEnable = UtilsMethods.isUserHasPermission(new Headers(map), permission);
+            isPermissionEnable = UtilsMethods.isUserHasPermission(permission);
             assertCheck.append(actions.assertEqualBoolean(isPermissionEnable, true, "Logged in user has Service Profile Widget permission", "Logged in user doesn't have Service Profile Widget permission"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {

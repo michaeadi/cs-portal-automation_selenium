@@ -126,7 +126,7 @@ public class DemoGraphicWidgetPrepaidMsisdnTest extends Driver{
                     }
                 assertCheck.append(actions.assertEqualStringType(idType, pages.getDemoGraphicPage().getKeyValueAPI(gsmKycAPI.getResult().getIdentificationType()), "Customer's ID Type is as Expected", "Customer's ID Type is not as Expected"));
                 FieldMaskConfigs nationalIdfieldMaskConfigs = api.getFieldMaskConfigs("nationalId");
-                List<RoleDetails> agentRoles = UtilsMethods.getAgentDetail(new Headers(map)).getUserDetails().getUserDetails().getRole();
+                List<RoleDetails> agentRoles = UtilsMethods.getAgentDetail().getUserDetails().getUserDetails().getRole();
                 boolean hasRole = ObjectUtils.isNotEmpty(nationalIdfieldMaskConfigs.getRoles()) && agentRoles.stream().anyMatch(roleName -> nationalIdfieldMaskConfigs.getRoles().contains(roleName.getRoleName()));
                 if (hasRole) {
                     assertCheck.append(actions.assertEqualBoolean(customerIdNumber.length() == nationalIdfieldMaskConfigs.getDigitsVisible(), true, "National Id masking is correct as per user role", "National Id masking is not correct as per user role"));
@@ -359,9 +359,9 @@ public class DemoGraphicWidgetPrepaidMsisdnTest extends Driver{
                 }
                 String airtelMoneyString = pages.getDemoGraphicPage().getWalletBalance().replaceAll("[^0-9]", "").trim();
                 int airtelMoney = StringUtils.isEmpty(airtelMoneyString) ? 0 : Integer.parseInt(airtelMoneyString);
-                ActionConfigResult actionConfigResult = api.getActionConfig(new Headers(map), "resetPin");
+                ActionConfigResult actionConfigResult = api.getActionConfig("resetPin");
                 List<String> actionConfigRoles = actionConfigResult.getRoles();
-                List<RoleDetails> agentRoles = UtilsMethods.getAgentDetail(new Headers(map)).getUserDetails().getUserDetails().getRole();
+                List<RoleDetails> agentRoles = UtilsMethods.getAgentDetail().getUserDetails().getUserDetails().getRole();
                 boolean hasRole = ObjectUtils.isNotEmpty(actionConfigRoles) && agentRoles.stream().anyMatch(roleName -> actionConfigRoles.contains(roleName.getRoleName()));
                 String operator;
                 if (ObjectUtils.isNotEmpty(actionConfigResult.getConditions())) {

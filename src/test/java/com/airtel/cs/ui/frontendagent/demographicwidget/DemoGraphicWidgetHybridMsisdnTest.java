@@ -1,4 +1,5 @@
 package com.airtel.cs.ui.frontendagent.demographicwidget;
+
 import com.airtel.cs.api.ESBRequestSource;
 import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.commonutils.utils.UtilsMethods;
@@ -31,7 +32,7 @@ import static com.airtel.cs.commonutils.utils.UtilsMethods.stringNotNull;
 
 
 @Log4j2
-public class DemoGraphicWidgetHybridMsisdnTest extends Driver{
+public class DemoGraphicWidgetHybridMsisdnTest extends Driver {
     private static String customerNumber = null;
     private String customerName = null;
     RequestSource api = new RequestSource();
@@ -126,7 +127,7 @@ public class DemoGraphicWidgetHybridMsisdnTest extends Driver{
                     }
                 assertCheck.append(actions.assertEqualStringType(idType, pages.getDemoGraphicPage().getKeyValueAPI(gsmKycAPI.getResult().getIdentificationType()), "Customer's ID Type is as Expected", "Customer's ID Type is not as Expected"));
                 FieldMaskConfigs nationalIdfieldMaskConfigs = api.getFieldMaskConfigs("nationalId");
-                List<RoleDetails> agentRoles = UtilsMethods.getAgentDetail(new Headers(map)).getUserDetails().getUserDetails().getRole();
+                List<RoleDetails> agentRoles = UtilsMethods.getAgentDetail().getUserDetails().getUserDetails().getRole();
                 boolean hasRole = ObjectUtils.isNotEmpty(nationalIdfieldMaskConfigs.getRoles()) && agentRoles.stream().anyMatch(roleName -> nationalIdfieldMaskConfigs.getRoles().contains(roleName.getRoleName()));
                 if (hasRole) {
                     assertCheck.append(actions.assertEqualBoolean(customerIdNumber.length() == nationalIdfieldMaskConfigs.getDigitsVisible(), true, "National Id masking is correct as per user role", "National Id masking is not correct as per user role"));
@@ -135,7 +136,8 @@ public class DemoGraphicWidgetHybridMsisdnTest extends Driver{
                     assertCheck.append(actions.assertEqualBoolean(StringUtils.contains(gsmKycAPI.getResult().getIdentificationNo(), customerIdNumber), true,
                             "Customer's ID Number is as Expected", "Customer's ID Number is not as Expected and Expected was :" + customerIdNumber));
                 }
-            }actions.assertAllFoundFailedAssert(assertCheck);
+            }
+            actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in method - testCustomerDetails" + e.fillInStackTrace(), true);
         }
@@ -307,7 +309,7 @@ public class DemoGraphicWidgetHybridMsisdnTest extends Driver{
 
     }
 
-    @Test(priority = 13, groups = {"SanityTest", "RegressionTest", "ProdTest"} ,dependsOnMethods= {"openCustomerInteraction", "getConnectionType"})
+    @Test(priority = 13, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction", "getConnectionType"})
     public void testEmailIdAndAccountNumber() {
         try {
             selUtils.addTestcaseDescription("Validate Email Id ", "description");
@@ -359,9 +361,9 @@ public class DemoGraphicWidgetHybridMsisdnTest extends Driver{
                 }
                 String airtelMoneyString = pages.getDemoGraphicPage().getWalletBalance().replaceAll("[^0-9]", "").trim();
                 int airtelMoney = StringUtils.isEmpty(airtelMoneyString) ? 0 : Integer.parseInt(airtelMoneyString);
-                ActionConfigResult actionConfigResult = api.getActionConfig(new Headers(map), "resetPin");
+                ActionConfigResult actionConfigResult = api.getActionConfig("resetPin");
                 List<String> actionConfigRoles = actionConfigResult.getRoles();
-                List<RoleDetails> agentRoles = UtilsMethods.getAgentDetail(new Headers(map)).getUserDetails().getUserDetails().getRole();
+                List<RoleDetails> agentRoles = UtilsMethods.getAgentDetail().getUserDetails().getUserDetails().getRole();
                 boolean hasRole = ObjectUtils.isNotEmpty(actionConfigRoles) && agentRoles.stream().anyMatch(roleName -> actionConfigRoles.contains(roleName.getRoleName()));
                 String operator;
                 if (ObjectUtils.isNotEmpty(actionConfigResult.getConditions())) {

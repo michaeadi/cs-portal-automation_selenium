@@ -153,9 +153,9 @@ public class UtilsMethods extends Driver {
     /**
      * This method is used to convert given date date into utc time zone
      *
-     * @param date The date
+     * @param date            The date
      * @param existingPattern The existing pattern
-     * @param newPattern The new pattern
+     * @param newPattern      The new pattern
      * @return String The String
      */
     public static String getDateFromStringInUTC(String date, String existingPattern, String newPattern) {
@@ -200,10 +200,11 @@ public class UtilsMethods extends Driver {
 
     /**
      * This method is use to replace day name with date based on
+     *
      * @param historyDateTime The date & Time with day name
-     * @param pattern The new Pattern
-     * @param amount The Today - number of days
-     * @param dayName The day name
+     * @param pattern         The new Pattern
+     * @param amount          The Today - number of days
+     * @param dayName         The day name
      * @return String The date
      */
     public static String getTimeFromStringBasedOnDay(String historyDateTime, String pattern, Integer amount, String dayName) {
@@ -304,18 +305,17 @@ public class UtilsMethods extends Driver {
     /**
      * This method use to check whether user has permission assign or not
      *
-     * @param headers        auth header
      * @param permissionName permission name to check
      * @return true/false based on user have permission or not
      */
-    public static Boolean isUserHasPermission(Headers headers, String permissionName) {
-        AgentDetailAttribute agentDetailAPI = api.getAgentDetail(headers);
+    public static Boolean isUserHasPermission(String permissionName) {
+        AgentDetailAttribute agentDetailAPI = api.getAgentDetail();
         if (agentDetailAPI.getStatusCode() != 200) {
             commonLib.fail("Not able to get Agent detail using agent api", false);
             return false;
         } else {
             List<Authorities> allPermissions = agentDetailAPI.getResult().getUserDetails().getUserDetails().getAuthorities();
-            return allPermissions.stream().anyMatch(authorities ->authorities.getAuthority().equalsIgnoreCase(permissionName));
+            return allPermissions.stream().anyMatch(authorities -> authorities.getAuthority().equalsIgnoreCase(permissionName));
         }
     }
 
@@ -440,6 +440,7 @@ public class UtilsMethods extends Driver {
 
     /**
      * This method use to get SLA Override attributes name & attribute value
+     *
      * @return List The list of attributes
      */
     public static Map<String, String> getSLAOverrideAttrValues() {
@@ -454,14 +455,15 @@ public class UtilsMethods extends Driver {
 
     /**
      * This method is use to check all attribute value present in both ticket SLA rule and ticket meta info
-     * @param attributeNames The attribute names
-     * @param ticketSLARule The ticket SLA Rule
+     *
+     * @param attributeNames    The attribute names
+     * @param ticketSLARule     The ticket SLA Rule
      * @param ticketMetaInfoMap The ticket meta info
      * @return true/false
      */
     public static boolean isSLARuleMatch(List<String> attributeNames, Map<String, String> ticketSLARule, Map<String, String> ticketMetaInfoMap) {
         for (String attrName : attributeNames) {
-            if (!stringNotNull(ticketSLARule.get(attrName)).equalsIgnoreCase(ticketMetaInfoMap.get(attrName)) && !stringNotNull(ticketSLARule.get(attrName)).equalsIgnoreCase(constants.getValue(CommonConstants.CS_SLA_ANY_ATTRIBUTE_NAME)) ) {
+            if (!stringNotNull(ticketSLARule.get(attrName)).equalsIgnoreCase(ticketMetaInfoMap.get(attrName)) && !stringNotNull(ticketSLARule.get(attrName)).equalsIgnoreCase(constants.getValue(CommonConstants.CS_SLA_ANY_ATTRIBUTE_NAME))) {
                 return false;
             }
         }
@@ -471,7 +473,8 @@ public class UtilsMethods extends Driver {
     /**
      * This method is use to get ticket meta-info based on customer msisdn from KYC Profile API for SLA Calculation
      * Customer info is not able to fetch from KYC profile api than set default value for required parameter
-     * @param msisdn The msisdn
+     *
+     * @param msisdn       The msisdn
      * @param ticketNumber The ticket number
      * @return NftrDataBeans object
      */
@@ -481,8 +484,8 @@ public class UtilsMethods extends Driver {
         final Integer statusCode = kycProfile.getStatusCode();
         nftrDataBeans.setTicketNumber(ticketNumber);
         NftrDataBeans s = objectMapper.convertValue(getSLAOverrideAttrValues(), NftrDataBeans.class);
-        String interactionChannel=getAgentDetail(new Headers(map)).getAdditionalDetails().getInteractionChannel().get(0).getName();
-        interactionChannel=interactionChannel==null?s.getInteractionChannel():interactionChannel;
+        String interactionChannel = getAgentDetail().getAdditionalDetails().getInteractionChannel().get(0).getName();
+        interactionChannel = interactionChannel == null ? s.getInteractionChannel() : interactionChannel;
         if (statusCode == 200) {
             nftrDataBeans.setCustomerSegment(getCustomerAttribute(kycProfile.getResult().getSegment()));
             nftrDataBeans.setCustomerSubSegment(getCustomerAttribute(kycProfile.getResult().getSubSegment()));
@@ -504,6 +507,7 @@ public class UtilsMethods extends Driver {
 
     /**
      * This method is used to get null string if given string is null or '-'
+     *
      * @param attrValue The value
      * @return String The value
      */
@@ -514,8 +518,9 @@ public class UtilsMethods extends Driver {
 
     /**
      * This method is use to get SLA Workgroup name and time from rule
+     *
      * @param slaRule The SLA Rule
-     * @return Map<Workgroup,SLA>
+     * @return Map<Workgroup, SLA>
      */
     public static Map<String, String> getWorkGroups(SLARuleFileDataBeans slaRule) {
         Map<String, String> workGroups = new HashMap<>();
@@ -532,6 +537,7 @@ public class UtilsMethods extends Driver {
 
     /**
      * This method used to validate that text is not empty and not null
+     *
      * @param text The text
      * @return true/false
      */
@@ -542,11 +548,10 @@ public class UtilsMethods extends Driver {
     /**
      * This method use to get Agent Details
      *
-     * @param headers auth header
      * @return AgentAttributes
      */
-    public static AgentAttributes getAgentDetail(Headers headers) {
-        AgentDetailAttribute agentDetail = api.getAgentDetail(headers);
+    public static AgentAttributes getAgentDetail() {
+        AgentDetailAttribute agentDetail = api.getAgentDetail();
         if (agentDetail.getStatusCode() != 200) {
             commonLib.fail(constants.getValue("cs.agent.detail.failure"), false);
         }
@@ -556,12 +561,11 @@ public class UtilsMethods extends Driver {
     /**
      * This method use to check whether user has role assign or not
      *
-     * @param headers auth header
      * @param role    permission name to check
      * @return true/false based on user have roles or not
      */
-    public static Boolean isUserHasRole(Headers headers, List<String> role) {
-        AgentDetailAttribute agentDetailAPI = api.getAgentDetail(headers);
+    public static Boolean isUserHasRole(List<String> role) {
+        AgentDetailAttribute agentDetailAPI = api.getAgentDetail();
         if (agentDetailAPI.getStatusCode() != 200) {
             commonLib.fail("Not able to get Agent detail using agent api", false);
             return false;
@@ -574,21 +578,24 @@ public class UtilsMethods extends Driver {
 
     /**
      * This method use to get Action config based on action key
+     *
      * @param actionKey The action key
      * @return Object ActionConfigResult
      * @throws NullPointerException In-case of no Config found based on given key
      */
-    public static ActionConfigResult getActionConfigBasedOnKey(String actionKey){
-        ActionConfigResult actionConfigResponse=api.getActionConfig(new Headers(map),actionKey);
-        if (actionConfigResponse!=null) {
+    public static ActionConfigResult getActionConfigBasedOnKey(String actionKey) {
+        ActionConfigResult actionConfigResponse = api.getActionConfig(actionKey);
+        if (actionConfigResponse != null) {
             return actionConfigResponse;
-        }else{
-            commonLib.fail(constants.getValue(CommonConstants.SEND_INTERNET_SETTING_ACTION_KEY)+" action key does not present in config API",false);
+        } else {
+            commonLib.fail(constants.getValue(CommonConstants.SEND_INTERNET_SETTING_ACTION_KEY) + " action key does not present in config API", false);
         }
         throw new NullPointerException("Action key does not found in config API");
     }
+
     /**
      * This method returns endDate in UTC timezone
+     *
      * @param endDate
      * @return
      */
@@ -602,7 +609,7 @@ public class UtilsMethods extends Driver {
         try {
             sd = m_ISO8601Local.parse(zdt.toString());
         } catch (ParseException e) {
-            commonLib.fail( "error in parsing enddate" + e.getMessage(), false);
+            commonLib.fail("error in parsing enddate" + e.getMessage(), false);
         }
         Long endDateEpoch = sd.getTime();
         return endDateEpoch;
@@ -610,6 +617,7 @@ public class UtilsMethods extends Driver {
 
     /**
      * This method returns startDate in UTC timezone
+     *
      * @param startDate
      * @return
      */
@@ -623,7 +631,7 @@ public class UtilsMethods extends Driver {
         try {
             sd = m_ISO8601Local.parse(zdt.toString());
         } catch (ParseException e) {
-            commonLib.fail( "error in parsing startdate" + e.getMessage(), false);
+            commonLib.fail("error in parsing startdate" + e.getMessage(), false);
         }
         Long startDateEpoch = sd.getTime();
         return startDateEpoch;
@@ -631,42 +639,45 @@ public class UtilsMethods extends Driver {
 
     /**
      * This method use to get Agent limit config based on action key and role Id
+     *
      * @param actionKey The action key
-     * @param roleId The role id
+     * @param roleId    The role id
      * @return Object LimitConfig
      */
-    public static LimitConfig getAgentLimitConfigBasedOnKey(String actionKey, String roleId){
-        int statusCode=0;
+    public static LimitConfig getAgentLimitConfigBasedOnKey(String actionKey, String roleId) {
+        int statusCode = 0;
         AgentLimit agentLimitAPI = api.getAgentLimitConfig(roleId);
-        if(ObjectUtils.isNotEmpty(agentLimitAPI)){
-            statusCode=agentLimitAPI.getStatusCode();
+        if (ObjectUtils.isNotEmpty(agentLimitAPI)) {
+            statusCode = agentLimitAPI.getStatusCode();
         }
         List<LimitConfig> limitConfigsList = agentLimitAPI.getResult();
         Optional<LimitConfig> limitConfigResultOP = limitConfigsList.stream()
                 .filter(result -> actionKey.equals(result.getFeatureKey())).findFirst();
-        assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Agent Limit "+config.getProperty("cs.portal.api.success"), "Agent Limit "+config.getProperty("cs.portal.api.fail") + statusCode));
+        assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Agent Limit " + config.getProperty("cs.portal.api.success"), "Agent Limit " + config.getProperty("cs.portal.api.fail") + statusCode));
         if (limitConfigResultOP.isPresent()) {
             return limitConfigResultOP.get();
-        }else{
-            commonLib.info(actionKey+config.getProperty("cs.agent.limit.key.not.found"),false);
+        } else {
+            commonLib.info(actionKey + config.getProperty("cs.agent.limit.key.not.found"), false);
         }
         return null;
     }
 
     /**
      * This method use to get category hierarchy for auto assignment/un-assignment
+     *
      * @return List The list of String
      */
-    public static List<String> getCategoryHierarchy(){
+    public static List<String> getCategoryHierarchy() {
         return Arrays.asList(constants.getValue(CommonConstants.AUTO_ASSIGNMENT_CATEGORY_HIERARCHY).split(","));
     }
 
     /**
      * This method use to write ticket id in properties file
+     *
      * @param ticketId The ticket id
      */
-    public static void setAutoAssignmentTicketId(String ticketId){
-        constants.setValue(CommonConstants.AUTO_ASSIGNMENT_TICKET_ID,ticketId);
+    public static void setAutoAssignmentTicketId(String ticketId) {
+        constants.setValue(CommonConstants.AUTO_ASSIGNMENT_TICKET_ID, ticketId);
     }
 
 

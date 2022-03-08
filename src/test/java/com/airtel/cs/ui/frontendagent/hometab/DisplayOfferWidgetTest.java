@@ -177,7 +177,7 @@ public class DisplayOfferWidgetTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Verify that necessary permissions are added for offers widget to be displayed.", "description");
             String offer_widget_permission = constants.getValue(PermissionConstants.OFFER_WIDGET_PERMISSION);
-            assertCheck.append(actions.assertEqualBoolean(pages.getDaDetailsPage().isOfferWidgetDisplay(), UtilsMethods.isUserHasPermission(new Headers(map), offer_widget_permission), "Display Offer Widget displayed correctly as per user permission", "Display Offer Widget does not display correctly as per user permission"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getDaDetailsPage().isOfferWidgetDisplay(), UtilsMethods.isUserHasPermission(offer_widget_permission), "Display Offer Widget displayed correctly as per user permission", "Display Offer Widget does not display correctly as per user permission"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - isUserHasOfferPermission" + e.fillInStackTrace(), true);
