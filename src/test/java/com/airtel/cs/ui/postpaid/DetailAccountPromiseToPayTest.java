@@ -54,7 +54,7 @@ public class DetailAccountPromiseToPayTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validate whether user has Account Information Widget Permission ", "description");
             String account_info_permission = constants.getValue(PermissionConstants.ACCOUNT_INFORMATION_WIDGET_PERMISSION);
-            Boolean isPermissionEnable = UtilsMethods.isUserHasPermission(new Headers(map), account_info_permission);
+         //   Boolean isPermissionEnable = UtilsMethods.isUserHasPermission(new Headers(map), account_info_permission);
             assertCheck.append(actions.assertEqualBoolean(isPermissionEnable, true, "Logged in user has Account Information Widget permission", "Logged in user doesn't have Account Information Widget permission"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -88,9 +88,9 @@ public class DetailAccountPromiseToPayTest extends Driver {
     @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void validateSendBill() {
         try {
-            selUtils.addTestcaseDescription("Validating Promis To Pay permission , Performing Promis To Pay action", "description");
+            selUtils.addTestcaseDescription("Validating Promis To Pay permission , Performing Promise To Pay action", "description");
             String promise_to_pay_permission = constants.getValue(PermissionConstants.PROMISE_TO_PAY_POSTPAID_BILL);
-            assertCheck.append(actions.assertEqualBoolean(UtilsMethods.isUserHasPermission(new Headers(map), promise_to_pay_permission), true, "Logged in user has Send Postpaid Bill permission", "Logged in user doesn't has  Send Postpaid Bill permission"));
+          //  assertCheck.append(actions.assertEqualBoolean(UtilsMethods.isUserHasPermission(new Headers(map), promise_to_pay_permission), true, "Logged in user has Send Postpaid Bill permission", "Logged in user doesn't has  Send Postpaid Bill permission"));
             CustomerProfileResponse customerProfileResponse = apiEsb.customerProfileResponse(customerNumber);
             String accountNo = customerProfileResponse.getCustomerAccountNumber();
             accountDetails = api.getAccountInfoDetail(accountNo, 1);
@@ -104,20 +104,22 @@ public class DetailAccountPromiseToPayTest extends Driver {
                     String transactionType = accountDetails.getResult().get(row).getTransactionType();
                     String billNo = accountDetails.getResult().get(row).getReferenceNo();
                     if ("INVOICE".equalsIgnoreCase(transactionType)) {
-                        assertCheck.append(actions.assertEqualBoolean(pages.getDetailAccountPromiseToPay().isPromiseToPayVisible(row), true, "Send Bill Icon is visible at row " + row, "Send Bill icon is not visible at row " + row));
-                        if (StringUtils.equalsIgnoreCase(EmailID, "-")) {
-                            assertCheck.append(actions.assertEqualBoolean(pages.getDetailAccountPromiseToPay().isPromiseToPayDisabled(row), true, "Send Bill Icon is disabled when there is no email id registered" + row, "Send Bill icon is not disabled when there is no email id registered" + row));
-                            String hoverText = "Send To Email ID is not available".toLowerCase();
-                            assertCheck.append(actions.assertEqualStringType(pages.getDetailAccountPromiseToPay().getPromiseToPayIconText(row), hoverText, "Message on hovering send bill icon is same as expected when no email id is registered  " + row, "Message on hovering send bill icon is NOT same as expected when no email id is registered " + row));
-                        }
+                        assertCheck.append(actions.assertEqualBoolean(pages.getDetailAccountPromiseToPay().isPromiseToPayVisible(row), true, "Promise to Pay   Icon is visible at row " + row, "Send Bill icon is not visible at row " + row));
+
                         pages.getDetailAccountPromiseToPay().clickOnPromiseToPay(row);
+
                         assertCheck.append(actions.assertEqualBoolean(pages.getDetailAccountPromiseToPay().isIssuePopVisible(), true, "Issue Detail Pop up is visible", "Issue Detail Pop up is NOT visible"));
                         assertCheck.append(actions.assertEqualBoolean(pages.getDetailAccountPromiseToPay().isSelectReasonVisible(), true, "Select Reason Field is visible", "Select Reason Field is NOT visible"));
-                        assertCheck.append(actions.assertEqualBoolean(pages.getDetailAccountPromiseToPay().isBillNumberVisible(), true, "Bill Number Field is visible", "Bill Number Field is NOT visible"));
-                        assertCheck.append(actions.assertEqualStringType(pages.getDetailAccountPromiseToPay().getBillNumber(), billNumber, "Bill Number is same as expected", "Bill Number is NOT same as expected "));
                         assertCheck.append(actions.assertEqualBoolean(pages.getDetailAccountPromiseToPay().isCommentBoxVisible(), true, "Comment box is visible", "Comment box is NOT visible"));
-                        assertCheck.append(actions.assertEqualBoolean(pages.getDetailAccountPromiseToPay().isSubmitBtnDisabled(), true, "Submit button is disabled", "Submit button is not disabled"));
+                        assertCheck.append(actions.assertEqualBoolean(pages.getDetailAccountPromiseToPay().isRaiseSrButtonDisabled(), true, "Raise SR Button  is disabled", "SRaise SR Button is not disabled"));
                         assertCheck.append(actions.assertEqualBoolean(pages.getDetailAccountPromiseToPay().isCancelButtonVisible(), true, "Cancel Button is visible ", "Cancel Button is NOT visible"));
+                        assertCheck.append(actions.assertEqualBoolean(pages.getDetailAccountPromiseToPay().isTotalOutstandingVisible(), true, "Total Outstanding is visible ", "Total Outstanding is NOT visible"));
+                        assertCheck.append(actions.assertEqualBoolean(pages.getDetailAccountPromiseToPay().isLastBillNumberVisible(), true, "Last Bill Number is visible ", "Last Bill Number is NOT visible"));
+                        assertCheck.append(actions.assertEqualBoolean(pages.getDetailAccountPromiseToPay().isLastPaidBillAmountVisible(), true, "Last Paid Bill Amount is visible ", "Last Paid Bill Amount is NOT visible"));
+                        assertCheck.append(actions.assertEqualBoolean(pages.getDetailAccountPromiseToPay().isBillDateAndTimeVisible(), true, "Bill Date And Time is visible ", "Bill Date And Time is NOT visible"));
+                        assertCheck.append(actions.assertEqualBoolean(pages.getDetailAccountPromiseToPay().isPromiseToPayDateVisible(), true, "Promise To Pay Date is visible ", "Promise To Pay Date is NOT visible"));
+                        assertCheck.append(actions.assertEqualBoolean(pages.getDetailAccountPromiseToPay().isRaiseSrButtonEnable(), true, "Raise SR Button  is enable", "Raise SR Button is not enabled"));
+
                         pages.getDetailAccountPromiseToPay().clickOnCancelButton();
                         /**
                          Performing operations after clicking Cancel button of Issue Detail Pop up
@@ -129,7 +131,7 @@ public class DetailAccountPromiseToPayTest extends Driver {
                         assertCheck.append(actions.assertEqualBoolean(pages.getAccountInformationWidget().isAccountInformationWidgetDisplay(), true, "Account Information Widget is visible after closing the Issue Detail Pop up ", "Account Information Widget is NOT visible after closing the Issue Detail Pop up"));
                         pages.getDetailAccountPromiseToPay().performPromiseToPay(row);
                         assertCheck.append(actions.assertEqualBoolean(pages.getDetailAccountPromiseToPay().isSuccessPopUpVisible(), true, "Success Popup visible after PromiseToPay  ", "Success Popup NOT visible after sending visible"));
-                        String successText = "Request for Send Bill has been successfully submitted";
+                        String successText = "SR has been successfully raised ";
                         assertCheck.append(actions.assertEqualStringType(pages.getDetailAccountPromiseToPay().getSuccessText(), successText, "Success text is displayed as expected", "Success text is not displayed as expected"));
                         pages.getDetailAccountPromiseToPay().clickCrossIcon();
                         break;
@@ -138,7 +140,7 @@ public class DetailAccountPromiseToPayTest extends Driver {
             }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
-            commonLib.fail("Exception in Method - validateSendBill" + e.fillInStackTrace(), true);
+            commonLib.fail("Exception in Method - validatePromiseToPay" + e.fillInStackTrace(), true);
         }
     }
 
