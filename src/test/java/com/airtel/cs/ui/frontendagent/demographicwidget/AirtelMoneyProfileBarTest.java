@@ -47,12 +47,20 @@ public class AirtelMoneyProfileBarTest extends Driver {
     @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void clickOnAirtelMoneyProfileUnlock() {
         try {
-            selUtils.addTestcaseDescription("Click on Airtel Money Profile Unlock Widget", "description");
+                pages.getDemoGraphicPage().clickAirtelStatusToUnlock();
+                assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isAuthTabLoad(), true, "Authentication tab loaded correctly", "Authentication tab does not load correctly"));
+                pages.getDemoGraphicPage().selectPolicyQuestion();
+                assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isAuthBtnEnable(), true, "Authenticate Button enabled after minimum number of question chosen", "Authenticate Button does not enable after choose minimum number of question"));
+                pages.getAuthTabPage().clickAuthBtn();
+                assertCheck.append(actions.assertEqualStringType(pages.getAuthTabPage().getWidgetUnlockMessage(), "Unlocking the widget", "Unlock Widget, Successfully", "Unlock Widget, Un-Successful"));
+                assertCheck.append(actions.assertEqualStringType(pages.getAuthTabPage().getToastMessage(), "Customer response saved successfully", "Toast Message Shown Successfully", "Toast Message NOT Successful"));
+            } catch (Exception e) {
+                pages.getAuthTabPage().clickCloseBtn();
+                commonLib.fail("Not able to unlock Airtel Money Profile", true);
+            }
+       // assertCheck.append(actions.assertEqualStringType(pages.getAirtelMoneyProfilePage().isBarredReasonLabelVisible(), "Barred reason label Visible ", "Barred reason label Visible", "Unlock Widget, Un-Successful"));
+        //assertCheck.append(actions.assertEqualStringType(pages.getAirtelMoneyProfilePage().isBarredOnLabelVisible(), "Barred On label Visible ", "Barred On label Visible", "Unlock Widget, Un-Successful"));
+        //assertCheck.append(actions.assertEqualStringType(pages.getAirtelMoneyProfilePage().isBarIconVisible(), "Bar Icon Visible ", "Bar Icon Visible", "Unlock Widget, Un-Successful"));
 
-
-        }
-        catch (Exception e) {
-            commonLib.fail("Exception in Method - openCustomerInteraction" + e.fillInStackTrace(), true);
-        }
     }
 }

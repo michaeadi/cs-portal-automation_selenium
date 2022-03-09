@@ -233,16 +233,13 @@ public class PageCollection {
         return new DetailAccountSendBill(driver);
     }
 
-    public ActiveVasWidget getActiveVasWidget() {
-        return new ActiveVasWidget(driver);
-    }
-
-    public ServiceProfileDetailWidget getServiceProfileDetailWidget() {
-        return new ServiceProfileDetailWidget(driver);
+    public DetailAccountPromiseToPay getDetailAccountPromiseToPay() {
+        return new DetailAccountPromiseToPay(driver);
     }
 
     public AmTcpLimits getAmTcpLimits() {
         return new AmTcpLimits(driver);
     }
+
 
 }

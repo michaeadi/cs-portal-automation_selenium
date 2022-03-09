@@ -51,7 +51,7 @@ public class AirtelMoneyProfileBar extends BasePage {
     /**
      * This method is used to check Barred Reason Param visible or not
      */
-    public boolean isBarredReasonVisible() {
+    public boolean isBarredReasonLabelVisible() {
         boolean status = isVisible(pageElements.barredReason);
         commonLib.pass("Barred Reason Param visible : " + status);
         return status;
@@ -60,8 +60,8 @@ public class AirtelMoneyProfileBar extends BasePage {
     /**
      * This method is used to check Barred Reason Value visible or not
      */
-    public boolean isBarredReasonValueVisible() {
-        boolean status = isVisible(pageElements.barredReasonValue);
+    public boolean isBarredReasonTextVisible() {
+        boolean status = isVisible(pageElements.barredReasonText);
         commonLib.pass("Barred Reason Value visible : " + status);
         return status;
     }
@@ -69,7 +69,7 @@ public class AirtelMoneyProfileBar extends BasePage {
     /**
      * This method is used to check Barred On Param visible or not
      */
-    public boolean isBarredOnVisible() {
+    public boolean isBarredOnLabelVisible() {
         boolean status = isVisible(pageElements.barredOn);
         commonLib.pass("Barred On Param visible : " + status);
         return status;
@@ -78,8 +78,8 @@ public class AirtelMoneyProfileBar extends BasePage {
     /**
      * This method is used to check Barred On Value visible or not
      */
-    public boolean isBarredOnValueVisible() {
-        boolean status = isVisible(pageElements.barredOnValue);
+    public boolean isBarredOnTextVisible() {
+        boolean status = isVisible(pageElements.barredOnText);
         commonLib.pass("Barred On Value visible : " + status);
         return status;
     }
@@ -149,7 +149,7 @@ public class AirtelMoneyProfileBar extends BasePage {
      * This method is used to check Select Bar Type visible or not
      */
     public boolean isSelectBarTypeVisible() {
-        boolean status = isVisible(pageElements.selectBarType);
+        boolean status = isVisible(pageElements.selectBarTypeLabel);
         commonLib.pass("Select Bar Type is visible : " + status);
         return status;
     }
@@ -168,7 +168,7 @@ public class AirtelMoneyProfileBar extends BasePage {
      */
 
     public boolean isCommentBoxVisible() {
-        boolean status = isVisible(pageElements.commentBox);
+        boolean status = isVisible(pageElements.commentBoxLabel);
         commonLib.info("Is Comment Box Visible  + status");
         return status;
     }

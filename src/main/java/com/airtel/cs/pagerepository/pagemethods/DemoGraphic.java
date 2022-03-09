@@ -750,7 +750,7 @@ public class DemoGraphic extends BasePage {
     /**
      * This method is used to check configuration of passed label
      */
-    public void checkConfiguration(Configuration config, String label) {
+    public void checkConfigurationWithLabel(Configuration config, String label) {
         try {
             commonLib.info("Checking configuration");
             List<CustomerDemographicSection> customerDemographic = config.getResult().getCustomerDemographicDetailsWidgets();
@@ -784,6 +784,36 @@ public class DemoGraphic extends BasePage {
         } catch (Exception e) {
             commonLib.fail("Exception in method - " + e.fillInStackTrace(), true);
         }
+    }
+
+    /**
+     * This method is used to check configuration of passed Name
+     * @return
+     */
+    public int checkConfigurationWithTab(Configuration config, String tab) {
+        try {
+            commonLib.info("Checking configuration");
+            List<CustomerDemographicSection> customerDemographic = config.getResult().getCustomerDemographicDetailsWidgets();
+            int flag = 0;
+            for (int z = 0; z < customerDemographic.size(); z++) {
+                List<Tabs> tabsList = customerDemographic.get(z).getWidgetConfig().getTabs();
+                for (int j = 0; j < tabsList.size(); j++) {
+                    String name = tabsList.get(j).getName();
+                    if (name.equalsIgnoreCase(tab)) {
+                        flag++;
+                        break;
+                    }
+                    if (flag > 0)
+                        break;
+                }
+                if (flag > 0)
+                    break;
+            }
+            return flag;
+        } catch (Exception e) {
+            commonLib.fail("Exception in method - " + e.fillInStackTrace(), true);
+        }
+        return 0;
     }
 
     /**
@@ -842,5 +872,53 @@ public class DemoGraphic extends BasePage {
         final String text = getText(pageElements.customerPreferenceLanguage);
         commonLib.info("Getting Customer Preference Language " + text);
         return text;
+    }
+
+    /**
+     * This method is used to click on Others tab
+     */
+
+    public void clickOthers() {
+        commonLib.pass("Clicking on Others tab ");
+        clickWithoutLoader(pageElements.othersTab);
+    }
+
+    /**
+     * This method is used to check configuration of passed label
+     */
+    public void checkConfiguration(Configuration config, String label) {
+        try {
+            commonLib.info("Checking configuration");
+            List<CustomerDemographicSection> customerDemographic = config.getResult().getCustomerDemographicDetailsWidgets();
+            int flag = 0;
+            for (int z = 0; z < customerDemographic.size(); z++) {
+                List<Tabs> tabsList = customerDemographic.get(z).getWidgetConfig().getTabs();
+                for (int i = 0; i < tabsList.size(); i++) {
+                    for (int j = 0; j < tabsList.size(); j++) {
+                        List<CustomDetails> customDetail = tabsList.get(i).getCustomDetails().get(j);
+                        for (int x = 0; x < customDetail.size(); x++) {
+                            String displayName = customDetail.get(x).getDisplayName();
+                            if (displayName.equalsIgnoreCase(label) && i == 0) {
+                                clickGSMTab();
+                                flag++;
+                                break;
+                            } else if (displayName.equalsIgnoreCase(label) && i == 1) {
+                                clickOthersTab();
+                                flag++;
+                                break;
+                            }
+                        }
+                        if (flag > 0)
+                            break;
+                    }
+                    if (flag > 0)
+                        break;
+                }
+                if (flag > 0)
+                    break;
+            }
+        } catch (Exception e) {
+            commonLib.fail("Exception in method - " + e.fillInStackTrace(), true);
+        }
     }
 }
