@@ -1,7 +1,10 @@
 package com.airtel.cs.ui.frontendagent.demographicwidget;
-
 import com.airtel.cs.api.ESBRequestSource;
 import com.airtel.cs.api.RequestSource;
+<<<<<<< HEAD:src/test/java/com/airtel/cs/ui/frontendagent/demographicwidget/DemoGraphicWidgetPrepaidMsisdnTest.java
+=======
+import com.airtel.cs.commonutils.utils.UtilsMethods;
+>>>>>>> ec3260f2e94023a4375a7fb8e35a49989f593bf4:src/test/java/com/airtel/cs/ui/frontendagent/demographicwidget/DemoGraphicWidgetHybridMsisdnTest.java
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.driver.Driver;
@@ -28,8 +31,15 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.airtel.cs.commonutils.utils.UtilsMethods.stringNotNull;
+<<<<<<< HEAD:src/test/java/com/airtel/cs/ui/frontendagent/demographicwidget/DemoGraphicWidgetPrepaidMsisdnTest.java
 
-public class DemoGraphicWidgetHybridMsisdnTest extends Driver {
+public class DemoGraphicWidgetPrepaidMsisdnTest extends Driver {
+=======
+
+
+@Log4j2
+public class DemoGraphicWidgetHybridMsisdnTest extends Driver{
+>>>>>>> ec3260f2e94023a4375a7fb8e35a49989f593bf4:src/test/java/com/airtel/cs/ui/frontendagent/demographicwidget/DemoGraphicWidgetHybridMsisdnTest.java
     private static String customerNumber = null;
     private String customerName = null;
     RequestSource api = new RequestSource();
@@ -51,7 +61,11 @@ public class DemoGraphicWidgetHybridMsisdnTest extends Driver {
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
+<<<<<<< HEAD:src/test/java/com/airtel/cs/ui/frontendagent/demographicwidget/DemoGraphicWidgetPrepaidMsisdnTest.java
             customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
+=======
+            customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_HYBRID_MSISDN);
+>>>>>>> ec3260f2e94023a4375a7fb8e35a49989f593bf4:src/test/java/com/airtel/cs/ui/frontendagent/demographicwidget/DemoGraphicWidgetHybridMsisdnTest.java
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().openCustomerInteractionPage();
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
@@ -69,13 +83,20 @@ public class DemoGraphicWidgetHybridMsisdnTest extends Driver {
     @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void getConnectionType() {
         try {
+<<<<<<< HEAD:src/test/java/com/airtel/cs/ui/frontendagent/demographicwidget/DemoGraphicWidgetPrepaidMsisdnTest.java
             selUtils.addTestcaseDescription("Getting Connection type of passed msisdn", "description");
+=======
+            selUtils.addTestcaseDescription("Validate KYC Profile , Getting Connection Type ", "description");
+>>>>>>> ec3260f2e94023a4375a7fb8e35a49989f593bf4:src/test/java/com/airtel/cs/ui/frontendagent/demographicwidget/DemoGraphicWidgetHybridMsisdnTest.java
             kycProfile = api.kycProfileAPITest(customerNumber);
             final Integer statusCode = kycProfile.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "KYC Profile API Status Code Matched and is :" + statusCode, "KYC Profile API Status Code NOT Matched and is :" + statusCode, false));
             lineType = kycProfile.getResult().getLineType().toLowerCase().trim();
             config = api.getConfiguration("customerDemographicDetailsWidgets", lineType);
+<<<<<<< HEAD:src/test/java/com/airtel/cs/ui/frontendagent/demographicwidget/DemoGraphicWidgetPrepaidMsisdnTest.java
             commonLib.info("connection type is :" + lineType);
+=======
+>>>>>>> ec3260f2e94023a4375a7fb8e35a49989f593bf4:src/test/java/com/airtel/cs/ui/frontendagent/demographicwidget/DemoGraphicWidgetHybridMsisdnTest.java
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - getConnectionType" + e.fillInStackTrace(), true);
@@ -95,8 +116,12 @@ public class DemoGraphicWidgetHybridMsisdnTest extends Driver {
             final String customerName = pages.getDemoGraphicPage().getCustomerName();
             assertCheck.append(actions.matchUiAndAPIResponse(customerName, gsmKycAPI.getResult().getName(), "Customer Name is as Expected", "Customer Name is not as Expected"));
             pages.getDemoGraphicPage().checkConfiguration(config, "GSM KYC Status");
+<<<<<<< HEAD:src/test/java/com/airtel/cs/ui/frontendagent/demographicwidget/DemoGraphicWidgetPrepaidMsisdnTest.java
             assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getGsmKycStatus().toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(gsmKycAPI.getResult().getGsm()),
                     "Customer's GSM KYC Status is as Expected", "Customer's GSM KYC Status is not as Expected"));
+=======
+            assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getGsmKycStatus().toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(gsmKycAPI.getResult().getGsm()), "Customer's GSM KYC Status is as Expected", "Customer's GSM KYC Status is not as Expected"));
+>>>>>>> ec3260f2e94023a4375a7fb8e35a49989f593bf4:src/test/java/com/airtel/cs/ui/frontendagent/demographicwidget/DemoGraphicWidgetHybridMsisdnTest.java
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
             commonLib.fail("Exception in method - testCustomerNameAndGsmKYCStatus " + e, true);
@@ -135,7 +160,7 @@ public class DemoGraphicWidgetHybridMsisdnTest extends Driver {
                     assertCheck.append(actions.assertEqualBoolean(StringUtils.contains(gsmKycAPI.getResult().getIdentificationNo(), customerIdNumber), true,
                             "Customer's ID Number is as Expected", "Customer's ID Number is not as Expected and Expected was :" + customerIdNumber));
                 }
-            }
+            }actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in method - testCustomerDetails" + e.fillInStackTrace(), true);
         }
@@ -156,6 +181,29 @@ public class DemoGraphicWidgetHybridMsisdnTest extends Driver {
                 assertCheck.append(actions.assertEqualStringType(pages.getAuthTabPage().getWidgetUnlockMessage(), "Unlocking the widget", "Unlock Widget, Successfully", "Unlock Widget, Un-Successful"));
                 assertCheck.append(actions.assertEqualStringType(pages.getAuthTabPage().getToastMessage(), "Customer response saved successfully", "Toast Message Matched Successfully", "Toast Message NOT Matched"));
             }
+<<<<<<< HEAD:src/test/java/com/airtel/cs/ui/frontendagent/demographicwidget/DemoGraphicWidgetPrepaidMsisdnTest.java
+        } catch (Exception e) {
+            commonLib.fail("Exception in method - testCustomerDetails" + e.fillInStackTrace(), true);
+        }
+    }
+
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction", "getConnectionType"})
+    public void testPukDetails() {
+        try {
+            selUtils.addTestcaseDescription("Verify Auuid shown in middle and at the footer of the demographic widget, Verify PUK is locked or unlocked, If Locked then verify data, else unlock PUK details, Validate PUK1 and PUK2", "description");
+            config = api.getConfiguration("customerDemographicDetailsWidgets", lineType);
+            pages.getDemoGraphicPage().checkConfiguration(config, "PUK");
+            if (pages.getDemoGraphicPage().isPUKInfoLocked()) {
+                pages.getDemoGraphicPage().clickPUKToUnlock();
+                assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isAuthTabLoad(), true, "Authentication tab loaded correctly", "Authentication tab does not load correctly"));
+                pages.getDemoGraphicPage().selectPolicyQuestion();
+                assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isAuthBtnEnable(), true, "Authenticate Button enabled after minimum number of question chosen", "Authenticate Button does not enable after choose minimum number of question"));
+                pages.getAuthTabPage().clickAuthBtn();
+                assertCheck.append(actions.assertEqualStringType(pages.getAuthTabPage().getWidgetUnlockMessage(), "Unlocking the widget", "Unlock Widget, Successfully", "Unlock Widget, Un-Successful"));
+                assertCheck.append(actions.assertEqualStringType(pages.getAuthTabPage().getToastMessage(), "Customer response saved successfully", "Toast Message Matched Successfully", "Toast Message NOT Matched"));
+            }
+=======
+>>>>>>> ec3260f2e94023a4375a7fb8e35a49989f593bf4:src/test/java/com/airtel/cs/ui/frontendagent/demographicwidget/DemoGraphicWidgetHybridMsisdnTest.java
             assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getPUK1().trim(), kycProfile.getResult().getPuk().get(0).getValue(), "Customer's PUK1 Number is as Expected", "Customer's PUK1 Number is not as Expected"));
             assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getPUK2().trim(), kycProfile.getResult().getPuk().get(1).getValue(), "Customer's PUK2 Number is as Expected", "Customer's PUK2 Number is not as Expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
@@ -259,7 +307,11 @@ public class DemoGraphicWidgetHybridMsisdnTest extends Driver {
                 assertCheck.append(actions.assertEqualStringType(serviceCategory.toLowerCase().trim(), pages.getDemoGraphicPage().getKeyValueAPI(kycProfile.getResult().getServiceCategory()), "Customer Service Category as expected", "Customer Service Category as not expected and is: " + serviceCategory));
             }
             if (kycProfile.getResult().getVip()) {
+<<<<<<< HEAD:src/test/java/com/airtel/cs/ui/frontendagent/demographicwidget/DemoGraphicWidgetPrepaidMsisdnTest.java
                 assertCheck.append(actions.assertEqualBoolean(pages.getDemoGraphicPage().isVIP(), true, "Customer is VIP but Icon displayed as expected", "Customer is VIP but Icon does not display as expected"));
+=======
+                assertCheck.append(actions.assertEqualBoolean(pages.getDemoGraphicPage().isVIP(), true, "Customer is VIP and Icon displayed as expected", "Customer is VIP but Icon does not display as expected"));
+>>>>>>> ec3260f2e94023a4375a7fb8e35a49989f593bf4:src/test/java/com/airtel/cs/ui/frontendagent/demographicwidget/DemoGraphicWidgetHybridMsisdnTest.java
             }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
@@ -309,6 +361,7 @@ public class DemoGraphicWidgetHybridMsisdnTest extends Driver {
 
     @Test(priority = 13, groups = {"SanityTest", "RegressionTest", "ProdTest"} ,dependsOnMethods= {"openCustomerInteraction", "getConnectionType"})
     public void testEmailIdAndAccountNumber() {
+<<<<<<< HEAD:src/test/java/com/airtel/cs/ui/frontendagent/demographicwidget/DemoGraphicWidgetPrepaidMsisdnTest.java
         try {
             selUtils.addTestcaseDescription("Validate Email Id ", "description");
             pages.getDemoGraphicPage().checkConfiguration(config, "Email Id");
@@ -402,13 +455,100 @@ public class DemoGraphicWidgetHybridMsisdnTest extends Driver {
             pages.getDemoGraphicPage().enterMSISDN(constants.getValue("cs.invalid.msisdn"));
             pages.getDemoGraphicPage().waitTillLoaderGetsRemoved();
             assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().invalidMSISDNError(), "Entered customer number is Invalid", "Error Message Correctly Displayed", "Error Message NOT Displayed Correctly"));
+=======
+        try {
+            selUtils.addTestcaseDescription("Validate Email Id ", "description");
+            pages.getDemoGraphicPage().checkConfiguration(config, "Email Id");
+            List<String> customerDetails = api.searchAPITest(customerNumber);
+            final String emailId = pages.getAccountInformationWidget().getValue(customerDetails, "KYC", "email");
+            assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getEmail(), emailId, "Customer's Email ID is as expected", "Customer's Email ID is not as expected"));
+            pages.getDemoGraphicPage().checkConfiguration(config, "Account Number");
+            final String accountNumber = pages.getAccountInformationWidget().getValue(customerDetails, "KYC", "customerAccountNumber");
+            assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getAccountNumber(), accountNumber, "Customer's Account Number  is as expected", "Customer's Account number is not as expected"));
+>>>>>>> ec3260f2e94023a4375a7fb8e35a49989f593bf4:src/test/java/com/airtel/cs/ui/frontendagent/demographicwidget/DemoGraphicWidgetHybridMsisdnTest.java
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
-            commonLib.fail("Exception in Method - invalidMSISDNTest" + e.fillInStackTrace(), true);
+            commonLib.fail("Exception in method - testEmailIdAndAccountNumber" + e.fillInStackTrace(), true);
         }
     }
 
+<<<<<<< HEAD:src/test/java/com/airtel/cs/ui/frontendagent/demographicwidget/DemoGraphicWidgetPrepaidMsisdnTest.java
     @Test(priority = 16, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+=======
+    @Test(priority = 14, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction", "getConnectionType"})
+    public void testAirtelMoneyProfile() {
+        try {
+            if (StringUtils.equalsIgnoreCase(constants.getValue(ApplicationConstants.AIRTEL_MONEY_PROFILE), "true")) {
+                selUtils.addTestcaseDescription("Verify Airtel Money Profile is locked or unlocked, if locked then verify data, else unlock Airtel Money Profile", "description");
+                assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getMiddleAuuidAMP(), loginAUUID, "Auuid is visible at the middle of the Airtel Money Profile widget and is correct", "Auuid is NOT visible at the middle of the Airtel Money Profile widget"));
+                assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getFooterAuuidAMP(), loginAUUID, "Auuid is visible at the footer of the Airtel Money Profile widget and is correct", "Auuid is NOT visible at the footer of the Airtel Money Profile widget"));
+                Profile profileAPI = api.profileAPITest(customerNumber);
+                final int statusCode = profileAPI.getStatusCode();
+                assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Profile API Status Code Matched and is :" + statusCode, "Profile API Status Code NOT Matched and is :" + statusCode, false));
+                AMProfile amProfileAPI = api.amServiceProfileAPITest(customerNumber);
+                final int amProfileAPIStatusCode = amProfileAPI.getStatusCode();
+                assertCheck.append(actions.assertEqualIntType(amProfileAPIStatusCode, 200, "AM Profile API Status Code Matched and is :" + amProfileAPIStatusCode, "AM Profile API Status Code NOT Matched and is :" + amProfileAPIStatusCode, false));
+                if (pages.getDemoGraphicPage().isAirtelMoneyProfileLocked()) {
+                    try {
+                        pages.getDemoGraphicPage().clickAirtelStatusToUnlock();
+                        assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isAuthTabLoad(), true, "Authentication tab loaded correctly", "Authentication tab does not load correctly"));
+                        pages.getDemoGraphicPage().selectPolicyQuestion();
+                        assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isAuthBtnEnable(), true, "Authenticate Button enabled after minimum number of question chosen", "Authenticate Button does not enable after choose minimum number of question"));
+                        pages.getAuthTabPage().clickAuthBtn();
+                        assertCheck.append(actions.assertEqualStringType(pages.getAuthTabPage().getWidgetUnlockMessage(), "Unlocking the widget", "Unlock Widget, Successfully", "Unlock Widget, Un-Successful"));
+                        assertCheck.append(actions.assertEqualStringType(pages.getAuthTabPage().getToastMessage(), "Customer response saved successfully", "Toast Message Shown Successfully", "Toast Message NOT Successful"));
+                    } catch (Exception e) {
+                        pages.getAuthTabPage().clickCloseBtn();
+                        commonLib.fail("Not able to unlock Airtel Money Profile", true);
+                    }
+                }
+                assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getAccountStatus().toLowerCase().trim(), pages.getDemoGraphicPage().getKeyValueAPI(profileAPI.getResult().getAirtelMoneyStatus()), "Customer's Airtel Money Status is as Expected", "Customer's Airtel Money Status is not as Expected"));
+                assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getServiceStatus().toLowerCase().trim(), pages.getDemoGraphicPage().getKeyValueAPI(profileAPI.getResult().getServiceStatus()), "Customer's Airtel Money Service Status is as Expected", "Customer's Airtel Money Service Status is not as Expected"));
+                assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getRegistrationStatus().toLowerCase().trim(), pages.getDemoGraphicPage().getKeyValueAPI(amProfileAPI.getResult().getRegStatus()), "Customer's Airtel Money Registration Status as Expected", "Customer's Airtel Money Registration Status not same not as Expected"));
+                if (StringUtils.equalsIgnoreCase(constants.getValue(ApplicationConstants.MULTI_WALLET_BALANCE), "true")) {
+                    assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getWalletBalance2().toLowerCase().trim(), pages.getDemoGraphicPage().getKeyValueAPI(amProfileAPI.getResult().getWallets().get(1).getCurrency().toUpperCase()) + " " + pages.getDemoGraphicPage().getKeyValueAPI(amProfileAPI.getResult().getWallets().get(1).getBalance()), "Customer's Airtel Wallet Balance & Currency code as Expected", "Customer's Airtel Wallet Balance & Currency code not same not as Expected"));
+                }
+                String airtelMoneyString = pages.getDemoGraphicPage().getWalletBalance().replaceAll("[^0-9]", "").trim();
+                int airtelMoney = StringUtils.isEmpty(airtelMoneyString) ? 0 : Integer.parseInt(airtelMoneyString);
+                ActionConfigResult actionConfigResult = api.getActionConfig(new Headers(map), "resetPin");
+                List<String> actionConfigRoles = actionConfigResult.getRoles();
+                List<RoleDetails> agentRoles = UtilsMethods.getAgentDetail(new Headers(map)).getUserDetails().getUserDetails().getRole();
+                boolean hasRole = ObjectUtils.isNotEmpty(actionConfigRoles) && agentRoles.stream().anyMatch(roleName -> actionConfigRoles.contains(roleName.getRoleName()));
+                String operator;
+                if (ObjectUtils.isNotEmpty(actionConfigResult.getConditions())) {
+                    Condition condition = actionConfigResult.getConditions().get(0);
+                    operator = condition.getOperator();
+                    Integer thresholdValue = condition.getThresholdValue();
+                    if (hasRole && (">=".equals(operator) && airtelMoney >= thresholdValue
+                            || "<".equals(operator) && airtelMoney < thresholdValue || "=".equals(operator) && airtelMoney == thresholdValue
+                            || "<=".equals(operator) && airtelMoney <= thresholdValue || ">".equals(operator) && airtelMoney > thresholdValue)) {
+                        assertCheck.append(actions.assertEqualBoolean(pages.getDemoGraphicPage().isResetPinIconDisable(), true, "Reset PIN Icon is disable as mentioned in CS API Response", "Reset PIN Icon is not disable as mentioned in CS API Response"));
+                    }
+                } else
+                    assertCheck.append(actions.assertEqualBoolean(pages.getDemoGraphicPage().isResetPinIconDisable(), false, "Reset PIN Icon is enable as mentioned in CS API Response", "Reset PIN Icon is not enable as mentioned in CS API Response"));
+                FieldMaskConfigs amBalanceFieldMaskConfigs = api.getFieldMaskConfigs("amBalance");
+                operator = amBalanceFieldMaskConfigs.getOperator();
+                int amThresholdValue = StringUtils.isEmpty(amBalanceFieldMaskConfigs.getThresholdValue()) ? 0 : Integer.parseInt(amBalanceFieldMaskConfigs.getThresholdValue());
+                hasRole = ObjectUtils.isNotEmpty(amBalanceFieldMaskConfigs.getRoles()) && agentRoles.stream().anyMatch(roleName -> amBalanceFieldMaskConfigs.getRoles().contains(roleName.getRoleName()));
+                if (hasRole && ((">=".equals(operator) && airtelMoney >= amThresholdValue) || ("<".equals(operator)
+                        && airtelMoney < amThresholdValue) || ("=".equals(operator) && airtelMoney == amThresholdValue) || ("<=".equals(operator)
+                        && airtelMoney <= amThresholdValue) || (">".equals(operator) && airtelMoney > amThresholdValue))) {
+                    assertCheck.append(actions.assertEqualBoolean(airtelMoneyString.length() == amBalanceFieldMaskConfigs.getDigitsVisible(), true, "Airtel Money masking is correct as per user role", "Airtel Money masking is not correct as per user role"));
+                } else {
+                    assertCheck.append(actions.assertEqualBoolean(airtelMoneyString.contains("*"), false, "Airtel Money is not masked as per user role", "Airtel Money should not be masked as per user role"));
+                    assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getWalletBalance(), amProfileAPI.getResult().getWallets().get(0).getCurrency().toUpperCase() + " " + amProfileAPI.getResult().getWallets().get(0).getBalance(), "Customer's Airtel Wallet Balance & Currency code as Expected", "Customer's Airtel Wallet Balance & Currency code not same not as Expected"));
+                }
+                actions.assertAllFoundFailedAssert(assertCheck);
+            } else {
+                commonLib.skip("Airtel Money Profile is Not configured for Opco=" + OPCO);
+            }
+        } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
+            commonLib.fail("Exception in method - testAirtelMoneyProfile " + e, true);
+        }
+    }
+
+    @Test(priority = 15, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+>>>>>>> ec3260f2e94023a4375a7fb8e35a49989f593bf4:src/test/java/com/airtel/cs/ui/frontendagent/demographicwidget/DemoGraphicWidgetHybridMsisdnTest.java
     public void testServiceClassRatePlanAPI() {
         try {
             selUtils.addTestcaseDescription("Validate Service Class and Rate Plan", "description");
@@ -419,6 +559,21 @@ public class DemoGraphicWidgetHybridMsisdnTest extends Driver {
         } catch (Exception e) {
             commonLib.fail("Exception in method - testServiceClassRatePlanAPI " + e.fillInStackTrace(), true);
         }
+<<<<<<< HEAD:src/test/java/com/airtel/cs/ui/frontendagent/demographicwidget/DemoGraphicWidgetPrepaidMsisdnTest.java
+=======
+    }
+>>>>>>> ec3260f2e94023a4375a7fb8e35a49989f593bf4:src/test/java/com/airtel/cs/ui/frontendagent/demographicwidget/DemoGraphicWidgetHybridMsisdnTest.java
 
+    @Test(priority = 16, groups = {"RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    public void invalidMSISDNTest() {
+        try {
+            selUtils.addTestcaseDescription("Validating the Demographic Information of User with invalid MSISDN : 123456789", "description");
+            pages.getDemoGraphicPage().enterMSISDN(constants.getValue("cs.invalid.msisdn"));
+            pages.getDemoGraphicPage().waitTillLoaderGetsRemoved();
+            assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().invalidMSISDNError(), "Entered customer number is Invalid", "Error Message Correctly Displayed", "Error Message NOT Displayed Correctly"));
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - invalidMSISDNTest" + e.fillInStackTrace(), true);
+        }
     }
 }

@@ -1789,11 +1789,16 @@ public class RequestSource extends RestCommonUtils {
         return response.as(IssueLayoutRequest.class);
     }
 
-    public CategoryHierarchyRequest getParentCategoryId(List<Header> map, Integer categoryId) {
+    public CategoryHierarchyRequest getParentCategoryId(List<Header> map, Integer categoryId, Integer statusCode) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         queryParam.put("id", String.valueOf(categoryId));
-        commonGetMethodWithQueryParam(URIConstants.PARENT_CATEGORY, queryParam, map);
+        commonGetMethodWithQueryParam(URIConstants.PARENT_CATEGORY, queryParam, validHeaderList);
         return response.as(CategoryHierarchyRequest.class);
+    }
+
+    public CategoryHierarchyRequest getParentCategoryId(List<Header> map, Integer categoryId) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
+        return getParentCategoryId(map, categoryId, 200);
     }
 
     public CategoryHierarchyRequest firstLastCategoryHierarchyTest(List<Header> map) {

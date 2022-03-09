@@ -1,9 +1,8 @@
 package com.airtel.cs.ui.frontendagent.demographicwidget;
-
 import com.airtel.cs.api.ESBRequestSource;
 import com.airtel.cs.api.RequestSource;
-import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.utils.UtilsMethods;
+import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.model.response.actionconfig.ActionConfigResult;
 import com.airtel.cs.model.response.actionconfig.Condition;
@@ -16,6 +15,7 @@ import com.airtel.cs.model.response.kycprofile.KYCProfile;
 import com.airtel.cs.model.response.kycprofile.Profile;
 import com.airtel.cs.model.response.plans.Plans;
 import io.restassured.http.Headers;
+import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.NoSuchElementException;
@@ -29,7 +29,9 @@ import java.util.Objects;
 
 import static com.airtel.cs.commonutils.utils.UtilsMethods.stringNotNull;
 
-public class DemoGraphicWidgetPrepaidMsisdnTest extends Driver {
+
+@Log4j2
+public class DemoGraphicWidgetPrepaidMsisdnTest extends Driver{
     private static String customerNumber = null;
     private String customerName = null;
     RequestSource api = new RequestSource();
@@ -51,7 +53,7 @@ public class DemoGraphicWidgetPrepaidMsisdnTest extends Driver {
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
-            customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
+            customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_PREPAID_MSISDN);
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().openCustomerInteractionPage();
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
@@ -69,13 +71,12 @@ public class DemoGraphicWidgetPrepaidMsisdnTest extends Driver {
     @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void getConnectionType() {
         try {
-            selUtils.addTestcaseDescription("Getting Connection type of passed msisdn", "description");
+            selUtils.addTestcaseDescription("Validate KYC Profile , Getting Connection Type ", "description");
             kycProfile = api.kycProfileAPITest(customerNumber);
             final Integer statusCode = kycProfile.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "KYC Profile API Status Code Matched and is :" + statusCode, "KYC Profile API Status Code NOT Matched and is :" + statusCode, false));
             lineType = kycProfile.getResult().getLineType().toLowerCase().trim();
             config = api.getConfiguration("customerDemographicDetailsWidgets", lineType);
-            commonLib.info("connection type is :" + lineType);
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - getConnectionType" + e.fillInStackTrace(), true);
@@ -95,8 +96,7 @@ public class DemoGraphicWidgetPrepaidMsisdnTest extends Driver {
             final String customerName = pages.getDemoGraphicPage().getCustomerName();
             assertCheck.append(actions.matchUiAndAPIResponse(customerName, gsmKycAPI.getResult().getName(), "Customer Name is as Expected", "Customer Name is not as Expected"));
             pages.getDemoGraphicPage().checkConfiguration(config, "GSM KYC Status");
-            assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getGsmKycStatus().toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(gsmKycAPI.getResult().getGsm()),
-                    "Customer's GSM KYC Status is as Expected", "Customer's GSM KYC Status is not as Expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getGsmKycStatus().toLowerCase(), pages.getDemoGraphicPage().getKeyValueAPI(gsmKycAPI.getResult().getGsm()), "Customer's GSM KYC Status is as Expected", "Customer's GSM KYC Status is not as Expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
             commonLib.fail("Exception in method - testCustomerNameAndGsmKYCStatus " + e, true);
@@ -135,7 +135,7 @@ public class DemoGraphicWidgetPrepaidMsisdnTest extends Driver {
                     assertCheck.append(actions.assertEqualBoolean(StringUtils.contains(gsmKycAPI.getResult().getIdentificationNo(), customerIdNumber), true,
                             "Customer's ID Number is as Expected", "Customer's ID Number is not as Expected and Expected was :" + customerIdNumber));
                 }
-            }
+            }actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in method - testCustomerDetails" + e.fillInStackTrace(), true);
         }
@@ -259,7 +259,7 @@ public class DemoGraphicWidgetPrepaidMsisdnTest extends Driver {
                 assertCheck.append(actions.assertEqualStringType(serviceCategory.toLowerCase().trim(), pages.getDemoGraphicPage().getKeyValueAPI(kycProfile.getResult().getServiceCategory()), "Customer Service Category as expected", "Customer Service Category as not expected and is: " + serviceCategory));
             }
             if (kycProfile.getResult().getVip()) {
-                assertCheck.append(actions.assertEqualBoolean(pages.getDemoGraphicPage().isVIP(), true, "Customer is VIP but Icon displayed as expected", "Customer is VIP but Icon does not display as expected"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getDemoGraphicPage().isVIP(), true, "Customer is VIP and Icon displayed as expected", "Customer is VIP but Icon does not display as expected"));
             }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
@@ -318,6 +318,7 @@ public class DemoGraphicWidgetPrepaidMsisdnTest extends Driver {
             pages.getDemoGraphicPage().checkConfiguration(config, "Account Number");
             final String accountNumber = pages.getAccountInformationWidget().getValue(customerDetails, "KYC", "customerAccountNumber");
             assertCheck.append(actions.assertEqualStringType(pages.getDemoGraphicPage().getAccountNumber(), accountNumber, "Customer's Account Number  is as expected", "Customer's Account number is not as expected"));
+            actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in method - testEmailIdAndAccountNumber" + e.fillInStackTrace(), true);
         }
@@ -395,7 +396,20 @@ public class DemoGraphicWidgetPrepaidMsisdnTest extends Driver {
         }
     }
 
-    @Test(priority = 15, groups = {"RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 15, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    public void testServiceClassRatePlanAPI() {
+        try {
+            selUtils.addTestcaseDescription("Validate Service Class and Rate Plan", "description");
+            final String msisdn = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
+            List<String> customerDetails = api.searchAPITest(msisdn);
+            assertCheck.append(actions.assertEqualStringNotNull(pages.getAccountInformationWidget().getValue(customerDetails, "KYC", "serviceClass"), "Service Class and Rate Plan test case pass", "Service Class and Rate Plan test case fail", false));
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            commonLib.fail("Exception in method - testServiceClassRatePlanAPI " + e.fillInStackTrace(), true);
+        }
+    }
+
+    @Test(priority = 16, groups = {"RegressionTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void invalidMSISDNTest() {
         try {
             selUtils.addTestcaseDescription("Validating the Demographic Information of User with invalid MSISDN : 123456789", "description");
@@ -408,16 +422,5 @@ public class DemoGraphicWidgetPrepaidMsisdnTest extends Driver {
         }
     }
 
-    @Test(priority = 16, groups = {"SanityTest", "RegressionTest", "ProdTest"})
-    public void testServiceClassRatePlanAPI() {
-        try {
-            selUtils.addTestcaseDescription("Validate Service Class and Rate Plan", "description");
-            final String msisdn = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
-            List<String> customerDetails = api.searchAPITest(msisdn);
-            assertCheck.append(actions.assertEqualStringNotNull(pages.getAccountInformationWidget().getValue(customerDetails, "KYC", "serviceClass"), "Service Class and Rate Plan test case pass", "Service Class and Rate Plan test case fail", false));
-            actions.assertAllFoundFailedAssert(assertCheck);
-        } catch (Exception e) {
-            commonLib.fail("Exception in method - testServiceClassRatePlanAPI " + e.fillInStackTrace(), true);
-        }
 
 }
