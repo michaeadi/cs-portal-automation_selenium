@@ -20,7 +20,7 @@ import org.testng.annotations.Test;
 public class OpenApiWithSelfCareTokenTest extends OpenAPIPrerequisites {
 
 
-    @Test(priority = 0, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void testSelfCareConfigured() {
         if (isSelfcareNOTConfigured) {
             commonLib.skip("Skipping tests because SelfCare is not Configured");
@@ -33,7 +33,7 @@ public class OpenApiWithSelfCareTokenTest extends OpenAPIPrerequisites {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
-    @Test(priority = 1, description = "Validate Get Client Config API for Selfcare with Valid Token", groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "testSelfCareConfigured")
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "testSelfCareConfigured")
     public void testClientConfigWithValidToken() {
         try {
             selUtils.addTestcaseDescription("API is: - v1/openapi/clients/config, This API will return Client details like client Name and field Name", "description");
@@ -47,7 +47,7 @@ public class OpenApiWithSelfCareTokenTest extends OpenAPIPrerequisites {
         }
     }
 
-    @Test(priority = 2, description = "Validate Get Client Config API for Selfcare with InValid Token", groups = {"RegressionTest"}, dependsOnMethods = "testSelfCareConfigured")
+    @Test(priority = 3, groups = {"RegressionTest","ProdTest"}, dependsOnMethods = {"testSelfCareConfigured"})
     public void testClientConfigWithInvalidToken() {
         try {
             String SELFCARE = "Selfcare";
@@ -62,7 +62,7 @@ public class OpenApiWithSelfCareTokenTest extends OpenAPIPrerequisites {
         }
     }
 
-    @Test(priority = 3, description = "Validating First Last Category API", groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "testSelfCareConfigured")
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "testSelfCareConfigured")
     public void testFirstLastCategories() {
         try {
             selUtils.addTestcaseDescription("API is - v1/openapi/firstlast/categories, This API will return the first last category", "description");
@@ -78,7 +78,7 @@ public class OpenApiWithSelfCareTokenTest extends OpenAPIPrerequisites {
         }
     }
 
-    @Test(priority = 4, description = "Validating Parent Category API", groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "testSelfCareConfigured")
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "testSelfCareConfigured")
     public void testParentCategory() {
         try {
             selUtils.addTestcaseDescription("API is - v1/openapi/parent/categories, This API will return Category Level for Particular Category Id", "description");
@@ -96,7 +96,7 @@ public class OpenApiWithSelfCareTokenTest extends OpenAPIPrerequisites {
         }
     }
 
-    @Test(priority = 5, description = "Validating Child Categories API", groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "testSelfCareConfigured")
+    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "testSelfCareConfigured")
     public void testChildCategory() {
         try {
             selUtils.addTestcaseDescription("API is - v1/openapi/child/categories, This API will return child categories", "description");
@@ -112,7 +112,7 @@ public class OpenApiWithSelfCareTokenTest extends OpenAPIPrerequisites {
         }
     }
 
-    @Test(priority = 6, description = "Validating Interaction Issue API", groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = "testSelfCareConfigured")
+    @Test(priority = 7, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = "testSelfCareConfigured")
     public void testInteractionIssue() {
         try {
             selUtils.addTestcaseDescription("API is - v1/openapi/interactions/issue, This API will create the Interaction Issue on single Click", "description");
@@ -127,7 +127,7 @@ public class OpenApiWithSelfCareTokenTest extends OpenAPIPrerequisites {
         }
     }
 
-    @Test(priority = 7, description = "Validating Ticket Search API", groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "testSelfCareConfigured")
+    @Test(priority = 8, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "testSelfCareConfigured")
     public void testSearchTicket() {
         try {
             selUtils.addTestcaseDescription("API is - v1/openapi/tickets, This API will Search the Ticket", "description");
@@ -142,7 +142,7 @@ public class OpenApiWithSelfCareTokenTest extends OpenAPIPrerequisites {
         }
     }
 
-    @Test(priority = 8, description = "Validating Ticket Log History API", groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = "testSelfCareConfigured")
+    @Test(priority = 9, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = "testSelfCareConfigured")
     public void testTicketHistoryLog() {
         try {
             selUtils.addTestcaseDescription("API is - v1/openapi/fetch/ticket/history/log, This API will fetch the Ticket History Log", "description");
@@ -157,7 +157,7 @@ public class OpenApiWithSelfCareTokenTest extends OpenAPIPrerequisites {
         }
     }
 
-    @Test(priority = 9, description = "Validating Ticket Search By Ticket Id", groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = "testSelfCareConfigured")
+    @Test(priority = 10, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = "testSelfCareConfigured")
     public void testSearchTicketByTicketId() {
         try {
             selUtils.addTestcaseDescription("API is - v1/openapi/fetch/ticket?id, This API will provides Capability to Search Ticket by Ticket Id", "description");
@@ -173,7 +173,7 @@ public class OpenApiWithSelfCareTokenTest extends OpenAPIPrerequisites {
     }
 
 
-    @Test(priority = 10, description = "Validating Layout History", groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "testSelfCareConfigured")
+    @Test(priority = 11, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "testSelfCareConfigured")
     public void testLayoutHistory() {
         try {
             selUtils.addTestcaseDescription("API is - v1/openapi/layout, This API will fetch Layout History", "description");
@@ -188,7 +188,7 @@ public class OpenApiWithSelfCareTokenTest extends OpenAPIPrerequisites {
         }
     }
 
-    @Test(priority = 11, description = "Add Comment on Ticket", groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "testSelfCareConfigured")
+    @Test(priority = 12, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "testSelfCareConfigured")
     public void testCreateComment() {
         try {
             selUtils.addTestcaseDescription("API is - v1/openapi/comment, This API will create the comment on ticket", "description");
@@ -205,7 +205,7 @@ public class OpenApiWithSelfCareTokenTest extends OpenAPIPrerequisites {
         }
     }
 
-    @Test(priority = 12, description = "Update Comment on Ticket", groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "testSelfCareConfigured")
+    @Test(priority = 13, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "testSelfCareConfigured")
     public void testUpdateComment() {
         try {
             selUtils.addTestcaseDescription("API is - v1/openapi/update/comment, This API will update the comment on ticket", "description");
@@ -222,7 +222,7 @@ public class OpenApiWithSelfCareTokenTest extends OpenAPIPrerequisites {
         }
     }
 
-    @Test(priority = 13, description = "Delete Comment from Ticket", groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "testSelfCareConfigured")
+    @Test(priority = 14, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "testSelfCareConfigured")
     public void testDeleteComment() {
         try {
             selUtils.addTestcaseDescription("API is - v1/openapi/delete/comment, This API will delete the comment from ticket", "description");
@@ -237,7 +237,7 @@ public class OpenApiWithSelfCareTokenTest extends OpenAPIPrerequisites {
         }
     }
 
-    @Test(priority = 14, description = "Add Comment on Ticket With Opco and locale headers", groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "testSelfCareConfigured")
+    @Test(priority = 15, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = "testSelfCareConfigured")
     public void testCreateCommentWithOpcoAndLocaleHeader() {
         try {
             selUtils.addTestcaseDescription("API is - v1/openapi/comment, This API will create the comment on ticket", "description");

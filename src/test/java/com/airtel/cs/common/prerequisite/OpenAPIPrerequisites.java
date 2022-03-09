@@ -31,14 +31,14 @@ public class OpenAPIPrerequisites extends Driver {
     public static Map<String, Integer> ids = new HashMap<>();
     private static String Token;
     private static final String OPCO = System.getProperty("Opco").toUpperCase();
-    private static final String SR_CLIENT_ID = System.getProperty("srClientId");
-    private static final String LOCALE = System.getProperty("locale").toLowerCase();
+    private static final String SR_CLIENT_ID =  constants.getValue(ApplicationConstants.SELFCARE_SR_CLIENT_ID);
+    private static final String LOCALE = constants.getValue(ApplicationConstants.LOCALE);
 
 
     /*
     This Method is used to get the valid token for open API
      */
-    @BeforeClass
+    @BeforeClass(alwaysRun = true)
     public void getValidTokenForOpenAPI() {
         recordset = DataProviders.readExcelSheet(excelPath, constants.getValue(ApplicationConstants.OPEN_API_LOGIN_SHEET));
         List<String> datatPoints = DataProviders.getScenarioDetailsFromExcelSheetColumnWise(recordset, "OpenAPIValidToken", "API Type", Collections.singletonList("Token"));
