@@ -127,4 +127,11 @@ public class DemoGraphicPage {
     public By footerAuuidAMP = By.xpath("//*[@id='AM_PROFILE']//*[contains(@class,'auuid-container')]");
     public By resetPinIcon = By.xpath("//img[@class='header-action-icon cursor-pointer']/ancestor::span");
     public By dashboardBody = By.xpath("//body//app-dashboard");
+
+    /*
+    Email ID and Account Number
+     */
+
+    public By email = By.xpath("//span[contains(text(),'Email Id')]//following-sibling::span");
+    public By accountNumber = By.xpath("//span[contains(text(),'Account Number')]//following-sibling::span");
 }

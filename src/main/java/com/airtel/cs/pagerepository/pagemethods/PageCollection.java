@@ -215,5 +215,4 @@ public class PageCollection {
     public LinkedMsisdnToAccountNoWidget getLinkedMsisdnToAccountNoWidget() {return new LinkedMsisdnToAccountNoWidget(driver);}
 
     public DetailAccountSendBill getDetailAccountSendBill() { return new DetailAccountSendBill(driver);}
-
 }

@@ -868,11 +868,12 @@ public class RequestSource extends RestCommonUtils {
      * @param key The key
      * @return The Response
      */
-    public Configuration getConfiguration(String key) {
+    public Configuration getConfiguration(String key, String lineType) {
         Configuration result = null;
         try {
             queryParam.put("keys", key);
             queryParam.put("opco", OPCO);
+            queryParam.put("lineType", lineType);
             commonGetMethodWithQueryParam(URIConstants.CONFIGURATIONS, queryParam, map);
             result = response.as(Configuration.class);
         } catch (Exception e) {
