@@ -65,8 +65,8 @@ public class PlanAndPackDetailedWidgetTest extends Driver {
             selUtils.addTestcaseDescription("Verify that plan and pack widget should be visible to the logged in agent if plan and pack permission is enabled in UM, Check User has permission to view plan and pack Widget Permission", "description");
             String planAndPackPermission = constants.getValue(PermissionConstants.CURRENT_PLAN_WIDGET_PERMISSION);
             pages.getPlanAndPackDetailedWidget().openCurrentPlanDetailPage();
-            assertCheck.append(actions.assertEqualBoolean(pages.getPlanAndPackDetailedWidget().isPlanWidgetDisplay(), UtilsMethods.isUserHasPermission(new Headers(map), planAndPackPermission), "Plan Widget displayed correctly as per user permission", "Plan Widget does not display correctly as per user permission"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getPlanAndPackDetailedWidget().isPackWidgetDisplay(), UtilsMethods.isUserHasPermission(new Headers(map), planAndPackPermission), "Pack Widget displayed correctly as per user permission", "Pack Widget does not display correctly as per user permission"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getPlanAndPackDetailedWidget().isPlanWidgetDisplay(), UtilsMethods.isUserHasPermission(planAndPackPermission), "Plan Widget displayed correctly as per user permission", "Plan Widget does not display correctly as per user permission"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getPlanAndPackDetailedWidget().isPackWidgetDisplay(), UtilsMethods.isUserHasPermission(planAndPackPermission), "Pack Widget displayed correctly as per user permission", "Pack Widget does not display correctly as per user permission"));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - isUserHasPlanAndPackWidgetPermission" + e.fillInStackTrace(), true);
         }

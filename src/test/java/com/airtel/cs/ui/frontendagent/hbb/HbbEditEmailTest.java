@@ -51,7 +51,7 @@ public class HbbEditEmailTest {
             try {
                 selUtils.addTestcaseDescription("Verify that email. edit icon should be visible to the logged in agent if permission is enabled in UM, Check User has permission to edit email id", "description");
                 String editEmail_permission = constants.getValue(PermissionConstants.EMAIL_EDIT_ICON_PERMISSION);
-                assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isEmailEditIconVisible(), UtilsMethods.isUserHasPermission(new Headers(map), editEmail_permission), "Edit email icon  displayed correctly as per user permission", "Edit email Icon does not display correctly as per user permission"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isEmailEditIconVisible(), UtilsMethods.isUserHasPermission(editEmail_permission), "Edit email icon  displayed correctly as per user permission", "Edit email Icon does not display correctly as per user permission"));
             } catch (Exception e) {
                 commonLib.fail("Exception in Method - isUserHasEditEmailPermission" + e.fillInStackTrace(), true);
             }
@@ -63,7 +63,7 @@ public class HbbEditEmailTest {
             try {
                 selUtils.addTestcaseDescription("Validating edit option fields ", "description");
                 Boolean profileVisibility = pages.getHbbProfilePage().isHBBProfileVisible();
-                if (profileVisibility == true) {
+                if (profileVisibility) {
                     pages.getHbbProfilePage().clickOnEditIconAlternateNo();
                     assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isEditAlternatePopUpVisible(), true, "Edit Alternate Number Popup visible", "Edit Alternate Number Popup not visible"));
                     assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isEnterEmailIdVisible(), true, "Enter Alternate no. is visible", "Enter Alternate no is  not visible"));
@@ -96,12 +96,12 @@ public class HbbEditEmailTest {
                 String alternateEmail = constants.getValue(ApplicationConstants.ALTERNATE_EMAIL);
                 String successText = "Request for Email Updating has not been successfully submitted";
                 Boolean profileVisibility = pages.getHbbProfilePage().isHBBProfileVisible();
-                if (profileVisibility == true) {
+                if (profileVisibility) {
                     pages.getHbbProfilePage().clickOnEditIconAlternateNo();
                     pages.getHbbProfilePage().enterMsisdnAlternateNo(alternateEmail);
                     pages.getHbbProfilePage().enterComment("Automation Testing");
                     assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isSubmitBtnDisabled(), true, "Submit button is disabled", "Submit button is not disabled"));
-                    if (pages.getHbbProfilePage().isSubmitBtnDisabled() == true) {
+                    if (pages.getHbbProfilePage().isSubmitBtnDisabled()) {
                         pages.getHbbProfilePage().clickOnSubmit();
                         assertCheck.append(actions.assertEqualBoolean(pages.getHbbProfilePage().isSuccessPopUpVisible(), true, "Success Popup visible after editing alternate number", "Success Popup not visible after editing alternate number"));
                         assertCheck.append(actions.assertEqualStringType(pages.getHbbProfilePage().getSuccessText(), successText, "Success text is  displayed correctly", "Success text is not displayed correctly"));

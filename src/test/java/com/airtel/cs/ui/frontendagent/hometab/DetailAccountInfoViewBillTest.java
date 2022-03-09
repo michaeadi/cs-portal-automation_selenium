@@ -61,20 +61,19 @@ public class DetailAccountInfoViewBillTest extends Driver {
      */
 
     @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
-    public void userWithAccountInfoWidgetPermission(){
-        try{
+    public void userWithAccountInfoWidgetPermission() {
+        try {
             selUtils.addTestcaseDescription("Verify that account information widget should be visible to the logged in agent if account info permission is enabled in UM, Check User has permission to view account information Widget Permission", "description");
             String accountInfo_permission = constants.getValue(PermissionConstants.ACCOUNT_INFORMATION_WIDGET_PERMISSION);
-            assertCheck.append(actions.assertEqualBoolean(pages.getAccountInformationWidget().isAccountInformationWidgetDisplay(), UtilsMethods.isUserHasPermission(new Headers(map), accountInfo_permission), "Logged in user has Account Information Widget permission", "Logged in user doesn't have Account Information Widget permission"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getAccountInformationWidget().isAccountInformationWidgetDisplay(), UtilsMethods.isUserHasPermission(accountInfo_permission), "Logged in user has Account Information Widget permission", "Logged in user doesn't have Account Information Widget permission"));
             actions.assertAllFoundFailedAssert(assertCheck);
-        }catch (NoSuchElementException | TimeoutException | NullPointerException e) {
+        } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
             commonLib.fail("Exception in Method - userWithAccountInfoWidgetPermission()" + e.fillInStackTrace(), true);
         }
     }
 
     /**
      * This method is used to check whether user has permission for Account Information Widget
-     *
      */
     @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void isUserHasDetailedAccountInformationPermission() {
@@ -83,7 +82,7 @@ public class DetailAccountInfoViewBillTest extends Driver {
             String detailedAccountInfo_permission = constants.getValue(PermissionConstants.VIEW_POSTPAID_BILL);
             assertCheck.append(actions.assertEqualBoolean(pages.getDetailAccountInfoViewBillWidget().isActionIconVisibleOnAccountInfo(), true, "Detailed account information icon visible", "Detailed account information icon not visible"));
             pages.getDetailAccountInfoViewBillWidget().openAccountInformationDetailPage();
-            assertCheck.append(actions.assertEqualBoolean(pages.getDetailAccountInfoViewBillWidget().isDetailedAccountInformationWidgetDisplay(), UtilsMethods.isUserHasPermission(new Headers(map), detailedAccountInfo_permission), "Detailed Account Information Widget displayed correctly as per user permission", "Detailed Account Information Widget does not display correctly as per user permission"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getDetailAccountInfoViewBillWidget().isDetailedAccountInformationWidgetDisplay(), UtilsMethods.isUserHasPermission(detailedAccountInfo_permission), "Detailed Account Information Widget displayed correctly as per user permission", "Detailed Account Information Widget does not display correctly as per user permission"));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - isUserHasDetailedAccountInformationPermission" + e.fillInStackTrace(), true);
         }
@@ -124,8 +123,8 @@ public class DetailAccountInfoViewBillTest extends Driver {
      * This method is used to show account info detailed icon
      */
     @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"})
-    public void accountInfoIcon(){
-        try{
+    public void accountInfoIcon() {
+        try {
             selUtils.addTestcaseDescription("Verify that detailed account info icon should be visible to the logged in agent", "description");
             assertCheck.append(actions.assertEqualStringType(pages.getDetailAccountInfoViewBillWidget().getAccountInfoDetailWidget().toUpperCase(), "ACCOUNT INFORMATION DETAIL", "Account Information Detail display as expected in detailed account info", "Account Information Detail not display as expected in detailed account info"));
             assertCheck.append(actions.assertEqualStringType(pages.getDetailAccountInfoViewBillWidget().getAccountInfoTabName().toUpperCase(), "ACCOUNT INFO", "Account Info tab visible", "Account Info tab not visible"));
@@ -141,20 +140,20 @@ public class DetailAccountInfoViewBillTest extends Driver {
             AccountDetails accountDetails = api.getAccountInfoDetail(accountNo, 1);
             int size = accountDetails.getTotalCount() > 5 ? 5 : accountDetails.getTotalCount();
             int totalCount = accountDetails.getTotalCount();
-            Integer pageNumber=1;
-            String ticketId="";
+            Integer pageNumber = 1;
+            String ticketId = "";
             String billLastFour = null;
             for (int row = 1; row <= size; row++) {
                 String transactionType = accountDetailsWidget.getTransactionType(row);
                 if ("INVOICE".equalsIgnoreCase(transactionType)) {
-                    assertCheck.append(actions.assertEqualBoolean(accountDetailsWidget.isViewBillIconDisplay(row), true , "View Bill icon visible", "View Bill icon not visible"));
+                    assertCheck.append(actions.assertEqualBoolean(accountDetailsWidget.isViewBillIconDisplay(row), true, "View Bill icon visible", "View Bill icon not visible"));
                     String billNumber = accountDetailsWidget.getBillNumber(row).split(":")[1].trim();
-                    commonLib.info("Bill Number is : "+billNumber);
+                    commonLib.info("Bill Number is : " + billNumber);
                     billLastFour = pages.getDetailAccountInfoViewBillWidget().getLast4Char(billNumber);
                     pages.getDetailAccountInfoViewBillWidget().clickingOnViewBillIcon(row);
-                    if(pages.getDetailAccountInfoViewBillWidget().isNextPagePDFVisible()) {
+                    if (pages.getDetailAccountInfoViewBillWidget().isNextPagePDFVisible()) {
                         assertCheck.append(actions.assertEqualBoolean(pages.getDetailAccountInfoViewBillWidget().isBillVisible(), true, "Bill visible successfully and action pop is false", "Bill not visible"));
-                        assertCheck.append(actions.assertEqualStringType(pages.getDetailAccountInfoViewBillWidget().getPdfSubWidget(billLastFour), "BILL: "+billLastFour, "Sub-widget is visible as expected", "Sub-widget is not visible as expected"));
+                        assertCheck.append(actions.assertEqualStringType(pages.getDetailAccountInfoViewBillWidget().getPdfSubWidget(billLastFour), "BILL: " + billLastFour, "Sub-widget is visible as expected", "Sub-widget is not visible as expected"));
                         pages.getDetailAccountInfoViewBillWidget().clickingOnNextPagePDF();
                         pages.getDetailAccountInfoViewBillWidget().clickingOnPrevPagePDF();
                         pages.getDetailAccountInfoViewBillWidget().goToHomeTab();
@@ -167,10 +166,10 @@ public class DetailAccountInfoViewBillTest extends Driver {
                         assertCheck.append(actions.assertEqualStringType(pages.getDetailAccountInfoViewBillWidget().getBillNo().trim(), billNumber, "View Bill entry rendered in action trail", "View Bill entry not rendered in action trail"));
                         pages.getDetailAccountInfoViewBillWidget().goToHomeTab();
                         pages.getDetailAccountInfoViewBillWidget().openAccountInformationDetailPage();
-                        if(row >=2){
+                        if (row >= 2) {
                             break;
                         }
-                    }else{
+                    } else {
                         assertCheck.append(actions.assertEqualStringType(pages.getDetailAccountInfoViewBillWidget().viewBillError(), pages.getDetailAccountInfoViewBillWidget().viewBillError(), "Bill is not fetched UI showing proper message", "Bill is not fetched UI not showing proper message"));
                         pages.getDetailAccountInfoViewBillWidget().goToHomeTab();
                         pages.getDetailAccountInfoViewBillWidget().openAccountInformationDetailPage();
@@ -180,8 +179,8 @@ public class DetailAccountInfoViewBillTest extends Driver {
                 if (row == 5 && pageNumber * 5 != totalCount && accountDetailsWidget.nextPageVisible()) {
                     accountDetailsWidget.clickNextPage();
                     accountDetails = api.getAccountInfoDetail(accountNo, ++pageNumber);
-                    assertCheck.append(actions.assertEqualStringType(pages.getDetailAccountInfoViewBillWidget().getPdfSubWidget(billLastFour), "BILL: "+billLastFour, "Sub-widget is visible as expected", "Sub-widget is not visible as expected"));
-                    if(row >=2){
+                    assertCheck.append(actions.assertEqualStringType(pages.getDetailAccountInfoViewBillWidget().getPdfSubWidget(billLastFour), "BILL: " + billLastFour, "Sub-widget is visible as expected", "Sub-widget is not visible as expected"));
+                    if (row >= 2) {
                         break;
                     }
                     row = 0;
@@ -192,14 +191,10 @@ public class DetailAccountInfoViewBillTest extends Driver {
 
 
             actions.assertAllFoundFailedAssert(assertCheck);
-        }catch (NoSuchElementException | TimeoutException | NullPointerException e) {
+        } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
             commonLib.fail("Exception in Method - accountInfoIcon()" + e.fillInStackTrace(), true);
         }
     }
-
-
-
-
 
 
 }

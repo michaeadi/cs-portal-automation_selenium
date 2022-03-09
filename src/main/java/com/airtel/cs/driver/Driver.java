@@ -175,7 +175,7 @@ public class Driver {
      */
     private void createEmailableReport() {
         try {
-            String templatePath = System.getProperty("user.dir") + constants.getValue("template.file.path");
+            String templatePath = System.getProperty(USER_DIR) + constants.getValue("template.file.path");
             File input = new File(templatePath);
             Document doc = Jsoup.parse(input, "UTF-8");
             Element table = doc.select("table.table-bordered").first();
@@ -286,9 +286,7 @@ public class Driver {
             switch (browser) {
                 case "chrome":
                     WebDriverManager.chromedriver().setup();
-                    System.out.println("Chrome setup done");
                     browserCapabilities();
-                    System.out.println("Browser setup done");
                     break;
                 case "firefox":
                     WebDriverManager.firefoxdriver().setup();
@@ -321,9 +319,7 @@ public class Driver {
         options.setAcceptInsecureCerts(true);
         options.setCapability("goog:loggingPrefs", loggingprefs);
         options.setCapability(ChromeOptions.CAPABILITY, options);
-        System.out.println("In driver");
         driver = new ChromeDriver(options);
-        System.out.println("In maximize");
         driver.manage().window().maximize();
     }
 

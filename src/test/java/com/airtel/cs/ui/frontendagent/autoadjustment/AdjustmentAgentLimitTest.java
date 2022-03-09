@@ -44,7 +44,7 @@ public class AdjustmentAgentLimitTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Verify that Limit configuration is successfully fetched using limit configuration API. (Roles Configured)", "description");
             boolean isLimitSet = false;
-            List<RoleDetails> roles = UtilsMethods.getAgentDetail(new Headers(map)).getUserDetails().getUserDetails().getRole();
+            List<RoleDetails> roles = UtilsMethods.getAgentDetail().getUserDetails().getUserDetails().getRole();
             for (RoleDetails role : roles) {
                 roleId = role.getId();
                 LimitConfig limitResult = UtilsMethods.getAgentLimitConfigBasedOnKey(constants.getValue(CommonConstants.ADJUSTMENT_LIMIT_API_KEY), role.getId());

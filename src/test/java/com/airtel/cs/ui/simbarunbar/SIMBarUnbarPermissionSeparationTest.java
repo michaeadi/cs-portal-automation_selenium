@@ -62,12 +62,12 @@ public class SIMBarUnbarPermissionSeparationTest extends Driver {
             if (StringUtils.equalsIgnoreCase(simStatus, "Suspended")) {
                 String simUnBar_permission = constants.getValue(PermissionConstants.SIM_UNBAR_PERMISSION);
                 pages.getCustomerProfilePage().clickOnAction();
-                assertCheck.append(actions.assertEqualBoolean(pages.getCustomerProfilePage().isReactivationSIMOptionVisible(), UtilsMethods.isUserHasPermission(new Headers(map), simUnBar_permission), "Reactivation SIM Option is Visible under Actions Tab", "Reactivation SIM Option is NOT Visible under Actions Tab"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getCustomerProfilePage().isReactivationSIMOptionVisible(), UtilsMethods.isUserHasPermission(simUnBar_permission), "Reactivation SIM Option is Visible under Actions Tab", "Reactivation SIM Option is NOT Visible under Actions Tab"));
                 pages.getDemoGraphicPage().clickOutside();
             } else if (StringUtils.equalsIgnoreCase(simStatus, "Active")) {
                 String simBar_permission = constants.getValue(PermissionConstants.SIM_BAR_PERMISSION);
                 pages.getCustomerProfilePage().clickOnAction();
-                assertCheck.append(actions.assertEqualBoolean(pages.getCustomerProfilePage().isSuspendSIMOptionVisible(), UtilsMethods.isUserHasPermission(new Headers(map), simBar_permission), "Suspend SIM Option is Visible under Actions Tab as per user permission", "Suspend SIM Option is NOT Visible under Actions Tab as per user permission"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getCustomerProfilePage().isSuspendSIMOptionVisible(), UtilsMethods.isUserHasPermission(simBar_permission), "Suspend SIM Option is Visible under Actions Tab as per user permission", "Suspend SIM Option is NOT Visible under Actions Tab as per user permission"));
                 pages.getDemoGraphicPage().clickOutside();
             } else if (StringUtils.equalsIgnoreCase(simStatus, "Reactivation_required")) {
                 commonLib.warning("Please check Manually as GSM Status is :" + simStatus);

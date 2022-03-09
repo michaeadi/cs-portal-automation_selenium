@@ -144,16 +144,16 @@ public class ESBRequestSource extends RestCommonUtils {
             commonLib.info(constants.getValue(DOWNSTREAM_API_CALLING) + GSM_KYC_REQUEST);
             queryParam.put(MSISDN, msisdn);
             queryParam.put("walletType", "Main");
-            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.GSM_KYC_REQUEST, queryParam, map);
+            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.GSM_KYC_REQUEST, queryParam);
             checkDownstreamAPI(response.getStatusCode(), GSM_KYC_REQUEST, "Downstream API GSM KYC request working Fine and response is: ");
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + SELF_CARE_USER_DETAILS, JavaColors.GREEN, false);
             queryParam.put(MSISDN, msisdn);
             commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.SELF_CARE_USER_DETAILS,
-                    queryParam, map);
+                    queryParam);
             checkDownstreamAPI(response.getStatusCode(), SELF_CARE_USER_DETAILS, "Downstream API self care user details working with data ");
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + DEVICE_INFO, JavaColors.GREEN, false);
             queryParam.put(MSISDN, msisdn);
-            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.DEVICE_INFO, queryParam, map);
+            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.DEVICE_INFO, queryParam);
             checkDownstreamAPI(response.getStatusCode(), DEVICE_INFO, "Downstream API Device info working with data ");
         } catch (Exception exp) {
             commonLib
@@ -172,7 +172,7 @@ public class ESBRequestSource extends RestCommonUtils {
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + KYC_REQUEST, JavaColors.GREEN, false);
             queryParam.put(MSISDN, msisdn);
             queryParam.put("walletType", "Main");
-            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.GSM_KYC_REQUEST, queryParam, map);
+            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.GSM_KYC_REQUEST, queryParam);
             checkDownstreamAPI(response.getStatusCode(), KYC_REQUEST, "Downstream API KYC request working with data ");
         } catch (Exception exp) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + KYC_REQUEST + exp.getMessage(), false);
@@ -208,7 +208,7 @@ public class ESBRequestSource extends RestCommonUtils {
         try {
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + CUSTOMER_PROFILE_V2, JavaColors.GREEN, false);
             queryParam.put(MSISDN, msisdn);
-            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.CUSTOMER_PROFILLE, queryParam, map);
+            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.CUSTOMER_PROFILLE, queryParam);
             checkDownstreamAPI(response.getStatusCode(), CUSTOMER_PROFILE_V2, "Downstream API customer profile V2 working with data ");
         } catch (Exception e) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + CUSTOMER_PROFILE_V2 + e.getMessage(), false);
@@ -254,7 +254,7 @@ public class ESBRequestSource extends RestCommonUtils {
         try {
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + QUERY_BALANCE, JavaColors.GREEN, false);
             queryParam.put(MSISDN, msisdn);
-            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.QUERY_BALANCE, queryParam, map);
+            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.QUERY_BALANCE, queryParam);
             checkDownstreamAPI(response.getStatusCode(), QUERY_BALANCE, "Downstream API query balance working with data ");
             callRechargeHistory(msisdn, Timestamp.valueOf(LocalDateTime.now()).toInstant().toEpochMilli(),
                     Timestamp.valueOf(LocalDateTime.now().minusDays(60).with(LocalTime.of(0, 0, 0))).toInstant().toEpochMilli());
@@ -276,7 +276,7 @@ public class ESBRequestSource extends RestCommonUtils {
             queryParam.put(MSISDN, msisdn);
             queryParam.put(END_DATE, endDate);
             queryParam.put(START_DATE, startDate);
-            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.RECHARGE_HISTORY, queryParam, map);
+            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.RECHARGE_HISTORY, queryParam);
             checkDownstreamAPI(response.getStatusCode(), RECHARGE_HISTORY, "Downstream API recharge history working with data ");
         } catch (Exception e) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + RECHARGE_HISTORY + e.getMessage(), false);
@@ -293,7 +293,7 @@ public class ESBRequestSource extends RestCommonUtils {
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + VOUCHER_DETAILS, JavaColors.GREEN, false);
             if (StringUtils.isNotBlank(voucherId)) {
                 queryParam.put("serial_number", voucherId);
-                commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.VOUCHER_DETAIL, queryParam, map);
+                commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.VOUCHER_DETAIL, queryParam);
             }
             checkDownstreamAPI(response.getStatusCode(), VOUCHER_DETAILS, "Downstream API voucher details working with data ");
         } catch (Exception e) {
@@ -337,7 +337,7 @@ public class ESBRequestSource extends RestCommonUtils {
                     } else if (fieldsConfigDTO.getMethodType().equalsIgnoreCase(ApplicationConstants.GET_METHOD)) {
                         queryParam.clear();
                         queryParam.put(MSISDN, msisdn);
-                        commonGetMethodWithQueryParam(fieldsConfigDTO.getWebhookUrl(), queryParam, map);
+                        commonGetMethodWithQueryParam(fieldsConfigDTO.getWebhookUrl(), queryParam);
                     }
                     checkDownstreamAPI(response.getStatusCode(), fieldsConfigDTO.getWebhookUrl(), "Downstream Webhook API working with data ");
                 }
@@ -376,12 +376,12 @@ public class ESBRequestSource extends RestCommonUtils {
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + SEARCH_NAME_TUNE, JavaColors.GREEN, false);
             queryParam.put(MSISDN, msisdn);
             queryParam.put("query", searchText);
-            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.SEARCH_NAME_TUNE, queryParam, map);
+            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.SEARCH_NAME_TUNE, queryParam);
             checkDownstreamAPI(response.getStatusCode(), SEARCH_NAME_TUNE, "Downstream API search name tune working with data ");
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + GENERIC_SEARCH_API, JavaColors.GREEN, false);
             queryParam.put(MSISDN, msisdn);
             queryParam.put("query", searchText);
-            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.GENERIC_SEARCH_API, queryParam, map);
+            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.GENERIC_SEARCH_API, queryParam);
             checkDownstreamAPI(response.getStatusCode(), GENERIC_SEARCH_API, "Downstream API Generic search api working with data ");
         } catch (Exception exp) {
             commonLib.fail(
@@ -399,7 +399,7 @@ public class ESBRequestSource extends RestCommonUtils {
         try {
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + RING_BACK_TONE_LIST, JavaColors.GREEN, false);
             queryParam.put(MSISDN, msisdn);
-            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.RING_BACK_TONE_LIST, queryParam, map);
+            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.RING_BACK_TONE_LIST, queryParam);
             checkDownstreamAPI(response.getStatusCode(), RING_BACK_TONE_LIST, "Downstream API ring back tone list working with data ");
         } catch (Exception e) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + RING_BACK_TONE_LIST + e.getMessage(), false);
@@ -430,7 +430,7 @@ public class ESBRequestSource extends RestCommonUtils {
         try {
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + HLR_DETAILS, JavaColors.GREEN, false);
             queryParam.put(MSISDN, msisdn);
-            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.HLR_FETCH_DETAILS, queryParam, map);
+            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.HLR_FETCH_DETAILS, queryParam);
             checkDownstreamAPI(response.getStatusCode(), HLR_DETAILS, "Downstream API accumulatorAPI working with data ");
         } catch (Exception e) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + HLR_DETAILS + e.getMessage(), false);
@@ -447,7 +447,7 @@ public class ESBRequestSource extends RestCommonUtils {
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + HLR_ORDER_HISTORY, JavaColors.GREEN, false);
             queryParam.put(MSISDN, msisdn);
             commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.HLR_ORDER_HISTORY,
-                    queryParam, map);
+                    queryParam);
             checkDownstreamAPI(response.getStatusCode(), HLR_ORDER_HISTORY, "Downstream API HLR Order History working with data ");
         } catch (Exception e) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + HLR_ORDER_HISTORY + e.getMessage(), false);
@@ -523,18 +523,18 @@ public class ESBRequestSource extends RestCommonUtils {
         try {
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + GET_CREDIT_LIMIT, JavaColors.GREEN, false);
             queryParam.put(MSISDN, msisdn);
-            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.GET_CREDIT_LIMIT, queryParam, map);
+            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.GET_CREDIT_LIMIT, queryParam);
             checkDownstreamAPI(response.getStatusCode(), GET_CREDIT_LIMIT, "Downstream API get credit limit working with data ");
 
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + INVOICE_HISTORY, JavaColors.GREEN, false);
             queryParam.put(MSISDN, msisdn);
-            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.INVOICE_HISTORY, queryParam, map);
+            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.INVOICE_HISTORY, queryParam);
             checkDownstreamAPI(response.getStatusCode(), INVOICE_HISTORY, "Downstream API invoice history working with data ");
 
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + POSTPAID_BILL_DETAILS, JavaColors.GREEN, false);
             queryParam.put(MSISDN, msisdn);
             commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.POSTPAID_BILL_DETAILS,
-                    queryParam, map);
+                    queryParam);
             checkDownstreamAPI(response.getStatusCode(), POSTPAID_BILL_DETAILS, "Downstream API postpaid bill details with data ");
 
             callCustomerProfileV2(msisdn);
@@ -554,7 +554,7 @@ public class ESBRequestSource extends RestCommonUtils {
         try {
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + MY_PLAN, JavaColors.GREEN, false);
             queryParam.put(MSISDN, msisdn);
-            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.MY_PLAN, queryParam, map);
+            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.MY_PLAN, queryParam);
             checkDownstreamAPI(response.getStatusCode(), MY_PLAN, "Downstream API get my-plan working with data ");
         } catch (Exception exp) {
             commonLib
@@ -572,7 +572,7 @@ public class ESBRequestSource extends RestCommonUtils {
         try {
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + MY_PACK, JavaColors.GREEN, false);
             queryParam.put(MSISDN, msisdn);
-            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.MY_PACK, queryParam, map);
+            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.MY_PACK, queryParam);
             checkDownstreamAPI(response.getStatusCode(), MY_PACK, "Downstream API get my-pack working with data ");
         } catch (Exception exp) {
             commonLib
@@ -590,7 +590,7 @@ public class ESBRequestSource extends RestCommonUtils {
         try {
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + GET_USAGE, JavaColors.GREEN, false);
             queryParam.put(MSISDN, msisdn);
-            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.GET_USAGE, queryParam, map);
+            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.GET_USAGE, queryParam);
             checkDownstreamAPI(response.getStatusCode(), GET_USAGE, "Downstream API get my-pack working with data ");
         } catch (Exception exp) {
             commonLib
@@ -658,7 +658,7 @@ public class ESBRequestSource extends RestCommonUtils {
             if (!StringUtils.isEmpty(usageHistoryMenuRequest.getCdrTypeFilter()) && (usageHistoryMenuRequest.getCdrTypeFilter().equals("FREE"))) {
                 queryParam.put("cdrType", "BOTH");
             }
-            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.USAGE_HISTORY, queryParam, map);
+            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.USAGE_HISTORY, queryParam);
             checkDownstreamAPI(response.getStatusCode(), USAGE_HISTORY, "Downstream API Usage history working with data ");
         } catch (Exception exp) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + USAGE_HISTORY + exp.getMessage(), false);
@@ -702,7 +702,7 @@ public class ESBRequestSource extends RestCommonUtils {
             queryParam.put("sortingOrder", "GSM_USAGE_HISTORY DESC");
             queryParam.put(START_DATE, UtilsMethods.getUTCStartDate(Timestamp.valueOf(LocalDate.now().atStartOfDay().minusDays(3)).getTime()));
             queryParam.put("cdrType", "PAID");
-            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.USAGE_HISTORY, queryParam, map);
+            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.USAGE_HISTORY, queryParam);
             checkDownstreamAPI(response.getStatusCode(), USAGE_HISTORY, "Downstream API Usage history working with data ");
         } catch (Exception exp) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + USAGE_HISTORY + exp.getMessage(), false);
@@ -774,7 +774,7 @@ public class ESBRequestSource extends RestCommonUtils {
         CustomerProfileResponse result = null;
         try {
             queryParam.put(MSISDN, msisdn);
-            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.CUSTOMER_PROFILE_V2, queryParam, map);
+            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.CUSTOMER_PROFILE_V2, queryParam);
             result = response.as(CustomerProfileResponse.class);
         } catch (Exception e) {
             commonLib.fail(EXCEPTION_IN_METHOD + "customerProfileResponse " + e.getMessage(), false);
@@ -792,7 +792,7 @@ public class ESBRequestSource extends RestCommonUtils {
         InvoiceHistoryResponse result = null;
         try {
             queryParam.put(MSISDN, msisdn);
-            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.INVOICE_HISTORY_V1, queryParam, map);
+            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.INVOICE_HISTORY_V1, queryParam);
             result = response.as(InvoiceHistoryResponse.class);
         } catch (Exception e) {
             commonLib.fail(EXCEPTION_IN_METHOD + "invoiceHistoryResponse " + e.getMessage(), false);
@@ -811,7 +811,7 @@ public class ESBRequestSource extends RestCommonUtils {
         PostpaidBillDetailsResponse result = null;
         try {
             queryParam.put(MSISDN, msisdn);
-            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.POSTPAID_BILL_DETAIL_V1, queryParam, map);
+            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.POSTPAID_BILL_DETAIL_V1, queryParam);
             result = response.as(PostpaidBillDetailsResponse.class);
         } catch (Exception e) {
             commonLib.fail(EXCEPTION_IN_METHOD + "postpaidBillDetailsResponse " + e.getMessage(), false);
@@ -830,7 +830,7 @@ public class ESBRequestSource extends RestCommonUtils {
         PlanPackESBResponse result = null;
         try {
             queryParam.put(MSISDN, msisdn);
-            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.GET_USAGE, queryParam, map);
+            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.GET_USAGE, queryParam);
             result = response.as(PlanPackESBResponse.class);
         } catch (Exception e) {
             commonLib.fail(EXCEPTION_IN_METHOD + "planPackResponse " + e.getMessage(), false);
@@ -884,7 +884,7 @@ public class ESBRequestSource extends RestCommonUtils {
         CreditLimitResponse result = null;
         try {
             queryParam.put(MSISDN, msisdn);
-            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.CREDIT_LIMIT, queryParam, map);
+            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.CREDIT_LIMIT, queryParam);
             result = response.as(CreditLimitResponse.class);
         } catch (Exception e) {
             commonLib.fail(EXCEPTION_IN_METHOD + "creditLimitResponse " + e.getMessage(), false);
@@ -936,7 +936,7 @@ public class ESBRequestSource extends RestCommonUtils {
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + LINKED_ACCOUNT_ORCHESTRATOR, JavaColors.GREEN, false);
             queryParam.put("channel", channel);
             queryParam.put(MSISDN, msisdn);
-            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.HBB_LINKED_ACCOUNT_DETAILS, queryParam, map);
+            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.HBB_LINKED_ACCOUNT_DETAILS, queryParam);
             checkDownstreamAPI(response.getStatusCode(), LINKED_ACCOUNT_ORCHESTRATOR, "Downstream API for hbb linked accounts orchestrator working fine with data ");
         } catch (Exception e) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + LINKED_ACCOUNT_ORCHESTRATOR + e.getMessage(), false);
@@ -971,7 +971,7 @@ public class ESBRequestSource extends RestCommonUtils {
 
         } catch (Exception exp) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + ENTERPRISE_SEARCH + exp.getMessage(),
-                            false);
+                    false);
         }
     }
 
@@ -1040,12 +1040,12 @@ public class ESBRequestSource extends RestCommonUtils {
     /**
      * This Method will hit the Downstream API of Active Vas
      *
-     * @param   activeVasESBRequest the active vas esb request
+     * @param activeVasESBRequest the active vas esb request
      */
     public void callActiveVAS(ActiveVasRequest activeVasESBRequest) {
         try {
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + ACTIVE_VAS, JavaColors.GREEN, false);
-            commonPostMethod(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.ACTIVE_VAS,activeVasESBRequest);
+            commonPostMethod(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.ACTIVE_VAS, activeVasESBRequest);
             checkDownstreamAPI(response.getStatusCode(), ACTIVE_VAS, "Downstream API Active Vas working with data ");
         } catch (Exception exp) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + ACTIVE_VAS + exp.getMessage(), false);
@@ -1057,8 +1057,8 @@ public class ESBRequestSource extends RestCommonUtils {
      */
     public void callTcpLimits(String tcpId) {
         try {
-            commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) , JavaColors.GREEN, false);
-            commonGetMethod(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.TCP_LIMITS+SLASH+tcpId);
+            commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING), JavaColors.GREEN, false);
+            commonGetMethod(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.TCP_LIMITS + SLASH + tcpId);
             checkDownstreamAPI(response.getStatusCode(), TCP_LIMIT, "Downstream API of TCP Limits working with data ");
         } catch (Exception exp) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + TCP_LIMIT + exp.getMessage(), false);

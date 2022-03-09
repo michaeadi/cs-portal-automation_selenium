@@ -35,7 +35,7 @@ public class AdjustmentTabTest extends Driver {
     private RechargeHistory rechargeHistoryAPI;
     private static String adjustmentReason;
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void checkAdjustmentFlag() {
         if (!StringUtils.equals(RUN_ADJUSTMENT_TEST_CASE, "true")) {
             commonLib.skip("Adjustment widget is NOT Enabled for this Opco " + OPCO);
@@ -43,7 +43,7 @@ public class AdjustmentTabTest extends Driver {
         }
     }
 
-    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void checkExecution() {
         if (!continueExecutionFA) {
             commonLib.skip("Skipping tests because user NOT able to login Over Portal");
@@ -75,7 +75,7 @@ public class AdjustmentTabTest extends Driver {
             selUtils.addTestcaseDescription("Verify that Adjustment Action should be visible to the logged in agent if adjustment permission is enabled in UM, Check User has permission to view Adjustment sub tab Permission", "description");
             pages.getCustomerProfilePage().clickOnAction();
             String adjustment_permission = constants.getValue(PermissionConstants.ADJUSTMENT_WIDGET_PERMISSION_NAME);
-            hasPermission = UtilsMethods.isUserHasPermission(new Headers(map), adjustment_permission);
+            hasPermission = UtilsMethods.isUserHasPermission(adjustment_permission);
             assertCheck.append(actions.assertEqualBoolean(pages.getCustomerProfilePage().checkAdjustmentAction(), hasPermission, "Adjustment Action displayed correctly as per user permission", "Adjustment Action does not display correctly as per user permission"));
             pages.getCustomerProfilePage().clickOutside();
         } catch (Exception e) {
@@ -221,7 +221,7 @@ public class AdjustmentTabTest extends Driver {
             pages.getAdjustmentTabPage().OpenAdjustmentType();
             pages.getAdjustmentTabPage().chooseOption("Credit");
             String credit_adjustment_permission = constants.getValue(PermissionConstants.CREDIT_TYPE_ADJUSTMENT_PERMISSION_NAME);
-            hasPermission = UtilsMethods.isUserHasPermission(new Headers(map), credit_adjustment_permission);
+            hasPermission = UtilsMethods.isUserHasPermission(credit_adjustment_permission);
             assertCheck.append(actions.assertEqualBoolean(!pages.getAdjustmentTabPage().isAccessDeniedMsg(), hasPermission, "Credit type adjustment permitted correctly as per user permission", "Credit type adjustment permitted correctly as per user permission"));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - isUserHasPermissionCreditTypeAdjustment" + e.fillInStackTrace(), true);
@@ -271,7 +271,7 @@ public class AdjustmentTabTest extends Driver {
             pages.getAdjustmentTabPage().OpenAdjustmentType();
             pages.getAdjustmentTabPage().chooseOption("Debit");
             String debit_adjustment_permission = constants.getValue(PermissionConstants.DEBIT_TYPE_ADJUSTMENT_PERMISSION_NAME);
-            hasPermission = UtilsMethods.isUserHasPermission(new Headers(map), debit_adjustment_permission);
+            hasPermission = UtilsMethods.isUserHasPermission(debit_adjustment_permission);
             assertCheck.append(actions.assertEqualBoolean(!pages.getAdjustmentTabPage().isAccessDeniedMsg(), hasPermission, "Debit type adjustment permitted correctly as per user permission", "Debit type adjustment permitted correctly as per user permission"));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - isUserHasPermissionDebitTypeAdjustment" + e.fillInStackTrace(), true);

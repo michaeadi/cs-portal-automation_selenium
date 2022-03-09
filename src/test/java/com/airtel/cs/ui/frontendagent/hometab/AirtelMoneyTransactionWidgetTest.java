@@ -125,9 +125,9 @@ public class AirtelMoneyTransactionWidgetTest extends Driver {
                 for (int i = 0; i < data.getHeaderName().size(); i++) {
                     assertCheck.append(actions.matchUiAndAPIResponse(widgetMethods.getHeaderName(amWidgetId, i), data.getHeaderName().get(i), "Header Name for Row " + (i + 1) + " is as expected", "Header Name for Row " + (i + 1) + " is not as expected"));
                 }
-                ActionConfigResult actionConfigResult = api.getActionConfig(new Headers(map), "reverseTransaction");
+                ActionConfigResult actionConfigResult = api.getActionConfig("reverseTransaction");
                 List<String> actionConfigRoles = actionConfigResult.getRoles();
-                List<RoleDetails> agentRoles = UtilsMethods.getAgentDetail(new Headers(map)).getUserDetails().getUserDetails().getRole();
+                List<RoleDetails> agentRoles = UtilsMethods.getAgentDetail().getUserDetails().getUserDetails().getRole();
                 for (int i = 0; i < count; i++) {
                     boolean hasRole = agentRoles.stream().anyMatch(roleName -> actionConfigRoles.contains(roleName.getRoleName()));
                     if (ObjectUtils.isNotEmpty(actionConfigResult.getConditions())) {

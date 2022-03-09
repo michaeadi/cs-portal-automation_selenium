@@ -57,7 +57,7 @@ public class DetailAccountSendBillTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validate whether user has Account Information Widget Permission ", "description");
             String account_info_permission = constants.getValue(PermissionConstants.ACCOUNT_INFORMATION_WIDGET_PERMISSION);
-            isPermissionEnable = UtilsMethods.isUserHasPermission(new Headers(map), account_info_permission);
+            isPermissionEnable = UtilsMethods.isUserHasPermission(account_info_permission);
             assertCheck.append(actions.assertEqualBoolean(isPermissionEnable, true, "Logged in user has Account Information Widget permission", "Logged in user doesn't have Account Information Widget permission"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -93,7 +93,7 @@ public class DetailAccountSendBillTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validating Send Bill permission , Performing Send Bill action", "description");
             String send_bill_permission = constants.getValue(PermissionConstants.SEND_POSTPAID_BILL);
-            assertCheck.append(actions.assertEqualBoolean(UtilsMethods.isUserHasPermission(new Headers(map), send_bill_permission), true, "Logged in user has Send Postpaid Bill permission", "Logged in user doesn't has  Send Postpaid Bill permission"));
+            assertCheck.append(actions.assertEqualBoolean(UtilsMethods.isUserHasPermission(send_bill_permission), true, "Logged in user has Send Postpaid Bill permission", "Logged in user doesn't has  Send Postpaid Bill permission"));
             CustomerProfileResponse customerProfileResponse = apiEsb.customerProfileResponse(customerNumber);
             String accountNo = customerProfileResponse.getCustomerAccountNumber();
             accountDetails = api.getAccountInfoDetail(accountNo, 1);

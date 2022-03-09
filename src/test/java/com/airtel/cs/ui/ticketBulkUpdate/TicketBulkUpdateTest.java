@@ -45,7 +45,7 @@ public class TicketBulkUpdateTest extends Driver {
             selUtils.addTestcaseDescription("Validate user has permission to perform validate Ticket Bulk Update operation", "description");
             String ticket_bulk_permission = constants.getValue(PermissionConstants.TICKET_BULK_UPDATE_ACTION_PERMISSION);
             pages.getSideMenuPage().clickOnSideMenu();
-            assertCheck.append(actions.assertEqualBoolean(pages.getSideMenuPage().isTicketBulkUpdateVisible(), UtilsMethods.isUserHasPermission(new Headers(map), ticket_bulk_permission), "User has permission to perform ticket bulk update as expected", "User does not has permission to perform ticket bulk update as expected"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getSideMenuPage().isTicketBulkUpdateVisible(), UtilsMethods.isUserHasPermission(ticket_bulk_permission), "User has permission to perform ticket bulk update as expected", "User does not has permission to perform ticket bulk update as expected"));
             pages.getSideMenuPage().clickOnSideMenu();
         } catch (Exception e) {
             commonLib.fail("Exception in Method - isUserHasTicketBulkUpdatePermission" + e.fillInStackTrace(), true);

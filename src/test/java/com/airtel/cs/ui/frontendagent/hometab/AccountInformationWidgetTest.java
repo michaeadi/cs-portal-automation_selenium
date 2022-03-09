@@ -78,7 +78,7 @@ public class AccountInformationWidgetTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Verify that account information widget should be visible to the logged in agent if account info permission is enabled in UM, Check User has permission to view account information Widget Permission", "description");
             String accountInfo_permission = constants.getValue(PermissionConstants.ACCOUNT_INFORMATION_WIDGET_PERMISSION);
-            assertCheck.append(actions.assertEqualBoolean(pages.getAccountInformationWidget().isAccountInformationWidgetDisplay(), UtilsMethods.isUserHasPermission(new Headers(map), accountInfo_permission), "Account Information Widget displayed correctly as per user permission", "Account Information Widget does not display correctly as per user permission"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getAccountInformationWidget().isAccountInformationWidgetDisplay(), UtilsMethods.isUserHasPermission(accountInfo_permission), "Account Information Widget displayed correctly as per user permission", "Account Information Widget does not display correctly as per user permission"));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - isUserHasAccountInformationPermission" + e.fillInStackTrace(), true);
         }
@@ -248,11 +248,11 @@ public class AccountInformationWidgetTest extends Driver {
             final String lastPaymentMode = pages.getAccountInformationWidget().getLastPaymentMode();
             assertCheck.append(actions.assertEqualStringType(lastPaymentMode, pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "lastPaymentMode", "lastPaymentMode"), "Last payment mode displays as expected and is :" + lastPaymentMode, "Last payment mode not displays as expected and is :" + lastPaymentMode));
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getLastPaymentModeStyle(), "Bold", "Last Payment Mode is in Bold State", "Last Payment Mode NOT in Bold state"));
-            final String lastPaymentAmount=pages.getAccountInformationWidget().getLastPaymentAmount();
-            assertCheck.append(actions.assertEqualStringType(lastPaymentAmount,pages.getAccountInformationWidget().getValue(postpaidAccountInformation,"lastPaymentAmount","lastPaymentAmount"),"Last Payment amount displayed as expected and is :" + lastPaymentAmount, "Last Payment amount not displayed as expected and is : " + lastPaymentAmount));
+            final String lastPaymentAmount = pages.getAccountInformationWidget().getLastPaymentAmount();
+            assertCheck.append(actions.assertEqualStringType(lastPaymentAmount, pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "lastPaymentAmount", "lastPaymentAmount"), "Last Payment amount displayed as expected and is :" + lastPaymentAmount, "Last Payment amount not displayed as expected and is : " + lastPaymentAmount));
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getLastPaymentAmountStyle(), "Bold", "Last Payment Amount is in Bold State", "Last Payment Amount is  NOT in Bold state"));
-            final String lastPaymentDate=pages.getAccountInformationWidget().getLastPaymentDate();
-            assertCheck.append(actions.assertEqualStringType(lastPaymentDate,pages.getAccountInformationWidget().getValue(postpaidAccountInformation,"lastPaymentDate","lastPaymentDate"),"Last Payment date displayed as expected and is :" + lastPaymentDate, "Last Payment date not displayed as expected and is : " + lastPaymentDate));
+            final String lastPaymentDate = pages.getAccountInformationWidget().getLastPaymentDate();
+            assertCheck.append(actions.assertEqualStringType(lastPaymentDate, pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "lastPaymentDate", "lastPaymentDate"), "Last Payment date displayed as expected and is :" + lastPaymentDate, "Last Payment date not displayed as expected and is : " + lastPaymentDate));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - verifyLastPaymentMode()" + e.fillInStackTrace(), true);
         }
@@ -260,17 +260,17 @@ public class AccountInformationWidgetTest extends Driver {
     }
 
 
-    @Test(priority = 10 , groups ={"SanityTest","RegressionTest","ProdTest"}, dependsOnMethods ={"isUserHasAccountInformationPermission"})
+    @Test(priority = 10, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
     public void verifyUnbilledAmount() {
         try {
-            selUtils.addTestcaseDescription("Validate Unbilled Amount For Calls, Validate Unbilled Amount For Sms, Validate Unbilled Amount For Data, Validate Unbilled Amount For Others ","description");
+            selUtils.addTestcaseDescription("Validate Unbilled Amount For Calls, Validate Unbilled Amount For Sms, Validate Unbilled Amount For Data, Validate Unbilled Amount For Others ", "description");
             assertCheck.append(actions.assertEqualStringType(pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmount", "statusCode"), "200", "Postpaid Account Information API 1 Status Code Matched", "Postpaid Account Information API 1 Status Code NOT Matched"));
             assertCheck.append(actions.assertEqualStringType(pages.getBasePage().getKeyValueAPI(pages.getAccountInformationWidget().getCurrentMonthUnBillAmountForCalls()), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmountForCalls", "unbilledCalls"), "Current month un-billed amount for calls displays as expected", "Current month un-billed amount for calls not displays as expected"));
-            assertCheck.append(actions.assertEqualStringType(pages.getBasePage().getKeyValueAPI(pages.getAccountInformationWidget().getCurrentMonthUnBillAmountForSms()),  pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmountForSms", "unbilledSMS"), "Current month un-billed amount for sms displays  as expected", "Current month un-billed amount for sms not displays as expected"));
-            assertCheck.append(actions.assertEqualStringType(pages.getBasePage().getKeyValueAPI(pages.getAccountInformationWidget().getCurrentMonthUnBillAmountForData()),  pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmountForData", "unbilledData"), "Current month un-billed amount for data displays as expected", "Current month un-billed amount for data not displays as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getBasePage().getKeyValueAPI(pages.getAccountInformationWidget().getCurrentMonthUnBillAmountForSms()), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmountForSms", "unbilledSMS"), "Current month un-billed amount for sms displays  as expected", "Current month un-billed amount for sms not displays as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getBasePage().getKeyValueAPI(pages.getAccountInformationWidget().getCurrentMonthUnBillAmountForData()), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmountForData", "unbilledData"), "Current month un-billed amount for data displays as expected", "Current month un-billed amount for data not displays as expected"));
             assertCheck.append(actions.assertEqualStringType(pages.getBasePage().getKeyValueAPI(pages.getAccountInformationWidget().getCurrentMonthUnBillAmountForOthers()), pages.getAccountInformationWidget().getValue(postpaidAccountInformation, "currentMonthUnbilledAmountForOthers", "unbilledOthers"), "Current month un-billed amount for others displays as expected", "Current month un-billed amount for others not displays as expected"));
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             commonLib.fail("Exception in Method - verifyUnbilledAmount()" + e.fillInStackTrace(), true);
         }
         actions.assertAllFoundFailedAssert(assertCheck);

@@ -70,7 +70,7 @@ public class ServiceProfileWidgetTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Verify that Service Profile widget should be visible to the logged in agent if HLR permission is enabled in UM, Check User has permission to view HLR Widget Permission", "description");
             String hlr_permission = constants.getValue(PermissionConstants.HLR_WIDGET_PERMISSION);
-            assertCheck.append(actions.assertEqualBoolean(pages.getServiceClassWidget().isServiceClassWidgetDisplay(), UtilsMethods.isUserHasPermission(new Headers(map), hlr_permission), "Service Profile Widget displayed correctly as per user permission", "Service Profile Widget does not display correctly as per user permission"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getServiceClassWidget().isServiceClassWidgetDisplay(), UtilsMethods.isUserHasPermission(hlr_permission), "Service Profile Widget displayed correctly as per user permission", "Service Profile Widget does not display correctly as per user permission"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - isUserHasHLRPermission" + e.fillInStackTrace(), true);
@@ -85,7 +85,7 @@ public class ServiceProfileWidgetTest extends Driver {
             String hlr_permission = constants.getValue(PermissionConstants.HLR_WIDGET_PERMISSION);
             pages.getUserManagementPage().removeOrAddPermission(constants.getValue(PermissionConstants.HLR_WIDGET_PERMISSION_UM));
             pages.getUserManagementPage().destroyTempBrowser();
-            assertCheck.append(actions.assertEqualBoolean(pages.getServiceClassWidget().isServiceClassWidgetDisplay(), UtilsMethods.isUserHasPermission(new Headers(map), hlr_permission), "Service Profile Widget must not displayed as permission have removed", "Service Profile Widget is still displayed as permission have removed"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getServiceClassWidget().isServiceClassWidgetDisplay(), UtilsMethods.isUserHasPermission(hlr_permission), "Service Profile Widget must not displayed as permission have removed", "Service Profile Widget is still displayed as permission have removed"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - isUserHasHLRPermission" + e.fillInStackTrace(), true);
@@ -172,7 +172,7 @@ public class ServiceProfileWidgetTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Verify that agent having the UM permission should be able to bar any of the unbarred service, Validate Pop up window after clicking on action button", "description");
             String hlr_permission = constants.getValue(PermissionConstants.HLR_WIDGET_BAR_PERMISSION);
-            assertCheck.append(actions.assertEqualBoolean(UtilsMethods.isUserHasPermission(new Headers(map), hlr_permission), true, "User has permission to bar service as expected", "User does not has permission to bar service as expected."));
+            assertCheck.append(actions.assertEqualBoolean(UtilsMethods.isUserHasPermission(hlr_permission), true, "User has permission to bar service as expected", "User does not has permission to bar service as expected."));
             int size = Math.min(hlrService.getTotalCount(), 5);
             final ServiceClassWidget serviceClassWidget = pages.getServiceClassWidget();
             boolean flag = true;
@@ -214,7 +214,7 @@ public class ServiceProfileWidgetTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Verify that agent having the UM permission should be able to unbar any of the barred service, Validate Pop up window after clicking on action button", "description");
             String hlr_permission = constants.getValue(PermissionConstants.HLR_WIDGET_UNBAR_PERMISSION);
-            assertCheck.append(actions.assertEqualBoolean(UtilsMethods.isUserHasPermission(new Headers(map), hlr_permission), true, "User has permission to bar service as expected", "User does not has permission to bar service as expected."));
+            assertCheck.append(actions.assertEqualBoolean(UtilsMethods.isUserHasPermission(hlr_permission), true, "User has permission to bar service as expected", "User does not has permission to bar service as expected."));
             int size = Math.min(hlrService.getTotalCount(), 5);
             final ServiceClassWidget serviceClassWidget = pages.getServiceClassWidget();
             boolean flag = true;
@@ -256,7 +256,7 @@ public class ServiceProfileWidgetTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Verify that on barring any service, the HLR widget should refresh and show that the particular service has been barred.", "description");
             String hlr_permission = constants.getValue(PermissionConstants.HLR_WIDGET_UNBAR_PERMISSION);
-            assertCheck.append(actions.assertEqualBoolean(UtilsMethods.isUserHasPermission(new Headers(map), hlr_permission), true, "User has permission to bar service as expected", "User does not has permission to bar service as expected."));
+            assertCheck.append(actions.assertEqualBoolean(UtilsMethods.isUserHasPermission(hlr_permission), true, "User has permission to bar service as expected", "User does not has permission to bar service as expected."));
             int size = Math.min(hlrService.getTotalCount(), 5);
              serviceClassWidget = pages.getServiceClassWidget();
             boolean flag = true;
@@ -306,7 +306,7 @@ public class ServiceProfileWidgetTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Verify that on barring any service, the HLR widget should refresh and show the the particular service has been barred.", "description");
             String hlr_permission = constants.getValue(PermissionConstants.HLR_WIDGET_UNBAR_PERMISSION);
-            assertCheck.append(actions.assertEqualBoolean(UtilsMethods.isUserHasPermission(new Headers(map), hlr_permission), true, "User have permission to bar service as expected", "User does not have permission to bar service as expected."));
+            assertCheck.append(actions.assertEqualBoolean(UtilsMethods.isUserHasPermission(hlr_permission), true, "User have permission to bar service as expected", "User does not have permission to bar service as expected."));
             int size = Math.min(hlrService.getTotalCount(), 5);
             final ServiceClassWidget serviceClassWidget = pages.getServiceClassWidget();
             boolean flag = true;

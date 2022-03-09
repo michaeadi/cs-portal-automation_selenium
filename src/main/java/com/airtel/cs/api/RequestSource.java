@@ -158,6 +158,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
@@ -171,7 +172,7 @@ public class RequestSource extends RestCommonUtils {
     private static final String TARIFF_PLAN_TEST_NUMBER = constants.getValue(ApplicationConstants.TARIFF_PLAN_TEST_NUMBER);
     private static final Map<String, Object> queryParam = new HashMap<>();
     private static final String NOTIFICATION_SERVICE_API = " - notification service for SMS ";
-    public static Integer statusCode = null;
+    private Integer statusCode = null;
     private ESBRequestSource esbRequestSource = new ESBRequestSource();
     private static final String MSISDN = "msisdn";
     private static final String MSISDN_CAPS = "MSISDN";
@@ -221,9 +222,9 @@ public class RequestSource extends RestCommonUtils {
     public static final String AGENT_PERMISSION = "agent permission";
     public static final String FETCH_TICKET_POOL = "fetch ticket pool";
     public static final String AGENT_DETAILS = "agent details";
-    public static final String EVENTS_LOG="event logs";
-    public static final String ADJUSTMENT_ACTION="adjustment action";
-    public static final String ADJUSTMENT_HISTORY="adjustment history ";
+    public static final String EVENTS_LOG = "event logs";
+    public static final String ADJUSTMENT_ACTION = "adjustment action";
+    public static final String ADJUSTMENT_HISTORY = "adjustment history ";
     public static final String POSTPAID_ACCOUNT_INFORMATION = "postpaid account information";
     public static final String ACTION_CONFIG = "action config";
     public static final String GET_FIELD_MASK_CONFIG = "get field mask config";
@@ -234,18 +235,18 @@ public class RequestSource extends RestCommonUtils {
     public static final String PLAN_AND_PACK = "plan and pack";
     public static final String CURRENT_PLAN = "current pan ";
     public static final String POSTPAID_ACCOUNT_DETAILS = "postpaid account details";
-    public static final String TICKET_HISTORY_LOG="ticket history log";
+    public static final String TICKET_HISTORY_LOG = "ticket history log";
     public static final String POSTPAID_ACCOUNT_MSISDN_DETAILS = "postpaid account msisdn details";
-    public static final String GET_CONFIGURATION_API="configuration api";
-    public static final String CREATE_CONFIGURATION_API="create configuration api";
-    public static final String DELETE_CONFIGURATION_API="delete configuration api ";
-    public static final String UPDATE_CONFIGURATION_API="update configuration api ";
-    public static final String GET_HBB_LINKED_ACCOUNTS_API="hbb linked accounts ";
-    public static final String AUTOFILL_ISSUE_FIELD="autofill issue field";
-    public static final String ENTERPRISE_POSTPAID_ACCOUNT_INFORMATION="enterprise postpaid information";
+    public static final String GET_CONFIGURATION_API = "configuration api";
+    public static final String CREATE_CONFIGURATION_API = "create configuration api";
+    public static final String DELETE_CONFIGURATION_API = "delete configuration api ";
+    public static final String UPDATE_CONFIGURATION_API = "update configuration api ";
+    public static final String GET_HBB_LINKED_ACCOUNTS_API = "hbb linked accounts ";
+    public static final String AUTOFILL_ISSUE_FIELD = "autofill issue field";
+    public static final String ENTERPRISE_POSTPAID_ACCOUNT_INFORMATION = "enterprise postpaid information";
     public static final String ENTERPRISE_ACCOUNT_SEARCH = "enterprise account search";
-    public static final String ENTERPRISE_LINKED_SERVICES="enterprise linked services";
-    public static final String ENTERPRISE_INTERACTION_HISTORY="enterprise interaction history";
+    public static final String ENTERPRISE_LINKED_SERVICES = "enterprise linked services";
+    public static final String ENTERPRISE_INTERACTION_HISTORY = "enterprise interaction history";
     public static final String ENTERPRISE_PAYMENT_HISTORY = "enterprise payment history";
     public static final String AUTOFILL_CONFIGS = "autofill configs v1";
     public static final String AM_PROFILE = "am profile";
@@ -369,7 +370,7 @@ public class RequestSource extends RestCommonUtils {
             queryParam.clear();
             queryParam.put(TYPE, MSISDN_CAPS);
             queryParam.put(NUMBER, msisdn);
-            commonGetMethodWithQueryParam(URIConstants.SEARCH, queryParam, map);
+            commonGetMethodWithQueryParam(URIConstants.SEARCH, queryParam);
             result = response.print();
             if (response.getStatusCode() != 200) {
                 esbRequestSource.callServiceClassRatePlan(new GenericRequest(msisdn));
@@ -399,14 +400,13 @@ public class RequestSource extends RestCommonUtils {
             queryParam.put(LAYOUT_CONFIG_TYPE, layoutConfigType);
             queryParam.put(CATEGORY_ID, categoryId);
             queryParam.put(INPUT_FIELDS, inputFields);
-            baseUrl = srBaseUrl;
-            commonGetMethodWithQueryParam(URIConstants.AUTOFILL_ISSUE_FIELD, queryParam, validHeaderList);
+            commonGetMethodWithQueryParam(URIConstants.AUTOFILL_ISSUE_FIELD, queryParam, validHeaderList, srBaseUrl);
             result = response.print();
             myList = new ArrayList<>(Arrays.asList(result.split("data:")));
         } catch (Exception e) {
             queryParam.clear();
             queryParam.put(CATEGORY_ID, categoryId);
-            commonGetMethodWithQueryParam(URIConstants.AUTOFILL_CONFIGS, queryParam, validHeaderList);
+            commonGetMethodWithQueryParam(URIConstants.AUTOFILL_CONFIGS, queryParam, validHeaderList, srBaseUrl);
             AutofillConfigsResponse autofillConfigsResponse = response.as(AutofillConfigsResponse.class);
             esbRequestSource.callWebhookApisForAutofill(autofillConfigsResponse.getResult(), msisdn);
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - autoFillAPITest " + e.getMessage(), false);
@@ -448,7 +448,7 @@ public class RequestSource extends RestCommonUtils {
         try {
             queryParam.put(MSISDN, msisdn);
             queryParam.put("walletType", "Main");
-            commonGetMethodWithQueryParam(URIConstants.AM_PROFILE, queryParam, map);
+            commonGetMethodWithQueryParam(URIConstants.AM_PROFILE, queryParam);
             result = response.as(AMProfile.class);
             if (result.getStatusCode() != 200) {
                 esbRequestSource.callAmServiceProfileESBAPI(msisdn);
@@ -511,7 +511,7 @@ public class RequestSource extends RestCommonUtils {
      * @return The Response
      */
     public Plans accountPlansTest(String msisdn) {
-        commonLib.infoColored(constants.getValue(CALLING_CS_API) +ACCOUNT_PLAN , JavaColors.GREEN, false);
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + ACCOUNT_PLAN, JavaColors.GREEN, false);
         Plans result = null;
         try {
             commonPostMethod(ACCOUNT_PLAN, new GenericRequest(msisdn));
@@ -605,7 +605,7 @@ public class RequestSource extends RestCommonUtils {
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - rechargeHistoryAPITest " + e.getMessage(), false);
             esbRequestSource.callRechargeHistory(msisdn, UtilsMethods.getUTCEndDate(Timestamp.valueOf(LocalDate.now().atTime(LocalTime.MAX)).getTime()),
-                            UtilsMethods.getUTCStartDate(Timestamp.valueOf(LocalDate.now().atStartOfDay().minusDays(14)).getTime()));
+                    UtilsMethods.getUTCStartDate(Timestamp.valueOf(LocalDate.now().atStartOfDay().minusDays(14)).getTime()));
         }
         return result;
     }
@@ -668,13 +668,13 @@ public class RequestSource extends RestCommonUtils {
                 commonPostMethod(constants.getValue(AM_TRANSACTION_HISTORY_API_URL) + ESBURIConstants.TRANSACTION_HISTORY, new TransactionHistoryRequest(msisdn, 5, 1, null, null));
                 commonLib.info(CALLING_ESB_APIS);
                 queryParam.put(MSISDN, msisdn);
-                commonGetMethodWithQueryParam(constants.getValue("gsm.customer.profile.base.url") + ESBURIConstants.QUERY_BALANCE, queryParam, map);
+                commonGetMethodWithQueryParam(constants.getValue("gsm.customer.profile.base.url") + ESBURIConstants.QUERY_BALANCE, queryParam);
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - balanceAPITest " + e.getMessage(), false);
             commonLib.info(CALLING_ESB_APIS);
             queryParam.put(MSISDN, msisdn);
-            commonGetMethodWithQueryParam(constants.getValue("gsm.customer.profile.base.url") + ESBURIConstants.QUERY_BALANCE, queryParam, map);
+            commonGetMethodWithQueryParam(constants.getValue("gsm.customer.profile.base.url") + ESBURIConstants.QUERY_BALANCE, queryParam);
         }
         return result;
     }
@@ -690,7 +690,7 @@ public class RequestSource extends RestCommonUtils {
         Ticket result = null;
         try {
             queryParam.put("id", ticketId);
-            commonGetMethodWithQueryParam(URIConstants.SR_FETCH_HISTORY, queryParam, map);
+            commonGetMethodWithQueryParam(URIConstants.SR_FETCH_HISTORY, queryParam, validHeaderList, srBaseUrl);
             result = response.as(Ticket.class);
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - ticketMetaDataTest " + e.getMessage(), false);
@@ -880,7 +880,7 @@ public class RequestSource extends RestCommonUtils {
         ActivateRingtone result = null;
         try {
             queryParam.put(MSISDN, msisdn);
-            commonGetMethodWithQueryParam(URIConstants.FETCH_TUNES, queryParam, map);
+            commonGetMethodWithQueryParam(URIConstants.FETCH_TUNES, queryParam);
             result = response.as(ActivateRingtone.class);
             if (!"200".equals(result.getStatusCode())) {
                 esbRequestSource.callActiveRingTone(msisdn);
@@ -937,8 +937,8 @@ public class RequestSource extends RestCommonUtils {
     }
 
     /**
+     * This method is used to hit the api "/cs-gsm-service/v1/hlr/order/history"
      *
-     *This method is used to hit the api "/cs-gsm-service/v1/hlr/order/history"
      * @param request the request
      * @return the hlr order history
      */
@@ -972,7 +972,7 @@ public class RequestSource extends RestCommonUtils {
             queryParam.put("keys", key);
             queryParam.put("opco", OPCO);
             queryParam.put("lineType", lineType);
-            commonGetMethodWithQueryParam(URIConstants.CONFIGURATIONS, queryParam, map);
+            commonGetMethodWithQueryParam(URIConstants.CONFIGURATIONS, queryParam);
             result = response.as(Configuration.class);
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getConfiguration " + e.getMessage(), false);
@@ -1063,14 +1063,13 @@ public class RequestSource extends RestCommonUtils {
     /**
      * This Method will hit the API "/sr/api/sr-service/v1/agents" and return the response
      *
-     * @param headers The headers contain auth token including common headers
      * @return The Response
      */
-    public AgentDetailAttribute getAgentDetail(Headers headers) {
+    public AgentDetailAttribute getAgentDetail() {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         AgentDetailAttribute result = null;
         try {
-            commonGetMethod(URIConstants.AGENT_DETAILS, headers);
+            commonGetMethod(URIConstants.AGENT_DETAILS);
             result = response.as(AgentDetailAttribute.class);
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getAgentDetail " + e.getMessage(), false);
@@ -1089,7 +1088,6 @@ public class RequestSource extends RestCommonUtils {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         ActionTrail result = null;
         try {
-            Map<String, String> clientInfo = new HashMap<>();
             clientInfo.put(MSISDN, msisdn);
             commonPostMethod(URIConstants.EVENTS_LOG, new ActionTrailRequest(msisdn, eventType, 10, 0, clientInfo));
             result = response.as(ActionTrail.class);
@@ -1146,7 +1144,7 @@ public class RequestSource extends RestCommonUtils {
         List<String> myList = null;
         try {
             queryParam.put(MSISDN, msisdn);
-            commonGetMethodWithQueryParam(URIConstants.POSTPAID_ACCOUNT_INFORMATION, queryParam, map);
+            commonGetMethodWithQueryParam(URIConstants.POSTPAID_ACCOUNT_INFORMATION, queryParam);
             result = response.print();
             if (response.getStatusCode() != 200) {
                 esbRequestSource.callPostpaidAccountInformation(msisdn);
@@ -1173,7 +1171,7 @@ public class RequestSource extends RestCommonUtils {
         try {
             queryParam.clear();
             queryParam.put("actionKey", actionKey);
-            commonGetMethodWithQueryParam(URIConstants.GET_FIELD_MASK_CONFIG, queryParam, map);
+            commonGetMethodWithQueryParam(URIConstants.GET_FIELD_MASK_CONFIG, queryParam);
             fieldMaskConfigReponse = response.as(FieldMaskConfigReponse.class);
             if ("200".equals(fieldMaskConfigReponse.getStatusCode()) && Objects.nonNull(fieldMaskConfigReponse.getResult())) {
                 return fieldMaskConfigReponse.getResult();
@@ -1189,16 +1187,15 @@ public class RequestSource extends RestCommonUtils {
     /**
      * This Method will hit the API "/cs-service/api/cs-service/v1/actions/config" and return the response
      *
-     * @param headers    The headers contain auth token including common headers
      * @param actionName The action tag name
      * @return The Response
      */
-    public ActionConfigResult getActionConfig(Headers headers, String actionName) {
+    public ActionConfigResult getActionConfig(String actionName) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         ActionConfigResponse actionConfigResponse;
         ActionConfigResult actionConfigResult = null;
         try {
-            commonGetMethod(URIConstants.ACTION_CONFIG, headers);
+            commonGetMethod(URIConstants.ACTION_CONFIG);
             actionConfigResponse = response.as(ActionConfigResponse.class);
             if (ObjectUtils.isNotEmpty(actionConfigResponse)) {
                 statusCode = actionConfigResponse.getStatusCode();
@@ -1248,9 +1245,9 @@ public class RequestSource extends RestCommonUtils {
         AgentLimit result = null;
         try {
             LimitConfigRequest limitConfig = new LimitConfigRequest(featureKey, dailyLimit, monthlyLimit, transactionLimit);
-            List<LimitConfigRequest> request = new ArrayList<>();
-            request.add(limitConfig);
-            commonPostMethod(URIConstants.SAVE_AGENT_LIMIT_API, new SaveAgentLimitRequest(roleId, request));
+            List<LimitConfigRequest> limitConfigRequests = new ArrayList<>();
+            limitConfigRequests.add(limitConfig);
+            commonPostMethod(URIConstants.SAVE_AGENT_LIMIT_API, new SaveAgentLimitRequest(roleId, limitConfigRequests));
             result = response.as(AgentLimit.class);
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - saveAgentLimit " + e.getMessage(), false);
@@ -1270,7 +1267,7 @@ public class RequestSource extends RestCommonUtils {
         List<String> myList = null;
         try {
             queryParam.put(MSISDN, msisdn);
-            commonGetMethodWithQueryParam(URIConstants.CURRENT_PLAN, queryParam, map);
+            commonGetMethodWithQueryParam(URIConstants.CURRENT_PLAN, queryParam);
             result = response.print();
             if (response.getStatusCode() != 200) {
                 esbRequestSource.callingPlanAPI(msisdn);
@@ -1331,13 +1328,13 @@ public class RequestSource extends RestCommonUtils {
      * @param id The Id
      * @return The Response
      */
-    public TreeMap<String, List<Category>> getParentCategory(Long id) {
+    public SortedMap<String, List<Category>> getParentCategory(Long id) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         ParentCategoryResponse parentCategoryResponse = null;
         TreeMap<String, List<Category>> result = null;
         try {
             queryParam.put("id", id);
-            commonGetMethodWithQueryParam(URIConstants.GET_PARENT_CATEGORY_V1, queryParam, map);
+            commonGetMethodWithQueryParam(URIConstants.GET_PARENT_CATEGORY_V1, queryParam, map, srBaseUrl);
             parentCategoryResponse = response.as(ParentCategoryResponse.class);
             if (parentCategoryResponse.getStatusCode() == 200 && ObjectUtils.isNotEmpty(parentCategoryResponse.getResult())) {
                 result = parentCategoryResponse.getResult().entrySet().stream()
@@ -1382,7 +1379,7 @@ public class RequestSource extends RestCommonUtils {
         TicketHistoryLog result = null;
         try {
             queryParam.put("id", ticketId);
-            commonGetMethodWithQueryParam(URIConstants.TICKET_HISTORY_LOG, queryParam, map);
+            commonGetMethodWithQueryParam(URIConstants.TICKET_HISTORY_LOG, queryParam, map, srBaseUrl);
             result = response.as(TicketHistoryLog.class);
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getTicketHistoryLog " + e.getMessage(), false);
@@ -1422,10 +1419,9 @@ public class RequestSource extends RestCommonUtils {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         Integer result = null;
         try {
-            Map<String, String> clientInfo = new HashMap<>();
             clientInfo.put(MSISDN, msisdn);
             TicketSearchRequest ticketSearchRequest = new TicketSearchRequest(new TicketSearchCriteria(clientInfo));
-            commonPostMethod(URIConstants.GET_TICKET_HISTORY_V1, ticketSearchRequest);
+            commonPostMethod(URIConstants.GET_TICKET_HISTORY_V1, validHeaderList, ticketSearchRequest, srBaseUrl);
             result = response.getStatusCode();
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getTicketHistoryStatusCode " + e.getMessage(), false);
@@ -1570,7 +1566,7 @@ public class RequestSource extends RestCommonUtils {
     public InteractionIssueOpenApiRequest interactionIssueOpenApiRequest(List<Header> map, String clientConfig, String issueDetails, String categoryIds) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         body = "{\"interaction\":{\"createdBy\":\"" + CREATED_BY + "\",\"finalSubmit\":false,\"clientInfo\":{" + clientConfig + "}},\"issues\":[{\"comment\":\"" + COMMENT + "\",\"createdBy\":\"" + CREATED_BY + "\",\"issueDetails\":[" + issueDetails + "],\"categoryHierarchy\":[" + categoryIds + "]}]}";
-        commonPostMethod(INGRESS_OPEN_API_BASE_URL + URIConstants.OPEN_API_INTERACTION_ISSUE, map, body, srBaseUrl);
+        commonPostMethod(URIConstants.OPEN_API_INTERACTION_ISSUE, map, body, srBaseUrl);
         return response.as(InteractionIssueOpenApiRequest.class);
     }
 
@@ -1584,7 +1580,7 @@ public class RequestSource extends RestCommonUtils {
         commentOpenApiRequest.setAgentId(Long.parseLong(AGENT_ID));
         commentOpenApiRequest.setAgentName(AGENT_NAME);
         commentOpenApiRequest.setComment(COMMENT);
-        commonPostMethod(INGRESS_OPEN_API_BASE_URL + URIConstants.OPEN_API_CREATE_COMMENT, map, commentOpenApiRequest, srBaseUrl);
+        commonPostMethod( URIConstants.OPEN_API_CREATE_COMMENT, validHeaderList, commentOpenApiRequest, srBaseUrl);
         return RestCommonUtils.response.as(CommentOpenApiResponse.class);
     }
 
@@ -1597,7 +1593,7 @@ public class RequestSource extends RestCommonUtils {
         commentOpenApiRequest.setId(commentId);
         commentOpenApiRequest.setComment(UPDATE_COMMENT);
         commentOpenApiRequest.setAgentId(Long.parseLong(AGENT_ID));
-        commonPostMethod(INGRESS_OPEN_API_BASE_URL + URIConstants.OPEN_API_UPDATE_COMMENT, map, commentOpenApiRequest, srBaseUrl);
+        commonPostMethod(URIConstants.OPEN_API_UPDATE_COMMENT, validHeaderList, commentOpenApiRequest, srBaseUrl);
         return RestCommonUtils.response.as(CommentOpenApiResponse.class);
     }
 
@@ -1609,7 +1605,7 @@ public class RequestSource extends RestCommonUtils {
         CommentOpenApiRequest commentOpenApiRequest = new CommentOpenApiRequest();
         commentOpenApiRequest.setId(commentId);
         commentOpenApiRequest.setAgentId(Long.parseLong(AGENT_ID));
-        commonPostMethod(INGRESS_OPEN_API_BASE_URL + URIConstants.OPEN_API_DELETE_COMMENT, map, commentOpenApiRequest, srBaseUrl);
+        commonPostMethod(URIConstants.OPEN_API_DELETE_COMMENT, validHeaderList, commentOpenApiRequest, srBaseUrl);
         return RestCommonUtils.response.as(CommentOpenApiResponse.class);
     }
 
@@ -1618,7 +1614,7 @@ public class RequestSource extends RestCommonUtils {
      */
     public ClientConfigOpenApiRequest clientWithoutUMRequest(List<Header> map) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
-        commonGetMethod(INGRESS_OPEN_API_BASE_URL + URIConstants.OPEN_API_CLIENT_CONFIG, map, srBaseUrl);
+        commonGetMethod(URIConstants.OPEN_API_CLIENT_CONFIG, map, srBaseUrl);
         return response.as(ClientConfigOpenApiRequest.class);
     }
 
@@ -1633,7 +1629,7 @@ public class RequestSource extends RestCommonUtils {
     public TicketSearchByTicketIdOpenRequest ticketSearchByTicketIdOpenRequest(List<Header> map, String ticketId, Integer statusCode) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         queryParam.put("id", ticketId);
-        commonGetMethodWithQueryParam(INGRESS_OPEN_API_BASE_URL + URIConstants.OPEN_API_FETCH_TICKET, queryParam, validHeaderList);
+        commonGetMethodWithQueryParam(INGRESS_OPEN_API_BASE_URL + URIConstants.OPEN_API_FETCH_TICKET, queryParam, map, srBaseUrl);
         return response.as(TicketSearchByTicketIdOpenRequest.class);
     }
 
@@ -1648,7 +1644,7 @@ public class RequestSource extends RestCommonUtils {
     public TicketHistoryLogOpenRequest ticketHistoryLogOpenRequest(List<Header> map, String ticketId, Integer statusCode) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         queryParam.put("id", ticketId);
-        commonGetMethodWithQueryParam(INGRESS_OPEN_API_BASE_URL + URIConstants.OPEN_API_FETCH_TICKET_HISTORY_LOG, queryParam, validHeaderList);
+        commonGetMethodWithQueryParam(INGRESS_OPEN_API_BASE_URL + URIConstants.OPEN_API_FETCH_TICKET_HISTORY_LOG, queryParam, map, srBaseUrl);
         return response.as(TicketHistoryLogOpenRequest.class);
     }
 
@@ -1658,7 +1654,7 @@ public class RequestSource extends RestCommonUtils {
     public SearchTicketOpenRequest searchTicketOpenRequest(List<Header> map, String clientConfig) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         body = "{\"pageNumber\":0,\"pageSize\":10,\"ticketSearchCriteria\":{\"clientInfo\":{" + clientConfig + "}}}";
-        commonPostMethod(INGRESS_OPEN_API_BASE_URL + URIConstants.OPEN_API_SEARCH_TICKET, map, body, srBaseUrl);
+        commonPostMethod(URIConstants.OPEN_API_SEARCH_TICKET, map, body, srBaseUrl);
         return response.as(SearchTicketOpenRequest.class);
     }
 
@@ -1668,7 +1664,7 @@ public class RequestSource extends RestCommonUtils {
     public IssueLayoutOpenRequest issueLayoutOpenRequest(List<Header> map, String categoryId) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         body = "{\"layoutConfigType\":\"Issue\",\"categoryId\":" + categoryId + "}";
-        commonPostMethod(INGRESS_OPEN_API_BASE_URL + URIConstants.OPEN_API_ISSUE_LAYOUT, map, body, srBaseUrl);
+        commonPostMethod(URIConstants.OPEN_API_ISSUE_LAYOUT, map, body, srBaseUrl);
         return response.as(IssueLayoutOpenRequest.class);
     }
 
@@ -1678,7 +1674,7 @@ public class RequestSource extends RestCommonUtils {
     public ChildCategoryOpenApiRequest childCategoryOpenApiRequest(List<Header> map, Integer categoryId) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         body = "{\"id\":" + categoryId + "}";
-        commonPostMethod(INGRESS_OPEN_API_BASE_URL + URIConstants.OPEN_API_CHILD_CATEGORY, map, body, srBaseUrl);
+        commonPostMethod( URIConstants.OPEN_API_CHILD_CATEGORY, map, body, srBaseUrl);
         return response.as(ChildCategoryOpenApiRequest.class);
     }
 
@@ -1688,8 +1684,7 @@ public class RequestSource extends RestCommonUtils {
     public ParentCategoryOpenApiRequest parentCategoryOpenApiRequest(List<Header> map, String categoryId) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         queryParam.put("id", categoryId);
-        baseUrl = srBaseUrl;
-        commonGetMethodWithQueryParam(INGRESS_OPEN_API_BASE_URL + URIConstants.OPEN_API_PARENT_CATEGORY, queryParam, validHeaderList);
+        commonGetMethodWithQueryParam(URIConstants.OPEN_API_PARENT_CATEGORY, queryParam, map, srBaseUrl);
         return response.as(ParentCategoryOpenApiRequest.class);
     }
 
@@ -1698,7 +1693,7 @@ public class RequestSource extends RestCommonUtils {
      */
     public FirstLastOpenApiRequest firstLastOpenApiRequest(List<Header> map) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
-        commonGetMethod(INGRESS_OPEN_API_BASE_URL + URIConstants.OPEN_API_FIRST_LAST, map, srBaseUrl);
+        commonGetMethod(URIConstants.OPEN_API_FIRST_LAST, map, srBaseUrl);
         return response.as(FirstLastOpenApiRequest.class);
     }
 
@@ -1712,7 +1707,7 @@ public class RequestSource extends RestCommonUtils {
     public TicketRequest getTicketDetailById(List<Header> map, String ticketId) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         queryParam.put("id", ticketId);
-        commonGetMethodWithQueryParam(URIConstants.FETCH_TICKET, queryParam, validHeaderList);
+        commonGetMethodWithQueryParam(URIConstants.FETCH_TICKET, queryParam, map, srBaseUrl);
         return response.as(TicketRequest.class);
     }
 
@@ -1723,11 +1718,11 @@ public class RequestSource extends RestCommonUtils {
         return response.as(IssueHistoryRequest.class);
     }
 
-    public CreateIssueResponse createIssue(String interactionId, IssueDetails issueDetails, String createdBy, String comment, CategoryHierarchy category, MetaInfo metainfo) {
+    public CreateIssueResponse createIssue() {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         CreateIssueResponse result = null;
         try {
-            commonPostMethod(URIConstants.CREATE_ISSUE, new CreateIssueRequest());
+            commonPostMethod(URIConstants.CREATE_ISSUE, validHeaderList, new CreateIssueRequest(), srBaseUrl);
             result = response.as(CreateIssueResponse.class);
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + CREATE_ISSUE + e.getMessage(), false);
@@ -1750,7 +1745,7 @@ public class RequestSource extends RestCommonUtils {
     public TicketHistoryLogRequest getTicketHistoryLog(List<Header> map, String ticketId, Integer statusCode) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         queryParam.put("id", ticketId);
-        commonGetMethodWithQueryParam(URIConstants.FETCH_TICKET_HISTORY_LOG, queryParam, validHeaderList);
+        commonGetMethodWithQueryParam(URIConstants.FETCH_TICKET_HISTORY_LOG, queryParam, map, srBaseUrl);
         return response.as(TicketHistoryLogRequest.class);
     }
 
@@ -1789,16 +1784,11 @@ public class RequestSource extends RestCommonUtils {
         return response.as(IssueLayoutRequest.class);
     }
 
-    public CategoryHierarchyRequest getParentCategoryId(List<Header> map, Integer categoryId, Integer statusCode) {
-        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
-        queryParam.put("id", String.valueOf(categoryId));
-        commonGetMethodWithQueryParam(URIConstants.PARENT_CATEGORY, queryParam, validHeaderList);
-        return response.as(CategoryHierarchyRequest.class);
-    }
-
     public CategoryHierarchyRequest getParentCategoryId(List<Header> map, Integer categoryId) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
-        return getParentCategoryId(map, categoryId, 200);
+        queryParam.put("id", String.valueOf(categoryId));
+        commonGetMethodWithQueryParam(URIConstants.PARENT_CATEGORY, queryParam, map, srBaseUrl);
+        return response.as(CategoryHierarchyRequest.class);
     }
 
     public CategoryHierarchyRequest firstLastCategoryHierarchyTest(List<Header> map) {
@@ -1875,12 +1865,11 @@ public class RequestSource extends RestCommonUtils {
      */
     public TicketHistoryRequest ticketHistoryWithFilterRequest(List<Header> map, String clientConfig, String ticketId) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
-        TicketSearchRequest request = new TicketSearchRequest();
+        TicketSearchRequest ticketSearchRequest = new TicketSearchRequest();
         TicketSearchCriteria ticketSearchCriteria = new TicketSearchCriteria();
         ticketSearchCriteria.setTicketId(ticketId);
-        request.setTicketSearchCriteria(ticketSearchCriteria);
-        return ticketHistoryRequest(map, request);
-
+        ticketSearchRequest.setTicketSearchCriteria(ticketSearchCriteria);
+        return ticketHistoryRequest(map, ticketSearchRequest);
     }
 
     /*
@@ -1888,10 +1877,10 @@ public class RequestSource extends RestCommonUtils {
      */
     public TicketHistoryRequest ticketHistoryWithoutFilter(List<Header> map, String clientConfig) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
-        TicketSearchRequest request = new TicketSearchRequest();
+        TicketSearchRequest ticketSearchRequest = new TicketSearchRequest();
         TicketSearchCriteria ticketSearchCriteria = new TicketSearchCriteria();
-        request.setTicketSearchCriteria(ticketSearchCriteria);
-        return ticketHistoryRequest(map, request);
+        ticketSearchRequest.setTicketSearchCriteria(ticketSearchCriteria);
+        return ticketHistoryRequest(map, ticketSearchRequest);
     }
 
     /*
@@ -1900,15 +1889,15 @@ public class RequestSource extends RestCommonUtils {
     public TicketHistoryRequest ticketHistoryWithCategoryFilter(List<Header> map, String categoryIds) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
 
-        TicketSearchRequest request = new TicketSearchRequest();
+        TicketSearchRequest ticketSearchRequest = new TicketSearchRequest();
         TicketSearchCriteria ticketSearchCriteria = new TicketSearchCriteria();
-        ArrayList<Long> categories = new ArrayList<Long>();
+        ArrayList<Long> categories = new ArrayList<>();
         for (String s : categoryIds.split(",")) {
             categories.add(Long.valueOf(s));
         }
         ticketSearchCriteria.setCategoryIds(categories);
-        request.setTicketSearchCriteria(ticketSearchCriteria);
-        return ticketHistoryRequest(map, request);
+        ticketSearchRequest.setTicketSearchCriteria(ticketSearchCriteria);
+        return ticketHistoryRequest(map, ticketSearchRequest);
     }
 
     /*
@@ -1916,17 +1905,15 @@ public class RequestSource extends RestCommonUtils {
      */
     public TicketHistoryRequest ticketHistoryWithCategoryLevelAndValue(List<Header> map, int categoryLevel, String categoryLevelValues) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
-        TicketSearchRequest request = new TicketSearchRequest();
+        TicketSearchRequest ticketSearchRequest = new TicketSearchRequest();
         TicketSearchCriteria ticketSearchCriteria = new TicketSearchCriteria();
 
-        ArrayList<String> categories = new ArrayList<String>();
-        for (String s : categoryLevelValues.split(",")) {
-            categories.add(s);
-        }
+        ArrayList<String> categories = new ArrayList<>();
+        Collections.addAll(categories, categoryLevelValues.split(","));
         ticketSearchCriteria.setCategoryLevel(categoryLevel);
         ticketSearchCriteria.setCategoryLevelValues(categories);
-        request.setTicketSearchCriteria(ticketSearchCriteria);
-        return ticketHistoryRequest(map, request);
+        ticketSearchRequest.setTicketSearchCriteria(ticketSearchCriteria);
+        return ticketHistoryRequest(map, ticketSearchRequest);
     }
 
     /*
@@ -1934,17 +1921,15 @@ public class RequestSource extends RestCommonUtils {
      */
     public TicketHistoryRequest ticketHistoryWithAssigenedTicketPool(List<Header> map, String assignedQueues) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
-        TicketSearchRequest request = new TicketSearchRequest();
+        TicketSearchRequest ticketSearchRequest = new TicketSearchRequest();
         TicketSearchCriteria ticketSearchCriteria = new TicketSearchCriteria();
 
-        ArrayList<String> queues = new ArrayList<String>();
-        for (String s : assignedQueues.split(",")) {
-            queues.add(s);
-        }
+        ArrayList<String> queues = new ArrayList<>();
+        Collections.addAll(queues, assignedQueues.split(","));
         ticketSearchCriteria.setAssignedQueues(queues);
 
-        request.setTicketSearchCriteria(ticketSearchCriteria);
-        return ticketHistoryRequest(map, request);
+        ticketSearchRequest.setTicketSearchCriteria(ticketSearchCriteria);
+        return ticketHistoryRequest(map, ticketSearchRequest);
     }
 
     /*
@@ -1952,11 +1937,11 @@ public class RequestSource extends RestCommonUtils {
      */
     public TicketHistoryRequest ticketHistoryWithCustomerSLABreached(List<Header> map, boolean customerSLABreached) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
-        TicketSearchRequest request = new TicketSearchRequest();
+        TicketSearchRequest ticketSearchRequest = new TicketSearchRequest();
         TicketSearchCriteria ticketSearchCriteria = new TicketSearchCriteria();
         ticketSearchCriteria.setCustomerSlaBreached(customerSLABreached);
-        request.setTicketSearchCriteria(ticketSearchCriteria);
-        return ticketHistoryRequest(map, request);
+        ticketSearchRequest.setTicketSearchCriteria(ticketSearchCriteria);
+        return ticketHistoryRequest(map, ticketSearchRequest);
     }
 
     /*
@@ -1964,16 +1949,14 @@ public class RequestSource extends RestCommonUtils {
      */
     public TicketHistoryRequest ticketHistoryWithAssigneeName(List<Header> map, String assigneeName) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
-        TicketSearchRequest request = new TicketSearchRequest();
+        TicketSearchRequest ticketSearchRequest = new TicketSearchRequest();
         TicketSearchCriteria ticketSearchCriteria = new TicketSearchCriteria();
 
-        ArrayList<String> names = new ArrayList<String>();
-        for (String s : assigneeName.split(",")) {
-            names.add(s);
-        }
+        ArrayList<String> names = new ArrayList<>();
+        Collections.addAll(names, assigneeName.split(","));
         ticketSearchCriteria.setAssigneeNames(names);
-        request.setTicketSearchCriteria(ticketSearchCriteria);
-        return ticketHistoryRequest(map, request);
+        ticketSearchRequest.setTicketSearchCriteria(ticketSearchCriteria);
+        return ticketHistoryRequest(map, ticketSearchRequest);
     }
 
     /*
@@ -1981,17 +1964,15 @@ public class RequestSource extends RestCommonUtils {
      */
     public TicketHistoryRequest ticketHistoryWithAssigneeId(List<Header> map, String assigneeId) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
-        TicketSearchRequest request = new TicketSearchRequest();
+        TicketSearchRequest ticketSearchRequest = new TicketSearchRequest();
         TicketSearchCriteria ticketSearchCriteria = new TicketSearchCriteria();
 
-        ArrayList<String> ids = new ArrayList<String>();
-        for (String s : assigneeId.split(",")) {
-            ids.add(s);
-        }
+        ArrayList<String> ids = new ArrayList<>();
+        Collections.addAll(ids, assigneeId.split(","));
         ticketSearchCriteria.setAssigneeIds(ids);
 
-        request.setTicketSearchCriteria(ticketSearchCriteria);
-        return ticketHistoryRequest(map, request);
+        ticketSearchRequest.setTicketSearchCriteria(ticketSearchCriteria);
+        return ticketHistoryRequest(map, ticketSearchRequest);
     }
 
     /*
@@ -1999,11 +1980,11 @@ public class RequestSource extends RestCommonUtils {
      */
     public TicketHistoryRequest ticketHistoryWithWorkgroupSLABreached(List<Header> map, boolean workgroupSLABreached) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
-        TicketSearchRequest request = new TicketSearchRequest();
+        TicketSearchRequest ticketSearchRequest = new TicketSearchRequest();
         TicketSearchCriteria ticketSearchCriteria = new TicketSearchCriteria();
         ticketSearchCriteria.setWorkgroupSlaBreached(workgroupSLABreached);
-        request.setTicketSearchCriteria(ticketSearchCriteria);
-        return ticketHistoryRequest(map, request);
+        ticketSearchRequest.setTicketSearchCriteria(ticketSearchCriteria);
+        return ticketHistoryRequest(map, ticketSearchRequest);
     }
 
     /*
@@ -2011,20 +1992,18 @@ public class RequestSource extends RestCommonUtils {
      */
     public TicketHistoryRequest ticketHistoryWithIssueDetails(List<Header> map, String fieldName, String fieldValue) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
-        TicketSearchRequest request = new TicketSearchRequest();
+        TicketSearchRequest ticketSearchRequest = new TicketSearchRequest();
         TicketSearchCriteria ticketSearchCriteria = new TicketSearchCriteria();
         IssueFields field = new IssueFields();
         field.setFieldName(fieldName);
 
-        List<Object> values = new ArrayList<Object>();
-        for (String s : fieldValue.split(",")) {
-            values.add(s);
-        }
+        List<Object> values = new ArrayList<>();
+        Collections.addAll(values, fieldValue.split(","));
 
         field.setFieldValues(values);
         field.setSearchType(SearchType.CONTAINS);
-        request.setTicketSearchCriteria(ticketSearchCriteria);
-        return ticketHistoryRequest(map, request);
+        ticketSearchRequest.setTicketSearchCriteria(ticketSearchCriteria);
+        return ticketHistoryRequest(map, ticketSearchRequest);
     }
 
 
@@ -2080,15 +2059,14 @@ public class RequestSource extends RestCommonUtils {
      * This Method will hit the API "/cs-gsm-service/v1/enterprise/postpaid/account/information" and return the response in list
      *
      * @param accountNo      The msisdn
-     * @param paymentRequest
+     * @param paymentRequest the request
      * @return The Response
      */
     public Integer getEnterprisePostpaidAccountInformation(String accountNo, PaymentRequest paymentRequest) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
-        Integer statusCode = null;
         try {
             queryParam.put(ACCOUNT_NO, accountNo);
-            commonGetMethodWithQueryParam(URIConstants.ENTERPRISE_POSTPAID_ACCOUNT_INFORMATION, queryParam, map);
+            commonGetMethodWithQueryParam(URIConstants.ENTERPRISE_POSTPAID_ACCOUNT_INFORMATION, queryParam);
             statusCode = response.getStatusCode();
             if (response.getStatusCode() != 200) {
                 esbRequestSource.callEnterPrisePostpaidAccountInformation(accountNo, paymentRequest);
@@ -2103,18 +2081,17 @@ public class RequestSource extends RestCommonUtils {
     /**
      * This Method will hit the API "/cs-gsm-service/v1/enterprise/search" and return the response in list
      *
-     * @param type
-     * @param val
+     * @param type the type
+     * @param val  the value
      * @return The Response
      */
     public Integer getEnterpriseSearchAccount(String type, String val) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
-        Integer statusCode = null;
         EnterpriseAccountSearchResponse result = null;
         try {
             queryParam.put("type", type);
             queryParam.put("val", val);
-            commonGetMethodWithQueryParam(URIConstants.ENTERPRISE_ACCOUNT_SEARCH, queryParam, map);
+            commonGetMethodWithQueryParam(URIConstants.ENTERPRISE_ACCOUNT_SEARCH, queryParam);
             statusCode = response.getStatusCode();
             result = response.as(EnterpriseAccountSearchResponse.class);
             if (response.getStatusCode() != 200 || result.getStatusCode() != 200) {
@@ -2131,12 +2108,11 @@ public class RequestSource extends RestCommonUtils {
     /**
      * This Method will hit the API "/cs-gsm-service/v1/enterprise/linked/services" and return the response in list
      *
-     * @param linkedServiceRequest
+     * @param linkedServiceRequest the CS request
      * @return The Response
      */
     public Integer getEnterpriseLinkedServices(EnterpriseLinkedServiceRequest linkedServiceRequest) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
-        Integer statusCode = null;
         AccountLinesRequest accountLinesRequest = new AccountLinesRequest();
         accountLinesRequest.setAccountNo(linkedServiceRequest.getAccountNo());
         accountLinesRequest.setMsisdn(linkedServiceRequest.getMsisdn());
@@ -2161,15 +2137,13 @@ public class RequestSource extends RestCommonUtils {
     /**
      * This Method will hit the API "cs-data-service/v1/event/logs" in case of Enterprise and return the response
      *
-     * @param eventType
-     * @param accountNo
+     * @param eventType the event type
+     * @param accountNo the account number
      * @return The Response
      */
     public Integer getEnterpriseEventHistory(String eventType, String accountNo) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
-        Integer statusCode = null;
         try {
-            Map<String, String> clientInfo = new HashMap<>();
             clientInfo.put(ACCOUNT_ID, accountNo);
             UtilsMethods.replaceHeader(SR_CLIENT_ID, constants.getValue(ApplicationConstants.ENTERPRISE_SR_CLIENT_ID));
             commonPostMethod(URIConstants.EVENTS_LOG, new ActionTrailRequest("", eventType, 10, 0, clientInfo));
@@ -2185,14 +2159,12 @@ public class RequestSource extends RestCommonUtils {
     /**
      * This Method will hit the API "/sr/api/sr-service/v1/issue/history" in case of Enterprise and return the response
      *
-     * @param accountNo
+     * @param accountNo the account number
      * @return The Response
      */
     public Integer getEnterpriseInteractionHistory(String accountNo) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
-        Integer statusCode = null;
         try {
-            Map<String, String> clientInfo = new HashMap<>();
             clientInfo.put(ACCOUNT_ID, accountNo);
             UtilsMethods.replaceHeader(SR_CLIENT_ID, constants.getValue(ApplicationConstants.ENTERPRISE_SR_CLIENT_ID));
             commonPostMethod(URIConstants.ENTERPRISE_INTERACTION_HISTORY, new InteractionHistoryRequest(clientInfo, 0, 10));
@@ -2208,14 +2180,12 @@ public class RequestSource extends RestCommonUtils {
     /**
      * This Method will hit the API "/sr/api/sr-service/v1/tickets" in case of Enterprise and return the response
      *
-     * @param accountNo
+     * @param accountNo the account number
      * @return The Response
      */
     public Integer getEnterpriseTicketHistory(String accountNo) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
-        Integer statusCode = null;
         try {
-            Map<String, String> clientInfo = new HashMap<>();
             clientInfo.put(ACCOUNT_ID, accountNo);
             TicketSearchRequest ticketSearchRequest = new TicketSearchRequest(new TicketSearchCriteria(clientInfo));
             UtilsMethods.replaceHeader(SR_CLIENT_ID, constants.getValue(ApplicationConstants.ENTERPRISE_SR_CLIENT_ID));
@@ -2232,12 +2202,11 @@ public class RequestSource extends RestCommonUtils {
     /**
      * This Method will hit the API "/cs-notification-service/v1/fetch/history" in case of Enterprise and return the response
      *
-     * @param accountNo
+     * @param accountNo the account number
      * @return The Response
      */
     public Integer getEnterpriseMessageHistory(String accountNo) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
-        Integer statusCode = null;
         try {
             UtilsMethods.replaceHeader(SR_CLIENT_ID, constants.getValue(ApplicationConstants.ENTERPRISE_SR_CLIENT_ID));
             commonPostMethod(URIConstants.NOTIFICATION_FETCH_HISTORY, new SMSHistoryRequest(accountNo, 10, 0));
@@ -2253,13 +2222,12 @@ public class RequestSource extends RestCommonUtils {
     /**
      * his Method will hit the API "/cs-gsm-service/v1/enterprise/payment/history" in case of Enterprise and return the response
      *
-     * @param paymentHistoryRequest
-     * @param paymentHistoryESBRequest
-     * @return
+     * @param paymentHistoryRequest    the CS API request
+     * @param paymentHistoryESBRequest the ESB request
+     * @return status code
      */
     public Integer getEnterprisePaymentHistory(PaymentHistoryRequest paymentHistoryRequest, PaymentHistoryESBRequest paymentHistoryESBRequest) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
-        Integer statusCode = null;
         try {
             UtilsMethods.replaceHeader(SR_CLIENT_ID, constants.getValue(ApplicationConstants.ENTERPRISE_SR_CLIENT_ID));
             commonPostMethod(URIConstants.ENTERPRISE_PAYMENT_HISTORY, paymentHistoryRequest);
@@ -2284,7 +2252,7 @@ public class RequestSource extends RestCommonUtils {
      * @param body the request body
      */
     public IssueLayoutRequest getV2LayoutConfiguration(List<Header> map, Object body) {
-        commonLib.infoColored(constants.getValue(CALLING_CS_API) +V2_LAYOUT_CONFIG , JavaColors.GREEN, false);
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + V2_LAYOUT_CONFIG, JavaColors.GREEN, false);
         commonPostMethod(V2_LAYOUT_CONFIG, map, body, srBaseUrl);
         return response.as(IssueLayoutRequest.class);
     }
@@ -2299,8 +2267,8 @@ public class RequestSource extends RestCommonUtils {
         List<String> myList = null;
         try {
             queryParam.put("activeVAS", "true");
-            queryParam.put("msisdn", msisdn);
-            commonGetMethodWithQueryParam(VAS_SUBSCRIPTION_HISTORY, queryParam, map);
+            queryParam.put(MSISDN, msisdn);
+            commonGetMethodWithQueryParam(VAS_SUBSCRIPTION_HISTORY, queryParam);
             result = response.print();
             if (response.getStatusCode() != 200) {
                 esbRequestSource.callActiveVAS(new ActiveVasRequest(msisdn, true));
@@ -2324,7 +2292,7 @@ public class RequestSource extends RestCommonUtils {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         TcpLimitsResponse result = null;
         try {
-            commonPostMethod(TCP_LIMITS, new TcpLimitsRequest(msisdn,tcpId));
+            commonPostMethod(TCP_LIMITS, new TcpLimitsRequest(msisdn, tcpId));
             result = response.as(TcpLimitsResponse.class);
             if (response.getStatusCode() != 200) {
                 esbRequestSource.callTcpLimits(tcpId);

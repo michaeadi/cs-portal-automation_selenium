@@ -57,8 +57,8 @@ public class AccountInfoBillDisputeTest extends Driver {
   public void isUserHasAccountInformationPermission() {
     try {
       selUtils.addTestcaseDescription("Verify that account information widget should be visible to the logged in agent if account info permission is enabled in UM, Check User has permission to view account information Widget Permission", "description");
-      Boolean accountInfoPermission = UtilsMethods
-          .isUserHasPermission(new Headers(map), constants.getValue(PermissionConstants.ACCOUNT_INFORMATION_WIDGET_PERMISSION));
+      boolean accountInfoPermission = UtilsMethods
+          .isUserHasPermission(constants.getValue(PermissionConstants.ACCOUNT_INFORMATION_WIDGET_PERMISSION));
       String connectionType = pages.getDemoGraphicPage().getConnectionType().toUpperCase().trim();
       if (connectionType.equalsIgnoreCase("POSTPAID")) {
         assertCheck.append(actions.assertEqualBoolean(pages.getAccountInformationWidget().isAccountInfoWidgetDisplayWithOutScroll(), accountInfoPermission, "Account Information Widget displayed correctly as per user permission", "Account Information Widget does not display correctly as per user permission"));
@@ -81,12 +81,12 @@ public class AccountInfoBillDisputeTest extends Driver {
       final DetailAccountInfoWidget acctountDetailsWidget = pages.getDetailAccountInfoWidget();
       acctountDetailsWidget.openAccountInformationDetailPage();
       assertCheck.append(actions.assertEqualStringType(acctountDetailsWidget.getAccountInfoDetailWidget().toUpperCase(), "ACCOUNT INFORMATION DETAIL", "Account Information Detail display as expected in detailed account info", "Account Information Detail not display as expected in detailed account info"));
-      final Boolean umViewBillPermission = UtilsMethods
-          .isUserHasPermission(new Headers(map), constants.getValue(PermissionConstants.BILL_DISPUTE));
+      final boolean umViewBillPermission = UtilsMethods
+          .isUserHasPermission(constants.getValue(PermissionConstants.BILL_DISPUTE));
       AccountDetails accountDetails = api.getAccountInfoDetail(accountNumber, 1);
       int size = accountDetails.getTotalCount() > 5 ? 5 : accountDetails.getTotalCount();
       int totalCount = accountDetails.getTotalCount();
-      Integer pageNumber=1;
+      int pageNumber=1;
       String ticketId="";
       for (int row = 1; row <= size; row++) {
         String transactionType =acctountDetailsWidget.getTransactionType(row);

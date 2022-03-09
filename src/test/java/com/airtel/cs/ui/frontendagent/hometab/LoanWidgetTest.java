@@ -83,7 +83,7 @@ public class LoanWidgetTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Verify that user has loan service permission is enabled in UM, Check User has permission to view loan service Widget Permission", "description");
             String loanServicePermission = constants.getValue(PermissionConstants.LOAN_SERVICE_WIDGET_PERMISSION);
-            assertCheck.append(actions.assertEqualBoolean(pages.getLoanWidget().isLoanServiceWidgetVisible(), UtilsMethods.isUserHasPermission(new Headers(map), loanServicePermission), "Loan service Widget displayed correctly as per user permission", "Loan service Widget does not display correctly as per user permission"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getLoanWidget().isLoanServiceWidgetVisible(), UtilsMethods.isUserHasPermission(loanServicePermission), "Loan service Widget displayed correctly as per user permission", "Loan service Widget does not display correctly as per user permission"));
         } catch (Exception e) {
             commonLib.fail("Exception in Method - isUserHasLoanWidgetPermission" + e.fillInStackTrace(), true);
         }
