@@ -1566,7 +1566,7 @@ public class RequestSource extends RestCommonUtils {
     public InteractionIssueOpenApiRequest interactionIssueOpenApiRequest(List<Header> map, String clientConfig, String issueDetails, String categoryIds) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         body = "{\"interaction\":{\"createdBy\":\"" + CREATED_BY + "\",\"finalSubmit\":false,\"clientInfo\":{" + clientConfig + "}},\"issues\":[{\"comment\":\"" + COMMENT + "\",\"createdBy\":\"" + CREATED_BY + "\",\"issueDetails\":[" + issueDetails + "],\"categoryHierarchy\":[" + categoryIds + "]}]}";
-        commonPostMethod(INGRESS_OPEN_API_BASE_URL + URIConstants.OPEN_API_INTERACTION_ISSUE, map, body, srBaseUrl);
+        commonPostMethod(URIConstants.OPEN_API_INTERACTION_ISSUE, map, body, srBaseUrl);
         return response.as(InteractionIssueOpenApiRequest.class);
     }
 
@@ -1580,7 +1580,7 @@ public class RequestSource extends RestCommonUtils {
         commentOpenApiRequest.setAgentId(Long.parseLong(AGENT_ID));
         commentOpenApiRequest.setAgentName(AGENT_NAME);
         commentOpenApiRequest.setComment(COMMENT);
-        commonPostMethod(INGRESS_OPEN_API_BASE_URL + URIConstants.OPEN_API_CREATE_COMMENT, validHeaderList, commentOpenApiRequest, srBaseUrl);
+        commonPostMethod( URIConstants.OPEN_API_CREATE_COMMENT, validHeaderList, commentOpenApiRequest, srBaseUrl);
         return RestCommonUtils.response.as(CommentOpenApiResponse.class);
     }
 
@@ -1593,7 +1593,7 @@ public class RequestSource extends RestCommonUtils {
         commentOpenApiRequest.setId(commentId);
         commentOpenApiRequest.setComment(UPDATE_COMMENT);
         commentOpenApiRequest.setAgentId(Long.parseLong(AGENT_ID));
-        commonPostMethod(INGRESS_OPEN_API_BASE_URL + URIConstants.OPEN_API_UPDATE_COMMENT, validHeaderList, commentOpenApiRequest, srBaseUrl);
+        commonPostMethod(URIConstants.OPEN_API_UPDATE_COMMENT, validHeaderList, commentOpenApiRequest, srBaseUrl);
         return RestCommonUtils.response.as(CommentOpenApiResponse.class);
     }
 
@@ -1605,7 +1605,7 @@ public class RequestSource extends RestCommonUtils {
         CommentOpenApiRequest commentOpenApiRequest = new CommentOpenApiRequest();
         commentOpenApiRequest.setId(commentId);
         commentOpenApiRequest.setAgentId(Long.parseLong(AGENT_ID));
-        commonPostMethod(INGRESS_OPEN_API_BASE_URL + URIConstants.OPEN_API_DELETE_COMMENT, validHeaderList, commentOpenApiRequest, srBaseUrl);
+        commonPostMethod(URIConstants.OPEN_API_DELETE_COMMENT, validHeaderList, commentOpenApiRequest, srBaseUrl);
         return RestCommonUtils.response.as(CommentOpenApiResponse.class);
     }
 
@@ -1614,7 +1614,7 @@ public class RequestSource extends RestCommonUtils {
      */
     public ClientConfigOpenApiRequest clientWithoutUMRequest(List<Header> map) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
-        commonGetMethod(INGRESS_OPEN_API_BASE_URL + URIConstants.OPEN_API_CLIENT_CONFIG, map, srBaseUrl);
+        commonGetMethod(URIConstants.OPEN_API_CLIENT_CONFIG, map, srBaseUrl);
         return response.as(ClientConfigOpenApiRequest.class);
     }
 
@@ -1654,7 +1654,7 @@ public class RequestSource extends RestCommonUtils {
     public SearchTicketOpenRequest searchTicketOpenRequest(List<Header> map, String clientConfig) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         body = "{\"pageNumber\":0,\"pageSize\":10,\"ticketSearchCriteria\":{\"clientInfo\":{" + clientConfig + "}}}";
-        commonPostMethod(INGRESS_OPEN_API_BASE_URL + URIConstants.OPEN_API_SEARCH_TICKET, map, body, srBaseUrl);
+        commonPostMethod(URIConstants.OPEN_API_SEARCH_TICKET, map, body, srBaseUrl);
         return response.as(SearchTicketOpenRequest.class);
     }
 
@@ -1664,7 +1664,7 @@ public class RequestSource extends RestCommonUtils {
     public IssueLayoutOpenRequest issueLayoutOpenRequest(List<Header> map, String categoryId) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         body = "{\"layoutConfigType\":\"Issue\",\"categoryId\":" + categoryId + "}";
-        commonPostMethod(INGRESS_OPEN_API_BASE_URL + URIConstants.OPEN_API_ISSUE_LAYOUT, map, body, srBaseUrl);
+        commonPostMethod(URIConstants.OPEN_API_ISSUE_LAYOUT, map, body, srBaseUrl);
         return response.as(IssueLayoutOpenRequest.class);
     }
 
@@ -1674,7 +1674,7 @@ public class RequestSource extends RestCommonUtils {
     public ChildCategoryOpenApiRequest childCategoryOpenApiRequest(List<Header> map, Integer categoryId) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         body = "{\"id\":" + categoryId + "}";
-        commonPostMethod(INGRESS_OPEN_API_BASE_URL + URIConstants.OPEN_API_CHILD_CATEGORY, map, body, srBaseUrl);
+        commonPostMethod( URIConstants.OPEN_API_CHILD_CATEGORY, map, body, srBaseUrl);
         return response.as(ChildCategoryOpenApiRequest.class);
     }
 
@@ -1684,7 +1684,7 @@ public class RequestSource extends RestCommonUtils {
     public ParentCategoryOpenApiRequest parentCategoryOpenApiRequest(List<Header> map, String categoryId) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         queryParam.put("id", categoryId);
-        commonGetMethodWithQueryParam(INGRESS_OPEN_API_BASE_URL + URIConstants.OPEN_API_PARENT_CATEGORY, queryParam, map, srBaseUrl);
+        commonGetMethodWithQueryParam(URIConstants.OPEN_API_PARENT_CATEGORY, queryParam, map, srBaseUrl);
         return response.as(ParentCategoryOpenApiRequest.class);
     }
 
@@ -1693,7 +1693,7 @@ public class RequestSource extends RestCommonUtils {
      */
     public FirstLastOpenApiRequest firstLastOpenApiRequest(List<Header> map) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
-        commonGetMethod(INGRESS_OPEN_API_BASE_URL + URIConstants.OPEN_API_FIRST_LAST, map, srBaseUrl);
+        commonGetMethod(URIConstants.OPEN_API_FIRST_LAST, map, srBaseUrl);
         return response.as(FirstLastOpenApiRequest.class);
     }
 
