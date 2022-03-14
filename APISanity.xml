@@ -13,13 +13,13 @@
         <classes>
             <class name="com.airtel.cs.api.layoutcategorycode.ParentCategoryTest"/>
         </classes>
-    </test>-->
+    </test>
     <test name="Issue Layout Config API Test">
          <classes>
              <class name="com.airtel.cs.api.layoutcategorycode.IssueLayoutConfigTest"/>
          </classes>
-     </test>
-    <!-- <test name="Create Issue Test">
+     </test>-->
+     <test name="Create Issue Test">
          <classes>
              <class name="com.airtel.cs.api.interactionissue.CreateIssueTest"/>
          </classes>
@@ -29,7 +29,7 @@
              <class name="com.airtel.cs.api.interactionissue.CreateInteractionIssueTest"/>
          </classes>
      </test>
-     <test name="Get Issue History Test">
+    <!-- <test name="Get Issue History Test">
          <classes>
              <class name="com.airtel.cs.api.interactionissue.IssueHistoryTest"/>
          </classes>

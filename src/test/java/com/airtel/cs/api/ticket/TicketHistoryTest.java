@@ -416,7 +416,7 @@ public class TicketHistoryTest extends ApiPrerequisites {
         assertCheck
             .append(actions.assertEqualIntType(statusCode, 200, "Status Code Matched", "Status Code Not Matched and is -" + statusCode));
 
-        Boolean isIssuefieldTicketfound = true;
+        boolean isIssuefieldTicketfound = true;
 
         if (Objects.nonNull(ticketHistoryWithFilter) && CollectionUtils.isNotEmpty(ticketHistoryWithFilter.getResult())) {
 
