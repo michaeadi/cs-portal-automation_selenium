@@ -5,7 +5,7 @@ import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants
 import com.airtel.cs.commonutils.dataproviders.databeans.ClientConfigDataBean;
 import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.model.cs.request.issue.IssueDetails;
+import com.airtel.cs.model.sr.response.issue.IssueDetailsResponse;
 import com.airtel.cs.model.cs.request.openapi.category.ParentCategoryOpenApiRequest;
 import com.airtel.cs.model.cs.request.openapi.interactionissue.InteractionIssueOpenApiRequest;
 import com.airtel.cs.model.cs.request.openapi.interactionissue.IssueLayoutOpenRequest;
@@ -88,7 +88,7 @@ public class OpenAPIPrerequisites extends Driver {
             if (layoutConfiguration.getStatusCode() == 200) {
                 if (!(layoutConfiguration.getResult() == null)) {
                     if (!(layoutConfiguration.getResult().isEmpty())) {
-                        for (IssueDetails s : layoutConfiguration.getResult()) {
+                        for (IssueDetailsResponse s : layoutConfiguration.getResult()) {
                             String value;
                             if (StringUtils.equalsIgnoreCase(s.getFieldType(), "text") && (Objects.nonNull(s.getPattern()) && s.getPattern().contains("/"))) {
                                 value = "1111";

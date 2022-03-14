@@ -14,8 +14,8 @@ import com.airtel.cs.model.cs.request.categoryhierarchy.CategoryHierarchyRequest
 import com.airtel.cs.model.cs.request.interaction.InteractionRequest;
 import com.airtel.cs.model.cs.request.interactionissue.InteractionIssueRequest;
 import com.airtel.cs.model.cs.request.issue.CategoryHierarchy;
-import com.airtel.cs.model.cs.request.issue.IssueDetails;
-import com.airtel.cs.model.cs.request.layout.IssueLayoutRequest;
+import com.airtel.cs.model.sr.response.issue.IssueDetailsResponse;
+import com.airtel.cs.model.sr.response.layout.IssueLayoutResponse;
 import com.airtel.cs.model.cs.request.login.LoginRequest;
 import com.airtel.cs.model.cs.response.login.Login;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -165,11 +165,11 @@ public class ApiPrerequisites extends Driver {
      */
     public String getIssueDetails(Integer validCategoryId) {
         StringBuilder issueDetails = null;
-        IssueLayoutRequest layoutConfiguration = api.getLayoutConfiguration(validHeaderList, validCategoryId);
+        IssueLayoutResponse layoutConfiguration = api.getLayoutConfiguration(validHeaderList, validCategoryId);
         if (layoutConfiguration.getStatusCode() == 200) {
             if (!(layoutConfiguration.getResult() == null)) {
                 if (!(layoutConfiguration.getResult().isEmpty())) {
-                    for (IssueDetails s : layoutConfiguration.getResult()) {
+                    for (IssueDetailsResponse s : layoutConfiguration.getResult()) {
                         String value;
                         if (StringUtils.equalsIgnoreCase(s.getFieldType(), "text") && (Objects.nonNull(s.getPattern()) && s.getPattern().contains("/"))) {
                             value = "1111";
@@ -285,13 +285,13 @@ public class ApiPrerequisites extends Driver {
      * @param fieldName
      * @param fieldValue
      */
-    public void getFieldValueAndName(IssueLayoutRequest layoutConfiguration, StringBuilder fieldName, StringBuilder fieldValue) {
+    public void getFieldValueAndName(IssueLayoutResponse layoutConfiguration, StringBuilder fieldName, StringBuilder fieldValue) {
         String value = "";
         String Name = "";
         if (layoutConfiguration.getStatusCode() == 200) {
             if (!(layoutConfiguration.getResult() == null)) {
                 if (!(layoutConfiguration.getResult().isEmpty())) {
-                    for (IssueDetails s : layoutConfiguration.getResult()) {
+                    for (IssueDetailsResponse s : layoutConfiguration.getResult()) {
 
                         if (StringUtils.equalsIgnoreCase(s.getFieldType(), "text")
                                 && (Objects.nonNull(s.getPattern()) && s.getPattern().contains("/"))) {

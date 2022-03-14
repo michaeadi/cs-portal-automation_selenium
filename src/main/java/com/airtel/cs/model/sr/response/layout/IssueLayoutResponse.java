@@ -1,6 +1,6 @@
-package com.airtel.cs.model.cs.request.layout;
+package com.airtel.cs.model.sr.response.layout;
 
-import com.airtel.cs.model.cs.request.issue.IssueDetails;
+import com.airtel.cs.model.sr.response.issue.IssueDetailsResponse;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
@@ -12,9 +12,9 @@ import java.util.ArrayList;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class IssueLayoutRequest {
+public class IssueLayoutResponse {
     private String status;
     private Integer statusCode;
-    private ArrayList<IssueDetails> result;
+    private ArrayList<IssueDetailsResponse> result;
     private String message;
 }

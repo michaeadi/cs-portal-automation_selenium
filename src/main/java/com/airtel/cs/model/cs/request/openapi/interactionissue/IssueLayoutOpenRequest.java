@@ -1,6 +1,6 @@
 package com.airtel.cs.model.cs.request.openapi.interactionissue;
 
-import com.airtel.cs.model.cs.request.issue.IssueDetails;
+import com.airtel.cs.model.sr.response.issue.IssueDetailsResponse;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
@@ -15,6 +15,6 @@ import java.util.ArrayList;
 public class IssueLayoutOpenRequest {
     private String status;
     private Integer statusCode;
-    private ArrayList<IssueDetails> result;
+    private ArrayList<IssueDetailsResponse> result;
     private String message;
 }

@@ -8,7 +8,7 @@ import com.airtel.cs.commonutils.dataproviders.databeans.NftrDataBeans;
 import com.airtel.cs.commonutils.dataproviders.databeans.AssignmentQueueRuleDataBeans;
 import com.airtel.cs.commonutils.dataproviders.databeans.SLARuleFileDataBeans;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.model.cs.request.issue.IssueDetails;
+import com.airtel.cs.model.sr.response.issue.IssueDetailsResponse;
 import com.airtel.cs.model.cs.response.ticketlist.Ticket;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.NoSuchElementException;
@@ -110,7 +110,7 @@ public class SupervisorSearchTicketTest extends Driver {
                 Map<String, Long> sla = ticketPOJO.getResult().getSla();
                 Map<String, String> workGroups = UtilsMethods.getWorkGroups(slaRule);
                 pages.getSupervisorTicketList().compareWorkgroupName(sla, workGroups);
-                List<IssueDetails> ticketLayout = ticketPOJO.getResult().getTicketDetails();
+                List<IssueDetailsResponse> ticketLayout = ticketPOJO.getResult().getTicketDetails();
                 List<String> configTicketLayout = dataProviders.getTicketLayout(data.getIssueCode());
                 pages.getSupervisorTicketList().compareTicketLayout(ticketLayout, configTicketLayout);
             } catch (TimeoutException | NoSuchElementException | AssertionError e) {

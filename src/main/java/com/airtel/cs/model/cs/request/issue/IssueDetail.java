@@ -1,5 +1,6 @@
 package com.airtel.cs.model.cs.request.issue;
 
+import com.airtel.cs.model.sr.response.issue.IssueDetailsResponse;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 public class IssueDetail {
     private String issueId;
     private ArrayList<CategoryHierarchy> categoryHierarchy;
-    private ArrayList<IssueDetails> issueDetails;
+    private ArrayList<IssueDetailsResponse> issueDetailResponses;
     private String comment;
     private Boolean actionPerformed;
     private String createdBy;
