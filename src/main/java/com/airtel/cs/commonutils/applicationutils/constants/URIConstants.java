@@ -42,9 +42,9 @@ public class URIConstants {
     public static final String AGENT_PERMISSION = "/sr/api/sr-service/v1/agent/permissions";
     public static final String FETCH_TICKET_POOL = "/sr/api/sr-service/v1/fetch/ticketpool";
     public static final String AGENT_DETAILS = "/sr/api/sr-service/v1/agents";
-    public static final String EVENTS_LOG="cs-data-service/v1/event/logs";
-    public static final String ADJUSTMENT_ACTION="cs-gsm-service/v1/adjustment/mapping?action=";
-    public static final String ADJUSTMENT_HISTORY="/cs-gsm-service/v1/adjustments";
+    public static final String EVENTS_LOG = "cs-data-service/v1/event/logs";
+    public static final String ADJUSTMENT_ACTION = "cs-gsm-service/v1/adjustment/mapping?action=";
+    public static final String ADJUSTMENT_HISTORY = "/cs-gsm-service/v1/adjustments";
     public static final String POSTPAID_ACCOUNT_INFORMATION = "/cs-gsm-service/v1/postpaid/account/information";
     public static final String ACTION_CONFIG = "/cs-service/api/cs-service/v1/actions/config";
     public static final String GET_FIELD_MASK_CONFIG = "/cs-service/api/cs-service/v1/get/field/mask/config";
@@ -55,22 +55,22 @@ public class URIConstants {
     public static final String PLAN_AND_PACK = "/cs-gsm-service/v1/postpaid/plan-pack/details";
     public static final String CURRENT_PLAN = "/cs-gsm-service/v1/postpaid/currentplan";
     public static final String POSTPAID_ACCOUNT_DETAILS = "/cs-gsm-service/v1/postpaid/account/details";
-    public static final String TICKET_HISTORY_LOG="/sr/api/sr-service/v1/fetch/ticket/history/log";
+    public static final String TICKET_HISTORY_LOG = "/sr/api/sr-service/v1/fetch/ticket/history/log";
     public static final String POSTPAID_ACCOUNT_MSISDN_DETAILS = "/cs-gsm-service/v1/postpaid/msisdn/details";
-    public static final String GET_CONFIGURATION_API="/api/cs-service/v1/config";
-    public static final String CREATE_CONFIGURATION_API="/api/cs-service/v1/create/config";
-    public static final String DELETE_CONFIGURATION_API="/api/cs-service/v1/delete/config";
-    public static final String UPDATE_CONFIGURATION_API="/api/cs-service/v1/update/config";
-    public static final String GET_HBB_LINKED_ACCOUNTS_API="/cs-gsm-service/v1/hbb/linked/accounts";
-    public static final String NOTIFICATION_SERVICE_API="/cs-notification-service/v1/send/notification";
+    public static final String GET_CONFIGURATION_API = "/api/cs-service/v1/config";
+    public static final String CREATE_CONFIGURATION_API = "/api/cs-service/v1/create/config";
+    public static final String DELETE_CONFIGURATION_API = "/api/cs-service/v1/delete/config";
+    public static final String UPDATE_CONFIGURATION_API = "/api/cs-service/v1/update/config";
+    public static final String GET_HBB_LINKED_ACCOUNTS_API = "/cs-gsm-service/v1/hbb/linked/accounts";
+    public static final String NOTIFICATION_SERVICE_API = "/cs-notification-service/v1/send/notification";
 
-    public static final String ENTERPRISE_POSTPAID_ACCOUNT_INFORMATION="/cs-gsm-service/v1/enterprise/accounts";
+    public static final String ENTERPRISE_POSTPAID_ACCOUNT_INFORMATION = "/cs-gsm-service/v1/enterprise/accounts";
     public static final String ENTERPRISE_ACCOUNT_SEARCH = "/cs-gsm-service/v1/enterprise/search";
-    public static final String ENTERPRISE_LINKED_SERVICES="/cs-gsm-service/v1/enterprise/linked/services";
-    public static final String ENTERPRISE_INTERACTION_HISTORY="/sr/api/sr-service/v1/issue/history";
+    public static final String ENTERPRISE_LINKED_SERVICES = "/cs-gsm-service/v1/enterprise/linked/services";
+    public static final String ENTERPRISE_INTERACTION_HISTORY = "/sr/api/sr-service/v1/issue/history";
     public static final String ENTERPRISE_PAYMENT_HISTORY = "/cs-gsm-service/v1/enterprise/payment/history";
-    public static final String VAS_SUBSCRIPTION_HISTORY="/cs-vas-service/v1/subscriptions/history";
-    public static final String TCP_LIMITS="/cs-am-service/v1/tcplimits";
+    public static final String VAS_SUBSCRIPTION_HISTORY = "/cs-vas-service/v1/subscriptions/history";
+    public static final String TCP_LIMITS = "/cs-am-service/v1/tcplimits";
 
 
     /**
@@ -112,6 +112,7 @@ public class URIConstants {
     public static final String FILE_UPLOAD = "/api/sr-service/v1/files";
     public static final String FILE_DOWNLOAD = "/api/sr-service/v1/files";
     public static final String FILE_DELETE = "/api/sr-service/v1/files";
+
 
     private URIConstants() {
 

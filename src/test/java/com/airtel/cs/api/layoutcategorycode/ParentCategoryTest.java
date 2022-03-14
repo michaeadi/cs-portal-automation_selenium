@@ -6,7 +6,7 @@ import com.airtel.cs.commonutils.dataproviders.databeans.ClientConfigDataBean;
 import com.airtel.cs.commonutils.dataproviders.databeans.FtrDataBeans;
 import com.airtel.cs.commonutils.dataproviders.databeans.NftrDataBeans;
 import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
-import com.airtel.cs.model.request.categoryhierarchy.CategoryHierarchyRequest;
+import com.airtel.cs.model.cs.request.categoryhierarchy.CategoryHierarchyRequest;
 import org.testng.annotations.Test;
 
 public class ParentCategoryTest extends ApiPrerequisites {

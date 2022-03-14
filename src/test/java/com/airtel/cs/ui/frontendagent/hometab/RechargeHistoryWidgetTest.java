@@ -6,7 +6,7 @@ import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants
 import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.databeans.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.model.response.rechargehistory.RechargeHistory;
+import com.airtel.cs.model.cs.response.rechargehistory.RechargeHistory;
 import com.airtel.cs.pagerepository.pagemethods.RechargeHistoryWidget;
 import lombok.extern.java.Log;
 import org.apache.commons.lang3.StringUtils;

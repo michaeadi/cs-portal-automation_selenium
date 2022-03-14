@@ -1,6 +1,6 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
-import com.airtel.cs.model.response.rechargehistory.RechargeHistory;
+import com.airtel.cs.model.cs.response.rechargehistory.RechargeHistory;
 import com.airtel.cs.pagerepository.pageelements.RechargeHistoryWidgetPage;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;

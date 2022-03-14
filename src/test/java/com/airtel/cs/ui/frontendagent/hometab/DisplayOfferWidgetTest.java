@@ -9,9 +9,8 @@ import com.airtel.cs.commonutils.applicationutils.enums.ReportInfoMessageColorLi
 import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.databeans.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.model.response.offerdetails.OfferDetail;
+import com.airtel.cs.model.cs.response.offerdetails.OfferDetail;
 import com.airtel.cs.pagerepository.pagemethods.DADetails;
-import io.restassured.http.Headers;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.testng.SkipException;

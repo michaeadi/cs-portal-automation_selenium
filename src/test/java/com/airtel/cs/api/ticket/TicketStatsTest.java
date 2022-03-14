@@ -2,7 +2,7 @@ package com.airtel.cs.api.ticket;
 
 
 import com.airtel.cs.common.prerequisite.ApiPrerequisites;
-import com.airtel.cs.model.response.ticketstats.TicketStatsResponse;
+import com.airtel.cs.model.cs.response.ticketstats.TicketStatsResponse;
 import org.testng.annotations.Test;
 
 public class TicketStatsTest extends ApiPrerequisites {

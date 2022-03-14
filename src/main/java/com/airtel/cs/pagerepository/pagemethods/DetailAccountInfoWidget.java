@@ -1,8 +1,8 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
-import com.airtel.cs.model.response.postpaid.AccountStatementResponse;
-import com.airtel.cs.model.response.postpaid.PostpaidAccountDetailResponse;
-import com.airtel.cs.model.response.postpaid.Result;
+import com.airtel.cs.model.cs.response.postpaid.AccountStatementResponse;
+import com.airtel.cs.model.cs.response.postpaid.PostpaidAccountDetailResponse;
+import com.airtel.cs.model.cs.response.postpaid.Result;
 import com.airtel.cs.pagerepository.pageelements.DetailAccountInfoWidgetPage;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;

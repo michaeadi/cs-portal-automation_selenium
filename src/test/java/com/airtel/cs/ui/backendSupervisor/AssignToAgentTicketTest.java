@@ -4,7 +4,7 @@ import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.applicationutils.enums.JavaColors;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.model.response.ticketlist.Ticket;
+import com.airtel.cs.model.cs.response.ticketlist.Ticket;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;

@@ -2,10 +2,10 @@ package com.airtel.cs.pagerepository.pagemethods;
 
 import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.databeans.AuthTabDataBeans;
-import com.airtel.cs.model.response.authconfiguration.Configuration;
-import com.airtel.cs.model.response.authconfiguration.CustomDetails;
-import com.airtel.cs.model.response.authconfiguration.CustomerDemographicSection;
-import com.airtel.cs.model.response.authconfiguration.Tabs;
+import com.airtel.cs.model.cs.response.authconfiguration.Configuration;
+import com.airtel.cs.model.cs.response.authconfiguration.CustomDetails;
+import com.airtel.cs.model.cs.response.authconfiguration.CustomerDemographicSection;
+import com.airtel.cs.model.cs.response.authconfiguration.Tabs;
 import com.airtel.cs.pagerepository.pageelements.DemoGraphicPage;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;

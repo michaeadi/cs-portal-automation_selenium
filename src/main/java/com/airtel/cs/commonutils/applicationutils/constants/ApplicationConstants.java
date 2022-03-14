@@ -111,6 +111,9 @@ public class ApplicationConstants {
     public static final String TCP_LIMIT_STK_BEARER ="cs.run.tcp.limit.stk.test";
     public static final String SELFCARE_SR_CLIENT_ID = "self.care.sr.client.id" ;;
     public static final String LOCALE = "sr.locale";
+    public static final String CUSTOMER_TIER1_MSISDN = "cs.customer.tier1.msisdn";
+    public static final String CUSTOMER_TIER2_MSISDN = "cs.customer.tier2.msisdn";
+    public static final String CUSTOMER_TIER3_MSISDN = "cs.customer.tier3.msisdn";
     public static final String CATEGORY_LEVEL = "sr.category.level";
 
     private ApplicationConstants() {

@@ -2,9 +2,9 @@ package com.airtel.cs.pagerepository.pagemethods;
 
 import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.commonutils.dataproviders.databeans.HeaderDataBean;
-import com.airtel.cs.model.response.loandetails.LoanRepaymentDetailList;
-import com.airtel.cs.model.response.loandetails.LoanRepaymentList;
-import com.airtel.cs.model.response.vendors.HeaderList;
+import com.airtel.cs.model.cs.response.loandetails.LoanRepaymentDetailList;
+import com.airtel.cs.model.cs.response.loandetails.LoanRepaymentList;
+import com.airtel.cs.model.cs.response.vendors.HeaderList;
 import com.airtel.cs.pagerepository.pageelements.LoanDetailPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

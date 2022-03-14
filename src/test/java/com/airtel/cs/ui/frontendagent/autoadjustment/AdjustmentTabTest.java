@@ -7,12 +7,11 @@ import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.model.response.adjustmenthistory.AdjustmentHistory;
-import com.airtel.cs.model.response.adjustmenthistory.AdjustmentResult;
-import com.airtel.cs.model.response.adjustmentreason.AdjustmentReasonRequest;
-import com.airtel.cs.model.response.rechargehistory.RechargeHistory;
-import com.airtel.cs.model.response.usagehistory.UsageHistory;
-import io.restassured.http.Headers;
+import com.airtel.cs.model.cs.response.adjustmenthistory.AdjustmentHistory;
+import com.airtel.cs.model.cs.response.adjustmenthistory.AdjustmentResult;
+import com.airtel.cs.model.cs.response.adjustmentreason.AdjustmentReasonRequest;
+import com.airtel.cs.model.cs.response.rechargehistory.RechargeHistory;
+import com.airtel.cs.model.cs.response.usagehistory.UsageHistory;
 import org.apache.commons.lang3.StringUtils;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;

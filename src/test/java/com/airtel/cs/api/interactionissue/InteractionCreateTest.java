@@ -4,7 +4,7 @@ package com.airtel.cs.api.interactionissue;
 import com.airtel.cs.common.prerequisite.ApiPrerequisites;
 import com.airtel.cs.commonutils.dataproviders.databeans.ClientConfigDataBean;
 import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
-import com.airtel.cs.model.request.interaction.InteractionRequest;
+import com.airtel.cs.model.cs.request.interaction.InteractionRequest;
 import org.testng.annotations.Test;
 
 import java.util.List;

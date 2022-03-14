@@ -3,7 +3,7 @@ package com.airtel.cs.ui.frontendagent.loginandlogout;
 import com.airtel.cs.commonutils.utils.PassUtils;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.model.response.login.Login;
+import com.airtel.cs.model.cs.response.login.Login;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.http.Header;
 import io.restassured.response.Response;

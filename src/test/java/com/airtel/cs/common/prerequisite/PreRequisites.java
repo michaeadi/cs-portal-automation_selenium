@@ -6,7 +6,7 @@ import com.airtel.cs.commonutils.utils.PassUtils;
 import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.extentreports.ExtentReport;
-import com.airtel.cs.model.response.login.Login;
+import com.airtel.cs.model.cs.response.login.Login;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.response.Response;

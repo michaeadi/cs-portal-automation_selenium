@@ -6,7 +6,7 @@ import com.airtel.cs.commonutils.dataproviders.databeans.FtrDataBeans;
 import com.airtel.cs.commonutils.dataproviders.databeans.NftrDataBeans;
 import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.excelutils.WriteToExcel;
-import com.airtel.cs.model.request.interactionissue.InteractionIssueRequest;
+import com.airtel.cs.model.cs.request.interactionissue.InteractionIssueRequest;
 import lombok.extern.log4j.Log4j2;
 import org.testng.annotations.Test;
 

@@ -5,10 +5,10 @@ import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.model.response.actionconfig.MetaInfo;
-import com.airtel.cs.model.response.actiontrail.ActionTrail;
-import com.airtel.cs.model.response.adjustmenthistory.AdjustmentHistory;
-import com.airtel.cs.model.response.adjustmenthistory.AdjustmentResult;
+import com.airtel.cs.model.cs.response.actionconfig.MetaInfo;
+import com.airtel.cs.model.cs.response.actiontrail.ActionTrail;
+import com.airtel.cs.model.cs.response.adjustmenthistory.AdjustmentHistory;
+import com.airtel.cs.model.cs.response.adjustmenthistory.AdjustmentResult;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;

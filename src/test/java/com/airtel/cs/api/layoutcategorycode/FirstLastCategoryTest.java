@@ -3,8 +3,8 @@ package com.airtel.cs.api.layoutcategorycode;
 
 import com.airtel.cs.common.prerequisite.ApiPrerequisites;
 import com.airtel.cs.commonutils.dataproviders.databeans.ClientConfigDataBean;
-import com.airtel.cs.model.request.categoryhierarchy.CategoryHierarchyRequest;
-import com.airtel.cs.model.request.issue.CategoryHierarchy;
+import com.airtel.cs.model.cs.request.categoryhierarchy.CategoryHierarchyRequest;
+import com.airtel.cs.model.cs.request.issue.CategoryHierarchy;
 import lombok.extern.log4j.Log4j2;
 import org.testng.annotations.Test;
 

@@ -2,7 +2,7 @@ package com.airtel.cs.api.clientconfig;
 
 
 import com.airtel.cs.common.prerequisite.ApiPrerequisites;
-import com.airtel.cs.model.request.clientconfig.AllConfiguredClientRequest;
+import com.airtel.cs.model.cs.request.clientconfig.AllConfiguredClientRequest;
 import org.testng.annotations.Test;
 
 public class SearchableFieldsClientConfigTest extends ApiPrerequisites {

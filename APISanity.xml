@@ -4,7 +4,7 @@
     <listeners>
         <listener class-name="com.airtel.cs.commonutils.listeners.TestListenerMethod"/>
     </listeners>
-    <!--<test name="First Last Category API Test">
+   <!-- <test name="First Last Category API Test">
         <classes>
             <class name="com.airtel.cs.api.layoutcategorycode.FirstLastCategoryTest"/>
         </classes>
@@ -13,95 +13,95 @@
         <classes>
             <class name="com.airtel.cs.api.layoutcategorycode.ParentCategoryTest"/>
         </classes>
-    </test>
-    <test name="Issue Layout Config API Test">
-        <classes>
-            <class name="com.airtel.cs.api.layoutcategorycode.IssueLayoutConfigTest"/>
-        </classes>
-    </test>
-    <test name="Create Issue Test">
-        <classes>
-            <class name="com.airtel.cs.api.interactionissue.CreateIssueTest"/>
-        </classes>
-    </test>
-    <test name="Create Interaction Issue Test">
-        <classes>
-            <class name="com.airtel.cs.api.interactionissue.CreateInteractionIssueTest"/>
-        </classes>
-    </test>
-    <test name="Get Issue History Test">
-        <classes>
-            <class name="com.airtel.cs.api.interactionissue.IssueHistoryTest"/>
-        </classes>
-    </test>
-    <test name="Search Ticket Test">
-        <classes>
-            <class name="com.airtel.cs.api.ticket.SearchTicketByIDTest"/>
-        </classes>
-    </test>
-    <test name="Get Ticket History Test">
-        <classes>
-            <class name="com.airtel.cs.api.ticket.TicketHistoryLogTest"/>
-        </classes>
-    </test>
-    <test name="Reopen Ticket Test">
-        <classes>
-            <class name="com.airtel.cs.api.ticket.ReopenTicketTest"/>
-        </classes>
     </test>-->
-    <test name="Open API Test- With CS Token">
-        <classes>
-            <class name="com.airtel.cs.api.openapi.OpenApiWithCSTokenTest"/>
-        </classes>
-    </test>
-    <test name="Open API Test- Client Without Um">
-        <groups>
-            <run>
-                <include name="ProdTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.api.openapi.OpenApiWithSelfCareTokenTest"/>
-        </classes>
-    </test>
-    <test name="Ticket Stats API">
-        <classes>
-            <class name="com.airtel.cs.api.ticket.TicketStatsTest"/>
-        </classes>
-    </test>
-    <test name="Client Config">
-        <classes>
-            <class name="com.airtel.cs.api.clientconfig.ClientConfigTest"/>
-        </classes>
-    </test>
-    <test name="Create Client Config">
-        <classes>
-            <class name="com.airtel.cs.api.clientconfig.CreateClientConfigTest"/>
-        </classes>
-    </test>
-    <test name="De-Activate Client Config">
-        <classes>
-            <class name="com.airtel.cs.api.clientconfig.DeActivateConfigTest"/>
-        </classes>
-    </test>
-    <test name="Searchable Field Client Config">
-        <classes>
-            <class name="com.airtel.cs.api.clientconfig.SearchableFieldsClientConfigTest"/>
-        </classes>
-    </test>
-    <test name="Ticket Listing">
-        <classes>
-            <class name="com.airtel.cs.api.ticket.TicketListingTest"/>
-        </classes>
-    </test>
-    <test name="Create Interaction API Test">
-        <classes>
-            <class name="com.airtel.cs.api.interactionissue.InteractionCreateTest"/>
-        </classes>
-    </test>
-    <test name="Ticket History API Test">
-        <classes>
-            <class name="com.airtel.cs.api.ticket.TicketHistoryTest"/>
-        </classes>
-    </test>
+    <test name="Issue Layout Config API Test">
+         <classes>
+             <class name="com.airtel.cs.api.layoutcategorycode.IssueLayoutConfigTest"/>
+         </classes>
+     </test>
+    <!-- <test name="Create Issue Test">
+         <classes>
+             <class name="com.airtel.cs.api.interactionissue.CreateIssueTest"/>
+         </classes>
+     </test>
+     <test name="Create Interaction Issue Test">
+         <classes>
+             <class name="com.airtel.cs.api.interactionissue.CreateInteractionIssueTest"/>
+         </classes>
+     </test>
+     <test name="Get Issue History Test">
+         <classes>
+             <class name="com.airtel.cs.api.interactionissue.IssueHistoryTest"/>
+         </classes>
+     </test>
+     <test name="Search Ticket Test">
+         <classes>
+             <class name="com.airtel.cs.api.ticket.SearchTicketByIDTest"/>
+         </classes>
+     </test>
+     <test name="Get Ticket History Test">
+         <classes>
+             <class name="com.airtel.cs.api.ticket.TicketHistoryLogTest"/>
+         </classes>
+     </test>
+     <test name="Reopen Ticket Test">
+         <classes>
+             <class name="com.airtel.cs.api.ticket.ReopenTicketTest"/>
+         </classes>
+     </test>
+     <test name="Open API Test- With CS Token">
+         <classes>
+             <class name="com.airtel.cs.api.openapi.OpenApiWithCSTokenTest"/>
+         </classes>
+     </test>
+     <test name="Open API Test- Client Without Um">
+         <groups>
+             <run>
+                 <include name="ProdTest"/>
+             </run>
+         </groups>
+         <classes>
+             <class name="com.airtel.cs.api.openapi.OpenApiWithSelfCareTokenTest"/>
+         </classes>
+     </test>
+     <test name="Ticket Stats API">
+         <classes>
+             <class name="com.airtel.cs.api.ticket.TicketStatsTest"/>
+         </classes>
+     </test>
+     <test name="Client Config">
+         <classes>
+             <class name="com.airtel.cs.api.clientconfig.ClientConfigTest"/>
+         </classes>
+     </test>
+     <test name="Create Client Config">
+         <classes>
+             <class name="com.airtel.cs.api.clientconfig.CreateClientConfigTest"/>
+         </classes>
+     </test>
+     <test name="De-Activate Client Config">
+         <classes>
+             <class name="com.airtel.cs.api.clientconfig.DeActivateConfigTest"/>
+         </classes>
+     </test>
+     <test name="Searchable Field Client Config">
+         <classes>
+             <class name="com.airtel.cs.api.clientconfig.SearchableFieldsClientConfigTest"/>
+         </classes>
+     </test>
+     <test name="Ticket Listing">
+         <classes>
+             <class name="com.airtel.cs.api.ticket.TicketListingTest"/>
+         </classes>
+     </test>
+     <test name="Create Interaction API Test">
+         <classes>
+             <class name="com.airtel.cs.api.interactionissue.InteractionCreateTest"/>
+         </classes>
+     </test>
+     <test name="Ticket History API Test">
+         <classes>
+             <class name="com.airtel.cs.api.ticket.TicketHistoryTest"/>
+         </classes>
+     </test>-->
     </suite>

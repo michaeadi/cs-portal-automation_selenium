@@ -2,14 +2,12 @@ package com.airtel.cs.pagerepository.pagemethods;
 
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.pagerepository.pageelements.CustomerProfilePage;
-import com.airtel.cs.model.response.plans.MainAccountBalance;
-import com.airtel.cs.model.response.plans.Plans;
+import com.airtel.cs.model.cs.response.plans.MainAccountBalance;
+import com.airtel.cs.model.cs.response.plans.Plans;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.ArrayList;

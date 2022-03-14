@@ -6,8 +6,7 @@ import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants
 import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.pagerepository.pagemethods.DetailAccountInfoWidget;
-import com.airtel.cs.model.response.accountinfo.AccountDetails;
-import io.restassured.http.Headers;
+import com.airtel.cs.model.cs.response.accountinfo.AccountDetails;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;

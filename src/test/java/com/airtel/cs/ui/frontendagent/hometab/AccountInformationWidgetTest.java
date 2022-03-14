@@ -8,10 +8,9 @@ import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.model.request.PaymentRequest;
-import com.airtel.cs.model.response.customeprofile.CustomerProfileResponse;
-import com.airtel.cs.model.response.kycprofile.KYCProfile;
-import io.restassured.http.Headers;
+import com.airtel.cs.model.cs.request.PaymentRequest;
+import com.airtel.cs.model.cs.response.customeprofile.CustomerProfileResponse;
+import com.airtel.cs.model.cs.response.kycprofile.KYCProfile;
 import io.restassured.response.Response;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.NoSuchElementException;
@@ -23,7 +22,6 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
 public class AccountInformationWidgetTest extends Driver {
