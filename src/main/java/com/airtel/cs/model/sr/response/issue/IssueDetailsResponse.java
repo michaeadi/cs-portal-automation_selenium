@@ -1,4 +1,4 @@
-package com.airtel.cs.model.cs.request.issue;
+package com.airtel.cs.model.sr.response.issue;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class IssueDetails {
+public class IssueDetailsResponse {
     private String label;
     private String pattern;
     private String fieldName;

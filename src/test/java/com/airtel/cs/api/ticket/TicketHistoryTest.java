@@ -10,7 +10,7 @@ import com.airtel.cs.commonutils.dataproviders.databeans.NftrDataBeans;
 import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
 import com.airtel.cs.model.cs.request.interactionissue.InteractionIssueRequest;
 import com.airtel.cs.model.cs.request.issue.CategoryHierarchy;
-import com.airtel.cs.model.cs.request.layout.IssueLayoutRequest;
+import com.airtel.cs.model.sr.response.layout.IssueLayoutResponse;
 import com.airtel.cs.model.cs.request.ticketAssign.TicketAssignResponse;
 import com.airtel.cs.model.cs.request.ticketdetail.TicketRequest;
 import com.airtel.cs.model.cs.request.tickethistory.TicketHistoryRequest;
@@ -401,7 +401,7 @@ public class TicketHistoryTest extends ApiPrerequisites {
         validCategoryId = ids.get(getClientCode(list).toLowerCase().trim());
         prepareTicketData(list);
 
-        IssueLayoutRequest layoutConfiguration = api.getLayoutConfiguration(validHeaderList, validCategoryId);
+        IssueLayoutResponse layoutConfiguration = api.getLayoutConfiguration(validHeaderList, validCategoryId);
         StringBuilder fieldName = new StringBuilder();
         StringBuilder fieldValue = new StringBuilder();
   
@@ -424,7 +424,7 @@ public class TicketHistoryTest extends ApiPrerequisites {
 
             TicketRequest ticketdetails=api.getTicketDetailById(validHeaderList, ticket.getTicketId());
             
-            if(Objects.isNull(ticketdetails.getResult()) || CollectionUtils.isEmpty(ticketdetails.getResult().getIssueDetails()) || ticketdetails.getResult().getIssueDetails().stream().noneMatch(issueDetail->issueDetail.getPlaceHolder().equalsIgnoreCase(fieldNameFinal) && issueDetail.getFieldValue().equalsIgnoreCase(fieldValueFinal)))
+            if(Objects.isNull(ticketdetails.getResult()) || CollectionUtils.isEmpty(ticketdetails.getResult().getIssueDetailResponses()) || ticketdetails.getResult().getIssueDetailResponses().stream().noneMatch(issueDetail->issueDetail.getPlaceHolder().equalsIgnoreCase(fieldNameFinal) && issueDetail.getFieldValue().equalsIgnoreCase(fieldValueFinal)))
             {
               isIssuefieldTicketfound = false;
               

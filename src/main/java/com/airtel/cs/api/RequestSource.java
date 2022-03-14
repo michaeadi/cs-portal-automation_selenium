@@ -57,7 +57,8 @@ import com.airtel.cs.model.cs.request.interactionissue.InteractionIssueRequest;
 import com.airtel.cs.model.cs.request.issue.CreateIssueRequest;
 import com.airtel.cs.model.cs.request.issuehistory.IssueHistoryRequest;
 import com.airtel.cs.model.cs.request.layout.AutofillConfigsResponse;
-import com.airtel.cs.model.cs.request.layout.IssueLayoutRequest;
+import com.airtel.cs.model.sr.request.layout.LayoutConfigRequest;
+import com.airtel.cs.model.sr.response.layout.IssueLayoutResponse;
 import com.airtel.cs.model.cs.request.login.LoginRequest;
 import com.airtel.cs.model.cs.request.openapi.category.ChildCategoryOpenApiRequest;
 import com.airtel.cs.model.cs.request.openapi.category.FirstLastOpenApiRequest;
@@ -1773,11 +1774,10 @@ public class RequestSource extends RestCommonUtils {
         return response.as(ClientConfigRequest.class);
     }
 
-    public IssueLayoutRequest getLayoutConfiguration(List<Header> map, Integer categoryId) {
+    public IssueLayoutResponse getLayoutConfiguration(List<Header> map, Integer categoryId) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
-        body = "{\"layoutConfigType\":\"Issue\",\"categoryId\":" + categoryId + "}";
-        commonPostMethod(URIConstants.ISSUE_LAYOUT, map, body, srBaseUrl);
-        return response.as(IssueLayoutRequest.class);
+        commonPostMethod(URIConstants.ISSUE_LAYOUT, map, new LayoutConfigRequest("Issue",categoryId), srBaseUrl);
+        return response.as(IssueLayoutResponse.class);
     }
 
     public CategoryHierarchyRequest getParentCategoryId(List<Header> map, Integer categoryId) {
@@ -2247,10 +2247,10 @@ public class RequestSource extends RestCommonUtils {
      * @param map  the header
      * @param body the request body
      */
-    public IssueLayoutRequest getV2LayoutConfiguration(List<Header> map, Object body) {
+    public IssueLayoutResponse getV2LayoutConfiguration(List<Header> map, Object body) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + V2_LAYOUT_CONFIG, JavaColors.GREEN, false);
         commonPostMethod(V2_LAYOUT_CONFIG, map, body, srBaseUrl);
-        return response.as(IssueLayoutRequest.class);
+        return response.as(IssueLayoutResponse.class);
     }
 
 

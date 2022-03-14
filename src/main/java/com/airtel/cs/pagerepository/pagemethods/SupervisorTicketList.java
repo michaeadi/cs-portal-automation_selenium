@@ -2,7 +2,7 @@ package com.airtel.cs.pagerepository.pagemethods;
 
 import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.commonutils.applicationutils.enums.ReportInfoMessageColorList;
-import com.airtel.cs.model.cs.request.issue.IssueDetails;
+import com.airtel.cs.model.sr.response.issue.IssueDetailsResponse;
 import com.airtel.cs.model.cs.response.ticketlist.QueueStates;
 import com.airtel.cs.pagerepository.pageelements.SupervisorTicketListPage;
 import lombok.extern.log4j.Log4j2;
@@ -851,9 +851,9 @@ public class SupervisorTicketList extends BasePage {
      * @param ticketLayout The API ticket layout
      * @param configTicketLayout The excel sheet ticket layout
      */
-    public void compareTicketLayout(List<IssueDetails> ticketLayout, List<String> configTicketLayout) {
+    public void compareTicketLayout(List<IssueDetailsResponse> ticketLayout, List<String> configTicketLayout) {
         if (ticketLayout!=null && !ticketLayout.isEmpty()) {
-            for (IssueDetails layout : ticketLayout) {
+            for (IssueDetailsResponse layout : ticketLayout) {
                 assertCheck.append(actions.assertEqualBoolean(configTicketLayout.remove(layout.getPlaceHolder().toLowerCase().trim()), true, layout.getPlaceHolder() + " : Ticket Layout configured in database as mention in Config sheet.", layout.getPlaceHolder() + " : Ticket Layout does not configured in database as mention in Config sheet."));
             }
         } else {
