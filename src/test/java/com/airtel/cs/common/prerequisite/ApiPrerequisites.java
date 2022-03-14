@@ -171,15 +171,17 @@ public class ApiPrerequisites extends Driver {
             if (!(layoutConfiguration.getResult() == null)) {
                 if (!(layoutConfiguration.getResult().isEmpty())) {
                     for (IssueDetails s : layoutConfiguration.getResult()) {
-                        String value;
+                        String value=null;
                         if (StringUtils.equalsIgnoreCase(s.getFieldType(), "text") && (Objects.nonNull(s.getPattern()) && s.getPattern().contains("/"))) {
-                            value = "1111";
+                            value="";
+                            //value = "1111";
                         } else if ("text".equalsIgnoreCase(s.getFieldType()) && StringUtils.isBlank(s.getPattern())) {
-                            value = "test";
+                            //value = "test";
                         } else if ("number".equalsIgnoreCase(s.getFieldType())) {
                             value = "1001";
                         } else if ("select".equalsIgnoreCase(s.getFieldType())) {
-                            value = s.getFieldOptions().get(0);
+                            value="";
+                            //value = s.getFieldOptions().get(0);
                         } else {
                             value = "test";
                         }
