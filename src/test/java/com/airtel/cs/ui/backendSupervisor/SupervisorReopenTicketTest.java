@@ -8,7 +8,7 @@ import com.airtel.cs.commonutils.dataproviders.databeans.AssignmentQueueRuleData
 import com.airtel.cs.commonutils.dataproviders.databeans.NftrDataBeans;
 import com.airtel.cs.commonutils.dataproviders.databeans.SLARuleFileDataBeans;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.model.response.ticketlist.Ticket;
+import com.airtel.cs.model.cs.response.ticketlist.Ticket;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;

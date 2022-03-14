@@ -5,7 +5,7 @@ import com.airtel.cs.common.prerequisite.ApiPrerequisites;
 import com.airtel.cs.commonutils.dataproviders.databeans.ClientConfigDataBean;
 import com.airtel.cs.commonutils.dataproviders.databeans.NftrDataBeans;
 import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
-import com.airtel.cs.model.request.issuehistory.IssueHistoryRequest;
+import com.airtel.cs.model.cs.request.issuehistory.IssueHistoryRequest;
 import org.testng.annotations.Test;
 
 public class IssueHistoryTest extends ApiPrerequisites {

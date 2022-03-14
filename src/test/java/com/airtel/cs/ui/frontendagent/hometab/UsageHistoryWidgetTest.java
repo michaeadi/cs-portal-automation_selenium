@@ -6,11 +6,10 @@ import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants
 import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.databeans.HeaderDataBean;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.model.response.agents.RoleDetails;
-import com.airtel.cs.model.response.filedmasking.FieldMaskConfigs;
-import com.airtel.cs.model.response.usagehistory.UsageHistory;
+import com.airtel.cs.model.cs.response.agents.RoleDetails;
+import com.airtel.cs.model.cs.response.filedmasking.FieldMaskConfigs;
+import com.airtel.cs.model.cs.response.usagehistory.UsageHistory;
 import com.airtel.cs.pagerepository.pagemethods.UsageHistoryWidget;
-import io.restassured.http.Headers;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;

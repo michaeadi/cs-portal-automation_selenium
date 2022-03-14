@@ -4,11 +4,10 @@ import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.model.response.actionconfig.ActionConfigResult;
-import com.airtel.cs.model.response.actiontrail.ActionTrail;
-import com.airtel.cs.model.response.actiontrail.EventResult;
-import com.airtel.cs.model.response.parentcategory.Category;
-import io.restassured.http.Headers;
+import com.airtel.cs.model.cs.response.actionconfig.ActionConfigResult;
+import com.airtel.cs.model.cs.response.actiontrail.ActionTrail;
+import com.airtel.cs.model.cs.response.actiontrail.EventResult;
+import com.airtel.cs.model.cs.response.parentcategory.Category;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoSuchElementException;
@@ -19,7 +18,6 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 import java.util.SortedMap;
-import java.util.TreeMap;
 
 public class SendInternetSettingsTest extends Driver {
 

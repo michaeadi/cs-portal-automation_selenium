@@ -4,7 +4,7 @@ package com.airtel.cs.api.ticket;
 import com.airtel.cs.common.prerequisite.ApiPrerequisites;
 import com.airtel.cs.commonutils.dataproviders.databeans.NftrDataBeans;
 import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
-import com.airtel.cs.model.request.ticketdetail.TicketRequest;
+import com.airtel.cs.model.cs.request.ticketdetail.TicketRequest;
 import lombok.extern.log4j.Log4j2;
 import org.testng.annotations.Test;
 

@@ -1,6 +1,6 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
-import com.airtel.cs.model.response.postpaid.enterprise.MsisdnDetail;
+import com.airtel.cs.model.cs.response.postpaid.enterprise.MsisdnDetail;
 import com.airtel.cs.pagerepository.pageelements.LinkedMsisdnToAccountNoPage;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;

@@ -6,10 +6,10 @@ import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.model.request.VoucherRechargeRequest;
-import com.airtel.cs.model.response.voucher.VoucherDetail;
-import com.airtel.cs.model.response.voucher.VoucherRechargeResponse;
-import com.airtel.cs.model.response.voucher.VoucherSearch;
+import com.airtel.cs.model.cs.request.VoucherRechargeRequest;
+import com.airtel.cs.model.cs.response.voucher.VoucherDetail;
+import com.airtel.cs.model.cs.response.voucher.VoucherRechargeResponse;
+import com.airtel.cs.model.cs.response.voucher.VoucherSearch;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.response.Response;
 import org.testng.SkipException;

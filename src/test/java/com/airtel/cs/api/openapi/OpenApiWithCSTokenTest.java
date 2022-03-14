@@ -2,7 +2,7 @@ package com.airtel.cs.api.openapi;
 
 
 import com.airtel.cs.common.prerequisite.ApiPrerequisites;
-import com.airtel.cs.model.request.openapi.clientconfig.ClientConfigOpenApiRequest;
+import com.airtel.cs.model.cs.request.openapi.clientconfig.ClientConfigOpenApiRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.testng.annotations.Test;
 

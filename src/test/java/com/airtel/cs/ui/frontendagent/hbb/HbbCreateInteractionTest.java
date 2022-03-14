@@ -2,19 +2,11 @@ package com.airtel.cs.ui.frontendagent.hbb;
 
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
-import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.model.response.hbb.HbbUserDetailsResponse;
-import com.airtel.cs.model.response.smshistory.SMSHistory;
-import com.airtel.cs.model.response.smshistory.SMSHistoryList;
-import org.openqa.selenium.ElementClickInterceptedException;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.TimeoutException;
+import com.airtel.cs.model.cs.response.smshistory.SMSHistory;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import javax.xml.crypto.Data;
 
 public class HbbCreateInteractionTest extends Driver {
 

@@ -5,10 +5,9 @@ import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants
 import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.model.response.accountinfo.AccountDetails;
-import com.airtel.cs.model.response.customeprofile.CustomerProfileResponse;
-import com.airtel.cs.model.response.kycprofile.KYCProfile;
-import io.restassured.http.Headers;
+import com.airtel.cs.model.cs.response.accountinfo.AccountDetails;
+import com.airtel.cs.model.cs.response.customeprofile.CustomerProfileResponse;
+import com.airtel.cs.model.cs.response.kycprofile.KYCProfile;
 import org.apache.commons.lang3.StringUtils;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;

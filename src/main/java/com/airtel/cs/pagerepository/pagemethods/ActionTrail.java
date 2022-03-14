@@ -1,10 +1,10 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
 import com.airtel.cs.commonutils.utils.UtilsMethods;
-import com.airtel.cs.model.response.actiontrail.EventResult;
+import com.airtel.cs.model.cs.response.actiontrail.EventResult;
 import com.airtel.cs.pagerepository.pageelements.ActionTrailPage;
-import com.airtel.cs.model.response.actionconfig.ActionConfigResult;
-import com.airtel.cs.model.response.actionconfig.MetaInfo;
+import com.airtel.cs.model.cs.response.actionconfig.ActionConfigResult;
+import com.airtel.cs.model.cs.response.actionconfig.MetaInfo;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;

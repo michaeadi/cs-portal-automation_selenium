@@ -2,7 +2,7 @@ package com.airtel.cs.ui.configurationtest;
 
 import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.model.response.configurationapi.ConfigurationList;
+import com.airtel.cs.model.cs.response.configurationapi.ConfigurationList;
 import org.testng.annotations.Test;
 
 public class ConfigurationListTest extends Driver {

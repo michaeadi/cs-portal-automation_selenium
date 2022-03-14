@@ -3,7 +3,7 @@ package com.airtel.cs.ui.frontendagent.hometab;
 import com.airtel.cs.api.RequestSource;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.model.request.PaymentRequest;
+import com.airtel.cs.model.cs.request.PaymentRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;

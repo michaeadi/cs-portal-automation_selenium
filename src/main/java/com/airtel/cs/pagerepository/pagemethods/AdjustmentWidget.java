@@ -1,8 +1,8 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
 import com.airtel.cs.pagerepository.pageelements.AdjustmentTabPage;
-import com.airtel.cs.model.response.adjustmentreason.AdjustmentReasonRequest;
-import com.airtel.cs.model.response.adjustmentreason.ReasonDetail;
+import com.airtel.cs.model.cs.response.adjustmentreason.AdjustmentReasonRequest;
+import com.airtel.cs.model.cs.response.adjustmentreason.ReasonDetail;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

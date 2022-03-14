@@ -1,14 +1,13 @@
 package com.airtel.cs.ui.frontendagent.hbb;
 import com.airtel.cs.api.ESBRequestSource;
-import com.airtel.cs.model.response.customeprofile.CustomerProfileResponse;
+import com.airtel.cs.model.cs.response.customeprofile.CustomerProfileResponse;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.model.response.actionconfig.MetaInfo;
-import com.airtel.cs.model.response.actiontrail.ActionTrail;
-import io.restassured.http.Headers;
+import com.airtel.cs.model.cs.response.actionconfig.MetaInfo;
+import com.airtel.cs.model.cs.response.actiontrail.ActionTrail;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.testng.SkipException;
