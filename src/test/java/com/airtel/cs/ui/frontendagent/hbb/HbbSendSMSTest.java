@@ -4,16 +4,11 @@ import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.model.request.hbb.ReceiverId;
-import com.airtel.cs.model.response.hbb.AlternateMsisdn;
-import com.airtel.cs.model.response.hbb.HbbUserDetailsResponse;
-import com.airtel.cs.model.response.hbb.NotificationServiceResponse;
+import com.airtel.cs.model.cs.response.hbb.HbbUserDetailsResponse;
 import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import java.util.List;
 
 public class HbbSendSMSTest extends Driver {
 

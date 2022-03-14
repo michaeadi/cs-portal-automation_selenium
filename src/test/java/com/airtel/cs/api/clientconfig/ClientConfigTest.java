@@ -2,8 +2,8 @@ package com.airtel.cs.api.clientconfig;
 
 
 import com.airtel.cs.common.prerequisite.ApiPrerequisites;
-import com.airtel.cs.model.request.clientconfig.ClientConfigRequest;
-import com.airtel.cs.model.response.clientconfig.ConfigResponse;
+import com.airtel.cs.model.cs.request.clientconfig.ClientConfigRequest;
+import com.airtel.cs.model.cs.response.clientconfig.ConfigResponse;
 import org.testng.annotations.Test;
 
 public class ClientConfigTest extends ApiPrerequisites {

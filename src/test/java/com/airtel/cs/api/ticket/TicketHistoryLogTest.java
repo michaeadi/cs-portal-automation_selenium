@@ -2,7 +2,7 @@ package com.airtel.cs.api.ticket;
 
 
 import com.airtel.cs.common.prerequisite.ApiPrerequisites;
-import com.airtel.cs.model.request.tickethistorylog.TicketHistoryLogRequest;
+import com.airtel.cs.model.cs.request.tickethistorylog.TicketHistoryLogRequest;
 import org.testng.annotations.Test;
 
 import java.util.Arrays;

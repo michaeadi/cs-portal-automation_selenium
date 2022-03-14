@@ -4,8 +4,8 @@ package com.airtel.cs.api.clientconfig;
 import com.airtel.cs.common.prerequisite.ApiPrerequisites;
 import com.airtel.cs.commonutils.dataproviders.databeans.ClientConfigDataBean;
 import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
-import com.airtel.cs.model.request.clientconfig.ClientDeactivateRequest;
-import com.airtel.cs.model.response.clientconfig.ConfigResponse;
+import com.airtel.cs.model.cs.request.clientconfig.ClientDeactivateRequest;
+import com.airtel.cs.model.cs.response.clientconfig.ConfigResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

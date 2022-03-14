@@ -2,8 +2,8 @@ package com.airtel.cs.api.ticket;
 
 
 import com.airtel.cs.common.prerequisite.ApiPrerequisites;
-import com.airtel.cs.model.request.ticketlist.TicketListRequest;
-import com.airtel.cs.model.request.ticketlist.TicketListResult;
+import com.airtel.cs.model.cs.request.ticketlist.TicketListRequest;
+import com.airtel.cs.model.cs.request.ticketlist.TicketListResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.testng.annotations.Test;
 

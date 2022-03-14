@@ -2,8 +2,8 @@ package com.airtel.cs.ui.frontendagent.am;
 
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.model.response.am.TcpLimitsResponse;
-import com.airtel.cs.model.response.amprofile.AMProfile;
+import com.airtel.cs.model.cs.response.am.TcpLimitsResponse;
+import com.airtel.cs.model.cs.response.amprofile.AMProfile;
 import org.apache.commons.lang3.StringUtils;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;

@@ -5,8 +5,8 @@ import com.airtel.cs.common.prerequisite.ApiPrerequisites;
 import com.airtel.cs.commonutils.dataproviders.databeans.ClientConfigDataBean;
 import com.airtel.cs.commonutils.dataproviders.databeans.NftrDataBeans;
 import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
-import com.airtel.cs.model.request.ticketreopen.ReopenTicketRequest;
-import com.airtel.cs.model.request.updateticket.CloseTicketRequest;
+import com.airtel.cs.model.cs.request.ticketreopen.ReopenTicketRequest;
+import com.airtel.cs.model.cs.request.updateticket.CloseTicketRequest;
 import org.testng.annotations.Test;
 
 public class ReopenTicketTest extends ApiPrerequisites {

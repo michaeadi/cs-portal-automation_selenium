@@ -1,7 +1,7 @@
 package com.airtel.cs.ui.frontendagent.hbb;
 
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
-import com.airtel.cs.model.response.hbb.HbbUserDetailsResponse;
+import com.airtel.cs.model.cs.response.hbb.HbbUserDetailsResponse;
 import org.testng.SkipException;
 import com.airtel.cs.driver.Driver;
 import org.testng.annotations.BeforeMethod;
