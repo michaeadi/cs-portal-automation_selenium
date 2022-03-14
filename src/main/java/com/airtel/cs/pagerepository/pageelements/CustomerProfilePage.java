@@ -52,4 +52,5 @@ public class CustomerProfilePage {
     public By suspendSimConfirm = By.xpath("//div[contains(@class,'main-container__body')]/p[contains(text(),'Do you wish to suspend the SIM?')]");
     public By reActivateSimConfirm = By.xpath("//div[contains(@class,'main-container__body')]/p[contains(text(),'Do you wish to reactivate the SIM?')]");
     public By crossIcon=By.xpath("//mat-icon[contains(text(),'close')]");
+    public By airtelMoneyLock = By.xpath("//div[@id='AM_PROFILE']//div[contains(text(),'Tap to unlock')]");
 }

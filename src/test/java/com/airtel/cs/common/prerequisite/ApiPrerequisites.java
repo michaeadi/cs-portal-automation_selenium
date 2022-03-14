@@ -49,7 +49,8 @@ public class ApiPrerequisites extends Driver {
     public static final String BASE_LOGIN_URL = constants.getValue(ApplicationConstants.BASE_LOGIN_URL);
     private static String Token;
     public static final String MSISDN = "msisdn";
-    public static final String CLIENT = "CS";
+    public static final String INVALID_MSISDN = "invalidMsisdn";
+    public static final String CLIENT = "Customer Service";
 
 
     /*

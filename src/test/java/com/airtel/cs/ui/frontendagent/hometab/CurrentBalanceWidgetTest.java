@@ -84,7 +84,7 @@ public class CurrentBalanceWidgetTest extends Driver {
                 }
                 String Time = UtilsMethods.getDateFromEpochInUTC(result.getLastRecharge().getRechargeOn(), constants.getValue(CommonConstants.LAST_RECHARGE_TIME_PATTERN));
                 String Date = UtilsMethods.getDateFromEpochInUTC(result.getLastRecharge().getRechargeOn(), constants.getValue(CommonConstants.LAST_RECHARGE_DATE_PATTERN));
-                assertCheck.append(actions.assertEqualStringType(pages.getCurrentBalanceWidgetPage().getLastRechargeDateTime(), Date + " " + Time, "Last Recharge Date and Time is as Received in API", "Last Recharge Date and Time is not as Received in API"));
+                assertCheck.append(actions.assertEqualStringType(pages.getCurrentBalanceWidgetPage().getLastRechargeDateTime().toLowerCase(), Date + " " + Time, "Last Recharge Date and Time is as Received in API", "Last Recharge Date and Time is not as Received in API"));
             } else {
                 commonLib.warning("Unable to get Last Recharge Details from API");
                 assertCheck.append(actions.assertEqualStringType(pages.getCurrentBalanceWidgetPage().gettingLastRechargeAmount().replace('-', ' ').trim(), "", "Last Recharge Amount is as expected", "Last Recharge Amount is not as expected"));

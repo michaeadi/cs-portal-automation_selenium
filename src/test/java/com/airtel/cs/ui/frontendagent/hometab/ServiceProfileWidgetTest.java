@@ -148,7 +148,7 @@ public class ServiceProfileWidgetTest extends Driver {
             serviceClassWidget = pages.getServiceClassWidget();
             String paginationResult=null;
             if (hlrService.getResult().isEmpty() || hlrService.getResult() == null)
-                assertCheck.append(actions.assertEqualStringType(serviceClassWidget.gettingServiceProfileNoResultFoundMessage(), "No Results found", "Error Message is as expected", "Error Message is not as expected"));
+                assertCheck.append(actions.assertEqualStringType(serviceClassWidget.gettingServiceProfileNoResultFoundMessage(), "No Result found", "Error Message is as expected", "Error Message is not as expected"));
             else {
                 paginationResult = "1 - 5 of " + hlrService.getResult().size() + " Results";
                 assertCheck.append(actions.assertEqualStringType(pages.getServiceClassWidget().getPaginationText(), paginationResult, "Pagination Count as expected", "Pagination count as not expected"));
@@ -356,7 +356,7 @@ public class ServiceProfileWidgetTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validate HLR Order History Test ", "description");
             if (hlrService.getResult().isEmpty() || hlrService.getResult() == null)
-                assertCheck.append(actions.assertEqualStringType(serviceClassWidget.gettingServiceProfileNoResultFoundMessage(), "No Results found", "Error Message is as expected", "Error Message is not as expected"));
+                assertCheck.append(actions.assertEqualStringType(serviceClassWidget.gettingServiceProfileNoResultFoundMessage(), "No Result found", "Error Message is as expected", "Error Message is not as expected"));
             HLROrderHistoryRequest request = new HLROrderHistoryRequest();
             request.setMsisdn(constants.getValue(ApplicationConstants.CUSTOMER_MSISDN));
             request.setPageNumber(0);
@@ -367,14 +367,14 @@ public class ServiceProfileWidgetTest extends Driver {
             final String status = response.getStatus();
             final int pageNumber = response.getPageNumber();
             final int pageSize = response.getPageSize();
-            final Integer totalCount = response.getTotalCount();
+            final int totalCount = response.getTotalCount();
             final int resultSize = response.getResult().size();
             if (statusCode == 200) {
                 assertCheck.append(actions.assertEqualStringNotNull(status, "HLR Order History API status null check pass" , "HLR Order History API status null check fail"));
                 assertCheck.append(actions.assertEqualIntType(pageNumber, request.getPageNumber(), "HLR Order History API pageNumber is matched and pageNumber is : " + pageNumber, "HLR Order History API pageNumber is not matched and pageNumber is : " + pageNumber, false));
                 assertCheck.append(actions.assertEqualIntType(pageSize, request.getPageSize(), "HLR Order History API pageSize is matched and pageSize is : " + pageSize, "HLR Order History API pageSize is not matched and pageSize is : " + pageSize, false));
                 assertCheck.append(actions.assertEqualIntNotNull(totalCount, "HLR Order History API totalCount null check pass", "HLR Order History API totalCount null check fail"));
-                assertCheck.append(actions.assertEqualIntType(resultSize, request.getPageSize(), "HLR Order History API resultSize is matched and resultSize is : " + resultSize, "HLR Order History API resultSize is not matched and resultSize is : " + resultSize, false));
+                assertCheck.append(actions.assertEqualIntNotNull(resultSize, "HLR Order History API resultSize null check pass and resultSize is : " + resultSize, "HLR Order History API resultSize null check fail ", false));
             } else {
                 commonLib.fail("HLR Order History API Response is not 200", true);
             }

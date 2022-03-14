@@ -571,4 +571,12 @@ public class CustomerProfile extends BasePage {
             commonLib.fail("Exception in method - clickCrossIcon", true);
         }
     }
+
+    /**
+     * This method is use to click Airtel money profile info locked section
+     */
+    public void clickAirtelStatusToUnlock() {
+        commonLib.info("Clicking Tap to unlock on Airtel Status Info");
+        clickAndWaitForLoaderToBeRemoved(pageElements.airtelMoneyLock);
+    }
 }

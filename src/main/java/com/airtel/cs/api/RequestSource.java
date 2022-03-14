@@ -84,6 +84,8 @@ import com.airtel.cs.model.request.updateticket.CloseTicketRequest;
 import com.airtel.cs.model.request.vas.ActiveVasRequest;
 import com.airtel.cs.model.response.PlanPackResponse;
 import com.airtel.cs.model.response.am.TcpLimitsResponse;
+import com.airtel.cs.model.response.fileupload.FileDownloadResponse;
+import com.airtel.cs.model.response.fileupload.FileUploadResponse;
 import com.airtel.cs.model.response.hlrservice.HLROrderHistoryRequest;
 import com.airtel.cs.model.response.hlrservice.HLROrderHistoryResponse;
 import com.airtel.cs.model.response.loansummary.LoanSummaryResponse;
@@ -281,7 +283,7 @@ public class RequestSource extends RestCommonUtils {
     This Method will hit the Available Plan API and returns the response
      */
     public AvailablePlan availablePlanRequest() {
-        commonLib.infoColored(constants.getValue(CALLING_CS_API) + TARIFF_AVAILABLE_PLAN, JavaColors.GREEN, false);
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + constants.getValue("tarrif.available.plan"), JavaColors.GREEN, false);
         AvailablePlan result = null;
         try {
             commonPostMethod(URIConstants.TARIFF_AVAILABLE_PLANS, new GenericRequest(TARIFF_PLAN_TEST_NUMBER));
@@ -1499,8 +1501,6 @@ public class RequestSource extends RestCommonUtils {
 
     /**
      * This Method will hit the API "/api/sr-service/v1/ticket/stats" and return the response
-     *
-     * @param rowKeyword the row to be search in excel sheet
      * @param map        the headers
      * @return the response
      */
@@ -1544,8 +1544,13 @@ public class RequestSource extends RestCommonUtils {
     public TicketStatsResponse ticketStatsWithFilterRequest(String clientConfig, List<Header> map) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         TicketStatsResponse result = null;
+        recordset = DataProviders.readExcelSheet(excelPath, constants.getValue(ApplicationConstants.CLIENT_CONFIG));
+        List<String> fromExcelSheetColumnWise = DataProviders.getScenarioDetailsFromExcelSheetColumnWise(recordset, "msisdn", "Field Name", Collections.singletonList("Value"));
+        clientInfo.put(MSISDN, fromExcelSheetColumnWise.get(0));
+        ticketSearchCreteria.setClientInfo(clientInfo);
+        ticketSearchCreteria.setCategoryLevel(1);
         try {
-            commonPostMethod(URIConstants.TICKET_STATS, map, new TicketStatsRequest(new TicketStatsTicketSearchCriteria(clientConfig, null, null, null, null, EXTERNAL_STATE_IDS)), srBaseUrl);
+            commonPostMethod(URIConstants.TICKET_STATS, map, new TicketStatsRequest(ticketSearchCreteria ), srBaseUrl);
             result = response.as(TicketStatsResponse.class);
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - ticketStatsWithFilterRequest " + e.getMessage(), false);
@@ -1629,7 +1634,7 @@ public class RequestSource extends RestCommonUtils {
     public TicketSearchByTicketIdOpenRequest ticketSearchByTicketIdOpenRequest(List<Header> map, String ticketId, Integer statusCode) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         queryParam.put("id", ticketId);
-        commonGetMethodWithQueryParam(INGRESS_OPEN_API_BASE_URL + URIConstants.OPEN_API_FETCH_TICKET, queryParam, map, srBaseUrl);
+        commonGetMethodWithQueryParam(URIConstants.OPEN_API_FETCH_TICKET, queryParam, map, srBaseUrl);
         return response.as(TicketSearchByTicketIdOpenRequest.class);
     }
 
@@ -1644,7 +1649,7 @@ public class RequestSource extends RestCommonUtils {
     public TicketHistoryLogOpenRequest ticketHistoryLogOpenRequest(List<Header> map, String ticketId, Integer statusCode) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         queryParam.put("id", ticketId);
-        commonGetMethodWithQueryParam(INGRESS_OPEN_API_BASE_URL + URIConstants.OPEN_API_FETCH_TICKET_HISTORY_LOG, queryParam, map, srBaseUrl);
+        commonGetMethodWithQueryParam(URIConstants.OPEN_API_FETCH_TICKET_HISTORY_LOG, queryParam, map, srBaseUrl);
         return response.as(TicketHistoryLogOpenRequest.class);
     }
 
@@ -1653,7 +1658,7 @@ public class RequestSource extends RestCommonUtils {
      */
     public SearchTicketOpenRequest searchTicketOpenRequest(List<Header> map, String clientConfig) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
-        body = "{\"pageNumber\":0,\"pageSize\":10,\"ticketSearchCriteria\":{\"clientInfo\":{" + clientConfig + "}}}";
+        body = "{\"pageNumber\":0,\"pageSize\":10,\"ticketSearchCriteria\":{\"clientInfo\":{" + clientConfig + "}},\"stateIds\":[1]}";
         commonPostMethod(URIConstants.OPEN_API_SEARCH_TICKET, map, body, srBaseUrl);
         return response.as(SearchTicketOpenRequest.class);
     }
@@ -1907,7 +1912,6 @@ public class RequestSource extends RestCommonUtils {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
         TicketSearchRequest ticketSearchRequest = new TicketSearchRequest();
         TicketSearchCriteria ticketSearchCriteria = new TicketSearchCriteria();
-
         ArrayList<String> categories = new ArrayList<>();
         Collections.addAll(categories, categoryLevelValues.split(","));
         ticketSearchCriteria.setCategoryLevel(categoryLevel);
@@ -2302,6 +2306,35 @@ public class RequestSource extends RestCommonUtils {
             esbRequestSource.callTcpLimits(tcpId);
         }
         return result;
+    }
+
+    public Map<String,String> metaDataMap()
+    {
+        Map<String, String> data = new HashMap<>();
+        data.put("identifier","id");
+        data.put("fileDescription","{\"test.txt\":\"description\"}");
+        return data;
+    }
+    /**
+     * This method is used to hit the API "/api/sr-service/v1/files" and return the response
+     * @return
+     */
+    public FileUploadResponse fileUpload() {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
+        Map<String,String> metaData=metaDataMap();
+        commonPostMethodWithMultiPart(URIConstants.FILE_UPLOAD, map, body, srBaseUrl,metaData);
+        return response.as(FileUploadResponse.class);
+    }
+
+    /**
+     * This method is used to hit the API "/api/sr-service/v1/files" and return the response
+     * @return
+     */
+    public FileDownloadResponse fileDownload(String resourceId) {
+        commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
+        queryParam.put("resourceId",resourceId);
+        commonGetMethodWithQueryParam(URIConstants.FILE_DOWNLOAD,queryParam);
+        return response.as(FileDownloadResponse.class);
     }
 
 }

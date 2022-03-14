@@ -111,6 +111,7 @@ public class ApplicationConstants {
     public static final String TCP_LIMIT_STK_BEARER ="cs.run.tcp.limit.stk.test";
     public static final String SELFCARE_SR_CLIENT_ID = "self.care.sr.client.id" ;;
     public static final String LOCALE = "sr.locale";
+    public static final String CATEGORY_LEVEL = "sr.category.level";
 
     private ApplicationConstants() {
         throw new IllegalStateException();

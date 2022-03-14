@@ -109,6 +109,10 @@ public class URIConstants {
     public static final String TICKET_HISTORY = "/api/sr-service/v1/tickets";
     public static final String ASSIGN_TICKET = "/api/sr-service/v1/assign/ticket";
     public static final String V2_LAYOUT_CONFIG = "/api/sr-service/v2/layout";
+    public static final String FILE_UPLOAD = "/api/sr-service/v1/files";
+    public static final String FILE_DOWNLOAD = "/api/sr-service/v1/files";
+    public static final String FILE_DELETE = "/api/sr-service/v1/files";
+
     private URIConstants() {
 
     }

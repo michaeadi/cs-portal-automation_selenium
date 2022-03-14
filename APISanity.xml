@@ -48,12 +48,12 @@
         <classes>
             <class name="com.airtel.cs.api.ticket.ReopenTicketTest"/>
         </classes>
-    </test>
+    </test>-->
     <test name="Open API Test- With CS Token">
         <classes>
             <class name="com.airtel.cs.api.openapi.OpenApiWithCSTokenTest"/>
         </classes>
-    </test>-->
+    </test>
     <test name="Open API Test- Client Without Um">
         <groups>
             <run>
@@ -64,7 +64,7 @@
             <class name="com.airtel.cs.api.openapi.OpenApiWithSelfCareTokenTest"/>
         </classes>
     </test>
-    <!--<test name="Ticket Stats API">
+    <test name="Ticket Stats API">
         <classes>
             <class name="com.airtel.cs.api.ticket.TicketStatsTest"/>
         </classes>
@@ -103,5 +103,5 @@
         <classes>
             <class name="com.airtel.cs.api.ticket.TicketHistoryTest"/>
         </classes>
-    </test>-->
+    </test>
     </suite>

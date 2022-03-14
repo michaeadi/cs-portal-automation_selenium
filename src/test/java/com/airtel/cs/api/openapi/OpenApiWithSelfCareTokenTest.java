@@ -112,7 +112,7 @@ public class OpenApiWithSelfCareTokenTest extends OpenAPIPrerequisites {
         }
     }
 
-    @Test(priority = 7, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = "testSelfCareConfigured")
+    @Test(priority = 7, groups = {"SanityTest", "RegressionTest","ProdTest"}, dependsOnMethods = "testSelfCareConfigured")
     public void testInteractionIssue() {
         try {
             selUtils.addTestcaseDescription("API is - v1/openapi/interactions/issue, This API will create the Interaction Issue on single Click", "description");
@@ -142,7 +142,7 @@ public class OpenApiWithSelfCareTokenTest extends OpenAPIPrerequisites {
         }
     }
 
-    @Test(priority = 9, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = "testSelfCareConfigured")
+    @Test(priority = 9, groups = {"SanityTest", "RegressionTest","ProdTest"}, dependsOnMethods = "testSelfCareConfigured")
     public void testTicketHistoryLog() {
         try {
             selUtils.addTestcaseDescription("API is - v1/openapi/fetch/ticket/history/log, This API will fetch the Ticket History Log", "description");
@@ -157,7 +157,7 @@ public class OpenApiWithSelfCareTokenTest extends OpenAPIPrerequisites {
         }
     }
 
-    @Test(priority = 10, groups = {"SanityTest", "RegressionTest"}, dependsOnMethods = "testSelfCareConfigured")
+    @Test(priority = 10, groups = {"SanityTest", "RegressionTest","ProdTest"}, dependsOnMethods = "testSelfCareConfigured")
     public void testSearchTicketByTicketId() {
         try {
             selUtils.addTestcaseDescription("API is - v1/openapi/fetch/ticket?id, This API will provides Capability to Search Ticket by Ticket Id", "description");

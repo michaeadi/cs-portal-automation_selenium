@@ -102,7 +102,6 @@ public class TicketHistoryTest extends ApiPrerequisites {
             validCategoryId = ids.get(getClientCode(list).toLowerCase().trim());
             prepareTicketData(list);
             final TicketHistoryRequest ticketHistoryWithCategoryFilter = api.ticketHistoryWithCategoryLevelAndValue(validHeaderList, category.getLevel(),category.getCategoryName());
-            
             final Integer statusCode = ticketHistoryWithCategoryFilter.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Status Code Matched", "Status Code Not Matched and is -" + statusCode));
             

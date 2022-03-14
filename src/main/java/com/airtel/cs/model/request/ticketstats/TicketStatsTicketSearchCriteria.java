@@ -29,7 +29,6 @@ public class TicketStatsTicketSearchCriteria {
     private String toDate;
     private List<Long> categoryIds;
     private Set<Long> stateIds;
-    private int days;
     public String ticketId;
 
     private Integer categoryLevel;
@@ -48,7 +47,7 @@ public class TicketStatsTicketSearchCriteria {
 
     private Map<String, String> clientInfo;
 
-    public TicketStatsTicketSearchCriteria(String clientConfig, Object o, Object o1, Object o2, Object o3, String externalStateIds) {
+    public TicketStatsTicketSearchCriteria(String clientConfig, Object o, Object o1, Object o2, Object o3, Integer categoryLevel ) {
 
     }
 
