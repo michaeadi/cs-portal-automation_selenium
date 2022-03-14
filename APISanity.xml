@@ -4,7 +4,7 @@
     <listeners>
         <listener class-name="com.airtel.cs.commonutils.listeners.TestListenerMethod"/>
     </listeners>
-   <!-- <test name="First Last Category API Test">
+   <test name="First Last Category API Test">
         <classes>
             <class name="com.airtel.cs.api.layoutcategorycode.FirstLastCategoryTest"/>
         </classes>
@@ -13,13 +13,13 @@
         <classes>
             <class name="com.airtel.cs.api.layoutcategorycode.ParentCategoryTest"/>
         </classes>
-    </test>-->
+    </test>
     <test name="Issue Layout Config API Test">
          <classes>
              <class name="com.airtel.cs.api.layoutcategorycode.IssueLayoutConfigTest"/>
          </classes>
      </test>
-    <!-- <test name="Create Issue Test">
+    <test name="Create Issue Test">
          <classes>
              <class name="com.airtel.cs.api.interactionissue.CreateIssueTest"/>
          </classes>
@@ -103,5 +103,5 @@
          <classes>
              <class name="com.airtel.cs.api.ticket.TicketHistoryTest"/>
          </classes>
-     </test>-->
+     </test>
     </suite>
