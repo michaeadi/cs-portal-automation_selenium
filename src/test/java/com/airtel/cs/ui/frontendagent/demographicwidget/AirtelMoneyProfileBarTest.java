@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 
 import java.util.Map;
 
-public class AirtelMoneyProfileBarTest extends Driver {
+public class AirtelMoneyProfileBarTest<assertCheck> extends Driver {
 
     RequestSource api = new RequestSource();
     Map<String, AuthDataConfigResult> authTabConfig;
@@ -45,7 +45,7 @@ public class AirtelMoneyProfileBarTest extends Driver {
     }
 
     @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
-    public void clickOnAirtelMoneyProfileUnlock() {
+    public void validateBarUnbar() {
         try {
                 pages.getDemoGraphicPage().clickAirtelStatusToUnlock();
                 assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isAuthTabLoad(), true, "Authentication tab loaded correctly", "Authentication tab does not load correctly"));
@@ -58,9 +58,23 @@ public class AirtelMoneyProfileBarTest extends Driver {
                 pages.getAuthTabPage().clickCloseBtn();
                 commonLib.fail("Not able to unlock Airtel Money Profile", true);
             }
-       // assertCheck.append(actions.assertEqualStringType(pages.getAirtelMoneyProfilePage().isBarredReasonLabelVisible(), "Barred reason label Visible ", "Barred reason label Visible", "Unlock Widget, Un-Successful"));
-        //assertCheck.append(actions.assertEqualStringType(pages.getAirtelMoneyProfilePage().isBarredOnLabelVisible(), "Barred On label Visible ", "Barred On label Visible", "Unlock Widget, Un-Successful"));
-        //assertCheck.append(actions.assertEqualStringType(pages.getAirtelMoneyProfilePage().isBarIconVisible(), "Bar Icon Visible ", "Bar Icon Visible", "Unlock Widget, Un-Successful"));
+       assertCheck.append(actions.assertEqualBoolean(pages.getAirtelMoneyProfilePage().isBarredReasonLabelVisible(), true, "Barred reason label Visible", "Barred reason label Visible"));
+        assertCheck.append(actions.assertEqualBoolean(pages.getAirtelMoneyProfilePage().isBarredOnLabelVisible(), true, "Barred On label Visible", "Barred On label Visible"));
+        assertCheck.append(actions.assertEqualBoolean(pages.getAirtelMoneyProfilePage().isBarIconVisible(), true, "Bar Icon Visible", "Bar Icon Visible"));
+        pages.getAirtelMoneyProfilePage().performAirtelMoneyProfileBar();
+        assertCheck.append(actions.assertEqualBoolean(pages.getAirtelMoneyProfilePage().isBarredReasonTextVisible(), true, "Barred Reason tex Visible", "Barred Reason tex Visible"));
+        assertCheck.append(actions.assertEqualBoolean(pages.getAirtelMoneyProfilePage().isBarredOnTextVisible(), true, "Bar On  Text Visible", "Bar On  Text Visible"));
+
 
     }
-}
+
+   //  actions.assertAllFoundFailedAssert(assertCheck);{
+  //  catch (Exception e) {
+       // commonLib.fail("Exception in Method - validateBar/Unbar" + e.fillInStackTrace(), true);
+    }
+//}
+//}
+
+
+
+

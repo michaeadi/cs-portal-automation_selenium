@@ -217,6 +217,10 @@ public class PageCollection {
         return new ActiveVasWidget(driver);
     }
 
+    public ActiveVasWidget getActiveVasWidget() {
+        return new ActiveVasWidget(driver);
+    }
+
     public DetailAccountInfoViewBillWidget getDetailAccountInfoViewBillWidget() {
         return new DetailAccountInfoViewBillWidget(driver);
     }
@@ -242,4 +246,10 @@ public class PageCollection {
     }
 
 
+    public AirtelMoneyProfileBar getAirtelMoneyProfilePage() {
+        return new AirtelMoneyProfileBar(driver);
+    }
+
+    public AirtelMoneyProfileBar getAirtelMoneyProfileBar() { return new AirtelMoneyProfileBar(driver);
+    }
 }

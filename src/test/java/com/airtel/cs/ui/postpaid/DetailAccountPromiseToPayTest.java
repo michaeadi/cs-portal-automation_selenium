@@ -90,7 +90,7 @@ public class DetailAccountPromiseToPayTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validating Promis To Pay permission , Performing Promise To Pay action", "description");
             String promise_to_pay_permission = constants.getValue(PermissionConstants.PROMISE_TO_PAY_POSTPAID_BILL);
-          //  assertCheck.append(actions.assertEqualBoolean(UtilsMethods.isUserHasPermission(new Headers(map), promise_to_pay_permission), true, "Logged in user has Send Postpaid Bill permission", "Logged in user doesn't has  Send Postpaid Bill permission"));
+           assertCheck.append(actions.assertEqualBoolean(UtilsMethods.isUserHasPermission(new Headers(map), promise_to_pay_permission), true, "Logged in user has Send Postpaid Bill permission", "Logged in user doesn't has  Send Postpaid Bill permission"));
             CustomerProfileResponse customerProfileResponse = apiEsb.customerProfileResponse(customerNumber);
             String accountNo = customerProfileResponse.getCustomerAccountNumber();
             accountDetails = api.getAccountInfoDetail(accountNo, 1);

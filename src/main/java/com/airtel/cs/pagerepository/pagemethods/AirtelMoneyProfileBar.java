@@ -3,11 +3,12 @@ package com.airtel.cs.pagerepository.pagemethods;
 import com.airtel.cs.commonutils.dataproviders.databeans.AuthTabDataBeans;
 import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
 import com.airtel.cs.pagerepository.pageelements.AirtelMoneyProfileBarPage;
-import com.airtel.cs.pagerepository.pageelements.AirtelMoneyProfileBarPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
+
+import static com.airtel.cs.api.RequestSource.COMMENT;
 
 public class AirtelMoneyProfileBar extends BasePage {
     AirtelMoneyProfileBarPage pageElements;
@@ -50,6 +51,7 @@ public class AirtelMoneyProfileBar extends BasePage {
 
     /**
      * This method is used to check Barred Reason Param visible or not
+     * @return
      */
     public boolean isBarredReasonLabelVisible() {
         boolean status = isVisible(pageElements.barredReason);
@@ -117,7 +119,13 @@ public class AirtelMoneyProfileBar extends BasePage {
         commonLib.info("Click on UnBar ");
         clickWithoutLoader(pageElements.unBarIcon);
     }
-
+    /**
+     * This method use Click on Submit
+     */
+    public void clickOnSubmitButton() {
+        commonLib.info("Click on Submit Button ");
+        clickWithoutLoader(pageElements.submitButton);
+    }
     /**
      * This method is used to check Select Reason visible or not
      */
@@ -181,5 +189,18 @@ public class AirtelMoneyProfileBar extends BasePage {
     public void enterComment(String text) {
         commonLib.info("Writing comment into comment box: " + text);
         enterText(pageElements.commentBox, text);
+    }
+    /**
+     * This method is used to perform Bar action by selecting reason , bar type and comment
+     *
+     */
+    public void performAirtelMoneyProfileBar() {
+        commonLib.info("Going to perform Airtel Money Profile Bar Action");
+        pages.getAirtelMoneyProfileBar().clickOnBar();
+        pages.getAirtelMoneyProfileBar().selectReason();
+        pages.getAirtelMoneyProfileBar().selectBarType();
+        pages.getAirtelMoneyProfileBar().enterComment(COMMENT);
+        pages.getAirtelMoneyProfileBar().clickOnSubmitButton();
+
     }
 }
