@@ -62,8 +62,8 @@ public class AirtelMoneyProfileBar extends BasePage {
     /**
      * This method is used to check Barred Reason Value visible or not
      */
-    public boolean isBarredReasonTextVisible() {
-        boolean status = isVisible(pageElements.barredReasonText);
+    public String isBarredReasonTextVisible() {
+        String status = getText(pageElements.barredReasonText);
         commonLib.pass("Barred Reason Value visible : " + status);
         return status;
     }
@@ -80,8 +80,8 @@ public class AirtelMoneyProfileBar extends BasePage {
     /**
      * This method is used to check Barred On Value visible or not
      */
-    public boolean isBarredOnTextVisible() {
-        boolean status = isVisible(pageElements.barredOnText);
+    public String isBarredOnTextVisible() {
+        String status = getText(pageElements.barredOnText);
         commonLib.pass("Barred On Value visible : " + status);
         return status;
     }

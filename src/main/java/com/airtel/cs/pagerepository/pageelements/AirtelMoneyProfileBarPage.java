@@ -9,10 +9,10 @@ public class AirtelMoneyProfileBarPage {
     public By authenticate;
     public By barredOn=By.xpath("//span[contains(text(),'Barred On')]");
 
-    public By barIcon;
-    public By unBarIcon;
-    public By barredReasonText;
-    public By barredOnText;
+    public By barIcon=By.xpath("//img[contains(@src,'airtelmoneybar.svg')]");
+    public By unBarIcon=By.xpath("//img[contains(@src,'airtelmoneyunbar.svg')]");
+    public By barredReasonText=By.xpath("//span[contains(text(),'Barred Reason')]//following-sibling::span//span");
+    public By barredOnText=By.xpath("//span[contains(text(),'Barred On')]//following-sibling::span//span");
     public By selectReasonLabel=By.xpath("//label[contains(text(),'Select Reason')]");
     public By selectBarTypeLabel=By.xpath("//label[contains(text(),'BAR Type')]");
     public By submitButton=By.xpath("//span[contains(text(),'Submit')]");
