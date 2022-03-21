@@ -4,6 +4,7 @@ import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants
 import com.airtel.cs.commonutils.applicationutils.constants.ESBURIConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.URIConstants;
 import com.airtel.cs.commonutils.applicationutils.enums.JavaColors;
+import com.airtel.cs.commonutils.dataproviders.databeans.SearchType;
 import com.airtel.cs.commonutils.dataproviders.databeans.TestDataBean;
 import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.restutils.RestCommonUtils;
@@ -1910,22 +1911,25 @@ public class RequestSource extends RestCommonUtils {
         return ticketHistoryRequest(map, ticketSearchRequest);
     }
 
+
     /*
     This Methos is used to hit the "/api/sr-service/v1/tickets" with issue Details filter and get the response
-
+     */
     public TicketHistoryRequest ticketHistoryWithIssueDetails(List<Header> map, String fieldName, String fieldValue) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + SEARCH, JavaColors.GREEN, false);
-
         TicketSearchRequest ticketSearchRequest = new TicketSearchRequest();
         TicketSearchCriteria ticketSearchCriteria = new TicketSearchCriteria();
         IssueFields field = new IssueFields();
         field.setFieldName(fieldName);
+
         List<Object> values = new ArrayList<>();
+        Collections.addAll(values, fieldValue.split(","));
+
         field.setFieldValues(values);
         field.setSearchType(SearchType.CONTAINS);
         ticketSearchRequest.setTicketSearchCriteria(ticketSearchCriteria);
         return ticketHistoryRequest(map, ticketSearchRequest);
-    }*/
+    }
 
 
     /**

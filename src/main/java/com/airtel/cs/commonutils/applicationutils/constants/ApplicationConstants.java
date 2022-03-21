@@ -115,6 +115,7 @@ public class ApplicationConstants {
     public static final String CUSTOMER_TIER2_MSISDN = "cs.customer.tier2.msisdn";
     public static final String CUSTOMER_TIER3_MSISDN = "cs.customer.tier3.msisdn";
     public static final String CATEGORY_LEVEL = "sr.category.level";
+    public static final String AUTO_FILL_ISSUE_FIELD_API_ENABLED="sr.auto.fill.issue.field.api.enabled";
 
     private ApplicationConstants() {
         throw new IllegalStateException();

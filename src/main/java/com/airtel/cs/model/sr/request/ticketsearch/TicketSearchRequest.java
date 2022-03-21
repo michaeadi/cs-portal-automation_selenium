@@ -14,6 +14,10 @@ public class TicketSearchRequest {
     private TicketSearchCriteria ticketSearchCriteria;
     private Integer pageNumber = 0;
     private Integer pageSize = 5;
+
+    public TicketSearchRequest() {
+
+    }
 }
 
 

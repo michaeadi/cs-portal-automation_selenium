@@ -6,9 +6,8 @@ import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.databeans.NftrDataBeans;
 import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
-import com.airtel.cs.model.sr.response.issue.IssueDetailsResponse;
+import com.airtel.cs.model.sr.request.V2LayoutRequest;
 import com.airtel.cs.model.sr.response.layout.IssueLayoutResponse;
-import com.airtel.cs.model.cs.request.layout.V2LayoutRequest;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -72,9 +71,9 @@ public class IssueLayoutConfigTest extends ApiPrerequisites {
             selUtils.addTestcaseDescription("Validate /v1/layout API With Invalid Token and Valid Category Id", "description");
             setLastCategoryIntoMap();
             validCategoryId = ids.get(getClientCode(list).toLowerCase().trim());
-            IssueLayoutResponse layoutConfiguration = api.getLayoutConfiguration(restUtils.invalidToken(), validCategoryId);
-            assertCheck.append(actions.assertEqualStringType(layoutConfiguration.getStatus(), "401", "Status Code Matched", "API Response is not 401 as expected"));
-            assertCheck.append(actions.assertEqualStringType(layoutConfiguration.getMessage(), constants.getValue("unauthorized"), "Response Message Matched Successfully", "API Response Message as not expected"));
+            IssueLayoutResponse issueLayoutResponse = api.getLayoutConfiguration(restUtils.invalidToken(), validCategoryId);
+            assertCheck.append(actions.assertEqualStringType(issueLayoutResponse.getStatus(), "401", "Status Code Matched", "API Response is not 401 as expected"));
+            assertCheck.append(actions.assertEqualStringType(issueLayoutResponse.getMessage(), constants.getValue("unauthorized"), "Response Message Matched Successfully", "API Response Message as not expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - getCategoryLayoutInvalidTokenTest " + e.getMessage(), false);
@@ -99,9 +98,9 @@ public class IssueLayoutConfigTest extends ApiPrerequisites {
         try {
             selUtils.addTestcaseDescription("Hit v1/loyout API,Verify in the response label filed is present or not, Verify field Type = Text Area is there or not", "description");
             IssueLayoutResponse layoutConfiguration = api.getLayoutConfiguration(validHeaderList, Integer.parseInt(constants.getValue(ApplicationConstants.LABEL_TEXTAREA_CATEGORY_ID)));
-            assertCheck.append(actions.assertEqualStringType(layoutConfiguration.getResult().get(0).getFieldType(), "textArea", "Field Type Text Area Found", "Field Type Text Area Not Found"));
             assertCheck.append(actions.assertEqualStringType(layoutConfiguration.getMessage(), "Layout fetched successfully.", "Response Message Matched Successfully", "Response Message Not Matched and is - " + layoutConfiguration.getMessage()));
-            assertCheck.append(actions.assertEqualStringType(layoutConfiguration.getResult().get(0).getLabel(), "Affected number", "Label Field Exist in Issue Layout API", "Label Field does not exist"));
+            assertCheck.append(actions.assertEqualStringType(layoutConfiguration.getResult().get(6).getFieldType(), "textArea", "Field Type Text Area Found", "Field Type Text Area Not Found"));
+            assertCheck.append(actions.assertEqualStringType(layoutConfiguration.getResult().get(6).getPlaceHolder(), "Data Balance ", "Label Field Exist in Issue Layout API", "Label Field does not exist"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - testLabelTextAreaSupportIssueLayout " + e.getMessage(), false);
@@ -112,16 +111,13 @@ public class IssueLayoutConfigTest extends ApiPrerequisites {
     public void v2LayoutAPITest() {
         try {
             selUtils.addTestcaseDescription("Validate /v2/layout API ", "description");
-            String categoryID = constants.getValue(ApplicationConstants.CATEGORY_ID);
             String actionKey = constants.getValue(ApplicationConstants.ACTION_KEY);
             String layoutConfigType = constants.getValue(ApplicationConstants.LAYOUT_CONFIG_TYPE);
-            V2LayoutRequest objV2LayoutRequest = new V2LayoutRequest(categoryID, layoutConfigType, actionKey);
-            IssueLayoutResponse response = api.getV2LayoutConfiguration(validHeaderList, objV2LayoutRequest);
-            if (response.getStatusCode() == 200 && Objects.nonNull(response) && Objects.nonNull(response.getResult())) {
-                List<IssueDetailsResponse> issueResponseList = response.getResult();
-                commonLib.pass("/v2/layout/API Pass with result: " + issueResponseList);
-            }
-            assertCheck.append(actions.assertEqualStringType(response.getStatus(), "200", "Status Code Matched", "API Response is not 200 as expected"));
+            V2LayoutRequest v2LayoutRequest = new V2LayoutRequest(validCategoryId, layoutConfigType, actionKey);
+            IssueLayoutResponse response = api.getV2LayoutConfiguration(validHeaderList, v2LayoutRequest);
+            assertCheck.append(actions.assertEqualIntType(response.getStatusCode(), 200, "Status Code Matched", "API Response is not 200 as expected"));
+            assertCheck.append(actions.assertEqualStringType(response.getMessage(), constants.getValue("layoutFetched"), "Response Message Matched Successfully", "Response Message Not Matched and is - " + response.getMessage()));
+            assertCheck.append(actions.assertEqualBooleanNotNull(Objects.nonNull(response.getResult()), "Result received Successfully", "Result NOT received"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - categoryLayoutTest " + e.getMessage(), false);
@@ -130,18 +126,24 @@ public class IssueLayoutConfigTest extends ApiPrerequisites {
 
     @Test(priority = 6, description = "Validate API Response Test is Successful", groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void autoFillIssueFieldAPITest() {
-        try {
-            selUtils.addTestcaseDescription("Validate /v1/autofilled/layout API ", "description");
-            String layoutConfigType = constants.getValue(ApplicationConstants.LAYOUT_CONFIG_TYPE);
-            String categoryId = constants.getValue(ApplicationConstants.CATEGORY_ID);
-            String msisdn = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
-            String inputFields = MSISDN + CommonConstants.COLON + msisdn;
-            List<String> autoFillResponse = api.autoFillAPITest(layoutConfigType, categoryId, inputFields, msisdn);
-            assertCheck.append(actions.assertEqualStringNotNull(pages.getAccountInformationWidget().getValue(autoFillResponse, "isAutoFilled", "fieldValue"), "autofill issue field test case pass", "autofill issue field test case fail", false));
-        } catch (Exception e) {
-            commonLib.fail("Caught exception in Testcase - autoFillIssueFieldAPITest " + e.getMessage(), false);
+        if (Boolean.parseBoolean(constants.getValue(ApplicationConstants.AUTO_FILL_ISSUE_FIELD_API_ENABLED))) {
+            try {
+                selUtils.addTestcaseDescription("Validate /v1/autofilled/layout API ", "description");
+                String layoutConfigType = constants.getValue(ApplicationConstants.LAYOUT_CONFIG_TYPE);
+                String categoryId = constants.getValue(ApplicationConstants.CATEGORY_ID);
+                String msisdn = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
+                String inputFields = MSISDN + CommonConstants.COLON + msisdn;
+                List<String> autoFillResponse = api.autoFillAPITest(layoutConfigType, categoryId, inputFields, msisdn);
+                //assertCheck.append(actions.assertEqualIntType(autoFillResponse.getStatusCode(), 200, "Status Code Matched", "API Response is not 200 as expected"));
+                assertCheck.append(actions.assertEqualStringNotNull(pages.getAccountInformationWidget().getValue(autoFillResponse, "isAutoFilled", "fieldValue"), "autofill issue field test case pass", "autofill issue field test case fail", false));
+            } catch (Exception e) {
+                commonLib.fail("Caught exception in Testcase - autoFillIssueFieldAPITest " + e.getMessage(), false);
+            }
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } else {
+            commonLib.skip("This API is only for NG");
         }
-        actions.assertAllFoundFailedAssert(assertCheck);
+
     }
 
 }

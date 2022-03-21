@@ -2,7 +2,7 @@ package com.airtel.cs.model.sr.request.ticketsearch;
 import java.util.List;
 
 
-
+import com.airtel.cs.commonutils.dataproviders.databeans.SearchType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,4 +16,5 @@ public class IssueFields {
     String issueFieldMandatory;
     String fieldName;
     List<Object> fieldValues;
+    SearchType searchType;
 }
