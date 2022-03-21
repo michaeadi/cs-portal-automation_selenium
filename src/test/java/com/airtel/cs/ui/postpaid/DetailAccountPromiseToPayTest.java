@@ -5,11 +5,9 @@ import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants
 import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.model.response.accountinfo.AccountDetails;
-import com.airtel.cs.model.response.customeprofile.CustomerProfileResponse;
-import com.airtel.cs.model.response.kycprofile.KYCProfile;
-import io.restassured.http.Headers;
-import org.apache.commons.lang3.StringUtils;
+import com.airtel.cs.model.cs.response.accountinfo.AccountDetails;
+import com.airtel.cs.model.cs.response.customeprofile.CustomerProfileResponse;
+import com.airtel.cs.model.cs.response.kycprofile.KYCProfile;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -90,7 +88,7 @@ public class DetailAccountPromiseToPayTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validating Promis To Pay permission , Performing Promise To Pay action", "description");
             String promise_to_pay_permission = constants.getValue(PermissionConstants.PROMISE_TO_PAY_POSTPAID_BILL);
-           assertCheck.append(actions.assertEqualBoolean(UtilsMethods.isUserHasPermission(new Headers(map), promise_to_pay_permission), true, "Logged in user has Send Postpaid Bill permission", "Logged in user doesn't has  Send Postpaid Bill permission"));
+           assertCheck.append(actions.assertEqualBoolean(UtilsMethods.isUserHasPermission(promise_to_pay_permission), true, "Logged in user has Send Postpaid Bill permission", "Logged in user doesn't has  Send Postpaid Bill permission"));
             CustomerProfileResponse customerProfileResponse = apiEsb.customerProfileResponse(customerNumber);
             String accountNo = customerProfileResponse.getCustomerAccountNumber();
             accountDetails = api.getAccountInfoDetail(accountNo, 1);
