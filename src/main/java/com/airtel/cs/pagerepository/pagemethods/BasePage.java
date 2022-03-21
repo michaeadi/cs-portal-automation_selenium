@@ -737,20 +737,20 @@ public class BasePage extends Driver {
     /**
      * This method use to clear console log
      */
-    public void clearConsoleErrors(){
-        JavascriptExecutor js = (JavascriptExecutor)getDriver();
+    public void clearConsoleErrors() {
+        JavascriptExecutor js = (JavascriptExecutor) getDriver();
         String script = "console.clear();";
         js.executeScript(script);
         getDriver().manage().logs().get(LogType.PERFORMANCE).getAll();
     }
 
     /**
-      * This Method will get the API key value
+     * This Method will get the API key value
+     *
      * @param apiKeyValue
      * @return
      */
     public String getKeyValueAPI(String apiKeyValue) {
-        return "null".equals(apiKeyValue) || ("").equalsIgnoreCase(apiKeyValue) || apiKeyValue == null || ("0.00").equalsIgnoreCase(apiKeyValue)? "-" : apiKeyValue.toLowerCase().trim();
+        return "null".equals(apiKeyValue) || ("").equalsIgnoreCase(apiKeyValue) || apiKeyValue == null || ("0.00").equalsIgnoreCase(apiKeyValue) ? "-" : apiKeyValue.toLowerCase().trim();
     }
-
 }

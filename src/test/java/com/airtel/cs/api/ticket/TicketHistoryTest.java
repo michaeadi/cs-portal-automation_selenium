@@ -391,7 +391,7 @@ public class TicketHistoryTest extends ApiPrerequisites {
         }
     }
 
-    @Test(priority = 1, dataProvider = "NFTRIssue", dataProviderClass = DataProviders.class, groups = {"SanityTest", "RegressionTest", "ProdTest"})
+    @Test(priority = 10, dataProvider = "NFTRIssue", dataProviderClass = DataProviders.class, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void testTicketHistoryWithIssueField(NftrDataBeans list) {
         try {
             selUtils.addTestcaseDescription("Validate /api/sr-service/v1/tickets with Assignee Id Filter, Verify the response", "description");

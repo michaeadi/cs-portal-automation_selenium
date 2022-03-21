@@ -109,7 +109,7 @@ public class ApplicationConstants {
     public static final String TCP_LIMIT_ALL_BEARER ="cs.run.tcp.limit.all.test";
     public static final String TCP_LIMIT_WEBSERVICE_BEARER ="cs.run.tcp.limit.webservice.test";
     public static final String TCP_LIMIT_STK_BEARER ="cs.run.tcp.limit.stk.test";
-    public static final String SELFCARE_SR_CLIENT_ID = "self.care.sr.client.id" ;;
+    public static final String SELFCARE_SR_CLIENT_ID = "self.care.sr.client.id";
     public static final String LOCALE = "sr.locale";
     public static final String CUSTOMER_TIER1_MSISDN = "cs.customer.tier1.msisdn";
     public static final String CUSTOMER_TIER2_MSISDN = "cs.customer.tier2.msisdn";

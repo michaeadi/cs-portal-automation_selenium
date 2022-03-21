@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.Date;
-import java.util.Set;
 
 @ToString
 @Getter
@@ -17,5 +15,4 @@ public class FileUploadResponse {
     private String statusCode;
     private String status;
     private String resourceId;
-
 }

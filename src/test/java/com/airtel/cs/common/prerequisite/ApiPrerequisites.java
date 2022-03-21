@@ -181,7 +181,6 @@ public class ApiPrerequisites extends Driver {
                         } else if ("select".equalsIgnoreCase(s.getFieldType())) {
                             value = s.getFieldOptions().get(0);
                         } else {
-                            //value="";
                             value = "test";
                         }
                         if (issueDetails == null) {
@@ -297,13 +296,13 @@ public class ApiPrerequisites extends Driver {
                         if (StringUtils.equalsIgnoreCase(s.getFieldType(), "text") && (Objects.nonNull(s.getPattern()) && s.getPattern().contains("/"))) {
                             value = "1111";
                         } else if ("text".equalsIgnoreCase(s.getFieldType()) && StringUtils.isBlank(s.getPattern())) {
-                            value = "1";
+                            value = "test";
                         } else if ("number".equalsIgnoreCase(s.getFieldType())) {
                             value = "1001";
                         } else if ("select".equalsIgnoreCase(s.getFieldType())) {
                             value = s.getFieldOptions().get(0);
                         } else {
-                            value = "1";
+                            value = "test";
                         }
                         Name = s.getPlaceHolder();
                         break;

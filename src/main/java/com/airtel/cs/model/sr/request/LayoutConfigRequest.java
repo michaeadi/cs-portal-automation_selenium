@@ -1,7 +1,7 @@
 package com.airtel.cs.model.sr.request;
 
-        import lombok.AllArgsConstructor;
-        import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 @Data
 @AllArgsConstructor

@@ -181,7 +181,7 @@ public class AmSmsTrails extends BasePage {
      */
     public boolean isNoResultFoundVisible() {
         final boolean visible = isElementVisible(pageElements.noResultFound);
-        commonLib.info("Is error icon visible when there is no data available in HLR Order History Widget : " + visible);
+        commonLib.info("Is error icon visible when there is no data available in SMS Trails Widget : " + visible);
         return visible;
     }
 
@@ -203,7 +203,7 @@ public class AmSmsTrails extends BasePage {
      */
     public String getNoResultFoundMessage() {
         final String text = getText(pageElements.noResultFoundMessage);
-        commonLib.info("Getting error message when there is no data available in HLR Order History Widget : " + text);
+        commonLib.info("Getting error message when there is no data available in SMS Trails Widget : " + text);
         return text;
     }
 
