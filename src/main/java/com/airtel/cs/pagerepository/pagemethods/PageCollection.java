@@ -252,4 +252,7 @@ public class PageCollection {
 
     public AirtelMoneyProfileBar getAirtelMoneyProfileBar() { return new AirtelMoneyProfileBar(driver);
     }
+
+    public AMTransactionsWidget getServiceProfileDetailWidget() { return new AMTransactionsWidget (driver);
+    }
 }
