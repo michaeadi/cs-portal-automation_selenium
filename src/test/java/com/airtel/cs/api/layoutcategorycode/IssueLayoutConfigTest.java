@@ -6,8 +6,8 @@ import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.databeans.NftrDataBeans;
 import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
-import com.airtel.cs.model.cs.request.issue.IssueDetails;
-import com.airtel.cs.model.cs.request.layout.IssueLayoutRequest;
+import com.airtel.cs.model.sr.response.issue.IssueDetailsResponse;
+import com.airtel.cs.model.sr.response.layout.IssueLayoutResponse;
 import com.airtel.cs.model.cs.request.layout.V2LayoutRequest;
 import org.testng.annotations.Test;
 
@@ -19,46 +19,46 @@ public class IssueLayoutConfigTest extends ApiPrerequisites {
     Integer validCategoryId = 0;
 
 
-    @Test(priority = 1, description = "Validate API Response Test is Successful", dataProvider = "NFTRIssue", dataProviderClass = DataProviders.class, groups = {"SanityTest", "RegressionTest","ProdTest"})
+    @Test(priority = 1, description = "Validate API Response Test is Successful", dataProvider = "NFTRIssue", dataProviderClass = DataProviders.class, groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void getCategoryLayoutTest(NftrDataBeans list) {
         try {
             selUtils.addTestcaseDescription("Validate /v1/layout API With Category Id: " + getClientCode(list), "description");
             setLastCategoryIntoMap();
             validCategoryId = ids.get(getClientCode(list).toLowerCase().trim());
-            IssueLayoutRequest layoutConfiguration = api.getLayoutConfiguration(validHeaderList, validCategoryId);
-            if (layoutConfiguration.getStatusCode() == 200) {
-                assertCheck.append(actions.assertEqualStringType(layoutConfiguration.getMessage(), constants.getValue("layoutFetched"), "Response Message Matched Successfully", "Response not Matched and is - " + layoutConfiguration.getMessage()));
-                if (layoutConfiguration.getResult() != null)
-                    for (int i = 0; i < layoutConfiguration.getResult().size(); i++) {
+            IssueLayoutResponse issueLayoutResponse = api.getLayoutConfiguration(validHeaderList, validCategoryId);
+            if (issueLayoutResponse.getStatusCode() == 200) {
+                assertCheck.append(actions.assertEqualStringType(issueLayoutResponse.getMessage(), constants.getValue("layoutFetched"), "Response Message Matched Successfully and is - " + issueLayoutResponse.getMessage(), "Response not Matched and is - " + issueLayoutResponse.getMessage()));
+                if (issueLayoutResponse.getResult() != null)
+                    for (int i = 0; i < issueLayoutResponse.getResult().size(); i++) {
                         switch (i) {
                             case 0:
-                                assertCheck.append(actions.assertEqualStringType(layoutConfiguration.getResult().get(i).getPlaceHolder().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", ""), list.getIssueFieldLabel1().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", ""), "First Level Issue Layout Name is as Expected", "First Level Issue Layout Name is not expected."));
+                                assertCheck.append(actions.assertEqualStringType(issueLayoutResponse.getResult().get(i).getPlaceHolder().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", ""), list.getIssueFieldLabel1().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", ""), "First Level Issue Layout Name is as Expected", "First Level Issue Layout Name is not expected."));
                                 break;
                             case 1:
-                                assertCheck.append(actions.assertEqualStringType(layoutConfiguration.getResult().get(i).getPlaceHolder().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", ""), list.getIssueFieldLabel2().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", ""), "Second Level Issue Layout Name is as Expected", "Second Level Issue Layout Name is not expected."));
+                                assertCheck.append(actions.assertEqualStringType(issueLayoutResponse.getResult().get(i).getPlaceHolder().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", ""), list.getIssueFieldLabel2().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", ""), "Second Level Issue Layout Name is as Expected", "Second Level Issue Layout Name is not expected."));
                                 break;
                             case 2:
-                                assertCheck.append(actions.assertEqualStringType(layoutConfiguration.getResult().get(i).getPlaceHolder().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", ""), list.getIssueFieldLabel3().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", ""), "Third Level Issue Layout Name is as Expected", "Third Level Issue Layout Name is not expected."));
+                                assertCheck.append(actions.assertEqualStringType(issueLayoutResponse.getResult().get(i).getPlaceHolder().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", ""), list.getIssueFieldLabel3().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", ""), "Third Level Issue Layout Name is as Expected", "Third Level Issue Layout Name is not expected."));
                                 break;
                             case 3:
-                                assertCheck.append(actions.assertEqualStringType(layoutConfiguration.getResult().get(i).getPlaceHolder().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", ""), list.getIssueFieldLabel4().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", ""), "Fourth Level Issue Layout Name is as Expected", "Fourth Level Issue Layout Name is not expected."));
+                                assertCheck.append(actions.assertEqualStringType(issueLayoutResponse.getResult().get(i).getPlaceHolder().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", ""), list.getIssueFieldLabel4().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", ""), "Fourth Level Issue Layout Name is as Expected", "Fourth Level Issue Layout Name is not expected."));
                                 break;
                             case 4:
-                                assertCheck.append(actions.assertEqualStringType(layoutConfiguration.getResult().get(i).getPlaceHolder().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", ""), list.getIssueFieldLabel5().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", ""), "Five Level Issue Layout Name is as Expected", "Fifth Level Issue Layout Name is not expected."));
+                                assertCheck.append(actions.assertEqualStringType(issueLayoutResponse.getResult().get(i).getPlaceHolder().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", ""), list.getIssueFieldLabel5().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", ""), "Five Level Issue Layout Name is as Expected", "Fifth Level Issue Layout Name is not expected."));
                                 break;
                             case 5:
-                                assertCheck.append(actions.assertEqualStringType(layoutConfiguration.getResult().get(i).getPlaceHolder().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", ""), list.getIssueFieldLabel6().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", ""), "Sixth Level Issue Layout Name is as Expected", "sixth Level Issue Layout Name is not expected."));
+                                assertCheck.append(actions.assertEqualStringType(issueLayoutResponse.getResult().get(i).getPlaceHolder().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", ""), list.getIssueFieldLabel6().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", ""), "Sixth Level Issue Layout Name is as Expected", "sixth Level Issue Layout Name is not expected."));
                                 break;
                             case 6:
-                                assertCheck.append(actions.assertEqualStringType(layoutConfiguration.getResult().get(i).getPlaceHolder().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", ""), list.getIssueFieldLabel7().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", ""), "Seventh Level Issue Layout Name is as Expected", "seventh Level Issue Layout Name is not expected."));
+                                assertCheck.append(actions.assertEqualStringType(issueLayoutResponse.getResult().get(i).getPlaceHolder().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", ""), list.getIssueFieldLabel7().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", ""), "Seventh Level Issue Layout Name is as Expected", "seventh Level Issue Layout Name is not expected."));
                                 break;
                             case 7:
-                                assertCheck.append(actions.assertEqualStringType(layoutConfiguration.getResult().get(i).getPlaceHolder().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", ""), list.getIssueFieldLabel8().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", ""), "Eighth Level Issue Layout Name is as Expected", "Eighth Level Issue Layout Name is not expected."));
+                                assertCheck.append(actions.assertEqualStringType(issueLayoutResponse.getResult().get(i).getPlaceHolder().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", ""), list.getIssueFieldLabel8().toLowerCase().trim().replaceAll("[^a-zA-Z0-9]", ""), "Eighth Level Issue Layout Name is as Expected", "Eighth Level Issue Layout Name is not expected."));
                                 break;
                         }
                     }
             } else {
-                commonLib.fail("API response is not expected. Expected 200 but found" + layoutConfiguration.getStatusCode(), false);
+                commonLib.fail("API response is not expected. Expected 200 but found" + issueLayoutResponse.getStatusCode(), false);
             }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -72,7 +72,7 @@ public class IssueLayoutConfigTest extends ApiPrerequisites {
             selUtils.addTestcaseDescription("Validate /v1/layout API With Invalid Token and Valid Category Id", "description");
             setLastCategoryIntoMap();
             validCategoryId = ids.get(getClientCode(list).toLowerCase().trim());
-            IssueLayoutRequest layoutConfiguration = api.getLayoutConfiguration(restUtils.invalidToken(), validCategoryId);
+            IssueLayoutResponse layoutConfiguration = api.getLayoutConfiguration(restUtils.invalidToken(), validCategoryId);
             assertCheck.append(actions.assertEqualStringType(layoutConfiguration.getStatus(), "401", "Status Code Matched", "API Response is not 401 as expected"));
             assertCheck.append(actions.assertEqualStringType(layoutConfiguration.getMessage(), constants.getValue("unauthorized"), "Response Message Matched Successfully", "API Response Message as not expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
@@ -85,7 +85,7 @@ public class IssueLayoutConfigTest extends ApiPrerequisites {
     public void geCategoryLayoutInvalidRequestTest() {
         try {
             selUtils.addTestcaseDescription("Validate /v1/layout API With valid Token and Invalid Category Id", "description");
-            IssueLayoutRequest layoutConfiguration = api.getLayoutConfiguration(validHeaderList, 0);
+            IssueLayoutResponse layoutConfiguration = api.getLayoutConfiguration(validHeaderList, 0);
             assertCheck.append(actions.assertEqualIntType(layoutConfiguration.getStatusCode(), 200, "Status Code Matched", "Status Code Not Matched and is - " + layoutConfiguration.getStatusCode()));
             assertCheck.append(actions.assertEqualStringType(layoutConfiguration.getMessage(), constants.getValue("layoutFetched"), "Response Message Matched Successfully", "API Response Message as not expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
@@ -98,7 +98,7 @@ public class IssueLayoutConfigTest extends ApiPrerequisites {
     public void testLabelTextAreaSupportIssueLayout() {
         try {
             selUtils.addTestcaseDescription("Hit v1/loyout API,Verify in the response label filed is present or not, Verify field Type = Text Area is there or not", "description");
-            IssueLayoutRequest layoutConfiguration = api.getLayoutConfiguration(validHeaderList, Integer.parseInt(constants.getValue(ApplicationConstants.LABEL_TEXTAREA_CATEGORY_ID)));
+            IssueLayoutResponse layoutConfiguration = api.getLayoutConfiguration(validHeaderList, Integer.parseInt(constants.getValue(ApplicationConstants.LABEL_TEXTAREA_CATEGORY_ID)));
             assertCheck.append(actions.assertEqualStringType(layoutConfiguration.getResult().get(0).getFieldType(), "textArea", "Field Type Text Area Found", "Field Type Text Area Not Found"));
             assertCheck.append(actions.assertEqualStringType(layoutConfiguration.getMessage(), "Layout fetched successfully.", "Response Message Matched Successfully", "Response Message Not Matched and is - " + layoutConfiguration.getMessage()));
             assertCheck.append(actions.assertEqualStringType(layoutConfiguration.getResult().get(0).getLabel(), "Affected number", "Label Field Exist in Issue Layout API", "Label Field does not exist"));
@@ -108,18 +108,18 @@ public class IssueLayoutConfigTest extends ApiPrerequisites {
         }
     }
 
-    @Test(priority = 5, description = "Validate API Response Test is Successful", groups = {"SanityTest", "RegressionTest","ProdTest"})
+    @Test(priority = 5, description = "Validate API Response Test is Successful", groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void v2LayoutAPITest() {
         try {
             selUtils.addTestcaseDescription("Validate /v2/layout API ", "description");
-            String categoryID=constants.getValue(ApplicationConstants.CATEGORY_ID);
-            String actionKey=  constants.getValue(ApplicationConstants.ACTION_KEY);
-            String layoutConfigType =  constants.getValue(ApplicationConstants.LAYOUT_CONFIG_TYPE);
-            V2LayoutRequest objV2LayoutRequest=new V2LayoutRequest(categoryID,layoutConfigType,actionKey);
-            IssueLayoutRequest response=api.getV2LayoutConfiguration(validHeaderList,objV2LayoutRequest);
-            if(response.getStatusCode() == 200 && Objects.nonNull(response) && Objects.nonNull(response.getResult())){
-                List<IssueDetails> issueResponseList=response.getResult();
-                commonLib.pass("/v2/layout/API Pass with result: "+issueResponseList);
+            String categoryID = constants.getValue(ApplicationConstants.CATEGORY_ID);
+            String actionKey = constants.getValue(ApplicationConstants.ACTION_KEY);
+            String layoutConfigType = constants.getValue(ApplicationConstants.LAYOUT_CONFIG_TYPE);
+            V2LayoutRequest objV2LayoutRequest = new V2LayoutRequest(categoryID, layoutConfigType, actionKey);
+            IssueLayoutResponse response = api.getV2LayoutConfiguration(validHeaderList, objV2LayoutRequest);
+            if (response.getStatusCode() == 200 && Objects.nonNull(response) && Objects.nonNull(response.getResult())) {
+                List<IssueDetailsResponse> issueResponseList = response.getResult();
+                commonLib.pass("/v2/layout/API Pass with result: " + issueResponseList);
             }
             assertCheck.append(actions.assertEqualStringType(response.getStatus(), "200", "Status Code Matched", "API Response is not 200 as expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
@@ -128,7 +128,7 @@ public class IssueLayoutConfigTest extends ApiPrerequisites {
         }
     }
 
-    @Test(priority = 6, description = "Validate API Response Test is Successful", groups = { "SanityTest", "RegressionTest", "ProdTest" })
+    @Test(priority = 6, description = "Validate API Response Test is Successful", groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void autoFillIssueFieldAPITest() {
         try {
             selUtils.addTestcaseDescription("Validate /v1/autofilled/layout API ", "description");
@@ -137,7 +137,7 @@ public class IssueLayoutConfigTest extends ApiPrerequisites {
             String msisdn = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
             String inputFields = MSISDN + CommonConstants.COLON + msisdn;
             List<String> autoFillResponse = api.autoFillAPITest(layoutConfigType, categoryId, inputFields, msisdn);
-            assertCheck.append(actions.assertEqualStringNotNull(pages.getAccountInformationWidget().getValue(autoFillResponse, "isAutoFilled",  "fieldValue"),"autofill issue field test case pass", "autofill issue field test case fail", false));
+            assertCheck.append(actions.assertEqualStringNotNull(pages.getAccountInformationWidget().getValue(autoFillResponse, "isAutoFilled", "fieldValue"), "autofill issue field test case pass", "autofill issue field test case fail", false));
         } catch (Exception e) {
             commonLib.fail("Caught exception in Testcase - autoFillIssueFieldAPITest " + e.getMessage(), false);
         }

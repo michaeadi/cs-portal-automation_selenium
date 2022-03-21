@@ -71,6 +71,7 @@ public class URIConstants {
     public static final String ENTERPRISE_PAYMENT_HISTORY = "/cs-gsm-service/v1/enterprise/payment/history";
     public static final String VAS_SUBSCRIPTION_HISTORY = "/cs-vas-service/v1/subscriptions/history";
     public static final String TCP_LIMITS = "/cs-am-service/v1/tcplimits";
+    public static final String SMS_TRAILS = "/cs-am-service/v1/sms/trail";
 
 
     /**

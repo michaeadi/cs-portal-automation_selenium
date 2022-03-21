@@ -18,4 +18,5 @@ public class AMProfile {
     private Integer statusCode;
     private ResultAMProfile result;
     private APIErrors apiErrors;
+    private String status;
 }

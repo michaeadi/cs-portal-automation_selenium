@@ -5,7 +5,7 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class IssueFields {
+public class IssueFieldsDataBean {
     String issueFieldLabel;
     String issueFieldType;
     String issueFieldMandatory;

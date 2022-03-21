@@ -1,6 +1,8 @@
 package com.airtel.cs.ui.frontendagent.am;
 
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
+import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
+import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.model.cs.response.am.TcpLimitsResponse;
 import com.airtel.cs.model.cs.response.amprofile.AMProfile;
@@ -10,19 +12,19 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class AmTcpLimitsTest extends Driver {
-    String customerNumber=null;
+    String customerNumber = null;
     AMProfile amProfile;
-    String tcpId=null;
+    String tcpId = null;
     TcpLimitsResponse tcpLimits;
+    boolean isPermissionEnable = false;
     public static final String RUN_TCP_LIMIT_TESTCASE = constants.getValue(ApplicationConstants.RUN_TCP_LIMIT_TESTCASE);
     public static final String TCP_LIMIT_WEB_BEARER = constants.getValue(ApplicationConstants.TCP_LIMIT_WEB_BEARER);
     public static final String TCP_LIMIT_IVR_BEARER = constants.getValue(ApplicationConstants.TCP_LIMIT_IVR_BEARER);
     public static final String TCP_LIMIT_USSD_BEARER = constants.getValue(ApplicationConstants.TCP_LIMIT_USSD_BEARER);
-    public static final String TCP_LIMIT_BANK_BEARER= constants.getValue(ApplicationConstants.TCP_LIMIT_BANK_BEARER);
-    public static final String TCP_LIMIT_ALL_BEARER= constants.getValue(ApplicationConstants.TCP_LIMIT_ALL_BEARER);
+    public static final String TCP_LIMIT_BANK_BEARER = constants.getValue(ApplicationConstants.TCP_LIMIT_BANK_BEARER);
+    public static final String TCP_LIMIT_ALL_BEARER = constants.getValue(ApplicationConstants.TCP_LIMIT_ALL_BEARER);
     public static final String TCP_LIMIT_WEBSERVICE_BEARER = constants.getValue(ApplicationConstants.TCP_LIMIT_WEBSERVICE_BEARER);
     public static final String TCP_LIMIT_STK_BEARER = constants.getValue(ApplicationConstants.TCP_LIMIT_STK_BEARER);
-
 
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
@@ -63,14 +65,28 @@ public class AmTcpLimitsTest extends Driver {
         }
     }
 
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    public void isUserHasPermission() {
+        try {
+            selUtils.addTestcaseDescription("Validate whether user has AM Profile Details Permission ", "description");
+            String permission = constants.getValue(PermissionConstants.AM_PROFILE_DETAILS_PERMISSION);
+            isPermissionEnable = UtilsMethods.isUserHasPermission(permission);
+            assertCheck.append(actions.assertEqualBoolean(isPermissionEnable, true, "Logged in user has Am Profile Details permission", "Logged in user doesn't has Am Profile Details permission"));
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - isUserHasPermission " + e.fillInStackTrace(), true);
+        }
+    }
+
     /**
      * This method is used to Open Tcp Limits
      */
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
     public void openTcpLimits() {
         try {
             selUtils.addTestcaseDescription("Validate all AM Transactions Widget visible ot not ,Open detailed page of Am Transactions widget , Open TCP Limits", "description");
-                assertCheck.append(actions.assertEqualBoolean(pages.getAmTcpLimits().isAmTransactionsWidgetVisible(), true, "Am Transaction Widget is visible", "Am Transaction Widget is NOT visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getAmTcpLimits().isAmTransactionsWidgetVisible(), true, "Am Transaction Widget is visible", "Am Transaction Widget is NOT visible"));
+            if (isPermissionEnable) {
                 assertCheck.append(actions.assertEqualBoolean(pages.getAmTcpLimits().isMoreIconVisible(), true, "AM Transaction Widget detailed icon  is visible", "AM Transaction Widget detailed icon is NOT visible"));
                 pages.getAmTcpLimits().clickMoreIcon();
                 assertCheck.append(actions.assertEqualBoolean(pages.getAmTcpLimits().isAmProfileDetailsTabVisible(), true, "Am Profile Details tab is visible", "Am Profile Details tab is NOT visible"));
@@ -79,7 +95,9 @@ public class AmTcpLimitsTest extends Driver {
                 assertCheck.append(actions.assertEqualBoolean(pages.getAmTcpLimits().isTcpLimitsIconVisible(), true, "Icon to open Tcp Limits is visible", "Icon to open Tcp Limits is NOT visible"));
                 pages.getAmTcpLimits().clickTcpLLimitsIcon();
                 assertCheck.append(actions.assertEqualBoolean(pages.getAmTcpLimits().isTcpLimitsVisible(), true, "TCP Limits is visible", "TCP Limit is NOT visible"));
-                actions.assertAllFoundFailedAssert(assertCheck);
+            } else
+                commonLib.fail("Am Profile Details widget is not visible as user has not permission to view it", true);
+            actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - openTcpLimits" + e.fillInStackTrace(), true);
         }
@@ -88,15 +106,15 @@ public class AmTcpLimitsTest extends Driver {
     /**
      * This method is used to Open Tcp Limits Layout
      */
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
     public void testTcpLimitsLayout() {
         try {
             selUtils.addTestcaseDescription("Validate all the fields are visible or not in TCP Limits ", "description");
-            amProfile=api.amServiceProfileAPITest(customerNumber);
-            tcpId=amProfile.getResult().getWallets().get(0).getTcpId();
-            tcpLimits=api.getTcpLimits(customerNumber,tcpId);
+            amProfile = api.amServiceProfileAPITest(customerNumber);
+            tcpId = amProfile.getResult().getWallets().get(0).getTcpId();
+            tcpLimits = api.getTcpLimits(customerNumber, tcpId);
             assertCheck.append(actions.assertEqualIntType(tcpLimits.getStatusCode(), 200, "TCP Limit API Status Code Matched and is :" + tcpLimits.getStatusCode(), "Tcp Limit Status Code NOT Matched and is :" + tcpLimits.getStatusCode(), false));
-            if (tcpLimits.getStatusCode()==200 && tcpLimits.getResult() == null) {
+            if (tcpLimits.getStatusCode() == 200 && tcpLimits.getResult() == null) {
                 assertCheck.append(actions.assertEqualBoolean(pages.getAmTcpLimits().isNoResultFoundVisible(), true, "Error Message is Visible", "Error Message is not Visible"));
                 assertCheck.append(actions.assertEqualStringType(pages.getAmTcpLimits().getNoResultFoundMessage(), "No Result found", "Error Message is as expected", "Error Message is not as expected"));
             } else if (tcpLimits.getStatusCode() == 500 && tcpLimits.getResult() == null) {
@@ -128,13 +146,13 @@ public class AmTcpLimitsTest extends Driver {
     }
 
     /**
-     * This method is used to Open Tcp Limits Data
+     * This method is used to check Tcp Limits Data
      */
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
     public void testTcpLimitsData() {
         try {
             selUtils.addTestcaseDescription("Validate all the fields are visible or not in TCP Limits ", "description");
-            if (tcpLimits.getStatusCode()==200 && tcpLimits.getResult() == null) {
+            if (tcpLimits.getStatusCode() == 200 && tcpLimits.getResult() == null) {
                 assertCheck.append(actions.assertEqualBoolean(pages.getAmTcpLimits().isNoResultFoundVisible(), true, "Error Message is Visible", "Error Message is not Visible"));
                 assertCheck.append(actions.assertEqualStringType(pages.getAmTcpLimits().getNoResultFoundMessage(), "No Result found", "Error Message is as expected", "Error Message is not as expected"));
             } else if (tcpLimits.getStatusCode() == 500 && tcpLimits.getResult() == null) {
@@ -146,7 +164,7 @@ public class AmTcpLimitsTest extends Driver {
                 assertCheck.append(actions.assertEqualStringType(pages.getAmTcpLimits().getTransferDetailsValue(3), tcpLimits.getResult().getCurrency(), "Currency is same as expected ", "Currency is NOT same as expected"));
                 assertCheck.append(actions.assertEqualStringType(pages.getAmTcpLimits().getThresholdDetailsValue(1), tcpLimits.getResult().getMinResidualBalance(), "Min Residual Balance is same as expected ", "Min Residual Balance is NOT same as expected"));
                 assertCheck.append(actions.assertEqualStringType(pages.getAmTcpLimits().getThresholdDetailsValue(2), tcpLimits.getResult().getMinTxnAmount(), "Min txn amount  is same as expected ", "Min txn amount is NOT same as expected"));
-                assertCheck.append(actions.assertEqualStringType(pages.getAmTcpLimits().getThresholdDetailsValue(3), tcpLimits.getResult().getMaxPctTransferAllowed()+"%", "Max Transfer Allowed is same as expected ", "Max Transfer Allowed is NOT same as expected"));
+                assertCheck.append(actions.assertEqualStringType(pages.getAmTcpLimits().getThresholdDetailsValue(3), tcpLimits.getResult().getMaxPctTransferAllowed() + "%", "Max Transfer Allowed is same as expected ", "Max Transfer Allowed is NOT same as expected"));
                 assertCheck.append(actions.assertEqualStringType(pages.getAmTcpLimits().getThresholdDetailsValue(4), tcpLimits.getResult().getMaxBalance(), "Max Balance is same as expected ", "Max Balance is NOT same as expected"));
                 if (!StringUtils.equals(TCP_LIMIT_WEB_BEARER, "true")) {
                     assertCheck.append(actions.assertEqualBoolean(pages.getAmTcpLimits().isWebVisible(), true, "WEB Type Bearer is visible on UI", "WEB Type Bearer is NOT visible on UI"));

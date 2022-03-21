@@ -205,11 +205,11 @@ public class PageCollection {
         return new PlanAndPackDetailedWidget(driver);
     }
 
-    public CurrentPlanWidget getCurrentPlanWidget(){
+    public CurrentPlanWidget getCurrentPlanWidget() {
         return new CurrentPlanWidget(driver);
     }
 
-    public DetailAccountInfoWidget getDetailAccountInfoWidget(){
+    public DetailAccountInfoWidget getDetailAccountInfoWidget() {
         return new DetailAccountInfoWidget(driver);
     }
 
@@ -243,6 +243,14 @@ public class PageCollection {
 
     public AmTcpLimits getAmTcpLimits() {
         return new AmTcpLimits(driver);
+    }
+
+    public AmSmsTrails getAmSmsTrails() {
+        return new AmSmsTrails(driver);
+    }
+
+    public AmLinkedWallets getAmLinkedWallets() {
+        return new AmLinkedWallets(driver);
     }
 
 }

@@ -4,7 +4,7 @@
     <listeners>
         <listener class-name="com.airtel.cs.commonutils.listeners.TestListenerMethod"/>
     </listeners>
-   <test name="First Last Category API Test">
+   <!--<test name="First Last Category API Test">
         <classes>
             <class name="com.airtel.cs.api.layoutcategorycode.FirstLastCategoryTest"/>
         </classes>
@@ -53,7 +53,7 @@
          <classes>
              <class name="com.airtel.cs.api.openapi.OpenApiWithCSTokenTest"/>
          </classes>
-     </test>
+     </test>-->
      <test name="Open API Test- Client Without Um">
          <groups>
              <run>
@@ -88,7 +88,7 @@
          <classes>
              <class name="com.airtel.cs.api.clientconfig.SearchableFieldsClientConfigTest"/>
          </classes>
-     </test>
+     </test>1
      <test name="Ticket Listing">
          <classes>
              <class name="com.airtel.cs.api.ticket.TicketListingTest"/>

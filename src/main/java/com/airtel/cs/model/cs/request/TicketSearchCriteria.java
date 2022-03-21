@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.airtel.cs.commonutils.dataproviders.databeans.IssueFields;
 
+import com.airtel.cs.model.sr.request.ticketsearch.IssueFields;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -50,4 +50,5 @@ public class TicketSearchCriteria {
   private  List<String> assigneeNames;
   
   private List<IssueFields> issueFields;
+  private  String searchType;
 }

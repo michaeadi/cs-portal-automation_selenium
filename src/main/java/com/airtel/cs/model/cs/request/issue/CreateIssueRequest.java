@@ -1,5 +1,6 @@
 package com.airtel.cs.model.cs.request.issue;
 
+import com.airtel.cs.model.sr.response.issue.IssueDetailsResponse;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
@@ -13,7 +14,7 @@ public class CreateIssueRequest {
     private String interactionId;
     private String comment;
     private String createdBy;
-    private IssueDetails result;
+    private IssueDetailsResponse result;
     private CategoryHierarchy category;
     private MetaInfo metainfo;
 }

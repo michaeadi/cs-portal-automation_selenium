@@ -66,7 +66,7 @@ public class ServiceProfileDetailWidgetTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(isPermissionEnable, true, "Logged in user has Service Profile Widget permission", "Logged in user doesn't have Service Profile Widget permission"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
-            commonLib.fail("Exception in Method - isUserHasAccountInfoWidgetPermission " + e.fillInStackTrace(), true);
+            commonLib.fail("Exception in Method - isUserHasPermission " + e.fillInStackTrace(), true);
         }
     }
 
