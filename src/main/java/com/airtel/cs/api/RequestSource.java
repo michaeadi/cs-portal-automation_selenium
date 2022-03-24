@@ -1,6 +1,7 @@
 package com.airtel.cs.api;
 
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
+import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.ESBURIConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.URIConstants;
 import com.airtel.cs.commonutils.applicationutils.enums.JavaColors;
@@ -26,7 +27,7 @@ import com.airtel.cs.model.cs.request.issuehistory.IssueHistoryRequest;
 import com.airtel.cs.model.cs.request.layout.AutofillConfigsResponse;
 import com.airtel.cs.model.cs.request.ticketstats.TicketStatsTicketSearchCriteria;
 import com.airtel.cs.model.cs.response.am.SmsLogsResponse;
-import com.airtel.cs.model.sr.request.LayoutConfigRequest;
+import com.airtel.cs.model.sr.request.layout.LayoutConfigRequest;
 import com.airtel.cs.model.sr.request.ticketsearch.IssueFields;
 import com.airtel.cs.model.sr.request.ticketsearch.TicketSearchRequest;
 import com.airtel.cs.model.sr.response.layout.IssueLayoutResponse;
@@ -2217,7 +2218,9 @@ public class RequestSource extends RestCommonUtils {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + constants.getValue("tcp.limits"), JavaColors.GREEN, false);
         TcpLimitsResponse result = null;
         try {
-            commonPostMethod(TCP_LIMITS, new TcpLimitsRequest(msisdn, tcpId));
+            String userType=constants.getValue(CommonConstants.TCP_LIMIT_USER_TYPE);
+            String bearer=constants.getValue(CommonConstants.TCP_LIMIT_BEARER);
+            commonPostMethod(TCP_LIMITS, new TcpLimitsRequest(msisdn, tcpId,userType,bearer));
             result = response.as(TcpLimitsResponse.class);
             if (response.getStatusCode() != 200) {
                 esbRequestSource.callTcpLimits(tcpId);
@@ -2229,6 +2232,11 @@ public class RequestSource extends RestCommonUtils {
         return result;
     }
 
+    /**
+     * This method is used to set the id and file description keys in map
+     *
+     * @return data
+     */
     public Map<String, String> metaDataMap() {
         Map<String, String> data = new HashMap<>();
         data.put("identifier", "id");
@@ -2270,7 +2278,7 @@ public class RequestSource extends RestCommonUtils {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + constants.getValue("sms.trails"), JavaColors.GREEN, false);
         SmsLogsResponse result = null;
         try {
-            commonPostMethod(URIConstants.SMS_TRAILS, new SmsLogsRequest(msisdn));
+            commonPostMethod(URIConstants.SMS_TRAILS, new SmsLogsRequest(msisdn,null,null,1,5));
             result = response.as(SmsLogsResponse.class);
             if(result.getStatusCode()!=200)
                 esbRequestSource.callSmsLogs(msisdn);

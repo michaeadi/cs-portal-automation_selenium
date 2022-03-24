@@ -1,4 +1,4 @@
-package com.airtel.cs.model.sr.request;
+package com.airtel.cs.model.sr.request.layout;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

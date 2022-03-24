@@ -1,4 +1,4 @@
-package com.airtel.cs.model.sr.request;
+package com.airtel.cs.model.sr.request.layout;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
