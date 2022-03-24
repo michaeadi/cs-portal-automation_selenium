@@ -245,4 +245,12 @@ public class PageCollection {
         return new AmTcpLimits(driver);
     }
 
+    public AmSmsTrails getAmSmsTrails() {
+        return new AmSmsTrails(driver);
+    }
+
+    public AmLinkedWallets getAmLinkedWallets() {
+        return new AmLinkedWallets(driver);
+    }
+
 }

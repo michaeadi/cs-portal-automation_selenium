@@ -49,6 +49,7 @@ public class ApiPrerequisites extends Driver {
     public static final String BASE_LOGIN_URL = constants.getValue(ApplicationConstants.BASE_LOGIN_URL);
     private static String Token;
     public static final String MSISDN = "msisdn";
+    public static final String INVALID_MSISDN = "invalidMsisdn";
     public static final String CLIENT = "CS";
 
 
@@ -171,7 +172,7 @@ public class ApiPrerequisites extends Driver {
                 if (!(layoutConfiguration.getResult().isEmpty())) {
                     for (IssueDetailsResponse s : layoutConfiguration.getResult()) {
                         String value;
-                        if (StringUtils.equalsIgnoreCase(s.getFieldType(), "text") && (Objects.nonNull(s.getPattern()) && s.getPattern().contains("/"))) {
+                        if (StringUtils.equalsIgnoreCase(s.getFieldType(), "text") && (Objects.nonNull(s.getPattern()) && ((s.getPattern().contains("^")) || (s.getPattern().contains("/"))))) {
                             value = "1111";
                         } else if ("text".equalsIgnoreCase(s.getFieldType()) && StringUtils.isBlank(s.getPattern())) {
                             value = "test";
@@ -292,9 +293,7 @@ public class ApiPrerequisites extends Driver {
             if (!(layoutConfiguration.getResult() == null)) {
                 if (!(layoutConfiguration.getResult().isEmpty())) {
                     for (IssueDetailsResponse s : layoutConfiguration.getResult()) {
-
-                        if (StringUtils.equalsIgnoreCase(s.getFieldType(), "text")
-                                && (Objects.nonNull(s.getPattern()) && s.getPattern().contains("/"))) {
+                        if (StringUtils.equalsIgnoreCase(s.getFieldType(), "text") && (Objects.nonNull(s.getPattern()) && s.getPattern().contains("/"))) {
                             value = "1111";
                         } else if ("text".equalsIgnoreCase(s.getFieldType()) && StringUtils.isBlank(s.getPattern())) {
                             value = "test";

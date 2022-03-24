@@ -154,6 +154,36 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.AirtelMoneyMenuSecondaryWidgetTest"/>
         </classes>
     </test>
+    <test name="Airtel Money TCP LimitsTest">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.am.AmTcpLimitsTest"/>
+        </classes>
+    </test>
+    <test name="Airtel Money  SMS Trails Test">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.am.AmSMSTrailsTest"/>
+        </classes>
+    </test>
+    <test name="Airtel Money Linked Wallets Test">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.am.AmLinkedWalletsTest"/>
+        </classes>
+    </test>
     <test name="Recharge History Detailed Page Test" preserve-order="true">
         <groups>
             <run>
@@ -214,7 +244,7 @@
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.ServiceProfileWidgetTest"/>
         </classes>
-    </test>-->
+    </test>
     <test name="Service Profile Detail Widget Test" preserve-order="true">
         <groups>
             <run>

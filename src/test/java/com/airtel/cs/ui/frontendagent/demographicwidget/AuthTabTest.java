@@ -102,8 +102,7 @@ public class AuthTabTest extends Driver {
         boolean isTabOpened = false;
         try {
             selUtils.addTestcaseDescription("Verify the Authentication tab", "description");
-            pages.getCustomerProfilePage().clickOnAction();
-            pages.getCustomerProfilePage().openAuthTab();
+            pages.getCustomerProfilePage().clickAirtelStatusToUnlock();
             isTabOpened = true;
             DataProviders data = new DataProviders();
             assertCheck.append(actions.assertEqualBoolean(pages.getAuthTabPage().isAuthTabLoad(), true, "Authentication tab loaded correctly", "Authentication tab does not load correctly"));

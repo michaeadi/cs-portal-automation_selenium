@@ -679,5 +679,33 @@ public class UtilsMethods extends Driver {
         constants.setValue(CommonConstants.AUTO_ASSIGNMENT_TICKET_ID, ticketId);
     }
 
+    /**
+     * This method returns Date in UTC timezone in "ddMMyyyy" format
+     *
+     * @param date
+     * @return
+     */
+    public static Long getDateInUtc(Long date, String dateType) {
+        LocalDate dt = Instant.ofEpochMilli(date).atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDateTime ldt = null;
+        if (dateType.equalsIgnoreCase("startDate"))
+            ldt = dt.atTime(LocalTime.MAX).withNano(0);
+        else if (dateType.equalsIgnoreCase("endDate"))
+            ldt = dt.atStartOfDay();
+        else {
+            commonLib.info("Date Type is not as expected");
+        }
+        ZonedDateTime zdt = ldt.atZone(ZoneOffset.UTC);
+        DateFormat m_ISO8601Local = new SimpleDateFormat("ddMMyyyy");
+        m_ISO8601Local.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date sd = new Date();
+        try {
+            sd = m_ISO8601Local.parse(zdt.toString());
+        } catch (ParseException e) {
+            commonLib.fail("error in parsing date" + e.getMessage(), false);
+        }
+        Long startDateEpoch = sd.getTime();
+        return startDateEpoch;
+    }
 
 }

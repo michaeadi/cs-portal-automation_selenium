@@ -1,5 +1,7 @@
-package com.airtel.cs.model.cs.request.tickethistory;
+package com.airtel.cs.model.sr.response.tickethistory;
 
+import com.airtel.cs.commonutils.dataproviders.databeans.SearchType;
+import com.airtel.cs.model.cs.request.tickethistory.TicketHistoryResult;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
@@ -16,4 +18,6 @@ public class TicketHistoryRequest {
     private Integer statusCode;
     private String message;
     private List<TicketHistoryResult> result;
+    List<Object> fieldValues;
+    SearchType searchType;
 }
