@@ -36,7 +36,7 @@
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.ngpsb.demographic.DemoGraphicWidgetTest"/>
+            <class name="com.airtel.cs.ui.ngpsb.DemoGraphicWidgetTest."/>
         </classes>
     </test>
     <!-- <test name="Airtel Money Transaction Widget Test">

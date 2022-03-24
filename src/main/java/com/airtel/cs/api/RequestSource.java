@@ -2270,7 +2270,6 @@ public class RequestSource extends RestCommonUtils {
 
     /**
      * This Method will hit the API "/cs-am-service/v1/sms/trail" and return the response
-     *
      * @param msisdn The msisdn
      * @return The Response
      */

@@ -22,4 +22,6 @@ public class Wallet {
     private String primary;
     private String totalDebit;
     private String totalCredit;
+    private String status;
+    private String nubanId;
 }

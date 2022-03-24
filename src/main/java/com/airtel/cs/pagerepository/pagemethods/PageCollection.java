@@ -250,7 +250,18 @@ public class PageCollection {
     }
 
     public AmLinkedWallets getAmLinkedWallets() {
+
         return new AmLinkedWallets(driver);
+    }
+
+    public DemographicWidget getDemographicWidget() {
+        return new DemographicWidget(driver);
+    }
+    public WalletInformation getWalletInformation() {
+        return new WalletInformation(driver);
+    }
+    public AccountInformation getAccountInformation() {
+        return new AccountInformation(driver);
     }
 
 }
