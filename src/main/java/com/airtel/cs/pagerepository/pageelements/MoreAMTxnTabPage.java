@@ -44,4 +44,3 @@ public class MoreAMTxnTabPage {
     public By titleSec = By.xpath("//div[@data-csautomation-key='AM_TRANSACTION_DETAIL_SECONDARY']//span[@class='card__card-header--label']");
 
 }
-//div[@data-csautomation-key='AIRTEL_MONEY']//parent::div//button[@class='search-icon-btn']
