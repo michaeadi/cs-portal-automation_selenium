@@ -8,7 +8,7 @@ import java.util.List;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BankDetailsResponse {
-    private String message;
+    private String status;
     private Integer statusCode;
     private List<Result> result;
 }

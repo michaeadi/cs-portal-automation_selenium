@@ -28,9 +28,9 @@ public class AirtelMoneyData {
     private String secondPartyName;
     private SourceAccount sourceAccount;
     private DestinationAccount destinationAccount;
-    private String isReversal;
     private String txnChannel;
     private String transactionType;
     private String paymentMode;
     private String categoryCode;
+    private Boolean isReversal;
 }

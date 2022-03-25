@@ -56,11 +56,12 @@ public class PsbRequestSource extends RestCommonUtils {
      * @param msisdn The msisdn
      * @return The Response
      */
-    public AirtelMoney getTransactionHistory(String msisdn, String type) {
+    public AirtelMoney getTransactionHistory(String msisdn, String nubanId) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + constants.getValue("transaction.history"), JavaColors.GREEN, false);
         AirtelMoney result = null;
+        String type = constants.getValue(ApplicationConstants.ACCOUNT_TYPE);
         try {
-            commonPostMethod(URIConstants.TRANSACTION_HISTORY, new TransactionHistoryRequest(msisdn, 5, 1, null, type));
+            commonPostMethod(URIConstants.TRANSACTION_HISTORY, new TransactionHistoryRequest(msisdn, 5, 1, nubanId, type));
             result = response.as(AirtelMoney.class);
             if (result.getStatusCode() != 200) {
                 esbRequestSource.callTransactionHistory(msisdn, type);

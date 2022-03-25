@@ -39,6 +39,36 @@
             <class name="com.airtel.cs.ui.ngpsb.DemoGraphicWidgetTest"/>
         </classes>
     </test>
+    <test name="Account Information Test " preserve-order="true">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.ngpsb.AccountInformationTest"/>
+        </classes>
+    </test>
+    <test name="Wallet Information Test " preserve-order="true">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.ngpsb.WalletInformationTest"/>
+        </classes>
+    </test>
+    <test name="Transaction History Test " preserve-order="true">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.ngpsb.SmartCashTransactionHistoryTest"/>
+        </classes>
+    </test>
     <test name="Validate Action Trail Tab Test">
         <groups>
             <run>

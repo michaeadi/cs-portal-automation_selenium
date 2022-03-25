@@ -1,9 +1,6 @@
 package com.airtel.cs.model.cs.request.psb.cs;
-
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
 
 @Data
 @AllArgsConstructor

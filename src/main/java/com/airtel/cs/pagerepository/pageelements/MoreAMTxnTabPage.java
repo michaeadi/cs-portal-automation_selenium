@@ -27,12 +27,6 @@ public class MoreAMTxnTabPage {
     public String headerRow = "//div[@data-csautomation-key='AM_TRANSACTION_DETAIL']/div[@class='card__content restricted ng-star-inserted']/descendant::div[@class='card__card-header--card-body--table--list-heading ng-star-inserted']/div";
     public String resendSMS = "//div[@data-csautomation-key='AM_TRANSACTION_DETAIL']/div[@class='card__content restricted ng-star-inserted']/descendant::div[@class='card__card-header--card-body--table--data-list row-border'][1]/div[12]//img[1][@class='hide-reversal ng-star-inserted']";
 
-    //Secondary Widget
-    public By airtelMoneyNoResultFoundSec = By.xpath("//div[@data-csautomation-key='AM_TRANSACTION_DETAIL_SECONDARY']/div[@class='card__content restricted ng-star-inserted']/descendant::div[@class='no-result-found ng-star-inserted']");
-    public By airtelMoneyNoResultFoundMessageSec = By.xpath("//div[@data-csautomation-key='AM_TRANSACTION_DETAIL_SECONDARY']/div[@class='card__content restricted ng-star-inserted']/descendant::div[@class='no-result-found ng-star-inserted']/span/span");
-    public By airtelMoneyErrorSec = By.xpath("//div[@data-csautomation-key='AM_TRANSACTION_DETAIL_SECONDARY']//div[@class='image-container']");
-    public By titleSec = By.xpath("//div[@data-csautomation-key='AM_TRANSACTION_DETAIL_SECONDARY']//span[@class='card__card-header--label']");
-    //    Filter pom
     public By todayFilterSec = By.xpath("//div[@data-csautomation-key='AM_TRANSACTION_DETAIL_SECONDARY']//parent::div//form//mat-radio-button//span[contains(text(),'Today')]");
     public By dateRangeFilterSec = By.xpath("//div[@data-csautomation-key='AM_TRANSACTION_DETAIL_SECONDARY']//parent::div//form/span/input");
     public By lastSevenDaysSec = By.xpath("//div[@data-csautomation-key='AM_TRANSACTION_DETAIL_SECONDARY']//parent::div//form//mat-radio-button//span[contains(text(),'Last seven days')]");
@@ -43,5 +37,10 @@ public class MoreAMTxnTabPage {
     public String valueRowSec = "//div[@data-csautomation-key='AM_TRANSACTION_DETAIL_SECONDARY']/descendant::div[@class='card__card-header--card-body--table--data-list'][";
     public String headerRowSec = "//div[@data-csautomation-key='AM_TRANSACTION_DETAIL_SECONDARY']/div[@class='card__content restricted ng-star-inserted']/descendant::div[@class='card__card-header--card-body--table--list-heading ng-star-inserted']/div";
     public String resendSMSSec = "//div[@data-csautomation-key='AM_TRANSACTION_DETAIL_SECONDARY']/div[@class='card__content restricted ng-star-inserted']/descendant::div[@class='card__card-header--card-body--table--data-list row-border'][1]/div[12]//img[1][@class='hide-reversal ng-star-inserted']";
+
+    public By airtelMoneyNoResultFoundSec = By.xpath("//div[@data-csautomation-key='AM_TRANSACTION_DETAIL_SECONDARY']/div[@class='card__content restricted ng-star-inserted']/descendant::div[@class='no-result-found ng-star-inserted']");
+    public By airtelMoneyNoResultFoundMessageSec = By.xpath("//div[@data-csautomation-key='AM_TRANSACTION_DETAIL_SECONDARY']/div[@class='card__content restricted ng-star-inserted']/descendant::div[@class='no-result-found ng-star-inserted']/span/span");
+    public By airtelMoneyErrorSec = By.xpath("//div[@data-csautomation-key='AM_TRANSACTION_DETAIL_SECONDARY']//div[@class='image-container']");
+    public By titleSec = By.xpath("//div[@data-csautomation-key='AM_TRANSACTION_DETAIL_SECONDARY']//span[@class='card__card-header--label']");
 
 }

@@ -228,5 +228,14 @@ public class AmLinkedWallets extends BasePage {
             return 0;
         }
     }
+
+    /**
+     * This method is used to click sms logs tab
+     * @return
+     */
+    public void clickSmsLogsTab() {
+        commonLib.info("Going to click SMS Logs tab");
+        clickAndWaitForLoaderToBeRemoved(pageElements.smsLogs);
+    }
 }
 
