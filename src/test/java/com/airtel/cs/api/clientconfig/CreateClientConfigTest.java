@@ -3,7 +3,7 @@ package com.airtel.cs.api.clientconfig;
 import com.airtel.cs.common.prerequisite.ApiPrerequisites;
 import com.airtel.cs.commonutils.dataproviders.databeans.ClientConfigDataBean;
 import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
-import com.airtel.cs.model.cs.request.clientconfig.ClientConfigRequest;
+import com.airtel.cs.model.cs.request.clientconfig.ClientConfigResponse;
 import com.airtel.cs.model.cs.response.clientconfig.ConfigResponse;
 import org.testng.annotations.Test;
 
@@ -23,7 +23,7 @@ public class CreateClientConfigTest extends ApiPrerequisites {
                 validClientInfo += "," + "{\"fieldName\":\"" + clientConfig.get(i).getFieldName() + "\",\"mandatory\":\"" + clientConfig.get(i).getIsMandatory() + "\",\"searchable\":\"" + clientConfig.get(i).getIsSearchAble() + "\",\"isActive\":\"" + clientConfig.get(i).getIsActive() + "\"}";
             }
         }
-        ClientConfigRequest createConfig = api.createClientConfig(validHeaderList, validClientInfo);
+        ClientConfigResponse createConfig = api.createClientConfig(validHeaderList, validClientInfo);
         if (!createConfig.getStatusCode().equalsIgnoreCase("200")) {
             commonLib.fail(" Create Client Config API Response is not expected. Expected 200 but found " + createConfig.getStatusCode(), false);
         } else {
@@ -47,7 +47,7 @@ public class CreateClientConfigTest extends ApiPrerequisites {
                 validClientInfo += "," + "{\"fieldName\":\"" + clientConfig.get(i).getFieldName() + "\",\"mandatory\":\"" + clientConfig.get(i).getIsMandatory() + "\",\"searchable\":\"" + clientConfig.get(i).getIsSearchAble() + "\",\"isActive\":\"" + clientConfig.get(i).getIsActive() + "\"}";
             }
         }
-        ClientConfigRequest createConfig = api.createClientConfig(restUtils.invalidToken(), validClientInfo);
+        ClientConfigResponse createConfig = api.createClientConfig(restUtils.invalidToken(), validClientInfo);
         if (Integer.parseInt(createConfig.getStatus()) == 401) {
             assertCheck.append(actions.assertEqualStringType(createConfig.getMessage(), constants.getValue("unauthorized"), "API Response Message is as expected", "API Response Message is as NOT expected"));
         } else {
@@ -69,7 +69,7 @@ public class CreateClientConfigTest extends ApiPrerequisites {
             }
         }
         String invalidClientInfo = validClientInfo + "," + "{\"mandatory\":\"" + false + "\",\"searchable\":" + true + ",\"isActive\":" + true + "}";
-        ClientConfigRequest createConfig = api.createClientConfig(validHeaderList, invalidClientInfo);
+        ClientConfigResponse createConfig = api.createClientConfig(validHeaderList, invalidClientInfo);
         restUtils.printInfoLog("And Request API with Invalid Request(Field Name Parameter Missing)");
         restUtils.printFailLog("Then API Response Status Code is not 400");
         commonLib.fail(" API Response is not 400 as expected.", false);
@@ -82,7 +82,7 @@ public class CreateClientConfigTest extends ApiPrerequisites {
         DataProviders data = new DataProviders();
         List<ClientConfigDataBean> clientConfig = data.getClientConfig();
         String validClientInfo = "{\"fieldName\":" + null + ",\"mandatory\":" + null + ",\"searchable\":" + null + ",\"isActive\":" + null + "}";
-        ClientConfigRequest createConfig = api.createClientConfig(validHeaderList, validClientInfo);
+        ClientConfigResponse createConfig = api.createClientConfig(validHeaderList, validClientInfo);
         restUtils.printInfoLog("And Request API with Invalid Request(Field Name Parameter Missing)");
         if (createConfig.getStatus().equalsIgnoreCase("2902")) {
             restUtils.printInfoLog("Then API Response Status Code must be 2902");

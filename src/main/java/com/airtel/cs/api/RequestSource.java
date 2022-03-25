@@ -15,7 +15,7 @@ import com.airtel.cs.model.cs.request.am.SmsLogsRequest;
 import com.airtel.cs.model.cs.request.am.TcpLimitsRequest;
 import com.airtel.cs.model.cs.request.categoryhierarchy.CategoryHierarchyRequest;
 import com.airtel.cs.model.cs.request.clientconfig.AllConfiguredClientRequest;
-import com.airtel.cs.model.cs.request.clientconfig.ClientConfigRequest;
+import com.airtel.cs.model.cs.request.clientconfig.ClientConfigResponse;
 import com.airtel.cs.model.cs.request.clientconfig.ClientDeactivateRequest;
 import com.airtel.cs.model.cs.request.hbb.HbbLinkedAccountsRequest;
 import com.airtel.cs.model.cs.request.hbb.NotificationServiceRequest;
@@ -1674,11 +1674,11 @@ public class RequestSource extends RestCommonUtils {
         return response.as(ClientDeactivateRequest.class);
     }
 
-    public ClientConfigRequest createClientConfig(List<Header> map, String clientConfig) {
+    public ClientConfigResponse createClientConfig(List<Header> map, String clientConfig) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + constants.getValue("client.config"), JavaColors.GREEN, false);
         body = "{\"clientConfig\":[" + clientConfig + "]}";
         commonPostMethod(URIConstants.CLIENT_CONFIG, map, body, srBaseUrl);
-        return response.as(ClientConfigRequest.class);
+        return response.as(ClientConfigResponse.class);
     }
 
     public InteractionRequest createInteraction(List<Header> map, String clientConfig) {
@@ -1688,10 +1688,10 @@ public class RequestSource extends RestCommonUtils {
         return response.as(InteractionRequest.class);
     }
 
-    public ClientConfigRequest getClientConfig(List<Header> map) {
+    public ClientConfigResponse getClientConfig(List<Header> map) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + constants.getValue("client.config"), JavaColors.GREEN, false);
         commonGetMethod(URIConstants.CLIENT_CONFIG, map, srBaseUrl);
-        return response.as(ClientConfigRequest.class);
+        return response.as(ClientConfigResponse.class);
     }
 
     public IssueLayoutResponse getLayoutConfiguration(List<Header> map, Integer categoryId) {
