@@ -11,6 +11,7 @@ public class PageCollection {
      */
     private final WebDriver driver;
 
+
     /**
      * Instantiates a new page collection.
      *
@@ -245,4 +246,7 @@ public class PageCollection {
         return new AmTcpLimits(driver);
     }
 
+    public KpiDashboardTopPanel KpiDashboardTopPanelPage() {
+        return new KpiDashboardTopPanel(driver);
+    }
 }
