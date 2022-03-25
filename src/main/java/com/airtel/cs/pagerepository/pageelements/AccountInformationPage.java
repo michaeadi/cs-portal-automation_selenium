@@ -28,6 +28,4 @@ public class AccountInformationPage {
     */
     public By middleAuuid = By.xpath("//div[contains(@data-csautomation-key,'ACCOUNT_INFORMATION')]");
     public By footerAuuid = By.xpath("//div[contains(@data-csautomation-key,'ACCOUNT_INFORMATION')]//div[contains(@class,'auuid-container')]");
-
-
 }

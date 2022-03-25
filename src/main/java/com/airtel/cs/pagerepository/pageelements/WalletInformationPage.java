@@ -29,6 +29,4 @@ public class WalletInformationPage {
     */
     public By middleAuuid = By.xpath("//div[contains(@data-csautomation-key,'WALLET_INFORMATION')]");
     public By footerAuuid = By.xpath("//div[contains(@data-csautomation-key,'WALLET_INFORMATION')]//div[contains(@class,'auuid-container')]");
-
-
 }

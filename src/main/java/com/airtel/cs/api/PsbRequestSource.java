@@ -1,5 +1,6 @@
 package com.airtel.cs.api;
 
+import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.commonutils.applicationutils.constants.URIConstants;
 import com.airtel.cs.commonutils.applicationutils.enums.JavaColors;
 import com.airtel.cs.commonutils.restutils.RestCommonUtils;
@@ -105,7 +106,7 @@ public class PsbRequestSource extends RestCommonUtils {
     public BankDetailsResponse getAmBankDetails(String msisdn, String nubanId) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + constants.getValue("bank.details"), JavaColors.GREEN, false);
         BankDetailsResponse result = null;
-        String type = null;
+        String type = constants.getValue(ApplicationConstants.ACCOUNT_TYPE);
         try {
             commonPostMethod(URIConstants.BANK_DETAILS, new BankDetailsRequest(msisdn, nubanId));
             result = response.as(BankDetailsResponse.class);
