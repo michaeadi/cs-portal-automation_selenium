@@ -72,6 +72,7 @@ public class URIConstants {
     public static final String VAS_SUBSCRIPTION_HISTORY = "/cs-vas-service/v1/subscriptions/history";
     public static final String TCP_LIMITS = "/cs-am-service/v1/tcplimits";
     public static final String SMS_TRAILS = "/cs-am-service/v1/sms/trail";
+    public static final String FETCH_BALANCE = "/cs-am-service/v1/fetch/balances";
 
 
     /**
@@ -113,9 +114,6 @@ public class URIConstants {
     public static final String FILE_UPLOAD = "/api/sr-service/v1/files";
     public static final String FILE_DOWNLOAD = "/api/sr-service/v1/files";
     public static final String FILE_DELETE = "/api/sr-service/v1/files";
-
-
-    private URIConstants() {
-
-    }
+    public static final String  CLM_DETAILS = "/cs-am-service/v1/clm/details";
+    public static final String BANK_DETAILS="/cs-am-service/v1/bank/details";
 }

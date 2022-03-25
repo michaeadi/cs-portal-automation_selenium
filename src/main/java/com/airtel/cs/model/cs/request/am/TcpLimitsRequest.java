@@ -8,4 +8,6 @@ import lombok.Data;
 public class TcpLimitsRequest {
     private String msisdn;
     private String tcpId;
+    private String userType;
+    private String bearer;
 }

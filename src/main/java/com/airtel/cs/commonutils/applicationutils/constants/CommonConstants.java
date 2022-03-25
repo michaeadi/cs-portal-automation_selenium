@@ -105,4 +105,6 @@ public class CommonConstants {
     public static final String ACTIVE_VAS_RENEWAL_DATE_PATTERN="cs.active.vas.renewal.date.pattern";
     public static final String HLR_ORDER_HISTORY_DATE_PATTERN="cs.hlr.order.history.date.pattern";
     public static final String HLR_ORDER_HISTORY_TIME_PATTERN="cs.hlr.order.history.time.pattern";
+    public static final String TCP_LIMIT_USER_TYPE="cs.tcp.limit.user.type";
+    public static final String TCP_LIMIT_BEARER="cs.tcp.limit.bearer";
 }

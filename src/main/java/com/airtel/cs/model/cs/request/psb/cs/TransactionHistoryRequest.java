@@ -1,4 +1,5 @@
-package com.airtel.cs.model.cs.request;
+package com.airtel.cs.model.cs.request.psb.cs;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,6 +11,6 @@ public class TransactionHistoryRequest {
     private String msisdn;
     private Integer pageSize;
     private Integer pageNumber;
-    private String startDate;
-    private String endDate;
+    private String nubanId;
+    private String type;
 }

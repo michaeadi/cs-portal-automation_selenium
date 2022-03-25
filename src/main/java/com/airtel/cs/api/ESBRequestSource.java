@@ -102,6 +102,13 @@ public class ESBRequestSource extends RestCommonUtils {
     public static final String INGRESS_DOWNSTREAM_BASE_URL = INGRESS_DOWNSTREAM_BASE_URL_1 + INGRESS_DOWNSTREAM_BASE_URL_2 + INGRESS_DOWNSTREAM_BASE_URL_3;
     private static final String TO_DATE = "to_date";
     private static final String FROM_DATE = "from_date";
+    private static final String SOURCE_ID_TYPE = "source_id_type";
+    private static final String SOURCE_ID_NUMBER = "source_id_number";
+    private static final String NOTIFICATION_TYPE = "notificationType";
+    private static final String RECEIVER = "receiver";
+    private static final String SMS = "sms";
+    private static final String ID_NUMBER= "id_number";
+    private static final String ID_TYPE = "id_type";
 
 
     /**
@@ -1060,5 +1067,64 @@ public class ESBRequestSource extends RestCommonUtils {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + constants.getValue("sms.trails") + exp.getMessage(), false);
         }
 
+    }
+
+    /**
+     * This Method will hit the Downstream API of CLM Details
+     */
+    public void callCLMDetails(String msisdn) {
+        try {
+            commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + constants.getValue("clm.details"), JavaColors.GREEN, false);
+            queryParam.put("msisdn", msisdn);
+            commonGetMethodWithQueryParam(ESBURIConstants.CLM_DETAILS, queryParam);
+            checkDownstreamAPI(response.getStatusCode(), "Downstream API of CLM Details not working with data ", "Downstream API of CLM Details working with data ");
+        } catch (Exception exp) {
+            commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + constants.getValue("clm.details") + exp.getMessage(), false);
+        }
+    }
+
+    /**
+     * This Method will hit the Downstream API of Psb Transaction History API
+     */
+    public void callTransactionHistory(String nubanId, String type) {
+        try {
+            commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + constants.getValue("transaction.history"), JavaColors.GREEN, false);
+            queryParam.put(SOURCE_ID_TYPE, type);
+            queryParam.put(SOURCE_ID_NUMBER, nubanId);
+            commonGetMethodWithQueryParam(ESBURIConstants.PSB_TRANSCATION_HISTORY, queryParam);
+            checkDownstreamAPI(response.getStatusCode(), "Downstream API of Psb Transaction History not working with data ", "Downstream API of Psb Transaction History working with data ");
+        } catch (Exception exp) {
+            commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + constants.getValue("transaction.history") + exp.getMessage(), false);
+        }
+    }
+
+    /**
+     * This Method will hit the Downstream API of Psb Linked Accounts and Walllets
+     */
+    public void callBalanceAPI(String nubanId, String type) {
+        try {
+            commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + constants.getValue("get.balance"), JavaColors.GREEN, false);
+            queryParam.put(ID_NUMBER, type);
+            queryParam.put(ID_TYPE, nubanId);
+            commonGetMethodWithQueryParam(ESBURIConstants.FETCH_BALANCE1 +ESBURIConstants.FETCH_BALANCE2, queryParam);
+            checkDownstreamAPI(response.getStatusCode(), "Downstream API of Psb Accounts and Walllets  not working with data ", "Downstream API of Psb Accounts and Walllets working with data ");
+        } catch (Exception exp) {
+            commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + constants.getValue("get.balance") + exp.getMessage(), false);
+        }
+    }
+
+    /**
+     * This Method will hit the Downstream API of Psb Sms Summary API
+     */
+    public void callSmsSummary(String msisdn) {
+        try {
+            commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + constants.getValue("sms.summary"), JavaColors.GREEN, false);
+            queryParam.put(NOTIFICATION_TYPE, SMS);
+            queryParam.put(RECEIVER, msisdn);
+            commonGetMethodWithQueryParam(ESBURIConstants.PSB_TRANSCATION_HISTORY, queryParam);
+            checkDownstreamAPI(response.getStatusCode(), "Downstream API of Psb Sms Summary not working with data ", "Downstream API of Psb Sms Summary working with data ");
+        } catch (Exception exp) {
+            commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + constants.getValue("sms.summary") + exp.getMessage(), false);
+        }
     }
 }

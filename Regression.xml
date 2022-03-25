@@ -883,7 +883,7 @@
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.api.openapi.OpenApiWihSelfCareTokenTest"/>
+            <class name="com.airtel.cs.api.openapi.OpenApiWithSelfCareTokenTest"/>
         </classes>
     </test>
 </suite>

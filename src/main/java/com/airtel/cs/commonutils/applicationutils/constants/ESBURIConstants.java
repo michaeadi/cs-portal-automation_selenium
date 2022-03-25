@@ -55,4 +55,8 @@ public class ESBURIConstants {
   public static final String TCP_LIMITS = "/api/am-profile/v1/transfer-profiles";
   public static final String SMS_LOGS1 = "/api/am-send-money/v1/users/";
   public static final String SMS_LOGS2 = "/sms-details/";
+  public static final String CLM_DETAILS="/collective/v2/psb/customer";
+  public static final String PSB_TRANSCATION_HISTORY="/arch-in/web/api/am-esb-bank/v1/transactions";
+  public static final String FETCH_BALANCE1 = "/arch-in/web/api/am-esb-bank/v1/users/";
+  public static final String FETCH_BALANCE2 = "/balance/";
 }

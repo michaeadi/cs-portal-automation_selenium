@@ -221,6 +221,19 @@ public class AmSmsTrails extends BasePage {
     }
 
     /**
+     * This method is used get Action value based on passed row and column
+     * @param row
+     * @param column
+     * @return
+     */
+    public String getAction(int row, int column) {
+        String result;
+        result = getText(By.xpath(pageElements.dataRows + row + pageElements.dataColumns + column + pageElements.actionValue));
+        commonLib.info("Reading Value(" + row + "): " + result);
+        return result;
+    }
+
+    /**
      * This method is used to get total no. of rows
      */
     public int getNoOfRows()
