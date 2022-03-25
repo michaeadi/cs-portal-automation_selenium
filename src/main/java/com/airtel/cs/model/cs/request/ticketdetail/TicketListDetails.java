@@ -1,6 +1,4 @@
 package com.airtel.cs.model.cs.request.ticketdetail;
-
-import com.airtel.cs.model.sr.response.issue.IssueDetailsResponse;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
@@ -8,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Map;
 
 @Getter
@@ -33,9 +32,8 @@ public class TicketListDetails {
     private String agentId;
     private ArrayList<Comments> comments;
     private ArrayList<QueueStates> queueStates;
-    private ArrayList<IssueDetailsResponse> issueDetailResponses;
+    private ArrayList<IssueDetails> issueDetails;
     private ArrayList<Interactions> interactions;
-    private ArrayList<IssueDetailsResponse> ticketDetails;
     private String committedSla;
     private String actionPerformed;
     private String expectedClosureDate;

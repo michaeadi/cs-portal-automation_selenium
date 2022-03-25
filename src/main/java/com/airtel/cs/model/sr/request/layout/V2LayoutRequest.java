@@ -15,9 +15,4 @@ public class V2LayoutRequest {
     private Integer categoryId;
     private String layoutConfigType;
     private String actionKey;
-
-    public V2LayoutRequest(Integer categoryId, String layoutConfigType){
-        this.categoryId = categoryId;
-        this.layoutConfigType = layoutConfigType;
-    }
 }

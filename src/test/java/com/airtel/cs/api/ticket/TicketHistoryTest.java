@@ -13,7 +13,7 @@ import com.airtel.cs.model.cs.request.issue.CategoryHierarchy;
 import com.airtel.cs.model.sr.response.layout.IssueLayoutResponse;
 import com.airtel.cs.model.cs.request.ticketAssign.TicketAssignResponse;
 import com.airtel.cs.model.cs.request.ticketdetail.TicketRequest;
-import com.airtel.cs.model.cs.request.tickethistory.TicketHistoryRequest;
+import com.airtel.cs.model.sr.response.tickethistory.TicketHistoryRequest;
 import com.airtel.cs.model.cs.request.tickethistory.TicketHistoryResult;
 
 import java.util.List;
@@ -35,7 +35,7 @@ public class TicketHistoryTest extends ApiPrerequisites {
     public void prepareTicketData(NftrDataBeans list) {
 
         if (Objects.isNull(interactionIssue)) {
-            category= getLastCategory(validCategoryId);
+            category = getLastCategory(validCategoryId);
             interactionIssue = api.createInteractionIssue(validHeaderList, getValidClientConfig(MSISDN), getIssueDetails(validCategoryId),
                     "{\"id\":" + category.getId() + "}");
 
@@ -416,15 +416,15 @@ public class TicketHistoryTest extends ApiPrerequisites {
         assertCheck
             .append(actions.assertEqualIntType(statusCode, 200, "Status Code Matched", "Status Code Not Matched and is -" + statusCode));
 
-        boolean isIssuefieldTicketfound = true;
+        Boolean isIssuefieldTicketfound = true;
 
         if (Objects.nonNull(ticketHistoryWithFilter) && CollectionUtils.isNotEmpty(ticketHistoryWithFilter.getResult())) {
 
           for (TicketHistoryResult ticket : ticketHistoryWithFilter.getResult()) {
 
             TicketRequest ticketdetails=api.getTicketDetailById(validHeaderList, ticket.getTicketId());
-            
-            if(Objects.isNull(ticketdetails.getResult()) || CollectionUtils.isEmpty(ticketdetails.getResult().getIssueDetailResponses()) || ticketdetails.getResult().getIssueDetailResponses().stream().noneMatch(issueDetail->issueDetail.getPlaceHolder().equalsIgnoreCase(fieldNameFinal) && issueDetail.getFieldValue().equalsIgnoreCase(fieldValueFinal)))
+
+              if(Objects.isNull(ticketdetails.getResult()) || CollectionUtils.isEmpty(ticketdetails.getResult().getIssueDetails()) || ticketdetails.getResult().getIssueDetails().stream().noneMatch(issueDetail->issueDetail.getPlaceHolder().equalsIgnoreCase(fieldNameFinal) && issueDetail.getFieldValue().equalsIgnoreCase(fieldValueFinal)))
             {
               isIssuefieldTicketfound = false;
               

@@ -111,7 +111,9 @@ public class DemoGraphicWidgetPostpaidMsisdnTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validate Customer Name,Validate Customer DOB,Validate if Customer has Birthday or Anniversary with Airtel", "description");
             customerName = pages.getDemoGraphicPage().getCustomerName();
-            if (!customerName.contains("Unable to fetch data")) {
+            if (customerName.contains("Unable to fetch data") || gsmKycAPI.getResult().getName().isEmpty())
+                commonLib.warning("Customer Name is unavailable so customer details are not displayed");
+            else {
                 pages.getDemoGraphicPage().hoverOnCustomerInfoIcon();
                 final String customerDOB = pages.getDemoGraphicPage().getCustomerDOB().toLowerCase();
                 final String customerIdNumber = pages.getDemoGraphicPage().getIdNumber().replace("*", "");
@@ -138,7 +140,8 @@ public class DemoGraphicWidgetPostpaidMsisdnTest extends Driver {
                     assertCheck.append(actions.assertEqualBoolean(StringUtils.contains(gsmKycAPI.getResult().getIdentificationNo(), customerIdNumber), true,
                             "Customer's ID Number is as Expected", "Customer's ID Number is not as Expected and Expected was :" + customerIdNumber));
                 }
-            }actions.assertAllFoundFailedAssert(assertCheck);
+            }
+            actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in method - testCustomerDetails" + e.fillInStackTrace(), true);
         }
@@ -310,7 +313,7 @@ public class DemoGraphicWidgetPostpaidMsisdnTest extends Driver {
 
     }
 
-    @Test(priority = 13, groups = {"SanityTest", "RegressionTest", "ProdTest"} ,dependsOnMethods= {"openCustomerInteraction", "getConnectionType"})
+    @Test(priority = 13, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction", "getConnectionType"})
     public void testEmailIdAndAccountNumber() {
         try {
             selUtils.addTestcaseDescription("Validate Email Id ", "description");

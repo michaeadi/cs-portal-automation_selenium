@@ -6,9 +6,8 @@ import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants
 import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
 import com.airtel.cs.commonutils.dataproviders.databeans.NftrDataBeans;
 import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
-import com.airtel.cs.model.sr.response.issue.IssueDetailsResponse;
+import com.airtel.cs.model.sr.request.V2LayoutRequest;
 import com.airtel.cs.model.sr.response.layout.IssueLayoutResponse;
-import com.airtel.cs.model.sr.request.layout.V2LayoutRequest;
 import org.testng.annotations.Test;
 
 import java.util.List;

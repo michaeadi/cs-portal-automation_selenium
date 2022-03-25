@@ -13,18 +13,9 @@ import lombok.ToString;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class BarDetails {
-
-    @JsonProperty("bar_reason")
     private String barReason;
-
     private String remarks;
-
-    @JsonProperty("barred_by")
     private String barredBy;
-
-    @JsonProperty("barred_on")
     private String barredOn;
-
-    @JsonProperty("bar_type")
     private String barType;
 }

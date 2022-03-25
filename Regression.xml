@@ -104,6 +104,36 @@
             <class name="com.airtel.cs.ui.frontendagent.hometab.AirtelMoneyTransactionWidgetTest"/>
         </classes>
     </test>
+    <test name="Airtel Money Tcp Limits Test">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.am.AmTcpLimitsTest"/>
+        </classes>
+    </test>
+    <test name="Airtel Money SMS Trails Test">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.am.AmSMSTrailsTest"/>
+        </classes>
+    </test>
+    <test name="Airtel Money Linked Wallets Test">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.am.AmLinkedWalletsTest"/>
+        </classes>
+    </test>
     <test name="Validate Current Balance Widget" preserve-order="true">
         <groups>
             <run>
@@ -157,7 +187,7 @@
     <test name="Service Profile Detail Widget Test" preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>

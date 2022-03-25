@@ -108,7 +108,9 @@ public class DemoGraphicWidgetHybridMsisdnTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validate Customer Name,Validate Customer DOB,Validate if Customer has Birthday or Anniversary with Airtel", "description");
             customerName = pages.getDemoGraphicPage().getCustomerName();
-            if (!customerName.contains("Unable to fetch data")) {
+            if (customerName.contains("Unable to fetch data") || gsmKycAPI.getResult().getName().isEmpty())
+                commonLib.warning("Customer Name is unavailable so customer details are not displayed");
+            else {
                 pages.getDemoGraphicPage().hoverOnCustomerInfoIcon();
                 final String customerDOB = pages.getDemoGraphicPage().getCustomerDOB().toLowerCase();
                 final String customerIdNumber = pages.getDemoGraphicPage().getIdNumber().replace("*", "");

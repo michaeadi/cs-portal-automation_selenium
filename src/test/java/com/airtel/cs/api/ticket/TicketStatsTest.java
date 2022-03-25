@@ -34,16 +34,16 @@ public class TicketStatsTest extends ApiPrerequisites {
     }
 
     @Test(priority = 3, description = "Validating Ticket Stats API With Invalid Msisdn", groups = {"RegressionTest"})
-    public void testTicketStatsWithInvalidaMsisdn() {
+    public void testTicketStatsWithInvalidMsisdn() {
         try {
             selUtils.addTestcaseDescription("Validate v1/ticket/stats with invalid Msisdn and valid Token", "description");
-            TicketStatsResponse ticketStatsRequest = api.ticketStatsRequest(getInvalidClientConfig(), validHeaderList);
+            TicketStatsResponse ticketStatsRequest = api.ticketStatsRequest(INVALID_MSISDN, validHeaderList);
             assertCheck.append(actions.assertEqualStringType(ticketStatsRequest.getMessage(), "Tickets not found for this customer id.", "Ticket Response Message Matched successfully", "Ticket Response Not Fetched - " + ticketStatsRequest.getMessage()));
-            assertCheck.append(actions.assertEqualStringType(ticketStatsRequest.getStatus(), "Failure", "Status Code Mathced", "Status Code Not Matched and is - " + ticketStatsRequest.getStatus()));
-            assertCheck.append(actions.assertEqualIntType(ticketStatsRequest.getStatusCode(), 5015, "Status Code Mathced", "Status Code Not Matched - " + ticketStatsRequest.getStatusCode()));
+            assertCheck.append(actions.assertEqualStringType(ticketStatsRequest.getStatus(), "Failure", "Status Code Matched", "Status Code Not Matched and is - " + ticketStatsRequest.getStatus()));
+            assertCheck.append(actions.assertEqualIntType(ticketStatsRequest.getStatusCode(), 5015, "Status Code Matched", "Status Code Not Matched - " + ticketStatsRequest.getStatusCode()));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
-            commonLib.fail("Caught exception in Testcase - testTicketStatsWithInvalidaMsisdn " + e.getMessage(), false);
+            commonLib.fail("Caught exception in Testcase - testTicketStatsWithInvalidMsisdn " + e.getMessage(), false);
         }
     }
 

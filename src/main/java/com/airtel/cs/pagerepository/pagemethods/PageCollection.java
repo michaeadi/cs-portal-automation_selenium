@@ -255,4 +255,12 @@ public class PageCollection {
 
     public AMTransactionsWidget getServiceProfileDetailWidget() { return new AMTransactionsWidget (driver);
     }
+    public AmSmsTrails getAmSmsTrails() {
+        return new AmSmsTrails(driver);
+    }
+
+    public AmLinkedWallets getAmLinkedWallets() {
+        return new AmLinkedWallets(driver);
+    }
+
 }
