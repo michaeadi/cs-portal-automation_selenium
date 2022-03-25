@@ -16,6 +16,7 @@ import io.restassured.specification.SpecificationQuerier;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.time.DateUtils;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -163,6 +164,34 @@ public class RestCommonUtils extends Driver {
         }
     }
 
+    /**
+     * This Method is used to hit the SR API using POST method  which has multipart request type
+     *
+     * @param endPoint endpoint
+     * @param body     body of the api
+     * @param url      http url
+     */
+    public static void commonPostMethodWithMultiPart(String endPoint, List<Header> map, Object body, String url, Map<String, String> metaData) {
+        RestAssuredConfig restAssuredConfig = CurlRestAssuredConfigFactory.createConfig();
+        try {
+            commonLib.infoColored(CALLING_API + " " + endPoint + " " + FOR_TESTING + USING_AUUID + loginAUUID + TOKEN, JavaColors.BLUE, false);
+            baseURI = url;
+            Headers headers = new Headers(map);
+            request = given()
+                    .contentType("multipart/form-data")
+                    .headers(headers)
+                    .multiPart("file", new File("/Users/a13401405/IdeaProjects/cs-portal-automation_selenium/resources/properties/test.txt"))
+                    .multiPart("fileMetaData", metaData);
+
+            response = request.post(endPoint);
+            queryable = SpecificationQuerier.query(request);
+            UtilsMethods.printResponseDetail(response);
+        } catch (Exception | AssertionError e) {
+            commonLib.fail("Caught exception in Testcase - commonPostMethodWithMultiPart " + e.getMessage(), false);
+        } finally {
+            commonLib.info(getRequestCurl(queryable.getURI(), queryable.getHeaders(), body));
+        }
+    }
     /**
      * This Method is used to get the curl of http request
      *

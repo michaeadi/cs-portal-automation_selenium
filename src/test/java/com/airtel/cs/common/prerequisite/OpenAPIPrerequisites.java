@@ -30,7 +30,7 @@ public class OpenAPIPrerequisites extends Driver {
     public static Map<String, Integer> ids = new HashMap<>();
     private static String Token;
     private static final String OPCO = System.getProperty("Opco").toUpperCase();
-    private static final String SR_CLIENT_ID =  constants.getValue(ApplicationConstants.SELFCARE_SR_CLIENT_ID);
+    private static final String SR_CLIENT_ID = constants.getValue(ApplicationConstants.SELFCARE_SR_CLIENT_ID);
     private static final String LOCALE = constants.getValue(ApplicationConstants.LOCALE);
 
 
@@ -91,7 +91,9 @@ public class OpenAPIPrerequisites extends Driver {
                         for (IssueDetailsResponse s : layoutConfiguration.getResult()) {
                             String value;
                             if (StringUtils.equalsIgnoreCase(s.getFieldType(), "text") && (Objects.nonNull(s.getPattern()) && s.getPattern().contains("/"))) {
-                                value = "1111";
+                                value = "2";
+                            } else if (StringUtils.equalsIgnoreCase(s.getFieldType(), "date") && (Objects.nonNull(s.getPattern()) && s.getPattern().contains("/"))) {
+                                value = "2878787878";
                             } else if ("text".equalsIgnoreCase(s.getFieldType()) && StringUtils.isBlank(s.getPattern())) {
                                 value = "test";
                             } else if ("number".equalsIgnoreCase(s.getFieldType())) {

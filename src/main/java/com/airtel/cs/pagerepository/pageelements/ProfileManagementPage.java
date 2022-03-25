@@ -38,4 +38,6 @@ public class ProfileManagementPage {
     public By accountInfoDown = By.xpath("//div[@class='widgetDataTable']//div[text()=' POSTPAID ACCOUNT INFO DETAIL ']/ancestor::div[@class='widgetDataTable']/div[3]//span[3]");
     public By linkedMsisdnUp = By.xpath("//div[@class='widgetDataTable']//div[text()=' POSTPAID LINKED MSISDN ']/ancestor::div[@class='widgetDataTable']/div[3]//span[2]");
     public By linkedMsisdnDown = By.xpath("//div[@class='widgetDataTable']//div[text()=' POSTPAID LINKED MSISDN ']/ancestor::div[@class='widgetDataTable']/div[3]//span[3]");
+    public By amProfileDetails=By.xpath("//div[@class='mat-tab-labels']/div/div[text()=' AM Profile Details ']");
+    public By activeTabsOnPM = By.xpath("//div[@class='mat-tab-labels']/div/div");
 }

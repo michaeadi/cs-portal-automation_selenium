@@ -486,5 +486,48 @@ public class ProfileManagement extends BasePage {
         clickAndWaitForLoaderToBeRemoved(pageElements.accountInfoDown);
     }
 
+    /**
+     * This button is used to check AM Profile Details button is enable or not
+     *
+     * @return
+     */
+    public boolean isAmProfileDetailsButtonEnable() {
+        final boolean state = isEnabled(pageElements.amProfileDetails);
+        commonLib.info("Checking AM Profile Details button is enabled  : " + state);
+        return state;
+    }
 
+    /**
+     * This method use to open AM Profile Details tab
+     */
+    public void openAmProfileDetails() {
+        commonLib.info("Opening am profile details tab");
+        if (isVisible(pageElements.amProfileDetails)) {
+            clickAndWaitForLoaderToBeRemoved(pageElements.amProfileDetails);
+        } else {
+            commonLib.error("Unable to oen AM Profile Details  tab");
+        }
+    }
+
+    /**
+     * This method use to get header name from profile management
+     * @param column The column number
+     * @return String The header name
+     * */
+    public String getHeaders(int column) {
+        String header = readTextOnRows(pageElements.amProfileDetails, column);
+        commonLib.info("Getting header Number " + column + " : " + header);
+        return header;
+    }
+
+    /**
+     * This method use to get total number of tabs present in Roles permission list
+     * @return Integer The Size
+     */
+    public int getActiveTabsOnPM() {
+        List<WebElement> widgetsRowsElements = returnListOfElement(pageElements.activeTabsOnPM);
+        final int size = widgetsRowsElements.size();
+        commonLib.info("Getting number of checkbox : " + size);
+        return size;
+    }
 }

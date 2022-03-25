@@ -53,4 +53,6 @@ public class ESBURIConstants {
   public static final String LOAN_SUMMARY_V2 = "/api/loan-service/v2/summary";
   public static final String LOAN_DETAILS_V2 = "/api/loan-service/v2/transactions";
   public static final String TCP_LIMITS = "/api/am-profile/v1/transfer-profiles";
+  public static final String SMS_LOGS1 = "/api/am-send-money/v1/users/";
+  public static final String SMS_LOGS2 = "/sms-details/";
 }

@@ -12,8 +12,8 @@ public class SearchableFieldsClientConfigTest extends ApiPrerequisites {
         selUtils.addTestcaseDescription("API is - v1/client/fields with Supervisor Token, This API will return all the configured clients", "description");
         AllConfiguredClientRequest allConfiguredClientPOJO = api.allConfiguredClientRequest(validHeaderList);
         assertCheck.append(actions.assertEqualStringType(allConfiguredClientPOJO.getStatusCode(), "200", "Status Code Matched", "Status Code Not Matched and is - " + allConfiguredClientPOJO.getStatusCode()));
-        assertCheck.append(actions.assertEqualStringType(allConfiguredClientPOJO.getResult().get(0).getClient(), "Customer Service", "Client Name Matched", "Client Name not Matched and is - " + allConfiguredClientPOJO.getResult().get(0).getClient()));
-        assertCheck.append(actions.assertEqualStringType(allConfiguredClientPOJO.getResult().get(0).getLabel(), "MSISDN", "Label Matched Successfully", "Label Not Matched Successfully - " + allConfiguredClientPOJO.getResult().get(0).getLabel()));
+        assertCheck.append(actions.assertEqualStringType(allConfiguredClientPOJO.getResult().get(0).getClient(), "Selfcare", "Client Name Matched", "Client Name not Matched and is - " + allConfiguredClientPOJO.getResult().get(0).getClient()));
+        assertCheck.append(actions.assertEqualStringType(allConfiguredClientPOJO.getResult().get(0).getLabel().toUpperCase(), "CUSTOMER MSISDN(SELFCARE)", "Label Matched Successfully", "Label Not Matched Successfully - " + allConfiguredClientPOJO.getResult().get(0).getLabel()));
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
