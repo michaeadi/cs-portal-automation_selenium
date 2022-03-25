@@ -427,5 +427,25 @@ public class DemoGraphicWidgetPostpaidMsisdnTest extends Driver {
             commonLib.fail("Exception in Method - invalidMSISDNTest" + e.fillInStackTrace(), true);
         }
     }
+
+    @Test(priority = 17, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction", "getConnectionType"})
+    public void testCustomerPreferenceLanguage()  {
+        try {
+            selUtils.addTestcaseDescription("Validate Customer Preference Language", "description");
+            pages.getDemoGraphicPage().checkConfiguration(config, "customerPreferenceLanguage");
+            assertCheck.append(actions.assertEqualBoolean(pages.getDemoGraphicPage().isCustomerPreferenceLanguageVisible(), true, "Customer Preference Language is visible ", "Customer Preference Language"));
+            pages.getDemoGraphicPage().hoverOnCustomerPreferenceLanguageIcon();
+            pages.getDemoGraphicPage().getHoverOnCustomerPreferenceLanguageIcon();
+            final String customerPreferenceLanguage = pages.getDemoGraphicPage().getCustomerPreferenceLanguage();
+            if (!customerPreferenceLanguage.equalsIgnoreCase("Unable to Fetch Data")) {
+                commonLib.info("This feature is still not working ");
+            }
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - testCustomerPreferenceLanguage" + e.fillInStackTrace(), true);
+        }
 }
+
+}
+
 

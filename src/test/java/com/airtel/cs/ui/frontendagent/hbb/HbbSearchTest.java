@@ -9,11 +9,18 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
+import static com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants.HBB_ALTERNATE_MSISDN;
+import static com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants.HBB_INVALID_MSISDN;
+
 
 public class HbbSearchTest extends Driver{
 
     private  static String hbbCustomerNumber, hbbAlternateNumber,hbbNonAirtelCustomerNumber,invalidMsisdn = null;
     private String value;
+    KYCProfile kycProfile;
+    Configuration config;
+    GsmKyc gsmKycAPI;
+
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
@@ -114,4 +121,23 @@ public class HbbSearchTest extends Driver{
         actions.assertAllFoundFailedAssert(assertCheck);
 
     }
+    @Test(priority = 6, groups = {"SanityTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
+    public void hbbTabVisibilityForNonHbbNumber() {
+        try {
+            selUtils.addTestcaseDescription("Validating hbb tab visible  in case of non hbb number ", "description");
+            lineType = kycProfile.getResult().getLineType().toLowerCase().trim();
+            config = api.getConfiguration("customerDemographicDetailsWidgets", lineType);
+            int flag = pages.getDemoGraphicPage().checkConfigurationWithTab(config, "HBB");
+            if (flag == 1)
+                commonLib.info("Hbb Tab is visible ");
+            else
+                commonLib.info("Hbb Tab is not  visible ");
+
+
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - hbbLinkedNumbers" + e.fillInStackTrace(), true);
+        }
+
+    }
 }
+

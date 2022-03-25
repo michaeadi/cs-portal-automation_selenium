@@ -891,7 +891,7 @@
         </classes>
     </test>
 
-    !-Enterprise test cases starts from here-->
+    <!--Enterprise test cases starts from here-->
     <test name="Test Login Into Portal With Enterprise">
         <groups>
             <run>

@@ -134,4 +134,11 @@ public class DemoGraphicPage {
 
     public By email = By.xpath("//span[contains(text(),'Email Id')]//following-sibling::span");
     public By accountNumber = By.xpath("//span[contains(text(),'Account Number')]//following-sibling::span");
+
+
+    /*
+    Ccustomer Preference Language
+     */
+    public By customerPreferenceLanguageIcon= By.xpath("//span[contains(text(),'Preferred Language')]//following-sibling::span");
+    public By customerPreferenceLanguage= By.xpath("//span[contains(text(),'Preferred Language')]//following-sibling::span");
 }

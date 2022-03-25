@@ -217,6 +217,10 @@ public class PageCollection {
         return new ActiveVasWidget(driver);
     }
 
+    public ActiveVasWidget getActiveVasWidget() {
+        return new ActiveVasWidget(driver);
+    }
+
     public DetailAccountInfoViewBillWidget getDetailAccountInfoViewBillWidget() {
         return new DetailAccountInfoViewBillWidget(driver);
     }
@@ -233,18 +237,24 @@ public class PageCollection {
         return new DetailAccountSendBill(driver);
     }
 
-    public ActiveVasWidget getActiveVasWidget() {
-        return new ActiveVasWidget(driver);
-    }
-
-    public ServiceProfileDetailWidget getServiceProfileDetailWidget() {
-        return new ServiceProfileDetailWidget(driver);
+    public DetailAccountPromiseToPay getDetailAccountPromiseToPay() {
+        return new DetailAccountPromiseToPay(driver);
     }
 
     public AmTcpLimits getAmTcpLimits() {
         return new AmTcpLimits(driver);
     }
 
+
+    public AirtelMoneyProfileBar getAirtelMoneyProfilePage() {
+        return new AirtelMoneyProfileBar(driver);
+    }
+
+    public AirtelMoneyProfileBar getAirtelMoneyProfileBar() { return new AirtelMoneyProfileBar(driver);
+    }
+
+    public AMTransactionsWidget getServiceProfileDetailWidget() { return new AMTransactionsWidget (driver);
+    }
     public AmSmsTrails getAmSmsTrails() {
         return new AmSmsTrails(driver);
     }
