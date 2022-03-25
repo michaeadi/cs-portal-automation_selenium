@@ -100,6 +100,7 @@ public class WalletInformationTest extends Driver {
     public void testWalletsTab() {
         try {
             selUtils.addTestcaseDescription("Validate data of all the fields of Wallets tab", "description");
+            pages.getAmLinkedWallets().clickMoreIcon();
             String type = constants.getValue(ApplicationConstants.WALLET_TYPE);
             AMProfile amProfile = api.getAmProfile(customerNumber, type);
             if (amProfile.getStatusCode() == 200 && amProfile.getResult().getWallets().size() == 0) {
@@ -132,7 +133,7 @@ public class WalletInformationTest extends Driver {
     public void testSMSLogsTab() {
         try {
             selUtils.addTestcaseDescription("Validate Wallets tab data", "description");
-            pages.getAmLinkedWallets().clickMoreIcon();
+            pages.getAmLinkedWallets().clickSmsLogsTab();
             SmsLogsResponse smsLogs = api.getSMSLogs(customerNumber);
             assertCheck.append(actions.assertEqualIntType(clmDetails.getStatusCode(), 200, "Sms Logs API Status Code Matched and is :" + clmDetails.getStatusCode(), "Sms Logs API Status Code NOT Matched and is :" + clmDetails.getStatusCode(), false));
             if (smsLogs.getStatusCode() == 200 && smsLogs.getResult().size() == 0) {

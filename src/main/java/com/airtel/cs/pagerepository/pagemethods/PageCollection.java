@@ -264,4 +264,12 @@ public class PageCollection {
         return new AccountInformation(driver);
     }
 
+    public BankAccount getBankAccount() {
+        return new BankAccount(driver);
+    }
+
+    public SmartCashTransactionHistory getSmartCashTransactionHistory() {
+        return new SmartCashTransactionHistory(driver);
+    }
+
 }
