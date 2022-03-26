@@ -142,9 +142,9 @@ public class KpiDashboardTopPanel extends BasePage {
     /**
      * This method is used to click On Breaching With in 60 Mins Details Icon
      */
-    public void clickOnBreachingWithin60MinsDetailsIcon() {
-        commonLib.pass("Click On Breachin gWith in 60 Mins Details Icon");
-        if (isVisible(pageElements.breachingWithin60MinsDetailsIcon))
-            clickAndWaitForLoaderToBeRemoved(pageElements.breachingWithin60MinsDetailsIcon);
+    public void clickOnBreachingGreaterThan60MinsDetailsIcon() {
+        commonLib.pass("Click On Breaching With in 60 Mins Details Icon");
+        if (isVisible(pageElements.breachingGreaterThan60MinsDetailsIcon))
+            clickAndWaitForLoaderToBeRemoved(pageElements.breachingGreaterThan60MinsDetailsIcon);
     }
 }

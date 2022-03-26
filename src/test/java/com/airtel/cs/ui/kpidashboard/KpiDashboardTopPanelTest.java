@@ -77,7 +77,7 @@ public class KpiDashboardTopPanelTest extends Driver {
 
             pages.KpiDashboardTopPanelPage().clickOnBreachingWithin15To60MinsDetailsIcon();
 
-            pages.KpiDashboardTopPanelPage().clickOnBreachingWithin60MinsDetailsIcon();
+            pages.KpiDashboardTopPanelPage().clickOnBreachingGreaterThan60MinsDetailsIcon();
 
 
 

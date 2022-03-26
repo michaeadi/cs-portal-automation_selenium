@@ -17,5 +17,5 @@ public class KpiDashboardTopPanelPage {
     public By openTicketsUnderSLALDetailsIcon=By.xpath("//span[contains(text(),'Open Tickets Under SLA')]//following-sibling::img");
     public By breachingWithin15MinsDetailsIcon=By.xpath("//span[contains(text(),'Breaching Within 15 Mins ')]//following-sibling::img");
     public By breachingWithin15To60MinsDetailsIcon=By.xpath("//span[contains(text(),'Breaching Within > 60 Mins ')]//following-sibling::img");
-    public By breachingWithin60MinsDetailsIcon=By.xpath("//span[contains(text(),'Breaching Within > 60 Mins ')]//following-sibling::img");
+    public By breachingGreaterThan60MinsDetailsIcon=By.xpath("//span[contains(text(),'Breaching Within > 60 Mins ')]//following-sibling::img");
 }
