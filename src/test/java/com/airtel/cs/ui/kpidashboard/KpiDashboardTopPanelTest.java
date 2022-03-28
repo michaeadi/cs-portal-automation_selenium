@@ -76,6 +76,7 @@ public class KpiDashboardTopPanelTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isCreatedByLableVisible(), true, "Created By Lable is visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isQueueLableVisible(), true, "Queue Lable  is visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isSourceLableVisible(), true, "Source Lable is visible"));
+            pages.KpiDashboardTopPanelPage().clickOnBackIcon();
 
 
             pages.KpiDashboardTopPanelPage().clickOnOpenTicketsUnderSLALDetailsIcon();
@@ -87,6 +88,7 @@ public class KpiDashboardTopPanelTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isCreatedByLableVisible(), true, "Created By Lable is visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isQueueLableVisible(), true, "Queue Lable  is visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isSourceLableVisible(), true, "Source Lable is visible"));
+            pages.KpiDashboardTopPanelPage().clickOnBackIcon();
 
 
             pages.KpiDashboardTopPanelPage().clickOnBreachingWithin15MinsDetailsIcon();
@@ -98,6 +100,7 @@ public class KpiDashboardTopPanelTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isCreatedByLableVisible(), true, "Created By Lable is visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isQueueLableVisible(), true, "Queue Lable  is visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isSourceLableVisible(), true, "Source Lable is visible"));
+            pages.KpiDashboardTopPanelPage().clickOnBackIcon();
 
 
             pages.KpiDashboardTopPanelPage().clickOnBreachingWithin15To60MinsDetailsIcon();
@@ -109,6 +112,7 @@ public class KpiDashboardTopPanelTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isCreatedByLableVisible(), true, "Created By Lable is visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isQueueLableVisible(), true, "Queue Lable  is visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isSourceLableVisible(), true, "Source Lable is visible"));
+            pages.KpiDashboardTopPanelPage().clickOnBackIcon();
 
 
             pages.KpiDashboardTopPanelPage().clickOnBreachingGreaterThan60MinsDetailsIcon();
@@ -120,6 +124,7 @@ public class KpiDashboardTopPanelTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isCreatedByLableVisible(), true, "Created By Lable is visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isQueueLableVisible(), true, "Queue Lable  is visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isSourceLableVisible(), true, "Source Lable is visible"));
+            pages.KpiDashboardTopPanelPage().clickOnBackIcon();
 
 
 

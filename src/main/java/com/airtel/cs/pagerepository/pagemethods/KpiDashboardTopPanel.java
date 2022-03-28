@@ -244,5 +244,13 @@ public class KpiDashboardTopPanel extends BasePage {
         return status;
     }
 
+    /**
+     * This method is used to click on Back Icon
+     */
+    public void clickOnBackIcon() {
+        commonLib.info("Going to click Back Icon");
+        if (isVisible(pageElements.backIcon))
+            clickAndWaitForLoaderToBeRemoved(pageElements.backIcon);
 
+    }
 }

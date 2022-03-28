@@ -30,4 +30,5 @@ public class KpiDashboardTopPanelPage {
     public By detailsBreachingWithin15MinsLabel=By.xpath("//div[contains(text(),' Breaching Within 15 Mins ')]");
     public By detailsBreachingWithin15To60MinsLabel=By.xpath("//div[contains(text(),' Breaching Within 15 - 60 Mins ')]");
     public By detailsBreachingWithin60MinsLabel=By.xpath("//div[contains(text(),' Breaching Within > 60 Mins ')]");
+    public By backIcon=By.xpath("//img[contains(@src,'assets/service-request/images/icon/back.svg')]");
 }
