@@ -53,7 +53,7 @@ public class KpiDashboardTopPanelTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isOpenTicketsUnderSLALableVisible(), true, "Open Tickets Under SLA Lable is visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isBreachingWithin15MinsLableVisible(), true, "Breaching With in 15 Mins Lable is visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isBreachingWithin15To60MinsLableVisible(), true, "Breaching With in 15 To 60 Mins Lable is visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isBreachingWithin60MinsLableVisible(), true, "Breaching With in 60 Mins Lable is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isDetailsBreachingGreaterThan60MinsLableVisible(), true, "Breaching With in 60 Mins Lable is visible"));
 
 
 
@@ -68,16 +68,59 @@ public class KpiDashboardTopPanelTest extends Driver {
             selUtils.addTestcaseDescription(" Dashboard Top Panel Details Page", "description");
 
             pages.KpiDashboardTopPanelPage().clickOnOpenTicketsBeyondSLADetailsIcon();
-            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isDashboardIconVisible(), true, "Dashboard Icon is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isDeatilsOpenTicketsBeyondSLALableVisible(), true, "Deatils Open Tickets Beyond SLA Lable  is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isTicketIdLableVisible(), true, "Ticket ID Lable  is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isPriorityLableVisible(), true, "  Priority Lable is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isStateLableVisible(), true, "State Lable is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isCreationDateLableVisible(), true, "Creation date Lable is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isCreatedByLableVisible(), true, "Created By Lable is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isQueueLableVisible(), true, "Queue Lable  is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isSourceLableVisible(), true, "Source Lable is visible"));
 
 
             pages.KpiDashboardTopPanelPage().clickOnOpenTicketsUnderSLALDetailsIcon();
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isDetailsOpenTicketsUnderSLALableVisible(), true, "Details Open Tickets Under SLA Lable  is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isTicketIdLableVisible(), true, "Ticket ID Lable  is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isPriorityLableVisible(), true, "  Priority Lable is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isStateLableVisible(), true, "State Lable is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isCreationDateLableVisible(), true, "Creation date Lable is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isCreatedByLableVisible(), true, "Created By Lable is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isQueueLableVisible(), true, "Queue Lable  is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isSourceLableVisible(), true, "Source Lable is visible"));
+
 
             pages.KpiDashboardTopPanelPage().clickOnBreachingWithin15MinsDetailsIcon();
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isDetailsBreachingWithin15MinsLableVisible(), true, "Details Breaching With in 15 Mins Lable  is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isTicketIdLableVisible(), true, "Ticket ID Lable  is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isPriorityLableVisible(), true, "  Priority Lable is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isStateLableVisible(), true, "State Lable is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isCreationDateLableVisible(), true, "Creation date Lable is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isCreatedByLableVisible(), true, "Created By Lable is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isQueueLableVisible(), true, "Queue Lable  is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isSourceLableVisible(), true, "Source Lable is visible"));
+
 
             pages.KpiDashboardTopPanelPage().clickOnBreachingWithin15To60MinsDetailsIcon();
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isDetailsBreachingWithin15To60MinsLableVisible(), true, "Details Breaching Within 15 To 60 Mins Lable  is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isTicketIdLableVisible(), true, "Ticket ID Lable  is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isPriorityLableVisible(), true, "  Priority Lable is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isStateLableVisible(), true, "State Lable is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isCreationDateLableVisible(), true, "Creation date Lable is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isCreatedByLableVisible(), true, "Created By Lable is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isQueueLableVisible(), true, "Queue Lable  is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isSourceLableVisible(), true, "Source Lable is visible"));
+
 
             pages.KpiDashboardTopPanelPage().clickOnBreachingGreaterThan60MinsDetailsIcon();
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isDetailsBreachingGreaterThan60MinsLableVisible(), true, "Details Breaching Greater Than 60 Mins Lable  is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isTicketIdLableVisible(), true, "Ticket ID Lable  is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isPriorityLableVisible(), true, "  Priority Lable is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isStateLableVisible(), true, "State Lable is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isCreationDateLableVisible(), true, "Creation date Lable is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isCreatedByLableVisible(), true, "Created By Lable is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isQueueLableVisible(), true, "Queue Lable  is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isSourceLableVisible(), true, "Source Lable is visible"));
+
 
 
 
