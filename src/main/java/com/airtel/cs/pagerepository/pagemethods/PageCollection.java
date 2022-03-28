@@ -266,4 +266,7 @@ public class PageCollection {
     public KpiDashboardTopPanel KpiDashboardTopPanelPage() {
         return new KpiDashboardTopPanel(driver);
     }
+
+    public KpiDashboard6MonthsOverview KpiDashboard6MonthsOverviewPage() { return new KpiDashboard6MonthsOverview(driver);
+    }
 }

@@ -45,6 +45,7 @@ public class KpiDashboardTopPanelTest extends Driver {
     public void dashboardTopPanel() {
         try {
             selUtils.addTestcaseDescription("Verify Dashboard Top Panel", "description");
+            pages.KpiDashboardTopPanelPage().clickOnDashboardIcon();
             assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isDashboardIconVisible(), true, "Dashboard Icon is visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isRefreshIcondVisible(), true, "Refresh Icon is visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isLastRefreshTimeVisible(), true, "Last Refresh Time is visible"));
