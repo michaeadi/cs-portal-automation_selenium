@@ -73,7 +73,7 @@
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
         </classes>
-    </test>-->
+    </test>
     <test name="Test Login Into Portal With FA">
         <groups>
             <run>
@@ -424,7 +424,7 @@
         <classes>
             <class name="com.airtel.cs.ui.simbarunbar.SIMBarUnbarPermissionSeparationTest"/>
         </classes>
-    </test>-->
+    </test>
     <test name="Account Information Test">
         <groups>
             <run>
@@ -967,7 +967,7 @@
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
         </classes>
     </test>
-    //Enterprise test cases starts from here//
+    <!--Enterprise test cases starts from here-->
     <test name="Prod Test Login With Enterprise">
         <groups>
             <run>

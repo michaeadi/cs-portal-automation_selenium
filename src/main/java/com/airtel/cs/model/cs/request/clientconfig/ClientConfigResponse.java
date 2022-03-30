@@ -12,7 +12,7 @@ import java.util.ArrayList;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ClientConfigRequest {
+public class ClientConfigResponse {
     private String status;
     private String statusCode;
     private ArrayList<ConfigResponse> result;

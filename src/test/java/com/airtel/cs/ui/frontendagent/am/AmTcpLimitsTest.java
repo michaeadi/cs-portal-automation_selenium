@@ -118,7 +118,7 @@ public class AmTcpLimitsTest extends Driver {
                 assertCheck.append(actions.assertEqualBoolean(pages.getAmTcpLimits().isNoResultFoundVisible(), true, "Error Message is Visible", "Error Message is not Visible"));
                 assertCheck.append(actions.assertEqualStringType(pages.getAmTcpLimits().getNoResultFoundMessage(), "No Result found", "Error Message is as expected", "Error Message is not as expected"));
             } else if (tcpLimits.getStatusCode() == 500 && tcpLimits.getResult() == null) {
-                assertCheck.append(actions.assertEqualBoolean(pages.getServiceProfileDetailWidget().isWidgetErrorMessageVisible(), true, "CS API and widget both are giving error", "CS API is giving error but widget is not showing error message"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getAmTcpLimits().isWidgetErrorMessageVisible(), true, "CS API and widget both are giving error", "CS API is giving error but widget is not showing error message"));
                 commonLib.fail("CS API is unable to give Tcp limits  data ", true);
             } else {
                 assertCheck.append(actions.assertEqualBoolean(pages.getAmTcpLimits().isTransferProfileDetailsVisible(), true, "Transfer Profile Details is visible", "Transfer Profile Details is NOT visible"));
@@ -156,7 +156,7 @@ public class AmTcpLimitsTest extends Driver {
                 assertCheck.append(actions.assertEqualBoolean(pages.getAmTcpLimits().isNoResultFoundVisible(), true, "Error Message is Visible", "Error Message is not Visible"));
                 assertCheck.append(actions.assertEqualStringType(pages.getAmTcpLimits().getNoResultFoundMessage(), "No Result found", "Error Message is as expected", "Error Message is not as expected"));
             } else if (tcpLimits.getStatusCode() == 500 && tcpLimits.getResult() == null) {
-                assertCheck.append(actions.assertEqualBoolean(pages.getServiceProfileDetailWidget().isWidgetErrorMessageVisible(), true, "CS API and widget both are giving error", "CS API is giving error but widget is not showing error message"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getAmTcpLimits().isWidgetErrorMessageVisible(), true, "CS API and widget both are giving error", "CS API is giving error but widget is not showing error message"));
                 commonLib.fail("CS API is unable to give Tcp limits  data ", true);
             } else {
                 assertCheck.append(actions.assertEqualStringType(pages.getAmTcpLimits().getTransferDetailsValue(1), tcpLimits.getResult().getProfileId(), "Profile Id is same as expected ", "Profile Id is NOT same as expected"));

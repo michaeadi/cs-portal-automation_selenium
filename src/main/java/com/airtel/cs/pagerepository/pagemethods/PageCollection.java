@@ -253,14 +253,33 @@ public class PageCollection {
     public AirtelMoneyProfileBar getAirtelMoneyProfileBar() { return new AirtelMoneyProfileBar(driver);
     }
 
-    public AMTransactionsWidget getServiceProfileDetailWidget() { return new AMTransactionsWidget (driver);
+    public ServiceProfileDetailWidget getServiceProfileDetailWidget() { return new ServiceProfileDetailWidget (driver);
     }
     public AmSmsTrails getAmSmsTrails() {
         return new AmSmsTrails(driver);
     }
 
     public AmLinkedWallets getAmLinkedWallets() {
+
         return new AmLinkedWallets(driver);
+    }
+
+    public DemographicWidget getDemographicWidget() {
+        return new DemographicWidget(driver);
+    }
+    public WalletInformation getWalletInformation() {
+        return new WalletInformation(driver);
+    }
+    public AccountInformation getAccountInformation() {
+        return new AccountInformation(driver);
+    }
+
+    public BankAccount getBankAccount() {
+        return new BankAccount(driver);
+    }
+
+    public SmartCashTransactionHistory getSmartCashTransactionHistory() {
+        return new SmartCashTransactionHistory(driver);
     }
 
     public KpiDashboardTopPanel KpiDashboardTopPanelPage() {

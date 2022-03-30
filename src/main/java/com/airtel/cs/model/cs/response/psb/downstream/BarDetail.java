@@ -1,4 +1,4 @@
-package com.airtel.cs.model.cs.response.clm.downstream;
+package com.airtel.cs.model.cs.response.psb.downstream;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

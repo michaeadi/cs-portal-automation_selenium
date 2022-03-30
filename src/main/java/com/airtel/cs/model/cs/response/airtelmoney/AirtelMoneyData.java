@@ -26,4 +26,11 @@ public class AirtelMoneyData {
     private String txnType;
     private Boolean enableResendSms;
     private String secondPartyName;
+    private SourceAccount sourceAccount;
+    private DestinationAccount destinationAccount;
+    private String txnChannel;
+    private String transactionType;
+    private String paymentMode;
+    private String categoryCode;
+    private Boolean isReversal;
 }

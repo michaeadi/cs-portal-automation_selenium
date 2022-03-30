@@ -21,6 +21,7 @@ public class AmLinkedWalletsPage {
     /**
      * Wallets tab locators
      */
+    public By smsLogs = By.xpath("//span[contains(text(),'SMS LOGS')]");
     public By wallets = By.xpath("//span[contains(text(),'WALLETS')]");
     public By footerAuuid = By.xpath("//div[@data-csautomation-key='AM_PROFILE_DETAILS']//div[contains(@class,'auuid-container')]");
     public By middleAuuid = By.xpath("//div[@data-csautomation-key='AM_PROFILE_DETAILS']");

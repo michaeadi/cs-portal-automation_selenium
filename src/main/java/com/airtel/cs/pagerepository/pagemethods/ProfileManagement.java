@@ -144,7 +144,7 @@ public class ProfileManagement extends BasePage {
      * @return true/false
      */
     public boolean isEditPageLoaded() {
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(pageElements.pageLoadCheck)));
+        waitTillLoaderGetsRemoved();
         return isElementVisible(pageElements.pageLoadCheck);
     }
 
