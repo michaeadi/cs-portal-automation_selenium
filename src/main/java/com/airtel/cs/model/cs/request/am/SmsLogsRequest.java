@@ -6,4 +6,8 @@ import lombok.Data;
 @AllArgsConstructor
 public class SmsLogsRequest {
     private String msisdn;
+    private String endDate;
+    private String startDate;
+    private Integer pageNumber;
+    private Integer pageSize;
 }
