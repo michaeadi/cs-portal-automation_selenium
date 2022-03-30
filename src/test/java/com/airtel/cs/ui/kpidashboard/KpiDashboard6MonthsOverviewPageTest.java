@@ -58,7 +58,8 @@ public class KpiDashboard6MonthsOverviewPageTest  extends Driver {
     }
 
     @Test(priority = 2, groups = {"RegressionTest", "ProdTest"})
-    public void dashboardServiceLevelTrendDetails() {
+    public void dashboardSlaPerforrmanceDetailsQueueWise
+            () {
         try {
             selUtils.addTestcaseDescription("Service Level Trend Graph Details Widget", "description");
 
