@@ -2,7 +2,10 @@ package com.airtel.cs.ui.frontendagent.hbb;
 
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
 import com.airtel.cs.driver.Driver;
+import com.airtel.cs.model.cs.response.authconfiguration.Configuration;
 import com.airtel.cs.model.cs.response.hbb.HbbLinkedAccountsResponse;
+import com.airtel.cs.model.cs.response.kycprofile.GsmKyc;
+import com.airtel.cs.model.cs.response.kycprofile.KYCProfile;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
