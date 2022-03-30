@@ -146,4 +146,12 @@ public class KpiDashboard6MonthsOverview  extends BasePage {
         commonLib.pass("Month Selection Box  is visible : " + status);
         return status;
     }
+    /**
+     * This method is used to check Sla Performance Details Queue Wise Label  is visible or not
+     */
+    public Boolean isSlaPerforrmanceDetailsQueueWiseLabelVisible() {
+        Boolean status = isVisible(pageElements.slaPerforrmanceDetailsQueueWise);
+        commonLib.pass("Sla Performance Details Queue Wise Label  is visible : " + status);
+        return status;
+    }
 }

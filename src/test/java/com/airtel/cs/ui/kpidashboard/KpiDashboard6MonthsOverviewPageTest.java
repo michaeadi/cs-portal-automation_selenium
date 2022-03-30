@@ -58,7 +58,7 @@ public class KpiDashboard6MonthsOverviewPageTest  extends Driver {
     }
 
     @Test(priority = 2, groups = {"RegressionTest", "ProdTest"})
-    public void dashboardSlaPerforrmanceDetailsQueueWise
+    public void dashboardSlaPerformanceDetailsQueueWise
             () {
         try {
             selUtils.addTestcaseDescription("Service Level Trend Graph Details Widget", "description");
@@ -73,5 +73,21 @@ public class KpiDashboard6MonthsOverviewPageTest  extends Driver {
         actions.assertAllFoundFailedAssert(assertCheck);
     }
 
+    @Test(priority = 4, groups = {"RegressionTest", "ProdTest"})
+    public void dashboardSLAPerformanceDetailsIssueTypeWise
+
+            () {
+        try {
+            selUtils.addTestcaseDescription("Service Level Trend Graph Details Widget", "description");
+
+            pages.KpiDashboard6MonthsOverviewPage().clickOnServiceLevelTrendDetailsIcon();
+
+
+
+        } catch (Exception e) {
+
+        }
+        actions.assertAllFoundFailedAssert(assertCheck);
+    }
         }
 

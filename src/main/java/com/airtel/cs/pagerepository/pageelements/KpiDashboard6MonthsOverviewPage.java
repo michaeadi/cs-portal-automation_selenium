@@ -19,4 +19,5 @@ public class KpiDashboard6MonthsOverviewPage {
     public By daywise;
     public By day;
     public By monthSelectionBox;
+    public By slaPerforrmanceDetailsQueueWise;
 }
