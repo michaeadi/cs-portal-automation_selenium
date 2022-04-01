@@ -550,7 +550,7 @@ public class DemographicWidget extends BasePage{
     public boolean isPageLoaded(CLMDetailsResponse clmDetails)
     {
         int walletsSize = clmDetails.getResult().getDetails().get(0).getWallets().size();
-        int accountsSize = clmDetails.getResult().getDetails().get(0).getWallets().size();
+        int accountsSize = clmDetails.getResult().getDetails().get(0).getAccounts().size();
         int totalSize = walletsSize + accountsSize;
         final boolean pageLoaded = pages.getCustomerProfilePage().isCustomerProfilePageLoaded();
         if (totalSize > 1) {

@@ -86,7 +86,7 @@ public class SmartCashTransactionHistoryTest extends Driver {
     }
 
     @DataProviders.Table(name = "More Airtel Money History")
-    @Test(priority = 3, groups = {"ProdTest"}, dependsOnMethods = {"amDetailedHistorySecondaryWidgetHeaderTest", "openCustomerInteraction"})
+    @Test(priority = 3, groups = {"ProdTest"}, dependsOnMethods = {"transactionHistoryWidgetLayoutTest", "openCustomerInteraction"})
     public void transactionHistoryWidgetDataTest() {
         try {
             selUtils.addTestcaseDescription("Validate all the row data display on UI as per api response.", "description");
