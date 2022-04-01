@@ -70,7 +70,7 @@ public class KpiDashboardTopPanelTest extends Driver {
             selUtils.addTestcaseDescription(" Dashboard Top Panel Details Page", "description");
 
             pages.KpiDashboardTopPanelPage().clickOnOpenTicketsBeyondSLADetailsIcon();
-            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isDeatilsOpenTicketsBeyondSLALableVisible(), true, "Deatils Open Tickets Beyond SLA Label  is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isDeatilsOpenTicketsBeyondSLALableVisible(), true, "Details Open Tickets Beyond SLA Label  is visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isTicketIdLableVisible(), true, "Ticket ID Label  is visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isPriorityLableVisible(), true, "  Priority Label is visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isStateLableVisible(), true, "State Label is visible"));
