@@ -17,8 +17,8 @@ public class KpiDashboardTopPanel extends BasePage {
     /**
      * This method is used to check Dashboard Icon is visible or not
      */
-    public Boolean isDashboardIconVisible() {
-        Boolean status = isVisible(pageElements.dashboardIcon);
+    public Boolean isKpiDashboardIconVisible() {
+        Boolean status = isVisible(pageElements.kpiDashboardIcon);
         commonLib.pass("Dashboard Icon  is visible : " + status);
         return status;
     }
@@ -26,10 +26,10 @@ public class KpiDashboardTopPanel extends BasePage {
     /**
      * This method is used to click on Dashboard Icon
      */
-    public void clickOnDashboardIcon() {
+    public void clickOnCsDashboardIcon() {
         commonLib.info("Going to click Dashboard Icon");
-        if (isVisible(pageElements.dashboardIcon))
-            clickAndWaitForLoaderToBeRemoved(pageElements.dashboardIcon);
+        if (isVisible(pageElements.csDashboardIcon))
+            clickAndWaitForLoaderToBeRemoved(pageElements.csDashboardIcon);
 
     }
     /**
@@ -252,5 +252,12 @@ public class KpiDashboardTopPanel extends BasePage {
         if (isVisible(pageElements.backIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.backIcon);
 
+    }
+    /**
+     * This method is use to hover on Kpi Dashboard
+     */
+    public void hoverOnKpiDashboardIcon() {
+        commonLib.info("Hover KPI dashboard icon");
+        hoverOverElement(pageElements.kpiDashboardIcon);
     }
 }

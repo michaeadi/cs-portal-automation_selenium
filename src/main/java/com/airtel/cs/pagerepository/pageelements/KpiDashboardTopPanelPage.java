@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 
 public class KpiDashboardTopPanelPage {
     public By lastRefreshTime=By.xpath("//span[contains(text(),'Last Refresh')]");
-    public By dashboardIcon;
     public By dashboard=By.xpath("//div[contains(text(),' Dashboard ')]");
     public By refreshIcon=By.xpath("//img[contains(@src,'assets/service-request/icons/kpi_refresh.svg')]");
     public By openTicketOverviewLabel=By.xpath("//span[contains(text(),'Open Ticket - Overview')]");
@@ -18,7 +17,7 @@ public class KpiDashboardTopPanelPage {
     public By breachingWithin15MinsDetailsIcon=By.xpath("//span[contains(text(),'Breaching Within 15 Mins ')]//following-sibling::img");
     public By breachingWithin15To60MinsDetailsIcon=By.xpath("//span[contains(text(),'Breaching Within > 60 Mins ')]//following-sibling::img");
     public By breachingGreaterThan60MinsDetailsIcon=By.xpath("//span[contains(text(),'Breaching Within > 60 Mins ')]//following-sibling::img");
-    public By ticketIdLable;
+    public By ticketIdLable=By.xpath("//span[contains(@class,'data-title')]");
     public By priorityLable=By.xpath("//span[contains(text(),'Priority')]");
     public By stateLable=By.xpath("//span[contains(text(),'State')]");
     public By creationDateLable=By.xpath("//span[contains(text(),'Creation Date')]");
@@ -31,4 +30,6 @@ public class KpiDashboardTopPanelPage {
     public By detailsBreachingWithin15To60MinsLabel=By.xpath("//div[contains(text(),' Breaching Within 15 - 60 Mins ')]");
     public By detailsBreachingWithin60MinsLabel=By.xpath("//div[contains(text(),' Breaching Within > 60 Mins ')]");
     public By backIcon=By.xpath("//img[contains(@src,'assets/service-request/images/icon/back.svg')]");
+    public By kpiDashboardIcon = By.xpath("//img[contains(@src,'assets/service-request/icons/kpi_dashboard.svg')]");
+    public By csDashboardIcon=By.xpath("//*[@id=\"left-side\"]/div/div/mat-nav-list/mat-list-item[4]/div/div[3]/mat-nav-list/mat-list-item/div/a");
 }

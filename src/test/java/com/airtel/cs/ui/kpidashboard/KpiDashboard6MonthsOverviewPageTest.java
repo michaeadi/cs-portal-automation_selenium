@@ -44,7 +44,9 @@ public class KpiDashboard6MonthsOverviewPageTest  extends Driver {
     public void dashboardServiceLevelTrend() {
         try {
             selUtils.addTestcaseDescription("Service Level Trend Graph", "description");
-            pages.KpiDashboardTopPanelPage().clickOnDashboardIcon();
+            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isKpiDashboardIconVisible(), true, "Dashboard Icon is visible"));
+            pages.KpiDashboardTopPanelPage().hoverOnKpiDashboardIcon();
+            pages.KpiDashboardTopPanelPage().clickOnCsDashboardIcon();
             assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboard6MonthsOverviewPage().isServiceLevelTrendVisible(), true, "Service Level Trend "));
             assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboard6MonthsOverviewPage().isConnectionTypeDropDownVisible(), true, "Connection Type Drop Down "));
             assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboard6MonthsOverviewPage().isQueueTypeDropDownVisible(), true, "Queue Type Drop Down "));
