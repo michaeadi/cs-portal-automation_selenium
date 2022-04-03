@@ -126,16 +126,16 @@ public class KpiDashboard6MonthsOverview  extends BasePage {
      * This method is used to check Month Label  is visible or not
      */
     public Boolean isMonthLabelVisible() {
-        Boolean status = isVisible(pageElements.daywise);
+        Boolean status = isVisible(pageElements.month);
         commonLib.pass("Month Label  is visible : " + status);
         return status;
     }
     /**
      * This method is used to check Day Label  is visible or not
      */
-    public Boolean isDayLabelVisible() {
-        Boolean status = isVisible(pageElements.day);
-        commonLib.pass("Day  Label  is visible : " + status);
+    public Boolean isDateLabelVisible() {
+        Boolean status = isVisible(pageElements.date);
+        commonLib.pass("Date  Label  is visible : " + status);
         return status;
     }
     /**
@@ -147,11 +147,84 @@ public class KpiDashboard6MonthsOverview  extends BasePage {
         return status;
     }
     /**
-     * This method is used to check Sla Performance Details Queue Wise Label  is visible or not
+     * This method is used to check Sla Performance Details: Queue Wise Label  is visible or not
      */
     public Boolean isSlaPerforrmanceDetailsQueueWiseLabelVisible() {
-        Boolean status = isVisible(pageElements.slaPerforrmanceDetailsQueueWise);
+        Boolean status = isVisible(pageElements.slaPerforrmanceDetailsQueueWiseLabel);
         commonLib.pass("Sla Performance Details Queue Wise Label  is visible : " + status);
         return status;
+    }
+    /**
+     * This method is used to check SLA PERFORMANCE DETAILS: ISSUE TYPE WISE Label  is visible or not
+     */
+    public Boolean isSLAPerformanceDetailsIssueTypeLabelVisible() {
+        Boolean status = isVisible(pageElements.slaPerformanceDdetailsIssueTypeLabel);
+        commonLib.pass("SLA PERFORMANCE DETAILS: ISSUE TYPE WISE Label  is visible : " + status);
+        return status;
+    }
+    /**
+     * This method is used to check Issue Type  Label  is visible or not
+     */
+    public Boolean isIssueTypeLabelVisible() {
+        Boolean status = isVisible(pageElements.issueTypeLabel);
+        commonLib.pass("Issue Type   is visible : " + status);
+        return status;
+    }
+    /**
+     * This method is used to click On Day WiseIn Sla Performance Details Queue Wise Icon
+     */
+    public void clickOnDayWiseInSlaPerformanceDetailsQueueWiseIcon() {
+        commonLib.pass("click On Service Level Trend Details Icon");
+        if (isVisible(pageElements.dayWiseInSlaPerformanceDetailsQueueWiseIcon))
+            clickAndWaitForLoaderToBeRemoved(pageElements.dayWiseInSlaPerformanceDetailsQueueWiseIcon);
+    }
+    /**
+     * This method is used to click on Back Icon
+     */
+    public void clickOnBackIcon() {
+        commonLib.info("Going to click Back Icon");
+        if (isVisible(pageElements.backIcon))
+            clickAndWaitForLoaderToBeRemoved(pageElements.backIcon);
+
+    }
+    /**
+     * This method is used to click On Day WiseIn Sla Performance Details Issue Type Icon
+     */
+    public void clickOnDayWiseInSlaPerformanceDetailsIssueTypeIcon() {
+        commonLib.pass("click On Day WiseIn Sla Performance Details Issue Type Icon");
+        if (isVisible(pageElements.dayWiseInSlaPerformanceDetailsIssueTypeIcon))
+            clickAndWaitForLoaderToBeRemoved(pageElements.dayWiseInSlaPerformanceDetailsIssueTypeIcon);
+    }
+    /**
+     * This method is used to click Agent Performance Details Queue Wise Icon
+     */
+    public void clickOnAgentPerormanceIcon() {
+        commonLib.pass("click On Agent performance Icon");
+        if (isVisible(pageElements.agentPerormanceIcon))
+            clickAndWaitForLoaderToBeRemoved(pageElements.agentPerormanceIcon);
+    }
+    /**
+     * This method is used to check Agent Id Label  is visible or not
+     */
+    public Boolean isAgentIdLabelVisible() {
+        Boolean status = isVisible(pageElements.agentIdLabel);
+        commonLib.pass("Agent ID   is visible : " + status);
+        return status;
+    }
+    /**
+     * This method is used to check Agent Name Label  is visible or not
+     */
+    public Boolean isAgentNameLabelVisible() {
+        Boolean status = isVisible(pageElements.agentNameLabel);
+        commonLib.pass("Agent Name   is visible : " + status);
+        return status;
+    }
+    /**
+     * This method is used to click On Day WiseIn Agent Performance Icon
+     */
+    public void clickOnDayWiseInAgentPerformanceIcon() {
+        commonLib.pass("click On Day WiseIn Agent Performance Icon");
+        if (isVisible(pageElements.dayWiseInAgentPerformanceIcon))
+            clickAndWaitForLoaderToBeRemoved(pageElements.dayWiseInAgentPerformanceIcon);
     }
 }

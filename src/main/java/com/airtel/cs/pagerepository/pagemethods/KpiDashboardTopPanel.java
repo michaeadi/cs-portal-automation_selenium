@@ -103,7 +103,7 @@ public class KpiDashboardTopPanel extends BasePage {
      */
     public Boolean isBreachingGreaterThan60MinsLableVisible() {
         Boolean status = isVisible(pageElements.breachingWithin60MinsLabel);
-        commonLib.pass("Open Ticket Overview is visible : " + status);
+        commonLib.pass("Breaching Within > 60 Mins visible : " + status);
         return status;
     }
 

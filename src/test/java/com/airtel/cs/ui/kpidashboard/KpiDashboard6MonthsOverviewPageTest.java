@@ -11,47 +11,24 @@ import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
-public class KpiDashboard6MonthsOverviewPageTest  extends Driver {
+public class KpiDashboard6MonthsOverviewPageTest extends Driver {
 
 
     ObjectMapper mapper = new ObjectMapper();
 
-    @Test(priority = 1, groups = {"RegressionTest", "ProdTest"})
-    public void testLoginAPIWithBetaUser() {
-        try {
-            selUtils.addTestcaseDescription("Validate the Login API with Beta user,Hit the Login API -/auth/api/user-mngmnt/v2/login with valid headers and credentials,Validating Success Message from response", "description");
-            final String loginAUUID = constants.getValue(CommonConstants.ADVISOR_USER_ROLE_AUUID);
-            Login Req = Login.loginBody(loginAUUID, PassUtils.decodePassword(constants.getValue(CommonConstants.ADVISOR_USER_ROLE_PASSWORD)));
-            map.clear();
-            pages.getLoginPage().setCsAndDownstreamApiHeader();
-            String dtoAsString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(Req);
-            commonLib.info("Validating login api with user : " + loginAUUID);
-            final Response response = pages.getLoginPage().loginAPI(dtoAsString);
-            String token = "Bearer " + response.jsonPath().getString("result.accessToken");
-            map.add(new Header("Authorization", token));
-            commonLib.info("Response Body : " + response.asString());
-            commonLib.info("Response time : " + response.getTimeIn(TimeUnit.SECONDS) + " s");
-            final String message = response.jsonPath().getString("message");
-            assertCheck.append(actions.assertEqualStringType(message, "User authenticated successfully", "User authenticated successfully", message, false));
-        } catch (Exception e) {
-            continueExecutionAPI = false;
-            commonLib.fail("Exception in Method :- testLoginAPI " + e.fillInStackTrace(), false);
-        }
-        actions.assertAllFoundFailedAssert(assertCheck);
-    }
 
-    @Test(priority = 2, groups = {"RegressionTest", "ProdTest"})
+    @Test(priority = 1, groups = {"RegressionTest", "ProdTest"})
     public void dashboardServiceLevelTrend() {
         try {
             selUtils.addTestcaseDescription("Service Level Trend Graph", "description");
-            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboardTopPanelPage().isKpiDashboardIconVisible(), true, "Dashboard Icon is visible"));
-            pages.KpiDashboardTopPanelPage().hoverOnKpiDashboardIcon();
-            pages.KpiDashboardTopPanelPage().clickOnCsDashboardIcon();
-            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboard6MonthsOverviewPage().isServiceLevelTrendVisible(), true, "Service Level Trend "));
-            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboard6MonthsOverviewPage().isConnectionTypeDropDownVisible(), true, "Connection Type Drop Down "));
-            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboard6MonthsOverviewPage().isQueueTypeDropDownVisible(), true, "Queue Type Drop Down "));
-            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboard6MonthsOverviewPage().isIssueTypeDropDownVisible(), true, "Issue Type Drop Down "));
-            assertCheck.append(actions.assertEqualBoolean(pages.KpiDashboard6MonthsOverviewPage().isIssueSubTypeDropDownVisible(), true, "Issue Sub Type Drop Down "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isKpiDashboardIconVisible(), true, "Dashboard Icon is visible"));
+            pages.getKpiDashboardTopPanel().hoverOnKpiDashboardIcon();
+            pages.getKpiDashboardTopPanel().clickOnCsDashboardIcon();
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isServiceLevelTrendVisible(), true, "Service Level Trend "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isConnectionTypeDropDownVisible(), true, "Connection Type Drop Down "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isQueueTypeDropDownVisible(), true, "Queue Type Drop Down "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isIssueTypeDropDownVisible(), true, "Issue Type Drop Down "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isIssueSubTypeDropDownVisible(), true, "Issue Sub Type Drop Down "));
 
         } catch (Exception e) {
 
@@ -65,8 +42,19 @@ public class KpiDashboard6MonthsOverviewPageTest  extends Driver {
         try {
             selUtils.addTestcaseDescription("Service Level Trend Graph Details Widget", "description");
 
-            pages.KpiDashboard6MonthsOverviewPage().clickOnServiceLevelTrendDetailsIcon();
-
+            pages.getKpiDashboard6MonthsOverview().clickOnServiceLevelTrendDetailsIcon();
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isSlaPerforrmanceDetailsQueueWiseLabelVisible(), true, "Sla Perforrmance Details Queue Wise Label "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isQueueNameLabelVisible(), true, "Queue Name Labe Label "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isTotalTicketAllocatedLabelVisible(), true, "Total Ticket Allocated Label Visible "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isTicketCancelledLabelVisible(), true, "Ticket Cancelled Label Visible "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isTicketClosedOutsideSLALabelVisible(), true, "Ticket Closed Outside SLA Label Visible "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isTicketClosedWithinSLALabelVisible(), true, "Ticket Closed Within SLA Label Visible "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isSLAPercentageLabelVisible(), true, "SLA Percentage Label Visible "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isDaywiseLabelVisible(), true, "Daywise Label Visible "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isDateLabelVisible(), true, "Date Label Visible "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isMonthLabelVisible(), true, "Month Label Visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isMonthSelectionBoxVisible(), true, "Month Selection Box Visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isDownloadReportIconVisible(), true, "Download Report Icon Visible"));
 
 
         } catch (Exception e) {
@@ -81,9 +69,37 @@ public class KpiDashboard6MonthsOverviewPageTest  extends Driver {
             () {
         try {
             selUtils.addTestcaseDescription("Service Level Trend Graph Details Widget", "description");
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isSLAPerformanceDetailsIssueTypeLabelVisible(), true, "Sla Perforrmance Details Queue Wise Label "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isIssueTypeLabelVisible(), true, "Issue Type Labe Label "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isTotalTicketAllocatedLabelVisible(), true, "Total Ticket Allocated Label Visible "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isTicketCancelledLabelVisible(), true, "Ticket Cancelled Label Visible "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isTicketClosedOutsideSLALabelVisible(), true, "Ticket Closed Outside SLA Label Visible "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isTicketClosedWithinSLALabelVisible(), true, "Ticket Closed Within SLA Label Visible "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isSLAPercentageLabelVisible(), true, "SLA Percentage Label Visible "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isDaywiseLabelVisible(), true, "Daywise Label Visible "));
 
-            pages.KpiDashboard6MonthsOverviewPage().clickOnServiceLevelTrendDetailsIcon();
+        } catch (Exception e) {
 
+        }
+        actions.assertAllFoundFailedAssert(assertCheck);
+    }
+
+    @Test(priority = 5, groups = {"RegressionTest", "ProdTest"})
+    public void dayWiseInSlaPerformanceDetailsQueueWise
+
+            () {
+        try {
+            selUtils.addTestcaseDescription("Service Level Trend Graph Details Widget", "description");
+
+            pages.getKpiDashboard6MonthsOverview().clickOnDayWiseInSlaPerformanceDetailsQueueWiseIcon();
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isDateLabelVisible(), true, "Date Labe Label "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isTotalTicketAllocatedLabelVisible(), true, "Total Ticket Allocated Label Visible "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isTicketCancelledLabelVisible(), true, "Ticket Cancelled Label Visible "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isTicketClosedOutsideSLALabelVisible(), true, "Ticket Closed Outside SLA Label Visible "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isTicketClosedWithinSLALabelVisible(), true, "Ticket Closed Within SLA Label Visible "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isSLAPercentageLabelVisible(), true, "SLA Percentage Label Visible "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isDaywiseLabelVisible(), true, "Daywise Label Visible "));
+            pages.getKpiDashboard6MonthsOverview().clickOnBackIcon();
 
 
         } catch (Exception e) {
@@ -91,5 +107,79 @@ public class KpiDashboard6MonthsOverviewPageTest  extends Driver {
         }
         actions.assertAllFoundFailedAssert(assertCheck);
     }
+
+    @Test(priority = 6, groups = {"RegressionTest", "ProdTest"})
+    public void dayWiseInSlaPerformanceDetailsIssueType
+
+            () {
+        try {
+            selUtils.addTestcaseDescription("Service Level Trend Graph Details Widget", "description");
+
+            pages.getKpiDashboard6MonthsOverview().clickOnDayWiseInSlaPerformanceDetailsIssueTypeIcon();
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isDateLabelVisible(), true, "Date Labe Label "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isTotalTicketAllocatedLabelVisible(), true, "Total Ticket Allocated Label Visible "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isTicketCancelledLabelVisible(), true, "Ticket Cancelled Label Visible "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isTicketClosedOutsideSLALabelVisible(), true, "Ticket Closed Outside SLA Label Visible "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isTicketClosedWithinSLALabelVisible(), true, "Ticket Closed Within SLA Label Visible "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isSLAPercentageLabelVisible(), true, "SLA Percentage Label Visible "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isDaywiseLabelVisible(), true, "Daywise Label Visible "));
+            pages.getKpiDashboard6MonthsOverview().clickOnBackIcon();
+
+
+        } catch (Exception e) {
+
         }
+        actions.assertAllFoundFailedAssert(assertCheck);
+    }
+
+    @Test(priority = 7, groups = {"RegressionTest", "ProdTest"})
+    public void AgentPerformanceDetails
+
+
+            () {
+        try {
+            selUtils.addTestcaseDescription("Agent Performance Details", "description");
+
+            pages.getKpiDashboard6MonthsOverview().clickOnAgentPerormanceIcon();
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isAgentIdLabelVisible(), true, "Agent Id Labe Label "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isAgentNameLabelVisible(), true, "Agent Name Label "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isTotalTicketAllocatedLabelVisible(), true, "Total Ticket Allocated Label Visible "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isTicketCancelledLabelVisible(), true, "Ticket Cancelled Label Visible "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isTicketClosedOutsideSLALabelVisible(), true, "Ticket Closed Outside SLA Label Visible "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isTicketClosedWithinSLALabelVisible(), true, "Ticket Closed Within SLA Label Visible "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isSLAPercentageLabelVisible(), true, "SLA Percentage Label Visible "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isDaywiseLabelVisible(), true, "Daywise Label Visible "));
+
+
+        } catch (Exception e) {
+
+        }
+        actions.assertAllFoundFailedAssert(assertCheck);
+    }
+
+    @Test(priority = 8, groups = {"RegressionTest", "ProdTest"})
+    public void DayWiseAgentPerformanceDetails
+
+
+            () {
+        try {
+            selUtils.addTestcaseDescription("Day Wise Agent Performance Details", "description");
+
+            pages.getKpiDashboard6MonthsOverview().clickOnDayWiseInAgentPerformanceIcon();
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isAgentIdLabelVisible(), true, "Agent Id Labe Label "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isDateLabelVisible(), true, "Date Labe Label "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isAgentNameLabelVisible(), true, "Agent Name Label "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isTotalTicketAllocatedLabelVisible(), true, "Total Ticket Allocated Label Visible "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isTicketCancelledLabelVisible(), true, "Ticket Cancelled Label Visible "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isTicketClosedOutsideSLALabelVisible(), true, "Ticket Closed Outside SLA Label Visible "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isTicketClosedWithinSLALabelVisible(), true, "Ticket Closed Within SLA Label Visible "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isSLAPercentageLabelVisible(), true, "SLA Percentage Label Visible "));
+
+
+        } catch (Exception e) {
+
+        }
+        actions.assertAllFoundFailedAssert(assertCheck);
+    }
+}
 

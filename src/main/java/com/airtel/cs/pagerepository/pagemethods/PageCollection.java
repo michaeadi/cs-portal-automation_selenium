@@ -1,6 +1,5 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
-import com.airtel.cs.pagerepository.pageelements.HbbProfilePage;
 import org.openqa.selenium.WebDriver;
 
 public class PageCollection {
@@ -282,10 +281,10 @@ public class PageCollection {
         return new SmartCashTransactionHistory(driver);
     }
 
-    public KpiDashboardTopPanel KpiDashboardTopPanelPage() {
+    public KpiDashboardTopPanel getKpiDashboardTopPanel() {
         return new KpiDashboardTopPanel(driver);
     }
 
-    public KpiDashboard6MonthsOverview KpiDashboard6MonthsOverviewPage() { return new KpiDashboard6MonthsOverview(driver);
+    public KpiDashboard6MonthsOverview getKpiDashboard6MonthsOverview() { return new KpiDashboard6MonthsOverview(driver);
     }
 }
