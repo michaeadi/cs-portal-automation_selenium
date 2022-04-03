@@ -1,15 +1,9 @@
 package com.airtel.cs.ui.kpidashboard;
 
-import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
-import com.airtel.cs.commonutils.utils.PassUtils;
 import com.airtel.cs.driver.Driver;
-import com.airtel.cs.model.cs.response.login.Login;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.restassured.http.Header;
-import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
-import java.util.concurrent.TimeUnit;
 
 public class KpiDashboard6MonthsOverviewPageTest extends Driver {
 
