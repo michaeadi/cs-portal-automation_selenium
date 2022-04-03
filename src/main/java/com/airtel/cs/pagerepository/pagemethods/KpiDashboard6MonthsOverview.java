@@ -158,7 +158,7 @@ public class KpiDashboard6MonthsOverview  extends BasePage {
      * This method is used to check SLA PERFORMANCE DETAILS: ISSUE TYPE WISE Label  is visible or not
      */
     public Boolean isSLAPerformanceDetailsIssueTypeLabelVisible() {
-        Boolean status = isVisible(pageElements.slaPerformanceDdetailsIssueTypeLabel);
+        Boolean status = isVisible(pageElements.slaPerformanceDetailsIssueTypeLabel);
         commonLib.pass("SLA PERFORMANCE DETAILS: ISSUE TYPE WISE Label  is visible : " + status);
         return status;
     }
