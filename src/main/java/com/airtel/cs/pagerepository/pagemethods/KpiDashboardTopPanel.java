@@ -71,7 +71,7 @@ public class KpiDashboardTopPanel extends BasePage {
      */
     public Boolean isOpenTicketsBeyondSLALableVisible() {
         Boolean status = isVisible(pageElements.openTicketsBeyondSLALabel);
-        commonLib.pass("Open Ticket Overview is visible : " + status);
+        commonLib.pass(" Open Tickets Beyond SLA  is visible : " + status);
         return status;
     }
     /**
@@ -79,7 +79,7 @@ public class KpiDashboardTopPanel extends BasePage {
      */
     public Boolean isOpenTicketsUnderSLALableVisible() {
         Boolean status = isVisible(pageElements.openTicketsUnderSLALabel);
-        commonLib.pass("Open Ticket Overview is visible : " + status);
+        commonLib.pass("Open Tickets Under SLA is visible : " + status);
         return status;
     }
     /**
@@ -87,7 +87,7 @@ public class KpiDashboardTopPanel extends BasePage {
      */
     public Boolean isBreachingWithin15MinsLableVisible() {
         Boolean status = isVisible(pageElements.breachingWithin15MinsLabel);
-        commonLib.pass("Open Ticket Overview is visible : " + status);
+        commonLib.pass("Breaching Within 15 Mins is visible : " + status);
         return status;
     }
     /**
@@ -95,7 +95,7 @@ public class KpiDashboardTopPanel extends BasePage {
      */
     public Boolean isBreachingWithin15To60MinsLableVisible() {
         Boolean status = isVisible(pageElements.breachingWithin15To60MinsLabel);
-        commonLib.pass("Open Ticket Overview is visible : " + status);
+        commonLib.pass("Breaching Within 15 - 60 Mins is visible : " + status);
         return status;
     }
     /**
