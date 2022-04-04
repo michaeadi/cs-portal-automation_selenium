@@ -7,6 +7,7 @@ import com.airtel.cs.model.cs.response.am.SmsLogsResponse;
 import com.airtel.cs.model.cs.response.psb.cs.bankdetails.BankDetailsResponse;
 import com.airtel.cs.model.cs.response.psb.cs.clmdetails.CLMDetailsResponse;
 import com.airtel.cs.model.cs.response.psb.cs.fetchbalance.FetchBalanceResponse;
+import org.apache.commons.lang3.StringUtils;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -26,16 +27,25 @@ public class AccountInformationTest extends Driver {
         }
     }
 
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    public void checkAccountsSize() {
+        customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_TIER1_MSISDN);
+        clmDetails = api.getCLMDetails(customerNumber);
+        if (clmDetails.getResult().getDetails().get(0).getAccounts().size() == 0)
+        {
+            commonLib.skip("Skipping because there are no accounts linked with the msisdn ");
+            throw new SkipException("Skipping because this feature is not applicable when there are no accounts linked with the msisdn");
+        }
+    }
+
     @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
-            customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_TIER1_MSISDN);
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().openCustomerInteractionPage();
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();
-            clmDetails = api.getCLMDetails(customerNumber);
             assertCheck.append(actions.assertEqualIntType(clmDetails.getStatusCode(), 200, "CLM Details API Status Code Matched and is :" + clmDetails.getStatusCode(), "CLM Details API Status Code NOT Matched and is :" + clmDetails.getStatusCode(), false));
             if (clmDetails.getStatusCode() == 200) {
                 boolean pageLoaded = pages.getDemographicWidget().isPageLoaded(clmDetails);
@@ -48,7 +58,6 @@ public class AccountInformationTest extends Driver {
             commonLib.fail("Exception in Method - openCustomerInteraction" + e.fillInStackTrace(), true);
         }
     }
-
 
     @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testAccountInformationWidget() {

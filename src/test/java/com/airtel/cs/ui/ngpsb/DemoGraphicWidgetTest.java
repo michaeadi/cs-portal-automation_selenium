@@ -153,7 +153,7 @@ public class DemoGraphicWidgetTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validate Customer Id, Validate Customer Category", "description");
             assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isCustomerIdHeaderVisible(), true, "Customer Id header is visible", "Email Id header is NOT visible"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getCustomerId(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getEmailId()), "Customer Id is same as Expected", "Customer Id is not same as Expected"));
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getCustomerId(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getCustomerId()), "Customer Id is same as Expected", "Customer Id is not same as Expected"));
             assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isCustomerCategoryHeaderVisible(), true, "Customer Category header is visible", "Customer Category  header is NOT visible"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getCustomerCategory(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getEmailId()), "Customer Category  is same as Expected", "Customer Category  is not same as Expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
@@ -168,9 +168,9 @@ public class DemoGraphicWidgetTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validate Pin Set, Validate Pin Reset", "description");
             assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isPinResetHeaderVisible(), true, "Pin Reset header is visible", "Pin Reset header is NOT visible"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getPinReset(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getIsPinReset()), "Pin Reset is same as Expected", "Pin Reset is not same as Expected"));
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getPinReset(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getDetails().get(0).getIsPinReset()), "Pin Reset is same as Expected", "Pin Reset is not same as Expected"));
             assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isPinSetHeaderVisible(), true, "Pin Set header is visible", "Pin Set header is NOT visible"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getPinSet(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getIsPinSet()), "Pin Set  is same as Expected", "Pin Set is not same as Expected"));
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getPinSet(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getDetails().get(0).getIsPinSet()), "Pin Set  is same as Expected", "Pin Set is not same as Expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
             commonLib.fail("Exception in method - testPinSetAndReset " + e, true);

@@ -1,6 +1,5 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
-import com.airtel.cs.pagerepository.pageelements.HbbProfilePage;
 import org.openqa.selenium.WebDriver;
 
 public class PageCollection {

@@ -322,7 +322,7 @@ public class DemographicWidget extends BasePage{
      * @return
      */
     public String getPinReset() {
-        final String text = getText(pageElements.address);
+        final String text = getText(pageElements.pinReset);
         commonLib.info("Getting Reset: " + text);
         return text;
     }

@@ -107,4 +107,5 @@ public class CommonConstants {
     public static final String HLR_ORDER_HISTORY_TIME_PATTERN="cs.hlr.order.history.time.pattern";
     public static final String TCP_LIMIT_USER_TYPE="cs.tcp.limit.user.type";
     public static final String TCP_LIMIT_BEARER="cs.tcp.limit.bearer";
+    public static final String NGPSB_DATE_PATTERN="ngpsb.date.pattern";
 }

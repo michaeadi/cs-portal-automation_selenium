@@ -8,7 +8,8 @@ public class WalletInformationPage {
     public By walletCategory = By.xpath("//span[contains(text(),'Wallet Category')]//following-sibling::span//span");
     public By walletCreatedOn = By.xpath("//span[contains(text(),'Wallet Created on')]//following-sibling::span//span");
     public By walletModifiedOn = By.xpath("//span[contains(text(),'Wallet Modified On')]//following-sibling::span//span");
-    public By walletModifiedBy = By.xpath("//span[contains(text(),'Wallet Modified By')]//following-sibling::span//span");
+    public By walletModifiedBy = By.xpath("//td[contains(text(),'Wallet Modified By')]//following-sibling::td//span");
+    public By walletCreatedBy = By.xpath("//td[contains(text(),'Wallet Created By')]//following-sibling::td//span");
     public By walletNubanId = By.xpath("//span[contains(text(),'Wallet Nuban Id')]//following-sibling::span//span");
     public By onboardingChannel = By.xpath("//span[contains(text(),'Onboarding Channel')]//following-sibling::span//span");
     public By securityQuestionsSet = By.xpath("//span[contains(text(),'Questions Set')]//following-sibling::span//span");
@@ -16,6 +17,7 @@ public class WalletInformationPage {
     public By barringStatus = By.xpath("//span[contains(text(),'Barring Status')]//following-sibling::span//span");
     public By frozenAmount=By.xpath("//td[contains(text(),'Frozen Amount')]//following-sibling::td");
     public By ficAmount=By.xpath("//td[contains(text(),'FIC Amount')]//following-sibling::td");
+    public By balanceHoverIcon=By.xpath("//div[contains(@class,'data-smart')] //img[contains(@src,'message.svg')]");
 
 
     public By walletInformationWidget = By.xpath("//div[contains(@data-csautomation-key,'WALLET_INFORMATION')]");

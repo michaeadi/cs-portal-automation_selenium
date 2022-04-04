@@ -93,7 +93,7 @@ import org.openqa.selenium.support.PageFactory;
         }
 
         /**
-         * This method is used to get Account Created By
+         * This method is used to get Wallet Created By
          * @return
          */
         public String getWalletCreatedBy() {
@@ -211,4 +211,23 @@ import org.openqa.selenium.support.PageFactory;
             commonLib.info("Getting FIC Amount: " + text);
             return text;
         }
-}
+
+        /**
+         * This method is used to get Wallet Created On
+         * @return
+         */
+        public String getWalletCreatedOn() {
+            final String text = getText(pageElements.walletCreatedOn);
+            commonLib.info("Getting Wallet Created On: " + text);
+            return text;
+        }
+
+        /**
+         * This method is use to hover on Balance info icon
+         */
+        public void hoverOnBalanceInfoIcon() {
+            commonLib.info("Hover on Balance Info icon");
+            hoverOverElement(pageElements.balanceHoverIcon);
+        }
+
+    }

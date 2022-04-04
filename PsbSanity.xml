@@ -32,7 +32,7 @@
     <test name="Demo Graphic Widget Test " preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="SanityTest"/>
             </run>
         </groups>
         <classes>
@@ -42,7 +42,7 @@
     <test name="Account Information Test " preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="SanityTest"/>
             </run>
         </groups>
         <classes>
@@ -52,7 +52,7 @@
     <test name="Wallet Information Test " preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="SanityTest"/>
             </run>
         </groups>
         <classes>
@@ -62,7 +62,7 @@
     <test name="Transaction History Test " preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="SanityTest"/>
             </run>
         </groups>
         <classes>
