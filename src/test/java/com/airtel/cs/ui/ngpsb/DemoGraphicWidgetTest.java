@@ -71,12 +71,12 @@ public class DemoGraphicWidgetTest extends Driver {
                 assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isNationalityHeaderVisible(), true, "Nationality header is visible", "Nationality header is NOT visible"));
                 assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isMaidenNameHeaderVisible(), true, "Mothers Maiden Name header is visible", "Mothers Maiden Name is NOT visible"));
                 assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isCustomerTypeHeaderVisible(), true, "Customer Type header is visible", "Customer Type header is NOT visible"));
-                assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getGender(), clmDetails.getResult().getGender(), "Gender is as Expected", "Gender is not as Expected"));
-                assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getDob(), clmDetails.getResult().getDob(), "DOB is as Expected", "DOB is not as Expected"));
-                assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getPob(), clmDetails.getResult().getPlaceOfBirth(), "Place of birth is as Expected", "Place of birth  is not as Expected"));
-                assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getNationality(), clmDetails.getResult().getNationality(), "Nationality is as Expected", "Nationality is not as Expected"));
-                assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getMothersMaidenName(), clmDetails.getResult().getMothersMaidenName(), "Mothers maiden name is as Expected", "Mothers maiden name is not as Expected"));
-                assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getCustomerType(), clmDetails.getResult().getCustomerType(), "Customer Type is as Expected", "Customer Type is not as Expected"));
+                assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getGender(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getGender()), "Gender is as Expected", "Gender is not as Expected"));
+                assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getDob(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getDob()), "DOB is as Expected", "DOB is not as Expected"));
+                assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getPob(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getPlaceOfBirth()), "Place of birth is as Expected", "Place of birth is not as Expected"));
+                assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getNationality(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getNationality()), "Nationality is as Expected", "Nationality is not as Expected"));
+                assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getMothersMaidenName(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getMothersMaidenName()), "Mothers maiden name is as Expected", "Mothers maiden name is not as Expected"));
+                assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getCustomerType(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getCustomerType()), "Customer Type is as Expected", "Customer Type is not as Expected"));
             }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
@@ -92,23 +92,23 @@ public class DemoGraphicWidgetTest extends Driver {
            Validating Primary Id Type and Number
             */
             assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isPrimaryIdTypeHeaderVisible(), true, "Primary Id Type header is visible", "Primary Id Type header is NOT visible"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getPrimaryIdType(), clmDetails.getResult().getPrimaryIdType(), "Primary Id Type is same as Expected", "Primary Id Type is not same as Expected"));
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getPrimaryIdType(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getPrimaryIdType()), "Primary Id Type is same as Expected", "Primary Id Type is not same as Expected"));
             if (pages.getDemographicWidget().getPrimaryIdType().equalsIgnoreCase("-")) {
                 commonLib.warning("Primary Id Type is not available so unable to display Primary Id Number");
             } else {
                 assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isPrimaryIdNumberHeaderVisible(), true, "Primary Id Number header is visible", "Primary Id Number header is NOT visible"));
-                assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getPrimaryIdNumber(), clmDetails.getResult().getPrimaryIdType(), "Primary Id Number is same as Expected", "Primary Id Number is not same as Expected"));
+                assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getPrimaryIdNumber(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getPrimaryIdType()), "Primary Id Number is same as Expected", "Primary Id Number is not same as Expected"));
             }
             /*
            Validating Secondary Id Type and Number
             */
             assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isSecondaryIdTypeHeaderVisible(), true, "Secondary Id Type header is visible", "Primary Id Type header is NOT visible"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getSecondaryIdType(), clmDetails.getResult().getPrimaryIdType(), "Secondary Id Type is same as Expected", "Primary Id Type is not same as Expected"));
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getSecondaryIdType(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getPrimaryIdType()), "Secondary Id Type is same as Expected", "Primary Id Type is not same as Expected"));
             if (pages.getDemographicWidget().getPrimaryIdType().equalsIgnoreCase("-")) {
                 commonLib.warning("Secondary Id Type is not available so unable to display Secondary Id Number is");
             } else {
                 assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isSecondaryIdNumberHeaderVisible(), true, "Secondary Id Number header is visible", "Secondary Id Number header is NOT visible"));
-                assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getSecondaryIdNumber(), clmDetails.getResult().getSecondaryIdType(), "Secondary Id Number is same as Expected", "Secondary Id Number is not same as Expected"));
+                assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getSecondaryIdNumber(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getSecondaryIdType()), "Secondary Id Number is same as Expected", "Secondary Id Number is not same as Expected"));
             }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -121,9 +121,9 @@ public class DemoGraphicWidgetTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validate Email Id , Validate is User an Agent", "description");
             assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isEmailIdHeaderVisible(), true, "Email Id header is visible", "Email Id header is NOT visible"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getEmailId(), clmDetails.getResult().getEmailId(), "Email Id is same as Expected", "Email id is not same as Expected"));
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getEmailId(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getEmailId()), "Email Id is same as Expected", "Email id is not same as Expected"));
             assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isUserAgentHeaderVisible(), true, "Is user An Agent header is visible", "Is user An Agent  header is NOT visible"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getIsUserAgent(), clmDetails.getResult().getIsUser(), "Is user An Agent  is same as Expected", "Is user An Agent is not same as Expected"));
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getIsUserAgent(), clmDetails.getResult().getDetails().get(0).getIsUser(), "Is user An Agent  is same as Expected", "Is user An Agent is not same as Expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
             commonLib.fail("Exception in method - testEmailIdAndAgent " + e, true);
@@ -140,7 +140,7 @@ public class DemoGraphicWidgetTest extends Driver {
                 commonLib.warning("Address is not available so unable to display ");
             } else {
                 assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isPrimaryIdNumberHeaderVisible(), true, "Primary Id Number header is visible", "Primary Id Number header is NOT visible"));
-                assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getPrimaryIdNumber(), clmDetails.getResult().getPrimaryIdType(), "Primary Id Number is same as Expected", "Primary Id Number is not same as Expected"));
+                assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getPrimaryIdNumber(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getPrimaryIdType()), "Primary Id Number is same as Expected", "Primary Id Number is not same as Expected"));
             }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
@@ -153,9 +153,9 @@ public class DemoGraphicWidgetTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validate Customer Id, Validate Customer Category", "description");
             assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isCustomerIdHeaderVisible(), true, "Customer Id header is visible", "Email Id header is NOT visible"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getCustomerId(), clmDetails.getResult().getEmailId(), "Customer Id is same as Expected", "Customer Id is not same as Expected"));
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getCustomerId(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getEmailId()), "Customer Id is same as Expected", "Customer Id is not same as Expected"));
             assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isCustomerCategoryHeaderVisible(), true, "Customer Category header is visible", "Customer Category  header is NOT visible"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getCustomerCategory(), clmDetails.getResult().getEmailId(), "Customer Category  is same as Expected", "Customer Category  is not same as Expected"));
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getCustomerCategory(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getEmailId()), "Customer Category  is same as Expected", "Customer Category  is not same as Expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
             commonLib.fail("Exception in method - testCustomerIdAndCategory " + e, true);
@@ -168,16 +168,12 @@ public class DemoGraphicWidgetTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validate Pin Set, Validate Pin Reset", "description");
             assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isPinResetHeaderVisible(), true, "Pin Reset header is visible", "Pin Reset header is NOT visible"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getPinReset(), clmDetails.getResult().getIsPinReset(), "Pin Reset is same as Expected", "Pin Reset is not same as Expected"));
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getPinReset(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getIsPinReset()), "Pin Reset is same as Expected", "Pin Reset is not same as Expected"));
             assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isPinSetHeaderVisible(), true, "Pin Set header is visible", "Pin Set header is NOT visible"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getPinSet(), clmDetails.getResult().getIsPinSet(), "Pin Set  is same as Expected", "Pin Set is not same as Expected"));
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getPinSet(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getIsPinSet()), "Pin Set  is same as Expected", "Pin Set is not same as Expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
             commonLib.fail("Exception in method - testPinSetAndReset " + e, true);
         }
     }
-
-
-
-
 }

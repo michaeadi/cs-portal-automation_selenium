@@ -46,12 +46,12 @@ public class DemographicWidgetPage {
     public By smartCashLogo=By.xpath("//img[contains(@src,'SmartCash')]");
     public By resetPinIcon=By.xpath("//img[contains(@src,'images/lock')]");
     public By barIcon=By.xpath("//img[contains(@src,'airtelmoney')]");
-    public  By genderHeader= By.xpath("//span[contains(text(),'Gender')]");
-    public  By dobHeader= By.xpath("//span[contains(text(),'Date Of Birth')]");
-    public  By pobHeader= By.xpath("//span[contains(text(),'Place Of Birth')]");
-    public  By nationalityHeader= By.xpath("//span[contains(text(),'Nationality')]");
-    public  By mothersMaidenNameHeader= By.xpath("//span[contains(text(),'Maiden Name')]");
-    public  By customerTypeHeader= By.xpath("//span[contains(text(),'Customer Type')]");
+    public  By genderHeader= By.xpath("//*[contains(text(),'Gender')]");
+    public  By dobHeader= By.xpath("//*[contains(text(),'Date Of Birth')]");
+    public  By pobHeader= By.xpath("//*[contains(text(),'Place Of Birth')]");
+    public  By nationalityHeader= By.xpath("//*[contains(text(),'Nationality')]");
+    public  By mothersMaidenNameHeader= By.xpath("//*[contains(text(),'Maiden Name')]");
+    public  By customerTypeHeader= By.xpath("//*[contains(text(),'Customer Type')]");
     public  By primaryIdNumberHeader= By.xpath("//span[contains(text(),'Primary ID Number')]");
     public  By secondaryIdNumberHeader= By.xpath("//span[contains(text(),'Secondary ID Number')]");
 
@@ -62,14 +62,14 @@ Values Locators
     public  By emailId= By.xpath("//span[contains(text(),'Email Id')]//following-sibling::span");
     public  By primaryIdType= By.xpath("//span[contains(text(),'Primary')]//following-sibling::span");
     public  By secondaryIdType= By.xpath("//span[contains(text(),'Secondary')]//following-sibling::span");
-    public  By address= By.xpath("//span[contains(text(),'Address')]//following-sibling::span//span");
+    public  By address= By.xpath("//span[contains(text(),'Address')]//following-sibling::span");
     public  By isUserAgent= By.xpath("//span[contains(text(),'Agent')]//following-sibling::span//span");
     public  By customerCategory= By.xpath("//span[contains(text(),'Customer Category')]//following-sibling::span");
     public  By pinReset= By.xpath("//span[contains(text(),'Pin Reset')]//following-sibling::span");
     public  By pinSet= By.xpath("//span[contains(text(),'Pin Set')]//following-sibling::span");
     public  By customerID= By.xpath("//span[contains(text(),'Customer ID')]//following-sibling::span");
 
-    public  By gender= By.xpath("//tdn[contains(text(),'Gender')]//following-sibling::td//span//span");
+    public  By gender= By.xpath("//*[contains(text(),'Gender')]//following-sibling::td//span");
     public  By dob= By.xpath("//td[contains(text(),'Date Of Birth')]//following-sibling::td//span");
     public  By pob= By.xpath("//td[contains(text(),'Place')]//following-sibling::td//span");
     public  By nationality= By.xpath("//td[contains(text(),'Nationality')]//following-sibling::td//span");

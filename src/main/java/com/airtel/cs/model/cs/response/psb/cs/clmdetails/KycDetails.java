@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
-import java.util.List;
+import java.util.ArrayList;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -12,8 +12,8 @@ import java.util.List;
 public class KycDetails {
 
     private String msisdn;
-    private List<WalletResponse> wallets;
-    private List<AccountResponse> accounts;
+    private ArrayList<WalletResponse> wallets;
+    private ArrayList<AccountResponse> accounts;
     private String isPinSet;
     private String isPinReset;
     private Boolean isSecurityQuestionSet;

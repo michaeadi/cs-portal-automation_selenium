@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -47,29 +48,56 @@ public class AMUserProfileApiResponse implements Serializable {
     private String userId;
 
     private String gender;
+
     private String msisdn;
+
     private String emailId;
+
     private String primaryIdType;
+
     private String primaryIdNumber;
+
     private String placeOfBirth;
+
     private String middleName;
+
     private String correlationId;
+
     private String nationality;
+
     private String secondaryIdType;
+
     private String secondaryIdNumber;
+
     private String customerType;
+
     private String customerId;
+
     private String customerCategory;
+
     private String customerSubCategory;
+
     private String residentType;
+
     private String alternatePhoneNumber;
+
     private String addressLine1;
+
     private String addressLine2;
+
     private String addressLine3;
+
     private String district;
+
     private String zone;
+
     private String village;
+
     private String mothersMaidenName;
-    private List<KycDetails> details;
+
+    private ArrayList<KycDetails> details;
+
+    public KinDetails kinDetails;
+
     private String isUser;
 }

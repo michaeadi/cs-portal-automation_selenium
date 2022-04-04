@@ -16,7 +16,7 @@ public class LoginAPITest extends Driver {
     ObjectMapper mapper = new ObjectMapper();
 
     @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest"})
-    public void testLoginAPIWithBetaUser() {
+    public void testLoginAPIWithAdvisorSupervisor() {
         try {
             selUtils.addTestcaseDescription("Validate the Login API with Beta user,Hit the Login API -/auth/api/user-mngmnt/v2/login with valid headers and credentials,Validating Success Message from response", "description");
             final String loginAUUID = constants.getValue(CommonConstants.ADVISOR_USER_ROLE_AUUID);
@@ -40,7 +40,7 @@ public class LoginAPITest extends Driver {
     }
 
     @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"})
-    public void testLoginApiWithAllUser() {
+    public void testLoginApiWithBetaUser() {
         try {
             selUtils.addTestcaseDescription("Validate the Login API with User Having all the roles,Hit the Login API -/auth/api/user-mngmnt/v2/login with valid headers and credentials,Validating Success Message from response", "description");
             final String loginAUUID = constants.getValue(CommonConstants.BETA_USER_ROLE_AUUID);
