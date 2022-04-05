@@ -52,7 +52,7 @@ public class KpiDashboardTopPanel extends BasePage {
     /**
      * This method is used to check Refresh Icon  is visible or not
      */
-    public Boolean isRefreshIcondVisible() {
+    public Boolean isRefreshIconVisible() {
         Boolean status = isVisible(pageElements.refreshIcon);
         commonLib.pass("Refresh Icon  is visible : " + status);
         return status;
@@ -160,7 +160,7 @@ public class KpiDashboardTopPanel extends BasePage {
      */
     public Boolean isPriorityLableVisible() {
         Boolean status = isVisible(pageElements.priorityLable);
-        commonLib.pass("Priority Lable is visible : " + status);
+        commonLib.pass("Priority Label is visible : " + status);
         return status;
     }
     /**
@@ -168,7 +168,7 @@ public class KpiDashboardTopPanel extends BasePage {
      */
     public Boolean isStateLableVisible() {
         Boolean status = isVisible(pageElements.stateLable);
-        commonLib.pass("StateLable is visible : " + status);
+        commonLib.pass("State Label is visible : " + status);
         return status;
     }
     /**
@@ -176,7 +176,7 @@ public class KpiDashboardTopPanel extends BasePage {
      */
     public Boolean isCreationDateLableVisible() {
         Boolean status = isVisible(pageElements.creationDateLable);
-        commonLib.pass("Creation Date Lable is visible : " + status);
+        commonLib.pass("Creation Date Label is visible : " + status);
         return status;
     }
     /**
@@ -184,7 +184,7 @@ public class KpiDashboardTopPanel extends BasePage {
      */
     public Boolean isCreatedByLableVisible() {
         Boolean status = isVisible(pageElements.createdByLable);
-        commonLib.pass("Created By Lable is visible : " + status);
+        commonLib.pass("Created By Label is visible : " + status);
         return status;
     }
     /**
@@ -192,13 +192,13 @@ public class KpiDashboardTopPanel extends BasePage {
      */
     public Boolean isQueueLableVisible() {
         Boolean status = isVisible(pageElements.queueLable);
-        commonLib.pass("Queue Lable is visible : " + status);
+        commonLib.pass("Queue Label is visible : " + status);
         return status;
     }
     /**
      * This method is used to check Source   is visible or not
      */
-    public Boolean isSourceLableVisible() {
+    public Boolean isSourceLabelVisible() {
         Boolean status = isVisible(pageElements.sourceLabel);
         commonLib.pass("Source Label is visible : " + status);
         return status;
@@ -206,7 +206,7 @@ public class KpiDashboardTopPanel extends BasePage {
     /**
      * This method is used to check Open Tickets Beyond SLA   is visible or not
      */
-    public Boolean isDeatilsOpenTicketsBeyondSLALableVisible() {
+    public Boolean isDetailsOpenTicketsBeyondSLALabelVisible() {
         Boolean status = isVisible(pageElements.detailsopenTicketsBeyondSLALabel);
         commonLib.pass("Open Ticket Overview is visible : " + status);
         return status;
@@ -214,7 +214,7 @@ public class KpiDashboardTopPanel extends BasePage {
     /**
      * This method is used to check Open Tickets Under SLA   is visible or not
      */
-    public Boolean isDetailsOpenTicketsUnderSLALableVisible() {
+    public Boolean isDetailsOpenTicketsUnderSLALabelVisible() {
         Boolean status = isVisible(pageElements.detailsOpenTicketsUnderSLALabel);
         commonLib.pass("Open Ticket Overview is visible : " + status);
         return status;
@@ -222,7 +222,7 @@ public class KpiDashboardTopPanel extends BasePage {
     /**
      * This method is used to check Breaching Within 15 Mins   is visible or not
      */
-    public Boolean isDetailsBreachingWithin15MinsLableVisible() {
+    public Boolean isDetailsBreachingWithin15MinsLabelVisible() {
         Boolean status = isVisible(pageElements.detailsBreachingWithin15MinsLabel);
         commonLib.pass("Open Ticket Overview is visible : " + status);
         return status;
@@ -230,7 +230,7 @@ public class KpiDashboardTopPanel extends BasePage {
     /**
      * This method is used to check Breaching Within 15 - 60 Mins   is visible or not
      */
-    public Boolean isDetailsBreachingWithin15To60MinsLableVisible() {
+    public Boolean isDetailsBreachingWithin15To60MinsLabelVisible() {
         Boolean status = isVisible(pageElements.detailsBreachingWithin15To60MinsLabel);
         commonLib.pass("Open Ticket Overview is visible : " + status);
         return status;
@@ -238,7 +238,7 @@ public class KpiDashboardTopPanel extends BasePage {
     /**
      * This method is used to check Breaching Within > 60 Mins   is visible or not
      */
-    public Boolean isDetailsBreachingGreaterThan60MinsLableVisible() {
+    public Boolean isDetailsBreachingGreaterThan60MinsLabelVisible() {
         Boolean status = isVisible(pageElements.detailsBreachingWithin60MinsLabel);
         commonLib.pass("Open Ticket Overview is visible : " + status);
         return status;
