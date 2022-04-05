@@ -298,4 +298,7 @@ public class PageCollection {
         return
                 new KpiDashboardOpenTicketAgeing(driver);
     }
+
+    public KpiDashboard6MonthsTicketType getKpiDashboard6MonthsTicketType() { return new KpiDashboard6MonthsTicketType(driver);
+    }
 }

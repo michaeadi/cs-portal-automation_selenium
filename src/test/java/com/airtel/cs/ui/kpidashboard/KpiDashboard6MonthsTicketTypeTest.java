@@ -1,0 +1,51 @@
+package com.airtel.cs.ui.kpidashboard;
+
+import com.airtel.cs.driver.Driver;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.openqa.selenium.WebDriver;
+import org.testng.annotations.Test;
+
+public class KpiDashboard6MonthsTicketTypeTest extends Driver {
+    ObjectMapper mapper = new ObjectMapper();
+
+    @Test(priority = 1, groups = {"RegressionTest", "ProdTest"})
+    public void SixMonthsTicketType() {
+        try {
+            selUtils.addTestcaseDescription("Six Months Ticket Type", "description");
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isKpiDashboardIconVisible(), true, "Dashboard Icon is visible"));
+            pages.getKpiDashboardTopPanel().hoverOnKpiDashboardIcon();
+            pages.getKpiDashboardTopPanel().clickOnCsDashboardIcon();
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsTicketType().is6MonthsTicketTypeLabelVisible(), true, "6 Months Ticket Type Label is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsTicketType().isFTRIconlVisible(), true, "FTR Icon is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsTicketType().isNFTRIconVisible(), true, "NFTR Icon is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsTicketType().isIssueTypeLabelVisible(), true, "Issue TypeL Label is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsTicketType().isConnectionLabelVisible(), true, "Connection Label is visible"));
+
+
+
+
+        } catch (Exception e) {
+
+        }
+        actions.assertAllFoundFailedAssert(assertCheck);
+    }
+    @Test(priority = 1, groups = {"RegressionTest", "ProdTest"})
+    public void SixMonthsTicketTypeDetails() {
+        try {
+            selUtils.addTestcaseDescription("Six Months Ticket Type Details", "description");
+
+            pages.getKpiDashboard6MonthsTicketType().clickOn6MonthsTicketDetailsIcon();
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsTicketType().isTicketTypeDetailsLabelVisible(), true, "Ticket Type Details Labe is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsTicketType().isMonthLabelVisible(), true, "Month Label is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsTicketType().isFTRLabelVisible(), true, "FTR Label is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsTicketType().isNFTRLabelVisible(), true, "NFTRLabel is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsTicketType().isFTRPercentageLabelVisible(), true, "FTR %Label is visible"));
+            pages.getKpiDashboard6MonthsTicketType().clickOnBackIcon();
+
+
+        } catch (Exception e) {
+
+        }
+        actions.assertAllFoundFailedAssert(assertCheck);
+    }
+}
