@@ -227,4 +227,6 @@ public class KpiDashboard6MonthsOverview  extends BasePage {
         if (isVisible(pageElements.dayWiseInAgentPerformanceIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.dayWiseInAgentPerformanceIcon);
     }
+
+
 }

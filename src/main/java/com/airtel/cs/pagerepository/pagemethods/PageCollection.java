@@ -249,11 +249,14 @@ public class PageCollection {
         return new AirtelMoneyProfileBar(driver);
     }
 
-    public AirtelMoneyProfileBar getAirtelMoneyProfileBar() { return new AirtelMoneyProfileBar(driver);
+    public AirtelMoneyProfileBar getAirtelMoneyProfileBar() {
+        return new AirtelMoneyProfileBar(driver);
     }
 
-    public ServiceProfileDetailWidget getServiceProfileDetailWidget() { return new ServiceProfileDetailWidget (driver);
+    public ServiceProfileDetailWidget getServiceProfileDetailWidget() {
+        return new ServiceProfileDetailWidget(driver);
     }
+
     public AmSmsTrails getAmSmsTrails() {
         return new AmSmsTrails(driver);
     }
@@ -266,9 +269,11 @@ public class PageCollection {
     public DemographicWidget getDemographicWidget() {
         return new DemographicWidget(driver);
     }
+
     public WalletInformation getWalletInformation() {
         return new WalletInformation(driver);
     }
+
     public AccountInformation getAccountInformation() {
         return new AccountInformation(driver);
     }
@@ -285,6 +290,12 @@ public class PageCollection {
         return new KpiDashboardTopPanel(driver);
     }
 
-    public KpiDashboard6MonthsOverview getKpiDashboard6MonthsOverview() { return new KpiDashboard6MonthsOverview(driver);
+    public KpiDashboard6MonthsOverview getKpiDashboard6MonthsOverview() {
+        return new KpiDashboard6MonthsOverview(driver);
+    }
+
+    public KpiDashboardOpenTicketAgeing getKpiDashboardOpenTicketAgeing() {
+        return
+                new KpiDashboardOpenTicketAgeing(driver);
     }
 }
