@@ -168,6 +168,8 @@ public class KpiDashboard6MonthsOverviewPageTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isTicketClosedOutsideSLALabelVisible(), true, "Ticket Closed Outside SLA Label Visible "));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isTicketClosedWithinSLALabelVisible(), true, "Ticket Closed Within SLA Label Visible "));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isSLAPercentageLabelVisible(), true, "SLA Percentage Label Visible "));
+            pages.getKpiDashboard6MonthsOverview().clickOnBackIcon();
+            pages.getKpiDashboard6MonthsOverview().clickOnBackIcon();
 
 
         } catch (Exception e) {

@@ -70,6 +70,7 @@ public class KpiDashboardOpenTicketAgeingTest extends BasePage {
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardOpenTicketAgeing().isTenToThrityDaysLabellVisible(), true, "Ten To Thirty Label "));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardOpenTicketAgeing().isBeyond30DaysDaysLabellVisible(), true, "Beyond 30 Days Days Label "));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardOpenTicketAgeing().isDownLoadIconlVisible(), true, "Download Icon "));
+            pages.getKpiDashboardOpenTicketAgeing().clickOnBackIcon();
 
 
         } catch (Exception e) {
