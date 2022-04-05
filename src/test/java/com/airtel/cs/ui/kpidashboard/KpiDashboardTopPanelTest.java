@@ -20,12 +20,12 @@ public class KpiDashboardTopPanelTest extends Driver {
             pages.getKpiDashboardTopPanel().clickOnCsDashboardIcon();
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isRefreshIconVisible(), true, "Refresh Icon is visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isLastRefreshTimeVisible(), true, "Last Refresh Time is visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isOpenTicketOverviewLableVisible(), true, "Open Ticket Overview is visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isOpenTicketsBeyondSLALableVisible(), true, "Open Tickets Beyond SLA Label is visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isOpenTicketsUnderSLALableVisible(), true, "Open Tickets Under SLA Label is visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isBreachingWithin15MinsLableVisible(), true, "Breaching With in 15 Mins Label is visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isBreachingWithin15To60MinsLableVisible(), true, "Breaching With in 15 To 60 Mins Label is visible"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isBreachingGreaterThan60MinsLableVisible(), true, "Breaching With in 60 Mins Label is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isOpenTicketOverviewLabelVisible(), true, "Open Ticket Overview is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isOpenTicketsBeyondSLALabelVisible(), true, "Open Tickets Beyond SLA Label is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isOpenTicketsUnderSLALabelVisible(), true, "Open Tickets Under SLA Label is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isBreachingWithin15MinsLabelVisible(), true, "Breaching With in 15 Mins Label is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isBreachingWithin15To60MinsLabelVisible(), true, "Breaching With in 15 To 60 Mins Label is visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isBreachingGreaterThan60MinsLabelVisible(), true, "Breaching With in 60 Mins Label is visible"));
 
 
 
