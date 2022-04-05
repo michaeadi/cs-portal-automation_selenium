@@ -61,7 +61,7 @@ public class KpiDashboardTopPanel extends BasePage {
     /**
      * This method is used to check Open Ticket - Overview   is visible or not
      */
-    public Boolean isOpenTicketOverviewLableVisible() {
+    public Boolean isOpenTicketOverviewLabelVisible() {
         Boolean status = isVisible(pageElements.openTicketOverviewLabel);
         commonLib.pass("Open Ticket Overview is visible : " + status);
         return status;
@@ -69,7 +69,7 @@ public class KpiDashboardTopPanel extends BasePage {
     /**
      * This method is used to check Open Tickets Beyond SLA   is visible or not
      */
-    public Boolean isOpenTicketsBeyondSLALableVisible() {
+    public Boolean isOpenTicketsBeyondSLALabelVisible() {
         Boolean status = isVisible(pageElements.openTicketsBeyondSLALabel);
         commonLib.pass(" Open Tickets Beyond SLA  is visible : " + status);
         return status;
@@ -77,7 +77,7 @@ public class KpiDashboardTopPanel extends BasePage {
     /**
      * This method is used to check Open Tickets Under SLA   is visible or not
      */
-    public Boolean isOpenTicketsUnderSLALableVisible() {
+    public Boolean isOpenTicketsUnderSLALabelVisible() {
         Boolean status = isVisible(pageElements.openTicketsUnderSLALabel);
         commonLib.pass("Open Tickets Under SLA is visible : " + status);
         return status;
@@ -85,7 +85,7 @@ public class KpiDashboardTopPanel extends BasePage {
     /**
      * This method is used to check Breaching Within 15 Mins   is visible or not
      */
-    public Boolean isBreachingWithin15MinsLableVisible() {
+    public Boolean isBreachingWithin15MinsLabelVisible() {
         Boolean status = isVisible(pageElements.breachingWithin15MinsLabel);
         commonLib.pass("Breaching Within 15 Mins is visible : " + status);
         return status;
@@ -93,7 +93,7 @@ public class KpiDashboardTopPanel extends BasePage {
     /**
      * This method is used to check Breaching Within 15 - 60 Mins   is visible or not
      */
-    public Boolean isBreachingWithin15To60MinsLableVisible() {
+    public Boolean isBreachingWithin15To60MinsLabelVisible() {
         Boolean status = isVisible(pageElements.breachingWithin15To60MinsLabel);
         commonLib.pass("Breaching Within 15 - 60 Mins is visible : " + status);
         return status;
@@ -101,7 +101,7 @@ public class KpiDashboardTopPanel extends BasePage {
     /**
      * This method is used to check Breaching Within > 60 Mins   is visible or not
      */
-    public Boolean isBreachingGreaterThan60MinsLableVisible() {
+    public Boolean isBreachingGreaterThan60MinsLabelVisible() {
         Boolean status = isVisible(pageElements.breachingWithin60MinsLabel);
         commonLib.pass("Breaching Within > 60 Mins visible : " + status);
         return status;
@@ -151,7 +151,7 @@ public class KpiDashboardTopPanel extends BasePage {
      * This method is used to check Ticket ID   is visible or not
      */
     public Boolean isTicketIdLableVisible() {
-        Boolean status = isVisible(pageElements.ticketIdLable);
+        Boolean status = isVisible(pageElements.ticketIdLabel);
         commonLib.pass("Ticket ID Lable is visible : " + status);
         return status;
     }
@@ -159,7 +159,7 @@ public class KpiDashboardTopPanel extends BasePage {
      * This method is used to check Priority   is visible or not
      */
     public Boolean isPriorityLableVisible() {
-        Boolean status = isVisible(pageElements.priorityLable);
+        Boolean status = isVisible(pageElements.priorityLabel);
         commonLib.pass("Priority Label is visible : " + status);
         return status;
     }
@@ -167,7 +167,7 @@ public class KpiDashboardTopPanel extends BasePage {
      * This method is used to check State   is visible or not
      */
     public Boolean isStateLableVisible() {
-        Boolean status = isVisible(pageElements.stateLable);
+        Boolean status = isVisible(pageElements.stateLabel);
         commonLib.pass("State Label is visible : " + status);
         return status;
     }
@@ -175,7 +175,7 @@ public class KpiDashboardTopPanel extends BasePage {
      * This method is used to check Creation date   is visible or not
      */
     public Boolean isCreationDateLableVisible() {
-        Boolean status = isVisible(pageElements.creationDateLable);
+        Boolean status = isVisible(pageElements.creationDateLabel);
         commonLib.pass("Creation Date Label is visible : " + status);
         return status;
     }
@@ -183,7 +183,7 @@ public class KpiDashboardTopPanel extends BasePage {
      * This method is used to check Created By  is visible or not
      */
     public Boolean isCreatedByLableVisible() {
-        Boolean status = isVisible(pageElements.createdByLable);
+        Boolean status = isVisible(pageElements.createdByLabel);
         commonLib.pass("Created By Label is visible : " + status);
         return status;
     }
@@ -191,7 +191,7 @@ public class KpiDashboardTopPanel extends BasePage {
      * This method is used to check Queue   is visible or not
      */
     public Boolean isQueueLableVisible() {
-        Boolean status = isVisible(pageElements.queueLable);
+        Boolean status = isVisible(pageElements.queueLabel);
         commonLib.pass("Queue Label is visible : " + status);
         return status;
     }
@@ -207,7 +207,7 @@ public class KpiDashboardTopPanel extends BasePage {
      * This method is used to check Open Tickets Beyond SLA   is visible or not
      */
     public Boolean isDetailsOpenTicketsBeyondSLALabelVisible() {
-        Boolean status = isVisible(pageElements.detailsopenTicketsBeyondSLALabel);
+        Boolean status = isVisible(pageElements.detailsOpenTicketsBeyondSLALabel);
         commonLib.pass("Open Ticket Overview is visible : " + status);
         return status;
     }
