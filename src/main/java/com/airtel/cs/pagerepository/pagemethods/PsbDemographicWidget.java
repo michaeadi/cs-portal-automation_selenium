@@ -1,19 +1,21 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
 import com.airtel.cs.model.cs.response.psb.cs.clmdetails.CLMDetailsResponse;
-import com.airtel.cs.pagerepository.pageelements.DemographicWidgetPage;
+import com.airtel.cs.pagerepository.pageelements.PsbDemographicWidgetPage;
 import org.openqa.selenium.By;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
-public class DemographicWidget extends BasePage{
-    DemographicWidgetPage pageElements;
+public class PsbDemographicWidget extends BasePage{
+    PsbDemographicWidgetPage pageElements;
 
-    public DemographicWidget(WebDriver driver) {
+    public PsbDemographicWidget(WebDriver driver) {
         super(driver);
-        pageElements = PageFactory.initElements(driver, DemographicWidgetPage.class);
+        pageElements = PageFactory.initElements(driver, PsbDemographicWidgetPage.class);
     }
 
+    public static int walletFlag,accountFlag;
     /**
      * This method is used to check Customer Name label visible or not
      * @return
@@ -477,7 +479,7 @@ public class DemographicWidget extends BasePage{
      */
     public void clickHeaderValue(int row) {
         commonLib.info("Clicking"+row+ "is CTA");
-       clickAndWaitForLoaderToBeRemoved(By.xpath(pageElements.row + row + pageElements.column));
+       clickAndWaitForLoaderToBeRemoved(By.xpath(pageElements.row +"[" +row + pageElements.column));
 
     }
 
@@ -496,7 +498,7 @@ public class DemographicWidget extends BasePage{
      * @return
      */
     public String getType(int row) {
-        String type=getText(By.xpath(pageElements.row + row + pageElements.column));
+        String type=getText(By.xpath(pageElements.row+"[" +row + pageElements.typeRow));
          commonLib.info("Reading Type of " + row + ":" + type);
         return type;
 
@@ -549,10 +551,10 @@ public class DemographicWidget extends BasePage{
      */
     public boolean isPageLoaded(CLMDetailsResponse clmDetails)
     {
+        boolean pageLoaded=false;
         int walletsSize = clmDetails.getResult().getDetails().get(0).getWallets().size();
         int accountsSize = clmDetails.getResult().getDetails().get(0).getAccounts().size();
         int totalSize = walletsSize + accountsSize;
-        final boolean pageLoaded = pages.getCustomerProfilePage().isCustomerProfilePageLoaded();
         if (totalSize > 1) {
             assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isIntermediateScreenVisible(), true, "Intermediate Screen is visible successfully", "Intermediate Screen is not visible "));
             assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isActionVisible(), true, " Action is visible ", "Action is not visible "));
@@ -562,16 +564,25 @@ public class DemographicWidget extends BasePage{
             assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isCreatedOnVisible(), true, " Created ON is visible ", "Created on is not visible "));
             int size = pages.getDemographicWidget().getNoOfRows();
             for (int i = 1; i <=size; i++) {
-                pages.getDemographicWidget().clickHeaderValue(i);
-                assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
                 String type = pages.getDemographicWidget().getType(i);
-                if (type.equalsIgnoreCase("Wallet"))
-                    assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isWalletInformationWidgetVisible(), true, " Wallet Information widget is visible ", "Wallet Information widget  is not visible "));
-                if (type.equalsIgnoreCase("Account"))
-                    assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isAccountInformationWidgetVisible(), true, " Account Information widget is visible ", "Account Information widget  is not visible "));
+                pages.getDemographicWidget().clickHeaderValue(i);
+                if (type.equalsIgnoreCase("Wallet")) {
+                    pageLoaded = pages.getDemographicWidget().isWalletInformationWidgetVisible();
+                    assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page is loaded and Wallet Information widget is also visible ", "Customer Profile Page is not loaded and Wallet Information widget is also not visible"));
+                    walletFlag++;
+                    break;
+                }
+                if (type.equalsIgnoreCase("Account")) {
+                    pageLoaded = pages.getDemographicWidget().isAccountInformationWidgetVisible();
+                    assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page is loaded and Account Information widget is also visible ", "Customer Profile Page is not loaded and Account Information widget is also not visible"));
+                    accountFlag++;
+                    break;
+                }
             }
-        } else
+        } else {
+            pageLoaded=pages.getCustomerProfilePage().isCustomerProfilePageLoaded();
             assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page Loaded Successfully", "Customer Profile Page NOT Loaded"));
+        }
 
         return pageLoaded;
     }

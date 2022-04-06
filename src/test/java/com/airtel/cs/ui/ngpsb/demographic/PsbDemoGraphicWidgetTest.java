@@ -1,4 +1,4 @@
-package com.airtel.cs.ui.ngpsb;
+package com.airtel.cs.ui.ngpsb.demographic;
 
 import com.airtel.cs.api.PsbRequestSource;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 
 
 @Log4j2
-public class DemoGraphicWidgetTest extends Driver {
+public class PsbDemoGraphicWidgetTest extends Driver {
     private static String customerNumber = null;
     PsbRequestSource api = new PsbRequestSource();
     CLMDetailsResponse clmDetails;

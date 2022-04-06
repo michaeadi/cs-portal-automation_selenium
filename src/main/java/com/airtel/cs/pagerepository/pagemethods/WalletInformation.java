@@ -97,7 +97,7 @@ import org.openqa.selenium.support.PageFactory;
          * @return
          */
         public String getWalletCreatedBy() {
-            final String text = getText(pageElements.walletCreatedOn);
+            final String text = getText(pageElements.walletCreatedBy);
             commonLib.info("Getting Wallet Created By: " + text);
             return text;
         }
@@ -228,6 +228,22 @@ import org.openqa.selenium.support.PageFactory;
         public void hoverOnBalanceInfoIcon() {
             commonLib.info("Hover on Balance Info icon");
             hoverOverElement(pageElements.balanceHoverIcon);
+        }
+
+        /**
+         * This method is use to hover on Wallet Created info icon
+         */
+        public void hoverOnWalletCreated() {
+            commonLib.info("Hover on Balance Info icon");
+            hoverOverElement(pageElements.walletCreatedInfoIcon);
+        }
+
+        /**
+         * This method is use to hover on Wallet Modified info icon
+         */
+        public void hoverOnWalletModified() {
+            commonLib.info("Hover on Balance Info icon");
+            hoverOverElement(pageElements.walletModifiedInfoIcon);
         }
 
     }

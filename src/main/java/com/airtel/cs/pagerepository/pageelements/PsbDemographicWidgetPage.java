@@ -2,7 +2,7 @@ package com.airtel.cs.pagerepository.pageelements;
 
 import org.openqa.selenium.By;
 
-public class DemographicWidgetPage {
+public class PsbDemographicWidgetPage {
     /*
     Intermediate screen Header Locators
     */
@@ -13,7 +13,9 @@ public class DemographicWidgetPage {
     public  By createdOn= By.xpath("//span[contains(text(),'Created')]");
     public  By type= By.xpath("//span[contains(text(),'Type')]");
 
-    public String row="//tr[contains(@class,'list--list-row')][";
+    public String row="//tr[contains(@class,'list--list-row')]";
+    public String noOfRows="//tr[contains(@class,'list--list-row')]";
+    public String typeRow="]//td[3]//div";
     public String column="]//td[5]//img[contains(@src,'maximize.svg')]";
 
     public  By walletWidget= By.xpath("//span[contains(text(),'Wallet Information')]");

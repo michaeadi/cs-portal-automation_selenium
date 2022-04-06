@@ -39,7 +39,7 @@ public class FriendsFamilyWidgetTest extends Driver {
     }
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
-    public void checkServiceProfileFlag() {
+    public void checkFnFWidgetFlag() {
         if (!StringUtils.equals(RUN_FNF_WIDGET_TEST_CASE, "true")) {
             commonLib.skip("FNF Widget is NOT Enabled for this Opco=" + OPCO);
             throw new SkipException("FNF Widget is NOT Enabled for this Opco=" + OPCO);

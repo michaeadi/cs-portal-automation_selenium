@@ -1,4 +1,4 @@
-package com.airtel.cs.ui.ngpsb;
+package com.airtel.cs.ui.ngpsb.home;
 
 import com.airtel.cs.api.PsbRequestSource;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
@@ -82,12 +82,14 @@ public class WalletInformationTest extends Driver {
             selUtils.addTestcaseDescription("Validate Account Information widget data", "description");
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getWalletStatus(), clmDetails.getResult().getDetails().get(0).getWallets().get(0).getStatus(), "Wallet status is same as Expected", "Wallet status  is not same as Expected"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getWalletCategory(), clmDetails.getResult().getDetails().get(0).getWallets().get(0).getCategory(), "Wallet status is same as Expected", "Wallet status  is not same as Expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getWalletCreatedBy(), clmDetails.getResult().getDetails().get(0).getWallets().get(0).getCreatedBy(), "Wallet Created By is same as Expected", "Wallet Created By is not same as Expected"));
             String createdOnDate = UtilsMethods.getDateFromEpoch(Long.parseLong(clmDetails.getResult().getDetails().get(0).getWallets().get(0).getCreatedOn()), constants.getValue(CommonConstants.NGPSB_DATE_PATTERN));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getWalletCreatedOn(),  createdOnDate, "Wallet Created On is same as Expected", "Wallet Created On is not same as Expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getWalletModifiedBy(), clmDetails.getResult().getDetails().get(0).getWallets().get(0).getModifiedBy(), "Wallet Modified By is same as Expected", "Wallet Modified By is not same as Expected"));
+            pages.getWalletInformation().hoverOnWalletCreated();
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getWalletCreatedBy(), clmDetails.getResult().getDetails().get(0).getWallets().get(0).getCreatedBy(), "Wallet Created By is same as Expected", "Wallet Created By is not same as Expected"));
             String modifiedOnDate = UtilsMethods.getDateFromEpoch(Long.parseLong(clmDetails.getResult().getDetails().get(0).getWallets().get(0).getModifiedOn()), constants.getValue(CommonConstants.NGPSB_DATE_PATTERN));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getWalletModifiedOn(), modifiedOnDate, "Wallet Modified On is same as Expected", "Wallet Modified On is not same as Expected"));
+            pages.getWalletInformation().hoverOnWalletModified();
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getWalletModifiedBy(), clmDetails.getResult().getDetails().get(0).getWallets().get(0).getModifiedBy(), "Wallet Modified By is same as Expected", "Wallet Modified By is not same as Expected"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getOnboardingChannel(), clmDetails.getResult().getDetails().get(0).getWallets().get(0).getChannel(), "Onboarding Channel is same as Expected", "Onboarding Channel is not same as Expected"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getWalletNubanId(), clmDetails.getResult().getDetails().get(0).getWallets().get(0).getId(), "Wallet Nuban id is same as Expected", "Account nuban id is not same as Expected"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getSecurityQuestionsSet(), clmDetails.getResult().getDetails().get(0).getWallets().get(0).getIsSecurityQuestionSet(), "Security Question Set is same as Expected", "Security Question Set is not same as Expected"));
@@ -106,7 +108,7 @@ public class WalletInformationTest extends Driver {
     @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
     public void testWalletsBalance() {
         try {
-            selUtils.addTestcaseDescription("Validate data of all the fields of Wallets tab", "description");
+            selUtils.addTestcaseDescription("Validate Wallets balance", "description");
             String nubanId = clmDetails.getResult().getDetails().get(0).getWallets().get(0).getId();
             String type = constants.getValue(ApplicationConstants.WALLET_TYPE);
             FetchBalanceResponse balance = api.getFetchBalance(customerNumber, nubanId, type);

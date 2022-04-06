@@ -36,7 +36,7 @@
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.ngpsb.DemoGraphicWidgetTest"/>
+            <class name="com.airtel.cs.ui.ngpsb.demographic.PsbDemoGraphicWidgetTest"/>
         </classes>
     </test>
     <test name="Account Information Test " preserve-order="true">
@@ -46,7 +46,7 @@
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.ngpsb.AccountInformationTest"/>
+            <class name="com.airtel.cs.ui.ngpsb.home.AccountInformationTest"/>
         </classes>
     </test>
     <test name="Wallet Information Test " preserve-order="true">
@@ -56,7 +56,7 @@
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.ngpsb.WalletInformationTest"/>
+            <class name="com.airtel.cs.ui.ngpsb.home.WalletInformationTest"/>
         </classes>
     </test>
     <test name="Transaction History Test " preserve-order="true">
@@ -66,7 +66,7 @@
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.ngpsb.SmartCashTransactionHistoryTest"/>
+            <class name="com.airtel.cs.ui.ngpsb.home.SmartCashTransactionHistoryTest"/>
         </classes>
     </test>
      <test name="Airtel Money Transaction Widget Test">

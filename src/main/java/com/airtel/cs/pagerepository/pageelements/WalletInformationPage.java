@@ -18,7 +18,8 @@ public class WalletInformationPage {
     public By frozenAmount=By.xpath("//td[contains(text(),'Frozen Amount')]//following-sibling::td");
     public By ficAmount=By.xpath("//td[contains(text(),'FIC Amount')]//following-sibling::td");
     public By balanceHoverIcon=By.xpath("//div[contains(@class,'data-smart')] //img[contains(@src,'message.svg')]");
-
+    public By walletCreatedInfoIcon=By.xpath("//span[contains(text(),'Wallet Created')]//following-sibling::span//img[contains(@src,'message.svg')]");
+    public By walletModifiedInfoIcon=By.xpath("//span[contains(text(),'Wallet Modified On')]//following-sibling::span//img[contains(@src,'message.svg')]");
 
     public By walletInformationWidget = By.xpath("//div[contains(@data-csautomation-key,'WALLET_INFORMATION')]");
     public  By walletWidgetHeader= By.xpath("//span[contains(text(),'Wallet Information')]");
