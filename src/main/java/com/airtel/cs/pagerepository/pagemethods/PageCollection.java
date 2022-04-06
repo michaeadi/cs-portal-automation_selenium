@@ -301,4 +301,7 @@ public class PageCollection {
 
     public KpiDashboard6MonthsTicketType getKpiDashboard6MonthsTicketType() { return new KpiDashboard6MonthsTicketType(driver);
     }
+
+    public KpiDashboardFeatureUsageOfActions getKpiDashboardFeatureUsageOfActions() { return new KpiDashboardFeatureUsageOfActions(driver);
+    }
 }
