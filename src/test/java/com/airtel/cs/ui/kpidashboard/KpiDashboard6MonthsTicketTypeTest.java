@@ -20,16 +20,16 @@ public class KpiDashboard6MonthsTicketTypeTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsTicketType().isNFTRIconVisible(), true, "NFTR Icon is visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsTicketType().isIssueTypeLabelVisible(), true, "Issue TypeL Label is visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsTicketType().isConnectionLabelVisible(), true, "Connection Label is visible"));
-
-
+            actions.assertAllFoundFailedAssert(assertCheck);
 
 
         } catch (Exception e) {
+            commonLib.fail("Exception in method - SixMonthsTicketType" + e.fillInStackTrace(), true);
 
         }
-        actions.assertAllFoundFailedAssert(assertCheck);
     }
-    @Test(priority = 1, groups = {"RegressionTest", "ProdTest"})
+
+    @Test(priority = 2, groups = {"RegressionTest", "ProdTest"})
     public void SixMonthsTicketTypeDetails() {
         try {
             selUtils.addTestcaseDescription("Six Months Ticket Type Details", "description");
@@ -41,11 +41,11 @@ public class KpiDashboard6MonthsTicketTypeTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsTicketType().isNFTRLabelVisible(), true, "NFTRLabel is visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsTicketType().isFTRPercentageLabelVisible(), true, "FTR %Label is visible"));
             pages.getKpiDashboard6MonthsTicketType().clickOnBackIcon();
-
+            actions.assertAllFoundFailedAssert(assertCheck);
 
         } catch (Exception e) {
-
+            commonLib.fail("Exception in method - SixMonthsTicketTypeDetails" + e.fillInStackTrace(), true);
         }
-        actions.assertAllFoundFailedAssert(assertCheck);
+
     }
 }

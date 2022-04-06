@@ -26,14 +26,15 @@ public class KpiDashboardTopPanelTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isBreachingWithin15MinsLabelVisible(), true, "Breaching With in 15 Mins Label is visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isBreachingWithin15To60MinsLabelVisible(), true, "Breaching With in 15 To 60 Mins Label is visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isBreachingGreaterThan60MinsLabelVisible(), true, "Breaching With in 60 Mins Label is visible"));
-
+            actions.assertAllFoundFailedAssert(assertCheck);
 
 
         } catch (Exception e) {
+            commonLib.fail("Exception in method - dashboardTopPanel" + e.fillInStackTrace(), true);
 
         }
-        actions.assertAllFoundFailedAssert(assertCheck);
     }
+
     @Test(priority = 2, groups = {"RegressionTest", "ProdTest"})
     public void dashboardTopPanelDetailsPage() {
         try {
@@ -49,15 +50,18 @@ public class KpiDashboardTopPanelTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isQueueLableVisible(), true, "Queue Label  is visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isSourceLabelVisible(), true, "Source Label is visible"));
             pages.getKpiDashboardTopPanel().clickOnBackIcon();
+            actions.assertAllFoundFailedAssert(assertCheck);
+
         } catch (Exception e) {
+            commonLib.fail("Exception in method - dashboardTopPanelDetailsPage" + e.fillInStackTrace(), true);
 
         }
-        actions.assertAllFoundFailedAssert(assertCheck);
     }
-            @Test(priority = 3, groups = {"RegressionTest", "ProdTest"})
-            public void dashboardOpenTicketsUnderSLADetails() {
-                try {
-                    selUtils.addTestcaseDescription(" Open Tickets Under SLA Details", "description");
+
+    @Test(priority = 3, groups = {"RegressionTest", "ProdTest"})
+    public void dashboardOpenTicketsUnderSLADetails() {
+        try {
+            selUtils.addTestcaseDescription(" Open Tickets Under SLA Details", "description");
 
             pages.getKpiDashboardTopPanel().clickOnOpenTicketsUnderSLALDetailsIcon();
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isDetailsOpenTicketsUnderSLALabelVisible(), true, "Details Open Tickets Under SLA Lable  is visible"));
@@ -69,11 +73,13 @@ public class KpiDashboardTopPanelTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isQueueLableVisible(), true, "Queue Label  is visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isSourceLabelVisible(), true, "Source Label is visible"));
             pages.getKpiDashboardTopPanel().clickOnBackIcon();
-                } catch (Exception e) {
+            actions.assertAllFoundFailedAssert(assertCheck);
 
-                }
-                actions.assertAllFoundFailedAssert(assertCheck);
-            }
+        } catch (Exception e) {
+            commonLib.fail("Exception in method - dashboardOpenTicketsUnderSLADetails" + e.fillInStackTrace(), true);
+
+        }
+    }
 
     @Test(priority = 4, groups = {"RegressionTest", "ProdTest"})
     public void dashboardBreachingWithin15MinsDetails() {
@@ -89,11 +95,14 @@ public class KpiDashboardTopPanelTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isQueueLableVisible(), true, "Queue Label  is visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isSourceLabelVisible(), true, "Source Label is visible"));
             pages.getKpiDashboardTopPanel().clickOnBackIcon();
+            actions.assertAllFoundFailedAssert(assertCheck);
+
         } catch (Exception e) {
+            commonLib.fail("Exception in method - dashboardBreachingWithin15MinsDetails" + e.fillInStackTrace(), true);
 
         }
-        actions.assertAllFoundFailedAssert(assertCheck);
     }
+
     @Test(priority = 5, groups = {"RegressionTest", "ProdTest"})
     public void dashboardBreachingWithin15To60MinsDetails() {
         try {
@@ -109,12 +118,15 @@ public class KpiDashboardTopPanelTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isQueueLableVisible(), true, "Queue Label  is visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isSourceLabelVisible(), true, "Source Label is visible"));
             pages.getKpiDashboardTopPanel().clickOnBackIcon();
+            actions.assertAllFoundFailedAssert(assertCheck);
+
 
         } catch (Exception e) {
+            commonLib.fail("Exception in method - dashboardBreachingWithin15To60MinsDetails" + e.fillInStackTrace(), true);
 
         }
-        actions.assertAllFoundFailedAssert(assertCheck);
     }
+
     @Test(priority = 6, groups = {"RegressionTest", "ProdTest"})
     public void dashboardBreachingGreaterThan60MinsDetails() {
         try {
@@ -129,13 +141,12 @@ public class KpiDashboardTopPanelTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isQueueLableVisible(), true, "Queue Label  is visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardTopPanel().isSourceLabelVisible(), true, "Source Label is visible"));
             pages.getKpiDashboardTopPanel().clickOnBackIcon();
-
-
+            actions.assertAllFoundFailedAssert(assertCheck);
 
 
         } catch (Exception e) {
+            commonLib.fail("Exception in method - dashboardBreachingGreaterThan60MinsDetails" + e.fillInStackTrace(), true);
 
         }
-        actions.assertAllFoundFailedAssert(assertCheck);
     }
 }

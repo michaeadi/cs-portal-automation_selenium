@@ -23,11 +23,12 @@ public class KpiDashboard6MonthsOverviewPageTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isQueueTypeDropDownVisible(), true, "Queue Type Drop Down "));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isIssueTypeDropDownVisible(), true, "Issue Type Drop Down "));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isIssueSubTypeDropDownVisible(), true, "Issue Sub Type Drop Down "));
+            actions.assertAllFoundFailedAssert(assertCheck);
 
         } catch (Exception e) {
+            commonLib.fail("Exception in method - dashboardServiceLevelTrend" + e.fillInStackTrace(), true);
 
         }
-        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     @Test(priority = 2, groups = {"RegressionTest", "ProdTest"})
@@ -49,12 +50,13 @@ public class KpiDashboard6MonthsOverviewPageTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isMonthLabelVisible(), true, "Month Label Visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isMonthSelectionBoxVisible(), true, "Month Selection Box Visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isDownloadReportIconVisible(), true, "Download Report Icon Visible"));
+            actions.assertAllFoundFailedAssert(assertCheck);
 
 
         } catch (Exception e) {
+            commonLib.fail("Exception in method - dashboardSlaPerformanceDetailsQueueWise" + e.fillInStackTrace(), true);
 
         }
-        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     @Test(priority = 4, groups = {"RegressionTest", "ProdTest"})
@@ -71,11 +73,12 @@ public class KpiDashboard6MonthsOverviewPageTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isTicketClosedWithinSLALabelVisible(), true, "Ticket Closed Within SLA Label Visible "));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isSLAPercentageLabelVisible(), true, "SLA Percentage Label Visible "));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isDaywiseLabelVisible(), true, "Daywise Label Visible "));
+            actions.assertAllFoundFailedAssert(assertCheck);
 
         } catch (Exception e) {
+            commonLib.fail("Exception in method - dashboardSLAPerformanceDetailsIssueTypeWise" + e.fillInStackTrace(), true);
 
         }
-        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     @Test(priority = 5, groups = {"RegressionTest", "ProdTest"})
@@ -94,12 +97,13 @@ public class KpiDashboard6MonthsOverviewPageTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isSLAPercentageLabelVisible(), true, "SLA Percentage Label Visible "));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isDaywiseLabelVisible(), true, "Daywise Label Visible "));
             pages.getKpiDashboard6MonthsOverview().clickOnBackIcon();
+            actions.assertAllFoundFailedAssert(assertCheck);
 
 
         } catch (Exception e) {
+            commonLib.fail("Exception in method - dayWiseInSlaPerformanceDetailsQueueWise" + e.fillInStackTrace(), true);
 
         }
-        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     @Test(priority = 6, groups = {"RegressionTest", "ProdTest"})
@@ -118,12 +122,13 @@ public class KpiDashboard6MonthsOverviewPageTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isSLAPercentageLabelVisible(), true, "SLA Percentage Label Visible "));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isDaywiseLabelVisible(), true, "Daywise Label Visible "));
             pages.getKpiDashboard6MonthsOverview().clickOnBackIcon();
+            actions.assertAllFoundFailedAssert(assertCheck);
 
 
         } catch (Exception e) {
+            commonLib.fail("Exception in method - dayWiseInSlaPerformanceDetailsIssueType" + e.fillInStackTrace(), true);
 
         }
-        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     @Test(priority = 7, groups = {"RegressionTest", "ProdTest"})
@@ -143,12 +148,13 @@ public class KpiDashboard6MonthsOverviewPageTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isTicketClosedWithinSLALabelVisible(), true, "Ticket Closed Within SLA Label Visible "));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isSLAPercentageLabelVisible(), true, "SLA Percentage Label Visible "));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isDaywiseLabelVisible(), true, "Daywise Label Visible "));
+            actions.assertAllFoundFailedAssert(assertCheck);
 
 
         } catch (Exception e) {
+            commonLib.fail("Exception in method - AgentPerformanceDetails" + e.fillInStackTrace(), true);
 
         }
-        actions.assertAllFoundFailedAssert(assertCheck);
     }
 
     @Test(priority = 8, groups = {"RegressionTest", "ProdTest"})
@@ -170,12 +176,12 @@ public class KpiDashboard6MonthsOverviewPageTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboard6MonthsOverview().isSLAPercentageLabelVisible(), true, "SLA Percentage Label Visible "));
             pages.getKpiDashboard6MonthsOverview().clickOnBackIcon();
             pages.getKpiDashboard6MonthsOverview().clickOnBackIcon();
-
+            actions.assertAllFoundFailedAssert(assertCheck);
 
         } catch (Exception e) {
+            commonLib.fail("Exception in method - DayWiseAgentPerformanceDetails" + e.fillInStackTrace(), true);
 
         }
-        actions.assertAllFoundFailedAssert(assertCheck);
     }
 }
 

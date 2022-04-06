@@ -29,12 +29,14 @@ public class KpiDashboardOpenTicketAgeingTest extends BasePage {
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardOpenTicketAgeing().isIssueTypeLabelVisible(), true, "Issue Type"));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardOpenTicketAgeing().isIssueSubTypeLabelVisible(), true, "Issue Sub Type"));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardOpenTicketAgeing().isDownLoadIconlVisible(), true, "Download Icon "));
+            actions.assertAllFoundFailedAssert(assertCheck);
 
         } catch (Exception e) {
+            commonLib.fail("Exception in method - dashboardOpenTicketAgeing" + e.fillInStackTrace(), true);
 
         }
-        actions.assertAllFoundFailedAssert(assertCheck);
     }
+
     @Test(priority = 2, groups = {"RegressionTest", "ProdTest"})
     public void dashboardSlaBreachTicketAgeingIssueTypeQueue() {
         try {
@@ -49,13 +51,15 @@ public class KpiDashboardOpenTicketAgeingTest extends BasePage {
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardOpenTicketAgeing().isTenToThrityDaysLabellVisible(), true, "Ten To Thrity Label "));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardOpenTicketAgeing().isBeyond30DaysDaysLabellVisible(), true, "Beyond 30 Days Days Label "));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardOpenTicketAgeing().isDownLoadIconlVisible(), true, "Download Icon "));
+            actions.assertAllFoundFailedAssert(assertCheck);
 
 
         } catch (Exception e) {
+            commonLib.fail("Exception in method - dashboardSlaBreachTicketAgeingIssueTypeQueue" + e.fillInStackTrace(), true);
 
         }
-        actions.assertAllFoundFailedAssert(assertCheck);
     }
+
     @Test(priority = 3, groups = {"RegressionTest", "ProdTest"})
     public void dashboardSlaBreachTicketAgeingNGAgent() {
         try {
@@ -71,11 +75,12 @@ public class KpiDashboardOpenTicketAgeingTest extends BasePage {
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardOpenTicketAgeing().isBeyond30DaysDaysLabellVisible(), true, "Beyond 30 Days Days Label "));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardOpenTicketAgeing().isDownLoadIconlVisible(), true, "Download Icon "));
             pages.getKpiDashboardOpenTicketAgeing().clickOnBackIcon();
+            actions.assertAllFoundFailedAssert(assertCheck);
 
 
         } catch (Exception e) {
+            commonLib.fail("Exception in method - dashboardSlaBreachTicketAgeingNGAgent" + e.fillInStackTrace(), true);
 
         }
-        actions.assertAllFoundFailedAssert(assertCheck);
     }
 }
