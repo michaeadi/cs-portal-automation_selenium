@@ -37,6 +37,7 @@ public class DemographicWidgetPage {
     public  By addressHeader= By.xpath("//span[contains(text(),'Address')]");
     public  By isUserAgentHeader= By.xpath("//span[contains(text(),'Agent')]");
     public  By customerCategoryHeader= By.xpath("//span[contains(text(),'Customer Category')]");
+    public  By customerIdInfoIcon= By.xpath("//*[@class='summary-table horizontal-table ng-star-inserted']");
     public  By pinResetHeader= By.xpath("//span[contains(text(),'Pin Reset')]");
     public  By pinSetHeader= By.xpath("//span[contains(text(),'Pin Set')]");
     public  By customerIDHeader= By.xpath("//span[contains(text(),'Customer ID')]");
@@ -77,4 +78,7 @@ Values Locators
     public  By customerType= By.xpath("//td[contains(text(),'Customer Type')]//following-sibling::td//span");
     public  By primaryIdNumber= By.xpath("//td[contains(text(),'Primary ID Number')]//following-sibling::td//span");
     public  By secondaryIdNumber= By.xpath("//td[contains(text(),'Secondary ID Number')]//following-sibling::td//span");
+    public  By FirstName= By.xpath("//th[contains(text(),'First Name')]");
+    public  By LastName= By.xpath("//th[contains(text(),'Last Name')]");
+    public  By MSISDN= By.xpath("//th[contains(text(),'MSISDN");
 }
