@@ -95,7 +95,10 @@ public class DemographicWidget extends BasePage{
         commonLib.info("Is Customer Category Header visible : " + status);
         return status;
     }
-
+    /**
+     * This method is used to check Customer Id is visible or not
+     * @return
+     */
     public boolean isCustomerIdInfoIconVisible(){
         boolean status = isElementVisible(pageElements.customerIdInfoIcon);
         commonLib.info("Is Customer ID Hover visible : " + status);
