@@ -154,6 +154,10 @@ public class DemoGraphicWidgetTest extends Driver {
             selUtils.addTestcaseDescription("Validate Customer Id, Validate Customer Category", "description");
             assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isCustomerIdHeaderVisible(), true, "Customer Id header is visible", "Email Id header is NOT visible"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getCustomerId(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getEmailId()), "Customer Id is same as Expected", "Customer Id is not same as Expected"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isCustomerIdInfoIconVisible(),true, "Customer Id Icon is visible", "Customer Id is NOT visible"));
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getFirstName(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getFirstName()),"Customer FirstName is as Expected", "Customer FirstName is not same as Expected"));
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getLastName(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getLastName()),"Customer LastName is as Expected", "Customer LastName is not same as Expected"));
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getMSISDN(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getMSISDN()),"Customer MSISDN is as Expected", "Customer MSISDN is not same as Expected"));
             assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isCustomerCategoryHeaderVisible(), true, "Customer Category header is visible", "Customer Category  header is NOT visible"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getCustomerCategory(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getEmailId()), "Customer Category  is same as Expected", "Customer Category  is not same as Expected"));
             actions.assertAllFoundFailedAssert(assertCheck);

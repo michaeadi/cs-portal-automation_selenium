@@ -95,6 +95,15 @@ public class DemographicWidget extends BasePage{
         commonLib.info("Is Customer Category Header visible : " + status);
         return status;
     }
+    /**
+     * This method is used to check Customer Id is visible or not
+     * @return
+     */
+    public boolean isCustomerIdInfoIconVisible(){
+        boolean status = isElementVisible(pageElements.customerIdInfoIcon);
+        commonLib.info("Is Customer ID Hover visible : " + status);
+        return status;
+    }
 
 
     /**
@@ -407,6 +416,36 @@ public class DemographicWidget extends BasePage{
     public String getCustomerType() {
         final String text = getText(pageElements.customerType);
         commonLib.info("Getting Customer Type: " + text);
+        return text;
+    }
+
+    /**
+     * This method is used to get Customer FirstName
+     * @return
+     */
+    public String getFirstName() {
+        final String text = getText(pageElements.FirstName);
+        commonLib.info("Getting Customer Type: " + text);
+        return text;
+    }
+
+    /**
+     * This method is used to get Customer LastName
+     * @return
+     */
+    public String getLastName() {
+        final String text = getText(pageElements.LastName);
+        commonLib.info("Getting Customer LastName: " + text);
+        return text;
+    }
+
+    /**
+     * This method is used to get Customer MSISDN
+     * @return
+     */
+    public String getMSISDN() {
+        final String text = getText(pageElements.MSISDN);
+        commonLib.info("Getting Customer MSISDN " + text);
         return text;
     }
 
