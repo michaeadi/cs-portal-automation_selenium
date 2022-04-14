@@ -69,6 +69,26 @@
             <class name="com.airtel.cs.ui.ngpsb.home.SmartCashTransactionHistoryTest"/>
         </classes>
     </test>
+    <test name="Pin Reset Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.ngpsb.demographic.PinResetTest"/>
+        </classes>
+    </test>
+    <test name="Bar Unbar Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.ngpsb.demographic.BarUnBarTest"/>
+        </classes>
+    </test>
     <test name="Validate Action Trail Tab Test">
         <groups>
             <run>

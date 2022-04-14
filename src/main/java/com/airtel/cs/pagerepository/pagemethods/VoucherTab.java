@@ -229,4 +229,104 @@ public class VoucherTab extends BasePage {
         commonLib.info("Clicking done button");
         clickAndWaitForLoaderToBeRemoved(pageElements.doneBtn);
     }
+
+    /**
+     * This method is used to go to Action Trail tab
+     */
+    public void goToActionTrail() {
+        commonLib.info("Going to click Action Trail tab");
+        pages.getVoucherTab().clickHomeTab();
+        pages.getVoucherTab().clickViewHistoryTab();
+        pages.getVoucherTab().clickActionTrailTab();
+    }
+
+    /**
+     * This will will route you to action trail's meta info
+     */
+    public void clickingOnDropDown() {
+        clickAndWaitForLoaderToBeRemoved(pageElements.actionTrailLatestDropdown);
+    }
+
+
+    /**
+     * This method is used to get action type form action train
+     * @return
+     */
+    public String getActionType() {
+        commonLib.info(getText(pageElements.actionType));
+        return getText(pageElements.actionType);
+    }
+
+    /**
+     * This method is used to get reason form action train
+     * @return
+     */
+    public String getReason() {
+        commonLib.info(getText(pageElements.reason));
+        return getText(pageElements.reason);
+    }
+
+    /**
+     * This method is used to get comment form action train
+     * @return
+     */
+    public String getComment() {
+        commonLib.info(getText(pageElements.comment));
+        return getText(pageElements.comment);
+    }
+
+    /**
+     * This method route and click Home Tab of Customer Dashboard Page
+     */
+    public void clickHomeTab() {
+        commonLib.info("Going to click Home tab");
+        clickAndWaitForLoaderToBeRemoved(pageElements.homePage);
+    }
+
+    /**
+     * This method will route and click view history
+     */
+    public void clickViewHistoryTab() {
+        commonLib.info("Going to click View History tab");
+        clickAndWaitForLoaderToBeRemoved(pageElements.viewHistory);
+    }
+
+    /**
+     * This method will route and click action trail
+     */
+    public void clickActionTrailTab() {
+        commonLib.info("Going to click Action Trail tab");
+        clickAndWaitForLoaderToBeRemoved(pageElements.actionTrail);
+    }
+
+    /**
+     * This method is used to get Recharge amount from action trail drop down
+     *
+     * @return
+     */
+    public String getRechargeAmount() {
+        commonLib.info(getText(pageElements.rechargeAmount));
+        return getText(pageElements.rechargeAmount);
+    }
+
+    /**
+     * This method is used to get Recharge Msisdn from action trail drop down
+     *
+     * @return
+     */
+    public String getRechargeMsisdn() {
+        commonLib.info(getText(pageElements.rechargedMsisdn));
+        return getText(pageElements.rechargedMsisdn);
+    }
+
+    /**
+     * This method is used to get Voucher Number from action trail drop down
+     *
+     * @return
+     */
+    public String getVoucherNumber() {
+        commonLib.info(getText(pageElements.voucherNumber));
+        return getText(pageElements.voucherNumber);
+    }
+
 }

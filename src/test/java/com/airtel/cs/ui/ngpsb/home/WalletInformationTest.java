@@ -60,7 +60,7 @@ public class WalletInformationTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 2, groups = {"SanityTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testWalletInformationWidget() {
         try {
             selUtils.addTestcaseDescription("Validate Wallet Information widget", "description");
@@ -76,17 +76,17 @@ public class WalletInformationTest extends Driver {
         }
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 3, groups = {"SanityTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testWalletInformationWidgetData() {
         try {
             selUtils.addTestcaseDescription("Validate Account Information widget data", "description");
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getWalletStatus(), clmDetails.getResult().getDetails().get(0).getWallets().get(0).getStatus(), "Wallet status is same as Expected", "Wallet status  is not same as Expected"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getWalletCategory(), clmDetails.getResult().getDetails().get(0).getWallets().get(0).getCategory(), "Wallet status is same as Expected", "Wallet status  is not same as Expected"));
-            String createdOnDate = UtilsMethods.getDateFromEpoch(Long.parseLong(clmDetails.getResult().getDetails().get(0).getWallets().get(0).getCreatedOn()), constants.getValue(CommonConstants.NGPSB_DATE_PATTERN));
+            String createdOnDate = UtilsMethods.getDateFromEpoch(Long.parseLong(clmDetails.getResult().getDetails().get(0).getWallets().get(0).getCreatedOn()), constants.getValue(CommonConstants.NGPSB_WALLET_CREATED_DATE_PATTERN));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getWalletCreatedOn(),  createdOnDate, "Wallet Created On is same as Expected", "Wallet Created On is not same as Expected"));
             pages.getWalletInformation().hoverOnWalletCreated();
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getWalletCreatedBy(), clmDetails.getResult().getDetails().get(0).getWallets().get(0).getCreatedBy(), "Wallet Created By is same as Expected", "Wallet Created By is not same as Expected"));
-            String modifiedOnDate = UtilsMethods.getDateFromEpoch(Long.parseLong(clmDetails.getResult().getDetails().get(0).getWallets().get(0).getModifiedOn()), constants.getValue(CommonConstants.NGPSB_DATE_PATTERN));
+            String modifiedOnDate = UtilsMethods.getDateFromEpoch(Long.parseLong(clmDetails.getResult().getDetails().get(0).getWallets().get(0).getModifiedOn()), constants.getValue(CommonConstants.NGPSB_WALLET_CREATED_DATE_PATTERN));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getWalletModifiedOn(), modifiedOnDate, "Wallet Modified On is same as Expected", "Wallet Modified On is not same as Expected"));
             pages.getWalletInformation().hoverOnWalletModified();
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getWalletModifiedBy(), clmDetails.getResult().getDetails().get(0).getWallets().get(0).getModifiedBy(), "Wallet Modified By is same as Expected", "Wallet Modified By is not same as Expected"));
@@ -105,7 +105,7 @@ public class WalletInformationTest extends Driver {
     /**
      * This method is used to check Wallets balance
      */
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 4, groups = {"SanityTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
     public void testWalletsBalance() {
         try {
             selUtils.addTestcaseDescription("Validate Wallets balance", "description");
@@ -126,7 +126,7 @@ public class WalletInformationTest extends Driver {
     /**
      * This method is used to check Wallets data
      */
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 5, groups = {"SanityTest", "ProdTest", "SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
     public void testWalletsTab() {
         try {
             selUtils.addTestcaseDescription("Validate data of all the fields of Wallets tab", "description");
@@ -159,7 +159,7 @@ public class WalletInformationTest extends Driver {
     }
 
 
-    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 6, groups = {"SanityTest","ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testSMSLogsTab() {
         try {
             selUtils.addTestcaseDescription("Validate Wallets tab data", "description");

@@ -587,5 +587,14 @@ public class PsbDemographicWidget extends BasePage{
         return pageLoaded;
     }
 
+    /**
+     * This method is used to check smart cash logo visible or not
+     * @return
+     */
+    public boolean isSmartCashLogoVisible() {
+        boolean status = isElementVisible(pageElements.smartCashLogo);
+        commonLib.info("Is Smart Cash Logo visible : " + status);
+        return status;
+    }
 }
 

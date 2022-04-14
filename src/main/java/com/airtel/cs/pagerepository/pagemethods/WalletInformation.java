@@ -234,7 +234,7 @@ import org.openqa.selenium.support.PageFactory;
          * This method is use to hover on Wallet Created info icon
          */
         public void hoverOnWalletCreated() {
-            commonLib.info("Hover on Balance Info icon");
+            commonLib.info("Hover on Wallet Created Info icon");
             hoverOverElement(pageElements.walletCreatedInfoIcon);
         }
 
@@ -242,7 +242,7 @@ import org.openqa.selenium.support.PageFactory;
          * This method is use to hover on Wallet Modified info icon
          */
         public void hoverOnWalletModified() {
-            commonLib.info("Hover on Balance Info icon");
+            commonLib.info("Hover on Wallet Modified Info icon");
             hoverOverElement(pageElements.walletModifiedInfoIcon);
         }
 

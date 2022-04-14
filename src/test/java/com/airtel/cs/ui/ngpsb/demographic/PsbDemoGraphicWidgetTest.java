@@ -58,6 +58,7 @@ public class PsbDemoGraphicWidgetTest extends Driver {
             selUtils.addTestcaseDescription("Validate Customer Name, Validate ", "description");
             assertCheck.append(actions.assertEqualStringType(pages.getDemographicWidget().getMiddleAuuid(), loginAUUID, "Auuid is visible at the middle of the Demo Graphic Widget and is correct", "Auuid is NOT visible at the middle of the Demo Graphic Widget"));
             assertCheck.append(actions.assertEqualStringType(pages.getDemographicWidget().getFooterAuuid(), loginAUUID, "Auuid is visible at the footer of the Demo Graphic Widget and is correct", "Auuid is NOT visible at the footer of the Demo Graphic Widget"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isSmartCashLogoVisible(), true, "Smart Cash Logo is visible", "Smart Cash Logo is NOT visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isCustomerNameHeaderVisible(), true, "Customer Name header is visible", "Customer Name header is NOT visible"));
             final String customerName = pages.getDemographicWidget().getCustomerName();
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getCustomerName(), clmDetails.getResult().getFirstName() + space + clmDetails.getResult().getLastName(), "Customer Name is as Expected", "Customer Name is not as Expected"));

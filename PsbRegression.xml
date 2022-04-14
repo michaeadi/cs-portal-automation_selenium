@@ -12,7 +12,7 @@
     <test name="Test Login Into Portal With FA">
         <groups>
             <run>
-                <include name="SanityTest"/>
+                <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>
@@ -22,7 +22,7 @@
     <test name="Test Side Menu Options">
         <groups>
             <run>
-                <include name="SanityTest"/>
+                <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>
@@ -32,7 +32,7 @@
     <test name="Demo Graphic Widget Test " preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>
@@ -42,7 +42,7 @@
     <test name="Account Information Test " preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>
@@ -52,7 +52,7 @@
     <test name="Wallet Information Test " preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>
@@ -62,11 +62,31 @@
     <test name="Transaction History Test " preserve-order="true">
         <groups>
             <run>
-                <include name="ProdTest"/>
+                <include name="RegressionTest"/>
             </run>
         </groups>
         <classes>
             <class name="com.airtel.cs.ui.ngpsb.home.SmartCashTransactionHistoryTest"/>
+        </classes>
+    </test>
+    <test name="Pin Reset Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.ngpsb.demographic.PinResetTest"/>
+        </classes>
+    </test>-->
+    <test name="Bar Unbar Test" preserve-order="true">
+        <groups>
+            <run>
+                <include name="RegressionTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.ngpsb.demographic.BarUnBarTest"/>
         </classes>
     </test>
      <test name="Airtel Money Transaction Widget Test">

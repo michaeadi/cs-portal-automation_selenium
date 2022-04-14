@@ -78,7 +78,7 @@ public class AdjustmentHistoryTest extends Driver {
             final int statusCode = adjustmentHistory.getStatusCode();
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Adjustment History API success and status code is :" + statusCode, "Adjustment History API got failed and status code is :" + statusCode, false, true));
             if (statusCode == 200) {
-                int size = Math.min(adjustmentHistory.getTotalCount(), 10);
+                int size = Math.min(adjustmentHistory.getTotalCount(), 5);
                 for (int i = 0; i < size; i++) {
                     AdjustmentResult result = adjustmentHistory.getResult().get(i);
                     assertCheck.append(actions.assertEqualStringType(pages.getAdjustmentHistoryPage().getValue(i + 1, 1).toLowerCase().trim(), result.getDate().toLowerCase().trim(), "Date & Time value displayed as expected", "Date & Time value does not display as expected"));

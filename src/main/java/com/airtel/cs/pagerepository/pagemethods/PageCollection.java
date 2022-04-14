@@ -281,4 +281,11 @@ public class PageCollection {
         return new SmartCashTransactionHistory(driver);
     }
 
+    public PinReset getPinReset() {
+        return new PinReset(driver);
+    }
+
+    public BarUnbar getBarUnbar() {
+        return new BarUnbar(driver);
+    }
 }

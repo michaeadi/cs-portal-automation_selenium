@@ -16,6 +16,7 @@ import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import static com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants.COMMENT;
 import static com.airtel.cs.commonutils.utils.UtilsMethods.stringNotNull;
 
 public class VoucherTabTest extends Driver {
@@ -23,6 +24,9 @@ public class VoucherTabTest extends Driver {
     private final BaseActions actions = new BaseActions();
     RequestSource api = new RequestSource();
     ObjectMapper mapper = new ObjectMapper();
+     String customerNumber=null;
+    String voucherId=null;
+    VoucherDetail voucherDetail;
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
     public void checkExecution() {
@@ -39,7 +43,7 @@ public class VoucherTabTest extends Driver {
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
-            final String customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
+            customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_MSISDN);
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().clickOnUserName();
             pages.getSideMenuPage().openCustomerInteractionPage();
@@ -64,12 +68,12 @@ public class VoucherTabTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validate Voucher Search Test", "description");
             DataProviders data = new DataProviders();
-            String voucherId = data.getVoucherId();
+            voucherId = data.getVoucherId();
             if (voucherId != null && !voucherId.equals(" ")) {
                 pages.getRechargeHistoryWidget().writeVoucherId(voucherId);
                 pages.getRechargeHistoryWidget().clickSearchBtn();
                 VoucherSearch voucher = api.voucherSearchTest(voucherId);
-                VoucherDetail voucherDetail = voucher.getResult();
+                 voucherDetail = voucher.getResult();
                 assertCheck.append(actions.assertEqualBoolean(pages.getVoucherTab().isVoucherTabOpen(), !stringNotNull(voucher.getApiErrors().getVoucherDetail()).equalsIgnoreCase(constants.getValue("cs.voucher.detail.api.error")), "Voucher Id does found", "Voucher Id does not found but pop up display", true));
                 if (voucher.getStatusCode() == 200) {
                     assertCheck.append(actions.matchUiAndAPIResponse(pages.getVoucherTab().getSerialValue(), voucherDetail.getVoucherId(), "Voucher Serial number is same as search voucher id", "Voucher Serial number is not same as search voucher id"));
@@ -127,5 +131,23 @@ public class VoucherTabTest extends Driver {
             commonLib.fail(constants.getValue("cs.portal.test.fail") + " oscVoucherRechargeTest " + e.fillInStackTrace(), true);
         }
         actions.assertAllFoundFailedAssert(assertCheck);
+    }
+
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction","oscVoucherRechargeTest"})
+    public void checkActionTrail() {
+        try {
+            selUtils.addTestcaseDescription("Validating entry should be captured in Action Trail after performing OSC Recharge", "description");
+            pages.getVoucherTab().goToActionTrail();
+            assertCheck.append(actions.assertEqualStringType(pages.getVoucherTab().getActionType(), "OSC Recharge", "Action type for OSC Recharge is expected", "Action type for OSC Recharge is not as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getVoucherTab().getReason(), "Customer Request", "Reason for OSC Recharge is expected", "Reason for OSC Recharge is not as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getVoucherTab().getComment(), COMMENT, "Comment for OSC Recharge is expected", "Comment for OSC Recharge is not as expected"));
+            pages.getVoucherTab().clickingOnDropDown();
+            assertCheck.append(actions.assertEqualStringType(pages.getVoucherTab().getRechargeAmount().trim(), voucherDetail.getRechargeAmount(), "Recharge Amount rendered as expected in action trail's meta info", "Recharge Amount NOT rendered as expected in action trail's meta info"));
+            assertCheck.append(actions.assertEqualStringType(pages.getVoucherTab().getRechargeMsisdn().trim(), customerNumber, "Recharged Msisdn rendered as expected in action trail's meta info", "Recharged Msisdn rendered as expected in action trail's meta info"));
+            assertCheck.append(actions.assertEqualStringType(pages.getVoucherTab().getVoucherNumber().trim(), voucherId, "Voucher Number rendered as expected in action trail's meta info", "Voucher Number rendered as expected in action trail's meta info"));
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - checkActionTrail" + e.fillInStackTrace(), true);
+        }
     }
 }
