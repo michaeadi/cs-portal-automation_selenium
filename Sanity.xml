@@ -9,7 +9,7 @@
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginAPITest"/>
         </classes>
     </test>
-    <test name="Test Login Into Portal With FA">
+    <!--<test name="Test Login Into Portal With FA">
         <groups>
             <run>
                 <include name="SanityTest"/>
@@ -19,7 +19,7 @@
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginPortalTests"/>
         </classes>
     </test>
-    <!--<test name="Test Side Menu Options">
+    <test name="Test Side Menu Options">
         <groups>
             <run>
                 <include name="SanityTest"/>
@@ -108,7 +108,7 @@
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.am.AmTcpLimitsTest"/>
         </classes>
-    </test>-->
+    </test>
     <test name="Airtel Money SMS Trails Test">
         <groups>
             <run>
@@ -498,7 +498,7 @@
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.ClearRefillErrorTest"/>
         </classes>
-    </test>-->
+    </test>
     <test name="Loan Widget Test">
         <groups>
             <run>
@@ -891,7 +891,7 @@
         </classes>
     </test>
 
-    <!--Enterprise test cases starts from here-->
+
     <test name="Test Login Into Portal With Enterprise">
         <groups>
             <run>
@@ -993,5 +993,5 @@
         <classes>
             <class name="com.airtel.cs.api.openapi.OpenApiWithSelfCareTokenTest"/>
         </classes>
-    </test>
+    </test>-->
 </suite>
