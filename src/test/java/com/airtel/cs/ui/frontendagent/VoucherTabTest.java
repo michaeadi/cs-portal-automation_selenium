@@ -15,8 +15,6 @@ import io.restassured.response.Response;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import static com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants.COMMENT;
 import static com.airtel.cs.commonutils.utils.UtilsMethods.stringNotNull;
 
 public class VoucherTabTest extends Driver {
@@ -24,8 +22,7 @@ public class VoucherTabTest extends Driver {
     private final BaseActions actions = new BaseActions();
     RequestSource api = new RequestSource();
     ObjectMapper mapper = new ObjectMapper();
-     String customerNumber=null;
-    String voucherId=null;
+     String customerNumber,voucherId=null;
     VoucherDetail voucherDetail;
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest"})
@@ -140,7 +137,7 @@ public class VoucherTabTest extends Driver {
             pages.getVoucherTab().goToActionTrail();
             assertCheck.append(actions.assertEqualStringType(pages.getVoucherTab().getActionType(), "OSC Recharge", "Action type for OSC Recharge is expected", "Action type for OSC Recharge is not as expected"));
             assertCheck.append(actions.assertEqualStringType(pages.getVoucherTab().getReason(), "Customer Request", "Reason for OSC Recharge is expected", "Reason for OSC Recharge is not as expected"));
-            assertCheck.append(actions.assertEqualStringType(pages.getVoucherTab().getComment(), COMMENT, "Comment for OSC Recharge is expected", "Comment for OSC Recharge is not as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getVoucherTab().getComment(), constants.getValue(ApplicationConstants.COMMENT), "Comment for OSC Recharge is expected", "Comment for OSC Recharge is not as expected"));
             pages.getVoucherTab().clickingOnDropDown();
             assertCheck.append(actions.assertEqualStringType(pages.getVoucherTab().getRechargeAmount().trim(), voucherDetail.getRechargeAmount(), "Recharge Amount rendered as expected in action trail's meta info", "Recharge Amount NOT rendered as expected in action trail's meta info"));
             assertCheck.append(actions.assertEqualStringType(pages.getVoucherTab().getRechargeMsisdn().trim(), customerNumber, "Recharged Msisdn rendered as expected in action trail's meta info", "Recharged Msisdn rendered as expected in action trail's meta info"));

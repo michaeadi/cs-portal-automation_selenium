@@ -249,7 +249,7 @@ public class VoucherTab extends BasePage {
 
 
     /**
-     * This method is used to get action type form action train
+     * This method is used to get action type form action trail
      * @return
      */
     public String getActionType() {
@@ -258,7 +258,7 @@ public class VoucherTab extends BasePage {
     }
 
     /**
-     * This method is used to get reason form action train
+     * This method is used to get reason form action trail
      * @return
      */
     public String getReason() {
@@ -267,7 +267,7 @@ public class VoucherTab extends BasePage {
     }
 
     /**
-     * This method is used to get comment form action train
+     * This method is used to get comment form action trail
      * @return
      */
     public String getComment() {

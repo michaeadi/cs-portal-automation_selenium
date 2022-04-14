@@ -8,8 +8,6 @@ import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import static com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants.COMMENT;
-
 public class PinResetTest extends Driver {
     private static String customerNumber = null;
     PsbRequestSource api = new PsbRequestSource();
@@ -60,7 +58,7 @@ public class PinResetTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isCommentBoxVisible(), true, "Comment box is visible", "Comment box is NOT visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isSubmitBtnDisabled(), false, "Submit button is disabled", "Submit button is not disabled"));
             assertCheck.append(actions.assertEqualBoolean(pages.getPinReset().isCancelButtonVisible(), true, "Cancel Button is visible ", "Cancel Button is NOT visible"));
-            pages.getPinReset().enterComment(COMMENT);
+            pages.getPinReset().enterComment(constants.getValue(ApplicationConstants.COMMENT));
             pages.getPinReset().clickOnCancelButton();
             /**
              Performing operations after clicking Cancel button of Issue Detail Pop up
@@ -86,7 +84,7 @@ public class PinResetTest extends Driver {
             pages.getPinReset().goToActionTrail();
             assertCheck.append(actions.assertEqualStringType(pages.getPinReset().getActionType(), "SmartCash PIN Reset", "Action type for pin reset is expected", "Action type for pin reset is not as expected"));
             assertCheck.append(actions.assertEqualStringType(pages.getPinReset().getReason(), "Customer Forgot PIN", "Reason for pin reset is expected", "Reason for pin reset is not as expected"));
-            assertCheck.append(actions.assertEqualStringType(pages.getPinReset().getComment(), COMMENT, "Comment for pin reset is expected", "Comment for pin reset is not as expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getPinReset().getComment(), constants.getValue(ApplicationConstants.COMMENT), "Comment for pin reset is expected", "Comment for pin reset is not as expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - checkActionTrail" + e.fillInStackTrace(), true);
