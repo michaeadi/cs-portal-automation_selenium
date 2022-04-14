@@ -1,7 +1,9 @@
-package com.airtel.cs.ui.ngpsb;
+package com.airtel.cs.ui.ngpsb.home;
 
 import com.airtel.cs.api.PsbRequestSource;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
+import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
+import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.model.cs.response.am.SmsLogsResponse;
 import com.airtel.cs.model.cs.response.psb.cs.bankdetails.BankDetailsResponse;
@@ -26,16 +28,25 @@ public class AccountInformationTest extends Driver {
         }
     }
 
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    public void checkAccountsSize() {
+        customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_TIER1_MSISDN);
+        clmDetails = api.getCLMDetails(customerNumber);
+        if (clmDetails.getResult().getDetails().get(0).getAccounts().size() == 0)
+        {
+            commonLib.skip("Skipping because there are no accounts linked with the msisdn ");
+            throw new SkipException("Skipping because this feature is not applicable when there are no accounts linked with the msisdn");
+        }
+    }
+
     @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
-            customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_TIER1_MSISDN);
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().openCustomerInteractionPage();
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();
-            clmDetails = api.getCLMDetails(customerNumber);
             assertCheck.append(actions.assertEqualIntType(clmDetails.getStatusCode(), 200, "CLM Details API Status Code Matched and is :" + clmDetails.getStatusCode(), "CLM Details API Status Code NOT Matched and is :" + clmDetails.getStatusCode(), false));
             if (clmDetails.getStatusCode() == 200) {
                 boolean pageLoaded = pages.getDemographicWidget().isPageLoaded(clmDetails);
@@ -49,8 +60,7 @@ public class AccountInformationTest extends Driver {
         }
     }
 
-
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 2, groups = {"SanityTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testAccountInformationWidget() {
         try {
             selUtils.addTestcaseDescription("Validate Account Information widget", "description");
@@ -66,35 +76,51 @@ public class AccountInformationTest extends Driver {
         }
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 3, groups = {"SanityTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testAccountInformationWidgetData() {
         try {
             selUtils.addTestcaseDescription("Validate Account Information widget data", "description");
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getAccountInformation().getAccountStatus(), clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getStatus(), "Account status is same as Expected", "Account status  is not same as Expected"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getAccountInformation().getAccountCategory(), clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getCategory(), "Account status is same as Expected", "Account status  is not same as Expected"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getAccountInformation().getAccountCreatedBy(), clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getCreatedBy(), "Account Created By is same as Expected", "Account Created By is not same as Expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getAccountInformation().getAccountCreatedOn(), clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getCreatedOn(), "Account Created On is same as Expected", "Account Created On is not same as Expected"));
+            String createdOnDate = UtilsMethods.getDateFromEpoch(Long.parseLong(clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getCreatedOn()), constants.getValue(CommonConstants.NGPSB_ACCOUNT_CREATED_DATE_PATTERN));
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getAccountInformation().getAccountCreatedOn(), createdOnDate, "Account Created On is same as Expected", "Account Created On is not same as Expected"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getAccountInformation().getAccountModifiedBy(), clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getModifiedBy(), "Account Modified By is same as Expected", "Account Modified By is not same as Expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getAccountInformation().getAccountModifiedOn(), clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getModifiedOn(), "Account Modified On is same as Expected", "Account Modified On is not same as Expected"));
+            String modifiedDate = UtilsMethods.getDateFromEpoch(Long.parseLong(clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getModifiedOn()), constants.getValue(CommonConstants.NGPSB_ACCOUNT_CREATED_DATE_PATTERN));
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getAccountInformation().getAccountModifiedOn(), modifiedDate, "Account Modified On is same as Expected", "Account Modified On is not same as Expected"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getAccountInformation().getOnboardingChannel(), clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getChannel(), "Onboarding Channel is same as Expected", "Onboarding Channel is not same as Expected"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getAccountInformation().getAccountNubanId(), clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getId(), "Account Nuban id is same as Expected", "Account nuban id is not same as Expected"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getAccountInformation().getSecurityQuestionsSet(), clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getIsSecurityQuestionSet(), "Security Question Set is same as Expected", "Security Question Set is not same as Expected"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getAccountInformation().getSecurityQuestionsConfigured(), clmDetails.getResult().getDetails().get(0).getIsSecurityQuestionSet().toString(), "Security Question Configured is same as Expected", "Security Question Configured  is not same as Expected"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getAccountInformation().getBarringStatus(), clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getBarred(), "Barring status is same as Expected", "Barring status  is not same as Expected"));
             assertCheck.append(actions.assertEqualBoolean(pages.getWalletInformation().isBarringInfoIconVisible(), true, "Barring status info icon is visible", "Barring status info icon is NOT visible"));
-            String nubanId = clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getId();
-            String type = constants.getValue(ApplicationConstants.ACCOUNT_TYPE);
-            FetchBalanceResponse balance = api.getFetchBalance(customerNumber, nubanId, type);
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getAccountInformation().getBalance(), balance.getResult().getBalance(), "Balance is same as Expected", "Balance is not same as Expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getAccountInformation().getFrozenAmount(), balance.getResult().getFrozenAmt(), "Frozen Amount is same as Expected", "Frozen Amount is not same as Expected"));
-            actions.assertAllFoundFailedAssert(assertCheck);
+           actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - testAccountInformationWidgetData" + e.fillInStackTrace(), true);
         }
     }
 
+    /**
+     * This method is used to check Accounts balance
+     */
+    @Test(priority = 4, groups = {"SanityTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
+    public void testAccountsBalance() {
+        try {
+            selUtils.addTestcaseDescription("Validate Accounts balance", "description");
+            String nubanId = clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getId();
+            String type = constants.getValue(ApplicationConstants.ACCOUNT_TYPE);
+            FetchBalanceResponse balance = api.getFetchBalance(customerNumber, nubanId, type);
+            String currency=balance.getResult().currency;
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getAccountInformation().getBalance(), currency + " " + balance.getResult().getBalance(), "Balance is same as Expected", "Balance is not same as Expected"));
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getAccountInformation().getFrozenAmount(), currency + " " + balance.getResult().getFrozenAmt(), "Frozen Amount is same as Expected", "Frozen Amount is not same as Expected"));
 
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - testAccountsBalance" + e.fillInStackTrace(), true);
+        }
+    }
+
+    @Test(priority = 4, groups = {"SanityTest","ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testBankAccountsTabs() {
         try {
             selUtils.addTestcaseDescription("Validate Bank Accounts tab data", "description");
@@ -126,7 +152,7 @@ public class AccountInformationTest extends Driver {
         }
     }
 
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 5, groups = {"SanityTest","ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testSmsLogsTabs() {
         try {
             selUtils.addTestcaseDescription("Validate Wallets tab data", "description");

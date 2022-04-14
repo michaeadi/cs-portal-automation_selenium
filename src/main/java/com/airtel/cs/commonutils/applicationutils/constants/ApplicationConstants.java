@@ -95,7 +95,7 @@ public class ApplicationConstants {
     public static final String ACTION_KEY="action.key";
     public static final String POST_METHOD = "POST";
     public static final String GET_METHOD = "GET";
-    public static final String COMMENT="comment";
+    public static final String COMMENT="Automation Testing";
     public static final String CUSTOMER_HYBRID_MSISDN = "cs.customer.hybrid.msisdn";
     public static final String RUN_VAS_WIDGET_TESTCASE = "cs.run.vas.widget.test.case";
     public static final String ACTIVE_VAS_MSISDN = "cs.active.vas.msisdn";

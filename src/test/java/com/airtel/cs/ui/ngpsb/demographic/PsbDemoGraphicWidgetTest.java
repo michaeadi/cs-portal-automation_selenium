@@ -1,4 +1,4 @@
-package com.airtel.cs.ui.ngpsb;
+package com.airtel.cs.ui.ngpsb.demographic;
 
 import com.airtel.cs.api.PsbRequestSource;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 
 
 @Log4j2
-public class DemoGraphicWidgetTest extends Driver {
+public class PsbDemoGraphicWidgetTest extends Driver {
     private static String customerNumber = null;
     PsbRequestSource api = new PsbRequestSource();
     CLMDetailsResponse clmDetails;
@@ -58,6 +58,7 @@ public class DemoGraphicWidgetTest extends Driver {
             selUtils.addTestcaseDescription("Validate Customer Name, Validate ", "description");
             assertCheck.append(actions.assertEqualStringType(pages.getDemographicWidget().getMiddleAuuid(), loginAUUID, "Auuid is visible at the middle of the Demo Graphic Widget and is correct", "Auuid is NOT visible at the middle of the Demo Graphic Widget"));
             assertCheck.append(actions.assertEqualStringType(pages.getDemographicWidget().getFooterAuuid(), loginAUUID, "Auuid is visible at the footer of the Demo Graphic Widget and is correct", "Auuid is NOT visible at the footer of the Demo Graphic Widget"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isSmartCashLogoVisible(), true, "Smart Cash Logo is visible", "Smart Cash Logo is NOT visible"));
             assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isCustomerNameHeaderVisible(), true, "Customer Name header is visible", "Customer Name header is NOT visible"));
             final String customerName = pages.getDemographicWidget().getCustomerName();
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getCustomerName(), clmDetails.getResult().getFirstName() + space + clmDetails.getResult().getLastName(), "Customer Name is as Expected", "Customer Name is not as Expected"));
@@ -153,11 +154,7 @@ public class DemoGraphicWidgetTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validate Customer Id, Validate Customer Category", "description");
             assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isCustomerIdHeaderVisible(), true, "Customer Id header is visible", "Email Id header is NOT visible"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getCustomerId(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getEmailId()), "Customer Id is same as Expected", "Customer Id is not same as Expected"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isCustomerIdInfoIconVisible(),true, "Customer Id Icon is visible", "Customer Id is NOT visible"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getFirstName(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getFirstName()),"Customer FirstName is as Expected", "Customer FirstName is not same as Expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getLastName(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getLastName()),"Customer LastName is as Expected", "Customer LastName is not same as Expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getMSISDN(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getMSISDN()),"Customer MSISDN is as Expected", "Customer MSISDN is not same as Expected"));
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getCustomerId(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getCustomerId()), "Customer Id is same as Expected", "Customer Id is not same as Expected"));
             assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isCustomerCategoryHeaderVisible(), true, "Customer Category header is visible", "Customer Category  header is NOT visible"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getCustomerCategory(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getEmailId()), "Customer Category  is same as Expected", "Customer Category  is not same as Expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
@@ -172,9 +169,9 @@ public class DemoGraphicWidgetTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validate Pin Set, Validate Pin Reset", "description");
             assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isPinResetHeaderVisible(), true, "Pin Reset header is visible", "Pin Reset header is NOT visible"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getPinReset(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getIsPinReset()), "Pin Reset is same as Expected", "Pin Reset is not same as Expected"));
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getPinReset(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getDetails().get(0).getIsPinReset()), "Pin Reset is same as Expected", "Pin Reset is not same as Expected"));
             assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isPinSetHeaderVisible(), true, "Pin Set header is visible", "Pin Set header is NOT visible"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getPinSet(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getIsPinSet()), "Pin Set  is same as Expected", "Pin Set is not same as Expected"));
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getPinSet(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getDetails().get(0).getIsPinSet()), "Pin Set  is same as Expected", "Pin Set is not same as Expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
             commonLib.fail("Exception in method - testPinSetAndReset " + e, true);

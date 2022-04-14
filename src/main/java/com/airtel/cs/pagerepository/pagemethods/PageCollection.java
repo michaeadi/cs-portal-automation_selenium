@@ -1,6 +1,5 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
-import com.airtel.cs.pagerepository.pageelements.HbbProfilePage;
 import org.openqa.selenium.WebDriver;
 
 public class PageCollection {
@@ -264,8 +263,8 @@ public class PageCollection {
         return new AmLinkedWallets(driver);
     }
 
-    public DemographicWidget getDemographicWidget() {
-        return new DemographicWidget(driver);
+    public PsbDemographicWidget getDemographicWidget() {
+        return new PsbDemographicWidget(driver);
     }
     public WalletInformation getWalletInformation() {
         return new WalletInformation(driver);
@@ -282,4 +281,11 @@ public class PageCollection {
         return new SmartCashTransactionHistory(driver);
     }
 
+    public PinReset getPinReset() {
+        return new PinReset(driver);
+    }
+
+    public BarUnbar getBarUnbar() {
+        return new BarUnbar(driver);
+    }
 }

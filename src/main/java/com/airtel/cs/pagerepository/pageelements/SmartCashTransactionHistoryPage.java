@@ -16,9 +16,9 @@ public class SmartCashTransactionHistoryPage {
     public String valueRowSec = "//div[@data-csautomation-key='AIRTEL_MONEY']//div[@class='table-data-wrapper ng-star-inserted']//div[@class='ng-star-inserted'][";
     public String headerRowSec = "//div[@data-csautomation-key='AIRTEL_MONEY']/div[@class='card__content restricted ng-star-inserted']/descendant::div[@class='card__card-header--card-body--table--list-heading ng-star-inserted']/div";
     public String resendSMSSec = "//div[@data-csautomation-key='AIRTEL_MONEY']/div[@class='card__content restricted ng-star-inserted']/descendant::div[@class='card__card-header--card-body--table--data-list row-border'][1]/div[12]//img[1][@class='hide-reversal ng-star-inserted']";
-    public String valueColumns = "//div[@class='data-container ng-star-inserted'][";
-    public String iconColumn = "//div[@class='quick-action ng-star-inserted'][";
-    public String columnText = "]//span//span";
+    public String valueColumns = "]//div[@class='data-container ng-star-inserted'][";
+    public String iconColumn = "]//div[@class='quick-action ng-star-inserted'][";
+    public String columnText = "]//span";
     public String resendSmsIcon="]//span//img[contains(@src,'send-msg.svg')]";
     public String reversalIcon="]//span//img[contains(@src,'reversal.svg')]";
     public String negSymbol = "]//img[@class='sign-icon-before ng-star-inserted']";

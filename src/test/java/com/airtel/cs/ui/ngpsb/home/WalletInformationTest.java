@@ -1,7 +1,9 @@
-package com.airtel.cs.ui.ngpsb;
+package com.airtel.cs.ui.ngpsb.home;
 
 import com.airtel.cs.api.PsbRequestSource;
 import com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants;
+import com.airtel.cs.commonutils.applicationutils.constants.CommonConstants;
+import com.airtel.cs.commonutils.utils.UtilsMethods;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.model.cs.response.am.SmsLogsResponse;
 import com.airtel.cs.model.cs.response.amprofile.AMProfile;
@@ -25,16 +27,26 @@ public class WalletInformationTest extends Driver {
         }
     }
 
+
+    @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
+    public void checkWalletsSize() {
+        customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_TIER1_MSISDN);
+        clmDetails = api.getCLMDetails(customerNumber);
+        if (clmDetails.getResult().getDetails().get(0).getWallets().size()==0)
+        {
+            commonLib.skip("Skipping because there are no wallets linked with the msisdn ");
+            throw new SkipException("Skipping because this feature is not applicable when there are no wallets linked with the msisdn");
+        }
+    }
+
     @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void openCustomerInteraction() {
         try {
             selUtils.addTestcaseDescription("Open Customer Profile Page with valid MSISDN, Validate Customer Profile Page Loaded or not", "description");
-            customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_TIER1_MSISDN);
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().openCustomerInteractionPage();
             pages.getMsisdnSearchPage().enterNumber(customerNumber);
             pages.getMsisdnSearchPage().clickOnSearch();
-            clmDetails = api.getCLMDetails(customerNumber);
             assertCheck.append(actions.assertEqualIntType(clmDetails.getStatusCode(), 200, "CLM Details API Status Code Matched and is :" + clmDetails.getStatusCode(), "CLM Details API Status Code NOT Matched and is :" + clmDetails.getStatusCode(), false));
             if (clmDetails.getStatusCode() == 200) {
                 boolean pageLoaded = pages.getDemographicWidget().isPageLoaded(clmDetails);
@@ -48,8 +60,7 @@ public class WalletInformationTest extends Driver {
         }
     }
 
-
-    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 2, groups = {"SanityTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testWalletInformationWidget() {
         try {
             selUtils.addTestcaseDescription("Validate Wallet Information widget", "description");
@@ -65,28 +76,26 @@ public class WalletInformationTest extends Driver {
         }
     }
 
-    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 3, groups = {"SanityTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testWalletInformationWidgetData() {
         try {
             selUtils.addTestcaseDescription("Validate Account Information widget data", "description");
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getWalletStatus(), clmDetails.getResult().getDetails().get(0).getWallets().get(0).getStatus(), "Wallet status is same as Expected", "Wallet status  is not same as Expected"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getWalletCategory(), clmDetails.getResult().getDetails().get(0).getWallets().get(0).getCategory(), "Wallet status is same as Expected", "Wallet status  is not same as Expected"));
+            String createdOnDate = UtilsMethods.getDateFromEpoch(Long.parseLong(clmDetails.getResult().getDetails().get(0).getWallets().get(0).getCreatedOn()), constants.getValue(CommonConstants.NGPSB_WALLET_CREATED_DATE_PATTERN));
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getWalletCreatedOn(),  createdOnDate, "Wallet Created On is same as Expected", "Wallet Created On is not same as Expected"));
+            pages.getWalletInformation().hoverOnWalletCreated();
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getWalletCreatedBy(), clmDetails.getResult().getDetails().get(0).getWallets().get(0).getCreatedBy(), "Wallet Created By is same as Expected", "Wallet Created By is not same as Expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getWalletCreatedBy(), clmDetails.getResult().getDetails().get(0).getWallets().get(0).getCreatedOn(), "Wallet Created On is same as Expected", "Wallet Created On is not same as Expected"));
+            String modifiedOnDate = UtilsMethods.getDateFromEpoch(Long.parseLong(clmDetails.getResult().getDetails().get(0).getWallets().get(0).getModifiedOn()), constants.getValue(CommonConstants.NGPSB_WALLET_CREATED_DATE_PATTERN));
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getWalletModifiedOn(), modifiedOnDate, "Wallet Modified On is same as Expected", "Wallet Modified On is not same as Expected"));
+            pages.getWalletInformation().hoverOnWalletModified();
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getWalletModifiedBy(), clmDetails.getResult().getDetails().get(0).getWallets().get(0).getModifiedBy(), "Wallet Modified By is same as Expected", "Wallet Modified By is not same as Expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getWalletModifiedOn(), clmDetails.getResult().getDetails().get(0).getWallets().get(0).getModifiedOn(), "Wallet Modified On is same as Expected", "Wallet Modified On is not same as Expected"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getOnboardingChannel(), clmDetails.getResult().getDetails().get(0).getWallets().get(0).getChannel(), "Onboarding Channel is same as Expected", "Onboarding Channel is not same as Expected"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getWalletNubanId(), clmDetails.getResult().getDetails().get(0).getWallets().get(0).getId(), "Wallet Nuban id is same as Expected", "Account nuban id is not same as Expected"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getSecurityQuestionsSet(), clmDetails.getResult().getDetails().get(0).getWallets().get(0).getIsSecurityQuestionSet(), "Security Question Set is same as Expected", "Security Question Set is not same as Expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getSecurityQuestionsConfigured(), clmDetails.getResult().getDetails().get(0).getIsSecurityQuestionSet().toString(), "Security Question Configured is same as Expected", "Security Question Configured  is not same as Expected"));
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getSecurityQuestionsConfigured(), clmDetails.getResult().getDetails().get(0).getWallets().get(0).getSecurityQuestionsConfigured().toString(), "Security Question Configured is same as Expected", "Security Question Configured  is not same as Expected"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getBarringStatus(), clmDetails.getResult().getDetails().get(0).getUserBarred(),"Barring status is same as Expected", "Barring status  is not same as Expected"));
             assertCheck.append(actions.assertEqualBoolean(pages.getWalletInformation().isBarringInfoIconVisible(), true, "Barring status info icon is visible", "Barring status info icon is NOT visible"));
-            String nubanId = clmDetails.getResult().getDetails().get(0).getWallets().get(0).getId();
-            String type = constants.getValue(ApplicationConstants.WALLET_TYPE);
-            FetchBalanceResponse balance = api.getFetchBalance(customerNumber, nubanId, type);
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getBalance(), balance.getResult().getBalance(), "Balance is same as Expected", "Balance is not same as Expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getFrozenAmount(), balance.getResult().getFrozenAmt(), "Frozen Amount is same as Expected", "Frozen Amount is not same as Expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getFicAmount(), balance.getResult().getFundsInClearance(), "FIC Amount is same as Expected", "FIC Amount is not same as Expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - testWalletInformationWidgetData" + e.fillInStackTrace(), true);
@@ -94,9 +103,30 @@ public class WalletInformationTest extends Driver {
     }
 
     /**
+     * This method is used to check Wallets balance
+     */
+    @Test(priority = 4, groups = {"SanityTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
+    public void testWalletsBalance() {
+        try {
+            selUtils.addTestcaseDescription("Validate Wallets balance", "description");
+            String nubanId = clmDetails.getResult().getDetails().get(0).getWallets().get(0).getId();
+            String type = constants.getValue(ApplicationConstants.WALLET_TYPE);
+            FetchBalanceResponse balance = api.getFetchBalance(customerNumber, nubanId, type);
+            String currency=balance.getResult().currency;
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getBalance(), currency + " " + balance.getResult().getBalance(), "Balance is same as Expected", "Balance is not same as Expected"));
+            pages.getWalletInformation().hoverOnBalanceInfoIcon();
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getFrozenAmount(), currency + " " + balance.getResult().getFrozenAmt(), "Frozen Amount is same as Expected", "Frozen Amount is not same as Expected"));
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getFicAmount(), currency + " " + balance.getResult().getFundsInClearance(), "FIC Amount is same as Expected", "FIC Amount is not same as Expected"));
+
+            actions.assertAllFoundFailedAssert(assertCheck);
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - testWalletsBalance" + e.fillInStackTrace(), true);
+        }
+    }
+    /**
      * This method is used to check Wallets data
      */
-    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 5, groups = {"SanityTest", "ProdTest", "SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
     public void testWalletsTab() {
         try {
             selUtils.addTestcaseDescription("Validate data of all the fields of Wallets tab", "description");
@@ -104,7 +134,7 @@ public class WalletInformationTest extends Driver {
             String type = constants.getValue(ApplicationConstants.WALLET_TYPE);
             AMProfile amProfile = api.getAmProfile(customerNumber, type);
             if (amProfile.getStatusCode() == 200 && amProfile.getResult().getWallets().size() == 0) {
-                commonLib.warning("Linked Wallets data is not available for the punched msisdn");
+                commonLib.warning("Linked Wallets data is not available for the msisdn");
             } else if (amProfile.getStatusCode() == 3007 && amProfile.getStatus().equalsIgnoreCase("status.failure")) {
                 commonLib.fail("CS API is unable to give Linked Wallets data ", true);
             } else {
@@ -129,7 +159,7 @@ public class WalletInformationTest extends Driver {
     }
 
 
-    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 6, groups = {"SanityTest","ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testSMSLogsTab() {
         try {
             selUtils.addTestcaseDescription("Validate Wallets tab data", "description");
