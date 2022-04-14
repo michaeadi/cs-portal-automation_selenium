@@ -113,18 +113,14 @@ public class Driver {
 
     @BeforeSuite(alwaysRun = true)
     public void setup(ITestContext tr) {
-        try {
-            reportConfigureBase(tr);
-            envLevelSetup();
-            startBrowser(browser);
-        } catch (Exception e) {
-            commonLib.fail(e.getMessage(), true);
-        }
+        reportConfigureBase(tr);
+        envLevelSetup();
     }
 
     @BeforeClass(alwaysRun = true)
     public void setup() {
         try {
+            startBrowser(browser);
             initializePages();
         } catch (Exception e) {
             commonLib.error(e.getMessage());
@@ -285,7 +281,10 @@ public class Driver {
         try {
             switch (browser) {
                 case "chrome":
-                    WebDriverManager.chromedriver().setup();
+                    //WebDriverManager.chromedriver().setup();
+                    //commonLib.info("Getting Chromedriver exe from resources");
+                    System.setProperty("webdriver.chrome.driver",
+                            System.getProperty(USER_DIR) + "/" + "resources" + "/" + "chromedriver" + "/" + "chromedriver");
                     browserCapabilities();
                     break;
                 case "firefox":

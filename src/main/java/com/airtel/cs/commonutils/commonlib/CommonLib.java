@@ -24,13 +24,17 @@ import java.util.Map;
 import java.util.HashMap;
 
 public class CommonLib extends Driver {
+
+    private static Logger log = LogManager.getLogger(MethodHandles.lookup().lookupClass().getSimpleName());
+
+
     /**
      * This method is use to log the failure message into report
      * @param message The Message
      * @param requireScreenshot The screenshot True/False
      */
     public void fail(String message, boolean requireScreenshot) {
-        LOGGER.error(message);
+        log.error(message);
         assertCheck.append(false);
         reporter.showInExtentReport(Status.FAIL, message, requireScreenshot);
     }
@@ -58,7 +62,7 @@ public class CommonLib extends Driver {
      * @param requireScreenshot The screenshot true/false
      */
     public void warning(String message,boolean requireScreenshot) {
-        LOGGER.warn(message);
+        log.warn(message);
         reporter.showInExtentReport(Status.WARNING, message, requireScreenshot);
     }
 
@@ -67,7 +71,7 @@ public class CommonLib extends Driver {
      * @param message The Message
      */
     public void skip(String message) {
-        LOGGER.warn(message);
+        log.warn(message);
         reporter.showInExtentReport(Status.SKIP, message, false);
     }
 
@@ -141,17 +145,12 @@ public class CommonLib extends Driver {
     }
 
     /**
-     * The Log.
-     */
-    private static final Logger LOGGER = LogManager.getLogger(MethodHandles.lookup().lookupClass().getSimpleName());
-
-    /**
      * Logs Info tag - This will consist info for all steps happening within
      * test-case
      */
     public void infoHighlight(String string1WithoutHighlight, String string2WithHighlight,
                               ReportInfoMessageColorList reportInfoMessageColorList) {
-        LOGGER.info(string1WithoutHighlight.concat(string2WithHighlight));
+        log.info(string1WithoutHighlight.concat(string2WithHighlight));
         infoHighlight(string1WithoutHighlight, string2WithHighlight, reportInfoMessageColorList, false);
     }
 
@@ -187,7 +186,7 @@ public class CommonLib extends Driver {
      * @param message The message
      */
     public void logs(String message) {
-        LOGGER.info(message);
+        log.info(message);
     }
 
     /**
@@ -196,7 +195,7 @@ public class CommonLib extends Driver {
      * @param requireScreenshot The Screenshot True/False
      */
     public void info(String message, boolean requireScreenshot) {
-        LOGGER.info(message);
+        log.info(message);
         reporter.showInExtentReport(Status.INFO, message, requireScreenshot);
     }
 
@@ -211,7 +210,7 @@ public class CommonLib extends Driver {
      * @param requireScreenshot The Screenshot True/False
      */
     public void infoColored(String message, JavaColors javaColors, boolean requireScreenshot) {
-        LOGGER.info(message);
+        log.info(message);
         if (javaColors.equals(JavaColors.GREEN)) {
             reporter.showInExtentReport(Status.PASS, message, requireScreenshot);
         } else if (javaColors.equals(JavaColors.RED)) {
@@ -226,7 +225,7 @@ public class CommonLib extends Driver {
      * @param message The message
      */
     public void pass(String message) {
-        LOGGER.info(message);
+        log.info(message);
         reporter.showInExtentReport(Status.PASS, message, false);
     }
 
@@ -238,10 +237,10 @@ public class CommonLib extends Driver {
      */
     public void setStatusInReport(boolean status, String message, boolean requireScreenshot) {
         if (status) {
-            LOGGER.info(message);
+            log.info(message);
             reporter.showInExtentReport(Status.PASS, message + " - is visible successfully", requireScreenshot);
         } else {
-            LOGGER.error(message);
+            log.error(message);
             reporter.showInExtentReport(Status.FAIL, message + " - is NOT VISIBLE", requireScreenshot);
         }
     }
@@ -255,10 +254,10 @@ public class CommonLib extends Driver {
      */
     public void setStatusInReport(boolean status, String passMessage, String failMessage, boolean requireScreenshot) {
         if (status) {
-            LOGGER.info(passMessage);
+            log.info(passMessage);
             reporter.showInExtentReport(Status.PASS, passMessage, requireScreenshot);
         } else {
-            LOGGER.error(failMessage);
+            log.error(failMessage);
             reporter.showInExtentReport(Status.FAIL, failMessage, requireScreenshot);
         }
     }
