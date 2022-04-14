@@ -34,7 +34,7 @@ public class LoginAPITest extends Driver {
             assertCheck.append(actions.assertEqualStringType(message, "User authenticated successfully", "User authenticated successfully", message, false));
         } catch (Exception e) {
             continueExecutionAPI = false;
-            commonLib.fail("Exception in Method :- testLoginAPI " + e.fillInStackTrace(), false);
+            commonLib.fail("Exception in Method :- testLoginAPIWithAdvisorSupervisor " + e.fillInStackTrace(), false);
         }
         actions.assertAllFoundFailedAssert(assertCheck);
     }
@@ -55,7 +55,7 @@ public class LoginAPITest extends Driver {
         } catch (Exception e) {
             continueExecutionFA = false;
             continueExecutionBS = false;
-            commonLib.fail("Exception in Method :- testLoginApiWithAdminUser " + e.fillInStackTrace(), false);
+            commonLib.fail("Exception in Method :- testLoginApiWithBetaUser " + e.fillInStackTrace(), false);
         }
         actions.assertAllFoundFailedAssert(assertCheck);
     }

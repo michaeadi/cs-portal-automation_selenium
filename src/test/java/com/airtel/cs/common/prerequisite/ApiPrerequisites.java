@@ -60,8 +60,8 @@ public class ApiPrerequisites extends Driver {
     public void loginAPI() throws Exception {
         test = extent.createTest("ApiPrerequisites" + " :: " + "loginAPI");
         recordset = DataProviders.readExcelSheet(excelPath, constants.getValue(ApplicationConstants.LOGIN_SHEET_NAME));
-        final String password = PassUtils.decodePassword(constants.getValue(CommonConstants.ADVISOR_USER_ROLE_PASSWORD));
-        loginAUUID = constants.getValue(CommonConstants.ADVISOR_USER_ROLE_AUUID);
+        final String password = PassUtils.decodePassword(constants.getValue(CommonConstants.BETA_USER_ROLE_PASSWORD));
+        loginAUUID = constants.getValue(CommonConstants.BETA_USER_ROLE_AUUID);
         Login req = Login.loginBody(loginAUUID, password);
         validHeaderList.clear();
         restUtils.addHeaders("x-client-id", CLIENT_ID);
