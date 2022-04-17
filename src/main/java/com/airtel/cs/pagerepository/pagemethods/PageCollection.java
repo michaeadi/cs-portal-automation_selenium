@@ -299,9 +299,15 @@ public class PageCollection {
                 new KpiDashboardOpenTicketAgeing(driver);
     }
 
-    public KpiDashboard6MonthsTicketType getKpiDashboard6MonthsTicketType() { return new KpiDashboard6MonthsTicketType(driver);
+    public KpiDashboard6MonthsTicketType getKpiDashboard6MonthsTicketType() {
+        return new KpiDashboard6MonthsTicketType(driver);
     }
 
-    public KpiDashboardFeatureUsageOfActions getKpiDashboardFeatureUsageOfActions() { return new KpiDashboardFeatureUsageOfActions(driver);
+    public KpiDashboardFeatureUsageOfActions getKpiDashboardFeatureUsageOfActions() {
+        return new KpiDashboardFeatureUsageOfActions(driver);
+    }
+
+    public KpiDashbaordQueueWiseSLAPerformance getKpiDashboardQueueWiseSLAPerformance() {
+        return new KpiDashbaordQueueWiseSLAPerformance(driver);
     }
 }

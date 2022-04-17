@@ -6,7 +6,7 @@ public class KpiDashboardFeatureUsageOfActionsPage {
     public By featureUsageOfActionsLabel=By.xpath("//span[contains(text(),'Feature Usage of Actions (Monthly)')]");
     public By connectionLabel;
     public By monthSelectionLabel;
-    public By featureUsageOfActionsDetailsIcon;
+    public By featureUsageOfActionsDetailsIcon=By.xpath("//span[contains(text(),'Feature Usage of Actions (Monthly)')]/..//img");
     public By agentIdLabel=By.xpath("//span[contains(text(),'Agent Id')]");
     public By agentNameLabel=By.xpath("//span[contains(text(),'Agent Name')]");
     public By MTDLabel=By.xpath("//span[contains(text(),'MTD')]");

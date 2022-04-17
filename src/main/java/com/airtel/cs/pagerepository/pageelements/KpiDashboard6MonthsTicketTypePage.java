@@ -8,7 +8,7 @@ public class KpiDashboard6MonthsTicketTypePage {
     public By connectionLabel;
     public By nftrIcon=By.xpath("//span[contains(text(),' NFTR ')]");
     public By issueTypelLabel;
-    public By sixMonthsTicketDetailsIcon;
+    public By sixMonthsTicketDetailsIcon=By.xpath("//span[contains(text(),'6 Months Ticket Type')]/..//img");
     public By ticketTypeDetailsLabel=By.xpath("//span[contains(text(),'Ticket Type Details ')]");
     public By monthLabel=By.xpath("//span[contains(text(),'Month')]");
     public By ftrPercentageLabel=By.xpath("//span[contains(text(),'FTR %')]");

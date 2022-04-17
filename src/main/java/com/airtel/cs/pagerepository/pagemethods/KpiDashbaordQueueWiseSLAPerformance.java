@@ -112,8 +112,8 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
     /**
      * This method is used to check Day wise Label  is visible or not
      */
-    public Boolean isDaywiseLabelVisible() {
-        Boolean status = isVisible(pageElements.daywise);
+    public Boolean isDayWiseLabelVisible() {
+        Boolean status = isVisible(pageElements.dayWise);
         commonLib.pass("Day wise Label  is visible : " + status);
         return status;
     }
@@ -126,12 +126,36 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
             clickAndWaitForLoaderToBeRemoved(pageElements.dayWiseInSLAPerformanceDetailsQueueWiseIcon);
     }
     /**
+     * This method is used to check Day Wise In SLAPerformance Details Queue Wise Label  is visible or not
+     */
+    public Boolean isDayWiseInSLAPerformanceDetailsQueueWiseLabelVisible() {
+        Boolean status = isVisible(pageElements.dayWiseInSLAPerformanceDetailsQueueWiseLabel);
+        commonLib.pass("Day Wise In SLAPerformance Details Queue Wise Label  is visible : " + status);
+        return status;
+    }
+    /**
      * This method is used to click On Day Wise SLA PERFORMANCE DETAILS: ISSUE TYPE WISE
      */
     public void clickOnDayWiseInSLAPerformanceDetailsIssueTypeWiseIcon() {
         commonLib.pass("click On Day Wise SLA PERFORMANCE DETAILS: QUEUE WISE Icon");
         if (isVisible(pageElements.dayWiseInSLAPerformanceDetailsIssueTypeWiseIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.dayWiseInSLAPerformanceDetailsIssueTypeWiseIcon);
+    }
+    /**
+     * This method is used to check Day Wise In SLAPerformance Details Issue Type  Wise Label  is visible or not
+     */
+    public Boolean isDayWiseInSLAPerformanceDetailsIssueTypeWiseLabelVisible() {
+        Boolean status = isVisible(pageElements.dayWiseInSLAPerformanceDetailsIssueTypeWiseLabel);
+        commonLib.pass("Day Wise In SLAPerformance Details Issue Type  Wise Label  is visible : " + status);
+        return status;
+    }
+    /**
+     * This method is used to click On Day Wise Agent  PERFORMANCE
+     */
+    public void clickOnDayWiseAgentPerformanceDetailsIcon() {
+        commonLib.pass("click On Day Wise Agent PERFORMANCE Details Icon");
+        if (isVisible(pageElements.dayWiseAgentPerformanceDetailsIcon))
+            clickAndWaitForLoaderToBeRemoved(pageElements.dayWiseAgentPerformanceDetailsIcon);
     }
     /**
      * This method is used to check Date Label  is visible or not
@@ -160,7 +184,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
 
     }
     /**
-     * This method is used to check AGENT PERFORMANC Label  is visible or not
+     * This method is used to check AGENT PERFORMANCE Label  is visible or not
      */
     public Boolean isAgentPerformanceLabelVisible() {
         Boolean status = isVisible(pageElements.agentPerformanceLabel);
@@ -178,9 +202,27 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
     /**
      * This method is used to check AGENT Name Label  is visible or not
      */
-    public Boolean isAgentnameLabelVisible() {
-        Boolean status = isVisible(pageElements.agentNameeLabel);
+    public Boolean isAgentNameLabelVisible() {
+        Boolean status = isVisible(pageElements.agentNameLabel);
         commonLib.pass("AGENT Name  is visible : " + status);
         return status;
     }
+    /**
+     * This method is used to check Issue Type Label  is visible or not
+     */
+    public Boolean isIssueTypeLabelVisible() {
+        Boolean status = isVisible(pageElements.issueTypeLabel);
+        commonLib.pass("Issue Type  is visible : " + status);
+        return status;
+    }
+    /**
+     * This method is used to check Day Wise Agent Performance Label  is visible or not
+     */
+    public Boolean isDayWiseAgentPerformanceLabelVisible() {
+        Boolean status = isVisible(pageElements.dayWiseAgentPerformanceLabel);
+        commonLib.pass(" Day Wise Agent Performance Label visible : " + status);
+        return status;
+    }
+
+
 }

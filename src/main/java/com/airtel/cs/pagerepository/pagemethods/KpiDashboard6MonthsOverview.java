@@ -118,7 +118,7 @@ public class KpiDashboard6MonthsOverview  extends BasePage {
      * This method is used to check Day wise Label  is visible or not
      */
     public Boolean isDaywiseLabelVisible() {
-        Boolean status = isVisible(pageElements.daywise);
+        Boolean status = isVisible(pageElements.dayWise);
         commonLib.pass("Day wise Label  is visible : " + status);
         return status;
     }
@@ -150,7 +150,7 @@ public class KpiDashboard6MonthsOverview  extends BasePage {
      * This method is used to check Sla Performance Details: Queue Wise Label  is visible or not
      */
     public Boolean isSlaPerforrmanceDetailsQueueWiseLabelVisible() {
-        Boolean status = isVisible(pageElements.slaPerforrmanceDetailsQueueWiseLabel);
+        Boolean status = isVisible(pageElements.slaPerformanceDetailsQueueWiseLabel);
         commonLib.pass("Sla Performance Details Queue Wise Label  is visible : " + status);
         return status;
     }

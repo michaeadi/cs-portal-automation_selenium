@@ -10,7 +10,7 @@ public class KpiDashboardOpenTicketAgeingPage {
     public By issueTypeLabel;
     public By issueSubTypeLabel=By.xpath("//span[contains(@class,'mat-select-placeholder ng-tns-c47-1319 ng-star-inserted')]");
     public By downloadIcon=By.xpath("//img[contains(@src,'./assets/kpi-dashboard/download.svg')]");
-    public By openTicketAgeingDetailsIcon;
+    public By openTicketAgeingDetailsIcon=By.xpath("//span[contains(text(),'Open Ticket Ageing')]/..//img");
     public By issueCodeLabel=By.xpath("//span[contains(text(),'Issue Code')]");
     public By queueNameLabel=By.xpath("//span[contains(@class,'mat-select-placeholder ng-tns-c47-1330 ng-star-inserted')]");
     public By beyond30DaysLabe=By.xpath("//span[contains(text(),'Beyond 30 Days')]");

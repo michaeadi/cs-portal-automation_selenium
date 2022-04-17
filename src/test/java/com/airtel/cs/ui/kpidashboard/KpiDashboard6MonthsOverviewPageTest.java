@@ -59,7 +59,7 @@ public class KpiDashboard6MonthsOverviewPageTest extends Driver {
         }
     }
 
-    @Test(priority = 4, groups = {"RegressionTest", "ProdTest"})
+    @Test(priority = 3, groups = {"RegressionTest", "ProdTest"})
     public void dashboardSLAPerformanceDetailsIssueTypeWise
 
             () {
@@ -81,7 +81,7 @@ public class KpiDashboard6MonthsOverviewPageTest extends Driver {
         }
     }
 
-    @Test(priority = 5, groups = {"RegressionTest", "ProdTest"})
+    @Test(priority = 4, groups = {"RegressionTest", "ProdTest"})
     public void dayWiseInSlaPerformanceDetailsQueueWise
 
             () {
@@ -106,7 +106,7 @@ public class KpiDashboard6MonthsOverviewPageTest extends Driver {
         }
     }
 
-    @Test(priority = 6, groups = {"RegressionTest", "ProdTest"})
+    @Test(priority = 5, groups = {"RegressionTest", "ProdTest"})
     public void dayWiseInSlaPerformanceDetailsIssueType
 
             () {
@@ -131,7 +131,7 @@ public class KpiDashboard6MonthsOverviewPageTest extends Driver {
         }
     }
 
-    @Test(priority = 7, groups = {"RegressionTest", "ProdTest"})
+    @Test(priority = 6, groups = {"RegressionTest", "ProdTest"})
     public void AgentPerformanceDetails
 
 
@@ -157,7 +157,7 @@ public class KpiDashboard6MonthsOverviewPageTest extends Driver {
         }
     }
 
-    @Test(priority = 8, groups = {"RegressionTest", "ProdTest"})
+    @Test(priority = 7, groups = {"RegressionTest", "ProdTest"})
     public void DayWiseAgentPerformanceDetails
 
 
