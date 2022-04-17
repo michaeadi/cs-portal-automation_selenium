@@ -7,7 +7,6 @@ public class KpiDashboardOpenTicketAgeingPage {
     public By openTicketAgeingLabel=By.xpath("//span[contains(text(),'Open Ticket Ageing')]");
     public By monthLabel=By.xpath("//input[contains(@class,'date-input mat-input-element mat-form-field-autofill-control cdk-text-field-autofill-monitored ng-untouched ng-pristine ng-valid')]");
     public By connectionLabel=By.xpath("//span[contains(@class,'mat-select-placeholder ng-tns-c47-1327 ng-star-inserted')]");
-    public By issueTypeLabel;
     public By issueSubTypeLabel=By.xpath("//span[contains(@class,'mat-select-placeholder ng-tns-c47-1319 ng-star-inserted')]");
     public By downloadIcon=By.xpath("//img[contains(@src,'./assets/kpi-dashboard/download.svg')]");
     public By openTicketAgeingDetailsIcon=By.xpath("//span[contains(text(),'Open Ticket Ageing')]/..//img");
@@ -20,7 +19,7 @@ public class KpiDashboardOpenTicketAgeingPage {
     public By tenToThirtyDaysLabel=By.xpath("//span[contains(text(),'10-30 Days')]");
     public By slabreachTicketAgeingIssueTypeAndQueueLabel=By.xpath("//span[contains(text(),'Sla Breach Ticket Ageing-Issue Type & Queue ')]");
     public By slaBreachTicketAgeingAgentLabel=By.xpath("//span[contains(text(),'Sla Breach Ticket Ageing-Agent ')]");
-    public By agentIdLabe=By.xpath("//span[contains(text(),'Agent Id')]");
-    public By agentNameLabe=By.xpath("//span[contains(text(),'Agent Name')]");
+    public By agentIdLabel=By.xpath("//span[contains(text(),'Agent Id')]");
+    public By agentNameLabel=By.xpath("//span[contains(text(),'Agent Name')]");
     public By backIcon=By.xpath("//img[contains(@src,'assets/service-request/images/icon/back.svg')]");
 }

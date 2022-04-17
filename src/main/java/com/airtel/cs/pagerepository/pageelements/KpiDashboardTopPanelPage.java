@@ -12,11 +12,11 @@ public class KpiDashboardTopPanelPage {
     public By breachingWithin15MinsLabel=By.xpath("//span[contains(text(),'Breaching Within 15 Mins ')]");
     public By breachingWithin15To60MinsLabel=By.xpath("//span[contains(text(),'Breaching Within 15 - 60 Mins ')]");
     public By breachingWithin60MinsLabel=By.xpath("//span[contains(text(),'Breaching Within > 60 Mins ')]");
-    public By openTicketsBeyondSLADetailsIcon=By.xpath("//span[contains(text(),'Open Tickets Beyond SLA')]//following-sibling::img");
-    public By openTicketsUnderSLALDetailsIcon=By.xpath("//span[contains(text(),'Open Tickets Under SLA')]//following-sibling::img");
-    public By breachingWithin15MinsDetailsIcon=By.xpath("//span[contains(text(),'Breaching Within 15 Mins ')]//following-sibling::img");
-    public By breachingWithin15To60MinsDetailsIcon=By.xpath("//span[contains(text(),'Breaching Within > 60 Mins ')]//following-sibling::img");
-    public By breachingGreaterThan60MinsDetailsIcon=By.xpath("//span[contains(text(),'Breaching Within > 60 Mins ')]//following-sibling::img");
+    public By openTicketsBeyondSLADetailsIcon=By.xpath("//span[contains(text(),'Open Tickets Beyond SLA ')]/img");
+    public By openTicketsUnderSLALDetailsIcon=By.xpath("//span[contains(text(),'Open Tickets Under SLA ')]/img");
+    public By breachingWithin15MinsDetailsIcon=By.xpath("//span[contains(text(),'Breaching Within 15 Mins ')]/img");
+    public By breachingWithin15To60MinsDetailsIcon=By.xpath("//span[contains(text(),'Breaching Within 15 - 60 Mins ')]/img");
+    public By breachingGreaterThan60MinsDetailsIcon=By.xpath("//span[contains(text(),'Breaching Within > 60 Mins ')]/img");
     public By ticketIdLabel=By.xpath("//span[contains(@class,'data-title')]");
     public By priorityLabel=By.xpath("//span[contains(text(),'Priority')]");
     public By stateLabel=By.xpath("//span[contains(text(),'State')]");
