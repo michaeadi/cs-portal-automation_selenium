@@ -4,12 +4,14 @@ import com.airtel.cs.pagerepository.pageelements.KpiDashboard6MonthsOverviewPage
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
-public class KpiDashboard6MonthsOverview  extends BasePage {
+public class KpiDashboard6MonthsOverview extends BasePage {
     KpiDashboard6MonthsOverviewPage pageElements;
+
     public KpiDashboard6MonthsOverview(WebDriver driver) {
         super(driver);
         pageElements = PageFactory.initElements(driver, KpiDashboard6MonthsOverviewPage.class);
     }
+
     /**
      * This method is used to check Service Level Trend  is visible or not
      */
@@ -18,6 +20,7 @@ public class KpiDashboard6MonthsOverview  extends BasePage {
         commonLib.pass("Service Level Trend  is visible : " + status);
         return status;
     }
+
     /**
      * This method is used to check Connection Type Drop Down  is visible or not
      */
@@ -26,6 +29,7 @@ public class KpiDashboard6MonthsOverview  extends BasePage {
         commonLib.pass("Connection Type Drop Down  is visible : " + status);
         return status;
     }
+
     /**
      * This method is used to check Queue Type Drop Down is visible or not
      */
@@ -34,6 +38,7 @@ public class KpiDashboard6MonthsOverview  extends BasePage {
         commonLib.pass("Queue Type Drop Down is visible : " + status);
         return status;
     }
+
     /**
      * This method is used to check Issue Type Drop Down  is visible or not
      */
@@ -42,6 +47,7 @@ public class KpiDashboard6MonthsOverview  extends BasePage {
         commonLib.pass("Issue Type Drop Down is visible : " + status);
         return status;
     }
+
     /**
      * This method is used to check Issue sub Type Drop Down  is visible or not
      */
@@ -50,6 +56,7 @@ public class KpiDashboard6MonthsOverview  extends BasePage {
         commonLib.pass("Issue sub Type Drop Down  is visible : " + status);
         return status;
     }
+
     /**
      * This method is used to check Download Report Icon  is visible or not
      */
@@ -58,6 +65,7 @@ public class KpiDashboard6MonthsOverview  extends BasePage {
         commonLib.pass("Download Report Icon  is visible : " + status);
         return status;
     }
+
     /**
      * This method is used to click On Service Level Trend Details Icon
      */
@@ -66,6 +74,7 @@ public class KpiDashboard6MonthsOverview  extends BasePage {
         if (isVisible(pageElements.serviceLevelTrendDetailsIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.serviceLevelTrendDetailsIcon);
     }
+
     /**
      * This method is used to check Queue Name Label  is visible or not
      */
@@ -74,6 +83,7 @@ public class KpiDashboard6MonthsOverview  extends BasePage {
         commonLib.pass("Queue Name Label  is visible : " + status);
         return status;
     }
+
     /**
      * This method is used to check Total Ticket Allocated Label  is visible or not
      */
@@ -82,6 +92,7 @@ public class KpiDashboard6MonthsOverview  extends BasePage {
         commonLib.pass("Total Ticket Allocated Label  is visible : " + status);
         return status;
     }
+
     /**
      * This method is used to check Ticket Cancelled Label  is visible or not
      */
@@ -90,6 +101,7 @@ public class KpiDashboard6MonthsOverview  extends BasePage {
         commonLib.pass("Ticket Cancelled Allocated Label  is visible : " + status);
         return status;
     }
+
     /**
      * This method is used to check Ticket Closed Outside SLA Label  is visible or not
      */
@@ -98,6 +110,7 @@ public class KpiDashboard6MonthsOverview  extends BasePage {
         commonLib.pass("Ticket Closed Outside SLA Label  is visible : " + status);
         return status;
     }
+
     /**
      * This method is used to check Ticket Closed Within SLA Label  is visible or not
      */
@@ -106,6 +119,7 @@ public class KpiDashboard6MonthsOverview  extends BasePage {
         commonLib.pass("Ticket Closed Within SLA Label  is visible : " + status);
         return status;
     }
+
     /**
      * This method is used to check SLA % Label  is visible or not
      */
@@ -114,6 +128,7 @@ public class KpiDashboard6MonthsOverview  extends BasePage {
         commonLib.pass("SLA % Label  is visible : " + status);
         return status;
     }
+
     /**
      * This method is used to check Day wise Label  is visible or not
      */
@@ -122,6 +137,7 @@ public class KpiDashboard6MonthsOverview  extends BasePage {
         commonLib.pass("Day wise Label  is visible : " + status);
         return status;
     }
+
     /**
      * This method is used to check Month Label  is visible or not
      */
@@ -130,6 +146,7 @@ public class KpiDashboard6MonthsOverview  extends BasePage {
         commonLib.pass("Month Label  is visible : " + status);
         return status;
     }
+
     /**
      * This method is used to check Day Label  is visible or not
      */
@@ -138,6 +155,7 @@ public class KpiDashboard6MonthsOverview  extends BasePage {
         commonLib.pass("Date  Label  is visible : " + status);
         return status;
     }
+
     /**
      * This method is used to check Month Selection Box Label  is visible or not
      */
@@ -146,6 +164,7 @@ public class KpiDashboard6MonthsOverview  extends BasePage {
         commonLib.pass("Month Selection Box  is visible : " + status);
         return status;
     }
+
     /**
      * This method is used to check Sla Performance Details: Queue Wise Label  is visible or not
      */
@@ -154,6 +173,7 @@ public class KpiDashboard6MonthsOverview  extends BasePage {
         commonLib.pass("Sla Performance Details Queue Wise Label  is visible : " + status);
         return status;
     }
+
     /**
      * This method is used to check SLA PERFORMANCE DETAILS: ISSUE TYPE WISE Label  is visible or not
      */
@@ -162,6 +182,7 @@ public class KpiDashboard6MonthsOverview  extends BasePage {
         commonLib.pass("SLA PERFORMANCE DETAILS: ISSUE TYPE WISE Label  is visible : " + status);
         return status;
     }
+
     /**
      * This method is used to check Issue Type  Label  is visible or not
      */
@@ -170,6 +191,7 @@ public class KpiDashboard6MonthsOverview  extends BasePage {
         commonLib.pass("Issue Type   is visible : " + status);
         return status;
     }
+
     /**
      * This method is used to click On Day WiseIn Sla Performance Details Queue Wise Icon
      */
@@ -178,6 +200,7 @@ public class KpiDashboard6MonthsOverview  extends BasePage {
         if (isVisible(pageElements.dayWiseInSlaPerformanceDetailsQueueWiseIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.dayWiseInSlaPerformanceDetailsQueueWiseIcon);
     }
+
     /**
      * This method is used to click on Back Icon
      */
@@ -187,6 +210,7 @@ public class KpiDashboard6MonthsOverview  extends BasePage {
             clickAndWaitForLoaderToBeRemoved(pageElements.backIcon);
 
     }
+
     /**
      * This method is used to click On Day WiseIn Sla Performance Details Issue Type Icon
      */
@@ -195,6 +219,7 @@ public class KpiDashboard6MonthsOverview  extends BasePage {
         if (isVisible(pageElements.dayWiseInSlaPerformanceDetailsIssueTypeIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.dayWiseInSlaPerformanceDetailsIssueTypeIcon);
     }
+
     /**
      * This method is used to click Agent Performance Details Queue Wise Icon
      */
@@ -203,6 +228,7 @@ public class KpiDashboard6MonthsOverview  extends BasePage {
         if (isVisible(pageElements.agentPerormanceIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.agentPerormanceIcon);
     }
+
     /**
      * This method is used to check Agent Id Label  is visible or not
      */
@@ -211,6 +237,7 @@ public class KpiDashboard6MonthsOverview  extends BasePage {
         commonLib.pass("Agent ID   is visible : " + status);
         return status;
     }
+
     /**
      * This method is used to check Agent Name Label  is visible or not
      */
@@ -219,6 +246,7 @@ public class KpiDashboard6MonthsOverview  extends BasePage {
         commonLib.pass("Agent Name   is visible : " + status);
         return status;
     }
+
     /**
      * This method is used to click On Day WiseIn Agent Performance Icon
      */

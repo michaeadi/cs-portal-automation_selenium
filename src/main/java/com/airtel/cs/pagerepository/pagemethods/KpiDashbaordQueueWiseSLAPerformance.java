@@ -12,6 +12,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
         pageElements = PageFactory.initElements(driver, KpiDashbaordQueueWiseSLAPerformancePage.class);
 
     }
+
     /**
      * This method is used to check Queue Wise SLA Performance Label is visible or not
      */
@@ -20,6 +21,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
         commonLib.pass("Queue Wise SLA Performance Label is visible : " + status);
         return status;
     }
+
     /**
      * This method is used to check SLA  Label is visible or not
      */
@@ -28,6 +30,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
         commonLib.pass("SLS Label is visible : " + status);
         return status;
     }
+
     /**
      * This method is used to check Total Ticket Label is visible or not
      */
@@ -36,6 +39,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
         commonLib.pass("Total Ticket Label is visible : " + status);
         return status;
     }
+
     /**
      * This method is used to click on Queue Wise SLA Performance Details Icon
      */
@@ -45,6 +49,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
             clickAndWaitForLoaderToBeRemoved(pageElements.queueWiseSLAPerformanceDetailsIcon);
 
     }
+
     /**
      * This method is used to check SLA PERFORMANCE DETAILS: QUEUE WISE Label is visible or not
      */
@@ -53,6 +58,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
         commonLib.pass("SLA PERFORMANCE DETAILS: QUEUE WISE Label is visible : " + status);
         return status;
     }
+
     /**
      * This method is used to check Queue Name Label is visible or not
      */
@@ -61,6 +67,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
         commonLib.pass("Queue Name Label is visible : " + status);
         return status;
     }
+
     /**
      * This method is used to check Total Ticket Allocated Label is visible or not
      */
@@ -69,6 +76,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
         commonLib.pass("Total Ticket Allocated Label is visible : " + status);
         return status;
     }
+
     /**
      * This method is used to check Ticket Cancelled Label is visible or not
      */
@@ -77,6 +85,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
         commonLib.pass("Ticket Cancelled  Label is visible : " + status);
         return status;
     }
+
     /**
      * This method is used to check Ticket Closed Outside SLA Label is visible or not
      */
@@ -85,6 +94,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
         commonLib.pass("Ticket Closed Outside SLA Label is visible : " + status);
         return status;
     }
+
     /**
      * This method is used to check Ticket Closed Within SLA Label is visible or not
      */
@@ -93,6 +103,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
         commonLib.pass("Ticket Closed Within SLA Label is visible : " + status);
         return status;
     }
+
     /**
      * This method is used to check SLA % Label is visible or not
      */
@@ -101,6 +112,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
         commonLib.pass(" SLA % Label is visible : " + status);
         return status;
     }
+
     /**
      * This method is used to check SLA PERFORMANCE DETAILS: ISSUE TYPE WISE Label is visible or not
      */
@@ -109,6 +121,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
         commonLib.pass("SLA PERFORMANCE DETAILS: ISSUE TYPE WISE Label is visible : " + status);
         return status;
     }
+
     /**
      * This method is used to check Day wise Label  is visible or not
      */
@@ -117,6 +130,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
         commonLib.pass("Day wise Label  is visible : " + status);
         return status;
     }
+
     /**
      * This method is used to click On Day Wise SLA PERFORMANCE DETAILS: QUEUE WISE
      */
@@ -125,6 +139,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
         if (isVisible(pageElements.dayWiseInSLAPerformanceDetailsQueueWiseIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.dayWiseInSLAPerformanceDetailsQueueWiseIcon);
     }
+
     /**
      * This method is used to check Day Wise In SLAPerformance Details Queue Wise Label  is visible or not
      */
@@ -133,6 +148,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
         commonLib.pass("Day Wise In SLAPerformance Details Queue Wise Label  is visible : " + status);
         return status;
     }
+
     /**
      * This method is used to click On Day Wise SLA PERFORMANCE DETAILS: ISSUE TYPE WISE
      */
@@ -141,6 +157,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
         if (isVisible(pageElements.dayWiseInSLAPerformanceDetailsIssueTypeWiseIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.dayWiseInSLAPerformanceDetailsIssueTypeWiseIcon);
     }
+
     /**
      * This method is used to check Day Wise In SLAPerformance Details Issue Type  Wise Label  is visible or not
      */
@@ -149,6 +166,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
         commonLib.pass("Day Wise In SLAPerformance Details Issue Type  Wise Label  is visible : " + status);
         return status;
     }
+
     /**
      * This method is used to click On Day Wise Agent  PERFORMANCE
      */
@@ -157,6 +175,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
         if (isVisible(pageElements.dayWiseAgentPerformanceDetailsIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.dayWiseAgentPerformanceDetailsIcon);
     }
+
     /**
      * This method is used to check Date Label  is visible or not
      */
@@ -165,6 +184,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
         commonLib.pass("Date Label  is visible : " + status);
         return status;
     }
+
     /**
      * This method is used to click on Back Icon
      */
@@ -174,6 +194,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
             clickAndWaitForLoaderToBeRemoved(pageElements.backIcon);
 
     }
+
     /**
      * This method is used to click on AGENT PERFORMANCE Icon
      */
@@ -183,6 +204,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
             clickAndWaitForLoaderToBeRemoved(pageElements.agentPerformanceIcon);
 
     }
+
     /**
      * This method is used to check AGENT PERFORMANCE Label  is visible or not
      */
@@ -191,6 +213,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
         commonLib.pass("AGENT PERFORMANC  is visible : " + status);
         return status;
     }
+
     /**
      * This method is used to check AGENT ID Label  is visible or not
      */
@@ -199,6 +222,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
         commonLib.pass("AGENT Id  is visible : " + status);
         return status;
     }
+
     /**
      * This method is used to check AGENT Name Label  is visible or not
      */
@@ -207,6 +231,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
         commonLib.pass("AGENT Name  is visible : " + status);
         return status;
     }
+
     /**
      * This method is used to check Issue Type Label  is visible or not
      */
@@ -215,6 +240,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
         commonLib.pass("Issue Type  is visible : " + status);
         return status;
     }
+
     /**
      * This method is used to check Day Wise Agent Performance Label  is visible or not
      */

@@ -4,7 +4,7 @@ import com.airtel.cs.driver.Driver;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.testng.annotations.Test;
 
-public class KpiDashbaordQueueWiseSLAPerformancePageTest extends Driver {
+public class KpiDashboardQueueWiseSLAPerformancePageTest extends Driver {
     ObjectMapper mapper = new ObjectMapper();
 
     @Test(priority = 1, groups = {"RegressionTest", "ProdTest"})
@@ -25,6 +25,7 @@ public class KpiDashbaordQueueWiseSLAPerformancePageTest extends Driver {
         }
 
     }
+
     @Test(priority = 2, groups = {"RegressionTest", "ProdTest"})
     public void queueWiseSLAPerformanceDetailsQueueWise() {
         try {
@@ -46,6 +47,7 @@ public class KpiDashbaordQueueWiseSLAPerformancePageTest extends Driver {
         }
 
     }
+
     @Test(priority = 3, groups = {"RegressionTest", "ProdTest"})
     public void queueWiseSLAPerformanceDetailsIssueTypeWise() {
         try {
@@ -67,6 +69,7 @@ public class KpiDashbaordQueueWiseSLAPerformancePageTest extends Driver {
         }
 
     }
+
     @Test(priority = 3, groups = {"RegressionTest", "ProdTest"})
     public void agentPerformanceLabelVisible() {
         try {
@@ -89,6 +92,7 @@ public class KpiDashbaordQueueWiseSLAPerformancePageTest extends Driver {
         }
 
     }
+
     @Test(priority = 4, groups = {"RegressionTest", "ProdTest"})
     public void dayWiseAgentPerformanceDetailsLabelVisible() {
         try {
@@ -114,6 +118,7 @@ public class KpiDashbaordQueueWiseSLAPerformancePageTest extends Driver {
         }
 
     }
+
     @Test(priority = 5, groups = {"RegressionTest", "ProdTest"})
     public void dayWiseInSLAPerformanceDetailsQueueWise() {
         try {
@@ -139,6 +144,7 @@ public class KpiDashbaordQueueWiseSLAPerformancePageTest extends Driver {
         }
 
     }
+
     @Test(priority = 6, groups = {"RegressionTest", "ProdTest"})
     public void dayWiseInSLAPerformanceDetailsIssueTypeWise() {
         try {
