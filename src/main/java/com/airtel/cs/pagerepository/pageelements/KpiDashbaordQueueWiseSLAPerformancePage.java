@@ -25,8 +25,8 @@ public class KpiDashbaordQueueWiseSLAPerformancePage {
     public By agentNameLabel=By.xpath("//span[contains(text(),'Agent Name')]");
     public By agentIdeLabel=By.xpath("//span[contains(text(),'Agent Id')]");
     public By issueTypeLabel=By.xpath("//span[contains(text(),'Issue Type')]");
-    public By dayWiseAgentPerformanceDetailsIcon;
-    public By dayWiseAgentPerformanceLabel;
-    public By dayWiseInSLAPerformanceDetailsQueueWiseLabel;
-    public By dayWiseInSLAPerformanceDetailsIssueTypeWiseLabel;
+    public By dayWiseAgentPerformanceDetailsIcon=By.xpath("//img[contains(@src,'assets/kpi-dashboard/day_wise.svg')]");
+    public By dayWiseAgentPerformanceLabel=By.xpath("//span[contains(text(),'Agent Performance Details ')]");
+    public By dayWiseInSLAPerformanceDetailsQueueWiseLabel=By.xpath("//span[contains(text(),'SLA Performance Details: Queue Wise ')]");
+    public By dayWiseInSLAPerformanceDetailsIssueTypeWiseLabel=By.xpath("//span[contains(text(),'SLA Performance Details: Issue Type Wise ')]");
 }
