@@ -178,9 +178,11 @@ public class RestCommonUtils extends Driver {
             baseURI = url;
             Headers headers = new Headers(map);
             request = given()
-                    .contentType("multipart/form-data")
+                    .contentType("multipart/json")
                     .headers(headers)
-                    .multiPart("file", new File("/Users/a13401405/IdeaProjects/cs-portal-automation_selenium/resources/properties/test.txt"))
+                    .headers("X-Api-Client","NFAqxq7d7")
+                    .headers("x-service-id","cacq_collective_appctx")
+                    .multiPart("file", new File("resources/properties/test.txt"))
                     .multiPart("fileMetaData", metaData);
 
             response = request.post(endPoint);

@@ -25,4 +25,19 @@ public class VoucherTabPage {
     public By voucherGroupLabel = By.xpath("//div[@class='agent']//div[3]//span[1]");
     public By voucherGroupValue = By.xpath("//div[@class='agent']//div[3]//span[2]");
     public By doneBtn = By.xpath("//div[@class='action-btn-area']//button[contains(text(),'Done')]");
+
+    /*
+Action Trail tab
+ */
+    public By homePage=By.xpath("//span[contains(text(),'HOME')]");
+    public By viewHistory=By.xpath("//span[contains(text(),'VIEW HISTORY')]");
+    public By actionTrail=By.xpath("//div[contains(text(),'Action Trail')]");
+    public By actionTrailLatestDropdown=By.xpath("//span[contains(@class,'cursor')]");
+    public By rechargeAmount =By.xpath("//div[@id='collapseTwo']/div/form/ul/li[2]/p");
+    public By rechargedMsisdn =By.xpath("//div[@id='collapseTwo']/div/form/ul/li[2]/p[2]");
+    public By voucherNumber=By.xpath("//div[@id='collapseTwo']/div/form/ul/li[2]/p[3]");
+    public By actionType=By.xpath("//div[@class='agent-list-container']/table/tbody/tr/td[1]");
+    public By reason=By.xpath("//div[@class='agent-list-container']/table/tbody/tr/td[3]");
+    public By comment=By.xpath("//div[@class='agent-list-container']/table/tbody/tr/td[6]");
+
 }

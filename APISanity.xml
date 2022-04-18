@@ -4,6 +4,11 @@
     <listeners>
         <listener class-name="com.airtel.cs.commonutils.listeners.TestListenerMethod"/>
     </listeners>
+    <test name="File Upload Test">
+        <classes>
+            <class name="com.airtel.cs.api.fileupload.FileUploadTest"/>
+        </classes>
+    </test>
    <test name="First Last Category API Test">
         <classes>
             <class name="com.airtel.cs.api.layoutcategorycode.FirstLastCategoryTest"/>

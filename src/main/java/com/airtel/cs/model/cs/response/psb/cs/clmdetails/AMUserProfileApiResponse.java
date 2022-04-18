@@ -31,6 +31,8 @@ public class AMUserProfileApiResponse implements Serializable {
 
     private String lastName;
 
+    private String MSISDN;
+
     private String dob;
 
     private BarDetails barDetails;

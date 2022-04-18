@@ -249,14 +249,11 @@ public class PageCollection {
         return new AirtelMoneyProfileBar(driver);
     }
 
-    public AirtelMoneyProfileBar getAirtelMoneyProfileBar() {
-        return new AirtelMoneyProfileBar(driver);
+    public AirtelMoneyProfileBar getAirtelMoneyProfileBar() { return new AirtelMoneyProfileBar(driver);
     }
 
-    public ServiceProfileDetailWidget getServiceProfileDetailWidget() {
-        return new ServiceProfileDetailWidget(driver);
+    public ServiceProfileDetailWidget getServiceProfileDetailWidget() { return new ServiceProfileDetailWidget (driver);
     }
-
     public AmSmsTrails getAmSmsTrails() {
         return new AmSmsTrails(driver);
     }
@@ -266,14 +263,12 @@ public class PageCollection {
         return new AmLinkedWallets(driver);
     }
 
-    public DemographicWidget getDemographicWidget() {
-        return new DemographicWidget(driver);
+    public PsbDemographicWidget getDemographicWidget() {
+        return new PsbDemographicWidget(driver);
     }
-
     public WalletInformation getWalletInformation() {
         return new WalletInformation(driver);
     }
-
     public AccountInformation getAccountInformation() {
         return new AccountInformation(driver);
     }
@@ -286,6 +281,13 @@ public class PageCollection {
         return new SmartCashTransactionHistory(driver);
     }
 
+    public PinReset getPinReset() {
+        return new PinReset(driver);
+    }
+
+    public BarUnbar getBarUnbar() {
+        return new BarUnbar(driver);
+    }
     public KpiDashboardTopPanel getKpiDashboardTopPanel() {
         return new KpiDashboardTopPanel(driver);
     }
