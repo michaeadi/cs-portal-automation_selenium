@@ -288,4 +288,28 @@ public class PageCollection {
     public BarUnbar getBarUnbar() {
         return new BarUnbar(driver);
     }
+    public KpiDashboardTopPanel getKpiDashboardTopPanel() {
+        return new KpiDashboardTopPanel(driver);
+    }
+
+    public KpiDashboard6MonthsOverview getKpiDashboard6MonthsOverview() {
+        return new KpiDashboard6MonthsOverview(driver);
+    }
+
+    public KpiDashboardOpenTicketAgeing getKpiDashboardOpenTicketAgeing() {
+        return
+                new KpiDashboardOpenTicketAgeing(driver);
+    }
+
+    public KpiDashboard6MonthsTicketType getKpiDashboard6MonthsTicketType() {
+        return new KpiDashboard6MonthsTicketType(driver);
+    }
+
+    public KpiDashboardFeatureUsageOfActions getKpiDashboardFeatureUsageOfActions() {
+        return new KpiDashboardFeatureUsageOfActions(driver);
+    }
+
+    public KpiDashbaordQueueWiseSLAPerformance getKpiDashboardQueueWiseSLAPerformance() {
+        return new KpiDashbaordQueueWiseSLAPerformance(driver);
+    }
 }
