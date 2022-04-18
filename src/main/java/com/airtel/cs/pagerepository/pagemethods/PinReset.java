@@ -6,7 +6,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import static com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants.COMMENT;
 
-public class PinReset extends BasePage{
+public class PinReset extends BasePage {
     PinResetPage pageElements;
 
     public PinReset(WebDriver driver) {
@@ -16,6 +16,7 @@ public class PinReset extends BasePage{
 
     /**
      * This method is used to check pin reset icon visible or not
+     *
      * @return
      */
     public boolean isPinResetIconVisible() {
@@ -26,6 +27,7 @@ public class PinReset extends BasePage{
 
     /**
      * This method is used to check issue pop up  is visible or not
+     *
      * @return
      */
     public boolean isIssuePopUpVisible() {
@@ -36,6 +38,7 @@ public class PinReset extends BasePage{
 
     /**
      * This method is used to check pin reset is visible or not in Issue pop up
+     *
      * @return
      */
     public boolean isPinResetPinHeaderVisible() {
@@ -49,8 +52,8 @@ public class PinReset extends BasePage{
      */
     public void clickPinReset() {
         commonLib.pass("Going to click pin reset icon ");
-        if (isVisible(pageElements.resetPinIcon));
-            clickAndWaitForLoaderToBeRemoved(pageElements.resetPinIcon);
+        if (isVisible(pageElements.resetPinIcon)) ;
+        clickAndWaitForLoaderToBeRemoved(pageElements.resetPinIcon);
     }
 
 
@@ -97,7 +100,8 @@ public class PinReset extends BasePage{
         commonLib.info("Going to click submit button");
         if (isVisible(pageElements.submitButton))
             clickWithoutLoader(pageElements.submitButton);
-
+        else
+            commonLib.fail("Submit Button is not visible", true);
     }
 
     /**
@@ -105,7 +109,7 @@ public class PinReset extends BasePage{
      */
     public void clickOnContinue() {
         commonLib.info("Clicking on continue button of cancel confirmation message");
-        if (isVisible(pageElements.continueButton));
+        if (isVisible(pageElements.continueButton)) ;
         clickWithoutLoader((pageElements.continueButton));
     }
 
@@ -123,7 +127,7 @@ public class PinReset extends BasePage{
      */
     public void clickSelectReason() {
         commonLib.info("Going to click Select Reason");
-        if (isVisible(pageElements.selectReason));
+        if (isVisible(pageElements.selectReason)) ;
         clickWithoutLoader((pageElements.selectReason));
     }
 
@@ -132,9 +136,10 @@ public class PinReset extends BasePage{
      */
     public void selectReasonFromDropdown() {
         commonLib.info("Going to select Reason from dropdown");
-        if (isVisible(pageElements.selectReasonFromDropdown));
+        if (isVisible(pageElements.selectReasonFromDropdown)) ;
         clickWithoutLoader((pageElements.selectReasonFromDropdown));
     }
+
     /**
      * This method is used to write the comment into comment box
      *
@@ -151,7 +156,7 @@ public class PinReset extends BasePage{
      * @return true/false
      */
     public boolean isSubmitBtnDisabled() {
-        Boolean status=isEnabled(pageElements.submitButton);
+        Boolean status = isEnabled(pageElements.submitButton);
         commonLib.info("Is submit button disabled " + status);
         return status;
     }
@@ -163,7 +168,8 @@ public class PinReset extends BasePage{
         commonLib.info("Going to click cancel button");
         if (isVisible(pageElements.cancel))
             clickWithoutLoader(pageElements.cancel);
-
+        else
+            commonLib.fail("Submit Button is not visible", true);
     }
 
     /**
@@ -195,14 +201,14 @@ public class PinReset extends BasePage{
      */
     public void clickCrossIcon() {
         commonLib.info("Going to click cross icon");
-        if (isVisible(pageElements.crossIcon));
+        if (isVisible(pageElements.crossIcon)) ;
         clickWithoutLoader((pageElements.crossIcon));
     }
 
     /**
      * This method is used to perform pin reset  by selecting reason and comment
      */
-    public void performResetPin( ) {
+    public void performResetPin() {
         commonLib.info("Going to perform pin Reset Action");
         pages.getPinReset().clickPinReset();
         pages.getPinReset().clickSelectReason();
