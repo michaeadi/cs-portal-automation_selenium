@@ -15,7 +15,7 @@ public class KpiDashboardOpenTicketAgeingTest extends BasePage {
     ObjectMapper mapper = new ObjectMapper();
 
 
-    @Test(priority = 1, groups = {"RegressionTest", "ProdTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void dashboardOpenTicketAgeing() {
         try {
             selUtils.addTestcaseDescription("Open Ticket Ageing", "description");
@@ -36,7 +36,7 @@ public class KpiDashboardOpenTicketAgeingTest extends BasePage {
         }
     }
 
-    @Test(priority = 2, groups = {"RegressionTest", "ProdTest"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void dashboardSlaBreachTicketAgeingIssueTypeQueue() {
         try {
             selUtils.addTestcaseDescription("Open Ticket Ageing", "description");
@@ -59,7 +59,7 @@ public class KpiDashboardOpenTicketAgeingTest extends BasePage {
         }
     }
 
-    @Test(priority = 3, groups = {"RegressionTest", "ProdTest"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void dashboardSlaBreachTicketAgeingNGAgent() {
         try {
             selUtils.addTestcaseDescription("Open Ticket Ageing", "description");

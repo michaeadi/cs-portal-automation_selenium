@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 public class KpiDashboard6MonthsTicketTypeTest extends Driver {
     ObjectMapper mapper = new ObjectMapper();
 
-    @Test(priority = 1, groups = {"RegressionTest", "ProdTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void SixMonthsTicketType() {
         try {
             selUtils.addTestcaseDescription("Six Months Ticket Type", "description");
@@ -29,7 +29,7 @@ public class KpiDashboard6MonthsTicketTypeTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"RegressionTest", "ProdTest"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void SixMonthsTicketTypeDetails() {
         try {
             selUtils.addTestcaseDescription("Six Months Ticket Type Details", "description");

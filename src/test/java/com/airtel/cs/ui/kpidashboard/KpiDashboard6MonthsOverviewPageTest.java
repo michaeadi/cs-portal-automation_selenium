@@ -11,7 +11,7 @@ public class KpiDashboard6MonthsOverviewPageTest extends Driver {
     ObjectMapper mapper = new ObjectMapper();
 
 
-    @Test(priority = 1, groups = {"RegressionTest", "ProdTest"})
+    @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void dashboardServiceLevelTrend() {
         try {
             selUtils.addTestcaseDescription("Service Level Trend Graph", "description");
@@ -31,7 +31,7 @@ public class KpiDashboard6MonthsOverviewPageTest extends Driver {
         }
     }
 
-    @Test(priority = 2, groups = {"RegressionTest", "ProdTest"})
+    @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void dashboardSlaPerformanceDetailsQueueWise
             () {
         try {
@@ -59,7 +59,7 @@ public class KpiDashboard6MonthsOverviewPageTest extends Driver {
         }
     }
 
-    @Test(priority = 3, groups = {"RegressionTest", "ProdTest"})
+    @Test(priority = 3, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void dashboardSLAPerformanceDetailsIssueTypeWise
 
             () {
@@ -81,7 +81,7 @@ public class KpiDashboard6MonthsOverviewPageTest extends Driver {
         }
     }
 
-    @Test(priority = 4, groups = {"RegressionTest", "ProdTest"})
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void dayWiseInSlaPerformanceDetailsQueueWise
 
             () {
@@ -106,7 +106,7 @@ public class KpiDashboard6MonthsOverviewPageTest extends Driver {
         }
     }
 
-    @Test(priority = 5, groups = {"RegressionTest", "ProdTest"})
+    @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void dayWiseInSlaPerformanceDetailsIssueType
 
             () {
@@ -131,7 +131,7 @@ public class KpiDashboard6MonthsOverviewPageTest extends Driver {
         }
     }
 
-    @Test(priority = 6, groups = {"RegressionTest", "ProdTest"})
+    @Test(priority = 6, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void AgentPerformanceDetails
 
 
@@ -157,7 +157,7 @@ public class KpiDashboard6MonthsOverviewPageTest extends Driver {
         }
     }
 
-    @Test(priority = 7, groups = {"RegressionTest", "ProdTest"})
+    @Test(priority = 7, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
     public void DayWiseAgentPerformanceDetails
 
 
