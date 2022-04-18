@@ -76,6 +76,9 @@ public class KpiDashboardOpenTicketAgeing extends BasePage {
         commonLib.info("Going to click Open Ticket Ageing Details Icon");
         if (isVisible(pageElements.openTicketAgeingDetailsIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.openTicketAgeingDetailsIcon);
+        else {
+            commonLib.error( "Open Ticket Ageing Details Icon not Visible");
+        }
 
     }
 
@@ -185,5 +188,8 @@ public class KpiDashboardOpenTicketAgeing extends BasePage {
         commonLib.info("Going to click Back Icon");
         if (isVisible(pageElements.backIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.backIcon);
+        else {
+            commonLib.error( "Back Icon not Visible");
+        }
     }
 }

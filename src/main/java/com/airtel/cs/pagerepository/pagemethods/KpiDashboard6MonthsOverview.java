@@ -73,6 +73,9 @@ public class KpiDashboard6MonthsOverview extends BasePage {
         commonLib.pass("click On Service Level Trend Details Icon");
         if (isVisible(pageElements.serviceLevelTrendDetailsIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.serviceLevelTrendDetailsIcon);
+        else {
+            commonLib.error(" Service Level Trend Details Icon not Visible");
+        }
     }
 
     /**
@@ -199,6 +202,9 @@ public class KpiDashboard6MonthsOverview extends BasePage {
         commonLib.pass("click On Service Level Trend Details Icon");
         if (isVisible(pageElements.dayWiseInSlaPerformanceDetailsQueueWiseIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.dayWiseInSlaPerformanceDetailsQueueWiseIcon);
+        else {
+            commonLib.error(" Day WiseIn Sla Performance Details Queue Wise Icon not Visible");
+        }
     }
 
     /**
@@ -208,6 +214,9 @@ public class KpiDashboard6MonthsOverview extends BasePage {
         commonLib.info("Going to click Back Icon");
         if (isVisible(pageElements.backIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.backIcon);
+        else {
+            commonLib.error(" Back Icon not Visible");
+        }
 
     }
 
@@ -218,6 +227,9 @@ public class KpiDashboard6MonthsOverview extends BasePage {
         commonLib.pass("click On Day WiseIn Sla Performance Details Issue Type Icon");
         if (isVisible(pageElements.dayWiseInSlaPerformanceDetailsIssueTypeIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.dayWiseInSlaPerformanceDetailsIssueTypeIcon);
+        else {
+            commonLib.error("  Day WiseIn Sla Performance Details Issue Type Icon not Visible");
+        }
     }
 
     /**
@@ -227,6 +239,9 @@ public class KpiDashboard6MonthsOverview extends BasePage {
         commonLib.pass("click On Agent performance Icon");
         if (isVisible(pageElements.agentPerormanceIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.agentPerormanceIcon);
+        else {
+            commonLib.error(" Agent Performance Details Queue Wise Icon not Visible");
+        }
     }
 
     /**
@@ -254,6 +269,9 @@ public class KpiDashboard6MonthsOverview extends BasePage {
         commonLib.pass("click On Day WiseIn Agent Performance Icon");
         if (isVisible(pageElements.dayWiseInAgentPerformanceIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.dayWiseInAgentPerformanceIcon);
+        else {
+            commonLib.error("Day WiseIn Agent Performance Icon not Visible");
+        }
     }
 
 

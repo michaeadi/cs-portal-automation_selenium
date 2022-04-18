@@ -65,6 +65,9 @@ public class KpiDashboard6MonthsTicketType extends BasePage {
         commonLib.info("Going to click6 Months Ticket Details  Icon");
         if (isVisible(pageElements.sixMonthsTicketDetailsIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.sixMonthsTicketDetailsIcon);
+        else {
+            commonLib.error(" 6 Months Ticket Details Icon not Visible");
+        }
 
     }
 
@@ -120,6 +123,9 @@ public class KpiDashboard6MonthsTicketType extends BasePage {
         commonLib.info("Going to click Back Icon");
         if (isVisible(pageElements.backIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.backIcon);
+        else {
+            commonLib.error("Back Icon not Visible");
+        }
 
     }
 }

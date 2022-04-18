@@ -15,7 +15,6 @@ public class KpiDashboardQueueWiseSLAPerformancePageTest extends Driver {
             pages.getKpiDashboardTopPanel().hoverOnKpiDashboardIcon();
             pages.getKpiDashboardTopPanel().clickOnCsDashboardIcon();
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardQueueWiseSLAPerformance().isQueueWiseSLAPerformanceLabelVisible(), true, "Queue Wise SLA Performance Label "));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardQueueWiseSLAPerformance().isSLALabelVisible(), true, "SLA Label "));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardQueueWiseSLAPerformance().isTotalTicketLabelVisible(), true, "Total Ticket Label "));
             actions.assertAllFoundFailedAssert(assertCheck);
 
@@ -37,7 +36,6 @@ public class KpiDashboardQueueWiseSLAPerformancePageTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardQueueWiseSLAPerformance().isTicketCancelledLabelVisible(), true, "Ticket Cancelled Label "));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardQueueWiseSLAPerformance().isTicketClosedOutsideSLALabelVisible(), true, "Ticket Closed Outside SLA Label "));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardQueueWiseSLAPerformance().isTicketClosedWithinSLALabelVisible(), true, "Ticket Closed Within SLA Label "));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardQueueWiseSLAPerformance().isSLALabelVisible(), true, "SLA  Label "));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardQueueWiseSLAPerformance().isDayWiseLabelVisible(), true, "Day wise Label "));
             actions.assertAllFoundFailedAssert(assertCheck);
 
@@ -59,7 +57,6 @@ public class KpiDashboardQueueWiseSLAPerformancePageTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardQueueWiseSLAPerformance().isTicketCancelledLabelVisible(), true, "Ticket Cancelled Label "));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardQueueWiseSLAPerformance().isTicketClosedOutsideSLALabelVisible(), true, "Ticket Closed Outside SLA Label "));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardQueueWiseSLAPerformance().isTicketClosedWithinSLALabelVisible(), true, "Ticket Closed Within SLA Label "));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardQueueWiseSLAPerformance().isSLALabelVisible(), true, "SLA  Label "));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardQueueWiseSLAPerformance().isDayWiseLabelVisible(), true, "Day wise Label "));
             actions.assertAllFoundFailedAssert(assertCheck);
 
@@ -82,7 +79,6 @@ public class KpiDashboardQueueWiseSLAPerformancePageTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardQueueWiseSLAPerformance().isTicketCancelledLabelVisible(), true, "Ticket Cancelled Label "));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardQueueWiseSLAPerformance().isTicketClosedOutsideSLALabelVisible(), true, "Ticket Closed Outside SLA Label "));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardQueueWiseSLAPerformance().isTicketClosedWithinSLALabelVisible(), true, "Ticket Closed Within SLA Label "));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardQueueWiseSLAPerformance().isSLALabelVisible(), true, "SLA  Label "));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardQueueWiseSLAPerformance().isDayWiseLabelVisible(), true, "Day wise Label "));
             actions.assertAllFoundFailedAssert(assertCheck);
 
@@ -106,7 +102,6 @@ public class KpiDashboardQueueWiseSLAPerformancePageTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardQueueWiseSLAPerformance().isTicketCancelledLabelVisible(), true, "Ticket Cancelled Label "));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardQueueWiseSLAPerformance().isTicketClosedOutsideSLALabelVisible(), true, "Ticket Closed Outside SLA Label "));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardQueueWiseSLAPerformance().isTicketClosedWithinSLALabelVisible(), true, "Ticket Closed Within SLA Label "));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardQueueWiseSLAPerformance().isSLALabelVisible(), true, "SLA  Label "));
             pages.getKpiDashboardQueueWiseSLAPerformance().clickOnBackIcon();
 
 
@@ -133,7 +128,6 @@ public class KpiDashboardQueueWiseSLAPerformancePageTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardQueueWiseSLAPerformance().isTicketCancelledLabelVisible(), true, "Ticket Cancelled Label "));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardQueueWiseSLAPerformance().isTicketClosedOutsideSLALabelVisible(), true, "Ticket Closed Outside SLA Label "));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardQueueWiseSLAPerformance().isTicketClosedWithinSLALabelVisible(), true, "Ticket Closed Within SLA Label "));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardQueueWiseSLAPerformance().isSLALabelVisible(), true, "SLA  Label "));
             pages.getKpiDashboardQueueWiseSLAPerformance().clickOnBackIcon();
 
             actions.assertAllFoundFailedAssert(assertCheck);
@@ -158,7 +152,6 @@ public class KpiDashboardQueueWiseSLAPerformancePageTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardQueueWiseSLAPerformance().isTicketCancelledLabelVisible(), true, "Ticket Cancelled Label "));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardQueueWiseSLAPerformance().isTicketClosedOutsideSLALabelVisible(), true, "Ticket Closed Outside SLA Label "));
             assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardQueueWiseSLAPerformance().isTicketClosedWithinSLALabelVisible(), true, "Ticket Closed Within SLA Label "));
-            assertCheck.append(actions.assertEqualBoolean(pages.getKpiDashboardQueueWiseSLAPerformance().isSLALabelVisible(), true, "SLA  Label "));
             pages.getKpiDashboardQueueWiseSLAPerformance().clickOnBackIcon();
 
             actions.assertAllFoundFailedAssert(assertCheck);

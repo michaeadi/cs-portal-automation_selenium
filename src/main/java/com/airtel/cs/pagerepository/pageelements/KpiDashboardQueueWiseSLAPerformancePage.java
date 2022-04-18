@@ -2,9 +2,8 @@ package com.airtel.cs.pagerepository.pageelements;
 
 import org.openqa.selenium.By;
 
-public class KpiDashbaordQueueWiseSLAPerformancePage {
+public class KpiDashboardQueueWiseSLAPerformancePage {
     public By queueWiseSLAPerformanceLabel = By.xpath("//span[contains(text(),'Queue Wise SLA Performance')]");
-    public By slaLabel;
     public By totalTicketLabel = By.xpath("//span[contains(text(),' Total Ticket ')]");
     public By queueWiseSLAPerformanceDetailsIcon = By.xpath("//span[contains(text(),'Queue Wise SLA Performance')]/..//img");
     public By slaPerformanceDetailsQueueWiseLabel = By.xpath("//span[contains(text(),'SLA Performance Details: Queue Wise ')]");

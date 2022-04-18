@@ -30,6 +30,9 @@ public class KpiDashboardTopPanel extends BasePage {
         commonLib.info("Going to click Dashboard Icon");
         if (isVisible(pageElements.csDashboardIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.csDashboardIcon);
+        else {
+            commonLib.error( " Dashboard Icon not Visible");
+        }
 
     }
     /**
@@ -114,6 +117,9 @@ public class KpiDashboardTopPanel extends BasePage {
         commonLib.pass("Click On Open Tickets Beyond SLA Details Icon");
         if (isVisible(pageElements.openTicketsBeyondSLADetailsIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.openTicketsBeyondSLADetailsIcon);
+        else {
+            commonLib.error( "Open Tickets Beyond SLA Details Icon not Visible");
+        }
     }
     /**
      * This method is used to click On Open Tickets Under SLA Details Icon
@@ -122,6 +128,9 @@ public class KpiDashboardTopPanel extends BasePage {
         commonLib.pass("Click On Tickets Under SLA Details Icon");
         if (isVisible(pageElements.openTicketsUnderSLALDetailsIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.openTicketsUnderSLALDetailsIcon);
+        else {
+            commonLib.error( " Open Tickets Under SLA Details Icon not Visible");
+        }
     }
     /**
      * This method is used to click On Breaching Within 15 Mins Details Icon
@@ -130,6 +139,9 @@ public class KpiDashboardTopPanel extends BasePage {
         commonLib.pass("Click On  Breaching Within 15 Mins Details Icon");
         if (isVisible(pageElements.breachingWithin15MinsDetailsIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.breachingWithin15MinsDetailsIcon);
+        else {
+            commonLib.error( "  Breaching Within 15 Mins Details Icon not Visible");
+        }
     }
     /**
      * This method is used to click On Breaching Within 15 To 60 Mins Details Icon
@@ -138,6 +150,9 @@ public class KpiDashboardTopPanel extends BasePage {
         commonLib.pass("Click On Breaching Within 15 To 60 Mins Details Icon");
         if (isVisible(pageElements.breachingWithin15To60MinsDetailsIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.breachingWithin15To60MinsDetailsIcon);
+        else {
+            commonLib.error( " Breaching Within 15 To 60 Mins Details Icon not Visible");
+        }
     }
     /**
      * This method is used to click On Breaching With in 60 Mins Details Icon
@@ -146,6 +161,9 @@ public class KpiDashboardTopPanel extends BasePage {
         commonLib.pass("Click On Breaching With in 60 Mins Details Icon");
         if (isVisible(pageElements.breachingGreaterThan60MinsDetailsIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.breachingGreaterThan60MinsDetailsIcon);
+        else {
+            commonLib.error( "Breaching With in 60 Mins Details Icon not Visible");
+        }
     }
     /**
      * This method is used to check Ticket ID   is visible or not
@@ -251,6 +269,9 @@ public class KpiDashboardTopPanel extends BasePage {
         commonLib.info("Going to click Back Icon");
         if (isVisible(pageElements.backIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.backIcon);
+        else {
+            commonLib.error( "Back Icon not Visible");
+        }
 
     }
     /**

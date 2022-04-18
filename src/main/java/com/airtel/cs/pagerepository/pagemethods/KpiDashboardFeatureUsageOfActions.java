@@ -47,6 +47,9 @@ public class KpiDashboardFeatureUsageOfActions extends BasePage {
         commonLib.info("Going to click6 Months Ticket Details  Icon");
         if (isVisible(pageElements.featureUsageOfActionsDetailsIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.featureUsageOfActionsDetailsIcon);
+        else {
+            commonLib.error("Feature Usage Of Actions Details  Icon not Visible");
+        }
 
     }
 
@@ -83,6 +86,9 @@ public class KpiDashboardFeatureUsageOfActions extends BasePage {
     public void clickOnBackIcon() {
         commonLib.info("Going to click Back Icon");
         if (isVisible(pageElements.backIcon)) clickAndWaitForLoaderToBeRemoved(pageElements.backIcon);
+        else {
+            commonLib.error("Back Icon not Visible");
+        }
 
     }
 }

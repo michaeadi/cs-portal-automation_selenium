@@ -1,15 +1,15 @@
 package com.airtel.cs.pagerepository.pagemethods;
 
-import com.airtel.cs.pagerepository.pageelements.KpiDashbaordQueueWiseSLAPerformancePage;
+import com.airtel.cs.pagerepository.pageelements.KpiDashboardQueueWiseSLAPerformancePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
 public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
-    KpiDashbaordQueueWiseSLAPerformancePage pageElements;
+    KpiDashboardQueueWiseSLAPerformancePage pageElements;
 
     public KpiDashbaordQueueWiseSLAPerformance(WebDriver driver) {
         super(driver);
-        pageElements = PageFactory.initElements(driver, KpiDashbaordQueueWiseSLAPerformancePage.class);
+        pageElements = PageFactory.initElements(driver, KpiDashboardQueueWiseSLAPerformancePage.class);
 
     }
 
@@ -22,14 +22,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
         return status;
     }
 
-    /**
-     * This method is used to check SLA  Label is visible or not
-     */
-    public Boolean isSLALabelVisible() {
-        Boolean status = isVisible(pageElements.slaLabel);
-        commonLib.pass("SLS Label is visible : " + status);
-        return status;
-    }
+
 
     /**
      * This method is used to check Total Ticket Label is visible or not
@@ -47,6 +40,10 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
         commonLib.info("Going to click on Queue Wise SLA Performance Details Icon");
         if (isVisible(pageElements.queueWiseSLAPerformanceDetailsIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.queueWiseSLAPerformanceDetailsIcon);
+        else {
+           commonLib.error("Queue Wise SLA Performance Details Icon not Visible");
+        }
+
 
     }
 
@@ -138,6 +135,9 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
         commonLib.pass("click On Day Wise SLA PERFORMANCE DETAILS: QUEUE WISE Icon");
         if (isVisible(pageElements.dayWiseInSLAPerformanceDetailsQueueWiseIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.dayWiseInSLAPerformanceDetailsQueueWiseIcon);
+        else {
+            commonLib.error("Day Wise SLA PERFORMANCE DETAILS: QUEUE WISE Icon not Visible");
+        }
     }
 
     /**
@@ -156,6 +156,9 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
         commonLib.pass("click On Day Wise SLA PERFORMANCE DETAILS: QUEUE WISE Icon");
         if (isVisible(pageElements.dayWiseInSLAPerformanceDetailsIssueTypeWiseIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.dayWiseInSLAPerformanceDetailsIssueTypeWiseIcon);
+        else {
+            commonLib.error("Day Wise SLA PERFORMANCE DETAILS: ISSUE TYPE WISE Icon not Visible");
+        }
     }
 
     /**
@@ -174,6 +177,9 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
         commonLib.pass("click On Day Wise Agent PERFORMANCE Details Icon");
         if (isVisible(pageElements.dayWiseAgentPerformanceDetailsIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.dayWiseAgentPerformanceDetailsIcon);
+        else {
+            commonLib.error(" Day Wise Agent  PERFORMANCE Icon not Visible");
+        }
     }
 
     /**
@@ -202,6 +208,9 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
         commonLib.info("Going to click AGENT PERFORMANCE Icon");
         if (isVisible(pageElements.agentPerformanceIcon))
             clickAndWaitForLoaderToBeRemoved(pageElements.agentPerformanceIcon);
+        else {
+            commonLib.error(" AGENT PERFORMANCE Icon Icon not Visible");
+        }
 
     }
 
@@ -210,7 +219,7 @@ public class KpiDashbaordQueueWiseSLAPerformance extends BasePage {
      */
     public Boolean isAgentPerformanceLabelVisible() {
         Boolean status = isVisible(pageElements.agentPerformanceLabel);
-        commonLib.pass("AGENT PERFORMANC  is visible : " + status);
+        commonLib.pass("AGENT PERFORMANCE  is visible : " + status);
         return status;
     }
 
