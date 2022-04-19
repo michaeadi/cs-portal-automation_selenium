@@ -28,9 +28,10 @@ sr-servicetest.iml
 .project
 *.iml
 /src/main/java/com/airtel/cs/commonutils/PassUtils.java
-/resources/testresultsummary/emailableReport.html
+/resources/testresultsummary
 .DS_Store
 resources/.DS_Store
 target/
 /src/main/java/com/airtel/cs/commonutils/generatePassword.java
+resources/chromedriver
 
