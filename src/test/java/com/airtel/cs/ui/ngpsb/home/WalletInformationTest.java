@@ -101,6 +101,7 @@ public class WalletInformationTest extends Driver {
         }
     }
 
+
     /**
      * This method is used to check Wallets balance
      */
