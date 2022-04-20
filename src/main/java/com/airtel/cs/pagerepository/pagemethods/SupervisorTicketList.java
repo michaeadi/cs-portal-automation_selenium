@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants.COMMENT;
+
 @Log4j2
 public class SupervisorTicketList extends BasePage {
 
@@ -416,6 +418,14 @@ public class SupervisorTicketList extends BasePage {
         commonLib.info("Switch Ticket State Type to closed");
         clickWithoutLoader(pageElements.selectTicketType);
         clickAndWaitForLoaderToBeRemoved(pageElements.closedTicketType);
+    }
+    /**
+     * This method is use to update the ticket state from open to closed
+     * */
+    public void updateTicketStateToClosed() {
+        commonLib.info("Updating ticket's state from open to closed");
+        enterComment(COMMENT);
+        clickAndWaitForLoaderToBeRemoved(pageElements.submitButton);
     }
 
     /**
@@ -960,5 +970,13 @@ public class SupervisorTicketList extends BasePage {
         clickWithoutLoader(pageElements.continueBtn);
     }
 
-
+    /**
+     * This method is used to write the comment into comment box
+     *
+     * @param text The comment
+     */
+    public void enterComment(String text) {
+        commonLib.info("Writing comment into comment box: " + text);
+        enterText(pageElements.commentBox, text);
+    }
 }

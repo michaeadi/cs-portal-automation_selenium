@@ -84,4 +84,7 @@ public class SupervisorTicketListPage {
     public By loginQueueName=By.xpath("//label[@formarrayname='queues' and contains(text(),'CS Test Automation')]");
     public By agentLoggedInQueue=By.xpath("//span[contains(text(),'CS Test Automation')]");
     public By continueBtn=By.xpath("//span[contains(text(),'Continue')]");
+
+    public By commentBox=By.xpath("//textarea[contains(@placeholder,'Closure Comment')]");
+    public By submitButton=By.xpath("//button[contains(@class,'sbt-btn')]");
 }

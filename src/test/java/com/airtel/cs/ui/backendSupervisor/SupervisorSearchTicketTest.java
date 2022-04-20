@@ -51,8 +51,7 @@ public class SupervisorSearchTicketTest extends Driver {
     @Test(priority = 2, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openSupervisorDashboard"})
     public void validateSupervisorTicketListMetaData() {
         try {
-            selUtils.addTestcaseDescription("Validate supervisor tickets Meta Data,Validate that supervisor able to see the ticket list" +
-                    ",Validate able to see the ticket meta data 'Ticket Number' 'Workgroup Name' 'Ticket Priority' 'Ticket State' 'Ticket Creation date' 'Ticket Queue' 'Category hierarchy [Issue->Issue Type->Issue Sub Type->Issue Sub Sub Type->Category Code]'", "description");
+            selUtils.addTestcaseDescription("Validate supervisor tickets Meta Data,Validate that supervisor able to see the ticket list" + ",Validate able to see the ticket meta data 'Ticket Number' 'Workgroup Name' 'Ticket Priority' 'Ticket State' 'Ticket Creation date' 'Ticket Queue' 'Category hierarchy [Issue->Issue Type->Issue Sub Type->Issue Sub Sub Type->Category Code]'", "description");
             Ticket ticketPOJO = api.ticketMetaDataTest(pages.getSupervisorTicketList().getTicketIdValue());
             if (pages.getSupervisorTicketList().isTicketIdLabel()) {
                 assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isTicketIdLabel(), true, "Ticket Meta data have Ticket Id field displayed", "Ticket meta data does not have Ticket Id displayed"));
@@ -97,14 +96,10 @@ public class SupervisorSearchTicketTest extends Driver {
                 pages.getSupervisorTicketList().clickSearchBtn();
                 assertCheck.append(actions.matchUiAndAPIResponse(pages.getSupervisorTicketList().getTicketIdValue(), data.getTicketNumber(), "Searched Ticket found on UI as expected","Searched Ticket does not found on UI as expected",true));
                 Ticket ticketPOJO = api.ticketMetaDataTest(data.getTicketNumber());
-                assertCheck.append(actions.matchStringIgnoreSpecialChar(pages.getSupervisorTicketList().getQueueValue(), assignmentRule.getQueueName(),
-                        "Ticket Queue field value same as expected " + assignmentRule.getQueueName(), "Ticket Queue field value not same as expected " + assignmentRule.getQueueName()));
-                assertCheck.append(actions.matchStringIgnoreSpecialChar(pages.getSupervisorTicketList().getPriorityValue(), assignmentRule.getTicketPriority(),
-                        "Ticket Priority field value same as expected " + assignmentRule.getTicketPriority(), "Ticket Queue field value not same as expected " + assignmentRule.getTicketPriority()));
-                assertCheck.append(actions.matchStringIgnoreSpecialChar(pages.getSupervisorTicketList().getStatevalue(), assignmentRule.getTicketState(),
-                        "Ticket state field value same as expected " + assignmentRule.getTicketState(), "Ticket state field value not same as expected " + assignmentRule.getTicketState()));
-                assertCheck.append(actions.matchStringIgnoreSpecialChar(pages.getSupervisorTicketList().getWorkGroupName(), slaRule.getWorkgroup1(),
-                        "Ticket Workgroup field value same as expected " + slaRule.getWorkgroup1(), "Ticket Workgroup field value not same as expected " + slaRule.getWorkgroup1()));
+                assertCheck.append(actions.matchStringIgnoreSpecialChar(pages.getSupervisorTicketList().getQueueValue(), assignmentRule.getQueueName(), "Ticket Queue field value same as expected " + assignmentRule.getQueueName(), "Ticket Queue field value not same as expected " + assignmentRule.getQueueName()));
+                assertCheck.append(actions.matchStringIgnoreSpecialChar(pages.getSupervisorTicketList().getPriorityValue(), assignmentRule.getTicketPriority(), "Ticket Priority field value same as expected " + assignmentRule.getTicketPriority(), "Ticket Priority field value not same as expected " + assignmentRule.getTicketPriority()));
+                assertCheck.append(actions.matchStringIgnoreSpecialChar(pages.getSupervisorTicketList().getStatevalue(), assignmentRule.getTicketState(), "Ticket state field value same as expected " + assignmentRule.getTicketState(), "Ticket state field value not same as expected " + assignmentRule.getTicketState()));
+                assertCheck.append(actions.matchStringIgnoreSpecialChar(pages.getSupervisorTicketList().getWorkGroupName(), slaRule.getWorkgroup1(), "Ticket Workgroup field value same as expected " + slaRule.getWorkgroup1(), "Ticket Workgroup field value not same as expected " + slaRule.getWorkgroup1()));
                 assertCheck.append(actions.assertEqualStringType(UtilsMethods.convertToHR(ticketPOJO.getResult().getCommittedSla()), slaRule.getCommittedSLA(), "Ticket Committed SLA configured Correctly", "Ticket Committed SLA does not configured Correctly"));
                 assertCheck.append(actions.assertEqualStringType(pages.getSupervisorTicketList().getMSISDN().trim(), ticketPOJO.getResult().getMsisdn().trim(), "User MSISDN is same as expected", "User MSISDN is not same as expected"));
                 Map<String, Long> sla = ticketPOJO.getResult().getSla();
@@ -128,6 +123,7 @@ public class SupervisorSearchTicketTest extends Driver {
     public void validateCheckBox() {
         try {
             selUtils.addTestcaseDescription("Validate Check Box,Validate Assign to Agent and Transfer to Queue Option on Open Ticket", "description");
+            pages.getSupervisorTicketList().changeTicketTypeToOpen();
             pages.getSupervisorTicketList().clickCheckbox();
             assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isAssignToAgent(), true, "User have option to perform action assign to agent", "User does not have option to perform action assign to agent"));
             assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isTransferToQueue(), true, "User have option to perform action Transfer to Queue ", "User does not have option to perform action Transfer to Queue"));

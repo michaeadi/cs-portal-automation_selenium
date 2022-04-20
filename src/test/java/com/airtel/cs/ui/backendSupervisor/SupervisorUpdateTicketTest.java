@@ -59,11 +59,12 @@ public class SupervisorUpdateTicketTest extends Driver {
                 String selectStateByConfig = data.getState(constants.getValue(CommonConstants.TICKET_CLOSE_STATE)).get(0).getTicketStateName();
                 selectedState = pages.getViewTicket().selectState(selectStateByConfig);
                 if (selectedState.equalsIgnoreCase(selectStateByConfig)) {
+                    pages.getSupervisorTicketList().updateTicketStateToClosed();
                     pages.getSupervisorTicketList().changeTicketTypeToClosed();
                     pages.getSupervisorTicketList().writeTicketId(Data.getTicketNumber());
                     pages.getSupervisorTicketList().clickSearchBtn();
                     assertCheck.append(actions.assertEqualStringType(pages.getSupervisorTicketList().getTicketIdValue(), Data.getTicketNumber(), "Search ticket fetched correctly", "Search Ticket Does not Fetched Correctly",true,true));
-                    assertCheck.append(actions.assertEqualStringType(pages.getSupervisorTicketList().getStatevalue(), selectedState, "Ticket Does Updated to Selected State","Ticket Does not Updated to Selected State",true,true));
+                    assertCheck.append(actions.assertEqualStringType(pages.getSupervisorTicketList().getStatevalue(), selectedState, "Ticket is Updated to the Selected State","Ticket is not Updated to the Selected State",true,true));
                     if (ticketId == null) {
                         ticketId = Data.getTicketNumber();
                     }
@@ -73,7 +74,7 @@ public class SupervisorUpdateTicketTest extends Driver {
                     assertCheck.append(actions.assertEqualBoolean(list.getMessageText().contains(Data.getTicketNumber()), true, "Message Sent to customer for same ticket id which has been closed", "Message does not Sent for same ticket id which has been closed"));
                     assertCheck.append(actions.assertEqualStringType(list.getSmsType().toLowerCase().trim(), constants.getValue(CommonConstants.SYSTEM_SMS_TYPE).toLowerCase().trim(), "Message type is system", "Message type is not system"));
                     assertCheck.append(actions.assertEqualBoolean(list.getAction(), false, "Action button is disabled", "Action button is not disabled"));
-                    assertCheck.append(actions.assertEqualStringType((list.getTemplateName().toLowerCase().trim()), constants.getValue(CommonConstants.TICKET_CREATED_EVENT).toLowerCase().trim(), "Template event same as expected.", "Template event not same as expected."));
+                    assertCheck.append(actions.assertEqualStringType((list.getTemplateName().toLowerCase().trim()), constants.getValue(CommonConstants.TICKET_CLOSED_EVENT).toLowerCase().trim(), "Template event same as expected.", "Template event not same as expected."));
                 } else {
                     pages.getViewTicket().clickBackButton();
                 }

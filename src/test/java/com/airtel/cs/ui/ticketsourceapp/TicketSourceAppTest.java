@@ -96,6 +96,7 @@ public class TicketSourceAppTest extends Driver {
     public void testSourceAppTransferTicketToQueue(@NotNull TransferQueueDataBean data) {
         selUtils.addTestcaseDescription("Validate Source App while doing Transfer To Queue", "description");
         try {
+            pages.getSupervisorTicketList().changeTicketTypeToOpen();
             pages.getSupervisorTicketList().clickCheckbox();
             pages.getSupervisorTicketList().clickTransfertoQueue();
             assertCheck.append(actions.assertEqualBoolean(pages.getTransferToQueue().validatePageTitle(), true, "Transfer Ticket To Queue Page Title Matched", "Transfer Ticket To Queue Page Title NOT Matched"));

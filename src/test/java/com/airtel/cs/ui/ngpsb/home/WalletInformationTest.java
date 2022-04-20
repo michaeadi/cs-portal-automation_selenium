@@ -118,7 +118,6 @@ public class WalletInformationTest extends Driver {
             pages.getWalletInformation().hoverOnBalanceInfoIcon();
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getFrozenAmount(), currency + " " + balance.getResult().getFrozenAmt(), "Frozen Amount is same as Expected", "Frozen Amount is not same as Expected"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getFicAmount(), currency + " " + balance.getResult().getFundsInClearance(), "FIC Amount is same as Expected", "FIC Amount is not same as Expected"));
-
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - testWalletsBalance" + e.fillInStackTrace(), true);

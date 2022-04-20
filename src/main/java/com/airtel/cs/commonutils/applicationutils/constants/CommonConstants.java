@@ -94,6 +94,7 @@ public class CommonConstants {
     public static final String AIRTEL_MONEY_WIDGET_TITLE="cs.portal.airtel.money.widget.title";
     public static final String CS_SR_CLIENT_ID = "cs.sr.client.id";
     public static final String INVALID_TOKEN = "sr.invalid.token";
+    public static final String TICKET_CLOSED_EVENT="cs.ticket.close.event";
 
     public static final String HYPHEN = "-";
     public static final String EMPTY_STRING = "";

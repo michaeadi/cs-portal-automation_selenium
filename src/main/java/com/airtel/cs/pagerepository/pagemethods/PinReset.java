@@ -76,15 +76,6 @@ public class PinReset extends BasePage {
     }
 
     /**
-     * This method is used to check submit button  visible or not
-     */
-    public Boolean isSubmitButtonVisible() {
-        Boolean status = isVisible(pageElements.submitButton);
-        commonLib.pass("Submit Button is visible : " + status);
-        return status;
-    }
-
-    /**
      * This method is used to check Cancel button is visible or not
      */
     public Boolean isCancelButtonVisible() {
@@ -169,7 +160,7 @@ public class PinReset extends BasePage {
         if (isVisible(pageElements.cancel))
             clickWithoutLoader(pageElements.cancel);
         else
-            commonLib.fail("Submit Button is not visible", true);
+            commonLib.fail("Cancel Button is not visible", true);
     }
 
     /**

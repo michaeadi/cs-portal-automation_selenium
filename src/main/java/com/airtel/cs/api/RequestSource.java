@@ -605,7 +605,7 @@ public class RequestSource extends RestCommonUtils {
         Ticket result = null;
         try {
             queryParam.put("id", ticketId);
-            commonGetMethodWithQueryParam(URIConstants.SR_FETCH_HISTORY, queryParam, validHeaderList, srBaseUrl);
+            commonGetMethodWithQueryParam(URIConstants.SR_FETCH_HISTORY, queryParam, map, srBaseUrl);
             result = response.as(Ticket.class);
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - ticketMetaDataTest " + e.getMessage(), false);
