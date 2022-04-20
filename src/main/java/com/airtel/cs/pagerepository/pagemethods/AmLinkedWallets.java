@@ -117,10 +117,10 @@ public class AmLinkedWallets extends BasePage {
      * @param column
      * @return
      */
-    public String getHeaderValue(int row, int column) {
+    public String getRowValue(int row, int column) {
         String result;
         result = getText(By.xpath(pageElements.dataRows + row + pageElements.dataColumns + column + pageElements.dataValue));
-        commonLib.info("Reading Value(" + row + "): " + result);
+        commonLib.info("Reading Row(" + row + "): " + result);
         return result;
     }
 
