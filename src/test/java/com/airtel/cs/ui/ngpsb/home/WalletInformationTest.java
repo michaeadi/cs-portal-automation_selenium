@@ -32,8 +32,7 @@ public class WalletInformationTest extends Driver {
     public void checkWalletsSize() {
         customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_TIER1_MSISDN);
         clmDetails = api.getCLMDetails(customerNumber);
-        if (clmDetails.getResult().getDetails().get(0).getWallets().size()==0)
-        {
+        if (clmDetails.getResult().getDetails().get(0).getWallets().size() == 0) {
             commonLib.skip("Skipping because there are no wallets linked with the msisdn ");
             throw new SkipException("Skipping because this feature is not applicable when there are no wallets linked with the msisdn");
         }
@@ -83,7 +82,7 @@ public class WalletInformationTest extends Driver {
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getWalletStatus(), clmDetails.getResult().getDetails().get(0).getWallets().get(0).getStatus(), "Wallet status is same as Expected", "Wallet status  is not same as Expected"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getWalletCategory(), clmDetails.getResult().getDetails().get(0).getWallets().get(0).getCategory(), "Wallet status is same as Expected", "Wallet status  is not same as Expected"));
             String createdOnDate = UtilsMethods.getDateFromEpoch(Long.parseLong(clmDetails.getResult().getDetails().get(0).getWallets().get(0).getCreatedOn()), constants.getValue(CommonConstants.NGPSB_WALLET_CREATED_DATE_PATTERN));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getWalletCreatedOn(),  createdOnDate, "Wallet Created On is same as Expected", "Wallet Created On is not same as Expected"));
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getWalletCreatedOn(), createdOnDate, "Wallet Created On is same as Expected", "Wallet Created On is not same as Expected"));
             pages.getWalletInformation().hoverOnWalletCreated();
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getWalletCreatedBy(), clmDetails.getResult().getDetails().get(0).getWallets().get(0).getCreatedBy(), "Wallet Created By is same as Expected", "Wallet Created By is not same as Expected"));
             String modifiedOnDate = UtilsMethods.getDateFromEpoch(Long.parseLong(clmDetails.getResult().getDetails().get(0).getWallets().get(0).getModifiedOn()), constants.getValue(CommonConstants.NGPSB_WALLET_CREATED_DATE_PATTERN));
@@ -94,7 +93,7 @@ public class WalletInformationTest extends Driver {
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getWalletNubanId(), clmDetails.getResult().getDetails().get(0).getWallets().get(0).getId(), "Wallet Nuban id is same as Expected", "Account nuban id is not same as Expected"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getSecurityQuestionsSet(), clmDetails.getResult().getDetails().get(0).getWallets().get(0).getIsSecurityQuestionSet(), "Security Question Set is same as Expected", "Security Question Set is not same as Expected"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getSecurityQuestionsConfigured(), clmDetails.getResult().getDetails().get(0).getWallets().get(0).getSecurityQuestionsConfigured().toString(), "Security Question Configured is same as Expected", "Security Question Configured  is not same as Expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getBarringStatus(), clmDetails.getResult().getDetails().get(0).getUserBarred(),"Barring status is same as Expected", "Barring status  is not same as Expected"));
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getBarringStatus(), clmDetails.getResult().getDetails().get(0).getUserBarred(), "Barring status is same as Expected", "Barring status  is not same as Expected"));
             assertCheck.append(actions.assertEqualBoolean(pages.getWalletInformation().isBarringInfoIconVisible(), true, "Barring status info icon is visible", "Barring status info icon is NOT visible"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -113,7 +112,7 @@ public class WalletInformationTest extends Driver {
             String nubanId = clmDetails.getResult().getDetails().get(0).getWallets().get(0).getId();
             String type = constants.getValue(ApplicationConstants.WALLET_TYPE);
             FetchBalanceResponse balance = api.getFetchBalance(customerNumber, nubanId, type);
-            String currency=balance.getResult().currency;
+            String currency = balance.getResult().currency;
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getBalance(), currency + " " + balance.getResult().getBalance(), "Balance is same as Expected", "Balance is not same as Expected"));
             pages.getWalletInformation().hoverOnBalanceInfoIcon();
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getFrozenAmount(), currency + " " + balance.getResult().getFrozenAmt(), "Frozen Amount is same as Expected", "Frozen Amount is not same as Expected"));
@@ -123,6 +122,7 @@ public class WalletInformationTest extends Driver {
             commonLib.fail("Exception in Method - testWalletsBalance" + e.fillInStackTrace(), true);
         }
     }
+
     /**
      * This method is used to check Wallets data
      */
@@ -159,7 +159,7 @@ public class WalletInformationTest extends Driver {
     }
 
 
-    @Test(priority = 6, groups = {"SanityTest","ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 6, groups = {"SanityTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testSMSLogsTab() {
         try {
             selUtils.addTestcaseDescription("Validate Wallets tab data", "description");
@@ -174,10 +174,10 @@ public class WalletInformationTest extends Driver {
                 int size = pages.getAmSmsTrails().getNoOfRows();
                 for (int i = 0; i < size; i++) {
                     int row = i + 1;
-                    assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getHeaderValue(row, 1), smsLogs.getResult().get(i).getSmsDate(), "Timestamp is same as expected ", "Timestamp Id is NOT same as expected"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getHeaderValue(row, 2), smsLogs.getResult().get(i).getTransactionId(), "Transaction Id is same as expected ", "Transaction Id is NOT same as expected"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getHeaderValue(row, 3), smsLogs.getResult().get(i).getSmsId(), "Sms Id is same as expected ", "Sms Id is NOT same as expected"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getHeaderValue(row, 4), smsLogs.getResult().get(i).getSmsBody(), "Sms Body is same as expected ", "Sms Body is NOT same as expected"));
+                    assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getRowValue(row, 1), pages.getDemoGraphicPage().getKeyValueAPI(smsLogs.getResult().get(i).getSmsDate()), "Timestamp is same as expected ", "Timestamp Id is NOT same as expected"));
+                    assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getRowValue(row, 2), pages.getDemoGraphicPage().getKeyValueAPI(smsLogs.getResult().get(i).getTransactionId()), "Transaction Id is same as expected ", "Transaction Id is NOT same as expected"));
+                    assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getRowValue(row, 3), pages.getDemoGraphicPage().getKeyValueAPI(smsLogs.getResult().get(i).getSmsId()), "Sms Id is same as expected ", "Sms Id is NOT same as expected"));
+                    assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getRowValue(row, 4), pages.getDemoGraphicPage().getKeyValueAPI(smsLogs.getResult().get(i).getSmsBody()), "Sms Body is same as expected ", "Sms Body is NOT same as expected"));
                     assertCheck.append(actions.assertEqualStringType(pages.getAmSmsTrails().getAction(row, 5), "Resend SMS", "Resend SMS is visible in Action", "Resend SMS is NOT visible in Action"));
                 }
             }
