@@ -107,7 +107,7 @@ public class ESBRequestSource extends RestCommonUtils {
     private static final String NOTIFICATION_TYPE = "notificationType";
     private static final String RECEIVER = "receiver";
     private static final String SMS = "sms";
-    private static final String ID_NUMBER= "id_number";
+    private static final String ID_NUMBER = "id_number";
     private static final String ID_TYPE = "id_type";
 
 
@@ -1104,9 +1104,9 @@ public class ESBRequestSource extends RestCommonUtils {
     public void callBalanceAPI(String nubanId, String type) {
         try {
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + constants.getValue("get.balance"), JavaColors.GREEN, false);
-            queryParam.put(ID_NUMBER, type);
-            queryParam.put(ID_TYPE, nubanId);
-            commonGetMethodWithQueryParam(ESBURIConstants.FETCH_BALANCE1 +ESBURIConstants.FETCH_BALANCE2, queryParam);
+            queryParam.put(ID_NUMBER, nubanId);
+            queryParam.put(ID_TYPE, type);
+            commonGetMethodWithQueryParam(ESBURIConstants.FETCH_BALANCE1 + ESBURIConstants.FETCH_BALANCE2, queryParam);
             checkDownstreamAPI(response.getStatusCode(), "Downstream API of Psb Accounts and Walllets  not working with data ", "Downstream API of Psb Accounts and Walllets working with data ");
         } catch (Exception exp) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + constants.getValue("get.balance") + exp.getMessage(), false);
