@@ -99,47 +99,6 @@
             <class name="com.airtel.cs.ui.frontendagent.viewhistorytab.ActionTrailTest"/>
         </classes>
     </test>
-    <test name="Demo Graphic Widget Test By Prepaid MSISDN" preserve-order="true">
-        <groups>
-            <run>
-                <include name="ProdTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.demographicwidget.DemoGraphicWidgetPrepaidMsisdnTest"/>
-        </classes>
-    </test>
-    <test name="Airtel Money Transaction Widget Test">
-        <groups>
-            <run>
-                <include name="SanityTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.hometab.AirtelMoneyTransactionWidgetTest"/>
-        </classes>
-    </test>
-    <test name="Airtel Money Detailed Widget Test">
-        <groups>
-            <run>
-                <include name="SanityTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.am.AmTcpLimitsTest"/>
-        </classes>
-    </test>
-    <test name="Test Authentication Tab">
-        <groups>
-            <run>
-                <include name="SanityTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.demographicwidget.AuthTabTest"/>
-        </classes>
-    </test>
-
     <test name="Create NFTR FTR Tickets TEST">
         <groups>
             <run>
@@ -148,26 +107,6 @@
         </groups>
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.CreateInteractionTest"/>
-        </classes>
-    </test>
-    <test name="Widget Tagged Interaction TEST">
-        <groups>
-            <run>
-                <include name="SanityTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.WidgetTaggedIssueTest"/>
-        </classes>
-    </test>
-    <test name="Customer Pinned Tag TEST">
-        <groups>
-            <run>
-                <include name="SanityTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.frontendagent.PinTagTest"/>
         </classes>
     </test>
     <test name="Add Interaction Ticket Comment">
@@ -180,7 +119,6 @@
             <class name="com.airtel.cs.ui.frontendagent.InteractionCommentTest"/>
         </classes>
     </test>
-
     <test name="Validate Frontend Agent Ticket Page">
         <groups>
             <run>
@@ -189,16 +127,6 @@
         </groups>
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.FrontendAgentTicketTest"/>
-        </classes>
-    </test>
-    <test name="Source App Test">
-        <groups>
-            <run>
-                <include name="SanityTest"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.airtel.cs.ui.ticketsourceapp.TicketSourceAppTest"/>
         </classes>
     </test>
     <test name="Validate Create Configuration API">
@@ -219,6 +147,16 @@
         </groups>
         <classes>
             <class name="com.airtel.cs.ui.backendSupervisor.SupervisorLoginTest"/>
+        </classes>
+    </test>
+    <test name="Source App Test">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.ticketsourceapp.TicketSourceAppTest"/>
         </classes>
     </test>
     <test name="Supervisors Global Search Ticket Test">
