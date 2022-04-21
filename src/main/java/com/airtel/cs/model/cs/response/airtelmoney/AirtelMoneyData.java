@@ -33,4 +33,8 @@ public class AirtelMoneyData {
     private String paymentMode;
     private String categoryCode;
     private Boolean isReversal;
+    private String gradeCode;
+    private String externalTransactionId;
+    private String instrumentTransactionId;
+
 }
