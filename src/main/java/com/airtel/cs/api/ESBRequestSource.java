@@ -107,7 +107,7 @@ public class ESBRequestSource extends RestCommonUtils {
     private static final String NOTIFICATION_TYPE = "notificationType";
     private static final String RECEIVER = "receiver";
     private static final String SMS = "sms";
-    private static final String ID_NUMBER= "id_number";
+    private static final String ID_NUMBER = "id_number";
     private static final String ID_TYPE = "id_type";
 
 

@@ -130,14 +130,14 @@ public class AmLinkedWalletsTest extends Driver {
                 for (int i = 0; i < size; i++) {
                     int row = i + 1;
                     String currency = amProfile.getResult().getWallets().get(i).getCurrency();
-                    assertCheck.append(actions.assertEqualStringType(pages.getAmLinkedWallets().getHeaderValue(row, 1), amProfile.getResult().getWallets().get(i).getWalletType(), "Wallet Type is same as expected ", "Wallet Type is NOT same as expected"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getAmLinkedWallets().getHeaderValue(row, 2), amProfile.getResult().getWallets().get(i).getTcpId(), "Tcp Id is same as expected ", "Tcp Id is NOT same as expected"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getAmLinkedWallets().getHeaderValue(row, 3), currency + " " + amProfile.getResult().getWallets().get(i).getBalance(), "Balance is same as expected ", "Balance is NOT same as expected"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getAmLinkedWallets().getHeaderValue(row, 4), currency + " " + amProfile.getResult().getWallets().get(i).getFrozen(), "Frozen Amount is same as expected ", "Frozen Amount is NOT same as expected"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getAmLinkedWallets().getHeaderValue(row, 5), currency + " " + amProfile.getResult().getWallets().get(i).getFundsInClearance(), "FIC is same as expected ", "FIC is NOT same as expected"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getAmLinkedWallets().getHeaderValue(row, 6), amProfile.getResult().getWallets().get(i).getPrimary(), "Primary Value is same as expected ", "Primary Value is NOT same as expected"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getAmLinkedWallets().getHeaderValue(row, 7), currency + " " + amProfile.getResult().getWallets().get(i).getTotalCredit(), "Total Credit is same as expected ", "Total Credit is NOT same as expected"));
-                    assertCheck.append(actions.assertEqualStringType(pages.getAmLinkedWallets().getHeaderValue(row, 8), currency + " " + amProfile.getResult().getWallets().get(i).getTotalDebit(), "Total Debit is same as expected ", "Total Debit is NOT same as expected"));
+                    assertCheck.append(actions.assertEqualStringType(pages.getAmLinkedWallets().getRowValue(row, 1), amProfile.getResult().getWallets().get(i).getWalletType(), "Wallet Type is same as expected ", "Wallet Type is NOT same as expected"));
+                    assertCheck.append(actions.assertEqualStringType(pages.getAmLinkedWallets().getRowValue(row, 2), amProfile.getResult().getWallets().get(i).getTcpId(), "Tcp Id is same as expected ", "Tcp Id is NOT same as expected"));
+                    assertCheck.append(actions.assertEqualStringType(pages.getAmLinkedWallets().getRowValue(row, 3), currency + " " + amProfile.getResult().getWallets().get(i).getBalance(), "Balance is same as expected ", "Balance is NOT same as expected"));
+                    assertCheck.append(actions.assertEqualStringType(pages.getAmLinkedWallets().getRowValue(row, 4), currency + " " + amProfile.getResult().getWallets().get(i).getFrozen(), "Frozen Amount is same as expected ", "Frozen Amount is NOT same as expected"));
+                    assertCheck.append(actions.assertEqualStringType(pages.getAmLinkedWallets().getRowValue(row, 5), currency + " " + amProfile.getResult().getWallets().get(i).getFundsInClearance(), "FIC is same as expected ", "FIC is NOT same as expected"));
+                    assertCheck.append(actions.assertEqualStringType(pages.getAmLinkedWallets().getRowValue(row, 6), amProfile.getResult().getWallets().get(i).getPrimary(), "Primary Value is same as expected ", "Primary Value is NOT same as expected"));
+                    assertCheck.append(actions.assertEqualStringType(pages.getAmLinkedWallets().getRowValue(row, 7), currency + " " + amProfile.getResult().getWallets().get(i).getTotalCredit(), "Total Credit is same as expected ", "Total Credit is NOT same as expected"));
+                    assertCheck.append(actions.assertEqualStringType(pages.getAmLinkedWallets().getRowValue(row, 8), currency + " " + amProfile.getResult().getWallets().get(i).getTotalDebit(), "Total Debit is same as expected ", "Total Debit is NOT same as expected"));
                 }
             }
             actions.assertAllFoundFailedAssert(assertCheck);
