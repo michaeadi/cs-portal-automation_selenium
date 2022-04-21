@@ -46,9 +46,9 @@ public class FilterTabPage {
     //Filter By Ticket Escalated level
     public By escalatedLevelLabel = By.xpath("//span[contains(text(),'Filter By Escalated Level')]");
     public By openEscalationFilter = By.xpath("//*[@formcontrolname='selectedEscalatedLevel']/div/div[2]");
-    public By level1Escalation = By.xpath("//span[contains(text(),' L1 ')]");
-    public By level2Escalation = By.xpath("//span[contains(text(),' L2 ')]");
-    public By level3Escalation = By.xpath("//span[contains(text(),' L3 ')]");
+    public By level1Escalation = By.xpath("//span[contains(text(),'L1')]");
+    public By level2Escalation = By.xpath("//span[contains(text(),'L2')]");
+    public By level3Escalation = By.xpath("//span[contains(text(),'L3')]");
 
     //Filter By State
     public By stateLabel = By.xpath("//span[contains(text(),'Filter By State')]");

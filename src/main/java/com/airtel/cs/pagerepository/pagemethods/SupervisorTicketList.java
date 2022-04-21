@@ -515,7 +515,7 @@ public class SupervisorTicketList extends BasePage {
      * This method use to add reopen comment
      * */
     public void addReopenComment(String comment) {
-        commonLib.info("Add Reopen Comment: " + comment);
+        commonLib.info("Adding Reopen Comment: " + comment);
         enterText(pageElements.reOpenBox, comment);
         clickOutside();
     }
@@ -898,11 +898,11 @@ public class SupervisorTicketList extends BasePage {
         return false;
     }
     /**
-     * This method is use to transfer ticket to given queue return true if transfer action performed
+     * This method is use to transfer ticket to given queue , will return true if transfer action performed
      * @param queueName Queue Name
      * @return true/false
      */
-    public Boolean transferTicketToSelectedQueue(String queueName){
+    public Boolean isTicketTransferActionPerformed(String queueName){
         boolean flag=false;
         try {
             assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isAssignToAgent(), true, "Assign to Agent Button Does Available after selecting ticket", "Assign to Agent Button Does Not Available after selecting ticket"));

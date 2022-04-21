@@ -6,7 +6,6 @@ import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.commonutils.dataproviders.dataproviders.DataProviders;
 import com.airtel.cs.commonutils.dataproviders.databeans.TransferQueueDataBean;
 import com.airtel.cs.driver.Driver;
-import io.restassured.http.Headers;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -73,15 +72,15 @@ public class TransferToQueueTest extends Driver {
                 pages.getSupervisorTicketList().writeTicketId(ticketId);
                 pages.getSupervisorTicketList().clickSearchBtn();
                 pages.getSupervisorTicketList().clickCheckbox();
-                assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().transferTicketToSelectedQueue(data.getToQueue()),true,"Ticket transfer to selected state as expected","Ticket does not transfer to selected state as expected"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isTicketTransferActionPerformed(data.getToQueue()),true,"Ticket transferred action performed successfully ","Ticket transferred action not performed"));
                 if (pages.getSupervisorTicketList().getQueueValue().trim().equalsIgnoreCase(data.getToQueue().trim())) {
-                    commonLib.pass("Ticket Does Transfer to Selected Queue");
+                    commonLib.pass("Ticket successfully transferred to Selected Queue");
                     pages.getSupervisorTicketList().clearInputBox();
                 } else {
-                    commonLib.info("Not able to perform transfer to Queue action: " + pages.getSupervisorTicketList().getTransferErrorMessage());
+                    commonLib.info("Not able to transfer ticket to selected queue .Getting error message : " + pages.getSupervisorTicketList().getTransferErrorMessage());
                     assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isCancelBtn(), true, "Cancel Button display as expected", "Cancel Button does not display."));
                     if (data.getTransferAnyway().equalsIgnoreCase("true")) {
-                        assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isTransferAnyWayBtn(), true, "Transfer Anyway button does not display as expected", "Transfer Anyway button does not displayed."));
+                        assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isTransferAnyWayBtn(), true, "Transfer Anyway button displayed as expected", "Transfer Anyway button not displayed as expected"));
                         try {
                             pages.getSupervisorTicketList().clickTransferAnyWayBtn();
                             pages.getSupervisorTicketList().writeTicketId(ticketId);

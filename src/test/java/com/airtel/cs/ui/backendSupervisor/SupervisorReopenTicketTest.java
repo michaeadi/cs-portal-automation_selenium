@@ -48,7 +48,7 @@ public class SupervisorReopenTicketTest extends Driver {
             pages.getSupervisorTicketList().changeTicketTypeToClosed();
             pages.getSupervisorTicketList().writeTicketId(data.getTicketNumber());
             pages.getSupervisorTicketList().clickSearchBtn();
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getSupervisorTicketList().getTicketIdValue(), ticketMetaData.getTicketNumber(), "Searched Ticket found on UI as expected", "Searched Ticket does not found on UI as expected", true));
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getSupervisorTicketList().getTicketIdValue(), data.getTicketNumber(), "Searched Ticket found on UI as expected", "Searched Ticket does not found on UI as expected", true));
             pages.getSupervisorTicketList().clickCheckbox();
             assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isReopenBtn(), true, "Reopen button available after clicking checkbox", "Reopen button does not available after clicking checkbox"));
             pages.getSupervisorTicketList().clickReopenButton();

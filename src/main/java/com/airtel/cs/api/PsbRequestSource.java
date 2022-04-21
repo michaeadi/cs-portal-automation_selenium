@@ -79,7 +79,7 @@ public class PsbRequestSource extends RestCommonUtils {
      * @param msisdn The msisdn
      * @return The Response
      */
-    public AMProfile getAmProfile(String msisdn, String type) {
+    public AMProfile getAmProfile(String msisdn, String nubanid,String type) {
         commonLib.infoColored(constants.getValue(CALLING_CS_API) + constants.getValue("am.profile"), JavaColors.GREEN, false);
         AMProfile result = null;
         try {
@@ -88,11 +88,11 @@ public class PsbRequestSource extends RestCommonUtils {
             commonGetMethodWithQueryParam(URIConstants.AM_PROFILE, queryParam);
             result = response.as(AMProfile.class);
             if (result.getStatusCode() != 200) {
-                esbRequestSource.callBalanceAPI(msisdn, type);
+                esbRequestSource.callBalanceAPI(nubanid,msisdn, type);
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getAmProfile " + e.getMessage(), false);
-            esbRequestSource.callBalanceAPI(msisdn, lineType);
+            esbRequestSource.callBalanceAPI(nubanid,msisdn, lineType);
         }
         return result;
     }
@@ -112,11 +112,11 @@ public class PsbRequestSource extends RestCommonUtils {
             commonPostMethod(URIConstants.BANK_DETAILS, new BankDetailsRequest(msisdn, nubanId));
             result = response.as(BankDetailsResponse.class);
             if (result.getStatusCode() != 200) {
-                esbRequestSource.callBalanceAPI(msisdn, type);
+                esbRequestSource.callBalanceAPI(nubanId,msisdn, type);
             }
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getAmBankDetails " + e.getMessage(), false);
-            esbRequestSource.callBalanceAPI(msisdn, type);
+            esbRequestSource.callBalanceAPI(nubanId,msisdn, type);
         }
         return result;
     }
@@ -155,10 +155,10 @@ public class PsbRequestSource extends RestCommonUtils {
             commonPostMethod(URIConstants.FETCH_BALANCE, new FetchBalanceRequest(msisdn,idNumber,idType));
             result = response.as(FetchBalanceResponse.class);
             if(result.getStatusCode()!=200)
-                esbRequestSource.callBalanceAPI(msisdn, idType);
+                esbRequestSource.callBalanceAPI(msisdn, idNumber,idType);
         } catch (Exception e) {
             commonLib.fail(constants.getValue(CS_PORTAL_API_ERROR) + " - getFetchBalance " + e.getMessage(), false);
-            esbRequestSource.callBalanceAPI(msisdn, idType);
+            esbRequestSource.callBalanceAPI(msisdn, idNumber,idType);
         }
         return result;
     }

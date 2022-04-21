@@ -17,6 +17,7 @@ public class WalletInformationTest extends Driver {
     private static String customerNumber = null;
     PsbRequestSource api = new PsbRequestSource();
     CLMDetailsResponse clmDetails;
+    String nubanId;
 
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
@@ -109,7 +110,7 @@ public class WalletInformationTest extends Driver {
     public void testWalletsBalance() {
         try {
             selUtils.addTestcaseDescription("Validate Wallets balance", "description");
-            String nubanId = clmDetails.getResult().getDetails().get(0).getWallets().get(0).getId();
+             nubanId = clmDetails.getResult().getDetails().get(0).getWallets().get(0).getId();
             String type = constants.getValue(ApplicationConstants.WALLET_TYPE);
             FetchBalanceResponse balance = api.getFetchBalance(customerNumber, nubanId, type);
             String currency = balance.getResult().currency;
@@ -132,7 +133,7 @@ public class WalletInformationTest extends Driver {
             selUtils.addTestcaseDescription("Validate data of all the fields of Wallets tab", "description");
             pages.getAmLinkedWallets().clickMoreIcon();
             String type = constants.getValue(ApplicationConstants.WALLET_TYPE);
-            AMProfile amProfile = api.getAmProfile(customerNumber, type);
+            AMProfile amProfile = api.getAmProfile(customerNumber, nubanId,type);
             if (amProfile.getStatusCode() == 200 && amProfile.getResult().getWallets().size() == 0) {
                 commonLib.warning("Linked Wallets data is not available for the msisdn");
             } else if (amProfile.getStatusCode() == 3007 && amProfile.getStatus().equalsIgnoreCase("status.failure")) {

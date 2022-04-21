@@ -112,7 +112,7 @@ public class TransferToQueueTest extends Driver {
                 assertCheck.append(actions.assertEqualBoolean(pages.getTransferToQueue().validatePageTitle(), true, "Transfer to Queue Pop up open as expected", "Transfer to Queue Page Title Does not Display"));
                 String toQueueName = pages.getTransferToQueue().getFirstTransferQueue();
                 pages.getTransferToQueue().clickTransferQueue(toQueueName);
-                assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().getTransferSuccessMessage().contains("successfully"), true, "Successmessage displayed after transfer to queue action.", "Success message does not displayed after transfer to queue action."));
+                assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().getTransferSuccessMessage().contains("successfully"), true, "Success message displayed after transfer to queue action.", "Success message does not displayed after transfer to queue action."));
                 if (pages.getSupervisorTicketList().isCancelBtn()) {
                     commonLib.warning("Not able to perform Transfer to Queue and message displayed: " + pages.getSupervisorTicketList().getTransferErrorMessage());
                     pages.getSupervisorTicketList().clickCancelBtn();

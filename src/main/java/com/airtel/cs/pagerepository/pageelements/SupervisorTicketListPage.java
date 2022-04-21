@@ -47,7 +47,7 @@ public class SupervisorTicketListPage {
     public By noResultFound = By.xpath("//body//mat-error//p[1]");
     public By resetFilterButton = By.xpath("//div[@class='clear-filter-btn']//button");
     public By reOpenBtn = By.xpath("//li[1]//button[1]");
-    public By reOpenBox = By.xpath("//*[@placeholder='Leave a comment']");
+    public By reOpenBox = By.xpath("//*[@placeholder='Reopen comment']");
     public By submitReopenComment = By.className("sbt-btn");
     public By closeReopenCommentBox = By.xpath("//button[@class='close-btn']");
     public By redDot = By.xpath("//span[@class='reddot ng-star-inserted']");

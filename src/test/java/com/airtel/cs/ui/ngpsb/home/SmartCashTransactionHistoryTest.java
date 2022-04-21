@@ -130,9 +130,9 @@ public class SmartCashTransactionHistoryTest extends Driver {
                     }
                 }
             }
+            actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - transactionHistoryWidgetDataTest" + e.fillInStackTrace(), true);
         }
-        actions.assertAllFoundFailedAssert(assertCheck);
     }
 }

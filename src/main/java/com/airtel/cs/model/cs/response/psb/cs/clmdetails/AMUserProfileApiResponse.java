@@ -35,10 +35,6 @@ public class AMUserProfileApiResponse implements Serializable {
 
     private String dob;
 
-    private BarDetails barDetails;
-
-    private List<Wallet> wallets;
-
     private String isPinReset;
 
     private String isPinSet;
