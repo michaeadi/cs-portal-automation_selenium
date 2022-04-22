@@ -95,7 +95,11 @@ public class AccountInformationTest extends Driver {
             barringStatus = pages.getAccountInformation().getBarringStatus();
             assertCheck.append(actions.matchUiAndAPIResponse(barringStatus,clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getBarred(), "Barring status is same as Expected", "Barring status  is not same as Expected"));
             assertCheck.append(actions.assertEqualBoolean(pages.getWalletInformation().isBarringInfoIconVisible(), true, "Barring status info icon is visible", "Barring status info icon is NOT visible"));
-           actions.assertAllFoundFailedAssert(assertCheck);
+            actions.assertAllFoundFailedAssert(assertCheck);
+
+            if (pages.getAccountInformation().getBarringStatus().equals("YES"))
+                assertCheck.append(actions.assertEqualBoolean(pages.getWalletInformation().isBarringInfoIconVisible(), true, "Barring status info icon is visible", "Barring status info icon is NOT visible"));
+            actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - testAccountInformationWidgetData" + e.fillInStackTrace(), true);
         }
