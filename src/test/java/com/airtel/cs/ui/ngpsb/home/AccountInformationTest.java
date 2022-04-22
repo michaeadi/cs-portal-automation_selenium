@@ -32,8 +32,7 @@ public class AccountInformationTest extends Driver {
     public void checkAccountsSize() {
         customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_TIER1_MSISDN);
         clmDetails = api.getCLMDetails(customerNumber);
-        if (clmDetails.getResult().getDetails().get(0).getAccounts().size() == 0)
-        {
+        if (clmDetails.getResult().getDetails().get(0).getAccounts().size() == 0) {
             commonLib.skip("Skipping because there are no accounts linked with the msisdn ");
             throw new SkipException("Skipping because this feature is not applicable when there are no accounts linked with the msisdn");
         }
@@ -91,10 +90,11 @@ public class AccountInformationTest extends Driver {
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getAccountInformation().getOnboardingChannel(), clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getChannel(), "Onboarding Channel is same as Expected", "Onboarding Channel is not same as Expected"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getAccountInformation().getAccountNubanId(), clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getId(), "Account Nuban id is same as Expected", "Account nuban id is not same as Expected"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getAccountInformation().getSecurityQuestionsSet(), clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getIsSecurityQuestionSet(), "Security Question Set is same as Expected", "Security Question Set is not same as Expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getAccountInformation().getSecurityQuestionsConfigured(), clmDetails.getResult().getDetails().get(0).getIsSecurityQuestionSet().toString(), "Security Question Configured is same as Expected", "Security Question Configured  is not same as Expected"));
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getAccountInformation().getSecurityQuestionsConfigured(), clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getSecurityQuestionsConfigured(), "Security Question Configured is same as Expected", "Security Question Configured is not same as Expected"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getAccountInformation().getBarringStatus(), clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getBarred(), "Barring status is same as Expected", "Barring status  is not same as Expected"));
-            assertCheck.append(actions.assertEqualBoolean(pages.getWalletInformation().isBarringInfoIconVisible(), true, "Barring status info icon is visible", "Barring status info icon is NOT visible"));
-           actions.assertAllFoundFailedAssert(assertCheck);
+            if (pages.getAccountInformation().getBarringStatus().equals("YES"))
+                assertCheck.append(actions.assertEqualBoolean(pages.getWalletInformation().isBarringInfoIconVisible(), true, "Barring status info icon is visible", "Barring status info icon is NOT visible"));
+            actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - testAccountInformationWidgetData" + e.fillInStackTrace(), true);
         }
@@ -110,7 +110,7 @@ public class AccountInformationTest extends Driver {
             String nubanId = clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getId();
             String type = constants.getValue(ApplicationConstants.ACCOUNT_TYPE);
             FetchBalanceResponse balance = api.getFetchBalance(customerNumber, nubanId, type);
-            String currency=balance.getResult().currency;
+            String currency = balance.getResult().currency;
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getAccountInformation().getBalance(), currency + " " + balance.getResult().getBalance(), "Balance is same as Expected", "Balance is not same as Expected"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getAccountInformation().getFrozenAmount(), currency + " " + balance.getResult().getFrozenAmt(), "Frozen Amount is same as Expected", "Frozen Amount is not same as Expected"));
 
@@ -120,7 +120,7 @@ public class AccountInformationTest extends Driver {
         }
     }
 
-    @Test(priority = 4, groups = {"SanityTest","ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 4, groups = {"SanityTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testBankAccountsTabs() {
         try {
             selUtils.addTestcaseDescription("Validate Bank Accounts tab data", "description");
@@ -152,7 +152,7 @@ public class AccountInformationTest extends Driver {
         }
     }
 
-    @Test(priority = 5, groups = {"SanityTest","ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 5, groups = {"SanityTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testSmsLogsTabs() {
         try {
             selUtils.addTestcaseDescription("Validate Wallets tab data", "description");
