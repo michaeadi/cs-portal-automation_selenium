@@ -420,9 +420,9 @@ public class SupervisorTicketList extends BasePage {
         clickAndWaitForLoaderToBeRemoved(pageElements.closedTicketType);
     }
     /**
-     * This method is use to update the ticket state from open to closed
+     * This method is use to enter commment and click Submit Button
      * */
-    public void updateTicketStateToClosed() {
+    public void enterCommentAndClickSubmit() {
         commonLib.info("Updating ticket's state from open to closed");
         enterComment(COMMENT);
         clickAndWaitForLoaderToBeRemoved(pageElements.submitButton);

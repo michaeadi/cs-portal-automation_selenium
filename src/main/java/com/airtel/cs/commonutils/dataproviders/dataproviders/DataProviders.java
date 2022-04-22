@@ -322,8 +322,7 @@ public class DataProviders extends Driver {
      */
     public List<TicketStateDataBean> getState(String stateName) {
         TicketStateToBean ticketStateToBean = new TicketStateToBean();
-        List<TicketStateDataBean> list =
-                ticketStateToBean.getData(excelPath, constants.getValue(CommonConstants.TICKET_STATE_SHEET));
+        List<TicketStateDataBean> list = ticketStateToBean.getData(excelPath, constants.getValue(CommonConstants.TICKET_STATE_SHEET));
         List<TicketStateDataBean> closeState = new ArrayList<>();
         List<TicketStateDataBean> openState = new ArrayList<>();
         for (TicketStateDataBean state : list) {
