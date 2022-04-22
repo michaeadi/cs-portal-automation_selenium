@@ -1061,7 +1061,7 @@ public class ESBRequestSource extends RestCommonUtils {
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + constants.getValue("sms.trails"), JavaColors.GREEN, false);
             queryParam.put(TO_DATE, UtilsMethods.getDateInUtc(Timestamp.valueOf(LocalDate.now().atTime(LocalTime.MAX)).getTime(), END_DATE));
             queryParam.put(FROM_DATE, UtilsMethods.getDateInUtc(Timestamp.valueOf(LocalDate.now().atStartOfDay().minusDays(3)).getTime(), START_DATE));
-            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL+ESBURIConstants.SMS_LOGS1 + msisdn + ESBURIConstants.SMS_LOGS2, queryParam);
+            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.SMS_LOGS1 + msisdn + ESBURIConstants.SMS_LOGS2, queryParam);
             checkDownstreamAPI(response.getStatusCode(), "Downstream API of SMS Logs not working with data ", "Downstream API of SMS Logs working with data ");
         } catch (Exception exp) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + constants.getValue("sms.trails") + exp.getMessage(), false);
@@ -1076,7 +1076,7 @@ public class ESBRequestSource extends RestCommonUtils {
         try {
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + constants.getValue("clm.details"), JavaColors.GREEN, false);
             queryParam.put("msisdn", msisdn);
-            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL+ESBURIConstants.CLM_DETAILS, queryParam);
+            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.CLM_DETAILS, queryParam);
             checkDownstreamAPI(response.getStatusCode(), "Downstream API of CLM Details not working with data ", "Downstream API of CLM Details working with data ");
         } catch (Exception exp) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + constants.getValue("clm.details") + exp.getMessage(), false);
@@ -1091,7 +1091,7 @@ public class ESBRequestSource extends RestCommonUtils {
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + constants.getValue("transaction.history"), JavaColors.GREEN, false);
             queryParam.put(SOURCE_ID_TYPE, type);
             queryParam.put(SOURCE_ID_NUMBER, nubanId);
-            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL+ESBURIConstants.PSB_TRANSCATION_HISTORY, queryParam);
+            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.PSB_TRANSCATION_HISTORY, queryParam);
             checkDownstreamAPI(response.getStatusCode(), "Downstream API of Psb Transaction History not working with data ", "Downstream API of Psb Transaction History working with data ");
         } catch (Exception exp) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + constants.getValue("transaction.history") + exp.getMessage(), false);
@@ -1101,12 +1101,12 @@ public class ESBRequestSource extends RestCommonUtils {
     /**
      * This Method will hit the Downstream API of Psb Linked Accounts and Walllets
      */
-    public void callBalanceAPI(String nubanId, String msisdn , String type) {
+    public void callBalanceAPI(String nubanId, String msisdn, String type) {
         try {
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + constants.getValue("get.balance"), JavaColors.GREEN, false);
             queryParam.put(ID_NUMBER, nubanId);
             queryParam.put(ID_TYPE, type);
-            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL+ESBURIConstants.FETCH_BALANCE1 + msisdn +ESBURIConstants.FETCH_BALANCE2, queryParam);
+            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + msisdn + ESBURIConstants.FETCH_BALANCE1 + msisdn + ESBURIConstants.FETCH_BALANCE2, queryParam);
             checkDownstreamAPI(response.getStatusCode(), "Downstream API of Psb Accounts and Walllets  not working with data ", "Downstream API of Psb Accounts and Walllets working with data ");
         } catch (Exception exp) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + constants.getValue("get.balance") + exp.getMessage(), false);
@@ -1121,7 +1121,7 @@ public class ESBRequestSource extends RestCommonUtils {
             commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + constants.getValue("sms.summary"), JavaColors.GREEN, false);
             queryParam.put(NOTIFICATION_TYPE, SMS);
             queryParam.put(RECEIVER, msisdn);
-            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL+ESBURIConstants.PSB_TRANSCATION_HISTORY, queryParam);
+            commonGetMethodWithQueryParam(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.PSB_TRANSCATION_HISTORY, queryParam);
             checkDownstreamAPI(response.getStatusCode(), "Downstream API of Psb Sms Summary not working with data ", "Downstream API of Psb Sms Summary working with data ");
         } catch (Exception exp) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + constants.getValue("sms.summary") + exp.getMessage(), false);

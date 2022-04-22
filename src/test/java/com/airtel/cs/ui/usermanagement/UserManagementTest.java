@@ -67,7 +67,8 @@ public class UserManagementTest extends Driver {
             pages.getUserManagementPage().searchAuuid(constants.getValue(CommonConstants.BETA_USER_ROLE_AUUID));
             pages.getUserManagementPage().clickSearchButton();
             pages.getUserManagementPage().waitUntilResultPageIsVisible();
-            assertCheck.append(actions.assertEqualStringType(pages.getUserManagementPage().resultIsVisible(CommonConstants.BETA_USER_ROLE_AUUID), CommonConstants.BETA_USER_ROLE_AUUID, "Search using user auuid success and user detail fetched as expected", "Search using user auuid does not complete and user detail does not fetched as expected"));
+            String auuid=constants.getValue(CommonConstants.BETA_USER_ROLE_AUUID);
+            assertCheck.append(actions.assertEqualStringType(pages.getUserManagementPage().resultIsVisible(auuid), auuid, "Search using user auuid success and user detail fetched as expected", "Search using user auuid does not complete and user detail does not fetched as expected"));
             currentBucketSize = Integer.parseInt(pages.getUserManagementPage().getCurrentTicketBucketSize());
             pages.getUserManagementPage().clickViewEditButton();
             pages.getUserManagementPage().waitUntilEditPageIsOpen();

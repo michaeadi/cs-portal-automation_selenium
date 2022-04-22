@@ -108,7 +108,7 @@ public class AccountInformation extends BasePage{
      * @return
      */
     public String getAccountCreatedBy() {
-        final String text = getText(pageElements.accountCreatedOn);
+        final String text = getText(pageElements.accountCreatedBy);
         commonLib.info("Getting Account Created By: " + text);
         return text;
     }

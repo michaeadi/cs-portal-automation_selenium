@@ -27,7 +27,6 @@ public class ViewTicket extends BasePage {
      * @return String The value
      */
     public String getTicketId() {
-
         final String text = getText(pageElements.ticketIdValue);
         commonLib.info("View Ticket: " + text);
         return text;

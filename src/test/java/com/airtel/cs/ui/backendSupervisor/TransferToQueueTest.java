@@ -85,7 +85,7 @@ public class TransferToQueueTest extends Driver {
                             pages.getSupervisorTicketList().clickTransferAnyWayBtn();
                             pages.getSupervisorTicketList().writeTicketId(ticketId);
                             pages.getSupervisorTicketList().clickSearchBtn();
-                            assertCheck.append(actions.assertEqualStringType(pages.getSupervisorTicketList().getQueueValue().toLowerCase().trim(), data.getToQueue().toLowerCase().trim(), "Ticket Does Transfer to Selected Queue","Ticket Does not Transfer to Selected Queue",true,true));
+                            assertCheck.append(actions.assertEqualStringType(pages.getSupervisorTicketList().getQueueValue().toLowerCase().trim(), data.getToQueue().toLowerCase().trim(), "Ticket Transferred to Selected Queue","Ticket not Transferred to Selected Queue",true,true));
                         } catch (NoSuchElementException | TimeoutException g) {
                             commonLib.fail("Transfer Anyway does not display in case of ticket does not transfer to selected queue.", true);
                             pages.getSupervisorTicketList().clickCancelBtn();

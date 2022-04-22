@@ -33,8 +33,7 @@ public class AccountInformationTest extends Driver {
     public void checkAccountsSize() {
         customerNumber = constants.getValue(ApplicationConstants.CUSTOMER_TIER1_MSISDN);
         clmDetails = api.getCLMDetails(customerNumber);
-        if (clmDetails.getResult().getDetails().get(0).getAccounts().size() == 0)
-        {
+        if (clmDetails.getResult().getDetails().get(0).getAccounts().size() == 0) {
             commonLib.skip("Skipping because there are no accounts linked with the msisdn ");
             throw new SkipException("Skipping because this feature is not applicable when there are no accounts linked with the msisdn");
         }
@@ -102,7 +101,7 @@ public class AccountInformationTest extends Driver {
         }
     }
 
-    @Test(priority = 7, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testBarringStatus() {
         try {
             selUtils.addTestcaseDescription("Validate Barring Status widget data", "description");
@@ -130,7 +129,6 @@ public class AccountInformationTest extends Driver {
     }
 
 
-
     /**
      * This method is used to check Accounts balance
      */
@@ -141,7 +139,7 @@ public class AccountInformationTest extends Driver {
             String nubanId = clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getId();
             String type = constants.getValue(ApplicationConstants.ACCOUNT_TYPE);
             FetchBalanceResponse balance = api.getFetchBalance(customerNumber, nubanId, type);
-            String currency=balance.getResult().currency;
+            String currency = balance.getResult().currency;
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getAccountInformation().getBalance(), currency + " " + balance.getResult().getBalance(), "Balance is same as Expected", "Balance is not same as Expected"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getAccountInformation().getFrozenAmount(), currency + " " + balance.getResult().getFrozenAmt(), "Frozen Amount is same as Expected", "Frozen Amount is not same as Expected"));
 
@@ -150,6 +148,7 @@ public class AccountInformationTest extends Driver {
             commonLib.fail("Exception in Method - testAccountsBalance" + e.fillInStackTrace(), true);
         }
     }
+
 
     @Test(priority = 6, groups = {"SanityTest","ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testBankAccountsTabs() {
@@ -184,6 +183,7 @@ public class AccountInformationTest extends Driver {
     }
 
     @Test(priority = 7, groups = {"SanityTest","ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+
     public void testSmsLogsTabs() {
         try {
             selUtils.addTestcaseDescription("Validate Wallets tab data", "description");
