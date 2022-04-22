@@ -42,10 +42,11 @@ public class BackendAgentUpdateTicketTest extends Driver {
             commonLib.info("Opening URL");
             String ticketId = pages.getSupervisorTicketList().getTicketIdValue();
             pages.getSupervisorTicketList().viewTicket();
-            assertCheck.append(actions.assertEqualStringType(ticketId, pages.getViewTicket().getTicketId(), "The searched Ticket fetched Successfully", "The searched Ticket NOT fetched Successfully"));
+            assertCheck.append(actions.assertEqualStringType(ticketId, pages.getViewTicket().getTicketId(), "Searched ticket fetched successfully", "Searched ticket not fetched successfully"));
             DataProviders data = new DataProviders();
             String selectStateByConfig=data.getState(constants.getValue(CommonConstants.TICKET_CLOSE_STATE)).get(0).getTicketStateName();
             pages.getViewTicket().selectState(selectStateByConfig);
+            pages.getSupervisorTicketList().enterCommentAndClickSubmit();
             pages.getSupervisorTicketList().writeTicketId(ticketId);
             pages.getSupervisorTicketList().clickSearchBtn();
             assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().noTicketFound(), true, "Backend agent NOT able to see closed ticket", "Backend agent able to see closed ticket"));

@@ -603,7 +603,7 @@
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.EnterprisePaymentHistoryTest"/>
         </classes>
-    </test>
+    </test>-->
     <test name="Supervisors Login Test">
         <groups>
             <run>
@@ -673,7 +673,7 @@
         <classes>
             <class name="com.airtel.cs.ui.backendSupervisor.AssignToAgentTicketTest"/>
         </classes>
-    </test>-->
+    </test>
     <test name="Supervisors Ticket Transfer To Queue Test">
         <groups>
             <run>
