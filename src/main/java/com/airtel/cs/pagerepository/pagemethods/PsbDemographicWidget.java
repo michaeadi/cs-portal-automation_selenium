@@ -133,6 +133,7 @@ public class PsbDemographicWidget extends BasePage{
      * @return
      */
     public boolean isPrimaryIdNumberHeaderVisible() {
+        hoverOnPrimaryInfoIcon();
         boolean status = isElementVisible(pageElements.primaryIdNumberHeader);
         commonLib.info("Is Primary Id Number Header visible : " + status);
         return status;
@@ -143,6 +144,7 @@ public class PsbDemographicWidget extends BasePage{
      * @return
      */
     public boolean isSecondaryIdNumberHeaderVisible() {
+        hoverOnSecondaryInfoIcon();
         boolean status = isElementVisible(pageElements.secondaryIdNumberHeader);
         commonLib.info("Is Secondary Id Number header visible : " + status);
         return status;

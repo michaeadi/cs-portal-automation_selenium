@@ -109,7 +109,7 @@ public class PsbDemoGraphicWidgetTest extends Driver {
                 commonLib.warning("Secondary Id Type is not available so unable to display Secondary Id Number is");
             } else {
                 assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isSecondaryIdNumberHeaderVisible(), true, "Secondary Id Number header is visible", "Secondary Id Number header is NOT visible"));
-                assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getSecondaryIdNumber(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getSecondaryIdType()), "Secondary Id Number is same as Expected", "Secondary Id Number is not same as Expected"));
+                assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getSecondaryIdNumber(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getSecondaryIdNumber()), "Secondary Id Number is same as Expected", "Secondary Id Number is not same as Expected"));
             }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -156,7 +156,7 @@ public class PsbDemoGraphicWidgetTest extends Driver {
             assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isCustomerIdHeaderVisible(), true, "Customer Id header is visible", "Email Id header is NOT visible"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getCustomerId(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getCustomerId()), "Customer Id is same as Expected", "Customer Id is not same as Expected"));
             assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isCustomerCategoryHeaderVisible(), true, "Customer Category header is visible", "Customer Category  header is NOT visible"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getDemographicWidget().getCustomerCategory(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getEmailId()), "Customer Category  is same as Expected", "Customer Category  is not same as Expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getDemographicWidget().getCustomerCategory(), pages.getDemoGraphicPage().getKeyValueAPI(clmDetails.getResult().getCustomerCategory()), "Customer Category  is same as Expected", "Customer Category  is not same as Expected"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (NoSuchElementException | TimeoutException | NullPointerException e) {
             commonLib.fail("Exception in method - testCustomerIdAndCategory " + e, true);
