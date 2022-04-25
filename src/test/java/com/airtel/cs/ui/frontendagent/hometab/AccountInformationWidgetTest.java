@@ -10,6 +10,7 @@ import com.airtel.cs.commonutils.applicationutils.constants.PermissionConstants;
 import com.airtel.cs.driver.Driver;
 import com.airtel.cs.model.cs.request.PaymentRequest;
 import com.airtel.cs.model.cs.response.customeprofile.CustomerProfileResponse;
+import com.airtel.cs.model.cs.response.enterprise.AccountLevelInformationResponse;
 import com.airtel.cs.model.cs.response.kycprofile.KYCProfile;
 import io.restassured.response.Response;
 import org.apache.commons.lang3.StringUtils;
@@ -144,35 +145,28 @@ public class AccountInformationWidgetTest extends Driver {
     @Test(priority = 5, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"isUserHasAccountInformationPermission"})
     public void callingESBCustomerProfileAPI() {
         try {
-            selUtils.addTestcaseDescription("Calling customer profile api to get customer account number", "description");
-
+            selUtils.addTestcaseDescription("Calling account level information api to get customer account number", "description");
             /**
-             * Calling customer profile api to get customer account number
+             * Calling account level information api to get customer account number
              */
-            CustomerProfileResponse customerProfileResponse = apiEsb.customerProfileResponse(customerNumber);
-            final String customerProfileStatus = customerProfileResponse.getStatus();
-            if (customerProfileStatus.trim().equalsIgnoreCase("ACTIVE")) {
-                commonLib.info("Customer Account Number from esb: " + customerProfileResponse.getCustomerAccountNumber());
-                customerAccountNumber = customerProfileResponse.getCustomerAccountNumber();
-
-            } else if (customerProfileStatus.trim().equalsIgnoreCase("500")) {
+            AccountLevelInformationResponse accountsResponse = apiEsb.callAccountLevelInfo(customerNumber);
+            final String statusCode = accountsResponse.getStatus();
+            if (statusCode.trim().equalsIgnoreCase("200")) {
+                customerAccountNumber = accountsResponse.getResponse().getAccounts().get(0).accountNo;
+                commonLib.info("Customer Account Number from esb : " + customerAccountNumber);
+            } else if (statusCode.trim().equalsIgnoreCase("500"))
                 commonLib.info("Internal server error");
-            } else {
-                commonLib.info("Customer profile V2 downstream api not working");
-            }
-
+            else
+                commonLib.info("Account Level Information api not working");
             /**
              * Setting payment request object
              */
-
             paymentRequest.setAccountNo(customerAccountNumber);
             paymentRequest.setLimit(constants.getValue(CommonConstants.PAYMENT_REQUEST_LIMIT));
             paymentRequest.setOffset(constants.getValue(CommonConstants.PAYMENT_REQUEST_OFFSET));
-
-
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
-            commonLib.fail("Exception in Method - verifyESBParamWithUI" + e.fillInStackTrace(), true);
+            commonLib.fail("Exception in Method - callingESBCustomerProfileAPI" + e.fillInStackTrace(), true);
         }
     }
 
