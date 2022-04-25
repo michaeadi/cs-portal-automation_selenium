@@ -1,18 +1,9 @@
 package com.airtel.cs.ui.kpidashboard;
 
-import com.airtel.cs.pagerepository.pagemethods.BasePage;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.openqa.selenium.WebDriver;
+import com.airtel.cs.driver.Driver;
 import org.testng.annotations.Test;
 
-public class KpiDashboardOpenTicketAgeingTest extends BasePage {
-
-
-    public KpiDashboardOpenTicketAgeingTest(WebDriver driver) {
-        super(driver);
-    }
-
-    ObjectMapper mapper = new ObjectMapper();
+public class KpiDashboardOpenTicketAgeingTest extends Driver {
 
 
     @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})

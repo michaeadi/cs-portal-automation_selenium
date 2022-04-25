@@ -410,7 +410,7 @@
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
         </classes>
     </test>
-    <test name="Login Admin Test">
+    <test name="Login Admin Test For Kpi Dashboard">
         <groups>
             <run>
                 <include name="SanityTest"/>
@@ -420,7 +420,7 @@
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginPortalTests"/>
         </classes>
     </test>
-    <test name="Kpi Dashboard " preserve-order="true">
+    <test name="Kpi Dashboard TopPanelTest " preserve-order="true">
         <groups>
             <run>
                 <include name="ProdTest"/>
@@ -430,7 +430,7 @@
             <class name="com.airtel.cs.ui.kpidashboard.KpiDashboardTopPanelTest"/>
         </classes>
     </test>
-    <test name="Kpi Dashboard " preserve-order="true">
+    <test name="Kpi Dashboard 6MonthsOverviewPageTest " preserve-order="true">
         <groups>
             <run>
                 <include name="ProdTest"/>
@@ -440,7 +440,7 @@
             <class name="com.airtel.cs.ui.kpidashboard.KpiDashboard6MonthsOverviewPageTest"/>
         </classes>
     </test>
-    <test name="Kpi Dashboard " preserve-order="true">
+    <test name="Kpi Dashboard 6MonthsTicketTypeTest" preserve-order="true">
         <groups>
             <run>
                 <include name="ProdTest"/>
@@ -450,7 +450,7 @@
             <class name="com.airtel.cs.ui.kpidashboard.KpiDashboard6MonthsTicketTypeTest"/>
         </classes>
     </test>
-    <test name="Kpi Dashboard " preserve-order="true">
+    <test name="Kpi Dashboard OpenTicketAgeingTest " preserve-order="true">
         <groups>
             <run>
                 <include name="ProdTest"/>
@@ -460,7 +460,7 @@
             <class name="com.airtel.cs.ui.kpidashboard.KpiDashboardOpenTicketAgeingTest"/>
         </classes>
     </test>
-    <test name="Kpi Dashboard " preserve-order="true">
+    <test name="Kpi Dashboard QueueWiseSLAPerformancePageTest " preserve-order="true">
         <groups>
             <run>
                 <include name="ProdTest"/>
@@ -470,7 +470,7 @@
             <class name="com.airtel.cs.ui.kpidashboard.KpiDashboardQueueWiseSLAPerformancePageTest"/>
         </classes>
     </test>
-    <test name="Kpi Dashboard " preserve-order="true">
+    <test name="Kpi Dashboard FeatureUsageOfActionsPageTest" preserve-order="true">
         <groups>
             <run>
                 <include name="ProdTest"/>
