@@ -24,7 +24,7 @@
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginPortalTests"/>
         </classes>
     </test>
-   <!--<test name="Test Side Menu Options">
+   <test name="Test Side Menu Options">
         <groups>
             <run>
                 <include name="RegressionTest"/>
@@ -603,7 +603,7 @@
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.EnterprisePaymentHistoryTest"/>
         </classes>
-    </test>-->
+    </test>
     <test name="Supervisors Login Test">
         <groups>
             <run>
@@ -611,17 +611,17 @@
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.backendSupervisor.SupervisorLoginTest"/>
+            <class name="com.airtel.cs.ui.backendSupervisor.SupervisorTicketListingPageTest"/>
         </classes>
     </test>
-    <test name="Source App Test">
+   <test name="Source App Test">
     <groups>
         <run>
             <include name="RegressionTest"/>
         </run>
     </groups>
     <classes>
-        <class name="com.airtel.cs.ui.ticketsourceapp.TicketSourceAppTest"/>
+        <class name="com.airtel.cs.ui.ticketsourceapp.SupervisorTicketSourceAppTest"/>
     </classes>
 </test>
     <test name="Supervisors Global Search Ticket Test">
