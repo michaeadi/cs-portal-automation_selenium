@@ -83,4 +83,10 @@ Values Locators
     public  By FirstName= By.xpath("//th[contains(text(),'First Name')]");
     public  By LastName= By.xpath("//th[contains(text(),'Last Name')]");
     public  By MSISDN= By.xpath("//th[contains(text(),'MSISDN");
+    public  By addressInfoIcon= By.xpath("//span[contains(text(),'Address')]//following-sibling::span/a");
+    public  By addressZone= By.xpath("//td[contains(text(),'Zone')]//following-sibling::td//span");
+    public  By addressLine2= By.xpath("//td[contains(text(),'Address Line 2')]//following-sibling::td//span");
+    public  By addressLine3= By.xpath("//td[contains(text(),'Address Line 3')]//following-sibling::td//span");
+
+
 }

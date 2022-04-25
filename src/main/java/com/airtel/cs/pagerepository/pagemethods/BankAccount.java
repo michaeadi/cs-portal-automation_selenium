@@ -25,4 +25,5 @@ public class BankAccount extends BasePage{
         commonLib.info("Reading Value(" + row + "): " + result);
         return result;
     }
+
 }

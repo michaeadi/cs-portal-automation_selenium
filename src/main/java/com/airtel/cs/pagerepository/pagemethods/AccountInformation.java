@@ -212,4 +212,12 @@ public class AccountInformation extends BasePage{
         commonLib.info("Getting Frozen Amount: " + text);
         return text;
     }
+
+    /**
+     * This method is use to hover on Balance info icon
+     */
+    public void hoverOnBalanceInfoIcon() {
+        commonLib.info("Hover on Balance Info icon");
+        hoverOverElement(pageElements.balanceHoverIcon);
+    }
 }

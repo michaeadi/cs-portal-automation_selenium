@@ -15,7 +15,7 @@ import java.util.List;
 public class ViewTicket extends BasePage {
 
     ViewTicketPage pageElements;
-    private static final String READING_COMMENT = "Reading Comment:";
+    private static final String READING_COMMENT = "Reading Comment Type :";
 
     public ViewTicket(WebDriver driver) {
         super(driver);
@@ -111,7 +111,7 @@ public class ViewTicket extends BasePage {
             List<WebElement> list = returnListOfElement(pageElements.allComment);
             for (int i = 1; i <= list.size(); i++) {
                 By commentType = By.xpath(pageElements.commentSection + i + pageElements.commentType);
-                commonLib.info(READING_COMMENT + getText(commentType) + " Is:" + getText(commentType).trim().equalsIgnoreCase(text));
+                commonLib.info(READING_COMMENT + getText(commentType));
                 if (getText(commentType).trim().equalsIgnoreCase(text)) {
                     commonLib.pass("Comment type found on ticket: " + getText(commentType));
                     return true;

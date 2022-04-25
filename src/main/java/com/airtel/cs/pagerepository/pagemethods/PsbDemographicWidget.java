@@ -597,24 +597,24 @@ public class PsbDemographicWidget extends BasePage{
         int accountsSize = clmDetails.getResult().getDetails().get(0).getAccounts().size();
         int totalSize = walletsSize + accountsSize;
         if (totalSize > 1) {
-            assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isIntermediateScreenVisible(), true, "Intermediate Screen is visible successfully", "Intermediate Screen is not visible "));
-            assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isActionVisible(), true, " Action is visible ", "Action is not visible "));
-            assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isTypeVisible(), true, " Type is visible ", "Type is not visible "));
-            assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isNubanIdVisible(), true, "Nuban Id is visible ", "Nuban Id is not visible "));
-            assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isMsisdnVisible(), true, "Msisdn is visible ", "Msisdn is not visible "));
-            assertCheck.append(actions.assertEqualBoolean(pages.getDemographicWidget().isCreatedOnVisible(), true, " Created ON is visible ", "Created on is not visible "));
-            int size = pages.getDemographicWidget().getNoOfRows();
+            assertCheck.append(actions.assertEqualBoolean(pages.getPsbDemographicWidget().isIntermediateScreenVisible(), true, "Intermediate Screen is visible successfully", "Intermediate Screen is not visible "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getPsbDemographicWidget().isActionVisible(), true, " Action is visible ", "Action is not visible "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getPsbDemographicWidget().isTypeVisible(), true, " Type is visible ", "Type is not visible "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getPsbDemographicWidget().isNubanIdVisible(), true, "Nuban Id is visible ", "Nuban Id is not visible "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getPsbDemographicWidget().isMsisdnVisible(), true, "Msisdn is visible ", "Msisdn is not visible "));
+            assertCheck.append(actions.assertEqualBoolean(pages.getPsbDemographicWidget().isCreatedOnVisible(), true, " Created ON is visible ", "Created on is not visible "));
+            int size = pages.getPsbDemographicWidget().getNoOfRows();
             for (int i = 1; i <=size; i++) {
-                String type = pages.getDemographicWidget().getType(i);
-                pages.getDemographicWidget().clickHeaderValue(i);
+                String type = pages.getPsbDemographicWidget().getType(i);
+                pages.getPsbDemographicWidget().clickHeaderValue(i);
                 if (type.equalsIgnoreCase("Wallet")) {
-                    pageLoaded = pages.getDemographicWidget().isWalletInformationWidgetVisible();
+                    pageLoaded = pages.getPsbDemographicWidget().isWalletInformationWidgetVisible();
                     assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page is loaded and Wallet Information widget is also visible ", "Customer Profile Page is not loaded and Wallet Information widget is also not visible"));
                     walletFlag++;
                     break;
                 }
                 if (type.equalsIgnoreCase("Account")) {
-                    pageLoaded = pages.getDemographicWidget().isAccountInformationWidgetVisible();
+                    pageLoaded = pages.getPsbDemographicWidget().isAccountInformationWidgetVisible();
                     assertCheck.append(actions.assertEqualBoolean(pageLoaded, true, "Customer Profile Page is loaded and Account Information widget is also visible ", "Customer Profile Page is not loaded and Account Information widget is also not visible"));
                     accountFlag++;
                     break;
@@ -636,6 +636,44 @@ public class PsbDemographicWidget extends BasePage{
         boolean status = isElementVisible(pageElements.smartCashLogo);
         commonLib.info("Is Smart Cash Logo visible : " + status);
         return status;
+    }
+
+    /**
+     * This method is used to hover on Address info icon
+     */
+    public void hoverOnAddressInfoIcon() {
+        commonLib.info("Hover on Address Info icon");
+        hoverOverElement(pageElements.addressInfoIcon);
+    }
+
+    /**
+     * This method is used to get Address's Zone
+     * @return
+     */
+    public String getAddressZone() {
+        final String text = getText(pageElements.addressZone);
+        commonLib.info("Getting Address's Zone : " + text);
+        return text;
+    }
+
+    /**
+     * This method is used to get Address Line 2
+     * @return
+     */
+    public String getAddressLine2() {
+        final String text = getText(pageElements.addressLine2);
+        commonLib.info("Getting Address Line 2 : " + text);
+        return text;
+    }
+
+    /**
+     * This method is used to get Address Line 3
+     * @return
+     */
+    public String getAddressLine3() {
+        final String text = getText(pageElements.addressLine3);
+        commonLib.info("Getting Address Line 3 : " + text);
+        return text;
     }
 }
 

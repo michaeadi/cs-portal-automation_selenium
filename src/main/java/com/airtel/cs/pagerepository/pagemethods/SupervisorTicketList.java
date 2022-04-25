@@ -979,4 +979,32 @@ public class SupervisorTicketList extends BasePage {
         commonLib.info("Writing comment into comment box: " + text);
         enterText(pageElements.commentBox, text);
     }
+
+    /**
+     * This method use to check whether ticket is successfully transferred to new queue or not
+     * @return true/false
+     * */
+    public boolean isTicketSuccessfullyTransferred() {
+        waitTillLoaderGetsRemoved();
+        final boolean visible = isElementVisible(pageElements.successTicketTransferMessage) && isElementVisible(pageElements.successTicketTransferIcon) ;
+        commonLib.info("Is Ticket Successfully Transferred to new queue :" + visible);
+        return visible;
+    }
+
+    /*
+    This method is used to search ticket id
+     */
+    public void searchTicket(String ticketId){
+        pages.getSupervisorTicketList().writeTicketId(ticketId);
+        pages.getSupervisorTicketList().clickSearchBtn();
+    }
+
+    /**
+     * This method use to get transfer error message visible or not
+     * */
+    public boolean isTransferErrorMessageVisible() {
+        boolean status=isVisible(pageElements.transferErrorMessage);
+        commonLib.info("Is transfer error message visible : "+ status);
+        return status;
+    }
 }
