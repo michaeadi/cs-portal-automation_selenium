@@ -88,6 +88,8 @@ public class SupervisorTicketListPage {
     public By commentBox=By.xpath("//textarea[contains(@placeholder,'Closure Comment')]");
     public By submitButton=By.xpath("//button[contains(@class,'sbt-btn')]");
 
+    /*
     public By successTicketTransferMessage=By.xpath("//span[contains(text(),'1 out of 1 ticket transferred to new queue successfully.')]");
     public By successTicketTransferIcon=By.xpath("//img[contains(@src,'successfully.svg')]");
+     */
 }

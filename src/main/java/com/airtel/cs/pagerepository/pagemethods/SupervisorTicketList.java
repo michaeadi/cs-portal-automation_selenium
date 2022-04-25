@@ -980,18 +980,19 @@ public class SupervisorTicketList extends BasePage {
         enterText(pageElements.commentBox, text);
     }
 
-    /**
+    /*
      * This method use to check whether ticket is successfully transferred to new queue or not
      * @return true/false
-     * */
+     *
     public boolean isTicketSuccessfullyTransferred() {
         waitTillLoaderGetsRemoved();
         final boolean visible = isElementVisible(pageElements.successTicketTransferMessage) && isElementVisible(pageElements.successTicketTransferIcon) ;
         commonLib.info("Is Ticket Successfully Transferred to new queue :" + visible);
         return visible;
     }
+    */
 
-    /*
+    /**
     This method is used to search ticket id
      */
     public void searchTicket(String ticketId){
