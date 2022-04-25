@@ -50,7 +50,7 @@ public class WalletInformationTest extends Driver {
             pages.getMsisdnSearchPage().clickOnSearch();
             assertCheck.append(actions.assertEqualIntType(clmDetails.getStatusCode(), 200, "CLM Details API Status Code Matched and is :" + clmDetails.getStatusCode(), "CLM Details API Status Code NOT Matched and is :" + clmDetails.getStatusCode(), false));
             if (clmDetails.getStatusCode() == 200) {
-                boolean pageLoaded = pages.getDemographicWidget().isPageLoaded(clmDetails);
+                boolean pageLoaded = pages.getPsbDemographicWidget().isPageLoaded(clmDetails);
                 if (!pageLoaded)
                     continueExecutionFA = false;
             } else
@@ -145,14 +145,18 @@ public class WalletInformationTest extends Driver {
     public void testWalletsBalance() {
         try {
             selUtils.addTestcaseDescription("Validate Wallets balance", "description");
-             nubanId = clmDetails.getResult().getDetails().get(0).getWallets().get(0).getId();
+            nubanId = clmDetails.getResult().getDetails().get(0).getWallets().get(0).getId();
             String type = constants.getValue(ApplicationConstants.WALLET_TYPE);
             FetchBalanceResponse balance = api.getFetchBalance(customerNumber, nubanId, type);
             String currency = balance.getResult().currency;
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getBalance(), currency + " " + balance.getResult().getBalance(), "Balance is same as Expected", "Balance is not same as Expected"));
-            pages.getWalletInformation().hoverOnBalanceInfoIcon();
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getFrozenAmount(), currency + " " + balance.getResult().getFrozenAmt(), "Frozen Amount is same as Expected", "Frozen Amount is not same as Expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getFicAmount(), currency + " " + balance.getResult().getFundsInClearance(), "FIC Amount is same as Expected", "FIC Amount is not same as Expected"));
+            assertCheck.append(actions.assertEqualStringType(pages.getWalletInformation().getBalance(), pages.getDemoGraphicPage().getKeyValueAPI(currency + " " + balance.getResult().getBalance()), "Balance is same as Expected", "Balance is not same as Expected"));
+            if (pages.getWalletInformation().getBalance().trim().equalsIgnoreCase("- -"))
+                commonLib.warning("Balance is not available so unable to display Frozen and FIC Amount");
+            else {
+                pages.getWalletInformation().hoverOnBalanceInfoIcon();
+                assertCheck.append(actions.assertEqualStringType(pages.getWalletInformation().getFrozenAmount(), pages.getDemoGraphicPage().getKeyValueAPI(currency + " " + balance.getResult().getFrozenAmt()), "Frozen Amount is same as Expected", "Frozen Amount is not same as Expected"));
+                assertCheck.append(actions.assertEqualStringType(pages.getWalletInformation().getFicAmount(), pages.getDemoGraphicPage().getKeyValueAPI(currency + " " + balance.getResult().getFundsInClearance()), "FIC Amount is same as Expected", "FIC Amount is not same as Expected"));
+            }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - testWalletsBalance" + e.fillInStackTrace(), true);
@@ -168,7 +172,8 @@ public class WalletInformationTest extends Driver {
             selUtils.addTestcaseDescription("Validate data of all the fields of Wallets tab", "description");
             pages.getAmLinkedWallets().clickMoreIcon();
             String type = constants.getValue(ApplicationConstants.WALLET_TYPE);
-            AMProfile amProfile = api.getAmProfile(customerNumber, nubanId,type);
+            AMProfile amProfile = api.getAmProfile(customerNumber, nubanId, type);
+            assertCheck.append(actions.assertEqualIntType(clmDetails.getStatusCode(), 200, "AM Profile API Status Code Matched and is :" + amProfile.getStatusCode(), "AM Profile API Status Code NOT Matched and is :" + amProfile.getStatusCode(), false));
             if (amProfile.getStatusCode() == 200 && amProfile.getResult().getWallets().size() == 0) {
                 commonLib.warning("Linked Wallets data is not available for the msisdn");
             } else if (amProfile.getStatusCode() == 3007 && amProfile.getStatus().equalsIgnoreCase("status.failure")) {

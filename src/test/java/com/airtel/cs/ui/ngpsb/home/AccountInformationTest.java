@@ -49,7 +49,7 @@ public class AccountInformationTest extends Driver {
             pages.getMsisdnSearchPage().clickOnSearch();
             assertCheck.append(actions.assertEqualIntType(clmDetails.getStatusCode(), 200, "CLM Details API Status Code Matched and is :" + clmDetails.getStatusCode(), "CLM Details API Status Code NOT Matched and is :" + clmDetails.getStatusCode(), false));
             if (clmDetails.getStatusCode() == 200) {
-                boolean pageLoaded = pages.getDemographicWidget().isPageLoaded(clmDetails);
+                boolean pageLoaded = pages.getPsbDemographicWidget().isPageLoaded(clmDetails);
                 if (!pageLoaded)
                     continueExecutionFA = false;
             } else
@@ -81,7 +81,7 @@ public class AccountInformationTest extends Driver {
         try {
             selUtils.addTestcaseDescription("Validate Account Information widget data", "description");
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getAccountInformation().getAccountStatus(), clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getStatus(), "Account status is same as Expected", "Account status  is not same as Expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getAccountInformation().getAccountCategory(), clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getCategory(), "Account status is same as Expected", "Account status  is not same as Expected"));
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getAccountInformation().getAccountCategory(), clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getCategory(), "Account Category is same as Expected", "Account Category  is not same as Expected"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getAccountInformation().getAccountCreatedBy(), clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getCreatedBy(), "Account Created By is same as Expected", "Account Created By is not same as Expected"));
             String createdOnDate = UtilsMethods.getDateFromEpoch(Long.parseLong(clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getCreatedOn()), constants.getValue(CommonConstants.NGPSB_ACCOUNT_CREATED_DATE_PATTERN));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getAccountInformation().getAccountCreatedOn(), createdOnDate, "Account Created On is same as Expected", "Account Created On is not same as Expected"));
@@ -91,14 +91,13 @@ public class AccountInformationTest extends Driver {
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getAccountInformation().getOnboardingChannel(), clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getChannel(), "Onboarding Channel is same as Expected", "Onboarding Channel is not same as Expected"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getAccountInformation().getAccountNubanId(), clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getId(), "Account Nuban id is same as Expected", "Account nuban id is not same as Expected"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getAccountInformation().getSecurityQuestionsSet(), clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getIsSecurityQuestionSet(), "Security Question Set is same as Expected", "Security Question Set is not same as Expected"));
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getAccountInformation().getSecurityQuestionsConfigured(), clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getSecurityQuestionsConfigured(), "Security Question Configured is same as Expected", "Security Question Configured is not same as Expected"));
+            assertCheck.append(actions.matchUiAndAPIResponse(pages.getAccountInformation().getBarringStatus(), clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getBarred(), "Barring status is same as Expected", "Barring status  is not same as Expected"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getWalletInformation().isBarringInfoIconVisible(), true, "Barring status info icon is visible", "Barring status info icon is NOT visible"));
             assertCheck.append(actions.matchUiAndAPIResponse(pages.getAccountInformation().getSecurityQuestionsConfigured(), clmDetails.getResult().getDetails().get(0).getIsSecurityQuestionSet().toString(), "Security Question Configured is same as Expected", "Security Question Configured  is not same as Expected"));
             barringStatus = pages.getAccountInformation().getBarringStatus();
             assertCheck.append(actions.matchUiAndAPIResponse(barringStatus,clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getBarred(), "Barring status is same as Expected", "Barring status  is not same as Expected"));
             assertCheck.append(actions.assertEqualBoolean(pages.getWalletInformation().isBarringInfoIconVisible(), true, "Barring status info icon is visible", "Barring status info icon is NOT visible"));
-            actions.assertAllFoundFailedAssert(assertCheck);
-
-            if (pages.getAccountInformation().getBarringStatus().equals("YES"))
-                assertCheck.append(actions.assertEqualBoolean(pages.getWalletInformation().isBarringInfoIconVisible(), true, "Barring status info icon is visible", "Barring status info icon is NOT visible"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - testAccountInformationWidgetData" + e.fillInStackTrace(), true);
@@ -144,9 +143,14 @@ public class AccountInformationTest extends Driver {
             String type = constants.getValue(ApplicationConstants.ACCOUNT_TYPE);
             FetchBalanceResponse balance = api.getFetchBalance(customerNumber, nubanId, type);
             String currency = balance.getResult().currency;
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getAccountInformation().getBalance(), currency + " " + balance.getResult().getBalance(), "Balance is same as Expected", "Balance is not same as Expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getAccountInformation().getFrozenAmount(), currency + " " + balance.getResult().getFrozenAmt(), "Frozen Amount is same as Expected", "Frozen Amount is not same as Expected"));
-
+            assertCheck.append(actions.assertEqualStringType(pages.getAccountInformation().getBalance(), pages.getDemoGraphicPage().getKeyValueAPI(currency + " " + balance.getResult().getBalance()), "Balance is same as Expected", "Balance is not same as Expected"));
+            if (pages.getAccountInformation().getBalance().trim().equalsIgnoreCase("- -"))
+                commonLib.warning("Balance is not available so unable to display Frozen and FIC Amount");
+            else {
+                pages.getAccountInformation().hoverOnBalanceInfoIcon();
+                assertCheck.append(actions.assertEqualStringType(pages.getAccountInformation().getFrozenAmount(), pages.getDemoGraphicPage().getKeyValueAPI(currency + " " + balance.getResult().getFrozenAmt()), "Frozen Amount is same as Expected", "Frozen Amount is not same as Expected"));
+                assertCheck.append(actions.assertEqualStringType(pages.getWalletInformation().getFicAmount(), pages.getDemoGraphicPage().getKeyValueAPI(currency + " " + balance.getResult().getFundsInClearance()), "FIC Amount is same as Expected", "FIC Amount is not same as Expected"));
+            }
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
             commonLib.fail("Exception in Method - testAccountsBalance" + e.fillInStackTrace(), true);
@@ -161,7 +165,7 @@ public class AccountInformationTest extends Driver {
             pages.getAmLinkedWallets().clickMoreIcon();
             String nubanId = clmDetails.getResult().getDetails().get(0).getAccounts().get(0).getId();
             BankDetailsResponse bankDetails = api.getAmBankDetails(customerNumber, nubanId);
-            assertCheck.append(actions.assertEqualIntType(clmDetails.getStatusCode(), 200, "Sms Logs API Status Code Matched and is :" + clmDetails.getStatusCode(), "Sms Logs API Status Code NOT Matched and is :" + clmDetails.getStatusCode(), false));
+            assertCheck.append(actions.assertEqualIntType(bankDetails.getStatusCode(), 200, "Bank Details API Status Code Matched and is :" + bankDetails.getStatusCode(), "Bank Details API Status Code NOT Matched and is :" + bankDetails.getStatusCode(), false));
             if (bankDetails.getStatusCode() == 200 && bankDetails.getResult().size() == 0) {
                 commonLib.warning("Bank Accounts data is not available for the test msisdn");
             } else if (bankDetails.getStatusCode() == 2500 && bankDetails.getStatus().equalsIgnoreCase("status.failure")) {
@@ -214,5 +218,6 @@ public class AccountInformationTest extends Driver {
             commonLib.fail("Exception in Method - testSmsLogsTabs" + e.fillInStackTrace(), true);
         }
     }
+
 }
 

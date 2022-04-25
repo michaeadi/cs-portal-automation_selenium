@@ -8,8 +8,6 @@ import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import static com.airtel.cs.commonutils.applicationutils.constants.ApplicationConstants.COMMENT;
-
 public class BarUnBarTest extends Driver {
     private static String customerNumber = null;
     PsbRequestSource api = new PsbRequestSource();
@@ -37,7 +35,7 @@ public class BarUnBarTest extends Driver {
             clmDetails = api.getCLMDetails(customerNumber);
             assertCheck.append(actions.assertEqualIntType(clmDetails.getStatusCode(), 200, "CLM Details API Status Code Matched and is :" + clmDetails.getStatusCode(), "CLM Details API Status Code NOT Matched and is :" + clmDetails.getStatusCode(), false));
             if (clmDetails.getStatusCode() == 200) {
-                boolean pageLoaded = pages.getDemographicWidget().isPageLoaded(clmDetails);
+                boolean pageLoaded = pages.getPsbDemographicWidget().isPageLoaded(clmDetails);
                 if (!pageLoaded)
                     continueExecutionFA = false;
             } else

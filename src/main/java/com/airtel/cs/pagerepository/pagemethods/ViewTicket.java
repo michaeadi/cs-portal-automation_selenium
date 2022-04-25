@@ -15,7 +15,7 @@ import java.util.List;
 public class ViewTicket extends BasePage {
 
     ViewTicketPage pageElements;
-    private static final String READING_COMMENT = "Reading Comment:";
+    private static final String READING_COMMENT = "Reading Comment Type :";
 
     public ViewTicket(WebDriver driver) {
         super(driver);
@@ -23,7 +23,8 @@ public class ViewTicket extends BasePage {
     }
 
     /**
-     *This method is use to get ticket id which view detail page open
+     * This method is use to get ticket id which view detail page open
+     *
      * @return String The value
      */
     public String getTicketId() {
@@ -33,7 +34,8 @@ public class ViewTicket extends BasePage {
     }
 
     /**
-     *This method is use to select the ticket state by state name and return the same state name in-case of state found other-wise return 'Required state not found
+     * This method is use to select the ticket state by state name and return the same state name in-case of state found other-wise return 'Required state not found
+     *
      * @return String The value
      */
     public String selectState(String state) throws InterruptedException {
@@ -67,6 +69,7 @@ public class ViewTicket extends BasePage {
 
     /**
      * This method is use to get ticket state name
+     *
      * @return String The value
      */
     public String getStateName() {
@@ -77,6 +80,7 @@ public class ViewTicket extends BasePage {
 
     /**
      * This method is use to validate comment found in comment section based on comment text
+     *
      * @param text The comment text
      */
     public void validateAddedComment(String text) {
@@ -90,7 +94,7 @@ public class ViewTicket extends BasePage {
                     return;
                 }
             }
-            commonLib.fail("Newly added comment does not found on ticket",true);
+            commonLib.fail("Newly added comment does not found on ticket", true);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -98,6 +102,7 @@ public class ViewTicket extends BasePage {
 
     /**
      * This method is use to validate comment type  found  or not in comment section based on comment type
+     *
      * @param text The comment type
      * @return true/false
      */
@@ -106,7 +111,7 @@ public class ViewTicket extends BasePage {
             List<WebElement> list = returnListOfElement(pageElements.allComment);
             for (int i = 1; i <= list.size(); i++) {
                 By commentType = By.xpath(pageElements.commentSection + i + pageElements.commentType);
-                commonLib.info(READING_COMMENT + getText(commentType) + " Is:" + getText(commentType).trim().equalsIgnoreCase(text));
+                commonLib.info(READING_COMMENT + getText(commentType));
                 if (getText(commentType).trim().equalsIgnoreCase(text)) {
                     commonLib.pass("Comment type found on ticket: " + getText(commentType));
                     return true;
@@ -123,6 +128,7 @@ public class ViewTicket extends BasePage {
 
     /**
      * This method use to add comment in comment box
+     *
      * @param comment The comment
      * @throws InterruptedException in-case scroll interrupt
      */
@@ -134,6 +140,7 @@ public class ViewTicket extends BasePage {
 
     /**
      * This method use to click add comment icon in comment section
+     *
      * @throws InterruptedException in-case scroll interrupt
      */
     public void clickAddButton() throws InterruptedException {
@@ -180,6 +187,7 @@ public class ViewTicket extends BasePage {
 
     /**
      * This method validate the comment is found or not in comment section
+     *
      * @param text The comment
      * @return true/false
      */
@@ -200,6 +208,7 @@ public class ViewTicket extends BasePage {
 
     /**
      * This method use to click back button on overlay open
+     *
      * @throws InterruptedException in-case of scroll interrupt
      */
     public void clickBackButton() throws InterruptedException {
@@ -210,6 +219,7 @@ public class ViewTicket extends BasePage {
 
     /**
      * This method use to open ticket history log section
+     *
      * @throws InterruptedException in-case of scroll interrupt
      */
     public void clickTicketHistoryLog() throws InterruptedException {
@@ -219,12 +229,13 @@ public class ViewTicket extends BasePage {
 
     /**
      * This method use to open check ticket bulk update option displayed or not
+     *
      * @param state The state name
      * @return true/false
      * @throws InterruptedException in-case of scroll interrupt
      */
     public Boolean checkBulkUpdateLogged(String state) throws InterruptedException {
-        By check=By.xpath(pageElements.readLoggedText+state+pageElements.bulkUpdate);
+        By check = By.xpath(pageElements.readLoggedText + state + pageElements.bulkUpdate);
         scrollToViewElement(check);
         return isVisible(check);
     }

@@ -15,6 +15,7 @@ public class AccountInformationPage {
     public By securityQuestionsConfigured = By.xpath("//span[contains(text(),'Questions Configured')]//following-sibling::span//span");
     public By barringStatus = By.xpath("//span[contains(text(),'Barring Status')]//following-sibling::span//span");
     public By frozenAmount=By.xpath("//td[contains(text(),'Frozen Amount')]//following-sibling::td");
+    public By balanceHoverIcon=By.xpath("//div[contains(@class,'data-smart')] //img[contains(@src,'message.svg')]");
 
     public By accountInformationWidget = By.xpath("//div[contains(@data-csautomation-key,'ACCOUNT_INFORMATION')]");
     public  By accountWidgetHeader= By.xpath("//span[contains(text(),'Account Information')]");

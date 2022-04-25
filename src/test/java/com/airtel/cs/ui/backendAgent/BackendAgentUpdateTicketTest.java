@@ -22,15 +22,20 @@ public class BackendAgentUpdateTicketTest extends Driver {
     }
 
     @Test(priority = 1, groups = {"SanityTest", "RegressionTest"})
-    public void openSupervisorDashboard() {
+    public void agentTicketLogin() {
         try {
-            selUtils.addTestcaseDescription("Open Supervisor Dashboard , Validate agent redirect to ticket List Page", "description");
+            selUtils.addTestcaseDescription("Backend Agent Login into Queue", "description");
             pages.getSideMenuPage().clickOnSideMenu();
             pages.getSideMenuPage().clickOnUserName();
-            pages.getSideMenuPage().openSupervisorDashboard();
-            assertCheck.append(actions.assertEqualStringType(driver.getTitle(), constants.getValue(CommonConstants.SUPERVISOR_TICKET_LIST_PAGE_TITLE), "Agent redirect to ticket list page as expected", "Agent does not redirect to ticket list page as expected"));
-        } catch (Exception e) {
-            commonLib.fail("Exception in Method - openSupervisorDashboard" + e.fillInStackTrace(), true);
+            pages.getSideMenuPage().openBackendAgentDashboard();
+            assertCheck.append(actions.assertEqualBoolean(pages.getAgentLoginPage().isQueueLoginPage(), true, "Queue Login Page is Visible", "Queue Login Page is NOT Visible"));
+            assertCheck.append(actions.assertEqualBoolean(pages.getAgentLoginPage().checkSubmitButton(), true, "Submit button for login is Enabled", "Submit button for login is NOT Enabled"));
+            pages.getAgentLoginPage().clickSelectQueue();
+            pages.getAgentLoginPage().selectAllQueue();
+            pages.getAgentLoginPage().clickSubmitBtn();
+            assertCheck.append(actions.assertEqualStringType(driver.getTitle(), constants.getValue(CommonConstants.BACKEND_AGENT_TICKET_LIST_PAGE), "Backend Agent Redirected to Ticket List Page Successfully", "Backend Agent Does not Redirect to Ticket List Page"));
+            actions.assertAllFoundFailedAssert(assertCheck);} catch (Exception e) {
+            commonLib.fail("Exception in Method - agentTicketLogin" + e.fillInStackTrace(), true);
         }
         actions.assertAllFoundFailedAssert(assertCheck);
     }
@@ -39,7 +44,6 @@ public class BackendAgentUpdateTicketTest extends Driver {
     public void updateTicket() throws InterruptedException {
         try {
             selUtils.addTestcaseDescription("Backend Agent Update Ticket", "description");
-            commonLib.info("Opening URL");
             String ticketId = pages.getSupervisorTicketList().getTicketIdValue();
             pages.getSupervisorTicketList().viewTicket();
             assertCheck.append(actions.assertEqualStringType(ticketId, pages.getViewTicket().getTicketId(), "Searched ticket fetched successfully", "Searched ticket not fetched successfully"));

@@ -64,28 +64,23 @@ public class TransferToQueueTest extends Driver {
                 pages.getFilterTabPage().selectQueueByName(data.getFromQueue());
                 pages.getFilterTabPage().clickOutsideFilter();
                 pages.getFilterTabPage().clickApplyFilter();
-                assertCheck.append(actions.assertEqualStringType(pages.getSupervisorTicketList().getQueueValue().trim().toLowerCase(), data.getFromQueue().toLowerCase().trim(), "Ticket Does found with Selected State","Ticket Does not found with Selected State",true,true));
+                assertCheck.append(actions.assertEqualStringType(pages.getSupervisorTicketList().getQueueValue().trim().toLowerCase(), data.getFromQueue().toLowerCase().trim(), "Ticket Does found with Selected State", "Ticket Does not found with Selected State", true, true));
                 assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().validateQueueFilter(data.getFromQueue()), true, "Queue Filter Does Applied Correctly", "Queue Filter does not applied correctly"));
                 assertCheck.append(actions.assertEqualStringNotNull(pages.getSupervisorTicketList().getTicketIdValue(), "Ticket Id Found", "No Ticket id found"));
                 ticketId = pages.getSupervisorTicketList().getTicketIdValue();
                 pages.getSupervisorTicketList().resetFilter();
-                pages.getSupervisorTicketList().writeTicketId(ticketId);
-                pages.getSupervisorTicketList().clickSearchBtn();
+                pages.getSupervisorTicketList().searchTicket(ticketId);
                 pages.getSupervisorTicketList().clickCheckbox();
-                assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isTicketTransferActionPerformed(data.getToQueue()),true,"Ticket transferred action performed successfully ","Ticket transferred action not performed"));
-                if (pages.getSupervisorTicketList().getQueueValue().trim().equalsIgnoreCase(data.getToQueue().trim())) {
-                    commonLib.pass("Ticket successfully transferred to Selected Queue");
-                    pages.getSupervisorTicketList().clearInputBox();
-                } else {
-                    commonLib.info("Not able to transfer ticket to selected queue .Getting error message : " + pages.getSupervisorTicketList().getTransferErrorMessage());
+                assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isTicketTransferActionPerformed(data.getToQueue()), true, "Ticket transferred action performed successfully ", "Ticket transferred action not performed"));
+                if (pages.getSupervisorTicketList().isTransferErrorMessageVisible()) {
+                    commonLib.info("Not able to transfer ticket to selected queue . Getting error message : " + pages.getSupervisorTicketList().getTransferErrorMessage());
                     assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isCancelBtn(), true, "Cancel Button display as expected", "Cancel Button does not display."));
                     if (data.getTransferAnyway().equalsIgnoreCase("true")) {
                         assertCheck.append(actions.assertEqualBoolean(pages.getSupervisorTicketList().isTransferAnyWayBtn(), true, "Transfer Anyway button displayed as expected", "Transfer Anyway button not displayed as expected"));
                         try {
                             pages.getSupervisorTicketList().clickTransferAnyWayBtn();
-                            pages.getSupervisorTicketList().writeTicketId(ticketId);
-                            pages.getSupervisorTicketList().clickSearchBtn();
-                            assertCheck.append(actions.assertEqualStringType(pages.getSupervisorTicketList().getQueueValue().toLowerCase().trim(), data.getToQueue().toLowerCase().trim(), "Ticket Transferred to Selected Queue","Ticket not Transferred to Selected Queue",true,true));
+                            pages.getSupervisorTicketList().searchTicket(ticketId);
+                            assertCheck.append(actions.assertEqualStringType(pages.getSupervisorTicketList().getQueueValue().toLowerCase().trim(), data.getToQueue().toLowerCase().trim(), "Ticket Transferred to Selected Queue", "Ticket not Transferred to Selected Queue", true, true));
                         } catch (NoSuchElementException | TimeoutException g) {
                             commonLib.fail("Transfer Anyway does not display in case of ticket does not transfer to selected queue.", true);
                             pages.getSupervisorTicketList().clickCancelBtn();
@@ -94,6 +89,13 @@ public class TransferToQueueTest extends Driver {
                         pages.getSupervisorTicketList().clickCancelBtn();
                         commonLib.fail("Transfer to queue does not Perform as per config sheet both queue belong to same workgroup.", false);
                     }
+                } else {
+                    pages.getSupervisorTicketList().searchTicket(ticketId);
+                    if (pages.getSupervisorTicketList().getQueueValue().trim().equalsIgnoreCase(data.getToQueue().trim()))
+                        commonLib.pass("Ticket successfully transferred to the selected queue");
+                    else
+                        commonLib.fail("Ticket not transferred to the selected queue", true);
+                    pages.getSupervisorTicketList().clearInputBox();
                 }
             } catch (InterruptedException | NoSuchElementException | TimeoutException | ElementClickInterceptedException e) {
                 pages.getFilterTabPage().clickOutsideFilter();

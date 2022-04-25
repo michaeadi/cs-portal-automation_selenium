@@ -42,7 +42,7 @@ public class TransferToQueueTest extends Driver {
             assertCheck.append(actions.assertEqualIntType(statusCode, 200, "Agent Permission API success and status code is :" + statusCode, "Agent Permission API got failed and status code is :" + statusCode));
             String transfer_to_Queue_permission = constants.getValue(PermissionConstants.TRANSFER_QUEUE_PERMISSION);
             if (statusCode == 200) {
-                assertCheck.append(actions.assertEqualBoolean(agentPermission.getResult().hasTransferToQueuePermission, UtilsMethods.isUserHasPermission(transfer_to_Queue_permission), "Agent have permission to perform action transfer to queue", "Agent does not have permission to perform action transfer to queue"));
+                assertCheck.append(actions.assertEqualBoolean(agentPermission.getResult().hasTransferToQueuePermission, UtilsMethods.isUserHasPermission(transfer_to_Queue_permission), "Agent has permission to perform action transfer to queue", "Agent does not has permission to perform action transfer to queue"));
             } else {
                 commonLib.fail("Agent Permission API failed.", false);
             }

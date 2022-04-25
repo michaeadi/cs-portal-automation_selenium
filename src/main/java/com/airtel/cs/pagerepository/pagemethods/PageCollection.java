@@ -263,7 +263,7 @@ public class PageCollection {
         return new AmLinkedWallets(driver);
     }
 
-    public PsbDemographicWidget getDemographicWidget() {
+    public PsbDemographicWidget getPsbDemographicWidget() {
         return new PsbDemographicWidget(driver);
     }
     public WalletInformation getWalletInformation() {

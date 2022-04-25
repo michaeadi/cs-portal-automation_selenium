@@ -11,7 +11,7 @@ import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class TicketSourceAppTest extends Driver {
+public class SupervisorTicketSourceAppTest extends Driver {
 
     private static String customerNumber = null;
 

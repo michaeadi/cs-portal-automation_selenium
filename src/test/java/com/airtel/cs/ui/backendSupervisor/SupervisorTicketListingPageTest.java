@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-public class SupervisorLoginTest extends Driver {
+public class SupervisorTicketListingPageTest extends Driver {
 
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest","SmokeTest"})
