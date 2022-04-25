@@ -34,7 +34,7 @@
             <class name="com.airtel.cs.ui.frontendagent.leftmenu.SideMenuTests"/>
         </classes>
     </test>
-    <!--<test name="Validate Send Internet Setting Tab Test">
+    <test name="Validate Send Internet Setting Tab Test">
         <groups>
             <run>
                 <include name="RegressionTest"/>
@@ -353,7 +353,7 @@
         <classes>
             <class name="com.airtel.cs.ui.frontendagent.hometab.CurrentPlanTest"/>
         </classes>
-    </test>-->
+    </test>
     <test name="Account Information Test">
         <groups>
             <run>
@@ -673,7 +673,7 @@
         <classes>
             <class name="com.airtel.cs.ui.backendSupervisor.AssignToAgentTicketTest"/>
         </classes>
-    </test>-->
+    </test>
     <test name="Supervisors Ticket Transfer To Queue Test">
         <groups>
             <run>
