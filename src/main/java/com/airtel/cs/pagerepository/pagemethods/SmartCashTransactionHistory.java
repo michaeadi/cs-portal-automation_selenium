@@ -189,5 +189,17 @@ public class SmartCashTransactionHistory extends BasePage{
         return isEnabled(check);
     }
 
+    /**
+     * This method use to get data value based on row and column number for Transaction Details
+     * @param row The Row Number
+     * @param column The column number
+     * @return detail
+     */
+    public String getValueCorrespondingToTransactionDetailsHeader(int row, int column) {
+        String detail = getText(By.xpath(pageElements.detailsRow + row + pageElements.detailsColumn + column + pageElements.detailsColumnText));
+        commonLib.info("Reading Value(" + row + "): " + detail);
+        return detail;
+    }
+
 
 }

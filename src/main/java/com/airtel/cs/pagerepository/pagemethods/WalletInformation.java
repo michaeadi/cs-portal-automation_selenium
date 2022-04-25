@@ -246,4 +246,112 @@ import org.openqa.selenium.support.PageFactory;
             hoverOverElement(pageElements.walletModifiedInfoIcon);
         }
 
+        /**
+         * This method is used to check bar Type label visible or not
+         * @return
+         */
+        public boolean isBarTypeHeaderVisible() {
+            boolean status = isElementVisible(pageElements.barTypeHeader);
+            commonLib.info("Is Bar Type Header visible : " + status);
+            return status;
+        }
+
+        /**
+         * This method is used to check bar Reason label visible or not
+         * @return
+         */
+        public boolean isBarReasonHeaderVisible() {
+            boolean status = isElementVisible(pageElements.barReasonHeader);
+            commonLib.info("Is Bar Reason Header visible : " + status);
+            return status;
+        }
+
+        /**
+         * This method is used to check bar By label visible or not
+         * @return
+         */
+        public boolean isBarredByHeaderVisible() {
+            boolean status = isElementVisible(pageElements.barredByHeader);
+            commonLib.info("Is Barred By Header visible : " + status);
+            return status;
+        }
+
+        /**
+         * This method is used to check bar On label visible or not
+         * @return
+         */
+        public boolean isBarredOnHeaderVisible() {
+            boolean status = isElementVisible(pageElements.barredOnHeader);
+            commonLib.info("Is Barred On Header visible : " + status);
+            return status;
+        }
+
+        /**
+         * This method is used to check Remarks label visible or not
+         * @return
+         */
+        public boolean isRemarksHeaderVisible() {
+            boolean status = isElementVisible(pageElements.remarksHeader);
+            commonLib.info("Is Remarks Header visible : " + status);
+            return status;
+        }
+
+        /**
+         * This method is use to hover on Barring icon
+         */
+        public void hoverOnBarringInfoIcon() {
+            commonLib.info("Hover on Barring icon");
+            hoverOverElement(pageElements.barringHoverIcon);
+        }
+
+        /**
+         * This method is use to get Bar Type on Barring info icon
+         */
+
+        public String getBarType() {
+            final String text = getText(pageElements.barType);
+            commonLib.info("Getting Bar Type: " + text);
+            return text;
+        }
+
+        /**
+         * This method is use to get Bar Reason on Barring info icon
+         */
+
+        public String getBarReason() {
+            final String text = getText(pageElements.barReason);
+            commonLib.info("Getting Bar Reason: " + text);
+            return text;
+        }
+
+        /**
+         * This method is use to get Barred By on Barring info icon
+         */
+
+        public String getBarredBy() {
+            final String text = getText(pageElements.barredBy);
+            commonLib.info("Getting Barred By: " + text);
+            return text;
+        }
+
+        /**
+         * This method is use to get Barred On, on the Barring info icon
+         */
+
+        public String getBarredOn() {
+            final String text = getText(pageElements.barredOn);
+            commonLib.info("Getting Barred On: " + text);
+            return text;
+        }
+
+        /**
+         * This method is use to get Remarks on Barring info icon
+         */
+
+        public String getRemarks() {
+            final String text = getText(pageElements.remarks);
+            commonLib.info("Getting Remarks: " + text);
+            return text;
+        }
+
     }

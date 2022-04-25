@@ -18,6 +18,7 @@ public class WalletInformationTest extends Driver {
     PsbRequestSource api = new PsbRequestSource();
     CLMDetailsResponse clmDetails;
     String nubanId;
+    String barringStatus;
 
 
     @BeforeMethod(groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
@@ -100,7 +101,8 @@ public class WalletInformationTest extends Driver {
             else
                 securityQuestion = securityQuestionsConfigured.toString();
             assertCheck.append(actions.assertEqualStringType(pages.getWalletInformation().getSecurityQuestionsConfigured(), pages.getDemoGraphicPage().getKeyValueAPI(securityQuestion), "Security Question Configured is same as Expected", "Security Question Configured  is not same as Expected"));
-            assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getBarringStatus(), clmDetails.getResult().getDetails().get(0).getUserBarred(), "Barring status is same as Expected", "Barring status  is not same as Expected"));
+            barringStatus = pages.getWalletInformation().getBarringStatus();
+            assertCheck.append(actions.matchUiAndAPIResponse(barringStatus,clmDetails.getResult().getDetails().get(0).getUserBarred(), "Barring status is same as Expected", "Barring status  is not same as Expected"));
             assertCheck.append(actions.assertEqualBoolean(pages.getWalletInformation().isBarringInfoIconVisible(), true, "Barring status info icon is visible", "Barring status info icon is NOT visible"));
             actions.assertAllFoundFailedAssert(assertCheck);
         } catch (Exception e) {
@@ -108,11 +110,38 @@ public class WalletInformationTest extends Driver {
         }
     }
 
+    @Test(priority = 4, groups = {"SanityTest", "RegressionTest", "ProdTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    public void testBarringStatus() {
+        try {
+            selUtils.addTestcaseDescription("Validate Barring Status widget data", "description");
+            pages.getWalletInformation().hoverOnBarringInfoIcon();
+            if (barringStatus.equalsIgnoreCase("NO"))
+                commonLib.info("Barring Status is N0, Unable to display barring details");
+            else if (barringStatus.equalsIgnoreCase("YES")) {
+                assertCheck.append(actions.assertEqualBoolean(pages.getWalletInformation().isBarTypeHeaderVisible(), true, "Bar type header is visible", "Bar Type header is NOT visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getWalletInformation().isBarReasonHeaderVisible(), true, "Bar Reason header is visible", "Bar Reason header is NOT visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getWalletInformation().isBarredByHeaderVisible(), true, "Bar By header is visible", "Bar By header is NOT visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getWalletInformation().isBarredOnHeaderVisible(), true, "Bar On is visible", "Bar On header is NOT visible"));
+                assertCheck.append(actions.assertEqualBoolean(pages.getWalletInformation().isRemarksHeaderVisible(), true, "Remarks header is visible", "Remarks header is NOT visible"));
+
+                assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getBarType(), clmDetails.getResult().getDetails().get(0).getBarDetails().getBarType(), "Bar Type status is same as Expected", "Bar Type  is not same as Expected"));
+                assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getBarReason(), clmDetails.getResult().getDetails().get(0).getBarDetails().getBarReason(), "Bar Reason is same as Expected", "Bar Reason is not same as Expected"));
+                assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getBarredBy(), clmDetails.getResult().getDetails().get(0).getBarDetails().getBarredBy(), "Barred By is same as Expected", "Barred By is not same as Expected"));
+                assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getBarredOn(), clmDetails.getResult().getDetails().get(0).getBarDetails().getBarredOn(), "Barred On is same as Expected", "Barred On is not same as Expected"));
+                assertCheck.append(actions.matchUiAndAPIResponse(pages.getWalletInformation().getRemarks(), clmDetails.getResult().getDetails().get(0).getBarDetails().getRemarks(), "Remarks is same as Expected", "Remarks is not same as Expected"));
+
+            }else
+                commonLib.fail("Not able to get barring status", true);
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - testBarringStatus" + e.fillInStackTrace(), true);
+        }
+    }
+
 
     /**
      * This method is used to check Wallets balance
      */
-    @Test(priority = 4, groups = {"SanityTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 5, groups = {"SanityTest", "ProdTest"}, dependsOnMethods = "openCustomerInteraction")
     public void testWalletsBalance() {
         try {
             selUtils.addTestcaseDescription("Validate Wallets balance", "description");
@@ -133,7 +162,7 @@ public class WalletInformationTest extends Driver {
     /**
      * This method is used to check Wallets data
      */
-    @Test(priority = 5, groups = {"SanityTest", "ProdTest", "SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
+    @Test(priority = 6, groups = {"SanityTest", "ProdTest", "SmokeTest"}, dependsOnMethods = "openCustomerInteraction")
     public void testWalletsTab() {
         try {
             selUtils.addTestcaseDescription("Validate data of all the fields of Wallets tab", "description");
@@ -166,7 +195,7 @@ public class WalletInformationTest extends Driver {
     }
 
 
-    @Test(priority = 6, groups = {"SanityTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
+    @Test(priority = 7, groups = {"SanityTest", "ProdTest", "SmokeTest"}, dependsOnMethods = {"openCustomerInteraction"})
     public void testSMSLogsTab() {
         try {
             selUtils.addTestcaseDescription("Validate Wallets tab data", "description");
