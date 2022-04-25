@@ -36,4 +36,8 @@ public class SmartCashTransactionHistoryPage {
     public By airtelMoneyError = By.xpath("//div[@data-csautomation-key='AIRTEL_MONEY']//div[@class='image-container']");
     public By title = By.xpath("//div[@data-csautomation-key='AIRTEL_MONEY']//span[@class='card__card-header--label']");
 
+    public String detailsRow = "//div[@class='card__card-header--card-body--table--list-heading']";
+    public String detailsColumn = "//div[@class='card__card-header--card-body--table--list-heading']//child::div";
+    public String detailsColumnText = "//div[@class='card__card-header--card-body--table--data-list']//child::div";
+
 }

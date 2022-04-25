@@ -20,6 +20,7 @@ public class WalletInformationPage {
     public By balanceHoverIcon=By.xpath("//div[contains(@class,'data-smart')] //img[contains(@src,'message.svg')]");
     public By walletCreatedInfoIcon=By.xpath("//span[contains(text(),'Wallet Created')]//following-sibling::span//img[contains(@src,'message.svg')]");
     public By walletModifiedInfoIcon=By.xpath("//span[contains(text(),'Wallet Modified On')]//following-sibling::span//img[contains(@src,'message.svg')]");
+    public By barringHoverIcon = By.xpath("//span[contains(text(),'Barring Status')]//following-sibling::span//a");
 
     public By walletInformationWidget = By.xpath("//div[contains(@data-csautomation-key,'WALLET_INFORMATION')]");
     public  By walletWidgetHeader= By.xpath("//span[contains(text(),'Wallet Information')]");
@@ -27,6 +28,17 @@ public class WalletInformationPage {
     public By balance=By.xpath("//div[contains(@class,'data-smartcash-header')]//li[contains(@class,'text-bold')]");
     public By detailedIcon=By.xpath("//img[contains(@data-csautomation-key,'menuButton')]");
     public By barringInfoIcon=By.xpath("//div[contains(@data-csautomation-key,'WALLET_INFORMATION')]//img[contains(@src,'info-blue-dark.svg')]");
+    public By barTypeHeader = By.xpath("//*[contains(text(),'Bar Type')]");
+    public By barReasonHeader = By.xpath("//*[contains(text(),'Bar Reason')]");
+    public By barredByHeader = By.xpath("//*[contains(text(),'Barred By')]");
+    public By barredOnHeader = By.xpath("//*[contains(text(),'Barred On')]");
+    public By remarksHeader = By.xpath("//*[contains(text(),'Remarks')]");
+
+    public By barType = By.xpath("//*[contains(text(),'Bar Type')]//following-sibling::td//span");
+    public By barReason = By.xpath("//*[contains(text(),'Bar Reason')]//following-sibling::td//span");
+    public By barredBy = By.xpath("//*[contains(text(),'Barred By')]//following-sibling::td//span");
+    public By barredOn = By.xpath("//*[contains(text(),'Barred On')]//following-sibling::td//span");
+    public By remarks = By.xpath("//*[contains(text(),'Remarks')]//following-sibling::td//span");
     /*
     Auuid  Locators
     */
