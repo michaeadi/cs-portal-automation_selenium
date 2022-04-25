@@ -135,4 +135,35 @@ public class SmartCashTransactionHistoryTest extends Driver {
             commonLib.fail("Exception in Method - transactionHistoryWidgetDataTest" + e.fillInStackTrace(), true);
         }
     }
+
+    @DataProviders.Table(name = "More Airtel Money History")
+    @Test(priority = 4, groups = {"ProdTest"}, dependsOnMethods = {"transactionHistoryWidgetLayoutTest", "openCustomerInteraction", "transactionHistoryWidgetDataTest"})
+    public void transactionDetailsWidgetDataTest() {
+        try {
+            selUtils.addTestcaseDescription("Validate all the transaction Detail display on UI as per api response", "description");
+            final int statusCode = amTransactionHistoryAPI.getStatusCode();
+            if (statusCode != 200) {
+                assertCheck.append(actions.assertEqualBoolean(pages.getMoreAMTxnTabPage().isAirtelMoneyErrorVisibleOnSecondWidget(), true, "API is Giving and Widget is showing error Message on API is " + amTransactionHistoryAPI.getMessage(), "API is Giving error But Widget is not showing error Message on API is " + amTransactionHistoryAPI.getMessage()));
+                commonLib.fail("API is Unable to Get Smart Cash Transaction History for Customer", false);
+            } else if (amTransactionHistoryAPI.getResult().getTotalCount() == null) {
+                assertCheck.append(actions.assertEqualBoolean(pages.getSmartCashTransactionHistory().isAirtelMoneyNoResultFoundVisibleOnSecondWidget(), true, "No Result Found Icon does display on UI.", "No Result Found Icon does not display on UI."));
+            } else {
+                int count = Math.min(amTransactionHistoryAPI.getResult().getTotalCount(), 10);
+                if (count > 0) {
+                    for (int i = 0; i < count; i++) {
+
+                        assertCheck.append(actions.matchUiAndAPIResponse(pages.getSmartCashTransactionHistory().getValueCorrespondingToTransactionDetailsHeader(i + 1, 1), amTransactionHistoryAPI.getResult().getData().get(i).getService(), i + "th Service is same as expected in API response.", i + "th Service is not expected as API response."));
+                        assertCheck.append(actions.matchUiAndAPIResponse(pages.getSmartCashTransactionHistory().getValueCorrespondingToTransactionDetailsHeader(i + 1, 2), amTransactionHistoryAPI.getResult().getData().get(i).getExternalTransactionId(), i + "th External Transaction Id is expected as API response.", i + "th External Transaction Id is not expected as API response."));
+                        assertCheck.append(actions.matchUiAndAPIResponse(pages.getSmartCashTransactionHistory().getValueCorrespondingToTransactionDetailsHeader(i + 1, 3), amTransactionHistoryAPI.getResult().getData().get(i).getInstrumentTransactionId(), i + "th Instrument Transaction Id is expected as API response.", i + "th Instrument Transaction Id  is not expected as API response."));
+                        assertCheck.append(actions.matchUiAndAPIResponse(pages.getSmartCashTransactionHistory().getValueCorrespondingToTransactionDetailsHeader(i + 1, 4), amTransactionHistoryAPI.getResult().getData().get(i).getPaymentMode(), i + "th Payment Mode is expected as API response.", i + "th Payment Mode is not expected as API response."));
+                        assertCheck.append(actions.matchUiAndAPIResponse(pages.getSmartCashTransactionHistory().getValueCorrespondingToTransactionDetailsHeader(i + 1, 5), amTransactionHistoryAPI.getResult().getData().get(i).getCategoryCode(), i + "th Category Code is expected as API response.", i + "th Category Code is not expected as API response."));
+                        assertCheck.append(actions.matchUiAndAPIResponse(pages.getSmartCashTransactionHistory().getValueCorrespondingToTransactionDetailsHeader(i + 1, 6), amTransactionHistoryAPI.getResult().getData().get(i).getGradeCode(), i + "th Grade Code is expected as API response.", i + "th Grade Code is not expected as API response."));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            commonLib.fail("Exception in Method - transactionHistoryWidgetDataTest" + e.fillInStackTrace(), true);
+        }
+        actions.assertAllFoundFailedAssert(assertCheck);
+    }
 }
