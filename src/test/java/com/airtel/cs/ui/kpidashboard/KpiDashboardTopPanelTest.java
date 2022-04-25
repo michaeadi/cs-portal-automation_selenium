@@ -1,14 +1,10 @@
 package com.airtel.cs.ui.kpidashboard;
 
 import com.airtel.cs.driver.Driver;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.testng.annotations.Test;
 
 
 public class KpiDashboardTopPanelTest extends Driver {
-
-
-    ObjectMapper mapper = new ObjectMapper();
 
 
     @Test(priority = 1, groups = {"SanityTest", "RegressionTest", "ProdTest", "SmokeTest"})
