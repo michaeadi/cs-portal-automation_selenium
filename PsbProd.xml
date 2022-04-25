@@ -146,7 +146,7 @@
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.backendSupervisor.SupervisorLoginTest"/>
+            <class name="com.airtel.cs.ui.backendSupervisor.SupervisorTicketListingPageTest"/>
         </classes>
     </test>
     <test name="Source App Test">
@@ -156,7 +156,7 @@
             </run>
         </groups>
         <classes>
-            <class name="com.airtel.cs.ui.ticketsourceapp.TicketSourceAppTest"/>
+            <class name="com.airtel.cs.ui.ticketsourceapp.SupervisorTicketSourceAppTest"/>
         </classes>
     </test>
     <test name="Supervisors Global Search Ticket Test">
