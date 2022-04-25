@@ -87,6 +87,4 @@ Values Locators
     public  By addressZone= By.xpath("//td[contains(text(),'Zone')]//following-sibling::td//span");
     public  By addressLine2= By.xpath("//td[contains(text(),'Address Line 2')]//following-sibling::td//span");
     public  By addressLine3= By.xpath("//td[contains(text(),'Address Line 3')]//following-sibling::td//span");
-
-
 }
