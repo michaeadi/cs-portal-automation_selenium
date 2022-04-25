@@ -409,4 +409,64 @@
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
         </classes>
     </test>
+    <test name="Kpi Dashboard " preserve-order="true">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.kpidashboard.KpiDashboardTopPanelTest"/>
+        </classes>
+    </test>
+    <test name="Kpi Dashboard " preserve-order="true">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.kpidashboard.KpiDashboard6MonthsOverviewPageTest"/>
+        </classes>
+    </test>
+    <test name="Kpi Dashboard " preserve-order="true">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.kpidashboard.KpiDashboard6MonthsTicketTypeTest"/>
+        </classes>
+    </test>
+    <test name="Kpi Dashboard " preserve-order="true">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.kpidashboard.KpiDashboardOpenTicketAgeingTest"/>
+        </classes>
+    </test>
+    <test name="Kpi Dashboard " preserve-order="true">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.kpidashboard.KpiDashboardQueueWiseSLAPerformancePageTest"/>
+        </classes>
+    </test>
+    <test name="Kpi Dashboard " preserve-order="true">
+        <groups>
+            <run>
+                <include name="ProdTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.kpidashboard.KpiDashboardFeatureUsageOfActionsPageTest"/>
+        </classes>
+    </test>
 </suite>
