@@ -409,6 +409,16 @@
             <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LogoutTest"/>
         </classes>
     </test>
+    <test name="Login Admin Test">
+        <groups>
+            <run>
+                <include name="SanityTest"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.airtel.cs.ui.frontendagent.loginandlogout.LoginPortalTests"/>
+        </classes>
+    </test>
     <test name="Kpi Dashboard " preserve-order="true">
         <groups>
             <run>
