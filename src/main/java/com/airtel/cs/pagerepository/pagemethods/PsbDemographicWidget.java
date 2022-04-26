@@ -675,5 +675,15 @@ public class PsbDemographicWidget extends BasePage{
         commonLib.info("Getting Address Line 3 : " + text);
         return text;
     }
+
+    /**
+     * This method is used to hover on Customer Id Info Icon
+     * @return
+     */
+
+    public void hoverOnCustomerInfoIdIcon() {
+        commonLib.info("Hover on Customer Id Info icon");
+        hoverOverElement(pageElements.customerIdInfoIcon);
+    }
 }
 
