@@ -20,6 +20,7 @@ import com.airtel.cs.model.cs.request.StatementRequest;
 import com.airtel.cs.model.cs.request.UsageHistoryMenuRequest;
 import com.airtel.cs.model.cs.request.UsageHistoryRequest;
 import com.airtel.cs.model.cs.request.UsageRequestV3DTO;
+import com.airtel.cs.model.cs.request.enterprise.AccountLevelInformationRequest;
 import com.airtel.cs.model.cs.request.layout.FieldsConfigDTO;
 import com.airtel.cs.model.cs.request.vas.ActiveVasRequest;
 import com.airtel.cs.model.cs.response.CreditLimitResponse;
@@ -28,6 +29,7 @@ import com.airtel.cs.model.cs.response.PaymentResponse;
 import com.airtel.cs.model.cs.response.PlanPackESBResponse;
 import com.airtel.cs.model.cs.response.PostpaidBillDetailsResponse;
 import com.airtel.cs.model.cs.response.customeprofile.CustomerProfileResponse;
+import com.airtel.cs.model.cs.response.enterprise.AccountLevelInformationResponse;
 import com.airtel.cs.model.cs.response.postpaid.AccountStatementResponse;
 import com.airtel.cs.model.cs.response.postpaid.enterprise.AccountLinesResponse;
 import com.airtel.cs.model.cs.response.serviceclassrateplan.ServiceClassRatePlanResponseDTO;
@@ -1126,5 +1128,23 @@ public class ESBRequestSource extends RestCommonUtils {
         } catch (Exception exp) {
             commonLib.fail(constants.getValue(DOWNSTREAM_API_ERROR) + constants.getValue("sms.summary") + exp.getMessage(), false);
         }
+    }
+
+    /**
+     * This method is used to hit downstream API Account Level Information:  /api/enterprise-service/v1/accounts"
+     *
+     * @param custMobileNo msisdn
+     * @return The result
+     */
+    public AccountLevelInformationResponse callAccountLevelInfo(String custMobileNo) {
+        AccountLevelInformationResponse result = null;
+        try {
+            commonLib.infoColored(constants.getValue(DOWNSTREAM_API_CALLING) + constants.getValue("v1.account.level.information"), JavaColors.GREEN, false);
+            commonPostMethod(INGRESS_DOWNSTREAM_BASE_URL + ESBURIConstants.ACCOUNT_LEVEL_INFO, new AccountLevelInformationRequest(custMobileNo,10,0));
+            result = response.as(AccountLevelInformationResponse.class);
+        } catch (Exception e) {
+            commonLib.fail(EXCEPTION_IN_METHOD + "callAccountLevelInfo " + e.getMessage(), false);
+        }
+        return result;
     }
 }
